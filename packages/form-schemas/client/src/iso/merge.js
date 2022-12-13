@@ -62,7 +62,7 @@ function reduceFields(mergedIn, mergeWith) {
   return {
     ...mergedIn,
     fields: assignSchemaValuesToNonAbstractFields(mergeWith).fields.concat(mergedIn.fields).reduce((fields, field) => {
-      const index = fields.map(f => f.field).indexOf(field.field);
+      const index = fields.map(f => f.slug ?? f.field).indexOf(field.slug ?? field.field);
 
       if (index === -1) {
         fields.push(field);

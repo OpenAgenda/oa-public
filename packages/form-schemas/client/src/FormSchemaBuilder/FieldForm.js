@@ -93,17 +93,17 @@ export default class FieldForm extends Component {
       return this.setState({ errors });
     }
 
-    if (!values || (stateErrors || []).length) return;
+    if ((stateErrors || []).length) return;
 
     const item = restrictLabelLanguages(values, labelLanguages);
 
     if (fieldType === 'section') {
       item.type = 'section';
+      item.slug = slugFromLabel(values?.label, lang);
     } else {
       item.fieldType = fieldType;
+      item.field = field?.field || slugFromLabel(values?.label, lang);
     }
-
-    item.field = field?.field || slugFromLabel(values.label, lang);
 
     onSubmit(item);
   }
@@ -127,7 +127,7 @@ export default class FieldForm extends Component {
     };
 
     const schema = assignConstraintsToFields(
-      schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
+      schemas(field.fieldType ?? field.type, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
       parentsField,
     );
 

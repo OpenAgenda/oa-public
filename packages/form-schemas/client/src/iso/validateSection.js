@@ -23,6 +23,9 @@ module.exports = function validateSection(s) {
       unique: true,
       options: ['section'],
     },
+    slug: {
+      type: 'text',
+    },
   });
 
   return validate(s);

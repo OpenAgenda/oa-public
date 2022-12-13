@@ -260,6 +260,12 @@ export function FormWithSections() {
               field: 'city',
               fieldType: 'text',
               label: 'Your city',
+            }, {
+              type: 'section',
+            }, {
+              field: 'gdpr',
+              fieldType: 'boolean',
+              label: 'Do whatever with my data',
             }],
           }}
         />

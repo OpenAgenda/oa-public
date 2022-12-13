@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { Modal } from '@openagenda/react-shared';
@@ -22,7 +22,7 @@ export default class FieldEdit extends Component {
       onCancel,
       customFieldConfigurationSchemas,
       components,
-      parentsFields
+      parentsFields,
     } = this.props;
 
     return (

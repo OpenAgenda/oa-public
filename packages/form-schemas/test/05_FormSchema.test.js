@@ -237,6 +237,57 @@ describe('form-schemas -05- FormSchema', () => {
       expect(otherSchema.getData().fields.length).toBe(2);
     });
 
+    it('other items added to form field list are not abstract', () => {
+      const otherSchema = new FormSchema({
+        fields: [{
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text',
+        }],
+      });
+
+      otherSchema.updateFields([{
+        type: 'section',
+        label: { fr: 'Un titre de section' },
+        slug: 'un-titre-de-section',
+      }, {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text',
+      }]);
+
+      expect(otherSchema.getData().fields[0].fieldType).toBeUndefined();
+    });
+
+    it('update field list with non-field item', () => {
+      const otherSchema = new FormSchema({
+        fields: [{
+          type: 'section',
+          label: { fr: 'Un titre de section' },
+          slug: 'un-titre-de-section',
+        }, {
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text',
+        }],
+      });
+
+      otherSchema.updateFields([{
+        type: 'section',
+        label: { fr: 'Un titre de section' },
+        slug: 'un-titre-de-section',
+      }, {
+        type: 'section',
+        slug: 'frejf93',
+      }, {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text',
+      }]);
+
+      expect(otherSchema.getData().fields[1].slug).toBe('frejf93');
+    });
+
     it('removes absent fields', () => {
       const otherSchema = new FormSchema({
         fields: [{

@@ -24,6 +24,7 @@ import removeSchemaField from './lib/removeSchemaField';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
 import monolingualizeSchema from './lib/monolingualizeSchema';
+import getFormItemSlug from './lib/getFormItemSlug';
 
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
@@ -84,17 +85,19 @@ export default class FormSchemaBuilder extends Component {
     log('builder for schema of %s fields, %s when merged', schema.fields.length, mergedSchema.fields.length);
   }
 
-  onAccordionToggle(fieldIndex) {
+  onAccordionToggle(field) {
     const {
-      activeFieldName,
+      activeFieldSlug,
     } = this.state;
 
-    const isOpen = activeFieldName === fieldIndex;
+    const slug = getFormItemSlug(field);
+
+    const isOpen = activeFieldSlug === slug;
 
     if (isOpen) {
-      this.setState({ activeFieldName: -1 });
+      this.setState({ activeFieldSlug: null });
     } else {
-      this.setState({ activeFieldName: fieldIndex });
+      this.setState({ activeFieldSlug: slug });
     }
   }
 
@@ -292,7 +295,7 @@ export default class FormSchemaBuilder extends Component {
       saveState,
       mode,
       schema,
-      activeFieldName,
+      activeFieldSlug,
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
@@ -353,9 +356,8 @@ export default class FormSchemaBuilder extends Component {
                   >
                     {_.get(mergedSchema, 'fields', []).map((field, index) => (
                       <Draggable
-                        key={field.field}
-                        draggableId={field.field}
-                        // isDragDisabled={mode !== modes.ORDERING}
+                        key={getFormItemSlug(field)}
+                        draggableId={getFormItemSlug(field)}
                         index={index}
                         disableInteractiveElementBlocking
                       >
@@ -387,8 +389,8 @@ export default class FormSchemaBuilder extends Component {
                               onHide={() => this.onFieldEditSave(field, { display: false })}
                               onShow={() => this.onFieldEditSave(field, { display: true })}
                               onRemove={() => this.onFieldRemove(field)}
-                              onAccordionToggle={() => this.onAccordionToggle(field.field)}
-                              active={activeFieldName === field.field}
+                              onAccordionToggle={() => this.onAccordionToggle(field)}
+                              active={activeFieldSlug === getFormItemSlug(field)}
                               schema={mergedSchema}
                             />
                           </div>

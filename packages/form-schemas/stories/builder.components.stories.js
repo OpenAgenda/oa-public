@@ -426,6 +426,38 @@ export function FieldPreview() {
           />
         </div>
 
+        <div className="col-lg-4 col-md-6">
+          <strong>Section item with title and without</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                field: 'title',
+                label: 'Title',
+                fieldType: 'text',
+              },
+              {
+                type: 'section',
+                slug: '12fjdsrj',
+              },
+              {
+                field: 'description',
+                label: 'Description',
+                fieldType: 'text',
+              },
+              {
+                label: 'Détails sur le lieu',
+                type: 'section',
+                slug: 'details-sur-le-lieu',
+              },
+              {
+                field: 'address',
+                label: 'Adresse',
+                type: 'text',
+              },
+            ])}
+          />
+        </div>
+
       </div>
 
       <div className="row">

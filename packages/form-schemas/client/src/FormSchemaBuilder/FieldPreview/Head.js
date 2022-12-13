@@ -49,6 +49,18 @@ const renderOptionsInfo = (options, lang) => {
   );
 };
 
+const getLabelPrefix = (field, lang) => {
+  if (field.type !== 'section') {
+    return '';
+  }
+
+  if (!field.label) {
+    return getLabel('section', lang);
+  }
+
+  return `${getLabel('section', lang)}: `;
+};
+
 export default function Head(props) {
   const {
     field,
@@ -68,7 +80,7 @@ export default function Head(props) {
         className="margin-right-xs margin-top-xs"
         htmlFor={isFieldDisplayed(field) ? `edit-${field.field}` : `show-${field.field}`}
       >
-        {getLocaleValue(field.label, lang)}
+        {getLabelPrefix(field, lang)}{getLocaleValue(field.label, lang)}
       </label>
       {isFieldOptional(field) ? null
         : (
