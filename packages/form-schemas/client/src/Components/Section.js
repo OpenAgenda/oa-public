@@ -10,6 +10,10 @@ export default function Section(props) {
     label,
   } = flattenSectionLabels(section, lang);
 
+  if (!label) {
+    return <div className="divider margin-bottom-lg margin-top-sm" />;
+  }
+
   return (
     <h3 className="margin-v-md">{label}</h3>
   );

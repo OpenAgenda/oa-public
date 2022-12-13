@@ -23,7 +23,7 @@ describe('form-schemas -05- FormSchema', () => {
       s.addField({
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
-        fieldType: 'text'
+        fieldType: 'text',
       });
 
       expect(s.getFieldCount()).toBe(1);
@@ -36,14 +36,14 @@ describe('form-schemas -05- FormSchema', () => {
       s.addField({
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
-        fieldType: 'text'
+        fieldType: 'text',
       });
 
       try {
         s.addField({
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
+          fieldType: 'text',
         });
       } catch (e) {
         error = e;
@@ -57,27 +57,27 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
+          fieldType: 'text',
         }, {
           field: 'anotherfield',
           label: { fr: 'Un nombre' },
           fieldType: 'number',
-          min: 2
+          min: 2,
         }, {
           field: 'andanotherfield',
           label: {
-            fr: 'Un choix'
+            fr: 'Un choix',
           },
           fieldType: 'radio',
           options: [{
             value: 'option-1',
-            label: { fr: 'Option 1' }
+            label: { fr: 'Option 1' },
           }, {
             value: 'option-2',
-            label: { fr: 'Option 2' }
-          }]
+            label: { fr: 'Option 2' },
+          }],
         }],
-        custom: null
+        custom: null,
       });
 
       expect(s.getFieldCount()).toBe(3);
@@ -90,13 +90,13 @@ describe('form-schemas -05- FormSchema', () => {
           fields: [{
             field: 'asinglefield',
             label: 'Un champ texte',
-            fieldType: 'text'
+            fieldType: 'text',
           }],
-          defaultLabelLanguage: 'fr'
+          defaultLabelLanguage: 'fr',
         });
 
         expect(s.getFields()[0].label).toStrictEqual({ fr: 'Un champ texte' });
-      }
+      },
     );
   });
 
@@ -108,12 +108,12 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
+          fieldType: 'text',
         }, {
           field: 'anotherfield',
           label: { fr: 'Un nombre' },
           fieldType: 'number',
-          min: 2
+          min: 2,
         }, {
           field: 'andanotherfield',
           label: { fr: 'Un choix' },
@@ -121,20 +121,20 @@ describe('form-schemas -05- FormSchema', () => {
           options: [{
             id: 1,
             value: 'option-1',
-            label: { fr: 'Option 1' }
+            label: { fr: 'Option 1' },
           }, {
             id: 2,
             value: 'option-2',
-            label: { fr: 'Option 2' }
-          }]
-        }]
+            label: { fr: 'Option 2' },
+          }],
+        }],
       });
     });
 
     it('adding a field puts it at the bottom of the schema', () => {
       s.addField({
         field: 'anaddedfield',
-        label: { fr: 'Un nouveau champ' }
+        label: { fr: 'Un nouveau champ' },
       });
 
       expect(s.getField(3).field).toBe('anaddedfield');
@@ -154,12 +154,12 @@ describe('form-schemas -05- FormSchema', () => {
           options: [{
             id: 1,
             label: 'Un',
-            value: 'un'
+            value: 'un',
           }, {
             label: 'Deux',
-            value: 'deux'
-          }]
-        }]
+            value: 'deux',
+          }],
+        }],
       });
 
       s.updateFields([{
@@ -169,32 +169,32 @@ describe('form-schemas -05- FormSchema', () => {
         options: [{
           id: 1,
           label: 'Un',
-          value: 'un'
+          value: 'un',
         }, {
           label: 'Deux',
-          value: 'deux'
+          value: 'deux',
         }, {
           label: 'Trois',
-          value: 'trois'
-        }]
+          value: 'trois',
+        }],
       }, {
         field: 'acheckboxfield',
         fieldType: 'checkbox',
         label: 'Un choix multiple',
         options: [{
           label: 'A',
-          value: 'a'
+          value: 'a',
         }, {
           label: 'B',
-          value: 'b'
-        }]
+          value: 'b',
+        }],
       }]);
     });
 
     it('if defaultLabelLanguage is null, options are monolingual', () => {
       const someSchema = new FormSchema({
         defaultLabelLanguage: null,
-        fields: []
+        fields: [],
       });
 
       someSchema.updateFields([{
@@ -203,15 +203,15 @@ describe('form-schemas -05- FormSchema', () => {
         fieldType: 'checkbox',
         options: [{
           value: 'one',
-          label: 'One'
+          label: 'One',
         }, {
           value: 'two',
-          label: 'Two'
-        }]
+          label: 'Two',
+        }],
       }]);
 
       expect(
-        someSchema.getData().fields[0].options[0].label
+        someSchema.getData().fields[0].options[0].label,
       ).toBe('One');
     });
 
@@ -220,21 +220,72 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
-        }]
+          fieldType: 'text',
+        }],
       });
 
       otherSchema.updateFields([{
         field: 'atextfield',
         label: 'Un texte',
-        fieldType: 'text'
+        fieldType: 'text',
       }, {
         field: 'aninteger',
         label: 'Un entier',
-        fieldType: 'integer'
+        fieldType: 'integer',
       }]);
 
       expect(otherSchema.getData().fields.length).toBe(2);
+    });
+
+    it('other items added to form field list are not abstract', () => {
+      const otherSchema = new FormSchema({
+        fields: [{
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text',
+        }],
+      });
+
+      otherSchema.updateFields([{
+        type: 'section',
+        label: { fr: 'Un titre de section' },
+        slug: 'un-titre-de-section',
+      }, {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text',
+      }]);
+
+      expect(otherSchema.getData().fields[0].fieldType).toBeUndefined();
+    });
+
+    it('update field list with non-field item', () => {
+      const otherSchema = new FormSchema({
+        fields: [{
+          type: 'section',
+          label: { fr: 'Un titre de section' },
+          slug: 'un-titre-de-section',
+        }, {
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text',
+        }],
+      });
+
+      otherSchema.updateFields([{
+        type: 'section',
+        label: { fr: 'Un titre de section' },
+        slug: 'un-titre-de-section',
+      }, {
+        type: 'section',
+        slug: 'frejf93',
+      }, {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text',
+      }]);
+
+      expect(otherSchema.getData().fields[1].slug).toBe('frejf93');
     });
 
     it('removes absent fields', () => {
@@ -242,14 +293,14 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
-        }]
+          fieldType: 'text',
+        }],
       });
 
       otherSchema.updateFields([{
         field: 'aninteger',
         label: 'Un entier',
-        fieldType: 'integer'
+        fieldType: 'integer',
       }]);
 
       expect(otherSchema.getData().fields.length).toBe(1);
@@ -265,21 +316,21 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'description',
           label: 'Name Band / Künstle',
-          fieldType: 'abstract'
+          fieldType: 'abstract',
         }, {
           field: 'timings',
           info: 'Darunter ein +, damit man jeweils noch weitere Acts der Veranstaltung innerhalb des Events mit Zeiten anlegen kann, nach denen man dann suchen / nach Uhrzeit filtern kann',
-          fieldType: 'abstract'
+          fieldType: 'abstract',
         }, {
           field: 'keywords',
-          fieldType: 'abstract'
-        }]
+          fieldType: 'abstract',
+        }],
       });
 
       otherSchema.updateFields([{
         field: 'description',
         label: 'Name Band / Künstle',
-        fieldType: 'abstract'
+        fieldType: 'abstract',
       }]);
 
       expect(otherSchema.getData().fields.map(f => f.field)).toStrictEqual(['description']);
@@ -302,32 +353,32 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [
           {
             field: 'hello',
-            fieldType: 'abstract'
+            fieldType: 'abstract',
           },
           {
             field: 'cat',
-            fieldType: 'abstract'
-          }
-        ]
+            fieldType: 'abstract',
+          },
+        ],
       });
 
       otherSchema.updateFields([
         {
           field: 'location',
-          fieldType: 'abstract'
+          fieldType: 'abstract',
         },
         {
           field: 'hello',
-          fieldType: 'abstract'
+          fieldType: 'abstract',
         },
         {
           field: 'cat',
-          fieldType: 'abstract'
+          fieldType: 'abstract',
         },
         {
           field: 'image',
-          fieldType: 'abstract'
-        }
+          fieldType: 'abstract',
+        },
       ]);
 
       expect(otherSchema.getData().fields.map(f => f.field)).toStrictEqual(['location', 'hello', 'cat', 'image']);
@@ -339,17 +390,17 @@ describe('form-schemas -05- FormSchema', () => {
           {
             field: 'timings',
             fieldType: 'abstract',
-            enabledRanges: 'someTimeRange'
-          }
-        ]
+            enabledRanges: 'someTimeRange',
+          },
+        ],
       });
 
       otherSchema.updateFields([
         {
           field: 'timings',
           fieldType: 'abstract',
-          enabledRanges: 'someTimeRange'
-        }
+          enabledRanges: 'someTimeRange',
+        },
       ]);
 
       expect(otherSchema.getData().fields[0].enabledRanges).toBe('someTimeRange');
@@ -364,12 +415,12 @@ describe('form-schemas -05- FormSchema', () => {
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
-          fieldType: 'text'
+          fieldType: 'text',
         }, {
           field: 'anotherfield',
           label: { fr: 'Un nombre' },
           fieldType: 'number',
-          min: 2
+          min: 2,
         }, {
           field: 'andanotherfield',
           label: { fr: 'Un choix' },
@@ -377,13 +428,13 @@ describe('form-schemas -05- FormSchema', () => {
           options: [{
             id: 1,
             value: 'option-1',
-            label: { fr: 'Option 1' }
+            label: { fr: 'Option 1' },
           }, {
             id: 2,
             value: 'option-2',
-            label: { fr: 'Option 2' }
-          }]
-        }]
+            label: { fr: 'Option 2' },
+          }],
+        }],
       });
     });
 
@@ -435,12 +486,12 @@ describe('form-schemas -05- FormSchema', () => {
       fields: [{
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
-        fieldType: 'text'
+        fieldType: 'text',
       }, {
         field: 'anotherfield',
         label: { fr: 'Un nombre' },
         fieldType: 'number',
-        min: 2
+        min: 2,
       }, {
         field: 'andanotherfield',
         label: { fr: 'Un choix' },
@@ -449,13 +500,13 @@ describe('form-schemas -05- FormSchema', () => {
         options: [{
           id: 1,
           value: 'option-1',
-          label: { fr: 'Option 1' }
+          label: { fr: 'Option 1' },
         }, {
           id: 2,
           value: 'option-2',
-          label: { fr: 'Option 2' }
-        }]
-      }]
+          label: { fr: 'Option 2' },
+        }],
+      }],
     });
 
     const validate = fs.getValidate();
@@ -466,9 +517,9 @@ describe('form-schemas -05- FormSchema', () => {
         expect(validate.default).toStrictEqual({
           atextfield: undefined,
           anotherfield: undefined,
-          andanotherfield: undefined
+          andanotherfield: undefined,
         });
-      }
+      },
     );
 
     // this fails when languages is a possibility
@@ -476,7 +527,7 @@ describe('form-schemas -05- FormSchema', () => {
       expect(validate({ andanotherfield: 1 })).toStrictEqual({
         atextfield: undefined,
         anotherfield: undefined,
-        andanotherfield: 1
+        andanotherfield: 1,
       });
     });
 
@@ -491,14 +542,14 @@ describe('form-schemas -05- FormSchema', () => {
           err = errors;
         }
         expect(err.length).toBe(1);
-      }
+      },
     );
 
     it(
       '.getValidate with draft option validates fields independently of their optional state',
       () => {
         const draftValidate = fs.getValidate({
-          draft: true
+          draft: true,
         });
 
         const clean = draftValidate();
@@ -506,26 +557,26 @@ describe('form-schemas -05- FormSchema', () => {
         expect(clean).toStrictEqual({
           atextfield: undefined,
           anotherfield: undefined,
-          andanotherfield: undefined
+          andanotherfield: undefined,
         });
-      }
+      },
     );
   });
 
   describe('extending FormSchema with custom types', () => {
     const fs = new FormSchema({
       custom: {
-        wigglypoof: customValidator
+        wigglypoof: customValidator,
       },
       fields: [{
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
-        fieldType: 'text'
+        fieldType: 'text',
       }, {
         field: 'acustomfield',
         label: { fr: 'Saisir Wigglypoof' },
-        fieldType: 'wigglypoof'
-      }]
+        fieldType: 'wigglypoof',
+      }],
     });
 
     const validate = fs.getValidate();
@@ -537,7 +588,7 @@ describe('form-schemas -05- FormSchema', () => {
         try {
           validate({
             atextfield: 'Un petit text',
-            acustomfield: 'Not wigglypoof'
+            acustomfield: 'Not wigglypoof',
           });
         } catch (errors) {
           err = errors;
@@ -546,9 +597,9 @@ describe('form-schemas -05- FormSchema', () => {
           code: 'invalid',
           message: 'Not Wigglypoof',
           origin: 'Not wigglypoof',
-          field: 'acustomfield'
+          field: 'acustomfield',
         }]);
-      }
+      },
     );
 
     it(
@@ -556,13 +607,13 @@ describe('form-schemas -05- FormSchema', () => {
       () => {
         const clean = validate({
           atextfield: 'un petit texte',
-          acustomfield: 'Wigglypoof'
+          acustomfield: 'Wigglypoof',
         });
         expect(clean).toStrictEqual({
           atextfield: 'un petit texte',
-          acustomfield: 'Wigglypoof'
+          acustomfield: 'Wigglypoof',
         });
-      }
+      },
     );
   });
 });

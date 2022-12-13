@@ -2,8 +2,8 @@ import ih from 'immutability-helper';
 import labelKeys from './labelKeys';
 
 function restrictLabelLanguages(field, languages = []) {
-  const restricted = ih(field, labelKeys
-    .filter(labelKey => field[labelKey])
+  const restricted = ih(field ?? {}, labelKeys
+    .filter(labelKey => field?.[labelKey])
     .reduce((updates, labelKey) => {
       const currentLabelLanguages = typeof field[labelKey] === 'string' ? [] : Object.keys(field[labelKey]);
 

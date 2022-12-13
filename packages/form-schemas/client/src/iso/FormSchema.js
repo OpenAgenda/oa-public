@@ -15,6 +15,8 @@ const getWithFieldName = require('./getWithFieldName');
 
 const isNew = data => data.id === null;
 
+const getItemSlug = f => f.slug ?? f.field;
+
 function validate(data, options = {}) {
   const {
     client,
@@ -107,6 +109,11 @@ module.exports = class {
   }
 
   addField(fieldData) {
+    if (fieldData?.type ?? 'field' === 'section') {
+      this.data.fields.push(validateSection(fieldData));
+      return;
+    }
+
     const {
       field: clean,
       nextOptionId,
@@ -125,6 +132,17 @@ module.exports = class {
   }
 
   updateField(fieldData) {
+    if (fieldData?.type ?? 'field' === 'section') {
+      const clean = validateSection(fieldData);
+
+      this.data.fields.splice(
+        this._getFieldIndex(clean.slug),
+        1,
+        clean,
+      );
+      return;
+    }
+
     const {
       field: clean,
       nextOptionId,
@@ -132,15 +150,15 @@ module.exports = class {
       'custom', 'defaultLabelLanguage', 'nextOptionId',
     ]));
 
-    const fieldIndex = this._getFieldIndex(clean.field);
+    const fieldIndex = this._getFieldIndex(getItemSlug(clean));
 
     this.data.nextOptionId = nextOptionId;
 
     this.data.fields.splice(fieldIndex, 1, clean);
   }
 
-  getField(indexOrName) {
-    const index = this._getFieldIndex(indexOrName);
+  getField(indexOrSlug) {
+    const index = this._getFieldIndex(indexOrSlug);
 
     this._checkFieldIndex(index);
 
@@ -181,14 +199,14 @@ module.exports = class {
     return this.data.fields.filter(f => ['image', 'file'].includes(f.fieldType));
   }
 
-  moveField(indexOrName, moves) {
-    const index = this._getFieldIndex(indexOrName);
+  moveField(indexOrSlug, moves) {
+    const index = this._getFieldIndex(indexOrSlug);
 
     this.moveFieldTo(index, index + moves);
   }
 
-  moveFieldTo(indexOrName, newIndex) {
-    const index = this._getFieldIndex(indexOrName);
+  moveFieldTo(indexOrSlug, newIndex) {
+    const index = this._getFieldIndex(indexOrSlug);
 
     this._checkFieldIndex(newIndex, 'Move value exceeds possible value');
 
@@ -197,8 +215,8 @@ module.exports = class {
     this.data.fields.splice(newIndex, 0, field);
   }
 
-  removeField(indexOrName) {
-    const index = this._getFieldIndex(indexOrName);
+  removeField(indexOrSlug) {
+    const index = this._getFieldIndex(indexOrSlug);
 
     this._checkFieldIndex(index);
 
@@ -222,23 +240,23 @@ module.exports = class {
   }
 
   updateFields(fields) {
-    const updatedFieldsNames = fields.map(f => f.field);
+    const updatedFieldSlugs = fields.map(f => getItemSlug(f));
 
     // remove
     _.get(this, 'data.fields')
-      .filter(f => !updatedFieldsNames.includes(f.field))
-      .forEach(fieldToRemove => this.removeField(fieldToRemove.field));
+      .filter(f => !updatedFieldSlugs.includes(getItemSlug(f)))
+      .forEach(fieldToRemove => this.removeField(getItemSlug(fieldToRemove)));
 
     // add and update
     fields.forEach(f => {
-      if (this.getFieldExists(f.field)) {
+      if (this.getFieldExists(getItemSlug(f))) {
         this.updateField(f);
       } else {
         this.addField(f);
       }
     });
 
-    fields.map((f, i) => this.moveFieldTo(f.field, i));
+    fields.map((f, i) => this.moveFieldTo(f.slug ?? f.field, i));
 
     return this.data.fields;
   }
@@ -266,18 +284,18 @@ module.exports = class {
     );
   }
 
-  getFieldExists(indexOrName) {
-    if (typeof indexOrName === 'string') {
-      return this._getFieldIndex(indexOrName) !== -1;
+  getFieldExists(indexOrSlug) {
+    if (typeof indexOrSlug === 'string') {
+      return this._getFieldIndex(indexOrSlug) !== -1;
     }
 
-    return indexOrName < this.data.fields.length;
+    return indexOrSlug < this.data.fields.length;
   }
 
-  _getFieldIndex(indexOrName) {
-    const fieldNames = this.data.fields.map(f => f.field);
+  _getFieldIndex(indexOrSlug) {
+    const fieldNames = this.data.fields.map(f => f.slug ?? f.field);
 
-    return typeof indexOrName === 'string' ? fieldNames.indexOf(indexOrName) : indexOrName;
+    return typeof indexOrSlug === 'string' ? fieldNames.indexOf(indexOrSlug) : indexOrSlug;
   }
 
   _checkFieldIndex(index, errorMessage = 'Index exceeds schema size') {
