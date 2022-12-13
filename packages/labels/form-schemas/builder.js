@@ -347,13 +347,25 @@ module.exports = {
     "it": "Un calendario per selezionare una data",
     "io": "crwdns16464:0crwdne16464:0"
   },
+  "section": {
+    "fr": "Section",
+    "en": "Section"
+  },
   "sectionType": {
-    "fr": "Titre de section",
-    "en": "Section title"
+    "fr": "Titre de section / séparateur",
+    "en": "Section title / divider"
   },
   "sectionTypeInfo": {
     "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
     "en": "Displays a section head in the form creating a visual separation between the fields above and below"
+  },
+  "sectionLabel": {
+    "fr": "Titre",
+    "en": "Title"
+  },
+  "sectionInfo": {
+    "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
+    "en": "Leave this field empty if you wish to insert a separation without a title"
   },
   "imageFieldType": {
     "fr": "Image",
