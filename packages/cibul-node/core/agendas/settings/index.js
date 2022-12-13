@@ -49,6 +49,7 @@ module.exports = core => {
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.bind(null, services, agendaUid),
+      getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),

@@ -185,7 +185,7 @@ module.exports = core => {
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid })
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema[req.query.merged === '1' ? 'getMember' : 'getMemberAndParents']({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
       .then(data => res.json({ ...data }), next),
   ]);
 

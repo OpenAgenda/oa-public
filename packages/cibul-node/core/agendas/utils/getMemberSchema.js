@@ -1,9 +1,13 @@
 'use strict';
 
 const memberSchema = require('@openagenda/members/build/schema');
+const { createIntlByLocale } = require('@openagenda/intl');
+const locales = require('@openagenda/agenda-schemas-app/dist/locales-compiled');
 const _ = require('lodash');
 const getAgenda = require('./getAgenda');
 const isAdminMod = require('./isAdminMod');
+
+const intlByLocale = createIntlByLocale(locales);
 
 module.exports = async (services, agendaOrUid, options) => {
   const { formSchemas, members } = services;
@@ -25,9 +29,47 @@ module.exports = async (services, agendaOrUid, options) => {
   if (isAdmin) {
     aditionalFields.fields = aditionalFields.fields.map(e => ({ ...e, optional: true }));
   }
+
   return {
     merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields),
     schema: memberSchema({ optionalFields }),
     agendaSchema: aditionalFields,
+  };
+};
+
+module.exports.andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) {
+  const { formSchemas, members } = services;
+  const { lang = 'fr' } = options;
+  const intl = intlByLocale[lang] || intlByLocale.fr;
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const { memberSchemaId } = agenda;
+  const isAdmin = await isAdminMod(members, agenda.uid, options);
+  const optionalFields = isAdmin || !!memberSchemaId || !agenda.settings.contribution.useFields;
+
+  const member = {
+    schema: memberSchema({ optionalFields }),
+    info: {
+      label: intl.formatMessage({ id: 'AgendaSchema.member' }),
+      detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
+    },
+  };
+
+  if (!memberSchemaId) {
+    return {
+      schema: null,
+      parents: [member],
+    };
+  }
+  const aditionalFields = await formSchemas.get(memberSchemaId);
+
+  if (isAdmin) {
+    aditionalFields.fields = aditionalFields.fields.map(e => ({ ...e, optional: true }));
+  }
+  return {
+    schema: {
+      id: memberSchemaId,
+      ...aditionalFields,
+    },
+    parents: [member],
   };
 };

@@ -469,6 +469,7 @@ const initialState = async req => {
       },
       res: {
         eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
       },
     },
     // Admin
