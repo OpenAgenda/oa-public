@@ -1,10 +1,12 @@
 import React, {
   useState,
   useEffect,
+  useMemo
 } from 'react';
-
+import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useQueryClient } from 'react-query';
+import { useHistory, useLocation, useParams } from 'react-router';
 import {
   Spinner,
   useLayoutData,
@@ -14,6 +16,9 @@ import EnabledRanges from '@openagenda/event-form/build/components/configuration
 import getSchemaFieldCount from '../lib/getSchemaFieldCount';
 import useRes from '../hooks/useRes';
 import useEventSchemas from '../hooks/useEventSchemas';
+import useMemberSchemas from '../hooks/useMemberSchemas';
+
+const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
 const messages = defineMessages({
   network: {
@@ -44,17 +49,41 @@ const messages = defineMessages({
     id: 'AgendaSchema.canAddField',
     defaultMessage: 'You can add the field of your choice to the event form',
   },
+  member: {
+    id: 'AgendaSchema.member',
+    defaultMessage: 'Standard Member',
+  },
+  memberDetail: {
+    id: 'AgendaSchema.memberDetail',
+    defaultMessage: 'Standard member field',
+  },
 });
 
 function Dashboard() {
   const { lang, agenda } = useLayoutData();
   const maxFields = agenda?.credentials?.premiumCustomFields ? 100 : 1;
   const editableParents = agenda?.credentials?.premiumCustomFields || ['timings'];
+  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const intl = useIntl();
   const res = useRes(agenda);
+  const history = useHistory();
+  const historyLocation = useLocation();
+  console.log('history :', history.location, '\nhistoryLocation :', historyLocation);
   const { schema, parents, isLoading } = useEventSchemas(agenda);
+  const { memberSchema, memberParents, isLoadingMember } = useMemberSchemas(agenda);
   const [currentFieldCount, setCurrentFieldCount] = useState(getSchemaFieldCount(schema));
   const queryClient = useQueryClient();
+  console.log(schema, memberSchema);
+  console.log(parents, memberParents);
+
+  const { search } = historyLocation;
+  const { memberMode } = useMemo(() => {
+    if (search.includes('member') /*&& check for credentials*/) {
+      return { memberMode: true };
+    }
+    return { memberMode: false };
+  }, [search]);
+  console.log('memberMode', memberMode);
 
   useEffect(() => {
     if (schema?.fields) setCurrentFieldCount(getSchemaFieldCount(schema));
@@ -72,6 +101,18 @@ function Dashboard() {
   const renderHeadComponent = () => (
     <div className="padding-all-sm">
       <label htmlFor="adaptForm-label">{intl.formatMessage(messages.adaptForm)}</label>
+      <p>
+        <button
+          type="button"
+          className="btn btn-primary margin-top-sm"
+          onClick={() => {
+            if (!search.includes('member')) history.push({ search: 'member' });
+            else history.push({ search: '' });
+          }}
+        >
+          Nav
+        </button>
+      </p>
       {maxFields === 1 ? (
         <div>
           <p>{intl.formatMessage(messages.canAddField)}</p>
@@ -87,14 +128,14 @@ function Dashboard() {
     </div>
   );
 
-  if (isLoading) {
+  if (isLoading || isLoadingMember) {
     return <Spinner />;
   }
 
   return (
     <div>
       <FormSchemaBuilder
-        res={res.eventSchema}
+        res={memberMode ? res.memberSchema : res.eventSchema}
         lang={lang}
         addEnabled={maxFields > currentFieldCount}
         settingsEnabled
@@ -102,8 +143,8 @@ function Dashboard() {
         devState={{
           // editedField: 'title'
         }}
-        schema={schema}
-        extendedFrom={parents}
+        schema={memberMode ? memberSchema : schema}
+        extendedFrom={memberMode ? memberParents : parents}
         onUpdate={onUpdate}
         onSuccess={onSuccess}
         renderHead={renderHeadComponent}

@@ -23,6 +23,18 @@
       "value": "Champ événement standard"
     }
   ],
+  "AgendaSchema.member": [
+    {
+      "type": 0,
+      "value": "Standard Member"
+    }
+  ],
+  "AgendaSchema.memberDetail": [
+    {
+      "type": 0,
+      "value": "Standard member field"
+    }
+  ],
   "AgendaSchema.needMoreFields": [
     {
       "type": 0,

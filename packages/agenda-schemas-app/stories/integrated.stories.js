@@ -15,7 +15,7 @@ export default {
 
 const res = {
   eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
-  // getMemberSchemas: ':agendaUid/member/schema',
+  memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
 };
 
 export function AdminWithoutPremium() {
@@ -74,6 +74,44 @@ export function AdminWithPremium() {
             },
             history: createMemoryHistory({
               initialEntries: ['/metropole-europeenne-de-lille/admin/schema'],
+            }),
+          }),
+          {
+            extraProps: {
+              lang: 'fr',
+              agenda: {
+                uid: 1,
+                slug: 'metropole-europeenne-de-lille',
+                credentials: {
+                  premiumCustomFields: true,
+                },
+              },
+            },
+          },
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminWithMember() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                prefix: '/:agendaSlug/admin/schema',
+                apiRoot: '',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/schema?member'],
             }),
           }),
           {

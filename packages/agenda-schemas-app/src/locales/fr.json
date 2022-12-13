@@ -3,6 +3,8 @@
   "AgendaSchema.canAddField": "Vous pouvez ajouter le champ de votre choix au formulaire événement",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.eventDetail": "Champ événement standard",
+  "AgendaSchema.member": "",
+  "AgendaSchema.memberDetail": "",
   "AgendaSchema.needMoreFields": "Besoin de plus de champs ?",
   "AgendaSchema.network": "Réseau",
   "AgendaSchema.networkDetail": "Champ requis par le réseau d'agendas"

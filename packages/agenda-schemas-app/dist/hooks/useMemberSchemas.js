@@ -17,7 +17,7 @@ var _default = function _default(agenda) {
   var res = (0, _useRes.default)(agenda);
 
   var _useQuery = (0, _reactQuery.useQuery)('agenda-memberSchema', function () {
-    return _axios.default.get(res.getSettings, {
+    return _axios.default.get(res.memberSchema, {
       params: {}
     }).then(function (response) {
       return response.data;
@@ -27,11 +27,12 @@ var _default = function _default(agenda) {
       error = _useQuery.error,
       data = _useQuery.data;
 
-  console.log('useSettings', data);
+  console.log('useMemberSchema', data);
   return {
-    isLoading: isLoading,
+    isLoadingMember: isLoading,
     error: error,
-    schema: data
+    memberSchema: (data === null || data === void 0 ? void 0 : data.schema) || null,
+    memberParents: data === null || data === void 0 ? void 0 : data.parents
   };
 };
 

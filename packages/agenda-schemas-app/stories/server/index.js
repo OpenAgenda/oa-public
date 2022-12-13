@@ -22,4 +22,11 @@ dev.post('/api/agendas/:agendaUid/settings/eventSchema', (req, res) => {
   });
 });
 
+dev.get('/api/agendas/:agendaUid/settings/memberSchema', (req, res) => {
+  const response = getFixtures(req.params.agendaUid).memberSchema;
+  res.json({
+    ...response,
+  });
+});
+
 module.exports = dev;

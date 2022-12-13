@@ -6,11 +6,12 @@ import useRes from './useRes';
 export default agenda => {
   const res = useRes(agenda);
   const { isLoading, error, data } = useQuery('agenda-memberSchema', () =>
-    axios.get(res.getSettings, { params: {} }).then(response => response.data));
-  console.log('useSettings', data);
+    axios.get(res.memberSchema, { params: {} }).then(response => response.data));
+  console.log('useMemberSchema', data);
   return {
-    isLoading,
+    isLoadingMember: isLoading,
     error,
-    schema: data,
+    memberSchema: data?.schema || null,
+    memberParents: data?.parents,
   };
 };
