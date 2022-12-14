@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useIntl } from 'react-intl';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
@@ -35,14 +33,15 @@ export default ({ sourceSchema }) => {
   const { values /* , initialValues */ } = form.getState();
 
   const options = useMemoOne(
-    () => sourceSchema.fields
-      .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
-      .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
-      .map(({ field, label }) => ({
-        value: field,
-        label: getLocaleValue(label, intl.locale),
-      })),
-    [intl.locale, sourceSchema.fields]
+    () =>
+      sourceSchema.fields
+        .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+        .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
+        .map(({ field, label }) => ({
+          value: field,
+          label: getLocaleValue(label, intl.locale),
+        })),
+    [intl.locale, sourceSchema.fields],
   );
 
   const fieldName = useMemoOne(() => values.choiceField, [values]);
