@@ -3,6 +3,8 @@ import { /* useFormState, */ Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
+
+import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 
 export default ({ schema }) => {
@@ -13,7 +15,7 @@ export default ({ schema }) => {
     () =>
       (schema
         ? schema.fields
-          .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+          .filter(isOptionedField)
           .map(({ options: fieldOptions }) => fieldOptions)
           .flat()
           .map(v => ({

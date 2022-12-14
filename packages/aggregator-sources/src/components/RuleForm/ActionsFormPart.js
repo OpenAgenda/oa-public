@@ -8,6 +8,8 @@ import { FieldArray } from 'react-final-form-arrays';
 import { usePrevious } from 'react-use';
 
 import { useMemoOne, useCallbackOne } from '@openagenda/react-shared';
+
+import isOptionedField from '../../utils/isOptionedField';
 import ActionFormPart from './ActionFormPart';
 import messages from './messages';
 
@@ -19,9 +21,7 @@ export default ({ aggregatorAgendaSchema }) => {
   const leftFieldsToDefine = useMemoOne(
     () =>
       aggregatorAgendaSchema.fields
-        .filter(
-          v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length,
-        )
+        .filter(isOptionedField)
         .concat({ field: 'state' })
         .filter(v => !values.actions?.find(w => w && v.field === w.field))
         .length,

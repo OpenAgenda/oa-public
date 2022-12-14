@@ -1,3 +1,5 @@
+/* eslint-disable-next-line */
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
@@ -6,6 +8,7 @@ import { useForm, Field } from 'react-final-form';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import formLabels from '@openagenda/labels/event/form';
 import { getLocaleValue } from '@openagenda/intl';
+import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 
 const AttendanceOptions = [
@@ -35,7 +38,7 @@ export default ({ sourceSchema }) => {
   const options = useMemoOne(
     () =>
       sourceSchema.fields
-        .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+        .filter(isOptionedField)
         .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
         .map(({ field, label }) => ({
           value: field,

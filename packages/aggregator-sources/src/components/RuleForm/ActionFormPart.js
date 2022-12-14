@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+/* eslint-disable-next-line */
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
@@ -7,6 +8,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import stateMessages from '../../utils/stateMessages';
 import stringType from '../../utils/stringType';
+import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 import Radio from './Radio';
 
@@ -37,12 +39,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const fieldOptions = useMemoOne(
     () =>
       aggregatorAgendaSchema.fields
-        .filter(
-          v =>
-            ['radio', 'checkbox', 'select', 'multiselect'].includes(
-              v.fieldType,
-            ) && v.options?.length,
-        )
+        .filter(isOptionedField)
         .concat({
           field: 'state',
           label: intl.formatMessage(stateMessages.state),
@@ -174,7 +171,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
             options={valuesOptions}
             menuPosition="fixed"
-            isMulti={fieldSchema?.fieldType === 'checkbox'}
+            isMulti={isOptionedField.multi(fieldSchema)}
             isDisabled={action?.automatic}
             isSearchable
           />
