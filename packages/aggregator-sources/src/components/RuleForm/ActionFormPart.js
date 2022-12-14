@@ -38,7 +38,10 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     () =>
       aggregatorAgendaSchema.fields
         .filter(
-          v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length,
+          v =>
+            ['radio', 'checkbox', 'select', 'multiselect'].includes(
+              v.fieldType,
+            ) && v.options?.length,
         )
         .concat({
           field: 'state',
