@@ -328,6 +328,36 @@ describe('unit - assigning schema properties to another schema', () => {
       expect(merge(schema, abstract).fields.filter(f => f.field === 'imageCredits')[0].optional).toBeFalsy();
     });
 
+    it('abstract can have { type, slug } format', () => {
+      const schema = {
+        fields: [{
+          field: 'name',
+          fieldType: 'text',
+          label: 'Name',
+        }, {
+          type: 'section',
+          slug: 'ea9dx0',
+        }, {
+          field: 'surname',
+          fieldType: 'text',
+          label: 'Surname',
+        }],
+      };
+
+      const abstract = {
+        fields: [{
+          type: 'abstract',
+          slug: 'name',
+          optional: false,
+        }],
+      };
+
+      const merged = merge(schema, abstract);
+
+      expect(merged.fields.length).toBe(3);
+      expect(merged.fields[0].optional).toBe(false);
+    });
+
     it('merge can relabel fields', () => {
       const schema = {
         id: 1,

@@ -1,7 +1,12 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const getIsAbstract = field => (field.fieldType || 'abstract') === 'abstract';
+const getIsAbstract = ({ fieldType, type }) => {
+  if (type === 'abstract') {
+    return true;
+  }
+  return (fieldType ?? 'abstract') === 'abstract';
+};
 
 const assignSchemaValuesToNonAbstractFields = schema => ({
   custom: schema?.custom || {},
@@ -18,7 +23,7 @@ const assignSchemaValuesToNonAbstractFields = schema => ({
 function mergeField(field, mergeWithField) {
   if (!mergeWithField) return field;
 
-  const protectedKeys = ['field', 'fieldType', 'origin'];
+  const protectedKeys = ['field', 'fieldType', 'origin', 'type', 'slug'];
 
   const update = _.keys(mergeWithField)
     .filter(k => !protectedKeys.includes(k))

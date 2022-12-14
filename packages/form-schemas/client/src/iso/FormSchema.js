@@ -16,6 +16,7 @@ const getWithFieldName = require('./getWithFieldName');
 const isNew = data => data.id === null;
 
 const getItemSlug = f => f.slug ?? f.field;
+const getItemType = f => f.type ?? 'field';
 
 function validate(data, options = {}) {
   const {
@@ -109,7 +110,7 @@ module.exports = class {
   }
 
   addField(fieldData) {
-    if (fieldData?.type ?? 'field' === 'section') {
+    if (getItemType(fieldData) === 'section') {
       this.data.fields.push(validateSection(fieldData));
       return;
     }
@@ -121,8 +122,8 @@ module.exports = class {
       'custom', 'defaultLabelLanguage', 'nextOptionId',
     ]));
 
-    if (!this.isFieldNameAvailable(clean.field)) {
-      const error = `This field name is taken! : ${clean.field}`;
+    if (!this.isItemSlugAvailable(clean)) {
+      const error = `This slug is taken! : ${clean.field}`;
       throw error;
     }
 
@@ -132,7 +133,7 @@ module.exports = class {
   }
 
   updateField(fieldData) {
-    if (fieldData?.type ?? 'field' === 'section') {
+    if (getItemType(fieldData) === 'section') {
       const clean = validateSection(fieldData);
 
       this.data.fields.splice(
@@ -223,8 +224,8 @@ module.exports = class {
     this._popField(index);
   }
 
-  isFieldNameAvailable(name) {
-    return !this.data.fields.filter(f => f.field === name).length;
+  isItemSlugAvailable(item) {
+    return !this.data.fields.filter(f => getItemSlug(f) === getItemSlug(item)).length;
   }
 
   getFieldCount() {

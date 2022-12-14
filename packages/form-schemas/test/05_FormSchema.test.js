@@ -49,7 +49,7 @@ describe('form-schemas -05- FormSchema', () => {
         error = e;
       }
 
-      expect(error).toBe('This field name is taken! : atextfield');
+      expect(error).toBe('This slug is taken! : atextfield');
     });
 
     it('a FormSchema can be initialized with preset fields', () => {
@@ -286,6 +286,28 @@ describe('form-schemas -05- FormSchema', () => {
       }]);
 
       expect(otherSchema.getData().fields[1].slug).toBe('frejf93');
+    });
+
+    it('update empty schema with items of abstract type', () => {
+      const sch = new FormSchema(null);
+
+      sch.updateFields([{
+        type: 'abstract',
+        slug: 'a1',
+      }, {
+        type: 'abstract',
+        slug: 'z9',
+      }]);
+
+      expect(sch.getData().fields).toEqual([{
+        type: 'abstract',
+        fieldType: 'abstract',
+        slug: 'a1',
+      }, {
+        type: 'abstract',
+        fieldType: 'abstract',
+        slug: 'z9',
+      }]);
     });
 
     it('removes absent fields', () => {
