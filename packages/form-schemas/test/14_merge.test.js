@@ -18,13 +18,13 @@ describe('unit - assigning schema properties to another schema', () => {
           options: [{
             id: 1,
             value: 'dogs',
-            label: 'Dogs'
+            label: 'Dogs',
           }, {
             id: 2,
             value: 'tics',
-            label: 'Tics'
-          }]
-        }]
+            label: 'Tics',
+          }],
+        }],
       };
 
       const agendaSchema = {
@@ -36,13 +36,13 @@ describe('unit - assigning schema properties to another schema', () => {
           options: [{
             id: 1,
             value: 'clubs',
-            label: 'Clubs'
+            label: 'Clubs',
           }, {
             id: 2,
             value: 'comite',
-            label: 'Comités'
-          }]
-        }]
+            label: 'Comités',
+          }],
+        }],
       };
 
       merged = merge(networkSchema, agendaSchema);
@@ -54,10 +54,10 @@ describe('unit - assigning schema properties to another schema', () => {
         expect(merged.fields.map(f => _.pick(f, ['field', 'schemaType']))).toStrictEqual(
           [
             { field: 'someagendafield', schemaType: 'agenda' },
-            { field: 'somenetworkfield', schemaType: 'network' }
-          ]
+            { field: 'somenetworkfield', schemaType: 'network' },
+          ],
         );
-      }
+      },
     );
 
     it('ids of options of merged schemas are no longer unique', () => {
@@ -65,12 +65,12 @@ describe('unit - assigning schema properties to another schema', () => {
         [
           [
             { id: 1, value: 'clubs', label: 'Clubs' },
-            { id: 2, value: 'comite', label: 'Comités' }
+            { id: 2, value: 'comite', label: 'Comités' },
           ], [
             { id: 1, value: 'dogs', label: 'Dogs' },
-            { id: 2, value: 'tics', label: 'Tics' }
-          ]
-        ]
+            { id: 2, value: 'tics', label: 'Tics' },
+          ],
+        ],
       );
     });
 
@@ -78,11 +78,11 @@ describe('unit - assigning schema properties to another schema', () => {
       expect(merged.fields.map(f => _.pick(f, ['field', 'schemaId']))).toStrictEqual(
         [{
           field: 'someagendafield',
-          schemaId: 2
+          schemaId: 2,
         }, {
           field: 'somenetworkfield',
-          schemaId: 1
-        }]
+          schemaId: 1,
+        }],
       );
     });
   });
@@ -96,13 +96,13 @@ describe('unit - assigning schema properties to another schema', () => {
         options: [{
           id: 1,
           value: 'dogs',
-          label: 'Dogs'
+          label: 'Dogs',
         }, {
           id: 2,
           value: 'tics',
-          label: 'Tics'
-        }]
-      }]
+          label: 'Tics',
+        }],
+      }],
     };
 
     const agendaSchema = {
@@ -115,20 +115,20 @@ describe('unit - assigning schema properties to another schema', () => {
         options: [{
           id: 1,
           value: 'clubs',
-          label: 'Clubs'
+          label: 'Clubs',
         }, {
           id: 2,
           value: 'comite',
-          label: 'Comités'
-        }]
-      }]
+          label: 'Comités',
+        }],
+      }],
     };
 
     it('if access option is not provided, all fields are returned', () => {
       expect(
         merge(networkSchema, agendaSchema)
           .fields
-          .map(f => f.field)
+          .map(f => f.field),
       ).toStrictEqual(['someagendafield', 'somenetworkfield']);
     });
 
@@ -137,11 +137,11 @@ describe('unit - assigning schema properties to another schema', () => {
       () => {
         expect(
           merge(networkSchema, agendaSchema, { access: { read: 'contributor' } }).fields
-            .map(f => f.field)
+            .map(f => f.field),
         ).toStrictEqual(
-          ['somenetworkfield']
+          ['somenetworkfield'],
         );
-      }
+      },
     );
 
     it(
@@ -149,11 +149,11 @@ describe('unit - assigning schema properties to another schema', () => {
       () => {
         expect(
           merge(networkSchema, agendaSchema, { access: { read: 'administrator' } }).fields
-            .map(f => f.field)
+            .map(f => f.field),
         ).toStrictEqual(
-          ['someagendafield', 'somenetworkfield']
+          ['someagendafield', 'somenetworkfield'],
         );
-      }
+      },
     );
 
     it(
@@ -163,13 +163,13 @@ describe('unit - assigning schema properties to another schema', () => {
           merge(networkSchema, agendaSchema, {
             access: {
               read: 'moderator',
-              write: 'moderator'
-            }
-          }).fields.map(f => f.field)
+              write: 'moderator',
+            },
+          }).fields.map(f => f.field),
         ).toStrictEqual(
-          ['somenetworkfield']
+          ['somenetworkfield'],
         );
-      }
+      },
     );
   });
 
@@ -180,41 +180,41 @@ describe('unit - assigning schema properties to another schema', () => {
         fields: [{
           field: 'title',
           fieldType: 'text',
-          label: 'Le titre'
+          label: 'Le titre',
         }, {
           field: 'description',
           fieldType: 'text',
-          label: 'La description'
-        }]
+          label: 'La description',
+        }],
       };
 
       const networkSchema = {
         fields: [{
           field: 'theme',
           fieldType: 'text',
-          label: 'Thème'
-        }]
+          label: 'Thème',
+        }],
       };
 
       const agendaSchema = {
         fields: [{
           field: 'title',
           fieldType: 'abstract',
-          label: 'Nom de la manifestation'
+          label: 'Nom de la manifestation',
         }, {
           field: 'participants',
           fieldType: 'integer',
-          label: 'Participants'
+          label: 'Participants',
         }, {
           field: 'description',
-          fieldType: 'abstract'
-        }]
+          fieldType: 'abstract',
+        }],
       };
 
       expect(
-        merge(eventSchema, networkSchema, agendaSchema).fields.map(f => f.field)
+        merge(eventSchema, networkSchema, agendaSchema).fields.map(f => f.field),
       ).toStrictEqual(
-        ['title', 'participants', 'description', 'theme']
+        ['title', 'participants', 'description', 'theme'],
       );
     });
 
@@ -226,14 +226,14 @@ describe('unit - assigning schema properties to another schema', () => {
           optional: false,
           fieldType: 'integer',
           label: 'Participants',
-          info: 'Combien de participants'
+          info: 'Combien de participants',
         }, {
           field: 'keywords',
           fieldType: 'keywords',
           optional: true,
           max: 255,
-          label: 'Mots clés'
-        }]
+          label: 'Mots clés',
+        }],
       };
 
       const s2 = {
@@ -242,12 +242,12 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'organizer',
           optional: false,
           fieldType: 'text',
-          label: 'Organizer'
+          label: 'Organizer',
         }, {
           field: 'keywords',
           fieldType: 'abstract',
-          display: false
-        }]
+          display: false,
+        }],
       };
 
       const s3 = {
@@ -256,12 +256,12 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'budget',
           optional: false,
           fieldType: 'text',
-          label: 'Budget'
-        }]
+          label: 'Budget',
+        }],
       };
 
       expect(
-        merge(s1, s2, s3)
+        merge(s1, s2, s3),
       ).toStrictEqual(
         {
           custom: {},
@@ -271,14 +271,14 @@ describe('unit - assigning schema properties to another schema', () => {
             fieldType: 'text',
             label: 'Budget',
             schemaId: 3,
-            schemaType: null
+            schemaType: null,
           }, {
             field: 'organizer',
             optional: false,
             fieldType: 'text',
             label: 'Organizer',
             schemaId: 2,
-            schemaType: null
+            schemaType: null,
           }, {
             field: 'keywords',
             fieldType: 'keywords',
@@ -287,7 +287,7 @@ describe('unit - assigning schema properties to another schema', () => {
             optional: true,
             display: false,
             schemaId: 1,
-            schemaType: null
+            schemaType: null,
           }, {
             field: 'participants',
             optional: false,
@@ -295,9 +295,9 @@ describe('unit - assigning schema properties to another schema', () => {
             label: 'Participants',
             info: 'Combien de participants',
             schemaId: 1,
-            schemaType: null
-          }]
-        }
+            schemaType: null,
+          }],
+        },
       );
     });
 
@@ -307,22 +307,22 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'image',
           fieldType: 'text',
           label: 'Image',
-          optional: true
+          optional: true,
         }, {
           field: 'imageCredits',
           fieldType: 'text',
           optional: true,
           label: 'Image credits',
-          enableWith: 'image'
-        }]
+          enableWith: 'image',
+        }],
       };
 
       const abstract = {
         fields: [{
           field: 'imageCredits',
           fieldType: 'abstract',
-          optional: false
-        }]
+          optional: false,
+        }],
       };
 
       expect(merge(schema, abstract).fields.filter(f => f.field === 'imageCredits')[0].optional).toBeFalsy();
@@ -339,15 +339,15 @@ describe('unit - assigning schema properties to another schema', () => {
           max: null,
           label: {
             fr: 'Participants',
-            en: 'Participants'
+            en: 'Participants',
           },
           info: {
             fr: 'Combien de participants',
-            en: 'How many participants'
+            en: 'How many participants',
           },
           placeholder: null,
-          sub: null
-        }]
+          sub: null,
+        }],
       };
 
       const abstract = {
@@ -357,17 +357,17 @@ describe('unit - assigning schema properties to another schema', () => {
           fieldType: 'abstract',
           label: {
             fr: 'Les gens',
-            en: 'People'
+            en: 'People',
           },
           info: {
             fr: 'Combien de gens',
-            en: 'How many people'
-          }
-        }]
+            en: 'How many people',
+          },
+        }],
       };
 
       expect(
-        merge(schema, abstract)
+        merge(schema, abstract),
       ).toStrictEqual(
         {
           custom: {},
@@ -379,18 +379,18 @@ describe('unit - assigning schema properties to another schema', () => {
             max: null,
             label: {
               fr: 'Les gens',
-              en: 'People'
+              en: 'People',
             },
             info: {
               fr: 'Combien de gens',
-              en: 'How many people'
+              en: 'How many people',
             },
             placeholder: null,
             sub: null,
             schemaId: 1,
-            schemaType: null
-          }]
-        }
+            schemaType: null,
+          }],
+        },
       );
     });
 
@@ -402,8 +402,8 @@ describe('unit - assigning schema properties to another schema', () => {
           fields: [{
             field: 'title',
             fieldType: 'text',
-            label: 'Titre'
-          }]
+            label: 'Titre',
+          }],
         };
 
         const abstract = {
@@ -411,8 +411,8 @@ describe('unit - assigning schema properties to another schema', () => {
           fields: [{
             field: 'references',
             fieldType: 'abstract',
-            label: 'Références'
-          }]
+            label: 'Références',
+          }],
         };
 
         expect(merge(schema, abstract)).toStrictEqual(
@@ -423,17 +423,17 @@ describe('unit - assigning schema properties to another schema', () => {
               fieldType: 'abstract',
               label: 'Références',
               schemaId: null,
-              schemaType: null
+              schemaType: null,
             }, {
               field: 'title',
               fieldType: 'text',
               label: 'Titre',
               schemaId: 1,
-              schemaType: null
-            }]
-          }
+              schemaType: null,
+            }],
+          },
         );
-      }
+      },
     );
 
     it('all values of an abstract field trickle down to merge', () => {
@@ -445,8 +445,8 @@ describe('unit - assigning schema properties to another schema', () => {
           fieldType: 'references',
           suggest: false,
           related: ['title', 'description', 'location'],
-          res: '/references'
-        }]
+          res: '/references',
+        }],
       };
 
       const abstract = {
@@ -454,8 +454,8 @@ describe('unit - assigning schema properties to another schema', () => {
         fields: [{
           field: 'references',
           fieldType: 'abstract',
-          suggest: true
-        }]
+          suggest: true,
+        }],
       };
 
       expect(merge(schema, abstract)).toStrictEqual(
@@ -469,9 +469,9 @@ describe('unit - assigning schema properties to another schema', () => {
             related: ['title', 'description', 'location'],
             res: '/references',
             schemaId: 1,
-            schemaType: null
-          }]
-        }
+            schemaType: null,
+          }],
+        },
       );
     });
 
@@ -481,8 +481,8 @@ describe('unit - assigning schema properties to another schema', () => {
         fields: [{
           field: 'title',
           fieldType: 'text',
-          label: 'Titre'
-        }]
+          label: 'Titre',
+        }],
       };
 
       expect(merge(null, schema)).toStrictEqual(
@@ -493,9 +493,9 @@ describe('unit - assigning schema properties to another schema', () => {
             fieldType: 'text',
             label: 'Titre',
             schemaId: 1,
-            schemaType: null
-          }]
-        }
+            schemaType: null,
+          }],
+        },
       );
 
       expect(merge(schema, null)).toStrictEqual(
@@ -506,9 +506,9 @@ describe('unit - assigning schema properties to another schema', () => {
             fieldType: 'text',
             label: 'Titre',
             schemaId: 1,
-            schemaType: null
-          }]
-        }
+            schemaType: null,
+          }],
+        },
       );
     });
 
@@ -522,12 +522,12 @@ describe('unit - assigning schema properties to another schema', () => {
           origin: 'tags',
           options: [{
             label: 'Retarded cat',
-            id: 1
+            id: 1,
           }, {
             label: 'Phteven',
-            id: 2
-          }]
-        }]
+            id: 2,
+          }],
+        }],
       };
 
       const otherSchema = {
@@ -536,8 +536,8 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'title',
           fieldType: 'text',
           label: 'Titre',
-          origin: 'custom'
-        }]
+          origin: 'custom',
+        }],
       };
 
       const merged = merge(schema, otherSchema);
@@ -555,12 +555,12 @@ describe('unit - assigning schema properties to another schema', () => {
           origin: 'tags',
           options: [{
             label: 'Retarded cat',
-            id: 1
+            id: 1,
           }, {
             label: 'Phteven',
-            id: 2
-          }]
-        }]
+            id: 2,
+          }],
+        }],
       };
 
       const otherSchema = {
@@ -568,8 +568,8 @@ describe('unit - assigning schema properties to another schema', () => {
         fields: [{
           field: 'chooseyouravatar',
           fieldType: 'abstract',
-          origin: null
-        }]
+          origin: null,
+        }],
       };
 
       const merged = merge(schema, otherSchema);
@@ -586,12 +586,12 @@ describe('unit - assigning schema properties to another schema', () => {
           optional: true,
           options: [{
             label: 'Retarded cat',
-            id: 1
+            id: 1,
           }, {
             label: 'Phteven',
-            id: 2
-          }]
-        }]
+            id: 2,
+          }],
+        }],
       };
 
       const restrictiveSchema = {
@@ -599,8 +599,8 @@ describe('unit - assigning schema properties to another schema', () => {
         fields: [{
           field: 'chooseyouravatar',
           fieldType: 'abstract',
-          allowedOptions: [2]
-        }]
+          allowedOptions: [2],
+        }],
       };
 
       expect(merge(schema, restrictiveSchema).fields).toStrictEqual(
@@ -610,11 +610,11 @@ describe('unit - assigning schema properties to another schema', () => {
           optional: true,
           options: [{
             label: 'Phteven',
-            id: 2
+            id: 2,
           }],
           schemaId: 1,
-          schemaType: null
-        }]
+          schemaType: null,
+        }],
       );
     });
   });
