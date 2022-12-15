@@ -52,7 +52,7 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplittedMemberSchema: true, access: null, actingMember });
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitMemberSchema: true, access: null, actingMember });
   const schemas = await getMemberSchema(services, agenda, { access, actingMember });
   let cleanMemberData = null;
   try {

@@ -61,24 +61,26 @@ module.exports.andParents = async function getSchemaAndParents(services, agendaO
     ...await formSchemas.get(network.formSchemaId),
   } : null;
 
-  const event = {
+  const parents = [{
     schema: { fields: eventFormSchema().fields },
     info: {
       label: intl.formatMessage({ id: 'AgendaSchema.event' }),
       detail: intl.formatMessage({ id: 'AgendaSchema.eventDetail' }),
     },
-  };
+  }];
 
-  const networkCompletedSchema = {
-    schema: networkSchema || [],
-    info: {
-      label: intl.formatMessage({ id: 'AgendaSchema.network' }),
-      detail: intl.formatMessage({ id: 'AgendaSchema.networkDetail' }),
-    },
-  };
+  if (networkSchema) {
+    parents.push({
+      schema: networkSchema,
+      info: {
+        label: intl.formatMessage({ id: 'AgendaSchema.network' }),
+        detail: intl.formatMessage({ id: 'AgendaSchema.networkDetail' }),
+      },
+    });
+  }
 
   return {
     schema,
-    parents: [event, networkCompletedSchema],
+    parents,
   };
 };

@@ -46,18 +46,18 @@ module.exports.andParents = async function getMemberSchemaAndParents(services, a
   const isAdmin = await isAdminMod(members, agenda.uid, options);
   const optionalFields = isAdmin || !!memberSchemaId || !agenda.settings.contribution.useFields;
 
-  const member = {
+  const parents = [{
     schema: memberSchema({ optionalFields }),
     info: {
       label: intl.formatMessage({ id: 'AgendaSchema.member' }),
       detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
     },
-  };
+  }];
 
   if (!memberSchemaId) {
     return {
       schema: null,
-      parents: [member],
+      parents,
     };
   }
   const aditionalFields = await formSchemas.get(memberSchemaId);
@@ -70,6 +70,6 @@ module.exports.andParents = async function getMemberSchemaAndParents(services, a
       id: memberSchemaId,
       ...aditionalFields,
     },
-    parents: [member],
+    parents,
   };
 };

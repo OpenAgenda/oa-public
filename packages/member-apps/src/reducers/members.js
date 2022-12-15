@@ -43,7 +43,7 @@ const initialState = {
   credFilters: [],
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = null) {
   switch (action.type) {
     case LOAD:
       return {
@@ -129,12 +129,13 @@ export default function reducer(state = initialState, action) {
         patching: true,
       };
     case PATCH_SUCCESS: {
-      const data = state.data.map(m => (m.id === action.memberId
-        ? {
-          ...m,
-          role: action.result.role || m.role,
-        }
-        : m));
+      const data = state.data.map(m =>
+        (m.id === action.memberId
+          ? {
+            ...m,
+            role: action.result.role || m.role,
+          }
+          : m));
       return {
         ...state,
         data,
@@ -266,7 +267,9 @@ export function getSchema(agenda) {
     types: [GET_SCHEMA, GET_SCHEMA_SUCCESS, GET_SCHEMA_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      return client.get(res.getSchema.replace(':agendaUid', agenda.uid), { params: { merged: 1 } });
+      return client.get(res.getSchema.replace(':agendaUid', agenda.uid), {
+        params: { merged: 1 },
+      });
     },
   };
 }
@@ -314,7 +317,7 @@ export function patch(agenda, memberId, { role }) {
           .replace(':memberId', memberId),
         {
           role,
-        }
+        },
       );
     },
   };
@@ -336,7 +339,7 @@ export function updateListItem(data) {
         ...carry,
         [map[key]]: data[key],
       }),
-      {}
+      {},
     ),
     role: data.role,
     memberId: data.id,
@@ -382,7 +385,7 @@ export function resendInvitation(agenda, id) {
 
       return client.put(
         res.resend.replace(':slug', agenda.slug).replace(':id', id),
-        {}
+        {},
       );
     },
   };
@@ -404,7 +407,7 @@ export function remove(agenda, memberId) {
       return client.delete(
         res.remove
           .replace(':agendaUid', agenda.uid)
-          .replace(':memberId', memberId)
+          .replace(':memberId', memberId),
       );
     },
   };
