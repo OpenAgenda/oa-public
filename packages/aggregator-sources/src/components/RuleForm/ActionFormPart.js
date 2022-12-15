@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';

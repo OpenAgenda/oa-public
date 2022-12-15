@@ -1,5 +1,3 @@
-/* eslint-disable-next-line */
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
