@@ -147,7 +147,7 @@ export default function Content(props) {
       {field.field ? (
         <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>{getLabel('jsonKey', lang)}: {field.field}</div>
       ) : null }
-      {'default' in field ? (
+      {'default' in field && field.default !== null ? (
         <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)} : {getDefaultValueLabel(field, lang)}</div>
       ) : null }
       {field.max ? (
