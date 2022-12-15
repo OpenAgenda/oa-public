@@ -1,7 +1,7 @@
-import React, {
+import {
   useState,
   useEffect,
-  useMemo
+  useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';

@@ -22,6 +22,11 @@ export default (prefix = '') => [
         exact: true,
         component: Dashboard,
       },
+      {
+        path: `${prefix}/member`,
+        exact: true,
+        component: Dashboard,
+      },
     ],
   },
 ];

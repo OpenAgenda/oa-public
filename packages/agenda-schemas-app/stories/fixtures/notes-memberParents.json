@@ -1,0 +1,97 @@
+"parents": [
+  {
+    "schema": {
+      "fields": [
+        {
+          "field": "organization",
+          "label": {
+            "fr": "Organisation",
+            "en": "Organisation",
+            "it": "Ragione sociale",
+            "de": "Unternehmen",
+            "br": "Aozadur",
+            "es": "organización",
+            "io": "crwdns11556:0crwdne11556:0"
+          },
+          "fieldType": "text",
+          "optional": true,
+          "default": null
+        },
+        {
+          "field": "phone",
+          "label": {
+            "fr": "Téléphone",
+            "en": "Telephone",
+            "it": "Telefono",
+            "de": "Telefonnummer",
+            "br": "Pellgomz",
+            "es": "Teléfono",
+            "io": "crwdns11558:0crwdne11558:0"
+          },
+          "sub": {
+            "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
+            "en": "Valid characters: digits, space, -, + ou ()",
+            "it": "Carattere autorizzati: cifro, spazio, -, + o ()",
+            "de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
+            "br": "Arouezennoù aotreet : sifroù, lizherennoù, esaouennoù, -, + pe ()",
+            "es": "Los caracteres permitidos: cifras, espacio, -, + o ()",
+            "io": "crwdns11560:0crwdne11560:0",
+            "oc": "Caractèrs valids : chifras, espaci, -, + o ()"
+          },
+          "fieldType": "phone",
+          "optional": true,
+          "default": null
+        },
+        {
+          "field": "name",
+          "label": {
+            "fr": "Prénom Nom",
+            "en": "Name Surname",
+            "it": "Nome e cognome",
+            "de": "Vorname Nachname",
+            "br": "Anv Anv-bihan",
+            "es": "Nombre Apellido",
+            "io": "crwdns11562:0crwdne11562:0"
+          },
+          "fieldType": "text",
+          "optional": true,
+          "default": null
+        },
+        {
+          "field": "position",
+          "label": {
+            "fr": "Fonction",
+            "en": "Position in the organization",
+            "it": "Ruolo",
+            "de": "Funktion",
+            "br": "Karg",
+            "es": "función",
+            "io": "crwdns11564:0crwdne11564:0"
+          },
+          "fieldType": "text",
+          "optional": true,
+          "default": null
+        },
+        {
+          "field": "email",
+          "label": {
+            "fr": "Email",
+            "en": "Email",
+            "it": "Email",
+            "de": "E-Mail",
+            "br": "Postel",
+            "es": "e-mail",
+            "io": "crwdns11566:0crwdne11566:0"
+          },
+          "fieldType": "email",
+          "optional": true,
+          "default": null
+        }
+      ]
+    },
+    "info": {
+      "label": "Standard Member",
+      "detail": "Standard member field"
+    }
+  }
+]

@@ -111,7 +111,7 @@ export function AdminWithMember() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/schema?member'],
+              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
             }),
           }),
           {
