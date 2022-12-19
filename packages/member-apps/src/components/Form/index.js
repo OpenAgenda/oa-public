@@ -74,9 +74,9 @@ const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
   >
     {content}
   </Modal>
-) : (
-  content
-));
+)
+  : content
+);
 
 export default ({
   title, // optional. specify form title
@@ -97,6 +97,7 @@ export default ({
   hideCancel,
   member, // optional preloaded member,
   schema, // optional preloaded member schema
+  userRole,
 }) => {
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(getRes), {
@@ -147,7 +148,7 @@ export default ({
           {m(messages.confirm)}
         </button>
       </div>,
-      { mode }
+      { mode },
     );
   }
 
@@ -177,7 +178,7 @@ export default ({
           </button>
         </div>
       </div>,
-      { mode }
+      { mode },
     );
   }
 
@@ -226,6 +227,7 @@ export default ({
               patch: saveRes,
               post: saveRes,
             }}
+            role={userRole}
             values={loadedMember}
             schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}
@@ -283,6 +285,6 @@ export default ({
     {
       mode,
       onClose: onCloseModalRequest,
-    }
+    },
   );
 };

@@ -277,3 +277,42 @@ export const FixTwoLinksOneForm = () => {
     />
   );
 };
+
+export const updateFormWithPreloadedMemberAndSchema = () => (
+  <div>
+    <Form
+      lang="fr"
+      operation="update"
+      res="http://localhost:3000/api/agendas/123/members/456"
+      optionalFields
+      userRole="administrator"
+      member={{
+        userUid: 456,
+        name: 'Préchargé',
+        phone: '0651781026',
+        email: 'email@openagenda.com',
+        position: 'suppert',
+        organization: 'OA',
+        role: 'administrator',
+        siret: 'test',
+      }}
+      schema={{
+        fields: [{
+          field: 'text',
+          fieldType: 'text',
+          label: 'TEXT',
+        }, {
+          field: 'siret',
+          fieldType: 'text',
+          label: 'Code SIRET',
+          max: 14,
+          min: null,
+          optional: true,
+          read: ['administrator', 'internal'],
+          write: ['administrator', 'internal'],
+          schemaId: 2020,
+        }],
+      }}
+    />
+  </div>
+);
