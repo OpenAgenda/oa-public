@@ -161,7 +161,8 @@ const initialState = async req => {
         messages: '/home/messages',
         notifs: '/home/notifications',
         search: '/agendas',
-        members: '/api/agendas/:agendaUid/members'
+        members: '/api/agendas/:agendaUid/members',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
       }
     },
     userSettings: {

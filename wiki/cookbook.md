@@ -441,7 +441,7 @@ Le 15/12/2022
 
 Le linter demande désormais que les `import React from react` ne soient plus explicités en tête de fichier. Il faut les retirer progressivement des packages où ils apparaissent.
 
-Les retirer sans adapter le `.babelrs.js` du package ainsi que l'ajout de dépendences provoquera le plantage de l'application dans l'environnement intégré.
+Les retirer sans adapter le `.babelrc.js` du package ainsi que l'ajout de dépendences provoquera le plantage de l'application dans l'environnement intégré.
 
 Le `.babelrc.js` doit ressembler à ceci:
 
