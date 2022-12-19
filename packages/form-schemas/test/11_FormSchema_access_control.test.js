@@ -10,19 +10,19 @@ describe('FormSchema - access control', () => {
       fields: [{
         label: { fr: 'un label' },
         field: 'anopenfield',
-        fieldType: 'text'
+        fieldType: 'text',
       }, {
         label: { fr: 'un label' },
         field: 'alimitedfield',
         fieldType: 'integer',
-        read: 'administrator'
+        read: 'administrator',
       }, {
         label: { fr: 'un label' },
         field: 'anotherlimitedfield',
         fieldType: 'number',
-        read: 'moderator'
+        read: 'moderator',
       }],
-      custom: null
+      custom: null,
     });
   });
 
@@ -34,11 +34,11 @@ describe('FormSchema - access control', () => {
       expect(v({
         anopenfield: 'Absolom',
         alimitedfield: 2022,
-        anotherlimitedfield: 8.5
+        anotherlimitedfield: 8.5,
       })).toStrictEqual({
-        anopenfield: 'Absolom'
+        anopenfield: 'Absolom',
       });
-    }
+    },
   );
 
   it('validator is used to clean data to specified read access', () => {
@@ -47,10 +47,10 @@ describe('FormSchema - access control', () => {
     expect(v({
       anopenfield: 'Absolom',
       alimitedfield: 2022,
-      anotherlimitedfield: 8.5
+      anotherlimitedfield: 8.5,
     })).toStrictEqual({
       anopenfield: 'Absolom',
-      alimitedfield: 2022
+      alimitedfield: 2022,
     });
   });
 
@@ -62,11 +62,11 @@ describe('FormSchema - access control', () => {
       expect(v({
         anopenfield: 'Plastic bag',
         alimitedfield: 123,
-        anotherlimitedfield: 12.3
+        anotherlimitedfield: 12.3,
       })).toStrictEqual({
-        alimitedfield: 123
+        alimitedfield: 123,
       });
-    }
+    },
   );
 
   it('validator can return data matching multiple levels', () => {
@@ -75,10 +75,10 @@ describe('FormSchema - access control', () => {
     expect(v({
       anopenfield: 'Trash',
       alimitedfield: 666,
-      anotherlimitedfield: 4.5
+      anotherlimitedfield: 4.5,
     })).toStrictEqual({
       alimitedfield: 666,
-      anotherlimitedfield: 4.5
+      anotherlimitedfield: 4.5,
     });
   });
 });
