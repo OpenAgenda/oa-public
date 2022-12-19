@@ -53,9 +53,13 @@ export function getDefaultValueLabel(field, lang) {
   }
 
   const defaultValue = field.default;
-  const specificValuesFromOptions = field.options.find(obj => obj.id === defaultValue);
 
-  return getLocaleValue(specificValuesFromOptions.label, lang);
+  if (field.options) {
+    const specificValuesFromOptions = field.options.find(obj => obj.id === defaultValue);
+    return getLocaleValue(specificValuesFromOptions.label, lang);
+  }
+
+  return defaultValue;
 }
 
 export function getLinkedField({ field, schema }) {
