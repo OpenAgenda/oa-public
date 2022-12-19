@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import Form from '../src/components/Form';
 import ComponentCanvas from './decorators/ComponentCanvas';
@@ -297,21 +297,24 @@ export const updateFormWithPreloadedMemberAndSchema = () => (
         siret: 'test',
       }}
       schema={{
-        fields: [{
-          field: 'text',
-          fieldType: 'text',
-          label: 'TEXT',
-        }, {
-          field: 'siret',
-          fieldType: 'text',
-          label: 'Code SIRET',
-          max: 14,
-          min: null,
-          optional: true,
-          read: ['administrator', 'internal'],
-          write: ['administrator', 'internal'],
-          schemaId: 2020,
-        }],
+        fields: [
+          {
+            field: 'text',
+            fieldType: 'text',
+            label: 'TEXT',
+          },
+          {
+            field: 'siret',
+            fieldType: 'text',
+            label: 'Code SIRET',
+            max: 14,
+            min: null,
+            optional: true,
+            read: ['administrator', 'internal'],
+            write: ['administrator', 'internal'],
+            schemaId: 2020,
+          },
+        ],
       }}
     />
   </div>
