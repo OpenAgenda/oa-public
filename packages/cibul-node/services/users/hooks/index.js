@@ -1,8 +1,8 @@
 'use strict';
 
 const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
-const restrictToUnlogged = require('./hooks/restrictToUnlogged');
-const restrictToCurrentUser = require('./hooks/restrictToCurrentUser');
+const restrictToUnlogged = require('./restrictToUnlogged');
+const restrictToCurrentUser = require('./restrictToCurrentUser');
 
 const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(

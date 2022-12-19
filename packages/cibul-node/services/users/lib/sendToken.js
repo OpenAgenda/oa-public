@@ -3,8 +3,8 @@
 const _ = require('lodash');
 const qs = require('qs');
 const log = require('@openagenda/logs')('services/users/sendToken');
-const mails = require('../mails');
-const genUrl = require('../genUrl');
+const mails = require('../../mails');
+const genUrl = require('../../genUrl');
 
 module.exports = config => async context => {
   try {

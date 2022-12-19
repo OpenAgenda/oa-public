@@ -1,10 +1,7 @@
-const config = require('../../config');
+'use strict';
 
-
-module.exports = function onGenerateApiKey() {
-
+module.exports = function onGenerateApiKey(config) {
   return async ctx => {
-
     // Need detailed user
     const user = await ctx.self.get(ctx.id, { detailed: true });
 
@@ -23,7 +20,7 @@ module.exports = function onGenerateApiKey() {
         .where({ id: existingKeySet.id })
         .update({
           api_key: user.apiKey || null,
-          api_secret: user.apiSecret || null
+          api_secret: user.apiSecret || null,
         });
     } else {
       await knex(schemas.apiKeySet)
@@ -33,10 +30,8 @@ module.exports = function onGenerateApiKey() {
           user_id: user.id,
           type: 1,
           created_at: new Date(),
-          updated_at: new Date()
+          updated_at: new Date(),
         });
     }
-
   };
-
 };
