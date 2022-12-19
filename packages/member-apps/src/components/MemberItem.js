@@ -1,5 +1,4 @@
 import qs from 'qs';
-import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
@@ -46,11 +45,12 @@ function MemberItemComponent({
     if (deletedUser && !invited) return 'deleted';
   })();
 
-  const base64url = Base64.encode(location?.pathname + location?.search);
+  const base64url = Base64.encode(`${location?.pathname}${location?.search}`);
 
-  const resendInvitationHandler = () => resendInvitation(agenda, id)
-    .then(() => showModal('memberReinvited', { member, success: true }))
-    .catch(() => showModal('memberReinvited', { member, success: false }));
+  const resendInvitationHandler = () =>
+    resendInvitation(agenda, id)
+      .then(() => showModal('memberReinvited', { member, success: true }))
+      .catch(() => showModal('memberReinvited', { member, success: false }));
 
   return (
     <div key={id} className="bo-list-item media">
@@ -86,28 +86,18 @@ function MemberItemComponent({
         <div className="actions">
           {(custom.organization || custom.contactPosition) && (
             <div className="margin-top-xs margin-bottom-z">
-              {
-                <span className="text-muted">
-                  {custom.organization || null}
-                </span>
-              }
+              <span className="text-muted">{custom.organization || null}</span>
               {custom.organization && custom.contactPosition && ' - '}
-              {
-                <span className="text-muted">
-                  {custom.contactPosition || null}
-                </span>
-              }
+              <span className="text-muted">
+                {custom.contactPosition || null}
+              </span>
             </div>
           )}
           {!invited && (custom.email || custom.contactNumber) && (
             <div className="margin-top-xs margin-bottom-z">
-              {<span className="text-muted">{custom.email || null}</span>}
+              <span className="text-muted">{custom.email || null}</span>
               {custom.email && custom.contactNumber && ' - '}
-              {
-                <span className="text-muted">
-                  {custom.contactNumber || null}
-                </span>
-              }
+              <span className="text-muted">{custom.contactNumber || null}</span>
             </div>
           )}
 
@@ -168,7 +158,7 @@ function MemberItemComponent({
                             {getLabel(targetRole)}
                           </button>
                         </li>
-                      )
+                      ),
                     )}
                   </ul>
                 </Dropdown>

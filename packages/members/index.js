@@ -8,17 +8,7 @@ const create = require('./create');
 const patch = require('./patch');
 const remove = require('./remove');
 const setByEmail = require('./setByEmail');
-const roles = require('./iso/roles');
-const compareRoles = require('./iso/compareRoles');
-const getRoleCode = require('./iso/getRoleCode');
-const getRoleSlug = require('./iso/getRoleSlug');
-
-const utils = {
-  roles,
-  compareRoles,
-  getRoleCode,
-  getRoleSlug,
-};
+const utils = require('./utils');
 
 module.exports = (options = {}) => {
   const config = {

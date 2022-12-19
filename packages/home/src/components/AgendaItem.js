@@ -1,7 +1,14 @@
 import _ from 'lodash';
-import React from 'react';
 import { Image, Dropdown } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
+
+import axios from 'axios';
+
+const loadSchemaAndOpenModal = (agenda, res, onDisplayMemberForm) => {
+  axios.get(res.memberSchema.replace(':agendaUid', agenda.uid)).then(r => {
+    onDisplayMemberForm({ ...agenda, schema: r.data.merged });
+  });
+};
 
 function AgendaItem({
   agenda,
@@ -115,7 +122,8 @@ function AgendaItem({
                   <button
                     type="button"
                     className="btn btn-link"
-                    onClick={() => onDisplayMemberForm(agenda)}
+                    onClick={() =>
+                      loadSchemaAndOpenModal(agenda, res, onDisplayMemberForm)} // onDisplayMemberForm(agenda)}
                     title={getLabel('other')}
                   >
                     {getLabel('editMember')}

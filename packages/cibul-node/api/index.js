@@ -164,8 +164,8 @@ module.exports = core => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
-    mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid })
+    mw.member.load,
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, access: req.access })
       .then(data => res.json({ ...data }), next),
   ]);
 
@@ -214,6 +214,7 @@ module.exports = core => {
       .agendas(req.agenda.uid).members
       .get(req.params.userUid, {
         userUid: req.user.uid,
+        access: req.access,
       })
       .then(member => res.json(member), next),
   ]);

@@ -26,8 +26,8 @@ module.exports = async (services, agendaOrUid, options) => {
     aditionalFields.fields = aditionalFields.fields.map(e => ({ ...e, optional: true }));
   }
   return {
-    merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields),
-    schema: memberSchema({ optionalFields }),
-    agendaSchema: aditionalFields,
+    merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields, { access: { read: options.access } }),
+    schema: formSchemas.utils.merge(memberSchema({ optionalFields }), {}, { access: { read: options.access } }),
+    agendaSchema: { id: aditionalFields.id, ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: options.access } }) },
   };
 };

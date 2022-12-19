@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import ReactMarkdown from 'react-markdown';
@@ -64,19 +64,20 @@ const messages = defineMessages({
 
 const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
 
-const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
-  <Modal
-    onClose={onClose}
-    classNames={{
-      overlay: 'popup-overlay big',
-    }}
-    disableBodyScroll
-  >
-    {content}
-  </Modal>
-) : (
-  content
-));
+const Canvas = (content, { mode, onClose }) =>
+  (mode === 'modal' ? (
+    <Modal
+      onClose={onClose}
+      classNames={{
+        overlay: 'popup-overlay big',
+      }}
+      disableBodyScroll
+    >
+      {content}
+    </Modal>
+  )
+    : content
+  );
 
 export default ({
   title, // optional. specify form title
@@ -97,6 +98,7 @@ export default ({
   hideCancel,
   member, // optional preloaded member,
   schema, // optional preloaded member schema
+  userRole,
 }) => {
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(getRes), {
@@ -142,12 +144,13 @@ export default ({
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
+          onClick={() =>
+            (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
         >
           {m(messages.confirm)}
         </button>
       </div>,
-      { mode }
+      { mode },
     );
   }
 
@@ -159,10 +162,11 @@ export default ({
           <button
             type="button"
             className="btn btn-danger margin-top-sm"
-            onClick={() => axios
-              .delete(saveRes)
-              .then(onRemove)
-              .catch(() => setStep('removeFail'))}
+            onClick={() =>
+              axios
+                .delete(saveRes)
+                .then(onRemove)
+                .catch(() => setStep('removeFail'))}
           >
             {m(messages.confirmRemove)}
           </button>
@@ -171,13 +175,14 @@ export default ({
           <button
             type="button"
             className="btn btn-default margin-top-sm"
-            onClick={() => (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
+            onClick={() =>
+              (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
           >
             {m(messages.cancel)}
           </button>
         </div>
       </div>,
-      { mode }
+      { mode },
     );
   }
 
@@ -226,6 +231,7 @@ export default ({
               patch: saveRes,
               post: saveRes,
             }}
+            role={userRole}
             values={loadedMember}
             schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}
@@ -256,9 +262,10 @@ export default ({
                             ? 'btn btn-default btn-block margin-top-sm'
                             : 'btn btn-default'
                         }
-                        onClick={() => (mode === 'modal'
-                          ? onCloseModalRequest()
-                          : setStep('success'))}
+                        onClick={() =>
+                          (mode === 'modal'
+                            ? onCloseModalRequest()
+                            : setStep('success'))}
                       >
                         {m(messages.cancel)}
                       </button>
@@ -283,6 +290,6 @@ export default ({
     {
       mode,
       onClose: onCloseModalRequest,
-    }
+    },
   );
 };

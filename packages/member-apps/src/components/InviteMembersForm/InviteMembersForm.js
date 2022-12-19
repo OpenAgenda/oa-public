@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 import { Spinner } from '@openagenda/react-shared';
 import {
-  renderField,
   renderTextarea,
   renderSelect,
   renderMarkdownInput,
@@ -20,16 +19,13 @@ export default class InviteMembersForm extends Component {
 
   constructor(props) {
     super(props);
-    this.renderField = renderField.bind(this);
     this.renderTextarea = renderTextarea.bind(this);
     this.renderSelect = renderSelect.bind(this);
     this.renderMarkdownInput = renderMarkdownInput.bind(this);
   }
 
   render() {
-    const {
-      onSubmit, userCredential, agenda, inviteLoading
-    } = this.props;
+    const { onSubmit, userCredential, agenda, inviteLoading } = this.props;
     const {
       credentials: { invitationMessage },
     } = agenda;
