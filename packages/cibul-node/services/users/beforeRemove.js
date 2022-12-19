@@ -10,7 +10,7 @@ module.exports = function beforeRemove() {
   return async ctx => {
     const {
       activities: activitiesSvc,
-      members: membersSvc
+      members: membersSvc,
     } = ctx.self.config.services;
     const user = ctx.params.before;
 
@@ -23,8 +23,8 @@ module.exports = function beforeRemove() {
       await promisify(
         activitiesSvc.feed({
           entityType: 'user',
-          entityUid: user.uid
-        }).remove
+          entityUid: user.uid,
+        }).remove,
       )();
 
       log('anonymizing activities for user %s', user.uid);
@@ -48,10 +48,10 @@ module.exports = function beforeRemove() {
               ...member.custom,
               contactNumber: null,
               contactName: null,
-              email: null
+              email: null,
             },
           },
-          { requireCustom: false }
+          { requireCustom: false },
         );
       } catch (err) {
         log('error', 'could not remove member ', err);

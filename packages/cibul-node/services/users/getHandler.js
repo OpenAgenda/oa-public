@@ -1,3 +1,5 @@
+'use strict';
+
 const { HookContext } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
 const { omit } = require('@feathersjs/commons')._;
@@ -6,7 +8,7 @@ const log = require('@openagenda/logs')('services/users/getHandler');
 const statusCodes = {
   created: 201,
   noContent: 204,
-  methodNotAllowed: 405
+  methodNotAllowed: 405,
 };
 const methodMap = {
   find: 'GET',
@@ -14,7 +16,7 @@ const methodMap = {
   create: 'POST',
   update: 'PUT',
   patch: 'PATCH',
-  remove: 'DELETE'
+  remove: 'DELETE',
 };
 
 function getAllowedMethods(service, routes) {
@@ -33,7 +35,7 @@ function getAllowedMethods(service, routes) {
 }
 
 function makeArgsGetter(argsOrder) {
-  return (req, params) => argsOrder.map((argName) => {
+  return (req, params) => argsOrder.map(argName => {
     switch (argName) {
       case 'id':
         return req.params.__feathersId || null;
@@ -41,6 +43,8 @@ function makeArgsGetter(argsOrder) {
         return req.body;
       case 'params':
         return params;
+      default:
+        return null;
     }
   });
 }
@@ -49,11 +53,10 @@ function makeArgsGetter(argsOrder) {
 // `getArgs` is a function that should return additional leading service arguments
 module.exports = function getHandler(method, argsOrder) {
   return (service, routes = []) => {
-
     const getArgs = makeArgsGetter(argsOrder);
     const allowedMethods = routes.length ? getAllowedMethods(service, routes) : null;
 
-    return function (req, res, next) {
+    return (req, res, next) => {
       const { query } = req;
       const route = omit(req.params, '__feathersId');
 
@@ -71,12 +74,10 @@ module.exports = function getHandler(method, argsOrder) {
 
       // Grab the service parameters. Use req.feathers
       // and set the query to req.query merged with req.params
-      const params = Object.assign({
-        query, route
-      }, req.feathers);
+      const params = { query, route, ...req.feathers };
 
       Object.defineProperty(params, '__returnHook', {
-        value: true
+        value: true,
       });
 
       const args = getArgs(req, params);
@@ -85,7 +86,7 @@ module.exports = function getHandler(method, argsOrder) {
 
       const context = new HookContext({
         provider: 'rest',
-        headers: req.headers
+        headers: req.headers,
       });
 
       service[method](...args, context)
@@ -107,7 +108,7 @@ module.exports = function getHandler(method, argsOrder) {
           return next();
         })
         .catch(error => {
-          log.debug(`Error in handler:`, error);
+          log.debug('Error in handler:', error);
           res.hook = context;
 
           return next(error);

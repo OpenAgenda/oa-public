@@ -3,20 +3,20 @@
 module.exports = async function getAgendaUserEventStats(core, identifier, agendaUid, options = []) {
   const {
     services: {
-      events
-    }
+      events,
+    },
   } = core;
 
   // list drafts
   const {
-    total: drafts
+    total: drafts,
   } = await events.list({
     ownerUid: identifier,
-    agendaUid
+    agendaUid,
   }, { limit: 0 }, { total: true, draft: true });
 
   const {
-    relation = []
+    relation = [],
   } = options;
 
   let userFilterKey = 'ownerUid';
@@ -28,22 +28,22 @@ module.exports = async function getAgendaUserEventStats(core, identifier, agenda
   }
 
   const userFilter = {
-    [userFilterKey]: identifier
+    [userFilterKey]: identifier,
   };
 
   // list events
   const states = await core.agendas(agendaUid).events.search({
     state: null,
-    ...userFilter
+    ...userFilter,
   }, {
-    size: 0
+    size: 0,
   }, {
     aggregations: ['states'],
-    access: 'internal'
+    access: 'internal',
   }).then(({ aggregations }) => aggregations.states);
 
   return {
     states,
-    drafts
+    drafts,
   };
 };

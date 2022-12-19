@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 module.exports = function onActivation() {
   return async context => {
@@ -8,7 +8,7 @@ module.exports = function onActivation() {
       invitations,
       activities,
       users,
-      inboxes: { Inbox }
+      inboxes: { Inbox },
     } = context.services;
     const user = context.result;
 
@@ -17,10 +17,10 @@ module.exports = function onActivation() {
     }
 
     await users.generateApiKey(user.uid, {
-      publicKey: true
+      publicKey: true,
     });
 
-    new Inbox().create( { type: 'user', identifier: user.uid } ).then( _.noop );
+    new Inbox().create({ type: 'user', identifier: user.uid }).then(_.noop);
 
     try {
       await activities.feed({

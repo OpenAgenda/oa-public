@@ -43,38 +43,38 @@ const disallow = (...args) => async (context, next) => {
 
 module.exports = {
   find: [
-    disallow('external')
+    disallow('external'),
   ],
   get: [
     restrictToCurrentUserIfExternal(),
-    populateAnnouncement()
+    populateAnnouncement(),
   ],
   create: [
-    restrictToUnloggedIfExternal()
+    restrictToUnloggedIfExternal(),
   ],
   update: [
-    disallow()
+    disallow(),
   ],
   patch: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   remove: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   requestChangeEmail: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   confirmChangeEmail: [],
   changePassword: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   generateApiKey: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   setNewFlag: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   refresh: [
-    restrictToCurrentUserIfExternal()
-  ]
+    restrictToCurrentUserIfExternal(),
+  ],
 };

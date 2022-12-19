@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const { hooks, registerContextUpdater, withProps } = require('@feathersjs/hooks');
@@ -24,7 +24,7 @@ const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
 const verifySuperAdmin = require('./middleware/verifySuperAdmin');
 const getHandler = require('./getHandler');
-const svcHooks = require('./hooks.js');
+const svcHooks = require('./hooks');
 const notifyAndRemove = require('./tasks/notifyAndRemove');
 
 function replaceIdMe() {
@@ -43,11 +43,6 @@ function replaceIdMe() {
   };
 }
 
-module.exports = {
-  init,
-  plugApp
-};
-
 function plugApp(app) {
   const cmn = require('../../lib/commons-app'); // avoid circular reference
   const service = app.services.users;
@@ -58,11 +53,13 @@ function plugApp(app) {
   app.use(
     '/users',
     (req, res, next) => {
+      const isAuthenticated = !!req.user;
       req.feathers.user = req.user;
-      req.feathers.authenticated = req.authenticated = !!req.user;
+      req.authenticated = isAuthenticated;
+      req.feathers.authenticated = isAuthenticated;
 
       next();
-    }
+    },
   );
 
   app.use('/users/me', service.upload.middleware([{ name: 'image', unique: true }]));
@@ -79,7 +76,7 @@ function plugApp(app) {
 
   app.patch(
     '/users/:__feathersId/requestChangeEmail',
-    getHandler('requestChangeEmail', ['id', 'data', 'params'])(service)
+    getHandler('requestChangeEmail', ['id', 'data', 'params'])(service),
   );
   app.get('/users/:__feathersId/confirmChangeEmail', getHandler('confirmChangeEmail', ['id', 'params'])(service));
   app.patch('/users/:__feathersId/changePassword', getHandler('changePassword', ['id', 'data', 'params'])(service));
@@ -91,30 +88,30 @@ function plugApp(app) {
   app.patch(
     '/users/:__feathersId',
     sessions.mw.open('user', 'sessionResult'),
-    resyncSession()
+    resyncSession(),
   );
 
   // send confirmation email after requestChangeEmail
   app.patch(
     '/users/:__feathersId/requestChangeEmail',
-    sendChangeEmail(service)
+    sendChangeEmail(service),
   );
 
   // set flash message after confirm change of email
   app.get(
     '/users/:__feathersId/confirmChangeEmail',
-    setFlashChangeEmail()
+    setFlashChangeEmail(),
   );
 
   // set flash & redirect message after account deletion
   app.delete(
     '/users/:__feathersId',
-    setFlashAccountRemoved()
+    setFlashAccountRemoved(),
   );
 
   app.use('/users', express.errorHandler({
     html: (err, req, res) => cmn.catchError(req, res)(err),
-    logger: null
+    logger: null,
   }));
 }
 
@@ -125,11 +122,11 @@ async function init(config, services) {
     id: 'id',
     paginate: {
       default: 20,
-      max: 100
+      max: 100,
     },
     interfaces: {
-      sendToken: sendToken.bind(null, config)
-    }
+      sendToken: sendToken.bind(null, config),
+    },
   });
 
   const service = new Users({
@@ -137,12 +134,12 @@ async function init(config, services) {
     name: config.schemas.user,
     paginate: {
       default: 20,
-      max: 100
+      max: 100,
     },
     multi: true,
     schemas: _.pick(config.schemas, [
       // explicit list schemas used by service
-      'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken'
+      'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken',
     ]),
     imagePath: config.aws.imageBucketPath,
     Files: services.files,
@@ -161,29 +158,34 @@ async function init(config, services) {
       keys: {
         get: identifiers => keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
         create: (identifiers, data) => keys(identifiers).create(data),
-        remove: identifiers => keys(identifiers).remove()
-      }
+        remove: identifiers => keys(identifiers).remove(),
+      },
     },
-    logger: config.getLogConfig('svc', 'users', false)
+    logger: config.getLogConfig('svc', 'users', false),
   });
 
   registerContextUpdater(service, withProps({ services }));
 
   hooks(service, [
-    replaceIdMe()
+    replaceIdMe(),
   ]);
   hooks(service, svcHooks);
 
   service.mw = {
     loadBySessionOrKey,
-    verifySuperAdmin: verifySuperAdmin(config.superAdminIds)
+    verifySuperAdmin: verifySuperAdmin(config.superAdminIds),
   };
 
   services.tokens = tokensService;
 
   service.tasks = {
-    notifyAndRemove: notifyAndRemove(services)
+    notifyAndRemove: notifyAndRemove(services),
   };
 
   return service;
 }
+
+module.exports = {
+  init,
+  plugApp,
+};
