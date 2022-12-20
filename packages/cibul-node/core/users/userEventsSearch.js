@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = async function userEventsSearch(core, identifier, agendaUid, query, nav, options = {}) {
-  const isOwn = parseInt(options.userUid, identifier) === parseInt(identifier, 10);
+  const isOwn = parseInt(options.userUid, 10) === parseInt(identifier, 10);
   const searchOptions = {
     ...options,
   };

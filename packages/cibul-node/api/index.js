@@ -484,6 +484,7 @@ module.exports = core => {
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events.search({
+        ...req.query,
         relation: ['contributed', 'owned'],
       }, req.query, {
         useAfterKey: true,
