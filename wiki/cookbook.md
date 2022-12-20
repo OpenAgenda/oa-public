@@ -488,3 +488,31 @@ NextJS est désormais intégré au projet, directement dans le package `cibul-no
 En développement, les 2 process sont lancés via le scripts "start" ou "watch" qui se servent du package `concurrently`. En production, les 2 process sont gérés par `pm2` qui fonctionne en mode cluster: 2 core pour nextJs, 6 pour le serveur.
 
 Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger.  Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
+
+## Histoires
+
+### L'ancien export JSON
+
+Le 20/12/2022
+
+Elasticsearch est un logiciel qui nous permet de faire des recherches plus efficacement que ce que permet une base de données classique.
+
+On a actuellement deux installations Elasticsearch. La première date de 2014 (version 1.3), la deuxième date de 2018 (version 5, puis 7).
+
+Nos clients historiquement utilisent un point de lecture des données qu'on appelle l'export JSON. Il porte ce nom parce qu'on l'a présenté à coté des autres exports directement sur les pages agendas, chacun portant le nom de leurs formats (CSV, PDF, iCal.. JSON).
+
+Son URL ressemble à ça: `https://openagenda.com/agendas/{agendaUid}/events.json`
+
+L'(ancien) export JSON utilise l'installation Elasticsearch 1.3 comme source principale de données.
+
+Depuis, on a développé un remplaçant qui lui utilise l'installation Elasticsearch 7 comme source et qu'on a ajouté directement à notre API - c'est l'endroit où les développeurs s'attendent à voir les ressources OpenAgenda qu'ils peuvent exploiter programmatiquement. Le format est également du JSON.
+
+Son url: `https://api.openagenda.com/v2/agendas/{agendaUid}/events`
+
+Quelques différences de format existent entre les deux points, elles sont documentées ici: https://developers.openagenda.com/50-migration/
+
+Un nombre non négligeable de scripts de synchronisations utilisent encore l'ancien JSON (celui de 2014) et nous souhaitons éteindre l'installation Elasticsearch 1.3 qui doublonne avec la plus récente: une librairie effectuant une conversion de formats a été développée pour pouvoir brancher le flux de données de l'installation Elasticsearch 7 sur l'url de l'ancien export JSON - ce qui nous permet de ne pas contraindre tous nos utilisateurs d'adapter leurs script pour que nous puissions avancer sur nos développements.
+
+Dans notre admin agenda, cette passerelle est activée sur le toggle "JSON export V1 is generated from the V2 format" - il est aujourd'hui activé sur tous les agendas sauf 800 à peu près.
+
+Je viens de désactiver celui de Bordeaux tourisme: une exception s'affichait sur l'ancien export JSON. Un problème se situe sur la conversion des données.
