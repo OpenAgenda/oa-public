@@ -1,22 +1,33 @@
 'use strict';
 
 const { promisify } = require('util');
-const log = require('@openagenda/logs')('services/users/beforeRemove');
+const logs = require('@openagenda/logs');
 
-/**
- * this interface will prevent user removal if not correctly executed
- */
-module.exports = function beforeRemove() {
-  return async ctx => {
+async function resyncMemberEvents({ core, log, agendaUid, userUid }) {
+  log('resyncing events of agenda %s after user %s removal', agendaUid, userUid);
+  const stream = await core.agendas(agendaUid).events.search({
+    memberUid: userUid,
+    state: null,
+  }, null, {
+    stream: true,
+    access: 'internal',
+  });
+
+  for await (const event of stream) {
+    await core.agendas(agendaUid).events.search.resyncEvent(event.uid);
+    log('event %s was resynced following removal of user %s', event.uid, userUid);
+  }
+}
+
+module.exports = function anonymizeDeletedUser(services) {
+  const log = logs('services/users/tasks/anonymizeUser');
+  return async ({ user }) => {
     const {
+      core,
       activities: activitiesSvc,
       members: membersSvc,
-    } = ctx.self.config.services;
-    const user = ctx.params.before;
-
-    if (!user) {
-      return ctx;
-    }
+      tracker,
+    } = services;
 
     if (activitiesSvc) {
       log('removing user feed for user %s', user.uid);
@@ -54,8 +65,16 @@ module.exports = function beforeRemove() {
           { requireCustom: false },
         );
       } catch (err) {
-        log('error', 'could not remove member ', err);
+        log('error', 'could not mark member as removed', err);
       }
+
+      const {
+        agendaUid,
+      } = member;
+
+      await resyncMemberEvents({ core, agendaUid, userUid: user.uid, log });
     }
+
+    tracker('users.anonymizeDeletedUser.done');
   };
 };

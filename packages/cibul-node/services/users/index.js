@@ -3,10 +3,11 @@
 const _ = require('lodash');
 const { hooks, registerContextUpdater, withProps } = require('@feathersjs/hooks');
 
+const logs = require('@openagenda/logs');
 const Users = require('@openagenda/users');
 
 const beforeCreate = require('./lib/beforeCreate');
-const beforeRemove = require('./lib/beforeRemove');
+const onRemove = require('./lib/onRemove');
 const onCreate = require('./lib/onCreate');
 const onUpdate = require('./lib/onUpdate');
 const onPatch = require('./lib/onPatch');
@@ -19,14 +20,23 @@ const verifySuperAdmin = require('./middleware/verifySuperAdmin');
 
 const svcHooks = require('./hooks');
 const notifyAndRemove = require('./tasks/notifyAndRemove');
+const anonymizeDeletedUser = require('./tasks/anonymizeDeletedUser');
 
 const plugApp = require('./plugApp');
 
 async function init(config, services) {
+  const log = logs('services/users');
   const {
     agendas,
     keys,
+    queues,
   } = services;
+
+  const queue = queues('users');
+
+  queue.register({
+    anonymizeDeletedUser: anonymizeDeletedUser(services),
+  });
 
   const tokensService = new Users.Tokens({
     Model: config.knex,
@@ -58,7 +68,7 @@ async function init(config, services) {
     services,
     getTokensService: () => tokensService,
     interfaces: {
-      beforeRemove,
+      onRemove: onRemove.bind(null, { queue }),
       beforeCreate: beforeCreate.bind(null, config, services),
       onCreate: onCreate.bind(null, config, services),
       onUpdate: onUpdate.bind(null, config, services),
@@ -91,6 +101,10 @@ async function init(config, services) {
   services.tokens = tokensService;
 
   service.tasks = {
+    processQueue: () => {
+      log('processQueue task');
+      queue.run();
+    },
     notifyAndRemove: notifyAndRemove(services),
   };
 
