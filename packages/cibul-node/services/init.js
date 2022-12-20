@@ -50,9 +50,9 @@ module.exports = async function (configObject, options = {}) {
   await init('queues', require('./queues'));
   await init('discord', require ('./discord'));
   await init('files', require('./files'));
+  await init('abilities', require('./abilities'));
   await init('keys', require('./keys'));
   await init('users', require('./users'));
-  await init('abilities', require('./abilities'));
   await init('accessTokens', require('./accessTokens'));
   await init('activities', require('./activities'));
   await init('activityApps', require('./activityApps'));
