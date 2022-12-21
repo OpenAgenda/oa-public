@@ -37,8 +37,8 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         'users',
         'keys',
         'accessTokens',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -49,7 +49,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
     } catch (e) { /* */ }
   });
@@ -74,7 +74,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
     it('event is removed from agenda search', async () => {
       const {
-        total
+        total,
       } = await core.agendas(17026800).events.search({ uid: 19201989 });
       expect(searchResultBefore.total).toBe(1);
       expect(total).toBe(0);
@@ -143,11 +143,11 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -158,8 +158,8 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
-          nonce: 129038
-        }
+          nonce: 129038,
+        },
       }).then(r => r.data);
     });
 
@@ -178,8 +178,8 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
-          nonce: 12987897
-        }
+          nonce: 12987897,
+        },
       }).then(() => {}, err => err.response);
 
       expect(errorResponse.status).toBe(404);

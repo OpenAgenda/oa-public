@@ -2,12 +2,12 @@
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
 
 const raw = resetAndCreateTables();
 
-raw.push( knex( 'agenda' ).insert( [ {
+raw.push(knex('agenda').insert([{
   id: 13901,
   title: 'Custom fielded agenda',
   slug: 'custom_fielded_agenda',
@@ -16,7 +16,7 @@ raw.push( knex( 'agenda' ).insert( [ {
   form_schema_id: 26,
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06',
-  store: JSON.stringify( `{
+  store: JSON.stringify(`{
     "customFields": [ {
       "name": "cle_session",
       "label": {
@@ -31,7 +31,7 @@ raw.push( knex( 'agenda' ).insert( [ {
       "optional": true,
       "type": "private"
     } ]
-  }` )
+  }`),
 }, {
   id: 13902,
   title: 'Custom fielded agenda with network',
@@ -42,7 +42,7 @@ raw.push( knex( 'agenda' ).insert( [ {
   network_uid: 1,
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06',
-  store: JSON.stringify( `{
+  store: JSON.stringify(`{
     "customFields": [ {
       "name": "cle_session",
       "label": {
@@ -57,27 +57,27 @@ raw.push( knex( 'agenda' ).insert( [ {
       "optional": true,
       "type": "private"
     } ]
-  }` )
-} ] ) );
+  }`),
+}]));
 
-raw.push( knex( 'network' ).insert( {
+raw.push(knex('network').insert({
   id: 1,
   uid: 1,
   title: 'My very second network',
   form_schema_id: 27,
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-} ) );
+  updated_at: '2016-01-18 16:14:06',
+}));
 
-raw.push( knex( 'user' ).insert( {
+raw.push(knex('user').insert({
   id: 1,
   full_name: 'Kevin B.',
   uid: 92,
   password: 'xxx',
   salt: 'xxx',
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-} ) );
+  updated_at: '2016-01-18 16:14:06',
+}));
 
 raw.push(knex('reviewer').insert({
   id: 1,
@@ -87,10 +87,10 @@ raw.push(knex('reviewer').insert({
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06',
   agenda_uid: 60935574,
-  user_uid: 92
+  user_uid: 92,
 }));
 
-raw.push( knex( 'location' ).insert( {
+raw.push(knex('location').insert({
   id: 1,
   slug: 'la-boutique',
   placename: 'La boutique',
@@ -99,11 +99,10 @@ raw.push( knex( 'location' ).insert( {
   longitude: 1,
   uid: 65208887,
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-} ) );
+  updated_at: '2016-01-18 16:14:06',
+}));
 
-
-raw.push( knex( 'form_schema' ).insert( [ {
+raw.push(knex('form_schema').insert([{
   id: 27,
   store: `{
     "nextOptionId": 1,
@@ -117,7 +116,7 @@ raw.push( knex( 'form_schema' ).insert( [ {
       "optional" : true,
       "fieldType" : "text"
     } ]
-  }`
+  }`,
 }, {
   id: 26,
   store: `{
@@ -543,7 +542,7 @@ raw.push( knex( 'form_schema' ).insert( [ {
       "fieldType": "radio"
     }
   ]
-}`
-} ] ) );
+}`,
+}]));
 
-module.exports = raw.join( ';\n' ) + ';';
+module.exports = `${raw.join(';\n')};`;

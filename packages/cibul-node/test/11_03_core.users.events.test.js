@@ -33,8 +33,8 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -60,20 +60,20 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
       expect(result.total).toBe(2);
       expect(result.events.map(e => e.uid)).toEqual([
         19201989,
-        19390293
+        19390293,
       ]);
     });
 
     it('list events owned or contributed by user in agenda', async () => {
       const result = await core.users(63170203).agendas(17026855).events.search({
-        relation: ['owned', 'contributed']
+        relation: ['owned', 'contributed'],
       }, {});
 
       expect(result.total).toBe(3);
       expect(result.events.map(e => e.uid)).toEqual([
         19201989,
         19390293,
-        99999999
+        99999999,
       ]);
     });
   });

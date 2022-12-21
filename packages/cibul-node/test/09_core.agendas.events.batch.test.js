@@ -1,15 +1,12 @@
 'use strict';
 
-const _ = require('lodash');
-
-const loadFixtures = require('./fixtures/load');
-
 const Services = require('../services/init');
 const Core = require('../core');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-describe('09 - core - fuctional (server): core.agendas().events.batch()', function() {
+describe('09 - core - fuctional (server): core.agendas().events.batch()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '010.sql'));
@@ -35,8 +32,8 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
         'networks',
         'legacy',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -50,21 +47,21 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
   });
 
   describe('basic batch', () => {
-    beforeAll(done => {
+    beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
-        state: 0
+        state: 0,
       }, { state: 1 }, {
-        userUid: 1
+        userUid: 1,
       });
 
       core.tasks({
-        execute: function(...args) {},
-        error: function(...args) { done(args); },
-        success: function(...args) {
-          if(args[0] === 'batchedPatch') return done();
-        }
+        execute() {},
+        error(...args) { done(args); },
+        success(...args) {
+          if (args[0] === 'batchedPatch') return done();
+        },
       });
-    });
+    }));
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });
@@ -74,27 +71,26 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
       const event = await core.agendas(99501607).events.get(89898798);
       expect(event.state).toBe(1);
     });
-
   });
 
   describe('batch using search', () => {
-    beforeAll(done => {
+    beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
         city: 'Arles',
-        state: null
+        state: null,
       }, { state: 2 }, {
         userUid: 1,
-        search: true
+        search: true,
       });
 
       core.tasks({
-        execute: function(...args) {},
-        error: function(...args) { done(args); },
-        success: function(...args) {
-          if(args[0] === 'batchedPatch') return done();
-        }
+        execute() {},
+        error(...args) { done(args); },
+        success(...args) {
+          if (args[0] === 'batchedPatch') return done();
+        },
       });
-    });
+    }));
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });
@@ -104,6 +100,5 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
       const event = await core.agendas(99501607).events.get(20774404);
       expect(event.state).toBe(2);
     });
-  })
-
+  });
 });

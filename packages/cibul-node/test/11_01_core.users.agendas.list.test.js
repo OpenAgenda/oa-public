@@ -37,8 +37,8 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -75,13 +75,13 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         phone: null,
         position: null,
         role: 'contributor',
-        userUid: 1
+        userUid: 1,
       });
     });
 
     it('detailed option provides more data per item', async () => {
       const {
-        items
+        items,
       } = await core.users({ uid: 1 }).agendas.list({ limit: 2 }, { detailed: 1 });
 
       ['summary', 'schema', 'settings'].forEach(field => {
@@ -97,10 +97,10 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       let after = null;
       do {
         const result = await core.users({
-          uid: 1
+          uid: 1,
         }).agendas.list({
           limit: 2,
-          after
+          after,
         });
 
         after = result.after;
@@ -116,7 +116,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         'Un agenda thématique',
         'Les Plus Beaux Villages de France',
         "Office de tourisme La Baule - Presqu'île de Guérande",
-        'Parc de la Villette'
+        'Parc de la Villette',
       ]);
     });
 
@@ -140,7 +140,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/me/agendas?key=${key}`
+          url: `http://localhost:3000/me/agendas?key=${key}`,
         }).then(r => r.data);
       });
 
@@ -149,7 +149,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
           'total',
           'after',
           'items',
-          'success'
+          'success',
         ]);
       });
     });

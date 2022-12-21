@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 
 const load = loadObjectFromFile({
@@ -29,20 +28,20 @@ raw.push(knex('user').insert([
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...load('sql/apiKeySets/01.json'), user_id: 50304 },
-  { ...load('sql/apiKeySets/02.json'), user_id: 1 },
+  load('sql/apiKeySets/01.json', { user_id: 50304 }),
+  load('sql/apiKeySets/02.json', { user_id: 1 }),
 ]));
 
-raw.push(knex('form_schema').insert([{
-  id: 2,
-  store: fs.readFileSync(`${__dirname}/form-schemas/1.json`),
-}, {
-  id: 3,
-  store: JSON.stringify({
-    fields: [],
-    nextOptionId: 1,
-  }),
-}]));
+raw.push(knex('form_schema').insert([
+  load('form-schemas/1.json', fxSchema => ({ id: 2, store: JSON.stringify(fxSchema) })),
+  {
+    id: 3,
+    store: JSON.stringify({
+      fields: [],
+      nextOptionId: 1,
+    }),
+  },
+]));
 
 raw.push(knex('reviewer').insert([
   load('sql/members/71385.json', {

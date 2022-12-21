@@ -8,7 +8,6 @@ const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
-const flattenMemberInfo = require('../core/agendas/utils/flattenMemberInfo');
 
 describe('08 - core - functional (server): core.agendas().members.list', () => {
   let core;
@@ -133,7 +132,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         {
           userUid: 1,
           transform: m => m.userUid,
-        }
+        },
       );
 
       return new Promise(rs => {

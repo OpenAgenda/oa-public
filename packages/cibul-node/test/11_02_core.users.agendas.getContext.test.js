@@ -33,8 +33,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -50,7 +50,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
       beforeAll(async () => {
         context = await core.users(63170203).agendas(17026855).events(19390293).getContext({
-          userUid: 1
+          userUid: 1,
         });
       });
 
@@ -62,7 +62,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           canPublish: false,
           canEditEvent: true,
           canCreateEvent: true,
-          canContribute: true
+          canContribute: true,
         });
       });
 
@@ -78,7 +78,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       it('includes option can be used to fetch limited information', async () => {
         const sample = await core.users(63170203).agendas(17026855).events(19390293).getContext({
           userUid: 1,
-          includes: 'me.authorizations'
+          includes: 'me.authorizations',
         });
         expect(Object.keys(sample)).toEqual(['me']);
         expect(Object.keys(sample.me)).toEqual(['authorizations']);
@@ -90,7 +90,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
       beforeAll(async () => {
         context = await core.users(63170203).agendas(17026855).events(83902931).getContext({
-          userUid: 1
+          userUid: 1,
         });
       });
 
@@ -106,7 +106,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
       beforeAll(async () => {
         context = await core.users(63170203).agendas(17026855).getContext({
-          userUid: 63170203
+          userUid: 63170203,
         });
       });
 
@@ -118,13 +118,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           canPublish: false,
           canEditEvent: false,
           canCreateEvent: true,
-          canContribute: true
+          canContribute: true,
         });
       });
 
       it('context provides member information', () => {
         expect(
-          Object.keys(context.me.member).sort()
+          Object.keys(context.me.member).sort(),
         ).toEqual([
           'deletedUser',
           'email',
@@ -134,7 +134,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           'position',
           'role',
           'updatedAt',
-          'userUid'
+          'userUid',
         ]);
       });
     });
@@ -147,8 +147,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           userUid: 63170203,
           includes: [
             'me.events',
-            'events'
-          ]
+            'events',
+          ],
         });
       });
 
@@ -163,7 +163,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       it('me.events provides count of events contributed by user per state', () => {
         expect(contributorContext.me.events.states).toEqual([{
           eventCount: 2,
-          key: 2
+          key: 2,
         }]);
       });
     });
@@ -176,8 +176,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           userUid: 1,
           includes: [
             'me.events',
-            'events'
-          ]
+            'events',
+          ],
         });
       });
 
@@ -185,8 +185,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         expect(administratorContext.events).toEqual({
           states: [{
             key: 2,
-            eventCount: 3
-          }]
+            eventCount: 3,
+          }],
         });
       });
     });

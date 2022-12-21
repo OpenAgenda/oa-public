@@ -77,9 +77,13 @@ raw.push(knex('location_set').insert([{
   updated_at: new Date(),
 }]));
 
-raw.push(knex('form_schema').insert([2, 5, 6, 8].map(id => ({
-  id,
-  store: JSON.stringify(load(`./form-schemas/${id}.json`)),
-}))));
+raw.push(knex('form_schema').insert(
+  [2, 5, 6, { file: 'memberFormSchema', id: 8 }]
+    .map(item => (item instanceof Object ? item : { id: item, file: item }))
+    .map(({ id, file }) => ({
+      id,
+      store: JSON.stringify(load(`./form-schemas/${file}.json`)),
+    })),
+));
 
 module.exports = `${raw.join(';\n')};`;

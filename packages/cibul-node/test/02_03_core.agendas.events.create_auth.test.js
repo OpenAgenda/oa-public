@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-const assert = require('assert');
 const axios = require('axios');
 
 const api = require('../api');
@@ -10,7 +8,7 @@ const Services = require('../services/init');
 const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
-describe('02 - core - functional (server): core.agendas().events.create api authentication', function() {
+describe('02 - core - functional (server): core.agendas().events.create api authentication', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
@@ -40,8 +38,8 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
         'tracker',
         'images',
         'files',
-        'imageFiles'
-      ]
+        'imageFiles',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -52,16 +50,18 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
-    } catch (e) {}
+    } catch (e) {
+      // ignore
+    }
   });
 
-  describe('errors', function() {
+  describe('errors', () => {
     let server;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -74,22 +74,22 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
           method: 'post',
           url: 'http://localhost:3000/requestAccessToken',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
-            code: 'N0ty3poxNSTtdPJHUG6896UseQhM'
-          }
+            code: 'N0ty3poxNSTtdPJHUG6896UseQhM',
+          },
         }).then(() => {}, e => e);
 
         response = result.response;
       });
 
       it('code is 401 unauthorized', () => {
-        assert(response.status === 401);
+        expect(response.status).toBe(401);
       });
 
       it('message', () => {
-        assert(response.data.message === 'Invalid key');
+        expect(response.data.message).toBe('Invalid key');
       });
     });
 
@@ -102,11 +102,11 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
           method: 'post',
           url: 'http://localhost:3000/requestAccessToken',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
-            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM'
-          }
+            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+          },
         }).then(r => r.data.access_token);
       });
 
@@ -117,18 +117,15 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
           headers: {
             'access-token': accessToken,
             nonce: 123,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
-          data: {/* should not reach validation */}
+          data: {/* should not reach validation */},
         }).then(() => {}, e => e.response);
       });
 
       it('response status is 403', () => {
-        assert(response.status === 403);
+        expect(response.status).toBe(403);
       });
-
     });
-
   });
-
 });

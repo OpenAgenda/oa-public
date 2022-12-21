@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 
 const load = loadObjectFromFile({
@@ -50,25 +49,17 @@ raw.push(knex('network').insert([
   load('sql/networks/albi.json'),
 ]));
 
-raw.push(knex('form_schema').insert([{
-  id: 1,
-  store: JSON.stringify({ fields: [] }),
-}, {
-  id: 23483,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.network.json`),
-}, {
-  id: 23481,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`),
-}, {
-  id: 73,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.network.json`),
-}, {
-  id: 10522,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`),
-}, {
-  id: 8,
-  store: fs.readFileSync(`${__dirname}/form-schemas/memberFormSchema.json`),
-}]));
+raw.push(knex('form_schema').insert([
+  {
+    id: 1,
+    store: JSON.stringify({ fields: [] }),
+  },
+  load('form-schemas/albigeois.network.json', fs => ({ id: 23483, store: JSON.stringify(fs) })),
+  load('form-schemas/albigeois.agenda.json', fs => ({ id: 23481, store: JSON.stringify(fs) })),
+  load('form-schemas/albi.network.json', fs => ({ id: 73, store: JSON.stringify(fs) })),
+  load('form-schemas/albi.agenda.json', fs => ({ id: 10522, store: JSON.stringify(fs) })),
+  load('form-schemas/memberFormSchema.json', fs => ({ id: 8, store: JSON.stringify(fs) })),
+]));
 
 raw.push(knex('reviewer').insert([
   load('sql/members/01.json'), // user id 1, user uid 1, agenda uid 2, contributor
