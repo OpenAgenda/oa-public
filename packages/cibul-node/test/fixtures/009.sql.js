@@ -67,7 +67,7 @@ raw.push(knex('form_schema').insert([{
   store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`),
 }, {
   id: 8,
-  store: fs.readFileSync(`${__dirname}/form-schemas/8.json`),
+  store: fs.readFileSync(`${__dirname}/form-schemas/memberFormSchema.json`),
 }]));
 
 raw.push(knex('reviewer').insert([
