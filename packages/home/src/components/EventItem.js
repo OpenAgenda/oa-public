@@ -1,10 +1,10 @@
-import React from 'react';
 import { Image } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 
-const getEventEditLink = (res, event) => res.edit
-  .replace(':slug', event.agenda && event.agenda.slug)
-  .replace(':eventUid', event.uid);
+const getEventEditLink = (res, event) =>
+  res.edit
+    .replace(':slug', event.agenda && event.agenda.slug)
+    .replace(':eventUid', event.uid);
 
 const getEventShowLink = (res, event) => {
   if (event.draft) {
@@ -42,9 +42,7 @@ const getImagePath = image => {
   return `${base}/${filename}`;
 };
 
-function EventItem({
-  event, res, getLabel, lang
-}) {
+function EventItem({ event, res, getLabel, lang }) {
   return (
     <li
       key={event.uid}
@@ -57,7 +55,7 @@ function EventItem({
               src={getImagePath(event.image)}
               fallbackSrc={getImagePath(event.image).replace(
                 'cibuldev',
-                'cibul'
+                'cibul',
               )}
               className="media-object ill avatar"
               alt={getLocaleValue(event.title, lang) || getLabel('noTitle')}

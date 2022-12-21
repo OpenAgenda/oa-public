@@ -14,12 +14,12 @@ const maxHandledUsers = 3000;
 
 async function sendEmail(services, user, template, options = {}) {
   const {
-    send: doSend = true
+    send: doSend = true,
   } = options;
 
   const {
     mails,
-    core
+    core,
   } = services;
 
   if (!doSend) {
@@ -32,40 +32,40 @@ async function sendEmail(services, user, template, options = {}) {
   await mails.send({
     template,
     to: {
-      address: user.email
+      address: user.email,
     },
     lang: user.culture,
     data: {
       link: `${root}/signin`,
       logo: {
         src: `${root}/images/openagenda.png`,
-        width: '300px'
-      }
+        width: '300px',
+      },
     },
   });
 }
 
 async function removeActiveUsersFromStore(services, stateStore, uids, time) {
   const {
-    users: usersSvc
+    users: usersSvc,
   } = services;
 
   if (!uids.length) {
     return 0;
   }
 
-  const since = new Date((new Date()).getTime() - time);
+  const since = new Date(new Date().getTime() - time);
 
   const activeUsers = await usersSvc.find({
     query: {
       last_signin: {
-        $gte: since
+        $gte: since,
       },
       uid: {
-        $in: uids
+        $in: uids,
       },
-      $limit: limit
-    }
+      $limit: limit,
+    },
   }).then(r => r?.data);
 
   log('there are %s users from store that are now active and must not longer be processed by task', activeUsers.length);
@@ -80,30 +80,30 @@ async function removeActiveUsersFromStore(services, stateStore, uids, time) {
 async function loadInactiveUsers(services, time, uids = null) {
   const {
     users: usersSvc,
-    core
+    core,
   } = services;
 
   const {
-    domain
+    domain,
   } = core.getConfig();
 
-  const since = new Date((new Date()).getTime() - time);
+  const since = new Date(new Date().getTime() - time);
 
   log('getting users that did not sign in since %s', since);
 
   const query = {
     last_signin: {
-      $lte: since
+      $lte: since,
     },
     email: {
-      $notlike: `%@${domain}`
+      $notlike: `%@${domain}`,
     },
-    $limit: limit
+    $limit: limit,
   };
 
   if (uids) {
     query.uid = {
-      $in: uids
+      $in: uids,
     };
   }
 
@@ -112,7 +112,7 @@ async function loadInactiveUsers(services, time, uids = null) {
 
   while (offset + limit <= maxHandledUsers) {
     for (const user of await usersSvc.find({
-      query: { ...query, $skip: offset }
+      query: { ...query, $skip: offset },
     }).then(r => r?.data)) {
       users.push(user);
     }
@@ -124,11 +124,11 @@ async function loadInactiveUsers(services, time, uids = null) {
 
 function InactiveUserStateStore(services, prefix, options = {}) {
   const {
-    redis
+    redis,
   } = services;
 
   const {
-    onStateUpdate = () => {}
+    onStateUpdate = () => {},
   } = options;
 
   const pRedis = promisifyRedis(redis);
@@ -140,16 +140,16 @@ function InactiveUserStateStore(services, prefix, options = {}) {
     },
     get: async user => {
       log(`${prefix}${user.uid}`);
-      return JSON.parse((await pRedis.get(`${prefix}${user.uid}`)) || '{"sent": []}');
+      return JSON.parse(await pRedis.get(`${prefix}${user.uid}`) || '{"sent": []}');
     },
     del: async user => pRedis.del(`${prefix}${user.uid}`),
     list: () => pRedis.keys(`${prefix}*`)
-      .then(keys => keys.map(k => parseInt(k.substr(prefix.length), 10)))
+      .then(keys => keys.map(k => parseInt(k.substr(prefix.length), 10))),
   };
 }
 
 function getLastSendFromNow(state) {
-  return Math.ceil(((new Date()).getTime() - (new Date(state.sent[state.sent.length - 1].date)).getTime()) / (1000 * 60 * 60 * 24));
+  return Math.ceil((new Date().getTime() - new Date(state.sent[state.sent.length - 1].date).getTime()) / (1000 * 60 * 60 * 24));
 }
 
 async function loadUsers(services, storedUserUids) {
@@ -172,7 +172,7 @@ async function loadUsers(services, storedUserUids) {
 
 module.exports = services => async function notifyAndRemove(options = {}) {
   const {
-    users: usersSvc
+    users: usersSvc,
   } = services;
 
   const stateStore = InactiveUserStateStore(services, storePrefix, options);
@@ -185,7 +185,7 @@ module.exports = services => async function notifyAndRemove(options = {}) {
     second: 0,
     last: 0,
     removals: 0,
-    signedIn: await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime)
+    signedIn: await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime),
   };
 
   const users = await loadUsers(services, storedUserUids);

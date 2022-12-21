@@ -12,7 +12,7 @@ async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
 
   log('loadOtherUpdates');
   const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, {
-    excludeAgendaUid: agendaUid
+    excludeAgendaUid: agendaUid,
   }, 0, 1000).then(r => r.items.map(ae => ae.agendaUid));
 
   log('loadOtherUpdates: remainingAgendaUids: %j', remainingAgendaUids);
@@ -27,13 +27,13 @@ async function updateAgendaIndex(eventSearch, {
   agenda,
   formSchema,
   member,
-  event
+  event,
 }) {
   log('  updateAgendaIndex');
 
   const data = {
     ...event,
-    member
+    member,
   };
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
@@ -41,12 +41,12 @@ async function updateAgendaIndex(eventSearch, {
   log('  update agenda index', agenda.uid);
 
   await searchIndex.update({
-    uid: event.uid
+    uid: event.uid,
   }, data, {
     refresh: true,
     operation: 'index',
     formSchema,
-    agenda
+    agenda,
   });
 
   log('  updated');
@@ -55,7 +55,7 @@ async function updateAgendaIndex(eventSearch, {
 async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
   const {
     core,
-    tracker
+    tracker,
   } = services;
 
   log('  otherUpdate', agendaUid, eventUid);
@@ -64,11 +64,11 @@ async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
     event,
     member,
     formSchema,
-    agenda
+    agenda,
   } = await core.agendas(agendaUid).events.get(eventUid, {
     returnPayload: true,
     detailed: true,
-    access: 'internal'
+    access: 'internal',
   });
 
   if (tracker) {
@@ -79,7 +79,7 @@ async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
     agenda,
     formSchema,
     member,
-    event
+    event,
   });
 
   if (tracker) {
@@ -92,19 +92,19 @@ async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
 module.exports = (services, queue, eventSearch) => {
   const {
     agendaEvents,
-    tracker
+    tracker,
   } = services;
 
   queue.register({
     loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
-    otherUpdate: otherUpdate.bind(null, services, eventSearch)
+    otherUpdate: otherUpdate.bind(null, services, eventSearch),
   });
 
   return async ({
     agenda,
     member,
     formSchema,
-    event
+    event,
   }, options = {}) => {
     log('update', { agendaUid: agenda.uid, eventUid: event.uid, member: member?.userUid });
 
@@ -113,14 +113,14 @@ module.exports = (services, queue, eventSearch) => {
     }
 
     const {
-      updateOtherIndices = true
+      updateOtherIndices = true,
     } = options;
 
     await updateAgendaIndex(eventSearch, {
       agenda,
       formSchema,
       member,
-      event
+      event,
     });
 
     if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {

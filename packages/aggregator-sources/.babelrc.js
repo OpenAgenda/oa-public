@@ -8,12 +8,15 @@ module.exports = {
         reactIntl: {
           idInterpolationPattern: '[sha512:contenthash:base64:6]',
           extractFromFormatMessageCall: true,
-          ast: true
-        }
-      }
+          ast: true,
+        },
+        importSource: '@emotion/react',
+      },
     ],
-    require.resolve('@emotion/babel-preset-css-prop')
   ],
-  plugins: [require.resolve('@loadable/babel-plugin')],
-  sourceType: 'unambiguous'
+  plugins: [
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
+  ],
+  sourceType: 'unambiguous',
 };

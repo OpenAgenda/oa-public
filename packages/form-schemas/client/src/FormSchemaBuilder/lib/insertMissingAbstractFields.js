@@ -1,21 +1,24 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
+import isSameFormItem from './isSameFormItem';
+import getFormItemSlug from './getFormItemSlug';
+
 export default function insertMissingAbstractFields(schema, updatedMerge) {
   return ih(schema ?? { fields: [] }, {
     fields: {
       $set: updatedMerge.fields.map(f => {
-        const fieldIndex = _.findIndex(schema?.fields ?? [], sf => sf.field === f.field);
+        const index = _.findIndex(schema?.fields ?? [], sf => isSameFormItem(f, sf));
 
-        if (fieldIndex === -1) {
+        if (index === -1) {
           return {
-            field: f.field,
-            fieldType: 'abstract'
+            slug: getFormItemSlug(f),
+            type: 'abstract',
           };
         }
 
-        return schema.fields[fieldIndex];
-      })
-    }
+        return schema.fields[index];
+      }),
+    },
   });
 }

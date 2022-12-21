@@ -8,13 +8,13 @@ describe('98 - core unit - convertToDateHoursMinutesFormat', () => {
     const { timings } = convertToDateHoursMinutesFormat({ utils })({
       timings: [{
         begin: '2021-11-08T13:53+0200',
-        end: '2021-11-08T15:30+0200'
+        end: '2021-11-08T15:30+0200',
       }],
-      timezone: 'Europe/Paris'
+      timezone: 'Europe/Paris',
     });
 
     expect(
-      Object.keys(timings[0].begin)
+      Object.keys(timings[0].begin),
     ).toEqual(['date', 'hours', 'minutes']);
   });
 });

@@ -1,19 +1,19 @@
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SlateField from './SlateField';
 import HTMLSerializer from './HTMLSerializer';
 
 export default class HTMLField extends Component {
   shouldComponentUpdate(nextProps) {
     const {
-      value
+      value,
     } = this.props;
     return value !== nextProps.value;
   }
 
   onChange(value) {
     const {
-      onChange
+      onChange,
     } = this.props;
     onChange(HTMLSerializer.serialize(value));
   }
@@ -22,24 +22,26 @@ export default class HTMLField extends Component {
     const {
       value,
       field: {
-        default: defaultValue
-      }
+        default: defaultValue,
+      },
     } = this.props;
 
     const appliedValue = (value === null) && defaultValue ? defaultValue : value;
 
     return (
-      <SlateField {...ih(this.props, {
-        value: {
-          $set: HTMLSerializer.deserialize(appliedValue)
-        },
-        onChange: {
-          $set: v => this.onChange(v)
-        },
-        raw: {
-          $set: true
-        }
-      })}
+      <SlateField
+        {...ih(this.props, {
+          value: {
+            $set: HTMLSerializer.deserialize(appliedValue),
+          },
+          onChange: {
+            $set: v => this.onChange(v),
+          },
+          raw: {
+            $set: true,
+          },
+        })}
+        parentValue={appliedValue}
       />
     );
   }

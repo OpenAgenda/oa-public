@@ -18,7 +18,7 @@ module.exports = async (
     updateEventReference,
     enqueueRemove,
   },
-  data
+  data,
 ) => {
   const {
     agenda: sourceAgenda,
@@ -30,7 +30,7 @@ module.exports = async (
   } = data;
 
   const log = Log(
-    `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`
+    `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
   );
 
   if (
@@ -42,7 +42,7 @@ module.exports = async (
     log(
       `Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${
         aggregatorLimit ?? 'unlimited'
-      } events`
+      } events`,
     );
 
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {
@@ -50,7 +50,7 @@ module.exports = async (
         'info',
         'Limit %s has been reached reached on aggregator agenda uid %s. Not processed',
         aggregatorLimit,
-        aggregatorAgendaUid
+        aggregatorAgendaUid,
       );
       return;
     }
@@ -65,7 +65,7 @@ module.exports = async (
     rules,
     sourceAgendaFormSchema,
     aggregatorSchema,
-    event
+    event,
   );
 
   const payload = evaluateResult
@@ -82,7 +82,7 @@ module.exports = async (
     log(
       'aggregated checksum changed: stored %s vs new %s',
       reference?.aggregated,
-      aggregatedKey
+      aggregatedKey,
     );
   } else {
     log('aggregated checksum did not change');
@@ -119,11 +119,11 @@ module.exports = async (
     && !paths.updateIsRequired(
       reference.sourcePaths,
       event.sourcePaths,
-      sourceAgenda.uid
+      sourceAgenda.uid,
     )
   ) {
     log(
-      'Is referenced and should be through current source, but paths are unchanged. Not processed'
+      'Is referenced and should be through current source, but paths are unchanged. Not processed',
     );
     return;
   }
@@ -135,12 +135,12 @@ module.exports = async (
     updatedPaths = paths.getFiltered(reference.sourcePaths, sourceAgenda.uid);
   } else if (reference) {
     log(
-      'Is reference and should be through current source. Paths need to be updated'
+      'Is reference and should be through current source. Paths need to be updated',
     );
     updatedPaths = paths.getAmended(
       reference.sourcePaths,
       event.sourcePaths,
-      sourceAgenda.uid
+      sourceAgenda.uid,
     );
   }
 

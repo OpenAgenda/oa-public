@@ -347,6 +347,26 @@ module.exports = {
     "it": "Un calendario per selezionare una data",
     "io": "crwdns16464:0crwdne16464:0"
   },
+  "section": {
+    "fr": "Section",
+    "en": "Section"
+  },
+  "sectionType": {
+    "fr": "Titre de section / séparateur",
+    "en": "Section title / divider"
+  },
+  "sectionTypeInfo": {
+    "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
+    "en": "Displays a section head in the form creating a visual separation between the fields above and below"
+  },
+  "sectionLabel": {
+    "fr": "Titre",
+    "en": "Title"
+  },
+  "sectionInfo": {
+    "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
+    "en": "Leave this field empty if you wish to insert a separation without a title"
+  },
   "imageFieldType": {
     "fr": "Image",
     "en": "Image",
@@ -404,6 +424,30 @@ module.exports = {
     "es": "La selección de los horarios",
     "it": "Selezione del programma",
     "io": "crwdns14784:0crwdne14784:0"
+  },
+  "fileFieldType": {
+    "fr": "Fichier",
+    "en": "File",
+    "es": "Archivo",
+    "it": "File"
+  },
+  "ageFieldType": {
+    "fr": "Sélection de la tranche d'âge",
+    "en": "Selection of age group",
+    "es": "Selección del grupo de edad",
+    "it": "Selezione della fascia di età"
+  },
+  "longDescriptionFieldType": {
+    "fr": "Champ texte",
+    "en": "Text field",
+    "es": "Campo de texto",
+    "it": "Campo di testo"
+  },
+  "keywordsFieldType": {
+    "fr": "Mots-clés",
+    "en": "Keywords",
+    "es": "palabras claves",
+    "it": "parole chiave"
   },
   "buttonSave": {
     "fr": "Sauvegarder",
@@ -474,7 +518,7 @@ module.exports = {
   "requiredField": {
     "fr": "Obligatoire",
     "en": "Required",
-    "es": "obligatorio",
+    "es": "Obligatorio",
     "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
@@ -647,5 +691,77 @@ module.exports = {
     "es": "Todos los campos requeridos",
     "it": "Tutti i campi sono obbligatori",
     "io": "crwdns14846:0crwdne14846:0"
+  },
+  "moreOptions": {
+    "fr": "choix",
+    "en": "choices",
+    "es": "opciones",
+    "it": "scelte"
+  },
+  "isMultilingual": {
+    "fr": "Multilingue",
+    "en": "Multilingual",
+    "es": "Plurilingüe",
+    "it": "Multilingue"
+  },
+  "defaultValue": {
+    "fr": "Valeur par défaut",
+    "en": "Default value",
+    "es": "Valor por default",
+    "it": "Valore per difetto"
+  },
+  "maxLength": {
+    "fr": "Longueur max",
+    "en": "Max length",
+    "es": "Longitud máxima",
+    "it": "Lunghezza max"
+  },
+  "jsonKey": {
+    "fr": "Clé JSON",
+    "en": "JSON key",
+    "es": "Clave JSON",
+    "it": "chiave JSON"
+  },
+"isSelected": {
+    "fr": "Sélectionné",
+    "en": "Selected",
+    "es": "Seleccionado",
+    "it": "Selezionato"
+  },
+  "notSelected": {
+    "fr": "Non séléctionné",
+    "en": "Not selected",
+    "es": "No seleccionado",
+    "it": "Non selezionato"
+  },
+  "enabledWhenLinkedFieldHasValue": {
+    "fr": "Actif lorsque le champ %linkedFieldName% est saisi",
+    "en": "Active when %linkedFieldName% field is entered",
+    "es": "Activo cuando se introduce el campo %linkedFieldName%",
+    "it": "Attivo quando viene inserito il campo %linkedFieldName%"
+  },
+  "enabledWhenLinkedFieldHasSpecificValue": {
+    "fr": "Actif lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
+    "en": "Active when the %linkedFieldName% field is set to %specificValue%",
+    "es": "Activo cuando el campo %linkedFieldName% toma el valor %specificValue%",
+    "it": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%"
+  },
+  "optionalWhenLinkedFieldHasValue": {
+    "fr": "Optionnel lorsque le champ %linkedFieldName% est saisi",
+    "en": "Optional when the field %linkedFieldName% is entered",
+    "es": "Opcional cuando se introduce el campo %linkedFieldName%",
+    "it": "Opzionale quando viene inserito il campo %linkedFieldName%"
+  },
+  "optionalWhenLinkedFieldHasSpecificValue": {
+    "fr": "Optionnel lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
+    "en": "Optional when the %linkedFieldName% field is set to %specificValue%",
+    "es": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
+    "it": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%"
+  },
+  "linkedTo": {
+    "fr": "Lié au champ %fieldName%",
+    "en": "Linked to %fieldName% field",
+    "es": "Relacionado con el campo %fieldName%",
+    "it": "Relativo al campo %fieldName%"
   }
 }

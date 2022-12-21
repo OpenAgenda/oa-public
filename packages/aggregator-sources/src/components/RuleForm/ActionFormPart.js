@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useMemo, useRef, useState
-} from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
@@ -9,6 +7,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import stateMessages from '../../utils/stateMessages';
 import stringType from '../../utils/stringType';
+import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 import Radio from './Radio';
 
@@ -19,7 +18,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
   const action = useMemo(
     () => values.actions.find(v => v.id === id),
-    [id, values.actions]
+    [id, values.actions],
   );
   const fieldName = useMemoOne(() => action?.field, [action]);
   const prevFieldName = usePrevious(fieldName);
@@ -27,44 +26,47 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
   const automatic = useMemoOne(() => !!action?.automatic, [action]);
   const prevAutomatic = usePrevious(automatic);
-  const [initialAction] = useState(() => initialValues?.actions?.find(v => v.field === fieldName));
-  const textFieldOptions = aggregatorAgendaSchema.fields.filter(v => stringType.includes(v.fieldType));
+  const [initialAction] = useState(() =>
+    initialValues?.actions?.find(v => v.field === fieldName));
+  const textFieldOptions = aggregatorAgendaSchema.fields.filter(v =>
+    stringType.includes(v.fieldType));
 
   function isStringType(fieldSchema) {
     return stringType.includes(fieldSchema?.fieldType);
   }
 
   const fieldOptions = useMemoOne(
-    () => aggregatorAgendaSchema.fields
-      .filter(
-        v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
-      )
-      .concat({
-        field: 'state',
-        label: intl.formatMessage(stateMessages.state),
-      })
-      .concat(textFieldOptions)
-      .filter(
-        v => v.field === fieldName
-            || !values.actions.find(w => w && v.field === w.field)
-      )
-      .map(v => ({
-        value: v.field,
-        label: getLocaleValue(v.label, intl.locale),
-      })),
+    () =>
+      aggregatorAgendaSchema.fields
+        .filter(isOptionedField)
+        .concat({
+          field: 'state',
+          label: intl.formatMessage(stateMessages.state),
+        })
+        .concat(textFieldOptions)
+        .filter(
+          v =>
+            v.field === fieldName
+            || !values.actions.find(w => w && v.field === w.field),
+        )
+        .map(v => ({
+          value: v.field,
+          label: getLocaleValue(v.label, intl.locale),
+        })),
     [
       aggregatorAgendaSchema.fields,
       intl,
       fieldName,
       values.actions,
       textFieldOptions,
-    ]
+    ],
   );
 
   const fieldSchema = useMemoOne(
-    () => fieldName
+    () =>
+      fieldName
       && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
-    [aggregatorAgendaSchema.fields, fieldName]
+    [aggregatorAgendaSchema.fields, fieldName],
   );
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
@@ -95,7 +97,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
   const [advancedMode, setAdvancedMode] = useState(areAdvancedOptionsUsed());
   const [valuesBeforeAutomatic, setValuesBeforeAutomatic] = useState(
-    action?.values
+    action?.values,
   );
 
   const toggleAdvancedMode = useCallback(() => {
@@ -163,12 +165,12 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             placeholder={intl.formatMessage(
               messages[
                 action?.automatic ? 'selectValueAutomaticMode' : 'selectValue'
-              ]
+              ],
             )}
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
             options={valuesOptions}
             menuPosition="fixed"
-            isMulti={fieldSchema?.fieldType === 'checkbox'}
+            isMulti={isOptionedField.multi(fieldSchema)}
             isDisabled={action?.automatic}
             isSearchable
           />
@@ -214,7 +216,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
               </div>
             )}
           />
-          <>{advancedMode ? advanceModeSetField : null}</>
+          {advancedMode ? advanceModeSetField : null}
         </>
       ) : null}
 

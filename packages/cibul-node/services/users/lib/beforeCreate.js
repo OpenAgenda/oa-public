@@ -12,7 +12,7 @@ function blacklistByDomain(config, context) {
 
 async function isInvitedFromAnOfficialAgenda(services, invitation) {
   const {
-    agendas: agendasSvc
+    agendas: agendasSvc,
   } = services;
 
   const linkMemberActions = invitation.data.actions.filter(v => v.name === 'linkMember');
@@ -21,7 +21,7 @@ async function isInvitedFromAnOfficialAgenda(services, invitation) {
 
   for (const action of linkMemberActions) {
     const agenda = await agendasSvc.get(action.params[0].agendaId, {
-      private: null
+      private: null,
     });
 
     if (agenda && agenda.official) {
@@ -52,14 +52,14 @@ module.exports = (config, services) => async context => {
   if (optionals.invitation) {
     // invitation token from the optionals (query)
     ({ invitation } = await invitationsSvc.get({
-      token: optionals.invitation
+      token: optionals.invitation,
     }));
   }
 
   if (!invitation) {
     // invitation linked to email
     ({ invitation } = await invitationsSvc.get({
-      email: data.email
+      email: data.email,
     }));
   }
 
@@ -68,4 +68,4 @@ module.exports = (config, services) => async context => {
   }
 
   return context;
-}
+};

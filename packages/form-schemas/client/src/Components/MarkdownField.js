@@ -1,5 +1,5 @@
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import markdown from '../iso/markdown';
 import SlateField from './SlateField';
@@ -8,7 +8,7 @@ import HTMLSerializer from './HTMLSerializer';
 export default class MarkdownField extends Component {
   shouldComponentUpdate(nextProps, _nextState) {
     const {
-      value
+      value,
     } = this.props;
 
     return value !== nextProps.value;
@@ -16,7 +16,7 @@ export default class MarkdownField extends Component {
 
   onChange(value) {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     onChange(markdown.to(HTMLSerializer.serialize(value)));
@@ -26,25 +26,26 @@ export default class MarkdownField extends Component {
     const {
       value,
       field: {
-        default: defaultValue
-      }
+        default: defaultValue,
+      },
     } = this.props;
 
     const appliedValue = (value === null) && defaultValue ? defaultValue : value;
 
     return (
-      <SlateField {
-        ...ih(this.props, {
+      <SlateField
+        {...ih(this.props, {
           value: {
-            $set: HTMLSerializer.deserialize(markdown.from(appliedValue))
+            $set: HTMLSerializer.deserialize(markdown.from(appliedValue)),
           },
           onChange: {
-            $set: this.onChange.bind(this)
+            $set: this.onChange.bind(this),
           },
           raw: {
-            $set: true
-          }
+            $set: true,
+          },
         })}
+        parentValue={appliedValue}
       />
     );
   }

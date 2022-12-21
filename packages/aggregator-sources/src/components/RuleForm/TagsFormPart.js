@@ -1,9 +1,10 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { /* useFormState, */ Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
+
+import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 
 export default ({ schema }) => {
@@ -11,17 +12,18 @@ export default ({ schema }) => {
   // const { initialValues } = useFormState();
 
   const options = useMemoOne(
-    () => (schema
-      ? schema.fields
-        .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
-        .map(({ options: fieldOptions }) => fieldOptions)
-        .flat()
-        .map(v => ({
-          value: v.label,
-          label: getLocaleValue(v.label, intl.locale),
-        }))
-      : []),
-    [schema]
+    () =>
+      (schema
+        ? schema.fields
+          .filter(isOptionedField)
+          .map(({ options: fieldOptions }) => fieldOptions)
+          .flat()
+          .map(v => ({
+            value: v.label,
+            label: getLocaleValue(v.label, intl.locale),
+          }))
+        : []),
+    [schema],
   );
 
   return (
@@ -38,7 +40,8 @@ export default ({ schema }) => {
             // initialValue={initialValues?.tagValues}
             placeholder={intl.formatMessage(messages.addAValue)}
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-            formatCreateLabel={value => intl.formatMessage(messages.createOption, { value })}
+            formatCreateLabel={value =>
+              intl.formatMessage(messages.createOption, { value })}
             options={options}
             menuPosition="fixed"
             isMulti

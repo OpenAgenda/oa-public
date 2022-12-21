@@ -1,134 +1,145 @@
 'use strict';
 
 const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
+
+const load = loadObjectFromFile({ cwd: __dirname });
 
 const insertEventSet = require('./sql/eventSets');
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('review').insert([{
-  ...require('./sql/agendas/218.json'),
-  settings: JSON.stringify({
-    contribution: {
-      type: 1,
-      defaultState: 1
-    }
-  })
-}, {
-  ...require('./sql/agendas/219.json'),
-  uid: 17026800,
-  settings: JSON.stringify({})
-}, {
-  ...require('./sql/agendas/220.json'),
-  uid: 92983929,
-  form_schema_id: 6,
-  network_uid: 1234,
-  settings: JSON.stringify({
-    contribution: {
-      moderateOnChangeBy: ['contributor']
-    }
-  })
-}, {
-  ...require('./sql/agendas/221.json'),
-  uid: 37026800,
-  settings: JSON.stringify({
-    contribution: {
-      canPublish: ['administrators']
-    }
-  })
-}, 
-  require('./sql/agendas/officedutourismeroubaix.json'),
-  require('./sql/agendas/metropole-europeenne-de-lille.json')
+raw.push(knex('review').insert([
+  load('sql/agendas/218.json', {
+    settings: JSON.stringify({
+      contribution: {
+        type: 1,
+        defaultState: 1,
+      },
+    }),
+  }),
+  load('sql/agendas/219.json', {
+    uid: 17026800,
+    settings: JSON.stringify({}),
+  }),
+  load('sql/agendas/220.json', {
+    uid: 92983929,
+    form_schema_id: 6,
+    network_uid: 1234,
+    settings: JSON.stringify({
+      contribution: {
+        moderateOnChangeBy: ['contributor'],
+      },
+    }),
+  }),
+  load('sql/agendas/221.json', {
+    uid: 37026800,
+    settings: JSON.stringify({
+      contribution: {
+        canPublish: ['administrators'],
+      },
+    }),
+  }),
+  load('sql/agendas/officedutourismeroubaix.json'),
+  load('sql/agendas/metropole-europeenne-de-lille.json'),
 ]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json'),
-  require('./sql/users/helene.json'),
-  require('./sql/users/chrissie.json'),
-  require('./sql/users/thibaud.json')
+  load('sql/users/50304.json'),
+  load('sql/users/helene.json'),
+  load('sql/users/chrissie.json'),
+  load('sql/users/thibaud.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 }
+  load('sql/apiKeySets/01.json', { user_id: 50304 }),
 ]));
 
 raw.push(knex('network').insert([
-  require('./sql/networks/withadminfield.json'),
-  require('./sql/networks/mel.json')
+  load('sql/networks/withadminfield.json'),
+  load('sql/networks/mel.json'),
 ]));
 
 raw.push(knex('form_schema').insert([2, 5, 6, 41].map(id => ({
   id,
-  store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`),
 }))));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/lechat.json'),
-  require('./sql/members/ln-adm-rbx.json'),
-  require('./sql/members/chr-ctb-rbx.json'),
-  require('./sql/members/tb-adm-mel.json'),
-  require('./sql/members/ln-ctb-mel.json')
+  load('sql/members/lechat.json', {
+    store: JSON.stringify({
+      custom_fields: {
+        organization: 'Le Chat Fume',
+      },
+    }),
+  }),
+  load('sql/members/ln-adm-rbx.json'),
+  load('sql/members/chr-ctb-rbx.json'),
+  load('sql/members/tb-adm-mel.json'),
+  load('sql/members/ln-ctb-mel.json'),
 ]));
 
 raw.push(knex('location').insert([
-  require('./sql/locations/boutique.json'),
-  require('./sql/locations/bobine.json')
+  load('sql/locations/boutique.json'),
+  load('sql/locations/bobine.json'),
 ]));
 
 const {
-  review_category,
-  category_set,
-  tag_set
-} = require('./sql/legacy/218.json');
+  review_category: reviewCategory,
+  category_set: categorySet,
+  tag_set: tagSet,
+} = load('sql/legacy/218.json');
 
-raw.push(knex('review_category').insert(review_category));
+raw.push(knex('review_category').insert(reviewCategory));
 
 raw.push(knex('category_set').insert([{
   id: 218,
-  store: JSON.stringify(category_set)
+  store: JSON.stringify(categorySet),
 }]));
 
 raw.push(knex('tag_set').insert([{
   id: 218,
-  store: JSON.stringify(tag_set),
+  store: JSON.stringify(tagSet),
 }]));
 
 raw.push(knex('review_tag').insert([{
   id: 9661,
   slug: 'administration',
   review_id: 218,
-  tag: 'Administration'
+  tag: 'Administration',
 }, {
   id: 9662,
   slug: 'aeronautique',
   review_id: 218,
   tag: 'Aéronotique',
-}].map(rt => ({ ...rt,
+}].map(rt => ({
+  ...rt,
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  updated_at: '2016-01-18 16:14:06',
 }))));
 
 raw.push(knex('event').insert([{
   id: 1,
   uid: 19201989,
-  slug: 'un-event'
+  slug: 'un-event',
 }, {
   id: 2,
   uid: 19390293,
-  slug: 'un-autre-event'
+  slug: 'un-autre-event',
 }, {
   id: 3,
   uid: 19390294,
-  slug: 'et-un-autre-event'
-}].map(e => ({ ...e, 
+  slug: 'et-un-autre-event',
+}].map(e => ({
+  ...e,
   owner_id: 50304,
   created_at: '2019-12-14 10:00:00',
-  updated_at: '2019-12-14 10:00:00'
+  updated_at: '2019-12-14 10:00:00',
 }))));
 
 raw.push(knex('event_location').insert(
@@ -137,12 +148,13 @@ raw.push(knex('event_location').insert(
     event_id: id,
     location_id: 1,
     created_at: '2016-01-11 13:07:08',
-    updated_at: '2016-01-18 16:14:06'
-}))));
+    updated_at: '2016-01-18 16:14:06',
+  })),
+));
 
 raw.push(knex('occurrence').insert([{
   id: 1,
-  date: '2019-05-06'
+  date: '2019-05-06',
 }, {
   id: 2,
   date: '2019-12-18',
@@ -166,20 +178,20 @@ raw.push(knex('event_2').insert([{
   draft: 0,
   title: JSON.stringify({
     fr: 'Un événement',
-    en: 'An event'
+    en: 'An event',
   }),
   owner_uid: 63170203,
   creator_uid: 63170203,
   timings: JSON.stringify([{
     begin: new Date('2019-05-06T10:00:00'),
-    end: new Date('2019-05-06T11:00:00')
+    end: new Date('2019-05-06T11:00:00'),
   }]),
   description: JSON.stringify({ fr: 'Une desc.', en: 'A desc.' }),
   timezone: 'Europe/Paris',
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-  agenda_uid: 17026855
+  agenda_uid: 17026855,
 }, {
   id: 13,
   uid: 83902931,
@@ -188,35 +200,35 @@ raw.push(knex('event_2').insert([{
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Un brouillon'
+    fr: 'Un brouillon',
   }),
   description: JSON.stringify({}),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 14,
   uid: 19390293,
   slug: 'un-autre-event',
   image: JSON.stringify({
-    filename: 'fdqfsdq.jpg'
+    filename: 'fdqfsdq.jpg',
   }),
   timings: JSON.stringify([{
     begin: new Date('2019-05-06T10:00:00'),
-    end: new Date('2019-05-06T11:00:00')
+    end: new Date('2019-05-06T11:00:00'),
   }]),
   draft: 0,
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Un autre événement'
+    fr: 'Un autre événement',
   }),
   description: JSON.stringify({ fr: 'Une description' }),
   timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 15,
   uid: 19390294,
@@ -225,14 +237,14 @@ raw.push(knex('event_2').insert([{
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Un autre événement'
+    fr: 'Un autre événement',
   }),
-  description: JSON.stringify({ fr: 'Une desc.'}),
+  description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 16,
   uid: 83902932,
@@ -241,12 +253,12 @@ raw.push(knex('event_2').insert([{
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Un autre brouillon'
+    fr: 'Un autre brouillon',
   }),
-  description: JSON.stringify({ fr: 'Une desc.'}),
+  description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 17,
   uid: 99999999,
@@ -255,36 +267,36 @@ raw.push(knex('event_2').insert([{
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Un autre événement'
+    fr: 'Un autre événement',
   }),
   timings: JSON.stringify([{
     begin: new Date('2019-05-06T10:00:00'),
-    end: new Date('2019-05-06T11:00:00')
+    end: new Date('2019-05-06T11:00:00'),
   }]),
   location_uid: 123,
-  description: JSON.stringify({ fr: 'Une desc.'}),
+  description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 18,
   uid: 88888888,
-  draft:  0,
+  draft: 0,
   slug: 'un-evenement-sur-un-agenda-qui-ne-laisse-pas-mod-publish',
   owner_uid: 63170203,
   creator_uid: 63170203,
   title: JSON.stringify({
-    fr: 'Encore un autre événement'
+    fr: 'Encore un autre événement',
   }),
   timings: JSON.stringify([{
     begin: new Date('2019-05-06T10:00:00'),
-    end: new Date('2019-05-06T11:00:00')
+    end: new Date('2019-05-06T11:00:00'),
   }]),
   location_uid: 123,
-  description: JSON.stringify({ fr: 'Une desc.'}),
+  description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }]));
 
 raw.push(knex('agenda_event').insert([{
@@ -295,7 +307,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-  can_edit: 1
+  can_edit: 1,
 }, {
   id: 2,
   event_uid: 19390293,
@@ -304,7 +316,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-  can_edit: 1
+  can_edit: 1,
 }, {
   id: 3,
   event_uid: 19390294,
@@ -313,7 +325,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-  can_edit: 1
+  can_edit: 1,
 }, {
   id: 4,
   event_uid: 99999999,
@@ -322,7 +334,7 @@ raw.push(knex('agenda_event').insert([{
   user_uid: 63170203,
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 5,
   event_uid: 99999999,
@@ -331,7 +343,7 @@ raw.push(knex('agenda_event').insert([{
   user_uid: 63170203,
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 6,
   event_uid: 19390293,
@@ -340,7 +352,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-  can_edit: 1
+  can_edit: 1,
 }, {
   id: 7,
   event_uid: 88888888,
@@ -349,7 +361,7 @@ raw.push(knex('agenda_event').insert([{
   user_uid: 63170203,
   state: 1,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }]));
 
 raw.push(knex('review_article').insert([{
@@ -360,7 +372,7 @@ raw.push(knex('review_article').insert([{
   is_published: 1,
   user_id: 50304,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 124,
   event_id: 2,
@@ -369,7 +381,7 @@ raw.push(knex('review_article').insert([{
   is_published: 1,
   user_id: 50304,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }, {
   id: 125,
   event_id: 3,
@@ -378,7 +390,7 @@ raw.push(knex('review_article').insert([{
   is_published: 1,
   user_id: 50304,
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
 }]));
 
 raw.push(knex('custom').insert([{
@@ -386,44 +398,44 @@ raw.push(knex('custom').insert([{
   form_schema_id: 5,
   identifier: 19390293,
   store: JSON.stringify({
-    'organisation-interne': 'Il faut que Thérèse y soit'
+    'organisation-interne': 'Il faut que Thérèse y soit',
   }),
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  updated_at: '2016-01-18 16:14:06',
 }, {
   id: 2,
   form_schema_id: 6,
   identifier: 19390293,
   store: JSON.stringify({
-    categories: 1
+    categories: 1,
   }),
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  updated_at: '2016-01-18 16:14:06',
 }, {
   id: 3,
   form_schema_id: 5,
   identifier: 19390294,
   store: JSON.stringify({
-    'organisation-interne': 'Il faut que Thérèse y soit'
+    'organisation-interne': 'Il faut que Thérèse y soit',
   }),
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  updated_at: '2016-01-18 16:14:06',
 }, {
   id: 4,
   form_schema_id: 6,
   identifier: 19390294,
   store: JSON.stringify({
-    categories: 2
+    categories: 2,
   }),
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  updated_at: '2016-01-18 16:14:06',
 }]));
 
 raw.push(knex('form_schema').insert([{
   id: 374,
-  store: fs.readFileSync(`${__dirname}/form-schemas/374.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/374.json`),
 }]));
 
 insertEventSet(knex, raw, 'lesUnsLesAutres');
 
-module.exports = raw.join(';\n') + ';';
+module.exports = `${raw.join(';\n')};`;

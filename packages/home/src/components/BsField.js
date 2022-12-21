@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 
 export default function BsField({
@@ -23,7 +22,7 @@ export default function BsField({
     <div
       className={classNames(
         { 'has-error has-feedback': displayError && error },
-        classNameGroup
+        classNameGroup,
       )}
     >
       {label && <label htmlFor={name}>{label}</label>}

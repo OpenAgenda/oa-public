@@ -7,6 +7,18 @@ const patch = require('./patch');
 const remove = require('./remove');
 const stream = require('./stream');
 
+const invite = async (core, agendaUid, { role, emails = [], context }) => {
+  const { members } = core.services;
+  return await members.set.byEmail.bulk({
+    agendaUid,
+    role,
+  }, emails, {
+    requireCustom: false,
+    context,
+  });
+
+};
+
 module.exports = (core, agendaUid) => ({
   list: list.bind(null, core, agendaUid),
   get: get.bind(null, core, agendaUid),
@@ -15,4 +27,5 @@ module.exports = (core, agendaUid) => ({
   is: get.is.bind(null, core, agendaUid),
   remove: remove.bind(null, core, agendaUid),
   stream: stream.bind(null, core, agendaUid),
+  invite: invite.bind(null, core, agendaUid),
 });

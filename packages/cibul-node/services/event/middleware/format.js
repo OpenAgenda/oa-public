@@ -365,7 +365,7 @@ function _main( v ) {
   const now = new Date();
 
   Object.assign(v.formatted,
-    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status']), 
+    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status', 'statusLabel', 'isNotScheduled']),
     v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
     {
       longDescriptionLinks,

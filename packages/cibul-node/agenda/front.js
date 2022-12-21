@@ -21,6 +21,7 @@ const utils = require( '@openagenda/utils' );
 
 const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
+const getStatusLabel = require('../lib/getStatusLabel');
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
 const members = require( '../services/members' );
@@ -594,6 +595,8 @@ function _formatEventItem(event, req, cb) {
       eventSlug: event.slug
     }, { protocol: 'https://' } ),
     actionLabel: getLabel( 'export', req.lang ),
+    statusLabel: getStatusLabel(inst.status, req.lang),
+    isNotScheduled: inst.status !== 1,
     organization,
     contributor: {
       organization: organization ? organization.label : null

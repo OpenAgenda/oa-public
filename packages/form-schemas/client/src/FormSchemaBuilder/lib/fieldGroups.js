@@ -1,5 +1,17 @@
 import l from './labels';
 
+function section({ labelLanguages }) {
+  return {
+    fields: [{
+      field: 'label',
+      fieldType: 'text',
+      languages: labelLanguages.length ? labelLanguages : null,
+      label: l.sectionLabel,
+      info: l.sectionInfo,
+    }],
+  };
+}
+
 function labels({ labelLanguages }) {
   return {
     fields: [{
@@ -7,26 +19,26 @@ function labels({ labelLanguages }) {
       fieldType: 'text',
       optional: false,
       languages: labelLanguages.length ? labelLanguages : null,
-      label: l.fieldLabel
+      label: l.fieldLabel,
     }, {
       field: 'info',
       fieldType: 'text',
       languages: labelLanguages.length ? labelLanguages : null,
       label: l.fieldInfo,
-      info: l.fieldInfoInfo
+      info: l.fieldInfoInfo,
     }, {
       field: 'placeholder',
       fieldType: 'text',
       languages: labelLanguages.length ? labelLanguages : null,
       label: l.fieldPlaceholder,
-      placeholder: l.fieldPlaceholderPlaceholder
+      placeholder: l.fieldPlaceholderPlaceholder,
     }, {
       field: 'sub',
       fieldType: 'text',
       languages: labelLanguages.length ? labelLanguages : null,
       label: l.fieldSub,
-      sub: l.fieldSubSub
-    }]
+      sub: l.fieldSubSub,
+    }],
   };
 }
 
@@ -37,23 +49,23 @@ function options({ labelLanguages }) {
       field: 'options',
       fieldType: 'options',
       label: l.fieldOptions,
-      labelLanguages: labelLanguages.length ? labelLanguages : null
-    }]
+      labelLanguages: labelLanguages.length ? labelLanguages : null,
+    }],
   };
 }
 
-function minMax({ min, max }) {
+function minMax() {
   return {
     fields: [{
       field: 'min',
       fieldType: 'integer',
       default: 0,
-      label: l.fieldFormMinTextLength
+      label: l.fieldFormMinTextLength,
     }, {
       field: 'max',
       fieldType: 'integer',
-      label: l.fieldFormMaxTextLength
-    }]
+      label: l.fieldFormMaxTextLength,
+    }],
   };
 }
 
@@ -64,8 +76,8 @@ function optional() {
       fieldType: 'boolean',
       optional: true,
       default: true,
-      label: l.fieldFormOptional
-    }]
+      label: l.fieldFormOptional,
+    }],
   };
 }
 
@@ -73,5 +85,6 @@ export default {
   labels,
   minMax,
   optional,
-  options
+  options,
+  section,
 };

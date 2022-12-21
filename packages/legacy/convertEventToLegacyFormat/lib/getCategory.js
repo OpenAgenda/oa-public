@@ -9,5 +9,5 @@ module.exports = (agendaSettings, event) => {
 
   const category = categoryField.options.find(option => parseInt(option.id, 10) === parseInt(event[categoryField.field], 10));
 
-  return categorySet.categories.find(cat => cat.slug === category.value);
+  return categorySet?.categories.find(cat => cat.slug === category?.value);
 };

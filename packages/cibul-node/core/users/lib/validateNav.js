@@ -8,18 +8,18 @@ const textValidator = require('@openagenda/validators/text');
 
 schema.register({
   integer: integerValidator,
-  text: textValidator
+  text: textValidator,
 });
 
 const validate = schema({
   after: {
-    type: 'integer'
+    type: 'integer',
   },
   limit: {
     type: 'integer',
     max: 1000,
-    default: 20
-  }
+    default: 20,
+  },
 });
 
 module.exports = data => {

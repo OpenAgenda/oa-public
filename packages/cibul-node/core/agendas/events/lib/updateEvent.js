@@ -13,11 +13,11 @@ module.exports = async function updateEvent(services, {
   eventUid,
   privateOption,
   event,
-  partial
+  partial,
 }) {
   const {
     oembed,
-    events
+    events,
   } = services;
 
   if (clean.event.longDescription) {
@@ -25,7 +25,7 @@ module.exports = async function updateEvent(services, {
       clean.event.links = await processOEmbed(oembed, clean.event.longDescription, {
         current: clean.event.links,
         includeEmbedlessLinks: true,
-        filterInvalidLinks: true
+        filterInvalidLinks: true,
       });
       log('retrieved %s links', clean.event.links.length);
     } catch (e) {
@@ -38,12 +38,12 @@ module.exports = async function updateEvent(services, {
       context: {
         agendaUid,
         userUid,
-        updateSearchIndex: false
+        updateSearchIndex: false,
       },
       detailed: true,
       access: 'internal',
       draft,
-      private: privateOption
+      private: privateOption,
     }));
 
     log('updated event %s', event.uid);
@@ -51,13 +51,13 @@ module.exports = async function updateEvent(services, {
     if (e.toString() === 'ValidationError: Invalid data') {
       log('info', 'invalid data', e);
       throw new BadRequest({
-        info: { errors: e.detail }
+        info: { errors: e.detail },
       }, 'invalid data');
     }
     log('error', 'failed to update event', {
       agendaUid,
       eventUid,
-      error: e
+      error: e,
     });
     throw e;
   }

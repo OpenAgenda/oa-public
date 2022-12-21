@@ -71,6 +71,16 @@ module.exports = core => {
     '/agendas/:agendaUid',
   ], mw.redirectIfPrivate);
 
+  app.patch(
+    '/agendas/:agendaUid',
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .update(req.parsedData)
+      .then(agenda => res.json(agenda), next),
+  );
+
   app.get([
     '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
@@ -154,8 +164,8 @@ module.exports = core => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
-    mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid })
+    mw.member.load,
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, access: req.access })
       .then(data => res.json({ ...data }), next),
   ]);
 
@@ -172,6 +182,18 @@ module.exports = core => {
   ]);
 
   app.post(
+    '/agendas/:agendaUid/members/invite',
+    mw.member.load,
+    mw.member.moderatorCannotInviteAdministrator,
+    mw.member.loadContext,
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .invite({ role: req.body.role, emails: req.body.emails, context: req.context })
+      .then(data => res.json(data), next),
+  );
+
+  app.post(
     '/agendas/:agendaUid/members',
     (req, res, next) => core
       .agendas(req.agenda.uid).members
@@ -179,12 +201,20 @@ module.exports = core => {
       .then(member => res.json(member), next),
   );
 
+  app.get('/agendas/:agendaUid/members/email/:email', [
+    mw.member.load,
+    (req, res, next) => core.agendas(req.agenda.uid).members.get({
+      email: req.params.email,
+    }, { userUid: req.user.uid }).then(data => res.json(data), next),
+  ]);
+
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .get(req.params.userUid, {
         userUid: req.user.uid,
+        access: req.access,
       })
       .then(member => res.json(member), next),
   ]);
@@ -454,6 +484,7 @@ module.exports = core => {
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events.search({
+        ...req.query,
         relation: ['contributed', 'owned'],
       }, req.query, {
         useAfterKey: true,

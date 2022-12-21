@@ -433,6 +433,48 @@ app.use(filesMw('any')); // each fieldname become an array, e.g. `req.body.image
 
 C'est utilisé dans le middleware du storybook du package `agenda-settings`.
 
+## Refactos
+
+### Enlever les `import React` dans les packages
+
+Le 15/12/2022
+
+Le linter demande désormais que les `import React from react` ne soient plus explicités en tête de fichier. Il faut les retirer progressivement des packages où ils apparaissent.
+
+Les retirer sans adapter le `.babelrc.js` du package ainsi que l'ajout de dépendences provoquera le plantage de l'application dans l'environnement intégré.
+
+Le `.babelrc.js` doit ressembler à ceci:
+
+```javascript
+'use strict';
+
+module.exports = {
+  presets: [
+    [
+      require.resolve('@openagenda/babel-preset'),
+      {
+        reactIntl: {
+          idInterpolationPattern: '[sha512:contenthash:base64:6]',
+          extractFromFormatMessageCall: true,
+          ast: true,
+        },
+        importSource: '@emotion/react',
+      },
+    ],
+  ],
+  plugins: [
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
+  ],
+  sourceType: 'unambiguous',
+};
+```
+
+... où le plugin `@emotion/babel-plugin` est ajouté, la clause `importSource` est ajoutée aux presets et la ligne `require.resolve('@emotion/babel-preset-css-prop')` n'apparait plus.
+
+Dans le `package.json`, la dépendence `@emotion/babel-preset-css-prop` doit être retirée, et la dépendence `"@emotion/babel-plugin": "^11.10.5"` ajoutée dans les `devDependencies`.
+
+
 ## Intégration de NextJs
 
 https://openagenda.com/next
@@ -446,3 +488,31 @@ NextJS est désormais intégré au projet, directement dans le package `cibul-no
 En développement, les 2 process sont lancés via le scripts "start" ou "watch" qui se servent du package `concurrently`. En production, les 2 process sont gérés par `pm2` qui fonctionne en mode cluster: 2 core pour nextJs, 6 pour le serveur.
 
 Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger.  Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
+
+## Histoires
+
+### L'ancien export JSON
+
+Le 20/12/2022
+
+Elasticsearch est un logiciel qui nous permet de faire des recherches plus efficacement que ce que permet une base de données classique.
+
+On a actuellement deux installations Elasticsearch. La première date de 2014 (version 1.3), la deuxième date de 2018 (version 5, puis 7).
+
+Nos clients historiquement utilisent un point de lecture des données qu'on appelle l'export JSON. Il porte ce nom parce qu'on l'a présenté à coté des autres exports directement sur les pages agendas, chacun portant le nom de leurs formats (CSV, PDF, iCal.. JSON).
+
+Son URL ressemble à ça: `https://openagenda.com/agendas/{agendaUid}/events.json`
+
+L'(ancien) export JSON utilise l'installation Elasticsearch 1.3 comme source principale de données.
+
+Depuis, on a développé un remplaçant qui lui utilise l'installation Elasticsearch 7 comme source et qu'on a ajouté directement à notre API - c'est l'endroit où les développeurs s'attendent à voir les ressources OpenAgenda qu'ils peuvent exploiter programmatiquement. Le format est également du JSON.
+
+Son url: `https://api.openagenda.com/v2/agendas/{agendaUid}/events`
+
+Quelques différences de format existent entre les deux points, elles sont documentées ici: https://developers.openagenda.com/50-migration/
+
+Un nombre non négligeable de scripts de synchronisations utilisent encore l'ancien JSON (celui de 2014) et nous souhaitons éteindre l'installation Elasticsearch 1.3 qui doublonne avec la plus récente: une librairie effectuant une conversion de formats a été développée pour pouvoir brancher le flux de données de l'installation Elasticsearch 7 sur l'url de l'ancien export JSON - ce qui nous permet de ne pas contraindre tous nos utilisateurs d'adapter leurs script pour que nous puissions avancer sur nos développements.
+
+Dans notre admin agenda, cette passerelle est activée sur le toggle "JSON export V1 is generated from the V2 format" - il est aujourd'hui activé sur tous les agendas sauf 800 à peu près.
+
+Je viens de désactiver celui de Bordeaux tourisme: une exception s'affichait sur l'ancien export JSON. Un problème se situe sur la conversion des données.

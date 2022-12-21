@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import isInteger from '@openagenda/utils/isInteger';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
@@ -11,64 +11,69 @@ const getLabel = makeLabelGetter(labels);
 const fieldTypeChoices = [{
   id: 1,
   value: 'text',
-  label: labels.textFieldType
+  label: labels.textFieldType,
 }, {
   id: 4,
   value: 'textarea',
-  label: labels.textareaFieldType
+  label: labels.textareaFieldType,
 }, {
   id: 5,
   value: 'markdown',
   label: labels.markdownFieldType,
-  info: labels.markdownFieldTypeInfo
+  info: labels.markdownFieldTypeInfo,
 }, {
   id: 6,
   value: 'integer',
-  label: labels.integerFieldType
+  label: labels.integerFieldType,
 }, {
   id: 10,
   value: 'link',
-  label: labels.linkFieldType
+  label: labels.linkFieldType,
 }, {
   id: 9,
   value: 'email',
-  label: labels.emailFieldType
+  label: labels.emailFieldType,
 }, {
   id: 7,
   value: 'boolean',
   label: labels.booleanFieldType,
-  info: labels.booleanFieldTypeInfo
+  info: labels.booleanFieldTypeInfo,
 }, {
   id: 3,
   value: 'checkbox',
   label: labels.checkboxFieldType,
-  info: labels.checkboxFieldTypeInfo
+  info: labels.checkboxFieldTypeInfo,
 }, {
   id: 12,
   value: 'multiselect',
   label: labels.multiselectFieldType,
-  info: labels.multiselectFieldTypeInfo
+  info: labels.multiselectFieldTypeInfo,
 }, {
   id: 2,
   value: 'radio',
   label: labels.radioFieldType,
-  info: labels.radioFieldTypeInfo
+  info: labels.radioFieldTypeInfo,
 }, {
   id: 11,
   value: 'select',
   label: labels.selectFieldType,
-  info: labels.selectFieldTypeInfo
+  info: labels.selectFieldTypeInfo,
 }, {
   id: 13,
   value: 'date',
   label: labels.dateFieldType,
-  info: labels.dateFieldTypeInfo
+  info: labels.dateFieldTypeInfo,
+}, {
+  id: 14,
+  value: 'section',
+  label: labels.sectionType,
+  info: labels.sectionTypeInfo,
 }];
 
 const flatChoices = lang => fieldTypeChoices.map(c => ({
   ...c,
   label: c.label[lang],
-  info: c.info?.[lang]
+  info: c.info?.[lang],
 }));
 
 const getFieldType = valueOrId => fieldTypeChoices
@@ -76,7 +81,7 @@ const getFieldType = valueOrId => fieldTypeChoices
 
 const ChosenType = ({ lang, value, onReset }) => {
   const {
-    label, info
+    label, info,
   } = getFieldType(value);
 
   return (
@@ -97,7 +102,7 @@ const ChosenType = ({ lang, value, onReset }) => {
 export default function ChooseFieldType({
   value,
   onChange: propsOnChange,
-  lang
+  lang,
 }) {
   const onChange = useCallback(choice => {
     if (!choice) {
@@ -131,12 +136,12 @@ export default function ChooseFieldType({
           fieldType: 'select',
           label: getLabel('chooseFieldType', lang),
           optional: false,
-          options: flatChoices(lang)
-        }]
+          options: flatChoices(lang),
+        }],
       }}
       actionComponents={[{
         position: 'bottom',
-        Component: () => null
+        Component: () => null,
       }]}
     />
   );

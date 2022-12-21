@@ -269,6 +269,22 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
+      'fix: patch without latitude, longitude or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
+      async () => {
+        let error;
+        try {
+          await svc(7196947).patch(86591143, {
+            website: 'https://oa.com',
+          }, { geocodeIfUndefined: true });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeUndefined();
+      },
+    );
+
+    it(
       'if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address',
       async () => {
         const updated = await svc(7196947).update(

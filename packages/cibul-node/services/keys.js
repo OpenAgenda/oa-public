@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const keys = require('@openagenda/keys');
@@ -9,15 +9,15 @@ module.exports.init = async config => {
     knex: config.knex,
     schemas: _.pick(config.schemas, 'key', 'user', 'apiKeySet'),
     migrations: {
-      tableName: 'key_migrations'
+      tableName: 'key_migrations',
     },
     redis: {
-      connection: config.redis
+      connection: config.redis,
     },
     cache: {
-      duration: 60
-    }
+      duration: 60,
+    },
   });
 
   return keys;
-}
+};

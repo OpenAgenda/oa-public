@@ -13,10 +13,10 @@ module.exports = async (
     sourceRules,
     formSchema,
     query,
-  }
+  },
 ) => {
   const log = Log(
-    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`
+    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`,
   );
 
   let count = 0;

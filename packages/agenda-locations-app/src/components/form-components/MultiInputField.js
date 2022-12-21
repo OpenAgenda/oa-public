@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TagsInput from 'react-tagsinput';
 
 const MultiInputField = ({
@@ -10,7 +10,7 @@ const MultiInputField = ({
     link: 'fa fa-link',
     phone: 'fa fa-phone',
     email: 'fa fa-envelope',
-    error: 'fa fa-exclamation-circle'
+    error: 'fa fa-exclamation-circle',
   },
   getLabel,
   onChange,
@@ -58,6 +58,9 @@ const MultiInputField = ({
   return (
     <div className={enabled ? 'multi-input' : 'multi-input disabled'}>
       <label htmlFor={name}>{getLabel(name) }</label>
+      {info && getLabel(info)
+        ? <div>{getLabel(info)}</div>
+        : null}
       <TagsInput
         value={values}
         renderTag={renderItem}
@@ -67,7 +70,7 @@ const MultiInputField = ({
           onBlur,
           onChange: onInputChange,
           value: inputValue,
-          disabled: !enabled
+          disabled: !enabled,
         }}
       />
       <span className={error ? 'error' : 'info'}>{ error ? getLabel('multi-input.error') : getLabel('multi-input.info')}</span>

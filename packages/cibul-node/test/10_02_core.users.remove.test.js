@@ -20,6 +20,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'knex',
         'redis',
         'simpleCache',
+        'tracker',
         'accessTokens',
         'files',
         'queues',
@@ -35,14 +36,15 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'legacy',
         'users',
         'keys',
-        'trackers',
-        'activities'
-      ]
+        'activities',
+      ],
     });
 
     core = Core(services, testConfig);
 
     await services.simpleCache.clearAll();
+
+    core.services.users.tasks.processQueue();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -52,9 +54,13 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     beforeAll(async () => {
       await core.users(99999967).remove();
 
+      await new Promise(rs => {
+        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
+      });
+
       memberRefAfterRemove = await core.agendas(6184770).members.get(99999967, {
         access: 'internal',
-        detailed: true
+        detailed: true,
       });
     });
 
@@ -62,7 +68,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       const user = await core.services.users.findOne({
         query: { uid: 99999967 },
         removed: null,
-        detailed: true
+        detailed: true,
       });
 
       expect(user.isRemoved).toBe(true);
@@ -83,7 +89,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     it('related activities are anonymized', async () => {
       const activities = await core.services.activities.activities.list({
         entityType: 'user',
-        entityUid: 99999967
+        entityUid: 99999967,
       });
       expect(activities[0].store.labels.actor).toBe('$__deleted');
     });
@@ -104,11 +110,11 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -119,14 +125,18 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         headers: {
           'access-token': accessToken,
           nonce: 1234,
-          'content-type': 'application/json'
-        }
+          'content-type': 'application/json',
+        },
+      });
+
+      await new Promise(rs => {
+        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
       });
 
       const user = await core.services.users.findOne({
         query: { uid: 8929606 },
         removed: null,
-        detailed: true
+        detailed: true,
       });
 
       expect(user.isRemoved).toBe(true);

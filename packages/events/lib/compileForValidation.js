@@ -77,6 +77,11 @@ module.exports = async (current, data, options = {}) => {
     editedFields.push('locationUid');
   }
 
+  if (data?.location === null && !data?.locationUid) {
+    compiled.locationUid = null;
+    editedFields.push('locationUid');
+  }
+
   if (data?.location instanceof Object && !data?.timezone && data.location.timezone) {
     compiled.timezone = data.location.timezone;
     editedFields.push('timezone');

@@ -12,7 +12,7 @@ module.exports = produce((draft, current, options = {}) => {
     draft.extId = current.extId;
   }
 
-  if (geocodeResult && isPatch) {
+  if (geocodeResult?.latitude && isPatch) {
     Object.assign(draft, {
       latitude: geocodeResult.latitude,
       longitude: geocodeResult.longitude

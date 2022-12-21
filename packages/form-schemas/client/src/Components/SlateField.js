@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-import React, { Component } from 'react';
+import debug from 'debug';
+import { Component } from 'react';
 import { Editor } from 'slate-react';
 
 import classNames from 'classnames';
@@ -8,7 +9,13 @@ import { Value } from 'slate';
 
 import richTextLabels from '@openagenda/labels/form-schemas/richText';
 import flatten from '@openagenda/labels/flatten';
-import { nl2br } from '@openagenda/react-shared';
+import { nl2br, bodyScroll } from '@openagenda/react-shared';
+
+import FieldCounter from './FieldCounter';
+import Info from './Info';
+import Sub from './Sub';
+
+const flattenFieldLabels = require('../lib/flatten');
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -19,17 +26,51 @@ const DEFAULT_DOC = {
       type: 'paragraph',
       nodes: [{
         object: 'text',
-        leaves: [{ text: '' }]
-      }]
-    }]
-  }
+        leaves: [{ text: '' }],
+      }],
+    }],
+  },
 };
+
+const log = debug('SlateField');
+
+const shortcuts = [{
+  type: 'heading-two',
+  label: 'ctrl+1',
+  keys: ['1', '&'],
+  method: 'toggleBlock',
+}, {
+  type: 'heading-three',
+  label: 'ctrl+2',
+  keys: ['2', 'é'],
+  method: 'toggleBlock',
+}, {
+  type: 'bold',
+  label: 'ctrl+b',
+  keys: ['b'],
+  method: 'toggleMark',
+}, {
+  type: 'italic',
+  label: 'ctrl+i',
+  keys: ['i'],
+  method: 'toggleMark',
+}, {
+  type: 'link',
+  label: 'ctrl+k',
+  keys: ['k'],
+  method: 'toggleBlock',
+}, {
+  type: 'bulleted-list',
+  label: 'ctrl+l',
+  keys: ['l'],
+  method: 'toggleBlock',
+}];
 
 function renderMark(props) {
   const {
     children,
     mark,
-    attributes
+    attributes,
   } = props;
 
   if (mark.type === 'bold') {
@@ -45,7 +86,7 @@ function renderNode(props) {
   const {
     attributes,
     children,
-    node
+    node,
   } = props;
 
   if (node.type === 'bulleted-list') {
@@ -79,7 +120,7 @@ export default class SlateField extends Component {
 
     let update;
     const {
-      value
+      value,
     } = this.props;
 
     if (value instanceof Value) {
@@ -94,7 +135,7 @@ export default class SlateField extends Component {
 
     this.state = {
       value: update,
-      changed: false
+      changed: false,
     };
   }
 
@@ -103,12 +144,12 @@ export default class SlateField extends Component {
   onChange({ value }) {
     const {
       onChange,
-      raw
+      raw,
     } = this.props;
 
     const {
       changed: stateChangedValue,
-      value: stateValue
+      value: stateValue,
     } = this.state;
 
     const changed = stateChangedValue || (
@@ -122,11 +163,37 @@ export default class SlateField extends Component {
     onChange(raw ? value : value.toJSON());
   }
 
+  onKeyDown(e) {
+    if (!e.ctrlKey) {
+      return;
+    }
+
+    const match = shortcuts.find(s => s.keys.includes(e.key));
+
+    if (!match) {
+      return;
+    }
+
+    this[match.method](match.type, e);
+  }
+
+  setFullscreen(fullscreen) {
+    if (fullscreen) {
+      bodyScroll.disable();
+    } else {
+      bodyScroll.enable();
+    }
+
+    this.setState({
+      fullscreen,
+    });
+  }
+
   toggleMark(type, e) {
     if (e) e.preventDefault();
 
     const {
-      value
+      value,
     } = this.state;
 
     this.onChange(value.change().toggleMark(type));
@@ -142,7 +209,7 @@ export default class SlateField extends Component {
 
       change.wrapInline({
         type: 'link',
-        data: { href }
+        data: { href },
       });
     } else {
       /* eslint-disable */
@@ -161,14 +228,14 @@ export default class SlateField extends Component {
   }
 
   toggleList({
-    value, change, document, type
+    value, change, document, type,
   }) {
     // Handle the extra wrapping required for list buttons.
     const isList = this.hasBlock('list-item');
 
-    const isType = value.blocks.some(block => (
-      !!document.getClosest(block.key, parent => parent.type === type)
-    ));
+    const isType = value.blocks.some(
+      block => !!document.getClosest(block.key, parent => parent.type === type),
+    );
 
     if (isList && isType) {
       change
@@ -178,7 +245,7 @@ export default class SlateField extends Component {
     } else if (isList) {
       change
         .unwrapBlock(
-          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
+          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list',
         )
         .wrapBlock(type);
     } else {
@@ -197,7 +264,7 @@ export default class SlateField extends Component {
       this.toggleLink({ value, change });
     } else if (['bulleted-list', 'numbered-list'].includes(type)) {
       this.toggleList({
-        value, change, document, type
+        value, change, document, type,
       });
     } else {
       const isActive = this.hasBlock(type);
@@ -219,7 +286,7 @@ export default class SlateField extends Component {
 
   hasLinks() {
     const {
-      value
+      value,
     } = this.state;
 
     return value.inlines.some(inline => inline.type === 'link');
@@ -227,7 +294,7 @@ export default class SlateField extends Component {
 
   hasBlock(type) {
     const {
-      value
+      value,
     } = this.state;
 
     return value.blocks.some(node => node.type === type);
@@ -237,7 +304,7 @@ export default class SlateField extends Component {
     let empty = false;
 
     const {
-      value
+      value,
     } = this.state;
 
     try {
@@ -249,7 +316,7 @@ export default class SlateField extends Component {
         empty = true;
       }
     } catch (e) {
-      console.error(e);
+      log.error(e);
     }
 
     return empty;
@@ -269,10 +336,10 @@ export default class SlateField extends Component {
     return (
       <button
         type="button"
-        className={classNames({
-          btn: true,
+        title={shortcuts.find(s => s.type === type)?.label}
+        className={classNames('btn', {
           'btn-default': !isActive,
-          'btn-primary': isActive
+          'btn-primary': isActive,
         })}
         onMouseDown={this.toggleBlock.bind(this, type)}
       >
@@ -281,9 +348,30 @@ export default class SlateField extends Component {
     );
   }
 
+  renderFullscreenButton() {
+    const {
+      fullscreen = false,
+    } = this.state;
+
+    return (
+      <button
+        type="button"
+        className="btn btn-default pull-right"
+        onClick={() => this.setFullscreen(!fullscreen)}
+      >
+        <i
+          className={classNames('fa', {
+            'fa-maximize': !fullscreen,
+            'fa-minimize': fullscreen,
+          })}
+        />
+      </button>
+    );
+  }
+
   renderMarkButton(type) {
     const {
-      value
+      value,
     } = this.state;
 
     const isActive = value.activeMarks.some(mark => mark.type === type);
@@ -291,10 +379,10 @@ export default class SlateField extends Component {
     return (
       <button
         type="button"
-        className={classNames({
-          btn: true,
+        title={shortcuts.find(s => s.type === type)?.label}
+        className={classNames('btn', {
           'btn-default': !isActive,
-          'btn-primary': isActive
+          'btn-primary': isActive,
         })}
         onMouseDown={this.toggleMark.bind(this, type)}
       >
@@ -303,24 +391,69 @@ export default class SlateField extends Component {
     );
   }
 
+  renderFullscreenTop() {
+    const {
+      field: fieldFromProps,
+      lang,
+    } = this.props;
+
+    const field = flattenFieldLabels(fieldFromProps, lang);
+
+    return (
+      <>
+        <label
+          htmlFor={field.field}
+          className="control-label"
+        >
+          {field.label}
+        </label>
+        {field.info ? <Info value={field.info} /> : null}
+      </>
+    );
+  }
+
+  renderFullscreenBottom() {
+    const {
+      field: fieldFromProps,
+      lang,
+      parentValue,
+      error,
+    } = this.props;
+
+    const field = flattenFieldLabels(fieldFromProps, lang);
+
+    return (
+      <>
+        {field.max ? <FieldCounter value={parentValue} max={field.max} /> : null}
+        {field.sub || field.error ? <Sub label={field.sub} error={error} /> : null}
+      </>
+    );
+  }
+
   render() {
     const {
-      value
+      value,
+      fullscreen,
     } = this.state;
 
     const {
       lang,
-      field
+      field,
     } = this.props;
 
     const {
-      placeholder
+      placeholder,
     } = field;
 
     const labels = flatten(richTextLabels, lang, true);
 
     return (
-      <div className="rich-textarea margin-top-xs">
+      <div
+        className={classNames('rich-textarea margin-top-xs', {
+          fullscreen,
+        })}
+      >
+        {fullscreen ? this.renderFullscreenTop() : null}
         <div className="toolbar">
           {this.renderBlockButton('heading-two', labels.heading)}
           {this.renderBlockButton('heading-three', labels.subHeading)}
@@ -328,6 +461,7 @@ export default class SlateField extends Component {
           {this.renderMarkButton('italic')}
           {this.renderBlockButton('bulleted-list', <i className="fa fa-list" />)}
           {this.renderBlockButton('link', <i className="fa fa-link" />)}
+          {this.renderFullscreenButton()}
         </div>
         <div className="textarea-canvas">
           { this.isEmpty() && placeholder ? (
@@ -347,8 +481,10 @@ export default class SlateField extends Component {
             renderMark={renderMark}
             renderNode={renderNode}
             onChange={params => this.onChange(params)}
+            onKeyDown={(ev, ed) => this.onKeyDown(ev, ed)}
           />
         </div>
+        {fullscreen ? this.renderFullscreenBottom() : null}
       </div>
     );
   }

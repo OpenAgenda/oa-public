@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -21,13 +21,14 @@ import modalsReducer from '../reducers/modals';
 
 function App({ route }) {
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    })
+      }),
   );
 
   const { user, lang } = useLayoutData();
@@ -35,12 +36,12 @@ function App({ route }) {
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
   const total = useSelector(
-    state => state.agendas.homeAgendas && state.agendas.homeAgendas.total
+    state => state.agendas.homeAgendas && state.agendas.homeAgendas.total,
   );
 
   const getLabel = useCallback(
     (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
-    [lang]
+    [lang],
   );
 
   const i18nContextValue = useMemo(
@@ -48,7 +49,7 @@ function App({ route }) {
       lang,
       getLabel,
     }),
-    [lang, getLabel]
+    [lang, getLabel],
   );
 
   const history = useHistory();
@@ -74,32 +75,32 @@ function App({ route }) {
     >
       <QueryClientProvider client={queryClient}>
         <I18nContext.Provider value={i18nContextValue}>
-          {!total ? (
-            renderRoutes(route.routes)
-          ) : (
-            <div
-              className={classNames('container top-margined home', {
-                [`home-${tab}`]: tab,
-              })}
-            >
-              <div className="row">
-                <div className="col-sm-8 col-sm-offset-2">
-                  <ul className="home-nav list-inline">
-                    <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
-                      {getLabel('myAgendas')}
-                    </MenuItem>
-                    <MenuItem
-                      linkTo={`${prefix}/events`}
-                      active={tab === 'events'}
-                    >
-                      {getLabel('myEvents')}
-                    </MenuItem>
-                  </ul>
-                  <div className="wsq">{renderRoutes(route.routes)}</div>
+          {!total
+            ? renderRoutes(route.routes)
+            : (
+              <div
+                className={classNames('container top-margined home', {
+                  [`home-${tab}`]: tab,
+                })}
+              >
+                <div className="row">
+                  <div className="col-sm-8 col-sm-offset-2">
+                    <ul className="home-nav list-inline">
+                      <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
+                        {getLabel('myAgendas')}
+                      </MenuItem>
+                      <MenuItem
+                        linkTo={`${prefix}/events`}
+                        active={tab === 'events'}
+                      >
+                        {getLabel('myEvents')}
+                      </MenuItem>
+                    </ul>
+                    <div className="wsq">{renderRoutes(route.routes)}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </I18nContext.Provider>
       </QueryClientProvider>
     </IntlProvider>
@@ -107,10 +108,11 @@ function App({ route }) {
 }
 
 export default provideHooks({
-  inject: ({ store }) => store.inject({
-    menu: menuReducer,
-    events: eventsReducer,
-    agendas: agendasReducer,
-    modals: modalsReducer,
-  }),
+  inject: ({ store }) =>
+    store.inject({
+      menu: menuReducer,
+      events: eventsReducer,
+      agendas: agendasReducer,
+      modals: modalsReducer,
+    }),
 })(App);

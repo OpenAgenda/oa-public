@@ -37,9 +37,7 @@ function task({ queue }) {
   };
 }
 
-module.exports = ({
-  knex, queues, interfaces, logger
-}) => {
+module.exports = ({ knex, queues, interfaces, logger }) => {
   const queue = queues('aggregator');
 
   if (logger) {
@@ -63,7 +61,7 @@ module.exports = ({
         'getEventReference',
         'updateSourcePaths',
         'unreferenceEvent',
-      ])
+      ]),
     ),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
@@ -77,7 +75,8 @@ module.exports = ({
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
   queue.on('execute', fn => log('processing "%s" from queue', fn));
-  queue.on('success', (fn, args, result) => log('done processing "%s" from queue', fn, result));
+  queue.on('success', (fn, args, result) =>
+    log('done processing "%s" from queue', fn, result));
 
   return {
     get: get.bind(null, {

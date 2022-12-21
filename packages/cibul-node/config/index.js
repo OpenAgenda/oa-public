@@ -200,7 +200,10 @@ const config = {
       'truthfinderlogin.com',
       'wellsfargocomcardholders.com',
       'chasefreedomactivate.com',
-      'eoopy.com'
+      'eoopy.com',
+      'teknowa.com',
+      'xegge.com',
+      'rubeshi.com',
     ],
     mails: {
       defaults: {

@@ -571,6 +571,7 @@ class Dashboard extends Component {
             }}
             onCloseModalRequest={() => closeModal('editMember')}
             schema={schema}
+            userRole={member.role}
           />
         ) : null}
 

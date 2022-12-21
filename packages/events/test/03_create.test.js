@@ -84,13 +84,17 @@ describe('events - functional - create', () => {
   describe('create with image', () => {
     let svc;
 
-    beforeAll(done => fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
-      .pipe(fs.createWriteStream('/tmp/dog.png'))
-      .on('close', done));
+    beforeAll(done => {
+      fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+        .pipe(fs.createWriteStream('/tmp/dog.png'))
+        .on('close', done)
+    });
     
-    beforeAll(done => fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
-      .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
-      .on('close', done));
+    beforeAll(done => {
+      fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
+        .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
+        .on('close', done)
+    });
 
     beforeAll(() => {
       svc = Service({

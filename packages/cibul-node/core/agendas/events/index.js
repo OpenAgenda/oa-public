@@ -23,7 +23,7 @@ module.exports = core => {
     patch: update.patch.bind(null, core, agendaUid),
     validate: Object.assign(
       validate.bind(null, core, agendaUid),
-      { eventFields: validate.eventFields }
+      { eventFields: validate.eventFields },
     ),
     batch: batch.bind(null, agendaUid),
     search: Object.assign(search.bind(null, core, agendaUid), {

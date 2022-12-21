@@ -1,8 +1,8 @@
 'use strict';
 
 const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
-const restrictToUnlogged = require('./hooks/restrictToUnlogged');
-const restrictToCurrentUser = require('./hooks/restrictToCurrentUser');
+const restrictToUnlogged = require('./restrictToUnlogged');
+const restrictToCurrentUser = require('./restrictToCurrentUser');
 
 const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(
@@ -43,38 +43,38 @@ const disallow = (...args) => async (context, next) => {
 
 module.exports = {
   find: [
-    disallow('external')
+    disallow('external'),
   ],
   get: [
     restrictToCurrentUserIfExternal(),
-    populateAnnouncement()
+    populateAnnouncement(),
   ],
   create: [
-    restrictToUnloggedIfExternal()
+    restrictToUnloggedIfExternal(),
   ],
   update: [
-    disallow()
+    disallow(),
   ],
   patch: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   remove: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   requestChangeEmail: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   confirmChangeEmail: [],
   changePassword: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   generateApiKey: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   setNewFlag: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
   ],
   refresh: [
-    restrictToCurrentUserIfExternal()
-  ]
+    restrictToCurrentUserIfExternal(),
+  ],
 };

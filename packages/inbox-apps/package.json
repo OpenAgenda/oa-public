@@ -55,7 +55,7 @@
     "@babel/core": "^7.13.16",
     "@babel/node": "^7.13.13",
     "@loadable/babel-plugin": "^5.13.2",
-    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/inboxes": "^1.1.14",

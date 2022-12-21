@@ -145,7 +145,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(events[0].uid).toBe(1);
       expect(sort).toBe('timingsWithFeatured.asc');
-      expect(after).toEqual([0, 32503680000000, 1569578400000, 1]);
+      expect(after).toEqual([0, 32503683600000, 1569578400000, 1]);
 
       const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
         userUid: 63170200,
@@ -165,9 +165,9 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       expect(
-        new Date(events.pop().updatedAt).getTime()
+        new Date(events.pop().updatedAt).getTime(),
       ).toBe(
-        new Date('2022-06-30T09:00:00.000Z').getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime(),
       );
     });
 
@@ -249,8 +249,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(
           Object.keys(response)
             .filter(
-              key => ['success', 'sort', 'total', 'after', 'events'].includes(key)
-            ).length
+              key => ['success', 'sort', 'total', 'after', 'events'].includes(key),
+            ).length,
         ).toEqual(5);
       });
 

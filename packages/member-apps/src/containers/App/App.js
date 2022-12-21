@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
@@ -14,10 +14,11 @@ import locales from '../../locales-compiled';
 
 @withLayoutData('lang')
 @provideHooks({
-  inject: ({ store }) => store.inject({
-    members: membersReducer,
-    modals: modalsReducer,
-  }),
+  inject: ({ store }) =>
+    store.inject({
+      members: membersReducer,
+      modals: modalsReducer,
+    }),
 })
 @connect(state => ({
   res: state.res,
@@ -25,7 +26,8 @@ import locales from '../../locales-compiled';
 export default class App extends Component {
   i18nContextValue = {
     lang: this.props.lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang),
+    getLabel: (label, values = {}) =>
+      makeGetterLabel(labels)(label, values, this.props.lang),
   };
 
   render() {

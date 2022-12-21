@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  validateEvent
+  validateEvent,
 } = require('../core/agendas/utils/cleanEvent');
 
 describe('98 - core unit - cleanEvent', () => {
@@ -14,46 +14,49 @@ describe('98 - core unit - cleanEvent', () => {
             label: 'Texte alternatif à l\'image',
             enableWith: 'image',
             related: ['image'],
-            fieldType: 'text'
-          }]
+            fieldType: 'text',
+          }],
         },
-        validateAgendaEvent: () => ({ state: 1 })
+        validateAgendaEvent: () => ({ state: 1 }),
       }, {
-        image_alt_text: 'Un texte'
+        image_alt_text: 'Un texte',
       }, {
         validateWithStoredData: true,
         event: {
           uid: 18992812,
           image: {
-            filename: 'an-image.jpg'
-          }
+            filename: 'an-image.jpg',
+          },
         },
         access: 'contributor',
-        partial: true
+        partial: true,
       });
       expect(result.custom.image_alt_text).toBe('Un texte');
     });
 
     test('if validation is done without stored data provided and additional field linked to event field is specified, it is not included in clean data', () => {
-      const result = validateEvent({
-        formSchema: {
-          fields: [{
-            field: 'image_alt_text',
-            label: 'Texte alternatif à l\'image',
-            enableWith: 'image',
-            related: ['image'],
-            fieldType: 'text'
-          }]
+      const result = validateEvent(
+        {
+          formSchema: {
+            fields: [{
+              field: 'image_alt_text',
+              label: 'Texte alternatif à l\'image',
+              enableWith: 'image',
+              related: ['image'],
+              fieldType: 'text',
+            }],
+          },
+          validateAgendaEvent: () => ({ state: 1 }),
         },
-        validateAgendaEvent: () => ({ state: 1 }),
-      }, {
-        image_alt_text: 'Un texte'
-      },
-      {
-        validateWithStoredData: false,
-        access: 'contributor',
-        partial: true
-      });
+        {
+          image_alt_text: 'Un texte',
+        },
+        {
+          validateWithStoredData: false,
+          access: 'contributor',
+          partial: true,
+        },
+      );
 
       expect(result.custom.image_alt_text).toBeUndefined();
     });

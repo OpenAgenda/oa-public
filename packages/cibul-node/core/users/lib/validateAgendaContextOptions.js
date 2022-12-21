@@ -6,17 +6,17 @@ const integerValidator = require('@openagenda/validators/integer');
 
 schema.register({
   choice: choiceValidator,
-  integer: integerValidator
+  integer: integerValidator,
 });
 
 module.exports = schema({
   userUid: {
     type: 'integer',
-    default: null
+    default: null,
   },
   includes: {
     type: 'choice',
     options: ['me.authorizations', 'me.member', 'me.events', 'events'],
-    default: ['me.authorizations', 'me.member']
-  }
+    default: ['me.authorizations', 'me.member'],
+  },
 });

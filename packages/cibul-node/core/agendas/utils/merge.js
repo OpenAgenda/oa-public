@@ -9,17 +9,20 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     originAgenda,
     includeFields,
     member,
-    load
+    user,
+    load,
   } = {
     includeFields: null,
     originAgenda: null,
     member: null,
+    user: null,
     load: {
       event: true,
       custom: true,
-      agendaEvent: true
+      agendaEvent: true,
+      user: true,
     },
-    ...options
+    ...options,
   };
 
   const compiled = {};
@@ -67,6 +70,14 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     compiled.member = member;
   }
 
+  if (load.user && agendaEvent) {
+    compiled.user = agendaEvent.user;
+  }
+
+  if (!compiled.user && user) {
+    compiled.user = user;
+  }
+
   return compiled;
 }
 
@@ -78,24 +89,24 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const schemas = args.concat([]);
   const {
     access,
-    includeNonDataFields
+    includeNonDataFields,
   } = schemas.pop();
   return eventFormSchema({
     // languages: true,
     schemaExtensions: schemas,
     access: access?.read === 'internal' ? null : access,
-    excludeNonDataFields: !includeNonDataFields
+    excludeNonDataFields: !includeNonDataFields,
   });
 };
 
 module.exports.eventFromObject = ({
   event,
   agendaEvent,
-  custom
+  custom,
 }, options = {}) => mergeEvent(
   event,
   agendaEvent,
   custom ? custom.network : null,
   custom ? custom.agenda : null,
-  options
+  options,
 );

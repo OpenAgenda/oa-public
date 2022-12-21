@@ -6,7 +6,7 @@ async function getUserFromKey(services, keyField, keyString = null) {
   const {
     users,
     knex,
-    simpleCache
+    simpleCache,
   } = services;
 
   const cached = await simpleCache('users', `${keyField}:${keyString}`).get();
@@ -23,8 +23,8 @@ async function getUserFromKey(services, keyField, keyString = null) {
 
   const user = await users.findOne({
     query: {
-      id: apiKeySet.user_id
-    }
+      id: apiKeySet.user_id,
+    },
   });
 
   simpleCache('users', `${keyField}:${keyString}`).set(JSON.stringify(user), 60 * 60);

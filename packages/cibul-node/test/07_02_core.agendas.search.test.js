@@ -37,8 +37,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         'legacy',
         'users',
         'keys',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -64,7 +64,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('target specific agendas to fetch through uid filter', async () => {
       const { agendas } = await core.agendas.search({
-        uid: [17026800]
+        uid: [17026800],
       });
 
       expect(agendas.length).toBe(1);
@@ -73,7 +73,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('target specific agendas to fetch through slug filter', async () => {
       const { agendas } = await core.agendas.search({
-        slug: 'le-fennec'
+        slug: 'le-fennec',
       });
 
       expect(agendas.length).toBe(1);
@@ -85,7 +85,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       const { agendas: firstAgendas, after } = await core.agendas.search({}, { size: 1 });
 
       const { agendas: nextAgendas } = await core.agendas.search({}, {
-        after
+        after,
       });
 
       expect(firstAgendas[0].uid).toBe(allAgendas[0].uid);
@@ -95,10 +95,10 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('locationSet is indexed and can be used as filter', async () => {
       const { agendas: withLocationSet } = await core.agendas.search({
-        locationSet: 4321
+        locationSet: 4321,
       }, {}, {
         detailed: true,
-        includeFields: 'locationSet'
+        includeFields: 'locationSet',
       });
 
       expect(withLocationSet.length).toBe(1);
@@ -115,7 +115,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       const { agendas } = await core.agendas.search({}, {}, {
         indexed: null,
         includeFields: 'indexed',
-        access: 'internal'
+        access: 'internal',
       });
 
       expect(agendas.filter(a => !a.indexed).length).toBeGreaterThan(0);
@@ -125,7 +125,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('use access option to include restricted summary values', async () => {
       const { agendas } = await core.agendas.search({}, { size: 1 }, {
         includeFields: 'summary',
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(Array.isArray(agendas[0].summary.eventCountsByState)).toBe(true);
@@ -154,7 +154,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
           'after',
           'agendas',
           'total',
-          'success'
+          'success',
         ]);
       });
     });
@@ -176,7 +176,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
           'slug',
           'summary',
           'title',
-          'uid'
+          'uid',
         ]);
       });
     });

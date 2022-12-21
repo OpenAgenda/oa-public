@@ -10,16 +10,16 @@ module.exports = () => (req, res) => {
     languages: req.languages?.length ? req.languages : [req.lang],
     labels: {
       ...fieldNameLabels,
-      ...memberLabels
+      ...memberLabels,
     },
     maintainedFields: ['dateRange', 'country'],
-    formSchema: req.formSchema
+    formSchema: req.formSchema,
   };
 
   const spreadsheetColumns = flatExports.csv().getHeaders(options);
 
   res.json({
     languages: req.languages,
-    spreadsheetColumns
+    spreadsheetColumns,
   });
 };

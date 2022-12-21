@@ -3,13 +3,11 @@
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
 
-const log = logs('core/agendas/settings/legacy/updateLegacySet');
-
 const getAgenda = require('../../utils/getAgenda');
 const getMergedSchema = require('../getMergedSchema');
 const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
 
-const Operations = services => {
+const Operations = (services, log) => {
   const {
     legacy,
   } = services;
@@ -31,71 +29,77 @@ const Operations = services => {
   };
 };
 
-module.exports = async (core, agendaOrUid, type, options = {}) => {
-  const config = core.getConfig();
-  const {
-    services,
-  } = core;
+module.exports = (core, type) => {
+  const log = logs(`core/agendas/settings/legacy/updateLegacySet:${type}`);
 
-  const {
-    lang,
-  } = options;
+  return async (agendaOrUid, options = {}) => {
+    const config = core.getConfig();
+    const {
+      services,
+    } = core;
 
-  const operations = Operations(services);
+    const {
+      lang,
+    } = options;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+    const operations = Operations(services, log);
 
-  log(`transferring from form-schema to ${type}-set and custom fields`, agenda.uid, agenda.slug);
+    const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
-  const schema = await getMergedSchema(services, agenda);
+    log('transferring from form-schema to %s-set and custom fields on agenda %s (%s)', type, agenda.uid, agenda.slug);
 
-  if (!schema) {
-    return {
-      message: `No schema was found for agenda ${agenda.uid}`,
+    const schema = await getMergedSchema(services, agenda);
+
+    if (!schema) {
+      return {
+        message: `No schema was found for agenda ${agenda.uid}`,
+      };
+    }
+
+    const { id } = await config.knex('review').first(['id']).where('uid', agenda.uid);
+
+    const legacySet = await operations[type].get(agenda.uid);
+
+    log('%sretrieved set for agenda %s', legacySet ? '' : 'did not ', agenda.uid);
+
+    const {
+      set: updatedLegacySet,
+      messages,
+      fields,
+    } = await operations[type].generate(id, schema, legacySet, {
+      lang: agenda.settings.contribution.defaultLang ?? lang,
+    });
+
+    const res = {
+      messages,
+      [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet,
     };
-  }
 
-  const { id } = await config.knex('review').first(['id']).where('uid', agenda.uid);
+    if (!updatedLegacySet) {
+      res.messages.push(`no ${type} set generated`);
 
-  const legacySet = await operations[type].get(agenda.uid);
+      return res;
+    }
 
-  const {
-    set: updatedLegacySet,
-    messages,
-    fields,
-  } = await operations[type].generate(id, schema, legacySet, {
-    lang: agenda.settings.contribution.defaultLang ?? lang,
-  });
+    if (type === 'tags') {
+      log('updated tag set has %s groups', updatedLegacySet.groups.length);
+    } else {
+      log('updated category set has %s categories', updatedLegacySet.categories.length);
+    }
 
-  const res = {
-    messages,
-    [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet,
-  };
+    res.messages.push(`generated ${type} set at id ${id}`);
 
-  if (!updatedLegacySet) {
-    res.messages.push(`no ${type} set generated`);
+    if (updatedLegacySet) {
+      const {
+        message: schemaUpdateMessage,
+        schema: updatedSchema,
+      } = await setSchemaFieldOrigins(services, agenda, fields.map(f => f.field), type);
+
+      res.messages.push(schemaUpdateMessage);
+
+      res.updatedSchema = updatedSchema;
+    }
 
     return res;
-  }
-
-  if (type === 'tags') {
-    log('updated tag set has %s groups', updatedLegacySet.groups.length);
-  } else {
-    log('updated category set has %s categories', updatedLegacySet.categories.length);
-  }
-
-  res.messages.push(`generated ${type} set at id ${id}`);
-
-  if (updatedLegacySet) {
-    const {
-      message: schemaUpdateMessage,
-      schema: updatedSchema,
-    } = await setSchemaFieldOrigins(services, agenda, fields.map(f => f.field), type);
-
-    res.messages.push(schemaUpdateMessage);
-
-    res.updatedSchema = updatedSchema;
-  }
-
-  return res;
+  };
 };
