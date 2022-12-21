@@ -23,7 +23,7 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
 
   const { isValid, member } = includes.includes('me.member') || includes.includes('events') ? await core
     .agendas(agendaUid).members
-    .get(identifier, { ...options, isValid: true }) : undefined;
+    .get(identifier, { ...options, returnIsValid: true }) : undefined;
 
   if (includes.includes('me.member')) {
     context.me.member = member;

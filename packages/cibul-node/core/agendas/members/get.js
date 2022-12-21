@@ -25,7 +25,7 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
   const {
     userUid: actingUserUid,
     access = null,
-    isValid = null,
+    returnIsValid = false,
   } = options;
 
   const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
@@ -63,12 +63,28 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
 
   const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
 
-  if (!schemas.agendaSchema) {
-    return !isValid ? memberRes : { member: memberRes, isValid: validateMemberData(memberRes, schemas.merged) };
+  if (!schemas.agendaSchema && returnIsValid) {
+    return {
+      member: memberRes,
+      isValid: validateMemberData(memberRes, schemas.merged),
+    };
   }
+
+  if (!schemas.agendaSchema) {
+    return memberRes;
+  }
+
   const customRes = await custom(schemas.agendaSchema.id).get(memberRes.userUid);
   const completedMemberData = { ...memberRes, ...customRes };
-  return !isValid ? completedMemberData : { member: completedMemberData, isValid: validateMemberData({ ...memberRes, ...customRes }, schemas.merged) };
+
+  if (returnIsValid) {
+    return {
+      member: completedMemberData,
+      isValid: validateMemberData(completedMemberData, schemas.merged),
+    };
+  }
+
+  return completedMemberData;
 }
 
 module.exports = Object.assign((services, agendaOrUid, identifier, options) => get(
