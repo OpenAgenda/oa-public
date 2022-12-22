@@ -34,7 +34,7 @@ class Stream extends Readable {
 
     const { items: members, after } = await this._.core.agendas(this._.agenda).members.list(
       nav,
-      this._.options
+      this._.options,
     );
 
     if (!members.length) return [];
