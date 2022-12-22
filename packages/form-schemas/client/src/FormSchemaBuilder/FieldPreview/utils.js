@@ -52,12 +52,14 @@ export function getDefaultValueLabel(field, lang) {
     return Object.values(field.default).join(', ');
   }
 
-  if (field.options.length) {
-    const defaultValue = field.default;
+  const defaultValue = field.default;
+
+  if (field.options) {
     const specificValuesFromOptions = field.options.find(obj => obj.id === defaultValue);
     return getLocaleValue(specificValuesFromOptions.label, lang);
   }
-  return undefined;
+
+  return defaultValue;
 }
 
 export function getLinkedField({ field, schema }) {

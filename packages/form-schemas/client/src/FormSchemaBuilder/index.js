@@ -87,17 +87,17 @@ export default class FormSchemaBuilder extends Component {
 
   onAccordionToggle(field) {
     const {
-      activeFieldSlug,
+      activeItemSlug,
     } = this.state;
 
     const slug = getFormItemSlug(field);
 
-    const isOpen = activeFieldSlug === slug;
+    const isOpen = activeItemSlug === slug;
 
     if (isOpen) {
-      this.setState({ activeFieldSlug: null });
+      this.setState({ activeItemSlug: null });
     } else {
-      this.setState({ activeFieldSlug: slug });
+      this.setState({ activeItemSlug: slug });
     }
   }
 
@@ -297,7 +297,7 @@ export default class FormSchemaBuilder extends Component {
       saveState,
       mode,
       schema,
-      activeFieldSlug,
+      activeItemSlug,
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
@@ -392,7 +392,7 @@ export default class FormSchemaBuilder extends Component {
                               onShow={() => this.onFieldEditSave(field, { display: true })}
                               onRemove={() => this.onFieldRemove(field)}
                               onAccordionToggle={() => this.onAccordionToggle(field)}
-                              active={activeFieldSlug === getFormItemSlug(field)}
+                              active={activeItemSlug === getFormItemSlug(field)}
                               schema={mergedSchema}
                             />
                           </div>

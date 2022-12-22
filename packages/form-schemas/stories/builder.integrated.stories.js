@@ -481,6 +481,60 @@ export function CustomField() {
   );
 }
 
+export function ExtendedSection() {
+  const schema = {};
+
+  const extensions = [{
+    schema: {
+      id: 12,
+      fields: [
+        {
+          field: 'title',
+          label: 'Titre',
+          fieldType: 'text',
+        },
+        {
+          type: 'section',
+          slug: 'u8ez',
+        },
+        {
+          field: 'description',
+          label: 'Description',
+          fieldType: 'text',
+        },
+      ],
+    },
+    info: {
+      label: 'Réseau',
+      info: 'Champ réseau',
+    },
+  }];
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              devState={{
+                // editedField: 'title'
+              }}
+              schema={schema}
+              extendedFrom={extensions}
+              onUpdate={logSchema}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ExtendedTextField() {
   const schema = {
   };

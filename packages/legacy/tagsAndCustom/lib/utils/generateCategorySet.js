@@ -7,36 +7,7 @@ const extractLabelString = require('./extractLabelString');
 
 const includeTypes = ['radio', 'select'];
 
-module.exports = (schema, currentCategorySet = null) => {
-
-  const field = _.first(schema.fields
-    .filter(f => includeTypes.includes(f.fieldType))
-    .filter(f => f.origin == 'categories'));
-
-  const messages = field && !field.origin ? [
-  `${field.field}: field origin is not set`
-  ] : [];
-
-  if (!field) {
-    return {
-      set: null,
-      messages: ['no category set field was found'],
-      fields: []
-    }
-  }
-
-  return {
-    set: {
-      name: extractLabelString(field.label),
-      required: !field.optional,
-      categories: _defineCategories(field.schemaId, _.get(currentCategorySet, 'categories', []), field.options)
-    },
-    messages,
-    fields: [field]
-  }
-}
-
-function _defineCategories(schemaId, currentCategories = [], options = []) {
+function defineCategories(schemaId, currentCategories = [], options = []) {
   return options.map(o => {
     let matchingCategoryIndex = -1;
 
@@ -54,14 +25,42 @@ function _defineCategories(schemaId, currentCategories = [], options = []) {
       return ih(currentCategories[matchingCategoryIndex], {
         slug: { $set: slug },
         label: { $set: label },
-        schemaOptionId: { $set: schemaOptionId }
+        schemaOptionId: { $set: schemaOptionId },
       });
     }
 
     return {
       slug,
       label,
-      schemaOptionId
+      schemaOptionId,
     };
   });
 }
+
+module.exports = (schema, currentCategorySet = null) => {
+  const field = _.first(schema.fields
+    .filter(f => includeTypes.includes(f.fieldType))
+    .filter(f => f.origin === 'categories'));
+
+  const messages = field && !field.origin ? [
+    `${field.field}: field origin is not set`,
+  ] : [];
+
+  if (!field) {
+    return {
+      set: null,
+      messages: ['no category set field was found'],
+      fields: [],
+    };
+  }
+
+  return {
+    set: {
+      name: extractLabelString(field.label),
+      required: !field.optional,
+      categories: defineCategories(field.schemaId, _.get(currentCategorySet, 'categories', []), field.options),
+    },
+    messages,
+    fields: [field],
+  };
+};

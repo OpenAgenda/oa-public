@@ -26,7 +26,7 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
 
     const json = {
       error: 'proxy_error',
-      reason: error.message
+      reason: error.message,
     };
     res.end(JSON.stringify(json));
   }) : null;
@@ -99,7 +99,7 @@ const initialState = async req => {
 
   const user = req.user && req.user.uid ? await services.users.get(req.user.uid, {
     user: req.user,
-    includeImagePath: true
+    includeImagePath: true,
   }) : null;
 
   const isTranslator = user ? config.translators.includes(user.uid) : false;
@@ -116,21 +116,21 @@ const initialState = async req => {
         userLoading: false,
         isTranslator,
         translateMode,
-        outdatedBrowser: req.outdatedBrowser
+        outdatedBrowser: req.outdatedBrowser,
       },
       res: {
         main: {
           getUser: '/users/me',
-          checkInboxNews: '/latest-inbox-timestamp'
+          checkInboxNews: '/latest-inbox-timestamp',
         },
         agendaAdmin: {
           loadAgenda: '/:slug/admin/layout',
-          verifyLocationCount: '/agendas/:uid/admin/locations/unverified'
-        }
+          verifyLocationCount: '/agendas/:uid/admin/locations/unverified',
+        },
       },
       settings: {
         activities: services.activities.getFormatConfig(),
-      }
+      },
     },
 
     home: {
@@ -139,7 +139,7 @@ const initialState = async req => {
         rootPrefix: '/home(|/events)', // because of /home/activities
         apiRoot,
         perPageLimit: 20,
-        displayLegacyMessageTab: false
+        displayLegacyMessageTab: false,
       },
       res: {
         agendas: {
@@ -149,25 +149,26 @@ const initialState = async req => {
           show: '/:slug',
           showPrivate: '/:slug.prv',
           addEvent: '/:slug/contribute',
-          contact: '/:slug/contact'
+          contact: '/:slug/contact',
         },
         events: {
           list: '/home/events.json',
           show: '/:slug/events/:eventSlug',
           showPrivate: '/:slug.prv/events/:eventSlug',
           showWithoutAgenda: '/events/:eventSlug',
-          edit: '/:slug/contribute/event/:eventUid'
+          edit: '/:slug/contribute/event/:eventUid',
         },
         messages: '/home/messages',
         notifs: '/home/notifications',
         search: '/agendas',
-        members: '/api/agendas/:agendaUid/members'
-      }
+        members: '/api/agendas/:agendaUid/members',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
+      },
     },
     userSettings: {
       settings: {
         prefix: '/settings',
-        apiRoot
+        apiRoot,
       },
       res: {
         getMe: '/users/me',
@@ -175,19 +176,19 @@ const initialState = async req => {
         deleteAccount: '/users/me',
         changeEmail: '/users/me/requestChangeEmail',
         changePassword: '/users/me/changePassword',
-        generateApiKey: '/users/me/generateApiKey'
-      }
+        generateApiKey: '/users/me/generateApiKey',
+      },
     },
     agendaSettingsNew: {
       settings: {
         prefix: '/new',
-        apiRoot
+        apiRoot,
       },
       res: {
         create: '/new',
         slugAvailable: '/agendas/slugs/available',
-        onCreated: '/:slug/admin/getting-started'
-      }
+        onCreated: '/:slug/admin/getting-started',
+      },
     },
     userActivities: {
       settings: {
@@ -197,14 +198,14 @@ const initialState = async req => {
         activities: services.activities.getFormatConfig(),
       },
       res: {
-        list: '/home/activities/list'
-      }
+        list: '/home/activities/list',
+      },
     },
     aggregatorSources: {
       settings: {
         prefix: '/:slug/admin/sources',
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
       },
       res: {
         list: '/:slug/admin/sources',
@@ -215,13 +216,13 @@ const initialState = async req => {
         agendaSearch: '/agendas.json',
         getAgenda: '/:slug',
         getAggregator: '/:slug/admin/aggregator',
-        setAggregator: '/:slug/admin/aggregator'
-      }
+        setAggregator: '/:slug/admin/aggregator',
+      },
     },
     agendaSettingsEdit: {
       settings: {
         prefix: '/:slug/admin',
-        apiRoot: `http://localhost:${config.port}`
+        apiRoot: `http://localhost:${config.port}`,
       },
       res: {
         agenda: '/:slug',
@@ -234,9 +235,9 @@ const initialState = async req => {
           create: '/:slug/admin/settings/keys/create',
           list: '/:slug/admin/settings/keys/list',
           update: '/:slug/admin/settings/keys/update',
-          remove: '/:slug/admin/settings/keys/remove'
-        }
-      }
+          remove: '/:slug/admin/settings/keys/remove',
+        },
+      },
     },
     inboxUser: {
       settings: {
@@ -246,7 +247,7 @@ const initialState = async req => {
         perPageLimit: 20,
         emptyInboxLabel: 'homeInboxDesc',
         displayHelp: true,
-        autoFocus: true
+        autoFocus: true,
       },
       res: {
         refreshCheck: '/home/inbox/refresh-check',
@@ -255,15 +256,15 @@ const initialState = async req => {
           create: '/home/inbox/conversations.json',
           list: '/home/inbox/conversations.json',
           action: '/home/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/home/inbox/conversations/:conversationId/resume.json'
+          resume: '/home/inbox/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/home/inbox/conversations/:conversationId/messages.json',
           create: '/home/inbox/conversations/:conversationId/messages.json',
           prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-        }
-      }
+          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment',
+        },
+      },
     },
     support: {
       settings: {
@@ -281,9 +282,9 @@ const initialState = async req => {
           type: getSupportConversationType(req),
           destinationInbox: {
             type: 'support',
-            identifier: 1
-          }
-        }
+            identifier: 1,
+          },
+        },
       },
       res: {
         author: '/home/inbox/author.json',
@@ -291,15 +292,15 @@ const initialState = async req => {
           create: '/home/inbox/conversations.json',
           list: '/home/inbox/conversations.json',
           action: '/home/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/home/inbox/conversations/:conversationId/resume.json'
+          resume: '/home/inbox/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/home/inbox/conversations/:conversationId/messages.json',
           create: '/home/inbox/conversations/:conversationId/messages.json',
           prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-        }
-      }
+          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment',
+        },
+      },
     },
     agendaAdminInbox: {
       settings: {
@@ -309,7 +310,7 @@ const initialState = async req => {
         perPageLimit: 20,
         emptyInboxLabel: 'agendaInboxDesc',
         displayHelp: true,
-        hideTitle: true
+        hideTitle: true,
       },
       res: {
         author: '/agendas/:agendaUid/inbox/author.json',
@@ -317,21 +318,21 @@ const initialState = async req => {
           create: '/agendas/:agendaUid/inbox/conversations.json',
           list: '/agendas/:agendaUid/inbox/conversations.json',
           action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json'
+          resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
           create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
           prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment'
-        }
-      }
+          addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment',
+        },
+      },
     },
     members: {
       settings: {
         prefix: '/:slug/admin/members',
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
       },
       res: {
         app: '/:slug/admin/members',
@@ -346,8 +347,8 @@ const initialState = async req => {
         exportToCsv: '/:slug/admin/members.csv',
         exportToXlsx: '/:slug/admin/members.xlsx',
         sendMessage: '/:slug/admin/members/send-message',
-        getSchema: '/api/agendas/:agendaUid/settings/memberSchema'
-      }
+        getSchema: '/api/agendas/:agendaUid/settings/memberSchema',
+      },
     },
     legacyEmbeds: {
       prefix: '/:slug/admin/embeds',
@@ -358,8 +359,8 @@ const initialState = async req => {
         embeds: '/api/agendas/:agendaUid/embeds',
         preview: '/agendas/:agendaUid/previewEmbeds/:embedUid/events',
         previewScript: '/js/embed/cibulBodyWidget.js',
-        agendaSettings: '/api/agendas/:agendaUid'
-      }
+        agendaSettings: '/api/agendas/:agendaUid',
+      },
     },
     agendaContribute: {
       settings: {
@@ -390,17 +391,17 @@ const initialState = async req => {
         showEvent: '/agendas/:agendaUid/events/:eventUid',
         showMyEvents: '/home/events',
         removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
-        contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
+        contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact',
       },
       memberFreshness: new Date(60 * 60 * 24 * 30 * 120 * 1000),
       files: {
         maxSize: config.maxFileSize,
         store: {
           type: 's3',
-          bucket: config.aws.bucket
-        }
+          bucket: config.aws.bucket,
+        },
       },
-      tiles: config.tiles
+      tiles: config.tiles,
     },
     agendaActivities: {
       settings: {
@@ -411,28 +412,28 @@ const initialState = async req => {
       },
       res: {
         list: '/:slug/admin/activities/list',
-      }
+      },
     },
     agendaStats: {
       settings: {
         prefix: '/:slug/admin/statistics',
-        apiRoot: `http://localhost:${config.port}`
+        apiRoot: `http://localhost:${config.port}`,
       },
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json',
-        statsConfig: '/:slug/admin/statistics/config'
-      }
+        statsConfig: '/:slug/admin/statistics/config',
+      },
     },
     eventAdmin: {
       settings: {
         prefix: '/:slug/admin/events',
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
-        mapTiles: config.tiles
+        mapTiles: config.tiles,
       },
       res: {
-        jsonExport: '/agendas/:uid/admin/events.v2.json'
-      }
+        jsonExport: '/agendas/:uid/admin/events.v2.json',
+      },
     },
     agendaLocationAdmin: {
       settings: {
@@ -440,7 +441,7 @@ const initialState = async req => {
         apiRoot: `http://localhost:${config.port}`,
         pageSize: 20,
         staticTiles: config.staticTiles,
-        mapTiles: config.tiles
+        mapTiles: config.tiles,
       },
       res: {
         index: '/api/agendas/:agendaUid/locations?detailed=1&eventCounts=1',
@@ -470,6 +471,7 @@ const initialState = async req => {
       res: {
         eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
         memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
+        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },
     // Admin
@@ -479,7 +481,7 @@ const initialState = async req => {
         prefix: '/admin/support',
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
-        autoFocus: true
+        autoFocus: true,
       },
       res: {
         author: '/admin/support/author.json',
@@ -487,22 +489,22 @@ const initialState = async req => {
           create: '/admin/support/conversations.json',
           list: '/admin/support/conversations.json',
           action: '/admin/support/conversations/:conversationId/action/:code.json',
-          resume: '/admin/support/conversations/:conversationId/resume.json'
+          resume: '/admin/support/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/admin/support/conversations/:conversationId/messages.json',
           create: '/admin/support/conversations/:conversationId/messages.json',
           prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
-        }
-      }
+          addAttachment: '/admin/support/conversations/:conversationId/add-attachment',
+        },
+      },
     },
     supervisor: {
       settings: {
         prefix: '/supervisor',
-        apiRoot: `http://localhost:${config.port}`
-      }
-    }
+        apiRoot: `http://localhost:${config.port}`,
+      },
+    },
   };
 };
 
@@ -510,7 +512,7 @@ module.exports = app => {
   if (proxy) {
     app.use(
       '/dist/react-integration-app',
-      (req, res) => proxy.web(req, res, { target: `https://localhost:${devServerPort}/dist/react-integration-app/` })
+      (req, res) => proxy.web(req, res, { target: `https://localhost:${devServerPort}/dist/react-integration-app/` }),
     );
   }
 
@@ -518,9 +520,9 @@ module.exports = app => {
     '/dist/react-integration-app',
     express.static(path.join(
       path.dirname(require.resolve('@openagenda/react-integration-app/package.json')),
-      'dist'
+      'dist',
     )),
-    (req, res) => res.sendStatus(404) // if not, unhandled files will be handled by following routes
+    (req, res) => res.sendStatus(404), // if not, unhandled files will be handled by following routes
   );
 
   app.get(
@@ -546,15 +548,15 @@ module.exports = app => {
       '/:slug/admin/locations(/*?)?',
       // Admin
       '/admin/support(/*?)?',
-      '/supervisor(/*?)?'
+      '/supervisor(/*?)?',
     ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oa-main.css'),
     // outdatedBrowserMw, // Already added with loadBaseData
     (req, res, next) => matchMw({
       initialState,
-      apiRoot
+      apiRoot,
       // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
-    })(req, res, next)
+    })(req, res, next),
   );
 };

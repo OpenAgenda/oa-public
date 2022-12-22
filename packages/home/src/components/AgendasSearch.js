@@ -12,26 +12,25 @@ import useAgendasSearch from '../hooks/useAgendasSearch';
 import SearchInput from './SearchInput';
 
 const AgendasSearch = forwardRef(
-  ({
-    res, render, initialState = {}, onSearch, fieldProps
-  }, ref) => {
+  ({ res, render, initialState = {}, onSearch, fieldProps }, ref) => {
     const apiClient = useApiClient();
 
     const initialValues = useMemo(
       () => ({
         search: initialState.searchValue,
       }),
-      [initialState.searchValue]
+      [initialState.searchValue],
     );
 
     const agendasSearchRequest = useCallback(
-      ({ search, page }) => apiClient.get(res, {
-        params: {
-          search: search === '' ? undefined : search,
-          page,
-        },
-      }),
-      [apiClient, res]
+      ({ search, page }) =>
+        apiClient.get(res, {
+          params: {
+            search: search === '' ? undefined : search,
+            page,
+          },
+        }),
+      [apiClient, res],
     );
 
     const { state, list, nextPage } = useAgendasSearch({
@@ -47,7 +46,7 @@ const AgendasSearch = forwardRef(
     const debouncedList = useMemo(() => _.debounce(list, 400), [list]);
     const throttledNextPage = useMemo(
       () => _.throttle(nextPage, 400, { trailing: false }),
-      [nextPage]
+      [nextPage],
     );
 
     const handleSearch = useCallback(values => list(values.search), [list]);
@@ -75,7 +74,7 @@ const AgendasSearch = forwardRef(
           />
         </form>
       ),
-      [debouncedList, state.listLoading, fieldProps]
+      [debouncedList, state.listLoading, fieldProps],
     );
 
     const form = useMemo(
@@ -86,11 +85,11 @@ const AgendasSearch = forwardRef(
           render={renderForm}
         />
       ),
-      [handleSearch, initialValues, renderForm]
+      [handleSearch, initialValues, renderForm],
     );
 
     return render({ state, form, nextPage: throttledNextPage });
-  }
+  },
 );
 
 export default React.memo(AgendasSearch);

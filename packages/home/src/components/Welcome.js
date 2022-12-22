@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient, Spinner } from '@openagenda/react-shared';
@@ -63,17 +63,18 @@ export default function Welcome() {
 
   twoWeekAgo.setDate(twoWeekAgo.getDate() - 14);
 
-  const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
-    params: {
-      sort: 'recentlyAddedEvents.desc',
-      contributionType: 1,
-      official: 1,
-      limit: 5,
-      updatedAt: {
-        gte: twoWeekAgo,
+  const agendasQuery = useQuery('welcome-agendas', () =>
+    apiClient.get('/agendas.json', {
+      params: {
+        sort: 'recentlyAddedEvents.desc',
+        contributionType: 1,
+        official: 1,
+        limit: 5,
+        updatedAt: {
+          gte: twoWeekAgo,
+        },
       },
-    },
-  }));
+    }));
 
   return (
     <div className="content">

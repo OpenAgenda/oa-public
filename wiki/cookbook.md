@@ -433,6 +433,48 @@ app.use(filesMw('any')); // each fieldname become an array, e.g. `req.body.image
 
 C'est utilisé dans le middleware du storybook du package `agenda-settings`.
 
+## Refactos
+
+### Enlever les `import React` dans les packages
+
+Le 15/12/2022
+
+Le linter demande désormais que les `import React from react` ne soient plus explicités en tête de fichier. Il faut les retirer progressivement des packages où ils apparaissent.
+
+Les retirer sans adapter le `.babelrc.js` du package ainsi que l'ajout de dépendences provoquera le plantage de l'application dans l'environnement intégré.
+
+Le `.babelrc.js` doit ressembler à ceci:
+
+```javascript
+'use strict';
+
+module.exports = {
+  presets: [
+    [
+      require.resolve('@openagenda/babel-preset'),
+      {
+        reactIntl: {
+          idInterpolationPattern: '[sha512:contenthash:base64:6]',
+          extractFromFormatMessageCall: true,
+          ast: true,
+        },
+        importSource: '@emotion/react',
+      },
+    ],
+  ],
+  plugins: [
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
+  ],
+  sourceType: 'unambiguous',
+};
+```
+
+... où le plugin `@emotion/babel-plugin` est ajouté, la clause `importSource` est ajoutée aux presets et la ligne `require.resolve('@emotion/babel-preset-css-prop')` n'apparait plus.
+
+Dans le `package.json`, la dépendence `@emotion/babel-preset-css-prop` doit être retirée, et la dépendence `"@emotion/babel-plugin": "^11.10.5"` ajoutée dans les `devDependencies`.
+
+
 ## Intégration de NextJs
 
 https://openagenda.com/next

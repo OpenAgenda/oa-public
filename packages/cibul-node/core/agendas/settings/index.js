@@ -24,14 +24,17 @@ module.exports = core => {
     legacy: legacySvc,
   } = services;
 
+  const updateCategorySetFromSchema = UpdateLegacySetFromSchema(core, 'categories');
+  const updateTagSetFromSchema = UpdateLegacySetFromSchema(core, 'tags');
+
   const resyncFn = {
-    updateTagSet: (agendaUid, options) => updateLegacySetFromSchema(core, agendaUid, 'tags', options),
-    updateCategorySet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'categories'),
+    updateTagSet: (agendaUid, options) => updateTagSetFromSchema(agendaUid, options),
+    updateCategorySet: agendaUid => updateCategorySetFromSchema(agendaUid),
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
     updateLegacy: (agendaUid, options) => updateLegacy(core, agendaUid, options),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
-    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid)
+    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
   };
 
   tasks.register(resyncFn);
@@ -49,7 +52,10 @@ module.exports = core => {
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.bind(null, services, agendaUid),
+<<<<<<< HEAD
       getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
+=======
+>>>>>>> a08cd665a64de3e64c7f836960b4b0cd4febfcde
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),

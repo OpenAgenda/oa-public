@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { useFormState, Field } from 'react-final-form';
@@ -34,14 +34,15 @@ export default function RuleForm({
     : null;
 
   const submitElement = useMemo(
-    () => (ReactIs.isValidElementType(SubmitButton) ? (
-      <SubmitButton
-        handleSubmit={handleSubmit}
-        onCancel={onCancel}
-        options={options}
-      />
-    ) : null),
-    [SubmitButton, handleSubmit, onCancel, options]
+    () =>
+      (ReactIs.isValidElementType(SubmitButton) ? (
+        <SubmitButton
+          handleSubmit={handleSubmit}
+          onCancel={onCancel}
+          options={options}
+        />
+      ) : null),
+    [SubmitButton, handleSubmit, onCancel, options],
   );
 
   return (
