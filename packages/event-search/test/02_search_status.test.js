@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const fs = require('fs');
 
 const config = require('../testconfig');
@@ -10,44 +9,46 @@ const Service = require('..');
 describe('02 - event -search - functional: status filter and aggregation', () => {
   let service;
 
-  before(async () => {
+  beforeAll(async () => {
     service = Service(config);
 
     try {
       await service.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
-    } catch (e) {}
+    } catch (e) {
+      // console.log(e);
+    }
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await service('status').rebuild({
-      eventsList: async (lastId, limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.status.json`)
-      )
-    })
+      eventsList: async (_lastId, _limit) => JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/02_events.status.json`),
+      ),
+    });
   });
 
   it('status filter filters', async () => {
     const { events } = await service('status').search({
-      status: 4
+      status: 4,
     });
-    
-    assert.strictEqual(events.length, 1);
-    assert.strictEqual(events[0].status, 4);
+
+    expect(events.length).toBe(1);
+    expect(events[0].status).toBe(4);
   });
 
   it('status aggregation aggregates', async () => {
     const { aggregations } = await service('status').search({}, { size: 0 }, {
-      aggregations: 'status'
+      aggregations: 'status',
     });
 
-    assert.deepStrictEqual(aggregations.status, [{
+    expect(aggregations.status).toEqual([{
       key: 1,
-      eventCount: 2
+      eventCount: 2,
     }, {
       key: 4,
-      eventCount: 1
+      eventCount: 1,
     }]);
   });
 });

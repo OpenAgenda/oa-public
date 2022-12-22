@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const elasticsearch = require('@elastic/elasticsearch');
 
 const config = require('../testconfig').elasticsearch;
@@ -9,16 +8,14 @@ const updateMapping = require('../utils/updateMapping');
 
 const indexName = '21_update_mapping';
 
-describe('21 - event-search - updateMapping', function() {
-  this.timeout(20000);
-
+describe('21 - event-search - updateMapping', () => {
   let client;
   let updateResponse;
 
-  before(async () => {
+  beforeAll(async () => {
     client = new elasticsearch.Client({
       node: config.node,
-      ssl: config.ssl
+      ssl: config.ssl,
     });
 
     await client.indices.create({
@@ -31,49 +28,52 @@ describe('21 - event-search - updateMapping', function() {
             location: {
               properties: {
                 uid: {
-                  type: 'integer'
-                }
-              }
-            }
-          }
-        }
-      }
+                  type: 'integer',
+                },
+              },
+            },
+          },
+        },
+      },
     });
   });
 
-  before(async () => {
+  beforeAll(async () => {
     updateResponse = await updateMapping({ client }, indexName, {
       uid: { type: 'integer' },
       slug: { type: 'keyword' },
       location: {
         properties: {
           uid: {
-            type: 'integer'
+            type: 'integer',
           },
           region: {
-            type: 'keyword'
-          }
-        }
-      }
+            type: 'keyword',
+          },
+        },
+      },
     });
   });
 
-  after(async () => {
+  afterAll(async () => {
     try {
       await client.indices.delete({ index: indexName });
-    } catch(e) {}
+    } catch (e) {
+      // console.log(e);
+    }
   });
 
   it('response is elasticsearch body', () => {
-    assert.deepEqual(updateResponse, { acknowledged: true });
+    expect(updateResponse).toEqual({ acknowledged: true });
   });
 
   it('mapping is updated', async () => {
     const updated = await client.indices.getMapping({ index: indexName });
 
-    assert.deepEqual(
+    expect(
       Object.keys(updated.body[indexName].mappings.properties),
-      ['location', 'slug', 'uid']
+    ).toEqual(
+      ['location', 'slug', 'uid'],
     );
   });
 });

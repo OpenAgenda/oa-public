@@ -1,52 +1,46 @@
 'use strict';
 
-const assert = require('assert');
 const config = require('../testconfig');
-const Service = require('../');
-const Cluster = require('../cluster');
+const Service = require('..');
 
-describe('20 - event-search - util: cluster', function() {
-  let service, deletedIndices, stats;
+describe('20 - event-search - util: cluster', () => {
+  let service;
+  let stats;
 
-  before(() => {
+  beforeAll(() => {
     service = Service(config);
   });
 
   describe('general cluster information', () => {
-
-    before(async () => {
+    beforeAll(async () => {
       stats = await service.cluster.stats();
     });
 
     it('cluster general information is provided', () => {
-      assert.deepEqual(Object.keys(stats), [
+      expect(Object.keys(stats)).toEqual([
         'status',
         'indexCount',
         'documentCount',
         'usedCPUPercent',
-        'usedMemoryPercent'
+        'usedMemoryPercent',
       ]);
     });
-
   });
 
   describe('nodes', () => {
     it('get info', async () => {
       const nodes = await service.cluster.nodes();
-      assert.equal(nodes instanceof Array, true);
+      expect(nodes instanceof Array).toBe(true);
     });
   });
 
   describe('index replicas', () => {
-
     it('update index replica number', async () => {
       const indexReplicaCount = await service.cluster.indices().replicas.get();
 
       await service.cluster.indices().replicas.set(indexReplicaCount + 1);
 
-      assert.equal(await service.cluster.indices().replicas.get(), indexReplicaCount + 1);
+      expect(await service.cluster.indices().replicas.get()).toBe(indexReplicaCount + 1);
     });
-
   });
-
 });

@@ -15,17 +15,19 @@ const update = require('./update');
 const Cluster = require('./cluster');
 const mapping = require('./config/mapping.json');
 const updateMapping = require('./utils/updateMapping');
+const geoJSON = require('./utils/geoJSON');
 
 module.exports = c => {
-  const config = Object.assign({
+  const config = {
     client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log', 'ssl'])),
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed,
     defaultIndex: 'main',
-    assetsPath: null
-  }, c);
-  
+    assetsPath: null,
+    ...c,
+  };
+
   if (c.logger) {
     logger.setModuleConfig(c.logger);
   }
@@ -40,15 +42,15 @@ module.exports = c => {
       moreLikeThis: moreLikeThis.bind(null, search),
       add: add.bind(null, config, alias),
       update: update.bind(null, config, alias),
-      remove: remove.bind(null, config, alias)
+      remove: remove.bind(null, config, alias),
     };
   }, {
     getConfig: () => config,
     cluster: Cluster(config),
-    updateMapping: updateMapping.bind(null, config, config.defaultIndex, mapping)
+    updateMapping: updateMapping.bind(null, config, config.defaultIndex, mapping),
   });
-}
+};
 
 module.exports.utils = {
-  geoJSON: require('./utils/geoJSON')
-}
+  geoJSON,
+};

@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/event-search",
   "scripts": {
-    "test": "NODE_ENV=test mocha --exit",
+    "test": "jest --runInBand --forceExit --testTimeout=40000 --verbose=false",
     "sandbox": "node sandbox/run.js"
   },
   "keywords": [],
@@ -31,10 +31,11 @@
     "moment-timezone": "^0.5.31"
   },
   "devDependencies": {
+    "@openagenda/eslint-config": "^1.3.1",
     "debug": "^4.1.1",
-    "mocha": "^7.0.1",
+    "eslint": "^8.24.0",
+    "jest": "^26.4.2",
     "moment": "^2.27.0",
-    "prompts": "^2.0.1",
-    "should": "^13.2.3"
+    "prompts": "^2.0.1"
   }
 }

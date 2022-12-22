@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const _ = require('lodash');
-const assert = require('assert');
 
 const config = require('../testconfig');
 
@@ -11,119 +10,131 @@ const Service = require('..');
 describe('02 - event search - functional: location', () => {
   let service;
 
-  before(async () => {
+  beforeAll(async () => {
     service = Service(config);
 
     try {
       await service.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
-    } catch (e) {}
+    } catch (e) {
+      // console.log(e);
+    }
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await service('location').rebuild({
-      eventsList: async (lastId, limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`)
-      )
-    })
+      eventsList: async (_lastId, _limit) => JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`),
+      ),
+    });
   });
 
-  it('all location info is provided if detailed option is specified', async () => {
+  it(
+    'all location info is provided if detailed option is specified',
+    async () => {
+      const { events } = await service('location').search({
+      }, {}, { detailed: true });
+      expect(
+        _.uniq(events.filter(e => e.location).map(e => e.location.city)),
+      ).toEqual(
+        ['Paris', 'Lille'],
+      );
+    },
+  );
+
+  it('city filter on "Paris"', async () => {
     const { events } = await service('location').search({
+      city: 'Paris',
     }, {}, { detailed: true });
-    assert.deepEqual(
-      _.uniq(events.filter(e => e.location).map(e => e.location.city)),
-      ['Paris', 'Lille']
-    )
+
+    expect(
+      _.uniq(events.map(e => e.location.city)),
+    ).toEqual(
+      ['Paris'],
+    );
   });
 
-  it('city filter on "Paris"', async () => {
-    const { events } = await service('location').search({
-      city: 'Paris'
-    }, {}, {detailed: true});
-
-  assert.deepEqual(
-    _.uniq(events.map(e => e.location.city)),
-    ['Paris']
-  )
-  });
-
-  it('city filter on "Paris"', async () => {
+  it('city filter on "Paris" includes fully pathed image in result with detailed & includeLocationImagePath options', async () => {
     const { events } = await service('location').search({ locationUid: 1 }, {}, {
       detailed: true,
-      includeLocationImagePath: true
+      includeLocationImagePath: true,
     });
 
-    assert.equal(
+    expect(
       events.filter(e => e.location?.image).pop().location.image,
-      'https://some.cdn/location123.jpg'
+    ).toBe(
+      'https://some.cdn/location123.jpg',
     );
   });
 
   it('adminLevel3 filter on "mel"', async () => {
     const { events } = await service('location').search({
-      adminLevel3: 'mel'
-    }, {}, {detailed: true});
+      adminLevel3: 'mel',
+    }, {}, { detailed: true });
 
-    assert.deepEqual(
+    expect(
       _.uniq(events.map(e => e.location.adminLevel3)),
-      ['mel']
+    ).toEqual(
+      ['mel'],
     );
   });
 
   it('adminLevel3 search on "mel"', async () => {
     const { events } = await service('location').search({
-      search: 'mel'
-    }, {}, {detailed: true});
+      search: 'mel',
+    }, {}, { detailed: true });
 
-    assert.deepEqual(
+    expect(
       _.uniq(events.map(e => e.location.adminLevel3)),
-      ['mel']
+    ).toEqual(
+      ['mel'],
     );
   });
 
   it('adminLevel3 is a possible aggregation', async () => {
     const { aggregations } = await service('location').search({
-      state: null
+      state: null,
     }, {}, { detailed: true, aggregations: 'adminLevels3' });
 
-    assert.deepEqual(aggregations.adminLevels3, [
+    expect(aggregations.adminLevels3).toEqual([
       { key: 'test', eventCount: 3 },
-      { key: 'mel', eventCount: 1 }
+      { key: 'mel', eventCount: 1 },
     ]);
   });
 
   it('adminLevel5 filter on "2eme"', async () => {
     const { events } = await service('location').search({
-      adminLevel5: '2eme'
+      adminLevel5: '2eme',
     }, {}, { detailed: true });
 
-    assert.deepEqual(
+    expect(
       _.uniq(events.map(e => e.location.adminLevel5)),
-      ['2eme']
+    ).toEqual(
+      ['2eme'],
     );
   });
 
   it('adminLevel5 search on "2eme"', async () => {
     const { events } = await service('location').search({
-      search: '2eme'
-    }, {}, {detailed: true});
-    
-    assert.deepEqual(
+      search: '2eme',
+    }, {}, { detailed: true });
+
+    expect(
       _.uniq(events.map(e => e.location.adminLevel5)),
-      ['2eme']
+    ).toEqual(
+      ['2eme'],
     );
   });
 
   it('adminLevel5 is a possible aggregation', async () => {
     const { aggregations } = await service('location').search({
-      state: null
+      state: null,
     }, {}, { detailed: true, aggregations: 'adminLevels5' });
 
-    assert.deepEqual(aggregations.adminLevels5, [
+    expect(aggregations.adminLevels5).toEqual([
       { key: '1er', eventCount: 1 },
-      { key: '2eme', eventCount: 1 }
+      { key: '2eme', eventCount: 1 },
     ]);
   });
 
@@ -133,37 +144,37 @@ describe('02 - event search - functional: location', () => {
       aggregations: [{
         key: 'littleFurryBunny',
         type: 'cities',
-        missing: 'N/A'
-      }]
+        missing: 'N/A',
+      }],
     });
 
-    assert.deepEqual(aggregations, {
+    expect(aggregations).toEqual({
       littleFurryBunny: [
         { key: 'Paris', eventCount: 3 },
         { key: 'Lille', eventCount: 1 },
-        { key: 'N/A', eventCount: 1 }
-      ]
+        { key: 'N/A', eventCount: 1 },
+      ],
     });
   });
 
   it('filter on empty location data', async () => {
     const { events } = await service('location').search({
-      city: 'null'
+      city: 'null',
     }, {}, {
-      detailed: true
+      detailed: true,
     });
 
-    assert.strictEqual(events.length, 1);
-    assert.strictEqual(events[0]?.location?.city, undefined);
+    expect(events.length).toBe(1);
+    expect(events[0]?.location?.city).toBeUndefined();
   });
 
   it('filters on empty and non-empty location data', async () => {
     const { events } = await service('location').search({
-      city: ['null', 'Paris']
+      city: ['null', 'Paris'],
     }, {}, {
-      detailed: true
+      detailed: true,
     });
 
-    assert.deepEqual(_.uniq(events.map(e => e?.location?.city)), ['Paris', undefined]);
+    expect(_.uniq(events.map(e => e?.location?.city))).toEqual(['Paris', undefined]);
   });
 });

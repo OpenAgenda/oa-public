@@ -113,11 +113,10 @@ module.exports = produce((event, options = {}) => {
   event['_search_keywords'] = [];
   
   if (Object.keys(event.accessibility ?? {}).length) {
-    event['_search_keywords'].push([
-      Object.keys(event.accessibility ?? {})
+    Object.keys(event.accessibility ?? {})
         .filter(a => !!event.accessibility[a])
         .map(a => `accessibility.${a}`)
-    ]);
+        .forEach(key => event['_search_keywords'].push(key));
   } 
 
   if (multilingualFieldHasValue(event.keywords)) {

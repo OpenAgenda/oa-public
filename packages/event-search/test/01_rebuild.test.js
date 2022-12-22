@@ -1,97 +1,88 @@
 'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
-const should = require('should');
+const Service = require('..');
 const config = require('../testconfig');
-const Service = require('../');
 
-describe('01 - event-search - functional: rebuild', function() {
-
-  describe('basic usage', function() {
-
-    const totalEvents = 30;
+describe('01 - event-search - functional: rebuild', () => {
+  describe('basic usage', () => {
     let service;
-
-    this.timeout(30000);
 
     async function eventsList(lastId, limit) {
       return JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`)
+        fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`),
       );
     }
 
-    before(() => {
+    beforeAll(() => {
       service = Service(config);
     });
 
-    describe('set rebuild', function() {
-
+    describe('set rebuild', () => {
       describe('simple', () => {
         let result;
 
-        before(async () => {
+        beforeAll(async () => {
           try {
-            await service.getConfig().client.indices.delete({ index: 'test' })
-          } catch (e) {}
+            await service.getConfig().client.indices.delete({ index: 'test' });
+          } catch (e) {
+            // ignore error except for troubleshoot
+          }
         });
 
-        before(async () => {
+        beforeAll(async () => {
           result = await service('someagendaidentifier').rebuild({
-            eventsList
+            eventsList,
           });
         });
 
         it('index is created if not existing', async () => {
           const r = await service.getConfig().client.indices.exists({ index: 'test' });
-          r.body.should.equal(true);
+          expect(r.body).toBe(true);
         });
 
         it('a rebuild accounts for 4 main operations if index is created', () => {
-          result.operations.length.should.equal(4);
+          expect(result.operations.length).toBe(4);
         });
-
       });
 
       describe('with deletions', () => {
         let result;
 
-        before(async () => {
+        beforeAll(async () => {
           try {
-            await service.getConfig().client.indices.delete({ index: 'test' })
-          } catch (e) {}
+            await service.getConfig().client.indices.delete({ index: 'test' });
+          } catch (e) {
+            // ignore error except for troubleshoot
+          }
         });
 
-        before(async () => {
+        beforeAll(async () => {
           await service('someagendaidentifier').rebuild({
-            eventsList
+            eventsList,
           });
         });
 
-        before(async () => {
+        beforeAll(async () => {
           result = await service('someagendaidentifier').rebuild({
             eventsList: async (lastId, limit) => {
               const payload = JSON.parse(
-                fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`)
+                fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`),
               );
               payload.events.pop(); // removing an event
               return payload;
-            }
+            },
           });
         });
 
         it('result provides updates count', () => {
-          result.counts.updated.should.equal(27);
+          expect(result.counts.updated).toBe(27);
         });
 
         it('result provides deleted count', () => {
-          result.counts.deleted.should.equal(3);
+          expect(result.counts.deleted).toBe(3);
         });
-
       });
-
     });
-
   });
-
 });

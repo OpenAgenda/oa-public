@@ -1,96 +1,98 @@
 'use strict';
 
-const should = require('should');
 const elasticsearch = require('@elastic/elasticsearch');
 
 const config = require('../testconfig').elasticsearch;
 
-describe('98 - event-search - unit: used elasticsearch api calls', function() {
-  this.timeout(20000);
-
+describe('98 - event-search - unit: used elasticsearch api calls', () => {
   let client;
 
-  before(() => {
+  beforeAll(() => {
     client = new elasticsearch.Client({
       node: config.node,
-      ssl: config.ssl
+      ssl: config.ssl,
     });
   });
 
   describe('indices', () => {
-    after(async () => {
+    afterAll(async () => {
       try {
         await client.indices.delete({
-          index: '99_elasticsearch_created_index'
+          index: '99_elasticsearch_created_index',
         });
-      } catch(e) {}
+      } catch (e) {
+        // console.log(e);
+      }
       try {
         await client.indices.delete({
-          index: '99_elasticsearch_index_to_delete'
+          index: '99_elasticsearch_index_to_delete',
         });
-      } catch(e) {}
+      } catch (e) {
+        // console.log(e);
+      }
     });
 
     it('create an index', async () => {
       const result = await client.indices.create({
-        index: '99_elasticsearch_created_index'
+        index: '99_elasticsearch_created_index',
       });
 
-      result.statusCode.should.equal(200);
+      expect(result.statusCode).toBe(200);
 
-      result.body.acknowledged.should.equal(true);
-      result.body.index.should.equal('99_elasticsearch_created_index');
+      expect(result.body.acknowledged).toBe(true);
+      expect(result.body.index).toBe('99_elasticsearch_created_index');
     });
 
     it('delete an index', async () => {
       await client.indices.create({
-        index: '99_elasticsearch_index_to_delete'
+        index: '99_elasticsearch_index_to_delete',
       });
 
       const result = await client.indices.delete({
-        index: '99_elasticsearch_index_to_delete'
+        index: '99_elasticsearch_index_to_delete',
       });
 
-      result.statusCode.should.equal(200);
-      result.body.should.eql({
-        acknowledged: true
+      expect(result.statusCode).toBe(200);
+      expect(result.body).toEqual({
+        acknowledged: true,
       });
     });
   });
 
   describe('aliases', () => {
-
-    before(async () => {
+    beforeAll(async () => {
       await client.indices.create({
-        index: '99_elasticsearch_aliased_index'
+        index: '99_elasticsearch_aliased_index',
       });
       await client.indices.refresh({
-        index: '99_elasticsearch_aliased_index'
+        index: '99_elasticsearch_aliased_index',
       });
     });
 
-    after(async () => {
+    afterAll(async () => {
       for (const i of ['99_elasticsearch_ephemeral_aliased_index', '99_elasticsearch_aliased_index']) {
         try {
           await client.indices.delete({
-            index: i
+            index: i,
           });
-        } catch(e) {}
+        } catch (e) {
+          // console.log(e);
+        }
       }
     });
 
     it('index exists', async () => {
       const whenExists = await client.indices.exists({
-        index: '99_elasticsearch_aliased_index'
+        index: '99_elasticsearch_aliased_index',
       });
 
-      whenExists.body.should.equal(true);
+      expect(whenExists.body).toBe(true);
 
       const whenNotExists = await client.indices.exists({
-        index: 'somerandomindexname'
+        index: 'somerandomindexname',
       });
 
-      whenNotExists.body.should.equal(false);
+      expect(whenNotExists.body).toBe(false);
     });
 
     it('create an alias with filter', async () => {
@@ -99,13 +101,13 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
         name: '99_elasticsearch_aliased_alias',
         body: {
           filter: {
-            term: { user : 'kimchy' }
-          }
-        }
+            term: { user: 'kimchy' },
+          },
+        },
       });
 
-      r.statusCode.should.equal(200);
-      r.body.should.eql({ acknowledged: true });
+      expect(r.statusCode).toBe(200);
+      expect(r.body).toEqual({ acknowledged: true });
     });
 
     it('get an alias with filter', async () => {
@@ -114,26 +116,26 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
         name: '99_elasticsearch_aliased_alias_2',
         body: {
           filter: {
-            term: { user : 'kimchy' }
-          }
-        }
+            term: { user: 'kimchy' },
+          },
+        },
       });
 
       const r = await client.indices.getAlias({
-        name: '99_elasticsearch_aliased_alias_2'
+        name: '99_elasticsearch_aliased_alias_2',
       });
 
-      r.statusCode.should.equal(200);
-      r.body.should.eql({
+      expect(r.statusCode).toBe(200);
+      expect(r.body).toEqual({
         '99_elasticsearch_aliased_index': {
           aliases: {
             '99_elasticsearch_aliased_alias_2': {
               filter: {
-                term: { user : 'kimchy' }
-              }
-            }
-          }
-        }
+                term: { user: 'kimchy' },
+              },
+            },
+          },
+        },
       });
     });
 
@@ -141,7 +143,7 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
       let errorResponse;
 
       await client.indices.create({
-        index: '99_elasticsearch_ephemeral_aliased_index'
+        index: '99_elasticsearch_ephemeral_aliased_index',
       });
 
       await client.indices.putAlias({
@@ -150,32 +152,30 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
       });
 
       await client.indices.delete({
-        index: '99_elasticsearch_ephemeral_aliased_index'
+        index: '99_elasticsearch_ephemeral_aliased_index',
       });
 
       try {
-        const r = await client.indices.getAlias({
+        await client.indices.getAlias({
           name: '99_elasticsearch_ghost_alias',
         });
       } catch (e) {
         errorResponse = e;
       }
 
-      errorResponse.body.should.eql({
+      expect(errorResponse.body).toEqual({
         error: 'alias [99_elasticsearch_ghost_alias] missing',
-        status: 404
+        status: 404,
       });
 
-      errorResponse.statusCode.should.equal(404);
+      expect(errorResponse.statusCode).toBe(404);
     });
-
   });
 
   describe('bulk', () => {
-
-    before(async () => {
+    beforeAll(async () => {
       await client.indices.create({
-        index: '99_elasticsearch_bulk'
+        index: '99_elasticsearch_bulk',
       });
 
       await client.create({
@@ -183,14 +183,14 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
         id: 99,
         body: {
           title: 'Machine à laver',
-          description: 'Ongle'
-        }
+          description: 'Ongle',
+        },
       });
     });
 
-    after(async () => {
+    afterAll(async () => {
       await client.indices.delete({
-        index: '99_elasticsearch_bulk'
+        index: '99_elasticsearch_bulk',
       });
     });
 
@@ -199,61 +199,59 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
         index: '99_elasticsearch_bulk',
         refresh: true,
         body: [{
-          index: { _id: 99 }
+          index: { _id: 99 },
         }, {
-          title: 'Lombaires'
-        }]
+          title: 'Lombaires',
+        }],
       });
 
       const doc = await client.get({
         index: '99_elasticsearch_bulk',
-        id: 99
+        id: 99,
       }).then(r => r.body);
 
-      doc._source.should.eql({
-        title: 'Lombaires'
+      expect(doc._source).toEqual({
+        title: 'Lombaires',
       });
     });
-
   });
 
   describe('document deletes', () => {
-
-    before(async () => {
+    beforeAll(async () => {
       await client.indices.create({
-        index: '99_elasticsearch_doc_delete'
+        index: '99_elasticsearch_doc_delete',
       });
 
       await client.bulk({
         index: '99_elasticsearch_doc_delete',
         refresh: true,
         body: [{
-          create: { _id: 'one' }
+          create: { _id: 'one' },
         }, {
           title: 'I stay',
-          set: '111'
+          set: '111',
         }, {
-          create: { _id: 'two' }
+          create: { _id: 'two' },
         }, {
           title: 'I go',
-          set: '123'
+          set: '123',
         }, {
-          create: { _id: 'three' }
+          create: { _id: 'three' },
         }, {
           title: 'I stay',
-          set: '111'
+          set: '111',
         }, {
-          create: { _id: 'four' }
+          create: { _id: 'four' },
         }, {
           title: 'I go',
-          set: '222'
-        }]
+          set: '222',
+        }],
       });
     });
 
-    after(async () => {
+    afterAll(async () => {
       await client.indices.delete({
-        index: '99_elasticsearch_doc_delete'
+        index: '99_elasticsearch_doc_delete',
       });
     });
 
@@ -266,28 +264,25 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
             bool: {
               must_not: {
                 term: {
-                  set: '111'
-                }
-              }
-            }
-          }
-        }
+                  set: '111',
+                },
+              },
+            },
+          },
+        },
       });
-      result.body.deleted.should.equal(2);
+      expect(result.body.deleted).toBe(2);
 
       const docs = await client.search({
         index: '99_elasticsearch_doc_delete',
         body: {
           query: {
-            match_all: {}
-          }
-        }
+            match_all: {},
+          },
+        },
       }).then(r => r.body.hits.hits);
 
-      docs.map(d => d._id).should.eql(['one', 'three'])
-
+      expect(docs.map(d => d._id)).toEqual(['one', 'three']);
     });
-
   });
-
 });
