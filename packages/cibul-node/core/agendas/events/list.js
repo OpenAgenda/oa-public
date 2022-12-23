@@ -7,15 +7,14 @@ const merge = require('../utils/merge');
 
 // this will be slower for bigger sets
 // keep it fast with a last id nav on agendaEvents
-module.exports = async (services, agendaUid, query = {}, nav = {}, options = {}) => {
+module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => {
   const {
     agendaEvents: agendaEventsSvc,
     events: eventsSvc,
     custom,
     agendas,
-    members,
     users,
-  } = services;
+  } = core.services;
 
   const {
     lastId,
@@ -47,7 +46,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
 
   const fetched = {};
 
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const agenda = await getAgendaWithNetworkAndSchemas(core.services, agendaUid);
 
   const formSchema = merge.schemasWithEvent(
     agenda?.network?.formSchema ?? null,
@@ -103,10 +102,11 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const userUids = detailed && agendaEvents.length ? agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid) : [];
 
   if (detailed && load.member && agendaEvents.length) {
-    fetched.members = await members.list({
-      agendaUid: agenda.uid,
-      userUid: userUids,
-    }, { limit }).then(rows => rows.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
+    fetched.members = await core.agendas(agenda).members.list(
+      { userUids },
+      { limit },
+      { detailed, access },
+    ).then(({ items }) => items.map(m => _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
   }
 
   if (detailed && load.user && agendaEvents.length) {

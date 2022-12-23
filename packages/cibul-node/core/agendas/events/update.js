@@ -193,8 +193,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           stateChangeType,
           batched,
         },
-        decorate: ['member', 'sourceAgendas', 'user'],
+        decorate: ['sourceAgendas', 'user'],
       });
+
+      // the member here is not the user doing the update.
+      result.set.member = await core.agendas(agenda).members.get(result.set.userUid, { access: 'internal' });
+
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);
     } catch (e) {

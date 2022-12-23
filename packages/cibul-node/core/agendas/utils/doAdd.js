@@ -64,8 +64,10 @@ module.exports = async (core, payload, clean, options = {}) => {
           userUid,
           duplicateOrigin,
         },
-        decorate: ['member', 'sourceAgendas', 'user'],
+        decorate: ['sourceAgendas', 'user'],
       });
+
+      created.member = await core.agendas(agenda).members.get(userUid, { access: 'internal' });
 
       payload.setItem('agendaEvent', before, created);
     } catch (e) {

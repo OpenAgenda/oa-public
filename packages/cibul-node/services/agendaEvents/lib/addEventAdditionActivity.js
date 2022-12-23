@@ -1,5 +1,7 @@
 'use strict';
 
+const getMemberName = require('./utils/getMemberName');
+
 module.exports = async (
   services,
   eventFeed,
@@ -28,7 +30,7 @@ module.exports = async (
       originAgendaUid: event.agendaUid,
       sourceAgendaUid: sourceAgenda.uid,
       labels: {
-        actor: ae.member.custom.contactName || user.fullName,
+        actor: getMemberName(ae.member, user),
         object: event.title,
         target: agenda.title,
         sourceAgenda: sourceAgenda.title,

@@ -172,7 +172,7 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
-      .agendas(req.agenda.uid).members.list(req.query, {
+      .agendas(req.agenda.uid).members.list(req.query, req.query, {
         userUid: req.user.uid,
       })
       .then(data => res.json({

@@ -8,6 +8,7 @@ const log = require('@openagenda/logs')(
 );
 
 const getStateSlug = require('./utils/getStateSlug');
+const getMemberName = require('./utils/getMemberName');
 
 module.exports = async ({ config, services }, { agendaEvent, user, context }) => {
   const {
@@ -91,7 +92,7 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
         ],
       },
       data: {
-        user: sharerMember.custom.contactName || user.fullName,
+        user: getMemberName(sharerMember, user),
         event: event.title[creatorLang] || _.find(event.title),
         agenda: agenda.title,
         state: stateLabel,
@@ -141,7 +142,7 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
           };
         }),
       data: {
-        user: sharerMember.custom.contactName || user.fullName,
+        user: getMemberName(sharerMember, user),
         agenda: agenda.title,
         state: stateLabel,
         logo,

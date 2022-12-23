@@ -3,6 +3,8 @@
 const VError = require('verror');
 const log = require('@openagenda/logs')('agendaEvents/addEventCreationActivity');
 
+const getMemberName = require('./utils/getMemberName');
+
 module.exports = async (services, eventFeed, {
   ae,
   agenda,
@@ -43,7 +45,7 @@ module.exports = async (services, eventFeed, {
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: ae.member.custom.contactName || user.fullName,
+          actor: getMemberName(ae.member, user),
           object: event.title,
           target: agenda.title,
           duplicateOriginAgenda: duplicateOriginAgenda.title,
@@ -60,7 +62,7 @@ module.exports = async (services, eventFeed, {
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: ae.member.custom.contactName || user.fullName,
+          actor: getMemberName(ae.member, user),
           object: event.title,
           target: agenda.title,
         },

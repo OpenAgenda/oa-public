@@ -2,6 +2,8 @@
 
 const log = require('@openagenda/logs')('agendaEvents/addEventUpdateActivity');
 
+const getMemberName = require('./utils/getMemberName');
+
 module.exports = async (services, { agenda, event, user }, before, after, changeStateType) => {
   log('processing');
 
@@ -31,7 +33,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     target: `agenda:${agenda.uid}`,
   };
   const activityLabels = {
-    actor: contributor.custom.contactName || user.fullName,
+    actor: getMemberName(contributor, user),
     object: event.title,
     target: agenda.title,
   };

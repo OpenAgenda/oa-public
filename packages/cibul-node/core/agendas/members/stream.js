@@ -5,7 +5,7 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 
 class Stream extends Readable {
-  constructor({ core, agenda }, nav, options) {
+  constructor({ core, agenda }, query, nav, options) {
     super({ objectMode: true });
 
     this._ = {
@@ -13,6 +13,7 @@ class Stream extends Readable {
       agenda,
       nav,
       options,
+      query,
       after: null,
       buffer: [],
       transform: _.get(options, 'transform'),
@@ -33,6 +34,7 @@ class Stream extends Readable {
       : this._.nav;
 
     const { items: members, after } = await this._.core.agendas(this._.agenda).members.list(
+      this._.query,
       nav,
       this._.options,
     );
