@@ -7,12 +7,12 @@ module.exports = async (
     agenda,
     user,
     event,
-    ae
+    ae,
   },
-  context
+  context,
 ) => {
   const {
-    activities: activitiesSvc
+    activities: activitiesSvc,
   } = services;
 
   const { sourceAgenda } = context;
@@ -31,8 +31,8 @@ module.exports = async (
         actor: ae.member.custom.contactName || user.fullName,
         object: event.title,
         target: agenda.title,
-        sourceAgenda: sourceAgenda.title
+        sourceAgenda: sourceAgenda.title,
       },
-    }
+    },
   });
 };

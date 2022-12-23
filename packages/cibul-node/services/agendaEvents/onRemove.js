@@ -1,28 +1,20 @@
-"use strict";
+'use strict';
 
-const wn = require( 'when/node' );
+const log = require('@openagenda/logs')('agendaEvents/onRemove');
 
-const agendasSvc = require( '@openagenda/agendas' );
-const coms = require( '../../lib/coms' );
-const legacyEventSearch = require( '../elasticsearch' );
+module.exports = async ({ services }, ae, context) => {
+  log('removed agenda-event %j', ae, { context });
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/onRemove' );
-
-module.exports = async ({ services }, ae, context ) => {
-
-  log( 'removed agenda-event %j', ae, { context } );
-
-  // use context.userUid. will be null if nothing was specified at remove
-
-  const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
+  const {
+    elasticsearch: legacyEventSearch,
+  } = services;
 
   // in the case of a deletion, unique legacy ES ref is removed in event interface
-  if ( !context.deletion ) {
+  if (!context.deletion) {
     try {
-      await legacyEventSearch.updateEvent( { uid: ae.eventUid }, { removeUnreferenced: true } );
-    } catch ( e ) {
-      log( 'error', 'could not update legacy search for event %s', ae.eventUid );
+      await legacyEventSearch.updateEvent({ uid: ae.eventUid }, { removeUnreferenced: true });
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', ae.eventUid);
     }
   }
-
-}
+};

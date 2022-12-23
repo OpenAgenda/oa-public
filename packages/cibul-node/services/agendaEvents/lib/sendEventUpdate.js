@@ -1,25 +1,24 @@
 'use strict';
 
 const _ = require('lodash');
-
-const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 const log = require('@openagenda/logs')('services/agendaEvents/sendEventUpdate');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
 const listAdminMods = require('./utils/listAdminMods');
+const getStateSlug = require('./utils/getStateSlug');
 
 module.exports = async ({ config, services }, {
-  agendaEvent, context, agenda, event
+  agendaEvent, context, agenda, event,
 }) => {
   const {
-    root
+    root,
   } = config;
 
   const {
     mails,
     members: membersSvc,
-    users: usersSvc
+    users: usersSvc,
   } = services;
 
   if (!mails) {
@@ -33,23 +32,9 @@ module.exports = async ({ config, services }, {
     return;
   }
 
-  let stateLabel;
+  const stateLabel = getStateSlug(agendaEvent);
 
   const link = eventLink(root, agenda, event);
-
-  switch (agendaEvent.state) {
-    case agendaEventStates.TOCONTROL:
-      stateLabel = 'tocontrol';
-      break;
-    case agendaEventStates.CONTROLLED:
-      stateLabel = 'controlled';
-      break;
-    case agendaEventStates.PUBLISHED:
-      stateLabel = 'published';
-      break;
-    default:
-      stateLabel = null;
-  }
 
   const logo = agendaLogo(agenda);
 
@@ -61,12 +46,12 @@ module.exports = async ({ config, services }, {
   }
 
   const creatorUser = await usersSvc.findOne({
-    query: { uid: event.creatorUid }
+    query: { uid: event.creatorUid },
   });
 
   const creator = await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: creatorUser.uid
+    userUid: creatorUser.uid,
   });
 
   const creatorLang = creatorUser.culture || 'fr';
@@ -80,21 +65,21 @@ module.exports = async ({ config, services }, {
         address: creatorUser.email,
         unsubscriptions: [{
           rule: ['receive', 'myEventUpdate'],
-          dataPath: 'unsubscribeLink'
+          dataPath: 'unsubscribeLink',
         }, {
           memberId: creator.id,
           rule: ['receive', 'myEventUpdate'],
-          dataPath: 'memberUnsubscribeLink'
-        }]
+          dataPath: 'memberUnsubscribeLink',
+        }],
       },
       data: {
         event: event.title[creatorLang] || _.find(event.title),
         agenda: agenda.title,
         state: stateLabel,
         logo,
-        link
+        link,
       },
-      lang: creatorLang
+      lang: creatorLang,
     });
   }
 
@@ -112,23 +97,23 @@ module.exports = async ({ config, services }, {
           lang: member.user.culture,
           unsubscriptions: [{
             rule: ['receive', 'eventUpdate'],
-            dataPath: 'unsubscribeLink'
+            dataPath: 'unsubscribeLink',
           }, {
             memberId: member.id,
             rule: ['receive', 'eventUpdate'],
-            dataPath: 'memberUnsubscribeLink'
+            dataPath: 'memberUnsubscribeLink',
           }],
           data: {
-            event: eventTitle
-          }
+            event: eventTitle,
+          },
         };
       }),
     data: {
       agenda: agenda.title,
       state: stateLabel,
       logo,
-      link
-    }
+      link,
+    },
   });
   log('done');
 };

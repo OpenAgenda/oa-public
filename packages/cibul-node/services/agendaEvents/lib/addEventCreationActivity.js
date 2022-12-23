@@ -7,7 +7,7 @@ module.exports = async (services, eventFeed, {
   ae,
   agenda,
   event,
-  user
+  user,
 }, context) => {
   log('processing');
   const {
@@ -27,13 +27,13 @@ module.exports = async (services, eventFeed, {
   if (duplicateOrigin) {
     const duplicateOriginAgenda = await agendasSvc.get({ uid: duplicateOrigin.agendaUid }, {
       internal: true,
-      private: null
+      private: null,
     });
 
     const originEvent = await eventsSvc.get(duplicateOrigin.eventUid, {
       includeFields: ['ownerUid'],
       access: 'internal',
-      private: null
+      private: null,
     });
 
     await activitiesSvc.feed(eventFeed).activities.add({
@@ -46,10 +46,10 @@ module.exports = async (services, eventFeed, {
           actor: ae.member.custom.contactName || user.fullName,
           object: event.title,
           target: agenda.title,
-          duplicateOriginAgenda: duplicateOriginAgenda.title
+          duplicateOriginAgenda: duplicateOriginAgenda.title,
         },
         duplicateOriginAgendaUid: duplicateOriginAgenda.uid,
-        ownerUid: originEvent.ownerUid
+        ownerUid: originEvent.ownerUid,
       },
     });
   } else {
@@ -62,14 +62,14 @@ module.exports = async (services, eventFeed, {
         labels: {
           actor: ae.member.custom.contactName || user.fullName,
           object: event.title,
-          target: agenda.title
-        }
+          target: agenda.title,
+        },
       },
     });
   }
 
   await membersSvc.patch.actions.increment({
     agendaUid: agenda.uid,
-    userUid: user.uid
+    userUid: user.uid,
   });
 };
