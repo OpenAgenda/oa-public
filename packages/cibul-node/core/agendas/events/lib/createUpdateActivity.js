@@ -86,12 +86,12 @@ module.exports = async function createActivity(services, before, after, context)
       labels: {
         actor: user.fullName,
         object: before.title,
-        target: agenda.title
+        target: agenda.title,
       },
       diff: changes,
       contributorFields,
       moderatorFields,
-      administratorFields
-    }
+      administratorFields,
+    },
   });
 };
