@@ -10,6 +10,7 @@ const { produce } = require('immer');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
 const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
+const formatMember = require('./formatMember');
 
 const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5', 'district'];
 
@@ -171,17 +172,7 @@ module.exports = produce((event, options = {}) => {
   }
 
   if (event.member) {
-    event.member = {
-      uid: event.member?.userUid ?? null,
-      name: event.member?.custom?.contactName || event.user?.fullName,
-      role: event.member?.role ?? null,
-      organization: event.member?.custom?.organization ?? null,
-      position: event.member?.custom?.contactPosition ?? null,
-      phone: event.member?.custom?.contactNumber ?? null,
-      email: event.member?.custom?.email ?? null,
-    };
-
-    event.member._agg = aggObjects.flatten(event.member, ['uid', 'name']);
+    event.member = formatMember(event);
   } else {
     event._search_empty_fields.push('member');
   }

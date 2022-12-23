@@ -1,0 +1,22 @@
+{
+  "lastId": -1,
+  "events": [{
+    "uid": 1,
+    "state": 2,
+    "member": {
+      "name": "Herbert",
+      "phone": "0651906620",
+      "email": "herbert@donj.on",
+      "customField": "Ladida"
+    }
+  }, {
+    "uid": 2,
+    "state": 2,
+    "member": {
+      "userUid": 2
+    },
+    "user": {
+      "fullName": "Berbouche"
+    }
+  }]
+}
