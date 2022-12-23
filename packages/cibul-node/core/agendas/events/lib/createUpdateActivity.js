@@ -13,6 +13,10 @@ module.exports = async function createActivity(services, before, after, context)
   const { users, activities } = services;
   const { agenda, formSchema } = context;
 
+  if (!activities) {
+    return log('warn', 'activities service is not initialized');
+  }
+
   let user;
 
   if (!_.get(context, 'userUid')) {
