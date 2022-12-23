@@ -6,15 +6,15 @@ const log = require('@openagenda/logs')('services/agendaLocations/getLinkedAgend
 module.exports = services => async locationUid => {
   log('getting for %s', locationUid);
   const eventUids = await services.events.list({
-    locationUid
+    locationUid,
   }, {
-    limit:200
+    limit: 200,
   }, {
-    includeFields: ['uid']
+    includeFields: ['uid'],
   }).then(events => events.map(e => e.uid));
 
   log('retrieved %s linked events', eventUids.length);
-  
+
   if (!eventUids.length) {
     return [];
   }
@@ -25,9 +25,9 @@ module.exports = services => async locationUid => {
 
   const agendaInfos = await services.agendas
     .list({ uid: agendaUids })
-    .then(result => result.agendas.map(a => ({uid: a.uid, title: a.title})))
+    .then(result => result.agendas.map(a => ({ uid: a.uid, title: a.title })));
 
-  const result = _.uniq(agendaInfos)
+  const result = _.uniq(agendaInfos);
 
   return result;
-}
+};
