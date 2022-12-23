@@ -29,9 +29,9 @@ raw.push(knex('review').insert([
 ]));
 
 raw.push(knex('user').insert([
-  load('sql/users/janine.json'),
-  load('sql/users/50304.json'),
-  load('sql/users/50300.json'),
+  load('sql/users/janine.json'), // uid 1 / janine
+  load('sql/users/50304.json'), // uid 63170203 / steve
+  load('sql/users/50300.json'), // uid 63170200 / janine
 ]));
 
 raw.push(knex('api_key_set').insert([
@@ -51,10 +51,14 @@ raw.push(knex('form_schema').insert([
 ]));
 
 raw.push(knex('reviewer').insert([
-  load('sql/members/71385.json'),
-  load('sql/members/71386.json'),
-  load('sql/members/71388.json'),
-  load('sql/members/71389.json'),
+  load('sql/members/71385.json'), // user: 63170203 (steve) | agenda 17026855
+  load('sql/members/71386.json'), // user: 63170200 (janine 2) | agenda 17026855
+  load('sql/members/71388.json'), // user: 1 (janine 1) | agenda 55268170
+  load('sql/members/71387.json', {
+    user_uid: 63170200, // janine 2
+    agenda_uid: 58025176,
+  }),
+  load('sql/members/71389.json'), // user: 63170200 (janine 2) | agenda 17026800
 ]));
 
 raw.push(knex('aggregator').insert([

@@ -7,6 +7,8 @@ const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
 
+const formatError = require('./formatError');
+
 module.exports = async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
   const event = payload.getEvent();
@@ -33,7 +35,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     aggregated,
     sourceAgenda,
     draft,
-    userUid,
+    userUid: actingUserUid,
     access,
     duplicateOrigin,
   } = {
@@ -45,7 +47,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     ...options,
   };
 
-  if (!userUid) {
+  if (!actingUserUid) {
     log('warn', 'user is not identified');
   }
 
@@ -61,17 +63,19 @@ module.exports = async (core, payload, clean, options = {}) => {
           batched,
           aggregated,
           sourceAgenda,
-          userUid,
+          userUid: actingUserUid,
           duplicateOrigin,
         },
         decorate: ['sourceAgendas', 'user'],
       });
 
-      created.member = await core.agendas(agenda).members.get(userUid, { access: 'internal' });
+      if (actingUserUid) {
+        created.member = await core.agendas(agenda).members.get(actingUserUid, { access: 'internal', roleAsSlug: false });
+      }
 
       payload.setItem('agendaEvent', before, created);
     } catch (e) {
-      throw new VError(e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, event.uid);
+      throw new VError(e, 'could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, event.uid);
     }
   }
 
@@ -119,9 +123,9 @@ module.exports = async (core, payload, clean, options = {}) => {
     log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
   }
 
-  if (userUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(userUid, { access: 'internal' })) {
-    log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
-    await core.agendas(agenda).members.create(userUid, 'contributor', {}, {
+  if (actingUserUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(actingUserUid, { access: 'internal' })) {
+    log('user %s is not a member on open contribution agenda that does not require member info.', actingUserUid);
+    await core.agendas(agenda).members.create(actingUserUid, 'contributor', {}, {
       access: 'internal',
       useAccountEmail: true,
     });
@@ -143,7 +147,7 @@ module.exports = async (core, payload, clean, options = {}) => {
       event: compiledEvent,
     });
   } catch (e) {
-    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
+    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, formatError(e));
   }
 
   await aggregators.notify('addEvent', {

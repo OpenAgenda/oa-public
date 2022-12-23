@@ -47,15 +47,18 @@ class Stream extends Readable {
   }
 }
 
-const createStream = async (core, agendaUid, nav = {}, options = {}) => {
+const createStream = async (core, agendaUid, query = {}, nav = {}, options = {}) => {
   const { userUid, includeMemberSchema = false } = options;
-  const agenda = await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema });
+  const agenda = await core.agendas(agendaUid).get({
+    detailed: true,
+    includeMemberSchema,
+  });
 
   const actingMember = await core.services.members.get({
     agendaUid,
     userUid,
   });
-  return new Stream({ core, agenda }, nav, { ...options, actingMember, detailed: true });
+  return new Stream({ core, agenda }, query, nav, { ...options, actingMember, detailed: true });
 };
 
 module.exports = createStream;

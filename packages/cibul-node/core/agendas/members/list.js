@@ -20,6 +20,7 @@ module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
     actingMember: preloadedActingMember,
     access = null,
     detailed = false,
+    roleAsSlug = true,
   } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
@@ -64,6 +65,6 @@ module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
   return {
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(e => ({ ...format(membersSvc, e, { detailed }), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
+    items: members.map(m => ({ ...format(membersSvc, m, { detailed, roleAsSlug }), ...customs.find(a => a.identifier === m.userUid)?.custom ?? {} })),
   };
 };

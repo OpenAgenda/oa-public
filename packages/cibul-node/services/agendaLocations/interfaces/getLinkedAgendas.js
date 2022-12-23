@@ -11,6 +11,7 @@ module.exports = services => async locationUid => {
     limit: 200,
   }, {
     includeFields: ['uid'],
+    access: 'internal',
   }).then(events => events.map(e => e.uid));
 
   log('retrieved %s linked events', eventUids.length);

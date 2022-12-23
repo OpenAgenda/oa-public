@@ -13,8 +13,8 @@ const refreshAgenda = require('../utils/refreshAgenda');
 const setCustom = require('../utils/setCustom');
 
 const cleanEvent = require('../utils/cleanEvent');
-
 const getAgenda = require('../utils/getAgenda');
+const formatError = require('../utils/formatError');
 
 const loadAuthorizations = require('../../utils/authorizations');
 
@@ -29,8 +29,6 @@ const createUpdateActivity = require('./lib/createUpdateActivity');
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
-  log('info', 'updating event %s on agenda %s', eventUid, agendaUid);
-
   const {
     events,
     agendaEvents,
@@ -41,6 +39,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
+  log('info', 'update of event %s on agenda %s%s', eventUid, agendaUid, actingUserUid ? ` by user ${actingUserUid}` : ' (no acting user)');
 
   const {
     draft = false,
@@ -72,7 +71,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const actingMember = actingUserUid ? await members.get({
     agendaUid: agenda.uid,
     userUid: actingUserUid,
-  }) : null;
+  }, { roleAsSlug: false }) : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
     validateWithStoredData: !!partial,
@@ -195,7 +194,14 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         decorate: ['sourceAgendas', 'user'],
       });
 
-      result.set.member = await core.agendas(agenda).members.get(result.set.userUid, { access: 'internal' });
+      if (result.set.userUid) {
+        log('user linked to agendaEvent reference %s.%s: %s', agendaUid, eventUid, result.set.userUid);
+        result.set.member = await core.agendas(agenda).members.get(result.set.userUid, {
+          access: 'internal',
+          throwOnNotFound: false,
+          roleAsSlug: false,
+        });
+      }
 
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);
@@ -237,7 +243,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     });
     log('updated search for event %s', eventUid);
   } catch (e) {
-    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
+    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, formatError(e));
   }
 
   const before = await payload.getCompiledEvent('before');

@@ -126,7 +126,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
   });
 
   describe('stream', () => {
-    test('stream userUids', async () => {
+    it('stream userUids', async () => {
       const stream = await core.agendas(3).members.stream(
         {},
         { limit: 1 },

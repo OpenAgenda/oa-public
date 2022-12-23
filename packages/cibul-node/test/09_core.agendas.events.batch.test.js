@@ -46,7 +46,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     testConfig.redisClient.quit();
   });
 
-  describe('basic batch', () => {
+  describe('basic batch with core.agendas.events.list', () => {
     beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
         state: 0,
@@ -73,7 +73,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     });
   });
 
-  describe('batch using search', () => {
+  describe('batch using core.agndas.events.search', () => {
     beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
         city: 'Arles',

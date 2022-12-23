@@ -103,6 +103,6 @@ describe('14 - core - functional(server): api get accessToken', () => {
 
     const { data } = await axios(axiosJSONPayload);
 
-    expect(data.expires_in).toBe(3600);
+    expect(data.expires_in).toBeGreaterThanOrEqual(3600 - 2); // slow tests may take a second or two
   });
 });
