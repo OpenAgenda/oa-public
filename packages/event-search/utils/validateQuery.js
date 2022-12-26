@@ -3,132 +3,140 @@
 const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
 
+const textValidator = require('@openagenda/validators/text');
+const integerValidator = require('@openagenda/validators/integer');
+const latitudeValidator = require('@openagenda/validators/latitude');
+const longitudeValidator = require('@openagenda/validators/longitude');
+const dateValidator = require('@openagenda/validators/date');
+const choiceValidator = require('@openagenda/validators/choice');
+const booleanValidator = require('@openagenda/validators/boolean');
+
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const preCleanRawQuery = require('./preCleanRawQuery');
 const derelativize = require('./derelativize');
 
 schema.register({
-  text: require('@openagenda/validators/text'),
-  integer: require('@openagenda/validators/integer'),
-  latitude: require('@openagenda/validators/latitude'),
-  longitude: require('@openagenda/validators/longitude'),
-  date: require('@openagenda/validators/date'),
-  choice: require('@openagenda/validators/choice'),
-  boolean: require('@openagenda/validators/boolean')
+  text: textValidator,
+  integer: integerValidator,
+  latitude: latitudeValidator,
+  longitude: longitudeValidator,
+  date: dateValidator,
+  choice: choiceValidator,
+  boolean: booleanValidator,
 });
 
 const validate = schema({
   uid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   slug: {
     type: 'text',
-    list: true
+    list: true,
   },
   search: {
-    type: 'text'
+    type: 'text',
   },
   set: {
-    type: 'text'
+    type: 'text',
   },
   keyword: {
     type: 'text',
-    list: true
+    list: true,
   },
   accessibility: {
     type: 'text',
     min: 2,
     max: 2,
-    list: true
+    list: true,
   },
   lang: {
     type: 'text',
-    list: true
+    list: true,
   },
   locationUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   ownerUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   memberUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   ownerOrMemberUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   region: {
     type: 'text',
-    list: true
+    list: true,
   },
   adminLevel3: {
     type: 'text',
-    list: true
+    list: true,
   },
   adminLevel5: {
     type: 'text',
-    list: true
+    list: true,
   },
   department: {
     type: 'text',
-    list: true
+    list: true,
   },
   relative: {
     type: 'choice',
-    options: ['passed', 'upcoming', 'current']
+    options: ['passed', 'upcoming', 'current'],
   },
   addMethod: {
     type: 'choice',
-    options: ['contribution', 'share', 'aggregation']
+    options: ['contribution', 'share', 'aggregation'],
   },
   city: {
     type: 'text',
-    list: true
+    list: true,
   },
   district: {
     type: 'text',
-    list: true
+    list: true,
   },
   countryCode: {
     type: 'text',
     min: 0,
     max: 2,
-    list: true
+    list: true,
   },
   originAgendaUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   sourceAgendaUid: {
     type: 'integer',
-    list: true
+    list: true,
   },
   state: {
     optional: true,
     type: 'choice',
     options: [null, -1, 0, 1, 2],
-    default: 2
+    default: 2,
   },
   status: {
     optional: true,
     type: 'choice',
-    options: [1, 2, 3, 4, 5, 6]
+    options: [1, 2, 3, 4, 5, 6],
   },
   featured: {
     optional: true,
     type: 'boolean',
     allowNull: true,
-    default: null
+    default: null,
   },
   attendanceMode: {
     optional: true,
     type: 'choice',
-    options: [1, 2, 3]
+    options: [1, 2, 3],
   },
   geo: {
     fields: {
@@ -136,65 +144,65 @@ const validate = schema({
         optional: false,
         fields: {
           lat: {
-            type: 'latitude'
+            type: 'latitude',
           },
           lng: {
-            type: 'longitude'
-          }
-        }
+            type: 'longitude',
+          },
+        },
       },
       southWest: {
         optional: false,
         fields: {
           lat: {
-            type: 'latitude'
+            type: 'latitude',
           },
           lng: {
-            type: 'longitude'
-          }
-        }
-      }
-    }
+            type: 'longitude',
+          },
+        },
+      },
+    },
   },
   localTime: {
     fields: {
       gte: {
-        type: 'integer'
+        type: 'integer',
       },
       lte: {
-        type: 'integer'
-      }
-    }
+        type: 'integer',
+      },
+    },
   },
   createdAt: {
     fields: {
       gte: {
-        type: 'date'
+        type: 'date',
       },
       lte: {
-        type: 'date'
-      }
-    }
+        type: 'date',
+      },
+    },
   },
   updatedAt: {
     fields: {
       gte: {
-        type: 'date'
+        type: 'date',
       },
       lte: {
-        type: 'date'
-      }
-    }
+        type: 'date',
+      },
+    },
   },
   timings: {
     fields: {
       gte: {
-        type: 'date'
+        type: 'date',
       },
       lte: {
-        type: 'date'
-      }
-    }
+        type: 'date',
+      },
+    },
   },
   sort: {
     type: 'choice',
@@ -209,20 +217,31 @@ const validate = schema({
       'location.city.asc',
       'location.name.desc',
       'location.city.desc',
-      'score'
+      'score',
     ],
     optional: true,
-    unique: true
-  }
+    unique: true,
+  },
 });
+
+const extractValue = (obj, fieldName) => {
+  if (obj[fieldName] !== undefined) {
+    return obj[fieldName];
+  }
+
+  if (obj?.custom?.[fieldName] !== undefined) {
+    return obj.custom[fieldName];
+  }
+
+  return undefined;
+};
 
 function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
   if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
     if (Array.isArray(dirty)) {
-      return dirty.map(v => v === emptyValue ? emptyValue : parseInt(v, 10));
-    } else {
-      return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
+      return dirty.map(v => (v === emptyValue ? emptyValue : parseInt(v, 10)));
     }
+    return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
   }
 
   return dirty;
@@ -245,23 +264,19 @@ function validateQuery(dirty, { formSchema, emptyValue }) {
     ...clean,
     ...additionalFields.reduce((additionalValues, fieldSchema) => {
       const { field } = fieldSchema;
-      const value = dirty[field] !== undefined
-        ? dirty[field]
-        : dirty.custom && dirty.custom[field] !== undefined
-          ? dirty.custom[field]
-          : undefined;
+      const value = extractValue(dirty, field);
 
       if (value !== undefined) {
         const cleanValue = cleanAdditionalField(fieldSchema, value, { emptyValue });
 
         return {
           ...additionalValues,
-          [field]: cleanValue
+          [field]: cleanValue,
         };
       }
 
       return additionalValues;
-    }, {})
+    }, {}),
   };
 }
 
@@ -271,13 +286,13 @@ module.exports.inflateAndClean = (query, options = {}) => {
   const {
     set = null,
     formSchema = null,
-    emptyValue
+    emptyValue,
   } = options;
 
-  const inflated = Object.keys(query).reduce((inflated, key) => _.set(
-    inflated,
+  const inflated = Object.keys(query).reduce((carry, key) => _.set(
+    carry,
     key.split('.'),
-    query[key]
+    query[key],
   ), {});
 
   inflated.set = set;
@@ -285,4 +300,4 @@ module.exports.inflateAndClean = (query, options = {}) => {
   const derelativized = derelativize(inflated);
 
   return validateQuery(derelativized, { formSchema, emptyValue });
-}
+};

@@ -5,4 +5,4 @@ module.exports = function keywordizeDiscreteValue(field, value) {
     return [field.schemaId, field.field, value].join('.');
   }
   return [field.schemaId, value].join('.');
-}
+};

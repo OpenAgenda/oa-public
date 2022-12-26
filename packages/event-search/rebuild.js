@@ -1,17 +1,18 @@
 'use strict';
 
-const _ = require('lodash');
 const crypto = require('crypto');
+const logs = require('@openagenda/logs');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');
 const formatEvent = require('./utils/formatEvent');
-const log = require('@openagenda/logs')('rebuild');
+
+const log = logs('rebuild');
 
 const limit = 10;
 
 const mapping = require('./config/mapping.json');
 
-module.exports = async (config, set, options = {}) => {
+module.exports = async function rebuild(config, set, options = {}) {
   log('called');
   const operations = [];
   let hasMore = true;
@@ -20,16 +21,16 @@ module.exports = async (config, set, options = {}) => {
 
   const {
     client,
-    defaultIndex
+    defaultIndex,
   } = config;
 
   const {
     eventsList = null,
     formSchema = null,
-    on = {
+    /* on = {
       bulk: () => {},
-      error: () => {}
-    }
+      error: () => {},
+    }, */
   } = options;
 
   const index = getIndexName(set, defaultIndex);
@@ -41,13 +42,13 @@ module.exports = async (config, set, options = {}) => {
       body: {
         mappings: {
           dynamic: false,
-          properties: mapping
+          properties: mapping,
         },
         settings: {
           number_of_shards: 5,
-          number_of_replicas: 1
-        }
-      }
+          number_of_replicas: 1,
+        },
+      },
     });
     operations.push(`index created: ${index}`);
   }
@@ -59,14 +60,14 @@ module.exports = async (config, set, options = {}) => {
     created: 0,
     updated: 0,
     deleted: 0,
-    errored: 0
+    errored: 0,
   };
 
   try {
     do {
       const {
         lastId: nextLastId,
-        events
+        events,
       } = await eventsList(lastId, limit);
 
       log('bulk indexing %s events from %s', events.length, lastId);
@@ -79,20 +80,20 @@ module.exports = async (config, set, options = {}) => {
               return bulkOperations.concat([{
                 index: {
                   _id: getDocumentId(set, event.uid),
-                  routing: set
-                }
+                  routing: set,
+                },
               }, {
                 ...formatEvent(event, { formSchema }),
                 _build: build,
-                _set: set
+                _set: set,
               }]);
             } catch (e) {
-              counts.errored++;
+              counts.errored += 1;
               log('error', 'event %s could not be formatted', event.uid, e);
               return bulkOperations;
             }
-          }, [])
-        }).then(r => r.body);
+          }, []),
+        }).then(({ body }) => body);
 
         if (r.errors) {
           log('error', r.items.map(i => i.index.error));
@@ -114,7 +115,7 @@ module.exports = async (config, set, options = {}) => {
   } catch (e) {
     log('error', e);
     error = e;
-    operations.push(`bulk operations failed`);
+    operations.push('bulk operations failed');
   }
 
   await client.indices.refresh({ index });
@@ -127,17 +128,17 @@ module.exports = async (config, set, options = {}) => {
         bool: {
           must_not: {
             term: {
-              _build: build
-            }
+              _build: build,
+            },
           },
           filter: {
             term: {
-              _set: set
-            }
-          }
-        }
-      }
-    }
+              _set: set,
+            },
+          },
+        },
+      },
+    },
   }).then(r => r.body.deleted);
 
   operations.push(`deleted ${counts.deleted} events from previous builds`);
@@ -145,6 +146,6 @@ module.exports = async (config, set, options = {}) => {
   return {
     operations,
     counts,
-    error
-  }
-}
+    error,
+  };
+};
