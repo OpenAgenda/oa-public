@@ -1,18 +1,14 @@
 'use strict';
 
-const _ = require('lodash');
 const moment = require('moment-timezone');
-const countries = require('@openagenda/labels/agenda-locations/countries');
 const dateRangeInLocale = require('@openagenda/date-range');
 const addRegistrationType = require('@openagenda/utils/registration/addType');
 const { produce } = require('immer');
 
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
-const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
 const formatMember = require('./formatMember');
-
-const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5', 'district'];
+const extractLocationData = require('./extractLocationData');
+const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSearchables');
 
 const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
 
@@ -22,21 +18,6 @@ const multilingualFieldHasValue = v => {
   }
   return Object.keys(v).filter(k => (v[k] ?? '').length);
 };
-
-const isEmpty = v => (Array.isArray(v) ? !v.length : v === undefined);
-
-const clearEmptyLabels = labels => Object.keys(labels)
-  .filter(lang => labels[lang].length)
-  .reduce((filtered, lang) => ({
-    ...filtered,
-    [lang]: labels[lang],
-  }), {});
-
-const searchFullAddressText = (location, country) => locationFields
-  .map(f => location[f])
-  .filter(f => !!f)
-  .concat(Object.values(country))
-  .join(' ');
 
 const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) => languages
   .reduce((ranges, lang) => ({
@@ -62,6 +43,7 @@ const isLessThanOneMinuteApart = (d1, d2) => {
 module.exports = produce((event, options = {}) => {
   const {
     formSchema = null,
+    locationFormSchema,
     endOfTimes = '3000-01-01T01:00:00.000Z',
   } = options;
 
@@ -80,30 +62,22 @@ module.exports = produce((event, options = {}) => {
       }, []),
   });
 
-  if (event.location) {
-    const country = _.omit(
-      clearEmptyLabels(_.get(
-        countries,
-        (_.get(event, 'location.countryCode') || '').toUpperCase(),
-        {},
-      )),
-      ['io'],
-    );
+  const {
+    country,
+    location,
+    search: locationSearchData,
+    emptyFields: emptyLocationFields,
+  } = extractLocationData(event.location, { formSchema: locationFormSchema });
 
+  if (event.location) {
     Object.assign(event, {
       country,
-      _search_full_address_text: searchFullAddressText(event.location, country),
-      _search_location: {
-        lat: event.location.latitude,
-        lon: event.location.longitude,
-      },
-    });
-
-    event.location._agg = aggObjects.flatten(event.location, ['uid', 'name']);
+      location,
+    }, locationSearchData);
   }
 
-  locationFields.filter(lField => !event.location?.[lField]?.length).forEach(lField => {
-    event._search_empty_fields.push(`location.${lField}`);
+  emptyLocationFields.forEach(locationField => {
+    event._search_empty_fields.push(`location.${locationField}`);
   });
 
   if (event.timings) {
@@ -193,42 +167,25 @@ module.exports = produce((event, options = {}) => {
     return event;
   }
 
-  const schemaAdditionalFields = getFormSchemaAdditionalFields(formSchema);
+  const {
+    searchableKeywords,
+    emptyListFields,
+    emptyFields,
+    searchableNumbers,
+  } = extractSchemaAdditionalSearchables(formSchema, event);
 
-  schemaAdditionalFields.forEach(additionalField => {
-    if (['multiselect', 'checkbox'].includes(additionalField.fieldType) && event[additionalField.field] === undefined) {
-      event[additionalField.field] = [];
-    }
-
-    if (isEmpty(event[additionalField.field])) {
-      event._search_empty_fields.push(additionalField.field);
-    }
+  emptyFields.forEach(f => {
+    event._search_empty_fields.push(f.field);
   });
 
-  event._search_additional_keywords = schemaAdditionalFields
-    .map(field => ({
-      field,
-      value: event[field.field],
-    }))
-    .filter(({ value, field }) =>
-      ![undefined, null].includes(value) // there is a value
-     && ['email', 'radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType))
-    .reduce((keywords, { field, value }) => keywords.concat(['radio', 'checkbox', 'select', 'multiselect', 'boolean'].includes(field.fieldType)
-      ? [].concat(value).map(v => keywordizeDiscreteValue(field, v)) : value), []);
+  emptyListFields.forEach(f => {
+    event[f.field] = [];
+  });
 
-  event._search_additional_numbers = schemaAdditionalFields
-    .map(field => ({
-      field,
-      value: event[field.field],
-    }))
-    .filter(({ value, field }) =>
-      ![undefined, null].includes(value) // there is a value
-     && ['number', 'integer'].includes(field.fieldType))
-    .reduce((nested, { field, value }) => nested.concat({
-      fieldName: field.field,
-      integer: parseInt(value, 10),
-      number: parseFloat(value),
-    }), [])
-    // ES integers cannot exceed 2^31-1
-    .filter(({ integer }) => integer < 2147483648);
+  Object.assign(event, {
+    _search_additional_keywords: searchableKeywords,
+    _search_additional_numbers: searchableNumbers,
+  });
+
+  return event;
 });
