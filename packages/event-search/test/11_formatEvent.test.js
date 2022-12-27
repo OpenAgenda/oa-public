@@ -32,6 +32,22 @@ describe('11 - event-search - unit: formatEvent', () => {
       schemaId: 13,
       field: 'somAdditionalBoolean',
       fieldType: 'boolean',
+    }, {
+      field: 'location',
+      schema: {
+        fields: [{
+          schemaId: 'location',
+          field: 'someAdditionalLocationOptions',
+          fieldType: 'radio',
+          options: [{
+            id: 1,
+            label: 'One',
+          }, {
+            id: 2,
+            label: 'Two',
+          }],
+        }],
+      },
     }],
   };
 
@@ -44,6 +60,8 @@ describe('11 - event-search - unit: formatEvent', () => {
     },
     timezone: 'Europe/Paris',
     location: {
+      uid: 8,
+      name: 'Alice',
       address: '8 rue Alice, 92400 Courbevoie',
       city: 'Courbevoie',
       region: 'Ile de France',
@@ -52,6 +70,7 @@ describe('11 - event-search - unit: formatEvent', () => {
       latitude: 48.9076369,
       longitude: 2.2836904,
       timezone: 'Europe/Paris',
+      someAdditionalLocationOptions: 2,
     },
     keywords: {
       fr: ['jazz', 'restaurant', 'diner', 'theatre'],
@@ -103,7 +122,6 @@ describe('11 - event-search - unit: formatEvent', () => {
 
   it('_search_empty_fields contains list of fields that are empty', () => {
     expect(formatted._search_empty_fields).toEqual([
-      'location.name',
       'location.adminLevel3',
       'location.adminLevel5',
       'location.district',
@@ -191,7 +209,7 @@ describe('11 - event-search - unit: formatEvent', () => {
     () => {
       expect(
         formatted._search_full_address_text,
-      ).toBe('8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
+      ).toBe('Alice 8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
     },
   );
 
@@ -223,6 +241,13 @@ describe('11 - event-search - unit: formatEvent', () => {
     'additional field of boolean type is indexed in _search_additional_keywords',
     () => {
       expect(formatted._search_additional_keywords.includes('13.somAdditionalBoolean.true')).toBe(true);
+    },
+  );
+
+  it(
+    'additional location field of radio type is indexed in _search_additional_keywords',
+    () => {
+      expect(formatted._search_additional_keywords.includes('location.2')).toBe(true);
     },
   );
 

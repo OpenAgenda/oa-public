@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = function keywordizeDiscreteValue(field, value) {
+const isEmptyString = v => typeof v === 'string' && !v.length;
+
+module.exports = function keywordizeDiscreteValue(field, value, path = '') {
   if (field.fieldType === 'boolean') {
-    return [field.schemaId, field.field, value].join('.');
+    return [path, field.schemaId, field.field, value].filter(v => !isEmptyString(v)).join('.');
   }
   return [field.schemaId, value].join('.');
 };

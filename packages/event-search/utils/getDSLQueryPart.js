@@ -234,11 +234,11 @@ function _terms(fieldName, value) {
   };
 }
 
-function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue }) {
+function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue, path }) {
   return [].concat(
     cleanQuery[field.field],
   ).map(
-    v => (v === emptyValue ? v : keywordizeDiscreteValue(field, v)),
+    v => (v === emptyValue ? v : keywordizeDiscreteValue(field, v, path)),
   );
 }
 
@@ -282,7 +282,50 @@ function _filterPart(fieldName, fieldValue, dslField, { emptyValue }) {
   return _mustPart('term', dslField, value);
 }
 
-function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
+function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyValue, path }) {
+  const currentPath = path ?? '';
+  fields.forEach(field => {
+    if (field.schema && cleanQuery[field.field]) {
+      _addAdditionalFieldsToFilterParts(parts, field.schema.fields, cleanQuery[field.field], {
+        emptyValue,
+        path: currentPath.length ? `${currentPath}.${field.field}` : field.field,
+      });
+      return;
+    }
+
+    if (cleanQuery[field.field] === undefined) {
+      return;
+    }
+
+    if (['email'].includes(field.fieldType)) {
+      parts.push(_mustPart(
+        'term',
+        '_search_additional_keywords',
+        currentPath.length ? `${currentPath}.${cleanQuery[field.field]}` : cleanQuery[field.field],
+      ));
+      return;
+    }
+
+    if (['radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType)) {
+      const filterCodes = _extractValuesWithSchemaIds(field, cleanQuery, {
+        emptyValue,
+        path: currentPath,
+      });
+
+      if (!filterCodes.length) {
+        return;
+      }
+      parts.push(_filterPart(
+        field.field,
+        filterCodes,
+        '_search_additional_keywords',
+        { emptyValue },
+      ));
+    }
+  });
+}
+
+function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue }) {
   const parts = [];
   const {
     relative,
@@ -362,34 +405,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
     parts.push(_mustPart('terms', 'attendanceMode', cleanQuery.attendanceMode));
   }
 
-  additionalFields.forEach(field => {
-    if (cleanQuery[field.field] === undefined) {
-      return;
-    }
-
-    if (['email'].includes(field.fieldType)) {
-      parts.push(_mustPart(
-        'term',
-        '_search_additional_keywords',
-        cleanQuery[field.field],
-      ));
-      return;
-    }
-
-    if (['radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType)) {
-      const filterCodes = _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue });
-
-      if (!filterCodes.length) {
-        return;
-      }
-      parts.push(_filterPart(
-        field.field,
-        filterCodes,
-        '_search_additional_keywords',
-        { emptyValue },
-      ));
-    }
-  });
+  _addAdditionalFieldsToFilterParts(parts, additionalAndSchemaFields, cleanQuery, { emptyValue });
 
   return parts;
 }
@@ -401,11 +417,13 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
   } = options;
 
   const query = {};
-  const additionalFields = getFormSchemaAdditionalFields(formSchema);
+  const additionalAndSchemaFields = getFormSchemaAdditionalFields(formSchema).concat(
+    (formSchema?.fields ?? []).filter(f => f.schema),
+  );
 
-  const mustParts = _getQueryMustParts(cleanQuery, additionalFields);
+  const mustParts = _getQueryMustParts(cleanQuery);
 
-  const filterParts = _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue });
+  const filterParts = _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue });
 
   if (mustParts.length === 1 && !filterParts.length) {
     _.extend(query, mustParts[0]);

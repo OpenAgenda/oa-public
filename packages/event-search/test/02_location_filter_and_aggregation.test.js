@@ -7,6 +7,8 @@ const config = require('../testconfig');
 
 const Service = require('..');
 
+const eventFormSchemaWithLocationSchema = require('./fixtures/02_eventFormSchemaWithLocationSchema.json');
+
 describe('02 - event search - functional: location', () => {
   let service;
 
@@ -24,6 +26,7 @@ describe('02 - event search - functional: location', () => {
 
   beforeAll(async () => {
     await service('location').rebuild({
+      formSchema: eventFormSchemaWithLocationSchema,
       eventsList: async (_lastId, _limit) => JSON.parse(
         fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`),
       ),
@@ -176,5 +179,19 @@ describe('02 - event search - functional: location', () => {
     });
 
     expect(_.uniq(events.map(e => e?.location?.city))).toEqual(['Paris', undefined]);
+  });
+
+  it('filters on an additional field', async () => {
+    const { events: [event] } = await service('location').search({
+      'location.protections-appellation-et-labels': 41,
+    }, {
+    }, {
+      formSchema: eventFormSchemaWithLocationSchema,
+      detailed: true,
+    });
+
+    expect(event.uid).toBe(2);
+
+    expect(event.location['protections-appellation-et-labels'].includes(41)).toBe(true);
   });
 });

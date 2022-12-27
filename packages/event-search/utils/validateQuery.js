@@ -247,6 +247,29 @@ function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
   return dirty;
 }
 
+function extractAdditionalValuesFromFields(fields, dirty, { emptyValue }) {
+  return fields.reduce((additionalValues, fieldSchema) => {
+    const { field } = fieldSchema;
+
+    const value = field.schema ? extractAdditionalValuesFromFields(
+      getFormSchemaAdditionalFields(field.schema).concat(field.schema.fields.filter(f => f.schema)),
+      dirty[field.field],
+      { emptyValue },
+    ) : extractValue(dirty, field);
+
+    if (value !== undefined) {
+      const cleanValue = cleanAdditionalField(fieldSchema, value, { emptyValue });
+
+      return {
+        ...additionalValues,
+        [field]: cleanValue,
+      };
+    }
+
+    return additionalValues;
+  }, {});
+}
+
 function validateQuery(dirty, { formSchema, emptyValue }) {
   const preCleaned = preCleanRawQuery(dirty);
 
@@ -259,24 +282,17 @@ function validateQuery(dirty, { formSchema, emptyValue }) {
   }
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
+  const fieldsWithSchema = (formSchema?.fields ?? []).filter(f => f.schema);
+
+  const additionalValues = extractAdditionalValuesFromFields(
+    additionalFields.concat(fieldsWithSchema),
+    dirty,
+    { emptyValue },
+  );
 
   return {
     ...clean,
-    ...additionalFields.reduce((additionalValues, fieldSchema) => {
-      const { field } = fieldSchema;
-      const value = extractValue(dirty, field);
-
-      if (value !== undefined) {
-        const cleanValue = cleanAdditionalField(fieldSchema, value, { emptyValue });
-
-        return {
-          ...additionalValues,
-          [field]: cleanValue,
-        };
-      }
-
-      return additionalValues;
-    }, {}),
+    ...additionalValues,
   };
 }
 

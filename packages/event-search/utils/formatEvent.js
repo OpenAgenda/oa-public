@@ -43,7 +43,6 @@ const isLessThanOneMinuteApart = (d1, d2) => {
 module.exports = produce((event, options = {}) => {
   const {
     formSchema = null,
-    locationFormSchema,
     endOfTimes = '3000-01-01T01:00:00.000Z',
   } = options;
 
@@ -60,6 +59,8 @@ module.exports = produce((event, options = {}) => {
         });
         return languages;
       }, []),
+    _search_additional_keywords: [],
+    _search_additional_numbers: [],
   });
 
   const {
@@ -67,7 +68,7 @@ module.exports = produce((event, options = {}) => {
     location,
     search: locationSearchData,
     emptyFields: emptyLocationFields,
-  } = extractLocationData(event.location, { formSchema: locationFormSchema });
+  } = extractLocationData(event.location, { formSchema });
 
   if (event.location) {
     Object.assign(event, {
@@ -75,10 +76,7 @@ module.exports = produce((event, options = {}) => {
       location,
     }, locationSearchData);
   }
-
-  emptyLocationFields.forEach(locationField => {
-    event._search_empty_fields.push(`location.${locationField}`);
-  });
+  emptyLocationFields.forEach(f => event._search_empty_fields.push(`location.${f}`));
 
   if (event.timings) {
     const timezone = event.timezone || (event.location ? event.location.timezone : null);
@@ -175,17 +173,15 @@ module.exports = produce((event, options = {}) => {
   } = extractSchemaAdditionalSearchables(formSchema, event);
 
   emptyFields.forEach(f => {
-    event._search_empty_fields.push(f.field);
+    event._search_empty_fields.push(f);
   });
 
   emptyListFields.forEach(f => {
     event[f.field] = [];
   });
 
-  Object.assign(event, {
-    _search_additional_keywords: searchableKeywords,
-    _search_additional_numbers: searchableNumbers,
-  });
+  searchableKeywords.forEach(k => event._search_additional_keywords.push(k));
+  searchableNumbers.forEach(k => event._search_additional_numbers.push(k));
 
   return event;
 });

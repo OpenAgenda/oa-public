@@ -28,11 +28,7 @@ const clearEmptyLabels = labels => Object.keys(labels)
     [lang]: labels[lang],
   }), {});
 
-function formatLocation(data/* options = {} */) {
-  /* const {
-    formSchema = { fields: [] },
-  } = options; */
-
+function formatLocation(data) {
   const location = {
     ...data,
     _agg: aggObjects.flatten(data, ['uid', 'name']),
@@ -51,7 +47,7 @@ const extractSearchData = (location, country) => ({
   },
 });
 
-module.exports = function extractLocationData(location /* , options = {} */) {
+module.exports = function extractLocationData(location) {
   if (!location) {
     return {
       emptyFields: locationFields,
@@ -69,6 +65,6 @@ module.exports = function extractLocationData(location /* , options = {} */) {
     country,
     location: formattedLocation,
     search: extractSearchData(formattedLocation, country),
-    emptyFields: locationFields.filter(f => !formattedLocation[f]?.length),
+    emptyFields: locationFields.filter(f => !(formattedLocation[f] ?? '').length),
   };
 };
