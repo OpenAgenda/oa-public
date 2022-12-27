@@ -10,6 +10,19 @@ const flatten = (label, preferredLang = 'fr') => {
   return (label ?? {})[preferredLang] ?? label[Object.keys(label).shift()];
 };
 
+const isUniqueValuedField = field => ['radio', 'select', 'boolean'].includes(field.fieldType);
+
+const findFieldFromOptionId = (schema, id) => schema.fields
+  .reduce((matching, currentField) => {
+    if (matching) {
+      return matching;
+    }
+    if (currentField.options.map(o => o.id).includes(id)) {
+      return currentField;
+    }
+    return null;
+  }, null);
+
 module.exports = function tagSetToFormSchema(tagSet, options = {}) {
   const {
     lang = 'fr',
@@ -31,5 +44,26 @@ module.exports = function tagSetToFormSchema(tagSet, options = {}) {
         label: t.label,
       })),
     })),
+  };
+};
+
+module.exports.locationAppendAdditionalValues = function locationAppendAdditionalValues(location, formSchema) {
+  if (!location.tags) {
+    return location;
+  }
+
+  return {
+    ...location,
+    ...location.tags.map(tag => ({
+      id: tag.id,
+      field: findFieldFromOptionId(formSchema, tag.id),
+    })).reduce((additionalFields, { id, field }) => {
+      if (!additionalFields[field.field]) {
+        additionalFields[field.field] = isUniqueValuedField(field) ? id : [id];
+      } else {
+        additionalFields[field.field] = [].concat(additionalFields[field.field]).concat(id);
+      }
+      return additionalFields;
+    }, {}),
   };
 };
