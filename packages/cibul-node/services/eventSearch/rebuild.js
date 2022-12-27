@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('services/eventSearch/rebuild');
 
-module.exports = async (services, eventSearch, rebuildQueue) => {
+module.exports = async (services, rebuildQueue) => {
   const {
     agendas: agendasSvc,
   } = services;
