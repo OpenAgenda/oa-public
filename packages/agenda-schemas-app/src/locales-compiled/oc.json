@@ -14,13 +14,13 @@
   "AgendaSchema.EmbedSelection.memberInfo": [
     {
       "type": 0,
-      "value": "Membre"
+      "value": "Configuration du formulaire membre"
     }
   ],
   "AgendaSchema.EmbedSelection.members": [
     {
       "type": 0,
-      "value": "configuration du formulaire membre"
+      "value": "Membre"
     }
   ],
   "AgendaSchema.adaptForm": [

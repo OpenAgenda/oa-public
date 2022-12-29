@@ -1,8 +1,8 @@
 {
   "AgendaSchema.EmbedSelection.eventInfo": "Configuration du formulaire événement",
   "AgendaSchema.EmbedSelection.events": "Evénement",
-  "AgendaSchema.EmbedSelection.memberInfo": "Membre",
-  "AgendaSchema.EmbedSelection.members": "configuration du formulaire membre",
+  "AgendaSchema.EmbedSelection.memberInfo": "Configuration du formulaire membre",
+  "AgendaSchema.EmbedSelection.members": "Membre",
   "AgendaSchema.adaptForm": "Adaptez la configuration du formulaire événement",
   "AgendaSchema.adaptMemberForm": "Adaptez la configuration du formulaire membre",
   "AgendaSchema.canAddField": "Vous pouvez ajouter le champ de votre choix au formulaire événement",
