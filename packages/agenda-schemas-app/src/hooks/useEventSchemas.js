@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import useRes from './useRes';
 
-export default agenda => {
+export default (agenda, memberMode) => {
+  if (memberMode) return false;
   const res = useRes(agenda);
   const { isLoading, error, data } = useQuery(['agenda-eventSchema', agenda.uid], () =>
     axios.get(res.eventSchema, { params: { split: 1 } }).then(response => response.data), { staleTime: Infinity });

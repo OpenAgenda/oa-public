@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { wrapApp } from '@openagenda/react-shared';
 import '@openagenda/bs-templates/compiled/main.css';
 import { createMemoryHistory } from 'history';
@@ -15,7 +15,7 @@ export default {
 
 const res = {
   eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
-  memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
+  memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
 };
 
 export function AdminWithoutPremium() {
@@ -84,6 +84,7 @@ export function AdminWithPremium() {
                 slug: 'metropole-europeenne-de-lille',
                 credentials: {
                   premiumCustomFields: true,
+                  memberCustom: true,
                 },
               },
             },
@@ -122,8 +123,51 @@ export function AdminWithMember() {
                 slug: 'metropole-europeenne-de-lille',
                 credentials: {
                   premiumCustomFields: true,
+                  memberCustom: true,
                 },
               },
+            },
+          },
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminTrySidebar() {
+  const selectionMenuRef = useRef();
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+        ref={selectionMenuRef}
+      />
+      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq  padding-bottom-sm">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                prefix: '/:agendaSlug/admin/schema',
+                apiRoot: '',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+            }),
+          }),
+          {
+            extraProps: {
+              lang: 'fr',
+              agenda: {
+                uid: 1,
+                slug: 'metropole-europeenne-de-lille',
+                credentials: {
+                  premiumCustomFields: true,
+                  memberCustom: true,
+                },
+              },
+              filtersContainerRef: selectionMenuRef,
             },
           },
         )}

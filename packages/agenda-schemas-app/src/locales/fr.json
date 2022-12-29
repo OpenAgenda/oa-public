@@ -1,10 +1,15 @@
 {
+  "AgendaSchema.EmbedSelection.eventInfo": "Configuration du formulaire événement",
+  "AgendaSchema.EmbedSelection.events": "Evénement",
+  "AgendaSchema.EmbedSelection.memberInfo": "Membre",
+  "AgendaSchema.EmbedSelection.members": "configuration du formulaire membre",
   "AgendaSchema.adaptForm": "Adaptez la configuration du formulaire événement",
+  "AgendaSchema.adaptMemberForm": "Adaptez la configuration du formulaire membre",
   "AgendaSchema.canAddField": "Vous pouvez ajouter le champ de votre choix au formulaire événement",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.eventDetail": "Champ événement standard",
-  "AgendaSchema.member": "",
-  "AgendaSchema.memberDetail": "",
+  "AgendaSchema.member": "Standard",
+  "AgendaSchema.memberDetail": "Champ membre standard",
   "AgendaSchema.needMoreFields": "Besoin de plus de champs ?",
   "AgendaSchema.network": "Réseau",
   "AgendaSchema.networkDetail": "Champ requis par le réseau d'agendas"

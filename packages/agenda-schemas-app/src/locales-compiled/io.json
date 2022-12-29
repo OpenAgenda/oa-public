@@ -1,8 +1,38 @@
 {
+  "AgendaSchema.EmbedSelection.eventInfo": [
+    {
+      "type": 0,
+      "value": "Events configuration"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.events": [
+    {
+      "type": 0,
+      "value": "Events"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.memberInfo": [
+    {
+      "type": 0,
+      "value": "Members configuration"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.members": [
+    {
+      "type": 0,
+      "value": "Members"
+    }
+  ],
   "AgendaSchema.adaptForm": [
     {
       "type": 0,
       "value": "crwdns31276:0crwdne31276:0"
+    }
+  ],
+  "AgendaSchema.adaptMemberForm": [
+    {
+      "type": 0,
+      "value": "Adapt the configuration of the member form"
     }
   ],
   "AgendaSchema.canAddField": [

@@ -1,8 +1,38 @@
 {
+  "AgendaSchema.EmbedSelection.eventInfo": [
+    {
+      "type": 0,
+      "value": "Configuration du formulaire événement"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.events": [
+    {
+      "type": 0,
+      "value": "Evénement"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.memberInfo": [
+    {
+      "type": 0,
+      "value": "Membre"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.members": [
+    {
+      "type": 0,
+      "value": "configuration du formulaire membre"
+    }
+  ],
   "AgendaSchema.adaptForm": [
     {
       "type": 0,
       "value": "Adaptez la configuration du formulaire événement"
+    }
+  ],
+  "AgendaSchema.adaptMemberForm": [
+    {
+      "type": 0,
+      "value": "Adaptez la configuration du formulaire membre"
     }
   ],
   "AgendaSchema.canAddField": [
@@ -26,13 +56,13 @@
   "AgendaSchema.member": [
     {
       "type": 0,
-      "value": "Standard Member"
+      "value": "Standard"
     }
   ],
   "AgendaSchema.memberDetail": [
     {
       "type": 0,
-      "value": "Standard member field"
+      "value": "Champ membre standard"
     }
   ],
   "AgendaSchema.needMoreFields": [

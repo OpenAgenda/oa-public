@@ -1,5 +1,10 @@
 {
+  "AgendaSchema.EmbedSelection.eventInfo": "Events configuration",
+  "AgendaSchema.EmbedSelection.events": "Events",
+  "AgendaSchema.EmbedSelection.memberInfo": "Members configuration",
+  "AgendaSchema.EmbedSelection.members": "Members",
   "AgendaSchema.adaptForm": "Adapt the configuration of the event form",
+  "AgendaSchema.adaptMemberForm": "Adapt the configuration of the member form",
   "AgendaSchema.canAddField": "You can add the field of your choice to the event form",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.eventDetail": "Standard event field",
