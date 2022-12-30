@@ -3,17 +3,15 @@ import React, {
   useContext,
   useImperativeHandle,
   useMemo,
-  useState
+  useState,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import ApiClient from '@openagenda/react-shared/lib/utils/apiClient';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
-import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { createForm } from 'final-form';
-import { IntlProvider, RawIntlProvider, useIntl } from 'react-intl';
+import { RawIntlProvider, useIntl } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import appLocales from '../locales';
 import filtersToAggregations from '../utils/filtersToAggregations';
 import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
 import { withDefaultFilterConfig } from '../utils';
@@ -25,7 +23,7 @@ const FiltersForm = React.forwardRef(({
   onSubmit,
   initialValues,
   subscription,
-  children
+  children,
 }, ref) => {
   const { filters } = useContext(FiltersAndWidgetsContext);
 
@@ -67,6 +65,7 @@ const IntlProvided = React.forwardRef(({
   widgets: rawWidgets,
   missingValue,
   mapTiles,
+  dateFnsLocale,
   apiClient: customApiClient,
   initialValues,
   onSubmit,
@@ -85,18 +84,19 @@ const IntlProvided = React.forwardRef(({
   }));
 
   const filtersOptions = useMemo(
-    () => ({ missingValue, mapTiles }),
-    [missingValue, mapTiles]
+    () => ({ missingValue, mapTiles, dateFnsLocale }),
+    [missingValue, mapTiles, dateFnsLocale],
   );
-  const [filters, setFilters] = useState(() => (rawFilters ?? []).map(rawFilter => (
-    withDefaultFilterConfig(rawFilter, intl, filtersOptions)
+  const [filters, setFilters] = useState(() => (rawFilters ?? []).map(rawFilter => withDefaultFilterConfig(
+    rawFilter,
+    intl,
+    filtersOptions,
   )));
   const [widgets, setWidgets] = useState(() => rawWidgets);
 
   const updateFilters = useCallback(newFilters => {
-    setFilters(newFilters.map(rawFilter => (
-      withDefaultFilterConfig(rawFilter, intl, filtersOptions)
-    )));
+    setFilters(newFilters.map(rawFilter =>
+      withDefaultFilterConfig(rawFilter, intl, filtersOptions)));
   }, [intl, mapTiles, missingValue]);
 
   const filtersAndWidgets = useMemo(() => ({
@@ -129,27 +129,21 @@ function FiltersProvider(
   {
     children,
     intl,
-    locale = 'en',
-    locales: userLocales,
     filters,
-    widgets,
+    widgets = [],
     // filters config
-    missingValue,
-    mapTiles,
+    missingValue = null,
+    mapTiles = null,
+    dateFnsLocale,
     // for test
-    apiClient,
+    apiClient = null,
     // form config
     onSubmit,
     initialValues,
     subscription = defaultSubscription,
   },
-  ref
+  ref,
 ) {
-  const locales = useMemo(
-    () => mergeLocales(appLocales, userLocales || {}),
-    [userLocales]
-  );
-
   const child = (
     <IntlProvided
       ref={ref}
@@ -157,6 +151,7 @@ function FiltersProvider(
       widgets={widgets}
       missingValue={missingValue}
       mapTiles={mapTiles}
+      dateFnsLocale={dateFnsLocale}
       apiClient={apiClient}
       onSubmit={onSubmit}
       initialValues={initialValues}
@@ -167,19 +162,14 @@ function FiltersProvider(
   );
 
   if (intl) {
-    return <RawIntlProvider value={intl}>{child}</RawIntlProvider>;
+    return (
+      <RawIntlProvider value={intl}>
+        {child}
+      </RawIntlProvider>
+    );
   }
 
-  return (
-    <IntlProvider
-      key={locale}
-      locale={locale}
-      messages={locales[locale]}
-      defaultLocale={getSupportedLocale(locale)}
-    >
-      {child}
-    </IntlProvider>
-  );
+  return child;
 }
 
 export default React.forwardRef(FiltersProvider);

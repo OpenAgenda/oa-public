@@ -58,25 +58,23 @@ const SearchFilter = React.forwardRef(function SearchFilter({
   name,
   filter,
   component = SearchInput,
-  placeholder,
+  placeholder = null,
   ...rest
 }, _ref) {
   const seed = useUIDSeed();
   const intl = useIntl();
 
   return (
-    <>
-      <Field
-        key={seed(filter)}
-        name={name}
-        subscription={subscription}
-        component={component}
-        type="text"
-        filter={filter}
-        placeholder={placeholder || intl.formatMessage(messages.placeholder)}
-        {...rest}
-      />
-    </>
+    <Field
+      key={seed(filter)}
+      name={name}
+      subscription={subscription}
+      component={component}
+      type="text"
+      filter={filter}
+      placeholder={placeholder || intl.formatMessage(messages.placeholder)}
+      {...rest}
+    />
   );
 });
 

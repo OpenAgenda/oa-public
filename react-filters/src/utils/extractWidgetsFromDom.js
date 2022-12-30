@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function getWidgets() {
+export default function extractWidgetsFromDom() {
   const widgetElems = document.querySelectorAll('[data-oa-widget]');
 
   return Array.from(widgetElems, elem => {

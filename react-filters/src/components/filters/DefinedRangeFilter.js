@@ -10,12 +10,12 @@ import FilterPreviewer from '../FilterPreviewer';
 const messages = defineMessages({
   singleDate: {
     id: 'ReactFilters.DefinedRangeFilter.singleDate',
-    defaultMessage: '{date, time, ::yyyyMMdd}',
+    defaultMessage: '{date}',
   },
   dateRange: {
     id: 'ReactFilters.DefinedRangeFilter.dateRange',
     defaultMessage:
-      'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
+      'From {startDate} to {endDate}',
   },
   startDate: {
     id: 'ReactFilters.DefinedRangeFilter.startDate',
@@ -27,11 +27,11 @@ const messages = defineMessages({
   },
   until: {
     id: 'ReactFilters.DefinedRangeFilter.until',
-    defaultMessage: 'Until {date, time, ::yyyyMMdd}',
+    defaultMessage: 'Until {date}',
   },
   from: {
     id: 'ReactFilters.DefinedRangeFilter.from',
-    defaultMessage: 'From {date, time, ::yyyyMMdd}',
+    defaultMessage: 'From {date}',
   },
 });
 
@@ -85,6 +85,7 @@ function parseValue(value) {
   return {
     gte: selection.startDate.toISOString(),
     lte: (selection.endDate ? endOfDay(selection.endDate) : selection.endDate).toISOString(),
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
   };
 }
 
@@ -101,14 +102,14 @@ function Preview({
 
   const selectedStaticRange = useMemo(
     () => value && staticRanges.find(v => v.isSelected(value)),
-    [value, staticRanges]
+    [value, staticRanges],
   );
 
   const singleDay = useMemo(
     () => value?.startDate
       && value?.endDate
       && isSameDay(value.startDate, value.endDate),
-    [value]
+    [value],
   );
 
   const onRemove = useCallback(
@@ -121,7 +122,7 @@ function Preview({
 
       input.onChange(undefined);
     },
-    [input, disabled]
+    [input, disabled],
   );
 
   let label;
@@ -159,23 +160,21 @@ const DefinedRangeFilter = React.forwardRef(function DefinedRangeFilter(
   {
     name,
     staticRanges,
-    inputRanges
+    inputRanges,
   },
-  ref
+  ref,
 ) {
   return (
-    <>
-      <Field
-        ref={ref}
-        name={name}
-        subscription={subscription}
-        parse={parseValue}
-        format={formatValue}
-        component={DefinedRangePicker}
-        staticRanges={staticRanges}
-        inputRanges={inputRanges}
-      />
-    </>
+    <Field
+      ref={ref}
+      name={name}
+      subscription={subscription}
+      parse={parseValue}
+      format={formatValue}
+      component={DefinedRangePicker}
+      staticRanges={staticRanges}
+      inputRanges={inputRanges}
+    />
   );
 });
 
@@ -189,7 +188,7 @@ const Collapsable = React.forwardRef(function Collapsable(
     inputRanges,
     ...rest
   },
-  ref
+  ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);
 

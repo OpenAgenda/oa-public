@@ -1,40 +1,16 @@
 import React, {
-  useCallback, useMemo, useState
+  useCallback, useMemo, useState,
 } from 'react';
 import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
-import Fuse from 'fuse.js';
-import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { css } from '@emotion/react';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import ChoiceField from '../fields/ChoiceField';
 import Title from '../Title';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
-
-const messages = defineMessages({
-  noResult: {
-    id: 'ReactFilters.ChoiceFilter.noResult',
-    defaultMessage: 'No result',
-  },
-  searchPlaceholder: {
-    id: 'ReactFilters.ChoiceFilter.searchPlaceholder',
-    defaultMessage: 'Search',
-  },
-  moreOptions: {
-    id: 'ReactFilters.ChoiceFilter.moreOptions',
-    defaultMessage: 'More options',
-  },
-  lessOptions: {
-    id: 'ReactFilters.ChoiceFilter.lessOptions',
-    defaultMessage: 'Less options',
-  },
-  unrecognizedOption: {
-    id: 'ReactFilters.ChoiceFilter.unrecognizedOption',
-    defaultMessage: 'Unknown filter value ({value})'
-  }
-});
+import useChoiceState from '../../hooks/useChoiceState';
+import messages from '../../messages/choiceFilter';
 
 const subscription = { value: true };
 
@@ -76,10 +52,10 @@ function Preview({
     }
 
     return [].concat(input.value)
-      .map(v => (options.find(option => option.value === v) ?? {
+      .map(v => options.find(option => option.value === v) ?? {
         value: v,
-        label: intl.formatMessage(messages.unrecognizedOption, { value: v })
-      }));
+        label: intl.formatMessage(messages.unrecognizedOption, { value: v }),
+      });
   }, [input.value, options, intl]);
 
   const onRemove = useCallback(
@@ -100,7 +76,7 @@ function Preview({
 
       input.onChange(newValue.length ? newValue : undefined);
     },
-    [input, disabled]
+    [input, disabled],
   );
 
   if (!valueOptions?.length) {
@@ -131,78 +107,29 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
 }, _ref) {
   const intl = useIntl();
   const seed = useUIDSeed();
-  const [maxOptions, setMaxOptions] = useState(pageSize);
 
-  const options = useMemo(() => getOptions(filter), [filter, getOptions]);
-
-  const [optionSearch, setOptionSearch] = useState('');
-  const previousOptionSearch = usePrevious(optionSearch);
-  const [foundOptions, setFoundOptions] = useState(options);
-
-  const moreOptions = useCallback(
-    () => setMaxOptions(v => v + pageSize),
-    [pageSize]
-  );
-  const lessOptions = useCallback(() => setMaxOptions(pageSize), [pageSize]);
-
-  const previousCollpased = usePrevious(collapsed);
-
-  useIsomorphicLayoutEffect(() => {
-    if (previousCollpased && !collapsed) {
-      lessOptions();
-    }
-  }, [collapsed, lessOptions, previousCollpased]);
-
-  const hasMoreOptions = maxOptions < foundOptions.length;
-
-  const onSearchChange = useCallback(e => setOptionSearch(e.target.value), []);
-
-  const fuse = useConstant(
-    () => new Fuse(options, {
-      threshold: 0.3,
-      ignoreLocation: true,
-      distance: 100,
-      keys: ['label'],
-    })
-  );
-
-  // Update fuse docs if options change
-  useIsomorphicLayoutEffect(() => {
-    if (options !== fuse._docs) {
-      fuse.setCollection(options);
-
-      const newOptions = optionSearch === ''
-        ? options
-        : fuse.search(optionSearch).map(v => v.item);
-
-      setFoundOptions(newOptions);
-    }
-  }, [fuse, optionSearch, options]);
-
-  // Update search results if search change
-  useIsomorphicLayoutEffect(() => {
-    if (
-      previousOptionSearch !== undefined
-      && optionSearch !== previousOptionSearch
-    ) {
-      const newOptions = optionSearch === ''
-        ? options
-        : fuse.search(optionSearch).map(v => v.item);
-
-      // if (newOptions.length <= pageSize || optionSearch === '') {
-      //   lessOptions();
-      // }
-
-      setFoundOptions(newOptions);
-    }
-  }, [fuse, optionSearch, options, previousOptionSearch]);
+  const {
+    options,
+    searchValue,
+    onSearchChange,
+    foundOptions,
+    countOptions,
+    hasMoreOptions,
+    moreOptions,
+    lessOptions,
+  } = useChoiceState({
+    filter,
+    getOptions,
+    collapsed,
+    pageSize,
+  });
 
   return (
     <>
       {options.length > searchMinSize ? (
         <input
           className="form-control input-sm margin-top-xs"
-          value={optionSearch}
+          value={searchValue}
           onChange={onSearchChange}
           placeholder={intl.formatMessage(messages.searchPlaceholder)}
           css={css`
@@ -217,7 +144,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
         </div>
       ) : null}
 
-      {foundOptions.map((option, index) => (index < maxOptions ? (
+      {foundOptions.map((option, index) => (index < countOptions ? (
         <Field
           key={seed(option)}
           name={name}
@@ -244,7 +171,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
         </button>
       ) : null}
 
-      {!hasMoreOptions && maxOptions > pageSize ? (
+      {!hasMoreOptions && countOptions > pageSize ? (
         <button
           type="button"
           className="btn btn-link btn-link-inline"
@@ -267,7 +194,7 @@ const Collapsable = React.forwardRef(function Collapsable(
     disabled,
     ...rest
   },
-  ref
+  ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);
 

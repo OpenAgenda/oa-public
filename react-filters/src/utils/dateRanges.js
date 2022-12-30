@@ -9,7 +9,7 @@ import {
   isSameDay,
   getISODay,
 } from 'date-fns';
-import * as dateFnsLocales from 'date-fns/locale';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
@@ -49,7 +49,7 @@ function getClosestDayAfter(dayOfWeek, fromDate = new Date()) {
   return addDays(fromDate, offsetDays);
 }
 
-function isSelected(range) {
+function isSelected(range, _timeZone) {
   const definedRange = this.range();
 
   return (
@@ -59,6 +59,14 @@ function isSelected(range) {
     && (isSameDay(range.endDate, definedRange.endDate)
       || range.endDate === definedRange.endDate)
   );
+
+  // return (
+  //   range
+  //   && (isSameDay(utcToZonedTime(range.startDate, timeZone), definedRange.startDate)
+  //     || range.startDate === definedRange.startDate)
+  //   && (isSameDay(utcToZonedTime(range.endDate, timeZone), definedRange.endDate)
+  //     || range.endDate === definedRange.endDate)
+  // );
 }
 
 export function createStaticRanges(ranges) {
@@ -66,7 +74,7 @@ export function createStaticRanges(ranges) {
 }
 
 export default function dateRanges(intl, opts = {}) {
-  const locale = dateFnsLocales[intl.locale];
+  const { dateFnsLocale } = opts;
 
   const nextSaturday = getClosestDayAfter('Sat');
 
@@ -75,14 +83,14 @@ export default function dateRanges(intl, opts = {}) {
   const now = new Date();
 
   const defineds = {
-    startOfToday: startOfDay(now, { locale }),
-    endOfToday: endOfDay(now, { locale }),
-    startOfTomorrow: startOfDay(addDays(now, 1), { locale }),
-    endOfTomorrow: endOfDay(addDays(now, 1), { locale }),
-    startOfWeek: startOfWeek(now, { locale }),
-    endOfWeek: endOfWeek(now, { locale }),
-    startOfMonth: startOfMonth(now, { locale }),
-    endOfMonth: endOfMonth(now, { locale }),
+    startOfToday: startOfDay(now, { locale: dateFnsLocale }),
+    endOfToday: endOfDay(now, { locale: dateFnsLocale }),
+    startOfTomorrow: startOfDay(addDays(now, 1), { locale: dateFnsLocale }),
+    endOfTomorrow: endOfDay(addDays(now, 1), { locale: dateFnsLocale }),
+    startOfWeek: startOfWeek(now, { locale: dateFnsLocale }),
+    endOfWeek: endOfWeek(now, { locale: dateFnsLocale }),
+    startOfMonth: startOfMonth(now, { locale: dateFnsLocale }),
+    endOfMonth: endOfMonth(now, { locale: dateFnsLocale }),
     startOfWeekend,
     endOfWeekend,
   };

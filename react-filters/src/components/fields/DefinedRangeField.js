@@ -19,7 +19,7 @@ function normalizeValue(value) {
   return value.map(v => ({
     startDate: _.isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
     endDate: _.isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
-    key: v.key
+    key: v.key,
   }));
 }
 
@@ -33,10 +33,10 @@ function DefinedRangeField(
     disabled,
     ...otherProps
   },
-  _ref
+  _ref,
 ) {
   const [ranges, setRanges] = useState(
-    () => input.value ?? defaultGetInitialValue()
+    () => input.value ?? defaultGetInitialValue(),
   );
 
   const latestRanges = useLatest(ranges);
@@ -51,7 +51,7 @@ function DefinedRangeField(
       setRanges(value);
       onChange(value);
     },
-    [onChange]
+    [onChange],
   );
 
   // If value change then update internal ranges

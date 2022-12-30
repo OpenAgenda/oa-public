@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  IntlProvider,
   FiltersProvider,
   Filters,
   DateRangeFilter,
@@ -47,35 +48,39 @@ const filters = [
 ];
 
 export const CompleteExample = ({ onSubmit }) => (
-  <FiltersProvider onSubmit={onSubmit} locale={lang}>
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-4">
-          <Filters
-            filters={filters}
-            dateRangeComponent={DateRangeFilter}
-            choiceComponent={ChoiceFilter}
-            getOptions={filter => filter.options}
-          />
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <Filters
+              filters={filters}
+              dateRangeComponent={DateRangeFilter}
+              choiceComponent={ChoiceFilter}
+              getOptions={filter => filter.options}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </FiltersProvider>
+    </FiltersProvider>
+  </IntlProvider>
 );
 CompleteExample.storyName = 'Filters';
 
 export const FilterByFilter = ({ onSubmit }) => (
-  <FiltersProvider onSubmit={onSubmit} locale={lang}>
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-4">
-          <DateRangeFilter name="timings" />
-          <DateRangeFilter name="createdAt" />
-          <DateRangeFilter name="updatedAt" />
-          <ChoiceFilter name="state" getOptions={() => filters[3].options} />
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <DateRangeFilter name="timings" />
+            <DateRangeFilter name="createdAt" />
+            <DateRangeFilter name="updatedAt" />
+            <ChoiceFilter name="state" getOptions={() => filters[3].options} />
+          </div>
         </div>
       </div>
-    </div>
-  </FiltersProvider>
+    </FiltersProvider>
+  </IntlProvider>
 );
 FilterByFilter.storyName = 'Filter by filter';

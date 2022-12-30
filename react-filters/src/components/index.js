@@ -16,3 +16,7 @@ export { default as Sort } from './Sort';
 export { default as SearchInput } from './fields/SearchInput';
 export { default as Total } from './Total';
 export { default as ValueBadge } from './ValueBadge';
+
+export { default as IntlProvider } from './IntlProvider';
+export { IntlProvider as ReactIntlProvider } from 'react-intl';
+export { Field } from 'react-final-form';

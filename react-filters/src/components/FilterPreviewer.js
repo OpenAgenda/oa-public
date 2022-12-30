@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFilterTitle } from '../hooks';
+import useFilterTitle from '../hooks/useFilterTitle';
 import ValueBadge from './ValueBadge';
 
 export default function FilterPreviewer({
