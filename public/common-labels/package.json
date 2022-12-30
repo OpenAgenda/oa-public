@@ -13,14 +13,16 @@
     "access": "public"
   },
   "files": [
-    "build",
-    "locales-compiled",
-    "messages"
+    "build/",
+    "locales-compiled/",
+    "messages/",
+    "fetchLocale.js"
   ],
   "exports": {
+    "./package.json": "./package.json",
     ".": "./build/index.js",
-    "./*": "./messages/*.js",
-    "./package.json": "./package.json"
+    "./fetchLocale": "./fetchLocale.js",
+    "./*": "./messages/*.js"
   },
   "scripts": {
     "prepack": "yarn clean && yarn build",
