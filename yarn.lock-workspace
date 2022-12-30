@@ -1767,10 +1767,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/anatomy@npm:2.0.7, @chakra-ui/anatomy@npm:^2.0.7":
+"@chakra-ui/anatomy@npm:2.0.7":
   version: 2.0.7
   resolution: "@chakra-ui/anatomy@npm:2.0.7"
   checksum: 3f75782e7fd7e4b52c4a719a6869953cdf37da799386c02c6eec00f52a1307a4be22a18c25ec4fb46159251bb5cc7dc5d3f6d61087dbdc42133ae2893f16e2b7
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/anatomy@npm:^2.0.7":
+  version: 2.1.1
+  resolution: "@chakra-ui/anatomy@npm:2.1.1"
+  checksum: 59a72dc9481d62fdec6bbe70506ec1c8ebab9b496b16e17bd9dfd811851a553c0dfe71e089122b9b6096a3183f24417872b2a10218aae7a70857856a4b8fd5cd
   languageName: node
   linkType: hard
 
