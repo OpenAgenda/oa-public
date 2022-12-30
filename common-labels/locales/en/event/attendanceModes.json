@@ -1,0 +1,5 @@
+{
+  "ReactFilters.messages.attendanceMode.mixed": "Mixed",
+  "ReactFilters.messages.attendanceMode.offline": "In situ",
+  "ReactFilters.messages.attendanceMode.online": "Online"
+}
