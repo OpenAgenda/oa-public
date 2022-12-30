@@ -18,6 +18,7 @@ const termsFiltersMap = {
   uid: 'uid',
   slug: 'slug',
   ownerUid: 'ownerUid',
+  languages: '_search_languages',
 };
 
 function hasExplicitEmptyValue(queryValue, emptyValue) {
@@ -51,7 +52,6 @@ function _getQueryMustParts(cleanQuery) {
   // term constraints
   [
     ['keyword', '_search_keywords', true],
-    ['lang', '_search_languages', true],
   ].forEach(field => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;

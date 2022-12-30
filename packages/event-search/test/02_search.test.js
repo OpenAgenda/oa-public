@@ -127,7 +127,7 @@ describe('02 - event search - functional: search', () => {
         const {
           events,
           total,
-        } = await service('simple_search').search({ lang: 'de' });
+        } = await service('simple_search').search({ languages: 'de' });
 
         expect(total).toBe(1);
         expect(events.map(e => e.slug)).toEqual(['german_event']);
