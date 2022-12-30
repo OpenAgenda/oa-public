@@ -26,6 +26,7 @@ const findFieldFromOptionId = (schema, id) => schema.fields
 module.exports = function tagSetToFormSchema(tagSet, options = {}) {
   const {
     lang = 'fr',
+    schemaId,
   } = options;
   return {
     fields: tagSet.groups.map(g => ({
@@ -43,6 +44,7 @@ module.exports = function tagSetToFormSchema(tagSet, options = {}) {
         }),
         label: t.label,
       })),
+      ...schemaId ? { schemaId } : null,
     })),
   };
 };

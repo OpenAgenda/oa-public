@@ -13,6 +13,12 @@ describe('tagSetToFormSchema', () => {
     );
   });
 
+  it('converts to form-schema and add schemaId key', () => {
+    tagSetToFormSchema(locationTagSet, { schemaId: 'location' }).fields.forEach(f => {
+      expect(f.schemaId).toBe('location');
+    });
+  });
+
   it('convertLocation converts location tags to formSchema additional fields', () => {
     const taggedLocation = {
       tags: [{
