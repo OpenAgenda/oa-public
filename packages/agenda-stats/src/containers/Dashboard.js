@@ -14,7 +14,7 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import qs from 'qs';
-import * as dateFnsLocales from 'date-fns/esm/locale';
+import * as dateFnsLocales from 'date-fns/locale';
 import {
   FiltersProvider,
   useFilters,
