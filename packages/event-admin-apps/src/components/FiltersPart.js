@@ -1,10 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useQuery } from 'react-query';
 import { useIntl } from 'react-intl';
 import { css } from '@emotion/react';
 import {
-  getEvents,
   DateRangeFilter,
   Filters,
   ChoiceFilter,
@@ -16,7 +14,11 @@ import {
 import { useApiClient } from '@openagenda/react-shared';
 
 function FiltersPart({
-  agenda, filters, query, page
+  agenda,
+  filters,
+  query,
+  filtersQuery,
+  eventsQuery,
 }) {
   const apiClient = useApiClient();
   const intl = useIntl();
@@ -24,38 +26,10 @@ function FiltersPart({
 
   const geoRes = useMemo(
     () => res.jsonExport.replace(':slug', agenda.slug).replace(':uid', agenda.uid),
-    [agenda.slug, agenda.uid]
+    [agenda.slug, agenda.uid],
   );
 
-  const filtersQuery = useQuery(
-    ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
-    {
-      staleTime: 1000,
-      notifyOnChangeProps: ['data', 'isFetching'],
-    }
-  );
-
-  const { data, isFetching } = useQuery(
-    ['event-admin-apps', 'events', agenda.slug, { query, page }],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters,
-      {
-        sort: 'updatedAt.desc',
-        ...query,
-        detailed: true,
-      },
-      page
-    ),
-    {
-      staleTime: 1000,
-      notifyOnChangeProps: ['data', 'isFetching'],
-      keepPreviousData: true, // because query and page change
-    }
-  );
+  const { data, isFetching } = eventsQuery;
 
   const { aggregations: filterAggs } = filtersQuery.data;
   const { aggregations } = data;
@@ -69,39 +43,37 @@ function FiltersPart({
   const mapProps = useMemo(() => ({ query }), [query]);
 
   return (
-    <>
-      <div
-        className="oa-collapse"
-        css={css`
-          .leaflet-container {
-            height: 300px;
-          }
+    <div
+      className="oa-collapse"
+      css={css`
+        .leaflet-container {
+          height: 300px;
+        }
 
-          .oa-choice-option-label {
-            min-height: 20px;
-            line-height: 20px;
-            padding-left: 20px;
-            margin-bottom: 0;
-            font-weight: normal;
-            cursor: pointer;
-          }
-        `}
-      >
-        <Filters
-          filters={filters}
-          disabled={isFetching || filtersQuery.isFetching}
-          dateRangeComponent={DateRangeFilter.Collapsable}
-          choiceComponent={ChoiceFilter.Collapsable}
-          mapComponent={MapFilter}
-          mapProps={mapProps}
-          getTotal={getTotal}
-          getOptions={getOptions}
-          initialViewport={initialViewport}
-          loadGeoData={loadGeoData}
-          withRef
-        />
-      </div>
-    </>
+        .oa-choice-option-label {
+          min-height: 20px;
+          line-height: 20px;
+          padding-left: 20px;
+          margin-bottom: 0;
+          font-weight: normal;
+          cursor: pointer;
+        }
+      `}
+    >
+      <Filters
+        filters={filters}
+        disabled={isFetching || filtersQuery.isFetching}
+        dateRangeComponent={DateRangeFilter.Collapsable}
+        choiceComponent={ChoiceFilter.Collapsable}
+        mapComponent={MapFilter}
+        mapProps={mapProps}
+        getTotal={getTotal}
+        getOptions={getOptions}
+        initialViewport={initialViewport}
+        loadGeoData={loadGeoData}
+        withRef
+      />
+    </div>
   );
 }
 
