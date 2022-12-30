@@ -15,6 +15,10 @@ module.exports = async (req, res, next) => {
       throw new Error('could not find user matching token');
     }
   } catch (e) {
+    if (e.code === 400) {
+      return next(e);
+    }
+
     return res.status(403).json({
       error: e.message,
     });
