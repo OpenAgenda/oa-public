@@ -42,20 +42,20 @@ describe('02 - event search - functional: search', function() {
           events,
           total
         } = await service('simple_search').search({ uid: 6 });
-  
+
         assert(total === 1);
         assert.equal(
           events[0].slug,
           'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
         );
       });
-  
+
       it('several events can be retrieved by uid at once', async () => {
         const {
           events,
           total
         } = await service('simple_search').search({ uid: [6, 11] });
-        
+
         assert(total === 2);
 
         assert.deepEqual(
@@ -66,7 +66,7 @@ describe('02 - event search - functional: search', function() {
           ]
         );
       });
-  
+
       it('an event can be retrieved with its slug', async () => {
         const {
           events,
@@ -77,7 +77,7 @@ describe('02 - event search - functional: search', function() {
 
         assert.equal(events[0].uid, 6);
       });
-  
+
       it('several events can be retrieved by slug at once', async () => {
         const {
           events,
@@ -88,7 +88,7 @@ describe('02 - event search - functional: search', function() {
             'serres-la-claranda-cafe-citoyen'
         ]
         });
-  
+
         assert(total === 2);
         assert.deepEqual(
           events.map(e => e.uid),
@@ -188,18 +188,18 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           uid: 6
         });
-  
+
         const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
-  
+
         const expectedFields = service.getConfig().baseSearchIncludes.concat(postParseFields).map(f => f.split('.')[0]);
-  
+
         assert.deepEqual(
           Object.keys(events[0])
             .filter(field => !expectedFields.includes(field)),
           []
         );
       });
-  
+
       it('by default, event timings are converted to local timezone', async () => {
         const {
           events,
@@ -215,7 +215,7 @@ describe('02 - event search - functional: search', function() {
           '2016-10-24T14:00:00+02:00'
         );
       });
-  
+
       it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
         const {
           events,
@@ -223,13 +223,13 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           uid: 6
         });
-  
+
         assert.deepEqual(
           Object.keys(events[0].location).sort(),
-          ['address', 'latitude', 'longitude', 'name']
+          ['address', 'city', 'latitude', 'longitude', 'name']
         );
       });
-  
+
       it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
         const {
           events,
@@ -238,7 +238,7 @@ describe('02 - event search - functional: search', function() {
           monolingual: 'fr',
           detailed: true
         });
-  
+
         [
           'title',
           'description',
@@ -249,7 +249,7 @@ describe('02 - event search - functional: search', function() {
           assert.equal(typeof data, 'string');
         });
       });
-  
+
       it('all fields are returned when detailed option is true', async () => {
         const {
           events,
@@ -289,21 +289,21 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           search: 'Mississipi'
         });
-        
+
         assert.equal(total, 3);
         assert.deepEqual(
           events.map(e => e.slug),
           ['multi_1', 'multi_2', 'multi_3']
         );
       });
-  
+
       it('search on word with apostrophe', async () => {
         const {
           total
         } = await service('simple_search').search({
           search: 'Horreur'
         });
-  
+
         assert.equal(total, 1);
       });
 
@@ -317,7 +317,7 @@ describe('02 - event search - functional: search', function() {
 
         assert.equal(total, 1);
       });
-  
+
       it('open search on a city name', async () => {
         const {
           events,
@@ -325,7 +325,7 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           search: 'Quimper'
         });
-  
+
         assert.equal(total, 1);
         assert.deepEqual(
           events.map(e => e.slug),
@@ -344,7 +344,7 @@ describe('02 - event search - functional: search', function() {
         assert.equal(total, 1);
         assert.equal(events[0].slug, 'quimper_event');
       });
-  
+
       it('open search on country name in french', async () => {
         const {
           events,
@@ -359,7 +359,7 @@ describe('02 - event search - functional: search', function() {
           ['evenement_suisse']
         );
       });
-  
+
       it('open search on country name in english', async () => {
         const {
           events,
@@ -857,7 +857,7 @@ describe('02 - event search - functional: search', function() {
             e.title = 'Bim!';
           })
         });
-  
+
         assert.strictEqual(events[0].title, 'Bim!');
       });
     });
