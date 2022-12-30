@@ -1,27 +1,23 @@
-import getConfig from 'next/config';
 import { GetStaticProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
 import EventShow, { EventShowProps } from 'views/EventShow';
+import getSSRApiClient from 'utils/getSSRApiClient';
 
 type PageProps = EventShowProps & {
-  intlMessages: {
-    [key: string]: string
-  }
+  intlMessages: Record<string, string>
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const {
-    serverRuntimeConfig: { api },
-  } = getConfig();
+  const api = getSSRApiClient();
 
   const [
     { data: agenda },
     { data: { event } },
     intlMessages,
   ] = await Promise.all([
-    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}`),
-    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}`),
+    api.get(`/api/agendas/slug/${params.agendaSlug}`),
+    api.get(`/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}`),
     EventShow.fetchLocale(locale),
   ]);
 

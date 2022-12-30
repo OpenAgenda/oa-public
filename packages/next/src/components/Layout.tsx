@@ -1,4 +1,3 @@
-import { Container } from '@openagenda/uikit';
 import Navbar from './Navbar';
 
 type LayoutProps = {
@@ -9,9 +8,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navbar />
-      <Container maxW="container.xl" py="2">
-        {children}
-      </Container>
+      {children}
     </>
   );
 }

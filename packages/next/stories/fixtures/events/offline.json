@@ -1,0 +1,76 @@
+{
+  "image": {
+    "filename": "d87fb786cade4a448ce4fe5fff23cca8.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 525
+    },
+    "variants": [
+      {
+        "filename": "d87fb786cade4a448ce4fe5fff23cca8.full.image.jpg",
+        "size": {
+          "width": 1280,
+          "height": 960
+        },
+        "type": "full"
+      },
+      {
+        "filename": "d87fb786cade4a448ce4fe5fff23cca8.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "type-dorganisateur": 14,
+  "featured": false,
+  "attendanceMode": 1,
+  "keywords": {
+    "fr": [
+      "Métropole de Lyon",
+      "Semaine verte européenne",
+      "Pacte Vert",
+      "Arboretum",
+      "Sathonay Camp",
+      "Visite guidée"
+    ]
+  },
+  "dateRange": {
+    "ar": "١ - ١٣ يونيو ٢٠٢١",
+    "de": "1 - 13 Juni 2021",
+    "en": "1 - 13 June 2021",
+    "fr": "1 - 13 juin 2021",
+    "es": "1 - 13 junio 2021"
+  },
+  "originAgenda": {
+    "image": "agenda9543646.jpg",
+    "uid": 6082003,
+    "title": "Joli Mois de l'Europe 2022 : Auvergne - Rhône-Alpes"
+  },
+  "description": {
+    "fr": "Une visite au projet de plantation d’arbres à Sathonay-Camp, réalisé au cours du mois de mars 2021."
+  },
+  "title": {
+    "fr": "L’Arboretum des arbres d’avenir"
+  },
+  "onlineAccessLink": null,
+  "uid": 46410818,
+  "location": {
+    "address": "26 Boulevard de l’ouest 69580",
+    "city": "Sathonay-Camp",
+    "latitude": 45.825419,
+    "name": "Arboretum de Sathonay Camp - Stationnement face au 26 Boulevard de l’ouest 69580",
+    "longitude": 4.86792
+  },
+  "type-devenement": 5,
+  "slug": "larboretum-des-arbres-davenir",
+  "status": 1,
+  "lastTiming": {
+    "begin": "2021-06-13T09:00:00+02:00",
+    "end": "2021-06-13T12:00:00+02:00"
+  },
+  "nextTiming": null
+}

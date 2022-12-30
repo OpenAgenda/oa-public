@@ -1,6 +1,8 @@
-const { apiClient } = require('@openagenda/react-shared');
-
-const withTM = require('next-transpile-modules')(['@openagenda/uikit']);
+const withTM = require('next-transpile-modules')([
+  '@openagenda/react-filters',
+  '@openagenda/react-shared',
+  '@openagenda/uikit',
+]);
 
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
@@ -9,18 +11,12 @@ const config = async () => {
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
 
-  const serverRuntimeConfig = {
-    apiRoot: NEXT_API_INTERNAL_BASE_URL,
-    api: (req, method, ...args) => apiClient(NEXT_API_INTERNAL_BASE_URL, req)[method](...args),
-  };
-
   return withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
       locales: ['fr', 'en'],
       defaultLocale: 'fr',
     },
-    serverRuntimeConfig,
     eslint: {
       dirs: [
         'src',
@@ -30,18 +26,13 @@ const config = async () => {
       ],
     },
     experimental: {
-      images: {
-        allowFutureImage: true,
-        // remotePatterns: [
-        //   {
-        //     protocol: 'https',
-        //     hostname: 'openagenda.com',
-        //   },
-        // ],
-      },
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
     async rewrites() {
+      if (!NEXT_API_INTERNAL_BASE_URL) {
+        throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
+      }
+
       return {
         fallback: [
           {

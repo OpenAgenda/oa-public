@@ -1,5 +1,4 @@
 import { IntlProvider } from 'react-intl';
-import { useRouter } from 'next/router';
 
 // const publicUrl = (typeof window !== 'undefined'
 //   ? process.env.NEXT_API_INTERNAL_BASE_URL
@@ -10,9 +9,7 @@ import { useRouter } from 'next/router';
 //   currentLanguage: Language;
 // }
 
-export function LanguageProvider({ messages, children }) {
-  const { locale } = useRouter();
-
+export function LanguageProvider({ locale, messages, children }) {
   return (
     <IntlProvider key={locale} locale={locale} messages={messages}>
       {children}

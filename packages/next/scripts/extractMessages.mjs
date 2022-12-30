@@ -1,10 +1,13 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import ts from 'typescript';
 import dedent from 'dedent';
 import extract from '@openagenda/intl/scripts/extract';
 import compile from '@openagenda/intl/scripts/compile';
-import { DEFAULT_LANG, DEFAULT_LANGS } from '@openagenda/intl/constants';
+
+const require = createRequire(import.meta.url);
+const { DEFAULT_LANGS, DEFAULT_LANG } = require('@openagenda/intl/constants');
 
 const root = new URL('..', import.meta.url).pathname;
 const sources = [
@@ -130,6 +133,7 @@ async function createIndex(localesRoot) {
 
     export default async function fetchLocale(locale) {
       return import(\`./compiled/${'${locale}'}.json\`)
+        .then(mod => mod.default)
         .catch(e => {
           console.error(\`API: Failed to fetch locale ${'${locale}'}\`, e);
           return null;
@@ -159,7 +163,8 @@ async function createViewIndex(localesRoot, deps, hasLocales) {
     
     ` : ''}export default async function fetchLocale(locale) {
       return Promise.all([${hasLocales ? `
-        import(\`./compiled/${'${locale}'}.json\`),` : ''}${relativeDeps.length ? `
+        import(\`./compiled/${'${locale}'}.json\`)
+          .then(mod => mod.default),` : ''}${relativeDeps.length ? `
         ` : ''}${relativeDeps
   .map((v, i) => `fetchLocale${i}(locale),`)
   .join('\n        ')}

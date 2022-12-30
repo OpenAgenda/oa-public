@@ -1,5 +1,5 @@
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import Client from 'ftp';
 import FTP from './lib/FTP.mjs';
 import uploadContent from './lib/uploadContent.mjs';

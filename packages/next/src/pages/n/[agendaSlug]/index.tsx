@@ -1,44 +1,111 @@
-import getConfig from 'next/config';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
+import { SWRConfig, unstable_serialize as unstableSerialize } from 'swr';
+import { getFilters, getEvents } from '@openagenda/react-filters';
+import { getSupportedLocale } from '@openagenda/intl';
+import { useIntl, createIntlCache, createIntl } from 'react-intl';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
+import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import AgendaShow, { AgendaShowProps } from 'views/AgendaShow';
+import getSSRApiClient from 'utils/getSSRApiClient';
+import getDateFnsLocale from 'utils/getDateFnsLocale';
+import parseLocationQuery from 'utils/parseLocationQuery';
 
 type PageProps = AgendaShowProps & {
-  intlMessages: {
-    [key: string]: string
-  }
+  intlMessages: Record<string, string>,
+  fallback?: any,
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const {
-    serverRuntimeConfig: { api },
-  } = getConfig();
+const intlCache = createIntlCache();
+
+export const getServerSideProps: GetServerSideProps = async ({ locale, query: queryWithParams, resolvedUrl }) => {
+  const api = getSSRApiClient();
+
+  const { agendaSlug } = queryWithParams;
+  const query = parseLocationQuery(resolvedUrl);
 
   const [
     { data: agenda },
-    { data: events },
     intlMessages,
+    dateFnsLocale,
   ] = await Promise.all([
-    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}`),
-    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}/events`),
+    api.get(`/api/agendas/slug/${agendaSlug}`),
     AgendaShow.fetchLocale(locale),
+    getDateFnsLocale(locale),
   ]);
 
-  const props: PageProps = { agenda, events, intlMessages };
+  const intl = createIntl({
+    locale,
+    messages: intlMessages,
+    defaultLocale: getSupportedLocale(locale),
+    onError(e) {
+      if (e.code !== 'MISSING_DATA') {
+        console.error(e);
+      }
+    },
+  }, intlCache);
 
-  return {
-    props,
-    revalidate: 10,
+  // const filtersBase = getFiltersBase(agenda.schema.fields, { exclude: adminFilters });
+
+  const additionalFilters = agenda.schema.fields
+    .filter(fieldSchema => fieldSchema.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
+    .map(fieldSchema => fieldSchema.field);
+
+  const filtersToInclude = ['geo', 'timings', ...additionalFilters];
+
+  const filters = getFilters(intl, agenda.schema.fields, {
+    dateFnsLocale,
+    missingValue: 'null',
+    include: filtersToInclude,
+  });
+
+  const filtersBaseResult = await getEvents(
+    api,
+    '/api/agendas/:slug/events',
+    agenda,
+    filters,
+    { size: 0 },
+    null,
+    true,
+  );
+
+  const filtersResult = await getEvents(
+    api,
+    '/api/agendas/:slug/events',
+    agenda,
+    filters,
+    {
+      sort: 'updatedAt.desc',
+      ...query,
+      detailed: true,
+    },
+    // 1, // page
+  );
+
+  const props: PageProps = {
+    agenda,
+    intlMessages,
+    fallback: {
+      [unstableSerialize(['agendaShow', 'filtersBase', agenda.slug])]: filtersBaseResult,
+      [`$inf$${unstableSerialize(['agendaShow', 'events', agenda.slug, query])}`]: [filtersResult],
+    },
   };
+
+  return { props };
 };
 
-export const getStaticPaths = () => ({
-  paths: [],
-  fallback: 'blocking',
-});
+const AgendaPage: NextPageWithLayout<PageProps> = props => {
+  const intl = useIntl();
+  const { fallback } = props;
 
-const AgendaPage: NextPageWithLayout<PageProps> = AgendaShow;
+  return (
+    <DateFnsLocaleProvider locale={intl.locale}>
+      <SWRConfig value={{ fallback }}>
+        <AgendaShow {...props} />
+      </SWRConfig>
+    </DateFnsLocaleProvider>
+  );
+};
 
 AgendaPage.Layout = Layout;
 

@@ -1,15 +1,21 @@
-import { UIKitProvider } from '@openagenda/uikit';
+import Providers from 'Providers';
 import Layout from 'components/Layout';
+import fetchAllLocales from '../utils/fetchAllLocales';
 
 export default {
   title: 'Layout',
   component: Layout,
+  loaders: [
+    async () => ({
+      intlMessages: await fetchAllLocales('fr'),
+    }),
+  ],
 };
 
-export function SimpleLayout() {
+export function SimpleLayout(_args, { loaded: { intlMessages } }) {
   return (
-    <UIKitProvider>
+    <Providers locale="fr" intlMessages={intlMessages}>
       <Layout>Sample content</Layout>
-    </UIKitProvider>
+    </Providers>
   );
 }
