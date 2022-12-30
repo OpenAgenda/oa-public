@@ -10,7 +10,7 @@ $bg: none;
 // Header
 $header-wrapper-bg: none;
 
-$header-item-bg:rgb(255, 255, 255);
+$header-item-bg: rgb(255, 255, 255);
 $header-item-border: 1px solid transparent;
 
 $header-placeholder: #849095;
@@ -433,7 +433,6 @@ $passive-color: #d5dce0;
 }
 
 .rdrNextButton i {
-  margin: 0 0 0 7px;
   border-width: 4px 4px 4px 6px;
   border-color: transparent transparent transparent $month-year-color;
   -webkit-transform: translate(3px, 0px);
@@ -472,9 +471,10 @@ $passive-color: #d5dce0;
   -ms-user-select: none;
   user-select: none;
   border: 0;
-  padding: 5px 0;
+  margin: 5px 0;
+  padding: 0;
   line-height: 3em;
-  height: 3em;
+  height: 2em;
   text-align: center;
   color: $body-color;
 }
@@ -490,17 +490,18 @@ $passive-color: #d5dce0;
 .rdrDayNumber {
   outline: 0;
   font-weight: 300;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 5px;
-  bottom: 5px;
+  //position: absolute;
+  //left: 0;
+  //right: 0;
+  //top: 5px;
+  //bottom: 5px;
   display: -webkit-flex;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
+  height: 100%;
 }
 
 .rdrDayToday .rdrDayNumber span {
@@ -540,16 +541,23 @@ $passive-color: #d5dce0;
 .rdrEndEdge {
   background: $body-selected-bg;
   position: absolute;
-  top: 5px;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 5px;
+  bottom: 0;
+}
+
+.rdrDay.rdrDayPassive .rdrSelected,
+.rdrDay.rdrDayPassive .rdrInRange,
+.rdrDay.rdrDayPassive .rdrStartEdge,
+.rdrDay.rdrDayPassive .rdrEndEdge {
+  background: $passive-bg;
 }
 
 .rdrSelected {
   background: $body-selected-bg;
-  left: 2px;
-  right: 2px;
+  //left: 2px;
+  //right: 2px;
 }
 
 .rdrInRange {
@@ -558,17 +566,23 @@ $passive-color: #d5dce0;
 .rdrStartEdge {
   border-top-left-radius: 1.042em;
   border-bottom-left-radius: 1.042em;
-  left: 2px;
+  //left: 2px;
 }
 
 .rdrEndEdge {
   border-top-right-radius: 1.042em;
   border-bottom-right-radius: 1.042em;
-  right: 2px;
+  //right: 2px;
 }
 
 .rdrSelected {
   border-radius: 1.042em;
+}
+
+.rdrDayStartOfMonth {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  //padding-left: 2px;
 }
 
 .rdrDayStartOfMonth .rdrInRange,
@@ -577,7 +591,13 @@ $passive-color: #d5dce0;
 .rdrDayStartOfWeek .rdrEndEdge {
   border-top-left-radius: 1.042em;
   border-bottom-left-radius: 1.042em;
-  left: 2px;
+  //left: 2px;
+}
+
+.rdrDayEndOfMonth {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  //padding-right: 2px;
 }
 
 .rdrDayEndOfMonth .rdrInRange,
@@ -586,27 +606,27 @@ $passive-color: #d5dce0;
 .rdrDayEndOfWeek .rdrStartEdge {
   border-top-right-radius: 1.042em;
   border-bottom-right-radius: 1.042em;
-  right: 2px;
+  //right: 2px;
 }
 
 .rdrDayStartOfMonth .rdrDayInPreview,
 .rdrDayStartOfMonth .rdrDayEndPreview,
 .rdrDayStartOfWeek .rdrDayInPreview,
 .rdrDayStartOfWeek .rdrDayEndPreview {
-  border-top-left-radius: 1.333em;
-  border-bottom-left-radius: 1.333em;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
   border-left-width: 1px;
-  left: 2px;
+  //left: 2px;
 }
 
 .rdrDayEndOfMonth .rdrDayInPreview,
 .rdrDayEndOfMonth .rdrDayStartPreview,
 .rdrDayEndOfWeek .rdrDayInPreview,
 .rdrDayEndOfWeek .rdrDayStartPreview {
-  border-top-right-radius: 1.333em;
-  border-bottom-right-radius: 1.333em;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
   border-right-width: 1px;
-  right: 2px;
+  //right: 2px;
 }
 
 .rdrDayStartPreview,
@@ -614,10 +634,10 @@ $passive-color: #d5dce0;
 .rdrDayEndPreview {
   background: $preview-bg;
   position: absolute;
-  top: 5px;
+  top: 0px;
   left: 0px;
   right: 0px;
-  bottom: 5px;
+  bottom: 0px;
   pointer-events: none;
   border: 0px solid $border-color;
   z-index: 1;
@@ -627,9 +647,9 @@ $passive-color: #d5dce0;
   border-top-width: 1px;
   border-left-width: 1px;
   border-bottom-width: 1px;
-  border-top-left-radius: 1.333em;
-  border-bottom-left-radius: 1.333em;
-  left: 2px;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  //left: 2px;
 }
 
 .rdrDayInPreview {
@@ -641,14 +661,20 @@ $passive-color: #d5dce0;
   border-top-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
-  border-top-right-radius: 1.333em;
-  border-bottom-right-radius: 1.333em;
-  right: 2px;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  //right: 2px;
+}
+
+.rdrDay.rdrDayPassive .rdrDayStartPreview,
+.rdrDay.rdrDayPassive .rdrDayInPreview,
+.rdrDay.rdrDayPassive .rdrDayEndPreview {
+  border-width: 0;
 }
 
 .rdrDefinedRangesWrapper {
   font-size: 12px;
-  width: 226px;
+  //width: 226px;
   border-right: solid 1px #eff2f7;
   //background: #fff;
 }
@@ -718,12 +744,13 @@ $passive-color: #d5dce0;
 .rdrDayNumber:after {
   content: "";
   border: 1px solid currentColor;
-  border-radius: 1.333em;
+  border-radius: 50%;
   position: absolute;
-  top: -2px;
-  bottom: -2px;
-  left: 0px;
-  right: 0px;
+  //height: 2em;
+  //top: -2px;
+  //bottom: -2px;
+  //left: 0px;
+  //right: 0px;
   background: transparent;
 }
 
@@ -760,7 +787,7 @@ $passive-color: #d5dce0;
   text-align: left;
   font-weight: 600;
   color: #849095;
-  padding: 0.833em; 
+  padding: 0.833em;
 }
 
 // OA Tweaks
@@ -770,20 +797,25 @@ $passive-color: #d5dce0;
 }
 
 .rdrDayEndOfWeek {
-  border-top-right-radius: 1.333em;
-  border-bottom-right-radius: 1.333em;
-  right: 2px;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+  //right: 2px;
+  //padding-right: 2px;
 }
 
 .rdrDayStartOfWeek {
-  border-top-left-radius: 1.333em;
-  border-bottom-left-radius: 1.333em;
-  left: 2px;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+  //left: 2px;
+  //padding-left: 2px;
 }
 
 .rdrNoSelection {
-  .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge {
-    background: #fff;
+  .rdrDay:not(.rdrDayPassive) .rdrSelected,
+  .rdrDay:not(.rdrDayPassive) .rdrInRange,
+  .rdrDay:not(.rdrDayPassive) .rdrStartEdge,
+  .rdrDay:not(.rdrDayPassive) .rdrEndEdge {
+    background: $body-bg;
   }
 
   .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
