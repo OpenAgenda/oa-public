@@ -6,6 +6,7 @@ const VError = require('verror');
 const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
+const convertLocationAdditionalFields = require('./convertLocationAdditionalFields');
 
 const formatError = require('./formatError');
 
@@ -144,7 +145,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   try {
     await eventSearch.add({
       ...response,
-      event: compiledEvent,
+      event: event.location ? convertLocationAdditionalFields(formSchema, compiledEvent) : compiledEvent,
     });
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, formatError(e));

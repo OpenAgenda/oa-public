@@ -95,7 +95,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         'website', 'email', 'phone', 'links', 'access',
         'state', 'imageCredits', 'extId',
         'duplicateCandidates', 'disqualifiedDuplicates',
-        'mergedIn', 'agendaUid',
+        'mergedIn', 'agendaUid', 'specificite',
       ]);
     });
 

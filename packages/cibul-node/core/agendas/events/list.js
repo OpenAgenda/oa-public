@@ -4,6 +4,7 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/list');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 const merge = require('../utils/merge');
+const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
 
 // this will be slower for bigger sets
 // keep it fast with a last id nav on agendaEvents
@@ -71,13 +72,16 @@ module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => 
 
   if (load.event) {
     log('loading %s events', eventUids.length);
-    fetched.events = await eventsSvc.list({
-      uid: eventUids,
-    }, { limit: eventUids.length }, {
-      detailed,
-      private: null, // needed to reindex private agendas
-      access: access === 'internal' ? 'internal' : 'public',
-    });
+    fetched.events = convertLocationAdditionalFields(
+      formSchema,
+      await eventsSvc.list({
+        uid: eventUids,
+      }, { limit: eventUids.length }, {
+        detailed,
+        private: null, // needed to reindex private agendas
+        access: access === 'internal' ? 'internal' : 'public',
+      }),
+    );
   }
 
   if (load.custom && agenda.formSchemaId) {

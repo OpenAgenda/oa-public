@@ -108,5 +108,5 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   log('returning schema without event for access %s', access);
   mergeArgs.push(access?.read === 'internal' ? null : { access });
 
-  return formSchemas.utils.merge.apply(null, mergeArgs);
+  return merge.schemas(...mergeArgs);
 };

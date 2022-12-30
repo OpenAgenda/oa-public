@@ -50,22 +50,39 @@ raw.push(knex('reviewer').insert([
   load('sql/members/thibaud.admin.json'), // agenda uid 1
 ]));
 
-raw.push(knex('location').insert([{
-  id: 1,
-  slug: 'la-boutique',
-  placename: 'La boutique',
-  address: '29 passage du ponceau, Paris',
-  latitude: 48.867583,
-  longitude: 2.3502635,
-  uid: 1,
-  created_at: new Date(),
-  updated_at: new Date(),
-  store: JSON.stringify({
-    image: '52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg',
+raw.push(knex('location').insert([
+  {
+    id: 1,
+    slug: 'la-boutique',
+    placename: 'La boutique',
+    address: '29 passage du ponceau, Paris',
+    latitude: 48.867583,
+    longitude: 2.3502635,
+    uid: 1,
+    created_at: new Date(),
+    updated_at: new Date(),
+    store: JSON.stringify({
+      image: '52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg',
+      tags: [{
+        id: 33,
+        label: 'Première participation',
+      }],
+      timezone: 'Europe/Paris',
+    }),
+    deleted: 1,
+    agenda_id: 1,
+  },
+  load('sql/locations/2.json', {
+    store: JSON.stringify({
+      tags: [{
+        id: 32,
+        label: 'Ouverture exceptionnelle',
+      }],
+      timezone: 'Europe/Paris',
+    }),
+    agenda_id: 2,
   }),
-  deleted: 1,
-  agenda_id: 1,
-}]));
+]));
 
 raw.push(knex('event_2').insert([{
   id: 1,
@@ -113,7 +130,7 @@ raw.push(knex('event_2').insert([{
     begin: new Date('2019-09-27T10:00:00+0200'),
     end: new Date('2019-09-27T12:00:00+0200'),
   }]),
-  location_uid: 1,
+  location_uid: 18927679,
   timezone: 'Europe/Paris',
   image: JSON.stringify({
     filename: '6fc4cb9253e54f50a61a7cf81a2eb1c1.base.image.jpg',
@@ -218,6 +235,21 @@ raw.push(knex('form_schema').insert([{
       fieldType: 'text',
       origin: 'custom',
       read: ['administrator'],
+    }, {
+      field: 'location',
+      fieldType: 'abstract',
+      tagSet: {
+        groups: [{
+          name: 'Spécificité',
+          tags: [{
+            id: 33,
+            label: 'Première participation',
+          }, {
+            id: 32,
+            label: 'Ouverture exceptionnelle',
+          }],
+        }],
+      },
     }],
   }),
 }]));
