@@ -6,7 +6,7 @@ const {
   getFallbackedMessages,
   createIntlByLocale,
 } = require('@openagenda/intl');
-const filtersLocales = require('@openagenda/react-filters/lib/locales');
+const filtersLocales = require('@openagenda/react-filters/locales');
 
 function getIntl(intlByLocale, lang) {
   const fallbacks = getFallbackChain(lang);
