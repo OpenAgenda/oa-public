@@ -1,25 +1,11 @@
-import { useUIDSeed } from 'react-uid';
 import React, { useMemo, useRef } from 'react';
+import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { getLocaleValue } from '@openagenda/intl';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 
-export default function ChoiceField({
-  input,
-  getTotal,
-  filter,
-  option,
-  disabled,
-}) {
-  const intl = useIntl();
-  const seed = useUIDSeed();
-  const total = useMemo(() => getTotal && getTotal(filter, option), [
-    filter,
-    getTotal,
-    option,
-  ]);
-
+function useOnChoiceChange(input) {
   const inputRef = useRef();
 
   const onChange = useMemo(() => a11yButtonActionHandler(e => {
@@ -53,6 +39,31 @@ export default function ChoiceField({
       },
     });
   }), [input.onChange, input.type, input.value]);
+
+  return {
+    inputRef,
+    onChange,
+  };
+}
+
+export default function ChoiceField({
+  input,
+  getTotal,
+  filter,
+  option,
+  disabled,
+}) {
+  const intl = useIntl();
+  const seed = useUIDSeed();
+  const total = useMemo(() => getTotal?.(filter, option), [
+    filter,
+    getTotal,
+    option,
+  ]);
+
+  const { inputRef, onChange } = useOnChoiceChange(input);
+
+  // option, onChange, input, total, disabled
 
   return (
     <div className={cn(input.type, { disabled, active: input.checked, inactive: !input.checked })}>

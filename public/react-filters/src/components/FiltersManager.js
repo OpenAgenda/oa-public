@@ -16,8 +16,8 @@ import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import { getEvents } from '../api';
 import {
   filtersToAggregations,
-  getFilters,
-  getWidgets,
+  extractFiltersFromDom,
+  extractWidgetsFromDom,
   withDefaultFilterConfig
 } from '../utils';
 import { useGetFilterOptions, useGetTotal, useLoadGeoData } from '../hooks';
@@ -108,8 +108,8 @@ export default React.forwardRef(function FiltersManager({
     setQuery,
     setTotal,
     updateFiltersAndWidgets: (values, result) => {
-      const widgetsOnPage = getWidgets();
-      const filtersOnPage = getFilters();
+      const widgetsOnPage = extractWidgetsFromDom();
+      const filtersOnPage = extractFiltersFromDom();
 
       const newFilters = filtersOnPage.map(nextFilter => {
         const completedNext = withDefaultFilterConfig(nextFilter, intl, filtersOptions);

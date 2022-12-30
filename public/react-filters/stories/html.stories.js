@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, {
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react';
 import MockAdapter from '@openagenda/axios-mock-adapter';
 import { apiClient } from '@openagenda/react-shared';
@@ -14,7 +14,12 @@ const axios = apiClient();
 const mock = new MockAdapter(axios);
 
 function Script(props) {
+  const added = useRef(false);
+
   useEffect(() => {
+    if (added.current) return;
+    added.current = true;
+
     const script = document.createElement('script');
 
     Object.assign(script, props);
@@ -30,7 +35,12 @@ function Script(props) {
 }
 
 function Link(props) {
+  const added = useRef(false);
+
   useEffect(() => {
+    if (added.current) return;
+    added.current = true;
+
     const link = document.createElement('link');
 
     Object.assign(link, props);
@@ -246,7 +256,6 @@ export const Map = () => {
       }}
       html={_.template(`
         <div
-          style="width: 320px; height: calc(180px + 24px); padding-bottom: 24px;"
           data-oa-filter="an-id"
           data-oa-filter-params="<%- JSON.stringify({
             tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -287,7 +296,7 @@ export const City = () => (
           { key: 'Le Port', eventCount: 33 },
           { key: 'Montpellier', eventCount: 33 },
           { key: 'Nantes', eventCount: 29 },
-          { key: 'Colmar', eventCount: 24 }
+          { key: 'Colmar', eventCount: 24 },
         ]
       },
       aggregations: {

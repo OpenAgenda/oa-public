@@ -1,14 +1,15 @@
-import React, { useCallback, useState } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
-import { useUIDSeed } from 'react-uid';
+import React from 'react';
+import { css } from '@emotion/react';
+import { useMapUserControl, useMapOnChange } from '../../../hooks';
 import LoadableMap from './LoadableMap';
+import SearchWithMap from './SearchWithMap';
+import { gestureHandlingStyle, markerClusterStyle } from './mapStyle';
 
-const messages = defineMessages({
-  searchWithMap: {
-    id: 'ReactFilters.MapField.searchWithMap',
-    defaultMessage: 'Search with map',
-  },
-});
+const mapStyle = css`
+   height: 100%;
+  ${markerClusterStyle}
+  ${gestureHandlingStyle}
+`;
 
 function MapField(
   {
@@ -25,44 +26,10 @@ function MapField(
     searchMessage,
     searchWithMap,
   },
-  ref
+  ref,
 ) {
-  const intl = useIntl();
-  const seed = useUIDSeed();
-  const [userControlled, setUserControlled] = useState(
-    () => (typeof searchWithMap === 'boolean' ? searchWithMap : !!input.value)
-  );
-  const toggleUserControlled = useCallback(
-    e => setUserControlled(e.target.checked),
-    []
-  );
-
-  const onChange = useCallback(
-    value => {
-      if (!userControlled) {
-        if (value) {
-          loadGeoData(filter, value.bounds, value.zoom).then(data => ref.current.setData(data?.reverse() ?? []));
-        }
-
-        return input.onChange(undefined);
-      }
-
-      const northEast = value.bounds.getNorthEast().wrap();
-      const southWest = value.bounds.getSouthWest().wrap();
-
-      input.onChange({
-        northEast: {
-          lat: northEast.lat,
-          lng: northEast.lng,
-        },
-        southWest: {
-          lat: southWest.lat,
-          lng: southWest.lng,
-        },
-      });
-    },
-    [filter, input, loadGeoData, ref, userControlled]
-  );
+  const [userControlled, setUserControlled, toggleUserControlled] = useMapUserControl(name, searchWithMap);
+  const onChange = useMapOnChange({ filter, input, loadGeoData, ref, userControlled });
 
   return !collapsed ? (
     <>
@@ -79,21 +46,16 @@ function MapField(
           onChange={onChange}
           userControlled={userControlled}
           setUserControlled={setUserControlled}
+          css={mapStyle}
         />
       </div>
 
-      <div className="checkbox">
-        <label htmlFor={seed('input')}>
-          <input
-            name={`${name}-userControlled`}
-            type="checkbox"
-            id={seed('input')}
-            checked={userControlled}
-            onChange={toggleUserControlled}
-          />{' '}
-          {searchMessage || intl.formatMessage(messages.searchWithMap)}
-        </label>
-      </div>
+      <SearchWithMap
+        name={name}
+        userControlled={userControlled}
+        toggleUserControlled={toggleUserControlled}
+        searchMessage={searchMessage}
+      />
     </>
   ) : null;
 }

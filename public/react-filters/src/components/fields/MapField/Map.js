@@ -12,10 +12,9 @@ import {
   Marker,
   TileLayer,
   useMapEvents,
-  useMap
+  useMap,
 } from 'react-leaflet';
 import L from 'leaflet';
-import { css } from '@emotion/react';
 import { useIntl } from 'react-intl';
 import { usePrevious } from 'react-use';
 import '@raruto/leaflet-gesture-handling';
@@ -34,96 +33,10 @@ const worldViewport = {
   },
 };
 
-const markerClusterStyle = css`
-  .marker-cluster-small {
-    background-color: rgba(181, 226, 140, 0.6);
-  }
-  .marker-cluster-small div {
-    background-color: rgba(110, 204, 57, 0.6);
-  }
-
-  .marker-cluster-medium {
-    background-color: rgba(241, 211, 87, 0.6);
-  }
-  .marker-cluster-medium div {
-    background-color: rgba(240, 194, 12, 0.6);
-  }
-
-  .marker-cluster-large {
-    background-color: rgba(253, 156, 115, 0.6);
-  }
-  .marker-cluster-large div {
-    background-color: rgba(241, 128, 23, 0.6);
-  }
-
-  .marker-cluster {
-    background-clip: padding-box;
-    border-radius: 20px;
-  }
-  .marker-cluster div {
-    width: 30px;
-    height: 30px;
-    margin-left: 5px;
-    margin-top: 5px;
-
-    text-align: center;
-    border-radius: 15px;
-    font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  }
-  .marker-cluster span {
-    line-height: 30px;
-  }
-`;
-
-const gestureHandlingStyle = css`
-  &.leaflet-gesture-handling:after {
-    color: #fff;
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 22px;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .5);
-    z-index: 1001;
-    pointer-events: none;
-    text-align: center;
-    -webkit-transition: opacity .8s ease-in-out;
-    transition: opacity .8s ease-in-out;
-    opacity: 0;
-    content: ""
-  }
-  
-  &.leaflet-gesture-handling-warning:after {
-    -webkit-transition-duration: .3s;
-    transition-duration: .3s;
-    opacity: 1
-  }
-  
-  &.leaflet-gesture-handling-touch:after {
-    content: attr(data-gesture-handling-touch-content)
-  }
-  
-  &.leaflet-gesture-handling-scroll:after {
-    content: attr(data-gesture-handling-scroll-content)
-  }
-`;
-
 function valueToViewport(value) {
   const bounds = new L.LatLngBounds(
     new L.LatLng(value.northEast.lat, value.northEast.lng),
-    new L.LatLng(value.southWest.lat, value.southWest.lng)
+    new L.LatLng(value.southWest.lat, value.southWest.lng),
   );
 
   const southEast = bounds.getSouthEast();
@@ -144,7 +57,7 @@ function valueToViewport(value) {
 function viewportToBounds(viewport) {
   return new L.LatLngBounds(
     new L.LatLng(viewport.bottomRight.latitude, viewport.bottomRight.longitude),
-    new L.LatLng(viewport.topLeft.latitude, viewport.topLeft.longitude)
+    new L.LatLng(viewport.topLeft.latitude, viewport.topLeft.longitude),
   );
 }
 
@@ -170,7 +83,7 @@ function normalizeBounds(bounds, bufferRatio = 1) {
 
   return new L.LatLngBounds(
     new L.LatLng(south, west),
-    new L.LatLng(north, east)
+    new L.LatLng(north, east),
   );
 }
 
@@ -191,7 +104,7 @@ function MarkerClusterIcon({ latitude, longitude, eventCount }) {
       }),
       iconSize: new L.Point(40, 40),
     }),
-    [eventCount]
+    [eventCount],
   );
 
   return (
@@ -240,8 +153,9 @@ const Map = React.forwardRef(
       defaultViewport,
       onChange,
       userControlled,
+      className,
     },
-    ref
+    ref,
   ) => {
     const intl = useIntl();
     const mapRef = useRef();
@@ -290,7 +204,7 @@ const Map = React.forwardRef(
           setDisplayedMarkers(true);
         });
       },
-      [filter, loadGeoData]
+      [filter, loadGeoData],
     );
 
     const previousUserControlled = usePrevious(userControlled);
@@ -323,16 +237,12 @@ const Map = React.forwardRef(
     }, [displayedMarkers, onChange, previousUserControlled, userControlled]);
 
     const gestureHandlingOptions = useMemo(() => ({
-      locale: intl.locale
+      locale: intl.locale,
     }), [intl.locale]);
 
     return (
       <MapContainer
-        css={css`
-          height: 100%;
-          ${markerClusterStyle}
-          ${gestureHandlingStyle}
-        `}
+        className={className}
         bounds={bounds}
         whenCreated={onMapCreate}
         // scrollWheelZoom={false}
@@ -358,7 +268,7 @@ const Map = React.forwardRef(
         <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
       </MapContainer>
     );
-  }
+  },
 );
 
 export default Map;

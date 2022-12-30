@@ -12,25 +12,26 @@ import dateRanges from './dateRanges';
 
 const AGGREGATION_SIZE = 2000;
 
-function assignDateRanges(filter, intl) {
+function assignDateRanges(filter, intl, dataFnsLocale) {
   if (filter.type === 'definedRange') {
     Object.assign(
       filter,
       dateRanges(intl, {
+        dataFnsLocale,
         staticRanges: filter.staticRanges,
         inputRanges: filter.inputRanges,
-      })
+      }),
     );
   }
 }
 
 export default function withDefaultFilterConfig(filter, intl, opts = {}) {
-  const { missingValue } = opts;
+  const { missingValue, dataFnsLocale } = opts;
 
   switch (filter.name) {
     case 'viewport':
       _.defaults(filter, {
-        type: 'none'
+        type: 'none',
       });
       break;
     case 'geo':
@@ -40,7 +41,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         // props for MapFilter
         tileAttribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileUrl: opts.mapTiles ?? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        tileUrl: opts.mapTiles ?? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       });
       break;
     case 'addMethod':
@@ -111,21 +112,21 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         type: 'dateRange',
         aggregation: null,
       });
-      assignDateRanges(filter, intl);
+      assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'createdAt':
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
-      assignDateRanges(filter, intl);
+      assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'updatedAt':
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
-      assignDateRanges(filter, intl);
+      assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'state':
       _.defaults(filter, {
@@ -149,14 +150,14 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
           },
         ],
         aggregation: {
-          type: 'states'
-        }
+          type: 'states',
+        },
       });
       break;
     case 'search':
       _.defaults(filter, {
         type: 'search',
-        aggregation: null
+        aggregation: null,
       });
       break;
     case 'locationUid':
@@ -210,39 +211,39 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: [
           {
             label: intl.formatMessage(relativeOptions.passed),
-            value: 'passed'
+            value: 'passed',
           },
           {
             label: intl.formatMessage(relativeOptions.current),
-            value: 'current'
+            value: 'current',
           },
           {
             label: intl.formatMessage(relativeOptions.upcoming),
-            value: 'upcoming'
-          }
-        ]
+            value: 'upcoming',
+          },
+        ],
       });
       break;
     case 'attendanceMode':
       _.defaults(filter, {
         type: 'choice',
         aggregation: {
-          type: 'attendanceModes'
+          type: 'attendanceModes',
         },
         options: [
           {
             label: intl.formatMessage(attendanceModeOptions.offline),
-            value: '1'
+            value: '1',
           },
           {
             label: intl.formatMessage(attendanceModeOptions.online),
-            value: '2'
+            value: '2',
           },
           {
             label: intl.formatMessage(attendanceModeOptions.mixed),
-            value: '3'
-          }
-        ]
+            value: '3',
+          },
+        ],
       });
       break;
     case 'region':
@@ -252,8 +253,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'regions',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'department':
@@ -263,8 +264,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'departments',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'city':
@@ -274,8 +275,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'cities',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'adminLevel3':
@@ -285,8 +286,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'adminLevels3',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'district':
@@ -296,8 +297,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'districts',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'keyword':
@@ -306,8 +307,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: null, // from the aggregation
         aggregation: {
           type: 'keywords',
-          size: AGGREGATION_SIZE
-        }
+          size: AGGREGATION_SIZE,
+        },
       });
       break;
     case 'status':
@@ -347,7 +348,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
     case 'favorites':
       _.defaults(filter, {
         type: 'favorites',
-        aggregation: null
+        aggregation: null,
       });
       break;
     default:
@@ -360,18 +361,20 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
   if (fieldSchema) {
     const isBoolean = fieldSchema.fieldType === 'boolean';
     const options = isBoolean
-      ? [{ // boolean
-        label: intl.formatMessage(booleanMessages.selected),
-        value: 'true'
-      },
-      {
-        label: intl.formatMessage(booleanMessages.notSelected),
-        value: 'false'
-      }]
+      ? [
+        {
+          label: intl.formatMessage(booleanMessages.selected),
+          value: 'true',
+        },
+        {
+          label: intl.formatMessage(booleanMessages.notSelected),
+          value: 'false',
+        },
+      ]
       : fieldSchema.options.map(option => ({
         ...option,
         label: getLocaleValue(option.label, intl.locale),
-        value: String(option.id)
+        value: String(option.id),
       }));
 
     _.defaults(filter, {
@@ -383,7 +386,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
-        size: AGGREGATION_SIZE
+        size: AGGREGATION_SIZE,
       },
     });
   }

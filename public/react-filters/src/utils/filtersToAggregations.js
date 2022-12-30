@@ -23,7 +23,7 @@ export default function filtersToAggregations(filters, base = false) {
   if (needViewport) {
     aggregations.unshift({
       key: 'viewport',
-      type: 'viewport'
+      type: 'viewport',
     });
   }
 

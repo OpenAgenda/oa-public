@@ -16,13 +16,13 @@ function Filters({
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
   favoritesComponent: FavoritesComponent = Noop,
-  choiceProps,
-  dateRangeProps,
-  definedRangeProps,
-  mapProps,
-  searchProps,
-  customProps,
-  favoritesProps,
+  choiceProps = null,
+  dateRangeProps = null,
+  definedRangeProps = null,
+  mapProps = null,
+  searchProps = null,
+  customProps = null,
+  favoritesProps = null,
   ...additionnalProps
 }) {
   const seed = useUIDSeed();

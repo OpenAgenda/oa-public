@@ -58,22 +58,21 @@ function MapFilter({
   disabled,
   collapsed,
   className,
+  component = MapField,
   ...rest
 }, ref) {
   return (
-    <>
-      <Field
-        collapsed={collapsed}
-        ref={ref}
-        name={name}
-        subscription={subscription}
-        component={MapField}
-        filter={filter}
-        disabled={disabled}
-        className={className}
-        {...rest}
-      />
-    </>
+    <Field
+      collapsed={collapsed}
+      ref={ref}
+      name={name}
+      subscription={subscription}
+      component={component}
+      filter={filter}
+      disabled={disabled}
+      className={className}
+      {...rest}
+    />
   );
 
   // return <LoadableMapField ref={ref} {...props} />;

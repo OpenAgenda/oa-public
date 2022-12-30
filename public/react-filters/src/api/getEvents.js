@@ -10,7 +10,7 @@ export default async function getEvents(
   filters,
   query,
   pageParam,
-  filtersBase
+  filtersBase,
 ) {
   const params = {
     aggs: filtersToAggregations(filters, filtersBase),
