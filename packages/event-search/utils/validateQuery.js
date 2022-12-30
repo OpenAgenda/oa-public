@@ -50,7 +50,7 @@ const validate = schema({
     max: 2,
     list: true,
   },
-  lang: {
+  languages: {
     type: 'text',
     list: true,
   },
