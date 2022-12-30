@@ -1,12 +1,12 @@
 import { Button, VStack, HStack, Heading } from '../src';
-import Providers from './decorators/Providers';
+import Provider from './decorators/Provider';
 
 export default {
-  title: 'OpenAgenda Components',
-  decorators: [Providers],
+  title: 'OpenAgenda/Components/Button',
+  decorators: [Provider],
 };
 
-export function Buttons() {
+export function All() {
   return (
     <VStack spacing="4">
       <HStack spacing="4">
