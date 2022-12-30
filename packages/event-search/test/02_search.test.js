@@ -205,7 +205,7 @@ describe('02 - event search - functional: search', () => {
           });
 
           expect(Object.keys(events[0].location).sort()).toEqual(
-            ['address', 'latitude', 'longitude', 'name'],
+            ['address', 'city', 'latitude', 'longitude', 'name'],
           );
         },
       );

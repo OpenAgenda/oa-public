@@ -2,7 +2,7 @@ import React from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
-import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Helmet } from 'react-helmet-async';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
@@ -17,20 +17,20 @@ const locales = mergeLocales(
   appLocales,
   reactFiltersLocales,
   modalLocales,
-  commonLocales
+  commonLocales,
 );
 
 function App({ route }) {
-  const parentQueryClient = useQueryClient();
+  // const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => parentQueryClient
-      || new QueryClient({
+    () => /* parentQueryClient
+      || */new QueryClient({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
 
   const { lang } = useLayoutData();

@@ -1,4 +1,4 @@
 {
-  "next.components.Navbar.signIn": "",
-  "next.components.Navbar.signUp": ""
+  "next.components.Navbar.signIn": "Se connecter",
+  "next.components.Navbar.signUp": "S'inscrire"
 }
