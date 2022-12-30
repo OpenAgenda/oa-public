@@ -1,9 +1,32 @@
 'use strict';
 
 const { tz } = require('moment-timezone');
+const imageToUrl = require('../../utils/imageToUrl');
 const getJSONDuration = require('./getJSONDuration');
 const { getValue: getBeginValue } = require('./begin');
-const imageToUrl = require('../../utils/imageToUrl');
+
+function getEventAttendanceMode(code) {
+  const attendanceMode = {
+    1: 'OfflineEventAttendanceMode',
+    2: 'OnlineEventAttendanceMode',
+    3: 'MixedEventAttendanceMode',
+  }[code] ?? 'OfflineEventAttendanceMode';
+
+  return `https://schema.org/${attendanceMode}`;
+}
+
+function getEventStatus(code) {
+  const status = {
+    1: 'EventScheduled',
+    2: 'EventRescheduled',
+    3: 'EventMovedOnline',
+    4: 'EventPostponed',
+    5: 'EventScheduled', // but full.
+    6: 'EventCacelled',
+  }[code] ?? 'EventScheduled';
+
+  return `https://schema.org/${status}`;
+}
 
 module.exports = (event, timing, defaultTimezone) => {
   const { end, permalink } = timing;
@@ -29,14 +52,17 @@ module.exports = (event, timing, defaultTimezone) => {
       startDate: tz(begin, timezone).format('YYYY-MM-DDTHH:mm'),
       endDate: tz(end, timezone).format('YYYY-MM-DDTHH:mm'),
       duration: getJSONDuration(begin, end),
-      ...(event.registration.some(r => r.type === 'link')
+      eventAttendanceMode: getEventAttendanceMode(event.attendanceMode),
+      eventStatus: getEventStatus(event.status),
+      ...event.registration.some(r => r.type === 'link')
         ? {
           offers: {
             '@type': 'Offer',
             url: event.registration.find(r => r.type === 'link').value,
+            availability: `https://schema.org/${event.status === 5 ? 'SoldOut' : 'InStock'}`,
           },
         }
-        : {}),
+        : {},
       typicalAgeRange: event.age ? [event.age.min, event.age.max].join('-') : undefined,
       location: event.location ? {
         '@type': 'Place',
@@ -57,6 +83,6 @@ module.exports = (event, timing, defaultTimezone) => {
       } : null,
     },
     null,
-    2
+    2,
   );
 };

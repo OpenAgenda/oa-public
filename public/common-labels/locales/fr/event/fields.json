@@ -4,15 +4,15 @@
   "common.event.fields.attendanceMode": "",
   "common.event.fields.conditions": "",
   "common.event.fields.description": "",
-  "common.event.fields.image": "",
+  "common.event.fields.image": "Image",
   "common.event.fields.imageCredits": "",
-  "common.event.fields.keywords": "",
+  "common.event.fields.keywords": "Mots clés",
   "common.event.fields.location": "",
   "common.event.fields.longDescription": "",
   "common.event.fields.onlineAccessLink": "",
   "common.event.fields.registration": "",
   "common.event.fields.slug": "",
   "common.event.fields.status": "",
-  "common.event.fields.timings": "",
-  "common.event.fields.title": ""
+  "common.event.fields.timings": "Horaires",
+  "common.event.fields.title": "Titre"
 }

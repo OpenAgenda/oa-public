@@ -13,8 +13,8 @@ export default class Modal extends Component {
     children: PropTypes.node.isRequired,
     contentRef: PropTypes.oneOfType([
       PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Object) }) // Element is undefined in ssr
-    ])
+      PropTypes.shape({ current: PropTypes.instanceOf(Object) }), // Element is undefined in ssr
+    ]),
   };
 
   static defaultProps = {
@@ -25,23 +25,48 @@ export default class Modal extends Component {
     classNames: {
       overlay: 'popup-overlay',
     },
-    contentRef: null
+    contentRef: null,
   };
 
   constructor(props) {
     super(props);
     this.ref = React.createRef();
+
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  componentDidUpdate = () => {
-    if (this.props.visible) {
-      if (this.props.disableBodyScroll) {
+  componentDidMount() {
+    const {
+      visible,
+      disableBodyScroll,
+    } = this.props;
+    if (!visible) {
+      return;
+    }
+
+    this.clickListener = ClickListener(this.ref.current, {
+      onOutsideClick: () => this.handleClose(),
+    });
+
+    if (disableBodyScroll) {
+      bodyScroll.disable();
+    }
+  }
+
+  componentDidUpdate() {
+    const {
+      visible,
+      disableBodyScroll,
+    } = this.props;
+
+    if (visible) {
+      if (disableBodyScroll) {
         bodyScroll.disable();
       }
 
       if (!this.clickListener) {
         this.clickListener = ClickListener(this.ref.current, {
-          onOutsideClick: () => this.handleClose()
+          onOutsideClick: () => this.handleClose(),
         });
       }
 
@@ -53,50 +78,36 @@ export default class Modal extends Component {
       this.clickListener = null;
     }
 
-    if (this.props.disableBodyScroll) {
+    if (disableBodyScroll) {
       bodyScroll.enable();
     }
-  };
+  }
 
-  componentDidMount = () => {
-    if (!this.props.visible) {
-      return;
-    }
+  componentWillUnmount() {
+    const {
+      disableBodyScroll,
+    } = this.props;
 
-    this.clickListener = ClickListener(this.ref.current, {
-      onOutsideClick: () => this.handleClose()
-    });
-
-    if (this.props.disableBodyScroll) {
-      bodyScroll.disable();
-    }
-  };
-
-  componentWillUnmount = () => {
     if (this.clickListener) {
       this.clickListener.shutdown();
     }
 
-    if (this.props.disableBodyScroll) {
+    if (disableBodyScroll) {
       bodyScroll.enable();
     }
-  };
+  }
 
-  handleClose = () => {
+  handleClose() {
     const { onClose, visible } = this.props;
 
     if (onClose && visible) {
       onClose();
     }
-  };
-
-  handleEsc = event => {
-    if (event.key === 'Escape') this.handleClose();
-  };
+  }
 
   render() {
     const {
-      title, children, visible, classNames, contentRef
+      title, children, visible, classNames, contentRef,
     } = this.props;
 
     if (!visible) {
@@ -104,7 +115,7 @@ export default class Modal extends Component {
     }
 
     const contentProps = {
-      className: 'popup-content'
+      className: 'popup-content',
     };
 
     if (contentRef) {
@@ -117,7 +128,11 @@ export default class Modal extends Component {
           {title ? (
             <header className="popup-title">
               <h2>{title}</h2>
-              <button type="button" onClick={this.handleClose} className="close-link" onKeyPress={this.onKeyPress}>
+              <button
+                type="button"
+                onClick={this.handleClose}
+                className="close-link"
+              >
                 <i className="fa fa-times fa-lg" />
               </button>
             </header>

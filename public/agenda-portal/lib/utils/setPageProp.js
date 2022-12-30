@@ -11,7 +11,7 @@ module.exports = (req, path, value) => {
       'uid',
       'root',
       'gaId',
-      'cookieBannerLink'
+      'cookieBannerLink',
     ]);
   }
 

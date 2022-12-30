@@ -24,7 +24,7 @@ describe('labels', () => {
       root: {
         lang: 'fr',
       },
-      hash: true // values === true returns no translated message
+      hash: true, // values === true returns no translated message
     };
 
     expect(i18n.handlebarsHelper('total', { data })).toEqual('{total} événements');

@@ -50,9 +50,9 @@ module.exports = ({
         query,
         'offset',
         // if page is given rather than offset, use that.
-        (parseInt(_.get(query, 'page', 1), 10) - 1) * limit
+        (parseInt(_.get(query, 'page', 1), 10) - 1) * limit,
       ),
-      10
+      10,
     );
 
     const params = {
@@ -60,7 +60,7 @@ module.exports = ({
       ...transformQueryV1ToV2(_.get(query, 'oaq', null), {
         timezone: defaultTimezone,
         slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
-          a => a.slugSchemaOptionIdMap
+          a => a.slugSchemaOptionIdMap,
         ),
       }),
       size: limit,
@@ -96,7 +96,7 @@ module.exports = ({
         ...uid ? { uid } : {},
         ...slug ? { slug } : {},
         detailed: 1,
-      }
+      },
     ).then(r => r.events
       .find(e => {
         if (slug) {
@@ -120,7 +120,7 @@ module.exports = ({
     list: (agendaUid, query) => cached(
       agendaUid,
       'events.v2.json',
-      { ...query, detailed: 1 }
+      { ...query, detailed: 1 },
     ),
     clearCache,
     get,

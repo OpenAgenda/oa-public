@@ -21,7 +21,7 @@ describe('16 - utils - decorateTimings', () => {
           dst: 'year',
           format: 'YYYY',
         },
-      ]
+      ],
     );
 
     expect(decorated).toEqual({
@@ -44,7 +44,7 @@ describe('16 - utils - decorateTimings', () => {
           dst: 'formatted',
           format: 'dd. D.M - HH[h]mm',
         },
-      ]
+      ],
     );
 
     expect(decorated.formatted).toEqual('ve. 8.5 - 18h00');

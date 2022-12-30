@@ -14,7 +14,7 @@
   "ReactShared.AgendaAdminModContextBar.manage": [
     {
       "type": 0,
-      "value": "Manage"
+      "value": "Gestisci"
     }
   ],
   "ReactShared.AgendaAdminModContextBar.moderated": [
@@ -136,7 +136,7 @@
   "ReactShared.AgendaContextBar.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Aggiungere un evento"
     }
   ],
   "ReactShared.AgendaContextBar.drafts": [

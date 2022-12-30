@@ -1,25 +1,27 @@
 .rich-textarea {
 
   .toolbar {
-
     padding-bottom: 0.5em;
 
     .btn {
-
       margin-right: 0.4em;
 
+      &:last-child {
+        margin-right: 0;
+      }
     }
-
   }
 
   .textarea-canvas {
-
     border: 1px solid $oa-gray-light;
     padding: 1em;
     overflow: hidden;
 
     > div {
       min-height: 120px;
+      > div {
+        padding-bottom: 0.6em;
+      }
     }
 
     .textarea-placeholder {
@@ -35,11 +37,30 @@
     }
 
     h2, h3 {
-
       margin: 0 0 10px;
-
     }
-
   }
 
+  &.fullscreen {
+    position: fixed;
+    background: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    flex-direction: column;
+
+    .textarea-canvas {
+      flex: 1;
+      overflow-y: scroll;
+
+      > div {
+        height: 100%
+      }
+    }
+  }
 }

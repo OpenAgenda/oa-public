@@ -21,11 +21,11 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'attendanceMode' },
     { name: 'region' },
     { name: 'department' },
-    { name: 'city' },
     { name: 'adminLevel3' },
+    { name: 'city' },
+    { name: 'district' },
     { name: 'keyword' },
     { name: 'status' },
-    { name: 'district' },
     { name: 'accessibility' },
   ];
 

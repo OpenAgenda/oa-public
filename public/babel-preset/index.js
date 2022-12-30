@@ -101,6 +101,7 @@ module.exports = declare((api, options) => {
       {
         development,
         runtime: 'automatic',
+        importSource: options.importSource,
       }
     ]
   ];

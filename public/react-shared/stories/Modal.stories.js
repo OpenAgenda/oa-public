@@ -65,7 +65,7 @@ export const NoHeader = () => {
         >
           <form className="export-form">
             <button
-              className="export-close"
+              className="close"
               type="button"
               onClick={() => setDisplay(false)}
             >
@@ -111,6 +111,35 @@ export const NoHeader = () => {
   );
 };
 
+const FirstComponent = ({ onClick }) => (
+  <div>
+    <p>This is the first component</p>
+    <button
+      type="button"
+      className="btn btn-primary"
+      onClick={onClick}
+    >
+      Go to the second component
+    </button>
+  </div>
+);
+
+const SecondComponent = ({ onClick }) => (
+  <div>
+    <p>This is the second component</p>
+    <p>
+      Modal should not have closed when user clicked on first component button
+    </p>
+    <button
+      type="button"
+      className="btn btn-primary"
+      onClick={onClick}
+    >
+      Close modal
+    </button>
+  </div>
+);
+
 export const WithComponentsWithButtons = () => {
   const [componentIndex, setComponentIndex] = useState(0);
   const [display, setDisplay] = useState(true);
@@ -118,37 +147,6 @@ export const WithComponentsWithButtons = () => {
     setDisplay(false);
     setComponentIndex(0);
   };
-
-  const FirstComponent = () => (
-    <div>
-      <p>This is the first component</p>
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => setComponentIndex(1)}
-      >
-        Go to the second component
-      </button>
-    </div>
-  );
-
-  const SecondComponent = () => (
-    <div>
-      <p>This is the second component</p>
-      <p>
-        Modal should not have closed when user clicked on first component button
-      </p>
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => {
-          closeModal();
-        }}
-      >
-        Close modal
-      </button>
-    </div>
-  );
 
   return (
     <>
@@ -170,7 +168,15 @@ export const WithComponentsWithButtons = () => {
           classNames={{ overlay: 'popup-overlay' }}
           disableBodyScroll
         >
-          {componentIndex === 0 ? <FirstComponent /> : <SecondComponent />}
+          {componentIndex === 0 ? (
+            <FirstComponent
+              onClick={() => setComponentIndex(1)}
+            />
+          ) : (
+            <SecondComponent
+              onClick={() => closeModal()}
+            />
+          )}
         </Modal>
       ) : null}
     </>
