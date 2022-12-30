@@ -1,4 +1,3 @@
-import React from 'react';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 import I18nContext from '../contexts/I18nContext';
@@ -73,9 +72,7 @@ export function renderField({
   );
 }
 
-export function renderInput({
-  placeholder, className, spellCheck, ...props
-}) {
+export function renderInput({ placeholder, className, spellCheck, ...props }) {
   const inputAttrs = { placeholder, className, spellCheck };
 
   const content = <input {...props.input} {...inputAttrs} />;

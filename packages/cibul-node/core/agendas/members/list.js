@@ -7,7 +7,7 @@ const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
 
-module.exports = async (core, agendaOrUid, nav, options = {}) => {
+module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
   const { services } = core;
   const {
     members: membersSvc,
@@ -20,6 +20,7 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
     actingMember: preloadedActingMember,
     access = null,
     detailed = false,
+    roleAsSlug = true,
   } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
@@ -49,6 +50,7 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   }
 
   const { total, members } = await membersSvc.list({
+    ...query,
     agendaUid: agenda.uid,
   }, validateNav(nav), {
     total: true,
@@ -63,6 +65,6 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   return {
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(e => ({ ...format(membersSvc, e, { detailed }), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
+    items: members.map(m => ({ ...format(membersSvc, m, { detailed, roleAsSlug }), ...customs.find(a => a.identifier === m.userUid)?.custom ?? {} })),
   };
 };

@@ -2,8 +2,8 @@ import ih from 'immutability-helper';
 import labelKeys from './labelKeys';
 
 function restrictLabelLanguages(field, languages = []) {
-  const restricted = ih(field, labelKeys
-    .filter(labelKey => field[labelKey])
+  const restricted = ih(field ?? {}, labelKeys
+    .filter(labelKey => field?.[labelKey])
     .reduce((updates, labelKey) => {
       const currentLabelLanguages = typeof field[labelKey] === 'string' ? [] : Object.keys(field[labelKey]);
 
@@ -14,9 +14,9 @@ function restrictLabelLanguages(field, languages = []) {
         [labelKey]: {
           $set: languages.length ? languages.reduce((labelValue, language) => ({
             ...labelValue,
-            [language]: currentLabelLanguages.includes(language) ? field[labelKey][language] : fillerLabel
-          }), {}) : fillerLabel
-        }
+            [language]: currentLabelLanguages.includes(language) ? field[labelKey][language] : fillerLabel,
+          }), {}) : fillerLabel,
+        },
       };
     }, {}));
 
@@ -34,11 +34,11 @@ function applyToSchema(schema, languages = []) {
 
   return ih(schema, {
     fields: {
-      $set: schema.fields.map(f => restrictLabelLanguages(f, languages))
-    }
+      $set: schema.fields.map(f => restrictLabelLanguages(f, languages)),
+    },
   });
 }
 
 export default Object.assign(restrictLabelLanguages, {
-  applyToSchema
+  applyToSchema,
 });

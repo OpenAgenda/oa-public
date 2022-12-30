@@ -47,8 +47,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'users',
         'keys',
         'trackers',
-        'activities'
-      ]
+        'activities',
+      ],
     });
 
     Core(services, testConfig);
@@ -64,36 +64,36 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     await pRedis.set('inactiveUsers:3', JSON.stringify({
       sent: [{
         name: 'first',
-        date: '2020-01-01'
-      }]
+        date: '2020-01-01',
+      }],
     }));
     await pRedis.set('inactiveUsers:4', JSON.stringify({
       sent: [{
         name: 'first',
-        date: '2022-05-01'
+        date: '2022-05-01',
       }, {
         name: 'second',
-        date: '2022-05-20'
-      }]
+        date: '2022-05-20',
+      }],
     }));
     await pRedis.set('inactiveUsers:5', JSON.stringify({
       sent: [{
         name: 'first',
-        date: '2022-05-01'
+        date: '2022-05-01',
       }, {
         name: 'second',
-        date: '2022-05-20'
+        date: '2022-05-20',
       }, {
         name: 'last',
-        date: '2022-06-05'
-      }]
+        date: '2022-06-05',
+      }],
     }));
   });
 
   beforeAll(async () => {
     result = await services.users.tasks.notifyAndRemove({
       onStateUpdate: data => stateUpdates.push(data),
-      send: false
+      send: false,
     });
   });
 
@@ -124,7 +124,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       second: 1,
       last: 1,
       removals: 1,
-      signedIn: 0
+      signedIn: 0,
     });
   });
 
@@ -134,7 +134,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
       onStateUpdate: data => newStateUpdates.push(data),
-      send: false
+      send: false,
     });
 
     const jeanBenoitState = newStateUpdates.find(state => state.user.uid === 1).state;
@@ -149,7 +149,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
       onStateUpdate: data => newStateUpdates.push(data),
-      send: false
+      send: false,
     });
 
     expect(newStateUpdates.filter(state => state.user.uid === 6).length).toBe(0);

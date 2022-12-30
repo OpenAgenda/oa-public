@@ -1,13 +1,12 @@
 'use strict';
 
-const _ = require('lodash');
 const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().settings.get()', function() {
+describe('core - functional (server): core.agendas().settings.get()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '007.sql'));
@@ -33,8 +32,8 @@ describe('core - functional (server): core.agendas().settings.get()', function()
         'legacy',
         'users',
         'keys',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -49,17 +48,17 @@ describe('core - functional (server): core.agendas().settings.get()', function()
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
-      'public', 
+      'public',
       'organisateur',
       'tag-group-4',
       'cle_session',
-      'category-group'
+      'category-group',
     ]);
   });
 
   it('get field configuration of an agenda linked to a network', async () => {
     const result = await core.agendas(60935574).settings.get({
-      access: 'internal'
+      access: 'internal',
     });
 
     expect(result.fields.map(f => f.field)).toEqual([
@@ -71,8 +70,7 @@ describe('core - functional (server): core.agendas().settings.get()', function()
       'tag-group-4',
       'cle_session',
       'category-group',
-      'edition'
+      'edition',
     ]);
   });
-
 });

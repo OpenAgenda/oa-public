@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useContext, useMemo, useRef
-} from 'react';
+import { useCallback, useContext, useMemo, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
@@ -24,7 +22,7 @@ function Agendas() {
   const searchRef = useRef();
   const query = useMemo(
     () => qs.parse(location.search, { ignoreQueryPrefix: true }),
-    [location.search]
+    [location.search],
   );
 
   const dispatch = useDispatch();
@@ -41,7 +39,7 @@ function Agendas() {
       firstLoading: true,
       listLoading: true,
     }),
-    [query.search]
+    [query.search],
   );
 
   const latestQuery = useLatest(query);
@@ -55,7 +53,7 @@ function Agendas() {
         }),
       });
     },
-    [history, latestQuery]
+    [history, latestQuery],
   );
 
   const fieldProps = useMemo(
@@ -65,7 +63,7 @@ function Agendas() {
       className: 'form-control',
       autoComplete: 'off',
     }),
-    [getLabel]
+    [getLabel],
   );
 
   const memberEditModal = useModal();
@@ -102,7 +100,8 @@ function Agendas() {
                 <MemberEditModal
                   lang={lang}
                   closeModal={() => memberEditModal.close()}
-                  onSuccess={(member, updatedData) => dispatch(updatedMember(state.agendas, member, updatedData))}
+                  onSuccess={(member, updatedData) =>
+                    dispatch(updatedMember(state.agendas, member, updatedData))}
                   onRemoveSuccess={() => searchRef.current.refresh()}
                   {...memberEditModal.data}
                   description={getLabel('editMemberInformation')}
@@ -143,7 +142,8 @@ function Agendas() {
                       res={res}
                       getLabel={getLabel}
                       onDisplayMemberForm={item => memberEditModal.open(item)}
-                      onDisplayRemoveMember={item => memberRemoveModal.open(item)}
+                      onDisplayRemoveMember={item =>
+                        memberRemoveModal.open(item)}
                     />
                   ))
                   : null}

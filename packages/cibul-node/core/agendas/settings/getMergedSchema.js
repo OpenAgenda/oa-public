@@ -18,7 +18,7 @@ async function loadFormSchema(formSchemas, agendaId, formSchemaId) {
 
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {
-    formSchemas
+    formSchemas,
   } = services;
 
   const {
@@ -29,7 +29,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     includeDateRange = false,
     includeAgendaEvent = false,
     includeOriginAgenda = false,
-    access = 'public'
+    access = 'public',
   } = options;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
@@ -37,7 +37,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const {
     id: agendaId,
     networkUid,
-    formSchemaId
+    formSchemaId,
   } = agenda;
 
   const network = preloadedNetwork || await getNetwork(services, networkUid);
@@ -46,12 +46,12 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     formSchemas,
     agendaId,
     formSchemaId,
-    !!_.get(network, 'formSchemaId')
-  ).then(s => (s ? ({ ...s, type: 'agenda' }) : s));
+    !!_.get(network, 'formSchemaId'),
+  ).then(s => (s ? { ...s, type: 'agenda' } : s));
 
   const networkSchema = network ? await formSchemas
     .get(_.get(network, 'formSchemaId'))
-    .then(s => (s ? ({ ...s, type: 'network' }) : s)) : null;
+    .then(s => (s ? { ...s, type: 'network' } : s)) : null;
 
   const mergeArgs = [networkSchema, formSchema];
 
@@ -60,8 +60,8 @@ module.exports = async (services, agendaOrUid, options = {}) => {
       fields: [{
         field: 'member',
         read: ['administrator', 'moderator', 'internal'],
-        fieldType: 'abstract'
-      }]
+        fieldType: 'abstract',
+      }],
     });
   }
 
@@ -69,8 +69,8 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     mergeArgs.push({
       fields: [{
         field: 'dateRange',
-        fieldType: 'text'
-      }]
+        fieldType: 'text',
+      }],
     });
   }
 
@@ -78,11 +78,11 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     mergeArgs.push({
       fields: [{
         field: 'state',
-        fieldType: 'abstract'
+        fieldType: 'abstract',
       }, {
         field: 'featured',
-        fieldType: 'abstract'
-      }]
+        fieldType: 'abstract',
+      }],
     });
   }
 
@@ -90,15 +90,15 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     mergeArgs.push({
       fields: [{
         field: 'originAgenda',
-        fieldType: 'abstract'
-      }]
+        fieldType: 'abstract',
+      }],
     });
   }
 
   if (includeEvent) {
     mergeArgs.push({
       access,
-      includeNonDataFields
+      includeNonDataFields,
     });
 
     log('returning schema with event for access %s', access);
@@ -108,5 +108,5 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   log('returning schema without event for access %s', access);
   mergeArgs.push(access?.read === 'internal' ? null : { access });
 
-  return formSchemas.utils.merge.apply(null, mergeArgs);
+  return merge.schemas(...mergeArgs);
 };

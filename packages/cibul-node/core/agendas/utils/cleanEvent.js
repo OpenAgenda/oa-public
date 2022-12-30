@@ -26,6 +26,16 @@ const invalidLocationUidErrorItem = uid => ({
   step: 'validation',
 });
 
+function extractLocationUidFromData({ completeEventData, data }) {
+  for (const value of [data?.locationUid, data?.location, data?.location?.uid]) {
+    if (value === null) {
+      return null;
+    }
+  }
+
+  return completeEventData?.location?.uid ?? completeEventData?.locationUid;
+}
+
 function asArray(obj) {
   return _.keys(obj).map(k => obj[k]).filter(s => !!s);
 }
@@ -131,6 +141,7 @@ function validateEvent({
     //   event data is partial. current data must be added for validation
     // add:
     //   event data is partial.
+
     const consolidatedClean = (partial || draft ? validate.part : validate)(validateWithStoredData ? {
       ...event,
       ...data,
@@ -191,7 +202,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
     ...data,
   } : data;
 
-  const locationUid = _.get(completeEventData, 'location.uid', _.get(completeEventData, 'locationUid'));
+  const locationUid = extractLocationUidFromData({ data, completeEventData });
 
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid,
@@ -206,7 +217,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
 
   log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
 
-  const pre = locationUid ? { ...data, locationUid } : data;
+  const pre = locationUid !== undefined ? { ...data, locationUid } : data;
 
   if (location) {
     pre.location = location;

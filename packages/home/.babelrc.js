@@ -1,7 +1,22 @@
 'use strict';
 
 module.exports = {
-  presets: [require.resolve('@openagenda/babel-preset')],
-  plugins: [require.resolve('@loadable/babel-plugin')],
-  sourceType: 'unambiguous'
+  presets: [
+    [
+      require.resolve('@openagenda/babel-preset'),
+      {
+        reactIntl: {
+          idInterpolationPattern: '[sha512:contenthash:base64:6]',
+          extractFromFormatMessageCall: true,
+          ast: true,
+        },
+        importSource: '@emotion/react',
+      },
+    ],
+  ],
+  plugins: [
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
+  ],
+  sourceType: 'unambiguous',
 };

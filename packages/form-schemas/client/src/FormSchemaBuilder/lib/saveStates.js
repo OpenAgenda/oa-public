@@ -3,5 +3,5 @@ export default {
   UNCHANGED: 2,
   CHANGED: 3,
   LOADING: 4,
-  ERROR: 5
+  ERROR: 5,
 };

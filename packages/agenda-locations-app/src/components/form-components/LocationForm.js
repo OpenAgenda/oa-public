@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 
@@ -154,7 +154,7 @@ const messages = defineMessages({
   },
   imageRightsAreHeld: {
     id: 'AgendaLocations.LocationForm.imageRightsAreHeld',
-    defaultMessage: 'Image rights are held'
+    defaultMessage: 'Image rights are held',
   },
   requiredField: {
     id: 'AgendaLocations.LocationForm.requiredField',
@@ -184,7 +184,7 @@ const LocationForm = ({
   res,
   onSubmit,
   errors,
-  tiles
+  tiles,
 }) => {
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
@@ -262,7 +262,7 @@ const LocationForm = ({
     // this should change but as long as its the only multi-l
     // field, this is how it is
     const description = JSON.parse(
-      JSON.stringify(getMultilingual('description'))
+      JSON.stringify(getMultilingual('description')),
     );
 
     currentLanguages.forEach(l => {
@@ -382,7 +382,14 @@ const LocationForm = ({
               {intl.formatMessage(messages.imageRights)}
             </span>
             <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
-            <a className="margin-right-xs" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">{intl.formatMessage(messages.findOutMore)}</a>
+            <a
+              className="margin-right-xs"
+              target="_blank"
+              rel="noreferrer"
+              href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+            >
+              {intl.formatMessage(messages.findOutMore)}
+            </a>
           </label>
         </div>
       ) : null}
@@ -480,7 +487,7 @@ const LocationForm = ({
             name="tags"
             set={flattenTagSetLabels(
               settings.tagSet,
-              lang
+              lang,
             )}
             onChange={onChange}
             value={location.tags || []}

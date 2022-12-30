@@ -67,7 +67,7 @@ const messages = defineMessages({
   },
   adminLevel6_CH: {
     id: 'AgendaLocations.CH.adminLevel6',
-    defaultMessage: 'City District'
+    defaultMessage: 'City District',
   },
   adminLevel1_IT: {
     id: 'AgendaLocations.IT.adminLevel1',
@@ -91,8 +91,8 @@ const messages = defineMessages({
   },
   adminLevel6_IT: {
     id: 'AgendaLocations.IT.adminLevel6',
-    defaultMessage: 'City District'
-  }
+    defaultMessage: 'City District',
+  },
 });
 
 export default messages;

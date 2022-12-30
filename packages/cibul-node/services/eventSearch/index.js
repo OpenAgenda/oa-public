@@ -86,7 +86,7 @@ module.exports.init = async (config, services) => {
     update: update(services, queue, eventSearch),
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
-    rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
+    rebuild: rebuild.bind(null, services, rebuildQueue),
     agendas: agenda => ({
       search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),

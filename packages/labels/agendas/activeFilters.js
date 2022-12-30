@@ -39,6 +39,7 @@ module.exports = {
   },
   "selection": {
     "en": "events selection",
-    "fr": "sélection d'événements"
+    "fr": "sélection d'événements",
+    "io": "crwdns32504:0crwdne32504:0"
   }
 }

@@ -1,22 +1,22 @@
 'use strict';
 
-const _ = require('lodash');
 const VError = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 const formatEvent = require('./utils/formatEvent');
 const getDocumentId = require('./utils/getDocumentId');
 const getIndexName = require('./utils/getIndexName');
 
-const log = require('@openagenda/logs')('add');
+const log = logs('add');
 
-module.exports = async function(config, set, event, options = {}) {
+module.exports = async function add(config, set, event, options = {}) {
   const {
     refresh = false,
-    formSchema = null
+    formSchema = null,
   } = options;
 
   const {
     client,
-    defaultIndex
+    defaultIndex,
   } = config;
 
   if (!event) {
@@ -33,8 +33,8 @@ module.exports = async function(config, set, event, options = {}) {
       routing: set,
       body: {
         ...formatEvent(event, { formSchema }),
-        _set: set
-      }
+        _set: set,
+      },
     });
   } catch (err) {
     throw new VError(err, 'failed to add event to index');
@@ -43,7 +43,7 @@ module.exports = async function(config, set, event, options = {}) {
   const logPayload = {
     operation: 'add',
     set,
-    identifiers: { uid: event.uid }
+    identifiers: { uid: event.uid },
   };
 
   if (result.body.result === 'created') {
@@ -53,11 +53,11 @@ module.exports = async function(config, set, event, options = {}) {
   } else {
     log('warn', 'event %j was not added to set %s', event.uid, set, {
       ...logPayload,
-      result
+      result,
     });
   }
 
   return {
-    success: result.body.result === 'created'
-  }
-}
+    success: result.body.result === 'created',
+  };
+};

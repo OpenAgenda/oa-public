@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -87,7 +87,7 @@ const messages = {
       id: 'AgendaLocations.LocationDetails.editLocation',
       defaultMessage: 'Edit Location',
     },
-  })
+  }),
 };
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
@@ -97,25 +97,22 @@ const mapValues = location => ({
   '{h}': 160,
   '{z}': 14,
   '{lon}': location.longitude,
-  '{lat}': location.latitude
+  '{lat}': location.latitude,
 });
 
-const getPreferredLang = (obj, lang) => (
-  (Object.keys(obj || {}).includes(lang)
-    ? lang
-    : Object.keys(obj || {}).pop()) || lang
-);
+const getPreferredLang = (obj, lang) => (Object.keys(obj || {}).includes(lang)
+  ? lang
+  : Object.keys(obj || {}).pop()) || lang;
 
-const getExistingLangs = location => (
-  ['description', 'access'].reduce((langs, field) => {
+const getExistingLangs = location => ['description', 'access']
+  .reduce((langs, field) => {
     for (const fieldLang of Object.keys(location[field] || {})) {
       if (!langs.includes(fieldLang)) {
         langs.push(fieldLang);
       }
     }
     return langs;
-  }, [])
-);
+  }, []);
 
 const LocationDetails = ({
   location,
@@ -124,7 +121,7 @@ const LocationDetails = ({
   res,
   settings,
   hover,
-  staticTiles
+  staticTiles,
 }) => {
   const intl = useIntl();
   const [contentLang, setContentLang] = useState(getPreferredLang(location.description, lang));
@@ -189,9 +186,7 @@ const LocationDetails = ({
                 }}
               />
             </i>
-          ) : (
-            renderLinkedAgendas()
-          )}
+          ) : renderLinkedAgendas()}
           <button type="button" className="btn btn-link padding-all-z" onClick={() => history.push(`${prefix}/${location.uid}/edit`)}>
             <FormattedMessage {...messages.editLocation} />
           </button>
@@ -217,9 +212,9 @@ const LocationDetails = ({
               <div
                 className={
                   `badge badge-default margin-bottom-xs
-                    ${(location[f.field]
+                    ${location[f.field]
                     ? 'badge-outline-primary'
-                    : 'badge-outline-default')}`
+                    : 'badge-outline-default'}`
                 }
               >
                 <span>
@@ -256,7 +251,7 @@ const LocationDetails = ({
                 ))}
               </ul>
             </div>
-          )
+          ),
         )
         : null}
       <ul className="list-unstyled" title={hoverInfo}>
@@ -291,7 +286,7 @@ const LocationDetails = ({
           textOverflow: 'ellipsis',
           width: '400px',
           whiteSpace: 'nowrap',
-          display: 'block'
+          display: 'block',
         }}
         >
           <label htmlFor="website">{intl.formatMessage(messages.website)} </label>:{' '}
@@ -307,8 +302,8 @@ const LocationDetails = ({
         </li>
         <li>
           <label htmlFor="links">{intl.formatMessage(messages.links)} </label>:
-          {(location.links || []).length ? (
-            location.links.map(l => (
+          {(location.links || []).length
+            ? location.links.map(l => (
               <div
                 className="margin-bottom-xs"
                 key={`l-link-${l}`}
@@ -317,7 +312,7 @@ const LocationDetails = ({
                   textOverflow: 'ellipsis',
                   width: '400px',
                   whiteSpace: 'nowrap',
-                  display: 'block'
+                  display: 'block',
                 }}
               >
                 <a target="_blank" rel="noopener noreferrer" href={l}>
@@ -325,9 +320,9 @@ const LocationDetails = ({
                 </a>
               </div>
             ))
-          ) : (
-            <i>{intl.formatMessage(messages.noValue)}</i>
-          )}
+            : (
+              <i>{intl.formatMessage(messages.noValue)}</i>
+            )}
         </li>
       </ul>
       <div className="padding-v-sm" title={hoverInfo}>
@@ -358,15 +353,15 @@ const LocationDetails = ({
             <div key={`field-${mlField}`}>
               <label htmlFor="mlField"><FormattedMessage {...messages[mlField]} /></label>
               <p>
-                {location[mlField] && location[mlField][contentLang] ? (
-                  location[mlField][contentLang]
-                ) : (
-                  <i>
-                    {existingLangs.length
-                      ? <FormattedMessage values={{ lang: contentLang.toUpperCase() }} {...messages.noContent} />
-                      : <FormattedMessage {...messages.noValue} />}
-                  </i>
-                )}
+                {location[mlField] && location[mlField][contentLang]
+                  ? location[mlField][contentLang]
+                  : (
+                    <i>
+                      {existingLangs.length
+                        ? <FormattedMessage values={{ lang: contentLang.toUpperCase() }} {...messages.noContent} />
+                        : <FormattedMessage {...messages.noValue} />}
+                    </i>
+                  )}
               </p>
             </div>
           ))}

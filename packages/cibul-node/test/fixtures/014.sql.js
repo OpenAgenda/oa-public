@@ -1,10 +1,12 @@
 'use strict';
 
-const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
+
+const load = loadObjectFromFile({ cwd: __dirname });
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
 
 const insertEventSet = require('./sql/eventSets');
@@ -12,60 +14,60 @@ const insertEventSet = require('./sql/eventSets');
 const raw = resetAndCreateTables();
 
 raw.push(knex('user').insert([
-  require('./sql/users/janine.json'),
-  require('./sql/users/lise.json'),
-  require('./sql/users/margaux.json')
+  load('sql/users/janine.json'),
+  load('sql/users/lise.json'),
+  load('sql/users/margaux.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
-  require('./sql/apiKeySets/01.json')
+  load('sql/apiKeySets/01.json'),
 ]));
 
 raw.push(knex('access_token').insert([
-  require('./sql/accessTokens/01.json'),
-  require('./sql/accessTokens/02.json')
+  load('sql/accessTokens/01.json'),
+  load('sql/accessTokens/02.json'),
 ]));
 
 raw.push(knex('review').insert([
-  require('./sql/agendas/218.json'), // 17026855
-  require('./sql/agendas/219.json'), // 55268170
-  require('./sql/agendas/222.json'), // 55278973
-  require('./sql/agendas/arles.json'),
-  require('./sql/agendas/albi.json'),
-  require('./sql/agendas/albigeois.json')
+  load('sql/agendas/218.json'), // 17026855
+  load('sql/agendas/219.json'), // 55268170
+  load('sql/agendas/222.json'), // 55278973
+  load('sql/agendas/arles.json'),
+  load('sql/agendas/albi.json'),
+  load('sql/agendas/albigeois.json'),
 ]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/71385.json'),
-  require('./sql/members/71386.json'),
-  require('./sql/members/71387.json'),
-  require('./sql/members/71388.json'),
-  require('./sql/members/janine.admin.albigeois.json'),
-  require('./sql/members/lise.contributor.albi.json'),
-  require('./sql/members/margaux.administrator.albi.json')
+  load('sql/members/71385.json'),
+  load('sql/members/71386.json'),
+  load('sql/members/71387.json'),
+  load('sql/members/71388.json'),
+  load('sql/members/janine.admin.albigeois.json'),
+  load('sql/members/lise.contributor.albi.json'),
+  load('sql/members/margaux.administrator.albi.json'),
 ]));
 
 raw.push(knex('location_set').insert([
-  require('./sql/locations/set.json')
+  load('sql/locations/set.json'),
 ]));
 
 raw.push(knex('location').insert([
-  require('./sql/locations/1.json'),
-  require('./sql/locations/2.json'),
-  require('./sql/locations/3.json'), // eventSet 3 (removed by core test)
-  require('./sql/locations/4.json'),
-  require('./sql/locations/5.json'),
-  require('./sql/locations/6.json'),
-  require('./sql/locations/7.json'), // eventSet 7 (removed by api test)
-  require('./sql/locations/8.json'), // eventSet 4 (removed by api test)
-  require('./sql/locations/9.json'), // eventSet 5
-  require('./sql/locations/chezVous.json'),
-  require('./sql/locations/museeToulouseLautrec.json')
+  load('sql/locations/1.json'),
+  load('sql/locations/2.json'),
+  load('sql/locations/3.json'), // eventSet 3 (removed by core test)
+  load('sql/locations/4.json'),
+  load('sql/locations/5.json'),
+  load('sql/locations/6.json'),
+  load('sql/locations/7.json'), // eventSet 7 (removed by api test)
+  load('sql/locations/8.json'), // eventSet 4 (removed by api test)
+  load('sql/locations/9.json'), // eventSet 5
+  load('sql/locations/chezVous.json'),
+  load('sql/locations/museeToulouseLautrec.json'),
 ]));
 
 raw.push(knex('network').insert([
-  require('./sql/networks/albi.json'),
-  require('./sql/networks/albigeois.json')
+  load('sql/networks/albi.json'),
+  load('sql/networks/albigeois.json'),
 ]));
 
 insertEventSet(knex, raw, 3);
@@ -75,27 +77,19 @@ insertEventSet(knex, raw, 7);
 insertEventSet(knex, raw, 'videoReportage');
 insertEventSet(knex, raw, 'toulouseLautrec');
 
-raw.push(knex('form_schema').insert([{
-  id: 2,
-  store: fs.readFileSync(`${__dirname}/form-schemas/1.json`)
-}, {
-  id: 3,
-  store: JSON.stringify({
-    fields: [],
-    nextOptionId: 1
-  })
-}, {
-  id: 23483,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.network.json`)
-}, {
-  id: 73,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.network.json`)
-}, {
-  id: 10522,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`)
-}, {
-  id: 23481,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`)
-}]));
+raw.push(knex('form_schema').insert([
+  load('form-schemas/1.json', fs => ({ id: 2, store: JSON.stringify(fs) })),
+  {
+    id: 3,
+    store: JSON.stringify({
+      fields: [],
+      nextOptionId: 1,
+    }),
+  },
+  load('form-schemas/albigeois.network.json', fs => ({ id: 23483, store: JSON.stringify(fs) })),
+  load('form-schemas/albi.network.json', fs => ({ id: 73, store: JSON.stringify(fs) })),
+  load('form-schemas/albi.agenda.json', fs => ({ id: 10522, store: JSON.stringify(fs) })),
+  load('form-schemas/albigeois.agenda.json', fs => ({ id: 23481, store: JSON.stringify(fs) })),
+]));
 
 module.exports = `${raw.join(';\n')};`;

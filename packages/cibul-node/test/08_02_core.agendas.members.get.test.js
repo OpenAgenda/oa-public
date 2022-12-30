@@ -159,6 +159,26 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       });
     });
 
+    it('get member from mail', async () => {
+      const mail = 'lise.p@grois.fr';
+      const res = await axios({
+        method: 'get',
+        url: `http://localhost:3000/agendas/2/members/email/${mail}?key=${administratorKey}`,
+
+      });
+      expect(res.data).toEqual({
+        userUid: 50073466,
+        deletedUser: false,
+        name: 'Lise',
+        phone: null,
+        email: null,
+        organization: null,
+        position: null,
+        role: 'administrator',
+        updatedAt: '2017-10-30T13:21:07.000Z',
+      });
+    });
+
     describe('unsuccessful calls', () => {
       it('404', async () => {
         let error;
@@ -186,6 +206,20 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         }
 
         expect(error.response.status).toBe(403);
+      });
+
+      it('404 on getByEmail', async () => {
+        let error;
+        try {
+          await axios({
+            method: 'get',
+            url: `http://localhost:3000/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(404);
       });
 
       it('Non-member does not have access to get', async () => {

@@ -101,8 +101,14 @@ module.exports = async ({ services }, ae, context) => {
       .unfollow({ entityType: 'event', entityUid: event.uid });
   } catch (err) {
     if (err) {
-      log('error',
-        'Error when feed agenda:%s have tried to unfollow feed event:%s', agenda.uid, event.uid,);
+      log(
+        'error',
+        'Error when feed agenda:%s have tried to unfollow feed event:%s',
+
+        agenda.uid,
+
+        event.uid,
+      );
     }
   }
 };

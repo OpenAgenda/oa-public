@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -102,7 +102,7 @@ function AgendaItem({ agenda, res, getLabel }) {
     perPageLimit: state.settings.perPageLimit,
     modals: state.modals,
   }),
-  { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
+  { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load },
 )
 export default class Events extends Component {
   static contextType = I18nContext;
@@ -129,25 +129,27 @@ export default class Events extends Component {
     };
   }
 
-  search = () => this.props.list({ search: this.state.value }).finally(() => {
-    this.props.history.push({
-      ...this.props.location,
-      search: qs.stringify({
-        ...this.props.query,
-        search: this.state.value || undefined,
-      }),
+  search = () =>
+    this.props.list({ search: this.state.value }).finally(() => {
+      this.props.history.push({
+        ...this.props.location,
+        search: qs.stringify({
+          ...this.props.query,
+          search: this.state.value || undefined,
+        }),
+      });
     });
-  });
 
-  onSearch = value => this.setState(
-    prevState => ({
-      previousValue: prevState.value,
-      value,
-    }),
-    () => {
-      this.debouncedSearch();
-    }
-  );
+  onSearch = value =>
+    this.setState(
+      prevState => ({
+        previousValue: prevState.value,
+        value,
+      }),
+      () => {
+        this.debouncedSearch();
+      },
+    );
 
   nextPage = () => {
     const {
@@ -222,7 +224,9 @@ export default class Events extends Component {
               <div className="header padding-h-md">
                 <div className="hidden-xs pull-right">
                   <button
-                    onClick={() => agendasLoad('selectAgendasForCreateEvent').then(() => showModal('selectAgenda'))}
+                    onClick={() =>
+                      agendasLoad('selectAgendasForCreateEvent').then(() =>
+                        showModal('selectAgenda'))}
                     className="btn btn-primary"
                     type="button"
                   >
@@ -238,7 +242,8 @@ export default class Events extends Component {
                   classNameGroup="search"
                   className="form-control"
                   placeholder={getLabel('searchEvent')}
-                  action={value => this.onSearch(value === '' ? undefined : value)}
+                  action={value =>
+                    this.onSearch(value === '' ? undefined : value)}
                   loading={listLoading}
                   visible={this.fieldIsVisible()}
                 />
@@ -262,7 +267,7 @@ export default class Events extends Component {
                       {getLabel(
                         values.search || query.search
                           ? 'noResult'
-                          : 'noEventsCreated'
+                          : 'noEventsCreated',
                       )}
                     </div>
                   ))}

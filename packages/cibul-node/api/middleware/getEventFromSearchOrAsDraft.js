@@ -4,20 +4,20 @@ const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDr
 
 const {
   NotFound,
-  Forbidden
+  Forbidden,
 } = require('@openagenda/verror');
 
 module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
   const {
-    core
+    core,
   } = req.app.services;
 
   const identifier = {
-    ...(req.params.eventUid ? {
-      uid: req.params.eventUid
+    ...req.params.eventUid ? {
+      uid: req.params.eventUid,
     } : {
-      slug: req.params.eventSlug
-    })
+      slug: req.params.eventSlug,
+    },
   };
 
   log('getting event matching identifier %j', identifier);
@@ -31,7 +31,7 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
       longDescriptionFormat: req.query.longDescriptionFormat,
       useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
       includeLabels: req.query.includeLabels,
-      monolingual: req.query.monolingual
+      monolingual: req.query.monolingual,
     }).then(indexedEvent => {
       req.event = indexedEvent;
       next();
@@ -47,19 +47,19 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
           useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
           useLocationObjectFormat: true,
           access: 'internal',
-          private: null
+          private: null,
         })
         .then(event => {
           if (!event?.draft) {
             return next(new NotFound({
-              info: { uid: req.params.eventUid }
+              info: { uid: req.params.eventUid },
             }, 'event not found'));
           }
 
           // only creator can load draft
           if (event.creatorUid !== parseInt(req.user?.uid, 10)) {
             return next(
-              new Forbidden('not authorized to read event')
+              new Forbidden('not authorized to read event'),
             );
           }
 

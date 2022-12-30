@@ -2,15 +2,15 @@
 
 module.exports = async (core, userAgendasResult) => {
   const {
-    agendas
+    agendas,
   } = await core.agendas.search({
-    uid: userAgendasResult.items.map(i => i.uid)
+    uid: userAgendasResult.items.map(i => i.uid),
   }, {
-    size: userAgendasResult.items.length
+    size: userAgendasResult.items.length,
   }, {
     detailed: true,
     indexed: null,
-    private: null
+    private: null,
   });
 
   userAgendasResult.items.forEach(item => {

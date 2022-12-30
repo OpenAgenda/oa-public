@@ -1,1 +1,8 @@
-{}
+{
+  "ActivityApps.Notifications.noNotif": "Pas cap notificacion.",
+  "ActivityApps.notifications.agendaCreate": "{actor} a creat l'agenda {target}.",
+  "ActivityApps.notifications.agendaRemoveSource": "{actor} a tirat {object} de las sorsas sus {target}.",
+  "ActivityApps.notifications.agendaSetOfficial": "L'agenda {target} es venguda oficiala.",
+  "ActivityApps.notifications.agendaUnpublishEvent": "{actor} a despublicat {object} sus {target}.",
+  "ActivityApps.notifications.eventUpdate": "{actor} a metut {object} a jorn sus {target}."
+}

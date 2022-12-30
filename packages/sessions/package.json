@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
-    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/babel-preset": "^1.5.0",
     "async": "^2.1.4",
     "express": "^4.17.1",
     "immutability-helper": "^2.3.0",

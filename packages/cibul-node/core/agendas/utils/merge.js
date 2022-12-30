@@ -2,6 +2,7 @@
 
 const { merge } = require('@openagenda/form-schemas').utils;
 const eventFormSchema = require('@openagenda/event-form/src/schema');
+const tagSetToFormSchema = require('@openagenda/legacy/tagSetToFormSchema');
 const getAddMethod = require('./getAddMethod');
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
@@ -9,17 +10,20 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     originAgenda,
     includeFields,
     member,
-    load
+    user,
+    load,
   } = {
     includeFields: null,
     originAgenda: null,
     member: null,
+    user: null,
     load: {
       event: true,
       custom: true,
-      agendaEvent: true
+      agendaEvent: true,
+      user: true,
     },
-    ...options
+    ...options,
   };
 
   const compiled = {};
@@ -67,35 +71,54 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     compiled.member = member;
   }
 
+  if (load.user && agendaEvent) {
+    compiled.user = agendaEvent.user;
+  }
+
+  if (!compiled.user && user) {
+    compiled.user = user;
+  }
+
   return compiled;
+}
+
+function appendLocationSchema(schema) {
+  const locationField = schema.fields.find(f => f.field === 'location');
+  if (locationField?.tagSet) {
+    locationField.schema = tagSetToFormSchema(locationField.tagSet, { schemaId: 'location' });
+  }
+
+  return schema;
 }
 
 module.exports.event = mergeEvent;
 
-module.exports.schemas = merge;
+module.exports.schemas = (...args) => appendLocationSchema(merge(...args));
 
 module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const schemas = args.concat([]);
   const {
     access,
-    includeNonDataFields
+    includeNonDataFields,
   } = schemas.pop();
-  return eventFormSchema({
-    // languages: true,
-    schemaExtensions: schemas,
-    access: access?.read === 'internal' ? null : access,
-    excludeNonDataFields: !includeNonDataFields
-  });
+
+  return appendLocationSchema(
+    eventFormSchema({
+      schemaExtensions: schemas,
+      access: access?.read === 'internal' ? null : access,
+      excludeNonDataFields: !includeNonDataFields,
+    }),
+  );
 };
 
 module.exports.eventFromObject = ({
   event,
   agendaEvent,
-  custom
+  custom,
 }, options = {}) => mergeEvent(
   event,
   agendaEvent,
   custom ? custom.network : null,
   custom ? custom.agenda : null,
-  options
+  options,
 );

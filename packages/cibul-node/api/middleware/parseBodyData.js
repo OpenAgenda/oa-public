@@ -5,6 +5,28 @@ const bodyParser = require('body-parser');
 const qs = require('qs');
 const log = require('@openagenda/logs')('api/middleware/parseBodyData');
 
+function parseTalendBody(req, res, next) {
+  let rawBody = '';
+  req.setEncoding('utf8');
+
+  req.on('data', chunk => {
+    rawBody += chunk;
+  });
+  req.on('end', () => {
+    try {
+      const parsed = qs.parse(rawBody);
+      req.body = {
+        ...parsed,
+        data: JSON.parse(parsed.data),
+      };
+      next();
+    } catch (e) {
+      next(e);
+    }
+  });
+  req.on('error', next);
+}
+
 module.exports = [
   (req, res, next) => {
     let parser;
@@ -13,14 +35,14 @@ module.exports = [
       log('applying talend body parser');
       parser = parseTalendBody;
     } else if (
-      ( req.headers['content-type'] !== 'application/json' )
+      (req.headers['content-type'] !== 'application/json')
       && req.method !== 'PATCH'
     ) {
       log('applying raw body parser with inflate');
       parser = bodyParser.raw({
         inflate: true,
         limit: '500kb',
-        type: 'text/plain'
+        type: 'text/plain',
       });
     } else {
       log('applying json body parser');
@@ -46,32 +68,10 @@ module.exports = [
       return res.status(400).json({
         error: 'provided json is invalid',
         agendaUid: req.params.agendaUid,
-        body: req.body
+        body: req.body,
       });
     }
 
     next();
- }
-]
-
-function parseTalendBody(req, res, next) {
-  let rawBody = '';
-  req.setEncoding('utf8');
-
-  req.on('data', chunk => {
-    rawBody += chunk;
-  });
-  req.on('end', () => {
-    try {
-      const parsed = qs.parse(rawBody);
-      req.body = {
-        ...parsed,
-        data: JSON.parse(parsed.data)
-      };
-      next();
-    } catch(e) {
-      next(e);
-    }
-  });
-  req.on('error', next);
-}
+  },
+];

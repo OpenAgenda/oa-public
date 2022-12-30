@@ -1,5 +1,7 @@
-import React from 'react';
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
+import utils from '@openagenda/members/utils';
+
+const { getRoleSlug } = utils;
 
 export function MemberEditModal(props) {
   const {
@@ -11,6 +13,7 @@ export function MemberEditModal(props) {
     closeModal,
     lang,
     settings,
+    schema,
   } = props;
 
   const isAdminMod = [2, 3].includes(member.role);
@@ -29,6 +32,8 @@ export function MemberEditModal(props) {
       onSuccess={update => onSuccess(member, update)}
       onRemoveSuccess={() => onRemoveSuccess()}
       onCloseModalRequest={() => closeModal()}
+      schema={schema}
+      userRole={getRoleSlug(member.role)}
     />
   );
 }

@@ -87,5 +87,8 @@
   "emptyOptions": "crwdns14840:0crwdne14840:0",
   "optionDuplicateError": "crwdns14842:0crwdne14842:0",
   "optionEmptyError": "crwdns14844:0crwdne14844:0",
-  "requiredError": "crwdns14846:0crwdne14846:0"
+  "requiredError": "crwdns14846:0crwdne14846:0",
+  "chooseFieldTypePlaceholder": "crwdns32764:0crwdne32764:0",
+  "chooseOtherType": "crwdns32766:0crwdne32766:0",
+  "isLabelDuplicateError": "crwdns32768:0crwdne32768:0"
 }

@@ -17,10 +17,10 @@ module.exports = function eventUpdate(req, res, next) {
       partial: req.method === 'PATCH',
       batched: parseBool(req.headers.batched || req.body.batched),
       context: {
-        userUid: req.member.userUid
+        userUid: req.member.userUid,
       },
       access: req.access,
-      defaultLang: req.headers.lang
-    }
+      defaultLang: req.headers.lang,
+    },
   ).then(event => res.json({ success: true, event }), next);
 };

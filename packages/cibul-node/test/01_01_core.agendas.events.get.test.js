@@ -262,7 +262,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       });
 
       expect(
-        Object.keys(event.timings[0].begin)
+        Object.keys(event.timings[0].begin),
       ).toEqual(['date', 'hours', 'minutes']);
     });
 
@@ -280,9 +280,9 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       const ev = await core.agendas(2).events.get(1);
 
       expect(
-        ev.updatedAt.getTime()
+        ev.updatedAt.getTime(),
       ).toBe(
-        new Date('2022-06-30T09:00:00.000Z').getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime(),
       );
     });
 

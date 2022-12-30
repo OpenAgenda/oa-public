@@ -2,9 +2,9 @@
 
 const log = require('@openagenda/logs')('services/eventSearch/rebuild');
 
-module.exports = async (services, eventSearch, rebuildQueue) => {
+module.exports = async (services, rebuildQueue) => {
   const {
-    agendas: agendasSvc
+    agendas: agendasSvc,
   } = services;
 
   let lastId = 9999999999999;
@@ -13,12 +13,12 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
   do {
     const {
       agendas,
-      lastId: newLastId
+      lastId: newLastId,
     } = await agendasSvc.list({
-      order: 'id.desc'
+      order: 'id.desc',
     }, lastId, 100, {
       offsetAsLastId: true,
-      internal: null
+      internal: null,
     });
 
     for (const agenda of agendas) {

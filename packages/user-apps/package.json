@@ -34,7 +34,7 @@
     "@babel/core": "^7.13.16",
     "@loadable/babel-plugin": "^5.13.2",
     "@openagenda/axios-mock-adapter": "^1.21.2",
-    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/react": "^6.5.9",
     "history": "^4.10.1",

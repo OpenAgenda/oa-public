@@ -92,14 +92,14 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   if (load.custom && agenda.formSchemaId) {
     payload.setItem(
       'custom.agenda',
-      await custom(agenda.formSchemaId).get(eventUid)
+      await custom(agenda.formSchemaId).get(eventUid),
     );
   }
 
   if (load.custom && agenda.network) {
     payload.setItem(
       'custom.network',
-      await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid)
+      await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid),
     );
   }
 

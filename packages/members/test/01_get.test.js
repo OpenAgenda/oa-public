@@ -71,7 +71,7 @@ describe('members - functional - get', () => {
       try {
         await svc.get(
           { agendaUid: 18839, userUid: 3 },
-          { throwOnNotFound: true }
+          { throwOnNotFound: true },
         );
       } catch (e) {
         error = e;
@@ -98,7 +98,7 @@ describe('members - functional - get', () => {
     test('legacy fields are provided if legacy option is set to true', async () => {
       const otherMember = await svc.get(
         { agendaUid: 1, userUid: 2 },
-        { legacy: true }
+        { legacy: true },
       );
 
       expect(otherMember.userId).toBe(81290);
@@ -108,7 +108,7 @@ describe('members - functional - get', () => {
     test('user detail is provided when detailed option is set to true', async () => {
       const otherMember = await svc.get(
         { agendaUid: 1, userUid: 2 },
-        { detailed: true }
+        { detailed: true },
       );
 
       expect(otherMember.user).toEqual({
@@ -142,7 +142,7 @@ describe('members - functional - get', () => {
           agendaUid: 1,
           userUid: 2,
         },
-        { customDataAtRoot: true }
+        { customDataAtRoot: true },
       );
 
       expect(_.omit(sameMember, ['updatedAt'])).toEqual({

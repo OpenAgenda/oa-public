@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../client/src/iso/validateField' );
+module.exports = require('../client/src/iso/validateField');

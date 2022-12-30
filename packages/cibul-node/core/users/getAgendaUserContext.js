@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda
+  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
 } = require('../utils/authorizations');
 
 const loadSearchAccess = require('../agendas/events/lib/loadSearchAccess');
@@ -12,7 +12,7 @@ const validateOptions = require('./lib/validateAgendaContextOptions');
 
 module.exports = async function getAgendaUserContext(core, identifier, agendaUid, options = {}) {
   const {
-    includes
+    includes,
   } = validateOptions(options);
 
   const context = {};
@@ -23,7 +23,7 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
 
   const { isValid, member } = includes.includes('me.member') || includes.includes('events') ? await core
     .agendas(agendaUid).members
-    .get(identifier, { ...options, isValid: true }) : undefined;
+    .get(identifier, { ...options, returnIsValid: true }) : undefined;
 
   if (includes.includes('me.member')) {
     context.me.member = member;
@@ -44,7 +44,7 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
     context.events = await core.agendas(agendaUid).events
       .search({ state: null }, { size: 0 }, {
         aggregations: ['states'],
-        access
+        access,
       }).then(({ aggregations }) => aggregations);
   }
 

@@ -11,69 +11,36 @@ const {
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('review').insert([{
-  id: 218,
-  uid: 17026855,
-  title: 'La Gargouille',
-  slug: 'la-gargouille',
-  indexed: 0,
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  private: 0,
-  credentials: '{}',
-  form_schema_id: 2,
-  settings: JSON.stringify({
-    contribution: {
-      type: 1,
-    },
+raw.push(knex('review').insert([
+  load('sql/agendas/218.json', {
+    indexed: 0,
   }),
-}, {
-  id: 219,
-  uid: 17026800,
-  title: 'Le Fennec',
-  slug: 'le-fennec',
-  indexed: 1,
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
-  form_schema_id: 3,
-  settings: JSON.stringify({}),
-}, {
-  id: 220,
-  uid: 92983929,
-  title: 'Un agenda avec un champ contributeur',
-  slug: 'agenda-champ-contributeur',
-  indexed: 1,
-  description: 'Voilà',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
-  form_schema_id: 6,
-  network_uid: 1234,
-  location_set_uid: 4321,
-  settings: JSON.stringify({}),
-  member_schema_id: 8,
-}, {
-  id: 221,
-  uid: 78971487,
-  title: 'Un agenda privé',
-  slug: 'agenda-prive',
-  private: 1,
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
-  settings: JSON.stringify({}),
-}]));
+  load('sql/agendas/219.json', {
+    uid: 17026800,
+    title: 'Le Fennec',
+    slug: 'le-fennec',
+    settings: JSON.stringify({}),
+    location_set_uid: null,
+  }),
+  load('sql/agendas/220.json', {
+    uid: 92983929,
+    title: 'Un agenda avec un champ contributeur',
+    slug: 'agenda-champ-contributeur',
+    indexed: 1,
+    network_uid: 1234,
+    location_set_uid: 4321,
+    settings: JSON.stringify({}),
+    member_schema_id: 8,
+    form_schema_id: 6,
+  }),
+  load('sql/agendas/221.json', {
+    uid: 78971487,
+    title: 'Un agenda privé',
+    slug: 'agenda-prive',
+    private: 1,
+    settings: JSON.stringify({}),
+  }),
+]));
 
 raw.push(knex('user').insert([
   load('./sql/users/50304.json'),
@@ -110,9 +77,13 @@ raw.push(knex('location_set').insert([{
   updated_at: new Date(),
 }]));
 
-raw.push(knex('form_schema').insert([2, 5, 6, 8].map(id => ({
-  id,
-  store: JSON.stringify(load(`./form-schemas/${id}.json`)),
-}))));
+raw.push(knex('form_schema').insert(
+  [2, 5, 6, { file: 'memberFormSchema', id: 8 }]
+    .map(item => (item instanceof Object ? item : { id: item, file: item }))
+    .map(({ id, file }) => ({
+      id,
+      store: JSON.stringify(load(`./form-schemas/${file}.json`)),
+    })),
+));
 
 module.exports = `${raw.join(';\n')};`;

@@ -4,23 +4,23 @@ module.exports = services => async (req, res, next) => {
   const {
     formSchemas: {
       utils: {
-        filterByAccess
-      }
-    }
+        filterByAccess,
+      },
+    },
   } = services;
 
   try {
     const {
       result: {
         aggregations: {
-          languages: languageCounts
-        }
+          languages: languageCounts,
+        },
       },
-      agenda
+      agenda,
     } = await req.search(req.searchQuery, { size: 0 }, {
       ...req.searchOptions,
       aggregations: ['languages'],
-      returnAgenda: true
+      returnAgenda: true,
     });
 
     req.languages = languageCounts.map(c => c.key);

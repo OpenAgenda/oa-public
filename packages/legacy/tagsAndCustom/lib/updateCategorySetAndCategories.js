@@ -65,6 +65,17 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
     fields,
   } = await generateCategorySet(schema, currentCategorySet, options);
 
+  if (updatedSet === null) {
+    await knex('category_set').delete('id', id);
+    await setCategories(knex, id, { categories: [] });
+
+    return {
+      set: null,
+      messages,
+      fields,
+    };
+  }
+
   const updatedSetWithIds = await setCategories(knex, id, updatedSet);
 
   if (await knex('category_set').first('id').where('id', id)) {

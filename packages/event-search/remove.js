@@ -1,17 +1,16 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
 const log = require('@openagenda/logs')('remove');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');
 const ESToVerror = require('./utils/ESToVerror');
 
-module.exports = async function(config, set, identifiers, options = {} ) {
+module.exports = async function remove(config, set, identifiers, options = {}) {
   const {
-    refresh
+    refresh,
   } = {
     refresh: false,
-    ...options
+    ...options,
   };
 
   const { client, defaultIndex } = config;
@@ -23,7 +22,7 @@ module.exports = async function(config, set, identifiers, options = {} ) {
       index: getIndexName(set, defaultIndex),
       id: getDocumentId(set, identifiers.uid),
       routing: set,
-      refresh
+      refresh,
     });
   } catch (err) {
     throw ESToVerror(err, 'failed to remove event');
@@ -33,18 +32,18 @@ module.exports = async function(config, set, identifiers, options = {} ) {
     log('info', 'event %j was removed from set %s', identifiers, set, {
       operation: 'remove',
       set,
-      identifiers
+      identifiers,
     });
   } else {
     log('warn', 'event %j was not removed from set %s', identifiers, set, {
       operation: 'remove',
       set,
-      identifiers
+      identifiers,
     });
   }
 
   return {
     success: res.body.result === 'deleted',
-    message: res.body.result === 'deleted' ? 'event was removed' : 'event was not removed'
-  }
-}
+    message: res.body.result === 'deleted' ? 'event was removed' : 'event was not removed',
+  };
+};

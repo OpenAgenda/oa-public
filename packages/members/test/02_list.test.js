@@ -78,10 +78,11 @@ describe('members - functional - list', () => {
       });
 
       const agendaUids = membersOfAgendas.reduce(
-        (carried, member) => (carried.includes(member.agendaUid)
-          ? carried
-          : carried.concat(member.agendaUid)),
-        []
+        (carried, member) =>
+          (carried.includes(member.agendaUid)
+            ? carried
+            : carried.concat(member.agendaUid)),
+        [],
       );
 
       expect(agendaUids).toEqual([1, 2]);
@@ -126,8 +127,8 @@ describe('members - functional - list', () => {
           {
             order: 'slug.desc',
             limit: 1,
-          }
-        )
+          },
+        ),
       );
 
       expect(first.slug).toBe('jean-claude');
@@ -139,8 +140,8 @@ describe('members - functional - list', () => {
             order: 'slug.desc',
             limit: 1,
             after: ['jean-claude', 2],
-          }
-        )
+          },
+        ),
       );
 
       expect(second.slug).toBe('janine');
@@ -152,7 +153,7 @@ describe('members - functional - list', () => {
       const { stakeholders } = await svc.list(
         { agendaUid: 1 },
         { limit: 1 },
-        { legacy: true }
+        { legacy: true },
       );
 
       expect(
@@ -161,7 +162,7 @@ describe('members - functional - list', () => {
           'credential',
           'userId',
           'actionsCounter',
-        ])
+        ]),
       ).toEqual({
         agendaId: 923,
         userId: 81289,
@@ -198,7 +199,7 @@ describe('members - functional - list', () => {
         { agendaUid: 1 },
         {
           order: 'id.desc',
-        }
+        },
       );
 
       expect(members.map(m => m.order)).toEqual([5, 4, 2, 1]);
@@ -209,7 +210,7 @@ describe('members - functional - list', () => {
         { agendaUid: 1 },
         {
           order: 'slug.asc',
-        }
+        },
       );
 
       expect(members.map(m => m.order[0])).toEqual([
@@ -225,7 +226,7 @@ describe('members - functional - list', () => {
         { agendaUid: 1 },
         {
           order: 'slug.desc',
-        }
+        },
       );
 
       expect(members.map(m => m.order[0])).toEqual([
@@ -242,7 +243,7 @@ describe('members - functional - list', () => {
         {
           order: 'actionsCounter.desc',
         },
-        { legacy: true }
+        { legacy: true },
       );
 
       expect(stakeholders.map(m => m.actionsCounter)).toEqual([12, 5, 5, 0]);
@@ -257,36 +258,37 @@ describe('members - functional - list', () => {
               limit: 2,
               order: 'actionsCounter.desc',
               after: [5, 2],
-            }
+            },
           )
-        )[0].id
+        )[0].id,
       ).toBe(4);
     });
   });
 
   describe('stream', () => {
-    test('takes args as list but without pagination info', () => new Promise(done => {
-      // limit is not needed here, just for testing buffer refill
-      const stream = svc.stream(
-        { agendaUid: 1 },
-        { limit: 2, order: 'actionsCounter.asc' },
-        {
-          transform: m => m.id,
-        }
-      );
+    test('takes args as list but without pagination info', () =>
+      new Promise(done => {
+        // limit is not needed here, just for testing buffer refill
+        const stream = svc.stream(
+          { agendaUid: 1 },
+          { limit: 2, order: 'actionsCounter.asc' },
+          {
+            transform: m => m.id,
+          },
+        );
 
-      const streamedMemberIds = [];
+        const streamedMemberIds = [];
 
-      stream.on('data', memberId => {
-        streamedMemberIds.push(memberId);
-      });
+        stream.on('data', memberId => {
+          streamedMemberIds.push(memberId);
+        });
 
-      stream.on('end', () => {
-        expect(streamedMemberIds).toEqual([5, 2, 4, 1]);
+        stream.on('end', () => {
+          expect(streamedMemberIds).toEqual([5, 2, 4, 1]);
 
-        done();
-      });
-    }));
+          done();
+        });
+      }));
   });
 
   describe('detailed', () => {
@@ -296,7 +298,7 @@ describe('members - functional - list', () => {
       members = await svc.list(
         { agendaUid: 1 },
         { limit: 2 },
-        { detailed: true }
+        { detailed: true },
       );
     });
 
@@ -326,7 +328,7 @@ describe('members - functional - list', () => {
           agendaUid: 1,
         },
         { limit: 1 },
-        { total: true, detailed: true }
+        { total: true, detailed: true },
       );
 
       expect(otherMembers.total).toBe(4);
@@ -352,7 +354,7 @@ describe('members - functional - list', () => {
           agendaUid: 1,
           withActions: false,
         },
-        { limit: 1 }
+        { limit: 1 },
       );
 
       expect(members[0].actionsCounter).toBe(0);
@@ -364,7 +366,7 @@ describe('members - functional - list', () => {
           agendaUid: 1,
           withActions: true,
         },
-        { limit: 1 }
+        { limit: 1 },
       );
 
       expect(members[0].actionsCounter).toBe(12);
@@ -381,7 +383,7 @@ describe('members - functional - list', () => {
       const { total, members } = await svc.list(
         { agendaUid: 1 },
         { limit: 1 },
-        { total: true }
+        { total: true },
       );
 
       expect(total).toBe(4);
@@ -423,7 +425,7 @@ describe('members - functional - list', () => {
           agendaUid: 1,
         },
         { limit: 1 },
-        { customDataAtRoot: true }
+        { customDataAtRoot: true },
       );
 
       expect(_.pick(members[0], ['organization'])).toEqual({
@@ -438,7 +440,7 @@ describe('members - functional - list', () => {
         {
           total: true,
           detailed: true,
-        }
+        },
       );
 
       expect(members).toHaveLength(0);

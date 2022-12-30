@@ -4,12 +4,21 @@ const moment = require('moment-timezone');
 
 const flattenTagSet = require('../utils/flattenTagSet');
 
-module.exports = (legacyFilter, sets = {}) => {
+module.exports = (legacyFilter, options = {}) => {
   const keys = Object.keys(legacyFilter);
 
-  const { formSchema, tagSet, categorySet } = sets;
+  const {
+    formSchema,
+    tagSet,
+    categorySet,
+    query = {},
+  } = options;
 
-  const convertedQuery = { relative: ['current', 'upcoming'] };
+  const convertedQuery = {};
+
+  if (!['timings', 'relative', 'date', 'slug'].some(k => Object.keys(query).includes(k))) {
+    convertedQuery.relative = ['current', 'upcoming'];
+  }
 
   const tags = flattenTagSet(tagSet, formSchema);
 
@@ -17,15 +26,22 @@ module.exports = (legacyFilter, sets = {}) => {
     switch (key) {
       case 'from': {
         delete convertedQuery.relative;
-        const date = moment(legacyFilter.from).subtract(1, 'days').tz('Europe/paris').format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+        const date = moment(legacyFilter.from)
+          .tz('Europe/paris')
+          .hour(0)
+          .minute(0)
+          .second(0)
+          .format();
         convertedQuery.timings = { ...convertedQuery.timings, gte: date };
         break;
       }
       case 'to': {
-        const date = moment(legacyFilter.to).hour(23).minute(59).second(59)
-          .millisecond(999)
+        const date = moment(legacyFilter.to)
           .tz('Europe/paris')
-          .format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+          .hour(23)
+          .minute(59)
+          .second(59)
+          .format();
         convertedQuery.timings = { ...convertedQuery.timings, lte: date };
         break;
       }

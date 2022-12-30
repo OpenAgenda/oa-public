@@ -1,0 +1,138 @@
+{
+  "extensions": [
+    {
+      "schema": {
+        "id": -1,
+        "custom": {},
+        "fields": [
+          {
+            "field": "attendanceMode",
+            "fieldType": "radio",
+            "label": {
+              "fr": "Mode de participation"
+            },
+            "optional": false,
+            "default": 1,
+            "options": [
+              {
+                "id": 1,
+                "value": "offline",
+                "label": {
+                  "fr": "Sur place"
+                }
+              },
+              {
+                "id": 2,
+                "value": "online",
+                "label": {
+                  "fr": "En ligne"
+                }
+              },
+              {
+                "id": 3,
+                "value": "mixed",
+                "label": {
+                  "fr": "Mixte"
+                }
+              }
+            ],
+            "schemaId": null,
+            "schemaType": "event"
+          },
+          {
+            "field": "location",
+            "fieldType": "location",
+            "label": {
+              "fr": "Lieu"
+            },
+            "sub": {
+              "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'"
+            },
+            "optionalWith": {
+              "field": "attendanceMode",
+              "value": 2
+            },
+            "disableChange": false,
+            "schemaId": null,
+            "schemaType": "event"
+          }
+        ]
+      }
+    },
+    {
+      "info": {
+        "label": {
+          "fr": "Champ réseau"
+        },
+        "detail": {
+          "fr": "Chmilblick"
+        }
+      },
+      "schema": {
+        "custom": null,
+        "defaultLabelLanguage": null,
+        "nextOptionId": 28,
+        "fields": [
+          {
+            "field": "categories",
+            "label": {
+              "fr": "Catégories"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "related": [],
+            "options": [
+              {
+                "id": 1,
+                "value": "culture",
+                "label": {
+                  "fr": "Culture"
+                }
+              },
+              {
+                "id": 2,
+                "value": "sports",
+                "label": {
+                  "fr": "Sports"
+                }
+              }
+            ],
+            "fieldType": "radio"
+          },
+          {
+            "field": "location",
+            "fieldType": "abstract"
+          }
+        ],
+        "id": 73
+      }
+    }
+  ],
+  "schema": {
+    "custom": null,
+    "defaultLabelLanguage": null,
+    "nextOptionId": 1,
+    "fields": [
+      {
+        "field": "categories",
+        "origin": "tags",
+        "fieldType": "abstract"
+      },
+      {
+        "field": "location",
+        "fieldType": "abstract"
+      }
+    ],
+    "id": 10522
+  }
+}

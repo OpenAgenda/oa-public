@@ -17,18 +17,18 @@ module.exports = (eventSearch, agenda) => {
 
     return searchIndex.search(query, nav, {
       ...validateAgendaSearchOptions(options),
-      formSchema
+      formSchema,
     });
   }
 
   function stream(query, options = {}) {
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-    log('agenda %s', agenda.uid);
+    log('agenda %s', agenda.uid, query);
 
     return searchIndex.search.stream(query, {
       ...validateAgendaSearchOptions(options),
-      formSchema
+      formSchema,
     });
   }
 

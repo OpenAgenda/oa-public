@@ -6,25 +6,25 @@ module.exports = core => async (req, res, next) => {
   const {
     root,
     aws: {
-      imageBucketPath
-    }
+      imageBucketPath,
+    },
   } = core.getConfig();
 
   try {
     const query = {
       sort: 'updatedAt.desc',
       embed_url: null,
-      ...req.searchQuery
+      ...req.searchQuery,
     };
 
     const {
       result: {
-        events
+        events,
       },
-      agenda
+      agenda,
     } = await req.search(query, req.query, {
       ...req.searchOptions,
-      returnAgenda: true
+      returnAgenda: true,
     });
 
     const rssOptions = {
@@ -34,7 +34,7 @@ module.exports = core => async (req, res, next) => {
       siteURL: root,
       imageURL: agenda.image ? `${imageBucketPath}${agenda.image}` : null,
       language: req.lang,
-      pubDate: agenda.updatedAt
+      pubDate: agenda.updatedAt,
     };
 
     if (query.embed_url) {

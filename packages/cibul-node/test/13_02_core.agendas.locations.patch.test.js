@@ -34,8 +34,8 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
         'users',
         'keys',
         'accessTokens',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -52,7 +52,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
 
   it('location is patched', async () => {
     await core.agendas(64260763).locations.patch(37923057, {
-      name: 'Un étang'
+      name: 'Un étang',
     });
 
     const row = await core.services.knex('location').first(['placename']).where('uid', 37923057);
@@ -62,31 +62,31 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
 
   it('index of agenda where location is patched is refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
-      address: '13 rue du désespoir, Roubaix'
+      address: '13 rue du désespoir, Roubaix',
     });
 
-    await (new Promise(rs => {
+    await new Promise(rs => {
       core.services.tracker.on('eventSearch.onUpdate.agendas_89904399', async () => {
         const { events } = await core.agendas(64260763).events.search({
-          locationUid: 37923057
+          locationUid: 37923057,
         });
         expect(events[0].location.address).toBe('13 rue du désespoir, Roubaix');
         rs();
       }, true);
-    }));
+    });
   });
 
   it('indices in other agendas referencing events linked to patched location are refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
-      address: '23 rue de l\'Espérance, 59100 Roubaix'
+      address: '23 rue de l\'Espérance, 59100 Roubaix',
     });
 
-    await (new Promise(rs => {
+    await new Promise(rs => {
       core.services.tracker.on('eventSearch.onUpdate.agendas_89904399', async () => {
         const { events } = await core.agendas(89904399).events.search({ locationUid: 37923057 });
         expect(events[0].location.address).toBe('23 rue de l\'Espérance, 59100 Roubaix');
         rs();
       }, true);
-    }));
+    });
   });
 });
