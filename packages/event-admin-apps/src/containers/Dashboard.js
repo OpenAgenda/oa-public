@@ -13,7 +13,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { Base64 } from 'js-base64';
-import * as dateFnsLocales from 'date-fns/esm/locale';
+import * as dateFnsLocales from 'date-fns/locale';
 import { css } from '@emotion/react';
 import {
   a11yButtonActionHandler,
@@ -52,7 +52,8 @@ const searchSpinner = {
   radius: 4,
 };
 
-const getRedirectURL = location => Base64.encode(location.pathname + location.search);
+const getRedirectURL = location =>
+  Base64.encode(location.pathname + location.search);
 
 const messages = defineMessages({
   totalEvents: {
@@ -223,9 +224,10 @@ function Dashboard() {
   const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const parsedLocationSearch = useMemo(
-    () => qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    }),
+    () =>
+      qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      }),
     [location.search],
   );
 
@@ -243,18 +245,21 @@ function Dashboard() {
   const [query, setQuery] = useState(() => urlQuery);
 
   const hasUrlQuery = useMemo(
-    () => Object.keys(urlQuery).length
+    () =>
+      Object.keys(urlQuery).length
       && Object.keys(urlQuery).some(key => key !== 'sort'),
     [urlQuery],
   );
 
   const hasQuery = useMemo(
-    () => Object.keys(query).length
+    () =>
+      Object.keys(query).length
       && Object.keys(query).some(key => key !== 'sort'),
     [query],
   );
 
-  const [page, setPage] = useState(() => (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
+  const [page, setPage] = useState(() =>
+    (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
 
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
@@ -278,9 +283,10 @@ function Dashboard() {
     const { event } = removeModal.data;
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
-      () => queryClient
-        .refetchQueries(['event-admin-apps', 'events', agenda.slug])
-        .catch(() => null),
+      () =>
+        queryClient
+          .refetchQueries(['event-admin-apps', 'events', agenda.slug])
+          .catch(() => null),
       e => console.log('ERROR', e),
     );
 
@@ -289,15 +295,16 @@ function Dashboard() {
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters,
-      { size: 0 },
-      null,
-      true,
-    ),
+    () =>
+      getEvents(
+        apiClient,
+        res.jsonExport,
+        agenda,
+        filters,
+        { size: 0 },
+        null,
+        true,
+      ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
@@ -306,18 +313,19 @@ function Dashboard() {
 
   const eventsQuery = useQuery(
     ['event-admin-apps', 'events', agenda.slug, { query, page }],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters,
-      {
-        sort: 'updatedAt.desc',
-        ...query,
-        detailed: true,
-      },
-      page,
-    ),
+    () =>
+      getEvents(
+        apiClient,
+        res.jsonExport,
+        agenda,
+        filters,
+        {
+          sort: 'updatedAt.desc',
+          ...query,
+          detailed: true,
+        },
+        page,
+      ),
     {
       staleTime: 10000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
@@ -418,14 +426,15 @@ function Dashboard() {
   }, [allSelected, data]);
 
   const selectExtendedAll = useCallback(
-    () => setExtendedAllSelected(old => {
-      if (old) {
-        // Cancel selection
-        setSelectedEvents(new Set());
-      }
+    () =>
+      setExtendedAllSelected(old => {
+        if (old) {
+          // Cancel selection
+          setSelectedEvents(new Set());
+        }
 
-      return !old;
-    }),
+        return !old;
+      }),
     [],
   );
 
@@ -443,23 +452,25 @@ function Dashboard() {
   );
 
   const previousPage = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler(e => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setPage(old => Math.max(old - 1, 1));
-    }),
+        setPage(old => Math.max(old - 1, 1));
+      }),
     [],
   );
   const nextPage = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler(e => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setPage(old => old + 1);
-    }),
+        setPage(old => old + 1);
+      }),
     [],
   );
 
