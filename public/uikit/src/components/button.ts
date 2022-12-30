@@ -99,6 +99,9 @@ const sizes = {
 export const buttonTheme = defineStyleConfig({
   baseStyle: defineStyle({
     fontWeight: 'normal',
+    _hover: {
+      textDecoration: 'none',
+    },
   }),
   sizes,
   variants,

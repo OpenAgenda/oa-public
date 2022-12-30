@@ -3,7 +3,7 @@ import { components } from './components';
 import { styles } from './styles';
 import { foundations } from './foundations';
 
-const theme = extendTheme({
+export const theme = extendTheme({
   ...foundations,
   components,
   styles,

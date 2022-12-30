@@ -12,6 +12,7 @@ const colors = {
     900: '#124D68',
   },
   oaGray: {
+    10: '#fafafa',
     50: '#efefef', //
     100: '#eeeeee', //
     200: '#d6d6d6',
