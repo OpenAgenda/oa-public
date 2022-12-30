@@ -4,7 +4,7 @@ import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
 import debug from 'debug';
-import renderFilters from '@openagenda/react-filters/lib/render';
+import renderFilters from '@openagenda/react-filters/render';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
