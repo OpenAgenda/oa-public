@@ -6,22 +6,23 @@
   }
 
   .sub {
-
     min-height: 1em;
     font-size: 0.95em;
     display: block;
-
   }
 
   .error {
-
     color: $state-danger-text;
-
   }
 
   ul {
     margin-bottom: 0;
     padding-bottom: 0;
+  }
+
+  .divider {
+    height: 1px;
+    background-color: $oa-gray-light;
   }
 
   .checkbox .checkbox-sub-menu{

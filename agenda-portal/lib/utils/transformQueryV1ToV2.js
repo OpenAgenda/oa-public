@@ -45,8 +45,8 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
             ...additionalFieldFilters,
             [fieldName]: optionId,
           }),
-          {}
-        )
+          {},
+        ),
     );
   }
 

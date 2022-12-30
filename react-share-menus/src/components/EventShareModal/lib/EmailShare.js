@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
@@ -18,7 +17,7 @@ const messages = defineMessages({
   send: {
     id: 'send',
     defaultMessage: 'Send',
-  }
+  },
 });
 
 export function EmailShareMenu(props) {
@@ -26,7 +25,7 @@ export function EmailShareMenu(props) {
     email: emailValue,
     onSubmit,
     onChange,
-    intl
+    intl,
   } = props;
 
   return (
@@ -57,7 +56,7 @@ export function EmailSentMessage(props) {
     onClose,
     intl,
     title,
-    count
+    count,
   } = props;
 
   return (
