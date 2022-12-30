@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 module.exports = async (req, res, next) => {
   if (req.user) {
     return next();
@@ -9,8 +7,8 @@ module.exports = async (req, res, next) => {
 
   try {
     req.user = await req.app.core.users.get.byAccessToken(
-      _.get(req, 'headers.access-token', _.get(req, 'body.access_token')),
-      _.get(req, 'headers.nonce', _.get(req, 'body.nonce')),
+      req.headers?.['access-token'] ?? req.body?.access_token,
+      req.headers?.nonce ?? req.body?.nonce,
     );
 
     if (!req.user) {

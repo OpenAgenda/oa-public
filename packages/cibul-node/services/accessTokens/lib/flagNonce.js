@@ -7,7 +7,7 @@ module.exports = async (knex, token = {}, nonce = null) => {
     .first('id')
     .where({
       access_token_id: token.id,
-      nonce
+      nonce,
     });
 
   if (record) {
@@ -18,11 +18,11 @@ module.exports = async (knex, token = {}, nonce = null) => {
 
   await knex('access_token_nonce').insert({
     access_token_id: token.id,
-    nonce
+    nonce,
   });
 
   log('info', 'nonce was unique', {
     token: token.token,
-    nonce
+    nonce,
   });
-}
+};
