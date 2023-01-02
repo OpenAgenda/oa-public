@@ -170,6 +170,21 @@ describe('events - functional - create', () => {
       assert.equal(response.status, 200);
     });
 
+    it('validation error is thrown when invalid url is provided for image', async () => {
+      let error;
+      try {
+        await svc.create({
+          ...data,
+          image: {
+            url: 'https://s3.eu-central-1.amazonaws.com/oastatic/onda-185.png'
+          }
+        });
+      } catch (e) {
+        error = e;
+      }
+      assert(error instanceof ValidationError);
+    });
+
     it(
       'image can be passed through a local file path, deleted after upload',
       done => {
