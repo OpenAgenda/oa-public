@@ -249,7 +249,7 @@ module.exports = core => {
   ]);
 
   app.post('/agendas/:agendaUid/locations', [
-    mw.member.allow(['administrator', 'moderator']),
+    mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .create(req.parsedData)
