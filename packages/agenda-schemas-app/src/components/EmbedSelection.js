@@ -30,7 +30,6 @@ export default ({
   onChange,
   containerRef,
 }) => {
-  console.log('EmbedSlection');
   const m = useIntl().formatMessage;
 
   const componentElem = useConstant(() => document.createElement('div'));
@@ -63,17 +62,6 @@ export default ({
           ))}
         </div>
       </div>
-{/*       <div className="row">
-        <div className="col-sm-12">
-          <div className="text-center margin-v-md">
-            <UpdateButton
-              res={updateRes}
-              onSave={onSave}
-              embed={embed}
-            />
-          </div>
-        </div>
-      </div> */}
     </div>,
     componentElem,
   );
