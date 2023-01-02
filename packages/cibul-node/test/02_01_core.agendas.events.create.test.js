@@ -869,6 +869,50 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
       });
 
+      it('create event with invalid url provided in image', async () => {
+        let error;
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/events',
+            headers: {
+              'access-token': accessToken,
+              nonce: 794546,
+              'content-type': 'application/json',
+            },
+            data: {
+              title: {
+                fr: 'Un événement créé par API',
+              },
+              description: {
+                fr: 'Un tout petit événement',
+              },
+              image: {
+                url: 'https://cibul.s3.amazonaws.com/event_a-l-abo',
+                credits: 'Les crédits',
+              },
+              timings: [{
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              }],
+              attendanceMode: 2,
+              onlineAccessLink: 'https://openagenda.com',
+              'categories-agenda-metropolitain': 42,
+              'thematiques-bordeaux-metropole': [3, 4],
+            },
+          }).then(r => r.data);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(400);
+        expect(error.response.data.errors).toEqual([{
+          field: 'image',
+          code: 'url.invalid',
+          message: 'provided image url is not valid',
+        }]);
+      });
+
       it('contributor may not set state through api', async () => {
         let error;
         try {
