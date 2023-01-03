@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, {
+import {
   useEffect,
   useRef,
   useState,
@@ -59,7 +59,7 @@ function mockApi() {
   mock.reset();
   mock.onGet('/events').reply(200, {
     events: [],
-    aggregations: {}
+    aggregations: {},
   });
 }
 
@@ -105,7 +105,7 @@ function Html({ html, options }) {
 }
 
 export default {
-  title: 'React filters/Html'
+  title: 'React filters/Html',
 };
 
 export const SimpleExample = () => {
@@ -118,22 +118,22 @@ export const SimpleExample = () => {
         locale: 'fr',
         locales: {
           en: {
-            eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}'
+            eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
           },
           fr: {
-            eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
-          }
+            eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+          },
         },
         defaultViewport: {
           topLeft: {
             latitude: 64.14049196988344,
-            longitude: -123.36745304055512
+            longitude: -123.36745304055512,
           },
           bottomRight: {
             latitude: -39.238451002165675,
-            longitude: 135.83260595798492
-          }
-        }
+            longitude: 135.83260595798492,
+          },
+        },
       }}
     />
   );
@@ -171,22 +171,22 @@ export const Playground = () => {
           locale: 'fr',
           locales: {
             en: {
-              eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}'
+              eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
             },
             fr: {
-              eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
-            }
+              eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+            },
           },
           defaultViewport: {
             topLeft: {
               latitude: 64.14049196988344,
-              longitude: -123.36745304055512
+              longitude: -123.36745304055512,
             },
             bottomRight: {
               latitude: -39.238451002165675,
-              longitude: 135.83260595798492
-            }
-          }
+              longitude: 135.83260595798492,
+            },
+          },
         }}
       />
     </div>
@@ -246,13 +246,13 @@ export const Map = () => {
         defaultViewport: {
           topLeft: {
             latitude: 64.14049196988344,
-            longitude: -123.36745304055512
+            longitude: -123.36745304055512,
           },
           bottomRight: {
             latitude: -39.238451002165675,
-            longitude: 135.83260595798492
-          }
-        }
+            longitude: 135.83260595798492,
+          },
+        },
       }}
       html={_.template(`
         <div
@@ -297,16 +297,16 @@ export const City = () => (
           { key: 'Montpellier', eventCount: 33 },
           { key: 'Nantes', eventCount: 29 },
           { key: 'Colmar', eventCount: 24 },
-        ]
+        ],
       },
       aggregations: {
         city: [
           { key: 'Paris', eventCount: 34 },
           { key: 'Le Port', eventCount: 25 },
           { key: 'Montpellier', eventCount: 16 },
-          { key: 'Colmar', eventCount: 7 }
-        ]
-      }
+          { key: 'Colmar', eventCount: 7 },
+        ],
+      },
     }}
     html={_.template(`
       <div
@@ -330,8 +330,8 @@ export const Keywords = () => (
           { key: 'Les Maisons d\'Issy', eventCount: 17 },
           { key: 'Atelier Janusz Korczak', eventCount: 15 },
           { key: 'philo', eventCount: 13 },
-          { key: 'Espace Jeunes Anne Frank', eventCount: 11 }
-        ]
+          { key: 'Espace Jeunes Anne Frank', eventCount: 11 },
+        ],
       },
       aggregations: {
         keywords: [
@@ -341,9 +341,9 @@ export const Keywords = () => (
           { key: 'Les Maisons d\'Issy', eventCount: 17 },
           { key: 'Atelier Janusz Korczak', eventCount: 15 },
           { key: 'philo', eventCount: 13 },
-          { key: 'Espace Jeunes Anne Frank', eventCount: 11 }
-        ]
-      }
+          { key: 'Espace Jeunes Anne Frank', eventCount: 11 },
+        ],
+      },
     }}
     html={_.template(`
       <div
@@ -358,7 +358,7 @@ Keywords.storyName = 'Keywords filter';
 export const FavoritesSelectorWithCheckbox = () => (
   <Html
     options={{
-      locale: 'fr'
+      locale: 'fr',
     }}
     html={_.template(`
       <div
@@ -382,7 +382,7 @@ FavoritesSelectorWithCheckbox.storyName = 'Favorites selector';
 export const FavoritesFilter = () => (
   <Html
     options={{
-      locale: 'fr'
+      locale: 'fr',
     }}
     html={_.template(`
       <div
@@ -410,13 +410,13 @@ export const Total = () => (
       locale: 'fr',
       locales: {
         en: {
-          eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}'
+          eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
         },
         fr: {
-          eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
-        }
+          eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+        },
       },
-      total: 42
+      total: 42,
     }}
     html={_.template(`
       <div
@@ -440,8 +440,8 @@ export const ActiveFilters = () => (
     options={{
       locale: 'fr',
       query: {
-        relative: ['current']
-      }
+        relative: ['current'],
+      },
     }}
     html={_.template(`
       <div
@@ -475,17 +475,17 @@ export const PageSize = () => (
           { key: 'c', eventCount: 21 },
           { key: 'd', eventCount: 20 },
           { key: 'e', eventCount: 19 },
-          { key: 'f', eventCount: 18 }
-        ]
+          { key: 'f', eventCount: 18 },
+        ],
       },
       aggregations: {
         city: [
           { key: 'Paris', eventCount: 34 },
           { key: 'Le Port', eventCount: 25 },
           { key: 'Montpellier', eventCount: 16 },
-          { key: 'Colmar', eventCount: 7 }
-        ]
-      }
+          { key: 'Colmar', eventCount: 7 },
+        ],
+      },
     }}
     html={_.template(`
       <div
