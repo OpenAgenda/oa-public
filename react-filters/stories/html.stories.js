@@ -285,6 +285,39 @@ export const Relative = () => (
 );
 Relative.storyName = 'Relative filter';
 
+export const Languages = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        languages: [{
+          key: 'fr', eventCount: 9,
+        }, {
+          key: 'de', eventCount: 10,
+        }, {
+          key: 'en', eventCount: 12,
+        }],
+      },
+      aggregations: {
+        languages: [{
+          key: 'fr', eventCount: 9,
+        }, {
+          key: 'de', eventCount: 10,
+        }, {
+          key: 'en', eventCount: 12,
+        }],
+      },
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'languages' }) %>"
+      ></div>
+    `)()}
+  />
+);
+Languages.storyName = 'Languages filter';
+
 export const City = () => (
   <Html
     options={{

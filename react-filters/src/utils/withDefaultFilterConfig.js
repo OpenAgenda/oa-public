@@ -96,6 +96,12 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         },
       });
       break;
+    case 'languages':
+      _.defaults(filter, {
+        type: 'choice',
+        options: null,
+      });
+      break;
     case 'memberUid':
       _.defaults(filter, {
         type: 'choice',
