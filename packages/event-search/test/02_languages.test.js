@@ -54,4 +54,16 @@ describe('02 - event -search - functional: languages filter and aggregation', ()
       1, 3, 4,
     ]);
   });
+
+  it('languages aggregation', async () => {
+    const { aggregations } = await service('languages').search({
+      state: null,
+    }, {}, { detailed: true, aggregations: 'languages' });
+
+    expect(aggregations.languages).toEqual([
+      { key: 'fr', eventCount: 2 },
+      { key: 'de', eventCount: 1 },
+      { key: 'en', eventCount: 1 },
+    ]);
+  });
 });
