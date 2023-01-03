@@ -1,11 +1,9 @@
 import { ParsedUrlQuery } from 'querystring';
-import NextImage from 'next/future/image';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import ContentLoader from 'react-content-loader';
 import { FormattedMessage } from 'react-intl';
 import {
-  chakra,
   Button,
   Container,
   Flex,
@@ -19,36 +17,12 @@ import {
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
+import Image from 'components/Image';
 import logoPic from '../../../public/images/openagenda.png';
 
 function awsImageLoader({ src }) {
   return `https://cibuldev.s3.amazonaws.com/${src}`;
 }
-
-const Image = chakra(NextImage, {
-  baseStyle: props => ({
-    w: props.width || 'auto',
-    h: props.height || 'auto',
-    maxW: props.width,
-    maxH: props.height,
-  }),
-  shouldForwardProp: prop =>
-    [
-      'width',
-      'height',
-      'src',
-      'alt',
-      'fill',
-      'loader',
-      'quality',
-      'priority',
-      'loading',
-      'placeholder',
-      'blurDataURL',
-      'unoptimized',
-      'onLoadingComplete',
-    ].includes(prop),
-});
 
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
@@ -77,15 +51,27 @@ function ProfileMenu({ user }) {
       alt="Profile menu"
       src={user.image}
       loader={awsImageLoader}
-      width={30}
-      height={30}
+      width="30"
+      height="30"
     />
   ) : user.fullName;
 
   return (
     <Menu placement="bottom-end" colorScheme="primary">
       {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
-      <MenuButton as={Button} variant="link" p="4" py="0" height="full">
+      <MenuButton
+        as={Button}
+        variant="link"
+        p="4"
+        py="0"
+        h="full"
+        sx={{
+          // The span surrounding the image is larger than the image without this
+          span: {
+            display: 'inline-flex',
+          },
+        }}
+      >
         {button}
       </MenuButton>
       <MenuList
