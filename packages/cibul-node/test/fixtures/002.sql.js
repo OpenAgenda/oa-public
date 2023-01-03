@@ -21,9 +21,9 @@ raw.push(knex('review').insert([
 ]));
 
 raw.push(knex('user').insert([
-  load('sql/users/50304.json'),
+  load('sql/users/50304.json'), // steve id 50304, uid 63170203,
   load('sql/users/50300.json'),
-  load('sql/users/01.json'),
+  load('sql/users/01.json'), // janine id 1, uid 1,
   load('sql/users/kevin.json'),
 ]));
 
@@ -44,7 +44,7 @@ raw.push(knex('form_schema').insert([
 ]));
 
 raw.push(knex('reviewer').insert([
-  load('sql/members/71385.json', {
+  load('sql/members/71385.json', { // steve, contributor on agenda 218 (17026855)
     store: JSON.stringify({
       custom_fields: {
         organization: 'Le Chat Fume',

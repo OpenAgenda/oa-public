@@ -12,7 +12,7 @@ const flatten = (label, preferredLang = 'fr') => {
 
 const isUniqueValuedField = field => ['radio', 'select', 'boolean'].includes(field.fieldType);
 
-const findFieldFromOptionId = (schema, id) => schema.fields
+const findFieldFromOptionId = (schema, id) => (schema?.fields ?? [])
   .reduce((matching, currentField) => {
     if (matching) {
       return matching;
@@ -59,13 +59,15 @@ module.exports.locationAppendAdditionalValues = function locationAppendAdditiona
     ...location.tags.map(tag => ({
       id: tag.id,
       field: findFieldFromOptionId(formSchema, tag.id),
-    })).reduce((additionalFields, { id, field }) => {
-      if (!additionalFields[field.field]) {
-        additionalFields[field.field] = isUniqueValuedField(field) ? id : [id];
-      } else {
-        additionalFields[field.field] = [].concat(additionalFields[field.field]).concat(id);
-      }
-      return additionalFields;
-    }, {}),
+    }))
+      .filter(({ field }) => !!field)
+      .reduce((additionalFields, { id, field }) => {
+        if (!additionalFields[field.field]) {
+          additionalFields[field.field] = isUniqueValuedField(field) ? id : [id];
+        } else {
+          additionalFields[field.field] = [].concat(additionalFields[field.field]).concat(id);
+        }
+        return additionalFields;
+      }, {}),
   };
 };

@@ -15,12 +15,15 @@ const raw = resetAndCreateTables();
 
 raw.push(knex('user').insert([
   load('sql/users/janine.json'),
-  load('sql/users/lise.json'),
+  load('sql/users/lise.json'), // 50073466, id 125884
   load('sql/users/margaux.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
-  load('sql/apiKeySets/01.json'),
+  load('sql/apiKeySets/01.json'), // keys of janine
+  load('sql/apiKeySets/02.json', { // keys of lise
+    user_id: 125884,
+  }),
 ]));
 
 raw.push(knex('access_token').insert([
@@ -32,18 +35,18 @@ raw.push(knex('review').insert([
   load('sql/agendas/218.json'), // 17026855
   load('sql/agendas/219.json'), // 55268170
   load('sql/agendas/222.json'), // 55278973
-  load('sql/agendas/arles.json'),
-  load('sql/agendas/albi.json'),
-  load('sql/agendas/albigeois.json'),
+  load('sql/agendas/arles.json'), // 99501607
+  load('sql/agendas/albi.json'), // 48353388
+  load('sql/agendas/albigeois.json'), // 93399464,
 ]));
 
 raw.push(knex('reviewer').insert([
-  load('sql/members/71385.json'),
-  load('sql/members/71386.json'),
-  load('sql/members/71387.json'),
+  load('sql/members/71385.json'), // agenda 17026855
+  load('sql/members/71386.json'), // agenda 17026855
+  load('sql/members/71387.json'), // agenda 17026855
   load('sql/members/71388.json'),
   load('sql/members/janine.admin.albigeois.json'),
-  load('sql/members/lise.contributor.albi.json'),
+  load('sql/members/lise.contributor.albi.json'), // 93399464 (albigeois), 50073466 (lise)
   load('sql/members/margaux.administrator.albi.json'),
 ]));
 
@@ -76,6 +79,13 @@ insertEventSet(knex, raw, 5);
 insertEventSet(knex, raw, 7);
 insertEventSet(knex, raw, 'videoReportage');
 insertEventSet(knex, raw, 'toulouseLautrec');
+
+raw.push(knex('location_set').insert([{
+  uid: 478946547,
+  title: 'Un jeu de lieux de test',
+  created_at: new Date(),
+  updated_at: new Date(),
+}]));
 
 raw.push(knex('form_schema').insert([
   load('form-schemas/1.json', fs => ({ id: 2, store: JSON.stringify(fs) })),

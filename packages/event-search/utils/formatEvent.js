@@ -54,6 +54,9 @@ module.exports = produce((event, options = {}) => {
     _search_languages: ['title', 'description', 'longDescription']
       .filter(f => !!event[f])
       .reduce((languages, field) => {
+        if (typeof event[field] === 'string') {
+          return languages;
+        }
         Object.keys(event[field]).forEach(l => {
           if (!languages.includes(l)) languages.push(l);
         });
