@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
     agenda,
     filters,
     {
-      sort: 'updatedAt.desc',
+      // sort: 'lastTimingWithFeatured.asc',
       ...query,
       detailed: true,
     },
