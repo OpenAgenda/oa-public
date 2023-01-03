@@ -139,7 +139,7 @@ export default function Navbar() {
       <Container maxW="container.xl">
         <Flex justify="space-between" h="50">
           <Flex gap="8" h="full">
-            <Flex as="a" href="" px="4" align="center">
+            <Flex as="a" href="/" px="4" align="center">
               <Image
                 src={logoPic}
                 width={500 / 4}
