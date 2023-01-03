@@ -50,8 +50,8 @@ export default function EventItem({ event, agenda }) {
             ) : null}
             <Text color="oaGray.500">
               {isMounted ? upperFirst(formatDistance(
-                new Date(),
                 new Date(closestTiming.begin),
+                new Date(),
                 { locale: dateFnsLocale, addSuffix: true },
               )) : null}
             </Text>
