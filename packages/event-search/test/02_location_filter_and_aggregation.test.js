@@ -197,5 +197,39 @@ describe('02 - event search - functional: location', () => {
         ],
       });
     });
+
+    it('aggregations are possible on additional data', async () => {
+      const { aggregations } = await service('location').search({
+        state: null,
+      }, { size: 0 }, {
+        formSchema: eventFormSchemaWithLocationSchema,
+        detailed: true,
+        aggregations: [{
+          key: 'someLocationAdditionalField',
+          field: 'location.protections-appellation-et-labels',
+          type: 'additionalFields',
+          missing: 'N/A',
+        }],
+      });
+
+      expect(aggregations).toEqual({
+        someLocationAdditionalField: [
+          {
+            id: 41,
+            value: 'maison-des-illustres',
+            label: 'Maison des illustres',
+            key: 41,
+            eventCount: 1,
+          },
+          {
+            id: 50,
+            value: 'architecture-contemporaine-remarquable',
+            label: 'Architecture contemporaine remarquable',
+            key: 50,
+            eventCount: 1,
+          },
+        ],
+      });
+    });
   });
 });
