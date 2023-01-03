@@ -1,6 +1,14 @@
 import { InputGroup, Input, InputRightElement, Button } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
+import { defineMessages, useIntl } from 'react-intl';
+
+const messages = defineMessages({
+  ariaLabel: {
+    id: 'next.components.SearchInput.ariaLabel',
+    defaultMessage: 'Search',
+  },
+});
 
 type SearchInputProps = {
   name?: string;
@@ -16,6 +24,8 @@ export default function SearchInput({
   input,
   onButtonClick,
 }: SearchInputProps) {
+  const intl = useIntl();
+
   return (
     <InputGroup bg="oaGray.10" maxW="210px" flex="1" h="full" className={className}>
       <Input
@@ -45,6 +55,7 @@ export default function SearchInput({
         <Button
           type="submit"
           onClick={onButtonClick}
+          aria-label={intl.formatMessage(messages.ariaLabel)}
           variant="ghost"
           borderRadius="0"
           h="full"

@@ -8,7 +8,6 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   List,
   ListItem,
   ListIcon,
@@ -24,7 +23,8 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import upperFirst from 'utils/upperFirst';
 import NextChakraLink from 'components/NextChakraLink';
-import NextChakraLinkOverlay from '../../../components/NextChakraLinkOverlay';
+import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import Image from 'components/Image';
 
 const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
 
@@ -50,8 +50,8 @@ export default function EventItem({ event, agenda }) {
             ) : null}
             <Text color="oaGray.500">
               {isMounted ? upperFirst(formatDistance(
-                new Date(),
                 new Date(closestTiming.begin),
+                new Date(),
                 { locale: dateFnsLocale, addSuffix: true },
               )) : null}
             </Text>
@@ -76,7 +76,7 @@ export default function EventItem({ event, agenda }) {
         // }}
       >
         <Flex direction="row" align="center" px="6" justify="space-between">
-          <Heading as="h3" fontSize="xl">
+          <Heading as="h2" fontSize="xl">
             <NextChakraLinkOverlay
               href={`/${agenda.slug}/events/${event.slug}`}
               _hover={{
@@ -105,8 +105,8 @@ export default function EventItem({ event, agenda }) {
         {event.image ? (
           <Image
             src={`${IMAGE_PREFIX}${event.image.filename}`}
-            htmlWidth={event.image?.size?.width}
-            htmlHeight={event.image?.size?.height}
+            width={event.image?.size?.width}
+            height={event.image?.size?.height}
             alt=""
           />
         ) : null}

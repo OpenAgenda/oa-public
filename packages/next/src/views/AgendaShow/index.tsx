@@ -121,7 +121,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       agenda,
       !after ? filters : [], // need aggs only for first page
       {
-        sort: 'updatedAt.desc',
+        // sort: 'lastTimingWithFeatured.asc',
         after,
         ...query,
         detailed: true,
