@@ -76,7 +76,7 @@ export default function EventItem({ event, agenda }) {
         // }}
       >
         <Flex direction="row" align="center" px="6" justify="space-between">
-          <Heading as="h3" fontSize="xl">
+          <Heading as="h2" fontSize="xl">
             <NextChakraLinkOverlay
               href={`/${agenda.slug}/events/${event.slug}`}
               _hover={{
