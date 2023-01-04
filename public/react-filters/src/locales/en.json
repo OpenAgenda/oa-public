@@ -16,7 +16,7 @@
   "ReactFilters.DefinedRangeFilter.singleDate": "{date}",
   "ReactFilters.DefinedRangeFilter.startDate": "Start",
   "ReactFilters.DefinedRangeFilter.until": "Until {date}",
-  "ReactFilters.MapField.searchWithMap": "Search with map",
+  "ReactFilters.messages.map.searchWithMap'": "Search with map",
   "ReactFilters.Sort.chronological": "Chronological order",
   "ReactFilters.Sort.recentlyUpdated": "Recently updated",
   "ReactFilters.Sort.relevance": "Relevance",
