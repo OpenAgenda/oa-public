@@ -460,7 +460,7 @@ const initialState = async req => {
         agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
         agendaSearchPage: '/agendas',
         seeEvents: '/:agendaSlug/admin/events?q.locationUid=:locationUid',
-        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create'
+        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },
     agendaSchemaAdmin: {
@@ -469,8 +469,8 @@ const initialState = async req => {
         apiRoot: `http://localhost:${config.port}`,
       },
       res: {
-        eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
-        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
+        eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
         suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },

@@ -11,7 +11,7 @@ const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().settings.get()', () => {
   let core;
-  const config = testConfig.extendWith({ cachePrefix: 'c06_core_agendas_settings_test' });
+  const config = testConfig.extendWith({ cachePrefix: 'c06_01_core_agendas_settings_test' });
 
   beforeAll(() => loadFixtures(config.db, '007.sql'));
 
@@ -116,17 +116,6 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     it('get settings eventSchema without split options', async () => {
       const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/eventSchema?key=${administratorKey}`, { params: {} });
       expect(res.data.fields).toBeTruthy();
-    });
-
-    it('get settings memberSchema with split options', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/memberSchema?key=${administratorKey}`, { params: { split: 1 } });
-      expect(res.data.parents.length).toBe(1);
-      expect(res.data.schema).toBeTruthy();
-    });
-
-    it('get settings memberSchema without split options', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/memberSchema?key=${administratorKey}`, { params: {} });
-      expect(res.data.merged.fields).toBeTruthy();
     });
   });
 });

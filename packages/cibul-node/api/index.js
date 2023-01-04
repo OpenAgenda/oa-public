@@ -173,20 +173,44 @@ module.exports = core => {
       .then(data => res.json({ ...data }), next),
   ]);
 
-  app.post('/agendas/:agendaUid/settings/eventSchema', [
-    mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateFields(JSON.parse(req.body.data).fields)
+  app.get('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getAndParents({ lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.post('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateFields(req.parsedData.fields)
       .then(() => res.json({
         success: true,
-      }), er => {
-        next(er);
+      }), err => {
+        next(err);
       }),
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.load,
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema[req.query.split === '1' ? 'getMemberAndParents' : 'getMember']({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr', member: req.member })
       .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMemberAndParents({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.post('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateMemberFields(req.parsedData.fields, { actingMember: req.member })
+      .then(() => res.json({
+        success: true,
+      }), err => {
+        next(err);
+      }),
   ]);
 
   app.get('/agendas/:agendaUid/members', [

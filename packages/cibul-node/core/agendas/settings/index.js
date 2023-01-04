@@ -5,12 +5,13 @@ const log = require('@openagenda/logs')('core/agendas/settings');
 const getMemberSchema = require('../utils/getMemberSchema');
 const getMergedSchema = require('./getMergedSchema');
 const getSchema = require('./getSchema');
-const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
+const UpdateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require('./legacy/update');
 const resyncInbox = require('./resyncInbox');
 
 const updateSchemaFields = require('./updateSchemaFields');
+const updateMemberSchemaFields = require('./updateMemberSchemaFields');
 const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
 const contributionTypes = require('./contributionTypes');
 
@@ -52,10 +53,8 @@ module.exports = core => {
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.bind(null, services, agendaUid),
-<<<<<<< HEAD
       getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
-=======
->>>>>>> a08cd665a64de3e64c7f836960b4b0cd4febfcde
+      updateMemberFields: updateMemberSchemaFields.bind(null, core, agendaUid),
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),

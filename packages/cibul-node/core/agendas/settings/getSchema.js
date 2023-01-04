@@ -62,7 +62,7 @@ module.exports.andParents = async function getSchemaAndParents(services, agendaO
   } : null;
 
   const parents = [{
-    schema: { fields: eventFormSchema().fields },
+    schema: { fields: eventFormSchema().fields, id: -1 },
     info: {
       label: intl.formatMessage({ id: 'AgendaSchema.event' }),
       detail: intl.formatMessage({ id: 'AgendaSchema.eventDetail' }),
