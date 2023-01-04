@@ -104,7 +104,6 @@ function Dashboard() {
   }, [history, pathname, memberCredential, prefix]);
 
   const { schema, parents, isLoading } = useEventSchemas(agenda, memberMode);
-  console.log(parents || null, parents?.[0].info);
   const [currentFieldCount, setCurrentFieldCount] = useState(getSchemaFieldCount(schema));
   const { memberSchema, memberParents, isLoadingMember } = useMemberSchemas(agenda, memberMode);
 
