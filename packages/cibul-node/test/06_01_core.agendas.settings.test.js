@@ -98,9 +98,9 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
   });
 
   it('updateEventsFields', async () => {
-    await core.agendas(60935574).settings.schema.updateFields([{ field: 'phone', optional: false }], { access: 'administrator' });
-    const result = await core.agendas(60935574).settings.schema.getMember();
-    expect(result.fields.find(f => f.field === 'phone').optional).toBeFalsy();
+    await core.agendas(60935574).settings.schema.updateFields([{ field: 'entreelibre', optional: false }]);
+    const result = await core.agendas(60935574).settings.schema.get();
+    expect(result.fields.find(f => f.field === 'entreelibre').optional).toBeFalsy();
   });
 
   describe('api', () => {

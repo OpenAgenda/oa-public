@@ -129,7 +129,7 @@ raw.push(knex('location').insert({
 
 raw.push(knex('form_schema').insert([{
   id: 8,
-  store: JSON.stringify(load('./form-schemas/8.json')),
+  store: JSON.stringify(load('./form-schemas/memberFormSchema.json')),
 }, {
   id: 27,
   store: `{
