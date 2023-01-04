@@ -50,6 +50,7 @@
   "ReactFilters.messages.filterTitles.featured": "Featured",
   "ReactFilters.messages.filterTitles.geo": "Geolocation",
   "ReactFilters.messages.filterTitles.keyword": "Keywords",
+  "ReactFilters.messages.filterTitles.languages": "Languages",
   "ReactFilters.messages.filterTitles.locationUid": "Location",
   "ReactFilters.messages.filterTitles.memberUid": "Member",
   "ReactFilters.messages.filterTitles.originAgendaUid": "Origin agenda",

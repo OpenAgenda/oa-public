@@ -9,6 +9,7 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'geo' },
     { name: 'addMethod' },
     { name: 'memberUid' },
+    { name: 'languages' },
     { name: 'locationUid' },
     { name: 'sourceAgendaUid' },
     { name: 'originAgendaUid' },

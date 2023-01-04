@@ -85,4 +85,8 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.accessibility',
     defaultMessage: 'Accessibility',
   },
+  languages: {
+    id: 'ReactFilters.messages.filterTitles.languages',
+    defaultMessage: 'Languages',
+  },
 });
