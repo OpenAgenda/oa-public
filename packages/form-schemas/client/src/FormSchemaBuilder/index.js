@@ -289,7 +289,7 @@ export default class FormSchemaBuilder extends Component {
       <div className="form-schema-builder row">
         {displaySidebar ? (
           <div className="col-sm-12 padding-bottom-sm">
-            <div className="wsq padding-all-sm">
+            <div className="padding-all-sm">
               {settingsEnabled ? (
                 <LabelLanguages
                   disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}

@@ -24,17 +24,15 @@ export function StandardBuilderConfigurationExample() {
 
   const extensions = [{
     schema: eventLikeSchema,
+    info: {
+      label: 'Champ Standard',
+      detail: 'Champ standard évenemenent',
+    },
   }, {
     schema: schemaWithCategories,
     info: {
       label: { fr: 'Champ réseau', en: 'Network field' },
       detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' },
-    },
-  }, {
-    schema,
-    info: {
-      label: { fr: 'Champ Agenda', en: 'Agenda field' },
-      detail: { fr: 'Champ additionnel', en: 'Additional field' },
     },
   }];
 
