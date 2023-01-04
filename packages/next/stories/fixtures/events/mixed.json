@@ -1,0 +1,77 @@
+{
+  "image": {
+    "filename": "1dd8cd9f8ced458fa7459a1a65a8ee1d.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 350
+    },
+    "variants": [
+      {
+        "filename": "1dd8cd9f8ced458fa7459a1a65a8ee1d.full.image.jpg",
+        "size": {
+          "width": 4267,
+          "height": 2133
+        },
+        "type": "full"
+      },
+      {
+        "filename": "1dd8cd9f8ced458fa7459a1a65a8ee1d.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "type-dorganisateur": 15,
+  "featured": false,
+  "attendanceMode": 3,
+  "keywords": {
+    "fr": [
+      "Fête de l'europe",
+      "exposition",
+      "conférence",
+      "animations",
+      "Grenoble",
+      "Isère"
+    ]
+  },
+  "dateRange": {
+    "ar": "٥ - ٢٨ مايو ٢٠٢١",
+    "de": "5 - 28 Mai 2021",
+    "en": "5 - 28 May 2021",
+    "fr": "5 - 28 mai 2021",
+    "es": "5 - 28 mayo 2021"
+  },
+  "imageCredits": "Ville de Grenoble",
+  "originAgenda": {
+    "image": "agenda9543646.jpg",
+    "uid": 6082003,
+    "title": "Joli Mois de l'Europe 2022 : Auvergne - Rhône-Alpes"
+  },
+  "description": {
+    "fr": "Retrouvez le programme de Grenoble vit l'Europe du 5 au 28 mai 2021"
+  },
+  "title": {
+    "fr": "Grenoble vit l'Europe"
+  },
+  "onlineAccessLink": "https://www.grenoble.fr/agenda/86656/38-grenoble-vit-l-europe-2021.htm",
+  "uid": 4494570,
+  "location": {
+    "address": "Grenoble",
+    "city": "Grenoble",
+    "latitude": 45.18756,
+    "name": "Grenoble",
+    "longitude": 5.735782
+  },
+  "type-devenement": 8,
+  "slug": "grenoble-vit-leurope",
+  "status": 1,
+  "lastTiming": {
+    "begin": "2021-05-28T08:00:00+02:00",
+    "end": "2021-05-28T21:00:00+02:00"
+  },
+  "nextTiming": null
+}

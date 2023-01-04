@@ -2,13 +2,13 @@
   "next.components.Navbar.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Se connecter"
     }
   ],
   "next.components.Navbar.signUp": [
     {
       "type": 0,
-      "value": "Sign up"
+      "value": "S'inscrire"
     }
   ]
 }

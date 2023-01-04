@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
@@ -48,8 +46,8 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     config.redisClient.quit();
   });
 
-  describe('basic batch', () => {
-    beforeAll(done => {
+  describe('basic batch with core.agendas.events.list', () => {
+    beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
         state: 0,
       }, { state: 1 }, {
@@ -57,13 +55,13 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
       });
 
       core.tasks({
-        execute(...args) {},
+        execute() {},
         error(...args) { done(args); },
         success(...args) {
           if (args[0] === 'batchedPatch') return done();
         },
       });
-    });
+    }));
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });
@@ -75,8 +73,8 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     });
   });
 
-  describe('batch using search', () => {
-    beforeAll(done => {
+  describe('batch using core.agndas.events.search', () => {
+    beforeAll(() => new Promise(done => {
       core.agendas(99501607).events.batch('patch', {
         city: 'Arles',
         state: null,
@@ -86,13 +84,13 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
       });
 
       core.tasks({
-        execute(...args) {},
+        execute() {},
         error(...args) { done(args); },
         success(...args) {
           if (args[0] === 'batchedPatch') return done();
         },
       });
-    });
+    }));
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });

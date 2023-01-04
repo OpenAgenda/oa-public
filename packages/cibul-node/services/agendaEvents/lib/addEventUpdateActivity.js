@@ -2,13 +2,15 @@
 
 const log = require('@openagenda/logs')('agendaEvents/addEventUpdateActivity');
 
+const getMemberName = require('./utils/getMemberName');
+
 module.exports = async (services, { agenda, event, user }, before, after, changeStateType) => {
   log('processing');
 
   const {
     activities: activitiesSvc,
     members: membersSvc,
-    core
+    core,
   } = services;
 
   if (!activitiesSvc) {
@@ -18,7 +20,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   const contributor = await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: user.uid
+    userUid: user.uid,
   });
 
   const isUnpublished = before.state === 2 && after.state !== 2;
@@ -31,23 +33,23 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     target: `agenda:${agenda.uid}`,
   };
   const activityLabels = {
-    actor: contributor.custom.contactName || user.fullName,
+    actor: getMemberName(contributor, user),
     object: event.title,
-    target: agenda.title
+    target: agenda.title,
   };
 
   if (isUnpublished && (core.constants.stateChangeTypes.system === changeStateType)) {
     log('system unpublish');
     return activitiesSvc.feed({
       entityType: 'event',
-      entityUid: event.uid
+      entityUid: event.uid,
     }).activities.add({
       ...activityInfo,
       verb: 'agenda.systemUnpublishEvent',
       store: {
         contributorUid: after.userUid,
-        labels: activityLabels
-      }
+        labels: activityLabels,
+      },
     });
   }
 
@@ -55,7 +57,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     log('publishing');
     return activitiesSvc.feed({
       entityType: 'event',
-      entityUid: event.uid
+      entityUid: event.uid,
     }).activities.add({
       ...activityInfo,
       verb: 'agenda.publishEvent',
@@ -65,8 +67,8 @@ module.exports = async (services, { agenda, event, user }, before, after, change
         ownerUid: after.ownerUid,
         sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
         // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null
-      }
+        originAgendaUid: event.origin ? event.origin.uid : null,
+      },
     });
   }
 
@@ -74,7 +76,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     log('refusing');
     return activitiesSvc.feed({
       entityType: 'event',
-      entityUid: event.uid
+      entityUid: event.uid,
     }).activities.add({
       ...activityInfo,
       verb: 'agenda.refuseEvent',
@@ -84,8 +86,8 @@ module.exports = async (services, { agenda, event, user }, before, after, change
         ownerUid: after.ownerUid,
         sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
         // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null
-      }
+        originAgendaUid: event.origin ? event.origin.uid : null,
+      },
     });
   }
 
@@ -93,7 +95,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     log('unpublishing');
     return activitiesSvc.feed({
       entityType: 'event',
-      entityUid: event.uid
+      entityUid: event.uid,
     }).activities.add({
       ...activityInfo,
       verb: 'agenda.unpublishEvent',
@@ -103,8 +105,8 @@ module.exports = async (services, { agenda, event, user }, before, after, change
         ownerUid: after.ownerUid,
         sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
         // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null
-      }
+        originAgendaUid: event.origin ? event.origin.uid : null,
+      },
     });
   }
 
@@ -112,15 +114,15 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     log('change state');
     return activitiesSvc.feed({
       entityType: 'agenda',
-      entityUid: agenda.uid
+      entityUid: agenda.uid,
     }).activities.add({
       ...activityInfo,
       verb: 'agenda.changeEventState',
       store: {
         labels: activityLabels,
         oldState: before.state,
-        newState: after.state
-      }
+        newState: after.state,
+      },
     });
   }
 };

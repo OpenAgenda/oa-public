@@ -3,7 +3,7 @@ const ImageConfig = require('next/dist/shared/lib/image-config');
 
 module.exports = {
   stories: [
-    '../stories/**/*.stories.@(tsx|ts|jsx|js|mts|mjs|cts)',
+    '../stories/**/*.stories.@(tsx|ts|jsx|js)',
   ],
   addons: [
     'storybook-addon-next',
@@ -13,7 +13,7 @@ module.exports = {
   },
   webpackFinal(config) {
     config.module.rules.push({
-      test: /\.(js|mjs|jsx|ts|tsx)$/,
+      test: /\.(js|jsx|ts|tsx|mjs)$/,
       resolve: {
         fullySpecified: false,
       },

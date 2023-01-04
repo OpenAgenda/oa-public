@@ -1,0 +1,27 @@
+{
+  "lastId": -1,
+  "events": [{
+    "uid": 1,
+    "state": 2,
+    "title": {
+      "fr": "Ateliers japonais de Peko peko",
+      "en": "Japanese Peko Peko workshops"
+    }
+  }, {
+    "uid": 2,
+    "state": 2,
+    "title": "Panorama 24 - l'autre coté"
+  },{
+    "uid": 3,
+    "state": 2,
+    "title": {
+      "fr": "Formation: prise de parole en public"
+    }
+  }, {
+    "uid": 4,
+    "state": 2,
+    "title": {
+      "de": "Leepa im Zeiss-Großplanetarium an der Prenzlauer Allee"
+    }
+  }]
+}

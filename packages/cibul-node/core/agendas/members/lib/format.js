@@ -18,7 +18,10 @@ const map = [{
 }];
 
 module.exports = (membersSvc, item, options) => {
-  const { detailed = false } = options;
+  const {
+    detailed = false,
+    roleAsSlug = true,
+  } = options;
   const result = {
     userUid: item?.userUid,
     deletedUser: item?.deletedUser ?? null,
@@ -27,7 +30,7 @@ module.exports = (membersSvc, item, options) => {
     email: item?.custom?.email ?? null,
     position: item?.custom?.contactPosition ?? null,
     organization: item?.custom?.organization ?? null,
-    role: membersSvc.utils.getRoleSlug(item?.role),
+    role: roleAsSlug ? membersSvc.utils.getRoleSlug(item?.role) : item?.role,
     updatedAt: item.updatedAt ?? null,
   };
   if (!detailed) return result;

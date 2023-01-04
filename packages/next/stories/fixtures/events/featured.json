@@ -1,0 +1,81 @@
+{
+  "image": {
+    "filename": "9a9f06dd453a4c9bb1c0b9bfdc49aa91.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 366
+    },
+    "variants": [
+      {
+        "filename": "9a9f06dd453a4c9bb1c0b9bfdc49aa91.full.image.jpg",
+        "size": {
+          "width": 1200,
+          "height": 628
+        },
+        "type": "full"
+      },
+      {
+        "filename": "9a9f06dd453a4c9bb1c0b9bfdc49aa91.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "featured": true,
+  "attendanceMode": 1,
+  "keywords": {
+    "fr": [
+      "dédicace",
+      "bordeaux",
+      "mollat",
+      "livre",
+      "culture",
+      "livres",
+      "rencontre",
+      "sociologie"
+    ]
+  },
+  "dateRange": {
+    "ar": "الجمعة ٦ مايو, 16:00",
+    "de": "Freitag 6 Mai, 16:00",
+    "en": "Friday 6 May, 16:00",
+    "fr": "Vendredi 6 mai, 16h00",
+    "es": "Viernes 6 mayo, 16:00"
+  },
+  "recurring": [],
+  "imageCredits": "@ M. Ruelland",
+  "originAgenda": {
+    "uid": 30224219,
+    "image": "agenda30224219.jpg?__ts=1621522445292",
+    "title": "Librairie Mollat"
+  },
+  "description": {
+    "fr": "Venez rencontrer Guillaume Meurice lors d'une séance de dédicace de son livre \"Les vraies gens : sociologie de trottoir\" aux éditions JC Lattès."
+  },
+  "title": {
+    "fr": "Dédicace de Guillaume Meurice"
+  },
+  "onlineAccessLink": null,
+  "thematiques-bordeaux-metropole": [],
+  "uid": 34136021,
+  "intermunicipal_interest": [],
+  "location": {
+    "address": "89 rue Porte Dijeaux",
+    "city": "Bordeaux",
+    "latitude": 44.840791,
+    "name": "Librairie Mollat",
+    "longitude": -0.578813
+  },
+  "categories-agenda-metropolitain": 59,
+  "slug": "dedicace-de-guillaume-meurice",
+  "status": 1,
+  "lastTiming": {
+    "begin": "2022-05-06T16:00:00+02:00",
+    "end": "2022-05-06T18:00:00+02:00"
+  },
+  "nextTiming": null
+}

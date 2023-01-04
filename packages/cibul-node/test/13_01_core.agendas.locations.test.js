@@ -246,7 +246,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       }).then(r => r.data.access_token);
     });
 
-    describe('successful create', () => {
+    describe('successful create by administrator', () => {
       beforeAll(async () => {
         try {
           response = await axios({
@@ -274,6 +274,48 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('agendaId is not provided in response', () => {
         expect(response.data.location.agendaId).toBeUndefined();
+      });
+    });
+
+    describe('successful create by contributor', () => {
+      let contributorAccessToken;
+
+      beforeAll(async () => {
+        contributorAccessToken = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/requestAccessToken',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: {
+            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+          },
+        }).then(r => r.data.access_token);
+      });
+
+      beforeAll(async () => {
+        try {
+          response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/93399464/locations',
+            headers: {
+              'access-token': contributorAccessToken,
+              nonce: 124471456,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Marre',
+              address: '4 route de Charny, 55100 Marre',
+              countryCode: 'fr',
+            },
+          });
+        } catch (e) {
+          // console.log(e.response.data);
+        }
+      });
+
+      it('successful create by contributor', () => {
+        expect(response.status).toBe(200);
       });
     });
 

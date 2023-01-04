@@ -11,6 +11,7 @@ const log = require('@openagenda/logs')('compileForValidation');
 const fields = require('./fields');
 const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
+const ValidationError = require('./ValidationError');
 
 const replaceAccents = require('@openagenda/utils/replaceAccents');
 
@@ -52,7 +53,16 @@ module.exports = async (current, data, options = {}) => {
       maxContentLength: maxImageSize
     });
 
-    compiled.image = await axiosInstance.get(image?.url).then(response => response?.data);
+    compiled.image = await axiosInstance
+      .get(image?.url)
+      .then(response => response?.data)
+      .catch(() => {
+        throw new ValidationError({
+          field: 'image',
+          code: 'url.invalid',
+          message: 'provided image url is not valid'
+        });
+      });
   } else if (image?.path && !('transformAndUpload' in image)) {
     log('image is provided through local filesystem path: %s', image?.path);
     compiled.image = fs.createReadStream(image?.path);

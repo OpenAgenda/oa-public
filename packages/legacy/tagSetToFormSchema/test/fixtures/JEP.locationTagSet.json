@@ -1,0 +1,201 @@
+{
+    "groups": [
+        {
+            "name": {
+                "fr": "Spécificité",
+                "en": "Specificity"
+            },
+            "info": null,
+            "tags": [
+                {
+                    "id": 33,
+                    "label": {
+                        "fr": "Première participation",
+                        "en": "First participation"
+                    }
+                },
+                {
+                    "id": 32,
+                    "label": {
+                        "fr": "Ouverture exceptionnelle",
+                        "en": "Exceptional opening"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Protections, appellation et labels",
+            "info": null,
+            "tags": [
+                {
+                    "id": 50,
+                    "label": "Architecture contemporaine remarquable"
+                },
+                {
+                    "id": 38,
+                    "label": "Jardin remarquable"
+                },
+                {
+                    "id": 41,
+                    "label": "Maison des illustres"
+                },
+                {
+                    "id": 42,
+                    "label": "Monument historique"
+                },
+                {
+                    "id": 40,
+                    "label": "Musée de France"
+                },
+                {
+                    "id": 35,
+                    "label": "Patrimoine européen"
+                },
+                {
+                    "id": 37,
+                    "label": "Patrimoine mondial de l'UNESCO"
+                },
+                {
+                    "id": 51,
+                    "label": "Site patrimonial remarquable"
+                },
+                {
+                    "id": 39,
+                    "label": "Tourisme et handicap"
+                },
+                {
+                    "id": 36,
+                    "label": "Villes et Pays d'art et d'histoire"
+                }
+            ]
+        },
+        {
+            "name": {
+                "fr": "Types de lieu",
+                "en": "Types of place"
+            },
+            "info": null,
+            "tags": [
+                {
+                    "id": 7,
+                    "label": {
+                        "en": "Archives",
+                        "fr": "Archives"
+                    }
+                },
+                {
+                    "id": 2,
+                    "label": {
+                        "en": "Château, hôtel urbain, palais, manoir",
+                        "fr": "Château, hôtel urbain, palais, manoir"
+                    }
+                },
+                {
+                    "id": 3,
+                    "label": {
+                        "en": "Édifice religieux",
+                        "fr": "Édifice religieux"
+                    }
+                },
+                {
+                    "id": 4,
+                    "label": {
+                        "en": "Édifice hospitalier",
+                        "fr": "Édifice hospitalier"
+                    }
+                },
+                {
+                    "id": 5,
+                    "label": {
+                        "en": "Édifice maritime et fluvial",
+                        "fr": "Édifice maritime et fluvial"
+                    }
+                },
+                {
+                    "id": 6,
+                    "label": {
+                        "en": "Édifice militaire, enceinte urbaine",
+                        "fr": "Édifice militaire, enceinte urbaine"
+                    }
+                },
+                {
+                    "id": 8,
+                    "label": {
+                        "en": "Édifice industriel, scientifique et technique",
+                        "fr": "Édifice industriel, scientifique et technique"
+                    }
+                },
+                {
+                    "id": 9,
+                    "label": {
+                        "en": "Édifice rural",
+                        "fr": "Édifice rural"
+                    }
+                },
+                {
+                    "id": 10,
+                    "label": {
+                        "en": "Édifice scolaire et éducatif",
+                        "fr": "Édifice scolaire et éducatif"
+                    }
+                },
+                {
+                    "id": 11,
+                    "label": {
+                        "en": "Espace naturel, parc, jardin",
+                        "fr": "Espace naturel, parc, jardin"
+                    }
+                },
+                {
+                    "id": 12,
+                    "label": {
+                        "en": "Édifice commémoratif",
+                        "fr": "Édifice commémoratif"
+                    }
+                },
+                {
+                    "id": 13,
+                    "label": {
+                        "en": "Lieu de pouvoir, édifice judiciaire",
+                        "fr": "Lieu de pouvoir, édifice judiciaire"
+                    }
+                },
+                {
+                    "id": 14,
+                    "label": {
+                        "en": "Lieu de spectacles, sports et loisirs",
+                        "fr": "Lieu de spectacles, sports et loisirs"
+                    }
+                },
+                {
+                    "id": 15,
+                    "label": {
+                        "en": "Musée, salle d'exposition",
+                        "fr": "Musée, salle d'exposition"
+                    }
+                },
+                {
+                    "id": 1,
+                    "label": {
+                        "en": "Maison, appartement, atelier de personnes célèbres",
+                        "fr": "Maison, appartement, atelier de personnes célèbres"
+                    }
+                },
+                {
+                    "id": 17,
+                    "label": {
+                        "en": "Patrimoine ferroviaire, des transports et du génie civil",
+                        "fr": "Patrimoine ferroviaire, des transports et du génie civil"
+                    }
+                },
+                {
+                    "id": 16,
+                    "label": {
+                        "en": "Site archéologique",
+                        "fr": "Site archéologique"
+                    }
+                }
+            ]
+        }
+    ]
+}

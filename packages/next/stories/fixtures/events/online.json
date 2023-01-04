@@ -1,0 +1,71 @@
+{
+  "image": {
+    "filename": "d833a8f875e746c383e2a43badf2c356.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 581
+    },
+    "variants": [
+      {
+        "filename": "d833a8f875e746c383e2a43badf2c356.full.image.jpg",
+        "size": {
+          "width": 1038,
+          "height": 862
+        },
+        "type": "full"
+      },
+      {
+        "filename": "d833a8f875e746c383e2a43badf2c356.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "type-dorganisateur": 14,
+  "featured": false,
+  "attendanceMode": 2,
+  "keywords": {
+    "fr": [
+      "Compostage",
+      "Compostage individuel",
+      "Semaine verte européenne",
+      "Pacte Vert",
+      "Lyon",
+      "Atelier",
+      "En ligne"
+    ]
+  },
+  "dateRange": {
+    "ar": "٥ مايو - ٩ يونيو ٢٠٢١",
+    "de": "5 Mai - 9 Juni 2021",
+    "en": "5 May - 9 June 2021",
+    "fr": "5 mai - 9 juin 2021",
+    "es": "5 mayo - 9 junio 2021"
+  },
+  "imageCredits": "Thierry Fournier – Métropole de Lyon",
+  "originAgenda": {
+    "image": "agenda9543646.jpg",
+    "uid": 6082003,
+    "title": "Joli Mois de l'Europe 2022 : Auvergne - Rhône-Alpes"
+  },
+  "description": {
+    "fr": "Composter les déchets organiques c’est leur donner une seconde vie pour réduire au quotidien nos poubelles, préserver la qualité de notre environnement et améliorer la qualité de nos sols"
+  },
+  "title": {
+    "fr": "Les formations au compostage individuel"
+  },
+  "onlineAccessLink": "https://demarches.toodego.com/gestion-des-dechets/sinscrire-a-une-sensibilisation-au-compostage-individuel/",
+  "uid": 70987815,
+  "type-devenement": 1,
+  "slug": "les-formations-au-compostage-individuel",
+  "status": 1,
+  "lastTiming": {
+    "begin": "2021-06-09T18:00:00+02:00",
+    "end": "2021-06-09T20:00:00+02:00"
+  },
+  "nextTiming": null
+}

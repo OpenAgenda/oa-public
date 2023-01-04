@@ -216,7 +216,7 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
-      .agendas(req.agenda.uid).members.list(req.query, {
+      .agendas(req.agenda.uid).members.list(req.query, req.query, {
         userUid: req.user.uid,
       })
       .then(data => res.json({
@@ -293,7 +293,7 @@ module.exports = core => {
   ]);
 
   app.post('/agendas/:agendaUid/locations', [
-    mw.member.allow(['administrator', 'moderator']),
+    mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .create(req.parsedData)
@@ -528,6 +528,7 @@ module.exports = core => {
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events.search({
+        ...req.query,
         relation: ['contributed', 'owned'],
       }, req.query, {
         useAfterKey: true,

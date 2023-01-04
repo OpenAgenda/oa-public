@@ -15,7 +15,7 @@ const loadEvent = async (core, obj) => {
   const event = await core.services.events.get(eventUid, {
     includeFields: ['ownerUid', 'draft'],
     access: 'internal',
-    private: null
+    private: null,
   });
 
   if (!event) {
@@ -25,7 +25,7 @@ const loadEvent = async (core, obj) => {
   return {
     draft: event.draft,
     ownerUid: event.ownerUid,
-    uid: obj instanceof Object ? obj.uid : obj
+    uid: obj instanceof Object ? obj.uid : obj,
   };
 };
 
@@ -33,29 +33,29 @@ module.exports = async (core, userIdentifier, eventObj) => {
   const {
     agendaEvents,
     members,
-    users
+    users,
   } = core.services;
 
   const {
-    isSuperiorToOrEqual
+    isSuperiorToOrEqual,
   } = members.utils.compareRoles;
 
   const user = await users.findOne({
-    query: validateIdentifier(userIdentifier, { pickOne: true })
+    query: validateIdentifier(userIdentifier, { pickOne: true }),
   });
 
   log('loaded user %s', user.uid);
 
   if (!user) {
     throw new NotFound({
-      info: { uid: userIdentifier }
+      info: { uid: userIdentifier },
     }, 'user not found');
   }
 
   const {
     ownerUid,
     uid: eventUid,
-    draft: isDraft
+    draft: isDraft,
   } = await loadEvent(core, eventObj);
 
   if (isDraft && user.uid === ownerUid) {
@@ -64,12 +64,12 @@ module.exports = async (core, userIdentifier, eventObj) => {
   }
 
   const {
-    items: agendaEventItems
+    items: agendaEventItems,
   } = await agendaEvents.list.byEventUid(eventUid, { canEdit: true });
 
   const memberItems = await members.list({
     agendaUid: agendaEventItems.map(i => i.agendaUid),
-    userUid: user.uid
+    userUid: user.uid,
   });
 
   for (const ae of agendaEventItems) {

@@ -3,11 +3,11 @@
 const log = require('@openagenda/logs')('core/users/getEventUserContext');
 
 const {
-  NotFound
+  NotFound,
 } = require('@openagenda/verror');
 
 const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda
+  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
 } = require('../utils/authorizations');
 
 const validateOptions = require('./lib/validateEventContextOptions');
@@ -21,7 +21,7 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
   const eventUid = eventOrUid?.constructor.name === 'Object' ? eventOrUid.uid : eventOrUid;
 
   const {
-    includes
+    includes,
   } = validateOptions(options);
 
   const ae = await agendaEvents(agendaUid).get(eventUid);
@@ -29,7 +29,7 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
   const event = await eventOrUid?.constructor.name === 'Object' ? eventOrUid : await events.get(eventOrUid, {
     private: null,
     access: 'internal',
-    includeFields: ['uid', 'private', 'ownerUid', 'draft']
+    includeFields: ['uid', 'private', 'ownerUid', 'draft'],
   });
 
   if (!ae && !event.draft) {
@@ -40,14 +40,14 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
 
   if (includes.includes('me.authorizations')) {
     response.me.authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid, event, {
-      agendaEvent: ae
+      agendaEvent: ae,
     });
   }
 
   if (includes.includes('me.member')) {
     response.me.member = await core.agendas(agendaUid).members.get(identifier, {
       ...options,
-      throwOnNotFound: false
+      throwOnNotFound: false,
     });
   }
 

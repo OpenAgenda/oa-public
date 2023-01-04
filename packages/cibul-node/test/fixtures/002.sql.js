@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 
 const load = loadObjectFromFile({
@@ -22,30 +21,30 @@ raw.push(knex('review').insert([
 ]));
 
 raw.push(knex('user').insert([
-  load('sql/users/50304.json'),
+  load('sql/users/50304.json'), // steve id 50304, uid 63170203,
   load('sql/users/50300.json'),
-  load('sql/users/01.json'),
+  load('sql/users/01.json'), // janine id 1, uid 1,
   load('sql/users/kevin.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...load('sql/apiKeySets/01.json'), user_id: 50304 },
-  { ...load('sql/apiKeySets/02.json'), user_id: 1 },
+  load('sql/apiKeySets/01.json', { user_id: 50304 }),
+  load('sql/apiKeySets/02.json', { user_id: 1 }),
 ]));
 
-raw.push(knex('form_schema').insert([{
-  id: 2,
-  store: fs.readFileSync(`${__dirname}/form-schemas/1.json`),
-}, {
-  id: 3,
-  store: JSON.stringify({
-    fields: [],
-    nextOptionId: 1,
-  }),
-}]));
+raw.push(knex('form_schema').insert([
+  load('form-schemas/1.json', fxSchema => ({ id: 2, store: JSON.stringify(fxSchema) })),
+  {
+    id: 3,
+    store: JSON.stringify({
+      fields: [],
+      nextOptionId: 1,
+    }),
+  },
+]));
 
 raw.push(knex('reviewer').insert([
-  load('sql/members/71385.json', {
+  load('sql/members/71385.json', { // steve, contributor on agenda 218 (17026855)
     store: JSON.stringify({
       custom_fields: {
         organization: 'Le Chat Fume',

@@ -10,9 +10,9 @@
       "error",
       {
         "devDependencies": [
-          ".storybook/**/*.{tsx,ts,jsx,js,mts,mjs,cts}",
-          "stories/**/*.{tsx,ts,jsx,js,mts,mjs,cts}",
-          "scripts/**/*.{tsx,ts,jsx,js,mts,mjs,cts}"
+          ".storybook/**/*.js",
+          "stories/**/*.{tsx,ts,jsx,js}",
+          "scripts/**/*.mjs"
         ]
       }
     ]
@@ -20,7 +20,8 @@
   "overrides": [
     {
       "files": [
-        "*.{tsx,ts,jsx,js,mts,mjs,cts}"
+        "src/**/*.{tsx,ts,jsx,js}",
+        "*.stories.{tsx,ts,jsx,js}"
       ],
       "globals": {
         "React": true
@@ -28,10 +29,19 @@
     },
     {
       "files": [
-        "*.stories.{tsx,ts,jsx,js,mts,mjs,cts}"
+        "*.stories.{tsx,ts,jsx,js}"
       ],
       "rules": {
         "import/no-anonymous-default-export": "off"
+      }
+    },
+    {
+      "files": [
+        "scripts/**/*.mjs"
+      ],
+      "rules": {
+        // node esm modules require extensions
+        "import/extensions": ["error", "ignorePackages"]
       }
     }
   ],

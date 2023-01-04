@@ -1,13 +1,12 @@
-import Image from 'next/future/image';
+import { ParsedUrlQuery } from 'querystring';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import ContentLoader from 'react-content-loader';
 import { FormattedMessage } from 'react-intl';
 import {
-  Box,
-  Center,
   Button,
   Container,
   Flex,
-  HStack,
   Menu,
   MenuButton,
   MenuList,
@@ -17,7 +16,13 @@ import {
 } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
+import SearchInput from 'components/SearchInput';
+import Image from 'components/Image';
 import logoPic from '../../../public/images/openagenda.png';
+
+function simpleLoader({ src }) {
+  return src;
+}
 
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
@@ -41,16 +46,43 @@ function ProfileLoader(props) {
 }
 
 function ProfileMenu({ user }) {
-  if (user.image) {
-    return <Image alt="Profile menu" src={user.image} />;
-  }
+  const button = user.image ? (
+    <Image
+      alt="Profile menu"
+      src={process.env.NODE_ENV === 'development'
+        ? `${process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX}${user.image}`
+        : `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`}
+      fallbackSrc={process.env.NODE_ENV === 'development'
+        ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
+        : null}
+      loader={simpleLoader}
+      width="30"
+      height="30"
+    />
+  ) : user.fullName;
 
   return (
     <Menu placement="bottom-end" colorScheme="primary">
-      <MenuButton as={Button} variant="link" px="4">
-        {user.fullName}
+      {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
+      <MenuButton
+        as={Button}
+        variant="link"
+        p="4"
+        py="0"
+        h="full"
+        sx={{
+          // The span surrounding the image is larger than the image without this
+          span: {
+            display: 'inline-flex',
+          },
+        }}
+      >
+        {button}
       </MenuButton>
-      <MenuList>
+      <MenuList
+        // https://github.com/chakra-ui/chakra-ui/issues/5742
+        zIndex="5"
+      >
         <MenuItem textAlign="right">Mes agendas</MenuItem>
         <MenuItem textAlign="right">Mes événements</MenuItem>
         <MenuDivider />
@@ -85,30 +117,51 @@ function ProfileBar() {
 
   // Not authenticated
   return (
-    <HStack spacing="6">
+    <Flex direction="row" gap="6">
       <Button variant="link" colorScheme="primary">
         <FormattedMessage id="next.components.Navbar.signIn" defaultMessage="Sign in" />
       </Button>
       <Button variant="link" colorScheme="primary">
         <FormattedMessage id="next.components.Navbar.signUp" defaultMessage="Sign up" />
       </Button>
-    </HStack>
+    </Flex>
   );
 }
 
 export default function Navbar() {
+  const router = useRouter();
+  const onSearch = useCallback(e => {
+    e.preventDefault();
+    const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
+    router.push({
+      pathname: '/agendas',
+      query,
+    });
+  }, [router]);
+
   return (
-    <Box as="nav" bg="white" boxShadow="sm">
+    <Flex as="header" bg="white" boxShadow="sm">
       <Container maxW="container.xl">
-        <HStack spacing="8" justify="space-between" h={50}>
-          <Center>
-            <Image src={logoPic} width={125} height={22} alt="logo" quality={100} />
-          </Center>
-          <Flex justify="right" h="full">
+        <Flex justify="space-between" h="50">
+          <Flex gap="8" h="full">
+            <Flex as="a" href="/" px="4" align="center">
+              <Image
+                src={logoPic}
+                width={500 / 4}
+                height={89 / 4}
+                alt="logo"
+                unoptimized
+              />
+            </Flex>
+            <Flex as="form" onSubmit={onSearch}>
+              <SearchInput />
+            </Flex>
+          </Flex>
+          <Flex h="full" align="center">
             <ProfileBar />
           </Flex>
-        </HStack>
+        </Flex>
       </Container>
-    </Box>
+    </Flex>
   );
 }

@@ -2,7 +2,7 @@
 
 module.exports = (core, userUid) => async function remove() {
   const {
-    users: usersSvc
+    users: usersSvc,
   } = core.services;
 
   await usersSvc.remove(userUid);

@@ -1,15 +1,19 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import ts from 'typescript';
 import dedent from 'dedent';
+import { globby } from 'globby';
 import extract from '@openagenda/intl/scripts/extract';
 import compile from '@openagenda/intl/scripts/compile';
-import { DEFAULT_LANG, DEFAULT_LANGS } from '@openagenda/intl/constants';
+
+const require = createRequire(import.meta.url);
+const { DEFAULT_LANGS, DEFAULT_LANG } = require('@openagenda/intl/constants');
 
 const root = new URL('..', import.meta.url).pathname;
 const sources = [
   'next-env.d.ts',
-  'additional.d.ts',
+  ...await globby('src/types/*.d.ts'),
   ...process.argv.slice(2),
 ];
 const viewDir = 'src/views';
@@ -64,6 +68,11 @@ function getDepModules(sourceFile) {
 
 function isInDir(from, to) {
   return !path.relative(from, to).startsWith('..');
+}
+
+function isDirectSubDir(from, to) {
+  const relativePath = path.relative(from, to);
+  return !relativePath.startsWith('..') && relativePath.split(path.sep).length === 1;
 }
 
 function isInPackage(filePath) {
@@ -130,6 +139,7 @@ async function createIndex(localesRoot) {
 
     export default async function fetchLocale(locale) {
       return import(\`./compiled/${'${locale}'}.json\`)
+        .then(mod => mod.default)
         .catch(e => {
           console.error(\`API: Failed to fetch locale ${'${locale}'}\`, e);
           return null;
@@ -159,7 +169,8 @@ async function createViewIndex(localesRoot, deps, hasLocales) {
     
     ` : ''}export default async function fetchLocale(locale) {
       return Promise.all([${hasLocales ? `
-        import(\`./compiled/${'${locale}'}.json\`),` : ''}${relativeDeps.length ? `
+        import(\`./compiled/${'${locale}'}.json\`)
+          .then(mod => mod.default),` : ''}${relativeDeps.length ? `
         ` : ''}${relativeDeps
   .map((v, i) => `fetchLocale${i}(locale),`)
   .join('\n        ')}
@@ -236,7 +247,7 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
 
   const hasLocales = await fileExists(path.join(localesDir, `${DEFAULT_LANG}.json`));
 
-  const isView = isInDir(viewDir, relativeDir);
+  const isView = isDirectSubDir(viewDir, relativeDir);
 
   // Compile & create indexes
   if (hasLocales) {

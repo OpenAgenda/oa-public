@@ -7,16 +7,15 @@ const patch = require('./patch');
 const remove = require('./remove');
 const stream = require('./stream');
 
-const invite = async (core, agendaUid, { role, emails = [], context }) => {
+const invite = (core, agendaUid, { role, emails = [], context }) => {
   const { members } = core.services;
-  return await members.set.byEmail.bulk({
+  return members.set.byEmail.bulk({
     agendaUid,
     role,
   }, emails, {
     requireCustom: false,
     context,
   });
-
 };
 
 module.exports = (core, agendaUid) => ({

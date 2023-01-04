@@ -28,15 +28,17 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
   let lastId = 0;
 
   const {
-    services,
     tasks,
   } = core;
+
+  const options = args[args.length - 1];
 
   while (lastId !== -1) {
     const {
       events,
       lastId: nextLastId,
-    } = await list(services, agendaUid, query, { lastId }, {
+    } = await list(core, agendaUid, query, { lastId }, {
+      ...options,
       load: {
         agendaEvent: true,
       },

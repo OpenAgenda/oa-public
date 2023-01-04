@@ -24,7 +24,7 @@ module.exports = (eventSearch, agenda) => {
   function stream(query, options = {}) {
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-    log('agenda %s', agenda.uid);
+    log('agenda %s', agenda.uid, query);
 
     return searchIndex.search.stream(query, {
       ...validateAgendaSearchOptions(options),

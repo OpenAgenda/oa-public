@@ -224,7 +224,7 @@ class Users extends Service {
     return crypto.verifyPassword(
       user.password,
       typeof data === 'string' ? data : data.password,
-      user.salt
+      user.salt,
     );
   }
 
@@ -243,7 +243,7 @@ class Users extends Service {
     const token = await tokensSvc.findOne({
       query: {
         token: data.token,
-        ...(user ? { userId: user.id } : {}),
+        ...user ? { userId: user.id } : {},
       },
     });
 
@@ -265,7 +265,7 @@ class Users extends Service {
       user = await this.patch(
         user.uid,
         { isActivated: true },
-        { internal: true }
+        { internal: true },
       );
     }
 
@@ -319,7 +319,7 @@ hooks(Users.prototype, {
         generateUniqueToken('replyToken'),
         iff(
           context => _.get(context.data, 'password'),
-          hashPassword('data.password', 'data.salt')
+          hashPassword('data.password', 'data.salt'),
         ),
         setNow('createdAt', 'updatedAt'),
         callInterface('beforeCreate'),
@@ -336,7 +336,7 @@ hooks(Users.prototype, {
         iff(
           context => context.result && context.result.isActivated,
           callInterface('onActivation'),
-          fastJoin({ joins: resolvers })
+          fastJoin({ joins: resolvers }),
         ),
       ],
     }),
@@ -354,8 +354,9 @@ hooks(Users.prototype, {
         stashBefore('before', { internal: true, provider: undefined }),
         iff(
           context => context.params.internal !== true,
-          context => validate(_.pick(patchSchema, Object.keys(context.data)))(context),
-          keep('fullName', 'culture', 'image')
+          context =>
+            validate(_.pick(patchSchema, Object.keys(context.data)))(context),
+          keep('fullName', 'culture', 'image'),
         ),
         profileImage(),
         setNow('updatedAt'),
@@ -370,9 +371,10 @@ hooks(Users.prototype, {
         populateAccountTypes(),
         callInterface('onPatch'),
         iff(
-          context => !context.params.before.isActivated && context.result.isActivated,
+          context =>
+            !context.params.before.isActivated && context.result.isActivated,
           callInterface('onActivation'),
-          fastJoin({ joins: resolvers })
+          fastJoin({ joins: resolvers }),
         ),
       ],
     }),
@@ -388,6 +390,7 @@ hooks(Users.prototype, {
         snakeCase(),
         snakeCaseQuery(),
       ],
+      after: [callInterface('onRemove')],
     }),
   },
   requestChangeEmail: {
@@ -433,7 +436,7 @@ hooks(Users.prototype, {
         iff(
           isProvider('external'),
           verifyPassword('oldPassword'),
-          compareFields('password', 'confirmation')
+          compareFields('password', 'confirmation'),
         ),
         hashPassword('data.password', 'params.before.salt'),
         keep('password'),
@@ -450,7 +453,7 @@ hooks(Users.prototype, {
           'removed',
           'publicKey',
           'secretKey',
-          'includeImagePath'
+          'includeImagePath',
         ),
         softDelete(),
         generateApiKey(),

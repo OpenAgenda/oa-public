@@ -15,6 +15,7 @@
     "originAgenda.image",
     "timings",
     "location.name",
+    "location.city",
     "location.address",
     "location.latitude",
     "location.longitude",

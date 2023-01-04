@@ -20,6 +20,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'knex',
         'redis',
         'simpleCache',
+        'tracker',
         'accessTokens',
         'files',
         'queues',
@@ -35,7 +36,6 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'legacy',
         'users',
         'keys',
-        'trackers',
         'activities',
       ],
     });
@@ -43,6 +43,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     core = Core(services, testConfig);
 
     await services.simpleCache.clearAll();
+
+    core.services.users.tasks.processQueue();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -51,6 +53,10 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     let memberRefAfterRemove;
     beforeAll(async () => {
       await core.users(99999967).remove();
+
+      await new Promise(rs => {
+        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
+      });
 
       memberRefAfterRemove = await core.agendas(6184770).members.get(99999967, {
         access: 'internal',
@@ -121,6 +127,10 @@ describe('10 - core - functional (server): core.users().remove()', () => {
           nonce: 1234,
           'content-type': 'application/json',
         },
+      });
+
+      await new Promise(rs => {
+        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
       });
 
       const user = await core.services.users.findOne({

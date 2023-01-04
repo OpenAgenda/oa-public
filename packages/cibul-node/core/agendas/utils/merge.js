@@ -2,6 +2,7 @@
 
 const { merge } = require('@openagenda/form-schemas').utils;
 const eventFormSchema = require('@openagenda/event-form/src/schema');
+const tagSetToFormSchema = require('@openagenda/legacy/tagSetToFormSchema');
 const getAddMethod = require('./getAddMethod');
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
@@ -81,9 +82,18 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   return compiled;
 }
 
+function appendLocationSchema(schema) {
+  const locationField = schema.fields.find(f => f.field === 'location');
+  if (locationField?.tagSet) {
+    locationField.schema = tagSetToFormSchema(locationField.tagSet, { schemaId: 'location' });
+  }
+
+  return schema;
+}
+
 module.exports.event = mergeEvent;
 
-module.exports.schemas = merge;
+module.exports.schemas = (...args) => appendLocationSchema(merge(...args));
 
 module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const schemas = args.concat([]);
@@ -91,12 +101,14 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
     access,
     includeNonDataFields,
   } = schemas.pop();
-  return eventFormSchema({
-    // languages: true,
-    schemaExtensions: schemas,
-    access: access?.read === 'internal' ? null : access,
-    excludeNonDataFields: !includeNonDataFields,
-  });
+
+  return appendLocationSchema(
+    eventFormSchema({
+      schemaExtensions: schemas,
+      access: access?.read === 'internal' ? null : access,
+      excludeNonDataFields: !includeNonDataFields,
+    }),
+  );
 };
 
 module.exports.eventFromObject = ({

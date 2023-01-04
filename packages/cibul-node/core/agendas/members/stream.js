@@ -5,7 +5,7 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 
 class Stream extends Readable {
-  constructor({ core, agenda }, nav, options) {
+  constructor({ core, agenda }, query, nav, options) {
     super({ objectMode: true });
 
     this._ = {
@@ -13,6 +13,7 @@ class Stream extends Readable {
       agenda,
       nav,
       options,
+      query,
       after: null,
       buffer: [],
       transform: _.get(options, 'transform'),
@@ -33,8 +34,9 @@ class Stream extends Readable {
       : this._.nav;
 
     const { items: members, after } = await this._.core.agendas(this._.agenda).members.list(
+      this._.query,
       nav,
-      this._.options
+      this._.options,
     );
 
     if (!members.length) return [];
@@ -45,15 +47,18 @@ class Stream extends Readable {
   }
 }
 
-const createStream = async (core, agendaUid, nav = {}, options = {}) => {
+const createStream = async (core, agendaUid, query = {}, nav = {}, options = {}) => {
   const { userUid, includeMemberSchema = false } = options;
-  const agenda = await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema });
+  const agenda = await core.agendas(agendaUid).get({
+    detailed: true,
+    includeMemberSchema,
+  });
 
   const actingMember = await core.services.members.get({
     agendaUid,
     userUid,
   });
-  return new Stream({ core, agenda }, nav, { ...options, actingMember, detailed: true });
+  return new Stream({ core, agenda }, query, nav, { ...options, actingMember, detailed: true });
 };
 
 module.exports = createStream;

@@ -1,11 +1,5 @@
 import _ from 'lodash';
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-} from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +8,7 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import qs from 'qs';
+import * as dateFnsLocales from 'date-fns/locale';
 import {
   FiltersProvider,
   useFilters,
@@ -127,7 +122,7 @@ function Dashboard() {
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading'));
   const loaded = useSelector(
-    state => _.get(state, 'stats.agendaUid') === agenda.uid
+    state => _.get(state, 'stats.agendaUid') === agenda.uid,
   );
   const error = useSelector(state => _.get(state, 'stats.error'));
   const totalEvents = useSelector(state => state.stats.totalEvents);
@@ -137,51 +132,57 @@ function Dashboard() {
   const latestStats = useLatest(stats);
 
   const parsedLocationSearch = useMemo(
-    () => qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    }),
-    [location.search]
+    () =>
+      qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      }),
+    [location.search],
   );
 
-  const [initialQuery, setInitialQuery] = useState(() => _.pick(
-    parsedLocationSearch,
-    Object.keys(
-      validateQuery(parsedLocationSearch, {
-        formSchema: agendaSchema,
-        emptyValue: 'null',
-      })
-    )
-  ));
+  const [initialQuery, setInitialQuery] = useState(() =>
+    _.pick(
+      parsedLocationSearch,
+      Object.keys(
+        validateQuery(parsedLocationSearch, {
+          formSchema: agendaSchema,
+          emptyValue: 'null',
+        }),
+      ),
+    ));
 
   const orderModal = useModal();
 
   const onOrderChange = useCallback(
     statIds => dispatch(statsActions.reorderStats(statIds)),
-    [dispatch]
+    [dispatch],
   );
 
   const setEditMode = useCallback(
     () => dispatch(statsActions.setEditMode(true)),
-    [dispatch]
+    [dispatch],
   );
   const cancelEdit = useCallback(
     () => dispatch(statsActions.setEditMode(false)),
-    [dispatch]
+    [dispatch],
   );
   const save = useCallback(
     () => dispatch(statsActions.save(agenda)),
-    [agenda, dispatch]
+    [agenda, dispatch],
   );
 
-  const filters = useFilters(intl, agendaSchema, { missingValue: 'null' });
+  const filters = useFilters(intl, agendaSchema.fields, {
+    dateFnsLocale: dateFnsLocales[intl.locale],
+    missingValue: 'null',
+  });
 
   const filtersQuery = useQuery(
     ['agenda-stats', 'filtersBase', agenda.slug],
-    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
+    () =>
+      getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
-    }
+    },
   );
 
   const { aggregations: filtersBase } = filtersQuery.data ?? {};
@@ -190,19 +191,20 @@ function Dashboard() {
   const latestLocation = useLatest(location);
 
   const onFilterChange = useCallback(
-    async values => dispatch(
-      statsActions.load(agenda, latestStats.current, filters, values)
-    ).then(() => {
-      const search = qs.stringify(values, {
-        addQueryPrefix: true,
-        arrayFormat: 'brackets',
-      });
+    async values =>
+      dispatch(
+        statsActions.load(agenda, latestStats.current, filters, values),
+      ).then(() => {
+        const search = qs.stringify(values, {
+          addQueryPrefix: true,
+          arrayFormat: 'brackets',
+        });
 
-      if (latestLocation.current.search !== search) {
-        history.push({ search });
-      }
-    }),
-    [filters, agenda, dispatch, history, latestLocation, latestStats]
+        if (latestLocation.current.search !== search) {
+          history.push({ search });
+        }
+      }),
+    [filters, agenda, dispatch, history, latestLocation, latestStats],
   );
 
   const getOptions = useCallback(
@@ -232,16 +234,17 @@ function Dashboard() {
 
       const baseAgg = [...filtersBase[filter.name]];
 
-      const aggregation = stats.find(s => _.isMatch(
-        s.aggregation,
-        _.omit(
-          {
-            type: filter.name,
-            ...filter.aggregation,
-          },
-          'size'
-        )
-      ))?.state?.data;
+      const aggregation = stats.find(s =>
+        _.isMatch(
+          s.aggregation,
+          _.omit(
+            {
+              type: filter.name,
+              ...filter.aggregation,
+            },
+            'size',
+          ),
+        ))?.state?.data;
 
       if (aggregation) {
         aggregation.forEach(entry => {
@@ -267,7 +270,7 @@ function Dashboard() {
         };
       });
     },
-    [filtersBase, intl, stats]
+    [filtersBase, intl, stats],
   );
 
   // Load timespan & aggregations
@@ -300,12 +303,12 @@ function Dashboard() {
         };
 
         return dispatch(
-          statsActions.load(agenda, configResult.data, filters, defaultQuery)
+          statsActions.load(agenda, configResult.data, filters, defaultQuery),
         ).then(() => setInitialQuery(defaultQuery));
       }
 
       return dispatch(
-        statsActions.load(agenda, configResult.data, filters, initialQuery)
+        statsActions.load(agenda, configResult.data, filters, initialQuery),
       );
     });
   }, [
@@ -361,6 +364,7 @@ function Dashboard() {
       intl={intl}
       ref={filtersFormRef}
       filters={filters}
+      dateFnsLocale={dateFnsLocales[intl.locale]}
     >
       {filtersQuery.data.total > 0 ? (
         <>
@@ -446,7 +450,7 @@ function Dashboard() {
                 getOptions={getOptions}
               />
             </div>,
-            filtersContainerRef.current
+            filtersContainerRef.current,
           )}
         </>
       ) : (

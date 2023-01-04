@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 
 const {
@@ -65,10 +64,9 @@ raw.push(knex('network').insert([
   load('sql/networks/mel.json'),
 ]));
 
-raw.push(knex('form_schema').insert([2, 5, 6, 41].map(id => ({
-  id,
-  store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`),
-}))));
+raw.push(knex('form_schema').insert(
+  [2, 5, 6, 41].map(id => load(`form-schemas/${id}.json`, fs => ({ id, store: JSON.stringify(fs) }))),
+));
 
 raw.push(knex('reviewer').insert([
   load('sql/members/lechat.json', {
@@ -431,10 +429,9 @@ raw.push(knex('custom').insert([{
   updated_at: '2016-01-18 16:14:06',
 }]));
 
-raw.push(knex('form_schema').insert([{
-  id: 374,
-  store: fs.readFileSync(`${__dirname}/form-schemas/374.json`),
-}]));
+raw.push(knex('form_schema').insert([
+  load('form-schemas/374.json', fs => ({ id: 374, store: JSON.stringify(fs) })),
+]));
 
 insertEventSet(knex, raw, 'lesUnsLesAutres');
 

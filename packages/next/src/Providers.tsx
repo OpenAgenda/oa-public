@@ -5,14 +5,15 @@ import swrStatusMiddleware from 'utils/swrStatusMiddleware';
 import { LanguageProvider } from 'components/LanguageProvider';
 
 type ProvidersProps = {
-  intlMessages: any;
+  locale: string;
+  intlMessages: Record<string, string>;
   children: React.ReactNode;
 };
 
-const Providers = ({ intlMessages, children }: ProvidersProps) => (
+const Providers = ({ locale, intlMessages, children }: ProvidersProps) => (
   <UIKitProvider>
     <ApiClientProvider>
-      <LanguageProvider messages={intlMessages}>
+      <LanguageProvider locale={locale} messages={intlMessages}>
         <SWRConfig
           value={{
             use: [swrStatusMiddleware],

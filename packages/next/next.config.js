@@ -1,18 +1,16 @@
-const { apiClient } = require('@openagenda/react-shared');
-
-const withTM = require('next-transpile-modules')(['@openagenda/uikit']);
+const withTM = require('next-transpile-modules')([
+  '@openagenda/react-filters',
+  '@openagenda/react-shared',
+  '@openagenda/uikit',
+]);
 
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
   const {
+    NODE_ENV,
     NEXT_API_INTERNAL_BASE_URL,
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
-
-  const serverRuntimeConfig = {
-    apiRoot: NEXT_API_INTERNAL_BASE_URL,
-    api: (req, method, ...args) => apiClient(NEXT_API_INTERNAL_BASE_URL, req)[method](...args),
-  };
 
   return withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
@@ -20,7 +18,19 @@ const config = async () => {
       locales: ['fr', 'en'],
       defaultLocale: 'fr',
     },
-    serverRuntimeConfig,
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'cibul.s3.amazonaws.com',
+        },
+      ].concat(NODE_ENV !== 'production' ? [
+        {
+          protocol: 'https',
+          hostname: 'cibuldev.s3.amazonaws.com',
+        },
+      ] : []),
+    },
     eslint: {
       dirs: [
         'src',
@@ -33,6 +43,10 @@ const config = async () => {
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
     async rewrites() {
+      if (!NEXT_API_INTERNAL_BASE_URL) {
+        throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
+      }
+
       return {
         fallback: [
           {

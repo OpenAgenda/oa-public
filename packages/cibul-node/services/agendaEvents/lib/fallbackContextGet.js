@@ -7,7 +7,7 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
   const {
     users,
     events: eventsSvc,
-    agendas: agendasSvc
+    agendas: agendasSvc,
   } = services;
 
   let event = _.get(context, 'event');
@@ -21,7 +21,7 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
       private: null,
       deleted: null,
       access: 'internal',
-      detailed: true
+      detailed: true,
     });
 
     if (!event) log('error', 'event of uid %s could not be retrieved', _.get(ref, 'uid'), ref);
@@ -35,7 +35,7 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
     agenda = await agendasSvc.get({ uid: ref.agendaUid }, {
       internal: true,
       private: null,
-      includeImagePath: true
+      includeImagePath: true,
     });
   } else {
     log('agenda %s, %s is in context', agenda.uid, agenda.slug);

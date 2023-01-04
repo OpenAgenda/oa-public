@@ -1,0 +1,181 @@
+import React from 'react';
+import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
+import { formatDistance } from 'date-fns';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  List,
+  ListItem,
+  ListIcon,
+  Text,
+  LinkBox,
+} from '@openagenda/uikit';
+import { getLocaleValue } from '@openagenda/intl';
+import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-icons';
+import { faLink, faThumbtack, faShare } from '@fortawesome/pro-solid-svg-icons';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
+import useIsMounted from 'hooks/useIsMounted';
+import upperFirst from 'utils/upperFirst';
+import NextChakraLink from 'components/NextChakraLink';
+import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import Image from 'components/Image';
+
+const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
+
+export default function EventItem({ event, agenda }) {
+  const router = useRouter();
+  const intl = useIntl();
+  const dateFnsLocale = useDateFnsLocale();
+  const isMounted = useIsMounted();
+
+  const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
+
+  const redirectUrl = Buffer.from(router.asPath).toString('base64');
+
+  return (
+    <Flex as="article">
+      <Box as="aside" w="25%" mt="4" pr="8">
+        <Flex justify="flex-end">
+          <div>
+            {event.featured ? (
+              <Text mb="2">
+                <FontAwesomeIcon icon={faThumbtack} /> À la une
+              </Text>
+            ) : null}
+            <Text color="oaGray.500">
+              {isMounted ? upperFirst(formatDistance(
+                new Date(closestTiming.begin),
+                new Date(),
+                { locale: dateFnsLocale, addSuffix: true },
+              )) : null}
+            </Text>
+          </div>
+        </Flex>
+      </Box>
+      <LinkBox
+        as="section"
+        display="flex"
+        flexDirection="column"
+        gap="4"
+        position="relative"
+        // py="4"
+        pt="4"
+        w="75%"
+        bg="white"
+        // border="1px solid"
+        // borderColor="oaGray.100"
+        borderRadius="sm"
+        // _hover={{
+        //   borderColor: 'primary.500',
+        // }}
+      >
+        <Flex direction="row" align="center" px="6" justify="space-between">
+          <Heading as="h2" fontSize="xl">
+            <NextChakraLinkOverlay
+              href={`/${agenda.slug}/events/${event.slug}`}
+              _hover={{
+                _before: {
+                  border: '1px solid',
+                  borderColor: 'primary.500',
+                },
+              }}
+            >
+              {getLocaleValue(event.title, intl.locale)}
+            </NextChakraLinkOverlay>
+          </Heading>
+
+          <IconButton
+            aria-label="Add to favorite"
+            variant="link"
+            size="lg"
+            fontSize="xl"
+            icon={<FontAwesomeIcon icon={faStar} />}
+            minW="0"
+            ml="6"
+            // px="0"
+          />
+        </Flex>
+
+        {event.image ? (
+          <Image
+            src={`${IMAGE_PREFIX}${event.image.filename}`}
+            width={event.image?.size?.width}
+            height={event.image?.size?.height}
+            alt=""
+          />
+        ) : null}
+
+        {/* TODO: add a title with a precise date */}
+        <Text px="6">
+          {getLocaleValue(event.description, intl.locale)}
+        </Text>
+
+        <Flex justify="space-between">
+          <List spacing="2" px="6" color="oaGray.500" pb="4">
+            <ListItem ml="6">
+              <ListIcon as={FontAwesomeIcon} icon={faClock} verticalAlign="" ml="-6" />
+              {getLocaleValue(event.dateRange, intl.locale)}
+            </ListItem>
+            {event.onlineAccessLink ? (
+              <ListItem ml="6">
+                <ListIcon as={FontAwesomeIcon} icon={faLink} verticalAlign="" ml="-6" />
+                {intl.formatMessage(attendanceModesMessages.online)}
+              </ListItem>
+            ) : null}
+            {event.location ? (
+              <ListItem ml="6">
+                <ListIcon as={FontAwesomeIcon} icon={faLocationDot} verticalAlign="" ml="-6" />
+                {event.location.name}{event.location.city ? `, ${event.location.city}` : ''}
+              </ListItem>
+            ) : null}
+          </List>
+
+          <Box
+            float="right"
+            display="flex"
+            alignItems="flex-end"
+            alignSelf="flex-end"
+          >
+            <Button
+              as={NextChakraLink}
+              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              colorScheme="primary"
+              borderRadius="sm"
+              display={{ base: 'none', sm: 'inline-flex' }}
+            >
+              Partager
+            </Button>
+
+            <Button
+              as={NextChakraLink}
+              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              colorScheme="primary"
+              borderRadius="sm"
+              display={{ base: 'inline-flex', sm: 'none' }}
+            >
+              <FontAwesomeIcon icon={faShare} />
+            </Button>
+          </Box>
+
+          {/* <Box as="pre" whiteSpace="pre-wrap">
+          {JSON.stringify(event, null, 2)}
+        </Box> */}
+        </Flex>
+      </LinkBox>
+    </Flex>
+  );
+  // return (
+  //   <Flex>
+  //     <Box flex="1 0 0%" textAlign="right" pe="4">Time</Box>
+  //     <Box as="pre" flex="3 0 0%" wordBreak="break-word" whiteSpace="pre-wrap">
+  //       {JSON.stringify(event, null, 2)}
+  //     </Box>
+  //   </Flex>
+  // );
+}

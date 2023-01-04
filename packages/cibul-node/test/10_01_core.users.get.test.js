@@ -32,8 +32,8 @@ describe('10 - core - functional (server): core.users().get()', () => {
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -77,11 +77,11 @@ describe('10 - core - functional (server): core.users().get()', () => {
     it('user access token can be refreshed using the secret key', async () => {
       await testConfig.knex('access_token').update({
         created_at: new Date(),
-        lifespan: 100
+        lifespan: 100,
       }).where('id', 2);
 
       const token = await core.users({
-        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
       }).generateToken();
 
       expect(token.id).toBe(2);
@@ -91,11 +91,11 @@ describe('10 - core - functional (server): core.users().get()', () => {
     it('new access token is created when previous is outdated', async () => {
       await testConfig.knex('access_token').update({
         created_at: new Date(),
-        lifespan: -1
+        lifespan: -1,
       }).where('id', 2);
 
       const token = await core.users({
-        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
       }).generateToken();
 
       expect(token.id).toBeGreaterThan(2);

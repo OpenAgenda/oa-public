@@ -112,15 +112,16 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     });
 
     it('location image provides full path with includeLocationImagePath option', async () => {
-      const { events } = await core.agendas(2).events.search({
+      const { events: [event] } = await core.agendas(2).events.search({
         state: null,
         locationUid: 1,
       }, { size: 1 }, {
         detailed: true,
         includeLocationImagePath: true,
+        access: 'internal',
       });
 
-      expect(events[0].location.image).toBe('https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg');
+      expect(event.location.image).toBe('https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg');
     });
 
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
@@ -196,6 +197,40 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         aggregations: ['states'],
       });
       expect(aggregations.states).toBeDefined();
+    });
+
+    it('filter on location additional field with query in dotted filter as a string', async () => {
+      const {
+        events: [event],
+        total,
+      } = await core.agendas(2).events.search({
+        state: null,
+        'location.specificite': 32,
+      }, {}, {
+        detailed: true,
+        access: 'administrator',
+      });
+
+      expect(total).toBe(1);
+      expect(event.location.specificite).toEqual([32]);
+    });
+
+    it('filter on location additional field with query as an object', async () => {
+      const {
+        events: [event],
+        total,
+      } = await core.agendas(2).events.search({
+        state: null,
+        location: {
+          specificite: [32],
+        },
+      }, {}, {
+        detailed: true,
+        access: 'administrator',
+      });
+
+      expect(total).toBe(1);
+      expect(event.location.specificite).toEqual([32]);
     });
   });
 
