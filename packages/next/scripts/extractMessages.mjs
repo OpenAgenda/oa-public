@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
 import dedent from 'dedent';
+import { globby } from 'globby';
 import extract from '@openagenda/intl/scripts/extract';
 import compile from '@openagenda/intl/scripts/compile';
 
@@ -12,7 +13,7 @@ const { DEFAULT_LANGS, DEFAULT_LANG } = require('@openagenda/intl/constants');
 const root = new URL('..', import.meta.url).pathname;
 const sources = [
   'next-env.d.ts',
-  'additional.d.ts',
+  ...await globby('src/types/*.d.ts'),
   ...process.argv.slice(2),
 ];
 const viewDir = 'src/views';
@@ -67,6 +68,11 @@ function getDepModules(sourceFile) {
 
 function isInDir(from, to) {
   return !path.relative(from, to).startsWith('..');
+}
+
+function isDirectSubDir(from, to) {
+  const relativePath = path.relative(from, to);
+  return !relativePath.startsWith('..') && relativePath.split(path.sep).length === 1;
 }
 
 function isInPackage(filePath) {
@@ -241,7 +247,7 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
 
   const hasLocales = await fileExists(path.join(localesDir, `${DEFAULT_LANG}.json`));
 
-  const isView = isInDir(viewDir, relativeDir);
+  const isView = isDirectSubDir(viewDir, relativeDir);
 
   // Compile & create indexes
   if (hasLocales) {
