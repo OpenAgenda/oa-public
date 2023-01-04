@@ -47,7 +47,8 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('updateMemberFields', async () => {
-    const result = await core.agendas(60935574).settings.schema.updateMemberFields([{ field: 'phone', optional: false }], { access: 'administrator' });
+    await core.agendas(60935574).settings.schema.updateMemberFields([{ field: 'phone', optional: false }], { access: 'administrator' });
+    const result = await core.agendas(60935574).settings.schema.get();
     expect(result).toBeTruthy();
   });
 
