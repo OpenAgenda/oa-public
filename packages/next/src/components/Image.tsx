@@ -37,11 +37,12 @@ interface ImageProps extends
   Omit<NextImageProps, keyof Omit<ChakraImageProps, 'src' | 'width' | 'height' | 'layout'>>,
   Omit<ChakraImageProps, 'src' | 'width' | 'height' | 'htmlWidth' | 'htmlHeight'> {}
 
-const Image = forwardRef<ImageProps, 'img'>(function Image(props: ImageProps) {
+const Image = forwardRef<ImageProps, 'img'>(function Image(props: ImageProps, ref) {
   const { src, width, height, ...rest } = props;
 
   return (
     <ChakraImage
+      ref={ref}
       as={InnerImage}
       src={src as string}
       htmlWidth={width}
