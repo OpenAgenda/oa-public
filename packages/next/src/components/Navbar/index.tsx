@@ -20,8 +20,8 @@ import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
 import logoPic from '../../../public/images/openagenda.png';
 
-function awsImageLoader({ src }) {
-  return `https://cibuldev.s3.amazonaws.com/${src}`;
+function simpleLoader({ src }) {
+  return src;
 }
 
 function ProfileLoader(props) {
@@ -49,8 +49,13 @@ function ProfileMenu({ user }) {
   const button = user.image ? (
     <Image
       alt="Profile menu"
-      src={user.image}
-      loader={awsImageLoader}
+      src={process.env.NODE_ENV === 'development'
+        ? `${process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX}${user.image}`
+        : `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`}
+      fallbackSrc={process.env.NODE_ENV === 'development'
+        ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
+        : null}
+      loader={simpleLoader}
       width="30"
       height="30"
     />
