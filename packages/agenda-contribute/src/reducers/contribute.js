@@ -137,7 +137,6 @@ function memberSetSuccess({
   fromAgenda = null,
   event = null
 }) {
-  console.log('memberSetSuccess');
   return ({ history, location }, { getState }) => {
     const {
       settings: {
