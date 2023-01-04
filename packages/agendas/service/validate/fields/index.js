@@ -361,5 +361,10 @@ module.exports = [{
     description: 'JSON export V1 is generated from the V2 format',
     type: 'boolean',
     default: false
+  }, {
+    field: 'memberCustom',
+    description: 'Allow customisation of member fields',
+    type: 'boolean',
+    default: false
   }]
 }];
