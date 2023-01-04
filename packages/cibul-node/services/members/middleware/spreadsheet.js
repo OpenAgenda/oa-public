@@ -1,7 +1,5 @@
 'use strict';
 
-const ih = require('immutability-helper');
-
 module.exports.stream = function stream(req, res, next) {
   const { core } = req.app.services;
   const { flattenMemberInfo } = core.agendas.utils;
