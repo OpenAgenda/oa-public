@@ -150,7 +150,7 @@ const apps = [
   [
     'agendaSchemaAdmin',
     createAgendaSchemaAdminApp,
-    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
   ],
   [
     'agendaSettingsEdit',
