@@ -51,7 +51,7 @@ function App(props) {
     agendaContextIsLoading,
     agendaContext
   } = useAgendaContext(agenda.uid, 'App');
-  console.log(agendaContext);
+
   const res = useSelector(state => state.res);
 
   const prefix = usePrefix(agenda);
