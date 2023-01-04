@@ -2,7 +2,7 @@
 
 module.exports = {
   "addField": {
-    "fr": "Nouveau champ additionnel",
+    "fr": "Ajouter un champ",
     "en": "Add a field",
     "es": "Agregar campo",
     "it": "Aggiungere un campo",
