@@ -16,7 +16,7 @@
   "ReactFilters.DefinedRangeFilter.singleDate": "{date}",
   "ReactFilters.DefinedRangeFilter.startDate": "Début",
   "ReactFilters.DefinedRangeFilter.until": "Jusqu'au {date}",
-  "ReactFilters.MapField.searchWithMap": "Rechercher avec la carte",
+  "ReactFilters.messages.map.searchWithMap'": "Rechercher avec la carte",
   "ReactFilters.Sort.chronological": "Ordre chronologique",
   "ReactFilters.Sort.recentlyUpdated": "Date de mise à jour",
   "ReactFilters.Sort.relevance": "Pertinence",
