@@ -1,4 +1,16 @@
 {
+  "AgendaSchema.AfterRedirectModal.body": [
+    {
+      "type": 0,
+      "value": "Member form configuration is not activated on your calendar"
+    }
+  ],
+  "AgendaSchema.AfterRedirectModal.title": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
   "AgendaSchema.EmbedSelection.eventInfo": [
     {
       "type": 0,
@@ -17,10 +29,22 @@
       "value": "Members configuration"
     }
   ],
+  "AgendaSchema.EmbedSelection.memberInfoAsk": [
+    {
+      "type": 0,
+      "value": "Ask for access to member configuration"
+    }
+  ],
   "AgendaSchema.EmbedSelection.members": [
     {
       "type": 0,
       "value": "Members"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.notActivated": [
+    {
+      "type": 0,
+      "value": "This feature is not activated on your calendar"
     }
   ],
   "AgendaSchema.adaptForm": [
@@ -44,13 +68,19 @@
   "AgendaSchema.event": [
     {
       "type": 0,
-      "value": "Estándar"
+      "value": "Standard"
     }
   ],
   "AgendaSchema.eventDetail": [
     {
       "type": 0,
-      "value": "Campo de evento estándar"
+      "value": "Standard event field"
+    }
+  ],
+  "AgendaSchema.goToContrib": [
+    {
+      "type": 0,
+      "value": "Go to contribution settings"
     }
   ],
   "AgendaSchema.member": [
@@ -74,13 +104,19 @@
   "AgendaSchema.network": [
     {
       "type": 0,
-      "value": "Red"
+      "value": "Network"
     }
   ],
   "AgendaSchema.networkDetail": [
     {
       "type": 0,
-      "value": "Campo requerido por la red de agendas"
+      "value": "Field required by the agenda network"
+    }
+  ],
+  "AgendaSchema.warning": [
+    {
+      "type": 0,
+      "value": "Your calendar's contribution settings do not require your members to enter an identification card."
     }
   ]
 }

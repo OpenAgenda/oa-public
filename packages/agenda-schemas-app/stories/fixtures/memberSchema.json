@@ -241,6 +241,7 @@
   "parents": [
     {
       "schema": {
+        "id": -1,
         "fields": [
           {
             "field": "organization",
@@ -326,7 +327,7 @@
         ]
       },
       "info": {
-        "label": "Standard Member",
+        "label": "Standard",
         "detail": "Standard member field"
       }
     }

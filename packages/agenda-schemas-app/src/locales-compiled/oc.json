@@ -1,38 +1,62 @@
 {
+  "AgendaSchema.AfterRedirectModal.body": [
+    {
+      "type": 0,
+      "value": "La configuration du formulaire membre n'est pas activé sur votre agenda"
+    }
+  ],
+  "AgendaSchema.AfterRedirectModal.title": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
   "AgendaSchema.EmbedSelection.eventInfo": [
     {
       "type": 0,
-      "value": "Configuration du formulaire événement"
+      "value": "Ajoutez des thématiques, catégories, champs textes ou autres au formulaire événement de votre agenda."
     }
   ],
   "AgendaSchema.EmbedSelection.events": [
     {
       "type": 0,
-      "value": "Evénement"
+      "value": "Configurer le formulaire événement"
     }
   ],
   "AgendaSchema.EmbedSelection.memberInfo": [
     {
       "type": 0,
-      "value": "Configuration du formulaire membre"
+      "value": "Ajoutez ou retirez des champs au formulaire d'identification des contributeurs de votre agenda."
+    }
+  ],
+  "AgendaSchema.EmbedSelection.memberInfoAsk": [
+    {
+      "type": 0,
+      "value": "Demander une activation"
     }
   ],
   "AgendaSchema.EmbedSelection.members": [
     {
       "type": 0,
-      "value": "Membre"
+      "value": "Configurer la fiche membre"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.notActivated": [
+    {
+      "type": 0,
+      "value": "Cette fonctionnalité n'est pas activée sur votre agenda"
     }
   ],
   "AgendaSchema.adaptForm": [
     {
       "type": 0,
-      "value": "Adaptez la configuration du formulaire événement"
+      "value": "Configurer le formulaire événement"
     }
   ],
   "AgendaSchema.adaptMemberForm": [
     {
       "type": 0,
-      "value": "Adaptez la configuration du formulaire membre"
+      "value": "Configurer la fiche membre"
     }
   ],
   "AgendaSchema.canAddField": [
@@ -51,6 +75,12 @@
     {
       "type": 0,
       "value": "Champ événement standard"
+    }
+  ],
+  "AgendaSchema.goToContrib": [
+    {
+      "type": 0,
+      "value": "Aller aux paramètres de contribution"
     }
   ],
   "AgendaSchema.member": [
@@ -80,7 +110,13 @@
   "AgendaSchema.networkDetail": [
     {
       "type": 0,
-      "value": "Camp requesit pel malhum d'agendas"
+      "value": "Champ requis par le réseau d'agendas"
+    }
+  ],
+  "AgendaSchema.warning": [
+    {
+      "type": 0,
+      "value": "Les paramètres de contribution de votre agenda ne requièrent pas à vos membres de saisir une fiche d'identification."
     }
   ]
 }

@@ -7,7 +7,7 @@ export default (agenda, memberMode) => {
   if (memberMode) return false;
   const res = useRes(agenda);
   const { isLoading, error, data } = useQuery(['agenda-eventSchema', agenda.uid], () =>
-    axios.get(res.eventSchema, { params: { split: 1 } }).then(response => response.data), { staleTime: Infinity });
+    axios.get(res.eventSchema, { params: {} }).then(response => response.data), { staleTime: Infinity });
   return {
     isLoading,
     error,

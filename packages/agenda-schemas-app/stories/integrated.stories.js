@@ -14,7 +14,7 @@ export default {
 };
 
 const res = {
-  eventSchema: '/api/agendas/:agendaUid/settings/eventSchema',
+  eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
   memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
 };
 
@@ -95,46 +95,7 @@ export function AdminWithPremium() {
   );
 }
 
-export function AdminWithMember() {
-  return (
-    <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
-      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
-        {wrapApp(
-          createApp({
-            initialState: {
-              settings: {
-                prefix: '/:agendaSlug/admin/schema',
-                apiRoot: '',
-              },
-              res,
-            },
-            history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
-            }),
-          }),
-          {
-            extraProps: {
-              lang: 'fr',
-              agenda: {
-                uid: 1,
-                slug: 'metropole-europeenne-de-lille',
-                credentials: {
-                  premiumCustomFields: true,
-                  memberCustom: true,
-                },
-              },
-            },
-          },
-        )}
-      </div>
-    </>
-  );
-}
-
-export function AdminTrySidebar() {
+export function AdminWithSideBarAndMemberCredential() {
   const selectionMenuRef = useRef();
   return (
     <>
@@ -165,6 +126,90 @@ export function AdminTrySidebar() {
                 credentials: {
                   premiumCustomFields: true,
                   memberCustom: true,
+                },
+              },
+              filtersContainerRef: selectionMenuRef,
+            },
+          },
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminWithSideBarAndNoMemberCredential() {
+  const selectionMenuRef = useRef();
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+        ref={selectionMenuRef}
+      />
+      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq  padding-bottom-sm">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                prefix: '/:agendaSlug/admin/schema',
+                apiRoot: '',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+            }),
+          }),
+          {
+            extraProps: {
+              lang: 'fr',
+              agenda: {
+                uid: 1,
+                slug: 'metropole-europeenne-de-lille',
+                credentials: {
+                  premiumCustomFields: true,
+                  memberCustom: false,
+                },
+              },
+              filtersContainerRef: selectionMenuRef,
+            },
+          },
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminMemberWithNoMemberCredential() {
+  const selectionMenuRef = useRef();
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+        ref={selectionMenuRef}
+      />
+      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq  padding-bottom-sm">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                prefix: '/:agendaSlug/admin/schema',
+                apiRoot: '',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+            }),
+          }),
+          {
+            extraProps: {
+              lang: 'fr',
+              agenda: {
+                uid: 1,
+                slug: 'metropole-europeenne-de-lille',
+                credentials: {
+                  premiumCustomFields: true,
+                  memberCustom: false,
                 },
               },
               filtersContainerRef: selectionMenuRef,

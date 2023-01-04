@@ -18,6 +18,7 @@ import useRes from '../hooks/useRes';
 import useEventSchemas from '../hooks/useEventSchemas';
 import useMemberSchemas from '../hooks/useMemberSchemas';
 import EmbedSelection from '../components/EmbedSelection';
+import AfterRedirectModal from '../components/AfterRedirectModal';
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
@@ -38,6 +39,14 @@ const messages = defineMessages({
     id: 'AgendaSchema.eventDetail',
     defaultMessage: 'Standard event field',
   },
+  member: {
+    id: 'AgendaSchema.member',
+    defaultMessage: 'Standard',
+  },
+  memberDetail: {
+    id: 'AgendaSchema.memberDetail',
+    defaultMessage: 'Standard member field',
+  },
   needMoreFields: {
     id: 'AgendaSchema.needMoreFields',
     defaultMessage: 'Need more fields?',
@@ -54,13 +63,13 @@ const messages = defineMessages({
     id: 'AgendaSchema.canAddField',
     defaultMessage: 'You can add the field of your choice to the form',
   },
-  member: {
-    id: 'AgendaSchema.member',
-    defaultMessage: 'Standard Member',
+  warning: {
+    id: 'AgendaSchema.warning',
+    defaultMessage: 'Your calendar\'s contribution settings do not require your members to enter an identification card.',
   },
-  memberDetail: {
-    id: 'AgendaSchema.memberDetail',
-    defaultMessage: 'Standard member field',
+  goToContrib: {
+    id: 'AgendaSchema.goToContrib',
+    defaultMessage: 'Go to contribution settings',
   },
 });
 
@@ -69,23 +78,33 @@ function Dashboard() {
   const maxFields = agenda?.credentials?.premiumCustomFields ? 100 : 1;
   const memberCredential = agenda?.credentials?.memberCustom || false;
   const editableParents = agenda?.credentials?.premiumCustomFields || ['timings'];
+  const useFields = agenda?.settings?.contribution?.useFields || false;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const intl = useIntl();
   const res = useRes(agenda);
   const history = useHistory();
   const historyLocation = useLocation();
   const queryClient = useQueryClient();
-  const { pathname } = historyLocation;
+  const { pathname, search } = historyLocation;
 
   const { memberMode } = useMemo(() => {
     if (pathname.includes('/member') && memberCredential) {
       return { memberMode: true };
     }
-    if (pathname.includes('/member')) history.push(prefix);
+    if (pathname.includes('/member')) {
+      return { memberMode: false };
+    }
     return { memberMode: false };
-  }, [pathname, memberCredential, history, prefix]);
+  }, [pathname, memberCredential]);
+
+  useEffect(() => {
+    if (pathname.includes('/member') && !memberCredential) {
+      history.push({ pathname: prefix, search: 'redirected' });
+    }
+  }, [history, pathname, memberCredential, prefix]);
 
   const { schema, parents, isLoading } = useEventSchemas(agenda, memberMode);
+  console.log(parents || null, parents?.[0].info);
   const [currentFieldCount, setCurrentFieldCount] = useState(getSchemaFieldCount(schema));
   const { memberSchema, memberParents, isLoadingMember } = useMemberSchemas(agenda, memberMode);
 
@@ -105,12 +124,18 @@ function Dashboard() {
   const renderHeadComponent = () => (
     <div className="padding-all-sm">
       <label htmlFor="adaptForm-label">{intl.formatMessage(memberMode ? messages.adaptMemberForm : messages.adaptForm)}</label>
+      {!useFields && memberMode ? (
+        <div className="info-block-sm warning-outline text-warning">
+          <p>{intl.formatMessage(messages.warning)}</p>
+          <a href={`${prefix.replace('schema', 'settings/contribution')}`}>{intl.formatMessage(messages.goToContrib)}</a>
+        </div>
+      ) : null}
       {maxFields === 1 ? (
         <div>
           <p>{intl.formatMessage(messages.canAddField)}</p>
         </div>
       ) : null}
-      {maxFields === 1 && maxFields === currentFieldCount ? (
+      {maxFields === 1 && maxFields >= currentFieldCount ? (
         <div>
           <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
             {intl.formatMessage(messages.needMoreFields)}
@@ -142,7 +167,6 @@ function Dashboard() {
           extendedFrom={memberMode ? memberParents : parents}
           onUpdate={onUpdate}
           onSuccess={onSuccess}
-          // renderHead={renderHeadComponent}
           components={{
             enabledRanges: EnabledRanges,
           }}
@@ -171,16 +195,18 @@ function Dashboard() {
           </div>
         ) : null}
       </div>
-      {memberCredential && selectionMenuContainerRef ? (
+      {selectionMenuContainerRef ? (
         <EmbedSelection
           containerRef={selectionMenuContainerRef}
           activeMenu={memberMode ? 'member' : 'event'}
+          memberCredential={memberCredential}
           onChange={m => {
             if (memberMode && m === 'event') history.push(prefix);
             if (!memberMode && m === 'member') history.push(`${prefix}/member`);
           }}
         />
       ) : null}
+      {search && search.includes('redirected') ? (<AfterRedirectModal close={() => history.push({ search: null })} />) : null}
     </div>
   );
 }

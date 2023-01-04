@@ -1,4 +1,3 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';

@@ -8,14 +8,14 @@ dev.use(express.json());
 
 dev.use(cors());
 
-dev.get('/api/agendas/:agendaUid/settings/eventSchema', (req, res) => {
+dev.get('/api/agendas/:agendaUid/settings/eventSchema/configure', (req, res) => {
   const response = getFixtures(req.params.agendaUid).schema;
   res.json({
     ...response,
   });
 });
 
-dev.post('/api/agendas/:agendaUid/settings/eventSchema', (req, res) => {
+dev.post('/api/agendas/:agendaUid/settings/eventSchema/configure', (req, res) => {
   res.json({
     ...true,
   });

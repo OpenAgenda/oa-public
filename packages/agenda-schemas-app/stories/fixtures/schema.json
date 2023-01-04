@@ -3,6 +3,7 @@
   "parents": [
     {
       "schema": {
+        "id": -1,
         "fields": [
           {
             "field": "image",

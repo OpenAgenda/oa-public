@@ -1,8 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useConstant } from '@openagenda/react-shared';
 import { useIntl, defineMessages } from 'react-intl';
-// import UpdateButton from './UpdateButton';
 
 const messages = defineMessages({
   event: {
@@ -19,16 +18,23 @@ const messages = defineMessages({
   },
   memberInfo: {
     id: 'AgendaSchema.EmbedSelection.memberInfo',
-    defaultMessage: 'Members configuration',
+    defaultMessage: 'Members configuration. Add, remove, change order of member fields.',
+  },
+  memberInfoAsk: {
+    id: 'AgendaSchema.EmbedSelection.memberInfoAsk',
+    defaultMessage: 'Ask for activation',
+  },
+  notActivated: {
+    id: 'AgendaSchema.EmbedSelection.notActivated',
+    defaultMessage: 'This feature is not activated on your agenda',
   },
 });
-
-const menus = ['event', 'member'];
 
 export default ({
   activeMenu,
   onChange,
   containerRef,
+  memberCredential,
 }) => {
   const m = useIntl().formatMessage;
 
@@ -46,20 +52,40 @@ export default ({
     <div className="padding-h-sm padding-v-xs wsq">
       <div className="row">
         <div className="col-sm-12">
-          {menus.map(menu => (
-            <div className="radio" key={menu}>
-              <label htmlFor={menu}>
-                <input
-                  id={menu}
-                  type="radio"
-                  checked={menu === activeMenu}
-                  onChange={onChange.bind(null, menu)}
-                />
-                {m(messages[menu])}
-                <div className="text-muted">{m(messages[`${menu}Info`])}</div>
-              </label>
-            </div>
-          ))}
+          <div className="radio" key="event">
+            <label htmlFor="event">
+              <input
+                id="event"
+                type="radio"
+                checked={activeMenu === 'event'}
+                onChange={onChange.bind(null, 'event')}
+              />
+              {m(messages.event)}
+
+              <div className="text-muted">{m(messages.eventInfo)}</div>
+            </label>
+          </div>
+          <div className="radio" key="member">
+            <label htmlFor="member">
+              <input
+                id="member"
+                type="radio"
+                disabled={!memberCredential}
+                checked={activeMenu === 'member'}
+                onChange={onChange.bind(null, 'member')}
+              />
+              {m(messages.member)}
+              <div className="text-muted">{m(messages.memberInfo)}</div>
+              {!memberCredential
+                ? (
+                  <div className="text-muted">
+                    <p>{m(messages.notActivated)}</p>
+                    <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=memberSchema`}> {m(messages.memberInfoAsk)}</a>
+                  </div>
+                )
+                : null}
+            </label>
+          </div>
         </div>
       </div>
     </div>,
