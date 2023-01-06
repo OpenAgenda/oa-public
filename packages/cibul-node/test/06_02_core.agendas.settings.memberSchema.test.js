@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const axios = require('axios');
 const api = require('../api');
 const Services = require('../services/init');
@@ -40,7 +39,6 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
         'legacy',
         'users',
         'keys',
-        'tracker',
       ],
     });
 
@@ -58,7 +56,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
   describe('api', () => {
     let server;
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    const contribKey = '0toI8hA1if8auC1hFOmegP36aMbVg1N9';
+
     let adminAccessToken;
     let contribAccessToken;
 
