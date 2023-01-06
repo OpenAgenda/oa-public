@@ -307,7 +307,7 @@ module.exports.inflateAndClean = (query, options = {}) => {
 
   const inflated = Object.keys(query).reduce((carry, key) => _.set(
     carry,
-    key.split('.'),
+    key.split(/:|\./g),
     query[key],
   ), {});
 

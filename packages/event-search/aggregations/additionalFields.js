@@ -83,7 +83,7 @@ module.exports.formatDSL = (query, options = {}) => {
 
   if (options.field) {
     const flattenedSchema = getFlattenedSchema(options.formSchema);
-    const field = flattenedSchema.fields.find(f => f.field === options.field);
+    const field = flattenedSchema.fields.find(f => f.field === options.field.replace(/:/g, '.'));
 
     if (!field) {
       throw new BadRequest({
@@ -126,7 +126,7 @@ module.exports.formatResult = (result, options = {}) => {
     }, {});
 
   if (options.field) {
-    return (formattedResult[options.field] || {}).values || [];
+    return (formattedResult[options.field.replace(/:/g, '.')] || {}).values || [];
   }
 
   return formattedResult;
