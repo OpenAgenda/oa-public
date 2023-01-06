@@ -10,7 +10,6 @@
   "ReactFilters.DefinedRangeFilter.singleDate": "crwdns16564:0{date}crwdne16564:0",
   "ReactFilters.DefinedRangeFilter.startDate": "crwdns16566:0crwdne16566:0",
   "ReactFilters.DefinedRangeFilter.until": "crwdns16568:0{date}crwdne16568:0",
-  "ReactFilters.MapField.searchWithMap": "crwdns16570:0crwdne16570:0",
   "ReactFilters.Sort.chronological": "crwdns17304:0crwdne17304:0",
   "ReactFilters.Sort.recentlyUpdated": "crwdns17306:0crwdne17306:0",
   "ReactFilters.Sort.relevance": "crwdns17308:0crwdne17308:0",

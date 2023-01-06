@@ -1,12 +1,6 @@
 import { useUIDSeed } from 'react-uid';
-import { defineMessages, useIntl } from 'react-intl';
-
-const messages = defineMessages({
-  searchWithMap: {
-    id: 'ReactFilters.MapField.searchWithMap',
-    defaultMessage: 'Search with map',
-  },
-});
+import { useIntl } from 'react-intl';
+import mapMessages from '../../../messages/map';
 
 export default function SearchWithMap({
   name,
@@ -27,7 +21,7 @@ export default function SearchWithMap({
           checked={userControlled}
           onChange={toggleUserControlled}
         />{' '}
-        {searchMessage || intl.formatMessage(messages.searchWithMap)}
+        {searchMessage || intl.formatMessage(mapMessages.searchWithMap)}
       </label>
     </div>
   );
