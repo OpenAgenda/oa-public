@@ -8,7 +8,10 @@ const testConfig = require('./testConfig');
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', () => {
   let core;
-  const config = testConfig.extendWith({ cachePrefix: 'c09_core_agendas_events_batch_test' });
+  const config = testConfig.extendWith({
+    cachePrefix: 'c09_core_agendas_events_batch_test',
+    queuesPrefix: 'q09:',
+  });
   beforeAll(() => loadFixtures(config.db, '010.sql'));
 
   beforeAll(async () => {
@@ -36,7 +39,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await core.agendas(99501607).events.search.rebuild();
   });

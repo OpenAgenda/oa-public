@@ -11,8 +11,11 @@ const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().settings.schema.memberSchema', () => {
   let core;
-  const config = testConfig.extendWith({ cachePrefix: 'c06_02_core_agendas_settings_schema_memberSchema_test' });
 
+  const config = testConfig.extendWith({
+    cachePrefix: 'c06_02_core_agendas_settings_schema_memberSchema_test',
+    queuesPrefix: 'q06_02:',
+  });
   beforeAll(() => loadFixtures(config.db, '007.sql'));
 
   beforeAll(async () => {
@@ -41,7 +44,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
