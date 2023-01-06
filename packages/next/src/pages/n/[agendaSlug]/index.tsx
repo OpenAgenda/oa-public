@@ -59,28 +59,32 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
     include: filtersToInclude,
   });
 
-  const filtersBaseResult = await getEvents(
-    api,
-    '/api/agendas/:slug/events',
-    agenda,
-    filters,
-    { size: 0 },
-    null,
-    true,
-  );
-
-  const filtersResult = await getEvents(
-    api,
-    '/api/agendas/:slug/events',
-    agenda,
-    filters,
-    {
-      // sort: 'lastTimingWithFeatured.asc',
-      ...query,
-      detailed: true,
-    },
-    // 1, // page
-  );
+  const [
+    filtersBaseResult,
+    filtersResult,
+  ] = await Promise.all([
+    getEvents(
+      api,
+      '/api/agendas/:slug/events',
+      agenda,
+      filters,
+      { size: 0 },
+      null,
+      true,
+    ),
+    getEvents(
+      api,
+      '/api/agendas/:slug/events',
+      agenda,
+      filters,
+      {
+        // sort: 'lastTimingWithFeatured.asc',
+        ...query,
+        detailed: true,
+      },
+      // 1, // page
+    ),
+  ]);
 
   const props: PageProps = {
     agenda,

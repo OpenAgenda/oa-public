@@ -3,9 +3,8 @@
 /* eslint-disable */
 
 export default async function fetchLocale(locale) {
-  return Promise.all([
-  ])
-    .then(results => Object.assign({}, ...results))
+  return import(`./compiled/${locale}.json`)
+    .then(mod => mod.default)
     .catch(e => {
       console.error(`API: Failed to fetch locale ${locale}`, e);
       return null;

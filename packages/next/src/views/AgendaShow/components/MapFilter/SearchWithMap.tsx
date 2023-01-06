@@ -1,5 +1,6 @@
 import { useIntl } from 'react-intl';
 import { Checkbox } from '@openagenda/uikit';
+import mapMessages from '@openagenda/react-filters/messages/map';
 
 export interface SearchWithMapProps {
   name: string;
@@ -26,10 +27,7 @@ export default function SearchWithMap({
         onChange={toggleUserControlled}
         colorScheme="primary"
       >
-        {searchMessage || intl.formatMessage({
-          id: 'ReactFilters.MapField.searchWithMap',
-          defaultMessage: 'Search with map',
-        })}
+        {searchMessage || intl.formatMessage(mapMessages.searchWithMap)}
       </Checkbox>
     </label>
   );

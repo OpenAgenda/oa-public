@@ -4,6 +4,10 @@ const withTM = require('next-transpile-modules')([
   '@openagenda/uikit',
 ]);
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
   const {
@@ -12,7 +16,7 @@ const config = async () => {
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
 
-  return withTM({
+  return withBundleAnalyzer(withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
       locales: ['fr', 'en'],
@@ -56,7 +60,7 @@ const config = async () => {
         ],
       };
     },
-  });
+  }));
 };
 
 module.exports = config;
