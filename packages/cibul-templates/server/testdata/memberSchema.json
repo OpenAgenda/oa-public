@@ -1,0 +1,182 @@
+{
+  "merged": {
+    "fields": [
+      {
+        "field": "email",
+        "label": {
+          "fr": "Email",
+          "en": "Email",
+          "it": "Email",
+          "de": "E-Mail",
+          "br": "Postel",
+          "es": "e-mail",
+          "io": "crwdns11566:0crwdne11566:0"
+        },
+        "fieldType": "email",
+        "optional": true,
+        "default": null,
+        "schemaId": null,
+        "schemaType": null,
+        "display": true
+      },
+      {
+        "field": "name",
+        "label": {
+          "fr": "Prénom Nom",
+          "en": "Name Surname",
+          "it": "Nome e cognome",
+          "de": "Vorname Nachname",
+          "br": "Anv Anv-bihan",
+          "es": "Nombre Apellido",
+          "io": "crwdns11562:0crwdne11562:0"
+        },
+        "fieldType": "text",
+        "optional": true,
+        "default": null,
+        "schemaId": null,
+        "schemaType": null,
+        "display": true
+      },
+      {
+        "field": "num_orga",
+        "label": {
+          "fr": "Numero d'organisateur",
+          "en": "English Label"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": 14,
+        "fieldType": "text",
+        "schemaId": 202020,
+        "schemaType": null
+      },
+      {
+        "field": "titre",
+        "label": "Titre(s)",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": {
+          "field": "participant",
+          "value": 289
+        },
+        "optionalWith": null,
+        "related": {
+          "enable": [
+            "participant"
+          ],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 7,
+            "value": "epv",
+            "label": "Label Entreprise du Patrimoine Vivant (EPV)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 8,
+            "value": "mof",
+            "label": "Meilleur Ouvrier de France (MOF)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 9,
+            "value": "inp",
+            "label": "Restaurateur du Patrimoine diplôme (INP)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 318,
+            "value": "qualité-maitre",
+            "label": "Qualité Maître artisan en métiers d’art",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 316,
+            "value": "maitre-art",
+            "label": "Maître d’Art (faisant partie du dispositif Maître d’Art – Elève de l’INMA)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 10,
+            "value": "autres-titre",
+            "label": "Autre",
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 202020,
+        "schemaType": null
+      },
+      {
+        "field": "phone",
+        "label": {
+          "fr": "Téléphone"
+        },
+        "sub": {
+          "fr": "Caractères autorisés: chiffres, espace, -, + ou ()"
+        },
+        "fieldType": "phone",
+        "optional": true,
+        "default": null,
+        "schemaId": null,
+        "schemaType": null,
+        "display": true
+      },
+      {
+        "field": "position",
+        "label": "Fonction",
+        "fieldType": "text",
+        "optional": true,
+        "default": null,
+        "schemaId": null,
+        "schemaType": null,
+        "display": true
+      },
+      {
+        "field": "organization",
+        "label": "Intitulé de la structure",
+        "fieldType": "text",
+        "optional": true,
+        "default": null,
+        "schemaId": null,
+        "schemaType": null
+      }
+    ]
+  }
+}

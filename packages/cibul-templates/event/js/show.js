@@ -119,12 +119,24 @@ window.asap(async options => {
       return;
     }
 
+    try {
+      ({
+        merged: params.schema
+      } = await get.promise(window.env === 'tpl'
+        ? '/server/testdata/memberSchema.json'
+        : `/api/agendas/${params.agendaUid}/settings/memberSchema`));
+    } catch (e) {
+      console.error('Failed to get member schema', e);
+      return;
+    }
+    // console.log(params.schema);
     displayContributorSection({
       me: params.me,
       member: params.member,
       lang: params.lang,
       agendaUid: params.agendaUid,
-      GDPRInformation: params.GDPRInformation
+      GDPRInformation: params.GDPRInformation,
+      schema: params.schema
     });
 
     if (['administrator', 'moderator'].includes(params.me?.member?.role)) {
