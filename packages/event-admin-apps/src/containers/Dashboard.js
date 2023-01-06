@@ -1,12 +1,6 @@
 import _ from 'lodash';
 import qs from 'qs';
-import React, {
-  useCallback,
-  useMemo,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from 'react';
+import { useCallback, useMemo, useState, useRef, useLayoutEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
@@ -42,6 +36,7 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import flattenAgendaSchema from '../utils/flattenAgendaSchema';
 import ExportsDropdown from '../components/ExportsDropdown';
 
 const PAGE_SIZE = 20;
@@ -231,16 +226,24 @@ function Dashboard() {
     [location.search],
   );
 
+  const flattenedAgendaSchema = useMemo(
+    () => flattenAgendaSchema(agendaSchema),
+    [agendaSchema],
+  );
+
   const urlQuery = useMemo(() => {
     const { query: q } = removeQueryPrefix(parsedLocationSearch);
 
     return _.pick(
       q,
       Object.keys(
-        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
+        validateQuery(q, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        }),
       ),
     );
-  }, [agendaSchema, parsedLocationSearch]);
+  }, [flattenedAgendaSchema, parsedLocationSearch]);
 
   const [query, setQuery] = useState(() => urlQuery);
 
@@ -489,12 +492,15 @@ function Dashboard() {
   const validate = useCallback(
     values => {
       try {
-        validateQuery(values, { formSchema: agendaSchema, emptyValue: 'null' });
+        validateQuery(values, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        });
       } catch (e) {
         console.log('Filters validation error:', e);
       }
     },
-    [agendaSchema],
+    [flattenedAgendaSchema],
   );
   const latestQuery = useLatest(query);
 
@@ -509,7 +515,10 @@ function Dashboard() {
     const cleanQuery = _.pick(
       q,
       Object.keys(
-        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
+        validateQuery(q, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        }),
       ),
     );
 
@@ -523,7 +532,13 @@ function Dashboard() {
       form.initialize(cleanQuery);
       form.submit();
     }
-  }, [agenda, agendaSchema, filters, latestQuery, parsedLocationSearch]);
+  }, [
+    agenda,
+    flattenedAgendaSchema,
+    filters,
+    latestQuery,
+    parsedLocationSearch,
+  ]);
 
   if (isLoading || filtersQuery.isLoading) {
     return (
