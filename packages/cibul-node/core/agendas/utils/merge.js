@@ -84,8 +84,8 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
 function appendLocationSchema(schema) {
   const locationField = schema.fields.find(f => f.field === 'location');
-  if (locationField?.tagSet) {
-    locationField.schema = tagSetToFormSchema(locationField.tagSet, { schemaId: 'location' });
+  if (locationField?.legacy?.tagSet) {
+    locationField.schema = tagSetToFormSchema(locationField.legacy?.tagSet, { schemaId: 'location' });
   }
 
   return schema;
