@@ -5047,6 +5047,7 @@ __metadata:
     express: ^4.17.1
     final-form: ^4.20.2
     fuse.js: ^6.4.6
+    jest: ^28.1.2
     leaflet: ^1.7.1
     lint-staged: ^10.2.11
     lodash: ^4.17.20
