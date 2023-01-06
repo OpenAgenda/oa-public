@@ -169,7 +169,7 @@ module.exports = core => {
 
   app.get('/agendas/:agendaUid/settings/eventSchema', [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema[req.query.split === '1' ? 'getAndParents' : 'getMerged']({ lang: req.lang || req.query.lang || 'fr' })
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMerged({ lang: req.lang || req.query.lang || 'fr' })
       .then(data => res.json({ ...data }), next),
   ]);
 
