@@ -807,12 +807,6 @@
     "memberSchema": {
         "fields": [
             {
-              "field": "some_text",
-              "label": "Some text",
-              "fieldType": "text",
-              "optional": false
-            },
-            {
               "field": "phone",
               "label": "Phone",
               "sub": "phoneSub",

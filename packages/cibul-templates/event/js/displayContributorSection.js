@@ -9,6 +9,10 @@ import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import packageLocales from '../../locales-compiled';
 
+import {
+  formatAdditionalFieldData
+} from './additionalFields.utils';
+
 const locales = mergeLocales(packageLocales, memberAppsLocals);
 
 const messages = defineMessages({
@@ -54,18 +58,21 @@ const messages = defineMessages({
   }
 });
 
-const getMemberInfo = (member, m) => ['name', 'position', 'organization', 'email', 'phone']
-.filter(k => !!member[k])
-.map(key => ({
-  key,
-  label: m(messages[key]),
-  value: member[key]
-}));
+const getMemberInfo = (member, schema, lang) => {
+  const additionalFields = formatAdditionalFieldData(schema, member, lang);
+  return additionalFields
+  .filter(f => !!member[f.key])
+  .map(e => ({
+    key: e.key,
+    label: e.label,
+    value: e.value,
+  }))
+};
 
-function ContributorSection({ me, member, agendaUid, lang, GDPRInformation }) {
+function ContributorSection({ me, member, agendaUid, lang, GDPRInformation, schema }) {
   const m = useIntl().formatMessage;
   const [displayEditModal, setDisplayEditModal] = useState(false);
-  const [memberInfo, setMemberInfo] = useState(getMemberInfo(member, m));
+  const [memberInfo, setMemberInfo] = useState(getMemberInfo(member, schema, lang));
 
   const canEdit = ['administrator', 'contributor'].includes(me.member.role) || (me.member.userUid === member.userUid);
   const memberIsAdminMod = ['administrator', 'moderator'].includes(member.role);
@@ -83,22 +90,23 @@ function ContributorSection({ me, member, agendaUid, lang, GDPRInformation }) {
   return (
     <>
       {displayEditModal ? <QueryClientProvider client={queryClient}>
-          <MemberForm
-            lang={lang}
-            operation="update"
-            mode="modal"
-            optionalFields={memberIsAdminMod}
-            GDPR={{
-              display: !memberIsAdminMod,
-              moreInfo: GDPRInformation
-            }}
-            showSuccessMessage
-            res={`/api/agendas/${agendaUid}/members/${member.userUid}`}
-            onSuccess={update => setMemberInfo(getMemberInfo(update, m))}
-            onCloseModalRequest={() => setDisplayEditModal(false)}
-          />
-        </QueryClientProvider>
-      : null}
+        <MemberForm
+          lang={lang}
+          operation="update"
+          mode="modal"
+          optionalFields={memberIsAdminMod}
+          schema={schema}
+          GDPR={{
+            display: !memberIsAdminMod,
+            moreInfo: GDPRInformation
+          }}
+          showSuccessMessage
+          res={`/api/agendas/${agendaUid}/members/${member.userUid}`}
+          onSuccess={update => setMemberInfo(getMemberInfo(update, m))}
+          onCloseModalRequest={() => setDisplayEditModal(false)}
+        />
+      </QueryClientProvider>
+        : null}
       <div className="event-secondary">
         <h3 className="privateable">
           <span>{m(messages.title)}</span>
@@ -111,9 +119,9 @@ function ContributorSection({ me, member, agendaUid, lang, GDPRInformation }) {
           <dl className="event-content-section event-item-info">
             {canEdit ? <dd className="pull-right">
               <button
-                  className="btn btn-default"
-                  onClick={() => setDisplayEditModal(true)}
-                >{m(messages.updateContributorInfo)}</button>
+                className="btn btn-default"
+                onClick={() => setDisplayEditModal(true)}
+              >{m(messages.updateContributorInfo)}</button>
             </dd> : null}
             {memberInfo.length ? memberInfo.map(({ label, value, key }) => (
               <div className="margin-top-sm" key={`member-info-${key}`}>

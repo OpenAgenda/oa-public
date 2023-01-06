@@ -25,6 +25,8 @@
     "email": "bim@bimb.ap",
     "position": null,
     "organization": null,
+    "num_orga": 30,
+    "titre": [7],
     "role": "contributor"
   }
 }

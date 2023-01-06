@@ -1,0 +1,22 @@
+{
+  "AgendaSchema.AfterRedirectModal.body": "La configuration du formulaire membre n'est pas activé sur votre agenda",
+  "AgendaSchema.AfterRedirectModal.title": "Information",
+  "AgendaSchema.EmbedSelection.eventInfo": "Ajoutez des thématiques, catégories, champs textes ou autres au formulaire événement de votre agenda.",
+  "AgendaSchema.EmbedSelection.events": "Configurer le formulaire événement",
+  "AgendaSchema.EmbedSelection.memberInfo": "Ajoutez ou retirez des champs au formulaire d'identification des contributeurs de votre agenda.",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Demander une activation",
+  "AgendaSchema.EmbedSelection.members": "Configurer la fiche membre",
+  "AgendaSchema.EmbedSelection.notActivated": "Cette fonctionnalité n'est pas activée sur votre agenda",
+  "AgendaSchema.adaptForm": "Configurer le formulaire événement",
+  "AgendaSchema.adaptMemberForm": "Configurer la fiche membre",
+  "AgendaSchema.canAddField": "Vous pouvez ajouter le champ de votre choix au formulaire événement",
+  "AgendaSchema.event": "Standard",
+  "AgendaSchema.eventDetail": "Champ événement standard",
+  "AgendaSchema.goToContrib": "Aller aux paramètres de contribution",
+  "AgendaSchema.member": "Standard",
+  "AgendaSchema.memberDetail": "Champ membre standard",
+  "AgendaSchema.needMoreFields": "Besoin de plus de champs ?",
+  "AgendaSchema.network": "Réseau",
+  "AgendaSchema.networkDetail": "Champ requis par le réseau d'agendas",
+  "AgendaSchema.warning": "Les paramètres de contribution de votre agenda ne requièrent pas à vos membres de saisir une fiche d'identification."
+}

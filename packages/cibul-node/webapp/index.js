@@ -463,6 +463,17 @@ const initialState = async req => {
         suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },
+    agendaSchemaAdmin: {
+      settings: {
+        prefix: '/:agendaSlug/admin/schema',
+        apiRoot: `http://localhost:${config.port}`,
+      },
+      res: {
+        eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
+        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+      },
+    },
     // Admin
     adminSupport: {
       settings: {
@@ -524,6 +535,7 @@ module.exports = app => {
       '/home/inbox(/*?)?',
       '/support(/*?)?',
       '/:slug/admin/events(/*?)?',
+      '/:slug/admin/schema(/*?)?',
       '/:slug/admin/inbox(/*?)?',
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',

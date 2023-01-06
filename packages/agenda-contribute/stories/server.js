@@ -61,7 +61,7 @@ function setMember(req, res) {
   const fx = getFixtures(req.params.agendaUid);
 
   fx.agendaContext = {
-    me: { member, authorizations: { canCreateEvent: true } }
+    me: { member, authorizations: { canCreateEvent: true }, isValid: true },
   };
 
   member.updatedAt = new Date();
@@ -78,7 +78,7 @@ dev.post('/:agendaSlug/contribute', [
       ...JSON.parse(req.body.data),
       uid: Math.floor(Math.random() * 10000000),
       state: 0,
-      draft: req.query.draft === 'true'
+      draft: req.query.draft === 'true',
     };
 
     res.json({ event: createdEvent });

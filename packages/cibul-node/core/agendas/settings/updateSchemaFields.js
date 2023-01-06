@@ -6,16 +6,16 @@ const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 const log = require('@openagenda/logs')('core/agendas/settings/updateFields');
 
 const getAgenda = require('../utils/getAgenda');
-const updateLegacy = require('./legacy/update');
 const getSchema = require('./getSchema');
 
 module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFields) {
   const {
-    services
+    services,
+    tasks,
   } = core;
   const {
     formSchemas,
-    agendas
+    agendas,
   } = services;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
@@ -32,9 +32,9 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
     const { id } = await formSchemas.create(fs.getData());
 
     await agendas.set({
-      uid: agenda.uid
+      uid: agenda.uid,
     }, { formSchemaId: id }, {
-      protected: false
+      protected: false,
     });
 
     agenda.formSchemaId = id;
@@ -44,7 +44,7 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
     await formSchemas.update(agendaSchema.id, fs.getData());
   }
 
-  await updateLegacy(core, agenda, true);
+  tasks.enqueue('updateLegacy', agenda, true);
 
   return true;
 };

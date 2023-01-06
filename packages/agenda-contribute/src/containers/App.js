@@ -71,6 +71,8 @@ function App(props) {
     && isMemberDataRequired(agenda)
     && !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
     && (!agendaContext?.me?.member || !agendaContext?.me?.isValid);
+  
+  console.log(shouldGoToFirstStep);
 
   useEffect(() => {
     if (shouldGoToShareMember && !isAtShareMember) {

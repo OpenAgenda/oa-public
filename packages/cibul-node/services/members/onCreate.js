@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
 const log = require('@openagenda/logs')('services/members/onCreate');
 const {
-  isSuperiorToOrEqual
+  isSuperiorToOrEqual,
 } = require('@openagenda/members').utils.compareRoles;
 
 const { send, sendInvitation } = require('./lib/mail');
@@ -13,15 +13,15 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
   log('created', member);
 
   const {
-    agendas
+    agendas,
   } = services;
 
   try {
     const agenda = await agendas.get({
-      uid: member.agendaUid
+      uid: member.agendaUid,
     }, {
       private: null,
-      includeImagePath: true
+      includeImagePath: true,
     });
 
     if (!agenda) {
@@ -30,7 +30,7 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
 
     const user = member.userUid ? await services.users.findOne({
       query: { uid: member.userUid },
-      removed: null
+      removed: null,
     }) : null;
 
     if (!user && member.userUid) {
@@ -39,10 +39,8 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
 
     if (member.userUid) {
       return _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context });
-    } else {
-      return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
     }
-
+    return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
   } catch (e) {
     log('error', 'failed', { member, exception: e });
   }
@@ -54,10 +52,10 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
   const {
     inboxes,
     activities,
-    legacy
+    legacy,
   } = services;
 
-  const Inbox = (inboxes || {}).Inbox;
+  const { Inbox } = inboxes || {};
   const controlDataSvc = (legacy || {}).controlData;
 
   if (user.isNew) {
@@ -68,7 +66,7 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
     controlDataSvc.memberSet({
       agendaUid: agenda.uid,
       userUid: user.uid,
-      role: member.role
+      role: member.role,
     }).catch(e => log('error', 'could not set member in control data', member, e));
   } else {
     log('warn', 'legacy service was not initialized');
@@ -79,9 +77,9 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
       try {
         await new Inbox({
           type: 'agenda',
-          identifier: agenda.uid
+          identifier: agenda.uid,
         }).users.add({
-          userUid: user.uid
+          userUid: user.uid,
         });
       } catch (e) {
         log('error', 'could not add member to agenda inbox', e);
@@ -114,7 +112,7 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
 
   const senderUser = await services.users.findOne({
     query: { uid: senderUserUid },
-    removed: null
+    removed: null,
   });
 
   if (!senderUser) throw new VError('Sender user %j not found', { uid: senderUserUid });
@@ -123,12 +121,12 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
     member,
     agenda,
     context,
-    message: context.message
+    message: context.message,
   });
 
   try {
     await activityQueue('addMemberCreate', {
-      user, member, agenda, context, senderUser
+      user, member, agenda, context, senderUser,
     });
   } catch (e) {
     log('error', 'could not add addMember activity to agenda feed', agenda, member, e);
@@ -137,7 +135,7 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
 
 async function _memberIsInvitedNonUser({ services, config }, { member, agenda, context }) {
   const {
-    invitations
+    invitations,
   } = services;
 
   if (!invitations) {
@@ -148,10 +146,10 @@ async function _memberIsInvitedNonUser({ services, config }, { member, agenda, c
   log('member is not existing user, is invited');
 
   const { invitation } = await invitations.assign({
-    email: member.custom.email
+    email: member.custom.email,
   }, 'linkMember', [member, context]);
 
   return sendInvitation({ services, config }, {
-    invitation, member, context, agenda
+    invitation, member, context, agenda,
   });
 }

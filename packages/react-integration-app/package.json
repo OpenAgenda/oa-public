@@ -25,6 +25,7 @@
     "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/agenda-contribute": "^1.5.2",
     "@openagenda/agenda-locations-app": "^0.0.0",
+    "@openagenda/agenda-schemas-app": "^0.0.0",
     "@openagenda/agenda-settings": "^1.4.0",
     "@openagenda/agenda-stats": "^1.10.2",
     "@openagenda/aggregator-sources": "^1.3.1",
