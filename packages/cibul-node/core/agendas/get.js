@@ -82,7 +82,7 @@ async function get(core, agendaUid, options = {}) {
       services,
       options,
       agendaUid,
-      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access)
+      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access),
     );
   }
 
@@ -116,7 +116,7 @@ async function get(core, agendaUid, options = {}) {
       services,
       options,
       agendaUid,
-      { ...agenda, ...related }
+      { ...agenda, ...related },
     );
   }
 
@@ -127,7 +127,7 @@ async function get(core, agendaUid, options = {}) {
     {
       ...agendas.utils.filterByAccess(agenda, 'read', access),
       ...related,
-    }
+    },
   );
 }
 
