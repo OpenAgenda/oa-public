@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 const { diff } = require('deep-diff');
 
@@ -53,10 +52,10 @@ module.exports = async (services, before, after, context) => {
       store: {
         labels: {
           actor: context.user.name,
-          target: after.title
+          target: after.title,
         },
-        diff: changes
-      }
+        diff: changes,
+      },
     });
   }
 
@@ -68,10 +67,10 @@ module.exports = async (services, before, after, context) => {
       store: {
         labels: {
           actor: context.user.name,
-          target: after.title
+          target: after.title,
         },
-        officialized: !!after.official
-      }
+        officialized: !!after.official,
+      },
     });
   }
 };
