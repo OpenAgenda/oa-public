@@ -11,7 +11,7 @@ function csv(csvOptions = {}) {
   const getHeaders = (options = {}) => transform.getFlattener(options).getHeaders(options);
 
   return Object.assign(streamCsv, {
-    getHeaders
+    getHeaders,
   });
 }
 
@@ -20,5 +20,5 @@ module.exports = (csvOptions = {}) => csv({
   delimiter: ',',
   quote: '"',
   escape: '"',
-  ...csvOptions
+  ...csvOptions,
 });

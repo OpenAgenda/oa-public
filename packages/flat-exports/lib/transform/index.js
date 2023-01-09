@@ -22,7 +22,7 @@ function getFlattener(o = {}) {
 
     return Object.assign(
       Flattener(defaultFieldMap),
-      { getHeaders }
+      { getHeaders },
     );
   }
 
@@ -43,13 +43,13 @@ function getFlattener(o = {}) {
 
   return Object.assign(
     Flattener(decoratedFieldMap, options),
-    { getHeaders }
+    { getHeaders },
   );
 }
 
 module.exports = Object.assign(
   (options = {}) => makeTransform(getFlattener(options)),
   {
-    getFlattener
-  }
+    getFlattener,
+  },
 );

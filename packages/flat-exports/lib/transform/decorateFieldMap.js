@@ -12,7 +12,7 @@ const handledTypes = ['text', 'integer', 'number', 'email', 'phone', 'link'];
 module.exports = (fieldMap, options = {}) => {
   const {
     formSchema = null,
-    includeFields
+    includeFields,
   } = options;
 
   if (!formSchema?.fields?.length) {
@@ -45,7 +45,7 @@ module.exports = (fieldMap, options = {}) => {
 
     return match;
   }).concat(
-    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source))
+    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source)),
   );
 
   return decoratedFieldMap;

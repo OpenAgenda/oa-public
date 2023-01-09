@@ -15,7 +15,7 @@ const permalink = require('./permalink');
 const defaultMap = c => ({
   source: c.source,
   target: c.target || c.source,
-  ...(c.transform ? { transform: c.transform } : {})
+  ...c.transform ? { transform: c.transform } : {},
 });
 
 module.exports = function getDefaultFieldMap(options = {}) {
@@ -23,196 +23,196 @@ module.exports = function getDefaultFieldMap(options = {}) {
 
   const {
     labels = {},
-    lang
+    lang,
   } = options;
 
   const subOptions = {
     languages: [],
-    ...options
+    ...options,
   };
 
   const getTarget = getTargetField.bind(null, labels, lang);
 
   let fields = [{
     source: 'uid',
-    target: getTarget('uid')
+    target: getTarget('uid'),
   }, {
     source: 'title',
     target: getTarget('title'),
-    type: 'multilingual'
+    type: 'multilingual',
   }, {
     source: 'description',
     target: getTarget('description'),
-    type: 'multilingual'
+    type: 'multilingual',
   }, {
     source: 'longDescription',
     target: getTarget('longDescription'),
-    type: 'multilingual'
+    type: 'multilingual',
   }, {
     source: 'uid',
     target: getTarget('permalink'),
     type: 'permalink',
-    field: 'permalink'
+    field: 'permalink',
   }, {
     source: 'keywords',
     target: getTarget('keywords'),
     type: 'multilingual',
-    postParse: data => (data ? data.join(options.separator) : '')
+    postParse: data => (data ? data.join(options.separator) : ''),
   }, {
     source: 'dateRange',
     target: getTarget('range'),
     type: 'multilingual',
-    possibleLanguages: labelLanguages
+    possibleLanguages: labelLanguages,
   }, {
     source: 'timings',
     field: 'timings',
     type: 'timings',
     target: getTarget('timings'),
-    isoTarget: getTarget('isoTimings')
+    isoTarget: getTarget('isoTimings'),
   }, {
     source: 'timings',
     target: getTarget('firstDate'),
     type: 'firstLastDate',
-    field: 'firstDate'
+    field: 'firstDate',
   },
   {
     source: 'timings',
     target: getTarget('lastDate'),
     type: 'firstLastDate',
-    field: 'lastDate'
+    field: 'lastDate',
   },
   {
     source: 'conditions',
     target: getTarget('conditions'),
-    type: 'multilingual'
+    type: 'multilingual',
   }, {
     type: 'accessibility',
-    target: getTarget('accessibility')
+    target: getTarget('accessibility'),
   }, {
     source: 'location.uid',
-    target: getTarget('location.uid')
+    target: getTarget('location.uid'),
   }, {
     source: 'location.name',
-    target: getTarget('location.name')
+    target: getTarget('location.name'),
   }, {
     source: 'location.address',
-    target: getTarget('location.address')
+    target: getTarget('location.address'),
   }, {
     source: 'location.postalCode',
-    target: getTarget('location.postalCode')
+    target: getTarget('location.postalCode'),
   }, {
     source: 'location.city',
-    target: getTarget('location.city')
+    target: getTarget('location.city'),
   }, {
     source: 'location.department',
-    target: getTarget('location.department')
+    target: getTarget('location.department'),
   }, {
     source: 'location.region',
-    target: getTarget('location.region')
+    target: getTarget('location.region'),
   }, {
     source: 'location.latitude',
-    target: getTarget('location.latitude')
+    target: getTarget('location.latitude'),
   }, {
     source: 'location.longitude',
-    target: getTarget('location.longitude')
+    target: getTarget('location.longitude'),
   }, {
     source: 'country',
     type: 'multilingual',
     target: getTarget('location.countryCode'),
-    possibleLanguages: labelLanguages
+    possibleLanguages: labelLanguages,
   }, {
     source: 'location.image',
-    target: getTarget('location.image')
+    target: getTarget('location.image'),
   }, {
     source: 'location.imageCredits',
-    target: getTarget('location.imageCredits')
+    target: getTarget('location.imageCredits'),
   }, {
     source: 'location.description',
     target: getTarget('location.description'),
-    type: 'multilingual'
+    type: 'multilingual',
   }, {
     source: 'location.access',
     target: getTarget('location.access'),
-    type: 'multilingual'
+    type: 'multilingual',
   },
   {
     source: 'location.phone',
-    target: getTarget('location.phone')
+    target: getTarget('location.phone'),
   },
   {
     source: 'location.website',
-    target: getTarget('location.website')
+    target: getTarget('location.website'),
   },
   {
     source: 'member.uid',
-    target: getTarget('member.uid')
+    target: getTarget('member.uid'),
   }, {
     source: 'member.name',
-    target: getTarget('member.name')
+    target: getTarget('member.name'),
   }, {
     source: 'member.role',
     target: getTarget('member.role'),
     transform: {
       1: _.get(labels, `contributor.${lang}`, 'contributor'),
       2: _.get(labels, `administrator.${lang}`, 'administrator'),
-      3: _.get(labels, `moderator.${lang}`, 'moderator')
-    }
+      3: _.get(labels, `moderator.${lang}`, 'moderator'),
+    },
   }, {
     source: 'member.organization',
-    target: getTarget('member.organization')
+    target: getTarget('member.organization'),
   }, {
     source: 'member.position',
-    target: getTarget('member.position')
+    target: getTarget('member.position'),
   }, {
     source: 'member.email',
-    target: getTarget('member.email')
+    target: getTarget('member.email'),
   }, {
     source: 'member.phone',
-    target: getTarget('member.phone')
+    target: getTarget('member.phone'),
   }, {
     source: 'createdAt',
     target: getTarget('createdAt'),
-    type: 'time'
+    type: 'time',
   }, {
     source: 'updatedAt',
     target: getTarget('updatedAt'),
-    type: 'time'
+    type: 'time',
   }, {
     source: 'image',
     target: getTarget('image'),
-    type: 'image'
+    type: 'image',
   }, {
     source: 'thumbnail',
-    target: getTarget('thumbnail')
+    target: getTarget('thumbnail'),
   }, {
     source: 'onlineAccessLink',
-    target: getTarget('onlineAccessLink')
+    target: getTarget('onlineAccessLink'),
   }, {
     source: 'registration',
     target: getTarget('registration'),
-    type: 'registration'
+    type: 'registration',
   }, {
     source: 'featured',
     target: _.capitalize(getTarget('featured')),
     transform: {
       true: _.capitalize(getTarget('featured')),
-      false: null
-    }
+      false: null,
+    },
   }, {
     source: 'age.min',
-    target: getTarget('age.min')
+    target: getTarget('age.min'),
   }, {
     source: 'age.max',
-    target: getTarget('age.max')
+    target: getTarget('age.max'),
   }, {
     source: 'originAgenda.title',
-    target: getTarget('origin.title')
+    target: getTarget('origin.title'),
   }, {
     source: 'originAgenda.uid',
-    target: getTarget('origin.uid')
+    target: getTarget('origin.uid'),
   }, {
     source: 'link',
-    target: getTarget('link')
+    target: getTarget('link'),
   }, {
     source: 'state',
     target: _.capitalize(getTarget('state')),
@@ -221,7 +221,7 @@ module.exports = function getDefaultFieldMap(options = {}) {
       0: _.capitalize(_.get(labels, `tocontrol.${lang}`, 'in moderation')),
       1: _.capitalize(_.get(labels, `controlled.${lang}`, 'ready to publish')),
       2: _.capitalize(_.get(labels, `published.${lang}`, 'published')),
-    }
+    },
   }];
 
   if (options.includeFields) {
@@ -242,6 +242,6 @@ module.exports = function getDefaultFieldMap(options = {}) {
     firstLastDate: firstLastDate.bind(null, subOptions),
     image: image.bind(null),
     registration: registration.bind(null, { source: c.source, target: c.target }),
-    permalink: permalink.bind(null, subOptions, { source: c.source, target: c.target })
+    permalink: permalink.bind(null, subOptions, { source: c.source, target: c.target }),
   }, c.type, defaultMap)(c));
 };
