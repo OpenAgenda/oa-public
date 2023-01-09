@@ -37,6 +37,17 @@ describe('list validator', () => {
       expect(errors.length).toBe(3);
     });
 
+    it('an object is an invalid value', () => {
+      let errors;
+
+      try {
+        validate([{ a: 'b' }]);
+      } catch (e) {
+        errors = e;
+      }
+      expect(errors.length).toBe(3);
+    });
+
     it('gives index of each error returned', () => {
       let errors = [];
 

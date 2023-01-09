@@ -119,6 +119,16 @@ describe('link validator', () => {
       }
       expect(errors[0].code).toBe('link.invalid');
     });
+
+    it('fix: an object is not a link', () => {
+      let errors;
+      try {
+        validate({ a: 'b' });
+      } catch (e) {
+        errors = e;
+      }
+      expect(errors[0].code).toBe('link.invalid');
+    });
   });
 
   describe('as a list of links', () => {

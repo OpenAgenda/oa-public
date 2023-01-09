@@ -44,7 +44,7 @@ export default config => {
       clean = value.trim();
     }
 
-    if ((!value || !value.length) && params.optional) {
+    if ((!value || !value.length) && !(value instanceof Object) && params.optional) {
       return params.default !== undefined ? params.default : clean;
     }
 
