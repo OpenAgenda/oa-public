@@ -2,7 +2,7 @@ export default (params, value, code, message, ...args) => {
   const error = {
     origin: value,
     code,
-    message
+    message,
   };
 
   if (params.field) {
