@@ -284,6 +284,25 @@ describe('events - functional - create', () => {
       }
     );
 
+    it('timings must have a duration', async () => {
+      let error;
+      try {
+        await svc.create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timings: [{
+            begin: '2022-01-09T11:00:00.000+0200',
+            end: '2022-01-09T11:00:00.000+0200'
+          }],
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      assert(error instanceof ValidationError);
+    });
   });
 
   describe('other', () => {

@@ -15,7 +15,13 @@ const ValidationError = require('./ValidationError');
 
 const replaceAccents = require('@openagenda/utils/replaceAccents');
 
-const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
+const {
+  is: isDHM,
+} = require('../iso/src/validators/dateHoursMinutesTiming');
+
+const {
+  from: fromDHM
+} = require('../iso/src/convertDateHoursMinutesTiming');
 
 const removeRegistrationTypes = (registration = []) => registration
   .map(rItem => rItem?.type ? rItem.value : rItem);
@@ -80,6 +86,22 @@ module.exports = async (current, data, options = {}) => {
     compiled.timings.forEach(t => {
       t.timezone = compiled.timezone;
     });
+  }
+
+  if ((compiled?.timings ?? []).length) {
+    compiled?.timings.forEach(t => {
+      const timing = isDHM(t) ? {
+        begin: fromDHM(t.begin, compiled.timezone),
+        end: fromDHM(t.end, compiled.timezone)
+      } : t;
+      if (timing.begin >= timing.end) {
+        throw new ValidationError({
+          field: 'timings',
+          code: 'timings.invalid',
+          message: 'timing end must be superior to begin'
+        });
+      }
+    })
   }
 
   if (data?.location instanceof Object && !data?.locationUid) {
