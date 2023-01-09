@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { produce } = require('immer');
 
 const eventFormLabels = require('@openagenda/labels/event/form');
 
@@ -19,15 +20,16 @@ function _hasReferencesField(schemaExtensions) {
 }
 
 function _fillInTheBlanks(labels, defaultLang = 'en') {
-  Object.keys(labels).forEach(field => {
-    Object.keys(labels[field]).forEach(lang => {
-      if (!labels[field][lang].length) {
-        labels[field][lang] = labels[field][defaultLang];
-      }
+  return produce(labels, draft => {
+    Object.keys(draft).forEach(field => {
+      Object.keys(draft[field]).forEach(lang => {
+        if (!draft[field][lang].length) {
+          draft[field][lang] = draft[field][defaultLang];
+        }
+      });
     });
+    return draft;
   });
-
-  return labels;
 }
 
 const labels = _fillInTheBlanks(eventFormLabels);
