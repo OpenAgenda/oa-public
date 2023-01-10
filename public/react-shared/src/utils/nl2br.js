@@ -1,18 +1,13 @@
-import React from 'react';
+const newlineRegex = /(\r\n|\r|\n)/g;
 
 export default function nl2br(str) {
-  const newlineRegex = /(\r\n|\r|\n)/g;
-
-  if (typeof str === 'number') {
+  if (typeof str !== 'string') {
     return str;
   }
 
-  if (typeof str !== 'string') {
-    return '';
-  }
-
-  // TODO use react-uid
-  return str.split(newlineRegex).map((line, index) => (line.match(newlineRegex)
-    ? React.createElement('br', { key: index }) // eslint-disable-line react/no-array-index-key
-    : line));
+  return str.split(newlineRegex).map((line, key) => (
+    key % 2 === 1
+      ? <br key={key} /> // eslint-disable-line react/no-array-index-key
+      : line
+  ));
 }
