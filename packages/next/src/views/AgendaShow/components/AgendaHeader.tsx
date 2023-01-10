@@ -65,10 +65,13 @@ export default function AgendaHeader({ agenda }) {
         height="140"
         src={agenda.image}
         fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : null}
+        fallbackStrategy="onError"
         alt=""
         draggable={false}
         loader={simpleLoader}
         border="3px solid white"
+        h="140px"
+        fit="cover"
       />
 
       <VStack spacing="3" align="start">
