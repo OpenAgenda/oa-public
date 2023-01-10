@@ -1,0 +1,20 @@
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda officiel"
+    }
+  ]
+}

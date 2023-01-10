@@ -4,11 +4,13 @@
 
 import fetchLocale0 from 'components/Navbar/locales';
 import fetchLocale1 from 'components/SearchInput/locales';
+import fetchLocale2 from 'views/AgendaShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
     fetchLocale0(locale),
     fetchLocale1(locale),
+    fetchLocale2(locale),
   ])
     .then(results => Object.assign({}, ...results))
     .catch(e => {

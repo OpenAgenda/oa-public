@@ -16,9 +16,10 @@
   },
   "dependencies": {
     "@emotion/server": "^11.10.0",
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/pro-regular-svg-icons": "^6.2.0",
-    "@fortawesome/pro-solid-svg-icons": "^6.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/pro-duotone-svg-icons": "^6.2.1",
+    "@fortawesome/pro-regular-svg-icons": "^6.2.1",
+    "@fortawesome/pro-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@next/bundle-analyzer": "^13.1.1",
     "@openagenda/common-labels": "^1.2.4",

@@ -31,6 +31,7 @@ import Search from './components/Search';
 import MapFilter from './components/MapFilter';
 import DateRangeFilter from './components/DateRangeFilter';
 import ChoiceFilter from './components/ChoiceFilter';
+import AgendaHeader from './components/AgendaHeader';
 import fetchLocale from './locales';
 
 export type AgendaShowProps = {
@@ -210,7 +211,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container maxW="container.xl" color="white">
-          <h1>Une page NextJs - {agenda.title}</h1>
+          <AgendaHeader agenda={agenda} />
         </Container>
       </Box>
 
