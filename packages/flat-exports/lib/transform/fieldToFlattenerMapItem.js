@@ -22,7 +22,7 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     lang,
     languages = [],
     includeLanguages,
-    distributeOptionalFields
+    distributeOptionalFields,
   } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
@@ -33,7 +33,7 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
       source: field.field,
       target: includeLanguages ? includeLanguages.map(l => `${targetBaseName} - ${l.toUpperCase()}`)
         : languages.map(l => `${targetBaseName} - ${l.toUpperCase()}`),
-      languages
+      languages,
     };
   }
 
@@ -46,8 +46,8 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
         source: field.field,
         target,
         transform: {
-          [option.id]: optionLabel
-        }
+          [option.id]: optionLabel,
+        },
       };
     });
     return opts;
@@ -61,8 +61,8 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
       hasOptions: true,
       transform: field.options.reduce((transform, option) => ({
         ...transform,
-        [option.id]: flatten(option.label, lang, option.value)
-      }), {})
+        [option.id]: flatten(option.label, lang, option.value),
+      }), {}),
     };
   }
 
@@ -72,12 +72,12 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     return {
       source: 'location.tags',
       target: getTarget('location.tags'),
-      transform: tags => (tags ? tags.map(tag => tag.label).join(' | ') : '')
+      transform: tags => (tags ? tags.map(tag => tag.label).join(' | ') : ''),
     };
   }
 
   return {
     source: field.field,
-    target: targetBaseName
+    target: targetBaseName,
   };
 };
