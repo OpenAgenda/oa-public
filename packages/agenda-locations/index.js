@@ -76,7 +76,7 @@ module.exports = Object.assign(
 
     if (!config.Files) {
       throw new Error(
-        '@openagenda/files instance is required for handling images'
+        '@openagenda/files instance is required for handling images',
       );
     }
 
@@ -99,8 +99,8 @@ module.exports = Object.assign(
       getINSEECode: c.redis ? getINSEECode(c.redis) : null,
       fieldUtils: {
         fromItemToEntry: fromItemToEntry.loadWithLinkedFields(fields),
-        fromEntryToItem: fromEntryToItem.bind(null, fields)
-      }
+        fromEntryToItem: fromEntryToItem.bind(null, fields),
+      },
     };
 
     service.decorateWithGeocodeData = decorateWithGeocodeData(service);
@@ -128,7 +128,7 @@ module.exports = Object.assign(
           update: update.bySetUid.bind(
             null,
             { service: svc, isPatch: false },
-            setUid
+            setUid,
           ),
           duplicates: {
             detect: detectCandidates.bind(null, { internals: svc, endpoints }),
@@ -152,7 +152,7 @@ module.exports = Object.assign(
         patch: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: true },
-          agendaUid
+          agendaUid,
         ),
       });
 
@@ -162,7 +162,7 @@ module.exports = Object.assign(
         update: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: false },
-          agendaUid
+          agendaUid,
         ),
         remove: remove.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         merge: merge.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
@@ -196,5 +196,5 @@ module.exports = Object.assign(
       distance: geolib.getDistance,
       geoFields,
     },
-  }
+  },
 );
