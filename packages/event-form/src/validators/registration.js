@@ -1,18 +1,27 @@
-"use strict";
+const listValidator = require('@openagenda/validators/list');
+const linkValidator = require('@openagenda/validators/link');
+const phoneValidator = require('@openagenda/validators/phone');
+const emailValidator = require('@openagenda/validators/email');
 
 const validators = {
-  list: require( '@openagenda/validators/list' ),
-  link: require( '@openagenda/validators/link' ),
-  phone: require( '@openagenda/validators/phone' ),
-  email: require( '@openagenda/validators/email' )
-}
+  list: listValidator,
+  link: linkValidator,
+  phone: phoneValidator,
+  email: emailValidator,
+};
 
-module.exports = config => validators.list( {
-  field: config.field,
-  types: [ 'link', 'phone', 'email' ],
-  validators: {
-    link: validators.link,
-    phone: validators.phone,
-    email: validators.email
-  }
-} );
+const flatten = (values = []) => values.map(v => (v && v instanceof Object ? v.value : v));
+
+module.exports = config => {
+  const validate = validators.list({
+    field: config.field,
+    types: ['link', 'phone', 'email'],
+    validators: {
+      link: validators.link,
+      phone: validators.phone,
+      email: validators.email,
+    },
+  });
+
+  return v => validate(flatten(v));
+};
