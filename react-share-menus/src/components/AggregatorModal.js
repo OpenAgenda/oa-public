@@ -59,7 +59,7 @@ const AggregatorModal = ({
     <div id="event">
       <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
         <div className="export-form" onSubmit={handleSubmit}>
-          <button className="export-close" type="button" onClick={onClose}>
+          <button className="close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
           <h1 className="export-title-big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
