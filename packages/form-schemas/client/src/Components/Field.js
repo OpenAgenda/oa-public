@@ -1,6 +1,10 @@
 import classNames from 'classnames';
 import debug from 'debug';
 
+import flattenFieldLabels from '../lib/flatten';
+import isFieldEnabled from '../lib/isFieldEnabled';
+import isFieldOptional from '../lib/isFieldOptional';
+import hasHelp from '../lib/hasHelp';
 import FieldCounter from './FieldCounter';
 import Help from './Help';
 import Info from './Info';
@@ -18,11 +22,6 @@ import BooleanField from './BooleanField';
 import DateField from './DateField';
 import FileField from './FileField';
 import ImageField from './ImageField';
-
-const flattenFieldLabels = require('../lib/flatten');
-const isFieldEnabled = require('../lib/isFieldEnabled');
-const isFieldOptional = require('../lib/isFieldOptional');
-const hasHelp = require('../lib/hasHelp');
 
 const FieldComponents = {
   text: TextField,
