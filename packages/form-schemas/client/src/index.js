@@ -17,9 +17,9 @@ import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
 import isItemDisplayed from './lib/isItemDisplayed';
 import Section from './Components/Section';
+import Field from './Components/Field';
 
 const log = debug('FormSchemaComponent');
-const Field = require('./Components/Field');
 
 export default class FormSchemaComponent extends Component {
   constructor(props) {
