@@ -62,8 +62,15 @@ export function getDefaultValueLabel(field, lang) {
   return defaultValue;
 }
 
-export function getLinkedField({ field, schema }) {
-  const linkType = field.enableWith ? 'enableWith' : 'optionalWith';
+export function getLinkedField(options = {}) {
+  const {
+    field,
+    schema,
+  } = options;
+
+  const {
+    linkType = field.enableWith ? 'enableWith' : 'optionalWith',
+  } = options;
 
   if (!field[linkType]) {
     return null;
