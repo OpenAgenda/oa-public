@@ -113,6 +113,9 @@ function convertToMultilingual(validatorOptions, fieldOptions) {
 }
 
 function convertTo(validatorOptions, fieldOptions) {
+  if (fieldOptions.languages) {
+    Object.assign(validatorOptions, _.pick(fieldOptions, 'languages'));
+  }
   appendMinMax(validatorOptions, fieldOptions);
 }
 
