@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
 import Radio from '../Radio';
 
 const SpreadsheetOptions = ({
-  languages, setChoice, fields, options
+  languages, setChoice, fields, options,
 }) => {
   const [displayLanguages, setDisplayLanguages] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
@@ -26,16 +26,16 @@ const SpreadsheetOptions = ({
     },
     allFields: {
       id: 'all-fields',
-      defaultMessage: 'Export every field'
+      defaultMessage: 'Export every field',
     },
     selectAll: {
       id: 'select-all',
-      defaultMessage: 'Select all'
+      defaultMessage: 'Select all',
     },
     distributeOptions: {
       id: 'distribute-fields',
-      defaultMessage: 'Fields with options: display one value per column'
-    }
+      defaultMessage: 'Fields with options: display one value per column',
+    },
   });
 
   useEffect(() => {
@@ -235,12 +235,12 @@ SpreadsheetOptions.propTypes = {
   options: PropTypes.shape({
     format: PropTypes.string,
     languages: PropTypes.arrayOf(PropTypes.string),
-    fields: PropTypes.arrayOf(PropTypes.string)
+    fields: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   setChoice: PropTypes.func.isRequired,
   fields: PropTypes.arrayOf(PropTypes.shape({
     source: PropTypes.string,
-    target: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
-  })).isRequired
+    target: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  })).isRequired,
 };
