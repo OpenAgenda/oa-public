@@ -27,36 +27,36 @@ const messages = defineMessages({
   },
   logIn: {
     id: 'ReactShareMenus.ExportModal.login',
-    defaultMessage: 'Please log in to access the export link directly from this menu'
+    defaultMessage: 'Please log in to access the export link directly from this menu',
   },
   exportJson: {
     id: 'ReactShareMenus.ExportModal.exportJson',
-    defaultMessage: 'Use the previous JSON export version'
+    defaultMessage: 'Use the previous JSON export version',
   },
   exportAll: {
     id: 'ReactShareMenus.ExportModal.exportAll',
-    defaultMessage: 'Export all events'
+    defaultMessage: 'Export all events',
   },
   exportSelection: {
     id: 'ReactShareMenus.ExportModal.exportSelection',
-    defaultMessage: 'Expect current event selection'
+    defaultMessage: 'Expect current event selection',
   },
   jsonDoc1: {
     id: 'ReactShareMenus.ExportModal.jsonDoc1',
-    defaultMessage: 'Documentation'
+    defaultMessage: 'Documentation',
   },
   jsonDoc2: {
     id: 'ReactShareMenus.ExportModal.jsonDoc2',
-    defaultMessage: 'here'
+    defaultMessage: 'here',
   },
   documentation: {
     id: 'ReactShareMenus.ExportModal.documentation',
-    defaultMessage: 'See the documentation'
+    defaultMessage: 'See the documentation',
   },
   detailedFormat: {
     id: 'ReactShareMenus.ExportModal.detailedFormat',
-    defaultMessage: 'Use the detailed format'
-  }
+    defaultMessage: 'Use the detailed format',
+  },
 });
 
 const ExportModal = ({
@@ -64,7 +64,7 @@ const ExportModal = ({
   languages,
   onClose,
   userLogged,
-  mode: modeFromProps
+  mode: modeFromProps,
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
   const [spreadsheetForm, setSpreadsheetForm] = useState(false);
@@ -80,7 +80,7 @@ const ExportModal = ({
   const [spreadsheetOptions, setSpreadsheetOptions] = useState({
     format: 'xlsx',
     fields: [],
-    languages: []
+    languages: [],
   });
 
   const intl = useIntl();
@@ -268,15 +268,15 @@ ExportModal.propTypes = {
       rss: PropTypes.string,
     }),
     me: PropTypes.string,
-    agendaExportSettings: PropTypes.string
+    agendaExportSettings: PropTypes.string,
   }).isRequired,
   mode: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
-  userLogged: PropTypes.bool.isRequired
+  userLogged: PropTypes.bool.isRequired,
 };
 
 ExportModal.defaultProps = {
   languages: undefined,
-  mode: 'all'
+  mode: 'all',
 };
