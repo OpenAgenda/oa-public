@@ -22,9 +22,11 @@ function renderToggleRemove(props) {
     onRemove,
     lang,
     field,
+    isOwn,
   } = props;
+
   return (
-    isFieldDisplayed(field) ? (
+    isFieldDisplayed(field) && isOwn ? (
       <button
         type="button"
         onClick={() => (isDisabled ? null : onRemove())}

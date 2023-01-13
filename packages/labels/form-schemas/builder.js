@@ -2,7 +2,7 @@
 
 module.exports = {
   "addField": {
-    "fr": "Ajouter un champ",
+    "fr": "Nouveau champ additionnel",
     "en": "Add a field",
     "es": "Agregar campo",
     "it": "Aggiungere un campo",
@@ -518,7 +518,7 @@ module.exports = {
   "requiredField": {
     "fr": "Obligatoire",
     "en": "Required",
-    "es": "Obligatorio",
+    "es": "obligatorio",
     "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
@@ -722,7 +722,7 @@ module.exports = {
     "es": "Clave JSON",
     "it": "chiave JSON"
   },
-"isSelected": {
+  "isSelected": {
     "fr": "Sélectionné",
     "en": "Selected",
     "es": "Seleccionado",

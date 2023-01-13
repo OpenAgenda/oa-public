@@ -9,6 +9,7 @@ module.exports = async (services, before, after, context) => {
   const {
     activities,
     elasticsearch: legacyEventSearch,
+    core,
   } = services;
 
   if (legacyEventSearch) {
@@ -72,5 +73,9 @@ module.exports = async (services, before, after, context) => {
         officialized: !!after.official,
       },
     });
+  }
+
+  if (before.credentials.memberCustom !== after.credentials.memberCustom && after.credentials.memberCustom && !before.memberSchemaId) {
+    core.agendas(before.uid).settings.schema.updateMemberFields(null, { access: 'internal' });
   }
 };

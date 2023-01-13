@@ -33,6 +33,8 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
 
 function getSupportMessage(req, lang) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return getInboxLabel('memberSchemaDesc', lang);
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaDesc', lang);
     case 'privateAgenda':
@@ -54,6 +56,8 @@ function getSupportMessage(req, lang) {
 
 function getSupportCreationSubtitle(req, lang) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return getInboxLabel('memberSchemaTitle', lang);
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaTitle', lang);
     case 'privateAgenda':
@@ -75,6 +79,8 @@ function getSupportCreationSubtitle(req, lang) {
 
 function getSupportConversationType(req) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return 'request_member_schema';
     case 'agendaSchema':
       return 'request_agenda_schema';
     case 'privateAgenda':

@@ -26,7 +26,7 @@ module.exports.init = async (c, services) => {
     getInboxesDetails: getInboxesDetails.bind(null, services),
     onAction: onAction.bind(null, services),
     onInboxCreate,
-    filterAction
+    filterAction,
   };
 
   const service = await inboxes(
@@ -43,26 +43,26 @@ module.exports.init = async (c, services) => {
         'schemas.messageAttachment',
         'queues.inboxesSync',
         'aws',
-        'uppy'
+        'uppy',
       ]),
       {
         logger: loggerConfig,
         migrations: {
-          tableName: 'inboxes_migrations'
+          tableName: 'inboxes_migrations',
         },
         services: {
           agendas: () => services.agendas,
           members: () => services.members,
-          users: () => services.users
+          users: () => services.users,
         },
         interfaces,
         defaultAction: {
           code: 'default',
           label: {
             fr: 'Fermer la conversation',
-            en: 'Close the conversation'
+            en: 'Close the conversation',
           },
-          kind: 'success'
+          kind: 'success',
         },
         types: {
           event: {
@@ -71,20 +71,20 @@ module.exports.init = async (c, services) => {
                 code: 'involveTechnicalSupport',
                 label: {
                   fr: 'Impliquer le support technique',
-                  en: 'Involve technical support'
+                  en: 'Involve technical support',
                 },
                 kind: 'default',
-                resolve: false
+                resolve: false,
               }, {
                 code: 'removeTechnicalSupport',
                 label: {
                   fr: 'Retirer le support technique',
-                  en: 'Remove technical support'
+                  en: 'Remove technical support',
                 },
                 kind: 'default',
-                resolve: false
-              }
-            ]
+                resolve: false,
+              },
+            ],
           },
           contact_form: {
             actions: [
@@ -92,20 +92,20 @@ module.exports.init = async (c, services) => {
                 code: 'involveTechnicalSupport',
                 label: {
                   fr: 'Impliquer le support technique',
-                  en: 'Involve technical support'
+                  en: 'Involve technical support',
                 },
                 kind: 'default',
-                resolve: false
+                resolve: false,
               }, {
                 code: 'removeTechnicalSupport',
                 label: {
                   fr: 'Retirer le support technique',
-                  en: 'Remove technical support'
+                  en: 'Remove technical support',
                 },
                 kind: 'default',
-                resolve: false
-              }
-            ]
+                resolve: false,
+              },
+            ],
           },
           request_contribute: {
             actions: [
@@ -113,30 +113,30 @@ module.exports.init = async (c, services) => {
                 code: 'accept',
                 label: {
                   fr: 'Ajouter en tant que contributeur',
-                  en: 'Add as a contributor'
+                  en: 'Add as a contributor',
                 },
                 kind: 'primary',
                 confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
-                confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
+                confirmationModalLabel: inboxesLabels.requestContributeAcceptModal,
               }, {
                 code: 'refuse',
                 label: {
                   fr: 'Refuser la demande',
-                  en: 'Refuse the request'
+                  en: 'Refuse the request',
                 },
                 kind: 'danger',
                 confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
-                confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
+                confirmationModalLabel: inboxesLabels.requestContributeRefuseModal,
               }, {
                 code: 'involveTechnicalSupport',
                 label: {
                   fr: 'Impliquer le support technique',
-                  en: 'Involve technical support'
+                  en: 'Involve technical support',
                 },
                 kind: 'default',
-                resolve: false
-              }
-            ]
+                resolve: false,
+              },
+            ],
           },
           edition_request: {
             actions: [
@@ -144,27 +144,28 @@ module.exports.init = async (c, services) => {
                 code: 'accept',
                 label: {
                   fr: 'Accepter la demande',
-                  en: 'Accept the request'
+                  en: 'Accept the request',
                 },
                 kind: 'primary',
                 confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
-                confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
+                confirmationModalLabel: inboxesLabels.editionRequestAcceptModal,
               }, {
                 code: 'refuse',
                 label: {
                   fr: 'Refuser la demande',
-                  en: 'Refuse the request'
+                  en: 'Refuse the request',
                 },
                 kind: 'danger',
                 confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
-                confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
-              }
-            ]
+                confirmationModalLabel: inboxesLabels.editionRequestRefuseModal,
+              },
+            ],
           },
           suggest_location_change: {},
           contact_member: {},
 
           // call to actions
+          request_member_schema: {},
           request_agenda_schema: {},
           request_private_agenda: {},
           request_public_agenda: {},
@@ -179,26 +180,26 @@ module.exports.init = async (c, services) => {
                 code: 'removeTechnicalSupport',
                 label: {
                   fr: 'Retirer le support technique',
-                  en: 'Remove technical support'
+                  en: 'Remove technical support',
                 },
                 kind: 'default',
-                resolve: false
-              }
-            ]
-          }
+                resolve: false,
+              },
+            ],
+          },
         },
         defaultImagePath: c.aws.defaultImagePath,
         mw: {
-          limit: 20
-        }
-      }
-    )
+          limit: 20,
+        },
+      },
+    ),
   );
 
   await inboxMw.init(service);
 
   Object.assign(service, {
-    getApp: getApp.bind(null, c, services)
+    getApp: getApp.bind(null, c, services),
   });
 
   Object.assign(module.exports, service);

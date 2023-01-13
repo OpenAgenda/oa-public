@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import debug from 'debug';
+import isSameFormItem from './isSameFormItem';
 
 const log = debug('FormSchemaBuilder/lib/updateSchemaField');
 
@@ -20,7 +21,7 @@ const standardFieldKeys = [
 ];
 
 export default function updateSchemaField(schema, field, updatedFieldValues) {
-  const fieldIndex = _.findIndex(schema.fields, sf => sf.field === field.field);
+  const fieldIndex = _.findIndex(schema.fields, sf => isSameFormItem(sf, field));
 
   if (fieldIndex === -1) {
     throw new Error('Did not find field to update in schema');
