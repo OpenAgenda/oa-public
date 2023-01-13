@@ -3,6 +3,13 @@
 const { merge } = require('@openagenda/form-schemas').utils;
 const eventFormSchema = require('@openagenda/event-form/src/schema');
 const tagSetToFormSchema = require('@openagenda/legacy/tagSetToFormSchema');
+
+const {
+  utils: {
+    getSchema: getLocationSchema,
+  },
+} = require('@openagenda/agenda-locations');
+
 const getAddMethod = require('./getAddMethod');
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
@@ -84,8 +91,18 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
 function appendLocationSchema(schema) {
   const locationField = schema.fields.find(f => f.field === 'location');
+
+  const locationSchema = getLocationSchema();
+
   if (locationField?.legacy?.tagSet) {
-    locationField.schema = tagSetToFormSchema(locationField.legacy?.tagSet, { schemaId: 'location' });
+    locationField.schema = merge(
+      locationSchema,
+      Object.assign(tagSetToFormSchema(locationField.legacy?.tagSet), {
+        id: 'location',
+      }),
+    );
+  } else if (locationField) {
+    locationField.schema = locationSchema;
   }
 
   return schema;

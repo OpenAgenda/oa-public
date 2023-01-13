@@ -21,8 +21,9 @@ module.exports = (core, options = {}) => async (req, res, next) => {
     admin = false,
   } = options;
 
-  const { includeFields, distributeOptionalFields } = req.query;
-  if (distributeOptionalFields) includeFields.push(...distributeOptionalFields);
+  const {
+    includeFields,
+  } = req.query;
 
   req.searchOptions = {
     aggregations: req.query.aggs,

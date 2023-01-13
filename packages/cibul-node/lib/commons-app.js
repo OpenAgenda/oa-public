@@ -703,12 +703,15 @@ function loadLogger(name) {
 function loadAgendaBy( param ) {
 
   return ( req, res, next ) => {
+    const {
+      agendas
+    } = req.app.services;
 
     const identifier = _.isString( param )
       ? _.pick( req.params, [ param ] )
       : _.set( {}, _.keys( param )[ 0 ], req.params[ param[ _.keys( param )[ 0 ] ] ] );
 
-    agendasSvc.get( identifier, {
+    agendas.get( identifier, {
       private: null,
       internal: true,
       includeImagePath: true
