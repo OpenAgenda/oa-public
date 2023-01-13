@@ -29,7 +29,7 @@ const {
   isMemberRole,
   matchStepPath,
   replaceWithStep,
-  doRedirect
+  doRedirect,
 } = utils;
 
 const log = debug('App');
@@ -41,7 +41,7 @@ function App(props) {
     route,
     agenda,
     lang,
-    history
+    history,
   } = props;
 
   const location = useLocation();
@@ -49,7 +49,7 @@ function App(props) {
 
   const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid, 'App');
 
   const res = useSelector(state => state.res);
@@ -71,14 +71,12 @@ function App(props) {
     && isMemberDataRequired(agenda)
     && !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
     && (!agendaContext?.me?.member || !agendaContext?.me?.isValid);
-  
-  console.log(shouldGoToFirstStep);
 
   useEffect(() => {
     if (shouldGoToShareMember && !isAtShareMember) {
       history.replace({
         ...location,
-        pathname: `${location.pathname}/member`
+        pathname: `${location.pathname}/member`,
       });
       return;
     }
@@ -105,11 +103,8 @@ function App(props) {
     return <Loading />;
   }
 
-  const showClosedMessage = (
-    !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
-    && isContributionType(agenda, 'CLOSED')
-  );
-
+  const showClosedMessage = !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
+    && isContributionType(agenda, 'CLOSED');
   log('looking for route matching %s', location.pathname);
 
   return (
@@ -125,11 +120,11 @@ function App(props) {
             <ClosedMessage memberRole="contributor" />
           </div>
         </Canvas>
-      ) : (
-        renderRoutes(route.routes, {
-          agenda
-        })
       )
+        : renderRoutes(route.routes, {
+          agenda,
+        })
+
     }
     </IntlProvider>
   );
@@ -137,6 +132,6 @@ function App(props) {
 
 export default provideHooks({
   inject: ({ store }) => store.inject({
-    contribute: contributeReducer
-  })
+    contribute: contributeReducer,
+  }),
 })(App);
