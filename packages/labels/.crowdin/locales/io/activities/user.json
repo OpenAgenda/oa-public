@@ -26,8 +26,8 @@
   "event.updateWithLotOfChanges": "crwdns11312:0{user}crwdnd11312:0{event}crwdnd11312:0{agenda}crwdnd11312:0{fieldsCount}crwdne11312:0",
   "event.delete": "crwdns11314:0{user}crwdnd11314:0{event}crwdnd11314:0{agenda}crwdne11314:0",
   "activities": "crwdns11316:0crwdne11316:0",
+  "history": "crwdns32760:0crwdne32760:0",
   "next": "crwdns11318:0crwdne11318:0",
   "noActivity": "crwdns11320:0crwdne11320:0",
-  "unknownActivity": "crwdns11322:0{verb}crwdne11322:0",
-  "history": "crwdns32760:0crwdne32760:0"
+  "unknownActivity": "crwdns11322:0{verb}crwdne11322:0"
 }

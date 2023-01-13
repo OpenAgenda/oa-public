@@ -15,5 +15,8 @@
   "agendaEventCount": "Evénements liés dans l'agenda",
   "state": "Vérifié",
   "extId": "Identifiant externe",
-  "slug": "Code URL"
+  "slug": "Code URL",
+  "website": "Site internet",
+  "access": "Accès",
+  "description": "Description"
 }

@@ -15,5 +15,7 @@
   "agendaEventCount": "Eventi associati nell'agenda",
   "state": "Verificato",
   "extId": "Id esternale",
-  "slug": "URL"
+  "slug": "URL",
+  "access": "Come arrivare",
+  "description": "Descrizione"
 }

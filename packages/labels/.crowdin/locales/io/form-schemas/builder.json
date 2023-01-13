@@ -70,6 +70,9 @@
   "fieldFormMaxTextLength": "crwdns14806:0crwdne14806:0",
   "fieldFormMinTextLength": "crwdns14808:0crwdne14808:0",
   "chooseFieldType": "crwdns14810:0crwdne14810:0",
+  "chooseFieldTypePlaceholder": "crwdns32764:0crwdne32764:0",
+  "chooseOtherType": "crwdns32766:0crwdne32766:0",
+  "isLabelDuplicateError": "crwdns32768:0crwdne32768:0",
   "confirmFieldType": "crwdns14812:0crwdne14812:0",
   "confirmFieldCreate": "crwdns14814:0crwdne14814:0",
   "confirmFieldUpdate": "crwdns14816:0crwdne14816:0",
@@ -87,8 +90,5 @@
   "emptyOptions": "crwdns14840:0crwdne14840:0",
   "optionDuplicateError": "crwdns14842:0crwdne14842:0",
   "optionEmptyError": "crwdns14844:0crwdne14844:0",
-  "requiredError": "crwdns14846:0crwdne14846:0",
-  "chooseFieldTypePlaceholder": "crwdns32764:0crwdne32764:0",
-  "chooseOtherType": "crwdns32766:0crwdne32766:0",
-  "isLabelDuplicateError": "crwdns32768:0crwdne32768:0"
+  "requiredError": "crwdns14846:0crwdne14846:0"
 }

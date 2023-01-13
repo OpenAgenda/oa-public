@@ -87,6 +87,7 @@
   "actions": "crwdns14588:0crwdne14588:0",
   "actionsInfo": "crwdns32382:0crwdne32382:0",
   "activity": "crwdns14590:0crwdne14590:0",
+  "history": "crwdns32758:0crwdne32758:0",
   "inbox": "crwdns14592:0crwdne14592:0",
   "contactForm": "crwdns14594:0crwdne14594:0",
   "contactEmail": "crwdns14596:0crwdne14596:0",
@@ -109,6 +110,5 @@
   "statusCancelledInfo": "crwdns16140:0crwdne16140:0",
   "statusFull": "crwdns16142:0crwdne16142:0",
   "markAsFull": "crwdns16144:0crwdne16144:0",
-  "statusFullInfo": "crwdns16146:0crwdne16146:0",
-  "history": "crwdns32758:0crwdne32758:0"
+  "statusFullInfo": "crwdns16146:0crwdne16146:0"
 }
