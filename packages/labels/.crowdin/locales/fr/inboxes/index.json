@@ -56,6 +56,8 @@
   "limitDatesDesc": "Bornez le sélecteur de dates du formulaire de saisie de votre agenda.\n\nInteressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
   "moderatorsTitle": "Membres modérateurs",
   "moderatorsDesc": "Les modérateurs sont des membres pouvant éditer tous les événements d'un agenda, sans pour autant avoir les accès de paramétrages.\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !",
+  "memberSchemaTitle": "Demande de champs membre personnalisés",
+  "memberSchemaDesc": "Vous voulez modifier le formulaire d'identification des membres?",
   "writeToAllTitle": "Demande d'activation de la fonction \"Leur écrire\"",
   "writeToAllDesc": "Envoyez un message à tous les membres de votre agenda ou envoyez une relance personnalisée à tous les membres n'ayant pas encore contribué.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
   "contactContributor": "Contacter le contributeur",

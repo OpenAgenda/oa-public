@@ -459,6 +459,14 @@ module.exports = {
     "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni. Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
     "io": "crwdns16498:0crwdne16498:0"
   },
+  "memberSchemaTitle": {
+    "fr": "Demande de champs membre personnalisés",
+    "en": "Request custom member fields",
+  },
+  "memberSchemaDesc": {
+    "fr": "Vous voulez modifier le formulaire d'identification des membres?",
+    "en": "Want to modify the member identification form?"
+  },
   "writeToAllTitle": {
     "fr": "Demande d'activation de la fonction \"Leur écrire\"",
     "en": "Request to activate the \"Write to them\" function",
