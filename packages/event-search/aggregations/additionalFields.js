@@ -5,7 +5,11 @@ const {
   BadRequest,
 } = require('@openagenda/verror');
 
-const getFlattenedSchema = require('../utils/getFlattenedSchema');
+const {
+  utils: {
+    flattenSchema: getFlattenedSchema,
+  },
+} = require('@openagenda/form-schemas');
 
 const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 const extractFromAggregationKey = key => {
