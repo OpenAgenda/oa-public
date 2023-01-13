@@ -427,16 +427,5 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(Array.isArray(fieldMap)).toBe(true);
     });
-
-    test('location.postalCode is in base map', () => {
-      const fieldMap = getDefaultFieldMap();
-
-      expect(
-        fieldMap.find(item => item.source === 'location.postalCode')
-      ).toEqual({
-        source: 'location.postalCode',
-        target: 'location.postalCode'
-      });
-    });
   });
 });

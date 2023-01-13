@@ -1,7 +1,5 @@
 'use strict';
 
-const getTargetField = require('./getTargetField');
-
 const flatten = (value, lang, defaultValue) => {
   if (value === undefined) {
     return defaultValue;
@@ -22,7 +20,7 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     lang,
     languages = [],
     includeLanguages,
-    distributeOptionalFields,
+    spreadFields = [],
   } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
@@ -37,8 +35,8 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     };
   }
 
-  // optioned field with the distribute option
-  if (distributeOptionalFields && distributeOptionalFields.includes(field.field) && field.options) {
+  // fields to spread over several columns
+  if (spreadFields.length && spreadFields.includes(field.field) && field.options) {
     const opts = field.options.map(option => {
       const optionLabel = flatten(option.label, lang, option.value);
       const target = `${targetBaseName}: ${optionLabel}`;
@@ -63,16 +61,6 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
         ...transform,
         [option.id]: flatten(option.label, lang, option.value),
       }), {}),
-    };
-  }
-
-  // location tags subfield
-  if (field.legacy) {
-    const getTarget = getTargetField.bind(null, options.labels, options.lang);
-    return {
-      source: 'location.tags',
-      target: getTarget('location.tags'),
-      transform: tags => (tags ? tags.map(tag => tag.label).join(' | ') : ''),
     };
   }
 
