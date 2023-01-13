@@ -24,6 +24,7 @@ module.exports = function getDefaultFieldMap(options = {}) {
   const {
     labels = {},
     lang,
+    includeFields = [],
   } = options;
 
   const subOptions = {
@@ -88,60 +89,6 @@ module.exports = function getDefaultFieldMap(options = {}) {
   }, {
     type: 'accessibility',
     target: getTarget('accessibility'),
-  }, {
-    source: 'location.uid',
-    target: getTarget('location.uid'),
-  }, {
-    source: 'location.name',
-    target: getTarget('location.name'),
-  }, {
-    source: 'location.address',
-    target: getTarget('location.address'),
-  }, {
-    source: 'location.postalCode',
-    target: getTarget('location.postalCode'),
-  }, {
-    source: 'location.city',
-    target: getTarget('location.city'),
-  }, {
-    source: 'location.department',
-    target: getTarget('location.department'),
-  }, {
-    source: 'location.region',
-    target: getTarget('location.region'),
-  }, {
-    source: 'location.latitude',
-    target: getTarget('location.latitude'),
-  }, {
-    source: 'location.longitude',
-    target: getTarget('location.longitude'),
-  }, {
-    source: 'country',
-    type: 'multilingual',
-    target: getTarget('location.countryCode'),
-    possibleLanguages: labelLanguages,
-  }, {
-    source: 'location.image',
-    target: getTarget('location.image'),
-  }, {
-    source: 'location.imageCredits',
-    target: getTarget('location.imageCredits'),
-  }, {
-    source: 'location.description',
-    target: getTarget('location.description'),
-    type: 'multilingual',
-  }, {
-    source: 'location.access',
-    target: getTarget('location.access'),
-    type: 'multilingual',
-  },
-  {
-    source: 'location.phone',
-    target: getTarget('location.phone'),
-  },
-  {
-    source: 'location.website',
-    target: getTarget('location.website'),
   },
   {
     source: 'member.uid',
@@ -224,12 +171,12 @@ module.exports = function getDefaultFieldMap(options = {}) {
     },
   }];
 
-  if (options.includeFields) {
+  if (includeFields.length) {
     fields = fields.filter(field => {
       if (field.field) {
-        return options.includeFields.includes(field.field);
+        return includeFields.includes(field.field);
       }
-      return options.includeFields.includes(field.source);
+      return includeFields.includes(field.source);
     });
   }
 
