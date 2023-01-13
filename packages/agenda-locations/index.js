@@ -7,6 +7,7 @@ const countries = require('@openagenda/countries');
 const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
 const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
 const fields = require('./lib/fields');
+const getSchema = require('./lib/getSchema');
 
 const create = require('./create');
 const get = require('./get');
@@ -195,6 +196,7 @@ module.exports = Object.assign(
       countries,
       distance: geolib.getDistance,
       geoFields,
+      getSchema,
     },
   },
 );
