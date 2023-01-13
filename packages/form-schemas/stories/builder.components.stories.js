@@ -419,6 +419,7 @@ export function FieldPreview() {
             {...getBuilderProps([
               {
                 label: 'Image',
+                field: 'image',
                 fieldType: 'image',
                 display: false,
               },
@@ -654,6 +655,25 @@ export function FieldPreview() {
                 label: 'Un champ booléen',
                 fieldType: 'boolean',
                 default: true,
+              },
+            ])}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <h2 className="text-center margin-v-md">Standard fields</h2>
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with boolean</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                field: 'bool',
+                label: 'Un champ booléen',
+                fieldType: 'abstract',
+                type: 'abstract',
+                default: true,
+                display: true,
               },
             ])}
           />

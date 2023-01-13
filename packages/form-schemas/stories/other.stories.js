@@ -20,7 +20,7 @@ export function MultilingualFieldsWithOneLanguage() {
     lang: 'fr',
     values: {
       amultilingualfield: { fr: 'Quelque chose' },
-      amultilingualfieldwithatextininput: 'Un texte pas multilingue'
+      amultilingualfieldwithatextininput: 'Un texte pas multilingue',
     },
     schema: {
       fields: [{
@@ -28,14 +28,14 @@ export function MultilingualFieldsWithOneLanguage() {
         fieldType: 'text',
         optional: false,
         languages: ['fr'],
-        label: 'N\'importe quoi en français'
+        label: 'N\'importe quoi en français',
       }, {
         field: 'amultilfieldwithdefault',
         fieldType: 'text',
         optional: false,
         languages: ['fr', 'en'],
         default: 'William',
-        label: 'La même valeur par défaut pour toutes les langues'
+        label: 'La même valeur par défaut pour toutes les langues',
       }, {
         field: 'amultilfieldwithmultidefault',
         fieldType: 'text',
@@ -43,17 +43,17 @@ export function MultilingualFieldsWithOneLanguage() {
         languages: ['fr', 'en', 'it'],
         default: {
           en: 'William',
-          fr: 'Guillaume'
+          fr: 'Guillaume',
         },
-        label: 'Une valeur par défaut par langue'
+        label: 'Une valeur par défaut par langue',
       }, {
         field: 'amultilingualfieldwithatextininput',
         fieldType: 'text',
         optional: true,
         languages: ['fr', 'en'],
-        label: 'La valeur n\'est toujours pas multilingue'
-      }]
-    }
+        label: 'La valeur n\'est toujours pas multilingue',
+      }],
+    },
   };
 
   return (
@@ -79,9 +79,9 @@ export function RequiredMultilingualField() {
         fieldType: 'text',
         optional: false,
         languages: ['fr'],
-        label: 'N\'importe quoi en français'
-      }]
-    }
+        label: 'N\'importe quoi en français',
+      }],
+    },
   };
 
   return (
@@ -97,21 +97,21 @@ export function FormWithACustomField() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     components: {
-      wigglypoof: WigglyPoofComponent
+      wigglypoof: WigglyPoofComponent,
     },
     values: {
       title: {
         fr: 'Le titre',
-        en: 'A title'
-      }
+        en: 'A title',
+      },
     },
     schema: {
       custom: {
-        wigglypoof: wigglypoofValidator
+        wigglypoof: wigglypoofValidator,
       },
       fields: [{
         field: 'Title',
@@ -120,17 +120,17 @@ export function FormWithACustomField() {
         optional: false,
         label: {
           fr: 'Titre',
-          en: 'Title'
+          en: 'Title',
         },
         max: 140,
         placeholder: {
           fr: 'Le titre de votre événement',
-          en: 'Title of your event'
+          en: 'Title of your event',
         },
         sub: {
           fr: 'Ce champ est requis.',
-          en: 'This field is required'
-        }
+          en: 'This field is required',
+        },
       }, {
         field: 'description',
         fieldType: 'text',
@@ -138,25 +138,25 @@ export function FormWithACustomField() {
         optional: false,
         label: {
           fr: 'Description courte',
-          en: 'Short description'
+          en: 'Short description',
         },
         placeholder: {
           fr: 'Une courte description de votre événement',
-          en: 'A short description of your event'
-        }
+          en: 'A short description of your event',
+        },
       }, {
         field: 'customfield',
         fieldType: 'wigglypoof',
         label: {
           fr: 'Saisissez Wigglypoof',
-          en: 'Type Wigglypoof'
+          en: 'Type Wigglypoof',
         },
         sub: {
           fr: 'Et uniquement wigglypoof',
-          en: 'And only wigglypoof'
-        }
-      }]
-    }
+          en: 'And only wigglypoof',
+        },
+      }],
+    },
   };
 
   return (
@@ -173,7 +173,7 @@ export function FormWithAGivenButtonSection() {
     lang: 'fr',
     values: {
       staff: 129313,
-      registered: new Date('2010-08-12')
+      registered: new Date('2010-08-12'),
     },
     schema: {
       fields: [{
@@ -182,17 +182,17 @@ export function FormWithAGivenButtonSection() {
         optional: false,
         label: {
           fr: 'Matricule',
-          en: 'Staff number'
-        }
+          en: 'Staff number',
+        },
       }, {
         field: 'registered',
         fieldType: 'date',
         optional: false,
         label: {
           fr: 'Date d\'enregistrement',
-          en: 'Registration date'
-        }
-      }]
+          en: 'Registration date',
+        },
+      }],
     },
     actionComponents: [{
       position: 'bottom',
@@ -201,8 +201,8 @@ export function FormWithAGivenButtonSection() {
           <button type="button" onClick={onSubmit} className="btn btn-primary">Submit</button>
           <div>this is a custom section</div>
         </div>
-      )
-    }]
+      ),
+    }],
   };
 
   return (
@@ -220,17 +220,17 @@ export function OnSubmitSuccess() {
   const props = {
     lang: 'fr',
     values: {
-      something: 'Quelque chose'
+      something: 'Quelque chose',
     },
     schema: {
       fields: [{
         field: 'something',
         fieldType: 'text',
         label: {
-          fr: 'Il faut écrire quelque chose'
-        }
-      }]
-    }
+          fr: 'Il faut écrire quelque chose',
+        },
+      }],
+    },
   };
 
   return (
@@ -244,7 +244,7 @@ export function OnSubmitSuccess() {
               onSubmitSuccess={(values, response) => {
                 setState({
                   values,
-                  responseBody: response.body
+                  responseBody: response.body,
                 });
                 console.log(values);
               }}
@@ -279,7 +279,7 @@ export function Stateless() {
     },
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     schema: {
@@ -290,19 +290,19 @@ export function Stateless() {
         optional: false,
         label: {
           fr: 'Titre',
-          en: 'Title'
+          en: 'Title',
         },
         max: 140,
         placeholder: {
           fr: 'Un dicton',
-          en: 'A saying'
+          en: 'A saying',
         },
         sub: {
           fr: 'Ce champ est requis.',
-          en: 'This field is required'
-        }
-      }]
-    }
+          en: 'This field is required',
+        },
+      }],
+    },
   };
 
   return (
@@ -322,14 +322,14 @@ export function Conditional() {
         field: 'anything',
         fieldType: 'text',
         optional: false,
-        label: 'A word'
+        label: 'A word',
       }, {
         field: 'conditioned',
         fieldType: 'text',
         label: 'This is only enabled if first field is typed',
-        enableWith: 'anything'
-      }]
-    }
+        enableWith: 'anything',
+      }],
+    },
   };
 
   return (
@@ -349,13 +349,13 @@ export function RequiredConditional() {
       fields: [{
         field: 'anything',
         fieldType: 'text',
-        label: 'A word'
+        label: 'A word',
       }, {
         field: 'conditioned',
         fieldType: 'text',
         optional: false,
         label: 'This is only enabled if first field is typed',
-        enableWith: 'anything'
+        enableWith: 'anything',
       }, {
         field: 'radios',
         fieldType: 'radio',
@@ -364,28 +364,28 @@ export function RequiredConditional() {
         options: [{
           id: 1,
           label: 'Betelgeuse',
-          value: 'betelgeuse'
+          value: 'betelgeuse',
         }, {
           id: 2,
           label: 'Chausson',
-          value: 'chausson'
+          value: 'chausson',
         }, {
           id: 3,
           label: 'Hydroxychloroquine',
-          value: 'hydroxychloroquine'
-        }]
+          value: 'hydroxychloroquine',
+        }],
       }, {
         field: 'moreconditioned',
         fieldType: 'text',
         optional: false,
         label: 'This is only enabled if previous radio has a value',
-        enableWith: 'radios'
+        enableWith: 'radios',
       }, {
         field: 'numberfield',
         fieldType: 'number',
         optional: false,
         label: 'This number field only enabled if previous radio has a value',
-        enableWith: 'radios'
+        enableWith: 'radios',
       }, {
         field: 'textfield',
         fieldType: 'text',
@@ -394,8 +394,8 @@ export function RequiredConditional() {
         info: 'Activated if Betelgeuse or Hydroxychloroquine',
         enableWith: {
           field: 'radios',
-          value: [1, 3]
-        }
+          value: [1, 3],
+        },
       }, {
         field: 'thisorthat',
         fieldType: 'text',
@@ -403,10 +403,10 @@ export function RequiredConditional() {
         info: 'Optional only if Chausson or Hydroxychloroquine',
         optionalWith: {
           field: 'radios',
-          value: [2, 3]
-        }
-      }]
-    }
+          value: [2, 3],
+        },
+      }],
+    },
   };
 
   return (
@@ -418,11 +418,11 @@ export function RequiredConditional() {
   );
 }
 
-export function WithDependenciesBetweenFields() {
+export function WithLinkedFields() {
   const props = {
     lang: 'fr',
     values: {
-      image: '🦤'
+      image: '🦤',
     },
     schema: {
       fields: [{
@@ -434,18 +434,18 @@ export function WithDependenciesBetweenFields() {
           id: 1,
           label: 'Offline',
           value: 'offline',
-          info: 'No fields are conditioned to this value.'
+          info: 'No fields are conditioned to this value.',
         }, {
           id: 2,
           label: 'Online',
           value: 'online',
-          info: 'When selected, Online access link is enabled, location is optional'
+          info: 'When selected, Online access link is enabled, location is optional',
         }, {
           id: 3,
           label: 'Mixed',
           value: 'mixed',
-          info: 'When selected, online access link is enabled'
-        }]
+          info: 'When selected, online access link is enabled',
+        }],
       }, {
         field: 'location',
         fieldType: 'text',
@@ -453,8 +453,8 @@ export function WithDependenciesBetweenFields() {
         info: 'Optional only if online',
         optionalWith: {
           field: 'attendance',
-          value: 2
-        }
+          value: 2,
+        },
       }, {
         field: 'onlineaccesslink',
         fieldType: 'link',
@@ -463,23 +463,48 @@ export function WithDependenciesBetweenFields() {
         info: 'enabled if online or mixed',
         enableWith: {
           field: 'attendance',
-          value: [2, 3]
-        }
+          value: [2, 3],
+        },
       }, {
         field: 'image',
         fieldType: 'text',
         optional: true,
         label: 'Pretend this is an image',
         info: 'This field is not enabled, it cannot be edited',
-        enable: false
+        enable: false,
       }, {
         field: 'alt',
         fieldType: 'text',
         label: 'Image alt',
         info: 'This field is linked to the disabled field image. It should be enabled as the disabled image field has a value.',
-        enableWith: 'image'
-      }]
-    }
+        enableWith: 'image',
+      },
+      {
+        field: 'action-de-mediation',
+        label: {
+          fr: 'Action de médiation',
+        },
+        fieldType: 'boolean',
+        optionalWith: null,
+        optional: true,
+      },
+      {
+        field: 'description-de-la-mediation',
+        label: {
+          fr: 'Description de la médiation',
+        },
+        optional: false,
+        optionalWith: null,
+        display: true,
+        enable: true,
+        origin: 'custom',
+        enableWith: 'action-de-mediation',
+        min: null,
+        max: 400,
+        fieldType: 'text',
+      },
+      ],
+    },
   };
 
   return (
@@ -499,26 +524,26 @@ export function Hidden() {
         fieldType: 'text',
         optional: false,
         label: 'Field one',
-        info: 'There is a field below this one named "two"'
+        info: 'There is a field below this one named "two"',
       }, {
         field: 'second',
         fieldType: 'text',
         display: false,
         label: 'This will not be displayed',
-        default: 'Default text'
+        default: 'Default text',
       }, {
         field: 'third',
         fieldType: 'text',
-        label: 'Field three'
+        label: 'Field three',
       }, {
         field: 'four',
         fieldType: 'text',
         label: 'Field four',
         display: false,
-        languages: ['it', 'fr']
-      }]
+        languages: ['it', 'fr'],
+      }],
     },
-    lang: 'fr'
+    lang: 'fr',
   };
 
   return (
@@ -540,18 +565,18 @@ export function MissingLanguage() {
         optional: false,
         label: {
           fr: 'Un champ',
-          en: 'A field'
+          en: 'A field',
         },
         options: [{
           id: 1,
           value: 'thing',
           label: {
             fr: 'Un truc',
-            en: 'A thing'
-          }
-        }]
-      }]
-    }
+            en: 'A thing',
+          },
+        }],
+      }],
+    },
   };
 
   return (
