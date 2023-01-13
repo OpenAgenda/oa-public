@@ -23,7 +23,7 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
   const { agendaSchema: agendaMemberSchema } = await getMemberSchema(services, agenda, options);
   const fs = new FormSchema(agendaMemberSchema);
 
-  fs.updateFields(updatedFields);
+  if (updatedFields) fs.updateFields(updatedFields);
 
   if (!agendaMemberSchema) {
     log('no schema is associated with agenda, creating');

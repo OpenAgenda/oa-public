@@ -25,7 +25,7 @@ const getAccess = async (services, actingMember, options) => {
   return options.access ?? 'public';
 };
 
-const getAmindMod = access => ['administrator', 'moderator'].includes(access);
+const getAmindMod = access => ['internal', 'administrator', 'moderator'].includes(access);
 
 const isOptionalFields = (agenda, adminMod, memberSchemaId) => {
   if (adminMod) return true;
