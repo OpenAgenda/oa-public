@@ -109,5 +109,26 @@ module.exports = {
     "fr": "Code URL",
     "io": "crwdns12134:0crwdne12134:0",
     "it": "URL"
+  },
+  "website": {
+    "en": "Website",
+    "fr": "Site internet",
+    "es": "Sitio web"
+  },
+  "access": {
+    "en": "Access",
+    "fr": "Accès",
+    "it": "Come arrivare",
+    "de": "Zugang",
+    "pl": "Dostęp",
+    "es": "acceso",
+    "br": "Moned"
+  },
+  "description": {
+    "en": "Description",
+    "fr": "Description",
+    "de": "Beschreibung",
+    "es": "descripción",
+    "it": "Descrizione"
   }
 };

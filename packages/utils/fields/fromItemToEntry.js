@@ -97,9 +97,7 @@ function fromItemToDbEntry(fields, data, current) {
 
 module.exports = fromItemToDbEntry;
 
-module.exports.loadWithLinkedFields = fields => {
-  fields.forEach(field => {
-    field.linkedFields = fields.filter(f => (f !== field) && (getDatabaseFieldName(f) === getDatabaseFieldName(field)));
-  });
-  return fromItemToDbEntry.bind(null, fields);
-};
+module.exports.loadWithLinkedFields = fields => fromItemToDbEntry.bind(null, fields.map(field => ({
+  ...field,
+  linkedFields: fields.filter(f => (f !== field) && (getDatabaseFieldName(f) === getDatabaseFieldName(field))),
+})));

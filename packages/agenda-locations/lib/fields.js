@@ -1,5 +1,7 @@
 'use strict';
 
+const labels = require('@openagenda/labels/agenda-locations/exportHeaders');
+
 module.exports = [{
   field: 'id',
   optional: false,
@@ -12,6 +14,7 @@ module.exports = [{
   optional: false,
   read: ['internal', 'public', 'list'],
   write: ['internal'],
+  label: labels.uid,
 }, {
   field: 'agendaId',
   fieldType: 'integer',
@@ -40,6 +43,7 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   fieldType: 'text',
   max: 100,
+  label: labels.name,
 }, {
   field: 'address',
   optional: false,
@@ -47,6 +51,7 @@ module.exports = [{
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.address,
 }, {
   field: 'countryCode',
   db: 'country',
@@ -55,6 +60,7 @@ module.exports = [{
   max: 2,
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
+  label: labels.countryCode,
 }, {
   field: 'adminLevel1',
   optional: true,
@@ -63,6 +69,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.region,
 }, {
   field: 'adminLevel2',
   optional: true,
@@ -71,6 +78,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.department,
 }, {
   field: 'adminLevel3',
   optional: true,
@@ -79,6 +87,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.adminLevel3,
 }, {
   field: 'adminLevel4',
   optional: true,
@@ -94,6 +103,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 100,
+  label: labels.city,
 }, {
   field: 'adminLevel5',
   optional: true,
@@ -118,6 +128,7 @@ module.exports = [{
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.district,
 }, {
   field: 'postalCode',
   optional: true,
@@ -125,6 +136,7 @@ module.exports = [{
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 20,
+  label: labels.postalCode,
 }, {
   field: 'insee',
   optional: true,
@@ -132,18 +144,21 @@ module.exports = [{
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 10,
+  label: labels.insee,
 }, {
   field: 'latitude',
   optional: false,
   fieldType: 'latitude',
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
+  label: labels.latitude,
 }, {
   field: 'longitude',
   optional: false,
   fieldType: 'longitude',
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
+  label: labels.longitude,
 }, {
   field: 'region',
   optional: true,
@@ -151,6 +166,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.region,
 }, {
   field: 'department',
   optional: true,
@@ -158,6 +174,7 @@ module.exports = [{
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255,
+  label: labels.department,
 }, {
   field: 'timezone',
   optional: true,
@@ -195,6 +212,7 @@ module.exports = [{
   allowNull: true,
 }, {
   field: 'description',
+  label: labels.description,
   optional: true,
   db: {
     type: 'json',
@@ -228,6 +246,7 @@ module.exports = [{
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   fieldType: 'link',
+  label: labels.website,
 }, {
   field: 'email',
   db: {
@@ -264,6 +283,7 @@ module.exports = [{
   fieldType: 'link',
 }, {
   field: 'access',
+  label: labels.access,
   optional: true,
   db: {
     type: 'json',

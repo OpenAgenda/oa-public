@@ -60,7 +60,7 @@
   "orderSave": "Aplicar el nuevo orden",
   "orderTitle": "Orden de los campos",
   "fieldFormOptional": "Este campo es opcional",
-  "requiredField": "obligatorio",
+  "requiredField": "Obligatorio",
   "fieldFormMaxTextLength": "La longitud máxima del texto introducido",
   "fieldFormMinTextLength": "Longitud mínima del texto introducido",
   "chooseFieldType": "Al seleccionar el tipo de campo",
