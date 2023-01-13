@@ -16,7 +16,7 @@ const Accordion = ({
         active={active}
         head={head}
       />
-      <AccordionContent content={content} />
+      {active ? <AccordionContent content={content} /> : null}
     </div>
   </div>
 );
