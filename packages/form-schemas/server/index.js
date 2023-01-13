@@ -10,12 +10,14 @@ const FormSchema = require('../iso/FormSchema');
 const merge = require('../iso/merge');
 const filterByAccess = require('../iso/filterByAccess');
 const markdown = require('../iso/markdown');
+const flattenSchema = require('../iso/flattenSchema');
 const filesMw = require('./middleware/files');
 
 const utils = {
   merge,
   markdown,
   filterByAccess,
+  flattenSchema,
 };
 
 async function get({ client, schemas }, id, options = {}) {
