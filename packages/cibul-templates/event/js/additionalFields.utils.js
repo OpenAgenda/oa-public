@@ -1,4 +1,7 @@
 import moment from 'moment-timezone';
+import { nl2br } from '@openagenda/react-shared';
+import { markdownToHTML } from '@openagenda/react-shared';
+
 
 function hasAdditionalFields(schema) {
   return !!schema.fields.filter(f => f.schemaType !== 'event').length
@@ -41,6 +44,14 @@ function formatValue(field, value, { lang, timezone }) {
 
   if (field.fieldType === 'date') {
     return moment.tz(value, timezone).locale(lang).format('dddd D MMMM YYYY');
+  }
+
+  if (field.fieldType === 'markdown' && value) {
+    return markdownToHTML(value);
+  }
+
+  if (['textarea'].includes(field.fieldType) && value) {
+    return nl2br(value);
   }
 
   if (['image', 'file'].includes(field.fieldType) && value) {

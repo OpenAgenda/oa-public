@@ -1,5 +1,5 @@
 {
-  "AgendaSchema.AfterRedirectModal.body": "La configuration du formulaire membre n'est pas activé sur votre agenda",
+  "AgendaSchema.AfterRedirectModal.body": "La configuration du formulaire membre n'est pas activée sur votre agenda",
   "AgendaSchema.AfterRedirectModal.title": "Information",
   "AgendaSchema.EmbedSelection.eventInfo": "Ajoutez des thématiques, catégories, champs textes ou autres au formulaire événement de votre agenda.",
   "AgendaSchema.EmbedSelection.events": "Configurer le formulaire événement",

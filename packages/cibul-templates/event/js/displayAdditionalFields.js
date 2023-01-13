@@ -59,7 +59,7 @@ const renderLabel = (field, m) => (
 
 const renderDefaultField = (field, m) => (<>
   {renderLabel(field, m)}
-  <div className={field.fieldType === 'date' ? 'date' : ''}>
+  <div className={field.fieldType === 'date' ? 'date margin-bottom-sm' : 'margin-bottom-sm'}>
     {field.value ? field.value : (
       <em className="text-muted">{m(messages.noInput)}</em>
     )}
@@ -76,7 +76,7 @@ const renderLinkField = (field, m) => {
   return (
     <>
       {renderLabel(field, m)}
-      <div>
+      <div className='margin-bottom-sm'>
         {field.value ? <a target="_blank" href={`${prefix}${field.value}`}>{field.value}</a> : (
           <em className="text-muted">{m(messages.noInput)}</em>
         )}
@@ -87,7 +87,7 @@ const renderLinkField = (field, m) => {
 
 const renderOptionedField = (field, m) => (<>
   {renderLabel(field, m)}
-  <div>
+  <div className='margin-bottom-sm'>
     {field.value?.length ? field.value.join(', ') : (
       <em className="text-muted">{m(messages.noSelection)}</em>
     )}
@@ -96,7 +96,7 @@ const renderOptionedField = (field, m) => (<>
 
 const renderFileField = (field, m) => (<>
   {renderLabel(field, m)}
-  <div>
+  <div className='margin-bottom-sm'>
   {field.value ? (
     <a
       target="_blank"
@@ -110,7 +110,7 @@ const renderFileField = (field, m) => (<>
 
 const renderImageField = (field, m) => (<>
   {renderLabel(field, m)}
-  <div className="row">
+  <div className="row margin-bottom-sm">
     <div className="col-xs-12 col-print-6">
       {field.value ? (
         <img
@@ -125,6 +125,18 @@ const renderImageField = (field, m) => (<>
   </div>
 </>);
 
+const renderHTML= (field, m ) => (
+  <>{renderLabel(field, m)}
+  <div className="margin-bottom-sm">
+    {field.value ? (
+      <div dangerouslySetInnerHTML={{__html: field.value}} />
+    ): (
+      <em className="text-muted">{m(messages.noInput)}</em>
+    )}
+    </div>
+  </>
+)
+
 const renderField = (field, m) => {
   switch (field.fieldType) {
     case 'link':
@@ -135,6 +147,9 @@ const renderField = (field, m) => {
       return renderImageField(field, m);
     case 'file':
       return renderFileField(field, m);
+    case 'markdown':
+    case 'html':
+      return renderHTML(field, m);
     default:
       return field.isOptioned ? renderOptionedField(field, m) : renderDefaultField(field, m)
   }
@@ -149,7 +164,7 @@ function AdditionalFieldsSection({ additionalFields }) {
         <div className="event-content-section">
           <ul className="list-unstyled additional-fields">
             {additionalFields.map(field => (
-              <li key={field.key} className="margin-bottom-sm padding-bottom-xs">
+              <li key={field.key} className="padding-bottom-xs">
                 {renderField(field, m)}
               </li>
             ))}
