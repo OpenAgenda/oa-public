@@ -165,6 +165,7 @@ module.exports.init = async (c, services) => {
           contact_member: {},
 
           // call to actions
+          request_member_schema: {},
           request_agenda_schema: {},
           request_private_agenda: {},
           request_public_agenda: {},
