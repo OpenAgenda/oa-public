@@ -23,5 +23,5 @@ module.exports = config => {
     },
   });
 
-  return v => validate(flatten(v));
+  return v => validate(v !== null ? flatten(v) : v);
 };
