@@ -53,7 +53,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     private: privateOption = false,
   } = options;
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(core.services, agendaUid, {
+    detailed: true,
+    includeMemberSchema: true,
+  });
 
   log('  loaded agenda %s', agenda?.slug);
 

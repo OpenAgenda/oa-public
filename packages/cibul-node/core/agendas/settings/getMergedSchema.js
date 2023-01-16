@@ -8,6 +8,7 @@ const memberLabels = require('@openagenda/labels/members');
 const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
 const merge = require('../utils/merge');
+const getMemberSchema = require('../utils/getMemberSchema');
 
 async function loadFormSchema(formSchemas, agendaId, formSchemaId) {
   if (formSchemaId) {
@@ -26,11 +27,14 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     preloadedNetwork = null,
     includeEvent = false,
     includeMember = false,
+    includeMemberSchema = false,
+    includeSplitMemberSchema = false,
     includeNonDataFields = false,
     includeDateRange = false,
     includeAgendaEvent = false,
     includeOriginAgenda = false,
     access = 'public',
+    actingMember,
   } = options;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
@@ -56,14 +60,20 @@ module.exports = async (services, agendaOrUid, options = {}) => {
 
   const mergeArgs = [networkSchema, formSchema];
 
-  if (includeMember) {
+  if (includeMember || includeMemberSchema) {
+    const memberField = {
+      field: 'member',
+      read: ['administrator', 'moderator', 'internal'],
+      label: memberLabels.member,
+      fieldType: 'abstract',
+    };
+
+    if (includeMemberSchema) {
+      memberField.schema = includeSplitMemberSchema ? await getMemberSchema(services, agenda, { access, actingMember }) : (await getMemberSchema(services, agenda, { access, actingMember })).merged;
+    }
+
     mergeArgs.push({
-      fields: [{
-        field: 'member',
-        read: ['administrator', 'moderator', 'internal'],
-        label: memberLabels.member,
-        fieldType: 'abstract',
-      }],
+      fields: [memberField],
     });
   }
 

@@ -30,7 +30,9 @@ module.exports = async (services, eventSearch, agenda) => {
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-  const formSchema = await core.agendas(agenda.uid).settings.schema.getMerged();
+  const formSchema = await core.agendas(agenda.uid).settings.schema.getMerged({
+    includeMemberSchema: true,
+  });
 
   const result = await searchIndex.rebuild({
     on: {
