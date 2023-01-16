@@ -1,30 +1,95 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const agendas = require( '@openagenda/agendas' );
-const invitations = require( '@openagenda/invitations' );
-const log = require( '@openagenda/logs' )( 'services/members/onPatch' );
+const agendas = require('@openagenda/agendas');
+const invitations = require('@openagenda/invitations');
+const log = require('@openagenda/logs')('services/members/onPatch');
 const resetCache = require('./lib/resetCache');
-const controlDataSvc = require( '../legacy' ).controlData;
-const { sendInvitation } = require( './lib/mail' );
+const { sendInvitation } = require('./lib/mail');
 
-const {
-  isSuperiorToOrEqual
-} = require( '@openagenda/members' ).utils.compareRoles;
+async function onNewMember({ services, agenda, user, senderUser, context, member, activityQueue }) {
+  const usersSvc = services.users;
+  const {
+    activities,
+    members: {
+      utils: {
+        compareRoles: {
+          isSuperiorToOrEqual,
+        },
+      },
+    },
+    legacy: {
+      controlData: controlDataSvc,
+    },
+  } = services;
+  const { Inbox } = services.inboxes;
 
-module.exports = async ({ services, config, activityQueue }, before, member, context) => {
+  if (user.isNew) {
+    await usersSvc.setNewFlag(user.uid, { isNew: false });
+  }
+
+  try {
+    await controlDataSvc.memberSet({
+      agendaUid: agenda.uid,
+      userUid: user.uid,
+      role: member.role,
+    });
+  } catch (e) {
+    log('error', 'could not set member in control data', member, e);
+  }
+
+  await activities.feed({
+    entityType: 'user',
+    entityUid: user.uid,
+  }).follow({
+    entityType: 'agenda',
+    entityUid: agenda.uid,
+  }, {
+    credential: member.role,
+  });
+
+  if (Inbox) {
+    if (isSuperiorToOrEqual(member.role, 'moderator')) {
+      try {
+        await new Inbox({
+          type: 'agenda',
+          identifier: agenda.uid,
+        }).users.add({
+          userUid: user.uid,
+        });
+      } catch (e) {
+        log('error', 'could not add member to agenda inbox', e);
+      }
+    }
+  } else {
+    log('warn', 'inboxes service was not initialized');
+  }
+
+  await activityQueue('addMemberAcceptInvitation', {
+    agenda, user, senderUser, member, context,
+  });
+}
+
+module.exports = async function onPatch({ services, config, activityQueue }, before, member, context) {
   log('patched', member);
 
   const {
     inboxes,
     users: usersSvc,
+    members: {
+      utils: {
+        compareRoles: {
+          isSuperiorToOrEqual,
+        },
+      },
+    },
   } = services;
 
   try {
     const agenda = await agendas.get({ uid: member.agendaUid }, {
       private: null,
-      includeImagePath: true
+      includeImagePath: true,
     });
 
     await resetCache(services, member);
@@ -33,19 +98,19 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
 
     const user = member.userUid ? await usersSvc.findOne({
       query: { uid: member.userUid },
-      removed: null
+      removed: null,
     }) : null;
 
     if (!user && member.userUid) throw new Error('User not found');
 
     const senderUser = await usersSvc.findOne({
       query: { uid: _.get(context, 'sender.userUid') },
-      removed: null
+      removed: null,
     });
 
     const agendaInbox = inboxes ? new inboxes.Inbox({
       type: 'agenda',
-      identifier: agenda.uid
+      identifier: agenda.uid,
     }) : null;
 
     const isNewMember = member.userUid && !before.userUid;
@@ -63,7 +128,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       log('user is a newly associated member');
       if (!senderUser) throw new Error('Sender user not found');
       try {
-        await _onNewMember({ services, agenda, user, senderUser, context, member, activityQueue });
+        await onNewMember({ services, agenda, user, senderUser, context, member, activityQueue });
       } catch (e) {
         log('error', 'failed to register new member', e);
       }
@@ -80,7 +145,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       log('demotion or deletion');
       try {
         await agendaInbox.users.remove({
-          userUid: user.uid
+          userUid: user.uid,
         });
       } catch (e) {
         log('error', 'failed to remove user from agenda inbox', { member, exception: e });
@@ -89,7 +154,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       log('promotion');
       try {
         await agendaInbox.users.add({
-          userUid: user.uid
+          userUid: user.uid,
         });
       } catch (e) {
         log('error', 'failed to add user to agenda inbox', { member, exception: e });
@@ -121,69 +186,13 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
         invitation.email = member.custom.email;
         await invitation.save();
         await sendInvitation({ services, config }, {
-          invitation, member, context, agenda
+          invitation, member, context, agenda,
         });
       } catch (e) {
         log('error', 'failed to update invitation', e);
       }
     }
-
   } catch (e) {
     log('error', 'failed', { member, exception: e });
   }
 };
-
-async function _onNewMember( { services, agenda, user, senderUser, context, member, activityQueue } ) {
-
-  const usersSvc = services.users;
-  const activities = services.activities;
-  const { Inbox } = services.inboxes;
-
-  if ( user.isNew ) {
-    await usersSvc.setNewFlag( user.uid, { isNew: false } );
-  }
-
-  try {
-    await controlDataSvc.memberSet( {
-      agendaUid: agenda.uid,
-      userUid: user.uid,
-      role: member.role
-    } );
-  } catch ( e ) {
-    log( 'error', 'could not set member in control data', member, e );
-  }
-
-  await activities.feed( {
-    entityType: 'user',
-    entityUid: user.uid
-  } ).follow( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  }, {
-    credential: member.role
-  } );
-
-  if (Inbox) {
-    if (isSuperiorToOrEqual(member.role, 'moderator')) {
-      try {
-        await new Inbox({
-          type: 'agenda',
-          identifier: agenda.uid
-        }).users.add({
-          userUid: user.uid
-        });
-      } catch (e) {
-        log('error', 'could not add member to agenda inbox', e);
-      }
-    }
-  } else {
-    log('warn', 'inboxes service was not initialized');
-  }
-
-  console.log('QUEUE addMemberAcceptInvitation');
-
-  await activityQueue( 'addMemberAcceptInvitation', {
-    agenda, user, senderUser, member, context
-  } );
-
-}
