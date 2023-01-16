@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 const log = require('@openagenda/logs')('core/agendas/settings/getMergedSchema');
+const memberLabels = require('@openagenda/labels/members');
 
 const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
@@ -60,6 +61,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
       fields: [{
         field: 'member',
         read: ['administrator', 'moderator', 'internal'],
+        label: memberLabels.member,
         fieldType: 'abstract',
       }],
     });

@@ -7,6 +7,7 @@ const {
 const getMergedSchema = require('./settings/getMergedSchema');
 const getMemberSchema = require('./utils/getMemberSchema');
 const loadSummary = require('./utils/loadSummary');
+const addMemberSchemaToMemberField = require('./utils/addMemberSchemaToMemberField');
 
 function cacheAndReturn(services, options, agendaUid, result) {
   const {
@@ -77,7 +78,7 @@ async function get(core, agendaUid, options = {}) {
     return cacheAndReturn(services, options, agendaUid, null);
   }
 
-  if (!detailed && !includeEvent && !includeMemberSchema) {
+  if (!detailed && !includeEvent) {
     return cacheAndReturn(
       services,
       options,
@@ -109,6 +110,7 @@ async function get(core, agendaUid, options = {}) {
 
   if (includeMemberSchema) {
     related.memberSchema = includeSplitMemberSchema ? await getMemberSchema(services, agenda, { access, actingMember }) : (await getMemberSchema(services, agenda, { access, actingMember })).merged;
+    addMemberSchemaToMemberField(related.schema, related.memberSchema);
   }
 
   if (access === 'internal') {
