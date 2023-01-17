@@ -17,7 +17,7 @@ module.exports = async (services, agendaUid) => {
   const agenda = await agendas.get({ uid: agendaUid }, {
     internal: true,
     private: null,
-    includeImagePath: true
+    includeImagePath: true,
   });
 
   if (!agenda) {
@@ -28,10 +28,10 @@ module.exports = async (services, agendaUid) => {
 
   const [
     formSchema,
-    networkSchema
+    networkSchema,
   ] = await getSchemas(services, [
     agenda.formSchemaId,
-    _.get(agenda, 'network.formSchemaId')
+    _.get(agenda, 'network.formSchemaId'),
   ]);
 
   if (formSchema) agenda.formSchema = formSchema;
