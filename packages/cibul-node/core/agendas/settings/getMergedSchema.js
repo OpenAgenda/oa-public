@@ -28,7 +28,6 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     includeEvent = false,
     includeMember = false,
     includeMemberSchema = false,
-    includeSplitMemberSchema = false,
     includeNonDataFields = false,
     includeDateRange = false,
     includeAgendaEvent = false,
@@ -69,7 +68,9 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     };
 
     if (includeMemberSchema) {
-      memberField.schema = includeSplitMemberSchema ? await getMemberSchema(services, agenda, { access, actingMember }) : (await getMemberSchema(services, agenda, { access, actingMember })).merged;
+      memberField.schema = (
+        await getMemberSchema(services, agenda, { access, actingMember })
+      ).merged;
     }
 
     mergeArgs.push({

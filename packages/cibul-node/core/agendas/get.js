@@ -6,6 +6,7 @@ const {
 } = require('@openagenda/verror');
 const getMergedSchema = require('./settings/getMergedSchema');
 const loadSummary = require('./utils/loadSummary');
+const extractMemberSchema = require('./utils/extractMemberSchema');
 
 function cacheAndReturn(services, options, agendaUid, result) {
   const {
@@ -101,7 +102,6 @@ async function get(core, agendaUid, options = {}) {
     includeEvent,
     includeMember,
     includeMemberSchema,
-    includeSplitMemberSchema,
     includeDateRange,
     includeAgendaEvent,
     includeOriginAgenda,
@@ -110,7 +110,13 @@ async function get(core, agendaUid, options = {}) {
   });
 
   if (includeMemberSchema) {
-    related.memberSchema = related.schema.fields.find(f => f.field === 'member')?.schema;
+    related.memberSchema = await extractMemberSchema(services, {
+      schema: related.schema,
+      includeSplitMemberSchema,
+      access,
+      actingMember,
+      agenda,
+    });
   }
 
   if (access === 'internal') {
