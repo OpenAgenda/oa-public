@@ -15,11 +15,11 @@ module.exports = core => {
   const resyncEvents = search.resyncEvents(core);
 
   return agendaUid => ({
-    get: get.bind(null, core.services, agendaUid),
+    get: get.bind(null, core, agendaUid),
     list: list.bind(null, core, agendaUid),
     create: create.bind(null, core, agendaUid),
     add: add.bind(null, core, agendaUid),
-    remove: remove.bind(null, core.services, agendaUid),
+    remove: remove.bind(null, core, agendaUid),
     update: update.bind(null, core, agendaUid),
     patch: update.patch.bind(null, core, agendaUid),
     validate: Object.assign(

@@ -115,7 +115,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     draft,
   });
 
-  const payload = createPayload(core.services, agenda);
+  const payload = createPayload(core, agenda);
 
   if (containsEventData(data)) {
     await updateEvent(core.services, {
@@ -239,9 +239,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent();
 
+  const formSchema = await payload.getFormSchema({ access: 'internal' });
+
   try {
     await eventSearch.update({
       ...response,
+      formSchema,
       event: compiledEvent,
     });
     log('updated search for event %s', eventUid);
@@ -250,8 +253,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   const before = await payload.getCompiledEvent('before');
-
-  const formSchema = payload.getFormSchema();
 
   try {
     await createUpdateActivity(core.services, before, compiledEvent, {

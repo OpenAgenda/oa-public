@@ -49,7 +49,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const parsers = [];
 
-  log('search with access "%s" on %s events with query %s, nav %s and options %s', agendaUid, authorizedQuery, nav, options);
+  log('search with access "%s" on %s events with query %s, nav %s and options %s', access, agendaUid, authorizedQuery, nav, options);
 
   if (longDescriptionFormat && convertLongDescription.conversions.includes(longDescriptionFormat)) {
     parsers.push(convertLongDescription.load({

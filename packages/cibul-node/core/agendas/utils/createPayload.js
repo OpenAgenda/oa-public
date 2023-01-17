@@ -3,6 +3,7 @@
 const _ = require('lodash');
 // const log = require('@openagenda/logs')('core/agendas/utils/createPayload');
 const merge = require('./merge');
+const getMemberSchema = require('./getMemberSchema');
 
 const cleanAccess = dirty => {
   if (!dirty) {
@@ -11,13 +12,16 @@ const cleanAccess = dirty => {
   return dirty === 'internal' ? null : dirty;
 };
 
-function getFormSchema(agenda, dirtyAccess = null) {
-  const access = cleanAccess(dirtyAccess);
+function getFormSchema(agenda, options = {}) {
+  const access = cleanAccess(options.access);
+
   return merge.schemasWithEvent(
     agenda?.network?.formSchema,
     agenda?.formSchema,
     {
       access: access !== null ? { read: access } : null,
+      memberSchema: options.memberSchema,
+      includeAgendaEvent: true,
     },
   );
 }
@@ -47,7 +51,7 @@ async function getOriginAgenda(services, data) {
   ]);
 }
 
-async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, loadOption = null) {
+async function getCompiledEvent(core, data, key = 'after', access = null, formSchema = null, loadOption = null) {
   const load = loadOption || {
     custom: true,
     event: true,
@@ -57,12 +61,12 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
     user: true,
   };
   const includeFields = access === null ? null : (
-    formSchema || getFormSchema(data.agendas.current, access)
+    formSchema || getFormSchema(data.agendas.current, { access })
   ).fields.map(f => f.field);
 
   return merge.eventFromObject(data.services[key], {
     includeFields,
-    originAgenda: await getOriginAgenda(services, data),
+    originAgenda: await getOriginAgenda(core.services, data),
     member: data.member,
     user: data.user,
     load,
@@ -81,7 +85,7 @@ function getMember(data) {
   return _.get(data, 'services.after.agendaEvent.member', null);
 }
 
-function makeGetResponse(services, data) {
+function makeGetResponse(core, data) {
   return async (primaryKey = 'event', options = {}) => {
     const {
       access,
@@ -98,19 +102,33 @@ function makeGetResponse(services, data) {
       ...typeof options === 'object' ? options : { access: options },
     };
 
-    const formSchema = getFormSchema(data.agendas.current, access);
-    const member = getMember(data);
+    const formSchema = getFormSchema(data.agendas.current, {
+      access,
+      memberSchema: (
+        await getMemberSchema(core.services, data.agendas.current, { access: 'internal' })
+      ).merged,
+    });
+
+    const member = data.services.after?.agendaEvent?.userUid ? await core.agendas(data.agendas.current.uid).members.get(
+      data.services.after.agendaEvent?.userUid,
+      {
+        access: 'internal',
+        roleAsSlug: false,
+        throwOnNotFound: false,
+      },
+    ) : null;
 
     if (!['public', 'contributor'].includes(access) && load.member) {
       data.member = member;
     }
+
     return {
       success: true,
       agenda: data.agendas.current,
-      originAgenda: await getOriginAgenda(services, data),
+      originAgenda: await getOriginAgenda(core.services, data),
       member,
       formSchema,
-      [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, load),
+      [primaryKey]: await getCompiledEvent(core.services, data, 'after', access, formSchema, load),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null,
     };
   };
@@ -121,7 +139,7 @@ function setItem({ services }, name, ...args) {
   _.set(services, `after.${name}`, args.length === 2 ? args[1] : args[0]);
 }
 
-module.exports = function createPayload(services, agenda, primaryKey) {
+module.exports = function createPayload(core, agenda, primaryKey) {
   const data = {
     agendas: {
       current: agenda,
@@ -137,12 +155,17 @@ module.exports = function createPayload(services, agenda, primaryKey) {
 
   return {
     setItem: setItem.bind(null, data),
-    getResponse: makeGetResponse(services, data, primaryKey),
+    getResponse: makeGetResponse(core, data, primaryKey),
     getAgenda: () => data.agendas.current,
-    getCompiledEvent: getCompiledEvent.bind(null, services, data),
+    getCompiledEvent: getCompiledEvent.bind(null, core, data),
     getEvent: getEvent.bind(null, data),
     getMember: getMember.bind(null, data),
-    getFormSchema: getFormSchema.bind(null, data.agendas.current),
+    getFormSchema: async (options = {}) => getFormSchema(data.agendas.current, {
+      ...options,
+      memberSchema: (
+        await getMemberSchema(core.services, data.agendas.current, { access: 'internal' })
+      ).merged,
+    }),
     getItem,
     hasItem: key => getItem(key),
     getPrimaryKey: () => primaryKey,

@@ -82,7 +82,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
   log('  associated state');
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   try {
     clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {

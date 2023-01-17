@@ -35,7 +35,7 @@ module.exports = async function createActivity(services, before, after, context)
     (path, key) => ['updatedAt', 'location'].includes(key),
   );
 
-  const allChangedFields = changes
+  const allChangedFields = (changes ?? [])
     .map(v => v.path[0])
     .filter((v, i, a) => a.indexOf(v) === i);
 

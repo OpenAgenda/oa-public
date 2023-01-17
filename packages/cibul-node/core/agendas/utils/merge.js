@@ -117,7 +117,32 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const {
     access,
     includeNonDataFields,
+    memberSchema = null,
+    includeAgendaEvent = false,
   } = schemas.pop();
+
+  if (memberSchema) {
+    schemas.push({
+      fields: [{
+        field: 'member',
+        read: ['administrator', 'moderator', 'internal'],
+        fieldType: 'abstract',
+        schema: memberSchema,
+      }],
+    });
+  }
+
+  if (includeAgendaEvent) {
+    schemas.push({
+      fields: [{
+        field: 'state',
+        fieldType: 'abstract',
+      }, {
+        field: 'featured',
+        fieldType: 'abstract',
+      }],
+    });
+  }
 
   return appendLocationSchema(
     eventFormSchema({
