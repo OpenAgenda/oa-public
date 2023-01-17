@@ -5,7 +5,7 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/get');
 
 const createPayload = require('../utils/createPayload');
-const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const getAgenda = require('../utils/getAgenda');
 const convertLongDescription = require('./lib/convertLongDescription');
 
 module.exports = async (services, agendaUid, eventUid, options = {}) => {
@@ -45,7 +45,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     ...options,
   };
 
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const agenda = await getAgenda(services, agendaUid, { detailed: true });
 
   const payload = createPayload(services, agenda);
 

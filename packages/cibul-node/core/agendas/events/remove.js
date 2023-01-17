@@ -4,7 +4,7 @@ const { Forbidden, NotFound } = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 const createPayload = require('../utils/createPayload');
-const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const getAgenda = require('../utils/getAgenda');
 
 const merge = require('../utils/merge');
 const refreshAgenda = require('../utils/refreshAgenda');
@@ -20,7 +20,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     eventSearch,
   } = services;
 
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const agenda = await getAgenda(services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
 
   const contextUser = options?.context?.user;
