@@ -4,12 +4,12 @@ const { Forbidden, NotFound } = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 const createPayload = require('../utils/createPayload');
-const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const getAgenda = require('../utils/getAgenda');
 
 const merge = require('../utils/merge');
 const refreshAgenda = require('../utils/refreshAgenda');
 
-module.exports = async (services, agendaUid, eventUid, options) => {
+module.exports = async (core, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
   const {
@@ -18,9 +18,9 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     custom,
     events,
     eventSearch,
-  } = services;
+  } = core.services;
 
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
 
   const contextUser = options?.context?.user;
@@ -41,7 +41,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     ...options || {},
   };
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   const {
     formSchemaId,

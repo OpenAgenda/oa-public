@@ -27,7 +27,7 @@ module.exports = [{
   type: 'text',
   max: 255,
   optional: false,
-  read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator', 'moderator']
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator']
 }, {
   field: 'slug',
   type: 'slug',
@@ -143,7 +143,7 @@ module.exports = [{
   }, {
     field: 'inbox',
     type: 'schema',
-    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'public', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'mailto',

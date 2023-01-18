@@ -5,17 +5,17 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/get');
 
 const createPayload = require('../utils/createPayload');
-const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const getAgenda = require('../utils/getAgenda');
 const convertLongDescription = require('./lib/convertLongDescription');
 
-module.exports = async (services, agendaUid, eventUid, options = {}) => {
+module.exports = async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
 
   const {
     events,
     custom,
     agendaEvents,
-  } = services;
+  } = core.services;
 
   const {
     lang,
@@ -45,9 +45,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     ...options,
   };
 
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     decorate: ['member'].concat(detailed ? ['sourceAgendas'] : []),
@@ -67,7 +67,10 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     });
 
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
-      event.longDescription = convertLongDescription(event, { services, conversion: longDescriptionFormat });
+      event.longDescription = convertLongDescription(event, {
+        services: core.services,
+        conversion: longDescriptionFormat,
+      });
     }
     log('event fetched');
     payload.setItem('event', event);

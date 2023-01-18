@@ -55,6 +55,7 @@ function ProfileMenu({ user }) {
       fallbackSrc={process.env.NODE_ENV === 'development'
         ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
         : null}
+      fallbackStrategy="onError"
       loader={simpleLoader}
       width="30"
       height="30"

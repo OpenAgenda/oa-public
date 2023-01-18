@@ -89,33 +89,6 @@ module.exports = function getDefaultFieldMap(options = {}) {
   }, {
     type: 'accessibility',
     target: getTarget('accessibility'),
-  },
-  {
-    source: 'member.uid',
-    target: getTarget('member.uid'),
-  }, {
-    source: 'member.name',
-    target: getTarget('member.name'),
-  }, {
-    source: 'member.role',
-    target: getTarget('member.role'),
-    transform: {
-      1: _.get(labels, `contributor.${lang}`, 'contributor'),
-      2: _.get(labels, `administrator.${lang}`, 'administrator'),
-      3: _.get(labels, `moderator.${lang}`, 'moderator'),
-    },
-  }, {
-    source: 'member.organization',
-    target: getTarget('member.organization'),
-  }, {
-    source: 'member.position',
-    target: getTarget('member.position'),
-  }, {
-    source: 'member.email',
-    target: getTarget('member.email'),
-  }, {
-    source: 'member.phone',
-    target: getTarget('member.phone'),
   }, {
     source: 'createdAt',
     target: getTarget('createdAt'),

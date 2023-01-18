@@ -35,6 +35,7 @@ const config = async () => {
         },
       ] : []),
     },
+    productionBrowserSourceMaps: true,
     eslint: {
       dirs: [
         'src',

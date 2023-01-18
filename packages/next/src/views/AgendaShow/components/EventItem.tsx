@@ -102,14 +102,29 @@ export default function EventItem({ event, agenda }) {
           />
         </Flex>
 
-        {event.image ? (
-          <Image
-            src={`${IMAGE_PREFIX}${event.image.filename}`}
-            width={event.image?.size?.width}
-            height={event.image?.size?.height}
-            alt=""
-          />
-        ) : null}
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {event.image
+          ? event.image?.size?.width && event.image?.size?.height ? (
+            <Image
+              src={`${IMAGE_PREFIX}${event.image.filename}`}
+              width={event.image.size.width}
+              height={event.image.size.height}
+              loader={({ src }) => src}
+              alt=""
+            />
+          ) : (
+            <Image
+              src={`${IMAGE_PREFIX}${event.image.filename}`}
+              fill
+              // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+              pos="unset !important"
+              w="full !important"
+              h="auto !important"
+              loader={({ src }) => src}
+              alt=""
+            />
+          )
+          : null}
 
         {/* TODO: add a title with a precise date */}
         <Text px="6">

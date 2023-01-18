@@ -178,24 +178,6 @@ describe('Flattener', () => {
     });
   });
 
-  describe('other', () => {
-    it('tranform also applies to deep paths', () => {
-      const flatten = Flattener([{
-        source: 'member.role',
-        target: 'Role',
-        transform: {
-          1: 'Contributor',
-        },
-      }]);
-
-      expect(
-        flatten({ member: { role: 1 } }),
-      ).toEqual({
-        Role: 'Contributor',
-      });
-    });
-  });
-
   describe('edge cases', () => {
     it('when deep key points to inexistant value, defaults at null', () => {
       const flatten = Flattener([{

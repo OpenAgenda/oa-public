@@ -9,7 +9,7 @@ import {
   MapFilter,
   CustomFilter,
 } from '@openagenda/react-filters';
-import { HStack } from '@openagenda/uikit';
+import { Wrap } from '@openagenda/uikit';
 import FilterPreviewer from './FilterPreviewer';
 
 export default function FiltersPreview({ filters, getOptions, disabled }) {
@@ -25,7 +25,7 @@ export default function FiltersPreview({ filters, getOptions, disabled }) {
   }
 
   return (
-    <HStack mt="8">
+    <Wrap mt="8">
       <Filters
         filters={activeFilters}
         disabled={disabled}
@@ -39,6 +39,6 @@ export default function FiltersPreview({ filters, getOptions, disabled }) {
         // favoritesComponent={FavoritesFilter.Preview}
         component={FilterPreviewer}
       />
-    </HStack>
+    </Wrap>
   );
 }

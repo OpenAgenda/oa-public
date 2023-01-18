@@ -1,4 +1,5 @@
 import { SWRConfig } from 'swr';
+import { SWRDevTools } from 'swr-devtools';
 import { UIKitProvider } from '@openagenda/uikit';
 import { ApiClientProvider } from '@openagenda/react-shared';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
@@ -14,13 +15,15 @@ const Providers = ({ locale, intlMessages, children }: ProvidersProps) => (
   <UIKitProvider>
     <ApiClientProvider>
       <LanguageProvider locale={locale} messages={intlMessages}>
-        <SWRConfig
-          value={{
-            use: [swrStatusMiddleware],
-          }}
-        >
-          {children}
-        </SWRConfig>
+        <SWRDevTools>
+          <SWRConfig
+            value={{
+              use: [swrStatusMiddleware],
+            }}
+          >
+            {children}
+          </SWRConfig>
+        </SWRDevTools>
       </LanguageProvider>
     </ApiClientProvider>
   </UIKitProvider>

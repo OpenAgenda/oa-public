@@ -88,5 +88,10 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
     throw new GeneralError(error, 'something went wrong');
   }
 
+  await core.agendas(agendaUid).events.search.resyncEvents({
+    state: null,
+    memberUid: member.userUid,
+  }, { access: 'internal' });
+
   return { ...cleanMemberData };
 };

@@ -44,7 +44,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const { memberSchemaId } = agenda;
   const optionalFields = isOptionalFields(agenda, adminMod, memberSchemaId);
 
-  log('info', 'fetching for agenda %s isdAmin %s', agenda.uid, adminMod, options);
+  log('info', 'fetching for agenda %s isAdmin %s', agenda.uid, adminMod);
 
   if (!memberSchemaId) {
     return {

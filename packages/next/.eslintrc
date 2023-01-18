@@ -15,7 +15,9 @@
           "scripts/**/*.mjs"
         ]
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off"
   },
   "overrides": [
     {
@@ -49,5 +51,8 @@
     "next": {
       "rootDir": "."
     }
+  },
+  "parserOptions": {
+    "jsxPragma": null
   }
 }
