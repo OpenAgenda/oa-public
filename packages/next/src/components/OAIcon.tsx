@@ -47,8 +47,8 @@ const OAIcon = forwardRef<OAIconProps, 'svg'>(function OAIcon({
         fill="none"
         stroke={`var(--icon-primary-color, ${primaryC})`}
         strokeOpacity={`var(--icon-primary-opacity, ${primaryOpacity})`}
-        stroke-linecap="round"
-        stroke-width="14"
+        strokeLinecap="round"
+        strokeWidth="14"
         d="m38.014 51.413 32.863 34.535 34.68-50.874"
       />
       {withShadow ? (

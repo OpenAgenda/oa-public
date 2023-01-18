@@ -5,6 +5,12 @@
       "value": "Ajouter un événement"
     }
   ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Agréger"
+    }
+  ],
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,

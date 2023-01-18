@@ -1,26 +1,27 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Heading,
   HStack,
   VStack,
   Text,
   Link,
-  Box,
-  Flex,
-  Icon,
-  Tooltip,
   Wrap,
   Button,
+  Heading,
+  useDisclosure,
+  NoBreak,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
-import { faBadgeCheck } from '@fortawesome/pro-duotone-svg-icons';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 // import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
 import NextChakraLink from 'components/NextChakraLink';
-// import OAIcon from 'components/OAIcon';
+import OAIcon from 'components/OAIcon';
+import OfficialAgenda from 'components/OfficialAgenda';
+import PrivateAgenda from 'components/PrivateAgenda';
+import useLocationQuery from 'hooks/useLocationQuery';
+import AggregateModal from './AggregateModal';
 
 const messages = defineMessages({
   contact: {
@@ -34,6 +35,10 @@ const messages = defineMessages({
   addEvent: {
     id: 'next.views.AgendaShow.AgendaHeader.addEvent',
     defaultMessage: 'Add an event',
+  },
+  aggregate: {
+    id: 'next.views.AgendaShow.AgendaHeader.aggregate',
+    defaultMessage: 'Aggregate',
   },
 });
 
@@ -55,7 +60,15 @@ export default function AgendaHeader({ agenda }) {
 
   const intl = useIntl();
 
+  const urlQuery = useLocationQuery();
+
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
+
+  const {
+    isOpen: aggregateIsOpen,
+    onOpen: aggregateOnOpen,
+    onClose: aggregateOnClose,
+  } = useDisclosure({ defaultIsOpen: urlQuery.displayAggregatorModal === '1' });
 
   return (
     <HStack spacing="8">
@@ -75,36 +88,19 @@ export default function AgendaHeader({ agenda }) {
       />
 
       <VStack spacing="3" align="start">
-        <Flex>
-          <Heading as="h1">{agenda.title}</Heading>
+        <Heading as="h1" fontSize="4xl">
+          {agenda.title}
           {agenda.official ? (
-            <Box fontSize="4xl" lineHeight="1.2">
-              <Tooltip
-                label={intl.formatMessage(messages.officialAgenda)}
-                placement="right"
-                hasArrow
-                bg="white"
-                color="blackAlpha.800"
-                borderRadius="base"
-                arrowSize={8}
-                arrowPadding={6}
-              >
-                <Icon
-                  as={FontAwesomeIcon}
-                  icon={faBadgeCheck}
-                  alignSelf="start"
-                  ml="4"
-                  sx={{
-                    '--fa-primary-color': 'white',
-                    '--fa-secondary-color': 'colors.primary.500',
-                    '--fa-primary-opacity': '1',
-                    '--fa-secondary-opacity': '1',
-                  }}
-                />
-              </Tooltip>
-            </Box>
+            <NoBreak>
+              <OfficialAgenda ml="4" />
+            </NoBreak>
           ) : null}
-        </Flex>
+          {agenda.private ? (
+            <NoBreak>
+              <PrivateAgenda ml="4" />
+            </NoBreak>
+          ) : null}
+        </Heading>
 
         <Text>{nl2br(agenda.description)}</Text>
 
@@ -116,7 +112,7 @@ export default function AgendaHeader({ agenda }) {
             href={mailtoUrl || `/${agenda.slug}/contact`}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
-            colorScheme="white"
+            color="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
@@ -131,7 +127,7 @@ export default function AgendaHeader({ agenda }) {
             href={`/${agenda.slug}/contact`}
             leftIcon={<FontAwesomeIcon icon={faShareNodes} />}
             variant="outline"
-            colorScheme="white"
+            color="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
@@ -140,22 +136,27 @@ export default function AgendaHeader({ agenda }) {
             }}
           >
             Exporter
-          </Button>
+          </Button> */}
           <Button
-            as={NextChakraLink}
-            href={`/${agenda.slug}/contact`}
+            onClick={aggregateOnOpen}
             leftIcon={<OAIcon />}
             variant="outline"
-            colorScheme="white"
+            color="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
               color: 'primary.500',
-              textDecoration: 'none',
             }}
           >
-            Agréger
-          </Button> */}
+            {intl.formatMessage(messages.aggregate)}
+          </Button>
+          {aggregateIsOpen ? (
+            <AggregateModal
+              isOpen
+              onClose={aggregateOnClose}
+              agenda={agenda}
+            />
+          ) : null}
           <Button
             as={NextChakraLink}
             href={`/${agenda.slug}/contribute`}

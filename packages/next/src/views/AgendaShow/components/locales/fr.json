@@ -1,5 +1,6 @@
 {
   "next.views.AgendaShow.AgendaHeader.addEvent": "Ajouter un événement",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Agréger",
   "next.views.AgendaShow.AgendaHeader.contact": "Contacter",
   "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda officiel"
 }

@@ -1,0 +1,3907 @@
+{
+  "success": true,
+  "total": 155,
+  "events": [
+    {
+      "longDescription": {
+        "fr": "Au départ du Parc Mallet Stevens, votre guide-conférencier vous mène de belles demeures en jardins enchanteurs, levant le voile sur quelques secrets d'histoire.  \nCe parcours bucolique fera de vous un ambassadeur du patrimoine croisien, à protéger et faire connaître !  \nLa visite se termine au kiosque de la Mairie..."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "١٥ مايو - ٢٣ أكتوبر, في الأحد",
+        "de": "15 Mai - 23 Oktober, am sonntag",
+        "en": "15 May - 23 October, on Sundays",
+        "fr": "15 mai - 23 octobre, les dimanches",
+        "es": "15 mayo - 23 octubre, los Domingos"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Roubaix Tourisme",
+      "originAgenda": {
+        "uid": 64260763,
+        "image": "agenda64260763.jpg",
+        "title": "Office de Tourisme de Roubaix"
+      },
+      "description": {
+        "fr": "Balade de jardins en jardins à Croix !"
+      },
+      "title": {
+        "fr": "Balade de jardins en jardins à Croix"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-24T18:54:48.000Z",
+      "uid": 234238,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-15T09:30:00+02:00",
+          "end": "2022-05-15T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-06-05T09:30:00+02:00",
+          "end": "2022-06-05T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-09-04T09:30:00+02:00",
+          "end": "2022-09-04T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-10-23T09:30:00+02:00",
+          "end": "2022-10-23T12:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        16,
+        10,
+        5
+      ],
+      "slug": "balade-de-jardins-en-jardins-a-croix",
+      "updatedAt": "2022-07-05T08:54:00.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "f361971c439742b2b23f3927e0bffa7f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 394
+        },
+        "variants": [
+          {
+            "filename": "f361971c439742b2b23f3927e0bffa7f.full.image.jpg",
+            "size": {
+              "width": 1350,
+              "height": 759
+            },
+            "type": "full"
+          },
+          {
+            "filename": "f361971c439742b2b23f3927e0bffa7f.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda9977986.jpg",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": 59170,
+          "official": 1,
+          "description": "Agenda des événements de la ville de Roubaix",
+          "title": "Ville de Roubaix",
+          "url": "http://www.ville-roubaix.fr",
+          "_agg": "eyJ1aWQiOjk5Nzc5ODYsInRpdGxlIjoiVmlsbGUgZGUgUm91YmFpeCIsImltYWdlIjoiYWdlbmRhOTk3Nzk4Ni5qcGcifQ==",
+          "uid": 9977986,
+          "createdAt": "2017-05-18T14:17:28.000Z",
+          "officializedAt": "2018-04-09T09:18:30.000Z",
+          "slug": "roubaix",
+          "updatedAt": "2022-07-05T08:54:01.000Z"
+        }
+      ],
+      "label": [
+        32
+      ],
+      "creatorUid": 10866730,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://my.weezevent.com/balade-de-jardins-en-jardins-a-croix"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Croix",
+        "timezone": "Europe/Paris",
+        "postalCode": "59170",
+        "latitude": 50.666714,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 72290358,
+        "createdAt": "2022-03-25T13:50:55.000Z",
+        "duplicateCandidates": [
+          72259617,
+          55790147,
+          32031446
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "parc-mallet-stevens_3404737",
+        "email": null,
+        "longitude": 3.169205,
+        "updatedAt": "2022-05-29T06:57:01.000Z",
+        "image": null,
+        "website": null,
+        "address": "14 avenue Winston Churchill 59170",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 64260763,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjcyMjkwMzU4LCJuYW1lIjoiUGFyYyBNYWxsZXQtU3RldmVucyJ9",
+        "tags": null,
+        "insee": null,
+        "phone": null,
+        "district": null,
+        "name": "Parc Mallet-Stevens",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 10866730,
+      "conditions": {
+        "fr": "10€ / 7,5€ / gratuit"
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-23T09:30:00+02:00",
+        "end": "2022-10-23T12:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Initié en 2011, le MuMo est un musée mobile gratuit d’art contemporain destiné à aller à la rencontre des enfants sur leurs lieux de vie.\n\nEn 2017, un nouveau camion prend la route pour poursuivre cette mission d’éducation artistique et culturelle sur le territoire national. Pensée par la designer matali crasset comme un lieu de partage, cette version du Musée Mobile contribue à faire circuler les collections des Frac (Fonds régionaux d’art contemporain) et du Cnap (Centre national des arts plastiques), en complément de leurs actions de diffusion à travers la France.\n\nDe mai à août 2022, le MuMo sera en itinérance dans la Métropole européenne de Lille avec l’exposition _mUmotopia,_ à la rencontre des publics scolaires, extrascolaires et des habitants en proposant formations, ateliers, visites et rencontres."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "٧ - ٢٦ يوليو",
+        "de": "7 - 26 Juli",
+        "en": "7 - 26 July",
+        "fr": "7 - 26 juillet",
+        "es": "7 - 26 julio"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "©Philippe Piron",
+      "originAgenda": {
+        "uid": 45360092,
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "De mai à août 2022, le MuMo sera en itinérance dans la MEL avec l’exposition « mUmotopia », à la rencontre des publics scolaires, extrascolaires et des habitants en proposant ateliers et visites."
+      },
+      "title": {
+        "fr": "mUmotopia"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-03-28T10:24:13.000Z",
+      "uid": 76832398,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-07-07T10:00:00+02:00",
+          "end": "2022-07-07T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-07T14:00:00+02:00",
+          "end": "2022-07-07T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-08T16:00:00+02:00",
+          "end": "2022-07-08T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-09T10:00:00+02:00",
+          "end": "2022-07-09T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-09T14:00:00+02:00",
+          "end": "2022-07-09T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-10T10:00:00+02:00",
+          "end": "2022-07-10T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-10T14:00:00+02:00",
+          "end": "2022-07-10T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-12T16:00:00+02:00",
+          "end": "2022-07-12T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-13T16:00:00+02:00",
+          "end": "2022-07-13T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-14T10:00:00+02:00",
+          "end": "2022-07-14T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-14T14:00:00+02:00",
+          "end": "2022-07-14T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-15T16:00:00+02:00",
+          "end": "2022-07-15T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-16T10:00:00+02:00",
+          "end": "2022-07-16T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-16T14:00:00+02:00",
+          "end": "2022-07-16T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-17T10:00:00+02:00",
+          "end": "2022-07-17T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-17T14:00:00+02:00",
+          "end": "2022-07-17T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-18T16:00:00+02:00",
+          "end": "2022-07-18T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-19T16:00:00+02:00",
+          "end": "2022-07-19T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-20T16:00:00+02:00",
+          "end": "2022-07-20T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-21T16:00:00+02:00",
+          "end": "2022-07-21T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-22T16:00:00+02:00",
+          "end": "2022-07-22T17:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-23T10:00:00+02:00",
+          "end": "2022-07-23T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-23T14:00:00+02:00",
+          "end": "2022-07-23T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-24T10:00:00+02:00",
+          "end": "2022-07-24T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-24T14:00:00+02:00",
+          "end": "2022-07-24T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-07-26T16:00:00+02:00",
+          "end": "2022-07-26T17:30:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "mumotopia-1803679",
+      "updatedAt": "2022-03-28T10:24:13.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "d7913e97951942359ecd4fc0fe51167a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "d7913e97951942359ecd4fc0fe51167a.full.image.jpg",
+            "size": {
+              "width": 3543,
+              "height": 2362
+            },
+            "type": "full"
+          },
+          {
+            "filename": "d7913e97951942359ecd4fc0fe51167a.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 72921795,
+      "recurringevent": [],
+      "registration": [],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636565,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 2480366,
+        "createdAt": "2022-03-28T10:13:13.000Z",
+        "duplicateCandidates": [
+          86029127
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "lille_6296248",
+        "email": null,
+        "longitude": 3.063528,
+        "updatedAt": "2022-06-18T19:34:33.000Z",
+        "image": null,
+        "website": null,
+        "address": "Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 45360092,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjI0ODAzNjYsIm5hbWUiOiJMaWxsZSJ9",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 72921795,
+      "conditions": {
+        "fr": "Gratuit"
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-07-26T16:00:00+02:00",
+        "end": "2022-07-26T17:30:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {},
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "الأحد ١٠ يوليو, 09:30",
+        "de": "Sonntag 10 Juli, 09:30",
+        "en": "Sunday 10 July, 09:30",
+        "fr": "Dimanche 10 juillet, 09h30",
+        "es": "Domingo 10 julio, 09:30"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "originAgenda": {
+        "uid": 62785931,
+        "image": null,
+        "title": "Test création"
+      },
+      "description": {
+        "fr": "test"
+      },
+      "title": {
+        "fr": "test"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-07-05T12:24:11.000Z",
+      "uid": 41974245,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-07-10T09:30:00+02:00",
+          "end": "2022-07-10T16:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        4
+      ],
+      "slug": "test-5140892",
+      "updatedAt": "2022-07-12T10:33:36.000Z",
+      "addMethod": "share",
+      "attendanceMode": 1,
+      "sourceAgendas": [],
+      "label": [],
+      "creatorUid": 75052324,
+      "recurringevent": [],
+      "registration": [],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Verdun",
+        "timezone": "Europe/Paris",
+        "postalCode": "55100",
+        "latitude": 49.158928,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 5718949,
+        "createdAt": "2022-07-05T12:24:05.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Meuse",
+        "slug": "verdun_2012866",
+        "email": null,
+        "longitude": 5.386728,
+        "updatedAt": "2022-07-05T12:24:05.000Z",
+        "image": null,
+        "website": null,
+        "address": "Verdun",
+        "adminLevel3": null,
+        "agendaUid": 62785931,
+        "adminLevel1": "Grand Est",
+        "adminLevel2": "Meuse",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjU3MTg5NDksIm5hbWUiOiJWZXJkdW4ifQ==",
+        "tags": null,
+        "insee": "55545",
+        "phone": null,
+        "district": null,
+        "name": "Verdun",
+        "region": "Grand Est"
+      },
+      "ownerUid": 75052324,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-07-10T09:30:00+02:00",
+        "end": "2022-07-10T16:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Jeudi 7 juillet — 20h\nVendredi 8 juillet — 20h\n\nLille – Auditorium du Nouveau Siècle\n\n—\n\n± 2h30 avec entracte\n\nEn partenariat avec le Crédit Mutuel Nord Europe.\n\nAvec le soutien exeptionnel de la Métropole Européenne de Lille.\n\nAu programme :\n\nŒuvres de _Bernstein, Bizet, Massenet, Mozart, Poulenc, Rossini, Tchaïkovski, Verdi, Wagner_…\n\n**Alexandre Bloch** \\- Direction\n**Jodie Devos** - Soprano\n**Gaëlle Arquez** - Mezzo-soprano\n**Jean-François** \\- Borras Ténor\n**Alexandre Duhamel** - Baryton\n\n**Jeune Choeur des Hauts-de-France**\n**Pascale Dieval-Wils** - Cheffe de Chœur\n\n**Alex Vizorek** - Texte et narration\n\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nPour cette nouvelle édition festive et joyeuse des Nuits d’été, l’ONL interprète un florilège des grands airs et ouvertures d’opéra ! De Don Giovanni de Mozart à Candide de Bernstein, en passant par des extraits de Carmen ou de Rigoletto, laissez-vous transporter par les incontournables du répertoire et découvrez quelques raretés ! L’Orchestre, sous la baguette d’Alexandre Bloch, accompagné par quatre grands interprètes français à la carrière internationale et le Jeune Chœur des Hauts-de-France, vous promet un voyage exceptionnel ! En maître de cérémonie, Alex Vizorek présentera chacune des œuvres et racontera, avec la verve et l’humour qu’on lui connaît, sa petite histoire du grand opéra !"
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "٧ و ٨ يوليو ",
+        "de": "7 und 8 Juli",
+        "en": "7 and 8 July",
+        "fr": "7 et 8 juillet",
+        "es": "7 i 8 julio"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Une petite histoire de l’opéra racontée par Alex Vizorek !"
+      },
+      "title": {
+        "fr": "LES NUITS D’ÉTÉ 2022"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-05-02T13:18:00.000Z",
+      "uid": 19053564,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-07-07T20:00:00+02:00",
+          "end": "2022-07-07T22:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-08T20:00:00+02:00",
+          "end": "2022-07-08T22:30:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        20
+      ],
+      "slug": "les-nuits-dete-2022",
+      "updatedAt": "2022-05-02T13:18:00.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "2482467e403741a0a2c0e6ff5b7044d8.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 955
+        },
+        "variants": [
+          {
+            "filename": "2482467e403741a0a2c0e6ff5b7044d8.full.image.jpg",
+            "size": {
+              "width": 1247,
+              "height": 1701
+            },
+            "type": "full"
+          },
+          {
+            "filename": "2482467e403741a0a2c0e6ff5b7044d8.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.onlille.com/saison_21-22/concert/les-nuits-d-ete/"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 1837699,
+        "createdAt": "2022-02-22T10:28:21.000Z",
+        "duplicateCandidates": [
+          77992348
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_7238892",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "",
+        "address": "20 place Pierre Mendès France 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjE4Mzc2OTksIm5hbWUiOiJPcmNoZXN0cmUgTmF0aW9uYWwgZGUgTGlsbGUifQ==",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-07-08T20:00:00+02:00",
+        "end": "2022-07-08T22:30:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "_« Vent de Folie » « Maitrise de la mécanique du rire » « Comédiens tous très convaincants » « variété de l’écriture » « éclats de rire et tonnerre d’applaudissements » (La voix du Nord) - un spectacle pour tous..._\nUn voyant \"petit malin\", des voisines curieuses attirées par le genre masculin, un jeune prince perdu dans la forêt magique, l'invention d'un plat français très connu, des pêcheurs qui aiment ne pas être importunés, une syndicaliste en difficulté, quand ce brave homme va couper son sapin de Noël... les sketchs s'enchainent et on ne voit pas le temps passer (public)... Le gars qui passe en entretien disciplinaire m'a fait hurler de rire (public)... J'ai adoré le sketch sur les migrants (public) ... je ne m'attendais pas à la fin dans la forêt enchantée (public)..."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "private": 0,
+      "keywords": {
+        "fr": [
+          "Humour",
+          "rire",
+          "folie",
+          "famille",
+          "superbe",
+          "petits",
+          "grands"
+        ]
+      },
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": true
+      },
+      "dateRange": {
+        "ar": "السبت ٢٥ يونيو, 20:00",
+        "de": "Samstag 25 Juni, 20:00",
+        "en": "Saturday 25 June, 20:00",
+        "fr": "Samedi 25 juin, 20h00",
+        "es": "Sábado 25 junio, 20:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "crédit atelier loossois de formation et de créations théâtrales",
+      "originAgenda": {
+        "uid": 25507149,
+        "image": null,
+        "title": "Vie associative - Ville de Loos"
+      },
+      "description": {
+        "fr": "Spectacle de théâtre pour petits et grands"
+      },
+      "title": {
+        "fr": "FRANC'S FOLIES n°7"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-05-02T12:21:16.000Z",
+      "uid": 73658191,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-06-25T20:00:00+02:00",
+          "end": "2022-06-25T21:40:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        22,
+        20
+      ],
+      "slug": "francs-folies-n7-476255",
+      "updatedAt": "2022-05-02T12:31:23.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "6481f9a9966340ab8a0b1ee998812a62.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 985
+        },
+        "variants": [
+          {
+            "filename": "6481f9a9966340ab8a0b1ee998812a62.full.image.jpg",
+            "size": {
+              "width": 1636,
+              "height": 2303
+            },
+            "type": "full"
+          },
+          {
+            "filename": "6481f9a9966340ab8a0b1ee998812a62.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda80642274.jpg?__ts=1622455499864",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Retrouvez tous les événements culturels proposés à Loos : cinéma, spectacles tout public et jeune public, expositions, ateliers...",
+          "title": "Ville de Loos",
+          "url": "http://ville-loos.fr",
+          "_agg": "eyJ1aWQiOjgwNjQyMjc0LCJ0aXRsZSI6IlZpbGxlIGRlIExvb3MiLCJpbWFnZSI6ImFnZW5kYTgwNjQyMjc0LmpwZz9fX3RzPTE2MjI0NTU0OTk4NjQifQ==",
+          "uid": 80642274,
+          "createdAt": "2019-04-10T12:28:54.000Z",
+          "officializedAt": "2020-02-13T13:45:07.000Z",
+          "slug": "ville-de-loos",
+          "updatedAt": "2022-05-20T08:33:28.000Z"
+        },
+        {
+          "image": null,
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Retrouvez tous les événements de la vie associative loossoise : sport, culture, mémoire, cadre de vie...etc.",
+          "title": "Vie associative - Ville de Loos",
+          "url": "http://www.loos.fr/associations",
+          "_agg": "eyJ1aWQiOjI1NTA3MTQ5LCJ0aXRsZSI6IlZpZSBhc3NvY2lhdGl2ZSAtIFZpbGxlIGRlIExvb3MiLCJpbWFnZSI6bnVsbH0=",
+          "uid": 25507149,
+          "createdAt": "2021-01-28T15:44:02.000Z",
+          "officializedAt": "2021-04-08T15:40:43.000Z",
+          "slug": "vie-associative-ville-de-loos",
+          "updatedAt": "2022-05-20T08:32:25.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 14439970,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "email",
+          "value": "atelierloossoistheatre@gmail.com"
+        },
+        {
+          "type": "phone",
+          "value": "0610127526"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Loos",
+        "timezone": "Europe/Paris",
+        "postalCode": "59120",
+        "latitude": 50.614898,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 25939381,
+        "createdAt": "2021-09-30T11:35:19.000Z",
+        "duplicateCandidates": [
+          77332778
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "theatre-du-square_6723753",
+        "email": null,
+        "longitude": 3.012287,
+        "updatedAt": "2022-06-19T08:14:02.000Z",
+        "image": null,
+        "website": null,
+        "address": "8 square Eugène thomas  59120 Loos",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 25507149,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjI1OTM5MzgxLCJuYW1lIjoiVGjDqcOidHJlIGR1IFNxdWFyZSJ9",
+        "tags": null,
+        "insee": "59360",
+        "phone": null,
+        "district": null,
+        "name": "Théâtre du Square",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 14439970,
+      "conditions": {
+        "fr": "tarif unique 5 €"
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-06-25T20:00:00+02:00",
+        "end": "2022-06-25T21:40:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 1h avec entracte)\n**BRITTEN**\nLes Illuminations\\*\n\n**POULENC**\nTimor et tremor, extraits\n\n**POULENC**\nStabat Mater\\*\\*\n\n**Alexandre Bloch** Direction\n**\\*Sophie Karthäuser** Soprano\n**\\*\\*Jodie Devos** Soprano\n**Chœur de l’Orchestre de Paris**\n**Marc Korovitch et Ingrid Roose** Chefs de chœur\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nEn 1940, Britten met en musique le recueil des Illuminations de Rimbaud. « J’ai seule la clé de cette parade sauvage ! », déclare en préambule la partie de soprano, chantée ici par la prodigieuse chanteuse Jodie Devos. À seulement 27 ans, Britten réussit l’un des grands cycles de mélodies en français. Aux côtés de la soprano Sophie Karthäuser, Alexandre Bloch interprète également le Stabat Mater de Poulenc. Dédiant sa partition à la mémoire d’un ami disparu, le compositeur s’y livre tout entier à cœur ouvert. La puissance et la grandeur de cette œuvre émouvante offrent une magnifique clôture de saison."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "الأربعاء ٢٢ يونيو, 20:00",
+        "de": "Mittwoch 22 Juni, 20:00",
+        "en": "Wednesday 22 June, 20:00",
+        "fr": "Mercredi 22 juin, 20h00",
+        "es": "Miércoles 22 junio, 20:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "® Marco Borggreve",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Un grand cycle de mélodies et une puissante œuvre sacrée pour clore une saison exceptionnelle !"
+      },
+      "title": {
+        "fr": "CONCERT DE CLÔTURE DE SAISON"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T20:29:55.000Z",
+      "uid": 42200413,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-06-22T20:00:00+02:00",
+          "end": "2022-06-22T21:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        17
+      ],
+      "slug": "concert-de-cloture-de-saison",
+      "updatedAt": "2022-04-25T10:09:02.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "9a394286e8c847099747c81e398e8449.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "9a394286e8c847099747c81e398e8449.full.image.jpg",
+            "size": {
+              "width": 7952,
+              "height": 5304
+            },
+            "type": "full"
+          },
+          {
+            "filename": "9a394286e8c847099747c81e398e8449.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.onlille.com/saison_21-22/concert/concert-de-cloture-de-saison/"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-06-22T20:00:00+02:00",
+        "end": "2022-06-22T21:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 1h sans entracte)\n\n**MAHLER**  \nChants d’un compagnon errant\n\n**RACHMANINOV**\nSymphonie n°2\n\n**Alpesh Chauhan** \\- Direction\n**John Chest** \\- Baryton\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nLe chef britannique Alpesh Chauhan dirige l’Orchestre National de Lille dans la Symphonie n°2 de Rachmaninov, chef-d’œuvre romantique, mélancolique et populaire. L’œuvre contient le meilleur du compositeur, avec une pulsation et un rythme d’une grande liberté. L’orchestre y déploie de très riches sonorités et une rare plénitude aux services de mélanges subtils, de combinaisons raffinées, qui en font une pièce d’une rare générosité. Ce feu d’artifice symphonique est précédé des émouvants Chants d’un compagnon errant interprété par le baryton John Chest. Mahler y exprime, avec toute la fougue de sa jeunesse, les brûlures de l’amour malheureux."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "١٦ و ١٧ يونيو ",
+        "de": "16 und 17 Juni",
+        "en": "16 and 17 June",
+        "fr": "16 et 17 juin",
+        "es": "16 i 17 junio"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "John Chest ® Andrey Stoycher",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Rachmaninov et Mahler au sommet de leur art !"
+      },
+      "title": {
+        "fr": "MAHLER ET RACHMANINOV"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T20:27:10.000Z",
+      "uid": 67186823,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-06-16T20:00:00+02:00",
+          "end": "2022-06-16T21:00:00+02:00"
+        },
+        {
+          "begin": "2022-06-17T20:00:00+02:00",
+          "end": "2022-06-17T21:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        17
+      ],
+      "slug": "le-dernier-chef-doeuvre-de-bernstein",
+      "updatedAt": "2022-05-03T10:33:13.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "b080e813587842d2b37f60e61e725174.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "b080e813587842d2b37f60e61e725174.full.image.jpg",
+            "size": {
+              "width": 1400,
+              "height": 1400
+            },
+            "type": "full"
+          },
+          {
+            "filename": "b080e813587842d2b37f60e61e725174.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://onlille.notre-billetterie.com/billets?kld=2122&spec=1413"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-06-17T20:00:00+02:00",
+        "end": "2022-06-17T21:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "**Événement**\n\nMoment phare de la saison, ce rendez-vous s’adresse aux amoureux des claviers qu’ils soient au service de la musique classique, jazz ou électro… Laissez-vous séduire par ces 3 jours d’effervescence musicale.\n\n—\n**Avec le soutien du Département du Nord et de la Fondation BNP Paribas**"
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "١٠ - ١٢ يونيو",
+        "de": "10 - 12 Juni",
+        "en": "10 - 12 June",
+        "fr": "10 - 12 juin",
+        "es": "10 - 12 junio"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Rendez-vous les 10, 11 et 12 juin !\nProgramme à découvrir le 5 mai à 14h sur le site du Lille Piano(s) Festival"
+      },
+      "title": {
+        "fr": "LILLE PIANO(S) FESTIVAL 2022"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-05-03T14:43:02.000Z",
+      "uid": 90178623,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-06-10T19:00:00+02:00",
+          "end": "2022-06-10T23:30:00+02:00"
+        },
+        {
+          "begin": "2022-06-11T11:00:00+02:00",
+          "end": "2022-06-11T23:30:00+02:00"
+        },
+        {
+          "begin": "2022-06-12T11:00:00+02:00",
+          "end": "2022-06-12T21:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        13
+      ],
+      "slug": "lille-pianos-festival-2022",
+      "updatedAt": "2022-05-03T14:45:47.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "7695f9eb8b5e48f0984ade185b144bf3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "7695f9eb8b5e48f0984ade185b144bf3.full.image.jpg",
+            "size": {
+              "width": 1654,
+              "height": 2481
+            },
+            "type": "full"
+          },
+          {
+            "filename": "7695f9eb8b5e48f0984ade185b144bf3.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "phone",
+          "value": "03 20 12 82 40"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 1837699,
+        "createdAt": "2022-02-22T10:28:21.000Z",
+        "duplicateCandidates": [
+          77992348
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_7238892",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "",
+        "address": "20 place Pierre Mendès France 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjE4Mzc2OTksIm5hbWUiOiJPcmNoZXN0cmUgTmF0aW9uYWwgZGUgTGlsbGUifQ==",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-06-12T11:00:00+02:00",
+        "end": "2022-06-12T21:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 1h15 avec entracte)\n**WEBER**\nOberon, ouverture\n\n**BRUCH**\nConcerto pour violon n° 1\n\n**PROKOFIEV**\nRoméo et Juliette, Suites – extraits\n\n**Jean-Claude Casadesus** Direction\n**Renaud Capuçon** Violon\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nJean-Claude Casadesus nous raconte des histoires en musique. Dans Oberon, Weber nous entraîne dans le monde enchanté des elfes. Le ballet Roméo et Juliette de Prokofiev compte parmi les pièces les plus célèbres du répertoire. Avec des pages comme les Montaigus et Capulets ou la Scène au Balcon, Prokofiev dépeint avec une intensité exceptionnelle les amoureux de Shakespeare. Au cours de cette soirée événement, Renaud Capuçon interprète également le superbe Concerto de Bruch. Difficile d’imaginer que le compositeur romantique n’avait encore jamais écrit pour le violon en commençant l’écriture du concerto. Avec son sublime violon Guarneri del Gesù, Renaud Capuçon transcendera les merveilleuses mélodies de la partie soliste."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "١ و ٢ يونيو ",
+        "de": "1 und 2 Juni",
+        "en": "1 and 2 June",
+        "fr": "1 et 2 juin",
+        "es": "1 i 2 junio"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "© Paolo Roversi",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Jean-Claude Casadesus nous raconte de belles histoires en musique !"
+      },
+      "title": {
+        "fr": "SHAKESPEARE EN MUSIQUE"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T20:26:15.000Z",
+      "uid": 68671916,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-06-01T20:00:00+02:00",
+          "end": "2022-06-01T21:30:00+02:00"
+        },
+        {
+          "begin": "2022-06-02T20:00:00+02:00",
+          "end": "2022-06-02T21:30:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        17
+      ],
+      "slug": "shakespeare-en-musique",
+      "updatedAt": "2022-04-25T10:02:21.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "d22f7ae33e644d008d45cb18f2e097cc.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 645
+        },
+        "variants": [
+          {
+            "filename": "d22f7ae33e644d008d45cb18f2e097cc.full.image.jpg",
+            "size": {
+              "width": 2598,
+              "height": 2395
+            },
+            "type": "full"
+          },
+          {
+            "filename": "d22f7ae33e644d008d45cb18f2e097cc.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.onlille.com/saison_21-22/concert/shakespeare-en-musique/"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-06-02T20:00:00+02:00",
+        "end": "2022-06-02T21:30:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Le commissaire Jules GRANGER est appelé pour résoudre le meurtre d’Antoine CHIFFON retrouvé chez lui assis dans son canapé un couteau entre les deux épaules. Qui donc a tué Antoine CHIFFON, modeste comptable habitant une petite commune sans histoire ? Qui donc sont les membres de la famille CHIFFON qui vivent dans un joli pavillon entouré d’un jardin arboré et verdoyant ? Une voisine et amie, la veuve Marie-Caroline de JANSAC, en sait peut -être plus qu’elle ne le laisse supposer. Le jardinier est également étrange avec ses petites manies et ses alibis qui se succèdent durant l’enquête. L’inspecteur MARTIN aura-t-il le nez fin et l’intuition des meilleurs limiers de la police Française ?\n\"Formidable comédie tant pour le texte que pour l'interprétation des comédiennes et comédiens (VDN)\". Cette comédie a obtenu un très grand succès auprès du public et a été saluée par la presse. Réservations fortement conseillées au 06 10 12 75 26"
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "السبت ٢٨ مايو, 19:45",
+        "de": "Samstag 28 Mai, 19:45",
+        "en": "Saturday 28 May, 19:45",
+        "fr": "Samedi 28 mai, 19h45",
+        "es": "Sábado 28 mayo, 19:45"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "atelier loossois de formation et de créations théâtrales",
+      "originAgenda": {
+        "uid": 25507149,
+        "image": null,
+        "title": "Vie associative - Ville de Loos"
+      },
+      "description": {
+        "fr": "Comédie policière"
+      },
+      "title": {
+        "fr": "Mais qui a tué Antoine CHIFFON ?"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-04-06T11:56:48.000Z",
+      "uid": 32401126,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-28T19:45:00+02:00",
+          "end": "2022-05-28T21:45:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        22
+      ],
+      "slug": "mais-qui-a-tue-antoine-chiffon-7889047",
+      "updatedAt": "2022-04-06T11:56:48.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "0e0a3ca0a03d4fdba6b2f6ab5463da1d.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1033
+        },
+        "variants": [
+          {
+            "filename": "0e0a3ca0a03d4fdba6b2f6ab5463da1d.full.image.jpg",
+            "size": {
+              "width": 1549,
+              "height": 2285
+            },
+            "type": "full"
+          },
+          {
+            "filename": "0e0a3ca0a03d4fdba6b2f6ab5463da1d.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda80642274.jpg?__ts=1622455499864",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Retrouvez tous les événements culturels proposés à Loos : cinéma, spectacles tout public et jeune public, expositions, ateliers...",
+          "title": "Ville de Loos",
+          "url": "http://ville-loos.fr",
+          "_agg": "eyJ1aWQiOjgwNjQyMjc0LCJ0aXRsZSI6IlZpbGxlIGRlIExvb3MiLCJpbWFnZSI6ImFnZW5kYTgwNjQyMjc0LmpwZz9fX3RzPTE2MjI0NTU0OTk4NjQifQ==",
+          "uid": 80642274,
+          "createdAt": "2019-04-10T12:28:54.000Z",
+          "officializedAt": "2020-02-13T13:45:07.000Z",
+          "slug": "ville-de-loos",
+          "updatedAt": "2022-05-20T08:33:28.000Z"
+        },
+        {
+          "image": null,
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Retrouvez tous les événements de la vie associative loossoise : sport, culture, mémoire, cadre de vie...etc.",
+          "title": "Vie associative - Ville de Loos",
+          "url": "http://www.loos.fr/associations",
+          "_agg": "eyJ1aWQiOjI1NTA3MTQ5LCJ0aXRsZSI6IlZpZSBhc3NvY2lhdGl2ZSAtIFZpbGxlIGRlIExvb3MiLCJpbWFnZSI6bnVsbH0=",
+          "uid": 25507149,
+          "createdAt": "2021-01-28T15:44:02.000Z",
+          "officializedAt": "2021-04-08T15:40:43.000Z",
+          "slug": "vie-associative-ville-de-loos",
+          "updatedAt": "2022-05-20T08:32:25.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 14439970,
+      "recurringevent": [
+        2
+      ],
+      "registration": [
+        {
+          "type": "email",
+          "value": "atelierloossoistheatre@gmail.com"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Loos",
+        "timezone": "Europe/Paris",
+        "postalCode": "59120",
+        "latitude": 50.614898,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77332778,
+        "createdAt": "2022-04-06T11:48:19.000Z",
+        "duplicateCandidates": [
+          25939381
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "theatre-du-square-de-loos_8856095",
+        "email": null,
+        "longitude": 3.012287,
+        "updatedAt": "2022-06-19T08:14:02.000Z",
+        "image": null,
+        "website": null,
+        "address": "square Eugène Thomas 59120 Loos",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 25507149,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3MzMyNzc4LCJuYW1lIjoiVGjDqcOidHJlIGR1IFNxdWFyZSBkZSBMb29zIn0=",
+        "tags": null,
+        "insee": "59360",
+        "phone": null,
+        "district": null,
+        "name": "Théâtre du Square de Loos",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 14439970,
+      "conditions": {
+        "fr": "Adultes 7 € enfants 4 €  Associations/CE/étudiants 5 €"
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-28T19:45:00+02:00",
+        "end": "2022-05-28T21:45:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 1h35 avec entracte)\n**Jeudi 19** – 15h\n**Valenciennes, Centre Hospitalier**\nDans le cadre des Remèdes de l’âme,\nen partenariat avec le phénix et le Centre Hospitalier de Valenciennes\n\n—\n**Vendredi 20** — 20h\n**Radinghem-en-Weppes, Complexe Octave Baje**ux\n\n**Dimanche 22** — 16h\n**Bousbecque, salle Jean Debuf, complexe sportif Léon Dalle**\n\n**Mardi 24** — 20h\n**Pérenchies, salle Gérard Lenfant, complexe culturel de L’Horloge**\n\n**Mercredi 25** — 20h\n**Herlies, Eglise Saint-Amé**\n\n**Vendredi 27** – 20h\n**Provin, salle des fêtes Jacques Prévert**\n\n_Dans le cadre des Belles Sorties de la Métropole Européenne de Lille_\n\n**SCHUBERT**\nSymphonie n°5\n\n**MENDELSSOHN**\nLa Belle Mélusine, ouverture\n\n**BEETHOVEN**\nSymphonie n°8\n\n**Nuno Coelho** Direction\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nAvant-dernière des symphonies dites « de jeunesse », la Symphonie n°5 de Schubert réjouit par son élégance, sa transparence et sa grâce. Se détournant des tourments romantiques, la partition est le délicieux témoignage d’un compositeur de 19 ans, plein de joie de vivre et d’allégresse. Quasi contemporaine, la Symphonie n°8 est l’œuvre la plus concise et la plus légère de Beethoven. Le portugais Nuno Coelho, lauréat du prestigieux Concours de chef d’orchestre de Cadaqués, dirige également l’ouverture consacrée à La Belle Mélusine, cette fée et princesse qui a le pouvoir de se transformer partiellement en serpent."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "١٩ - ٢٦ مايو",
+        "de": "19 - 26 Mai",
+        "en": "19 - 26 May",
+        "fr": "19 - 26 mai",
+        "es": "19 - 26 mayo"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Nuno Coelho ® Elmer de Haas",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "L’Orchestre vient à votre rencontre !"
+      },
+      "title": {
+        "fr": "ÉBLOUISSANTS CLASSIQUES"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T20:19:37.000Z",
+      "uid": 1598847,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-19T15:00:00+02:00",
+          "end": "2022-05-19T17:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-20T20:00:00+02:00",
+          "end": "2022-05-20T22:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-22T16:00:00+02:00",
+          "end": "2022-05-22T18:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-24T20:00:00+02:00",
+          "end": "2022-05-24T22:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-25T20:00:00+02:00",
+          "end": "2022-05-25T22:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-26T20:00:00+02:00",
+          "end": "2022-05-26T22:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        17
+      ],
+      "slug": "eblouissants-classiques",
+      "updatedAt": "2022-05-02T13:22:32.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "d38ca9b4b19d4695893a2fd060c03dc9.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "d38ca9b4b19d4695893a2fd060c03dc9.full.image.jpg",
+            "size": {
+              "width": 2667,
+              "height": 4000
+            },
+            "type": "full"
+          },
+          {
+            "filename": "d38ca9b4b19d4695893a2fd060c03dc9.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.onlille.com/saison_21-22/concert/eblouissants-classiques/"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 1837699,
+        "createdAt": "2022-02-22T10:28:21.000Z",
+        "duplicateCandidates": [
+          77992348
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_7238892",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "",
+        "address": "20 place Pierre Mendès France 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjE4Mzc2OTksIm5hbWUiOiJPcmNoZXN0cmUgTmF0aW9uYWwgZGUgTGlsbGUifQ==",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-26T20:00:00+02:00",
+        "end": "2022-05-26T22:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Initié en 2011, le MuMo est un musée mobile gratuit d’art contemporain destiné à aller à la rencontre des enfants sur leurs lieux de vie.\n\nEn 2017, un nouveau camion prend la route pour poursuivre cette mission d’éducation artistique et culturelle sur le territoire national. Pensée par la designer matali crasset comme un lieu de partage, cette version du Musée Mobile contribue à faire circuler les collections des Frac (Fonds régionaux d’art contemporain) et du Cnap (Centre national des arts plastiques), en complément de leurs actions de diffusion à travers la France.\n\nDe mai à août 2022, le MuMo sera en itinérance dans la Métropole européenne de Lille avec l’exposition _mUmotopia,_ à la rencontre des publics scolaires, extrascolaires et des habitants en proposant formations, ateliers, visites et rencontres."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "٢٤ و ٢٥ مايو ",
+        "de": "24 und 25 Mai",
+        "en": "24 and 25 May",
+        "fr": "24 et 25 mai",
+        "es": "24 i 25 mayo"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "©Philippe Piron",
+      "originAgenda": {
+        "uid": 45360092,
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "De mai à août 2022, le MuMo sera en itinérance dans la MEL avec l’exposition « mUmotopia », à la rencontre des publics scolaires, extrascolaires et des habitants en proposant ateliers et visites."
+      },
+      "title": {
+        "fr": "mUmotopia"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-03-25T16:57:03.000Z",
+      "uid": 35980943,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-24T11:15:00+02:00",
+          "end": "2022-05-24T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-25T10:00:00+02:00",
+          "end": "2022-05-25T12:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-25T14:00:00+02:00",
+          "end": "2022-05-25T18:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "mumotopia-5474524",
+      "updatedAt": "2022-04-21T19:13:56.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "d7913e97951942359ecd4fc0fe51167a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "d7913e97951942359ecd4fc0fe51167a.full.image.jpg",
+            "size": {
+              "width": 3543,
+              "height": 2362
+            },
+            "type": "full"
+          },
+          {
+            "filename": "d7913e97951942359ecd4fc0fe51167a.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda36207583.jpg",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda des événements publics de la ville de Villeneuve d'Ascq.",
+          "title": "Ville de Villeneuve d'Ascq",
+          "url": "https://www.villeneuvedascq.fr/",
+          "_agg": "eyJ1aWQiOjM2MjA3NTgzLCJ0aXRsZSI6IlZpbGxlIGRlIFZpbGxlbmV1dmUgZCdBc2NxIiwiaW1hZ2UiOiJhZ2VuZGEzNjIwNzU4My5qcGcifQ==",
+          "uid": 36207583,
+          "createdAt": "2018-03-20T09:50:22.000Z",
+          "officializedAt": "2018-03-20T09:50:44.000Z",
+          "slug": "ville-de-villeneuve-dascq",
+          "updatedAt": "2022-05-20T08:30:25.000Z"
+        }
+      ],
+      "label": [
+        32
+      ],
+      "creatorUid": 72921795,
+      "recurringevent": [],
+      "registration": [],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Villeneuve-d'Ascq",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.619317,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77641163,
+        "createdAt": "2022-03-28T08:15:18.000Z",
+        "duplicateCandidates": [
+          30445763
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "villeneuve-dascq_9221757",
+        "email": null,
+        "longitude": 3.1314,
+        "updatedAt": "2022-06-18T19:35:23.000Z",
+        "image": null,
+        "website": null,
+        "address": "Villeneuve-d'Ascq",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 45360092,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3NjQxMTYzLCJuYW1lIjoiVmlsbGVuZXV2ZS1kJ0FzY3EifQ==",
+        "tags": null,
+        "insee": "59009",
+        "phone": null,
+        "district": null,
+        "name": "Villeneuve-d'Ascq",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 72921795,
+      "conditions": {
+        "fr": "Gratuit"
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-25T14:00:00+02:00",
+        "end": "2022-05-25T18:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 45 minutes sans entracte)\n\n**MENDELSSOHN**\nLa Belle Mélusine, ouverture\n\n**BEETHOVEN**\n\nSymphonie n°8\n\n**Nuno Coelho** Direction\n**Orchestre National de Lille**\n\nEn quelques mots :\n\nL’ouverture de La Belle Mélusine possède une force d’évocation fabuleuse. La Symphonie n°8 de Beethoven, également tourbillonnante, est la plus courte, la plus exubérante et la plus expérimentale des neuf symphonies du compositeur. À la direction de ces œuvres, le jeune chef d’orchestre Nuno Coelho, Grand Prix du concours international de direction de Cadaqués en 2018."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "الإثنين ٢٣ مايو, 12:30",
+        "de": "Montag 23 Mai, 12:30",
+        "en": "Monday 23 May, 12:30",
+        "fr": "Lundi 23 mai, 12h30",
+        "es": "Lunes 23 mayo, 12:30"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "© Elmer de Haas",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Concert Flash"
+      },
+      "title": {
+        "fr": "SYMPHONIE N°8"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T20:21:22.000Z",
+      "uid": 69407054,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-23T12:30:00+02:00",
+          "end": "2022-05-23T13:30:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        17
+      ],
+      "slug": "symphonie-n8",
+      "updatedAt": "2022-04-25T10:03:07.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "3a2cd949d3dd4b0fb82afa6b9b77e6dc.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "3a2cd949d3dd4b0fb82afa6b9b77e6dc.full.image.jpg",
+            "size": {
+              "width": 4000,
+              "height": 2667
+            },
+            "type": "full"
+          },
+          {
+            "filename": "3a2cd949d3dd4b0fb82afa6b9b77e6dc.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://onlille.notre-billetterie.com/billets?kld=2122&spec=1419"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-23T12:30:00+02:00",
+        "end": "2022-05-23T13:30:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Le cimetière de Rue Pétillon a été construit dans les années 20, après la Première Guerre Mondiale, et rassemble à lui seul plus de 1000 tombes.\nMunis de drapeaux et d'emblèmes, accompagnés d'un guide, devinez les nationalités différentes des soldats reposant dans ce cimetière et apprenez-en plus sur leur parcours jusque la France. Vous découvrirez aussi les différentes batailles qui ont eu lieu sur le front des Weppes."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": true,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": true
+      },
+      "dateRange": {
+        "ar": "السبت ٢١ مايو, 11:00",
+        "de": "Samstag 21 Mai, 11:00",
+        "en": "Saturday 21 May, 11:00",
+        "fr": "Samedi 21 mai, 11h00",
+        "es": "Sábado 21 mayo, 11:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Musée de la Bataille de Fromelles",
+      "originAgenda": {
+        "uid": 82601127,
+        "image": "agenda82601127.jpg?__ts=1641223312955",
+        "title": "Printemps des cimetières 2022"
+      },
+      "description": {
+        "fr": "Découvrez les différentes nationalités et les histoires des soldats du cimetière de Rue Pétillon"
+      },
+      "title": {
+        "fr": "[PRINTEMPS DES CIMETIERES]  Visite Guidée du Cimetière de Rue Pétillon"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-22T10:26:03.000Z",
+      "uid": 96099997,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-21T11:00:00+02:00",
+          "end": "2022-05-21T12:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        23
+      ],
+      "slug": "visite-guidee-du-cimetiere-de-rue-petillon",
+      "updatedAt": "2022-03-10T13:22:20.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "0e042dd328a04ce9af9d2614a40cf626.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "0e042dd328a04ce9af9d2614a40cf626.full.image.jpg",
+            "size": {
+              "width": 3968,
+              "height": 2976
+            },
+            "type": "full"
+          },
+          {
+            "filename": "0e042dd328a04ce9af9d2614a40cf626.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda32204253.jpg?__ts=1634983762163",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de l'Office de Tourisme de l'Armentiérois & des Weppes .",
+          "title": "Office de Tourisme de l'Armentiérois & des Weppes",
+          "url": "https://www.rex-tourisme.com",
+          "_agg": "eyJ1aWQiOjMyMjA0MjUzLCJ0aXRsZSI6Ik9mZmljZSBkZSBUb3VyaXNtZSBkZSBsJ0FybWVudGnDqXJvaXMgJiBkZXMgV2VwcGVzIiwiaW1hZ2UiOiJhZ2VuZGEzMjIwNDI1My5qcGc/X190cz0xNjM0OTgzNzYyMTYzIn0=",
+          "uid": 32204253,
+          "createdAt": "2020-05-05T09:53:54.000Z",
+          "officializedAt": "2021-03-04T13:59:44.000Z",
+          "slug": "office-de-tourisme-de-l-armentierois-and-des-weppes",
+          "updatedAt": "2022-05-18T15:13:12.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 43189036,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "email",
+          "value": "contact@musee-bataille-fromelles.fr"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Fleurbaix",
+        "timezone": "Europe/Paris",
+        "postalCode": "62840",
+        "latitude": 50.628085,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77333493,
+        "createdAt": "2022-02-22T10:25:41.000Z",
+        "duplicateCandidates": [
+          91279752
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 1,
+        "extId": null,
+        "department": "Pas-de-Calais",
+        "slug": "cimetiere-rue-petillon_7311768",
+        "email": null,
+        "longitude": 2.831612,
+        "updatedAt": "2022-06-18T19:41:26.000Z",
+        "image": "https://cibuldev.s3.amazonaws.com/location77333493.jpg?_ts=1650460750351",
+        "website": null,
+        "address": "1 rue du Pétillon 62840 Fleurbaix",
+        "adminLevel3": null,
+        "agendaUid": 82601127,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Pas-de-Calais",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3MzMzNDkzLCJuYW1lIjoiQ2ltZXRpw6hyZSBSdWUgUMOpdGlsbG9uIn0=",
+        "tags": null,
+        "insee": "62338",
+        "phone": null,
+        "district": null,
+        "name": "Cimetière Rue Pétillon",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 43189036,
+      "conditions": {
+        "fr": "Sur inscription, au tarif de 2€50"
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-21T11:00:00+02:00",
+        "end": "2022-05-21T12:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Le beffroi, témoin de l’ambition de la municipalité des années 1930 et des prouesses techniques développées dans l’architecture à cette époque, offre une vue impressionnante sur la ville. Accompagné·e·s d’un guide, repérez les différentes zones reconstruites ou repensées pendant cette période."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "الخميس ١٩ مايو, 12:00",
+        "de": "Donnerstag 19 Mai, 12:00",
+        "en": "Thursday 19 May, 12:00",
+        "fr": "Jeudi 19 mai, 12h00",
+        "es": "Jueves 19 mayo, 12:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Daniel Rapaich - DICOM - Ville de Lille",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Prenez de la hauteur et découvrez les réaménagement des années 1930"
+      },
+      "title": {
+        "fr": "Le beffroi, vue à 360° sur les années 20-30"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-03-23T15:57:18.000Z",
+      "uid": 62154877,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-19T12:00:00+02:00",
+          "end": "2022-05-19T12:45:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        23
+      ],
+      "slug": "le-beffroi-vue-a-360-sur-les-annees-20-30-7976644",
+      "updatedAt": "2022-03-23T15:57:18.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "e560e1bae7ae459dbca6529f928069df.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e560e1bae7ae459dbca6529f928069df.full.image.jpg",
+            "size": {
+              "width": 1080,
+              "height": 720
+            },
+            "type": "full"
+          },
+          {
+            "filename": "e560e1bae7ae459dbca6529f928069df.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 34967769,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.lilletourism.com/printemps-art-deco.html"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": "59033",
+        "latitude": 50.630463,
+        "imageCredits": null,
+        "description": {
+          "fr": "Place Roger Salengro, au pied du beffroi"
+        },
+        "setUid": null,
+        "uid": 29413253,
+        "createdAt": "2021-10-14T17:28:00.000Z",
+        "duplicateCandidates": [
+          34377299
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "place-roger-salengro-au-pied-du-beffroi_9105396",
+        "email": null,
+        "longitude": 3.069327,
+        "updatedAt": "2022-06-19T07:59:31.000Z",
+        "image": null,
+        "website": null,
+        "address": "Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjI5NDEzMjUzLCJuYW1lIjoiUGxhY2UgUm9nZXIgU2FsZW5ncm8sIGF1IHBpZWQgZHUgYmVmZnJvaSJ9",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Place Roger Salengro, au pied du beffroi",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 34967769,
+      "conditions": {
+        "fr": "9 € - Gratuit pour les moins de 6 ans."
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-19T12:00:00+02:00",
+        "end": "2022-05-19T12:45:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 40 minutes sans entracte)\n**DE FALLA**\nLes Tréteaux de Maître Pierre\n\n**Josep Vicent** Direction\n**Eleanor Ross** L’enfant / Soprano\n**Gerardo López** Maître Pierre / Ténor\n**Emmanuel Franco** Don Quichotte / Baryton\n**Compagnie Per Poc** Marionnettes\n\n**Orchestre National de Lille**\n\n_\\[Création mondiale\\]_\n_Commande de l’ONL à la compagnie Per Poc_\n\nEn quelques mots :\n\nEn 1923, le compositeur espagnol Manuel de Falla présente pour la première fois, Les Tréteaux de Maître Pierre, une pièce de théâtre de marionnettes qu’il a mise en musique, inspirée d’un épisode du Don Quichotte de Cervantès. Peu connu, cet opéra de poche aux accents hispaniques révèle une multitude de couleurs et de nuances orchestrales finement ciselées où chaque instrument devient soliste. La compagnie catalane de marionnettes Per Poc accompagnée de l’orchestre et de trois chanteurs donne vie à cette romance médiévale et poétique pour nous transporter dans l’univers du plus célèbre chasseur de moulins à vent."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "السبت ١٤ مايو, 16:00",
+        "de": "Samstag 14 Mai, 16:00",
+        "en": "Saturday 14 May, 16:00",
+        "fr": "Samedi 14 mai, 16h00",
+        "es": "Sábado 14 mayo, 16:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "® DR",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Famillissimo"
+      },
+      "title": {
+        "fr": "LES TRÉTEAUX DE MAÎTRE PIERRE"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T18:53:57.000Z",
+      "uid": 81522635,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-14T16:00:00+02:00",
+          "end": "2022-05-14T17:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        20
+      ],
+      "slug": "les-treteaux-de-maitre-pierre",
+      "updatedAt": "2022-05-03T10:38:09.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "25d40c22d3b14391bf6d8945ac77d01f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 947
+        },
+        "variants": [
+          {
+            "filename": "25d40c22d3b14391bf6d8945ac77d01f.full.image.jpg",
+            "size": {
+              "width": 946,
+              "height": 1280
+            },
+            "type": "full"
+          },
+          {
+            "filename": "25d40c22d3b14391bf6d8945ac77d01f.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.onlille.com/saison_21-22/concert/les-treteaux-de-maitre-pierre/"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-14T16:00:00+02:00",
+        "end": "2022-05-14T17:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Les documents d’archives renferment souvent les réponses mais où chercher et comment s’y retrouver ?  \nLes Archives municipales de Lille vous proposent un atelier pour vous apprendre à retracer l’origine d’un bien et son histoire aux XIXe et XXe siècles. Il vous permettra de vous familiariser avec les sources à votre disposition aux Archives municipales : permis de construire, cadastres, recensements de population… Vous pourrez vous exercer durant cet atelier sur des exemples concrets à partir des archives originales."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "السبت ١٤ مايو, 10:00",
+        "de": "Samstag 14 Mai, 10:00",
+        "en": "Saturday 14 May, 10:00",
+        "fr": "Samedi 14 mai, 10h00",
+        "es": "Sábado 14 mayo, 10:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Archives municipales de Lille",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Quand a été construite cette maison ? A-t-elle changé depuis ? Qui en était propriétaire ? Qui la louait ?"
+      },
+      "title": {
+        "fr": "Atelier d'initiation à la recherche : comment retracer 200 ans d'histoire d'une habitation lilloise"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-03-23T15:41:55.000Z",
+      "uid": 76985894,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-14T10:00:00+02:00",
+          "end": "2022-05-14T12:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        3
+      ],
+      "slug": "atelier-dinitiation-a-la-recherche-comment-retracer-200-ans-dhistoire-dune-habitation-lilloise-6709610",
+      "updatedAt": "2022-03-23T15:41:55.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "0c090e8d7ad0445298156802dec78214.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "0c090e8d7ad0445298156802dec78214.full.image.jpg",
+            "size": {
+              "width": 1400,
+              "height": 1400
+            },
+            "type": "full"
+          },
+          {
+            "filename": "0c090e8d7ad0445298156802dec78214.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 34967769,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://reservations.lille.fr/event/printemps-art-deco/2563"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.631017,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 19109407,
+        "createdAt": "2022-02-18T11:54:50.000Z",
+        "duplicateCandidates": [
+          21917370
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "a-laccueil-de-lhotel-de-ville-place-augustin-laurent_4796018",
+        "email": null,
+        "longitude": 3.070932,
+        "updatedAt": "2022-06-19T07:58:49.000Z",
+        "image": null,
+        "website": null,
+        "address": "place Augustin Laurent",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjE5MTA5NDA3LCJuYW1lIjoiQSBsJ2FjY3VlaWwgZGUgbCdow7R0ZWwgZGUgdmlsbGUsIHBsYWNlIEF1Z3VzdGluIExhdXJlbnQifQ==",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "A l'accueil de l'hôtel de ville, place Augustin Laurent",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 34967769,
+      "conditions": {
+        "fr": "Gratuit, sur réservation et sur présentation de votre pièce d'identité."
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-14T10:00:00+02:00",
+        "end": "2022-05-14T12:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Les documents d’archives renferment souvent les réponses mais où chercher et comment s’y retrouver ?  \nLes Archives municipales de Lille vous proposent un atelier pour vous apprendre à retracer l’origine d’un bien et son histoire aux XIXe et XXe siècles. Il vous permettra de vous familiariser avec les sources à votre disposition aux Archives municipales : permis de construire, cadastres, recensements de population… Vous pourrez vous exercer durant cet atelier sur des exemples concrets à partir des archives originales."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "الخميس ١٢ مايو, 18:00",
+        "de": "Donnerstag 12 Mai, 18:00",
+        "en": "Thursday 12 May, 18:00",
+        "fr": "Jeudi 12 mai, 18h00",
+        "es": "Jueves 12 mayo, 18:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Archives municipales de Lille",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Quand a été construite cette maison ? A-t-elle changé depuis ? Qui en était propriétaire ? Qui la louait ?"
+      },
+      "title": {
+        "fr": "Atelier d'initiation à la recherche : comment retracer 200 ans d'histoire d'une habitation lilloise"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-18T11:55:57.000Z",
+      "uid": 68455820,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-12T18:00:00+02:00",
+          "end": "2022-05-12T20:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        3
+      ],
+      "slug": "atelier-dinitiation-a-la-recherche-comment-retracer-200-ans-dhistoire-dune-habitation-lilloise-907335",
+      "updatedAt": "2022-03-23T15:41:25.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "0c090e8d7ad0445298156802dec78214.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "0c090e8d7ad0445298156802dec78214.full.image.jpg",
+            "size": {
+              "width": 1400,
+              "height": 1400
+            },
+            "type": "full"
+          },
+          {
+            "filename": "0c090e8d7ad0445298156802dec78214.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 34967769,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://reservations.lille.fr/event/printemps-art-deco/2563"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.631017,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 19109407,
+        "createdAt": "2022-02-18T11:54:50.000Z",
+        "duplicateCandidates": [
+          21917370
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "a-laccueil-de-lhotel-de-ville-place-augustin-laurent_4796018",
+        "email": null,
+        "longitude": 3.070932,
+        "updatedAt": "2022-06-19T07:58:49.000Z",
+        "image": null,
+        "website": null,
+        "address": "place Augustin Laurent",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjE5MTA5NDA3LCJuYW1lIjoiQSBsJ2FjY3VlaWwgZGUgbCdow7R0ZWwgZGUgdmlsbGUsIHBsYWNlIEF1Z3VzdGluIExhdXJlbnQifQ==",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "A l'accueil de l'hôtel de ville, place Augustin Laurent",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 34967769,
+      "conditions": {
+        "fr": "Gratuit, sur réservation et sur présentation de votre pièce d'identité."
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-12T18:00:00+02:00",
+        "end": "2022-05-12T20:00:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "**En 2022, un cycle de trois visites autour du thème « nature et ville », au printemps puis repris à l’automne.**\n\nOn peut aborder le thème de la nature et de la ville sous bien des formes : biodiversité, nature, agriculture urbaine, architecture écologique... Le WAAO vous invite cette année à la découverte de cette nature protéiforme en ville, sous forme de promenade, à Lille et dans la métropole.\n\nSamedi 7 mai 2022, de 10h à 11h30 autour de l'agriculture urbaine et architecture écologique à Roubaix.\n\nLa nature en ville peut prendre mille visages dont ceux de l’agriculture urbaine et de l’architecture écologique. Jardins familiaux, partagés, reconquêtes de friches, réhabilitations de bâtiments…, Roubaix, de par son histoire passée et actuelle, en fourmille d’exemples. Nous découvrirons la transformation en cours d’une ancienne friche industrielle de 8.000 m2 en ferme urbaine à la Ferme circulaire du Trichon et l’intervention écologique du collectif d’architectes Zerm sur l’ancien couvent des Clarisses lors de cette visite urbaine proposée par le WAOO.\n\n**RENDEZ-VOUS** devant la Ferme du Trichon face au 20, rue de Sébastopol, métro Roubaix Charles de Gaulle ou Grand Place,\n\n**FIN** Les Clarisses au 2 rue de Wasquehal, métro Epeule Montesquieu."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "private": 0,
+      "keywords": {
+        "fr": [
+          "Roubaix",
+          "Lille",
+          "Agriculture",
+          "urbaine",
+          "architecture",
+          "Visite"
+        ]
+      },
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "السبت ٧ مايو, 10:00",
+        "de": "Samstag 7 Mai, 10:00",
+        "en": "Saturday 7 May, 10:00",
+        "fr": "Samedi 7 mai, 10h00",
+        "es": "Sábado 7 mayo, 10:00"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "originAgenda": {
+        "uid": 41209341,
+        "image": "agenda41209341.jpg",
+        "title": "WAAO - Centre d'architecture et d'urbanisme"
+      },
+      "description": {
+        "fr": "Le WAAO vous invite à flâner et redécouvrir Lille avec l'historienne passionnée d'architecture et d'urbanisme Diane Cremer."
+      },
+      "title": {
+        "fr": "Visite urbaine : Agriculture urbaine et architecture écologique à Roubaix"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-03-09T15:12:49.000Z",
+      "uid": 91178430,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-07T10:00:00+02:00",
+          "end": "2022-05-07T11:30:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        23
+      ],
+      "slug": "visite-urbaine-8227379",
+      "updatedAt": "2022-04-25T12:57:08.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "02404d26b22d4508851c0d851ca65ed0.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 350
+        },
+        "variants": [
+          {
+            "filename": "02404d26b22d4508851c0d851ca65ed0.full.image.jpg",
+            "size": {
+              "width": 6912,
+              "height": 3456
+            },
+            "type": "full"
+          },
+          {
+            "filename": "02404d26b22d4508851c0d851ca65ed0.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda41209341.jpg",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Le WAAO est un centre d'architecture et d'urbanisme qui propose expositions, ateliers, rencontres... sur l'architecture, la ville ou encore du design...",
+          "title": "WAAO - Centre d'architecture et d'urbanisme",
+          "url": "http://www.waao.fr",
+          "_agg": "eyJ1aWQiOjQxMjA5MzQxLCJ0aXRsZSI6IldBQU8gLSBDZW50cmUgZCdhcmNoaXRlY3R1cmUgZXQgZCd1cmJhbmlzbWUiLCJpbWFnZSI6ImFnZW5kYTQxMjA5MzQxLmpwZyJ9",
+          "uid": 41209341,
+          "createdAt": "2018-09-27T14:01:06.000Z",
+          "officializedAt": "2019-05-31T07:32:38.000Z",
+          "slug": "waao-centre-darchitecture-et-durbanisme",
+          "updatedAt": "2022-05-20T14:56:24.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 53346169,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://www.helloasso.com/associations/waao-centre-d-architecture-et-d-urbanisme/evenements/visite-urbaine-agriculture-urbaine-et-architecture-ecologique-a-roubaix?_ga=2.249889606.1904154977.1646837603-459051345.1646055978&_gl=1%2a1i00189%2a_ga%2aNDU5MDUxMzQ1LjE2NDYwNTU5Nzg.%2a_ga_TKC826G3G2%2aMTY0NjgzNzYwMy4zLjEuMTY0NjgzNzYyNC4w"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Roubaix",
+        "timezone": "Europe/Paris",
+        "postalCode": "59100",
+        "latitude": 50.689332,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 68807711,
+        "createdAt": "2022-03-09T15:06:45.000Z",
+        "duplicateCandidates": [
+          48192155
+        ],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "devant-la-ferme-du-trichon_700475",
+        "email": null,
+        "longitude": 3.170668,
+        "updatedAt": "2022-06-20T11:01:57.000Z",
+        "image": null,
+        "website": null,
+        "address": "20, rue de Sébastopol, Roubaix",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 41209341,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjY4ODA3NzExLCJuYW1lIjoiZGV2YW50IGxhIEZlcm1lIGR1IFRyaWNob24ifQ==",
+        "tags": null,
+        "insee": "59512",
+        "phone": null,
+        "district": "Centre",
+        "name": "devant la Ferme du Trichon",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 53346169,
+      "conditions": {
+        "fr": "Tarif adhérent : 3€ / non adhérent : 5€ / habitant.e.s du quartier Moulin : gratuit (5 places)"
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-07T10:00:00+02:00",
+        "end": "2022-05-07T11:30:00+02:00"
+      },
+      "nextTiming": null
+    },
+    {
+      "longDescription": {
+        "fr": "Au programme : (± 1h35 avec entracte)\n**L’Émigrant**\nFilm muet de Charlie Chaplin\n\nFILMPHILHARMONIC EDITION\nMusique **Carl Davis**.\n\nCommande musicale de **Threefold Music**.\nMusique interprétée avec le concours de **Faber Music**, **London** pour **Carl Davis**.\n\n**Charlot s’évade**\nFilm muet de Charlie Chaplin\nFILMPHILHARMONIC EDITION\nMusique **Carl Davis**.\nCommande musicale de **Threefold Music**.\nMusique interprétée avec le concours de **Faber Music**, **London** pour **Carl Davis**.\n\n**Vive la liberté**\nFilm muet de Leo McCarey mettant en scène Laurel et Hardy\nMusique originale de Jens Troester\nFILMPHILHARMONIC EDITION\nAvec l’aimable autorisation de **Lobster Films**.\nAvec l’aimable autorisation de **Jens Troester** pour la musique.\n\n**Adrian Prabava** Direction\n**Orchestre National de Lille**\n\n**_Projection sur grand écran et orchestre en direct._**\n**_Version originale, sous-titrée en français._**\n\n_FILMPHILHARMONIC EDITION Film : Liberty Copyright_\n_© Roy Export S.A.S. Music : Copyright © Roy Export_\n_Company Ltd. and Bourne Co. All rights reserved._\n\nEn quelques mots :\n\nEntre 1916 et 1917, Charlie Chaplin développe le personnage de Charlot. Parmi les douze courts métrages qu’il tourne alors, L’Émigrant est le plus remarquable car il marque le tournant du réalisateur vers un cinéma plus ouvertement social et engagé. Pour la première fois, les situations comiques s’appuient sur un fond tragique, ici celle des immigrants qui arrivent aux États-Unis, thème universel qui reste d’une brûlante actualité. Mais avec Charlot, l’humour finit toujours par triompher comme en atteste l’irrésistible cascade de gags de Charlot s’évade, sorti en 1917. Parachevant ce somptueux ciné-concert, Vive la liberté (1929) de Leo McCarey met en scène deux hilarants prisonniers : Laurel et Hardy."
+      },
+      "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "dateRange": {
+        "ar": "٤ و ٥ مايو ",
+        "de": "4 und 5 Mai",
+        "en": "4 and 5 May",
+        "fr": "4 et 5 mai",
+        "es": "4 i 5 mayo"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "® D.R",
+      "originAgenda": {
+        "uid": 84178045,
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Ciné-concert"
+      },
+      "title": {
+        "fr": "VIVE LA LIBERTÉ"
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2022-02-23T18:47:15.000Z",
+      "uid": 94731507,
+      "draft": 0,
+      "timings": [
+        {
+          "begin": "2022-05-04T20:00:00+02:00",
+          "end": "2022-05-04T22:00:00+02:00"
+        },
+        {
+          "begin": "2022-05-05T20:00:00+02:00",
+          "end": "2022-05-05T22:00:00+02:00"
+        }
+      ],
+      "links": [],
+      "state": 2,
+      "categories-metropolitaines": [
+        6
+      ],
+      "slug": "vive-la-liberte",
+      "updatedAt": "2022-05-03T10:34:15.000Z",
+      "addMethod": "aggregation",
+      "image": {
+        "filename": "58181f721afa4f19a1a091e2630fb1ff.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "58181f721afa4f19a1a091e2630fb1ff.full.image.jpg",
+            "size": {
+              "width": 328,
+              "height": 328
+            },
+            "type": "full"
+          },
+          {
+            "filename": "58181f721afa4f19a1a091e2630fb1ff.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+        {
+          "image": "agenda57621068.jpg?__ts=1647873370321",
+          "private": 0,
+          "indexed": 1,
+          "locationSetUid": null,
+          "official": 1,
+          "description": "Agenda de tous les événements de la Ville de Lille",
+          "title": "Ville de Lille",
+          "url": "https://www.lille.fr",
+          "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGc/X190cz0xNjQ3ODczMzcwMzIxIn0=",
+          "uid": 57621068,
+          "createdAt": "2017-07-12T09:18:29.000Z",
+          "officializedAt": "2018-04-09T09:19:31.000Z",
+          "slug": "ville-de-lille",
+          "updatedAt": "2022-05-20T12:22:32.000Z"
+        }
+      ],
+      "label": [],
+      "creatorUid": 8886616,
+      "recurringevent": [],
+      "registration": [
+        {
+          "type": "link",
+          "value": "https://onlille.notre-billetterie.com/billets?kld=2122&spec=1425"
+        }
+      ],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": null,
+        "latitude": 50.636755,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 77992348,
+        "createdAt": "2022-02-18T09:42:18.000Z",
+        "duplicateCandidates": [
+          1837699
+        ],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "orchestre-national-de-lille_8661927",
+        "email": null,
+        "longitude": 3.060193,
+        "updatedAt": "2022-06-19T07:58:48.000Z",
+        "image": null,
+        "website": "https://www.onlille.com/saison_21-22/",
+        "address": "30 Place Pierre Mendès France, 59000 Lille",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 84178045,
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjc3OTkyMzQ4LCJuYW1lIjoiT3JjaGVzdHJlIE5hdGlvbmFsIGRlIExpbGxlIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": "0320128240",
+        "district": "Lille-Centre",
+        "name": "Orchestre National de Lille",
+        "region": "Hauts-de-France"
+      },
+      "ownerUid": 8886616,
+      "conditions": {},
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-05-05T20:00:00+02:00",
+        "end": "2022-05-05T22:00:00+02:00"
+      },
+      "nextTiming": null
+    }
+  ],
+  "after": [
+    0,
+    32503680000000,
+    1651780800000,
+    94731507
+  ],
+  "sort": "timingsWithFeatured.asc",
+  "aggregations": {
+    "viewport": {
+      "topLeft": {
+        "latitude": 50.72341096121818,
+        "longitude": 2.8316119965165854
+      },
+      "bottomRight": {
+        "latitude": 49.15892797987908,
+        "longitude": 5.386727973818779
+      }
+    },
+    "interetintercommunal": [
+      {
+        "key": "null",
+        "eventCount": 70
+      },
+      {
+        "id": 1,
+        "value": "true",
+        "label": {
+          "fr": "Événement d'intérêt intercommunal",
+          "en": "Événement d'intérêt intercommunal"
+        },
+        "display": true,
+        "key": 1,
+        "eventCount": 62
+      }
+    ],
+    "recurringevent": [
+      {
+        "key": "null",
+        "eventCount": 114
+      },
+      {
+        "id": 2,
+        "value": "true",
+        "label": {
+          "fr": "Événement récurrent",
+          "en": "Événement récurrent"
+        },
+        "display": true,
+        "key": 2,
+        "eventCount": 11
+      }
+    ],
+    "categories-metropolitaines": [
+      {
+        "key": "null",
+        "eventCount": 15
+      },
+      {
+        "id": 3,
+        "value": "atelier",
+        "label": {
+          "fr": "Atelier"
+        },
+        "display": true,
+        "key": 3,
+        "eventCount": 44
+      },
+      {
+        "id": 17,
+        "value": "musique",
+        "label": {
+          "fr": "Musique"
+        },
+        "display": true,
+        "key": 17,
+        "eventCount": 33
+      },
+      {
+        "id": 20,
+        "value": "spectacle",
+        "label": {
+          "fr": "Spectacle"
+        },
+        "display": true,
+        "key": 20,
+        "eventCount": 22
+      },
+      {
+        "id": 23,
+        "value": "visite-balade",
+        "label": {
+          "fr": "Visite - Balade"
+        },
+        "display": true,
+        "key": 23,
+        "eventCount": 21
+      },
+      {
+        "id": 13,
+        "value": "fete-festival",
+        "label": {
+          "fr": "Fête - Festival"
+        },
+        "display": true,
+        "key": 13,
+        "eventCount": 19
+      },
+      {
+        "id": 22,
+        "value": "theatre",
+        "label": {
+          "fr": "Théâtre"
+        },
+        "display": true,
+        "key": 22,
+        "eventCount": 14
+      },
+      {
+        "id": 6,
+        "value": "cinema",
+        "label": {
+          "fr": "Cinéma"
+        },
+        "display": true,
+        "key": 6,
+        "eventCount": 13
+      },
+      {
+        "id": 7,
+        "value": "conference-rencontre",
+        "label": {
+          "fr": "Conférence - Rencontre"
+        },
+        "display": true,
+        "key": 7,
+        "eventCount": 13
+      },
+      {
+        "id": 10,
+        "value": "developpement-durable",
+        "label": {
+          "fr": "Développement durable"
+        },
+        "display": true,
+        "key": 10,
+        "eventCount": 10
+      },
+      {
+        "id": 12,
+        "value": "exposition",
+        "label": {
+          "fr": "Exposition"
+        },
+        "display": true,
+        "key": 12,
+        "eventCount": 9
+      },
+      {
+        "id": 14,
+        "value": "formation",
+        "label": {
+          "fr": "Formation"
+        },
+        "display": true,
+        "key": 14,
+        "eventCount": 5
+      },
+      {
+        "id": 5,
+        "value": "ceremonie",
+        "label": {
+          "fr": "Cérémonie"
+        },
+        "display": true,
+        "key": 5,
+        "eventCount": 5
+      },
+      {
+        "id": 15,
+        "value": "lecture",
+        "label": {
+          "fr": "Lecture"
+        },
+        "display": true,
+        "key": 15,
+        "eventCount": 4
+      },
+      {
+        "id": 16,
+        "value": "mode",
+        "label": {
+          "fr": "Mode"
+        },
+        "display": true,
+        "key": 16,
+        "eventCount": 4
+      },
+      {
+        "id": 18,
+        "value": "reunion-publique",
+        "label": {
+          "fr": "Réunion publique"
+        },
+        "display": true,
+        "key": 18,
+        "eventCount": 4
+      },
+      {
+        "id": 19,
+        "value": "sante",
+        "label": {
+          "fr": "Santé"
+        },
+        "display": true,
+        "key": 19,
+        "eventCount": 4
+      },
+      {
+        "id": 4,
+        "value": "braderie-brocante",
+        "label": {
+          "fr": "Braderie - Brocante"
+        },
+        "display": true,
+        "key": 4,
+        "eventCount": 4
+      },
+      {
+        "id": 9,
+        "value": "danse",
+        "label": {
+          "fr": "Danse"
+        },
+        "display": true,
+        "key": 9,
+        "eventCount": 4
+      },
+      {
+        "id": 11,
+        "value": "emploi",
+        "label": {
+          "fr": "Emploi"
+        },
+        "display": true,
+        "key": 11,
+        "eventCount": 3
+      },
+      {
+        "id": 21,
+        "value": "sport",
+        "label": {
+          "fr": "Sport"
+        },
+        "display": true,
+        "key": 21,
+        "eventCount": 3
+      },
+      {
+        "id": 28,
+        "value": "aucune",
+        "label": {
+          "fr": "Aucune catégorie"
+        },
+        "display": false,
+        "key": 28,
+        "eventCount": 3
+      },
+      {
+        "id": 8,
+        "value": "conseil-municipal",
+        "label": {
+          "fr": "Conseil Municipal"
+        },
+        "display": true,
+        "key": 8,
+        "eventCount": 3
+      }
+    ],
+    "label": [
+      {
+        "key": "null",
+        "eventCount": 107
+      },
+      {
+        "id": 27,
+        "value": "journees-europeennes-du-patrimoine",
+        "label": {
+          "fr": "Journées Européennes du Patrimoine"
+        },
+        "display": true,
+        "key": 27,
+        "eventCount": 6
+      }
+    ]
+  }
+}

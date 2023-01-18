@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Head from 'next/head';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
@@ -22,7 +22,6 @@ import { useApiClient } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
-import useRouteParams from 'hooks/useRouteParams';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
@@ -45,14 +44,6 @@ export type AgendaShowProps = {
 
 const PAGE_SIZE = 20;
 
-function EventList({ events, agenda }) {
-  return (
-    <>
-      {events.map(event => <EventItem key={event.uid} event={event} agenda={agenda} />)}
-    </>
-  );
-}
-
 function AgendaShow({ agenda }: AgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
@@ -61,7 +52,6 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
   const filtersFormRef = useRef<any>();
 
-  const routeParams = useRouteParams();
   const urlQuery = useLocationQuery();
   const initialValues = useConst(() => urlQuery);
 
@@ -143,10 +133,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           mapElem.onQueryChange(newData[0].aggregations.viewport);
         }
 
-        router.push({
-          pathname: router.pathname,
-          query: routeParams,
-        }, `${qs.stringify(query, { addQueryPrefix: true })}`, { shallow: true });
+        router.push(
+          new URL(router.asPath, 'http://n').pathname + qs.stringify(query, { addQueryPrefix: true }),
+          null,
+          { shallow: true },
+        );
       },
     },
   );
@@ -156,7 +147,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
   const isLoadingInitialData = !pages && !error;
   const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && typeof pages[size - 1] === 'undefined');
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;
@@ -288,9 +279,9 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           </Box>
 
           <Flex direction="column" flex="2" mt="8" gap="10">
-            {pages?.map(page => (
-              <EventList key={page.after} events={page.events} agenda={agenda} />
-            ))}
+            {pages?.map(page => page.events.map(event => (
+              <EventItem key={event.uid} event={event} agenda={agenda} />
+            )))}
 
             <Flex ml="25%" justify="space-around">
               <Button
