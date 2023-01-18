@@ -1,5 +1,6 @@
 import dateRanges from './dateRanges';
 import withDefaultFilterConfig from './withDefaultFilterConfig';
+import getAdditionalFilters from './getAdditionalFilters';
 
 export default function getFilters(intl, fields, opts = {}) {
   const { staticRanges, inputRanges } = dateRanges(intl, opts);
@@ -30,15 +31,8 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'accessibility' },
   ];
 
-  const additionalFilters = fields
-    .filter(fieldSchema => fieldSchema.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
-    .map(fieldSchema => ({
-      name: fieldSchema.field,
-      fieldSchema,
-    }));
-
   return standardFilters
-    .concat(additionalFilters)
+    .concat(getAdditionalFilters(fields))
     .filter(filter => opts.include?.includes(filter.name) ?? true)
     .filter(filter => !opts.exclude?.includes(filter.name))
     .map(filter => withDefaultFilterConfig(filter, intl, {

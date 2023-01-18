@@ -5,6 +5,7 @@ import { getFilters } from '../utils';
 export default function useFilters(intl, fields, opts = {}) {
   const seed = useUIDSeed();
 
+  // linter is not happy but entire opts should not directly be a dependency of useMemo
   return useMemo(() => getFilters(intl, fields, opts)
     .map(filter => ({
       ...filter,
