@@ -4,4 +4,6 @@ export type { Theme } from './theme';
 
 export { default as UIKitProvider } from './Provider';
 
+export * from './components';
+
 export * from '@chakra-ui/react';
