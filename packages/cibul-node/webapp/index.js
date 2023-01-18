@@ -142,7 +142,7 @@ const initialState = async req => {
     home: {
       settings: {
         prefix: '/home', // for links
-        rootPrefix: '/home(|/events)', // because of /home/activities
+        rootPrefix: '/home(|/events|/agendas/member)', // because of /home/activities
         apiRoot,
         perPageLimit: 20,
         displayLegacyMessageTab: false,
@@ -156,6 +156,7 @@ const initialState = async req => {
           showPrivate: '/:slug.prv',
           addEvent: '/:slug/contribute',
           contact: '/:slug/contact',
+          get: '/api/me/agendas/:agendaUid',
         },
         events: {
           list: '/home/events.json',
@@ -535,6 +536,7 @@ module.exports = app => {
     [
       '/home',
       '/home/events',
+      '/home/agendas/member',
       '/home/activities',
       '/settings(/*?)?',
       '/new',

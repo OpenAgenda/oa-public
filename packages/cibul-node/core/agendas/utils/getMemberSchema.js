@@ -11,6 +11,7 @@ const intlByLocale = createIntlByLocale(locales);
 
 const getActingMember = async (services, agenda, options) => {
   if (options.member) return options.member;
+  if (options.actingMember) return options.actingMember;
   if (options.userUid) {
     return services.members.getMember({ agendaUid: agenda.uid, userUid: options.userUid });
   }
@@ -55,7 +56,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const aditionalFields = await formSchemas.get(memberSchemaId);
 
   if (adminMod) {
-    aditionalFields.fields = aditionalFields.fields.map(e => ({ ...e, optional: true }));
+    aditionalFields.fields = aditionalFields.fields.map(f => ({ ...f, optional: true }));
   }
 
   return {

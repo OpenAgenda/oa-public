@@ -38,6 +38,10 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
     context.me.events = await getAgendaUserEventStats(core, identifier, agendaUid, options);
   }
 
+  if (includes.includes('agenda')) {
+    context.agenda = await core.agendas(agendaUid).get({ includeMemberSchema: true, actingMember: member });
+  }
+
   const access = await loadSearchAccess(core, agendaUid, options);
 
   if (includes.includes('events') && ['administrator', 'moderator'].includes(access)) {
