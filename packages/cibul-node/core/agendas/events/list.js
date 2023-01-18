@@ -107,7 +107,7 @@ module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => 
 
   if (detailed && load.member && agendaEvents.length) {
     fetched.members = await core.agendas(agenda).members.list(
-      { userUids },
+      { userUid: userUids },
       { limit },
       { detailed, access, roleAsSlug: false },
     ).then(({ items }) => items.map(m => _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
