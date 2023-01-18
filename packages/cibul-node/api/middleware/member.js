@@ -72,6 +72,7 @@ function loadContext(req, res, next) {
       memberName: _.get(req, 'member.custom.contactName') || req.user.name,
     },
     message: req.body?.message || null,
+    redirect: req.body?.redirect || null,
   }, req.body.context);
   next();
 }

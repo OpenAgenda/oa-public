@@ -1,99 +1,96 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const qs = require( 'qs' );
+const _ = require('lodash');
+const qs = require('qs');
 
-const invitations = require( '@openagenda/invitations' );
+const invitations = require('@openagenda/invitations');
 
-const log = require( '@openagenda/logs' )( 'services/members/messages' );
+const log = require('@openagenda/logs')('services/members/messages');
 
-const mails = require( '../../mails' );
-const agendaLogo = require( './agendaLogo' );
-const invitationContext = require( './invitationContext' );
+const mails = require('../../mails');
+const agendaLogo = require('./agendaLogo');
+const invitationContext = require('./invitationContext');
 
-module.exports = ( config, { queue, members } ) => {
-  return Object.assign(
-    ( query, data ) => queue( 'stream', query, data ), {
-      task: task.bind( null, config, { queue, members } )
-    } );
-}
+module.exports = (config, { queue, members }) => Object.assign((query, data) => queue('stream', query, data), {
+  task: task.bind(null, config, { queue, members }),
+});
 
-async function task( config, { queue, members } ) {
-  log( 'task' );
-  queue.register( {
-    stream: ( query, data ) => members
-      .stream( Object.assign( {}, query, {
+async function task(config, { queue, members }) {
+  log('task');
+  queue.register({
+    stream: (query, data) => members
+      .stream({
+        ...query,
         withActions: data.withActions,
         deletedUsers: false,
-      }, {}, { detailed: true } ) )
-      .on( 'data', member => queue( 'sendMessage', member, data ) ),
-    sendMessage: _sendMessage.bind( null, config )
-  } );
+        detailed: true,
+      })
+      .on('data', member => queue('sendMessage', member, data)),
+    sendMessage: _sendMessage.bind(null, config),
+  });
 
-  queue.on( 'error', ( fn, args, error ) => log( 'error', fn, args, error ) );
-  queue.on( 'execute', ( fn, args ) => {} );
-  queue.on( 'success', ( fn, args, result ) => log( fn, 'success' ) );
+  queue.on('error', (fn, args, error) => log('error', fn, args, error));
+  queue.on('execute', (fn, args) => {});
+  queue.on('success', (fn, args, result) => log(fn, 'success'));
 
   queue.run();
 }
 
-
-async function _sendMessage( config, member, { message, agenda, lang, replyTo } ) {
+async function _sendMessage(config, member, { message, agenda, lang, replyTo }) {
   const email = _.get(
     member,
     'custom.email',
-    _.get( member, 'user.email' )
+    _.get(member, 'user.email'),
   );
 
-  if ( !email ) {
-    return log( 'member is not associated to an email' );
-  } else {
-    log('processing sendMessage to email %s', email);
+  if (!email) {
+    return log('member is not associated to an email');
   }
+  log('processing sendMessage to email %s', email);
 
-  const invitation = await _loadInvitation( member );
+  const invitation = await _loadInvitation(member);
 
   const appliedLang = invitation
-    ? invitationContext.getLang( invitation, lang )
+    ? invitationContext.getLang(invitation, lang)
     : lang;
 
   const link = invitation
-    ? `${config.root}/${agenda.slug}/signup?${qs.stringify( {
+    ? `${config.root}/${agenda.slug}/signup?${qs.stringify({
       invitation: invitation.token,
       email,
-      lang: appliedLang
-    } )}`
+      lang: appliedLang,
+    })}`
     : `${config.root}/${agenda.slug}?lang=${appliedLang}`;
 
-  return mails.send( {
+  return mails.send({
     template: 'memberMessage',
     to: {
       address: email,
-      unsubscriptions: [ {
-        rule: [ 'receive', 'memberMessage' ],
-        dataPath: 'unsubscribeLink'
-      } ].concat( member.userUid ? [ {
+      unsubscriptions: [{
+        rule: ['receive', 'memberMessage'],
+        dataPath: 'unsubscribeLink',
+      }].concat(member.userUid ? [{
         memberId: member.id,
-        rule: [ 'receive', 'memberMessage' ],
-        dataPath: 'memberUnsubscribeLink'
-      } ] : [] )
+        rule: ['receive', 'memberMessage'],
+        dataPath: 'memberUnsubscribeLink',
+      }] : []),
     },
     replyTo,
     data: {
-      logo: agendaLogo( config, agenda ),
+      logo: agendaLogo(config, agenda),
       link,
       agenda: agenda.title,
-      message
+      message,
     },
-    lang: appliedLang
-  } );
+    lang: appliedLang,
+  });
 }
 
-async function _loadInvitation( member ) {
-  if ( member.userUid ) return null;
-  if ( !_.get( member, 'custom.email' ) ) return null;
+async function _loadInvitation(member) {
+  if (member.userUid) return null;
+  if (!_.get(member, 'custom.email')) return null;
 
   return invitations
-    .get( { email: member.custom.email } )
-    .then( r => r ? r.invitation : null );
+    .get({ email: member.custom.email })
+    .then(r => (r ? r.invitation : null));
 }

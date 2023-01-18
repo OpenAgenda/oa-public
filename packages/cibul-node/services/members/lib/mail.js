@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const invitations = require('@openagenda/invitations');
 const log = require('@openagenda/logs')('members/mail');
+const base64 = require('@openagenda/utils/base64');
 const mails = require('../../mails');
 
 const agendaLogo = require('./agendaLogo');
@@ -44,10 +45,10 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
 }
 
 function processSend({ config, services }, {
-  invitation, member, agenda, message, lang, footnote
+  invitation, member, agenda, message, lang, footnote, redirect = null,
 }) {
   const {
-    members
+    members,
   } = services;
 
   const isMember = !!member.userUid;
@@ -56,6 +57,9 @@ function processSend({ config, services }, {
 
   if (invitation) {
     link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`;
+    if (redirect) {
+      link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}&redirect=${base64.encode(redirect)}`;
+    }
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
       link = `${config.root}/agendas/${agenda.uid}/admin/events`;
@@ -91,7 +95,7 @@ function processSend({ config, services }, {
 }
 
 async function send({ config, services }, {
-  member, context, agenda, message
+  member, context, agenda, message,
 }) {
   log('send');
 
@@ -101,17 +105,14 @@ async function send({ config, services }, {
     member,
     agenda,
     message,
-    lang
+    lang,
   });
 }
 
 async function sendInvitation({ services, config }, {
-  invitation, member, context, agenda
+  invitation, member, context, agenda,
 }) {
-  log('sendInvitation');
-
   const invitationContext = extractInvitationContext(invitation, context);
-
   try {
     await createSenderActivity(services, { agenda, invitationContext, member });
   } catch (e) {
@@ -126,7 +127,8 @@ async function sendInvitation({ services, config }, {
     agenda,
     message: invitationContext?.message,
     footnote: agenda.settings?.contribution?.messages?.GDPRInformation,
-    lang
+    lang,
+    redirect: invitationContext?.redirect,
   });
 }
 
