@@ -1,7 +1,7 @@
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
 import utils from '@openagenda/members/utils';
 
-const { getRoleSlug } = utils;
+const { getRoleSlug, getRoleCode } = utils;
 
 export function MemberEditModal(props) {
   const {
@@ -16,7 +16,10 @@ export function MemberEditModal(props) {
     schema,
   } = props;
 
-  const isAdminMod = [2, 3].includes(member.role);
+  const isAdminMod = [2, 3].includes(
+    Number.isInteger(member.role) ? member.role : getRoleCode(member.role),
+  );
+
   return (
     <MemberForm
       lang={lang}
@@ -34,6 +37,7 @@ export function MemberEditModal(props) {
       onCloseModalRequest={() => closeModal()}
       schema={schema}
       userRole={getRoleSlug(member.role)}
+      member={member?.custom ? null : member}
     />
   );
 }
