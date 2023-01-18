@@ -36,6 +36,6 @@ module.exports = {
   },
   reactOptions: {
     fastRefresh: true,
-    strictMode: true,
+    // strictMode: true,
   },
 };
