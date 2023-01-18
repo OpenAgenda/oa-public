@@ -17,7 +17,7 @@ const findFieldFromOptionId = (schema, id) => (schema?.fields ?? [])
     if (matching) {
       return matching;
     }
-    if (currentField.options.map(o => o.id).includes(id)) {
+    if ((currentField.options ?? []).map(o => o.id).includes(id)) {
       return currentField;
     }
     return null;
