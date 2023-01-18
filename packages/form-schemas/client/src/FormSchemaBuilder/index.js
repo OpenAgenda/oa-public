@@ -43,17 +43,15 @@ const getLabel = makeLabelGetter(labels);
 
 const log = debug('FormSchemaBuilder');
 
-const FieldAddButton = ({ onClick, lang, disabled }) => (
-  <div className="text-center">
-    <button
-      disabled={disabled}
-      type="button"
-      className="btn btn-primary"
-      onClick={onClick}
-    >
-      {getLabel('addField', lang)}
-    </button>
-  </div>
+const FieldAddButton = ({ onClick, lang, disabled, block }) => (
+  <button
+    disabled={disabled}
+    type="button"
+    className={`btn btn-primary ${block ? 'btn-block' : ''}`}
+    onClick={onClick}
+  >
+    {getLabel('addField', lang)}
+  </button>
 );
 
 export default class FormSchemaBuilder extends Component {
@@ -115,18 +113,20 @@ export default class FormSchemaBuilder extends Component {
 
   onSave() {
     this.setSaveState(saveStates.LOADING);
-
+    const { res, onSuccess } = this.props;
     const {
       labelLanguages,
     } = this.state;
 
     submit({
+      res,
       values: restrictLabelLanguages.applyToSchema(
         this.getSchema(),
         labelLanguages,
       ),
     }).then(() => {
       this.setSaveState(saveStates.SAVED);
+      if (onSuccess) onSuccess();
     }, _err => {
       this.setSaveState(saveStates.ERROR);
     });
@@ -260,23 +260,6 @@ export default class FormSchemaBuilder extends Component {
     return editedField && (editedField !== field.field);
   }
 
-  renderFieldListHead() {
-    const { lang, renderHead, addEnabled } = this.props;
-
-    return (
-      <div>{renderHead ? renderHead() : null} {addEnabled ? (
-        <div className="padding-v-sm padding-h-sm">
-          <FieldAddButton
-            disabled={this.isDisabled(modes.ADDFIELD)}
-            lang={lang}
-            onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
-          />
-        </div>
-      ) : null}
-      </div>
-    );
-  }
-
   render() {
     const {
       addEnabled,
@@ -305,8 +288,8 @@ export default class FormSchemaBuilder extends Component {
     return (
       <div className="form-schema-builder row">
         {displaySidebar ? (
-          <div className="col-sm-12 col-md-5 col-md-push-7">
-            <div className="wsq padding-all-sm">
+          <div className="col-sm-12 padding-bottom-sm">
+            <div className="padding-all-sm">
               {settingsEnabled ? (
                 <LabelLanguages
                   disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
@@ -315,19 +298,23 @@ export default class FormSchemaBuilder extends Component {
                   onUpdate={update => this.onLabelLanguagesChange(update)}
                 />
               ) : null}
-              <div className="padding-bottom-sm">
+              <div className="form-inline">
+                <FieldAddButton
+                  disabled={this.isDisabled(modes.ADDFIELD)}
+                  lang={lang}
+                  onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
+                />
                 <SaveButton
                   disabled={mode}
                   lang={lang}
                   onClick={() => this.onSave()}
                   saveState={saveState}
-                  block
                 />
               </div>
             </div>
           </div>
         ) : null}
-        <div className={displaySidebar ? 'col-sm-12 col-md-7 col-md-pull-5' : 'col-sm-12'}>
+        <div className="col-sm-12">
           {editedField ? (
             <FieldEdit
               isOwnField={isOwnField(schema, editedField)}
@@ -341,8 +328,8 @@ export default class FormSchemaBuilder extends Component {
               parentsFields={parentsMergedSchema}
             />
           ) : null}
-          <div>
-            {this.renderFieldListHead(mergedSchema)}
+          <div className="margin-h-sm">
+            {/* {this.renderFieldListHead(mergedSchema)} */}
             <DragDropContext
               className="list-group"
               onDragEnd={this.onDragEnd}
@@ -403,8 +390,9 @@ export default class FormSchemaBuilder extends Component {
               </Droppable>
             </DragDropContext>
             {addEnabled ? (
-              <div className="padding-v-sm padding-h-sm">
+              <div className="padding-v-sm">
                 <FieldAddButton
+                  block
                   disabled={this.isDisabled(modes.ADDFIELD)}
                   lang={lang}
                   onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: true })}
@@ -418,6 +406,7 @@ export default class FormSchemaBuilder extends Component {
                 lang={lang}
                 onAdd={addedField => this.onFieldAdd(addedField)}
                 onClose={() => this.setState({ mode: modes.DEFAULT })}
+
               />
             ) : null}
           </div>

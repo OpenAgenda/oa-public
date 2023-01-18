@@ -130,6 +130,21 @@
     "custom": {},
     "fields": [
       {
+        "field": "a-markdown-field",
+        "label": {
+          "fr": "AMarkodownField",
+          "en": "AMarkodownField"
+        },
+        "origin": "custom",
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "fieldType": "markdown",
+        "schemaId": 41,
+        "schemaType": "network"
+      },
+      {
         "field": "interetintercommunal",
         "label": {
           "fr": "Événement d'intérêt intercommunal",

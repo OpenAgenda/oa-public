@@ -8,11 +8,14 @@ const testConfig = require('./testConfig');
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', () => {
   let core;
-
-  beforeAll(() => loadFixtures(testConfig.db, '010.sql'));
+  const config = testConfig.extendWith({
+    cachePrefix: 'c09_core_agendas_events_batch_test',
+    queuesPrefix: 'q09:',
+  });
+  beforeAll(() => loadFixtures(config.db, '010.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -36,14 +39,14 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await core.agendas(99501607).events.search.rebuild();
   });
 
   afterAll(async () => {
     core.services.knex.destroy();
-    testConfig.redisClient.quit();
+    config.redisClient.quit();
   });
 
   describe('basic batch with core.agendas.events.list', () => {

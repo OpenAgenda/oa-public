@@ -12,13 +12,14 @@ const validate = require('./validate');
 
 module.exports = core => {
   const batch = Batch(core);
+  const resyncEvents = search.resyncEvents(core);
 
   return agendaUid => ({
-    get: get.bind(null, core.services, agendaUid),
+    get: get.bind(null, core, agendaUid),
     list: list.bind(null, core, agendaUid),
     create: create.bind(null, core, agendaUid),
     add: add.bind(null, core, agendaUid),
-    remove: remove.bind(null, core.services, agendaUid),
+    remove: remove.bind(null, core, agendaUid),
     update: update.bind(null, core, agendaUid),
     patch: update.patch.bind(null, core, agendaUid),
     validate: Object.assign(
@@ -29,6 +30,7 @@ module.exports = core => {
     search: Object.assign(search.bind(null, core, agendaUid), {
       rebuild: search.rebuild.bind(null, core, agendaUid),
       resyncEvent: search.resyncEvent.bind(null, core, agendaUid),
+      resyncEvents: resyncEvents.bind(null, agendaUid),
       get: search.get.bind(null, core, agendaUid),
     }),
   });

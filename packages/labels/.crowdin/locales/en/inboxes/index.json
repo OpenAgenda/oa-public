@@ -56,6 +56,8 @@
   "limitDatesDesc": "Limit contributions to predefined event dates. \n\nInterested by this feature? Give us details on your requirements and we'll get back to you shortly!",
   "moderatorsTitle": "Moderator members",
   "moderatorsDesc": "Moderators are members that can edit the events of an agenda and change event states, without having access to agenda settings.\n\nGive us details on your requirements and we'll get back to you shortly!",
+  "memberSchemaTitle": "Request custom member fields",
+  "memberSchemaDesc": "Want to modify the member identification form?",
   "writeToAllTitle": "Request to activate the \"Write to them\" function",
   "writeToAllDesc": "Send a message to all members of your agenda or target the ones that have not yet contributed.\n\nGive us details on your requirements and we'll get back to you shortly!",
   "contactContributor": "Contact the contributor",

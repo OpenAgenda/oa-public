@@ -6,11 +6,8 @@ const getNetwork = require('./getNetwork');
 
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {
-    detailed,
-  } = {
-    detailed: false,
-    ...options,
-  };
+    detailed = false,
+  } = options;
 
   const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await services.agendas.get({ uid: agendaOrUid }, {
     internal: true,

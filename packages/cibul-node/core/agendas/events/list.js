@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/list');
-const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const getAgenda = require('../utils/getAgenda');
 const merge = require('../utils/merge');
 const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
 
@@ -47,7 +47,7 @@ module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => 
 
   const fetched = {};
 
-  const agenda = await getAgendaWithNetworkAndSchemas(core.services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
 
   const formSchema = merge.schemasWithEvent(
     agenda?.network?.formSchema ?? null,
@@ -107,7 +107,7 @@ module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => 
 
   if (detailed && load.member && agendaEvents.length) {
     fetched.members = await core.agendas(agenda).members.list(
-      { userUids },
+      { userUid: userUids },
       { limit },
       { detailed, access, roleAsSlug: false },
     ).then(({ items }) => items.map(m => _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));

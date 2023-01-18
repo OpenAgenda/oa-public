@@ -24,17 +24,15 @@ export function StandardBuilderConfigurationExample() {
 
   const extensions = [{
     schema: eventLikeSchema,
+    info: {
+      label: 'Champ Standard',
+      detail: 'Champ standard évenemenent',
+    },
   }, {
     schema: schemaWithCategories,
     info: {
       label: { fr: 'Champ réseau', en: 'Network field' },
       detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' },
-    },
-  }, {
-    schema,
-    info: {
-      label: { fr: 'Champ Agenda', en: 'Agenda field' },
-      detail: { fr: 'Champ additionnel', en: 'Additional field' },
     },
   }];
 
@@ -729,6 +727,89 @@ export function HidingAFieldOnAnUndefinedSchema() {
               settingsEnabled
               schema={undefined}
               extendedFrom={extensions}
+              onUpdate={() => {}}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function MixedLinkedTypes() {
+  const schema = {
+    fields: [
+      {
+        field: 'renseignements-complementaires',
+        label: {
+          fr: 'Renseignements complémentaires',
+        },
+        write: null,
+        read: null,
+        display: true,
+        enable: true,
+        origin: 'custom',
+        fieldType: 'boolean',
+      },
+      {
+        display: false,
+        field: 'attendanceMode',
+        fieldType: 'radio',
+        label: 'Mode de participation',
+        optional: false,
+        default: 1,
+        options: [
+          {
+            id: 1,
+            value: 'offline',
+            label: 'Sur place',
+          },
+          {
+            id: 2,
+            value: 'online',
+            label: 'En ligne',
+          },
+          {
+            id: 3,
+            value: 'mixed',
+            label: 'Mixte',
+          },
+        ],
+        schemaId: null,
+        schemaType: 'event',
+      },
+      {
+        field: 'location',
+        label: 'Adresse de la compagnie ou de l\'artiste',
+        default: {
+          uid: 53614433,
+        },
+        optionalWith: {
+          field: 'attendanceMode',
+          value: 2,
+        },
+        enableWith: 'renseignements-complementaires',
+        fieldType: 'location',
+        disableChange: false,
+        schemaId: -1,
+        schemaType: null,
+      },
+    ],
+  };
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              schema={schema}
+              extendedFrom={[]}
               onUpdate={() => {}}
             />
           </div>

@@ -83,6 +83,7 @@ class Main extends Component {
                   bottomActionsCanvas: 'padding-all-md wsq'
                 }}
                 values={{
+                  registration: [{ type: 'link', value: 'https://lien.com' }],
                   accessibility: { hi: true, sl: true },
                   references: [45527593],
                   /* timings: [{

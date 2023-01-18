@@ -255,21 +255,16 @@ describe('agendas - functional (server): set (update)', function() {
           createdAt: result.agenda.createdAt,
           credentials: {
             useContributeApp: true,
-            useAgendaSchema: true,
             premiumCustomFields: false,
             activatingInvitations: false,
             moderators: true,
-            tags: false,
             embedsHead: true,
             embedsTemplates: true,
-            indesign: false,
             aggregator: false,
             prioritizedAggregator: false,
             invitationMessage: false,
-            calendarView: false,
             docxExport: false,
             eventOwnershipTransfer: false,
-            graphs: false,
             useJSONBridge: false
           },
           legacyStore: {

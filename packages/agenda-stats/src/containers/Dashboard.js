@@ -1,11 +1,5 @@
 import _ from 'lodash';
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-} from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -138,21 +132,23 @@ function Dashboard() {
   const latestStats = useLatest(stats);
 
   const parsedLocationSearch = useMemo(
-    () => qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    }),
+    () =>
+      qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      }),
     [location.search],
   );
 
-  const [initialQuery, setInitialQuery] = useState(() => _.pick(
-    parsedLocationSearch,
-    Object.keys(
-      validateQuery(parsedLocationSearch, {
-        formSchema: agendaSchema,
-        emptyValue: 'null',
-      }),
-    ),
-  ));
+  const [initialQuery, setInitialQuery] = useState(() =>
+    _.pick(
+      parsedLocationSearch,
+      Object.keys(
+        validateQuery(parsedLocationSearch, {
+          formSchema: agendaSchema,
+          emptyValue: 'null',
+        }),
+      ),
+    ));
 
   const orderModal = useModal();
 
@@ -181,7 +177,8 @@ function Dashboard() {
 
   const filtersQuery = useQuery(
     ['agenda-stats', 'filtersBase', agenda.slug],
-    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
+    () =>
+      getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
@@ -194,18 +191,19 @@ function Dashboard() {
   const latestLocation = useLatest(location);
 
   const onFilterChange = useCallback(
-    async values => dispatch(
-      statsActions.load(agenda, latestStats.current, filters, values),
-    ).then(() => {
-      const search = qs.stringify(values, {
-        addQueryPrefix: true,
-        arrayFormat: 'brackets',
-      });
+    async values =>
+      dispatch(
+        statsActions.load(agenda, latestStats.current, filters, values),
+      ).then(() => {
+        const search = qs.stringify(values, {
+          addQueryPrefix: true,
+          arrayFormat: 'brackets',
+        });
 
-      if (latestLocation.current.search !== search) {
-        history.push({ search });
-      }
-    }),
+        if (latestLocation.current.search !== search) {
+          history.push({ search });
+        }
+      }),
     [filters, agenda, dispatch, history, latestLocation, latestStats],
   );
 
@@ -236,16 +234,17 @@ function Dashboard() {
 
       const baseAgg = [...filtersBase[filter.name]];
 
-      const aggregation = stats.find(s => _.isMatch(
-        s.aggregation,
-        _.omit(
-          {
-            type: filter.name,
-            ...filter.aggregation,
-          },
-          'size',
-        ),
-      ))?.state?.data;
+      const aggregation = stats.find(s =>
+        _.isMatch(
+          s.aggregation,
+          _.omit(
+            {
+              type: filter.name,
+              ...filter.aggregation,
+            },
+            'size',
+          ),
+        ))?.state?.data;
 
       if (aggregation) {
         aggregation.forEach(entry => {

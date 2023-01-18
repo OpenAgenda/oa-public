@@ -1,11 +1,13 @@
 'use strict';
 
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 const {
   knex,
   resetAndCreateTables,
 } = require('./sql');
 
 const raw = resetAndCreateTables();
+const load = loadObjectFromFile({ cwd: __dirname });
 
 raw.push(knex('agenda').insert([{
   id: 13901,
@@ -40,6 +42,7 @@ raw.push(knex('agenda').insert([{
   uid: 60935574,
   form_schema_id: 26,
   network_uid: 1,
+  member_schema_id: 8,
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06',
   store: JSON.stringify(`{
@@ -69,7 +72,7 @@ raw.push(knex('network').insert({
   updated_at: '2016-01-18 16:14:06',
 }));
 
-raw.push(knex('user').insert({
+raw.push(knex('user').insert([{
   id: 1,
   full_name: 'Kevin B.',
   uid: 92,
@@ -77,9 +80,22 @@ raw.push(knex('user').insert({
   salt: 'xxx',
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06',
-}));
+}, {
+  id: 2,
+  full_name: 'Clement L.',
+  uid: 93,
+  password: 'xxxx',
+  salt: 'xxxx',
+  created_at: '2018-01-11 13:07:08',
+  updated_at: '2018-01-18 16:14:06',
+}]));
 
-raw.push(knex('reviewer').insert({
+raw.push(knex('api_key_set').insert([
+  load('./sql/apiKeySets/01.json', { user_id: 1 }),
+  load('./sql/apiKeySets/02.json', { user_id: 2 }),
+]));
+
+raw.push(knex('reviewer').insert([{
   id: 1,
   user_id: 1,
   review_id: 1,
@@ -88,7 +104,16 @@ raw.push(knex('reviewer').insert({
   updated_at: '2016-01-18 16:14:06',
   agenda_uid: 60935574,
   user_uid: 92,
-}));
+}, {
+  id: 2,
+  user_id: 2,
+  review_id: 1,
+  credential: 1,
+  created_at: '2018-01-11 13:07:08',
+  updated_at: '2018-01-18 16:14:06',
+  agenda_uid: 60935574,
+  user_uid: 93,
+}]));
 
 raw.push(knex('location').insert({
   id: 1,
@@ -103,6 +128,9 @@ raw.push(knex('location').insert({
 }));
 
 raw.push(knex('form_schema').insert([{
+  id: 8,
+  store: JSON.stringify(load('./form-schemas/memberFormSchema.json')),
+}, {
   id: 27,
   store: `{
     "nextOptionId": 1,

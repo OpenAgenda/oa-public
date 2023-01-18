@@ -9,12 +9,12 @@ import labels from './lib/labels';
 import OptionLabelsForm from './OptionLabelsForm';
 
 const getLabel = makeLabelGetter(labels);
+const portal = typeof document !== 'undefined' ? document.createElement('div') : null;
 
-const portal = document.createElement('div');
-
-if (!document.body) throw new Error('body not ready for portal creation!');
-
-document.body.appendChild(portal);
+if (typeof document !== 'undefined') {
+  if (!document.body) throw new Error('body not ready for portal creation!');
+  document.body.appendChild(portal);
+}
 
 export default class OptionItem extends Component {
   renderEdit() {

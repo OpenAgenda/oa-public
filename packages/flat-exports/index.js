@@ -11,5 +11,5 @@ module.exports = {
   csv,
   xlsx,
   ICSStream,
-  MarkdownStream
+  MarkdownStream,
 };

@@ -17,17 +17,11 @@ async function resyncLegacySearch(services, agendaUid) {
   log('info', 'agenda %d, resynced legacy search index', agendaId, result);
 }
 
-async function resyncSearch(core, eventSearch, agendaUid) {
-  const agenda = await core.agendas(agendaUid).get({
-    detailed: true,
-    access: 'internal',
-    private: null
-  });
-
+async function resyncSearch(core, agendaUid) {
   log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
 
   try {
-    const result = await eventSearch.agendas(agenda).rebuild();
+    const result = await core.agendas(agendaUid).events.search.rebuild();
 
     log('info', 'agenda %d, resynced search index', agendaUid, result);
   } catch (e) {
@@ -55,7 +49,7 @@ function processJob({ services, config }) {
         break;
 
       case 'search':
-        resyncSearch(services.core, services.eventSearch, data.agendaUid);
+        resyncSearch(services.core, data.agendaUid);
         break;
 
       case 'agendaEvents':

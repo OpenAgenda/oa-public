@@ -1,0 +1,335 @@
+{
+  "schema": {
+    "id": 202020,
+    "fields": [
+      {
+        "field": "status-custom",
+        "label": "Status",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "checkbox",
+        "read": null,
+        "write": null,
+        "options": [
+          {
+            "id": 1,
+            "value": "artisan",
+            "label": "Artisan",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 2,
+            "value": "artiste",
+            "label": "Artiste-auteur",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 3,
+            "value": "urssaf",
+            "label": "Profession libérale (URSSAF)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 4,
+            "value": "commerce-société",
+            "label": "Professionnel ou société inscrit au Registre du commerce et des scociétés",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 5,
+            "value": "incubateur",
+            "label": "Inscrit dans un dispositif d'aide à la création ou dans un incubateur d'entreprise (type Atelier de Paris, Poush, etc.)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 6,
+            "value": "autres-status",
+            "label": "Autres:",
+            "info": null,
+            "display": true
+          }
+        ]
+      },
+      {
+        "field": "organization",
+        "label": "Intitulé de la structure",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "abstract",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "siret",
+        "label": "N° de SIREN/SIRET",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "text",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "naf",
+        "label": "Code NAF",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "text",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "nb-salaries",
+        "label": "Taille de la structure (nombre de salariés)",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "integer",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "cdaa",
+        "label": "Chiffre d'affaire annuel",
+        "sub": "Ne pas mettre d'espace!",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "integer",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "titre",
+        "label": "Titre(s)",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "checkbox",
+        "read": null,
+        "write": null,
+        "options": [
+          {
+            "id": 7,
+            "value": "epv",
+            "label": "Label Entreprise du Patrimoine Vivant(EPV)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 8,
+            "value": "mof",
+            "label": "Meilleur Ouvrier de France(MOF)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 9,
+            "value": "inp",
+            "label": "Restaurateur du Patrimoine diplôme (INP)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 10,
+            "value": "autres-titre",
+            "label": "Autre",
+            "info": null,
+            "display": true
+          }
+        ]
+      },
+      {
+        "field": "metiers",
+        "label": "Metier(s)",
+        "fieldType": "multiselect",
+        "help": "Aide: Consultez la liste officiel des métiers d'art",
+        "helpLink": "https://www.culture.gouv.fr/Thematiques/Metiers-d-art/Les-metiers-d-art-en-France",
+        "optional": true,
+        "options": [
+          {
+            "id": 11,
+            "value": "forgeron",
+            "label": "Forgeron"
+          },
+          {
+            "id": 12,
+            "value": "toilemestre",
+            "label": "Toilemestre"
+          },
+          {
+            "id": 13,
+            "value": "autres-metiers",
+            "label": "Autres métiers"
+          }
+        ]
+      },
+      {
+        "field": "metiers-autres",
+        "fieldType": "text",
+        "label": "Autres",
+        "enableWith": {
+          "field": "metiers",
+          "value": 13
+        },
+        "optional": true
+      },
+      {
+        "field": "principal-activité",
+        "label": "Je certifie sur l'honneur pratiquer ce ou ces métiers en tant qu'activité principal*",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "boolean",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "school-intervention",
+        "label": "Je suis disposé(e) à intervenir en milieu scolaire pour présenter mon métier ou proposer des ateliers pedagogiques*",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "boolean",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "url",
+        "label": "Pages Web",
+        "max": null,
+        "min": null,
+        "optional": true,
+        "fieldType": "link",
+        "read": null,
+        "write": null
+      },
+      {
+        "field": "phone",
+        "fieldType": "abstract",
+        "optional": true,
+        "display": false
+      },
+      {
+        "field": "name",
+        "fieldType": "abstract",
+        "optional": true,
+        "display": false
+      },
+      {
+        "field": "position",
+        "fieldType": "abstract",
+        "optional": true,
+        "display": false
+      },
+      {
+        "field": "email",
+        "fieldType": "abstract",
+        "optional": true,
+        "display": false
+      }
+    ]
+  },
+  "parents": [
+    {
+      "schema": {
+        "id": -1,
+        "fields": [
+          {
+            "field": "organization",
+            "label": {
+              "fr": "Organisation",
+              "en": "Organisation",
+              "it": "Ragione sociale",
+              "de": "Unternehmen",
+              "br": "Aozadur",
+              "es": "organización",
+              "io": "crwdns11556:0crwdne11556:0"
+            },
+            "fieldType": "text",
+            "optional": true
+          },
+          {
+            "field": "phone",
+            "label": {
+              "fr": "Téléphone",
+              "en": "Telephone",
+              "it": "Telefono",
+              "de": "Telefonnummer",
+              "br": "Pellgomz",
+              "es": "Teléfono",
+              "io": "crwdns11558:0crwdne11558:0"
+            },
+            "sub": {
+              "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
+              "en": "Valid characters: digits, space, -, + ou ()",
+              "it": "Carattere autorizzati: cifro, spazio, -, + o ()",
+              "de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
+              "br": "Arouezennoù aotreet : sifroù, lizherennoù, esaouennoù, -, + pe ()",
+              "es": "Los caracteres permitidos: cifras, espacio, -, + o ()",
+              "io": "crwdns11560:0crwdne11560:0",
+              "oc": "Caractèrs valids : chifras, espaci, -, + o ()"
+            },
+            "fieldType": "phone",
+            "optional": true,
+            "default": null
+          },
+          {
+            "field": "name",
+            "label": {
+              "fr": "Prénom Nom",
+              "en": "Name Surname",
+              "it": "Nome e cognome",
+              "de": "Vorname Nachname",
+              "br": "Anv Anv-bihan",
+              "es": "Nombre Apellido",
+              "io": "crwdns11562:0crwdne11562:0"
+            },
+            "fieldType": "text",
+            "optional": true
+          },
+          {
+            "field": "position",
+            "label": {
+              "fr": "Fonction",
+              "en": "Position in the organization",
+              "it": "Ruolo",
+              "de": "Funktion",
+              "br": "Karg",
+              "es": "función",
+              "io": "crwdns11564:0crwdne11564:0"
+            },
+            "fieldType": "text",
+            "optional": true
+          },
+          {
+            "field": "email",
+            "label": {
+              "fr": "Email",
+              "en": "Email",
+              "it": "Email",
+              "de": "E-Mail",
+              "br": "Postel",
+              "es": "e-mail",
+              "io": "crwdns11566:0crwdne11566:0"
+            },
+            "fieldType": "email",
+            "optional": true
+          }
+        ]
+      },
+      "info": {
+        "label": "Standard",
+        "detail": "Standard member field"
+      }
+    }
+  ]
+}

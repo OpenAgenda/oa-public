@@ -40,6 +40,7 @@ import createAgendaContributeApp from '@openagenda/agenda-contribute/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/src/app';
+import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
@@ -75,7 +76,7 @@ window.ReactQueryClientContext = React.createContext(queryClient);
 const history = createBrowserHistory();
 
 const initialState = parse(
-  he.decode(document.querySelector('#initialState').innerHTML || '{}')
+  he.decode(document.querySelector('#initialState').innerHTML || '{}'),
 );
 
 NProgress.configure({ trickleSpeed: 200 });
@@ -147,6 +148,11 @@ const apps = [
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
+    'agendaSchemaAdmin',
+    createAgendaSchemaAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
     'agendaSettingsEdit',
     createAgendaSettingsEditApp,
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
@@ -172,7 +178,7 @@ const apps = [
       reduxMiddleware,
     }),
   }),
-  {}
+  {},
 );
 
 // function QueryWatch() {
@@ -187,15 +193,17 @@ const apps = [
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
-    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] }))
+    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] })),
   );
 
-  const triggerHooks = () => Promise.all(
-    Object.values(apps).map(app => app.triggerHooks({
-      onStart: onLocationChangeStart,
-      onFinish: onLocationChangeFinish,
-    }))
-  );
+  const triggerHooks = () =>
+    Promise.all(
+      Object.values(apps).map(app =>
+        app.triggerHooks({
+          onStart: onLocationChangeStart,
+          onFinish: onLocationChangeFinish,
+        })),
+    );
 
   const render = (forceRender = false) => {
     const element = (
@@ -222,7 +230,7 @@ loadableReady(async () => {
 
   render();
 
-  if (module.hot) {
-    module.hot.accept(() => render(true));
+  if (import.meta.webpackHot) {
+    import.meta.webpackHot.accept(() => render(true));
   }
 });

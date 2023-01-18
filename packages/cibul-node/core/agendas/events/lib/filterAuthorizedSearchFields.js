@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 module.exports = (core, query, access) => {
   const {
-    compareRoles
+    compareRoles,
   } = core.services.members.utils;
 
   if (access === 'internal') {

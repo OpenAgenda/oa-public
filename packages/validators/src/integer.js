@@ -5,13 +5,12 @@ import errors from './lib/errors';
 
 import listify from './listify';
 
-
 export default (config = {}) => {
   const params = cleanParams('integer', config, {
     error: {
       code: 'integer.invalid',
-      message: 'value is not an integer'
-    }
+      message: 'value is not an integer',
+    },
   });
 
   const validateNumber = numberValidator(omit(params, ['list']));
@@ -25,7 +24,7 @@ export default (config = {}) => {
       throw numberErrors.map(e => ({
         ...e,
         code: e.code.replace('number', 'integer'),
-        message: e.message.replace('number', 'integer').replace(' a ', ' an ')
+        message: e.message.replace('number', 'integer').replace(' a ', ' an '),
       }));
     }
 
@@ -38,7 +37,7 @@ export default (config = {}) => {
         params,
         value,
         'integer.invalid',
-        'not an integer'
+        'not an integer',
       );
     }
 

@@ -1,0 +1,1 @@
+# @openagenda/agenda-schemas-app

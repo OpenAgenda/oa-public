@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
@@ -8,6 +8,8 @@ import I18nContext from '../../contexts/I18nContext';
 import { MarkdownInput } from '../../utils/inputs';
 import * as agendaActions from '../../reducers/agenda';
 import catchFormErrors from '../../utils/catchFormErrors';
+
+const completedPrefix = (agenda, prefix) => prefix.replace(':slug', agenda.slug);
 
 function getError(form, fieldname) {
   const fieldState = form.getFieldState(fieldname);
@@ -52,7 +54,7 @@ export default function ContributionEdition() {
   const { agenda } = useLayoutData();
   const { getLabel, lang } = useContext(I18nContext);
   const dispatch = useDispatch();
-
+  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const initialValues = useMemo(() => agenda.settings.contribution, [agenda.settings.contribution]);
   const [hasInstructions, setHasInstructions] = useState(() => !!initialValues?.messages?.instructions?.length);
   const [hasComplete, setHasComplete] = useState(() => !!initialValues?.messages?.complete?.length);
@@ -169,7 +171,21 @@ export default function ContributionEdition() {
 
                 <div className="form-group">
                   <div className={`radio ${getError(form, 'useFields') ? 'has-error' : ''}`}>
-                    <p><b>{getLabel('contribUseFields')}</b></p>
+                    <p><b>
+                      <FormattedMessage
+                        id="AgendaSettings.contribution.contribUseFields"
+                        defaultMessage="Invite members to present themselves (organization, phone, name, title, email, <a>customizable fields</a>)"
+                        values={{
+                          a: chunks => (
+                            <a
+                              href={`${prefix}/schema/member`}
+                            >
+                              {chunks}
+                            </a>
+                          )
+                        }}
+                      />
+                    </b></p>
                     <label>
                       <Field
                         name="useFields"

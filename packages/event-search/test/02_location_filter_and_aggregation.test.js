@@ -165,6 +165,18 @@ describe('02 - event search - functional: location', () => {
 
       expect(event.location['protections-appellation-et-labels'].includes(41)).toBe(true);
     });
+
+    it('location additional field can be described using : as separator', async () => {
+      const { events: [event] } = await service('location').search({
+        'location:protections-appellation-et-labels': 41,
+      }, {
+      }, {
+        formSchema: eventFormSchemaWithLocationSchema,
+        detailed: true,
+      });
+
+      expect(event.uid).toBe(2);
+    });
   });
 
   describe('aggregations', () => {
@@ -230,6 +242,23 @@ describe('02 - event search - functional: location', () => {
           },
         ],
       });
+    });
+
+    it('aggregations are possible on additional data using : as separator', async () => {
+      const { aggregations } = await service('location').search({
+        state: null,
+      }, { size: 0 }, {
+        formSchema: eventFormSchemaWithLocationSchema,
+        detailed: true,
+        aggregations: [{
+          key: 'someLocationAdditionalField',
+          field: 'location:protections-appellation-et-labels',
+          type: 'additionalFields',
+          missing: 'N/A',
+        }],
+      });
+
+      expect(aggregations.someLocationAdditionalField[0].value).toBe('maison-des-illustres');
     });
   });
 });

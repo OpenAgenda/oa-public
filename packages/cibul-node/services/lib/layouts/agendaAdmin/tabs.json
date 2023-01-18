@@ -51,16 +51,6 @@
   {
     "name": "schema",
     "section": "settings",
-    "credential": "useAgendaSchema",
-    "roles": [
-      "administrator"
-    ]
-  },
-  {
-    "name": "customized",
-    "section": "settings",
-    "route": "/settings/customize",
-    "credential": "tags",
     "roles": [
       "administrator"
     ]

@@ -50,7 +50,10 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   const member = userUid ? await members.get({ agendaUid, userUid }) : null;
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(core.services, agendaUid, {
+    detailed: true,
+    includeMemberSchema: true,
+  });
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
@@ -79,7 +82,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
   log('  associated state');
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   try {
     clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {

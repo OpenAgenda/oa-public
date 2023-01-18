@@ -238,17 +238,19 @@ raw.push(knex('form_schema').insert([{
     }, {
       field: 'location',
       fieldType: 'abstract',
-      tagSet: {
-        groups: [{
-          name: 'Spécificité',
-          tags: [{
-            id: 33,
-            label: 'Première participation',
-          }, {
-            id: 32,
-            label: 'Ouverture exceptionnelle',
+      legacy: {
+        tagSet: {
+          groups: [{
+            name: 'Spécificité',
+            tags: [{
+              id: 33,
+              label: 'Première participation',
+            }, {
+              id: 32,
+              label: 'Ouverture exceptionnelle',
+            }],
           }],
-        }],
+        },
       },
     }],
   }),

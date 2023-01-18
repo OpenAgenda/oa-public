@@ -91,7 +91,10 @@ module.exports.plugApp = app => {
       try {
         res.send({
           member: req.member,
-          schema: await core.agendas(req.agenda.uid).settings.schema.getMerged(),
+          schema: await core.agendas(req.agenda.uid).settings.schema.getMerged({
+            includeMemberSchema: true,
+            includeMember: true,
+          }),
           ...agendaAdminParser({
             agenda: req.agenda,
             role: req.member.role,

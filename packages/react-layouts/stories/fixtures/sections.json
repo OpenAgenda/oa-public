@@ -90,7 +90,6 @@
             {
                 "name": "schema",
                 "section": "settings",
-                "credential": "useAgendaSchema",
                 "roles": [
                     "administrator"
                 ],

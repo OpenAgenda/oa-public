@@ -140,11 +140,12 @@ module.exports = async (core, payload, clean, options = {}) => {
 
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent(); // full access for internal use
-  const formSchema = payload.getFormSchema(); // full access for internal use
+  const formSchema = await payload.getFormSchema({ access: 'internal' }); // full access for internal use
 
   try {
     await eventSearch.add({
       ...response,
+      formSchema,
       event: event.location ? convertLocationAdditionalFields(formSchema, compiledEvent) : compiledEvent,
     });
   } catch (e) {

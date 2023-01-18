@@ -15,5 +15,8 @@
   "agendaEventCount": "Associated events in agenda",
   "state": "Verified",
   "extId": "External id",
-  "slug": "URL code"
+  "slug": "URL code",
+  "website": "Website",
+  "access": "Access",
+  "description": "Description"
 }

@@ -103,7 +103,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
 
   assignState(agenda, null, clean, data, { authorizations });
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   if (containsEventData(data)) {
     await updateEvent(core.services, {

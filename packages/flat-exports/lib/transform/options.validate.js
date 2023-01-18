@@ -35,7 +35,7 @@ module.exports = schema({
   },
   includeFields: {
     type: 'text',
-    list: { default: null }
+    list: true,
   },
   includeLanguages: {
     type: 'text',
@@ -51,8 +51,8 @@ module.exports = schema({
   agendaUid: {
     type: 'num'
   },
-  distributeOptionalFields: {
+  spreadFields: {
     type: 'text',
-    list: { default: [] }
+    list: true,
   }
 });

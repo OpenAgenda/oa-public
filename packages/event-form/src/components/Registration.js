@@ -27,6 +27,8 @@ const iconClasses = {
 
 const getValue = tag => tag instanceof Object ? tag.value : tag;
 
+const flatten = (values = []) => values.map(v => (v && v instanceof Object ? v.value : v));
+
 
 module.exports = class RegistrationComponent extends Component {
 
@@ -116,7 +118,7 @@ module.exports = class RegistrationComponent extends Component {
 
     const field = this.props.field;
 
-    const values = this.props.value || [];
+    const values = flatten(this.props.value || []);
 
     const errors = this.props.errors;
 

@@ -11,6 +11,7 @@ const updateLegacy = require('./legacy/update');
 const resyncInbox = require('./resyncInbox');
 
 const updateSchemaFields = require('./updateSchemaFields');
+const updateMemberSchemaFields = require('./updateMemberSchemaFields');
 const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
 const contributionTypes = require('./contributionTypes');
 
@@ -31,7 +32,7 @@ module.exports = core => {
     updateTagSet: (agendaUid, options) => updateTagSetFromSchema(agendaUid, options),
     updateCategorySet: agendaUid => updateCategorySetFromSchema(agendaUid),
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
-    updateLegacy: agendaUid => updateLegacy(core, agendaUid),
+    updateLegacy: (agendaUid, options) => updateLegacy(core, agendaUid, options),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
@@ -48,9 +49,12 @@ module.exports = core => {
     schema: {
       get: getSchema.bind(null, services, agendaUid),
       getNetwork: getSchema.network.bind(null, services, agendaUid),
+      getAndParents: getSchema.andParents.bind(null, services, agendaUid),
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.bind(null, services, agendaUid),
+      getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
+      updateMemberFields: updateMemberSchemaFields.bind(null, core, agendaUid),
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),
