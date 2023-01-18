@@ -15,7 +15,11 @@ module.exports = {
       files: ['*.{tsx,ts,mts,cts}'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
-      extends: ['plugin:@typescript-eslint/recommended'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        '@openagenda/eslint-config/recommended',
+        'plugin:jest/recommended'
+      ],
     }
   ],
 
