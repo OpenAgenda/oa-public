@@ -11,7 +11,6 @@ import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
 import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import filtersToAggregations from '../utils/filtersToAggregations';
 import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
 import { withDefaultFilterConfig } from '../utils';
@@ -75,14 +74,6 @@ const IntlProvided = React.forwardRef(({
   const intl = useIntl();
   const apiClientInstance = useConstant(() => customApiClient || ApiClient());
 
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  }));
-
   const filtersOptions = useMemo(
     () => ({ missingValue, mapTiles, dateFnsLocale }),
     [missingValue, mapTiles, dateFnsLocale],
@@ -109,18 +100,16 @@ const IntlProvided = React.forwardRef(({
 
   return (
     <ApiClientContext.Provider value={apiClientInstance}>
-      <QueryClientProvider client={queryClient}>
-        <FiltersAndWidgetsContext.Provider value={filtersAndWidgets}>
-          <FiltersForm
-            ref={ref}
-            onSubmit={onSubmit}
-            initialValues={initialValues}
-            subscription={subscription}
-          >
-            {children}
-          </FiltersForm>
-        </FiltersAndWidgetsContext.Provider>
-      </QueryClientProvider>
+      <FiltersAndWidgetsContext.Provider value={filtersAndWidgets}>
+        <FiltersForm
+          ref={ref}
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+          subscription={subscription}
+        >
+          {children}
+        </FiltersForm>
+      </FiltersAndWidgetsContext.Provider>
     </ApiClientContext.Provider>
   );
 });

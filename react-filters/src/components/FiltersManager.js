@@ -1,24 +1,26 @@
 import _ from 'lodash';
 import qs from 'qs';
 import React, {
+  forwardRef,
   useContext,
   useEffect,
   useImperativeHandle,
-  useState
+  useState,
 } from 'react';
-import { unstable_batchedUpdates } from 'react-dom';
+import { unstable_batchedUpdates as unstableBatchedUpdates } from 'react-dom';
 import { useIntl } from 'react-intl';
 import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
-import { useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
 import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import { getEvents } from '../api';
 import {
   filtersToAggregations,
   extractFiltersFromDom,
   extractWidgetsFromDom,
-  withDefaultFilterConfig
+  withDefaultFilterConfig,
 } from '../utils';
 import { useGetFilterOptions, useGetTotal, useLoadGeoData } from '../hooks';
 import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
@@ -34,7 +36,7 @@ import MapFilter from './filters/MapFilter';
 import CustomFilter from './filters/CustomFilter';
 import FavoritesFilter from './filters/FavoritesFilter';
 
-export default React.forwardRef(function FiltersManager({
+const FiltersManager = React.forwardRef(function FiltersManager({
   aggregations: initialAggregations = {},
   query: initialQuery = {},
   total: initialTotal = 0,
@@ -113,25 +115,23 @@ export default React.forwardRef(function FiltersManager({
 
       const newFilters = filtersOnPage.map(nextFilter => {
         const completedNext = withDefaultFilterConfig(nextFilter, intl, filtersOptions);
-        const found = filters.find(v => (
-          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(completedNext, 'elemRef'))
-        ));
+        const found = filters.find(v =>
+          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(completedNext, 'elemRef')));
 
         // Conserve if found & elem has not changed
         return found && document.body.contains(found.elem) ? found : completedNext;
       });
 
       const newWidgets = widgetsOnPage.map(nextWidget => {
-        const found = widgets.find(v => (
-          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(nextWidget, 'elemRef'))
-        ));
+        const found = widgets.find(v =>
+          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(nextWidget, 'elemRef')));
 
         // Conserve if found & elem has not changed
         return found && document.body.contains(found.elem) ? found : nextWidget;
       });
 
       // Because re-render filters separatly to widgets throws an error
-      unstable_batchedUpdates(() => {
+      unstableBatchedUpdates(() => {
         if (!_.isEqual(filters, newFilters)) {
           setFilters(newFilters);
         }
@@ -234,3 +234,21 @@ export default React.forwardRef(function FiltersManager({
     </>
   );
 });
+
+const Wrapper = forwardRef(function Wrapper(props, ref) {
+  const queryClient = useConstant(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <FiltersManager ref={ref} {...props} />
+    </QueryClientProvider>
+  );
+});
+
+export default Wrapper;
