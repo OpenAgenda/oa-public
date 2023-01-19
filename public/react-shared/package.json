@@ -4,7 +4,10 @@
   "main": "lib/index.js",
   "jsnext:main": "esm/index.js",
   "module": "esm/index.js",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
