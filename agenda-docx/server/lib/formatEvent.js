@@ -37,6 +37,8 @@ function _accessibility(acc, lang) {
 }
 
 function _customData(event) {
+  if (!event.tagGroups) return null;
+
   return event.tagGroups.reduce(
     (reduced, g) => _.set(reduced, g.slug, g.tags.map(t => t.label).join(', ')),
     {}
@@ -183,7 +185,7 @@ module.exports = (event, options) => {
     hasAccessibility: !!event.accessibility.length,
   });
 
-  const thematiqueSlug = Object.keys(event.custom).find(v => v.startsWith('thematique-'));
+  const thematiqueSlug = event.custom && Object.keys(event.custom).find(v => v.startsWith('thematique-'));
 
   if (thematiqueSlug) {
     const tagGroup = event.tagGroups.find(v => v.slug === thematiqueSlug);
