@@ -2931,6 +2931,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cfaester/enzyme-adapter-react-18@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@cfaester/enzyme-adapter-react-18@npm:0.6.0"
+  dependencies:
+    enzyme-shallow-equal: ^1.0.0
+    react-is: ^18.0.0
+    react-test-renderer: ^18.0.0
+  peerDependencies:
+    enzyme: ^3.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: c47dbbb6aaabc35017f3f291da454ed9fc37c37d19a7777ad7cf8d8b1b98eeb43f76cc6ad685f48bb983b90b399133507f5826de79c7584f107e016ccf2a015e
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/accordion@npm:2.1.1":
   version: 2.1.1
   resolution: "@chakra-ui/accordion@npm:2.1.1"
@@ -9151,6 +9166,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
+    "@cfaester/enzyme-adapter-react-18": ^0.6.0
     "@emotion/babel-plugin": ^11.10.5
     "@emotion/react": ^11.10.0
     "@loadable/component": ^5.14.1
@@ -9169,14 +9185,11 @@ __metadata:
     core-js: ^3.10.2
     css-loader: ^5.2.7
     enzyme: ^3.11.0
-    enzyme-adapter-react-16: ^1.15.2
-    enzyme-to-json: ^3.5.0
     eslint: ^8.24.0
     final-form: ^4.20.2
     history: ^4.10.1
     hoist-non-react-statics: ^3.3.1
     jest: ^28.1.2
-    jest-emotion: ^10.0.32
     lint-staged: ^10.2.11
     lodash: ^4.17.20
     marked: ^2.1.3
@@ -13824,13 +13837,6 @@ __metadata:
   dependencies:
     "@types/istanbul-lib-report": "*"
   checksum: 286a18cff19c4dac4321b9ea406a3560faf577fb2a4df5abf9d577fa81ba831c9baa7d40d03f1daf7fe613d468546b731c00b844b72fad9834c583311a35bb7b
-  languageName: node
-  linkType: hard
-
-"@types/jest@npm:^23.0.2":
-  version: 23.3.14
-  resolution: "@types/jest@npm:23.3.14"
-  checksum: 0f8ec7c7ef16c35afb17bb1c83167bb847b2a577e0298caf3d828c43026f7544eb831d63fe71bb0eee28c8724389cbf57402e5b9fe87a22b255bd79ece2c3152
   languageName: node
   linkType: hard
 
@@ -20821,18 +20827,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css@npm:^2.2.1":
-  version: 2.2.4
-  resolution: "css@npm:2.2.4"
-  dependencies:
-    inherits: ^2.0.3
-    source-map: ^0.6.1
-    source-map-resolve: ^0.5.2
-    urix: ^0.1.0
-  checksum: a35d483c5ccc04bcde3b1e7393d58ad3eee1dd6956df0f152de38e46a17c0ee193c30eec6b1e59831ad0e74599385732000e95987fcc9cb2b16c6d951bae49e1
-  languageName: node
-  linkType: hard
-
 "cssesc@npm:^3.0.0":
   version: 3.0.0
   resolution: "cssesc@npm:3.0.0"
@@ -22671,7 +22665,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enzyme-adapter-react-16@npm:^1.1.1, enzyme-adapter-react-16@npm:^1.15.2":
+"enzyme-adapter-react-16@npm:^1.1.1":
   version: 1.15.2
   resolution: "enzyme-adapter-react-16@npm:1.15.2"
   dependencies:
@@ -22720,6 +22714,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"enzyme-shallow-equal@npm:^1.0.0":
+  version: 1.0.5
+  resolution: "enzyme-shallow-equal@npm:1.0.5"
+  dependencies:
+    has: ^1.0.3
+    object-is: ^1.1.5
+  checksum: e18a728225b3ef501a223608955e2c8e915adf24dfe4d778bdbc89e4ecd80384723e9d44780176be1529f6b642e7837211f502bff89f62833d8f9cae027997e0
+  languageName: node
+  linkType: hard
+
 "enzyme-shallow-equal@npm:^1.0.1":
   version: 1.0.1
   resolution: "enzyme-shallow-equal@npm:1.0.1"
@@ -22730,7 +22734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enzyme-to-json@npm:^3.3.0, enzyme-to-json@npm:^3.4.2, enzyme-to-json@npm:^3.5.0":
+"enzyme-to-json@npm:^3.3.0, enzyme-to-json@npm:^3.4.2":
   version: 3.5.0
   resolution: "enzyme-to-json@npm:3.5.0"
   dependencies:
@@ -29609,18 +29613,6 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"jest-emotion@npm:^10.0.32":
-  version: 10.0.32
-  resolution: "jest-emotion@npm:10.0.32"
-  dependencies:
-    "@babel/runtime": ^7.5.5
-    "@types/jest": ^23.0.2
-    chalk: ^2.4.1
-    css: ^2.2.1
-  checksum: 9e7cb48bd71c24059d4d6575901ce23f7200d2b6b4b7ea5fe27818fb52bac2adfbe60398be12dc80d51cc5ca8d6d42933a33d118d651acea6793a60ed0b25c94
-  languageName: node
-  linkType: hard
-
 "jest-environment-enzyme@npm:^7.1.2":
   version: 7.1.2
   resolution: "jest-environment-enzyme@npm:7.1.2"
@@ -35146,6 +35138,16 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"object-is@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "object-is@npm:1.1.5"
+  dependencies:
+    call-bind: ^1.0.2
+    define-properties: ^1.1.3
+  checksum: 989b18c4cba258a6b74dc1d74a41805c1a1425bce29f6cabb50dcb1a6a651ea9104a1b07046739a49a5bb1bc49727bcb00efd5c55f932f6ea04ec8927a7901fe
+  languageName: node
+  linkType: hard
+
 "object-keys@npm:^1.0.11, object-keys@npm:^1.1.1":
   version: 1.1.1
   resolution: "object-keys@npm:1.1.1"
@@ -38861,17 +38863,17 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react-is@npm:18.2.0"
+  checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
-  languageName: node
-  linkType: hard
-
-"react-is@npm:^18.0.0, react-is@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-is@npm:18.2.0"
-  checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
   languageName: node
   linkType: hard
 
@@ -39240,6 +39242,18 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"react-shallow-renderer@npm:^16.15.0":
+  version: 16.15.0
+  resolution: "react-shallow-renderer@npm:16.15.0"
+  dependencies:
+    object-assign: ^4.1.1
+    react-is: ^16.12.0 || ^17.0.0 || ^18.0.0
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 6052c7e3e9627485120ebd8257f128aad8f56386fe8d42374b7743eac1be457c33506d153c7886b4e32923c0c352d402ab805ef9ca02dbcd8393b2bdeb6e5af8
+  languageName: node
+  linkType: hard
+
 "react-side-effect@npm:^1.1.0":
   version: 1.2.0
   resolution: "react-side-effect@npm:1.2.0"
@@ -39315,6 +39329,19 @@ fsevents@~2.1.1:
   peerDependencies:
     react: ^16.0.0
   checksum: dd3fd033c3b1c7e03f427cac31bf8602d679b9d16ef4676536daccbe095f3cc783bafe4a05c897321ceefac3b12be51b1fd87c73628f8dca617543c2d74b1a5f
+  languageName: node
+  linkType: hard
+
+"react-test-renderer@npm:^18.0.0":
+  version: 18.2.0
+  resolution: "react-test-renderer@npm:18.2.0"
+  dependencies:
+    react-is: ^18.2.0
+    react-shallow-renderer: ^16.15.0
+    scheduler: ^0.23.0
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 6b6980ced93fa2b72662d5e4ab3b4896833586940047ce52ca9aca801e5432adf05fcbe28289b0af3ce6a2a7c590974e25dcc8aa43d0de658bfe8bbcd686f958
   languageName: node
   linkType: hard
 
@@ -42578,7 +42605,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"source-map-resolve@npm:^0.5.0, source-map-resolve@npm:^0.5.2":
+"source-map-resolve@npm:^0.5.0":
   version: 0.5.3
   resolution: "source-map-resolve@npm:0.5.3"
   dependencies:
