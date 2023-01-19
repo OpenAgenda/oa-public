@@ -1,7 +1,7 @@
+import { useRef } from 'react';
 import { createMemoryHistory } from 'history';
-import { wrapApp } from '@openagenda/react-shared';
-import React, { useRef } from 'react';
 import axios from 'axios';
+import { wrapApp } from '@openagenda/react-shared';
 import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import createApp from '../src/app';
@@ -27,7 +27,7 @@ export default {
   title: 'Integrated',
 };
 
-export const Presentation = function Presentation() {
+export function Presentation() {
   const mock = new MockAdapter(axios, {
     delayResponse: 1000,
   });
@@ -44,8 +44,8 @@ export const Presentation = function Presentation() {
       const parsed = JSON.parse(data);
       const event = JSON.parse(
         JSON.stringify(
-          mainData.events.find(e => e.slug === routeParams.eventSlug)
-        )
+          mainData.events.find(e => e.slug === routeParams.eventSlug),
+        ),
       );
 
       return [200, { ...event, ...parsed }];
@@ -82,11 +82,11 @@ export const Presentation = function Presentation() {
               },
               filtersContainerRef,
             },
-          }
+          },
         )}
       </div>
     </>
   );
-};
+}
 
 Presentation.decorators = [AdminPageDecorator, ProvidersDecorator];
