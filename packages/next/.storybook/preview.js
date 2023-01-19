@@ -1,6 +1,5 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
-import NextFutureImage from 'next/future/image';
 import dedent from 'dedent';
 
 // Initialize MSW
@@ -29,15 +28,9 @@ initialize({
   },
 });
 
-const OriginalNextFutureImage = NextFutureImage.default;
-
-Object.defineProperty(NextFutureImage, 'default', {
-  configurable: true,
-  value: props => <OriginalNextFutureImage {...props} unoptimized />,
-});
-
 export const parameters = { layout: 'fullscreen' };
 
+// Clean the cache at each story change
 export const decorators = [
   storyFn => (
     <SWRConfig value={{ provider: () => new Map() }}>
