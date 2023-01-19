@@ -4,7 +4,7 @@ import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { QueryClient } from 'react-query';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
@@ -222,9 +222,10 @@ loadableReady(async () => {
     const canvas = document.querySelector('#root');
 
     if (!forceRender && canvas.hasChildNodes()) {
-      ReactDOM.hydrate(element, canvas);
+      ReactDOM.hydrateRoot(canvas, element);
     } else {
-      ReactDOM.render(element, canvas);
+      const root = ReactDOM.createRoot(canvas);
+      root.render(element);
     }
   };
 

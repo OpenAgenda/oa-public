@@ -1,10 +1,13 @@
 import { loadable } from '@openagenda/react-shared';
 
-const App = loadable(() => import(/* webpackChunkName: "home-App" */ './containers/App'));
-const Agendas = loadable(() => import(/* webpackChunkName: "home-Agendas" */ './containers/Agendas'));
-const Events = loadable(() => import(/* webpackChunkName: "home-Events" */ './containers/Events'));
+const App = loadable(() =>
+  import(/* webpackChunkName: "home-App" */ './containers/App'));
+const Agendas = loadable(() =>
+  import(/* webpackChunkName: "home-Agendas" */ './containers/Agendas'));
+const Events = loadable(() =>
+  import(/* webpackChunkName: "home-Events" */ './containers/Events'));
 
-export default function (prefix = '', rootPrefix = prefix) {
+export default function getRootes(prefix = '', rootPrefix = prefix) {
   return [
     {
       path: rootPrefix,
@@ -13,6 +16,7 @@ export default function (prefix = '', rootPrefix = prefix) {
       routes: [
         { path: `${prefix}/`, exact: true, component: Agendas },
         { path: `${prefix}/events`, component: Events },
+        { path: `${prefix}/agendas/member`, component: Agendas },
       ],
     },
   ];
