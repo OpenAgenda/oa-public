@@ -4,7 +4,7 @@ import { DateRange, DefinedRange } from 'react-date-range';
 import { useIntl } from 'react-intl';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
 
 const defaultGetInitialValue = () => [
