@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
     defaultLocale: getSupportedLocale(locale),
     onError(e) {
       if (e.code !== 'MISSING_DATA') {
-        console.error(e);
+        // console.error(e);
       }
     },
   }, intlCache);

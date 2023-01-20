@@ -19,12 +19,12 @@ initialize({
 
     // console.log('Unhandled URL', url);
 
-    console.error(dedent(`Unhandled ${method} request to ${url}.
+    /* console.error(dedent(`Unhandled ${method} request to ${url}.
 
       This exception has been only logged in the console, however, it's strongly recommended to resolve this error as you don't want unmocked data in Storybook stories.
 
       If you wish to mock an error response, please refer to this guide: https://mswjs.io/docs/recipes/mocking-error-responses
-    `));
+    `)); */
   },
 });
 

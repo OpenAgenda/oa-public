@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 module.exports = {
   stories: [
-    '../stories/**/*.stories.@(tsx|ts|jsx|js)'
+    '../stories/**/*.stories.@(tsx|ts|jsx|js)',
   ],
   framework: {
     name: '@storybook/nextjs',
