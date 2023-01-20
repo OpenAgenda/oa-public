@@ -30,7 +30,7 @@ export function EmailShareMenu(props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="export-title-md">{intl.formatMessage(messages.shareEmail)}</h2>
+      <h2 className="export-title">{intl.formatMessage(messages.shareEmail)}</h2>
       <div className="form-group">
         <div className="input-group input-textarea">
           <textarea
@@ -64,7 +64,7 @@ export function EmailSentMessage(props) {
       <button className="export-close" type="button" onClick={onClose}>
         <i className="fa fa-times fa-lg" />
       </button>
-      <h1 className="export-title-big">{title}</h1>
+      <h2 className="export-title">{title}</h2>
       <p className="confirmation-message">{intl.formatMessage(messages.emailSuccess, { count })}</p>
       <button className="btn btn-primary export-button" type="button" onClick={onClose}>
         OK
