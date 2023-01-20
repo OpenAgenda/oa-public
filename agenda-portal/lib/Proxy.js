@@ -7,7 +7,7 @@ const log = require('./Log')('proxy');
 const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
 
 const getAgendaSettings = (agendaUid, key) => axios
-  .get(`https://openagenda.com/api/agendas/${agendaUid}?key=${key}`)
+  .get(`https://openagenda.com/api/agendas/${agendaUid}?key=${key}&detailed=1`)
   .then(({ data }) => data)
   .catch(err => {
     if (err.response.status === 403) {
