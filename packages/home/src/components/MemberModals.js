@@ -1,10 +1,12 @@
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
 import utils from '@openagenda/members/utils';
+import { AgendaItem } from './Welcome';
 
 const { getRoleSlug, getRoleCode } = utils;
 
 export function MemberEditModal(props) {
   const {
+    agenda,
     member,
     res,
     uid,
@@ -22,6 +24,7 @@ export function MemberEditModal(props) {
 
   return (
     <MemberForm
+      header={agenda ? <AgendaItem agenda={agenda} /> : null}
       lang={lang}
       operation="update"
       mode="modal"

@@ -12,6 +12,7 @@ export default (res, agendaUid, memberEditModal) => {
           settings: r.data.agenda.settings,
           member: r.data.me.member,
           schema: r.data.agenda.memberSchema,
+          agenda: r.data.agenda,
         });
         return r;
       });
