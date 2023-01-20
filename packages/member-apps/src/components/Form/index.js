@@ -81,6 +81,7 @@ const Canvas = (title, content, { mode, onClose }) =>
   );
 
 export default ({
+  header,
   title, // optional. specify form title
   mode, // modal or not
   operation, // update or create
@@ -191,6 +192,7 @@ export default ({
   return Canvas(
     title !== undefined ? title : m(messages.updateTitle),
     <>
+      {header || null}
       {isLoading ? <Spinner /> : null}
       <div className="margin-v-sm">
         {mode !== 'modal' && operation === 'update' ? (
