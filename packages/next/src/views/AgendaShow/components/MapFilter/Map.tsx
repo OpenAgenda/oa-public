@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactFiltersMap from '@openagenda/react-filters/components/fields/MapField/Map';
 import {
   gestureHandlingStyle,

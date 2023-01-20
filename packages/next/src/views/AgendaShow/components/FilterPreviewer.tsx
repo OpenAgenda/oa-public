@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFilterTitle } from '@openagenda/react-filters';
 import ValueTag from './ValueTag';
 
