@@ -52,13 +52,11 @@ const actionLink = (event, link) => link
   .replace('{event.slug}', event.slug);
 
 const Canvas = ({
-  title,
   info,
   infoType,
   children
 }) => (
   <>
-    {title ? <h2>{title}</h2> : null}
     {info ? (
       <div className={`info-block-sm margin-bottom-sm ${infoTypes[infoType] ?? ''}`}>
         {info}
@@ -140,7 +138,6 @@ const Selection = ({
 };
 
 export default function EventSelection({
-  title,
   info,
   infoType,
   res,
@@ -183,7 +180,7 @@ export default function EventSelection({
   }, [loadEvents]);
 
   return (
-    <Canvas title={title} info={info} infoType={infoType}>
+    <Canvas info={info} infoType={infoType}>
       {isLoading ? (
         <div className="padding-v-md">
           <Spinner />
