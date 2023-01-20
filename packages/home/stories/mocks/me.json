@@ -1,0 +1,312 @@
+{
+	"me": {
+		"member": {
+			"userUid": 55507091,
+			"deletedUser": false,
+			"name": null,
+			"phone": null,
+			"email": "clement.lecroart@openagenda.com",
+			"position": null,
+			"organization": null,
+			"role": "administrator",
+			"updatedAt": "2023-01-11T14:50:24.000Z"
+		},
+		"isValid": true
+	},
+	"agenda": {
+		"uid": 87092762,
+		"title": "TEST Member Form",
+		"slug": "test-member-form",
+		"url": null,
+		"official": 0,
+		"networkUid": null,
+		"locationSetUid": null,
+		"updatedAt": "2023-01-13T15:31:52.000Z",
+		"createdAt": "2023-01-11T14:04:21.000Z",
+		"memberSchemaId": 34381,
+		"officializedAt": null,
+		"image": null,
+		"private": 0,
+		"indexed": 1,
+		"settings": {
+			"contribution": {
+				"type": 2,
+				"defaultState": 0,
+				"canPublish": [
+					"administrators",
+					"moderators"
+				],
+				"moderateOnChangeBy": [],
+				"defaultLang": null,
+				"allowLocationCreate": true,
+				"messages": {
+					"instructions": null,
+					"complete": null,
+					"publication": null,
+					"GDPRInformation": null
+				},
+				"useFields": false
+			}
+		},
+		"summary": {
+			"keywords": [],
+			"publishedEvents": {
+				"current": 0,
+				"passed": 0,
+				"upcoming": 0
+			},
+			"recentlyAddedEvents": {
+				"contribution": 0,
+				"shared": 0,
+				"aggregation": 0
+			},
+			"viewport": null
+		},
+		"network": null,
+		"locationSet": null,
+		"schema": {
+			"custom": {},
+			"fields": [
+				{
+					"slug": "imageCredits",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "image",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "title",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "languages",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "description",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "keywords",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "longDescription",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "conditions",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "age",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "registration",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "accessibility",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "attendanceMode",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "location",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "onlineAccessLink",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "status",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"slug": "timings",
+					"type": "abstract",
+					"fieldType": "abstract",
+					"schemaId": null,
+					"schemaType": null
+				}
+			]
+		},
+		"memberSchema": {
+			"custom": {},
+			"fields": [
+				{
+					"field": "test",
+					"label": "test",
+					"help": null,
+					"helpLink": null,
+					"helpContent": null,
+					"info": null,
+					"sub": null,
+					"placeholder": null,
+					"write": null,
+					"read": null,
+					"display": true,
+					"enable": true,
+					"origin": null,
+					"enableWith": null,
+					"optionalWith": null,
+					"related": {
+						"enable": [],
+						"optional": []
+					},
+					"selfHandled": [],
+					"min": null,
+					"max": null,
+					"fieldType": "text",
+					"schemaId": 34381,
+					"schemaType": null
+				},
+				{
+					"field": "organization",
+					"label": {
+						"fr": "Organisation",
+						"en": "Organisation",
+						"it": "Ragione sociale",
+						"de": "Unternehmen",
+						"br": "Aozadur",
+						"es": "organización",
+						"io": "crwdns11556:0crwdne11556:0"
+					},
+					"fieldType": "text",
+					"optional": true,
+					"default": null,
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"field": "phone",
+					"label": {
+						"fr": "Téléphone",
+						"en": "Telephone",
+						"it": "Telefono",
+						"de": "Telefonnummer",
+						"br": "Pellgomz",
+						"es": "Teléfono",
+						"io": "crwdns11558:0crwdne11558:0"
+					},
+					"sub": {
+						"fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
+						"en": "Valid characters: digits, space, -, + ou ()",
+						"it": "Carattere autorizzati: cifro, spazio, -, + o ()",
+						"de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
+						"br": "Arouezennoù aotreet : sifroù, lizherennoù, esaouennoù, -, + pe ()",
+						"es": "Los caracteres permitidos: cifras, espacio, -, + o ()",
+						"io": "crwdns11560:0crwdne11560:0",
+						"oc": "Caractèrs valids : chifras, espaci, -, + o ()"
+					},
+					"fieldType": "phone",
+					"optional": true,
+					"default": null,
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"field": "name",
+					"label": {
+						"fr": "Prénom Nom",
+						"en": "Name Surname",
+						"it": "Nome e cognome",
+						"de": "Vorname Nachname",
+						"br": "Anv Anv-bihan",
+						"es": "Nombre Apellido",
+						"io": "crwdns11562:0crwdne11562:0"
+					},
+					"fieldType": "text",
+					"optional": true,
+					"default": null,
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"field": "position",
+					"label": {
+						"fr": "Fonction",
+						"en": "Position in the organization",
+						"it": "Ruolo",
+						"de": "Funktion",
+						"br": "Karg",
+						"es": "función",
+						"io": "crwdns11564:0crwdne11564:0"
+					},
+					"fieldType": "text",
+					"optional": true,
+					"default": null,
+					"schemaId": null,
+					"schemaType": null
+				},
+				{
+					"field": "email",
+					"label": {
+						"fr": "Email",
+						"en": "Email",
+						"it": "Email",
+						"de": "E-Mail",
+						"br": "Postel",
+						"es": "e-mail",
+						"io": "crwdns11566:0crwdne11566:0"
+					},
+					"fieldType": "email",
+					"optional": true,
+					"default": null,
+					"schemaId": null,
+					"schemaType": null
+				}
+			]
+		}
+	}
+}

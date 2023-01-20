@@ -16,7 +16,7 @@ module.exports = schema({
   },
   includes: {
     type: 'choice',
-    options: ['me.authorizations', 'me.member', 'me.events', 'events'],
+    options: ['me.authorizations', 'me.member', 'me.events', 'events', 'agenda'],
     default: ['me.authorizations', 'me.member'],
   },
 });

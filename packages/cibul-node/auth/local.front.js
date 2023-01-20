@@ -478,6 +478,7 @@ async function activate(req, res) {
 
             auth.signin({ req, res, user });
           });
+          return;
         }
 
         return auth.signin({ req, res, user });

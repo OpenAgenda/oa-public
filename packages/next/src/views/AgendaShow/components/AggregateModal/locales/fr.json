@@ -1,0 +1,8 @@
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": "Créer un agenda",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "Attention: Vous n'administrez actuellement aucun agenda. Vous devez en créer un avant de pouvoir agréger {agenda}.",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "Vous devez vous connecter pour agréger cet agenda.",
+  "next.views.AgendaShow.AggregateModal.signin": "Connexion",
+  "next.views.AgendaShow.AggregateModal.subtitle": "Les événements publiés par {agenda} seront automatiquement ajoutés à l'agenda sélectionné.",
+  "next.views.AgendaShow.AggregateModal.title": "Agréger à un agenda"
+}

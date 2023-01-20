@@ -8,7 +8,7 @@ module.exports = {
   },
   reactOptions: {
     fastRefresh: true,
-    strictMode: true,
+    // strictMode: true,
   },
   webpackFinal(config) {
     config.module.rules.push({

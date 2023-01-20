@@ -12,6 +12,7 @@ import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
 import AgendaItem from '../components/AgendaItem';
 import { MemberEditModal, MemberRemoveModal } from '../components/MemberModals';
+import useMemberModal from '../hooks/useMemberModal';
 import Wrapper from './Wrapper';
 
 function Agendas() {
@@ -32,6 +33,7 @@ function Agendas() {
   }, [dispatch]);
 
   const res = useSelector(state => state.res);
+  const prefix = useSelector(state => state.settings.prefix);
 
   const initialState = useMemo(
     () => ({
@@ -68,6 +70,7 @@ function Agendas() {
 
   const memberEditModal = useModal();
   const memberRemoveModal = useModal();
+  useMemberModal(res, query.agendaUid, memberEditModal);
 
   return (
     <AgendasSearch
@@ -99,7 +102,12 @@ function Agendas() {
               {memberEditModal.isOpen ? (
                 <MemberEditModal
                   lang={lang}
-                  closeModal={() => memberEditModal.close()}
+                  closeModal={() => {
+                    if (history.location.pathname.includes('member')) {
+                      history.push(prefix);
+                    }
+                    memberEditModal.close();
+                  }}
                   onSuccess={(member, updatedData) =>
                     dispatch(updatedMember(state.agendas, member, updatedData))}
                   onRemoveSuccess={() => searchRef.current.refresh()}

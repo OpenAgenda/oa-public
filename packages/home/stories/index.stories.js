@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import React from 'react';
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -7,6 +6,7 @@ import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import agendasJson from './mocks/agendas.json';
 import eventsJson from './mocks/events.json';
+import meJson from './mocks/me.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import ProvidersDecorator from './decorators/Providers';
@@ -33,7 +33,7 @@ const mockApi = ({ isNew } = {}) => {
         agendas: [],
         isMember: false,
       }
-      : editedAgendasResponse
+      : editedAgendasResponse,
   );
   mock.onGet('/events.json').reply(200, eventsJson);
 
@@ -58,7 +58,7 @@ const mockApi = ({ isNew } = {}) => {
 
     const index = _.findIndex(
       editedAgendasResponse.agendas,
-      agenda => agenda.uid === parseInt(agendaUid, 10)
+      agenda => agenda.uid === parseInt(agendaUid, 10),
     );
 
     editedAgendasResponse.agendas.splice(index, 1);
@@ -67,7 +67,10 @@ const mockApi = ({ isNew } = {}) => {
   });
 };
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
+mock.onGet(route('me/agendas/:agendaUid')).reply(200, meJson);
+
+const getHostname = () =>
+  (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
 const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
@@ -85,6 +88,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
       contact: '/:slug/contact',
+      get: 'me/agendas/:agendaUid',
     },
     events: {
       list: '/events.json',
@@ -97,6 +101,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
     messages: '/home/messages',
     notifs: '/home/notifications',
     search: '/agendas',
+    memberSchema: '/',
   },
   menu: {
     tab: 'agendas',
@@ -131,7 +136,7 @@ export const Welcome = () => {
             },
             lang: 'fr',
           },
-        }
+        },
       )}
     </div>
   );
@@ -156,7 +161,7 @@ export const HomeAgendas = () => {
         },
         lang: 'fr',
       },
-    }
+    },
   );
 };
 
@@ -179,6 +184,31 @@ export const HomeAgendasWithSearchQuery = () => {
         },
         lang: 'fr',
       },
-    }
+    },
+  );
+};
+
+export const HomeAgendasWithOpenMemberEditModal = () => {
+  mockApi();
+
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory({
+        initialEntries: ['/agendas/member?agendaUid=87092762'],
+      }),
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
+    }),
+    {
+      extraProps: {
+        user: {
+          id: 2,
+          uid: 99999999,
+          isNew: false,
+        },
+        lang: 'fr',
+      },
+    },
   );
 };
