@@ -8,50 +8,42 @@
   &-form {
     width: 100%;
     color: black;
-    position: relative;
     margin-bottom: 15px;
 
     .close {
-      position: absolute;
-      right: 0;
-      top: 0;
       background: none;
       border: none;
-      color: #4f4f4f;
-      padding: 0;
-      right: 0;
+      color: $oa-gray;
+      line-height: 20px;
+      padding: 4px 8px;
+      position: absolute;
+      right: 0.5em;
+      top: 0.5em;
       vertical-align: middle;
       cursor: pointer;
-  
+
+      i.fa {
+        margin: 0;
+      }
+
       &:hover {
-        color: black;
+        border-radius: 0.375em;
+        background: $oa-gray-lighter;
       }
     }
   }
 
   &-title {
-    &-big {
-      font-size: 3rem;
-    }
-    &-md {
-      font-size: 2rem;
-      margin-top: 0;
-    }
-    &.export-title-md {
-      margin-top: 15px;
-    }
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0 0 16px 0;
+    font-weight: 600;
   }
 
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  
-
-  h2 {
-    margin: 10px 0;
   }
 
   #event &-close {
@@ -93,15 +85,15 @@
   label, input[type="checkbox"] {
     font-weight: normal;
   }
- 
+
   .checkbox-list {
     column-count: 2;
-  
+
     input[type="checkbox"] {
       margin: 4px 2px;
     }
   }
-  
+
   .checkbox-list label {
     margin-bottom: 5px;
     display: block;

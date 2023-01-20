@@ -31,7 +31,7 @@ export default function OpenAgendaShare(props) {
 
   return (
     <div className="margin-bottom-md">
-      <h2 className="export-title-md">{intl.formatMessage(messages.shareOA)}</h2>
+      <h2 className="export-title">{intl.formatMessage(messages.shareOA)}</h2>
       {userLogged ? (
         <AgendaSearchInput
           getTitleLink={agenda => getTitleLink(agenda, event)}
