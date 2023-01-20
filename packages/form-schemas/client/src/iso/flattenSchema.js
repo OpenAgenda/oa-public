@@ -5,6 +5,7 @@ const extractLanguages = label => (typeof label === 'string' || !label ? [] : Ob
 const uniq = items => items.reduce((deduped, item) => (deduped.includes(item) ? deduped : deduped.concat(item)), []);
 
 const getLabel = (label, lang) => {
+  if (!label) return label;
   if (typeof label === 'string') return label;
   if (label[lang]) return label[lang];
   return label[Object.keys(label).shift()];
