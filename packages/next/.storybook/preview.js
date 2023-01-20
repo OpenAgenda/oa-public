@@ -1,11 +1,11 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
-import dedent from 'dedent';
+// import dedent from 'dedent';
 
 // Initialize MSW
 initialize({
-  onUnhandledRequest({ method, url }) {
-    const sameOrigin = url.origin === window.location.origin;
+  onUnhandledRequest({ method: _method, url: _url }) {
+  /* const sameOrigin = url.origin === window.location.origin;
 
     if (sameOrigin && url.pathname === '/runtime-error') return;
     if (sameOrigin && url.pathname.endsWith('.iframe.bundle.js')) return;
@@ -19,7 +19,7 @@ initialize({
 
     // console.log('Unhandled URL', url);
 
-    /* console.error(dedent(`Unhandled ${method} request to ${url}.
+    console.error(dedent(`Unhandled ${method} request to ${url}.
 
       This exception has been only logged in the console, however, it's strongly recommended to resolve this error as you don't want unmocked data in Storybook stories.
 
