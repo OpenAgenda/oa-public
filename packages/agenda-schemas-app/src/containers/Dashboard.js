@@ -86,7 +86,6 @@ function Dashboard() {
   const historyLocation = useLocation();
   const queryClient = useQueryClient();
   const { pathname, search } = historyLocation;
-  console.log('agendaSchema editableParents', agenda?.credentials?.premiumCustomFields, editableParents);
   const { memberMode } = useMemo(() => {
     if (pathname.includes('/member') && memberCredential) {
       return { memberMode: true };
