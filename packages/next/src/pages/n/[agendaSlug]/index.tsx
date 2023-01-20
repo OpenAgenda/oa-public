@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
     intlMessages,
     dateFnsLocale,
   ] = await Promise.all([
-    api.get(`/api/agendas/slug/${agendaSlug}`),
+    api.get(`/api/agendas/slug/${agendaSlug}?detailed=1`),
     AgendaShow.fetchLocale(locale),
     getDateFnsLocale(locale),
   ]);
