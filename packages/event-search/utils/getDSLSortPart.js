@@ -1,23 +1,23 @@
 'use strict';
 
+const toSortTimingFormat = require('./toSortTimingFormat');
+
 const timings = (query, options = {}) => {
   const {
     mode = 'min',
-    endOfTimes = '3000-01-01T01:00:00.000Z',
   } = options;
 
   return [
     {
-      '_search_timings.begin': {
+      '_sort_timings.begin': {
         mode,
         order: 'asc',
         nested: {
-          path: '_search_timings',
+          path: '_sort_timings',
           filter: {
             range: {
-              '_search_timings.accessible_until': {
-                gte: query?.timings?.gte ?? 'now',
-                ...mode === 'max' ? { lt: endOfTimes } : null,
+              '_sort_timings.accessible_until': {
+                gte: toSortTimingFormat(query?.timings?.gte ?? new Date()),
               },
             },
           },

@@ -10,7 +10,7 @@ const getDSLSortPart = require('../utils/getDSLSortPart');
 const preCleanRawQuery = require('../utils/preCleanRawQuery');
 const monolingual = require('../utils/monolingualize');
 const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
-
+const toSortTimingFormat = require('../utils/toSortTimingFormat');
 const geoInFx = require('./service/parsers/geoJSON.in.json');
 const geoOutFx = require('./service/parsers/geoJSON.out.json');
 const BMFormSchema = require('./fixtures/applied/bordeaux-metropole.schema.json');
@@ -283,19 +283,20 @@ describe('event-search - unit: utils', () => {
   });
 
   describe('getDSLSortPart', () => {
+    const now = toSortTimingFormat(new Date());
     it('default is sort by timings future asc, passed desc', () => {
       expect(
         getDSLSortPart(),
       ).toEqual([{
-        '_search_timings.begin': {
+        '_sort_timings.begin': {
           mode: 'min',
           order: 'asc',
           nested: {
-            path: '_search_timings',
+            path: '_sort_timings',
             filter: {
               range: {
-                '_search_timings.accessible_until': {
-                  gte: 'now',
+                '_sort_timings.accessible_until': {
+                  gte: now,
                 },
               },
             },
