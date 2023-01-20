@@ -12,6 +12,8 @@ const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSea
 
 const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
 
+const toSortTimingFormat = require('./toSortTimingFormat');
+
 const multilingualFieldHasValue = v => {
   if (!v) {
     return false;
@@ -43,7 +45,6 @@ const isLessThanOneMinuteApart = (d1, d2) => {
 module.exports = produce((event, options = {}) => {
   const {
     formSchema = null,
-    endOfTimes = '3000-01-01T01:00:00.000Z',
   } = options;
 
   Object.assign(event, {
@@ -97,15 +98,10 @@ module.exports = produce((event, options = {}) => {
         ...t,
         _search_begin_from_midnight: secondsMidnightDiff(t.begin, timezone),
       })),
-      _search_timings: event.timings.map(t => ({
-        accessible_until: t.end,
-        begin: t.begin,
-      })).concat({
-        // this bit is important for search_after.
-        // End of times need to be a manageable date
-        accessible_until: endOfTimes,
-        begin: endOfTimes,
-      }),
+      _sort_timings: event.timings.map(t => ({
+        accessible_until: toSortTimingFormat(t.end),
+        begin: toSortTimingFormat(t.begin),
+      })),
     });
   }
 
