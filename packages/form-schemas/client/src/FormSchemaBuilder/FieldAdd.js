@@ -8,14 +8,20 @@ import labels from './lib/labels';
 
 const getLabel = makeLabelGetter(labels);
 
-const Canvas = ({ children, modal, onClose }) => (modal ? (
+const Canvas = ({ children, modal, onClose, title }) => (modal ? (
   <Modal
     classNames={{ overlay: 'popup-overlay big' }}
     onClose={() => onClose()}
+    title={title}
   >
     {children}
   </Modal>
-) : children);
+) : (
+  <>
+    <h3 className="margin-v-sm">{title}</h3>
+    {children}
+  </>
+));
 
 const isDuplicateLabel = (schema, field) => {
   if (field.type === 'section') {
@@ -74,8 +80,8 @@ export default function FieldAdd({
     <Canvas
       modal={modal}
       onClose={onClose}
+      title={getLabel('addField', lang)}
     >
-      <h3 className="margin-v-sm">{getLabel('addField', lang)}</h3>
       <ChooseFieldType
         lang={lang}
         value={fieldType}

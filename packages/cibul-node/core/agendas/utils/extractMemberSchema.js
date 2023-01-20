@@ -14,10 +14,12 @@ module.exports = async function extractMemberSchema(services, {
     return getMemberSchema(services, agenda, { access, actingMember });
   }
 
-  const schemaFromField = schema.fields.find(f => f.field === 'member')?.schema;
+  if (schema) {
+    const schemaFromField = schema.fields.find(f => f.field === 'member')?.schema;
 
-  if (schemaFromField) {
-    return schemaFromField;
+    if (schemaFromField) {
+      return schemaFromField;
+    }
   }
 
   return (

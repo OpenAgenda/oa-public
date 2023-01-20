@@ -22,6 +22,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   } = options;
 
   const agenda = await core.agendas(agendaUid).get({
+    detailed: true,
     includeEvent: true,
     includeMember: true,
     includeMemberSchema: true,

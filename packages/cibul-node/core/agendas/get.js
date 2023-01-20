@@ -77,7 +77,7 @@ async function get(core, agendaUid, options = {}) {
     return cacheAndReturn(services, options, agendaUid, null);
   }
 
-  if (!detailed && !includeEvent) {
+  if (!detailed && !includeEvent && !includeMemberSchema) {
     return cacheAndReturn(
       services,
       options,
@@ -94,20 +94,21 @@ async function get(core, agendaUid, options = {}) {
     log('error', error);
   }
 
-  related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
-  related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
-
-  related.schema = await getMergedSchema(services, agenda, {
-    includeNonDataFields,
-    includeEvent,
-    includeMember,
-    includeMemberSchema,
-    includeDateRange,
-    includeAgendaEvent,
-    includeOriginAgenda,
-    actingMember,
-    access: typeof access === 'string' ? { read: access } : access,
-  });
+  if (detailed) {
+    related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
+    related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
+    related.schema = await getMergedSchema(services, agenda, {
+      includeNonDataFields,
+      includeEvent,
+      includeMember,
+      includeMemberSchema,
+      includeDateRange,
+      includeAgendaEvent,
+      includeOriginAgenda,
+      actingMember,
+      access: typeof access === 'string' ? { read: access } : access,
+    });
+  }
 
   if (includeMemberSchema) {
     related.memberSchema = await extractMemberSchema(services, {

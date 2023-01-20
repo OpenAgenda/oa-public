@@ -26,6 +26,10 @@ module.exports = function validateSection(s) {
     slug: {
       type: 'text',
     },
+    display: {
+      type: 'boolean',
+      default: true,
+    },
   });
 
   return validate(s);
