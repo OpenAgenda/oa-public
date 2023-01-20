@@ -12,7 +12,7 @@
   height: 100%;
   width: 100%;
 
-  >section {
+  > section {
     display: flex;
     flex-direction: column;
     max-width: 500px;
@@ -21,50 +21,55 @@
     border-radius: 3px;
 
     .popup-title {
-      background-color: $oa-blue;
-      border-radius: 3px 3px 0 0;
-      color: $oa-white;
       display: block;
-      padding: 10px 2em;
+      padding: 16px 2em;
       text-align: left;
       width: 100%;
       position: relative;
+      font-weight: 600;
 
-      >h2 {
+      > h2 {
         font-size: 16px;
         line-height: 20px;
         margin: 0;
+        font-weight: 600;
       }
 
-      >.close-link {
+      > .close-link {
         background: none;
         border: none;
-        color: $oa-white;
-        line-height: 40px;
-        padding: 0 10px;
+        color: $oa-gray;
+        line-height: 20px;
+        padding: 4px 8px;
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 0.5em;
+        top: 0.5em;
         vertical-align: middle;
         cursor: pointer;
+
+        &:hover {
+          border-radius: 0.375em;
+          background: #ddd;
+        }
       }
     }
 
     .popup-content {
       padding: 1em 2em;
       overflow: auto;
+      position: relative;
     }
   }
 
   &.big {
-    h2 {
-      font-size: 26px;
-    }
-    
-    >section {
+    > section {
       overflow-y: auto;
       max-height: 80%;
       background: $oa-white;
+
+      .popup-title > .close-link:hover {
+        background: $oa-gray-lighter;
+      }
     }
   }
 

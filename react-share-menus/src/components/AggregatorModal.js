@@ -62,7 +62,7 @@ const AggregatorModal = ({
           <button className="close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
-          <h1 className="export-title-big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
+          <h2 className="export-title">{intl.formatMessage(messages.aggregatorTitle)}</h2>
           <div className="padding-right-sm">
             <p className="text-muted">
               {intl.formatMessage(messages.aggregatorDescription, { targetAgenda: targetAgenda.title })}

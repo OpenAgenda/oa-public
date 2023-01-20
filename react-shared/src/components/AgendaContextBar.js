@@ -82,10 +82,10 @@ function DraftModal({
       contentRef={ref}
       onClose={onClose}
       classNames={{ overlay: 'popup-overlay big' }}
+      title={m(messages.draftsModalTitle)}
       disableBodyScroll
     >
       <EventSelection
-        title={m(messages.draftsModalTitle)}
         info={m(messages.draftsModalInfo)}
         infoType="warning"
         res={res}
@@ -116,10 +116,10 @@ function StateModal({
       contentRef={ref}
       onClose={onClose}
       classNames={{ overlay: 'popup-overlay big' }}
+      title={m(messages[`${slug}ModalTitle`])}
       disableBodyScroll
     >
       <EventSelection
-        title={m(messages[`${slug}ModalTitle`])}
         info={m(messages[`${slug}ModalInfo`])}
         res={`${res}?${query}`}
         actions={actions}

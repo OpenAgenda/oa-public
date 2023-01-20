@@ -74,8 +74,8 @@ export default function CalendarShare(props) {
   };
 
   return (
-    <div className="margin-bottom-md">
-      <h2 className="export-title export-title-md">{intl.formatMessage(messages.shareCalendar)}</h2>
+    <div className="margin-top-sm margin-bottom-md">
+      <h2 className="export-title">{intl.formatMessage(messages.shareCalendar)}</h2>
       <form>
         {calendars.map(calendar => (
           <Fragment key={calendar.service}>
