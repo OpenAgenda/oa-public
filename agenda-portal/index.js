@@ -99,6 +99,9 @@ module.exports = async options => {
   } = config;
 
   const middlewareHooks = {
+    all: {
+      pre: config.middlewareHooks?.all?.pre ?? ((req, res, next) => next()),
+    },
     list: {
       preRender: (req, res, next) => next(),
       ..._.get(config, 'middlewareHooks.list', {}),
@@ -204,6 +207,8 @@ module.exports = async options => {
   }
 
   app.use(loadResLocals);
+  
+  app.use(middlewareHooks.all.pre);
 
   app.get(
     '/',
