@@ -64,13 +64,14 @@ const messages = defineMessages({
 
 const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
 
-const Canvas = (content, { mode, onClose }) =>
+const Canvas = (title, content, { mode, onClose }) =>
   (mode === 'modal' ? (
     <Modal
       onClose={onClose}
       classNames={{
         overlay: 'popup-overlay big',
       }}
+      title={title}
       disableBodyScroll
     >
       {content}
@@ -156,6 +157,7 @@ export default ({
 
   if (operation === 'remove' || step === 'confirmRemove') {
     return Canvas(
+      null,
       <div className="text-center padding-v-sm">
         <p>{m(messages.confirmRemoveInfo)}</p>
         <div>
@@ -187,10 +189,11 @@ export default ({
   }
 
   return Canvas(
+    title !== undefined ? title : m(messages.updateTitle),
     <>
       {isLoading ? <Spinner /> : null}
       <div className="margin-v-sm">
-        {operation === 'update' ? (
+        {mode !== 'modal' && operation === 'update' ? (
           <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
         ) : null}
         {displayGDPRInformation ? (
