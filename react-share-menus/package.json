@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
+    "@emotion/babel-plugin": "^11.10.5",
     "@loadable/babel-plugin": "^5.13.2",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.3.1",
