@@ -173,9 +173,9 @@ const ExportModal = ({
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
       <form className="export export-form" onSubmit={handleSubmit}>
         <button className="close" type="button" onClick={onClose}>
-          <i className="fa fa-times fa-lg" />
+          <i className="margin-right-z fa fa-times fa-lg" />
         </button>
-        <h2>{intl.formatMessage(messages.modalTitle)}</h2>
+        <h2 className="export-title">{intl.formatMessage(messages.modalTitle)}</h2>
         <div className="form-group margin-top-sm">
           <div className="radio" onChange={() => setMode('all')}>
             <label htmlFor="export-all">
