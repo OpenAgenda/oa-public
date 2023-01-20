@@ -141,6 +141,7 @@ export default ({
 
   if (['success', 'removeSuccess', 'removeFail'].includes(step)) {
     return Canvas(
+      null,
       <div className="text-center">
         <p>{m(messages[step])}</p>
         <button
