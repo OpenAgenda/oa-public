@@ -92,7 +92,7 @@ module.exports = core => {
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
     includeEvent: true,
-    detailed: req.query.detailed,
+    detailed: (req.query.detailed ?? '1') === '1',
     private: req.member ? null : false,
     includeNonDataFields: req.query.includeNonDataFields === '1',
     includeMemberSchema: req.query.includeMemberSchema,
