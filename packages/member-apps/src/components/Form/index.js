@@ -81,6 +81,7 @@ const Canvas = (title, content, { mode, onClose }) =>
   );
 
 export default ({
+  header,
   title, // optional. specify form title
   mode, // modal or not
   operation, // update or create
@@ -140,6 +141,7 @@ export default ({
 
   if (['success', 'removeSuccess', 'removeFail'].includes(step)) {
     return Canvas(
+      null,
       <div className="text-center">
         <p>{m(messages[step])}</p>
         <button
@@ -191,6 +193,7 @@ export default ({
   return Canvas(
     title !== undefined ? title : m(messages.updateTitle),
     <>
+      {header || null}
       {isLoading ? <Spinner /> : null}
       <div className="margin-v-sm">
         {mode !== 'modal' && operation === 'update' ? (
