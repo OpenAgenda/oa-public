@@ -184,7 +184,7 @@ function AdditionalFieldsSection({ additionalFields }) {
 
 
 function displayAdditionalFields({ agendaUid, eventUid, lang }) {
-  get(window.env === 'tpl' ? '/server/testdata/agendawithadditionalfields.json' : `/api/agendas/${agendaUid}`, (err, agendaResponse) => {
+  get(window.env === 'tpl' ? '/server/testdata/agendawithadditionalfields.json' : `/api/agendas/${agendaUid}?detailed=1`, (err, agendaResponse) => {
     if (err) {
       log('error when trying to load agenda schema');
       log(err)
