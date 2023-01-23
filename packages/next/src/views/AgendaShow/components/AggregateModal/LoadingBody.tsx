@@ -1,5 +1,4 @@
 import { Center, ModalBody, Spinner } from '@openagenda/uikit';
-import React from 'react';
 
 export default function LoadingBody() {
   return (
