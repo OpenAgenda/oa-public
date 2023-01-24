@@ -5,7 +5,7 @@ import utils from '../lib/utils';
 const log = debug('contribute');
 
 const {
-  doRedirect
+  doRedirect,
 } = utils;
 
 const EVENT_CREATE_SUCCESS = 'agenda-contribute/EVENT_CREATE_SUCCESS';
@@ -18,22 +18,22 @@ function reducer(state = {}, action = {}) {
     case EVENT_CREATE_SUCCESS:
       return {
         ...state,
-        createdEvent: action.event
+        createdEvent: action.event,
       };
     case EVENT_SHARE_SUCCESS:
       return {
         ...state,
-        sharedEvent: action.sharedEvent
+        sharedEvent: action.sharedEvent,
       };
     case EVENT_SHARE_DISPLAY_EVENT_FIELDS:
       return {
         ...state,
-        requestedDisplayEventFieldsInShare: true
+        requestedDisplayEventFieldsInShare: true,
       };
     case REDIRECTING:
       return {
         ...state,
-        redirecting: true
+        redirecting: true,
       };
     default:
       return state;
@@ -43,7 +43,7 @@ function reducer(state = {}, action = {}) {
 function displayShareSuccess(sharedEvent) {
   return {
     type: EVENT_SHARE_SUCCESS,
-    sharedEvent
+    sharedEvent,
   };
 }
 
@@ -57,7 +57,7 @@ function launchImmediateEventShare(shareRes) {
 
 function displayEventFieldsInShare() {
   return {
-    type: EVENT_SHARE_DISPLAY_EVENT_FIELDS
+    type: EVENT_SHARE_DISPLAY_EVENT_FIELDS,
   };
 }
 
@@ -66,12 +66,12 @@ function eventCreateSuccess({ agenda, response }) {
     const {
       res,
       settings: {
-        prefix
-      }
+        prefix,
+      },
     } = getState();
 
     const {
-      event
+      event,
     } = response.body;
 
     if (event.draft) {
@@ -80,12 +80,12 @@ function eventCreateSuccess({ agenda, response }) {
 
     dispatch({
       type: EVENT_CREATE_SUCCESS,
-      event
+      event,
     });
 
     history.push({
       ...history.location,
-      pathname: `${prefix.replace(':slug', agenda.slug)}/confirmation`
+      pathname: `${prefix.replace(':slug', agenda.slug)}/confirmation`,
     });
   };
 }
@@ -95,17 +95,17 @@ function eventDelete({ agenda, event }) {
     const {
       res: {
         removeEvent: removeRes,
-        showMyEvents: showMyEventsRes
-      }
+        showMyEvents: showMyEventsRes,
+      },
     } = getState();
 
     axios.delete(
       removeRes
         .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid)
+        .replace(':eventUid', event.uid),
     ).then(() => {
       dispatch({
-        type: REDIRECTING
+        type: REDIRECTING,
       });
       doRedirect(history, location, showMyEventsRes);
     });
@@ -117,7 +117,7 @@ function eventUpdateSuccess({ agenda, response }) {
     const { res } = getState();
 
     const {
-      event
+      event,
     } = response.body;
 
     return doRedirect(
@@ -125,7 +125,7 @@ function eventUpdateSuccess({ agenda, response }) {
       location,
       res.showEvent
         .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid)
+        .replace(':eventUid', event.uid),
     );
   };
 }
@@ -135,24 +135,22 @@ function memberSetSuccess({
   queryClient,
   mode = 'create',
   fromAgenda = null,
-  event = null
+  event = null,
 }) {
   return ({ history, location }, { getState }) => {
     const {
       settings: {
-        prefix
-      }
+        prefix,
+      },
     } = getState();
     queryClient.removeQueries(`agendaContext.${agenda.uid}`);
-    const newPathname = mode === 'create' ? (
-      `${prefix.replace(':slug', agenda.slug)}/event`
-    ) : (
-      `${prefix.replace(':slug', agenda.slug)}/event/${event.uid}/from/${fromAgenda.uid}`
-    );
+    const newPathname = mode === 'create'
+      ? `${prefix.replace(':slug', agenda.slug)}/event`
+      : `${prefix.replace(':slug', agenda.slug)}/event/${event.uid}/from/${fromAgenda.uid}`;
     log('member set was successful, moving on to %s', newPathname);
     history.push({
       ...location,
-      pathname: newPathname
+      pathname: newPathname,
     });
   };
 }
@@ -166,7 +164,7 @@ function goBackOrToEvent({ agenda, event }) {
       location,
       res.showEvent
         .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid)
+        .replace(':eventUid', event.uid),
     );
   };
 }
@@ -179,5 +177,5 @@ export default Object.assign(reducer, {
   launchImmediateEventShare,
   displayEventFieldsInShare,
   displayShareSuccess,
-  eventDelete
+  eventDelete,
 });

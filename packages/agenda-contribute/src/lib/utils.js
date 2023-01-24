@@ -9,7 +9,7 @@ const log = debug('utils');
 const contributionTypes = {
   CLOSED: 0,
   OPEN: 1,
-  MEMBERS_ONLY: 2
+  MEMBERS_ONLY: 2,
 };
 
 const listLinkedToFields = (fields, schema) => {
@@ -20,32 +20,30 @@ const listLinkedToFields = (fields, schema) => {
 
       return {
         field,
-        withName: typeof field[withType] === 'string' ? field[withType] : field[withType].field
+        withName: typeof field[withType] === 'string' ? field[withType] : field[withType].field,
       };
     });
 
   return fields.filter(field => fieldsWiths.find(f => f.withName === field.field));
 };
 
-const distributeBySchemaType = (fieldNames, schema) => fieldNames.reduce(
-  (distributed, fieldName) => {
-    const field = schema.fields.find(f => f.field === fieldName);
+const distributeBySchemaType = (fieldNames, schema) => fieldNames.reduce((distributed, fieldName) => {
+  const field = schema.fields.find(f => f.field === fieldName);
 
-    if (!field) {
-      distributed.otherFieldNames.push(fieldName);
-    } else if (field.schemaType === 'event') {
-      distributed.standardFields.push(field);
-    } else {
-      distributed.extendedFields.push(field);
-    }
-
-    return distributed;
-  }, {
-    standardFields: [],
-    extendedFields: [],
-    otherFieldNames: []
+  if (!field) {
+    distributed.otherFieldNames.push(fieldName);
+  } else if (field.schemaType === 'event') {
+    distributed.standardFields.push(field);
+  } else {
+    distributed.extendedFields.push(field);
   }
-);
+
+  return distributed;
+}, {
+  standardFields: [],
+  extendedFields: [],
+  otherFieldNames: [],
+});
 
 function filterState(agendaContext, event) {
   const canChangeState = agendaContext?.me?.authorizations?.canChangeState;
@@ -68,20 +66,20 @@ function filterEventData({
   canEditEvent,
   canChangeState,
   schema,
-  displayEventFields
+  displayEventFields,
 }) {
   const {
     standardFields: usedStandardFields,
-    otherFieldNames: usedOtherFieldNames
+    otherFieldNames: usedOtherFieldNames,
   } = distributeBySchemaType(Object.keys(event), schema);
 
   const {
-    extendedFields
+    extendedFields,
   } = distributeBySchemaType(schema.fields.map(f => f.field), schema);
 
   // which standard field values are linked to extended schema
   const standardFieldsLinkedTo = listLinkedToFields(usedStandardFields, {
-    fields: extendedFields
+    fields: extendedFields,
   });
 
   return produce(event, draft => {
@@ -106,7 +104,7 @@ function hasAdditionalFields(schema) {
   return (
     schema?.fields ?? []
   ).filter(
-    field => ['network', 'agenda'].includes(field.schemaType)
+    field => ['network', 'agenda'].includes(field.schemaType),
   ).length;
 }
 
@@ -127,7 +125,7 @@ function replaceWithStep(history, location, prefix, step) {
   log('going from %s to %s', location.pathname, pathname);
   history.replace({
     ...location,
-    pathname
+    pathname,
   });
 }
 
@@ -162,11 +160,11 @@ const evaluateAndRedirect = (history, redirectURL) => {
 
 function doRedirect(history, location, redirectTo, options = {}) {
   const {
-    search
+    search,
   } = location;
 
   const {
-    ignoreURLRedirect = false
+    ignoreURLRedirect = false,
   } = options;
 
   const { redirect } = qs.parse(search, { ignoreQueryPrefix: true });
@@ -183,12 +181,12 @@ function doRedirect(history, location, redirectTo, options = {}) {
 function schemaWithoutEventFields(schema) {
   const {
     extendedFields,
-    standardFields
+    standardFields,
   } = distributeBySchemaType(schema.fields.map(f => f.field), schema);
 
   // standard fields that are linked to from extended schema fields
   const standardFieldsLinkedToNames = listLinkedToFields(standardFields, {
-    fields: extendedFields
+    fields: extendedFields,
   }).map(f => f.field);
 
   return {
@@ -202,13 +200,13 @@ function schemaWithoutEventFields(schema) {
         if (standardFieldsLinkedToNames.includes(field.field)) {
           return {
             ...field,
-            enable: false
+            enable: false,
           };
         }
 
         return false;
       })
-      .filter(f => !!f)
+      .filter(f => !!f),
   };
 }
 
@@ -270,5 +268,5 @@ export default {
   shouldShowFullEventFormLink,
   shouldDisplayEventFields,
   filterState,
-  filterEventData
+  filterEventData,
 };

@@ -12,19 +12,19 @@ export default function addStateField(schema, locale) {
     info: getLabel('stateFieldInfo'),
     options: [{
       id: -1,
-      value: 'refused'
+      value: 'refused',
     }, {
       id: 0,
-      value: 'tocontrol'
+      value: 'tocontrol',
     }, {
       id: 1,
-      value: 'controlled'
+      value: 'controlled',
     }, {
       id: 2,
-      value: 'published'
+      value: 'published',
     }].map(o => ({
       ...o,
-      label: _.capitalize(getLabel(o.value))
-    }))
+      label: _.capitalize(getLabel(o.value)),
+    })),
   });
 }
