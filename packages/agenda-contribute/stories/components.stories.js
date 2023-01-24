@@ -23,6 +23,7 @@ export const MemberForm = () => (
   <div className="padding-h-sm">
     <MemberFormComponent
       member={null}
+      agenda={immutableMdbDetailed}
       res="http://localhost:3000/members/:userUid"
       onSuccess={member => {
         // eslint-disable-next-line no-console
