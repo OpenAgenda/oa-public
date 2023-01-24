@@ -4,11 +4,11 @@ const _ = require('lodash');
 const { isSuperiorToOrEqual } = require('@openagenda/members').utils.compareRoles;
 
 function and(...args) {
-  return props => args.reduce(async (accu, fn) => (await accu && fn(props)), true);
+  return props => args.reduce(async (accu, fn) => await accu && fn(props), true);
 }
 
 function or(...args) {
-  return props => args.reduce(async (accu, fn) => (await accu || fn(props)), false);
+  return props => args.reduce(async (accu, fn) => await accu || fn(props), false);
 }
 
 // function not(a) {
@@ -38,22 +38,20 @@ function getActivityEntity(activity, entity) {
 // }
 
 function toUser(key) {
-  return ({ targetFeed, activity }) => (
-    targetFeed.entityType === 'user' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid)
-  );
+  return ({ targetFeed, activity }) =>
+    targetFeed.entityType === 'user' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
 }
 
 function toAgenda(key) {
-  return ({ targetFeed, activity }) => (
-    targetFeed.entityType === 'agenda' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid)
-  );
+  return ({ targetFeed, activity }) =>
+    targetFeed.entityType === 'agenda' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
 }
 
 async function isPublicTargetAgenda({ activity, config: { services } }) {
-  return !!(await services.agendas.get(
+  return !!await services.agendas.get(
     { uid: getActivityEntity(activity, 'target.uid') },
     { private: false },
-  ));
+  );
 }
 
 function isPublishedEvent({ activity }) {
@@ -117,7 +115,7 @@ async function maskUserIsNotAdminModOf({
   const role = preloadedRole ?? (await getMember(
     services.members,
     targetFeed.entityUid,
-    getActivityEntity(activity, key)
+    getActivityEntity(activity, key),
   ))?.role;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
@@ -130,7 +128,7 @@ function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
     activity,
     targetFeed,
     config,
-    preloadedRole
+    preloadedRole,
   }) => {
     // on the agenda
     if (
@@ -254,7 +252,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target', 'store.duplicateOriginAgendaUid']
+      groupBy: ['target', 'store.duplicateOriginAgendaUid'],
     },
   },
   'event.update': {
@@ -267,7 +265,7 @@ const activitiesConfig = {
         ? (await getMember(
           membersSvc,
           targetFeed.entityUid,
-          getActivityEntity(activity, 'target.uid')
+          getActivityEntity(activity, 'target.uid'),
         )).role
         : null;
 
@@ -329,7 +327,7 @@ const activitiesConfig = {
       fields: {},
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'event.delete': {
@@ -371,7 +369,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   /*
@@ -430,7 +428,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.unpublishEvent': {
@@ -480,7 +478,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.refuseEvent': {
@@ -530,7 +528,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   /*
@@ -591,7 +589,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   /*
@@ -601,7 +599,7 @@ const activitiesConfig = {
   * */
   'agenda.removeDeletedEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -630,12 +628,12 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.systemRemoveEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -664,7 +662,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   /*
@@ -673,7 +671,7 @@ const activitiesConfig = {
   * */
   'agenda.changeEventState': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to target agenda
@@ -691,7 +689,7 @@ const activitiesConfig = {
       eventName: 'store.labels.object',
       agendaName: 'store.labels.target',
       oldState: 'store.oldState',
-      newState: 'store.newState'
+      newState: 'store.newState',
     },
     tags: {
       user: {
@@ -711,7 +709,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target', 'store.newState']
+      groupBy: ['target', 'store.newState'],
     },
   },
   /*
@@ -749,7 +747,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.sendInvitation': {
@@ -785,7 +783,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target', 'store.role']
+      groupBy: ['target', 'store.role'],
     },
   },
   'agenda.acceptInvitation': {
@@ -821,7 +819,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target', 'store.role']
+      groupBy: ['target', 'store.role'],
     },
   },
   'agenda.addMember': {
@@ -865,8 +863,8 @@ const activitiesConfig = {
           return ['target', 'object', 'store.role'];
         }
         return ['target', 'store.role'];
-      }
-    }
+      },
+    },
   },
   'agenda.setMemberRole': {
     mask: maskFor({
@@ -909,8 +907,8 @@ const activitiesConfig = {
           return ['target', 'object', 'store.role'];
         }
         return ['target', 'store.role'];
-      }
-    }
+      },
+    },
   },
   'agenda.removeMember': {
     mask: maskFor({
@@ -952,8 +950,8 @@ const activitiesConfig = {
           return ['target', 'object', 'store.role'];
         }
         return ['target', 'store.role'];
-      }
-    }
+      },
+    },
   },
   'agenda.create': {
     labelId: 'ActivityApps.agendaCreate',
@@ -974,7 +972,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.addSource': {
@@ -1005,7 +1003,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.removeSource': {
@@ -1036,7 +1034,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.update': {
@@ -1065,7 +1063,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   'agenda.setOfficial': {
@@ -1088,7 +1086,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: null
+      groupBy: null,
     },
   },
   /*
@@ -1143,7 +1141,7 @@ const activitiesConfig = {
       },
     },
     notifications: {
-      groupBy: ['target']
+      groupBy: ['target'],
     },
   },
   /*
@@ -1210,7 +1208,7 @@ const activitiesConfig = {
     },
   },
   notifications: {
-    groupBy: ['target']
+    groupBy: ['target'],
   },
 };
 
