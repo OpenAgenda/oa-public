@@ -61,7 +61,7 @@ export default class FormSchemaBuilder extends Component {
     const mergedSchema = this.getMergedSchema(props);
     mergedSchema.fields = mergedSchema.fields.filter(f => f?.fieldType !== 'abstract');
     const schema = props.schema?.fields ? props.schema : { fields: [] };
-    console.log(schema, mergedSchema);
+
     const initState = {
       schema,
       labelLanguages: extractSchemaLabelLanguages(props.useExtendedLabelLanguages ? mergedSchema : props.schema),
@@ -233,7 +233,6 @@ export default class FormSchemaBuilder extends Component {
   }
 
   updateSchema(schema) {
-    console.log('updateSchmea', schema);
     const { onUpdate } = this.props;
     this.setSaveState(saveStates.CHANGED, { schema });
     onUpdate(schema);
