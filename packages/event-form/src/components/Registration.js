@@ -29,6 +29,14 @@ const getValue = tag => tag instanceof Object ? tag.value : tag;
 
 const flatten = (values = []) => values.map(v => (v && v instanceof Object ? v.value : v));
 
+const flattenLabel = (label, lang) => {
+  if (!label) return label;
+  if (typeof label === 'string') {
+    return label;
+  }
+  return label[lang];
+}
+
 
 module.exports = class RegistrationComponent extends Component {
 
@@ -133,7 +141,7 @@ module.exports = class RegistrationComponent extends Component {
           inputProps={{
             value: this.state.inputValue,
             onChange: this.onInputChange.bind( this ),
-            placeholder: field.placeholder,
+            placeholder: field.placeholder && !(values ?? []).length ? flattenLabel(field.placeholder, this.props.lang) : undefined,
             onBlur: this.onInputBlur.bind( this ),
             style: !values.length ? { width: '630px' } : null
           }}

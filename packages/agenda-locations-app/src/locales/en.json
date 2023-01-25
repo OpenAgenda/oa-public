@@ -33,7 +33,7 @@
   "AgendaLocations.CH.adminLevel4": "City",
   "AgendaLocations.CH.adminLevel5": "adminLevel5",
   "AgendaLocations.CH.adminLevel6": "City District",
-  "AgendaLocations.CountryField.country": "Country",
+  "AgendaLocations.CountryField.country": "Country ( Required field )",
   "AgendaLocations.CreateForm.back": "Go back to the list",
   "AgendaLocations.CreateForm.info": "Define the name, address and exact location of the place",
   "AgendaLocations.CreateForm.title": "Create a location",

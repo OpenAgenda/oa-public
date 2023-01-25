@@ -200,6 +200,7 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
+    console.log('getLabel', name, values, settings);
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
@@ -352,6 +353,8 @@ const LocationForm = ({
             onChange: file => onChange('image', file),
             value: location?.image,
           }}
+          info={getLabel('imageInfo')}
+          label={getLabel('image')}
         />
       </div>
 
@@ -386,7 +389,7 @@ const LocationForm = ({
               className="margin-right-xs"
               target="_blank"
               rel="noreferrer"
-              href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+              href={lang === 'fr' ? 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr' : 'https://creativecommons.org/licenses/by-sa/4.0/'}
             >
               {intl.formatMessage(messages.findOutMore)}
             </a>
