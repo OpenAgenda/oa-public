@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
@@ -13,7 +13,7 @@ const FILE_TOO_SMALL = 'file-too-small';
 const TOO_MANY_FILES = 'too-many-files';
 
 function FileError({
-  file, errors, minSize, maxSize
+  file, errors, minSize, maxSize,
 }) {
   const intl = useIntl();
 
@@ -26,7 +26,7 @@ function FileError({
     },
     {
       fileName: file.name,
-    }
+    },
   );
 
   switch (errors[0].code) {
@@ -44,7 +44,7 @@ function FileError({
           fileName: file.name,
           fileSize: bytes(file.size),
           maxSize: bytes(maxSize),
-        }
+        },
       );
       break;
     case FILE_TOO_SMALL:
@@ -58,7 +58,7 @@ function FileError({
           fileName: file.name,
           fileSize: bytes(file.size),
           minSize: bytes(minSize),
-        }
+        },
       );
       break;
     case TOO_MANY_FILES:
@@ -84,7 +84,7 @@ function ImageInput({
   height = '100%',
   rounded,
   info,
-  label
+  label,
 }) {
   const intl = useIntl();
   const [rejections, setRejections] = useState(null);
@@ -103,7 +103,7 @@ function ImageInput({
         input.onChange(file);
       }
     },
-    [input]
+    [input],
   );
 
   const onRemove = useCallback(() => {
@@ -154,6 +154,38 @@ function ImageInput({
 
           {value ? (
             <>
+              <div
+                css={css`
+              position: absolute;
+              top: 5px;
+              right: 5px;
+            `}
+              >
+                <button
+                  type="button"
+                  onClick={rootProps.onClick}
+                  className="btn btn-default margin-all-xs"
+                  title={intl.formatMessage({
+                    id: 'ReactShared.ImageInput.update',
+                    defaultMessage: 'Update the image',
+                  })}
+                >
+                  <i className="fa fa-upload" />
+                </button>
+
+                <br />
+                <button
+                  type="button"
+                  onClick={onRemove}
+                  className="btn btn-danger margin-all-xs"
+                  title={intl.formatMessage({
+                    id: 'ReactShared.ImageInput.remove',
+                    defaultMessage: 'Remove',
+                  })}
+                >
+                  <i className="fa fa-trash" />
+                </button>
+              </div>
               {preview ? (
                 <div>
                   <Image
@@ -217,11 +249,11 @@ function ImageInput({
           )}
         </div>
 
-        {value ? (
+        {/* value ? (
           <div
             css={css`
               position: absolute;
-              top: 5px;
+              top: 10px;
               right: 5px;
             `}
           >
@@ -250,7 +282,7 @@ function ImageInput({
               <i className="fa fa-trash" />
             </button>
           </div>
-        ) : null}
+        ) : null */}
       </div>
 
       {extensions?.length ? (
@@ -288,9 +320,9 @@ export default function IntlImageInput({
   const messages = useMemo(
     () => ({
       ...locales[locale],
-      ...(_messages && _messages[locale]),
+      ..._messages && _messages[locale],
     }),
-    [_messages, locale]
+    [_messages, locale],
   );
 
   return (
