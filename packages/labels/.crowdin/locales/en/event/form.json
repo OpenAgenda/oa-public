@@ -1,7 +1,7 @@
 {
   "descriptionSection": "Description fields",
   "attendanceMode": "Attendance mode",
-  "offlineAttendanceMode": "Offline",
+  "offlineAttendanceMode": "In situ",
   "onlineAttendanceMode": "Online",
   "mixedAttendanceMode": "Mixed",
   "onlineAccessLink": "Access link",
