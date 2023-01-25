@@ -33,7 +33,7 @@
   "AgendaLocations.CH.adminLevel4": "Commune",
   "AgendaLocations.CH.adminLevel5": "Arrondissement",
   "AgendaLocations.CH.adminLevel6": "Quartier",
-  "AgendaLocations.CountryField.country": "Pays",
+  "AgendaLocations.CountryField.country": "Pays ( Champ obligatoire )",
   "AgendaLocations.CreateForm.back": "Revenir à la liste",
   "AgendaLocations.CreateForm.info": "Définissez précisément le nom, l'adresse et la localisation du lieu",
   "AgendaLocations.CreateForm.title": "Création d'un lieu",

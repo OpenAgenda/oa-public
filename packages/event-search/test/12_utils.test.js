@@ -7,6 +7,7 @@ const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const getDSLSortPart = require('../utils/getDSLSortPart');
+const validateNav = require('../utils/validateNav');
 const preCleanRawQuery = require('../utils/preCleanRawQuery');
 const monolingual = require('../utils/monolingualize');
 const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
@@ -343,6 +344,20 @@ describe('event-search - unit: utils', () => {
 
     it('if sort is by score, score and uid are defined in DSL', () => {
       expect(getDSLSortPart({ sort: 'score' })).toEqual(['_score', { uid: { order: 'asc' } }]);
+    });
+  });
+
+  describe('validateNav', () => {
+    it('distinguishes types in after key', () => {
+      expect(
+        validateNav({
+          after: ['0', '00019383920', '2981893', 'null'],
+        }),
+      ).toEqual({
+        from: 0,
+        searchAfter: [0, '00019383920', 2981893, null],
+        size: 20,
+      });
     });
   });
 
