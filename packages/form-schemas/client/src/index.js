@@ -2,6 +2,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import ih from 'immutability-helper';
 import { Component } from 'react';
+import { flushSync } from 'react-dom';
 import classNames from 'classnames';
 
 import formSchemaLabels from '@openagenda/labels/form-schemas';
@@ -107,10 +108,14 @@ export default class FormSchemaComponent extends Component {
 
       if ((p instanceof Promise) && enableUnloadWarning) {
         p.then(() => {
-          this.setState({ unloadWarningEnabled: false });
+          flushSync(() => {
+            this.setState({ unloadWarningEnabled: false });
+          });
         });
       } else if (enableUnloadWarning) {
-        this.setState({ unloadWarningEnabled: false });
+        flushSync(() => {
+          this.setState({ unloadWarningEnabled: false });
+        });
       }
       return;
     }
@@ -133,7 +138,9 @@ export default class FormSchemaComponent extends Component {
       }
 
       if (enableUnloadWarning) {
-        this.setState({ unloadWarningEnabled: false });
+        flushSync(() => {
+          this.setState({ unloadWarningEnabled: false });
+        });
       }
 
       if (onSubmitSuccess) {
@@ -231,8 +238,8 @@ export default class FormSchemaComponent extends Component {
     }
 
     if (enableUnloadWarning) {
-      this.setState({
-        unloadWarningEnabled: true,
+      flushSync(() => {
+        this.setState({ unloadWarningEnabled: true });
       });
     }
 
