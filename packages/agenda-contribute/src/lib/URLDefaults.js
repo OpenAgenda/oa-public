@@ -11,7 +11,7 @@ export function eventWithDefaults(event, defaults) {
 
   return {
     ...defaults.event,
-    ...event
+    ...event,
   };
 }
 
@@ -25,5 +25,5 @@ export function get(location) {
 
 export default {
   get,
-  eventWithDefaults
+  eventWithDefaults,
 };

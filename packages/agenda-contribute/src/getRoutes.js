@@ -1,5 +1,5 @@
 import {
-  loadable
+  loadable,
 } from '@openagenda/react-shared';
 
 const App = loadable(() => import(
@@ -47,38 +47,38 @@ const Landing = loadable(() => import(
   './containers/Landing'
 ));
 
-export default (prefix = '') => ([
+export default (prefix = '') => [
   {
     path: prefix,
     component: App,
     routes: [{
       path: `${prefix}/`,
       component: Landing,
-      exact: true
+      exact: true,
     }, {
       path: `${prefix}/member`,
-      component: Member
+      component: Member,
     }, {
       path: `${prefix}/event`,
       component: EventNew,
-      exact: true
+      exact: true,
     }, {
       path: `${prefix}/event/:eventUid`,
       component: EventEdit,
-      exact: true
+      exact: true,
     }, {
       path: `${prefix}/event/:eventUid/draft`,
-      component: EventDraft
+      component: EventDraft,
     }, {
       path: `${prefix}/confirmation`,
-      component: Confirmation
+      component: Confirmation,
     }, {
       path: `${prefix}/event/:eventUid/from/:fromAgendaUid`,
       component: EventShare,
-      exact: true
+      exact: true,
     }, {
       path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member`,
-      component: MemberSharing
-    }]
-  }
-]);
+      component: MemberSharing,
+    }],
+  },
+];

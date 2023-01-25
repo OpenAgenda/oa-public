@@ -302,18 +302,6 @@ storySets.EventCreateByDuplication = {
   },
 };
 
-storySets.EventWithRestriction = {
-  agendaContext: agendaModeratorContext,
-  agenda: basicAgendaWithLimitedVisibility,
-  extraProps: {
-    lang: 'fr',
-    agenda: {
-      ...basicAgendaWithLimitedVisibility,
-      uid: 110,
-    },
-  },
-};
-
 storySets.EventCreateByDuplicationOrigin = {
   extraProps: {
     agenda: {

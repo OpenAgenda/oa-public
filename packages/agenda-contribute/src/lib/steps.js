@@ -2,10 +2,10 @@ export default function steps(current, { agenda }) {
   return (agenda.settings.contribution.useFields ? [
     'member',
     'event',
-    'confirmation'
+    'confirmation',
   ] : [
     'event',
-    'confirmation'
+    'confirmation',
   ]).reduce((carry, stepSlug) => {
     const isCurrent = stepSlug === current;
     return {
@@ -13,12 +13,12 @@ export default function steps(current, { agenda }) {
         display: true,
         activable: !carry.currentWasUsed,
         active: isCurrent,
-        step: stepSlug
+        step: stepSlug,
       }),
-      currentWasUsed: carry.currentWasUsed || isCurrent
+      currentWasUsed: carry.currentWasUsed || isCurrent,
     };
   }, {
     currentWasUsed: false,
-    steps: []
+    steps: [],
   }).steps;
 }

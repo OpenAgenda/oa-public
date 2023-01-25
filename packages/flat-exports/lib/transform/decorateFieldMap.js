@@ -10,7 +10,17 @@ const {
 
 const fieldToFlattenerMapItem = require('./fieldToFlattenerMapItem');
 
-const handledTypes = ['text', 'integer', 'number', 'email', 'phone', 'link', 'html', 'markdown'];
+const handledTypes = [
+  'text',
+  'integer',
+  'number',
+  'email',
+  'phone',
+  'link',
+  'html',
+  'markdown',
+  'textarea',
+];
 
 const isIncluded = (fieldMap, includeFields, f) => includeFields.some(includeField => includeField === f.field && !fieldMap.some(field => field.source === f.field));
 

@@ -7,11 +7,11 @@ export default function useEventContext(agendaUid, eventUid) {
 
   const {
     isLoading: eventContextIsLoading,
-    data: eventContext
-  } = useQuery('eventContext', () => axios.get(res).then(response => (response.data)));
+    data: eventContext,
+  } = useQuery('eventContext', () => axios.get(res).then(response => response.data));
 
   return {
     eventContextIsLoading,
-    eventContext
+    eventContext,
   };
 }
