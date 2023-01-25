@@ -137,6 +137,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   try {
     cleanNav = validateNav(nav);
   } catch (e) {
+    console.log(e);
     throw new BadRequest('nav is not valid');
   }
 
