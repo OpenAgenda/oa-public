@@ -200,6 +200,7 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
+    console.log('getLabel', name, values, settings);
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
@@ -352,6 +353,8 @@ const LocationForm = ({
             onChange: file => onChange('image', file),
             value: location?.image,
           }}
+          info={getLabel('imageInfo')}
+          label={getLabel('image')}
         />
       </div>
 
