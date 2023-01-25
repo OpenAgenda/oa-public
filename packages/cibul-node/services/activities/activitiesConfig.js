@@ -86,8 +86,24 @@ function fromEventToUser({ originFeed, targetFeed }) {
   return originFeed.entityType === 'event' && targetFeed.entityType === 'user';
 }
 
-function hasDiff({ activity }) {
-  return !!activity.store.diff;
+function hasVisibleDiff({ activity, targetFeed, follow }) {
+  if (targetFeed.entityType !== 'user') {
+    return !!activity.store.diff;
+  }
+
+  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields.length) {
+    return true;
+  }
+
+  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields.length) {
+    return true;
+  }
+
+  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields.length) {
+    return true;
+  }
+
+  return false;
 }
 
 async function getMember(membersSvc, userUid, agendaUid) {
@@ -287,7 +303,7 @@ const activitiesConfig = {
       return toOmit;
     },
     filterFollows: [
-      hasDiff,
+      hasVisibleDiff,
       or(
         fromEventToUser,
         toAgenda('target.uid'),
