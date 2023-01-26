@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 module.exports = (agendaSettings, event) => {
   const { formSchema } = agendaSettings;
   const { categorySet } = agendaSettings.legacy;
@@ -9,5 +11,7 @@ module.exports = (agendaSettings, event) => {
 
   const category = categoryField.options.find(option => parseInt(option.id, 10) === parseInt(event[categoryField.field], 10));
 
-  return categorySet?.categories.find(cat => cat.slug === category?.value);
+  const result = categorySet?.categories.find(cat => cat.slug === category?.value);
+
+  return result ? _.omit(result, ['schemaOptionId']) : result;
 };
