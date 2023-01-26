@@ -216,6 +216,7 @@ function ImageInput({
             >
               <div
                 css={css`
+                  position: relative;
                   margin-left: auto;
                   margin-right: auto;
                   background: #eee;
@@ -249,40 +250,6 @@ function ImageInput({
           )}
         </div>
 
-        {/* value ? (
-          <div
-            css={css`
-              position: absolute;
-              top: 10px;
-              right: 5px;
-            `}
-          >
-            <button
-              type="button"
-              onClick={rootProps.onClick}
-              className="btn btn-default margin-all-xs"
-              title={intl.formatMessage({
-                id: 'ReactShared.ImageInput.update',
-                defaultMessage: 'Update the image',
-              })}
-            >
-              <i className="fa fa-upload" />
-            </button>
-
-            <br />
-            <button
-              type="button"
-              onClick={onRemove}
-              className="btn btn-danger margin-all-xs"
-              title={intl.formatMessage({
-                id: 'ReactShared.ImageInput.remove',
-                defaultMessage: 'Remove',
-              })}
-            >
-              <i className="fa fa-trash" />
-            </button>
-          </div>
-        ) : null */}
       </div>
 
       {extensions?.length ? (
