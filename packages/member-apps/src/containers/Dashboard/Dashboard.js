@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -21,7 +21,7 @@ import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersF
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
 import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
-import { renderField, renderSearchInput } from '../../utils/form';
+import { renderSearchInput } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
 
 const Loading = () => (
@@ -30,9 +30,7 @@ const Loading = () => (
   </div>
 );
 
-function SimpleSelect({
-  action, children, input, meta, ...otherProps
-}) {
+function SimpleSelect({ action, children, input, meta, ...otherProps }) {
   const onChange = e => {
     input.onChange(e);
 
@@ -102,14 +100,13 @@ function OrderField({ action, input, title }) {
       schema: state.members.schema ?? null,
     };
   },
-  { ...membersActions, ...modalsActions }
+  { ...membersActions, ...modalsActions },
 )
 @withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.renderField = renderField.bind(this);
     this.renderSearchInput = renderSearchInput.bind(this);
 
     this.debouncedSearch = debounce(this.search, 400);
@@ -185,14 +182,12 @@ class Dashboard extends Component {
     nextPage(
       agenda,
       { search: search || undefined, role: credFilters },
-      (page || 1) + 1
+      (page || 1) + 1,
     );
   };
 
   search = ({ search, sortBy, sortOrder }) => {
-    const {
-      list, agenda, credFilters, history, query
-    } = this.props;
+    const { list, agenda, credFilters, history, query } = this.props;
 
     const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
     const newQuery = {
@@ -202,24 +197,24 @@ class Dashboard extends Component {
       order,
     };
 
-    return list(agenda, newQuery).then(() => history.push({
-      search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
-    }));
+    return list(agenda, newQuery).then(() =>
+      history.push({
+        search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
+      }));
   };
 
   removeMemberFilter = () => {
-    const {
-      list, agenda, history, query
-    } = this.props;
+    const { list, agenda, history, query } = this.props;
 
     const newQuery = {
       ...query,
       userUid: undefined,
     };
 
-    return list(agenda, newQuery).then(() => history.push({
-      search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
-    }));
+    return list(agenda, newQuery).then(() =>
+      history.push({
+        search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
+      }));
   };
 
   renderFilter(nbr, key) {
@@ -228,7 +223,8 @@ class Dashboard extends Component {
 
     const label = key + (nbr > 1 ? 's' : '');
 
-    const toggleFilter = e => (credFilters.includes(key) ? this.removeFilter : this.addFilter)(e, key);
+    const toggleFilter = e =>
+      (credFilters.includes(key) ? this.removeFilter : this.addFilter)(e, key);
 
     if (!nbr) return null;
 
@@ -362,7 +358,7 @@ class Dashboard extends Component {
                     <a
                       className="btn btn-link padding-v-xs btn-block"
                       href={`/support?origin=${encodeURIComponent(
-                        window.location.pathname
+                        window.location.pathname,
                       )}&subject=moderators`}
                     >
                       <i className="golden-icon" />
@@ -478,35 +474,33 @@ class Dashboard extends Component {
                 </span>
               ) : null
           }
-          {total > 0 ? (
-            <>
-              {agenda.credentials.invitationMessage ? (
-                <button
-                  type="button"
-                  className="btn btn-default btn-medium margin-left-sm"
-                  onClick={() => showModal('writeToMembers', {
-                    query: {
-                      search: query.search || undefined,
-                      role: credFilters,
-                    },
-                  })}
-                >
-                  {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-                </button>
-              ) : (
-                <a
-                  className="btn btn-default btn-medium margin-left-sm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`/support?origin=${encodeURIComponent(
-                    window.location.pathname
-                  )}&subject=writeToAll`}
-                >
-                  <i className="golden-icon" />{' '}
-                  {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-                </a>
-              )}
-            </>
+          {total > 0 && agenda.credentials.invitationMessage ? (
+            <button
+              type="button"
+              className="btn btn-default btn-medium margin-left-sm"
+              onClick={() =>
+                showModal('writeToMembers', {
+                  query: {
+                    search: query.search || undefined,
+                    role: credFilters,
+                  },
+                })}
+            >
+              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+            </button>
+          ) : null}
+          {total > 0 && !agenda.credentials.invitationMessage ? (
+            <a
+              className="btn btn-default btn-medium margin-left-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`/support?origin=${encodeURIComponent(
+                window.location.pathname,
+              )}&subject=writeToAll`}
+            >
+              <i className="golden-icon" />{' '}
+              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+            </a>
           ) : null}
         </div>
 
@@ -604,9 +598,10 @@ class Dashboard extends Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => remove(agenda, removeModal.member.id)
-                      .then(() => closeModal('removeMember'))
-                      .catch(() => setModal('removeMember', { error: true }))}
+                    onClick={() =>
+                      remove(agenda, removeModal.member.id)
+                        .then(() => closeModal('removeMember'))
+                        .catch(() => setModal('removeMember', { error: true }))}
                   >
                     {getLabel('removeMember')}
                   </button>
@@ -650,11 +645,12 @@ class Dashboard extends Component {
               <InviteMembersForm
                 agenda={agenda}
                 userCredential={member.role}
-                onSubmit={data => invite(agenda, data).then(async result => {
-                  await this.search({ search });
-                  await getStats(agenda);
-                  return result;
-                })}
+                onSubmit={data =>
+                  invite(agenda, data).then(async result => {
+                    await this.search({ search });
+                    await getStats(agenda);
+                    return result;
+                  })}
               />
             )}
           </Modal>
@@ -686,9 +682,10 @@ class Dashboard extends Component {
           >
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
-                onSubmit={data => sendMessage(agenda, data, writeToMembersModal.query).then(
-                  () => setModal('writeToMembers', { confirmation: true })
-                )}
+                onSubmit={data =>
+                  sendMessage(agenda, data, writeToMembersModal.query).then(
+                    () => setModal('writeToMembers', { confirmation: true }),
+                  )}
               />
             ) : (
               <div className="text-center">

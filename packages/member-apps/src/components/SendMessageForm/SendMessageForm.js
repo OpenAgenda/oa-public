@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import {
-  renderField,
   renderInput,
-  renderTextarea,
   renderMarkdownInput,
   renderCheckbox,
 } from '../../utils/form';
@@ -16,9 +14,7 @@ export default class SendMessageForm extends Component {
 
   constructor(props) {
     super(props);
-    this.renderField = renderField.bind(this);
     this.renderInput = renderInput.bind(this);
-    this.renderTextarea = renderTextarea.bind(this);
     this.renderMarkdownInput = renderMarkdownInput.bind(this);
     this.renderCheckbox = renderCheckbox.bind(this);
   }
