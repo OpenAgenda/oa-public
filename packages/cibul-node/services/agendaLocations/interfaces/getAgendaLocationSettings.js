@@ -13,7 +13,8 @@ module.exports = services => async (uid, lang) => {
     return null;
   }
 
-  const locationField = _.first(schema.fields.filter(f => f.field === 'location'));
+  const locationField = _.first(schema.fields.filter(f => (f.slug ?? f.field) === 'location'));
+
   const legacy = _.get(locationField, 'legacy', null);
 
   if (!legacy) {
