@@ -11,16 +11,20 @@ const getLabel = (label, lang) => {
   return label[Object.keys(label).shift()];
 };
 
-const getMergedLabel = (field, parent) => {
-  if (typeof field.label === 'string' && typeof parent.label === 'string') {
-    return [parent.label, field.label].join(': ');
+const getMergedLabel = (fieldLabel, parentLabel) => {
+  if (fieldLabel === undefined) {
+    return fieldLabel;
+  }
+
+  if ((typeof fieldLabel === 'string') && (typeof parentLabel === 'string')) {
+    return [parentLabel, fieldLabel].join(': ');
   }
 
   return uniq(
-    extractLanguages(field.label).concat(extractLanguages(parent.label)),
+    extractLanguages(fieldLabel).concat(extractLanguages(parentLabel)),
   ).reduce((label, lang) => ({
     ...label,
-    [lang]: [getLabel(parent.label, lang), getLabel(field.label, lang)].join(': '),
+    [lang]: getMergedLabel(getLabel(fieldLabel, lang), getLabel(parentLabel, lang)),
   }), {});
 };
 
@@ -41,11 +45,18 @@ function getFlattenedSchemaFields(schema, options = {}) {
         path: getPath(path, fieldPath),
       }));
     }
-    fields.push({
+    const flattenedField = {
       ...field,
       field: fieldPath,
-      label: prefixedLabels && parent ? getMergedLabel(field, parent) : field.label,
-    });
+    };
+
+    const label = prefixedLabels && parent ? getMergedLabel(field.label, parent.label) : field.label;
+
+    if (label) {
+      flattenedField.label = label;
+    }
+
+    fields.push(flattenedField);
     return fields;
   }, []);
 }
