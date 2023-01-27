@@ -7,7 +7,8 @@ import fetchLocale1 from 'components/OfficialAgenda/locales';
 import fetchLocale2 from 'components/PrivateAgenda/locales';
 import fetchLocale3 from 'components/SearchInput/locales';
 import fetchLocale4 from 'views/AgendaShow/components/AggregateModal/locales';
-import fetchLocale5 from 'views/AgendaShow/components/locales';
+import fetchLocale5 from 'views/AgendaShow/components/ContextBar/locales';
+import fetchLocale6 from 'views/AgendaShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -17,6 +18,7 @@ export default async function fetchLocale(locale) {
     fetchLocale3(locale),
     fetchLocale4(locale),
     fetchLocale5(locale),
+    fetchLocale6(locale),
   ])
     .then(results => Object.assign({}, ...results))
     .catch(e => {

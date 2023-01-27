@@ -68,8 +68,7 @@ export default function LoggedBody({ agenda }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
@@ -86,6 +85,8 @@ export default function LoggedBody({ agenda }) {
   if (isLoadingInitialData) {
     return <LoadingBody />;
   }
+
+  // TODO if noAgendas return (/* ... */)
 
   return (
     <>

@@ -22,6 +22,7 @@ import { useApiClient } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
+import useUser from 'hooks/useUser';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
@@ -31,6 +32,7 @@ import MapFilter from './components/MapFilter';
 import DateRangeFilter from './components/DateRangeFilter';
 import ChoiceFilter from './components/ChoiceFilter';
 import AgendaHeader from './components/AgendaHeader';
+import ContextBar from './components/ContextBar';
 import fetchLocale from './locales';
 
 export type AgendaShowProps = {
@@ -49,6 +51,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
   const apiClient = useApiClient();
+
+  const { user } = useUser();
 
   const filtersFormRef = useRef<any>();
 
@@ -112,7 +116,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       agenda,
       !after ? filters : [], // need aggs only for first page
       {
-        // sort: 'lastTimingWithFeatured.asc',
+        sort: 'lastTimingWithFeatured.asc',
         after,
         ...query,
         detailed: true,
@@ -146,8 +150,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const [initialViewport] = useState(() => aggregations.viewport);
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;
@@ -199,6 +202,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           crossOrigin=""
         />
       </Head>
+
+      {user ? <ContextBar agenda={agenda} /> : null}
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container maxW="container.xl" color="white">

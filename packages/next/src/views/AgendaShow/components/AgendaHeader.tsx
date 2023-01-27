@@ -72,20 +72,22 @@ export default function AgendaHeader({ agenda }) {
 
   return (
     <HStack spacing="8">
-      <Image
-        rounded="full"
-        width="140"
-        height="140"
-        src={agenda.image}
-        fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : null}
-        fallbackStrategy="onError"
-        alt=""
-        draggable={false}
-        loader={simpleLoader}
-        border="3px solid white"
-        h="140px"
-        fit="cover"
-      />
+      {agenda.image ? (
+        <Image
+          rounded="full"
+          width="140"
+          height="140"
+          src={agenda.image}
+          fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : null}
+          fallbackStrategy="onError"
+          alt=""
+          draggable={false}
+          loader={simpleLoader}
+          border="3px solid white"
+          h="140px"
+          fit="cover"
+        />
+      ) : null}
 
       <VStack spacing="3" align="start">
         <Heading as="h1" fontSize="4xl">
@@ -112,7 +114,7 @@ export default function AgendaHeader({ agenda }) {
             href={mailtoUrl || `/${agenda.slug}/contact`}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
-            color="white"
+            colorScheme="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
@@ -141,7 +143,7 @@ export default function AgendaHeader({ agenda }) {
             onClick={aggregateOnOpen}
             leftIcon={<OAIcon />}
             variant="outline"
-            color="white"
+            colorScheme="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
