@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 
-module.exports = services => async (uid, lang) => {
+module.exports = services => async uid => {
   const {
-    core
+    core,
   } = services;
 
   const schema = await core.agendas(uid).settings.get({ access: 'internal' });
@@ -22,4 +22,4 @@ module.exports = services => async (uid, lang) => {
   }
 
   return legacy;
-}
+};
