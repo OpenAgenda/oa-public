@@ -8346,11 +8346,13 @@ __metadata:
     babel-loader: ^8.2.2
     classnames: ^2.3.1
     core-js: ^3.10.2
+    emoji-regex: ^10.2.1
     errorhandler: ^1.5.0
     eslint: ^8.24.0
     express: ^4.17.1
     final-form: ^4.20.2
     history: ^4.10.1
+    jest: ^28.1.2
     js-base64: ^2.5.1
     lint-staged: ^10.2.11
     lodash: ^4.17.15
@@ -8374,6 +8376,7 @@ __metadata:
     redux: ^4.0.5
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
+    tlds: ^1.236.0
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
@@ -22186,6 +22189,13 @@ __metadata:
   version: 6.1.1
   resolution: "emoji-regex@npm:6.1.1"
   checksum: 6c54300a743d0b7af6e52292508d4865945ac966572473b65fdf31b54d5e4d91a1a1d769ea89f541b4023aa0c8dd2a51697fd9d186a698faf2ff380d18e5a016
+  languageName: node
+  linkType: hard
+
+"emoji-regex@npm:^10.2.1":
+  version: 10.2.1
+  resolution: "emoji-regex@npm:10.2.1"
+  checksum: 1aa2d16881c56531fdfc03d0b36f5c2b6221cc4097499a5665b88b711dc3fb4d5b8804f0ca6f00c56e5dcf89bac75f0487eee85da1da77df3a33accc6ecbe426
   languageName: node
   linkType: hard
 
@@ -43560,6 +43570,15 @@ resolve@^2.0.0-next.3:
   version: 1.0.3
   resolution: "tiny-warning@npm:1.0.3"
   checksum: da62c4acac565902f0624b123eed6dd3509bc9a8d30c06e017104bedcf5d35810da8ff72864400ad19c5c7806fc0a8323c68baf3e326af7cb7d969f846100d71
+  languageName: node
+  linkType: hard
+
+"tlds@npm:^1.236.0":
+  version: 1.236.0
+  resolution: "tlds@npm:1.236.0"
+  bin:
+    tlds: bin.js
+  checksum: 724e85c909730988ce815a3b5e8c8dec23e3ce730f0f4ef16316bd871c0cd6ec08c6228c56c2dc33fa06976cfbdf56a29c13f2be46b3e757ae03223e96480f27
   languageName: node
   linkType: hard
 
