@@ -1,5 +1,5 @@
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
+
 import I18nContext from '../contexts/I18nContext';
 
 const searchSpinner = {
@@ -72,79 +72,7 @@ export function renderField({
   );
 }
 
-export function renderInput({ placeholder, className, spellCheck, ...props }) {
-  const inputAttrs = { placeholder, className, spellCheck };
-
-  const content = <input {...props.input} {...inputAttrs} />;
-
-  return renderField.bind(this)({ content, ...props });
-}
-
-export function renderCheckbox({
-  label,
-  id,
-  placeholder,
-  className,
-  spellCheck,
-  ...props
-}) {
-  const inputAttrs = {
-    id,
-    placeholder,
-    className,
-    spellCheck,
-  };
-
-  const content = (
-    <div className="checkbox">
-      <label htmlFor={props.id}>
-        <input type="checkbox" {...props.input} {...inputAttrs} />
-        {label}
-      </label>
-    </div>
-  );
-
-  return renderField.bind(this)({ content, ...props });
-}
-
-export function renderTextarea({
-  placeholder,
-  className,
-  rows,
-  cols,
-  spellCheck,
-  ...props
-}) {
-  const inputAttrs = {
-    placeholder,
-    className,
-    rows,
-    cols,
-    spellCheck,
-  };
-
-  const content = (
-    <div>
-      <textarea {...props.input} {...inputAttrs} />
-    </div>
-  );
-
-  return renderField.bind(this)({ content, ...props });
-}
-
-export function renderSelect({ className, children, ...props }) {
-  const inputAttrs = { className };
-
-  const content = (
-    <select {...props.input} {...inputAttrs}>
-      {children}
-    </select>
-  );
-
-  return renderField.bind(this)({ content, ...props });
-}
-
-export function renderSearchInput({
+export default function renderSearchInput({
   type,
   placeholder,
   className,
@@ -176,27 +104,6 @@ export function renderSearchInput({
       </button>
     </div>
   );
-
-  return renderField.bind(this)({ content, ...props });
-}
-
-export function renderMarkdownInput({
-  lang = 'fr',
-  label,
-  placeholder,
-  className,
-  loadComponent,
-  ...props
-}) {
-  const inputAttrs = {
-    lang,
-    placeholder,
-    label,
-    className,
-    loadComponent,
-  };
-
-  const content = <MarkdownComponent {...props.input} {...inputAttrs} />;
 
   return renderField.bind(this)({ content, ...props });
 }

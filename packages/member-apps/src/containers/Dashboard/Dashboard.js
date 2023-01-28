@@ -17,11 +17,11 @@ import Spinner from '@openagenda/react-form-components/build/Spinner';
 
 import MemberItem from '../../components/MemberItem';
 import MemberForm from '../../components/Form';
-import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
-import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
+import InviteMembersForm from '../../components/InviteMembersForm';
+import SendMessageForm from '../../components/SendMessageForm';
 import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
-import { renderSearchInput } from '../../utils/form';
+import renderSearchInput from '../../utils/renderSearchInput';
 import I18nContext from '../../contexts/I18nContext';
 
 const Loading = () => (
