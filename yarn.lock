@@ -8585,16 +8585,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/pdf@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@openagenda/pdf@npm:0.1.4"
+"@openagenda/pdf@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@openagenda/pdf@npm:0.1.5"
   dependencies:
     async: ^1.5.0
     gm: ^1.17.0
     lodash: ^4.17.4
     pdfkit: ^0.7.1
     request: 2.65.0
-  checksum: f2a2667ae00d1a8d373d4113d7b51d32fd8d5de96ec0e4148a02086dd5c14a296f22e96149cea735a5fbd72bfb8efa92a1b7518964901c3c5e335c744b31beaa
+  checksum: aa91ac435e7f10297fb24cbb000e19feff26e324ef4eae625110b6f2dad75275fdba5974a0f8cb5f950b65f2d9047454421d1f505d61aa0d324200e70fec55c4
   languageName: node
   linkType: hard
 
@@ -18763,7 +18763,7 @@ __metadata:
     "@openagenda/newsletter": ^2.0.1
     "@openagenda/oembed": ^2.1.14
     "@openagenda/outdated-browser": ^0.0.0
-    "@openagenda/pdf": ^0.1.4
+    "@openagenda/pdf": ^0.1.5
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/queue": ^1.0.1
     "@openagenda/queues": ^1.2.7
