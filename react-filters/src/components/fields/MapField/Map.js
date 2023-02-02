@@ -153,6 +153,7 @@ const Map = React.forwardRef(
       defaultViewport,
       onChange,
       userControlled,
+      setUserControlled,
       className,
     },
     ref,
@@ -192,29 +193,38 @@ const Map = React.forwardRef(
       },
     }));
 
-    const onMapCreate = useCallback(
-      map => {
+    const onMapReady = useCallback(
+      ({ target: map }) => {
         mapRef.current = map;
 
-        const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
-        const innerZoom = map.getBoundsZoom(map.getBounds());
+        // Remove flag
+        map.attributionControl.setPrefix(
+          '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
+        );
 
-        loadGeoData(filter, innerBounds, innerZoom).then(newData => {
-          setData(newData?.reverse() ?? []);
-          setDisplayedMarkers(true);
+        // setTimeout to avoid error with map.getBounds()
+        setTimeout(() => {
+          const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+          const innerZoom = map.getBoundsZoom(map.getBounds());
+
+          loadGeoData(filter, innerBounds, innerZoom).then(newData => {
+            setData(newData?.reverse() ?? []);
+            setDisplayedMarkers(true);
+          });
         });
       },
-      [filter, loadGeoData],
+      [bounds, filter, loadGeoData],
     );
 
+    const previousValue = usePrevious(input.value);
     const previousUserControlled = usePrevious(userControlled);
 
-    // useEffect(() => {
-    //   // Become not user controlled if value is cleared
-    //   if (!isEmptyValue(previousValue) && isEmptyValue(input.value) && userControlled) {
-    //     setUserControlled(false);
-    //   }
-    // });
+    useEffect(() => {
+      // Become not user controlled if value is cleared
+      if (!isEmptyValue(previousValue) && isEmptyValue(input.value) && userControlled) {
+        setUserControlled(false);
+      }
+    });
 
     useEffect(() => {
       const map = mapRef.current;
@@ -244,7 +254,7 @@ const Map = React.forwardRef(
       <MapContainer
         className={className}
         bounds={bounds}
-        whenCreated={onMapCreate}
+        whenReady={onMapReady}
         // scrollWheelZoom={false}
         gestureHandling
         gestureHandlingOptions={gestureHandlingOptions}
@@ -252,7 +262,10 @@ const Map = React.forwardRef(
         worldCopyJump
         // minZoom={1}
       >
-        <TileLayer attribution={tileAttribution} url={tileUrl} />
+        <TileLayer
+          attribution={tileAttribution}
+          url={tileUrl}
+        />
 
         {displayedMarkers
           ? data.map(entry => (
