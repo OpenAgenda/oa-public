@@ -2,7 +2,7 @@ import React, {
   useMemo,
   useCallback,
   useEffect,
-  useRef
+  useRef,
 } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import { useLatest } from 'react-use';
@@ -12,6 +12,7 @@ import updateFormValues from '../../utils/updateFormValues';
 import updateCustomFilter from '../../utils/updateCustomFilter';
 import { useFavoriteState } from '../../hooks';
 import FilterPreviewer from '../FilterPreviewer';
+import useFavoritesOnChange from '../../hooks/useFavoritesOnChange';
 
 const subscription = { values: true };
 
@@ -37,7 +38,7 @@ function Preview({
 
       updateFormValues(form, {
         uid: undefined,
-        favorites: undefined
+        favorites: undefined,
       }, false);
 
       const handlerElem = filter.handlerElem || filter.elem;
@@ -47,7 +48,7 @@ function Preview({
         innerCheckboxes[0].checked = false;
       }
     },
-    [disabled, form, filter]
+    [disabled, form, filter],
   );
 
   return (
@@ -55,7 +56,7 @@ function Preview({
       {({ values }) => {
         const query = {
           uid: value,
-          favorites: '1'
+          favorites: '1',
         };
 
         if (!matchQuery(values, query) || !activeFilterLabel) {
@@ -83,39 +84,7 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
 
   const latestValue = useLatest(value);
 
-  const updateForm = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const query = form.getState().values;
-
-    const matchingQuery = {
-      uid: latestValue.current || ['-1'],
-      favorites: '1'
-    };
-
-    const isMatchQuery = matchQuery(query, matchingQuery);
-
-    const newQuery = filter.exclusive && !isMatchQuery
-      ? form.getRegisteredFields().reduce((accu, next) => {
-        if (next in matchingQuery) {
-          accu[next] = matchingQuery[next];
-          return accu;
-        }
-
-        accu[next] = undefined;
-
-        return accu;
-      }, {})
-      : matchingQuery;
-
-    // Without favorites in store
-    if (!newQuery.uid?.length) {
-      newQuery.uid = ['-1'];
-    }
-
-    updateFormValues(form, newQuery, !isMatchQuery);
-  }, [filter.exclusive, form, latestValue]);
+  const updateForm = useFavoritesOnChange(value, { isExclusive: filter.exclusive });
 
   const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
 
@@ -129,14 +98,14 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
       if (!registeredFields.includes('uid')) {
         form.registerField('uid', () => {
         }, { value: true }, {
-          initialValue: query.uid
+          initialValue: query.uid,
         });
       }
 
       if (!registeredFields.includes('favorites')) {
         form.registerField('favorites', () => {
         }, { value: true }, {
-          initialValue: query.favorite
+          initialValue: query.favorites,
         });
       }
     }
@@ -159,9 +128,9 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
     const unsubscribe = form.subscribe(
       ({ values }) => updateCustomFilter(filter, matchQuery(values, {
         uid: latestValue.current || ['-1'],
-        favorites: '1'
+        favorites: '1',
       })),
-      { values: true }
+      { values: true },
     );
 
     return () => {

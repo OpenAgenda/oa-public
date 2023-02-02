@@ -1,5 +1,6 @@
 export { default as useActiveFilters } from './useActiveFilters';
 export { default as useChoiceState } from './useChoiceState';
+export { default as useFavoritesOnChange } from './useFavoritesOnChange';
 export { default as useFavoriteState } from './useFavoriteState';
 export { default as useFilters } from './useFilters';
 export { default as useFilterTitle } from './useFilterTitle';
@@ -9,4 +10,4 @@ export { default as useLoadGeoData } from './useLoadGeoData';
 export { default as useMapOnChange } from './useMapOnChange';
 export { default as useMapUserControl } from './useMapUserControl';
 
-export { useForm } from 'react-final-form';
+export { useField, useForm } from 'react-final-form';
