@@ -70,7 +70,7 @@ function ProfileMenu({ user }) {
         variant="link"
         p="4"
         py="0"
-        h="full"
+        height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
         sx={{
           // The span surrounding the image is larger than the image without this
           span: {
