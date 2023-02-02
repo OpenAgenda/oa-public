@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Email aktywacyjny jest wysyłany ponownie",
     "es": "El correo electrónico de activación está siendo re-enviado",
     "br": "Emeur o kas ar postel gweredekaat adarre",
-    "io": "crwdns13036:0crwdne13036:0"
+    "io": "crwdns13036:0crwdne13036:0",
+    "oc": "L'email d'activacion es a se tornar mandar"
   },
   "checkEmail": {
     "en": "Check your mail for a validation link",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Sprawdź swoją pocztę pod kątem linku do walidacji",
     "es": "Haga clic en el enlace de validación en su caja de bares",
     "br": "Klikit war al liamm da validañ en ho poest-lizheroù",
-    "io": "crwdns13038:0crwdne13038:0"
+    "io": "crwdns13038:0crwdne13038:0",
+    "oc": "Gaitatz lo ligam de validacion dins vòstres emails"
   },
   "checkEmailInstruction": {
     "en": "An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.",
@@ -29,7 +31,8 @@ module.exports = {
     "pl": "Wkrótce zostanie do Ciebie wysłana wiadomość e-mail zawierająca link aktywacyjny dla Twojego konta. Sprawdź swoją skrzynkę odbiorczą, aby zakończyć proces tworzenia konta.",
     "es": "Un correo electrónico con su cuenta de enlace de activación será enviado a usted en un momento. Compruebe su bandeja de entrada para completar su registro.",
     "br": "A-benn nebeut e vo kaset deoc'h ur postel gant al liamm da weredekaat ho kont. Sellit e-barzh ho poest-degemer evit echuiñ hoc'h enskrivadur.",
-    "io": "crwdns13040:0crwdne13040:0"
+    "io": "crwdns13040:0crwdne13040:0",
+    "oc": "Un email vos serà mandat lèu amb lo ligam d'activacion pel vòstre compte. Gaitatz dins vòstre boita per acabar lo procèssus de creacion de compte."
   },
   "didNotReceive": {
     "en": "Didn't receive any mail? %resend% or write us at %support%",
@@ -39,7 +42,8 @@ module.exports = {
     "pl": "Nie otrzymałeś żadnej wiadomości e-mail? %resend% lub napisz do nas na %support%",
     "es": "No se recibe un correo electrónico? %resend% o escribir en %support%",
     "br": "N'ho peus resevet postel ebet ? %resend% pe skrivit deomp da %support%",
-    "io": "crwdns13042:0%resend%crwdnd13042:0%support%crwdne13042:0"
+    "io": "crwdns13042:0%resend%crwdnd13042:0%support%crwdne13042:0",
+    "oc": "Avètz pas recebut cap email ? %resend% o escrivètz-nos a %support%"
   },
   "resend": {
     "en": "Click here to resend",
@@ -49,7 +53,8 @@ module.exports = {
     "pl": "Kliknij tutaj, aby wysłać ponownie",
     "es": "Haga clic aquí para iniciar el envío",
     "br": "Klikit amañ evit adkas",
-    "io": "crwdns13044:0crwdne13044:0"
+    "io": "crwdns13044:0crwdne13044:0",
+    "oc": "Clicatz aicí per tornar mandar"
   },
   "stayUpToDate": {
     "en": "Stay up to date with what is going on with OpenAgenda!",
@@ -59,7 +64,8 @@ module.exports = {
     "pl": "Bądź na bieżąco z tym, co dzieje się z OpenAgendą!",
     "es": "Mantenerse al tanto de lo que está sucediendo en OpenAgenda!",
     "br": "Gouezit diouzh ar pezh a c'hoarvez gant OpenAgenda !",
-    "io": "crwdns13046:0crwdne13046:0"
+    "io": "crwdns13046:0crwdne13046:0",
+    "oc": "Demoratz al fial de çò que se passa amb OpenAgenda !"
   },
   "followUs": {
     "en": "Follow us",
@@ -69,7 +75,8 @@ module.exports = {
     "pl": "Podążaj za nami",
     "es": "Síguenos",
     "br": "Heulhit ac'hanomp",
-    "io": "crwdns13048:0crwdne13048:0"
+    "io": "crwdns13048:0crwdne13048:0",
+    "oc": "Seguissètz-nos"
   },
   "getOurNewsletter": {
     "en": "Get our newsletter",
@@ -79,7 +86,8 @@ module.exports = {
     "pl": "Pobierz nasz biuletyn informacyjny",
     "es": "Recibe nuestro boletín",
     "br": "Resevit hol lizher-kelaouiñ",
-    "io": "crwdns13050:0crwdne13050:0"
+    "io": "crwdns13050:0crwdne13050:0",
+    "oc": "Recebètz nòstra letra d'informacions"
   },
   "yourEmail": {
     "en": "Your email",
@@ -89,7 +97,8 @@ module.exports = {
     "pl": "Twój e-mail",
     "es": "Su email",
     "br": "Ho postel",
-    "io": "crwdns13052:0crwdne13052:0"
+    "io": "crwdns13052:0crwdne13052:0",
+    "oc": "Vòstre email"
   },
   "subscribe": {
     "en": "Subscribe",
@@ -99,6 +108,7 @@ module.exports = {
     "pl": "Subskrybuj",
     "es": "suscribir",
     "br": "Koumanantit",
-    "io": "crwdns13054:0crwdne13054:0"
+    "io": "crwdns13054:0crwdne13054:0",
+    "oc": "S'abonar"
   }
 }

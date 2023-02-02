@@ -7,7 +7,8 @@ module.exports = {
     "de": "Andorra",
     "es": "Andorra",
     "it": "Andorra",
-    "io": "crwdns11610:0crwdne11610:0"
+    "io": "crwdns11610:0crwdne11610:0",
+    "oc": "Andòrra"
   },
   "AE": {
     "en": "United Arab Emirates",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Vereinigte Arabische Emirate",
     "es": "Emiratos Árabes Unidos",
     "it": "Emirati Arabi Uniti",
-    "io": "crwdns11612:0crwdne11612:0"
+    "io": "crwdns11612:0crwdne11612:0",
+    "oc": "Emirats Arabs Units"
   },
   "AF": {
     "en": "Afghanistan",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Afghanistan",
     "es": "Afganistán",
     "it": "Afghanistan",
-    "io": "crwdns11614:0crwdne11614:0"
+    "io": "crwdns11614:0crwdne11614:0",
+    "oc": "Afganistan"
   },
   "AG": {
     "en": "Antigua and Barbuda",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "Antigua und Barbuda",
     "es": "Antigua y Barbuda",
     "it": "Antigua e Barbuda",
-    "io": "crwdns11616:0crwdne11616:0"
+    "io": "crwdns11616:0crwdne11616:0",
+    "oc": "Antigua e Barbuda"
   },
   "AI": {
     "en": "Anguilla",
@@ -48,7 +52,8 @@ module.exports = {
     "de": "Albanien",
     "es": "Albania",
     "it": "Albania",
-    "io": "crwdns11620:0crwdne11620:0"
+    "io": "crwdns11620:0crwdne11620:0",
+    "oc": "Albania"
   },
   "AM": {
     "en": "Armenia",
@@ -56,7 +61,8 @@ module.exports = {
     "de": "Armenien",
     "es": "Armenia",
     "it": "Armenia",
-    "io": "crwdns11622:0crwdne11622:0"
+    "io": "crwdns11622:0crwdne11622:0",
+    "oc": "Armenia"
   },
   "AN": {
     "en": "Netherlands Antilles",
@@ -64,7 +70,8 @@ module.exports = {
     "de": "Niederländische Antillen",
     "es": "Antillas Holandesas",
     "it": "Antille olandesi",
-    "io": "crwdns11624:0crwdne11624:0"
+    "io": "crwdns11624:0crwdne11624:0",
+    "oc": "Antilhas olandesas"
   },
   "AO": {
     "en": "Angola",
@@ -72,7 +79,8 @@ module.exports = {
     "de": "Angola",
     "es": "Angola",
     "it": "Angola",
-    "io": "crwdns11626:0crwdne11626:0"
+    "io": "crwdns11626:0crwdne11626:0",
+    "oc": "Angòla"
   },
   "AQ": {
     "en": "Antarctica",
@@ -80,7 +88,8 @@ module.exports = {
     "de": "Antarktika",
     "es": "Antártida",
     "it": "Antartico",
-    "io": "crwdns11628:0crwdne11628:0"
+    "io": "crwdns11628:0crwdne11628:0",
+    "oc": "Antartica"
   },
   "AR": {
     "en": "Argentina",
@@ -88,7 +97,8 @@ module.exports = {
     "de": "Argentinien",
     "es": "Argentina",
     "it": "Argentina",
-    "io": "crwdns11630:0crwdne11630:0"
+    "io": "crwdns11630:0crwdne11630:0",
+    "oc": "Argentina"
   },
   "AS": {
     "en": "American Samoa",
@@ -96,7 +106,8 @@ module.exports = {
     "de": "Amerikanischen Samoa-Inseln",
     "es": "Samoa Americana",
     "it": "Samoa americane",
-    "io": "crwdns11632:0crwdne11632:0"
+    "io": "crwdns11632:0crwdne11632:0",
+    "oc": "Samoa americana"
   },
   "AT": {
     "en": "Austria",
@@ -104,7 +115,8 @@ module.exports = {
     "de": "Österreich",
     "es": "Austria",
     "it": "Austria",
-    "io": "crwdns11634:0crwdne11634:0"
+    "io": "crwdns11634:0crwdne11634:0",
+    "oc": "Àustria"
   },
   "AU": {
     "en": "Australia",
@@ -112,7 +124,8 @@ module.exports = {
     "de": "Australien",
     "es": "Australia",
     "it": "Australia",
-    "io": "crwdns11636:0crwdne11636:0"
+    "io": "crwdns11636:0crwdne11636:0",
+    "oc": "Austràlia"
   },
   "AW": {
     "en": "Aruba",
@@ -120,7 +133,8 @@ module.exports = {
     "de": "Aruba",
     "es": "aruba",
     "it": "Aruba",
-    "io": "crwdns11638:0crwdne11638:0"
+    "io": "crwdns11638:0crwdne11638:0",
+    "oc": "Aruba"
   },
   "AZ": {
     "en": "Azerbaijan",
@@ -128,7 +142,8 @@ module.exports = {
     "de": "Aserbaidschan",
     "es": "Azerbaiyán",
     "it": "Azerbaigian",
-    "io": "crwdns11640:0crwdne11640:0"
+    "io": "crwdns11640:0crwdne11640:0",
+    "oc": "Azerbaitjan"
   },
   "BA": {
     "en": "Bosnia and Herzegovina",
@@ -136,7 +151,8 @@ module.exports = {
     "de": "Bosnien und Herzegowina",
     "es": "Bosnia Herzegovina",
     "it": "Bosnia-Erzegovina",
-    "io": "crwdns11642:0crwdne11642:0"
+    "io": "crwdns11642:0crwdne11642:0",
+    "oc": "Bòsnia e Ercegovina"
   },
   "BB": {
     "en": "Barbados",
@@ -144,7 +160,8 @@ module.exports = {
     "de": "Barbados",
     "es": "barbados",
     "it": "Barbados",
-    "io": "crwdns11644:0crwdne11644:0"
+    "io": "crwdns11644:0crwdne11644:0",
+    "oc": "Barbados"
   },
   "BD": {
     "en": "Bangladesh",
@@ -152,7 +169,8 @@ module.exports = {
     "de": "Bangladesch",
     "es": "Bangladesh",
     "it": "Bangladesh",
-    "io": "crwdns11646:0crwdne11646:0"
+    "io": "crwdns11646:0crwdne11646:0",
+    "oc": "Bangladèsh"
   },
   "BE": {
     "en": "Belgium",
@@ -160,7 +178,8 @@ module.exports = {
     "de": "Belgien",
     "es": "Bélgica",
     "it": "Belgio",
-    "io": "crwdns11648:0crwdne11648:0"
+    "io": "crwdns11648:0crwdne11648:0",
+    "oc": "Belgica"
   },
   "BF": {
     "en": "Burkina Faso",
@@ -168,7 +187,8 @@ module.exports = {
     "de": "Burkina Faso",
     "es": "Burkina Faso",
     "it": "Burkina Faso",
-    "io": "crwdns11650:0crwdne11650:0"
+    "io": "crwdns11650:0crwdne11650:0",
+    "oc": "Burkina Faso"
   },
   "BG": {
     "en": "Bulgaria",
@@ -176,7 +196,8 @@ module.exports = {
     "de": "Bulgarien",
     "es": "Bulgaria",
     "it": "Bulgaria",
-    "io": "crwdns11652:0crwdne11652:0"
+    "io": "crwdns11652:0crwdne11652:0",
+    "oc": "Bulgaria"
   },
   "BH": {
     "en": "Bahrain",
@@ -184,7 +205,8 @@ module.exports = {
     "de": "Bahrein",
     "es": "Bahrein",
     "it": "Bahrein",
-    "io": "crwdns11654:0crwdne11654:0"
+    "io": "crwdns11654:0crwdne11654:0",
+    "oc": "Bahrain"
   },
   "BI": {
     "en": "Burundi",
@@ -192,7 +214,8 @@ module.exports = {
     "de": "Burundi",
     "es": "Burundi",
     "it": "Burundi",
-    "io": "crwdns11656:0crwdne11656:0"
+    "io": "crwdns11656:0crwdne11656:0",
+    "oc": "Burundi"
   },
   "BJ": {
     "en": "Benin",
@@ -200,7 +223,8 @@ module.exports = {
     "de": "Benin",
     "es": "Benin",
     "it": "Benin",
-    "io": "crwdns11658:0crwdne11658:0"
+    "io": "crwdns11658:0crwdne11658:0",
+    "oc": "Benin"
   },
   "BL": {
     "en": "Saint-Barthélemy",
@@ -217,7 +241,8 @@ module.exports = {
     "de": "Bermuda",
     "es": "Bermuda",
     "it": "Bermuda",
-    "io": "crwdns11662:0crwdne11662:0"
+    "io": "crwdns11662:0crwdne11662:0",
+    "oc": "Bermudas"
   },
   "BN": {
     "en": "Brunei Darussalam",
@@ -234,7 +259,8 @@ module.exports = {
     "de": "Bolivien",
     "es": "Bolivia",
     "it": "Bolivia",
-    "io": "crwdns11666:0crwdne11666:0"
+    "io": "crwdns11666:0crwdne11666:0",
+    "oc": "Bolívia"
   },
   "BR": {
     "en": "Brazil",
@@ -242,7 +268,8 @@ module.exports = {
     "de": "Brasilien",
     "es": "Brasil",
     "it": "Brasile",
-    "io": "crwdns11668:0crwdne11668:0"
+    "io": "crwdns11668:0crwdne11668:0",
+    "oc": "Brasil"
   },
   "BS": {
     "en": "Bahamas",
@@ -250,7 +277,8 @@ module.exports = {
     "de": "Bahamas",
     "es": "Bahamas",
     "it": "Bahamas",
-    "io": "crwdns11670:0crwdne11670:0"
+    "io": "crwdns11670:0crwdne11670:0",
+    "oc": "Bahamas"
   },
   "BT": {
     "en": "Bhutan",
@@ -258,7 +286,8 @@ module.exports = {
     "de": "Bhutan",
     "es": "Bután",
     "it": "Boutan",
-    "io": "crwdns11672:0crwdne11672:0"
+    "io": "crwdns11672:0crwdne11672:0",
+    "oc": "Botan"
   },
   "BV": {
     "en": "Bouvet Island",
@@ -275,7 +304,8 @@ module.exports = {
     "de": "Botswana",
     "es": "Botswana",
     "it": "Botswana",
-    "io": "crwdns11676:0crwdne11676:0"
+    "io": "crwdns11676:0crwdne11676:0",
+    "oc": "Botswana"
   },
   "BY": {
     "en": "Belarus",
@@ -283,7 +313,8 @@ module.exports = {
     "de": "Weißrussland",
     "es": "Bielorrusia",
     "it": "Bielorussia",
-    "io": "crwdns11678:0crwdne11678:0"
+    "io": "crwdns11678:0crwdne11678:0",
+    "oc": "Bielorussia"
   },
   "BZ": {
     "en": "Belize",
@@ -291,7 +322,8 @@ module.exports = {
     "de": "Belize",
     "es": "Belice",
     "it": "Belize",
-    "io": "crwdns11680:0crwdne11680:0"
+    "io": "crwdns11680:0crwdne11680:0",
+    "oc": "Belize"
   },
   "CA": {
     "en": "Canada",
@@ -299,7 +331,8 @@ module.exports = {
     "de": "Kanada",
     "es": "Canadá",
     "it": "Canada",
-    "io": "crwdns11682:0crwdne11682:0"
+    "io": "crwdns11682:0crwdne11682:0",
+    "oc": "Canadà"
   },
   "CC": {
     "en": "Cocos (Keeling) Islands",
@@ -316,7 +349,8 @@ module.exports = {
     "de": "Demokratische Republik Kongo",
     "es": "República Democrática del Congo",
     "it": "Repubblica Democratica del Congo",
-    "io": "crwdns11686:0crwdne11686:0"
+    "io": "crwdns11686:0crwdne11686:0",
+    "oc": "Republica Democratica de Còngo"
   },
   "CF": {
     "en": "Central African Republic",
@@ -333,7 +367,8 @@ module.exports = {
     "de": "Kongo",
     "es": "Congo",
     "it": "Congo",
-    "io": "crwdns11690:0crwdne11690:0"
+    "io": "crwdns11690:0crwdne11690:0",
+    "oc": "Còngo"
   },
   "CH": {
     "en": "Switzerland",
@@ -341,7 +376,8 @@ module.exports = {
     "de": "Schweiz",
     "es": "Suiza",
     "it": "Svizzera",
-    "io": "crwdns11692:0crwdne11692:0"
+    "io": "crwdns11692:0crwdne11692:0",
+    "oc": "Soïssa"
   },
   "CI": {
     "en": "Cote D'Ivoire",
@@ -349,7 +385,8 @@ module.exports = {
     "de": "Elfenbeinküste",
     "es": "Costa de Marfil",
     "it": "Costa d'Avorio",
-    "io": "crwdns11694:0crwdne11694:0"
+    "io": "crwdns11694:0crwdne11694:0",
+    "oc": "Còsta d'Evòri"
   },
   "CK": {
     "en": "Cook Islands",
@@ -357,7 +394,8 @@ module.exports = {
     "de": "Cookinseln",
     "es": "Islas cook",
     "it": "Isole Cook",
-    "io": "crwdns11696:0crwdne11696:0"
+    "io": "crwdns11696:0crwdne11696:0",
+    "oc": "Illas Cook"
   },
   "CL": {
     "en": "Chile",
@@ -365,7 +403,8 @@ module.exports = {
     "de": "Chile",
     "es": "Chile",
     "it": "Cile",
-    "io": "crwdns11698:0crwdne11698:0"
+    "io": "crwdns11698:0crwdne11698:0",
+    "oc": "Chile"
   },
   "CM": {
     "en": "Cameroon",
@@ -373,7 +412,8 @@ module.exports = {
     "de": "Kamerun",
     "es": "Camerún",
     "it": "Camerun",
-    "io": "crwdns11700:0crwdne11700:0"
+    "io": "crwdns11700:0crwdne11700:0",
+    "oc": "Cameron"
   },
   "CN": {
     "en": "China",
@@ -381,7 +421,8 @@ module.exports = {
     "de": "China",
     "es": "China",
     "it": "Cina",
-    "io": "crwdns11702:0crwdne11702:0"
+    "io": "crwdns11702:0crwdne11702:0",
+    "oc": "China"
   },
   "CO": {
     "en": "Colombia",
@@ -389,7 +430,8 @@ module.exports = {
     "de": "Kolumbien",
     "es": "Colombia",
     "it": "Colombia",
-    "io": "crwdns11704:0crwdne11704:0"
+    "io": "crwdns11704:0crwdne11704:0",
+    "oc": "Colómbia"
   },
   "CR": {
     "en": "Costa Rica",
@@ -397,7 +439,8 @@ module.exports = {
     "de": "Costa Rica",
     "es": "Costa Rica",
     "it": "Costa Rica",
-    "io": "crwdns11706:0crwdne11706:0"
+    "io": "crwdns11706:0crwdne11706:0",
+    "oc": "Còsta Rica"
   },
   "ME": {
     "en": "Montenegro",
@@ -405,7 +448,8 @@ module.exports = {
     "de": "Montenegro",
     "es": "Montenegro",
     "it": "Montenegro",
-    "io": "crwdns11708:0crwdne11708:0"
+    "io": "crwdns11708:0crwdne11708:0",
+    "oc": "Montenegro"
   },
   "MF": {
     "en": "Saint-Martin ( French Part )",
@@ -413,7 +457,8 @@ module.exports = {
     "de": "Saint-Martin (Französisch Part)",
     "es": "San Martín (parte francesa)",
     "it": "Sint Maarten ( parte francese )",
-    "io": "crwdns11710:0crwdne11710:0"
+    "io": "crwdns11710:0crwdne11710:0",
+    "oc": "Sant Martin (partida francesa)"
   },
   "RS": {
     "en": "Serbia",
@@ -421,7 +466,8 @@ module.exports = {
     "de": "Serbien",
     "es": "Serbia",
     "it": "Serbia",
-    "io": "crwdns11712:0crwdne11712:0"
+    "io": "crwdns11712:0crwdne11712:0",
+    "oc": "Serbia"
   },
   "CU": {
     "en": "Cuba",
@@ -429,7 +475,8 @@ module.exports = {
     "de": "Kuba",
     "es": "Cuba",
     "it": "Cuba",
-    "io": "crwdns11714:0crwdne11714:0"
+    "io": "crwdns11714:0crwdne11714:0",
+    "oc": "Cuba"
   },
   "CV": {
     "en": "Cape Verde",
@@ -437,7 +484,8 @@ module.exports = {
     "de": "Kap Verde",
     "es": "cabo Verde",
     "it": "Capo Verde",
-    "io": "crwdns11716:0crwdne11716:0"
+    "io": "crwdns11716:0crwdne11716:0",
+    "oc": "Cap Verd"
   },
   "CX": {
     "en": "Christmas Island",
@@ -445,7 +493,8 @@ module.exports = {
     "de": "Weihnachtsinsel",
     "es": "Isla de Navidad",
     "it": "Isole di Natale",
-    "io": "crwdns11718:0crwdne11718:0"
+    "io": "crwdns11718:0crwdne11718:0",
+    "oc": "Illa de Christmas"
   },
   "CY": {
     "en": "Cyprus",
@@ -453,7 +502,8 @@ module.exports = {
     "de": "Zypern",
     "es": "Chipre",
     "it": "Cipro",
-    "io": "crwdns11720:0crwdne11720:0"
+    "io": "crwdns11720:0crwdne11720:0",
+    "oc": "Chipre"
   },
   "CZ": {
     "en": "Czech Republic",
@@ -461,7 +511,8 @@ module.exports = {
     "de": "Tschechische Republik",
     "es": "República Checa",
     "it": "Repubblica Ceca",
-    "io": "crwdns11722:0crwdne11722:0"
+    "io": "crwdns11722:0crwdne11722:0",
+    "oc": "Republica Chèca"
   },
   "DE": {
     "en": "Germany",
@@ -469,7 +520,8 @@ module.exports = {
     "de": "Deutschland",
     "es": "Alemania",
     "it": "Germania",
-    "io": "crwdns11724:0crwdne11724:0"
+    "io": "crwdns11724:0crwdne11724:0",
+    "oc": "Alemanha"
   },
   "DJ": {
     "en": "Djibouti",
@@ -477,7 +529,8 @@ module.exports = {
     "de": "Dschibuti",
     "es": "Djibouti",
     "it": "Gibuti",
-    "io": "crwdns11726:0crwdne11726:0"
+    "io": "crwdns11726:0crwdne11726:0",
+    "oc": "Jiboti"
   },
   "DK": {
     "en": "Denmark",
@@ -485,7 +538,8 @@ module.exports = {
     "de": "Dänemark",
     "es": "Dinamarca",
     "it": "Danimarca",
-    "io": "crwdns11728:0crwdne11728:0"
+    "io": "crwdns11728:0crwdne11728:0",
+    "oc": "Danemarc"
   },
   "DM": {
     "en": "Dominica",
@@ -493,7 +547,8 @@ module.exports = {
     "de": "Dominica",
     "es": "dominica",
     "it": "Dominica",
-    "io": "crwdns11730:0crwdne11730:0"
+    "io": "crwdns11730:0crwdne11730:0",
+    "oc": "Dominica"
   },
   "DO": {
     "en": "Dominican Republic",
@@ -501,7 +556,8 @@ module.exports = {
     "de": "Dominikanische Republik",
     "es": "República Dominicana",
     "it": "Repubblica Dominicana",
-    "io": "crwdns11732:0crwdne11732:0"
+    "io": "crwdns11732:0crwdne11732:0",
+    "oc": "Republica Dominicana"
   },
   "DZ": {
     "en": "Algeria",
@@ -509,7 +565,8 @@ module.exports = {
     "de": "Algerien",
     "es": "Argelia",
     "it": "Algeria",
-    "io": "crwdns11734:0crwdne11734:0"
+    "io": "crwdns11734:0crwdne11734:0",
+    "oc": "Argeria"
   },
   "EC": {
     "en": "Ecuador",
@@ -517,7 +574,8 @@ module.exports = {
     "de": "Ecuador",
     "es": "Ecuador",
     "it": "Ecuador",
-    "io": "crwdns11736:0crwdne11736:0"
+    "io": "crwdns11736:0crwdne11736:0",
+    "oc": "Eqüator"
   },
   "EE": {
     "en": "Estonia",
@@ -525,7 +583,8 @@ module.exports = {
     "de": "Estland",
     "es": "Estonia",
     "it": "Estonia",
-    "io": "crwdns11738:0crwdne11738:0"
+    "io": "crwdns11738:0crwdne11738:0",
+    "oc": "Estonia"
   },
   "EG": {
     "en": "Egypt",
@@ -533,7 +592,8 @@ module.exports = {
     "de": "Ägypten",
     "es": "Egipto",
     "it": "Egitto",
-    "io": "crwdns11740:0crwdne11740:0"
+    "io": "crwdns11740:0crwdne11740:0",
+    "oc": "Egipte"
   },
   "EH": {
     "en": "Western Sahara",
@@ -541,7 +601,8 @@ module.exports = {
     "de": "Westsahara",
     "es": "Sahara Occidental",
     "it": "Sahara occidentale",
-    "io": "crwdns11742:0crwdne11742:0"
+    "io": "crwdns11742:0crwdne11742:0",
+    "oc": "Sahara Occidental"
   },
   "ER": {
     "en": "Eritrea",
@@ -549,7 +610,8 @@ module.exports = {
     "de": "Eritrea",
     "es": "Eritrea",
     "it": "Eritrea",
-    "io": "crwdns11744:0crwdne11744:0"
+    "io": "crwdns11744:0crwdne11744:0",
+    "oc": "Eritrèa"
   },
   "ES": {
     "en": "Spain",
@@ -557,7 +619,8 @@ module.exports = {
     "de": "Spanien",
     "es": "España",
     "it": "Spagna",
-    "io": "crwdns11746:0crwdne11746:0"
+    "io": "crwdns11746:0crwdne11746:0",
+    "oc": "Espanha"
   },
   "ET": {
     "en": "Ethiopia",
@@ -565,7 +628,8 @@ module.exports = {
     "de": "Äthiopien",
     "es": "Etiopía",
     "it": "Etiopia",
-    "io": "crwdns11748:0crwdne11748:0"
+    "io": "crwdns11748:0crwdne11748:0",
+    "oc": "Etiopia"
   },
   "FI": {
     "en": "Finland",
@@ -573,7 +637,8 @@ module.exports = {
     "de": "Finnland",
     "es": "Finlandia",
     "it": "Finlandia",
-    "io": "crwdns11750:0crwdne11750:0"
+    "io": "crwdns11750:0crwdne11750:0",
+    "oc": "Finlàndia"
   },
   "FJ": {
     "en": "Fiji",
@@ -581,7 +646,8 @@ module.exports = {
     "de": "Fidschi",
     "es": "Fiji",
     "it": "Figi",
-    "io": "crwdns11752:0crwdne11752:0"
+    "io": "crwdns11752:0crwdne11752:0",
+    "oc": "Fiji"
   },
   "FK": {
     "en": "Falkland Islands (Malvinas)",
@@ -625,7 +691,8 @@ module.exports = {
     "de": "Gabun",
     "es": "Gabón",
     "it": "Gabon",
-    "io": "crwdns11762:0crwdne11762:0"
+    "io": "crwdns11762:0crwdne11762:0",
+    "oc": "Gabon"
   },
   "GB": {
     "en": "United Kingdom",
@@ -633,7 +700,8 @@ module.exports = {
     "de": "Großbritannien",
     "es": "Reino Unido",
     "it": "Regno Unito",
-    "io": "crwdns11764:0crwdne11764:0"
+    "io": "crwdns11764:0crwdne11764:0",
+    "oc": "Reialme Unit"
   },
   "GD": {
     "en": "Grenada",
@@ -641,7 +709,8 @@ module.exports = {
     "de": "Grenada",
     "es": "granada",
     "it": "Granada",
-    "io": "crwdns11766:0crwdne11766:0"
+    "io": "crwdns11766:0crwdne11766:0",
+    "oc": "Grenada"
   },
   "GE": {
     "en": "Georgia",
@@ -649,7 +718,8 @@ module.exports = {
     "de": "Georgia",
     "es": "Georgia",
     "it": "Georgia",
-    "io": "crwdns11768:0crwdne11768:0"
+    "io": "crwdns11768:0crwdne11768:0",
+    "oc": "Georgia"
   },
   "GF": {
     "en": "French Guiana",
@@ -657,7 +727,8 @@ module.exports = {
     "de": "Französisch-Guayana",
     "es": "Guayana francés",
     "it": "Guyana Francese",
-    "io": "crwdns11770:0crwdne11770:0"
+    "io": "crwdns11770:0crwdne11770:0",
+    "oc": "Guiana Francesa"
   },
   "GH": {
     "en": "Ghana",
@@ -665,7 +736,8 @@ module.exports = {
     "de": "Ghana",
     "es": "Guana",
     "it": "Ghana",
-    "io": "crwdns11772:0crwdne11772:0"
+    "io": "crwdns11772:0crwdne11772:0",
+    "oc": "Ghana"
   },
   "GI": {
     "en": "Gibraltar",
@@ -682,7 +754,8 @@ module.exports = {
     "de": "Grönland",
     "es": "Groenlandia",
     "it": "Groenlandia",
-    "io": "crwdns11776:0crwdne11776:0"
+    "io": "crwdns11776:0crwdne11776:0",
+    "oc": "Groenlàndia"
   },
   "GM": {
     "en": "Gambia",
@@ -690,7 +763,8 @@ module.exports = {
     "de": "Gambia",
     "es": "Gambia",
     "it": "Il Gambia",
-    "io": "crwdns11778:0crwdne11778:0"
+    "io": "crwdns11778:0crwdne11778:0",
+    "oc": "Gàmbia"
   },
   "GN": {
     "en": "Guinea",
@@ -698,7 +772,8 @@ module.exports = {
     "de": "Guinea",
     "es": "Guinea",
     "it": "Guinea",
-    "io": "crwdns11780:0crwdne11780:0"
+    "io": "crwdns11780:0crwdne11780:0",
+    "oc": "Guinèa"
   },
   "GP": {
     "en": "Guadeloupe",
@@ -706,7 +781,8 @@ module.exports = {
     "de": "Guadeloupe",
     "es": "Guadalupe",
     "it": "Guadalupa",
-    "io": "crwdns11782:0crwdne11782:0"
+    "io": "crwdns11782:0crwdne11782:0",
+    "oc": "Guadalope"
   },
   "GQ": {
     "en": "Equatorial Guinea",
@@ -714,7 +790,8 @@ module.exports = {
     "de": "Äquatorialguinea",
     "es": "Guinea Ecuatorial",
     "it": "Guinea Equatoriale",
-    "io": "crwdns11784:0crwdne11784:0"
+    "io": "crwdns11784:0crwdne11784:0",
+    "oc": "Guinèa Eqüatoriala"
   },
   "GR": {
     "en": "Greece",
@@ -722,7 +799,8 @@ module.exports = {
     "de": "Griechenland",
     "es": "Grecia",
     "it": "Grecia",
-    "io": "crwdns11786:0crwdne11786:0"
+    "io": "crwdns11786:0crwdne11786:0",
+    "oc": "Grècia"
   },
   "GS": {
     "en": "South Georgia and the South Sandwich Islands",
@@ -730,7 +808,8 @@ module.exports = {
     "de": "Süd-Georgien und die südlichen Sandwich-Inseln",
     "es": "Georgia del Sur y las Islas Sandwich del Sur",
     "it": "Georgia del Sud e Isole Sandwich del Sud",
-    "io": "crwdns11788:0crwdne11788:0"
+    "io": "crwdns11788:0crwdne11788:0",
+    "oc": "Illas Georgia del Sud e Sandwich del Sud"
   },
   "GT": {
     "en": "Guatemala",
@@ -738,7 +817,8 @@ module.exports = {
     "de": "Guatemala",
     "es": "Guatemala",
     "it": "Guatemala",
-    "io": "crwdns11790:0crwdne11790:0"
+    "io": "crwdns11790:0crwdne11790:0",
+    "oc": "Guatemala"
   },
   "GU": {
     "en": "Guam",
@@ -746,7 +826,8 @@ module.exports = {
     "de": "Guam",
     "es": "Guam",
     "it": "Guam",
-    "io": "crwdns11792:0crwdne11792:0"
+    "io": "crwdns11792:0crwdne11792:0",
+    "oc": "Guam"
   },
   "GW": {
     "en": "Guinea-Bissau",
@@ -754,7 +835,8 @@ module.exports = {
     "de": "Guinea-Bissau",
     "es": "Guinea-Bissau",
     "it": "Guinea-Bissau",
-    "io": "crwdns11794:0crwdne11794:0"
+    "io": "crwdns11794:0crwdne11794:0",
+    "oc": "Guinèa Bissau"
   },
   "GY": {
     "en": "Guyana",
@@ -762,7 +844,8 @@ module.exports = {
     "de": "Guyana",
     "es": "Guayana",
     "it": "Guyana Francese",
-    "io": "crwdns11796:0crwdne11796:0"
+    "io": "crwdns11796:0crwdne11796:0",
+    "oc": "Guyana"
   },
   "HK": {
     "en": "Hong Kong",
@@ -779,7 +862,8 @@ module.exports = {
     "de": "Heard und McDonald-Inseln",
     "es": "Islas Heard y MacDonald",
     "it": "Isole Heard e McDonald",
-    "io": "crwdns11800:0crwdne11800:0"
+    "io": "crwdns11800:0crwdne11800:0",
+    "oc": "Illa Heard e Illas McDonald"
   },
   "HN": {
     "en": "Honduras",
@@ -796,7 +880,8 @@ module.exports = {
     "de": "Kroatien",
     "es": "Croacia",
     "it": "Croazia",
-    "io": "crwdns11804:0crwdne11804:0"
+    "io": "crwdns11804:0crwdne11804:0",
+    "oc": "Croàcia"
   },
   "HT": {
     "en": "Haiti",
@@ -804,7 +889,8 @@ module.exports = {
     "de": "Haiti",
     "es": "Haití",
     "it": "Haiti",
-    "io": "crwdns11806:0crwdne11806:0"
+    "io": "crwdns11806:0crwdne11806:0",
+    "oc": "Haití"
   },
   "HU": {
     "en": "Hungary",
@@ -812,7 +898,8 @@ module.exports = {
     "de": "Ungarn",
     "es": "Hungría",
     "it": "Ungheria",
-    "io": "crwdns11808:0crwdne11808:0"
+    "io": "crwdns11808:0crwdne11808:0",
+    "oc": "Ongria"
   },
   "ID": {
     "en": "Indonesia",
@@ -820,7 +907,8 @@ module.exports = {
     "de": "Indonesien",
     "es": "Indonesia",
     "it": "Indonesia",
-    "io": "crwdns11810:0crwdne11810:0"
+    "io": "crwdns11810:0crwdne11810:0",
+    "oc": "Indonesia"
   },
   "IE": {
     "en": "Ireland",
@@ -828,7 +916,8 @@ module.exports = {
     "de": "Irland",
     "es": "Irlanda",
     "it": "Irlanda",
-    "io": "crwdns11812:0crwdne11812:0"
+    "io": "crwdns11812:0crwdne11812:0",
+    "oc": "Irlanda"
   },
   "IL": {
     "en": "Israel",
@@ -836,7 +925,8 @@ module.exports = {
     "de": "Israel",
     "es": "Israel",
     "it": "Israele",
-    "io": "crwdns11814:0crwdne11814:0"
+    "io": "crwdns11814:0crwdne11814:0",
+    "oc": "Israèl"
   },
   "IN": {
     "en": "India",
@@ -844,7 +934,8 @@ module.exports = {
     "de": "Indien",
     "es": "India",
     "it": "India",
-    "io": "crwdns11816:0crwdne11816:0"
+    "io": "crwdns11816:0crwdne11816:0",
+    "oc": "Índia"
   },
   "IO": {
     "en": "British Indian Ocean Territory",
@@ -860,7 +951,8 @@ module.exports = {
     "de": "Irak",
     "es": "Irak",
     "it": "Iraq",
-    "io": "crwdns11820:0crwdne11820:0"
+    "io": "crwdns11820:0crwdne11820:0",
+    "oc": "Iraq"
   },
   "IR": {
     "en": "Iran",
@@ -868,7 +960,8 @@ module.exports = {
     "de": "Ich rannte",
     "es": "Irán",
     "it": "Iran",
-    "io": "crwdns11822:0crwdne11822:0"
+    "io": "crwdns11822:0crwdne11822:0",
+    "oc": "Iran"
   },
   "IS": {
     "en": "Iceland",
@@ -876,7 +969,8 @@ module.exports = {
     "de": "Island",
     "es": "Islandia",
     "it": "Islanda",
-    "io": "crwdns11824:0crwdne11824:0"
+    "io": "crwdns11824:0crwdne11824:0",
+    "oc": "Islàndia"
   },
   "IT": {
     "en": "Italy",
@@ -884,7 +978,8 @@ module.exports = {
     "de": "Italien",
     "es": "Italia",
     "it": "Italia",
-    "io": "crwdns11826:0crwdne11826:0"
+    "io": "crwdns11826:0crwdne11826:0",
+    "oc": "Itàlia"
   },
   "JM": {
     "en": "Jamaica",
@@ -892,7 +987,8 @@ module.exports = {
     "de": "Jamaika",
     "es": "Jamaica",
     "it": "Giamaica",
-    "io": "crwdns11828:0crwdne11828:0"
+    "io": "crwdns11828:0crwdne11828:0",
+    "oc": "Jamaica"
   },
   "JO": {
     "en": "Jordan",
@@ -900,7 +996,8 @@ module.exports = {
     "de": "Jordan",
     "es": "Jordania",
     "it": "Giordania",
-    "io": "crwdns11830:0crwdne11830:0"
+    "io": "crwdns11830:0crwdne11830:0",
+    "oc": "Jordania"
   },
   "JP": {
     "en": "Japan",
@@ -908,7 +1005,8 @@ module.exports = {
     "de": "Japan",
     "es": "Japón",
     "it": "Giappone",
-    "io": "crwdns11832:0crwdne11832:0"
+    "io": "crwdns11832:0crwdne11832:0",
+    "oc": "Japon"
   },
   "KE": {
     "en": "Kenya",
@@ -916,7 +1014,8 @@ module.exports = {
     "de": "Kenia",
     "es": "Kenia",
     "it": "Kenya",
-    "io": "crwdns11834:0crwdne11834:0"
+    "io": "crwdns11834:0crwdne11834:0",
+    "oc": "Kenya"
   },
   "KG": {
     "en": "Kyrgyzstan",
@@ -933,7 +1032,8 @@ module.exports = {
     "de": "Kambodscha",
     "es": "Camboya",
     "it": "Cambogia",
-    "io": "crwdns11838:0crwdne11838:0"
+    "io": "crwdns11838:0crwdne11838:0",
+    "oc": "Cambòtja"
   },
   "KI": {
     "en": "Kiribati",
@@ -941,7 +1041,8 @@ module.exports = {
     "de": "Kiribati",
     "es": "Kiribati",
     "it": "Kiribati",
-    "io": "crwdns11840:0crwdne11840:0"
+    "io": "crwdns11840:0crwdne11840:0",
+    "oc": "Kiribati"
   },
   "KM": {
     "en": "Comoros",
@@ -949,7 +1050,8 @@ module.exports = {
     "de": "Komoren",
     "es": "Comorres",
     "it": "Comorres",
-    "io": "crwdns11842:0crwdne11842:0"
+    "io": "crwdns11842:0crwdne11842:0",
+    "oc": "Comòras"
   },
   "KN": {
     "en": "Saint Kitts and Nevis",
@@ -966,7 +1068,8 @@ module.exports = {
     "de": "Nord Korea",
     "es": "Corea del Norte",
     "it": "Corea del Nord",
-    "io": "crwdns11846:0crwdne11846:0"
+    "io": "crwdns11846:0crwdne11846:0",
+    "oc": "Corèa del Nòrd"
   },
   "KR": {
     "en": "South Korea",
@@ -974,7 +1077,8 @@ module.exports = {
     "de": "Südkorea",
     "es": "Corea del Sur",
     "it": "Corea del Sud",
-    "io": "crwdns11848:0crwdne11848:0"
+    "io": "crwdns11848:0crwdne11848:0",
+    "oc": "Corèa del Sud"
   },
   "KW": {
     "en": "Kuwait",
@@ -982,7 +1086,8 @@ module.exports = {
     "de": "Kuwait",
     "es": "Kuwait",
     "it": "Kuwait",
-    "io": "crwdns11850:0crwdne11850:0"
+    "io": "crwdns11850:0crwdne11850:0",
+    "oc": "Kowait"
   },
   "KY": {
     "en": "Cayman Islands",
@@ -990,7 +1095,8 @@ module.exports = {
     "de": "Cayman Inseln",
     "es": "Islas Caimán",
     "it": "Isole Cayman",
-    "io": "crwdns11852:0crwdne11852:0"
+    "io": "crwdns11852:0crwdne11852:0",
+    "oc": "Illas Caiman"
   },
   "KZ": {
     "en": "Kazakhstan",
@@ -998,7 +1104,8 @@ module.exports = {
     "de": "Kasachstan",
     "es": "Kazajstán",
     "it": "Kazakistan",
-    "io": "crwdns11854:0crwdne11854:0"
+    "io": "crwdns11854:0crwdne11854:0",
+    "oc": "Cazacstan"
   },
   "LA": {
     "en": "Lao People's Democratic Republic",
@@ -1006,7 +1113,8 @@ module.exports = {
     "de": "Lao Demokratischen Volksrepublik",
     "es": "Laos",
     "it": "Laos",
-    "io": "crwdns11856:0crwdne11856:0"
+    "io": "crwdns11856:0crwdne11856:0",
+    "oc": "Laos"
   },
   "LB": {
     "en": "Lebanon",
@@ -1014,7 +1122,8 @@ module.exports = {
     "de": "Libanon",
     "es": "Líbano",
     "it": "Libano",
-    "io": "crwdns11858:0crwdne11858:0"
+    "io": "crwdns11858:0crwdne11858:0",
+    "oc": "Liban"
   },
   "LC": {
     "en": "Saint Lucia",
@@ -1022,7 +1131,8 @@ module.exports = {
     "de": "St. Lucia",
     "es": "Santa Lucía",
     "it": "Santa Lucia",
-    "io": "crwdns11860:0crwdne11860:0"
+    "io": "crwdns11860:0crwdne11860:0",
+    "oc": "Santa Lúcia"
   },
   "LI": {
     "en": "Liechtenstein",
@@ -1030,7 +1140,8 @@ module.exports = {
     "de": "Liechtenstein",
     "es": "Liechtenstein",
     "it": "Liechtenstein",
-    "io": "crwdns11862:0crwdne11862:0"
+    "io": "crwdns11862:0crwdne11862:0",
+    "oc": "Liechtenstein"
   },
   "LK": {
     "en": "Sri Lanka",
@@ -1038,7 +1149,8 @@ module.exports = {
     "de": "Sri Lanka",
     "es": "Sri Lanka",
     "it": "Sri Lanka",
-    "io": "crwdns11864:0crwdne11864:0"
+    "io": "crwdns11864:0crwdne11864:0",
+    "oc": "Sri Lanka"
   },
   "LR": {
     "en": "Liberia",
@@ -1046,7 +1158,8 @@ module.exports = {
     "de": "Liberia",
     "es": "Liberia",
     "it": "Liberia",
-    "io": "crwdns11866:0crwdne11866:0"
+    "io": "crwdns11866:0crwdne11866:0",
+    "oc": "Libèria"
   },
   "LS": {
     "en": "Lesotho",
@@ -1054,7 +1167,8 @@ module.exports = {
     "de": "Lesotho",
     "es": "Lesoto",
     "it": "Lesotho",
-    "io": "crwdns11868:0crwdne11868:0"
+    "io": "crwdns11868:0crwdne11868:0",
+    "oc": "Lesotho"
   },
   "LT": {
     "en": "Lithuania",
@@ -1062,7 +1176,8 @@ module.exports = {
     "de": "Litauen",
     "es": "Lituania",
     "it": "Lituania",
-    "io": "crwdns11870:0crwdne11870:0"
+    "io": "crwdns11870:0crwdne11870:0",
+    "oc": "Lituània"
   },
   "LU": {
     "en": "Luxembourg",
@@ -1070,7 +1185,8 @@ module.exports = {
     "de": "Luxemburg",
     "es": "Luxemburgo",
     "it": "Lussemburgo",
-    "io": "crwdns11872:0crwdne11872:0"
+    "io": "crwdns11872:0crwdne11872:0",
+    "oc": "Luxemborg"
   },
   "LV": {
     "en": "Latvia",
@@ -1078,7 +1194,8 @@ module.exports = {
     "de": "Lettland",
     "es": "Letonia",
     "it": "Lettonia",
-    "io": "crwdns11874:0crwdne11874:0"
+    "io": "crwdns11874:0crwdne11874:0",
+    "oc": "Letònia"
   },
   "LY": {
     "en": "Libyan Arab Jamahiriya",
@@ -1086,7 +1203,8 @@ module.exports = {
     "de": "Libysch-Arabische Dschamahirija",
     "es": "Libia",
     "it": "Libia",
-    "io": "crwdns11876:0crwdne11876:0"
+    "io": "crwdns11876:0crwdne11876:0",
+    "oc": "Libia"
   },
   "MA": {
     "en": "Morocco",
@@ -1094,7 +1212,8 @@ module.exports = {
     "de": "Marokko",
     "es": "Marruecos",
     "it": "Marocco",
-    "io": "crwdns11878:0crwdne11878:0"
+    "io": "crwdns11878:0crwdne11878:0",
+    "oc": "Marròc"
   },
   "MC": {
     "en": "Monaco",
@@ -1120,7 +1239,8 @@ module.exports = {
     "de": "Madagaskar",
     "es": "Madagascar",
     "it": "Madagascar",
-    "io": "crwdns11884:0crwdne11884:0"
+    "io": "crwdns11884:0crwdne11884:0",
+    "oc": "Madagascar"
   },
   "MH": {
     "en": "Marshall Islands",
@@ -1128,7 +1248,8 @@ module.exports = {
     "de": "Marshallinseln",
     "es": "Islas Marshall",
     "it": "Isole Marshall",
-    "io": "crwdns11886:0crwdne11886:0"
+    "io": "crwdns11886:0crwdne11886:0",
+    "oc": "Illas Marshall"
   },
   "MK": {
     "en": "Macedonia",
@@ -1136,7 +1257,8 @@ module.exports = {
     "de": "Mazedonien",
     "es": "macedonia",
     "it": "Macedonia",
-    "io": "crwdns11888:0crwdne11888:0"
+    "io": "crwdns11888:0crwdne11888:0",
+    "oc": "Macedònia"
   },
   "ML": {
     "en": "Mali",
@@ -1144,7 +1266,8 @@ module.exports = {
     "de": "Mali",
     "es": "mali",
     "it": "Mali",
-    "io": "crwdns11890:0crwdne11890:0"
+    "io": "crwdns11890:0crwdne11890:0",
+    "oc": "Mali"
   },
   "MM": {
     "en": "Myanmar",
@@ -1152,7 +1275,8 @@ module.exports = {
     "de": "Myanmar",
     "es": "Birmania",
     "it": "Birmania",
-    "io": "crwdns11892:0crwdne11892:0"
+    "io": "crwdns11892:0crwdne11892:0",
+    "oc": "Myanmar"
   },
   "MN": {
     "en": "Mongolia",
@@ -1160,7 +1284,8 @@ module.exports = {
     "de": "Mongolei",
     "es": "Mongolia",
     "it": "Mongolia",
-    "io": "crwdns11894:0crwdne11894:0"
+    "io": "crwdns11894:0crwdne11894:0",
+    "oc": "Mongolia"
   },
   "MO": {
     "en": "Macao",
@@ -1186,7 +1311,8 @@ module.exports = {
     "de": "Martinique",
     "es": "Martinica",
     "it": "Martinica",
-    "io": "crwdns11900:0crwdne11900:0"
+    "io": "crwdns11900:0crwdne11900:0",
+    "oc": "Martinica"
   },
   "MR": {
     "en": "Mauritania",
@@ -1194,14 +1320,16 @@ module.exports = {
     "de": "Mauretanien",
     "es": "Mauritania",
     "it": "Mauritania",
-    "io": "crwdns11902:0crwdne11902:0"
+    "io": "crwdns11902:0crwdne11902:0",
+    "oc": "Mauritània"
   },
   "MS": {
     "en": "Montserrat",
     "fr": "Montserrat",
     "de": "Montserrat",
     "it": "Montserrat",
-    "io": "crwdns11904:0crwdne11904:0"
+    "io": "crwdns11904:0crwdne11904:0",
+    "oc": "Montserrat"
   },
   "MT": {
     "en": "Malta",
@@ -1209,7 +1337,8 @@ module.exports = {
     "de": "Malta",
     "es": "Malta",
     "it": "Malta",
-    "io": "crwdns11906:0crwdne11906:0"
+    "io": "crwdns11906:0crwdne11906:0",
+    "oc": "Malta"
   },
   "MU": {
     "en": "Mauritius",
@@ -1226,7 +1355,8 @@ module.exports = {
     "de": "Malediven",
     "es": "Maldivas",
     "it": "Maldive",
-    "io": "crwdns11910:0crwdne11910:0"
+    "io": "crwdns11910:0crwdne11910:0",
+    "oc": "Maldivas"
   },
   "MW": {
     "en": "Malawi",
@@ -1234,7 +1364,8 @@ module.exports = {
     "de": "Malawi",
     "es": "Malawi",
     "it": "Malawi",
-    "io": "crwdns11912:0crwdne11912:0"
+    "io": "crwdns11912:0crwdne11912:0",
+    "oc": "Malawi"
   },
   "MX": {
     "en": "Mexico",
@@ -1242,7 +1373,8 @@ module.exports = {
     "de": "Mexiko",
     "es": "México",
     "it": "Messico",
-    "io": "crwdns11914:0crwdne11914:0"
+    "io": "crwdns11914:0crwdne11914:0",
+    "oc": "Mexic"
   },
   "MY": {
     "en": "Malaysia",
@@ -1250,7 +1382,8 @@ module.exports = {
     "de": "Malaysia",
     "es": "Malasia",
     "it": "Malesia",
-    "io": "crwdns11916:0crwdne11916:0"
+    "io": "crwdns11916:0crwdne11916:0",
+    "oc": "Malàisia"
   },
   "MZ": {
     "en": "Mozambique",
@@ -1258,7 +1391,8 @@ module.exports = {
     "de": "Mosambik",
     "es": "Mozambique",
     "it": "Mozambico",
-    "io": "crwdns11918:0crwdne11918:0"
+    "io": "crwdns11918:0crwdne11918:0",
+    "oc": "Moçambic"
   },
   "NA": {
     "en": "Namibia",
@@ -1266,7 +1400,8 @@ module.exports = {
     "de": "Namibia",
     "es": "Namibia",
     "it": "Namibia",
-    "io": "crwdns11920:0crwdne11920:0"
+    "io": "crwdns11920:0crwdne11920:0",
+    "oc": "Namibia"
   },
   "NC": {
     "en": "New Caledonia",
@@ -1283,7 +1418,8 @@ module.exports = {
     "de": "Niger",
     "es": "Níger",
     "it": "Niger",
-    "io": "crwdns11924:0crwdne11924:0"
+    "io": "crwdns11924:0crwdne11924:0",
+    "oc": "Nigèr"
   },
   "NF": {
     "en": "Norfolk Island",
@@ -1291,7 +1427,8 @@ module.exports = {
     "de": "Norfolkinsel",
     "es": "isla Norfolk",
     "it": "Isola di Norfolk",
-    "io": "crwdns11926:0crwdne11926:0"
+    "io": "crwdns11926:0crwdne11926:0",
+    "oc": "Illa Norfolk"
   },
   "NG": {
     "en": "Nigeria",
@@ -1299,7 +1436,8 @@ module.exports = {
     "de": "Nigeria",
     "es": "Nigeria",
     "it": "Nigeria",
-    "io": "crwdns11928:0crwdne11928:0"
+    "io": "crwdns11928:0crwdne11928:0",
+    "oc": "Nigèria"
   },
   "NI": {
     "en": "Nicaragua",
@@ -1307,7 +1445,8 @@ module.exports = {
     "de": "Nicaragua",
     "es": "Nicaragua",
     "it": "Nicaragua",
-    "io": "crwdns11930:0crwdne11930:0"
+    "io": "crwdns11930:0crwdne11930:0",
+    "oc": "Nicaragua"
   },
   "NL": {
     "en": "Netherlands",
@@ -1315,7 +1454,8 @@ module.exports = {
     "de": "Niederlande",
     "es": "Países Bajos",
     "it": "Paesi Bassi",
-    "io": "crwdns11932:0crwdne11932:0"
+    "io": "crwdns11932:0crwdne11932:0",
+    "oc": "Païses Basses"
   },
   "NO": {
     "en": "Norway",
@@ -1323,7 +1463,8 @@ module.exports = {
     "de": "Norwegen",
     "es": "Noruega",
     "it": "Norvegia",
-    "io": "crwdns11934:0crwdne11934:0"
+    "io": "crwdns11934:0crwdne11934:0",
+    "oc": "Norvègia"
   },
   "NP": {
     "en": "Nepal",
@@ -1331,7 +1472,8 @@ module.exports = {
     "de": "Nepal",
     "es": "Nepal",
     "it": "Nepal",
-    "io": "crwdns11936:0crwdne11936:0"
+    "io": "crwdns11936:0crwdne11936:0",
+    "oc": "Nepal"
   },
   "NR": {
     "en": "Nauru",
@@ -1339,7 +1481,8 @@ module.exports = {
     "de": "Nauru",
     "es": "Nauru",
     "it": "Nauru",
-    "io": "crwdns11938:0crwdne11938:0"
+    "io": "crwdns11938:0crwdne11938:0",
+    "oc": "Nauru"
   },
   "NU": {
     "en": "Niue",
@@ -1356,7 +1499,8 @@ module.exports = {
     "de": "Neuseeland",
     "es": "Nueva Zelanda",
     "it": "Nuova Zelanda",
-    "io": "crwdns11942:0crwdne11942:0"
+    "io": "crwdns11942:0crwdne11942:0",
+    "oc": "Nòva Zelanda"
   },
   "OM": {
     "en": "Oman",
@@ -1364,7 +1508,8 @@ module.exports = {
     "de": "Oman",
     "es": "Omán",
     "it": "Oman",
-    "io": "crwdns11944:0crwdne11944:0"
+    "io": "crwdns11944:0crwdne11944:0",
+    "oc": "Oman"
   },
   "PA": {
     "en": "Panama",
@@ -1372,7 +1517,8 @@ module.exports = {
     "de": "Panama",
     "es": "Panamá",
     "it": "Panama",
-    "io": "crwdns11946:0crwdne11946:0"
+    "io": "crwdns11946:0crwdne11946:0",
+    "oc": "Panamà"
   },
   "PE": {
     "en": "Peru",
@@ -1389,7 +1535,8 @@ module.exports = {
     "de": "Französisch Polynesien",
     "es": "Polinesia francesa",
     "it": "Polinesia Francese",
-    "io": "crwdns11950:0crwdne11950:0"
+    "io": "crwdns11950:0crwdne11950:0",
+    "oc": "Polinesia Francesa"
   },
   "PG": {
     "en": "Papua New Guinea",
@@ -1406,7 +1553,8 @@ module.exports = {
     "de": "Philippinen",
     "es": "filipinas",
     "it": "Filippine",
-    "io": "crwdns11954:0crwdne11954:0"
+    "io": "crwdns11954:0crwdne11954:0",
+    "oc": "Filipinas"
   },
   "PK": {
     "en": "Pakistan",
@@ -1414,7 +1562,8 @@ module.exports = {
     "de": "Pakistan",
     "es": "Pakistán",
     "it": "Pakistan",
-    "io": "crwdns11956:0crwdne11956:0"
+    "io": "crwdns11956:0crwdne11956:0",
+    "oc": "Paquistan"
   },
   "PL": {
     "en": "Poland",
@@ -1422,7 +1571,8 @@ module.exports = {
     "de": "Polen",
     "es": "Polonia",
     "it": "Polonia",
-    "io": "crwdns11958:0crwdne11958:0"
+    "io": "crwdns11958:0crwdne11958:0",
+    "oc": "Polonha"
   },
   "PM": {
     "en": "Saint Pierre and Miquelon",
@@ -1439,7 +1589,8 @@ module.exports = {
     "de": "Pitcairn",
     "es": "Pitcairn",
     "it": "Pitcairn",
-    "io": "crwdns11962:0crwdne11962:0"
+    "io": "crwdns11962:0crwdne11962:0",
+    "oc": "Pitcairn"
   },
   "PR": {
     "en": "Puerto Rico",
@@ -1456,7 +1607,8 @@ module.exports = {
     "de": "Palästina",
     "es": "Palestina",
     "it": "Palestina",
-    "io": "crwdns11966:0crwdne11966:0"
+    "io": "crwdns11966:0crwdne11966:0",
+    "oc": "Palestina"
   },
   "PT": {
     "en": "Portugal",
@@ -1464,7 +1616,8 @@ module.exports = {
     "de": "Portugal",
     "es": "Portugal",
     "it": "Portogallo",
-    "io": "crwdns11968:0crwdne11968:0"
+    "io": "crwdns11968:0crwdne11968:0",
+    "oc": "Portugal"
   },
   "PW": {
     "en": "Palau",
@@ -1481,7 +1634,8 @@ module.exports = {
     "de": "Paraguay",
     "es": "Paraguay",
     "it": "Paraguay",
-    "io": "crwdns11972:0crwdne11972:0"
+    "io": "crwdns11972:0crwdne11972:0",
+    "oc": "Paraguai"
   },
   "QA": {
     "en": "Qatar",
@@ -1489,7 +1643,8 @@ module.exports = {
     "de": "Katar",
     "es": "Katar",
     "it": "Qatar",
-    "io": "crwdns11974:0crwdne11974:0"
+    "io": "crwdns11974:0crwdne11974:0",
+    "oc": "Qatar"
   },
   "RE": {
     "en": "Reunion",
@@ -1497,7 +1652,8 @@ module.exports = {
     "de": "Wiedervereinigung",
     "es": "reunión",
     "it": "Riunione",
-    "io": "crwdns11976:0crwdne11976:0"
+    "io": "crwdns11976:0crwdne11976:0",
+    "oc": "Reünion"
   },
   "RO": {
     "en": "Romania",
@@ -1505,7 +1661,8 @@ module.exports = {
     "de": "Rumänien",
     "es": "Rumania",
     "it": "Romania",
-    "io": "crwdns11978:0crwdne11978:0"
+    "io": "crwdns11978:0crwdne11978:0",
+    "oc": "Romania"
   },
   "RU": {
     "en": "Russia",
@@ -1513,7 +1670,8 @@ module.exports = {
     "de": "Russland",
     "es": "Rusia",
     "it": "Russia",
-    "io": "crwdns11980:0crwdne11980:0"
+    "io": "crwdns11980:0crwdne11980:0",
+    "oc": "Russia"
   },
   "RW": {
     "en": "Rwanda",
@@ -1521,7 +1679,8 @@ module.exports = {
     "de": "Ruanda",
     "es": "Ruanda",
     "it": "Ruanda",
-    "io": "crwdns11982:0crwdne11982:0"
+    "io": "crwdns11982:0crwdne11982:0",
+    "oc": "Rwanda"
   },
   "SA": {
     "en": "Saudi Arabia",
@@ -1538,7 +1697,8 @@ module.exports = {
     "de": "Salomon-Inseln",
     "es": "islas Salomón",
     "it": "Isole Salomone",
-    "io": "crwdns11986:0crwdne11986:0"
+    "io": "crwdns11986:0crwdne11986:0",
+    "oc": "Illas Salamon"
   },
   "SC": {
     "en": "Seychelles",
@@ -1546,7 +1706,8 @@ module.exports = {
     "de": "Seychellen",
     "es": "seychelles",
     "it": "Seychelles",
-    "io": "crwdns11988:0crwdne11988:0"
+    "io": "crwdns11988:0crwdne11988:0",
+    "oc": "Seichèlas"
   },
   "SD": {
     "en": "Sudan",
@@ -1554,7 +1715,8 @@ module.exports = {
     "de": "Sudan",
     "es": "Sudán",
     "it": "Sudan",
-    "io": "crwdns11990:0crwdne11990:0"
+    "io": "crwdns11990:0crwdne11990:0",
+    "oc": "Sodan"
   },
   "SE": {
     "en": "Sweden",
@@ -1562,7 +1724,8 @@ module.exports = {
     "de": "Schweden",
     "es": "gamuza",
     "it": "Svezia",
-    "io": "crwdns11992:0crwdne11992:0"
+    "io": "crwdns11992:0crwdne11992:0",
+    "oc": "Suècia"
   },
   "SG": {
     "en": "Singapore",
@@ -1570,7 +1733,8 @@ module.exports = {
     "de": "Singapur",
     "es": "Singapur",
     "it": "Singapore",
-    "io": "crwdns11994:0crwdne11994:0"
+    "io": "crwdns11994:0crwdne11994:0",
+    "oc": "Singapor"
   },
   "SH": {
     "en": "Saint Helena",
@@ -1578,7 +1742,8 @@ module.exports = {
     "de": "St. Helena",
     "es": "Santa Elena",
     "it": "Sant'Elena",
-    "io": "crwdns11996:0crwdne11996:0"
+    "io": "crwdns11996:0crwdne11996:0",
+    "oc": "Santa Elena"
   },
   "SI": {
     "en": "Slovenia",
@@ -1586,7 +1751,8 @@ module.exports = {
     "de": "Slowenien",
     "es": "Eslovenia",
     "it": "Slovenia",
-    "io": "crwdns11998:0crwdne11998:0"
+    "io": "crwdns11998:0crwdne11998:0",
+    "oc": "Eslovènia"
   },
   "SJ": {
     "en": "Svalbard and Jan Mayen",
@@ -1603,7 +1769,8 @@ module.exports = {
     "de": "Slowakei",
     "es": "Eslovaquia",
     "it": "Slovacchia",
-    "io": "crwdns12002:0crwdne12002:0"
+    "io": "crwdns12002:0crwdne12002:0",
+    "oc": "Eslovaquia"
   },
   "SL": {
     "en": "Sierra Leone",
@@ -1611,7 +1778,8 @@ module.exports = {
     "de": "Sierra Leone",
     "es": "Sierra Leona",
     "it": "Sierra Leone",
-    "io": "crwdns12004:0crwdne12004:0"
+    "io": "crwdns12004:0crwdne12004:0",
+    "oc": "Sierra Leone"
   },
   "SM": {
     "en": "San Marino",
@@ -1619,7 +1787,8 @@ module.exports = {
     "de": "San Marino",
     "es": "San Marino",
     "it": "San Marino",
-    "io": "crwdns12006:0crwdne12006:0"
+    "io": "crwdns12006:0crwdne12006:0",
+    "oc": "Sant Marin"
   },
   "SN": {
     "en": "Senegal",
@@ -1627,7 +1796,8 @@ module.exports = {
     "de": "Senegal",
     "es": "Senegal",
     "it": "Senegal",
-    "io": "crwdns12008:0crwdne12008:0"
+    "io": "crwdns12008:0crwdne12008:0",
+    "oc": "Senegal"
   },
   "SO": {
     "en": "Somalia",
@@ -1635,7 +1805,8 @@ module.exports = {
     "de": "Somalia",
     "es": "Somalia",
     "it": "Somalia",
-    "io": "crwdns12010:0crwdne12010:0"
+    "io": "crwdns12010:0crwdne12010:0",
+    "oc": "Somalia"
   },
   "SR": {
     "en": "Suriname",
@@ -1643,7 +1814,8 @@ module.exports = {
     "de": "Suriname",
     "es": "Surinam",
     "it": "Suriname",
-    "io": "crwdns12012:0crwdne12012:0"
+    "io": "crwdns12012:0crwdne12012:0",
+    "oc": "Surinam"
   },
   "ST": {
     "en": "Sao Tome and Principe",
@@ -1660,7 +1832,8 @@ module.exports = {
     "de": "El Salvador",
     "es": "Salvador",
     "it": "El Salvador",
-    "io": "crwdns12016:0crwdne12016:0"
+    "io": "crwdns12016:0crwdne12016:0",
+    "oc": "Lo Salvador"
   },
   "SY": {
     "en": "Syria",
@@ -1668,7 +1841,8 @@ module.exports = {
     "de": "Syrien",
     "es": "Siria",
     "it": "Siria",
-    "io": "crwdns12018:0crwdne12018:0"
+    "io": "crwdns12018:0crwdne12018:0",
+    "oc": "Siria"
   },
   "SZ": {
     "en": "Swaziland",
@@ -1676,7 +1850,8 @@ module.exports = {
     "de": "Swasiland",
     "es": "suazilandia",
     "it": "Swaziland",
-    "io": "crwdns12020:0crwdne12020:0"
+    "io": "crwdns12020:0crwdne12020:0",
+    "oc": "Swaziland"
   },
   "TC": {
     "en": "Turks and Caicos Islands",
@@ -1693,7 +1868,8 @@ module.exports = {
     "de": "Tschad",
     "es": "Chad",
     "it": "Ciad",
-    "io": "crwdns12024:0crwdne12024:0"
+    "io": "crwdns12024:0crwdne12024:0",
+    "oc": "Chad"
   },
   "TF": {
     "en": "French Southern Territories",
@@ -1701,7 +1877,8 @@ module.exports = {
     "de": "Südfranzösische Territorien",
     "es": "Territorios Franceses del Sur",
     "it": "Territori francesi del Sud",
-    "io": "crwdns12026:0crwdne12026:0"
+    "io": "crwdns12026:0crwdne12026:0",
+    "oc": "Territòris franceses del Sud"
   },
   "TG": {
     "en": "Togo",
@@ -1709,7 +1886,8 @@ module.exports = {
     "de": "Gehen",
     "es": "Togo",
     "it": "Togo",
-    "io": "crwdns12028:0crwdne12028:0"
+    "io": "crwdns12028:0crwdne12028:0",
+    "oc": "Tògo"
   },
   "TH": {
     "en": "Thailand",
@@ -1717,7 +1895,8 @@ module.exports = {
     "de": "Thailand",
     "es": "Tailandia",
     "it": "Thailandia",
-    "io": "crwdns12030:0crwdne12030:0"
+    "io": "crwdns12030:0crwdne12030:0",
+    "oc": "Tailàndia"
   },
   "TJ": {
     "en": "Tajikistan",
@@ -1725,7 +1904,8 @@ module.exports = {
     "de": "Tadschikistan",
     "es": "Tayikistán",
     "it": "Tajikistan",
-    "io": "crwdns12032:0crwdne12032:0"
+    "io": "crwdns12032:0crwdne12032:0",
+    "oc": "Tatgiquistan"
   },
   "TK": {
     "en": "Tokelau",
@@ -1742,7 +1922,8 @@ module.exports = {
     "de": "Timor-Leste",
     "es": "Timor del Este",
     "it": "Timor Est",
-    "io": "crwdns12036:0crwdne12036:0"
+    "io": "crwdns12036:0crwdne12036:0",
+    "oc": "Timòr Èst"
   },
   "TM": {
     "en": "Turkmenistan",
@@ -1750,7 +1931,8 @@ module.exports = {
     "de": "Turkmenistan",
     "es": "Turkmenistán",
     "it": "Turkmenistan",
-    "io": "crwdns12038:0crwdne12038:0"
+    "io": "crwdns12038:0crwdne12038:0",
+    "oc": "Turcmenistan"
   },
   "TN": {
     "en": "Tunisia",
@@ -1758,7 +1940,8 @@ module.exports = {
     "de": "Tunesien",
     "es": "Túnez",
     "it": "Tunisia",
-    "io": "crwdns12040:0crwdne12040:0"
+    "io": "crwdns12040:0crwdne12040:0",
+    "oc": "Tunisia"
   },
   "TO": {
     "en": "Tonga",
@@ -1766,7 +1949,8 @@ module.exports = {
     "de": "Tonga",
     "es": "Tonga",
     "it": "Tonga",
-    "io": "crwdns12042:0crwdne12042:0"
+    "io": "crwdns12042:0crwdne12042:0",
+    "oc": "Tònga"
   },
   "TR": {
     "en": "Turkey",
@@ -1774,7 +1958,8 @@ module.exports = {
     "de": "Türkei",
     "es": "Turquía",
     "it": "Turchia",
-    "io": "crwdns12044:0crwdne12044:0"
+    "io": "crwdns12044:0crwdne12044:0",
+    "oc": "Turquia"
   },
   "TT": {
     "en": "Trinidad and Tobago",
@@ -1782,7 +1967,8 @@ module.exports = {
     "de": "Trinidad und Tobago",
     "es": "Trinidad y Tobago",
     "it": "Trinidad e Tobago",
-    "io": "crwdns12046:0crwdne12046:0"
+    "io": "crwdns12046:0crwdne12046:0",
+    "oc": "Trinitat e Tobago"
   },
   "TV": {
     "en": "Tuvalu",
@@ -1790,7 +1976,8 @@ module.exports = {
     "de": "Tuvalu",
     "es": "Tuvalu",
     "it": "Tuvalu",
-    "io": "crwdns12048:0crwdne12048:0"
+    "io": "crwdns12048:0crwdne12048:0",
+    "oc": "Tuvalu"
   },
   "TW": {
     "en": "Taiwan, China",
@@ -1798,7 +1985,8 @@ module.exports = {
     "de": "Taiwan, China",
     "es": "Taiwan, China",
     "it": "Taiwan, Cina",
-    "io": "crwdns12050:0crwdne12050:0"
+    "io": "crwdns12050:0crwdne12050:0",
+    "oc": "Taiwan, China"
   },
   "TZ": {
     "en": "Tanzania",
@@ -1806,7 +1994,8 @@ module.exports = {
     "de": "Tansania",
     "es": "Tanzania",
     "it": "Tanzania",
-    "io": "crwdns12052:0crwdne12052:0"
+    "io": "crwdns12052:0crwdne12052:0",
+    "oc": "Tanzania"
   },
   "UA": {
     "en": "Ukraine",
@@ -1814,7 +2003,8 @@ module.exports = {
     "de": "Ukraine",
     "es": "Ucrania",
     "it": "Ucraina",
-    "io": "crwdns12054:0crwdne12054:0"
+    "io": "crwdns12054:0crwdne12054:0",
+    "oc": "Ucraïna"
   },
   "UG": {
     "en": "Uganda",
@@ -1822,7 +2012,8 @@ module.exports = {
     "de": "Uganda",
     "es": "Uganda",
     "it": "Uganda",
-    "io": "crwdns12056:0crwdne12056:0"
+    "io": "crwdns12056:0crwdne12056:0",
+    "oc": "Oganda"
   },
   "US": {
     "en": "United States",
@@ -1830,7 +2021,8 @@ module.exports = {
     "de": "Vereinigte Staaten",
     "es": "Estados Unidos",
     "it": "Stati Uniti",
-    "io": "crwdns12058:0crwdne12058:0"
+    "io": "crwdns12058:0crwdne12058:0",
+    "oc": "Estats Units"
   },
   "UY": {
     "en": "Uruguay",
@@ -1838,7 +2030,8 @@ module.exports = {
     "de": "Uruguay",
     "es": "Uruguay",
     "it": "Uruguay",
-    "io": "crwdns12060:0crwdne12060:0"
+    "io": "crwdns12060:0crwdne12060:0",
+    "oc": "Uruguai"
   },
   "UZ": {
     "en": "Uzbekistan",
@@ -1846,7 +2039,8 @@ module.exports = {
     "de": "Usbekistan",
     "es": "Uzbekistán",
     "it": "Uzbekistan",
-    "io": "crwdns12062:0crwdne12062:0"
+    "io": "crwdns12062:0crwdne12062:0",
+    "oc": "Ozbequistan"
   },
   "VA": {
     "en": "Vatican",
@@ -1854,7 +2048,8 @@ module.exports = {
     "de": "Vatikan",
     "es": "Vaticano",
     "it": "Vaticano",
-    "io": "crwdns12064:0crwdne12064:0"
+    "io": "crwdns12064:0crwdne12064:0",
+    "oc": "Vatican"
   },
   "VC": {
     "en": "Saint Vincent and the Grenadines",
@@ -1871,7 +2066,8 @@ module.exports = {
     "de": "Venezuela",
     "es": "Venezuela",
     "it": "Venezuela",
-    "io": "crwdns12068:0crwdne12068:0"
+    "io": "crwdns12068:0crwdne12068:0",
+    "oc": "Veneçuèla"
   },
   "VG": {
     "en": "British Virgin Islands",
@@ -1879,7 +2075,8 @@ module.exports = {
     "de": "Britische Jungferninseln",
     "es": "Islas Vírgenes Británicas",
     "it": "Isole Vergini britanniche",
-    "io": "crwdns12070:0crwdne12070:0"
+    "io": "crwdns12070:0crwdne12070:0",
+    "oc": "Illas Verges Britanicas"
   },
   "VI": {
     "en": "U.S. Virgin Islands",
@@ -1887,7 +2084,8 @@ module.exports = {
     "de": "US Jungferninseln",
     "es": "Islas Vírgenes de los EE.UU.",
     "it": "Isole Vergini Americane",
-    "io": "crwdns12072:0crwdne12072:0"
+    "io": "crwdns12072:0crwdne12072:0",
+    "oc": "Illas Verges Americanas"
   },
   "VN": {
     "en": "Viet Nam",
@@ -1895,7 +2093,8 @@ module.exports = {
     "de": "Vietnam",
     "es": "Vietnam",
     "it": "Vietnam",
-    "io": "crwdns12074:0crwdne12074:0"
+    "io": "crwdns12074:0crwdne12074:0",
+    "oc": "Vietnam"
   },
   "VU": {
     "en": "Vanuatu",
@@ -1903,7 +2102,8 @@ module.exports = {
     "de": "Vanuatu",
     "es": "Vanuatu",
     "it": "Vanuatu",
-    "io": "crwdns12076:0crwdne12076:0"
+    "io": "crwdns12076:0crwdne12076:0",
+    "oc": "Vanuatu"
   },
   "WF": {
     "en": "Wallis and Futuna",
@@ -1920,7 +2120,8 @@ module.exports = {
     "de": "Samoa",
     "es": "Samoa Americana",
     "it": "Samoa americane",
-    "io": "crwdns12080:0crwdne12080:0"
+    "io": "crwdns12080:0crwdne12080:0",
+    "oc": "Samoa"
   },
   "XK": {
     "en": "Kosovo",
@@ -1937,7 +2138,8 @@ module.exports = {
     "de": "Jemen",
     "es": "Yemen",
     "it": "Yemen",
-    "io": "crwdns12084:0crwdne12084:0"
+    "io": "crwdns12084:0crwdne12084:0",
+    "oc": "Iemèn"
   },
   "YT": {
     "en": "Mayotte",
@@ -1954,7 +2156,8 @@ module.exports = {
     "de": "Südafrika",
     "es": "Africa del Sur",
     "it": "Sudafrica",
-    "io": "crwdns12088:0crwdne12088:0"
+    "io": "crwdns12088:0crwdne12088:0",
+    "oc": "Africa del Sud"
   },
   "ZM": {
     "en": "Zambia",
@@ -1962,7 +2165,8 @@ module.exports = {
     "de": "Sambia",
     "es": "Zambia",
     "it": "Zambia",
-    "io": "crwdns12090:0crwdne12090:0"
+    "io": "crwdns12090:0crwdne12090:0",
+    "oc": "Zambia"
   },
   "ZW": {
     "en": "Zimbabwe",
@@ -1970,6 +2174,7 @@ module.exports = {
     "de": "Zimbabwe",
     "es": "Zimbabue",
     "it": "Zimbabwe",
-    "io": "crwdns12092:0crwdne12092:0"
+    "io": "crwdns12092:0crwdne12092:0",
+    "oc": "Zimbabwe"
   }
 }

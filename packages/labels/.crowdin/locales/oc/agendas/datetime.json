@@ -1,3 +1,21 @@
 {
-  "february": "ferbrièr"
+  "february": "ferbrièr",
+  "january": "genièr",
+  "march": "març",
+  "april": "abril",
+  "may": "mai",
+  "june": "junh",
+  "july": "julhet",
+  "august": "agost",
+  "september": "setembre",
+  "october": "octobre",
+  "november": "novembre",
+  "december": "decembre",
+  "monday": "diluns",
+  "tuesday": "dimars",
+  "wednesday": "dimècres",
+  "thursday": "dijòus",
+  "friday": "divendres",
+  "saturday": "dissabte",
+  "sunday": "dimenge"
 }

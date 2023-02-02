@@ -8,7 +8,8 @@ module.exports = {
     "de": "Gebe Deine Veranstaltung ein",
     "br": "Skrivit ho tarvoud",
     "es": "Introduzca su evento",
-    "io": "crwdns11506:0crwdne11506:0"
+    "io": "crwdns11506:0crwdne11506:0",
+    "oc": "Dintratz vòstre eveniment"
   },
   "submit": {
     "fr": "Sauvegarder",
@@ -17,7 +18,8 @@ module.exports = {
     "de": "Speichern",
     "br": "Enrollañ",
     "es": "Guardar",
-    "io": "crwdns11508:0crwdne11508:0"
+    "io": "crwdns11508:0crwdne11508:0",
+    "oc": "Enregistrar"
   },
   "create": {
     "fr": "Créer l'événement",
@@ -26,7 +28,8 @@ module.exports = {
     "de": "Deine Veranstaltung senden",
     "br": "Krouiñ an darvoud",
     "es": "Crear evento",
-    "io": "crwdns11510:0crwdne11510:0"
+    "io": "crwdns11510:0crwdne11510:0",
+    "oc": "Crear l'eveniment"
   },
   "draft": {
     "fr": "Enregistrer un brouillon",
@@ -45,7 +48,8 @@ module.exports = {
     "de": "ändern",
     "br": "Hizivaat",
     "es": "Guardar",
-    "io": "crwdns11514:0crwdne11514:0"
+    "io": "crwdns11514:0crwdne11514:0",
+    "oc": "Metre a jorn"
   },
   "editEvent": {
     "fr": "Mettre à jour l'événement",
@@ -54,7 +58,8 @@ module.exports = {
     "de": "Aktualisiere die Veranstalltung",
     "br": "Hizivaat an darvoud",
     "es": "actualización de eventos",
-    "io": "crwdns11516:0crwdne11516:0"
+    "io": "crwdns11516:0crwdne11516:0",
+    "oc": "Metre l'eveniment a jorn"
   },
   "updateDraft": {
     "fr": "Mettre à jour le brouillon",
@@ -83,7 +88,8 @@ module.exports = {
     "de": "Die Veranstalltung erstellen",
     "br": "Krouiñ an darvoud",
     "es": "crear evento",
-    "io": "crwdns11522:0crwdne11522:0"
+    "io": "crwdns11522:0crwdne11522:0",
+    "oc": "Crear l'eveniment"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
@@ -92,7 +98,8 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento",
-    "io": "crwdns11524:0crwdne11524:0"
+    "io": "crwdns11524:0crwdne11524:0",
+    "oc": "Apondre un eveniment"
   },
   "editDraftTitle": {
     "fr": "Brouillon",
@@ -108,13 +115,15 @@ module.exports = {
     "fr": "Partager un événement",
     "en": "Share an event",
     "io": "crwdns11528:0crwdne11528:0",
-    "de": "Share an event"
+    "de": "Share an event",
+    "oc": "Partejar un eveniment"
   },
   "takeEvent": {
     "fr": "Reprendre",
     "en": "Take",
     "io": "crwdns11530:0crwdne11530:0",
-    "de": "Take"
+    "de": "Take",
+    "oc": "Tornar prene"
   },
   "fromAgenda": {
     "fr": "de l'agenda",
@@ -137,14 +146,16 @@ module.exports = {
     "en": "Add the event",
     "io": "crwdns11536:0crwdne11536:0",
     "de": "Add the event",
-    "it": "Aggiungere un evento"
+    "it": "Aggiungere un evento",
+    "oc": "Apondre l'eveniment"
   },
   "noEditionRights": {
     "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
     "en": "You do not have edition rights on this event.",
     "io": "crwdns11538:0crwdne11538:0",
     "de": "You do not have edition rights on this event.",
-    "it": "Non avete accesso all'edizione di questo evento."
+    "it": "Non avete accesso all'edizione di questo evento.",
+    "oc": "Avètz pas de dreits d'edicion sus aqueste eveniment."
   },
   "onlyAdditionalFieldsCanBeEdited": {
     "fr": "Seuls les champs additionnels de l'agenda peuvent être édités ici.",
@@ -159,7 +170,8 @@ module.exports = {
     "en": "Request edition rights",
     "io": "crwdns11542:0crwdne11542:0",
     "de": "Request edition rights",
-    "it": "Chiedere il diritto di modificare questo evento"
+    "it": "Chiedere il diritto di modificare questo evento",
+    "oc": "Demandar los dreits d'edicion"
   },
   "onlyAdditionalFieldsCanBeEditedInfo": {
     "fr": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
@@ -181,13 +193,15 @@ module.exports = {
     "fr": "Les points suivants doivent être résolus afin de rendre l'événement \"%event%\" partageable sur l'agenda \"%agenda%\"",
     "en": "The following issues must be addressed to allow make the event \"%event%\" shareable on the agenda \"%agenda%\"",
     "it": "Le seguenti questioni devono essere affrontate per permettere di rendere l'evento \"%event%\" condivisibile sull'agenda \"%agenda%\"",
-    "io": "crwdns16418:0%event%crwdnd16418:0%agenda%crwdne16418:0"
+    "io": "crwdns16418:0%event%crwdnd16418:0%agenda%crwdne16418:0",
+    "oc": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \"%event%\" d'èsser partejat sus l'agenda \"%agenda%\""
   },
   "suggestChange": {
     "fr": "Suggérer une modification",
     "en": "Suggest a change",
     "it": "Suggerisci un cambiamento",
-    "io": "crwdns16420:0crwdne16420:0"
+    "io": "crwdns16420:0crwdne16420:0",
+    "oc": "Suggerir una modificacion"
   },
   "cancelShare": {
     "fr": "Annuler le partage",
@@ -203,6 +217,7 @@ module.exports = {
     "it": "Chiudere",
     "es": "cerca",
     "br": "Serriñ",
-    "io": "crwdns11548:0crwdne11548:0"
+    "io": "crwdns11548:0crwdne11548:0",
+    "oc": "Tampar"
   }
 }

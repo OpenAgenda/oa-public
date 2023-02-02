@@ -62,7 +62,8 @@ module.exports = {
     "es": "Ver evento",
     "br": "Gwelet an darvoud",
     "it": "Vedi l'evento",
-    "io": "crwdns14974:0crwdne14974:0"
+    "io": "crwdns14974:0crwdne14974:0",
+    "oc": "Veire l'eveniment"
   },
   "agendaEventPublished": {
     "en": "%user% published %event%.",

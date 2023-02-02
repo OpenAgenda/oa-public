@@ -18,7 +18,8 @@ module.exports = {
     "de": "Wähle eine Aktion aus, die ausgeführt werden soll, bevor du die Taste drückst.",
     "pl": "Wybierz czynność do wykonania przed naciśnięciem przycisku",
     "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón",
-    "io": "crwdns12844:0crwdne12844:0"
+    "io": "crwdns12844:0crwdne12844:0",
+    "oc": "Causissètz una accion de menar abans de quichar sul boton"
   },
   "unknownAction": {
     "en": "The action you requested is unknown",
@@ -27,6 +28,7 @@ module.exports = {
     "de": "Die von Ihnen angeforderte Aktion ist unbekannt.",
     "pl": "Działanie, o które wnioskowałeś, jest nieznane",
     "es": "La acción solicitada es desconocida",
-    "io": "crwdns12846:0crwdne12846:0"
+    "io": "crwdns12846:0crwdne12846:0",
+    "oc": "L'accion demandada nos es desconeguda"
   }
 }

@@ -28,7 +28,8 @@ module.exports = {
     "es": "Ir sobre OpenAgenda",
     "br": "Mont da OpenAgenda",
     "it": "Vai a OpenAgenda",
-    "io": "crwdns11262:0crwdne11262:0"
+    "io": "crwdns11262:0crwdne11262:0",
+    "oc": "Anar sus OpenAgenda"
   },
   "unsubsribe": {
     "fr": "Ne plus recevoir de résumé quotidien des notifications",

@@ -1,1 +1,13 @@
-{}
+{
+  "createAgenda": "Crear una agenda",
+  "searchAgenda": "Cercar una agenda",
+  "officialAgenda": "Agenda oficiala",
+  "noResult": "Pas cap resultat trobat",
+  "searchEvent": "Cercar un eveniment",
+  "selectAgenda": "Causir una agenda per i crear l'eveniment",
+  "privateAgenda": "Agenda privada",
+  "or": "O",
+  "modalBigSentence": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent.",
+  "modalReminder": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar.",
+  "createNewEventIn": "Crear l'eveniment novèl dins"
+}

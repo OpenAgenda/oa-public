@@ -17,6 +17,7 @@ module.exports = {
     "es": "cerca",
     "it": "Chiudere",
     "br": "Serriñ",
-    "io": "crwdns15790:0crwdne15790:0"
+    "io": "crwdns15790:0crwdne15790:0",
+    "oc": "Tampar"
   }
 }

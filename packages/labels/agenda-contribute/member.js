@@ -18,7 +18,8 @@ module.exports = {
     "de": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
     "br": "Lavarit piv oc'h a-raok skrivañ ho tarvoudoù",
     "es": "Presentarse antes de introducir sus eventos",
-    "io": "crwdns11552:0crwdne11552:0"
+    "io": "crwdns11552:0crwdne11552:0",
+    "oc": "Presentatz-vos abans de començar a dintrar vòstres eveniments"
   },
   "description": {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
@@ -37,7 +38,8 @@ module.exports = {
     "de": "Unternehmen",
     "br": "Aozadur",
     "es": "organización",
-    "io": "crwdns11556:0crwdne11556:0"
+    "io": "crwdns11556:0crwdne11556:0",
+    "oc": "Organizacion"
   },
   "phone": {
     "fr": "Téléphone",
@@ -46,7 +48,8 @@ module.exports = {
     "de": "Telefonnummer",
     "br": "Pellgomz",
     "es": "Teléfono",
-    "io": "crwdns11558:0crwdne11558:0"
+    "io": "crwdns11558:0crwdne11558:0",
+    "oc": "Telefòne"
   },
   "phoneSub": {
     "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
@@ -65,7 +68,8 @@ module.exports = {
     "de": "Vorname Nachname",
     "br": "Anv Anv-bihan",
     "es": "Nombre Apellido",
-    "io": "crwdns11562:0crwdne11562:0"
+    "io": "crwdns11562:0crwdne11562:0",
+    "oc": "Pichon nom Nom d'ostal"
   },
   "position": {
     "fr": "Fonction",
@@ -74,7 +78,8 @@ module.exports = {
     "de": "Funktion",
     "br": "Karg",
     "es": "función",
-    "io": "crwdns11564:0crwdne11564:0"
+    "io": "crwdns11564:0crwdne11564:0",
+    "oc": "Foncion dins l'organizacion"
   },
   "email": {
     "fr": "Email",
@@ -83,7 +88,8 @@ module.exports = {
     "de": "E-Mail",
     "br": "Postel",
     "es": "e-mail",
-    "io": "crwdns11566:0crwdne11566:0"
+    "io": "crwdns11566:0crwdne11566:0",
+    "oc": "Email"
   },
   "submit": {
     "fr": "Enregistrer",
@@ -92,6 +98,7 @@ module.exports = {
     "de": "Weiter",
     "br": "Validañ",
     "es": "validar",
-    "io": "crwdns11568:0crwdne11568:0"
+    "io": "crwdns11568:0crwdne11568:0",
+    "oc": "Sometre"
   }
 }

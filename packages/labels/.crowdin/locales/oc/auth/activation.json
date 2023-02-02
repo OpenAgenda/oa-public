@@ -1,1 +1,12 @@
-{}
+{
+  "sendAgain": "L'email d'activacion es a se tornar mandar",
+  "checkEmail": "Gaitatz lo ligam de validacion dins vòstres emails",
+  "checkEmailInstruction": "Un email vos serà mandat lèu amb lo ligam d'activacion pel vòstre compte. Gaitatz dins vòstre boita per acabar lo procèssus de creacion de compte.",
+  "didNotReceive": "Avètz pas recebut cap email ? %resend% o escrivètz-nos a %support%",
+  "resend": "Clicatz aicí per tornar mandar",
+  "stayUpToDate": "Demoratz al fial de çò que se passa amb OpenAgenda !",
+  "followUs": "Seguissètz-nos",
+  "getOurNewsletter": "Recebètz nòstra letra d'informacions",
+  "yourEmail": "Vòstre email",
+  "subscribe": "S'abonar"
+}

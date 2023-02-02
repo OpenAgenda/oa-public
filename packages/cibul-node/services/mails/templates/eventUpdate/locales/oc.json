@@ -1,1 +1,12 @@
-{}
+{
+  "title": "Eveniment modificat sus {agenda} : {event}",
+  "body": "<b>{event}</b> es estat modificat sus l'agenda <b>{agenda}</b>.",
+  "actionDescription": "Veire l'eveniment",
+  "tocontrol": "de repassar",
+  "controlled": "prèste per publicar",
+  "published": "publicat",
+  "refused": "refusat",
+  "unsubscribe": "Arrestar de recebre las modificacions d'eveniments",
+  "memberUnsubscribe": "Arrestar de recebre las modificacions d'eveniment d'aquesta agenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

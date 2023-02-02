@@ -1,1 +1,23 @@
-{}
+{
+  "members": "Membres",
+  "contributor": "Contributor·a",
+  "administrator": "Administrator·a",
+  "moderator": "Moderator·a",
+  "reader": "Legeire·a",
+  "contributors": "Contributor·a·s",
+  "administrators": "Administrator·a·s",
+  "moderators": "Moderator·a·s",
+  "events": "eveniments",
+  "noResult": "Pas cap resultat trobat",
+  "role": "Ròtle",
+  "name": "Nom",
+  "email": "Email",
+  "phone": "Telefòne",
+  "position": "Foncion",
+  "organization": "Organizacion",
+  "required": "Requesit",
+  "string.tooshort": "La cadena de caractèrs es tròp corteta",
+  "close": "Tampar",
+  "export": "Exportar",
+  "removeFilter": "Tirar lo filtre"
+}

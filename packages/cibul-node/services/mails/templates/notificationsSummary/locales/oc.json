@@ -2,5 +2,6 @@
   "dailySummary": "Resumit quotidian de vòstras notificacions",
   "subject": "{nbr} notificacions pas vistas dempuèi lo {date}",
   "unsubscribe": "Arrestar de recebre lo resumit quotidian de notificacions",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
+  "goToOA": "Anar sus OpenAgenda"
 }

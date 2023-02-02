@@ -1,5 +1,12 @@
 {
   "title": "Benvengut·da !",
   "description": "Vòstras informacions personalas seràn visiblas sonque de la còla d'administracion de l'agenda. Lo nom de vòstra organizacion sol serà afichat.",
-  "phoneSub": "Caractèrs valids : chifras, espaci, -, + o ()"
+  "phoneSub": "Caractèrs valids : chifras, espaci, -, + o ()",
+  "subtitle": "Presentatz-vos abans de començar a dintrar vòstres eveniments",
+  "organisation": "Organizacion",
+  "phone": "Telefòne",
+  "name": "Pichon nom Nom d'ostal",
+  "position": "Foncion dins l'organizacion",
+  "email": "Email",
+  "submit": "Sometre"
 }

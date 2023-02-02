@@ -143,7 +143,8 @@ module.exports = {
     "de": "Bisherige",
     "es": "anterior",
     "it": "Precedente",
-    "io": "crwdns13308:0crwdne13308:0"
+    "io": "crwdns13308:0crwdne13308:0",
+    "oc": "Precedent"
   },
   "next": {
     "en": "Next",
@@ -152,7 +153,8 @@ module.exports = {
     "es": "Próximo",
     "it": "Prossimo",
     "br": "War-lerc'h",
-    "io": "crwdns13310:0crwdne13310:0"
+    "io": "crwdns13310:0crwdne13310:0",
+    "oc": "Seguent"
   },
   "customersSay": {
     "en": "What our customers say",
@@ -248,7 +250,8 @@ module.exports = {
     "de": "Jahr",
     "es": "año",
     "it": "un",
-    "io": "crwdns13334:0crwdne13334:0"
+    "io": "crwdns13334:0crwdne13334:0",
+    "oc": "an"
   },
   "month": {
     "en": "month",
@@ -257,7 +260,8 @@ module.exports = {
     "es": "mes",
     "it": "mese",
     "br": "miz",
-    "io": "crwdns13336:0crwdne13336:0"
+    "io": "crwdns13336:0crwdne13336:0",
+    "oc": "mes"
   },
   "basicFeatures": {
     "en": "Basic agenda features",
@@ -369,7 +373,8 @@ module.exports = {
     "de": "Moderatoren",
     "es": "moderadores",
     "it": "Moderatori",
-    "io": "crwdns13364:0crwdne13364:0"
+    "io": "crwdns13364:0crwdne13364:0",
+    "oc": "Moderator·a·s"
   },
   "customNotifications": {
     "en": "Custom notifications",
@@ -466,7 +471,8 @@ module.exports = {
     "es": "eventos",
     "it": "eventi",
     "br": "kevelet",
-    "io": "crwdns13388:0crwdne13388:0"
+    "io": "crwdns13388:0crwdne13388:0",
+    "oc": "eveniments"
   },
   "ready": {
     "en": "Ready ?",
@@ -490,7 +496,8 @@ module.exports = {
     "de": "Kontakt",
     "es": "Contactar",
     "it": "Contattare",
-    "io": "crwdns13394:0crwdne13394:0"
+    "io": "crwdns13394:0crwdne13394:0",
+    "oc": "Contactar"
   },
   "email": {
     "en": "Your email address",
@@ -507,7 +514,8 @@ module.exports = {
     "es": "suscribir",
     "it": "Iscriviti alla nostra newsletter",
     "br": "Koumanantit",
-    "io": "crwdns13398:0crwdne13398:0"
+    "io": "crwdns13398:0crwdne13398:0",
+    "oc": "S'abonar"
   },
   "ourCompany": {
     "en": "Our company",
@@ -548,7 +556,8 @@ module.exports = {
     "es": "Ayuda",
     "it": "Aiuto",
     "br": "Skoazell",
-    "io": "crwdns13408:0crwdne13408:0"
+    "io": "crwdns13408:0crwdne13408:0",
+    "oc": "Ajuda"
   },
   "documentationAndApi": {
     "en": "Documentation + API",
@@ -581,7 +590,8 @@ module.exports = {
     "es": "condiciones de uso",
     "it": "Termini e condizioni di utilizzo",
     "br": "Penndivizoù implij",
-    "io": "crwdns13416:0crwdne13416:0"
+    "io": "crwdns13416:0crwdne13416:0",
+    "oc": "Condicions d'utilizacion"
   },
   "operationalSupport": {
     "en": "Operational support",

@@ -7,7 +7,8 @@ module.exports = {
     "de": "Kategorien",
     "es": "categorías",
     "it": "Categorie",
-    "io": "crwdns11470:0crwdne11470:0"
+    "io": "crwdns11470:0crwdne11470:0",
+    "oc": "Categorias"
   },
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
@@ -24,7 +25,8 @@ module.exports = {
     "de": "Erforderlich.",
     "es": "Requerido.",
     "it": "Necessario.",
-    "io": "crwdns11474:0crwdne11474:0"
+    "io": "crwdns11474:0crwdne11474:0",
+    "oc": "Requesit."
   },
   "requiredCategoryError": {
     "en": "You must select one item",
@@ -32,6 +34,7 @@ module.exports = {
     "de": "Du musst ein Element auswählen",
     "es": "Usted debe hacer una selección",
     "it": "È necessario effettuare una selezione",
-    "io": "crwdns11476:0crwdne11476:0"
+    "io": "crwdns11476:0crwdne11476:0",
+    "oc": "Vos cal causir un element"
   }
 }

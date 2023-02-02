@@ -23,7 +23,8 @@ module.exports = {
     "de": "Heute",
     "es": "hoy",
     "it": "Oggi",
-    "io": "crwdns13450:0crwdne13450:0"
+    "io": "crwdns13450:0crwdne13450:0",
+    "oc": "Uèi"
   },
   "mainEventCount": {
     "fr": "**%count%** événements",
@@ -63,7 +64,8 @@ module.exports = {
     "de": "Erstelle eine Verwaltungskalender",
     "es": "Crear un agenda",
     "it": "Creare un'agenda",
-    "io": "crwdns13460:0crwdne13460:0"
+    "io": "crwdns13460:0crwdne13460:0",
+    "oc": "Crear una agenda"
   },
   "mainDescription": {
     "fr": "OpenAgenda est un outil d’agenda puissant, utilisé par des acteurs aussi divers que le Centre Pompidou, le Ministère de la Culture, Nuit Debout ou la Région Ile de France.",
@@ -224,7 +226,8 @@ module.exports = {
     "es": "agenda",
     "it": "Agenda",
     "br": "Deiziataer",
-    "io": "crwdns13500:0crwdne13500:0"
+    "io": "crwdns13500:0crwdne13500:0",
+    "oc": "Agenda"
   },
   "mainPricingNetworkTitle": {
     "fr": "Réseau d'agendas",
@@ -384,7 +387,8 @@ module.exports = {
     "de": "Erstelle eine Verwaltungskalender",
     "es": "Crear un agenda",
     "it": "Creare un'agenda",
-    "io": "crwdns13540:0crwdne13540:0"
+    "io": "crwdns13540:0crwdne13540:0",
+    "oc": "Crear una agenda"
   },
   "agendaPricingFreePrice": {
     "fr": "Gratuit",
@@ -483,19 +487,19 @@ module.exports = {
     "io": "crwdns13564:0crwdne13564:0"
   },
   "agendaPricingCustomPrice": {
-    "fr": "( soit 300 € / mois* )",
+    "fr": "(300 €/mois*)",
     "en": "( 300 € / month* )",
-    "de": "(300 € / Monat *)",
-    "es": "(O 300 € / mes *)",
-    "it": "( o 300 € / mese* )",
+    "de": "(300 €/Monat*)",
+    "es": "(300 €/mes*)",
+    "it": "(300 €/mese*)",
     "io": "crwdns13566:0crwdne13566:0"
   },
   "agendaPricingCustomYearlyPrice": {
-    "fr": "3 000 € / an*",
+    "fr": "3 500 €/an*",
     "en": "3,000 € / year*",
-    "de": "3.000 € / Jahr *",
-    "es": "3000 € / año *",
-    "it": "3 000 € / anno*",
+    "de": "3.500 €/Jahr*",
+    "es": "3 500 €/año*",
+    "it": "3,500 €/anno*",
     "io": "crwdns13568:0crwdne13568:0"
   },
   "agendaPriceCustomFeature1": {
@@ -643,11 +647,11 @@ module.exports = {
     "io": "crwdns13604:0crwdne13604:0"
   },
   "networkPricingFreePricing": {
-    "fr": "0€ / an",
+    "fr": "0 €/an",
     "en": "0€* / year",
-    "de": "0 € * / Jahr",
+    "de": "0 €/Jahr",
     "es": "0 € / año",
-    "it": "0€ / anno",
+    "it": "0 €/anno",
     "io": "crwdns13606:0crwdne13606:0"
   },
   "networkPricingFreeFeature1": {
@@ -707,19 +711,19 @@ module.exports = {
     "io": "crwdns13620:0crwdne13620:0"
   },
   "networkPricingSmallPricing": {
-    "fr": "3 000 € / an*",
-    "en": "3,000 € / year*",
-    "de": "3.000 € / Jahr *",
-    "es": "3000 € / año *",
-    "it": "3 000 € / anno*",
+    "fr": "3 500 €/an*",
+    "en": "3,500 € / year*",
+    "de": "3.500 €/Jahr*",
+    "es": "3 500 €/año*",
+    "it": "3,500 €/anno*",
     "io": "crwdns13622:0crwdne13622:0"
   },
   "networkPricingSmallPricingDetail": {
-    "fr": "(soit 250€* / mois)",
-    "en": "(i.e. 250€* / month)",
-    "de": "(Das heißt 250 € * / Monat)",
-    "es": "(O 250 € * / mes)",
-    "it": "(cioè 250€* / mese)",
+    "fr": "(soit 292 €/mois*)",
+    "en": "(i.e. 292€* / month)",
+    "de": "(Das heißt 292 € * / Monat)",
+    "es": "(O 292 € * / mes)",
+    "it": "(o 292 €/mese*)",
     "io": "crwdns13624:0crwdne13624:0"
   },
   "networkPricingMedium": {
@@ -747,19 +751,19 @@ module.exports = {
     "io": "crwdns13630:0crwdne13630:0"
   },
   "networkPricingMediumPricing": {
-    "fr": "5 000 €* / an",
-    "en": "5,000 €* / year",
-    "de": "5.000 € * / Jahr",
-    "es": "* 5000 € / año",
-    "it": "5 000 €* / anno",
+    "fr": "6 000 €/an",
+    "en": "6,000 €* / year",
+    "de": "6.000 €/Jahr",
+    "es": "6 000 €/año",
+    "it": "6,000 €/anno",
     "io": "crwdns13632:0crwdne13632:0"
   },
   "networkPricingMediumPricingDetail": {
-    "fr": "(soit 416 €* / mois)",
-    "en": "(i.e. 416 €* / month)",
-    "de": "(Das heißt 416 € * / Monat)",
-    "es": "(O 416 € * / mes)",
-    "it": "(ossia 416 €* / mese)",
+    "fr": "(soit 500 €/mois)",
+    "en": "(i.e. 500 €* / month)",
+    "de": "(Das heißt 500 €/Monat)",
+    "es": "(o 500 €/mes)",
+    "it": "(o 500 €/mese)",
     "io": "crwdns13634:0crwdne13634:0"
   },
   "networkPricingLarge": {
@@ -771,11 +775,11 @@ module.exports = {
     "io": "crwdns13636:0crwdne13636:0"
   },
   "networkPricingLargePricing": {
-    "fr": "A partir de 10 000 € / an",
-    "en": "Starting at 10,000 € / year",
-    "de": "Ab 10.000 € / Jahr",
-    "es": "A partir de 10 000 € / año",
-    "it": "Da 10 000 € / anno",
+    "fr": "À partir de 12 000 €/an",
+    "en": "Starting at 12,000 € / year",
+    "de": "Ab 12.000 €/Jahr",
+    "es": "A partir de 12 000 €/año",
+    "it": "Da 12,000 €/anno",
     "io": "crwdns13638:0crwdne13638:0"
   },
   "networkPricingLargeCount": {
@@ -1001,7 +1005,8 @@ module.exports = {
     "de": "Webseite",
     "es": "Sitio web",
     "it": "Sito web",
-    "io": "crwdns13694:0crwdne13694:0"
+    "io": "crwdns13694:0crwdne13694:0",
+    "oc": "Site web"
   },
   "broadcastFacebook": {
     "fr": "Page Facebook",
@@ -1053,10 +1058,10 @@ module.exports = {
   },
   "premiumOfferTitle": {
     "en": "The Premium Agenda - 90€/month",
-    "fr": "L' Agenda Premium - 90€/mois",
+    "fr": "L'agenda premium - 90 €/mois",
     "de": "Die Premium-Agenda - 90 € / Monat",
     "es": "La Agenda Premium - 90 € / mes",
-    "it": "L'agenda dei premi - 90€/mese",
+    "it": "L'agenda dei premi - 90 €/mese",
     "io": "crwdns13708:0crwdne13708:0"
   },
   "premiumOfferHeadTitle": {
@@ -1247,7 +1252,7 @@ module.exports = {
     "en": "Network of agendas - 400€/month",
     "fr": "Le Réseau d'agendas - 400€/mois",
     "de": "Netzwerk der Kalenders - 400 € / Monat",
-    "es": "Los agendas de red - 400 € / mes",
+    "es": "Los agendas de red - 400 €/mes",
     "it": "La rete dei diari - 400€/mese",
     "io": "crwdns13756:0crwdne13756:0"
   },
@@ -1365,10 +1370,10 @@ module.exports = {
   },
   "footerPremium": {
     "en": "Premium - 90€/month",
-    "fr": "Premium - 90€/mois",
-    "de": "Premium - 90 € / Monat",
+    "fr": "Premium - 90 €/mois",
+    "de": "Premium - 90 €/Monat",
     "es": "Premium - 90 € / mes",
-    "it": "Premio - 90€/mese",
+    "it": "Premio - 90 €/mese",
     "io": "crwdns13786:0crwdne13786:0"
   },
   "footerNetwork": {
@@ -1376,7 +1381,7 @@ module.exports = {
     "fr": "Réseau - 400€/mois",
     "de": "Network - 400 € / Monat",
     "es": "Red - 400 € / mes",
-    "it": "Rete - 400€/mese",
+    "it": "Rete - 400 €/mese",
     "io": "crwdns13788:0crwdne13788:0"
   },
   "footerTailored": {
@@ -1402,7 +1407,8 @@ module.exports = {
     "es": "agenda",
     "it": "Agenda",
     "br": "Deiziataer",
-    "io": "crwdns13794:0crwdne13794:0"
+    "io": "crwdns13794:0crwdne13794:0",
+    "oc": "Agenda"
   },
   "footerNetworkPricing": {
     "en": "Network of agendas",
@@ -1418,7 +1424,8 @@ module.exports = {
     "de": "Finde mehr heraus",
     "es": "Más información",
     "it": "Per saperne di più",
-    "io": "crwdns13798:0crwdne13798:0"
+    "io": "crwdns13798:0crwdne13798:0",
+    "oc": "Ne saber mai"
   },
   "footerContactForm": {
     "en": "Contact form",
@@ -1434,7 +1441,8 @@ module.exports = {
     "de": "Kontakt",
     "es": "Contactar",
     "it": "Contattare",
-    "io": "crwdns13802:0crwdne13802:0"
+    "io": "crwdns13802:0crwdne13802:0",
+    "oc": "Contactar"
   },
   "footerService": {
     "en": "The service",
@@ -1499,7 +1507,8 @@ module.exports = {
     "es": "suscribir",
     "it": "Iscriviti alla nostra newsletter",
     "br": "Koumanantit",
-    "io": "crwdns13818:0crwdne13818:0"
+    "io": "crwdns13818:0crwdne13818:0",
+    "oc": "S'abonar"
   },
   "footerPriceComment": {
     "en": "(*) Displayed prices exclude VAT",

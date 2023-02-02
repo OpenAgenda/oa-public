@@ -1,1 +1,12 @@
-{}
+{
+  "title": "Confirmacion de creacion de vòstre eveniment sus {agenda} : {event}",
+  "body": "Vòstre eveniment <b>{event}</b> es estat creat dins l'agenda <b>{agenda}</b> amb l'estatut <b>{state}</b>.",
+  "actionDescription": "Veire l'eveniment",
+  "tocontrol": "de repassar",
+  "controlled": "prèste per publicar",
+  "published": "publicat",
+  "refused": "refusat",
+  "unsubscribe": "Arrestar de recebre las confirmacions de vòstras creacions d'eveniments",
+  "memberUnsubscribe": "Arrestar de recebre las confirmacions de vòstras creacions d'eveniments sus aquela agenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

@@ -1,3 +1,12 @@
 {
-  "networkPricingCustomized": "Personalizacion"
+  "networkPricingCustomized": "Personalizacion",
+  "mainToday": "Uèi",
+  "mainAgendaCreate": "Crear una agenda",
+  "mainPricingAgendaTitle": "Agenda",
+  "agendaPricingFreeAction": "Crear una agenda",
+  "broadcastWebsite": "Site web",
+  "footerAgendaPricing": "Agenda",
+  "footerMore": "Ne saber mai",
+  "footerContactUs": "Contactar",
+  "footerContactSubscribe": "S'abonar"
 }

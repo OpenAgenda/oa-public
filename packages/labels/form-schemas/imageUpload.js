@@ -56,7 +56,8 @@ module.exports = {
     "es": "Eliminar",
     "it": "Rimuovi",
     "br": "Lemel",
-    "io": "crwdns14876:0crwdne14876:0"
+    "io": "crwdns14876:0crwdne14876:0",
+    "oc": "Suprimir"
   },
   "or": {
     "en": "OR",

@@ -1,3 +1,13 @@
 {
-  "yesterday": "ièr"
+  "yesterday": "ièr",
+  "today": "Uèi",
+  "tomorrow": "Deman",
+  "thisWeekend": "Aquesta dimenjada",
+  "thisWeek": "Aquesta setmana",
+  "thisMonth": "Aqueste mes",
+  "relativeToNowPast": "fa %count% %units%",
+  "relativeToNowUpcoming": "dins %count% %units%",
+  "days": "jorns",
+  "months": "meses",
+  "years": "ans"
 }

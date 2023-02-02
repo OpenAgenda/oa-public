@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Podłączenie",
     "es": "acceder",
     "br": "Kevreañ",
-    "io": "crwdns13112:0crwdne13112:0"
+    "io": "crwdns13112:0crwdne13112:0",
+    "oc": "Connexion"
   },
   "incorrectPassword": {
     "fr": "L'email ou le mot de passe sont incorrects",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Twój adres e-mail lub hasło jest nieprawidłowe.",
     "es": "El correo electrónico o la contraseña son incorrectos",
     "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
-    "io": "crwdns13114:0crwdne13114:0"
+    "io": "crwdns13114:0crwdne13114:0",
+    "oc": "L'email o lo senhal son pas corrèctes."
   },
   "resetPassword": {
     "fr": "Réinitialiser le mot de passe",
@@ -29,7 +31,8 @@ module.exports = {
     "pl": "Zresetuj hasło",
     "es": "restablecimiento de contraseña",
     "br": "Adderaouekaat ho ker-tremen",
-    "io": "crwdns13116:0crwdne13116:0"
+    "io": "crwdns13116:0crwdne13116:0",
+    "oc": "Reïnicializatz vòstre senhal"
   },
   "email": {
     "fr": "Email",
@@ -39,7 +42,8 @@ module.exports = {
     "pl": "Poczta elektroniczna",
     "es": "e-mail",
     "br": "Postel",
-    "io": "crwdns13118:0crwdne13118:0"
+    "io": "crwdns13118:0crwdne13118:0",
+    "oc": "Email"
   },
   "password": {
     "fr": "Mot de passe",
@@ -49,7 +53,8 @@ module.exports = {
     "pl": "Hasło",
     "es": "Contraseña",
     "br": "Ger-tremen",
-    "io": "crwdns13120:0crwdne13120:0"
+    "io": "crwdns13120:0crwdne13120:0",
+    "oc": "Senhal"
   },
   "signin": {
     "fr": "Se connecter",
@@ -59,7 +64,8 @@ module.exports = {
     "pl": "Zaloguj się",
     "es": "Conectarse",
     "br": "Kevreañ",
-    "io": "crwdns13122:0crwdne13122:0"
+    "io": "crwdns13122:0crwdne13122:0",
+    "oc": "Se connectar"
   },
   "lostPassword": {
     "fr": "J'ai perdu mon mot de passe",
@@ -69,7 +75,8 @@ module.exports = {
     "pl": "Zgubiłem hasło",
     "es": "He perdido mi contraseña",
     "br": "Kollet em eus ma ger-tremen",
-    "io": "crwdns13124:0crwdne13124:0"
+    "io": "crwdns13124:0crwdne13124:0",
+    "oc": "Ai perdut mon senhal"
   },
   "noAccount": {
     "fr": "Vous n'avez pas encore de compte?",
@@ -79,7 +86,8 @@ module.exports = {
     "pl": "Nie masz jeszcze konta?",
     "es": "¿No tienes una cuenta?",
     "br": "N'ho peus kont ebet c'hoazh ?",
-    "io": "crwdns13126:0crwdne13126:0"
+    "io": "crwdns13126:0crwdne13126:0",
+    "oc": "Avètz pas encara de compte ?"
   },
   "createAccount": {
     "fr": "Créez-en un!",
@@ -89,6 +97,7 @@ module.exports = {
     "pl": "Załóż je!",
     "es": "Crea uno!",
     "br": "Krouit unan !",
-    "io": "crwdns13128:0crwdne13128:0"
+    "io": "crwdns13128:0crwdne13128:0",
+    "oc": "Ne far un !"
   }
 }

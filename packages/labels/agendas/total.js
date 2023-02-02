@@ -9,7 +9,8 @@ module.exports = {
     "pl": "%count% nadchodzące wydarzenia",
     "es": "%count% próximos eventos",
     "br": "%count% a zarvoudoù da zont",
-    "io": "crwdns12974:0%count%crwdne12974:0"
+    "io": "crwdns12974:0%count%crwdne12974:0",
+    "oc": "%count% eveniments a venir"
   },
   "upcomingEvent": {
     "en": "1 upcoming event",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "1 zbliżające się wydarzenie",
     "es": "1 próximo evento",
     "br": "1 darvoud da zont",
-    "io": "crwdns12976:0crwdne12976:0"
+    "io": "crwdns12976:0crwdne12976:0",
+    "oc": "1 eveniment a venir"
   },
   "totalEvents": {
     "en": "%count% events",
@@ -29,7 +31,8 @@ module.exports = {
     "pl": "%count% zdarzenia",
     "es": "%count% eventos",
     "br": "%count% a zarvoudoù",
-    "io": "crwdns12978:0%count%crwdne12978:0"
+    "io": "crwdns12978:0%count%crwdne12978:0",
+    "oc": "%count% eveniments"
   },
   "totalEvent": {
     "en": "1 event",
@@ -39,7 +42,8 @@ module.exports = {
     "pl": "1 zdarzenie",
     "es": "1 evento",
     "br": "1 darvoud",
-    "io": "crwdns12980:0crwdne12980:0"
+    "io": "crwdns12980:0crwdne12980:0",
+    "oc": "1 eveniment"
   },
   "includePassed": {
     "en": "Include passed events",
@@ -49,7 +53,8 @@ module.exports = {
     "pl": "Uwzględnienie zdarzeń, które przeszły",
     "es": "Incluir los eventos pasados",
     "br": "Lakaat an darvoudoù tremenet e-barzh",
-    "io": "crwdns12982:0crwdne12982:0"
+    "io": "crwdns12982:0crwdne12982:0",
+    "oc": "Inclure los eveniments passats"
   },
   "excludePassed": {
     "en": "Exclude passed events",
@@ -59,6 +64,7 @@ module.exports = {
     "pl": "Wyłączyć zdarzenia, które przeszły",
     "es": "Excluir eventos pasados",
     "br": "Lezel an darvoudoù tremenet a-gostez",
-    "io": "crwdns12984:0crwdne12984:0"
+    "io": "crwdns12984:0crwdne12984:0",
+    "oc": "Exclure los eveniments passats"
   }
 }

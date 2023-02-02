@@ -1,1 +1,12 @@
-{}
+{
+  "previous": "Precedent",
+  "next": "Seguent",
+  "year": "an",
+  "month": "mes",
+  "membersHierarchy": "Moderator·a·s",
+  "events": "eveniments",
+  "contact": "Contactar",
+  "subscribe": "S'abonar",
+  "help": "Ajuda",
+  "termsOfUse": "Condicions d'utilizacion"
+}

@@ -1,3 +1,8 @@
 {
-  "actionDescription": "Mostrar l'agenda"
+  "actionDescription": "Mostrar l'agenda",
+  "title": "L'agenda {agenda} vos a escrit un messatge",
+  "unsubscribe": "Arrestar de recebre los messatges de la foncionalitat \"Lor escriure\"",
+  "unsubscribeGuest": "Arrestar de recebre los mails d'OpenAgenda",
+  "memberUnsubscribe": "Arrestar de recebre los messatges de la foncionalitat \"Lor escriure\" d'aquela agenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
 }

@@ -25,6 +25,7 @@ module.exports = {
     "de": "die Administratoren kontaktieren",
     "es": "Póngase en contacto con el administrador",
     "it": "Contattare l'amministratore",
-    "io": "crwdns12990:0crwdne12990:0"
+    "io": "crwdns12990:0crwdne12990:0",
+    "oc": "Contactar l'administrator·a"
   }
 }

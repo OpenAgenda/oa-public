@@ -5,7 +5,8 @@ module.exports = {
     "en": "{user} invited {email} as {credential} on {agenda}.",
     "fr": "{user} a invité {email} en tant que {credential} sur {agenda}.",
     "io": "crwdns11042:0{user}crwdnd11042:0{email}crwdnd11042:0{credential}crwdnd11042:0{agenda}crwdne11042:0",
-    "it": "{user} ha invitato {email} come {credential} su {agenda}."
+    "it": "{user} ha invitato {email} come {credential} su {agenda}.",
+    "oc": "{user} a convidat {email} coma {credential} sus {agenda}."
   },
   "agenda.acceptInvitation": {
     "en": "{user} has accepted the invitation of {originMember} to become {credential} on {agenda}.",
@@ -13,7 +14,8 @@ module.exports = {
     "de": "{user} has der Einladung von {originMember} angenommen {credential} auf {agenda} geworden.",
     "es": "{user} ha aceptado una invitación para unirse {originMember} {credential} sobre el agenda {agenda}.",
     "it": "{user} ha accettato l'invito de {originMember} ha diventare {credential} su {agenda}.",
-    "io": "crwdns11044:0{user}crwdnd11044:0{originMember}crwdnd11044:0{credential}crwdnd11044:0{agenda}crwdne11044:0"
+    "io": "crwdns11044:0{user}crwdnd11044:0{originMember}crwdnd11044:0{credential}crwdnd11044:0{agenda}crwdne11044:0",
+    "oc": "{user} a acceptat lo convit de {originMember} per venir {credential} sus {agenda}."
   },
   "agenda.addMember": {
     "en": "{originMember} added {user} as {credential} on {agenda}.",
@@ -21,13 +23,15 @@ module.exports = {
     "de": "{originMember} hinzugefügt {user} in {credential} auf {agenda}.",
     "es": "{originMember} añadió {user} como de la {agenda} {credential}.",
     "it": "{originMember} ha aggiunto {user} come {credential} su {agenda}.",
-    "io": "crwdns11046:0{originMember}crwdnd11046:0{user}crwdnd11046:0{credential}crwdnd11046:0{agenda}crwdne11046:0"
+    "io": "crwdns11046:0{originMember}crwdnd11046:0{user}crwdnd11046:0{credential}crwdnd11046:0{agenda}crwdne11046:0",
+    "oc": "{originMember} a apondut {user} coma {credential} sus {agenda}."
   },
   "agenda.removeMember": {
     "en": "{originMember} removed {user} ({credential}) from {agenda}.",
     "fr": "{originMember} a retiré {user} ({credential}) de {agenda}.",
     "it": "{originMember} ha rimosso {user} ({credential}) de {agenda}.",
-    "io": "crwdns11048:0{originMember}crwdnd11048:0{user}crwdnd11048:0{credential}crwdnd11048:0{agenda}crwdne11048:0"
+    "io": "crwdns11048:0{originMember}crwdnd11048:0{user}crwdnd11048:0{credential}crwdnd11048:0{agenda}crwdne11048:0",
+    "oc": "{originMember} a tirat {user} ({credential}) de {agenda}."
   },
   "agenda.setMemberRole": {
     "en": "{user} passed {originMember} from {beforeCredential} to {credential} on {agenda}.",
@@ -35,13 +39,15 @@ module.exports = {
     "de": "{user} {originMember} bestanden aus {beforeCredential} auf {credential} auf {agenda}.",
     "es": "{user} pasó {originMember} de {beforeCredential} hacia {credential} en {agenda}.",
     "it": "{user} ha cambiato {originMember} de {beforeCredential} ha {credential} su {agenda}.",
-    "io": "crwdns11050:0{user}crwdnd11050:0{originMember}crwdnd11050:0{beforeCredential}crwdnd11050:0{credential}crwdnd11050:0{agenda}crwdne11050:0"
+    "io": "crwdns11050:0{user}crwdnd11050:0{originMember}crwdnd11050:0{beforeCredential}crwdnd11050:0{credential}crwdnd11050:0{agenda}crwdne11050:0",
+    "oc": "{user} a passat {originMember} de {beforeCredential} a {credential} sus {agenda}."
   },
   "agenda.addSource": {
     "en": "{user} added {sourceAgenda} as a source to {agenda}.",
     "fr": "{user} a ajouté {sourceAgenda} aux sources de {agenda}.",
     "it": "{user} ha aggiunto {sourceAgenda} alle fonti di {agenda}.",
-    "io": "crwdns11052:0{user}crwdnd11052:0{sourceAgenda}crwdnd11052:0{agenda}crwdne11052:0"
+    "io": "crwdns11052:0{user}crwdnd11052:0{sourceAgenda}crwdnd11052:0{agenda}crwdne11052:0",
+    "oc": "{user} a apondut {sourceAgenda} coma sorsa sus {agenda}."
   },
   "agenda.removeSource": {
     "en": "{user} removed {sourceAgenda} from the sources of {agenda}.",
@@ -110,7 +116,8 @@ module.exports = {
     "de": "{user} Veranstaltung von \"{before}\" bestanden \"{after}\".",
     "es": "{user} pasó del {event} \"{before}\" a \"{after}\".",
     "it": "{user} ha cambiato {event} de \"{before}\" ha \"{after}\".",
-    "io": "crwdns11068:0{user}crwdnd11068:0{event}crwdnd11068:0{before}crwdnd11068:0{after}crwdne11068:0"
+    "io": "crwdns11068:0{user}crwdnd11068:0{event}crwdnd11068:0{before}crwdnd11068:0{after}crwdne11068:0",
+    "oc": "{user} a passat {event} de \"{before}\" a \"{after}\"."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",
@@ -118,7 +125,8 @@ module.exports = {
     "de": "{user} {event} auf {agenda} veröffentlicht.",
     "es": "{user} registró {event} sobre el agenda {agenda}.",
     "it": "{user} ha pubblicato {event} su {agenda}.",
-    "io": "crwdns11070:0{user}crwdnd11070:0{event}crwdnd11070:0{agenda}crwdne11070:0"
+    "io": "crwdns11070:0{user}crwdnd11070:0{event}crwdnd11070:0{agenda}crwdne11070:0",
+    "oc": "{user} a publicat {event} sus {agenda}."
   },
   "agenda.unpublishEvent": {
     "en": "{user} unpublished {event} on {agenda}.",
@@ -132,7 +140,8 @@ module.exports = {
   "agenda.systemUnpublishEvent": {
     "en": "{event} has been automatically unpublished on {agenda} for moderation",
     "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle",
-    "io": "crwdns16404:0{event}crwdnd16404:0{agenda}crwdne16404:0"
+    "io": "crwdns16404:0{event}crwdnd16404:0{agenda}crwdne16404:0",
+    "oc": "{event} es estat automaticament despublicat de {agenda} per moderacion"
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
@@ -140,7 +149,8 @@ module.exports = {
     "de": "{user} {event} von {agenda} entfernt.",
     "es": "{user} {event} sobre el agenda {agenda} eliminado.",
     "it": "{user} ha rimosso {event} di {agenda}.",
-    "io": "crwdns11074:0{user}crwdnd11074:0{event}crwdnd11074:0{agenda}crwdne11074:0"
+    "io": "crwdns11074:0{user}crwdnd11074:0{event}crwdnd11074:0{agenda}crwdne11074:0",
+    "oc": "{user} a tirat {event} de {agenda}."
   },
   "agenda.aggregateEvent": {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
@@ -148,13 +158,15 @@ module.exports = {
     "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
     "es": "{event} del {agenda} agregada de {sourceAgenda}.",
     "it": "{agenda} ha aggregato {event} da {sourceAgenda}.",
-    "io": "crwdns11076:0{agenda}crwdnd11076:0{event}crwdnd11076:0{sourceAgenda}crwdne11076:0"
+    "io": "crwdns11076:0{agenda}crwdnd11076:0{event}crwdnd11076:0{sourceAgenda}crwdne11076:0",
+    "oc": "{agenda} a agregat {event} de {sourceAgenda}."
   },
   "agenda.addEvent": {
     "en": "{user} added {event} on {agenda} from {sourceAgenda}.",
     "fr": "{user} a ajouté {event} sur {agenda} à partir de {sourceAgenda}.",
     "it": "{user} ha aggiunto {event} su {agenda} da {sourceAgenda}.",
-    "io": "crwdns11078:0{user}crwdnd11078:0{event}crwdnd11078:0{agenda}crwdnd11078:0{sourceAgenda}crwdne11078:0"
+    "io": "crwdns11078:0{user}crwdnd11078:0{event}crwdnd11078:0{agenda}crwdnd11078:0{sourceAgenda}crwdne11078:0",
+    "oc": "{user} a apondut {event} sus {agenda} a partir de {sourceAgenda}."
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
@@ -201,7 +213,8 @@ module.exports = {
     "de": "{user} {event} auf {agenda} gelöscht.",
     "es": "{user} elimina eventos de la agenda {agenda}.",
     "it": "{user} ha cancellato {event} su {agenda}.",
-    "io": "crwdns11090:0{user}crwdnd11090:0{event}crwdnd11090:0{agenda}crwdne11090:0"
+    "io": "crwdns11090:0{user}crwdnd11090:0{event}crwdnd11090:0{agenda}crwdne11090:0",
+    "oc": "{user} a suprimit {event} sus {agenda}."
   },
   "noActivity": {
     "en": "No activity",
@@ -209,12 +222,14 @@ module.exports = {
     "de": "Keine Aktivität",
     "es": "No hay actividad",
     "it": "Nessuna attività",
-    "io": "crwdns11092:0crwdne11092:0"
+    "io": "crwdns11092:0crwdne11092:0",
+    "oc": "Pas cap activitat"
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
     "fr": "Libellé d'activité manquant pour {verb}",
     "it": "Etichetta di attività mancante per {verb}",
-    "io": "crwdns11094:0{verb}crwdne11094:0"
+    "io": "crwdns11094:0{verb}crwdne11094:0",
+    "oc": "Etiqueta d'activitat de manca per {verb}"
   }
 }

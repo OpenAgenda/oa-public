@@ -6,5 +6,10 @@
   "weekday-3": "dimècres",
   "weekday-4": "dijòus",
   "weekday-5": "divendres",
-  "weekday-6": "dissabtes"
+  "weekday-6": "dissabtes",
+  "oneDate": "%day%, %times%",
+  "twoDates": "%firstDate% e %lastDate%",
+  "moreDates": "%firstDate% - %lastDate%",
+  "noDates": "pas de datas disponiblas",
+  "prefix": "los"
 }
