@@ -71,7 +71,7 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
     };
   }
 
-  if (!schemas.agendaSchema) {
+  if (!schemas.agendaSchema || !memberRes) {
     return memberRes;
   }
 

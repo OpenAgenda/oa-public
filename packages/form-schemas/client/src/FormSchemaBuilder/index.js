@@ -59,7 +59,7 @@ export default class FormSchemaBuilder extends Component {
     super(props);
 
     const mergedSchema = this.getMergedSchema(props);
-    mergedSchema.fields = mergedSchema.fields.filter(f => f?.fieldType !== 'abstract');
+
     const schema = props.schema?.fields ? props.schema : { fields: [] };
 
     const initState = {
@@ -224,7 +224,12 @@ export default class FormSchemaBuilder extends Component {
     const currentSchema = props ? props.schema : this.getSchema();
     const extensions = _.get(props || this.props, 'extendedFrom', []);
 
-    return merge(...extensions.map(e => e.schema).concat(currentSchema));
+    const merged = merge(...extensions.map(e => e.schema).concat(currentSchema));
+
+    return {
+      ...merged,
+      fields: merged.fields.filter(f => f?.fieldType !== 'abstract'),
+    };
   }
 
   getMergedExtentionSchema(props) {
@@ -283,7 +288,6 @@ export default class FormSchemaBuilder extends Component {
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
-    mergedSchema.fields = mergedSchema.fields.filter(f => f?.fieldType !== 'abstract');
     const parentsMergedSchema = this.getMergedExtentionSchema();
     const disabled = saveState === saveStates.LOADING;
 

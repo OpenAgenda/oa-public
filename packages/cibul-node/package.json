@@ -67,7 +67,7 @@
     "@openagenda/newsletter": "^2.0.1",
     "@openagenda/oembed": "^2.1.14",
     "@openagenda/outdated-browser": "^0.0.0",
-    "@openagenda/pdf": "^0.1.4",
+    "@openagenda/pdf": "^0.1.5",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/queues": "^1.2.7",

@@ -15,6 +15,9 @@ const schema = {
         field: 'name',
         fieldType: 'text',
         label: 'Nom',
+      }, {
+        field: 'region',
+        fieldType: 'text',
       }],
     },
   }],
@@ -28,6 +31,7 @@ describe('flattenSchema', () => {
       fields: [
         { field: 'title', fieldType: 'text', label: 'Titre' },
         { field: 'location.name', fieldType: 'text', label: 'Nom' },
+        { field: 'location.region', fieldType: 'text' },
       ],
     });
   });
@@ -41,6 +45,7 @@ describe('flattenSchema', () => {
       fields: [
         { field: 'title', fieldType: 'text', label: 'Titre' },
         { field: 'location.name', fieldType: 'text', label: 'Lieu: Nom' },
+        { field: 'location.region', fieldType: 'text' },
       ],
     });
   });

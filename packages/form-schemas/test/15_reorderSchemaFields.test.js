@@ -5,21 +5,21 @@ const reorderSchemaFields = require('../client/src/FormSchemaBuilder/lib/reorder
 describe('unit - reordering schema fields', () => {
   const schema = {
     fields: [{
-      field: 'one'
+      field: 'one',
     }, {
-      field: 'three'
+      field: 'three',
     }, {
-      field: 'four'
+      field: 'four',
     }, {
-      field: 'two'
+      field: 'two',
     }, {
-      field: 'five'
-    }]
+      field: 'five',
+    }],
   };
 
   it('reorders', () => {
     expect(reorderSchemaFields(schema, 3, 1).fields.map(f => f.field)).toStrictEqual([
-      'one', 'two', 'three', 'four', 'five'
+      'one', 'two', 'three', 'four', 'five',
     ]);
   });
 });

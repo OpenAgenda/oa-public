@@ -123,7 +123,7 @@ describe('Convert specific fields', () => {
   });
 
   test('Convert member to contributor', () => {
-    expect(convertMember(false, bordeauxEventV2.member)).toStrictEqual({ organization: 'Médiathèque' });
+    expect(convertMember(false, { member: bordeauxEventV2.member })).toStrictEqual({ organization: 'Médiathèque' });
   });
 
   test('Return the event\'s permalink', () => {

@@ -28,7 +28,7 @@ module.exports = (agendaSettings, event) => {
           const item = {
             name: tagGroup.name,
             access: tagGroup.access,
-            slug: filteredTags.find(filteredTag => filteredTag.field === tagGroup.name)?.fieldSlug,
+            slug: tagGroup.slug ?? filteredTags.find(filteredTag => filteredTag.field === tagGroup.name)?.fieldSlug,
             tags: tag,
           };
           carry.push(item);

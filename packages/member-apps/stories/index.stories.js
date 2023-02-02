@@ -3,7 +3,6 @@ import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
-import Providers from './decorators/Providers';
 
 const getDefaultState = () => ({
   settings: {
@@ -32,7 +31,7 @@ const getDefaultState = () => ({
 
 export default {
   title: 'Members admin',
-  decorators: [Providers, PageDecorator],
+  decorators: [PageDecorator],
 };
 
 export const App = () =>
@@ -57,6 +56,7 @@ export const App = () =>
             moderators: false,
             embedsHead: false,
             embedsTemplates: false,
+            invitationMessage: true,
           },
           roles: [
             {

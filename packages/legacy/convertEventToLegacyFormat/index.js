@@ -139,7 +139,7 @@ module.exports = (agendaSettings, event) => {
     if (typeof legacyFormat[field] === 'object'
     && legacyFormat[field] !== null
     && Object.keys(legacyFormat[field]).length === 0
-    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html', 'registration'].includes(field)
+    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html', 'registration', 'tags', 'tagGroups', 'linkedEvents'].includes(field)
     ) {
       legacyFormat[field] = null;
     }

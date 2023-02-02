@@ -337,7 +337,7 @@ function _addCustomFields( v ) {
 
       if ( c.fieldType === 'checkbox' ) {
 
-        v.decorated.customValues[ c.name ] = !!c.value;
+        v.decorated.customValues[ c.name ] = !!(Array.isArray(c.value) ? c.value.length : c.value);
 
       } else if ( c.fieldType == 'image' && c.value ) {
 
