@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Head from 'next/head';
-import { useIntl } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
 import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import { useLatest } from 'react-use';
 import qs from 'qs';
-import { Box, Button, Container, Flex, useConst } from '@openagenda/uikit';
+import { Box, Button, Container, Flex, Text, useConst } from '@openagenda/uikit';
 import {
   FiltersProvider,
   Filters,
@@ -31,6 +31,7 @@ import Search from './components/Search';
 import MapFilter from './components/MapFilter';
 import DateRangeFilter from './components/DateRangeFilter';
 import ChoiceFilter from './components/ChoiceFilter';
+import FavoritesFilter from './components/FavoritesFilter';
 import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
 import fetchLocale from './locales';
@@ -46,6 +47,59 @@ export type AgendaShowProps = {
 
 const PAGE_SIZE = 20;
 
+const messages = defineMessages({
+  totalEvents: {
+    id: 'next.views.AgendaShow.totalEvents',
+    defaultMessage: '{count, plural, =0 {No event} one {1 event} other {# events}}',
+  },
+  totalUpcomingEvents: {
+    id: 'next.views.AgendaShow.totalUpcomingEvents',
+    defaultMessage: '{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}',
+  },
+  showUpcomingEventsOnly: {
+    id: 'next.views.AgendaShow.showUpcomingEventsOnly',
+    defaultMessage: 'Show upcoming events only',
+  },
+  includePassedEvents: {
+    id: 'next.views.AgendaShow.includePassedEvents',
+    defaultMessage: 'Include past events',
+  },
+});
+
+function Total({ total, upcomingOnly, passed, disabled }) {
+  const intl = useIntl();
+  const router = useRouter();
+
+  const togglePassed = useCallback(() => {
+    if (disabled) return;
+
+    const url = new URL(router.asPath, 'http://n');
+
+    if (passed) {
+      url.searchParams.delete('passed');
+    } else {
+      url.searchParams.set('passed', '1');
+    }
+
+    router.push(`${url.pathname}${url.search}`, null, { shallow: true });
+  }, [disabled, passed, router]);
+
+  return (
+    <Text align="center" mt="6">
+      {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
+      {' '}-{' '}
+      <Button
+        variant="link"
+        colorScheme="primary"
+        onClick={togglePassed}
+        disabled={disabled}
+      >
+        {intl.formatMessage(messages[passed ? 'showUpcomingEventsOnly' : 'includePassedEvents'])}
+      </Button>
+    </Text>
+  );
+}
+
 function AgendaShow({ agenda }: AgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
@@ -60,6 +114,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const initialValues = useConst(() => urlQuery);
 
   const [query, setQuery] = useState(() => urlQuery);
+
+  const upcomingOnly = !query.timings && query.passed !== '1';
 
   const filtersToInclude = useMemo(() => {
     const additionalFilters = agenda.schema.fields
@@ -83,13 +139,19 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   );
 
   const { data: filtersBaseData } = useSWRImmutable(
-    ['agendaShow', 'filtersBase', agenda.slug],
+    ['agendaShow', 'filtersBase', agenda.slug, { passed: query.passed }],
     () => getEvents(
       apiClient,
       `/api/agendas/slug/${agenda.slug}/events`,
       agenda,
       filters,
-      { size: 0 },
+      {
+        size: 0,
+        ...upcomingOnly ? {
+          relative: 'upcoming',
+        } : null,
+        passed: undefined, // omit passed
+      },
     ),
   );
 
@@ -118,7 +180,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       {
         sort: 'lastTimingWithFeatured.asc',
         after,
+        ...upcomingOnly ? {
+          relative: 'upcoming',
+        } : null,
         ...query,
+        passed: undefined, // omit passed
         detailed: true,
       },
     ),
@@ -178,7 +244,13 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const loadGeoData = useLoadGeoData(
     apiClient,
     `/api/agendas/slug/${agenda.slug}/events`,
-    query,
+    {
+      ...upcomingOnly ? {
+        relative: 'upcoming',
+      } : null,
+      ...query,
+      passed: undefined, // omit passed
+    },
   );
 
   // Update filters if location change (back)
@@ -237,9 +309,17 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           <Box flex="2">
             <Box ml={{ lg: '25%' }}>
               <FiltersPreview
+                agenda={agenda}
                 filters={filters}
                 getOptions={getOptions}
                 disabled={isLoadingMore}
+              />
+
+              <Total
+                total={pages[0].total}
+                upcomingOnly={upcomingOnly}
+                passed={query.passed === '1'}
+                disabled={isLoadingMore || query.timings}
               />
             </Box>
           </Box>
@@ -280,6 +360,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                 loadGeoData={loadGeoData}
                 withRef
               />
+
+              <FavoritesFilter agenda={agenda} />
             </Form>
           </Box>
 
@@ -288,39 +370,26 @@ function AgendaShow({ agenda }: AgendaShowProps) {
               <EventItem key={event.uid} event={event} agenda={agenda} />
             )))}
 
-            <Flex ml="25%" justify="space-around">
-              <Button
-                ref={ref}
-                onClick={() => setSize(size + 1)}
-                disabled={isLoadingMore || isReachingEnd}
-                variant="link"
-                colorScheme="primary"
-              >
-                Load more
-                {/* isLoadingMore
-                  ? 'Loading more...'
-                  : isReachingEnd
-                    ? 'Nothing more to load'
-                    : 'Load Newer' */}
-              </Button>
-            </Flex>
+            {!isReachingEnd ? (
+              <Flex ml="25%" justify="space-around">
+                <Button
+                  ref={ref}
+                  onClick={() => setSize(size + 1)}
+                  disabled={isLoadingMore || isReachingEnd}
+                  variant="link"
+                  colorScheme="primary"
+                >
+                  {isLoadingMore
+                    ? 'Loading more...'
+                    : 'Load more'}
+                </Button>
+              </Flex>
+            ) : null}
           </Flex>
         </Flex>
       </FiltersProvider>
     </main>
   );
-
-  /* return (
-    <Link href="/n/bordeaux-metropole/events/visite-des-arbres-remarquables-du-parc-de-bourran">
-      Go to event
-    </Link>
-      <pre>
-      <code>{JSON.stringify(agenda, null, 2)}</code>
-      </pre>
-      <pre>
-      <code>{JSON.stringify(events, null, 2)}</code>
-      </pre>
-  ); */
 }
 
 AgendaShow.fetchLocale = async locale => ({

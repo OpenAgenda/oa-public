@@ -2,5 +2,9 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": "Ajouter un événement",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Agréger",
   "next.views.AgendaShow.AgendaHeader.contact": "Contacter",
-  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda officiel"
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda officiel",
+  "next.views.AgendaShow.EventItem.addToFavorites": "Ajouter aux favoris",
+  "next.views.AgendaShow.EventItem.featured": "À la une",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "Retirer des favoris",
+  "next.views.AgendaShow.Favorites.favorites": "Favoris"
 }

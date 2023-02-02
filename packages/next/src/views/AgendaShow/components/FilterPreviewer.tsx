@@ -6,7 +6,7 @@ export default function FilterPreviewer({
   name,
   filter,
   label,
-  valueOptions,
+  valueOptions = null,
   onRemove,
   disabled,
 }) {

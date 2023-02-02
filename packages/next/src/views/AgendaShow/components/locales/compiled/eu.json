@@ -22,5 +22,29 @@
       "type": 0,
       "value": "Agenda officiel"
     }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Ajouter aux favoris"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "À la une"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Retirer des favoris"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Favoris"
+    }
   ]
 }

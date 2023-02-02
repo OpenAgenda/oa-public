@@ -1,6 +1,9 @@
+import _ from 'lodash';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useIntl } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
+import useLocalStorageState from 'use-local-storage-state';
 import {
   Box,
   Button,
@@ -14,10 +17,11 @@ import {
   LinkBox,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
+import { useForm } from '@openagenda/react-filters';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-icons';
-import { faLink, faThumbtack, faShare } from '@fortawesome/pro-solid-svg-icons';
+import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import upperFirst from 'utils/upperFirst';
@@ -26,6 +30,78 @@ import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import Image from 'components/Image';
 
 const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
+
+const messages = defineMessages({
+  featured: {
+    id: 'next.views.AgendaShow.EventItem.featured',
+    defaultMessage: 'Featured',
+  },
+  addToFavorites: {
+    id: 'next.views.AgendaShow.EventItem.addToFavorites',
+    defaultMessage: 'Add to favorites',
+  },
+  removeFromFavorites: {
+    id: 'next.views.AgendaShow.EventItem.removeFromFavorites',
+    defaultMessage: 'Remove from favorites',
+  },
+});
+
+function FavoriteButton({ agenda, event }) {
+  const intl = useIntl();
+  const form = useForm();
+  const [favorites, setFavorites] = useLocalStorageState('favorites');
+  const agendaFavorites = favorites?.[agenda.uid];
+  const isFavorite = agendaFavorites?.includes(event.uid);
+
+  const toggleFavorite = useCallback(() => {
+    setFavorites(prev => {
+      if (isFavorite) { // remove favorite
+        const newValue = prev[agenda.uid].filter(v => v !== event.uid);
+        return {
+          ...prev,
+          [agenda.uid]: newValue.length ? newValue : undefined,
+        };
+      }
+      return { // add favorite
+        ...prev,
+        [agenda.uid]: [
+          ...prev?.[agenda.uid] || [],
+          event.uid,
+        ],
+      };
+    });
+  }, [agenda.uid, event.uid, isFavorite, setFavorites]);
+
+  // Watch value change
+  useEffect(() => {
+    // const active = agendaFavorites?.includes(event.uid);
+
+    // updateCustomFilter(widget, active);
+
+    const formValues = form.getState().values;
+    const value = agendaFavorites?.map(String);
+
+    // if favorties filter checked
+    if (formValues.favorites && !_.isEqual(formValues.uid, value)) {
+      form.change('uid', agendaFavorites?.length ? value : ['-1']);
+    }
+  }, [form, event.uid, agendaFavorites]);
+
+  return (
+    <IconButton
+      aria-label={intl.formatMessage(messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'])}
+      variant="link"
+      colorScheme={isFavorite ? 'primary' : 'oaGray'}
+      onClick={toggleFavorite}
+      size="lg"
+      fontSize="xl"
+      icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
+      minW="0"
+      ml="6"
+      // px="0"
+    />
+  );
+}
 
 export default function EventItem({ event, agenda }) {
   const router = useRouter();
@@ -44,7 +120,9 @@ export default function EventItem({ event, agenda }) {
           <div>
             {event.featured ? (
               <Text mb="2">
-                <FontAwesomeIcon icon={faThumbtack} /> À la une
+                <FontAwesomeIcon icon={faThumbtack} />
+                &nbsp;
+                {intl.formatMessage(messages.featured)}
               </Text>
             ) : null}
             <Text color="oaGray.500">
@@ -89,16 +167,7 @@ export default function EventItem({ event, agenda }) {
             </NextChakraLinkOverlay>
           </Heading>
 
-          <IconButton
-            aria-label="Add to favorite"
-            variant="link"
-            size="lg"
-            fontSize="xl"
-            icon={<FontAwesomeIcon icon={faStar} />}
-            minW="0"
-            ml="6"
-            // px="0"
-          />
+          <FavoriteButton agenda={agenda} event={event} />
         </Flex>
 
         {/* eslint-disable-next-line no-nested-ternary */}
@@ -176,20 +245,8 @@ export default function EventItem({ event, agenda }) {
               <FontAwesomeIcon icon={faShare} />
             </Button>
           </Box>
-
-          {/* <Box as="pre" whiteSpace="pre-wrap">
-          {JSON.stringify(event, null, 2)}
-        </Box> */}
         </Flex>
       </LinkBox>
     </Flex>
   );
-  // return (
-  //   <Flex>
-  //     <Box flex="1 0 0%" textAlign="right" pe="4">Time</Box>
-  //     <Box as="pre" flex="3 0 0%" wordBreak="break-word" whiteSpace="pre-wrap">
-  //       {JSON.stringify(event, null, 2)}
-  //     </Box>
-  //   </Flex>
-  // );
 }

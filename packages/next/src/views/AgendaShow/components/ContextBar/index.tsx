@@ -29,6 +29,9 @@ export default function ContextBar({ agenda }) {
 
   if (status === FetchStatus.Fetching) return null;
 
+  // not a member
+  if (!me) return null;
+
   const { drafts } = me.events;
   const isAdminMod = ['administrator', 'moderator'].includes(me.member.role);
 

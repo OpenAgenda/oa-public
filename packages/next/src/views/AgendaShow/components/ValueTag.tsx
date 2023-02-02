@@ -18,7 +18,7 @@ const messages = {
 
 export default function ValueTag({
   label,
-  title,
+  title = null,
   onRemove,
   disabled,
 }) {
