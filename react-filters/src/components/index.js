@@ -5,6 +5,7 @@ export { default as DefinedRangeFilter } from './filters/DefinedRangeFilter';
 export { default as MapFilter } from './filters/MapFilter';
 export { default as ChoiceFilter } from './filters/ChoiceFilter';
 export { default as SearchFilter } from './filters/SearchFilter';
+export { default as FavoritesFilter } from './filters/FavoritesFilter';
 
 export { default as ActiveFilters } from './ActiveFilters';
 export { default as FavoriteToggle } from './FavoriteToggle';
@@ -19,4 +20,4 @@ export { default as ValueBadge } from './ValueBadge';
 
 export { default as IntlProvider } from './IntlProvider';
 export { IntlProvider as ReactIntlProvider } from 'react-intl';
-export { Field } from 'react-final-form';
+export { Field, FormSpy } from 'react-final-form';
