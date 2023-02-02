@@ -1,1 +1,4 @@
-{}
+{
+  "common.errors.endLessThanBegin": "Al mens un orari es invalid, amb una ora de debuta situada aprèp l'ora de fin",
+  "common.errors.required": "Requesit"
+}

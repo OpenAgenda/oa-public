@@ -33,11 +33,11 @@
   "ReactFilters.messages.attendanceMode.online": "crwdns16876:0crwdne16876:0",
   "ReactFilters.messages.boolean.notSelected": "crwdns17310:0crwdne17310:0",
   "ReactFilters.messages.boolean.selected": "crwdns17312:0crwdne17312:0",
-  "ReactFilters.messages.choiceFilter.lessOptions": "crwdns16536:0crwdne16536:0",
-  "ReactFilters.messages.choiceFilter.moreOptions": "crwdns16538:0crwdne16538:0",
-  "ReactFilters.messages.choiceFilter.noResult": "crwdns16540:0crwdne16540:0",
-  "ReactFilters.messages.choiceFilter.searchPlaceholder": "crwdns16542:0crwdne16542:0",
-  "ReactFilters.messages.choiceFilter.unrecognizedOption": "crwdns16544:0{value}crwdne16544:0",
+  "ReactFilters.messages.choiceFilter.lessOptions": "crwdns32809:0crwdne32809:0",
+  "ReactFilters.messages.choiceFilter.moreOptions": "crwdns32811:0crwdne32811:0",
+  "ReactFilters.messages.choiceFilter.noResult": "crwdns32813:0crwdne32813:0",
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": "crwdns32815:0crwdne32815:0",
+  "ReactFilters.messages.choiceFilter.unrecognizedOption": "crwdns32817:0{value}crwdne32817:0",
   "ReactFilters.messages.featured.featured": "crwdns16878:0crwdne16878:0",
   "ReactFilters.messages.filterTitles.accessibility": "crwdns32434:0crwdne32434:0",
   "ReactFilters.messages.filterTitles.addMethod": "crwdns16596:0crwdne16596:0",
@@ -76,5 +76,7 @@
   "ReactFilters.messages.status.postponed": "crwdns16906:0crwdne16906:0",
   "ReactFilters.messages.status.programmed": "crwdns16908:0crwdne16908:0",
   "ReactFilters.messages.status.rescheduled": "crwdns16910:0crwdne16910:0",
-  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0"
+  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0",
+  "ReactFilters.messages.filterTitles.languages": "crwdns32825:0crwdne32825:0",
+  "ReactFilters.messages.map.searchWithMap": "crwdns32827:0crwdne32827:0"
 }
