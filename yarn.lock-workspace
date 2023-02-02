@@ -4988,7 +4988,7 @@ __metadata:
     final-form: ^4.20.2
     fuse.js: ^6.4.6
     jest: ^28.1.2
-    leaflet: ^1.7.1
+    leaflet: ^1.9.3
     lint-staged: ^10.2.11
     lodash: ^4.17.20
     mkdirp: ^1.0.4
@@ -5003,7 +5003,7 @@ __metadata:
     react-final-form: ^6.5.3
     react-final-form-listeners: ^1.0.3
     react-intl: ^5.12.2
-    react-leaflet: ^3.1.0
+    react-leaflet: ^4.2.0
     react-query: ^3.31.0
     react-select: ^3.1.0
     react-uid: ^2.3.0
@@ -5350,14 +5350,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-leaflet/core@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@react-leaflet/core@npm:1.0.2"
+"@react-leaflet/core@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@react-leaflet/core@npm:2.1.0"
   peerDependencies:
-    leaflet: ^1.7.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-  checksum: 91faa91888f3d8b37862e69c9c2678653a2e0efdfe8b7ebe4f5e942d42f718941165f805c8c872f666c24903b3879afd80ba3c6d8a999e50a1ad1fb08bb7519d
+    leaflet: ^1.9.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: c11a15fb71a9929b809f346d8f784d0f32afa373bc096aa1f0d0fa6a2ef0ce632a563c31876abf8b255a12a19d6e80ece31e2ef505f79a678bbf073e7a6c5c60
   languageName: node
   linkType: hard
 
@@ -19968,10 +19968,10 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"leaflet@npm:^1.7.1":
-  version: 1.7.1
-  resolution: "leaflet@npm:1.7.1"
-  checksum: f69149ab482eeb6cdabd837939c4782c97a7a18bc0b2a9330d4a828ca0dc6e035981f2ecdb71c6646aa173bc369cd3b4fd6bbe5d81df4c59c45254f9e9361d03
+"leaflet@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "leaflet@npm:1.9.3"
+  checksum: f8bc33215e6aed8488cb3d32511b943ff093c1747bcda8a39116e24fe714e12525f1a6843b6a79940ece4cf8d2a86e2cb1d7b80fc550344b3182659b19231a04
   languageName: node
   linkType: hard
 
@@ -25026,16 +25026,16 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"react-leaflet@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "react-leaflet@npm:3.1.0"
+"react-leaflet@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "react-leaflet@npm:4.2.0"
   dependencies:
-    "@react-leaflet/core": ^1.0.2
+    "@react-leaflet/core": ^2.1.0
   peerDependencies:
-    leaflet: ^1.7.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-  checksum: 52063a09cae8f642ad5736ca9c23dc833a073e5bf130b5fd146c5a5189bd87c64b6aec4be42333be0ce2582d8e05ed461061ed7c16f958006546399b75169a46
+    leaflet: ^1.9.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: da6351ac89c110039d1e9e72888e7c8c04982a87c0e48c1a2eafc689b52e88e95cc74f7e621eddab7d2de1f4979ad34c3bc74483d60ef44b0ef89f67ee237d1a
   languageName: node
   linkType: hard
 
