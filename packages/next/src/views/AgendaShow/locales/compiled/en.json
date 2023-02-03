@@ -5,6 +5,12 @@
       "value": "Include past events"
     }
   ],
+  "next.views.AgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "See more"
+    }
+  ],
   "next.views.AgendaShow.showUpcomingEventsOnly": [
     {
       "type": 0,

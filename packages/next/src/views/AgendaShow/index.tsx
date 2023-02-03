@@ -64,6 +64,10 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.includePassedEvents',
     defaultMessage: 'Include past events',
   },
+  seeMore: {
+    id: 'next.views.AgendaShow.seeMore',
+    defaultMessage: 'See more',
+  },
 });
 
 function Total({ total, upcomingOnly, passed, disabled }) {
@@ -375,13 +379,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                 <Button
                   ref={ref}
                   onClick={() => setSize(size + 1)}
-                  disabled={isLoadingMore || isReachingEnd}
                   variant="link"
                   colorScheme="primary"
+                  isLoading={isLoadingMore}
                 >
-                  {isLoadingMore
-                    ? 'Loading more...'
-                    : 'Load more'}
+                  {intl.formatMessage(messages.seeMore)}
                 </Button>
               </Flex>
             ) : null}

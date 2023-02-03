@@ -2,7 +2,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import ContentLoader from 'react-content-loader';
-import { FormattedMessage } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import {
   Button,
   Container,
@@ -19,6 +19,34 @@ import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
 import logoPic from '../../../public/images/openagenda.png';
+import NextChakraLink from '../NextChakraLink';
+
+const messages = defineMessages({
+  signIn: {
+    id: 'next.components.Navbar.signIn',
+    defaultMessage: 'Sign in',
+  },
+  signUp: {
+    id: 'next.components.Navbar.signUp',
+    defaultMessage: 'Sign up',
+  },
+  myAgendas: {
+    id: 'next.components.Navbar.myAgendas',
+    defaultMessage: 'My agendas',
+  },
+  myEvents: {
+    id: 'next.components.Navbar.myEvents',
+    defaultMessage: 'My events',
+  },
+  settings: {
+    id: 'next.components.Navbar.settings',
+    defaultMessage: 'Settings',
+  },
+  signOut: {
+    id: 'next.components.Navbar.signOut',
+    defaultMessage: 'Sign out',
+  },
+});
 
 function simpleLoader({ src }) {
   return src;
@@ -46,6 +74,8 @@ function ProfileLoader(props) {
 }
 
 function ProfileMenu({ user }) {
+  const intl = useIntl();
+
   const button = user.image ? (
     <Image
       alt="Profile menu"
@@ -70,7 +100,7 @@ function ProfileMenu({ user }) {
         variant="link"
         p="4"
         py="0"
-        h="full"
+        height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
         sx={{
           // The span surrounding the image is larger than the image without this
           span: {
@@ -84,23 +114,26 @@ function ProfileMenu({ user }) {
         // https://github.com/chakra-ui/chakra-ui/issues/5742
         zIndex="5"
       >
-        <MenuItem textAlign="right">Mes agendas</MenuItem>
-        <MenuItem textAlign="right">Mes événements</MenuItem>
+        <MenuItem as={NextChakraLink} href="/home" textAlign="right">
+          {intl.formatMessage(messages.myAgendas)}
+        </MenuItem>
+        <MenuItem as={NextChakraLink} href="/home/events" textAlign="right">
+          {intl.formatMessage(messages.myEvents)}
+        </MenuItem>
         <MenuDivider />
-        <MenuItem textAlign="right">Paramètres</MenuItem>
-        <MenuItem textAlign="right">Se déconnecter</MenuItem>
+        <MenuItem as={NextChakraLink} href="/settings" textAlign="right">
+          {intl.formatMessage(messages.settings)}
+        </MenuItem>
+        <MenuItem as={NextChakraLink} href="/signout" textAlign="right">
+          {intl.formatMessage(messages.signOut)}
+        </MenuItem>
       </MenuList>
     </Menu>
   );
-
-  // return (
-  //   <Button variant="link" px="4">
-  //     {user.fullName}
-  //   </Button>
-  // );
 }
 
 function ProfileBar() {
+  const intl = useIntl();
   const { user, status } = useUser();
 
   if (status === FetchStatus.Fetching) {
@@ -118,12 +151,24 @@ function ProfileBar() {
 
   // Not authenticated
   return (
-    <Flex direction="row" gap="6">
-      <Button variant="link" colorScheme="primary">
-        <FormattedMessage id="next.components.Navbar.signIn" defaultMessage="Sign in" />
+    <Flex direction="row" gap="6" h="full">
+      <Button
+        as={NextChakraLink}
+        href="/signin"
+        variant="link"
+        colorScheme="primary"
+        height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
+      >
+        {intl.formatMessage(messages.signIn)}
       </Button>
-      <Button variant="link" colorScheme="primary">
-        <FormattedMessage id="next.components.Navbar.signUp" defaultMessage="Sign up" />
+      <Button
+        as={NextChakraLink}
+        href="/signup"
+        variant="link"
+        colorScheme="primary"
+        height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
+      >
+        {intl.formatMessage(messages.signUp)}
       </Button>
     </Flex>
   );
