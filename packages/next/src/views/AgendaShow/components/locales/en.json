@@ -2,6 +2,7 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": "Add an event",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregate",
   "next.views.AgendaShow.AgendaHeader.contact": "Contact",
+  "next.views.AgendaShow.AgendaHeader.export": "Export",
   "next.views.AgendaShow.AgendaHeader.officialAgenda": "Official agenda",
   "next.views.AgendaShow.EventItem.addToFavorites": "Add to favorites",
   "next.views.AgendaShow.EventItem.featured": "Featured",

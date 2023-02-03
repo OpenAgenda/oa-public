@@ -17,6 +17,12 @@
       "value": "Contact"
     }
   ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,

@@ -1,0 +1,152 @@
+{
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "Exporter toutes les colonnes"
+    }
+  ],
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "Exporter dans toutes les langues"
+    }
+  ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "Champs à choix: une valeur par colonne"
+    }
+  ],
+  "gcalStep2": [
+    {
+      "type": 0,
+      "value": "2. Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\""
+    }
+  ],
+  "gcalStep3": [
+    {
+      "type": 0,
+      "value": "3. Suivez les instructions en collant le lien que vous avez copié à l'étape 1."
+    }
+  ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "Sélectionner des champs"
+    }
+  ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "1. Copiez le lien ci-dessus et ouvrez "
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.close": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "Utiliser le format détaillé"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "Voir la documentation"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "Exporter tous les événements"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.exportJson": [
+    {
+      "type": 0,
+      "value": "Utiliser la précédente version de l'export JSON"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "Exporter la sélection en cours"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "Sélectionner un format"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.jsonDoc1": [
+    {
+      "type": 0,
+      "value": "Documentation"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.jsonDoc2": [
+    {
+      "type": 0,
+      "value": "ici"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.login": [
+    {
+      "type": 0,
+      "value": "Connectez-vous pour accéder au lien d'export directement depuis ce menu"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.title": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "outlookStep2": [
+    {
+      "type": 0,
+      "value": "2. En bas de page, sélectionnez l'icône calendrier"
+    }
+  ],
+  "outlookStep3": [
+    {
+      "type": 0,
+      "value": "3. Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\""
+    }
+  ],
+  "outlookStep4": [
+    {
+      "type": 0,
+      "value": "4. Sélectionnez \"S'abonner à partir du web\""
+    }
+  ],
+  "outlookStep5": [
+    {
+      "type": 0,
+      "value": "5. Collez le lien et sélectionnez \"Importer\""
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "Tout sélectionner"
+    }
+  ]
+}

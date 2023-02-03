@@ -13,7 +13,7 @@ import {
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
-// import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
+import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
 import NextChakraLink from 'components/NextChakraLink';
@@ -22,6 +22,7 @@ import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
 import useLocationQuery from 'hooks/useLocationQuery';
 import AggregateModal from './AggregateModal';
+import ExportModal from './ExportModal';
 
 const messages = defineMessages({
   contact: {
@@ -39,6 +40,10 @@ const messages = defineMessages({
   aggregate: {
     id: 'next.views.AgendaShow.AgendaHeader.aggregate',
     defaultMessage: 'Aggregate',
+  },
+  export: {
+    id: 'next.views.AgendaShow.AgendaHeader.export',
+    defaultMessage: 'Export',
   },
 });
 
@@ -69,6 +74,12 @@ export default function AgendaHeader({ agenda }) {
     onOpen: aggregateOnOpen,
     onClose: aggregateOnClose,
   } = useDisclosure({ defaultIsOpen: urlQuery.displayAggregatorModal === '1' });
+
+  const {
+    isOpen: exportIsOpen,
+    onOpen: exportOnOpen,
+    onClose: exportOnClose,
+  } = useDisclosure({});
 
   return (
     <HStack spacing="8">
@@ -124,21 +135,26 @@ export default function AgendaHeader({ agenda }) {
           >
             {intl.formatMessage(messages.contact)}
           </Button>
-          {/* <Button
-            as={NextChakraLink}
-            href={`/${agenda.slug}/contact`}
+          <Button
+            onClick={exportOnOpen}
             leftIcon={<FontAwesomeIcon icon={faShareNodes} />}
             variant="outline"
-            color="white"
+            colorScheme="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
               color: 'primary.500',
-              textDecoration: 'none',
             }}
           >
-            Exporter
-          </Button> */}
+            {intl.formatMessage(messages.export)}
+          </Button>
+          {exportIsOpen ? (
+            <ExportModal
+              isOpen
+              onClose={exportOnClose}
+              agendaUid={agenda.uid}
+            />
+          ) : null}
           <Button
             onClick={aggregateOnOpen}
             leftIcon={<OAIcon />}

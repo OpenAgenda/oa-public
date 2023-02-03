@@ -123,7 +123,7 @@ module.exports = (agendaSettings, event) => {
   }, getFirstLastTimings(event.timings), {
     permalink: getPermalink(agendaSettings, event),
     featured: Number(event.featured),
-    custom: getCustom(agendaSettings, event),
+    custom: getCustom({ agendaSettings, admin }, event),
     contributor: convertMember(admin, event),
     category: getCategory(agendaSettings, event),
     tags,
