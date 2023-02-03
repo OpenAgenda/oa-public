@@ -89,7 +89,7 @@ const layoutStore = createLayoutStore(initialState.layout, history);
 const reduxMiddleware = createReduxMiddleware(layoutStore, queryClient);
 
 const apps = [
-  ['home', createHomeApp, MainLayout],
+  ['home', createHomeApp, [MainLayout, RequiredUser]],
   ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
   ['agendaSettingsNew', createAgendaSettingsNewApp, [MainLayout, RequiredUser]],
   ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
