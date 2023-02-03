@@ -1,4 +1,8 @@
 {
+  "next.components.Navbar.myAgendas": "My agendas",
+  "next.components.Navbar.myEvents": "My events",
+  "next.components.Navbar.settings": "Settings",
   "next.components.Navbar.signIn": "Sign in",
+  "next.components.Navbar.signOut": "Sign out",
   "next.components.Navbar.signUp": "Sign up"
 }

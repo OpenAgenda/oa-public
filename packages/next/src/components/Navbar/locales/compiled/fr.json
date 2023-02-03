@@ -1,8 +1,32 @@
 {
+  "next.components.Navbar.myAgendas": [
+    {
+      "type": 0,
+      "value": "Mes agendas"
+    }
+  ],
+  "next.components.Navbar.myEvents": [
+    {
+      "type": 0,
+      "value": "Mes événements"
+    }
+  ],
+  "next.components.Navbar.settings": [
+    {
+      "type": 0,
+      "value": "Paramètres"
+    }
+  ],
   "next.components.Navbar.signIn": [
     {
       "type": 0,
       "value": "Se connecter"
+    }
+  ],
+  "next.components.Navbar.signOut": [
+    {
+      "type": 0,
+      "value": "Se déconnecter"
     }
   ],
   "next.components.Navbar.signUp": [
