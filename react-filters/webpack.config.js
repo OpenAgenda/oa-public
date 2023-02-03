@@ -24,6 +24,7 @@ const modulesToInclude = [
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
   '@openagenda/supervisor',
+  '@react-leaflet/core',
   'buffer',
   'debug',
   'intl-messageformat',
@@ -31,6 +32,7 @@ const modulesToInclude = [
   'is-plain-obj',
   'lru-cache',
   'react-intl',
+  'react-leaflet',
   'react-markdown',
   'yallist',
 ];
