@@ -4,22 +4,26 @@ module.exports = {
   "from": {
     "en": "From ",
     "fr": "Du ",
-    "io": "crwdns31290:0crwdne31290:0"
+    "io": "crwdns31290:0crwdne31290:0",
+    "oc": "Del "
   },
   "to": {
     "en": "To ",
     "fr": "Au ",
-    "io": "crwdns31292:0crwdne31292:0"
+    "io": "crwdns31292:0crwdne31292:0",
+    "oc": "Al "
   },
   "at": {
     "en": " at ",
     "fr": " à ",
-    "io": "crwdns31294:0crwdne31294:0"
+    "io": "crwdns31294:0crwdne31294:0",
+    "oc": " a "
   },
   "checkboxInfo": {
     "en": " Restrict the periods allowed for the dates entered",
     "fr": " Restreindre les périodes autorisées pour les dates saisies",
-    "io": "crwdns31296:0crwdne31296:0"
+    "io": "crwdns31296:0crwdne31296:0",
+    "oc": " Restrénher los periòdes autorizats per las datas entradas"
   },
   "constraintError": {
     "en": "New limit should be in constraint",

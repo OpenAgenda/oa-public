@@ -1,4 +1,18 @@
 {
   "removeMemberInformation": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh.",
-  "draft": "Borrolhon"
+  "draft": "Borrolhon",
+  "myAgendas": "Mas agendas",
+  "createAgenda": "Crear una agenda",
+  "searchAgenda": "Cercar una agenda",
+  "myEvents": "Mos eveniments",
+  "addAnEvent": "Apondre un eveniment",
+  "manage": "Gerir",
+  "officialAgenda": "Agenda oficiala",
+  "noResult": "Pas cap resultat trobat",
+  "createEvent": "Crear un eveniment",
+  "searchEvent": "Cercar un eveniment",
+  "selectAgenda": "Causir una agenda per i crear l'eveniment",
+  "privateAgenda": "Agenda privada",
+  "contact": "Contactar",
+  "see": "Veire"
 }

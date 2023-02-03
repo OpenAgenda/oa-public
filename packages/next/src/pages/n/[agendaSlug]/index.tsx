@@ -59,6 +59,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
     include: filtersToInclude,
   });
 
+  const prefilter = !query.timings && query.passed !== '1' ? {
+    relative: 'upcoming',
+  } : null;
+
   const [
     filtersBaseResult,
     filtersResult,
@@ -68,7 +72,11 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
       '/api/agendas/:slug/events',
       agenda,
       filters,
-      { size: 0 },
+      {
+        ...prefilter,
+        passed: undefined, // omit passed
+        size: 0,
+      },
       null,
       true,
     ),
@@ -78,8 +86,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query: qu
       agenda,
       filters,
       {
-        // sort: 'lastTimingWithFeatured.asc',
+        sort: 'lastTimingWithFeatured.asc',
+        ...prefilter,
         ...query,
+        passed: undefined, // omit passed
         detailed: true,
       },
       // 1, // page

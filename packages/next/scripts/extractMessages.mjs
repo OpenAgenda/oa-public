@@ -284,6 +284,8 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     const depsLocalesDirs = [];
     for (const viewDep of viewDeps) {
       const depLocalesDir = path.join(path.dirname(viewDep), 'locales');
+      if (depLocalesDir === localesDir) continue;
+
       const depDefaultLocalePath = path.join(depLocalesDir, `${DEFAULT_LANG}.json`);
       if (!depsLocalesDirs.includes(depLocalesDir) && await fileExists(depDefaultLocalePath)) {
         depsLocalesDirs.push(depLocalesDir);

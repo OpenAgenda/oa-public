@@ -8,7 +8,8 @@ module.exports = {
     "de": "Ihre Aktion wird bearbeitet. Die Veranstaltungen im Staat %oldstate% werden in Kürze in %newstate% geändert.",
     "pl": "Twoja akcja jest przetwarzana. Wydarzenia w stanie %oldstate% zostaną wkrótce zmienione na %newstate%.",
     "es": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve.",
-    "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0"
+    "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0",
+    "oc": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%."
   },
   "ownershipTransfered": {
     "en": "The ownership of the event has successfully been transferred",
@@ -27,7 +28,8 @@ module.exports = {
     "de": "Herunterladen",
     "pl": "Pobieranie",
     "es": "descargar",
-    "io": "crwdns12766:0crwdne12766:0"
+    "io": "crwdns12766:0crwdne12766:0",
+    "oc": "Descargar"
   },
   "allLanguages": {
     "en": "All languages",
@@ -36,7 +38,8 @@ module.exports = {
     "de": "Alle Sprachen",
     "pl": "Wszystkie języki",
     "es": "todos los idiomas",
-    "io": "crwdns12768:0crwdne12768:0"
+    "io": "crwdns12768:0crwdne12768:0",
+    "oc": "Totas las lengas"
   },
   "spreadsheetDescription": {
     "en": "Limit downloaded content to specified languages",
@@ -45,6 +48,7 @@ module.exports = {
     "de": "Beschränkung heruntergeladener Inhalte auf bestimmte Sprachen",
     "pl": "Ogranicz pobraną zawartość do określonych języków",
     "es": "Limitar datos descargados algunos idiomas",
-    "io": "crwdns12770:0crwdne12770:0"
+    "io": "crwdns12770:0crwdne12770:0",
+    "oc": "Limitar lo contengut descargat a las lengas indicadas"
   }
 }

@@ -1,1 +1,8 @@
-{}
+{
+  "newAggregationSubject": "%agenda% a agregat un eveniment novèl : %event%",
+  "newAggregationBody": "**%event%** de l'agenda **%sourceAgenda%** es estat agregat amb l'estatut **%state%**",
+  "newAggregationAction": "Veire l'eveniment",
+  "toBeControlled": "de repassar",
+  "readyToPublish": "prèste a publicar",
+  "published": "publicat"
+}

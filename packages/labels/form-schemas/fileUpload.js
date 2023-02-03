@@ -63,6 +63,7 @@ module.exports = {
     "de": "Löschen",
     "es": "Eliminar",
     "it": "Cancellare",
-    "io": "crwdns14862:0crwdne14862:0"
+    "io": "crwdns14862:0crwdne14862:0",
+    "oc": "Suprimir"
   }
 }

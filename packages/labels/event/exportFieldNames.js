@@ -15,7 +15,8 @@ module.exports = {
     "de": "Titel",
     "es": "título",
     "it": "Titolo",
-    "io": "crwdns14148:0crwdne14148:0"
+    "io": "crwdns14148:0crwdne14148:0",
+    "oc": "Títol"
   },
   "description": {
     "en": "Description",
@@ -23,7 +24,8 @@ module.exports = {
     "de": "Beschreibung",
     "es": "descripción",
     "it": "Descrizione",
-    "io": "crwdns14150:0crwdne14150:0"
+    "io": "crwdns14150:0crwdne14150:0",
+    "oc": "Descripcion"
   },
   "longDescription": {
     "en": "Long description",
@@ -48,7 +50,8 @@ module.exports = {
     "es": "Palabras llave",
     "it": "Parole Chiave",
     "br": "Gerioù-alc'hwez",
-    "io": "crwdns14156:0crwdne14156:0"
+    "io": "crwdns14156:0crwdne14156:0",
+    "oc": "Mots claus"
   },
   "html": {
     "en": "Long description - HTML",
@@ -64,7 +67,8 @@ module.exports = {
     "de": "Bild",
     "es": "imagen",
     "it": "Immagine",
-    "io": "crwdns14160:0crwdne14160:0"
+    "io": "crwdns14160:0crwdne14160:0",
+    "oc": "Imatge"
   },
   "imageCredits": {
     "en": "Image credits",
@@ -73,7 +77,8 @@ module.exports = {
     "es": "Créditos de las imágenes",
     "it": "Crediti immagine",
     "br": "Perc'henn ar skeudenn",
-    "io": "crwdns14162:0crwdne14162:0"
+    "io": "crwdns14162:0crwdne14162:0",
+    "oc": "Crèdits de l'imatge"
   },
   "thumbnail": {
     "en": "Thumbnail",
@@ -104,7 +109,8 @@ module.exports = {
     "fr": "Création de la fiche",
     "es": "La creación de los detalles",
     "it": "Creazione del record",
-    "io": "crwdns14170:0crwdne14170:0"
+    "io": "crwdns14170:0crwdne14170:0",
+    "oc": "Data de creacion"
   },
   "range": {
     "en": "Timings overview",
@@ -209,7 +215,8 @@ module.exports = {
     "es": "En titular",
     "it": "Selezionato",
     "br": "Keleier pennañ",
-    "io": "crwdns14194:0crwdne14194:0"
+    "io": "crwdns14194:0crwdne14194:0",
+    "oc": "Meses en avant"
   },
   "link": {
     "en": "Link",
@@ -256,7 +263,8 @@ module.exports = {
     "de": "Standortnamen",
     "es": "Nombre del Lugar",
     "it": "Nome del luogo",
-    "io": "crwdns14204:0crwdne14204:0"
+    "io": "crwdns14204:0crwdne14204:0",
+    "oc": "Nom de lòc"
   },
   "location.address": {
     "en": "Address",
@@ -264,7 +272,8 @@ module.exports = {
     "de": "Adresse",
     "es": "dirección",
     "it": "Indirizzo",
-    "io": "crwdns14206:0crwdne14206:0"
+    "io": "crwdns14206:0crwdne14206:0",
+    "oc": "Adreiça"
   },
   "location.postalCode": {
     "en": "Postal code",
@@ -272,7 +281,8 @@ module.exports = {
     "de": "Postleitzahl",
     "es": "Código postal",
     "it": "Codice postale",
-    "io": "crwdns14208:0crwdne14208:0"
+    "io": "crwdns14208:0crwdne14208:0",
+    "oc": "Còdi postal"
   },
   "location.city": {
     "en": "City",
@@ -281,7 +291,8 @@ module.exports = {
     "es": "ciudad",
     "it": "Città",
     "br": "Kêr",
-    "io": "crwdns14210:0crwdne14210:0"
+    "io": "crwdns14210:0crwdne14210:0",
+    "oc": "Vila"
   },
   "location.department": {
     "en": "Department",
@@ -290,7 +301,8 @@ module.exports = {
     "es": "departamento",
     "it": "Provincia",
     "br": "Departamant",
-    "io": "crwdns14212:0crwdne14212:0"
+    "io": "crwdns14212:0crwdne14212:0",
+    "oc": "Departament"
   },
   "location.region": {
     "en": "Region",
@@ -298,7 +310,8 @@ module.exports = {
     "de": "Region",
     "es": "Región",
     "it": "Regione",
-    "io": "crwdns14214:0crwdne14214:0"
+    "io": "crwdns14214:0crwdne14214:0",
+    "oc": "Region"
   },
   "location.countryCode": {
     "en": "Country",
@@ -307,7 +320,8 @@ module.exports = {
     "es": "país",
     "it": "Paese",
     "br": "Bro",
-    "io": "crwdns14216:0crwdne14216:0"
+    "io": "crwdns14216:0crwdne14216:0",
+    "oc": "País"
   },
   "location.image": {
     "en": "Location image",
@@ -379,7 +393,8 @@ module.exports = {
     "de": "Stichworte",
     "es": "etiquetas",
     "it": "Tags",
-    "io": "crwdns14234:0crwdne14234:0"
+    "io": "crwdns14234:0crwdne14234:0",
+    "oc": "Etiquetas"
   },
   "age.min": {
     "en": "Minimum age",
@@ -476,7 +491,8 @@ module.exports = {
     "de": "Zustand",
     "es": "estatus",
     "it": "Stato",
-    "io": "crwdns14258:0crwdne14258:0"
+    "io": "crwdns14258:0crwdne14258:0",
+    "oc": "Estat"
   },
   "references": {
     "en": "Linked events",
@@ -493,7 +509,8 @@ module.exports = {
     "es": "Modo de asistencia",
     "de": "Anwesenheitsmodus",
     "br": "Doare perzhiañ",
-    "io": "crwdns16152:0crwdne16152:0"
+    "io": "crwdns16152:0crwdne16152:0",
+    "oc": "Mòde de participacion"
   },
   "onlineAccessLink": {
     "fr": "Lien d'accès",
@@ -507,7 +524,8 @@ module.exports = {
   "status": {
     "fr": "État",
     "en": "Status",
-    "io": "crwdns16156:0crwdne16156:0"
+    "io": "crwdns16156:0crwdne16156:0",
+    "oc": "Estatut"
   },
   "member.uid": {
     "fr": "Membre: identifiant",

@@ -20,7 +20,8 @@ module.exports = {
     "pl": "Exportuj",
     "es": "exportación",
     "br": "Ezporzhiañ",
-    "io": "crwdns14428:0crwdne14428:0"
+    "io": "crwdns14428:0crwdne14428:0",
+    "oc": "Exportar"
   },
   "cannotShareInfo": {
     "en": "This share is not available for private or unpublished events",
@@ -71,7 +72,8 @@ module.exports = {
     "pl": "Wstecz",
     "es": "regreso",
     "br": "Distreiñ",
-    "io": "crwdns14436:0crwdne14436:0"
+    "io": "crwdns14436:0crwdne14436:0",
+    "oc": "Tornar"
   },
   "ticketingLink": {
     "en": "Ticketing link",
@@ -91,7 +93,8 @@ module.exports = {
     "pl": "od %start% do %finish%",
     "es": "Del%start% al %finish %",
     "br": "eus an %start% d'an %finish%",
-    "io": "crwdns14440:0%start%crwdnd14440:0%finish%crwdne14440:0"
+    "io": "crwdns14440:0%start%crwdnd14440:0%finish%crwdne14440:0",
+    "oc": "%start% a %finish%"
   },
   "onAt": {
     "en": "on %start% @ %time%",
@@ -122,7 +125,8 @@ module.exports = {
     "pl": "Prywatne",
     "es": "privado",
     "br": "Prevez",
-    "io": "crwdns14446:0crwdne14446:0"
+    "io": "crwdns14446:0crwdne14446:0",
+    "oc": "Privat"
   },
   "edit": {
     "en": "Edit",
@@ -132,7 +136,8 @@ module.exports = {
     "pl": "Edytuj",
     "es": "Editar",
     "br": "Kemmañ",
-    "io": "crwdns14448:0crwdne14448:0"
+    "io": "crwdns14448:0crwdne14448:0",
+    "oc": "Modificar"
   },
   "delete": {
     "en": "Delete",
@@ -142,7 +147,8 @@ module.exports = {
     "pl": "Usuń",
     "es": "Eliminar",
     "br": "Dilemel",
-    "io": "crwdns14450:0crwdne14450:0"
+    "io": "crwdns14450:0crwdne14450:0",
+    "oc": "Suprimir"
   },
   "deleteInfo": {
     "en": "Permanently remove this event from OpenAgenda",
@@ -170,7 +176,8 @@ module.exports = {
     "pl": "Dowiedz się więcej",
     "es": "A proposito",
     "br": "Diwar-benn",
-    "io": "crwdns14458:0crwdne14458:0"
+    "io": "crwdns14458:0crwdne14458:0",
+    "oc": "A prepaus"
   },
   "help": {
     "en": "Help",
@@ -180,7 +187,8 @@ module.exports = {
     "pl": "Pomoc",
     "es": "Ayuda",
     "br": "Skoazell",
-    "io": "crwdns14460:0crwdne14460:0"
+    "io": "crwdns14460:0crwdne14460:0",
+    "oc": "Ajuda"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -190,7 +198,8 @@ module.exports = {
     "pl": "Warunki korzystania",
     "es": "condiciones de uso",
     "br": "Penndivizoù implij",
-    "io": "crwdns14462:0crwdne14462:0"
+    "io": "crwdns14462:0crwdne14462:0",
+    "oc": "Condicions d'utilizacion"
   },
   "descriptionAvailableIn": {
     "en": "Description available in",
@@ -266,7 +275,8 @@ module.exports = {
     "pl": "Potwierdź",
     "es": "Confirmar",
     "br": "Kadarnaat",
-    "io": "crwdns14478:0crwdne14478:0"
+    "io": "crwdns14478:0crwdne14478:0",
+    "oc": "Confirmar"
   },
   "cannotChangeStatus": {
     "en": "Cancel / Full / Postponed...",
@@ -286,7 +296,8 @@ module.exports = {
     "pl": "Anuluj",
     "es": "anular",
     "br": "Nullañ",
-    "io": "crwdns14482:0crwdne14482:0"
+    "io": "crwdns14482:0crwdne14482:0",
+    "oc": "Anullar"
   },
   "cancelled": {
     "en": "Canceled",
@@ -326,7 +337,8 @@ module.exports = {
     "fr": "Demander les droits d'édition",
     "en": "Request edition rights",
     "io": "crwdns14494:0crwdne14494:0",
-    "it": "Chiedere il diritto di modificare questo evento"
+    "it": "Chiedere il diritto di modificare questo evento",
+    "oc": "Demandar los dreits d'edicion"
   },
   "requestEditionRightsInfo": {
     "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
@@ -353,7 +365,8 @@ module.exports = {
     "pl": "Opublikowano",
     "es": "publicado",
     "br": "Embannet",
-    "io": "crwdns14500:0crwdne14500:0"
+    "io": "crwdns14500:0crwdne14500:0",
+    "oc": "Publicat"
   },
   "publishedInfo": {
     "en": "Publish this event to make it visible on the agenda main page",
@@ -393,7 +406,8 @@ module.exports = {
     "pl": "Odrzucono",
     "es": "rechazado",
     "br": "Nac'het",
-    "io": "crwdns14508:0crwdne14508:0"
+    "io": "crwdns14508:0crwdne14508:0",
+    "oc": "Refusat"
   },
   "refusedInfo": {
     "en": "This event is not compatible with the agenda and should not be published",
@@ -473,7 +487,8 @@ module.exports = {
     "pl": "Nie opublikowano",
     "es": "inédito",
     "br": "N'eo ket embannet",
-    "io": "crwdns14524:0crwdne14524:0"
+    "io": "crwdns14524:0crwdne14524:0",
+    "oc": "Pas publicat"
   },
   "backToDashboard": {
     "en": "Back to the dashboard",
@@ -523,7 +538,8 @@ module.exports = {
     "pl": "Opisane",
     "es": "Poner en una",
     "br": "E-mesk ar c'heleier pennañ",
-    "io": "crwdns14534:0crwdne14534:0"
+    "io": "crwdns14534:0crwdne14534:0",
+    "oc": "Meses en avant"
   },
   "featuredInfo": {
     "en": "The event will appear on top of the agenda's event list",
@@ -664,7 +680,8 @@ module.exports = {
     "pl": "Dostęp",
     "es": "acceso",
     "br": "Moned",
-    "io": "crwdns14564:0crwdne14564:0"
+    "io": "crwdns14564:0crwdne14564:0",
+    "oc": "Accès"
   },
   "aboutTheVenue": {
     "en": "About the venue",
@@ -684,7 +701,8 @@ module.exports = {
     "pl": "Etykiety",
     "es": "Etiquetas",
     "br": "Merkoù",
-    "io": "crwdns14568:0crwdne14568:0"
+    "io": "crwdns14568:0crwdne14568:0",
+    "oc": "Etiquetas"
   },
   "category": {
     "en": "Category",
@@ -704,7 +722,8 @@ module.exports = {
     "pl": "Skontaktuj",
     "es": "Contactar con",
     "br": "Mont e darempred",
-    "io": "crwdns14572:0crwdne14572:0"
+    "io": "crwdns14572:0crwdne14572:0",
+    "oc": "Contactar"
   },
   "contactAdministrators": {
     "en": "Contact administrators",
@@ -764,7 +783,8 @@ module.exports = {
     "pl": "Stan",
     "es": "Estatus",
     "br": "Statud",
-    "io": "crwdns14584:0crwdne14584:0"
+    "io": "crwdns14584:0crwdne14584:0",
+    "oc": "Estat"
   },
   "editLocation": {
     "en": "Edit location",
@@ -814,7 +834,8 @@ module.exports = {
     "pl": "Skrzynka z informacjami",
     "es": "mensajería",
     "br": "Postelerezh",
-    "io": "crwdns14592:0crwdne14592:0"
+    "io": "crwdns14592:0crwdne14592:0",
+    "oc": "Messatjariá"
   },
   "contactForm": {
     "en": "Contact form",
@@ -911,7 +932,8 @@ module.exports = {
     "en": "Postponed",
     "fr": "Reporté",
     "it": "Riprogrammato",
-    "io": "crwdns16130:0crwdne16130:0"
+    "io": "crwdns16130:0crwdne16130:0",
+    "oc": "Remandat"
   },
   "markAsPostponed": {
     "en": "The event is postponed",

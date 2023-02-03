@@ -1,3 +1,12 @@
 {
-  "actionDescription": "Mostrar l'agenda"
+  "actionDescription": "Mostrar l'agenda",
+  "subject": "OpenAgenda | Novèl messatge",
+  "subjectWithAgenda": "OpenAgenda | {agenda} | Novèl messatge",
+  "title": "Avètz recebut un novèl messatge.",
+  "titleWithAgenda": "Avètz recebut un novèl messatge dins la boita de {agenda}.",
+  "sentBy": "Mandat per <b>{senderName}</b>",
+  "reply": "Respondre",
+  "unsubscribe": "Arrestar de recebre de messatges {agenda, select, null {de ma boita} other {de las boitas de las agendas}}",
+  "memberUnsubscribe": "Arrestar de recebre los messatges de la boita d'aquesta agenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
 }

@@ -1,0 +1,88 @@
+{
+  "next.views.AgendaShow.includePassedEvents": [
+    {
+      "type": 0,
+      "value": "Include past events"
+    }
+  ],
+  "next.views.AgendaShow.showUpcomingEventsOnly": [
+    {
+      "type": 0,
+      "value": "Show upcoming events only"
+    }
+  ],
+  "next.views.AgendaShow.totalEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.totalUpcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No upcoming event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 upcoming event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " upcoming events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

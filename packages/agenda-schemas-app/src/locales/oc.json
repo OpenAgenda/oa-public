@@ -1,3 +1,11 @@
 {
-  "AgendaSchema.needMoreFields": "Vos fan mestièr mai de camps?"
+  "AgendaSchema.needMoreFields": "Vos fan mestièr mai de camps?",
+  "AgendaSchema.AfterRedirectModal.title": "Informacions",
+  "AgendaSchema.EmbedSelection.events": "Eveniments",
+  "AgendaSchema.EmbedSelection.members": "Membres",
+  "AgendaSchema.adaptForm": "Adaptar la configuracion del formulari d'eveniment",
+  "AgendaSchema.event": "Estandard",
+  "AgendaSchema.eventDetail": "Camp d'eveniment estandard",
+  "AgendaSchema.network": "Malhum",
+  "AgendaSchema.networkDetail": "Camp requesit pel malhum d'agendas"
 }

@@ -7,7 +7,8 @@ module.exports = {
     "de": "der Kategoriename darf nicht leer sein",
     "es": "la categoría no puede estar vacía",
     "it": "la categoria non può essere vuota",
-    "io": "crwdns11444:0crwdne11444:0"
+    "io": "crwdns11444:0crwdne11444:0",
+    "oc": "la categoria pòt pas èsser voida"
   },
   "duplicate": {
     "en": "this category already exists",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Diese Kategorie ist bereits vorhanden",
     "es": "Esta categoría ya existe",
     "it": "questa categoria esiste già",
-    "io": "crwdns11446:0crwdne11446:0"
+    "io": "crwdns11446:0crwdne11446:0",
+    "oc": "aquesta categoria existís ja"
   },
   "categories": {
     "en": "Categories",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Kategorien",
     "es": "Categorías",
     "it": "Categorie",
-    "io": "crwdns11448:0crwdne11448:0"
+    "io": "crwdns11448:0crwdne11448:0",
+    "oc": "Categorias"
   },
   "subtitle": {
     "en": "Categories form a single selection list",
@@ -40,7 +43,8 @@ module.exports = {
     "de": "Name der Liste",
     "es": "Encabezando la lista",
     "it": "Nome della lista",
-    "io": "crwdns11452:0crwdne11452:0"
+    "io": "crwdns11452:0crwdne11452:0",
+    "oc": "Nom de la tièra"
   },
   "listInfo": {
     "en": "Information field",
@@ -48,7 +52,8 @@ module.exports = {
     "de": "Informationsfeld",
     "es": "Campo indicativo",
     "it": "Campo indicativo",
-    "io": "crwdns11454:0crwdne11454:0"
+    "io": "crwdns11454:0crwdne11454:0",
+    "oc": "Camp d'informacion"
   },
   "listSection": {
     "en": "Agenda categories",
@@ -65,7 +70,8 @@ module.exports = {
     "de": "Hinzufügen",
     "es": "Añadir",
     "it": "Aggiungere",
-    "io": "crwdns11458:0crwdne11458:0"
+    "io": "crwdns11458:0crwdne11458:0",
+    "oc": "Apondre"
   },
   "noCategories": {
     "en": "You haven't yet defined any category for this agenda",
@@ -82,7 +88,8 @@ module.exports = {
     "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
     "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
-    "io": "crwdns11462:0crwdne11462:0"
+    "io": "crwdns11462:0crwdne11462:0",
+    "oc": "I aguèt una error pendent l'enregistrament de vòstras donadas. Mercés de tornar ensajar mai tard"
   },
   "cancelUpdateTag": {
     "en": "Cancel",
@@ -91,7 +98,8 @@ module.exports = {
     "es": "Anular",
     "it": "Annullare",
     "br": "Nullañ",
-    "io": "crwdns11464:0crwdne11464:0"
+    "io": "crwdns11464:0crwdne11464:0",
+    "oc": "Anullar"
   },
   "updateTag": {
     "en": "Ok",
@@ -108,6 +116,7 @@ module.exports = {
     "de": "Stellen erforderlich. Eine Kategorie muss ausgewählt werden.",
     "es": "Los mandatos. Se seleccionará una categoría.",
     "it": "Rendetelo obbligatorio. Deve essere selezionata una categoria.",
-    "io": "crwdns11468:0crwdne11468:0"
+    "io": "crwdns11468:0crwdne11468:0",
+    "oc": "Rendre obligatòri. Caldrà seleccionar una categoria."
   }
 }

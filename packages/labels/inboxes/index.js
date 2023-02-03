@@ -7,7 +7,8 @@ module.exports = {
     "de": "Posteingang",
     "es": "mensajería",
     "it": "Messaggi",
-    "io": "crwdns14998:0crwdne14998:0"
+    "io": "crwdns14998:0crwdne14998:0",
+    "oc": "Messatjariá"
   },
   "conversation": {
     "fr": "Conversation",
@@ -79,7 +80,8 @@ module.exports = {
     "de": "Kein Ergebnis",
     "es": "ningún resultado",
     "it": "Nessun risultato",
-    "io": "crwdns15016:0crwdne15016:0"
+    "io": "crwdns15016:0crwdne15016:0",
+    "oc": "Pas cap resultat"
   },
   "back": {
     "fr": "Retour",
@@ -87,7 +89,8 @@ module.exports = {
     "de": "Zurück",
     "es": "regreso",
     "it": "Indietro",
-    "io": "crwdns15018:0crwdne15018:0"
+    "io": "crwdns15018:0crwdne15018:0",
+    "oc": "Tornar"
   },
   "showAllConversations": {
     "fr": "Voir toutes les conversations",
@@ -168,7 +171,8 @@ module.exports = {
     "es": "enviar a",
     "it": "Invia",
     "br": "Kemmañ",
-    "io": "crwdns15038:0crwdne15038:0"
+    "io": "crwdns15038:0crwdne15038:0",
+    "oc": "Sometre"
   },
   "required": {
     "fr": "Requis",
@@ -177,7 +181,8 @@ module.exports = {
     "es": "necesario",
     "it": "Richiesto",
     "br": "Rekis",
-    "io": "crwdns15040:0crwdne15040:0"
+    "io": "crwdns15040:0crwdne15040:0",
+    "oc": "Requesit"
   },
   "message": {
     "fr": "Message",
@@ -462,10 +467,12 @@ module.exports = {
   "memberSchemaTitle": {
     "fr": "Demande de champs membre personnalisés",
     "en": "Request custom member fields",
+    "io": "crwdns32919:0crwdne32919:0"
   },
   "memberSchemaDesc": {
     "fr": "Vous voulez modifier le formulaire d'identification des membres?",
-    "en": "Want to modify the member identification form?"
+    "en": "Want to modify the member identification form?",
+    "io": "crwdns32921:0crwdne32921:0"
   },
   "writeToAllTitle": {
     "fr": "Demande d'activation de la fonction \"Leur écrire\"",
@@ -521,7 +528,8 @@ module.exports = {
     "de": "Kontaktieren Sie den Administrator",
     "es": "Póngase en contacto con el administrador",
     "it": "Contattare l'amministratore",
-    "io": "crwdns15098:0crwdne15098:0"
+    "io": "crwdns15098:0crwdne15098:0",
+    "oc": "Contactar l'administrator·a"
   },
   "contactName": {
     "fr": "Contacter %name%",
@@ -634,7 +642,8 @@ module.exports = {
     "es": "cerca",
     "it": "Chiudere",
     "br": "Serriñ",
-    "io": "crwdns15126:0crwdne15126:0"
+    "io": "crwdns15126:0crwdne15126:0",
+    "oc": "Tampar"
   },
   "cancel": {
     "fr": "Annuler",
@@ -643,7 +652,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns15128:0crwdne15128:0"
+    "io": "crwdns15128:0crwdne15128:0",
+    "oc": "Anullar"
   },
   "confirm": {
     "fr": "Confirmer",
@@ -651,7 +661,8 @@ module.exports = {
     "de": "Bestätigen",
     "es": "Confirmar",
     "it": "Confermare",
-    "io": "crwdns15130:0crwdne15130:0"
+    "io": "crwdns15130:0crwdne15130:0",
+    "oc": "Confirmar"
   },
   "closeConversation": {
     "fr": "Fermer la conversation",
@@ -811,7 +822,8 @@ module.exports = {
     "de": "auf",
     "es": "en",
     "it": "su",
-    "io": "crwdns15170:0crwdne15170:0"
+    "io": "crwdns15170:0crwdne15170:0",
+    "oc": "los"
   },
   "of": {
     "fr": "de",
@@ -827,7 +839,8 @@ module.exports = {
     "de": "oder",
     "es": "o",
     "it": "oppure",
-    "io": "crwdns15174:0crwdne15174:0"
+    "io": "crwdns15174:0crwdne15174:0",
+    "oc": "o"
   },
   "ofTheAgenda": {
     "fr": "de l'agenda",
@@ -1091,7 +1104,8 @@ module.exports = {
     "de": "Von",
     "es": "Desde",
     "it": "Da",
-    "io": "crwdns15240:0crwdne15240:0"
+    "io": "crwdns15240:0crwdne15240:0",
+    "oc": "De"
   },
   "validate": {
     "fr": "Valider",
@@ -1099,7 +1113,8 @@ module.exports = {
     "de": "Bestätigen",
     "es": "validar",
     "it": "Convalida",
-    "io": "crwdns15242:0crwdne15242:0"
+    "io": "crwdns15242:0crwdne15242:0",
+    "oc": "Validar"
   },
   "supportPlaceholder": {
     "fr": "Bonjour,\n\nJ'ai un problème lorsque j'utilise OpenAgenda avec ...",

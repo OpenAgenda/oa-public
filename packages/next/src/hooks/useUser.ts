@@ -9,16 +9,18 @@ import { FetchStatus } from 'config/types';
 //   -> add req.session, getServerSideProps add the user to page props
 // TODO layout to getLayout(pageProps) to use user
 
-const fetcher = url => fetch(url)
-  .then(
-    r => {
-      if (r.ok) return r.json();
-      if (r.status === 401) return null;
-      // TODO should recreate an error with data in `await r.json()`
-      // console.log('ERROR response', await r.json());
-      throw new Error('Error');
-    },
-  );
+function fetcher(url) {
+  return fetch(url)
+    .then(
+      r => {
+        if (r.ok) return r.json();
+        if (r.status === 401) return null;
+        // TODO should recreate an error with data in `await r.json()`
+        // console.log('ERROR response', await r.json());
+        throw new Error('Error');
+      },
+    );
+}
 
 export default function useUser({ redirectTo = null, redirectIfFound = false } = {}) {
   // return typeof window !== 'undefined'

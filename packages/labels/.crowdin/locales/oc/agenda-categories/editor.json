@@ -2,5 +2,14 @@
   "subtitle": "Las categorias fòrman una tièra de causida unica",
   "listSection": "Categorias de l'agenda",
   "noCategories": "Avètz pas encara definit cap categoria per aquesta agenda",
-  "updateTag": "Ok"
+  "updateTag": "Ok",
+  "empty": "la categoria pòt pas èsser voida",
+  "duplicate": "aquesta categoria existís ja",
+  "categories": "Categorias",
+  "listName": "Nom de la tièra",
+  "listInfo": "Camp d'informacion",
+  "add": "Apondre",
+  "linkError": "I aguèt una error pendent l'enregistrament de vòstras donadas. Mercés de tornar ensajar mai tard",
+  "cancelUpdateTag": "Anullar",
+  "required": "Rendre obligatòri. Caldrà seleccionar una categoria."
 }

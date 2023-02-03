@@ -8,7 +8,8 @@ module.exports = {
     "es": "rechazado",
     "br": "nac'het",
     "it": "rifiutato",
-    "io": "crwdns14602:0crwdne14602:0"
+    "io": "crwdns14602:0crwdne14602:0",
+    "oc": "refusat"
   },
   "tocontrol": {
     "fr": "en modération",
@@ -35,7 +36,8 @@ module.exports = {
     "es": "listo para publicar",
     "br": "Prest da vezañ embannet",
     "it": "pronto a pubblicare",
-    "io": "crwdns14608:0crwdne14608:0"
+    "io": "crwdns14608:0crwdne14608:0",
+    "oc": "prèste a publicar"
   },
   "published": {
     "fr": "publié",
@@ -44,7 +46,8 @@ module.exports = {
     "es": "publicado",
     "br": "embannet",
     "it": "pubblicato",
-    "io": "crwdns14610:0crwdne14610:0"
+    "io": "crwdns14610:0crwdne14610:0",
+    "oc": "publicat"
   },
   "featured": {
     "fr": "en une",

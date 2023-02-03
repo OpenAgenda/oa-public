@@ -37,7 +37,8 @@ module.exports = {
     "de": "Finde mehr heraus",
     "es": "Más información",
     "it": "Per saperne di più",
-    "io": "crwdns14656:0crwdne14656:0"
+    "io": "crwdns14656:0crwdne14656:0",
+    "oc": "Ne saber mai"
   },
   "processingTranslation": {
     "fr": "Traduction en cours",

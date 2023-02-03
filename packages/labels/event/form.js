@@ -17,7 +17,8 @@ module.exports = {
     "es": "Modo de asistencia",
     "de": "Anwesenheitsmodus",
     "br": "Doare perzhiañ",
-    "io": "crwdns14264:0crwdne14264:0"
+    "io": "crwdns14264:0crwdne14264:0",
+    "oc": "Mòde de participacion"
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
@@ -35,7 +36,8 @@ module.exports = {
     "es": "En linea",
     "de": "Online",
     "br": "Enlinenn",
-    "io": "crwdns14268:0crwdne14268:0"
+    "io": "crwdns14268:0crwdne14268:0",
+    "oc": "En linha"
   },
   "mixedAttendanceMode": {
     "fr": "Mixte",
@@ -44,7 +46,8 @@ module.exports = {
     "es": "Mezclado",
     "de": "Gemischt",
     "br": "Kemmesk",
-    "io": "crwdns14270:0crwdne14270:0"
+    "io": "crwdns14270:0crwdne14270:0",
+    "oc": "Mesclat"
   },
   "onlineAccessLink": {
     "fr": "Lien d'accès",
@@ -107,7 +110,8 @@ module.exports = {
     "de": "Titel",
     "es": "título",
     "br": "Titl",
-    "io": "crwdns14284:0crwdne14284:0"
+    "io": "crwdns14284:0crwdne14284:0",
+    "oc": "Títol"
   },
   "titlePurpose": {
     "fr": "Titre de l'événement",
@@ -189,7 +193,8 @@ module.exports = {
     "de": "Bildnachweise",
     "es": "créditos del imágen",
     "br": "Perc'henn ar skeudenn",
-    "io": "crwdns14300:0crwdne14300:0"
+    "io": "crwdns14300:0crwdne14300:0",
+    "oc": "Crèdits de l'imatge"
   },
   "longDescription": {
     "fr": "Description longue",
@@ -222,7 +227,8 @@ module.exports = {
     "de": "Schlüsselwörter",
     "es": "Palabras llave",
     "br": "Gerioù-alc'hwez",
-    "io": "crwdns14306:0crwdne14306:0"
+    "io": "crwdns14306:0crwdne14306:0",
+    "oc": "Mots claus"
   },
   "keywordsPlaceholder": {
     "fr": "Séparez les mots clés par des tabulations ou des virgules",
@@ -327,7 +333,8 @@ module.exports = {
     "de": "Timings",
     "es": "horario",
     "br": "Eurioù",
-    "io": "crwdns14328:0crwdne14328:0"
+    "io": "crwdns14328:0crwdne14328:0",
+    "oc": "Oraris"
   },
   "timingsInfo": {
     "fr": "Définissez les horaires de votre événement",
@@ -354,7 +361,8 @@ module.exports = {
     "de": "Auswählen",
     "es": "seleccionar",
     "br": "Diuzañ",
-    "io": "crwdns14334:0crwdne14334:0"
+    "io": "crwdns14334:0crwdne14334:0",
+    "oc": "Seleccionar"
   },
   "languages": {
     "fr": "Langues de saisie",
@@ -372,13 +380,15 @@ module.exports = {
     "de": "Eine Sprache hinzufügen",
     "es": "Agregar idioma",
     "br": "Ouzhpennañ ur yezh",
-    "io": "crwdns14338:0crwdne14338:0"
+    "io": "crwdns14338:0crwdne14338:0",
+    "oc": "Apondre una lenga"
   },
   "selectLanguage": {
     "en": "Select",
     "fr": "Sélectionner",
     "it": "Seleziona",
-    "io": "crwdns14340:0crwdne14340:0"
+    "io": "crwdns14340:0crwdne14340:0",
+    "oc": "Seleccionar"
   },
   "cancelLanguageChange": {
     "fr": "Annuler",
@@ -387,7 +397,8 @@ module.exports = {
     "de": "Abbrechen",
     "es": "anular",
     "br": "Nullañ",
-    "io": "crwdns14342:0crwdne14342:0"
+    "io": "crwdns14342:0crwdne14342:0",
+    "oc": "Anullar"
   },
   "noDates": {
     "fr": "Au moins un horaire doit être défini",
@@ -405,7 +416,8 @@ module.exports = {
     "de": "Kategorien",
     "es": "categorías",
     "br": "Rummadoù",
-    "io": "crwdns14346:0crwdne14346:0"
+    "io": "crwdns14346:0crwdne14346:0",
+    "oc": "Categorias"
   },
   "tagsTitle": {
     "en": "Tags",
@@ -414,7 +426,8 @@ module.exports = {
     "de": "Tags",
     "es": "etiquetas",
     "br": "Merkoù",
-    "io": "crwdns14348:0crwdne14348:0"
+    "io": "crwdns14348:0crwdne14348:0",
+    "oc": "Etiquetas"
   },
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
@@ -433,7 +446,8 @@ module.exports = {
     "de": "Tags",
     "es": "etiquetas",
     "br": "Merkoù",
-    "io": "crwdns14352:0crwdne14352:0"
+    "io": "crwdns14352:0crwdne14352:0",
+    "oc": "Etiquetas"
   },
   "defaultTagGroupInfo": {
     "en": "These are used to index your event in the agenda. You can select several.",
@@ -451,7 +465,8 @@ module.exports = {
     "de": "Erforderlich.",
     "es": "Requerido.",
     "br": "Rekis.",
-    "io": "crwdns14356:0crwdne14356:0"
+    "io": "crwdns14356:0crwdne14356:0",
+    "oc": "Requesit."
   },
   "categoriesRequired": {
     "en": "Required.",
@@ -460,7 +475,8 @@ module.exports = {
     "de": "Erforderlich.",
     "es": "Requerido.",
     "br": "Rekis.",
-    "io": "crwdns14358:0crwdne14358:0"
+    "io": "crwdns14358:0crwdne14358:0",
+    "oc": "Requesit."
   },
   "requiredTagError": {
     "en": "You must select at least one item",
@@ -469,7 +485,8 @@ module.exports = {
     "de": "Du musstmindestens eine Position auswählen.",
     "es": "Usted debe hacer al menos una selección",
     "br": "Ret eo deoc'h diuzañ un elfenn da vihanañ",
-    "io": "crwdns14360:0crwdne14360:0"
+    "io": "crwdns14360:0crwdne14360:0",
+    "oc": "Vos cal causir al mens un element"
   },
   "requiredCategoryError": {
     "en": "You must select one item",
@@ -478,7 +495,8 @@ module.exports = {
     "de": "Du mussteine Position auswählen.",
     "es": "Usted debe hacer una selección",
     "br": "Ret eo deoc'h diuzañ un elfenn",
-    "io": "crwdns14362:0crwdne14362:0"
+    "io": "crwdns14362:0crwdne14362:0",
+    "oc": "Vos cal causir un element"
   },
   "noSelection": {
     "en": "None of the above",
@@ -487,7 +505,8 @@ module.exports = {
     "de": "Keiner der oben genannten Punkte",
     "es": "otra opción",
     "br": "Hini ebet eus ar re a-us",
-    "io": "crwdns14364:0crwdne14364:0"
+    "io": "crwdns14364:0crwdne14364:0",
+    "oc": "Pas res"
   },
   "compulsoryNote": {
     "en": "Fields marked with a * must be filled",
@@ -530,11 +549,13 @@ module.exports = {
     "fr": "Reporté",
     "en": "Postponed",
     "it": "Riprogrammato",
-    "io": "crwdns16108:0crwdne16108:0"
+    "io": "crwdns16108:0crwdne16108:0",
+    "oc": "Remandat"
   },
   "status": {
     "fr": "État",
     "en": "Status",
-    "io": "crwdns16110:0crwdne16110:0"
+    "io": "crwdns16110:0crwdne16110:0",
+    "oc": "Estatut"
   }
 };

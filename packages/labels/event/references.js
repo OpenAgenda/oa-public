@@ -47,7 +47,8 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
     "it": "Aggiungere un evento",
-    "io": "crwdns14378:0crwdne14378:0"
+    "io": "crwdns14378:0crwdne14378:0",
+    "oc": "Apondre un eveniment"
   },
   "addEventOr": {
     "fr": "ou",
@@ -55,7 +56,8 @@ module.exports = {
     "de": "oder",
     "es": "o",
     "it": "oppure",
-    "io": "crwdns14380:0crwdne14380:0"
+    "io": "crwdns14380:0crwdne14380:0",
+    "oc": "o"
   },
   "addEventSuggest": {
     "fr": "Charger des événements similaires",

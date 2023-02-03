@@ -1,1 +1,7 @@
-{}
+{
+  "map": "mapa",
+  "passed": "eveniments passats",
+  "location": "lòc",
+  "fromTo": "de %start% a %end%",
+  "selection": "seleccion d'eveniments"
+}

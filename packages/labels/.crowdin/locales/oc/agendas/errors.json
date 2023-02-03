@@ -1,3 +1,5 @@
 {
-  "eventAlreadyAdded": "l'eveniment fa ja partida de l'agenda"
+  "eventAlreadyAdded": "l'eveniment fa ja partida de l'agenda",
+  "selectActionBefore": "Causissètz una accion de menar abans de quichar sul boton",
+  "unknownAction": "L'accion demandada nos es desconeguda"
 }

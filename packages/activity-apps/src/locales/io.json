@@ -64,7 +64,7 @@
   "ActivityApps.notifications.agendaSetMemberRole.withoutActor": "crwdns32800:0{object}crwdnd32800:0{afterRole}crwdnd32800:0{target}crwdne32800:0",
   "ActivityApps.notifications.agendaSetOfficial": "crwdns32634:0{target}crwdne32634:0",
   "ActivityApps.notifications.agendaSystemRemoveEvent": "crwdns32636:0{object}crwdnd32636:0{target}crwdne32636:0",
-  "ActivityApps.notifications.agendaSystemUnpublishEvent": "crwdns32638:0{object}crwdnd32638:0{target}crwdne32638:0",
+  "ActivityApps.notifications.agendaSystemUnpublishEvent": "crwdns32638:0objectCount={objectCount}crwdnd32638:0object={object}crwdnd32638:0target={target}crwdnd32638:0object={object}crwdnd32638:0target={target}crwdne32638:0",
   "ActivityApps.notifications.agendaUnpublishEvent": "crwdns32640:0{actor}crwdnd32640:0{object}crwdnd32640:0{target}crwdne32640:0",
   "ActivityApps.notifications.agendaUnpublishEvent.withoutActor": "crwdns32802:0{object}crwdnd32802:0{target}crwdne32802:0",
   "ActivityApps.notifications.agendaUpdate": "crwdns32642:0{actor}crwdnd32642:0{target}crwdne32642:0",

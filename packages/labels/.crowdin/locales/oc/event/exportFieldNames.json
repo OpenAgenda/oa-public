@@ -1,5 +1,23 @@
 {
   "location.latitude": "Latitud",
   "location.longitude": "Longitud",
-  "location.district": "Districte"
+  "location.district": "Districte",
+  "title": "Títol",
+  "description": "Descripcion",
+  "keywords": "Mots claus",
+  "image": "Imatge",
+  "imageCredits": "Crèdits de l'imatge",
+  "createdAt": "Data de creacion",
+  "featured": "Meses en avant",
+  "location.name": "Nom de lòc",
+  "location.address": "Adreiça",
+  "location.postalCode": "Còdi postal",
+  "location.city": "Vila",
+  "location.department": "Departament",
+  "location.region": "Region",
+  "location.countryCode": "País",
+  "tags": "Etiquetas",
+  "state": "Estat",
+  "attendanceMode": "Mòde de participacion",
+  "status": "Estatut"
 }

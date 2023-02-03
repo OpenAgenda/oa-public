@@ -14,12 +14,14 @@ module.exports = {
     "fr": "Vous n'avez pas accès à l'édition de cet événement",
     "en": "You do not have edit rights to this event",
     "it": "Non avete accesso all'edizione di questo evento",
-    "io": "crwdns11480:0crwdne11480:0"
+    "io": "crwdns11480:0crwdne11480:0",
+    "oc": "Avètz pas los dreits d'edicion per aqueste eveniment"
   },
   "noAccessToCreate": {
     "fr": "Vous n'avez pas accès à la création d'événements sur cet agenda",
     "en": "You do not have the right to create this event",
-    "io": "crwdns11482:0crwdne11482:0"
+    "io": "crwdns11482:0crwdne11482:0",
+    "oc": "Avètz pas lo dreit de crear aqueste eveniment"
   },
   "noAccessToDraft": {
     "fr": "Vous n'avez pas accès à l'édition de ce brouillon",

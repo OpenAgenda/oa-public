@@ -1,1 +1,5 @@
-{}
+{
+  "AgendaSchema.EmbedSelection.events": "Eventi",
+  "AgendaSchema.EmbedSelection.members": "Membri",
+  "AgendaSchema.event": "Standard"
+}

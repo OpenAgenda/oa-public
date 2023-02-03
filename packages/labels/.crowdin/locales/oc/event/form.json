@@ -1,4 +1,25 @@
 {
   "categoriesInfo": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
-  "movedOnline": "Transferit en linha"
+  "movedOnline": "Transferit en linha",
+  "attendanceMode": "Mòde de participacion",
+  "onlineAttendanceMode": "En linha",
+  "mixedAttendanceMode": "Mesclat",
+  "title": "Títol",
+  "imageCredits": "Crèdits de l'imatge",
+  "keywords": "Mots claus",
+  "timings": "Oraris",
+  "uploadButton": "Seleccionar",
+  "addLanguage": "Apondre una lenga",
+  "selectLanguage": "Seleccionar",
+  "cancelLanguageChange": "Anullar",
+  "categoriesTitle": "Categorias",
+  "tagsTitle": "Etiquetas",
+  "defaultTagGroupName": "Etiquetas",
+  "required": "Requesit.",
+  "categoriesRequired": "Requesit.",
+  "requiredTagError": "Vos cal causir al mens un element",
+  "requiredCategoryError": "Vos cal causir un element",
+  "noSelection": "Pas res",
+  "postponed": "Remandat",
+  "status": "Estatut"
 }

@@ -3,5 +3,20 @@
   "longitude": "Longitud",
   "district": "Districte",
   "agendaEventCount": "Eveniments associats dins l'agenda",
-  "extId": "Identificant extèrne"
+  "extId": "Identificant extèrne",
+  "uid": "Identificant",
+  "name": "Nom",
+  "address": "Adreiça",
+  "city": "Vila",
+  "department": "Departament",
+  "postalCode": "Còdi postal",
+  "insee": "Còdi INSEE",
+  "countryCode": "Còdi país",
+  "region": "Region",
+  "eventCount": "Eveniments associats",
+  "state": "Verificat",
+  "slug": "Còdi URL",
+  "website": "Site web",
+  "access": "Accès",
+  "description": "Descripcion"
 }

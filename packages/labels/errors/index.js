@@ -121,7 +121,8 @@ module.exports = {
     "es": "necesario",
     "br": "Rekis",
     "it": "Richiesto",
-    "io": "crwdns14058:0crwdne14058:0"
+    "io": "crwdns14058:0crwdne14058:0",
+    "oc": "Requesit"
   },
   "choice.required": {
     "fr": "Requis",
@@ -130,7 +131,8 @@ module.exports = {
     "es": "necesario",
     "br": "Rekis",
     "it": "Richiesto",
-    "io": "crwdns14060:0crwdne14060:0"
+    "io": "crwdns14060:0crwdne14060:0",
+    "oc": "Requesit"
   },
   "choice.required.max": {
     "fr": "La sélection ne peut excéder %max% choix",

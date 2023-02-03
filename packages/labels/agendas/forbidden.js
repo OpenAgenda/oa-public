@@ -7,7 +7,8 @@ module.exports = {
     "de": "Unautorisierter Zugriff",
     "es": "Acceso no autorizado",
     "it": "Accesso non autorizzato",
-    "io": "crwdns12848:0crwdne12848:0"
+    "io": "crwdns12848:0crwdne12848:0",
+    "oc": "Accès pas autorizat"
   },
   "content": {
     "fr": "L'accès à cet agenda est restreint, contactez l'administrateur de l'agenda pour plus d'informations.",
@@ -24,7 +25,8 @@ module.exports = {
     "de": "die Administratoren kontaktieren",
     "es": "Póngase en contacto con el administrador",
     "it": "Contattare l'amministratore",
-    "io": "crwdns12852:0crwdne12852:0"
+    "io": "crwdns12852:0crwdne12852:0",
+    "oc": "Contactar l'administrator·a"
   },
   "back": {
     "fr": "Retour à l'agenda",

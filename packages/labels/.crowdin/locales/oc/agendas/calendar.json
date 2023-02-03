@@ -1,1 +1,14 @@
-{}
+{
+  "allDay": "Tota la jornada",
+  "previous": "Precedent",
+  "next": "Seguent",
+  "today": "Uèi",
+  "month": "Mes",
+  "week": "Setmana",
+  "day": "Jorn",
+  "agenda": "Agenda",
+  "date": "Data",
+  "time": "Ora",
+  "event": "Eveniment",
+  "more": "Veire totes los eveniments"
+}

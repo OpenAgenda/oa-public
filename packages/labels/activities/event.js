@@ -4,7 +4,8 @@ module.exports = {
   "agenda.changeEventState": {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\" on {agenda}.",
     "fr": "{user} a passé {event} de \"{before}\" à \"{after}\" sur {agenda}.",
-    "io": "crwdns11154:0{user}crwdnd11154:0{event}crwdnd11154:0{before}crwdnd11154:0{after}crwdnd11154:0{agenda}crwdne11154:0"
+    "io": "crwdns11154:0{user}crwdnd11154:0{event}crwdnd11154:0{before}crwdnd11154:0{after}crwdnd11154:0{agenda}crwdne11154:0",
+    "oc": "{user} a passat {event} de \"{before}\" a \"{after}\" sus {agenda}."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",
@@ -12,7 +13,8 @@ module.exports = {
     "de": "{user} {event} auf {agenda} veröffentlicht.",
     "es": "{user} registró {event} sobre el agenda {agenda}.",
     "it": "{user} ha pubblicato {event} su {agenda}.",
-    "io": "crwdns11156:0{user}crwdnd11156:0{event}crwdnd11156:0{agenda}crwdne11156:0"
+    "io": "crwdns11156:0{user}crwdnd11156:0{event}crwdnd11156:0{agenda}crwdne11156:0",
+    "oc": "{user} a publicat {event} sus {agenda}."
   },
   "agenda.unpublishEvent": {
     "en": "{user} unpublished {event} on {agenda}.",
@@ -26,7 +28,8 @@ module.exports = {
   "agenda.systemUnpublishEvent": {
     "en": "{event} has been automatically unpublished on {agenda} for moderation",
     "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle",
-    "io": "crwdns16408:0{event}crwdnd16408:0{agenda}crwdne16408:0"
+    "io": "crwdns16408:0{event}crwdnd16408:0{agenda}crwdne16408:0",
+    "oc": "{event} es estat automaticament despublicat de {agenda} per moderacion"
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
@@ -34,7 +37,8 @@ module.exports = {
     "de": "{user} {event} von {agenda} entfernt.",
     "es": "{user} {event} sobre el agenda {agenda} eliminado.",
     "it": "{user} ha rimosso {event} da {agenda}.",
-    "io": "crwdns11160:0{user}crwdnd11160:0{event}crwdnd11160:0{agenda}crwdne11160:0"
+    "io": "crwdns11160:0{user}crwdnd11160:0{event}crwdnd11160:0{agenda}crwdne11160:0",
+    "oc": "{user} a tirat {event} de {agenda}."
   },
   "agenda.aggregateEvent": {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
@@ -42,13 +46,15 @@ module.exports = {
     "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
     "es": "{event} del agenda agregada de {sourceAgenda}.",
     "it": "{agenda} ha aggregato {event} da {sourceAgenda}.",
-    "io": "crwdns11162:0{agenda}crwdnd11162:0{event}crwdnd11162:0{sourceAgenda}crwdne11162:0"
+    "io": "crwdns11162:0{agenda}crwdnd11162:0{event}crwdnd11162:0{sourceAgenda}crwdne11162:0",
+    "oc": "{agenda} a agregat {event} de {sourceAgenda}."
   },
   "agenda.addEvent": {
     "en": "{user} added {event} from {sourceAgenda}.",
     "fr": "{user} a ajouté {event} à partir de {sourceAgenda}.",
     "it": "{user} ha aggiunto {event} da {sourceAgenda}.",
-    "io": "crwdns11164:0{user}crwdnd11164:0{event}crwdnd11164:0{sourceAgenda}crwdne11164:0"
+    "io": "crwdns11164:0{user}crwdnd11164:0{event}crwdnd11164:0{sourceAgenda}crwdne11164:0",
+    "oc": "{user} a apondut {event} a partir de {sourceAgenda}."
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
@@ -95,12 +101,14 @@ module.exports = {
     "de": "{user} {event} auf {agenda} gelöscht.",
     "es": "{user} elimina eventos de la agenda {agenda}.",
     "it": "{user} ha cancellato {event} su {agenda}.",
-    "io": "crwdns11176:0{user}crwdnd11176:0{event}crwdnd11176:0{agenda}crwdne11176:0"
+    "io": "crwdns11176:0{user}crwdnd11176:0{event}crwdnd11176:0{agenda}crwdne11176:0",
+    "oc": "{user} a suprimit {event} sus {agenda}."
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
     "fr": "Libellé d'activité manquant pour {verb}",
     "it": "Etichetta di attività mancante per {verb}",
-    "io": "crwdns11178:0{verb}crwdne11178:0"
+    "io": "crwdns11178:0{verb}crwdne11178:0",
+    "oc": "Etiqueta d'activitat de manca per {verb}"
   }
 }

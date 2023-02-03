@@ -3,5 +3,7 @@
   "eventRemoveTitle": "Tirar un eveniment de l'agenda",
   "eventRemoveDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments",
   "eventDeleteDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
-  "eventDeleted": "L'eveniment es estat definitivament escafat"
+  "eventDeleted": "L'eveniment es estat definitivament escafat",
+  "eventDeleteTitle": "Supression d'eveniment",
+  "confirm": "Confirmar"
 }

@@ -19,7 +19,6 @@ const StyledSearchWithMap = chakra(SearchWithMap);
 const MapField = React.forwardRef<any, any>(function MapField(
   {
     input,
-    name,
     filter,
     tileAttribution,
     tileUrl,
@@ -31,7 +30,7 @@ const MapField = React.forwardRef<any, any>(function MapField(
   },
   ref,
 ) {
-  const [userControlled, setUserControlled, toggleUserControlled] = (useMapUserControl as UseMapUserControl)(name, searchWithMap);
+  const [userControlled, setUserControlled, toggleUserControlled] = (useMapUserControl as UseMapUserControl)(input.name, searchWithMap);
   const onChange = useMapOnChange({ filter, input, loadGeoData, ref, userControlled });
 
   return (
@@ -53,7 +52,7 @@ const MapField = React.forwardRef<any, any>(function MapField(
       </Box>
 
       <StyledSearchWithMap
-        name={name}
+        name={input.name}
         userControlled={userControlled}
         toggleUserControlled={toggleUserControlled}
         searchMessage={searchMessage}

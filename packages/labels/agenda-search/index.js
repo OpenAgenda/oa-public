@@ -7,7 +7,8 @@ module.exports = {
     "de": "Offizieller Kalender",
     "es": "agenda",
     "it": "Agenda ufficiale",
-    "io": "crwdns12412:0crwdne12412:0"
+    "io": "crwdns12412:0crwdne12412:0",
+    "oc": "Calendièr oficial"
   },
   "latestUpdated": {
     "en": "Recently updated calendars",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Kürzlich aktualisierte Kalender",
     "es": "agendas actualizados recientemente",
     "it": "Agende aggiornate di recente",
-    "io": "crwdns12414:0crwdne12414:0"
+    "io": "crwdns12414:0crwdne12414:0",
+    "oc": "Calendièrs recentament meses a jorn"
   },
   "results": {
     "en": "Search results for \"%search%\"",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Suchergebnisse für \"%search%",
     "es": "Resultados de búsqueda para \"Búsqueda%\"",
     "it": "Risultati della ricerca per \"%search%\"",
-    "io": "crwdns12416:0%search%crwdne12416:0"
+    "io": "crwdns12416:0%search%crwdne12416:0",
+    "oc": "Resultats de recèrca per \"%search%\""
   },
   "searchTitle": {
     "en": "Search agendas",
@@ -49,7 +52,8 @@ module.exports = {
     "de": "Kalender gefunden",
     "es": "Encontrado %count% agendas",
     "it": "Trovati %count% diari",
-    "io": "crwdns12422:0%count%crwdne12422:0"
+    "io": "crwdns12422:0%count%crwdne12422:0",
+    "oc": "%count% agendas trobadas"
   },
   "empty": {
     "en": "Sorry, no agendas matched this search",
@@ -57,7 +61,8 @@ module.exports = {
     "de": "Leider stimmte keine Agenda mit dieser Suche überein",
     "es": "Lo sentimos, hay una agenda coincide con esta búsqueda",
     "it": "Spiacenti, nessun agenda corrisponde a questa ricerca",
-    "io": "crwdns12424:0crwdne12424:0"
+    "io": "crwdns12424:0crwdne12424:0",
+    "oc": "Desolats, pas cap agenda correspond a aquesta recèrca"
   },
   "publishedEvent": {
     "en": "1 past event",
@@ -65,7 +70,8 @@ module.exports = {
     "de": "1 vergangene Veranstaltung",
     "es": "1 evento pasado",
     "it": "1 evento passato",
-    "io": "crwdns12426:0crwdne12426:0"
+    "io": "crwdns12426:0crwdne12426:0",
+    "oc": "1 eveniment passat"
   },
   "publishedEvents": {
     "en": "%count% past events",
@@ -73,7 +79,8 @@ module.exports = {
     "de": "%count% vergangenen Veranstaltungen",
     "es": "%count% sucesos pasados",
     "it": "%count% eventi passati",
-    "io": "crwdns12428:0%count%crwdne12428:0"
+    "io": "crwdns12428:0%count%crwdne12428:0",
+    "oc": "%count% eveniments passats"
   },
   "upcomingEvent": {
     "en": "1 upcoming event",
@@ -81,7 +88,8 @@ module.exports = {
     "de": "1 bevorstehendes Veranstaltung",
     "es": "1 próximo evento",
     "it": "1 evento imminente",
-    "io": "crwdns12430:0crwdne12430:0"
+    "io": "crwdns12430:0crwdne12430:0",
+    "oc": "1 eveniment a venir"
   },
   "upcomingEvents": {
     "en": "%count% upcoming events",
@@ -89,7 +97,8 @@ module.exports = {
     "de": "%count% bevorstehende Veranstaltungen",
     "es": "%count% próximos eventos",
     "it": "%count% eventi in programma",
-    "io": "crwdns12432:0%count%crwdne12432:0"
+    "io": "crwdns12432:0%count%crwdne12432:0",
+    "oc": "%count% eveniments a venir"
   },
   "loadPrevious": {
     "en": "Load previous results",
@@ -97,7 +106,8 @@ module.exports = {
     "de": "Vorherige Ergebnisse laden",
     "es": "Cargar los resultados anteriores",
     "it": "Carica i risultati precedenti",
-    "io": "crwdns12434:0crwdne12434:0"
+    "io": "crwdns12434:0crwdne12434:0",
+    "oc": "Cargar los resultats precedents"
   },
   "loadNext": {
     "en": "Load next results",
@@ -114,6 +124,7 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
     "it": "Aggiungi un evento",
-    "io": "crwdns12438:0crwdne12438:0"
+    "io": "crwdns12438:0crwdne12438:0",
+    "oc": "Apondre un eveniment"
   }
 }

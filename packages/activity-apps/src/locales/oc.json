@@ -4,5 +4,14 @@
   "ActivityApps.notifications.agendaRemoveSource": "{actor} a tirat {object} de las sorsas sus {target}.",
   "ActivityApps.notifications.agendaSetOfficial": "L'agenda {target} es venguda oficiala.",
   "ActivityApps.notifications.agendaUnpublishEvent": "{actor} a despublicat {object} sus {target}.",
-  "ActivityApps.notifications.eventUpdate": "{actor} a metut {object} a jorn sus {target}."
+  "ActivityApps.notifications.eventUpdate": "{actor} a metut {object} a jorn sus {target}.",
+  "ActivityApps.Notifications.markAllAsRead": "Tot marcar coma legit",
+  "ActivityApps.Notifications.next": "Seguent",
+  "ActivityApps.notifications.agendaAddSource": "{actor} a apondut {object} coma sorsa sus {target}.",
+  "ActivityApps.notifications.agendaAggregateEvent": "{target} a agregat {object} de {actor}.",
+  "ActivityApps.notifications.agendaPublishEvent": "{actor} a publicat {object} sus {target}.",
+  "ActivityApps.notifications.agendaRemoveEvent": "{actor} a tirat {object} de {target}.",
+  "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} e 1 autre eveniment} other {{event} e {others} autres eveniments}}",
+  "ActivityApps.notifications.eventCreate": "{actor} a creat {object} sus {target}.",
+  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} e 1 autre utilizaire} other {{user} e {others} autres utilizaires}}"
 }

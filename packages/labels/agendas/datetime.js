@@ -8,7 +8,8 @@ module.exports = {
     "de": "januar",
     "it": "gennaio",
     "br": "genver",
-    "io": "crwdns12804:0crwdne12804:0"
+    "io": "crwdns12804:0crwdne12804:0",
+    "oc": "genièr"
   },
   "february": {
     "en": "february",
@@ -27,7 +28,8 @@ module.exports = {
     "de": "märz",
     "it": "marzo",
     "br": "meurzh",
-    "io": "crwdns12808:0crwdne12808:0"
+    "io": "crwdns12808:0crwdne12808:0",
+    "oc": "març"
   },
   "april": {
     "en": "april",
@@ -36,7 +38,8 @@ module.exports = {
     "de": "april",
     "it": "aprile",
     "br": "ebrel",
-    "io": "crwdns12810:0crwdne12810:0"
+    "io": "crwdns12810:0crwdne12810:0",
+    "oc": "abril"
   },
   "may": {
     "en": "may",
@@ -45,7 +48,8 @@ module.exports = {
     "de": "mai",
     "it": "maggio",
     "br": "mae",
-    "io": "crwdns12812:0crwdne12812:0"
+    "io": "crwdns12812:0crwdne12812:0",
+    "oc": "mai"
   },
   "june": {
     "en": "june",
@@ -54,7 +58,8 @@ module.exports = {
     "de": "juni",
     "it": "giugno",
     "br": "mezheven",
-    "io": "crwdns12814:0crwdne12814:0"
+    "io": "crwdns12814:0crwdne12814:0",
+    "oc": "junh"
   },
   "july": {
     "en": "july",
@@ -63,7 +68,8 @@ module.exports = {
     "de": "juli",
     "it": "luglio",
     "br": "gouere",
-    "io": "crwdns12816:0crwdne12816:0"
+    "io": "crwdns12816:0crwdne12816:0",
+    "oc": "julhet"
   },
   "august": {
     "en": "august",
@@ -72,7 +78,8 @@ module.exports = {
     "de": "august",
     "it": "agosto",
     "br": "eost",
-    "io": "crwdns12818:0crwdne12818:0"
+    "io": "crwdns12818:0crwdne12818:0",
+    "oc": "agost"
   },
   "september": {
     "en": "september",
@@ -81,7 +88,8 @@ module.exports = {
     "de": "september",
     "it": "settembre",
     "br": "gwengolo",
-    "io": "crwdns12820:0crwdne12820:0"
+    "io": "crwdns12820:0crwdne12820:0",
+    "oc": "setembre"
   },
   "october": {
     "en": "october",
@@ -90,7 +98,8 @@ module.exports = {
     "de": "oktober",
     "it": "ottobre",
     "br": "here",
-    "io": "crwdns12822:0crwdne12822:0"
+    "io": "crwdns12822:0crwdne12822:0",
+    "oc": "octobre"
   },
   "november": {
     "en": "november",
@@ -99,7 +108,8 @@ module.exports = {
     "de": "november",
     "it": "novembre",
     "br": "du",
-    "io": "crwdns12824:0crwdne12824:0"
+    "io": "crwdns12824:0crwdne12824:0",
+    "oc": "novembre"
   },
   "december": {
     "en": "december",
@@ -108,7 +118,8 @@ module.exports = {
     "de": "dezember",
     "it": "dicembre",
     "br": "kerzu",
-    "io": "crwdns12826:0crwdne12826:0"
+    "io": "crwdns12826:0crwdne12826:0",
+    "oc": "decembre"
   },
   "monday": {
     "en": "monday",
@@ -117,7 +128,8 @@ module.exports = {
     "de": "montag",
     "it": "lunedì",
     "br": "lun",
-    "io": "crwdns12828:0crwdne12828:0"
+    "io": "crwdns12828:0crwdne12828:0",
+    "oc": "diluns"
   },
   "tuesday": {
     "en": "tuesday",
@@ -126,7 +138,8 @@ module.exports = {
     "de": "dienstag",
     "it": "martedì",
     "br": "meurzh",
-    "io": "crwdns12830:0crwdne12830:0"
+    "io": "crwdns12830:0crwdne12830:0",
+    "oc": "dimars"
   },
   "wednesday": {
     "en": "wednesday",
@@ -135,7 +148,8 @@ module.exports = {
     "de": "mittwoch",
     "it": "mercoledì",
     "br": "merc'her",
-    "io": "crwdns12832:0crwdne12832:0"
+    "io": "crwdns12832:0crwdne12832:0",
+    "oc": "dimècres"
   },
   "thursday": {
     "en": "thursday",
@@ -144,7 +158,8 @@ module.exports = {
     "de": "donnerstag",
     "it": "giovedì",
     "br": "yaou",
-    "io": "crwdns12834:0crwdne12834:0"
+    "io": "crwdns12834:0crwdne12834:0",
+    "oc": "dijòus"
   },
   "friday": {
     "en": "friday",
@@ -153,7 +168,8 @@ module.exports = {
     "de": "freitag",
     "it": "venerdì",
     "br": "gwener",
-    "io": "crwdns12836:0crwdne12836:0"
+    "io": "crwdns12836:0crwdne12836:0",
+    "oc": "divendres"
   },
   "saturday": {
     "en": "saturday",
@@ -162,7 +178,8 @@ module.exports = {
     "de": "samstag",
     "it": "sabato",
     "br": "sadorn",
-    "io": "crwdns12838:0crwdne12838:0"
+    "io": "crwdns12838:0crwdne12838:0",
+    "oc": "dissabte"
   },
   "sunday": {
     "en": "sunday",
@@ -171,6 +188,7 @@ module.exports = {
     "de": "sonntag",
     "it": "domenica",
     "br": "sul",
-    "io": "crwdns12840:0crwdne12840:0"
+    "io": "crwdns12840:0crwdne12840:0",
+    "oc": "dimenge"
   }
 }

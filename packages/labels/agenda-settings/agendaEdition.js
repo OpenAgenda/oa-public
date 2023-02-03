@@ -7,7 +7,8 @@ module.exports = {
     "de": "Bild",
     "es": "imagen",
     "it": "Immagine",
-    "io": "crwdns12498:0crwdne12498:0"
+    "io": "crwdns12498:0crwdne12498:0",
+    "oc": "Imatge"
   },
   "description": {
     "fr": "Description",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Beschreibung",
     "es": "Descripción",
     "it": "Descrizione",
-    "io": "crwdns12500:0crwdne12500:0"
+    "io": "crwdns12500:0crwdne12500:0",
+    "oc": "Descripcion"
   },
   "title": {
     "en": "Title",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Titel",
     "es": "título",
     "it": "Titolo",
-    "io": "crwdns12502:0crwdne12502:0"
+    "io": "crwdns12502:0crwdne12502:0",
+    "oc": "Títol"
   },
   "titlePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",
     "es": "Mi organización, mi fiesta, mi ciudad, otra",
     "it": "La mia ragione sociale, il mio festival, la mia città, altri",
-    "io": "crwdns12504:0crwdne12504:0"
+    "io": "crwdns12504:0crwdne12504:0",
+    "oc": "Mon organizacion, mon festenal, ma vila, autre"
   },
   "website": {
     "fr": "Site web",
@@ -39,7 +43,8 @@ module.exports = {
     "de": "Webseite",
     "es": "Sitio web",
     "it": "Sito web",
-    "io": "crwdns12506:0crwdne12506:0"
+    "io": "crwdns12506:0crwdne12506:0",
+    "oc": "Site web"
   },
   "websitePlaceholder": {
     "fr": "http://monsite.com",
@@ -47,7 +52,8 @@ module.exports = {
     "de": "http://mywebsite.com",
     "es": "http://monsite.com",
     "it": "http://monsite.com",
-    "io": "crwdns12508:0crwdne12508:0"
+    "io": "crwdns12508:0crwdne12508:0",
+    "oc": "http://monsite.com"
   },
   "personalizedSlug": {
     "fr": "Adresse web personnalisée",
@@ -55,7 +61,8 @@ module.exports = {
     "de": "Personalisierte Web-Adresse",
     "es": "Dirección web personalizada",
     "it": "Indirizzo web personalizzato",
-    "io": "crwdns12510:0crwdne12510:0"
+    "io": "crwdns12510:0crwdne12510:0",
+    "oc": "Adreiça web personalizada"
   },
   "contribution": {
     "fr": "Contribution",
@@ -63,7 +70,8 @@ module.exports = {
     "de": "Beitrag",
     "es": "Contribución",
     "it": "Contribuzione",
-    "io": "crwdns12512:0crwdne12512:0"
+    "io": "crwdns12512:0crwdne12512:0",
+    "oc": "Contribucion"
   },
   "contribType": {
     "fr": "Qui peut ajouter des événements à cet agenda ?",
@@ -71,7 +79,8 @@ module.exports = {
     "de": "Wer kann Veranstaltungen in diesem Kalender hinzufügen?",
     "es": "¿Quién puede añadir eventos a este agenda?",
     "it": "Chi può aggiungere eventi a questo calendario ?",
-    "io": "crwdns12514:0crwdne12514:0"
+    "io": "crwdns12514:0crwdne12514:0",
+    "oc": "Qual·a pòt apondre d'eveniments a aqueste calendièr ?"
   },
   "contribTypeChoosen": {
     "fr": "Seulement des personnes choisies et moi",
@@ -79,7 +88,8 @@ module.exports = {
     "de": "Nur ausgewählte Personen und ich",
     "es": "Sólo las personas seleccionadas y yo",
     "it": "Solo persone selezionate e io",
-    "io": "crwdns12516:0crwdne12516:0"
+    "io": "crwdns12516:0crwdne12516:0",
+    "oc": "Sonque las personas seleccionadas e ieu"
   },
   "contribTypeAll": {
     "fr": "Tout le monde",
@@ -87,7 +97,8 @@ module.exports = {
     "de": "Jeder",
     "es": "Todo el mundo",
     "it": "Tutti",
-    "io": "crwdns12518:0crwdne12518:0"
+    "io": "crwdns12518:0crwdne12518:0",
+    "oc": "Tot lo monde"
   },
   "contribDefaultState": {
     "fr": "Statut par défaut des événements",
@@ -95,7 +106,8 @@ module.exports = {
     "de": "Default-Zustand der Veranstaltungen",
     "es": "Eventos de estado por defecto",
     "it": "Stato di default degli eventi",
-    "io": "crwdns12520:0crwdne12520:0"
+    "io": "crwdns12520:0crwdne12520:0",
+    "oc": "Estatut per defaut dels eveniments"
   },
   "contribDefaultStatePublished": {
     "fr": "Publié",
@@ -104,7 +116,8 @@ module.exports = {
     "es": "Publicado",
     "it": "Pubblicato",
     "br": "Embannet",
-    "io": "crwdns12522:0crwdne12522:0"
+    "io": "crwdns12522:0crwdne12522:0",
+    "oc": "Publicat"
   },
   "contribDefaultStatePublishedText": {
     "fr": "Vous pouvez modifier les événements ensuite.",
@@ -121,7 +134,8 @@ module.exports = {
     "de": "unveröffentlicht",
     "es": "Inédito",
     "it": "Inedito",
-    "io": "crwdns12526:0crwdne12526:0"
+    "io": "crwdns12526:0crwdne12526:0",
+    "oc": "Pas publicat"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",
@@ -139,7 +153,8 @@ module.exports = {
     "es": "Necesario",
     "it": "Richiesto",
     "br": "Rekis",
-    "io": "crwdns12530:0crwdne12530:0"
+    "io": "crwdns12530:0crwdne12530:0",
+    "oc": "Requesit"
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
@@ -147,7 +162,8 @@ module.exports = {
     "de": "String zu kurz",
     "es": "La cadena es demasiado corta",
     "it": "La stringa è troppo corta",
-    "io": "crwdns12532:0crwdne12532:0"
+    "io": "crwdns12532:0crwdne12532:0",
+    "oc": "La cadena de caractèrs es tròp corteta"
   },
   "string.toolong": {
     "fr": "La chaîne de caractères est trop longue",
@@ -155,7 +171,8 @@ module.exports = {
     "de": "String ist zu lang",
     "es": "La cadena es demasiado larga",
     "it": "La stringa è troppo lunga",
-    "io": "crwdns12534:0crwdne12534:0"
+    "io": "crwdns12534:0crwdne12534:0",
+    "oc": "La cadena de caractèrs es tròp longa"
   },
   "link.invalid": {
     "fr": "Lien invalide",
@@ -163,7 +180,8 @@ module.exports = {
     "de": "Ungültiger Link",
     "es": "Vínculo no válido",
     "it": "Collegamento non valido",
-    "io": "crwdns12536:0crwdne12536:0"
+    "io": "crwdns12536:0crwdne12536:0",
+    "oc": "Ligam invalid"
   },
   "duplicate": {
     "fr": "Cette valeur est déjà prise par un autre agenda",
@@ -171,7 +189,8 @@ module.exports = {
     "de": "Doppelter Wert gefunden",
     "es": "Este valor esta siendo utilizado por otro agenda",
     "it": "Questo valore è già preso da un altro calendario",
-    "io": "crwdns12538:0crwdne12538:0"
+    "io": "crwdns12538:0crwdne12538:0",
+    "oc": "Valor ja presa per una autra agenda"
   },
   "toosmall": {
     "fr": "La chaîne de caractères est trop courte",
@@ -179,7 +198,8 @@ module.exports = {
     "de": "String zu kurz",
     "es": "La cadena es demasiado corta",
     "it": "La stringa è troppo corta",
-    "io": "crwdns12540:0crwdne12540:0"
+    "io": "crwdns12540:0crwdne12540:0",
+    "oc": "La cadena de caractèrs es tròp corteta"
   },
   "slug.invalid": {
     "fr": "Seuls les lettres minuscules, les chiffres et les tirets (-) sont autorisés",
@@ -196,7 +216,8 @@ module.exports = {
     "de": "Ungültige E-Mail-Adresse",
     "es": "La dirección de correo electrónico no es válida",
     "it": "L'indirizzo e-mail non è valido",
-    "io": "crwdns12544:0crwdne12544:0"
+    "io": "crwdns12544:0crwdne12544:0",
+    "oc": "L'adreiça email es invalida"
   },
   "saveModifications": {
     "fr": "Sauvegarder les modifications",
@@ -204,7 +225,8 @@ module.exports = {
     "de": "Änderungen speichern",
     "es": "Guardar cambios",
     "it": "Salva le modifiche",
-    "io": "crwdns12546:0crwdne12546:0"
+    "io": "crwdns12546:0crwdne12546:0",
+    "oc": "Enregistrar los cambiaments"
   },
   "saving": {
     "fr": "Sauvegarde en cours",
@@ -212,7 +234,8 @@ module.exports = {
     "de": "Speichern ...",
     "es": "Ahorro",
     "it": "Backup in corso...",
-    "io": "crwdns12548:0crwdne12548:0"
+    "io": "crwdns12548:0crwdne12548:0",
+    "oc": "Enregistrament..."
   },
   "saved": {
     "fr": "Modifications sauvegardées",
@@ -220,7 +243,8 @@ module.exports = {
     "de": "Änderungen gespeichert",
     "es": "Cambios guardan",
     "it": "Modifiche salvate",
-    "io": "crwdns12550:0crwdne12550:0"
+    "io": "crwdns12550:0crwdne12550:0",
+    "oc": "Cambiaments enregistrats"
   },
   "agendaProfile": {
     "fr": "Profil de l'agenda",
@@ -237,7 +261,8 @@ module.exports = {
     "de": "Ja",
     "es": "Sí",
     "it": "Sì",
-    "io": "crwdns12554:0crwdne12554:0"
+    "io": "crwdns12554:0crwdne12554:0",
+    "oc": "Òc"
   },
   "no": {
     "fr": "Non",
@@ -245,7 +270,8 @@ module.exports = {
     "de": "Nein",
     "es": "No",
     "it": "No",
-    "io": "crwdns12556:0crwdne12556:0"
+    "io": "crwdns12556:0crwdne12556:0",
+    "oc": "Non"
   },
   "contribUseFields": {
     "fr": "Inviter chaque membre à se présenter (organisation, téléphone, nom, prénom, fonction, email)",
@@ -253,7 +279,8 @@ module.exports = {
     "de": "Lade Mitglieder präsentieren sich (Organisation, Telefon, Name, Titel, E-Mail)",
     "es": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)",
     "it": "Invitare ogni membro a presentarsi (ragione sociale, telefono, cognome, nome, posizione, e-mail)",
-    "io": "crwdns12558:0crwdne12558:0"
+    "io": "crwdns12558:0crwdne12558:0",
+    "oc": "Convidar los membres a se presentar (organizacion, telefòne, nom, títol, email)"
   },
   "removeAgenda": {
     "fr": "Supprimer l'agenda",
@@ -270,7 +297,8 @@ module.exports = {
     "de": "Bist du sicher, dass Sie dieseVerwaltungskalender entfernen?",
     "es": "¿Está seguro de que desea eliminar este agenda?",
     "it": "Sei sicuro di voler cancellare questo ordine del giorno?",
-    "io": "crwdns12562:0crwdne12562:0"
+    "io": "crwdns12562:0crwdne12562:0",
+    "oc": "Sètz segur·a de voler tirar aquesta agenda ?"
   },
   "close": {
     "fr": "Fermer",
@@ -279,7 +307,8 @@ module.exports = {
     "es": "Cerca",
     "it": "Chiudere",
     "br": "Serriñ",
-    "io": "crwdns12564:0crwdne12564:0"
+    "io": "crwdns12564:0crwdne12564:0",
+    "oc": "Tampar"
   },
   "remove": {
     "fr": "Retirer",
@@ -288,7 +317,8 @@ module.exports = {
     "es": "Eliminar",
     "it": "Rimuovi",
     "br": "Lemel",
-    "io": "crwdns12566:0crwdne12566:0"
+    "io": "crwdns12566:0crwdne12566:0",
+    "oc": "Suprimir"
   },
   "agendaRemoved": {
     "fr": "Votre agenda a bien été supprimé",
@@ -296,7 +326,8 @@ module.exports = {
     "de": "Ihre Agenda wurde gelöscht",
     "es": "Su agenda ha sido eliminado",
     "it": "Il vostro agenda è stato cancellato",
-    "io": "crwdns12568:0crwdne12568:0"
+    "io": "crwdns12568:0crwdne12568:0",
+    "oc": "Vòstra agenda es estada suprimida"
   },
   "keyNbr": {
     "fr": "Clé n°%nbr%",
@@ -304,7 +335,8 @@ module.exports = {
     "de": "Key n °%nbr%",
     "es": "llave #%nbr%",
     "it": "Chiave n° %nbr%",
-    "io": "crwdns12570:0%nbr%crwdne12570:0"
+    "io": "crwdns12570:0%nbr%crwdne12570:0",
+    "oc": "Clau n°%nbr%"
   },
   "generateKey": {
     "fr": "Générer une clé",
@@ -312,7 +344,8 @@ module.exports = {
     "de": "Generiere einen Schlüssel",
     "es": "Generar llave",
     "it": "Generare una chiave",
-    "io": "crwdns12572:0crwdne12572:0"
+    "io": "crwdns12572:0crwdne12572:0",
+    "oc": "Generar una clau"
   },
   "copy": {
     "fr": "Copier",
@@ -321,7 +354,8 @@ module.exports = {
     "es": "Copia",
     "it": "Copia",
     "br": "Kopiañ",
-    "io": "crwdns12574:0crwdne12574:0"
+    "io": "crwdns12574:0crwdne12574:0",
+    "oc": "Copiar"
   },
   "copied": {
     "fr": "Copié",
@@ -329,7 +363,8 @@ module.exports = {
     "de": "Kopierte",
     "es": "Copiado",
     "it": "Copiato",
-    "io": "crwdns12576:0crwdne12576:0"
+    "io": "crwdns12576:0crwdne12576:0",
+    "oc": "Copiat"
   },
   "save": {
     "fr": "Sauvegarder",
@@ -338,7 +373,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Salva",
     "br": "Enrollañ",
-    "io": "crwdns12578:0crwdne12578:0"
+    "io": "crwdns12578:0crwdne12578:0",
+    "oc": "Enregistrar"
   },
   "cancel": {
     "fr": "Annuler",
@@ -347,7 +383,8 @@ module.exports = {
     "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns12580:0crwdne12580:0"
+    "io": "crwdns12580:0crwdne12580:0",
+    "oc": "Anullar"
   },
   "description.tooManyLines": {
     "fr": "La description ne doit pas dépasser 4 lignes",
@@ -355,7 +392,8 @@ module.exports = {
     "de": "Die Beschreibung darf nicht länger als 4 Zeilen",
     "es": "La descripción no debe exceder de 4 líneas",
     "it": "La descrizione non deve superare le 4 righe",
-    "io": "crwdns12582:0crwdne12582:0"
+    "io": "crwdns12582:0crwdne12582:0",
+    "oc": "La descripcion deu pas passar las 4 linhas"
   },
   "advanced": {
     "fr": "Avancé",
@@ -363,7 +401,8 @@ module.exports = {
     "de": "fortgeschritten",
     "es": "Avanzado",
     "it": "Avanzato",
-    "io": "crwdns12584:0crwdne12584:0"
+    "io": "crwdns12584:0crwdne12584:0",
+    "oc": "Avançat"
   },
   "accessKeys": {
     "fr": "Clés d'accés",
@@ -371,7 +410,8 @@ module.exports = {
     "de": "Zugriffstasten",
     "es": "Acceso teclas",
     "it": "Chiavi di accesso",
-    "io": "crwdns12586:0crwdne12586:0"
+    "io": "crwdns12586:0crwdne12586:0",
+    "oc": "Claus d'accès"
   },
   "manageKeys": {
     "fr": "Gérez les clés",
@@ -379,7 +419,8 @@ module.exports = {
     "de": "verwalten Tasten",
     "es": "Administrar llave",
     "it": "Gestire le chiave",
-    "io": "crwdns12588:0crwdne12588:0"
+    "io": "crwdns12588:0crwdne12588:0",
+    "oc": "Gerir las claus"
   },
   "labeling": {
     "fr": "Labellisation",
@@ -397,7 +438,8 @@ module.exports = {
     "es": "Agenda",
     "it": "Agenda ufficiale",
     "br": "Deiziataer ofisiel",
-    "io": "crwdns12592:0crwdne12592:0"
+    "io": "crwdns12592:0crwdne12592:0",
+    "oc": "Agenda oficiala"
   },
   "nonOfficialAgenda": {
     "fr": "Agenda non-officiel",
@@ -405,7 +447,8 @@ module.exports = {
     "de": "Inoffizieller Agenda",
     "es": "Eventos no oficiales",
     "it": "Agenda non ufficiale",
-    "io": "crwdns12594:0crwdne12594:0"
+    "io": "crwdns12594:0crwdne12594:0",
+    "oc": "Agenda non-oficiala"
   },
   "requestOfficialAgenda": {
     "fr": "Demander un agenda officiel",
@@ -413,7 +456,8 @@ module.exports = {
     "de": "Fordern Sie eineVerwaltungskalender offiziellen",
     "es": "Solicitar agenda oficial",
     "it": "Richiedere un agenda ufficiale",
-    "io": "crwdns12596:0crwdne12596:0"
+    "io": "crwdns12596:0crwdne12596:0",
+    "oc": "Demandar una agenda oficiala"
   },
   "learnMore": {
     "fr": "En savoir plus",
@@ -421,7 +465,8 @@ module.exports = {
     "de": "Mehr erfahren",
     "es": "Más información",
     "it": "Per saperne di più",
-    "io": "crwdns12598:0crwdne12598:0"
+    "io": "crwdns12598:0crwdne12598:0",
+    "oc": "Ne saber mai"
   },
   "requestOfficialDescription": {
     "fr": "Afin de guider les réutilisateurs des événements publiés sur OpenAgenda, nous avons mis en place un contrôle des agendas un à un, afin de leur attribuer un label \"officiel\", afin d'attester qu'il s'agit bien d'une programmation authentique, éditée par l'organisateur lui-même. Ceci exclut notamment les agendas de test.\n\nUne icône bleue apparaît alors à côté du nom de l'agenda.\n\nPour être reconnu comme un agenda officiel, il faut",
@@ -438,7 +483,8 @@ module.exports = {
     "de": "eine Anfrage stellen",
     "es": "aplicar",
     "it": "petizione",
-    "io": "crwdns12602:0crwdne12602:0"
+    "io": "crwdns12602:0crwdne12602:0",
+    "oc": "far una demanda"
   },
   "privateAgenda": {
     "fr": "Agenda privé",
@@ -446,7 +492,8 @@ module.exports = {
     "de": "Private Agenda",
     "es": "Eventos privados",
     "it": "Agenda privato",
-    "io": "crwdns12604:0crwdne12604:0"
+    "io": "crwdns12604:0crwdne12604:0",
+    "oc": "Agenda privada"
   },
   "publicAgenda": {
     "fr": "Agenda public",
@@ -454,7 +501,8 @@ module.exports = {
     "de": "öffentliche Agenda",
     "es": "Agenda pública",
     "it": "Agenda pubblico",
-    "io": "crwdns12606:0crwdne12606:0"
+    "io": "crwdns12606:0crwdne12606:0",
+    "oc": "Agenda publica"
   },
   "visibility": {
     "fr": "Visibilité",
@@ -462,7 +510,8 @@ module.exports = {
     "de": "Sichtweite",
     "es": "visibilidad",
     "it": "Visibilità",
-    "io": "crwdns12608:0crwdne12608:0"
+    "io": "crwdns12608:0crwdne12608:0",
+    "oc": "Visibilitat"
   },
   "requestPrivateAgenda": {
     "fr": "Demander un agenda privé",
@@ -470,7 +519,8 @@ module.exports = {
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar un agenda íntimo",
     "it": "Richiedi un'agenda privata",
-    "io": "crwdns12610:0crwdne12610:0"
+    "io": "crwdns12610:0crwdne12610:0",
+    "oc": "Demandar una agenda privada"
   },
   "requestPublicAgenda": {
     "fr": "Demander un agenda public",
@@ -478,7 +528,8 @@ module.exports = {
     "de": "Fordern Sie eine öffentliche Verwaltungskalender",
     "es": "Solicitar un agenda público",
     "it": "Richiedere un agenda pubblico",
-    "io": "crwdns12612:0crwdne12612:0"
+    "io": "crwdns12612:0crwdne12612:0",
+    "oc": "Demandar una agenda publica"
   },
   "indexedAgenda": {
     "fr": "Agenda indexé",
@@ -531,7 +582,8 @@ module.exports = {
     "de": "Customized Nachrichten",
     "es": "ensajes personalizados",
     "it": "Messaggi personalizzati",
-    "io": "crwdns12624:0crwdne12624:0"
+    "io": "crwdns12624:0crwdne12624:0",
+    "oc": "Messatges personalizats"
   },
   "requestCustomMessage": {
     "fr": "Demander d'activer la personnalisation des messages",
@@ -557,7 +609,8 @@ module.exports = {
     "de": "Bearbeite die Beschreibung der Veranstaltungen",
     "es": "Cambiar la descripción de los acontecimientos",
     "it": "Modificare la descrizione dell'evento",
-    "io": "crwdns12630:0crwdne12630:0"
+    "io": "crwdns12630:0crwdne12630:0",
+    "oc": "Modificar la descripcion dels eveniments"
   },
   "removeKey": {
     "fr": "Supprimer la clé",
@@ -565,7 +618,8 @@ module.exports = {
     "de": "Entfernen-Taste",
     "es": "Eliminar llave",
     "it": "Rimuovere la chiave",
-    "io": "crwdns12632:0crwdne12632:0"
+    "io": "crwdns12632:0crwdne12632:0",
+    "oc": "Suprimir la clau"
   },
   "removeKeyWarning": {
     "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
@@ -582,7 +636,8 @@ module.exports = {
     "de": "Der Zustand eines Veranstaltungens nach der Änderung",
     "es": "Estado de un evento después de la modificación",
     "it": "Stato di un evento dopo la modifica",
-    "io": "crwdns12636:0crwdne12636:0"
+    "io": "crwdns12636:0crwdne12636:0",
+    "oc": "Estatut d'un eveniment aprèp modificacion"
   },
   "contribModerateOnChangeByUnpublish": {
     "fr": "Dépublier l'événement afin qu'il soit contrôlé à nouveau",
@@ -599,7 +654,8 @@ module.exports = {
     "de": "Nachrichten an die Mitglieder",
     "es": "Mensajes contribuyentes",
     "it": "Messaggi ai collaboratori",
-    "io": "crwdns12640:0crwdne12640:0"
+    "io": "crwdns12640:0crwdne12640:0",
+    "oc": "Messatges als contributors"
   },
   "consigne": {
     "fr": "Consigne de saisie",
@@ -607,7 +663,8 @@ module.exports = {
     "de": "Veranstaltungsform Anweisungen",
     "es": "Entrada de consigna",
     "it": "Istruzioni per l'immissione",
-    "io": "crwdns12642:0crwdne12642:0"
+    "io": "crwdns12642:0crwdne12642:0",
+    "oc": "Instruccions de formulari d'eveniment"
   },
   "consigneSubLabel": {
     "fr": "La consigne s'affiche au début du formulaire de saisie d'événement",
@@ -615,17 +672,20 @@ module.exports = {
     "de": "Die Richtlinie erscheint zu Beginn der Veranstaltung Teilnahmeformular",
     "es": "El conjunto aparece al principio de la forma de entrada de evento",
     "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento",
-    "io": "crwdns12644:0crwdne12644:0"
+    "io": "crwdns12644:0crwdne12644:0",
+    "oc": "La consigna apareis a la debuta del formulari de sasida d'eveniment"
   },
   "GDPRInformation": {
     "fr": "Information relative à l'utilisation des données personnelles des membres",
     "en": "Usage of member's personal information",
-    "io": "crwdns30982:0crwdne30982:0"
+    "io": "crwdns30982:0crwdne30982:0",
+    "oc": "Utilizacion de las informacions personalas dels membres"
   },
   "GDPRInformationSubLabel": {
     "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
     "en": "Modify the text presented to members informing them of the usage made of their personal information",
-    "io": "crwdns30984:0crwdne30984:0"
+    "io": "crwdns30984:0crwdne30984:0",
+    "oc": "Modificar lo tèxte presentat als membres los informant de l'utilizacion faita de lors informacions personalas"
   },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
@@ -633,7 +693,8 @@ module.exports = {
     "de": "Ende der Beitrags Nachricht",
     "es": "Entrada de mensaje de fin",
     "it": "Messaggio di fine contributo",
-    "io": "crwdns12646:0crwdne12646:0"
+    "io": "crwdns12646:0crwdne12646:0",
+    "oc": "Messatge de fin de contribucion"
   },
   "contributionMessageCompleteSubLabel": {
     "fr": "S'affiche lorsque le contributeur a enregistré sa contribution",
@@ -641,7 +702,8 @@ module.exports = {
     "de": "Erscheint, wenn der Beitrag ihres Beitrags vorgelegt hat",
     "es": "Se muestra cuando soumi la contribución del colaborador",
     "it": "Appare quando il contribuente ha presentato il suo contributo",
-    "io": "crwdns12648:0crwdne12648:0"
+    "io": "crwdns12648:0crwdne12648:0",
+    "oc": "Apareis quand lo contributor a mandat la siá contribucion"
   },
   "contributionMessagePublication": {
     "fr": "Message de publication",
@@ -649,7 +711,8 @@ module.exports = {
     "de": "Veröffentlichung Nachricht",
     "es": "Publicación de mensajes",
     "it": "Messaggio di pubblicazione",
-    "io": "crwdns12650:0crwdne12650:0"
+    "io": "crwdns12650:0crwdne12650:0",
+    "oc": "Messatge de publicacion"
   },
   "contributionMessagePublicationSubLabel": {
     "fr": "Envoyé au contributeur lorsque son événement a été publié",
@@ -657,7 +720,8 @@ module.exports = {
     "de": "Gesendet an den Beitrag, wenn sein Fall wird veröffentlicht",
     "es": "Enviado al contribuyente cuando se publicó el evento",
     "it": "Inviato al collaboratore quando il suo evento è stato pubblicato",
-    "io": "crwdns12652:0crwdne12652:0"
+    "io": "crwdns12652:0crwdne12652:0",
+    "oc": "Mandat al contributor quand l'eveniment es estat publicat"
   },
   "inbox": {
     "fr": "Messagerie",
@@ -665,7 +729,8 @@ module.exports = {
     "de": "Posteingang",
     "es": "Mensajería",
     "it": "Messaggi",
-    "io": "crwdns12654:0crwdne12654:0"
+    "io": "crwdns12654:0crwdne12654:0",
+    "oc": "Messatjariá"
   },
   "inboxTabDescription": {
     "fr": "Paramètres de la messagerie",
@@ -673,7 +738,8 @@ module.exports = {
     "de": "Messaging-Einstellungen",
     "es": "La configuración de mensajería",
     "it": "Impostazioni di messaggistica",
-    "io": "crwdns12656:0crwdne12656:0"
+    "io": "crwdns12656:0crwdne12656:0",
+    "oc": "Reglatges de messatjariá"
   },
   "enableMailtoDesc": {
     "fr": "Désactiver la messagerie: Remplacer les liens de la messagerie par un envoi par email",
@@ -699,7 +765,8 @@ module.exports = {
     "de": "Empfang E-Mail",
     "es": "Recibir correo electrónico",
     "it": "E-mail di ricezione",
-    "io": "crwdns12662:0crwdne12662:0"
+    "io": "crwdns12662:0crwdne12662:0",
+    "oc": "Email de recepcion"
   },
   "emailPlaceholder": {
     "fr": "votre@email.com",
@@ -707,7 +774,8 @@ module.exports = {
     "de": "your@email.com",
     "es": "votre@email.com",
     "it": "votre@email.com",
-    "io": "crwdns12664:0crwdne12664:0"
+    "io": "crwdns12664:0crwdne12664:0",
+    "oc": "vostre@email.com"
   },
   "update": {
     "fr": "Modifier",
@@ -716,7 +784,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Aggiorna",
     "br": "Hizivaat",
-    "io": "crwdns12666:0crwdne12666:0"
+    "io": "crwdns12666:0crwdne12666:0",
+    "oc": "Metre a jorn"
   },
   "subjectLabel": {
     "fr": "Objet par défaut",
@@ -724,7 +793,8 @@ module.exports = {
     "de": "Standardfach",
     "es": "Asunto predeterminado",
     "it": "Oggetto predefinito",
-    "io": "crwdns12668:0crwdne12668:0"
+    "io": "crwdns12668:0crwdne12668:0",
+    "oc": "Objècte per defaut"
   },
   "subjectDesc": {
     "fr": "Message envoyé depuis l'agenda 'La semaine de l'industrie'",
@@ -768,13 +838,15 @@ module.exports = {
     "de": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
     "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com",
     "it": "Segui il flusso di visitatori sulle pagine pubbliche del tuo agenda su openagenda.com",
-    "io": "crwdns12678:0crwdne12678:0"
+    "io": "crwdns12678:0crwdne12678:0",
+    "oc": "Seguissètz las afluéncias de visitaires sus las paginas publicas de vòstra agenda sus openagenda.com"
   },
   "lab": {
     "fr": "Lab",
     "en": "Lab",
     "io": "crwdns12680:0crwdne12680:0",
-    "it": "Lab"
+    "it": "Lab",
+    "oc": "Lab"
   },
   "labTabDescription": {
     "fr": "Utilisez les fonctionnalités disponibles en version bêta",
@@ -794,6 +866,7 @@ module.exports = {
     "fr": "En savoir plus",
     "en": "Learn more",
     "it": "Per saperne di più",
-    "io": "crwdns32380:0crwdne32380:0"
+    "io": "crwdns32380:0crwdne32380:0",
+    "oc": "Ne saber mai"
   }
 }

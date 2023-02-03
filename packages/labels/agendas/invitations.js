@@ -38,7 +38,8 @@ module.exports = {
     "de": "Es wurde keine neue Einladung versendet.",
     "pl": "Nie wysłano nowego zaproszenia",
     "es": "No hay nueva invitación fue enviada",
-    "io": "crwdns12876:0crwdne12876:0"
+    "io": "crwdns12876:0crwdne12876:0",
+    "oc": "Pas cap convit foguèt pas mandat"
   },
   "sentInvites": {
     "en": "Sent invitations: %count%",
@@ -57,7 +58,8 @@ module.exports = {
     "de": "%count% Einladungen werden erneut versendet.<br/><br/><br/> Beachten Sie, dass Einladungen nicht mehr als einmal alle 24 Stunden in großen Mengen versendet werden können.",
     "pl": "%count% zaproszenia są wysyłane ponownie.<br/><br/>Notka, że zaproszenia nie mogą być wysyłane masowo więcej niż raz na 24 godziny",
     "es": "%count% invitaciones están siendo enviados. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar una vez cada 24 horas.",
-    "io": "crwdns12880:0%count%crwdne12880:0"
+    "io": "crwdns12880:0%count%crwdne12880:0",
+    "oc": "%count% convits son a se tornar mandar.<br/><br/>Notatz que los convits se pòdon pas mandar en massa mai d'un còp totas las 24 oras"
   },
   "resentInvite": {
     "en": "The invitation is being resent",
@@ -66,6 +68,7 @@ module.exports = {
     "de": "Die Einladung wird erneut versendet.",
     "pl": "Zaproszenie jest wysyłane ponownie",
     "es": "La invitación está siendo re-enviado",
-    "io": "crwdns12882:0crwdne12882:0"
+    "io": "crwdns12882:0crwdne12882:0",
+    "oc": "Lo convit es a se tornar mandar"
   }
 }

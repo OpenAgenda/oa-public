@@ -1,1 +1,17 @@
-{}
+{
+  "festival": "festenal",
+  "fair": "fièra",
+  "federation": "federacion",
+  "theatre": "teatre",
+  "city": "vila",
+  "association": "associacion",
+  "university": "universitat",
+  "company": "entrepresa",
+  "conventionCenter": "centre de congrès",
+  "incubator": "coador",
+  "coworkingSpace": "tèrç-lòc",
+  "fireStation": "casèrna",
+  "ministry": "ministèri",
+  "church": "diocèsi",
+  "hospital": "espital"
+}
