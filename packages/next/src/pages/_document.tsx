@@ -6,6 +6,7 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from 'next/document';
+import { Cookies } from 'react-cookie';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
 
@@ -13,6 +14,16 @@ const { extractCriticalToChunks } = createEmotionServer(cache);
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+    const originalRenderPage = ctx.renderPage;
+
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceComponent: Component => {
+          (Component as any).universalCookies = new Cookies(ctx.req.headers.cookie);
+          return Component;
+        },
+      });
+
     const initialProps = await Document.getInitialProps(ctx);
 
     const chunks = extractCriticalToChunks(initialProps.html);

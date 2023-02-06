@@ -1,32 +1,36 @@
 import { SWRConfig } from 'swr';
 import { SWRDevTools } from 'swr-devtools';
+import { CookiesProvider, Cookies } from 'react-cookie';
 import { UIKitProvider } from '@openagenda/uikit';
 import { ApiClientProvider } from '@openagenda/react-shared';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
 import { LanguageProvider } from 'components/LanguageProvider';
 
 type ProvidersProps = {
+  cookies?: Cookies;
   locale: string;
   intlMessages: Record<string, string>;
   children: React.ReactNode;
 };
 
-const Providers = ({ locale, intlMessages, children }: ProvidersProps) => (
-  <UIKitProvider>
-    <ApiClientProvider>
-      <LanguageProvider locale={locale} messages={intlMessages}>
-        <SWRDevTools>
-          <SWRConfig
-            value={{
-              use: [swrStatusMiddleware],
-            }}
-          >
-            {children}
-          </SWRConfig>
-        </SWRDevTools>
-      </LanguageProvider>
-    </ApiClientProvider>
-  </UIKitProvider>
+const Providers = ({ locale, intlMessages, cookies, children }: ProvidersProps) => (
+  <CookiesProvider cookies={cookies}>
+    <UIKitProvider>
+      <ApiClientProvider>
+        <LanguageProvider locale={locale} messages={intlMessages}>
+          <SWRDevTools>
+            <SWRConfig
+              value={{
+                use: [swrStatusMiddleware],
+              }}
+            >
+              {children}
+            </SWRConfig>
+          </SWRDevTools>
+        </LanguageProvider>
+      </ApiClientProvider>
+    </UIKitProvider>
+  </CookiesProvider>
 );
 
 export default Providers;
