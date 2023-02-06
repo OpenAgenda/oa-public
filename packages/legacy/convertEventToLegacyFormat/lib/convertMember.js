@@ -6,8 +6,6 @@ module.exports = (isAdmin, event) => {
     addMethod,
   } = event;
 
-  console.log(JSON.stringify(event, null, 2));
-
   if (addMethod === 'aggregation' && !member) {
     return null;
   }
