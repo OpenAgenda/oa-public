@@ -1,9 +1,12 @@
 import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import ContentLoader from 'react-content-loader';
 import { defineMessages, useIntl } from 'react-intl';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/pro-solid-svg-icons'
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -12,6 +15,11 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  IconButton,
+  Collapse,
+  Divider,
+  Portal,
+  useDisclosure,
   useToken,
 } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
@@ -73,8 +81,21 @@ function ProfileLoader(props) {
   );
 }
 
-function ProfileMenu({ user }) {
+function ProfileMenu({ user, portalRef }) {
   const intl = useIntl();
+  const router = useRouter();
+
+  const collapseId = 'header-menu-collapse';
+  const { getButtonProps, isOpen } = useDisclosure({ id: collapseId });
+
+  const onSearch = useCallback(e => {
+    e.preventDefault();
+    const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
+    router.push({
+      pathname: '/agendas',
+      query,
+    });
+  }, [router]);
 
   const button = user.image ? (
     <Image
@@ -93,46 +114,110 @@ function ProfileMenu({ user }) {
   ) : user.fullName;
 
   return (
-    <Menu placement="bottom-end" colorScheme="primary">
-      {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
-      <MenuButton
-        as={Button}
-        variant="link"
-        p="4"
-        py="0"
-        height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
-        sx={{
-          // The span surrounding the image is larger than the image without this
-          span: {
-            display: 'inline-flex',
-          },
-        }}
-      >
-        {button}
-      </MenuButton>
-      <MenuList
-        // https://github.com/chakra-ui/chakra-ui/issues/5742
-        zIndex="5"
-      >
-        <MenuItem as={NextChakraLink} href="/home" textAlign="right">
-          {intl.formatMessage(messages.myAgendas)}
-        </MenuItem>
-        <MenuItem as={NextChakraLink} href="/home/events" textAlign="right">
-          {intl.formatMessage(messages.myEvents)}
-        </MenuItem>
-        <MenuDivider />
-        <MenuItem as={NextChakraLink} href="/settings" textAlign="right">
-          {intl.formatMessage(messages.settings)}
-        </MenuItem>
-        <MenuItem as={NextChakraLink} href="/signout" textAlign="right">
-          {intl.formatMessage(messages.signOut)}
-        </MenuItem>
-      </MenuList>
-    </Menu>
+    <>
+      {/* Desktop content */}
+      <Menu placement="bottom-end" colorScheme="primary">
+        {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
+        <MenuButton
+          as={Button}
+          variant="link"
+          display={{ base: 'none', lg: 'flex' }}
+          p="4"
+          py="0"
+          height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
+          sx={{
+            // The span surrounding the image is larger than the image without this
+            span: {
+              display: 'inline-flex',
+            },
+          }}
+        >
+          {button}
+        </MenuButton>
+        <MenuList
+          // https://github.com/chakra-ui/chakra-ui/issues/5742
+          zIndex="5"
+        >
+          <MenuItem as={NextChakraLink} href="/home" textAlign="right">
+            {intl.formatMessage(messages.myAgendas)}
+          </MenuItem>
+          <MenuItem as={NextChakraLink} href="/home/events" textAlign="right">
+            {intl.formatMessage(messages.myEvents)}
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem as={NextChakraLink} href="/settings" textAlign="right">
+            {intl.formatMessage(messages.settings)}
+          </MenuItem>
+          <MenuItem as={NextChakraLink} href="/signout" textAlign="right">
+            {intl.formatMessage(messages.signOut)}
+          </MenuItem>
+        </MenuList>
+      </Menu>
+
+      {/* Mobile content */}
+      <IconButton
+        aria-label="Open Menu"
+        size="md"
+        variant="ghost"
+        mr="4"
+        icon={<FontAwesomeIcon icon={faBars} />}
+        display={{ base: 'flex', lg: 'none' }}
+        {...getButtonProps()}
+      />
+      <Portal containerRef={portalRef}>
+        <Collapse id={collapseId} in={isOpen}>
+          <Box display={{ base: 'block', lg: 'none' }}>
+            <form onSubmit={onSearch}>
+              <SearchInput h="50px" maxW="full" />
+            </form>
+
+            <Box py="2">
+              <NextChakraLink
+                href="/home"
+                display="block"
+                px="6"
+                py="3"
+                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+              >
+                {intl.formatMessage(messages.myAgendas)}
+              </NextChakraLink>
+              <NextChakraLink
+                href="/home/events"
+                display="block"
+                px="6"
+                py="3"
+                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+              >
+                {intl.formatMessage(messages.myEvents)}
+              </NextChakraLink>
+              <Divider my="2" />
+              <NextChakraLink
+                href="/settings"
+                display="block"
+                px="6"
+                py="3"
+                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+              >
+                {intl.formatMessage(messages.settings)}
+              </NextChakraLink>
+              <NextChakraLink
+                href="/signout"
+                display="block"
+                px="6"
+                py="3"
+                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+              >
+                {intl.formatMessage(messages.signOut)}
+              </NextChakraLink>
+            </Box>
+          </Box>
+        </Collapse>
+      </Portal>
+    </>
   );
 }
 
-function ProfileBar() {
+function ProfileBar({ portalRef }) {
   const intl = useIntl();
   const { user, status } = useUser();
 
@@ -145,7 +230,7 @@ function ProfileBar() {
   // Authenticated
   if (user) {
     return (
-      <ProfileMenu user={user} />
+      <ProfileMenu portalRef={portalRef} user={user} />
     );
   }
 
@@ -185,10 +270,12 @@ export default function Navbar() {
     });
   }, [router]);
 
+  const headerRef = useRef();
+
   return (
-    <Flex as="header" bg="white" boxShadow="sm">
-      <Container maxW="container.xl">
-        <Flex justify="space-between" h="50">
+    <Flex ref={headerRef} as="header" direction="column" bg="white" boxShadow="sm">
+      <Container maxW="container.xl" px={0}>
+        <Flex justify="space-between" h="50" align="center">
           <Flex gap="8" h="full">
             <Flex as="a" href="/" px="4" align="center">
               <Image
@@ -199,15 +286,16 @@ export default function Navbar() {
                 unoptimized
               />
             </Flex>
-            <Flex as="form" onSubmit={onSearch}>
+            <Flex as="form" onSubmit={onSearch} display={{ base: 'none', lg: 'flex' }}>
               <SearchInput />
             </Flex>
           </Flex>
-          <Flex h="full" align="center">
-            <ProfileBar />
-          </Flex>
+
+          <ProfileBar portalRef={headerRef} />
         </Flex>
       </Container>
+
+      {/* Mobile menu here with headerRef + Portal */}
     </Flex>
   );
 }

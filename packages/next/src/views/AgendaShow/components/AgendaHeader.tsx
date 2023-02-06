@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  HStack,
+  Stack,
   VStack,
   Text,
   Link,
@@ -82,7 +82,7 @@ export default function AgendaHeader({ agenda }) {
   } = useDisclosure({});
 
   return (
-    <HStack spacing="8">
+    <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
       {agenda.image ? (
         <Image
           rounded="full"
@@ -100,8 +100,8 @@ export default function AgendaHeader({ agenda }) {
         />
       ) : null}
 
-      <VStack spacing="3" align="start">
-        <Heading as="h1" fontSize="4xl">
+      <VStack spacing="3" align={{ base: 'center', md: 'start' }}>
+        <Heading as="h1" fontSize="4xl" textAlign="center">
           {agenda.title}
           {agenda.official ? (
             <NoBreak>
@@ -119,7 +119,7 @@ export default function AgendaHeader({ agenda }) {
 
         <Link href={agenda.url}>{agenda.url}</Link>
 
-        <Wrap mt="4 !important"> {/* !important to overwrite Stack spacing */}
+        <Wrap mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
             as={NextChakraLink}
             href={mailtoUrl || `/${agenda.slug}/contact`}
@@ -185,6 +185,6 @@ export default function AgendaHeader({ agenda }) {
           </Button>
         </Wrap>
       </VStack>
-    </HStack>
+    </Stack>
   );
 }
