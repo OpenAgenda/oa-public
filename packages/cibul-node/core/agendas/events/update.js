@@ -5,9 +5,6 @@ const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('core/agendas/events/update');
 const { Forbidden } = require('@openagenda/verror');
 
-const legacy = require('../../../services/legacy');
-const legacyEventSearch = require('../../../services/elasticsearch');
-
 const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
 const setCustom = require('../utils/setCustom');
@@ -36,6 +33,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     members,
     aggregators,
     custom,
+    legacy,
+    elasticSearch: legacyEventSearch,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;

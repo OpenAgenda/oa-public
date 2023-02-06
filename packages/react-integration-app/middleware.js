@@ -94,7 +94,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       // const apiClient = createApiClient(apiRoot, req);
 
       const apps = [
-        ['home', createHomeApp, MainLayout],
+        ['home', createHomeApp, [MainLayout, RequiredUser]],
         ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
         [
           'agendaSettingsNew',
