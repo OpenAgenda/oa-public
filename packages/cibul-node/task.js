@@ -86,6 +86,8 @@ module.exports = (config, core, services) => {
 
   core.tasks();
 
+  services.supervisor.elasticsearch.task();
+
   services.agendaLocations.task({
     duplicationDetection: config.locationDuplicationDetection,
     reset: false,

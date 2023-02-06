@@ -1,17 +1,37 @@
 'use strict';
 
 const _ = require('lodash');
+const logs = require('@openagenda/logs');
 
 const redirectToSignin = (req, res) => res.redirect(
   302,
   `/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
 );
 
+function task(services) {
+  const {
+    eventSearch,
+  } = services;
+
+  const log = logs('services/supervisor/task');
+
+  return () => {
+    setInterval(() => {
+      eventSearch.cluster.stats().then(data => {
+        log.info(data);
+      }, error => {
+        log.error('failed to fetch stats from cluster', { error });
+      });
+    }, 1000 * 60);
+  };
+}
+
 function init(config, services) {
   const { eventSearch } = services;
 
   return {
     cluster: eventSearch.cluster,
+    task: task(services),
   };
 }
 
