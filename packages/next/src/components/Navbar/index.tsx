@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react';
 import ContentLoader from 'react-content-loader';
 import { defineMessages, useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/pro-solid-svg-icons'
+import { faBars } from '@fortawesome/pro-solid-svg-icons';
 import {
   Box,
   Button,
