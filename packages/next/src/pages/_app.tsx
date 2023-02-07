@@ -26,7 +26,6 @@ interface PageProps {
 function MyApp({ Component, pageProps, router }: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
-  const universalCookies = Component.universalCookies || new Cookies();
 
   const { locale } = router;
   const { intlMessages } = pageProps;
@@ -49,7 +48,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout<PageProps>) 
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>
       </Head>
-      <Providers locale={locale} intlMessages={intlMessages} cookies={universalCookies}>
+      <Providers locale={locale} intlMessages={intlMessages} cookies={Component.universalCookies}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
