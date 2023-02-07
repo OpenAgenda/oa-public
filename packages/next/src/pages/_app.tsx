@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Cookies } from 'react-cookie';
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core';
 import Providers from 'Providers';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -11,6 +12,7 @@ fontAwesomeConfig.autoAddCss = false;
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
   Layout?: React.FC<{ children: React.ReactNode }>
+  universalCookies?: Cookies
 }
 
 type AppPropsWithLayout<P = {}> = AppProps<P> & {
@@ -46,7 +48,7 @@ function MyApp({ Component, pageProps, router }: AppPropsWithLayout<PageProps>) 
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>
       </Head>
-      <Providers locale={locale} intlMessages={intlMessages}>
+      <Providers locale={locale} intlMessages={intlMessages} cookies={Component.universalCookies}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -17,7 +17,7 @@ type ForwardRefComponent<T, P = {}> = ForwardRefExoticComponent<PropsWithoutRef<
 const SearchFilter = ReactFiltersSearchFilter as ForwardRefComponent<HTMLElement, HTMLChakraProps<'input'> & {
   filter: object;
   isLoading: boolean;
-  inputComponent: React.ElementType
+  inputComponent: React.ElementType;
 }>;
 
 export default function Search({ disabled, isLoading }) {
