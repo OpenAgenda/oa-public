@@ -39,6 +39,40 @@ describe('02 - event search - functional: relative filter', () => {
     });
   });
 
+  it('fitler on a geographical rectangle', async () => {
+    const { total } = await service('map').search({
+      geo: {
+        northEast: {
+          lat: 51,
+          lng: 3,
+        },
+        southWest: {
+          lat: 44,
+          lng: -1,
+        },
+      },
+    });
+
+    expect(total).toBe(2);
+  });
+
+  it('filter on a volume-less rectangle triggers a bad request exception', async () => {
+    const error = await service('map').search({
+      geo: {
+        northEast: {
+          lat: 51,
+          lng: 3,
+        },
+        southWest: {
+          lat: 51,
+          lng: 3,
+        },
+      },
+    }).catch(e => e);
+
+    expect(error.message).toBe('northEast and southWest cannot have same lat or lng values');
+  });
+
   it('default geohash aggregation', async () => {
     const {
       aggregations: {

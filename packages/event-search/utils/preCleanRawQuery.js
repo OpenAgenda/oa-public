@@ -2,6 +2,9 @@
 
 const { produce } = require('immer');
 const log = require('@openagenda/logs')('preCleanRawQuery');
+const {
+  BadRequest,
+} = require('@openagenda/verror');
 
 const convertTimingsRange = require('./convertTimingsRange');
 
@@ -47,5 +50,14 @@ module.exports = produce((query = {}) => {
 
   if (query.timings?.range) {
     query.timings = convertTimingsRange(query.timings);
+  }
+
+  if (query.geo?.northEast && query.geo?.southWest) {
+    if (
+      (query.geo?.northEast.lat === query.geo?.southWest.lat)
+      || (query.geo?.northEast.lng === query.geo?.southWest.lng)
+    ) {
+      throw new BadRequest('northEast and southWest cannot have same lat or lng values');
+    }
   }
 });
