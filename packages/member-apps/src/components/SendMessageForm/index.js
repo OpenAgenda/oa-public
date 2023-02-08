@@ -5,7 +5,7 @@ import I18nContext from '../../contexts/I18nContext';
 import actionComponents from '../../utils/actionComponents';
 import schema from './schema';
 
-export default class InviteMembersForm extends Component {
+export default class SendMessageForm extends Component {
   static contextType = I18nContext;
 
   render() {
@@ -22,7 +22,10 @@ export default class InviteMembersForm extends Component {
             onSubmit={({ clean }) => {
               onPropsSubmit(clean);
             }}
-            actionComponents={actionComponents(getLabel)}
+            actionComponents={actionComponents({
+              getLabel,
+              label: 'sendMessage',
+            })}
           />
         )}
       </I18nContext.Consumer>

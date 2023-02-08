@@ -1,4 +1,4 @@
-export default getLabel => [
+export default ({ getLabel, label }) => [
   {
     position: 'bottom',
     Component: ({ onSubmit }) => (
@@ -8,7 +8,7 @@ export default getLabel => [
           className="btn btn-primary"
           onClick={() => onSubmit()}
         >
-          {getLabel('inviteMembers')}
+          {getLabel(label)}
         </button>
       </div>
     ),

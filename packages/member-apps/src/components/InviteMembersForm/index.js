@@ -28,7 +28,10 @@ export default class InviteMembersForm extends Component {
             onSubmit={({ clean }) => {
               onPropsSubmit(clean);
             }}
-            actionComponents={actionComponents(getLabel)}
+            actionComponents={actionComponents({
+              getLabel,
+              label: 'inviteMembers',
+            })}
           />
         )}
       </I18nContext.Consumer>
