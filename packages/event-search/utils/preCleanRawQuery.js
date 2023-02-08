@@ -1,7 +1,6 @@
 'use strict';
 
 const { produce } = require('immer');
-const log = require('@openagenda/logs')('preCleanRawQuery');
 const {
   BadRequest,
 } = require('@openagenda/verror');
@@ -20,7 +19,7 @@ module.exports = produce((query = {}) => {
         .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
     });
   } catch (e) {
-    log('error', 'provided state is invalid %j', query);
+    // console.log('error', 'provided state is invalid %j', query);
   }
 
   if (Array.isArray(query.uid)) {
@@ -40,7 +39,7 @@ module.exports = produce((query = {}) => {
         .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
     }
   } catch (e) {
-    log('error', 'provided attendanceMode is invalid %j', query);
+    // log('error', 'provided attendanceMode is invalid %j', query);
   }
 
   if (query.date && (query.date.gte || query.date.lte)) {
