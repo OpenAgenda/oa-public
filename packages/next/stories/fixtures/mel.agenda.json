@@ -15,6 +15,9 @@
   "private": 0,
   "indexed": 1,
   "settings": {
+    "tracking": {
+      "googleAnalytics": "googleAnalytics_id"
+    },
     "inbox": {
       "mailto": {
         "enabled": false,

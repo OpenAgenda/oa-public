@@ -53,7 +53,6 @@ export default function SpreadsheetOptions({
   const [distributeOptions, setDistributeOptions] = useState(false);
   const [distributedFields, setDistributedFields] = useState([]);
 
-  console.log('checkedState :', checkedState, options, fields);
   useEffect(() => {
     if (fields.length > 0) {
       setCheckedState(Array.from(fields, f => {
@@ -63,7 +62,7 @@ export default function SpreadsheetOptions({
         return false;
       }));
     }
-  }, [fields]);
+  }, [fields, options.fields]);
 
   const handleLanguage = e => {
     if (e.target.checked) {
