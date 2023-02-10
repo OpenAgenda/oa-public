@@ -4558,7 +4558,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/logs": ^1.1.9
     angular-expressions: ^0.3.0
     aws-sdk: ^2.544.0
@@ -4614,7 +4614,7 @@ __metadata:
     "@loadable/component": ^5.14.1
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/browserslist-config": ^1.0.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
@@ -4795,7 +4795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/eslint-config@^1.3.1, @openagenda/eslint-config@workspace:eslint-config":
+"@openagenda/eslint-config@^1.4.0, @openagenda/eslint-config@workspace:eslint-config":
   version: 0.0.0-use.local
   resolution: "@openagenda/eslint-config@workspace:eslint-config"
   dependencies:
@@ -4826,7 +4826,7 @@ __metadata:
     "@formatjs/cli": ^4.8.3
     "@formatjs/intl": ^1.6.7
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     core-js: ^3.10.2
     dedent: ^0.7.0
     eslint: ^8.24.0
@@ -4865,7 +4865,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/mails-editor@workspace:mails-editor"
   dependencies:
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     eslint: ^8.24.0
     express: ^4.17.1
     html-to-text: ^6.0.0
@@ -4889,7 +4889,7 @@ __metadata:
   resolution: "@openagenda/mails@workspace:mails"
   dependencies:
     "@formatjs/intl": ^2.2.1
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/queues": ^1.2.7
@@ -4961,7 +4961,7 @@ __metadata:
     "@formatjs/cli": ^2.11.3
     "@openagenda/axios-mock-adapter": ^1.21.0
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
@@ -5031,7 +5031,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     cheerio: ^1.0.0-rc.10
     core-js: ^3.10.2
     eslint: ^8.24.0
@@ -5057,7 +5057,7 @@ __metadata:
     "@loadable/babel-plugin": ^5.13.2
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-actions": ^6.2.8
@@ -5096,7 +5096,7 @@ __metadata:
     "@loadable/component": ^5.14.1
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@storybook/addon-actions": ^6.5.9
     "@storybook/preset-scss": ^1.0.3
@@ -5174,7 +5174,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-viewport": ^6.5.9
@@ -5218,7 +5218,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/axios-mock-adapter": ^1.21.2
     "@openagenda/babel-preset": ^1.5.0
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     axios: ^0.26.1
     babel-jest: ^26.6.3
     core-js: ^3.10.2
@@ -5255,7 +5255,7 @@ __metadata:
     "@emotion/cache": ^11.10.5
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
-    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/eslint-config": ^1.4.0
     "@openagenda/tsconfig": ^0.0.0
     "@storybook/addon-essentials": ^6.5.10
     "@storybook/addon-links": ^6.5.10
