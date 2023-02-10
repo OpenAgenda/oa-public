@@ -148,7 +148,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     if (agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === 'true') {
       addGoogleAnalyticsTracker({ googleAnalyticsID: agenda.settings.tracking.googleAnalytics });
     }
-  }, [cookies.CookieConsent, agenda.settings.tracking.googleAnalytics]);
+  }, [cookies.CookieConsent, agenda?.settings?.tracking?.googleAnalytics]);
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
