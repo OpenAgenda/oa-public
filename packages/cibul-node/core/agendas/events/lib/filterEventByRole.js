@@ -8,5 +8,8 @@ module.exports = async function filterEventByRole(agenda, event, context = {}) {
         [field.field]: event[field.field]
       }
     ) : filtered
-  ), {});
+  ), {
+    nextTiming: event.nextTiming,
+    lastTiming: event.lastTiming,
+  });
 };
