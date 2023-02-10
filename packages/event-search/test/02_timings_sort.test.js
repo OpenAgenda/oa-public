@@ -160,4 +160,16 @@ describe('02 - event search - functional: timings sorting', () => {
 
     expect(sorted).toBeTruthy();
   });
+
+  it('providing wrong sort values count triggers bad request exception', async () => {
+    const error = await service('timings').search({
+      state: null,
+      size: 2,
+    }, {
+      after: [0, 22945500000, 6],
+    }).catch(e => e);
+
+    expect(error.name).toBe('BadRequest');
+    expect(error.message).toBe('invalid after value');
+  });
 });

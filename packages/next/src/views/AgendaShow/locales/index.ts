@@ -2,14 +2,15 @@
 
 /* eslint-disable */
 
-import fetchLocale0 from 'components/Navbar/locales';
-import fetchLocale1 from 'components/OfficialAgenda/locales';
-import fetchLocale2 from 'components/PrivateAgenda/locales';
-import fetchLocale3 from 'components/SearchInput/locales';
-import fetchLocale4 from 'views/AgendaShow/components/AggregateModal/locales';
-import fetchLocale5 from 'views/AgendaShow/components/ContextBar/locales';
-import fetchLocale6 from 'views/AgendaShow/components/ExportModal/locales';
-import fetchLocale7 from 'views/AgendaShow/components/locales';
+import fetchLocale0 from 'components/ConsentBanner/locales';
+import fetchLocale1 from 'components/Navbar/locales';
+import fetchLocale2 from 'components/OfficialAgenda/locales';
+import fetchLocale3 from 'components/PrivateAgenda/locales';
+import fetchLocale4 from 'components/SearchInput/locales';
+import fetchLocale5 from 'views/AgendaShow/components/AggregateModal/locales';
+import fetchLocale6 from 'views/AgendaShow/components/ContextBar/locales';
+import fetchLocale7 from 'views/AgendaShow/components/ExportModal/locales';
+import fetchLocale8 from 'views/AgendaShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -23,6 +24,7 @@ export default async function fetchLocale(locale) {
     fetchLocale5(locale),
     fetchLocale6(locale),
     fetchLocale7(locale),
+    fetchLocale8(locale),
   ])
     .then(results => Object.assign({}, ...results))
     .catch(e => {

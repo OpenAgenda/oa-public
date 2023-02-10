@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import Head from 'next/head';
 import { defineMessages, useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
@@ -37,7 +38,9 @@ import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
+import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
+import ConsentBanner from '../../components/ConsentBanner';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
 import FiltersPreview from './components/FiltersPreview';
@@ -57,6 +60,7 @@ export type AgendaShowProps = {
     uid: number,
     title: string,
     schema: any,
+    settings: any,
   },
 };
 
@@ -129,7 +133,6 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
   const apiClient = useApiClient();
-
   const { user } = useUser();
 
   const filtersFormRef = useRef<any>();
@@ -138,6 +141,14 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   const initialValues = useConst(() => urlQuery);
 
   const [query, setQuery] = useState(() => urlQuery);
+
+  const [cookies, setCookie] = useCookies();
+
+  useEffect(() => {
+    if (agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === 'true') {
+      addGoogleAnalyticsTracker({ googleAnalyticsID: agenda.settings.tracking.googleAnalytics });
+    }
+  }, [cookies.CookieConsent, agenda.settings.tracking.googleAnalytics]);
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
@@ -462,6 +473,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           </GridItem>
         </Grid>
       </FiltersProvider>
+      {agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
+        <ConsentBanner
+          setCookie={setCookie}
+        />
+      ) : null}
     </main>
   );
 }

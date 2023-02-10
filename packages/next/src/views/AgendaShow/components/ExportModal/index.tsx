@@ -161,7 +161,7 @@ export default function ExportModal({
 
   const setMode = mode => {
     if (mode === 'selection') setRes(completeUrls(agendaUid, qs.stringify(query).length ? `?${qs.stringify(query)}` : ''));
-    if (mode === 'all') setRes(completeUrls(agendaUid, ''));
+    if (mode === 'all') setRes(completeUrls(agendaUid, '?passed=1'));
   };
 
   const setChoice = (value, id) => {

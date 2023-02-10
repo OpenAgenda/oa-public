@@ -123,7 +123,7 @@ module.exports = [{
   fields: [{
     field: 'tracking',
     type: 'schema',
-    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    read: ['internal', 'public', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'googleAnalytics',

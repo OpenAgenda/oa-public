@@ -27,6 +27,7 @@ const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
 const cleanNavResult = require('./utils/cleanNavResult');
+const formatError = require('./utils/formatError');
 
 const {
   inflateAndClean: inflateAndCleanQuery,
@@ -177,7 +178,22 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
 
-  const result = await postDSL(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
+  const {
+    result,
+    error,
+  } = await postDSL(
+    _.pick(config, ['client']),
+    index,
+    cleanDSL,
+    cleanNav.scroll ? cleanNav : {},
+  ).then(
+    r => ({ result: r }),
+    e => ({ error: e }),
+  );
+
+  if (error) {
+    throw formatError(error);
+  }
 
   const {
     events,
