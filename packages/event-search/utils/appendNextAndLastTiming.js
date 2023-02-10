@@ -11,9 +11,9 @@ module.exports = produce(event => {
 
   Object.assign(event, {
     lastTiming: event.timings.slice(-1).shift(),
-    nextTiming: null
+    nextTiming: null,
   });
-  
+
   if (event.lastTiming && (new Date(event.lastTiming) < now)) {
     return event;
   }
