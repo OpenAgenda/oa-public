@@ -22,6 +22,16 @@
   "overrides": [
     {
       "files": [
+        "src/**/*.{tsx,ts}",
+        "stories/**/*.stories.{tsx,ts}"
+      ],
+      "parserOptions": {
+        "project": ["tsconfig.json"]
+      }
+    },
+
+    {
+      "files": [
         "src/**/*.{tsx,ts,jsx,js}",
         "*.stories.{tsx,ts,jsx,js}"
       ],
