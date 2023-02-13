@@ -24,8 +24,8 @@ const visuals = {
 const UnicodeCheck = () => (<chakra.i role="presentation" marginEnd={2} fontWeight="bold" color="primary.500">✓</chakra.i>);
 
 export default function PricingCard({
-  name,
-  HeadingComponent,
+  name = null,
+  HeadingComponent = null,
   cost,
   features,
   before = null,
