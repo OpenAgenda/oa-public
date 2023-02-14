@@ -14,6 +14,7 @@ type SearchInputProps = {
   name?: string;
   className?: string;
   input?: any;
+  meta?: any;
   onButtonClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
@@ -24,6 +25,7 @@ export default function SearchInput({
   name = 'search',
   className,
   input,
+  meta: _meta,
   onButtonClick,
   placeholder,
   isLoading,
@@ -33,7 +35,7 @@ export default function SearchInput({
   const intl = useIntl();
 
   return (
-    <InputGroup bg="oaGray.10" maxW="210px" flex="1" h="full" className={className} {...props}>
+    <InputGroup bg="oaGray.10" flex="1" w="initial" h="full" className={className} {...props}>
       <Input
         h="inherit"
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}

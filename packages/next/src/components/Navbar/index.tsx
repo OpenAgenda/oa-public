@@ -236,13 +236,14 @@ function ProfileBar({ portalRef }) {
 
   // Not authenticated
   return (
-    <Flex direction="row" gap="6" h="full">
+    <Flex direction="row" h="full">
       <Button
         as={NextChakraLink}
         href="/signin"
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
+        px="4"
       >
         {intl.formatMessage(messages.signIn)}
       </Button>
@@ -252,6 +253,7 @@ function ProfileBar({ portalRef }) {
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
+        px="4"
       >
         {intl.formatMessage(messages.signUp)}
       </Button>

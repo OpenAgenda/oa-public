@@ -227,7 +227,8 @@ describe('agendas - unit (server): validate', () => {
           aggregator: false,
           docxExport: false,
           eventOwnershipTransfer: false,
-          useJSONBridge: false
+          useJSONBridge: false,
+          memberCustom: false,
         }
       });
     });

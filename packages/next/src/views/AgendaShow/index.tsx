@@ -8,7 +8,21 @@ import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import { useLatest } from 'react-use';
 import qs from 'qs';
-import { Box, Button, Container, Flex, Text, useConst } from '@openagenda/uikit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSliders } from '@fortawesome/pro-solid-svg-icons';
+import {
+  chakra,
+  Box,
+  Button,
+  CloseButton,
+  Container,
+  Flex,
+  Text,
+  Grid,
+  GridItem,
+  useConst,
+  useDisclosure,
+} from '@openagenda/uikit';
 import {
   FiltersProvider,
   Filters,
@@ -37,6 +51,7 @@ import ChoiceFilter from './components/ChoiceFilter';
 import FavoritesFilter from './components/FavoritesFilter';
 import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
+import ResponsiveDrawer from './components/Drawer';
 import fetchLocale from './locales';
 
 export type AgendaShowProps = {
@@ -93,9 +108,14 @@ function Total({ total, upcomingOnly, passed, disabled }) {
   }, [disabled, passed, router]);
 
   return (
-    <Text align="center" mt="6">
-      {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
-      {' '}-{' '}
+    <Text
+      align="center"
+      display={{ base: 'flex', sm: 'block' }}
+      flexDirection="column"
+    >
+      <chakra.span _after={{ content: { base: 'none', sm: '" - "' } }}>
+        {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
+      </chakra.span>
       <Button
         variant="link"
         colorScheme="primary"
@@ -128,7 +148,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     if (agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === 'true') {
       addGoogleAnalyticsTracker({ googleAnalyticsID: agenda.settings.tracking.googleAnalytics });
     }
-  }, [cookies.CookieConsent, agenda.settings.tracking.googleAnalytics]);
+  }, [cookies.CookieConsent, agenda?.settings?.tracking?.googleAnalytics]);
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
@@ -279,6 +299,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     }
   }, [latestQuery, urlQuery]);
 
+  const {
+    isOpen: isOpenFilters,
+    onToggle: onToggleFilters,
+  } = useDisclosure();
+
   return (
     <main>
       <Head>
@@ -306,100 +331,147 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         ref={filtersFormRef}
         filters={filters}
       >
-        <Flex
+        <Grid
+          templateAreas={{
+            base: `"filters"
+                   "total"
+                   "events"`,
+            lg: `"total ."
+                 "events filters"`,
+          }}
+          gridTemplateColumns={{
+            base: '1fr',
+            lg: '2fr minmax(380px, 1fr)',
+          }}
+          rowGap="8"
+          columnGap={{ xl: '24' }}
+          pt="8"
           m="auto"
-          maxW={['full', null, null, 'container.xl']}
-          h="auto"
-          direction={['column', null, null, 'row-reverse']}
-          alignItems={['center', null, null, 'start']}
-          gap="6"
+          maxW="container.xl"
         >
-          <Box
-            flex="1"
-            alignSelf="start"
-            w="full"
-            minW="380px"
-            display={{ base: 'none', lg: 'block' }}
-          />
-          <Box flex="2">
-            <Box ml={{ lg: '25%' }}>
-              <FiltersPreview
-                agenda={agenda}
-                filters={filters}
-                getOptions={getOptions}
-                disabled={isLoadingMore}
+          <GridItem area="total">
+            <Flex direction="row" gap="8">
+              <chakra.div
+                w={{ base: 'full', xl: '25%' }}
+                display={{ base: 'none', xl: 'block' }}
               />
+              <Flex
+                gap="6"
+                direction="column"
+                w={{ base: 'full', xl: '75%' }}
+                px={{ base: '4', xl: '0' }}
+              >
+                <FiltersPreview
+                  agenda={agenda}
+                  filters={filters}
+                  getOptions={getOptions}
+                  disabled={isLoadingMore}
+                />
 
-              <Total
-                total={pages[0].total}
-                upcomingOnly={upcomingOnly}
-                passed={query.passed === '1'}
-                disabled={isLoadingMore || query.timings}
-              />
-            </Box>
-          </Box>
-        </Flex>
-
-        <Flex
-          as="section"
-          m="auto"
-          maxW={['full', null, null, 'container.xl']}
-          h="auto"
-          direction={['column', null, null, 'row-reverse']}
-          alignItems={['center', null, null, 'start']}
-          gap="6"
-        >
-          <Box
-            as="aside"
-            // display="flex"
-            // flexDirection="column"
-            flex="1"
-            alignSelf="start"
-            mt="8"
-            w="full"
-            minW="380px"
-          >
-            <Form>
-              <Search disabled={false} isLoading={false} />
-
-              <Filters
-                filters={filters}
-                // disabled={isFetching || filtersQuery.isFetching}
-                dateRangeComponent={DateRangeFilter as any}
-                choiceComponent={ChoiceFilter as any}
-                mapComponent={MapFilter as any}
-                // mapProps={{}}
-                getTotal={getTotal}
-                getOptions={getOptions}
-                initialViewport={initialViewport}
-                loadGeoData={loadGeoData}
-                withRef
-              />
-
-              <FavoritesFilter agenda={agenda} />
-            </Form>
-          </Box>
-
-          <Flex direction="column" flex="2" mt="8" gap="10">
-            {pages?.map(page => page.events.map(event => (
-              <EventItem key={event.uid} event={event} agenda={agenda} />
-            )))}
-
-            {!isReachingEnd ? (
-              <Flex ml="25%" justify="space-around">
-                <Button
-                  ref={ref}
-                  onClick={() => setSize(size + 1)}
-                  variant="link"
-                  colorScheme="primary"
-                  isLoading={isLoadingMore}
-                >
-                  {intl.formatMessage(messages.seeMore)}
-                </Button>
+                <Total
+                  total={pages[0].total}
+                  upcomingOnly={upcomingOnly}
+                  passed={query.passed === '1'}
+                  disabled={isLoadingMore || query.timings}
+                />
               </Flex>
-            ) : null}
-          </Flex>
-        </Flex>
+            </Flex>
+          </GridItem>
+
+          <GridItem area="filters">
+            <Form gap="8">
+              <Search
+                disabled={false}
+                isLoading={false}
+                mx={{ base: '4', lg: '0' }}
+              />
+
+              <div>{/* Useful to remove gap for the drawer on mobile */}
+                <Flex>
+                  <Button
+                    colorScheme="primary"
+                    onClick={onToggleFilters}
+                    leftIcon={<FontAwesomeIcon icon={faSliders} />}
+                    display={{ base: 'flex', lg: 'none' }}
+                    mx="4"
+                    w="full"
+                  >
+                    Filtrer
+                  </Button>
+                </Flex>
+
+                <ResponsiveDrawer isOpen={isOpenFilters} onClose={onToggleFilters}>
+                  <Flex direction="column" h="full">
+                    <Flex
+                      display={{ base: 'flex', lg: 'none' }}
+                      justify="space-between"
+                      align="center"
+                      p="4"
+                    >
+                      <Text fontWeight="bold" fontSize="lg">
+                        Filtres
+                      </Text>
+                      <CloseButton onClick={onToggleFilters} />
+                    </Flex>
+
+                    <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
+                      <Filters
+                        filters={filters}
+                        // disabled={isFetching || filtersQuery.isFetching}
+                        dateRangeComponent={DateRangeFilter as any}
+                        choiceComponent={ChoiceFilter as any}
+                        mapComponent={MapFilter as any}
+                        // mapProps={{
+                        //   displayed: mapDisplayed,
+                        //   defaultPaused: true, // TODO defaultPaused because default hidden
+                        // }}
+                        getTotal={getTotal}
+                        getOptions={getOptions}
+                        initialViewport={initialViewport}
+                        loadGeoData={loadGeoData}
+                        withRef
+                      />
+                      <FavoritesFilter agenda={agenda} />
+                    </Flex>
+
+                    <Box display={{ base: 'block', lg: 'none' }} p="4">
+                      <Button
+                        variant="solid"
+                        colorScheme="primary"
+                        onClick={onToggleFilters}
+                        w="full"
+                      >
+                        Voir les {pages[0].total} événements
+                      </Button>
+                    </Box>
+                  </Flex>
+                </ResponsiveDrawer>
+              </div>
+            </Form>
+          </GridItem>
+
+          <GridItem area="events">
+            <Flex direction="column" flex="2" gap="10">
+              {pages?.map(page => page.events.map(event => (
+                <EventItem key={event.uid} event={event} agenda={agenda} />
+              )))}
+
+              {!isReachingEnd ? (
+                <Flex ml="25%" justify="space-around">
+                  <Button
+                    ref={ref}
+                    onClick={() => setSize(size + 1)}
+                    variant="link"
+                    colorScheme="primary"
+                    isLoading={isLoadingMore}
+                  >
+                    {intl.formatMessage(messages.seeMore)}
+                  </Button>
+                </Flex>
+              ) : null}
+            </Flex>
+          </GridItem>
+        </Grid>
       </FiltersProvider>
       {agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
         <ConsentBanner

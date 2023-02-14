@@ -114,9 +114,16 @@ export default function EventItem({ event, agenda }) {
   const redirectUrl = Buffer.from(router.asPath).toString('base64');
 
   return (
-    <Flex as="article">
-      <Box as="aside" w="25%" mt="4" pr="8">
-        <Flex justify="flex-end">
+    <Flex
+      as="article"
+      direction={{ base: 'column', xl: 'row' }}
+      gap={{ base: '2', xl: '8' }}
+      mx={{ base: 'auto', xl: '0' }}
+      px={{ base: '4', xl: '0' }}
+      maxW={{ base: 'xl', xl: 'none' }}
+    >
+      <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
+        <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
           <div>
             {event.featured ? (
               <Text mb="2">
@@ -135,6 +142,7 @@ export default function EventItem({ event, agenda }) {
           </div>
         </Flex>
       </Box>
+
       <LinkBox
         as="section"
         display="flex"
@@ -143,7 +151,7 @@ export default function EventItem({ event, agenda }) {
         position="relative"
         // py="4"
         pt="4"
-        w="75%"
+        w={{ base: 'full', xl: '75%' }}
         bg="white"
         // border="1px solid"
         // borderColor="oaGray.100"
@@ -179,6 +187,7 @@ export default function EventItem({ event, agenda }) {
               height={event.image.size.height}
               loader={({ src }) => src}
               alt=""
+              m="auto"
             />
           ) : (
             <Image
@@ -190,6 +199,7 @@ export default function EventItem({ event, agenda }) {
               h="auto !important"
               loader={({ src }) => src}
               alt=""
+              m="auto"
             />
           )
           : null}

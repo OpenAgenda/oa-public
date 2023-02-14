@@ -20,11 +20,11 @@ function useHandleSubmit() {
   }, [form]);
 }
 
-export default function Form({ children }) {
+export default function Form({ children, ...rest }) {
   const handleSubmit = useHandleSubmit();
 
   return (
-    <Flex direction="column" as="form" onSubmit={handleSubmit} gap="8">
+    <Flex direction="column" as="form" onSubmit={handleSubmit} {...rest}>
       {children}
     </Flex>
   );

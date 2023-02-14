@@ -20,7 +20,7 @@ const SearchFilter = ReactFiltersSearchFilter as ForwardRefComponent<HTMLElement
   inputComponent: React.ElementType;
 }>;
 
-export default function Search({ disabled, isLoading }) {
+export default function Search({ disabled, isLoading, ...rest }) {
   const [filter] = useState(() => ({ name: 'search' }));
 
   return (
@@ -30,10 +30,10 @@ export default function Search({ disabled, isLoading }) {
       isLoading={isLoading}
       disabled={disabled}
       inputComponent={StyledSearchInput}
-      minH="50"
-      h="50"
-      w="full"
-      maxW="full"
+      __css={{
+        h: '50',
+      }}
+      {...rest}
     />
   );
 }

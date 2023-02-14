@@ -7,17 +7,21 @@ import choiceFilterMessages from '@openagenda/react-filters/messages/choiceFilte
 
 const subscription = { value: true };
 
-// function parseValue(value) {
-//   if (Array.isArray(value) && !value.length) {
-//     return undefined;
-//   }
-//
-//   return value;
-// }
-//
-// function formatValue(value) {
-//   return value;
-// }
+function parseValue(value) {
+  if (Array.isArray(value) && !value.length) {
+    return undefined;
+  }
+
+  return value;
+}
+
+function formatValue(value) {
+  // if (value !== undefined) {
+  //   return [].concat(value);
+  // }
+
+  return value;
+}
 
 function ChoiceField({
   input,
@@ -108,8 +112,8 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter({
             key={option.id || option.key}
             name={name}
             subscription={subscription}
-            // parse={parseValue}
-            // format={formatValue}
+            parse={parseValue}
+            format={formatValue}
             component={ChoiceField as any}
             type={inputType}
             value={option.value}
