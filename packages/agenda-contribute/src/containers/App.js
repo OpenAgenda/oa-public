@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { matchPath } from 'react-router';

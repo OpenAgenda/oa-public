@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,15 +16,15 @@ import RequestEditionRights from '../components/RequestEditionRights';
 const {
   replaceWithStep,
   schemaWithoutEventFields,
-  filterEventData
+  filterEventData,
 } = utils;
 
 export default function EventEdit({
   agenda,
-  history
+  history,
 }) {
   const {
-    eventUid // as a string
+    eventUid, // as a string
   } = useParams();
 
   const location = useLocation();
@@ -37,14 +37,14 @@ export default function EventEdit({
   const {
     eventIsLoading,
     event,
-    eventContext
+    eventContext,
   } = useEvent(agenda.uid, eventUid);
 
   const {
     config,
     isLoading,
     agendaContext,
-    schema
+    schema,
   } = useEventFormConfig(agenda);
 
   useEffect(() => {
@@ -77,21 +77,21 @@ export default function EventEdit({
           ...config,
           // when event cannot be edited, schema should exclude event fields
           // but when event cannot be edited but has fields linked to extended fields, schema should load disabled event fields.
-          schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema)
+          schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema),
         }}
         event={filterEventData({
           event,
           schema,
           canEditEvent: eventContext.me?.authorizations?.canEditEvent,
           canChangeState: agendaContext?.me?.authorizations?.canChangeState,
-          displayEventFields: eventContext?.me?.authorizations?.canEditEvent
+          displayEventFields: eventContext?.me?.authorizations?.canEditEvent,
         })}
         memberRole={agendaContext?.me?.member?.role}
         canEditEvent={eventContext.me?.authorizations?.canEditEvent}
         onSuccess={(_event, response) => {
           dispatch(contributeReducer.eventUpdateSuccess({
             agenda,
-            response
+            response,
           }));
         }}
       />

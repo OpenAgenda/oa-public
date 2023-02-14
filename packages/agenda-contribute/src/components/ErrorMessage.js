@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import errorMessages from '@openagenda/common-labels/errors';
 import getEventTitle from '../lib/getEventTitle';
@@ -9,44 +8,44 @@ const log = debug('ErrorMessage');
 const messages = defineMessages({
   shareRestrictionInfo: {
     id: 'AgendaContribute.ErrorMessage.shareRestrictionInfo',
-    defaultMessage: 'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"'
+    defaultMessage: 'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"',
   },
   suggestChange: {
     id: 'AgendaContribute.ErrorMessage.suggestChange',
-    defaultMessage: 'Suggest a change'
+    defaultMessage: 'Suggest a change',
   },
   cancelChange: {
     id: 'AgendaContribute.ErrorMessage.cancelChange',
-    defaultMessage: 'Cancel the share'
+    defaultMessage: 'Cancel the share',
   },
   longDescription: {
     id: 'AgendaContribute.ErrorMessage.longDescription',
-    defaultMessage: 'Long description'
+    defaultMessage: 'Long description',
   },
   imageCredits: {
     id: 'AgendaContribute.ErrorMessage.imageCredits',
-    defaultMessage: 'Image credits'
+    defaultMessage: 'Image credits',
   },
   conditions: {
     id: 'AgendaContribute.ErrorMessage.conditions',
-    defaultMessage: 'Conditions'
+    defaultMessage: 'Conditions',
   },
   registration: {
     id: 'AgendaContribute.ErrorMessage.registration',
-    defaultMessage: 'Registration'
+    defaultMessage: 'Registration',
   },
   timings: {
     id: 'AgendaContribute.ErrorMessage.timings',
-    defaultMessage: 'Timings'
+    defaultMessage: 'Timings',
   },
   title: {
     id: 'AgendaContribute.ErrorMessage.title',
-    defaultMessage: 'Title'
+    defaultMessage: 'Title',
   },
   description: {
     id: 'AgendaContribute.ErrorMessage.description',
-    defaultMessage: 'Description'
-  }
+    defaultMessage: 'Description',
+  },
 });
 
 const renderErrorLabel = ({ err, m }) => `${messages?.[err.field] ? m(messages[err.field]) : err.field}${err.lang ? ` (${err.lang.toUpperCase()})` : ''}`;
@@ -57,11 +56,11 @@ export default function ErrorMessage({
   agenda,
   suggestChangeRes,
   onCancel,
-  canEditEvent
+  canEditEvent,
 }) {
   const {
     locale,
-    formatMessage: m
+    formatMessage: m,
   } = useIntl();
 
   log('displaying errors %j', errors);
@@ -71,13 +70,13 @@ export default function ErrorMessage({
       <strong>
         {m(messages.shareRestrictionInfo, {
           event: getEventTitle(event, locale),
-          agenda: agenda.title
+          agenda: agenda.title,
         })}
       </strong>
       <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
         {errors.map(err => (
           <li>
-            <strong>{renderErrorLabel({ err, m })}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
+            <strong>{renderErrorLabel({ err, m })}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
           </li>
         ))}
       </ul>

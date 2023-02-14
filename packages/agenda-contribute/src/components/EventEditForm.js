@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EventForm from '@openagenda/event-form/build';
@@ -7,8 +6,8 @@ import ButtonSpinner from './ButtonSpinner';
 const messages = defineMessages({
   update: {
     id: 'AgendaContribute.EventEdit.update',
-    defaultMessage: 'Update'
-  }
+    defaultMessage: 'Update',
+  },
 });
 
 function EventEditForm({
@@ -17,7 +16,7 @@ function EventEditForm({
   onSuccess,
   memberRole,
   saveButtonLabel,
-  res
+  res,
 }) {
   const m = useIntl().formatMessage;
 
@@ -42,7 +41,7 @@ function EventEditForm({
             </button>
             {loading && <ButtonSpinner />}
           </div>
-        )
+        ),
       }]}
     />
   );

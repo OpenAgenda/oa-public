@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import utils from '../lib/utils';
@@ -8,24 +7,24 @@ import Canvas from './Canvas';
 const messages = defineMessages({
   publishedEvent: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.publishedEvent',
-    defaultMessage: 'The event is now published on "{agenda}"'
+    defaultMessage: 'The event is now published on "{agenda}"',
   },
   addedEvent: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.sharedEvent',
-    defaultMessage: 'The event has been added to "{agenda}". It will be reviewed before being published'
+    defaultMessage: 'The event has been added to "{agenda}". It will be reviewed before being published',
   },
   goBack: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.goBack',
-    defaultMessage: 'Go back'
+    defaultMessage: 'Go back',
   },
   goTo: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.goTo',
-    defaultMessage: 'See the event'
+    defaultMessage: 'See the event',
   },
 });
 
 const {
-  doRedirect
+  doRedirect,
 } = utils;
 
 export default function EventWasSuccessfullyShared({
@@ -33,7 +32,7 @@ export default function EventWasSuccessfullyShared({
   fromAgenda,
   agenda,
   history,
-  location
+  location,
 }) {
   const fromEventRes = useEventRes(fromAgenda, event);
   const toEventRes = useEventRes(agenda, event);
@@ -49,7 +48,7 @@ export default function EventWasSuccessfullyShared({
       <div className="padding-all-md wsq text-center">
         <div className="text-center margin-bottom-sm">
           {m(event.state === 2 ? messages.publishedEvent : messages.addedEvent, {
-            agenda: agenda.title
+            agenda: agenda.title,
           })}
         </div>
         <div className="text-center">

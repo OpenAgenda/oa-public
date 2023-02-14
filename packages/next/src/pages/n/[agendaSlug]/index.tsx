@@ -10,6 +10,7 @@ import AgendaShow, { AgendaShowProps } from 'views/AgendaShow';
 import getSSRApiClient from 'utils/getSSRApiClient';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
+import getPreferredLocale from 'utils/getPreferredLocale';
 
 type PageProps = AgendaShowProps & {
   intlMessages: Record<string, string>,
@@ -18,11 +19,17 @@ type PageProps = AgendaShowProps & {
 
 const intlCache = createIntlCache();
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query: queryWithParams, resolvedUrl }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale: nextLocale,
+  query: queryWithParams,
+  resolvedUrl,
+}) => {
   const api = getSSRApiClient();
 
   const { agendaSlug } = queryWithParams;
   const query = parseLocationQuery(resolvedUrl);
+
+  const locale = getPreferredLocale(nextLocale, query.lang);
 
   const [
     { data: agenda },

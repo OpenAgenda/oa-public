@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import getEventTitle from '../lib/getEventTitle';
@@ -6,20 +5,20 @@ import getEventTitle from '../lib/getEventTitle';
 const messages = defineMessages({
   shareEvent: {
     id: 'AgendaContribute.Canvas.shareEvent',
-    defaultMessage: 'Share an event'
+    defaultMessage: 'Share an event',
   },
   takeEvent: {
     id: 'AgendaContribute.Canvas.takeEvent',
-    defaultMessage: 'Take'
+    defaultMessage: 'Take',
   },
   fromAgenda: {
     id: 'AgendaContribute.Canvas.fromAgenda',
-    defaultMessage: 'from the agenda'
+    defaultMessage: 'from the agenda',
   },
   toAgenda: {
     id: 'AgendaContribute.Canvas.toAgenda',
-    defaultMessage: 'to the agenda'
-  }
+    defaultMessage: 'to the agenda',
+  },
 });
 
 function AddHeader({ event, fromAgenda, agenda }) {
@@ -27,7 +26,7 @@ function AddHeader({ event, fromAgenda, agenda }) {
 
   const {
     formatMessage: m,
-    locale
+    locale,
   } = intl;
 
   return (
@@ -54,7 +53,7 @@ function EditHeader({ event }) {
 
 function Header(props) {
   const {
-    mode
+    mode,
   } = props;
 
   if (mode === 'share') {
@@ -70,7 +69,7 @@ function Header(props) {
 
 export default function Canvas(props) {
   const {
-    children
+    children,
   } = props;
 
   return (
@@ -78,7 +77,7 @@ export default function Canvas(props) {
       <div className="row">
         <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
           <div className="text-center">
-            {<Header {...props} />}
+            <Header {...props} />
             {children}
           </div>
         </div>

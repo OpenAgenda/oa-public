@@ -24,7 +24,7 @@ module.exports = async (core, agenda, options = {}) => {
   const { search } = core.services.eventSearch.agendas(agenda);
 
   const publishedResult = await search({}, { size: 0 }, {
-    aggregations: ['cities', 'departments', 'regions', 'relative', 'keywords']
+    aggregations: ['cities', 'departments', 'regions', 'relative', 'keywords', 'languages']
   }).then(({ aggregations }) => aggregations);
 
   const summary = {
@@ -33,6 +33,10 @@ module.exports = async (core, agenda, options = {}) => {
       []
     ),
     publishedEvents: publishedResult.relative.reduce((carry, { key, eventCount }) => ({
+      ...carry,
+      [key]: eventCount
+    }), {}),
+    languages: publishedResult.languages.reduce((carry, { key, eventCount }) => ({
       ...carry,
       [key]: eventCount
     }), {}),
