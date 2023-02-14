@@ -40,7 +40,8 @@ import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import ConsentBanner from '../../components/ConsentBanner';
+import ConsentBanner from 'components/ConsentBanner';
+import { SUPPORTED_LOCALES } from 'config/constants';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
 import FiltersPreview from './components/FiltersPreview';
@@ -59,8 +60,12 @@ export type AgendaShowProps = {
     slug: string,
     uid: number,
     title: string,
+    description: string,
     schema: any,
     settings: any,
+    summary: any,
+    indexed: boolean,
+    image?: string,
   },
 };
 
@@ -304,9 +309,54 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     onToggle: onToggleFilters,
   } = useDisclosure();
 
+  const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+
   return (
     <main>
       <Head>
+        <title>{agenda.title} | OpenAgenda</title>
+        {agenda.indexed ? (
+          <meta name="robots" content="index, follow" />
+        ) : (
+          <meta name="robots" content="noindex" />
+        )}
+
+        <link rel="canonical" href={url.origin + url.pathname} />
+        {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+          <link
+            key={`alternate:${key}`}
+            rel="alternate"
+            hrefLang={key}
+            href={SUPPORTED_LOCALES
+              ? `${url.origin}/${key}${url.pathname}`
+              : `${url.origin}${url.pathname}?lang=${key}`}
+          />
+        )))}
+        <link rel="alternate" hrefLang="x-default" href={url.origin + url.pathname} />
+
+        <meta property="og:site_name" content="OpenAgenda" />
+        <meta property="og:title" content={`${agenda.title} | OpenAgenda`} />
+        <meta property="og:description" content={agenda.description} />
+        {/* <meta property="og:type" content="website" /> */}
+        <meta property="og:locale" content={intl.locale} />
+        {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+          <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
+        )))}
+        <meta property="og:url" content={url.origin + url.pathname} />
+        {agenda.image ? (
+          <meta property="og:image" content={agenda.image} />
+        ) : null}
+
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content={process.env.NEXT_PUBLIC_SITE_DOMAIN} />
+        <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
+        <meta property="twitter:description" content={agenda.description} />
+        <meta property="twitter:domain" content="@oagenda" />
+        <meta property="twitter:url" content={url.origin + url.pathname} />
+        {agenda.image ? (
+          <meta property="twitter:image" content={agenda.image} />
+        ) : null}
+
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"

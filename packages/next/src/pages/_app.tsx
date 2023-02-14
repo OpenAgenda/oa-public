@@ -6,6 +6,7 @@ import { Cookies } from 'react-cookie';
 import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core';
 import Providers from 'Providers';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import getPreferredLocale from '../utils/getPreferredLocale';
 
 fontAwesomeConfig.autoAddCss = false;
 
@@ -27,8 +28,9 @@ function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithL
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
 
-  const { locale } = router;
   const { intlMessages } = pageProps;
+
+  const locale = getPreferredLocale(router.locale, router.query.lang);
 
   return (
     <>
