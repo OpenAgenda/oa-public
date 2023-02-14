@@ -233,7 +233,8 @@ describe( 'agendas - functional (server): get', function() {
         invitationMessage: false,
         docxExport: false,
         eventOwnershipTransfer: false,
-        useJSONBridge: false
+        useJSONBridge: false,
+        memberCustom: false
       } );
 
       done();
