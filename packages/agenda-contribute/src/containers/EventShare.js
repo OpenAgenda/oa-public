@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,14 +25,14 @@ const {
   shouldTriggerImmediateShare,
   shouldShowFullEventFormLink,
   shouldDisplayEventFields,
-  filterEventData
+  filterEventData,
 } = utils;
 
 const messages = defineMessages({
   share: {
     id: 'AgendaContribute.EventShare.share',
-    defaultMessage: 'Add the event'
-  }
+    defaultMessage: 'Add the event',
+  },
 });
 
 const log = debug('EventShare');
@@ -52,13 +52,13 @@ export default function EventShare({ agenda, history }) {
 
   const {
     eventUid,
-    fromAgendaUid
+    fromAgendaUid,
   } = useParams();
 
   const {
     eventIsLoading,
     event,
-    eventContext
+    eventContext,
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
@@ -68,12 +68,12 @@ export default function EventShare({ agenda, history }) {
 
   const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
-    detailedAgenda: fromAgenda
+    detailedAgenda: fromAgenda,
   } = useDetailedAgenda(fromAgendaUid);
 
   const {
     detailedAgendaIsLoading,
-    detailedAgenda
+    detailedAgenda,
   } = useDetailedAgenda(agenda.uid);
 
   const {
@@ -84,7 +84,7 @@ export default function EventShare({ agenda, history }) {
   const {
     config,
     configIsLoading,
-    schema
+    schema,
   } = useEventFormConfig(agenda);
 
   useEffect(() => {
@@ -179,7 +179,7 @@ export default function EventShare({ agenda, history }) {
           res={shareRes}
           config={{
             ...config,
-            schema: displayEventFields ? schema : schemaWithoutEventFields(schema)
+            schema: displayEventFields ? schema : schemaWithoutEventFields(schema),
           }}
           memberRole={agendaContext.me?.member?.role}
           event={filterEventData({
@@ -187,7 +187,7 @@ export default function EventShare({ agenda, history }) {
             canChangeState: agendaContext?.me?.authorizations?.canChangeState,
             canEditEvent: eventContext?.me?.authorizations?.canEditEvent,
             schema,
-            displayEventFields
+            displayEventFields,
           })}
           onSuccess={(_event, response) => {
             dispatch(contributeReducer.displayShareSuccess(response.body.event));

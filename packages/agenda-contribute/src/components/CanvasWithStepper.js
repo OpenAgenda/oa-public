@@ -1,23 +1,22 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import Stepper from './Stepper';
 
 const messages = defineMessages({
   editDraftTitle: {
     id: 'AgendaContribute.CanvasWithStepper.editDraftTitle',
-    defaultMessage: 'Draft'
+    defaultMessage: 'Draft',
   },
   addEvent: {
     id: 'AgendaContribute.CanvasWithStepper.addEvent',
-    defaultMessage: 'Ajouter un événement'
-  }
+    defaultMessage: 'Ajouter un événement',
+  },
 });
 
 const getTitle = ({
   event,
   locale,
   title,
-  labels
+  labels,
 }) => {
   if (title) return title;
 
@@ -48,13 +47,13 @@ export default function CanvasWithStepper({
   steps,
   event,
   children,
-  onSelectStep
+  onSelectStep,
 }) {
   const intl = useIntl();
 
   const {
     formatMessage: m,
-    locale
+    locale,
   } = intl;
 
   return (
@@ -67,8 +66,8 @@ export default function CanvasWithStepper({
               locale,
               labels: {
                 editDraftTitle: m(messages.editDraftTitle),
-                addEvent: m(messages.addEvent)
-              }
+                addEvent: m(messages.addEvent),
+              },
             })}
             </h2>
             <div className="padding-h-md stepper-gray-background padding-v-md">

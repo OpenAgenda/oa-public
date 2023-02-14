@@ -1,4 +1,3 @@
-import React from 'react';
 import { Spinner } from '@openagenda/react-shared';
 
 function Loading() {
@@ -9,7 +8,7 @@ function Loading() {
         minHeight: 300,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}
     >
       <Spinner mode="inline" options={{ scale: 1, width: 1 }} />

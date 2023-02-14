@@ -1,9 +1,8 @@
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 function Instructions({
   message,
-  className
+  className,
 }) {
   if (!message) {
     return null;

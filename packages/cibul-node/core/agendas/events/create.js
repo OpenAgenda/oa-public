@@ -6,6 +6,7 @@ const log = require('@openagenda/logs')('core/agendas/events/create');
 const { BadRequest, Forbidden } = require('@openagenda/verror');
 
 const createPayload = require('../utils/createPayload');
+const cleanDuplicateImage = require('../utils/cleanDuplicateImage');
 const doAdd = require('../utils/doAdd');
 const extractUserUid = require('../utils/extractUserUid');
 const loadAuthorizations = require('../../utils/authorizations');
@@ -98,6 +99,9 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   log('  pre-validation done', { agendaUid });
 
   try {
+    if (clean.event.image && duplicateOrigin) {
+      clean.event.image = cleanDuplicateImage(core, clean.event.image);
+    }
     const event = await events.create(clean.event, {
       context: {
         userUid,

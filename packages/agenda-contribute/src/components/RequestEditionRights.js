@@ -1,40 +1,39 @@
-import React from 'react';
 import { MoreInfo } from '@openagenda/react-shared';
 import { defineMessages, useIntl } from 'react-intl';
 
 import utils from '../lib/utils';
 
 const {
-  hasAdditionalFields
+  hasAdditionalFields,
 } = utils;
 
 const messages = defineMessages({
   noEditionRights: {
     id: 'AgendaContribute.RequestEditionRights.noEditionRights',
-    defaultMessage: 'You do not have edition rights on this event.'
+    defaultMessage: 'You do not have edition rights on this event.',
   },
   onlyAdditionalFieldsCanBeEdited: {
     id: 'AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited',
-    defaultMessage: 'Only additional fields of the agenda can be edited here.'
+    defaultMessage: 'Only additional fields of the agenda can be edited here.',
   },
   onlyAdditionalFieldsCanBeEditedInfo: {
     id: 'AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo',
-    defaultMessage: 'This event was added to the agenda "%agenda%" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.'
+    defaultMessage: 'This event was added to the agenda "%agenda%" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.',
   },
   requestEditionRights: {
     id: 'AgendaContribute.RequestEditionRights.requestEditionRights',
-    defaultMessage: 'Request edition rights'
+    defaultMessage: 'Request edition rights',
   },
   requestEditionRightsInfo: {
     id: 'AgendaContribute.RequestEditionRights.requestEditionRightsInfo',
-    defaultMessage: 'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)'
-  }
+    defaultMessage: 'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
+  },
 });
 
 function RequestEditionRights({
   agenda,
   event,
-  schema
+  schema,
 }) {
   const m = useIntl().formatMessage;
 
