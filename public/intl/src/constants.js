@@ -5,6 +5,6 @@ export const DEFAULT_LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'o
 export const DEFAULT_FALLBACK_MAP = {
   br: 'fr',
   ca: 'es',
-  eu: 'fr',
+  eu: 'es',
   oc: 'fr',
 };
