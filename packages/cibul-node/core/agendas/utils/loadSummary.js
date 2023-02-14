@@ -43,8 +43,6 @@ module.exports = async (core, agenda, options = {}) => {
     recentlyAddedEvents: await getRecentlyAddedEvents(core, agenda)
   };
 
-  console.log('SUMMARY', summary, publishedResult);
-
   if (['administrator', 'moderator', 'internal'].includes(access)) {
     summary.eventCountsByState = await search({
       state: null
