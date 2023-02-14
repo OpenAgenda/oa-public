@@ -19,8 +19,8 @@ const config = async () => {
   return withBundleAnalyzer(withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
-      locales: ['fr', 'en'],
-      defaultLocale: 'fr',
+      locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
+      defaultLocale: 'default',
     },
     images: {
       remotePatterns: [

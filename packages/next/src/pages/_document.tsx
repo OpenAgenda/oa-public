@@ -12,16 +12,25 @@ import { cache } from '@openagenda/uikit';
 
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
+function wrapWithCookies(ctx) {
+  return App => {
+    const Wrapped = props => (
+      <App
+        universalCookies={new Cookies(ctx.req?.headers?.cookie)}
+        {...props}
+      />
+    );
+    return Wrapped;
+  };
+}
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage;
 
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceComponent: Component => {
-          (Component as any).universalCookies = new Cookies(ctx.req.headers.cookie);
-          return Component;
-        },
+        enhanceApp: App => wrapWithCookies(ctx)(App),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
