@@ -613,6 +613,62 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     });
   });
 
+  describe('creation of duplicate', () => {
+    let originEvent;
+    let duplicateEvent;
+    const memberUserUid = 63170203;
+    const agendaUid = 17026855;
+
+    beforeAll(async () => {
+      originEvent = await core.agendas(agendaUid).events.create({
+        title: {
+          fr: 'Origine',
+        },
+        description: {
+          fr: 'Test de la lib core',
+        },
+        timings: [{
+          begin: new Date('2023-02-14T10:00:00'),
+          end: new Date('2023-02-14T12:00:00'),
+        }],
+        image: {
+          url: 'https://cibul.s3.amazonaws.com/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+        },
+        attendanceMode: 2,
+        onlineAccessLink: 'https://oa.com',
+        'categories-agenda-metropolitain': 42,
+      }, {
+        context: {
+          userUid: memberUserUid,
+        },
+        access: 'contributor',
+      });
+
+      duplicateEvent = await core.agendas(agendaUid).events.create(_.omit(originEvent, ['state']), {
+        context: {
+          userUid: memberUserUid,
+        },
+        access: 'contributor',
+        duplicateOrigin: {
+          agendaUid,
+          eventUid: originEvent.uid,
+        },
+      });
+    });
+
+    it('origin event image name derives from event fileKey', () => {
+      expect(originEvent.image.filename.match(originEvent.fileKey)).toBeTruthy();
+    });
+
+    it('duplicate fileKey differs from origin fileKey', () => {
+      expect(originEvent.fileKey).not.toBe(duplicateEvent.fileKey);
+    });
+
+    it('duplicate event image name derives from duplicate fileKey', () => {
+      expect(duplicateEvent.image.filename.match(duplicateEvent.fileKey)).toBeTruthy();
+    });
+  });
+
   describe('errors and exceptions', () => {
     const validData = {
       title: {
