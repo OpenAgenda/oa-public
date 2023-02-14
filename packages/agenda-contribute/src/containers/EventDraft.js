@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,24 +17,24 @@ import usePrefix from '../hooks/usePrefix';
 import contributeReducer from '../reducers/contribute';
 
 const {
-  isContributionType
+  isContributionType,
 } = utils;
 
 export default function EventDraft({ agenda, history }) {
   const location = useLocation();
 
   const {
-    eventUid // as a string
+    eventUid, // as a string
   } = useParams();
 
   const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid);
 
   const {
     eventIsLoading,
-    event
+    event,
   } = useEvent(agenda.uid, eventUid);
 
   const dispatch = useDispatch();
@@ -68,12 +67,12 @@ export default function EventDraft({ agenda, history }) {
         onSuccess={(_event, response) => {
           dispatch(contributeReducer.eventCreateSuccess({
             agenda,
-            response
+            response,
           }));
         }}
         memberRole={agendaContext.me.member.role}
         onDraftDelete={() => dispatch(contributeReducer.eventDelete({
-          agenda, event
+          agenda, event,
         }))}
       />
     </CanvasWithStepper>

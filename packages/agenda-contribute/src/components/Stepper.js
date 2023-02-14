@@ -1,28 +1,27 @@
-import React from 'react';
 import classNames from 'classnames';
 import {
   defineMessages,
-  useIntl
+  useIntl,
 } from 'react-intl';
 
 const messages = defineMessages({
   member: {
     id: 'AgendaContribute.Stepper.member',
-    defaultMessage: 'Member form'
+    defaultMessage: 'Member form',
   },
   event: {
     id: 'AgendaContribute.Stepper.event',
-    defaultMessage: 'My event'
+    defaultMessage: 'My event',
   },
   confirmation: {
     id: 'AgendaContribute.Stepper.confirmation',
-    defaultMessage: 'Confirmation'
-  }
+    defaultMessage: 'Confirmation',
+  },
 });
 
 export default ({
   steps,
-  onSelectStep
+  onSelectStep,
 }) => {
   const onSelect = s => (s.activable ? onSelectStep(s.step) : null);
 
@@ -40,7 +39,7 @@ export default ({
           className={classNames({
             step: true,
             active: s.active,
-            activable: s.activable
+            activable: s.activable,
           })}
         >
           {m(messages[s.step])}

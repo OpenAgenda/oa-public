@@ -1,15 +1,14 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   forContributors: {
     id: 'AgendaContribute.ClosedMessage.forContributors',
-    defaultMessage: 'This agenda is not or no longer open for new contributions.'
+    defaultMessage: 'This agenda is not or no longer open for new contributions.',
   },
   forAdminModerators: {
     id: 'AgendaContribute.ClosedMessage.forAdminModerators',
-    defaultMessage: 'This agenda is currently not open to contributors.'
-  }
+    defaultMessage: 'This agenda is currently not open to contributors.',
+  },
 });
 
 export default ({ memberRole, className }) => {

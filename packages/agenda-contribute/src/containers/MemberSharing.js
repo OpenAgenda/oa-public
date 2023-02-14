@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 
 import { useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,14 +16,14 @@ import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
 const {
-  replaceWithStep
+  replaceWithStep,
 } = utils;
 
 const log = debug('Member');
 
 export default function MemberSharing({
   agenda,
-  history
+  history,
 }) {
   log('loading');
 
@@ -37,22 +36,22 @@ export default function MemberSharing({
 
   const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid, 'Member');
 
   const {
     eventUid,
-    fromAgendaUid
+    fromAgendaUid,
   } = useParams();
 
   const {
     eventIsLoading,
-    event
+    event,
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
-    detailedAgenda: fromAgenda
+    detailedAgenda: fromAgenda,
   } = useDetailedAgenda(fromAgendaUid);
 
   if (!agenda.settings.contribution.useFields) {
@@ -84,7 +83,7 @@ export default function MemberSharing({
                 queryClient,
                 mode: 'share',
                 event,
-                fromAgenda
+                fromAgenda,
               }));
             }}
           />

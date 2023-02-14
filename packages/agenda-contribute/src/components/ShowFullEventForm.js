@@ -1,24 +1,23 @@
-import React from 'react';
 import { MoreInfo } from '@openagenda/react-shared';
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   additionalFieldsShowInfo: {
     id: 'AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo',
-    defaultMessage: 'Only additional fields of the agenda are currently shown'
+    defaultMessage: 'Only additional fields of the agenda are currently shown',
   },
   showEventFields: {
     id: 'AgendaContribute.ShowFullEventForm.showEventFields',
-    defaultMessage: 'Edit event fields'
+    defaultMessage: 'Edit event fields',
   },
   showEventFieldsInfo: {
     id: 'AgendaContribute.ShowFullEventForm.showEventFieldsInfo',
-    defaultMessage: 'You have edition rights over the event. Any edition brought to its standard fields (title, description, timings) will be visible anywhere it is published.'
-  }
+    defaultMessage: 'You have edition rights over the event. Any edition brought to its standard fields (title, description, timings) will be visible anywhere it is published.',
+  },
 });
 
 export default function ShowFullEventForm({
-  onShowFullEvent
+  onShowFullEvent,
 }) {
   const m = useIntl().formatMessage;
 
