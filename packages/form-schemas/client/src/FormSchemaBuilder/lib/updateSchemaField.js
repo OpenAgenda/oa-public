@@ -2,6 +2,7 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import debug from 'debug';
 import isSameFormItem from './isSameFormItem';
+import getFormItemType from './getFormItemType';
 
 const log = debug('FormSchemaBuilder/lib/updateSchemaField');
 
@@ -29,7 +30,7 @@ export default function updateSchemaField(schema, field, updatedFieldValues) {
 
   let updatedField = field;
 
-  const isAbstract = schema.fields[fieldIndex].fieldType === 'abstract';
+  const isAbstract = getFormItemType(schema.fields[fieldIndex]) === 'abstract';
 
   if (isAbstract) {
     log('field %s is abstract, updating labels, display and default only', field.field);
