@@ -6,11 +6,13 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
+    "experimentalDecorators": true,
     "target": "es5",
     "paths": {
       "@openagenda/uikit": ["../../../public/uikit/src"],
       "@openagenda/react-filters": ["../../../public/react-filters/src"],
-      "@openagenda/react-filters/*": ["../../../public/react-filters/src/*"]
+      "@openagenda/react-filters/*": ["../../../public/react-filters/src/*"],
+      "@openagenda/react-shared": ["../../../public/react-shared/src"]
     },
   },
   "exclude": ["node_modules"],
