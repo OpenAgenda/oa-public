@@ -33,7 +33,7 @@ module.exports = app => {
   require('./auth/facebook.front')(app);
   require('./auth/twitter.front')(app);
   require('./auth/google.front')(app);
-  require('./auth/local.front')(app);
+  require('./auth/local.front')(app); //
   require('./auth/reset.front')(app);
   app.services.aggregators.plugApp(app);
   require('./agenda/settings.back')(app);
