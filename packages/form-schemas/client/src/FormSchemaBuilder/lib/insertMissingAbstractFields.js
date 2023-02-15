@@ -15,6 +15,7 @@ export default function insertMissingAbstractFields(schema, updatedMerge) {
             field: getFormItemSlug(f),
             slug: getFormItemSlug(f),
             type: 'abstract',
+            fieldType: 'abstract',
           };
         }
 

@@ -801,6 +801,9 @@ export function MixedLinkedTypes() {
     <div className="container top-margined">
       <div className="row margin-v-md">
         <div className="col-sm-9">
+          <ul>
+            <li>Attendance mode is not displayed but should be displayable</li>
+          </ul>
           <div>
             <FormSchemaBuilder
               maxFields={2}

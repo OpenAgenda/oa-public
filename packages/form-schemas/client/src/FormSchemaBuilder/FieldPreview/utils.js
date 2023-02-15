@@ -95,3 +95,19 @@ export function getFieldTypeIcon(field) {
     className: field.fieldType,
   };
 }
+
+export function allowItemDisplayToggle(field) {
+  if (!isFieldDisplayed(field)) {
+    return true;
+  }
+
+  if (isFieldOptional(field)) {
+    return true;
+  }
+
+  if (![undefined, null].includes(field.default)) {
+    return true;
+  }
+
+  return false;
+}

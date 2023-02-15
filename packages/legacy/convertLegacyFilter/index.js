@@ -119,6 +119,11 @@ module.exports = (legacyFilter, options = {}) => {
         Object.assign(convertedQuery, categoryObject);
         break;
       }
+      case 'updatedAtAfter':
+        convertedQuery.updatedAt = {
+          gte: legacyFilter.updatedAtAfter,
+        };
+        break;
       default:
         return convertedQuery;
     }

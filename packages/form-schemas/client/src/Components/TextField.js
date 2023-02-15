@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import autosize from 'autosize';
 
 const style = {
-  resize: 'none'
+  resize: 'none',
 };
 
 export default function TextField(props) {
@@ -10,14 +10,14 @@ export default function TextField(props) {
     field,
     value,
     enabled,
-    onChange
+    onChange,
   } = props;
 
   const {
     field: name,
     placeholder,
     fieldType,
-    default: defaultValue
+    default: defaultValue,
   } = field;
 
   const ref = useRef();
@@ -35,7 +35,7 @@ export default function TextField(props) {
       placeholder={placeholder}
       className="form-control"
       style={style}
-      onKeyPress={e => {
+      onKeyDown={e => {
         if (fieldType !== 'text' || e.key !== 'Enter') {
           return;
         }

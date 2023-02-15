@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
@@ -14,7 +14,7 @@ const getLabel = makeLabelGetter(labels);
 const modes = {
   ADDING: 0,
   EDITING: 1,
-  ORDERING: 2
+  ORDERING: 2,
 };
 
 export default class OptionsField extends Component {
@@ -23,7 +23,7 @@ export default class OptionsField extends Component {
 
     const state = {
       mode: null,
-      editedIndex: null
+      editedIndex: null,
     };
 
     if (props.field.devInitState) _.assign(state, props.field.devInitState);
@@ -33,7 +33,7 @@ export default class OptionsField extends Component {
 
   onDragEnd({ source, destination }) {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     if (!destination) return;
@@ -44,8 +44,8 @@ export default class OptionsField extends Component {
     onChange(ih(options, {
       $splice: [
         [destination.index + (forward ? 1 : 0), 0, options[source.index]],
-        [source.index + (forward ? 0 : 1), 1]
-      ]
+        [source.index + (forward ? 0 : 1), 1],
+      ],
     }));
   }
 
@@ -55,17 +55,17 @@ export default class OptionsField extends Component {
 
   getOptions() {
     const {
-      value
+      value,
     } = this.props;
     return value || [];
   }
 
   addOption(newOption) {
     const {
-      onChange
+      onChange,
     } = this.props;
 
-    onChange((this.getOptions()).concat(newOption));
+    onChange(this.getOptions().concat(newOption));
   }
 
   editOption(index) {
@@ -74,14 +74,14 @@ export default class OptionsField extends Component {
 
   removeOption(index) {
     const {
-      onChange
+      onChange,
     } = this.props;
     onChange(ih(this.getOptions(), { $splice: [[index, 1]] }));
   }
 
   updateOption(index, option) {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     const options = this.getOptions();
@@ -95,7 +95,7 @@ export default class OptionsField extends Component {
 
   isOptionActionable() {
     const {
-      mode
+      mode,
     } = this.state;
 
     return ![modes.EDITING, modes.ORDERING].includes(mode);
@@ -103,7 +103,7 @@ export default class OptionsField extends Component {
 
   isOrderingDisabled() {
     const {
-      mode
+      mode,
     } = this.state;
 
     if (mode === modes.EDITING) return true;
@@ -114,7 +114,7 @@ export default class OptionsField extends Component {
   isOptionDisabled(index) {
     const {
       mode,
-      editedIndex
+      editedIndex,
     } = this.state;
 
     if (mode === modes.ADDING) return false;
@@ -126,11 +126,11 @@ export default class OptionsField extends Component {
 
   renderOrder() {
     const {
-      lang
+      lang,
     } = this.props;
 
     const {
-      mode
+      mode,
     } = this.state;
 
     if (mode !== modes.ORDERING) {
@@ -196,7 +196,7 @@ export default class OptionsField extends Component {
     const { field, value, lang } = this.props;
     const {
       mode,
-      editedIndex
+      editedIndex,
     } = this.state;
 
     return (
@@ -247,7 +247,7 @@ export default class OptionsField extends Component {
 
   render() {
     const {
-      lang
+      lang,
     } = this.props;
 
     return (
