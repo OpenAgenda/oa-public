@@ -29,7 +29,7 @@ const Operations = (services, log) => {
   };
 };
 
-module.exports = (core, type) => {
+module.exports = function updateLegacySetFromSchema(core, type) {
   const log = logs(`core/agendas/settings/legacy/updateLegacySet:${type}`);
 
   return async (agendaOrUid, options = {}) => {
