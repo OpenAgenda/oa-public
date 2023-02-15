@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "target": "es5",
     "paths": {
+      "@openagenda/intl": ["../../../public/intl/src"],
       "@openagenda/uikit": ["../../../public/uikit/src"],
       "@openagenda/react-filters": ["../../../public/react-filters/src"],
       "@openagenda/react-filters/*": ["../../../public/react-filters/src/*"],

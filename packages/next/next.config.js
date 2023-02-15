@@ -1,4 +1,5 @@
 const withTM = require('next-transpile-modules')([
+  '@openagenda/intl',
   '@openagenda/react-filters',
   '@openagenda/react-shared',
   '@openagenda/uikit',
