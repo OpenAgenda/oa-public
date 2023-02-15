@@ -12,6 +12,8 @@
     "storybook": "storybook dev -p 9001 -s public --ci",
     "sb": "yarn storybook",
     "lint": "next lint",
+    "typecheck": "tsc --incremental false",
+    "tc": "yarn typecheck",
     "prettier": "prettier-eslint --write '**/*.@(tsx,ts,jsx,js,mts,mjs,cts)'",
     "analyze": "ANALYZE=true yarn build"
   },
