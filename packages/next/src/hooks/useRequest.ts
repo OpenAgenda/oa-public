@@ -1,5 +1,5 @@
 import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
-import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useApiClient } from '@openagenda/react-shared';
 
 export type GetRequest = AxiosRequestConfig | string | null
@@ -22,7 +22,7 @@ export default function useRequest<Data = unknown, Error = unknown>(
   request: GetRequest,
   { key, fallbackData, ...config }: Config<Data, Error> = {},
 ): Return<Data, Error> {
-  const apiClient = useApiClient();
+  const apiClient: AxiosInstance = useApiClient();
 
   const requestConfig = typeof request === 'string' ? {
     url: request,
