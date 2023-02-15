@@ -20,6 +20,7 @@ module.exports = (config, services) => async (locationUids, { agendaUid }) => {
   }, {
     size: 0
   }, {
+    access: 'internal',
     aggregations: {
       type: 'locations',
       size: locationUids.length

@@ -64,7 +64,7 @@ export type AgendaShowProps = {
     schema: any,
     settings: any,
     summary: any,
-    indexed: boolean,
+    indexed: boolean | number,
     image?: string,
   },
 };
