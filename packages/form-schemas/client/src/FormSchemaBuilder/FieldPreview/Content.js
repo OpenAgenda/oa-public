@@ -9,6 +9,7 @@ import {
   getLabel,
   getDefaultValueLabel,
   getFieldTypeIcon,
+  allowItemDisplayToggle,
 } from './utils';
 
 import {
@@ -173,7 +174,7 @@ export default function Content(props) {
               {getLabel('editField', lang)}
             </button>
           ) : null}
-          {isFieldOptional(field) ? renderToggleHidden(props) : null}
+          {allowItemDisplayToggle(field) ? renderToggleHidden(props) : null}
           {isOwn ? renderToggleRemove(props) : null}
         </div>
       )}
