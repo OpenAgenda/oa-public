@@ -1,8 +1,34 @@
 {
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
   "next.views.AgendaShow.includePassedEvents": [
     {
       "type": 0,
       "value": "Include past events"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Show the "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " events"
     }
   ],
   "next.views.AgendaShow.seeMore": [

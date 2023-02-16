@@ -1,20 +1,46 @@
 {
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
   "next.views.AgendaShow.includePassedEvents": [
     {
       "type": 0,
-      "value": "Inclure les événements passés"
+      "value": "Include past events"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Show the "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " events"
     }
   ],
   "next.views.AgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "See more"
     }
   ],
   "next.views.AgendaShow.showUpcomingEventsOnly": [
     {
       "type": 0,
-      "value": "Afficher uniquement les événements à venir"
+      "value": "Show upcoming events only"
     }
   ],
   "next.views.AgendaShow.totalEvents": [
@@ -25,7 +51,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement"
+              "value": "No event"
             }
           ]
         },
@@ -33,7 +59,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement"
+              "value": "1 event"
             }
           ]
         },
@@ -44,7 +70,7 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " events"
             }
           ]
         }
@@ -62,7 +88,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement à venir"
+              "value": "No upcoming event"
             }
           ]
         },
@@ -70,7 +96,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement à venir"
+              "value": "1 upcoming event"
             }
           ]
         },
@@ -81,7 +107,7 @@
             },
             {
               "type": 0,
-              "value": " événements à venir"
+              "value": " upcoming events"
             }
           ]
         }

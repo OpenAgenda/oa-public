@@ -1,5 +1,8 @@
 {
+  "next.views.AgendaShow.filter": "Filtrer",
+  "next.views.AgendaShow.filters": "Filtres",
   "next.views.AgendaShow.includePassedEvents": "Inclure les événements passés",
+  "next.views.AgendaShow.seeEvents": "Afficher les {count, number} événements",
   "next.views.AgendaShow.seeMore": "Voir plus",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Afficher uniquement les événements à venir",
   "next.views.AgendaShow.totalEvents": "{count, plural, =0 {Aucun événement} one {1 événement} other {# événements}}",

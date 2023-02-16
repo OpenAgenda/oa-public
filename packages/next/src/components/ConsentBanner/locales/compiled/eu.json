@@ -2,25 +2,25 @@
   "next.components.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accepter"
+      "value": "Accept"
     }
   ],
   "next.components.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Refuser"
+      "value": "Decline"
     }
   ],
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateurs de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous ?"
+      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Cliquez ici pour en savoir plus"
+      "value": "Click here for more information"
     }
   ]
 }

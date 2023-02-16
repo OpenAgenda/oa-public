@@ -92,6 +92,18 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.seeMore',
     defaultMessage: 'See more',
   },
+  filter: {
+    id: 'next.views.AgendaShow.filter',
+    defaultMessage: 'Filter',
+  },
+  filters: {
+    id: 'next.views.AgendaShow.filters',
+    defaultMessage: 'Filters',
+  },
+  seeEvents: {
+    id: 'next.views.AgendaShow.seeEvents',
+    defaultMessage: 'Show the {count} events',
+  },
 });
 
 function Total({ total, upcomingOnly, passed, disabled }) {
@@ -446,7 +458,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                     mx="4"
                     w="full"
                   >
-                    Filtrer
+                    {intl.formatMessage(messages.filter)}
                   </Button>
                 </Flex>
 
@@ -459,7 +471,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                       p="4"
                     >
                       <Text fontWeight="bold" fontSize="lg">
-                        Filtres
+                        {intl.formatMessage(messages.filters)}
                       </Text>
                       <CloseButton onClick={onToggleFilters} />
                     </Flex>
@@ -491,7 +503,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                         onClick={onToggleFilters}
                         w="full"
                       >
-                        Voir les {pages[0].total} événements
+                        {intl.formatMessage(messages.seeEvents, { count: pages[0].total })}
                       </Button>
                     </Box>
                   </Flex>

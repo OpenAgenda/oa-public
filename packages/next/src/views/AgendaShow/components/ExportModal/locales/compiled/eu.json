@@ -2,37 +2,37 @@
   "all-fields": [
     {
       "type": 0,
-      "value": "Exporter toutes les colonnes"
+      "value": "Export every field"
     }
   ],
   "all-languages": [
     {
       "type": 0,
-      "value": "Exporter dans toutes les langues"
+      "value": "Export in all languages"
     }
   ],
   "distribute-fields": [
     {
       "type": 0,
-      "value": "Champs à choix: une valeur par colonne"
+      "value": "Fields with options: display one value per column"
     }
   ],
   "gcalStep2": [
     {
       "type": 0,
-      "value": "2. Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\""
+      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
     }
   ],
   "gcalStep3": [
     {
       "type": 0,
-      "value": "3. Suivez les instructions en collant le lien que vous avez copié à l'étape 1."
+      "value": "3. Follow the instructions by pasting the link you copied in step 1"
     }
   ],
   "input-field": [
     {
       "type": 0,
-      "value": "Sélectionner des champs"
+      "value": "Select the fields to export"
     }
   ],
   "instructions": [
@@ -44,55 +44,55 @@
   "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "1. Copiez le lien ci-dessus et ouvrez "
+      "value": "1. Copy the link in the field above and open"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Cancel"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Close"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
     {
       "type": 0,
-      "value": "Utiliser le format détaillé"
+      "value": "Use the detailed format"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
     {
       "type": 0,
-      "value": "Voir la documentation"
+      "value": "See the documentation"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [
     {
       "type": 0,
-      "value": "Exporter tous les événements"
+      "value": "Export all events"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
     {
       "type": 0,
-      "value": "Utiliser la précédente version de l'export JSON"
+      "value": "Use the previous JSON export version"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportSelection": [
     {
       "type": 0,
-      "value": "Exporter la sélection en cours"
+      "value": "Export current event selection"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
     {
       "type": 0,
-      "value": "Sélectionner un format"
+      "value": "Choose a format"
     }
   ],
   "next.views.AgendaShow.ExportModal.jsonDoc1": [
@@ -104,49 +104,49 @@
   "next.views.AgendaShow.ExportModal.jsonDoc2": [
     {
       "type": 0,
-      "value": "ici"
+      "value": "here"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
-      "value": "Connectez-vous pour accéder au lien d'export directement depuis ce menu"
+      "value": "Please log in to access the export link directly from this menu"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Export"
     }
   ],
   "outlookStep2": [
     {
       "type": 0,
-      "value": "2. En bas de page, sélectionnez l'icône calendrier"
+      "value": "2. At the bottom of the page, select the calendar icon"
     }
   ],
   "outlookStep3": [
     {
       "type": 0,
-      "value": "3. Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\""
+      "value": "3. In the navigation pane, select \"Add calendar\""
     }
   ],
   "outlookStep4": [
     {
       "type": 0,
-      "value": "4. Sélectionnez \"S'abonner à partir du web\""
+      "value": "4. Select \"Subscribe from web\""
     }
   ],
   "outlookStep5": [
     {
       "type": 0,
-      "value": "5. Collez le lien et sélectionnez \"Importer\""
+      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
     }
   ],
   "select-all": [
     {
       "type": 0,
-      "value": "Tout sélectionner"
+      "value": "Select all"
     }
   ]
 }

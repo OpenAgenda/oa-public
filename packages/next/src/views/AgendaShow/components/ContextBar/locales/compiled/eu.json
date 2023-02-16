@@ -2,251 +2,181 @@
   "next.views.AgendaShow.ContextBar.complete": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "Complete"
     }
   ],
   "next.views.AgendaShow.ContextBar.contribute": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Add an event"
     }
   ],
   "next.views.AgendaShow.ContextBar.drafts": [
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 brouillon"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " brouillons"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "style": null,
+      "type": 2,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " drafts"
     }
   ],
   "next.views.AgendaShow.ContextBar.draftsModalInfo": [
     {
       "type": 0,
-      "value": "Voici les brouillons que vous avez enregistré sur cet agenda. Ils ne sont pas visibles pour les modérateurs de l'agenda. Ils doivent êtres complétés avant de pouvoir être modérés et publiés."
+      "value": "These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published."
     }
   ],
   "next.views.AgendaShow.ContextBar.draftsModalTitle": [
     {
       "type": 0,
-      "value": "Brouillons"
+      "value": "Drafts"
     }
   ],
   "next.views.AgendaShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Edit"
     }
   ],
   "next.views.AgendaShow.ContextBar.empty": [
     {
       "type": 0,
-      "value": "Cet agenda est vide"
+      "value": "This agenda is empty"
     }
   ],
   "next.views.AgendaShow.ContextBar.events": [
     {
       "type": 0,
-      "value": "Événements:"
+      "value": "Events:"
     }
   ],
   "next.views.AgendaShow.ContextBar.inModeration": [
     {
-      "type": 1,
+      "style": null,
+      "type": 2,
       "value": "count"
     },
     {
       "type": 0,
-      "value": " en modération"
+      "value": " in moderation"
     }
   ],
   "next.views.AgendaShow.ContextBar.inModerationModalInfo": [
     {
       "type": 0,
-      "value": "Les événements suivants doivent être revus par les modérateurs de l'agenda avant leur publication."
+      "value": "The following events should be reviewed by the moderators of the agenda before they are published."
     }
   ],
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
     {
       "type": 0,
-      "value": "Événements en modération"
+      "value": "Events in moderation"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
-      "value": "Gérer"
+      "value": "Manage"
     }
   ],
   "next.views.AgendaShow.ContextBar.myEvents": [
     {
       "type": 0,
-      "value": "Mes événements:"
+      "value": "My events in this agenda:"
     }
   ],
   "next.views.AgendaShow.ContextBar.notContributed": [
     {
       "type": 0,
-      "value": "Vous n'avez complété encore aucun événement sur cet agenda."
+      "value": "You haven't submitted any events to this agenda yet."
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 publié"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " publiés"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "style": null,
+      "type": 2,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " published"
     }
   ],
   "next.views.AgendaShow.ContextBar.publishedModalInfo": [
     {
       "type": 0,
-      "value": "Ces événements ont été publié et sont visibles par les visiteurs de l'agenda."
+      "value": "These events have been published and are accessible by the viewers of the agenda."
     }
   ],
   "next.views.AgendaShow.ContextBar.publishedModalTitle": [
     {
       "type": 0,
-      "value": "Événements publiés"
+      "value": "Events published"
     }
   ],
   "next.views.AgendaShow.ContextBar.readyToPublish": [
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 prêt à publier"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " prêts à publier"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "style": null,
+      "type": 2,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " ready to publish"
     }
   ],
   "next.views.AgendaShow.ContextBar.refused": [
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 refusé"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " refusés"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "style": null,
+      "type": 2,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " refused"
     }
   ],
   "next.views.AgendaShow.ContextBar.refusedModalInfo": [
     {
       "type": 0,
-      "value": "Les événements suivants ont été revus par les modérateurs de l'agenda et ont été refusés. Ils ne seront pas publiés."
+      "value": "The following events have been reviewed by the moderators of the calendar and have been refused. They will not be published."
     }
   ],
   "next.views.AgendaShow.ContextBar.refusedModalTitle": [
     {
       "type": 0,
-      "value": "Événements refusés"
+      "value": "Events refused"
     }
   ],
   "next.views.AgendaShow.ContextBar.show": [
     {
       "type": 0,
-      "value": "Afficher"
+      "value": "Show"
     }
   ],
   "next.views.AgendaShow.ContextBar.toBeModerated": [
     {
-      "type": 1,
+      "style": null,
+      "type": 2,
       "value": "count"
     },
     {
       "type": 0,
-      "value": " en modération"
+      "value": " to be moderated"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedDescription": [
     {
       "type": 0,
-      "value": "Description non saisie"
+      "value": "Undefined description"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Événement brouillon sans titre"
+      "value": "Draft event without title"
     }
   ]
 }
