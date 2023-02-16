@@ -11,6 +11,12 @@
       "value": "Filtres"
     }
   ],
+  "next.views.AgendaShow.help": [
+    {
+      "type": 0,
+      "value": "Aide"
+    }
+  ],
   "next.views.AgendaShow.includePassedEvents": [
     {
       "type": 0,
@@ -42,6 +48,12 @@
     {
       "type": 0,
       "value": "Afficher uniquement les événements à venir"
+    }
+  ],
+  "next.views.AgendaShow.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Conditions d'utilisation"
     }
   ],
   "next.views.AgendaShow.totalEvents": [

@@ -20,6 +20,7 @@ import {
   Text,
   Grid,
   GridItem,
+  NoBreak,
   useConst,
   useDisclosure,
 } from '@openagenda/uikit';
@@ -41,6 +42,7 @@ import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ConsentBanner from 'components/ConsentBanner';
+import NextChakraLink from 'components/NextChakraLink';
 import { SUPPORTED_LOCALES } from 'config/constants';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
@@ -103,6 +105,14 @@ const messages = defineMessages({
   seeEvents: {
     id: 'next.views.AgendaShow.seeEvents',
     defaultMessage: 'Show the {count} events',
+  },
+  help: {
+    id: 'next.views.AgendaShow.help',
+    defaultMessage: 'Help',
+  },
+  termsOfUse: {
+    id: 'next.views.AgendaShow.termsOfUse',
+    defaultMessage: 'Terms of use',
   },
 });
 
@@ -505,6 +515,23 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                       >
                         {intl.formatMessage(messages.seeEvents, { count: pages[0].total })}
                       </Button>
+                    </Box>
+
+                    <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
+                      <NextChakraLink href="/" color="primary.500">
+                        OpenAgenda
+                      </NextChakraLink>
+                      <NoBreak>&nbsp;·</NoBreak>{' '}
+                      <NextChakraLink href="https://doc.openagenda.com/" isExternal color="primary.500">
+                        {intl.formatMessage(messages.help)}
+                      </NextChakraLink>
+                      <NoBreak>&nbsp;·</NoBreak>{' '}
+                      <NextChakraLink href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
+                        {intl.formatMessage(messages.termsOfUse)}
+                      </NextChakraLink>
+
+                      <br />
+                      <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>
                     </Box>
                   </Flex>
                 </ResponsiveDrawer>
