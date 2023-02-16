@@ -50,6 +50,15 @@ const config = async () => {
       isrMemoryCacheSize: 0, // Defaults to 50MB
       runtime: 'nodejs',
     },
+    async redirects() {
+      return [
+        {
+          source: '/:slug.prv/:path*',
+          destination: '/:slug/:path*',
+          permanent: true,
+        },
+      ];
+    },
     async rewrites() {
       if (!NEXT_API_INTERNAL_BASE_URL) {
         throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
