@@ -149,7 +149,12 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     requested: requestedIncludes,
   });
 
-  const cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
+  let cleanQuery;
+  try {
+    cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
+  } catch (errors) {
+    throw Array.isArray(errors) ? new BadRequest({ info: { errors } }, 'query is not valid') : errors;
+  }
 
   log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
