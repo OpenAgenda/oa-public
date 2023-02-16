@@ -32,15 +32,36 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const locale = getPreferredLocale(nextLocale, query.lang);
 
-  const [
-    { data: agenda },
-    intlMessages,
-    dateFnsLocale,
-  ] = await Promise.all([
-    api.get(`/api/agendas/slug/${agendaSlug}?detailed=1`),
-    AgendaShow.fetchLocale(locale),
-    getDateFnsLocale(locale),
-  ]);
+  let agenda;
+  let intlMessages;
+  let dateFnsLocale;
+
+  try {
+    [
+      { data: agenda },
+      intlMessages,
+      dateFnsLocale,
+    ] = await Promise.all([
+      api.get(`/api/agendas/slug/${agendaSlug}?detailed=1`),
+      AgendaShow.fetchLocale(locale),
+      getDateFnsLocale(locale),
+    ]);
+  } catch (e: any) {
+    if (e.response.status === 401 || e.response.status === 403 || e.response.status === 404) {
+      return { notFound: true };
+    }
+
+    throw e;
+
+    // TODO better error handling
+    // https://ironeko.com/posts/how-to-return-a-404-error-in-getserversideprops-with-next-js
+    // https://github.com/vercel/next.js/discussions/12652
+
+    // res.statusCode = 404;
+    // return {
+    //   props: {},
+    // };
+  }
 
   const intl = createIntl({
     locale,
@@ -118,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 const AgendaPage: NextPageWithLayout<PageProps> = props => {
   const intl = useIntl();
-  const { fallback } = props;
+  const { fallback = {} } = props;
 
   return (
     <DateFnsLocaleProvider locale={intl.locale}>
