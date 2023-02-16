@@ -20,11 +20,12 @@ type PageProps = AgendaShowProps & {
 const intlCache = createIntlCache();
 
 export const getServerSideProps: GetServerSideProps = async ({
+  req,
   locale: nextLocale,
   query: queryWithParams,
   resolvedUrl,
 }) => {
-  const api = getSSRApiClient();
+  const api = getSSRApiClient(req);
 
   const { agendaSlug } = queryWithParams;
   const query = parseLocationQuery(resolvedUrl);
