@@ -597,6 +597,7 @@ module.exports = core => {
     }
 
     if ([
+      'NotAuthenticated',
       'Forbidden',
       'NotFound',
     ].includes(err.name)) {
