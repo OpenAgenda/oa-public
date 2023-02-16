@@ -57,6 +57,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
+    "@emotion/babel-plugin": "^11.10.5",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/outdated-browser": "^0.0.0",
     "@storybook/react": "^6.5.9",
