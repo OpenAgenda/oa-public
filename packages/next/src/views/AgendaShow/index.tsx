@@ -188,7 +188,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       {
         size: 0,
         ...upcomingOnly ? {
-          relative: 'upcoming',
+          relative: ['current', 'upcoming'],
         } : null,
         passed: undefined, // omit passed
       },
@@ -221,7 +221,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         sort: 'lastTimingWithFeatured.asc',
         after,
         ...upcomingOnly ? {
-          relative: 'upcoming',
+          relative: ['current', 'upcoming'],
         } : null,
         ...query,
         passed: undefined, // omit passed
@@ -286,7 +286,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     `/api/agendas/slug/${agenda.slug}/events`,
     {
       ...upcomingOnly ? {
-        relative: 'upcoming',
+        relative: ['current', 'upcoming'],
       } : null,
       ...query,
       passed: undefined, // omit passed

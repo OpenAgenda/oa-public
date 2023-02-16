@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   });
 
   const prefilter = !query.timings && query.passed !== '1' ? {
-    relative: 'upcoming',
+    relative: ['current', 'upcoming'],
   } : null;
 
   const [
