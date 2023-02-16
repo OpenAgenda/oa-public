@@ -40,6 +40,20 @@ describe('02 - event search - functional: timings sorting', () => {
   );
 
   it(
+    'invalid filter value triggers bad request exception',
+    async () => {
+      const error = await service('timings').search({
+        timings: {
+          gte: 'NaN-NaN-NaNT00:00:00',
+        },
+      }).then(r => r, e => e);
+
+      expect(error.name).toBe('BadRequest');
+      expect(error.info.errors[0].message).toBe('not a date');
+    },
+  );
+
+  it(
     'filtered on specific upcoming period focuses search on the filtered period',
     async () => {
       const { events } = await service('timings').search({

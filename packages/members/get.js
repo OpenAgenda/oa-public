@@ -5,6 +5,8 @@ const { NotFound } = require('@openagenda/verror');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const { fromDB } = require('./lib/transformDBEntry');
 
+const cleanEmail = email => email.replace(/‐/g, '-');
+
 async function _decorateWithDetailed({ interfaces }, member) {
   if (!member.userUid) {
     return;
@@ -87,7 +89,7 @@ async function getByEmail(config, identifier, options = {}) {
     {
       includeLegacyFields: cleanOptions.legacy,
     },
-    await query.where('store', 'like', `%${identifier.email}%`),
+    await query.where('store', 'like', `%${cleanEmail(identifier.email)}%`),
   );
 
   if (!member && _.get(config, 'interfaces.getUserByEmail')) {
