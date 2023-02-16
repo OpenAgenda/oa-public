@@ -28,6 +28,7 @@ export default function ModeratorContextBar({ agenda, states }) {
             <Fragment key={key}>
               <NextChakraLink
                 href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
+                locale={false}
                 fontWeight="bold"
               >
                 {intl.formatMessage(messages[stateToSlug[key]], { count: eventCount })}
@@ -41,6 +42,7 @@ export default function ModeratorContextBar({ agenda, states }) {
       <Button
         as={NextChakraLink}
         href={`/${agenda.slug}/admin/events`}
+        locale={false}
         leftIcon={<FontAwesomeIcon icon={faGears} />}
         variant="outline"
         colorScheme="white"

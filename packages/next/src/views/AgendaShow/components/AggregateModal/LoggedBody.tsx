@@ -122,8 +122,9 @@ export default function LoggedBody({ agenda }) {
         <ModalFooter>
           <Button
             as={NextChakraLink}
-            colorScheme="primary"
             href="/new"
+            locale={false}
+            colorScheme="primary"
           >
             {intl.formatMessage(messages.createAgenda)}
           </Button>

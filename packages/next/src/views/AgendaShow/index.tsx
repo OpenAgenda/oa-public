@@ -518,7 +518,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                     </Box>
 
                     <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
-                      <NextChakraLink href="/" color="primary.500">
+                      <NextChakraLink href="/" locale={false} color="primary.500">
                         OpenAgenda
                       </NextChakraLink>
                       <NoBreak>&nbsp;·</NoBreak>{' '}

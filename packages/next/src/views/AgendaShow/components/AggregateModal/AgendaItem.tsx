@@ -24,6 +24,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
         source: agenda.slug,
         redirect: url.pathname,
       })}`}
+      locale={false}
     >
       <HStack>
         <Image

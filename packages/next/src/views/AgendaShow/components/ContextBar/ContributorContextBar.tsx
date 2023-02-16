@@ -72,6 +72,7 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
       <Button
         as={NextChakraLink}
         href={`/${agenda.slug}/contribute`}
+        locale={false}
         leftIcon={<FontAwesomeIcon icon={faPlus} />}
         variant="outline"
         colorScheme="white"

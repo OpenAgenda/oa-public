@@ -22,8 +22,9 @@ export default function UnloggedBody({ agenda }) {
       <ModalFooter>
         <Button
           as={NextChakraLink}
-          colorScheme="primary"
           href={`/${agenda.slug}/signin?redirect=${redirectUrlPart}`}
+          locale={false}
+          colorScheme="primary"
         >
           {intl.formatMessage(messages.signin)}
         </Button>

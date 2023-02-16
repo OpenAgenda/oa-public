@@ -121,6 +121,7 @@ export default function EventItem({ event, agenda }) {
       mx={{ base: 'auto', xl: '0' }}
       px={{ base: '4', xl: '0' }}
       maxW={{ base: 'xl', xl: 'none' }}
+      w="full"
     >
       <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
         <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
@@ -164,6 +165,7 @@ export default function EventItem({ event, agenda }) {
           <Heading as="h2" fontSize="xl">
             <NextChakraLinkOverlay
               href={`/${agenda.slug}/events/${event.slug}`}
+              locale={false}
               _hover={{
                 _before: {
                   border: '1px solid',
@@ -188,6 +190,7 @@ export default function EventItem({ event, agenda }) {
               loader={({ src }) => src}
               alt=""
               m="auto"
+              w="full"
             />
           ) : (
             <Image
@@ -238,6 +241,7 @@ export default function EventItem({ event, agenda }) {
             <Button
               as={NextChakraLink}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              locale={false}
               colorScheme="primary"
               borderRadius="sm"
               display={{ base: 'none', sm: 'inline-flex' }}
@@ -248,6 +252,7 @@ export default function EventItem({ event, agenda }) {
             <Button
               as={NextChakraLink}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              locale={false}
               colorScheme="primary"
               borderRadius="sm"
               display={{ base: 'inline-flex', sm: 'none' }}

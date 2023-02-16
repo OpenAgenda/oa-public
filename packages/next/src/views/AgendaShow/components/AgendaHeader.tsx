@@ -4,7 +4,6 @@ import {
   Stack,
   VStack,
   Text,
-  Link,
   Wrap,
   Button,
   Heading,
@@ -117,12 +116,17 @@ export default function AgendaHeader({ agenda }) {
 
         <Text>{nl2br(agenda.description)}</Text>
 
-        <Link href={agenda.url}>{agenda.url}</Link>
+        {agenda.url ? (
+          <NextChakraLink href={agenda.url} locale={false}>
+            {agenda.url}
+          </NextChakraLink>
+        ) : null}
 
         <Wrap mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
             as={NextChakraLink}
             href={mailtoUrl || `/${agenda.slug}/contact`}
+            locale={false}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
             colorScheme="white"
@@ -178,6 +182,7 @@ export default function AgendaHeader({ agenda }) {
           <Button
             as={NextChakraLink}
             href={`/${agenda.slug}/contribute`}
+            locale={false}
             leftIcon={<FontAwesomeIcon icon={faPlus} />}
             colorScheme="primary"
           >

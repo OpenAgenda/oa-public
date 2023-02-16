@@ -138,17 +138,17 @@ function ProfileMenu({ user, portalRef }) {
           // https://github.com/chakra-ui/chakra-ui/issues/5742
           zIndex="5"
         >
-          <MenuItem as={NextChakraLink} href="/home" textAlign="right">
+          <MenuItem as={NextChakraLink} href="/home" locale={false} textAlign="right">
             {intl.formatMessage(messages.myAgendas)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/home/events" textAlign="right">
+          <MenuItem as={NextChakraLink} href="/home/events" locale={false} textAlign="right">
             {intl.formatMessage(messages.myEvents)}
           </MenuItem>
           <MenuDivider />
-          <MenuItem as={NextChakraLink} href="/settings" textAlign="right">
+          <MenuItem as={NextChakraLink} href="/settings" locale={false} textAlign="right">
             {intl.formatMessage(messages.settings)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/signout" textAlign="right">
+          <MenuItem as={NextChakraLink} href="/signout" locale={false} textAlign="right">
             {intl.formatMessage(messages.signOut)}
           </MenuItem>
         </MenuList>
@@ -174,6 +174,7 @@ function ProfileMenu({ user, portalRef }) {
             <Box py="2">
               <NextChakraLink
                 href="/home"
+                locale={false}
                 display="block"
                 px="6"
                 py="3"
@@ -183,6 +184,7 @@ function ProfileMenu({ user, portalRef }) {
               </NextChakraLink>
               <NextChakraLink
                 href="/home/events"
+                locale={false}
                 display="block"
                 px="6"
                 py="3"
@@ -193,6 +195,7 @@ function ProfileMenu({ user, portalRef }) {
               <Divider my="2" />
               <NextChakraLink
                 href="/settings"
+                locale={false}
                 display="block"
                 px="6"
                 py="3"
@@ -202,6 +205,7 @@ function ProfileMenu({ user, portalRef }) {
               </NextChakraLink>
               <NextChakraLink
                 href="/signout"
+                locale={false}
                 display="block"
                 px="6"
                 py="3"
@@ -240,6 +244,7 @@ function ProfileBar({ portalRef }) {
       <Button
         as={NextChakraLink}
         href="/signin"
+        locale={false}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
@@ -250,6 +255,7 @@ function ProfileBar({ portalRef }) {
       <Button
         as={NextChakraLink}
         href="/signup"
+        locale={false}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136

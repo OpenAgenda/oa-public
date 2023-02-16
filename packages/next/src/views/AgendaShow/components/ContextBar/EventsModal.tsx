@@ -74,7 +74,11 @@ function EventItem({ agenda, event }) {
             <div>
               {getLocaleValue(event.description, intl.locale) || intl.formatMessage(messages.undefinedDescription)}
             </div>
-            <NextChakraLink href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
+            <NextChakraLink
+              href={`/${agenda.slug}/contribute/event/${event.uid}`}
+              locale={false}
+              color="primary.500"
+            >
               {intl.formatMessage(messages.complete)}
             </NextChakraLink>
           </>
@@ -87,10 +91,18 @@ function EventItem({ agenda, event }) {
               {getLocaleValue(event.dateRange, intl.locale)}
             </div>
             <Wrap spacing="3">
-              <NextChakraLink href={`/${agenda.slug}/events/${event.slug}`} color="primary.500">
+              <NextChakraLink
+                href={`/${agenda.slug}/events/${event.slug}`}
+                locale={false}
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.show)}
               </NextChakraLink>
-              <NextChakraLink href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
+              <NextChakraLink
+                href={`/${agenda.slug}/contribute/event/${event.uid}`}
+                locale={false}
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.edit)}
               </NextChakraLink>
             </Wrap>
