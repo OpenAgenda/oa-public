@@ -30,7 +30,7 @@ export default function FiltersPreview({ agenda, filters, getOptions, disabled }
   }
 
   return (
-    <Wrap>
+    <Wrap shouldWrapChildren>
       <Filters
         filters={activeFilters}
         disabled={disabled}

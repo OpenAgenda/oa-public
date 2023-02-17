@@ -82,7 +82,7 @@ function EventItem({ agenda, event }) {
             <div>
               {getLocaleValue(event.dateRange, intl.locale)}
             </div>
-            <Wrap spacing="3">
+            <Wrap shouldWrapChildren spacing="3">
               <Link href={`/${agenda.slug}/events/${event.slug}`} color="primary.500">
                 {intl.formatMessage(messages.show)}
               </Link>

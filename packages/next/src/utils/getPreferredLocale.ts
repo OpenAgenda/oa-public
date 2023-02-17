@@ -8,7 +8,7 @@ function isSupportedLocale(locale) {
 function getFallbackedLocale(locale) {
   return isSupportedLocale(locale)
     ? locale
-    : getFallbackChain(locale, FALLBACK_LOCALES, FALLBACK_LOCALE);
+    : getFallbackChain(locale, FALLBACK_LOCALES, FALLBACK_LOCALE)[0];
 }
 
 export default function getPreferredLocale(nextLocale, qsLocale) {
