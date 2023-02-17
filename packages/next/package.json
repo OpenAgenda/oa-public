@@ -32,6 +32,7 @@
     "@openagenda/uikit": "^0.0.1",
     "axios": "^0.21.1",
     "date-fns": "^2.29.3",
+    "leaflet": "^1.9.3",
     "lodash": "^4.17.21",
     "next": "^12.3.1",
     "next-transpile-modules": "^9.1.0",

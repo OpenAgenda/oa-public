@@ -57,6 +57,8 @@ import ContextBar from './components/ContextBar';
 import ResponsiveDrawer from './components/Drawer';
 import fetchLocale from './locales';
 
+import 'leaflet/dist/leaflet.css';
+
 export type AgendaShowProps = {
   agenda: {
     slug: string,
@@ -378,13 +380,6 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         {agenda.image ? (
           <meta property="twitter:image" content={agenda.image} />
         ) : null}
-
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-          crossOrigin=""
-        />
       </Head>
 
       {user ? <ContextBar agenda={agenda} /> : null}
