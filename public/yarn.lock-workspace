@@ -5384,11 +5384,11 @@ __metadata:
   linkType: hard
 
 "@raruto/leaflet-gesture-handling@npm:^1.3.4":
-  version: 1.3.5
-  resolution: "@raruto/leaflet-gesture-handling@npm:1.3.5"
+  version: 1.4.3
+  resolution: "@raruto/leaflet-gesture-handling@npm:1.4.3"
   peerDependencies:
     leaflet: ^1.3.4
-  checksum: d2f6994b965b189cf1c5bee1ecb6ca865986b1dd9440d4fb1d501b69718e8879f3fcb975a1d7776d3e959fbd8239c4751214c964ad752290a5065c83d5ff891b
+  checksum: aa209b65314f9f807df68bf2c47b488b6d1688bb7e3a4cc81bfe6609947267c695cb56287f0466b0ae483e9fd95032391ab6e9b10f28bd843286cefd2825c1f6
   languageName: node
   linkType: hard
 
