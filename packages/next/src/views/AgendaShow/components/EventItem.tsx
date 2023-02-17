@@ -103,7 +103,7 @@ function FavoriteButton({ agenda, event }) {
   );
 }
 
-export default function EventItem({ event, agenda }) {
+export default function EventItem({ event, agenda, imagePriority = false }) {
   const router = useRouter();
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
@@ -190,6 +190,7 @@ export default function EventItem({ event, agenda }) {
               alt=""
               m="auto"
               w="full"
+              priority={imagePriority}
             />
           ) : (
             <Image
@@ -202,6 +203,7 @@ export default function EventItem({ event, agenda }) {
               unoptimized
               alt=""
               m="auto"
+              priority={imagePriority}
             />
           )
           : null}

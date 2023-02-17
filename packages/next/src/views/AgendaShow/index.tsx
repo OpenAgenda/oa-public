@@ -538,8 +538,13 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
           <GridItem area="events">
             <Flex direction="column" flex="2" gap="10">
-              {pages?.map(page => page.events.map(event => (
-                <EventItem key={event.uid} event={event} agenda={agenda} />
+              {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
+                <EventItem
+                  key={event.uid}
+                  event={event}
+                  agenda={agenda}
+                  imagePriority={pageIndex === 0 && eventIndex <= 1}
+                />
               )))}
 
               {!isReachingEnd ? (
