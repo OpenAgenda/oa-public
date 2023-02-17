@@ -26,8 +26,8 @@ import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
+import NextChakraLink from 'components/NextChakraLink';
 import logoPic from '../../../public/images/openagenda.png';
-import NextChakraLink from '../NextChakraLink';
 
 const messages = defineMessages({
   signIn: {
@@ -55,10 +55,6 @@ const messages = defineMessages({
     defaultMessage: 'Sign out',
   },
 });
-
-function simpleLoader({ src }) {
-  return src;
-}
 
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
@@ -107,7 +103,7 @@ function ProfileMenu({ user, portalRef }) {
         ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
         : null}
       fallbackStrategy="onError"
-      loader={simpleLoader}
+      unoptimized
       width="30"
       height="30"
     />

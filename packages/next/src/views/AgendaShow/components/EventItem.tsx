@@ -187,7 +187,7 @@ export default function EventItem({ event, agenda }) {
               src={`${IMAGE_PREFIX}${event.image.filename}`}
               width={event.image.size.width}
               height={event.image.size.height}
-              loader={({ src }) => src}
+              unoptimized
               alt=""
               m="auto"
               w="full"
@@ -200,7 +200,7 @@ export default function EventItem({ event, agenda }) {
               pos="unset !important"
               w="full !important"
               h="auto !important"
-              loader={({ src }) => src}
+              unoptimized
               alt=""
               m="auto"
             />

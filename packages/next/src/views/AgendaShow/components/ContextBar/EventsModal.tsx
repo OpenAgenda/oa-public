@@ -25,10 +25,6 @@ import messages from './messages';
 
 const PAGE_SIZE = 20;
 
-function simpleLoader({ src }) {
-  return src;
-}
-
 function LoadingBody() {
   return (
     <ModalBody pb="4">
@@ -58,7 +54,7 @@ function EventItem({ agenda, event }) {
           fallbackStrategy="onError"
           alt=""
           draggable={false}
-          loader={simpleLoader}
+          unoptimized
           // border="3px solid white"
           h="56px"
           fit="cover"

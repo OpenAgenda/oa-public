@@ -46,10 +46,6 @@ const messages = defineMessages({
   },
 });
 
-function simpleLoader({ src }) {
-  return src;
-}
-
 function getMailtoUrl(mailtoSettings) {
   if (!mailtoSettings?.enabled || !mailtoSettings.email) return null;
 
@@ -78,7 +74,7 @@ export default function AgendaHeader({ agenda }) {
     isOpen: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
-  } = useDisclosure({});
+  } = useDisclosure();
 
   return (
     <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
@@ -92,7 +88,7 @@ export default function AgendaHeader({ agenda }) {
           fallbackStrategy="onError"
           alt=""
           draggable={false}
-          loader={simpleLoader}
+          unoptimized
           border="3px solid white"
           h="140px"
           fit="cover"
