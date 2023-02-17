@@ -335,10 +335,12 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
   const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
 
+  const pageTitle = `${agenda.title} | OpenAgenda`;
+
   return (
     <main>
       <Head>
-        <title>{agenda.title} | OpenAgenda</title>
+        <title>{pageTitle}</title>
         {agenda.indexed ? (
           <meta name="robots" content="index, follow" />
         ) : (
