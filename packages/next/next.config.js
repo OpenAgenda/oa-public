@@ -48,7 +48,6 @@ const config = async () => {
     },
     experimental: {
       isrMemoryCacheSize: 0, // Defaults to 50MB
-      runtime: 'nodejs',
     },
     async redirects() {
       return [
