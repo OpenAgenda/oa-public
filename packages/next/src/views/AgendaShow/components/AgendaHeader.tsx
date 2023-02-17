@@ -118,7 +118,7 @@ export default function AgendaHeader({ agenda }) {
           </Link>
         ) : null}
 
-        <Wrap mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
+        <Wrap shouldWrapChildren mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
             as={Link}
             href={mailtoUrl || `/${agenda.slug}/contact`}
