@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from 'querystring';
-import { useRouter } from 'next/router';
+import qs from 'qs';
 import { useCallback, useRef } from 'react';
 import ContentLoader from 'react-content-loader';
 import { defineMessages, useIntl } from 'react-intl';
@@ -79,7 +79,6 @@ function ProfileLoader(props) {
 
 function ProfileMenu({ user, portalRef }) {
   const intl = useIntl();
-  const router = useRouter();
 
   const collapseId = 'header-menu-collapse';
   const { getButtonProps, isOpen } = useDisclosure({ id: collapseId });
@@ -87,11 +86,8 @@ function ProfileMenu({ user, portalRef }) {
   const onSearch = useCallback(e => {
     e.preventDefault();
     const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
-    router.push({
-      pathname: '/agendas',
-      query,
-    });
-  }, [router]);
+    window.location.assign(`/agendas?${qs.stringify(query)}`);
+  }, []);
 
   const button = user.image ? (
     <Image
@@ -258,15 +254,11 @@ function ProfileBar({ portalRef }) {
 }
 
 export default function Navbar() {
-  const router = useRouter();
   const onSearch = useCallback(e => {
     e.preventDefault();
     const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
-    router.push({
-      pathname: '/agendas',
-      query,
-    });
-  }, [router]);
+    window.location.assign(`/agendas?${qs.stringify(query)}`);
+  }, []);
 
   const headerRef = useRef();
 
