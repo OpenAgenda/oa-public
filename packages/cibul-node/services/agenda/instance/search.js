@@ -85,6 +85,9 @@ Search.prototype._fetchAndPush = function() {
 
   log( 'fetching events' );
 
+  self.push( null );
+  return;
+
   es.agendas( this._instance ).search( this._query, this._options, function( err, result ) {
 
     if ( err ) {
