@@ -9,13 +9,13 @@ import {
   Heading,
   useDisclosure,
   NoBreak,
+  Link,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
@@ -113,16 +113,15 @@ export default function AgendaHeader({ agenda }) {
         <Text>{nl2br(agenda.description)}</Text>
 
         {agenda.url ? (
-          <NextChakraLink href={agenda.url} locale={false}>
+          <Link href={agenda.url}>
             {agenda.url}
-          </NextChakraLink>
+          </Link>
         ) : null}
 
         <Wrap mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
-            as={NextChakraLink}
+            as={Link}
             href={mailtoUrl || `/${agenda.slug}/contact`}
-            locale={false}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
             colorScheme="white"
@@ -176,9 +175,8 @@ export default function AgendaHeader({ agenda }) {
             />
           ) : null}
           <Button
-            as={NextChakraLink}
+            as={Link}
             href={`/${agenda.slug}/contribute`}
-            locale={false}
             leftIcon={<FontAwesomeIcon icon={faPlus} />}
             colorScheme="primary"
           >

@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   Flex,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -26,7 +27,6 @@ import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import logoPic from '../../../public/images/openagenda.png';
 
 const messages = defineMessages({
@@ -134,17 +134,17 @@ function ProfileMenu({ user, portalRef }) {
           // https://github.com/chakra-ui/chakra-ui/issues/5742
           zIndex="5"
         >
-          <MenuItem as={NextChakraLink} href="/home" locale={false} textAlign="right">
+          <MenuItem as={Link} href="/home" textAlign="right">
             {intl.formatMessage(messages.myAgendas)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/home/events" locale={false} textAlign="right">
+          <MenuItem as={Link} href="/home/events" textAlign="right">
             {intl.formatMessage(messages.myEvents)}
           </MenuItem>
           <MenuDivider />
-          <MenuItem as={NextChakraLink} href="/settings" locale={false} textAlign="right">
+          <MenuItem as={Link} href="/settings" textAlign="right">
             {intl.formatMessage(messages.settings)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/signout" locale={false} textAlign="right">
+          <MenuItem as={Link} href="/signout" textAlign="right">
             {intl.formatMessage(messages.signOut)}
           </MenuItem>
         </MenuList>
@@ -168,47 +168,43 @@ function ProfileMenu({ user, portalRef }) {
             </form>
 
             <Box py="2">
-              <NextChakraLink
+              <Link
                 href="/home"
-                locale={false}
                 display="block"
                 px="6"
                 py="3"
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.myAgendas)}
-              </NextChakraLink>
-              <NextChakraLink
+              </Link>
+              <Link
                 href="/home/events"
-                locale={false}
                 display="block"
                 px="6"
                 py="3"
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.myEvents)}
-              </NextChakraLink>
+              </Link>
               <Divider my="2" />
-              <NextChakraLink
+              <Link
                 href="/settings"
-                locale={false}
                 display="block"
                 px="6"
                 py="3"
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.settings)}
-              </NextChakraLink>
-              <NextChakraLink
+              </Link>
+              <Link
                 href="/signout"
-                locale={false}
                 display="block"
                 px="6"
                 py="3"
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.signOut)}
-              </NextChakraLink>
+              </Link>
             </Box>
           </Box>
         </Collapse>
@@ -238,9 +234,8 @@ function ProfileBar({ portalRef }) {
   return (
     <Flex direction="row" h="full">
       <Button
-        as={NextChakraLink}
+        as={Link}
         href="/signin"
-        locale={false}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
@@ -249,9 +244,8 @@ function ProfileBar({ portalRef }) {
         {intl.formatMessage(messages.signIn)}
       </Button>
       <Button
-        as={NextChakraLink}
+        as={Link}
         href="/signup"
-        locale={false}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136

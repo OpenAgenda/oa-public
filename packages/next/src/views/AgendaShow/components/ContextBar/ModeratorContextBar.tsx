@@ -1,10 +1,9 @@
 import { Fragment } from 'react';
 import qs from 'qs';
 import { useIntl } from 'react-intl';
-import { Button, Spacer } from '@openagenda/uikit';
+import { Button, Spacer, Link } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears } from '@fortawesome/pro-solid-svg-icons';
-import NextChakraLink from 'components/NextChakraLink';
 import messages from './messages';
 
 const wordSeparator = <>&nbsp;·&nbsp;</>;
@@ -26,13 +25,9 @@ export default function ModeratorContextBar({ agenda, states }) {
           {intl.formatMessage(messages.events)}&nbsp;
           {states.map(({ key, eventCount }, index, arr) => (
             <Fragment key={key}>
-              <NextChakraLink
-                href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
-                locale={false}
-                fontWeight="bold"
-              >
+              <Link href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`} fontWeight="bold">
                 {intl.formatMessage(messages[stateToSlug[key]], { count: eventCount })}
-              </NextChakraLink>
+              </Link>
               {index < arr.length - 1 ? wordSeparator : null}
             </Fragment>
           ))}
@@ -40,9 +35,8 @@ export default function ModeratorContextBar({ agenda, states }) {
       )}
       <Spacer />
       <Button
-        as={NextChakraLink}
+        as={Link}
         href={`/${agenda.slug}/admin/events`}
-        locale={false}
         leftIcon={<FontAwesomeIcon icon={faGears} />}
         variant="outline"
         colorScheme="white"

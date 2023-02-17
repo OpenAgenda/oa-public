@@ -4,8 +4,8 @@ import {
   Text,
   Box,
   Input,
+  Link,
 } from '@openagenda/uikit';
-import NextChakraLink from 'components/NextChakraLink';
 
 const messages = defineMessages({
   instructions: {
@@ -73,9 +73,9 @@ export default function ExternalCalendarOptions({
       <Input my="3" value={exportUrl} readOnly onClick={handleClick} />
       <Heading mb="2" as="h4" size="md">{intl.formatMessage(messages.instructions)}</Heading>
       <Text mb="2">{intl.formatMessage(messages.instructionsCopyLink)}
-        <NextChakraLink isExternal href={contentByType[type].link} color="primary.500">
+        <Link isExternal href={contentByType[type].link} color="primary.500">
           {contentByType[type].linkText}
-        </NextChakraLink>
+        </Link>
       </Text>
       {contentByType[type].instructions.map(msg => (<Text mb="2" key={msg.id}>{intl.formatMessage(msg)}</Text>))}
     </Box>

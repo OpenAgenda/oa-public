@@ -12,6 +12,7 @@ import {
   HStack,
   Text,
   Wrap,
+  Link,
 } from '@openagenda/uikit';
 import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
@@ -20,7 +21,6 @@ import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import NextChakraLink from 'components/NextChakraLink';
 import messages from './messages';
 
 const PAGE_SIZE = 20;
@@ -70,13 +70,9 @@ function EventItem({ agenda, event }) {
             <div>
               {getLocaleValue(event.description, intl.locale) || intl.formatMessage(messages.undefinedDescription)}
             </div>
-            <NextChakraLink
-              href={`/${agenda.slug}/contribute/event/${event.uid}`}
-              locale={false}
-              color="primary.500"
-            >
+            <Link href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
               {intl.formatMessage(messages.complete)}
-            </NextChakraLink>
+            </Link>
           </>
         ) : (
           <>
@@ -87,20 +83,12 @@ function EventItem({ agenda, event }) {
               {getLocaleValue(event.dateRange, intl.locale)}
             </div>
             <Wrap spacing="3">
-              <NextChakraLink
-                href={`/${agenda.slug}/events/${event.slug}`}
-                locale={false}
-                color="primary.500"
-              >
+              <Link href={`/${agenda.slug}/events/${event.slug}`} color="primary.500">
                 {intl.formatMessage(messages.show)}
-              </NextChakraLink>
-              <NextChakraLink
-                href={`/${agenda.slug}/contribute/event/${event.uid}`}
-                locale={false}
-                color="primary.500"
-              >
+              </Link>
+              <Link href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
                 {intl.formatMessage(messages.edit)}
-              </NextChakraLink>
+              </Link>
             </Wrap>
           </>
         )}

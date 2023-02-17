@@ -1,14 +1,9 @@
 import { useRouter } from 'next/router';
 import qs from 'qs';
-import { HStack, NoBreak, Text } from '@openagenda/uikit';
-import NextChakraLink from 'components/NextChakraLink';
+import { HStack, Text, Link, NoBreak } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
-
-function simpleLoader({ src }) {
-  return src;
-}
 
 export default function AgendaItem({ agenda, targetAgenda }) {
   const isDev = process.env.NODE_ENV === 'development';
@@ -19,12 +14,11 @@ export default function AgendaItem({ agenda, targetAgenda }) {
   // const redirectUrlPart = Buffer.from(url.pathname).toString('base64');
 
   return (
-    <NextChakraLink
+    <Link
       href={`${targetAgenda.slug}/admin/sources?${qs.stringify({
         source: agenda.slug,
         redirect: url.pathname,
       })}`}
-      locale={false}
     >
       <HStack>
         <Image
@@ -36,7 +30,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           fallbackStrategy="onError"
           alt=""
           draggable={false}
-          loader={simpleLoader}
+          unoptimized
           border="3px solid white"
           h="40px"
           fit="cover"
@@ -68,6 +62,6 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           ) : null}
         </Text>
       </HStack>
-    </NextChakraLink>
+    </Link>
   );
 }

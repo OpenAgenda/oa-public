@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
-import { Button, ModalBody, ModalFooter, Text } from '@openagenda/uikit';
-import NextChakraLink from 'components/NextChakraLink';
+import { Button, ModalBody, ModalFooter, Text, Link } from '@openagenda/uikit';
 import Description from './Description';
 import messages from './messages';
 
@@ -21,9 +20,8 @@ export default function UnloggedBody({ agenda }) {
       </ModalBody>
       <ModalFooter>
         <Button
-          as={NextChakraLink}
+          as={Link}
           href={`/${agenda.slug}/signin?redirect=${redirectUrlPart}`}
-          locale={false}
           colorScheme="primary"
         >
           {intl.formatMessage(messages.signin)}

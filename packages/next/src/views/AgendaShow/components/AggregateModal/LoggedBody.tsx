@@ -3,9 +3,8 @@ import React, { useCallback, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
-import { Button, ModalBody, ModalFooter, Text, VStack } from '@openagenda/uikit';
+import { Button, ModalBody, ModalFooter, Text, VStack, Link } from '@openagenda/uikit';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import NextChakraLink from 'components/NextChakraLink';
 import LoadingBody from './LoadingBody';
 import Description from './Description';
 import SearchInput from './SearchInput';
@@ -121,9 +120,8 @@ export default function LoggedBody({ agenda }) {
       {noAgendas ? (
         <ModalFooter>
           <Button
-            as={NextChakraLink}
+            as={Link}
             href="/new"
-            locale={false}
             colorScheme="primary"
           >
             {intl.formatMessage(messages.createAgenda)}

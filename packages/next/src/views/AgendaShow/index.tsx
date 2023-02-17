@@ -21,6 +21,7 @@ import {
   Grid,
   GridItem,
   NoBreak,
+  Link,
   useConst,
   useDisclosure,
 } from '@openagenda/uikit';
@@ -42,7 +43,6 @@ import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ConsentBanner from 'components/ConsentBanner';
-import NextChakraLink from 'components/NextChakraLink';
 import { SUPPORTED_LOCALES } from 'config/constants';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
@@ -515,17 +515,17 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                     </Box>
 
                     <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
-                      <NextChakraLink href="/" locale={false} color="primary.500">
+                      <Link href="/" color="primary.500">
                         OpenAgenda
-                      </NextChakraLink>
+                      </Link>
                       <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <NextChakraLink href="https://doc.openagenda.com/" isExternal color="primary.500">
+                      <Link href="https://doc.openagenda.com/" isExternal color="primary.500">
                         {intl.formatMessage(messages.help)}
-                      </NextChakraLink>
+                      </Link>
                       <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <NextChakraLink href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
+                      <Link href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
                         {intl.formatMessage(messages.termsOfUse)}
-                      </NextChakraLink>
+                      </Link>
 
                       <br />
                       <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>

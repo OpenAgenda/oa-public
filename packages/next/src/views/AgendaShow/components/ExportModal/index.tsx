@@ -1,6 +1,7 @@
 import { useState, Fragment } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import qs from 'qs';
+import useSWR from 'swr';
 import {
   Modal,
   ModalOverlay,
@@ -20,13 +21,10 @@ import {
   AccordionIcon,
   AccordionPanel,
   Flex,
+  Link,
 } from '@openagenda/uikit';
-
-import useSWR from 'swr';
-import NextChakraLink from '../../../../components/NextChakraLink';
-
-import useUser from '../../../../hooks/useUser';
-import useLocationQuery from '../../../../hooks/useLocationQuery';
+import useUser from 'hooks/useUser';
+import useLocationQuery from 'hooks/useLocationQuery';
 import ExternalCalendarOptions from './ExternalCalendarOptions';
 import SpreadsheetOptions from './SpreadsheetOptions';
 
@@ -281,18 +279,18 @@ export default function ExportModal({
                             <Box ml="4">
                               <Checkbox disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
                               <br />
-                              <NextChakraLink href="https://developers.openagenda.com/10-lecture/" isExternal color="primary.500">
+                              <Link href="https://developers.openagenda.com/10-lecture/" isExternal color="primary.500">
                                 {intl.formatMessage(messages.documentation)}
-                              </NextChakraLink>
+                              </Link>
                             </Box>
                           </Flex>
-                          <NextChakraLink href={res.export.jsonV1} isExternal color="primary.500">
+                          <Link href={res.export.jsonV1} isExternal color="primary.500">
                             {intl.formatMessage(messages.exportJson)}
-                          </NextChakraLink>
+                          </Link>
                           {` (${intl.formatMessage(messages.jsonDoc1)}`}
-                          <NextChakraLink href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">
+                          <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">
                             {` ${intl.formatMessage(messages.jsonDoc2)}`}
-                          </NextChakraLink>
+                          </Link>
                           )
                         </>
                       )}

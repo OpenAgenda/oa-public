@@ -1,9 +1,8 @@
 import { Fragment, useCallback, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Spacer } from '@openagenda/uikit';
+import { Button, Spacer, Link } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import NextChakraLink from 'components/NextChakraLink';
 import EventsModal from './EventsModal';
 import messages from './messages';
 
@@ -70,9 +69,8 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
       )}
       <Spacer />
       <Button
-        as={NextChakraLink}
+        as={Link}
         href={`/${agenda.slug}/contribute`}
-        locale={false}
         leftIcon={<FontAwesomeIcon icon={faPlus} />}
         variant="outline"
         colorScheme="white"

@@ -14,7 +14,9 @@ import {
   ListItem,
   ListIcon,
   Text,
+  Link,
   LinkBox,
+  LinkOverlay,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -25,8 +27,6 @@ import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pr
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import upperFirst from 'utils/upperFirst';
-import NextChakraLink from 'components/NextChakraLink';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import Image from 'components/Image';
 
 const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
@@ -163,9 +163,8 @@ export default function EventItem({ event, agenda }) {
       >
         <Flex direction="row" align="center" px="6" justify="space-between">
           <Heading as="h2" fontSize="xl">
-            <NextChakraLinkOverlay
+            <LinkOverlay
               href={`/${agenda.slug}/events/${event.slug}`}
-              locale={false}
               _hover={{
                 _before: {
                   border: '1px solid',
@@ -174,7 +173,7 @@ export default function EventItem({ event, agenda }) {
               }}
             >
               {getLocaleValue(event.title, intl.locale)}
-            </NextChakraLinkOverlay>
+            </LinkOverlay>
           </Heading>
 
           <FavoriteButton agenda={agenda} event={event} />
@@ -239,9 +238,8 @@ export default function EventItem({ event, agenda }) {
             alignSelf="flex-end"
           >
             <Button
-              as={NextChakraLink}
+              as={Link}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
-              locale={false}
               colorScheme="primary"
               borderRadius="sm"
               display={{ base: 'none', sm: 'inline-flex' }}
@@ -250,9 +248,8 @@ export default function EventItem({ event, agenda }) {
             </Button>
 
             <Button
-              as={NextChakraLink}
+              as={Link}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
-              locale={false}
               colorScheme="primary"
               borderRadius="sm"
               display={{ base: 'inline-flex', sm: 'none' }}
