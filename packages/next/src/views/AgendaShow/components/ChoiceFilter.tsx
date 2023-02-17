@@ -109,7 +109,7 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter({
         {foundOptions.map((option, index) => (index < countOptions ? (
           <Field
             // key={seed(option)}
-            key={option.id || option.key}
+            key={option.id || option.key || option.value}
             name={name}
             subscription={subscription}
             parse={parseValue}
