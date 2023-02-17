@@ -21,6 +21,7 @@ import {
   Grid,
   GridItem,
   NoBreak,
+  Link,
   useConst,
   useDisclosure,
 } from '@openagenda/uikit';
@@ -42,7 +43,6 @@ import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ConsentBanner from 'components/ConsentBanner';
-import NextChakraLink from 'components/NextChakraLink';
 import { SUPPORTED_LOCALES } from 'config/constants';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
@@ -56,6 +56,8 @@ import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
 import ResponsiveDrawer from './components/Drawer';
 import fetchLocale from './locales';
+
+import 'leaflet/dist/leaflet.css';
 
 export type AgendaShowProps = {
   agenda: {
@@ -333,10 +335,12 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
   const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
 
+  const pageTitle = `${agenda.title} | OpenAgenda`;
+
   return (
     <main>
       <Head>
-        <title>{agenda.title} | OpenAgenda</title>
+        <title>{pageTitle}</title>
         {agenda.indexed ? (
           <meta name="robots" content="index, follow" />
         ) : (
@@ -378,13 +382,6 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         {agenda.image ? (
           <meta property="twitter:image" content={agenda.image} />
         ) : null}
-
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-          crossOrigin=""
-        />
       </Head>
 
       {user ? <ContextBar agenda={agenda} /> : null}
@@ -518,17 +515,17 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                     </Box>
 
                     <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
-                      <NextChakraLink href="/" color="primary.500">
+                      <Link href="/" color="primary.500">
                         OpenAgenda
-                      </NextChakraLink>
+                      </Link>
                       <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <NextChakraLink href="https://doc.openagenda.com/" isExternal color="primary.500">
+                      <Link href="https://doc.openagenda.com/" isExternal color="primary.500">
                         {intl.formatMessage(messages.help)}
-                      </NextChakraLink>
+                      </Link>
                       <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <NextChakraLink href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
+                      <Link href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
                         {intl.formatMessage(messages.termsOfUse)}
-                      </NextChakraLink>
+                      </Link>
 
                       <br />
                       <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>

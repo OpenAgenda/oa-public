@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   Flex,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -27,7 +28,6 @@ import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
 import logoPic from '../../../public/images/openagenda.png';
-import NextChakraLink from '../NextChakraLink';
 
 const messages = defineMessages({
   signIn: {
@@ -55,10 +55,6 @@ const messages = defineMessages({
     defaultMessage: 'Sign out',
   },
 });
-
-function simpleLoader({ src }) {
-  return src;
-}
 
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
@@ -107,7 +103,7 @@ function ProfileMenu({ user, portalRef }) {
         ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
         : null}
       fallbackStrategy="onError"
-      loader={simpleLoader}
+      unoptimized
       width="30"
       height="30"
     />
@@ -138,17 +134,17 @@ function ProfileMenu({ user, portalRef }) {
           // https://github.com/chakra-ui/chakra-ui/issues/5742
           zIndex="5"
         >
-          <MenuItem as={NextChakraLink} href="/home" textAlign="right">
+          <MenuItem as={Link} href="/home" textAlign="right">
             {intl.formatMessage(messages.myAgendas)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/home/events" textAlign="right">
+          <MenuItem as={Link} href="/home/events" textAlign="right">
             {intl.formatMessage(messages.myEvents)}
           </MenuItem>
           <MenuDivider />
-          <MenuItem as={NextChakraLink} href="/settings" textAlign="right">
+          <MenuItem as={Link} href="/settings" textAlign="right">
             {intl.formatMessage(messages.settings)}
           </MenuItem>
-          <MenuItem as={NextChakraLink} href="/signout" textAlign="right">
+          <MenuItem as={Link} href="/signout" textAlign="right">
             {intl.formatMessage(messages.signOut)}
           </MenuItem>
         </MenuList>
@@ -172,7 +168,7 @@ function ProfileMenu({ user, portalRef }) {
             </form>
 
             <Box py="2">
-              <NextChakraLink
+              <Link
                 href="/home"
                 display="block"
                 px="6"
@@ -180,8 +176,8 @@ function ProfileMenu({ user, portalRef }) {
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.myAgendas)}
-              </NextChakraLink>
-              <NextChakraLink
+              </Link>
+              <Link
                 href="/home/events"
                 display="block"
                 px="6"
@@ -189,9 +185,9 @@ function ProfileMenu({ user, portalRef }) {
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.myEvents)}
-              </NextChakraLink>
+              </Link>
               <Divider my="2" />
-              <NextChakraLink
+              <Link
                 href="/settings"
                 display="block"
                 px="6"
@@ -199,8 +195,8 @@ function ProfileMenu({ user, portalRef }) {
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.settings)}
-              </NextChakraLink>
-              <NextChakraLink
+              </Link>
+              <Link
                 href="/signout"
                 display="block"
                 px="6"
@@ -208,7 +204,7 @@ function ProfileMenu({ user, portalRef }) {
                 _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
               >
                 {intl.formatMessage(messages.signOut)}
-              </NextChakraLink>
+              </Link>
             </Box>
           </Box>
         </Collapse>
@@ -238,7 +234,7 @@ function ProfileBar({ portalRef }) {
   return (
     <Flex direction="row" h="full">
       <Button
-        as={NextChakraLink}
+        as={Link}
         href="/signin"
         variant="link"
         colorScheme="primary"
@@ -248,7 +244,7 @@ function ProfileBar({ portalRef }) {
         {intl.formatMessage(messages.signIn)}
       </Button>
       <Button
-        as={NextChakraLink}
+        as={Link}
         href="/signup"
         variant="link"
         colorScheme="primary"

@@ -1,9 +1,10 @@
 import _ from 'lodash';
-import { createElement, useCallback, useLayoutEffect } from 'react';
+import { createElement, useCallback } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 import { defineMessages, useIntl } from 'react-intl';
 import { Field, FormSpy, useForm, useField, useFavoritesOnChange } from '@openagenda/react-filters';
 import { Checkbox, Text } from '@openagenda/uikit';
+import useIsomorphicEffect from 'hooks/useIsomorphicEffect';
 import FilterPreviewer from './FilterPreviewer';
 
 const messages = defineMessages({
@@ -29,7 +30,7 @@ function FavoritesComp({ agenda, input: { checked: isChecked, ...input } }) {
   const onChange = useFavoritesOnChange(agendaFavorites, { isExclusive: true });
 
   // Update legacy
-  useLayoutEffect(() => {
+  useIsomorphicEffect(() => {
     if (typeof favorites === 'string') {
       try {
         setFavorites(JSON.parse(favorites));

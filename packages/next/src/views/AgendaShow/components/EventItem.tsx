@@ -14,7 +14,9 @@ import {
   ListItem,
   ListIcon,
   Text,
+  Link,
   LinkBox,
+  LinkOverlay,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -25,8 +27,6 @@ import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pr
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import upperFirst from 'utils/upperFirst';
-import NextChakraLink from 'components/NextChakraLink';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import Image from 'components/Image';
 
 const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
@@ -121,6 +121,7 @@ export default function EventItem({ event, agenda }) {
       mx={{ base: 'auto', xl: '0' }}
       px={{ base: '4', xl: '0' }}
       maxW={{ base: 'xl', xl: 'none' }}
+      w="full"
     >
       <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
         <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
@@ -162,7 +163,7 @@ export default function EventItem({ event, agenda }) {
       >
         <Flex direction="row" align="center" px="6" justify="space-between">
           <Heading as="h2" fontSize="xl">
-            <NextChakraLinkOverlay
+            <LinkOverlay
               href={`/${agenda.slug}/events/${event.slug}`}
               _hover={{
                 _before: {
@@ -172,7 +173,7 @@ export default function EventItem({ event, agenda }) {
               }}
             >
               {getLocaleValue(event.title, intl.locale)}
-            </NextChakraLinkOverlay>
+            </LinkOverlay>
           </Heading>
 
           <FavoriteButton agenda={agenda} event={event} />
@@ -185,9 +186,10 @@ export default function EventItem({ event, agenda }) {
               src={`${IMAGE_PREFIX}${event.image.filename}`}
               width={event.image.size.width}
               height={event.image.size.height}
-              loader={({ src }) => src}
+              unoptimized
               alt=""
               m="auto"
+              w="full"
             />
           ) : (
             <Image
@@ -197,7 +199,7 @@ export default function EventItem({ event, agenda }) {
               pos="unset !important"
               w="full !important"
               h="auto !important"
-              loader={({ src }) => src}
+              unoptimized
               alt=""
               m="auto"
             />
@@ -236,7 +238,7 @@ export default function EventItem({ event, agenda }) {
             alignSelf="flex-end"
           >
             <Button
-              as={NextChakraLink}
+              as={Link}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
               colorScheme="primary"
               borderRadius="sm"
@@ -246,7 +248,7 @@ export default function EventItem({ event, agenda }) {
             </Button>
 
             <Button
-              as={NextChakraLink}
+              as={Link}
               href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
               colorScheme="primary"
               borderRadius="sm"

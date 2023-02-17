@@ -4,19 +4,18 @@ import {
   Stack,
   VStack,
   Text,
-  Link,
   Wrap,
   Button,
   Heading,
   useDisclosure,
   NoBreak,
+  Link,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
@@ -47,10 +46,6 @@ const messages = defineMessages({
   },
 });
 
-function simpleLoader({ src }) {
-  return src;
-}
-
 function getMailtoUrl(mailtoSettings) {
   if (!mailtoSettings?.enabled || !mailtoSettings.email) return null;
 
@@ -79,7 +74,7 @@ export default function AgendaHeader({ agenda }) {
     isOpen: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
-  } = useDisclosure({});
+  } = useDisclosure();
 
   return (
     <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
@@ -93,7 +88,7 @@ export default function AgendaHeader({ agenda }) {
           fallbackStrategy="onError"
           alt=""
           draggable={false}
-          loader={simpleLoader}
+          unoptimized
           border="3px solid white"
           h="140px"
           fit="cover"
@@ -117,11 +112,15 @@ export default function AgendaHeader({ agenda }) {
 
         <Text>{nl2br(agenda.description)}</Text>
 
-        <Link href={agenda.url}>{agenda.url}</Link>
+        {agenda.url ? (
+          <Link href={agenda.url}>
+            {agenda.url}
+          </Link>
+        ) : null}
 
         <Wrap mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
-            as={NextChakraLink}
+            as={Link}
             href={mailtoUrl || `/${agenda.slug}/contact`}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
@@ -176,7 +175,7 @@ export default function AgendaHeader({ agenda }) {
             />
           ) : null}
           <Button
-            as={NextChakraLink}
+            as={Link}
             href={`/${agenda.slug}/contribute`}
             leftIcon={<FontAwesomeIcon icon={faPlus} />}
             colorScheme="primary"

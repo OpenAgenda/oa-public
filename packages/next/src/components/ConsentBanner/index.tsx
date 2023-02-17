@@ -1,15 +1,13 @@
 import { defineMessages, useIntl } from 'react-intl';
-
 import {
   Text,
   Box,
   Flex,
+  Link,
   Spacer,
   ButtonGroup,
   Button,
 } from '@openagenda/uikit';
-
-import NextChakraLink from '../NextChakraLink';
 
 const messages = defineMessages({
   informationText: {
@@ -40,7 +38,7 @@ export default function ConsentBanner({
     <Flex p="4" bg="oaGray.900" gap="2" alignItems="center" pos="fixed" bottom="0" right="0" left="0" zIndex="banner">
       <Box mt="2">
         <Text color="white">{intl.formatMessage(messages.informationText)}</Text>
-        <NextChakraLink mt="3" href={link} isExternal color="primary.500">{intl.formatMessage(messages.moreInfoLink)}</NextChakraLink>
+        <Link mt="3" href={link} isExternal color="primary.500">{intl.formatMessage(messages.moreInfoLink)}</Link>
       </Box>
       <Spacer />
       <ButtonGroup gap="2">
