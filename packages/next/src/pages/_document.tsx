@@ -9,6 +9,7 @@ import Document, {
 import { Cookies } from 'react-cookie';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
+import getPreferredLocale from 'utils/getPreferredLocale';
 
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
@@ -55,8 +56,14 @@ export default class MyDocument extends Document {
   }
 
   render() {
+    const { locale, __NEXT_DATA__ } = this.props;
+
     return (
-      <Html style={{ colorScheme: 'light' }} data-theme="light">
+      <Html
+        lang={getPreferredLocale(locale, __NEXT_DATA__.query.lang)}
+        style={{ colorScheme: 'light' }}
+        data-theme="light"
+      >
         <Head>
           {process.env.NEXT_PUBLIC_ASSET_PREFIX && (
             <link rel="preconnect" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} />
