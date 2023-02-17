@@ -384,7 +384,9 @@ const initialState = async req => {
         requestContribute: '/:agendaSlug/request-contribute/conversation/create',
         detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
         locations: {
-          get: '/locations/:uid.json',
+          suggestChange: '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          staticTiles: config.staticTiles,
+          get: '/locations/:locationUid.json',
           index: '/api/agendas/:agendaUid/locations?itemsKey=items',
           create: '/agendas/:agendaUid/locations',
           geocode: '/locations/geocode',
