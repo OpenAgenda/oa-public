@@ -6,6 +6,7 @@ const getLogConfig = require('./mock/getLogConfig');
 
 const testConfig = {
   domain: 'openagenda.com',
+  disabled: ['elasticsearch'],
   track: true,
   queues: {},
   db: {

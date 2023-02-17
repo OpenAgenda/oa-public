@@ -31,6 +31,7 @@ const legacyEventSvc = require( '../services/event' );
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const lib = require( '../lib/lib' );
 const convertFormat = require('./ConvertFormat');
+const loadCredentials = require('./loadCredentials');
 
 const perPage = 20;
 
@@ -132,6 +133,7 @@ module.exports = app => {
     cacheMw('customEmbedShow', 'params.embedUid', 30, [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load('uid', { cache: true }),
+      loadCredentials,
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
@@ -154,9 +156,16 @@ module.exports = app => {
       next()
     },
     agendaSvc.mw.load( 'uid', { cache: true } ),
+    loadCredentials,
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    agendaSvc.mw.search( perPage, true ),
+    convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
+    (req, res, next) => {
+      if (req.events) {
+        return next();
+      }
+      agendaSvc.mw.search(perPage)(req, res, next);
+    },
     middlewares.embedShow,
     ( req, res ) => res.send( req.render )
   );
@@ -581,11 +590,11 @@ function _formatEventItem(event, req, cb) {
       services: req.app.services
     }, inst.getFreeText() ?? inst.longDescription, longDescriptionLinks),
     longDescriptionLinks,
-    placeName: inst.getLocationName(),
-    address: inst.getAddress()?.label,
-    placeNameLabel: inst.getLocationName()?.label,
-    city: inst.getCity()?.label,
-    pricingInfo: inst.getPricingInfo(),
+    placeName: inst.location?.name,
+    address: inst.location?.address,
+    placeNameLabel: inst.location?.name,
+    city: inst.location?.city,
+    pricingInfo: inst.conditions?.[req.lang],
     ticketLink: inst.getTicketLink(),
     registration: registration( inst.getTicketLink( true ) ),
     ticketLabel: getEventLabel( 'ticketingLink', req.lang ),

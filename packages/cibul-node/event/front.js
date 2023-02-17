@@ -11,7 +11,6 @@ const agendaSvc = require('@openagenda/agendas');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
 const errorLabels = require('@openagenda/labels/errors');
 const sessions = require('@openagenda/sessions');
-const log = require('@openagenda/logs')('event/front');
 
 const members = require('../services/members');
 
@@ -94,7 +93,7 @@ function formatAgendaLinks(uri, keys) {
     req.formatted.backLink = req.genUrl(uri, [
       routeValues,
       req.query.oaq ? { oaq: req.query.oaq } : {},
-      { lang: req.lang }
+      { lang: req.lang },
     ]);
 
     // link to go back to the agenda
@@ -104,7 +103,7 @@ function formatAgendaLinks(uri, keys) {
     req.formatted.locationLink = req.genUrl(uri, [
       routeValues,
       { oaq: _.extend({ location: req.event.getLocationUid() }, baseSearchQuery) },
-      { lang: req.lang }
+      { lang: req.lang },
     ]);
 
     req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
@@ -117,7 +116,7 @@ function formatAgendaLinks(uri, keys) {
       req.formatted.categoryLink = req.genUrl(uri, [
         routeValues,
         { oaq: _.extend({ category: req.formatted.categorySlug }, baseSearchQuery) },
-        { lang: req.lang }
+        { lang: req.lang },
       ]);
     }
 
@@ -125,222 +124,95 @@ function formatAgendaLinks(uri, keys) {
   };
 }
 
-const middlewares = {
-  agendaEventShow: [
-    (req, res, next) => {
-      getAndDecorateIndexedEvent(req.app.services, {
-        agendaUid: req.agenda.uid,
-        eventSlug: req.params.eventSlug,
-        userUid: req.user?.uid,
-        lang: req.lang,
-        originalUrl: req.originalUrl,
-        detailed: true
-      }).then(indexedEvent => {
-        if (!indexedEvent) {
-          return next({ code: 404 });
-        }
+function _appendFacebookParams(req, res, next) {
+  if (!req.query.fb) return next();
 
-        req.indexedEvent = indexedEvent;
+  // to add 'fb' class to layout html
+  req.baseData.facebook = true;
 
-        next();
-      }, next);
-    },
-    (req, res, next) => {
-      getAgendaReferences(req.app.services, req.indexedEvent.uid, {
-        excludeAgendaUid: req.agenda.uid
-      }).then(agendaReferences => {
-        req.agendaReferences = agendaReferences;
-        next();
-      }, next);
-    },
-    cmn.loadBaseData(getEventLayoutData, 'oa-main.css'),
-    wrap(agendaEventShow)
-  ],
-  customEmbedEventShow: [
-    legacyAgendaSvc.mw.decorateEvent(false),
-    formatSocialLinks,
-    _formatFavoriteLink,
-    _addInterfaceLanguage,
-    _formatEmbedHeadLinks,
-    embedSvc.mw.renderEvent,
-    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
-    embedSvc.mw.loadCustomLayoutData,
-    _appendSettings,
-    renderAgendaEmbedEvent
- ]
-};
+  req.baseData.scriptParams.facebook = true;
 
-const preMw = [
-  cmn.loadLogger('event front'),
-  cmn.redirectLegacySearch
-];
+  req.baseData.scriptParams.fbAppId = config.auth.facebook.id;
 
-module.exports = app => {
-  const {
-    agendas: agendasSvc
-  } = app.services;
+  next();
+}
 
-  app.get(
-    '/agendas/:agendaUid/events/:eventUid/share',
-    preMw,
-    redirectMiddelware.loadEvent,
-    redirectMiddelware.loadSiteURL,
-    redirectMiddelware.loadFacebookMetas,
-    redirectMiddelware.render
-  );
+function _switchEmbedLang(req, res, next) {
+  req.event.switchLanguage(req.lang);
 
-  app.get(
-    '/:slug.prv/events/:eventSlug',
-    preMw,
-    cmn.https,
-    agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
-    cmn.ifIsNot(
-      'agenda.private',
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
+  next();
+}
 
-        res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
-      }
-    ),
-    sessions.mw.ifUnlogged(
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
-        const redirect = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
-          .toString('base64');
+function _appendSettings(req, res, next) {
+  if (!req.agenda) return next();
 
-        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
-      }
-    ),
-    members.mw.load,
-    (req, res, next) => {
-      if (!req.member) return cmn.renderUnauthorized(req, res, next);
-      next();
-    },
-    middlewares.agendaEventShow
-  );
+  const agendaUid = req.agenda?.uid;
+  const originAgendaUid = req.event?.origin?.uid;
 
-  app.get(
-    '/:slug/events/:eventSlug',
-    preMw,
-    cmn.https,
-    agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
-    cmn.ifIs(
-      'agenda.private',
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
+  const agendaUids = [agendaUid];
 
-        res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
-      }
-    ),
-    middlewares.agendaEventShow
-  );
+  if (originAgendaUid) agendaUids.push(originAgendaUid);
 
-  app.get(
-    '/agendas/:uid/events/:eventUid',
-    preMw,
-    legacyAgendaSvc.mw.load('uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    redirect
-  );
+  agendaSvc.list({ uid: agendaUids }, 0, 2, {
+    private: null,
+    internal: true,
+    includeFields: ['settings', 'indexed', 'private', 'credentials'],
+  }, (err, agendas) => {
+    const agenda = agendas.filter(a => a.uid === agendaUid).shift();
 
-  app.get(
-    '/agendas/:uid/embed/events/:eventUid',
-    preMw,
-    legacyAgendaSvc.mw.load('uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    _switchEmbedLang,
-    legacyEventSvc.mw.format,
-    legacyEventSvc.mw.components,
-    formatAgendaLinks('agendaEmbedShow', ['uid']),
-    legacyAgendaSvc.mw.decorateEvent(false),
-    formatSocialLinks,
-    _formatEmbedHeadLinks,
-    // cmn.useEmbedGoogleAnalytics,
-    embedSvc.mw.renderEvent,
-    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
-    _appendFacebookParams,
-    renderAgendaEmbedEvent,
-    (req, res) => res.send(req.render)
- );
+    if (err) return next(err);
 
-  app.get(
-    '/agendas/:uid/embeds/:embedUid/events/:eventUid',
-    cacheMw('customEmbedShow', 'params.embedUid', 30, [
-      preMw,
-      legacyAgendaSvc.mw.load('uid'),
-      embedSvc.mw.load('embedUid', 'uid'),
-      legacyEventSvc.mw.load('eventUid', 'uid'),
-      _switchEmbedLang,
-      legacyEventSvc.mw.format,
-      legacyEventSvc.mw.components,
-      formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
-      middlewares.customEmbedEventShow
-    ]),
-  );
+    req.baseData = ih(req.baseData, {
+      indexed: {
+        $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false),
+      },
+      scriptParams: {
+        moderatorCanPublish: {
+          $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators'),
+        },
+        GDPRInformation: {
+          $set: agenda?.settings?.contribution?.messages?.GDPRInformation,
+        },
+        googleAnalyticsID: {
+          $set: agenda?.settings?.tracking?.googleAnalytics,
+        },
+      },
+      mailto: {
+        $set: cmn.agendaMailTo(agenda),
+      },
+      useContributeApp: {
+        $set: _.get(agenda, 'credentials.useContributeApp', false),
+      },
+      useDetailedStatusActions: {
+        $set: !!agenda?.settings?.lab?.status,
+      },
+    });
 
-  app.get(
-    '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid',
-    preMw,
-    legacyAgendaSvc.mw.load('uid'),
-    members.mw.loadAndAuthorize('administrator'),
-    embedSvc.mw.load('embedUid', 'uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    _switchEmbedLang,
-    legacyEventSvc.mw.format,
-    legacyEventSvc.mw.components,
-    formatAgendaLinks('customEmbedShowPreview', ['uid', 'embedUid']),
-    middlewares.customEmbedEventShow,
-    (req, res) => res.send(req.render)
-  );
+    next();
+  });
+}
 
-  app.get(
-    '/events/:eventSlug',
-    preMw,
-    cmn.https,
-    (req, res, next) => {
+function _formatFavoriteLink(req, res, next) {
+  req.formatted.favorite = cmn.favoriteLinkHTML(req.event.uid);
 
-      const integer = parseInt(req.params.eventSlug);
+  next();
+}
 
-      if (Number.isInteger(integer) && ((integer + '').length === req.params.eventSlug.length)) {
+function _addInterfaceLanguage(req, res, next) {
+  req.formatted.interfaceLang = req.lang;
 
-        return next('route');
+  next();
+}
 
-      }
+function _formatEmbedHeadLinks(req, res, next) {
+  req.formatted.actionLink = req.genUrl('agendaEventActionShow', {
+    slug: req.agenda.slug,
+    eventSlug: req.event.slug,
+  }, { protocol: 'https://' });
+  req.formatted.actionLabel = getLabel('export', req.lang);
 
-      next();
-    },
-    legacyEventSvc.mw.load('eventSlug', 'slug'),
-    (req, res, next) => {
-      if (req.event.origin) {
-        req.agenda = req.event.origin;
-        return redirect(req, res, next);
-      }
-
-      next({
-        code: 403,
-        message: _.get(errorLabels, ['noOrigin', req.lang], 'noOrigin.en')
-      });
-    }
- );
-
-  app.get(
-    '/events/:eventUid',
-    preMw,
-    cmn.https,
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    (req, res, next) => {
-      req.agenda = req.event.origin;
-      next();
-    },
-    redirect
- );
-
-};
-
-
-/**
- * controllers
- */
+  next();
+}
 
 async function agendaEventShow(req, res) {
   const reqParams = {};
@@ -351,7 +223,7 @@ async function agendaEventShow(req, res) {
 
   const member = req.user ? await members.get({
     agendaUid: req.agenda.uid,
-    userUid: req.user.uid
+    userUid: req.user.uid,
   }) : null;
 
   cmn.render(req, res, 'event/show', {
@@ -379,132 +251,242 @@ async function agendaEventShow(req, res) {
     backLink: req.genUrl('agendaShow', [
       getRouteValues(req, ['slug']),
       req.query.oaq ? { oaq: req.query.oaq } : {},
-      { lang: req.lang }
+      { lang: req.lang },
     ]),
     hasLocation: !!req.indexedEvent.location,
     components: req.components,
     showRequestLocation: ![2, 3].includes(_.get(member, 'role', 0)),
     user: req.user,
-    footerUid: req.indexedEvent.uid
+    footerUid: req.indexedEvent.uid,
   });
 }
 
 function renderAgendaEmbedEvent(req, res, next) {
-
   cmn.renderTemplate(req, 'event/embedShow', {
     eventRender: req.render,
     scriptParams: {
       res: {
-        actions: req.genUrl('agendaActionShow', { slug: req.agenda.slug })
-      }
-    }
+        actions: req.genUrl('agendaActionShow', { slug: req.agenda.slug }),
+      },
+    },
   }, false, (err, render) => {
-
     if (err) return next(err);
 
     req.render = render;
     res.data = render;
 
     next();
-
   });
-
-}
-
-
-function _appendFacebookParams(req, res, next) {
-
-  if (!req.query.fb) return next();
-
-  // to add 'fb' class to layout html
-  req.baseData.facebook = true;
-
-  req.baseData.scriptParams.facebook = true;
-
-  req.baseData.scriptParams.fbAppId = config.auth.facebook.id;
-
-  next();
-
-}
-
-
-function _switchEmbedLang(req, res, next) {
-  req.event.switchLanguage(req.lang);
-
-  next();
-}
-
-function _appendSettings(req, res, next) {
-  if (!req.agenda) return next();
-
-  const agendaUid = req.agenda?.uid;
-  const originAgendaUid = req.event?.origin?.uid;
-
-  const agendaUids = [agendaUid];
-
-  if (originAgendaUid) agendaUids.push(originAgendaUid);
-
-  agendaSvc.list({ uid: agendaUids }, 0, 2, {
-    private: null,
-    internal: true,
-    includeFields: ['settings', 'indexed', 'private', 'credentials']
-  }, (err, agendas) => {
-    const agenda = agendas.filter(a => a.uid === agendaUid).shift();
-
-    if (err) return next(err);
-
-    req.baseData = ih(req.baseData, {
-      indexed: {
-        $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false)
-      },
-      scriptParams: {
-        moderatorCanPublish: {
-          $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators')
-        },
-        GDPRInformation: {
-          $set: agenda?.settings?.contribution?.messages?.GDPRInformation
-        },
-        googleAnalyticsID: {
-          $set: agenda?.settings?.tracking?.googleAnalytics
-        }
-      },
-      mailto: {
-        $set: cmn.agendaMailTo(agenda)
-      },
-      useContributeApp: {
-        $set: _.get(agenda, 'credentials.useContributeApp', false)
-      },
-      useDetailedStatusActions: {
-        $set: !!agenda?.settings?.lab?.status
-      }
-    });
-
-    next();
-  });
-}
-
-function _formatFavoriteLink(req, res, next) {
-  req.formatted.favorite = cmn.favoriteLinkHTML(req.event.uid);
-
-  next();
-}
-
-function _addInterfaceLanguage(req, res, next) {
-  req.formatted.interfaceLang = req.lang;
-
-  next();
-}
-
-function _formatEmbedHeadLinks(req, res, next) {
-  req.formatted.actionLink = req.genUrl('agendaEventActionShow', {
-    slug: req.agenda.slug,
-    eventSlug: req.event.slug
-  }, { protocol: 'https://' });
-  req.formatted.actionLabel = getLabel('export', req.lang);
-
-  next();
 }
 
 function wrap(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
 }
+
+const middlewares = {
+  agendaEventShow: [
+    (req, res, next) => {
+      getAndDecorateIndexedEvent(req.app.services, {
+        agendaUid: req.agenda.uid,
+        eventSlug: req.params.eventSlug,
+        userUid: req.user?.uid,
+        lang: req.lang,
+        originalUrl: req.originalUrl,
+        detailed: true,
+      }).then(indexedEvent => {
+        if (!indexedEvent) {
+          return next({ code: 404 });
+        }
+
+        req.indexedEvent = indexedEvent;
+
+        next();
+      }, next);
+    },
+    (req, res, next) => {
+      getAgendaReferences(req.app.services, req.indexedEvent.uid, {
+        excludeAgendaUid: req.agenda.uid,
+      }).then(agendaReferences => {
+        req.agendaReferences = agendaReferences;
+        next();
+      }, next);
+    },
+    cmn.loadBaseData(getEventLayoutData, 'oa-main.css'),
+    wrap(agendaEventShow),
+  ],
+  customEmbedEventShow: [
+    legacyAgendaSvc.mw.decorateEvent(false),
+    formatSocialLinks,
+    _formatFavoriteLink,
+    _addInterfaceLanguage,
+    _formatEmbedHeadLinks,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
+    embedSvc.mw.loadCustomLayoutData,
+    _appendSettings,
+    renderAgendaEmbedEvent,
+  ],
+};
+
+const preMw = [
+  cmn.loadLogger('event front'),
+  cmn.redirectLegacySearch,
+];
+
+module.exports = app => {
+  const {
+    agendas: agendasSvc,
+  } = app.services;
+
+  app.get(
+    '/agendas/:agendaUid/events/:eventUid/share',
+    preMw,
+    redirectMiddelware.loadEvent,
+    redirectMiddelware.loadSiteURL,
+    redirectMiddelware.loadFacebookMetas,
+    redirectMiddelware.render,
+  );
+
+  app.get(
+    '/:slug.prv/events/:eventSlug',
+    preMw,
+    cmn.https,
+    agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
+    cmn.ifIsNot(
+      'agenda.private',
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
+
+        res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
+      },
+    ),
+    sessions.mw.ifUnlogged(
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
+        const redirect = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
+          .toString('base64');
+
+        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
+      },
+    ),
+    members.mw.load,
+    (req, res, next) => {
+      if (!req.member) return cmn.renderUnauthorized(req, res, next);
+      next();
+    },
+    middlewares.agendaEventShow,
+  );
+
+  app.get(
+    '/:slug/events/:eventSlug',
+    preMw,
+    cmn.https,
+    agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
+    cmn.ifIs(
+      'agenda.private',
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
+
+        res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
+      },
+    ),
+    middlewares.agendaEventShow,
+  );
+
+  app.get(
+    '/agendas/:uid/events/:eventUid',
+    preMw,
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
+    redirect,
+  );
+
+  app.get(
+    '/agendas/:uid/embed/events/:eventUid',
+    preMw,
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
+    _switchEmbedLang,
+    legacyEventSvc.mw.format,
+    legacyEventSvc.mw.components,
+    formatAgendaLinks('agendaEmbedShow', ['uid']),
+    legacyAgendaSvc.mw.decorateEvent(false),
+    formatSocialLinks,
+    _formatEmbedHeadLinks,
+    // cmn.useEmbedGoogleAnalytics,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
+    _appendFacebookParams,
+    renderAgendaEmbedEvent,
+    (req, res) => res.send(req.render),
+  );
+
+  app.get(
+    '/agendas/:uid/embeds/:embedUid/events/:eventUid',
+    cacheMw('customEmbedShow', 'params.embedUid', 30, [
+      preMw,
+      legacyAgendaSvc.mw.load('uid'),
+      embedSvc.mw.load('embedUid', 'uid'),
+      legacyEventSvc.mw.load('eventUid', 'uid'),
+      _switchEmbedLang,
+      legacyEventSvc.mw.format,
+      legacyEventSvc.mw.components,
+      formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
+      middlewares.customEmbedEventShow,
+    ]),
+  );
+
+  app.get(
+    '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid',
+    preMw,
+    legacyAgendaSvc.mw.load('uid'),
+    members.mw.loadAndAuthorize('administrator'),
+    embedSvc.mw.load('embedUid', 'uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
+    _switchEmbedLang,
+    legacyEventSvc.mw.format,
+    legacyEventSvc.mw.components,
+    formatAgendaLinks('customEmbedShowPreview', ['uid', 'embedUid']),
+    middlewares.customEmbedEventShow,
+    (req, res) => res.send(req.render),
+  );
+
+  app.get(
+    '/events/:eventSlug',
+    preMw,
+    cmn.https,
+    (req, res, next) => {
+      const integer = parseInt(req.params.eventSlug, 10);
+
+      if (Number.isInteger(integer) && (`${integer}`.length === req.params.eventSlug.length)) {
+        return next('route');
+      }
+
+      next();
+    },
+    legacyEventSvc.mw.load('eventSlug', 'slug'),
+    (req, res, next) => {
+      if (req.event.origin) {
+        req.agenda = req.event.origin;
+        return redirect(req, res, next);
+      }
+
+      next({
+        code: 403,
+        message: _.get(errorLabels, ['noOrigin', req.lang], 'noOrigin.en'),
+      });
+    },
+  );
+
+  app.get(
+    '/events/:eventUid',
+    preMw,
+    cmn.https,
+    legacyEventSvc.mw.load('eventUid', 'uid'),
+    (req, res, next) => {
+      req.agenda = req.event.origin;
+      next();
+    },
+    redirect,
+  );
+};

@@ -11,6 +11,7 @@ let currentConfig;
 const config = {
   all: {
     env: 'production',
+    disabled: ['elasticsearch'],
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
     superAdminIds: [1, 2, 11258, 15453, 124500, 149412, 147323],
     jsVersion: 42,
