@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { Modal } from '@openagenda/react-shared';
+import { Provider } from 'react-redux';
 
 import LocationSelector from '../src/components/LocationSelector';
 
@@ -25,12 +26,12 @@ const res = {
   disqualifyDuplicates: '/api/agendas/1/locations/disqualify',
   agendaSearch: '/api/agendas/1/locations/agendas',
   seeEvents: '/api/agendas/1/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
-  suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create'
+  suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create',
 };
 
 export default {
   title: 'LocationSelector',
-  decorators: [ComponentCanvas, Providers]
+  decorators: [ComponentCanvas, Providers],
 };
 
 export const SelectMode = () => {
@@ -91,16 +92,26 @@ export const SearchMode = () => {
 
 export const ConfirmMode = () => {
   const [mode, setMode] = useState('confirm');
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(propLocation);
   return (
-    <LocationSelector
-      agenda={{ uid: 1 }}
-      mode={mode}
-      lang="fr"
-      settings={agendaSettings}
-      res={res}
-      location={location}
-      onChange={(t, l) => { setMode(t); setLocation(l); }}
-    />
+    <Modal
+      title={location.name}
+      classNames={{ overlay: 'popup-overlay big' }}
+    >
+      <LocationSelector
+        mode={mode}
+        lang="fr"
+        settings={agendaSettings}
+        res={{
+          get: '/locations/:locationUid.json',
+          suggestChange: '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+
+        }}
+        confirmRequired
+        location={location}
+        onChange={(t, l) => { setMode(t); setLocation(l); }}
+      />
+    </Modal>
   );
 };

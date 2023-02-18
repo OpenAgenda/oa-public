@@ -6,6 +6,7 @@ const express = require('express');
 const multer = require('multer');
 const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
 const getFixtures = require('../fixtures');
+const locationJson = require('../fixtures/location.json');
 
 const filesMw = makeFilesMw(multer());
 const dev = express();
@@ -107,6 +108,13 @@ dev.get('/api/agendas/:agendaUid/locations/geocode', (req, res) => res.json({
   ]
 }));
 
+dev.get('/locations/:locationUid.json', (req, res) => {
+  console.log('Get Location JSON', req.params.locationUid);
+  res.json({
+    ...locationJson,
+  });
+});
+
 dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
   console.log('Get Location', req.params.locationUid);
   const allLocations = getFixtures(req.params.agendaUid).locations;
@@ -116,6 +124,7 @@ dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
     success: true
   });
 });
+
 
 dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
   if (parseInt(req.params.agendaUid, 10) === 4) {

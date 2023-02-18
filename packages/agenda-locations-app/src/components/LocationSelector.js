@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import axios from 'axios';
 import validate from '../validate';
 import LocationForm from './form-components/LocationForm';
 import LocationSearch from './LocationSearch';
+import LocationConfirmation from './LocationConfirmation';
 
 const messages = defineMessages({
   change: {
@@ -29,7 +30,7 @@ const messages = defineMessages({
   info: {
     id: 'AgendaLocations.LocationSelector.info',
     defaultMessage: 'Define the name, address and exact location of the place',
-  }
+  },
 });
 
 const LocationSelector = ({
@@ -50,7 +51,8 @@ const LocationSelector = ({
     },
   },
   allowRemove = false,
-  tiles
+  tiles,
+  staticMapTiles,
 }) => {
   const [errors, setErrors] = useState(false);
 
@@ -74,7 +76,7 @@ const LocationSelector = ({
     let clean;
     const options = {
       optional: false,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox
+      isEnabled: settings?.displayImageRightsConfirmCheckbox,
     };
     try {
       clean = validate(loc, settings, options);
@@ -165,6 +167,19 @@ const LocationSelector = ({
       tiles={tiles}
       mode="create"
       errors={errors}
+    />
+  );
+
+  const renderConfirmation = () => (
+    <LocationConfirmation
+      res={res}
+      lang={lang}
+      location={location}
+      tiles={tiles}
+      staticMapTiles={staticMapTiles}
+      settings={settings}
+      onConfirm={onConfirm}
+      onCancel={switchToSearch}
     />
   );
 

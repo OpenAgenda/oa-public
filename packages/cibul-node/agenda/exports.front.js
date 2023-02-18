@@ -22,7 +22,6 @@ const preMw = [
 ];
 
 module.exports = app => {
-
   app.options( '*/events.json*', ( req, res ) => res.sendStatus(200) );
 
   app.get(

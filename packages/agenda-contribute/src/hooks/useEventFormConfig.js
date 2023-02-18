@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
 import addStateField from '../lib/addStateField';
-import injectAgendaUID from '../lib/injectAgendaUID';
+import injectAgendaUIDAndSlug from '../lib/injectAgendaUID';
 import useDetailedAgenda from './useDetailedAgenda';
 import useAgendaContext from './useAgendaContext';
 
@@ -55,7 +55,7 @@ export default function useEventFormConfig(agenda) {
       },
       lang: locale,
       schema: detailedAgenda.schema,
-      locationRes: injectAgendaUID(res.locations, apiRoot, agenda.uid),
+      locationRes: injectAgendaUIDAndSlug(res.locations, apiRoot, agenda),
       referencesRes: res.references,
       suggestionsRes: res.suggestions,
       maxFileSize: files.maxSize,

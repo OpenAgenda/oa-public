@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 
 import LocationForm from '../src/components/form-components/LocationForm';
@@ -13,7 +13,7 @@ import agendaSettings from './fixtures/agendaTestSettings.json';
 
 export default {
   title: 'LocationFormComponents',
-  decorators: [ComponentCanvas, Providers]
+  decorators: [ComponentCanvas, Providers],
 };
 
 export const BasicForm = () => (
@@ -23,7 +23,7 @@ export const BasicForm = () => (
     mode="update"
     res={{
       geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
-      reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse'
+      reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
     }}
   />
 );
@@ -39,10 +39,10 @@ export const BasicGeoFieldsAndMap = () => {
       enableGeocode
       res={{
         geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
-        reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse'
+        reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
       }}
       agenda={{
-        uid: 1
+        uid: 1,
       }}
     />
   );
