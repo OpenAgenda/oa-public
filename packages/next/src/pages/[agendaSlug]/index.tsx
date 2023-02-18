@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       getDateFnsLocale(locale),
     ]);
   } catch (e: any) {
-    if (e.response.status === 401 || e.response.status === 403 || e.response.status === 404) {
+    if (e?.response?.status && (e.response.status === 401 || e.response.status === 403 || e.response.status === 404)) {
       return { notFound: true };
     }
 
