@@ -96,8 +96,8 @@ function MarkerClusterIcon({ latitude, longitude, eventCount }) {
   const position = useMemo(() => [latitude, longitude], [latitude, longitude]);
   const icon = useMemo(
     () => new L.DivIcon({
-      html: `<div><span>${eventCount}</span></div>`,
-      className: cn('marker-cluster', {
+      html: `<div style="pointer-events: none;"><span>${eventCount}</span></div>`,
+      className: cn('marker-cluster leaflet-interactive', {
         'marker-cluster-small': eventCount < 10,
         'marker-cluster-medium': eventCount < 100,
         'marker-cluster-large': eventCount >= 100,
