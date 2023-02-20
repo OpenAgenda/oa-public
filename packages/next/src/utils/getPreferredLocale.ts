@@ -6,12 +6,11 @@ function isSupportedLocale(locale) {
 }
 
 function getFallbackedLocale(locale) {
-  return isSupportedLocale(locale)
-    ? locale
-    : getFallbackChain(locale, FALLBACK_LOCALES, FALLBACK_LOCALE)[0];
+  return getFallbackChain(locale, FALLBACK_LOCALES, FALLBACK_LOCALE)
+    .find(isSupportedLocale);
 }
 
-export default function getPreferredLocale(nextLocale, qsLocale) {
+export default function getPreferredLocale(nextLocale, qsLocale = null) {
   if (nextLocale === 'default') {
     return qsLocale
       ? getFallbackedLocale(qsLocale)

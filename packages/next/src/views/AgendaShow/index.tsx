@@ -353,7 +353,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
             key={`alternate:${key}`}
             rel="alternate"
             hrefLang={key}
-            href={SUPPORTED_LOCALES
+            href={SUPPORTED_LOCALES.includes(key)
               ? `${url.origin}/${key}${url.pathname}`
               : `${url.origin}${url.pathname}?lang=${key}`}
           />

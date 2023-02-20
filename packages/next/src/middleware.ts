@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import getPreferredLocale from 'utils/getPreferredLocale';
-import { DEFAULT_LOCALE } from 'config/constants';
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'config/constants';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest) {
 
   const locale = getPreferredLocale(req.nextUrl.locale, req.nextUrl.searchParams.get('lang'));
 
-  if (nextLocale === 'default' && locale !== DEFAULT_LOCALE) {
+  if (nextLocale === 'default' && locale !== DEFAULT_LOCALE && SUPPORTED_LOCALES.includes(locale)) {
     if (qsLocale === locale) {
       req.nextUrl.searchParams.delete('lang');
     }
