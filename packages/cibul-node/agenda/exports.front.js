@@ -6,12 +6,12 @@ const ODSJSONParser = require('@openagenda/legacy/exports/ODSJSONParser');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
-const members = require('../services/members');
 const cacheMw = require('../lib/cache.mw');
 const gaTrack = require('../lib/gaTrack.mw');
 const config = require('../config');
 const convertFormat = require('./ConvertFormat');
 const loadCredentials = require('./loadCredentials');
+const buildPDF = require('./buildPDF');
 
 const perPage = 20;
 
@@ -122,6 +122,11 @@ function checkKey(onError) {
 }
 
 module.exports = app => {
+  const {
+    members,
+    agendas,
+  } = app.services;
+
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
   app.get(
@@ -176,10 +181,13 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events.pdf',
     preMw,
-    agendaSvc.mw.load('uid'),
+    agendas.mw.loadBy({
+      path: 'params.uid',
+      field: 'uid',
+    }),
     cmn.ifIs('agenda.private', members.mw.loadOrFail),
     gaTrack('events', 'export', 'pdf'),
-    agendaSvc.mw.buildPdf,
+    buildPDF,
   );
 
   app.get(

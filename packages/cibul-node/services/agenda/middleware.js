@@ -33,7 +33,6 @@ module.exports = function (agendaService) {
     rss: require('./rss'),
     buildCsv,
     buildXlsx,
-    buildPdf,
     buildIcs: require('./ics')
   };
 };
@@ -353,60 +352,6 @@ function cleanJson(req, res, next) {
   });
 
   next();
-}
-
-function buildPdf(req, res, next) {
-  const pdfOptions = req.agenda.getPdfOptions();
-
-  const stream = req.agenda.searchStream(req.query.oaq, {
-    showAll: false
-  });
-
-  const pdfStream = pdf({
-    title: req.agenda.title,
-    description: req.agenda.description,
-    link: req.agenda.url,
-    imageLink: req.agenda.image ? config.aws.imageBucketPath.replace('cibuldev', 'cibul') + req.agenda.image : false,
-  }, {
-    lang: req.lang,
-    style: pdfOptions.style,
-    showLinks: pdfOptions.showLinks
-  });
-
-  pdfStream.getReadableStream().pipe(res);
-
-  res.writeHead(200, {
-    'Content-Type': 'application/pdf',
-    'content-disposition': [
-      'attachment; filename=\"',
-      req.agenda.slug,
-      '.', _stringifiedNow(),
-      '.pdf\"'].join('')
-  });
-
-  stream.on('data', eventData => {
-    req.log('streaming event %s for pdf export', eventData.id);
-
-    const eInst = legacyEventSvc.instanciate(eventData);
-
-    stream.pause();
-
-    eInst.exportable({ filter: req.query.oaq, services: req.app.services }, (err, clean) => {
-      if (_handleExportableError('pdf', eventData, err)) {
-        return stream.resume();
-      }
-
-      pdfStream.write(clean);
-
-      stream.resume();
-    });
-  });
-
-  stream.on('end', () => {
-    req.log('end reached');
-
-    pdfStream.end();
-  });
 }
 
 function _handleExportableError(type, event, err) {
