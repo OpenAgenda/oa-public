@@ -43,7 +43,7 @@ module.exports = (agendaSettings, event) => {
     keywords: convertKeywords(event.keywords),
   };
 
-  if (interfaces.renderHTMLFromMarkdown && legacyFormat.longDescription) {
+  if (interfaces?.renderHTMLFromMarkdown && legacyFormat.longDescription) {
     legacyFormat.html = Object.keys(legacyFormat.longDescription).reduce((carry, lang) => {
       carry[lang] = interfaces.renderHTMLFromMarkdown(event.links, cleanString(event.longDescription[lang]));
       return carry;
