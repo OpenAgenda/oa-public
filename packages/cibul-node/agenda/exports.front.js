@@ -170,15 +170,6 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/events.csv',
-    preMw,
-    agendaSvc.mw.load('uid'),
-    cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    gaTrack('events', 'export', 'csv'),
-    agendaSvc.mw.buildCsv(false),
-  );
-
-  app.get(
     '/agendas/:uid/events.pdf',
     preMw,
     agendas.mw.loadBy({
@@ -188,33 +179,5 @@ module.exports = app => {
     cmn.ifIs('agenda.private', members.mw.loadOrFail),
     gaTrack('events', 'export', 'pdf'),
     buildPDF,
-  );
-
-  app.get(
-    '/agendas/:uid/events.xlsx',
-    preMw,
-    agendaSvc.mw.load('uid'),
-    cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    gaTrack('events', 'export', 'xlsx'),
-    agendaSvc.mw.buildXlsx(false),
-  );
-
-  app.get(
-    '/agendas/:uid/events.rss',
-    preMw,
-    agendaSvc.mw.load('uid'),
-    cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    agendaSvc.mw.search(20),
-    gaTrack('events', 'export', 'rss'),
-    agendaSvc.mw.rss,
-  );
-
-  app.get(
-    '/agendas/:uid/events.ics',
-    preMw,
-    agendaSvc.mw.load('uid'),
-    cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    gaTrack('events', 'export', 'ics'),
-    agendaSvc.mw.buildIcs,
   );
 };

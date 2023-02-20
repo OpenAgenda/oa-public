@@ -2,16 +2,11 @@
 
 const _ = require('lodash');
 const async = require('async');
-const csv = require('fast-csv');
-const ExcelJS = require('exceljs');
 
-const pdf = require('@openagenda/pdf');
 const utils = require('@openagenda/utils');
-const log = require('@openagenda/logs')('services/legacyAgenda/middleware');
 const tabLabels = require('@openagenda/labels')(require('@openagenda/labels/agenda-admin/tabs'));
 
 const legacyEventSvc = require('../event');
-const config = require('../../config');
 
 const mwh = require('../lib/middlewareHelpers');
 const svcConfig = require('./config');
@@ -30,10 +25,6 @@ module.exports = function (agendaService) {
     decorateEvents,
     decorateEvent,
     cleanJson,
-    rss: require('./rss'),
-    buildCsv,
-    buildXlsx,
-    buildIcs: require('./ics')
   };
 };
 
@@ -354,200 +345,6 @@ function cleanJson(req, res, next) {
   next();
 }
 
-function _handleExportableError(type, event, err) {
-  if (!err) return false;
-
-  if (err && err.message === 'Cannot read property \'getUTCHours\' of null') {
-    log('warn', 'exportable warning', type, { err, event });
-  } else {
-    log('error', 'exportable error', type, { err, event });
-  }
-
-  return true;
-}
-
-function buildXlsx(includePrivateData) {
-  return function (req, res, next) {
-    req.agenda.flattener({
-      exclusiveLang: _.get(req, ['query', 'cols.lang']),
-      includePrivateData,
-      lang: req.lang
-    }, (err, f) => {
-      if (err) return next(err);
-
-      const stream = req.agenda.searchStream(req.query.oaq, {
-        showAll: includePrivateData
-      });
-
-      const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
-      const worksheet = workbook.addWorksheet('Events');
-      const events = [];
-
-      let processing = 0;
-      let end;
-
-      const fieldNames = f.getFieldNames();
-      worksheet.columns = fieldNames.map(field => ({ header: field, key: field, width: 10 }));
-
-      const defaultRow = fieldNames.reduce((carry, field) => {
-        carry[field] = '';
-        return carry;
-      }, {});
-
-      stream.on('data', eventData => {
-        stream.pause();
-
-        processing += 1;
-
-        // instanciate
-        const eInst = legacyEventSvc.instanciate(eventData);
-
-        // clean event
-        eInst.exportable({ services: req.app.services }, (err, clean) => {
-          if (_handleExportableError('xlsx', eventData, err)) {
-            processing -= 1;
-            return stream.resume();
-          }
-
-          // decorate with agenda related data
-          svc.exports.decorateEvent(req.agenda, eInst, clean, {
-            includePrivateData: !!includePrivateData,
-            protocol: 'https:',
-            loadTagSet: true
-          }, (err, clean) => {
-            processing -= 1;
-
-            if (err) {
-              req.log('error', err);
-
-              return stream.resume();
-            }
-
-            events.push(_cleanXlsxRow(utils.extend({}, defaultRow, f.flatten(clean))));
-
-            stream.resume();
-
-            if (!processing && end) {
-              workbook.commit();
-            }
-          });
-        });
-      });
-
-      stream.on('end', () => {
-        end = true;
-        for (const event of events) {
-          worksheet.addRow(event).commit();
-        }
-
-        if (!processing) {
-          workbook.commit();
-        }
-      });
-
-      workbook.stream.pipe(res);
-
-      res.writeHead(200, {
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'content-disposition': [
-          'attachment; filename=\"',
-          req.agenda.slug,
-          '.', _stringifiedNow(),
-          '.xlsx\"'].join('')
-      });
-    });
-  };
-}
-
-function buildCsv(includePrivateData) {
-  return function (req, res, next) {
-    req.agenda.flattener({
-      includePrivateData,
-      lang: req.lang,
-      exclusiveLang: _.get(req, ['query', 'cols.lang'])
-    }, (err, f) => {
-      if (err) return next(err);
-
-      const stream = req.agenda.searchStream(req.query.oaq, {
-        showAll: includePrivateData
-      });
-
-      const csvStream = csv.format({
-        headers: true,
-        delimiter: ';',
-        quote: '"',
-        escape: '"'
-      });
-
-      const defaultRow = {};
-
-      let processing = 0;
-
-      let end;
-
-      // csv must have all column filled with empty values
-      f.getFieldNames().forEach(n => {
-        defaultRow[n] = '';
-      });
-
-      csvStream.pipe(res);
-
-      res.writeHead(200, {
-        'Content-Type': 'text/csv',
-        'content-disposition': [
-          'attachment; filename=\"',
-          req.agenda.slug,
-          '.', _stringifiedNow(),
-          '.csv\"'].join('')
-      });
-
-      stream.on('data', eventData => {
-        stream.pause();
-
-        processing++;
-
-        // instanciate
-        const eInst = legacyEventSvc.instanciate(eventData);
-
-        eInst.exportable({ protocol: 'https:', services: req.app.services }, (err, clean) => {
-          if (_handleExportableError('csv', eventData, err)) {
-            processing--;
-            return stream.resume();
-          }
-
-          // decorate with agenda related data
-          svc.exports.decorateEvent(req.agenda, eInst, clean, {
-            includePrivateData: !!includePrivateData,
-            loadTagSet: true
-          }, (err, clean) => {
-            processing--;
-
-            if (err) {
-              req.log('error', err);
-
-              return stream.resume();
-            }
-
-            csvStream.write(utils.extend({}, defaultRow, f.flatten(clean)));
-
-            stream.resume();
-
-            if (!processing && end) {
-              csvStream.end();
-            }
-          });
-        });
-      });
-
-      stream.on('end', () => {
-        end = true;
-
-        if (!processing) csvStream.end();
-      });
-    });
-  };
-}
-
 function _hasQueryOtherThan(req, exceptions) {
   if (typeof exceptions === 'string') exceptions = [exceptions];
 
@@ -558,27 +355,6 @@ function _hasQueryOtherThan(req, exceptions) {
   }
 
   return false;
-}
-
-function _cleanXlsxRow(row) {
-  return Object.keys(row).reduce((clean, c) => {
-    if (typeof row[c] === 'string') {
-      return {
-        ...clean,
-        [c]: utils.cleanString(row[c]).replace(/\n/g, '\r\n')
-      };
-    }
-    return {
-      ...clean,
-      [c]: `${row[c] instanceof Array ? row[c].join(', ') : row[c]}`
-    };
-  }, {});
-}
-
-function _stringifiedNow() {
-  const now = new Date();
-
-  return _fZ(now.getMonth() + 1) + _fZ(now.getDate());
 }
 
 function _fZ(n) {

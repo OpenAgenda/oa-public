@@ -20,8 +20,6 @@ var model = require( '../../model' ),
 
   cache = require( '../../cache' ),
 
-  flattener = require( './flattener' ),
-
   coms = require( '../../../lib/coms' ),
 
   config = require( '../../../config' ),
@@ -66,10 +64,6 @@ function instanciate( data ) {
     'searchStream',
     'aggregate',
     'resync'
-  ] );
-
-  flattener( svcInstance, instance, [
-    'flattener'
   ] );
 
   return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );
