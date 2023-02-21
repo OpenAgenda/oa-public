@@ -559,7 +559,7 @@ function getEventTagGroups(agenda, inst, cb) {
 }
 
 function hasPath(image) {
-  return (image ?? '').match(/^(http(s):|)\/\//);
+  return (image || '').match(/^(http(s):|)\/\//);
 }
 
 function _formatEventItem(event, req, cb) {
