@@ -158,16 +158,25 @@ describe('events - functional - create', () => {
       });
     });
 
-    it('image can be passed as a url', async () => {
+    it('image can be passed as a non-encoded url (and as a encoded url)', async () => {
       const event = await svc.create({
         ...data,
         image: {
-          url: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
+          url: 'https://lerize.villeurbanne.fr/wp-content/uploads/2023/01/230303_YaminaBenahmeddaho_©Francesca_Mantovani_editions_Gallimard-scaled.jpg',
         }
       });
 
       const response = await axios.head(`https:${config.imagePath}${event.image.filename}`);
       assert.equal(response.status, 200);
+    });
+
+    it('validation error is thrown when malformed url is provided for image', async () => {
+      const error = await svc.create({
+        ...data,
+        image: { url: '%C4%97%' },
+      }).then(() => {}, e => e);
+
+      assert.equal(error.name, 'ValidationError');
     });
 
     it('validation error is thrown when invalid url is provided for image', async () => {

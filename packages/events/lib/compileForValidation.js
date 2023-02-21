@@ -12,6 +12,7 @@ const fields = require('./fields');
 const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
 const ValidationError = require('./ValidationError');
+const cleanImageURL = require('./cleanImageURL');
 
 const replaceAccents = require('@openagenda/utils/replaceAccents');
 
@@ -45,6 +46,9 @@ module.exports = async (current, data, options = {}) => {
 
   if (image?.url) {
     log('image is provided as url %s', image?.url);
+
+    const cleanURL = cleanImageURL(image.url);
+
     const axiosInstance = axios.create({
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
@@ -60,7 +64,7 @@ module.exports = async (current, data, options = {}) => {
     });
 
     compiled.image = await axiosInstance
-      .get(image?.url)
+      .get(cleanURL)
       .then(response => response?.data)
       .catch(() => {
         throw new ValidationError({
