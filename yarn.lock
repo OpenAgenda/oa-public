@@ -8563,6 +8563,7 @@ __metadata:
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/tsconfig": ^0.0.0
     "@openagenda/uikit": ^0.0.1
+    "@openagenda/verror": ^3.0.0
     "@storybook/nextjs": ^7.0.0-beta.30
     axios: ^0.21.1
     date-fns: ^2.29.3

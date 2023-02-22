@@ -1,0 +1,112 @@
+{
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Agenda introuvable"
+    }
+  ],
+  "next.views.AgendaError.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contacter le support"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "Vous n’avez pas accès à cet agenda."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
+    }
+  ],
+  "next.views.AgendaError.internalError": [
+    {
+      "type": 0,
+      "value": "Erreur interne"
+    }
+  ],
+  "next.views.AgendaError.internalErrorMsg": [
+    {
+      "type": 0,
+      "value": "Si le problème persiste, veuillez contacter le support."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "Il n’y a pas d’agenda correspondant à ce lien."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Soit le lien est invalide, soit l’agenda a été supprimé."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Ou "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "inscrivez-vous"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " si vous n'avez pas encore de compte."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Demande d'invitation"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Accés restreint"
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Rechercher un agenda"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Se connecter"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "L'accés à cet agenda est restreint,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "connectez-vous avant de pouvoir y accéder."
+    }
+  ]
+}

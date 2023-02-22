@@ -30,6 +30,7 @@
     "@openagenda/react-filters": "^2.8.6",
     "@openagenda/react-shared": "^2.4.0",
     "@openagenda/uikit": "^0.0.1",
+    "@openagenda/verror": "^3.0.0",
     "axios": "^0.21.1",
     "date-fns": "^2.29.3",
     "leaflet": "^1.9.3",
