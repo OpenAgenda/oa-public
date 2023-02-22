@@ -75,8 +75,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   }, intlCache);
 
-  // const filtersBase = getFiltersBase(agenda.schema.fields, { exclude: adminFilters });
-
   const additionalFilters = agenda.schema.fields
     .filter(fieldSchema => isAdditionalField(fieldSchema) && isChoiceField(fieldSchema))
     .map(fieldSchema => fieldSchema.field);
@@ -104,7 +102,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       filters,
       {
         ...prefilter,
-        passed: undefined, // omit passed
         size: 0,
       },
       null,
