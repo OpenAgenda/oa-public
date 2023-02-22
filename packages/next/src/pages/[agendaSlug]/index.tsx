@@ -117,6 +117,19 @@ export const getServerSideProps: GetServerSideProps = async ({
         ...prefilter,
         ...query,
         passed: undefined, // omit passed
+        includeFields: [
+          'uid',
+          'slug',
+          'title',
+          'image',
+          'featured',
+          'description',
+          'dateRange',
+          'location.name',
+          'location.city',
+          'timings',
+          'onlineAccessLink',
+        ],
         detailed: true,
       },
       // 1, // page
