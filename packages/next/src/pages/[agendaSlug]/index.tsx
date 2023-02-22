@@ -113,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       filters,
       {
-        sort: 'lastTimingWithFeatured.asc',
+        sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
         ...prefilter,
         ...query,
         passed: undefined, // omit passed
