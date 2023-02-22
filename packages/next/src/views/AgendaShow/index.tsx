@@ -573,10 +573,10 @@ function AgendaShow({ agenda }: AgendaShowProps) {
   );
 }
 
-AgendaShow.fetchLocale = async locale => ({
-  ...await fetchLocale(locale),
-  ...await fetchCommonLocale('event/attendanceModes', locale),
-  ...await import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
-});
+AgendaShow.fetchLocale = locale => Promise.all([
+  fetchLocale(locale),
+  fetchCommonLocale('event/attendanceModes', locale),
+  import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
+]).then(results => Object.assign({}, ...results));
 
 export default AgendaShow;
