@@ -11,6 +11,7 @@ import getSSRApiClient from 'utils/getSSRApiClient';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
+import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
 
 type PageProps = AgendaShowProps & {
   intlMessages: Record<string, string>,
@@ -77,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   // const filtersBase = getFiltersBase(agenda.schema.fields, { exclude: adminFilters });
 
   const additionalFilters = agenda.schema.fields
-    .filter(fieldSchema => fieldSchema.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
+    .filter(fieldSchema => isAdditionalField(fieldSchema) && isChoiceField(fieldSchema))
     .map(fieldSchema => fieldSchema.field);
 
   const filtersToInclude = ['geo', 'timings', ...additionalFilters];
