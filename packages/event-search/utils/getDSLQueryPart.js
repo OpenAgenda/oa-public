@@ -90,13 +90,13 @@ function _getQueryMustParts(cleanQuery) {
     parts.push({
       multi_match: {
         query: cleanQuery.search,
+        type: 'phrase_prefix',
         fields: [
           '_search_title',
           '_search_description',
           '_search_keywords_text',
           '_search_full_address_text',
         ],
-        fuzziness: 'AUTO',
       },
     });
   }
