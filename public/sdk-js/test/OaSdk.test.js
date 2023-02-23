@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import MockAdapter from '@openagenda/axios-mock-adapter';
-import OaSdk from '../src';
+import { OaSdk } from '../src';
 import testconfig from '../testconfig';
 
 function mockAuth(api) {
@@ -10,7 +10,7 @@ function mockAuth(api) {
     .onPost('/requestAccessToken')
     .reply(200, {
       access_token: '4fcf5c0a3e38c9ed9da5818ffdf4f1a7',
-      expires_in: 3600
+      expires_in: 3600,
     })
     .onAny()
     .reply(500);

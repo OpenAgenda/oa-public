@@ -4856,7 +4856,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@^1.1.3, @openagenda/intl@workspace:intl":
+"@openagenda/intl@^1.1.3, @openagenda/intl@workspace:^, @openagenda/intl@workspace:intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:intl"
   dependencies:
@@ -5259,9 +5259,12 @@ __metadata:
     "@openagenda/axios-mock-adapter": ^1.21.2
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.4.0
+    "@openagenda/intl": "workspace:^"
     axios: ^0.26.1
     babel-jest: ^26.6.3
     core-js: ^3.10.2
+    date-fns: ^2.29.3
+    date-fns-tz: ^2.0.0
     eslint: ^8.24.0
     jest: ^28.1.2
     lint-staged: ^10.2.11
@@ -5272,7 +5275,6 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     sinon: ^4.4.5
-    superagent: ^3.8.2
     verror: ^1.10.0
   languageName: unknown
   linkType: soft
@@ -13307,6 +13309,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns-tz@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "date-fns-tz@npm:2.0.0"
+  peerDependencies:
+    date-fns: ">=2.0.0"
+  checksum: a6553603a9d26dd9669326c99a58a2335ac550bc060c74b86a5ad9e1de73c9d4e3e5236f0f552f990e616e4e8dcc2b6a637913a04d2e04396e6a9f8ae83c73da
+  languageName: node
+  linkType: hard
+
 "date-fns@npm:^1.29.0":
   version: 1.30.1
   resolution: "date-fns@npm:1.30.1"
@@ -13314,7 +13325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.1.0, date-fns@npm:^2.11.1, date-fns@npm:^2.16.1":
+"date-fns@npm:^2.1.0, date-fns@npm:^2.11.1, date-fns@npm:^2.16.1, date-fns@npm:^2.29.3":
   version: 2.29.3
   resolution: "date-fns@npm:2.29.3"
   checksum: e01cf5b62af04e05dfff921bb9c9933310ed0e1ae9a81eb8653452e64dc841acf7f6e01e1a5ae5644d0337e9a7f936175fd2cb6819dc122fdd9c5e86c56be484
@@ -28307,7 +28318,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"superagent@npm:^3.8.2, superagent@npm:^3.8.3":
+"superagent@npm:^3.8.3":
   version: 3.8.3
   resolution: "superagent@npm:3.8.3"
   dependencies:

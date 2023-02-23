@@ -12,7 +12,7 @@ export default class Locations {
   list(agendaUid, data) {
     return this.sdk.api
       .get(`/agendas/${agendaUid}/locations`, {
-        params: data
+        params: data,
       })
       .then(v => v.data);
   }

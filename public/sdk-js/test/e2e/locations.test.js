@@ -1,4 +1,4 @@
-import OaSdk from '../../src';
+import { OaSdk } from '../../src';
 import testconfig from '../../testconfig';
 
 describe('locations', () => {
@@ -28,7 +28,7 @@ describe('locations', () => {
     createdLocation = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     expect(typeof createdLocation.uid).toBe('number');
@@ -39,23 +39,23 @@ describe('locations', () => {
       oa.locations.create(testconfig.agendaUid, {
         name: 'Verdun',
         address: 'Verdun',
-      })
+      }),
     ).rejects.toMatchObject({
       response: {
         data: {
           errors: [{
             code: 'required',
             field: 'countryCode',
-            message: 'a string is required'
+            message: 'a string is required',
           }, {
             code: 'latitude.invalid',
             field: 'latitude',
-            message: 'not a number'
+            message: 'not a number',
           }, {
             code: 'longitude.invalid',
             field: 'longitude',
-            message: 'not a number'
-          }]
+            message: 'not a number',
+          }],
         },
       },
     });
@@ -65,7 +65,7 @@ describe('locations', () => {
     createdLocation = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     const location = await oa.locations.get(testconfig.agendaUid, createdLocation.uid);
@@ -77,16 +77,16 @@ describe('locations', () => {
     createdLocation = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     const {
       total,
       locations,
-      after
+      after,
     } = await oa.locations.list(
       testconfig.agendaUid,
-      { size: 1, sort: 'updatedAt.desc' }
+      { size: 1, sort: 'updatedAt.desc' },
     );
 
     expect(typeof total).toBe('number');
@@ -102,15 +102,15 @@ describe('locations', () => {
     createdLocation = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     const updatedLocation = await oa.locations.patch(
       testconfig.agendaUid,
       createdLocation.uid,
       {
-        name: 'Nouveau nom'
-      }
+        name: 'Nouveau nom',
+      },
     );
 
     expect(typeof createdLocation.uid).toBe('number');
@@ -122,7 +122,7 @@ describe('locations', () => {
     createdLocation = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     const patchedLocation = await oa.locations.update(
@@ -130,8 +130,8 @@ describe('locations', () => {
       createdLocation.uid,
       {
         ...createdLocation,
-        name: 'Nouveau nom'
-      }
+        name: 'Nouveau nom',
+      },
     );
 
     expect(typeof createdLocation.uid).toBe('number');
@@ -143,7 +143,7 @@ describe('locations', () => {
     const location = await oa.locations.create(testconfig.agendaUid, {
       name: 'Verdun',
       address: 'Verdun',
-      countryCode: 'fr'
+      countryCode: 'fr',
     });
 
     const deletedLocation = await oa.locations.delete(

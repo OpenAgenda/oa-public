@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import OaSdk from '../../src';
+import { OaSdk } from '../../src';
 import testconfig from '../../testconfig';
 
 describe('events', () => {
@@ -110,7 +110,7 @@ describe('events', () => {
             end: moment().add(1, 'day').add(1, 'hour'),
           },
         ],
-      })
+      }),
     ).rejects.toMatchObject({
       response: {
         data: {
@@ -134,8 +134,8 @@ describe('events', () => {
             },
           ],
           message: 'data is invalid',
-        }
-      }
+        },
+      },
     });
   });
 
@@ -163,7 +163,7 @@ describe('events', () => {
             end: moment().add(1, 'day').add(1, 'hour'),
           },
         ],
-      }
+      },
     );
 
     const event = await oa.events.get(testconfig.agendaUid, createdEvent.uid);
@@ -195,7 +195,7 @@ describe('events', () => {
             end: moment().add(1, 'day').add(1, 'hour'),
           },
         ],
-      }
+      },
     );
 
     const oaPublic = new OaSdk({ publicKey: testconfig.publicKey });
@@ -229,16 +229,16 @@ describe('events', () => {
             end: moment().add(1, 'day').add(1, 'hour'),
           },
         ],
-      }
+      },
     );
 
     const {
       total,
       events,
-      after
+      after,
     } = await oa.events.list(
       testconfig.agendaUid,
-      { size: 1, sort: 'updatedAt.desc' }
+      { size: 1, sort: 'updatedAt.desc' },
     );
 
     expect(typeof total).toBe('number');
@@ -283,7 +283,7 @@ describe('events', () => {
           fr: 'Titre mise à jour',
           en: 'Updated title',
         },
-      }
+      },
     );
 
     expect(typeof createdEvent.uid).toBe('number');
@@ -323,8 +323,8 @@ describe('events', () => {
         title: {
           fr: 'Titre mise à jour',
           en: 'Updated title',
-        }
-      }
+        },
+      },
     );
 
     expect(typeof createdEvent.uid).toBe('number');
@@ -361,16 +361,16 @@ describe('events', () => {
       createdEvent.uid,
       {
         ...createdEvent,
-        image: { url: 'https://google.fr' }
-      }
+        image: { url: 'https://google.fr' },
+      },
     )).rejects.toMatchObject({
       response: {
         data: {
           errors: [{
             code: 'format.unknown',
             field: 'image',
-            message: 'provided format is unknown'
-          }]
+            message: 'provided format is unknown',
+          }],
         },
       },
     });

@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import OaSdk from '../../src';
+import { OaSdk } from '../../src';
 import testconfig from '../../testconfig';
 import getError from '../utils/getError';
 
