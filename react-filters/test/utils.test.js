@@ -1,4 +1,5 @@
 import getAdditionalFilters from '../src/utils/getAdditionalFilters';
+import minimizeAggregation from '../src/utils/minimizeAggregation';
 
 import schemaFieldsFixtures from './fixtures/fields.json';
 
@@ -26,6 +27,36 @@ describe('utils', () => {
         'location:specificite',
         'location:protections-appellation-et-labels',
       ]);
+    });
+  });
+
+  describe('minimizeAggregation', () => {
+    it('additionalFields becomes af and type becomes t', () => {
+      expect(minimizeAggregation({
+        type: 'additionalFields',
+      })).toEqual({
+        t: 'af',
+      });
+    });
+
+    it('size becomes s', () => {
+      expect(minimizeAggregation({
+        size: 2000,
+      })).toEqual({
+        s: 2000,
+      });
+    });
+
+    it('key becomes k, field becomes f, missing becomes m', () => {
+      expect(minimizeAggregation({
+        field: 'thing',
+        key: 'thing',
+        missing: 'N/A',
+      })).toEqual({
+        f: 'thing',
+        k: 'thing',
+        m: 'N/A',
+      });
     });
   });
 });

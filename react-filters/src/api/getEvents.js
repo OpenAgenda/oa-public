@@ -13,6 +13,7 @@ export default async function getEvents(
   filtersBase,
 ) {
   const params = {
+    aggsSizeLimit: 2000,
     aggs: filtersToAggregations(filters, filtersBase),
     from: pageParam > 1 ? (pageParam - 1) * PAGE_SIZE : undefined,
     ...query,
