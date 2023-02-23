@@ -46,7 +46,7 @@ export default function toEventSchema(event, { url, locale, defaultLocale = DEFA
     endDate: formatDate(end, timezone),
     eventAttendanceMode: getEventAttendanceMode(event.attendanceMode),
     eventStatus: getEventStatus(event.status),
-    ...event.registration.some(r => r.type === 'link')
+    ...event.registration?.some(r => r.type === 'link')
       ? {
         offers: {
           '@type': 'Offer',
