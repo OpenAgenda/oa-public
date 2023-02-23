@@ -28,6 +28,7 @@ const validateOptions = require('./utils/validateSearchOptions');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
 const cleanNavResult = require('./utils/cleanNavResult');
 const formatError = require('./utils/formatError');
+const cleanRequestedAggregation = require('./utils/cleanRequestedAggregation');
 
 const {
   inflateAndClean: inflateAndCleanQuery,
@@ -122,7 +123,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   const {
     detailed,
     formSchema,
-    aggregations: requestedAggregations,
+    aggregations: shortRequestedAggregations,
     monolingual,
     first,
     access,
@@ -133,6 +134,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includeImageTimestamps,
     includeLocationImagePath,
     useDefaultImage,
+    aggsSizeLimit,
   } = validateOptions(options);
 
   try {
@@ -140,6 +142,10 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   } catch (e) {
     throw new BadRequest('nav is not valid');
   }
+
+  const requestedAggregations = shortRequestedAggregations
+    ? [].concat(shortRequestedAggregations).map(cleanRequestedAggregation.bind(null, { aggsSizeLimit }))
+    : undefined;
 
   const index = getIndexName(set, defaultIndex);
   const includes = defineIncludes(config, {

@@ -33,6 +33,17 @@ describe('02 - event search - functional: location', () => {
     });
   });
 
+  describe('data', () => {
+    it('includeFields on location returns only requested data', async () => {
+      const { events: [event] } = await service('location').search({
+      }, { size: 1 }, {
+        includeFields: ['location.city', 'location.uid', 'location.name'],
+      });
+
+      expect(Object.keys(event.location)).toEqual(['uid', 'city', 'name']);
+    });
+  });
+
   describe('filters', () => {
     it(
       'all location info is provided if detailed option is specified',
@@ -259,6 +270,37 @@ describe('02 - event search - functional: location', () => {
       });
 
       expect(aggregations.someLocationAdditionalField[0].value).toBe('maison-des-illustres');
+    });
+
+    it('aggregations can be requested in their shortened format', async () => {
+      const options = {
+        formSchema: eventFormSchemaWithLocationSchema,
+        detailed: true,
+        aggregations: [{
+          key: 'someLocationAdditionalField',
+          field: 'location:protections-appellation-et-labels',
+          type: 'additionalFields',
+          missing: 'N/A',
+        }],
+      };
+
+      const { aggregations: aggs1 } = await service('location').search({
+        state: null,
+      }, { size: 0 }, options);
+
+      const { aggregations: aggs2 } = await service('location').search({
+        state: null,
+      }, { size: 0 }, {
+        ...options,
+        aggregations: [{
+          k: 'someLocationAdditionalField',
+          f: 'location.protections-appellation-et-labels',
+          t: 'af',
+          m: 'N/A',
+        }],
+      });
+
+      expect(aggs1).toEqual(aggs2);
     });
   });
 });

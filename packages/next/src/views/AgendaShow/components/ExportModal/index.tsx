@@ -79,21 +79,33 @@ const messages = defineMessages({
   },
 });
 
-const completeUrls = (agendaUid, queryString) => ({
-  agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
-  me: '/api/me',
-  export: {
-    jsonV1: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.json${queryString}`,
-    jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${queryString}`,
-    pdf: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.pdf${queryString}`,
-    xlsx: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.xlsx${queryString}`,
-    gcal: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${queryString}`,
-    ical: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${queryString}`,
-    csv: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.csv${queryString}`,
-    ics: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${queryString}`,
-    rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.rss${queryString}`,
-  },
-});
+const completeUrls = (agendaUid, queryString) => {
+  let apiQuery = queryString;
+  let jsonLegacyQuery = queryString; // JSONv1
+  if (queryString.includes('passed=1')) {
+    jsonLegacyQuery = jsonLegacyQuery.replace('passed=1', 'relative[]=current&relative[]=upcoming&relative[]=passed');
+    apiQuery = apiQuery.replace('passed=1', '');
+  }
+  if (!queryString.includes('passed=1')) {
+    apiQuery = apiQuery.concat('relative[]=current&relative[]=upcoming');
+  }
+
+  return {
+    agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
+    me: '/api/me',
+    export: {
+      jsonV1: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQuery.length ? `?${jsonLegacyQuery}` : ''}`,
+      jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${apiQuery.length ? `?${apiQuery}` : ''}`,
+      pdf: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.pdf${apiQuery.length ? `?${apiQuery}` : ''}`,
+      xlsx: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQuery.length ? `?${apiQuery}` : ''}`,
+      gcal: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
+      ical: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
+      csv: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQuery.length ? `?${apiQuery}` : ''}`,
+      ics: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
+      rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQuery.length ? `?${apiQuery}` : ''}`,
+    },
+  };
+};
 
 const fetcher = url => fetch(url)
   .then(
@@ -129,7 +141,7 @@ export default function ExportModal({
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
 
-  const [res, setRes] = useState(completeUrls(agendaUid, qs.stringify(query).length ? `?${qs.stringify(query)}` : ''));
+  const [res, setRes] = useState(completeUrls(agendaUid, qs.stringify(query).length ? `${qs.stringify(query)}` : ''));
   const [spreadsheetOptions, setSpreadsheetOptions] = useState({
     format: 'xlsx',
     fields: [],
@@ -158,8 +170,8 @@ export default function ExportModal({
   const languages = exportSettingsData?.languages;
 
   const setMode = mode => {
-    if (mode === 'selection') setRes(completeUrls(agendaUid, qs.stringify(query).length ? `?${qs.stringify(query)}` : ''));
-    if (mode === 'all') setRes(completeUrls(agendaUid, '?passed=1'));
+    if (mode === 'selection') setRes(completeUrls(agendaUid, qs.stringify(query).length ? `${qs.stringify(query)}` : ''));
+    if (mode === 'all') setRes(completeUrls(agendaUid, 'passed=1'));
   };
 
   const setChoice = (value, id) => {
@@ -226,7 +238,7 @@ export default function ExportModal({
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w="lg">
+      <ModalContent w={['sm', 'sm', 'lg']}>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {
@@ -275,7 +287,7 @@ export default function ExportModal({
                         <>
                           {!userLogged && <Text>{intl.formatMessage(messages.logIn)}</Text>}
                           <Flex ml="5" mb="2" alignItems="center">
-                            <Button colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
+                            <Button disabled={!userLogged} colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
                             <Box ml="4">
                               <Checkbox disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
                               <br />

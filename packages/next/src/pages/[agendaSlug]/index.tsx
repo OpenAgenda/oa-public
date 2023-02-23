@@ -13,6 +13,7 @@ import getSSRApiClient from 'utils/getSSRApiClient';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
+import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
@@ -143,6 +144,92 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return { props };
   }
+<<<<<<< HEAD
+=======
+
+  const intl = createIntl({
+    locale,
+    messages: intlMessages,
+    defaultLocale: getSupportedLocale(locale),
+    onError(e) {
+      if (e.code !== 'MISSING_DATA') {
+        // console.error(e);
+      }
+    },
+  }, intlCache);
+
+  const additionalFilters = agenda.schema.fields
+    .filter(fieldSchema => isAdditionalField(fieldSchema) && isChoiceField(fieldSchema))
+    .map(fieldSchema => fieldSchema.field);
+
+  const filtersToInclude = ['geo', 'timings', ...additionalFilters];
+
+  const filters = getFilters(intl, agenda.schema.fields, {
+    dateFnsLocale,
+    missingValue: 'null',
+    include: filtersToInclude,
+  });
+
+  const prefilter = !query.timings && query.passed !== '1' ? {
+    relative: ['current', 'upcoming'],
+  } : null;
+
+  const [
+    filtersBaseResult,
+    filtersResult,
+  ] = await Promise.all([
+    getEvents(
+      api,
+      '/api/agendas/:slug/events',
+      agenda,
+      filters,
+      {
+        ...prefilter,
+        size: 0,
+      },
+      null,
+      true,
+    ),
+    getEvents(
+      api,
+      '/api/agendas/:slug/events',
+      agenda,
+      filters,
+      {
+        sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
+        ...prefilter,
+        ...query,
+        passed: undefined, // omit passed
+        includeFields: [
+          'uid',
+          'slug',
+          'title',
+          'image',
+          'featured',
+          'description',
+          'dateRange',
+          'location.name',
+          'location.city',
+          'timings',
+          'onlineAccessLink',
+        ],
+        detailed: true,
+      },
+      // 1, // page
+    ),
+  ]);
+
+  const props: PageProps = {
+    agenda,
+    intlMessages,
+    fallback: {
+      [unstableSerialize(['agendaShow', 'filtersBase', agenda.slug])]: filtersBaseResult,
+      [`$inf$${unstableSerialize(['agendaShow', 'events', agenda.slug, query])}`]: [filtersResult],
+    },
+  };
+
+  return { props };
+>>>>>>> 8c51214dccfc4fee24a35b31f5f65d8af5133481
 };
 
 const AgendaPage: NextPageWithLayout<PageProps> = props => {

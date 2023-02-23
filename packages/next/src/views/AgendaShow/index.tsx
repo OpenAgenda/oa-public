@@ -214,10 +214,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       filters,
       {
         size: 0,
-        ...upcomingOnly ? {
-          relative: ['current', 'upcoming'],
-        } : null,
-        passed: undefined, // omit passed
+        relative: upcomingOnly ? ['current', 'upcoming'] : undefined,
       },
     ),
   );

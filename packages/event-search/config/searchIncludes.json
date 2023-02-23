@@ -44,5 +44,23 @@
     "state",
     "member",
     "links"
+  ],
+  "other": [
+    "location.uid",
+    "location.district",
+    "location.department",
+    "location.region",
+    "location.adminLevel3",
+    "location.adminLevel5",
+    "location.countryCode",
+    "location.country",
+    "member.uid",
+    "member.name",
+    "member.role",
+    "sourceAgendas.uid",
+    "sourceAgendas.title",
+    "sourceAgendas.slug",
+    "timings.begin",
+    "timings.end"
   ]
 }

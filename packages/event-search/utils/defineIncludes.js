@@ -16,6 +16,7 @@ function _keepHigherOrderIncludes(includes = []) {
 module.exports = ({
   baseSearchIncludes,
   detailedSearchIncludes,
+  otherStandardFields,
 }, {
   detailed,
   formSchema,
@@ -23,7 +24,7 @@ module.exports = ({
   requested,
 }) => {
   const additionalFields = formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : [];
-  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields);
+  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields).concat(otherStandardFields);
 
   const includes = [].concat(
     !requested ? baseSearchIncludes : [],

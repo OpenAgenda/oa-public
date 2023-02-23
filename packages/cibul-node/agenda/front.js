@@ -559,7 +559,7 @@ function getEventTagGroups(agenda, inst, cb) {
 }
 
 function hasPath(image) {
-  return (image ?? '').match(/^(http(s):|)\/\//);
+  return (image || '').match(/^(http(s):|)\/\//);
 }
 
 function _formatEventItem(event, req, cb) {
@@ -575,16 +575,18 @@ function _formatEventItem(event, req, cb) {
 
   const longDescriptionLinks = inst.getLinks();
 
-  const formatted = lib.extend( inst, {
+  const formatted = Object.assign(inst, {
     dateRange: inst.getRange( req.lang, req.query.oaq ),
     closestDate: inst.getClosestDate(),
     keywords,
     keywordList: eventFormat.listifyKeywords( keywords ),
-    tags: [],
-    title: inst.getTitle(),
+    tags: event.tags,
+    tagGroups: event.tagGroups,
+    category: event.category ?? false,
+    title: utils.flattenLabel(event.title, req.lang),
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
-    thumbnail: pickEventImage( config, inst, 'thumbnail' ),
-    description: inst.getDescription(),
+    thumbnail: event.thumbnail,
+    description: utils.flattenLabel(event.description, req.lang),
     freeText: getLongDescriptionHTML({
       lang: req.lang,
       services: req.app.services
@@ -594,7 +596,7 @@ function _formatEventItem(event, req, cb) {
     address: inst.location?.address,
     placeNameLabel: inst.location?.name,
     city: inst.location?.city,
-    pricingInfo: inst.conditions?.[req.lang],
+    pricingInfo: utils.flattenLabel(event.conditions, req.lang),
     ticketLink: inst.getTicketLink(),
     registration: registration( inst.getTicketLink( true ) ),
     ticketLabel: getEventLabel( 'ticketingLink', req.lang ),
@@ -610,32 +612,11 @@ function _formatEventItem(event, req, cb) {
     contributor: {
       organization: organization ? organization.label : null
     },
-    category: false,
     favorite: cmn.favoriteLinkHTML( inst.uid ),
     location: _.mapValues( _.first( inst.locations ), value => _.isObject( value ) ? _.get( value, req.lang ) : value )
-  } );
-
-  getAgendaCategory(inst, (err, c) => {
-    if (err) return cb(err, formatted);
-
-    if (c) {
-      formatted.category = c.label;
-
-      formatted.categorySlug = c.slug;
-    }
-
-    getEventTagGroups(req.agenda, inst, (err2, tags, tagGroups) => {
-      if (err2) {
-        return cb(err2);
-      }
-
-      formatted.tags = tags;
-
-      formatted.tagGroups = tagGroups;
-
-      return cb(null, formatted);
-    });
   });
+
+  return cb(null, formatted);
 }
 
 

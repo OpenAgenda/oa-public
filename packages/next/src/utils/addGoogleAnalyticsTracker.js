@@ -21,7 +21,7 @@ export default function addGoogleAnalyticsTracker({ googleAnalyticsID }) {
     return;
   }
 
-  console.log('adding google analytics tracker %s', googleAnalyticsID);
+  // console.log('adding google analytics tracker %s', googleAnalyticsID);xwc
 
   if (googleAnalyticsID.substr(0, 1) === 'G') {
     return addV4Tracker(googleAnalyticsID);
