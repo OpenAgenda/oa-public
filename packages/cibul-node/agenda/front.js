@@ -598,7 +598,7 @@ function _formatEventItem(event, req, cb) {
     city: inst.location?.city,
     pricingInfo: utils.flattenLabel(event.conditions, req.lang),
     ticketLink: inst.getTicketLink(),
-    registration: registration( inst.getTicketLink( true ) ),
+    registration: event.registration,
     ticketLabel: getEventLabel( 'ticketingLink', req.lang ),
     interfaceLang: req.lang,
     actionLink: req.genUrl( 'agendaEventActionShow', {
