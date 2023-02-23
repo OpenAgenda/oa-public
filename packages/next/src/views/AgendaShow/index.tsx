@@ -60,7 +60,6 @@ import ResponsiveDrawer from './components/Drawer';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
-import agendaSlug from '../../pages/[agendaSlug]';
 
 export type AgendaShowProps = {
   agenda: {

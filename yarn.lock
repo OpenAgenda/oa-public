@@ -6928,7 +6928,7 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-filters": ^2.8.6
+    "@openagenda/react-filters": ^2.9.0
     "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
     axios: ^0.21.1
@@ -8714,7 +8714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@^2.8.6, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@^2.9.0, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -8787,46 +8787,6 @@ __metadata:
     react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
-
-"@openagenda/react-filters@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "@openagenda/react-filters@npm:2.9.0"
-  dependencies:
-    "@babel/runtime-corejs3": ^7.13.17
-    "@emotion/react": ^11.10.0
-    "@formatjs/cli": ^2.11.3
-    "@openagenda/intl": ^1.1.3
-    "@openagenda/react-portal-ssr": ^1.0.1
-    "@openagenda/react-shared": ^2.4.0
-    "@raruto/leaflet-gesture-handling": ^1.3.4
-    axios: ^0.21.1
-    classnames: ^2.3.1
-    core-js: ^3.10.2
-    date-fns: ^2.11.1
-    date-fns-tz: ^1.3.7
-    final-form: ^4.20.2
-    fuse.js: ^6.4.6
-    leaflet: ^1.9.3
-    lodash: ^4.17.20
-    prop-types: ^15.7.2
-    qs: ^6.9.1
-    react-date-range: ^1.1.3
-    react-final-form: ^6.5.3
-    react-final-form-listeners: ^1.0.3
-    react-intl: ^5.12.2
-    react-leaflet: ^4.2.0
-    react-query: ^3.31.0
-    react-select: ^3.1.0
-    react-uid: ^2.3.0
-    react-use: ^15.3.4
-    use-debounce: ^6.0.1
-    use-local-storage-state: ^13.0.0
-  peerDependencies:
-    react: ^18.2.0
-    react-dom: ^18.2.0
-  checksum: 600b4013d7d05dbf1fcd0516eb313da110b6fdf0407efb07c7f09d2d3d57224d556c898325b5e91284de4625e9ec911ff485c1840e8a87192ef4730d873658f9
-  languageName: node
-  linkType: hard
 
 "@openagenda/react-form-components@^2.1.14, @openagenda/react-form-components@workspace:packages/react-form-components":
   version: 0.0.0-use.local
