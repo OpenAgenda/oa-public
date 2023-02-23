@@ -102,7 +102,7 @@ const completeUrls = (agendaUid, queryString) => {
       ical: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
       csv: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQuery.length ? `?${apiQuery}` : ''}`,
       ics: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
-      rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.rss${apiQuery.length ? `?${apiQuery}` : ''}`,
+      rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQuery.length ? `?${apiQuery}` : ''}`,
     },
   };
 };
