@@ -22,6 +22,11 @@ module.exports = produce((query = {}) => {
     // console.log('error', 'provided state is invalid %j', query);
   }
 
+  if (query.if) {
+    query.includeFields = query.if;
+    delete query.if;
+  }
+
   if (Array.isArray(query.uid)) {
     query.uid = query.uid.map(uid => (uid === '' ? -1 : uid));
   } else if (query.uid instanceof Object) {

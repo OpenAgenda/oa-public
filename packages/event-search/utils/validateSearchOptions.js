@@ -15,6 +15,9 @@ schema.register({
 });
 
 module.exports = schema({
+  aggsSizeLimit: {
+    type: 'integer',
+  },
   detailed: {
     type: 'boolean',
     default: false,

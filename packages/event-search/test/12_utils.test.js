@@ -12,6 +12,7 @@ const preCleanRawQuery = require('../utils/preCleanRawQuery');
 const monolingual = require('../utils/monolingualize');
 const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
 const toSortTimingFormat = require('../utils/toSortTimingFormat');
+const cleanRequestedAggregation = require('../utils/cleanRequestedAggregation');
 const geoInFx = require('./service/parsers/geoJSON.in.json');
 const geoOutFx = require('./service/parsers/geoJSON.out.json');
 const BMFormSchema = require('./fixtures/applied/bordeaux-metropole.schema.json');
@@ -357,6 +358,73 @@ describe('event-search - unit: utils', () => {
         from: 0,
         searchAfter: [0, '00019383920', 2981893, null],
         size: 20,
+      });
+    });
+  });
+
+  describe('cleanRequestedAggregation', () => {
+    it('af is additionalFields', () => {
+      const clean = cleanRequestedAggregation({}, {
+        type: 'af',
+      });
+
+      expect(clean).toEqual({
+        type: 'additionalFields',
+      });
+    });
+
+    it('t is type', () => {
+      const clean = cleanRequestedAggregation({}, {
+        t: 'af',
+      });
+
+      expect(clean).toEqual({
+        type: 'additionalFields',
+      });
+    });
+
+    it('s is size', () => {
+      expect(
+        cleanRequestedAggregation({}, {
+          s: 2000,
+        }),
+      ).toEqual({
+        size: 2000,
+      });
+    });
+
+    it('k is key, f is field', () => {
+      expect(
+        cleanRequestedAggregation({}, {
+          k: 'keyword',
+          f: 'keyword',
+        }),
+      ).toEqual({
+        key: 'keyword',
+        field: 'keyword',
+      });
+    });
+
+    it('m is missing', () => {
+      expect(
+        cleanRequestedAggregation({}, {
+          m: 'N/A',
+        }),
+      ).toEqual({
+        missing: 'N/A',
+      });
+    });
+
+    it('if aggsSizeLimit is provided, size limit is added to aggregation', () => {
+      expect(
+        cleanRequestedAggregation({ aggsSizeLimit: 1000 }, {
+          k: 'locations',
+          m: 'N/A',
+        }),
+      ).toEqual({
+        key: 'locations',
+        size: 1000,
+        missing: 'N/A',
       });
     });
   });
