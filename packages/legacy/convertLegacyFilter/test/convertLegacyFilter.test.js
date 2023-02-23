@@ -22,6 +22,17 @@ describe('convert legacy filters', () => {
     });
   });
 
+  test('convert date with "from" only', () => {
+    expect(
+      convertLegacyFilter({ from: '2023-02-23' }),
+    ).toEqual({
+      timings: {
+        gte: '2023-02-23T00:00:00+01:00',
+        lte: '2023-02-23T23:59:59+01:00',
+      },
+    });
+  });
+
   test('convert search', () => {
     const oaq = {
       what: 'concert',

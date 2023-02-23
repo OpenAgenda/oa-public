@@ -4,6 +4,16 @@ const moment = require('moment-timezone');
 
 const flattenTagSet = require('../utils/flattenTagSet');
 
+const addLTEToTimings = (timings, d) => ({
+  ...timings,
+  lte: moment(d)
+    .tz('Europe/paris')
+    .hour(23)
+    .minute(59)
+    .second(59)
+    .format(),
+});
+
 module.exports = (legacyFilter, options = {}) => {
   const keys = Object.keys(legacyFilter);
 
@@ -36,13 +46,7 @@ module.exports = (legacyFilter, options = {}) => {
         break;
       }
       case 'to': {
-        const date = moment(legacyFilter.to)
-          .tz('Europe/paris')
-          .hour(23)
-          .minute(59)
-          .second(59)
-          .format();
-        convertedQuery.timings = { ...convertedQuery.timings, lte: date };
+        convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.to);
         break;
       }
       case 'what':
@@ -126,6 +130,10 @@ module.exports = (legacyFilter, options = {}) => {
         break;
       default:
         return convertedQuery;
+    }
+
+    if (legacyFilter.from && !legacyFilter.to) {
+      convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.from);
     }
 
     return convertedQuery;

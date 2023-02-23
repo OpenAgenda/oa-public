@@ -23,6 +23,7 @@ module.exports = c => {
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed,
+    otherStandardFields: searchIncludes.other,
     defaultIndex: 'main',
     assetsPath: null,
     ...c,

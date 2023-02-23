@@ -585,7 +585,7 @@ function _formatEventItem(event, req, cb) {
     category: event.category ?? false,
     title: utils.flattenLabel(event.title, req.lang),
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
-    thumbnail: pickEventImage( config, inst, 'thumbnail' ),
+    thumbnail: event.thumbnail,
     description: utils.flattenLabel(event.description, req.lang),
     freeText: getLongDescriptionHTML({
       lang: req.lang,

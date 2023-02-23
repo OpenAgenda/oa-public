@@ -26,7 +26,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           width="40"
           height="40"
           src={targetAgenda.image}
-          fallbackSrc={isDev ? targetAgenda.image.replace('cibuldev', 'cibul') : null}
+          fallbackSrc={isDev ? targetAgenda.image.replace('cibuldev', 'cibul') : undefined}
           fallbackStrategy="onError"
           alt=""
           draggable={false}
