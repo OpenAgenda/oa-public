@@ -22,9 +22,10 @@
   ],
   "packageManager": "yarn@3.2.4",
   "resolutions": {
+    "@rushstack/eslint-patch@1.2.0": "patch:@rushstack/eslint-patch@npm:1.2.0#.yarn/patches/@rushstack-eslint-patch-npm-1.2.0-917f402e4e",
+    "@types/react": "18.0.28",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "@rushstack/eslint-patch@1.2.0": "patch:@rushstack/eslint-patch@npm:1.2.0#.yarn/patches/@rushstack-eslint-patch-npm-1.2.0-917f402e4e"
+    "react-dom": "18.2.0"
   },
   "dependencies": {
     "mime": "^2.4.4"
@@ -37,8 +38,8 @@
     "@commitlint/config-lerna-scopes": "^12.1.1",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/cz-conventional-changelog": "^3.2.1",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "codecov": "^3.6.2",
     "commitizen": "^4.1.2",
     "concurrently": "^6.0.2",
