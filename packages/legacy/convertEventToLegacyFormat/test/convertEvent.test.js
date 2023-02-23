@@ -131,7 +131,7 @@ describe('Convert specific fields', () => {
   });
 
   test('Return the custom fields', () => {
-    expect(getCustom(bordeauxAgendaSettings, bordeauxEventV2)).toStrictEqual(bordeauxEventV1.custom);
+    expect(getCustom({ agendaSettings: bordeauxAgendaSettings }, bordeauxEventV2)).toStrictEqual(bordeauxEventV1.custom);
   });
 
   test('Return the category fields', () => {
