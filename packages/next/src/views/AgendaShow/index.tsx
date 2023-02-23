@@ -341,7 +341,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         url: `${process.env.NEXT_PUBLIC_SITE_ROOT}/${agenda.slug}/events/${event.slug}`,
       }));
     return JSON.stringify(eventSchemas);
-  }, [pages]);
+  }, [agenda.slug, intl.locale, pages]);
 
   const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
 
