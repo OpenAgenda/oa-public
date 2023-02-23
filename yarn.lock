@@ -8137,7 +8137,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@^1.1.2, @openagenda/intl@^1.1.3, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@^1.1.2, @openagenda/intl@^1.1.3, @openagenda/intl@workspace:^, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -8561,12 +8561,14 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-filters": ^2.8.6
     "@openagenda/react-shared": ^2.4.0
+    "@openagenda/sdk-js": "workspace:^"
     "@openagenda/tsconfig": ^0.0.0
     "@openagenda/uikit": ^0.0.1
     "@openagenda/verror": ^3.0.0
     "@storybook/nextjs": ^7.0.0-beta.30
     axios: ^0.21.1
     date-fns: ^2.29.3
+    date-fns-tz: ^2.0.0
     dedent: ^0.7.0
     eslint: ^8.24.0
     eslint-config-next: ^12.3.1
@@ -9149,7 +9151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/sdk-js@workspace:public/sdk-js":
+"@openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:public/sdk-js"
   dependencies:
@@ -9159,9 +9161,12 @@ __metadata:
     "@openagenda/axios-mock-adapter": ^1.21.2
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.4.0
+    "@openagenda/intl": "workspace:^"
     axios: ^0.26.1
     babel-jest: ^26.6.3
     core-js: ^3.10.2
+    date-fns: ^2.29.3
+    date-fns-tz: ^2.0.0
     eslint: ^8.24.0
     jest: ^28.1.2
     lint-staged: ^10.2.11
@@ -9172,7 +9177,6 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     sinon: ^4.4.5
-    superagent: ^3.8.2
     verror: ^1.10.0
   languageName: unknown
   linkType: soft
@@ -21090,6 +21094,15 @@ __metadata:
   peerDependencies:
     date-fns: ">=2.0.0"
   checksum: b749613669223056d5e6d715114c94bec57234b676d0cea0c72ca710626c81e9ea04df6441852a5fec74b42c5f27b2f076e13697ec43da360b67806a3042a10e
+  languageName: node
+  linkType: hard
+
+"date-fns-tz@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "date-fns-tz@npm:2.0.0"
+  peerDependencies:
+    date-fns: ">=2.0.0"
+  checksum: a6553603a9d26dd9669326c99a58a2335ac550bc060c74b86a5ad9e1de73c9d4e3e5236f0f552f990e616e4e8dcc2b6a637913a04d2e04396e6a9f8ae83c73da
   languageName: node
   linkType: hard
 

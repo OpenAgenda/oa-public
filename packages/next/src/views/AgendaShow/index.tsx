@@ -8,6 +8,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import { useLatest } from 'react-use';
 import qs from 'qs';
+import { formatInTimeZone } from 'date-fns-tz';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/pro-solid-svg-icons';
 import {
@@ -37,6 +38,7 @@ import {
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
+import { toEventSchema } from '@openagenda/sdk-js';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
@@ -58,6 +60,7 @@ import ResponsiveDrawer from './components/Drawer';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
+import agendaSlug from '../../pages/[agendaSlug]';
 
 export type AgendaShowProps = {
   agenda: {
@@ -333,243 +336,262 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     onToggle: onToggleFilters,
   } = useDisclosure();
 
+  const eventsLdJSON = useMemo(() => {
+    const eventSchemas = pages
+      .flatMap(p => p.events)
+      .map(event => toEventSchema(event, {
+        locale: intl.locale,
+        formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
+        url: `${process.env.NEXT_PUBLIC_SITE_ROOT}/${agenda.slug}/events/${event.slug}`,
+      }));
+    return JSON.stringify(eventSchemas);
+  }, [pages]);
+
   const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
 
   const pageTitle = `${agenda.title} | OpenAgenda`;
 
   return (
-    <main>
-      <Head>
-        <title>{pageTitle}</title>
-        {agenda.indexed ? (
-          <meta name="robots" content="index, follow" />
-        ) : (
-          <meta name="robots" content="noindex" />
-        )}
+    <>
+      <main>
+        <Head>
+          <title>{pageTitle}</title>
+          {agenda.indexed ? (
+            <meta name="robots" content="index, follow" />
+          ) : (
+            <meta name="robots" content="noindex" />
+          )}
 
-        <link rel="canonical" href={url.origin + url.pathname} />
-        {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
-          <link
-            key={`alternate:${key}`}
-            rel="alternate"
-            hrefLang={key}
-            href={SUPPORTED_LOCALES.includes(key)
-              ? `${url.origin}/${key}${url.pathname}`
-              : `${url.origin}${url.pathname}?lang=${key}`}
-          />
-        )))}
-        <link rel="alternate" hrefLang="x-default" href={url.origin + url.pathname} />
+          <link rel="canonical" href={url.origin + url.pathname} />
+          {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+            <link
+              key={`alternate:${key}`}
+              rel="alternate"
+              hrefLang={key}
+              href={SUPPORTED_LOCALES.includes(key)
+                ? `${url.origin}/${key}${url.pathname}`
+                : `${url.origin}${url.pathname}?lang=${key}`}
+            />
+          )))}
+          <link rel="alternate" hrefLang="x-default" href={url.origin + url.pathname} />
 
-        <meta property="og:site_name" content="OpenAgenda" />
-        <meta property="og:title" content={`${agenda.title} | OpenAgenda`} />
-        <meta property="og:description" content={agenda.description} />
-        {/* <meta property="og:type" content="website" /> */}
-        <meta property="og:locale" content={intl.locale} />
-        {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
-          <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
-        )))}
-        <meta property="og:url" content={url.origin + url.pathname} />
-        {agenda.image ? (
-          <meta property="og:image" content={agenda.image} />
-        ) : null}
+          <meta property="og:site_name" content="OpenAgenda" />
+          <meta property="og:title" content={`${agenda.title} | OpenAgenda`} />
+          <meta property="og:description" content={agenda.description} />
+          {/* <meta property="og:type" content="website" /> */}
+          <meta property="og:locale" content={intl.locale} />
+          {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+            <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
+          )))}
+          <meta property="og:url" content={url.origin + url.pathname} />
+          {agenda.image ? (
+            <meta property="og:image" content={agenda.image} />
+          ) : null}
 
-        <meta property="twitter:card" content="summary" />
-        <meta property="twitter:site" content={process.env.NEXT_PUBLIC_SITE_DOMAIN} />
-        <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
-        <meta property="twitter:description" content={agenda.description} />
-        <meta property="twitter:domain" content="@oagenda" />
-        <meta property="twitter:url" content={url.origin + url.pathname} />
-        {agenda.image ? (
-          <meta property="twitter:image" content={agenda.image} />
-        ) : null}
-      </Head>
+          <meta property="twitter:card" content="summary" />
+          <meta property="twitter:site" content={process.env.NEXT_PUBLIC_SITE_DOMAIN} />
+          <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
+          <meta property="twitter:description" content={agenda.description} />
+          <meta property="twitter:domain" content="@oagenda" />
+          <meta property="twitter:url" content={url.origin + url.pathname} />
+          {agenda.image ? (
+            <meta property="twitter:image" content={agenda.image} />
+          ) : null}
+        </Head>
 
-      {user ? <ContextBar agenda={agenda} /> : null}
+        {user ? <ContextBar agenda={agenda} /> : null}
 
-      <Box as="header" w="full" bg="#413a42" px="4" py="8">
-        <Container maxW="container.xl" color="white">
-          <AgendaHeader agenda={agenda} />
-        </Container>
-      </Box>
+        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+          <Container maxW="container.xl" color="white">
+            <AgendaHeader agenda={agenda} />
+          </Container>
+        </Box>
 
-      <FiltersProvider
-        onSubmit={onFilterChange}
-        initialValues={initialValues}
-        intl={intl}
-        dateFnsLocale={dateFnsLocale}
-        ref={filtersFormRef}
-        filters={filters}
-      >
-        <Grid
-          templateAreas={{
-            base: `"filters"
+        <FiltersProvider
+          onSubmit={onFilterChange}
+          initialValues={initialValues}
+          intl={intl}
+          dateFnsLocale={dateFnsLocale}
+          ref={filtersFormRef}
+          filters={filters}
+        >
+          <Grid
+            templateAreas={{
+              base: `"filters"
                    "total"
                    "events"`,
-            lg: `"total ."
+              lg: `"total ."
                  "events filters"`,
-          }}
-          gridTemplateColumns={{
-            base: '1fr',
-            lg: '2fr minmax(380px, 1fr)',
-          }}
-          rowGap="8"
-          columnGap={{ xl: '24' }}
-          pt="8"
-          m="auto"
-          maxW="container.xl"
-        >
-          <GridItem area="total">
-            <Flex direction="row" gap="8">
-              <chakra.div
-                w={{ base: 'full', xl: '25%' }}
-                display={{ base: 'none', xl: 'block' }}
-              />
-              <Flex
-                gap="6"
-                direction="column"
-                w={{ base: 'full', xl: '75%' }}
-                px={{ base: '4', xl: '0' }}
-              >
-                <FiltersPreview
-                  agenda={agenda}
-                  filters={filters}
-                  getOptions={getOptions}
-                  disabled={isLoadingMore}
+            }}
+            gridTemplateColumns={{
+              base: '1fr',
+              lg: '2fr minmax(380px, 1fr)',
+            }}
+            rowGap="8"
+            columnGap={{ xl: '24' }}
+            pt="8"
+            m="auto"
+            maxW="container.xl"
+          >
+            <GridItem area="total">
+              <Flex direction="row" gap="8">
+                <chakra.div
+                  w={{ base: 'full', xl: '25%' }}
+                  display={{ base: 'none', xl: 'block' }}
                 />
+                <Flex
+                  gap="6"
+                  direction="column"
+                  w={{ base: 'full', xl: '75%' }}
+                  px={{ base: '4', xl: '0' }}
+                >
+                  <FiltersPreview
+                    agenda={agenda}
+                    filters={filters}
+                    getOptions={getOptions}
+                    disabled={isLoadingMore}
+                  />
 
-                <Total
-                  total={pages[0].total}
-                  upcomingOnly={upcomingOnly}
-                  passed={query.passed === '1'}
-                  disabled={isLoadingMore || query.timings}
-                />
+                  <Total
+                    total={pages[0].total}
+                    upcomingOnly={upcomingOnly}
+                    passed={query.passed === '1'}
+                    disabled={isLoadingMore || query.timings}
+                  />
+                </Flex>
               </Flex>
-            </Flex>
-          </GridItem>
+            </GridItem>
 
-          <GridItem area="filters">
-            <Form gap="8">
-              <Search
-                disabled={false}
-                isLoading={false}
-                mx={{ base: '4', lg: '0' }}
-              />
-
-              <div>{/* Useful to remove gap for the drawer on mobile */}
-                <Flex>
-                  <Button
-                    colorScheme="primary"
-                    onClick={onToggleFilters}
-                    leftIcon={<FontAwesomeIcon icon={faSliders} />}
-                    display={{ base: 'flex', lg: 'none' }}
-                    mx="4"
-                    w="full"
-                  >
-                    {intl.formatMessage(messages.filter)}
-                  </Button>
-                </Flex>
-
-                <ResponsiveDrawer isOpen={isOpenFilters} onClose={onToggleFilters}>
-                  <Flex direction="column" h="full">
-                    <Flex
-                      display={{ base: 'flex', lg: 'none' }}
-                      justify="space-between"
-                      align="center"
-                      p="4"
-                    >
-                      <Text fontWeight="bold" fontSize="lg">
-                        {intl.formatMessage(messages.filters)}
-                      </Text>
-                      <CloseButton onClick={onToggleFilters} />
-                    </Flex>
-
-                    <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
-                      <Filters
-                        filters={filters}
-                        // disabled={isFetching || filtersQuery.isFetching}
-                        dateRangeComponent={DateRangeFilter as any}
-                        choiceComponent={ChoiceFilter as any}
-                        mapComponent={MapFilter as any}
-                        // mapProps={{
-                        //   displayed: mapDisplayed,
-                        //   defaultPaused: true, // TODO defaultPaused because default hidden
-                        // }}
-                        getTotal={getTotal}
-                        getOptions={getOptions}
-                        initialViewport={initialViewport}
-                        loadGeoData={loadGeoData}
-                        withRef
-                      />
-                      <FavoritesFilter agenda={agenda} />
-                    </Flex>
-
-                    <Box display={{ base: 'block', lg: 'none' }} p="4">
-                      <Button
-                        variant="solid"
-                        colorScheme="primary"
-                        onClick={onToggleFilters}
-                        w="full"
-                      >
-                        {intl.formatMessage(messages.seeEvents, { count: pages[0].total })}
-                      </Button>
-                    </Box>
-
-                    <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
-                      <Link href="/" color="primary.500">
-                        OpenAgenda
-                      </Link>
-                      <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <Link href="https://doc.openagenda.com/" isExternal color="primary.500">
-                        {intl.formatMessage(messages.help)}
-                      </Link>
-                      <NoBreak>&nbsp;·</NoBreak>{' '}
-                      <Link href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
-                        {intl.formatMessage(messages.termsOfUse)}
-                      </Link>
-
-                      <br />
-                      <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>
-                    </Box>
-                  </Flex>
-                </ResponsiveDrawer>
-              </div>
-            </Form>
-          </GridItem>
-
-          <GridItem area="events">
-            <Flex direction="column" flex="2" gap="10">
-              {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
-                <EventItem
-                  key={event.uid}
-                  event={event}
-                  agenda={agenda}
-                  imagePriority={pageIndex === 0 && eventIndex <= 1}
+            <GridItem area="filters">
+              <Form gap="8">
+                <Search
+                  disabled={false}
+                  isLoading={false}
+                  mx={{ base: '4', lg: '0' }}
                 />
-              )))}
 
-              {!isReachingEnd ? (
-                <Flex ml="25%" justify="space-around">
-                  <Button
-                    ref={ref}
-                    onClick={() => setSize(size + 1)}
-                    variant="link"
-                    colorScheme="primary"
-                    isLoading={isLoadingMore}
-                  >
-                    {intl.formatMessage(messages.seeMore)}
-                  </Button>
-                </Flex>
-              ) : null}
-            </Flex>
-          </GridItem>
-        </Grid>
-      </FiltersProvider>
-      {agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
-        <ConsentBanner
-          setCookie={setCookie}
-        />
-      ) : null}
-    </main>
+                <div>{/* Useful to remove gap for the drawer on mobile */}
+                  <Flex>
+                    <Button
+                      colorScheme="primary"
+                      onClick={onToggleFilters}
+                      leftIcon={<FontAwesomeIcon icon={faSliders} />}
+                      display={{ base: 'flex', lg: 'none' }}
+                      mx="4"
+                      w="full"
+                    >
+                      {intl.formatMessage(messages.filter)}
+                    </Button>
+                  </Flex>
+
+                  <ResponsiveDrawer isOpen={isOpenFilters} onClose={onToggleFilters}>
+                    <Flex direction="column" h="full">
+                      <Flex
+                        display={{ base: 'flex', lg: 'none' }}
+                        justify="space-between"
+                        align="center"
+                        p="4"
+                      >
+                        <Text fontWeight="bold" fontSize="lg">
+                          {intl.formatMessage(messages.filters)}
+                        </Text>
+                        <CloseButton onClick={onToggleFilters} />
+                      </Flex>
+
+                      <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
+                        <Filters
+                          filters={filters}
+                          // disabled={isFetching || filtersQuery.isFetching}
+                          dateRangeComponent={DateRangeFilter as any}
+                          choiceComponent={ChoiceFilter as any}
+                          mapComponent={MapFilter as any}
+                          // mapProps={{
+                          //   displayed: mapDisplayed,
+                          //   defaultPaused: true, // TODO defaultPaused because default hidden
+                          // }}
+                          getTotal={getTotal}
+                          getOptions={getOptions}
+                          initialViewport={initialViewport}
+                          loadGeoData={loadGeoData}
+                          withRef
+                        />
+                        <FavoritesFilter agenda={agenda} />
+                      </Flex>
+
+                      <Box display={{ base: 'block', lg: 'none' }} p="4">
+                        <Button
+                          variant="solid"
+                          colorScheme="primary"
+                          onClick={onToggleFilters}
+                          w="full"
+                        >
+                          {intl.formatMessage(messages.seeEvents, { count: pages[0].total })}
+                        </Button>
+                      </Box>
+
+                      <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
+                        <Link href="/" color="primary.500">
+                          OpenAgenda
+                        </Link>
+                        <NoBreak>&nbsp;·</NoBreak>{' '}
+                        <Link href="https://doc.openagenda.com/" isExternal color="primary.500">
+                          {intl.formatMessage(messages.help)}
+                        </Link>
+                        <NoBreak>&nbsp;·</NoBreak>{' '}
+                        <Link href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
+                          {intl.formatMessage(messages.termsOfUse)}
+                        </Link>
+
+                        <br />
+                        <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>
+                      </Box>
+                    </Flex>
+                  </ResponsiveDrawer>
+                </div>
+              </Form>
+            </GridItem>
+
+            <GridItem area="events">
+              <Flex direction="column" flex="2" gap="10">
+                {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
+                  <EventItem
+                    key={event.uid}
+                    event={event}
+                    agenda={agenda}
+                    imagePriority={pageIndex === 0 && eventIndex <= 1}
+                  />
+                )))}
+
+                {!isReachingEnd ? (
+                  <Flex ml="25%" justify="space-around">
+                    <Button
+                      ref={ref}
+                      onClick={() => setSize(size + 1)}
+                      variant="link"
+                      colorScheme="primary"
+                      isLoading={isLoadingMore}
+                    >
+                      {intl.formatMessage(messages.seeMore)}
+                    </Button>
+                  </Flex>
+                ) : null}
+              </Flex>
+            </GridItem>
+          </Grid>
+        </FiltersProvider>
+        {agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
+          <ConsentBanner
+            setCookie={setCookie}
+          />
+        ) : null}
+      </main>
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: eventsLdJSON }}
+      />
+    </>
   );
 }
 
