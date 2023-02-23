@@ -10,8 +10,6 @@ import booleanMessages from '../messages/boolean';
 import accessibilitiesMessages from '../messages/accessibilities';
 import dateRanges from './dateRanges';
 
-const AGGREGATION_SIZE = 2000;
-
 function assignDateRanges(filter, intl, dataFnsLocale) {
   if (filter.type === 'definedRange') {
     Object.assign(
@@ -109,7 +107,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         labelKey: 'member.name',
         aggregation: {
           type: 'members',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -173,7 +170,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         labelKey: 'location.name',
         aggregation: {
           type: 'locations',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -184,7 +180,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         labelKey: 'agenda.title',
         aggregation: {
           type: 'sourceAgendas',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -195,7 +190,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         labelKey: 'agenda.title',
         aggregation: {
           type: 'originAgendas',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -259,7 +253,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'regions',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -270,7 +263,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'departments',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -281,7 +273,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'cities',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -292,7 +283,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'adminLevels3',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -303,7 +293,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'districts',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -313,7 +302,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: null, // from the aggregation
         aggregation: {
           type: 'keywords',
-          size: AGGREGATION_SIZE,
         },
       });
       break;
@@ -392,7 +380,6 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
-        size: AGGREGATION_SIZE,
       },
     });
   }
