@@ -84,7 +84,7 @@ export default function AgendaHeader({ agenda }) {
           width="140"
           height="140"
           src={agenda.image}
-          fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : null}
+          fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : undefined}
           fallbackStrategy="onError"
           alt=""
           draggable={false}

@@ -50,7 +50,7 @@ function EventItem({ agenda, event }) {
           width="56"
           height="56"
           src={imageSrc}
-          fallbackSrc={isDev ? imageSrc.replace('cibuldev', 'cibul') : null}
+          fallbackSrc={isDev ? imageSrc.replace('cibuldev', 'cibul') : undefined}
           fallbackStrategy="onError"
           alt=""
           draggable={false}
