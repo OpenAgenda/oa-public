@@ -8,4 +8,5 @@ yarn-error.log
 .tmp/
 coverage/
 
-dist/
+/esm/
+/lib/

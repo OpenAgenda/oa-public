@@ -5,5 +5,5 @@ const sharedConfig = require('./jest.config');
 module.exports = {
   ...sharedConfig,
 
-  testPathIgnorePatterns: ['<rootDir>/test/e2e/']
+  testPathIgnorePatterns: ['<rootDir>/test/e2e/'],
 };

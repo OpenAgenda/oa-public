@@ -12,7 +12,7 @@ export default class Events {
   list(agendaUid, data) {
     return this.sdk.api
       .get(`/agendas/${agendaUid}/events`, {
-        params: data
+        params: data,
       })
       .then(v => v.data);
   }
