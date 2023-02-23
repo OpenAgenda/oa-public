@@ -11,6 +11,7 @@ import getSSRApiClient from 'utils/getSSRApiClient';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
+import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
 
 type PageProps = AgendaShowProps & {
   intlMessages: Record<string, string>,
@@ -74,10 +75,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   }, intlCache);
 
-  // const filtersBase = getFiltersBase(agenda.schema.fields, { exclude: adminFilters });
-
   const additionalFilters = agenda.schema.fields
-    .filter(fieldSchema => fieldSchema.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
+    .filter(fieldSchema => isAdditionalField(fieldSchema) && isChoiceField(fieldSchema))
     .map(fieldSchema => fieldSchema.field);
 
   const filtersToInclude = ['geo', 'timings', ...additionalFilters];
@@ -103,7 +102,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       filters,
       {
         ...prefilter,
-        passed: undefined, // omit passed
         size: 0,
       },
       null,
@@ -115,10 +113,23 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       filters,
       {
-        sort: 'lastTimingWithFeatured.asc',
+        sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
         ...prefilter,
         ...query,
         passed: undefined, // omit passed
+        includeFields: [
+          'uid',
+          'slug',
+          'title',
+          'image',
+          'featured',
+          'description',
+          'dateRange',
+          'location.name',
+          'location.city',
+          'timings',
+          'onlineAccessLink',
+        ],
         detailed: true,
       },
       // 1, // page

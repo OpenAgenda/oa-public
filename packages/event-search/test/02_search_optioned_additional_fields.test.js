@@ -170,4 +170,32 @@ describe('02 - event search - functional: search in optioned additional fields',
       });
     },
   );
+
+  it('includeFields works on standard and additional fields', async () => {
+    const { events: [event] } = await service('additional').search({
+      state: null,
+      uid: 1,
+    }, {}, {
+      formSchema: fixtures.formSchema,
+      includeFields: ['uid', 'categories-agenda-metropolitain'],
+    });
+
+    expect(Object.keys(event)).toEqual(['uid', 'categories-agenda-metropolitain']);
+  });
+
+  it('includeFields works on sub-fields', async () => {
+    const { events: [event] } = await service('additional').search({
+      state: null,
+      uid: 3,
+    }, {}, {
+      includeFields: ['uid', 'location.city'],
+    });
+
+    expect(event).toEqual({
+      uid: 3,
+      location: {
+        city: 'Rue',
+      },
+    });
+  });
 });
