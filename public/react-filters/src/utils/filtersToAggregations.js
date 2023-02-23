@@ -1,3 +1,5 @@
+import minimizeAggregation from './minimizeAggregation';
+
 export default function filtersToAggregations(filters, base = false) {
   const usedFilters = base
     ? filters.filter(filter => filter.type === 'choice' && (!filter.options || filter.missingValue))
@@ -27,5 +29,5 @@ export default function filtersToAggregations(filters, base = false) {
     });
   }
 
-  return aggregations;
+  return aggregations.map(minimizeAggregation);
 }
