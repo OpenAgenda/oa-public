@@ -66,7 +66,10 @@ export default class MyDocument extends Document {
       >
         <Head>
           {process.env.NEXT_PUBLIC_ASSET_PREFIX && (
-            <link rel="preconnect" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} />
+            <>
+              <link rel="preconnect" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} crossOrigin="" />
+              <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} />
+            </>
           )}
         </Head>
         <body className="chakra-ui-light">

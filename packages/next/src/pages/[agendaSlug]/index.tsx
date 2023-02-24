@@ -99,7 +99,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         agenda,
         filters,
         {
-          sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
+          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
           ...prefilter,
           ...query,
           passed: undefined, // omit passed
@@ -114,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       intlMessages,
       fallback: {
         [unstableSerialize(['agendaShow', 'filtersBase', agenda.slug])]: filtersBaseResult,
-        [`$inf$${unstableSerialize(['agendaShow', 'events', agenda.slug, query])}`]: [filtersResult],
+        [`$inf$${unstableSerialize(['agendaShow', 'events', agenda.slug, 0, query, query.after])}`]: [filtersResult],
       },
     };
 
