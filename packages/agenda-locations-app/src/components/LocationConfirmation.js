@@ -60,7 +60,7 @@ const LocationConfirmation = ({
 
   return (
     <div>
-      <div className="info-block margin-bottom-sm">
+      <div className="info-block margin-v-sm">
         <label htmlFor="guide"><FormattedMessage {...messages.guide} /></label>
         <p><FormattedMessage {...messages.guideDetail} /></p>
         <div className="text-center">
@@ -74,7 +74,7 @@ const LocationConfirmation = ({
             <FormattedMessage {...messages.suggest} />
           </a>
           {suggestChangeMessage ? (
-            <div className="margin-bottom-sm">
+            <div className="margin-v-sm">
               <FormattedMessage {...messages.suggestChangeMessage} />
             </div>
           ) : null}
