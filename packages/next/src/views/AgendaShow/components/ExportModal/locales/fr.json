@@ -1,10 +1,6 @@
 {
-  "all-fields": "Exporter toutes les colonnes",
-  "all-languages": "Exporter dans toutes les langues",
-  "distribute-fields": "Champs à choix: une valeur par colonne",
   "gcalStep2": "2. Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\"",
   "gcalStep3": "3. Suivez les instructions en collant le lien que vous avez copié à l'étape 1.",
-  "input-field": "Sélectionner des champs",
   "instructions": "Instructions",
   "instructionsCopyLink": "1. Copiez le lien ci-dessus et ouvrez ",
   "next.views.AgendaShow.ExportModal.cancel": "Annuler",
@@ -19,9 +15,13 @@
   "next.views.AgendaShow.ExportModal.jsonDoc2": "ici",
   "next.views.AgendaShow.ExportModal.login": "Connectez-vous pour accéder au lien d'export directement depuis ce menu",
   "next.views.AgendaShow.ExportModal.title": "Exporter",
+  "next.views.AgendaShow.SpreadsheetOptions.all-fields": "Exporter toutes les colonnes",
+  "next.views.AgendaShow.SpreadsheetOptions.all-languages": "Exporter dans toutes les langues",
+  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": "Champs à choix: une valeur par colonne",
+  "next.views.AgendaShow.SpreadsheetOptions.input-field": "Sélectionner des champs",
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": "Tout sélectionner",
   "outlookStep2": "2. En bas de page, sélectionnez l'icône calendrier",
   "outlookStep3": "3. Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\"",
   "outlookStep4": "4. Sélectionnez \"S'abonner à partir du web\"",
-  "outlookStep5": "5. Collez le lien et sélectionnez \"Importer\"",
-  "select-all": "Tout sélectionner"
+  "outlookStep5": "5. Collez le lien et sélectionnez \"Importer\""
 }

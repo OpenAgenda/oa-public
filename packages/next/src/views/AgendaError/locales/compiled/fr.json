@@ -74,7 +74,7 @@
   "next.views.AgendaError.requestInvitation": [
     {
       "type": 0,
-      "value": "Demande d'invitation"
+      "value": "Demande une invitation"
     }
   ],
   "next.views.AgendaError.restrictedAccess": [

@@ -1,22 +1,4 @@
 {
-  "all-fields": [
-    {
-      "type": 0,
-      "value": "Exporter toutes les colonnes"
-    }
-  ],
-  "all-languages": [
-    {
-      "type": 0,
-      "value": "Exporter dans toutes les langues"
-    }
-  ],
-  "distribute-fields": [
-    {
-      "type": 0,
-      "value": "Champs à choix: une valeur par colonne"
-    }
-  ],
   "gcalStep2": [
     {
       "type": 0,
@@ -27,12 +9,6 @@
     {
       "type": 0,
       "value": "3. Suivez les instructions en collant le lien que vous avez copié à l'étape 1."
-    }
-  ],
-  "input-field": [
-    {
-      "type": 0,
-      "value": "Sélectionner des champs"
     }
   ],
   "instructions": [
@@ -119,6 +95,36 @@
       "value": "Exporter"
     }
   ],
+  "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
+    {
+      "type": 0,
+      "value": "Exporter toutes les colonnes"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
+    {
+      "type": 0,
+      "value": "Exporter dans toutes les langues"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
+    {
+      "type": 0,
+      "value": "Champs à choix: une valeur par colonne"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.input-field": [
+    {
+      "type": 0,
+      "value": "Sélectionner des champs"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": [
+    {
+      "type": 0,
+      "value": "Tout sélectionner"
+    }
+  ],
   "outlookStep2": [
     {
       "type": 0,
@@ -141,12 +147,6 @@
     {
       "type": 0,
       "value": "5. Collez le lien et sélectionnez \"Importer\""
-    }
-  ],
-  "select-all": [
-    {
-      "type": 0,
-      "value": "Tout sélectionner"
     }
   ]
 }
