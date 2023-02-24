@@ -11,7 +11,7 @@ schema.register({
   text: textValidator,
 });
 
-module.exports = schema({
+const validate = schema({
   detailed: {
     type: 'boolean',
     default: false,
@@ -55,3 +55,10 @@ module.exports = schema({
     default: false,
   },
 });
+
+module.exports = function validateAgendaSearchOptions(options = {}) {
+  return validate({
+    ...options,
+    includeFields: options.includeFields || options.if,
+  });
+};
