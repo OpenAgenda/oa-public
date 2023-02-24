@@ -53,6 +53,14 @@ describe('02 - event search - functional: timings sorting', () => {
     },
   );
 
+  it('explicitely requested timings and timezone', async () => {
+    const { events: [event] } = await service('timings').search({}, { size: 1 }, {
+      includeFields: ['uid', 'timings'],
+    });
+
+    expect(event.timings).toBeInstanceOf(Array);
+  });
+
   it(
     'filtered on specific upcoming period focuses search on the filtered period',
     async () => {
