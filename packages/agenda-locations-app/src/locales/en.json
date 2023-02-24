@@ -66,6 +66,8 @@
   "AgendaLocations.LocationConfirmation.guideDetail": "If some changes have to be made, click on the button below to provide details on the change to agenda administrators",
   "AgendaLocations.LocationConfirmation.suggest": "Suggest a change",
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": "A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection",
+  "AgendaLocations.LocationDetailModal.removedMessage": "The location you are looking for has been removed",
+  "AgendaLocations.LocationDetailModal.removedModalTitle": "Removed Location",
   "AgendaLocations.LocationDetails.access": "Access",
   "AgendaLocations.LocationDetails.address": "Address",
   "AgendaLocations.LocationDetails.andOn": "and on",
