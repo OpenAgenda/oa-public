@@ -54,6 +54,7 @@
     "location.adminLevel5",
     "location.countryCode",
     "location.country",
+    "location.postalCode",
     "member.uid",
     "member.name",
     "member.role",

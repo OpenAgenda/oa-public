@@ -83,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     ] = await Promise.all([
       getEvents(
         api,
-        '/api/agendas/:slug/events',
+        '/api/agendas/slug/:slug/events',
         agenda,
         filters,
         {
@@ -95,28 +95,15 @@ export const getServerSideProps: GetServerSideProps = async ({
       ),
       getEvents(
         api,
-        '/api/agendas/:slug/events',
+        '/api/agendas/slug/:slug/events',
         agenda,
         filters,
         {
-          sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
+          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
           ...prefilter,
           ...query,
           passed: undefined, // omit passed
-          includeFields: [
-            'uid',
-            'slug',
-            'title',
-            'image',
-            'featured',
-            'description',
-            'dateRange',
-            'location.name',
-            'location.city',
-            'timings',
-            'onlineAccessLink',
-          ],
-          detailed: true,
+          includeFields: AgendaShow.includeFields,
         },
         // 1, // page
       ),

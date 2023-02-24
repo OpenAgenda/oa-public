@@ -44,6 +44,7 @@ function buildEventParsers({
   formSchema,
   includeImageTimestamps,
   includeLocationImagePath,
+  requestedIncludes,
   assetsPath,
   useDefaultImage,
   defaultImage,
@@ -55,8 +56,12 @@ function buildEventParsers({
 
   if (!detailed) {
     parsers.push(e => produce(e, draft => {
-      delete draft.timings;
-      delete draft.timezone;
+      if (!(requestedIncludes || []).includes('timings')) {
+        delete draft.timings;
+      }
+      if (!(requestedIncludes || []).includes('timezone')) {
+        delete draft.timezone;
+      }
     }));
   }
 
@@ -224,6 +229,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includeLabels,
     includeImageTimestamps,
     includeLocationImagePath,
+    requestedIncludes,
     assetsPath,
     useDefaultImage,
     defaultImage,
