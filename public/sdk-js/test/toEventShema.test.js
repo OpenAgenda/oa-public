@@ -197,7 +197,7 @@ describe('toEventSchema', () => {
       url: 'https://openagenda.com/events/permanence-ireps-sur-les-ecrans-et-les-reseaux',
     }))
       .toEqual({
-        '@context': 'http://schema.org',
+        '@context': 'https://schema.org',
         '@type': 'Event',
         '@id': 'https://openagenda.com/events/permanence-ireps-sur-les-ecrans-et-les-reseaux',
         name: 'Permanence IREPS sur les écrans et les réseaux',
@@ -206,8 +206,8 @@ describe('toEventSchema', () => {
         image: 'https://cibuldev.s3.amazonaws.com/c3e0a7f7ec504f04839927e8375c0159.base.image.jpg',
         startDate: '2023-02-23T09:00:00+01:00',
         endDate: '2023-02-23T12:00:00+01:00',
-        eventAttendanceMode: 'OfflineEventAttendanceMode',
-        eventStatus: 'EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
         location: {
           '@type': 'Place',
           name: 'Le 4 Châtellerault',
@@ -321,7 +321,7 @@ describe('toEventSchema', () => {
       url: 'https://openagenda.com/events/un-evenement-en-ligne',
     }))
       .toEqual({
-        '@context': 'http://schema.org',
+        '@context': 'https://schema.org',
         '@type': 'Event',
         '@id': 'https://openagenda.com/events/un-evenement-en-ligne',
         url: 'https://openagenda.com/events/un-evenement-en-ligne',
@@ -329,8 +329,8 @@ describe('toEventSchema', () => {
         description: 'test',
         startDate: '2021-03-13T10:00:00+01:00',
         endDate: '2021-11-26T11:00:00+01:00',
-        eventAttendanceMode: 'OnlineEventAttendanceMode',
-        eventStatus: 'EventCancelled',
+        eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventCancelled',
         offers: {
           '@type': 'Offer',
           url: 'https://registration.com',
@@ -463,7 +463,7 @@ describe('toEventSchema', () => {
       url: 'https://openagenda.com/events/un-evenement-mixte',
     }))
       .toEqual({
-        '@context': 'http://schema.org',
+        '@context': 'https://schema.org',
         '@type': 'Event',
         '@id': 'https://openagenda.com/events/un-evenement-mixte',
         url: 'https://openagenda.com/events/un-evenement-mixte',
@@ -471,8 +471,8 @@ describe('toEventSchema', () => {
         description: 'test',
         startDate: '2021-06-06T10:00:00+02:00',
         endDate: '2021-06-06T13:00:00+02:00',
-        eventAttendanceMode: 'MixedEventAttendanceMode',
-        eventStatus: 'EventScheduled',
+        eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
         location: {
           '@type': 'Place',
           name: 'Un lieu',
