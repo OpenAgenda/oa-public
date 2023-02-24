@@ -97,7 +97,7 @@ function ProfileMenu({ user, portalRef }) {
         : `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`}
       fallbackSrc={process.env.NODE_ENV === 'development'
         ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
-        : null}
+        : undefined}
       fallbackStrategy="onError"
       unoptimized
       width="30"

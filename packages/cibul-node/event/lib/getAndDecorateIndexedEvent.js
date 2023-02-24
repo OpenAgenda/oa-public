@@ -25,7 +25,7 @@ function pickPreferredLang(value, lang) {
   return value[choice];
 }
 
-module.exports = async function getAndDecoratedIndexedEvent(services, {
+module.exports = async function getAndDecorateIndexedEvent(services, {
   eventSlug,
   eventUid,
   agendaUid,

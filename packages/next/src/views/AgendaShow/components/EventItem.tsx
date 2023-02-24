@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
@@ -103,11 +103,24 @@ function FavoriteButton({ agenda, event }) {
   );
 }
 
-export default function EventItem({ event, agenda, imagePriority = false }) {
-  const router = useRouter();
-  const intl = useIntl();
+function RelativeTime({ closestTiming }) {
   const dateFnsLocale = useDateFnsLocale();
   const isMounted = useIsMounted();
+
+  return (
+    <Text color="oaGray.500">
+      {isMounted ? upperFirst(formatDistance(
+        new Date(closestTiming.begin),
+        new Date(),
+        { locale: dateFnsLocale, addSuffix: true },
+      )) : null}
+    </Text>
+  );
+}
+
+function EventItem({ event, agenda, imagePriority = false }) {
+  const router = useRouter();
+  const intl = useIntl();
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
@@ -133,13 +146,7 @@ export default function EventItem({ event, agenda, imagePriority = false }) {
                 {intl.formatMessage(messages.featured)}
               </Text>
             ) : null}
-            <Text color="oaGray.500">
-              {isMounted ? upperFirst(formatDistance(
-                new Date(closestTiming.begin),
-                new Date(),
-                { locale: dateFnsLocale, addSuffix: true },
-              )) : null}
-            </Text>
+            <RelativeTime closestTiming={closestTiming} />
           </div>
         </Flex>
       </Box>
@@ -264,3 +271,5 @@ export default function EventItem({ event, agenda, imagePriority = false }) {
     </Flex>
   );
 }
+
+export default React.memo(EventItem);

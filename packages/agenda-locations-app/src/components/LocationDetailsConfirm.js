@@ -84,6 +84,14 @@ const messages = {
       id: 'AgendaLocations.LocationDetails.editLocation',
       defaultMessage: 'Edit Location',
     },
+    name: {
+      id: 'AgendaLocations.LocationDetails.name',
+      defaultMessage: 'Name',
+    },
+    address: {
+      id: 'AgendaLocations.LocationDetails.address',
+      defaultMessage: 'Address',
+    },
   }),
 };
 
@@ -131,7 +139,10 @@ const LocationDetail = ({
   return (
     <>
       <div className="margin-bottom-md">
-        <p title={location.address}>{location.address}</p>
+        <ul className="list-unstyled" title={location.address}>
+          <li><label htmlFor="name">{intl.formatMessage(messages.name)}</label>:{' '} <span>{location.name}</span> </li>
+          <li><label htmlFor="address">{intl.formatMessage(messages.address)}</label>:{' '} <span>{location.address}</span></li>
+        </ul>
         <a
           title={location.address}
           target="_blank"
