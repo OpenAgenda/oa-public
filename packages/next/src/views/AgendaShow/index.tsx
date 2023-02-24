@@ -241,14 +241,27 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       agenda,
       !after ? filters : [], // need aggs only for first page
       {
-        sort: 'lastTimingWithFeatured.asc',
+        sort: (query.search ?? '').length ? 'score' : 'lastTimingWithFeatured.asc',
         after,
         ...upcomingOnly ? {
           relative: ['current', 'upcoming'],
         } : null,
         ...query,
         passed: undefined, // omit passed
-        detailed: true,
+        includeFields: [
+          'uid',
+          'slug',
+          'title',
+          'image',
+          'featured',
+          'description',
+          'dateRange',
+          'location.name',
+          'location.city',
+          'timings',
+          'onlineAccessLink',
+          'attendanceMode',
+        ],
       },
     ),
     {

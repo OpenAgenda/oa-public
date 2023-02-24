@@ -115,8 +115,8 @@ export const getServerSideProps: GetServerSideProps = async ({
             'location.city',
             'timings',
             'onlineAccessLink',
+            'attendanceMode',
           ],
-          detailed: true,
         },
         // 1, // page
       ),
