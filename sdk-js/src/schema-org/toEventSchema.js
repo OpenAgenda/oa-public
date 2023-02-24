@@ -1,14 +1,14 @@
 import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 
-function getEventAttendanceMode(code) {
+function getEventAttendanceMode(attendanceMode) {
   return {
     1: 'OfflineEventAttendanceMode',
     2: 'OnlineEventAttendanceMode',
     3: 'MixedEventAttendanceMode',
-  }[code] ?? 'OfflineEventAttendanceMode';
+  }[attendanceMode?.id ?? attendanceMode] ?? 'OfflineEventAttendanceMode';
 }
 
-function getEventStatus(code) {
+function getEventStatus(status) {
   return {
     1: 'EventScheduled',
     2: 'EventRescheduled',
@@ -16,7 +16,7 @@ function getEventStatus(code) {
     4: 'EventPostponed',
     5: 'EventScheduled', // but full.
     6: 'EventCancelled',
-  }[code] ?? 'EventScheduled';
+  }[status?.id ?? status] ?? 'EventScheduled';
 }
 
 function imageToUrl(image, type) {
@@ -38,14 +38,14 @@ export default function toEventSchema(event, { url, locale, defaultLocale = DEFA
   const timezone = event.timezone || event.location?.timezone;
 
   const eventSchema = {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Event',
     name: getLocaleValue(event.title, locale, defaultLocale),
     description: getLocaleValue(event.description, locale, defaultLocale),
     startDate: formatDate(begin, timezone),
     endDate: formatDate(end, timezone),
-    eventAttendanceMode: getEventAttendanceMode(event.attendanceMode),
-    eventStatus: getEventStatus(event.status),
+    eventAttendanceMode: `https://schema.org/${getEventAttendanceMode(event.attendanceMode)}`,
+    eventStatus: `https://schema.org/${getEventStatus(event.status)}`,
     ...event.registration?.some(r => r.type === 'link')
       ? {
         offers: {
