@@ -35,7 +35,6 @@ class LocationComponent extends Component {
     super(props);
 
     const locationUid = _.get(props, 'value.uid') || _.get(props, 'field.default.uid');
-    console.log('Here:', props.field.res);
     const res = getResObject(props.field.res);
 
     if (!locationUid) {
@@ -155,7 +154,6 @@ class LocationComponent extends Component {
             <Spinner mode="inline" />
           </div>
           <Modal
-            title={value?.name}
             classNames={{ overlay: 'popup-overlay big' }}
           >
             {this.renderSelector()}

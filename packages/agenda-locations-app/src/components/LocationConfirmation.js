@@ -60,9 +60,25 @@ const LocationConfirmation = ({
 
   return (
     <div>
-      <div>
+      <div className="info-block margin-bottom-sm">
         <label htmlFor="guide"><FormattedMessage {...messages.guide} /></label>
         <p><FormattedMessage {...messages.guideDetail} /></p>
+        <div className="text-center">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={res.suggestChange.replace(':locationUid', location.uid)}
+            onClick={() => setSuggestChangeMessage(true)}
+            className="btn btn-default margin-h-sm"
+          >
+            <FormattedMessage {...messages.suggest} />
+          </a>
+          {suggestChangeMessage ? (
+            <div className="margin-bottom-sm">
+              <FormattedMessage {...messages.suggestChangeMessage} />
+            </div>
+          ) : null}
+        </div>
       </div>
       <LocationDetails
         res={res}
@@ -71,35 +87,19 @@ const LocationConfirmation = ({
         settings={settings}
         staticTiles={res.staticTiles}
       />
-      <div className="info-block margin-bottom-md text-center">
-        <div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={res.suggestChange.replace(':locationUid', location.uid)}
-            onClick={() => setSuggestChangeMessage(true)}
-            className="btn btn-default margin-h-sm margin-bottom-sm"
-          >
-            <FormattedMessage {...messages.suggest} />
-          </a>
-          <button
-            type="button"
-            onClick={onCancel}
-            className="btn btn-default margin-bottom-sm"
-          >
-            <FormattedMessage {...messages.cancel} />
-          </button>
-          {suggestChangeMessage ? (
-            <div className="margin-bottom-sm">
-              <FormattedMessage {...messages.suggestChangeMessage} />
-            </div>
-          ) : null}
-        </div>
-        <div>
-          <button type="button" onClick={onConfirm} className="btn btn-primary margin-h-sm">
-            <FormattedMessage {...messages.confirm} />
-          </button>
-        </div>
+      <div className="margin-bottom-sm text-center">
+
+        <button
+          type="button"
+          onClick={onCancel}
+          className="btn btn-default margin-bottom-sm margin-right-sm"
+        >
+          <FormattedMessage {...messages.cancel} />
+        </button>
+
+        <button type="button" onClick={onConfirm} className="btn btn-primary margin-bottom-sm">
+          <FormattedMessage {...messages.confirm} />
+        </button>
       </div>
     </div>
   );
