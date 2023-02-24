@@ -120,6 +120,28 @@ const messages = defineMessages({
   },
 });
 
+const includeFields = [
+  'uid',
+  'slug',
+  'title',
+  'image',
+  'featured',
+  'description',
+  'dateRange',
+  'timings',
+  'onlineAccessLink',
+  'attendanceMode',
+  'status',
+  'location.name',
+  'location.address',
+  'location.city',
+  'location.region',
+  'location.postalCode',
+  'location.countryCode',
+  'location.latitude',
+  'location.longitude',
+];
+
 function Total({ total, upcomingOnly, passed, disabled }) {
   const intl = useIntl();
   const router = useRouter();
@@ -248,20 +270,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         } : null,
         ...query,
         passed: undefined, // omit passed
-        includeFields: [
-          'uid',
-          'slug',
-          'title',
-          'image',
-          'featured',
-          'description',
-          'dateRange',
-          'location.name',
-          'location.city',
-          'timings',
-          'onlineAccessLink',
-          'attendanceMode',
-        ],
+        includeFields,
       },
     ),
     {
@@ -609,5 +618,7 @@ AgendaShow.fetchLocale = locale => Promise.all([
   fetchCommonLocale('event/attendanceModes', locale),
   import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
 ]).then(results => Object.assign({}, ...results));
+
+AgendaShow.includeFields = includeFields;
 
 export default AgendaShow;
