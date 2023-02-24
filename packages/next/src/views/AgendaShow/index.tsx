@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { useLatest } from 'react-use';
 import qs from 'qs';
 import { formatInTimeZone } from 'date-fns-tz';
+import stringify from 'fast-json-stable-stringify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/pro-solid-svg-icons';
 import {
@@ -124,9 +125,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
   const intl = useIntl();
   const router = useRouter();
 
-  const togglePassed = useCallback(() => {
-    if (disabled) return;
-
+  const passedUrl = useMemo(() => {
     const url = new URL(router.asPath, 'http://n');
 
     if (passed) {
@@ -135,8 +134,15 @@ function Total({ total, upcomingOnly, passed, disabled }) {
       url.searchParams.set('passed', '1');
     }
 
-    router.push(`${url.pathname}${url.search}`, null, { shallow: true });
-  }, [disabled, passed, router]);
+    return `${url.pathname}${url.search}`;
+  }, [passed, router.asPath]);
+
+  const togglePassed = useCallback(e => {
+    e.preventDefault();
+    if (disabled) return;
+
+    router.push(passedUrl, null, { shallow: true });
+  }, [disabled, passedUrl, router.push]);
 
   return (
     <Text
@@ -148,6 +154,8 @@ function Total({ total, upcomingOnly, passed, disabled }) {
         {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
       </chakra.span>
       <Button
+        as="a"
+        href={passedUrl}
         variant="link"
         colorScheme="primary"
         onClick={togglePassed}
@@ -230,23 +238,23 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       if (previousPageData && !previousPageData.events) return null;
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['agendaShow', 'events', agenda.slug, query];
+      if (pageIndex === 0) return ['agendaShow', 'events', agenda.slug, pageIndex, query, query.after];
 
       // add the cursor to the API endpoint
-      return ['agendaShow', 'events', agenda.slug, query, previousPageData.after];
+      return ['agendaShow', 'events', agenda.slug, pageIndex, query, previousPageData.after];
     },
-    (_page, _requestId, _slug, _query, after) => getEvents(
+    (_page, _requestId, _slug, pageIndex, _query, after) => getEvents(
       apiClient,
       `/api/agendas/slug/${agenda.slug}/events`,
       agenda,
-      !after ? filters : [], // need aggs only for first page
+      pageIndex === 0 ? filters : [], // need aggs only for first page
       {
         sort: 'lastTimingWithFeatured.asc',
-        after,
         ...upcomingOnly ? {
           relative: ['current', 'upcoming'],
         } : null,
         ...query,
+        after,
         passed: undefined, // omit passed
         detailed: true,
       },
@@ -340,10 +348,24 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
         url: `${process.env.NEXT_PUBLIC_SITE_ROOT}/${agenda.slug}/events/${event.slug}`,
       }));
-    return JSON.stringify(eventSchemas);
+    return stringify(eventSchemas);
   }, [agenda.slug, intl.locale, pages]);
 
-  const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+  const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+
+  const seeMoreUrl = useMemo(() => {
+    const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+    url.search = qs.stringify({
+      ...query,
+      after: pages.at(-1).after,
+    });
+    return url.pathname + url.search;
+  }, [router.asPath, pages]);
+
+  const nextPage = useCallback(e => {
+    e.preventDefault();
+    setSize(s => s + 1);
+  }, [setSize]);
 
   const pageTitle = `${agenda.title} | OpenAgenda`;
 
@@ -353,23 +375,23 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         <Head>
           <title>{pageTitle}</title>
           {agenda.indexed ? (
-            <meta name="robots" content="index, follow" />
+            <meta name="robots" content={`${query.passed || query.after ? 'noindex' : 'index'}, follow`} />
           ) : (
-            <meta name="robots" content="noindex" />
+            <meta name="robots" content="noindex, nofollow" />
           )}
 
-          <link rel="canonical" href={url.origin + url.pathname} />
+          <link rel="canonical" href={absUrl.origin + absUrl.pathname} />
           {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
             <link
               key={`alternate:${key}`}
               rel="alternate"
               hrefLang={key}
               href={SUPPORTED_LOCALES.includes(key)
-                ? `${url.origin}/${key}${url.pathname}`
-                : `${url.origin}${url.pathname}?lang=${key}`}
+                ? `${absUrl.origin}/${key}${absUrl.pathname}`
+                : `${absUrl.origin}${absUrl.pathname}?lang=${key}`}
             />
           )))}
-          <link rel="alternate" hrefLang="x-default" href={url.origin + url.pathname} />
+          <link rel="alternate" hrefLang="x-default" href={absUrl.origin + absUrl.pathname} />
 
           <meta property="og:site_name" content="OpenAgenda" />
           <meta property="og:title" content={`${agenda.title} | OpenAgenda`} />
@@ -379,7 +401,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
             <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
           )))}
-          <meta property="og:url" content={url.origin + url.pathname} />
+          <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
           {agenda.image ? (
             <meta property="og:image" content={agenda.image} />
           ) : null}
@@ -389,7 +411,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
           <meta property="twitter:description" content={agenda.description} />
           <meta property="twitter:domain" content="@oagenda" />
-          <meta property="twitter:url" content={url.origin + url.pathname} />
+          <meta property="twitter:url" content={absUrl.origin + absUrl.pathname} />
           {agenda.image ? (
             <meta property="twitter:image" content={agenda.image} />
           ) : null}
@@ -414,10 +436,10 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           <Grid
             templateAreas={{
               base: `"filters"
-                   "total"
-                   "events"`,
+                     "total"
+                     "events"`,
               lg: `"total ."
-                 "events filters"`,
+                   "events filters"`,
             }}
             gridTemplateColumns={{
               base: '1fr',
@@ -459,7 +481,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
             </GridItem>
 
             <GridItem area="filters">
-              <Form gap="8">
+              <Form gap="8" mb={{ base: '0', lg: '12' }}>
                 <Search
                   disabled={false}
                   isLoading={false}
@@ -548,7 +570,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
             </GridItem>
 
             <GridItem area="events">
-              <Flex direction="column" flex="2" gap="10">
+              <Flex direction="column" flex="2" gap="10" mb="12">
                 {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
                   <EventItem
                     key={event.uid}
@@ -559,10 +581,12 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                 )))}
 
                 {!isReachingEnd ? (
-                  <Flex ml="25%" justify="space-around">
+                  <Flex ml={{ base: 'full', xl: '25%' }} justify="space-around">
                     <Button
                       ref={ref}
-                      onClick={() => setSize(size + 1)}
+                      as="a"
+                      href={seeMoreUrl}
+                      onClick={nextPage}
                       variant="link"
                       colorScheme="primary"
                       isLoading={isLoadingMore}
@@ -575,12 +599,11 @@ function AgendaShow({ agenda }: AgendaShowProps) {
             </GridItem>
           </Grid>
         </FiltersProvider>
-        {agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
-          <ConsentBanner
-            setCookie={setCookie}
-          />
-        ) : null}
       </main>
+
+      {agenda.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
+        <ConsentBanner setCookie={setCookie} />
+      ) : null}
 
       <script
         type="application/ld+json"
