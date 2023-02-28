@@ -5,16 +5,20 @@ const log = require('@openagenda/logs')('core/agendas/events/loadSearchAccess');
 module.exports = async (core, agendaUid, options = {}) => {
   const {
     members,
-    simpleCache
+    simpleCache,
   } = core.services;
 
   const {
-    getRoleSlug
+    getRoleSlug,
   } = members.utils;
 
   if (options.access) {
     log('using provided access: %s', options.access);
     return options.access;
+  }
+
+  if (options.agendaKey?.identifier === agendaUid) {
+    return 'administrator';
   }
 
   if (!options.userUid) {
@@ -29,7 +33,7 @@ module.exports = async (core, agendaUid, options = {}) => {
 
   const member = options.userUid ? await members.get({
     agendaUid,
-    userUid: options.userUid
+    userUid: options.userUid,
   }) : null;
 
   let role = 'public';

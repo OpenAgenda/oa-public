@@ -5,12 +5,14 @@ const keysMw = require( '@openagenda/keys/middleware' );
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
 const cmn = require( '../lib/commons-app' );
-const sessions = require( '../services/sessions' );
-const members = require( '../services/members' );
-
 
 module.exports = app => {
-  const { agendas, core } = app.services;
+  const {
+    agendas,
+    core,
+    sessions,
+    members,
+  } = app.services;
 
   app.post(
     '/new',

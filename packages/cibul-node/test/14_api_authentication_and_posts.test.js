@@ -131,4 +131,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     expect(error.status).toBe(400);
     expect(error.data.message).toBe('nonce is not valid');
   });
+
+  it('agenda key can be used for read operations', async () => {
+    const response = await axios({
+      method: 'get',
+      url: 'http://localhost:3000/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a',
+    });
+
+    expect(response.status).toBe(200);
+  });
 });

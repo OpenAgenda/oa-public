@@ -1,5 +1,47 @@
 # Recettes
 
+## Table des matières
+
+ * GIT
+ * Jelastic
+   * Portails agenda
+   * Cluster redis
+ * Mails
+ * Ghost
+ * React
+   * Contexte
+   * Intl
+   * Intl dans React 'before hooks'
+ * Crowdin & Labels
+   * Lorsqu'on ajoute des labels sources
+   * Lorsqu'on a traduit des labels sur crowdin
+   * Si on veut traduire des labels depuis les sources
+   * Si on veut ajouter de nouveaux labels dans sources
+   * Si on veut modifier des sources directement sur crowdin
+   * Si on a modifié le pack
+ * Redis
+ * Regex
+ * Yarn
+   * Publier une lib publique de manière isolée
+   * Patcher une lib publique de manière isolée
+ * Structure d'un projet
+ * Certificats
+   * En développement
+   * En production
+   * Les clients
+ * Tests
+   * Configuration des tests
+ * Erreurs
+ * Ubuntu, serveur
+   * OpenSSL
+   * crontab
+   * Configuration d'une instance ec2 pour la prod
+ * @openagenda/files
+ * Refactos
+   * Enlever les `import React` dans les packages
+   * Intégration de NextJs
+ * Histoires
+   * L'ancien export JSON
 
 ## GIT
 
@@ -14,6 +56,8 @@ https://stackoverflow.com/questions/16368605/is-there-a-tool-to-have-git-show-de
 
 ## Jelastic
 
+### Portails agenda
+
 Forcer une redirection vers https (voir la 2ème réponse): https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
 
 Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
@@ -21,6 +65,48 @@ Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
     if ($http_x_forwarded_proto != "https") {
         return 301 https://$host$request_uri;
     }
+
+### Cluster Redis
+
+La marketplace Jelastic propose de déployer un cluster redis en quelques minutes avec scalabilité horizontale
+
+A propos du cluster redis sur Jelastic (Virtuozzo): https://www.virtuozzo.com/application-platform-docs/redis-cluster/
+A propos du fonctionnement du cluster Redis plus généralement: https://redis.io/docs/reference/cluster-spec/
+
+Une fois déployé, le mot de passe fourni permet la connexion depuis un autre environnement au cluster, en utilisant node-redis avec une configuration adaptée aux clusters: 
+
+```
+import { createCluster } from 'redis';
+
+(async () => {
+  const cluster = createCluster({
+    rootNodes: [{
+      url: 'redis://node117132-oa-redis.jcloud-ver-jpe.ik-server.com:6379'
+    }, {
+      url: 'redis://node117128-oa-redis.jcloud-ver-jpe.ik-server.com:6379'
+    }, {
+      url: 'redis://node117129-oa-redis.jcloud-ver-jpe.ik-server.com:6379'
+    }],
+    defaults: {
+      password: process.env.PWD,
+    }
+  });
+
+  await cluster.connect();
+
+  await cluster.set('key', 'value');
+
+  const value = await cluster.get('key');
+
+  console.log(value);
+
+  process.exit();
+})();
+```
+
+**Note**: Dans l'exemple ci-dessus, les adresses utilisées sont celles des 3 premiers nodes de l'environnement (qui en compte au minimum 6). Le client gère la découverte de nodes additionnels.
+
+Une interface d'administration permet d'avoir une vue d'ensemble sur l'utilisation du cluster
 
 
 ## Mails
@@ -232,7 +318,7 @@ On commie
 
 ### Si on a modifié le pack
 
-## redis
+## Redis
 
 Pour copier une base redis sur un nouveau serveur, on se connecte au nouveau serveur et on lance la commande:
 
@@ -267,7 +353,7 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `NODE_ENV=production npm publish`ant le package localement.
 
-## structure d'un projet
+## Structure d'un projet
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
 
@@ -340,7 +426,7 @@ CN = openagenda.com
 
 ### Les clients
 
-Si ce sont les clients qui doivent être renouveler, reprendre la paire autorité du keepass pour suivre les commandes utilisées dans le script create_client_certificate. Les certificats clients doivent alors être placés dans chaque instance se connectant au clusteur (.ssh/es7.key et .crt)
+Si ce sont les clients qui doivent être renouvelés, reprendre la paire autorité du keepass pour suivre les commandes utilisées dans le script create_client_certificate. Les certificats clients doivent alors être placés dans chaque instance se connectant au clusteur (.ssh/es7.key et .crt)
 
 ## Tests
 

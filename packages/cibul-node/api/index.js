@@ -53,7 +53,7 @@ module.exports = core => {
   app.patch('*', mw.verifyAndLoadAccessTokenUser);
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
-  app.get('*', mw.verifyAndLoadKeyUser);
+  app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
@@ -144,6 +144,7 @@ module.exports = core => {
         useAfterKey: true,
         userUid: req.user?.uid,
         includeLocationImagePath: true,
+        agendaKey: req.agendaKey,
       }).then(result => res.json({
         success: true,
         ...result,

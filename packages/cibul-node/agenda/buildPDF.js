@@ -2,7 +2,6 @@
 
 const pdf = require('@openagenda/pdf');
 
-const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 
 module.exports = async function buildPDF(req, res, _next) {
@@ -19,15 +18,8 @@ module.exports = async function buildPDF(req, res, _next) {
     access: 'internal',
   });
 
-  const query = convertLegacyFilter(req.query.oaq ?? {}, {
-    formSchema,
-    tagSet,
-    categorySet,
-    query: req.query,
-  });
-
   const stream = await core.agendas(req.params.uid).events.search(
-    query,
+    req.query,
     null,
     { stream: true, detailed: true },
   );
