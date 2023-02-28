@@ -27,6 +27,7 @@ import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
+import keyCDNLoader from 'utils/keyCDNLoader';
 import logoPic from '../../../public/images/openagenda.png';
 
 const messages = defineMessages({
@@ -53,6 +54,10 @@ const messages = defineMessages({
   signOut: {
     id: 'next.components.Navbar.signOut',
     defaultMessage: 'Sign out',
+  },
+  profileMenu: {
+    id: 'next.components.Navbar.profileMenu',
+    defaultMessage: 'Profile menu',
   },
 });
 
@@ -91,7 +96,7 @@ function ProfileMenu({ user, portalRef }) {
 
   const button = user.image ? (
     <Image
-      alt="Profile menu"
+      alt={intl.formatMessage(messages.profileMenu)}
       src={process.env.NODE_ENV === 'development'
         ? `${process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX}${user.image}`
         : `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`}
@@ -99,7 +104,7 @@ function ProfileMenu({ user, portalRef }) {
         ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
         : undefined}
       fallbackStrategy="onError"
-      unoptimized
+      loader={keyCDNLoader}
       width="30"
       height="30"
     />
@@ -273,7 +278,7 @@ export default function Navbar() {
                 width={500 / 4}
                 height={89 / 4}
                 alt="logo"
-                unoptimized
+                quality="100"
               />
             </Flex>
             <Flex as="form" onSubmit={onSearch} display={{ base: 'none', lg: 'flex' }}>

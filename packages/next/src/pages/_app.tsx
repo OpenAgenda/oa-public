@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -24,6 +24,25 @@ interface PageProps {
   intlMessages: Record<string, string>
 }
 
+const useForceHtmlLangAttribute = preferredLocale => {
+  useEffect(() => {
+    document.documentElement.lang = preferredLocale;
+
+    const langObserver = new MutationObserver(() => {
+      if (document.documentElement.lang !== preferredLocale) {
+        document.documentElement.lang = preferredLocale;
+      }
+    });
+    langObserver.observe(document.documentElement, {
+      attributeFilter: ['lang'],
+    });
+
+    return () => {
+      langObserver.disconnect();
+    };
+  }, [preferredLocale]);
+};
+
 function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
@@ -31,6 +50,8 @@ function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithL
   const { intlMessages } = pageProps;
 
   const locale = getPreferredLocale(router.locale, router.query.lang);
+
+  useForceHtmlLangAttribute(locale);
 
   return (
     <>

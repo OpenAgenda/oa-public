@@ -11,6 +11,12 @@
       "value": "Mes événements"
     }
   ],
+  "next.components.Navbar.profileMenu": [
+    {
+      "type": 0,
+      "value": "Menu profil"
+    }
+  ],
   "next.components.Navbar.settings": [
     {
       "type": 0,
