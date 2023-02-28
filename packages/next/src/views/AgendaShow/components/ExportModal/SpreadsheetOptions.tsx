@@ -10,23 +10,23 @@ import {
 
 const messages = defineMessages({
   inputField: {
-    id: 'input-field',
+    id: 'next.views.AgendaShow.SpreadsheetOptions.input-field',
     defaultMessage: 'Select the fields to export',
   },
   allLanguages: {
-    id: 'all-languages',
+    id: 'next.views.AgendaShow.SpreadsheetOptions.all-languages',
     defaultMessage: 'Export in all languages',
   },
   allFields: {
-    id: 'all-fields',
+    id: 'next.views.AgendaShow.SpreadsheetOptions.all-fields',
     defaultMessage: 'Export every field',
   },
   selectAll: {
-    id: 'select-all',
+    id: 'next.views.AgendaShow.SpreadsheetOptions.select-all',
     defaultMessage: 'Select all',
   },
   distributeOptions: {
-    id: 'distribute-fields',
+    id: 'next.views.AgendaShow.SpreadsheetOptions.distribute-fields',
     defaultMessage: 'Fields with options: display one value per column',
   },
 });

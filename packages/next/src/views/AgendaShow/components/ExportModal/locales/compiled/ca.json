@@ -1,22 +1,4 @@
 {
-  "all-fields": [
-    {
-      "type": 0,
-      "value": "Export every field"
-    }
-  ],
-  "all-languages": [
-    {
-      "type": 0,
-      "value": "Export in all languages"
-    }
-  ],
-  "distribute-fields": [
-    {
-      "type": 0,
-      "value": "Fields with options: display one value per column"
-    }
-  ],
   "gcalStep2": [
     {
       "type": 0,
@@ -27,12 +9,6 @@
     {
       "type": 0,
       "value": "3. Follow the instructions by pasting the link you copied in step 1"
-    }
-  ],
-  "input-field": [
-    {
-      "type": 0,
-      "value": "Select the fields to export"
     }
   ],
   "instructions": [
@@ -119,6 +95,36 @@
       "value": "Export"
     }
   ],
+  "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
+    {
+      "type": 0,
+      "value": "Export every field"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
+    {
+      "type": 0,
+      "value": "Export in all languages"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
+    {
+      "type": 0,
+      "value": "Fields with options: display one value per column"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.input-field": [
+    {
+      "type": 0,
+      "value": "Select the fields to export"
+    }
+  ],
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": [
+    {
+      "type": 0,
+      "value": "Select all"
+    }
+  ],
   "outlookStep2": [
     {
       "type": 0,
@@ -141,12 +147,6 @@
     {
       "type": 0,
       "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
-    }
-  ],
-  "select-all": [
-    {
-      "type": 0,
-      "value": "Select all"
     }
   ]
 }
