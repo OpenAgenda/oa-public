@@ -97,24 +97,24 @@ module.exports = [{
   field: 'officializedAt',
   type: 'date',
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'image',
-  read: ['public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   type: 'pass',
   default: null
 }, {
   field: 'private',
   type: 'boolean',
   default: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'indexed',
   type: 'boolean',
   default: true,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'settings',
@@ -123,7 +123,7 @@ module.exports = [{
   fields: [{
     field: 'tracking',
     type: 'schema',
-    read: ['internal', 'public', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'googleAnalytics',
@@ -143,7 +143,7 @@ module.exports = [{
   }, {
     field: 'inbox',
     type: 'schema',
-    read: ['administrator', 'public', 'internal', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'public', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'mailto',
@@ -169,7 +169,7 @@ module.exports = [{
   }, {
     field: 'contribution',
     type: 'schema',
-    read: ['administrator', 'internal', 'public', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
     fields: [{
       field: 'type',
       default: c.OPEN,
