@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import omit from 'lodash/omit';
+import isEqual from 'lodash/isEqual';
 import qs from 'qs';
 import React, {
   forwardRef,
@@ -116,7 +117,7 @@ const FiltersManager = React.forwardRef(function FiltersManager({
       const newFilters = filtersOnPage.map(nextFilter => {
         const completedNext = withDefaultFilterConfig(nextFilter, intl, filtersOptions);
         const found = filters.find(v =>
-          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(completedNext, 'elemRef')));
+          JSON.stringify(omit(v, 'elemRef')) === JSON.stringify(omit(completedNext, 'elemRef')));
 
         // Conserve if found & elem has not changed
         return found && document.body.contains(found.elem) ? found : completedNext;
@@ -124,7 +125,7 @@ const FiltersManager = React.forwardRef(function FiltersManager({
 
       const newWidgets = widgetsOnPage.map(nextWidget => {
         const found = widgets.find(v =>
-          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(nextWidget, 'elemRef')));
+          JSON.stringify(omit(v, 'elemRef')) === JSON.stringify(omit(nextWidget, 'elemRef')));
 
         // Conserve if found & elem has not changed
         return found && document.body.contains(found.elem) ? found : nextWidget;
@@ -132,11 +133,11 @@ const FiltersManager = React.forwardRef(function FiltersManager({
 
       // Because re-render filters separatly to widgets throws an error
       unstableBatchedUpdates(() => {
-        if (!_.isEqual(filters, newFilters)) {
+        if (!isEqual(filters, newFilters)) {
           setFilters(newFilters);
         }
 
-        if (!_.isEqual(widgets, newWidgets)) {
+        if (!isEqual(widgets, newWidgets)) {
           setWidgets(newWidgets);
         }
 

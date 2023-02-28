@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isDate from 'lodash/isDate';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import { DateRange, DefinedRange } from 'react-date-range';
-import { useIntl } from 'react-intl';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
@@ -21,8 +21,8 @@ function normalizeValue(value) {
   }
 
   return value.map(v => ({
-    startDate: _.isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
-    endDate: _.isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
+    startDate: isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
+    endDate: isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
   }));
 }
@@ -127,8 +127,8 @@ function DateRangePicker(
   useIsomorphicLayoutEffect(() => {
     if (
       previousValue
-      && !_.isEqual(normalizeValue(input.value), normalizeValue(previousValue))
-      && !_.isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
+      && !isEqual(normalizeValue(input.value), normalizeValue(previousValue))
+      && !isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
     ) {
       setRanges(input.value);
     }

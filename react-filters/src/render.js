@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import omit from 'lodash/omit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import qs from 'qs';
@@ -75,7 +75,7 @@ export default function renderFiltersAndWidgets({
         filters={filters}
         widgets={widgets}
         onSubmit={wrapCallback(onFilterChange)}
-        initialValues={_.omit(initialValues, 'sort')}
+        initialValues={omit(initialValues, 'sort')}
         apiClient={apiClient}
         dateFnsLocale={dateFnsLocales[locale]}
       >
