@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const props: ShowPageProps = {
       agenda,
       intlMessages,
-      prefetch: [
+      preload: [
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
       ],

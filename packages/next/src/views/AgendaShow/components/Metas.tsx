@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import { SUPPORTED_LOCALES } from 'config/constants';
 
-export default function Metas({ agenda, query, prefetch }) {
+export default function Metas({ agenda, query, preload, prefetch }) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -56,6 +56,9 @@ export default function Metas({ agenda, query, prefetch }) {
         <meta property="twitter:image" content={agenda.image} />
       ) : null}
 
+      {preload?.map(href => (
+        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      ))}
       {prefetch?.map(href => (
         <link key={`prefetch-${href}`} rel="prefetch" href={href} />
       ))}
