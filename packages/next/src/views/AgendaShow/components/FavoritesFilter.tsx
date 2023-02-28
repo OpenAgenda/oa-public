@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import isMatch from 'lodash/isMatch';
+import omitBy from 'lodash/omitBy';
+import isEmpty from 'lodash/isEmpty';
 import { createElement, useCallback } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 import { defineMessages, useIntl } from 'react-intl';
@@ -15,7 +17,7 @@ const messages = defineMessages({
 });
 
 function matchQuery(a, b) {
-  return _.isMatch(_.omitBy(a, _.isEmpty), _.omitBy(b, _.isEmpty));
+  return isMatch(omitBy(a, isEmpty), omitBy(b, isEmpty));
 }
 
 function parse(value) {

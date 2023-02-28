@@ -83,11 +83,11 @@ const completeUrls = (agendaUid, queryString) => {
   let apiQuery = queryString;
   let jsonLegacyQuery = queryString; // JSONv1
   if (queryString.includes('passed=1')) {
-    jsonLegacyQuery = jsonLegacyQuery.replace('passed=1', 'relative[]=current&relative[]=upcoming&relative[]=passed');
     apiQuery = apiQuery.replace('passed=1', '');
+    jsonLegacyQuery = jsonLegacyQuery.replace('passed=1', 'relative[]=current&relative[]=upcoming&relative[]=passed');
   }
-  if (!queryString.includes('passed=1')) {
-    apiQuery = apiQuery.concat('relative[]=current&relative[]=upcoming');
+  if (!queryString.includes('passed=1') && !queryString.includes('relative') && !queryString.includes('timings')) {
+    apiQuery = apiQuery.length ? apiQuery.concat('&relative[]=current&relative[]=upcoming') : 'relative[]=current&relative[]=upcoming';
   }
 
   return {

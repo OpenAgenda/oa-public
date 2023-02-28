@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next';
-import { SWRConfig, unstable_serialize as unstableSerialize } from 'swr';
-import { getFilters, getEvents } from '@openagenda/react-filters';
+import { SWRConfig } from 'swr';
+import qs from 'qs';
+import { useIntl, createIntlCache, createIntl } from 'react-intl';
+import { getFilters, filtersToAggregations } from '@openagenda/react-filters';
 import { getSupportedLocale } from '@openagenda/intl';
 import VError from '@openagenda/verror';
-import { useIntl, createIntlCache, createIntl } from 'react-intl';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
@@ -77,45 +78,32 @@ export const getServerSideProps: GetServerSideProps = async ({
       relative: ['current', 'upcoming'],
     } : null;
 
-    const [
-      filtersBaseResult,
-      filtersResult,
-    ] = await Promise.all([
-      getEvents(
-        api,
-        '/api/agendas/slug/:slug/events',
-        agenda,
-        filters,
-        {
-          ...prefilter,
-          size: 0,
-        },
-        null,
-        true,
-      ),
-      getEvents(
-        api,
-        '/api/agendas/slug/:slug/events',
-        agenda,
-        filters,
-        {
-          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
-          ...prefilter,
-          ...query,
-          passed: undefined, // omit passed
-          includeFields: AgendaShow.includeFields,
-        },
-        // 1, // page
-      ),
-    ]);
+    const paramsBase = {
+      aggsSizeLimit: 2000,
+      aggs: filtersToAggregations(filters, true),
+      size: 0,
+      ...prefilter,
+    };
+
+    const params = {
+      aggsSizeLimit: 2000,
+      aggs: filtersToAggregations(filters, false),
+      sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+      size: 10,
+      ...prefilter,
+      ...query,
+      passed: undefined, // omit passed
+      includeFields: AgendaShow.includeFields,
+      includeImageTimestamps: true,
+    };
 
     const props: ShowPageProps = {
       agenda,
       intlMessages,
-      fallback: {
-        [unstableSerialize(['agendaShow', 'filtersBase', agenda.slug])]: filtersBaseResult,
-        [`$inf$${unstableSerialize(['agendaShow', 'events', agenda.slug, 0, query, query.after])}`]: [filtersResult],
-      },
+      prefetch: [
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
+      ],
     };
 
     return { props };
@@ -133,8 +121,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
 
     if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      console.error(e);
       if (process.env.NODE_ENV === 'development') {
+        console.error(e);
         props.errorStack = VError.fullStack(e);
       }
     }

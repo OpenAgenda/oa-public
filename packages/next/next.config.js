@@ -2,6 +2,7 @@ const withTM = require('next-transpile-modules')([
   '@openagenda/intl',
   '@openagenda/react-filters',
   '@openagenda/react-shared',
+  '@openagenda/sdk-js',
   '@openagenda/uikit',
 ]);
 
@@ -30,14 +31,22 @@ const config = async () => {
           protocol: 'https',
           hostname: 'cibul.s3.amazonaws.com',
         },
+        {
+          protocol: 'https',
+          hostname: 'images.openagenda.com',
+        },
       ].concat(NODE_ENV !== 'production' ? [
         {
           protocol: 'https',
           hostname: 'cibuldev.s3.amazonaws.com',
         },
+        {
+          protocol: 'https',
+          hostname: 'imagesdev-1cb1b.kxcdn.com',
+        },
       ] : []),
     },
-    productionBrowserSourceMaps: true,
+    // productionBrowserSourceMaps: true,
     eslint: {
       dirs: [
         'src',
@@ -45,7 +54,11 @@ const config = async () => {
         '.storybook',
         'stories',
       ],
+      // ignoreDuringBuilds: true,
     },
+    // typescript: {
+    //   ignoreBuildErrors: true,
+    // },
     experimental: {
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },

@@ -91,6 +91,7 @@ module.exports = core => {
     '/agendas/:agendaUid.prv',
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
+    useCache: true,
     includeEvent: true,
     detailed: (req.query.detailed ?? '1') === '1',
     private: req.member ? null : false,
@@ -534,7 +535,6 @@ module.exports = core => {
       }, req.query, {
         useAfterKey: true,
         userUid: req.user?.uid,
-        useDefaultImage: true,
       }).then(result => res.json({
         success: true,
         ...result,
