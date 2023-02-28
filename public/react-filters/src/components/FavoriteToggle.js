@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useEffect, useRef, useCallback, useMemo } from 'react';
 import { useLatest } from 'react-use';
 import { useForm } from 'react-final-form';
@@ -75,7 +75,7 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
     const formValues = form.getState().values;
 
     // if favorties filter checked
-    if (formValues.favorites && !_.isEqual(formValues.uid, value)) {
+    if (formValues.favorites && !isEqual(formValues.uid, value)) {
       updateFormValues(form, {
         uid: value || ['-1']
       });

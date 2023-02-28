@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import get from 'lodash/get';
 import { useCallback } from 'react';
 import { defineMessages } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
@@ -48,7 +48,7 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
 
       return baseAgg.map(entry => {
         const dataKey = 'id' in entry ? 'id' : 'key';
-        const labelValue = _.get(entry, labelKey);
+        const labelValue = get(entry, labelKey);
 
         return {
           ...entry,

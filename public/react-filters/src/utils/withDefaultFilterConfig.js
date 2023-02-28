@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
 import { getLocaleValue } from '@openagenda/intl';
 import relativeOptions from '../messages/relative';
 import attendanceModeOptions from '../messages/attendanceMode';
@@ -28,12 +28,12 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
 
   switch (filter.name) {
     case 'viewport':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'none',
       });
       break;
     case 'geo':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'map',
         aggregation: null,
         // props for MapFilter
@@ -43,7 +43,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'addMethod':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -65,7 +65,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'accessibility':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -95,13 +95,13 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'languages':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null,
       });
       break;
     case 'memberUid':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         labelKey: 'member.name',
@@ -111,28 +111,28 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'timings':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
       assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'createdAt':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
       assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'updatedAt':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
       assignDateRanges(filter, intl, dataFnsLocale);
       break;
     case 'state':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -158,13 +158,13 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'search':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'search',
         aggregation: null,
       });
       break;
     case 'locationUid':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         labelKey: 'location.name',
@@ -174,7 +174,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'sourceAgendaUid':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         labelKey: 'agenda.title',
@@ -184,7 +184,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'originAgendaUid':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         labelKey: 'agenda.title',
@@ -194,7 +194,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'featured':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -206,7 +206,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'relative':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -225,7 +225,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'attendanceMode':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         aggregation: {
           type: 'attendanceModes',
@@ -247,7 +247,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'region':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         missingValue,
@@ -257,7 +257,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'department':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         missingValue,
@@ -267,7 +267,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'city':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         missingValue,
@@ -277,7 +277,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'adminLevel3':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         missingValue,
@@ -287,7 +287,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'district':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         missingValue,
@@ -297,7 +297,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'keyword':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: null, // from the aggregation
         aggregation: {
@@ -306,7 +306,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'status':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'choice',
         options: [
           {
@@ -340,7 +340,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       });
       break;
     case 'favorites':
-      _.defaults(filter, {
+      defaults(filter, {
         type: 'favorites',
         aggregation: null,
       });
@@ -371,7 +371,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         value: String(option.id),
       }));
 
-    _.defaults(filter, {
+    defaults(filter, {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,

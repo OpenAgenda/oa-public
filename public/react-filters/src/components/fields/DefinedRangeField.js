@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isDate from 'lodash/isDate';
 import React, { useCallback, useState } from 'react';
 import { DefinedRange } from 'react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
@@ -17,8 +18,8 @@ function normalizeValue(value) {
   }
 
   return value.map(v => ({
-    startDate: _.isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
-    endDate: _.isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
+    startDate: isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
+    endDate: isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
   }));
 }
@@ -58,8 +59,8 @@ function DefinedRangeField(
   useIsomorphicLayoutEffect(() => {
     if (
       previousValue
-      && !_.isEqual(normalizeValue(input.value), normalizeValue(previousValue))
-      && !_.isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
+      && !isEqual(normalizeValue(input.value), normalizeValue(previousValue))
+      && !isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
     ) {
       setRanges(input.value);
     }
