@@ -20,15 +20,14 @@ export default function SearchWithMap({
   const intl = useIntl();
 
   return (
-    <label htmlFor="map-filter-2" className={className}>
-      <Checkbox
-        name={`${name}-userControlled`}
-        isChecked={userControlled}
-        onChange={toggleUserControlled}
-        colorScheme="primary"
-      >
-        {searchMessage || intl.formatMessage(mapMessages.searchWithMap)}
-      </Checkbox>
-    </label>
+    <Checkbox
+      name={`${name}-userControlled`}
+      isChecked={userControlled}
+      onChange={toggleUserControlled}
+      colorScheme="primary"
+      className={className}
+    >
+      {searchMessage || intl.formatMessage(mapMessages.searchWithMap)}
+    </Checkbox>
   );
 }

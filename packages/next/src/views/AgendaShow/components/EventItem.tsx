@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
@@ -27,9 +27,11 @@ import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pr
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import upperFirst from 'utils/upperFirst';
+import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 
-const IMAGE_PREFIX = 'https://cibul.s3.amazonaws.com/';
+const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
+const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 const messages = defineMessages({
   featured: {
@@ -82,7 +84,7 @@ function FavoriteButton({ agenda, event }) {
     const value = agendaFavorites?.map(String);
 
     // if favorties filter checked
-    if (formValues.favorites && !_.isEqual(formValues.uid, value)) {
+    if (formValues.favorites && !isEqual(formValues.uid, value)) {
       form.change('uid', agendaFavorites?.length ? value : ['-1']);
     }
   }, [form, event.uid, agendaFavorites]);
@@ -190,10 +192,16 @@ function EventItem({ event, agenda, imagePriority = false }) {
         {event.image
           ? event.image?.size?.width && event.image?.size?.height ? (
             <Image
-              src={`${IMAGE_PREFIX}${event.image.filename}`}
+              src={process.env.NODE_ENV === 'development'
+                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                : `${IMAGE_PREFIX}${event.image.filename}`}
+              fallbackSrc={process.env.NODE_ENV === 'development'
+                ? `${IMAGE_PREFIX}${event.image.filename}`
+                : undefined}
+              fallbackStrategy="onError"
               width={event.image.size.width}
               height={event.image.size.height}
-              unoptimized
+              loader={keyCDNLoader}
               alt=""
               m="auto"
               w="full"
@@ -207,7 +215,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
               pos="unset !important"
               w="full !important"
               h="auto !important"
-              unoptimized
+              loader={keyCDNLoader}
               alt=""
               m="auto"
               priority={imagePriority}

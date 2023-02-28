@@ -6,7 +6,7 @@
   "next.views.AgendaError.internalErrorMsg": "Si le problème persiste, veuillez contacter le support.",
   "next.views.AgendaError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
   "next.views.AgendaError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
-  "next.views.AgendaError.requestInvitation": "Demande une invitation",
+  "next.views.AgendaError.requestInvitation": "Demander une invitation",
   "next.views.AgendaError.restrictedAccess": "Accés restreint",
   "next.views.AgendaError.searchAgenda": "Rechercher un agenda",
   "next.views.AgendaError.signIn": "Se connecter",

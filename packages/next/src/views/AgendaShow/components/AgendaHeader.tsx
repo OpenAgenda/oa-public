@@ -20,6 +20,7 @@ import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
 import useLocationQuery from 'hooks/useLocationQuery';
+import keyCDNLoader from 'utils/keyCDNLoader';
 import AggregateModal from './AggregateModal';
 import ExportModal from './ExportModal';
 
@@ -55,6 +56,14 @@ function getMailtoUrl(mailtoSettings) {
   }, { addQueryPrefix: true, skipNulls: true })}`;
 }
 
+const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
+
+function getImageSrc(src) {
+  const url = new URL(src);
+  url.host = keyCdnUrl.host;
+  return url.href;
+}
+
 export default function AgendaHeader({ agenda }) {
   const isDev = process.env.NODE_ENV === 'development';
 
@@ -83,12 +92,14 @@ export default function AgendaHeader({ agenda }) {
           rounded="full"
           width="140"
           height="140"
-          src={agenda.image}
-          fallbackSrc={isDev ? agenda.image.replace('cibuldev', 'cibul') : undefined}
+          src={getImageSrc(agenda.image)}
+          fallbackSrc={isDev
+            ? agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
+            : undefined}
           fallbackStrategy="onError"
           alt=""
           draggable={false}
-          unoptimized
+          loader={keyCDNLoader}
           border="3px solid white"
           h="140px"
           fit="cover"

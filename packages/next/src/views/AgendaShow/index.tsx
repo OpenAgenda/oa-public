@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import Head from 'next/head';
 import { defineMessages, useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
@@ -20,8 +19,6 @@ import {
   Container,
   Flex,
   Text,
-  Grid,
-  GridItem,
   NoBreak,
   Link,
   useConst,
@@ -46,7 +43,7 @@ import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ConsentBanner from 'components/ConsentBanner';
-import { SUPPORTED_LOCALES } from 'config/constants';
+import Metas from './components/Metas';
 import EventItem from './components/EventItem';
 import Form from './components/Form';
 import FiltersPreview from './components/FiltersPreview';
@@ -58,6 +55,8 @@ import FavoritesFilter from './components/FavoritesFilter';
 import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
 import ResponsiveDrawer from './components/Drawer';
+import LoadingPage from './components/LoadingPage';
+import ContentGrid from './components/ContentGrid';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
@@ -74,9 +73,10 @@ export type AgendaShowProps = {
     indexed: boolean | number,
     image?: string,
   },
+  prefetch?: string[]
 };
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 const messages = defineMessages({
   totalEvents: {
@@ -164,7 +164,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
     if (disabled) return;
 
     router.push(passedUrl, null, { shallow: true });
-  }, [disabled, passedUrl, router.push]);
+  }, [disabled, passedUrl, router]);
 
   return (
     <Text
@@ -189,7 +189,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
   );
 }
 
-function AgendaShow({ agenda }: AgendaShowProps) {
+function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
@@ -245,6 +245,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         size: 0,
         relative: upcomingOnly ? ['current', 'upcoming'] : undefined,
       },
+      null, // pageParam
+      true, // filtersBase
     ),
   );
 
@@ -272,6 +274,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
       pageIndex === 0 ? filters : [], // need aggs only for first page
       {
         sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+        size: 10,
         ...upcomingOnly ? {
           relative: ['current', 'upcoming'],
         } : null,
@@ -279,11 +282,12 @@ function AgendaShow({ agenda }: AgendaShowProps) {
         after,
         passed: undefined, // omit passed
         includeFields,
+        includeImageTimestamps: true,
       },
     ),
     {
       revalidateFirstPage: false,
-      revalidateOnMount: false,
+      // revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -296,16 +300,20 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           mapElem.onQueryChange(newData[0].aggregations.viewport);
         }
 
-        router.push(
-          new URL(router.asPath, 'http://n').pathname + qs.stringify(query, { addQueryPrefix: true }),
-          null,
-          { shallow: true },
-        );
+        const url = new URL(router.asPath, 'http://n').pathname + qs.stringify(query, { addQueryPrefix: true });
+
+        if (url !== window.location.pathname + window.location.search) {
+          router.push(
+            new URL(router.asPath, 'http://n').pathname + qs.stringify(query, { addQueryPrefix: true }),
+            null,
+            { shallow: true },
+          );
+        }
       },
     },
   );
 
-  const { aggregations } = pages[0];
+  const aggregations = pages?.[0].aggregations ?? {};
   const [initialViewport] = useState(() => aggregations.viewport);
 
   const isLoadingInitialData = !pages && !error;
@@ -364,7 +372,7 @@ function AgendaShow({ agenda }: AgendaShowProps) {
 
   const eventsLdJSON = useMemo(() => {
     const eventSchemas = pages
-      .flatMap(p => p.events)
+      ?.flatMap(p => p.events)
       .map(event => toEventSchema(event, {
         locale: intl.locale,
         formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
@@ -373,79 +381,46 @@ function AgendaShow({ agenda }: AgendaShowProps) {
     return stringify(eventSchemas);
   }, [agenda.slug, intl.locale, pages]);
 
-  const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
-
   const seeMoreUrl = useMemo(() => {
     const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
     url.search = qs.stringify({
       ...query,
-      after: pages.at(-1).after,
+      after: pages?.at(-1).after,
     });
     return url.pathname + url.search;
-  }, [router.asPath, pages]);
+  }, [router.asPath, query, pages]);
 
   const nextPage = useCallback(e => {
     e.preventDefault();
     setSize(s => s + 1);
   }, [setSize]);
 
-  const pageTitle = `${agenda.title} | OpenAgenda`;
+  const header = (
+    <Box as="header" w="full" bg="#413a42" px="4" py="8">
+      <Container maxW="container.xl" color="white">
+        <AgendaHeader agenda={agenda} />
+      </Container>
+    </Box>
+  );
+
+  if (isLoadingInitialData) {
+    return (
+      <>
+        <Metas agenda={agenda} query={query} prefetch={prefetch} />
+        {header}
+        <LoadingPage />
+      </>
+    );
+  }
 
   return (
     <>
       <main>
-        <Head>
-          <title>{pageTitle}</title>
-          {agenda.indexed ? (
-            <meta name="robots" content={`${query.passed || query.after ? 'noindex' : 'index'}, follow`} />
-          ) : (
-            <meta name="robots" content="noindex, nofollow" />
-          )}
-
-          <link rel="canonical" href={absUrl.origin + absUrl.pathname} />
-          {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
-            <link
-              key={`alternate:${key}`}
-              rel="alternate"
-              hrefLang={key}
-              href={SUPPORTED_LOCALES.includes(key)
-                ? `${absUrl.origin}/${key}${absUrl.pathname}`
-                : `${absUrl.origin}${absUrl.pathname}?lang=${key}`}
-            />
-          )))}
-          <link rel="alternate" hrefLang="x-default" href={absUrl.origin + absUrl.pathname} />
-
-          <meta property="og:site_name" content="OpenAgenda" />
-          <meta property="og:title" content={`${agenda.title} | OpenAgenda`} />
-          <meta property="og:description" content={agenda.description} />
-          {/* <meta property="og:type" content="website" /> */}
-          <meta property="og:locale" content={intl.locale} />
-          {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
-            <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
-          )))}
-          <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
-          {agenda.image ? (
-            <meta property="og:image" content={agenda.image} />
-          ) : null}
-
-          <meta property="twitter:card" content="summary" />
-          <meta property="twitter:site" content={process.env.NEXT_PUBLIC_SITE_DOMAIN} />
-          <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
-          <meta property="twitter:description" content={agenda.description} />
-          <meta property="twitter:domain" content="@oagenda" />
-          <meta property="twitter:url" content={absUrl.origin + absUrl.pathname} />
-          {agenda.image ? (
-            <meta property="twitter:image" content={agenda.image} />
-          ) : null}
-        </Head>
+        <Metas agenda={agenda} query={query} prefetch={prefetch} />
 
         {user ? <ContextBar agenda={agenda} /> : null}
 
-        <Box as="header" w="full" bg="#413a42" px="4" py="8">
-          <Container maxW="container.xl" color="white">
-            <AgendaHeader agenda={agenda} />
-          </Container>
-        </Box>
+        {header}
 
         <FiltersProvider
           onSubmit={onFilterChange}
@@ -455,54 +430,25 @@ function AgendaShow({ agenda }: AgendaShowProps) {
           ref={filtersFormRef}
           filters={filters}
         >
-          <Grid
-            templateAreas={{
-              base: `"filters"
-                     "total"
-                     "events"`,
-              lg: `"total ."
-                   "events filters"`,
-            }}
-            gridTemplateColumns={{
-              base: '1fr',
-              lg: '2fr minmax(380px, 1fr)',
-            }}
-            rowGap="8"
-            columnGap={{ xl: '24' }}
-            pt="8"
-            m="auto"
-            maxW="container.xl"
-          >
-            <GridItem area="total">
-              <Flex direction="row" gap="8">
-                <chakra.div
-                  w={{ base: 'full', xl: '25%' }}
-                  display={{ base: 'none', xl: 'block' }}
+          <ContentGrid
+            total={(
+              <>
+                <FiltersPreview
+                  agenda={agenda}
+                  filters={filters}
+                  getOptions={getOptions}
+                  disabled={isLoadingMore}
                 />
-                <Flex
-                  gap="6"
-                  direction="column"
-                  w={{ base: 'full', xl: '75%' }}
-                  px={{ base: '4', xl: '0' }}
-                >
-                  <FiltersPreview
-                    agenda={agenda}
-                    filters={filters}
-                    getOptions={getOptions}
-                    disabled={isLoadingMore}
-                  />
 
-                  <Total
-                    total={pages[0].total}
-                    upcomingOnly={upcomingOnly}
-                    passed={query.passed === '1'}
-                    disabled={isLoadingMore || query.timings}
-                  />
-                </Flex>
-              </Flex>
-            </GridItem>
-
-            <GridItem area="filters">
+                <Total
+                  total={pages[0].total}
+                  upcomingOnly={upcomingOnly}
+                  passed={query.passed === '1'}
+                  disabled={isLoadingMore || query.timings}
+                />
+              </>
+            )}
+            filters={(
               <Form gap="8" mb={{ base: '0', lg: '12' }}>
                 <Search
                   disabled={false}
@@ -545,10 +491,6 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                           dateRangeComponent={DateRangeFilter as any}
                           choiceComponent={ChoiceFilter as any}
                           mapComponent={MapFilter as any}
-                          // mapProps={{
-                          //   displayed: mapDisplayed,
-                          //   defaultPaused: true, // TODO defaultPaused because default hidden
-                          // }}
                           getTotal={getTotal}
                           getOptions={getOptions}
                           initialViewport={initialViewport}
@@ -589,9 +531,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                   </ResponsiveDrawer>
                 </div>
               </Form>
-            </GridItem>
-
-            <GridItem area="events">
+            )}
+            events={(
               <Flex direction="column" flex="2" gap="10" mb="12">
                 {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
                   <EventItem
@@ -618,8 +559,8 @@ function AgendaShow({ agenda }: AgendaShowProps) {
                   </Flex>
                 ) : null}
               </Flex>
-            </GridItem>
-          </Grid>
+            )}
+          />
         </FiltersProvider>
       </main>
 

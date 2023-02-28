@@ -21,6 +21,8 @@ import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
 import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
+import keyCDNLoader from 'utils/keyCDNLoader';
+import graylogo140 from '../../../../../public/images/graylogo140.png';
 import messages from './messages';
 
 const PAGE_SIZE = 20;
@@ -35,31 +37,41 @@ function LoadingBody() {
   );
 }
 
-function EventItem({ agenda, event }) {
+function EventImage({ src, loader = null }) {
   const isDev = process.env.NODE_ENV === 'development';
 
+  return (
+    <Image
+      rounded="full"
+      width="56"
+      height="56"
+      src={src}
+      fallbackSrc={isDev && typeof src === 'string'
+        ? src.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
+        : undefined}
+      fallbackStrategy="onError"
+      alt=""
+      draggable={false}
+      loader={loader}
+      // border="3px solid white"
+      h="56px"
+      fit="cover"
+    />
+  );
+}
+
+function EventItem({ agenda, event }) {
   const intl = useIntl();
 
-  const imageSrc = event.image && `${event.image.base}${event.image.filename}`;
+  const imageSrc = event.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
 
   return (
     <HStack>
       {imageSrc ? (
-        <Image
-          rounded="full"
-          width="56"
-          height="56"
-          src={imageSrc}
-          fallbackSrc={isDev ? imageSrc.replace('cibuldev', 'cibul') : undefined}
-          fallbackStrategy="onError"
-          alt=""
-          draggable={false}
-          unoptimized
-          // border="3px solid white"
-          h="56px"
-          fit="cover"
-        />
-      ) : null}
+        <EventImage src={imageSrc} loader={keyCDNLoader} />
+      ) : (
+        <EventImage src={graylogo140} />
+      )}
 
       <div>
         {event.draft ? (
