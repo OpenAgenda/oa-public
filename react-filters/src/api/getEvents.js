@@ -1,8 +1,6 @@
 import qs from 'qs';
 import filtersToAggregations from '../utils/filtersToAggregations';
 
-const PAGE_SIZE = 20;
-
 export default async function getEvents(
   apiClient,
   jsonExportRes,
@@ -11,11 +9,12 @@ export default async function getEvents(
   query,
   pageParam,
   filtersBase,
+  pageSize = 20,
 ) {
   const params = {
     aggsSizeLimit: 2000,
     aggs: filtersToAggregations(filters, filtersBase),
-    from: pageParam > 1 ? (pageParam - 1) * PAGE_SIZE : undefined,
+    from: pageParam > 1 ? (pageParam - 1) * pageSize : undefined,
     ...query,
   };
 
