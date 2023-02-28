@@ -3,7 +3,10 @@
 const verifyAndLoadAccessTokenUser = require('./verifyAndLoadAccessTokenUser');
 
 module.exports = async (req, res, next) => {
-  const { accessTokens } = req.app.services;
+  const {
+    accessTokens,
+    keys: keysSvc,
+  } = req.app.services;
 
   if (req.user) {
     return next();
@@ -19,10 +22,18 @@ module.exports = async (req, res, next) => {
     return next();
   }
 
+  req.user = await accessTokens.getUserFromKey(req.query.key).then(u => u, () => null);
+
+  if (!req.user && req.query.key) {
+    req.agendaKey = await keysSvc({
+      type: 'agendaFullRead',
+      key: req.query.key,
+    }).get({ cache: true });
+  }
+
   try {
-    req.user = await accessTokens.getUserFromKey(req.query.key);
-    if (!req.user) {
-      throw new Error('could not find user matching token');
+    if (!req.user && !req.agendaKey) {
+      throw new Error('could not find user or calendar matching key');
     }
   } catch (e) {
     return res.status(403).json({

@@ -17,6 +17,10 @@ module.exports = async (core, agendaUid, options = {}) => {
     return options.access;
   }
 
+  if (options.agendaKey?.identifier === agendaUid) {
+    return 'administrator';
+  }
+
   if (!options.userUid) {
     return null;
   }

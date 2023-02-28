@@ -42,4 +42,12 @@ raw.push(knex('reviewer').insert([
   }),
 ]));
 
+raw.push(knex('key').insert([{
+  type: 'agendaFullRead',
+  identifier: 123,
+  created_at: new Date(),
+  label: 'Wigglypoof',
+  key: 'e830934e9d1848189ac74de3bfa7df0a',
+}]));
+
 module.exports = `${raw.join(';\n')};`;
