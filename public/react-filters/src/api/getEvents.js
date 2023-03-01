@@ -1,8 +1,9 @@
 import qs from 'qs';
+import fetch from 'cross-fetch';
 import filtersToAggregations from '../utils/filtersToAggregations';
 
 export default async function getEvents(
-  apiClient,
+  _apiClient,
   jsonExportRes,
   agenda,
   filters,
@@ -22,10 +23,9 @@ export default async function getEvents(
     .replace(':slug', agenda.slug)
     .replace(':uid', agenda.uid);
 
-  const request = apiClient.get(url, {
-    params,
-    paramsSerializer: p => qs.stringify(p, { skipNulls: true }),
-  });
-
-  return (await request).data;
+  return fetch(`${url}?${qs.stringify(params, { skipNulls: true })}`)
+    .then(r => {
+      if (r.ok) return r.json();
+      throw new Error('Can\'t list events');
+    });
 }
