@@ -314,7 +314,6 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   );
 
   const aggregations = pages?.[0].aggregations ?? {};
-  const [initialViewport] = useState(() => aggregations.viewport);
 
   const isLoadingInitialData = !pages && !error;
   const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
@@ -493,7 +492,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
                           mapComponent={MapFilter as any}
                           getTotal={getTotal}
                           getOptions={getOptions}
-                          initialViewport={initialViewport}
+                          initialViewport={aggregations.viewport}
                           loadGeoData={loadGeoData}
                           withRef
                         />
