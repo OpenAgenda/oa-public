@@ -1,15 +1,16 @@
 'use strict';
 
 const fs = require('fs');
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const mode = process.env.NODE_ENV || 'production';
 
 const jsEntryFiles = fs
   .readdirSync(`${__dirname}/../client`)
   .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
 
 module.exports = {
-  mode: 'development',
+  mode,
   context: `${__dirname}/../`,
   optimization: { minimize: true },
   entry: jsEntryFiles.reduce(
