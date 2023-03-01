@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.9.2",
+  "version": "6.9.3",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
