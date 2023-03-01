@@ -73,7 +73,7 @@ export type AgendaShowProps = {
     indexed: boolean | number,
     image?: string,
   },
-  prefetch?: string[]
+  preload?: string[]
 };
 
 const PAGE_SIZE = 10;
@@ -189,7 +189,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
   );
 }
 
-function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
+function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
@@ -314,7 +314,6 @@ function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
   );
 
   const aggregations = pages?.[0].aggregations ?? {};
-  const [initialViewport] = useState(() => aggregations.viewport);
 
   const isLoadingInitialData = !pages && !error;
   const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
@@ -406,7 +405,7 @@ function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
   if (isLoadingInitialData) {
     return (
       <>
-        <Metas agenda={agenda} query={query} prefetch={prefetch} />
+        <Metas agenda={agenda} query={query} preload={preload} />
         {header}
         <LoadingPage />
       </>
@@ -416,7 +415,7 @@ function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
   return (
     <>
       <main>
-        <Metas agenda={agenda} query={query} prefetch={prefetch} />
+        <Metas agenda={agenda} query={query} preload={preload} />
 
         {user ? <ContextBar agenda={agenda} /> : null}
 
@@ -493,7 +492,7 @@ function AgendaShow({ agenda, prefetch }: AgendaShowProps) {
                           mapComponent={MapFilter as any}
                           getTotal={getTotal}
                           getOptions={getOptions}
-                          initialViewport={initialViewport}
+                          initialViewport={aggregations.viewport}
                           loadGeoData={loadGeoData}
                           withRef
                         />
