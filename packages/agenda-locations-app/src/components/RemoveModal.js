@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
@@ -32,30 +32,6 @@ const messages = defineMessages({
     id: 'AgendaLocations.RemoveModal.removeComplete',
     defaultMessage: 'The location was removed',
   },
-  cannotRemoveStart: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveStart',
-    defaultMessage: '{count, plural, =0 {nothing} one {The location is associated to one event,} other {The location is associated to # events,}}',
-  },
-  cannotRemoveLink: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveLink',
-    defaultMessage: '{count, plural, =0 { none of which} one { one of which} other { # of which}}',
-  },
-  cannotRemoveEnd: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveEnd',
-    defaultMessage: '{count, plural, =0 {has been contributed on the agenda.} one { has been contributed on the agenda.} other { have been contributed on the agenda. By deleting the location, the associated events will also be deleted.}}',
-  },
-  cannotRemoveStartEq: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveStartEq',
-    defaultMessage: 'The location is associated to ',
-  },
-  cannotRemoveLinkEq: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveLinkEq',
-    defaultMessage: '{count, plural, =0 {nothing} one {one event.} other {# events.}}',
-  },
-  cannotRemoveEndEq: {
-    id: 'AgendaLocations.RemoveModal.cannotRemoveEndEq',
-    defaultMessage: '{count, plural, =0 {nothing} one { By deleting the location, the associated event will also be deleted.} other { By deleting the location, the associated events will also be deleted.}}',
-  },
   notRemove: {
     id: 'AgendaLocations.RemoveModal.notRemove',
     defaultMessage: '{count, plural, =0 {nothing} one { Do not delete the event} other {Do not delete # events}}',
@@ -68,13 +44,21 @@ const messages = defineMessages({
     id: 'AgendaLocations.RemoveModal.removeEvents',
     defaultMessage: '{count, plural, =0 {nothing} one {Delete the event.} other {Delete the # events.}}',
   },
+  infoText: {
+    id: 'AgendaLocations.RemoveModal.infoText',
+    defaultMessage: 'The location is associated to {eventCount, plural, =0 {nothing} one {one event} other {# events}}, {agendaEventCount, plural, =0 {none of which has been contributed on the agenda.} one {<link>one of which</link> has been contributed on the agenda.} other {<link># of which</link> have been contributed on the agenda.}}',
+  },
+  infoTextEq: {
+    id: 'AgendaLocations.RemoveModal.infoTextEq',
+    defaultMessage: 'The location is associated to {eventCount, plural, =0 {nothing} one {<link>one event.</link> By deleting the location, the associated event will also be deleted.} other {<link># events.</link> By deleting the location, the associated events will also be deleted.}}',
+  },
 });
 
 const RemoveLocationModal = ({
   modal,
   onClose,
   onRemove,
-  seeEventsLink
+  seeEventsLink,
 }) => {
   const [removeEvents, setRemoveEvents] = useState(false);
   const intl = useIntl();
@@ -121,50 +105,32 @@ const RemoveLocationModal = ({
 
   const renderWithEventsModal = () => {
     let infoText = (
-      <div className="margin-v-sm">
+      <div className="margin-bottom-sm">
         <p className="text-left">
-          <FormattedMessage values={{ count: eventCount }} {...messages.cannotRemoveStart} />
-          <a href={seeEventsLink}>
-            <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveLink} />
-          </a>
-          <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveEnd} />
+          {intl.formatMessage(messages.infoText, { eventCount, agendaEventCount, link: chunks => <a href={seeEventsLink}>{chunks}</a> })}
         </p>
       </div>
     );
     if (eventCount === agendaEventCount) {
       infoText = (
         <span>
-          <p className="text-left">
-            <FormattedMessage {...messages.cannotRemoveStartEq} />
-            <a href={seeEventsLink}>
-              <FormattedMessage values={{ count: eventCount }} {...messages.cannotRemoveLinkEq} />
-            </a>
-            <FormattedMessage values={{ count: eventCount }} {...messages.cannotRemoveEndEq} />
-          </p>
+          <p>{intl.formatMessage(messages.infoTextEq, { eventCount, link: chunks => <a href={seeEventsLink}>{chunks}</a> })}</p>
         </span>
-      );
-    } else if (agendaEventCount === 0) {
-      infoText = (
-        <p className="text-left">
-          <FormattedMessage values={{ count: eventCount }} {...messages.cannotRemoveStart} />
-          <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveLink} />
-          <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveEnd} />
-        </p>
       );
     }
     return (
-      <div className="form-group margin-v-sm">
+      <div className="form-group">
         {infoText}
         <div className="radio margin-v-sm">
-          <label htmlFor="withoutEvents" onClick={() => setRemoveEvents(false)}>
-            <input type="radio" id="withoutEvents" name="withEvents" checked={removeEvents === false} />
+          <label htmlFor="withoutEvents">
+            <input type="radio" id="withoutEvents" name="withEvents" checked={removeEvents === false} onClick={() => setRemoveEvents(false)} />
             <FormattedMessage values={{ count: eventCount }} {...messages.notRemove} />
             <div className="text-muted"><FormattedMessage values={{ count: eventCount }} {...messages.notRemoveInfo} /></div>
           </label>
         </div>
         <div className="radio margin-v-sm">
-          <label htmlFor="withEvents" onClick={() => setRemoveEvents(true)}>
-            <input type="radio" id="withEvents" name="withEvents" checked={removeEvents === true} />
+          <label htmlFor="withEvents">
+            <input type="radio" id="withEvents" name="withEvents" checked={removeEvents === true} onClick={() => setRemoveEvents(true)} />
             <FormattedMessage values={{ count: eventCount }} {...messages.removeEvents} />
           </label>
         </div>
@@ -190,6 +156,7 @@ const RemoveLocationModal = ({
 
   return (
     <Modal
+      classNames={{ overlay: 'popup-overlay big' }}
       title={intl.formatMessage(messages.removeTitle)}
       onClose={onClose}
     >
