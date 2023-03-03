@@ -1,4 +1,4 @@
-import React from 'react';
+
 import '@openagenda/bs-templates/compiled/main.css';
 
 import SearchInput from '../src/components/SearchInput';
