@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import React, {
-  useCallback, useMemo, useReducer, useEffect
-} from 'react';
+import { useCallback, useMemo, useReducer, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
@@ -45,20 +43,22 @@ export default function DefineRules({
 }) {
   const intl = useIntl();
 
-  const initialState = useMemo(() => getInitialState(initialRules), [
-    initialRules,
-  ]);
+  const initialState = useMemo(
+    () => getInitialState(initialRules),
+    [initialRules],
+  );
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const setMode = useCallback(
-    (mode, options = {}) => dispatch({
-      type: 'setMode',
-      payload: {
-        mode,
-        options,
-      },
-    }),
-    [dispatch]
+    (mode, options = {}) =>
+      dispatch({
+        type: 'setMode',
+        payload: {
+          mode,
+          options,
+        },
+      }),
+    [dispatch],
   );
 
   const setModeList = useCallback(() => setMode('list'), [setMode]);
@@ -69,7 +69,7 @@ export default function DefineRules({
         intl,
         values,
         aggregatorAgendaSchema,
-        sourceSchema
+        sourceSchema,
       );
 
       if (errors) {
@@ -87,7 +87,7 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [intl, aggregatorAgendaSchema, sourceSchema, setMode]
+    [intl, aggregatorAgendaSchema, sourceSchema, setMode],
   );
   const updateRule = useCallback(
     values => {
@@ -95,7 +95,7 @@ export default function DefineRules({
         intl,
         values,
         aggregatorAgendaSchema,
-        sourceSchema
+        sourceSchema,
       );
 
       if (errors) {
@@ -114,16 +114,17 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [intl, aggregatorAgendaSchema, sourceSchema, state.modeOptions.id, setMode]
+    [intl, aggregatorAgendaSchema, sourceSchema, state.modeOptions.id, setMode],
   );
   const removeRule = useCallback(
-    id => dispatch({
-      type: 'removeRule',
-      payload: {
-        id,
-      },
-    }),
-    [dispatch]
+    id =>
+      dispatch({
+        type: 'removeRule',
+        payload: {
+          id,
+        },
+      }),
+    [dispatch],
   );
 
   const addRules = useCallback(
@@ -155,17 +156,18 @@ export default function DefineRules({
         }
       }
     },
-    [addRule, aggregatorAgendaSchema]
+    [addRule, aggregatorAgendaSchema],
   );
   const reorderRules = useCallback(
-    (startIndex, endIndex) => dispatch({
-      type: 'reorderRules',
-      payload: {
-        startIndex,
-        endIndex,
-      },
-    }),
-    [dispatch]
+    (startIndex, endIndex) =>
+      dispatch({
+        type: 'reorderRules',
+        payload: {
+          startIndex,
+          endIndex,
+        },
+      }),
+    [dispatch],
   );
 
   useEffect(() => {
@@ -180,7 +182,7 @@ export default function DefineRules({
 
   const initialValues = useMemo(() => {
     const ruleToUpdate = state.rules.find(
-      rule => rule.id === state.modeOptions.id
+      rule => rule.id === state.modeOptions.id,
     );
 
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
@@ -191,7 +193,7 @@ export default function DefineRules({
       return false;
     }
     const ruleToUpdate = state.rules.find(
-      rule => rule.id === state.modeOptions.id
+      rule => rule.id === state.modeOptions.id,
     );
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
   }, [state.rules, state.mode, state.modeOptions.id, aggregatorAgendaSchema]);
