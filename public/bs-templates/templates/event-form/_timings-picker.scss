@@ -521,6 +521,10 @@ $dayInWeek: 7;
   text-transform: capitalize;
 }
 
+.rtp__calendar .rtp__days .rtp__row .rtp__col.rtp__other-month {
+    opacity: 0.6;
+  }
+
 .rtp__calendar .rtp__scheduler {
   border: 1px solid $oa-gray-light;
   position: relative;
