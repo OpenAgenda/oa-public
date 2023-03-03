@@ -21,24 +21,19 @@ function getScrollbarWidth(elem) {
 }
 
 function Weekdays({
-  activeWeek, weekStartsOn, classNamePrefix, intl
+  activeWeek, weekStartsOn, classNamePrefix, intl,
 }) {
-  console.log('activeWeek', activeWeek);
-  console.log('weekStartsOn', weekStartsOn);
-  console.log('classNamePrefix', classNamePrefix);
-  console.log(activeWeek.getMonth());
   const days = [];
   const startDate = dateFns.startOfWeek(activeWeek, { weekStartsOn });
 
   for (let i = 0; i < 7; i++) {
-    console.log(i, dateFns.addDays(startDate, i).getMonth() === activeWeek.getMonth());
     const sameMonth = dateFns.addDays(startDate, i).getMonth() === activeWeek.getMonth();
     days.push(
       <div className={`${classNamePrefix}col ${sameMonth ? '' : `${classNamePrefix}other-month`}`} key={i}>
         {intl.formatDate(dateFns.addDays(startDate, i), { weekday: 'long' })}
         <br />
         {intl.formatDate(dateFns.addDays(startDate, i), { day: 'numeric' })}
-      </div>
+      </div>,
     );
   }
 
@@ -54,7 +49,7 @@ function Weekdays({
 
 function Timetable(props) {
   const {
-    activeWeek, step, timingFormat, cellHeight, classNamePrefix
+    activeWeek, step, timingFormat, cellHeight, classNamePrefix,
   } = props;
   const timings = [];
   let cursor = dateFns.startOfDay(activeWeek);
@@ -72,7 +67,7 @@ function Timetable(props) {
         style={{ height: `${cellHeight}px` }}
       >
         <span className={`${classNamePrefix}number`}>{formattedDate}</span>
-      </div>
+      </div>,
     );
 
     cursor = dateFns.addSeconds(cursor, step);
@@ -201,7 +196,7 @@ class Scheduler extends Component {
     this.schedulerRef.current.addEventListener(
       'scroll',
       this.lockSchedulerScroll,
-      false
+      false,
     );
   };
 
@@ -282,7 +277,7 @@ class Scheduler extends Component {
       },
       () => {
         document.addEventListener('click', this.handleOutsideClick, true);
-      }
+      },
     );
   };
 
@@ -415,7 +410,7 @@ class Scheduler extends Component {
 
     this.recurrencerCloserTimeoutId = setTimeout(
       this.handleCloseRecurrencerModal,
-      1600
+      1600,
     );
   };
 
@@ -431,13 +426,13 @@ class Scheduler extends Component {
 
     this.multiRecurrencerCloserTimeoutId = setTimeout(
       this.handleCloseMultiRecurrencerModal,
-      1600
+      1600,
     );
   };
 
   onRecurrencerDayPickerHide = () => {
     const elem = this.recurrencerModalRef.current.node.getElementsByClassName(
-      'ReactModal__Content'
+      'ReactModal__Content',
     )[0];
 
     if (elem.scrollTop + elem.clientHeight === elem.scrollHeight) {
@@ -448,7 +443,7 @@ class Scheduler extends Component {
 
   onMultiRecurrencerDayPickerHide = () => {
     const elem = this.multiRecurrencerModalRef.current.node.getElementsByClassName(
-      'ReactModal__Content'
+      'ReactModal__Content',
     )[0];
 
     if (elem.scrollTop + elem.clientHeight === elem.scrollHeight) {
