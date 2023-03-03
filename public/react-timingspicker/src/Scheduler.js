@@ -23,12 +23,18 @@ function getScrollbarWidth(elem) {
 function Weekdays({
   activeWeek, weekStartsOn, classNamePrefix, intl
 }) {
+  console.log('activeWeek', activeWeek);
+  console.log('weekStartsOn', weekStartsOn);
+  console.log('classNamePrefix', classNamePrefix);
+  console.log(activeWeek.getMonth());
   const days = [];
   const startDate = dateFns.startOfWeek(activeWeek, { weekStartsOn });
 
   for (let i = 0; i < 7; i++) {
+    console.log(i, dateFns.addDays(startDate, i).getMonth() === activeWeek.getMonth());
+    const sameMonth = dateFns.addDays(startDate, i).getMonth() === activeWeek.getMonth();
     days.push(
-      <div className={`${classNamePrefix}col`} key={i}>
+      <div className={`${classNamePrefix}col ${sameMonth ? '' : `${classNamePrefix}other-month`}`} key={i}>
         {intl.formatDate(dateFns.addDays(startDate, i), { weekday: 'long' })}
         <br />
         {intl.formatDate(dateFns.addDays(startDate, i), { day: 'numeric' })}
