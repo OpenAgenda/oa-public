@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { defineMessages, FormattedMessage } from 'react-intl';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries';

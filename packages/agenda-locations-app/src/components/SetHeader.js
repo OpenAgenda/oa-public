@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { MoreInfo } from '@openagenda/react-shared';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 

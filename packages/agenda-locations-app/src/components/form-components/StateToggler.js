@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Switch from 'rc-switch';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
