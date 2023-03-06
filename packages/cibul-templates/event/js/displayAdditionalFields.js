@@ -36,10 +36,6 @@ const messages = defineMessages({
     id: 'displayAdditionalFields.noFile',
     defaultMessage: 'No file is loaded'
   },
-  additionalFieldsInfo: {
-    id: 'displayAdditionalFields.additionalFieldsInfo',
-    defaultMessage: 'Event values specific to this agenda are displayed in the next section below'
-  },
   goToAdditionalFields: {
     id: 'displayAdditionalFields.goToAdditionalFields',
     defaultMessage: 'see'
@@ -172,12 +168,6 @@ function AdditionalFieldsSection({ additionalFields }) {
         </div>
       </div>
     </div>
-    <Portal key="additional-fields-info" selector=".js_additional_fields_info">
-      <div className="tag-groups margin-bottom-sm">
-        <em className="text-muted margin-right-xs">{m(messages.additionalFieldsInfo)}</em>
-        <a href="#additional-fields">{m(messages.goToAdditionalFields)}</a>
-      </div>
-    </Portal>
   </>
   )
 }
