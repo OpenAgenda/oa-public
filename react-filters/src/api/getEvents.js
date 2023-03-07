@@ -1,5 +1,4 @@
 import qs from 'qs';
-import fetch from 'cross-fetch';
 import filtersToAggregations from '../utils/filtersToAggregations';
 
 export default async function getEvents(

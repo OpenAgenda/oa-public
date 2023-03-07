@@ -14,7 +14,6 @@ import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
-import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import { getEvents } from '../api';
 import {
@@ -59,7 +58,6 @@ const FiltersManager = React.forwardRef(function FiltersManager({
 }, ref) {
   const intl = useIntl();
   const form = useForm();
-  const axios = useApiClient();
   const widgetSeed = useUIDSeed();
 
   const {
@@ -85,11 +83,13 @@ const FiltersManager = React.forwardRef(function FiltersManager({
       }
 
       return (await getEvents(
-        axios,
+        null, // apiClient
         res,
         { uid: agendaUid },
         filters.filter(filter => filter.type === 'choice' && !filter.options),
         { size: 0 },
+        null, // pageParam
+        false, // filtersBase
       )).aggregations;
     },
     {
@@ -101,7 +101,7 @@ const FiltersManager = React.forwardRef(function FiltersManager({
 
   const getOptions = useGetFilterOptions(intl, filtersBaseQuery.data, aggregations);
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(axios, res, query);
+  const loadGeoData = useLoadGeoData(null, res, query);
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
