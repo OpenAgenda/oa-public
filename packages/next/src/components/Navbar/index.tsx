@@ -6,6 +6,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-solid-svg-icons';
 import {
+  chakra,
   Box,
   Button,
   Container,
@@ -60,6 +61,8 @@ const messages = defineMessages({
     defaultMessage: 'Profile menu',
   },
 });
+
+const StyledSearchInput = chakra(SearchInput);
 
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
@@ -165,7 +168,7 @@ function ProfileMenu({ user, portalRef }) {
         <Collapse id={collapseId} in={isOpen}>
           <Box display={{ base: 'block', lg: 'none' }}>
             <form onSubmit={onSearch}>
-              <SearchInput h="50px" maxW="full" />
+              <StyledSearchInput h="50px" maxW="full" />
             </form>
 
             <Box py="2">

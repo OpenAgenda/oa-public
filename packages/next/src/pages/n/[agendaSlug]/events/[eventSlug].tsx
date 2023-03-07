@@ -1,23 +1,29 @@
 import { GetStaticProps } from 'next';
+import VError from '@openagenda/verror';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
 import EventShow, { EventShowProps } from 'views/EventShow';
-import getSSRApiClient from 'utils/getSSRApiClient';
 
 type PageProps = EventShowProps & {
   intlMessages: Record<string, string>
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  const api = getSSRApiClient();
-
   const [
-    { data: agenda },
-    { data: { event } },
+    agenda,
+    event,
     intlMessages,
   ] = await Promise.all([
-    api.get(`/api/agendas/slug/${params.agendaSlug}`),
-    api.get(`/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}`),
+    fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${params.agendaSlug}`)
+      .then(r => {
+        if (r.ok) return r.json();
+        throw new VError[r.status](r.statusText);
+      }),
+    fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}`)
+      .then(r => {
+        if (r.ok) return r.json();
+        throw new VError[r.status](r.statusText);
+      }),
     EventShow.fetchLocale(locale),
   ]);
 

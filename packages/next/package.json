@@ -33,6 +33,7 @@
     "@openagenda/uikit": "^0.0.1",
     "@openagenda/verror": "^3.0.0",
     "axios": "^0.21.1",
+    "base64-js": "^1.5.1",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
     "fast-json-stable-stringify": "^2.1.0",
