@@ -182,6 +182,10 @@
     text-align: center;
 }
 
+.rtp__calendar .rtp__days .rtp__row .rtp__col.rtp__other-month {
+    opacity: 0.6;
+  }
+
 .rtp__calendar .rtp__scheduler {
     position: relative;
     display: -webkit-box;
