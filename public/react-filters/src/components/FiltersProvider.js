@@ -6,9 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import ApiClient from '@openagenda/react-shared/lib/utils/apiClient';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
-import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
 import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
 import filtersToAggregations from '../utils/filtersToAggregations';
@@ -65,14 +63,12 @@ const IntlProvided = React.forwardRef(({
   missingValue,
   mapTiles,
   dateFnsLocale,
-  apiClient: customApiClient,
   initialValues,
   onSubmit,
   subscription,
   children,
 }, ref) => {
   const intl = useIntl();
-  const apiClientInstance = useConstant(() => customApiClient || ApiClient());
 
   const filtersOptions = useMemo(
     () => ({ missingValue, mapTiles, dateFnsLocale }),
@@ -99,18 +95,16 @@ const IntlProvided = React.forwardRef(({
   }), [filters, updateFilters, widgets, filtersOptions]);
 
   return (
-    <ApiClientContext.Provider value={apiClientInstance}>
-      <FiltersAndWidgetsContext.Provider value={filtersAndWidgets}>
-        <FiltersForm
-          ref={ref}
-          onSubmit={onSubmit}
-          initialValues={initialValues}
-          subscription={subscription}
-        >
-          {children}
-        </FiltersForm>
-      </FiltersAndWidgetsContext.Provider>
-    </ApiClientContext.Provider>
+    <FiltersAndWidgetsContext.Provider value={filtersAndWidgets}>
+      <FiltersForm
+        ref={ref}
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        subscription={subscription}
+      >
+        {children}
+      </FiltersForm>
+    </FiltersAndWidgetsContext.Provider>
   );
 });
 
