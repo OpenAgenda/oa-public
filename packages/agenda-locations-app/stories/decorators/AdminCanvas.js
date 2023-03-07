@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 export default Story => (
   <div className="container-fluid top-margined agenda-admin agenda-admin-filters-layout">

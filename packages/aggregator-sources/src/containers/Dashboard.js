@@ -1,11 +1,5 @@
 import _ from 'lodash';
-import React, {
-  useMemo,
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -93,14 +87,14 @@ function Dashboard() {
   const params = useParams();
   const query = useMemo(
     () => qs.parse(location.search, { ignoreQueryPrefix: true }),
-    [location.search]
+    [location.search],
   );
   const initialValues = useMemo(
     () => ({ search: query.search || '' }),
-    [query]
+    [query],
   );
   const [value, setValue] = useState(
-    query.search !== '' ? query.search : undefined
+    query.search !== '' ? query.search : undefined,
   );
   const [previousValue, setPreviousValue] = useState();
 
@@ -122,7 +116,7 @@ function Dashboard() {
 
   const fuse = useMemo(
     () => new Fuse(agendaSources || [], fuseOptions),
-    [agendaSources]
+    [agendaSources],
   );
 
   const filteredSources = useMemo(() => {
@@ -144,16 +138,16 @@ function Dashboard() {
       });
       // });
     },
-    [history, query, setPreviousValue, setValue, value]
+    [history, query, setPreviousValue, setValue, value],
   );
 
   const showModalAddSource = useCallback(
     () => dispatch(modalsActions.showModal('addSource')),
-    [dispatch]
+    [dispatch],
   );
   const showModalSetAggregatorRules = useCallback(
     () => dispatch(modalsActions.showModal('setAggregatorRules')),
-    [dispatch]
+    [dispatch],
   );
 
   const closeModalAddSource = useCallback(() => {
@@ -164,15 +158,15 @@ function Dashboard() {
   }, [dispatch, query.redirect]);
   const closeModalUpdateSource = useCallback(
     () => dispatch(modalsActions.closeModal('updateSource')),
-    [dispatch]
+    [dispatch],
   );
   const closeModalRemoveSource = useCallback(
     () => dispatch(modalsActions.closeModal('removeSource')),
-    [dispatch]
+    [dispatch],
   );
   const closeModalSetAggregatorRules = useCallback(
     () => dispatch(modalsActions.closeModal('setAggregatorRules')),
-    [dispatch]
+    [dispatch],
   );
 
   const debouncedSearch = useMemo(() => _.debounce(search, 400), [search]);
@@ -181,44 +175,51 @@ function Dashboard() {
 
   const refresh = useCallback(
     () => dispatch(sourcesActions.list({ query: value })),
-    [dispatch, value]
+    [dispatch, value],
   );
 
   const createAggregator = useCallback(
-    () => dispatch(sourcesActions.createAggregator(params.slug)).then(() => dispatch(sourcesActions.loadAggregator(params.slug))),
-    [dispatch, params.slug]
+    () =>
+      dispatch(sourcesActions.createAggregator(params.slug)).then(() =>
+        dispatch(sourcesActions.loadAggregator(params.slug))),
+    [dispatch, params.slug],
   );
 
   const setAggregatorRules = useCallback(
-    rules => dispatch(sourcesActions.setAggregatorRules(rules)).then(() => {
-      closeModalSetAggregatorRules();
+    rules =>
+      dispatch(sourcesActions.setAggregatorRules(rules)).then(() => {
+        closeModalSetAggregatorRules();
 
-      return dispatch(sourcesActions.loadAggregator(params.slug));
-    }),
-    [closeModalSetAggregatorRules, dispatch, params.slug]
+        return dispatch(sourcesActions.loadAggregator(params.slug));
+      }),
+    [closeModalSetAggregatorRules, dispatch, params.slug],
   );
   const addSource = useCallback(
-    (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
-      () => refresh()
-    ),
-    [dispatch, refresh]
+    (sourceAgenda, rules, evaluate) =>
+      dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
+        () => refresh(),
+      ),
+    [dispatch, refresh],
   );
   const updateSource = useCallback(
-    (source, rules, evaluate) => dispatch(sourcesActions.update(source.id, { rules, evaluate })).then(() => refresh()),
-    [dispatch, refresh]
+    (source, rules, evaluate) =>
+      dispatch(sourcesActions.update(source.id, { rules, evaluate })).then(() =>
+        refresh()),
+    [dispatch, refresh],
   );
   const removeSource = useCallback(
-    (source, evaluate) => dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {
-      closeModalRemoveSource();
+    (source, evaluate) =>
+      dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {
+        closeModalRemoveSource();
 
-      if (query.redirect) {
-        window.location.href = query.redirect;
-        return;
-      }
+        if (query.redirect) {
+          window.location.href = query.redirect;
+          return;
+        }
 
-      return refresh();
-    }),
-    [dispatch, closeModalRemoveSource, query.redirect, refresh]
+        return refresh();
+      }),
+    [dispatch, closeModalRemoveSource, query.redirect, refresh],
   );
 
   const initialQuery = useRef(query);
@@ -238,21 +239,21 @@ function Dashboard() {
     (async () => {
       const { sources } = await apiClient.get(
         res.list.replace(':slug', aggregatorAgenda.slug),
-        { params: { slug: queryValue.source } }
+        { params: { slug: queryValue.source } },
       );
 
       if (queryValue.source && sources.length === 1) {
         const source = sources[0];
 
         const schema = await apiClient.get(
-          `/${source.agenda.slug}/settings/schema`
+          `/${source.agenda.slug}/settings/schema`,
         );
 
         dispatch(
           modalsActions.showModal('updateSource', {
             source,
             schema,
-          })
+          }),
         );
 
         return history.replace({
@@ -271,7 +272,7 @@ function Dashboard() {
         dispatch(
           modalsActions.showModal('addSource', {
             preselectedAgenda: _agenda,
-          })
+          }),
         );
       }
 
@@ -298,7 +299,7 @@ function Dashboard() {
     (async () => {
       // search agenda in sources
       const source = agendaSources.find(
-        v => v.agenda.slug === query.removeSource
+        v => v.agenda.slug === query.removeSource,
       );
 
       if (source?.id) {
@@ -349,7 +350,7 @@ function Dashboard() {
               <a
                 className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(
-                  location.pathname
+                  location.pathname,
                 )}`}
               >
                 {chunks}

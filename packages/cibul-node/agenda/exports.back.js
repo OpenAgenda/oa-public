@@ -10,7 +10,6 @@ const loadCredentials = require('./loadCredentials');
 const perPage = 20;
 
 const preMw = [
-  cmn.redirectLegacySearch,
   agendaSvc.mw.load('uid'),
 ];
 

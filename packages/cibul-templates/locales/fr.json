@@ -3,7 +3,6 @@
   "cibulTemplates.displayContextBar.completeAction": "Compléter",
   "cibulTemplates.displayContextBar.displayAction": "Afficher",
   "cibulTemplates.displayContextBar.modifyAction": "Modifier",
-  "displayAdditionalFields.additionalFieldsInfo": "Retrouvez les valeurs de l'événement spécifiques à cet agenda dans la section suivante de cette page",
   "displayAdditionalFields.emptyValue": "Aucune saisie",
   "displayAdditionalFields.goToAdditionalFields": "voir",
   "displayAdditionalFields.noFile": "Fichier non chargé",

@@ -23,12 +23,6 @@
       "value": "Modify"
     }
   ],
-  "displayAdditionalFields.additionalFieldsInfo": [
-    {
-      "type": 0,
-      "value": "Event values specific to this agenda are displayed in the next section below"
-    }
-  ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,

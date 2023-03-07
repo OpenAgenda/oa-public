@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useReducer } from 'react';
+import { createRef, useEffect, useReducer } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import axios from 'axios';
 import { Spinner } from '@openagenda/react-shared';

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';

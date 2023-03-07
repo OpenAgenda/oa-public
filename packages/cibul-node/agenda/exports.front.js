@@ -16,7 +16,6 @@ const buildPDF = require('./buildPDF');
 const perPage = 20;
 
 const preMw = [
-  cmn.redirectLegacySearch,
   cmn.loadLogger('agenda front'),
 ];
 
