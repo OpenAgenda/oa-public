@@ -26,6 +26,7 @@ import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-ico
 import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
+import base64 from 'utils/base64';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
@@ -126,7 +127,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
-  const redirectUrl = Buffer.from(router.asPath).toString('base64');
+  const redirectUrl = base64.encode(router.asPath);
 
   return (
     <Flex

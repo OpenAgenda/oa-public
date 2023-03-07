@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { chakra, Text, Button, Link, SystemStyleObject } from '@openagenda/uikit';
+import base64 from 'utils/base64';
 import fetchLocale from './locales';
 
 export type AgendaErrorProps = {
@@ -102,7 +103,7 @@ export default function AgendaError({ agendaSlug, errorStatusCode, errorStack }:
         </Text>
         <Button
           as={Link}
-          href={`/signin?redirect=${Buffer.from(router.asPath).toString('base64')}`}
+          href={`/signin?redirect=${base64.encode(router.asPath)}`}
           colorScheme="primary"
           mt="8"
         >
@@ -115,7 +116,7 @@ export default function AgendaError({ agendaSlug, errorStatusCode, errorStack }:
             link: (chunks: React.ReactNode) => (
               <Button
                 as={Link}
-                href={`/signup?redirect=${Buffer.from(router.asPath).toString('base64')}`}
+                href={`/signup?redirect=${base64.encode(router.asPath)}`}
                 variant="link"
                 colorScheme="primary"
               >

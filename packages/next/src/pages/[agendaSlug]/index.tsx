@@ -10,7 +10,6 @@ import Layout from 'components/Layout';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import AgendaShow, { AgendaShowProps } from 'views/AgendaShow';
 import AgendaError, { AgendaErrorProps } from 'views/AgendaError';
-import getSSRApiClient from 'utils/getSSRApiClient';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
@@ -33,8 +32,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   query: queryWithParams,
   resolvedUrl,
 }) => {
-  const api = getSSRApiClient(req);
-
   const agendaSlug = queryWithParams.agendaSlug as string;
   const query = parseLocationQuery(resolvedUrl);
 
@@ -44,11 +41,19 @@ export const getServerSideProps: GetServerSideProps = async ({
     const [
       intlMessages,
       dateFnsLocale,
-      { data: agenda },
+      agenda,
     ] = await Promise.all([
       AgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
-      api.get(`/api/agendas/slug/${agendaSlug}?detailed=1`),
+      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
+        headers: new Headers({
+          Cookie: req.headers.cookie,
+          Authorization: req.headers.authorization,
+        }),
+      }).then(r => {
+        if (r.ok) return r.json();
+        throw new VError[r.status](r.statusText);
+      }),
     ]);
 
     const intl = createIntl({
@@ -111,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const intlMessages = await AgendaError.fetchLocale(locale)
       .catch(() => ({}));
 
-    const statusCode = e?.response?.status || 500;
+    const statusCode = e.code || 500;
     res.statusCode = statusCode;
 
     const props: ErrorPageProps = {

@@ -4,6 +4,9 @@ const withTM = require('next-transpile-modules')([
   '@openagenda/react-shared',
   '@openagenda/sdk-js',
   '@openagenda/uikit',
+  'intl-messageformat',
+  'intl-messageformat-parser',
+  'react-intl',
 ]);
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

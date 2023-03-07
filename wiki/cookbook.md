@@ -40,6 +40,9 @@
  * Refactos
    * Enlever les `import React` dans les packages
    * Intégration de NextJs
+ * Scripts
+   * MCC
+     * Téléchargement des images d'un agenda
  * Histoires
    * L'ancien export JSON
 
@@ -574,6 +577,12 @@ NextJS est désormais intégré au projet, directement dans le package `cibul-no
 En développement, les 2 process sont lancés via le scripts "start" ou "watch" qui se servent du package `concurrently`. En production, les 2 process sont gérés par `pm2` qui fonctionne en mode cluster: 2 core pour nextJs, 6 pour le serveur.
 
 Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger.  Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
+
+## Scripts
+
+### MCC
+
+ * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier
 
 ## Histoires
 

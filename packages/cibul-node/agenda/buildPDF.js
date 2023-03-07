@@ -12,6 +12,8 @@ module.exports = async function buildPDF(req, res, _next) {
     core,
   } = req.app.services;
 
+  const config = req.app.core.getConfig();
+
   const tagSet = await tagsAndCustom.getTagSet(req.params.uid);
   const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
   const formSchema = await req.app.core.agendas(req.params.uid).settings.get({
@@ -32,7 +34,11 @@ module.exports = async function buildPDF(req, res, _next) {
   }, {
     lang: req.lang,
     style: {},
-    showLinks: false,
+  }, {
+    showLinks: {
+      event: true,
+      agenda: true,
+    },
   });
 
   pdfStream.getReadableStream().pipe(res);
@@ -43,15 +49,19 @@ module.exports = async function buildPDF(req, res, _next) {
   });
 
   for await (const event of stream) {
-    pdfStream.write(
-      convertEventToLegacyFormat({
-        uid: req.params.uid,
-        slug: req.agenda.slug,
-        legacy: { tagSet, categorySet },
-        formSchema,
-        admin: false,
-      }, event),
-    );
+    const legacyEvent = convertEventToLegacyFormat({
+      uid: req.params.uid,
+      slug: req.agenda.slug,
+      legacy: { tagSet, categorySet },
+      formSchema,
+      admin: false,
+      root: config.root,
+    }, event);
+
+    pdfStream.write({
+      ...legacyEvent,
+      registration: legacyEvent.registration.map(r => r.value),
+    });
   }
 
   pdfStream.end();
