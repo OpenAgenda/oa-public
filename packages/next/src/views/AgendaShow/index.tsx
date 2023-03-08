@@ -1,15 +1,13 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { useCookies } from 'react-cookie';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useLatest } from 'react-use';
 import qs from 'qs';
-import { formatInTimeZone } from 'date-fns-tz';
-import stringify from 'fast-json-stable-stringify';
 import { Box, Container, useConst } from '@openagenda/uikit';
 import { FiltersProvider, useFilters } from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
-import { toEventSchema } from '@openagenda/sdk-js';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
@@ -37,6 +35,11 @@ const DynamicTotalPart = dynamic(() => import('./components/TotalPart'), {
 });
 
 const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicLdJson = dynamic(() => import('./components/LdJson'), {
   // ssr: false,
   suspense: true,
 });
@@ -83,6 +86,7 @@ const includeFields = [
 
 function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const intl = useIntl();
+  const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
   const { user } = useUser();
 
@@ -92,6 +96,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const initialValues = useConst(() => urlQuery);
 
   const [query, setQuery] = useState(() => urlQuery);
+  const latestQuery = useLatest(query);
 
   const isMounted = useIsMounted();
 
@@ -119,19 +124,45 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
     include: filtersToInclude,
   });
 
-  const {
-    data: pages,
-    // error,
-    // size,
-    // setSize,
-  } = useEventsQuery({ agenda, filters, query, includeFields });
+  const { data: pages } = useEventsQuery({ agenda, filters, query, includeFields });
+
+  // SWR onSuccess
+  // https://github.com/vercel/swr/issues/1733
+  const latestRouter = useLatest(router);
+  useEffect(() => {
+    if (pages?.length > 0) {
+      // Update map markers
+      const mapFilter = filters.find(v => v.name === 'geo');
+      const mapElem = mapFilter?.elemRef.current;
+
+      if (mapElem) {
+        mapElem.onQueryChange(pages[0].aggregations.viewport);
+      }
+
+      const url = new URL(latestRouter.current.asPath, 'http://n').pathname
+        + qs.stringify(latestQuery.current, { addQueryPrefix: true });
+
+      if (url !== window.location.pathname + window.location.search) {
+        latestRouter.current.push(
+          new URL(latestRouter.current.asPath, 'http://n').pathname
+            + qs.stringify(latestQuery.current, { addQueryPrefix: true }),
+          null,
+          { shallow: true },
+        );
+      }
+    }
+    // deps: should be only [pages], useEffectEvent from react when possible
+  }, [pages, filters, latestQuery, latestRouter]);
+
+  const [_isPending, startTransition] = useTransition();
 
   const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
-    setQuery(values);
+    startTransition(() => {
+      setQuery(values);
+    });
   }, []);
 
   // Update filters if location change (back)
-  const latestQuery = useLatest(query);
   useEffect(() => {
     if (qs.stringify(latestQuery.current) !== qs.stringify(urlQuery)) {
       const form = filtersFormRef.current;
@@ -140,17 +171,6 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       form.submit();
     }
   }, [latestQuery, urlQuery]);
-
-  const eventsLdJSON = useMemo(() => {
-    const eventSchemas = pages
-      ?.flatMap(p => p.events)
-      .map(event => toEventSchema(event, {
-        locale: intl.locale,
-        formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
-        url: `${process.env.NEXT_PUBLIC_SITE_ROOT}/${agenda.slug}/events/${event.slug}`,
-      }));
-    return stringify(eventSchemas);
-  }, [agenda.slug, intl.locale, pages]);
 
   return (
     <>
@@ -218,11 +238,16 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         <ConsentBanner setCookie={setCookie} />
       ) : null}
 
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: eventsLdJSON }}
-      />
+      {isMounted ? (
+        <Suspense>
+          <DynamicLdJson
+            agenda={agenda}
+            filters={filters}
+            query={query}
+            includeFields={includeFields}
+          />
+        </Suspense>
+      ) : null}
     </>
   );
 }
