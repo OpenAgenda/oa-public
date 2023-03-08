@@ -37,12 +37,12 @@ export default function ContentGrid({ total, events, filters }) {
         </Flex>
       </GridItem>
 
-      <GridItem area="events">
-        {events}
-      </GridItem>
-
       <GridItem area="filters">
         {filters}
+      </GridItem>
+
+      <GridItem area="events">
+        {events}
       </GridItem>
     </Grid>
   );
