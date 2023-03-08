@@ -34,7 +34,7 @@ export default function useEventsQuery({
           relative: ['current', 'upcoming'],
         } : null,
         ...query,
-        after,
+        after: after?.map(String),
         passed: undefined, // omit passed
         includeFields,
         includeImageTimestamps: true,
