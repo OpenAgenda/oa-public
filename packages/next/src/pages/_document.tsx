@@ -9,24 +9,32 @@ import Document, {
 import { Cookies } from 'react-cookie';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
+import getSession from 'utils/getSession';
 import getPreferredLocale from 'utils/getPreferredLocale';
 
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
 function wrapWithCookies(ctx) {
   return App => {
-    const Wrapped = props => (
-      <App
-        universalCookies={new Cookies(ctx.req?.headers?.cookie)}
-        {...props}
-      />
-    );
+    const cookies = new Cookies(ctx.req?.headers?.cookie);
+    const sessionLocale = getSession(cookies)?.user?.culture;
+
+    const Wrapped = props => {
+      const { pageProps } = props;
+      pageProps.sessionLocale = sessionLocale;
+
+      return <App universalCookies={cookies} {...props} />;
+    };
     return Wrapped;
   };
 }
 
 function MyDocument({ locale, __NEXT_DATA__ }) {
-  const preferredLocale = getPreferredLocale(locale, __NEXT_DATA__.query.lang);
+  const preferredLocale = getPreferredLocale(
+    __NEXT_DATA__.query.lang,
+    locale,
+    __NEXT_DATA__.props.pageProps.sessionLocale,
+  );
 
   return (
     <Html
@@ -61,7 +69,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<DocumentIniti
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App => wrapWithCookies(ctx)(App),
+      enhanceApp: wrapWithCookies(ctx),
     });
 
   const initialProps = await Document.getInitialProps(ctx);

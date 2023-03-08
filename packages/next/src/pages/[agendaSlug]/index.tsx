@@ -14,6 +14,7 @@ import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
+import getSession from '../../utils/getSession';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const agendaSlug = queryWithParams.agendaSlug as string;
   const query = parseLocationQuery(resolvedUrl);
 
-  const locale = getPreferredLocale(nextLocale, query.lang);
+  const locale = getPreferredLocale(query.lang, nextLocale, getSession(req.cookies)?.user?.culture);
 
   try {
     const [

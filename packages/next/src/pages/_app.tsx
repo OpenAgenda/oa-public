@@ -4,7 +4,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
 import Providers from 'Providers';
-import getPreferredLocale from '../utils/getPreferredLocale';
+import getPreferredLocale from 'utils/getPreferredLocale';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
@@ -20,6 +20,7 @@ type AppPropsWithLayout<P = {}> = AppProps<P> & {
 
 interface PageProps {
   intlMessages: Record<string, string>
+  sessionLocale?: string
 }
 
 const useForceHtmlLangAttribute = preferredLocale => {
@@ -47,7 +48,7 @@ function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithL
 
   const { intlMessages } = pageProps;
 
-  const locale = getPreferredLocale(router.locale, router.query.lang);
+  const locale = getPreferredLocale(router.query.lang, router.locale, pageProps.sessionLocale);
 
   useForceHtmlLangAttribute(locale);
 

@@ -10,12 +10,12 @@ function getFallbackedLocale(locale) {
     .find(isSupportedLocale);
 }
 
-export default function getPreferredLocale(nextLocale, qsLocale = null) {
-  if (nextLocale === 'default') {
-    return qsLocale
-      ? getFallbackedLocale(qsLocale)
-      : DEFAULT_LOCALE;
+export default function getPreferredLocale(...locales) {
+  for (const locale of locales) {
+    if (locale && locale !== 'default') {
+      return getFallbackedLocale(locale);
+    }
   }
 
-  return getFallbackedLocale(nextLocale);
+  return DEFAULT_LOCALE;
 }
