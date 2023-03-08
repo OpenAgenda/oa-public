@@ -17,6 +17,7 @@ module.exports = {
         args: 'after-used',
         ignoreRestSiblings: true,
         argsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
       },
     ],
     'no-extra-parens': [
@@ -163,6 +164,7 @@ module.exports = {
             args: 'after-used',
             ignoreRestSiblings: true,
             argsIgnorePattern: '^_',
+            destructuredArrayIgnorePattern: '^_',
           },
         ],
         'no-shadow': 'off',
