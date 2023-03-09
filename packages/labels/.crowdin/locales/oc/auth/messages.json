@@ -1,1 +1,11 @@
-{}
+{
+  "isBlacklisted": "Vòstre compte es estat ajustat a nòstra tièra de comptes fraudulós.",
+  "isBlacklistedInfo": "En cas d'error de nòstra part, contactatz-nos siá pel robòt siá pel menut d'ajuda.",
+  "authRequired": "Vos cal èsser autentificat·da per accedir a aquesta pagina.",
+  "limitedAccessEvent": "Vos cal èsser autentificat·da per accedir a aqueste eveniment. Mercés de vos connectar",
+  "limitedAccessAgenda": "Vos cal èsser autentificat·da per accedir a aquesta agenda. Mercés de vos connectar",
+  "abortedAuth": "L'autentificacion es estada copada sus %service%",
+  "facebookEmailMissing": "L'email ligat al vòstre compte Facebook es pas disponible. Validatz-lo sus Facebook abans de tornar ensajar.",
+  "genericError": "I a agut un problèma. Mercés de tornar ensajar mai tard",
+  "accountEmailAlreadyExists": "Existís ja un compte amb vòstra adreça email. Mercés de vos connectar amb vòstres email e senhal"
+}

@@ -9,10 +9,10 @@ export default function getUneditableStandardFieldConstraints({ schema }, event)
 
   log(schema.fields.filter(f => f.schemaType === 'event'));
 
-  const validate = (new FormSchema({
+  const validate = new FormSchema({
     custom: validators,
-    fields: schema.fields.filter(f => f.schemaType === 'event')
-  })).getValidate();
+    fields: schema.fields.filter(f => f.schemaType === 'event'),
+  }).getValidate();
 
   try {
     validate(event);
@@ -30,6 +30,6 @@ export default function getUneditableStandardFieldConstraints({ schema }, event)
   return standardValidationErrors.map(error => ({
     ...error,
     codeLabel: 'L\'erreur',
-    fieldLabel: 'Le champ'
+    fieldLabel: 'Le champ',
   }));
 }

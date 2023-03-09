@@ -1,1 +1,27 @@
-{}
+{
+  "editField": "Modificar",
+  "removeField": "Suprimir",
+  "editFieldSave": "Enregistrar",
+  "editFieldCancel": "Anullar",
+  "editLabelLanguages": "Modificar",
+  "submitLabelLanguages": "Sometre",
+  "emailFieldType": "Email",
+  "sectionLabel": "Títol",
+  "imageFieldType": "Imatge",
+  "keywordsFieldType": "Mots claus",
+  "buttonSave": "Enregistrar",
+  "buttonSaved": "Enregistrat",
+  "orderCancel": "Anullar",
+  "orderEdit": "Modificar",
+  "requiredField": "Requesit",
+  "confirmFieldUpdate": "Metre a jorn",
+  "cancelFieldEdit": "Anullar",
+  "optionAddAction": "Apondre",
+  "optionUpdateAction": "Metre a jorn",
+  "optionEdit": "Modificar",
+  "optionEditCancel": "Anullar",
+  "optionOrder": "Cambiar l'òrdre",
+  "optionRemove": "Suprimir",
+  "isSelected": "Seleccionat",
+  "notSelected": "Pas seleccionat"
+}

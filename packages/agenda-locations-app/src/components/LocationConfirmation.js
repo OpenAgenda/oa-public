@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
-
-import LocationDetails from './LocationDetails';
+import axios from 'axios';
+import { Spinner } from '@openagenda/react-shared';
+import LocationDetails from './LocationDetailsConfirm';
 
 const messages = defineMessages({
   guide: {
@@ -37,56 +38,71 @@ const LocationConfirmation = ({
   settings,
   onConfirm,
   onCancel,
-  staticMapTiles
 }) => {
   const [suggestChangeMessage, setSuggestChangeMessage] = useState(false);
 
+  const [detailedLocation, setDetailedLocation] = useState();
+
+  useEffect(() => {
+    axios.get(res.get.replace(':locationUid', location.uid), {}).then(response => {
+      const { data } = response;
+      setDetailedLocation(data);
+    });
+  }, [res.get, location.uid]);
+
+  if (!detailedLocation) {
+    return (
+      <Spinner
+        page
+      />
+    );
+  }
+
   return (
     <div>
-      <div className="margin-top-md">
+      <div className="info-block margin-v-sm">
         <label htmlFor="guide"><FormattedMessage {...messages.guide} /></label>
         <p><FormattedMessage {...messages.guideDetail} /></p>
-      </div>
-      <div className="info-block margin-bottom-md text-center">
-        <div>
+        <div className="text-center">
           <a
             target="_blank"
             rel="noopener noreferrer"
             href={res.suggestChange.replace(':locationUid', location.uid)}
             onClick={() => setSuggestChangeMessage(true)}
-            className="btn btn-default margin-h-sm margin-bottom-sm"
+            className="btn btn-default margin-h-sm"
           >
             <FormattedMessage {...messages.suggest} />
           </a>
-          <button
-            type="button"
-            onClick={onCancel}
-            className="btn btn-default margin-bottom-sm"
-          >
-            <FormattedMessage {...messages.cancel} />
-          </button>
           {suggestChangeMessage ? (
-            <div className="margin-bottom-sm">
+            <div className="margin-v-sm">
               <FormattedMessage {...messages.suggestChangeMessage} />
             </div>
           ) : null}
         </div>
-        <div>
-          <button type="button" onClick={onConfirm} className="btn btn-primary margin-h-sm">
-            <FormattedMessage {...messages.confirm} />
-          </button>
-        </div>
       </div>
       <LocationDetails
         res={res}
-        location={location}
+        location={detailedLocation}
         lang={lang}
         settings={settings}
-        staticMapTiles={staticMapTiles}
-        hover
+        staticTiles={res.staticTiles}
       />
+      <div className="margin-bottom-sm text-center">
+
+        <button
+          type="button"
+          onClick={onCancel}
+          className="btn btn-default margin-bottom-sm margin-right-sm"
+        >
+          <FormattedMessage {...messages.cancel} />
+        </button>
+
+        <button type="button" onClick={onConfirm} className="btn btn-primary margin-bottom-sm">
+          <FormattedMessage {...messages.confirm} />
+        </button>
+      </div>
     </div>
   );
 };
 
-export default props => <LocationConfirmation {...props} />;
+export default LocationConfirmation;

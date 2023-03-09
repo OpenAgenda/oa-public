@@ -165,7 +165,7 @@ describe('agendas - functional (server): set (update)', function() {
 
   it('set with includeImagePath to true returns an updated agenda that includes image paths', done => {
     svc.set(4875, { title: 'Le mur' }, { includeImagePath: true }, (err, result) => {
-      result.agenda.image.should.equal('//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg');
+      assert.strictEqual(result.agenda.image, '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg');
 
       done();
     });
@@ -176,8 +176,7 @@ describe('agendas - functional (server): set (update)', function() {
       slug: 'lait'
     }, (err, result) => {
       assert.strictEqual(err, null);
-
-      result.agenda.slug.should.equal('lait');
+      assert.strictEqual(result.agenda.slug, 'lait')
 
       done();
     });
@@ -255,22 +254,18 @@ describe('agendas - functional (server): set (update)', function() {
           createdAt: result.agenda.createdAt,
           credentials: {
             useContributeApp: true,
-            useAgendaSchema: true,
             premiumCustomFields: false,
             activatingInvitations: false,
             moderators: true,
-            tags: false,
             embedsHead: true,
             embedsTemplates: true,
-            indesign: false,
             aggregator: false,
             prioritizedAggregator: false,
             invitationMessage: false,
-            calendarView: false,
             docxExport: false,
             eventOwnershipTransfer: false,
-            graphs: false,
-            useJSONBridge: false
+            useJSONBridge: false,
+            memberCustom: false,
           },
           legacyStore: {
             moderated: false,

@@ -1,0 +1,471 @@
+{
+    "custom": {},
+    "fields": [
+        {
+            "languages": [],
+            "field": "title",
+            "fieldType": "text",
+            "optional": false,
+            "max": 140,
+            "label": "Titre de l'événement",
+            "purpose": {
+                "fr": "Titre de l'événement",
+                "en": "Title of the event",
+                "es": "Nombre del evento"
+            },
+            "schemaId": null
+        },
+        {
+            "field": "age",
+            "fieldType": "age",
+            "optional": true,
+            "label": "Âge du public ciblé",
+            "schemaId": null
+        },
+        {
+            "languages": [],
+            "field": "conditions",
+            "fieldType": "text",
+            "label": "Conditions de participation",
+            "max": 255,
+            "schemaId": null
+        },
+        {
+            "field": "accessibility",
+            "fieldType": "accessibility",
+            "optional": true,
+            "label": "Type de public empêché",
+            "schemaId": null
+        },
+        {
+            "field": "image",
+            "fieldType": "image",
+            "optional": true,
+            "label": "Image de l'événement",
+            "extensions": [
+                "jpg",
+                "bmp",
+                "png",
+                "jpeg"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "imageCredits",
+            "fieldType": "text",
+            "optional": true,
+            "label": "Crédits de l'image",
+            "enableWith": "image",
+            "schemaId": null
+        },
+        {
+            "field": "location",
+            "fieldType": "location",
+            "optional": false,
+            "label": {
+                "fr": "Lieu",
+                "en": "Location",
+                "it": "Posizione",
+                "de": "Ort",
+                "es": "lugar",
+                "br": "Lec'h"
+            },
+            "schemaId": null,
+            "schema": {
+                "fields": [
+                    {
+                        "field": "specificite",
+                        "label": {
+                            "fr": "Spécificité",
+                            "en": "Specificity"
+                        },
+                        "fieldType": "checkbox",
+                        "info": null,
+                        "options": [
+                            {
+                                "id": 33,
+                                "value": "premiere-participation",
+                                "label": {
+                                    "fr": "Première participation",
+                                    "en": "First participation"
+                                }
+                            },
+                            {
+                                "id": 32,
+                                "value": "ouverture-exceptionnelle",
+                                "label": {
+                                    "fr": "Ouverture exceptionnelle",
+                                    "en": "Exceptional opening"
+                                }
+                            }
+                        ],
+                        "schemaId": "location"
+                    },
+                    {
+                        "field": "protections-appellation-et-labels",
+                        "label": "Protections, appellation et labels",
+                        "fieldType": "checkbox",
+                        "info": null,
+                        "options": [
+                            {
+                                "id": 50,
+                                "value": "architecture-contemporaine-remarquable",
+                                "label": "Architecture contemporaine remarquable"
+                            },
+                            {
+                                "id": 38,
+                                "value": "jardin-remarquable",
+                                "label": "Jardin remarquable"
+                            },
+                            {
+                                "id": 41,
+                                "value": "maison-des-illustres",
+                                "label": "Maison des illustres"
+                            },
+                            {
+                                "id": 42,
+                                "value": "monument-historique",
+                                "label": "Monument historique"
+                            },
+                            {
+                                "id": 40,
+                                "value": "musee-de-france",
+                                "label": "Musée de France"
+                            },
+                            {
+                                "id": 35,
+                                "value": "patrimoine-europeen",
+                                "label": "Patrimoine européen"
+                            },
+                            {
+                                "id": 37,
+                                "value": "patrimoine-mondial-de-lunesco",
+                                "label": "Patrimoine mondial de l'UNESCO"
+                            },
+                            {
+                                "id": 51,
+                                "value": "site-patrimonial-remarquable",
+                                "label": "Site patrimonial remarquable"
+                            },
+                            {
+                                "id": 39,
+                                "value": "tourisme-et-handicap",
+                                "label": "Tourisme et handicap"
+                            },
+                            {
+                                "id": 36,
+                                "value": "villes-et-pays-dart-et-dhistoire",
+                                "label": "Villes et Pays d'art et d'histoire"
+                            }
+                        ],
+                        "schemaId": "location"
+                    },
+                    {
+                        "field": "types-de-lieu",
+                        "label": {
+                            "fr": "Types de lieu",
+                            "en": "Types of place"
+                        },
+                        "fieldType": "checkbox",
+                        "info": null,
+                        "options": [
+                            {
+                                "id": 7,
+                                "value": "archives",
+                                "label": {
+                                    "en": "Archives",
+                                    "fr": "Archives"
+                                }
+                            },
+                            {
+                                "id": 2,
+                                "value": "chateau-hotel-urbain-palais-manoir",
+                                "label": {
+                                    "en": "Château, hôtel urbain, palais, manoir",
+                                    "fr": "Château, hôtel urbain, palais, manoir"
+                                }
+                            },
+                            {
+                                "id": 3,
+                                "value": "edifice-religieux",
+                                "label": {
+                                    "en": "Édifice religieux",
+                                    "fr": "Édifice religieux"
+                                }
+                            },
+                            {
+                                "id": 4,
+                                "value": "edifice-hospitalier",
+                                "label": {
+                                    "en": "Édifice hospitalier",
+                                    "fr": "Édifice hospitalier"
+                                }
+                            },
+                            {
+                                "id": 5,
+                                "value": "edifice-maritime-et-fluvial",
+                                "label": {
+                                    "en": "Édifice maritime et fluvial",
+                                    "fr": "Édifice maritime et fluvial"
+                                }
+                            },
+                            {
+                                "id": 6,
+                                "value": "edifice-militaire-enceinte-urbaine",
+                                "label": {
+                                    "en": "Édifice militaire, enceinte urbaine",
+                                    "fr": "Édifice militaire, enceinte urbaine"
+                                }
+                            },
+                            {
+                                "id": 8,
+                                "value": "edifice-industriel-scientifique-et-technique",
+                                "label": {
+                                    "en": "Édifice industriel, scientifique et technique",
+                                    "fr": "Édifice industriel, scientifique et technique"
+                                }
+                            },
+                            {
+                                "id": 9,
+                                "value": "edifice-rural",
+                                "label": {
+                                    "en": "Édifice rural",
+                                    "fr": "Édifice rural"
+                                }
+                            },
+                            {
+                                "id": 10,
+                                "value": "edifice-scolaire-et-educatif",
+                                "label": {
+                                    "en": "Édifice scolaire et éducatif",
+                                    "fr": "Édifice scolaire et éducatif"
+                                }
+                            },
+                            {
+                                "id": 11,
+                                "value": "espace-naturel-parc-jardin",
+                                "label": {
+                                    "en": "Espace naturel, parc, jardin",
+                                    "fr": "Espace naturel, parc, jardin"
+                                }
+                            },
+                            {
+                                "id": 12,
+                                "value": "edifice-commemoratif",
+                                "label": {
+                                    "en": "Édifice commémoratif",
+                                    "fr": "Édifice commémoratif"
+                                }
+                            },
+                            {
+                                "id": 13,
+                                "value": "lieu-de-pouvoir-edifice-judiciaire",
+                                "label": {
+                                    "en": "Lieu de pouvoir, édifice judiciaire",
+                                    "fr": "Lieu de pouvoir, édifice judiciaire"
+                                }
+                            },
+                            {
+                                "id": 14,
+                                "value": "lieu-de-spectacles-sports-et-loisirs",
+                                "label": {
+                                    "en": "Lieu de spectacles, sports et loisirs",
+                                    "fr": "Lieu de spectacles, sports et loisirs"
+                                }
+                            },
+                            {
+                                "id": 15,
+                                "value": "musee-salle-dexposition",
+                                "label": {
+                                    "en": "Musée, salle d'exposition",
+                                    "fr": "Musée, salle d'exposition"
+                                }
+                            },
+                            {
+                                "id": 1,
+                                "value": "maison-appartement-atelier-de-personnes-celebres",
+                                "label": {
+                                    "en": "Maison, appartement, atelier de personnes célèbres",
+                                    "fr": "Maison, appartement, atelier de personnes célèbres"
+                                }
+                            },
+                            {
+                                "id": 17,
+                                "value": "patrimoine-ferroviaire-des-transports-et-du-genie-civil",
+                                "label": {
+                                    "en": "Patrimoine ferroviaire, des transports et du génie civil",
+                                    "fr": "Patrimoine ferroviaire, des transports et du génie civil"
+                                }
+                            },
+                            {
+                                "id": 16,
+                                "value": "site-archeologique",
+                                "label": {
+                                    "en": "Site archéologique",
+                                    "fr": "Site archéologique"
+                                }
+                            }
+                        ],
+                        "schemaId": "location"
+                    }
+                ],
+                "schemaId": "location"
+            }
+        },
+        {
+            "field": "timings",
+            "fieldType": "timings",
+            "optional": false,
+            "label": {
+                "fr": "Horaires",
+                "en": "Timings",
+                "it": "Orari",
+                "de": "Timings",
+                "es": "horario",
+                "br": "Eurioù"
+            },
+            "schemaId": null
+        },
+        {
+            "languages": [],
+            "field": "description",
+            "fieldType": "text",
+            "optional": false,
+            "max": 200,
+            "label": {
+                "fr": "Description courte",
+                "en": "Short description",
+                "it": "Breve descrizione",
+                "de": "Kurzbeschreibung",
+                "es": "Descripción corta",
+                "br": "Deskrivadur berr"
+            },
+            "schemaId": null
+        },
+        {
+            "languages": [],
+            "field": "longDescription",
+            "fieldType": "markdown",
+            "label": {
+                "fr": "Description longue",
+                "en": "Long description",
+                "it": "Descrizione lunga",
+                "de": "Lange Beschreibung",
+                "es": "Descripción larga",
+                "br": "Deskrivadur hir"
+            },
+            "max": 10000,
+            "schemaId": null
+        },
+        {
+            "field": "registration",
+            "fieldType": "registration",
+            "optional": true,
+            "label": "Outils d'inscription",
+            "schemaId": null
+        },
+        {
+            "languages": [],
+            "field": "keywords",
+            "fieldType": "keywords",
+            "optional": true,
+            "max": 255,
+            "label": "Mots clés",
+            "schemaId": null
+        },
+        {
+            "field": "uid",
+            "fieldType": "integer",
+            "optional": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "slug",
+            "fieldType": "text",
+            "optional": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "private",
+            "fieldType": "boolean",
+            "default": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "timezone",
+            "fieldType": "text",
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "draft",
+            "fieldType": "boolean",
+            "default": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "createdAt",
+            "fieldType": "date",
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "creatorUid",
+            "fieldType": "integer",
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "ownerUid",
+            "fieldType": "integer",
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "updatedAt",
+            "fieldType": "date",
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "agendaUid",
+            "fieldType": "integer",
+            "optional": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        },
+        {
+            "field": "locationUid",
+            "fieldType": "integer",
+            "optional": false,
+            "write": [
+                "internal"
+            ],
+            "schemaId": null
+        }
+    ]
+}

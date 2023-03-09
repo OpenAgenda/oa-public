@@ -2,7 +2,7 @@
 
 const { produce } = require('immer');
 const {
-  BadRequest
+  BadRequest,
 } = require('@openagenda/verror');
 
 const convertTimingsRange = require('./convertTimingsRange');
@@ -16,14 +16,19 @@ module.exports = produce((query = {}) => {
 
       query[f] = []
         .concat(query[f])
-        .map(s => typeof s === 'string' ? parseInt(s) : s);
+        .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
     });
   } catch (e) {
-    log('error', 'provided state is invalid %j', query);
+    // console.log('error', 'provided state is invalid %j', query);
+  }
+
+  if (query.if) {
+    query.includeFields = query.if;
+    delete query.if;
   }
 
   if (Array.isArray(query.uid)) {
-    query.uid = query.uid.map(uid => uid === '' ? -1 : uid);
+    query.uid = query.uid.map(uid => (uid === '' ? -1 : uid));
   } else if (query.uid instanceof Object) {
     try {
       query.uid = Object.values(query.uid).map(uid => parseInt(uid, 10));
@@ -36,10 +41,10 @@ module.exports = produce((query = {}) => {
     if (query.attendanceMode) {
       query.attendanceMode = []
         .concat(query.attendanceMode)
-        .map(s => typeof s === 'string' ? parseInt(s) : s);
+        .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
     }
   } catch (e) {
-    log('error', 'provided attendanceMode is invalid %j', query);
+    // log('error', 'provided attendanceMode is invalid %j', query);
   }
 
   if (query.date && (query.date.gte || query.date.lte)) {
@@ -49,5 +54,14 @@ module.exports = produce((query = {}) => {
 
   if (query.timings?.range) {
     query.timings = convertTimingsRange(query.timings);
+  }
+
+  if (query.geo?.northEast && query.geo?.southWest) {
+    if (
+      (query.geo?.northEast.lat === query.geo?.southWest.lat)
+      || (query.geo?.northEast.lng === query.geo?.southWest.lng)
+    ) {
+      throw new BadRequest('northEast and southWest cannot have same lat or lng values');
+    }
   }
 });

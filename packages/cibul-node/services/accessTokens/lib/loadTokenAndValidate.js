@@ -9,4 +9,4 @@ module.exports = async (knex, tokenString, nonce) => {
 
   await isTokenValid(knex, token);
   await flagNonce(knex, token, nonce);
-}
+};

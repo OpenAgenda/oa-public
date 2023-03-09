@@ -4,6 +4,16 @@ const moment = require('moment-timezone');
 
 const flattenTagSet = require('../utils/flattenTagSet');
 
+const addLTEToTimings = (timings, d) => ({
+  ...timings,
+  lte: moment(d)
+    .tz('Europe/paris')
+    .hour(23)
+    .minute(59)
+    .second(59)
+    .format(),
+});
+
 module.exports = (legacyFilter, options = {}) => {
   const keys = Object.keys(legacyFilter);
 
@@ -36,13 +46,7 @@ module.exports = (legacyFilter, options = {}) => {
         break;
       }
       case 'to': {
-        const date = moment(legacyFilter.to)
-          .tz('Europe/paris')
-          .hour(23)
-          .minute(59)
-          .second(59)
-          .format();
-        convertedQuery.timings = { ...convertedQuery.timings, lte: date };
+        convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.to);
         break;
       }
       case 'what':
@@ -91,10 +95,10 @@ module.exports = (legacyFilter, options = {}) => {
         break;
       }
       case 'category': {
-        if (!categorySet && !formSchema) return;
+        if (!categorySet || !formSchema) return;
         const categoryFilter = [].concat(legacyFilter?.category ?? []);
 
-        const categories = categorySet.categories.filter(cat => categoryFilter.some(c => c === cat.slug));
+        const categories = (categorySet.categories || []).filter(cat => categoryFilter.some(c => c === cat.slug));
 
         if (!categories.length) return;
 
@@ -119,8 +123,17 @@ module.exports = (legacyFilter, options = {}) => {
         Object.assign(convertedQuery, categoryObject);
         break;
       }
+      case 'updatedAtAfter':
+        convertedQuery.updatedAt = {
+          gte: legacyFilter.updatedAtAfter,
+        };
+        break;
       default:
         return convertedQuery;
+    }
+
+    if (legacyFilter.from && !legacyFilter.to) {
+      convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.from);
     }
 
     return convertedQuery;

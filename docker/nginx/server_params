@@ -11,41 +11,36 @@ if ($http_x_forwarded_for) {
 #if ($client_ip = "52.31.143.17") { return 403; }
 
 gzip on;
-gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+gzip_types
+  text/plain
+  text/css
+  text/html
+  text/xml
+  text/javascript
+  application/javascript
+  application/x-javascript
+  application/xml
+  application/json
+  application/ld+json
+  application/xml
+  application/xml+rss;
 
 server_tokens off;
 client_max_body_size 20m;
 large_client_header_buffers 4 16k;
 
+
+
 ##########################################################
 #             STATIC FILES
 
-location ~ ^/dist {
-  include conf.d/nodejs_params;
+location /_next {
+  include conf.d/nextjs_params;
 }
 
-location ~ ^/docx {
-  include conf.d/nodejs_params;
-}
-
-location ~ ^/agendas/([0-9]+)/pulse\.svg {
-  include conf.d/nodejs_params;
-}
-
-location ~ ^/_next {
-  include conf.d/nodejs_params;
-}
-
-location ~ \.(js|png|html|svg|ttf|woff|gif|ejs|ico|css)$ {
-  include conf.d/static_params;
-}
-
-location /fonts {
+# cibul-templates/dist
+location ~/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;
-  include conf.d/static_params;
-}
-
-location ~ ^/js/ {
   include conf.d/static_params;
 }
 
@@ -69,6 +64,7 @@ location = /favicon.ico {
 location /legacy {
   return 403 "Nope.";
 }
+
 
 
 ##########################################################
@@ -97,6 +93,8 @@ location ~ ^/[^/]+/(fr|en|de|es|it|br)$ {
   rewrite ^/([^/]+)/(fr|en|de|es|it|br)$ /$2?lang=$3 permanent;
   return 403;
 }
+
+
 
 ##########################################################
 #            NODE SPECIFIC ROUTES
@@ -135,9 +133,177 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
   include conf.d/nodejs_params;
 }
 
+
+
 ##########################################################
 #                NODEJS
 
-location / {
+location ~ ^/(en|de|br|es|it)$ {
   include conf.d/nodejs_params;
+}
+
+location /api {
+  include conf.d/nodejs_params;
+}
+
+location /events {
+  include conf.d/nodejs_params;
+}
+
+location /users {
+  include conf.d/nodejs_params;
+}
+
+location /incoming-emails {
+  include conf.d/nodejs_params;
+}
+
+# location /locations {
+#   include conf.d/nodejs_params;
+# }
+
+location /home {
+  include conf.d/nodejs_params;
+}
+
+location /admin {
+  include conf.d/nodejs_params;
+}
+
+location /dist {
+  include conf.d/nodejs_params;
+}
+
+location /abilities {
+  include conf.d/nodejs_params;
+}
+
+location /unsubscribe {
+  include conf.d/nodejs_params;
+}
+
+location /docx {
+  include conf.d/nodejs_params;
+}
+
+location /signin {
+  include conf.d/nodejs_params;
+}
+
+location /signup {
+  include conf.d/nodejs_params;
+}
+
+location /signout {
+  include conf.d/nodejs_params;
+}
+
+location /newsletter {
+  include conf.d/nodejs_params;
+}
+
+location /services {
+  include conf.d/nodejs_params;
+}
+
+location /flash {
+  include conf.d/nodejs_params;
+}
+
+location /start {
+  include conf.d/nodejs_params;
+}
+
+location /discover {
+  include conf.d/nodejs_params;
+}
+
+location /decouvrir {
+  include conf.d/nodejs_params;
+}
+
+location /entdecken {
+  include conf.d/nodejs_params;
+}
+
+location /decouvrirbr {
+  include conf.d/nodejs_params;
+}
+
+location /descubrir {
+  include conf.d/nodejs_params;
+}
+
+location /scoprire {
+  include conf.d/nodejs_params;
+}
+
+location /session {
+  include conf.d/nodejs_params;
+}
+
+location /latest-inbox-timestamp {
+  include conf.d/nodejs_params;
+}
+
+location /widgets {
+  include conf.d/nodejs_params;
+}
+
+location /agendas {
+  include conf.d/nodejs_params;
+}
+
+# agendas.:format
+location ~ /agendas\.[a-zA-Z0-9]* {
+  include conf.d/nodejs_params;
+}
+
+location /facebook {
+  include conf.d/nodejs_params;
+}
+
+location /twitter {
+  include conf.d/nodejs_params;
+}
+
+location /google {
+  include conf.d/nodejs_params;
+}
+
+location /activate {
+  include conf.d/nodejs_params;
+}
+
+location /password {
+  include conf.d/nodejs_params;
+}
+
+location /new {
+  include conf.d/nodejs_params;
+}
+
+location /supervisor {
+  include conf.d/nodejs_params;
+}
+
+location /settings {
+  include conf.d/nodejs_params;
+}
+
+location /support {
+  include conf.d/nodejs_params;
+}
+
+location /notifications {
+  include conf.d/nodejs_params;
+}
+
+# /:agendaSlug/...
+location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
+  include conf.d/nodejs_params;
+}
+
+location / {
+  include conf.d/nextjs_params;
 }

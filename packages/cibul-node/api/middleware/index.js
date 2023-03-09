@@ -1,7 +1,7 @@
 'use strict';
 
+const verifyAndLoadAgendaOrUserFromKey = require('./verifyAndLoadAgendaOrUserFromKey');
 const verifyAndLoadAccessTokenUser = require('./verifyAndLoadAccessTokenUser');
-const verifyAndLoadKeyUser = require('./verifyAndLoadKeyUser');
 const member = require('./member');
 const loadAgenda = require('./loadAgenda');
 const eventUpdate = require('./eventUpdate');
@@ -15,8 +15,8 @@ const evaluateAnonymousAccess = require('./evaluateAnonymousAccess');
 const getEventFromSearchOrAsDraft = require('./getEventFromSearchOrAsDraft');
 
 module.exports = {
+  verifyAndLoadAgendaOrUserFromKey,
   verifyAndLoadAccessTokenUser,
-  verifyAndLoadKeyUser,
   member,
   loadAgenda,
   eventUpdate,

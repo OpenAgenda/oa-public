@@ -93,7 +93,7 @@ async function _setCategories(knex, agendaId, reviewArticleId, fieldValueMap) {
   if (!categorySet) return;
 
   const categoryItem = _.first(
-    fieldValueMap.filter(mapItem => mapItem.field.origin === 'categories'),
+    fieldValueMap.filter(mapItem => mapItem.field.origin === 'categories' && (mapItem.field.fieldType !== 'abstract')),
   );
 
   const label = categoryItem ? _optionFlatLabel(

@@ -52,7 +52,7 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access: null, actingMember });
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitMemberSchema: true, access: null, actingMember });
   const schemas = await getMemberSchema(services, agenda, { access, actingMember });
   let cleanMemberData = null;
   try {
@@ -87,6 +87,11 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');
   }
+
+  await core.agendas(agendaUid).events.search.resyncEvents({
+    state: null,
+    memberUid: member.userUid,
+  }, { access: 'internal' });
 
   return { ...cleanMemberData };
 };

@@ -5,8 +5,8 @@ const {
   NotFound,
 } = require('@openagenda/verror');
 const getMergedSchema = require('./settings/getMergedSchema');
-const getMemberSchema = require('./utils/getMemberSchema');
 const loadSummary = require('./utils/loadSummary');
+const extractMemberSchema = require('./utils/extractMemberSchema');
 
 function cacheAndReturn(services, options, agendaUid, result) {
   const {
@@ -51,7 +51,7 @@ async function get(core, agendaUid, options = {}) {
     includeNonDataFields = false,
     useCache = false,
     includeMemberSchema = false,
-    includeSplitedMemberSchema = false,
+    includeSplitMemberSchema = false,
     actingMember = null,
   } = options;
 
@@ -82,7 +82,7 @@ async function get(core, agendaUid, options = {}) {
       services,
       options,
       agendaUid,
-      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access)
+      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access),
     );
   }
 
@@ -94,21 +94,30 @@ async function get(core, agendaUid, options = {}) {
     log('error', error);
   }
 
-  related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
-  related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
-
-  related.schema = await getMergedSchema(services, agenda, {
-    includeNonDataFields,
-    includeEvent,
-    includeMember,
-    includeDateRange,
-    includeAgendaEvent,
-    includeOriginAgenda,
-    access: typeof access === 'string' ? { read: access } : access,
-  });
+  if (detailed) {
+    related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
+    related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
+    related.schema = await getMergedSchema(services, agenda, {
+      includeNonDataFields,
+      includeEvent,
+      includeMember,
+      includeMemberSchema,
+      includeDateRange,
+      includeAgendaEvent,
+      includeOriginAgenda,
+      actingMember,
+      access: typeof access === 'string' ? { read: access } : access,
+    });
+  }
 
   if (includeMemberSchema) {
-    related.memberSchema = includeSplitedMemberSchema ? await getMemberSchema(services, agenda, { access, actingMember }) : (await getMemberSchema(services, agenda, { access, actingMember })).merged;
+    related.memberSchema = await extractMemberSchema(services, {
+      schema: related.schema,
+      includeSplitMemberSchema,
+      access,
+      actingMember,
+      agenda,
+    });
   }
 
   if (access === 'internal') {
@@ -116,7 +125,7 @@ async function get(core, agendaUid, options = {}) {
       services,
       options,
       agendaUid,
-      { ...agenda, ...related }
+      { ...agenda, ...related },
     );
   }
 
@@ -127,7 +136,7 @@ async function get(core, agendaUid, options = {}) {
     {
       ...agendas.utils.filterByAccess(agenda, 'read', access),
       ...related,
-    }
+    },
   );
 }
 

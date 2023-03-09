@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     formSchema: req.formSchema,
     includeFields: req.query.includeFields,
     includeLanguages: req.query.includeLanguages,
-    distributeOptionalFields: req.query.distributeOptionalFields,
+    spreadFields: req.query.distributeOptionalFields,
   }).pipe(res);
 
   return res.writeHead(200, {

@@ -7,7 +7,8 @@ module.exports = {
     "de": "Gruppenname",
     "es": "Nombre del grupo",
     "it": "Nome del gruppo",
-    "io": "crwdns12686:0crwdne12686:0"
+    "io": "crwdns12686:0crwdne12686:0",
+    "oc": "Nom del grop"
   },
   "groupNameInfo": {
     "en": "",
@@ -21,7 +22,8 @@ module.exports = {
     "de": "Informationstext",
     "es": "indicativa de texto",
     "it": "Testo indicativo",
-    "io": "crwdns12688:0crwdne12688:0"
+    "io": "crwdns12688:0crwdne12688:0",
+    "oc": "Tèxte d'informacion"
   },
   "groupInfoInfo": {
     "en": "Leave empty to keep default text",
@@ -29,7 +31,8 @@ module.exports = {
     "de": "Lasse leer Standardtext zu halten",
     "es": "Dejar en blanco para mantener el texto predeterminado",
     "it": "Lasciare vuoto per mantenere il testo predefinito",
-    "io": "crwdns12690:0crwdne12690:0"
+    "io": "crwdns12690:0crwdne12690:0",
+    "oc": "Daissatz void per servar lo tèxte per defaut"
   },
   "tagListTitle": {
     "en": "Group tags",
@@ -37,7 +40,8 @@ module.exports = {
     "de": "Gruppen-Tags",
     "es": "Grupo Etiquetas",
     "it": "Tag di gruppo",
-    "io": "crwdns12692:0crwdne12692:0"
+    "io": "crwdns12692:0crwdne12692:0",
+    "oc": "Etiquetas del grop"
   },
   "empty": {
     "en": "the tag name cannot be empty",
@@ -45,7 +49,8 @@ module.exports = {
     "de": "der Tag-Name darf nicht leer sein",
     "es": "la etiqueta no puede estar vacía",
     "it": "il tag non può essere vuoto",
-    "io": "crwdns12694:0crwdne12694:0"
+    "io": "crwdns12694:0crwdne12694:0",
+    "oc": "lo nom de l'etiqueta pòt pas èsser void"
   },
   "duplicate": {
     "en": "this tag already exists in this group",
@@ -53,7 +58,8 @@ module.exports = {
     "de": "dieser Tag existiert bereits in dieser Gruppe",
     "es": "etiqueta ya existe en este grupo",
     "it": "questo tag esiste già in questo gruppo",
-    "io": "crwdns12696:0crwdne12696:0"
+    "io": "crwdns12696:0crwdne12696:0",
+    "oc": "aquesta etiqueta existís ja dins aqueste grop"
   },
   "tags": {
     "en": "Tags",
@@ -61,7 +67,8 @@ module.exports = {
     "de": "Stichworte",
     "es": "etiquetas",
     "it": "Tags",
-    "io": "crwdns12698:0crwdne12698:0"
+    "io": "crwdns12698:0crwdne12698:0",
+    "oc": "Etiquetas"
   },
   "subtitle": {
     "en": "Tags form a single or multiple selection lists",
@@ -69,7 +76,8 @@ module.exports = {
     "de": "Tags bilden eine einzelne oder mehrere Auswahllisten",
     "es": "Etiquetas formar una o más listas de selección",
     "it": "I tag formano una o più liste tra cui scegliere",
-    "io": "crwdns12700:0crwdne12700:0"
+    "io": "crwdns12700:0crwdne12700:0",
+    "oc": "Las etiquetas forman una o mai d'una tièra de causidas"
   },
   "compulsory": {
     "en": "compulsory field",
@@ -77,7 +85,8 @@ module.exports = {
     "de": "Pflichtfeld",
     "es": "campo obligatorio",
     "it": "campo obbligatorio",
-    "io": "crwdns12702:0crwdne12702:0"
+    "io": "crwdns12702:0crwdne12702:0",
+    "oc": "camp obligatòri"
   },
   "listName": {
     "en": "Name of the list",
@@ -85,7 +94,8 @@ module.exports = {
     "de": "Name der Liste",
     "es": "Encabezando la lista",
     "it": "Nome della lista",
-    "io": "crwdns12704:0crwdne12704:0"
+    "io": "crwdns12704:0crwdne12704:0",
+    "oc": "Nom de la tièra"
   },
   "listSection": {
     "en": "Agenda tags",
@@ -102,7 +112,8 @@ module.exports = {
     "de": "Hinzufügen",
     "es": "añadir",
     "it": "Aggiungere",
-    "io": "crwdns12708:0crwdne12708:0"
+    "io": "crwdns12708:0crwdne12708:0",
+    "oc": "Apondre"
   },
   "addTag": {
     "en": "Add a tag",
@@ -110,7 +121,8 @@ module.exports = {
     "de": "Füge einen Tag hinzu",
     "es": "Añadir una etiqueta",
     "it": "Aggiungere un tag",
-    "io": "crwdns12710:0crwdne12710:0"
+    "io": "crwdns12710:0crwdne12710:0",
+    "oc": "Apondre una etiqueta"
   },
   "addGroup": {
     "en": "Add a tag group",
@@ -118,7 +130,8 @@ module.exports = {
     "de": "Füge eine Variablengruppe",
     "es": "Añadir un grupo de etiquetas",
     "it": "Aggiungere un gruppo di tag",
-    "io": "crwdns12712:0crwdne12712:0"
+    "io": "crwdns12712:0crwdne12712:0",
+    "oc": "Apondre un grop d'etiquetas"
   },
   "deleteGroup": {
     "en": "Delete group",
@@ -126,7 +139,8 @@ module.exports = {
     "de": "Gruppe löschen",
     "es": "eliminar grupo",
     "it": "Cancellare il gruppo",
-    "io": "crwdns12714:0crwdne12714:0"
+    "io": "crwdns12714:0crwdne12714:0",
+    "oc": "Suprimir lo grop"
   },
   "cancelDeleteGroup": {
     "en": "Cancel",
@@ -135,7 +149,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns12716:0crwdne12716:0"
+    "io": "crwdns12716:0crwdne12716:0",
+    "oc": "Anullar"
   },
   "confirmDeleteGroup": {
     "en": "There are %count% tags in this group. Are you sure?",
@@ -152,7 +167,8 @@ module.exports = {
     "de": "Ja",
     "es": "sí",
     "it": "Sì",
-    "io": "crwdns12720:0crwdne12720:0"
+    "io": "crwdns12720:0crwdne12720:0",
+    "oc": "Òc"
   },
   "noTags": {
     "en": "You haven't yet defined any tags for this agenda",
@@ -160,7 +176,8 @@ module.exports = {
     "de": "Du hast noch keine Tags zu diesem Programm definiert",
     "es": "No se ha definido ninguna etiqueta para esta agenda",
     "it": "Non avete ancora impostato alcun tag per questo calendario",
-    "io": "crwdns12722:0crwdne12722:0"
+    "io": "crwdns12722:0crwdne12722:0",
+    "oc": "Avètz pas encara definida cap etiqueta per aquesta agenda"
   },
   "linkError": {
     "en": "An error occurred while saving your data. Please try again later",
@@ -168,7 +185,8 @@ module.exports = {
     "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
     "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
-    "io": "crwdns12724:0crwdne12724:0"
+    "io": "crwdns12724:0crwdne12724:0",
+    "oc": "I aguèt una error pendent l'enregistrament de vòstras donadas. Mercés de tornar ensajar mai tard"
   },
   "updateTag": {
     "en": "Ok",
@@ -186,7 +204,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns12728:0crwdne12728:0"
+    "io": "crwdns12728:0crwdne12728:0",
+    "oc": "Anullar"
   },
   "required": {
     "en": "Required",
@@ -195,7 +214,8 @@ module.exports = {
     "es": "obligatorio",
     "it": "Richiesto",
     "br": "Rekis",
-    "io": "crwdns12730:0crwdne12730:0"
+    "io": "crwdns12730:0crwdne12730:0",
+    "oc": "Requesit"
   },
   "requiredInfo": {
     "en": "At least one tag must be checked.",
@@ -203,7 +223,8 @@ module.exports = {
     "de": "Mindestens ein Tag muss überprüft werden.",
     "es": "Al menos una etiqueta debe ser seleccionado.",
     "it": "Deve essere selezionato almeno un tag.",
-    "io": "crwdns12732:0crwdne12732:0"
+    "io": "crwdns12732:0crwdne12732:0",
+    "oc": "Cal seleccionar al mens una etiqueta."
   },
   "unique": {
     "en": "Single choice",
@@ -211,7 +232,8 @@ module.exports = {
     "de": "Einzel Wahl",
     "es": "única opción",
     "it": "Scelta unica",
-    "io": "crwdns12734:0crwdne12734:0"
+    "io": "crwdns12734:0crwdne12734:0",
+    "oc": "Causida unica"
   },
   "uniqueInfo": {
     "en": "Not more tag can be checked",
@@ -219,7 +241,8 @@ module.exports = {
     "de": "Nicht mehr Tag überprüft werden",
     "es": "Sólo una etiqueta se puede seleccionar",
     "it": "Può essere selezionato un solo tag",
-    "io": "crwdns12736:0crwdne12736:0"
+    "io": "crwdns12736:0crwdne12736:0",
+    "oc": "Se pòt seleccionar sonque una etiqueta"
   },
   "customFieldsFeature": {
     "en": "Add custom fields",
@@ -227,7 +250,8 @@ module.exports = {
     "de": "Füge benutzerdefinierte Felder",
     "es": "Añadir campos personalizados",
     "it": "Aggiunta di campi personalizzati",
-    "io": "crwdns12738:0crwdne12738:0"
+    "io": "crwdns12738:0crwdne12738:0",
+    "oc": "Apondre de camps personalizats"
   },
   "redirectMain": {
     "en": "This tab has been moved to the Setup section of your agenda administration page",
@@ -253,7 +277,8 @@ module.exports = {
     "de": "offen sichtbar",
     "es": "pública Visible",
     "it": "Visibile al pubblico",
-    "io": "crwdns12744:0crwdne12744:0"
+    "io": "crwdns12744:0crwdne12744:0",
+    "oc": "Publicament vesedor"
   },
   "contributorAccess": {
     "en": "Viewable by agenda members only",
@@ -270,6 +295,7 @@ module.exports = {
     "de": "Sichtbarer von Administratoren und Moderatoren nur",
     "es": "Sólo es visible para los administradores y moderadores",
     "it": "Visibile solo ad amministratori e moderatori",
-    "io": "crwdns12748:0crwdne12748:0"
+    "io": "crwdns12748:0crwdne12748:0",
+    "oc": "Vesedor sonque pels administrator·a·s e moderator·a·s"
   }
 }

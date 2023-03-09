@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
@@ -97,7 +97,7 @@ const AccessModal = ({
             <a
               href={link}
               className="btn btn-primary"
-              target="_blanc"
+              target="_blank"
             >
               {`${intl.formatMessage(messages.goTo)} ${hostname}`}
             </a>

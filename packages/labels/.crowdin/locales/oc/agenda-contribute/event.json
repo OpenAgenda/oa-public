@@ -8,5 +8,20 @@
   "onlyAdditionalFieldsCanBeEdited": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí.",
   "onlyAdditionalFieldsCanBeEditedInfo": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut.",
   "requestEditionRightsInfo": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
-  "cancelShare": "Anullar lo partatge"
+  "cancelShare": "Anullar lo partatge",
+  "title": "Dintratz vòstre eveniment",
+  "submit": "Enregistrar",
+  "create": "Crear l'eveniment",
+  "update": "Metre a jorn",
+  "editEvent": "Metre l'eveniment a jorn",
+  "undraft": "Crear l'eveniment",
+  "addEvent": "Apondre un eveniment",
+  "shareEvent": "Partejar un eveniment",
+  "takeEvent": "Tornar prene",
+  "confirmAdd": "Apondre l'eveniment",
+  "noEditionRights": "Avètz pas de dreits d'edicion sus aqueste eveniment.",
+  "requestEditionRights": "Demandar los dreits d'edicion",
+  "shareRestrictionInfo": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \"%event%\" d'èsser partejat sus l'agenda \"%agenda%\"",
+  "suggestChange": "Suggerir una modificacion",
+  "close": "Tampar"
 }

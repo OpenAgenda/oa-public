@@ -50,7 +50,7 @@ module.exports = async ({ config, services }, before, after, context) => {
         services,
         { entityType: 'event', entityUid: event.uid },
         { agenda, event, ae: after },
-        context
+        context,
       );
     } catch (e) {
       log('error', e);

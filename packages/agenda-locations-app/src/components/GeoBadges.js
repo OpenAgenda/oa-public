@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { defineMessages, useIntl } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';

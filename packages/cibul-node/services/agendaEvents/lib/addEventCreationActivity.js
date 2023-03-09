@@ -3,11 +3,13 @@
 const VError = require('verror');
 const log = require('@openagenda/logs')('agendaEvents/addEventCreationActivity');
 
+const getMemberName = require('./utils/getMemberName');
+
 module.exports = async (services, eventFeed, {
   ae,
   agenda,
   event,
-  user
+  user,
 }, context) => {
   log('processing');
   const {
@@ -27,13 +29,13 @@ module.exports = async (services, eventFeed, {
   if (duplicateOrigin) {
     const duplicateOriginAgenda = await agendasSvc.get({ uid: duplicateOrigin.agendaUid }, {
       internal: true,
-      private: null
+      private: null,
     });
 
     const originEvent = await eventsSvc.get(duplicateOrigin.eventUid, {
       includeFields: ['ownerUid'],
       access: 'internal',
-      private: null
+      private: null,
     });
 
     await activitiesSvc.feed(eventFeed).activities.add({
@@ -43,13 +45,13 @@ module.exports = async (services, eventFeed, {
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: ae.member.custom.contactName || user.fullName,
+          actor: getMemberName(ae.member, user),
           object: event.title,
           target: agenda.title,
-          duplicateOriginAgenda: duplicateOriginAgenda.title
+          duplicateOriginAgenda: duplicateOriginAgenda.title,
         },
         duplicateOriginAgendaUid: duplicateOriginAgenda.uid,
-        ownerUid: originEvent.ownerUid
+        ownerUid: originEvent.ownerUid,
       },
     });
   } else {
@@ -60,16 +62,16 @@ module.exports = async (services, eventFeed, {
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: ae.member.custom.contactName || user.fullName,
+          actor: getMemberName(ae.member, user),
           object: event.title,
-          target: agenda.title
-        }
+          target: agenda.title,
+        },
       },
     });
   }
 
   await membersSvc.patch.actions.increment({
     agendaUid: agenda.uid,
-    userUid: user.uid
+    userUid: user.uid,
   });
 };

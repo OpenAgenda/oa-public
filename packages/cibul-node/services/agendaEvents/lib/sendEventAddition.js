@@ -1,74 +1,64 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const agendasSvc = require('@openagenda/agendas');
-const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 
 const log = require('@openagenda/logs')(
-  'agendaEvents/sendEventAddition'
+  'agendaEvents/sendEventAddition',
 );
+
+const getStateSlug = require('./utils/getStateSlug');
+const getMemberName = require('./utils/getMemberName');
 
 module.exports = async ({ config, services }, { agendaEvent, user, context }) => {
   const {
-    root
+    root,
   } = config;
 
   const {
     mails,
     users,
-    members: membersSvc
+    members: membersSvc,
   } = services;
 
   log('processing');
 
   const { sourceAgenda, agenda, event } = context;
-  let stateLabel;
+  const stateLabel = getStateSlug(agendaEvent);
 
   const link = `${root}/${agenda.slug}/events/${event.slug}`;
 
-  switch ( agendaEvent.state ) {
-    case agendaEventStates.TOCONTROL:
-      stateLabel = 'tocontrol';
-      break;
-    case agendaEventStates.CONTROLLED:
-      stateLabel = 'controlled';
-      break;
-    case agendaEventStates.PUBLISHED:
-      stateLabel = 'published';
-      break;
-  }
-
   const logo = agenda && agenda.image
-    ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
+    ? { src: agenda.image.replace('.com/', '.com/rwtb'), width: '100px' }
     : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
   const members = await membersSvc.list({
     agendaUid: agenda.uid,
-    roles: ['administrator','moderator']
+    roles: ['administrator', 'moderator'],
   }, { limit: 1000 }, { detailed: true });
 
   const originAgenda = await agendasSvc.get({
-    uid: event.agendaUid
+    uid: event.agendaUid,
   }, {
     internal: true,
     private: null,
-    includeImagePath: true
+    includeImagePath: true,
   });
 
   const creatorUser = await users.findOne({
     query: {
-      uid: event.creatorUid
-    }
+      uid: event.creatorUid,
+    },
   });
   const creator = await membersSvc.get({
     agendaUid: originAgenda.uid,
-    userUid: creatorUser.uid
+    userUid: creatorUser.uid,
   });
   const creatorLang = creatorUser.culture || 'fr';
 
   const sharerMember = !agenda.private && context.userUid ? await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: context.userUid
+    userUid: context.userUid,
   }) : null;
 
   if (!sharerMember) {
@@ -83,7 +73,7 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
 
   const creatorIsInDestination = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
   const visibleForCreator = creatorIsInDestination
-    || (!agenda.private && agendaEvent.state === agendaEventStates.PUBLISHED);
+    || (!agenda.private && stateLabel === 'published');
 
   if (visibleForCreator) {
     await mails.send({
@@ -93,74 +83,73 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
         unsubscriptions: [
           {
             rule: ['receive', 'myEventAddition'],
-            dataPath: 'unsubscribeLink'
+            dataPath: 'unsubscribeLink',
           }, {
             memberId: creator.id,
             rule: ['receive', 'myEventAddition'],
-            dataPath: 'memberUnsubscribeLink'
-          }
-        ]
+            dataPath: 'memberUnsubscribeLink',
+          },
+        ],
       },
       data: {
-        user: sharerMember.custom.contactName || user.fullName,
+        user: getMemberName(sharerMember, user),
         event: event.title[creatorLang] || _.find(event.title),
         agenda: agenda.title,
         state: stateLabel,
         logo,
         link,
-        sourceAgenda: sourceAgenda.title
+        sourceAgenda: sourceAgenda.title,
       },
-      lang: creatorLang
+      lang: creatorLang,
     });
   }
 
   if (!context.batched) {
-    const targetedMembers = members.filter(member => (
+    const targetedMembers = members.filter(member =>
       member.user
       && !(
         member.user.uid === creatorUser.uid && visibleForCreator
-      )
-    ));
+      ));
 
-    await mails.send( {
+    await mails.send({
       template: 'eventAddition',
       to: targetedMembers
-        .filter( member => {
-          if ( !member.user ) {
-            log( 'warn', 'no user was found matching member %s', member.id );
+        .filter(member => {
+          if (!member.user) {
+            log('warn', 'no user was found matching member %s', member.id);
           }
 
           return !!member.user;
-        } )
-        .map( member => {
+        })
+        .map(member => {
           const lang = member.user.culture || 'fr';
-          const eventTitle = event.title[ lang ] || _.find( event.title );
+          const eventTitle = event.title[lang] || _.find(event.title);
 
           return {
             address: member.user.email,
             lang: member.user.culture,
-            unsubscriptions: [ {
-              rule: [ 'receive', 'eventAddition' ],
-              dataPath: 'unsubscribeLink'
+            unsubscriptions: [{
+              rule: ['receive', 'eventAddition'],
+              dataPath: 'unsubscribeLink',
             }, {
               memberId: member.id,
-              rule: [ 'receive', 'eventAddition' ],
-              dataPath: 'memberUnsubscribeLink'
-            } ],
+              rule: ['receive', 'eventAddition'],
+              dataPath: 'memberUnsubscribeLink',
+            }],
             data: {
-              event: eventTitle
-            }
+              event: eventTitle,
+            },
           };
-        } ),
+        }),
       data: {
-        user: sharerMember.custom.contactName || user.fullName,
+        user: getMemberName(sharerMember, user),
         agenda: agenda.title,
         state: stateLabel,
         logo,
         link,
-        sourceAgenda: sourceAgenda.title
-      }
-    } );
+        sourceAgenda: sourceAgenda.title,
+      },
+    });
   }
 
   log('all good');

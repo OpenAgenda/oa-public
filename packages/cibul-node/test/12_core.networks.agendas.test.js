@@ -1,9 +1,8 @@
 'use strict';
 
-const loadFixtures = require('./fixtures/load');
-
 const Services = require('../services/init');
 const Core = require('../core');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
@@ -31,8 +30,8 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         'members',
         'networks',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -41,7 +40,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core.networks.agendas.add', () => {
-
     describe('successful', () => {
       let result;
 
@@ -64,7 +62,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
 
         expect(entry.network_uid).toBe(1);
       });
-
     });
 
     describe('fail due to Agenda already being associated to a network', () => {
@@ -86,11 +83,9 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         expect(error.message).toBe('agenda is already in the network');
       });
     });
-
   });
 
   describe('core.networks.agendas.remove', () => {
-
     describe('successful', () => {
       let result;
 
@@ -134,7 +129,5 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         expect(error.message).toBe('agenda is not in network');
       });
     });
-
   });
-
 });

@@ -2,5 +2,11 @@
   "subject": "{agenda}: {event} cambièt d'estatut",
   "title": "L'eveniment <b>{event}</b> passèt de l'estatut <b>{beforeState}</b> a l'estatut <b>{afterState}</b> sus l'agenda <b>{agenda}</b>.",
   "memberUnsubscribe": "Arrestar de recebre los cambiaments d'estatut d'eveniment d'aquela agenda cap a \"{afterState}\"",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
+  "actionDescription": "Veire l'eveniment",
+  "tocontrol": "de repassar",
+  "controlled": "prèste per publicar",
+  "published": "publicat",
+  "refused": "refusat",
+  "unsubscribe": "Arrestar de recebre los cambiaments d'estatut d'eveniment cap a \"{afterState}\""
 }

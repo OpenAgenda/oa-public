@@ -5,8 +5,11 @@ module.exports = async function filterEventByRole(agenda, event, context = {}) {
     !Array.isArray(field.read) || field.read.includes(context.me?.member?.role) ? Object.assign(
       filtered,
       {
-        [field.field]: event[field.field]
-      }
+        [field.field]: event[field.field],
+      },
     ) : filtered
-  ), {});
+  ), {
+    nextTiming: event.nextTiming,
+    lastTiming: event.lastTiming,
+  });
 };

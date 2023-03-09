@@ -92,7 +92,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           detailed: true,
         });
       } catch (e) {
-        // log if needed
+        // console.log(e);
       }
     });
 

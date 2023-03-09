@@ -62,8 +62,15 @@ export function getDefaultValueLabel(field, lang) {
   return defaultValue;
 }
 
-export function getLinkedField({ field, schema }) {
-  const linkType = field.enableWith ? 'enableWith' : 'optionalWith';
+export function getLinkedField(options = {}) {
+  const {
+    field,
+    schema,
+  } = options;
+
+  const {
+    linkType = field.enableWith ? 'enableWith' : 'optionalWith',
+  } = options;
 
   if (!field[linkType]) {
     return null;
@@ -87,4 +94,20 @@ export function getFieldTypeIcon(field) {
     has: true,
     className: field.fieldType,
   };
+}
+
+export function allowItemDisplayToggle(field) {
+  if (!isFieldDisplayed(field)) {
+    return true;
+  }
+
+  if (isFieldOptional(field)) {
+    return true;
+  }
+
+  if (![undefined, null].includes(field.default)) {
+    return true;
+  }
+
+  return false;
 }

@@ -20,8 +20,8 @@ export default config => {
   const params = cleanParams('link', config, {
     error: {
       code: 'link.invalid',
-      message: 'value is not a link'
-    }
+      message: 'value is not a link',
+    },
   });
 
   const shouldntMatch = [/\s/, /\/:/, /;/];
@@ -30,29 +30,29 @@ export default config => {
     const templateError = {
       field: params.field,
       code: 'link.invalid',
-      message: 'value is not a link'
+      message: 'value is not a link',
     };
 
     let clean = value;
 
     const error = [{
       origin: value,
-      ...templateError
+      ...templateError,
     }];
 
     if (isString(value)) {
       clean = value.trim();
     }
 
-    if ((!value || !value.length) && params.optional) {
+    if ((!value || !value.length) && !(value instanceof Object) && params.optional) {
       return params.default !== undefined ? params.default : clean;
     }
 
-    if ((new RegExp('^mailto\\:')).test(clean) && isEmail(clean.replace(new RegExp('^mailto\\:'), ''))) {
+    if (/^mailto:/.test(clean) && isEmail(clean.replace(/^mailto:/, ''))) {
       return clean;
     }
 
-    const startsWithProtocol = (new RegExp('^((http(s|):|)\\/\\/|mailto\\:)')).test(clean);
+    const startsWithProtocol = /^((http(s|):|)\/\/|mailto:)/.test(clean);
 
     if (!startsWithProtocol && isEmail(clean)) throw error;
 
@@ -77,7 +77,7 @@ export default config => {
 
     if (!isURL(clean, {
       allow_protocol_relative_urls: true,
-      allow_underscores: true
+      allow_underscores: true,
     })) {
       throw error;
     }

@@ -1,16 +1,83 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
 const marked = require('marked');
 
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
+const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
 const listAdminMods = require('./utils/listAdminMods');
+const getStateSlug = require('./utils/getStateSlug');
 
-const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
+async function sendToContributor({
+  services,
+  contributor,
+  contributorUser,
+  agendaEvent,
+  agenda,
+  event,
+  logo,
+  link,
+  beforeStateLabel,
+  afterStateLabel,
+}) {
+  const {
+    mails,
+  } = services;
+
+  const conributorLang = contributorUser.culture || 'fr';
+
+  const sendAgendaPublicationMessage = (
+    agendaEvent.state === agendaEventStates.PUBLISHED
+  ) && _.get(agenda, 'settings.contribution.messages.publication');
+
+  const to = {
+    address: contributorUser.email,
+    unsubscriptions: [{
+      rule: ['receive', 'myEventChangeState'],
+      dataPath: 'unsubscribeLink',
+    }, {
+      memberId: contributor.id,
+      rule: ['receive', 'myEventChangeState'],
+      dataPath: 'memberUnsubscribeLink',
+    }],
+  };
+
+  const eventTitle = event.title[conributorLang] || _.find(event.title);
+
+  const agendaTitle = agenda.title;
+
+  if (sendAgendaPublicationMessage) {
+    await mails.send({
+      template: 'eventPublishContributor',
+      to,
+      data: {
+        eventTitle,
+        agendaTitle,
+        logo,
+        link,
+        message: marked(_.get(agenda, 'settings.contribution.messages.publication')),
+      },
+      lang: conributorLang,
+    });
+  } else {
+    await mails.send({
+      template: 'myEventChangeState',
+      to,
+      data: {
+        event: eventTitle,
+        agenda: agendaTitle,
+        beforeState: beforeStateLabel,
+        afterState: afterStateLabel,
+        logo,
+        link,
+      },
+      lang: conributorLang,
+    });
+  }
+}
 
 module.exports = async ({ config, services }, { agendaEvent, before, context, agenda, event }) => {
   const { root } = config;
@@ -18,7 +85,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   const {
     mails,
     members: membersSvc,
-    users: usersSvc
+    users: usersSvc,
   } = services;
 
   if (!mails) {
@@ -27,8 +94,8 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   }
 
   log('processing');
-  const afterStateLabel = getStateLabel(agendaEvent.state);
-  const beforeStateLabel = getStateLabel(before.state);
+  const afterStateLabel = getStateSlug(agendaEvent);
+  const beforeStateLabel = getStateSlug(before);
 
   const link = eventLink(root, agenda, event);
   const logo = agendaLogo(agenda);
@@ -36,7 +103,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   const members = await listAdminMods(membersSvc, agenda.uid);
 
   const contributorUser = await usersSvc.findOne({
-    query: { uid: agendaEvent.userUid }
+    query: { uid: agendaEvent.userUid },
   });
 
   const contributor = contributorUser ? await membersSvc.get({
@@ -45,15 +112,15 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   }) : null;
   const creator = await membersSvc.get({
     agendaUid: event.agendaUid, // origin agenda
-    userUid: event.creatorUid
+    userUid: event.creatorUid,
   });
   const creatorUser = await usersSvc.findOne({
     query: {
-      uid: event.creatorUid
-    }
+      uid: event.creatorUid,
+    },
   });
 
-  const eventIsPublished = agendaEvent.state === agendaEventStates.PUBLISHED
+  const eventIsPublished = agendaEvent.state === agendaEventStates.PUBLISHED;
   const eventIsRefused = agendaEvent.state === agendaEventStates.REFUSED;
 
   const creatorIsAdminmod = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
@@ -66,7 +133,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   let sentToContributor = false;
 
   if (creatorUser.uid !== contributorUser?.uid && visibleForCreator) {
-    await _sendToContributor({
+    await sendToContributor({
       services,
       contributor: creator,
       contributorUser: creatorUser,
@@ -76,14 +143,14 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
       logo,
       link,
       beforeStateLabel,
-      afterStateLabel
+      afterStateLabel,
     });
 
     sentToCreator = true;
   }
 
   if (contributorIsAdminmod || eventIsPublished || eventIsRefused) {
-    await _sendToContributor({
+    await sendToContributor({
       services,
       contributor,
       contributorUser,
@@ -93,7 +160,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
       logo,
       link,
       beforeStateLabel,
-      afterStateLabel
+      afterStateLabel,
     });
 
     sentToContributor = true;
@@ -114,10 +181,9 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
         return !!member.user;
       })
-      .filter(member => (
+      .filter(member =>
         (sentToCreator && member.user.uid === creatorUser.uid)
-        || (sentToContributor && member.user.uid === contributorUser.uid)
-      ))
+        || (sentToContributor && member.user.uid === contributorUser.uid))
       .map(member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
@@ -127,15 +193,15 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
           lang: member.user.culture,
           unsubscriptions: [{
             rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
-            dataPath: 'unsubscribeLink'
+            dataPath: 'unsubscribeLink',
           }, {
             memberId: member.id,
             rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
-            dataPath: 'memberUnsubscribeLink'
+            dataPath: 'memberUnsubscribeLink',
           }],
           data: {
-            event: eventTitle
-          }
+            event: eventTitle,
+          },
         };
       }),
     data: {
@@ -143,94 +209,8 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
       beforeState: beforeStateLabel,
       afterState: afterStateLabel,
       logo,
-      link
-    }
+      link,
+    },
   });
   log('done');
 };
-
-
-async function _sendToContributor({
-  services,
-  contributor,
-  contributorUser,
-  agendaEvent,
-  agenda,
-  event,
-  logo,
-  link,
-  beforeStateLabel,
-  afterStateLabel
-}) {
-  const {
-    mails
-  } = services;
-
-  const conributorLang = contributorUser.culture || 'fr';
-
-  const sendAgendaPublicationMessage = (
-    agendaEvent.state === agendaEventStates.PUBLISHED
- ) && _.get(agenda, 'settings.contribution.messages.publication');
-
-  const to = {
-    address: contributorUser.email,
-    unsubscriptions: [{
-      rule: ['receive', 'myEventChangeState'],
-      dataPath: 'unsubscribeLink'
-    }, {
-      memberId: contributor.id,
-      rule: ['receive', 'myEventChangeState'],
-      dataPath: 'memberUnsubscribeLink'
-    }]
-  };
-
-  const eventTitle = event.title[conributorLang] || _.find(event.title);
-
-  const agendaTitle = agenda.title;
-
-  if (sendAgendaPublicationMessage) {
-
-    await mails.send({
-      template: 'eventPublishContributor',
-      to,
-      data: {
-        eventTitle,
-        agendaTitle,
-        logo,
-        link,
-        message: marked(_.get(agenda, 'settings.contribution.messages.publication'))
-      },
-      lang: conributorLang
-    });
-
-  } else {
-
-    await mails.send({
-      template: 'myEventChangeState',
-      to,
-      data: {
-        event: eventTitle,
-        agenda: agendaTitle,
-        beforeState: beforeStateLabel,
-        afterState: afterStateLabel,
-        logo,
-        link
-      },
-      lang: conributorLang
-    });
-
-  }
-}
-
-function getStateLabel(state) {
-  switch (state) {
-    case agendaEventStates.REFUSED:
-      return 'refused';
-    case agendaEventStates.TOCONTROL:
-      return 'tocontrol';
-    case agendaEventStates.CONTROLLED:
-      return 'controlled';
-    case agendaEventStates.PUBLISHED:
-      return 'published';
-  }
-}

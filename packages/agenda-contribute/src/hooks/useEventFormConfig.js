@@ -3,13 +3,13 @@ import { useIntl } from 'react-intl';
 
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
 import addStateField from '../lib/addStateField';
-import injectAgendaUID from '../lib/injectAgendaUID';
+import injectAgendaUIDAndSlug from '../lib/injectAgendaUID';
 import useDetailedAgenda from './useDetailedAgenda';
 import useAgendaContext from './useAgendaContext';
 
 export default function useEventFormConfig(agenda) {
   const {
-    locale
+    locale,
   } = useIntl();
 
   const res = useSelector(state => state.res);
@@ -19,17 +19,17 @@ export default function useEventFormConfig(agenda) {
 
   const {
     detailedAgendaIsLoading,
-    detailedAgenda
+    detailedAgenda,
   } = useDetailedAgenda(agenda.uid);
 
   const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid);
 
   if (detailedAgendaIsLoading || agendaContextIsLoading) {
     return {
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -51,11 +51,11 @@ export default function useEventFormConfig(agenda) {
       withErrors: false,
       unloadWarning: {
         router: true,
-        page: true
+        page: true,
       },
       lang: locale,
       schema: detailedAgenda.schema,
-      locationRes: injectAgendaUID(res.locations, apiRoot, agenda.uid),
+      locationRes: injectAgendaUIDAndSlug(res.locations, apiRoot, agenda),
       referencesRes: res.references,
       suggestionsRes: res.suggestions,
       maxFileSize: files.maxSize,
@@ -64,7 +64,7 @@ export default function useEventFormConfig(agenda) {
       classNames: {
         fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
         bottomErrorsCanvas: 'error-summary padding-all-md',
-      }
-    }
+      },
+    },
   };
 }

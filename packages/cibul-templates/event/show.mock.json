@@ -1,10 +1,11 @@
 {
   "base": {
-    "agendaId" : 111,
+    "agendaId": 111,
+    "agenda": {},
     "loner": false,
-    "private" : false,
-    "useContributeApp" : false,
-    "useDetailedStatusActions" : false,
+    "private": false,
+    "useContributeApp": false,
+    "useDetailedStatusActions": false,
     "title": "Jeu de Territoire pour développer la qualité de Vie",
     "description": "l'agenda des évènements repérés par ChezNous",
     "image": "review_cheznous_598_00.jpg",
@@ -16,8 +17,534 @@
     "oaRoot": "http://localhost:3000",
     "isCancelled": false,
     "isOriginAgenda": true,
+    "agendaReferences": [
+      {
+        "uid": 7967967,
+        "title": "La genda",
+        "slug": "lagenda",
+        "thumbnail": "rwtbreview_concours-et-appels-a-projet-entrepreneuriat-etudiant_00.jpg"
+      },
+      {
+        "uid": 67967969,
+        "title": "La sélection de Gaetan",
+        "slug": "la-sel-gaetan",
+        "thumbnail": "rwtbreview_vous-avez-dit-moli-re_02.jpg"
+      },
+      {
+        "uid": 739269,
+        "title": "Blog",
+        "slug": "lfjdslqhfjdsl"
+      },
+      {
+        "uid": 739269,
+        "title": "L'agenda au titre le plus long du template en 2015 avec du texte à rallonge",
+        "slug": "lfjdslqhfjdsl",
+        "thumbnail": "rwtbreview_transition-touraine_00.jpg"
+      },
+      {
+        "uid": 12321,
+        "title": "Un autre agenda",
+        "slug": "lfjdslqhfjdsl",
+        "thumbnail": "rwtbreview_vous-avez-dit-moli-re_02.jpg"
+      }
+    ],
+    "indexedEvent": {
+      "originAgenda": {
+        "image": "agenda76126842.jpg",
+        "uid": 76126842,
+        "title": "Cité des sciences et de l'industrie"
+      },
+      "state": 2,
+      "featured": false,
+      "dateRange": "12 - 29 juillet",
+      "member": {
+        "uid": 22719486,
+        "role": 2,
+        "phone": "+33140053571",
+        "organization": "Universcience",
+        "name": "Olivier Rabet",
+        "position": null,
+        "email": "olivier.rabet@universcience.fr",
+        "_agg": "eyJ1aWQiOjIyNzE5NDg2LCJuYW1lIjoiT2xpdmllciBSYWJldCJ9"
+      },
+      "activites-themes-batiments": [
+        {
+          "id": 123,
+          "label": {
+            "fr": "Batiment - Hors les murs"
+          }
+        },
+        {
+          "id": 6,
+          "label": {
+            "fr": "Activité - Activités et animations"
+          }
+        }
+      ],
+      "title": "Bibliothèque à roulettes du Grand jeu",
+      "format-de-loffre": [
+        {
+          "id": 889,
+          "label": {
+            "en": "Rendez-vous"
+          }
+        }
+      ],
+      "publics-cibles": [
+        {
+          "id": 1637,
+          "label": {
+            "en": "Famille"
+          }
+        },
+        {
+          "id": 1638,
+          "label": {
+            "en": "Enfant"
+          }
+        }
+      ],
+      "age": {
+        "min": 2,
+        "max": 12
+      },
+      "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+      },
+      "accessibilites-complementaires": [],
+      "thematiques": [],
+      "description": "15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre",
+      "longDescription": "<p>Pour fêter l'été, la bibliothèque prend l'air et s'installe avec le Grand Jeu sur le parvis Nord de la Cité des sciences et de l'industrie avec de nombreux livres et jeux en accès libre pour les enfants.<br />Tous les mardis, jeudis et vendredis de 15h à 16h30.</p>\n",
+      "image": {
+        "filename": "976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 370
+        },
+        "variants": [
+          {
+            "filename": "976dcec9e89c4e22be0691b4f6ac4948.full.image.jpg",
+            "size": {
+              "width": 849,
+              "height": 449
+            },
+            "type": "full"
+          },
+          {
+            "filename": "976dcec9e89c4e22be0691b4f6ac4948.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "image-de-levenement-format-portrait": null,
+      "image-format-carre": null,
+      "image-paysage-169e": null,
+      "imageCredits": null,
+      "libelle-du-lien-en-savoir-plus": "en savoir plus",
+      "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/lieux-ressources/bibliotheque/quoi-faire/evenements/la-bibliotheque-a-roulettes/",
+      "timings": [
+        {
+          "begin": "2022-07-12T15:00:00+02:00",
+          "end": "2022-07-12T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-15T15:00:00+02:00",
+          "end": "2022-07-15T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-21T15:00:00+02:00",
+          "end": "2022-07-21T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-22T15:00:00+02:00",
+          "end": "2022-07-22T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-26T15:00:00+02:00",
+          "end": "2022-07-26T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-28T15:00:00+02:00",
+          "end": "2022-07-28T16:30:00+02:00"
+        },
+        {
+          "begin": "2022-07-29T15:00:00+02:00",
+          "end": "2022-07-29T16:30:00+02:00"
+        }
+      ],
+      "attendanceMode": {
+        "id": 1,
+        "label": {
+          "fr": "Sur place",
+          "en": "Offline",
+          "it": "In presenza",
+          "es": "Desconnectad",
+          "de": "Offline",
+          "br": "War al lec’h",
+          "io": "crwdns14266:0crwdne14266:0"
+        }
+      },
+      "onlineAccessLink": null,
+      "conditions": "Accès libre et gratuit",
+      "tarifs": [
+        {
+          "id": 1341,
+          "label": {
+            "en": "Gratuit"
+          }
+        }
+      ],
+      "registration": [],
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/",
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée",
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2022-05-17T14:15:37.000Z",
+        "image": "https://cibuldev.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France",
+        "googleItineraryLink": "https://www.google.com/maps/dir//48.89568,2.387654/@48.89568,2.387654,17z",
+        "OSMItineraryLink": "https://www.openstreetmap.org/directions?to=48.89568%2C2.387654"
+      },
+      "lieux-cite-des-sciences": [
+        {
+          "id": 1522,
+          "label": {
+            "en": "Niveau 0 ; Parvis nord"
+          }
+        }
+      ],
+      "porteur-doffre-cite-des-sciences": [
+        {
+          "id": 1492,
+          "label": {
+            "en": "Bibliothèque, jeunesse"
+          }
+        }
+      ],
+      "capacitejauge": 20,
+      "keywords": [],
+      "organisation-bsi": {
+        "id": 1495,
+        "label": {
+          "en": "Jeunesse"
+        }
+      },
+      "parcours-bsi": [
+        {
+          "id": 1765,
+          "label": {
+            "en": "Jeunesse ; Lire, écouter, raconter des histoires"
+          }
+        }
+      ],
+      "lieux-bsi": [
+        {
+          "id": 1754,
+          "label": {
+            "en": "Niveau 0 ; Parvis Nord"
+          }
+        }
+      ],
+      "status": {
+        "id": 1,
+        "label": {
+          "fr": "Programmé",
+          "en": "Scheduled",
+          "io": "crwdns16100:0crwdne16100:0"
+        }
+      },
+      "thematique-etincelles": [],
+      "format-de-loffre-etincelles": [],
+      "uid": 24138896,
+      "slug": "la-bibliotheque-a-roulettes-du-grand-jeu",
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "draft": 0,
+      "createdAt": "2021-06-17T02:47:37.000Z",
+      "creatorUid": 22719486,
+      "ownerUid": 22719486,
+      "updatedAt": "2022-07-27T08:06:09.000Z",
+      "links": [],
+      "months": [
+        {
+          "key": "2022-07",
+          "diff": -6,
+          "current": false,
+          "label": "Juillet 2022",
+          "weeks": [
+            {
+              "key": 3,
+              "week": "3",
+              "label": "3",
+              "current": false,
+              "days": [
+                {
+                  "key": "12",
+                  "day": "12",
+                  "current": false,
+                  "passed": true,
+                  "label": "Mardi 12",
+                  "timings": [
+                    {
+                      "begin": "2022-07-12T15:00:00+02:00",
+                      "end": "2022-07-12T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "mardi 12",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "mardi 12",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-12T15:00\",\n  \"endDate\": \"2022-07-12T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1657630800000",
+                      "permalink": "undefined/t/1657630800000"
+                    }
+                  ]
+                },
+                {
+                  "key": "15",
+                  "day": "15",
+                  "current": false,
+                  "passed": true,
+                  "label": "Vendredi 15",
+                  "timings": [
+                    {
+                      "begin": "2022-07-15T15:00:00+02:00",
+                      "end": "2022-07-15T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "vendredi 15",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "vendredi 15",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-15T15:00\",\n  \"endDate\": \"2022-07-15T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1657890000000",
+                      "permalink": "undefined/t/1657890000000"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": 4,
+              "week": "4",
+              "label": "4",
+              "current": false,
+              "days": [
+                {
+                  "key": "21",
+                  "day": "21",
+                  "current": false,
+                  "passed": true,
+                  "label": "Jeudi 21",
+                  "timings": [
+                    {
+                      "begin": "2022-07-21T15:00:00+02:00",
+                      "end": "2022-07-21T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "jeudi 21",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "jeudi 21",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-21T15:00\",\n  \"endDate\": \"2022-07-21T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1658408400000",
+                      "permalink": "undefined/t/1658408400000"
+                    }
+                  ]
+                },
+                {
+                  "key": "22",
+                  "day": "22",
+                  "current": false,
+                  "passed": true,
+                  "label": "Vendredi 22",
+                  "timings": [
+                    {
+                      "begin": "2022-07-22T15:00:00+02:00",
+                      "end": "2022-07-22T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "vendredi 22",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "vendredi 22",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-22T15:00\",\n  \"endDate\": \"2022-07-22T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1658494800000",
+                      "permalink": "undefined/t/1658494800000"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": 5,
+              "week": "5",
+              "label": "5",
+              "current": false,
+              "days": [
+                {
+                  "key": "26",
+                  "day": "26",
+                  "current": false,
+                  "passed": true,
+                  "label": "Mardi 26",
+                  "timings": [
+                    {
+                      "begin": "2022-07-26T15:00:00+02:00",
+                      "end": "2022-07-26T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "mardi 26",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "mardi 26",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-26T15:00\",\n  \"endDate\": \"2022-07-26T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1658840400000",
+                      "permalink": "undefined/t/1658840400000"
+                    }
+                  ]
+                },
+                {
+                  "key": "28",
+                  "day": "28",
+                  "current": false,
+                  "passed": true,
+                  "label": "Jeudi 28",
+                  "timings": [
+                    {
+                      "begin": "2022-07-28T15:00:00+02:00",
+                      "end": "2022-07-28T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "jeudi 28",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "jeudi 28",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-28T15:00\",\n  \"endDate\": \"2022-07-28T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1659013200000",
+                      "permalink": "undefined/t/1659013200000"
+                    }
+                  ]
+                },
+                {
+                  "key": "29",
+                  "day": "29",
+                  "current": false,
+                  "passed": true,
+                  "label": "Vendredi 29",
+                  "timings": [
+                    {
+                      "begin": "2022-07-29T15:00:00+02:00",
+                      "end": "2022-07-29T16:30:00+02:00",
+                      "labels": {
+                        "begin": {
+                          "day": "vendredi 29",
+                          "time": "15:00"
+                        },
+                        "end": {
+                          "day": "vendredi 29",
+                          "time": "16:30"
+                        }
+                      },
+                      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-29T15:00\",\n  \"endDate\": \"2022-07-29T16:30\",\n  \"duration\": \"PT1H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+                      "link": "undefined/t/1659099600000",
+                      "permalink": "undefined/t/1659099600000"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "displayed": true,
+          "hasPrevious": false,
+          "hasNext": false
+        }
+      ],
+      "isUpcoming": false,
+      "availableAccessibilities": [],
+      "JSONLD": "{\n  \"@id\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"@context\": \"http://schema.org\",\n  \"@type\": \"Event\",\n  \"name\": {\n    \"fr\": \"Bibliothèque à roulettes du Grand jeu\"\n  },\n  \"description\": {\n    \"fr\": \"15h-16h30 [RENDEZ-VOUS] La bibliothèque s'installe avec le Grand Jeu sur la pelouse du parvis de la Cité des sciences et de l'industrie avec de nombreux livres et jeux pour les enfants. Accès libre\"\n  },\n  \"url\": \"https://openagenda.com/events/la-bibliotheque-a-roulettes-du-grand-jeu\",\n  \"image\": \"https://cibuldev.s3.amazonaws.com/976dcec9e89c4e22be0691b4f6ac4948.base.image.jpg\",\n  \"startDate\": \"2022-07-12T15:00\",\n  \"endDate\": \"2022-07-29T16:30\",\n  \"duration\": \"PT409H30M\",\n  \"eventAttendanceMode\": \"https://schema.org/OfflineEventAttendanceMode\",\n  \"eventStatus\": \"https://schema.org/EventScheduled\",\n  \"typicalAgeRange\": \"2-12\",\n  \"location\": {\n    \"@type\": \"Place\",\n    \"name\": \"Cité des sciences et de l'Industrie\",\n    \"address\": {\n      \"@type\": \"PostalAddress\",\n      \"streetAddress\": \"30 Avenue Corentin Cariou, 75019 Paris\",\n      \"addressLocality\": \"Paris\",\n      \"addressRegion\": \"Île-de-France\",\n      \"postalCode\": \"75019\",\n      \"addressCountry\": \"FR\"\n    },\n    \"geo\": {\n      \"@type\": \"GeoCoordinates\",\n      \"latitude\": 48.89568,\n      \"longitude\": 2.387654\n    }\n  }\n}",
+      "languages": [
+        {
+          "code": "fr",
+          "label": "Français",
+          "link": "https://d.openagenda.com/agendas/76126842/events/24138896?lang=fr"
+        }
+      ],
+      "permalink": "https://d.openagenda.com/agendas/76126842/events/24138896",
+      "facebookShare": "https://www.facebook.com/sharer.php?u=https%3A%2F%2Fd.openagenda.com%2Fcite-des-sciences%2Fevents%2Fla-bibliotheque-a-roulettes-du-grand-jeu%3Flang%3Dfr",
+      "twitterShare": "https://twitter.com/share?url=https%3A%2F%2Fd.openagenda.com%2Fcite-des-sciences%2Fevents%2Fla-bibliotheque-a-roulettes-du-grand-jeu%3Flang%3Dfr&text=Biblioth%C3%A8que%20%C3%A0%20roulettes%20du%20Grand%20jeu",
+      "linkedInShare": "http://www.linkedin.com/shareArticle?url=https%3A%2F%2Fd.openagenda.com%2Fcite-des-sciences%2Fevents%2Fla-bibliotheque-a-roulettes-du-grand-jeu%3Flang%3Dfr&title=Biblioth%C3%A8que%20%C3%A0%20roulettes%20du%20Grand%20jeu&summary=15h-16h30%20%5BRENDEZ-VOUS%5D%20La%20biblioth%C3%A8que%20s'installe%20avec%20le%20Grand%20Jeu%20sur%20la%20pelouse%20du%20parvis%20de%20la%20Cit%C3%A9%20des%20sciences%20et%20de%20l'industrie%20avec%20de%20nombreux%20livres%20et%20jeux%20pour%20les%20enfants.%20Acc%C3%A8s%20libre%20-%20https%3A%2F%2Fd.openagenda.com%2Fcite-des-sciences%2Fevents%2Fla-bibliotheque-a-roulettes-du-grand-jeu%3Flang%3Dfr&source=https%3A%2F%2Fd.openagenda.com"
+    },
+    "backLink": "/",
     "event": {
-      "uri" : "#",
+      "uri": "#",
       "permalink": "http://localhost:3000/agendas/829089289/events/82938983",
       "importUri": "/event/action.part",
       "languages": false,
@@ -38,7 +565,7 @@
       "title": "Mastodon + Big Business + Krokodil",
       "description": "Les américains de Mastodon sont venus présenter leur excellent nouvel album, moins progressif mais plus rock, pour une tournée anglaise exceptionnel",
       "freeText": "<p>Salut à tous</p><h1>Et de un</h1><p>Pour le dernier concert de l'année 2014, nous sommes très fiers (et un peu surexcités, il faut l'avouer) de recevoir <strong>Siôn Russell Jones Music (OFFICIAL)</strong> au <em>The Bootleg BAR PARIS!</em></p> <h2>Et de deux</h2>Et pour parfaire cette soirée, notre coup de coeur Thomas KAHN assurera la première partie! C'est pas beau ça?<h3>Et de 3</h3>★________Sion Russel Jones________★\n\nSiôn Russel Jones est un auteur-compositeur-interprète originaire de Cardiff, au Pays de Galles. Sa voix unique et envoûtante est (Bucks Music Group). \n\nLes singles \"So Long\" et “Best of Me\", tirés de son 2e album \"Lost No More\", sont diffusés sur BBC Radio 1 et 2, BBC 6 Music et BBC Radio Wales, et le titre \"So Long\" est joué régulièrement sur SRF 3 en Suisse. \n\nLes mélodies de Siôn ont également été entendues dans plusieurs séries britanniques, dont Coronation Street et Emmerdal En novembre, il retournera en Allemagne pour la première partie de Michael Schulte. Il a également récemment participé aux festivals Greenman et Fornoise, et a fait la première partie suisse de CATS ON TREES. Le second album de Sion “Lost no More” est disponible sur sionrusselljones.com, iTunes et Amazon.\n\n___Pour l'écouter___ \n\n►http://sionrusselljones.com/ \n►https://www.youtube.com/watch?v=9NnZOTEVdQA\n\n\n★________THOMAS KAHN________★\n\nUn habile mélange de Blues &amp; Soul pour un voyage du côté de la Nouvelle-­Orléans, Thomas Kahn nous raconte simplement de belles histoires. Accompagné de sa guitare folk et de sa voix rauque et puissante, il puise son inspiration dans les racines de la musique noire-­américaine.\nCette année, Lady ou très prochaine-­ ment avec Heymoonshaker.\nThomas Kahn a remporté le tremplin Festiv’en Zik en décembre 2013 ainsi que le tremplin Zikcard en février 2014. Il sortira son premier EP en octobre 2014 en collaboration avec le Flower Coast, label clermontois.\n\n___Pour l'écouter___ \n\n►https://soundcloud.com/thomas-kahn-1\n►http://thomas-kahn.com/\n\n_________________________________\n\n\n♦- Où? \nAu Bootleg Bar, 55 Rue de la Roquette, dans le 11ème arrondissement de Paris. \n\n♦- Quel métro? \nVoltaire (ligne 9) ou Bastille (lignes 1, 5, 8)\n\n♦- Quand? \nJeudi 18 décembre, à partir de 20h30\n\n♦- Le prix des consos est cher? \nBien sûr que non. Astuce: Les pintes de Kronembourg sont moins chères lorsque vous montrez au barman le bracelet distribué avant le concert.\n\n♦- Le concert est-il payant?\nOui, le paf est de 5€.\n\n_____________________________________________________\n\n\n",
-      "keywords" : "concert, musique, mastodon, russel, krokodil, kaoré",
+      "keywords": "concert, musique, mastodon, russel, krokodil, kaoré",
       "tags": [
         {
           "slug": "alhambra",
@@ -119,19 +646,19 @@
       "currentState": "published",
       "featured": false,
       "location": {
-        "uid" : 46739624,
-        "agendaId" : 111,
+        "uid": 46739624,
+        "agendaId": 111,
         "link": "#",
         "name": "Musée des beaux-arts de valenciennes",
         "address": "Boulevard Watteau, Valenciennes",
         "image": "location71865148.jpg",
-        "imageCredits" : "This picture took itself",
+        "imageCredits": "This picture took itself",
         "city": "Valenciennes",
-        "department" : "Nord",
-        "region" : "Hauts-de-France",
-        "country" : {
-          "fr" : "France (Métropole)",
-          "en" : "France (Metropolitan)"
+        "department": "Nord",
+        "region": "Hauts-de-France",
+        "country": {
+          "fr": "France (Métropole)",
+          "en": "France (Metropolitan)"
         },
         "postalCode": "59300",
         "latitude": 50.357208,
@@ -188,13 +715,15 @@
         },
         {
           "date": "2015-06-10T00:00:00.000Z",
-          "timings" : [{
-            "start": "2015-06-10T11:15:00.000Z",
-            "end": "2015-06-10T19:00:00.000Z",
-            "label": "mercredi 10 - 11:15",
-            "startLabel": "11:15",
-            "endLabel": "19:00"
-          } ]
+          "timings": [
+            {
+              "start": "2015-06-10T11:15:00.000Z",
+              "end": "2015-06-10T19:00:00.000Z",
+              "label": "mercredi 10 - 11:15",
+              "startLabel": "11:15",
+              "endLabel": "19:00"
+            }
+          ]
         },
         {
           "date": "2015-07-07T00:00:00.000Z",
@@ -250,37 +779,6 @@
         {
           "start": "2014-09-15T19:30:00.000Z",
           "end": "2014-09-15T21:30:00.000Z"
-        }
-      ],
-      "agendaReferences": [
-        {
-          "uid": 7967967,
-          "title": "La genda",
-          "slug": "lagenda",
-          "thumbnail": "rwtbreview_concours-et-appels-a-projet-entrepreneuriat-etudiant_00.jpg"
-        },
-        {
-          "uid": 67967969,
-          "title": "La sélection de Gaetan",
-          "slug": "la-sel-gaetan",
-          "thumbnail": "rwtbreview_vous-avez-dit-moli-re_02.jpg"
-        },
-        {
-          "uid": 739269,
-          "title": "Blog",
-          "slug": "lfjdslqhfjdsl"
-        },
-        {
-          "uid": 739269,
-          "title": "L'agenda au titre le plus long du template en 2015 avec du texte à rallonge",
-          "slug": "lfjdslqhfjdsl",
-          "thumbnail": "rwtbreview_transition-touraine_00.jpg"
-        },
-        {
-          "uid": 12321,
-          "title": "Un autre agenda",
-          "slug": "lfjdslqhfjdsl",
-          "thumbnail": "rwtbreview_vous-avez-dit-moli-re_02.jpg"
         }
       ],
       "registrationComponent": "<ul class=\"registration\"><li><a target=\"_blank\" href=\"http://yahoo.com\"><i class=\"fa fa-link\"></i><span>http://yahoo.com</span></a></li><li><a href=\"mailto:contact@email.com\"><i class=\"fa fa-envelope\"></i><span>contact@email.com</span></a></li><li><a href=\"tel:0650916026\"><i class=\"fa fa-phone\"></i><span>0650916026</span></a></li></ul>"
@@ -477,13 +975,13 @@
           "fieldType": "url"
         },
         {
-          "name" : "somepdffile",
-          "value" : {
-            "name" : "bisounours.pdf",
-            "uploaded" : "fdshjqfkldshqfjkdls.yourfile.event.pdf",
-            "embed" : "<iframe height=\"500\" width=\"100%\" src=\"https://www.nyu.edu/classes/bkg/methods/005847ch1.pdf\" frameborder=\"0\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" />"
+          "name": "somepdffile",
+          "value": {
+            "name": "bisounours.pdf",
+            "uploaded": "fdshjqfkldshqfjkdls.yourfile.event.pdf",
+            "embed": "<iframe height=\"500\" width=\"100%\" src=\"https://www.nyu.edu/classes/bkg/methods/005847ch1.pdf\" frameborder=\"0\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" />"
           },
-          "fieldType" : "file"
+          "fieldType": "file"
         }
       ],
       "customLabels": {

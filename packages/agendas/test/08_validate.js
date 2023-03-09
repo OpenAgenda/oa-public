@@ -217,22 +217,18 @@ describe('agendas - unit (server): validate', () => {
         url: undefined,
         credentials: {
           useContributeApp: true,
-          useAgendaSchema: true,
           premiumCustomFields: false,
           activatingInvitations: false,
-          indesign: false,
           invitationMessage: false,
-          calendarView: false,
           moderators: false,
-          tags: false,
           embedsHead: true,
           embedsTemplates: true,
           prioritizedAggregator: false,
           aggregator: false,
           docxExport: false,
           eventOwnershipTransfer: false,
-          graphs: false,
-          useJSONBridge: false
+          useJSONBridge: false,
+          memberCustom: false,
         }
       });
     });

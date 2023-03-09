@@ -78,7 +78,6 @@ const WEB = process.argv.includes('web');
     }
 
     if (TASK || WEB) {
-      require('./legacy/back')(app);
       require('./general/unsubscribed.front')(app);
     }
 

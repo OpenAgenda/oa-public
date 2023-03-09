@@ -5,17 +5,13 @@ const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('core/agendas/events/update');
 const { Forbidden } = require('@openagenda/verror');
 
-const legacy = require('../../../services/legacy');
-const legacyEventSearch = require('../../../services/elasticsearch');
-
 const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
-const extractUserUid = require('../utils/extractUserUid');
 const setCustom = require('../utils/setCustom');
 
 const cleanEvent = require('../utils/cleanEvent');
-
 const getAgenda = require('../utils/getAgenda');
+const formatError = require('../utils/formatError');
 
 const loadAuthorizations = require('../../utils/authorizations');
 
@@ -30,8 +26,6 @@ const createUpdateActivity = require('./lib/createUpdateActivity');
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
-  log('info', 'updating event %s on agenda %s', eventUid, agendaUid);
-
   const {
     events,
     agendaEvents,
@@ -39,9 +33,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     members,
     aggregators,
     custom,
+    legacy,
+    elasticSearch: legacyEventSearch,
   } = core.services;
 
-  const userUid = extractUserUid(data, options);
+  const actingUserUid = options.userUid ?? options.context?.userUid;
+  log('info', 'update of event %s on agenda %s%s', eventUid, agendaUid, actingUserUid ? ` by user ${actingUserUid}` : ' (no acting user)');
 
   const {
     draft = false,
@@ -55,7 +52,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     private: privateOption = false,
   } = options;
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(core.services, agendaUid, {
+    detailed: true,
+    includeMemberSchema: true,
+  });
 
   log('  loaded agenda %s', agenda?.slug);
 
@@ -70,10 +70,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
 
-  const member = userUid ? await members.get({
+  const actingMember = actingUserUid ? await members.get({
     agendaUid: agenda.uid,
-    userUid,
-  }) : null;
+    userUid: actingUserUid,
+  }, { roleAsSlug: false }) : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
     validateWithStoredData: !!partial,
@@ -82,7 +82,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     optionalSecondaryFields: true,
     partial,
     access,
-    member,
+    member: actingMember,
     defaultLang,
     aggregated,
   });
@@ -91,7 +91,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     agenda,
     event,
     agendaEvent,
-    member,
+    member: actingMember,
     access,
   });
 
@@ -114,7 +114,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     draft,
   });
 
-  const payload = createPayload(core.services, agenda);
+  const payload = createPayload(core, agenda);
 
   if (containsEventData(data)) {
     await updateEvent(core.services, {
@@ -122,7 +122,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       payload,
       draft,
       agendaUid,
-      userUid,
+      userUid: actingUserUid,
       eventUid,
       privateOption,
       event,
@@ -187,14 +187,24 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         context: {
           aggregated,
           legacy: false,
-          userUid,
+          userUid: actingUserUid,
           event,
           agenda,
           stateChangeType,
           batched,
         },
-        decorate: ['member', 'sourceAgendas', 'user'],
+        decorate: ['sourceAgendas', 'user'],
       });
+
+      if (result.set.userUid) {
+        log('user linked to agendaEvent reference %s.%s: %s', agendaUid, eventUid, result.set.userUid);
+        result.set.member = await core.agendas(agenda).members.get(result.set.userUid, {
+          access: 'internal',
+          throwOnNotFound: false,
+          roleAsSlug: false,
+        });
+      }
+
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);
     } catch (e) {
@@ -228,22 +238,27 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent();
 
+  const formSchema = await payload.getFormSchema({ access: 'internal' });
+
   try {
     await eventSearch.update({
       ...response,
+      formSchema,
       event: compiledEvent,
     });
     log('updated search for event %s', eventUid);
   } catch (e) {
-    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
+    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, formatError(e));
   }
 
   const before = await payload.getCompiledEvent('before');
 
-  const formSchema = payload.getFormSchema();
-
   try {
-    await createUpdateActivity(core.services, before, compiledEvent, { userUid, agenda, formSchema });
+    await createUpdateActivity(core.services, before, compiledEvent, {
+      userUid: actingUserUid,
+      agenda,
+      formSchema,
+    });
   } catch (e) {
     log('error', 'failed to create activity', e);
   }

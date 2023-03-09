@@ -4,7 +4,7 @@ import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { QueryClient } from 'react-query';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
@@ -40,6 +40,7 @@ import createAgendaContributeApp from '@openagenda/agenda-contribute/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/src/app';
+import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
@@ -75,7 +76,7 @@ window.ReactQueryClientContext = React.createContext(queryClient);
 const history = createBrowserHistory();
 
 const initialState = parse(
-  he.decode(document.querySelector('#initialState').innerHTML || '{}')
+  he.decode(document.querySelector('#initialState').innerHTML || '{}'),
 );
 
 NProgress.configure({ trickleSpeed: 200 });
@@ -88,7 +89,7 @@ const layoutStore = createLayoutStore(initialState.layout, history);
 const reduxMiddleware = createReduxMiddleware(layoutStore, queryClient);
 
 const apps = [
-  ['home', createHomeApp, MainLayout],
+  ['home', createHomeApp, [MainLayout, RequiredUser]],
   ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
   ['agendaSettingsNew', createAgendaSettingsNewApp, [MainLayout, RequiredUser]],
   ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
@@ -147,6 +148,11 @@ const apps = [
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
+    'agendaSchemaAdmin',
+    createAgendaSchemaAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
     'agendaSettingsEdit',
     createAgendaSettingsEditApp,
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
@@ -172,7 +178,7 @@ const apps = [
       reduxMiddleware,
     }),
   }),
-  {}
+  {},
 );
 
 // function QueryWatch() {
@@ -187,15 +193,17 @@ const apps = [
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
-    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] }))
+    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] })),
   );
 
-  const triggerHooks = () => Promise.all(
-    Object.values(apps).map(app => app.triggerHooks({
-      onStart: onLocationChangeStart,
-      onFinish: onLocationChangeFinish,
-    }))
-  );
+  const triggerHooks = () =>
+    Promise.all(
+      Object.values(apps).map(app =>
+        app.triggerHooks({
+          onStart: onLocationChangeStart,
+          onFinish: onLocationChangeFinish,
+        })),
+    );
 
   const render = (forceRender = false) => {
     const element = (
@@ -214,15 +222,16 @@ loadableReady(async () => {
     const canvas = document.querySelector('#root');
 
     if (!forceRender && canvas.hasChildNodes()) {
-      ReactDOM.hydrate(element, canvas);
+      ReactDOM.hydrateRoot(canvas, element);
     } else {
-      ReactDOM.render(element, canvas);
+      const root = ReactDOM.createRoot(canvas);
+      root.render(element);
     }
   };
 
   render();
 
-  if (module.hot) {
-    module.hot.accept(() => render(true));
+  if (import.meta.webpackHot) {
+    import.meta.webpackHot.accept(() => render(true));
   }
 });

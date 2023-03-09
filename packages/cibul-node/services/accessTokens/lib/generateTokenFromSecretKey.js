@@ -74,6 +74,8 @@ module.exports = async function generateTokenFromSecretKey(services, { secretKey
 
   newToken.id = newTokenId;
 
+  log('generated new token %j', newToken);
+
   return loadUser ? {
     token: newToken,
     user: await getUserFromSecretKey(services, secretKey),

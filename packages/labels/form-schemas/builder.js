@@ -2,7 +2,7 @@
 
 module.exports = {
   "addField": {
-    "fr": "Nouveau champ additionnel",
+    "fr": "Ajouter un champ",
     "en": "Add a field",
     "es": "Agregar campo",
     "it": "Aggiungere un campo",
@@ -20,7 +20,8 @@ module.exports = {
     "en": "Edit",
     "es": "editar",
     "it": "Modificare",
-    "io": "crwdns14678:0crwdne14678:0"
+    "io": "crwdns14678:0crwdne14678:0",
+    "oc": "Modificar"
   },
   "hideField": {
     "fr": "Cacher",
@@ -48,7 +49,8 @@ module.exports = {
     "en": "Delete",
     "es": "Editar las etiquetas",
     "it": "Cancellare",
-    "io": "crwdns14686:0crwdne14686:0"
+    "io": "crwdns14686:0crwdne14686:0",
+    "oc": "Suprimir"
   },
   "editFieldLabels": {
     "fr": "Editer les labels",
@@ -63,7 +65,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Salva",
     "br": "Enrollañ",
-    "io": "crwdns14690:0crwdne14690:0"
+    "io": "crwdns14690:0crwdne14690:0",
+    "oc": "Enregistrar"
   },
   "editFieldCancel": {
     "fr": "Annuler",
@@ -71,7 +74,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns14692:0crwdne14692:0"
+    "io": "crwdns14692:0crwdne14692:0",
+    "oc": "Anullar"
   },
   "orderField": {
     "fr": "Glisser / déposer",
@@ -162,7 +166,8 @@ module.exports = {
     "en": "Edit",
     "es": "editar",
     "it": "Modificare",
-    "io": "crwdns14718:0crwdne14718:0"
+    "io": "crwdns14718:0crwdne14718:0",
+    "oc": "Modificar"
   },
   "editLabelLanguagesInfo": {
     "fr": "Listez les langues dans lesquelles devront être déclinées les labels du formulaire",
@@ -198,7 +203,8 @@ module.exports = {
     "es": "validar",
     "it": "Invia",
     "br": "Kemmañ",
-    "io": "crwdns14728:0crwdne14728:0"
+    "io": "crwdns14728:0crwdne14728:0",
+    "oc": "Sometre"
   },
   "removeLabelLanguages": {
     "fr": "Retirer les langues",
@@ -255,7 +261,8 @@ module.exports = {
     "es": "Email",
     "it": "Email",
     "br": "Postel",
-    "io": "crwdns14744:0crwdne14744:0"
+    "io": "crwdns14744:0crwdne14744:0",
+    "oc": "Email"
   },
   "linkFieldType": {
     "fr": "Hyperlien",
@@ -349,30 +356,38 @@ module.exports = {
   },
   "section": {
     "fr": "Section",
-    "en": "Section"
+    "en": "Section",
+    "io": "crwdns32877:0crwdne32877:0"
   },
   "sectionType": {
     "fr": "Titre de section / séparateur",
-    "en": "Section title / divider"
+    "en": "Section title / divider",
+    "io": "crwdns32879:0crwdne32879:0"
   },
   "sectionTypeInfo": {
     "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
-    "en": "Displays a section head in the form creating a visual separation between the fields above and below"
+    "en": "Displays a section head in the form creating a visual separation between the fields above and below",
+    "io": "crwdns32881:0crwdne32881:0"
   },
   "sectionLabel": {
     "fr": "Titre",
-    "en": "Title"
+    "en": "Title",
+    "it": "Titolo",
+    "oc": "Títol",
+    "io": "crwdns32883:0crwdne32883:0"
   },
   "sectionInfo": {
     "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
-    "en": "Leave this field empty if you wish to insert a separation without a title"
+    "en": "Leave this field empty if you wish to insert a separation without a title",
+    "io": "crwdns32885:0crwdne32885:0"
   },
   "imageFieldType": {
     "fr": "Image",
     "en": "Image",
     "es": "Imagen",
     "it": "Immagine",
-    "io": "crwdns14770:0crwdne14770:0"
+    "io": "crwdns14770:0crwdne14770:0",
+    "oc": "Imatge"
   },
   "unknownFieldType": {
     "fr": "Type inconnu",
@@ -429,25 +444,30 @@ module.exports = {
     "fr": "Fichier",
     "en": "File",
     "es": "Archivo",
-    "it": "File"
+    "it": "File",
+    "io": "crwdns32887:0crwdne32887:0"
   },
   "ageFieldType": {
     "fr": "Sélection de la tranche d'âge",
     "en": "Selection of age group",
     "es": "Selección del grupo de edad",
-    "it": "Selezione della fascia di età"
+    "it": "Selezione della fascia di età",
+    "io": "crwdns32889:0crwdne32889:0"
   },
   "longDescriptionFieldType": {
     "fr": "Champ texte",
     "en": "Text field",
     "es": "Campo de texto",
-    "it": "Campo di testo"
+    "it": "Campo di testo",
+    "io": "crwdns32891:0crwdne32891:0"
   },
   "keywordsFieldType": {
-    "fr": "Mots-clés",
+    "fr": "Mots clés",
     "en": "Keywords",
     "es": "palabras claves",
-    "it": "parole chiave"
+    "it": "Parole Chiave",
+    "oc": "Mots claus",
+    "io": "crwdns32893:0crwdne32893:0"
   },
   "buttonSave": {
     "fr": "Sauvegarder",
@@ -455,7 +475,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Salva",
     "br": "Enrollañ",
-    "io": "crwdns14786:0crwdne14786:0"
+    "io": "crwdns14786:0crwdne14786:0",
+    "oc": "Enregistrar"
   },
   "buttonSaved": {
     "fr": "Enregistré",
@@ -463,7 +484,8 @@ module.exports = {
     "es": "Guardado",
     "it": "Registrato",
     "de": "Gerettet",
-    "io": "crwdns14788:0crwdne14788:0"
+    "io": "crwdns14788:0crwdne14788:0",
+    "oc": "Enregistrat"
   },
   "buttonError": {
     "fr": "Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant",
@@ -478,14 +500,16 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns14792:0crwdne14792:0"
+    "io": "crwdns14792:0crwdne14792:0",
+    "oc": "Anullar"
   },
   "orderEdit": {
     "fr": "Modifier",
     "en": "Edit",
     "es": "Editar",
     "it": "Modificare",
-    "io": "crwdns14794:0crwdne14794:0"
+    "io": "crwdns14794:0crwdne14794:0",
+    "oc": "Modificar"
   },
   "orderInstruction": {
     "fr": "Glissez-déposez chaque champ dans l'emplacement désiré",
@@ -522,7 +546,8 @@ module.exports = {
     "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
-    "io": "crwdns14804:0crwdne14804:0"
+    "io": "crwdns14804:0crwdne14804:0",
+    "oc": "Requesit"
   },
   "fieldFormMaxTextLength": {
     "fr": "Longueur maximale du texte saisi",
@@ -580,7 +605,8 @@ module.exports = {
     "es": "Poner al día",
     "it": "Aggiorna",
     "br": "Hizivaat",
-    "io": "crwdns14816:0crwdne14816:0"
+    "io": "crwdns14816:0crwdne14816:0",
+    "oc": "Metre a jorn"
   },
   "backToFieldType": {
     "fr": "Retour au choix du type",
@@ -595,7 +621,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns14820:0crwdne14820:0"
+    "io": "crwdns14820:0crwdne14820:0",
+    "oc": "Anullar"
   },
   "optionAdd": {
     "fr": "Ajouter des valeurs",
@@ -609,7 +636,8 @@ module.exports = {
     "en": "Add",
     "es": "añadir",
     "it": "Aggiungere",
-    "io": "crwdns14824:0crwdne14824:0"
+    "io": "crwdns14824:0crwdne14824:0",
+    "oc": "Apondre"
   },
   "optionUpdateAction": {
     "fr": "Modifier",
@@ -617,14 +645,16 @@ module.exports = {
     "es": "Poner al día",
     "it": "Aggiorna",
     "br": "Hizivaat",
-    "io": "crwdns14826:0crwdne14826:0"
+    "io": "crwdns14826:0crwdne14826:0",
+    "oc": "Metre a jorn"
   },
   "optionEdit": {
     "fr": "Modifier",
     "en": "Edit",
     "es": "Editar",
     "it": "Modificare",
-    "io": "crwdns14828:0crwdne14828:0"
+    "io": "crwdns14828:0crwdne14828:0",
+    "oc": "Modificar"
   },
   "optionEditCancel": {
     "fr": "Annuler",
@@ -632,7 +662,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns14830:0crwdne14830:0"
+    "io": "crwdns14830:0crwdne14830:0",
+    "oc": "Anullar"
   },
   "optionDrag": {
     "fr": "Trier",
@@ -647,7 +678,8 @@ module.exports = {
     "es": "Clasificar",
     "it": "Ordina",
     "br": "Cheñch an urzh",
-    "io": "crwdns14834:0crwdne14834:0"
+    "io": "crwdns14834:0crwdne14834:0",
+    "oc": "Cambiar l'òrdre"
   },
   "optionRemove": {
     "fr": "Retirer",
@@ -655,7 +687,8 @@ module.exports = {
     "es": "Finalizar la clasificación",
     "it": "Rimuovi",
     "br": "Lemel",
-    "io": "crwdns14836:0crwdne14836:0"
+    "io": "crwdns14836:0crwdne14836:0",
+    "oc": "Suprimir"
   },
   "optionOrderEndAction": {
     "fr": "Terminer le tri",
@@ -696,72 +729,86 @@ module.exports = {
     "fr": "choix",
     "en": "choices",
     "es": "opciones",
-    "it": "scelte"
+    "it": "scelte",
+    "io": "crwdns32895:0crwdne32895:0"
   },
   "isMultilingual": {
     "fr": "Multilingue",
     "en": "Multilingual",
     "es": "Plurilingüe",
-    "it": "Multilingue"
+    "it": "Multilingue",
+    "io": "crwdns32897:0crwdne32897:0"
   },
   "defaultValue": {
     "fr": "Valeur par défaut",
     "en": "Default value",
     "es": "Valor por default",
-    "it": "Valore per difetto"
+    "it": "Valore per difetto",
+    "io": "crwdns32899:0crwdne32899:0"
   },
   "maxLength": {
     "fr": "Longueur max",
     "en": "Max length",
     "es": "Longitud máxima",
-    "it": "Lunghezza max"
+    "it": "Lunghezza max",
+    "io": "crwdns32901:0crwdne32901:0"
   },
   "jsonKey": {
     "fr": "Clé JSON",
     "en": "JSON key",
     "es": "Clave JSON",
-    "it": "chiave JSON"
+    "it": "chiave JSON",
+    "io": "crwdns32903:0crwdne32903:0"
   },
-"isSelected": {
+  "isSelected": {
     "fr": "Sélectionné",
     "en": "Selected",
     "es": "Seleccionado",
-    "it": "Selezionato"
+    "it": "Selezionato",
+    "oc": "Seleccionat",
+    "io": "crwdns32905:0crwdne32905:0"
   },
   "notSelected": {
-    "fr": "Non séléctionné",
+    "fr": "Non sélectionné",
     "en": "Not selected",
     "es": "No seleccionado",
-    "it": "Non selezionato"
+    "it": "Non selezionato",
+    "oc": "Pas seleccionat",
+    "io": "crwdns32907:0crwdne32907:0"
   },
   "enabledWhenLinkedFieldHasValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% est saisi",
     "en": "Active when %linkedFieldName% field is entered",
     "es": "Activo cuando se introduce el campo %linkedFieldName%",
-    "it": "Attivo quando viene inserito il campo %linkedFieldName%"
+    "it": "Attivo quando viene inserito il campo %linkedFieldName%",
+    "io": "crwdns32909:0%linkedFieldName%crwdne32909:0"
   },
   "enabledWhenLinkedFieldHasSpecificValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
     "en": "Active when the %linkedFieldName% field is set to %specificValue%",
     "es": "Activo cuando el campo %linkedFieldName% toma el valor %specificValue%",
-    "it": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%"
+    "it": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%",
+    "io": "crwdns32911:0%linkedFieldName%crwdnd32911:0%specificValue%crwdne32911:0"
   },
   "optionalWhenLinkedFieldHasValue": {
     "fr": "Optionnel lorsque le champ %linkedFieldName% est saisi",
     "en": "Optional when the field %linkedFieldName% is entered",
     "es": "Opcional cuando se introduce el campo %linkedFieldName%",
-    "it": "Opzionale quando viene inserito il campo %linkedFieldName%"
+    "it": "Opzionale quando viene inserito il campo %linkedFieldName%",
+    "io": "crwdns32913:0%linkedFieldName%crwdne32913:0"
   },
   "optionalWhenLinkedFieldHasSpecificValue": {
     "fr": "Optionnel lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
     "en": "Optional when the %linkedFieldName% field is set to %specificValue%",
     "es": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
-    "it": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%"
+    "it": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%",
+    "io": "crwdns32915:0%linkedFieldName%crwdnd32915:0%specificValue%crwdne32915:0"
   },
   "linkedTo": {
     "fr": "Lié au champ %fieldName%",
     "en": "Linked to %fieldName% field",
     "es": "Relacionado con el campo %fieldName%",
-    "it": "Relativo al campo %fieldName%"
+    "it": "Relativo al campo %fieldName%",
+    "io": "crwdns32917:0%fieldName%crwdne32917:0"
   }
 }

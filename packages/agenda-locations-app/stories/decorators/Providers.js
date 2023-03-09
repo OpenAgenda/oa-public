@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';

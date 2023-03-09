@@ -1,20 +1,19 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import MemberFormComponent from '@openagenda/member-apps/dist/components/Form';
 
 const messages = defineMessages({
   title: {
     id: 'AgendaContribute.Member.title',
-    defaultMessage: 'Welcome !'
+    defaultMessage: 'Welcome !',
   },
   subtitle: {
     id: 'AgendaContribute.Member.subtitle',
-    defaultMessage: 'Present yourself to the agenda administrators before starting typing your events'
+    defaultMessage: 'Present yourself to the agenda administrators before starting typing your events',
   },
   share: {
     id: 'AgendaContribute.Member.share',
-    defaultMessage: 'This agenda requires some information about yourself to be entered in order to allow event shares'
-  }
+    defaultMessage: 'This agenda requires some information about yourself to be entered in order to allow event shares',
+  },
 });
 
 export default ({
@@ -23,13 +22,13 @@ export default ({
   res,
   role,
   onSuccess,
-  mode = 'create'
+  mode = 'create',
 }) => {
   const intl = useIntl();
 
   const {
     formatMessage: m,
-    locale
+    locale,
   } = intl;
 
   return (
@@ -49,7 +48,7 @@ export default ({
         title={null}
         GDPR={{
           display: true,
-          moreInfo: agenda.settings?.contribution?.messages?.GDPRInformation
+          moreInfo: agenda.settings?.contribution?.messages?.GDPRInformation,
         }}
         lang={locale}
         optionalFields={['administrator', 'moderator'].includes(role)}

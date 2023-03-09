@@ -1,0 +1,22 @@
+{
+  "AgendaSchema.AfterRedirectModal.body": "Member form configuration is not activated on your calendar",
+  "AgendaSchema.AfterRedirectModal.title": "Information",
+  "AgendaSchema.EmbedSelection.eventInfo": "Events configuration",
+  "AgendaSchema.EmbedSelection.events": "Events",
+  "AgendaSchema.EmbedSelection.memberInfo": "Members configuration",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Ask for access to member configuration",
+  "AgendaSchema.EmbedSelection.members": "Members",
+  "AgendaSchema.EmbedSelection.notActivated": "This feature is not activated on your calendar",
+  "AgendaSchema.adaptForm": "Adapt the configuration of the event form",
+  "AgendaSchema.adaptMemberForm": "Adapt the configuration of the member form",
+  "AgendaSchema.canAddField": "You can add the field of your choice to the event form",
+  "AgendaSchema.event": "Standard",
+  "AgendaSchema.eventDetail": "Standard event field",
+  "AgendaSchema.goToContrib": "Go to contribution settings",
+  "AgendaSchema.member": "Standard Member",
+  "AgendaSchema.memberDetail": "Standard member field",
+  "AgendaSchema.needMoreFields": "Need more fields?",
+  "AgendaSchema.network": "Network",
+  "AgendaSchema.networkDetail": "Field required by the agenda network",
+  "AgendaSchema.warning": "Your calendar's contribution settings do not require your members to enter an identification card."
+}

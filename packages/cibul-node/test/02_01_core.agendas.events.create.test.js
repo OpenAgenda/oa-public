@@ -613,6 +613,62 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     });
   });
 
+  describe('creation of duplicate', () => {
+    let originEvent;
+    let duplicateEvent;
+    const memberUserUid = 63170203;
+    const agendaUid = 17026855;
+
+    beforeAll(async () => {
+      originEvent = await core.agendas(agendaUid).events.create({
+        title: {
+          fr: 'Origine',
+        },
+        description: {
+          fr: 'Test de la lib core',
+        },
+        timings: [{
+          begin: new Date('2023-02-14T10:00:00'),
+          end: new Date('2023-02-14T12:00:00'),
+        }],
+        image: {
+          url: 'https://cibul.s3.amazonaws.com/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+        },
+        attendanceMode: 2,
+        onlineAccessLink: 'https://oa.com',
+        'categories-agenda-metropolitain': 42,
+      }, {
+        context: {
+          userUid: memberUserUid,
+        },
+        access: 'contributor',
+      });
+
+      duplicateEvent = await core.agendas(agendaUid).events.create(_.omit(originEvent, ['state']), {
+        context: {
+          userUid: memberUserUid,
+        },
+        access: 'contributor',
+        duplicateOrigin: {
+          agendaUid,
+          eventUid: originEvent.uid,
+        },
+      });
+    });
+
+    it('origin event image name derives from event fileKey', () => {
+      expect(originEvent.image.filename.match(originEvent.fileKey)).toBeTruthy();
+    });
+
+    it('duplicate fileKey differs from origin fileKey', () => {
+      expect(originEvent.fileKey).not.toBe(duplicateEvent.fileKey);
+    });
+
+    it('duplicate event image name derives from duplicate fileKey', () => {
+      expect(duplicateEvent.image.filename.match(duplicateEvent.fileKey)).toBeTruthy();
+    });
+  });
+
   describe('errors and exceptions', () => {
     const validData = {
       title: {
@@ -867,6 +923,50 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         }).then(r => r.data);
 
         expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
+      });
+
+      it('create event with invalid url provided in image', async () => {
+        let error;
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/events',
+            headers: {
+              'access-token': accessToken,
+              nonce: 794546,
+              'content-type': 'application/json',
+            },
+            data: {
+              title: {
+                fr: 'Un événement créé par API',
+              },
+              description: {
+                fr: 'Un tout petit événement',
+              },
+              image: {
+                url: 'https://cibul.s3.amazonaws.com/event_a-l-abo',
+                credits: 'Les crédits',
+              },
+              timings: [{
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              }],
+              attendanceMode: 2,
+              onlineAccessLink: 'https://openagenda.com',
+              'categories-agenda-metropolitain': 42,
+              'thematiques-bordeaux-metropole': [3, 4],
+            },
+          }).then(r => r.data);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(400);
+        expect(error.response.data.errors).toEqual([{
+          field: 'image',
+          code: 'url.invalid',
+          message: 'provided image url is not valid',
+        }]);
       });
 
       it('contributor may not set state through api', async () => {

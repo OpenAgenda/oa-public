@@ -22,7 +22,7 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   if (req.query.itemsKey === 'items') {
     return res.json({
       ..._.omit(locationsAPIResponse, 'locations'),
-      items: locationsAPIResponse.locations
+      items: locationsAPIResponse.locations,
     });
   }
   res.json(locationsAPIResponse);
@@ -30,7 +30,7 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
 
 dev.get('/api/me/agendas/:agendaUid', (req, res) => {
   const {
-    agendaContext
+    agendaContext,
   } = getFixtures(req.params.agendaUid);
 
   if (!agendaContext) {
@@ -61,7 +61,7 @@ function setMember(req, res) {
   const fx = getFixtures(req.params.agendaUid);
 
   fx.agendaContext = {
-    me: { member, authorizations: { canCreateEvent: true } }
+    me: { member, authorizations: { canCreateEvent: true }, isValid: true },
   };
 
   member.updatedAt = new Date();
@@ -78,21 +78,21 @@ dev.post('/:agendaSlug/contribute', [
       ...JSON.parse(req.body.data),
       uid: Math.floor(Math.random() * 10000000),
       state: 0,
-      draft: req.query.draft === 'true'
+      draft: req.query.draft === 'true',
     };
 
     res.json({ event: createdEvent });
-  }
+  },
 ]);
 
 dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
   const {
-    eventUid
+    eventUid,
   } = req.params;
 
   const updatedEvent = {
     ...JSON.parse(req.body.data),
-    uid: parseInt(eventUid, 10)
+    uid: parseInt(eventUid, 10),
   };
 
   res.json({ event: updatedEvent });
@@ -101,7 +101,7 @@ dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
 dev.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', (req, res) => {
   const sharedEvent = {
     ...getFixtures(req.params.fromAgendaUid).event.event,
-    ...(req.body.data ? JSON.parse(req.body.data) : {}),
+    ...req.body.data ? JSON.parse(req.body.data) : {},
   };
 
   res.json({ event: sharedEvent });

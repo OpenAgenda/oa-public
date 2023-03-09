@@ -1,6 +1,11 @@
 'use strict';
 
-module.exports = (isAdmin, { member, addMethod }) => {
+module.exports = (isAdmin, event) => {
+  const {
+    member,
+    addMethod,
+  } = event;
+
   if (addMethod === 'aggregation' && !member) {
     return null;
   }

@@ -25,7 +25,7 @@ const messages = {
     },
     noRefAgendas: {
       id: 'AgendaLocations.LocationDetails.noRefAgendas',
-      defaultMessage: 'This location is use only in <strong>{title}</strong>',
+      defaultMessage: 'This location is use only in <b>{title}</b>',
     },
     hoverInfo: {
       id: 'AgendaLocations.LocationDetails.hoverInfo',

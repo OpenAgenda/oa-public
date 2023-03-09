@@ -53,7 +53,7 @@ module.exports = core => {
   app.patch('*', mw.verifyAndLoadAccessTokenUser);
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
-  app.get('*', mw.verifyAndLoadKeyUser);
+  app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
@@ -64,7 +64,11 @@ module.exports = core => {
   app.post('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
   app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
-  app.get(['/agendas/:agendaUid', '/agendas/:agendaUid/events/:eventUid'], mw.member.load);
+  app.get([
+    '/agendas/:agendaUid',
+    '/agendas/:agendaUid/events/:eventUid',
+    // '/agendas/:agendaUid/settings(/*?)?',
+  ], mw.member.load);
 
   app.get([
     '/agendas/slug/:agendaSlug',
@@ -87,8 +91,9 @@ module.exports = core => {
     '/agendas/:agendaUid.prv',
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
+    useCache: true,
     includeEvent: true,
-    detailed: req.query.detailed,
+    detailed: (req.query.detailed ?? '1') === '1',
     private: req.member ? null : false,
     includeNonDataFields: req.query.includeNonDataFields === '1',
     includeMemberSchema: req.query.includeMemberSchema,
@@ -139,6 +144,7 @@ module.exports = core => {
         useAfterKey: true,
         userUid: req.user?.uid,
         includeLocationImagePath: true,
+        agendaKey: req.agendaKey,
       }).then(result => res.json({
         success: true,
         ...result,
@@ -163,16 +169,56 @@ module.exports = core => {
     settings.get,
   ]);
 
+  app.get('/agendas/:agendaUid/settings/eventSchema', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMerged({ lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.get('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getAndParents({ lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.post('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateFields(req.parsedData.fields)
+      .then(() => res.json({
+        success: true,
+      }), err => {
+        next(err);
+      }),
+  ]);
+
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.load,
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, access: req.access })
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr', member: req.member })
       .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMemberAndParents({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.post('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateMemberFields(req.parsedData.fields, { actingMember: req.member })
+      .then(() => res.json({
+        success: true,
+      }), err => {
+        next(err);
+      }),
   ]);
 
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
-      .agendas(req.agenda.uid).members.list(req.query, {
+      .agendas(req.agenda.uid).members.list(req.query, req.query, {
         userUid: req.user.uid,
       })
       .then(data => res.json({
@@ -249,7 +295,7 @@ module.exports = core => {
   ]);
 
   app.post('/agendas/:agendaUid/locations', [
-    mw.member.allow(['administrator', 'moderator']),
+    mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .create(req.parsedData)
@@ -489,7 +535,6 @@ module.exports = core => {
       }, req.query, {
         useAfterKey: true,
         userUid: req.user?.uid,
-        useDefaultImage: true,
       }).then(result => res.json({
         success: true,
         ...result,
@@ -553,6 +598,7 @@ module.exports = core => {
     }
 
     if ([
+      'NotAuthenticated',
       'Forbidden',
       'NotFound',
     ].includes(err.name)) {

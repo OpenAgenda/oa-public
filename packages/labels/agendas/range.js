@@ -9,7 +9,8 @@ module.exports = {
     "ar": "%day%, %times%",
     "de": "%day%, %times%",
     "it": "%day%, %times%",
-    "io": "crwdns12888:0%day%crwdnd12888:0%times%crwdne12888:0"
+    "io": "crwdns12888:0%day%crwdnd12888:0%times%crwdne12888:0",
+    "oc": "%day%, %times%"
   },
   "twoDates": {
     "en": "%firstDate% and %lastDate%",
@@ -19,7 +20,8 @@ module.exports = {
     "de": "%firstDate% und %lastDate%",
     "it": "%firstDate% e %lastDate%",
     "es": "%firstDate% i %lastDate%",
-    "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0"
+    "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0",
+    "oc": "%firstDate% e %lastDate%"
   },
   "moreDates": {
     "en": "%firstDate% - %lastDate%",
@@ -29,7 +31,8 @@ module.exports = {
     "de": "%firstDate% - %lastDate%",
     "es": "%firstDate% - %lastDate%",
     "it": "%firstDate% - %lastDate%",
-    "io": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0"
+    "io": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0",
+    "oc": "%firstDate% - %lastDate%"
   },
   "noDates": {
     "en": "no dates available",
@@ -39,7 +42,8 @@ module.exports = {
     "de": "keine Termine vorhanden%",
     "it": "nessun data disponibile",
     "es": "Fecha no disponible",
-    "io": "crwdns12894:0crwdne12894:0"
+    "io": "crwdns12894:0crwdne12894:0",
+    "oc": "pas de datas disponiblas"
   },
   "minuteSeparator": {
     "en": ":",
@@ -60,7 +64,8 @@ module.exports = {
     "de": "am",
     "it": "su",
     "es": "los",
-    "io": "crwdns12898:0crwdne12898:0"
+    "io": "crwdns12898:0crwdne12898:0",
+    "oc": "los"
   },
   "weekday-0": {
     "en": "Sundays",

@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Oficjalne",
     "es": "oficial",
     "br": "Ofisiel",
-    "io": "crwdns12856:0crwdne12856:0"
+    "io": "crwdns12856:0crwdne12856:0",
+    "oc": "Oficial"
   },
   "privateAgenda": {
     "en": "Private agenda",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Kalendarz prywatny",
     "es": "Eventos privados",
     "br": "Deiziataer prevez",
-    "io": "crwdns12858:0crwdne12858:0"
+    "io": "crwdns12858:0crwdne12858:0",
+    "oc": "Agenda privada"
   },
   "contact": {
     "en": "Contact",
@@ -29,7 +31,8 @@ module.exports = {
     "pl": "Skontaktuj",
     "es": "Contactar con",
     "br": "Mont e darempred",
-    "io": "crwdns12860:0crwdne12860:0"
+    "io": "crwdns12860:0crwdne12860:0",
+    "oc": "Contactar"
   },
   "export": {
     "en": "Export",
@@ -39,7 +42,8 @@ module.exports = {
     "pl": "Eksportuj",
     "es": "exportación",
     "br": "Ezporzhiañ",
-    "io": "crwdns12862:0crwdne12862:0"
+    "io": "crwdns12862:0crwdne12862:0",
+    "oc": "Exportar"
   },
   "addEvent": {
     "en": "Add an event",
@@ -49,7 +53,8 @@ module.exports = {
     "pl": "Dodaj element",
     "es": "Añadir un evento",
     "br": "Ouzhpennañ un darvoud",
-    "io": "crwdns12864:0crwdne12864:0"
+    "io": "crwdns12864:0crwdne12864:0",
+    "oc": "Apondre un eveniment"
   },
   "showCalendar": {
     "en": "Display calendar view",
@@ -59,7 +64,8 @@ module.exports = {
     "pl": "Wyświetl widok kalendarza",
     "es": "Mostrar vista del agenda",
     "br": "Diskwel ar gwel deiziadur",
-    "io": "crwdns12866:0crwdne12866:0"
+    "io": "crwdns12866:0crwdne12866:0",
+    "oc": "Afichar la vista calendièr"
   },
   "manage": {
     "en": "Manage",
@@ -69,6 +75,7 @@ module.exports = {
     "pl": "Zarządzaj",
     "es": "Gestionar",
     "br": "Merañ",
-    "io": "crwdns12868:0crwdne12868:0"
+    "io": "crwdns12868:0crwdne12868:0",
+    "oc": "Gerir"
   }
 }

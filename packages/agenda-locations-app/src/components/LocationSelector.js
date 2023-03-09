@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import axios from 'axios';
+import { Modal } from '@openagenda/react-shared';
 import validate from '../validate';
 import LocationForm from './form-components/LocationForm';
 import LocationSearch from './LocationSearch';
+import LocationConfirmation from './LocationConfirmation';
+import LocationDetail from './LocationDetailsConfirm';
 
 const messages = defineMessages({
   change: {
@@ -29,7 +32,11 @@ const messages = defineMessages({
   info: {
     id: 'AgendaLocations.LocationSelector.info',
     defaultMessage: 'Define the name, address and exact location of the place',
-  }
+  },
+  see: {
+    id: 'AgendaLocations.LocationSelector.see',
+    defaultMessage: 'See',
+  },
 });
 
 const LocationSelector = ({
@@ -50,9 +57,22 @@ const LocationSelector = ({
     },
   },
   allowRemove = false,
-  tiles
+  tiles,
+  staticMapTiles,
 }) => {
   const [errors, setErrors] = useState(false);
+  const [seeDetails, setSeeDetails] = useState(false);
+
+  const [detailedLocation, setDetailedLocation] = useState();
+
+  useEffect(() => {
+    if (seeDetails) {
+      axios.get(res.get.replace(':locationUid', location.uid), {}).then(response => {
+        const { data } = response;
+        setDetailedLocation(data);
+      });
+    }
+  }, [res.get, location.uid, seeDetails]);
 
   const onSelect = l => {
     onChange(confirmRequired ? 'confirm' : 'show', l);
@@ -74,7 +94,7 @@ const LocationSelector = ({
     let clean;
     const options = {
       optional: false,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox
+      isEnabled: settings?.displayImageRightsConfirmCheckbox,
     };
     try {
       clean = validate(loc, settings, options);
@@ -109,12 +129,32 @@ const LocationSelector = ({
           ) : null}
           <button
             type="button"
+            className="btn btn-link"
+            onClick={() => setSeeDetails(true)}
+          >
+            <FormattedMessage {...messages.see} />
+          </button>
+          <button
+            type="button"
             onClick={() => switchToSearch(location)}
             className="btn btn-default"
           >
             {location ? <FormattedMessage {...messages.change} /> : <FormattedMessage {...messages.find} />}
           </button>
         </div>
+      ) : null}
+      {seeDetails && detailedLocation ? (
+        <Modal
+          classNames={{ overlay: 'popup-overlay big' }}
+          onClose={() => setSeeDetails(false)}
+        >
+          <LocationDetail
+            location={detailedLocation}
+            settings={settings}
+            lang={lang}
+            staticTiles={res.staticTiles}
+          />
+        </Modal>
       ) : null}
       {location ? (
         <div>
@@ -165,6 +205,19 @@ const LocationSelector = ({
       tiles={tiles}
       mode="create"
       errors={errors}
+    />
+  );
+
+  const renderConfirmation = () => (
+    <LocationConfirmation
+      res={res}
+      lang={lang}
+      location={location}
+      tiles={tiles}
+      staticMapTiles={staticMapTiles}
+      settings={settings}
+      onConfirm={onConfirm}
+      onCancel={switchToSearch}
     />
   );
 

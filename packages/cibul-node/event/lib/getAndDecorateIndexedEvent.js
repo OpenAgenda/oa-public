@@ -2,8 +2,10 @@
 
 const { produce } = require('immer');
 const languages = require('languages');
+const { formatInTimeZone } = require('date-fns-tz');
 const registrationLabels = require('@openagenda/labels/event/registration');
 const makeLabelGetter = require('@openagenda/labels');
+const { toEventSchema } = require('@openagenda/sdk-js');
 const logs = require('@openagenda/logs');
 
 const getLabel = makeLabelGetter(registrationLabels);
@@ -23,7 +25,7 @@ function pickPreferredLang(value, lang) {
   return value[choice];
 }
 
-module.exports = async function getAndDecoratedIndexedEvent(services, {
+module.exports = async function getAndDecorateIndexedEvent(services, {
   eventSlug,
   eventUid,
   agendaUid,
@@ -84,9 +86,18 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
 
       draft.availableAccessibilities = Object.keys(event.accessibility).filter(key => !!event.accessibility[key]);
 
-      draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD(event, {
-        defaultTimezone: 'Europe/Paris',
-      });
+      draft.JSONLD = JSON.stringify(toEventSchema(event, {
+        locale: lang,
+        formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
+        url: `${root}/agendas/${agendaUid}/events/${event.uid}`,
+      }));
+      // draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD({
+      //   ...event,
+      //   title: getLocaleValue(event.title, lang),
+      //   description: getLocaleValue(event.description, lang),
+      // }, {
+      //   defaultTimezone: 'Europe/Paris',
+      // });
     }
 
     // flatten main multilingual fields

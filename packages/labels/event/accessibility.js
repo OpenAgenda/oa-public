@@ -8,7 +8,8 @@ module.exports = {
     "es": "Movilidad reducida",
     "br": "Dalc'het en o c'heflusk",
     "it": "Incapacità motoria",
-    "io": "crwdns14076:0crwdne14076:0"
+    "io": "crwdns14076:0crwdne14076:0",
+    "oc": "Handicap motor"
   },
   "hi": {
     "en": "Hearing impairment",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Discapacidad auditiva",
     "br": "Pounnerglev",
     "it": "Disabilità uditiva",
-    "io": "crwdns14078:0crwdne14078:0"
+    "io": "crwdns14078:0crwdne14078:0",
+    "oc": "Handicap auditiu"
   },
   "ii": {
     "en": "Intellectual impairment",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Discapacidad intellectual",
     "br": "Dalc'het en o spered",
     "it": "Disabilità cognitiva",
-    "io": "crwdns14080:0crwdne14080:0"
+    "io": "crwdns14080:0crwdne14080:0",
+    "oc": "Handicap intellectual"
   },
   "pi": {
     "en": "Psychic impairment",
@@ -34,7 +37,8 @@ module.exports = {
     "de": "Psychische behinderung",
     "es": "Discapacidad intelectual",
     "it": "Disabilità psichica",
-    "io": "crwdns14082:0crwdne14082:0"
+    "io": "crwdns14082:0crwdne14082:0",
+    "oc": "Handicap psiquic"
   },
   "vi": {
     "en": "Visual impairment",
@@ -43,7 +47,8 @@ module.exports = {
     "es": "Discapacidad visual",
     "br": "Na wel ket mat",
     "it": "Invalidità visiva",
-    "io": "crwdns14084:0crwdne14084:0"
+    "io": "crwdns14084:0crwdne14084:0",
+    "oc": "Handicap visual"
   },
   "sl": {
     "en": "Sign language",
@@ -52,7 +57,8 @@ module.exports = {
     "es": "Lenguaje de Señas",
     "br": "Yezh ar sinoù",
     "it": "Lingua dei segni",
-    "io": "crwdns14086:0crwdne14086:0"
+    "io": "crwdns14086:0crwdne14086:0",
+    "oc": "Lenga dels signes"
   },
   "input": {
     "en": "This event has amenities to facilitate accessibility",
@@ -61,6 +67,7 @@ module.exports = {
     "es": "Este evento incluye las mejoras a la accesibilidad",
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted",
     "it": "Questo evento prevede dispositivi o soluzioni adeguate per:",
-    "io": "crwdns14088:0crwdne14088:0"
+    "io": "crwdns14088:0crwdne14088:0",
+    "oc": "Aqueste eveniment enclaus d'aisinas per l'accessibilitat"
   }
 }

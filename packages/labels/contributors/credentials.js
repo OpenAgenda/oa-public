@@ -7,7 +7,8 @@ module.exports = {
     "de": "Administrator",
     "es": "administrador",
     "it": "Amministratore",
-    "io": "crwdns13248:0crwdne13248:0"
+    "io": "crwdns13248:0crwdne13248:0",
+    "oc": "Administrator·a"
   },
   "moderator": {
     "en": "Moderator",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Moderator",
     "es": "moderador",
     "it": "Moderatore",
-    "io": "crwdns13250:0crwdne13250:0"
+    "io": "crwdns13250:0crwdne13250:0",
+    "oc": "Moderator·a"
   },
   "contributor": {
     "en": "Contributor",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Beiträger",
     "es": "contribuyente",
     "it": "Collaboratore",
-    "io": "crwdns13252:0crwdne13252:0"
+    "io": "crwdns13252:0crwdne13252:0",
+    "oc": "Contributor·a"
   },
   "reader": {
     "en": "Reader",
@@ -31,6 +34,7 @@ module.exports = {
     "de": "Leser",
     "es": "lector",
     "it": "Lettore",
-    "io": "crwdns13254:0crwdne13254:0"
+    "io": "crwdns13254:0crwdne13254:0",
+    "oc": "Legeire·a"
   }
 }

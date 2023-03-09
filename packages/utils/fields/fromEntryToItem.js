@@ -5,7 +5,7 @@ const _ = require('lodash');
 const getFieldsByAccess = require('./getFieldsByAccess');
 const {
   getName: getDatabaseFieldName,
-  getPath: getDatabaseFieldPath
+  getPath: getDatabaseFieldPath,
 } = require('./databaseField');
 
 module.exports = (fields, entry = {}, options = {}) => {
@@ -13,13 +13,13 @@ module.exports = (fields, entry = {}, options = {}) => {
     access,
     includeFields,
     omitUndefinedFields,
-    nullifyUndefined
+    nullifyUndefined,
   } = {
     access: 'public',
     includeFields: [],
     omitUndefinedFields: false,
     nullifyUndefined: false,
-    ...options
+    ...options,
   };
 
   const compiledItem = getFieldsByAccess(fields, 'read', access)

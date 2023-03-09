@@ -7,7 +7,8 @@ module.exports = {
     "de": "Pflichtfeld",
     "es": "campo obligatorio",
     "it": "Campo obbligatorio",
-    "io": "crwdns14882:0crwdne14882:0"
+    "io": "crwdns14882:0crwdne14882:0",
+    "oc": "Camp obligatòri"
   },
   "groupErrorHeader": {
     "fr": "Certaines saisies doivent être corrigées",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Einige Werte müssen korrigiert werden",
     "es": "Algunas entradas deben ser corregidos",
     "it": "Alcune voci devono essere corrette",
-    "io": "crwdns14884:0crwdne14884:0"
+    "io": "crwdns14884:0crwdne14884:0",
+    "oc": "Cal corregir d'unas valors"
   },
   "submit": {
     "fr": "Enregistrer",
@@ -24,7 +26,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Invia",
     "br": "Kemmañ",
-    "io": "crwdns14886:0crwdne14886:0"
+    "io": "crwdns14886:0crwdne14886:0",
+    "oc": "Sometre"
   },
   "help": {
     "fr": "Aide",
@@ -33,7 +36,8 @@ module.exports = {
     "es": "Ayuda",
     "it": "Aiuto",
     "br": "Skoazell",
-    "io": "crwdns14888:0crwdne14888:0"
+    "io": "crwdns14888:0crwdne14888:0",
+    "oc": "Ajuda"
   },
   "noChoice": {
     "fr": "Aucun choix",
@@ -41,19 +45,22 @@ module.exports = {
     "de": "Keine Wahl",
     "es": "otra opción",
     "it": "Nessuna scelta",
-    "io": "crwdns14890:0crwdne14890:0"
+    "io": "crwdns14890:0crwdne14890:0",
+    "oc": "Pas cap causida"
   },
   "noOption": {
     "fr": "Pas de correspondance",
     "en": "No match",
     "io": "crwdns14892:0crwdne14892:0",
-    "it": "Nessuna corrispondenza"
+    "it": "Nessuna corrispondenza",
+    "oc": "Pas cap correspondéncia"
   },
   "selectPlaceholder": {
     "fr": "Sélectionner...",
     "en": "Select...",
     "io": "crwdns14894:0crwdne14894:0",
-    "it": "Seleziona..."
+    "it": "Seleziona...",
+    "oc": "Causir..."
   },
   "cancel": {
     "en": "Cancel",
@@ -63,6 +70,7 @@ module.exports = {
     "pl": "Anuluj",
     "es": "anular",
     "br": "Nullañ",
-    "io": "crwdns16466:0crwdne16466:0"
+    "io": "crwdns16466:0crwdne16466:0",
+    "oc": "Anullar"
   }
 }

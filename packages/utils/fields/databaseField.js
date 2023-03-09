@@ -4,10 +4,10 @@ const _ = require('lodash');
 
 const getPath = (field, options = {}) => {
   const {
-    excludeField
+    excludeField,
   } = {
     excludeField: true,
-    ...(typeof options === 'object' ? options : {})
+    ...typeof options === 'object' ? options : {},
   };
 
   let path;
@@ -26,8 +26,8 @@ const getPath = (field, options = {}) => {
   parts.shift();
 
   return parts.join('.');
-}
+};
 
 module.exports.getPath = getPath;
 
-module.exports.getName = field => getPath(field, { excludeField: false}).split('.').shift();
+module.exports.getName = field => getPath(field, { excludeField: false }).split('.').shift();

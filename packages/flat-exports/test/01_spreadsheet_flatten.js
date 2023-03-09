@@ -12,9 +12,9 @@ const simpleFormSchema = {
     fieldType: 'text',
     languages: [],
     label: {
-      fr: 'Chapô'
-    }
-  }]
+      fr: 'Chapô',
+    },
+  }],
 };
 
 describe('flat-exports - unit - spreadsheet_flatten', () => {
@@ -25,7 +25,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         agendaUid: 49692513,
         lang: 'fr',
         languages: ['fr', 'en', 'it'],
-        labels
+        labels,
       });
       flat = flatten(event);
     });
@@ -38,16 +38,11 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat.Inscription).toEqual('http://www.cnjeu.fr/, 0145707532, reservation@email.com');
     });
 
-    test('Location phone is part of result', () => {
-      expect(flat['Téléphone du lieu']).toEqual(event.location.phone);
-    });
-
     test('dateRange is part of result', () => {
       expect(
         Object.keys(flat)
-          .filter(item => (
-            ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item)
-          )).length
+          .filter(item =>
+            ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item)).length,
       ).toEqual(2);
     });
 
@@ -76,27 +71,27 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         languages: ['fr', 'en'],
         labels,
         includeFields: ['title', 'uid'],
-        includeLanguages: ['fr']
+        includeLanguages: ['fr'],
       });
       const flat = flatten(event);
       expect(Object.keys(flat)).toEqual(['Identifiant', 'Titre - FR']);
     });
 
-    test('Location sub-fields are part of the result: uid, tags, image, imageCredits, description, access, telephone', () => {
+    test('Location sub-fields are part of the result: uid, image, imageCredits, description, access, telephone', () => {
       const flatten = getFlattener({
         lang: 'fr',
         languages: ['fr'],
         labels,
         formSchema,
-        includeFields: ['location.uid', 'location.tags', 'location.phone'],
+        includeFields: ['location.uid', 'location.types-de-lieu', 'location.phone'],
       });
 
       const flat = flatten(event);
 
       expect(flat).toEqual({
-        'Identifiant du lieu': 43979991,
-        'Tags du lieu': 'Lieu de spectacles, sports et loisirs',
-        'Téléphone du lieu': '014654123'
+        'Lieu: Identifiant': 43979991,
+        'Lieu: Types de lieu': 'Lieu de spectacles, sports et loisirs',
+        'Lieu: Téléphone': '014654123',
       });
     });
 
@@ -113,7 +108,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       const flat = flatten(event);
 
       expect(flat).toEqual({
-        Permalien: 'https://openagenda.com/agendas/49692513/events/67651180'
+        Permalien: 'https://openagenda.com/agendas/49692513/events/67651180',
       });
     });
   });
@@ -124,7 +119,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         lang: 'fr',
         languages: ['fr'],
         labels,
-        formSchema: simpleFormSchema
+        formSchema: simpleFormSchema,
       });
 
       const flat = flatten(event);
@@ -138,7 +133,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         languages: ['fr'],
         labels,
         formSchema: simpleFormSchema,
-        maintainedFields: ['dateRange']
+        maintainedFields: ['dateRange'],
       });
 
       const flat = flatten(event);
@@ -146,11 +141,11 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(
         Object.keys(flat)
           .filter(item => ['Résumé horaires'].includes(item))
-          .length
+          .length,
       ).toEqual(1);
     });
 
-    test('Location tags are part of the result', () => {
+    test('Location additional fields are part of the result', () => {
       const flatten = getFlattener({
         lang: 'fr',
         languages: ['fr'],
@@ -159,22 +154,24 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       });
 
       const flat = flatten(event);
-      expect(flat['Tags du lieu']).toEqual('Lieu de spectacles, sports et loisirs');
+      expect(flat['Lieu: Types de lieu']).toBe('Lieu de spectacles, sports et loisirs');
     });
 
-    test('DistributeOptionalFields option distributes additional fields values in one column each', () => {
+    test('spreadFields option distributes additional fields values in one column each', () => {
       const flatten = getFlattener({
         lang: 'fr',
         languages: ['fr'],
         labels,
         formSchema,
-        includeFields: ['uid', 'type-devenement'],
-        distributeOptionalFields: ['type-devenement']
+        spreadFields: ['type-devenement', 'location.types-de-lieu'],
       });
 
       const flat = flatten(event);
+
       expect(flat["Type d'événement: Atelier"]).toEqual('Atelier');
       expect(flat["Type d'événement: Exposition"]).toEqual('');
+      expect(flat['Lieu: Types de lieu: Archives']).toEqual('');
+      expect(flat['Lieu: Types de lieu: Lieu de spectacles, sports et loisirs']).toEqual('Lieu de spectacles, sports et loisirs');
     });
 
     test('optioned additional field provides values in requested language', () => {
@@ -187,22 +184,22 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
             field: 'category',
             fieldType: 'radio',
             label: {
-              fr: 'Catégorie'
+              fr: 'Catégorie',
             },
             options: [{
               id: 1,
               value: 'nap',
               label: {
                 fr: 'Sieste',
-                en: 'Nap'
-              }
-            }]
-          }]
-        }
+                en: 'Nap',
+              },
+            }],
+          }],
+        },
       });
 
       const flat = flatten({
-        category: 1
+        category: 1,
       });
 
       expect(flat['Catégorie']).toEqual('Sieste');
@@ -219,23 +216,23 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
             field: 'categories',
             fieldType: 'checkbox',
             label: {
-              fr: 'Catégories'
+              fr: 'Catégories',
             },
             options: [{
               id: 1,
               value: 'fork',
-              label: 'Fourchette'
+              label: 'Fourchette',
             }, {
               id: 2,
               value: 'toe',
-              label: 'Orteil'
-            }]
-          }]
-        }
+              label: 'Orteil',
+            }],
+          }],
+        },
       });
 
       const flat = flatten({
-        categories: [1, 2]
+        categories: [1, 2],
       });
 
       expect(flat['Catégories']).toEqual('Fourchette 😊 Orteil');
@@ -249,9 +246,9 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         lang: 'fr',
         languages: ['fr', 'en'],
         labels,
-        includeFields: ['permalink', 'uid', 'timings', 'type-devenement'],
+        includeFields: ['permalink', 'uid', 'timings', 'type-devenement', 'location.name'],
         includeLanguages: ['fr'],
-        formSchema
+        formSchema,
       });
       headers = flatten.getHeaders(event);
     });
@@ -275,8 +272,13 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         {
           hasOptions: true,
           source: 'type-devenement',
-          target: "Type d'événement"
-        }
+          target: "Type d'événement",
+        },
+        {
+          hasOptions: false,
+          source: 'location.name',
+          target: 'Lieu: Nom',
+        },
       ]);
     });
   });

@@ -1,0 +1,290 @@
+import isEqual from 'lodash/isEqual';
+import React, { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { defineMessages, useIntl } from 'react-intl';
+import { formatDistance } from 'date-fns';
+import useLocalStorageState from 'use-local-storage-state';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  List,
+  ListItem,
+  ListIcon,
+  Text,
+  Link,
+  LinkBox,
+  LinkOverlay,
+} from '@openagenda/uikit';
+import { getLocaleValue } from '@openagenda/intl';
+import { useForm } from '@openagenda/react-filters';
+import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-icons';
+import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
+import useIsMounted from 'hooks/useIsMounted';
+import base64 from 'utils/base64';
+import upperFirst from 'utils/upperFirst';
+import keyCDNLoader from 'utils/keyCDNLoader';
+import Image from 'components/Image';
+
+const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
+const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+
+const messages = defineMessages({
+  featured: {
+    id: 'next.views.AgendaShow.EventItem.featured',
+    defaultMessage: 'Featured',
+  },
+  addToFavorites: {
+    id: 'next.views.AgendaShow.EventItem.addToFavorites',
+    defaultMessage: 'Add to favorites',
+  },
+  removeFromFavorites: {
+    id: 'next.views.AgendaShow.EventItem.removeFromFavorites',
+    defaultMessage: 'Remove from favorites',
+  },
+});
+
+function FavoriteButton({ agenda, event }) {
+  const intl = useIntl();
+  const form = useForm();
+  const [favorites, setFavorites] = useLocalStorageState('favorites');
+  const agendaFavorites = favorites?.[agenda.uid];
+  const isFavorite = agendaFavorites?.includes(event.uid);
+
+  const toggleFavorite = useCallback(() => {
+    setFavorites(prev => {
+      if (isFavorite) { // remove favorite
+        const newValue = prev[agenda.uid].filter(v => v !== event.uid);
+        return {
+          ...prev,
+          [agenda.uid]: newValue.length ? newValue : undefined,
+        };
+      }
+      return { // add favorite
+        ...prev,
+        [agenda.uid]: [
+          ...prev?.[agenda.uid] || [],
+          event.uid,
+        ],
+      };
+    });
+  }, [agenda.uid, event.uid, isFavorite, setFavorites]);
+
+  // Watch value change
+  useEffect(() => {
+    // const active = agendaFavorites?.includes(event.uid);
+
+    // updateCustomFilter(widget, active);
+
+    const formValues = form.getState().values;
+    const value = agendaFavorites?.map(String);
+
+    // if favorties filter checked
+    if (formValues.favorites && !isEqual(formValues.uid, value)) {
+      form.change('uid', agendaFavorites?.length ? value : ['-1']);
+    }
+  }, [form, event.uid, agendaFavorites]);
+
+  return (
+    <IconButton
+      aria-label={intl.formatMessage(messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'])}
+      variant="link"
+      colorScheme={isFavorite ? 'primary' : 'oaGray'}
+      onClick={toggleFavorite}
+      size="lg"
+      fontSize="xl"
+      icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
+      minW="0"
+      ml="6"
+    // px="0"
+    />
+  );
+}
+
+function RelativeTime({ closestTiming }) {
+  const dateFnsLocale = useDateFnsLocale();
+  const isMounted = useIsMounted();
+
+  return (
+    <Text color="oaGray.500">
+      {isMounted ? upperFirst(formatDistance(
+        new Date(closestTiming.begin),
+        new Date(),
+        { locale: dateFnsLocale, addSuffix: true },
+      )) : null}
+    </Text>
+  );
+}
+
+function EventItem({ event, agenda, imagePriority = false }) {
+  const router = useRouter();
+  const intl = useIntl();
+
+  const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
+
+  const redirectUrl = base64.encode(router.asPath);
+
+  return (
+    <Flex
+      as="article"
+      direction={{ base: 'column', xl: 'row' }}
+      gap={{ base: '2', xl: '8' }}
+      mx={{ base: 'auto', xl: '0' }}
+      px={{ base: '4', xl: '0' }}
+      maxW={{ base: 'xl', xl: 'none' }}
+      w="full"
+    >
+      <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
+        <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
+          <div>
+            {event.featured ? (
+              <Text mb="2">
+                <FontAwesomeIcon icon={faThumbtack} />
+                &nbsp;
+                {intl.formatMessage(messages.featured)}
+              </Text>
+            ) : null}
+            <RelativeTime closestTiming={closestTiming} />
+          </div>
+        </Flex>
+      </Box>
+
+      <LinkBox
+        as="section"
+        display="flex"
+        flexDirection="column"
+        gap="4"
+        position="relative"
+        // py="4"
+        pt="4"
+        w={{ base: 'full', xl: '75%' }}
+        bg="white"
+        // border="1px solid"
+        // borderColor="oaGray.100"
+        borderRadius="sm"
+      // _hover={{
+      //   borderColor: 'primary.500',
+      // }}
+      >
+        <Flex direction="row" align="center" px="6" justify="space-between">
+          <Heading as="h2" fontSize="xl">
+            <LinkOverlay
+              href={`/${agenda.slug}/events/${event.slug}`}
+              _hover={{
+                _before: {
+                  border: '1px solid',
+                  borderColor: 'primary.500',
+                },
+              }}
+            >
+              {getLocaleValue(event.title, intl.locale)}
+            </LinkOverlay>
+          </Heading>
+
+          <FavoriteButton agenda={agenda} event={event} />
+        </Flex>
+
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {event.image
+          ? event.image?.size?.width && event.image?.size?.height ? (
+            <Image
+              src={process.env.NODE_ENV === 'development'
+                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                : `${IMAGE_PREFIX}${event.image.filename}`}
+              fallbackSrc={process.env.NODE_ENV === 'development'
+                ? `${IMAGE_PREFIX}${event.image.filename}`
+                : undefined}
+              fallbackStrategy="onError"
+              width={event.image.size.width}
+              height={event.image.size.height}
+              loader={keyCDNLoader}
+              alt=""
+              m="auto"
+              w="full"
+              priority={imagePriority}
+            />
+          ) : (
+            <Image
+              src={process.env.NODE_ENV === 'development'
+                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                : `${IMAGE_PREFIX}${event.image.filename}`}
+              fallbackSrc={process.env.NODE_ENV === 'development'
+                ? `${IMAGE_PREFIX}${event.image.filename}`
+                : undefined}
+              fallbackStrategy="onError"
+              fill
+              // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+              pos="unset !important"
+              w="full !important"
+              h="auto !important"
+              loader={keyCDNLoader}
+              alt=""
+              m="auto"
+              priority={imagePriority}
+            />
+          )
+          : null}
+
+        {/* TODO: add a title with a precise date */}
+        <Text px="6">
+          {getLocaleValue(event.description, intl.locale)}
+        </Text>
+
+        <Flex justify="space-between">
+          <List spacing="2" px="6" color="oaGray.500" pb="4">
+            <ListItem ml="6">
+              <ListIcon as={FontAwesomeIcon} icon={faClock} verticalAlign="" ml="-6" />
+              {getLocaleValue(event.dateRange, intl.locale)}
+            </ListItem>
+            {event.onlineAccessLink ? (
+              <ListItem ml="6">
+                <ListIcon as={FontAwesomeIcon} icon={faLink} verticalAlign="" ml="-6" />
+                {intl.formatMessage(attendanceModesMessages.online)}
+              </ListItem>
+            ) : null}
+            {event.location ? (
+              <ListItem ml="6">
+                <ListIcon as={FontAwesomeIcon} icon={faLocationDot} verticalAlign="" ml="-6" />
+                {event.location.name}{event.location.city ? `, ${event.location.city}` : ''}
+              </ListItem>
+            ) : null}
+          </List>
+
+          <Box
+            float="right"
+            display="flex"
+            alignItems="flex-end"
+            alignSelf="flex-end"
+          >
+            <Button
+              as={Link}
+              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              colorScheme="primary"
+              borderRadius="sm"
+              display={{ base: 'none', sm: 'inline-flex' }}
+            >
+              Partager
+            </Button>
+
+            <Button
+              as={Link}
+              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+              colorScheme="primary"
+              borderRadius="sm"
+              display={{ base: 'inline-flex', sm: 'none' }}
+            >
+              <FontAwesomeIcon icon={faShare} />
+            </Button>
+          </Box>
+        </Flex>
+      </LinkBox>
+    </Flex>
+  );
+}
+
+export default React.memo(EventItem);

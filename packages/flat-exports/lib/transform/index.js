@@ -1,6 +1,13 @@
 'use strict';
 
 const { transform: makeTransform } = require('@openagenda/stream-utils');
+
+const {
+  utils: {
+    flattenSchema: getFlattenedSchema,
+  },
+} = require('@openagenda/form-schemas');
+
 const decorateFieldMap = require('./decorateFieldMap');
 const Flattener = require('./Flattener');
 const validateOptions = require('./options.validate');
@@ -22,34 +29,40 @@ function getFlattener(o = {}) {
 
     return Object.assign(
       Flattener(defaultFieldMap),
-      { getHeaders }
+      { getHeaders },
     );
   }
 
-  const filteredDefaultFieldMap = formSchema?.fields ? defaultFieldMap.filter(mapItem => {
-    const sourceBaseField = mapItem.source.split('.').shift();
-    const isInFormSchema = !!formSchema.fields.find(f => f.field === sourceBaseField);
-    const isInMaintainedFields = maintainedFields.includes(sourceBaseField);
+  const flattenedFormSchema = getFlattenedSchema(formSchema);
+
+  const filteredDefaultFieldMap = flattenedFormSchema?.fields ? defaultFieldMap.filter(mapItem => {
+    const {
+      source,
+    } = mapItem;
+    const isInFormSchema = !!flattenedFormSchema.fields.find(f => f.field === source);
+
+    const isInMaintainedFields = maintainedFields.includes(source);
 
     return isInFormSchema || isInMaintainedFields;
   }) : defaultFieldMap;
 
   const decoratedFieldMap = decorateFieldMap(filteredDefaultFieldMap, options);
 
-  const getHeaders = () => decoratedFieldMap.reduce((acc, curr) => {
-    acc.push({ source: curr.field || curr.source, target: curr.target, hasOptions: curr.hasOptions || false });
-    return acc;
-  }, []);
+  const getHeaders = () => decoratedFieldMap.map(item => ({
+    source: item.field || item.source,
+    target: item.target,
+    hasOptions: item.hasOptions || false,
+  }));
 
   return Object.assign(
     Flattener(decoratedFieldMap, options),
-    { getHeaders }
+    { getHeaders },
   );
 }
 
 module.exports = Object.assign(
   (options = {}) => makeTransform(getFlattener(options)),
   {
-    getFlattener
-  }
+    getFlattener,
+  },
 );

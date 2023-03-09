@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const { Forbidden } = require('@openagenda/verror');
+const { NotAuthenticated, Forbidden } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('api/middleware/member');
 
 const {
@@ -15,13 +15,17 @@ async function verify(roles, req, res, next) {
     members,
   } = req.app.services;
 
+  if (!req.user) {
+    return next(new NotAuthenticated('User is not authenticated'));
+  }
+
   req.member = await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid,
   });
 
   if (!req.member) {
-    return next(new Forbidden('not authorized for non-members'));
+    return next(new Forbidden('Not authorized for non-members'));
   }
 
   req.access = members.utils.getRoleSlug(req.member.role);
@@ -72,6 +76,7 @@ function loadContext(req, res, next) {
       memberName: _.get(req, 'member.custom.contactName') || req.user.name,
     },
     message: req.body?.message || null,
+    redirect: req.body?.redirect || null,
   }, req.body.context);
   next();
 }

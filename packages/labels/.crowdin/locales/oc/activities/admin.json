@@ -11,5 +11,20 @@
   "event.update": "{user} a metut {event} a jorn sus {agenda}.",
   "event.updateWithOneChange": "{user} a metut a jorn lo camp {fields} de {event} sus {agenda}.",
   "event.updateWithSomeChanges": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats.",
-  "event.updateWithLotOfChanges": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps)."
+  "event.updateWithLotOfChanges": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps).",
+  "agenda.sendInvitation": "{user} a convidat {email} coma {credential} sus {agenda}.",
+  "agenda.acceptInvitation": "{user} a acceptat lo convit de {originMember} per venir {credential} sus {agenda}.",
+  "agenda.addMember": "{originMember} a apondut {user} coma {credential} sus {agenda}.",
+  "agenda.removeMember": "{originMember} a tirat {user} ({credential}) de {agenda}.",
+  "agenda.setMemberRole": "{user} a passat {originMember} de {beforeCredential} a {credential} sus {agenda}.",
+  "agenda.addSource": "{user} a apondut {sourceAgenda} coma sorsa sus {agenda}.",
+  "agenda.changeEventState": "{user} a passat {event} de \"{before}\" a \"{after}\".",
+  "agenda.publishEvent": "{user} a publicat {event} sus {agenda}.",
+  "agenda.systemUnpublishEvent": "{event} es estat automaticament despublicat de {agenda} per moderacion",
+  "agenda.removeEvent": "{user} a tirat {event} de {agenda}.",
+  "agenda.aggregateEvent": "{agenda} a agregat {event} de {sourceAgenda}.",
+  "agenda.addEvent": "{user} a apondut {event} sus {agenda} a partir de {sourceAgenda}.",
+  "event.delete": "{user} a suprimit {event} sus {agenda}.",
+  "noActivity": "Pas cap activitat",
+  "unknownActivity": "Etiqueta d'activitat de manca per {verb}"
 }

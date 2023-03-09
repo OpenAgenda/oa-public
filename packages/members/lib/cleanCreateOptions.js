@@ -40,5 +40,9 @@ module.exports = schema({
       type: 'text',
       default: null,
     },
+    redirect: {
+      type: 'text',
+      default: null,
+    },
   },
 });

@@ -11,10 +11,18 @@ const log = require('@openagenda/logs')('compileForValidation');
 const fields = require('./fields');
 const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
+const ValidationError = require('./ValidationError');
+const cleanImageURL = require('./cleanImageURL');
 
 const replaceAccents = require('@openagenda/utils/replaceAccents');
 
-const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
+const {
+  is: isDHM,
+} = require('../iso/src/validators/dateHoursMinutesTiming');
+
+const {
+  from: fromDHM
+} = require('../iso/src/convertDateHoursMinutesTiming');
 
 const removeRegistrationTypes = (registration = []) => registration
   .map(rItem => rItem?.type ? rItem.value : rItem);
@@ -38,6 +46,9 @@ module.exports = async (current, data, options = {}) => {
 
   if (image?.url) {
     log('image is provided as url %s', image?.url);
+
+    const cleanURL = cleanImageURL(image.url);
+
     const axiosInstance = axios.create({
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
@@ -52,7 +63,16 @@ module.exports = async (current, data, options = {}) => {
       maxContentLength: maxImageSize
     });
 
-    compiled.image = await axiosInstance.get(image?.url).then(response => response?.data);
+    compiled.image = await axiosInstance
+      .get(cleanURL)
+      .then(response => response?.data)
+      .catch(() => {
+        throw new ValidationError({
+          field: 'image',
+          code: 'url.invalid',
+          message: 'provided image url is not valid'
+        });
+      });
   } else if (image?.path && !('transformAndUpload' in image)) {
     log('image is provided through local filesystem path: %s', image?.path);
     compiled.image = fs.createReadStream(image?.path);
@@ -70,6 +90,22 @@ module.exports = async (current, data, options = {}) => {
     compiled.timings.forEach(t => {
       t.timezone = compiled.timezone;
     });
+  }
+
+  if ((compiled?.timings ?? []).length) {
+    compiled?.timings.forEach(t => {
+      const timing = isDHM(t) ? {
+        begin: fromDHM(t.begin, compiled.timezone),
+        end: fromDHM(t.end, compiled.timezone)
+      } : t;
+      if (timing.begin >= timing.end) {
+        throw new ValidationError({
+          field: 'timings',
+          code: 'timings.invalid',
+          message: 'timing end must be superior to begin'
+        });
+      }
+    })
   }
 
   if (data?.location instanceof Object && !data?.locationUid) {

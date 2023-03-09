@@ -27,7 +27,7 @@ module.exports = [{
   type: 'text',
   max: 255,
   optional: false,
-  read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator', 'moderator']
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator']
 }, {
   field: 'slug',
   type: 'slug',
@@ -97,24 +97,24 @@ module.exports = [{
   field: 'officializedAt',
   type: 'date',
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'image',
-  read: ['public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   type: 'pass',
   default: null
 }, {
   field: 'private',
   type: 'boolean',
   default: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'indexed',
   type: 'boolean',
   default: true,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'settings',
@@ -123,7 +123,7 @@ module.exports = [{
   fields: [{
     field: 'tracking',
     type: 'schema',
-    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'googleAnalytics',
@@ -143,7 +143,7 @@ module.exports = [{
   }, {
     field: 'inbox',
     type: 'schema',
-    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'public', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'mailto',
@@ -169,7 +169,7 @@ module.exports = [{
   }, {
     field: 'contribution',
     type: 'schema',
-    read: ['administrator', 'internal', 'public', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
     fields: [{
       field: 'type',
       default: c.OPEN,
@@ -307,11 +307,6 @@ module.exports = [{
     type: 'boolean',
     default: true
   }, {
-    field: 'useAgendaSchema',
-    description: 'Use agenda schema app to customize fields',
-    type: 'boolean',
-    default: true
-  }, {
     field: 'premiumCustomFields',
     description: 'Allow adding multiple custom fields to agenda form',
     type: 'boolean',
@@ -319,11 +314,6 @@ module.exports = [{
   }, {
     field: 'moderators',
     description: 'Add Moderator to member roles',
-    type: 'boolean',
-    default: false
-  }, {
-    field: 'tags',
-    description: 'Agenda tags are made available.',
     type: 'boolean',
     default: false
   }, {
@@ -336,11 +326,6 @@ module.exports = [{
     description: 'Integrated agendas: Custom templates can be defined',
     type: 'boolean',
     default: true
-  }, {
-    field: 'indesign',
-    description: 'Burn this with fire.',
-    type: 'boolean',
-    default: false
   }, {
     field: 'activatingInvitations',
     description: 'When the user with no account is invited to the agenda, no activation mail is required to complete signup',
@@ -367,23 +352,18 @@ module.exports = [{
     type: 'boolean',
     default: false
   }, {
-    field: 'calendarView',
-    description: 'Agenda calendar view',
-    type: 'boolean',
-    default: false
-  }, {
     field: 'eventOwnershipTransfer',
     description: 'Transfer ownership of event from one member to another within an agenda',
     type: 'boolean',
     default: false
   }, {
-    field: 'graphs',
-    description: 'Display graph tab on agenda admin',
+    field: 'useJSONBridge',
+    description: 'JSON export V1 is generated from the V2 format',
     type: 'boolean',
     default: false
   }, {
-    field: 'useJSONBridge',
-    description: 'JSON export V1 is generated from the V2 format',
+    field: 'memberCustom',
+    description: 'Allow customisation of member fields',
     type: 'boolean',
     default: false
   }]

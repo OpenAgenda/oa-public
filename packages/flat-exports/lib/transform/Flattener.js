@@ -12,12 +12,12 @@ function flattenSourceValues(mapItem, src, options) {
     source,
     transform,
     languages,
-    default: defaultItem = null
+    default: defaultItem = null,
   } = mapItem;
 
   const {
     separator = ' | ',
-    includeLanguages
+    includeLanguages,
   } = options;
 
   const lang = includeLanguages || languages;
@@ -28,7 +28,7 @@ function flattenSourceValues(mapItem, src, options) {
 
   if (transform) {
     return [].concat(
-      _.get(src, source)
+      _.get(src, source),
     ).map(s => _.get(transform, s, defaultItem || null)).filter(s => s).join(separator);
   }
 
@@ -46,10 +46,10 @@ function flatten(map, src, options = {}) {
     const flattenedValue = flattenSourceValues(mapItem, src, options);
 
     if (_.isArray(target)) {
-      Object.assign(flattened, target.reduce((carry, targetField, index) => (flattenedValue && {
+      Object.assign(flattened, target.reduce((carry, targetField, index) => flattenedValue && {
         ...carry,
-        [targetField]: flattenedValue[index] || null
-      }), {}));
+        [targetField]: flattenedValue[index] || null,
+      }, {}));
     } else {
       flattened[target] = flattenedValue;
     }

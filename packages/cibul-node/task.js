@@ -7,10 +7,12 @@ const legacyAgendaServiceTask = require('./services/agenda/task');
 module.exports = (config, core, services) => {
   tfy(resetApiCounters, { period: 'daily', time: '00:00' });
 
-  tfy(services.elasticsearch.refresh, {
-    period: 'daily',
-    time: '00:00',
-  });
+  if (services.elasticsearch) {
+    tfy(services.elasticsearch.refresh, {
+      period: 'daily',
+      time: '00:00',
+    });
+  }
 
   tfy(services.agendaSearch.rebuild, {
     period: 'weekly',
@@ -86,14 +88,14 @@ module.exports = (config, core, services) => {
 
   core.tasks();
 
+  services.supervisor.elasticsearch.task();
+
   services.agendaLocations.task({
     duplicationDetection: config.locationDuplicationDetection,
     reset: false,
   });
 
   services.users.tasks.processQueue();
-
-  services.agendaSchema.task();
 
   services.members.task();
 

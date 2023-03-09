@@ -1,1 +1,14 @@
-{}
+{
+  "noAccountFound": "Pas cap compte trobat",
+  "accountAlreadyActivated": "Lo compte es ja activat",
+  "incorrectPassword": "Lo senhal es incorrècte",
+  "userNotFound": "Utilizaire·a pas trobat·da",
+  "userNotActivated": "Utilizaire·a pas activat·da",
+  "userAlreadyActivated": "Utilizaire·a ja activat·da",
+  "passwordsMustMatch": "Lo senhal correspond pas.",
+  "fieldCannotBeEmpty": "Lo camp pòt pas demorar voide",
+  "passwordCouldNotBeModified": "Lo senhal se posquèt pas cambiar",
+  "passwordResetSent": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email",
+  "resetLinkOutdated": "Lo ligam es passat. Tornatz ensajar.",
+  "passwordUpdated": "Vòstre senhal es estat mes a jorn."
+}

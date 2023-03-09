@@ -1,18 +1,37 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const cmn = require('../../lib/commons-app');
+const logs = require('@openagenda/logs');
 
-module.exports = {
-  init,
-  plugApp
-};
+const redirectToSignin = (req, res) => res.redirect(
+  302,
+  `/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
+);
+
+function task(services) {
+  const {
+    eventSearch,
+  } = services;
+
+  const log = logs('services/supervisor/task');
+
+  return () => {
+    setInterval(() => {
+      eventSearch.cluster.stats().then(data => {
+        log.info(data);
+      }, error => {
+        log.error('failed to fetch stats from cluster', { error });
+      });
+    }, 1000 * 60);
+  };
+}
 
 function init(config, services) {
   const { eventSearch } = services;
 
   return {
-    cluster: eventSearch.cluster
+    cluster: eventSearch.cluster,
+    task: task(services),
   };
 }
 
@@ -21,7 +40,7 @@ function plugApp(app, base = '/elasticsearch') {
 
   app.get(
     `${base}/cluster`,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    sessions.mw.ifUnlogged(redirectToSignin),
     sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {
@@ -34,17 +53,17 @@ function plugApp(app, base = '/elasticsearch') {
         res.send({
           stats,
           nodes,
-          replicas
+          replicas,
         });
       } catch (e) {
         next(e);
       }
-    }
+    },
   );
 
   app.post(
     `${base}/cluster/replicas`,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    sessions.mw.ifUnlogged(redirectToSignin),
     sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {
@@ -60,6 +79,11 @@ function plugApp(app, base = '/elasticsearch') {
       } catch (e) {
         next(e);
       }
-    }
+    },
   );
 }
+
+module.exports = {
+  init,
+  plugApp,
+};

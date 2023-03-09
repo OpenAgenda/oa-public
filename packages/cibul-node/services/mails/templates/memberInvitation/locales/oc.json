@@ -1,1 +1,16 @@
-{}
+{
+  "subject": "Sètz estat·da convidat·da a {roleVerb} \"{agenda}\"",
+  "contributorVerb": "contribuir a",
+  "moderatorVerb": "moderar",
+  "administratorVerb": "administrar",
+  "subjectForExistingMember": "Sètz vengut·da {role} de \"{agenda}\"",
+  "signup": "Crear un compte",
+  "memberAction": "{role, select, administrator {Administrar l'agenda} moderator {Moderar los eveniments} contributor {Contribuir a l'agenda} reader {Veire l'agenda} other {}}",
+  "administrator": "administrator·a",
+  "moderator": "moderator·a",
+  "contributor": "contributor·a",
+  "reader": "legeire·a",
+  "unsubscribe": "Arrestar de recebre las convidacions",
+  "unsubscribeGuest": "Arrestar de recebre los mails d'OpenAgenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

@@ -7,6 +7,9 @@
         "fr": "Tic"
       },
       "state": 2,
+      "keywords": {
+        "fr": ["ltwf"]
+      },
       "timings": [{
         "begin": "2030-01-01T08:00:00+0200",
         "end": "2030-01-01T09:00:00+0200"
@@ -21,6 +24,9 @@
         "fr": "Tac"
       },
       "state": 2,
+      "keywords": {
+        "fr": ["ltwf"]
+      },
       "timings": [{
         "begin": "2030-01-01T10:00:00+0200",
         "end": "2030-01-01T11:00:00+0200"
@@ -35,6 +41,9 @@
         "fr": "Rangers du risque"
       },
       "state": 2,
+      "keywords": {
+        "fr": ["ltwf"]
+      },
       "timings": [{
         "begin": "2030-01-01T19:00:00+0200",
         "end": "2030-01-01T20:00:00+0200"
@@ -49,6 +58,9 @@
         "fr": "Visite guidée le Vieux Lille"
       },
       "state": 1,
+      "keywords": {
+        "fr": ["ltwf"]
+      },
       "timings": [{
         "begin": "2042-06-11T14:00:00+02:00",
         "end": "2042-06-11T18:00:00+02:00"
@@ -60,12 +72,43 @@
         "fr": "Mon dodo"
       },
       "state": 1,
+      "keywords": {
+        "fr": ["ltwf", "pau"]
+      },
       "timings": [{
         "begin": "2042-06-11T14:45:00+02:00",
         "end": "2042-06-11T15:45:00+02:00"
       }, {
         "begin": "2042-06-11T16:15:00+02:00",
         "end": "2042-06-11T17:15:00+02:00"
+      }]
+    },
+    {
+      "uid": 6,
+      "title": {
+        "fr": "Mort de Bourvil"
+      },
+      "keywords": {
+        "fr": ["pau"]
+      },
+      "state": 1,
+      "timings": [{
+        "begin": "1970-09-23T14:45:00+02:00",
+        "end": "1970-09-23T15:45:00+02:00"
+      }]
+    },
+    {
+      "uid": 7,
+      "title": {
+        "fr": "Nouveau siècle"
+      },
+      "keywords": {
+        "fr": ["pau"]
+      },
+      "state": 1,
+      "timings": [{
+        "begin": "2001-01-01T00:00:00+01:00",
+        "end": "2001-01-01T01:00:00+01:00"
       }]
     }
   ]

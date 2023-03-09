@@ -17,6 +17,10 @@ const validateOptions = schema({
   enabled: {
     list: true,
     type: 'pass'
+  },
+  disabled: {
+    list: true,
+    type: 'pass',
   }
 });
 
@@ -29,7 +33,7 @@ module.exports = async function (configObject, options = {}) {
   const t = new Date();
   const config = configObject || require('../config');
 
-  const cleanOptions = validateOptions(options);
+  const cleanOptions = validateOptions({ ...config, ...options });
 
   logs.init(config.logger || config.getLogConfig('oa', 'oa', false));
 
@@ -90,7 +94,6 @@ module.exports = async function (configObject, options = {}) {
   await init('oembed', require('./oembed'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));
-  await init('agendaSchema', require('./agendaSchema'));
   await init('supervisor', require('./supervisor'));
   await init('stats', require('./stats'));
 
@@ -114,10 +117,27 @@ function applyShutdown(services) {
   return services;
 }
 
+function isServiceEnabled(options, name) {
+  if (!options.enabled.length) {
+    return true;
+  }
+  return options.enabled.includes(name);
+}
+
+function isServiceDisabled(options, name) {
+  if (!options.disabled.length) {
+    return false;
+  }
+  return options.disabled.includes(name);
+}
+
 function createInitier(config, options) {
   const services = {};
   return Object.assign((name, service) => {
-    if (options.enabled && options.enabled.length && !options.enabled.includes(name)) {
+    if (options.enabled && !isServiceEnabled(options, name)) {
+      return;
+    }
+    if (options.disabled && isServiceDisabled(options, name)) {
       return;
     }
 

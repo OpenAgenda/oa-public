@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
 import axios from 'axios';
@@ -24,7 +24,7 @@ export default function SpreadsheetModal({
   useEffect(() => {
     async function fetchData() {
       const { data } = await axios.get(
-        `/agendas/${agendaUid}/admin/settings/exports`
+        `/agendas/${agendaUid}/admin/settings/exports`,
       );
       setLanguages(data.languages);
       setFields(data.spreadsheetColumns);
@@ -42,12 +42,13 @@ export default function SpreadsheetModal({
         ...parsedQuery,
         includeFields: spreadsheetOptions.fields,
         includeLanguages: spreadsheetOptions.languages,
+        distributeOptionalFields: spreadsheetOptions.distributeFields,
       },
       {
         addQueryPrefix: true,
         arrayFormat: 'brackets',
         skipNulls: true,
-      }
+      },
     );
 
     const url = `/agendas/${agendaUid}/admin/events.v2.${spreadsheetOptions.format}${newQuery}`;

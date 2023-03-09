@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Eksportuj",
     "br": "Ezporzhiañ",
     "es": "Exportación",
-    "io": "crwdns12900:0crwdne12900:0"
+    "io": "crwdns12900:0crwdne12900:0",
+    "oc": "Exportar"
   },
   "share": {
     "en": "Share",
@@ -28,7 +29,8 @@ module.exports = {
     "it": "In linea",
     "es": "En linea",
     "br": "Enlinenn",
-    "io": "crwdns12904:0crwdne12904:0"
+    "io": "crwdns12904:0crwdne12904:0",
+    "oc": "En linha"
   },
   "addEvent": {
     "en": "Add an event",
@@ -38,7 +40,8 @@ module.exports = {
     "pl": "Dodaj wydarzenie",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento",
-    "io": "crwdns12906:0crwdne12906:0"
+    "io": "crwdns12906:0crwdne12906:0",
+    "oc": "Apondre un eveniment"
   },
   "startToFinish": {
     "en": "%start% to %finish%",
@@ -48,7 +51,8 @@ module.exports = {
     "pl": "od %start% do %finish%",
     "br": "eus an %start% d'an %finish%",
     "es": "del %start% a %finish%",
-    "io": "crwdns12908:0%start%crwdnd12908:0%finish%crwdne12908:0"
+    "io": "crwdns12908:0%start%crwdnd12908:0%finish%crwdne12908:0",
+    "oc": "%start% a %finish%"
   },
   "startTime": {
     "en": "%start%, %time%",
@@ -58,7 +62,8 @@ module.exports = {
     "pl": "%start%, %time%",
     "br": "%start%, %time%",
     "es": "%start%, %time%",
-    "io": "crwdns12910:0%start%crwdnd12910:0%time%crwdne12910:0"
+    "io": "crwdns12910:0%start%crwdnd12910:0%time%crwdne12910:0",
+    "oc": "%start%, %time%"
   },
   "addToMyAgenda": {
     "en": "Add to my agenda",
@@ -90,7 +95,8 @@ module.exports = {
     "pl": "Etykiety",
     "br": "Merkoù",
     "es": "Etiquetas",
-    "io": "crwdns12916:0crwdne12916:0"
+    "io": "crwdns12916:0crwdne12916:0",
+    "oc": "Etiquetas"
   },
   "categories": {
     "en": "Categories",
@@ -100,7 +106,8 @@ module.exports = {
     "pl": "Kategorie",
     "br": "Rummadoù",
     "es": "Categorías",
-    "io": "crwdns12918:0crwdne12918:0"
+    "io": "crwdns12918:0crwdne12918:0",
+    "oc": "Categorias"
   },
   "organization": {
     "en": "Organization",
@@ -110,7 +117,8 @@ module.exports = {
     "pl": "Organizacja",
     "br": "Aozadur",
     "es": "Organización",
-    "io": "crwdns12920:0crwdne12920:0"
+    "io": "crwdns12920:0crwdne12920:0",
+    "oc": "Organizacion"
   },
   "about": {
     "en": "About",
@@ -120,7 +128,8 @@ module.exports = {
     "pl": "Dowiedz się więcej",
     "br": "Diwar-benn",
     "es": "A proposito",
-    "io": "crwdns12922:0crwdne12922:0"
+    "io": "crwdns12922:0crwdne12922:0",
+    "oc": "A prepaus"
   },
   "help": {
     "en": "Help",
@@ -130,7 +139,8 @@ module.exports = {
     "pl": "Pomoc",
     "br": "Skoazell",
     "es": "Ayuda",
-    "io": "crwdns12924:0crwdne12924:0"
+    "io": "crwdns12924:0crwdne12924:0",
+    "oc": "Ajuda"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -140,7 +150,8 @@ module.exports = {
     "pl": "Warunki korzystania",
     "br": "Penndivizoù implij",
     "es": "Condiciones de uso",
-    "io": "crwdns12926:0crwdne12926:0"
+    "io": "crwdns12926:0crwdne12926:0",
+    "oc": "Condicions d'utilizacion"
   },
   "manage": {
     "en": "Manage",
@@ -150,7 +161,8 @@ module.exports = {
     "pl": "Zarządzaj",
     "br": "Merañ",
     "es": "Gestionar",
-    "io": "crwdns12928:0crwdne12928:0"
+    "io": "crwdns12928:0crwdne12928:0",
+    "oc": "Gerir"
   },
   "searchWhenMoveMap": {
     "en": "Search when I move the map",
@@ -160,7 +172,8 @@ module.exports = {
     "pl": "Wyszukaj podczas zmiany mapy",
     "br": "Klask pa zilec'hian ar gartenn",
     "es": "Mira cuando muevo el mapa",
-    "io": "crwdns12930:0crwdne12930:0"
+    "io": "crwdns12930:0crwdne12930:0",
+    "oc": "Cercar quand desplaci la mapa"
   },
   "map": {
     "en": "Map",
@@ -170,7 +183,8 @@ module.exports = {
     "pl": "Mapa",
     "br": "Kartenn",
     "es": "Mapa",
-    "io": "crwdns12932:0crwdne12932:0"
+    "io": "crwdns12932:0crwdne12932:0",
+    "oc": "Mapa"
   },
   "selectDates": {
     "en": "Select dates",
@@ -180,7 +194,8 @@ module.exports = {
     "pl": "Wybierz datę",
     "br": "Choazit un deiz",
     "es": "Elija una fecha",
-    "io": "crwdns12934:0crwdne12934:0"
+    "io": "crwdns12934:0crwdne12934:0",
+    "oc": "Causir las datas"
   },
   "noResultForSearch": {
     "en": "There are no results for this search",
@@ -190,7 +205,8 @@ module.exports = {
     "pl": "Brak rezultatów wyszukiwania",
     "br": "Disoc'h ebet evit an enklask-mañ",
     "es": "No hay resultados para esta búsqueda",
-    "io": "crwdns12936:0crwdne12936:0"
+    "io": "crwdns12936:0crwdne12936:0",
+    "oc": "I a pas de resultat per aquela recerca"
   },
   "noResultForSearchPleaseWiden": {
     "en": "There are no matching events. Please widen your search.",
@@ -200,7 +216,8 @@ module.exports = {
     "pl": "Nie ma pasujących zdarzeń. Proszę rozszerzyć zakres wyszukiwania.",
     "br": "N'eus bet kavet darvoud ebet. Grit un enklask ledanoc'h, mar plij.",
     "es": "No se han encontrado eventos. Por favor, ampliar su búsqueda.",
-    "io": "crwdns12938:0crwdne12938:0"
+    "io": "crwdns12938:0crwdne12938:0",
+    "oc": "I a pas d'eveniments que correspondan. Mercés d'alargar vòstra recerca."
   },
   "noResultForSearchWithLink": {
     "en": "There are no results for this search. You can make a site-wide search from the page header, or %page%",
@@ -210,7 +227,8 @@ module.exports = {
     "pl": "Brak rezultatów wyszukiwania. Możesz przeszukać całą stronę na górze strony, lub %page%",
     "br": "Disoc'h ebet evit an enklask-mañ. Gallout a rit ober un enklask el lec'hienn a-bezh e krec'h ar bajenn, pe %page%",
     "es": "No hay resultados para esta búsqueda. Puede buscar en todo el sitio a la tapa, o la %page%",
-    "io": "crwdns12940:0%page%crwdne12940:0"
+    "io": "crwdns12940:0%page%crwdne12940:0",
+    "oc": "I a pas de resultat per aquela recerca. Podètz alargar la recerca al site de l'entèsta de pagina, o %page%"
   },
   "reloadPage": {
     "en": "reload this page",
@@ -220,7 +238,8 @@ module.exports = {
     "pl": "Załaduj ponownie stronę",
     "br": "adkargañ ar bajenn deiziataer",
     "es": "cargar la página del agenda",
-    "io": "crwdns12942:0crwdne12942:0"
+    "io": "crwdns12942:0crwdne12942:0",
+    "oc": "tornar cargar aquesta pagina"
   },
   "agendaHasNotEventsPublished": {
     "en": "This agenda has not published any event yet",
@@ -241,7 +260,8 @@ module.exports = {
     "pl": "Skontaktuj się z administratorem",
     "br": "Mont e darempred gant ar merour",
     "es": "contacto administrativo",
-    "io": "crwdns12946:0crwdne12946:0"
+    "io": "crwdns12946:0crwdne12946:0",
+    "oc": "Contactar l'administrator·a"
   },
   "byName": {
     "en": "by %name%",
@@ -251,7 +271,8 @@ module.exports = {
     "pl": "przez %name%",
     "br": "dre %name%",
     "es": "por su %name%",
-    "io": "crwdns12948:0%name%crwdne12948:0"
+    "io": "crwdns12948:0%name%crwdne12948:0",
+    "oc": "per %name%"
   },
   "agendaHasNotUpcomingEvents": {
     "en": "There are no upcoming event published in this agenda.",
@@ -272,7 +293,8 @@ module.exports = {
     "pl": "tutaj",
     "br": "amañ",
     "es": "aquí",
-    "io": "crwdns12952:0crwdne12952:0"
+    "io": "crwdns12952:0crwdne12952:0",
+    "oc": "aquí"
   },
   "loadMore": {
     "en": "load more",
@@ -282,7 +304,8 @@ module.exports = {
     "pl": "Załaduj więcej",
     "br": "gwelet muioc'h",
     "es": "ver más",
-    "io": "crwdns12954:0crwdne12954:0"
+    "io": "crwdns12954:0crwdne12954:0",
+    "oc": "ne cargar mai"
   },
   "featured": {
     "en": "Featured",
@@ -292,7 +315,8 @@ module.exports = {
     "pl": "Opisane",
     "br": "Keleier pennañ",
     "es": "Reflejos",
-    "io": "crwdns12956:0crwdne12956:0"
+    "io": "crwdns12956:0crwdne12956:0",
+    "oc": "Meses en avant"
   },
   "countEvents": {
     "en": "%count% events",
@@ -302,7 +326,8 @@ module.exports = {
     "pl": "%count% wydarzeń",
     "br": "%count% a zarvoudoù",
     "es": "%count% eventos",
-    "io": "crwdns12958:0%count%crwdne12958:0"
+    "io": "crwdns12958:0%count%crwdne12958:0",
+    "oc": "%count% eveniments"
   },
   "countEvent": {
     "en": "1 event",
@@ -312,7 +337,8 @@ module.exports = {
     "pl": "1 wydarzenie",
     "br": "1 darvoud",
     "es": "1 evento",
-    "io": "crwdns12960:0crwdne12960:0"
+    "io": "crwdns12960:0crwdne12960:0",
+    "oc": "1 eveniment"
   },
   "countUpcomingEvents": {
     "en": "%count% upcoming events",
@@ -322,7 +348,8 @@ module.exports = {
     "pl": "%count% przyszłych wydarzeń",
     "br": "%count% a zarvoudoù da zont",
     "es": "%count% próximos eventos",
-    "io": "crwdns12962:0%count%crwdne12962:0"
+    "io": "crwdns12962:0%count%crwdne12962:0",
+    "oc": "%count% eveniments a venir"
   },
   "includePassedEvents": {
     "en": "include passed events",
@@ -332,7 +359,8 @@ module.exports = {
     "pl": "Dołącz wydarzenia przeszłe",
     "br": "lakaat an darvoudoù tremenet e-barzh",
     "es": "incluir los eventos pasados",
-    "io": "crwdns12964:0crwdne12964:0"
+    "io": "crwdns12964:0crwdne12964:0",
+    "oc": "inclure los eveniments passats"
   },
   "contact": {
     "en": "Contact",
@@ -342,7 +370,8 @@ module.exports = {
     "pl": "Skontaktuj",
     "br": "Mont e darempred",
     "es": "Contactar con",
-    "io": "crwdns12966:0crwdne12966:0"
+    "io": "crwdns12966:0crwdne12966:0",
+    "oc": "Contactar"
   },
   "officialAgenda": {
     "en": "Official agenda",
@@ -352,7 +381,8 @@ module.exports = {
     "pl": "Kalendarz formalny",
     "br": "Deiziataer ofisiel",
     "es": "Agenda oficial",
-    "io": "crwdns12968:0crwdne12968:0"
+    "io": "crwdns12968:0crwdne12968:0",
+    "oc": "Agenda oficiala"
   },
   "privateAgenda": {
     "en": "Private agenda",
@@ -362,7 +392,8 @@ module.exports = {
     "pl": "Kalendarz prywatny",
     "br": "Deiziataer prevez",
     "es": "Eventos privados",
-    "io": "crwdns12970:0crwdne12970:0"
+    "io": "crwdns12970:0crwdne12970:0",
+    "oc": "Agenda privada"
   },
   "showCalendar": {
     "en": "Calendar view",
@@ -372,7 +403,8 @@ module.exports = {
     "pl": "Wygląd kalendarza",
     "br": "Gwel deiziadur",
     "es": "Ver el agenda",
-    "io": "crwdns12972:0crwdne12972:0"
+    "io": "crwdns12972:0crwdne12972:0",
+    "oc": "Vista del calendièr"
   },
   "statusRescheduled": {
     "en": "Rescheduled",
@@ -392,13 +424,15 @@ module.exports = {
     "en": "Postponed",
     "fr": "Reporté",
     "it": "Riprogrammato",
-    "io": "crwdns16092:0crwdne16092:0"
+    "io": "crwdns16092:0crwdne16092:0",
+    "oc": "Remandat"
   },
   "statusCancelled": {
     "en": "Canceled",
     "fr": "Annulé",
     "it": "Cancellato",
-    "io": "crwdns16094:0crwdne16094:0"
+    "io": "crwdns16094:0crwdne16094:0",
+    "oc": "Anullat"
   },
   "statusFull": {
     "en": "Fully booked",

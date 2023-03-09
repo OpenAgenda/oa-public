@@ -1,0 +1,133 @@
+{
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Filtrer"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
+  "next.views.AgendaShow.help": [
+    {
+      "type": 0,
+      "value": "Aide"
+    }
+  ],
+  "next.views.AgendaShow.includePassedEvents": [
+    {
+      "type": 0,
+      "value": "Inclure les événements passés"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Afficher les "
+    },
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " événements"
+    }
+  ],
+  "next.views.AgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "Voir plus"
+    }
+  ],
+  "next.views.AgendaShow.showUpcomingEventsOnly": [
+    {
+      "type": 0,
+      "value": "Afficher uniquement les événements à venir"
+    }
+  ],
+  "next.views.AgendaShow.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Conditions d'utilisation"
+    }
+  ],
+  "next.views.AgendaShow.totalEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 événement"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.totalUpcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun événement à venir"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 événement à venir"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements à venir"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

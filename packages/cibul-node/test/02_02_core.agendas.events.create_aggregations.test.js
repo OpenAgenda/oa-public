@@ -157,9 +157,9 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
         access: 'contributor',
       });
 
-      await (new Promise(rs => {
+      await new Promise(rs => {
         core.services.tracker.on('aggregators.referenceEvent.done', rs);
-      }));
+      });
 
       // first aggregation happened
       await core.agendas(17026800).events.update(event.uid, {

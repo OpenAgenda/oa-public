@@ -1,18 +1,22 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import ts from 'typescript';
 import dedent from 'dedent';
+import { globby } from 'globby';
 import extract from '@openagenda/intl/scripts/extract';
 import compile from '@openagenda/intl/scripts/compile';
-import { DEFAULT_LANG, DEFAULT_LANGS } from '@openagenda/intl/constants';
+
+const require = createRequire(import.meta.url);
+const { DEFAULT_LANGS, DEFAULT_LANG } = require('@openagenda/intl/constants');
 
 const root = new URL('..', import.meta.url).pathname;
 const sources = [
   'next-env.d.ts',
-  'additional.d.ts',
+  ...await globby('src/types/*.d.ts'),
   ...process.argv.slice(2),
 ];
-const viewDir = 'src/views';
+const viewsDir = 'src/views';
 const ignoredDirs = ['src/pages']; // Don't create locales
 
 const configPath = ts.findConfigFile(root, ts.sys.fileExists, 'tsconfig.json');
@@ -36,9 +40,9 @@ function getSourceFiles(fileNames, options) {
 
     if (diagnostic.file) {
       const { line, character } = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
-      console.log(`Error TS${diagnostic.code}: ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+      console.log(`❌ Error TS${diagnostic.code}: ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
     } else {
-      console.log(`Error TS${diagnostic.code}: ${message}`);
+      console.log(`❌ Error TS${diagnostic.code}: ${message}`);
     }
   });
 
@@ -64,6 +68,11 @@ function getDepModules(sourceFile) {
 
 function isInDir(from, to) {
   return !path.relative(from, to).startsWith('..');
+}
+
+function isDirectSubDir(from, to) {
+  const relativePath = path.relative(from, to);
+  return !relativePath.startsWith('..') && relativePath.split(path.sep).length === 1;
 }
 
 function isInPackage(filePath) {
@@ -106,11 +115,14 @@ async function fileExists(filepath) {
   }
 }
 
-function collectDeps(depsMap, sourceFiles) {
+function collectDeps(depsMap, sourceFiles, viewDir) {
   const result = [...sourceFiles];
 
   for (const sourceFile of sourceFiles) {
-    const deps = depsMap.get(sourceFile);
+    const deps = depsMap.get(sourceFile)
+      // exclude deps from other views
+      .filter(dep => !viewDir || !(isInDir(viewsDir, dep) && !isInDir(viewDir, dep)));
+
     if (deps?.length) {
       result.push(...collectDeps(depsMap, deps).filter(v => !result.includes(v)));
     }
@@ -130,6 +142,7 @@ async function createIndex(localesRoot) {
 
     export default async function fetchLocale(locale) {
       return import(\`./compiled/${'${locale}'}.json\`)
+        .then(mod => mod.default)
         .catch(e => {
           console.error(\`API: Failed to fetch locale ${'${locale}'}\`, e);
           return null;
@@ -138,14 +151,16 @@ async function createIndex(localesRoot) {
     `}\n`;
   /* eslint-enable no-template-curly-in-string */
 
-  console.log(`Create ${relativeToCwd(indexPath)}`);
+  console.log(`✔️ Create ${relativeToCwd(indexPath)}`);
 
   await fs.writeFile(indexPath, content);
 }
 
-async function createViewIndex(localesRoot, deps, hasLocales) {
-  const indexPath = path.join(localesRoot, 'index.ts');
-  const relativeDeps = deps.map(dep => path.relative(path.join(root, 'src'), dep)).sort();
+async function createViewIndex(viewDir, deps, hasLocales) {
+  const indexPath = path.join(viewDir, 'locales/index.ts');
+  const relativeDeps = deps
+    .map(dep => path.relative(path.join(root, 'src'), dep))
+    .sort();
 
   /* eslint-disable no-template-curly-in-string */
   const content = `${dedent`
@@ -159,7 +174,8 @@ async function createViewIndex(localesRoot, deps, hasLocales) {
     
     ` : ''}export default async function fetchLocale(locale) {
       return Promise.all([${hasLocales ? `
-        import(\`./compiled/${'${locale}'}.json\`),` : ''}${relativeDeps.length ? `
+        import(\`./compiled/${'${locale}'}.json\`)
+          .then(mod => mod.default),` : ''}${relativeDeps.length ? `
         ` : ''}${relativeDeps
   .map((v, i) => `fetchLocale${i}(locale),`)
   .join('\n        ')}
@@ -173,7 +189,7 @@ async function createViewIndex(localesRoot, deps, hasLocales) {
     `}\n`;
   /* eslint-enable no-template-curly-in-string */
 
-  console.log(`Create ${relativeToCwd(indexPath)}`);
+  console.log(`✔️ Create ${relativeToCwd(indexPath)}`);
 
   await fs.writeFile(indexPath, content);
 }
@@ -197,10 +213,13 @@ const dependenciesMap = new Map();
 const dependentsMap = new Map();
 
 const packageSourceFiles = sourceFiles
-  .filter(sourceFile => isInPackage(sourceFile.path));
+  .filter(sourceFile => isInPackage(sourceFile.path))
+  .filter(sourceFile => !sourceFile.path.endsWith('/locales/index.ts'));
 
 for (const sourceFile of packageSourceFiles) {
-  const deps = getDepModules(sourceFile).filter(isInPackage);
+  const deps = getDepModules(sourceFile)
+    .filter(isInPackage)
+    .filter(dep => !dep.endsWith('/locales/index.ts'));
   dependenciesMap.set(sourceFile.path, deps);
 
   for (const dep of deps) {
@@ -236,13 +255,13 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
 
   const hasLocales = await fileExists(path.join(localesDir, `${DEFAULT_LANG}.json`));
 
-  const isView = isInDir(viewDir, relativeDir);
+  const isView = isDirectSubDir(viewsDir, relativeDir);
 
   // Compile & create indexes
   if (hasLocales) {
     console.log(
-      `Extracted locales in ${relativeDir}`,
-      `from:\n  - ${sourceFilesInDir.map(relativeToCwd).join('\n  - ')}`,
+      `⚙️ Extracted locales in ${relativeDir}`,
+      `from:\n    - ${sourceFilesInDir.map(relativeToCwd).join('\n    - ')}`,
     );
 
     await compile.handler({
@@ -268,11 +287,13 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     const viewDeps = collectDeps(dependenciesMap, [
       ...dependentsOfView,
       ...sourceFilesInDir,
-    ]);
+    ], directory);
 
     const depsLocalesDirs = [];
     for (const viewDep of viewDeps) {
       const depLocalesDir = path.join(path.dirname(viewDep), 'locales');
+      if (depLocalesDir === localesDir) continue;
+
       const depDefaultLocalePath = path.join(depLocalesDir, `${DEFAULT_LANG}.json`);
       if (!depsLocalesDirs.includes(depLocalesDir) && await fileExists(depDefaultLocalePath)) {
         depsLocalesDirs.push(depLocalesDir);
@@ -281,6 +302,6 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
 
     await fs.mkdir(localesDir, { recursive: true, force: true });
 
-    await createViewIndex(localesDir, depsLocalesDirs, hasLocales);
+    await createViewIndex(directory, depsLocalesDirs, hasLocales);
   }
 }

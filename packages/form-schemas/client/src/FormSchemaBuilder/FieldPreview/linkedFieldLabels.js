@@ -17,14 +17,12 @@ export function getSummary({
   }, lang);
 }
 
-export function getSpecificValue({ field, schema, lang }) {
-  const linkType = field.optionalWith ? 'optionalWith' : 'enableWith';
-
+export function getSpecificValue({ field, schema, lang, linkType }) {
   if (typeof field[linkType] === 'string') {
     return;
   }
 
-  const linkedField = getLinkedField({ field, schema });
+  const linkedField = getLinkedField({ field, schema, linkType });
 
   return [].concat(field[linkType].value).map(value => {
     const matchingOption = linkedField.options.find(o => o.id === value);
@@ -37,10 +35,10 @@ export function getDetailed({
   lang,
   schema,
 }) {
-  const linkedField = getLinkedField({ field, schema });
-  const linkedFieldName = getLocaleValue(linkedField.label, lang);
-  const specificValue = getSpecificValue({ field, lang, schema });
   const linkType = field.optionalWith ? 'optionalWith' : 'enableWith';
+  const linkedField = getLinkedField({ field, schema, linkType });
+  const linkedFieldName = getLocaleValue(linkedField.label, lang);
+  const specificValue = getSpecificValue({ field, lang, schema, linkType });
 
   if (typeof field[linkType] === 'string') {
     return getLabel(

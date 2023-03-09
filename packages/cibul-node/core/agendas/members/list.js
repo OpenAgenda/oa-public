@@ -2,12 +2,15 @@
 
 const _ = require('lodash');
 const { Forbidden, NotFound } = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 
 const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
 
-module.exports = async (core, agendaOrUid, nav, options = {}) => {
+const log = logs('core/agendas/members/list');
+
+module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
   const { services } = core;
   const {
     members: membersSvc,
@@ -20,9 +23,12 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
     actingMember: preloadedActingMember,
     access = null,
     detailed = false,
+    roleAsSlug = true,
   } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
+
+  log('listing members for agenda %s with query %j', agendaUid, query);
 
   const actingMember = preloadedActingMember || (
     actingUserUid ? await membersSvc.get({
@@ -49,11 +55,14 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   }
 
   const { total, members } = await membersSvc.list({
+    ...query,
     agendaUid: agenda.uid,
   }, validateNav(nav), {
     total: true,
     detailed,
   });
+
+  log('found %s members from service, %s', total, agenda.memberSchemaId ? 'completing with custom data' : 'no custom data');
 
   const membersUids = members.map(e => e.userUid);
   const customs = agenda.memberSchemaId ? (await custom(agenda.memberSchemaId).list({
@@ -63,6 +72,6 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   return {
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(e => ({ ...format(membersSvc, e, { detailed }), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
+    items: members.map(m => ({ ...format(membersSvc, m, { detailed, roleAsSlug }), ...customs.find(a => a.identifier === m.userUid)?.custom ?? {} })),
   };
 };

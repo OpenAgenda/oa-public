@@ -32,7 +32,8 @@ module.exports = {
     "es": "validar",
     "it": "Invia",
     "br": "Kemmañ",
-    "io": "crwdns14630:0crwdne14630:0"
+    "io": "crwdns14630:0crwdne14630:0",
+    "oc": "Sometre"
   },
   "submitted": {
     "fr": "Validé",
@@ -89,7 +90,8 @@ module.exports = {
     "es": "anular",
     "it": "Annulla",
     "br": "Nullañ",
-    "io": "crwdns14644:0crwdne14644:0"
+    "io": "crwdns14644:0crwdne14644:0",
+    "oc": "Anullar"
   },
   "uploadButton": {
     "fr": "Sélectionner",
@@ -97,6 +99,7 @@ module.exports = {
     "de": "Wählen",
     "es": "seleccionar",
     "it": "Seleziona",
-    "io": "crwdns14646:0crwdne14646:0"
+    "io": "crwdns14646:0crwdne14646:0",
+    "oc": "Seleccionar"
   }
 }

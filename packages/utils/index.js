@@ -1,6 +1,7 @@
 "use strict";
 
 const isInteger = require('./isInteger');
+const flattenLabel = require('./flattenLabel');
 
 module.exports = {
   isInteger,
@@ -18,7 +19,8 @@ module.exports = {
   capitalize: capitalize,
   uncapitalize: uncapitalize,
   cleanString: cleanString,
-  deep: require( './deep' )
+  deep: require( './deep' ),
+  flattenLabel,
 };
 
 

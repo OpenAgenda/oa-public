@@ -98,7 +98,7 @@
   "aggregator-sources.DefineRules.updateARule": "Modifier une règle",
   "aggregator-sources.DefineRules.uselessRule": "Veuillez définir au moins un filtre ou une action",
   "aggregator-sources.DefineRules.uselessRuleWithFilter": "Une règle d'agrégation avec filtre non requis doit comporter au moins une action",
-  "aggregator-sources.DefineRules.withActions": "{actionCount, plural, =1 {avec 1 action} other {avec {actionCount, number} actions}}",
+  "aggregator-sources.DefineRules.withActions": "{actionCount, plural, =1 {avec 1 action} other {avec # actions}}",
   "aggregator-sources.EvaluateOptions.cancel": "Annuler",
   "aggregator-sources.EvaluateOptions.evaluateOption0": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant",
   "aggregator-sources.EvaluateOptions.evaluateOption1": "Évaluer tous les événements",

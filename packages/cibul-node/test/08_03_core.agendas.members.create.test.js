@@ -203,7 +203,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
 
       it('member invite', async () => {
-        const res = await axios({
+        await axios({
           method: 'post',
           url: 'http://localhost:3000/agendas/2/members/invite',
           headers: {

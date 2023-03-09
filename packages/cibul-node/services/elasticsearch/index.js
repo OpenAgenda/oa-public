@@ -24,7 +24,6 @@ module.exports = {
 }
 
 function init(config, services) {
-
   const legacyLib = ESNode(ih(config.es, {
     host: {
       $set: (config.es.ssl ? 'https://' : 'http://') + config.es.host

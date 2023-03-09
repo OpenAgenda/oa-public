@@ -22,8 +22,10 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   } = options;
 
   const agenda = await core.agendas(agendaUid).get({
+    detailed: true,
     includeEvent: true,
     includeMember: true,
+    includeMemberSchema: true,
     includeDateRange: true,
     includeAgendaEvent: true,
     includeOriginAgenda: true,
@@ -48,7 +50,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const parsers = [];
 
-  log('search on %s events with query %s, nav %s and options %s', agendaUid, authorizedQuery, nav, options);
+  log('search with access "%s" on %s events with query %s, nav %s and options %s', access, agendaUid, authorizedQuery, nav, options);
 
   if (longDescriptionFormat && convertLongDescription.conversions.includes(longDescriptionFormat)) {
     parsers.push(convertLongDescription.load({
@@ -166,7 +168,7 @@ module.exports.rebuild = async (core, agendaUid) => {
   return core.services.eventSearch.agendas(agenda).rebuild();
 };
 
-module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUid, options = {}) {
+async function resyncEvent(core, agendaUid, eventUid, options = {}) {
   const {
     throwOnError,
   } = {
@@ -189,6 +191,7 @@ module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUi
     }
 
     if (!eventPayload) {
+      log('warn', 'could not resync event %s of agenda %s as it was not found', eventUid, agendaUid);
       return;
     }
 
@@ -203,4 +206,24 @@ module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUi
     if (throwOnError) throw err;
     log('error', err);
   }
+}
+
+module.exports.resyncEvent = resyncEvent;
+
+async function batchResyncEvents(core, agendaUid, query, options = {}) {
+  const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
+
+  for await (const event of stream) {
+    await resyncEvent(core, agendaUid, event.uid, { throwOnError: false });
+  }
+}
+
+module.exports.resyncEvents = core => {
+  core.tasks.register({
+    batchResyncEvents: batchResyncEvents.bind(null, core),
+  });
+
+  return function resyncEvents(agendaUid, query, options = {}) {
+    return core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
+  };
 };

@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Loading from '../components/Loading';
 
@@ -11,7 +11,7 @@ const {
   replaceWithStep,
   isContributionType,
   isMemberDataRequired,
-  isMemberRole
+  isMemberRole,
 } = utils;
 
 const log = debug('Landing');
@@ -19,14 +19,14 @@ const log = debug('Landing');
 export default function Landing({
   agenda,
   history,
-  location
+  location,
 }) {
   const prefix = usePrefix(agenda);
 
   const {
     agendaContextIsLoading,
     memberIsFresh,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid);
 
   useEffect(() => {

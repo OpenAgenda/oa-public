@@ -2,29 +2,41 @@
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 
+function _keepHigherOrderIncludes(includes = []) {
+  const higherOrderIncludes = includes.filter(i => i.indexOf('.') === -1);
+
+  return includes.filter(include => {
+    if (higherOrderIncludes.includes(include)) {
+      return true;
+    }
+    return !higherOrderIncludes.includes(include.split('.').shift());
+  });
+}
+
 module.exports = ({
   baseSearchIncludes,
-  detailedSearchIncludes
+  detailedSearchIncludes,
+  otherStandardFields,
 }, {
   detailed,
   formSchema,
   access,
-  requested
+  requested,
 }) => {
   const additionalFields = formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : [];
-  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields);
+  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields).concat(otherStandardFields);
 
   const includes = [].concat(
-    !requested ? baseSearchIncludes : []
+    !requested ? baseSearchIncludes : [],
   ).concat(
-    !requested && detailed ? detailedSearchIncludes : []
+    !requested && detailed ? detailedSearchIncludes : [],
   ).concat(
-    requested ? requested : []
+    requested || [],
   ).concat(requested ? [] : additionalFields)
     .map(field => ({
-      field: field,
+      field,
       higherOrderField: field.split('.').shift(),
-      keep: knownFields.includes(field) ? field : null
+      keep: knownFields.includes(field) ? field : null,
     }))
     .map(({ higherOrderField, keep }) => {
       if (!requested || keep) {
@@ -36,7 +48,8 @@ module.exports = ({
       }
 
       return null;
-    }).filter(field => !!field);
+    })
+    .filter(field => !!field);
 
   if (!access || !formSchema) {
     return _keepHigherOrderIncludes(includes);
@@ -46,19 +59,8 @@ module.exports = ({
     const formSchemaField = formSchema.fields.filter(f => f.field === fieldName).pop();
 
     if (!formSchemaField && (baseSearchIncludes.includes(fieldName) || detailedSearchIncludes.includes(fieldName))) {
-      return true
+      return true;
     }
     return !formSchemaField || !formSchemaField.read || formSchemaField.read.includes(access);
   }));
-}
-
-function _keepHigherOrderIncludes(includes = []) {
-  const higherOrderIncludes = includes.filter(i => i.indexOf('.') === -1);
-
-  return includes.filter(include => {
-    if (higherOrderIncludes.includes(include)) {
-      return true;
-    }
-    return !higherOrderIncludes.includes(include.split('.').shift());
-  });
-}
+};

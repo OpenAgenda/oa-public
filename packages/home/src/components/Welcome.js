@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useApiClient, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 
-function AgendaItem({ agenda }) {
+export function AgendaItem({ agenda, actions = false }) {
   const { getLabel } = useContext(I18nContext);
 
   return (
@@ -40,14 +40,16 @@ function AgendaItem({ agenda }) {
             </span>
           ) : null}
         </div>
-        <div className="actions">
-          <a className="margin-right-xs" href={`/agendas/${agenda.uid}`}>
-            {getLabel('see')}
-          </a>
-          <a href={`/agendas/${agenda.uid}/contribute`}>
-            {getLabel('addAnEvent')}
-          </a>
-        </div>
+        {actions ? (
+          <div className="actions">
+            <a className="margin-right-xs" href={`/agendas/${agenda.uid}`}>
+              {getLabel('see')}
+            </a>
+            <a href={`/agendas/${agenda.uid}/contribute`}>
+              {getLabel('addAnEvent')}
+            </a>
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -121,7 +123,7 @@ export default function Welcome() {
 
                 {agendasQuery.data?.agendas
                   ? agendasQuery.data.agendas.map(agenda => (
-                    <AgendaItem key={agenda.uid} agenda={agenda} />
+                    <AgendaItem key={agenda.uid} agenda={agenda} actions />
                   ))
                   : null}
 

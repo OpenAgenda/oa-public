@@ -52,14 +52,14 @@
   },
   "sort": [
     {
-      "_search_timings.accessible_until": {
+      "_sort_timings.accessible_until": {
         "mode": "min",
         "order": "asc",
         "nested": {
-          "path": "_search_timings",
+          "path": "_sort_timings",
           "filter": {
             "range" : {
-              "_search_timings.accessible_until": {
+              "_sort_timings.accessible_until": {
                 "gte" : "now"
               }
             }

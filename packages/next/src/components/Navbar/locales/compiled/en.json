@@ -1,8 +1,38 @@
 {
+  "next.components.Navbar.myAgendas": [
+    {
+      "type": 0,
+      "value": "My agendas"
+    }
+  ],
+  "next.components.Navbar.myEvents": [
+    {
+      "type": 0,
+      "value": "My events"
+    }
+  ],
+  "next.components.Navbar.profileMenu": [
+    {
+      "type": 0,
+      "value": "Profile menu"
+    }
+  ],
+  "next.components.Navbar.settings": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
   "next.components.Navbar.signIn": [
     {
       "type": 0,
       "value": "Sign in"
+    }
+  ],
+  "next.components.Navbar.signOut": [
+    {
+      "type": 0,
+      "value": "Sign out"
     }
   ],
   "next.components.Navbar.signUp": [

@@ -8,7 +8,8 @@ module.exports = {
     "es": "miembros",
     "it": "Membri",
     "br": "Izili",
-    "io": "crwdns15600:0crwdne15600:0"
+    "io": "crwdns15600:0crwdne15600:0",
+    "oc": "Membres"
   },
   "member": {
     "fr": "Membre",
@@ -32,7 +33,8 @@ module.exports = {
     "de": "Beiträger",
     "es": "contribuyente",
     "it": "Collaboratore",
-    "io": "crwdns15606:0crwdne15606:0"
+    "io": "crwdns15606:0crwdne15606:0",
+    "oc": "Contributor·a"
   },
   "administrator": {
     "fr": "Administrateur",
@@ -40,7 +42,8 @@ module.exports = {
     "de": "Administrator",
     "es": "administrador",
     "it": "Amministratore",
-    "io": "crwdns15608:0crwdne15608:0"
+    "io": "crwdns15608:0crwdne15608:0",
+    "oc": "Administrator·a"
   },
   "moderator": {
     "fr": "Modérateur",
@@ -48,7 +51,8 @@ module.exports = {
     "de": "Moderator",
     "es": "moderador",
     "it": "Moderatore",
-    "io": "crwdns15610:0crwdne15610:0"
+    "io": "crwdns15610:0crwdne15610:0",
+    "oc": "Moderator·a"
   },
   "reader": {
     "fr": "Lecteur",
@@ -56,7 +60,8 @@ module.exports = {
     "de": "Leser",
     "es": "lector",
     "it": "Lettore",
-    "io": "crwdns15612:0crwdne15612:0"
+    "io": "crwdns15612:0crwdne15612:0",
+    "oc": "Legeire·a"
   },
   "contributors": {
     "fr": "Contributeurs",
@@ -64,7 +69,8 @@ module.exports = {
     "de": "Mitwirkende",
     "es": "colaboradores",
     "it": "Collaboratori",
-    "io": "crwdns15614:0crwdne15614:0"
+    "io": "crwdns15614:0crwdne15614:0",
+    "oc": "Contributor·a·s"
   },
   "administrators": {
     "fr": "Administrateurs",
@@ -72,7 +78,8 @@ module.exports = {
     "de": "Administratoren",
     "es": "administradores",
     "it": "Amministratori",
-    "io": "crwdns15616:0crwdne15616:0"
+    "io": "crwdns15616:0crwdne15616:0",
+    "oc": "Administrator·a·s"
   },
   "moderators": {
     "fr": "Modérateurs",
@@ -80,7 +87,8 @@ module.exports = {
     "de": "Moderatoren",
     "es": "moderadores",
     "it": "Moderatori",
-    "io": "crwdns15618:0crwdne15618:0"
+    "io": "crwdns15618:0crwdne15618:0",
+    "oc": "Moderator·a·s"
   },
   "readers": {
     "fr": "Lecteurs",
@@ -97,7 +105,8 @@ module.exports = {
     "es": "eventos",
     "it": "eventi",
     "br": "kevelet",
-    "io": "crwdns15622:0crwdne15622:0"
+    "io": "crwdns15622:0crwdne15622:0",
+    "oc": "eveniments"
   },
   "event": {
     "fr": "événement",
@@ -130,7 +139,8 @@ module.exports = {
     "es": "ningún resultado encontrado",
     "it": "Nessun risultato trovato",
     "br": "N'eus bet kavet disoc'h ebet",
-    "io": "crwdns15630:0crwdne15630:0"
+    "io": "crwdns15630:0crwdne15630:0",
+    "oc": "Pas cap resultat trobat"
   },
   "actions": {
     "fr": "Actions",
@@ -228,7 +238,8 @@ module.exports = {
     "de": "Rolle",
     "es": "papel",
     "it": "Ruolo",
-    "io": "crwdns15650:0crwdne15650:0"
+    "io": "crwdns15650:0crwdne15650:0",
+    "oc": "Ròtle"
   },
   "selectRole": {
     "fr": "Sélectionnez un rôle",
@@ -244,7 +255,8 @@ module.exports = {
     "de": "Name",
     "es": "apellido",
     "it": "Nome",
-    "io": "crwdns15654:0crwdne15654:0"
+    "io": "crwdns15654:0crwdne15654:0",
+    "oc": "Nom"
   },
   "email": {
     "fr": "Email",
@@ -253,7 +265,8 @@ module.exports = {
     "es": "e-mail",
     "it": "Email",
     "br": "Postel",
-    "io": "crwdns15656:0crwdne15656:0"
+    "io": "crwdns15656:0crwdne15656:0",
+    "oc": "Email"
   },
   "phone": {
     "fr": "Téléphone",
@@ -261,7 +274,8 @@ module.exports = {
     "de": "Telefon",
     "es": "Teléfono",
     "it": "Telefono",
-    "io": "crwdns15658:0crwdne15658:0"
+    "io": "crwdns15658:0crwdne15658:0",
+    "oc": "Telefòne"
   },
   "position": {
     "fr": "Poste",
@@ -269,7 +283,8 @@ module.exports = {
     "de": "Position",
     "es": "puesto",
     "it": "Ruolo",
-    "io": "crwdns15660:0crwdne15660:0"
+    "io": "crwdns15660:0crwdne15660:0",
+    "oc": "Foncion"
   },
   "organization": {
     "fr": "Organisation",
@@ -278,7 +293,8 @@ module.exports = {
     "es": "organización",
     "it": "Ragione sociale",
     "br": "Aozadur",
-    "io": "crwdns15662:0crwdne15662:0"
+    "io": "crwdns15662:0crwdne15662:0",
+    "oc": "Organizacion"
   },
   "total": {
     "fr": "Total",
@@ -295,7 +311,8 @@ module.exports = {
     "es": "necesario",
     "it": "Richiesto",
     "br": "Rekis",
-    "io": "crwdns15666:0crwdne15666:0"
+    "io": "crwdns15666:0crwdne15666:0",
+    "oc": "Requesit"
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
@@ -303,7 +320,8 @@ module.exports = {
     "de": "String zu kurz",
     "es": "La cadena es demasiado corta",
     "it": "La stringa è troppo corta",
-    "io": "crwdns15668:0crwdne15668:0"
+    "io": "crwdns15668:0crwdne15668:0",
+    "oc": "La cadena de caractèrs es tròp corteta"
   },
   "phone.invalid": {
     "fr": "Numéro de téléphone invalide",
@@ -550,7 +568,8 @@ module.exports = {
     "es": "cerca",
     "it": "Chiudere",
     "br": "Serriñ",
-    "io": "crwdns15730:0crwdne15730:0"
+    "io": "crwdns15730:0crwdne15730:0",
+    "oc": "Tampar"
   },
   "memberRequired": {
     "en": "You need to be a member of the agenda to access this page. Contact the administrators of the agenda using the 'Contact' button.",
@@ -620,7 +639,8 @@ module.exports = {
     "de": "Export",
     "es": "Exportar",
     "it": "Esportare",
-    "io": "crwdns15748:0crwdne15748:0"
+    "io": "crwdns15748:0crwdne15748:0",
+    "oc": "Exportar"
   },
   "order.arrivalDate": {
     "fr": "date d'arrivée",
@@ -656,6 +676,7 @@ module.exports = {
     "fr": "Supprimer le filtre",
     "en": "Remove filter",
     "it": "Rimuovere il filtro",
-    "io": "crwdns16150:0crwdne16150:0"
+    "io": "crwdns16150:0crwdne16150:0",
+    "oc": "Tirar lo filtre"
   }
 }

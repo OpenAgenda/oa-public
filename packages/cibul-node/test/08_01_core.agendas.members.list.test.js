@@ -8,7 +8,6 @@ const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
-const flattenMemberInfo = require('../core/agendas/utils/flattenMemberInfo');
 
 describe('08 - core - functional (server): core.agendas().members.list', () => {
   let core;
@@ -49,7 +48,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas(2).members.list({ limit: 2 }, {
+      result = await core.agendas(2).members.list({}, { limit: 2 }, {
         userUid: 50073466,
       });
     });
@@ -63,7 +62,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
     it('next result set can be fetched using "after" value', async () => {
       const nextResult = await core.agendas(2)
-        .members.list({ after: result.after }, {
+        .members.list({}, { after: result.after }, {
           userUid: 50073466,
         });
 
@@ -72,7 +71,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
     it('customAtRoot option', async () => {
       const { items } = await core.agendas(2)
-        .members.list({}, {
+        .members.list({}, {}, {
           customAtRoot: true,
           userUid: 50073466,
         });
@@ -91,7 +90,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
   });
 
   it('list custom values', async () => {
-    const result = await core.agendas(3).members.list({ limit: 2 }, {
+    const result = await core.agendas(3).members.list({}, { limit: 2 }, {
       userUid: 1,
     });
 
@@ -104,7 +103,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     it('non-member user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas(2).members.list({ limit: 2 }, {
+        await core.agendas(2).members.list({}, { limit: 2 }, {
           userUid: 99999967,
         });
       } catch (e) {
@@ -116,7 +115,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     it('contributor user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas(2).members.list({ limit: 2 }, {
+        await core.agendas(2).members.list({}, { limit: 2 }, {
           userUid: 1,
         });
       } catch (e) {
@@ -127,13 +126,14 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
   });
 
   describe('stream', () => {
-    test('stream userUids', async () => {
+    it('stream userUids', async () => {
       const stream = await core.agendas(3).members.stream(
+        {},
         { limit: 1 },
         {
           userUid: 1,
           transform: m => m.userUid,
-        }
+        },
       );
 
       return new Promise(rs => {

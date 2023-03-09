@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 
-module.exports = services => async (uid, lang) => {
+module.exports = services => async uid => {
   const {
-    core
+    core,
   } = services;
 
   const schema = await core.agendas(uid).settings.get({ access: 'internal' });
@@ -13,7 +13,8 @@ module.exports = services => async (uid, lang) => {
     return null;
   }
 
-  const locationField = _.first(schema.fields.filter(f => f.field === 'location'));
+  const locationField = _.first(schema.fields.filter(f => (f.slug ?? f.field) === 'location'));
+
   const legacy = _.get(locationField, 'legacy', null);
 
   if (!legacy) {
@@ -21,4 +22,4 @@ module.exports = services => async (uid, lang) => {
   }
 
   return legacy;
-}
+};

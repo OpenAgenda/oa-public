@@ -1,1 +1,11 @@
-{}
+{
+  "name": "Nom",
+  "email": "Email",
+  "organization": "Organizacion",
+  "phone": "Telefòne",
+  "position": "Foncion",
+  "contributions": "Eveniments contribuits",
+  "credential": "Ròtle",
+  "role": "Ròtle",
+  "state": "Estat"
+}

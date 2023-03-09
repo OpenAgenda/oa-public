@@ -17,14 +17,15 @@
         "adminLevel5": "2eme",
         "countryCode": "FR",
         "timezone": "Europe/Paris",
-        "image": "location123.jpg"
+        "image": "location123.jpg",
+        "specificite": [32]
       },
       "state": 2
     },
     {
       "uid": 2,
       "location": {
-        "uid": 1,
+        "uid": 2,
         "name": "L'appart",
         "address": "44 Rue de la Digue, 59800 Lille",
         "latitude": 50.635068164405894,
@@ -36,7 +37,8 @@
         "adminLevel3": "mel",
         "adminLevel5": "1er",
         "countryCode": "FR",
-        "timezone": "Europe/Paris"
+        "timezone": "Europe/Paris",
+        "protections-appellation-et-labels": [50, 41]
       },
       "state": 2
     },
@@ -54,7 +56,8 @@
         "region": "Ile-de-France",
         "adminLevel3": "test",
         "countryCode": "FR",
-        "timezone": "Europe/Paris"
+        "timezone": "Europe/Paris",
+        "specificite": [32]
       },
       "state": 2
     },
@@ -72,7 +75,8 @@
         "region": "Ile-de-France",
         "adminLevel3": "test",
         "countryCode": "FR",
-        "timezone": "Europe/Paris"
+        "timezone": "Europe/Paris",
+        "specificite": [32]
       },
       "state": 2
     },

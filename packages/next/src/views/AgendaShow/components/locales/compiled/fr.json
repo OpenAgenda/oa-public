@@ -1,0 +1,56 @@
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Agréger"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda officiel"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Ajouter aux favoris"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "À la une"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Retirer des favoris"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Favoris"
+    }
+  ]
+}

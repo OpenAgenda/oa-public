@@ -1,8 +1,7 @@
-"use strict";
-
 const _ = require('lodash');
+const { produce } = require('immer');
 
-const labels = _fillInTheBlanks(require('@openagenda/labels/event/form'));
+const eventFormLabels = require('@openagenda/labels/event/form');
 
 const merge = require('@openagenda/form-schemas/client/build/iso/merge');
 
@@ -14,6 +13,27 @@ const injectValidators = require('./utils/injectValidators');
 
 const eventFields = require('./fields/event');
 
+function _hasReferencesField(schemaExtensions) {
+  return !!_.flatten(
+    schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields),
+  ).filter(f => f.field === 'references').length;
+}
+
+function _fillInTheBlanks(labels, defaultLang = 'en') {
+  return produce(labels, draft => {
+    Object.keys(draft).forEach(field => {
+      Object.keys(draft[field]).forEach(lang => {
+        if (!draft[field][lang].length) {
+          draft[field][lang] = draft[field][defaultLang];
+        }
+      });
+    });
+    return draft;
+  });
+}
+
+const labels = _fillInTheBlanks(eventFormLabels);
+
 module.exports = (options = {}) => {
   const {
     includeEventFields,
@@ -23,25 +43,25 @@ module.exports = (options = {}) => {
     languages,
     schemaExtensions,
     excludeNonDataFields,
-    access
+    access,
   } = {
     includeEventFields: true,
     access: {
       read: 'public',
-      write: 'public'
+      write: 'public',
     },
-    ...options
+    ...options,
   };
 
   const eventSchema = {
     fields: [],
-    type: 'event'
+    type: 'event',
   };
 
   injectValidators(eventSchema);
 
   eventSchema.fields = eventFields({
-    labels
+    labels,
   });
 
   const hasExtensions = Array.isArray(schemaExtensions);
@@ -51,13 +71,13 @@ module.exports = (options = {}) => {
     eventSchema.fields[fieldIndex] = eventReferencesField({
       res: {
         references: referencesRes,
-        suggestions: suggestionsRes
-      }
+        suggestions: suggestionsRes,
+      },
     });
   }
 
   // here, for generating the form, provided access as write should suffice
-  const finalSchema = merge.apply(null, [eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
+  const finalSchema = merge(...[eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
 
   if (hasExtensions && !includeEventFields) {
     const eventSchemaFields = eventSchema.fields.map(f => f.field);
@@ -69,25 +89,6 @@ module.exports = (options = {}) => {
   }
 
   return schemaLanguages.set(finalSchema, interfaceLanguage, languages);
-}
-
-
-function _hasReferencesField( schemaExtensions ) {
-  return !!_.flatten(
-    schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields)
-  ).filter(f => f.field === 'references').length;
-}
-
-function _fillInTheBlanks(labels, defaultLang = 'en') {
-  Object.keys(labels).forEach(field => {
-    Object.keys(labels[field]).forEach(lang => {
-      if (!labels[field][lang].length) {
-        labels[field][lang] = labels[field][defaultLang];
-      }
-    });
-  });
-
-  return labels;
-}
+};
 
 module.exports.eventFields = eventFields;

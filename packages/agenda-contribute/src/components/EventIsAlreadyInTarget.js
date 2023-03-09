@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import useEventRes from '../hooks/useEventRes';
 import utils from '../lib/utils';
@@ -7,16 +6,16 @@ import Canvas from './Canvas';
 const messages = defineMessages({
   eventIsInTarget: {
     id: 'AgendaContribute.EventIsAlreadyInTarget.isInTarget',
-    defaultMessage: 'The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven\'t published it yet.'
+    defaultMessage: 'The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven\'t published it yet.',
   },
   goBack: {
     id: 'AgendaContribute.EventIsAlreadyInTarget.goBack',
-    defaultMessage: 'Go back'
+    defaultMessage: 'Go back',
   },
 });
 
 const {
-  doRedirect
+  doRedirect,
 } = utils;
 
 export default function EventIsAlreadyInTarget({
@@ -24,7 +23,7 @@ export default function EventIsAlreadyInTarget({
   history,
   location,
   agenda,
-  fromAgenda
+  fromAgenda,
 }) {
   const fromEventRes = useEventRes(fromAgenda, event);
   const m = useIntl().formatMessage;

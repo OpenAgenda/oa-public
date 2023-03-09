@@ -7,14 +7,14 @@ export default function useDetailedAgenda(agendaUID) {
 
   const {
     isLoading: detailedAgendaIsLoading,
-    data: detailedAgenda
+    data: detailedAgenda,
   } = useQuery(
     `detailedAgenda${agendaUID}`,
-    () => axios.get(res).then(response => response.data)
+    () => axios.get(res).then(response => response.data),
   );
 
   return {
     detailedAgendaIsLoading,
-    detailedAgenda
+    detailedAgenda,
   };
 }

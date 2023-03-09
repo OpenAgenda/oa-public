@@ -1,16 +1,18 @@
 'use strict';
 
-module.exports = (query, { scrollId, sort }, { useAfterKey }) => {
+module.exports = (query, { scrollId, sort }, {
+  useAfterKey,
+}) => {
   if (!useAfterKey) {
     return {
       scrollId,
-      sort
-    }
+      sort,
+    };
   }
-  
+
   return {
     after: sort,
     scrollId,
-    sort: query.sort
-  }
-}
+    sort: query.sort,
+  };
+};

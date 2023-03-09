@@ -29,8 +29,8 @@ storySets.ContributorGoesToEventStepAfterMemberFormSubmit = {
     agenda: produce(detailedAgenda, draft => {
       draft.uid = 1;
       draft.settings.contribution.type = 1;
-    })
-  }
+    }),
+  },
 };
 
 storySets.MemberIsAdminModAndDataIsIncomplete = {
@@ -42,9 +42,9 @@ storySets.MemberIsAdminModAndDataIsIncomplete = {
     lang: 'fr',
     agenda: {
       ...agenda,
-      uid: 2
-    }
-  }
+      uid: 2,
+    },
+  },
 };
 
 storySets.MemberIsContributorAndDataIsCompleteAndFresh = {
@@ -56,9 +56,9 @@ storySets.MemberIsContributorAndDataIsCompleteAndFresh = {
     lang: 'fr',
     agenda: {
       ...agenda,
-      uid: 3
-    }
-  }
+      uid: 3,
+    },
+  },
 };
 
 storySets.MemberIsContributorAndDataIsCompleteButIsOld = {
@@ -68,9 +68,9 @@ storySets.MemberIsContributorAndDataIsCompleteButIsOld = {
     lang: 'fr',
     agenda: {
       ...agenda,
-      uid: 4
-    }
-  }
+      uid: 4,
+    },
+  },
 };
 
 storySets.MemberDataRequiredAndContributorIsIncomplete = {
@@ -82,9 +82,9 @@ storySets.MemberDataRequiredAndContributorIsIncomplete = {
     lang: 'fr',
     agenda: {
       ...agenda,
-      uid: 5
-    }
-  }
+      uid: 5,
+    },
+  },
 };
 
 storySets.NonMemberOnMembersOnly = {
@@ -97,8 +97,8 @@ storySets.NonMemberOnMembersOnly = {
     agenda: produce(agenda, draft => {
       draft.uid = 6;
       draft.settings.contribution.type = 2;
-    })
-  }
+    }),
+  },
 };
 
 storySets.ClosedAgendaForAdminMods = {
@@ -111,8 +111,8 @@ storySets.ClosedAgendaForAdminMods = {
     agenda: produce(agenda, draft => {
       draft.uid = 7;
       draft.settings.contribution.type = 0;
-    })
-  }
+    }),
+  },
 };
 
 storySets.ClosedAgendaForContributor = {
@@ -123,8 +123,8 @@ storySets.ClosedAgendaForContributor = {
     agenda: produce(agenda, draft => {
       draft.uid = 8;
       draft.settings.contribution.type = 0;
-    })
-  }
+    }),
+  },
 };
 
 storySets.NonMemberIsShownMemberFormOnContributiveAgenda = {
@@ -134,9 +134,9 @@ storySets.NonMemberIsShownMemberFormOnContributiveAgenda = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 9
-    }
-  }
+      uid: 9,
+    },
+  },
 };
 
 storySets.NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = {
@@ -149,8 +149,8 @@ storySets.NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = {
     agenda: produce(basicAgenda, draft => {
       draft.uid = 10;
       draft.settings.contribution.useFields = false;
-    })
-  }
+    }),
+  },
 };
 
 storySets.NewEventForm = {
@@ -162,9 +162,9 @@ storySets.NewEventForm = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 100
-    }
-  }
+      uid: 100,
+    },
+  },
 };
 
 storySets.EditEventForm = {
@@ -177,10 +177,10 @@ storySets.EditEventForm = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 101
-    }
+      uid: 101,
+    },
   },
-  eventContext: eventContributorContext
+  eventContext: eventContributorContext,
 };
 
 storySets.NewEventFormWithDefaults = {
@@ -192,9 +192,9 @@ storySets.NewEventFormWithDefaults = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 102
-    }
-  }
+      uid: 102,
+    },
+  },
 };
 
 const agenda103 = produce(basicDetailedAgenda, draft => {
@@ -210,8 +210,8 @@ storySets.NewEventFormWithTwoLanguageTabsOpened = {
   agenda: agenda103,
   extraProps: {
     lang: 'fr',
-    agenda: agenda103
-  }
+    agenda: agenda103,
+  },
 };
 
 storySets.EventCreateLeadsToCompletionStep = {
@@ -223,9 +223,9 @@ storySets.EventCreateLeadsToCompletionStep = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 103
-    }
-  }
+      uid: 103,
+    },
+  },
 };
 
 storySets.EditDraftEventForm = {
@@ -240,10 +240,10 @@ storySets.EditDraftEventForm = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 104
-    }
+      uid: 104,
+    },
   },
-  eventContext: eventContributorContext
+  eventContext: eventContributorContext,
 };
 
 storySets.EditDraftEventFormFromEditRoute = produce(storySets.EditDraftEventForm, draft => {
@@ -261,12 +261,12 @@ storySets.AdminEditEventForm = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 106
-    }
+      uid: 106,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canChangeState = true;
-  })
+  }),
 };
 
 storySets.EditEventFormByAdminWithoutEditRights = {
@@ -281,13 +281,13 @@ storySets.EditEventFormByAdminWithoutEditRights = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 107
-    }
+      uid: 107,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canChangeState = true;
     draft.me.authorizations.canEditEvent = false;
-  })
+  }),
 };
 
 storySets.EventCreateByDuplication = {
@@ -297,19 +297,20 @@ storySets.EventCreateByDuplication = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 108
-    }
-  }
+      uid: 108,
+    },
+  },
 };
+
 storySets.EventCreateByDuplicationOrigin = {
   extraProps: {
     agenda: {
       ...basicAgenda,
-      uid: 109
-    }
+      uid: 109,
+    },
   },
   event: basicEventResponse,
-  agenda: basicDetailedAgenda
+  agenda: basicDetailedAgenda,
 };
 
 storySets.BasicConfirmation = {
@@ -321,14 +322,14 @@ storySets.BasicConfirmation = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 200
-    }
+      uid: 200,
+    },
   },
   extraDevInitialState: {
     contribute: {
-      createdEvent: basicEventResponse.event
-    }
-  }
+      createdEvent: basicEventResponse.event,
+    },
+  },
 };
 
 storySets.CustomMessageConfirmation = {
@@ -341,13 +342,13 @@ storySets.CustomMessageConfirmation = {
     agenda: produce(basicAgenda, draft => {
       draft.settings.contribution.messages.complete = 'Un message personnalisé';
       draft.uid = 201;
-    })
+    }),
   },
   extraDevInitialState: {
     contribute: {
-      createdEvent: basicEventResponse.event
-    }
-  }
+      createdEvent: basicEventResponse.event,
+    },
+  },
 };
 
 storySets.ConfirmationRedirect = {
@@ -359,9 +360,9 @@ storySets.ConfirmationRedirect = {
     lang: 'fr',
     agenda: {
       ...basicAgenda,
-      uid: 202
-    }
-  }
+      uid: 202,
+    },
+  },
 };
 
 storySets.ShareEventForm = {
@@ -373,9 +374,9 @@ storySets.ShareEventForm = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithAdditionalFields,
-      uid: 300
-    }
-  }
+      uid: 300,
+    },
+  },
 };
 storySets.ShareEventFormFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -386,12 +387,12 @@ storySets.ShareEventFormFromAgenda = {
   extraProps: {
     agenda: {
       uid: 1234,
-      title: 'Où on va'
-    }
+      title: 'Où on va',
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = false;
-  })
+  }),
 };
 
 storySets.ShareEventFormToConstrainedAgenda = {
@@ -403,9 +404,9 @@ storySets.ShareEventFormToConstrainedAgenda = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 301
-    }
-  }
+      uid: 301,
+    },
+  },
 };
 storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -415,12 +416,12 @@ storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5678
-    }
+      uid: 5678,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = false;
-  })
+  }),
 };
 
 storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFields = {
@@ -432,9 +433,9 @@ storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFields = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 302
-    }
-  }
+      uid: 302,
+    },
+  },
 };
 storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -444,12 +445,12 @@ storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFieldsFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5679
-    }
+      uid: 5679,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = false;
-  })
+  }),
 };
 
 storySets.EventWasShared = {
@@ -461,18 +462,18 @@ storySets.EventWasShared = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 303
-    }
+      uid: 303,
+    },
   },
   extraDevInitialState: {
     contribute: {
       sharedEvent: {
         uid: 3902019,
         title: { fr: 'Alaska by night' },
-        state: 2
-      }
-    }
-  }
+        state: 2,
+      },
+    },
+  },
 };
 storySets.EventWasSharedFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -482,12 +483,12 @@ storySets.EventWasSharedFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5680
-    }
+      uid: 5680,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = false;
-  })
+  }),
 };
 
 storySets.ShareEventWithEditionRightsAndAdditionalFields = {
@@ -499,12 +500,12 @@ storySets.ShareEventWithEditionRightsAndAdditionalFields = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithAdditionalFields,
-      uid: 304
-    }
+      uid: 304,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 storySets.ShareEventWithEditionRightsAndAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -514,12 +515,12 @@ storySets.ShareEventWithEditionRightsAndAdditionalFieldsFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5681
-    }
+      uid: 5681,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 storySets.ShareEventWithEditionRightsAndNoAdditionalFields = {
@@ -531,9 +532,9 @@ storySets.ShareEventWithEditionRightsAndNoAdditionalFields = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 305
-    }
-  }
+      uid: 305,
+    },
+  },
 };
 storySets.ShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -541,12 +542,12 @@ storySets.ShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agendaContext: agendaContributorContext,
   extraProps: {
     agenda: {
-      uid: 5682
-    }
+      uid: 5682,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 storySets.AdminShareEventWithEditionRightsAndNoAdditionalFields = {
@@ -560,9 +561,9 @@ storySets.AdminShareEventWithEditionRightsAndNoAdditionalFields = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 306
-    }
-  }
+      uid: 306,
+    },
+  },
 };
 storySets.AdminShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -570,12 +571,12 @@ storySets.AdminShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agendaContext: agendaContributorContext,
   extraProps: {
     agenda: {
-      uid: 5683
-    }
+      uid: 5683,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 storySets.AdminShareAlreadySharedEvent = {
@@ -590,9 +591,9 @@ storySets.AdminShareAlreadySharedEvent = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 307
-    }
-  }
+      uid: 307,
+    },
+  },
 };
 storySets.AdminShareAlreadySharedEventFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -600,12 +601,12 @@ storySets.AdminShareAlreadySharedEventFromAgenda = {
   agendaContext: agendaContributorContext,
   extraProps: {
     agenda: {
-      uid: 5684
-    }
+      uid: 5684,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 storySets.ShareIncompleteEventWithEditRights = {
@@ -617,9 +618,9 @@ storySets.ShareIncompleteEventWithEditRights = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithMoreConstraints,
-      uid: 308
-    }
-  }
+      uid: 308,
+    },
+  },
 };
 storySets.ShareIncompleteEventWithEditRightsFromAgenda = {
   agenda: basicDetailedAgenda,
@@ -629,12 +630,12 @@ storySets.ShareIncompleteEventWithEditRightsFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5685
-    }
+      uid: 5685,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 storySets.ShareWhenNotAMember = {
@@ -644,9 +645,9 @@ storySets.ShareWhenNotAMember = {
     lang: 'fr',
     agenda: {
       ...detailedAgendaWithAdditionalFields,
-      uid: 309
-    }
-  }
+      uid: 309,
+    },
+  },
 };
 storySets.ShareWhenNotAMemberFromAgenda = {
   agenda: produce(basicDetailedAgenda, draft => {
@@ -658,12 +659,12 @@ storySets.ShareWhenNotAMemberFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5686
-    }
+      uid: 5686,
+    },
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = true;
-  })
+  }),
 };
 
 module.exports = Object.assign(function getFixtures(agendaUid) {

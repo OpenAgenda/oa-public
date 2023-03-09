@@ -1,1 +1,27 @@
-{}
+{
+  "usedAccount": "Aqueste compte de servici es ja utilizat",
+  "fieldCannotBeEmpty": "Aqueste camp pòt pas demorar voide",
+  "usedEmail": "Aqueste email es ja utilizat",
+  "invalidEmail": "L'email es pas valide",
+  "passwordTooShort": "Lo senhal es tròp cortet",
+  "passwordNotEqual": "Los senhals son pas parièrs",
+  "createAccount": "Crear un compte",
+  "captchaTryAgain": "Tornatz ensajar",
+  "hasAccount": "Avètz ja utilizat OpenAgenda ?",
+  "connect": "Me connectar",
+  "pseudonym": "Nom d'utilizaire·a",
+  "pseudonymSub": "Vòstre nom d'utilizaire·a se poirà veire pels administrators de las agendas ont faretz de contribucions",
+  "emailSub": "OpenAgenda vos mandarà de notificacions a aquesta adreça. Serà pas transmesa a degun mai.",
+  "email": "Email",
+  "password": "Senhal",
+  "repeatPassword": "Tornar dire lo senhal",
+  "signup": "Acceptar e crear lo compte",
+  "agree": "En creat un compte, consentissètz a las %terms% e a la%policy%.",
+  "termsOfUse": "Condicions d'utilizacion",
+  "policy": "Politica de confidencialitat",
+  "culture": "Lenga",
+  "more": "Ne legir mai",
+  "orSocial": "O",
+  "socialHead": "Crear un compte amb Facebook, Twitter o Google",
+  "socialDescription": "Vòstre compte OpenAgenda serà ligat al compte causit. L'autentificacion se farà en passant pel malhum social."
+}

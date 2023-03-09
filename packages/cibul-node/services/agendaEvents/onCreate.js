@@ -150,7 +150,7 @@ module.exports = async ({ config, services }, ae, context) => {
           user,
           ae,
         },
-        context
+        context,
       );
     }
   } catch (e) {

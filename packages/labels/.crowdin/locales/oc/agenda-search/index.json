@@ -1,5 +1,16 @@
 {
   "searchTitle": "Recèrca d'agendas",
   "genericSearchTitle": "Resultats de la recèrca d'agendas",
-  "loadNext": "Cargar los resultats seguents"
+  "loadNext": "Cargar los resultats seguents",
+  "official": "Calendièr oficial",
+  "latestUpdated": "Calendièrs recentament meses a jorn",
+  "results": "Resultats de recèrca per \"%search%\"",
+  "found": "%count% agendas trobadas",
+  "empty": "Desolats, pas cap agenda correspond a aquesta recèrca",
+  "publishedEvent": "1 eveniment passat",
+  "publishedEvents": "%count% eveniments passats",
+  "upcomingEvent": "1 eveniment a venir",
+  "upcomingEvents": "%count% eveniments a venir",
+  "loadPrevious": "Cargar los resultats precedents",
+  "addEvent": "Apondre un eveniment"
 }

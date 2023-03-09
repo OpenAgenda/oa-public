@@ -7,7 +7,8 @@ module.exports = {
     "de": "Herzlichen Glückwunsch, Ihr Programm fertig!",
     "es": "Felicitaciones, su agenda está listo!",
     "it": "Auguri, il suo agenda è pronto!",
-    "io": "crwdns11356:0crwdne11356:0"
+    "io": "crwdns11356:0crwdne11356:0",
+    "oc": "Òsca, vòstra agenda es prèsta !"
   },
   "someActions": {
     "fr": "Quelques actions simples pour bien débuter avec votre agenda",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Hier sind einige einfache Aktionen, die Sie für die Inbetriebnahme desVerwaltungskalender mit",
     "es": "Unas pocas acciones simples para un buen comienzo con su agenda",
     "it": "Qualchi semplici azioni per iniziare bene la vostra agenda",
-    "io": "crwdns11358:0crwdne11358:0"
+    "io": "crwdns11358:0crwdne11358:0",
+    "oc": "Aquí qualques accions simplas per plan començar amb vòstra agenda"
   },
   "addYourFirstEvent": {
     "fr": "Ajoutez votre premier événement!",
@@ -32,7 +34,8 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
     "it": "Aggiungere un evento",
-    "io": "crwdns11362:0crwdne11362:0"
+    "io": "crwdns11362:0crwdne11362:0",
+    "oc": "Apondre un eveniment"
   },
   "addProfileImage": {
     "fr": "Ajoutez une image de profil à votre agenda",
@@ -40,7 +43,8 @@ module.exports = {
     "de": "Füge ein Profilbild zu Ihrem Terminkalender",
     "es": "Añadir una imagen de perfil a su agenda",
     "it": "Aggiungere un'immagine del profilo sull'agenda",
-    "io": "crwdns11364:0crwdne11364:0"
+    "io": "crwdns11364:0crwdne11364:0",
+    "oc": "Apondre un imatge de perfil a vòstra agenda"
   },
   "sendLink": {
     "fr": "Envoyez le lien de votre agenda à vos contributeurs !",
@@ -48,7 +52,8 @@ module.exports = {
     "de": "Sende den Link deinerVerwaltungskalender zu deinen Mitwirkenden!",
     "es": "Enviar el enlace a su agenda con sus colaboradores",
     "it": "Invia il link dell'agenda ai suoi collaboratori!",
-    "io": "crwdns11366:0crwdne11366:0"
+    "io": "crwdns11366:0crwdne11366:0",
+    "oc": "Mandar lo ligam de vòstra agenda a vòstres contributors !"
   },
   "copyLinkAndSend": {
     "fr": "Copiez-collez ce lien et envoyez-le par email ou via vos réseaux sociaux.",
@@ -56,7 +61,8 @@ module.exports = {
     "de": "Kopiere den unten stehenden Link und sende es per E-Mail oder per Post auf sozialen Netzwerken.",
     "es": "Copiar y pegar este enlace y enviarlo por correo electrónico o las redes sociales.",
     "it": "Copia e incolla questo link e invialo via e-mail o tramite i suoi social network.",
-    "io": "crwdns11368:0crwdne11368:0"
+    "io": "crwdns11368:0crwdne11368:0",
+    "oc": "Copiatz e pegatz lo ligam çai-jos e mandatz-o per mail o pegatz-o suls rets socials."
   },
   "copyLink": {
     "fr": "Copiez le lien",
@@ -64,7 +70,8 @@ module.exports = {
     "de": "Kopiere den Link",
     "es": "Copiar el enlace",
     "it": "Copiare il link",
-    "io": "crwdns11370:0crwdne11370:0"
+    "io": "crwdns11370:0crwdne11370:0",
+    "oc": "Copiatz lo ligam"
   },
   "embedYourAgenda": {
     "fr": "Intégrez votre agenda dans votre site web",
@@ -72,7 +79,8 @@ module.exports = {
     "de": "Bette DeineVerwaltungskalender auf deiner Webseite",
     "es": "Integre su agenda en su sitio web",
     "it": "Integrate l'agenda nel suo sito web",
-    "io": "crwdns11372:0crwdne11372:0"
+    "io": "crwdns11372:0crwdne11372:0",
+    "oc": "Integratz vòstra agenda sus vòstre site web"
   },
   "createEmbedded": {
     "fr": "Créez une vue intégrée",
@@ -80,7 +88,8 @@ module.exports = {
     "de": "Eine eingebettete Ansicht erstellen",
     "es": "Crear una visión integrada",
     "it": "Creare una vista integrata",
-    "io": "crwdns11374:0crwdne11374:0"
+    "io": "crwdns11374:0crwdne11374:0",
+    "oc": "Crear una vista integrada"
   },
   "needPrivate": {
     "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu.",
@@ -97,7 +106,8 @@ module.exports = {
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar un agenda íntimo",
     "it": "Richiedi un'agenda privata",
-    "io": "crwdns11378:0crwdne11378:0"
+    "io": "crwdns11378:0crwdne11378:0",
+    "oc": "Demandar una agenda privada"
   },
   "needOfficial": {
     "fr": "Vous souhaitez un agenda officiel ?",
@@ -114,18 +124,21 @@ module.exports = {
     "de": "Eine offizielle Verwaltungskalender fragen",
     "es": "Solicitar agenda oficial",
     "it": "Richiedere un agenda ufficiale",
-    "io": "crwdns11382:0crwdne11382:0"
+    "io": "crwdns11382:0crwdne11382:0",
+    "oc": "Demandar una agenda oficiala"
   },
   "or": {
     "fr": "ou",
     "en": "or",
     "it": "oppure",
-    "io": "crwdns16414:0crwdne16414:0"
+    "io": "crwdns16414:0crwdne16414:0",
+    "oc": "o"
   },
   "useAPlugin": {
     "fr": "Utilisez un plugin",
     "en": "Use a plugin",
-    "io": "crwdns16416:0crwdne16416:0"
+    "io": "crwdns16416:0crwdne16416:0",
+    "oc": "Utilisatz una extension"
   },
   "learnMore": {
     "fr": "En savoir plus",
@@ -133,6 +146,7 @@ module.exports = {
     "de": "Mehr erfahren",
     "es": "Más información",
     "it": "Per saperne di più",
-    "io": "crwdns11384:0crwdne11384:0"
+    "io": "crwdns11384:0crwdne11384:0",
+    "oc": "Ne saber mai"
   }
 }

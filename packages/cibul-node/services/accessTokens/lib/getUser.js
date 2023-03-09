@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('services/accessTokens/getUser');
+const VError = require('@openagenda/verror');
 
 const loadToken = require('./loadToken');
 const isTokenValid = require('./isTokenValid');
@@ -18,7 +18,7 @@ module.exports = async function getUser(knex, users, tokenString = null, nonce =
   const apiKeySet = await knex('api_key_set')
     .first('user_id')
     .where({
-      id: token.api_key_set_id
+      id: token.api_key_set_id,
     });
 
   if (!apiKeySet) {
@@ -27,7 +27,7 @@ module.exports = async function getUser(knex, users, tokenString = null, nonce =
 
   return users.findOne({
     query: {
-      id: apiKeySet.user_id
-    }
+      id: apiKeySet.user_id,
+    },
   });
-}
+};

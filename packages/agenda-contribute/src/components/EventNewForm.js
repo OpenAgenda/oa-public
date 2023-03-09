@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EventForm from '@openagenda/event-form/build';
@@ -8,26 +7,26 @@ import ButtonSpinner from './ButtonSpinner';
 
 const {
   eventWithDefaults,
-  get: getURLDefaults
+  get: getURLDefaults,
 } = URLDefaults;
 
 const messages = defineMessages({
   create: {
     id: 'AgendaContribute.EventNew.create',
-    defaultMessage: 'Create the event'
+    defaultMessage: 'Create the event',
   },
   updateDraft: {
     id: 'AgendaContribute.EventNew.updateDraft',
-    defaultMessage: 'Update draft'
+    defaultMessage: 'Update draft',
   },
   deleteDraft: {
     id: 'AgendaContribute.EventNew.deleteDraft',
-    defaultMessage: 'Delete the draft'
+    defaultMessage: 'Delete the draft',
   },
   draft: {
     id: 'AgendaContribute.EventNew.draft',
     defaultMessage: 'Save as draft',
-  }
+  },
 });
 
 function EventNewForm({
@@ -37,7 +36,7 @@ function EventNewForm({
   onDraftDelete,
   memberRole,
   location,
-  res
+  res,
 }) {
   const m = useIntl().formatMessage;
 
@@ -81,7 +80,7 @@ function EventNewForm({
             </button>
             {loading ? <ButtonSpinner /> : null}
           </div>
-        )
+        ),
       }]}
     />
   );

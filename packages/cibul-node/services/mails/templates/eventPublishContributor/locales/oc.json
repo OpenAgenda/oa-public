@@ -1,1 +1,7 @@
-{}
+{
+  "title": "L'agenda {agenda} a publicat vòstre eveniment {event}",
+  "actionDescription": "Veire l'eveniment",
+  "unsubscribe": "Pas pus recebre los cambiaments d'estatut per mos eveniments",
+  "memberUnsubscribe": "Pas pus recebre los cambiaments d'estatut de mos eveniments sus aquela agenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

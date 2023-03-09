@@ -46,6 +46,7 @@ const createLegacyEmbedsApp = require('@openagenda/legacy/embeds/app/dist');
 const createAgendaContributeApp = require('@openagenda/agenda-contribute/dist');
 const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
 const createAgendaLocationAdminApp = require('@openagenda/agenda-locations-app/dist/app');
+const createAgendaSchemaAdminApp = require('@openagenda/agenda-schemas-app/dist/app');
 const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
 const createReduxMiddleware = require('./reduxMiddleware');
@@ -93,7 +94,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       // const apiClient = createApiClient(apiRoot, req);
 
       const apps = [
-        ['home', createHomeApp, MainLayout],
+        ['home', createHomeApp, [MainLayout, RequiredUser]],
         ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
         [
           'agendaSettingsNew',
@@ -174,6 +175,11 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
           [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
+          'agendaSchemaAdmin',
+          createAgendaSchemaAdminApp,
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+        ],
+        [
           'agendaSettingsEdit',
           createAgendaSettingsEditApp,
           [
@@ -206,28 +212,30 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
             apiRoot,
           }),
         }),
-        {}
+        {},
       );
 
       // Not found
       const notFound = Object.values(apps).every(
-        app => !(
-          app.routes
+        app =>
+          !(
+            app.routes
             && matchRoutes(app.routes, history.location.pathname).some(
-              v => v.route.component && !v.route.routes
+              v => v.route.component && !v.route.routes,
             )
-        )
+          ),
       );
 
       if (notFound) {
         return next();
       }
 
-      const triggerHooks = () => Promise.all(
-        Object.values(apps)
-          .filter(app => app.triggerHooks)
-          .map(app => app.triggerHooks())
-      );
+      const triggerHooks = () =>
+        Promise.all(
+          Object.values(apps)
+            .filter(app => app.triggerHooks)
+            .map(app => app.triggerHooks()),
+        );
 
       // Triggers hooks
       await triggerHooks();
@@ -252,7 +260,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
         ? el(
           'script',
           { type: 'text/javascript' },
-          `window.outdatedBrowserOptions = { language: "${lang}" };`
+          `window.outdatedBrowserOptions = { language: "${lang}" };`,
         )
         : null;
 
@@ -265,21 +273,22 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
           rootHelmet,
           wrapApp(
             {
-              Content: () => el(
-                QueryClientProvider,
-                { client: queryClient },
-                el(LayoutManager, {
-                  store: layoutStore,
-                  history,
-                  apps,
-                })
-              ),
+              Content: () =>
+                el(
+                  QueryClientProvider,
+                  { client: queryClient },
+                  el(LayoutManager, {
+                    store: layoutStore,
+                    history,
+                    apps,
+                  }),
+                ),
               history,
               triggerHooks,
             },
-            { req, staticContext, extractor }
-          )
-        )
+            { req, staticContext, extractor },
+          ),
+        ),
       );
 
       if (staticContext.url) {
@@ -308,7 +317,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       _.set(initialStateForClient.layout, 'main.apiRoot', '');
 
       const serializedInitialState = he.encode(
-        stringify(initialStateForClient)
+        stringify(initialStateForClient),
       );
 
       // Send Html

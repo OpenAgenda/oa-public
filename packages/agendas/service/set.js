@@ -361,7 +361,7 @@ function _doCreate(v) {
   }
 
   _.set(v, 'clean.credentials.useContributeApp', true);
-  _.set(v, 'clean.credentials.useAgendaSchema', true);
+  //_.set(v, 'clean.credentials.useAgendaSchema', true);
   _.set(v, 'clean.credentials.useJSONBridge', true);
 
   return knex(schemas.agenda)

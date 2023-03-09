@@ -7,7 +7,8 @@ module.exports = {
     "de": "Filtrer",
     "es": "filtro",
     "it": "Filtro",
-    "io": "crwdns11324:0crwdne11324:0"
+    "io": "crwdns11324:0crwdne11324:0",
+    "oc": "Filtre"
   },
   "title": {
     "fr": "Titre",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Titel",
     "es": "título",
     "it": "Titolo",
-    "io": "crwdns11326:0crwdne11326:0"
+    "io": "crwdns11326:0crwdne11326:0",
+    "oc": "Títol"
   },
   "locationName": {
     "fr": "Nom du lieu",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Standortnamen",
     "es": "Lugar Nombre",
     "it": "Nome del luogo",
-    "io": "crwdns11328:0crwdne11328:0"
+    "io": "crwdns11328:0crwdne11328:0",
+    "oc": "Nom de lòc"
   },
   "region": {
     "fr": "Région",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "Region",
     "es": "Región",
     "it": "Regione",
-    "io": "crwdns11330:0crwdne11330:0"
+    "io": "crwdns11330:0crwdne11330:0",
+    "oc": "Region"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -39,7 +43,8 @@ module.exports = {
     "de": "Beiträger",
     "es": "contribuyente",
     "it": "Collaboratore",
-    "io": "crwdns11332:0crwdne11332:0"
+    "io": "crwdns11332:0crwdne11332:0",
+    "oc": "Contributor·a"
   },
   "loading": {
     "fr": "Chargement en cours",
@@ -47,6 +52,7 @@ module.exports = {
     "de": "Wird geladen",
     "es": "Cargando",
     "it": "Caricamento in corso",
-    "io": "crwdns11334:0crwdne11334:0"
+    "io": "crwdns11334:0crwdne11334:0",
+    "oc": "Cargament"
   }
 }

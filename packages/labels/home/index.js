@@ -8,7 +8,8 @@ module.exports = {
     "br": "Ma deiziataerioù",
     "es": "mis agendas",
     "it": "Le mie agende",
-    "io": "crwdns14900:0crwdne14900:0"
+    "io": "crwdns14900:0crwdne14900:0",
+    "oc": "Mas agendas"
   },
   "createAgenda": {
     "fr": "Créer un agenda",
@@ -17,7 +18,8 @@ module.exports = {
     "br": "Krouiñ un deiziataer",
     "es": "Crear un agenda",
     "it": "Creare un'agenda",
-    "io": "crwdns14902:0crwdne14902:0"
+    "io": "crwdns14902:0crwdne14902:0",
+    "oc": "Crear una agenda"
   },
   "editMember": {
     "fr": "Voir ma fiche contact",
@@ -57,7 +59,8 @@ module.exports = {
     "br": "Klask un deiziataer",
     "es": "agenda de búsqueda",
     "it": "Cerca un'agenda",
-    "io": "crwdns14904:0crwdne14904:0"
+    "io": "crwdns14904:0crwdne14904:0",
+    "oc": "Cercar una agenda"
   },
   "myEvents": {
     "fr": "Mes événements",
@@ -66,7 +69,8 @@ module.exports = {
     "br": "Ma darvoudoù",
     "es": "Mis eventos",
     "it": "I miei eventi",
-    "io": "crwdns14906:0crwdne14906:0"
+    "io": "crwdns14906:0crwdne14906:0",
+    "oc": "Mos eveniments"
   },
   "messages": {
     "fr": "Messages",
@@ -93,7 +97,8 @@ module.exports = {
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento",
     "it": "Aggiungere un evento",
-    "io": "crwdns14912:0crwdne14912:0"
+    "io": "crwdns14912:0crwdne14912:0",
+    "oc": "Apondre un eveniment"
   },
   "manage": {
     "fr": "Gérer",
@@ -102,7 +107,8 @@ module.exports = {
     "br": "Merañ",
     "es": "gestionar",
     "it": "Gestisci",
-    "io": "crwdns14914:0crwdne14914:0"
+    "io": "crwdns14914:0crwdne14914:0",
+    "oc": "Gerir"
   },
   "moderate": {
     "fr": "Modérer",
@@ -120,7 +126,8 @@ module.exports = {
     "br": "Deiziataer ofisiel",
     "es": "agenda",
     "it": "Agenda ufficiale",
-    "io": "crwdns14918:0crwdne14918:0"
+    "io": "crwdns14918:0crwdne14918:0",
+    "oc": "Agenda oficiala"
   },
   "welcomeTitle": {
     "fr": "Bienvenue sur votre compte OpenAgenda!",
@@ -174,7 +181,8 @@ module.exports = {
     "br": "N'eus bet kavet disoc'h ebet",
     "es": "ningún resultado encontrado",
     "it": "Nessun risultato trovato",
-    "io": "crwdns14930:0crwdne14930:0"
+    "io": "crwdns14930:0crwdne14930:0",
+    "oc": "Pas cap resultat trobat"
   },
   "createEvent": {
     "fr": "Créer un événement",
@@ -183,7 +191,8 @@ module.exports = {
     "br": "Krouiñ un darvoud",
     "es": "crear evento",
     "it": "Creare un evento",
-    "io": "crwdns14932:0crwdne14932:0"
+    "io": "crwdns14932:0crwdne14932:0",
+    "oc": "Crear un eveniment"
   },
   "searchEvent": {
     "fr": "Rechercher un événement",
@@ -192,7 +201,8 @@ module.exports = {
     "br": "Klask un darvoud",
     "es": "Busca un evento",
     "it": "Ricerca di un evento",
-    "io": "crwdns14934:0crwdne14934:0"
+    "io": "crwdns14934:0crwdne14934:0",
+    "oc": "Cercar un eveniment"
   },
   "selectAgenda": {
     "fr": "Sélectionner l'agenda dans lequel créer l'événement",
@@ -201,7 +211,8 @@ module.exports = {
     "br": "Diuzañ an deiziataer da grouiñ an darvoud ennañ",
     "es": "Seleccione el agenda en el que crear el evento",
     "it": "Selezionare il agenda in cui creare l'evento",
-    "io": "crwdns14936:0crwdne14936:0"
+    "io": "crwdns14936:0crwdne14936:0",
+    "oc": "Causir una agenda per i crear l'eveniment"
   },
   "privateAgenda": {
     "fr": "Agenda privé",
@@ -210,7 +221,8 @@ module.exports = {
     "br": "Deiziataer prevez",
     "es": "Eventos privados",
     "it": "Diario privato",
-    "io": "crwdns14938:0crwdne14938:0"
+    "io": "crwdns14938:0crwdne14938:0",
+    "oc": "Agenda privada"
   },
   "privateEvent": {
     "fr": "Événement privé",
@@ -238,7 +250,8 @@ module.exports = {
     "br": "Mont e darempred",
     "es": "Contactar con",
     "it": "Contattare",
-    "io": "crwdns14944:0crwdne14944:0"
+    "io": "crwdns14944:0crwdne14944:0",
+    "oc": "Contactar"
   },
   "see": {
     "fr": "Voir",
@@ -247,7 +260,8 @@ module.exports = {
     "br": "Gwelet",
     "es": "Ver",
     "it": "Vedi",
-    "io": "crwdns14946:0crwdne14946:0"
+    "io": "crwdns14946:0crwdne14946:0",
+    "oc": "Veire"
   },
   "support": {
     "fr": "Support",

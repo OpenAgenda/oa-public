@@ -69,6 +69,7 @@
   "AgendaLocations.LocationDetails.access": "crwdns17054:0crwdne17054:0",
   "AgendaLocations.LocationDetails.andOn": "crwdns17056:0crwdne17056:0",
   "AgendaLocations.LocationDetails.description": "crwdns17058:0crwdne17058:0",
+  "AgendaLocations.LocationDetails.editLocation": "crwdns17332:0crwdne17332:0",
   "AgendaLocations.LocationDetails.email": "crwdns17060:0crwdne17060:0",
   "AgendaLocations.LocationDetails.emptyGeo": "crwdns17062:0crwdne17062:0",
   "AgendaLocations.LocationDetails.extId": "crwdns17064:0crwdne17064:0",
@@ -144,12 +145,6 @@
   "AgendaLocations.LocationSelector.remove": "crwdns17204:0crwdne17204:0",
   "AgendaLocations.LocationSelector.title": "crwdns17206:0crwdne17206:0",
   "AgendaLocations.RemoveModal.cancel": "crwdns17208:0crwdne17208:0",
-  "AgendaLocations.RemoveModal.cannotRemoveEnd": "crwdns17210:0count={count}crwdne17210:0",
-  "AgendaLocations.RemoveModal.cannotRemoveEndEq": "crwdns17212:0count={count}crwdne17212:0",
-  "AgendaLocations.RemoveModal.cannotRemoveLink": "crwdns17214:0count={count}crwdne17214:0",
-  "AgendaLocations.RemoveModal.cannotRemoveLinkEq": "crwdns17216:0count={count}crwdne17216:0",
-  "AgendaLocations.RemoveModal.cannotRemoveStart": "crwdns17218:0count={count}crwdne17218:0",
-  "AgendaLocations.RemoveModal.cannotRemoveStartEq": "crwdns17220:0crwdne17220:0",
   "AgendaLocations.RemoveModal.closeModal": "crwdns17222:0crwdne17222:0",
   "AgendaLocations.RemoveModal.confirm": "crwdns17224:0crwdne17224:0",
   "AgendaLocations.RemoveModal.confirmRemove": "crwdns17226:0crwdne17226:0",
@@ -190,6 +185,5 @@
   "AgendaLocations.stepper.notDuplicates": "crwdns17296:0crwdne17296:0",
   "AgendaLocations.stepper.see": "crwdns17298:0crwdne17298:0",
   "AgendaLocations.stepper.seeDetails": "crwdns17300:0crwdne17300:0",
-  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0",
-  "AgendaLocations.LocationDetails.editLocation": "crwdns17332:0crwdne17332:0"
+  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0"
 }

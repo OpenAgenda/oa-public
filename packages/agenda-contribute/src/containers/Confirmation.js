@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -14,41 +14,41 @@ import utils from '../lib/utils';
 const messages = defineMessages({
   recapDetailState0: {
     id: 'AgendaContribute.Confirmation.recapDetailState0',
-    defaultMessage: 'Your event has been submitted and is being moderated. You will be notified by email when it will be published.'
+    defaultMessage: 'Your event has been submitted and is being moderated. You will be notified by email when it will be published.',
   },
   recapDetailState1: {
     id: 'AgendaContribute.Confirmation.recapDetailState1',
-    defaultMessage: 'Your event has been submitted and is ready to be published. You will be notified as soon as it is.'
+    defaultMessage: 'Your event has been submitted and is ready to be published. You will be notified as soon as it is.',
   },
   recapDetailState2: {
     id: 'AgendaContribute.Confirmation.recapDetailState2',
-    defaultMessage: 'Your event has been published and is visible on the agenda.'
+    defaultMessage: 'Your event has been published and is visible on the agenda.',
   },
   seeEventAction: {
     id: 'AgendaContribute.Confirmation.seeEventAction',
-    defaultMessage: 'View my event'
+    defaultMessage: 'View my event',
   },
   createOtherEvent: {
     id: 'AgendaContribute.Confirmation.createOtherEvent',
-    defaultMessage: 'Add another event'
+    defaultMessage: 'Add another event',
   },
   duplicateEvent: {
     id: 'AgendaContribute.Confirmation.duplicateEvent',
-    defaultMessage: 'Duplicate event'
+    defaultMessage: 'Duplicate event',
   },
   showMyEvents: {
     id: 'AgendaContribute.Confirmation.showMyEvents',
-    defaultMessage: 'List all my events'
+    defaultMessage: 'List all my events',
   },
   contactAdministrators: {
     id: 'AgendaContribute.Confirmation.contactAdministrators',
-    defaultMessage: 'Contact the agenda administrators'
-  }
+    defaultMessage: 'Contact the agenda administrators',
+  },
 });
 
 const {
   replaceWithStep,
-  doRedirect
+  doRedirect,
 } = utils;
 
 const log = debug('Confirmation');
@@ -101,7 +101,7 @@ export default function Confirmation({ history, agenda }) {
                 location,
                 res.showEvent
                   .replace(':agendaUid', agenda.uid)
-                  .replace(':eventUid', createdEvent.uid)
+                  .replace(':eventUid', createdEvent.uid),
               )}
             >
               {m(messages.seeEventAction)}
@@ -144,7 +144,7 @@ export default function Confirmation({ history, agenda }) {
                 res.contactAdministrators
                   .replace(':agendaUid', agenda.uid)
                   .replace(':eventUid', createdEvent.uid),
-                { ignoreURLRedirect: true }
+                { ignoreURLRedirect: true },
               )}
             >
               {m(messages.contactAdministrators)}

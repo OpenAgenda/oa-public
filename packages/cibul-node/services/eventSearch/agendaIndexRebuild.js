@@ -30,6 +30,10 @@ module.exports = async (services, eventSearch, agenda) => {
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
+  const formSchema = await core.agendas(agenda.uid).settings.schema.getMerged({
+    includeMemberSchema: true,
+  });
+
   const result = await searchIndex.rebuild({
     on: {
       bulk: ({ lastId, counts }) => {
@@ -40,7 +44,7 @@ module.exports = async (services, eventSearch, agenda) => {
       },
     },
     eventsList: eventsList(core, agenda),
-    formSchema: await core.agendas(agenda.uid).settings.schema.getMerged(),
+    formSchema,
   });
 
   log(`${logPrefix} done`, result);

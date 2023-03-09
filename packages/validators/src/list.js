@@ -1,9 +1,5 @@
-"use strict";
-
-const _ = {
-  extend: require( 'lodash/extend' ),
-  isArray: require( 'lodash/isArray' )
-}
+const _ = require('lodash');
+const formatErrors = require('./lib/errors');
 
 /**
  * processes an array of values of potentially different
@@ -11,180 +7,113 @@ const _ = {
  * an index.
  */
 
-module.exports = function( config, validates ) {
+module.exports = function list(...args) {
+  const validates = args.length === 1 && Array.isArray(args[0]) ? args[0] : args[1];
+  const config = args.length === 1 && Array.isArray(args[0]) ? {} : args[0];
 
-  if ( validates === undefined && _.isArray( arguments[ 0 ] ) ) {
-
-    validates = config;
-    config = {};
-
-  }
-
-  const params = _.extend( {
+  const params = {
     field: null,
     optional: true,
     types: false,
     validators: false,
-    validates: []
-  }, config );
+    validates: [],
+    ...config,
+  };
 
-  _.extend( validate, {
-    type: 'list',
-    clean,
-    decorate,
-    validateItem,
-    decorateItem
-  } );
-
-  if ( validates ) {
-
+  if (validates) {
     params.validates = validates;
-
   } else {
-
-    if ( !params.types || !params.validators ) {
-
-      throw new Error( 'if list validators are not given, validators and types must be provided in config' );
-
+    if (!params.types || !params.validators) {
+      throw new Error('if list validators are not given, validators and types must be provided in config');
     }
 
-    params.types.forEach( type => {
-
-      if ( params.validators[ type ] === undefined ) {
-
-        throw new Error( 'list validator requires ' + type + ' validator to function' );
-
+    params.types.forEach(type => {
+      if (params.validators[type] === undefined) {
+        throw new Error(`list validator requires ${type} validator to function`);
       }
 
-      params.validates.push( params.validators[ type ]() );
-
-    } );
-
+      params.validates.push(params.validators[type]());
+    });
   }
 
-  return _.extend( validate, {
-    type: 'list',
-    field: params.field
-  } );
-
-  function validate( value, cleanOnly = false ) {
-
-    const clean = [];
+  function validateItem(item, decorated = false) {
     const errors = [];
 
-    if ( params.optional && !value ) {
+    let cleanItem;
+    let type;
 
-      return clean;
-
-    }
-
-    if ( params.optional && _.isArray( value ) && !value.length ) {
-
-      return clean;
-
-    }
-
-    if ( !_.isArray( value ) ) {
-
-      throw [ {
-        field: params.field,
-        code: 'list.wrongtype',
-        message: 'value should be a list',
-        origin: value
-      } ]
-
-    }
-
-    value.forEach( ( item, i ) => {
+    params.validates.forEach(v => {
+      if (cleanItem) return;
 
       try {
-
-        clean.push( validateItem( item ) );
-
-      } catch( errs ) {
-
-        errs.forEach( e => errors.push( _.extend( {}, e, { index: i, field: params.field } ) ) );
-
-      }
-
-    } );
-
-    if ( !cleanOnly && errors.length ) throw errors;
-
-    return clean;
-
-  }
-
-
-  function clean( value ) {
-
-    return validate( value, true );
-
-  }
-
-
-  function decorate( value ) {
-
-    return ( value || [] ).map( decorateItem );
-    
-  }
-
-
-  /**
-   * process item against validators and
-   * throw errors or return clean
-   */
-
-  function validateItem( item, decorated = false ) {
-
-    const errors = [];
-
-    let clean, type;
-
-    params.validates.forEach( v => {
-
-      if ( clean ) return;
-
-      try {
-
         type = v.type;
 
-        clean = v( item );
-
-      } catch( e ) {
-
-        [].concat( e ).forEach( e => errors.push( e ) );
-
+        cleanItem = v(item);
+      } catch (err) {
+        [].concat(err).forEach(e => errors.push(e));
       }
+    });
 
-    } );
-
-    if ( clean !== undefined ) {
-
+    if (cleanItem !== undefined) {
       return decorated ? {
-        value: clean,
-        type: type
-      } : clean;
-
+        value: cleanItem,
+        type,
+      } : cleanItem;
     }
 
-    if ( decorated ) {
-
+    if (decorated) {
       return {
         value: item,
-        errors: errors
-      }
-
+        errors,
+      };
     }
 
     throw errors;
-
   }
 
-  function decorateItem( item ) {
+  function validate(value, cleanOnly = false) {
+    const clean = [];
+    const errors = [];
 
-    return validateItem( item, true );
+    if (params.optional && !value) {
+      return clean;
+    }
 
+    if (params.optional && _.isArray(value) && !value.length) {
+      return clean;
+    }
+
+    if (!_.isArray(value)) {
+      throw formatErrors(params, value, 'list.wrongtype', 'value should be a list');
+    }
+
+    value.forEach((item, i) => {
+      try {
+        clean.push(validateItem(item));
+      } catch (errs) {
+        errs.forEach(e => errors.push(_.extend({}, e, { index: i, field: params.field })));
+      }
+    });
+
+    if (!cleanOnly && errors.length) throw errors;
+
+    return clean;
   }
 
-}
+  function decorateItem(item) {
+    return validateItem(item, true);
+  }
+
+  function decorate(value) {
+    return (value || []).map(decorateItem);
+  }
+
+  return Object.assign(validate, {
+    type: 'list',
+    field: params.field,
+    clean: v => validate(v, true),
+    decorate,
+    validateItem,
+    decorateItem,
+  });
+};

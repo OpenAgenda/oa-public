@@ -1,4 +1,26 @@
 {
-  "displayAdditionalFields.additionalFieldsInfo": "Las valors d'eveniment especificas a aquela agenda son mostradas dins la seccion venenta çai-jos",
-  "share-button": "Partejar sus OpenAgenda"
+  "share-button": "Partejar sus OpenAgenda",
+  "aggregate-button": "Agregar",
+  "cibulTemplates.displayContextBar.completeAction": "Acabar",
+  "cibulTemplates.displayContextBar.displayAction": "Afichar",
+  "cibulTemplates.displayContextBar.modifyAction": "Modificar",
+  "displayAdditionalFields.emptyValue": "Pas d'intrada",
+  "displayAdditionalFields.goToAdditionalFields": "veire",
+  "displayAdditionalFields.noFile": "Pas cap fichièr cargat",
+  "displayAdditionalFields.noImage": "Pas cap imatge cargat",
+  "displayAdditionalFields.noSelectionValue": "Pas cap seleccion",
+  "displayAdditionalFields.privateField": "Informacion restrencha",
+  "event/contributor-section": "Contributor·a",
+  "event/contributor/edit": "Modificar",
+  "event/contributor/email": "Email",
+  "event/contributor/emptyContactInfo": "Pas cap informacion de contacte disponibla",
+  "event/contributor/name": "Nom",
+  "event/contributor/organization": "Organizacion",
+  "event/contributor/phone": "Telefòne",
+  "event/contributor/position": "Foncion",
+  "event/contributor/role": "Ròtle",
+  "event/private-section": "Informacion privada",
+  "export-all-button": "Exportar",
+  "export-select-button": "Exportar la seleccion",
+  "more-button": "mai"
 }

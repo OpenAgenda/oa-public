@@ -7,6 +7,7 @@ module.exports = {
     "de": "no-reply@openagenda.com",
     "es": "ne-pas-repondre@openagenda.com",
     "it": "no-reply@openagenda.com",
-    "io": "crwdns13236:0crwdne13236:0"
+    "io": "crwdns13236:0crwdne13236:0",
+    "oc": "pas-respondre@openagenda.com"
   }
 }

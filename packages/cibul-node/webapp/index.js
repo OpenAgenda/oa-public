@@ -33,6 +33,8 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
 
 function getSupportMessage(req, lang) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return getInboxLabel('memberSchemaDesc', lang);
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaDesc', lang);
     case 'privateAgenda':
@@ -54,6 +56,8 @@ function getSupportMessage(req, lang) {
 
 function getSupportCreationSubtitle(req, lang) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return getInboxLabel('memberSchemaTitle', lang);
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaTitle', lang);
     case 'privateAgenda':
@@ -75,6 +79,8 @@ function getSupportCreationSubtitle(req, lang) {
 
 function getSupportConversationType(req) {
   switch (req.query.subject) {
+    case 'memberSchema':
+      return 'request_member_schema';
     case 'agendaSchema':
       return 'request_agenda_schema';
     case 'privateAgenda':
@@ -136,7 +142,7 @@ const initialState = async req => {
     home: {
       settings: {
         prefix: '/home', // for links
-        rootPrefix: '/home(|/events)', // because of /home/activities
+        rootPrefix: '/home(|/events|/agendas/member)', // because of /home/activities
         apiRoot,
         perPageLimit: 20,
         displayLegacyMessageTab: false,
@@ -150,6 +156,7 @@ const initialState = async req => {
           showPrivate: '/:slug.prv',
           addEvent: '/:slug/contribute',
           contact: '/:slug/contact',
+          get: '/api/me/agendas/:agendaUid',
         },
         events: {
           list: '/home/events.json',
@@ -214,7 +221,7 @@ const initialState = async req => {
         remove: '/:slug/admin/sources/:sourceId',
         showAgenda: '/:slug',
         agendaSearch: '/agendas.json',
-        getAgenda: '/:slug',
+        getAgenda: '/api/agendas/slug/:slug',
         getAggregator: '/:slug/admin/aggregator',
         setAggregator: '/:slug/admin/aggregator',
       },
@@ -377,7 +384,9 @@ const initialState = async req => {
         requestContribute: '/:agendaSlug/request-contribute/conversation/create',
         detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
         locations: {
-          get: '/locations/:uid.json',
+          suggestChange: '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          staticTiles: config.staticTiles,
+          get: '/locations/:locationUid.json',
           index: '/api/agendas/:agendaUid/locations?itemsKey=items',
           create: '/agendas/:agendaUid/locations',
           geocode: '/locations/geocode',
@@ -463,6 +472,17 @@ const initialState = async req => {
         suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },
+    agendaSchemaAdmin: {
+      settings: {
+        prefix: '/:agendaSlug/admin/schema',
+        apiRoot: `http://localhost:${config.port}`,
+      },
+      res: {
+        eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
+        memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
+        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+      },
+    },
     // Admin
     adminSupport: {
       settings: {
@@ -518,12 +538,14 @@ module.exports = app => {
     [
       '/home',
       '/home/events',
+      '/home/agendas/member',
       '/home/activities',
       '/settings(/*?)?',
       '/new',
       '/home/inbox(/*?)?',
       '/support(/*?)?',
       '/:slug/admin/events(/*?)?',
+      '/:slug/admin/schema(/*?)?',
       '/:slug/admin/inbox(/*?)?',
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',

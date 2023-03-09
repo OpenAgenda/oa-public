@@ -160,14 +160,14 @@
   "_search_languages": {
     "type": "keyword"
   },
-  "_search_timings": {
+  "_sort_timings": {
     "type": "nested",
     "properties": {
       "begin": {
-        "type": "date"
+        "type": "keyword"
       },
       "accessible_until": {
-        "type": "date"
+        "type": "keyword"
       }
     }
   },

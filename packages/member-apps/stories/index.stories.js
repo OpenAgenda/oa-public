@@ -3,7 +3,6 @@ import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
-import Providers from './decorators/Providers';
 
 const getDefaultState = () => ({
   settings: {
@@ -32,55 +31,56 @@ const getDefaultState = () => ({
 
 export default {
   title: 'Members admin',
-  decorators: [Providers, PageDecorator],
+  decorators: [PageDecorator],
 };
 
-export const App = () => wrapApp(
-  createApp({
-    history: createMemoryHistory(),
-    initialState: getDefaultState(),
-  }),
-  {
-    extraProps: {
-      user: {
-        uid: 99999999,
-        isNew: false,
-      },
-      lang: 'fr',
-      agenda: {
-        title: '[Archives] Rendez-vous aux Jardins 2016 [Officiel]',
-        slug: 'rdj2016',
-        uid: 62792452,
-        ownerId: 2,
-        credentials: {
-          moderators: false,
-          tags: false,
-          embedsHead: false,
-          embedsTemplates: false,
+export const App = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState(),
+    }),
+    {
+      extraProps: {
+        user: {
+          uid: 99999999,
+          isNew: false,
         },
-        roles: [
-          {
-            code: 1,
-            slug: 'contributor',
+        lang: 'fr',
+        agenda: {
+          title: '[Archives] Rendez-vous aux Jardins 2016 [Officiel]',
+          slug: 'rdj2016',
+          uid: 62792452,
+          ownerId: 2,
+          credentials: {
+            moderators: false,
+            embedsHead: false,
+            embedsTemplates: false,
+            invitationMessage: true,
           },
-          {
-            code: 2,
-            slug: 'administrator',
-          },
-        ],
-      },
-      member: {
-        actionsCounter: 0,
-        createdAt: '2015-12-08T16:30:34.000Z',
-        role: 2,
-        custom: {
-          contactName: 'Romain Lange - OpenAgenda',
+          roles: [
+            {
+              code: 1,
+              slug: 'contributor',
+            },
+            {
+              code: 2,
+              slug: 'administrator',
+            },
+          ],
         },
-        deletedUser: false,
-        id: 6478,
-        linkStore: null,
-        updatedAt: '2015-12-08T16:30:34.000Z',
+        member: {
+          actionsCounter: 0,
+          createdAt: '2015-12-08T16:30:34.000Z',
+          role: 2,
+          custom: {
+            contactName: 'Romain Lange - OpenAgenda',
+          },
+          deletedUser: false,
+          id: 6478,
+          linkStore: null,
+          updatedAt: '2015-12-08T16:30:34.000Z',
+        },
       },
     },
-  }
-);
+  );

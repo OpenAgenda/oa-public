@@ -2,7 +2,7 @@
 
 module.exports = async (services, eventFeed, { agenda, event, ae }, context) => {
   const {
-    activities: activitiesSvc
+    activities: activitiesSvc,
   } = services;
 
   const { sourceAgenda } = context;

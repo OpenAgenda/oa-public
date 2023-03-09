@@ -15,7 +15,7 @@
     "contribution_type": "2",
     "contribution_info": "",
     "official": "1",
-    "credentials": "{\"useContributeApp\":true,\"useAgendaSchema\":true,\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"embedsHead\":false,\"embedsTemplates\":true,\"indesign\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":false,\"prioritizedAggregator\":true,\"docxExport\":false,\"calendarView\":false,\"eventOwnershipTransfer\":false,\"graphs\":true}",
+    "credentials": "{\"useContributeApp\":true,\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"embedsHead\":false,\"embedsTemplates\":true,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":false,\"prioritizedAggregator\":true,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
     "settings": "{\"tracking\":{\"googleAnalytics\":\"UA-133158521-3\"},\"lab\":{\"eventAdmin\":true},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"translation\":{\"enabled\":false,\"source\":\"fr\",\"sets\":[],\"service\":\"reverso\",\"options\":null}}",
     "private": "0",
     "form_schema_id": null,

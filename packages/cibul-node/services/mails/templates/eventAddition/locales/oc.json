@@ -3,5 +3,10 @@
   "body": "<b>{event}</b> de l'agenda <b>{sourceAgenda}</b> es estat apondut amb l'estatut <b>{state}</b> per <b>{user}</b>.",
   "unsubscribe": "Arrestar de recebre los apondons d'eveniments",
   "memberUnsubscribe": "Arrestar de recebre los apondons d'eveniments sus aquela agenda",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
+  "actionDescription": "Veire l'eveniment",
+  "tocontrol": "de repassar",
+  "controlled": "prèste per publicacion",
+  "published": "publicat",
+  "refused": "refusat"
 }

@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 const { diff } = require('deep-diff');
 
@@ -10,6 +9,7 @@ module.exports = async (services, before, after, context) => {
   const {
     activities,
     elasticsearch: legacyEventSearch,
+    core,
   } = services;
 
   if (legacyEventSearch) {
@@ -53,10 +53,10 @@ module.exports = async (services, before, after, context) => {
       store: {
         labels: {
           actor: context.user.name,
-          target: after.title
+          target: after.title,
         },
-        diff: changes
-      }
+        diff: changes,
+      },
     });
   }
 
@@ -68,10 +68,14 @@ module.exports = async (services, before, after, context) => {
       store: {
         labels: {
           actor: context.user.name,
-          target: after.title
+          target: after.title,
         },
-        officialized: !!after.official
-      }
+        officialized: !!after.official,
+      },
     });
+  }
+
+  if (before.credentials.memberCustom !== after.credentials.memberCustom && after.credentials.memberCustom && !before.memberSchemaId) {
+    core.agendas(before.uid).settings.schema.updateMemberFields(null, { access: 'internal' });
   }
 };

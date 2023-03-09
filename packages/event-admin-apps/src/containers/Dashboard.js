@@ -1,18 +1,13 @@
 import _ from 'lodash';
 import qs from 'qs';
-import React, {
-  useCallback,
-  useMemo,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from 'react';
+import { useCallback, useMemo, useState, useRef, useLayoutEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { Base64 } from 'js-base64';
+import * as dateFnsLocales from 'date-fns/locale';
 import { css } from '@emotion/react';
 import {
   a11yButtonActionHandler,
@@ -41,6 +36,7 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import flattenAgendaSchema from '../utils/flattenAgendaSchema';
 import ExportsDropdown from '../components/ExportsDropdown';
 
 const PAGE_SIZE = 20;
@@ -51,7 +47,8 @@ const searchSpinner = {
   radius: 4,
 };
 
-const getRedirectURL = location => Base64.encode(location.pathname + location.search);
+const getRedirectURL = location =>
+  Base64.encode(location.pathname + location.search);
 
 const messages = defineMessages({
   totalEvents: {
@@ -222,10 +219,16 @@ function Dashboard() {
   const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const parsedLocationSearch = useMemo(
-    () => qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    }),
-    [location.search]
+    () =>
+      qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      }),
+    [location.search],
+  );
+
+  const flattenedAgendaSchema = useMemo(
+    () => flattenAgendaSchema(agendaSchema),
+    [agendaSchema],
   );
 
   const urlQuery = useMemo(() => {
@@ -234,26 +237,32 @@ function Dashboard() {
     return _.pick(
       q,
       Object.keys(
-        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
-      )
+        validateQuery(q, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        }),
+      ),
     );
-  }, [agendaSchema, parsedLocationSearch]);
+  }, [flattenedAgendaSchema, parsedLocationSearch]);
 
   const [query, setQuery] = useState(() => urlQuery);
 
   const hasUrlQuery = useMemo(
-    () => Object.keys(urlQuery).length
+    () =>
+      Object.keys(urlQuery).length
       && Object.keys(urlQuery).some(key => key !== 'sort'),
-    [urlQuery]
+    [urlQuery],
   );
 
   const hasQuery = useMemo(
-    () => Object.keys(query).length
+    () =>
+      Object.keys(query).length
       && Object.keys(query).some(key => key !== 'sort'),
-    [query]
+    [query],
   );
 
-  const [page, setPage] = useState(() => (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
+  const [page, setPage] = useState(() =>
+    (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
 
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
@@ -261,13 +270,14 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const filters = useFilters(intl, agendaSchema, {
+  const filters = useFilters(intl, agendaSchema.fields, {
+    dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
   });
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
-    [filters]
+    [filters],
   );
 
   const removeModal = useModal();
@@ -276,10 +286,11 @@ function Dashboard() {
     const { event } = removeModal.data;
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
-      () => queryClient
-        .refetchQueries(['event-admin-apps', 'events', agenda.slug])
-        .catch(() => null),
-      e => console.log('ERROR', e)
+      () =>
+        queryClient
+          .refetchQueries(['event-admin-apps', 'events', agenda.slug])
+          .catch(() => null),
+      e => console.log('ERROR', e),
     );
 
     removeModal.close();
@@ -287,39 +298,61 @@ function Dashboard() {
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters,
-      { size: 0 },
-      null,
-      true
-    ),
+    () =>
+      getEvents(
+        apiClient,
+        res.jsonExport,
+        agenda,
+        filters,
+        { size: 0 },
+        null,
+        true,
+      ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
-    }
+    },
   );
 
-  const {
-    data, isLoading, isFetching, error
-  } = useQuery(
+  const eventsQuery = useQuery(
     ['event-admin-apps', 'events', agenda.slug, { query, page }],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters,
-      {
-        sort: 'updatedAt.desc',
-        ...query,
-        detailed: true,
-      },
-      page
-    ),
+    () =>
+      getEvents(
+        apiClient,
+        res.jsonExport,
+        agenda,
+        filters,
+        {
+          sort: 'updatedAt.desc',
+          ...query,
+          detailed: true,
+          if: [
+            'uid',
+            'slug',
+            'title',
+            'featured',
+            'location.name',
+            'location.uid',
+            'timings',
+            'dateRange',
+            'status',
+            'state',
+            'attendanceMode',
+            'addMethod',
+            'member.name',
+            'member.role',
+            'member.uid',
+            'sourceAgendas.title',
+            'sourceAgendas.slug',
+            'originAgenda.uid',
+            'originAgenda.title',
+            'onlineAccessLink',
+          ],
+        },
+        page,
+      ),
     {
-      staleTime: 1000,
+      staleTime: 10000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: newData => {
@@ -348,7 +381,7 @@ function Dashboard() {
               addQueryPrefix: true,
               arrayFormat: 'brackets',
               skipNulls: true,
-            }
+            },
           );
 
           history.push({ search });
@@ -361,13 +394,15 @@ function Dashboard() {
           mapElem.onQueryChange(newData.aggregations.viewport);
         }
       },
-    }
+    },
   );
+
+  const { data, isLoading, isFetching, error } = eventsQuery;
 
   const getOptions = useGetFilterOptions(
     intl,
     filtersQuery.data?.aggregations,
-    data?.aggregations
+    data?.aggregations,
   );
 
   const onFilterChange = useCallback(values => setQuery(values), [setQuery]);
@@ -375,7 +410,7 @@ function Dashboard() {
   // Selection
   const isSelectedEvent = useCallback(
     uid => selectedEvents.has(uid),
-    [selectedEvents]
+    [selectedEvents],
   );
   const selectEvent = useCallback(uid => {
     setSelectedEvents(old => {
@@ -416,15 +451,16 @@ function Dashboard() {
   }, [allSelected, data]);
 
   const selectExtendedAll = useCallback(
-    () => setExtendedAllSelected(old => {
-      if (old) {
-        // Cancel selection
-        setSelectedEvents(new Set());
-      }
+    () =>
+      setExtendedAllSelected(old => {
+        if (old) {
+          // Cancel selection
+          setSelectedEvents(new Set());
+        }
 
-      return !old;
-    }),
-    []
+        return !old;
+      }),
+    [],
   );
 
   const enableSelectMode = useCallback(() => setSelectMode(true), []);
@@ -437,28 +473,30 @@ function Dashboard() {
 
   const hasSelection = useMemo(
     () => selectedEvents.size || extendedAllSelected,
-    [extendedAllSelected, selectedEvents.size]
+    [extendedAllSelected, selectedEvents.size],
   );
 
   const previousPage = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler(e => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setPage(old => Math.max(old - 1, 1));
-    }),
-    []
+        setPage(old => Math.max(old - 1, 1));
+      }),
+    [],
   );
   const nextPage = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler(e => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setPage(old => old + 1);
-    }),
-    []
+        setPage(old => old + 1);
+      }),
+    [],
   );
 
   const selectAllRef = useRef();
@@ -476,12 +514,15 @@ function Dashboard() {
   const validate = useCallback(
     values => {
       try {
-        validateQuery(values, { formSchema: agendaSchema, emptyValue: 'null' });
+        validateQuery(values, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        });
       } catch (e) {
         console.log('Filters validation error:', e);
       }
     },
-    [agendaSchema]
+    [flattenedAgendaSchema],
   );
   const latestQuery = useLatest(query);
 
@@ -496,8 +537,11 @@ function Dashboard() {
     const cleanQuery = _.pick(
       q,
       Object.keys(
-        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
-      )
+        validateQuery(q, {
+          formSchema: flattenedAgendaSchema,
+          emptyValue: 'null',
+        }),
+      ),
     );
 
     if ('featured' in cleanQuery) {
@@ -510,7 +554,13 @@ function Dashboard() {
       form.initialize(cleanQuery);
       form.submit();
     }
-  }, [agenda, agendaSchema, filters, latestQuery, parsedLocationSearch]);
+  }, [
+    agenda,
+    flattenedAgendaSchema,
+    filters,
+    latestQuery,
+    parsedLocationSearch,
+  ]);
 
   if (isLoading || filtersQuery.isLoading) {
     return (
@@ -540,6 +590,7 @@ function Dashboard() {
       intl={intl}
       ref={filtersFormRef}
       filters={filters}
+      dateFnsLocale={dateFnsLocales[intl.locale]}
     >
       <header>
         <Actions
@@ -773,7 +824,8 @@ function Dashboard() {
         agenda={agenda}
         filters={filters}
         query={query}
-        page={page}
+        filtersQuery={filtersQuery}
+        eventsQuery={eventsQuery}
       />
     </FiltersProvider>
   );

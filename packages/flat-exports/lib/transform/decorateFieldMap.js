@@ -2,31 +2,56 @@
 
 const VError = require('@openagenda/verror');
 
+const {
+  utils: {
+    flattenSchema: getFlattenedSchema,
+  },
+} = require('@openagenda/form-schemas');
+
 const fieldToFlattenerMapItem = require('./fieldToFlattenerMapItem');
 
-const handledTypes = ['text', 'integer', 'number', 'email', 'phone', 'link'];
+const handledTypes = [
+  'text',
+  'integer',
+  'number',
+  'email',
+  'phone',
+  'link',
+  'html',
+  'markdown',
+  'textarea',
+];
 
-// decorates a ready-to-be used flattener field map
-// with the provided form-schemas schema
+const isIncluded = (fieldMap, includeFields, f) => includeFields.some(includeField => includeField === f.field && !fieldMap.some(field => field.source === f.field));
 
 module.exports = (fieldMap, options = {}) => {
   const {
     formSchema = null,
-    includeFields
+    includeFields = [],
+    spreadFields = [],
   } = options;
 
   if (!formSchema?.fields?.length) {
     return fieldMap;
   }
 
-  const decorateWith = formSchema.fields
+  const flattenedFormSchema = getFlattenedSchema(formSchema, { prefixedLabels: true });
+
+  const decorateWith = flattenedFormSchema.fields
     .filter(f => {
-      if (includeFields) {
-        return includeFields.some(includeField => (includeField === 'location.tags' && !!f.legacy) || (includeField === f.field
-          && !fieldMap.some(field => field.source === f.field)));
+      if (includeFields.length && isIncluded(fieldMap, includeFields, f)) {
+        return true;
       }
 
-      return ((handledTypes.includes(f.fieldType) || f.options) && f.label) || (f.field === 'location' && !!f.legacy);
+      if (spreadFields.length && isIncluded(fieldMap, spreadFields, f)) {
+        return true;
+      }
+
+      if (includeFields.length) {
+        return false;
+      }
+
+      return (handledTypes.includes(f.fieldType) || f.options) && Object.keys(f.label ?? {}).length;
     })
     .map(f => {
       try {
@@ -45,7 +70,7 @@ module.exports = (fieldMap, options = {}) => {
 
     return match;
   }).concat(
-    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source))
+    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source)),
   );
 
   return decoratedFieldMap;

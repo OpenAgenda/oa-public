@@ -61,14 +61,14 @@ module.exports.init = (config, services) => {
       onCreate: onCreate.bind(null, services),
       onRemove: onRemove.bind(null, services),
       onUpdate: onUpdate.bind(null, services),
-      beforeRemove
-    }
+      beforeRemove,
+    },
   });
 
   return {
     ...agendasSvc,
     mw: middleware(agendasSvc),
-    resetCache: resetCache.bind(null, services)
+    resetCache: resetCache.bind(null, services),
   };
 };
 
@@ -77,7 +77,7 @@ module.exports.plugApp = app => {
     agendas,
     sessions,
     members,
-    core
+    core,
   } = app.services;
 
   app.get(
@@ -91,17 +91,20 @@ module.exports.plugApp = app => {
       try {
         res.send({
           member: req.member,
-          schema: await core.agendas(req.agenda.uid).settings.schema.getMerged(),
+          schema: await core.agendas(req.agenda.uid).settings.schema.getMerged({
+            includeMemberSchema: true,
+            includeMember: true,
+          }),
           ...agendaAdminParser({
             agenda: req.agenda,
             role: req.member.role,
-            lang: req.lang
-          })
+            lang: req.lang,
+          }),
         });
       } catch (e) {
         next(e);
       }
-    }
+    },
   );
 
   app.get(
@@ -114,11 +117,11 @@ module.exports.plugApp = app => {
 
         res.send({
           ...schema,
-          fields: schema.fields.filter(field => field.read === null) // Filter public fields
+          fields: schema.fields.filter(field => field.read === null), // Filter public fields
         });
       } catch (e) {
         next(e);
       }
-    }
+    },
   );
 };

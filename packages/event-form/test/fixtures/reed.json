@@ -1355,6 +1355,10 @@
                     "fr": "Outils d’inscription (Pré-enregistrement)",
                     "en": "Registration tools"
                 },
+                "placeholder": {
+                    "fr": "Le placeholder",
+                    "en": "The placeholder"
+                },
                 "info": {
                     "fr": "Liens, emails ou numéros de téléphone",
                     "en": "Links, emails or phone numbers",

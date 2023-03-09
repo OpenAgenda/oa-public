@@ -26,7 +26,8 @@ module.exports = {
   "eventDeleteTitle": {
     "en": "Event deletion",
     "fr": "Supprimer un événement",
-    "io": "crwdns14418:0crwdne14418:0"
+    "io": "crwdns14418:0crwdne14418:0",
+    "oc": "Supression d'eveniment"
   },
   "eventDeleteDetails": {
     "en": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
@@ -39,7 +40,8 @@ module.exports = {
     "fr": "Confirmer",
     "de": "Bestätigen",
     "es": "Confirmar",
-    "io": "crwdns14422:0crwdne14422:0"
+    "io": "crwdns14422:0crwdne14422:0",
+    "oc": "Confirmar"
   },
   "eventDeleted": {
     "fr": "L'événement a été définitivement supprimé",

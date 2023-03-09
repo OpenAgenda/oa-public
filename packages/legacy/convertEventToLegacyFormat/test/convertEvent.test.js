@@ -39,14 +39,14 @@ const bordeauxAgendaSettings = {
   slug: 'bordeaux-metropole',
   interfaces: {
     admin: false,
-    renderHTMLFromMarkdown: () => '<p>Balade en nocturne à la lumière des lampions à travers le parc</p>\n'
+    renderHTMLFromMarkdown: () => '<p>Balade en nocturne à la lumière des lampions à travers le parc</p>\n',
   },
-  root: 'https://openagenda.com'
+  root: 'https://openagenda.com',
 };
 
 const lilleAgendaSettings = {
   legacy: lilleTagSet,
-  formSchema: lilleFormSchema
+  formSchema: lilleFormSchema,
 };
 
 describe('Convert specific fields', () => {
@@ -54,7 +54,7 @@ describe('Convert specific fields', () => {
     expect(convertImage(bordeauxEventV2.image)).toStrictEqual({
       image: bordeauxEventV1.image,
       thumbnail: bordeauxEventV1.thumbnail,
-      originalImage: bordeauxEventV1.originalImage
+      originalImage: bordeauxEventV1.originalImage,
     });
   });
 
@@ -64,11 +64,11 @@ describe('Convert specific fields', () => {
       hi: true,
       vi: true,
       pi: false,
-      mi: true
+      mi: true,
     })).toStrictEqual([
       'hi',
       'vi',
-      'mi'
+      'mi',
     ]);
   });
 
@@ -123,7 +123,7 @@ describe('Convert specific fields', () => {
   });
 
   test('Convert member to contributor', () => {
-    expect(convertMember(false, bordeauxEventV2.member)).toStrictEqual({ organization: 'Médiathèque' });
+    expect(convertMember(false, { member: bordeauxEventV2.member })).toStrictEqual({ organization: 'Médiathèque' });
   });
 
   test('Return the event\'s permalink', () => {
@@ -131,7 +131,7 @@ describe('Convert specific fields', () => {
   });
 
   test('Return the custom fields', () => {
-    expect(getCustom(bordeauxAgendaSettings, bordeauxEventV2)).toStrictEqual(bordeauxEventV1.custom);
+    expect(getCustom({ agendaSettings: bordeauxAgendaSettings }, bordeauxEventV2)).toStrictEqual(bordeauxEventV1.custom);
   });
 
   test('Return the category fields', () => {
@@ -144,14 +144,14 @@ describe('Return the event\'s tagGroup', () => {
     expect(getTags(bordeauxAgendaSettings, {})).toStrictEqual(
       {
         tags: [],
-        tagGroups: []
-      }
+        tagGroups: [],
+      },
     );
   });
 
   test('Event with tags', () => {
     expect(getTags(lilleAgendaSettings, lilleEventV2)).toStrictEqual(
-      { tagGroups: lilleEventV1.tagGroups, tags: lilleEventV1.tags }
+      { tagGroups: lilleEventV1.tagGroups, tags: lilleEventV1.tags },
     );
   });
 });
@@ -184,9 +184,9 @@ test('Convert Meudon event from version 2 to version 1', () => {
     slug: 'meudon',
     interfaces: {
       admin: false,
-      renderHTMLFromMarkdown: () => '<p>Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d\'un trafiquant du quartier.</p>\n'
+      renderHTMLFromMarkdown: () => '<p>Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d\'un trafiquant du quartier.</p>\n',
     },
-    root: 'https://openagenda.com'
+    root: 'https://openagenda.com',
   };
 
   const convertedContent = converEventLegacyFormat(meudonAgendaSettings, meudonEventV2);

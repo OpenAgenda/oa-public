@@ -1,0 +1,121 @@
+{
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Agenda not found"
+    }
+  ],
+  "next.views.AgendaError.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contact support"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "You do not have access to this agenda."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Check the link provided to you or request access."
+    }
+  ],
+  "next.views.AgendaError.internalError": [
+    {
+      "type": 0,
+      "value": "Internal error"
+    }
+  ],
+  "next.views.AgendaError.internalErrorMsg": [
+    {
+      "type": 0,
+      "value": "If the problem persists, please contact support."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "There is no calendar corresponding to this link."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Either the link is invalid or the calendar has been deleted."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Or "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "sign up"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " if you don't have an account yet."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Request an invitation"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Access to this agenda is restricted,"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " authenticate yourself before you can access it."
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Search an agenda"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "Access to this agenda is restricted,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " authenticate yourself before you can access it."
+    }
+  ]
+}

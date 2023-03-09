@@ -6,6 +6,7 @@ const log = require('@openagenda/logs')('core/agendas/events/create');
 const { BadRequest, Forbidden } = require('@openagenda/verror');
 
 const createPayload = require('../utils/createPayload');
+const cleanDuplicateImage = require('../utils/cleanDuplicateImage');
 const doAdd = require('../utils/doAdd');
 const extractUserUid = require('../utils/extractUserUid');
 const loadAuthorizations = require('../../utils/authorizations');
@@ -50,7 +51,10 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   const member = userUid ? await members.get({ agendaUid, userUid }) : null;
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(core.services, agendaUid, {
+    detailed: true,
+    includeMemberSchema: true,
+  });
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
@@ -79,7 +83,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
   log('  associated state');
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core, agenda);
 
   try {
     clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
@@ -95,6 +99,9 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   log('  pre-validation done', { agendaUid });
 
   try {
+    if (clean.event.image && duplicateOrigin) {
+      clean.event.image = cleanDuplicateImage(core, clean.event.image);
+    }
     const event = await events.create(clean.event, {
       context: {
         userUid,

@@ -43,7 +43,7 @@ module.exports = (agendaSettings, event) => {
     keywords: convertKeywords(event.keywords),
   };
 
-  if (interfaces.renderHTMLFromMarkdown && legacyFormat.longDescription) {
+  if (interfaces?.renderHTMLFromMarkdown && legacyFormat.longDescription) {
     legacyFormat.html = Object.keys(legacyFormat.longDescription).reduce((carry, lang) => {
       carry[lang] = interfaces.renderHTMLFromMarkdown(event.links, cleanString(event.longDescription[lang]));
       return carry;
@@ -123,7 +123,7 @@ module.exports = (agendaSettings, event) => {
   }, getFirstLastTimings(event.timings), {
     permalink: getPermalink(agendaSettings, event),
     featured: Number(event.featured),
-    custom: getCustom(agendaSettings, event),
+    custom: getCustom({ agendaSettings, admin }, event),
     contributor: convertMember(admin, event),
     category: getCategory(agendaSettings, event),
     tags,
@@ -139,7 +139,7 @@ module.exports = (agendaSettings, event) => {
     if (typeof legacyFormat[field] === 'object'
     && legacyFormat[field] !== null
     && Object.keys(legacyFormat[field]).length === 0
-    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html', 'registration'].includes(field)
+    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html', 'registration', 'tags', 'tagGroups', 'linkedEvents'].includes(field)
     ) {
       legacyFormat[field] = null;
     }

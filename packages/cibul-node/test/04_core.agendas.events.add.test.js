@@ -32,8 +32,8 @@ describe('core - functional (server): core.agendas().events add()', () => {
         'users',
         'keys',
         'accessTokens',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -44,7 +44,7 @@ describe('core - functional (server): core.agendas().events add()', () => {
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
     } catch (e) { /**/ }
   });
@@ -57,14 +57,14 @@ describe('core - functional (server): core.agendas().events add()', () => {
     beforeAll(async () => {
       event = await core.agendas(17026800).events.add(19201989, {
         title: {
-          fr: 'Nouveau titre'
+          fr: 'Nouveau titre',
         },
         'thematiques-metropolitaines': 3,
-        image_alt_text: 'Un texte obligatoire si l\'image est présente'
+        image_alt_text: 'Un texte obligatoire si l\'image est présente',
       }, {
         context: {
-          userUid: 63170203
-        }
+          userUid: 63170203,
+        },
       });
     });
 
@@ -83,12 +83,12 @@ describe('core - functional (server): core.agendas().events add()', () => {
     it('event is indexed in agenda', async () => {
       const {
         total,
-        events
+        events,
       } = await core.agendas(17026800).events.search({
         uid: 19201989,
-        state: null
+        state: null,
       }, {}, {
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(total).toBe(1);
@@ -103,8 +103,8 @@ describe('core - functional (server): core.agendas().events add()', () => {
       try {
         await core.agendas(17026800).events.add(11111, {}, {
           context: {
-            userUid: 63170203
-          }
+            userUid: 63170203,
+          },
         });
       } catch (e) {
         error = e;
@@ -121,12 +121,12 @@ describe('core - functional (server): core.agendas().events add()', () => {
       result = await core.agendas(17026800).events.add(18992812, {
         state: 1,
         'thematiques-metropolitaines': 3,
-        image_alt_text: 'Un texte'
+        image_alt_text: 'Un texte',
       }, {
         paths: [[82910283, 17026855]],
         aggregated: 'f9fdqs3',
         returnPayload: true,
-        access: 'contributor'
+        access: 'contributor',
       });
     });
 
@@ -149,11 +149,11 @@ describe('core - functional (server): core.agendas().events add()', () => {
     it('fix: add with unspecified required additional field linked to image is successful when image is not specified', async () => {
       const { success } = await core.agendas(17026800).events.add(18992813, {
         state: 1,
-        'thematiques-metropolitaines': 3
+        'thematiques-metropolitaines': 3,
       }, {
         paths: [[82910283, 17026855]],
         aggregated: true,
-        returnPayload: true
+        returnPayload: true,
       });
 
       expect(success).toEqual(true);

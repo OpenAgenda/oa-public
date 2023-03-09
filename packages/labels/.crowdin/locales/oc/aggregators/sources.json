@@ -2,5 +2,17 @@
   "createAggregator": "Activar l'agregacion d'agendas",
   "sourceAgendas": "Agendas sorsas",
   "sourcesHelp": "Clicatz aquí per ne saber mai a perpaus de las agregacions",
-  "removeConfirmMessage": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?"
+  "removeConfirmMessage": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?",
+  "aggregatorExplanation": "Aquesta foncionalitat vos permet de recuperar de biais automatic los eveniments aponduts a las agendas que causiguèretz.",
+  "sourcesExplanation": "Los eveniments publicats per las agendas listadas aquí son automaticament aponduts a l'agenda [%title%](%link%).",
+  "addSources": "Per agregar d'agendas novèlas, [anatz sus la pagina de l'agenda](%searchLink%) que volètz apondre e clicatz sus Expòrt > Agregar dins > **%agenda%**",
+  "aggregationLoop": "Aquela agenda agrega d'eveniments de l'agenda a la quala la volètz apondre. Las boclas d'agregacion son enebidas.",
+  "searchAgenda": "Cercar una agenda",
+  "officialAgenda": "Agenda oficiala",
+  "noResult": "Pas cap resultat trobat",
+  "removeSource": "Tirar la sorsa",
+  "sourceAdded": "%source% es estat apondut a las sorsas de %agg%. Sos eveniments venents seràn aponduts dins gaire.",
+  "sourceRemoved": "%source% es estat tirat de las sorsas de %agg%.",
+  "numberOfResults": "Nombre de resultats",
+  "totalSources": "Sorsas totalas"
 }

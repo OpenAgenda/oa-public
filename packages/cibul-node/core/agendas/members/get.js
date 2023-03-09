@@ -25,7 +25,8 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
   const {
     userUid: actingUserUid,
     access = null,
-    isValid = null,
+    returnIsValid = false,
+    roleAsSlug = true,
   } = options;
 
   const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
@@ -46,11 +47,11 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
     ? await members.get({
       agendaUid: agenda.uid,
       userUid: identifier,
-    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null))
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { roleAsSlug }) : null))
     : await members.get.byEmail({
       agendaUid: agenda.uid,
       ...identifier,
-    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { roleAsSlug }) : null));
 
   if (!canRead(services, {
     access,
@@ -63,12 +64,28 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
 
   const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
 
-  if (!schemas.agendaSchema) {
-    return !isValid ? memberRes : { member: memberRes, isValid: validateMemberData(memberRes, schemas.merged) };
+  if (!schemas.agendaSchema && returnIsValid) {
+    return {
+      member: memberRes,
+      isValid: validateMemberData(memberRes, schemas.merged),
+    };
   }
+
+  if (!schemas.agendaSchema || !memberRes) {
+    return memberRes;
+  }
+
   const customRes = await custom(schemas.agendaSchema.id).get(memberRes.userUid);
   const completedMemberData = { ...memberRes, ...customRes };
-  return !isValid ? completedMemberData : { member: completedMemberData, isValid: validateMemberData({ ...memberRes, ...customRes }, schemas.merged) };
+
+  if (returnIsValid) {
+    return {
+      member: completedMemberData,
+      isValid: validateMemberData(completedMemberData, schemas.merged),
+    };
+  }
+
+  return completedMemberData;
 }
 
 module.exports = Object.assign((services, agendaOrUid, identifier, options) => get(

@@ -1,0 +1,14 @@
+{
+  "next.views.AgendaError.agendaNotFound": "Agenda introuvable",
+  "next.views.AgendaError.contactSupport": "Contacter le support",
+  "next.views.AgendaError.forbiddenMsg": "Vous n’avez pas accès à cet agenda.{br}Vérifiez le lien qui vous a été fourni ou faites une demande d’accès.",
+  "next.views.AgendaError.internalError": "Erreur interne",
+  "next.views.AgendaError.internalErrorMsg": "Si le problème persiste, veuillez contacter le support.",
+  "next.views.AgendaError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
+  "next.views.AgendaError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
+  "next.views.AgendaError.requestInvitation": "Demander une invitation",
+  "next.views.AgendaError.restrictedAccess": "Accés restreint",
+  "next.views.AgendaError.searchAgenda": "Rechercher un agenda",
+  "next.views.AgendaError.signIn": "Se connecter",
+  "next.views.AgendaError.unauthorizedMsg": "L'accés à cet agenda est restreint,{br}connectez-vous avant de pouvoir y accéder."
+}
