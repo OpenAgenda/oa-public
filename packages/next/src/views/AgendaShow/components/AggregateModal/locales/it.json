@@ -1,8 +1,8 @@
 {
   "next.views.AgendaShow.AggregateModal.createAgenda": "Creare un'agenda",
-  "next.views.AgendaShow.AggregateModal.title": "Aggregare in un altro agenda",
-  "next.views.AgendaShow.AggregateModal.signin": "Accedi",
   "next.views.AgendaShow.AggregateModal.noAgenda": "Attenzione: Al momento non si sta amministrando alcuna agenda. È necessario crearne una prima di poter aggregare {agenda}.",
   "next.views.AgendaShow.AggregateModal.shouldConnect": "È necessario accedere al proprio account per aggregare questa agenda.",
-  "next.views.AgendaShow.AggregateModal.subtitle": "Gli eventi pubblicati da {agenda} saranno aggiunti automaticamente all'agenda selezionata."
+  "next.views.AgendaShow.AggregateModal.signin": "Accedi",
+  "next.views.AgendaShow.AggregateModal.subtitle": "Gli eventi pubblicati da {agenda} saranno aggiunti automaticamente all'agenda selezionata.",
+  "next.views.AgendaShow.AggregateModal.title": "Aggregare in un altro agenda"
 }

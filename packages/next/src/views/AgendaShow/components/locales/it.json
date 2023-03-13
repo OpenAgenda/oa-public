@@ -1,11 +1,11 @@
 {
   "next.views.AgendaShow.AgendaHeader.addEvent": "Aggiungere un evento",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregare",
   "next.views.AgendaShow.AgendaHeader.contact": "Contattare",
   "next.views.AgendaShow.AgendaHeader.export": "Esportare",
   "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda ufficiale",
-  "next.views.AgendaShow.EventItem.featured": "Selezionato",
-  "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregare",
   "next.views.AgendaShow.EventItem.addToFavorites": "Aggiungere ai preferiti",
+  "next.views.AgendaShow.EventItem.featured": "Selezionato",
   "next.views.AgendaShow.EventItem.removeFromFavorites": "Rimuovere dai preferiti",
   "next.views.AgendaShow.Favorites.favorites": "Favoriti"
 }

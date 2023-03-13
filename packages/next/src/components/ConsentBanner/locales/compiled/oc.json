@@ -2,25 +2,25 @@
   "next.components.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accepter"
+      "value": "Acceptar"
     }
   ],
   "next.components.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Refuser"
+      "value": "Refusar"
     }
   ],
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateurs de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous ?"
+      "value": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Cliquez ici pour en savoir plus"
+      "value": "Clicatz aicí per aver mai d'informacions"
     }
   ]
 }

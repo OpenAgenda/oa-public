@@ -2,7 +2,7 @@
   "next.views.AgendaShow.AggregateModal.createAgenda": [
     {
       "type": 0,
-      "value": "Créer un agenda"
+      "value": "Crear una agenda"
     }
   ],
   "next.views.AgendaShow.AggregateModal.noAgenda": [
@@ -28,7 +28,7 @@
   "next.views.AgendaShow.AggregateModal.signin": [
     {
       "type": 0,
-      "value": "Connexion"
+      "value": "Se connectar"
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [

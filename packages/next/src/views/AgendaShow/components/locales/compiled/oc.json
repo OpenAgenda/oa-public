@@ -2,31 +2,31 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Apondre un eveniment"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
     {
       "type": 0,
-      "value": "Agréger"
+      "value": "Agregar"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "Contacter"
+      "value": "Contactar"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Exportar"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "Agenda officiel"
+      "value": "Agenda oficiala"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
@@ -38,7 +38,7 @@
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "À la une"
+      "value": "Meses en avant"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [

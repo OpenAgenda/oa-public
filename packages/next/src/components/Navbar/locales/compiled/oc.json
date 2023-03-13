@@ -2,13 +2,13 @@
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
-      "value": "Mes agendas"
+      "value": "Mas agendas"
     }
   ],
   "next.components.Navbar.myEvents": [
     {
       "type": 0,
-      "value": "Mes événements"
+      "value": "Mos eveniments"
     }
   ],
   "next.components.Navbar.profileMenu": [
@@ -20,25 +20,25 @@
   "next.components.Navbar.settings": [
     {
       "type": 0,
-      "value": "Paramètres"
+      "value": "Reglatges"
     }
   ],
   "next.components.Navbar.signIn": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Se connectar"
     }
   ],
   "next.components.Navbar.signOut": [
     {
       "type": 0,
-      "value": "Se déconnecter"
+      "value": "Desconnexion"
     }
   ],
   "next.components.Navbar.signUp": [
     {
       "type": 0,
-      "value": "S'inscrire"
+      "value": "Crear un compte"
     }
   ]
 }
