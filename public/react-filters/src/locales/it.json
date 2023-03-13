@@ -52,5 +52,6 @@
   "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
   "ReactFilters.messages.accessiblities.hi": "Disabilità uditiva",
   "ReactFilters.messages.accessiblities.ii": "Disabilità cognitiva",
-  "ReactFilters.messages.accessiblities.pi": "Disabilità psichica"
+  "ReactFilters.messages.accessiblities.pi": "Disabilità psichica",
+  "ReactFilters.messages.map.searchWithMap": "Cercare con la carta"
 }
