@@ -19,7 +19,6 @@ gzip_types
   text/javascript
   application/javascript
   application/x-javascript
-  application/xml
   application/json
   application/ld+json
   application/xml
@@ -34,7 +33,7 @@ large_client_header_buffers 4 16k;
 ##########################################################
 #             STATIC FILES
 
-location /_next {
+location ~/_next {
   include conf.d/nextjs_params;
 }
 
