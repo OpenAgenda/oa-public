@@ -19,7 +19,6 @@ const modulesToInclude = [
   '@openagenda/home',
   '@openagenda/inbox-apps',
   '@openagenda/member-apps',
-  '@openagenda/outdated-browser',
   '@openagenda/user-apps',
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
