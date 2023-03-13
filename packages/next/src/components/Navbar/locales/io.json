@@ -1,1 +1,9 @@
-{}
+{
+  "next.components.Navbar.myAgendas": "crwdns33089:0crwdne33089:0",
+  "next.components.Navbar.myEvents": "crwdns33091:0crwdne33091:0",
+  "next.components.Navbar.profileMenu": "crwdns33093:0crwdne33093:0",
+  "next.components.Navbar.settings": "crwdns33095:0crwdne33095:0",
+  "next.components.Navbar.signIn": "crwdns33097:0crwdne33097:0",
+  "next.components.Navbar.signOut": "crwdns33099:0crwdne33099:0",
+  "next.components.Navbar.signUp": "crwdns33101:0crwdne33101:0"
+}

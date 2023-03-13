@@ -1,1 +1,7 @@
-{}
+{
+  "next.components.Navbar.myAgendas": "Le mie agende",
+  "next.components.Navbar.myEvents": "I miei eventi",
+  "next.components.Navbar.settings": "Impostazioni",
+  "next.components.Navbar.signIn": "Accedi",
+  "next.components.Navbar.signUp": "Crea un account"
+}
