@@ -8,10 +8,27 @@
   },
   "author": "",
   "license": "ISC",
-  "main": "index.js",
+  "files": [
+    "dist",
+    "middleware.js"
+  ],
+  "main": "dist/main.js",
+  "exports": {
+    ".": "./dist/main.js",
+    "./middleware": "./middleware.js",
+    "./*": "./dist/*"
+  },
   "dependencies": {
     "browserslist-useragent": "^3.0.3",
-    "lodash": "^4.17.15",
     "ua-parser-js": "^0.7.28"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@openagenda/babel-preset": "^1.5.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "mini-css-extract-plugin": "^2.7.3",
+    "terser-webpack-plugin": "^5.3.7",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }

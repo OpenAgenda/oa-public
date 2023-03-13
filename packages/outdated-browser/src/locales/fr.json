@@ -1,0 +1,9 @@
+{
+  "outOfDate": "Votre navigateur n'est plus compatible !",
+  "updateWeb": "Mettez à jour votre navigateur pour afficher correctement ce site Web.",
+  "updateGooglePlay": "Merci d'installer Chrome depuis le Google Play Store",
+  "updateAppStore": "Merci de mettre à jour iOS depuis l'application Réglages",
+  "url": "https://browser-update.org/update-browser.html",
+  "callToAction": "Mettre à jour mon navigateur maintenant",
+  "close": "Fermer"
+}
