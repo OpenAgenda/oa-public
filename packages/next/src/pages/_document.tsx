@@ -106,6 +106,9 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const cookies = new Cookies(ctx.req?.headers?.cookie);
   const responseCookies = new ResponseCookies(new Headers(ctx.res.getHeaders() as HeadersInit));
 
+  const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
+    || cookies.get('outdatedBrowser') === 'true';
+
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: wrapWithCookies(cookies),
@@ -118,7 +121,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   return {
     ...initialProps,
     sessionLocale: getSession(cookies)?.user?.culture,
-    outdatedBrowser: responseCookies.get('outdatedBrowser')?.value === 'true',
+    outdatedBrowser,
     styles: (
       <>
         {initialProps.styles}
