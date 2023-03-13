@@ -79,11 +79,11 @@ const config = async () => {
         '.storybook',
         'stories',
       ],
-      ignoreDuringBuilds: true,
+      // ignoreDuringBuilds: true,
     },
-    typescript: {
-      ignoreBuildErrors: true,
-    },
+    // typescript: {
+    //   ignoreBuildErrors: true,
+    // },
     experimental: {
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
