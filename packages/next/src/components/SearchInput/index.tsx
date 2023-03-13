@@ -1,4 +1,4 @@
-import { InputGroup, Input, InputRightElement, Button, InputGroupProps } from '@openagenda/uikit';
+import { InputGroup, Input, InputRightElement, Button } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { defineMessages, useIntl } from 'react-intl';
@@ -12,13 +12,14 @@ const messages = defineMessages({
 
 type SearchInputProps = {
   name?: string;
+  placeholder?: string;
   className?: string;
   input?: any;
   meta?: any;
   onButtonClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
-} & InputGroupProps;
+};
 
 // TODO use isLoading & disabled
 export default function SearchInput({
@@ -28,14 +29,13 @@ export default function SearchInput({
   meta: _meta,
   onButtonClick,
   placeholder,
-  isLoading,
-  disabled,
-  ...props
+  // isLoading,
+  // disabled,
 }: SearchInputProps) {
   const intl = useIntl();
 
   return (
-    <InputGroup bg="oaGray.10" flex="1" w="initial" h="full" className={className} {...props}>
+    <InputGroup bg="oaGray.10" flex="1" w="initial" h="full" className={className}>
       <Input
         h="inherit"
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}

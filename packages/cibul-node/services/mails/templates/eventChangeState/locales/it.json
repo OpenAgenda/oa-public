@@ -1,7 +1,7 @@
 {
   "subject": "{agenda}: l’evento {event} ha cambiato stato",
   "title": "L'evento <b>{event}</b> è passato dallo stato <b>{beforeState}</b> allo stato <b>{afterState}</b> nell'agenda <b>{agenda}</b>.",
-  "actionDescription": "Visualizza evento",
+  "actionDescription": "Vedere l'evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",

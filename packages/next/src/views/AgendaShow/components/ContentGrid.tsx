@@ -1,6 +1,6 @@
 import { chakra, Flex, Grid, GridItem } from '@openagenda/uikit';
 
-export default function ContentGrid({ total, filters, events }) {
+export default function ContentGrid({ total, events, filters }) {
   return (
     <Grid
       templateAreas={{

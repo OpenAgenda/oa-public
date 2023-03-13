@@ -221,7 +221,7 @@ const initialState = async req => {
         remove: '/:slug/admin/sources/:sourceId',
         showAgenda: '/:slug',
         agendaSearch: '/agendas.json',
-        getAgenda: '/:slug',
+        getAgenda: '/api/agendas/slug/:slug',
         getAggregator: '/:slug/admin/aggregator',
         setAggregator: '/:slug/admin/aggregator',
       },

@@ -26,6 +26,7 @@ import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-ico
 import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
+import base64 from 'utils/base64';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
@@ -100,7 +101,7 @@ function FavoriteButton({ agenda, event }) {
       icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
       minW="0"
       ml="6"
-      // px="0"
+    // px="0"
     />
   );
 }
@@ -126,7 +127,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
-  const redirectUrl = Buffer.from(router.asPath).toString('base64');
+  const redirectUrl = base64.encode(router.asPath);
 
   return (
     <Flex
@@ -166,9 +167,9 @@ function EventItem({ event, agenda, imagePriority = false }) {
         // border="1px solid"
         // borderColor="oaGray.100"
         borderRadius="sm"
-        // _hover={{
-        //   borderColor: 'primary.500',
-        // }}
+      // _hover={{
+      //   borderColor: 'primary.500',
+      // }}
       >
         <Flex direction="row" align="center" px="6" justify="space-between">
           <Heading as="h2" fontSize="xl">
@@ -209,7 +210,13 @@ function EventItem({ event, agenda, imagePriority = false }) {
             />
           ) : (
             <Image
-              src={`${IMAGE_PREFIX}${event.image.filename}`}
+              src={process.env.NODE_ENV === 'development'
+                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                : `${IMAGE_PREFIX}${event.image.filename}`}
+              fallbackSrc={process.env.NODE_ENV === 'development'
+                ? `${IMAGE_PREFIX}${event.image.filename}`
+                : undefined}
+              fallbackStrategy="onError"
               fill
               // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
               pos="unset !important"

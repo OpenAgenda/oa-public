@@ -184,5 +184,8 @@
   "AgendaLocations.stepper.notDuplicates": "Aquestes son pas de doblons",
   "AgendaLocations.stepper.see": "veire",
   "AgendaLocations.stepper.seeDetails": "Detalhs",
-  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc"
+  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc",
+  "AgendaLocations.LocationDetails.address": "Adreiça",
+  "AgendaLocations.LocationDetails.name": "Nom",
+  "AgendaLocations.LocationSelector.see": "Veire"
 }

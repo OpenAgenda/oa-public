@@ -1,7 +1,7 @@
 {
   "descriptionSection": "Descrizioni",
   "attendanceMode": "Modalità di partecipazione",
-  "offlineAttendanceMode": "In presenza",
+  "offlineAttendanceMode": "In situ",
   "onlineAttendanceMode": "In linea",
   "mixedAttendanceMode": "Misto",
   "onlineAccessLink": "Collegamento di accesso",
@@ -52,7 +52,7 @@
   "requiredCategoryError": "È necessario effettuare una selezione",
   "noSelection": "Nessuna scelta",
   "compulsoryNote": "Le vostre attività saranno visualizzate qui.",
-  "movedOnline": "Oramai in linea",
+  "movedOnline": "Oramai online",
   "cancelled": "Cancellato",
   "postponed": "Riprogrammato"
 }

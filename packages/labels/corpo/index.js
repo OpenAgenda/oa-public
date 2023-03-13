@@ -364,7 +364,7 @@ module.exports = {
     "fr": "Circuit de validation étendu",
     "de": "Workflow-Management",
     "es": "circuito de validación extendida",
-    "it": "Circuito di convalida esteso",
+    "it": "Circuito di convalida",
     "io": "crwdns13362:0crwdne13362:0"
   },
   "membersHierarchy": {

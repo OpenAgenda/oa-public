@@ -9,5 +9,6 @@
   "state": "Zustand",
   "stateChanged": "Der Zustand des Veranstaltungens geändert hat",
   "featuredChange": "Die Veranstaltung wird nun vorgestellt",
-  "unfeaturedChange": "Die Veranstaltung ist nicht mehr funktions"
+  "unfeaturedChange": "Die Veranstaltung ist nicht mehr funktions",
+  "stateFieldInfo": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl"
 }

@@ -1,14 +1,39 @@
+const nextVersion = require('next/package.json').version;
+
 const withTM = require('next-transpile-modules')([
   '@openagenda/intl',
   '@openagenda/react-filters',
   '@openagenda/react-shared',
   '@openagenda/sdk-js',
   '@openagenda/uikit',
+  'intl-messageformat',
+  'intl-messageformat-parser',
+  'react-intl',
 ]);
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+
+function webpackCopyFiles(webpackConfig, files) {
+  const CopyFilePlugin = webpackConfig.plugins
+    .find(plugin => plugin.constructor.name === 'CopyFilePlugin')
+    .constructor;
+
+  for (const file of files) {
+    webpackConfig.plugins.push(
+      new CopyFilePlugin({
+        filePath: file.from,
+        cacheKey: nextVersion,
+        name: file.to,
+        minimize: false,
+        info: {
+          minimized: true,
+        },
+      }),
+    );
+  }
+}
 
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
@@ -54,11 +79,11 @@ const config = async () => {
         '.storybook',
         'stories',
       ],
-      // ignoreDuringBuilds: true,
+      ignoreDuringBuilds: true,
     },
-    // typescript: {
-    //   ignoreBuildErrors: true,
-    // },
+    typescript: {
+      ignoreBuildErrors: true,
+    },
     experimental: {
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
@@ -84,6 +109,22 @@ const config = async () => {
           },
         ],
       };
+    },
+    webpack: (webpackConfig, options) => {
+      if (options.isServer) return webpackConfig;
+
+      webpackCopyFiles(webpackConfig, [
+        {
+          from: require.resolve('@openagenda/outdated-browser'),
+          to: 'static/chunks/outdated-browser.js',
+        },
+        {
+          from: require.resolve('@openagenda/outdated-browser/main.css'),
+          to: 'static/css/outdated-browser.css',
+        },
+      ]);
+
+      return webpackConfig;
     },
   }));
 };

@@ -97,9 +97,10 @@ export default function AgendaHeader({ agenda }) {
             ? agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
             : undefined}
           fallbackStrategy="onError"
-          alt=""
-          draggable={false}
           loader={keyCDNLoader}
+          priority
+          draggable={false}
+          alt=""
           border="3px solid white"
           h="140px"
           fit="cover"
@@ -107,7 +108,7 @@ export default function AgendaHeader({ agenda }) {
       ) : null}
 
       <VStack spacing="3" align={{ base: 'center', md: 'start' }}>
-        <Heading as="h1" fontSize="4xl" textAlign="center">
+        <Heading as="h1" fontSize="4xl" textAlign={{ base: 'center', md: 'start' }}>
           {agenda.title}
           {agenda.official ? (
             <NoBreak>

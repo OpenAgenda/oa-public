@@ -3,12 +3,10 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
-import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core';
 import Providers from 'Providers';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import getPreferredLocale from '../utils/getPreferredLocale';
+import getPreferredLocale from 'utils/getPreferredLocale';
 
-fontAwesomeConfig.autoAddCss = false;
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
@@ -22,6 +20,7 @@ type AppPropsWithLayout<P = {}> = AppProps<P> & {
 
 interface PageProps {
   intlMessages: Record<string, string>
+  sessionLocale?: string
 }
 
 const useForceHtmlLangAttribute = preferredLocale => {
@@ -49,7 +48,7 @@ function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithL
 
   const { intlMessages } = pageProps;
 
-  const locale = getPreferredLocale(router.locale, router.query.lang);
+  const locale = getPreferredLocale(router.query.lang, router.locale, pageProps.sessionLocale);
 
   useForceHtmlLangAttribute(locale);
 

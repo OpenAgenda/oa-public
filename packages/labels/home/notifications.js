@@ -52,7 +52,7 @@ module.exports = {
     "de": "Veranstaltungskalender anzeigen",
     "es": "Ver la agenda",
     "br": "Gwelet an deiziataer",
-    "it": "Vedi l'agenda",
+    "it": "Vedere l'agenda",
     "io": "crwdns14972:0crwdne14972:0"
   },
   "seeEvent": {
@@ -61,7 +61,7 @@ module.exports = {
     "de": "Siehe die Veranstaltung",
     "es": "Ver evento",
     "br": "Gwelet an darvoud",
-    "it": "Vedi l'evento",
+    "it": "Vedere l'evento",
     "io": "crwdns14974:0crwdne14974:0",
     "oc": "Veire l'eveniment"
   },

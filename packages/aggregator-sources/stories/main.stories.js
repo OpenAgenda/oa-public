@@ -27,7 +27,7 @@ const getDefaultState = ({ dev = {} } = {}) => ({
     slugSearch: '/:slug',
     getAggregator: '/:slug/admin/aggregator',
     setAggregator: '/:slug/admin/aggregator',
-    getAgenda: '/agendas/:slug',
+    getAgenda: '/api/agendas/slug/:slug',
   },
   sources: {},
   modals: {},
@@ -39,25 +39,26 @@ export default {
   decorators: [PageDecorator, IntlDecorator],
 };
 
-export const Presentation = () => wrapApp(
-  createApp({
-    history: createMemoryHistory(),
-    initialState: getDefaultState(),
-  }),
-  {
-    extraProps: {
-      lang: 'fr',
-      agenda: {
-        uid: 48959239,
-        slug: 'la-gargouille',
-        title: 'La gargouille',
-        credentials: {
-          aggregator: true,
+export const Presentation = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState(),
+    }),
+    {
+      extraProps: {
+        lang: 'fr',
+        agenda: {
+          uid: 48959239,
+          slug: 'la-gargouille',
+          title: 'La gargouille',
+          credentials: {
+            aggregator: true,
+          },
         },
       },
     },
-  }
-);
+  );
 
 export const EmptyList = () => {
   const mock = new MockAdapter(axios);
@@ -90,7 +91,7 @@ export const EmptyList = () => {
           },
         },
       },
-    }
+    },
   );
 };
 
@@ -121,7 +122,7 @@ export const List = () => {
           },
         },
       },
-    }
+    },
   );
 };
 
@@ -163,7 +164,7 @@ export const AddSourceModal = () => {
         },
         agendaSchema: { custom: {}, fields: [] },
       },
-    }
+    },
   );
 };
 
@@ -173,7 +174,7 @@ export const EditSourceModal = () => {
   mock.onGet('/sources.json').reply(req => {
     if (req.params.slug) {
       const source = sourcesJson.sources.filter(
-        el => el.agenda.slug === req.params.slug
+        el => el.agenda.slug === req.params.slug,
       );
       return [200, { sources: source }];
     }
@@ -212,6 +213,6 @@ export const EditSourceModal = () => {
         },
         agendaSchema: { custom: {}, fields: [] },
       },
-    }
+    },
   );
 };

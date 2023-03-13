@@ -48,6 +48,8 @@ export default function LoggedBody({ agenda }) {
         role: 'administrator',
         search: search !== '' ? search : undefined,
         page,
+        includeImagePath: false,
+        useDefaultImage: false,
       });
 
       return fetch(`/home/agendas?${searchParamsStr}`)

@@ -10,6 +10,11 @@ const cmn = require('../lib/commons-app');
 
 const LIST_LIMIT = 20;
 
+function getBooleanQuery(param) {
+  if (param === '0' || param === 'false') return false;
+  if (param === '1' || param === 'true') return true;
+}
+
 const preMw = [
   cmn.loadLogger('home'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/'))
@@ -29,10 +34,10 @@ async function agendasList(req, res, next) {
       uid: members.map(s => s.agendaUid),
       search: req.query.search
     }, offset, LIST_LIMIT, {
-      includeImagePath: true,
+      includeImagePath: getBooleanQuery(req.query.includeImagePath) ?? true,
+      useDefaultImage: getBooleanQuery(req.query.useDefaultImage) ?? true,
       private: null,
       total: true,
-      useDefaultImage: true,
       includeFields: ['settings', 'credentials']
     });
 

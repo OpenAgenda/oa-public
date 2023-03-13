@@ -106,7 +106,7 @@ module.exports = {
     "de": "Verwalten",
     "br": "Merañ",
     "es": "gestionar",
-    "it": "Gestisci",
+    "it": "Gestire",
     "io": "crwdns14914:0crwdne14914:0",
     "oc": "Gerir"
   },
@@ -259,7 +259,7 @@ module.exports = {
     "de": "Sehen",
     "br": "Gwelet",
     "es": "Ver",
-    "it": "Vedi",
+    "it": "Vedere",
     "io": "crwdns14946:0crwdne14946:0",
     "oc": "Veire"
   },

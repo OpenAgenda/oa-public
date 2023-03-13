@@ -1,8 +1,7 @@
 import { SWRConfig } from 'swr';
-import { SWRDevTools } from 'swr-devtools';
+// import { SWRDevTools } from 'swr-devtools';
 import { CookiesProvider, Cookies } from 'react-cookie';
 import { UIKitProvider } from '@openagenda/uikit';
-import { ApiClientProvider } from '@openagenda/react-shared';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
 import { LanguageProvider } from 'components/LanguageProvider';
 
@@ -16,19 +15,17 @@ type ProvidersProps = {
 const Providers = ({ locale, intlMessages, cookies, children }: ProvidersProps) => (
   <CookiesProvider cookies={cookies}>
     <UIKitProvider>
-      <ApiClientProvider>
-        <LanguageProvider locale={locale} messages={intlMessages}>
-          <SWRDevTools>
-            <SWRConfig
-              value={{
-                use: [swrStatusMiddleware],
-              }}
-            >
-              {children}
-            </SWRConfig>
-          </SWRDevTools>
-        </LanguageProvider>
-      </ApiClientProvider>
+      <LanguageProvider locale={locale} messages={intlMessages}>
+        {/* <SWRDevTools> */}
+        <SWRConfig
+          value={{
+            use: [swrStatusMiddleware],
+          }}
+        >
+          {children}
+        </SWRConfig>
+        {/* </SWRDevTools> */}
+      </LanguageProvider>
     </UIKitProvider>
   </CookiesProvider>
 );

@@ -3,20 +3,23 @@ import dynamic from 'next/dynamic';
 import { getFallbackChain } from '@openagenda/intl';
 import context from 'contexts/dateFnsLocale';
 
-async function createProvider(promise) {
-  const value = (await promise).default;
+async function createProvider(value) {
   function Provider({ children }) {
-    return <context.Provider value={value}>{children}</context.Provider>;
+    return <context.Provider value={value.default || value}>{children}</context.Provider>;
   }
   return Provider;
 }
 
-const fr = dynamic<{ children: React.ReactNode; }>(() => createProvider(import('date-fns/locale/fr/index')));
-const es = dynamic<{ children: React.ReactNode; }>(() => createProvider(import('date-fns/locale/es/index')));
-
 const byLangs = {
-  fr,
-  es,
+  // en: dynamic(() => import('date-fns/locale/en/index').then(createProvider)),
+  fr: dynamic(() => import('date-fns/locale/fr/index').then(createProvider)),
+  de: dynamic(() => import('date-fns/locale/de/index').then(createProvider)),
+  it: dynamic(() => import('date-fns/locale/it/index').then(createProvider)),
+  es: dynamic(() => import('date-fns/locale/es/index').then(createProvider)),
+  // br: dynamic(() => import('date-fns/locale/br/index').then(createProvider)),
+  ca: dynamic(() => import('date-fns/locale/ca/index').then(createProvider)),
+  eu: dynamic(() => import('date-fns/locale/eu/index').then(createProvider)),
+  oc: dynamic(() => import('date-fns/locale/oc/index').then(createProvider)),
 };
 
 const DateFnsLocaleProvider = ({ locale, children }) => {

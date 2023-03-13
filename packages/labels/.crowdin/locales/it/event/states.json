@@ -10,5 +10,5 @@
   "stateChanged": "Lo stato dell'evento è stato modificato",
   "featuredChange": "L'evento è ora in uno",
   "unfeaturedChange": "L'evento non è più in uno",
-  "stateFieldInfo": "I contributori non possono vedere ni modificare questo campo"
+  "stateFieldInfo": "I contributori non possono vedere né modificare questo campo"
 }

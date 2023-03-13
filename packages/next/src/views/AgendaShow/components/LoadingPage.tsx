@@ -46,35 +46,47 @@ function FilterSkeleton() {
   );
 }
 
+export function FiltersSkeleton() {
+  return (
+    <>
+      <Flex display={{ base: 'none', lg: 'flex' }} direction="column" gap="8" mb="12">
+        <Skeleton h="50px" /> {/* Search */}
+        <Skeleton h="250px" /> {/* Map */}
+        <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
+          <FilterSkeleton />
+          <FilterSkeleton />
+        </Flex>
+      </Flex>
+
+      <Flex display={{ base: 'flex', lg: 'none' }} direction="column" gap="8" mx="4">
+        <Skeleton h="50px" /> {/* Search */}
+        <Skeleton h="10" /> {/* Filter button */}
+      </Flex>
+    </>
+  );
+}
+
+export function EventsSkeleton() {
+  return (
+    <Flex direction="column" flex="2" gap="10" mb="12">
+      <EventSkeleton />
+      <EventSkeleton />
+    </Flex>
+  );
+}
+
+export function TotalSkeleton() {
+  return (
+    <Skeleton h="4" w="full" maxW="300px" alignSelf="center" />
+  );
+}
+
 export default function LoadingPage() {
   return (
     <ContentGrid
-      total={(
-        <Skeleton h="4" w="full" maxW="300px" alignSelf="center" />
-      )}
-      filters={(
-        <>
-          <Flex display={{ base: 'none', lg: 'flex' }} direction="column" gap="8" mb="12">
-            <Skeleton h="50px" /> {/* Search */}
-            <Skeleton h="250px" /> {/* Map */}
-            <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
-              <FilterSkeleton />
-              <FilterSkeleton />
-            </Flex>
-          </Flex>
-
-          <Flex display={{ base: 'flex', lg: 'none' }} direction="column" gap="8" mx="4">
-            <Skeleton h="50px" /> {/* Search */}
-            <Skeleton h="10" /> {/* Filter button */}
-          </Flex>
-        </>
-      )}
-      events={(
-        <Flex direction="column" flex="2" gap="10" mb="12">
-          <EventSkeleton />
-          <EventSkeleton />
-        </Flex>
-      )}
+      total={<TotalSkeleton />}
+      events={<EventsSkeleton />}
+      filters={<FiltersSkeleton />}
     />
   );
 }

@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import { Button, ModalBody, ModalFooter, Text, Link } from '@openagenda/uikit';
+import base64 from 'utils/base64';
 import Description from './Description';
 import messages from './messages';
 
@@ -10,7 +11,7 @@ export default function UnloggedBody({ agenda }) {
 
   const url = new URL(router.asPath, 'http://n');
   url.searchParams.set('displayAggregatorModal', '1');
-  const redirectUrlPart = Buffer.from(url.pathname + url.search).toString('base64');
+  const redirectUrlPart = base64.encode(url.pathname + url.search);
 
   return (
     <>

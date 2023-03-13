@@ -2,6 +2,15 @@
 
 const { matchesUA } = require('browserslist-useragent');
 
+function isOutdatedBrowser(userAgent, opts = {}) {
+  return !matchesUA(userAgent, {
+    ignoreMinor: true,
+    ignorePatch: true,
+    allowHigherVersions: true,
+    ...opts,
+  })
+}
+
 module.exports = function outdatedBrowserMw(req, res, next) {
   const userAgent = req.headers['user-agent'];
 
@@ -9,13 +18,7 @@ module.exports = function outdatedBrowserMw(req, res, next) {
     return typeof next === 'function' ? next() : null;
   }
 
-  const outdatedBrowser = !matchesUA(userAgent, {
-    ignoreMinor: true,
-    ignorePatch: true,
-    allowHigherVersions: true
-  });
-
-  if (outdatedBrowser) {
+  if (isOutdatedBrowser(userAgent)) {
     req.outdatedBrowser = true;
   }
 
@@ -23,3 +26,5 @@ module.exports = function outdatedBrowserMw(req, res, next) {
     next();
   }
 }
+
+module.exports.isOutdatedBrowser = isOutdatedBrowser;
