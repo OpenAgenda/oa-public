@@ -6,8 +6,10 @@ module.exports = [
   'Firefox ESR',
   'not dead',
 
-  'firefox >= 43',
-  'chrome >= 42',
-  'not IE 11',
+  'chrome >= 64',
+  'edge >= 79',
+  'firefox >= 67',
+  'opera >= 51',
+  'safari >= 12',
   'unreleased versions'
 ];
