@@ -22,8 +22,8 @@
     "prepack": "webpack-cli --config webpack.config.js"
   },
   "dependencies": {
-    "browserslist-useragent": "^3.0.3",
-    "ua-parser-js": "^0.7.28"
+    "browserslist-useragent": "^4.0.0",
+    "ua-parser-js": "^1.0.34"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
