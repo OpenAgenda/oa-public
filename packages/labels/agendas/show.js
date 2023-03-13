@@ -387,7 +387,7 @@ module.exports = {
   "privateAgenda": {
     "en": "Private agenda",
     "fr": "Agenda privé",
-    "it": "Agenda privata",
+    "it": "Agenda privato",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
     "br": "Deiziataer prevez",

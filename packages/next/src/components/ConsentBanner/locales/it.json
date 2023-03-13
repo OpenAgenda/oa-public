@@ -1,3 +1,6 @@
 {
-  "next.components.ConsentBanner.moreInfoLink": "Per saperne di più"
+  "next.components.ConsentBanner.moreInfoLink": "Per saperne di più",
+  "next.components.ConsentBanner.accept": "Accettare",
+  "next.components.ConsentBanner.decline": "Rifiutare",
+  "next.components.ConsentBanner.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio Google Analytics. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?"
 }

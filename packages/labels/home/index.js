@@ -220,7 +220,7 @@ module.exports = {
     "de": "Privater Veranstaltungskalender",
     "br": "Deiziataer prevez",
     "es": "Eventos privados",
-    "it": "Diario privato",
+    "it": "Agenda privato",
     "io": "crwdns14938:0crwdne14938:0",
     "oc": "Agenda privada"
   },

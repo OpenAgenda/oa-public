@@ -1,5 +1,27 @@
 {
   "next.views.AgendaShow.ContextBar.contribute": "Aggiungere un evento",
   "next.views.AgendaShow.ContextBar.edit": "Modificare",
-  "next.views.AgendaShow.ContextBar.manage": "Gestire"
+  "next.views.AgendaShow.ContextBar.manage": "Gestire",
+  "next.views.AgendaShow.ContextBar.complete": "Esaurito",
+  "next.views.AgendaShow.ContextBar.drafts": "{count, number} bozze",
+  "next.views.AgendaShow.ContextBar.draftsModalInfo": "Queste sono le bozze salvate. Non sono visibili ai moderatori dell'agenda. Devono essere completate prima di poter essere moderate e pubblicate.",
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": "Bozze",
+  "next.views.AgendaShow.ContextBar.empty": "Questa agenda è vuota",
+  "next.views.AgendaShow.ContextBar.events": "Eventi:",
+  "next.views.AgendaShow.ContextBar.inModeration": "{count, number} da moderare",
+  "next.views.AgendaShow.ContextBar.inModerationModalInfo": "I seguenti eventi devono essere esaminati dai moderatori dell'agenda prima di essere pubblicati.",
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": "Eventi da moderare",
+  "next.views.AgendaShow.ContextBar.myEvents": "I miei eventi in questa agenda:",
+  "next.views.AgendaShow.ContextBar.notContributed": "Non hai ancora inserito nessun evento in questa agenda.",
+  "next.views.AgendaShow.ContextBar.published": "{count, number} pubblicati",
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": "Questi eventi sono stati pubblicati e sono accessibili agli lettori dell'agenda.",
+  "next.views.AgendaShow.ContextBar.publishedModalTitle": "Eventi pubblicati",
+  "next.views.AgendaShow.ContextBar.readyToPublish": "{count, number} pronto per la pubblicazione",
+  "next.views.AgendaShow.ContextBar.refused": "{count, number} rifiutati",
+  "next.views.AgendaShow.ContextBar.refusedModalInfo": "I seguenti eventi sono stati esaminati dai moderatori del calendario e sono stati rifiutati. Non saranno pubblicati.",
+  "next.views.AgendaShow.ContextBar.refusedModalTitle": "Eventi rifiutati",
+  "next.views.AgendaShow.ContextBar.show": "Mostrare",
+  "next.views.AgendaShow.ContextBar.toBeModerated": "{count, number} da moderare",
+  "next.views.AgendaShow.ContextBar.undefinedDescription": "Descrizione non definita",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Bozza di evento senza titolo"
 }
