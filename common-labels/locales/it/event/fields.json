@@ -4,5 +4,6 @@
   "common.event.fields.longDescription": "Descrizione lunga",
   "common.event.fields.onlineAccessLink": "Collegamento di accesso",
   "common.event.fields.timings": "Orari",
-  "common.event.fields.title": "Titolo"
+  "common.event.fields.title": "Titolo",
+  "common.event.fields.location": "Luogo"
 }
