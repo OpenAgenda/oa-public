@@ -35,6 +35,7 @@ module.exports = function onRemove({ services, members, activityQueue }) {
       legacy: {
         controlData: controlDataSvc,
       },
+      simpleCache,
     } = services;
 
     const { Inbox } = inboxes;
@@ -57,6 +58,13 @@ module.exports = function onRemove({ services, members, activityQueue }) {
 
       if (!memberUser) {
         throw new Error('User not found');
+      }
+
+      try {
+        await simpleCache.hash('members', `${member.agendaUid}.${member.userUid}`).del();
+        log('clear member cache');
+      } catch (e) {
+        log('error', 'failed to clear member cache', { member, exception: e });
       }
 
       // loading member removing
