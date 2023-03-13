@@ -21,6 +21,7 @@
    * Si on a modifié le pack
  * Redis
  * Regex
+ * Node
  * Yarn
    * Publier une lib publique de manière isolée
    * Patcher une lib publique de manière isolée
@@ -342,7 +343,17 @@ Utilitaires pour gérer des regex avec des routes express:
  * [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
  * [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
 
-express,regex
+## Node
+
+### Mise à jour
+
+Pour mettre à jour nodeJs à la dernière version LTS:
+
+**màj nvm**:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+**màj node**:
+nvm install 'lts/*' --reinstall-packages-from=node --latest-npm
 
 ## yarn
 
@@ -585,6 +596,13 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
  * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier
 
 ## Histoires
+
+### La cache des portails
+
+Le 07/03/2023
+
+Quand un `agenda-portal` va chercher un contenu à afficher en vue liste sur l'API, il met de coté une copie de ce qu'il lit de coté pendant 30 minutes. Si un visiteur vient voir la même page (même URL) sous ces 30 minutes, la copie épargne au portail un nouvel appel à l'API. Ceci est indépendant de l'activité sur OpenAgenda. Il peut arriver que le contenu de la liste évolue sous ces 30 minutes sur OpenAgenda, il ne sera alors répercuté sur le portail que lorsque la copie sera supprimée: au plus dans les prochaines 30 minutes. Nous pouvons réduire cette durée.
+
 
 ### L'ancien export JSON
 

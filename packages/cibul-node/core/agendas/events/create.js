@@ -18,6 +18,10 @@ const getAgenda = require('../utils/getAgenda');
 
 const assignState = require('../utils/assignState');
 
+const {
+  isImageToDuplicate,
+} = cleanDuplicateImage;
+
 module.exports = async (core, agendaUid, data, options = {}) => {
   log('info', 'creating event on agenda %s', agendaUid);
 
@@ -99,7 +103,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   log('  pre-validation done', { agendaUid });
 
   try {
-    if (clean.event.image && duplicateOrigin) {
+    if (duplicateOrigin && isImageToDuplicate(clean.event.image)) {
       clean.event.image = cleanDuplicateImage(core, clean.event.image);
     }
     const event = await events.create(clean.event, {
