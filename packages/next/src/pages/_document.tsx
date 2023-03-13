@@ -5,35 +5,64 @@ import Document, {
   NextScript,
   DocumentContext,
   DocumentInitialProps,
+  DocumentProps,
 } from 'next/document';
 import { Cookies } from 'react-cookie';
+import { ResponseCookies } from '@edge-runtime/cookies';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
 import getSession from 'utils/getSession';
 import getPreferredLocale from 'utils/getPreferredLocale';
 
+type CustomDocumentProps = {
+  sessionLocale?: string
+  outdatedBrowser?: boolean
+}
+type MyDocumentProps = DocumentProps & CustomDocumentProps
+type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
+
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
-function wrapWithCookies(ctx) {
+function wrapWithCookies(cookies) {
   return App => {
-    const cookies = new Cookies(ctx.req?.headers?.cookie);
-    const sessionLocale = getSession(cookies)?.user?.culture;
-
-    const Wrapped = props => {
-      const { pageProps } = props;
-      pageProps.sessionLocale = sessionLocale;
-
-      return <App universalCookies={cookies} {...props} />;
-    };
+    const Wrapped = props => (
+      <App universalCookies={cookies} {...props} />
+    );
     return Wrapped;
   };
 }
 
-function MyDocument({ locale, __NEXT_DATA__ }) {
+function OutdatedStyle({ assetPrefix }) {
+  return (
+    <link rel="stylesheet" href={`${assetPrefix}/_next/static/css/outdated-browser.css`} />
+  );
+}
+
+function OutdatedScript({ assetPrefix, locale }) {
+  return (
+    <>
+      <script
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: `window.outdatedBrowserOptions = ${JSON.stringify({ locale })};`,
+        }}
+      />
+      <script src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`} defer />
+    </>
+  );
+}
+
+function MyDocument({
+  locale,
+  __NEXT_DATA__,
+  assetPrefix,
+  sessionLocale,
+  outdatedBrowser,
+}: MyDocumentProps) {
   const preferredLocale = getPreferredLocale(
     __NEXT_DATA__.query.lang,
     locale,
-    __NEXT_DATA__.props.pageProps.sessionLocale,
+    sessionLocale,
   );
 
   return (
@@ -55,21 +84,31 @@ function MyDocument({ locale, __NEXT_DATA__ }) {
             <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_IMAGE_PREFIX} />
           </>
         ) : null}
+        {outdatedBrowser ? (
+          <OutdatedStyle assetPrefix={assetPrefix} />
+        ) : null}
       </Head>
       <body className="chakra-ui-light">
+        <div id="outdated" />
         <Main />
         <NextScript />
+        {outdatedBrowser ? (
+          <OutdatedScript assetPrefix={assetPrefix} locale={preferredLocale} />
+        ) : null}
       </body>
     </Html>
   );
 }
 
-MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitialProps> => {
+MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentInitialProps> => {
   const originalRenderPage = ctx.renderPage;
+
+  const cookies = new Cookies(ctx.req?.headers?.cookie);
+  const responseCookies = new ResponseCookies(new Headers(ctx.res.getHeaders() as HeadersInit));
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: wrapWithCookies(ctx),
+      enhanceApp: wrapWithCookies(cookies),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -78,6 +117,8 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<DocumentIniti
 
   return {
     ...initialProps,
+    sessionLocale: getSession(cookies)?.user?.culture,
+    outdatedBrowser: responseCookies.get('outdatedBrowser')?.value === 'true',
     styles: (
       <>
         {initialProps.styles}
