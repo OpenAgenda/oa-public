@@ -53,10 +53,10 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@formatjs/cli": "^4.8.3",
     "@formatjs/intl": "^1.6.7",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "dedent": "^0.7.0",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
@@ -65,8 +65,8 @@
     "yargs": "^17.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "eslint": "^8.24.0",

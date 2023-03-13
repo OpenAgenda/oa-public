@@ -1,7 +1,7 @@
 {
-  "common.event.accessiblities.mi": "Disabilità motoria",
-  "common.event.accessiblities.vi": "Invalidità visiva",
   "common.event.accessiblities.hi": "Disabilità uditiva",
   "common.event.accessiblities.ii": "Disabilità cognitiva",
-  "common.event.accessiblities.pi": "Disabilità psichica"
+  "common.event.accessiblities.mi": "Disabilità motoria",
+  "common.event.accessiblities.pi": "Disabilità psichica",
+  "common.event.accessiblities.vi": "Invalidità visiva"
 }
