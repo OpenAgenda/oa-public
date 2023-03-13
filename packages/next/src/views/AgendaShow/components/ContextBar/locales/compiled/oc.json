@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ContextBar.complete": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "Acabar"
     }
   ],
   "next.views.AgendaShow.ContextBar.contribute": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Apondre un eveniment"
     }
   ],
   "next.views.AgendaShow.ContextBar.drafts": [
@@ -49,13 +49,13 @@
   "next.views.AgendaShow.ContextBar.draftsModalTitle": [
     {
       "type": 0,
-      "value": "Brouillons"
+      "value": "Borrolhons"
     }
   ],
   "next.views.AgendaShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Modificar"
     }
   ],
   "next.views.AgendaShow.ContextBar.empty": [
@@ -89,13 +89,13 @@
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
     {
       "type": 0,
-      "value": "Événements en modération"
+      "value": "Eveniments en cors de moderacion"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
-      "value": "Gérer"
+      "value": "Gerir"
     }
   ],
   "next.views.AgendaShow.ContextBar.myEvents": [
@@ -240,13 +240,13 @@
   "next.views.AgendaShow.ContextBar.undefinedDescription": [
     {
       "type": 0,
-      "value": "Description non saisie"
+      "value": "Desripcion pas dintrada"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Événement brouillon sans titre"
+      "value": "Borrolhon d'eveniment sens títol"
     }
   ]
 }

@@ -193,7 +193,7 @@ module.exports = {
   "termsOfUse": {
     "en": "Terms of use",
     "fr": "Conditions d'utilisation",
-    "it": "Condizioni di utilizzo",
+    "it": "Modalità d'utilizzo",
     "de": "Nutzungsbedingungen",
     "pl": "Warunki korzystania",
     "es": "condiciones de uso",

@@ -2,55 +2,55 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "crwdns32999:0crwdne32999:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "crwdns33001:0crwdne33001:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "crwdns33003:0crwdne33003:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns33005:0crwdne33005:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "crwdns33007:0crwdne33007:0"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "crwdns33009:0crwdne33009:0"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "crwdns33011:0crwdne33011:0"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "crwdns33013:0crwdne33013:0"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "Favorites"
+      "value": "crwdns33015:0crwdne33015:0"
     }
   ]
 }

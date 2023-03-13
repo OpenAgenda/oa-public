@@ -1,4 +1,14 @@
 {
+  "next.views.AgendaError.agendaNotFound": "L'agenda non è stato trovato",
+  "next.views.AgendaError.contactSupport": "Contatta il supporto",
+  "next.views.AgendaError.forbiddenMsg": "Non avete accesso a questa agenda.{br}Verificate il link che vi è stato fornito o richiedete l'accesso.",
+  "next.views.AgendaError.internalError": "Errore interno",
+  "next.views.AgendaError.internalErrorMsg": "Se il problema persiste, contattare l'assistenza.",
+  "next.views.AgendaError.notFoundMsg": "Non esiste un calendario corrispondente a questo link.{br}O il link non è valido o il calendario è stato cancellato.",
+  "next.views.AgendaError.orSignup": "Oppure <link>iscriviti</link> se non hai ancora un account.",
+  "next.views.AgendaError.requestInvitation": "Richiedere un invito",
+  "next.views.AgendaError.restrictedAccess": "L'accesso a questa agenda è limitato,<br></br> autenticarsi prima di potere accedere.",
   "next.views.AgendaError.searchAgenda": "Cerca un'agenda",
-  "next.views.AgendaError.signIn": "Accedi"
+  "next.views.AgendaError.signIn": "Accedi",
+  "next.views.AgendaError.unauthorizedMsg": "L'accesso a questa agenda è limitato,{br} autenticarsi prima di potere accedere."
 }

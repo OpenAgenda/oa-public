@@ -588,7 +588,7 @@ module.exports = {
     "fr": "Conditions d'utilisation",
     "de": "Nutzungsbedingungen",
     "es": "condiciones de uso",
-    "it": "Termini e condizioni di utilizzo",
+    "it": "Modalità d'utilizzo",
     "br": "Penndivizoù implij",
     "io": "crwdns13416:0crwdne13416:0",
     "oc": "Condicions d'utilizacion"

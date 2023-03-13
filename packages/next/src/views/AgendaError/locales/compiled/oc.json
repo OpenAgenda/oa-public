@@ -8,7 +8,7 @@
   "next.views.AgendaError.contactSupport": [
     {
       "type": 0,
-      "value": "Contacter le support"
+      "value": "Contactar l'assisténcia"
     }
   ],
   "next.views.AgendaError.forbiddenMsg": [
@@ -86,13 +86,13 @@
   "next.views.AgendaError.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda"
+      "value": "Cercar una agenda"
     }
   ],
   "next.views.AgendaError.signIn": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Se connectar"
     }
   ],
   "next.views.AgendaError.unauthorizedMsg": [

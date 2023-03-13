@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ContextBar.complete": [
     {
       "type": 0,
-      "value": "Complete"
+      "value": "Esaurito"
     }
   ],
   "next.views.AgendaShow.ContextBar.contribute": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Aggiungere un evento"
     }
   ],
   "next.views.AgendaShow.ContextBar.drafts": [
@@ -19,37 +19,37 @@
     },
     {
       "type": 0,
-      "value": " drafts"
+      "value": " bozze"
     }
   ],
   "next.views.AgendaShow.ContextBar.draftsModalInfo": [
     {
       "type": 0,
-      "value": "These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published."
+      "value": "Queste sono le bozze salvate. Non sono visibili ai moderatori dell'agenda. Devono essere completate prima di poter essere moderate e pubblicate."
     }
   ],
   "next.views.AgendaShow.ContextBar.draftsModalTitle": [
     {
       "type": 0,
-      "value": "Drafts"
+      "value": "Bozze"
     }
   ],
   "next.views.AgendaShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificare"
     }
   ],
   "next.views.AgendaShow.ContextBar.empty": [
     {
       "type": 0,
-      "value": "This agenda is empty"
+      "value": "Questa agenda è vuota"
     }
   ],
   "next.views.AgendaShow.ContextBar.events": [
     {
       "type": 0,
-      "value": "Events:"
+      "value": "Eventi:"
     }
   ],
   "next.views.AgendaShow.ContextBar.inModeration": [
@@ -60,37 +60,37 @@
     },
     {
       "type": 0,
-      "value": " in moderation"
+      "value": " da moderare"
     }
   ],
   "next.views.AgendaShow.ContextBar.inModerationModalInfo": [
     {
       "type": 0,
-      "value": "The following events should be reviewed by the moderators of the agenda before they are published."
+      "value": "I seguenti eventi devono essere esaminati dai moderatori dell'agenda prima di essere pubblicati."
     }
   ],
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
     {
       "type": 0,
-      "value": "Events in moderation"
+      "value": "Eventi da moderare"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
-      "value": "Manage"
+      "value": "Gestire"
     }
   ],
   "next.views.AgendaShow.ContextBar.myEvents": [
     {
       "type": 0,
-      "value": "My events in this agenda:"
+      "value": "I miei eventi in questa agenda:"
     }
   ],
   "next.views.AgendaShow.ContextBar.notContributed": [
     {
       "type": 0,
-      "value": "You haven't submitted any events to this agenda yet."
+      "value": "Non hai ancora inserito nessun evento in questa agenda."
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
@@ -101,19 +101,19 @@
     },
     {
       "type": 0,
-      "value": " published"
+      "value": " pubblicati"
     }
   ],
   "next.views.AgendaShow.ContextBar.publishedModalInfo": [
     {
       "type": 0,
-      "value": "These events have been published and are accessible by the viewers of the agenda."
+      "value": "Questi eventi sono stati pubblicati e sono accessibili agli lettori dell'agenda."
     }
   ],
   "next.views.AgendaShow.ContextBar.publishedModalTitle": [
     {
       "type": 0,
-      "value": "Events published"
+      "value": "Eventi pubblicati"
     }
   ],
   "next.views.AgendaShow.ContextBar.readyToPublish": [
@@ -124,7 +124,7 @@
     },
     {
       "type": 0,
-      "value": " ready to publish"
+      "value": " pronto per la pubblicazione"
     }
   ],
   "next.views.AgendaShow.ContextBar.refused": [
@@ -135,25 +135,25 @@
     },
     {
       "type": 0,
-      "value": " refused"
+      "value": " rifiutati"
     }
   ],
   "next.views.AgendaShow.ContextBar.refusedModalInfo": [
     {
       "type": 0,
-      "value": "The following events have been reviewed by the moderators of the calendar and have been refused. They will not be published."
+      "value": "I seguenti eventi sono stati esaminati dai moderatori del calendario e sono stati rifiutati. Non saranno pubblicati."
     }
   ],
   "next.views.AgendaShow.ContextBar.refusedModalTitle": [
     {
       "type": 0,
-      "value": "Events refused"
+      "value": "Eventi rifiutati"
     }
   ],
   "next.views.AgendaShow.ContextBar.show": [
     {
       "type": 0,
-      "value": "Show"
+      "value": "Mostrare"
     }
   ],
   "next.views.AgendaShow.ContextBar.toBeModerated": [
@@ -164,19 +164,19 @@
     },
     {
       "type": 0,
-      "value": " to be moderated"
+      "value": " da moderare"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedDescription": [
     {
       "type": 0,
-      "value": "Undefined description"
+      "value": "Descrizione non definita"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Draft event without title"
+      "value": "Bozza di evento senza titolo"
     }
   ]
 }

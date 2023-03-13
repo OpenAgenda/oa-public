@@ -2,13 +2,13 @@
   "next.views.AgendaShow.AggregateModal.createAgenda": [
     {
       "type": 0,
-      "value": "Create an agenda"
+      "value": "crwdns33025:0crwdne33025:0"
     }
   ],
   "next.views.AgendaShow.AggregateModal.noAgenda": [
     {
       "type": 0,
-      "value": "Warning: You are not currently administering any agenda. You need to create one before you can aggregate "
+      "value": "crwdns33027:0"
     },
     {
       "type": 1,
@@ -16,25 +16,25 @@
     },
     {
       "type": 0,
-      "value": "."
+      "value": "crwdne33027:0"
     }
   ],
   "next.views.AgendaShow.AggregateModal.shouldConnect": [
     {
       "type": 0,
-      "value": "You need to sign in to your account to aggregate this agenda."
+      "value": "crwdns33029:0crwdne33029:0"
     }
   ],
   "next.views.AgendaShow.AggregateModal.signin": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns33031:0crwdne33031:0"
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
-      "value": "Events published by "
+      "value": "crwdns33033:0"
     },
     {
       "type": 1,
@@ -42,13 +42,13 @@
     },
     {
       "type": 0,
-      "value": " will be automatically added to the selected agenda."
+      "value": "crwdne33033:0"
     }
   ],
   "next.views.AgendaShow.AggregateModal.title": [
     {
       "type": 0,
-      "value": "Aggregate to an agenda"
+      "value": "crwdns33035:0crwdne33035:0"
     }
   ]
 }

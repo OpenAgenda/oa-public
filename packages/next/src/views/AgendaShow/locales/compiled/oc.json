@@ -2,7 +2,7 @@
   "next.views.AgendaShow.filter": [
     {
       "type": 0,
-      "value": "Filtrer"
+      "value": "Filtre"
     }
   ],
   "next.views.AgendaShow.filters": [
@@ -14,7 +14,7 @@
   "next.views.AgendaShow.help": [
     {
       "type": 0,
-      "value": "Aide"
+      "value": "Ajuda"
     }
   ],
   "next.views.AgendaShow.includePassedEvents": [
@@ -53,7 +53,7 @@
   "next.views.AgendaShow.termsOfUse": [
     {
       "type": 0,
-      "value": "Conditions d'utilisation"
+      "value": "Condicions d'utilizacion"
     }
   ],
   "next.views.AgendaShow.totalEvents": [

@@ -32,7 +32,7 @@
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [

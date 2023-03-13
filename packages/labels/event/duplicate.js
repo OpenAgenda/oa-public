@@ -67,7 +67,7 @@ module.exports = {
     "de": "Privater Kalender",
     "br": "Deiziataer prevez",
     "es": "Agenda privado",
-    "it": "Diario privato",
+    "it": "Agenda privato",
     "io": "crwdns14130:0crwdne14130:0",
     "oc": "Agenda privada"
   },

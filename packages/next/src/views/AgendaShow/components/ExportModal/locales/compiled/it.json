@@ -2,151 +2,151 @@
   "gcalStep2": [
     {
       "type": 0,
-      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
+      "value": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\"."
     }
   ],
   "gcalStep3": [
     {
       "type": 0,
-      "value": "3. Follow the instructions by pasting the link you copied in step 1"
+      "value": "3. Segui le istruzioni incollando il link che hai copiato al punto 1"
     }
   ],
   "instructions": [
     {
       "type": 0,
-      "value": "Instructions"
+      "value": "Istruzioni"
     }
   ],
   "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "1. Copy the link in the field above and open"
+      "value": "1. Copiare il link nel campo qui sopra e aprirlo"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Chiudere"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
     {
       "type": 0,
-      "value": "Use the detailed format"
+      "value": "Usa il formato dettagliato"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
     {
       "type": 0,
-      "value": "See the documentation"
+      "value": "Vedere la documentazione"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [
     {
       "type": 0,
-      "value": "Export all events"
+      "value": "Esportare tutti gli eventi"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
     {
       "type": 0,
-      "value": "Use the previous JSON export version"
+      "value": "Usa la versione precedente dell'esportazione JSON"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportSelection": [
     {
       "type": 0,
-      "value": "Export current event selection"
+      "value": "Esportare la selezione di eventi"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
     {
       "type": 0,
-      "value": "Choose a format"
+      "value": "Scegliere un formatto"
     }
   ],
   "next.views.AgendaShow.ExportModal.jsonDoc1": [
     {
       "type": 0,
-      "value": "Documentation"
+      "value": "Documentazione"
     }
   ],
   "next.views.AgendaShow.ExportModal.jsonDoc2": [
     {
       "type": 0,
-      "value": "here"
+      "value": "qui"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
-      "value": "Please log in to access the export link directly from this menu"
+      "value": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Esportare"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
     {
       "type": 0,
-      "value": "Export every field"
+      "value": "Esportare tutte le informazione"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
     {
       "type": 0,
-      "value": "Export in all languages"
+      "value": "Esportare tutte le lingue"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
     {
       "type": 0,
-      "value": "Fields with options: display one value per column"
+      "value": "Campi con opzioni: visualizza un valore per colonna"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.input-field": [
     {
       "type": 0,
-      "value": "Select the fields to export"
+      "value": "Selezionare i campi da esportare"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.select-all": [
     {
       "type": 0,
-      "value": "Select all"
+      "value": "Selezionare tutto"
     }
   ],
   "outlookStep2": [
     {
       "type": 0,
-      "value": "2. At the bottom of the page, select the calendar icon"
+      "value": "2. In fondo alla pagina, seleziona l'icona del calendario"
     }
   ],
   "outlookStep3": [
     {
       "type": 0,
-      "value": "3. In the navigation pane, select \"Add calendar\""
+      "value": "3. Nel pannello di navigazione, seleziona \"Aggiungi calendario\""
     }
   ],
   "outlookStep4": [
     {
       "type": 0,
-      "value": "4. Select \"Subscribe from web\""
+      "value": "4. Selezionare \"Iscriviti dal web\""
     }
   ],
   "outlookStep5": [
     {
       "type": 0,
-      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
+      "value": "5. Incolla l'URL che hai copiato nel passo 1. Selezionare \"Importa\"."
     }
   ]
 }
