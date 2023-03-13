@@ -18,6 +18,9 @@
     "./middleware": "./middleware.js",
     "./*": "./dist/*"
   },
+  "scripts": {
+    "prepack": "webpack-cli --config webpack.config.js"
+  },
   "dependencies": {
     "browserslist-useragent": "^3.0.3",
     "ua-parser-js": "^0.7.28"
