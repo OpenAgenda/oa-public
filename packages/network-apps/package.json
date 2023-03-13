@@ -13,7 +13,7 @@
     "storybook": "start-storybook --port=9001 --ci"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/form-schemas": "^1.9.2",
     "@openagenda/labels": "^2.3.0",
@@ -22,7 +22,7 @@
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "body-parser": "^1.18.2",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "express": "^4.17.1",
     "history": "^4.10.1",
     "immutability-helper": "^3.0.0",
@@ -40,8 +40,8 @@
     "serialize-javascript": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/react": "^6.5.9",

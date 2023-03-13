@@ -13,7 +13,7 @@
     "extract-messages": "yarn oa-intl 'embeds/app/src/**/*.js' --output 'embeds/app/src/locales/%lang%.json' --compiled 'embeds/app/src/locales-compiled/%lang%.json'"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/logs": "^1.1.9",
@@ -44,8 +44,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@loadable/babel-plugin": "^5.13.2",
     "@openagenda/babel-preset": "^1.5.0",
     "@storybook/react": "^6.5.9",
