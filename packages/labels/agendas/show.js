@@ -26,7 +26,7 @@ module.exports = {
   "online": {
     "en": "Online",
     "fr": "En ligne",
-    "it": "In linea",
+    "it": "Evento online",
     "es": "En linea",
     "br": "Enlinenn",
     "io": "crwdns12904:0crwdne12904:0",
@@ -156,7 +156,7 @@ module.exports = {
   "manage": {
     "en": "Manage",
     "fr": "Gérer",
-    "it": "Gestisci",
+    "it": "Gestire",
     "de": "verwalten",
     "pl": "Zarządzaj",
     "br": "Merañ",

@@ -7,7 +7,7 @@ module.exports = {
     "de": "Motorische beeinträchtigung",
     "es": "Movilidad reducida",
     "br": "Dalc'het en o c'heflusk",
-    "it": "Incapacità motoria",
+    "it": "Disabilità motoria",
     "io": "crwdns14076:0crwdne14076:0",
     "oc": "Handicap motor"
   },

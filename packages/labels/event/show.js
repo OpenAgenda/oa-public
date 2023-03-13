@@ -250,7 +250,7 @@ module.exports = {
   "seeAllEvents": {
     "en": "see all the events",
     "fr": "voir tous les événements",
-    "it": "Vedere tutti gli eventi",
+    "it": "vedere tutti gli eventi",
     "de": "alle Veranstaltungen ansehen",
     "pl": "Zobacz wszystkie wydarzenia",
     "es": "ver todos los eventos",
@@ -789,7 +789,7 @@ module.exports = {
   "editLocation": {
     "en": "Edit location",
     "fr": "Editer le lieu",
-    "it": "Pubblicare il luogo",
+    "it": "Modificare il luogo",
     "de": "Ortsbeschreibung bearbeiten",
     "pl": "Edytuj miejsce",
     "es": "Editar lugar",
@@ -912,7 +912,7 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Oramai in linea",
+    "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16124:0crwdne16124:0"
   },

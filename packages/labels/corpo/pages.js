@@ -587,7 +587,7 @@ module.exports = {
     "en": "Do you need to manage several agendas?",
     "de": "Sie benötigen mehrere Kalenders verwalten?",
     "es": "Es necesario varios agendas?",
-    "it": "Avete bisogno di diversi ordini del giorno?",
+    "it": "Avete bisogno di diversi agende ?",
     "io": "crwdns13590:0crwdne13590:0"
   },
   "agendaPricingNetworkDetail": {
@@ -812,7 +812,7 @@ module.exports = {
     "en": "You do not know how many events you manage per year ? We do.",
     "de": "Sie wissen nicht, wie viele Veranstaltungen, die Sie pro Jahr zu verwalten? Wir tun.",
     "es": "Usted no sabe cuántos eventos de manejar por año? Nosotros sí.",
-    "it": "Non sai quanti eventi gestisci all'anno? Noi lo facciamo.",
+    "it": "Non sai quanti eventi gestisci all'anno? Noi forse si.",
     "io": "crwdns13646:0crwdne13646:0"
   },
   "networkHowManyAction": {
@@ -892,7 +892,7 @@ module.exports = {
     "en": "Your event data is:",
     "de": "Ihre Veranstaltungdaten sind:",
     "es": "Sus datos de eventos son:",
-    "it": "I suoi dati di evento sono:",
+    "it": "I sui dati di evento sono:",
     "io": "crwdns13666:0crwdne13666:0"
   },
   "openDataStandard": {

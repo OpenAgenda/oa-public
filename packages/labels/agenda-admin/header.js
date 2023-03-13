@@ -24,7 +24,7 @@ module.exports = {
     "en": "Manage",
     "de": "Verwalten",
     "es": "Gestionar",
-    "it": "Gestisci",
+    "it": "Gestire",
     "io": "crwdns11390:0crwdne11390:0",
     "oc": "Gerir"
   },

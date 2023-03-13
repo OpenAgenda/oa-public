@@ -1,7 +1,7 @@
 {
   "export": "Esportare",
   "share": "Condividere",
-  "online": "In linea",
+  "online": "Evento online",
   "addEvent": "Aggiungere un evento",
   "startToFinish": "Dallo %start% al %finish%",
   "startTime": "%start%, %time%",
@@ -13,7 +13,7 @@
   "about": "Su",
   "help": "Aiuto",
   "termsOfUse": "Modalità d'utilizzo",
-  "manage": "Gestisci",
+  "manage": "Gestire",
   "searchWhenMoveMap": "Cercare quando sposto la mappa",
   "map": "Mappa",
   "selectDates": "Scegli una data",
