@@ -66,14 +66,23 @@ Pour les données qui transitent sur le web il est important de chiffrer les don
 Pour éditer la variable `mysql-have_ssl` de la db de configuration:
 
 ```
-mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'SET mysql-have_ssl = 1; LOAD MYSQL VARIABLES TO RUNTIME; SAVE MYSQL VARIABLES TO DISK; PROXYSQL RESTART;'
+mysql -h 127.0.0.1 -P6032 -uadmin -padmin
+mysql> SET mysql-have_ssl = 1;
+mysql> LOAD MYSQL VARIABLES TO RUNTIME;
+mysql> SAVE MYSQL VARIABLES TO DISK;
+mysql> PROXYSQL RESTART;
 ```
+
 #### Désactiver les connexions non sécurisées
 
 Pour empêcher de se connecter de manière non sécurisée, il faut de nouveau se connecter sur chaque instance de l'environnement "DB Load balancer" pour modifier une variable liée au compte utilisé pour la connexion. Sur un ssh de chaque instance ProxySQL, lancer la commande suivante:
 
 ```
-mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'UPDATE mysql_users SET use_ssl=1; LOAD MYSQL USERS TO RUNTIME; SAVE MYSQL USERS TO DISK; PROXYSQL RESTART;'
+mysql -h 127.0.0.1 -P6032 -uadmin -padmin
+mysql> UPDATE mysql_users SET use_ssl=1;
+mysql> LOAD MYSQL USERS TO RUNTIME;
+mysql> SAVE MYSQL USERS TO DISK;
+mysql> PROXYSQL RESTART;
 ```
 
 La connexion non sécurisée est désormais non autorisée.
