@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@elastic/elasticsearch": "^7.0.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/labels": "^2.3.0",
@@ -26,7 +26,7 @@
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.0.0",
     "async": "^1.5.2",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "create-react-class": "^15.5.2",
     "immer": "^9.0.1",
     "immutability-helper": "^3.0.0",
@@ -41,8 +41,8 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@babel/node": "^7.13.13",
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.5.0",

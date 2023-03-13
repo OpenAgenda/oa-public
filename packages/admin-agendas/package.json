@@ -23,7 +23,7 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/admin-agendas",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
@@ -32,7 +32,7 @@
     "@openagenda/validators": "^2.4.0",
     "async": "^2.1.4",
     "body-parser": "^1.15.2",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "create-react-class": "^15.5.2",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
@@ -43,8 +43,8 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@babel/node": "^7.13.13",
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.5.0",

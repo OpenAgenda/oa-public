@@ -29,7 +29,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/form-schemas": "^1.9.2",
@@ -41,7 +41,7 @@
     "@openagenda/validators": "^2.4.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "emoji-regex": "^10.2.1",
     "final-form": "^4.20.2",
     "history": "^4.10.1",
@@ -61,8 +61,8 @@
     "tlds": "^1.236.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@emotion/babel-plugin": "^11.10.5",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
