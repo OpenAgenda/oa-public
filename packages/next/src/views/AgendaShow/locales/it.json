@@ -1,1 +1,6 @@
-{}
+{
+  "next.views.AgendaShow.filter": "Filtro",
+  "next.views.AgendaShow.filters": "Filtri",
+  "next.views.AgendaShow.help": "Aiuto",
+  "next.views.AgendaShow.seeMore": "Vedere di più"
+}

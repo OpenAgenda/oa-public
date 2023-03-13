@@ -1,1 +1,7 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Aggiungere un evento",
+  "next.views.AgendaShow.AgendaHeader.contact": "Contattare",
+  "next.views.AgendaShow.AgendaHeader.export": "Esportare",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda ufficiale",
+  "next.views.AgendaShow.EventItem.featured": "Selezionato"
+}

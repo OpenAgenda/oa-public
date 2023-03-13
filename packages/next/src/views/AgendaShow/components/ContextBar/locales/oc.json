@@ -1,1 +1,10 @@
-{}
+{
+  "next.views.AgendaShow.ContextBar.complete": "Acabar",
+  "next.views.AgendaShow.ContextBar.contribute": "Apondre un eveniment",
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": "Borrolhons",
+  "next.views.AgendaShow.ContextBar.edit": "Modificar",
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": "Eveniments en cors de moderacion",
+  "next.views.AgendaShow.ContextBar.manage": "Gerir",
+  "next.views.AgendaShow.ContextBar.undefinedDescription": "Desripcion pas dintrada",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Borrolhon d'eveniment sens títol"
+}

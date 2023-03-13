@@ -1,1 +1,5 @@
-{}
+{
+  "next.views.AgendaShow.ContextBar.contribute": "Aggiungere un evento",
+  "next.views.AgendaShow.ContextBar.edit": "Modificare",
+  "next.views.AgendaShow.ContextBar.manage": "Gestire"
+}

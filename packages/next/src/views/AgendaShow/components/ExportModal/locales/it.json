@@ -1,1 +1,9 @@
-{}
+{
+  "gcalStep2": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
+  "next.views.AgendaShow.ExportModal.cancel": "Annulla",
+  "next.views.AgendaShow.ExportModal.close": "Chiudere",
+  "next.views.AgendaShow.ExportModal.documentation": "Vedere la documentazione",
+  "next.views.AgendaShow.ExportModal.title": "Esportare",
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": "Selezionare tutto",
+  "outlookStep3": "3. Nel pannello di navigazione, seleziona \"Aggiungi calendario\""
+}
