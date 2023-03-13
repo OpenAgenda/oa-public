@@ -34,7 +34,7 @@ module.exports = declare((api, options) => {
     debug: false,
     loose: false,
     modules: 'auto',
-    shippedProposals: true
+    shippedProposals: true,
   };
 
   const transformRuntime = 'transformRuntime' in options ? options.transformRuntime : true;
@@ -63,6 +63,10 @@ module.exports = declare((api, options) => {
       break;
   }
 
+  if ('targets' in options) {
+    envOpts.targets = options.targets;
+  }
+
   if ('modules' in options) {
     envOpts.modules = options.modules;
   }
@@ -81,18 +85,6 @@ module.exports = declare((api, options) => {
       {
         useBuiltIns,
         corejs,
-        targets: {
-          browsers: [
-            '> 0.25%',
-            'last 2 versions',
-            'Firefox >= 24',
-            'Chrome >= 33',
-            'Safari >= 9',
-            'IE >= 11',
-            'last 4 Edge versions'
-          ],
-          node: '8'
-        },
         ...envOpts
       }
     ],
