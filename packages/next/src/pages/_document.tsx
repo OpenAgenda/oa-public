@@ -23,11 +23,19 @@ type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
 
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
-function wrapWithCookies(cookies) {
+function wrapApp({ cookies, sessionLocale }) {
   return App => {
-    const Wrapped = props => (
-      <App universalCookies={cookies} {...props} />
-    );
+    const Wrapped = props => {
+      const { pageProps } = props;
+      pageProps.sessionLocale = sessionLocale;
+
+      return (
+        <App
+          universalCookies={cookies}
+          {...props}
+        />
+      );
+    };
     return Wrapped;
   };
 }
@@ -109,9 +117,11 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
     || cookies.get('outdatedBrowser') === 'true';
 
+  const sessionLocale = getSession(cookies)?.user?.culture;
+
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: wrapWithCookies(cookies),
+      enhanceApp: wrapApp({ cookies, sessionLocale }),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -120,7 +130,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   return {
     ...initialProps,
-    sessionLocale: getSession(cookies)?.user?.culture,
+    sessionLocale,
     outdatedBrowser,
     styles: (
       <>

@@ -42,13 +42,18 @@ const useForceHtmlLangAttribute = preferredLocale => {
   }, [preferredLocale]);
 };
 
-function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithLayout<PageProps>) {
+function MyApp({
+  Component,
+  pageProps,
+  router,
+  universalCookies,
+}: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
 
-  const { intlMessages } = pageProps;
+  const { intlMessages, sessionLocale } = pageProps;
 
-  const locale = getPreferredLocale(router.query.lang, router.locale, pageProps.sessionLocale);
+  const locale = getPreferredLocale(router.query.lang, router.locale, sessionLocale);
 
   useForceHtmlLangAttribute(locale);
 
