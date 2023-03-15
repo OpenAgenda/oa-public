@@ -343,6 +343,16 @@ export function Conditional() {
         fieldType: 'boolean',
         label: 'And this as well',
         enableWith: 'anything',
+      }, {
+        field: 'thisToo',
+        fieldType: 'radio',
+        label: 'This too',
+        options: [{
+          id: 2,
+          value: 'two',
+          label: 'Two',
+        }],
+        enableWith: 'anything',
       }],
     },
   };

@@ -11,6 +11,7 @@ export default function RadioField(props) {
     field,
     value,
     lang,
+    enabled,
   } = props;
 
   const optional = field.optional ?? true;
@@ -48,6 +49,7 @@ export default function RadioField(props) {
               name={field.field}
               onChange={onSelect.bind(null, o)}
               checked={isChecked(o)}
+              disabled={!enabled}
             />
             {o.label}
             {o.info && <div className="text-muted">{o.info}</div>}
