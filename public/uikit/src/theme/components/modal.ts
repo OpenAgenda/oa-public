@@ -9,6 +9,7 @@ const baseStyle = definePartsStyle(props => ({
   },
   dialog: {
     borderRadius: 'base',
+    width: 'inherit',
   },
 }));
 
