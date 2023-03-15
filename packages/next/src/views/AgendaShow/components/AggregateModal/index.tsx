@@ -62,7 +62,7 @@ export default function AggregateModal({
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w="xl">
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {

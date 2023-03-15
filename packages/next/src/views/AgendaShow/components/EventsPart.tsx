@@ -46,7 +46,7 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
     const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
     url.search = qs.stringify({
       ...query,
-      after: pages?.at(-1).after?.map(String),
+      after: pages?.[pages.length - 1].after?.map(String),
     });
     return url.pathname + url.search;
   }, [router.asPath, query, pages]);
@@ -58,6 +58,10 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
 
   if (isLoadingInitialData) {
     return <EventsSkeleton />;
+  }
+
+  if (isEmpty) {
+    return null;
   }
 
   return (

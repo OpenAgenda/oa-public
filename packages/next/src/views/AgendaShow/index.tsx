@@ -177,7 +177,11 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       <main>
         <Metas agenda={agenda} query={query} preload={preload} />
 
-        {user ? <ContextBar agenda={agenda} /> : null}
+        {user ? (
+          <Box pos="sticky" top="0" zIndex="sticky">
+            <ContextBar agenda={agenda} />
+          </Box>
+        ) : null}
 
         <Box as="header" w="full" bg="#413a42" px="4" py="8">
           <Container maxW="container.xl" color="white">

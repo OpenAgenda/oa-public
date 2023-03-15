@@ -47,7 +47,8 @@ function EventImage({ src, loader = null }) {
       height="56"
       src={src}
       fallbackSrc={isDev && typeof src === 'string'
-        ? src.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
+        ? src.replace('cibuldev', 'cibul')
+          .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)
         : undefined}
       fallbackStrategy="onError"
       alt=""
@@ -134,6 +135,7 @@ function EventsModalBody({ agenda, bundleState }) {
         const searchParamsStr = qs.stringify({
           offset: (page || 0) * PAGE_SIZE,
           limit: PAGE_SIZE,
+          useDefaultImage: false,
         });
         return fetch(`/api/me/agendas/${agenda.uid}/events/drafts?${searchParamsStr}`)
           .then(r => {
@@ -218,7 +220,7 @@ export default function EventsModal({ isOpen, onClose, agenda, bundleState }) {
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w="xl">
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {
