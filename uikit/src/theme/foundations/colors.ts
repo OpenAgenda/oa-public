@@ -24,6 +24,12 @@ const colors = {
     800: '#474747',
     900: '#333333', //
   },
+  states: {
+    refused: '#da4453',
+    toControl: '#ffffff',
+    controlled: '#f6bb42',
+    published: '#5cb85c',
+  },
 };
 
 export default colors;
