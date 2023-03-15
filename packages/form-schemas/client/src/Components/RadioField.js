@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import formSchemaLabels from '@openagenda/labels/form-schemas';
 import makeLabelGetter from '@openagenda/labels';
@@ -10,7 +10,7 @@ export default function RadioField(props) {
     onChange,
     field,
     value,
-    lang
+    lang,
   } = props;
 
   const optional = field.optional ?? true;
@@ -35,7 +35,7 @@ export default function RadioField(props) {
     <>
       {field.options.filter(o => o.display).concat(optional ? [{
         label: getLabel('noChoice', lang),
-        id: null
+        id: null,
       }] : []).map(o => (
         <div
           className="radio"
