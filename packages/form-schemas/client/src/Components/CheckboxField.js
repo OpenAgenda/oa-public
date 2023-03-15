@@ -1,14 +1,12 @@
-import React, { Fragment } from 'react';
-
 export default function CheckboxField(props) {
   const {
     field: {
       options,
       field: name,
-      default: defaultValue
+      default: defaultValue,
     },
     value,
-    onChange
+    onChange,
   } = props;
 
   const defaultChecked = [].concat(defaultValue || []);
