@@ -60,6 +60,10 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
     return <EventsSkeleton />;
   }
 
+  if (isEmpty) {
+    return null;
+  }
+
   return (
     <>
       <Flex direction="column" flex="2" gap="10" mb="12">
