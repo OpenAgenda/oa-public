@@ -10,15 +10,15 @@ const getAgendas = require('./getAgendas');
 module.exports = core => {
   const {
     services,
-    tasks
+    tasks,
   } = core;
 
   tasks.register({
-    agendaRebuild: agendaUid => core.agendas(agendaUid).rebuild()
+    agendaRebuild: agendaUid => core.agendas(agendaUid).rebuild(),
   });
 
   const {
-    formSchemas
+    formSchemas,
   } = services;
 
   return async (networkUid, updatedFields) => {

@@ -4,7 +4,7 @@ const log = require('@openagenda/logs')('services/agendas/resetCache');
 
 module.exports = async function clearCache(services, agenda) {
   const {
-    simpleCache
+    simpleCache,
   } = services;
 
   log('resetting cache for agenda %s', agenda.slug);
