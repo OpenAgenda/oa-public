@@ -6,7 +6,7 @@ const RedisStore = require('rate-limit-redis');
 
 function RateLimit(_config, services) {
   const {
-    redis
+    redis,
   } = services;
 
   const limiter = rateLimit({
@@ -16,8 +16,8 @@ function RateLimit(_config, services) {
     legacyHeaders: false,
     resetExpiryOnChange: true,
     store: new RedisStore({
-      sendCommand: (command, ...args) => promisify(redis.sendCommand).call(redis, command, args)
-    })
+      sendCommand: (command, ...args) => promisify(redis.sendCommand).call(redis, command, args),
+    }),
   });
 
   return limiter;
