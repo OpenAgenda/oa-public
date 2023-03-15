@@ -37,7 +37,7 @@ export default function ContextBar({ agenda }) {
 
   return (
     <Collapse in animateOpacity>
-      <Flex h="50px" px="6" bg="primary.500" align="center" color="white">
+      <Flex minH="50px" px="6" bg="primary.500" align="center" color="white">
         {isAdminMod ? (
           <ModeratorContextBar agenda={agenda} states={events.states} />
         ) : (

@@ -136,7 +136,7 @@ function ProfileMenu({ user, portalRef }) {
         </MenuButton>
         <MenuList
           // https://github.com/chakra-ui/chakra-ui/issues/5742
-          zIndex="5"
+          zIndex="popover"
         >
           <MenuItem as={Link} href="/home" textAlign="right">
             {intl.formatMessage(messages.myAgendas)}
