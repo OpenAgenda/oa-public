@@ -17,6 +17,7 @@ export default props => {
     onChange,
     value,
     error,
+    enabled,
   } = props;
 
   const {
@@ -40,6 +41,7 @@ export default props => {
           name={name}
           onChange={() => onChange(checked ? falsyValue : true)}
           checked={checked}
+          disabled={!enabled}
         />
         <span className={classNames({ 'margin-right-xs': hasHelp(field) || !isOptional })}>{label}</span>
         {isOptional ? null : (
