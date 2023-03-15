@@ -238,7 +238,7 @@ export default function ExportModal({
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w={['sm', 'sm', 'lg']}>
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {
@@ -258,7 +258,11 @@ export default function ExportModal({
                 <Radio value="export-selection" onChange={() => setMode('selection')}>{intl.formatMessage(messages.exportSelection)}</Radio>
               </VStack>
             </RadioGroup>
-            <Accordion mt="4" onChange={(index: number) => setChoice(formats[index].type, formats[index].id)}>
+            <Accordion
+              allowToggle
+              mt="4"
+              onChange={(index: number) => setChoice(formats[index]?.type, formats[index]?.id)}
+            >
               {formats.map(({ type, id }) => (
                 <Fragment key={id}>
                   <AccordionItem>

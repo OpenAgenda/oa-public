@@ -220,7 +220,7 @@ export default function EventsModal({ isOpen, onClose, agenda, bundleState }) {
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w="xl">
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {
