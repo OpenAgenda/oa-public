@@ -547,7 +547,9 @@ module.exports = core => {
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events
-      .drafts({}, req.query)
+      .drafts({
+        useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+      }, req.query)
       .then(result => res.json({
         success: true,
         events: result.items,
