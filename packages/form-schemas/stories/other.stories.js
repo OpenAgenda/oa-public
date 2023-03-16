@@ -328,6 +328,31 @@ export function Conditional() {
         fieldType: 'text',
         label: 'This is only enabled if first field is typed',
         enableWith: 'anything',
+      }, {
+        field: 'alsoConditioned',
+        fieldType: 'checkbox',
+        label: 'This also.',
+        options: [{
+          id: 1,
+          value: 'one',
+          label: 'One',
+        }],
+        enableWith: 'anything',
+      }, {
+        field: 'andThisAsWell',
+        fieldType: 'boolean',
+        label: 'And this as well',
+        enableWith: 'anything',
+      }, {
+        field: 'thisToo',
+        fieldType: 'radio',
+        label: 'This too',
+        options: [{
+          id: 2,
+          value: 'two',
+          label: 'Two',
+        }],
+        enableWith: 'anything',
       }],
     },
   };

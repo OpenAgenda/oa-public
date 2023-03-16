@@ -44,6 +44,8 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
     await formSchemas.update(agendaSchema.id, fs.getData());
   }
 
+  await agendas.resetCache(agenda);
+
   tasks.enqueue('updateLegacy', agenda, true);
 
   return true;

@@ -1,14 +1,13 @@
-import React, { Fragment } from 'react';
-
 export default function CheckboxField(props) {
   const {
     field: {
       options,
       field: name,
-      default: defaultValue
+      default: defaultValue,
     },
     value,
-    onChange
+    onChange,
+    enabled,
   } = props;
 
   const defaultChecked = [].concat(defaultValue || []);
@@ -28,6 +27,7 @@ export default function CheckboxField(props) {
               type="checkbox"
               onChange={onChange.bind(null, checked.includes(o.id) ? checked.filter(cId => cId !== o.id) : checked.concat(o.id))}
               checked={checked.includes(o.id)}
+              disabled={!enabled}
             />
             {o.label}
           </label>
