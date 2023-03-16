@@ -2,13 +2,11 @@
 
 const _ = require('lodash');
 const { Forbidden, NotFound } = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('core/agendas/members/list');
 
 const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
-
-const log = logs('core/agendas/members/list');
 
 module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
   const { services } = core;

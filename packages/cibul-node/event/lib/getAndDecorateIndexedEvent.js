@@ -6,11 +6,9 @@ const { formatInTimeZone } = require('date-fns-tz');
 const registrationLabels = require('@openagenda/labels/event/registration');
 const makeLabelGetter = require('@openagenda/labels');
 const { toEventSchema } = require('@openagenda/sdk-js');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('event/lib/getAndDecorateIndexedEvent');
 
 const getLabel = makeLabelGetter(registrationLabels);
-
-const log = logs('event/lib/getAndDecorateIndexedEvent');
 
 const {
   utils: agendaPortalUtils,

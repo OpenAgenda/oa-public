@@ -1,9 +1,9 @@
 'use strict';
 
 const { promisify } = require('util');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/users/tasks/anonymizeUser');
 
-async function resyncMemberEvents({ core, log, agendaUid, userUid }) {
+async function resyncMemberEvents({ core, agendaUid, userUid }) {
   log('resyncing events of agenda %s after user %s removal', agendaUid, userUid);
   const stream = await core.agendas(agendaUid).events.search({
     memberUid: userUid,
@@ -20,7 +20,6 @@ async function resyncMemberEvents({ core, log, agendaUid, userUid }) {
 }
 
 module.exports = function anonymizeDeletedUser(services) {
-  const log = logs('services/users/tasks/anonymizeUser');
   return async ({ user }) => {
     const {
       core,
@@ -72,7 +71,7 @@ module.exports = function anonymizeDeletedUser(services) {
         agendaUid,
       } = member;
 
-      await resyncMemberEvents({ core, agendaUid, userUid: user.uid, log });
+      await resyncMemberEvents({ core, agendaUid, userUid: user.uid });
     }
 
     tracker('users.anonymizeDeletedUser.done');

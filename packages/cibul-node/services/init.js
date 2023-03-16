@@ -6,7 +6,7 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 const debug = require('debug');
 const VError = require('verror');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/init');
 const schema = require('@openagenda/validators/schema');
 
 schema.register({
@@ -26,18 +26,12 @@ const validateOptions = schema({
 
 const color = (nbr, str) => `\x1b[3${nbr}m${str}\x1b[0m`;
 
-let log;
-
-module.exports = async function (configObject, options = {}) {
+module.exports = async function (configObject = null, options = {}) {
 
   const t = new Date();
   const config = configObject || require('../config');
 
   const cleanOptions = validateOptions({ ...config, ...options });
-
-  logs.init(config.logger || config.getLogConfig('oa', 'oa', false));
-
-  log = logs('services/init');
 
   log('-- initialization started --');
 

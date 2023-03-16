@@ -1,9 +1,7 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/users/tasks/notifyAndRemove');
 const promisifyRedis = require('@openagenda/utils/redis/promisify');
-
-const log = logs('services/users/tasks/notifyAndRemove');
 
 const storePrefix = 'inactiveUsers:';
 

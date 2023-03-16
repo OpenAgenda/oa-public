@@ -2,8 +2,10 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
-const log = require('@openagenda/logs')('services/agendaStatistics');
 const rebuildActivityFeeds = require('@openagenda/activities/dist/service/rebuild').rebuild;
+
+const log = logs('services/agendaStatistics');
+const rebuildLogger = logs('activities/rebuild');
 
 async function resyncLegacySearch(services, agendaUid) {
   log('info', 'resyncing agenda %d - legacy search index rebuild', agendaUid);
@@ -94,7 +96,7 @@ function processJob({ services, config }) {
             cli: false,
             service: activitiesSvc
           },
-          logs('activities/rebuild')
+          rebuildLogger,
         );
         break;
       default:

@@ -1,8 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-
-const log = logs('services/agendaContribute/addNewMember');
+const log = require('@openagenda/logs')('services/agendaContribute/addNewMember');
 
 module.exports = function addNewMember(req, res, next) {
   const {

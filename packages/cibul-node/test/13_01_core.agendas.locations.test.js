@@ -5,7 +5,7 @@ const _ = require('lodash');
 const axios = require('axios');
 const FormData = require('form-data');
 const qs = require('qs');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('13_01');
 
 const api = require('../api');
 const Services = require('../services/init');
@@ -17,7 +17,6 @@ const testConfig = require('./testConfig');
 
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
-  const log = logs('13_01');
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
 

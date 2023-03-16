@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const { hooks, registerContextUpdater, withProps } = require('@feathersjs/hooks');
 
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/users');
 const Users = require('@openagenda/users');
 
 const beforeCreate = require('./lib/beforeCreate');
@@ -25,7 +25,6 @@ const anonymizeDeletedUser = require('./tasks/anonymizeDeletedUser');
 const plugApp = require('./plugApp');
 
 async function init(config, services) {
-  const log = logs('services/users');
   const {
     agendas,
     keys,
