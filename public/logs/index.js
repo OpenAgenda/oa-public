@@ -12,8 +12,9 @@ LE.provisionWinston(winston);
 let config;
 const levels = Object.keys(winston.config.npm.levels);
 
-const loggers = [];
-const loggerConfigs = {};
+const loggers = new Set();
+const loggerConfigs = new Map();
+
 const basicLogger = getLogger({
   $callerFile: __filename,
   $callerModule: __dirname
@@ -59,7 +60,7 @@ function getLogger(options = {}) {
 
   const logger = new winston.Logger({
     transports: getTransporters(
-      _.merge({}, options, loggerConfigs[callerModule])
+      _.merge({}, options, loggerConfigs.get(callerModule))
     )
   });
 
@@ -71,8 +72,9 @@ function getLogger(options = {}) {
   logger.clearMetadata = clearMetadata(logger);
   logger.setConfig = setConfig(logger);
   logger.getTransports = getTransports(logger);
+  logger.destroy = destroy(logger);
 
-  loggers.push(logger);
+  loggers.add(logger);
 
   return Object.assign(
     levellessLog(logger),
@@ -194,6 +196,13 @@ function getTransports(logger) {
   return () => logger.transports;
 }
 
+function destroy(logger) {
+  return () => {
+    logger.end();
+    loggers.delete(logger);
+  }
+}
+
 /** ******* */
 
 function init(c) {
@@ -215,9 +224,10 @@ function init(c) {
 function setModuleConfig(conf, module) {
   const callerModule = module || getModule(path.resolve(getCallerFile(2)));
 
-  loggerConfigs[callerModule] = conf;
+  loggerConfigs.set(callerModule, conf);
 
-  loggers
-    .filter(logger => logger.callerModule === callerModule)
-    .forEach(logger => logger.setConfig(conf, false));
+  loggers.forEach(logger => {
+    if (logger.callerModule !== callerModule) return;
+    logger.setConfig(conf, false);
+  });
 }
