@@ -9,7 +9,7 @@ function evaluateAnonymousAccess(req, _res, next) {
     return next();
   }
 
-  if (!req.user) {
+  if (!req.user && !req.agendaKey) {
     return next(new Forbidden('not authorized to read event'));
   }
 
