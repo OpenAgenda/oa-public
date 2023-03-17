@@ -269,7 +269,7 @@ module.exports = {
     "en": "You are an administrator or moderator of this agenda",
     "de": "Du bist ein Administrator oder Moderator dieser Verwaltungskalender.",
     "es": "Es un administrador o moderador de este agenda",
-    "it": "Lei è l'amministratore o il moderatore di questo ordine del giorno",
+    "it": "Lei è l'amministratore o il moderatore di questo agenda",
     "io": "crwdns15062:0crwdne15062:0"
   },
   "youreNotAdminOrModerator": {
@@ -389,7 +389,7 @@ module.exports = {
     "en": "You need to add multiple fields to your form,, adapt their order or labels? Send us a short message",
     "de": "Mehrere Felder zum Formular hinzufügen ? Reihenfolge oder Etiketten ändern? Sende uns eine kurze Nachricht",
     "es": "Si desea añadir más campos al formulario, o ajustar el orden de las instrucciones? Escríbanos un mensaje rápido",
-    "it": "Volete aggiungere altri campi al vostro modulo, adattare l'ordine o le istruzioni? Scrivici un messaggio veloce",
+    "it": "Volete aggiungere altri campi al vostro modulo, adattare l'agenda le istruzioni? Scrivici un messaggio veloce",
     "io": "crwdns16480:0crwdne16480:0"
   },
   "privateAgendaTitle": {
@@ -847,7 +847,7 @@ module.exports = {
     "en": "of the agenda",
     "de": "des Veranstaltungskalenders",
     "es": "agenda",
-    "it": "ordine del giorno",
+    "it": "dell'agenda",
     "io": "crwdns15176:0crwdne15176:0"
   },
   "onTheAgenda": {
@@ -855,7 +855,7 @@ module.exports = {
     "en": "on the agenda",
     "de": "im Veranstaltungskalender",
     "es": "en la agenda",
-    "it": "all'ordine del giorno",
+    "it": "sull'agenda",
     "io": "crwdns15178:0crwdne15178:0"
   },
   "youWantToContributeToTheAgenda": {
@@ -863,7 +863,7 @@ module.exports = {
     "en": "You want to contribute to the agenda",
     "de": "Du willst am Veranstaltungskalender teilnehmen",
     "es": "¿Quieres contribuir a la agenda",
-    "it": "Volete contribuire all'ordine del giorno",
+    "it": "Volete contribuire all'agenda",
     "io": "crwdns15180:0crwdne15180:0"
   },
   "wantsToContributeToTheAgenda": {
@@ -871,7 +871,7 @@ module.exports = {
     "en": "wants to contribute to the agenda",
     "de": "will am Veranstaltungskalender teilnehmen",
     "es": "desea contribuir a la agenda",
-    "it": "desidera contribuire all'ordine del giorno",
+    "it": "desidera contribuire all'agenda",
     "io": "crwdns15182:0crwdne15182:0"
   },
   "youRequestedEditingRights": {

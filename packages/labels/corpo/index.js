@@ -185,7 +185,7 @@ module.exports = {
     "fr": "Agenda basique",
     "de": "Grund Agenda",
     "es": "agenda básica",
-    "it": "Diario di base",
+    "it": "Agenda di base",
     "io": "crwdns13318:0crwdne13318:0"
   },
   "unlimitedEvents": {
@@ -316,7 +316,7 @@ module.exports = {
     "fr": "Agenda premium",
     "de": "Premium-Agenda",
     "es": "Eventos de primera calidad",
-    "it": "Diario Premium",
+    "it": "Agenda Premium",
     "io": "crwdns13350:0crwdne13350:0"
   },
   "premiumCalendars": {

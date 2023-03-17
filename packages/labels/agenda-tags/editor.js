@@ -102,7 +102,7 @@ module.exports = {
     "fr": "Tags de l'agenda",
     "de": "Agenda-Tags",
     "es": "Etiquetas agenda",
-    "it": "Tag dell'ordine del giorno",
+    "it": "Tag dell'agenda",
     "io": "crwdns12706:0crwdne12706:0",
     "oc": "Etiquetas d'agenda"
   },
@@ -285,7 +285,7 @@ module.exports = {
     "fr": "Visible uniquement des membres de l'agenda",
     "de": "nur sichtbar Agenda Mitglieder",
     "es": "sólo los miembros visibles de la agenda",
-    "it": "Visibile solo ai membri dell'ordine del giorno",
+    "it": "Visibile solo ai membri dell'agenda",
     "io": "crwdns12746:0crwdne12746:0",
     "oc": "Vesedor sonque dels membres de l'agenda"
   },

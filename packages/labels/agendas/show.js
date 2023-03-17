@@ -416,7 +416,7 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Oramai in linea",
+    "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16090:0crwdne16090:0"
   },

@@ -68,7 +68,7 @@
   "orderEdit": "Modificare",
   "orderInstruction": "Trascinare ogni campo nella posizione desiderata",
   "orderSave": "Applicare il nuovo ordine",
-  "orderTitle": "Ordine sul campo",
+  "orderTitle": "Ordine dei campi",
   "fieldFormOptional": "Questo campo è opzionale",
   "requiredField": "Richiesto",
   "fieldFormMaxTextLength": "Lunghezza massima del testo inserito",

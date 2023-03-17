@@ -8,5 +8,6 @@
   "react-layouts.MainLayout.signout": "Uscire",
   "react-layouts.components.Search.search": "Cerca",
   "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
-  "react-layouts.MainLayout.translate": "Gestire"
+  "react-layouts.MainLayout.translate": "Gestire",
+  "react-layouts.MainLayout.signin": "Accedi"
 }

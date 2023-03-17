@@ -266,7 +266,7 @@ module.exports = {
     "en": "You animate a territory, a federation, several local coordinators ? The network of agendas is for you.",
     "de": "Sie animieren ein Gebiet, eine Föderation, mehrere lokale Koordinatoren? Das Netz der Kalenders ist für Sie.",
     "es": "A llevar un país, una federación, varios coordinadores locales? La red de agendas es para usted.",
-    "it": "Lei guida un territorio, una federazione, diversi coordinatori locali? La rete dei diari è per voi.",
+    "it": "Lei guida un territorio, una federazione, diversi coordinatori locali? Un rete d'agende è per voi.",
     "io": "crwdns13510:0crwdne13510:0"
   },
   "mainPricingNetworkPoint2": {
@@ -378,7 +378,7 @@ module.exports = {
     "en": "Basic agenda",
     "de": "Grund Agenda",
     "es": "simple Calendar",
-    "it": "agenda semplice",
+    "it": "Agenda semplice",
     "io": "crwdns13538:0crwdne13538:0"
   },
   "agendaPricingFreeAction": {
@@ -483,7 +483,7 @@ module.exports = {
     "en": "Customized agenda",
     "de": "Customized Agenda",
     "es": "Eventos personalizados",
-    "it": "Diario su misura",
+    "it": "Agenda su misura",
     "io": "crwdns13564:0crwdne13564:0"
   },
   "agendaPricingCustomPrice": {
@@ -1253,7 +1253,7 @@ module.exports = {
     "fr": "Le Réseau d'agendas - 400€/mois",
     "de": "Netzwerk der Kalenders - 400 € / Monat",
     "es": "Los agendas de red - 400 €/mes",
-    "it": "La rete dei diari - 400€/mese",
+    "it": "La rete d'agende - 400 €/mese",
     "io": "crwdns13756:0crwdne13756:0"
   },
   "networkOfferHeadTitle": {
@@ -1415,7 +1415,7 @@ module.exports = {
     "fr": "Réseau d'agendas",
     "de": "Netzwerk der Kalenders",
     "es": "Los planificadores de redes",
-    "it": "Rete di diari",
+    "it": "Rete di agende",
     "io": "crwdns13796:0crwdne13796:0"
   },
   "footerMore": {
