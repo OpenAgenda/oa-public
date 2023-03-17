@@ -1,6 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/agendas');
 const agendasSvc = require('@openagenda/agendas');
 
 const cmn = require('../../lib/commons-app');
@@ -12,8 +12,6 @@ const resetCache = require('./lib/resetCache');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
-
-const log = logs('services/agendas');
 
 const throwUnauthorized = (req, res, next) => {
   const error = new Error('Unauthorized');

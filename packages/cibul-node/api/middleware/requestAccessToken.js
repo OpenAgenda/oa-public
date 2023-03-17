@@ -1,8 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-
-const log = logs('api/middleware/requestAccessToken');
+const log = require('@openagenda/logs')('api/middleware/requestAccessToken');
 
 module.exports = async function requestAccessToken(req, res) {
   try {

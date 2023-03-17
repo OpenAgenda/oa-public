@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/supervisor/task');
 
 const redirectToSignin = (req, res) => res.redirect(
   302,
@@ -12,8 +12,6 @@ function task(services) {
   const {
     eventSearch,
   } = services;
-
-  const log = logs('services/supervisor/task');
 
   return () => {
     setInterval(() => {

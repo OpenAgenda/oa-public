@@ -1,8 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-
-const log = logs('services/members/transferEvent');
+const log = require('@openagenda/logs')('services/members/transferEvent');
 
 function feedFollow(activities, follow, userUid, eventUid) {
   return activities.feed({

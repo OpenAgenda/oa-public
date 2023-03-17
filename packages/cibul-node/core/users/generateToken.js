@@ -1,8 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-
-const log = logs('core/users/generateToken');
+const log = require('@openagenda/logs')('core/users/generateToken');
 
 module.exports = async function generateToken(core, identifier) {
   const {

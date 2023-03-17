@@ -2,10 +2,9 @@
 
 const _ = require('lodash');
 const { diff } = require('deep-diff');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/agendaLocations/onUpdate');
 
 module.exports = queue => {
-  const log = logs('services/agendaLocations/onUpdate');
   return async (before, after) => {
     log('location %s', before.uid);
     try {

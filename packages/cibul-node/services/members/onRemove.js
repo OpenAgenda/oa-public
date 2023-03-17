@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const { isSuperiorToOrEqual } = require('@openagenda/members').utils.compareRoles;
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('services/members/onRemove');
 
 async function removeInvitationsToMember({ invitations }, member) {
   const { invitation } = await invitations.get({ email: member.custom.email });
@@ -21,8 +21,6 @@ async function removeInvitationsToMember({ invitations }, member) {
 }
 
 module.exports = function onRemove({ services, members, activityQueue }) {
-  const log = logs('services/members/onRemove');
-
   return async (member, context) => {
     log('removed', member);
 

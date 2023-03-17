@@ -1,10 +1,8 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('core/users/get');
 
 module.exports = core => {
-  const log = logs('core/users/get');
-
   return (userUid, options = {}) => {
     log('getting user %s', userUid);
     const {

@@ -14,7 +14,7 @@ import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
-import getSession from '../../utils/getSession';
+import getSession from 'utils/getSession';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
