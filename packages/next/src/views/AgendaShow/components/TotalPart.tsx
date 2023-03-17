@@ -14,7 +14,8 @@ function Total({ total, upcomingOnly, passed, disabled }) {
   const router = useRouter();
 
   const passedUrl = useMemo(() => {
-    const url = new URL(router.asPath, 'http://n');
+    const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
+    const url = new URL(localePrefix + router.asPath, 'http://n');
 
     if (passed) {
       url.searchParams.delete('passed');
@@ -22,8 +23,8 @@ function Total({ total, upcomingOnly, passed, disabled }) {
       url.searchParams.set('passed', '1');
     }
 
-    return `${url.pathname}${url.search}`;
-  }, [passed, router.asPath]);
+    return url.pathname + url.search;
+  }, [passed, router.asPath, router.locale]);
 
   const togglePassed = useCallback(e => {
     e.preventDefault();

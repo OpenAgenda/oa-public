@@ -3,6 +3,7 @@ import qs from 'qs';
 import { useCallback, useRef } from 'react';
 import ContentLoader from 'react-content-loader';
 import { defineMessages, useIntl } from 'react-intl';
+import { useCookies } from 'react-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-solid-svg-icons';
 import {
@@ -29,6 +30,8 @@ import { FetchStatus } from 'config/types';
 import SearchInput from 'components/SearchInput';
 import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
+import hrefWithLang from 'utils/hrefWithLang';
+import getSession from 'utils/getSession';
 import logoPic from '../../../public/images/openagenda.png';
 
 const messages = defineMessages({
@@ -239,7 +242,7 @@ function ProfileBar({ portalRef }) {
     <Flex direction="row" h="full">
       <Button
         as={Link}
-        href="/signin"
+        href={hrefWithLang('/signin', intl.locale)}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
@@ -249,7 +252,7 @@ function ProfileBar({ portalRef }) {
       </Button>
       <Button
         as={Link}
-        href="/signup"
+        href={hrefWithLang('/signup', intl.locale)}
         variant="link"
         colorScheme="primary"
         height="full" // h doesn't works here: https://github.com/chakra-ui/chakra-ui/issues/7136
@@ -262,6 +265,7 @@ function ProfileBar({ portalRef }) {
 }
 
 export default function Navbar() {
+  const intl = useIntl();
   const onSearch = useCallback(e => {
     e.preventDefault();
     const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
@@ -270,12 +274,16 @@ export default function Navbar() {
 
   const headerRef = useRef();
 
+  const [cookies] = useCookies();
+  const sessionUser = getSession(cookies)?.user;
+  const homeHref = hrefWithLang('/', sessionUser ? null : intl.locale);
+
   return (
     <Flex ref={headerRef} as="header" direction="column" bg="white" boxShadow="sm">
       <Container maxW="container.xl" px={0}>
         <Flex justify="space-between" h="50" align="center">
           <Flex gap="8" h="full">
-            <Flex as="a" href="/" px="4" align="center">
+            <Flex as="a" href={homeHref} px="4" align="center">
               <Image
                 src={logoPic}
                 width={500 / 4}
