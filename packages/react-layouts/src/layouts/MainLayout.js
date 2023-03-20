@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useState, useCallback, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -112,7 +112,8 @@ function MainLayout({
 
   const user = useSelector(state => state.main.user, shallowEqual);
   const userLoaded = useSelector(state => state.main.userLoaded);
-  const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
+  const userLoading = useSelector(state =>
+    _.get(state, 'main.userLoading', true));
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
   const isTranslator = useSelector(state => state.main.isTranslator);
@@ -123,17 +124,17 @@ function MainLayout({
 
   const loadLayoutData = useCallback(
     () => dispatch(mainActions.getUser()),
-    [dispatch]
+    [dispatch],
   );
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
-    [dispatch]
+    [dispatch],
   );
 
   const toggleUserPanel = useCallback(
     () => setUserPanelOpened(state => !state),
-    [setUserPanelOpened]
+    [setUserPanelOpened],
   );
 
   const closeUserPanel = useCallback(() => {
@@ -148,16 +149,17 @@ function MainLayout({
       toggleUserPanel();
       history.push(path);
     },
-    [history, toggleUserPanel]
+    [history, toggleUserPanel],
   );
 
   const ErrorComponent = useCallback(
-    props => React.createElement(FallbackComponent, { ...props, lang: intl.locale }),
-    [FallbackComponent, intl.locale]
+    props =>
+      React.createElement(FallbackComponent, { ...props, lang: intl.locale }),
+    [FallbackComponent, intl.locale],
   );
 
   const [sessionUser, setSessionUser] = useState(
-    typeof document !== 'undefined' ? getDefaultSessionUser : null
+    typeof document !== 'undefined' ? getDefaultSessionUser : null,
   );
 
   useInterval(() => {
@@ -199,7 +201,7 @@ function MainLayout({
     setViewedAnnoucement(
       user?.announcement
         && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
-          === user.announcement.id
+          === user.announcement.id,
     );
   }, [user]);
 
@@ -288,7 +290,7 @@ function MainLayout({
                           {
                             'collapse in': userPanelOpened,
                             collapsed: !userPanelOpened,
-                          }
+                          },
                         )}
                         role="menu"
                       >
