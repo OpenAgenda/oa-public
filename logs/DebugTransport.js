@@ -1,7 +1,6 @@
 'use strict';
 
 const util = require('util');
-const _ = require('lodash');
 const winston = require('winston');
 const debug = require('debug');
 
@@ -13,7 +12,7 @@ class DebugTransport extends winston.Transport {
 
     const params = {
       namespace: '', prefix: '', level: 'debug',
-      ...options
+      ...options,
     };
 
     this.name = 'debug';
@@ -35,11 +34,19 @@ class DebugTransport extends winston.Transport {
   }
 
   log(level, msg, meta, cb) {
-    const displayedMeta =      meta instanceof Error ? meta : _.omit(meta, 'namespace');
+    let displayedMeta;
+
+    if (meta instanceof Error) {
+      displayedMeta = meta;
+    } else {
+      const { namespace, ...metaToKeep } = meta;
+      displayedMeta = metaToKeep;
+    }
+
     const args = [msg].concat(
       typeof displayedMeta !== 'undefined' && !isEmptyObject(displayedMeta)
         ? util.inspect(displayedMeta, { colors: this.debug.useColors })
-        : []
+        : [],
     );
 
     // Overwrite namespace
