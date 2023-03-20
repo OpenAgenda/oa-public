@@ -91,10 +91,10 @@ function init(service) {
 
 
   function attemptAuth(values) {
-    values.req.log('attempting authentication for %s with %s', service, JSON.stringify(values.profile));
+    values.req.log.debug('attempting authentication for %s with %s', service, JSON.stringify(values.profile));
 
     if (values.resolved) {
-      values.req.log('already resolved, returning values');
+      values.req.log.debug('already resolved, returning values');
 
       return values;
     }
@@ -103,7 +103,7 @@ function init(service) {
       const options = {};
 
       if (!values.profile) {
-        values.req.log('profile is not set');
+        values.req.log.debug('profile is not set');
 
         return resolve(values);
       }
@@ -112,10 +112,10 @@ function init(service) {
         if (err) values.err = err;
 
         if (user) {
-          values.req.log('user is loaded');
+          values.req.log.debug('user is loaded');
           values.user = user;
         } else {
-          values.req.log('no user was loaded');
+          values.req.log.debug('no user was loaded');
         }
 
         if (data) _.merge(values.data, data);
@@ -133,7 +133,7 @@ function init(service) {
 
   function attemptCreate(values) {
     if (!values.profile) {
-      values.req.log('profile data is not in hand, aborting attemptCreate', {
+      values.req.log.debug('profile data is not in hand, aborting attemptCreate', {
         service,
         values
       });
@@ -146,7 +146,7 @@ function init(service) {
     }
 
     if (service === 'facebook' && !values.profile.email) {
-      values.req.log('profile email is not in hand, aborting attemptCreate', {
+      values.req.log.debug('profile email is not in hand, aborting attemptCreate', {
         service,
         values
       });
@@ -158,7 +158,7 @@ function init(service) {
       return values;
     }
 
-    values.req.log('%s attempting account creation with %s', service, JSON.stringify(values.profile));
+    values.req.log.debug('%s attempting account creation with %s', service, JSON.stringify(values.profile));
 
     return w.promise(function(resolve, reject) {
       const options = loadOptionals(values.req);
@@ -180,18 +180,18 @@ function init(service) {
         if (err) values.err = err;
 
         if (user) {
-          values.req.log('account was created');
+          values.req.log.debug('account was created');
 
           values.user = user;
         } else {
-          values.req.log('no account was created');
+          values.req.log.debug('no account was created');
         }
 
         if (data) {
           values.data = _.merge(values.data ? values.data : {}, data);
         }
 
-        values.req.log('creation attempt completed with user %s and data %s', JSON.stringify(values.user), JSON.stringify(values.data));
+        values.req.log.debug('creation attempt completed with user %s and data %s', JSON.stringify(values.user), JSON.stringify(values.data));
 
         resolve(values);
       });
@@ -232,7 +232,7 @@ function init(service) {
         .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
 
         .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : v => v)))
-      
+
         .then(ifUnresolved(ifUserLoaded(false, module.exports[name == 'signup' ? 'renderSignup' : 'renderSignin'])))
 
         .done(done , cmn.catchError(req, res));
@@ -372,26 +372,26 @@ function signin(values) {
 
   values.resolved = true;
 
-  values.req.log('info', 'signing in user %s', user.email);
+  values.req.log.info('signing in user %s', user.email);
 
   const { services } = req.app;
 
   sessions.open(req, res, user, async (err, session) => {
-    if (err) req.log('error', { message: 'could not open session', error: err });
+    if (err) req.log.error({ message: 'could not open session', error: err });
 
     let redirectUrl;
 
     services.users.refresh(user.uid, {
       lastSignin: true
     }).catch(err => {
-      req.log('error', { message: 'could not refresh lastSignin', error: err });
+      req.log.error({ message: 'could not refresh lastSignin', error: err });
     });
 
     if (req.query.redirect) {
       try {
         redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
       } catch (e) {
-        req.log('error', 'could not decode redirect %s', req.query.redirect);
+        req.log.error('could not decode redirect %s', req.query.redirect);
       }
     } else if (req.query.iToken && agendaSlug) {
       // this is a invitation signin / signup, redirect to form.
@@ -399,7 +399,7 @@ function signin(values) {
     }
 
     if (redirectUrl) {
-      req.log('info', 'signin in successful, redirecting to %s', redirectUrl);
+      req.log.info('signin in successful, redirecting to %s', redirectUrl);
 
       res.redirect(redirectUrl);
       d.resolve(values);
@@ -470,7 +470,7 @@ function ifUserLoaded(loaded, cb) {
 function errorDefaultMessage(values) {
   if (values.resolved) return values;
 
-  values.req.log('loading default error message');
+  values.req.log.debug('loading default error message');
 
   if (!values.err) values.err = {};
 
@@ -485,10 +485,10 @@ function errorDefaultMessage(values) {
 async function errorExistingEmail(values) {
   if (values.resolved) return values;
 
-  values.req.log('checking if account with same email exists');
+  values.req.log.debug('checking if account with same email exists');
 
   if (values?.data?.errors?.email) {
-    values.req.log('an account exists with email: %s', JSON.stringify(values.profile));
+    values.req.log.debug('an account exists with email: %s', JSON.stringify(values.profile));
 
     delete values.data.errors.email;
 
@@ -562,7 +562,7 @@ function fullNameFromEmail(emailInput) {
 
 
 function done(values) {
-  values.req.log('done');
+  values.req.log.debug('done');
 }
 
 function saveOptionals(req, res, additionals) {

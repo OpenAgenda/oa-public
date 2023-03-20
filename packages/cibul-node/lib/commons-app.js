@@ -274,7 +274,7 @@ function catchError( req, res, jsonResponse ) {
 
       res.code = 404;
 
-      req.log( 'error', err );
+      req.log.error( err );
 
     } else if ( err.code == 403 && err.messageCode ) {
 
@@ -314,7 +314,7 @@ function render( req, res, templatePath, data, maintain ) {
 
       } catch ( e ) {
 
-        req.log( 'error', new VError( e, `Error in the render of the template ${templatePath}` ) );
+        req.log.error( new VError( e, `Error in the render of the template ${templatePath}` ) );
 
       }
 
@@ -541,7 +541,7 @@ function redirectTo( route, params = {}, options = {} ) {
 
     const redirect = req.genUrl( route, paramValues );
 
-    req.log( 'redirecting to %s', redirect );
+    req.log.debug( 'redirecting to %s', redirect );
 
     if ( req.xhr ) {
 
@@ -689,12 +689,13 @@ function favoriteLinkHTML( uid ) {
 
 function loadLogger(name) {
   return function (req, res, next) {
-    req.log = logger('req', {
-      module: name ? name : 'unknown',
-      url: req.originalUrl,
-      ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
-      userUid: req.user && req.user.uid ? req.user.uid : null
-    });
+    req.log = logger.createLogger2('req')
+      .loadMetadata({
+        module: name || 'unknown',
+        url: req.originalUrl,
+        ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
+        userUid: req.user && req.user.uid ? req.user.uid : null
+      });
 
     if (next) next();
   };

@@ -184,7 +184,7 @@ async function eventMailSend(req, res, next) {
   try {
     const emails = (typeof req.body.mailsend === 'string' ? req.body.mailsend : '').split(/[\s;,\n\r]+/);
 
-    req.log('will send event as email to %s', emails.join(', '));
+    req.log.debug('will send event as email to %s', emails.join(', '));
 
     const logo = req.agenda.image
       ? {

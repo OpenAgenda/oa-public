@@ -88,7 +88,7 @@ function cacheContent(req, res, next) {
 
 function sleep(ms) {
   return (req, res, next) => {
-    req.log('sleeping for %s milliseconds', ms);
+    req.log.debug('sleeping for %s milliseconds', ms);
 
     setTimeout(() => {
       next();

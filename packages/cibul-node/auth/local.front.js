@@ -184,8 +184,7 @@ function signinSubmit(req, res, next) {
     },
     function (err, user, data) {
       if (err) {
-        req.log(
-          'error',
+        req.log.error(
           'passport could not complete signing and received error',
           err
         );
@@ -195,8 +194,7 @@ function signinSubmit(req, res, next) {
         .then(
           auth.ifUserLoaded(false, (v) => {
             if (v.err && v.err.name !== 'NotFound') {
-              v.req.log(
-                'error',
+              v.req.log.error(
                 'user could not be loaded with data %j',
                 v.data
               );
@@ -471,7 +469,7 @@ async function activate(req, res) {
 
           agendas.get({ id: agendaId }, (err, agenda) => {
             if (err) {
-              req.log('error', err);
+              req.log.error(err);
             } else {
               req.agenda = agenda;
             }

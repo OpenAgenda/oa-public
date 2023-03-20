@@ -73,7 +73,7 @@ function loadEvent(config, req, res, next) {
 
       next();
     }, err => {
-      req.log('error', err);
+      req.log.error(err);
 
       next({
         code: _.get(err, 'message').indexOf('not found') === -1 ? 500 : 404
@@ -93,7 +93,7 @@ function loadSiteURL( config, req, res, next ) {
 
     } catch( e ) {
 
-      req.log( 'error', 'could not extract siteurl from store of embed %s', embed.uid );
+      req.log.error( 'could not extract siteurl from store of embed %s', embed.uid );
 
     }
 
