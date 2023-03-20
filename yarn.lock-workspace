@@ -6104,7 +6104,6 @@ __metadata:
   dependencies:
     debug: ^4.1.1
     jest: ^28.1.2
-    lodash: ^4.17.15
     r7insight_node: ^1.8.1
     sinon: ^3.2.1
     winston: ^2.4.5
@@ -28875,12 +28874,12 @@ resolve@^2.0.0-next.3:
   linkType: hard
 
 "source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.19, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
-  version: 0.5.19
-  resolution: "source-map-support@npm:0.5.19"
+  version: 0.5.21
+  resolution: "source-map-support@npm:0.5.21"
   dependencies:
     buffer-from: ^1.0.0
     source-map: ^0.6.0
-  checksum: c72802fdba9cb62b92baef18cc14cc4047608b77f0353e6c36dd993444149a466a2845332c5540d4a6630957254f0f68f4ef5a0120c33d2e83974c51a05afbac
+  checksum: 43e98d700d79af1d36f859bdb7318e601dfc918c7ba2e98456118ebc4c4872b327773e5a1df09b0524e9e5063bb18f0934538eace60cca2710d1fa687645d137
   languageName: node
   linkType: hard
 
