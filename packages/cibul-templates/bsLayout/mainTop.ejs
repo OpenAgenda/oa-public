@@ -71,7 +71,7 @@
             <% } %>
             <li>
               <div class="help-button-canvas">
-                <a class="btn btn-primary btn-rounded btn-bordered" rel="nofollow" target="_blank" href="/support?origin=<%= encodeURIComponent( originalUrl ) %>">
+                <a class="btn btn-primary btn-rounded btn-bordered" rel="nofollow" target="_blank" href="<% if (typeof helpLink !== 'undefined') { %><%= helpLink %><% } else { %>/support?origin=<%= encodeURIComponent( originalUrl ) %><% } %>">
                   <i class="fa fa-question-circle"></i>
                   <span><%= __( 'Help' ) %></span>
                 </a>
