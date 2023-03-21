@@ -36,12 +36,12 @@ function createLogger2(namespace, options = {}) {
   const callerFile = options.$callerFile || getCallerFile(2);
   const callerModule = options.$callerModule || getModule(path.resolve(callerFile));
 
-  return new Logger({
-    ...config,
-    ...loggerConfigs.get(callerModule),
-    namespace,
-    ...options,
-  });
+  return new Logger(mergeConfig(
+    config,
+    loggerConfigs.get(callerModule),
+    { namespace },
+    options
+  ));
 }
 
 function createLogger(namespace, ...args) {
