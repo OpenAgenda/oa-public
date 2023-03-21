@@ -33,7 +33,7 @@ module.exports = {
     "en": "Back to the agenda",
     "de": "Zurück zur Kalender",
     "es": "Volver a la agenda",
-    "it": "Torna all'ordine del giorno",
+    "it": "Tornare all'agenda",
     "io": "crwdns12854:0crwdne12854:0",
     "oc": "Tornar a l'agenda"
   }

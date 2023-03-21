@@ -3,7 +3,7 @@
   "moderator": "moderatore",
   "contributor": "Contributore",
   "reader": "lettore",
-  "emailSubject": "Invito ad un ordine del giorno",
+  "emailSubject": "Invito ad un agenda",
   "emailTitle": "Siete stati invitati a contribuire all'agenda %title% agenda",
   "emailTitleForExistantUser": "Sei diventato %credenziale% dell'agenda %title%",
   "emailInscription": "Crea un conto",

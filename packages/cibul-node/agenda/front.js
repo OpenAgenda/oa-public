@@ -388,7 +388,7 @@ function redirect( req, res, next ) {
 
   const redirect = req.genUrl( 'agendaShow', { slug: req.agenda.slug, oaq: req.query.oaq }, { protocol: 'https://' } );
 
-  req.log( 'info', 'redirecting to %s', redirect );
+  req.log.info( 'redirecting to %s', redirect );
 
   return res.redirect( 302, redirect );
 
@@ -796,7 +796,7 @@ function _loadAgendaLanguages(req, res, next) {
 
 function _layoutData( req, res ) {
 
-  req.log( 'loading layout data' );
+  req.log.debug( 'loading layout data' );
 
   const url = `${config.root}/${req.agenda.slug}`;
 

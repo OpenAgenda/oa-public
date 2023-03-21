@@ -663,7 +663,7 @@ module.exports = {
   "orderSort": {
     "fr": "Ordre de tri",
     "en": "Sort order",
-    "it": "Ordina ordine",
+    "it": "Ordinare gli eventi",
     "io": "crwdns15756:0crwdne15756:0"
   },
   "sortBy": {

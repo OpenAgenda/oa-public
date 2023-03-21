@@ -15,8 +15,8 @@
   "choice.required": "Richiesto",
   "serverException": "C'è stato un problema durante il backup, riprovare tra un attimo",
   "serverErrorTooLargeFile": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
-  "noOrigin": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
+  "noOrigin": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
   "defaultBack": "Torna alla home page",
-  "defaultAgendaBack": "Torna all'ordine del giorno",
+  "defaultAgendaBack": "Tornare all'agenda",
   "pageDoesNotExist": "La pagina richiesta non esiste"
 }

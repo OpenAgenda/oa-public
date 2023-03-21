@@ -42,7 +42,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       const cached = await req.cache.get(sanitizedUrl);
 
       if (cached) {
-        req.log('info', {
+        req.log.info({
           cached: `${namespace}:${identifier}`,
           message: 'cached response'
         });
@@ -60,7 +60,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
         cacheRouter(req, res, next);
       }
     } catch (e) {
-      req.log('error', {
+      req.log.error({
         cached: `${namespace}:${identifier}`,
         error: e,
         message: 'caching error'
@@ -86,7 +86,7 @@ function saveToCache(namespace, delay) {
     try {
       await set(sanitizedUrl, JSON.stringify(res.data), delay);
 
-      req.log('info', {
+      req.log.info({
         cached: `${namespace}:${identifier}`,
         message: 'caching successful'
       });
@@ -95,7 +95,7 @@ function saveToCache(namespace, delay) {
 
       next();
     } catch (e) {
-      req.log('error', {
+      req.log.error({
         cached: `${namespace}:${identifier}`,
         error: e,
         message: 'caching error'

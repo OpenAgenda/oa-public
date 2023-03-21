@@ -75,7 +75,7 @@ module.exports.batched = (req, res, next) => {
       userUid: req.user.uid
     }
   }).then(() => {
-    req.log('info', 'changing state of agenda events from %s to %s', labels[stateSwitch[0]], labels[stateSwitch[1]]);
+    req.log.info('changing state of agenda events from %s to %s', labels[stateSwitch[0]], labels[stateSwitch[1]]);
 
     sessions.setFlash(req, res, actionLabels('actionsInProcess', {
       oldstate : '<strong>' + stateLabels(labels[stateSwitch[0]], req.lang) + '</strong>',

@@ -123,7 +123,7 @@ function signup( req, res, next ) {
 
   if ( req.query.email ) {
 
-    req.log( 'retrieved email %s', req.query.email );
+    req.log.debug( 'retrieved email %s', req.query.email );
 
     additional.email = req.query.email;
 
@@ -156,7 +156,7 @@ function email( req, res, next ) {
 
 function _processSignin( req, res, next ) {
 
-  req.log( 'processing signin%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
+  req.log.debug( 'processing signin%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
 
   pLib.authenticate( 'twitter-signin', {}, function( err, profile, data ) {
 
@@ -178,7 +178,7 @@ function _processSignin( req, res, next ) {
 
       .done( function( values ) {
 
-        req.log( 'signinCallback controller complete' );
+        req.log.debug( 'signinCallback controller complete' );
 
       }, cmn.catchError( req, res ) );
 
@@ -189,7 +189,7 @@ function _processSignin( req, res, next ) {
 
 function _processSignup( req, res, next ) {
 
-  req.log( 'processing signup%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
+  req.log.debug( 'processing signup%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
 
   pLib.authenticate( 'twitter-signup', {}, function( err, profile, data ) {
 
@@ -214,7 +214,7 @@ function _processSignup( req, res, next ) {
 
 function _resendActivationToken( values ) {
 
-  values.req.log( 'resend activation token' )
+  values.req.log.debug( 'resend activation token' )
 
   if ( values.req.agenda ) values.agenda = values.req.agenda;
 
@@ -229,7 +229,7 @@ function _resendActivationToken( values ) {
 
 function _attemptTwitterCreate( values ) {
 
-  values.req.log( 'attempting twitter create' );
+  values.req.log.debug( 'attempting twitter create' );
 
   return w( values )
 
@@ -311,7 +311,7 @@ function _attemptUsernameLoad( values ) {
 
 function _redirectEmailFormIfNoProfileEmail( values ) {
 
-  values.req.log( 'redirect if no email is found in query' );
+  values.req.log.debug( 'redirect if no email is found in query' );
 
   var redirectUrl = values.req.genUrl( values.req.agenda ? 'agendaTwitterEmail' : 'twitterEmail', [
     values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {}
@@ -319,7 +319,7 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
 
   if ( !values.req.query.email ) {
 
-    values.req.log( 'no email is set in query' );
+    values.req.log.debug( 'no email is set in query' );
 
     values.res.redirect( 302, redirectUrl );
 

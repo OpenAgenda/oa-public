@@ -37,7 +37,7 @@ module.exports = {
     "en": "Online version",
     "fr": "Version en ligne",
     "io": "crwdns16454:0crwdne16454:0",
-    "it": "Versione in linea"
+    "it": "Versione online"
   },
   "otherShares": {
     "en": "Other shares",
@@ -245,7 +245,7 @@ module.exports = {
     "en": "Access the event online",
     "fr": "Accéder à l'événement en ligne",
     "io": "crwdns14472:0crwdne14472:0",
-    "it": "Accedere all'evento in linea"
+    "it": "Accedere all'evento online"
   },
   "seeAllEvents": {
     "en": "see all the events",
@@ -920,13 +920,13 @@ module.exports = {
     "en": "The event is moved online",
     "fr": "L'événement a lieu en ligne",
     "io": "crwdns16126:0crwdne16126:0",
-    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
+    "it": "L'evento non è più proposto in presenza, ma oramai online"
   },
   "statusMovedOnlineInfo": {
     "en": "The event will no longer be attended to at a physical location",
     "fr": "La participation de l'événement n'est désormais plus possible en présentiel",
     "io": "crwdns16128:0crwdne16128:0",
-    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
+    "it": "L'evento non è più proposto in presenza, ma oramai online"
   },
   "statusPostponed": {
     "en": "Postponed",

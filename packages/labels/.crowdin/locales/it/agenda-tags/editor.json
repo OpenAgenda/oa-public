@@ -9,7 +9,7 @@
   "subtitle": "I tag formano una o più liste tra cui scegliere",
   "compulsory": "campo obbligatorio",
   "listName": "Nome della lista",
-  "listSection": "Tag dell'ordine del giorno",
+  "listSection": "Tag dell'agenda",
   "add": "Aggiungere",
   "addTag": "Aggiungere un tag",
   "addGroup": "Aggiungere un gruppo di tag",
@@ -29,6 +29,6 @@
   "redirectMain": "Questa scheda è stata spostata nella sezione \"Impostazioni\" dell'amministrazione del calendario",
   "redirectSub": "Sarete automaticamente reindirizzati in un attimo",
   "publicAccess": "Visibile al pubblico",
-  "contributorAccess": "Visibile solo ai membri dell'ordine del giorno",
+  "contributorAccess": "Visibile solo ai membri dell'agenda",
   "administratorAccess": "Visibile solo ad amministratori e moderatori"
 }

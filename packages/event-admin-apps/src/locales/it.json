@@ -39,7 +39,7 @@
   "EventAdminApp.EventItem.administrator": "Amministratore",
   "EventAdminApp.EventItem.aggregatedFrom": "Aggregato da <link>{title}</link>",
   "EventAdminApp.EventItem.contact": "Contattare",
-  "EventAdminApp.EventItem.contributor": "Collaboratore",
+  "EventAdminApp.EventItem.contributor": "Contributore",
   "EventAdminApp.EventItem.createdBy": "Creato da <link>{name}</link>",
   "EventAdminApp.EventItem.delete": "Cancellare",
   "EventAdminApp.EventItem.edit": "Modificare",
@@ -50,7 +50,7 @@
   "EventAdminApp.EventItem.onlineEvent": "Evento online",
   "EventAdminApp.EventItem.passed": "Passato",
   "EventAdminApp.EventItem.remove": "Rimuovere dall'agenda",
-  "EventAdminApp.EventItem.removeFeatured": "Cancella da selezionato",
+  "EventAdminApp.EventItem.removeFeatured": "Cancella del primo piano",
   "EventAdminApp.EventItem.shared": "Condiviso da un membro chi ha lasciato l'agenda",
   "EventAdminApp.EventItem.sharedBy": "Condiviso da <memberLink>{memberName}</memberLink>",
   "EventAdminApp.EventItem.sharedFrom": "Condiviso da <link>{title}</link>",
@@ -60,7 +60,7 @@
   "EventAdminApp.EventItem.statusCancelledInfo": "L'evento è annullato",
   "EventAdminApp.EventItem.statusFull": "Completo",
   "EventAdminApp.EventItem.statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento",
-  "EventAdminApp.EventItem.statusMovedOnline": "Oramai in linea",
+  "EventAdminApp.EventItem.statusMovedOnline": "Oramai online",
   "EventAdminApp.EventItem.statusPostponed": "Riprogrammato",
   "EventAdminApp.EventItem.statusPostponedInfo": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
   "EventAdminApp.EventItem.statusRescheduled": "Riprogrammato",
@@ -70,6 +70,6 @@
   "EventAdminApp.messages.status.movedOnline": "Oramai online",
   "EventAdminApp.messages.status.postponed": "Riprogrammato",
   "EventAdminApp.messages.status.rescheduled": "Riprogrammato",
-  "EventAdminApp.EventItem.showOnlineLocation": "Accedere all'evento in linea",
-  "EventAdminApp.EventItem.statusMovedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai in linea"
+  "EventAdminApp.EventItem.showOnlineLocation": "Accedere all'evento online",
+  "EventAdminApp.EventItem.statusMovedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai online"
 }

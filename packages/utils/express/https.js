@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     const redirectTo = 'https://' + req.hostname + req.originalUrl;
 
     if (req.log) {
-      req.log('forcing https: redirecting to %s', redirectTo);
+      req.log.debug('forcing https: redirecting to %s', redirectTo);
     }
 
     return res.redirect(301, redirectTo);

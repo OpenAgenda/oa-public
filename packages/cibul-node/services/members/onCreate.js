@@ -8,6 +8,7 @@ const {
 } = require('@openagenda/members').utils.compareRoles;
 
 const { send, sendInvitation } = require('./lib/mail');
+const clearCache = require('./lib/clearCache');
 
 module.exports = async ({ services, config, activityQueue }, member, context) => {
   log('created', member);
@@ -15,6 +16,8 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
   const {
     agendas,
   } = services;
+
+  await clearCache(services, member);
 
   try {
     const agenda = await agendas.get({

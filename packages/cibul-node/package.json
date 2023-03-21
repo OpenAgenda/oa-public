@@ -156,6 +156,6 @@
     "form-data": "^3.0.0",
     "jest": "^28.1.2",
     "sinon": "^7.5.0",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.21"
   }
 }

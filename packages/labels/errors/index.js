@@ -160,7 +160,7 @@ module.exports = {
     "de": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
     "es": "Este evento no está disponible porque está asociado con ninguna agenda",
     "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
-    "it": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
+    "it": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
     "io": "crwdns14066:0crwdne14066:0"
   },
   "defaultBack": {
@@ -176,7 +176,7 @@ module.exports = {
     "en": "Back to the agenda page",
     "de": "Zurück zum Veranstaltungskalender",
     "es": "Volver a la agenda",
-    "it": "Torna all'ordine del giorno",
+    "it": "Tornare all'agenda",
     "io": "crwdns14070:0crwdne14070:0"
   },
   "pageDoesNotExist": {
