@@ -89,13 +89,6 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
         formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
         url: `${root}/agendas/${agendaUid}/events/${event.uid}`,
       }));
-      // draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD({
-      //   ...event,
-      //   title: getLocaleValue(event.title, lang),
-      //   description: getLocaleValue(event.description, lang),
-      // }, {
-      //   defaultTimezone: 'Europe/Paris',
-      // });
     }
 
     // flatten main multilingual fields
