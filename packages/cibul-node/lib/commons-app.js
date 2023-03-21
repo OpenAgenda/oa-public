@@ -215,7 +215,7 @@ function errorResponse(req, res, err, jsr) {
   lang(req, res, () => {
     const jsonResponse = jsr === undefined ? /\.json$/.test(req.path) : jsr;
 
-    if ([401, 403, 404, 413].indexOf(err.code) === -1) {
+    if ([400, 401, 403, 404, 413].indexOf(err.code) === -1) {
       errorLogger('req', err, req);
       res.code = 500;
     } else {
