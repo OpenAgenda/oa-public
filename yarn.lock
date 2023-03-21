@@ -8445,7 +8445,6 @@ __metadata:
   dependencies:
     debug: ^4.1.1
     jest: ^28.1.2
-    lodash: ^4.17.15
     r7insight_node: ^1.8.1
     sinon: ^3.2.1
     winston: ^2.4.5
