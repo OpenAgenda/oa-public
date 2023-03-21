@@ -121,87 +121,129 @@ function renderUnauthorized( req, res, next ) {
 
 }
 
+/**
+ * middleware for loading an logger and shoving it in the request
+ */
+
+function loadLogger(name) {
+  return function (req, res, next) {
+    req.log = logger.createLogger2('req')
+      .loadMetadata({
+        module: name || 'unknown',
+        url: req.originalUrl,
+        ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
+        userUid: req.user && req.user.uid ? req.user.uid : null
+      });
+
+    if (next) next();
+  };
+}
+
+/**
+ * explicitely define lang value for current request
+ */
+function lang( req, res, next ) {
+  req.lang = 'fr';
+
+  sessions.isLogged( req ).then( isLogged => {
+    if ( isLogged ) {
+      req.lang = sessions.getCulture( req );
+    }
+
+    if ( req.query.lang ) {
+      req.lang = _cleanLang( req.query.lang );
+    }
+
+    if ( (isLogged && req.lang !== sessions.getCulture( req )) || req.query.lang ) {
+      req.genUrl.preload( { lang: req.lang } );
+    }
+
+    if (Boolean(req.cookies.translateMode)) {
+      req.lang = 'io';
+    }
+
+    if ( next ) {}next();
+
+  } );
+}
+
+/**
+ * set json data in response
+ */
+function renderJson( req, res, data, options ) {
+
+  res.set( 'Content-Type', 'application/json; charset=utf-8' );
+
+  if ( !res.get( 'Last-Modified' ) ) {
+
+    res.set( 'Cache-Control', 'no-cache' );
+
+  }
+
+  let body = JSON.stringify( data );
+
+  if ( req.query.callback ) {
+
+    body = req.query.callback + '(' + _filterNonParsable( body ) + ')';
+
+  }
+
+  res.write( body );
+
+  res.end();
+
+}
 
 /**
  * what to do with errors... make a redirect
  */
 
-function errorResponse( req, res, error, jsonResponse ) {
-
-  if ( !error.code ) {
-
-    if ( error.statusCode ) {
-
-      error.code = error.statusCode;
-
+function errorResponse(req, res, err, jsr) {
+  if (!err.code) {
+    if (err.statusCode) {
+      err.code = err.statusCode;
     }
-
-    if ( res.statusCode !== 200 ) {
-
-      error.code = res.statusCode;
-
+    if (res.statusCode !== 200) {
+      err.code = res.statusCode;
     }
-
   }
 
-  if ( !req.log ) {
-
-    loadLogger( 'express' )( req, res );
-
+  if (!req.log) {
+    loadLogger('express')(req, res);
   }
 
-  lang( req, res, () => {
+  lang(req, res, () => {
+    const jsonResponse = jsr === undefined ? /\.json$/.test(req.path) : jsr;
 
-    if ( jsonResponse === undefined ) {
-
-      jsonResponse = /\.json$/.test( req.path );
-
-    }
-
-    if ( [ 401, 403, 404, 413 ].indexOf( error.code ) === -1 ) {
-
-      errorLogger( 'req', error, req );
-
+    if ([401, 403, 404, 413].indexOf(err.code) === -1) {
+      errorLogger('req', err, req);
       res.code = 500;
-
     } else {
-
-      res.code = error.code;
-
+      res.code = err.code;
     }
 
-    error = typeof error == 'string' ? { message: error } : error;
+    const error = typeof err === 'string' ? { message: err } : err;
 
-    if ( !req.genUrl ) {
-
+    if (!req.genUrl) {
       req.genUrl = genUrl;
-
     }
 
-
-    if ( res.code === 413 ) {
-
-      error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
-        '%max%': Math.ceil( error.limit / 1000 ),
-        '%sub%': Math.ceil( error.length / 1000 )
-      }, req.lang );
-
-    } else if ( error.message ) {
-
-      error.message = i18n( error.message, {}, req.lang );
-
+    if (res.code === 413) {
+      error.message = i18n('Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
+        '%max%': Math.ceil(error.limit / 1000),
+        '%sub%': Math.ceil(error.length / 1000),
+      }, req.lang);
+    } else if (error.message) {
+      error.message = i18n(error.message, {}, req.lang);
     }
 
-
-    if ( jsonResponse ) {
-
-      renderJson( req, res, {
+    if (jsonResponse) {
+      renderJson(req, res, {
         success: false,
         message: error.message ? error.message : 'There was a problem during the handling of the request'
-      } );
+      });
 
       return;
-
     }
 
     const data = {
@@ -209,8 +251,8 @@ function errorResponse( req, res, error, jsonResponse ) {
       message: error.message,
       back: _.get(error, 'back', {
         label: getErrorLabel('defaultBack', req.lang),
-        link: '/'
-      })
+        link: '/',
+      }),
     };
 
     if (Array.isArray(error?.info?.errors) && req.event) {
@@ -219,73 +261,53 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     const layoutData = {
       lang: req.lang,
-      title: error.code
+      title: error.code,
     };
 
-    if ( !error.back && req.agenda ) {
-
+    if (!error.back && req.agenda) {
       data.back = {
-        label: getErrorLabel( 'defaultAgendaBack', req.lang ),
-        link: `/${req.agenda.slug}`
-      }
-
+        label: getErrorLabel('defaultAgendaBack', req.lang),
+        link: `/${req.agenda.slug}`,
+      };
     }
 
-    res.status( Number.isInteger( error.code ) ? error.code : 500 );
+    res.status(Number.isInteger(error.code) ? error.code : 500);
 
-    if ( req.agenda ) {
-
+    if (req.agenda) {
       // agenda.image depends to includeImagePath option
       layoutData.agenda = {
         ...req.agenda,
         image: req.agenda.image && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
           ? req.agenda.image
-          : config.aws.imageBucketPath + req.agenda.image
+          : config.aws.imageBucketPath + req.agenda.image,
       };
 
-      res.send( layouts.agenda( renderError( data ), layoutData ) );
-
-
+      res.send(layouts.agenda(renderError(data), layoutData));
     } else {
-
-      res.send( layouts.main( renderError( data ), layoutData ) );
-
+      res.send(layouts.main(renderError(data), layoutData));
     }
-
-  } );
-
-
+  });
 }
 
-function catchError( req, res, jsonResponse ) {
-
+function catchError(req, res, jsonResponse) {
   return err => {
-
     // For send directly a json error with next( err )
-    if ( err.json ) {
-
-      return res.status( err.code || 400 ).send( err.json );
-
+    if (err.json) {
+      return res.status(err.code || 400).send(err.json);
     }
 
-    if ( err.code == 404 ) {
-
-      if ( !err.message ) err.message = getErrorLabel( 'pageDoesNotExist', req.lang );
+    if (err.code === 404) {
+      if (!err.message) {
+        err.message = getErrorLabel('pageDoesNotExist', req.lang);
+      }
 
       res.code = 404;
-
-      req.log.error( err );
-
-    } else if ( err.code == 403 && err.messageCode ) {
-
-      err.message = labels.unauthorized[ err.messageCode ][ req.lang ];
-
+    } else if (err.code === 403 && err.messageCode) {
+      err.message = labels.unauthorized[err.messageCode][req.lang];
     }
 
-    errorResponse( req, res, err, jsonResponse );
-
-  }
-
+    errorResponse(req, res, err, jsonResponse);
+  };
 }
 
 
@@ -647,58 +669,10 @@ function getRedirect( req, paramName = 'redirect' ) {
 }
 
 
-/**
- * set json data in response
- */
-
-function renderJson( req, res, data, options ) {
-
-  res.set( 'Content-Type', 'application/json; charset=utf-8' );
-
-  if ( !res.get( 'Last-Modified' ) ) {
-
-    res.set( 'Cache-Control', 'no-cache' );
-
-  }
-
-  let body = JSON.stringify( data );
-
-  if ( req.query.callback ) {
-
-    body = req.query.callback + '(' + _filterNonParsable( body ) + ')';
-
-  }
-
-  res.write( body );
-
-  res.end();
-
-}
-
-
 function favoriteLinkHTML( uid ) {
 
   return '<span class="fav js_fav_item" data-event-uid="' + uid + '"></span>';
 
-}
-
-
-/**
- * middleware for loading an logger and shoving it in the request
- */
-
-function loadLogger(name) {
-  return function (req, res, next) {
-    req.log = logger.createLogger2('req')
-      .loadMetadata({
-        module: name || 'unknown',
-        url: req.originalUrl,
-        ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
-        userUid: req.user && req.user.uid ? req.user.uid : null
-      });
-
-    if (next) next();
-  };
 }
 
 function loadAgendaBy( param ) {
@@ -812,39 +786,6 @@ function _decodeCookie( req ) {
   }
 
   return {};
-
-}
-
-
-/**
- * explicitely define lang value for current request
- */
-
-
-function lang( req, res, next ) {
-
-  req.lang = 'fr';
-
-  sessions.isLogged( req ).then( isLogged => {
-    if ( isLogged ) {
-      req.lang = sessions.getCulture( req );
-    }
-
-    if ( req.query.lang ) {
-      req.lang = _cleanLang( req.query.lang );
-    }
-
-    if ( (isLogged && req.lang !== sessions.getCulture( req )) || req.query.lang ) {
-      req.genUrl.preload( { lang: req.lang } );
-    }
-
-    if (Boolean(req.cookies.translateMode)) {
-      req.lang = 'io';
-    }
-
-    if ( next ) {}next();
-
-  } );
 
 }
 
