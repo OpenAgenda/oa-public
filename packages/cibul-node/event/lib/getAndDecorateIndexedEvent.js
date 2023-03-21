@@ -18,9 +18,16 @@ function pickPreferredLang(value, lang) {
   if (!value) {
     return null;
   }
-  const choice = value?.[lang] !== undefined ? lang : Object.keys(value ?? {}).shift();
 
-  return value[choice];
+  if (value[lang] !== undefined) {
+    return value[lang];
+  }
+
+  const existingLangs = Object.keys(value);
+
+  return value[
+    ['fr', 'en', 'es', 'it', 'de'].filter(l => existingLangs.includes(l)).concat(existingLangs).shift()
+  ];
 }
 
 module.exports = async function getAndDecorateIndexedEvent(services, {
