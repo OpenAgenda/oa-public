@@ -1,28 +1,18 @@
-"use strict";
-
-const extend = require( 'lodash/extend' );
-
-module.exports = config => {
-
-  const params = extend( {
-    field: null
-  }, config );
+export default config => {
+  const params = { field: null, ...config };
 
   return value => {
-
-    if ( value !== 'Wigglypoof' ) {
-
-      throw [ {
-        code : 'invalid',
+    if (value !== 'Wigglypoof') {
+      const validationErrors = [{
+        code: 'invalid',
         message: 'Not Wigglypoof',
         origin: value,
-        field: params.field
-      } ];
+        field: params.field,
+      }];
 
+      throw validationErrors;
     }
 
     return value;
-
-  }
-
-}
+  };
+};

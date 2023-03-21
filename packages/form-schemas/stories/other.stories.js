@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import FormSchemaComponent from '../client/src/index';
 
@@ -7,8 +7,6 @@ import wigglypoofValidator from './custom/wigglypoof.validator';
 import SimplePageDecorator from './decorators/SimpleTransparentPage';
 
 import '@openagenda/bs-templates/compiled/main.css';
-
-if (module.hot) module.hot.accept();
 
 export default {
   title: 'Other',

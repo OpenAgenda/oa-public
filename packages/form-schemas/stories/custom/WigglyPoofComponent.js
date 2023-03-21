@@ -1,31 +1,33 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 export default class WigglyPoofComponent extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor( props ) {
-
-    super( props );
-
-    this.onChange = this.onChange.bind( this );
-
+    this.onChange = this.onChange.bind(this);
   }
 
-  onChange( e, value ) {
-
+  onChange(e) {
     e.preventDefault();
 
-    this.props.onChange( e.target.value );
+    const {
+      onChange,
+    } = this.props;
 
+    onChange(e.target.value);
   }
 
   render() {
+    const {
+      field,
+    } = this.props;
 
     const {
       field: name,
-      placeholder
-    } = this.props.field;
+      placeholder,
+    } = field;
 
-    const { value, onChange, type } = this.props;
+    const { value } = this.props;
 
     const fieldProps = {
       name,
@@ -33,11 +35,9 @@ export default class WigglyPoofComponent extends Component {
       className: 'form-control',
       value: value || '',
       placeholder,
-      onChange: this.onChange
-    }
+      onChange: this.onChange,
+    };
 
-    return <input { ...fieldProps } />
-
+    return <input {...fieldProps} />;
   }
-
 }
