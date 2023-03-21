@@ -327,6 +327,55 @@ export function FieldsWithDifferentWriteAccesses() {
   );
 }
 
+export function FieldsWithDifferentDisplays() {
+  const props = {
+    lang: 'fr',
+    schema: {
+      fields: [{
+        field: 'regularfield',
+        fieldType: 'text',
+        label: 'Un champ sans restriction d\'accès',
+      }, {
+        field: 'hiddenfield',
+        fieldType: 'text',
+        label: 'CE CHAMP EST CACHÉ',
+        display: false,
+      }, {
+        field: 'displayedforrole',
+        fieldType: 'text',
+        label: 'Ce champ est affiché pour les camemberts et les funiculaires',
+        display: ['camemberts', 'funiculaires'],
+      }],
+    },
+  };
+
+  return (
+    <div className="container margin-top-lg">
+      <h1 className="text-center">Un même schema chargé avec des rôles différents</h1>
+      <div className="row margin-v-md margin-h-sm">
+        <div className="col col-sm-4 padding-top-sm">
+          <div className="wsq padding-all-sm">
+            <p>pas de role de chargé</p>
+            <FormSchemaComponent {...props} />
+          </div>
+        </div>
+        <div className="col col-sm-4 padding-top-sm">
+          <div className="wsq padding-all-sm">
+            <p>role &quot;camemberts&quot; en prop</p>
+            <FormSchemaComponent {...ih(props, { role: { $set: 'camemberts' } })} />
+          </div>
+        </div>
+        <div className="col col-sm-4 padding-top-sm">
+          <div className="wsq padding-all-sm">
+            <p>role &quot;funiculaires&quot; en prop</p>
+            <FormSchemaComponent {...ih(props, { role: { $set: 'funiculaires' } })} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LeavePageWarning() {
   const props = {
     lang: 'fr',
