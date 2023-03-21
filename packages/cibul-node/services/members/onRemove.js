@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const { isSuperiorToOrEqual } = require('@openagenda/members').utils.compareRoles;
+const clearCache = require('./lib/clearCache');
 const log = require('@openagenda/logs')('services/members/onRemove');
 
 async function removeInvitationsToMember({ invitations }, member) {
@@ -58,12 +59,7 @@ module.exports = function onRemove({ services, members, activityQueue }) {
         throw new Error('User not found');
       }
 
-      try {
-        await simpleCache.hash('members', `${member.agendaUid}.${member.userUid}`).del();
-        log('clear member cache');
-      } catch (e) {
-        log('error', 'failed to clear member cache', { member, exception: e });
-      }
+      await clearCache(services, member);
 
       // loading member removing
       const userMember = member.userUid === user.uid
