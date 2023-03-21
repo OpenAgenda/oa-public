@@ -38,7 +38,7 @@ describe('13 - schema.org', () => {
     status: 5,
     timings: [
       {
-        start: '2019-06-15T06:30:00.000Z',
+        begin: '2019-06-15T06:30:00.000Z',
         end: '2019-06-15T07:30:00.000Z',
       },
     ],
@@ -111,7 +111,7 @@ describe('13 - schema.org', () => {
       });
 
       it('The start date and start time of the event in the local timezone in UTC zone using ISO-8601 format', () => {
-        expect(parsedEventJSONLD.startDate).toBe('2019-06-15T08:30');
+        expect(parsedEventJSONLD.startDate).toBe('2019-06-15T08:30:00+02:00');
       });
     });
 
@@ -123,7 +123,7 @@ describe('13 - schema.org', () => {
       });
 
       it('endDate - The end date and end time of the event the local timezone in UTC zone using ISO-8601 format', () => {
-        expect(parsedEventJSONLD.endDate).toBe('2019-06-15T09:30');
+        expect(parsedEventJSONLD.endDate).toBe('2019-06-15T09:30:00+02:00');
       });
 
       it('image is a repeated URL', () => {
