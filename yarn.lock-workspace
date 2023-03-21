@@ -5871,6 +5871,7 @@ __metadata:
     "@openagenda/react-filters": ^2.9.0
     "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
+    "@openagenda/sdk-js": ^2.0.1
     axios: ^0.21.1
     babel-loader: ^8.2.2
     babel-plugin-handlebars-inline-precompile: ^2.1.1
@@ -5885,6 +5886,8 @@ __metadata:
     cors: ^2.8.5
     css-loader: ^3.4.2
     css-minimizer-webpack-plugin: ^2.0.0
+    date-fns: ^2.29.3
+    date-fns-tz: ^2.0.0
     debug: ^4.1.1
     eslint: ^8.24.0
     express: ^4.17.1
@@ -6458,7 +6461,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/sdk-js@workspace:sdk-js":
+"@openagenda/sdk-js@^2.0.1, @openagenda/sdk-js@workspace:sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:sdk-js"
   dependencies:

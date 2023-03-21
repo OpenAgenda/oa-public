@@ -1,7 +1,6 @@
 'use strict';
 
 const applyTimezone = require('../lib/timings/applyTimezone');
-const getJSONDuration = require('../lib/timings/getJSONDuration');
 const getLabels = require('../lib/timings/getLabels');
 
 describe('12 - timing helper functions', () => {
@@ -18,12 +17,6 @@ describe('12 - timing helper functions', () => {
       start: '2019-06-30T12:00:00+02:00',
       end: '2019-06-30T14:00:00+02:00',
     });
-  });
-
-  it('getJSONDuration returns duration of timing', () => {
-    expect(
-      getJSONDuration('2019-06-30T10:00:00Z', '2019-06-30T12:00:00Z'),
-    ).toBe('PT2H');
   });
 
   it('getLabels provides labels for timings in the moment lib locale', () => {
