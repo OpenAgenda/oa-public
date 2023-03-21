@@ -11,7 +11,7 @@ module.exports = async ({ client }, index, mapping, options = {}) => {
 
   const newFields = diff(
     currentMapping,
-    mapping
+    mapping,
   ).filter(d => d.kind === 'N').map(d => d.path.shift());
 
   if (!options.force && !newFields.length) {
@@ -21,18 +21,18 @@ module.exports = async ({ client }, index, mapping, options = {}) => {
 
   const amendedMapping = newFields.reduce((amended, field) => ({
     ...amended,
-    [field]: mapping[field]
+    [field]: mapping[field],
   }), currentMapping);
 
   const response = client.indices.putMapping({
     index,
     body: {
       dynamic: false,
-      properties: options.force ? mapping : amendedMapping
-    }
+      properties: options.force ? mapping : amendedMapping,
+    },
   }).then(r => r.body);
 
   log('info', 'updated mapping with %j', options.force ? mapping : newFields);
 
   return response;
-}
+};
