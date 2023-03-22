@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useLatest } from 'react-use';
+import { useLatest, usePrevious } from 'react-use';
 import qs from 'qs';
 import { Box, Container, useConst } from '@openagenda/uikit';
 import { FiltersProvider, useFilters } from '@openagenda/react-filters';
@@ -129,8 +129,9 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   // SWR onSuccess
   // https://github.com/vercel/swr/issues/1733
   const latestRouter = useLatest(router);
+  const previousPages = usePrevious(pages);
   useEffect(() => {
-    if (pages?.length > 0) {
+    if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
       const mapFilter = filters.find(v => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
@@ -142,17 +143,12 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       const url = new URL(latestRouter.current.asPath, 'http://n').pathname
         + qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
-      if (url !== window.location.pathname + window.location.search) {
-        latestRouter.current.push(
-          new URL(latestRouter.current.asPath, 'http://n').pathname
-            + qs.stringify(latestQuery.current, { addQueryPrefix: true }),
-          null,
-          { shallow: true },
-        );
+      if (url !== latestRouter.current.asPath) {
+        latestRouter.current.push(url, null, { shallow: true });
       }
     }
-    // deps: should be only [pages], useEffectEvent from react when possible
-  }, [pages, filters, latestQuery, latestRouter]);
+    // deps: on `pages` change, useEffectEvent from react when possible
+  }, [pages, previousPages, filters, latestQuery, latestRouter]);
 
   const [_isPending, startTransition] = useTransition();
 
