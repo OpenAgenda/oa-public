@@ -14,7 +14,7 @@ const transverseIndex = require('./transverseIndex');
 const transverseEventSearchApp = require('./transverseEventSearchApp');
 const agendaRoutes = require('./agendaRoutes');
 
-function task({ queue, rebuildQueue, updateMapping }) {
+async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
   log('task');
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -26,7 +26,8 @@ function task({ queue, rebuildQueue, updateMapping }) {
   rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
   rebuildQueue.run();
 
-  updateMapping();
+  await updateMapping();
+  await updateDynamicSettings();
 }
 
 module.exports.init = async (config, services) => {
@@ -60,6 +61,9 @@ module.exports.init = async (config, services) => {
     },
     emptyValue: 'null',
     assetsPath: config.aws.imageBucketPath,
+    dynamicSettings: {
+      max_result_window: 30000,
+    },
     defaultImage: {
       filename: config.aws.defaultImagePath.split('/').pop(),
       size: config.aws.defaultImageSize,
@@ -82,7 +86,12 @@ module.exports.init = async (config, services) => {
   });
 
   return {
-    task: task.bind(null, { queue, rebuildQueue, updateMapping: eventSearch.updateMapping }),
+    task: task.bind(null, {
+      queue,
+      rebuildQueue,
+      updateMapping: eventSearch.updateMapping,
+      updateDynamicSettings: eventSearch.updateDynamicSettings,
+    }),
     update: update(services, queue, eventSearch),
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
