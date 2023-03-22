@@ -1,27 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('agenda/ConvertFormat');
 
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
-
-function isEnabled(req) {
-  if (req.query.fromV2) {
-    return true;
-  }
-  if (req.credentials?.useJSONBridge) {
-    return true;
-  }
-
-  if (req.agenda?.credentials) {
-    return (
-      typeof req.agenda.credentials === 'string' ? JSON.parse(req.agenda.credentials) : req.agenda.credentials
-    )?.useJSONBridge ?? false;
-  }
-  return false;
-}
 
 module.exports = function ConvertFormat({
   forceLimit = null,
@@ -30,11 +13,6 @@ module.exports = function ConvertFormat({
   admin = false,
 }) {
   return async (req, res, next) => {
-    if (!isEnabled(req)) {
-      log('info', 'Disabled. Using legacy JSON', req.params);
-      return next();
-    }
-
     const {
       legacy: {
         tagsAndCustom,
