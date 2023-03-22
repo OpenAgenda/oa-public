@@ -13,7 +13,7 @@ const getActingMember = async (services, agenda, options) => {
   if (options.member) return options.member;
   if (options.actingMember) return options.actingMember;
   if (options.userUid) {
-    return services.members.getMember({ agendaUid: agenda.uid, userUid: options.userUid });
+    return services.members.get({ agendaUid: agenda.uid, userUid: options.userUid });
   }
   return null;
 };
