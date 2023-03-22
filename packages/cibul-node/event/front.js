@@ -233,7 +233,7 @@ async function agendaEventShow(req, res) {
       contributor: member ? { uid: member.userUid } : null,
       agendaSlug: req.agenda.slug,
       agendaImage: req.agenda.image
-        ? `${config.aws.imageBucketPath}${req.agenda.image}`
+        ? req.agenda.image
         : config.aws.defaultImagePath,
     },
     oaRoot: config.root,

@@ -7052,7 +7052,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@^6.9.3, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@^6.9.4, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -18975,7 +18975,7 @@ __metadata:
     "@openagenda/agenda-events": ^1.11.14
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-locations-app": ^0.0.0
-    "@openagenda/agenda-portal": ^6.9.3
+    "@openagenda/agenda-portal": ^6.9.4
     "@openagenda/agenda-schemas-app": ^0.0.0
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0

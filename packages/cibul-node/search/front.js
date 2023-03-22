@@ -1,7 +1,6 @@
 "use strict";
 
 const cmn = require( '../lib/commons-app' );
-const agendaSvc = require( '../services/agenda' );
 
 const preMw = [
   cmn.loadLogger( 'search front' ),
@@ -16,22 +15,6 @@ module.exports = app => {
     '/events/search',
     preMw,
     searchEvents
-  );
-
-  app.get(
-    '/widgets/:uid/search',
-    preMw,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    widgetSearchEvents
-  );
-
-  app.get(
-    '/widgets/:uid/:embedUid/search',
-    preMw,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    widgetSearchEvents
   );
 
   app.get(
@@ -74,20 +57,6 @@ function searchEvents( req, res, next ) {
   res.redirect( 301, req.genUrl( 'agendaSearch', { search: req.cleanSearch } ) );
 
 }
-
-
-function widgetSearchEvents( req, res ) {
-
-  req.agenda.aggregate( req.query.oaq, {
-    showAll: false
-  }, function( err, result ) {
-
-    return cmn.renderJson( req, res, result );
-
-  });
-
-}
-
 
 function latestEvents( req, res ) {
 

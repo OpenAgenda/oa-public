@@ -15,6 +15,7 @@ const update = require('./update');
 const Cluster = require('./cluster');
 const mapping = require('./config/mapping.json');
 const updateMapping = require('./utils/updateMapping');
+const updateDynamicSettings = require('./utils/updateDynamicSettings');
 const geoJSON = require('./utils/geoJSON');
 
 module.exports = c => {
@@ -49,6 +50,7 @@ module.exports = c => {
     getConfig: () => config,
     cluster: Cluster(config),
     updateMapping: updateMapping.bind(null, config, config.defaultIndex, mapping),
+    updateDynamicSettings: updateDynamicSettings.bind(null, config, config.defaultIndex, config.dynamicSettings),
   });
 };
 

@@ -95,7 +95,7 @@ function buildFieldSchema(type, options = {}) {
     },
 
     display: {
-      type: 'boolean',
+      type: 'pass',
       default: true,
     },
 
@@ -219,7 +219,7 @@ function buildFieldSchema(type, options = {}) {
             defaultLanguage: defaultLabelLanguage,
           },
           display: {
-            type: 'boolean',
+            type: 'pass',
             default: true,
           },
         },

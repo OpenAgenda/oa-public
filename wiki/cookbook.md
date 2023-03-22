@@ -591,9 +591,13 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
 
 ## Scripts
 
+### Pèle-Mèle
+
+ * **Ajout d'un membre sur de multiples agendas**: le script est sur prodifier, dossier scripts/member-group-operations. Il faut lister les slugs dans slugs.txt séparés par des retours à la ligne, puis lancer le `add.js`. Ce script pourrait resync les inbox & activités de l'agenda pour le membre, il ne le fait pas. L'API permet de faire cette manip désormais. Une refacto serait utile pour que le script n'ait plus à se connecter à la DB.
+
 ### MCC
 
- * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier
+ * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier. Il est déployé sur prodifier.
 
 ## Histoires
 

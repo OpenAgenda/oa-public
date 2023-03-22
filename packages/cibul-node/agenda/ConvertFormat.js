@@ -63,13 +63,21 @@ module.exports = function ConvertFormat({
 
     const agenda = await req.app.core.agendas(req.params.uid).get();
 
-    const eventsList = await req.app.core
+    const {
+      result: eventsList,
+      error,
+    } = await req.app.core
       .agendas(req.params.uid)
       .events.search(
         req.query,
         nav,
         { detailed: true, access: 'administrator' },
-      );
+      )
+      .then(result => ({ result }), e => ({ error: e }));
+
+    if (error) {
+      return next(error);
+    }
 
     const agendaSettings = {
       uid: req.params.uid,

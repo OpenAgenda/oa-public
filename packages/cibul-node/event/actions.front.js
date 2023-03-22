@@ -44,8 +44,9 @@ module.exports = app => {
         }
         req.event = result;
         next();
-      })
-      .catch(next),
+      }, err => {
+        next(err.name === 'BadRequestError' ? { code: 404 } : err);
+      }),
     actionDatesJson
   );
 

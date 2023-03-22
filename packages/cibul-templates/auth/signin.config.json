@@ -15,6 +15,7 @@
     "optionals" : {},
     "agenda" : false,
     "includeActionLinks" : false,
-    "mailto" : false
+    "mailto" : false,
+    "helpLink" : "https://doc.openagenda.com"
   }
 }
