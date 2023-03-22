@@ -7,6 +7,10 @@ const numberValidator = require('@openagenda/validators/number');
 const regexValidator = require('@openagenda/validators/regex');
 const passValidator = require('@openagenda/validators/pass');
 
+const {
+  BadRequest,
+} = require('@openagenda/verror');
+
 schema.register({
   integer: integerValidator,
   number: numberValidator,
@@ -60,10 +64,14 @@ const navValidator = schema({
   },
 });
 
-module.exports = nav => {
+module.exports = function validateNav(nav, options = {}) {
   const preClean = {
     ...nav ?? {},
   };
+
+  const {
+    maxResultWindow = 10000,
+  } = options;
 
   const {
     offset, limit,
@@ -78,6 +86,12 @@ module.exports = nav => {
   }
 
   const clean = navValidator(preClean);
+
+  if ((clean.from ?? 0) + (clean.size ?? 20) > maxResultWindow) {
+    const fromKey = Object.keys(nav).includes('offset') ? 'offset' : 'from';
+    const toKey = Object.keys(nav).includes('limit') ? 'limit' : 'size';
+    throw new BadRequest(`${fromKey} + ${toKey} cannot exceed ${maxResultWindow}. Use "after" navigation for better performance.`);
+  }
 
   if (clean.after) {
     clean.after = cleanAfter(clean.after);

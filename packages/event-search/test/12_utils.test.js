@@ -360,6 +360,21 @@ describe('event-search - unit: utils', () => {
         size: 20,
       });
     });
+
+    it('throws BadRequest if from+size exceeds provided max', () => {
+      let error;
+      try {
+        validateNav({
+          from: 10,
+          size: 10,
+        }, { maxResultWindow: 19 });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('BadRequest');
+      expect(error.message).toBe('from + size cannot exceed 19. Use "after" navigation for better performance.');
+    });
   });
 
   describe('cleanRequestedAggregation', () => {
