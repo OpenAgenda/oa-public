@@ -249,12 +249,12 @@ location /widgets {
   include conf.d/nodejs_params;
 }
 
-location /agendas {
+location ~ ^/agendas$ {
   include conf.d/nodejs_params;
 }
 
 # agendas.:format
-location ~ /agendas\.[a-zA-Z0-9]* {
+location ~ ^/agendas\.[a-zA-Z0-9]* {
   include conf.d/nodejs_params;
 }
 
