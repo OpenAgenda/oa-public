@@ -302,6 +302,7 @@ function catchError(req, res, jsonResponse) {
       }
 
       res.code = 404;
+      res.statusCode = 404;
     } else if (err.code === 403 && err.messageCode) {
       err.message = labels.unauthorized[err.messageCode][req.lang];
     }

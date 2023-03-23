@@ -5,12 +5,14 @@ const _ = require('lodash');
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
+const gaTrack = require('../lib/gaTrack');
 
 module.exports = function ConvertFormat({
   forceLimit = null,
   sendJSON = false,
   forceIncludeEmbedded = false,
   admin = false,
+  ga = null,
 }) {
   return async (req, res, next) => {
     const {
@@ -40,6 +42,10 @@ module.exports = function ConvertFormat({
     }, ['page', 'oaq']);
 
     const agenda = await req.app.core.agendas(req.params.uid).get();
+
+    if (ga) {
+      gaTrack(req, agenda, ...ga);
+    }
 
     const {
       result: eventsList,

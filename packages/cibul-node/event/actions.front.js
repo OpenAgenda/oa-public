@@ -15,7 +15,7 @@ const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
 const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
-const gaTrack = require('../lib/gaTrack.mw');
+const gaTrack = require('../lib/gaTrack');
 const ics = require('../services/events/lib/ics');
 
 module.exports = app => {

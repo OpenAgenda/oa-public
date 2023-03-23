@@ -21,26 +21,27 @@ function extractUserInfos( req ) {
   return { cid, _gid, dl, uip, ua };
 }
 
-module.exports = ( category, action, label ) => ( req, res, next ) => {
-  if ( !req.agenda ) {
-    return next ? next() : null;
+function gaTrack(req, agenda, category, action, label) {
+  const gaId = agenda?.settings?.tracking?.googleAnalytics;
+
+  if (!gaId) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    return;
   }
 
-  const agendaSettings = typeof req.agenda.getSettings === 'function'
-    ? req.agenda.getSettings()
-    : req.agenda.settings;
-  const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
+  const { cid, ...rest } = extractUserInfos( req );
 
-  if ( gaId && process.env.NODE_ENV === 'production' ) {
-    const { cid, ...rest } = extractUserInfos( req );
+  gaTrackEvent( gaId, cid, category, action, label, rest )
+    .catch( e => log.warn( 'Tracking error', e ) );
+}
 
-    gaTrackEvent( gaId, cid, category, action, label, rest )
-      .catch( e => log.warn( 'Tracking error', e ) );
-  }
+module.exports = gaTrack;
 
-  if ( typeof next === 'function' ) {
-    next();
-  }
+module.exports.mw = (category, action, label) => (req, res, next) => {
+  gaTrack(req, req.agenda, category, action, label);
+  next();
 };
 
 module.exports.batch = events => ( req, res, next ) => {
