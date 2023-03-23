@@ -10,17 +10,20 @@ module.exports = (services, service, app, base) => {
   const {
     members,
     agendas,
-    agendaContribute
+    agendaContribute,
   } = services;
 
-  app.use(`${base}*`,
+  app.use(
+    `${base}*`,
     expressUtils.https,
     agendas.mw.loadBy({
       path: 'params.agendaUid',
-      field: 'uid'
-    }));
+      field: 'uid',
+    }),
+  );
 
-  app.get(`${base}.json`,
+  app.get(
+    `${base}.json`,
     (req, res, next) => {
       if (!req.agenda.private) {
         next();
@@ -34,47 +37,50 @@ module.exports = (services, service, app, base) => {
       req.locations.list(
         req.query,
         _.pick(req.query, ['offset', 'limit']),
-        { total: true, detailed: !req.query.sample, includeImagePath: true }
+        { total: true, detailed: !req.query.sample, includeImagePath: true },
       ).then(({ items, total }) => res.json({
         total,
         offset: parseInt(req.query.offset ?? 0, 10),
         limit: parseInt(req.query.limit ?? 20, 10),
-        items
+        items,
       }), next);
     },
     (err, req, res) => {
       res.status(500).json();
       log('error', err);
-    });
+    },
+  );
 
-  app.post(`${base}`,
+  app.post(
+    `${base}`,
     members.mw.load,
     agendaContribute.mw.verifyMemberAuthorization,
     loadLocationEndpoints(service),
     service.imageTransformAndUpload.middleware([{
       name: 'image',
-      unique: true
+      unique: true,
     }]),
     (req, res, next) => {
       req.locations.create({
         ...req.body,
-        state: 0
+        state: 0,
       }, {
         includeImagePath: true,
-        agendaUid: req.agenda.uid
+        agendaUid: req.agenda.uid,
       }).then(location => {
         res.json({
           location,
-          success: true
+          success: true,
         });
       }, next);
-    });
+    },
+  );
 
   app.use(base, (err, req, res, _next) => {
     if (err.name === 'BadRequest') {
       res.status(400).json({
         errors: err.info,
-        success: false
+        success: false,
       });
     } else {
       res.status(500).json();
