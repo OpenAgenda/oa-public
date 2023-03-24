@@ -5,7 +5,6 @@ const _ = require('lodash');
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
-const log = require('@openagenda/logs')('ConvertFormat');
 const gaTrack = require('../lib/gaTrack');
 
 module.exports = function ConvertFormat({

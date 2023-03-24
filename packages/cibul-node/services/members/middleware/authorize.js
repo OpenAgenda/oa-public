@@ -1,37 +1,28 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const { NotAuthenticated } = require('@openagenda/verror');
 
 const {
-  isSuperiorTo
+  isSuperiorTo,
 } = require('@openagenda/members').utils.compareRoles;
 
 const log = require('@openagenda/logs')('services/members/middleware/authorize');
 
-module.exports = {
-  moderator,
-  moderatorCannotEditAdministrator,
-  moderatorCannotInviteAdministrator,
-  agendaHasCredential,
-  adminModOrEventOwner,
-  adminModOrKey
-};
-
 function adminModOrEventOwner(req, res, next) {
-  log('adminModOrEventOwner',
+  log(
+    'adminModOrEventOwner',
     req.member ? req.member.role : 'not a member',
     req.member ? req.member.userUid : '',
-    req.event.uid
+    req.event.uid,
   );
   if (req.member && isSuperiorTo(req.member.role, 'contributor')) {
     return next();
-  } else if (req.member && (req.member.userUid === req.event.ownerUid)) {
+  } if (req.member && (req.member.userUid === req.event.ownerUid)) {
     return next();
   }
   next({
     message: 'Not authorized',
-    code: 403
+    code: 403,
   });
 }
 
@@ -64,17 +55,26 @@ function agendaHasCredential(credential, req, res, next) {
 }
 
 function adminModOrKey({ agendaUidPath } = {}) {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const { agendas, users, members } = req.app.services;
 
     agendas.mw.authorizeByKey.or([
       users.mw.loadBySessionOrKey(),
       members.mw.loadAndAuthorize('moderator', {
-        or: (req, res, next) => {
-          next(new NotAuthenticated('Authentication is required'));
+        or: (_req, _res, n) => {
+          n(new NotAuthenticated('Authentication is required'));
         },
-        agendaUidPath
-      })
+        agendaUidPath,
+      }),
     ], { agendaUidPath })(req, res, next);
-  }
+  };
 }
+
+module.exports = {
+  moderator,
+  moderatorCannotEditAdministrator,
+  moderatorCannotInviteAdministrator,
+  agendaHasCredential,
+  adminModOrEventOwner,
+  adminModOrKey,
+};
