@@ -32,7 +32,6 @@ const evaluateFieldData = (filterValue, fieldData, caseSensitive, wholeValue) =>
 };
 
 module.exports = (filter, data) => {
-  console.log('evaluate', filter, data);
   for (const field of Object.keys(filter).filter(e => e !== 'caseSensitive' && e !== 'wholeValue')) {
     if (evaluateFieldData(filter[field], data[field], filter?.caseSensitive, filter?.wholeValue)) {
       return true;
