@@ -145,6 +145,7 @@ function Dashboard() {
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
+
   const { mergeMode } = useMemo(() => {
     if (pathname.includes('merge') && settings?.access.merge.authorized) {
       dispatch(mergeActions.initiate());
@@ -349,7 +350,7 @@ function Dashboard() {
           dispatch={dispatch}
           mergeActions={mergeActions}
           seeDetails={setOpenDetails}
-          seeSelection={() => history.push({ search: betterQsStringify({ ...search, page, uids: merge.locationUids }) })}
+          seeSelection={() => history.push({ search: betterQsStringify({ ...search, uids: merge.locationUids }) })}
           closeMerge={() => {
             dispatch(mergeActions.closeMerge());
             history.push({ pathname: prefix, search: betterQsStringify({ ...search, page }) });
@@ -468,7 +469,7 @@ function Dashboard() {
                 } else {
                   const locationUids = location.duplicateCandidates.concat(location.uid);
                   dispatch(mergeActions.initiateFromDuplicates(locationUids, location.uid));
-                  history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ ...search, page, uids: locationUids }) });
+                  history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ uids: locationUids }) });
                 }
               }}
             />
