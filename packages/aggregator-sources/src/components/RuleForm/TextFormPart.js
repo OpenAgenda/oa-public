@@ -91,13 +91,23 @@ export default ({ sourceSchema = { fields: [] } }) => {
             component={Radio}
             name="caseSensitive"
             type="checkbox"
-            label="Respecter la casse"
+            label={intl.formatMessage(messages.RespectCase)}
             classNameGroup="radio filter-choice"
             helpBlock={(
               <div className="margin-h-z text-muted">
                 {intl.formatMessage(messages.textFilterCaseSensitive)}
               </div>
             )}
+          />
+        </div>
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="wholeValue"
+            type="checkbox"
+            label={intl.formatMessage(messages.wholeValueFilter)}
+            classNameGroup="radio filter-choice"
           />
         </div>
       </div>

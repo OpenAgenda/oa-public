@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.textFilter',
     defaultMessage: 'Text field filter',
   },
+  RespectCase: {
+    id: 'aggregator-sources.RuleForm.RespectCase',
+    defaultMessage: 'Respect case',
+  },
   textFilterCaseSensitive: {
     id: 'aggregator-sources.RuleForm.textFilterCaseSensitive',
     defaultMessage: 'the filter is case sensitive',
@@ -160,5 +164,9 @@ export default defineMessages({
   useActionsDesc: {
     id: 'aggregator-sources.RuleForm.useActionsDesc',
     defaultMessage: 'Advanced mode',
+  },
+  wholeValueFilter: {
+    id: 'aggregator-sources.RuleForm.wholeValueFilter',
+    defaultMessage: 'The whole value of the field is compared to the filter',
   },
 });
