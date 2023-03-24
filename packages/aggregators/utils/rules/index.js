@@ -11,7 +11,7 @@ function evaluateRules(
   rules,
   sourceAgendaSchema,
   aggregatorAgendaSchema,
-  data
+  data,
 ) {
   const actions = [];
 
@@ -22,7 +22,7 @@ function evaluateRules(
       cleanRule(rule),
       sourceAgendaSchema,
       aggregatorAgendaSchema,
-      data
+      data,
     );
 
     if (ruleActions === false) {
@@ -70,18 +70,18 @@ function extractAutomaticValues(
   sourceAgendaSchema,
   aggregatorAgendaSchema,
   aggregatorFieldName,
-  data
+  data,
 ) {
   const sourceFieldsWithData = Object.keys(data);
   const optionedSourceFieldsWithData = sourceAgendaSchema.fields.filter(
-    f => !!f.options && sourceFieldsWithData.includes(f.field)
+    f => !!f.options && sourceFieldsWithData.includes(f.field),
   );
 
   const labels = optionedSourceFieldsWithData.reduce(
     (result, sourceField) => result.concat(
-      convertFieldOptionIdsToLabels(sourceField, data[sourceField.field])
+      convertFieldOptionIdsToLabels(sourceField, data[sourceField.field]),
     ),
-    []
+    [],
   );
 
   if (!labels.length) return [];
@@ -102,10 +102,10 @@ function extractAutomaticValues(
           ...accu,
           [label]: option.id,
         }),
-        result
+        result,
       );
     },
-    {}
+    {},
   );
 
   return labels
@@ -113,7 +113,7 @@ function extractAutomaticValues(
     .filter(id => !!id)
     .reduce(
       (deduped, id) => (deduped.includes(id) ? deduped : [...deduped, id]),
-      []
+      [],
     );
 }
 
@@ -122,7 +122,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     rules,
     sourceAgendaSchema,
     aggregatorAgendaSchema,
-    data
+    data,
   );
 
   if (stop) {
@@ -156,7 +156,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
           [aggregatorSchemaField.field]: data[fieldName],
         };
       },
-      {}
+      {},
     )
     : {};
 
@@ -172,12 +172,12 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
             sourceAgendaSchema,
             aggregatorAgendaSchema,
             field,
-            data
+            data,
           )
           : action.values[actionOperation];
 
         const currentFieldTransformValues = [].concat(
-          fieldTransform[fieldOperation]
+          fieldTransform[fieldOperation],
         );
         const updatedFieldTransformValues = actionOperation === '$set'
           ? actionValues
@@ -189,7 +189,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
         };
       }, {}),
     }),
-    {}
+    {},
   );
 
   return ih(base, transform);
