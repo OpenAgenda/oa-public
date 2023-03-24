@@ -21,6 +21,14 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.textFilterValue',
     defaultMessage: 'contains "{value}"',
   },
+  textFilterWholeValue: {
+    id: 'aggregator-sources.DefineRules.textFilterWholeValue',
+    defaultMessage: 'equal to "{value}"',
+  },
+  textFilterNotDefined: {
+    id: 'aggregator-sources.DefineRules.textFilterNotDefined',
+    defaultMessage: 'not defined ',
+  },
   withActions: {
     id: 'aggregator-sources.DefineRules.withActions',
     defaultMessage:

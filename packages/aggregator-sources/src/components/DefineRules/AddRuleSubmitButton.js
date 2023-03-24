@@ -7,13 +7,13 @@ import messages from './messages';
 export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();
   const { values } = useFormState();
-
   const hasChoiceValues = Array.isArray(values.choiceValues)
     ? values.choiceValues.length
     : !['', null, undefined].includes(values.choiceValues);
   const hasFilter = values.tagValues?.length
     || values.locationValues
     || values.textValue
+    || (values.type === 'text' && values.wholeValue)
     || hasChoiceValues;
   const disabled = !hasFilter
     && !(

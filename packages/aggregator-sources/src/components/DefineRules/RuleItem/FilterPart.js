@@ -2,6 +2,13 @@ import React from 'react';
 import messages from './messages';
 import extract from './extractFilterDisplayValues';
 
+const extractTextField = textRule => {
+  if (!textRule) return null;
+  const unwantedKeys = ['caseSensitive', 'wholeValue', 'required'];
+  const keys = Object.keys(textRule).filter(k => !unwantedKeys.includes(k));
+  return keys[0];
+};
+
 export default ({
   rule, intl, sourceAgendaSchema, sourceAgenda
 }) => {
@@ -13,6 +20,7 @@ export default ({
     sourceAgendaSchema,
     sourceAgenda,
   });
+  const textField = extractTextField(rule.query.text);
   const labelClass = `margin-right-xs ${broken ? 'text-danger' : ''}`;
   return (
     <div className="padding-v-xs">
@@ -32,7 +40,7 @@ export default ({
             {label}:
           </label>
           {value}
-          {rule.query.text ? (
+          {rule.query.text && rule.query.text[textField] ? (
             <span
               className={`badge badge-pill margin-right-xs badge-${
                 casse ? 'info' : 'default'
