@@ -8735,8 +8735,7 @@ __metadata:
     react-use: ^17.4.0
     sharp: ^0.31.1
     storybook: ^7.0.0-beta.30
-    swr: ^1.3.0
-    swr-devtools: ^1.2.2
+    swr: ^2.1.1
     typescript: ^4.8.4
     universal-cookie: ^4.0.4
     use-local-storage-state: ^18.1.2
@@ -20301,15 +20300,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-anything@npm:^3.0.2":
-  version: 3.0.3
-  resolution: "copy-anything@npm:3.0.3"
-  dependencies:
-    is-what: ^4.1.8
-  checksum: d456dc5ec98dee7c7cf87d809eac30dc2ac942acd4cf970fab394e280ceb6dd7a8a7a5a44fcbcc50e0206658de3cc20b92863562f5797930bb2619f164f4c182
-  languageName: node
-  linkType: hard
-
 "copy-concurrently@npm:^1.0.0":
   version: 1.0.5
   resolution: "copy-concurrently@npm:1.0.5"
@@ -29044,13 +29034,6 @@ fsevents@~2.1.1:
   dependencies:
     call-bind: ^1.0.2
   checksum: 95bd9a57cdcb58c63b1c401c60a474b0f45b94719c30f548c891860f051bc2231575c290a6b420c6bc6e7ed99459d424c652bd5bf9a1d5259505dc35b4bf83de
-  languageName: node
-  linkType: hard
-
-"is-what@npm:^4.1.8":
-  version: 4.1.8
-  resolution: "is-what@npm:4.1.8"
-  checksum: b9bec3acff102d14ad467f4c74c9886af310fa160e07a63292c8c181e6768c7c4c1054644e13d67185b963644e4a513bce8c6b8ce3d3ca6f9488a69fccad5f97
   languageName: node
   linkType: hard
 
@@ -43123,15 +43106,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"superjson@npm:^1.11.0":
-  version: 1.12.1
-  resolution: "superjson@npm:1.12.1"
-  dependencies:
-    copy-anything: ^3.0.2
-  checksum: d69badde9892bd2acfb6a2c37f233b7018b64fe88357568a7ab480547d6755ac1ed33a8d438d7ca856178312f5367574de180774d558bc0b75d1439efdfc53ba
-  languageName: node
-  linkType: hard
-
 "supervisor@npm:~0.12.0":
   version: 0.12.0
   resolution: "supervisor@npm:0.12.0"
@@ -43228,24 +43202,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr-devtools@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "swr-devtools@npm:1.2.2"
+"swr@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "swr@npm:2.1.1"
   dependencies:
-    superjson: ^1.11.0
-  peerDependencies:
-    react: ">=17.0.2"
-    swr: ">=1.0.0"
-  checksum: e447988da28fa1c49f405934931361e00ff2c6fb69553b3d07b26047cc96ccd9b5bc702da6af694b9fcb2e6fd2a1cf1e02d582a1d2c4643028f590b95c314445
-  languageName: node
-  linkType: hard
-
-"swr@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "swr@npm:1.3.0"
+    use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: e7a184f0d560e9c8be85c023cc8e65e56a88a6ed46f9394b301b07f838edca23d2e303685319a4fcd620b81d447a7bcb489c7fa0a752c259f91764903c690cdb
+  checksum: 77a7854f87c2a3244b4047eca5d88a0f5db6cb47f783fd13b8a38f5a611940142645c943e105fbfa64aac51e642361180366107ade0454744a80d6dedbe350db
   languageName: node
   linkType: hard
 
@@ -45500,7 +45464,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:1.2.0":
+"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:
