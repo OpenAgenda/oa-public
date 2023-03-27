@@ -4,7 +4,7 @@ import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
 import { Button, ModalBody, ModalFooter, Text, VStack, Link } from '@openagenda/uikit';
-import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
+// import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import LoadingBody from './LoadingBody';
 import Description from './Description';
 import SearchInput from './SearchInput';
@@ -43,7 +43,7 @@ export default function LoggedBody({ agenda }) {
       // add the cursor to the API endpoint
       return ['aggregateModal', 'agendas', searchValue, pageIndex + 1];
     },
-    (_comp, _requestId, search, page) => {
+    ([_comp, _requestId, search, page]) => {
       const searchParamsStr = qs.stringify({
         role: 'administrator',
         search: search !== '' ? search : undefined,
@@ -59,12 +59,13 @@ export default function LoggedBody({ agenda }) {
         });
     },
     {
+      keepPreviousData: true,
       revalidateFirstPage: false,
       // revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      use: [swrLaggyMiddleware],
+      // use: [swrLaggyMiddleware],
     },
   );
 

@@ -1,6 +1,5 @@
 import useSWRInfinite from 'swr/infinite';
 import { getEvents } from '@openagenda/react-filters';
-import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 
 export default function useEventsQuery({
   agenda,
@@ -11,7 +10,7 @@ export default function useEventsQuery({
 }) {
   const upcomingOnly = !query.timings && query.passed !== '1';
 
-  return useSWRInfinite(
+  const result = useSWRInfinite(
     (pageIndex, previousPageData) => {
       // reached the end
       if (previousPageData && !previousPageData.events) return null;
@@ -22,7 +21,7 @@ export default function useEventsQuery({
       // add the cursor to the API endpoint
       return ['AgendaShow', 'events', agenda.slug, pageIndex, query, previousPageData.after];
     },
-    (_page, _requestId, _slug, pageIndex, _query, after) => getEvents(
+    ([_page, _requestId, _slug, pageIndex, _query, after]) => getEvents(
       null, // apiCLient
       `/api/agendas/slug/${agenda.slug}/events`,
       agenda,
@@ -42,12 +41,15 @@ export default function useEventsQuery({
     ),
     {
       suspense,
+      keepPreviousData: true,
       revalidateFirstPage: false,
       // revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      use: [swrLaggyMiddleware],
+      // use: [swrLaggyMiddleware],
     },
   );
+
+  return { ...result };
 }
