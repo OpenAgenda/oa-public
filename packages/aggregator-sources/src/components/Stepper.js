@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useState, useMemo, useRef
-} from 'react';
+import { useCallback, useState, useMemo, useRef } from 'react';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import { useMemoOne } from '@openagenda/react-shared';
@@ -29,19 +27,19 @@ function Step({
 }) {
   const activable = useMemoOne(
     () => getStepPropertyValue(step, 'activable', index, steps, ...additionals),
-    [step, index, steps, additionals]
+    [step, index, steps, additionals],
   );
   const active = useMemoOne(
     () => getStepPropertyValue(step, 'active', index, steps, ...additionals),
-    [step, index, steps, additionals]
+    [step, index, steps, additionals],
   );
   const passed = useMemoOne(
     () => getStepPropertyValue(step, 'passed', index, steps, ...additionals),
-    [step, index, steps, additionals]
+    [step, index, steps, additionals],
   );
   const label = useMemoOne(
     () => getStepPropertyValue(step, 'label', index, steps, ...additionals),
-    [step, index, steps, additionals]
+    [step, index, steps, additionals],
   );
 
   const onSelectStep = useCallback(
@@ -55,17 +53,18 @@ function Step({
         onSelect(step.key);
       }
     },
-    [onSelect, activable, step.key]
+    [onSelect, activable, step.key],
   );
 
   const className = useMemo(
-    () => classNames('step', _className, {
-      active,
-      activable,
-      passed,
-      confirmation,
-    }),
-    [_className, activable, active, passed, confirmation]
+    () =>
+      classNames('step', _className, {
+        active,
+        activable,
+        passed,
+        confirmation,
+      }),
+    [_className, activable, active, passed, confirmation],
   );
 
   if (active || !activable) {
@@ -122,18 +121,19 @@ export default function Stepper({ steps = [], onSelect, additionals }) {
   return (
     <div className="stepper-container margin-bottom-sm" ref={containerRef}>
       <div id="stepper" className="stepper">
-        {steps.map((s, index) => (s.display ? (
-          <Step
-            key={s.key}
-            step={s}
-            onSelect={onSelect}
-            style={stepStyle}
-            index={index}
-            steps={steps}
-            additionals={additionals}
-            confirmation={s.confirmation}
-          />
-        ) : null))}
+        {steps.map((s, index) =>
+          (s.display ? (
+            <Step
+              key={s.key}
+              step={s}
+              onSelect={onSelect}
+              style={stepStyle}
+              index={index}
+              steps={steps}
+              additionals={additionals}
+              confirmation={s.confirmation}
+            />
+          ) : null))}
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import AggregatorRules from '../src/components/AggregatorRules';
 import SimpleDecorator from './decorators/Simple';
 import IntlDecorator from './decorators/IntlDecorator';

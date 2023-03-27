@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
@@ -120,14 +120,12 @@ const modalClassnames = {
   overlay: 'popup-overlay big',
 };
 
-function AgendaItem({
-  agenda, sources, onSelect, firstAction
-}) {
+function AgendaItem({ agenda, sources, onSelect, firstAction }) {
   const intl = useIntl();
   const onAgendaClick = useCallback(() => onSelect(agenda), [onSelect, agenda]);
   const alreadyInSources = useMemo(
     () => sources.some(source => source.agenda.uid === agenda.uid),
-    [sources, agenda]
+    [sources, agenda],
   );
   const agendaImage = useMemo(() => agenda?.image ?? DEFAULT_IMAGE, [agenda]);
 
@@ -255,7 +253,7 @@ export default function AddSourceModal({
 
   const [selectType, setSelectType] = useState('search'); // search || slug
   const [selectedStep, setSelectedStep] = useState(
-    preselectedAgenda ? 'defineRules' : 'selectAgenda'
+    preselectedAgenda ? 'defineRules' : 'selectAgenda',
   );
   const [selectedEvaluate, setSelectedEvaluate] = useState();
   const [selectedAgenda, setSelectedAgenda] = useState(preselectedAgenda);
@@ -270,7 +268,7 @@ export default function AddSourceModal({
 
       setSelectType(selectType === 'search' ? 'slug' : 'search');
     },
-    [selectType, setSelectType]
+    [selectType, setSelectType],
   );
 
   const sources = useSelector(state => state.sources.data);
@@ -292,7 +290,7 @@ export default function AddSourceModal({
 
       return index < selectedStepIndex;
     },
-    [selectedAgenda]
+    [selectedAgenda],
   );
   const isPassed = useCallback((step, index, steps, selectedKey) => {
     const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
@@ -303,13 +301,13 @@ export default function AddSourceModal({
   const onSelectAgenda = useCallback(
     async sourceAgenda => {
       sourceAgenda.schema = await apiClient.get(
-        `/${sourceAgenda.slug}/settings/schema`
+        `/${sourceAgenda.slug}/settings/schema`,
       );
 
       setSelectedAgenda(sourceAgenda);
       setSelectedStep('defineRules');
     },
-    [apiClient]
+    [apiClient],
   );
 
   const selectStep = useCallback(
@@ -322,7 +320,7 @@ export default function AddSourceModal({
 
       setSelectedStep(key);
     },
-    [setSelectType, setSelectedStep]
+    [setSelectType, setSelectedStep],
   );
 
   const steps = useMemoOne(
@@ -361,7 +359,7 @@ export default function AddSourceModal({
         confirmation: true,
       },
     ],
-    [intl, isActivable, isActive, isPassed]
+    [intl, isActivable, isActive, isPassed],
   );
 
   const handleRulesSubmit = useCallback(
@@ -369,7 +367,7 @@ export default function AddSourceModal({
       setRules(value);
       selectStep('evaluation');
     },
-    [setRules, selectStep]
+    [setRules, selectStep],
   );
 
   const handleFinalSubmit = useCallback(
@@ -379,7 +377,7 @@ export default function AddSourceModal({
         selectStep('info');
       });
     },
-    [onSubmit, selectedAgenda, rules, selectStep, setSelectedEvaluate]
+    [onSubmit, selectedAgenda, rules, selectStep, setSelectedEvaluate],
   );
 
   const fieldProps = useMemo(
@@ -391,7 +389,7 @@ export default function AddSourceModal({
       autoFocus: true,
       intl,
     }),
-    [intl]
+    [intl],
   );
 
   return (

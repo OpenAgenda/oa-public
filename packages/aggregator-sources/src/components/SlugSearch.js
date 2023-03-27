@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { useApiClient } from '@openagenda/react-shared';
@@ -35,7 +35,7 @@ export default function SlugSearch({ res, render }) {
         return Promise.reject(new Error('badAgendaUrl'));
       }
     },
-    [apiClient, res]
+    [apiClient, res],
   );
 
   const { state, get } = useSlugSearch({ request: validSlugRequest });
@@ -61,13 +61,13 @@ export default function SlugSearch({ res, render }) {
         />
       </form>
     ),
-    [intl, debouncedGet, state.loading]
+    [intl, debouncedGet, state.loading],
   );
 
-  const form = useMemo(() => <Form onSubmit={onSearch} render={renderForm} />, [
-    onSearch,
-    renderForm,
-  ]);
+  const form = useMemo(
+    () => <Form onSubmit={onSearch} render={renderForm} />,
+    [onSearch, renderForm],
+  );
 
   return render({ state, form });
 }

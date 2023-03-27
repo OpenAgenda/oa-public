@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Spinner } from '@openagenda/react-shared';
 import BsField from './BsField';
 
@@ -32,7 +32,7 @@ export default function SearchInput({
       input.onChange(e.target.value);
       action(e.target.value);
     },
-    [input, action]
+    [input, action],
   );
 
   return (

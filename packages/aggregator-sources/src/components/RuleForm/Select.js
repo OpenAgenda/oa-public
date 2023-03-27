@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import BsField from '../BsField';
 
@@ -19,7 +19,7 @@ export default ({
       spellCheck,
       autoFocus,
     }),
-    [placeholder, className, spellCheck, autoFocus]
+    [placeholder, className, spellCheck, autoFocus],
   );
 
   return (
