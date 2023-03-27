@@ -6,7 +6,11 @@ export default function useMapOnChange({ filter, input, loadGeoData, ref, userCo
       if (!userControlled) {
         if (value) {
           const { current: mapElem } = ref;
-          loadGeoData(filter, value.bounds, value.zoom).then(data => mapElem.setData(data?.reverse() ?? []));
+          loadGeoData(filter, value.bounds, value.zoom)
+            .then(data => mapElem.setData(data?.reverse() ?? []))
+            .catch(err => {
+              console.log('Failed to geo data', err);
+            });
         }
 
         return input.onChange(undefined);
