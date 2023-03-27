@@ -11,9 +11,9 @@ module.exports.isImageToDuplicate = function isImageToDuplicate(image) {
     return false;
   }
 
-  if (image.path) {
+  if (image?.path) {
     return false;
   }
 
-  return true;
+  return !!image?.filename;
 };
