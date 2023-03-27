@@ -513,15 +513,20 @@ module.exports = core => {
 
   app.get('/me/agendas/:agendaUid', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .getContext({
-        userUid: req.user.uid,
-        includes: req.query.includes,
-        relation: ['contributed', 'owned'],
-      })
-      .then(context => res.json(context), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .getContext({
+          userUid: req.user.uid,
+          includes: req.query.includes,
+          relation: ['contributed', 'owned'],
+        })
+        .then(context => res.json(context), next);
+    }
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [

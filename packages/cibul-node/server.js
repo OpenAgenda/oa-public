@@ -96,6 +96,9 @@ const log = logs('server');
         json() {
           res.json(res.data);
         },
+        default() {
+          res.send(res.data);
+        },
       });
     });
 

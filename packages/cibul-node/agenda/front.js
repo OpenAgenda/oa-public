@@ -113,7 +113,7 @@ module.exports = app => {
     agendaSvc.mw.load( 'uid', { cache: true } ),
     cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
     agendaSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
+    convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
     _format,
     _appendFacebookParams,
     _formatEmbedHeadLinks,
@@ -137,14 +137,8 @@ module.exports = app => {
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-      (req, res, next) => {
-        if (req.events) {
-          return next();
-        }
-        agendaSvc.mw.search(perPage)(req, res, next);
-      },
       middlewares.embedShow,
-    ])
+    ]),
   );
 
   app.get(
@@ -160,12 +154,6 @@ module.exports = app => {
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-    (req, res, next) => {
-      if (req.events) {
-        return next();
-      }
-      agendaSvc.mw.search(perPage)(req, res, next);
-    },
     middlewares.embedShow,
     ( req, res ) => res.send( req.render )
   );
