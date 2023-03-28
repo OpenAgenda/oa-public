@@ -90,8 +90,6 @@ async function rebuild( args, options, logger ) {
 
   results.agendasAffected = agendasAffected;
 
-  await knex.destroy();
-
   return results;
 
 
