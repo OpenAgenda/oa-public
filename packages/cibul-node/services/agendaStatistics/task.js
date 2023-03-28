@@ -33,7 +33,7 @@ async function resyncSearch(core, agendaUid) {
 
 function processJob({ services, config }) {
   const {
-    activities: activitiesSvc
+    activities: activitiesSvc,
   } = services;
 
   const { syncAgenda } = services.inboxes.tasks.sync;
@@ -94,7 +94,7 @@ function processJob({ services, config }) {
             migrationTable: 'activity_migrations',
             logger: config.getLogConfig('oa', 'agendaStatistics', false),
             cli: false,
-            service: activitiesSvc
+            service: activitiesSvc,
           },
           rebuildLogger,
         );
@@ -112,7 +112,7 @@ module.exports = (config, services) => {
 
   return Object.assign(() => {
     q.register({
-      processJob: processJob({ services, config })
+      processJob: processJob({ services, config }),
     });
 
     q.run();
@@ -121,7 +121,7 @@ module.exports = (config, services) => {
       q('processJob', {
         operation: 'resync',
         agendaUid,
-        type
+        type,
       }).then(() => log('enqueued %s %s', agendaUid, type));
     },
     resyncLegacySearch: async () => {
@@ -138,6 +138,6 @@ module.exports = (config, services) => {
       }
 
       log('info', 'DONE RESYNCING ALL AGENDAS');
-    }
+    },
   });
 };

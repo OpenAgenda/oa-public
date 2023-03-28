@@ -10,7 +10,7 @@ const activitiesConfig = require('./activitiesConfig');
 
 const activities = {};
 const preMw = [
-  sessions.mw.ifUnlogged((req, res) => res.status(400).json({ error: 'Not logged' }))
+  sessions.mw.ifUnlogged((req, res) => res.status(400).json({ error: 'Not logged' })),
 ];
 
 module.exports = app => {
@@ -26,27 +26,27 @@ module.exports.init = async (config, services) => {
     knex: config.knex,
     schemas: config.schemas,
     migrations: config.enableMigrations ? {
-      tableName: 'activity_migrations'
+      tableName: 'activity_migrations',
     } : null,
     queue: {
       names: {
         addActivity: config.queues.notificationAddActivity,
-        sendSummary: config.queues.notificationSendSummary
+        sendSummary: config.queues.notificationSendSummary,
       },
-      redis: config.redis
+      redis: config.redis,
     },
     interfaces: {
       getUser: uid => services.users.get(uid, { detailed: true }),
       isUnsubscribed: uid => promisify(unsubscribedSvc(uid).is)({
         subject: 'notifications',
-        type: 'notifications_summary'
+        type: 'notifications_summary',
       }),
-      sendSummary: (...args) => sendSummary(config, ...args)
+      sendSummary: (...args) => sendSummary(config, ...args),
     },
     services, // used in mask
     activities: activitiesConfig,
     enableNotificationsForFeedTypes: ['user'],
-    logger: config.getLogConfig('svc', 'activities', false)
+    logger: config.getLogConfig('svc', 'activities', false),
   });
 
   service.getFormatConfig = () => {
@@ -54,7 +54,7 @@ module.exports.init = async (config, services) => {
 
     for (const activityKey in activitiesConfig) {
       // for eslint guard-for-in
-      if (!({}).hasOwnProperty.call(activitiesConfig, activityKey)) {
+      if (!{}.hasOwnProperty.call(activitiesConfig, activityKey)) {
         continue;
       }
 
@@ -63,14 +63,14 @@ module.exports.init = async (config, services) => {
         labelId,
         labelIds,
         entities,
-        tags
+        tags,
       } = activityConfig;
 
       result[activityKey] = {
         labelId,
         labelIds,
         entities,
-        tags
+        tags,
       };
     }
 

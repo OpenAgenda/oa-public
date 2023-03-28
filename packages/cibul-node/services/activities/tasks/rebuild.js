@@ -1,26 +1,25 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const log = require( '@openagenda/logs' )( 'activities/rebuild' );
-const redis = require( 'redis' );
-const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
-const config = require( '../../../config' );
-const activitiesSvc = require( '..' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('activities/rebuild');
+const redis = require('redis');
+const rebuildActivityFeeds = require('@openagenda/activities/dist/service/rebuild').rebuild;
+const config = require('../../../config');
+const activitiesSvc = require('..');
 
 module.exports = () => {
-
-  const redisClient = redis.createClient( config.redis );
+  const redisClient = redis.createClient(config.redis);
   const sinceKey = 'activities:rebuild:since';
 
-  redisClient.get( sinceKey, ( err, result ) => {
-    const since = parseInt( result );
-    const startTime = Math.floor( Date.now() / 1000 );
+  redisClient.get(sinceKey, (err, result) => {
+    const since = parseInt(result, 10);
+    const startTime = Math.floor(Date.now() / 1000);
 
     rebuildActivityFeeds(
       null,
       {
         since: since || 0,
-        ..._.pick( config.db, [ 'database', 'host', 'port', 'user', 'password' ] ),
+        ..._.pick(config.db, ['database', 'host', 'port', 'user', 'password']),
         activityTable: config.schemas.activity,
         feedTable: config.schemas.feed,
         feedActivityTable: config.schemas.feed_activity,
@@ -33,19 +32,18 @@ module.exports = () => {
         reviewerTable: config.schemas.stakeholder,
         aggregatorTable: config.schemas.aggregator,
         migrationTable: 'activity_migrations',
-        logger: config.getLogConfig( 'oa', 'activities', false ),
+        logger: config.getLogConfig('oa', 'activities', false),
         cli: false,
-        service: activitiesSvc
+        service: activitiesSvc,
       },
-      log
+      log,
     )
-      .then( () => {
-        log.info( 'Synchronization end !', { since } );
-        redisClient.set( sinceKey, startTime, _.noop );
-      } )
-      .catch( err => {
-        log.error( 'Error on activities syncing:', err );
-      } );
-  } );
-
+      .then(() => {
+        log.info('Synchronization end !', { since });
+        redisClient.set(sinceKey, startTime, _.noop);
+      })
+      .catch(e => {
+        log.error('Error on activities syncing:', e);
+      });
+  });
 };
