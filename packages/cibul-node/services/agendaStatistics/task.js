@@ -2,10 +2,8 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
-const rebuildActivityFeeds = require('@openagenda/activities/dist/service/rebuild').rebuild;
 
 const log = logs('services/agendaStatistics');
-const rebuildLogger = logs('activities/rebuild');
 
 async function resyncLegacySearch(services, agendaUid) {
   log('info', 'resyncing agenda %d - legacy search index rebuild', agendaUid);
@@ -31,11 +29,7 @@ async function resyncSearch(core, agendaUid) {
   }
 }
 
-function processJob({ services, config }) {
-  const {
-    activities: activitiesSvc,
-  } = services;
-
+function processJob({ services }) {
   const { syncAgenda } = services.inboxes.tasks.sync;
 
   return (data, cb) => {
@@ -75,29 +69,7 @@ function processJob({ services, config }) {
         break;
 
       case 'activityFeeds':
-        rebuildActivityFeeds(
-          null,
-          {
-            agendaUid: data.agendaUid,
-            ..._.pick(config.db, ['database', 'host', 'port', 'user', 'password', 'ssl']),
-            activityTable: config.schemas.activity,
-            feedTable: config.schemas.feed,
-            feedActivityTable: config.schemas.feed_activity,
-            feedFollowTable: config.schemas.feed_follow,
-            feedNotificationTable: config.schemas.feed_notification,
-            userTable: config.schemas.user,
-            reviewTable: config.schemas.agenda,
-            reviewArticleTable: config.schemas.agendaEvent,
-            eventTable: config.schemas.event,
-            reviewerTable: config.schemas.stakeholder,
-            aggregatorTable: config.schemas.aggregator,
-            migrationTable: 'activity_migrations',
-            logger: config.getLogConfig('oa', 'agendaStatistics', false),
-            cli: false,
-            service: activitiesSvc,
-          },
-          rebuildLogger,
-        );
+        services.activities.tasks.agendaRebuild(data.agendaUid);
         break;
       default:
         log('unrecognized task', data.type);
