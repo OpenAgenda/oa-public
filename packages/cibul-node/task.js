@@ -60,6 +60,12 @@ module.exports = (config, core, services) => {
     time: '11:00',
   });
 
+  tfy(services.activities.tasks.rebuild, {
+    period: 'monthly',
+    day: 'monday',
+    time: '03:00',
+  });
+
   tfy(services.mails.unsubscription.task, {
     period: 'weekly',
     day: 'saturday',

@@ -21,7 +21,9 @@ function _setBootOffset(params) {
   nextTime.hour(hour).minute(minute);
 
   if (nextTime.isBefore(now)) {
-    if (period === 'weekly') {
+    if (period === 'monthly') {
+      nextTime.add(1, 'month');
+    } else if (period === 'weekly') {
       nextTime.add(1, 'week');
     } else {
       nextTime.add(1, 'day');
@@ -55,6 +57,10 @@ module.exports = (run, options) => {
 
   if (params.period === 'weekly') {
     params.period = 60000 * 60 * 24 * 7;
+  }
+
+  if (params.period === 'monthly') {
+    params.period = 60000 * 60 * 24 * 7 * 30;
   }
 
   setTimeout(() => {
