@@ -3,7 +3,6 @@ const Program = require( 'caporal/lib/program' );
 const knexLib = require( 'knex' );
 const nodefn = require( 'when/node' );
 const log = require( '@openagenda/logs' )( 'activities/rebuild' );
-const Service = require( './index' );
 
 const traverseTable = require( '../utils/traverseTable' );
 
@@ -52,46 +51,23 @@ module.exports.parse = ( ...args ) => prog.parse( ...args );
 module.exports.rebuild = rebuild;
 
 async function rebuild( args, options, logger ) {
-
   let service;
 
-  const mysqlConfig = _.pick( options, [ 'database', 'host', 'port', 'user', 'password', 'ssl' ] );
+  const dbConfig = {};
 
-  knex = knexLib( {
+  if (options.knex) {
+    dbConfig.knex = knex;
+  }
+
+  knex = options.knex || knexLib( {
     client: 'mysql',
-    connection: mysqlConfig
+    connection: _.pick( options, [ 'database', 'host', 'port', 'user', 'password', 'ssl' ] )
   } );
 
   const results = {};
 
-  if ( options.cli ) {
-    service = await Service.init( {
-      mysql: mysqlConfig,
-      schemas: {
-        activity: options.activityTable,
-        feed: options.feedTable,
-        feed_activity: options.feedActivityTable,
-        feed_follow: options.feedFollowTable,
-        feed_notification: options.feedNotificationTable
-      },
-      migrations: {
-        tableName: options.migrationTable
-      },
-      queue: {
-        names: {
-          addActivity: 'notificationAddActivityRebuild',
-          sendSummary: 'notificationSendSummaryRebuild'
-        },
-        redis: {
-          host: 'localhost',
-          port: 6379
-        }
-      }
-    } );
-  } else {
-    service = options.service;
-  }
-
+  service = options.service;
+  
   if ( logger && logger.setConfig && options.logger ) {
     logger.setConfig( options.logger );
   } else {
@@ -115,10 +91,6 @@ async function rebuild( args, options, logger ) {
   results.agendasAffected = agendasAffected;
 
   await knex.destroy();
-
-  if ( options.cli ) {
-    await service.shutdown();
-  }
 
   return results;
 
