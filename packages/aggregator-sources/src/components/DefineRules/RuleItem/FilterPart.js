@@ -1,4 +1,3 @@
-import React from 'react';
 import messages from './messages';
 import extract from './extractFilterDisplayValues';
 
@@ -9,12 +8,8 @@ const extractTextField = textRule => {
   return keys[0];
 };
 
-export default ({
-  rule, intl, sourceAgendaSchema, sourceAgenda
-}) => {
-  const {
-    label, value, detail, casse, broken
-  } = extract({
+export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
+  const { label, value, detail, casse, broken } = extract({
     intl,
     rule,
     sourceAgendaSchema,
@@ -26,7 +21,7 @@ export default ({
     <div className="padding-v-xs">
       <span
         title={intl.formatMessage(
-          rule.required ? messages.requiredFilterDetail : messages.filterDetail
+          rule.required ? messages.requiredFilterDetail : messages.filterDetail,
         )}
         className={`pull-left badge badge-pill badge-${
           rule.required ? 'danger' : 'default'
@@ -46,7 +41,7 @@ export default ({
                 casse ? 'info' : 'default'
               }`}
               title={intl.formatMessage(
-                casse ? messages.caseSensitive : messages.caseInsensitive
+                casse ? messages.caseSensitive : messages.caseInsensitive,
               )}
             >
               aA

@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages } from 'react-intl';
 import { MoreInfo, useMemoOne } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
@@ -37,28 +36,30 @@ export default function WarningBlock({
   intl,
 }) {
   const requiredFields = useMemoOne(
-    () => aggregatorAgendaSchema.fields.filter(field => {
-      if (isAggregator) {
-        return false;
-      }
+    () =>
+      aggregatorAgendaSchema.fields.filter(field => {
+        if (isAggregator) {
+          return false;
+        }
 
-      const sourceField = sourceSchema?.fields?.find(
-          v => v.schemaId
+        const sourceField = sourceSchema?.fields?.find(
+          v =>
+            v.schemaId
             && v.field === field.field
-            && v.schemaId === field.schemaId
+            && v.schemaId === field.schemaId,
         );
 
-      if (sourceField) {
-        return false;
-      }
+        if (sourceField) {
+          return false;
+        }
 
-      return (
-        field.fieldType !== 'abstract'
+        return (
+          field.fieldType !== 'abstract'
           && field.optional === false
           && !field.enableWith
-      );
-    }),
-    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
+        );
+      }),
+    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema],
   );
 
   const displayRequiredFieldsMessage = sourceSchema && requiredFields.length;

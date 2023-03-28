@@ -1,4 +1,3 @@
-import React from 'react';
 import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
@@ -46,7 +45,7 @@ function getStateLabel(intl, value) {
   return intl.formatMessage(
     messages[
       ['refused', 'toModerate', 'readyToPublish', 'published'][value + 1]
-    ]
+    ],
   );
 }
 
@@ -67,9 +66,7 @@ function stateAction({ intl, action }) {
   };
 }
 
-export default ({
-  intl, aggregatorAgendaSchema, aggregatorAgenda, action
-}) => {
+export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
   const type = getType(action);
   const base = {
     type,
@@ -112,7 +109,8 @@ export default ({
     };
   }
 
-  const matchingOptions = getValues(action).map(value => field.options?.filter(o => o.id === value).pop());
+  const matchingOptions = getValues(action).map(value =>
+    field.options?.filter(o => o.id === value).pop());
 
   return {
     ...base,
@@ -127,7 +125,7 @@ export default ({
       messages.aggregatorAgendaChoiceFieldValueDetail,
       {
         agendaTitle: aggregatorAgenda.title,
-      }
+      },
     ),
   };
 };

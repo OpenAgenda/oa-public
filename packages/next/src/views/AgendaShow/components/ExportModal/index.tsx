@@ -49,10 +49,6 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.ExportModal.login',
     defaultMessage: 'Please log in to access the export link directly from this menu',
   },
-  exportJson: {
-    id: 'next.views.AgendaShow.ExportModal.exportJson',
-    defaultMessage: 'Use the previous JSON export version',
-  },
   exportAll: {
     id: 'next.views.AgendaShow.ExportModal.exportAll',
     defaultMessage: 'Export all events',
@@ -61,14 +57,6 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.ExportModal.exportSelection',
     defaultMessage: 'Export current event selection',
   },
-  jsonDoc1: {
-    id: 'next.views.AgendaShow.ExportModal.jsonDoc1',
-    defaultMessage: 'Documentation',
-  },
-  jsonDoc2: {
-    id: 'next.views.AgendaShow.ExportModal.jsonDoc2',
-    defaultMessage: 'here',
-  },
   documentation: {
     id: 'next.views.AgendaShow.ExportModal.documentation',
     defaultMessage: 'See the documentation',
@@ -76,6 +64,10 @@ const messages = defineMessages({
   detailedFormat: {
     id: 'next.views.AgendaShow.ExportModal.detailedFormat',
     defaultMessage: 'Use the detailed format',
+  },
+  exportJson: {
+    id: 'next.views.AgendaShow.ExportModal.exportJson',
+    defaultMessage: '<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)',
   },
 });
 
@@ -310,14 +302,10 @@ export default function ExportModal({
                               </Link>
                             </Box>
                           </Flex>
-                          <Link href={res.export.jsonV1} isExternal color="primary.500">
-                            {intl.formatMessage(messages.exportJson)}
-                          </Link>
-                          {` (${intl.formatMessage(messages.jsonDoc1)}`}
-                          <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">
-                            {` ${intl.formatMessage(messages.jsonDoc2)}`}
-                          </Link>
-                          )
+                          {intl.formatMessage(messages.exportJson, {
+                            link1: (chunks: React.ReactNode) => <Link href={res.export.jsonV1} isExternal color="primary.500">{chunks}</Link>,
+                            link2: (chunks: React.ReactNode) => <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">{chunks}</Link>,
+                          })}
                         </>
                       )}
                       {displayButton && id === formatChoice.id && (

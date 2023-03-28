@@ -20,7 +20,7 @@ import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
-import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
+// import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 import messages from './messages';
@@ -130,7 +130,7 @@ function EventsModalBody({ agenda, bundleState }) {
       // add the cursor to the API endpoint
       return ['contextBar', 'events', bundleState.key, pageIndex, previousPageData.after];
     },
-    (_comp, _requestId, requestedState, page, after) => {
+    ([_comp, _requestId, requestedState, page, after]) => {
       if (requestedState === 'drafts') {
         const searchParamsStr = qs.stringify({
           offset: (page || 0) * PAGE_SIZE,
@@ -156,12 +156,13 @@ function EventsModalBody({ agenda, bundleState }) {
         });
     },
     {
+      keepPreviousData: true,
       revalidateFirstPage: false,
       // revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      use: [swrLaggyMiddleware],
+      // use: [swrLaggyMiddleware],
     },
   );
 

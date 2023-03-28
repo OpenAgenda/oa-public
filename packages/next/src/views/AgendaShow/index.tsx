@@ -126,6 +126,36 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
   const { data: pages } = useEventsQuery({ agenda, filters, query, includeFields });
 
+  const [_isPending, startTransition] = useTransition();
+
+  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
+    startTransition(() => {
+      setQuery(values);
+    });
+  }, []);
+
+  // Update filters if location change (back)
+  useEffect(() => {
+    const beforeHistoryChange = (href, { shallow }) => {
+      const currentUrl = new URL(router.asPath, 'http://n');
+      const url = new URL(href, 'http://n');
+
+      // change route
+      if (currentUrl.pathname !== url.pathname || !shallow) return;
+
+      const form = filtersFormRef.current;
+      const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
+
+      form.initialize(newUrlQuery);
+      form.submit();
+    };
+    router.events.on('beforeHistoryChange', beforeHistoryChange);
+
+    return () => {
+      router.events.off('beforeHistoryChange', beforeHistoryChange);
+    };
+  }, [router]);
+
   // SWR onSuccess
   // https://github.com/vercel/swr/issues/1733
   const latestRouter = useLatest(router);
@@ -148,25 +178,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       }
     }
     // deps: on `pages` change, useEffectEvent from react when possible
-  }, [pages, previousPages, filters, latestQuery, latestRouter]);
-
-  const [_isPending, startTransition] = useTransition();
-
-  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
-    startTransition(() => {
-      setQuery(values);
-    });
-  }, []);
-
-  // Update filters if location change (back)
-  useEffect(() => {
-    if (qs.stringify(latestQuery.current) !== qs.stringify(urlQuery)) {
-      const form = filtersFormRef.current;
-
-      form.initialize(urlQuery);
-      form.submit();
-    }
-  }, [latestQuery, urlQuery]);
+  }, [pages, previousPages, filters, latestQuery, latestRouter, urlQuery]);
 
   return (
     <>

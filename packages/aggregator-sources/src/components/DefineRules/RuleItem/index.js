@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { hasFilter, hasValues } from '../../../utils/rules';
 import messages from './messages';
