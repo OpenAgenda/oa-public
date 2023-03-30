@@ -14,7 +14,6 @@ gzip on;
 gzip_types
   text/plain
   text/css
-  text/html
   text/xml
   text/javascript
   application/javascript
@@ -249,7 +248,7 @@ location /widgets {
   include conf.d/nodejs_params;
 }
 
-location /agendas/ {
+location ~ ^/agendas(/.+|)$ {
   include conf.d/nodejs_params;
 }
 
