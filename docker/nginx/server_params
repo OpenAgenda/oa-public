@@ -14,7 +14,6 @@ gzip on;
 gzip_types
   text/plain
   text/css
-  text/html
   text/xml
   text/javascript
   application/javascript
@@ -91,6 +90,15 @@ location ~ ^/[^/]+/event/[^/]+/(fr|en|de|es|it|br)$ {
 location ~ ^/[^/]+/(fr|en|de|es|it|br)$ {
   rewrite ^/([^/]+)/(fr|en|de|es|it|br)$ /$2?lang=$3 permanent;
   return 403;
+}
+
+
+
+##########################################################
+#            NEXT SPECIFIC ROUTES
+
+location /api/monit {
+  include conf.d/nextjs_params;
 }
 
 
