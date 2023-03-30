@@ -11,7 +11,8 @@ export default config => {
     optional: true,
     default: null,
     list: false,
-    strict: false
+    strict: false,
+    emptyStringAsUndefined : true,
   }, config || {});
 
   const validate = value => {
@@ -29,7 +30,8 @@ export default config => {
       clean = clean.trim();
     }
 
-    if (value === undefined || value === null || !clean.length) {
+    if (value === undefined || value === null ||
+      (!clean.length && params.emptyStringAsUndefined )) {
       if (params.optional || ![undefined, null].includes(params.default)) {
         return params.default;
       }

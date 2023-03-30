@@ -84,6 +84,21 @@ describe('text validator', () => {
       expect(errors.length).toBe(1);
     });
 
+    it('min error', () => {
+      const validate = validators.text({
+        field: 'text',
+        min: 10
+      });
+
+      try {
+        validate('short');
+      } catch (errors) {
+        expect(errors[0].values.min).toBe(10);
+        return;
+      }
+      throw new Error('should not be here');
+    });
+
   });
 
   describe('optional', () => {
@@ -129,20 +144,23 @@ describe('text validator', () => {
       expect(validate()).toEqual([]);
     });
 
-    it('min error', () => {
+    it('!emptyStringAsUndefined  & min in list error', () => {
       const validate = validators.text({
         field: 'text',
-        min: 10
+        min: 1,
+        emptyStringAsUndefined : false,
+        list: true,
       });
 
       try {
-        validate('short');
+        validate(['']);
       } catch (errors) {
-        expect(errors[0].values.min).toBe(10);
+        expect(errors[0].code).toBe('string.tooshort');
         return;
       }
       throw new Error('should not be here');
     });
+
 
     it('cleans a single value as a single list item', () => {
       const validate = validators.text({
