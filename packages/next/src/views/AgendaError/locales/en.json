@@ -1,9 +1,6 @@
 {
   "next.views.AgendaError.agendaNotFound": "Agenda not found",
-  "next.views.AgendaError.contactSupport": "Contact support",
   "next.views.AgendaError.forbiddenMsg": "You do not have access to this agenda.{br}Check the link provided to you or request access.",
-  "next.views.AgendaError.internalError": "Internal error",
-  "next.views.AgendaError.internalErrorMsg": "If the problem persists, please contact support.",
   "next.views.AgendaError.notFoundMsg": "There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.",
   "next.views.AgendaError.orSignup": "Or <link>sign up</link> if you don't have an account yet.",
   "next.views.AgendaError.requestInvitation": "Request an invitation",

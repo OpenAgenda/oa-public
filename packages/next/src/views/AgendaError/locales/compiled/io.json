@@ -5,12 +5,6 @@
       "value": "crwdns32973:0crwdne32973:0"
     }
   ],
-  "next.views.AgendaError.contactSupport": [
-    {
-      "type": 0,
-      "value": "crwdns32975:0crwdne32975:0"
-    }
-  ],
   "next.views.AgendaError.forbiddenMsg": [
     {
       "type": 0,
@@ -23,18 +17,6 @@
     {
       "type": 0,
       "value": "crwdne32977:0"
-    }
-  ],
-  "next.views.AgendaError.internalError": [
-    {
-      "type": 0,
-      "value": "crwdns32979:0crwdne32979:0"
-    }
-  ],
-  "next.views.AgendaError.internalErrorMsg": [
-    {
-      "type": 0,
-      "value": "crwdns32981:0crwdne32981:0"
     }
   ],
   "next.views.AgendaError.notFoundMsg": [

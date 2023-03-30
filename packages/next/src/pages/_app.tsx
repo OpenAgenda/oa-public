@@ -4,6 +4,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
 import Providers from 'Providers';
+import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import getPreferredLocale from 'utils/getPreferredLocale';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -76,9 +77,11 @@ function MyApp({
         <title>OpenAgenda</title>
       </Head>
       <Providers locale={locale} intlMessages={intlMessages} cookies={universalCookies}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SentryErrorBoundary>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SentryErrorBoundary>
       </Providers>
     </>
   );

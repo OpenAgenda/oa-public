@@ -1,0 +1,5 @@
+{
+  "next.components.ErrorDisplay.contactSupport": "Contatta il supporto",
+  "next.components.ErrorDisplay.internalError": "Errore interno",
+  "next.components.ErrorDisplay.internalErrorMsg": "Se il problema persiste, contattare l'assistenza."
+}

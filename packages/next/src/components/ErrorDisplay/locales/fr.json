@@ -1,0 +1,8 @@
+{
+  "next.components.ErrorDisplay.backToHome": "Revenir à l'accueil",
+  "next.components.ErrorDisplay.contactSupport": "Contacter le support",
+  "next.components.ErrorDisplay.errorTrackingId": "Id de suivi d'erreur",
+  "next.components.ErrorDisplay.internalError": "Erreur interne",
+  "next.components.ErrorDisplay.internalErrorMsg": "Si le problème persiste, veuillez contacter le support.",
+  "next.components.ErrorDisplay.retry": "Réessayer"
+}

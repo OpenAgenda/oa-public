@@ -12,6 +12,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
+import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
 import useEventsQuery from './hooks/useEventsQuery';
@@ -266,6 +267,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
 AgendaShow.fetchLocale = locale => Promise.all([
   fetchLocale(locale),
+  fetchErrorLocale(locale),
   fetchCommonLocale('event/attendanceModes', locale),
   import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
 ]).then(results => Object.assign({}, ...results));

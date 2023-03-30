@@ -1,0 +1,8 @@
+{
+  "next.components.ErrorDisplay.backToHome": "Back to home",
+  "next.components.ErrorDisplay.contactSupport": "Contact support",
+  "next.components.ErrorDisplay.errorTrackingId": "Error tracking id",
+  "next.components.ErrorDisplay.internalError": "Internal error",
+  "next.components.ErrorDisplay.internalErrorMsg": "If the problem persists, please contact support.",
+  "next.components.ErrorDisplay.retry": "Retry"
+}

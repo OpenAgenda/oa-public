@@ -1,0 +1,38 @@
+{
+  "next.components.ErrorDisplay.backToHome": [
+    {
+      "type": 0,
+      "value": "Revenir à l'accueil"
+    }
+  ],
+  "next.components.ErrorDisplay.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contacter le support"
+    }
+  ],
+  "next.components.ErrorDisplay.errorTrackingId": [
+    {
+      "type": 0,
+      "value": "Id de suivi d'erreur"
+    }
+  ],
+  "next.components.ErrorDisplay.internalError": [
+    {
+      "type": 0,
+      "value": "Erreur interne"
+    }
+  ],
+  "next.components.ErrorDisplay.internalErrorMsg": [
+    {
+      "type": 0,
+      "value": "Si le problème persiste, veuillez contacter le support."
+    }
+  ],
+  "next.components.ErrorDisplay.retry": [
+    {
+      "type": 0,
+      "value": "Réessayer"
+    }
+  ]
+}

@@ -1,9 +1,6 @@
 {
   "next.views.AgendaError.agendaNotFound": "crwdns32973:0crwdne32973:0",
-  "next.views.AgendaError.contactSupport": "crwdns32975:0crwdne32975:0",
   "next.views.AgendaError.forbiddenMsg": "crwdns32977:0{br}crwdne32977:0",
-  "next.views.AgendaError.internalError": "crwdns32979:0crwdne32979:0",
-  "next.views.AgendaError.internalErrorMsg": "crwdns32981:0crwdne32981:0",
   "next.views.AgendaError.notFoundMsg": "crwdns32983:0{br}crwdne32983:0",
   "next.views.AgendaError.orSignup": "crwdns32985:0crwdne32985:0",
   "next.views.AgendaError.requestInvitation": "crwdns32987:0crwdne32987:0",

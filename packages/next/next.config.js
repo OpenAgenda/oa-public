@@ -1,3 +1,6 @@
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const nextVersion = require('next/package.json').version;
 
 const withTM = require('next-transpile-modules')([
@@ -14,6 +17,8 @@ const withTM = require('next-transpile-modules')([
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+
+const withSentry = c => withSentryConfig(c, { silent: true });
 
 function webpackCopyFiles(webpackConfig, files) {
   const CopyFilePlugin = webpackConfig.plugins
@@ -43,7 +48,7 @@ const config = async () => {
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
 
-  return withBundleAnalyzer(withTM({
+  return withSentry(withBundleAnalyzer(withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
       locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
@@ -84,9 +89,6 @@ const config = async () => {
     // typescript: {
     //   ignoreBuildErrors: true,
     // },
-    experimental: {
-      isrMemoryCacheSize: 0, // Defaults to 50MB
-    },
     async redirects() {
       return [
         {
@@ -102,6 +104,7 @@ const config = async () => {
       }
 
       return {
+        beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
         fallback: [
           {
             source: '/:path*',
@@ -126,7 +129,12 @@ const config = async () => {
 
       return webpackConfig;
     },
-  }));
+    sentry: {
+      hideSourceMaps: true,
+      transpileClientSDK: true,
+      tunnelRoute: '/api/monit',
+    },
+  })));
 };
 
 module.exports = config;
