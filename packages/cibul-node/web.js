@@ -44,6 +44,7 @@ module.exports = app => {
   require('./webapp')(app);
   require('./services/agendas').plugApp(app);
   require('./services/activities')(app);
+  require('./services/sentry')(app);
   require('./agenda/shares.front')(app);
   app.services.agendaSearch.plugApp(app, '/agendas');
   require('./agenda/front')(app);
