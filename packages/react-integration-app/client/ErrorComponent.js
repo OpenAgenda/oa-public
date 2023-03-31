@@ -25,8 +25,8 @@ const preStyle = {
 
 export default function ErrorComponent({
   error,
-  retry,
   componentStack,
+  resetError,
   lang = 'en',
   messages = defaultMessages,
 }) {
@@ -67,10 +67,10 @@ export default function ErrorComponent({
             />
           </a>
           {process.env.NODE_ENV === 'development'
-          && typeof retry === 'function' ? (
+          && typeof resetError === 'function' ? (
             <>
               {' '}
-              <button onClick={retry} type="button" className="btn btn-default">
+              <button onClick={resetError} type="button" className="btn btn-default">
                 <FormattedMessage id="retry" defaultMessage="Retry" />
               </button>
             </>

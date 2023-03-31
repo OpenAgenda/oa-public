@@ -3,6 +3,8 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
+import './sentry';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient } from 'react-query';
@@ -12,6 +14,7 @@ import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
+import { ErrorBoundary } from '@sentry/react';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
   AgendaAdminDataLayout,
@@ -207,17 +210,19 @@ loadableReady(async () => {
 
   const render = (forceRender = false) => {
     const element = (
-      <Root
-        apps={apps}
-        layoutStore={layoutStore}
-        history={history}
-        triggerHooks={triggerHooks}
-        queryClient={queryClient}
-      >
-        <RootHelmet />
+      <ErrorBoundary>
+        <Root
+          apps={apps}
+          layoutStore={layoutStore}
+          history={history}
+          triggerHooks={triggerHooks}
+          queryClient={queryClient}
+        >
+          <RootHelmet />
 
-        {/* <QueryWatch /> */}
-      </Root>
+          {/* <QueryWatch /> */}
+        </Root>
+      </ErrorBoundary>
     );
     const canvas = document.querySelector('#root');
 

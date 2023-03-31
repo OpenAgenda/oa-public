@@ -12,6 +12,7 @@ const { matchRoutes } = require('react-router-config');
 const { createMemoryHistory } = require('history');
 const { stringify } = require('flatted/cjs');
 const he = require('he');
+const { ErrorBoundary } = require('@sentry/react');
 const { ChunkExtractor } = require('@loadable/server');
 const {
   wrapApp /* , apiClient: createApiClient */,
@@ -281,25 +282,29 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
 
       const content = ReactDOM.renderToString(
         el(
-          HelmetProvider,
-          { context: helmetContext },
-          rootHelmet,
-          wrapApp(
-            {
-              Content: () =>
-                el(
-                  QueryClientProvider,
-                  { client: queryClient },
-                  el(LayoutManager, {
-                    store: layoutStore,
-                    history,
-                    apps,
-                  }),
-                ),
-              history,
-              triggerHooks,
-            },
-            { req, staticContext, extractor },
+          ErrorBoundary,
+          null,
+          el(
+            HelmetProvider,
+            { context: helmetContext },
+            rootHelmet,
+            wrapApp(
+              {
+                Content: () =>
+                  el(
+                    QueryClientProvider,
+                    { client: queryClient },
+                    el(LayoutManager, {
+                      store: layoutStore,
+                      history,
+                      apps,
+                    }),
+                  ),
+                history,
+                triggerHooks,
+              },
+              { req, staticContext, extractor },
+            ),
           ),
         ),
       );
