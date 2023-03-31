@@ -49,7 +49,7 @@ module.exports = async function buildPDF(req, res, _next) {
       'content-disposition': `attachment; filename="contributors.${req.agenda.title}.pdf"`,
     });
   } catch (error) {
-    log.error(error);
+    log.error(`could not build PDF for agenda ${req.agenda.uid}`, error);
     throw error;
   }
 
