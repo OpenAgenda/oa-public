@@ -5,7 +5,6 @@ const winston = require('winston');
 const LE = require('r7insight_node');
 const getTransporters = require('./getTransporters');
 const Logger = require('./Logger');
-const mergeConfig = require('./mergeConfig');
 const { getCallerFile, getModule } = require('./utils/caller');
 
 LE.provisionWinston(winston);
@@ -36,12 +35,12 @@ function createLogger2(namespace, options = {}) {
   const callerFile = options.$callerFile || getCallerFile(2);
   const callerModule = options.$callerModule || getModule(path.resolve(callerFile));
 
-  return new Logger(mergeConfig(
-    config,
-    loggerConfigs.get(callerModule),
-    { namespace },
-    options
-  ));
+  return new Logger({
+    ...config,
+    ...loggerConfigs.get(callerModule),
+    namespace,
+    ...options
+  });
 }
 
 function createLogger(namespace, ...args) {
@@ -189,15 +188,11 @@ function getTransports(logger) {
 /** ******* */
 
 function init(c) {
-  config = mergeConfig(
-    {
-      namespace: '',
-      debug: {
-        prefix: ''
-      }
-    },
-    c
-  );
+  config = {
+    prefix: '',
+    namespace: '',
+    ...c,
+  };
 
   basicLogger.configure({
     transports: getTransporters(config)
