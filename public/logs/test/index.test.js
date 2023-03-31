@@ -3,7 +3,7 @@
 const sinon = require( 'sinon' );
 const winston = require( 'winston' );
 const logs = require( '../' );
-const DebugTransport = require( '../DebugTransport' );
+const DebugTransport = require( '../transports/DebugTransport' );
 
 describe( 'logs', () => {
 
@@ -11,7 +11,7 @@ describe( 'logs', () => {
 
     it( 'prefix and namespace', () => {
 
-      logs.init( { debug: { prefix: 'oa:' }, namespace: 'basic-logger' } );
+      logs.init( { prefix: 'oa:', namespace: 'basic-logger' } );
 
       const transport = logs.getTransports().debug;
 
@@ -161,7 +161,7 @@ describe( 'logs', () => {
 
     it( 'prefix and namespace', () => {
 
-      logs.init( { debug: { prefix: 'oa:' } } );
+      logs.init( { prefix: 'oa:' } );
 
       const log = logs( 'test-i-cule' );
 
@@ -175,7 +175,7 @@ describe( 'logs', () => {
 
     it( 'log with debug', () => {
 
-      logs.init( { debug: { prefix: 'oa:' } } );
+      logs.init( { prefix: 'oa:' } );
 
       const log = logs( 'test-i-cule', { preloaded: 'gnééé' } );
 
@@ -194,7 +194,7 @@ describe( 'logs', () => {
     it( 'log with logentries + debug', () => {
 
       logs.init( {
-        debug: { prefix: 'oa:' },
+        prefix: 'oa:',
         token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       } );
 
@@ -364,11 +364,11 @@ describe( 'logs', () => {
 
     it( 'setConfig - set config of a logger', () => {
 
-      logs.init( { debug: { prefix: 'oa:' } } );
+      logs.init( { prefix: 'oa:' } );
 
       const log = logs( 'test-5' );
 
-      log.setConfig( { debug: { enable: true, prefix: 'prefix:' }, namespace: log.options.namespace } );
+      log.setConfig( { prefix: 'prefix:', namespace: log.options.namespace, enableDebug: true } );
 
       const transport = log.getTransports().debug;
 
@@ -381,7 +381,7 @@ describe( 'logs', () => {
     it( 'logs errors stack', () => {
 
       logs.init( {
-        debug: { prefix: 'oa:' },
+        prefix: 'oa:',
         token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
         namespace: 'error-stack'
       } );
@@ -436,12 +436,12 @@ describe( 'logs', () => {
 
     it( 'set config of a module', () => {
 
-      logs.init( { debug: { prefix: 'oa:' } } );
+      logs.init( { prefix: 'oa:' } );
 
       const log = logs( 'test-5', { $callerModule: 'module' } ); // second args only for test
 
       log.callerModule = 'module';
-      logs.setModuleConfig( { debug: { prefix: 'prefix:' } }, 'module' ); // second args only for test
+      logs.setModuleConfig( { prefix: 'prefix:' }, 'module' ); // second args only for test
 
       const transport = log.getTransports().debug;
 
@@ -453,14 +453,14 @@ describe( 'logs', () => {
 
     it( 'conserve loaded metadata before the setModuleConfig', () => {
 
-      logs.init( { debug: { prefix: 'oa:' } } );
+      logs.init( { prefix: 'oa:' } );
 
       const log = logs( 'test-6', { $callerModule: 'module-2' } ); // second args only for test
 
       log.loadMetadata( { preloaded: 'data' } );
 
       log.callerModule = 'module';
-      logs.setModuleConfig( { debug: { prefix: 'prefix:' } }, 'module-2' ); // second args only for test
+      logs.setModuleConfig( { prefix: 'prefix:' }, 'module-2' ); // second args only for test
 
       const transport = log.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );

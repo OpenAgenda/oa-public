@@ -1,20 +1,18 @@
 'use strict';
 
 const winston = require('winston');
-const DebugTransport = require('./DebugTransport');
-const mergeConfig = require('./mergeConfig');
+const DebugTransport = require('./transports/DebugTransport');
+const SentryTransport = require('./transports/SentryTransport');
 
 module.exports = function getTransporters(...configs) {
-  const params = mergeConfig(
+  const params = Object.assign(
     {
+      prefix: '',
       namespace: '',
       token: null,
-      debug: {
-        prefix: '',
-        enable: false,
-      },
+      enableDebug: false,
     },
-      ...configs,
+    ...configs,
   );
 
   const transports = [];
@@ -22,9 +20,9 @@ module.exports = function getTransporters(...configs) {
   transports.push(
     new DebugTransport({
       level: 'debug',
+      prefix: params.prefix,
       namespace: params.namespace,
-      prefix: params.debug.prefix,
-      enable: params.debug.enable,
+      enable: params.enableDebug,
     }),
   );
 
@@ -36,6 +34,17 @@ module.exports = function getTransporters(...configs) {
         region: 'eu',
         json: true,
         withStack: true,
+      }),
+    );
+  }
+
+  if (params.sentry) {
+    transports.push(
+      new SentryTransport({
+        level: 'error',
+        prefix: params.prefix,
+        namespace: params.namespace,
+        sentry: params.sentry,
       }),
     );
   }
