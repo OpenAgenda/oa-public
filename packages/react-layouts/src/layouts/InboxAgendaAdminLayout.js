@@ -5,16 +5,14 @@ function InboxAgendaAdminLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   return (
     <div className="inbox inbox-agenda-admin">
       <ChildLayouts
         layouts={childLayouts}
         extraProps={extraProps}
-        onError={onError}
-        FallbackComponent={FallbackComponent}
+        fallback={fallback}
       >
         {children}
       </ChildLayouts>

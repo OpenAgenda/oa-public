@@ -5,8 +5,7 @@ function InboxUserLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   return (
     <div className="container top-margined">
@@ -17,8 +16,7 @@ function InboxUserLayout({
               <ChildLayouts
                 layouts={childLayouts}
                 extraProps={extraProps}
-                onError={onError}
-                FallbackComponent={FallbackComponent}
+                fallback={fallback}
               >
                 {children}
               </ChildLayouts>

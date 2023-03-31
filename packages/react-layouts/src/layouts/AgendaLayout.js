@@ -1,24 +1,22 @@
 import React from 'react';
+import { ErrorBoundary } from '@sentry/react';
 import ChildLayouts from '../components/ChildLayouts';
-import ErrorBoundary from '../components/ErrorBoundary';
 import AgendaHeader from '../components/AgendaHeader';
 
 function AgendaLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const { agenda } = extraProps;
   return (
-    <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+    <ErrorBoundary fallback={fallback}>
       <AgendaHeader agenda={agenda} />
       <ChildLayouts
         layouts={childLayouts}
         extraProps={extraProps}
-        onError={onError}
-        FallbackComponent={FallbackComponent}
+        fallback={fallback}
       >
         {children}
       </ChildLayouts>

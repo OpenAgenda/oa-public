@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { css } from '@emotion/react';
+import { ErrorBoundary } from '@sentry/react';
 import ChildLayouts from '../components/ChildLayouts';
-import ErrorBoundary from '../components/ErrorBoundary';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
@@ -16,8 +16,7 @@ function AgendaAdminFiltersLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const filtersContainerRef = useRef();
 
@@ -46,15 +45,11 @@ function AgendaAdminFiltersLayout({
           ref={filtersContainerRef}
         />
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-          <ErrorBoundary
-            onError={onError}
-            FallbackComponent={FallbackComponent}
-          >
+          <ErrorBoundary fallback={fallback}>
             <ChildLayouts
               layouts={childLayouts}
               extraProps={extraProps}
-              onError={onError}
-              FallbackComponent={FallbackComponent}
+              fallback={fallback}
               // additional extraProps
               filtersContainerRef={filtersContainerRef}
             >

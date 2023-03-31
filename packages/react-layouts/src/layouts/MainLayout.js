@@ -8,11 +8,11 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
 import { css } from '@emotion/react';
+import { ErrorBoundary } from '@sentry/react';
 import session from '@openagenda/sessions/client';
 import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications';
 import * as mainActions from '../reducers/main';
 import ChildLayouts from '../components/ChildLayouts';
-import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
 import Logo from '../components/Logo';
 import Search from '../components/Search';
@@ -102,8 +102,7 @@ function MainLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
   history,
 }) {
   const intl = useIntl();
@@ -153,9 +152,8 @@ function MainLayout({
   );
 
   const ErrorComponent = useCallback(
-    props =>
-      React.createElement(FallbackComponent, { ...props, lang: intl.locale }),
-    [FallbackComponent, intl.locale],
+    props => React.createElement(fallback, { ...props, lang: intl.locale }),
+    [fallback, intl.locale],
   );
 
   const [sessionUser, setSessionUser] = useState(
@@ -368,15 +366,14 @@ function MainLayout({
         />
       ) : null}
 
-      <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
+      <ErrorBoundary fallback={ErrorComponent}>
         {userLoading ? (
           <Loading />
         ) : (
           <ChildLayouts
             layouts={childLayouts}
             extraProps={extraProps}
-            onError={onError}
-            FallbackComponent={ErrorComponent}
+            fallback={ErrorComponent}
             // additional extraProps
             user={user}
             lang={intl.locale}
