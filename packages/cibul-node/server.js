@@ -22,11 +22,15 @@ const config = require('./config');
 // init logs before requires
 logs.init(config.logger || config.getLogConfig('oa', 'oa', false));
 
+require('./sentry.config');
+
+const Sentry = require('@sentry/node');
 const express = require('express');
 const task = require('./task');
 const API = require('./api');
 const initServices = require('./services/init');
 const Core = require('./core');
+const sentryErrorHandler = require('./lib/sentryErrorHandler');
 
 const log = logs('server');
 
@@ -45,6 +49,7 @@ const log = logs('server');
     const genUrl = require('./services/genUrl').getSingleton();
     const admin = require('./admin');
     const web = require('./web');
+    const logRequestMw = require('./services/logRequests').middleware;
 
     app.core = core;
     app.services = services;
@@ -52,7 +57,7 @@ const log = logs('server');
     app.use(sessions.mw);
     app.use(sessions.mw.load({ detailed: true }));
 
-    app.use(require('./services/logRequests').middleware);
+    app.use(logRequestMw);
 
     // load gen url everywhere
     app.use((req, res, next) => {
@@ -103,6 +108,8 @@ const log = logs('server');
     });
 
     app.use((req, res, next) => next({ code: 404 }));
+
+    app.use(sentryErrorHandler({ tag: 'app' }));
     app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
     app.listen(config.port, () => {
@@ -110,7 +117,14 @@ const log = logs('server');
     });
 
     if (WEB) {
-      express().use('/v2', api).listen(config.apiPort);
+      express()
+        .use(
+          '/v2',
+          Sentry.Handlers.requestHandler(),
+          logRequestMw,
+          api,
+        )
+        .listen(config.apiPort);
     }
 
     if (TASK) {

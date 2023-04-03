@@ -2,6 +2,9 @@
 
 const log = require('@openagenda/logs')('uncaught');
 
+// Because it's should be already catched by Sentry
+log.remove('sentry');
+
 function handler(namespace, err, req) {
   try {
     throw err;
@@ -19,7 +22,7 @@ function handler(namespace, err, req) {
       });
     }
 
-    log('error', obj);
+    log.error(obj);
   }
 }
 
@@ -31,5 +34,6 @@ module.exports = handler;
 
 module.exports.init = c => {
   log.setConfig(c.getLogConfig('oa', 'errors', false));
+  log.remove('sentry');
   return handler;
 };

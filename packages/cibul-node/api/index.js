@@ -1,24 +1,20 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
 const { NotAuthenticated } = require('@openagenda/verror');
 
-const logRequests = require('../services/logRequests');
-const errors = require('../services/errors');
-
+const sentryErrorHandler = require('../lib/sentryErrorHandler');
 const mw = require('./middleware');
 const getSettingsEndpoint = require('./endpoints/settingsGet');
 const getSettingsResyncEndpoint = require('./endpoints/settingsResync');
+const apiErrorHandler = require('./errorHandler');
 
 const settings = {
   get: getSettingsEndpoint,
   resync: getSettingsResyncEndpoint,
 };
-
-const handleError = errors.bind(null, 'api');
 
 module.exports = core => {
   log('init');
@@ -28,12 +24,9 @@ module.exports = core => {
   app.core = core;
   app.services = core.services;
 
-  const {
-    verifySuperAdmin,
-  } = app.services.users.mw;
+  const { verifySuperAdmin } = app.services.users.mw;
 
-  log('middleware');
-  app.use(logRequests.middleware);
+  // app.use(Sentry.Handlers.requestHandler());
 
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([{
@@ -526,7 +519,7 @@ module.exports = core => {
           relation: ['contributed', 'owned'],
         })
         .then(context => res.json(context), next);
-    }
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [
@@ -579,56 +572,10 @@ module.exports = core => {
     }).then(data => res.json({ ...data, success: true }), next);
   });
 
-  app.use((err, req, res, _next) => {
-    if ([
-      'BadRequestError',
-      'NotFoundError',
-      'ValidationError',
-    ].includes(err.name)) {
-      return res.status(err.statusCode).json({
-        errors: err.detail,
-      });
-    }
-
-    if (err.name === 'UnauthorizedError') {
-      return res.status(err.statusCode).json({
-        message: err.message,
-      });
-    }
-
-    if (err.name === 'BadRequest') {
-      return res.status(err.code).json({
-        message: err.message,
-        errors: err.info.errors,
-        info: _.omit(err.info, ['errors']),
-      });
-    }
-
-    if ([
-      'NotAuthenticated',
-      'Forbidden',
-      'NotFound',
-    ].includes(err.name)) {
-      return res.status(err.code).json({
-        message: err.message,
-        info: err.info,
-      });
-    }
-
-    handleError(new VError({
-      cause: err,
-      info: {
-        body: req.body,
-        query: req.query,
-      },
-    }), req);
-
-    return res.status(500).json({
-      message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com',
-    });
-  });
-
   log('done');
+
+  app.use(sentryErrorHandler({ tag: 'api' }));
+  app.use(apiErrorHandler);
 
   return app;
 };

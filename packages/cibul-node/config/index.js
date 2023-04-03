@@ -3,6 +3,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 const debug = require('debug');
+const sentry = require('@sentry/node');
 
 const prod = require('./prod');
 
@@ -40,15 +41,14 @@ const config = {
     logPathDebug: '/var/tmp/cibul-node-debug.log',
     logPathError: '/var/tmp/cibul-node-errors.log',
     logger: {
-      debug: {
-        prefix: 'oa:',
-        enable: false
-      },
+      prefix: 'oa:',
+      enableDebug: false,
       token: prod.insightOps && prod.insightOps.main || null,
       errorsTracking: {
         insightOpsKey: prod.insightOps && prod.insightOps.clientErrors || null,
         sentryDsn: prod.sentry && prod.sentry.dsn || null
-      }
+      },
+      sentry,
     },
     name: 'cibul-node',
     domain: prod.domains ? prod.domains.main : process.env.OA_DOMAIN,
@@ -758,10 +758,8 @@ debug.disable();
 debug.enable(currentConfig.logger.debug.enable);
 
 currentConfig.getLogConfig = (prefix, key, keyInPrefix = true) => ({
-  debug: {
-    prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`
-  },
-  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[key]
+  prefix: keyInPrefix ? `${prefix}:${key}` : `${prefix}:`,
+  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[key],
 });
 
 

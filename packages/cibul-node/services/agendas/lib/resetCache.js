@@ -16,6 +16,6 @@ module.exports = async function clearCache(services, agenda) {
     await simpleCache.hash('agendas', agenda.slug).reset(expire);
     await simpleCache.hash('core.agendas.get', agenda.uid).reset(expire);
   } catch (e) {
-    log('error', e, 'reset cache for agenda %s failed', agenda.slug);
+    log('error', 'reset cache for agenda %s failed', agenda.slug, e);
   }
 };
