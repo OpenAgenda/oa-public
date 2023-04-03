@@ -306,6 +306,10 @@ location /notifications {
   include conf.d/nodejs_params;
 }
 
+location /monit {
+  include conf.d/nodejs_params;
+}
+
 # /:agendaSlug/...
 location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
   include conf.d/nodejs_params;
