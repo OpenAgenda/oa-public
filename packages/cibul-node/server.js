@@ -107,9 +107,9 @@ const log = logs('server');
       });
     });
 
-    app.use((req, res, next) => next({ code: 404 }));
-
     app.use(sentryErrorHandler({ tag: 'app' }));
+
+    app.use((req, res, next) => next({ code: 404 }));
     app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
     app.listen(config.port, () => {
