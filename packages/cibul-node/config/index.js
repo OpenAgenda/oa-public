@@ -618,10 +618,8 @@ const config = {
     multiCore: false,
     mainChannel: 'maindev',
     logger: {
-      debug: {
-        prefix: 'oa:',
-        enable: 'oa:*',
-      },
+      prefix: 'oa:',
+      enableDebug: 'oa:*',
       token: false // no need to log dev things
       //token: 'a2923436-55dc-4eba-8668-44824d11c089'
     },
@@ -750,12 +748,12 @@ if (currentConfig.matomoCloudId) {
 }
 
 if (process.env.DEBUG) {
-  currentConfig.logger.debug.enable = Array.isArray(process.env.DEBUG) ? process.env.DEBUG.join(',') : process.env.DEBUG;
+  currentConfig.logger.enableDebug = Array.isArray(process.env.DEBUG) ? process.env.DEBUG.join(',') : process.env.DEBUG;
 }
 
 debug.disable();
 
-debug.enable(currentConfig.logger.debug.enable);
+debug.enable(currentConfig.logger.enableDebug);
 
 currentConfig.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}` : `${prefix}:`,
