@@ -11,7 +11,7 @@ module.exports = function sentryErrorHandler(options) {
         scope.setTag(options.tag, true);
 
         scope.addEventProcessor(event => {
-          event.transaction = `${options.tag} | ${event.transaction}`;
+          event.transaction = `${options.tag}${event.transaction ? ` | ${event.transaction}` : ''}`;
           return event;
         });
       }
