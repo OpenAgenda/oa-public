@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages } from 'react-intl';
 import links from '../utils/externalLinks';
 

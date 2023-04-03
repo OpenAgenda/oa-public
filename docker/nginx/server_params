@@ -257,7 +257,7 @@ location /widgets {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/agendas$ {
+location ~ ^/agendas(/.+|)$ {
   include conf.d/nodejs_params;
 }
 

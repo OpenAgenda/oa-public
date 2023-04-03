@@ -8,6 +8,7 @@ const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const getDSLSortPart = require('../utils/getDSLSortPart');
 const validateNav = require('../utils/validateNav');
+const validateQuery = require('../utils/validateQuery');
 const preCleanRawQuery = require('../utils/preCleanRawQuery');
 const monolingual = require('../utils/monolingualize');
 const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
@@ -374,6 +375,20 @@ describe('event-search - unit: utils', () => {
 
       expect(error.name).toBe('BadRequest');
       expect(error.message).toBe('from + size cannot exceed 19. Use "after" navigation for better performance.');
+    });
+  });
+
+  describe('validateQuery', () => {
+    it('throws error when slug is empty string', () => {
+      let error;
+      try {
+        validateQuery({
+          slug: [''],
+        }, {});
+      } catch (e) {
+        error = e;
+      }
+      expect(error[0].code).toBe('string.tooshort');
     });
   });
 

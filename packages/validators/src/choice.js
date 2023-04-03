@@ -4,9 +4,9 @@ import errors from './lib/errors';
 function preClean(params, value) {
   const optionsAreIntegers = params.options.filter(o => Number.isInteger(o)).length === params.options.length;
 
-  return ([].concat(value))
+  return [].concat(value)
     .map(v => {
-      const valuePart = (v instanceof Object) ? v[params.key] : v;
+      const valuePart = v instanceof Object ? v[params.key] : v;
 
       return params.options.indexOf(optionsAreIntegers ? parseInt(valuePart, 10) : valuePart);
     })
@@ -22,7 +22,7 @@ const validator = (config = {}) => {
     optional: true,
     min: null,
     max: null,
-    unique: false
+    unique: false,
   });
 
   return Object.assign(value => {
@@ -56,8 +56,8 @@ const validator = (config = {}) => {
       throw errors(params, value, 'choice.required.min', 'between %min% and %max% choices must be made', {
         values: {
           min: params.min,
-          max: params.max
-        }
+          max: params.max,
+        },
       });
     }
 
@@ -65,8 +65,8 @@ const validator = (config = {}) => {
       throw errors(params, value, 'choice.required.max', 'between %min% and %max% choices must be made', {
         values: {
           max: params.max,
-          min: params.min
-        }
+          min: params.min,
+        },
       });
       // throw [_getMinMaxError(params, value, 'choice.required.max')];
     }
@@ -74,10 +74,10 @@ const validator = (config = {}) => {
     return clean;
   }, {
     type: 'choice',
-    field: params.field
+    field: params.field,
   });
 };
 
 export default Object.assign(validator, {
-  preClean
+  preClean,
 });

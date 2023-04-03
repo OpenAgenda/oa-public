@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -39,7 +39,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
 
   const confirmRemove = useCallback(
     values => onRemove(data.source, values.evaluate),
-    [onRemove, data.source]
+    [onRemove, data.source],
   );
 
   if (!data.visible) {

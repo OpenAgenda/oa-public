@@ -594,6 +594,7 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
 ### Pèle-Mèle
 
  * **Ajout d'un membre sur de multiples agendas**: le script est sur prodifier, dossier scripts/member-group-operations. Il faut lister les slugs dans slugs.txt séparés par des retours à la ligne, puis lancer le `add.js`. Ce script pourrait resync les inbox & activités de l'agenda pour le membre, il ne le fait pas. L'API permet de faire cette manip désormais. Une refacto serait utile pour que le script n'ait plus à se connecter à la DB.
+ * **Identifier les événements non-agrégés parmis toutes les sources d'un agenda**: utile notamment pour les opérations nationales quand des différences de totaux sont constatés. `utils-scripts/packages/aggregators/identifyUnagreggatedEvents.js` appeler sur prodifier en définissant l'agenda à cibler avec une var d'environnement `AGENDA_UID`.
 
 ### MCC
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 
@@ -27,16 +26,17 @@ export default ({ sourceSchema = { fields: [] } }) => {
   const { values /* , initialValues */ } = form.getState();
 
   const options = useMemoOne(
-    () => sourceSchema.fields
-      .filter(v => stringType.includes(v.fieldType))
-      .concat(eventFields)
-      .map(({ field, label }) => ({
-        value: field,
-        label: getLocaleValue(label, intl.locale)
-          ? getLocaleValue(label, intl.locale)
-          : field,
-      })),
-    [intl.locale, sourceSchema.fields]
+    () =>
+      sourceSchema.fields
+        .filter(v => stringType.includes(v.fieldType))
+        .concat(eventFields)
+        .map(({ field, label }) => ({
+          value: field,
+          label: getLocaleValue(label, intl.locale)
+            ? getLocaleValue(label, intl.locale)
+            : field,
+        })),
+    [intl.locale, sourceSchema.fields],
   );
 
   return (

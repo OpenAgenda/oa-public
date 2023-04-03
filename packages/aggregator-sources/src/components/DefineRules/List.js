@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -46,7 +46,7 @@ export default function List({
 
       reorderRules(result.source.index, result.destination.index);
     },
-    [reorderRules]
+    [reorderRules],
   );
 
   return (
@@ -153,7 +153,7 @@ export default function List({
               intl,
               rules,
               aggregatorAgendaSchema,
-              sourceSchema
+              sourceSchema,
             );
 
             if (actionsError) {

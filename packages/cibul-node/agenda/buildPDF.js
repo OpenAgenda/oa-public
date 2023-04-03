@@ -1,7 +1,7 @@
 'use strict';
 
 const pdf = require('@openagenda/pdf');
-
+const log = require('@openagenda/logs')('agenda/buildPDF');
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 
 module.exports = async function buildPDF(req, res, _next) {
@@ -43,10 +43,15 @@ module.exports = async function buildPDF(req, res, _next) {
 
   pdfStream.getReadableStream().pipe(res);
 
-  res.writeHead(200, {
-    'Content-Type': 'application/pdf',
-    'content-disposition': `attachment; filename="contributors.${req.agenda.title}.pdf"`,
-  });
+  try {
+    res.writeHead(200, {
+      'Content-Type': 'application/pdf',
+      'content-disposition': `attachment; filename="contributors.${req.agenda.title}.pdf"`,
+    });
+  } catch (error) {
+    log.error(`could not build PDF for agenda ${req.agenda.uid}`, error);
+    throw error;
+  }
 
   for await (const event of stream) {
     const legacyEvent = convertEventToLegacyFormat({

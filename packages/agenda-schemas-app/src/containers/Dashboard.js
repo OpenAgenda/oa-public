@@ -168,7 +168,7 @@ function Dashboard() {
           topSidebar
           res={memberMode ? res.memberSchema : res.eventSchema}
           lang={lang}
-          addEnabled={maxFields > currentFieldCount}
+          addEnabled={maxFields > currentFieldCount || memberMode}
           settingsEnabled
           editableExtensions={editableParents}
           devState={{
@@ -198,7 +198,7 @@ function Dashboard() {
             },
           })}
         />
-        {maxFields === 1 && maxFields === currentFieldCount ? (
+        {maxFields === 1 && maxFields >= currentFieldCount ? (
           <div>
             <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
               {intl.formatMessage(messages.needMoreFields)}

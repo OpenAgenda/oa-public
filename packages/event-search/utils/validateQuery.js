@@ -33,6 +33,8 @@ const validate = schema({
   slug: {
     type: 'text',
     list: true,
+    emptyStringAsUndefined: false,
+    min: 1,
   },
   search: {
     type: 'text',

@@ -55,8 +55,32 @@
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
     {
+      "children": [
+        {
+          "type": 0,
+          "value": "Usa la versione precedente dell'esportazione JSON"
+        }
+      ],
+      "type": 8,
+      "value": "link1"
+    },
+    {
       "type": 0,
-      "value": "Usa la versione precedente dell'esportazione JSON"
+      "value": " (Documentazione "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "qui"
+        }
+      ],
+      "type": 8,
+      "value": "link2"
+    },
+    {
+      "type": 0,
+      "value": ")"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportSelection": [
@@ -69,18 +93,6 @@
     {
       "type": 0,
       "value": "Scegliere un formatto"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc1": [
-    {
-      "type": 0,
-      "value": "Documentazione"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc2": [
-    {
-      "type": 0,
-      "value": "qui"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [

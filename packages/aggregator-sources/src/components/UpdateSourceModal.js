@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Modal } from '@openagenda/react-shared';
@@ -64,7 +64,7 @@ export default function UpdateSourceModal({
       setRules(value);
       setStep('evaluateOptions');
     },
-    [setRules, setStep]
+    [setRules, setStep],
   );
 
   const handleFinalSubmit = useCallback(
@@ -74,13 +74,13 @@ export default function UpdateSourceModal({
         setStep('info');
       });
     },
-    [onSubmit, rules, setSelectedEvaluate, setStep, data.source]
+    [onSubmit, rules, setSelectedEvaluate, setStep, data.source],
   );
 
   return (
     <Modal
       title={`${data.source.agenda.title} | ${intl.formatMessage(
-        messages.updateASource
+        messages.updateASource,
       )}`}
       onClose={onClose}
       classNames={modalClassnames}

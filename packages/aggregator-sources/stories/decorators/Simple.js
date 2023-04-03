@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default Story => (
   <div className="container margin-top-lg">
     <div className="row">

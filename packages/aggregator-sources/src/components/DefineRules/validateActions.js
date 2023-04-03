@@ -1,4 +1,3 @@
-import React from 'react';
 import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
@@ -6,7 +5,7 @@ export default function validateActions(
   intl,
   rules,
   aggregatorAgendaSchema,
-  sourceSchema
+  sourceSchema,
 ) {
   const missingFields = [];
 
@@ -26,9 +25,10 @@ export default function validateActions(
       }
 
       const inSourceSchema = sourceSchema.fields?.find(
-        v => v.schemaId
+        v =>
+          v.schemaId
           && v.field === fieldSchema.field
-          && v.schemaId === fieldSchema.schemaId
+          && v.schemaId === fieldSchema.schemaId,
       );
 
       if (
@@ -47,7 +47,7 @@ export default function validateActions(
       fields: intl.formatList(
         missingFields.map(v => (
           <em key={v.field}>{getLocaleValue(v.label, intl.locale)}</em>
-        ))
+        )),
       ),
       fieldsCount: missingFields.length,
     });
