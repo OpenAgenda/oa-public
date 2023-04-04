@@ -55,7 +55,7 @@
     "@openagenda/react-filters": "^2.9.0",
     "@openagenda/react-portal-ssr": "^1.0.1",
     "@openagenda/react-shared": "^2.4.0",
-    "@openagenda/sdk-js": "^2.0.1",
+    "@openagenda/sdk-js": "^2.0.2",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.3.1",
