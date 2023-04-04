@@ -17,12 +17,6 @@ module.exports = function apiErrorHandler(err, req, res, _next) {
     });
   }
 
-  if (err.name === 'UnauthorizedError') {
-    return res.status(err.statusCode).json({
-      message: err.message,
-    });
-  }
-
   if (err.name === 'BadRequest') {
     return res.status(err.code).json({
       message: err.message,
