@@ -7025,7 +7025,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     babel-loader: ^8.2.2
     body-parser: ^1.19.0
     core-js: ^3.29.1
@@ -7183,7 +7183,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     "@storybook/react": ^6.5.9
     async: ^1.5.2
     babel-loader: ^8.2.2
@@ -7862,7 +7862,7 @@ __metadata:
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/react-timingspicker": ^1.4.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
     clean-webpack-plugin: ^3.0.0
@@ -7911,7 +7911,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     axios: ^0.21.1
     debug: ^4.1.1
     deep-diff: ^1.0.2
@@ -8010,7 +8010,7 @@ __metadata:
     "@openagenda/stream-utils": ^1.1.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     exceljs: ^4.3.0
     fast-csv: ^2.4.1
     global: ^4.3.2
@@ -8405,7 +8405,7 @@ __metadata:
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     "@storybook/react": ^6.5.9
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -8579,7 +8579,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     core-js: ^3.29.1
     eslint: ^8.24.0
     immutability-helper: ^3.0.1
@@ -8706,7 +8706,7 @@ __metadata:
     "@openagenda/sdk-js": "workspace:^"
     "@openagenda/tsconfig": ^0.0.0
     "@openagenda/uikit": ^0.0.1
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     "@sentry/nextjs": ^7.45.0
     "@storybook/nextjs": ^7.0.0-beta.30
     axios: ^0.21.1
@@ -9675,13 +9675,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/verror@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@openagenda/verror@npm:3.0.0"
+"@openagenda/verror@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@openagenda/verror@npm:3.1.0"
   dependencies:
     assertion-error: ^1.1.0
+    depd: ^2.0.0
+    inherits: ^2.0.4
     sprintf-js: ^1.1.2
-  checksum: 24867a682286a4d35b8a7213c94c5e1e6c2bd49bca5f8badd849bf6b502ef6542d6a5d6882087d370bf55ee7ad35073406befbc83077408eb3a32b357f010a47
+  checksum: 22d008b6c19ebcb1bb2c9f8788e452a4d3bb8dc76ff9dc8ea409e703693303ac7981b9229e85754883524dad605b777b0628807391d73c419ba3178d2a6d4daf
   languageName: node
   linkType: hard
 
@@ -19240,7 +19242,7 @@ __metadata:
     "@openagenda/users": ^3.1.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@openagenda/verror": ^3.0.0
+    "@openagenda/verror": ^3.1.0
     "@sentry/node": ^7.45.0
     async: ^2.3.0
     aws-sdk: ^2.544.0
@@ -21937,7 +21939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:2.0.0, depd@npm:~2.0.0":
+"depd@npm:2.0.0, depd@npm:^2.0.0, depd@npm:~2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
