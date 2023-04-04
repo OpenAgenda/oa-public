@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "repository": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
