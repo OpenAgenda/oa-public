@@ -7068,7 +7068,7 @@ __metadata:
     "@openagenda/react-filters": ^2.9.0
     "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
-    "@openagenda/sdk-js": ^2.0.1
+    "@openagenda/sdk-js": ^2.0.2
     axios: ^0.21.1
     babel-loader: ^8.2.2
     babel-plugin-handlebars-inline-precompile: ^2.1.1
@@ -8277,7 +8277,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@^1.1.2, @openagenda/intl@^1.1.3, @openagenda/intl@workspace:^, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@^1.1.2, @openagenda/intl@^1.1.3, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -9303,7 +9303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/sdk-js@^2.0.1, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
+"@openagenda/sdk-js@^2.0.2, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:public/sdk-js"
   dependencies:
@@ -9313,7 +9313,7 @@ __metadata:
     "@openagenda/axios-mock-adapter": ^1.21.2
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.4.0
-    "@openagenda/intl": "workspace:^"
+    "@openagenda/intl": ^1.1.3
     axios: ^0.26.1
     babel-jest: ^26.6.3
     core-js: ^3.29.1
@@ -9621,7 +9621,6 @@ __metadata:
     "@openagenda/keys": ^2.2.10
     "@openagenda/logs": ^1.1.9
     "@openagenda/validators": ^2.4.0
-    debug: ^4.1.1
     eslint: ^8.24.0
     feathers-hooks-common: ^5.0.2
     feathers-knex: ^7.1.0
@@ -9634,7 +9633,6 @@ __metadata:
     sinon: ^8.1.1
     tmp: ^0.1.0
     uuid: ^3.4.0
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
