@@ -4,6 +4,7 @@ import qs from 'qs';
 import Events from './Events';
 import Locations from './Locations';
 import reduceAccessToken from './utils/reduceAccessToken';
+import getNonce from './utils/getNonce';
 
 export default class OaSdk {
   constructor(options) {
@@ -39,7 +40,7 @@ export default class OaSdk {
 
       if (!config.skipNonce && this.accessToken) {
         config.headers = {
-          nonce: this.getNonce(),
+          nonce: getNonce(this.reducedAccessToken, this.requestTokenTime),
           ...config.headers,
         };
       }
@@ -95,11 +96,5 @@ export default class OaSdk {
     }
 
     return new Date().getTime() > this.requestTokenTime + this.expiresIn * 1000;
-  }
-
-  getNonce() {
-    const ms = new Date().getTime() - this.requestTokenTime;
-
-    return parseInt(`${_.random(10 ** 5)}${this.reducedAccessToken}${ms}`, 10);
   }
 }
