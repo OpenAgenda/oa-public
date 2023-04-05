@@ -6,13 +6,19 @@ Array [
     "accepted": Array [
       "kevin.bertho@gmail.com",
     ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
     "envelope": Object {
       "from": "admin@openagenda.com",
       "to": Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6111,
+    "messageSize": 6141,
     "rejected": Array [],
   },
 ]
@@ -24,18 +30,30 @@ Array [
     "accepted": Array [
       "kevin.bertho@gmail.com",
     ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
     "envelope": Object {
       "from": "no-reply@openagenda.com",
       "to": Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6151,
+    "messageSize": 6181,
     "rejected": Array [],
   },
   Object {
     "accepted": Array [
       "kevin.berthommier@openagenda.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
     ],
     "envelope": Object {
       "from": "no-reply@openagenda.com",
@@ -43,12 +61,18 @@ Array [
         "kevin.berthommier@openagenda.com",
       ],
     },
-    "messageSize": 6124,
+    "messageSize": 6154,
     "rejected": Array [],
   },
   Object {
     "accepted": Array [
       "kaore@openagenda.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
     ],
     "envelope": Object {
       "from": "no-reply@openagenda.com",
@@ -56,7 +80,7 @@ Array [
         "kaore@openagenda.com",
       ],
     },
-    "messageSize": 6109,
+    "messageSize": 6139,
     "rejected": Array [],
   },
 ]
