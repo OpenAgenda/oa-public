@@ -1,8 +1,4 @@
 {
-  "sources": "Sorsas",
-  "swapcard": "Swapcard",
-  "indesign": "Indesign - Xml",
-  "statistics": "Estatisticas",
   "events": "Eveniments",
   "contributors": "Contributor·a·s",
   "moderators": "Moderator·a·s",
@@ -13,13 +9,17 @@
   "categories": "Categorias e mots-claus",
   "inbox": "Messatjariá",
   "customized": "Camps personalizats",
+  "sources": "Sorsas",
   "facebook": "Facebook",
+  "swapcard": "Swapcard",
   "web": "Integracion web",
   "embeds": "Integracion web",
+  "indesign": "Indesign - Xml",
   "administrators": "Administrator·a·s",
   "settings": "Reglatges",
   "settings_profile": "Perfil",
   "schema": "Formulari",
   "settings_contribution": "Contribucion",
-  "settings_advanced": "Avançat"
+  "settings_advanced": "Avançat",
+  "statistics": "Estatisticas"
 }

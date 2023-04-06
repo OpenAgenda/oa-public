@@ -135,5 +135,6 @@
   "uploadError": "Scarica l'errore",
   "from": "Da",
   "validate": "Convalida",
-  "supportPlaceholder": "Ciao, ho un problema quando uso OpenAgenda con ..."
+  "supportPlaceholder": "Ciao, ho un problema quando uso OpenAgenda con ...",
+  "locationName": "**Nome del luogo**: %name%"
 }

@@ -49,6 +49,7 @@
   "booleanFieldTypeInfo": "Scelta sì/no",
   "dateFieldType": "Selezione della data",
   "dateFieldTypeInfo": "Un calendario per selezionare una data",
+  "sectionLabel": "Titolo",
   "imageFieldType": "Immagine",
   "unknownFieldType": "Tipo sconosciuto",
   "languagesFieldType": "Lingue di ingresso",
@@ -103,6 +104,5 @@
   "enabledWhenLinkedFieldHasSpecificValue": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%",
   "optionalWhenLinkedFieldHasValue": "Opzionale quando viene inserito il campo %linkedFieldName%",
   "optionalWhenLinkedFieldHasSpecificValue": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%",
-  "linkedTo": "Relativo al campo %fieldName%",
-  "sectionLabel": "Titolo"
+  "linkedTo": "Relativo al campo %fieldName%"
 }
