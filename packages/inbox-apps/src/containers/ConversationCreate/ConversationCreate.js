@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
-import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
+import { withContext, withLayoutData, Spinner, markdownToHTML } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../reducers/conversationForm';
@@ -135,7 +135,7 @@ class ConversationCreate extends Component {
               </div>
             )}
 
-          {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
+          {creationDesc ? <p dangerouslySetInnerHTML={{ __html: markdownToHTML(creationDesc) }}/> : null}
 
           {creationDescriptionLabel ? <p>{creationDescriptionLabel}</p> : null}
 
