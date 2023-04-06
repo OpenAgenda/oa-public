@@ -78,7 +78,9 @@ class SentryTransport extends winston.Transport {
       scope.setContext('data', displayedMeta);
 
       scope.addEventProcessor(event => {
-        event.transaction = `${ns}${ns.length ? ' | ' : ''}${event.transaction}`;
+        const txName = event.transaction || '';
+        const separator = ns.length && txName.length ? ' | ' : '';
+        event.transaction = `${ns}${separator}${txName}`;
         return event;
       });
 

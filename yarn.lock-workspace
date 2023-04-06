@@ -6153,7 +6153,7 @@ __metadata:
     lodash: ^4.17.15
     mjml: ^4.13.0
     mjml-core: ^4.13.0
-    nodemailer: ^6.3.0
+    nodemailer: ^6.9.1
     prettier-eslint-cli: ^7.1.0
     redis: ^2.8.0
     verror: ^1.10.0
@@ -23639,10 +23639,10 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^6.3.0":
-  version: 6.4.4
-  resolution: "nodemailer@npm:6.4.4"
-  checksum: 7640c066fa36719bf7f21026137f3eb85af0a67fb98a44eb0ab72f8bd65991ae34b524dfad63dcd1a9f408a12b77d65f90388761ba10764ce566b12694a71031
+"nodemailer@npm:^6.9.1":
+  version: 6.9.1
+  resolution: "nodemailer@npm:6.9.1"
+  checksum: b1b9670afc170b4454665abae3fc9acd7e781adb9f579d1c2cd991bf75c647ebe345593f8a057e48d7bf9e4c9a9218869f87db8fb7171c614f557000ab654572
   languageName: node
   linkType: hard
 
