@@ -26,6 +26,7 @@ require('./sentry.config');
 
 const Sentry = require('@sentry/node');
 const express = require('express');
+const { NotFound } = require('@openagenda/verror');
 const task = require('./task');
 const API = require('./api');
 const initServices = require('./services/init');
@@ -107,9 +108,9 @@ const log = logs('server');
       });
     });
 
-    app.use(sentryErrorHandler({ tag: 'app' }));
+    app.use((req, res, next) => next(new NotFound()));
 
-    app.use((req, res, next) => next({ code: 404 }));
+    app.use(sentryErrorHandler({ tag: 'app' }));
     app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
     app.listen(config.port, () => {

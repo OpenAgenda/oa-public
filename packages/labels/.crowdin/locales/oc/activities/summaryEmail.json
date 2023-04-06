@@ -1,6 +1,6 @@
 {
   "subject": "{nbr} notificacions pas vistas dempuèi lo {date}",
   "dailySummary": "Resumit quotidian de vòstras notificacions",
-  "unsubsribe": "Pas pus recebre de resumit quotidian de notificacions",
-  "goToOA": "Anar sus OpenAgenda"
+  "goToOA": "Anar sus OpenAgenda",
+  "unsubsribe": "Pas pus recebre de resumit quotidian de notificacions"
 }

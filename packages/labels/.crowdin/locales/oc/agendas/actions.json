@@ -1,6 +1,6 @@
 {
-  "ownershipTransfered": "La proprietat de l'eveniment es plan estada transferida",
   "actionsInProcess": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%.",
+  "ownershipTransfered": "La proprietat de l'eveniment es plan estada transferida",
   "spreadsheetTitle": "Descargar",
   "allLanguages": "Totas las lengas",
   "spreadsheetDescription": "Limitar lo contengut descargat a las lengas indicadas"

@@ -34,7 +34,7 @@
     "@openagenda/react-shared": "^2.4.0",
     "@openagenda/sdk-js": "workspace:^",
     "@openagenda/uikit": "^0.0.1",
-    "@openagenda/verror": "^3.0.0",
+    "@openagenda/verror": "^3.1.0",
     "@sentry/nextjs": "^7.45.0",
     "axios": "^0.21.1",
     "base64-js": "^1.5.1",

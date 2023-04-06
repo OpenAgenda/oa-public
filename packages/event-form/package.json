@@ -41,7 +41,7 @@
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/react-shared": "^2.4.0",
-    "@openagenda/verror": "^3.0.0",
+    "@openagenda/verror": "^3.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",

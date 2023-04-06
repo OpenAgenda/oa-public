@@ -34,7 +34,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     aggregators,
     custom,
     legacy,
-    elasticSearch: legacyEventSearch,
+    elasticsearch: legacyEventSearch,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;

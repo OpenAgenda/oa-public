@@ -78,7 +78,7 @@ module.exports = async ({ config, services }, ae, context) => {
     try {
       await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
     } catch (e) {
-      log('error', 'could not update legacy search for event %s', event.slug);
+      log('error', 'could not update legacy search for event %s', event.slug, e);
     }
   }
 

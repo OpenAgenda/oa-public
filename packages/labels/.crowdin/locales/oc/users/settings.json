@@ -1,5 +1,4 @@
 {
-  "confirmation": "Confirmacion",
   "modify": "Modificar",
   "accountParameters": "Configuracion del compte",
   "userProfile": "Perfil utilizaire",
@@ -22,6 +21,7 @@
   "image": "Imatge",
   "actualPassword": "Senhal actual",
   "newPassword": "Senhal novèl",
+  "confirmation": "Confirmacion",
   "apiKeyInformation": "Claus API per legir e escriure de donadas amb l'API OpenAgenda.",
   "showDocumentation": "Afichar la documentacion",
   "publicKey": "Clau publica",

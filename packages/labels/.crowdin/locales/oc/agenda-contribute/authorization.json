@@ -1,7 +1,7 @@
 {
   "noAccessToClosedAgenda": "Aquesta agenda es pas obèrta a las contribucions",
-  "noAccessToDraft": "Avètz pas los dreits d'edicion per aqueste borrolhon",
-  "eventNotLinkedToAgenda": "Aqueste eveniment es pas referenciat sus l'agenda",
   "noAccessToEdit": "Avètz pas los dreits d'edicion per aqueste eveniment",
-  "noAccessToCreate": "Avètz pas lo dreit de crear aqueste eveniment"
+  "noAccessToCreate": "Avètz pas lo dreit de crear aqueste eveniment",
+  "noAccessToDraft": "Avètz pas los dreits d'edicion per aqueste borrolhon",
+  "eventNotLinkedToAgenda": "Aqueste eveniment es pas referenciat sus l'agenda"
 }

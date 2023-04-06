@@ -1,7 +1,4 @@
 {
-  "contribDefaultStateUnpublishedText": "Los eveniments venon publics pas qu'aprèp validacion.",
-  "createAgenda": "Crear l'agenda",
-  "slug.invalid": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats",
   "image": "Imatge",
   "description": "Descripcion",
   "parameters": "Paramètres",
@@ -20,12 +17,15 @@
   "contribDefaultStatePublished": "Publicat",
   "contribDefaultStatePublishedText": "Podètz modificar los eveniments mai tard.",
   "contribDefaultStateUnpublished": "Pas publicat",
+  "contribDefaultStateUnpublishedText": "Los eveniments venon publics pas qu'aprèp validacion.",
   "previous": "Precedent",
+  "createAgenda": "Crear l'agenda",
   "required": "Requesit",
   "string.tooshort": "La cadena de caractèrs es tròp corteta",
   "string.toolong": "La cadena de caractèrs es tròp longa",
   "link.invalid": "Ligam invalid",
   "duplicate": "Valor ja presa per una autra agenda",
   "toosmall": "La cadena de caractèrs es tròp corteta",
+  "slug.invalid": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats",
   "description.tooManyLines": "La descripcion deu pas passar las 4 linhas"
 }
