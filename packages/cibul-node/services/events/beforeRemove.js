@@ -14,7 +14,7 @@ module.exports = async (services, event, context) => {
   try {
     await legacyEventSearch.removeEvent( { uid: event.uid } );
   } catch ( e ) {
-    log( 'error', 'could not update legacy search for event %s', event.uid );
+    log( 'error', 'could not update legacy search for event %s', event.uid, e );
   }
 
   let hasMore;
