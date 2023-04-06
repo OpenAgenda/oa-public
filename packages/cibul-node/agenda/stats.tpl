@@ -6,10 +6,6 @@
 <div class="row">
   <h3 class="margin-bottom-sm">Soucis d'affichages page agenda ou exports</h3>
   <div class="margin-v-lg">
-    <p>Il y a une différence entre les événements marqués comme "publié" sur l'admin et la vue liste publique ou un export.</p>
-    <a class="btn btn-default" href="<%= actions.resyncLegacySearch %>">Relancer une synchronisation de l'index</a>
-  </div>
-  <div class="margin-v-lg">
     <p>Il y un problème d'affichage sur un widget malgré une donnée valide sur la liste ( carte, calendrier, tags ... )</p>
     <a class="btn btn-default" href="<%= actions.resyncControlData %>">Recharger les données pour widgets</a>
   </div>

@@ -34,7 +34,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     aggregators,
     custom,
     legacy,
-    elasticsearch: legacyEventSearch,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
@@ -226,13 +225,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     } catch (e) {
       log('error', 'failed to set legacy tags and custom data', e);
     }
-  }
-
-  try {
-    await legacyEventSearch.updateEvent({ uid: eventUid });
-    log('updated legacy ES index for event %s', eventUid);
-  } catch (e) {
-    log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
   const response = await payload.getResponse('event', access);

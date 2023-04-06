@@ -69,7 +69,6 @@ module.exports = async function (configObject = null, options = {}) {
   await init('adminAgendas', require('./adminAgendas'));
   await init('aggregators', require('./aggregators'));
   await init('cache', require('./cache'));
-  await init('elasticsearch', require('./elasticsearch'));
   await init('eventSearch', require('./eventSearch'));
   await init('events', require('./events'));
   await init('facebook', require('./facebook'));

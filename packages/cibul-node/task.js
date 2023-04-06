@@ -7,13 +7,6 @@ const legacyAgendaServiceTask = require('./services/agenda/task');
 module.exports = (config, core, services) => {
   tfy(resetApiCounters, { period: 'daily', time: '00:00' });
 
-  if (services.elasticsearch) {
-    tfy(services.elasticsearch.refresh, {
-      period: 'daily',
-      time: '00:00',
-    });
-  }
-
   tfy(services.agendaSearch.rebuild, {
     period: 'weekly',
     day: 'sunday',
@@ -98,15 +91,6 @@ module.exports = (config, core, services) => {
   services.users.tasks.processQueue();
 
   services.members.task();
-
-  if (process.env.NODE_ENV !== 'production') { // COMMENT THIS WITH PRECAUTION
-    /* services.elasticsearch.resync({
-      reset: true,
-      since: '2019-05-14',
-      removeZombies: false,
-      logEveryUpdate: true
-    }, (err, res) => console.log('FINI', err, res)); */
-  }
 
   // services.inboxes.tasks.sync();
 

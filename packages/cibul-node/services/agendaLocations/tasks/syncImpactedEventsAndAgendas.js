@@ -5,7 +5,6 @@ const log = require('@openagenda/logs')('services/agendaLocations/tasks/syncImpa
 module.exports = services => async function syncImpactedEventsAndAgendas(before, after) {
   const {
     core,
-    elasticsearch: legacyEventSearch,
     legacy,
     events: eventsSvc,
     agendaEvents,
@@ -30,17 +29,6 @@ module.exports = services => async function syncImpactedEventsAndAgendas(before,
   const impactedAgendaUids = [];
 
   for (const eventUid of uids) {
-    // reindex impacted events on legacy search
-    if (legacyEventSearch) {
-      try {
-        await legacyEventSearch.updateEvent({
-          uid: eventUid
-        });
-      } catch (e) {
-        log('error', 'could not update event %s index', eventUid, e);
-      }
-    }
-
     // update search indices
     const relatedReferences = await agendaEvents.list
       .byEventUid(eventUid)
