@@ -135,7 +135,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   try {
     await legacyEventSearch.updateEvent({ uid: event.uid });
   } catch (e) {
-    log('error', 'could not update legacy search for event %s', event.uid);
+    log('error', 'could not update legacy search for event %s', event.uid, e);
   }
 
   const response = await payload.getResponse('event', access);
