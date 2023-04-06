@@ -66,6 +66,7 @@
   "AgendaLocations.LocationConfirmation.suggest": "Suggerir una modificacion",
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": "Un onglet novèl es estat dobèrt dins vòstre navigator. Dintratz los detalhs del cambiament dins la bóstia de dialòg abans de confirmar vòstra causida",
   "AgendaLocations.LocationDetails.access": "Accès",
+  "AgendaLocations.LocationDetails.address": "Adreiça",
   "AgendaLocations.LocationDetails.andOn": "e dins",
   "AgendaLocations.LocationDetails.description": "Descripcion",
   "AgendaLocations.LocationDetails.editLocation": "Modificar lo lòc",
@@ -76,6 +77,7 @@
   "AgendaLocations.LocationDetails.image": "Imatge",
   "AgendaLocations.LocationDetails.insee": "Còdi INSEE",
   "AgendaLocations.LocationDetails.links": "Ligams suplementaris",
+  "AgendaLocations.LocationDetails.name": "Nom",
   "AgendaLocations.LocationDetails.noContent": "Pas cap contengut {lang} es definit",
   "AgendaLocations.LocationDetails.noImage": "Pas cap imatge definit",
   "AgendaLocations.LocationDetails.noRefAgendas": "Aqueste lòc es pas referenciat dins cap autra agenda.",
@@ -142,6 +144,7 @@
   "AgendaLocations.LocationSelector.info": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc",
   "AgendaLocations.LocationSelector.noLocation": "Causissètz un lòc",
   "AgendaLocations.LocationSelector.remove": "Suprimir",
+  "AgendaLocations.LocationSelector.see": "Veire",
   "AgendaLocations.LocationSelector.title": "Crear un lòc",
   "AgendaLocations.RemoveModal.cancel": "Anullar",
   "AgendaLocations.RemoveModal.closeModal": "Tampar",
@@ -184,8 +187,5 @@
   "AgendaLocations.stepper.notDuplicates": "Aquestes son pas de doblons",
   "AgendaLocations.stepper.see": "veire",
   "AgendaLocations.stepper.seeDetails": "Detalhs",
-  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc",
-  "AgendaLocations.LocationDetails.address": "Adreiça",
-  "AgendaLocations.LocationDetails.name": "Nom",
-  "AgendaLocations.LocationSelector.see": "Veire"
+  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc"
 }

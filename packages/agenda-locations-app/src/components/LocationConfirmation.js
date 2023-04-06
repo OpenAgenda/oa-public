@@ -9,6 +9,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationConfirmation.guide',
     defaultMessage: 'Are the details of this location correct ?',
   },
+  browseDetails: {
+    id: 'AgendaLocations.LocationConfirmation.browseDetails',
+    defaultMessage: 'Browse the detailed information below then confirm your choice at the bottom of this menu',
+  },
   guideDetail: {
     id: 'AgendaLocations.LocationConfirmation.guideDetail',
     defaultMessage: 'If some changes have to be made, click on the button below to provide details on the change to agenda administrators',
@@ -62,6 +66,7 @@ const LocationConfirmation = ({
     <div>
       <div className="info-block margin-v-sm">
         <label htmlFor="guide"><FormattedMessage {...messages.guide} /></label>
+        <p><FormattedMessage {...messages.browseDetails} /></p>
         <p><FormattedMessage {...messages.guideDetail} /></p>
         <div className="text-center">
           <a
