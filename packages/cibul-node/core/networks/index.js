@@ -19,10 +19,10 @@ module.exports = core => {
     agendas: Object.assign(getAgendas.bind(null, core.services, networkUid), {
       add: addAgenda.bind(null, core, networkUid),
       create: data => core.agendas.create({ ...data, networkUid }, { updateLegacy: true }),
-      remove: removeAgenda.bind(null, core, networkUid)
-    })
+      remove: removeAgenda.bind(null, core, networkUid),
+    }),
   }), {
     list: () => core.services.networks.list(),
-    create: data => core.services.networks.create(data)
+    create: data => core.services.networks.create(data),
   });
 };
