@@ -3,7 +3,7 @@
   "ActivityApps.Notifications.next": "Suivant",
   "ActivityApps.Notifications.noNotif": "Aucune notification.",
   "ActivityApps.Notifications.viewHistory": "Voir l'historique",
-  "ActivityApps.XOthers": "{count, plural, =1 {autre} other {autres}}",
+  "ActivityApps.XOthers": "{count, plural, =1 {# autre} other {# autres}}",
   "ActivityApps.acceptInvitation.full": "<email>{invited}</email> a accepté l'invitation de <user>{userName}</user> pour devenir <role>{invitedRole}</role> sur <agenda>{agendaName}</agenda>.",
   "ActivityApps.acceptInvitation.withoutTarget": "<email>{invited}</email> a accepté l'invitation de <user>{userName}</user> pour devenir <role>{invitedRole}</role>.",
   "ActivityApps.addEvent.actor": "<user>{userName}</user> a ajouté <event>{eventName}</event> à partir de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",

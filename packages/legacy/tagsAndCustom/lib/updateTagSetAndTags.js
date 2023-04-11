@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('updateTagSetAndTags');
+
 const slug = require('slugify');
 const generateTagSet = require('./utils/generateTagSet');
 
@@ -68,6 +70,20 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
     messages,
     fields,
   } = await generateTagSet(schema, currentTagSet, options);
+
+  if (updatedSet === null) {
+    if (await knex('tag_set').first('id').where('id', id)) {
+      log('info', 'deleting tagSet %s', id);
+      await knex('tag_set').delete('id', id);
+      await setTags(knex, id, { groups: [] });
+    }
+
+    return {
+      set: null,
+      messages,
+      fields,
+    };
+  }
 
   const updatedSetWithIds = await setTags(knex, id, updatedSet);
 

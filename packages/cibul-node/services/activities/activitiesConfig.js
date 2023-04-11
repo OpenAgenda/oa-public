@@ -128,11 +128,13 @@ async function maskUserIsNotAdminModOf({
     return;
   }
 
-  const role = preloadedRole ?? (await getMember(
-    services.members,
-    targetFeed.entityUid,
-    getActivityEntity(activity, key),
-  ))?.role;
+  const role = preloadedRole === undefined
+    ? (await getMember(
+      services.members,
+      targetFeed.entityUid,
+      getActivityEntity(activity, key),
+    ))?.role
+    : null;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
     return omit;
@@ -282,7 +284,7 @@ const activitiesConfig = {
           membersSvc,
           targetFeed.entityUid,
           getActivityEntity(activity, 'target.uid'),
-        )).role
+        ))?.role
         : null;
 
       const toOmit = await maskFor({
@@ -294,7 +296,7 @@ const activitiesConfig = {
       // Always omit the diff object
       toOmit.push('store.diff');
 
-      if (role !== null) {
+      if (role) {
         if (!isSuperiorToOrEqual(role, 'administrator')) toOmit.push('store.administratorFields');
         if (!isSuperiorToOrEqual(role, 'moderator')) toOmit.push('store.moderatorFields');
         if (!isSuperiorToOrEqual(role, 'contributor')) toOmit.push('store.contributorFields');

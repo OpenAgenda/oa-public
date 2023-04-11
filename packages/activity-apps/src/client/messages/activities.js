@@ -270,6 +270,6 @@ export default defineMessages({
 
   XOthers: {
     id: 'ActivityApps.XOthers',
-    defaultMessage: '{count, plural, =1 {other} other {others}}'
+    defaultMessage: '{count, plural, =1 {# other} other {# others}}'
   }
 });
