@@ -160,9 +160,8 @@ module.exports.rebuild = async (core, agendaUid) => {
 
   if (!agenda) {
     throw new NotFound({
-      message: 'agenda not found',
       info: { uid: agendaUid },
-    });
+    }, 'agenda not found');
   }
 
   return core.services.eventSearch.agendas(agenda).rebuild();
@@ -185,9 +184,8 @@ async function resyncEvent(core, agendaUid, eventUid, options = {}) {
 
     if (!eventPayload && throwOnError) {
       throw new NotFound({
-        message: 'event not found',
         info: { uid: eventUid },
-      });
+      }, 'event not found');
     }
 
     if (!eventPayload) {
