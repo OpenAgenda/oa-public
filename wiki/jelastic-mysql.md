@@ -282,15 +282,15 @@ Activer le ssl si ce n'est pas déjà fait:
 
 Mettre à jour les chemin pointant vers les certificats:
 
-SET mysql-ssl_p2s_cert="/var/lib/proxysl/proxysql-cert.pem";
-SET mysql-ssl_p2s_key="/var/lib/proxysl/proxysql-key.pem";
-SET mysql-ssl_p2s_ca="/var/lib/proxysl/proxysql-ca.pem";
+SET mysql-ssl_p2s_cert="/var/lib/proxysql/proxysql-cert.pem";
+SET mysql-ssl_p2s_key="/var/lib/proxysql/proxysql-key.pem";
+SET mysql-ssl_p2s_ca="/var/lib/proxysql/proxysql-ca.pem";
 SET mysql-ssl_p2s_cipher='ECDHE-RSA-AES256-SHA';
 
 Pour vérifier que les valeurs sont bien chargées:
-SELECT * FROM global_variables WHERE variable_name LIKE 'mysql%ssl%'
+SELECT * FROM global_variables WHERE variable_name LIKE 'mysql%ssl%';
 
-LOAD MYSQL VARIABLES TO RUNTIME;  
+LOAD MYSQL VARIABLES TO RUNTIME;
 SAVE MYSQL VARIABLES TO DISK;
 
 Tester la nouvelle configuration : Testez la nouvelle configuration pour vous assurer qu'elle fonctionne comme prévu.
