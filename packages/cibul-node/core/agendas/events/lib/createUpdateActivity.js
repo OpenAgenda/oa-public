@@ -7,6 +7,20 @@ const labels = require('@openagenda/labels/event/form');
 
 const log = require('@openagenda/logs')('events/createUpdateActivity');
 
+function getFieldReadAccess(fieldSchema) {
+  if (!fieldSchema.read || fieldSchema.read.includes('contributor')) {
+    return 'contributor';
+  }
+
+  if (fieldSchema.read.includes('moderator')) {
+    return 'moderator';
+  }
+
+  if (fieldSchema.read.includes('administrator')) {
+    return 'administrator';
+  }
+}
+
 module.exports = async function createActivity(services, before, after, context) {
   log('processing');
 
@@ -32,54 +46,38 @@ module.exports = async function createActivity(services, before, after, context)
   const changes = diff(
     before,
     after,
-    (path, key) => ['updatedAt', 'location'].includes(key),
   );
 
   const allChangedFields = (changes ?? [])
     .map(v => v.path[0])
     .filter((v, i, a) => a.indexOf(v) === i);
 
-  const contributorFields = allChangedFields.reduce((accu, changedField) => {
+  const changedFields = allChangedFields.reduce((accu, changedField) => {
     const fieldSchema = formSchema.fields.find(v => v.field === changedField);
 
-    if (!fieldSchema.read || fieldSchema.read.includes('contributor')) {
-      if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
-        accu.push(fieldSchema.field);
-      } else {
-        accu.push({ label: fieldSchema.label });
-      }
+    // skip internal fields
+    if (fieldSchema.write?.length === 1 && fieldSchema.write[0] === 'internal') {
+      return accu;
+    }
+
+    const fieldAccess = getFieldReadAccess(fieldSchema);
+
+    if (!fieldAccess) {
+      return accu;
+    }
+
+    if (!accu[fieldAccess]) {
+      accu[fieldAccess] = [];
+    }
+
+    if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
+      accu[fieldAccess].push(fieldSchema.field);
+    } else {
+      accu[fieldAccess].push({ label: fieldSchema.label });
     }
 
     return accu;
-  }, []);
-
-  const moderatorFields = allChangedFields.reduce((accu, changedField) => {
-    const fieldSchema = formSchema.fields.find(v => v.field === changedField);
-
-    if (fieldSchema.read?.includes('moderator')) {
-      if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
-        accu.push(fieldSchema.field);
-      } else {
-        accu.push({ label: fieldSchema.label });
-      }
-    }
-
-    return accu;
-  }, []);
-
-  const administratorFields = allChangedFields.reduce((accu, changedField) => {
-    const fieldSchema = formSchema.fields.find(v => v.field === changedField);
-
-    if (fieldSchema.read?.includes('administrator')) {
-      if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
-        accu.push(fieldSchema.field);
-      } else {
-        accu.push({ label: fieldSchema.label });
-      }
-    }
-
-    return accu;
-  }, []);
+  }, {});
 
   await activities.feed({ entityType: 'event', entityUid: after.uid }).activities.add({
     actor: `user:${user.uid}`,
@@ -93,9 +91,9 @@ module.exports = async function createActivity(services, before, after, context)
         target: agenda.title,
       },
       diff: changes,
-      contributorFields,
-      moderatorFields,
-      administratorFields,
+      contributorFields: changedFields.contributor,
+      moderatorFields: changedFields.moderator,
+      administratorFields: changedFields.administrator,
     },
   });
 };
