@@ -40,7 +40,6 @@
     "@openagenda/custom": "^1.3.14",
     "@openagenda/date-range": "^2.3.0",
     "@openagenda/dom-utils": "^2.2.12",
-    "@openagenda/es-node": "^1.2.6",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/event-search": "^2.8.0",
     "@openagenda/events": "^2.0.0",

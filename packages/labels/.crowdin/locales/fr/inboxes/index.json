@@ -137,5 +137,6 @@
   "uploadError": "Erreur de téléchargement",
   "from": "Depuis",
   "validate": "Valider",
-  "supportPlaceholder": "Bonjour,\n\nJ'ai un problème lorsque j'utilise OpenAgenda avec ..."
+  "supportPlaceholder": "Bonjour,\n\nJ'ai un problème lorsque j'utilise OpenAgenda avec ...",
+  "locationName": "**Nom du lieu**: %name%"
 }

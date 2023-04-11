@@ -60,6 +60,7 @@
   "AgendaLocations.IT.adminLevel4": "Commune",
   "AgendaLocations.IT.adminLevel5": "Arrondissement",
   "AgendaLocations.IT.adminLevel6": "Quartier",
+  "AgendaLocations.LocationConfirmation.browseDetails": "Parcourez les informations détaillées ci-dessous puis confirmez votre choix en bas de ce menu",
   "AgendaLocations.LocationConfirmation.cancel": "Choisir un autre lieu",
   "AgendaLocations.LocationConfirmation.confirm": "Confirmer",
   "AgendaLocations.LocationConfirmation.guide": "Ce lieu est-il correctement décrit ?",

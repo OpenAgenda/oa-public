@@ -137,5 +137,6 @@
   "uploadError": "Upload error",
   "from": "From",
   "validate": "Validate",
-  "supportPlaceholder": "Hello,\n\nI have a problem when I use OpenAgenda with ..."
+  "supportPlaceholder": "Hello,\n\nI have a problem when I use OpenAgenda with ...",
+  "locationName": "**Location name**: %name%"
 }

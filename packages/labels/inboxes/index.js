@@ -1123,5 +1123,10 @@ module.exports = {
     "es": "Buenos dias,\n\nTengo un problema cuando uso OpenAgenda con ...",
     "it": "Ciao, ho un problema quando uso OpenAgenda con ...",
     "io": "crwdns15244:0crwdne15244:0"
+  },
+  "locationName": {
+    "fr": "**Nom du lieu**: %name%",
+    "en": "**Location name**: %name%",
+    "it": "**Nome del luogo**: %name%"
   }
 }
