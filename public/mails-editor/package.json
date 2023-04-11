@@ -36,7 +36,7 @@
     "prettier-eslint-cli": "^7.1.0"
   },
   "peerDependencies": {
-    "@openagenda/mails": "^4.0.0"
+    "@openagenda/mails": "^4.0.1"
   },
   "lint-staged": {
     "**/*.js": [
