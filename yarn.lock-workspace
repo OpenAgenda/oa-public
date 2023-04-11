@@ -6130,7 +6130,7 @@ __metadata:
     verror: ^1.10.0
     walk: ^2.3.14
   peerDependencies:
-    "@openagenda/mails": ^4.0.0
+    "@openagenda/mails": ^4.0.1
   bin:
     oa-mails-editor: ./bin/editor.js
   languageName: unknown
