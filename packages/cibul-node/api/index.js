@@ -524,45 +524,60 @@ module.exports = core => {
 
   app.get('/me/agendas/:agendaUid/events', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events.search({
-        ...req.query,
-        relation: ['contributed', 'owned'],
-      }, req.query, {
-        useAfterKey: true,
-        userUid: req.user?.uid,
-      }).then(result => res.json({
-        success: true,
-        ...result,
-      }), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events.search({
+          ...req.query,
+          relation: ['contributed', 'owned'],
+        }, req.query, {
+          useAfterKey: true,
+          userUid: req.user?.uid,
+        }).then(result => res.json({
+          success: true,
+          ...result,
+        }), next);
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events/drafts', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events
-      .drafts({
-        useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
-      }, req.query)
-      .then(result => res.json({
-        success: true,
-        events: result.items,
-        total: result.total,
-      }), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events
+        .drafts({
+          useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+        }, req.query)
+        .then(result => res.json({
+          success: true,
+          events: result.items,
+          total: result.total,
+        }), next);
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events(req.params.eventUid)
-      .getContext({ userUid: req.user.uid })
-      .then(context => res.json(context), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events(req.params.eventUid)
+        .getContext({ userUid: req.user.uid })
+        .then(context => res.json(context), next);
+    },
   ]);
 
   app.get('/agendas', (req, res, next) => {
