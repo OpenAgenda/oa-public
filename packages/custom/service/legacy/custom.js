@@ -39,6 +39,8 @@ async function set( eventId, fields, data ) {
 
   const parsed = fields.reduce( ( parsed, f ) => {
 
+    if (!data) return parsed;
+
     const matchingOption = f.options ? _.first( f.options.filter( o => o.id === data[ f.field ] ) ) : undefined;
 
     if ( _isImage( data[ f.field ] ) ) {
