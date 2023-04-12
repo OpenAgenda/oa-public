@@ -64,9 +64,8 @@ module.exports = app => {
 };
 
 module.exports.init = async (config, services) => {
-  abilitiesSvc.init({
-    knex: config.knex,
-    mysql: config.db,
+  await abilitiesSvc.init({
+    knex: services.knex,
     schemas: config.schemas,
     entityMapping: {
       agenda: 'uid',

@@ -1,5 +1,6 @@
 'use strict';
 
+const knexLib = require('knex');
 const abilities = require('./src/service');
 
 const editableRules = {
@@ -149,10 +150,12 @@ const editableRules = {
 
 module.exports = {
   mysql: {
-    host: '127.0.0.1',
+    host: process.env.HOST,
     database: 'oa_test_abilities',
-    password: 'grut',
-    user: 'root',
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    charset: 'utf8mb4',
+    timezone: 'UTC',
     ssl: true,
   },
   schemas: {
@@ -216,7 +219,7 @@ module.exports = {
 
       async agenda(agenda, builder, options = {}) {
         const defaultRules = abilities.rules.getDefaultFor('agenda');
-        const agendaRules = options.rules || (await abilities.rules.list('agenda', agenda.uid));
+        const agendaRules = options.rules || await abilities.rules.list('agenda', agenda.uid);
 
         return defaultRules
           .concat(builder.rules) // the rules defined with can/cannot in this block
@@ -224,7 +227,7 @@ module.exports = {
       },
       async user(user, builder, options = {}) {
         const defaultRules = abilities.rules.getDefaultFor('user');
-        const userRules = options.rules || (await abilities.rules.list('user', user.uid));
+        const userRules = options.rules || await abilities.rules.list('user', user.uid);
 
         return defaultRules
           .concat(builder.rules) // the rules defined with can/cannot in this block
@@ -232,7 +235,7 @@ module.exports = {
       },
       async member(member, builder, options = {}) {
         const defaultRules = abilities.rules.getDefaultFor('member');
-        const memberRules = options.rules || (await abilities.rules.list('member', member.id));
+        const memberRules = options.rules || await abilities.rules.list('member', member.id);
         const agendaRules = (await abilities.get('agenda', member.agendaUid))
           .rules;
         const userRules = (await abilities.get('user', member.userUid)).rules;

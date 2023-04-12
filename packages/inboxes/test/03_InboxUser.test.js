@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import knexLib from 'knex';
 import testconfig from '../testconfig';
 import { initAndLoad, seed } from './service';
 
@@ -10,12 +11,25 @@ describe('InboxUser', () => {
   let Inbox;
   let InboxUsers;
   let InboxUser;
+  let knex;
+
+  beforeAll(() => {
+    knex = knexLib({
+      schemas: testconfig.schemas,
+      client: 'mysql',
+      connection: {
+        ...testconfig.mysql,
+        database,
+      },
+    });
+  });
 
   beforeAll(async () => {
     service = await initAndLoad(
       {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
+        knex,
       },
       []
     );

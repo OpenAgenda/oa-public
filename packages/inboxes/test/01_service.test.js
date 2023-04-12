@@ -16,22 +16,38 @@ const serviceShape = {
 };
 
 describe('service', () => {
-  let config;
+  let knex;
+
+  beforeEach(() => {
+    knex = knexLib({
+      schemas: testconfig.schemas,
+      client: 'mysql',
+      connection: {
+        ...testconfig.mysql,
+        database,
+      },
+    });
+  });
 
   afterEach(async () => {
-    await config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
-    await config.knex.destroy();
+    await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
+    await knex.destroy();
   });
 
   describe('init', () => {
+    let config;
     test('simple init', async () => {
       const service = initAndLoad(
         {
           ...testconfig,
-          mysql: { ...testconfig.mysql, database },
+          mysql: {
+            ...testconfig.mysql,
+            database,
+          },
+          knex,
           logger: { namespace: 'test:' },
         },
-        []
+        [],
       );
 
       await expect(service).resolves.toMatchObject(serviceShape);
@@ -55,11 +71,6 @@ describe('service', () => {
     });
 
     test('init with knex instance', async () => {
-      const knex = knexLib({
-        client: 'mysql',
-        connection: { ...testconfig.mysql, database },
-      });
-
       const service = initAndLoad(
         {
           ...testconfig,
