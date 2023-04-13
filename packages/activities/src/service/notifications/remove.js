@@ -1,6 +1,6 @@
 "use strict";
 
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
 module.exports = function remove( config, identifiers, query, cb ) {

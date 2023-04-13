@@ -1,6 +1,6 @@
 'use strict';
 
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
 const _ = require('lodash');
@@ -141,7 +141,11 @@ async function add(config) {
   }
 
   if (feeds.filter(v => !v).length) {
-    throw new VError('One or more feeds doesn\'t exist in feeds %j', feedsToGet);
+    throw new VError({
+      info: {
+        feeds: feedsToGet
+      }
+    }, 'One or more feeds doesn\'t exist');
   }
 
   const [activityId] = await knex(config.schemas.activity).insert(fields);
