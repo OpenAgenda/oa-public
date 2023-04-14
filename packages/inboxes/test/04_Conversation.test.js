@@ -1628,7 +1628,7 @@ describe('Conversation', () => {
       await expect(
         new Inbox(4).conversations.action(3, 'accept', { userUid: 99999999 })
       ).rejects.toThrow(
-        'InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }'
+        'InboxUser {"userUid":99999999} not found in Inbox {"id":4}'
       );
     });
   });
