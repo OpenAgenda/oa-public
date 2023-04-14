@@ -18,10 +18,10 @@
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.4.0",
+    "@openagenda/verror": "^3.1.0",
     "lodash": "^4.17.15",
     "redis": "^2.8.0",
     "uuid": "^3.4.0",
-    "verror": "^1.10.0",
     "when": "^3.7.8"
   },
   "devDependencies": {
