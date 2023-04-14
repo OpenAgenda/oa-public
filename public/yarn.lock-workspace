@@ -5810,6 +5810,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.4.0
     "@openagenda/logs": ^1.1.9
+    "@openagenda/verror": ^3.1.0
     angular-expressions: ^0.3.0
     aws-sdk: ^2.544.0
     babel-jest: ^26.6.3
@@ -5844,7 +5845,6 @@ __metadata:
     source-map-loader: ^2.0.1
     style-loader: ^1.1.3
     superagent: ^3.8.3
-    verror: ^1.10.0
     webpack: ^5.53.0
     webpack-cli: ^4.8.0
     webpack-dev-middleware: ^4.3.0
@@ -6118,6 +6118,7 @@ __metadata:
   resolution: "@openagenda/mails-editor@workspace:mails-editor"
   dependencies:
     "@openagenda/eslint-config": ^1.4.0
+    "@openagenda/verror": ^3.1.0
     eslint: ^8.24.0
     express: ^4.17.1
     html-to-text: ^6.0.0
@@ -6127,7 +6128,6 @@ __metadata:
     nodemon: ^2.0.6
     prettier-eslint-cli: ^7.1.0
     reload: ^3.1.1
-    verror: ^1.10.0
     walk: ^2.3.14
   peerDependencies:
     "@openagenda/mails": ^4.0.1
@@ -6145,6 +6145,7 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/queues": ^1.2.7
+    "@openagenda/verror": ^3.1.0
     ejs: ^2.7.4
     eslint: ^8.24.0
     isemail: ^3.2.0
@@ -6156,7 +6157,6 @@ __metadata:
     nodemailer: ^6.9.1
     prettier-eslint-cli: ^7.1.0
     redis: ^2.8.0
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -6193,11 +6193,11 @@ __metadata:
   resolution: "@openagenda/queues@workspace:queues"
   dependencies:
     "@openagenda/logs": ^1.1.9
+    "@openagenda/verror": ^3.1.0
     lodash: ^4.17.15
     mocha: ^7.0.1
     redis: ^2.8.0
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -6487,7 +6487,6 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     sinon: ^4.4.5
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -6528,6 +6527,18 @@ __metadata:
     react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
+
+"@openagenda/verror@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@openagenda/verror@npm:3.1.0"
+  dependencies:
+    assertion-error: ^1.1.0
+    depd: ^2.0.0
+    inherits: ^2.0.4
+    sprintf-js: ^1.1.2
+  checksum: 22d008b6c19ebcb1bb2c9f8788e452a4d3bb8dc76ff9dc8ea409e703693303ac7981b9229e85754883524dad605b777b0628807391d73c419ba3178d2a6d4daf
+  languageName: node
+  linkType: hard
 
 "@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.3":
   version: 0.5.7
@@ -11195,6 +11206,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"assertion-error@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "assertion-error@npm:1.1.0"
+  checksum: fd9429d3a3d4fd61782eb3962ae76b6d08aa7383123fca0596020013b3ebd6647891a85b05ce821c47d1471ed1271f00b0545cf6a4326cf2fc91efcc3b0fbecf
+  languageName: node
+  linkType: hard
+
 "assign-symbols@npm:^1.0.0":
   version: 1.0.0
   resolution: "assign-symbols@npm:1.0.0"
@@ -14881,17 +14899,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"depd@npm:^2.0.0, depd@npm:~2.0.0":
+  version: 2.0.0
+  resolution: "depd@npm:2.0.0"
+  checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
+  languageName: node
+  linkType: hard
+
 "depd@npm:~1.1.2":
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: 6b406620d269619852885ce15965272b829df6f409724415e0002c8632ab6a8c0a08ec1f0bd2add05dc7bd7507606f7e2cc034fa24224ab829580040b835ecd9
-  languageName: node
-  linkType: hard
-
-"depd@npm:~2.0.0":
-  version: 2.0.0
-  resolution: "depd@npm:2.0.0"
-  checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
   languageName: node
   linkType: hard
 
@@ -29030,6 +29048,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"sprintf-js@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "sprintf-js@npm:1.1.2"
+  checksum: d4bb46464632b335e5faed381bd331157e0af64915a98ede833452663bc672823db49d7531c32d58798e85236581fb7342fd0270531ffc8f914e186187bf1c90
+  languageName: node
+  linkType: hard
+
 "sprintf-js@npm:~1.0.2":
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
@@ -31525,7 +31550,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"verror@npm:1.10.0, verror@npm:^1.10.0":
+"verror@npm:1.10.0":
   version: 1.10.0
   resolution: "verror@npm:1.10.0"
   dependencies:
