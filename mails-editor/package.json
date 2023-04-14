@@ -20,13 +20,13 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@openagenda/verror": "^3.1.0",
     "express": "^4.17.1",
     "html-to-text": "^6.0.0",
     "lodash": "^4.17.20",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
     "reload": "^3.1.1",
-    "verror": "^1.10.0",
     "walk": "^2.3.14"
   },
   "devDependencies": {

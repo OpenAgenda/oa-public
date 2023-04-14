@@ -8,8 +8,8 @@ const express = require('express');
 const morgan = require('morgan');
 const reload = require('reload');
 const walk = require('walk');
-const VError = require('verror');
 const htmlToText = require('html-to-text');
+const VError = require('@openagenda/verror');
 const createMails = require('@openagenda/mails');
 
 let mails;
