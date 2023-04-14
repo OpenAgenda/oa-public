@@ -23,14 +23,14 @@ const script = process.env.PORTAL_DEV ? 'dev' : 'server';
 concurrently([
   {
     name: 'server',
-    command: `browser-refresh ${script}`,
+    command: `yarn browser-refresh ${script}`,
     env: {
       NODE_ENV: 'development'
     }
   },
   {
     name: 'build',
-    command: `webpack serve --config ${path.join(__dirname, 'webpack.inte.js')} --hot`,
+    command: `yarn webpack serve --config ${path.join(__dirname, 'webpack.inte.js')} --hot`,
     cwd: path.dirname(__dirname), // to use the good webpack
     env: {
       PORTAL_DIR: portalDir,
