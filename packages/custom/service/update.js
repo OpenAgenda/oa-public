@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const validateOptions = require( './validators/options' );
 const config = require( './config' );
 const get = require( './get' );

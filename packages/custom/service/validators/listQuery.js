@@ -16,7 +16,7 @@ const validate = schema( {
 module.exports = function listQuery(dirty) {
   const clean = validate(dirty);
 
-  clean.identifier = clean.identifier.filter(id => ![undefined, null].includes(id));
+  clean.identifier = clean.identifier?.filter(id => ![undefined, null].includes(id)) ?? null;
 
   return clean;
 }

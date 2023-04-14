@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'legacy/custom' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const config = require( '../config' );
 

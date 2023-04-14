@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const log = require( '@openagenda/logs' )( 'remove' );
 
@@ -19,7 +19,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
   if ( !knex ) throw new Error( 'db connector needs to be specified at service init' );
 
   // verify pre-existing
-  
+
   const deletedCustom = await get( formSchemaId, identifier );
 
   if ( !deletedCustom ) {
@@ -30,7 +30,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
 
   // remove
-  
+
   try {
 
     let removedCount = await knex( schemas.custom ).del()
