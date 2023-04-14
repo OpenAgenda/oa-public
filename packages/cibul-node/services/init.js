@@ -5,7 +5,7 @@ global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 const debug = require('debug');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('services/init');
 const schema = require('@openagenda/validators/schema');
 

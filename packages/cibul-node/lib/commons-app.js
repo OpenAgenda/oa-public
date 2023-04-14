@@ -8,7 +8,7 @@ const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 const logger = require( '@openagenda/logs' );

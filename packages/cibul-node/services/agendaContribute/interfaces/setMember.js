@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const { promisify } = require( 'util' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/interfaces/setMember' );
 
@@ -47,7 +47,7 @@ module.exports = async (services, agenda, user, current, posted) => {
 
     log( 'error', e );
 
-    throw new VError( 'contribute: failed to set member', e );
+    throw new VError( e, 'contribute: failed to set member' );
 
   }
 

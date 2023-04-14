@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('sessions');
 const getAuthMessageLabel = require('@openagenda/labels')(require('@openagenda/labels/auth/messages'));
@@ -82,7 +82,7 @@ function getUser(services, imageBucketPath, query, cb) {
     .then(user => {
 
       if (!user) {
-        const error = new VError('failed to retrieve user: %s', _.pick(query, 'id', 'uid', 'email'));
+        const error = new VError('failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email'));
 
         log('error', error);
 

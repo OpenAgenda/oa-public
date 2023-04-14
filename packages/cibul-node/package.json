@@ -147,7 +147,6 @@
     "type-is": "^1.6.18",
     "uuid": "^3.4.0",
     "validator": "^7.0.0",
-    "verror": "^1.10.0",
     "when": "^3.7.8",
     "xlsx-writestream": "^0.5.1"
   },

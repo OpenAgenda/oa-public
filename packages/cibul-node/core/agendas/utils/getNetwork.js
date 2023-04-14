@@ -1,6 +1,6 @@
 'use strict';
 
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 module.exports = async (services, networkUid) => {
   const {
