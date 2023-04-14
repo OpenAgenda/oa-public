@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const unserialize = require( 'locutus/php/var/unserialize' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 module.exports = async ( { knex, imagePath }, embedUid ) => {
 
