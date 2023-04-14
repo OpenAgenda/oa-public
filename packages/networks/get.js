@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 module.exports = async function( { knex, schema }, uid ) {
 
