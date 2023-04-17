@@ -21,7 +21,6 @@ function task(config, q, onAdd = null) {
       if (onAdd) onAdd(null, result);
     } catch (e) {
       log('error', 'Error in addActivity task:', e);
-      console.log('error', 'Error in addActivity task:', e);
       if (onAdd) onAdd(e);
     }
   });
