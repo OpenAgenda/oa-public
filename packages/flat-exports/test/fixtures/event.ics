@@ -1,13 +1,14 @@
 BEGIN:VEVENT
-UID:54284894//48919824//2017-10-02//08:00:00
+UID:54284894//48919824//20171002T080000Z
 DTSTART:20171002T080000Z
 DTEND:20171002T100000Z
-TZID: Europe/Paris
-SUMMARY: Accès libre
-DESCRIPTION:Accès libre accompagné - Voir plus: https://openagenda.com/events/acces-libre_337
+TZID:Europe/Paris
+SUMMARY:Accès libre
+DESCRIPTION:Accès libre accompagné - Voir plus: https://openagenda.com/even
+	ts/acces-libre_337
 LOCATION:MMN13 - 47 rue du javelot 75013
 GEO:48.824478;2.365424
-ORGANIZER: OA
+ORGANIZER:OA
 STATUS:CONFIRMED
 DTSTAMP:{DTSTAMP}
 END:VEVENT

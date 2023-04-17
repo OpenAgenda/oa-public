@@ -1,59 +1,58 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
-const esc = require( './escape' );
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const schema = require('@openagenda/validators/schema');
+const esc = require('./escape');
+const foldLine = require('./foldLine');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' )
-} );
+schema.register({
+  text: require('@openagenda/validators/text'),
+});
 
-const validate = schema( {
+const validate = schema({
   slug: {
     type: 'text',
-    optional: false
+    optional: false,
   },
   identifier: {
     type: 'text',
-    optional: false
+    optional: false,
   },
   type: {
     type: 'text',
-    default: 'agenda'
+    default: 'agenda',
   },
   lang: {
     type: 'text',
-    default: 'fr'
+    default: 'fr',
   },
   title: {
     type: 'text',
-    default: 'ics'
+    default: 'ics',
   },
   description: {
     type: 'text',
-    default: 'agenda export'
-  }
-} )
+    default: 'agenda export',
+  },
+});
 
 module.exports = data => {
-
   const {
     slug,
     identifier,
     type,
     lang,
     title,
-    description
-  } = _.mapValues( validate( data ), esc );
+    description,
+  } = _.mapValues(validate(data), esc);
 
-  return [
-    `BEGIN:VCALENDAR`,
-    `VERSION:2.0`,
+  return `${[
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
     `PRODID:-//${slug}//${type}//${lang}`,
-    `METHOD:PUBLISH`,
-    `X-WR-CALNAME:${title}`,
-    `X-WR-CALDESC: ${description}`,
-    `X-WR-RELCALID: ${identifier}`
-  ].join( '\r\n' ) + '\r\n';
-
-}
+    'METHOD:PUBLISH',
+    foldLine(`X-WR-CALNAME:${title}`),
+    foldLine(`X-WR-CALDESC:${description}`),
+    `X-WR-RELCALID:${identifier}`,
+  ].join('\r\n')}\r\n`;
+};
