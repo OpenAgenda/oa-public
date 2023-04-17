@@ -40,6 +40,18 @@ function webpackCopyFiles(webpackConfig, files) {
   }
 }
 
+// https://nextjs.org/docs/advanced-features/security-headers
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=0',
+  },
+];
+
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
   const {
@@ -89,6 +101,16 @@ const config = async () => {
     // typescript: {
     //   ignoreBuildErrors: true,
     // },
+    // Compression is enabled with nginx
+    compress: false,
+    async headers() {
+      return [
+        {
+          source: '/:path*',
+          headers: securityHeaders,
+        },
+      ];
+    },
     async redirects() {
       return [
         {
