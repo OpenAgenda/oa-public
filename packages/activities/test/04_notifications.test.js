@@ -350,7 +350,10 @@ describe( 'activities - notifications', () => {
             }
           }
         } )
-      ).rejects.toThrow('Feed of type \'agenda\' can\'t have notifications');
+      ).rejects.toMatchObject({
+        message: 'Feed of type \'agenda\' can\'t have notifications',
+        code: 'FEED_REJECTS_NOTIFICATION',
+      });
 
     });
 
