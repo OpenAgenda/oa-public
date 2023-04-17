@@ -51,7 +51,7 @@ class SentryTransport extends winston.Transport {
     if (msg.length) {
       if (error) {
         const enhancedError = Object.assign(Object.create(Object.getPrototypeOf(error)), error);
-        enhancedError.message = error.message.length ? `${msg}: ${error.message}` : msg;
+        enhancedError.message = error.message.length ? `${msg} ${error.message}` : msg;
         enhancedError.stack = error.stack;
 
         error = enhancedError;
