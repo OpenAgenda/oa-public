@@ -22,7 +22,14 @@ module.exports = services => ({
     mergeParams: true,
   }).get(
     '',
-    loadSearchEndpoint(services.core),
+    ifFormat(
+      ['csv', 'xlsx', 'ics', 'txt', 'md'],
+      loadSearchEndpoint(services.core),
+    ),
+    ifFormat(
+      ['rss', 'json'],
+      loadSearchEndpoint(services.core, { convertLegacy: true })
+    ),
     loadAgendaLanguagesAndFormSchemas(services),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
     ifFormat('csv', streamCSV),
