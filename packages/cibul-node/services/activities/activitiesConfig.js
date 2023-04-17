@@ -91,15 +91,15 @@ function hasVisibleDiff({ activity, targetFeed, follow }) {
     return !!activity.store.diff;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields?.length) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields?.length) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields?.length) {
     return true;
   }
 
