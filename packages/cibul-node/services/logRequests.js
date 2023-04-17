@@ -61,7 +61,8 @@ const middleware = morgan(
       extension: tokens.extension(req, res),
       status: parseInt(tokens.status(req, res)),
       contentLength: tokens.res(req, res, 'content-length'),
-      responseTime: tokens['response-time'](req, res) || NaN
+      responseTime: tokens['response-time'](req, res) || NaN,
+      secure: req.secure,
     };
 
     if (process.env.NODE_ENV === 'production') {
