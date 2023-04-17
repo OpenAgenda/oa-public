@@ -10,5 +10,5 @@ module.exports = function foldLine(line) {
     length = 74;
   }
   parts.push(str);
-  return parts.join('\r\n\t');
+  return parts.join('\r\n ');
 };
