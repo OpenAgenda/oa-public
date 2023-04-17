@@ -34,6 +34,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/verror": "^3.1.0",
     "ajv": "^5.2.2",
     "ajv-errors": "^1.0.0",
     "ajv-keywords": "^2.1.0",
@@ -46,8 +47,7 @@
     "redis": "^2.8.0",
     "regenerator-runtime": "^0.13.7",
     "uppy-server": "^0.11.1",
-    "uuid": "^3.4.0",
-    "verror": "^1.10.0"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

@@ -60,7 +60,7 @@ describe( 'activities - notifications', () => {
 
       expect(error).toMatchObject({
         message: 'Query validation failed',
-        jse_info: {
+        info: {
           errors: [ {
             field: 'verb',
             code: 'string.invalidtype',
@@ -88,9 +88,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -121,9 +121,9 @@ describe( 'activities - notifications', () => {
 
     it('get a notification of a feed that isn\'t a user feed', () => {
 
-      return expect(service.feed( { entityType: 'agenda', entityUid: 84 } ).notifications
+      return expect(service.feed( { entityType: 'agenda', entityUid: 86 } ).notifications
         .get( { verb: 'event.create', groupBy: 'target:agenda:48648352' } ))
-        .rejects.toThrow('The notifications concern only feeds users');
+        .rejects.toThrow('The notifications concern only feeds of type user');
 
     });
 
@@ -159,9 +159,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:66666666',
           store: {
-            actors: [ 'user:12312312' ],
-            objects: [ 'event:78978978' ],
-            targets: [ 'agenda:66666666' ],
+            actor: [ 'user:12312312' ],
+            object: [ 'event:78978978' ],
+            target: [ 'agenda:66666666' ],
             labels: {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
@@ -206,9 +206,9 @@ describe( 'activities - notifications', () => {
             verb: 'agenda.changeEventState',
             groupBy: 'target:agenda:66666667|store.newState:2',
             store: {
-              actors: [ 'user:12312312' ],
-              objects: [ 'event:78978978' ],
-              targets: [ 'agenda:66666667' ],
+              actor: [ 'user:12312312' ],
+              object: [ 'event:78978978' ],
+              target: [ 'agenda:66666667' ],
               labels: {
                 actor: 'Jacky',
                 object: 'Réunion des junkies anonymes 2',
@@ -255,9 +255,9 @@ describe( 'activities - notifications', () => {
             verb: 'agenda.changeEventState',
             groupBy: 'target:agenda:66666666|store.newState:2',
             store: {
-              actors: [ 'user:12312312', 'user:12312315' ],
-              objects: [ 'event:78978999', 'event:78978978' ],
-              targets: [ 'agenda:66666666' ],
+              actor: [ 'user:12312312', 'user:12312315' ],
+              object: [ 'event:78978999', 'event:78978978' ],
+              target: [ 'agenda:66666666' ],
               labels: {
                 actor: 'Jacky',
                 object: 'Réunion des junkies anonymes 2',
@@ -301,9 +301,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612', 'user:86868686' ],
-            objects: [ 'event:98798765', 'event:12312345' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612', 'user:86868686' ],
+            object: [ 'event:98798765', 'event:12312345' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
@@ -350,7 +350,7 @@ describe( 'activities - notifications', () => {
             }
           }
         } )
-      ).rejects.toThrow('The notifications concern only feeds users');
+      ).rejects.toThrow('Feed of type \'agenda\' can\'t have notifications');
 
     });
 
@@ -370,9 +370,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:66666666',
           store: {
-            actors: [ 'user:12312312' ],
-            objects: [ 'event:78978978' ],
-            targets: [ 'agenda:66666666' ],
+            actor: [ 'user:12312312' ],
+            object: [ 'event:78978978' ],
+            target: [ 'agenda:66666666' ],
             labels: {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
@@ -451,9 +451,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -486,9 +486,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -503,9 +503,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -538,9 +538,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.update',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -555,9 +555,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -592,9 +592,9 @@ describe( 'activities - notifications', () => {
             verb: 'event.update',
             groupBy: 'target:agenda:48648353',
             store: {
-              actors: [ 'user:45645613' ],
-              objects: [ 'event:99798765' ],
-              targets: [ 'agenda:58648352' ],
+              actor: [ 'user:45645613' ],
+              object: [ 'event:99798765' ],
+              target: [ 'agenda:58648352' ],
               labels: {
                 actor: 'JP',
                 object: 'Visite d\'OpenAgenda',
@@ -609,9 +609,9 @@ describe( 'activities - notifications', () => {
             verb: 'event.create',
             groupBy: 'target:agenda:48648353',
             store: {
-              actors: [ 'user:45645613' ],
-              objects: [ 'event:99798765' ],
-              targets: [ 'agenda:58648352' ],
+              actor: [ 'user:45645613' ],
+              object: [ 'event:99798765' ],
+              target: [ 'agenda:58648352' ],
               labels: {
                 actor: 'JP',
                 object: 'Visite d\'OpenAgenda',
@@ -641,9 +641,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -671,7 +671,7 @@ describe( 'activities - notifications', () => {
 
       expect(error).toMatchObject({
         message: 'Query validation failed',
-        jse_info: {
+        info: {
           errors: [ {
             field: 'verb',
             code: 'string.invalidtype',
@@ -706,9 +706,9 @@ describe( 'activities - notifications', () => {
           verb: 'agenda.changeEventState',
           groupBy: 'target:agenda:66666666|store.newState:2',
           store: {
-            actors: [ 'user:12312312' ],
-            objects: [ 'event:78978999' ],
-            targets: [ 'agenda:66666666' ],
+            actor: [ 'user:12312312' ],
+            object: [ 'event:78978999' ],
+            target: [ 'agenda:66666666' ],
             labels: {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
@@ -724,9 +724,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.update',
           groupBy: 'target:agenda:48648354',
           store: {
-            actors: [ 'user:45645614' ],
-            objects: [ 'event:99798766' ],
-            targets: [ 'agenda:58648353' ],
+            actor: [ 'user:45645614' ],
+            object: [ 'event:99798766' ],
+            target: [ 'agenda:58648353' ],
             labels: {
               actor: 'Kaore',
               object: 'Visite d\'OpenAgenda v2',
@@ -741,9 +741,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.update',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -758,9 +758,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -775,9 +775,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -810,9 +810,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.update',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -827,9 +827,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -862,9 +862,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648353',
           store: {
-            actors: [ 'user:45645613' ],
-            objects: [ 'event:99798765' ],
-            targets: [ 'agenda:58648352' ],
+            actor: [ 'user:45645613' ],
+            object: [ 'event:99798765' ],
+            target: [ 'agenda:58648352' ],
             labels: {
               actor: 'JP',
               object: 'Visite d\'OpenAgenda',
@@ -879,9 +879,9 @@ describe( 'activities - notifications', () => {
           verb: 'event.create',
           groupBy: 'target:agenda:48648352',
           store: {
-            actors: [ 'user:45645612' ],
-            objects: [ 'event:98798765' ],
-            targets: [ 'agenda:48648352' ],
+            actor: [ 'user:45645612' ],
+            object: [ 'event:98798765' ],
+            target: [ 'agenda:48648352' ],
             labels: {
               actor: 'Sonny',
               object: 'Réunion des junkies anonymes',
@@ -934,7 +934,7 @@ describe( 'activities - notifications', () => {
 
       expect(error).toMatchObject({
         message: 'Query validation failed',
-        jse_info: {
+        info: {
           errors: [ {
             field: 'verb',
             code: 'string.invalidtype',

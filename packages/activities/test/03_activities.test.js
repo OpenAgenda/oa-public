@@ -111,13 +111,11 @@ describe( 'activities - activities', () => {
           },
           {
             id: 3,
-            actor: 'user:99999950',
             verb: 'event.action',
             object: 'event:54548512',
             target: 'agenda:48648352',
             store: {
               labels: {
-                actor: 'Jacky',
                 object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
@@ -159,13 +157,11 @@ describe( 'activities - activities', () => {
       ).resolves.toMatchObject( [
         {
           id: 3,
-          actor: 'user:99999950',
           verb: 'event.action',
           object: 'event:54548512',
           target: 'agenda:48648352',
           store: {
             labels: {
-              actor: 'Jacky',
               object: 'Réunion des junkies anonymes',
               target: 'la-gargouille'
             }
@@ -453,9 +449,9 @@ describe( 'activities - activities', () => {
 
     });
 
-    it('add an activity in a feed that doesn\'t exist', () => {
+    it('add an activity in a feed that doesn\'t exist', async () => {
 
-      return expect(service.feed( { entityType: 'user', entityUid: 75 } ).activities.add( {
+      const error = await service.feed({ entityType: 'user', entityUid: 75 }).activities.add({
         actor: 'user:78978978',
         verb: 'event.create',
         object: 'event:56488589',
@@ -464,10 +460,18 @@ describe( 'activities - activities', () => {
           labels: {
             actor: 'Jacky',
             object: 'Réunion des junkies anonymes 2',
-            target: 'La fumette'
-          }
+            target: 'La fumette',
+          },
+        },
+      })
+        .then(() => null, e => e);
+
+      return expect(error).toMatchObject({
+        message: 'One or more feeds doesn\'t exist',
+        info: {
+          feeds: [ { entityType: 'user', entityUid: 75 } ]
         }
-      } )).rejects.toThrow('One or more feeds doesn\'t exist in feeds [ { entityType: \'user\', entityUid: 75 } ]');
+      });
 
     });
 

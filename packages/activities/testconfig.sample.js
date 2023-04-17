@@ -8,7 +8,8 @@ module.exports = {
     host: '127.0.0.1',
     database: 'oa_test_activities',
     password: 'grut',
-    user: 'root'
+    user: 'root',
+    ssl: true
   },
   migrations: {
     tableName: 'activity_migrations',
@@ -31,13 +32,24 @@ module.exports = {
   interfaces: {
     sendSummary: ({ user, notifications }) => {}
   },
-  filterFollows: [ {
-    verb: 'event.publish',
-    getFeeds: true,
-    filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-      cb( null, true );
-    }
-  } ],
+  activities: {
+    'event.create': {
+      notifications: {
+        groupBy: ['target'],
+      },
+    },
+    'event.publish': {
+      filterFollows: () => true
+    },
+    'event.withMask': {
+      mask: () => ['actor, store.labels.actor']
+    },
+    'agenda.changeEventState': {
+      notifications: {
+        groupBy: ['target', 'store.newState'],
+      },
+    },
+  },
   queue: {
     names: {
       addActivity: 'notificationAddActivityTest',
@@ -47,5 +59,6 @@ module.exports = {
       host: 'localhost',
       port: 6379
     }
-  }
+  },
+  enableNotificationsForFeedTypes: ['user'],
 };

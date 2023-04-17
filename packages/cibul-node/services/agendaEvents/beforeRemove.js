@@ -1,6 +1,6 @@
 'use strict';
 
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('agendaEvents/beforeRemove');
 const controlDataSvc = require('../legacy').controlData;
 const fallbackContextGet = require('./lib/fallbackContextGet');

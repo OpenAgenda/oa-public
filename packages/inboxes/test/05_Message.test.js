@@ -139,7 +139,7 @@ describe('Message', () => {
           body: 'Salut toi, mets moi admin, et vite !',
         })
       ).rejects.toMatchObject({
-        jse_info: {
+        info: {
           errors: {
             userUid: {
               code: 'required',
@@ -158,7 +158,7 @@ describe('Message', () => {
           userUid: 23456790,
         })
       ).rejects.toMatchObject({
-        message: 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }',
+        message: 'InboxUser {"userUid":23456790} not found in Inbox {"id":1}',
       });
     });
 

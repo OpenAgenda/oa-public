@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const { diff } = require('deep-diff');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const labels = require('@openagenda/labels/event/form');
 
 const log = require('@openagenda/logs')('events/createUpdateActivity');

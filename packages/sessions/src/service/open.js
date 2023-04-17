@@ -7,7 +7,7 @@ const log = require( '@openagenda/logs' )( 'sessions/open' );
 const validate = require( './validate' );
 const expressCookie = require( './expressCookie' );
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 
 module.exports = ( request, response, identifier, cb ) => {

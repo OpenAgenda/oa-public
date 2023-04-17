@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const getLatestUpdated = (event, articles) => [event.updatedAt]
   .concat(articles.map(a => a.updatedAt))

@@ -69,7 +69,7 @@ describe('Inbox', () => {
     test('instanciate Inbox with bad id type throw a validation error', async () => {
       await expect(new Inbox('bad').get()).rejects.toMatchObject({
         name: 'ValidationError',
-        jse_info: {
+        info: {
           errors: {
             id: {
               code: 'type.integer',
@@ -84,7 +84,7 @@ describe('Inbox', () => {
         new Inbox({ type: 45, identifier: 'fezsf' }).get()
       ).rejects.toMatchObject({
         name: 'ValidationError',
-        jse_info: {
+        info: {
           errors: {
             type: {
               code: 'type.string',
@@ -130,7 +130,7 @@ describe('Inbox', () => {
         new Inbox().create({ type: 58, identifier: 99999999 })
       ).rejects.toMatchObject({
         name: 'ValidationError',
-        jse_info: {
+        info: {
           errors: {
             type: {
               code: 'type.string',
@@ -145,7 +145,7 @@ describe('Inbox', () => {
         new Inbox().create({ type: 'agenda' })
       ).rejects.toMatchObject({
         name: 'ValidationError',
-        jse_info: {
+        info: {
           errors: {
             identifier: {
               code: 'required',

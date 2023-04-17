@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const moment = require('moment-timezone');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
 const range = require('@openagenda/date-range');

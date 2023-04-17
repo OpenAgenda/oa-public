@@ -1,8 +1,8 @@
 "use strict";
 
 const wn = require( 'when/node' );
-const VError = require( 'verror' );
 const uuid = require( 'uuid' );
+const VError = require( '@openagenda/verror' );
 const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 const config = require( './config' );
 const get = require( './get' );

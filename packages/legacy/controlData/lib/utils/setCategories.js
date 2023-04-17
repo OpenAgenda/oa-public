@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const log = require( '@openagenda/logs' )( 'controlData/utils/setCategories' );
 
@@ -19,7 +19,7 @@ module.exports = async ( ctl, knex, agendaId ) => {
 
   } catch ( e ) {
 
-    throw new VError( 'could not parse category set of agenda of id', agendaId, e );
+    throw new VError( e, 'could not parse category set of agenda of id', agendaId );
 
   }
 

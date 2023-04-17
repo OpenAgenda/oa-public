@@ -95,7 +95,7 @@ describe('InboxUser', () => {
           userUid: 99999999,
         })
       ).rejects.toMatchObject({
-        message: "Inbox { type: 'agenda', identifier: 12341234 } not found",
+        message: 'Inbox {"type":"agenda","identifier":12341234} not found',
       });
     });
 
@@ -183,7 +183,7 @@ describe('InboxUser', () => {
         await expect(
           new InboxUser({ userUid: 99999999 }).get()
         ).rejects.toMatchObject({
-          jse_info: {
+          info: {
             errors: {
               inboxId: {
                 code: 'required',
@@ -278,7 +278,7 @@ describe('InboxUser', () => {
 
     test('list inbox users with missing inboxId', async () => {
       await expect(new InboxUsers().list()).rejects.toMatchObject({
-        jse_info: {
+        info: {
           errors: {
             inboxId: {
               code: 'required',
