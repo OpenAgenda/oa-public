@@ -14,7 +14,8 @@ module.exports = (req, res, next) => {
   }
 
   hsts({
-    maxAge: 0,
-    includeSubDomains: false
+    maxAge: 63072000,
+    includeSubDomains: true,
+    preload: true,
   })(req, res, next);
 }
