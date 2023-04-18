@@ -350,7 +350,6 @@ module.exports = app => {
   app.get(
     '/:slug.prv/events/:eventSlug',
     preMw,
-    cmn.https,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
     cmn.ifIsNot(
       'agenda.private',
@@ -380,7 +379,6 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug',
     preMw,
-    cmn.https,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
     cmn.ifIs(
       'agenda.private',
@@ -454,7 +452,6 @@ module.exports = app => {
   app.get(
     '/events/:eventSlug',
     preMw,
-    cmn.https,
     (req, res, next) => {
       const integer = parseInt(req.params.eventSlug, 10);
 
@@ -481,7 +478,6 @@ module.exports = app => {
   app.get(
     '/events/:eventUid',
     preMw,
-    cmn.https,
     legacyEventSvc.mw.load('eventUid', 'uid'),
     (req, res, next) => {
       req.agenda = req.event.origin;

@@ -2,7 +2,6 @@
 
 const { Router } = require('express');
 
-const expressUtils = require('@openagenda/utils/express');
 const loadSearchEndpoint = require('./lib/loadSearchEndpoint');
 const loadSearchStream = require('./lib/loadSearchStream');
 const loadAgendaLanguagesAndFormSchemas = require('./lib/loadAgendaLanguagesAndFormSchemas');
@@ -43,7 +42,6 @@ module.exports = services => ({
   getRestricted: () => Router({
     mergeParams: true,
   }).get('', [
-    expressUtils.https,
     services.members.mw.authorizeAdminModOrKey({
       agendaUidPath: 'params.agendaUid',
     }),

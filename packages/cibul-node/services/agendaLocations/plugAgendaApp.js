@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const expressUtils = require('@openagenda/utils/express');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
 const gaTrack = require('../../lib/gaTrack');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
@@ -15,7 +14,6 @@ module.exports = (services, service, app, base) => {
 
   app.use(
     `${base}*`,
-    expressUtils.https,
     agendas.mw.loadBy({
       path: 'params.agendaUid',
       field: 'uid',

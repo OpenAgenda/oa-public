@@ -14,7 +14,6 @@ const agendasSvc = require( '@openagenda/agendas' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
-const expressUtils = require( '@openagenda/utils/express' );
 const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedPrivate' ) );
@@ -46,8 +45,6 @@ module.exports = {
   renderTemplate,               // render and serve template
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
-
-  https: expressUtils.https,   // middleware. force https ( redirect to when not )
 
   requireSuperAdmin,
   loadBaseData,                 // middleware.

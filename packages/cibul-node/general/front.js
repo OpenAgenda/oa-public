@@ -55,7 +55,6 @@ module.exports = app => {
   app.get(
     [ '/', '/en', '/de', '/es', '/br', '/it' ],
     preMw,
-    cmn.https,
     sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     cacheMw,
     _setLang,
@@ -96,7 +95,6 @@ module.exports = app => {
   app.get(
     ['/decouvrir/:page', '/discover/:page', '/entdecken/:page', '/scoprire/:page', 'descubrir/:page', '/decouvrirbr/:page'],
     preMw,
-    cmn.https,
     _corpoBrowserCache,
     cacheMw,
     _redirectLang,
