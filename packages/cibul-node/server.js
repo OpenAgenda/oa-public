@@ -122,6 +122,7 @@ const log = logs('server');
 
     if (WEB) {
       express()
+        .set('trust proxy', ['loopback', 'uniquelocal'])
         .use(
           '/v2',
           Sentry.Handlers.requestHandler(),
