@@ -26,9 +26,6 @@ morgan.token('client-ip', req => {
 
 morgan.token('path', req => req.path);
 
-morgan.token('extension', req => path.extname(req.originalUrl));
-
-
 function init(config) {
 
   log.setConfig(config.getLogConfig('oa', 'requests'));
@@ -48,7 +45,7 @@ const middleware = morgan(
           : statusCode >= 200 ? 32 // green
             : 0; // no color
 
-    const query = tokens.req(req, res, 'query');
+    const { query } = req;
 
     const data = {
       ip: tokens['client-ip'](req, res),
@@ -57,8 +54,7 @@ const middleware = morgan(
       url: tokens.url(req, res),
       httpVersion: tokens['http-version'](req, res),
       query,
-      key: (query && query.key) || null,
-      extension: tokens.extension(req, res),
+      key: query?.key || null,
       status: parseInt(tokens.status(req, res)),
       contentLength: tokens.res(req, res, 'content-length'),
       responseTime: tokens['response-time'](req, res) || NaN,
