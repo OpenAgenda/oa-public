@@ -189,6 +189,11 @@ const config = {
     cookie: {
       name: 'cibul'
     },
+    hsts: {
+      maxAge: 63072000,
+      includeSubDomains: true,
+      preload: true,
+    },
     blacklistedDomains: [
       'getnada.com',
       'intrees.org',
