@@ -1,4 +1,4 @@
-if ($scheme != "https") {
+if ($real_scheme != "https") {
   return 307 https://$server_name$request_uri;
 }
 
