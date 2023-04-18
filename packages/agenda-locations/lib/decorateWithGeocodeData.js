@@ -32,7 +32,7 @@ async function geocode(interfaces, data) {
     return results[0];
   } catch (e) {
     if (e.name === 'BadRequest') throw e;
-    log('error', e.message);
+    log.error(e);
     return {};
   }
 }
