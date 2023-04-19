@@ -111,3 +111,82 @@ export function allowItemDisplayToggle(field) {
 
   return false;
 }
+
+export const isAccessUnknown = field => {
+  if (field.read === null && field.write === null) {
+    return true;
+  }
+  if (!field.read && !field.write) {
+    return true;
+  }
+  if (field.read === null && !field.write) {
+    return true;
+  }
+  if (field.write === null && !field.read) {
+    return true;
+  }
+};
+
+export const isOnlyWritable = field => {
+  if (field.write && !field.read) {
+    return true;
+  }
+  if (field.write && field.read === null) {
+    return true;
+  }
+};
+
+export const isOnlyReadable = field => {
+  if (field.read && !field.write) {
+    return true;
+  }
+  if (field.read && field.write === null) {
+    return true;
+  }
+};
+export const isReadableAndWritable = field => {
+  if (field.write && field.read) {
+    return true;
+  }
+  if (field.write !== null && field.read !== null) {
+    return true;
+  }
+};
+
+export function getMultilingualFieldAccess(field, lang) {
+  const multilingual = {
+    administrator: getLabel('adminAccess', lang),
+    moderator: getLabel('moderatorAccess', lang),
+    contributor: getLabel('contributorAccess', lang),
+  };
+
+  if (field.write) {
+    return Object.values(field.write).map(access => multilingual[access]).join(', ');
+  }
+  if (field.read) {
+    return Object.values(field.read).map(access => multilingual[access]).join(', ');
+  }
+}
+
+export function getFieldAccess(field, lang) {
+  if (isOnlyWritable(field)) {
+    return (
+      <>{getLabel('writeAccess', lang)}: {getMultilingualFieldAccess(field, lang)} </>
+    );
+  }
+  if (isOnlyReadable(field)) {
+    return (
+      <>{getLabel('readAccess', lang)}: {getMultilingualFieldAccess(field, lang)} </>
+    );
+  }
+  if (isReadableAndWritable(field)) {
+    return (
+      <>
+        <span>{getLabel('readAccess', lang)}: {getMultilingualFieldAccess(field, lang)}</span>
+        <span> / </span>
+        <span>{getLabel('writeAccess', lang)}: {getMultilingualFieldAccess(field, lang)}</span>
+      </>
+    );
+  }
+  return null;
+}

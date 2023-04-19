@@ -7,3 +7,5 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
+stories/ozelir.stories.js
+stories/fixtures/ozelir.json
