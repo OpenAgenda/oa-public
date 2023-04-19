@@ -1,10 +1,10 @@
 'use strict';
 
 const path = require('path');
-const _ = require('lodash');
 const winston = require('winston');
 const LE = require('r7insight_node');
-const DebugTransport = require('./DebugTransport');
+const getTransporters = require('./getTransporters');
+const Logger = require('./Logger');
 const { getCallerFile, getModule } = require('./utils/caller');
 
 LE.provisionWinston(winston);
@@ -12,8 +12,9 @@ LE.provisionWinston(winston);
 let config;
 const levels = Object.keys(winston.config.npm.levels);
 
-const loggers = [];
-const loggerConfigs = {};
+const loggers = new Set();
+const loggerConfigs = new Map();
+
 const basicLogger = getLogger({
   $callerFile: __filename,
   $callerModule: __dirname
@@ -23,12 +24,24 @@ module.exports = Object.assign(
   createLogger,
   {
     init,
-    setModuleConfig
+    setModuleConfig,
+    createLogger2,
   },
   basicLogger,
-  _.pick(basicLogger, levels),
   getCustomProperties(basicLogger)
 );
+
+function createLogger2(namespace, options = {}) {
+  const callerFile = options.$callerFile || getCallerFile(2);
+  const callerModule = options.$callerModule || getModule(path.resolve(callerFile));
+
+  return new Logger({
+    ...config,
+    ...loggerConfigs.get(callerModule),
+    namespace,
+    ...options
+  });
+}
 
 function createLogger(namespace, ...args) {
   if (levels.includes(namespace) && args.length) {
@@ -48,7 +61,10 @@ function createLogger(namespace, ...args) {
     logger.loadMetadata({ namespace });
   };
 
-  if (args[0]) logger.loadMetadata(_.omit(args[0], '$callerModule'));
+  if (args[0]) {
+    const { $callerModule, ...meta } = args[0];
+    logger.loadMetadata(meta);
+  };
 
   return logger;
 }
@@ -59,7 +75,9 @@ function getLogger(options = {}) {
 
   const logger = new winston.Logger({
     transports: getTransporters(
-      _.merge({}, options, loggerConfigs[callerModule])
+      config,
+      options,
+      loggerConfigs.get(callerModule)
     )
   });
 
@@ -72,53 +90,13 @@ function getLogger(options = {}) {
   logger.setConfig = setConfig(logger);
   logger.getTransports = getTransports(logger);
 
-  loggers.push(logger);
+  loggers.add(logger);
 
   return Object.assign(
     levellessLog(logger),
     logger,
     getCustomProperties(logger)
   );
-}
-
-function getTransporters(options) {
-  const params = _.merge(
-    {
-      namespace: '',
-      debug: {
-        prefix: '',
-        enable: false
-      },
-      token: null
-    },
-    config,
-    options
-  );
-
-  const transports = [];
-
-  transports.push(
-    new DebugTransport({
-      level: 'debug',
-      namespace: params.namespace,
-      prefix: params.debug.prefix,
-      enable: params.debug.enable
-    })
-  );
-
-  if (params && params.token) {
-    transports.push(
-      new winston.transports.Logentries({
-        level: 'info',
-        token: params.token,
-        region: 'eu',
-        json: true,
-        withStack: true
-      })
-    );
-  }
-
-  return transports;
 }
 
 function levellessLog(logger) {
@@ -128,22 +106,35 @@ function levellessLog(logger) {
 }
 
 function getCustomProperties(logger) {
-  return Object.assign(
-    _.mapValues(
-      _.pick(
-        logger,
-        'log',
-        'add',
-        'remove',
-        'configure',
-        'loadMetadata',
-        'clearMetadata',
-        'setConfig',
-        'getTransports'
-      ),
-      v => v.bind(logger)
-    )
-  );
+  const {
+    log,
+    add,
+    remove,
+    configure,
+    loadMetadata,
+    clearMetadata,
+    setConfig,
+    getTransports,
+    on,
+    once,
+    close,
+    clear,
+  } = logger;
+
+  return {
+    log: log.bind(logger),
+    add: add.bind(logger),
+    remove: remove.bind(logger),
+    configure: configure.bind(logger),
+    loadMetadata: loadMetadata.bind(logger),
+    clearMetadata: clearMetadata.bind(logger),
+    setConfig: setConfig.bind(logger),
+    getTransports: getTransports.bind(logger),
+    on: on.bind(logger),
+    once: once.bind(logger),
+    close: close.bind(logger),
+    clear: clear.bind(logger),
+  };
 }
 
 /** ******* */
@@ -183,7 +174,7 @@ function setConfig(logger, persist = true) {
     const rewriters = logger.rewriters.filter(v => v.name === '_loadMetadata');
 
     logger.configure({
-      transports: getTransporters(_.merge(logger.options, conf))
+      transports: getTransporters(config, logger.options, conf)
     });
 
     logger.rewriters = rewriters;
@@ -197,15 +188,11 @@ function getTransports(logger) {
 /** ******* */
 
 function init(c) {
-  config = _.merge(
-    {
-      namespace: '',
-      debug: {
-        prefix: ''
-      }
-    },
-    c
-  );
+  config = {
+    prefix: '',
+    namespace: '',
+    ...c,
+  };
 
   basicLogger.configure({
     transports: getTransporters(config)
@@ -215,9 +202,10 @@ function init(c) {
 function setModuleConfig(conf, module) {
   const callerModule = module || getModule(path.resolve(getCallerFile(2)));
 
-  loggerConfigs[callerModule] = conf;
+  loggerConfigs.set(callerModule, conf);
 
-  loggers
-    .filter(logger => logger.callerModule === callerModule)
-    .forEach(logger => logger.setConfig(conf, false));
+  loggers.forEach(logger => {
+    if (logger.callerModule !== callerModule) return;
+    logger.setConfig(conf, false);
+  });
 }

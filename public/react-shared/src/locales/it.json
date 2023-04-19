@@ -9,6 +9,6 @@
   "ReactShared.ImageInput.update": "Aggiorna l'immagine",
   "ReactShared.ImageInput.upload": "Carica un'immagine",
   "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi.",
-  "ReactShared.AgendaAdminModContextBar.manage": "Gestisci",
+  "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
   "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento"
 }

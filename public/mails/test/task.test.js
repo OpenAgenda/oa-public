@@ -32,7 +32,7 @@ describe('task', () => {
           user: account.user, // generated ethereal user
           pass: account.pass, // generated ethereal password
         },
-        maxConnections: 1,
+        maxConnections: 5,
         maxMessages: Infinity,
         rateLimit: 1,
         rateDelta: 300,

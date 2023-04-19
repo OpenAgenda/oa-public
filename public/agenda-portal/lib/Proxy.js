@@ -7,7 +7,7 @@ const log = require('./Log')('proxy');
 const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
 
 const getAgendaSettings = (agendaUid, key) => axios
-  .get(`https://openagenda.com/api/agendas/${agendaUid}?key=${key}&detailed=1`)
+  .get(`https://api.openagenda.com/v2/agendas/${agendaUid}?key=${key}&detailed=1`)
   .then(({ data }) => data)
   .catch(err => {
     if (err.response.status === 403) {
@@ -63,6 +63,7 @@ module.exports = ({
           a => a.slugSchemaOptionIdMap,
         ),
       }),
+      key,
       size: limit,
       from: offset,
     };
@@ -76,7 +77,7 @@ module.exports = ({
     log('fetching', appliedParams);
 
     return axios
-      .get(`https://openagenda.com/agendas/${agendaUid}/${res}`, {
+      .get(`https://api.openagenda.com/v2/agendas/${agendaUid}/${res}`, {
         params: appliedParams,
         paramsSerializer: qs.stringify,
       })
@@ -90,7 +91,7 @@ module.exports = ({
   function get(agendaUid, { uid, slug }) {
     return _fetch(
       agendaUid,
-      'events.v2.json',
+      'events',
       {
         longDescriptionFormat,
         ...uid ? { uid } : {},
@@ -120,7 +121,7 @@ module.exports = ({
     head: agendaUid => cachedHead(agendaUid, key),
     list: (agendaUid, query) => cached(
       agendaUid,
-      'events.v2.json',
+      'events',
       { ...query, detailed: 1 },
     ),
     clearCache,

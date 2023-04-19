@@ -179,7 +179,10 @@ const Map = React.forwardRef(
           const innerZoom = map.getBoundsZoom(map.getBounds());
 
           loadGeoData(filter, innerBounds, innerZoom)
-            .then(newData => setData(newData?.reverse() ?? []));
+            .then(newData => setData(newData?.reverse() ?? []))
+            .catch(err => {
+              console.log('Failed to load geo data', err);
+            });
         }
 
         if (needFitBounds) {
@@ -207,10 +210,14 @@ const Map = React.forwardRef(
           const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
           const innerZoom = map.getBoundsZoom(map.getBounds());
 
-          loadGeoData(filter, innerBounds, innerZoom).then(newData => {
-            setData(newData?.reverse() ?? []);
-            setDisplayedMarkers(true);
-          });
+          loadGeoData(filter, innerBounds, innerZoom)
+            .then(newData => {
+              setData(newData?.reverse() ?? []);
+              setDisplayedMarkers(true);
+            })
+            .catch(err => {
+              console.log('Failed to load geo data', err);
+            });
         });
       },
       [bounds, filter, loadGeoData],

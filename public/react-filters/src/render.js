@@ -30,6 +30,7 @@ export default function renderFiltersAndWidgets({
   query,
   defaultViewport,
   onFilterChange = defaultFilterChange,
+  missingValue = 'null',
   onLoad,
   filtersBase,
   apiClient,
@@ -78,6 +79,7 @@ export default function renderFiltersAndWidgets({
         initialValues={omit(initialValues, 'sort')}
         apiClient={apiClient}
         dateFnsLocale={dateFnsLocales[locale]}
+        missingValue={missingValue}
       >
         <FiltersManager
           ref={ref}

@@ -1,7 +1,6 @@
 'use strict';
 
 const util = require('util');
-const _ = require('lodash');
 const winston = require('winston');
 const debug = require('debug');
 
@@ -12,8 +11,11 @@ class DebugTransport extends winston.Transport {
     super(options);
 
     const params = {
-      namespace: '', prefix: '', level: 'debug',
-      ...options
+      prefix: '',
+      namespace: '',
+      level: 'debug',
+      enable: false,
+      ...options,
     };
 
     this.name = 'debug';
@@ -24,7 +26,7 @@ class DebugTransport extends winston.Transport {
     const debugName = this.getDebugName();
 
     if (!process.env.DEBUG && params.enable && !debug.enabled(debugName)) {
-      debug.names.push(new RegExp(`^${  debugName.replace(/\*/g, '.*?')  }$`));
+      debug.names.push(new RegExp(`^${debugName.replace(/\*/g, '.*?')}$`));
     }
 
     this.debug = debug(debugName);
@@ -35,11 +37,19 @@ class DebugTransport extends winston.Transport {
   }
 
   log(level, msg, meta, cb) {
-    const displayedMeta =      meta instanceof Error ? meta : _.omit(meta, 'namespace');
+    let displayedMeta;
+
+    if (meta instanceof Error) {
+      displayedMeta = meta;
+    } else {
+      const { namespace, ...metaToKeep } = meta;
+      displayedMeta = metaToKeep;
+    }
+
     const args = [msg].concat(
       typeof displayedMeta !== 'undefined' && !isEmptyObject(displayedMeta)
         ? util.inspect(displayedMeta, { colors: this.debug.useColors })
-        : []
+        : [],
     );
 
     // Overwrite namespace

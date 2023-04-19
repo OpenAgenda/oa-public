@@ -3,7 +3,7 @@
 const fs = require('fs/promises');
 const path = require('path');
 const nodemailer = require('nodemailer');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const logs = require('@openagenda/logs');
 const { getFallbackedMessages, getSupportedLocale } = require('@openagenda/intl');
 const { createIntl, createIntlCache } = require('@formatjs/intl');
