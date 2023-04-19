@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const redis = require('redis');
 const { promisify } = require('util');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const v2 = require('./v2');
 

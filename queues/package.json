@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
+    "@openagenda/verror": "^3.1.0",
     "lodash": "^4.17.15",
-    "redis": "^2.8.0",
-    "verror": "^1.10.0"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "mocha": "^7.0.1",

@@ -107,3 +107,36 @@ The timings filter displays a calendar or range links that allow the user to fil
  * **name**: 'timings'
  * **type**: 'dateRange' for the calendar, 'definedRange' for predefined range links (today, tomorrow, this weekend)
  * **staticRanges**: when the type is 'definedRange', specifies which ranges to be displayed. Possible values are `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`
+
+### Explicit filter options
+
+It is possible to restrict displayed options of a given filter by providing an explicit list of options to its parameters. In the following example, only the "true" value will be displayed. Labels can also be set in the options object:
+
+```
+      <div
+        data-oa-filter="evenement-jeune-public"
+        data-oa-filter-params="<%= JSON.stringify({
+          type: 'choice',
+          name: 'audience-type',
+          options: [
+            {
+              label: 'Youth',
+              value: 'true'
+            }
+          ],
+          aggregation: {
+            type: 'additionalFields',
+            field: 'audience-type',
+          },
+        }) %>"
+      ></div>
+```
+
+The HTML equivalent:
+
+```
+      <div
+        data-oa-filter="evenement-jeune-public"
+        data-oa-filter-params="{&quot;type&quot;:&quot;choice&quot;,&quot;name&quot;:&quot;evenement-jeune-public&quot;,&quot;options&quot;:[{&quot;label&quot;:&quot;Jeune public&quot;,&quot;value&quot;:&quot;true&quot;},{&quot;label&quot;:&quot;Vieux public&quot;,&quot;value&quot;:&quot;false&quot;}],&quot;aggregation&quot;:{&quot;type&quot;:&quot;additionalFields&quot;,&quot;field&quot;:&quot;audience-type&quot;}}"
+      ></div>
+```

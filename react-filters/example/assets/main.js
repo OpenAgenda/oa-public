@@ -5,8 +5,8 @@
 async function loadEventList(values, aggregations = []) {
   try {
     const { data } = await axios.get('/events', {
-      params: { ...values, aggregations },
-      paramsSerializer: Qs.stringify
+      params: { ...values, aggregations, aggsSizeLimit: 2000 },
+      paramsSerializer: Qs.stringify,
     });
 
     return data;

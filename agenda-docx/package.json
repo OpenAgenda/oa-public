@@ -25,11 +25,12 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/logs": "^1.1.9",
+    "@openagenda/verror": "^3.1.0",
     "angular-expressions": "^0.3.0",
     "aws-sdk": "^2.544.0",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "date-fns": "^1.29.0",
     "docxtemplater": "^3.14.2",
     "express": "^4.17.1",
@@ -46,12 +47,11 @@
     "redis": "^2.8.0",
     "regenerator-runtime": "^0.13.7",
     "remove-markdown": "^0.3.0",
-    "superagent": "^3.8.3",
-    "verror": "^1.10.0"
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "babel-jest": "^26.6.3",

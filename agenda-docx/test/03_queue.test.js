@@ -11,9 +11,7 @@ describe('unit - queue', () => {
             host: 'localhost',
           },
         })
-      ).rejects.toMatchObject({
-        jse_shortmsg: 'oa-docx init - Could not connect to redis',
-      });
+      ).rejects.toThrow('oa-docx init - Could not connect to redis');
     });
   });
 

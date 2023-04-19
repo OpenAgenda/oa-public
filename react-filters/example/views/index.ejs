@@ -71,13 +71,13 @@
       ></div>
 
       <div
-      data-oa-filter="accessibilities"
-      data-oa-filter-params="<%= JSON.stringify({ type: 'choice', name: 'accessibilities' }) %>"
-    ></div>
+        data-oa-filter="accessibilities"
+        data-oa-filter-params="<%= JSON.stringify({ type: 'choice', name: 'accessibilities' }) %>"
+      ></div>
 
       <!-- <div
         data-oa-filter="type-devenement"
-        data-oa-filter-params="<%= JSON.stringify({
+        data-oa-filter-params="< %= JSON.stringify({
           type: 'choice',
           name: 'type-devenement',
           aggregation: {
@@ -86,7 +86,29 @@
             size: 2000,
           },
           labelKey: 'label'
-        }) %>"
+        }) % >"
+      ></div> -->
+
+      <!-- <div
+        data-oa-filter="evenement-jeune-public"
+        data-oa-filter-params="< %= JSON.stringify({
+          type: 'choice',
+          name: 'evenement-jeune-public',
+          options: [
+            {
+              label: 'Jeune public',
+              value: 'true'
+            },
+            {
+              label: 'Vieux public',
+              value: 'false'
+            }
+          ],
+          aggregation: {
+            type: 'additionalFields',
+            field: 'evenement-jeune-public',
+          },
+        }) % >"
       ></div> -->
 
       <div
@@ -135,7 +157,7 @@
   </div>
 </div>
 <!-- Axios, for the request in onFilterChange -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
 <!-- Qs, to parse query string -->
 <script src="https://unpkg.com/qs@6.10.1/dist/qs.js" ></script>
 
