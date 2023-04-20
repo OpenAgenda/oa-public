@@ -34,7 +34,6 @@ const useOptions = {
 };
 
 const preMw = [
-  cmn.https,
   cmn.loadBaseData(auth.layoutData, 'oa-main.css')
 ];
 

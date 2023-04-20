@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const csv = require('fast-csv');
 const ExcelJS = require('exceljs');
-const expressUtils = require('@openagenda/utils/express');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
@@ -15,7 +14,6 @@ module.exports = (config, services, instance, app, base) => {
   } = services;
 
   app.use(`${base}*`,
-    expressUtils.https,
     agendas.mw.loadBy({
       path: 'params.agendaSlug',
       field: 'slug'
@@ -79,7 +77,6 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.get(`${base}/:locationUid.json`,
-    expressUtils.https,
     (req, res, next) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true,

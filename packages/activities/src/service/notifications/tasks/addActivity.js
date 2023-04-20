@@ -20,8 +20,9 @@ function task(config, q, onAdd = null) {
       const result = await addActivity(config, identifiers, activity);
       if (onAdd) onAdd(null, result);
     } catch (e) {
-      log('error', 'Error in addActivity task:', e);
-      console.log('error', 'Error in addActivity task:', e);
+      if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
+        log('error', 'Error in addActivity task:', e);
+      }
       if (onAdd) onAdd(e);
     }
   });
@@ -69,7 +70,11 @@ async function addActivity(config, identifiers, activity, options) {
   }
 
   if (!enableNotificationsForFeedTypes?.includes(feed.entityType)) {
-    throw new VError(`Feed of type '${feed.entityType}' can't have notifications`);
+    throw new VError({
+      meta: {
+        code: 'FEED_REJECTS_NOTIFICATION'
+      }
+    }, `Feed of type '${feed.entityType}' can't have notifications`);
   }
 
   // The actor is not notified of his actions

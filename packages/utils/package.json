@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.3.0",
-    "hsts": "^2.1.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "mysql": "^2.16.0",

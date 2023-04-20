@@ -9621,7 +9621,6 @@ __metadata:
   resolution: "@openagenda/utils@workspace:packages/utils"
   dependencies:
     "@openagenda/labels": ^2.3.0
-    hsts: ^2.1.0
     jest: ^28.1.2
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -19239,6 +19238,7 @@ __metadata:
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
     form-data: ^3.0.0
+    helmet: ^6.1.5
     history: ^4.10.1
     http-proxy: ^1.18.0
     immer: ^9.0.1
@@ -27080,6 +27080,13 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"helmet@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "helmet@npm:6.1.5"
+  checksum: 58cc8f8715e2c486f3c7a58f89fcda3c9e83ab427bfe16d8486d8be53a681afc291f9900b9e60e5d42c63c25ece3da864a33cdd621a12f5a67cbc9046cff393d
+  languageName: node
+  linkType: hard
+
 "hex-color-regex@npm:^1.1.0":
   version: 1.1.0
   resolution: "hex-color-regex@npm:1.1.0"
@@ -27202,15 +27209,6 @@ fsevents@~2.1.1:
   version: 2.1.0
   resolution: "hsts@npm:2.1.0"
   checksum: 6815c534244221b388e94c88077f3645392536ee386a729c32728dddb2e81b15737dfa1def1fba426564e9864d3a5e3f3c3b35197ba2298682e3f099a626247a
-  languageName: node
-  linkType: hard
-
-"hsts@npm:^2.1.0":
-  version: 2.2.0
-  resolution: "hsts@npm:2.2.0"
-  dependencies:
-    depd: 2.0.0
-  checksum: e8d265c30b58d731f5b22da0e7ce29505e0ad68cb4d319c163ac3796d777f8d011d1fe2f6a9bf6443689bba78308f271e95e764fb1c2652181bd28c3b3fbd978
   languageName: node
   linkType: hard
 

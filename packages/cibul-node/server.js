@@ -26,6 +26,7 @@ require('./sentry.config');
 
 const Sentry = require('@sentry/node');
 const express = require('express');
+const helmet = require('helmet');
 const { NotFound } = require('@openagenda/verror');
 const task = require('./task');
 const API = require('./api');
@@ -54,6 +55,8 @@ const log = logs('server');
 
     app.core = core;
     app.services = services;
+
+    app.use(helmet.hsts(config.hsts));
 
     app.use(sessions.mw);
     app.use(sessions.mw.load({ detailed: true }));
@@ -122,6 +125,7 @@ const log = logs('server');
         .use(
           '/v2',
           Sentry.Handlers.requestHandler(),
+          helmet.hsts(config.hsts),
           logRequestMw,
           api,
         )

@@ -1,14 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-
-const expressUtils = require('@openagenda/utils/express');
 const log = require('@openagenda/logs')('services/locations/plugApp');
 
 module.exports = (config, services, instance, app, base) => {
   const { geocoder } = config;
-
-  app.use(base, expressUtils.https);
 
   app.get(
     `${base}/:locationUid.json`,
