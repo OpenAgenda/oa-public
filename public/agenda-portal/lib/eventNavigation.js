@@ -17,8 +17,8 @@ function _listLink({ root, eventsPerPage }, context) {
 
   const queryPart = {};
 
-  if (context.search) {
-    queryPart.oaq = context.search;
+  if (context.params) {
+    Object.assign(queryPart, context.params);
   }
 
   if (context.lang) {
@@ -54,7 +54,6 @@ function navigation({ root, eventsPerPage }, contextStr) {
   if (context.index < context.total - 1) {
     nav.next = `${root}/events/nav/next?nc=${contextStr}`;
   }
-
   nav.available = !!(nav.next || nav.previous || nav.list);
 
   nav.list = _listLink({ root, eventsPerPage }, context);
@@ -74,8 +73,10 @@ function applyContextLink(req, res, listContext, event) {
     context.lang = res.locals.lang;
   }
 
-  if (req.query.oaq) {
-    context.search = req.query.oaq;
+  const params = _.omit(req.query, ['aggregations']);
+
+  if (Object.keys(params).length > 0) {
+    context.params = params;
   }
 
   event.link = `${link}?${qs.stringify(
