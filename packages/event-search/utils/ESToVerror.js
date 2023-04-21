@@ -9,14 +9,10 @@ const {
 
 module.exports = (err, message) => {
   if (err.meta?.statusCode === 404) {
-    return new NotFound({
-      info: err
-    }, message);
+    return new NotFound(err, message);
   }
   if (err.meta?.statusCode === 400) {
-    return new BadRequest({
-      info: err
-    }, message);
+    return new BadRequest(err, message);
   }
   return new VError(err);
 }

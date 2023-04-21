@@ -2,5 +2,7 @@
 
 module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/migrations/'],
-  testURL: 'http://localhost/',
+  testEnvironmentOptions: {
+    url: 'http://localhost/',
+  },
 };

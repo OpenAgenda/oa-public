@@ -4,7 +4,7 @@ const fs = require('fs');
 const { PassThrough } = require('stream');
 const FileType = require('file-type');
 const isStream = require('is-stream');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const imageExts = new Set([
   'jpg',

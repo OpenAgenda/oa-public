@@ -34,7 +34,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     aggregators,
     custom,
     legacy,
-    elasticsearch: legacyEventSearch,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
@@ -174,7 +173,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     return returnPayload ? response : response.updated;
   }
 
-  // event is not draft (anymore)
+  // if event is not draft or was just undrafted, agendaEvent ref must be set
   if (clean.agendaEvent) {
     try {
       const result = await agendaEvents(agendaUid).set(eventUid, ih(clean.agendaEvent, {
@@ -188,7 +187,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           aggregated,
           legacy: false,
           userUid: actingUserUid,
-          event,
+          event: payload.getEvent('after'),
           agenda,
           stateChangeType,
           batched,
@@ -228,13 +227,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
   }
 
-  try {
-    await legacyEventSearch.updateEvent({ uid: eventUid });
-    log('updated legacy ES index for event %s', eventUid);
-  } catch (e) {
-    log('error', 'could not update legacy search for event %s', eventUid, e);
-  }
-
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent();
 
@@ -253,17 +245,19 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const before = await payload.getCompiledEvent('before');
 
-  try {
-    await createUpdateActivity(core.services, before, compiledEvent, {
-      userUid: actingUserUid,
-      agenda,
-      formSchema,
-    });
-  } catch (e) {
-    log('error', 'failed to create activity', e);
+  if (!before.draft) {
+    try {
+      await createUpdateActivity(core.services, before, compiledEvent, {
+        userUid: actingUserUid,
+        agenda,
+        formSchema,
+      });
+    } catch (e) {
+      log('error', 'failed to create activity', e);
+    }
   }
 
-  await aggregators.notify('updateEvent', {
+  await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
     event: compiledEvent,
     before,
     agenda,

@@ -5,18 +5,6 @@ const logs = require('@openagenda/logs');
 
 const log = logs('services/agendaStatistics');
 
-async function resyncLegacySearch(services, agendaUid) {
-  log('info', 'resyncing agenda %d - legacy search index rebuild', agendaUid);
-
-  const agendaId = await services.knex('review').first('id')
-    .where('uid', agendaUid)
-    .then(result => result.id);
-
-  const result = await services.elasticsearch.resync({ agendaId });
-
-  log('info', 'agenda %d, resynced legacy search index', agendaId, result);
-}
-
 async function resyncSearch(core, agendaUid) {
   log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
 
@@ -51,10 +39,6 @@ function processJob({ services }) {
       case 'agendaEvents':
         log('resyncing agenda %d - agendaEvents resync', data.agendaUid);
         services.agendaEvents.tasks.transferLegacyData({ agendaUid: data.agendaUid });
-        break;
-
-      case 'legacySearch':
-        resyncLegacySearch(services, data.agendaUid);
         break;
 
       case 'inbox':
@@ -95,21 +79,6 @@ module.exports = (config, services) => {
         agendaUid,
         type,
       }).then(() => log('enqueued %s %s', agendaUid, type));
-    },
-    resyncLegacySearch: async () => {
-      let offset = 0;
-
-      let agendas = [];
-
-      while ((agendas = await services.agendas.list(offset, 1, { private: null })).length) {
-        const agenda = _.first(agendas);
-
-        await resyncLegacySearch(services, agenda.uid);
-
-        offset += 1;
-      }
-
-      log('info', 'DONE RESYNCING ALL AGENDAS');
     },
   });
 };

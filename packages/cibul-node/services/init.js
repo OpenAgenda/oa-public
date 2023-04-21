@@ -5,7 +5,7 @@ global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 const debug = require('debug');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('services/init');
 const schema = require('@openagenda/validators/schema');
 
@@ -69,7 +69,6 @@ module.exports = async function (configObject = null, options = {}) {
   await init('adminAgendas', require('./adminAgendas'));
   await init('aggregators', require('./aggregators'));
   await init('cache', require('./cache'));
-  await init('elasticsearch', require('./elasticsearch'));
   await init('eventSearch', require('./eventSearch'));
   await init('events', require('./events'));
   await init('facebook', require('./facebook'));

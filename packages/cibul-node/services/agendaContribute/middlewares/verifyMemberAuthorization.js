@@ -1,5 +1,6 @@
 'use strict';
 
+const { NotAuthenticated } = require('@openagenda/verror');
 const getLabel = require('@openagenda/labels/makeLabelGetter')(
   require('@openagenda/labels/agenda-contribute/authorization')
 );
@@ -16,7 +17,11 @@ module.exports = async (req, res, next) => {
     }
   } = req.app.services;
 
-  if (await core.agendas(req.agenda).settings.isClosed() && isInferiorTo(req.member.role, 'moderator')) {
+  if (!req.user) {
+    return next(new NotAuthenticated('Authentication is required'));
+  }
+
+  if (await core.agendas(req.agenda).settings.isClosed() && isInferiorTo(req.member?.role, 'moderator')) {
     return next({
       code: 403,
       message: getLabel('noAccessToClosedAgenda', req.lang)

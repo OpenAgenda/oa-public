@@ -17,9 +17,15 @@ const agendaRoutes = require('./agendaRoutes');
 async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
   log('task');
 
-  queue.on('error', (fn, args, error) => log('error', fn, args, error));
+  queue.on('error', (fn, args, error) => {
+    if (error.statusCode === 404) {
+      log('warn', fn, args, error);
+    } else {
+      log('error', fn, args, error);
+    }
+  });
   queue.on('execute', fn => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
-  queue.on('success', fn => log(fn, 'execute')); // (fn, args, result) => log(fn, 'success'));
+  queue.on('success', fn => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
 
   queue.run();
 

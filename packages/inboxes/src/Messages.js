@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments';
 import mapper from './utils/mapper';
 import messageFieldsMap from './db/messageFieldsMap';

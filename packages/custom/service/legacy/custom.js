@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'legacy/custom' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const config = require( '../config' );
 
@@ -38,6 +38,8 @@ async function set( eventId, fields, data ) {
   }
 
   const parsed = fields.reduce( ( parsed, f ) => {
+
+    if (!data) return parsed;
 
     const matchingOption = f.options ? _.first( f.options.filter( o => o.id === data[ f.field ] ) ) : undefined;
 

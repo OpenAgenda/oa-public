@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 const log = require( '@openagenda/logs' )( 'controlData/utils/setTags' );
 
@@ -19,7 +19,7 @@ module.exports = async ( ctl, knex, agendaId ) => {
 
   } catch ( e ) {
 
-    throw new VError( 'could not parse tag set of agenda of id', agendaId, e );
+    throw new VError( e, 'could not parse tag set of agenda of id', agendaId );
 
   }
 

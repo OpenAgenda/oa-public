@@ -3,13 +3,12 @@
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const model = require( '../model' );
-const es = require( '../elasticsearch' );
 const getSocialLinks = require( './lib/getSocialLinks' );
 
 module.exports = {
   initless: true,
   get,
-  search: es.search,
+  search: () => new Error('event.search is no longer available'),
   create,
   getSocialLinks,
   list: model.events().list,

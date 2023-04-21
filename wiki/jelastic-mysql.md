@@ -257,8 +257,42 @@ Si une configuration d'un panneau est disponible au format JSON, celle-ci peut �
 
 ## Utilisation de certificats
 
-Dans l'éventualité où une connexion avec certificat était nécessaire, il est possible à partir d'une autorité de certification de générer un certificat et une clé à charger dans les instances ProxySQL. Le certificat doit être généré avec un Common Name (CN) correspondant à l'url du groupe de proxy (préfixe 'proxy.' avant l'url de l'environnement général).
+### Configuration
+
+Dans l'éventualité où une connexion avec certificat était nécessaire, il est possible à partir d'une autorité de certification de générer un certificat et une clé à charger dans les instances ProxySQL.
+
+Le certificat doit être généré avec un Common Name (CN) correspondant à l'url du groupe de proxy (préfixe 'proxy.' avant l'url de l'environnement général).
 
 Le certificat autorité (ca.pem) ainsi que la paire certificat (cert.pem) / clé (key.pem) générée doivent alors être placés dans chaque instance ProxySQL, en remplacement des fichiers présents dans le dossier `/var/lib/proxysql`: `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem`.
 
 Une fois chargés, les instances ProxySQL doivent être redémarrées.
+
+### Renouvellement
+
+Pour mettre à jour les certificats ProxySQL sans interruption de service, vous pouvez suivre les étapes générales suivantes :
+
+Générer de nouveaux certificats : Générez de nouveaux certificats pour les points de terminaison SSL/TLS que vous souhaitez mettre à jour. Le certificat doit être généré avec un Common Name (CN) correspondant à l'url du groupe de proxy (préfixe 'proxy.' avant l'url de l'environnement général).
+
+Installer les nouveaux certificats : Installez les nouveaux certificats sur les serveurs qui fournissent les points de terminaison SSL/TLS, dans le même dossier et avec le même nom que précisé dans la section précédente. Placer dans `/var/lib/proxysql` les nouveaux certificats `proxysql-cert.pem` et `proxysql-key.pem`.
+
+Activer le ssl si ce n'est pas déjà fait:
+    UPDATE mysql_servers SET use_ssl=1 WHERE port=3306;
+    LOAD MYSQL SERVERS TO RUNTIME;  
+    SAVE MYSQL SERVERS TO DISK;
+
+Mettre à jour les chemin pointant vers les certificats:
+
+SET mysql-ssl_p2s_cert="/var/lib/proxysql/proxysql-cert.pem";
+SET mysql-ssl_p2s_key="/var/lib/proxysql/proxysql-key.pem";
+SET mysql-ssl_p2s_ca="/var/lib/proxysql/proxysql-ca.pem";
+SET mysql-ssl_p2s_cipher='ECDHE-RSA-AES256-SHA';
+
+Pour vérifier que les valeurs sont bien chargées:
+SELECT * FROM global_variables WHERE variable_name LIKE 'mysql%ssl%';
+
+LOAD MYSQL VARIABLES TO RUNTIME;
+SAVE MYSQL VARIABLES TO DISK;
+
+Tester la nouvelle configuration : Testez la nouvelle configuration pour vous assurer qu'elle fonctionne comme prévu.
+
+Échanger les anciens certificats avec les nouveaux : Enfin, échangez les anciens certificats avec les nouveaux. Cela peut être fait un serveur à la fois, chaque serveur étant mis à jour, testé, puis échangé avant de passer au serveur suivant. Cela garantira qu'il n'y a pas d'interruption de service pendant le processus de mise à jour des certificats.

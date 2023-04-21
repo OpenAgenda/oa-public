@@ -1,6 +1,6 @@
 import { promisify } from 'util';
 import _ from 'lodash';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import queueLib from '@openagenda/queue';
 import logs from '@openagenda/logs';
 

@@ -186,7 +186,6 @@ module.exports = app => {
   app.get(
     '/:slug.prv',
     preMw,
-    cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     ( req, res, next ) => {
@@ -208,7 +207,6 @@ module.exports = app => {
   app.get(
     '/:slug',
     preMw,
-    cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     ( req, res, next ) => {

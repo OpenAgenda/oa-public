@@ -53,8 +53,7 @@
     "slugify": "^1.4.5",
     "superagent": "^3.8.3",
     "turndown": "^5.0.3",
-    "uuid": "^3.4.0",
-    "verror": "^1.10.0"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

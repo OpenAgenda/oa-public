@@ -1,6 +1,6 @@
 'use strict';
 
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
 const _ = require('lodash');
@@ -94,7 +94,13 @@ async function addActivityToFeed(config, { activity, targetFeed, mask }) {
 
   row.mask = mask ? JSON.stringify(mask) : null;
 
-  return config.knex(config.schemas.feed_activity).insert(row);
+  await config.knex(config.schemas.feed_activity).insert(row);
+
+  const { service, enableNotificationsForFeedTypes } = config;
+
+  if (enableNotificationsForFeedTypes?.includes(targetFeed.entityType)) {
+    await service.feed(targetFeed).notifications.addActivity(_.omit(activity, mask));
+  }
 }
 
 async function add(config) {
@@ -141,7 +147,11 @@ async function add(config) {
   }
 
   if (feeds.filter(v => !v).length) {
-    throw new VError('One or more feeds doesn\'t exist in feeds %j', feedsToGet);
+    throw new VError({
+      info: {
+        feeds: feedsToGet
+      }
+    }, 'One or more feeds doesn\'t exist');
   }
 
   const [activityId] = await knex(config.schemas.activity).insert(fields);
@@ -154,7 +164,6 @@ async function add(config) {
     const mask = await getActivityMask(config, { activity, targetFeed: feed });
     await addActivityToFeed(config, { activity, targetFeed: feed, mask });
     feedContainsActivity.push(feed);
-    await service.feed(feed).notifications.addActivity(_.omit(activity, mask));
   }
 
   let followers = feeds.flatMap(v => v.followedBy);
@@ -196,7 +205,6 @@ async function add(config) {
         const mask = await getActivityMask(config, { activity, targetFeed, originFeed, follow: follower });
         await addActivityToFeed(config, { activity, targetFeed, mask });
         feedContainsActivity.push(follower);
-        await service.feed(follower.targetFeed).notifications.addActivity(_.omit(activity, mask));
       }
     }
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const { Forbidden, NotFound } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('services/agendaContribute/loadMember');
 
 module.exports = function loadMember(req, res, next) {
@@ -13,8 +14,8 @@ module.exports = function loadMember(req, res, next) {
   const userUid = _.get(req, 'user.uid');
   const agendaUid = _.get(req, 'agenda.uid');
 
-  if (!userUid) return next(403);
-  if (!agendaUid) return next(404);
+  if (!userUid) return next(new Forbidden());
+  if (!agendaUid) return next(new NotFound());
 
   members.get({ agendaUid, userUid }).then(member => {
     req.member = member ? {

@@ -16,8 +16,7 @@
     "lodash": "^4.17.15",
     "markdown-link-extractor": "^1.2.0",
     "node-html-parser": "^1.1.16",
-    "regenerator-runtime": "^0.13.7",
-    "verror": "^1.10.0"
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

@@ -6646,6 +6646,7 @@ __metadata:
     "@openagenda/queue": ^1.0.1
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     async: ^2.3.0
     caporal: ^0.4.1
     core-js: ^3.29.1
@@ -6656,7 +6657,6 @@ __metadata:
     moment: ^2.27.0
     mysql: ^2.18.1
     regenerator-runtime: ^0.13.8
-    verror: ^1.10.0
     when: ^3.7.8
   languageName: unknown
   linkType: soft
@@ -6882,6 +6882,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.4.0
     "@openagenda/logs": ^1.1.9
+    "@openagenda/verror": ^3.1.0
     angular-expressions: ^0.3.0
     aws-sdk: ^2.544.0
     babel-jest: ^26.6.3
@@ -6916,7 +6917,6 @@ __metadata:
     source-map-loader: ^2.0.1
     style-loader: ^1.1.3
     superagent: ^3.8.3
-    verror: ^1.10.0
     webpack: ^5.53.0
     webpack-cli: ^4.8.0
     webpack-dev-middleware: ^4.3.0
@@ -6936,6 +6936,7 @@ __metadata:
     "@openagenda/queue": ^1.0.1
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     immutability-helper: ^2.2.2
     knex: ^0.20.13
     lodash: ^4.17.15
@@ -6943,7 +6944,6 @@ __metadata:
     mysql: ^2.11.1
     redis: ^2.8.0
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -7068,7 +7068,7 @@ __metadata:
     "@openagenda/react-filters": ^2.9.0
     "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
-    "@openagenda/sdk-js": ^2.0.2
+    "@openagenda/sdk-js": ^2.0.3
     axios: ^0.21.1
     babel-loader: ^8.2.2
     babel-plugin-handlebars-inline-precompile: ^2.1.1
@@ -7207,7 +7207,6 @@ __metadata:
     react-dom: ^18.2.0
     rimraf: ^3.0.1
     rss: ^1.2.1
-    verror: ^1.10.0
     webpack: ^4.46.0
     when: ^3.7.8
     xhr: ^2.2.0
@@ -7350,6 +7349,7 @@ __metadata:
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     async: ^1.5.2
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -7357,7 +7357,6 @@ __metadata:
     mysql: ^2.10.2
     should: ^13.2.3
     slugify: ^1.4.5
-    verror: ^1.10.0
     when: ^3.7.8
   languageName: unknown
   linkType: soft
@@ -7682,13 +7681,13 @@ __metadata:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     immutability-helper: ^3.0.0
     knex: ^0.20.13
     lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.13.0
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -7744,22 +7743,6 @@ __metadata:
     qs: ^6.9.1
   languageName: unknown
   linkType: soft
-
-"@openagenda/es-node@npm:^1.2.6":
-  version: 1.2.6
-  resolution: "@openagenda/es-node@npm:1.2.6"
-  dependencies:
-    "@openagenda/utils": ^1.2.2
-    async: ~0.9
-    debug: ~2.0
-    deep-extend: ~0.2
-    i18n-iso-countries: ~0.7
-    moment: ^2.27.0
-    moment-timezone: ^0.5.31
-    should: ~4.0
-  checksum: f1dcf3aa8b7871b030f53707130e9cb092c90378694f903f93b9a5301c8a8fbc85793eef4e52cc76028ce3323324cba1916bfd8bcaa882ac965183eef1134e5c
-  languageName: node
-  linkType: hard
 
 "@openagenda/eslint-config@^1.3.1, @openagenda/eslint-config@^1.4.0, @openagenda/eslint-config@workspace:public/eslint-config":
   version: 0.0.0-use.local
@@ -7971,6 +7954,7 @@ __metadata:
   resolution: "@openagenda/files@workspace:packages/files"
   dependencies:
     "@openagenda/eslint-config": ^1.4.0
+    "@openagenda/verror": ^3.1.0
     aws-sdk: ^2.544.0
     axios: ^0.21.1
     eslint: ^8.24.0
@@ -7986,7 +7970,6 @@ __metadata:
     prettier-eslint-cli: ^7.1.0
     type-is: ^1.6.18
     uuid: ^3.4.0
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8006,6 +7989,7 @@ __metadata:
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
   dependencies:
     "@openagenda/form-schemas": ^1.9.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.1.0
     "@openagenda/stream-utils": ^1.1.0
     "@openagenda/utils": ^1.3.0
@@ -8082,7 +8066,6 @@ __metadata:
     superagent: ^3.8.3
     turndown: ^5.0.3
     uuid: ^3.4.0
-    verror: ^1.10.0
     webpack: ^5.53.0
     webpack-cli: ^4.8.0
     webpack-dev-middleware: ^4.3.0
@@ -8254,6 +8237,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/queue": ^1.0.1
     "@openagenda/service-utils": ^2.0.0
+    "@openagenda/verror": ^3.1.0
     ajv: ^5.2.2
     ajv-errors: ^1.0.0
     ajv-keywords: ^2.1.0
@@ -8273,7 +8257,6 @@ __metadata:
     rimraf: ^3.0.1
     uppy-server: ^0.11.1
     uuid: ^3.4.0
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8334,6 +8317,7 @@ __metadata:
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     knex: ^0.20.12
     lodash: ^4.17.15
     mocha: ^7.0.1
@@ -8342,7 +8326,6 @@ __metadata:
     should: ^13.2.3
     sinon: ^3.2.0
     uuid: ^3.4.0
-    verror: ^1.10.0
     when: ^3.7.8
   languageName: unknown
   linkType: soft
@@ -8370,6 +8353,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/labels": ^2.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     express: ^4.17.1
     lodash: ^4.17.15
     marked: ^0.7.0
@@ -8377,7 +8361,6 @@ __metadata:
     pug: ^2.0.0-beta6
     reload: ^3.0.4
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8434,7 +8417,6 @@ __metadata:
     redux: ^4.0.5
     should: ^13.2.3
     slugify: ^1.4.5
-    verror: ^1.10.0
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -8459,6 +8441,7 @@ __metadata:
   resolution: "@openagenda/mails-editor@workspace:public/mails-editor"
   dependencies:
     "@openagenda/eslint-config": ^1.4.0
+    "@openagenda/verror": ^3.1.0
     eslint: ^8.24.0
     express: ^4.17.1
     html-to-text: ^6.0.0
@@ -8468,16 +8451,15 @@ __metadata:
     nodemon: ^2.0.6
     prettier-eslint-cli: ^7.1.0
     reload: ^3.1.1
-    verror: ^1.10.0
     walk: ^2.3.14
   peerDependencies:
-    "@openagenda/mails": ^4.0.0
+    "@openagenda/mails": ^4.0.1
   bin:
     oa-mails-editor: ./bin/editor.js
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@^4.0.0, @openagenda/mails@workspace:public/mails":
+"@openagenda/mails@^4.0.1, @openagenda/mails@workspace:public/mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:public/mails"
   dependencies:
@@ -8486,6 +8468,7 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/queues": ^1.2.7
+    "@openagenda/verror": ^3.1.0
     ejs: ^2.7.4
     eslint: ^8.24.0
     isemail: ^3.2.0
@@ -8497,7 +8480,6 @@ __metadata:
     nodemailer: ^6.9.1
     prettier-eslint-cli: ^7.1.0
     redis: ^2.8.0
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8664,12 +8646,12 @@ __metadata:
   dependencies:
     "@openagenda/logs": ^1.1.9
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     knex: ^0.19.5
     lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.13.0
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8763,7 +8745,6 @@ __metadata:
     node-html-parser: ^1.1.16
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -8841,11 +8822,11 @@ __metadata:
   resolution: "@openagenda/queues@workspace:public/queues"
   dependencies:
     "@openagenda/logs": ^1.1.9
+    "@openagenda/verror": ^3.1.0
     lodash: ^4.17.15
     mocha: ^7.0.1
     redis: ^2.8.0
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -9303,7 +9284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/sdk-js@^2.0.2, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
+"@openagenda/sdk-js@^2.0.3, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:public/sdk-js"
   dependencies:
@@ -9329,7 +9310,6 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     sinon: ^4.4.5
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -9355,6 +9335,7 @@ __metadata:
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.1.0
     async: ^2.1.4
     cookie-parser: ^1.4.3
     cookie-session: ^2.0.0-alpha.2
@@ -9370,7 +9351,6 @@ __metadata:
     rimraf: ^3.0.1
     should: ^13.2.3
     superagent: ^3.3.1
-    verror: ^1.10.0
     when: ^3.7.8
   languageName: unknown
   linkType: soft
@@ -9641,7 +9621,6 @@ __metadata:
   resolution: "@openagenda/utils@workspace:packages/utils"
   dependencies:
     "@openagenda/labels": ^2.3.0
-    hsts: ^2.1.0
     jest: ^28.1.2
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -19193,7 +19172,6 @@ __metadata:
     "@openagenda/custom": ^1.3.14
     "@openagenda/date-range": ^2.3.0
     "@openagenda/dom-utils": ^2.2.12
-    "@openagenda/es-node": ^1.2.6
     "@openagenda/event-form": ^1.5.1
     "@openagenda/event-search": ^2.8.0
     "@openagenda/events": ^2.0.0
@@ -19212,7 +19190,7 @@ __metadata:
     "@openagenda/landing": ^1.3.16
     "@openagenda/legacy": ^1.11.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/mails": ^4.0.0
+    "@openagenda/mails": ^4.0.1
     "@openagenda/mails-editor": ^2.0.0
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/members": ^1.15.13
@@ -19260,6 +19238,7 @@ __metadata:
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
     form-data: ^3.0.0
+    helmet: ^6.1.5
     history: ^4.10.1
     http-proxy: ^1.18.0
     immer: ^9.0.1
@@ -19306,7 +19285,6 @@ __metadata:
     type-is: ^1.6.18
     uuid: ^3.4.0
     validator: ^7.0.0
-    verror: ^1.10.0
     when: ^3.7.8
     xlsx-writestream: ^0.5.1
   languageName: unknown
@@ -21743,13 +21721,6 @@ __metadata:
   version: 0.6.0
   resolution: "deep-extend@npm:0.6.0"
   checksum: 7be7e5a8d468d6b10e6a67c3de828f55001b6eb515d014f7aeb9066ce36bd5717161eb47d6a0f7bed8a9083935b465bc163ee2581c8b128d29bf61092fdf57a7
-  languageName: node
-  linkType: hard
-
-"deep-extend@npm:~0.2":
-  version: 0.2.11
-  resolution: "deep-extend@npm:0.2.11"
-  checksum: 0659a7e1e51988182cd3fe6641f5fce94e22fedbd78d760ec5e3c36ed9696498210a7332b02c1e0bd64617dc0c1b84dbe0653fed4eaef235ba68508ad7f8a6cb
   languageName: node
   linkType: hard
 
@@ -27109,6 +27080,13 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
+"helmet@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "helmet@npm:6.1.5"
+  checksum: 58cc8f8715e2c486f3c7a58f89fcda3c9e83ab427bfe16d8486d8be53a681afc291f9900b9e60e5d42c63c25ece3da864a33cdd621a12f5a67cbc9046cff393d
+  languageName: node
+  linkType: hard
+
 "hex-color-regex@npm:^1.1.0":
   version: 1.1.0
   resolution: "hex-color-regex@npm:1.1.0"
@@ -27231,15 +27209,6 @@ fsevents@~2.1.1:
   version: 2.1.0
   resolution: "hsts@npm:2.1.0"
   checksum: 6815c534244221b388e94c88077f3645392536ee386a729c32728dddb2e81b15737dfa1def1fba426564e9864d3a5e3f3c3b35197ba2298682e3f099a626247a
-  languageName: node
-  linkType: hard
-
-"hsts@npm:^2.1.0":
-  version: 2.2.0
-  resolution: "hsts@npm:2.2.0"
-  dependencies:
-    depd: 2.0.0
-  checksum: e8d265c30b58d731f5b22da0e7ce29505e0ad68cb4d319c163ac3796d777f8d011d1fe2f6a9bf6443689bba78308f271e95e764fb1c2652181bd28c3b3fbd978
   languageName: node
   linkType: hard
 
@@ -27737,13 +27706,6 @@ fsevents@~2.1.1:
   version: 1.0.3
   resolution: "hyphenate-style-name@npm:1.0.3"
   checksum: e333f610e7cb32210861ff8c55f99582cdc39e4737903936a7eb61702c98f8db45f33d54f9d230221fabc4d321b2ab8382b8af50d24a1eba21916f2edddd7b85
-  languageName: node
-  linkType: hard
-
-"i18n-iso-countries@npm:~0.7":
-  version: 0.7.1
-  resolution: "i18n-iso-countries@npm:0.7.1"
-  checksum: 65863c06a5f4ee88afba477399ac56f5909ed9f4fde8173de83bff55bdafcbc931375346e6c6be0fe967eba283f8575235f57b6c906097a4ac5be3bd41ef5dfd
   languageName: node
   linkType: hard
 

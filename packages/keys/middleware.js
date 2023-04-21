@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const log = require( '@openagenda/logs' )( 'keys/middleware' );
 const service = require( './service' );
 

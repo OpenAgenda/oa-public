@@ -189,6 +189,11 @@ const config = {
     cookie: {
       name: 'cibul'
     },
+    hsts: {
+      maxAge: 63072000,
+      includeSubDomains: true,
+      preload: true,
+    },
     blacklistedDomains: [
       'getnada.com',
       'intrees.org',
@@ -756,7 +761,7 @@ debug.disable();
 debug.enable(currentConfig.logger.enableDebug);
 
 currentConfig.getLogConfig = (prefix, key, keyInPrefix = true) => ({
-  prefix: keyInPrefix ? `${prefix}:${key}` : `${prefix}:`,
+  prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
   token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[key],
 });
 

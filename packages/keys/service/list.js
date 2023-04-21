@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
 const config = require( './config' );
 const validateArgs = require( './validators/listArguments' );

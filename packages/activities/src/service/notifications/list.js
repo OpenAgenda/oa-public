@@ -6,7 +6,7 @@ const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
 const log = require( '@openagenda/logs' )( 'activities/notifications/list' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const notificationStates = require( '../notificationStates' );
 
 schema.register( {

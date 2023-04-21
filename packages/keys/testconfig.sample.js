@@ -7,7 +7,8 @@ module.exports = {
     host: '127.0.0.1',
     database: 'oa_test_keys',
     password: 'grut',
-    user: 'root'
+    user: 'root',
+    ssl: true,
   },
   migrations: {
     tableName: 'key_migrations',

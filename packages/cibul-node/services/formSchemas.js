@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const formSchemas = require('@openagenda/form-schemas');
@@ -10,11 +10,11 @@ module.exports.init = config => formSchemas({
     'accessKeyId',
     'secretAccessKey',
     'region',
-    'bucket'
+    'bucket',
   ]),
   schemas: {
     formSchema: 'form_schema',
-    network: 'network'
+    network: 'network',
   },
-  logger: config.getLogConfig('svc', 'form-schemas')
+  logger: config.getLogConfig('svc', 'form-schemas'),
 });

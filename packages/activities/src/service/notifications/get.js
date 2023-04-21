@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
@@ -129,6 +129,7 @@ function get( config ) {
 
       return request
         .then( result => {
+
 
           if ( result ) {
             result = _.mapKeys( result, ( value, key ) => _.camelCase( key ) );
