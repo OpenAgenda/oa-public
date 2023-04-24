@@ -50,7 +50,7 @@ describe('members - functional - patch', () => {
           context: {
             lang: 'fr',
           },
-        }
+        },
       );
     });
 
@@ -82,6 +82,7 @@ describe('members - functional - patch', () => {
 
       expect(context).toEqual({
         lang: 'fr',
+        redirect: null,
         sender: {
           memberName: null,
           userUid: null,
@@ -95,7 +96,7 @@ describe('members - functional - patch', () => {
     test('by default service does not throw if provided data is invalid', async () => {
       const result = await svc.patch(
         { userUid: 1, agendaUid: 2 },
-        { custom: { contactName: null } }
+        { custom: { contactName: null } },
       );
 
       expect(Array.isArray(result.errors)).toBeTruthy();
@@ -107,7 +108,7 @@ describe('members - functional - patch', () => {
         await svc.patch(
           { userUid: 1, agendaUid: 2 },
           { custom: { contactName: null } },
-          { throwOnError: true }
+          { throwOnError: true },
         );
       } catch (e) {
         error = e;
@@ -123,7 +124,7 @@ describe('members - functional - patch', () => {
       const result = await svc.patch(
         { userUid: 1, agendaUid: 2 },
         { custom: { contactName: null } },
-        { requireCustom: false }
+        { requireCustom: false },
       );
 
       expect(result.success).toBe(true);
@@ -134,7 +135,7 @@ describe('members - functional - patch', () => {
     test('if user identifier is specified in patch, legacy is updated', async () => {
       const { member } = await svc.patch(
         { userUid: 1, agendaUid: 2 },
-        { userUid: 3 }
+        { userUid: 3 },
       );
 
       expect(member.userId).toBe(10293);
@@ -143,7 +144,7 @@ describe('members - functional - patch', () => {
     test('if agenda identifier is specified in patch, legacy is updated', async () => {
       const { member } = await svc.patch(
         { userUid: 1, agendaUid: 1 },
-        { agendaUid: 12 }
+        { agendaUid: 12 },
       );
 
       expect(member.agendaId).toBe(919002);
@@ -153,7 +154,7 @@ describe('members - functional - patch', () => {
   test('deletedUser can be patched', async () => {
     const { member } = await svc.patch(
       { userUid: 2, agendaUid: 1 },
-      { deletedUser: true }
+      { deletedUser: true },
     );
 
     expect(member.deletedUser).toBe(true);
