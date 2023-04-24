@@ -276,6 +276,29 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('bad requests', () => {
+      it('Double-encoded JSON throws bad request error', async () => {
+        const { errorResponse } = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            access_token: accessToken,
+            nonce: 898756479,
+            data: {
+              name: 'Chez les beaufs de kevin',
+              address: '12 grande rue, Chattancourt',
+              countryCode: 'fr',
+            },
+          }),
+        }).then(r => ({ response: r }), e => ({ errorResponse: e.response }));
+
+        expect(errorResponse.status).toBe(400);
+      });
+    });
+
     describe('successful create by contributor', () => {
       let contributorAccessToken;
 
