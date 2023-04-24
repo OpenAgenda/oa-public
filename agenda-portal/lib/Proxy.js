@@ -24,6 +24,7 @@ module.exports = ({
   defaultLimit,
   preFilter,
   defaultFilter,
+  visibilityPastEvents,
   defaultTimezone,
   proxyHookBeforeGet,
   longDescriptionFormat,
@@ -33,6 +34,14 @@ module.exports = ({
 
     if (!Object.keys(_.omit(userQuery, ['aggregations', 'size', 'page', 'detailed'])).length && defaultFilter) {
       Object.assign(query, defaultFilter);
+    }
+
+    if (
+      (!userQuery.relative && !userQuery.timings && visibilityPastEvents === '1')
+      || !visibilityPastEvents
+    ) {
+      const relativeFilter = { relative: ['current', 'upcoming'] };
+      Object.assign(query, relativeFilter);
     }
 
     let limit;
