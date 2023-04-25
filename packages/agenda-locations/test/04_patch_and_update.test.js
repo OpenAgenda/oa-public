@@ -21,7 +21,7 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const initSettingsDA = {
@@ -30,8 +30,8 @@ const initSettingsDA = {
     create: defaultAccess,
     delete: defaultAccess,
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 const initSettingsCantUpdate = {
@@ -40,8 +40,8 @@ const initSettingsCantUpdate = {
     create: { ...defaultAccess, authorized: false },
     delete: { ...defaultAccess, authorized: false },
     merge: defaultAccess,
-    update: { ...defaultAccess, authorized: false }
-  }
+    update: { ...defaultAccess, authorized: false },
+  },
 };
 
 describe('agenda-locations - functional - patch & update', () => {
@@ -61,7 +61,7 @@ describe('agenda-locations - functional - patch & update', () => {
           }[uid],
         }),
         geocode: async _address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async _uid => initSettingsDA
+        getAgendaLocationSettings: async _uid => initSettingsDA,
       },
       Files: Files(dConfig.files),
     });
@@ -107,7 +107,7 @@ describe('agenda-locations - functional - patch & update', () => {
     beforeAll(async () => {
       await svc(7196947).patch(94482437, {
         image: fs.createReadStream(
-          `${__dirname}/fixtures/images/vieilles_pierres.jpg`
+          `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
         ),
       });
 
@@ -128,7 +128,7 @@ describe('agenda-locations - functional - patch & update', () => {
 
     beforeAll(async () => {
       await svc(7196947).patch(51665987, {
-        duplicateCandidates: [30]
+        duplicateCandidates: [30],
       });
 
       entry = await f.client('location').first().where('uid', 51665987);
@@ -153,7 +153,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename)
+          .then(r => r.placename),
       ).toEqual(payload.name);
     });
 
@@ -166,7 +166,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename)
+          .then(r => r.placename),
       ).toEqual('Patched');
     });
 
@@ -177,7 +177,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.set_uid)
+          .then(r => r.set_uid),
       ).toEqual(1903810);
     });
   });
@@ -205,7 +205,7 @@ describe('agenda-locations - functional - patch & update', () => {
         address: '07460 Saint-Paul-le-Jeune',
         imageCredits: 'New credits',
         longitude: 4.153617,
-        latitude: 44.339599
+        latitude: 44.339599,
       });
 
       expect(updated.imageCredits).toEqual('New credits');
@@ -249,14 +249,14 @@ describe('agenda-locations - functional - patch & update', () => {
 
         expect(store.extId).toEqual('ard_leg_1200');
         expect(updated.extId).toEqual('ard_leg_1200');
-      }
+      },
     );
 
     it(
       'fix: patch should not break unspecified image',
       async () => {
         await svc(7196947).patch(86591143, {
-          description: 'Une petite description'
+          description: 'Une petite description',
         }, { includeImagePath: true });
 
         const image = await f.client('location')
@@ -265,7 +265,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .then(e => JSON.parse(e.store).image);
 
         expect(image).toBe(null);
-      }
+      },
     );
 
     it(
@@ -290,12 +290,12 @@ describe('agenda-locations - functional - patch & update', () => {
         const updated = await svc(7196947).update(
           95301591,
           _.omit(payload, ['latitude', 'longitude']),
-          { geocodeIfUndefined: true }
+          { geocodeIfUndefined: true },
         );
 
         expect(updated.latitude).toEqual(10);
         expect(updated.longitude).toEqual(11);
-      }
+      },
     );
   });
 });
@@ -317,7 +317,7 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
           }[uid],
         }),
         geocode: async _address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async _uid => initSettingsCantUpdate
+        getAgendaLocationSettings: async _uid => initSettingsCantUpdate,
       },
       Files: Files(dConfig.files),
     });

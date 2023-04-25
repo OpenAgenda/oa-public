@@ -30,7 +30,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   const dataToValidate = preCleanBeforeUpdate(data, current, {
     geocodeResult,
-    isPatch
+    isPatch,
   });
 
   const clean = {
@@ -80,7 +80,7 @@ module.exports = async (
   { service, isPatch },
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get({ internals: service, endpoints: {} }, identifiers, options);
   if (!current) {
@@ -94,13 +94,13 @@ module.exports.byAgendaUid = async (
   agendaUid,
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get.byAgendaUid(
     { internals: service, endpoints: {} },
     agendaUid,
     identifiers,
-    options
+    options,
   );
 
   if (!current) {
@@ -115,7 +115,7 @@ module.exports.bySetUid = async (
   setUid,
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get.bySetUid({ internals: service, endpoints: {} }, setUid, identifiers, options);
 
