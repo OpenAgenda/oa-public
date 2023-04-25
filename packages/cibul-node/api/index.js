@@ -26,8 +26,6 @@ module.exports = core => {
 
   const { verifySuperAdmin } = app.services.users.mw;
 
-  // app.use(Sentry.Handlers.requestHandler());
-
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([{
       name: 'image',
