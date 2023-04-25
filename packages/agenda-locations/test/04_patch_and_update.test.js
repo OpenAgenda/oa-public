@@ -269,7 +269,7 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
-      'fix: patch without latitude, longitude or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
+      'fix: patch without countryCode or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
       async () => {
         let error;
         try {

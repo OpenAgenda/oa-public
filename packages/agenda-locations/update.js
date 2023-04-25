@@ -13,12 +13,18 @@ const legacy = require('./lib/legacy');
 const log = logs('update');
 
 async function update({ service, isPatch }, current, data, options = {}) {
+  const {
+    decorateWithGeocodeData: {
+      shouldAttempt: shouldAttemptGeocode,
+    },
+  } = service;
+
   log('received %j payload', current.uid);
   await authorize(service, 'update', current.uid, options);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined
+  const geocodeResult = shouldAttemptGeocode(geocodeIfUndefined, data, isPatch)
     ? await service.decorateWithGeocodeData(data)
     : null;
 

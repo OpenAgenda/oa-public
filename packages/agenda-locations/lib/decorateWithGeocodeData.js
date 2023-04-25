@@ -37,7 +37,7 @@ async function geocode(interfaces, data) {
   }
 }
 
-module.exports = service => async data => {
+module.exports = service => Object.assign(async data => {
   if (!data || data.latitude) {
     return data;
   }
@@ -59,4 +59,17 @@ module.exports = service => async data => {
     ...inseeResult,
     ...data,
   };
-};
+}, {
+  shouldAttempt: (geocodeIfUndefined, data, isPatch) => {
+    if (!geocodeIfUndefined) {
+      return false;
+    }
+    if (!isPatch) {
+      return true;
+    }
+    if (data.address && data.countryCode) {
+      return true;
+    }
+    return false;
+  },
+});
