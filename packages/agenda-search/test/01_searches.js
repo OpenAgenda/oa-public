@@ -130,6 +130,19 @@ describe('01 - Search', function() {
       assert.equal(agendas[0].uid, result.agendas[0].uid);
       assert.equal(secondResult.agendas[0].uid, agendas[1].uid);
     });
+
+    it('after key provided as non-array is not valid', async () => {
+      const {
+        error,
+        response,
+      } = await svc({ search: 'musées' }, {
+        size: 1,
+        after: 3
+      }).then(r => ({ result: r }), e => ({ error: e }));
+
+      assert.equal(error.statusCode, 400);
+      assert.equal(error.message, 'Provided after value is invalid');
+    });
   });
 
   describe('Sorting', () => {
