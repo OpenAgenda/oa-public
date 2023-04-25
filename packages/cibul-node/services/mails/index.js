@@ -16,7 +16,7 @@ module.exports.init = async (config, services) => {
   unsubscription.init(config);
 
   const {
-    queues
+    queues,
   } = services;
 
   const mails = await createMails({
@@ -31,8 +31,8 @@ module.exports.init = async (config, services) => {
         _,
         stripHtml,
         root: config.root,
-        emailSettingsLink: `https://${config.domain}/settings/emails`
-      }
+        emailSettingsLink: `https://${config.domain}/settings/emails`,
+      },
     },
 
     // Queuing
@@ -47,7 +47,7 @@ module.exports.init = async (config, services) => {
 
     // Unsubscription
     sendFilter: filterBouncingAndUnsubscribed.bind(null, services, config),
-    beforeSend: beforeSend.bind(null, services, config)
+    beforeSend: beforeSend.bind(null, services, config),
   });
 
   for (const prop of walkProtoChain(mails)) {
@@ -60,6 +60,6 @@ module.exports.init = async (config, services) => {
     unsubscription,
     plugApp: app => {
       app.post('/incoming-emails', incomingEmailsMw({ services }));
-    }
+    },
   });
 };
