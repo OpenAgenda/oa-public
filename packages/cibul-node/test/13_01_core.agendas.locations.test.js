@@ -277,6 +277,32 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     describe('bad requests', () => {
+      it('Wrong route throws 404', async () => {
+        const { errorResponse } = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/17026855/locations',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: {
+            access_token: accessToken,
+            nonce: 456456789,
+            data: {
+              name: 'Un lieu',
+              address: '15 rue de l\'adresse imaginaire, Trifouifoui',
+              countryCode: 'fr',
+            },
+          },
+        }).then(r => ({
+          response: r,
+        }), e => ({
+          errorResponse: e.response,
+        }));
+
+        expect(errorResponse.status).toBe(404);
+        expect(errorResponse.data.info).toBe('Unhandled route');
+      });
+
       it('Double-encoded JSON throws bad request error', async () => {
         const { errorResponse } = await axios({
           method: 'post',
