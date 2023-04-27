@@ -19,10 +19,8 @@ services:
       - ${API_SSL_CERT}:/ssl/api.cert.pem
       - ${API_SSL_KEY}:/ssl/api.key.pem
       - ${CLIENT_SSL_CERT:-/dev/null}:/ssl/client.crt
-      - ${ES1_SSL_CERT:-/dev/null}:/ssl/es1.cert.pem
-      - ${ES1_SSL_KEY:-/dev/null}:/ssl/es1.key.pem
-      - ${ES7_SSL_CERT:-/dev/null}:/ssl/es7.cert.pem
-      - ${ES7_SSL_KEY:-/dev/null}:/ssl/es7.key.pem
+      - ${ES_SSL_CERT:-/dev/null}:/ssl/es7.cert.pem
+      - ${ES_SSL_KEY:-/dev/null}:/ssl/es7.key.pem
       - ${PMA_SSL_CERT:-/dev/null}:/ssl/pma.cert.pem
       - ${PMA_SSL_KEY:-/dev/null}:/ssl/pma.key.pem
       - ${ELASTICHQ_SSL_CERT:-/dev/null}:/ssl/elastichq.cert.pem
@@ -38,7 +36,6 @@ services:
         /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILCATCHER_NGINX_PROXY:-0} ${DEPLOY_ELASTICHQ_NGINX_PROXY:-0} ${DEPLOY_API_NGINX_PROXY:-0};
         nginx -g 'daemon off;'"
     links:
-      - es1
       - es7
       - node
       - phpmyadmin
@@ -46,19 +43,6 @@ services:
       - elastichq
     depends_on:
       - node
-
-  es1:
-    container_name: es1
-    image: andrewvos/docker-elasticsearch
-    restart: always
-    environment:
-      - "ES_HEAP_SIZE=512M"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ${ES1_CONTAINER_DATA_PATH}:/usr/share/elasticsearch/data
 
   node:
     container_name: node
@@ -83,13 +67,11 @@ services:
     links:
       - mysql
       - redis
-      - es1
       - es7
       - mailcatcher
     depends_on:
       - mysql
       - redis
-      - es1
       - es7
     environment:
       TZ: Etc/UTC
@@ -102,32 +84,39 @@ services:
       OA_API_PORT: ${OA_API_PORT}
       OA_SERVER_PORT: ${OA_SERVER_PORT}
       OA_USE_X_FWD_PROTO: 1
-      OA_DOMAIN: ${SITE_DOMAIN}
-      OA_ROOT: ${SITE_ROOT}
+      DOMAIN: ${DOMAIN}
+      ROOT: ${ROOT}
       API_ROOT: ${API_ROOT}
       API_DOMAIN: ${API_DOMAIN}
-      OA_MYSQL_DEV_DATABASE: ${MYSQL_DATABASE}
-      OA_MYSQL_DEV_HOST: ${MYSQL_HOST}
-      OA_MYSQL_DEV_PASSWORD: ${MYSQL_PASSWORD}
-      OA_MYSQL_DEV_USER: ${MYSQL_USER}
-      OA_MYSQL_DEV_SSL_VERIFY: ${MYSQL_SSL_VERIFY}
-      OA_MYSQL_DEV_SSL_CA: /ssl/db-ca.pem
-      OA_MYSQL_DEV_SSL_KEY: /ssl/db-key.pem
-      OA_MYSQL_DEV_SSL_CERT: /ssl/db-cert.pem
-      OA_ELASTICSEARCH_134_DEV_HOST: ${ES1_HOST}
-      OA_ELASTICSEARCH_134_DEV_PORT: ${ES1_PORT:-9200}
-      OA_ELASTICSEARCH_134_DEV_USE_SSL: ${ES1_USE_SSL}
-      OA_ELASTICSEARCH_750_DEV_HOST: ${ES7_HOST}
-      OA_ELASTICSEARCH_750_DEV_PORT: ${ES7_PORT:-9200}
-      OA_ELASTICSEARCH_750_DEV_USE_SSL: ${ES7_USE_SSL}
-      OA_REDIS_DEV_PORT: ${REDIS_PORT}
-      OA_REDIS_DEV_HOST: ${REDIS_HOST}
-      AWS_ACCESS_KEY_ID: ${AWS_KEY}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET}
-      MAILCATCHER_PORT: ${MAILCATCHER_PORT}
-      MAILCATCHER_HOST: ${MAILCATCHER_HOST}
-      OA_CLIENT_SSL_KEY: /root/.ssh/client.key
-      OA_CLIENT_SSL_CERT: /root/.ssh/client.cert
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_SSL_VERIFY: ${MYSQL_SSL_VERIFY}
+      MYSQL_SSL_CA: /ssl/db-ca.pem
+      MYSQL_SSL_KEY: /ssl/db-key.pem
+      MYSQL_SSL_CERT: /ssl/db-cert.pem
+      ES_HOST: ${ES_HOST}
+      ES_PORT: ${ES_PORT:-9200}
+      ES_USE_SSL: ${ES_USE_SSL}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+      AWS_KEY: ${AWS_KEY}
+      AWS_SECRET: ${AWS_SECRET}
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
+      AWS_MAIN_BUCKET: ${AWS_MAIN_BUCKET}
+      AWS_MAIN_BUCKET_PATH: ${AWS_MAIN_BUCKET_PATH}
+      AWS_TMP_BUCKET: ${AWS_TMP_BUCKET}
+      AWS_TMP_BUCKET_PATH: ${AWS_TMP_BUCKET_PATH}
+      AWS_ARCHIVE_BUCKET: ${AWS_ARCHIVE_BUCKET}
+      AWS_ARCHIVE_PATH: ${AWS_ARCHIVE_PATH}
+      AWS_STATIC_PATH: ${AWS_STATIC_PATH}
+      AWS_SERVICES_PATH: ${AWS_SERVICES_PATH}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_HOST: ${MAIL_HOST}
+      CLIENT_SSL_KEY: /root/.ssh/client.key
+      CLIENT_SSL_CERT: /root/.ssh/client.cert
       OPENCAGE_KEY: ${OPENCAGE_KEY}
       IFRAMELY_KEY: ${IFRAMELY_KEY}
       MAILJET_KEY: ${MAILJET_KEY}
@@ -142,6 +131,10 @@ services:
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
       OA_OAUTH_GOOGLE_ID: ${OA_OAUTH_GOOGLE_ID}
       OA_OAUTH_GOOGLE_SECRET: ${OA_OAUTH_GOOGLE_SECRET}
+      OA_FACEBOOK_ID: ${OA_FACEBOOK_ID}
+      OA_FACEBOOK_SECRET: ${OA_FACEBOOK_SECRET}
+      OA_TWITTER_KEY: ${OA_TWITTER_KEY}
+      OA_TWITTER_SECRET: ${OA_TWITTER_SECRET}
       OA_PUBLIC_LOCKFILE: yarn.lock
       OA_DISCORD_CHANNEL: ${OA_DISCORD_CHANNEL}
       OA_DISCORD_TOKEN: ${OA_DISCORD_TOKEN}

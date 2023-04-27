@@ -457,14 +457,10 @@ CLIENT_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/certs/ca.crt
 .....
 
 DEPLOY_ES_NGINX_PROXY=1
-ES1_HOST=es1
-ES1_DOMAIN=es1.local
-ES1_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.crt
-ES1_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.key
-ES7_HOST=es7
-ES7_DOMAIN=es7.local
-ES7_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
-ES7_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
+ES_HOST=es7
+ES_DOMAIN=es7.local
+ES_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
+ES_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
 ```
 
 Le script `oa/docker/devinstaller/ssl/create_domain_certificates.sh /chemin/complet/vers/devinstaller/ssl es.local7`  peut être utilisé pour générer les certificats. Le fichier destination ne doit pas déjà exister sans quoi la procédure n'aboutira pas.
