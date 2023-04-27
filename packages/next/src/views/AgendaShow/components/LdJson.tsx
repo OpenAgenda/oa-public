@@ -22,7 +22,7 @@ export default function LdJson({ agenda, filters, query, includeFields }) {
       .map(event => toEventSchema(event, {
         locale: intl.locale,
         formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
-        url: `${process.env.NEXT_PUBLIC_SITE_ROOT}/${agenda.slug}/events/${event.slug}`,
+        url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
       }));
     return stringify(eventSchemas);
   }, [agenda.slug, intl.locale, pages]);
