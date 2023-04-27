@@ -2,7 +2,6 @@
 
 const tfy = require('./lib/taskify');
 const resetApiCounters = require('./general/resetApiCounters.task');
-const legacyAgendaServiceTask = require('./services/agenda/task');
 
 module.exports = (config, core, services) => {
   tfy(resetApiCounters, { period: 'daily', time: '00:00' });
@@ -66,8 +65,6 @@ module.exports = (config, core, services) => {
   });
 
   services.agendaDocx.task();
-
-  legacyAgendaServiceTask();
 
   services.aggregators.task();
 

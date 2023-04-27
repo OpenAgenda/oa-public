@@ -8,15 +8,11 @@ state = require( './state' ),
 
 ics = require( './ics' ),
 
-dispatcher = require( './dispatcher' ),
-
 utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
 exportable = require( './exportable' ),
-
-onRefresh, // used for testing
 
 range = require( '@openagenda/date-range' );
 
@@ -24,10 +20,6 @@ const getTimings = require('../lib/getTimings');
 const getClosestDate = require('../lib/getClosestDate');
 const extractAttendanceMode = require('../lib/extractAttendanceMode');
 module.exports = instanciate;
-
-module.exports.test = {
-  setOnRefresh
-}
 
 function instanciate( data ) {
 
@@ -38,13 +30,10 @@ function instanciate( data ) {
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
     transferOwnership: transferOwnership,
-    refresh: refresh,
     getRange,
     getClosestDate: getClosestDate.bind(null, instance),
     getIcs
-  }),
-
-  dsp = dispatcher( svcInstance, instance );
+  });
 
   Object.assign(svcInstance, extractAttendanceMode(data));
 
@@ -58,37 +47,11 @@ function instanciate( data ) {
     'exportable'
   ] );
 
-  svcInstance.setOnStateChange( dsp.stateChange );
-
-  instance.onSave = svcInstance.onSave = dsp.onSave;
-
   return svcInstance;
 
   function transferOwnership( userId, cb ) {
 
     instance.save( { ownerId: userId }, cb );
-
-  }
-
-  function refresh( cb ) {
-
-    if ( onRefresh ) onRefresh( parseInt( instance.id ) );
-
-    instance.save( { updatedAt: new Date() }, err => {
-
-      if ( err ) {
-
-        log( 'error', 'could not clear timestamp of event %s', event.uid );
-
-      } else {
-
-        dsp.onRefresh();
-
-      }
-
-      if ( cb ) return cb( err );
-
-    } );
 
   }
 
@@ -143,12 +106,5 @@ function instanciate( data ) {
     }
 
   }
-
-}
-
-
-function setOnRefresh( cb ) {
-
-  onRefresh = cb;
 
 }

@@ -10,7 +10,6 @@ const languages = require( 'languages' );
 const qs = require( 'qs' );
 const VError = require( '@openagenda/verror' );
 
-const agendasSvc = require( '@openagenda/agendas' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
