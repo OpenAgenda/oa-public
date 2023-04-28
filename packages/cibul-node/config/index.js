@@ -189,7 +189,18 @@ const config = {
     maxIndexableTimingCount: 3000,
   },
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_ALIAS || prod.agendaSearchAlias || 'agendas',
-  redis: {
+  redis: process.env.REDIS_CLUSTER_NODES ? {
+    clusterMode: true,
+    params: {
+      rootNodes: process.env.REDIS_CLUSTER_NODES.split(',').map(node => ({
+        url: node,
+      })),
+      defaults: {
+        password: process.env.REDIS_PWD,
+      },
+    },
+  } : {
+    clusterMode: false,
     host: prod.redis?.host ?? (process.env.REDIS_HOST ?? 'localhost'),
     port: prod.redis?.port ?? (process.env.REDIS_PORT ?? 6379),
   },
