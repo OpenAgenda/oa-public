@@ -49,8 +49,8 @@ const config = {
     token: false,
   },
   name: 'cibul-node',
-  domain: prod.domains?.main ?? (process.env.OA_DOMAIN ?? 'd.openagenda.com'),
-  root: prod.root ?? (process.env.OA_ROOT ?? 'https://d.openagenda.com'),
+  domain: prod.domains?.main ?? (process.env.DOMAIN ?? 'd.openagenda.com'),
+  root: prod.root ?? (process.env.ROOT ?? 'https://d.openagenda.com'),
   apiRoot: prod.apiRoot ?? process.env.API_ROOT,
   apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
   logo: prod.logo,
@@ -90,7 +90,7 @@ const config = {
     transport: prod.mails?.transport ?? {
       host: process.env.MAIL_HOST ?? '127.0.0.1',
       port: process.env.MAIL_PORT ?? '1025',
-      secure: process.env.MAIL_SECURE,
+      secure: !!parseInt(process.env.MAIL_SECURE, 10),
       auth: process.env.MAIL_AUTH_USER ? {
         user: process.env.MAIL_AUTH_USER,
         pass: process.env.MAIL_AUTH_PASSWORD,
@@ -100,7 +100,7 @@ const config = {
       rateLimit: 14,
       rateDelta: 1000,
     },
-    disableVerify: process.env.MAIL_DISABLE_VERIFY,
+    disableVerify: !!process.env.MAIL_DISABLE_VERIFY,
     defaults: {
       from: '"OpenAgenda" <no-reply@mail.openagenda.com>',
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
@@ -295,8 +295,8 @@ const config = {
     contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
   },
   mailgun: {
-    domain: prod.mailgun && prod.mailgun.domain,
-    apiKey: prod.mailgun && prod.mailgun.apiKey,
+    domain: prod.mailgun?.domain ?? process.env.MAILGUN_DOMAIN,
+    apiKey: prod.mailgun?.apiKey ?? process.env.MAILGUN_KEY,
   },
   oembed: {
     res: 'https://iframe.ly/api/oembed',
