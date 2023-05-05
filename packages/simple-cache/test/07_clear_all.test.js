@@ -17,13 +17,29 @@ describe('simple-cache - functional (service): clear all', () => {
   let cache;
   let cli;
 
-  beforeAll(() => {
-    cli = redis.createClient(config.redis.port, config.redis.host);
+  beforeAll(async () => {
+    cli = redis.createClient({
+      socket: {
+        host: config.redis.host,
+        port: config.redis.port,
+      },
+    });
+
+    await cli.connect();
   });
 
   beforeAll(() => {
-    cache = sCache(config);
+    cache = sCache({
+      ...config,
+      client: cli,
+    });
   });
+
+  beforeEach(async () => cli.del(
+    await cli
+      .keys(`${config.prefix}*`)
+      .then(k => k.join(' ')),
+  ));
 
   afterAll(() => cli.quit());
 
@@ -35,12 +51,9 @@ describe('simple-cache - functional (service): clear all', () => {
 
       await cache.clearAll();
 
-      return new Promise(rs => {
-        cli.keys(`${prefix}*`, (err, keys) => {
-          expect(keys.length).toBe(0);
-          rs();
-        });
-      });
+      const keys = await cli.keys(`${prefix}*`);
+
+      expect(keys.length).toBe(0);
     }
   );
 });

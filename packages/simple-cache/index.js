@@ -11,15 +11,6 @@ const stringifyKey = keyObj => JSON.stringify(
     .reduce((sorted, key) => Object.assign(sorted, { [key]: keyObj[key] }), {})
 );
 
-function reject(rj, cb, err) {
-  if (cb) cb(err);
-  rj(err);
-}
-function resolve(rs, cb, value) {
-  if (cb) cb(null, value);
-  rs(value);
-}
-
 function rejectOrResolve(rs, rj, cb, err, value) {
   if (err) {
     return reject(rj, cb, err);
@@ -53,28 +44,40 @@ const getRedisKey = (prefix, namespace, identifier = null, key = null) => {
 
 const getValueKey = (key = '') => (key instanceof Object ? stringifyKey(key) : key);
 
+
+const resolve = (v, cb) => {
+  if (cb) {
+    cb(null, v)
+  } else {
+    return v;
+  }
+}
+
+const reject = (e, cb) => {
+  if (cb) {
+    cb(e);
+  } else {
+    throw e;
+  }
+}
+
 function get(...args) {
-  const cb = typeof (args[args.length - 1]) === 'function' ? args.pop() : null;
+  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
   const [svc, namespace, identifier, key] = args;
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
   log('getting on %s', redisKey);
 
-  return new Promise((rs, rj) => {
-    client.get(redisKey, (err, value) => {
-      log('got %s', value ? 'something' : 'nothing');
-      rejectOrResolve(rs, rj, cb, err, value);
-    });
-  });
+  return client.get(redisKey).then(v => resolve(v, cb), e => reject(e, cb));
 }
 
 function set(...args) {
-  const cb = typeof (args[args.length - 1]) === 'function' ? args.pop() : null;
+  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
   const [svc, namespace, identifier] = args;
 
   const key = args.length === 6 ? args[3] : '';
@@ -88,14 +91,12 @@ function set(...args) {
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return new Promise((rs, rj) => {
-    client.set(redisKey, value, 'ex', ttlValue, err => {
-      rejectOrResolve(rs, rj, cb, err, value);
-    });
-  });
+  return client
+    .sendCommand(['SET', redisKey, value, 'ex', `${ttlValue}`])
+    .then(() => resolve(value, cb), e => reject(e, cb));
 }
 
-function hget(...args) {
+async function hget(...args) {
   const options = typeof (args[args.length - 1]) === 'object' ? args.pop() : {};
   const [svc, namespace, identifier, key] = args;
   const {
@@ -112,21 +113,18 @@ function hget(...args) {
 
   log('getting on hash %s, key %s', hash, valueKey);
 
-  return new Promise((rs, rj) => {
-    client.hget(hash, valueKey, (err, value) => {
-      log('got %s', value ? 'something' : 'nothing');
-      if (err) return rj(err);
-      if (!json) return rs(value);
+  const value = await client.hGet(hash, `${valueKey}`);
+  log('got %s', value ? 'something' : 'nothing');
 
-      try {
-        return rs(value ? JSON.parse(value) : value);
-      } catch (e) {
-        log('failed to parse JSON at hash %s, key %s: %s', hash, valueKey, value);
-      }
+  if (!json) return value;
 
-      return rs(null);
-    });
-  });
+  try {
+    return value ? JSON.parse(value) : value;
+  } catch (e) {
+    log('failed to parse JSON at hash %s, key %s: %s', hash, valueKey, value);
+  }
+
+  return null;
 }
 
 function hset(...args) {
@@ -146,11 +144,9 @@ function hset(...args) {
 
   log('setting on hash %s, key %s', hash, valueKey);
 
-  return new Promise((rs, rj) => {
-    client.hset(hash, valueKey, value instanceof Object ? JSON.stringify(value) : value, err => {
-      rejectOrResolve(rs, rj, cb, err, value);
-    });
-  });
+  return client
+    .hSet(hash, valueKey, value instanceof Object ? JSON.stringify(value) : value)
+    .then(() => resolve(value, cb), e => reject(e, cb));
 }
 
 function ttl(svc, namespace, identifier, key, cb) {
@@ -176,42 +172,26 @@ function del(svc, namespace, identifier, cb) {
 
   const hashKey = getHashKey(prefix, namespace, identifier);
 
-  return new Promise((rs, rj) => {
-    client.del(hashKey, (err, value) => {
-      rejectOrResolve(rs, rj, cb, err, value);
-    });
-  });
+  return client.del(hashKey).then(() => resolve(null, cb), e => reject(e, cb));
 }
 
-function hashReset(svc, namespace, identifier, expire, cb) {
+async function hashReset(svc, namespace, identifier, expire, cb) {
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const hash = getHashKey(prefix, namespace, identifier);
 
-  return new Promise((rs, rj) => {
-    client.del(hash, err1 => {
-      if (err1) {
-        return reject(rj, cb, err1);
-      }
+  try {
+    await client.del(hash);
+    await client.hSet(hash, '', '');
+    await client.expire(hash, expire);
+  } catch (e) {
+    return reject(e, cb);
+  }
 
-      // set a random value to initialize hash expiry
-      client.hset(hash, '', '', err2 => {
-        if (err2) {
-          return reject(rj, cb, err2);
-        }
-
-        client.expire(hash, expire, err3 => {
-          if (err3) {
-            return reject(rj, cb, err3);
-          }
-          resolve(rs, cb);
-        });
-      });
-    });
-  });
+  return resolve(null, cb);
 }
 
 async function clearAll(svc) {
@@ -220,21 +200,15 @@ async function clearAll(svc) {
     prefix
   } = svc;
 
-  return new Promise((rs, rj) => {
-    client.keys(`${prefix}:*`, (err, keys) => {
-      if (err) return rj(err);
+  let count = 0;
+  for (const key of await client.keys(`${prefix}:*`)) {
+    try {
+      await client.del(key);
+      count += 1;
+    } catch (e) { /* */ }
+  }
 
-      Promise.all(keys.map(key => new Promise((rs2, rj2) => {
-        client.del(key, (err2, value) => {
-          if (err) return rj2(err2);
-          rs2(value);
-        });
-      }))).then(results => {
-        log('cleared all %s stored items', results.length);
-        rs();
-      });
-    });
-  });
+  log('cleared all %s stored items', count);
 }
 
 module.exports = c => {

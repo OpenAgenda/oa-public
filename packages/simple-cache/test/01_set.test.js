@@ -6,28 +6,38 @@ const sCache = require('..');
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
 };
 
 describe('simple-cache - functional (service): set', () => {
   let cache;
   let cli;
 
-  beforeAll(() => {
-    cli = redis.createClient(config.redis.port, config.redis.host);
-  });
-
-  beforeAll(() => {
-    cache = sCache(config);
-  });
-
-  beforeEach(() => new Promise(rs => {
-    cli.keys(`${config.prefix}*`, (err, keys) => {
-      cli.del(keys.join(' '), rs);
+  beforeAll(async () => {
+    cli = redis.createClient({
+      socket: {
+        host: config.redis.host,
+        port: config.redis.port,
+      },
     });
-  }));
+
+    await cli.connect();
+  });
+
+  beforeAll(() => {
+    cache = sCache({
+      ...config,
+      client: cli,
+    });
+  });
+
+  beforeEach(async () => cli.del(
+    await cli
+      .keys(`${config.prefix}*`)
+      .then(k => k.join(' ')),
+  ));
 
   afterAll(() => cli.quit());
 
@@ -35,39 +45,32 @@ describe('simple-cache - functional (service): set', () => {
     it('set without specifying a key', async () => {
       await cache('blob', 123).set('value', 1);
 
-      return new Promise(rs => {
-        cli.get(`${config.prefix}:blob:123`, (err, value) => {
-          expect(value).toBe('value');
-          rs();
-        });
-      });
+      const value = await cli.get(`${config.prefix}:blob:123`);
+
+      expect(value).toBe('value');
     });
 
     it('set without specifying an identifier', async () => {
       await cache('blarb').set('train', 1);
 
-      return new Promise(rs => {
-        cli.get(`${config.prefix}:blarb`, (err, value) => {
-          expect(value).toBe('train');
-          rs();
-        });
-      });
+      const value = await cli.get(`${config.prefix}:blarb`);
+
+      expect(value).toBe('train');
     });
 
     it(
       'set stores value in specific namespace, id, key redis key',
-      () => new Promise(rs => {
-        cli.get(`${config.prefix}:agenda:123`, (err, value) => {
-          expect(value).toBeNull();
+      async () => {
+        const value = await cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`);
 
-          cache('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>', 1).then(() => {
-            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`, (_err2, value2) => {
-              expect(value2).toBe('<html>Chiiriie!</html>');
-              rs();
-            });
-          });
-        });
-      })
+        expect(value).toBeNull();
+
+        await cache('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>', 1);
+
+        const updatedValue = await cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`);
+
+        expect(updatedValue).toBe('<html>Chiiriie!</html>');
+      },
     );
   });
 
@@ -75,17 +78,17 @@ describe('simple-cache - functional (service): set', () => {
     it(
       'set stores value in specific namespace, id, key redis key',
       () => new Promise(rs => {
-        cli.get(`${config.prefix}:agenda:123`, (err, value) => {
+        cli.get(`${config.prefix}:agenda:123`).then(value => {
           expect(value).toBeNull();
 
           cache('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>', 1, _err => {
-            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`, (_err2, value2) => {
+            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`).then(value2 => {
               expect(value2).toBe('<html>Chiiriie!</html>');
               rs();
             });
           });
         });
-      })
+      }),
     );
 
     it(
@@ -93,13 +96,13 @@ describe('simple-cache - functional (service): set', () => {
       () => new Promise(rs => {
         cache('agenda', 123).set('http://ponceau.paris', '<html>Blob</html>', 1, _err => {
           setTimeout(() => {
-            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`, (_err2, value) => {
+            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`).then(value => {
               expect(value).toBe(null);
               rs();
             });
           }, 2000);
         });
-      })
+      }),
     );
   });
 });

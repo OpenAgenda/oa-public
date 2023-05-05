@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
-    "redis": "^2.7.1"
+    "redis": "^4.6.6"
   },
   "devDependencies": {
     "jest": "^28.1.2"
