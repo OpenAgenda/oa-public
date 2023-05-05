@@ -3,30 +3,30 @@
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const ih = require( 'immutability-helper' );
-const express = require( 'express' );
 const sa = require( 'superagent' );
 const base64 = require( '@openagenda/utils/base64' );
 const config = require( '../testconfig' );
 const sessions = require( '../src/service' );
-const cookieParser = require( 'cookie-parser' );
-const validate = require( '../src/iso/cookie.validate' );
 const helpers = require( './lib/helpers' );
 
 const mw = sessions.mw;
 
 describe( 'session - functional (server): middleware', () => {
-
   let server;
+  let client;
 
-  beforeEach( () => {
+  beforeEach(async () => {
+    client = await helpers.createClient(config.redis);
+  });
 
-    sessions.init( config );
+  beforeEach(() => helpers.clearRedis(config.redis, client));
 
-    helpers.init( config );
+  beforeEach(() => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
 
-  } );
-
-  afterEach( () => sessions.shutdown() );
+  afterEach(() => client.quit());
 
   describe( '.sync', () => {
 
@@ -139,7 +139,7 @@ describe( 'session - functional (server): middleware', () => {
 
           sessions.get( req, ( err, session ) => {
 
-            session.should.eql( {
+            _.omit(session, ['expires']).should.eql( {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
@@ -147,7 +147,8 @@ describe( 'session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity
+              latestActivity: session.latestActivity,
+              isBlacklisted: false,
             } );
 
             res.send( 'ok' );
@@ -183,10 +184,10 @@ describe( 'session - functional (server): middleware', () => {
             req.result.success.should.equal( true );
 
             // resut will contain result of session open operation
-            req.result.cookieData.should.eql( {
+            _.omit(req.result.cookieData, ['expires']).should.eql( {
               user: {
                 culture: 'fr',
-                uid: 12345678,
+                uid: 123,
                 name: 'Gaetan Latouche',
                 thumbnail: '//graph.facebook.com/100002280111541/picture'
               }
@@ -200,15 +201,16 @@ describe( 'session - functional (server): middleware', () => {
 
           sessions.get( req, ( err, session ) => {
 
-            session.should.eql( {
+            _.omit(session, ['expires']).should.eql( {
               culture: 'fr',
-              uid: 12345678,
+              uid: 123,
               name: 'Gaetan Latouche',
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               isNew: false,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity
+              latestActivity: session.latestActivity,
+              isBlacklisted: false,
             } );
 
             res.send( 'ok' )
@@ -242,7 +244,7 @@ describe( 'session - functional (server): middleware', () => {
 
     let server;
 
-    beforeEach( helpers.clearRedis );
+    beforeEach(() => helpers.clearRedis(config.redis, client));
 
     afterEach( done => server.close( done.bind( null ) ) );
 
@@ -471,15 +473,16 @@ describe( 'session - functional (server): middleware', () => {
           mw.load(),
           ( req, res ) => {
 
-            req.user.should.eql( {
+            _.omit(req.user, ['expires']).should.eql( {
               culture: 'fr',
-              uid: 12345678,
+              uid: 123,
               name: 'Gaetan Latouche',
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
               isNew: false,
-              latestActivity: req.user.latestActivity
+              latestActivity: req.user.latestActivity,
+              isBlacklisted: false,
             } );
 
             res.send( 'ok' );
@@ -510,14 +513,15 @@ describe( 'session - functional (server): middleware', () => {
           mw.load( { detailed: true } ),
           ( req, res ) => {
 
-            _.omit( req.user, [ 'latestActivity' ] ).should.eql( {
+            _.omit( req.user, [ 'latestActivity', 'expires' ] ).should.eql( {
               id: 1,
               culture: 'fr',
-              uid: 12345678,
+              uid: 123,
               name: 'Gaetan Latouche',
               isNew: false,
               thumbnail: '//graph.facebook.com/100002280111541/picture',
-              email: 'gaetan@cibul.net'
+              email: 'gaetan@cibul.net',
+              isBlacklisted: false,
             } );
 
             res.send( 'ok' );

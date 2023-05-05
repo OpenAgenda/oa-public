@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, redisCommand } = require( './helpers' );
+const { cleanSession, callbackify } = require( './helpers' );
 const log = require( '@openagenda/logs' )( 'close' );
 const _ = require( 'lodash' );
 
@@ -11,8 +11,8 @@ module.exports = ( request, cb ) => {
 
 }
 
-async function closeByUid(uid) {
-  return redisCommand('del', [ config.redis.prefix, uid ].join( ':' ));
+function closeByUid(uid) {
+  return config.redisClient.del([config.redis.prefix, uid].join(':'))
 }
 
 async function close( request ) {

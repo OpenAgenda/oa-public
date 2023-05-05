@@ -7,8 +7,6 @@ const express = require( 'express' );
 let config;
 
 module.exports = {
-  init: c => config = c,
-  clearRedis,
   redisHGet,
   redisGet,
   roundTrip,
@@ -54,22 +52,25 @@ function roundTrip( req, res ) {
 
 }
 
-function clearRedis( cb ) {
+module.exports.clearRedis = async function clearRedis(redisConfig, client) {
+  const keys = await client.keys(`${redisConfig.prefix}:*`);
 
-  let cli = _createClient();
+  for (const key of keys) {
+    await client.del(key);
+  }
+}
 
-  cli.keys( config.redis.prefix + ':*', ( err, result ) => {
+module.exports.createClient = async function createClient(redisConfig) {
+  const client = await redis.createClient({
+    socket: {
+      port: redisConfig.port,
+      host: redisConfig.host
+    },
+  });
 
-    async.each( result, cli.del.bind( cli, config.redis.prefix ), err => {
+  await client.connect();
 
-      cli.quit();
-
-      cb();
-
-    } );
-
-  } );
-
+  return client;
 }
 
 function redisHGet( hash, key, cb ) {
@@ -97,12 +98,5 @@ function redisGet( key, cb ) {
     cb( err, result );
 
   } );
-
-}
-
-
-function _createClient() {
-
-  return redis.createClient( config.redis.port, config.redis.host );
 
 }

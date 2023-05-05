@@ -1,36 +1,35 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const should = require( 'should' );
 const sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
 
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
 describe( 'session - functional (server): get', () => {
-
-  h.init( config );
-
+  let client;
   let request;
 
-  beforeEach( h.clearRedis );
+  beforeEach(async () => {
+    client = await h.createClient(config.redis);
+  });
 
-  beforeEach( () => sessions.init( config ) );
 
+  beforeEach(() => h.clearRedis(config.redis, client));
+
+  beforeEach( () => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
+  
   beforeEach( () => {
-
     request = { cookies: {}, session: {} };
 
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
-
   } );
-
-  afterEach( () => sessions.shutdown() );
+  
+  afterEach(() => client.quit());
 
   it( 'get takes request and calls back with session data', done => {
 
@@ -57,13 +56,13 @@ describe( 'session - functional (server): get', () => {
 
         .should.eql( {
           id: 1,
-          uid: 12345678,
+          uid: 1234,
           email: 'gaetan@cibul.net',
           culture: 'fr',
           isNew: false,
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture',
-          isBlacklisted: null
+          isBlacklisted: false
         } );
 
         done();
@@ -89,7 +88,7 @@ describe( 'session - functional (server): get', () => {
           email: 'gaetan@cibul.net',
           uid: 12345678,
           isNew: false,
-          isBlacklisted: null,
+          isBlacklisted: false,
           culture: 'fr',
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture'

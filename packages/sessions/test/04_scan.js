@@ -13,40 +13,30 @@ const h = require( './lib/helpers' );
 const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
 
 describe( 'session - functional (server): scan', () => {
-
-  h.init( config );
-
+  let client;
   let request;
 
-  beforeEach( h.clearRedis );
+  beforeEach(async () => {
+    client = await h.createClient(config.redis);
+  });
 
-  beforeEach( () => {
+  beforeEach(() => h.clearRedis(config.redis, client));
 
-    sessions.init( _.extend( {}, config, {
-      interfaces: {
-        getUser: ( query, cb ) => {
+  beforeEach(() => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
 
-          cb( null, users[ query.uid ] );
-
-        }
-      }
-    } ) );
-
-  } );
-
-  afterEach( () => sessions.shutdown() );
-
-  beforeEach( () => {
-
+  beforeEach(() => {
     request = {
       cookies: {},
       session: {}
     };
 
-    request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
+    request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
+  });
 
-  } );
-
+  afterEach(() => client.quit());
 
   beforeEach( done => {
 
@@ -70,7 +60,6 @@ describe( 'session - functional (server): scan', () => {
   it( 'scans through open sessions', done => {
 
     sessions.scan( 0, 2, ( err, sessions, nextCursor ) => {
-
       try {
 
         should( err ).equal( null );
@@ -100,7 +89,7 @@ describe( 'session - functional (server): scan', () => {
 
       done();
 
-    } );
+    } );1
 
   } );
 

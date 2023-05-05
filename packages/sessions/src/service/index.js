@@ -12,7 +12,6 @@ const open = require( './open' );
 const close = require( './close' );
 const scan = require( './scan' );
 const sync = require( './sync' );
-const helpers = require( './helpers/index' );
 
 let config, interfaces;
 
@@ -20,7 +19,6 @@ let log = console.log;
 
 module.exports = {
   init,
-  shutdown,
   open,
   get,
   scan,
@@ -83,8 +81,7 @@ function init( c ) {
     logger.setModuleConfig( c.logger );
 
   }
-
-  helpers.init();
+;
 
   [ get, open, close, sync, scan ].forEach( end => {
 
@@ -99,11 +96,5 @@ function init( c ) {
   mw.init( config, module.exports );
 
   expressCookie.init( config );
-
-}
-
-function shutdown( c ) {
-
-  helpers.shutdown();
 
 }

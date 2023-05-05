@@ -24,7 +24,7 @@
     "cookies-js": "^1.2.3",
     "core-js": "^3.29.1",
     "lodash": "^4.17.15",
-    "redis": "^2.6.3",
+    "redis": "^4.6.6",
     "regenerator-runtime": "^0.13.7",
     "when": "^3.7.8"
   },

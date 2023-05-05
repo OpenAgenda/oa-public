@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, redisCommand } = require( './helpers' );
+const { cleanSession, callbackify } = require( './helpers' );
 const log = require( '@openagenda/logs' )( 'get' );
 const _ = require( 'lodash' );
 
@@ -49,7 +49,11 @@ async function _getFromRequest( request, options = {} ) {
 
 async function _getFromUid( uid, options = {} ) {
 
-  let result = await redisCommand( 'get', [  config.redis.prefix, uid ].join( ':' ) );
+  const {
+    redisClient,
+  } = config;
+
+  let result = await redisClient.get([config.redis.prefix, uid].join(':'));
 
   if ( !result ) return null;
 
