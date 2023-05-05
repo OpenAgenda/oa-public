@@ -8,9 +8,9 @@ const prefix = process.env.PREFIX;
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix
+  prefix,
 };
 
 describe('simple-cache - functional (service): clear all', () => {
@@ -54,6 +54,6 @@ describe('simple-cache - functional (service): clear all', () => {
       const keys = await cli.keys(`${prefix}*`);
 
       expect(keys.length).toBe(0);
-    }
+    },
   );
 });

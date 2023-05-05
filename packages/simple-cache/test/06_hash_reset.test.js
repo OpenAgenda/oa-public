@@ -6,9 +6,9 @@ const sCache = require('..');
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
 };
 
 describe('simple-cache - functional (service): hash del', () => {
@@ -49,11 +49,11 @@ describe('simple-cache - functional (service): hash del', () => {
 
     await cache.hash(ns, id).set('key', 'value');
 
-    await (new Promise(rs => setTimeout(rs, 1000)));
+    await new Promise(rs => setTimeout(rs, 1000));
 
     expect(await cache.hash(ns, id).get('key')).toBe('value');
 
-    await (new Promise(rs => setTimeout(rs, 1001)));
+    await new Promise(rs => setTimeout(rs, 1001));
 
     expect(await cache.hash(ns, id).get('key')).toBe(null);
   });

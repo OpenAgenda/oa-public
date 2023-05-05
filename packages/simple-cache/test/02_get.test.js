@@ -5,9 +5,9 @@ const redis = require('redis');
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
 };
 
 const sCache = require('..');
@@ -104,7 +104,7 @@ describe('simple-cache - functional (service): get', () => {
           expect(value).toBeNull();
           rs();
         });
-      })
+      }),
     );
   });
 });

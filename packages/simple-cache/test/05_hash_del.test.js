@@ -6,9 +6,9 @@ const sCache = require('..');
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
 };
 
 describe('simple-cache - functional (service): hash del', () => {

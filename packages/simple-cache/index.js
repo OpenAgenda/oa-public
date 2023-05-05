@@ -8,8 +8,24 @@ const log = logger('index');
 const stringifyKey = keyObj => JSON.stringify(
   Object.keys(keyObj || {})
     .sort()
-    .reduce((sorted, key) => Object.assign(sorted, { [key]: keyObj[key] }), {})
+    .reduce((sorted, key) => Object.assign(sorted, { [key]: keyObj[key] }), {}),
 );
+
+const resolve = (v, cb) => {
+  if (cb) {
+    cb(null, v);
+  } else {
+    return v;
+  }
+};
+
+const reject = (e, cb) => {
+  if (cb) {
+    cb(e);
+  } else {
+    throw e;
+  }
+};
 
 function rejectOrResolve(rs, rj, cb, err, value) {
   if (err) {
@@ -44,23 +60,6 @@ const getRedisKey = (prefix, namespace, identifier = null, key = null) => {
 
 const getValueKey = (key = '') => (key instanceof Object ? stringifyKey(key) : key);
 
-
-const resolve = (v, cb) => {
-  if (cb) {
-    cb(null, v)
-  } else {
-    return v;
-  }
-}
-
-const reject = (e, cb) => {
-  if (cb) {
-    cb(e);
-  } else {
-    throw e;
-  }
-}
-
 function get(...args) {
   const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
   const [svc, namespace, identifier, key] = args;
@@ -86,7 +85,7 @@ function set(...args) {
 
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
@@ -97,15 +96,15 @@ function set(...args) {
 }
 
 async function hget(...args) {
-  const options = typeof (args[args.length - 1]) === 'object' ? args.pop() : {};
+  const options = typeof args[args.length - 1] === 'object' ? args.pop() : {};
   const [svc, namespace, identifier, key] = args;
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const {
-    json = false
+    json = false,
   } = options;
 
   const hash = getHashKey(prefix, namespace, identifier);
@@ -128,7 +127,7 @@ async function hget(...args) {
 }
 
 function hset(...args) {
-  const cb = typeof (args[args.length - 1]) === 'function' ? args.pop() : null;
+  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
   const [svc, namespace, identifier] = args;
 
   const key = args.length === 5 ? args[3] : '';
@@ -136,7 +135,7 @@ function hset(...args) {
 
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const hash = getHashKey(prefix, namespace, identifier);
@@ -152,7 +151,7 @@ function hset(...args) {
 function ttl(svc, namespace, identifier, key, cb) {
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
@@ -167,7 +166,7 @@ function ttl(svc, namespace, identifier, key, cb) {
 function del(svc, namespace, identifier, cb) {
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   const hashKey = getHashKey(prefix, namespace, identifier);
@@ -197,7 +196,7 @@ async function hashReset(svc, namespace, identifier, expire, cb) {
 async function clearAll(svc) {
   const {
     client,
-    prefix
+    prefix,
   } = svc;
 
   let count = 0;
@@ -227,14 +226,14 @@ module.exports = c => {
     get: get.bind(null, { client, prefix }, namespace, identifier),
     set: set.bind(null, { client, prefix }, namespace, identifier),
     ttl: ttl.bind(null, { client, prefix }, namespace, identifier),
-    del: del.bind(null, { client, prefix }, namespace, identifier)
+    del: del.bind(null, { client, prefix }, namespace, identifier),
   }), {
     hash: (namespace, identifier = null) => ({
       get: hget.bind(null, { client, prefix }, namespace, identifier),
       set: hset.bind(null, { client, prefix }, namespace, identifier),
       del: del.bind(null, { client, prefix }, namespace, identifier),
-      reset: hashReset.bind(null, { client, prefix }, namespace, identifier)
+      reset: hashReset.bind(null, { client, prefix }, namespace, identifier),
     }),
-    clearAll: clearAll.bind(null, { client, prefix })
+    clearAll: clearAll.bind(null, { client, prefix }),
   });
 };
