@@ -2,41 +2,51 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-const queue = require( '@openagenda/queue' );
+const redis = require('redis');
+const Queues = require( '@openagenda/queues' );
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
-let q;
+
 let service;
 
 describe( 'activities - notifications', () => {
+  let redisClient;
+  let queues;
 
   jest.setTimeout( 30000 );
 
-  beforeEach(() => {
+  beforeAll(async () => {
+    const redisClient = redis.createClient({
+      socket: {
+        host: 'localhost',
+        port: 6379,
+      }
+    });
 
-    q = queue( `${config.queue.names.addActivity}_notifications`, { redis: config.queue.redis } );
-
+    await redisClient.connect();
   });
 
-  beforeEach(done => {
+  afterAll(() => redisClient.quit());
 
-    q.test.clear( `${config.queue.names.addActivity}_notifications`, err => {
-
-      done();
-
-    } );
-
+  beforeEach(async () => {
+    queues = Queues({
+      redis: redisClient,
+      prefix: '04_notifications:'
+    });
+    await queues.clear();
   });
 
   beforeEach(async () => {
 
     service = await Service.initAndLoad({
       ...config,
+      redis,
       knex: knexLib( {
         client: 'mysql',
         connection: config.mysql
       } ),
+      Queues: queues,
       queue: {
         ...config.queue,
         names: {

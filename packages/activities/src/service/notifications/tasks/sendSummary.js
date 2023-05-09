@@ -1,21 +1,29 @@
 "use strict";
 
 const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/sendSummary' );
-const queue = require( '@openagenda/queue' );
 
 require( 'moment/locale/fr' );
 
 module.exports = config => {
-  const q = queue( config.queue.names.sendSummary, { redis: config.queue.redis } );
+  const {
+    redis: redisClient
+  } = config;
 
-  return Object.assign( q, { task: task.bind(null, config, q) } );
+  return Object.assign(function queue(data) {
+    return redisClient.rPush(config.queue.names.sendSummary, JSON.stringify(data));
+  }, {
+    task: task.bind(null, config)
+  });
 };
 
-async function task( config, q ) {
-
+async function task(config) {
   let summary;
 
-  while ( summary = await q.pop() ) {
+  const {
+    redis: redisClient
+  } = config;
+
+  while (summary = await redisClient.lPop(config.queue.names.sendSummary)) {
 
     try {
 

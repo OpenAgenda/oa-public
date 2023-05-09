@@ -19,6 +19,10 @@ module.exports = Service;
 async function Service(c) {
   const config = c;
 
+  config.queues = config.queues ?? {
+    addActivity: c.Queues(config.queue.names.addActivity),
+  };
+
   logger.setModuleConfig(c.logger);
 
   Object.assign(config.knex.client.config, {
@@ -44,7 +48,6 @@ async function Service(c) {
   const service = config.service = {};
 
   return Object.assign(service, {
-    shutdown: () => config.knex.destroy(),
     feed: feed.bind(null, config),
     feeds: feeds.bind(null, config),
     activities: Object.assign(

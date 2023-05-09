@@ -1,5 +1,4 @@
 const _ = require( 'lodash' );
-const addActivity = require( './addActivity' );
 const count = require( './count' );
 const get = require( './get' );
 const list = require( './list' );
@@ -9,7 +8,7 @@ const remove = require( './remove' );
 module.exports = function notifications( config, identifiers ) {
 
   return {
-    addActivity: addActivity( config ).bind( null, identifiers ),
+    addActivity: (identifiers, activity) => config.queues.addActivity('addActivity', { identifiers, activity }),
     count: count.bind( null, config, identifiers ),
     get: get.bind( null, config, identifiers ),
     list: list.bind( null, config, identifiers ),
