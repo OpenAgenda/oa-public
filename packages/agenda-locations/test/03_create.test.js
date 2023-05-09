@@ -51,9 +51,16 @@ describe('agenda-locations - functional - create', () => {
   beforeAll(async () => {
     await f.load();
 
+    const redisClient = await redis.createClient({
+      host: 'localhost',
+      port: 6379,
+    });
+
+    await redisClient.connect();
+
     svc = Service({
       knex: f.client,
-      redis: redis.createClient(),
+      redis: redisClient,
       interfaces: {
         getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
           {
