@@ -44,7 +44,6 @@
     "prop-types": "^15.7.2",
     "react-datepicker": "^1.6.0",
     "react-final-form": "^6.5.3",
-    "redis": "^2.8.0",
     "regenerator-runtime": "^0.13.7",
     "remove-markdown": "^0.3.0",
     "superagent": "^3.8.3"
