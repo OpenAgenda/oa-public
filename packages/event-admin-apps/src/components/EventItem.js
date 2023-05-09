@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 import { useApiClient, MoreInfo } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import toggleEventItemValue from '../utils/toggleEventItemValue';
 import EventStateSelector from './EventStateSelector';
 import EventItemShareLine from './EventItemShareLine';
 
@@ -239,31 +240,13 @@ export default function EventItem({
       featured: value,
     }),
     {
-      onSuccess: (result, value) => {
-        const eventsQuery = queryClient
-          .getQueryCache()
-          .find(['event-admin-apps', 'events', agenda.slug]);
-
-        const queryData = eventsQuery.state.data;
-        const eventIndex = queryData.events.findIndex(
-          v => v.slug === event.slug
-        );
-
-        const eventData = {
-          ...queryData.events[eventIndex],
-          featured: value,
-        };
-
-        queryClient.setQueryData(eventsQuery.queryKey, {
-          ...queryData,
-          events: [
-            ...queryData.events.slice(0, eventIndex),
-            eventData,
-            ...queryData.events.slice(eventIndex + 1),
-          ],
-        });
-      },
-    }
+      onSuccess: toggleEventItemValue({
+        queryClient,
+        key: 'featured',
+        agendaSlug: agenda.slug,
+        eventSlug: event.slug,
+      }),
+    },
   );
 
   const removeFeatured = useCallback(() => mutation.mutate(false), [mutation]);
@@ -399,7 +382,7 @@ export default function EventItem({
       <div className="margin-top-xs">
         <ul className="list-inline">
           <li>
-            <EventStateSelector agenda={agenda} event={event} />
+            <EventStateSelector agenda={agenda} event={event} query={query} page={page} />
           </li>
 
           <li>
