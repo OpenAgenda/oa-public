@@ -1,7 +1,5 @@
 import { promisify } from 'util';
 import _ from 'lodash';
-import VError from '@openagenda/verror';
-import queueLib from '@openagenda/queue';
 import logs from '@openagenda/logs';
 
 const log = logs('inboxes/tasks/sync');
@@ -16,9 +14,9 @@ function upStats(stats, key) {
  * - sync route per agenda
  * - check on admin/stats page
  * - weekly complete task
- * */
+ */
 
-export async function syncUser(svc, user, stats) {
+export async function syncUser(svc, user, stats = {}) {
   // create inbox
   const inboxIdentifiers = { type: 'user', identifier: user.uid };
   const inbox = await new svc.Inbox(inboxIdentifiers).get({
@@ -178,7 +176,7 @@ export async function syncAgenda(svc, agenda, stats) {
   }
 }
 
-export async function defineJob(config, q, stats) {
+export async function defineJob(config, queue, stats) {
   const { services } = config;
 
   const agendasSvc = services.agendas();
@@ -199,7 +197,7 @@ export async function defineJob(config, q, stats) {
 
     for (const user of users) {
       upStats(stats, 'usersToSync');
-      await q({ user });
+      await queue('syncUser', user);
     }
   }
 
@@ -218,65 +216,32 @@ export async function defineJob(config, q, stats) {
 
     for (const agenda of agendas) {
       upStats(stats, 'agendasToSync');
-      await q({ agenda });
+      await queue('syncAgenda', agenda);
     }
   }
 
   log('info', 'Total of %d agendas queued to sync', stats.agendasToSync);
 }
 
-export async function processJob(svc, data, stats) {
-  if (data.user) {
-    await syncUser(svc, data.user, stats);
-  }
-
-  if (data.agenda) {
-    await syncAgenda(svc, data.agenda, stats);
-  }
-}
-
 export default async function syncTask(svc) {
-  const { queues, redis } = svc.config;
+  const { queue } = svc.config;
 
-  const q = queueLib(queues.inboxesSync, { redis });
   const stats = {
     usersToSync: 0,
     agendasToSync: 0,
-    userInboxesCreated: 0,
-    agendaInboxesCreated: 0,
-    inboxUsersAdded: 0,
-    inboxUsersUpdated: 0,
-    inboxUsersRemoved: 0,
+    // userInboxesCreated: 0,
+    // agendaInboxesCreated: 0,
+    // inboxUsersAdded: 0,
+    // inboxUsersUpdated: 0,
+    // inboxUsersRemoved: 0,
   };
 
-  if (!(await q.len())) {
-    try {
-      await defineJob(svc.config, q, stats);
-    } catch (e) {
-      return log('error', 'Error on jobs definition', e);
-    }
+  if (await queue.len()) {
+    log('queue is not empty');
+    return;
   }
 
-  let data;
-  let i = 0;
-  const total = await q.len();
-
-  while ((data = await q.pop())) {
-    try {
-      log('Process job n°%d/%d', i + 1, total);
-      await processJob(svc, data, stats);
-    } catch (e) {
-      log(
-        'error',
-        'Error on sync process: job n°%d:\n%j',
-        i + 1,
-        data,
-        VError.fullStack(e)
-      );
-    }
-
-    i += 1;
-  }
+  await defineJob(svc.config, queue, stats);
 
   log('info', stats);
 }

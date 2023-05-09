@@ -11,7 +11,20 @@ import makeConfig from './config';
 export default async function createService(conf) {
   const config = await makeConfig(conf);
 
+  const {
+    queue,
+  } = config;
+
   const svc = {};
+
+  const syncMethods = {
+    syncUser: tasks.sync.syncUser.bind(null, svc),
+    syncAgenda: tasks.sync.syncAgenda.bind(null, svc),
+  };
+
+  if (queue) {
+    queue.register(syncMethods);
+  }
 
   Object.assign(svc, {
     config,
@@ -23,13 +36,7 @@ export default async function createService(conf) {
     Messages: Messages.bind(null, svc),
     Message: Message.bind(null, svc),
     tasks: {
-      sync: Object.assign(tasks.sync.default.bind(null, svc), {
-        syncTask: tasks.sync.default.bind(null, svc),
-        defineJob: tasks.sync.defineJob.bind(null, svc),
-        processJob: tasks.sync.processJob.bind(null, svc),
-        syncUser: tasks.sync.syncUser.bind(null, svc),
-        syncAgenda: tasks.sync.syncAgenda.bind(null, svc),
-      }),
+      sync: Object.assign(tasks.sync.default.bind(null, svc), syncMethods),
     },
   });
 

@@ -20,7 +20,7 @@ export default async function makeConfig(c) {
     'types',
     'defaultAction',
     'redis',
-    'queues',
+    'queue',
     'defaultImagePath',
     'domain',
     'aws',

@@ -32,7 +32,6 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/verror": "^3.1.0",
     "ajv": "^5.2.2",
@@ -44,7 +43,7 @@
     "lodash": "^4.17.15",
     "mime-types": "^2.1.25",
     "mysql": "^2.14.1",
-    "redis": "^2.8.0",
+    "redis": "^4.6.6",
     "regenerator-runtime": "^0.13.7",
     "uppy-server": "^0.11.1",
     "uuid": "^3.4.0"
