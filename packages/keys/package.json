@@ -20,7 +20,7 @@
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "lodash": "^4.17.15",
-    "redis": "^2.8.0",
+    "redis": "^4.6.6",
     "uuid": "^3.4.0",
     "when": "^3.7.8"
   },

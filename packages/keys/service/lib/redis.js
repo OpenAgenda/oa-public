@@ -9,13 +9,13 @@ module.exports = {
 
 function set ( key, value ) {
 
-  return config.redis.client.setAsync( _key( key ), value, 'EX', config.cache.duration );
+  return config.redis.client.set( _key( key ), value, 'EX', config.cache.duration );
 
 }
 
 function get ( key ) {
 
-  return config.redis.client.getAsync( _key( key ) );
+  return config.redis.client.get( _key( key ) );
 
 }
 
