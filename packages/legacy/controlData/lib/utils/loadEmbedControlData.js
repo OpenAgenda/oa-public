@@ -1,15 +1,12 @@
 "use strict";
 
-const promisifyRedis = require( './promisifyRedis' );
 const buildEmbedControlData = require( './buildEmbedControlData' );
 
 const log = require( '@openagenda/logs' )( 'controlData/loadEmbedControlData' );
 
 module.exports = async ( { prefix, knex, redis, imagePath }, embedUid ) => {
 
-  const pRedis = promisifyRedis( redis );
-
-  let ctlDataStr = await pRedis.get( prefix + 'embeds:' + embedUid );
+  let ctlDataStr = await redis.get( prefix + 'embeds:' + embedUid );
 
   if ( ctlDataStr ) {
 
@@ -25,7 +22,7 @@ module.exports = async ( { prefix, knex, redis, imagePath }, embedUid ) => {
 
   const stringified = JSON.stringify( embedControlData );
 
-  await pRedis.set( prefix + 'embeds:' + embedUid, stringified );
+  await redis.set( prefix + 'embeds:' + embedUid, stringified );
 
   return stringified;
 

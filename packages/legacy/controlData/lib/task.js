@@ -2,7 +2,6 @@
 
 const log = require( '@openagenda/logs' )( 'legacy/controlData/queue' );
 
-const promisifyRedis = require( './utils/promisifyRedis' );
 const queuables = {
   batch: require( './batch' ),
   batchRemove: require( './batchRemove' ),
@@ -20,18 +19,20 @@ module.exports = async config => {
 
   const { redis, prefix } = config;
 
-  const taskRedis = promisifyRedis( redis.duplicate() );
+  const taskRedis = redis.duplicate();
+
+  await taskRedis.connect();
 
   let blPopResult;
 
-  while ( blPopResult = await taskRedis.blpop( prefix + 'queue', 0 ) ) {
+  while ( blPopResult = await taskRedis.blPop( prefix + 'queue', 0 ) ) {
 
     try {
 
       const {
         operation,
         args
-      } = JSON.parse( blPopResult[ 1 ] );
+      } = JSON.parse( blPopResult.element );
 
       log( 'processing %s', operation );
 
@@ -39,7 +40,7 @@ module.exports = async config => {
 
     } catch ( e ) {
 
-      log( 'error', 'failed to process job %j', blPopResult, e );
+      log( 'error', 'failed to process job %j', blPopResult.element, e );
 
     }
 

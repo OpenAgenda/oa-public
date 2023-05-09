@@ -32,9 +32,8 @@ describe( '01 - control data - insert', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '123' );
-
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.del(config.redisPrefix + '123');
+    await redisClient.quit();
 
     await knex.destroy();
 
@@ -95,24 +94,20 @@ describe( '01 - control data - insert', () => {
 
     } );
 
-    test( 'event data is in redis under right agenda key', done => {
+    test( 'event data is in redis under right agenda key', async () => {
 
-      redisClient.get( config.redisPrefix + '123', ( err, stored ) => {
+      const stored = await redisClient.get( config.redisPrefix + '123');
 
-        expect( _.pick( JSON.parse( stored ).ev[ 0 ], [ 'u', 's', 'tz', 'l', 'd', 'c', 't' ] ) )
-          .toEqual( {
-            u: 1,
-            s: 'an-event',
-            tz: 'Europe/Paris',
-            l: 123,
-            d: [ '2018-12-20' ],
-            t: [ 'photographie', 'peinture' ],
-            c: 'exposition'
-          } );
-
-        done();
-
-      } );
+      expect( _.pick( JSON.parse( stored ).ev[ 0 ], [ 'u', 's', 'tz', 'l', 'd', 'c', 't' ] ) )
+        .toEqual( {
+          u: 1,
+          s: 'an-event',
+          tz: 'Europe/Paris',
+          l: 123,
+          d: [ '2018-12-20' ],
+          t: [ 'photographie', 'peinture' ],
+          c: 'exposition'
+        } );
 
     } );
 
@@ -147,7 +142,7 @@ describe( '01 - control data - insert', () => {
         } ]
       } );
 
-      updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' ) );
+      updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '123' ) );
 
     } );
 
@@ -170,7 +165,7 @@ describe( '01 - control data - insert', () => {
 
       await service.clear( 123 );
 
-      const data = await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' );
+      const data = await redisClient.get( config.redisPrefix + '123' );
 
       expect( data ).toBe( null );
 
