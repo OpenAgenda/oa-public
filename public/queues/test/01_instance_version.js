@@ -2,23 +2,26 @@
 
 const should = require( 'should' );
 
-const queues = require( '../' );
+const queues = require( '..' );
 const redis = require( 'redis' );
-const promisifyRedis = require( '../utils/promisifyRedis' );
 
 describe( 'instance version', () => {
 
-  let q, pRedis;
+  let q;
+  let redisCli;
 
   beforeEach( async () => {
 
-    const redisCli = redis.createClient();
+    redisCli = redis.createClient({
+      host: 'localhost',
+      port: 6379,
+    });
 
-    const v2Queues = queues.v2( { redis: redisCli, prefix: 'v2q:' } );
+    await redisCli.connect();
+
+    const v2Queues = queues( { redis: redisCli, prefix: 'v2q:' } );
 
     q = v2Queues( '02_instance_version' );
-
-    pRedis = promisifyRedis( redisCli );
 
   } );
 
@@ -27,7 +30,7 @@ describe( 'instance version', () => {
     await q.stop();
     await q.clear();
 
-    await pRedis.quit();
+    await redisCli.quit();
 
   } );
 
@@ -36,7 +39,11 @@ describe( 'instance version', () => {
     await q( 'doThing', 1, 2, 3 );
 
     (
-      await pRedis.lpop( 'v2q:02_instance_version' )
+      await q.len()
+    ).should.equal(1);
+
+    (
+      await redisCli.lPop( 'v2q:02_instance_version' )
     ).should.equal(
       '{"method":"doThing","args":[1,2,3]}'
     );

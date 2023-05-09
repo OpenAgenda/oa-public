@@ -5,8 +5,6 @@ const logs = require('@openagenda/logs');
 
 const log = logs('index');
 
-const promisifyRedis = require('./utils/promisifyRedis');
-
 module.exports = function({ redis, prefix, logger }) {
   if (logger) {
     logs.setModuleConfig(logger);
@@ -22,9 +20,7 @@ function Queue(redis, queueName, methods = {}, options = {}) {
 
   let taskRedisCli = null;
 
-  const pRedis = promisifyRedis(redis);
-
-  const queueMethods = Object.assign(queue.bind(null, pRedis, queueName), {
+  const queueMethods = Object.assign(queue.bind(null, redis, queueName, uniqueProcessId), {
     run: () => {
       log('%s (%s): run', queueName, uniqueProcessId);
       taskRedisCli = run(redis, queueName, uniqueProcessId, methods, ons);
@@ -38,7 +34,7 @@ function Queue(redis, queueName, methods = {}, options = {}) {
   queueMethods.stop = async (options = {}) => {
     if (!taskRedisCli) return;
     log('%s (%s): stopping', queueName, uniqueProcessId);
-    await pRedis.lpush(queueName, STOP);
+    await redis.lPush(queueName, STOP);
     taskRedisCli = null;
 
     if (options.clear) {
@@ -59,30 +55,36 @@ function Queue(redis, queueName, methods = {}, options = {}) {
     return queueMethods;
   };
 
-  queueMethods.clear = () => pRedis.del(queueName);
+  queueMethods.clear = () => redis.del(queueName);
+
+  queueMethods.len = () => redis.lLen(queueName);
 
   return queueMethods;
 }
 
-function queue(pRedis, queueName, method, ...args) {
-  return pRedis.rpush(queueName, JSON.stringify({ method, args }));
+function queue(redis, queueName, uniqueProcessId, method, ...args) {
+  log('%s (%s): pushing', queueName, uniqueProcessId);
+  return redis.rPush(queueName, JSON.stringify({ method, args }));
 }
 
-async function blpop(pRedis, queueName, uniqueProcessId) {
+async function blpop(redis, queueName, uniqueProcessId) {
   log('%s (%s): waiting for next pop', queueName, uniqueProcessId);
-  const next = await pRedis.blpop(queueName, 0)
+  const { element: next } = await redis.blPop(queueName, 0);
   log('%s (%s): blpopped', queueName, uniqueProcessId);
   return next;
 }
 
 function run(redis, queueName, uniqueProcessId, methods, ons = {}) {
-  const pRedis = promisifyRedis(redis.duplicate());
+  const dRedis = redis.duplicate();
 
   (async () => {
+    await dRedis.connect();
+
     let blPopResult;
 
-    while (blPopResult = await blpop(pRedis, queueName, uniqueProcessId)) {
-      if (blPopResult[1] === STOP) {
+    log('%s: running blpop loop')
+    while (blPopResult = await blpop(dRedis, queueName, uniqueProcessId)) {
+      if (blPopResult === STOP) {
         stop();
         break;
       }
@@ -92,7 +94,7 @@ function run(redis, queueName, uniqueProcessId, methods, ons = {}) {
       let args = null;
 
       try {
-        const popped = JSON.parse(blPopResult[1]);
+        const popped = JSON.parse(blPopResult);
         methodName = popped.method;
         args = popped.args;
 
@@ -127,11 +129,11 @@ function run(redis, queueName, uniqueProcessId, methods, ons = {}) {
 
   async function stop() {
     log('%s (%s): quitting queue', queueName, uniqueProcessId);
-    await pRedis.quit();
+    await dRedis.quit();
     try {
       ons.finish ? ons.finish() : null;
     } catch (e) {}
   }
 
-  return pRedis;
+  return dRedis;
 }

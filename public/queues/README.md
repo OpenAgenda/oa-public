@@ -11,7 +11,7 @@ A service instance is used as a factory of queues defined by their namespaces. T
 
     const queues = require( '@openagenda/queues' );
 
-    const v2Queues = queues.v2( {
+    const v2Queues = queues( {
       redis: aRedisClient,
       prefix: 'aprefixforallv2queues:'
     } );
