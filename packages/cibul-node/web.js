@@ -20,7 +20,7 @@ module.exports = app => {
   require('./services/abilities')(app);
   require('./services/mails/unsubscription')(app);
   require('./event/files')(app);
-  require('./services/agendaDocx')(app);
+  app.services.agendaDocx.plugApp(app);
   require('./services/agendaCalendar')(app);
   require('./home/back')(app);
   require('./general/front')(app);

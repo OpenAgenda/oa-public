@@ -2,23 +2,17 @@
 
 const redis = require('redis');
 
-function createClient(redisConfig) {
-  return redis.createClient(
-    redisConfig.port,
-    redisConfig.host,
-  );
-}
-
-async function createCluster(redisConfig) {
-  const cluster = createCluster(redisConfig.params);
-
-  await cluster.connect();
-
-  return cluster;
-}
-
 module.exports.init = async config => {
-  const redisClient = config.redis.clusterMode ? await createCluster(config.redis) : createClient(config.redis);
+  const redisClient = await (
+    config.redis.clusterMode ? redis.createCluster(config.redis.params) : redis.createClient({
+      socket: {
+        host: config.redis.host,
+        port: config.redis.port,
+      },
+    })
+  );
+
+  await redisClient.connect();
 
   config.redisClient = redisClient;
 

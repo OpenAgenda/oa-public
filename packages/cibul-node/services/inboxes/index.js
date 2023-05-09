@@ -20,6 +20,11 @@ log.setConfig(loggerConfig);
 const getApp = require('./getApp');
 
 module.exports.init = async (c, services) => {
+  const {
+    queues,
+    redis,
+  } = services;
+
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
     onMessageCreate: onMessageCreate.bind(null, services),
@@ -28,6 +33,8 @@ module.exports.init = async (c, services) => {
     onInboxCreate,
     filterAction,
   };
+
+  const queue = queues(config.queues.inboxesSync);
 
   const service = await inboxes(
     _.merge(
@@ -41,7 +48,6 @@ module.exports.init = async (c, services) => {
         'schemas.inboxConversation',
         'schemas.message',
         'schemas.messageAttachment',
-        'queues.inboxesSync',
         'aws',
         'uppy',
       ]),
@@ -55,6 +61,8 @@ module.exports.init = async (c, services) => {
           members: () => services.members,
           users: () => services.users,
         },
+        redis,
+        queue,
         interfaces,
         defaultAction: {
           code: 'default',
@@ -200,6 +208,11 @@ module.exports.init = async (c, services) => {
 
   Object.assign(service, {
     getApp: getApp.bind(null, c, services),
+    task: () => queue.run(),
+    shutdown: (options = {}) => queue.stop({
+      remove: true,
+      clear: options.reset ?? false,
+    }),
   });
 
   Object.assign(module.exports, service);

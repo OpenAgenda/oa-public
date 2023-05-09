@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const rateLimit = require('express-rate-limit');
 const RedisStore = require('rate-limit-redis');
 
@@ -16,7 +15,7 @@ function RateLimit(_config, services) {
     legacyHeaders: false,
     resetExpiryOnChange: true,
     store: new RedisStore({
-      sendCommand: (command, ...args) => promisify(redis.sendCommand).call(redis, command, args),
+      sendCommand: (...args) => redis.sendCommand(args),
     }),
   });
 

@@ -1,18 +1,20 @@
 "use strict";
 
-const { promisify } = require('util');
+const logs = require('@openagenda/logs');
 const cmn = require('../../lib/commons-app');
 
 const ANNOUNCEMENT_KEY = 'oa:announcement';
+
+const log = logs('services/supervisor/announcements');
 
 module.exports = {
   init,
   plugApp
 };
 
-function init(config) {
+function init(config, services) {
   return new Announcements({
-    redisClient: config.redisClient
+    redisClient: services.redis,
   });
 }
 
@@ -50,27 +52,23 @@ function plugApp(app, base = '/announcement') {
 
 class Announcements {
   constructor(config) {
-    this.redisClient = new Proxy(config.redisClient, {
-      get(target, propKey) {
-        if (typeof target[propKey] === 'function') {
-          return promisify(target[propKey]).bind(target);
-        }
-        return target[propKey];
-      },
-    })
+    this.redisClient = config.redisClient;
   }
 
   async set(data) {
+    log('setting');
     return this.redisClient.set(ANNOUNCEMENT_KEY, JSON.stringify(data));
   }
 
   async get() {
+    log('getting');
     const announcement = await this.redisClient.get(ANNOUNCEMENT_KEY);
 
     return announcement ? JSON.parse(announcement) : announcement;
   }
 
   async remove() {
+    log('removing');
     return this.redisClient.del(ANNOUNCEMENT_KEY);
   }
 }

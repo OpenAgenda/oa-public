@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const keys = require('@openagenda/keys');
 
-module.exports.init = async config => {
+module.exports.init = async (config, services) => {
   await keys.init({
     mysql: config.db,
     knex: config.knex,
@@ -12,7 +12,8 @@ module.exports.init = async config => {
       tableName: 'key_migrations',
     },
     redis: {
-      connection: config.redis,
+      client: services.redis,
+      prefix: 'keys',
     },
     cache: {
       duration: 60,

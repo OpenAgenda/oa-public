@@ -92,7 +92,7 @@ module.exports = (config, core, services) => {
   // services.inboxes.tasks.sync();
 
   // handle interfaces for grouped operations (a remove of a 100 refs queues 100 onRemoves executions)
-  services.agendaEvents.tasks.interfaces({ interval: 10 });
+  services.agendaEvents.task();
 
   services.eventSearch.task();
 
