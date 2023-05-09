@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/queue": "^1.0.1",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "immutability-helper": "^2.2.2",
@@ -19,9 +18,10 @@
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.2",
+    "@openagenda/queues": "^2.0.0",
     "@openagenda/utils": "^1.3.0",
     "mocha": "^7.0.1",
-    "redis": "^2.8.0",
+    "redis": "^4.6.6",
     "should": "^13.2.3"
   },
   "keywords": [],

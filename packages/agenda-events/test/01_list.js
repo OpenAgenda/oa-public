@@ -1,7 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
+const redis = require('redis');
 const assert = require('assert');
+const Queues = require('@openagenda/queues');
 
 const Service = require('../');
 const config = require('../testconfig');
@@ -15,6 +17,7 @@ const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
 
 describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
+  let redisClient;
 
   before(async () => {
     await fixtures(config.mysql, [
@@ -24,9 +27,21 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     ]);
   });
 
+  before(async () => {
+    redisClient = redis.createClient({
+      socket: { host: 'localhost', port: 6379 }
+    });
+
+    await redisClient.connect();
+  });
+
   before(() => {
     svc = Service({
       ...config,
+      queue: Queues({
+        redis: redisClient,
+        prefix: 'agenda-events'
+      })('01_list'),
       interfaces: {
         ...config.interfaces,
         getMembers: async aes => aes.map(ae => _.find(membersFixtures, {
@@ -38,6 +53,8 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       }
     });
   });
+
+  after(async () => redisClient.quit());
 
   it('simple list', async () => {
     const result = await svc(62792452).list(100, 10);
