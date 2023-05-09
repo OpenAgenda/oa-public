@@ -1,23 +1,24 @@
 'use strict';
 
 const _ = require('lodash');
-const config = require('./config');
 const cleanString = require('./lib/cleanString');
 const agendaFiles = require('./lib/agendaFiles');
 const defaultState = require('./defaultState');
 const generateDocument = require('./generateDocument');
-const queue = require('./queue');
 
-async function loop(data) {
+module.exports = async function processGenerateRequest({
+  s3,
+  localTmpPath,
+}, data) {
   const files = agendaFiles({
-    s3: config.s3,
-    bucket: config.s3.bucket,
+    s3,
+    bucket: s3.bucket,
     uid: data.uid,
   });
 
   const state = await files.getJSON('state.json', defaultState);
   const template = (state.templates || []).find(
-    v => v.name === data.templateName
+    v => v.name === data.templateName,
   );
   const templatePath = template ? template.path : 'template.docx';
 
@@ -35,7 +36,7 @@ async function loop(data) {
     const { outputPath, agenda } = await generateDocument({
       agendaUid: data.uid,
       language: 'fr',
-      localTmpPath: config.localTmpPath,
+      localTmpPath,
       templatePath: `${__dirname}/../input.docx`,
       templateContent,
       reducer: template && template.reducer ? template.reducer : state.reducer,
@@ -58,16 +59,4 @@ async function loop(data) {
   state.queued = false;
 
   await files.setJSON('state.json', state);
-}
-
-module.exports = async () => {
-  // loop( await queue.waitAndPop() );
-
-  let data = await queue.waitAndPop().catch(_.noop);
-
-  while (data) {
-    await loop(data).catch(_.noop);
-
-    data = await queue.waitAndPop().catch(_.noop);
-  }
 };
