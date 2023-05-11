@@ -3,14 +3,12 @@
 const redis = require('redis');
 
 module.exports.init = async config => {
-  const redisClient = await (
-    config.redis.clusterMode ? redis.createCluster(config.redis.params) : redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
-    })
-  );
+  const redisClient = config.redis.clusterMode ? redis.createCluster(config.redis.params) : redis.createClient({
+    socket: {
+      host: config.redis.host,
+      port: config.redis.port,
+    },
+  });
 
   await redisClient.connect();
 
