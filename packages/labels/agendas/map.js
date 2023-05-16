@@ -17,7 +17,7 @@ module.exports = {
     "fr": "événements",
     "en": "events",
     "es": "eventos",
-    "de": "veranstaltungen",
+    "de": "Veranstaltungen",
     "ar": "أحداث",
     "br": "kevelet",
     "io": "crwdns12886:0crwdne12886:0",

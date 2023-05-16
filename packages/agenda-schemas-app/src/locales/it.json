@@ -3,5 +3,6 @@
   "AgendaSchema.EmbedSelection.members": "Membri",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.adaptForm": "Adattare la configurazione del modulo eventi",
-  "AgendaSchema.canAddField": "È possibile aggiungere al modulo dell'evento un campo di propria scelta"
+  "AgendaSchema.canAddField": "È possibile aggiungere al modulo dell'evento un campo di propria scelta",
+  "AgendaSchema.eventDetail": "Campo eventi standard"
 }

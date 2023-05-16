@@ -142,7 +142,7 @@ module.exports = {
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
     "en": "There was trouble while saving the data, try again in a short while",
-    "de": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
+    "de": "Es gab ein Problem bei der Datenspeicherung, warten sie einen Moment und versuchen es erneut",
     "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo",

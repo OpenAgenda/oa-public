@@ -89,5 +89,6 @@
   "googleAnalyticsId": "Google Analytics-Tracking-ID",
   "stats": "Statistiken",
   "statsTabDescription": "Stelle Deine Google Analytics-Tracking-ID",
-  "statsDescription": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com"
+  "statsDescription": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
+  "eventStatusKnowMore": "Mehr erfahren"
 }

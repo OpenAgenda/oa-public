@@ -54,7 +54,7 @@
   "aggregator-sources.DefineRules.brokenFilter": "Filtre invalide",
   "aggregator-sources.DefineRules.brokenFilterInfo": "ce filtre fait référence à un champ qui est introuvable. Il a peut-être été supprimé de l'agenda source",
   "aggregator-sources.DefineRules.cancel": "Annuler",
-  "aggregator-sources.DefineRules.caseInsensitive": "Insensilbe à la casse",
+  "aggregator-sources.DefineRules.caseInsensitive": "insensible à la casse",
   "aggregator-sources.DefineRules.caseSensitive": "Sensible à la casse",
   "aggregator-sources.DefineRules.choice": "Champ de l'agenda source",
   "aggregator-sources.DefineRules.choiceFilter": "Filtre à choix {required, select, true {requis} other {}}",

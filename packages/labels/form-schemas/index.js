@@ -66,7 +66,7 @@ module.exports = {
     "en": "Cancel",
     "fr": "Annuler",
     "it": "Annulla",
-    "de": "annulieren",
+    "de": "Annulieren",
     "pl": "Anuluj",
     "es": "anular",
     "br": "Nullañ",

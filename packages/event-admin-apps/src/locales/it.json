@@ -43,7 +43,7 @@
   "EventAdminApp.EventItem.createdBy": "Creato da <link>{name}</link>",
   "EventAdminApp.EventItem.delete": "Cancellare",
   "EventAdminApp.EventItem.edit": "Modificare",
-  "EventAdminApp.EventItem.featured": "Selezionato",
+  "EventAdminApp.EventItem.featured": "In primo piano",
   "EventAdminApp.EventItem.memberPlaceholder": "<decorate>Membro anonimo</decorate>",
   "EventAdminApp.EventItem.moderator": "Moderatore",
   "EventAdminApp.EventItem.noRoleMemberPlaceholder": "membro",

@@ -71,7 +71,7 @@ module.exports = {
     "en": "Manage",
     "fr": "Gérer",
     "it": "Gestire",
-    "de": "verwalten",
+    "de": "Verwalten",
     "pl": "Zarządzaj",
     "es": "Gestionar",
     "br": "Merañ",

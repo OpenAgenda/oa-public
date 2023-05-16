@@ -62,7 +62,8 @@ module.exports = {
   "shareOnOA": {
     "en": "Share on OpenAgenda",
     "fr": "Partager sur OpenAgenda",
-    "io": "crwdns14434:0crwdne14434:0"
+    "io": "crwdns14434:0crwdne14434:0",
+    "it": "Condividere su un altro OpenAgenda"
   },
   "back": {
     "en": "Back",

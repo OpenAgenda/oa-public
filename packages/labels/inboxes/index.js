@@ -459,7 +459,7 @@ module.exports = {
   "moderatorsDesc": {
     "fr": "Les modérateurs sont des membres pouvant éditer tous les événements d'un agenda, sans pour autant avoir les accès de paramétrages.\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !",
     "en": "Moderators are members that can edit the events of an agenda and change event states, without having access to agenda settings.\n\nGive us details on your requirements and we'll get back to you shortly!",
-    "de": "Moderatoren sind Mitglieder, die die Veranstaltungen einerVerwaltungskalender bearbeiten und Veranstaltungzustände ändern, ohne Einstellungen Zugriff aufVerwaltungskalender zu haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
+    "de": "Moderatoren sind Mitglieder, die die Veranstaltungen eines Verwaltungskalenders bearbeiten und Veranstaltungszustände ändern, ohne Einstellungen Zugriff auf Verwaltungskalenders zu haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Los moderadores son miembros que pueden editar todas agenda de eventos, sin tener la configuración de acceso.\n\nExplicar sus necesidades y vamos a procesar su solicitud tan pronto como sea posible!",
     "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni. Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
     "io": "crwdns16498:0crwdne16498:0"
@@ -1127,6 +1127,7 @@ module.exports = {
   "locationName": {
     "fr": "**Nom du lieu**: %name%",
     "en": "**Location name**: %name%",
-    "it": "**Nome del luogo**: %name%"
+    "it": "**Nome del luogo**: %name%",
+    "io": "crwdns33175:0%name%crwdne33175:0"
   }
 }

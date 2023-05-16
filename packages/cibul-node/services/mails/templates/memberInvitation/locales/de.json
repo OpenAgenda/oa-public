@@ -5,7 +5,7 @@
   "administratorVerb": "verwalten",
   "subjectForExistingMember": "Du hast {role} der Kalender \"{agenda}\" werden",
   "signup": "Anmelden",
-  "memberAction": "{role, select, administrator {Verwalten Sie die Agenda} moderator {Moderate Ereignisse} contributor {Tragen Sie zur Tagesordnung bei} reader {Siehe die Tagesordnung} other {}}",
+  "memberAction": "{role, select, administrator {verwalten die Agenda} moderator {moderieren die Veranstaltungen } contributor {erstellen Veranstaltungen} reader {lesen die Agenda} other {}}",
   "administrator": "Administrator",
   "moderator": "Moderator",
   "contributor": "Beiträger",

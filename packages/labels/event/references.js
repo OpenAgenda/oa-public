@@ -110,7 +110,7 @@ module.exports = {
   "noSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
-    "de": "ähnliche Veranstaltungen",
+    "de": "Ähnliche Veranstaltungen",
     "es": "Eventos similares",
     "it": "Eventi simili",
     "io": "crwdns14394:0crwdne14394:0"
@@ -126,7 +126,7 @@ module.exports = {
   "noOtherSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
-    "de": "ähnliche Veranstaltungen",
+    "de": "Ähnliche Veranstaltungen",
     "es": "Eventos similares",
     "it": "Eventi simili",
     "io": "crwdns14398:0crwdne14398:0"

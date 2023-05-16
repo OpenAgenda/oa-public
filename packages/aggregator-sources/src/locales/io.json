@@ -165,5 +165,9 @@
   "aggregator-sources.utils.stateMessages.state": "crwdns780:0crwdne780:0",
   "aggregator-sources.utils.stateMessages.stateControlled": "crwdns782:0crwdne782:0",
   "aggregator-sources.utils.stateMessages.statePublished": "crwdns784:0crwdne784:0",
-  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0"
+  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0",
+  "aggregator-sources.DefineRules.textFilterNotDefined": "crwdns33153:0crwdne33153:0",
+  "aggregator-sources.DefineRules.textFilterWholeValue": "crwdns33155:0{value}crwdne33155:0",
+  "aggregator-sources.RuleForm.RespectCase": "crwdns33157:0crwdne33157:0",
+  "aggregator-sources.RuleForm.wholeValueFilter": "crwdns33159:0crwdne33159:0"
 }
