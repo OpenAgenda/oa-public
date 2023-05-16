@@ -42,6 +42,16 @@ export const Simple = () => (
             },
           ],
         }}
+        staticRanges={[{
+          isSelected: () => {},
+          label: 'Today',
+        }, {
+          isSelected: () => {},
+          label: 'Tomorrow',
+        }, {
+          isSelected: () => {},
+          label: 'Next month',
+        }]}
       />
     </div>
   </div>
