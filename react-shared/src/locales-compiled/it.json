@@ -177,7 +177,7 @@
   "ReactShared.AgendaContextBar.draftsModalTitle": [
     {
       "type": 0,
-      "value": "Drafts"
+      "value": "Bozze"
     }
   ],
   "ReactShared.AgendaContextBar.moderated": [
@@ -187,7 +187,7 @@
     },
     {
       "type": 0,
-      "value": " in moderation"
+      "value": " da moderare"
     }
   ],
   "ReactShared.AgendaContextBar.moderatedModalInfo": [
