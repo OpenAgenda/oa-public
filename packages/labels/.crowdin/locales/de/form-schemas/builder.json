@@ -3,5 +3,7 @@
   "linkFieldType": "Hyperlink",
   "languagesFieldType": "Wählen Sie eine Sprache",
   "buttonSaved": "Gerettet",
-  "requiredField": "Erforderlich"
+  "requiredField": "Erforderlich",
+  "isSelected": "Auswählen",
+  "notSelected": "Nicht ausgewählt"
 }

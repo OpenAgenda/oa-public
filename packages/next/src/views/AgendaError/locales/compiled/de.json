@@ -83,7 +83,7 @@
   "next.views.AgendaError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.views.AgendaError.unauthorizedMsg": [

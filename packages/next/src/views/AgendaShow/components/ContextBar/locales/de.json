@@ -1,3 +1,27 @@
 {
-  "next.views.AgendaShow.ContextBar.manage": "Verwalten"
+  "next.views.AgendaShow.ContextBar.complete": "Abschließen",
+  "next.views.AgendaShow.ContextBar.contribute": "Veranstaltung hinzufügen",
+  "next.views.AgendaShow.ContextBar.drafts": "{count, number} entwürfe",
+  "next.views.AgendaShow.ContextBar.draftsModalInfo": "Dies sind die Entwürfe, die Sie gespeichert haben. Sie sind für die Agenda-Moderatoren nicht sichtbar. Sie müssen abgeschlossen sein, bevor sie moderiert und veröffentlicht werden können.",
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": "Entwurf",
+  "next.views.AgendaShow.ContextBar.edit": "Bearbeiten",
+  "next.views.AgendaShow.ContextBar.empty": "Diese Agenda ist leer",
+  "next.views.AgendaShow.ContextBar.events": "Veranstaltungen:",
+  "next.views.AgendaShow.ContextBar.inModeration": "{count, number } in Maßen",
+  "next.views.AgendaShow.ContextBar.inModerationModalInfo": "Die folgenden Veranstaltungen sollten von den Moderatoren der Tagesordnung überprüft werden, bevor sie veröffentlicht werden.",
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": "Veranstaltungen in Moderation",
+  "next.views.AgendaShow.ContextBar.manage": "Verwalten",
+  "next.views.AgendaShow.ContextBar.myEvents": "Meine Veranstaltungen in dieser Agenda:",
+  "next.views.AgendaShow.ContextBar.notContributed": "Sie haben noch keine Veranstaltungen zu dieser Agenda eingereicht.",
+  "next.views.AgendaShow.ContextBar.published": "{count, number} Veranstaltung veröffentlicht",
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": "Diese Veranstaltungen wurden veröffentlicht und sind für die Zuschauer der Agenda zugänglich.",
+  "next.views.AgendaShow.ContextBar.publishedModalTitle": "Veranstaltungen veröffentlicht",
+  "next.views.AgendaShow.ContextBar.readyToPublish": "{count, number} bereit zur veröffentlichung",
+  "next.views.AgendaShow.ContextBar.refused": "{count, number} wurden abgelehnt",
+  "next.views.AgendaShow.ContextBar.refusedModalInfo": "Die folgenden Veranstaltungen wurden von den Moderatoren des Kalenders überprüft und abgelehnt. Sie werden nicht veröffentlicht.",
+  "next.views.AgendaShow.ContextBar.refusedModalTitle": "Veranstaltungen abgelehnt",
+  "next.views.AgendaShow.ContextBar.show": "Ansehen",
+  "next.views.AgendaShow.ContextBar.toBeModerated": "{count, number} zu moderieren",
+  "next.views.AgendaShow.ContextBar.undefinedDescription": "Undefinierte Beschreibung",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Veranstaltungsentwurf ohne Titel"
 }

@@ -195,7 +195,7 @@ module.exports = {
     "en": "Terms of use",
     "fr": "Conditions d'utilisation",
     "it": "Modalità d'utilizzo",
-    "de": "Nutzungsbedingungen",
+    "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
     "es": "condiciones de uso",
     "br": "Penndivizoù implij",

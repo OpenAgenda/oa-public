@@ -1,1 +1,12 @@
-{}
+{
+  "next.views.AgendaShow.filter": "Filter",
+  "next.views.AgendaShow.filters": "Filter",
+  "next.views.AgendaShow.help": "Hilfe",
+  "next.views.AgendaShow.includePassedEvents": "Einbeziehen von bestandenen Veranstaltungen",
+  "next.views.AgendaShow.seeEvents": "Zeige die {count} Veranstaltungen",
+  "next.views.AgendaShow.seeMore": "Mehr sehen",
+  "next.views.AgendaShow.showUpcomingEventsOnly": "Zeige nur bevorstehende Veranstaltungen",
+  "next.views.AgendaShow.termsOfUse": "Nutzungbestimmungen",
+  "next.views.AgendaShow.totalEvents": "{count, plural, =0 {Keine Veranstaltung} one {1 Veranstaltung} other {# Veranstaltungen}}",
+  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Keine bevorstehende veranstaltung} one {1 bevorstehende veranstaltung} other {# bevorstehende veranstaltungen}}"
+}
