@@ -28,6 +28,7 @@ module.exports = ({
   defaultTimezone,
   proxyHookBeforeGet,
   longDescriptionFormat,
+  app,
 }) => {
   async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
     const query = { ...preFilter, ...userQuery };
@@ -35,13 +36,16 @@ module.exports = ({
     if (!Object.keys(_.omit(userQuery, ['aggregations', 'size', 'page', 'detailed'])).length && defaultFilter) {
       Object.assign(query, defaultFilter);
     }
+    const upcomingEvents = app.locals.agenda.summary.publishedEvents.upcoming;
 
-    if (
-      (!userQuery.relative && !userQuery.timings && visibilityPastEvents === '1')
-      || !visibilityPastEvents
-    ) {
-      const relativeFilter = { relative: ['current', 'upcoming'] };
-      Object.assign(query, relativeFilter);
+    if (upcomingEvents > 0) {
+      if (
+        (!userQuery.relative && !userQuery.timings && visibilityPastEvents === '1')
+        || !visibilityPastEvents
+      ) {
+        const relativeFilter = { relative: ['current', 'upcoming'] };
+        Object.assign(query, relativeFilter);
+      }
     }
 
     let limit;
@@ -106,7 +110,7 @@ module.exports = ({
         ...uid ? { uid } : {},
         ...slug ? { slug } : {},
         detailed: 1,
-        relative: ['passed', 'upcoming', 'current'],
+        relative: ['upcoming', 'current'],
       },
     ).then(r => r.events
       .find(e => {
