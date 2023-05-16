@@ -50,6 +50,7 @@
   "ReactFilters.messages.filterTitles.featured": "crwdns16610:0crwdne16610:0",
   "ReactFilters.messages.filterTitles.geo": "crwdns16612:0crwdne16612:0",
   "ReactFilters.messages.filterTitles.keyword": "crwdns16614:0crwdne16614:0",
+  "ReactFilters.messages.filterTitles.languages": "crwdns32825:0crwdne32825:0",
   "ReactFilters.messages.filterTitles.locationUid": "crwdns16616:0crwdne16616:0",
   "ReactFilters.messages.filterTitles.memberUid": "crwdns16618:0crwdne16618:0",
   "ReactFilters.messages.filterTitles.originAgendaUid": "crwdns16620:0crwdne16620:0",
@@ -60,6 +61,7 @@
   "ReactFilters.messages.filterTitles.status": "crwdns16630:0crwdne16630:0",
   "ReactFilters.messages.filterTitles.timings": "crwdns16632:0crwdne16632:0",
   "ReactFilters.messages.filterTitles.updatedAt": "crwdns16634:0crwdne16634:0",
+  "ReactFilters.messages.map.searchWithMap": "crwdns32827:0crwdne32827:0",
   "ReactFilters.messages.provenance.aggregation": "crwdns16880:0crwdne16880:0",
   "ReactFilters.messages.provenance.contribution": "crwdns16882:0crwdne16882:0",
   "ReactFilters.messages.provenance.share": "crwdns16884:0crwdne16884:0",
@@ -76,7 +78,5 @@
   "ReactFilters.messages.status.postponed": "crwdns16906:0crwdne16906:0",
   "ReactFilters.messages.status.programmed": "crwdns16908:0crwdne16908:0",
   "ReactFilters.messages.status.rescheduled": "crwdns16910:0crwdne16910:0",
-  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0",
-  "ReactFilters.messages.filterTitles.languages": "crwdns32825:0crwdne32825:0",
-  "ReactFilters.messages.map.searchWithMap": "crwdns32827:0crwdne32827:0"
+  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0"
 }
