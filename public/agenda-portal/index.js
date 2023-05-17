@@ -156,7 +156,8 @@ module.exports = async options => {
       visibilityPastEvents,
       defaultTimezone,
       proxyHookBeforeGet,
-      longDescriptionFormat
+      longDescriptionFormat,
+      app,
     });
 
   app.set('proxy', proxy);
