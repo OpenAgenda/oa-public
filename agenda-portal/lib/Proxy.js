@@ -110,7 +110,7 @@ module.exports = ({
         ...uid ? { uid } : {},
         ...slug ? { slug } : {},
         detailed: 1,
-        relative: ['upcoming', 'current'],
+        relative: ['passed', 'upcoming', 'current'],
       },
     ).then(r => r.events
       .find(e => {
