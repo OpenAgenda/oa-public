@@ -431,6 +431,7 @@ module.exports = app => {
       legacyEventSvc.mw.components,
       formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
       middlewares.customEmbedEventShow,
+      (req, res) => res.send(req.render),
     ]),
   );
 
