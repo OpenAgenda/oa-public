@@ -138,6 +138,7 @@ module.exports = app => {
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
       middlewares.embedShow,
+      ( req, res ) => res.send( req.render )
     ]),
   );
 
