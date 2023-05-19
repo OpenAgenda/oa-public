@@ -5,8 +5,8 @@
   "description": "OpenAgenda main app",
   "scripts": {
     "test": "NODE_OPTIONS=\"--max-old-space-size=5120\" jest --runInBand --forceExit",
-    "start": "TZ=Etc/UTC node server.js web admin task",
-    "watch": "TZ=Etc/UTC nodemon server.js web admin task",
+    "start": "TZ=Etc/UTC node server.js web admin task api",
+    "watch": "TZ=Etc/UTC nodemon server.js web admin task api",
     "dev": "DEV_SERVER_PORT=8905 yarn start",
     "background": "nohup npm start >/dev/null 2>&1 &",
     "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
