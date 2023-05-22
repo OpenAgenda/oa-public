@@ -268,6 +268,7 @@ function Dashboard() {
           type="button"
           className="btn btn-danger"
           onClick={() => {
+            dispatch(mergeActions.closeMerge());
             history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
           }}
         >
@@ -290,7 +291,7 @@ function Dashboard() {
         <FormattedMessage {...messages.merge} />
       </button>
     );
-  }, [mergeMode, settings, search, page, prefix, history]);
+  }, [mergeMode, settings, search, page, prefix, history, dispatch]);
 
   const launchMerge = () => {
     dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal));
