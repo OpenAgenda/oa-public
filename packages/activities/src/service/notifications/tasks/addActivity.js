@@ -147,6 +147,7 @@ async function addActivity(config, identifiers, activity, options) {
       object: createNewStoreKey('object'),
       target: createNewStoreKey('target'),
       labels: {
+        ...notif.store.labels,
         actor: activity.store?.labels?.actor,
         object: activity.store?.labels?.object,
         target: activity.store?.labels?.target,
