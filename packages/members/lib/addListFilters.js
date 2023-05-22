@@ -89,7 +89,7 @@ module.exports = (k, query) => {
     deletedUser,
     withActions,
   } = validate(
-    Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query
+    Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query,
   );
 
   if (!agendaUid && !userUid && !id) {
@@ -97,7 +97,7 @@ module.exports = (k, query) => {
   }
 
   if (agendaUid && agendaUid.length === 1) {
-    k.where('agenda_uid', agendaUid);
+    k.where('agenda_uid', agendaUid[0]);
   } else if (agendaUid) {
     k.whereIn('agenda_uid', agendaUid);
   }
@@ -107,7 +107,7 @@ module.exports = (k, query) => {
   }
 
   if (userUid && userUid.length === 1) {
-    k.where('user_uid', userUid);
+    k.where('user_uid', userUid[0]);
   } else if (userUid) {
     k.whereIn('user_uid', userUid);
   }
@@ -137,7 +137,7 @@ module.exports = (k, query) => {
   if (role.length) {
     k.whereIn(
       'credential',
-      role.map(r => (_.isInteger(r) ? r : roles[r.toUpperCase()]))
+      role.map(r => (_.isInteger(r) ? r : roles[r.toUpperCase()])),
     );
   }
 };
