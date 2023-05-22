@@ -23,7 +23,7 @@ describe( 'activities - feed', () => {
 
   describe( 'with config', () => {
 
-    beforeAll(async () => {
+    beforeEach(async () => {
 
       service = await Service.initAndLoad({
         ...config,
@@ -207,8 +207,7 @@ describe( 'activities - feed', () => {
             entityType: 'user',
             entityUid: 42,
             followed: [
-              { id: 8, originFeed: 5, targetFeed: 2, store: {} },
-              { id: 9, originFeed: 6, targetFeed: 2, store: { blabla: 'car' } }
+              { id: 8, originFeed: 6, targetFeed: 2, store: { blabla: 'car' } }
             ]
           } );
 
@@ -218,8 +217,9 @@ describe( 'activities - feed', () => {
 
     describe( 'unfollow', () => {
 
-      it('unfollow feed', () => {
+      it('unfollow feed', async () => {
 
+        await service.feed( { id: 2 } ).follow( { id: 5 } );
         return expect(service.feed( { id: 2 } ).unfollow( { id: 5 } )).resolves.toBe( 1 );
 
       });
