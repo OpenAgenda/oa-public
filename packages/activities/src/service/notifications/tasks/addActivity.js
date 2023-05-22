@@ -82,8 +82,13 @@ async function addActivity(config, identifiers, activity, options) {
     return null;
   }
 
+  // Don't create notif
+  if (activityConfig.notifications === null) {
+    return null;
+  }
+
   // notif groups activities
-  const groupBy = fnOrValue(activityConfig?.notifications?.groupBy, { feed, activity });
+  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
   const groupedBy = getGroupBy(groupBy, feed, activity);
 
   const notif = groupedBy
