@@ -20,6 +20,7 @@ const { containsEventData } = cleanEvent;
 const { filterUnauthorized } = loadAuthorizations;
 
 const assignState = require('../utils/assignState');
+const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
 const updateEvent = require('./lib/updateEvent');
 const createUpdateActivity = require('./lib/createUpdateActivity');
 
@@ -236,7 +237,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     await eventSearch.update({
       ...response,
       formSchema,
-      event: compiledEvent,
+      event: event.location ? convertLocationAdditionalFields(formSchema, compiledEvent) : compiledEvent,
     });
     log('updated search for event %s', eventUid);
   } catch (e) {
