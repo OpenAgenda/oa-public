@@ -1,3 +1,3 @@
 "use strict";
 
-module.exports = [ 'user', 'agenda', 'event' ];
+module.exports = [ 'user', 'agenda', 'event', 'location', 'locationSet' ];
