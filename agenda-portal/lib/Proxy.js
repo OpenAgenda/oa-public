@@ -38,7 +38,7 @@ module.exports = ({
     }
     const upcomingEvents = app.locals.agenda.summary.publishedEvents.upcoming;
 
-    if (upcomingEvents > 0) {
+    if (upcomingEvents < 0) {
       if (
         (!userQuery.relative && !userQuery.timings && visibilityPastEvents === '1')
         || !visibilityPastEvents
