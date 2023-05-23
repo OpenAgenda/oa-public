@@ -6,9 +6,13 @@
 
 }
 
-.activity-user, .activity-admin, .activity-agenda-admin, .js_activities .event-content {
+.activity-user,
+.activity-admin,
+.activity-agenda-admin,
+.js_activities .event-content,
+.location-activities {
 
-  ul {
+  ul.activity-list {
 
     label.small {
 
