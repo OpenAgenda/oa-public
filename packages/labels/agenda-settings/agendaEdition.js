@@ -867,6 +867,7 @@ module.exports = {
     "en": "Learn more",
     "it": "Per saperne di più",
     "io": "crwdns32380:0crwdne32380:0",
-    "oc": "Ne saber mai"
+    "oc": "Ne saber mai",
+    "de": "Mehr erfahren"
   }
 }

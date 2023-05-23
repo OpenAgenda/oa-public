@@ -3,8 +3,9 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const should = require('should');
+const redis = require('redis');
 
-const queue = require('@openagenda/queue');
+const Queues = require('@openagenda/queues');
 
 const Service = require('../');
 const config = require('../testconfig');
@@ -13,6 +14,7 @@ const fixtures = require('./fixtures');
 describe('agendaEvents - 05 - functional (server): remove', function() {
   this.timeout(20000);
   let svc;
+  let redisClient;
 
   beforeEach(async () => {
     await fixtures(config.mysql, [
@@ -22,12 +24,16 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
    ]);
   });
 
-  beforeEach(() => {
-    svc = Service(config);
+  before(async () => {
+    redisClient = redis.createClient({
+      socket: { host: 'localhost', port: 6379 }
+    });
+
+    await redisClient.connect();
   });
 
-  beforeEach(done => {
-    queue('agendaEventInterfaces', { redis: config.redis }).test.clear(done);
+  beforeEach(() => {
+    svc = Service(config);
   });
 
   it('simple remove', async () => {
@@ -83,25 +89,30 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
   it('when several references are removed', done => {
     let count = 0;
 
-    const svc = Service(ih(config, {
+    const queue = Queues({
+      redis: redisClient,
+      prefix: 'agenda-events'
+    })('05_remove')
+
+    const svc = Service({
+      ...config,
+      queue,
       interfaces: {
-        onRemove: {
-          $set: (removed, context) => {
-            count++;
+        onRemove: (removed, context) => {
+          count++;
 
-            removed.eventUid.should.equal(15205357);
+          removed.eventUid.should.equal(15205357);
 
-            if (count === 2) {
-              done();
-            }
+          if (count === 2) {
+            done();
           }
         }
       }
-    }));
-
+    });
+    
     svc.remove(15205357);
 
-    svc.tasks.interfaces();
+    queue.run();
   });
 
 

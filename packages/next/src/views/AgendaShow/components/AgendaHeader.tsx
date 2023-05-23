@@ -86,7 +86,7 @@ export default function AgendaHeader({ agenda }) {
     isOpen: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
-  } = useDisclosure();
+  } = useDisclosure({ defaultIsOpen: urlQuery.displayExportModal === '1' });
 
   const [cookies] = useCookies();
   const sessionUser = getSession(cookies)?.user;

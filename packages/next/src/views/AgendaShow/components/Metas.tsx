@@ -7,7 +7,7 @@ export default function Metas({ agenda, query, preload }) {
   const intl = useIntl();
   const router = useRouter();
 
-  const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+  const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
   const pageTitle = `${agenda.title} | OpenAgenda`;
 
   return (
@@ -47,7 +47,7 @@ export default function Metas({ agenda, query, preload }) {
       ) : null}
 
       <meta property="twitter:card" content="summary" />
-      <meta property="twitter:site" content={process.env.NEXT_PUBLIC_SITE_DOMAIN} />
+      <meta property="twitter:site" content={process.env.NEXT_PUBLIC_DOMAIN} />
       <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
       <meta property="twitter:description" content={agenda.description} />
       <meta property="twitter:domain" content="@oagenda" />

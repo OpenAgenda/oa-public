@@ -116,7 +116,8 @@ module.exports = {
     "en": "Share an event",
     "io": "crwdns11528:0crwdne11528:0",
     "de": "Share an event",
-    "oc": "Partejar un eveniment"
+    "oc": "Partejar un eveniment",
+    "it": "Condividere un evento"
   },
   "takeEvent": {
     "fr": "Reprendre",

@@ -96,15 +96,15 @@ function completeUrls(agendaUid, query) {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
     me: '/api/me',
     export: {
-      jsonV1: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQueryString}`,
+      jsonV1: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQueryString}`,
       jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${apiQueryString}`,
-      pdf: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.pdf${apiQueryString}`,
-      xlsx: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
-      gcal: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
-      ical: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
-      csv: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
-      ics: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
-      rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
+      pdf: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.pdf${apiQueryString}`,
+      xlsx: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
+      gcal: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      ical: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      csv: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
+      ics: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      rss: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
     },
   };
 }

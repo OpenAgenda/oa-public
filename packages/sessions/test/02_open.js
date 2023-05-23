@@ -3,7 +3,7 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
+
 const should = require( 'should' );
 const ih = require( 'immutability-helper' );
 const sessions = require( '../src/service' );
@@ -11,19 +11,22 @@ const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
 
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
 describe( 'session - functional (server): open', () => {
+  let client;
+  let request;
+  let response;
 
-  h.init( config );
+  beforeEach(async () => {
+    client = await h.createClient(config.redis);
+  });
 
-  let request, response;
 
-  beforeEach( h.clearRedis );
+  beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeEach( () => sessions.init( config ) );
-
-  afterEach( () => sessions.shutdown() );
+  beforeEach( () => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
 
   beforeEach( () => {
 
@@ -37,6 +40,8 @@ describe( 'session - functional (server): open', () => {
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
   } );
+
+  afterEach(() => client.quit());
 
   it( 'open a session by providing a request object and a user identifier', done => {
 
@@ -61,16 +66,13 @@ describe( 'session - functional (server): open', () => {
 
     sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-      h.redisGet( [ config.redis.prefix, 12345678 ].join( ':' ), ( err, result ) => {
-
+      client.get([config.redis.prefix, 12345678].join(':')).then(result => {
         let parsed = JSON.parse( result );
 
         Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'culture', 'uid', 'name', 'thumbnail' ] );
 
         done();
-
       } );
-
     } );
 
   } );

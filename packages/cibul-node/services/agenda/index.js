@@ -6,7 +6,6 @@ const config = require('../../config');
 const model = require('../model');
 const mw = require('./middleware');
 const exportLib = require('./exportLib');
-const tagsAndCategories = require('./tagsAndCategories');
 
 function get(queryParams, options, cb) {
   if (arguments.length == 2) {
@@ -44,5 +43,3 @@ module.exports = {
 module.exports.mw = mw(module.exports);
 
 module.exports.exports = exportLib(module.exports);
-
-module.exports.tagsAndCategories = tagsAndCategories(module.exports);

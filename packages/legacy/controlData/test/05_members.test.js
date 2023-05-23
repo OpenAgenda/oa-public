@@ -32,9 +32,9 @@ describe( '05 - control data - members', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '789' );
+    await redisClient.del( config.redisPrefix + '789' );
 
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.quit();
 
     await knex.destroy();
 
@@ -46,7 +46,7 @@ describe( '05 - control data - members', () => {
 
       await service.memberSet( { agendaUid: 789, userUid: 1, role: 1 } );
 
-      const updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '789' ) );
+      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
 
       expect( updatedCtlData ).toEqual( { ev: [], l: [], e: [ 1 ] } );
 
@@ -58,7 +58,7 @@ describe( '05 - control data - members', () => {
 
       await service.memberRemove( { agendaUid: 789, userUid: 1 } );
 
-      const updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '789' ) );
+      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
 
       expect( updatedCtlData ).toEqual( { ev: [], l: [], e: [] } );
 

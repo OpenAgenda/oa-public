@@ -12,10 +12,9 @@ module.exports = service;
 
 module.exports.init = (config, services) => {
   sessions.init({
+    redisClient: services.redis,
     redis: {
-      host: config.redis.host,
-      port: config.redis.port,
-      prefix: config.session.namespace
+      prefix: config.session.namespace,
     },
     sessionCookie: config.session,
     writableCookie: {

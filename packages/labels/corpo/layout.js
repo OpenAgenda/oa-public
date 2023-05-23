@@ -40,7 +40,7 @@ module.exports = {
   "layoutSignin": {
     "en": "Sign in",
     "fr": "Connexion",
-    "de": "Einloggen",
+    "de": "Anmelden",
     "es": "acceder",
     "it": "Accedi",
     "br": "Kevreañ",

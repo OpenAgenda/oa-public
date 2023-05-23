@@ -315,6 +315,10 @@ location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signu
   include conf.d/nodejs_params;
 }
 
+location = / {
+  include conf.d/nodejs_params;
+}
+
 location / {
   include conf.d/nextjs_params;
 }

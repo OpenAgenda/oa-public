@@ -1,1 +1,11 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Veranstaltung hinzufügen",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregate",
+  "next.views.AgendaShow.AgendaHeader.contact": "Kontakt",
+  "next.views.AgendaShow.AgendaHeader.export": "Exportieren",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Offizielle Kalender",
+  "next.views.AgendaShow.EventItem.addToFavorites": "Favoriten Auswahl",
+  "next.views.AgendaShow.EventItem.featured": "Ausgewählt",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "Aus Favoriten entfernen",
+  "next.views.AgendaShow.Favorites.favorites": "Favoriten"
+}

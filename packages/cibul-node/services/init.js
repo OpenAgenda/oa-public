@@ -41,10 +41,8 @@ module.exports = async function (configObject = null, options = {}) {
 
   await init('knex', require('./knex'));
   await init('redis', require('./redis'));
-  await init('rateLimit', require('./rateLimit'));
   await init('errors', require('./errors'));
   await init('tracker', require('./tracker'));
-  await init('redisConfigStore', require('./redisConfigStore'));
   await init('queues', require('./queues'));
   await init('discord', require ('./discord'));
   await init('files', require('./files'));

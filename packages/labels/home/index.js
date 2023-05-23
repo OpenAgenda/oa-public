@@ -4,7 +4,7 @@ module.exports = {
   "myAgendas": {
     "fr": "Mes agendas",
     "en": "My agendas",
-    "de": "Meine Veranstaltungskalender",
+    "de": "Meine Agendas",
     "br": "Ma deiziataerioù",
     "es": "mis agendas",
     "it": "Le mie agende",

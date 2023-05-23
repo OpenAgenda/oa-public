@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const should = require( 'should' );
 const sessions = require( '../src/service' );
 const expressCookie = require( '../src/service/expressCookie' );
@@ -10,27 +9,31 @@ const isoConfig = require( '../src/iso/config' );
 const h = require( './lib/helpers' );
 const serviceHelpers = require( '../src/service/helpers' );
 
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
-h.init( config );
-
 describe( 'session - functional (server): isLogged & getCulture', () => {
-
+  let client;
   let request;
 
-  beforeEach( h.clearRedis );
+  beforeEach(async () => {
+    client = await h.createClient(config.redis);
+  });
 
-  before( () => sessions.init( config ) );
+  beforeEach(() => h.clearRedis(config.redis, client));
 
-  afterEach( () => sessions.shutdown() );
+  beforeEach(() => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
 
-  beforeEach( () => {
+  beforeEach(() => {
+    request = {
+      cookies: {},
+      session: {}
+    };
 
-    request = { cookies: {}, session: {} };
+    request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
+  });
 
-    request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
-
-  } );
+  afterEach(() => client.quit());
 
   describe( '.isLogged', () => {
 
@@ -80,7 +83,7 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       let session = { somekey: '123' };
 
-      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123' } );
+      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123', expires: undefined } );
 
     } );
 

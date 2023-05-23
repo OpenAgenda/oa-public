@@ -3,34 +3,37 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const should = require( 'should' );
 const sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
 
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
 describe( 'session - functional (server): sync', () => {
-
-  h.init( config );
-
+  let client;
   let request;
 
-  beforeEach( h.clearRedis );
+  beforeEach(async () => {
+    client = await h.createClient(config.redis);
+  });
 
-  beforeEach( () => sessions.init( config ) );
+  beforeEach(() => h.clearRedis(config.redis, client));
 
-  afterEach( () => sessions.shutdown() );
+  beforeEach(() => sessions.init({
+    ...config,
+    redisClient: client,
+  }));
 
-  beforeEach( () => {
+  beforeEach(() => {
+    request = {
+      cookies: {},
+      session: {}
+    };
 
-    request = { cookies: {}, session: {} };
+    request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
+  });
 
-    request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
-
-  } );
+  afterEach(() => client.quit());
 
   it( 'sync is used only when a session is open', done => {
 

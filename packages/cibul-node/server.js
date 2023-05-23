@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
 const WEB = process.argv.includes('web');
+const API = process.argv.includes('api');
 
 require('@openagenda/polyfills/intl');
 require('@openagenda/polyfills/intl-locales');
@@ -29,7 +30,7 @@ const express = require('express');
 const helmet = require('helmet');
 const { NotFound } = require('@openagenda/verror');
 const task = require('./task');
-const API = require('./api');
+const instanciateAPI = require('./api');
 const initServices = require('./services/init');
 const Core = require('./core');
 const sentryErrorHandler = require('./lib/sentryErrorHandler');
@@ -40,7 +41,7 @@ const log = logs('server');
   try {
     const services = await initServices();
     const core = Core(services, config);
-    const api = API(core);
+    const api = instanciateAPI(core);
 
     const { sessions } = services;
 
@@ -120,7 +121,7 @@ const log = logs('server');
       console.log(`-- Server listening on port ${config.port} --`);
     });
 
-    if (WEB) {
+    if (API) {
       express()
         .set('trust proxy', ['loopback', 'uniquelocal'])
         .use(

@@ -1,5 +1,6 @@
 {
   "AgendaLocations.AccessModal.closeModal": "Schließen",
   "AgendaLocations.AgendaAdminLocation.closeModal": "Schließen",
-  "AgendaLocations.RemoveModal.closeModal": "Schließen"
+  "AgendaLocations.RemoveModal.closeModal": "Schließen",
+  "AgendaLocations.UpdateForm.info": "Alle Veranstaltungen an diesem Ort angebracht werden aktualisiert"
 }

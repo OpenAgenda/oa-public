@@ -35,6 +35,7 @@ module.exports.init = async (config, services) => {
       },
       redis: config.redis,
     },
+    Queues: services.queues,
     interfaces: {
       getUser: uid => services.users.get(uid, { detailed: true }),
       isUnsubscribed: uid => promisify(unsubscribedSvc(uid).is)({

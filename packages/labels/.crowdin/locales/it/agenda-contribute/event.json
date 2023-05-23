@@ -21,5 +21,6 @@
   "shareRestrictionInfo": "Le seguenti questioni devono essere affrontate per permettere di rendere l'evento \"%event%\" condivisibile sull'agenda \"%agenda%\"",
   "suggestChange": "Suggerisci un cambiamento",
   "cancelShare": "Cancellare la condivisione",
-  "close": "Chiudere"
+  "close": "Chiudere",
+  "shareEvent": "Condividere un evento"
 }

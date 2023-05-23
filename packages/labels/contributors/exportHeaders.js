@@ -53,7 +53,7 @@ module.exports = {
     "fr": "Evénements contribués",
     "de": "Hinzugefügte Events",
     "es": "eventos contribudos",
-    "it": "Eventi collaterali",
+    "it": "Eventi contribuitati",
     "io": "crwdns13266:0crwdne13266:0",
     "oc": "Eveniments contribuits"
   },

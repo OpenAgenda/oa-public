@@ -1,8 +1,11 @@
 'use strict';
 
 const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
+const logs = require('@openagenda/logs');
 const restrictToUnlogged = require('./restrictToUnlogged');
 const restrictToCurrentUser = require('./restrictToCurrentUser');
+
+const log = logs('services/users/hooks');
 
 const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(
@@ -24,6 +27,7 @@ const restrictToUnloggedIfExternal = () => async (context, next) => {
 
 const populateAnnouncement = () => async (context, next) => {
   await next();
+  log('populateAnnouncement');
 
   if (!context.result || !context.params.user) {
     return;

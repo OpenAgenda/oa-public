@@ -3,6 +3,7 @@
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const sessions = require( '../src/service' );
+const h = require( './lib/helpers' );
 
 describe( 'session - functional (server): initialization', () => {
 
@@ -20,15 +21,19 @@ describe( 'session - functional (server): initialization', () => {
 
   it( 'initialize service prior to use', done => {
 
-    sessions.init( config );
-
-    sessions.open( { cookies: {} }, { uid: 123 }, ( err, result ) => {
-
-      should( err ).equal( null );
-
-      done();
-
-    } );
+    h.createClient(config.redis).then(client => {
+      sessions.init({
+        ...config,
+        redisClient: client,
+      });
+      sessions.open( { cookies: {} }, { uid: 123 }, ( err, result ) => {
+  
+        should( err ).equal( null );
+  
+        done();
+  
+      } );
+    })
 
   } );
 

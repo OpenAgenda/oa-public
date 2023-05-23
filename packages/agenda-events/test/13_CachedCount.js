@@ -9,16 +9,21 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
   let redisClient, cache;
 
   before(async () => {
-    redisClient = redis.createClient();
+    redisClient = redis.createClient({
+      host: 'localhost',
+      port: 6379,
+    });
+
+    await redisClient.connect();
 
     cache = CachedCount(redisClient, 'ns', arg => 123, 1);
   });
 
-  afterEach(done => {
-    redisClient.del('agenda_events:CachedCount:ns:889798', done);
+  afterEach(async () => {
+    await redisClient.del('agenda_events:CachedCount:ns:889798');
   });
 
-  after(done => redisClient.quit(done));
+  after(async () => await redisClient.quit());
 
   it('increments by one', async () => {
     const count = await cache.inc(889798, 1);
@@ -27,7 +32,7 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
 
   it('clears after provided lifetime', done => {
     setTimeout(() => {
-      redisClient.get('agenda_events:CachedCount:ns:889798', result => {
+      redisClient.get('agenda_events:CachedCount:ns:889798').then(result => {
         should(result).equal(null);
         done();
       });

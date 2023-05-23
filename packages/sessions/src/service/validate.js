@@ -32,6 +32,7 @@ module.exports = schema( extend( {
     type: 'boolean'
   },
   isBlacklisted: {
-    type: 'boolean'
+    type: 'boolean',
+    default: false,
   }
 }, cookieUserFields ) );

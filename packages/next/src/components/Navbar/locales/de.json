@@ -1,1 +1,9 @@
-{}
+{
+  "next.components.Navbar.myAgendas": "Meine Agendas",
+  "next.components.Navbar.myEvents": "Meine Veranstaltungen",
+  "next.components.Navbar.profileMenu": "Profilmenü",
+  "next.components.Navbar.settings": "Einstellungen",
+  "next.components.Navbar.signIn": "Anmelden",
+  "next.components.Navbar.signOut": "Abmelden",
+  "next.components.Navbar.signUp": "Anmelden"
+}

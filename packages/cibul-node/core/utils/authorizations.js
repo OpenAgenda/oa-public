@@ -9,22 +9,20 @@ const canPublish = (agenda, access) => (
 
 // user can read if he is the contributing member...
 // but we do not index this information...
-const canRead = (compareRoles, agendaEvent, event, member) => (
+const canRead = (compareRoles, agendaEvent, event, member) =>
   (agendaEvent.state === 2 && !event.private)
   || compareRoles.isSuperiorToOrEqual(member?.role, 'moderator')
-  || (agendaEvent.userUid === member?.userUid)
-);
-
+  || (agendaEvent.userUid === member?.userUid);
 const canCreateEvent = (services, member, agendaIsClosed) => {
   const {
     members: {
       utils: {
         compareRoles: {
           isSuperiorTo,
-          isSuperiorToOrEqual
-        }
-      }
-    }
+          isSuperiorToOrEqual,
+        },
+      },
+    },
   } = services;
 
   if (isSuperiorTo(member?.role, 'contributor')) {
@@ -40,7 +38,7 @@ const canCreateEvent = (services, member, agendaIsClosed) => {
 
 const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
   const {
-    members
+    members,
   } = core.services;
 
   const {
@@ -60,9 +58,9 @@ function canContribute(services, member, { agendaIsClosed, isMemberDataRequired 
   const {
     members: {
       utils: {
-        compareRoles
-      }
-    }
+        compareRoles,
+      },
+    },
   } = services;
 
   if (!member && !isMemberDataRequired) {
@@ -74,12 +72,12 @@ function canContribute(services, member, { agendaIsClosed, isMemberDataRequired 
 
 async function fromMember(core, agenda, agendaEvent, event, member) {
   const {
-    members
+    members,
   } = core.services;
 
   const {
     compareRoles,
-    getRoleSlug
+    getRoleSlug,
   } = members.utils;
 
   const memberRole = member ? getRoleSlug(member.role) : null;
@@ -92,12 +90,12 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
 
   return {
     canRead: agendaEvent ? canRead(compareRoles, agendaEvent, event, member) : canEditEvent,
-    mustBeModerated: (member && ((agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole))) ?? false,
+    mustBeModerated: (member && (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole)) ?? false,
     canChangeState: (member && compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false })) ?? false,
     canPublish: (member && canPublish(agenda, memberRole)) ?? false,
     canEditEvent,
     canCreateEvent: canCreateEvent(core.services, member, agendaIsClosed),
-    canContribute: canContribute(core.services, member, { agendaIsClosed, isMemberDataRequired })
+    canContribute: canContribute(core.services, member, { agendaIsClosed, isMemberDataRequired }),
   };
 }
 
@@ -114,7 +112,7 @@ async function fromAccess(core, agenda, agendaEvent, access) {
     canChangeState: compareRoles.isSuperiorToOrEqual(access, 'moderator', { throwIfUnknown: false }),
     canPublish: canPublish(agenda, access),
     canEditEvent: !agendaIsClosed && isAtLeastContributor && (agendaEvent ? agendaEvent.canEdit : true),
-    canCreateEvent: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(access, 'contributor')
+    canCreateEvent: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(access, 'contributor'),
   };
 }
 
@@ -123,7 +121,7 @@ module.exports = (core, operation, {
   agendaEvent,
   event,
   member,
-  access
+  access,
 }) => {
   if (member) {
     return fromMember(core, agenda, agendaEvent, event, member);
@@ -137,17 +135,17 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
 
   const {
     promisedAccess = null,
-    agendaEvent: preloadedAgendaEvent = null
+    agendaEvent: preloadedAgendaEvent = null,
   } = options;
 
   const {
-    services
+    services,
   } = core;
 
   const {
     agendas,
     members,
-    agendaEvents
+    agendaEvents,
   } = services;
 
   const member = await members.get({ agendaUid, userUid });
@@ -155,7 +153,7 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
   const agenda = await agendas.get({ uid: agendaUid }, {
     internal: true,
     private: null,
-    includeImagePath: true
+    includeImagePath: true,
   });
   const agendaEvent = preloadedAgendaEvent || (event?.uid && await agendaEvents(agendaUid).get(event.uid));
 
@@ -164,7 +162,7 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
       core,
       agenda,
       event ? await agenda.changeEventState(agenda.uid).get(event.uid) : null,
-      promisedAccess
+      promisedAccess,
     );
   }
 
@@ -173,7 +171,7 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
     agenda,
     agendaEvent,
     event,
-    member
+    member,
   );
 };
 

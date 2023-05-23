@@ -29,10 +29,10 @@ const Operations = (services, log) => {
   };
 };
 
-module.exports = function updateLegacySetFromSchema(core, type) {
+module.exports = function updateLegacySetFromSchema(type) {
   const log = logs(`core/agendas/settings/legacy/updateLegacySet:${type}`);
 
-  return async (agendaOrUid, options = {}) => {
+  return async (core, agendaOrUid, options = {}) => {
     const config = core.getConfig();
     const {
       services,

@@ -26,9 +26,9 @@ describe( 'keys - get', function () {
 
     const { client, prefix } = config.redis;
 
-    const keys = await client.keysAsync( prefix + '*' );
+    const keys = await client.keys( prefix + '*' );
 
-    if ( keys && keys.length ) await client.delAsync.apply( null, keys );
+    if ( keys && keys.length ) await client.del(keys.join(','));
 
   } );
 

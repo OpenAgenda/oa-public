@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
+import toggleEventItemValue from '../utils/toggleEventItemValue';
 import StateSelector from './StateSelector';
 
 export default function EventStateSelector({ agenda, event }) {
@@ -12,31 +13,13 @@ export default function EventStateSelector({ agenda, event }) {
       state: value,
     }),
     {
-      onSuccess: (result, value) => {
-        const query = queryClient
-          .getQueryCache()
-          .findAll(['event-admin-apps', 'events', agenda.slug])[0];
-
-        const queryData = query.state.data;
-        const eventIndex = queryData.events.findIndex(
-          v => v.slug === event.slug
-        );
-
-        const eventData = {
-          ...queryData.events[eventIndex],
-          state: value,
-        };
-
-        queryClient.setQueryData(query.queryKey, {
-          ...queryData,
-          events: [
-            ...queryData.events.slice(0, eventIndex),
-            eventData,
-            ...queryData.events.slice(eventIndex + 1),
-          ],
-        });
-      },
-    }
+      onSuccess: toggleEventItemValue({
+        queryClient,
+        key: 'state',
+        agendaSlug: agenda.slug,
+        eventSlug: event.slug,
+      }),
+    },
   );
 
   const onChange = useCallback(

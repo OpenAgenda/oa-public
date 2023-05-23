@@ -9,9 +9,16 @@ const interfaces = require('./interfaces');
 const plugApp = require('./plugApp');
 
 function init(config, services) {
-  return AgendaEvents({
+  const {
+    queues,
+  } = services;
+
+  const queue = queues('agendaEvents');
+
+  return Object.assign(AgendaEvents({
     mysql: config.db,
     knex: config.knex,
+    queue,
     redis: config.redis,
     redisClient: config.redisClient,
     logger: config.getLogConfig('svc', 'agendaEvents'),
@@ -30,6 +37,12 @@ function init(config, services) {
     },
     eventStates,
     interfaces: interfaces({ config, services }),
+  }), {
+    task: () => queue.run(),
+    shutdown: (options = {}) => queue.stop({
+      remove: true,
+      clear: options.reset ?? false,
+    }),
   });
 }
 

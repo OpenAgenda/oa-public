@@ -41,10 +41,10 @@ module.exports = {
   },
   Files: Files({
     s3: {
-      accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
-      region: process.env.AWS_DEV_REGION,
-      defaultBucket: process.env.AWS_DEV_BUCKET
+      accessKeyId: process.env.AWS_KEY,
+      secretAccessKey: process.env.AWS_SECRET,
+      region: process.env.AWS_REGION,
+      defaultBucket: process.env.AWS_BUCKET
     },
     defaultProvider: 's3'
   }),

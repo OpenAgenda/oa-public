@@ -13,7 +13,7 @@
   "groupTags.required": "Mindestens ein Element muss ausgewählt werden",
   "required": "Erforderlich",
   "choice.required": "Erforderlich",
-  "serverException": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
+  "serverException": "Es gab ein Problem bei der Datenspeicherung, warten sie einen Moment und versuchen es erneut",
   "noOrigin": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
   "defaultBack": "Zurück zur Startseite",
   "defaultAgendaBack": "Zurück zum Veranstaltungskalender",

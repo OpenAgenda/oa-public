@@ -6642,7 +6642,7 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queue": ^1.0.1
+    "@openagenda/queues": ^2.0.0
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.1.0
@@ -6909,7 +6909,6 @@ __metadata:
     react-datepicker: ^1.6.0
     react-dom: ^18.2.0
     react-final-form: ^6.5.3
-    redis: ^2.8.0
     regenerator-runtime: ^0.13.7
     remove-markdown: ^0.3.0
     rimraf: ^3.0.1
@@ -6933,7 +6932,7 @@ __metadata:
   dependencies:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queue": ^1.0.1
+    "@openagenda/queues": ^2.0.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.1.0
@@ -6942,7 +6941,7 @@ __metadata:
     lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.11.1
-    redis: ^2.8.0
+    redis: ^4.6.6
     should: ^13.2.3
   languageName: unknown
   linkType: soft
@@ -7047,7 +7046,7 @@ __metadata:
     mysql: ^2.9.0
     nodemon: ^2.0.4
     prettier-eslint-cli: ^7.1.0
-    redis: ^2.8.0
+    redis: ^4.6.6
     slugify: ^1.4.5
     superagent: ^3.8.2
   languageName: unknown
@@ -8236,7 +8235,6 @@ __metadata:
     "@openagenda/eslint-config": ^1.4.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queue": ^1.0.1
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/verror": ^3.1.0
     ajv: ^5.2.2
@@ -8253,7 +8251,7 @@ __metadata:
     mime-types: ^2.1.25
     mysql: ^2.14.1
     prettier-eslint-cli: ^7.1.0
-    redis: ^2.8.0
+    redis: ^4.6.6
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     uppy-server: ^0.11.1
@@ -8323,7 +8321,7 @@ __metadata:
     lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.18.1
-    redis: ^2.8.0
+    redis: ^4.6.6
     should: ^13.2.3
     sinon: ^3.2.0
     uuid: ^3.4.0
@@ -8414,7 +8412,7 @@ __metadata:
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-use: ^15.3.4
-    redis: ^2.8.0
+    redis: ^4.6.6
     redux: ^4.0.5
     should: ^13.2.3
     slugify: ^1.4.5
@@ -8468,7 +8466,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.4.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queues": ^1.2.7
+    "@openagenda/queues": ^2.0.0
     "@openagenda/verror": ^3.1.0
     ejs: ^2.7.4
     eslint: ^8.24.0
@@ -8480,7 +8478,7 @@ __metadata:
     mjml-core: ^4.13.0
     nodemailer: ^6.9.1
     prettier-eslint-cli: ^7.1.0
-    redis: ^2.8.0
+    redis: ^4.6.6
   languageName: unknown
   linkType: soft
 
@@ -8806,19 +8804,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/queue@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@openagenda/queue@npm:1.0.1"
-  dependencies:
-    "@openagenda/utils": ^1.2.2
-    async: ^1.5.2
-    debug: 2.2.0
-    redis: ~0.12
-  checksum: ad89835867cbf74880888950a182d3af506b375555423bccf02b0a53707f0ffca6d8775717ebc2a0e49aa276995aa25507691bf3927171faad14e6d51178a0aa
-  languageName: node
-  linkType: hard
-
-"@openagenda/queues@^1.2.7, @openagenda/queues@workspace:public/queues":
+"@openagenda/queues@^2.0.0, @openagenda/queues@workspace:public/queues":
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:public/queues"
   dependencies:
@@ -8826,7 +8812,7 @@ __metadata:
     "@openagenda/verror": ^3.1.0
     lodash: ^4.17.15
     mocha: ^7.0.1
-    redis: ^2.8.0
+    redis: ^4.6.6
     should: ^13.2.3
   languageName: unknown
   linkType: soft
@@ -9347,7 +9333,7 @@ __metadata:
     jsdom: ^15.2.1
     lodash: ^4.17.15
     mocha: ^7.0.1
-    redis: ^2.6.3
+    redis: ^4.6.6
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     should: ^13.2.3
@@ -9371,7 +9357,7 @@ __metadata:
   dependencies:
     "@openagenda/logs": ^1.1.9
     jest: ^28.1.2
-    redis: ^2.7.1
+    redis: ^4.6.6
   languageName: unknown
   linkType: soft
 
@@ -9846,6 +9832,62 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
   checksum: c11a15fb71a9929b809f346d8f784d0f32afa373bc096aa1f0d0fa6a2ef0ce632a563c31876abf8b255a12a19d6e80ece31e2ef505f79a678bbf073e7a6c5c60
+  languageName: node
+  linkType: hard
+
+"@redis/bloom@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@redis/bloom@npm:1.2.0"
+  peerDependencies:
+    "@redis/client": ^1.0.0
+  checksum: 8c214227287d6b278109098bca00afc601cf84f7da9c6c24f4fa7d3854b946170e5893aa86ed607ba017a4198231d570541c79931b98b6d50b262971022d1d6c
+  languageName: node
+  linkType: hard
+
+"@redis/client@npm:1.5.7":
+  version: 1.5.7
+  resolution: "@redis/client@npm:1.5.7"
+  dependencies:
+    cluster-key-slot: 1.1.2
+    generic-pool: 3.9.0
+    yallist: 4.0.0
+  checksum: 3ded14d947b1aba9121fb2608c99960d89716b1ef9baf48ef68384a30fc8e2fe2f1be7a959247d81e7ce15a38ea9e3fce512f3fdce5a400da88dc96496b09e89
+  languageName: node
+  linkType: hard
+
+"@redis/graph@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@redis/graph@npm:1.1.0"
+  peerDependencies:
+    "@redis/client": ^1.0.0
+  checksum: d3df807108a42929ed65269c691fe6ab7eda55de91318f02a22b2d637c1bfef8817fccd17025904f5a0be8cf1cea5941334ec9f10719336da5d8f1c54cd4997e
+  languageName: node
+  linkType: hard
+
+"@redis/json@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@redis/json@npm:1.0.4"
+  peerDependencies:
+    "@redis/client": ^1.0.0
+  checksum: de07f9c37abed603dec352593eb69fc8a94475e7f86b4f65b9805394492d448a1e4181db74269d80eb9dba6f3ae8a41804204821db36bb801cd7c1e30ac7ec80
+  languageName: node
+  linkType: hard
+
+"@redis/search@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@redis/search@npm:1.1.2"
+  peerDependencies:
+    "@redis/client": ^1.0.0
+  checksum: fc3c0bd62c150ea7f8b3f08b0e67893b4e8df71b4820d750de6ba00ccff3720fdc5d4f50618e385c9e183c784635185e2e98a3e6c3d20ac30f2c60996f38b992
+  languageName: node
+  linkType: hard
+
+"@redis/time-series@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@redis/time-series@npm:1.0.4"
+  peerDependencies:
+    "@redis/client": ^1.0.0
+  checksum: a5fca079deb04a2f204a7f9a375a6ff698a119d5dd53f7581fa8fd9e3bacacf1ecb0253b97fada484a012fea7a98014bc0f4f79707d4e92ff61c00318f2bfe04
   languageName: node
   linkType: hard
 
@@ -19157,8 +19199,7 @@ __metadata:
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/pdf": ^0.1.5
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/queue": ^1.0.1
-    "@openagenda/queues": ^1.2.7
+    "@openagenda/queues": ^2.0.0
     "@openagenda/react-integration-app": ^1.6.1
     "@openagenda/react-layouts": ^2.2.1
     "@openagenda/react-shared": ^2.4.0
@@ -19229,7 +19270,7 @@ __metadata:
     react-dom: ^18.2.0
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
-    redis: ^2.8.0
+    redis: ^4.6.6
     redux: ^4.0.5
     rss: ^1.2.2
     sanitize-html: ^1.20.1
@@ -19536,6 +19577,13 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: d06418b7335897209e77bdd430d04f882189582e67bd1f75a04565f3f07f5b3f119a9d670c943b6697d0afb100f03b866b3b8a1f91d4d02d72c4ecf2bb64b5dd
+  languageName: node
+  linkType: hard
+
+"cluster-key-slot@npm:1.1.2":
+  version: 1.1.2
+  resolution: "cluster-key-slot@npm:1.1.2"
+  checksum: be0ad2d262502adc998597e83f9ded1b80f827f0452127c5a37b22dfca36bab8edf393f7b25bb626006fb9fb2436106939ede6d2d6ecf4229b96a47f27edd681
   languageName: node
   linkType: hard
 
@@ -21447,15 +21495,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2.2.0, debug@npm:~2.2.0":
-  version: 2.2.0
-  resolution: "debug@npm:2.2.0"
-  dependencies:
-    ms: 0.7.1
-  checksum: 06a55becb91b82c8084a2d7d3f73809180596c8ebbddd373a58c544efd3d66885dc0d80f9cda7e0613b2883a19c2b1d91550dc5dab3e0d4ca6fd42dc61784aa5
-  languageName: node
-  linkType: hard
-
 "debug@npm:3.1.0, debug@npm:~3.1.0":
   version: 3.1.0
   resolution: "debug@npm:3.1.0"
@@ -21501,6 +21540,15 @@ __metadata:
   dependencies:
     ms: 0.6.2
   checksum: 3a1be456590c7c46740d212b5d149cc689a3e4811d3b3a7938084e953b99d0bd32f4c3540cf7a2269aef45c53634fa1c57431e8ceaa279ac95b516a35823309a
+  languageName: node
+  linkType: hard
+
+"debug@npm:~2.2.0":
+  version: 2.2.0
+  resolution: "debug@npm:2.2.0"
+  dependencies:
+    ms: 0.7.1
+  checksum: 06a55becb91b82c8084a2d7d3f73809180596c8ebbddd373a58c544efd3d66885dc0d80f9cda7e0613b2883a19c2b1d91550dc5dab3e0d4ca6fd42dc61784aa5
   languageName: node
   linkType: hard
 
@@ -25788,6 +25836,13 @@ fsevents@~2.1.1:
   dependencies:
     is-property: ^1.0.0
   checksum: 5141ca5fd545f0aabd24fd13f9f3ecf9cfea2255db00d46e282d65141d691d560c70b6361c3c0c4982f86f600361925bfd4773e0350c66d0210e6129ae553a09
+  languageName: node
+  linkType: hard
+
+"generic-pool@npm:3.9.0":
+  version: 3.9.0
+  resolution: "generic-pool@npm:3.9.0"
+  checksum: 3d89e9b2018d2e3bbf44fec78c76b2b7d56d6a484237aa9daf6ff6eedb14b0899dadd703b5d810219baab2eb28e5128fb18b29e91e602deb2eccac14492d8ca8
   languageName: node
   linkType: hard
 
@@ -39246,7 +39301,7 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"redis@npm:^2.6.3, redis@npm:^2.7.1, redis@npm:^2.8.0":
+"redis@npm:^2.7.1, redis@npm:^2.8.0":
   version: 2.8.0
   resolution: "redis@npm:2.8.0"
   dependencies:
@@ -39257,10 +39312,17 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"redis@npm:~0.12":
-  version: 0.12.1
-  resolution: "redis@npm:0.12.1"
-  checksum: 89b7eee75e7f00a4e8c146265030227a936aa80f296d7ba44b1102807f5ece059a413209c6d4b7acbd4423d0d0f7e4c82afdcead23b41cc9702a722895f08c86
+"redis@npm:^4.6.6":
+  version: 4.6.6
+  resolution: "redis@npm:4.6.6"
+  dependencies:
+    "@redis/bloom": 1.2.0
+    "@redis/client": 1.5.7
+    "@redis/graph": 1.1.0
+    "@redis/json": 1.0.4
+    "@redis/search": 1.1.2
+    "@redis/time-series": 1.0.4
+  checksum: fb2e667d91406105c229964ddaf120a8eaae02c1f583f384f68962e166542199300fd75af9572285af988870636b8e75b04562e6d9c250ab95e43c3d87a1cb72
   languageName: node
   linkType: hard
 
@@ -47052,6 +47114,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"yallist@npm:4.0.0, yallist@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "yallist@npm:4.0.0"
+  checksum: 343617202af32df2a15a3be36a5a8c0c8545208f3d3dfbc6bb7c3e3b7e8c6f8e7485432e4f3b88da3031a6e20afa7c711eded32ddfb122896ac5d914e75848d5
+  languageName: node
+  linkType: hard
+
 "yallist@npm:^2.1.2":
   version: 2.1.2
   resolution: "yallist@npm:2.1.2"
@@ -47063,13 +47132,6 @@ resolve@^2.0.0-next.3:
   version: 3.1.1
   resolution: "yallist@npm:3.1.1"
   checksum: 48f7bb00dc19fc635a13a39fe547f527b10c9290e7b3e836b9a8f1ca04d4d342e85714416b3c2ab74949c9c66f9cebb0473e6bc353b79035356103b47641285d
-  languageName: node
-  linkType: hard
-
-"yallist@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "yallist@npm:4.0.0"
-  checksum: 343617202af32df2a15a3be36a5a8c0c8545208f3d3dfbc6bb7c3e3b7e8c6f8e7485432e4f3b88da3031a6e20afa7c711eded32ddfb122896ac5d914e75848d5
   languageName: node
   linkType: hard
 

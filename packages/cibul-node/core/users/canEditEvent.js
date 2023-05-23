@@ -88,8 +88,8 @@ module.exports = async (core, userIdentifier, eventObj) => {
       return true;
     }
 
-    if (isSuperiorToOrEqual(member.role, 'contributor')) {
-      log('user is administrator');
+    if (isSuperiorToOrEqual(member.role, 'moderator')) {
+      log('user is adminmod of an agenda that has edition rights over event');
       return true;
     }
   }

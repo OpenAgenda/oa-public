@@ -3,35 +3,36 @@
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('activities/notifications/tasks/addActivity');
-const queue = require('@openagenda/queue');
 
 module.exports = config => {
-  const q = queue(config.queue.names.addActivity, { redis: config.queue.redis });
+  const queue = config.queues.addActivity;
+  
+  queue.register({
+    addActivity: addActivityTask.bind(null, config)
+  });
 
   return Object.assign(
     addActivity.bind(null, config),
-    { task: task.bind(null, config, q) },
+    {
+      task: () => {
+        config.queues.addActivity.run();
+
+        return {
+          shutdown: () => config.queues.addActivity.stop(),
+        };
+      },
+    }
   );
 };
 
-function task(config, q, onAdd = null) {
-  q.setConsumer(async ({ identifiers, activity }) => {
-    try {
-      const result = await addActivity(config, identifiers, activity);
-      if (onAdd) onAdd(null, result);
-    } catch (e) {
-      if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
-        log('error', 'Error in addActivity task:', e);
-      }
-      if (onAdd) onAdd(e);
+async function addActivityTask(config, { identifiers, activity }) {
+  try {
+    await addActivity(config, identifiers, activity);
+  } catch (e) {
+    if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
+      log('error', 'Error in addActivity task:', e);
     }
-  });
-
-  q.launch();
-
-  return {
-    shutdown: q.shutdown,
-  };
+  }
 }
 
 function fnOrValue(fnValue, ...params) {

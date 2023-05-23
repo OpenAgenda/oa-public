@@ -6,7 +6,7 @@ module.exports = ( { redis, prefix }, operation, args = [] ) => {
 
   log( 'queueing %s', operation );
 
-  return redis.rpush( prefix + 'queue', JSON.stringify( {
+  return redis.rPush( prefix + 'queue', JSON.stringify( {
     operation,
     args
   } ) );

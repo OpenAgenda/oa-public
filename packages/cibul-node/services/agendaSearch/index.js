@@ -16,13 +16,13 @@ module.exports.init = (config, services) => {
     alias: config.agendaSearchAlias,
     elasticsearch: {
       node: `${protocol}://${host}:${port}`,
-      ssl: useSSL
+      ssl: useSSL,
     },
     defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
     logger: config.getLogConfig('svc', 'agendaSearch'),
     site: {
       url: config.root,
-      image: config.logo
+      image: config.logo,
     },
     listAgendas: listAgendas(services),
     getDetailedAgenda: agenda => {
@@ -31,12 +31,12 @@ module.exports.init = (config, services) => {
         .agendas(agenda.uid).get({
           detailed: 1,
           access: 'internal',
-          includeEvent: true
+          includeEvent: true,
         });
-    }
+    },
   });
 
   return Object.assign(search, {
-    plugApp: plugApp.bind(null, config, services, search)
+    plugApp: plugApp.bind(null, config, services, search),
   });
 };

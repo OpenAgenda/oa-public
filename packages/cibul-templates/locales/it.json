@@ -6,5 +6,6 @@
   "event/contributor/organization": "Ragione sociale",
   "event/contributor/position": "Ruolo",
   "export-all-button": "Esportare",
-  "displayAdditionalFields.goToAdditionalFields": "vedere"
+  "displayAdditionalFields.goToAdditionalFields": "vedere",
+  "share-button": "Condividere su un altro OpenAgenda"
 }

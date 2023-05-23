@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, redisCommand } = require( './helpers' );
+const { cleanSession, callbackify } = require( './helpers' );
 const log = require( '@openagenda/logs' )( 'scan' );
 const _ = require( 'lodash' );
 
@@ -31,7 +31,6 @@ module.exports = function( cursor, count, options, cb ) {
 }
 
 async function scan( cursor, limit, options = {} ) {
-
   let iterationFetches = [], updatedCursor = -1;
 
   while ( iterationFetches.length < limit && updatedCursor !== 0 ) {
@@ -42,20 +41,21 @@ async function scan( cursor, limit, options = {} ) {
 
     }
 
-    let result = await redisCommand( 'scan', [ updatedCursor, 'match', config.redis.prefix + '*', 'count', limit ] );
+    const result = await config.redisClient.sendCommand(['SCAN', `${updatedCursor}`, 'match', config.redis.prefix + '*', 'count', `${limit}`]);
 
-    updatedCursor = parseInt( result[ 0 ] );
+    updatedCursor = parseInt(result[0], 10);
 
-    iterationFetches = iterationFetches.concat( result[ 1 ] );
-
+    iterationFetches = iterationFetches.concat(result[1]);
   }
 
   let fetchedSessions = [];
 
   for ( let key of iterationFetches ) {
-
-    fetchedSessions.push( JSON.parse( await redisCommand( 'get', key ) ) );
-
+    fetchedSessions.push(
+      JSON.parse(
+        await config.redisClient.get([config.redis.prefix, key].join(':'))
+      ),
+    );
   }
 
   return {

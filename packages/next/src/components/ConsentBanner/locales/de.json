@@ -1,1 +1,6 @@
-{}
+{
+  "next.components.ConsentBanner.accept": "Akzeptieren",
+  "next.components.ConsentBanner.decline": "Ablehnen",
+  "next.components.ConsentBanner.informationText": "Diese Agenda verwendet Cookies des Trackingdienstes Google Analytics. Sie ermöglichen den Administratoren der Agenda einen Einblick darüber, welche Inhalte von Besuchern auf Websites angezeigt werden. Akzeptieren Sie sie?",
+  "next.components.ConsentBanner.moreInfoLink": "Klicken Sie hier für weitere Informationen"
+}

@@ -2,43 +2,43 @@
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
-      "value": "My agendas"
+      "value": "Meine Agendas"
     }
   ],
   "next.components.Navbar.myEvents": [
     {
       "type": 0,
-      "value": "My events"
+      "value": "Meine Veranstaltungen"
     }
   ],
   "next.components.Navbar.profileMenu": [
     {
       "type": 0,
-      "value": "Profile menu"
+      "value": "Profilmenü"
     }
   ],
   "next.components.Navbar.settings": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "Einstellungen"
     }
   ],
   "next.components.Navbar.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.components.Navbar.signOut": [
     {
       "type": 0,
-      "value": "Sign out"
+      "value": "Abmelden"
     }
   ],
   "next.components.Navbar.signUp": [
     {
       "type": 0,
-      "value": "Sign up"
+      "value": "Anmelden"
     }
   ]
 }

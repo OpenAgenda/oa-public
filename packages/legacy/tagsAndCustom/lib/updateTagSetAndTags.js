@@ -1,6 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('updateTagSetAndTags');
+const VError = require('@openagenda/verror');
 
 const slug = require('slugify');
 const generateTagSet = require('./utils/generateTagSet');
@@ -72,11 +73,14 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
   } = await generateTagSet(schema, currentTagSet, options);
 
   if (updatedSet === null) {
-    if (await knex('tag_set').first('id').where('id', id)) {
+    log.error(new VError({
+      info: { id, schema },
+    }, 'fake-deleting tagSet to know why it was deleted'));
+    /* if (await knex('tag_set').first('id').where('id', id)) {
       log('info', 'deleting tagSet %s', id);
       await knex('tag_set').delete('id', id);
       await setTags(knex, id, { groups: [] });
-    }
+    } */
 
     return {
       set: null,

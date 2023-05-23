@@ -2,8 +2,6 @@
 
 const logger = require( '@openagenda/logs' );
 
-const promisifyRedis = require( './lib/utils/promisifyRedis' );
-
 const batch = require( './lib/batch' );
 const batchRemove = require( './lib/batchRemove' );
 const clear = require( './lib/clear' );
@@ -28,7 +26,7 @@ module.exports = ( { knex, redis, prefix, imagePath } ) => {
   const config = {
     knex,
     prefix,
-    redis: promisifyRedis( redis )
+    redis,
   };
 
   // knex and redis connections should be handled in integrated app

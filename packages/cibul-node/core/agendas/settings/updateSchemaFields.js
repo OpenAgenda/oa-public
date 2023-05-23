@@ -40,7 +40,6 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
     agenda.formSchemaId = id;
   } else {
     log('schema is associated with agenda, updating');
-
     await formSchemas.update(agendaSchema.id, fs.getData());
   }
 

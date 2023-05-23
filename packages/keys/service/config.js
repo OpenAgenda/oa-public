@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const path = require( 'path' );
 const redis = require( 'redis' );
 const logs = require( '@openagenda/logs' );
-const promisifyRedis = require( '@openagenda/service-utils/promisifyRedis' );
 
 const log = require( '@openagenda/logs' )( 'config' );
 
@@ -48,9 +47,15 @@ async function init( c ) {
     });
   }
 
-  config.redis.client = c.redis.client || redis.createClient( c.redis.connection );
+  if (c.redis.client) {
+    config.redis.client = c.redis.client
+  } else {
+    config.redis.client = redis.createClient( c.redis.connection );
 
-  promisifyRedis( config.redis.client );
+    await config.redis.client.connect();
+  }
+
+  
 
   if ( config.knex.client.config.migrations ) {
     try {

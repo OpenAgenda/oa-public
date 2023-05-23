@@ -92,5 +92,6 @@
   "statusCancelledInfo": "L'evento è annullato",
   "statusFull": "Completo",
   "markAsFull": "L'evento è esaurito",
-  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento"
+  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento",
+  "shareOnOA": "Condividere su un altro OpenAgenda"
 }

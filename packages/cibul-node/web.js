@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = app => {
-  // app.use(['/events', '/:agendaSlug/events'], app.services.rateLimit);
   require('./services/users').plugApp(app);
   app.services.mails.plugApp(app);
   app.use('/events/search', app.services.eventSearch.apps.events());
@@ -20,7 +19,7 @@ module.exports = app => {
   require('./services/abilities')(app);
   require('./services/mails/unsubscription')(app);
   require('./event/files')(app);
-  require('./services/agendaDocx')(app);
+  app.services.agendaDocx.plugApp(app);
   require('./services/agendaCalendar')(app);
   require('./home/back')(app);
   require('./general/front')(app);

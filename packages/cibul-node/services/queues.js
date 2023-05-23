@@ -1,15 +1,13 @@
 'use strict';
 
-const redis = require('redis');
+const Queues = require('@openagenda/queues');
 
-const Queues = require('@openagenda/queues').v2;
-
-module.exports.init = function init(config) {
+module.exports.init = function init(config, services) {
   const logger = config.getLogConfig('svc', 'queues');
 
   return Queues({
     logger,
-    redis: config.redisClient || redis.createClient(config.port, config.host),
-    prefix: config.queuesPrefix ?? 'q:'
+    redis: services.redis,
+    prefix: config.queuesPrefix ?? 'q:',
   });
 };

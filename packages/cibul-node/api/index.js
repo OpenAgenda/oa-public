@@ -27,8 +27,6 @@ module.exports = core => {
 
   const { verifySuperAdmin } = app.services.users.mw;
 
-  // app.use(Sentry.Handlers.requestHandler());
-
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([{
       name: 'image',
@@ -36,6 +34,11 @@ module.exports = core => {
     }]),
     mw.parseBodyData,
   ];
+
+  app.use((_req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    next();
+  });
 
   app.post('*', postMw);
   app.patch('*', postMw);
@@ -636,6 +639,12 @@ module.exports = core => {
 
   app.use(sentryErrorHandler({ tag: 'api' }));
   app.use(apiErrorHandler);
+
+  app.use((_req, res) => {
+    res.status(404).json({
+      info: 'Unhandled route',
+    });
+  });
 
   return app;
 };

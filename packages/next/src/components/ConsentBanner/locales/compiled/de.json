@@ -2,25 +2,25 @@
   "next.components.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accept"
+      "value": "Akzeptieren"
     }
   ],
   "next.components.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Decline"
+      "value": "Ablehnen"
     }
   ],
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+      "value": "Diese Agenda verwendet Cookies des Trackingdienstes Google Analytics. Sie ermöglichen den Administratoren der Agenda einen Einblick darüber, welche Inhalte von Besuchern auf Websites angezeigt werden. Akzeptieren Sie sie?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Click here for more information"
+      "value": "Klicken Sie hier für weitere Informationen"
     }
   ]
 }

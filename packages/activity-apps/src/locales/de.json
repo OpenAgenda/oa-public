@@ -1,1 +1,3 @@
-{}
+{
+  "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} und 1 andere Veranstaltung} other {{event} und {others} andere Veranstaltungen}}"
+}

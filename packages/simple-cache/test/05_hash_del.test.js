@@ -6,28 +6,38 @@ const sCache = require('..');
 const config = {
   redis: {
     host: process.env.HOST,
-    port: process.env.PORT
+    port: process.env.PORT,
   },
-  prefix: process.env.PREFIX
+  prefix: process.env.PREFIX,
 };
 
 describe('simple-cache - functional (service): hash del', () => {
   let cache;
   let cli;
 
-  beforeAll(() => {
-    cli = redis.createClient(config.redis.port, config.redis.host);
-  });
-
-  beforeAll(() => {
-    cache = sCache(config);
-  });
-
-  beforeEach(() => new Promise(rs => {
-    cli.keys(`${config.prefix}*`, (err, keys) => {
-      cli.del(keys.join(' '), rs);
+  beforeAll(async () => {
+    cli = redis.createClient({
+      socket: {
+        host: config.redis.host,
+        port: config.redis.port,
+      },
     });
-  }));
+
+    await cli.connect();
+  });
+
+  beforeAll(() => {
+    cache = sCache({
+      ...config,
+      client: cli,
+    });
+  });
+
+  beforeEach(async () => cli.del(
+    await cli
+      .keys(`${config.prefix}*`)
+      .then(k => k.join(' ')),
+  ));
 
   afterAll(() => cli.quit());
 

@@ -15,5 +15,7 @@
   "AgendaContribute.EventNew.create": "Deine Veranstaltung senden",
   "AgendaContribute.EventNew.deleteDraft": "Den Entwurf löschen",
   "AgendaContribute.EventNew.draft": "Deinen Entwurf speichern",
-  "AgendaContribute.EventNew.updateDraft": "Den Entwurf aktualisieren"
+  "AgendaContribute.EventNew.updateDraft": "Den Entwurf aktualisieren",
+  "AgendaContribute.EventShare.share": "Veranstaltung anlegen",
+  "AgendaContribute.CanvasWithStepper.addEvent": "Veranstaltung hinzufügen"
 }

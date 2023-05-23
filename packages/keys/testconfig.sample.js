@@ -19,8 +19,10 @@ module.exports = {
   },
   redis: {
     connection: {
-      host: 'localhost',
-      port: 6379
+      socket: {
+        host: 'localhost',
+        port: 6379
+      }
     }
   },
   cache: {

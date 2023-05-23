@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const fs = require( 'fs' );
-const { promisify } = require( 'util' );
 
 const knexLib = require( 'knex' );
 
@@ -33,9 +32,9 @@ describe( '04 - control data - rebuild', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '83549053' );
+    await redisClient.del( config.redisPrefix + '83549053' );
 
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.quit();
 
     await knex.destroy();
 
