@@ -97,12 +97,6 @@ window.asap(async options => {
     })
   });
 
-  displayAdditionalFields({
-    lang: params.lang,
-    agendaUid: params.agendaUid,
-    eventUid: params.uid
-  });
-
   displayShareButtons(params, !!params.user);
   eventMap();
 
@@ -174,9 +168,35 @@ window.asap(async options => {
     me: params.me
   });
 
-  if (roles.includes(ROLES.EVENTEDITOR)) {
-    prv.activities(params.agendaUid, params.uid, params.lang);
-  }
+  get.promise(
+    window.env === 'tpl'
+      ? '/server/testdata/agendawithadditionalfields.json'
+      : `/api/agendas/${params.agendaUid}?detailed=1`,
+  )
+    .then(agenda => {
+      get.promise(
+        window.env === 'tpl'
+          ? '/server/testdata/eventdatawithadditionalfields.json'
+          : `/api/agendas/${params.agendaUid}/events/${params.uid}`,
+      )
+        .then(event => {
+          displayAdditionalFields({
+            lang: params.lang,
+            agenda,
+            event
+          });
+
+          if (roles.includes(ROLES.EVENTEDITOR)) {
+            prv.activities(params.agendaUid, params.uid, event.locationUid, params.lang);
+          }
+        }, err => {
+          log('error when trying to load event data');
+          log(err);
+        });
+    }, err => {
+      log('error when trying to load agenda schema');
+      log(err);
+    });
 
   if (params.user) {
     prv.inbox(params, { roles, ROLES });
@@ -191,7 +211,7 @@ function defineRoles(params) {
 
   const roles = [];
 
-  const isEventContributor = (params?.me?.member?.userUid === params?.member?.userUid) 
+  const isEventContributor = (params?.me?.member?.userUid === params?.member?.userUid)
 
   if ((params.member?.role === 'contributor') && isEventContributor) {
     roles.push(ROLES.EVENTEDITOR);

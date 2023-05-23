@@ -9,6 +9,7 @@ import createInboxApp from '@openagenda/inbox-apps/dist/app';
 import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
+const activitiesLocationApp = require( '@openagenda/activity-apps/dist/client/apps/location' );
 import remote from '../../js/lib/remote';
 import activities from './activities';
 
@@ -84,13 +85,28 @@ module.exports = options => {
     }
   }
 
-  function displayActivities(agendaUid, eventUid, lang) {
+  function displayActivities(agendaUid, eventUid, locationUid, lang) {
+    // Event
     activities({
       canvas: du.el(params.activitiesSelector),
       res: params.activitiesUrl[params.env].replace('{agendaUid}', agendaUid).replace('{eventUid}', eventUid),
       fetch: _fetch,
       lang
     });
+
+    // Location
+    const locationActivitiesElem = document.createElement('div');
+    const locationActivitiesRoot = document.querySelector('.location-details .event-content');
+
+    if (locationActivitiesRoot) {
+      locationActivitiesElem.classList.add('location-activities');
+      locationActivitiesRoot.appendChild(locationActivitiesElem);
+
+      ReactDOM.render(
+        activitiesLocationApp({ lang, agendaUid, locationUid }),
+        locationActivitiesElem,
+      );
+    }
   }
 
   function renderInboxApp({ initialState, extraProps, selector }) {
