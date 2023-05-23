@@ -163,9 +163,9 @@ const config = {
       id: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID,
       secret: prod.facebook?.appSecret ?? process.env.OA_FACEBOOK_SECRET,
     } : null,
-    twitter: prod.twitter?.key ?? process.env.TWITTER_KEY ? {
-      key: prod.twitter?.key ?? process.env.TWITTER_KEY,
-      secret: prod.twitter?.secret ?? process.env.TWITTER_SECRET,
+    twitter: prod.twitter?.key ?? process.env.OA_TWITTER_KEY ? {
+      key: prod.twitter?.key ?? process.env.OA_TWITTER_KEY,
+      secret: prod.twitter?.secret ?? process.env.OA_TWITTER_SECRET,
     } : null,
     google: prod.googleApps ?? process.env.OA_OAUTH_GOOGLE_ID ? {
       id: prod?.googleApps?.id ?? process.env.OA_OAUTH_GOOGLE_ID,
