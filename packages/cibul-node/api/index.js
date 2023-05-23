@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
 const { NotAuthenticated } = require('@openagenda/verror');
+const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
 
 const sentryErrorHandler = require('../lib/sentryErrorHandler');
 const mw = require('./middleware');
@@ -291,7 +292,9 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .create(req.parsedData)
+      .create(req.parsedData, {
+        userUid: req.user.uid,
+      })
       .then(
         location => res.json({
           success: true,
@@ -336,6 +339,28 @@ module.exports = core => {
     _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
   ).then(code => res.json({ code }), next));
 
+  app.get(
+    '/agendas/:agendaUid/locations/:locationUid/activities',
+    mw.member.allow(['contributor', 'moderator', 'administrator']),
+    async (req, res, next) => {
+      try {
+        console.log(req.event);
+
+        const activities = await app.services.activities
+          .feed({ entityType: 'user', entityUid: req.user.uid })
+          .activities.list({ object: `location:${req.params.locationUid}` }, req.query.fromId || 0, 20);
+
+        res.json({
+          activities,
+          config: req.query.withConfig ? app.services.activities.getFormatConfig() : undefined,
+        });
+      } catch (e) {
+        next(e);
+      }
+    },
+    (req, res) => activitiesMw.list({ entityType: 'location', entityUid: req.event.uid })(req, res),
+  );
+
   app.get('/agendas/:agendaUid/locations/settings', (req, res, next) => core
     .agendas(req.agenda.uid)
     .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
@@ -345,7 +370,11 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid)
-      .locations.merge(req.body.mergeIn, { uids: req.body.merged })
+      .locations.merge(req.body.mergeIn, { uids: req.body.merged }, null, {
+        context: {
+          userUid: req.user.uid,
+        },
+      })
       .then(location => res.json({
         location,
         success: true,
@@ -377,7 +406,17 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .update(req.locationIdentifier, req.parsedData)
+      .update(
+        req.locationIdentifier,
+        req.parsedData,
+        {
+          context: {
+            userUid: req.user.uid,
+            agendaUid: req.agenda.uid,
+            setUid: req.agenda.setUid,
+          },
+        },
+      )
       .then(location => res.json({
         success: true,
         location,
@@ -405,7 +444,13 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .remove(req.locationIdentifier)
+      .remove(req.locationIdentifier, {
+        context: {
+          userUid: req.user.uid,
+          agendaUid: req.agenda.uid,
+          setUid: req.agenda.setUid,
+        },
+      })
       .then(location => res.json({
         success: true,
         location,
