@@ -10,5 +10,7 @@
   "ReactShared.ImageInput.upload": "Carica un'immagine",
   "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi.",
   "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
-  "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento"
+  "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
+  "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
+  "ReactShared.AgendaContextBar.moderated": "{count} da moderare"
 }

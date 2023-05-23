@@ -4,33 +4,45 @@ const express = require('express');
 
 const logger = require('@openagenda/logs');
 const AgendaFiles = require('./lib/agendaFiles');
-const config = require('./config');
-const queue = require('./queue');
-const task = require('./task');
-const app = require('./app');
+const processGenerateRequest = require('./processGenerateRequest');
+const App = require('./app');
 
 const defaultState = require('./defaultState');
 
-function getState(agendaUid) {
+function getState({ s3 }, agendaUid) {
   return AgendaFiles({
-    s3: config.s3,
-    bucket: config.s3.bucket,
+    s3,
+    bucket: s3.bucket,
     uid: agendaUid,
   }).getJSON('state.json', defaultState);
 }
 
-module.exports = {
-  init: c => {
-    if (c.logger) {
-      logger.setModuleConfig(c.logger);
-    }
+module.exports = function AgendaDocx(options = {}) {
+  const {
+    queue,
+    localTmpPath,
+    s3,
+  } = options;
 
-    config.init(c);
+  if (options.logger) {
+    logger.setModuleConfig(options.logger);
+  }
 
-    queue.init(c.queue);
-  },
-  app,
-  task,
-  getState,
-  dist: express.static(`${__dirname}/../client/dist`),
+  if (queue) {
+    queue.register({
+      processGenerateRequest: processGenerateRequest.bind(null, {
+        s3,
+        localTmpPath,
+      }),
+    });
+  }
+
+  return {
+    app: App({
+      queue,
+      s3,
+    }),
+    getState: getState.bind(null, { s3 }),
+    dist: express.static(`${__dirname}/../client/dist`),
+  };
 };

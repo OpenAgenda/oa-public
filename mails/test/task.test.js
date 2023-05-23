@@ -21,6 +21,15 @@ describe('task', () => {
   beforeAll(async () => {
     const account = await nodemailer.createTestAccount();
 
+    const redisClient = redis.createClient({
+      socket: {
+        host: 'localhost',
+        port: 6379,
+      },
+    });
+
+    await redisClient.connect();
+
     mails = await createMails({
       templatesDir,
       transport: {
@@ -43,11 +52,8 @@ describe('task', () => {
           domain: 'https://openagenda.com',
         },
       },
-      Queues: Queues.v2({
-        redis: redis.createClient({
-          host: 'localhost',
-          port: 6379,
-        }),
+      Queues: Queues({
+        redis: redisClient,
         prefix: 'mails:',
       }),
       queueName: 'mailsTest-task',

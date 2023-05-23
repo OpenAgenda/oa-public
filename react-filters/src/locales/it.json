@@ -9,7 +9,10 @@
   "ReactFilters.filters.MapFilter.previewLabel": "Mappa",
   "ReactFilters.filters.searchFilter.placeholder": "Cerca",
   "ReactFilters.filters.searchFilter.previewLabel": "Cerca",
+  "ReactFilters.messages.accessiblities.hi": "Disabilità uditiva",
+  "ReactFilters.messages.accessiblities.ii": "Disabilità cognitiva",
   "ReactFilters.messages.accessiblities.mi": "Disabilità motoria",
+  "ReactFilters.messages.accessiblities.pi": "Disabilità psichica",
   "ReactFilters.messages.accessiblities.vi": "Disabilità visiva",
   "ReactFilters.messages.attendanceMode.mixed": "Misto",
   "ReactFilters.messages.attendanceMode.offline": "In presenza",
@@ -33,6 +36,7 @@
   "ReactFilters.messages.filterTitles.status": "Stato",
   "ReactFilters.messages.filterTitles.timings": "Orari",
   "ReactFilters.messages.filterTitles.updatedAt": "Data di aggiornamento",
+  "ReactFilters.messages.map.searchWithMap": "Cercare con la carta",
   "ReactFilters.messages.provenance.aggregation": "Aggregazione",
   "ReactFilters.messages.provenance.contribution": "Contribuzione",
   "ReactFilters.messages.provenance.share": "Condividere",
@@ -49,9 +53,5 @@
   "ReactFilters.messages.status.postponed": "Riprogrammato",
   "ReactFilters.messages.status.programmed": "Programmato",
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
-  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
-  "ReactFilters.messages.accessiblities.hi": "Disabilità uditiva",
-  "ReactFilters.messages.accessiblities.ii": "Disabilità cognitiva",
-  "ReactFilters.messages.accessiblities.pi": "Disabilità psichica",
-  "ReactFilters.messages.map.searchWithMap": "Cercare con la carta"
+  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)"
 }

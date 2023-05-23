@@ -90,6 +90,7 @@ module.exports = async options => {
     eventsPerPage, // optional number of events to load per page
     preFilter,
     defaultFilter, // optional: filter that applies when no other filter is set
+    visibilityPastEvents,
     // cache,
     proxy: injectedProxy,
     assetsRoot,
@@ -152,9 +153,11 @@ module.exports = async options => {
       defaultLimit: eventsPerPage,
       preFilter,
       defaultFilter,
+      visibilityPastEvents,
       defaultTimezone,
       proxyHookBeforeGet,
-      longDescriptionFormat
+      longDescriptionFormat,
+      app,
     });
 
   app.set('proxy', proxy);

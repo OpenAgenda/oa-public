@@ -1,140 +1,139 @@
 'use strict';
 
-const _ = require('lodash');
-const redis = require('redis');
-const { promisify } = require('util');
-const VError = require('@openagenda/verror');
+const STOP = 'STOPSIGNAL';
+const logs = require('@openagenda/logs');
 
-const v2 = require('./v2');
+const log = logs('index');
 
-const clients = {};
-
-const config = {};
-
-module.exports = _.assign(queue, { init, v2 });
-
-function queue(name) {
-  const queueName = _getQueueName(name);
-
-  return _.assign(enqueue.bind(null, queueName), {
-    pop: pop.bind(null, queueName),
-    waitAndPop: waitAndPop.bind(null, queueName),
-    total: total.bind(null, queueName),
-    clear: clear.bind(null, queueName)
-  });
-}
-
-async function clear(queueName) {
-  const client = await _getRedisClient();
-
-  return client.p.del(queueName);
-}
-
-function _getQueueName(queueName) {
-  if (!config.prefix)
-    throw new Error('a prefix must be defined for redis queues');
-
-  return [config.prefix, queueName].join(config.separator);
-}
-
-async function total(queueName) {
-  const client = await _getRedisClient();
-
-  return client.p.llen(queueName);
-}
-
-function waitAndPop(queueName) {
-  return _getRedisClient(`task:${queueName}`).then(client => {
-    return new Promise((rs, rj) => {
-      client.blpop(queueName, 0, (err, result) => {
-        if (err) return rj(err);
-
-        rs(JSON.parse(result[1]));
-      });
-    });
-  });
-}
-
-async function enqueue(queueName, data) {
-  const client = await _getRedisClient();
-
-  return client.p.rpush(queueName, JSON.stringify(data));
-}
-
-async function pop(queueName) {
-  const client = await _getRedisClient();
-
-  const popped = await client.p.lpop(queueName);
-
-  return popped ? JSON.parse(popped) : null;
-}
-
-async function init(c) {
-  _.assign(
-    config,
-    {
-      prefix: 'queues',
-      separator: ':',
-      redis: { host: 'localhost', port: 6379 }
-    },
-    c
-  );
-
-  try {
-    await _getRedisClient();
-  } catch (e) {
-    throw new VError(e, 'queues init - Could not connect to redis');
+module.exports = function({ redis, prefix, logger }) {
+  if (logger) {
+    logs.setModuleConfig(logger);
   }
+  
+  return name => Queue(redis, [prefix + name].join(''));
 }
 
-function _getRedisClient(name = 'default') {
-  return new Promise((rs, rj) => {
-    let responded = false;
+function Queue(redis, queueName, methods = {}, options = {}) {
+  const refs = methods;
+  const ons = {};
+  const uniqueProcessId = Math.ceil(Math.random()*99999999);
 
-    function _respond(err) {
-      if (responded) return;
+  let taskRedisCli = null;
 
-      responded = true;
-
-      if (err) clients[name] = null;
-
-      err ? rj(err) : rs(clients[name]);
+  const queueMethods = Object.assign(queue.bind(null, redis, queueName, uniqueProcessId), {
+    run: () => {
+      log('%s (%s): run', queueName, uniqueProcessId);
+      taskRedisCli = run(redis, queueName, uniqueProcessId, methods, ons);
+    },
+    register: methods => {
+      log('%s (%s): registering methods %s', queueName, uniqueProcessId, Object.keys(methods).join(', '));
+      Object.assign(refs, methods)
     }
-
-    if (clients[name]) return _respond(null, clients[name]);
-
-    if (!config) {
-      return _respond(new Exception('redis config is missing'));
-    }
-
-    clients[name] = redis.createClient(config.redis.port, config.redis.host);
-
-    _promisifyRedisClient(clients[name], [
-      'get',
-      'set',
-      'llen',
-      'rpush',
-      'lpop',
-      'blpop',
-      'del'
-    ]);
-
-    clients[name].on('error', _respond);
-
-    clients[name].on('ready', () => {
-      _respond(null, clients[name]);
-    });
   });
+
+  queueMethods.stop = async (options = {}) => {
+    if (!taskRedisCli) return;
+    log('%s (%s): stopping', queueName, uniqueProcessId);
+    await redis.lPush(queueName, STOP);
+    taskRedisCli = null;
+
+    if (options.clear) {
+      await queueMethods.clear();
+    }
+  
+    if (options.remove) {
+      log('%s (%s): unreferencing methods %s', queueName, uniqueProcessId, Object.keys(methods).join(', '));
+      Object.keys(methods).forEach(methodName => {
+        delete methods[methodName];
+      });  
+    }
+    log('%s (%s): stopped', queueName, uniqueProcessId);
+  };
+
+  queueMethods.on = (name, fn) => {
+    ons[name] = fn;
+    return queueMethods;
+  };
+
+  queueMethods.clear = () => redis.del(queueName);
+
+  queueMethods.len = () => redis.lLen(queueName);
+
+  return queueMethods;
 }
 
-function _closeRedisClient(name = 'default') {
-  clients[name] = null;
+function queue(redis, queueName, uniqueProcessId, method, ...args) {
+  log('%s (%s): pushing', queueName, uniqueProcessId);
+  return redis.rPush(queueName, JSON.stringify({ method, args }));
 }
 
-function _promisifyRedisClient(client, methods) {
-  client.p = methods.reduce((promised, method) => {
-    promised[method] = promisify(client[method].bind(client));
+async function blpop(redis, queueName, uniqueProcessId) {
+  log('%s (%s): waiting for next pop', queueName, uniqueProcessId);
+  const { element: next } = await redis.blPop(queueName, 0);
+  log('%s (%s): blpopped', queueName, uniqueProcessId);
+  return next;
+}
 
-    return promised;
-  }, {});
+function run(redis, queueName, uniqueProcessId, methods, ons = {}) {
+  const dRedis = redis.duplicate();
+
+  (async () => {
+    await dRedis.connect();
+
+    let blPopResult;
+
+    log('%s: running blpop loop')
+    while (blPopResult = await blpop(dRedis, queueName, uniqueProcessId)) {
+      if (blPopResult === STOP) {
+        stop();
+        break;
+      }
+
+      let result = null;
+      let methodName = null;
+      let args = null;
+
+      try {
+        const popped = JSON.parse(blPopResult);
+        methodName = popped.method;
+        args = popped.args;
+
+        if (!methods[methodName]) {
+          log('%s(%s): Unregistered method %s', queueName, uniqueProcessId, methodName);
+          throw new Error(`Unregistered method: ${methodName}`);
+        }
+
+        if (ons.execute) {
+          try {
+            ons.execute(methodName, args);
+          } catch(e) {}
+        }
+
+        result = await methods[methodName].apply(null, args);
+      } catch (e) {
+        if (ons.error) {
+          try {
+            ons.error(methodName, args, e);
+          } catch (e) {}
+        }
+      }
+
+      if (ons.success) {
+        try {
+          ons.success(methodName, args, result);
+        } catch (e) {}
+      }
+    }
+    log('%s (%s): exiting run subloop', queueName, uniqueProcessId);
+  })();
+
+  async function stop() {
+    log('%s (%s): quitting queue', queueName, uniqueProcessId);
+    await dRedis.quit();
+    try {
+      ons.finish ? ons.finish() : null;
+    } catch (e) {}
+  }
+
+  return dRedis;
 }

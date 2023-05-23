@@ -638,8 +638,8 @@ background: #fff;
 border-radius: 4px;
 }
 
-.rdrStaticRange + .rdrStaticRange {
-margin-left: 8px;
+.rdrStaticRange {
+  margin: 0 4px 8px 4px;
 }
 
 .rdrStaticRange:hover .rdrStaticRangeLabel,
