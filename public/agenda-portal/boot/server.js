@@ -38,12 +38,14 @@ Portal({
   eventsPerPage: 20,
   // filters that applies even if other filter is specified, can be overloaded
   preFilter: {
-    relative: ['current', 'upcoming'],
+    // relative: ['current', 'upcoming'],
   },
   // filter that applies when no other filter is specified
   defaultFilter: {
     // featured: 1,
   },
+  // visibility of past events when relative or timings filter is specified
+  visibilityPastEvents: process.env.PORTAL_VISIBILITY_PAST_EVENTS,
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
   iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,

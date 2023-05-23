@@ -94,7 +94,7 @@ module.exports = async ({
       return expressions.compile(
         tag
           .replace(/\$index/g, indexes[indexes.length - 1])
-          .replace(/(‘|’|“|”)/g, "'")
+          .replace(/(‘|’|“|”)/g, "'"),
       )(scope);
     },
   });
