@@ -14,7 +14,7 @@ export default defineMessages({
     id: 'ActivityApps.eventCreate.target',
     defaultMessage: '<event>{eventName}</event> was created on agenda <agenda>{agendaName}</agenda>.'
   },
-  // event.create
+  // event.duplicate
   'eventDuplicate.full': {
     id: 'ActivityApps.eventDuplicate.full',
     defaultMessage: '<user>{userName}</user> duplicated <event>{eventName}</event> from agenda <duplicateOriginAgenda>{duplicateOriginAgendaName}</duplicateOriginAgenda> to agenda <agenda>{agendaName}</agenda>.'
@@ -46,7 +46,7 @@ export default defineMessages({
       '<someDiff>The fields <fields></fields> of <event>{eventName}</event> was updated on <agenda>{agendaName}</agenda>.</someDiff>' +
       '<manyDiff>The fields <fields></fields> of <event>{eventName}</event> was updated on <agenda>{agendaName}</agenda>.</manyDiff>'
   },
-  // event.delete +
+  // event.delete
   'eventDelete.full': {
     id: 'ActivityApps.eventDelete.full',
     defaultMessage: '<user>{userName}</user> deleted <event>{eventName}</event> on <agenda>{agendaName}</agenda>.'
@@ -267,9 +267,77 @@ export default defineMessages({
     id: 'ActivityApps.addEvent.target',
     defaultMessage: '<event>{eventName}</event> was added on <agenda>{agendaName}</agenda> from <sourceAgenda>{sourceAgendaName}</sourceAgenda>.'
   },
+  // location.create
+  'locationCreate.full': {
+    id: 'ActivityApps.locationCreate.full',
+    defaultMessage: '<user>{userName}</user> created location <location>{locationName}</location> on agenda <agenda>{agendaName}</agenda>.'
+  },
+  'locationCreate.actor': {
+    id: 'ActivityApps.locationCreate.actor',
+    defaultMessage: '<user>{userName}</user> created location <location>{locationName}</location>.'
+  },
+  'locationCreate.target': {
+    id: 'ActivityApps.locationCreate.target',
+    defaultMessage: 'Location <location>{locationName}</location> was created on agenda <agenda>{agendaName}</agenda>.'
+  },
+  // location.update
+  'locationUpdate.full': {
+    id: 'ActivityApps.locationUpdate.full',
+    defaultMessage: '<singleDiff><user>{userName}</user> updated the field <locationField></locationField> of location <location>{locationName}</location> on <agenda>{agendaName}</agenda>.</singleDiff>' +
+      '<someDiff><user>{userName}</user> updated the fields <locationFields></locationFields> of location <location>{locationName}</location> on <agenda>{agendaName}</agenda>.</someDiff>' +
+      '<manyDiff><user>{userName}</user> updated the fields <locationFields></locationFields> of location <location>{locationName}</location> on <agenda>{agendaName}</agenda>.</manyDiff>',
+  },
+  'locationUpdate.actor': {
+    id: 'ActivityApps.locationUpdate.actor',
+    defaultMessage: '<singleDiff><user>{userName}</user> updated the field <locationField></locationField> of location <location>{locationName}</location>.</singleDiff>' +
+      '<someDiff><user>{userName}</user> updated the fields <locationFields></locationFields> of location <location>{locationName}</location>.</someDiff>' +
+      '<manyDiff><user>{userName}</user> updated the fields <locationFields></locationFields> of location <location>{locationName}</location>.</manyDiff>',
+  },
+  'locationUpdate.target': {
+    id: 'ActivityApps.locationUpdate.target',
+    defaultMessage: '<singleDiff>The field <locationField></locationField> of location <location>{locationName}</location> was updated on <agenda>{agendaName}</agenda>.</singleDiff>' +
+      '<someDiff>The fields <locationFields></locationFields> of location <location>{locationName}</location> was updated on <agenda>{agendaName}</agenda>.</someDiff>' +
+      '<manyDiff>The fields <locationFields></locationFields> of location <location>{locationName}</location> was updated on <agenda>{agendaName}</agenda>.</manyDiff>',
+  },
+  // location.merge
+  'locationMerge.full': {
+    id: 'ActivityApps.locationMerge.full',
+    defaultMessage: '<user>{userName}</user> merged location <location>{locationName}</location> with <mergedOthers></mergedOthers> on agenda <agenda>{agendaName}</agenda>.',
+  },
+  'locationMerge.actor': {
+    id: 'ActivityApps.locationMerge.actor',
+    defaultMessage: '<user>{userName}</user> merged location <location>{locationName}</location> with <mergedOthers></mergedOthers>.',
+  },
+  'locationMerge.target': {
+    id: 'ActivityApps.locationMerge.target',
+    defaultMessage: 'Location <location>{locationName}</location> was merged with <mergedOthers></mergedOthers> on agenda <agenda>{agendaName}</agenda>.',
+  },
+  // location.remove
+  'locationRemove.full': {
+    id: 'ActivityApps.locationRemove.full',
+    defaultMessage: '<user>{userName}</user> removed location <location>{locationName}</location> on agenda <agenda>{agendaName}</agenda>.'
+  },
+  'locationRemove.actor': {
+    id: 'ActivityApps.locationRemove.actor',
+    defaultMessage: '<user>{userName}</user> removed location <location>{locationName}</location>.'
+  },
+  'locationRemove.target': {
+    id: 'ActivityApps.locationRemove.target',
+    defaultMessage: 'Location <location>{locationName}</location> was removed on agenda <agenda>{agendaName}</agenda>.'
+  },
 
   XOthers: {
     id: 'ActivityApps.XOthers',
     defaultMessage: '{count, plural, =1 {# other} other {# others}}'
-  }
+  },
+
+  // app
+  noHistory: {
+    id: 'ActivityApps.noHistory',
+    defaultMessage: 'Your activities will be displayed here.'
+  },
+  history: {
+    id: 'ActivityApps.history',
+    defaultMessage: 'History'
+  },
 });

@@ -5,13 +5,15 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { Waypoint } from 'react-waypoint';
+import { injectIntl } from 'react-intl';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-shared';
 import activitiesReducer, * as activitiesActions from '../../redux/modules/activities';
 import modalsReducer from '../../redux/modules/modals';
 import { ActivityItem } from '../../components';
-import I18nContext from '../../contexts/I18nContext';
+import messages from '../../messages/activities';
 
+@injectIntl
 @provideHooks({
   inject: ({ store }) => store.inject({
     form: formReducer,
@@ -60,8 +62,6 @@ export default class UserDashboard extends Component {
     lastPage: PropTypes.bool
   };
 
-  static contextType = I18nContext;
-
   nextPage = () => {
     const { loading, nextLoading, activities, query, nextPage, lastPage } = this.props;
     if (!activities || !activities.length || loading || nextLoading || lastPage) return;
@@ -71,12 +71,11 @@ export default class UserDashboard extends Component {
   throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
 
   render() {
-    const { activitiesConfig, activities, nextLoading } = this.props;
-    const { getLabel } = this.context;
+    const { intl, activitiesConfig, activities, nextLoading } = this.props;
 
     return (
       <div className="content">
-        <h2 className="margin-bottom-md">{getLabel('history')}</h2>
+        <h2 className="margin-bottom-md">{intl.formatMessage(messages.history)}</h2>
 
         {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
           {activities.map(a => (
@@ -89,7 +88,7 @@ export default class UserDashboard extends Component {
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-          {getLabel('noActivity')}
+          {intl.formatMessage(messages.noActivity)}
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

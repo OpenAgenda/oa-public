@@ -1,6 +1,5 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import labels from '@openagenda/labels/activities/event';
 import { getSupportedLocale } from '@openagenda/intl';
 import { ActivityItem } from '../../components';
 import locales from '../../../locales-compiled';
