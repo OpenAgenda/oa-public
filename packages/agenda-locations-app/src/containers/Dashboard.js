@@ -257,8 +257,6 @@ function Dashboard() {
       dispatch(mergeActions.selectLocations(newLocationsUids.filter(e => e !== location.uid)));
       return;
     }
-    // basic beahavior
-    onLocationItemEdit(location);
   }, [onLocationItemEdit, dispatch, merge, mergeMode]);
 
   const renderMergeAction = useCallback(() => {
@@ -452,6 +450,7 @@ function Dashboard() {
             <LocationItem
               merge={merge}
               lang={lang}
+              agendaUid={agenda.uid}
               location={location}
               onSelect={onLocationItemSelect}
               onEdit={onLocationItemEdit}
