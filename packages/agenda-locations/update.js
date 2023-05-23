@@ -70,7 +70,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   };
 
   if (service.interfaces.onUpdate) {
-    await service.interfaces.onUpdate(current, updated);
+    await service.interfaces.onUpdate(current, updated, options.context);
   }
   log(updated);
   return updated;

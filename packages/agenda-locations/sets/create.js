@@ -21,5 +21,9 @@ module.exports = async (service, data = {}) => {
 
   log('created with id %s and uid %s', insertedID, entry.uid);
 
+  if (service.interfaces.onSetCreate) {
+    await service.interfaces.onSetCreate(clean);
+  }
+
   return _.mapKeys(entry, (v, key) => _.camelCase(key));
 };

@@ -21,7 +21,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
   }
 
   if (internals.interfaces.beforeMerge) {
-    await internals.interfaces.beforeMerge(mergeInItem, toBeMerged);
+    await internals.interfaces.beforeMerge(mergeInItem, toBeMerged, options.context);
   }
 
   log('updating merged location'); // if data
