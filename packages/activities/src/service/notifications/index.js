@@ -8,7 +8,7 @@ const remove = require( './remove' );
 module.exports = function notifications( config, identifiers ) {
 
   return {
-    addActivity: (identifiers, activity) => config.queues.addActivity('addActivity', { identifiers, activity }),
+    addActivity: activity => config.queues.addActivity('addActivity', { identifiers, activity }),
     count: count.bind( null, config, identifiers ),
     get: get.bind( null, config, identifiers ),
     list: list.bind( null, config, identifiers ),
