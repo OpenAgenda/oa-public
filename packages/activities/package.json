@@ -25,7 +25,6 @@
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "async": "^2.3.0",
-    "caporal": "^0.4.1",
     "core-js": "^3.29.1",
     "is-promise": "^2.1.0",
     "lodash": "^4.17.15",
@@ -37,10 +36,9 @@
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.0",
     "@openagenda/babel-preset": "^1.5.0",
-    "@openagenda/fixtures": "^2.0.2",
     "@openagenda/queues": "^2.0.0",
     "jest": "^28.1.2",
-    "knex": "^0.19.5",
+    "knex": "^2.4.2",
     "mysql": "^2.18.1"
   }
 }

@@ -69,6 +69,11 @@ async function create(service, data, options = {}) {
   }
 
   log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
+
+  if (service.interfaces.onLocationCreate) {
+    await service.interfaces.onLocationCreate(clean, options.context);
+  }
+
   return filterFieldsByAccess(clean);
 }
 

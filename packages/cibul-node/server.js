@@ -123,6 +123,7 @@ const log = logs('server');
 
     if (API) {
       express()
+        .set('trust proxy', ['loopback', 'uniquelocal'])
         .use(
           '/v2',
           Sentry.Handlers.requestHandler(),

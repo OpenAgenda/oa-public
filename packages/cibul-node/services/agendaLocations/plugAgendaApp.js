@@ -65,6 +65,11 @@ module.exports = (services, service, app, base) => {
       }, {
         includeImagePath: true,
         agendaUid: req.agenda.uid,
+        context: {
+          userUid: req.user.uid,
+          agendaUid: req.agenda.uid,
+          setUid: req.agenda.setUid,
+        },
       }).then(location => {
         res.json({
           location,

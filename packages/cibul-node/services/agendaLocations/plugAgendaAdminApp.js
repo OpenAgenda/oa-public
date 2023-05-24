@@ -112,7 +112,12 @@ module.exports = (config, services, instance, app, base) => {
   app.post(`${base}`, (req, res, next) => {
     req.locations.create({ ...req.body, state: 1 }, {
       includeImagePath: true,
-      agendaUid: req.agenda?.uid
+      agendaUid: req.agenda?.uid,
+      context: {
+        userUid: req.user.uid,
+        agendaUid: req.agenda?.uid,
+        setUid: req.agenda?.setUid,
+      },
     }).then(location => {
       res.json({
         location,
@@ -146,17 +151,26 @@ module.exports = (config, services, instance, app, base) => {
     }), next);
   });
 
-  app.post(`${base}/:locationUid`, (req, res, next) => {
-    req.locations.update(req.params.locationUid, req.body, {
-      includeImagePath: true,
-      eventCounts: true,
-      agendaUid: req.agenda?.uid
-    }).then(location => {
-      res.json({
-        location,
-        success: true
-      });
-    }, next);
+  app.post(`${base}/:locationUid`, async (req, res, next) => {
+    try {
+      req.locations.update(req.params.locationUid, req.body, {
+        includeImagePath: true,
+        eventCounts: true,
+        agendaUid: req.agenda?.uid,
+        context: {
+          userUid: req.user.uid,
+          agendaUid: req.agenda?.uid,
+          setUid: req.agenda?.setUid,
+        },
+      }).then(location => {
+        res.json({
+          location,
+          success: true
+        });
+      }, next);
+    } catch (e) {
+      next(e);
+    }
   });
 
   app.delete(`${base}/:locationUid`, (req, res, next) => {

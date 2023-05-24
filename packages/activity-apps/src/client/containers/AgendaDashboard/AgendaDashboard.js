@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
+import { injectIntl } from 'react-intl';
 import qs from 'qs';
 import { Spinner, withLayoutData } from '@openagenda/react-shared';
 import * as activitiesActions from '../../redux/modules/activities';
 import { ActivityItem } from '../../components';
-import I18nContext from '../../contexts/I18nContext';
+import messages from '../../messages/activities';
 
+@injectIntl
 @withLayoutData('agenda')
 @provideHooks({
   fetch: async ({ store: { dispatch }, location, params }) => {
@@ -52,8 +54,6 @@ export default class AgendaDashboard extends Component {
     lastPage: PropTypes.bool
   };
 
-  static contextType = I18nContext;
-
   nextPage = () => {
     const { loading, nextLoading, activities, query, nextPage, lastPage, agenda } = this.props;
     if (!activities || !activities.length || loading || nextLoading || lastPage) return;
@@ -63,8 +63,7 @@ export default class AgendaDashboard extends Component {
   throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
 
   render() {
-    const { activitiesConfig, activities, nextLoading } = this.props;
-    const { getLabel } = this.context;
+    const { activitiesConfig, activities, nextLoading, intl } = this.props;
 
     return (
       <div className="padding-top-md">
@@ -79,7 +78,7 @@ export default class AgendaDashboard extends Component {
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-          {getLabel('noActivity')}
+          {intl.formatMessage(messages.noActivity)}
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

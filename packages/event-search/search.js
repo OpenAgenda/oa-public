@@ -166,6 +166,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   try {
     cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
   } catch (errors) {
+    console.log('ERROR', errors);
     throw Array.isArray(errors) ? new BadRequest({ info: { errors } }, 'query is not valid') : errors;
   }
 

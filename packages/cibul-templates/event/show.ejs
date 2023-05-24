@@ -57,7 +57,7 @@
           <span class="print-permalink display-none padding-bottom-sm"><%= __('printPermalink') %>: <%= indexedEvent.permalink %></span>
 <% if (indexedEvent.status.id > 1) { %>
           <div class="padding-h-md padding-top-md status">
-<% if (indexedEvent.status.id === 2) { %> 
+<% if (indexedEvent.status.id === 2) { %>
             <span
               title="<%= __('statusRescheduledInfo') %>"
               class="label label-warning"
@@ -84,7 +84,7 @@
             ><%= __('statusCancelled') %></span>
 <% } %>
           </div>
-<% } %> 
+<% } %>
           <h1><%= indexedEvent.title %></h1>
           <p class="short-description"><%= indexedEvent.description %></p>
         </div>
@@ -362,6 +362,12 @@
         </div>
 <% } %>
 
+<% if (
+  indexedEvent.location.website
+  || indexedEvent.location.phone
+  || indexedEvent.location.links?.length
+  || showRequestLocation
+) { %>
         <ul class="list-unstyled">
 <% if (indexedEvent.location.website) { %>
           <li>
@@ -396,6 +402,7 @@
           </li>
 <% } %>
           </ul>
+<% } %>
       </div>
     </div>
 <% } %>

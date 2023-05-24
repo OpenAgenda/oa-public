@@ -7,7 +7,6 @@ const mw = require('@openagenda/activity-apps/dist/middleware');
 const unsubscribedSvc = require('@openagenda/unsubscribed');
 const sendSummary = require('./sendSummary');
 const activitiesConfig = require('./activitiesConfig');
-const rebuild = require('./tasks/rebuild');
 
 const activities = {};
 const preMw = [
@@ -80,8 +79,6 @@ module.exports.init = async (config, services) => {
   };
 
   Object.assign(activities, service);
-
-  Object.assign(activities.tasks, rebuild({ config, services }));
 
   Object.assign(module.exports, activities);
 

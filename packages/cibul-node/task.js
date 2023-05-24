@@ -52,7 +52,7 @@ module.exports = (config, core, services) => {
     time: '11:00',
   });
 
-  /* tfy(services.activities.tasks.rebuild, {
+  /* tfy(services.activities.rebuild, {
     period: 'monthly',
     day: 'monday',
     time: '03:00',

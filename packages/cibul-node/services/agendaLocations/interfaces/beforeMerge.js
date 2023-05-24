@@ -1,40 +1,109 @@
 'use strict';
 
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('services/agendaLocations/locationsWillMerge');
+const createLocationFeeds = require('../lib/createLocationFeeds');
 
-module.exports = services => async (mergeInLocation, locations) => {
+module.exports = services => async (mergeInLocation, locations, context) => {
   const {
-    events: eventSvc
+    events: eventSvc,
   } = services;
 
-  log('info', 'processing event updates for merging of locations %j into %s', locations.map( l => l.uid ), mergeInLocation.uid);
+  log(
+    'info',
+    'processing event updates for merging of locations %j into %s',
+    locations.map(l => l.uid),
+    mergeInLocation.uid,
+  );
 
   for (const locationUid of locations.map(l => l.uid)) {
-
     let hasMore = true;
     let offsetErrored = 0;
 
     do {
       const event = await eventSvc.list({
-        locationUid
+        locationUid,
       }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null }).then(events => events.pop());
-  
+
       if (!event) {
         hasMore = false;
         continue;
       }
-      
+
       try {
         log('setting location %s on event %s', mergeInLocation.uid, event.uid);
         await eventSvc.patch(event.uid, {
-          locationUid: mergeInLocation.uid
+          locationUid: mergeInLocation.uid,
         });
-      } catch(e) {
-        offsetErrored++;
+      } catch (e) {
+        offsetErrored += 1;
         log('error', 'failed to update event %s with location uid %s', event.uid, locationUid, e);
       }
-
     } while (hasMore);
-
   }
-}
+
+  // Activity
+  const { core, activities, members } = services;
+  const { agendaUid, userUid } = context;
+  let agenda;
+
+  try {
+    agenda = await core.agendas(agendaUid).get({
+      detailed: true,
+      access: 'internal',
+      private: null,
+    });
+  } catch (e) {
+    return log.error(new VError({
+      cause: e,
+      info: {
+        agendaUid,
+      },
+    }, 'Cannot get agenda'));
+  }
+
+  try {
+    await createLocationFeeds(services, {
+      agendaUid,
+      setUid: agenda.setUid,
+      locationUid: mergeInLocation.uid,
+    });
+  } catch (e) {
+    console.log(e);
+    return log.error(new VError({
+      cause: e,
+      info: {
+        agendaUid,
+        setUid: agenda.setUid,
+        locationUid: mergeInLocation.uid,
+      },
+    }, 'Cannot create location feeds'));
+  }
+
+  let member;
+
+  try {
+    member = await members.get({ agendaUid, userUid }, { detailed: true });
+  } catch (e) {
+    return log('error', new VError(e, 'Error to get member', { agendaUid, userUid }));
+  }
+
+  try {
+    await activities.feed({ entityType: 'location', entityUid: mergeInLocation.uid }).activities.add({
+      actor: `user:${userUid}`,
+      verb: 'location.merge',
+      object: `location:${mergeInLocation.uid}`,
+      target: `agenda:${agenda.uid}`,
+      store: {
+        labels: {
+          actor: member.name ?? member.custom?.contactName ?? member.user.fullName,
+          object: mergeInLocation.name,
+          target: agenda.title,
+        },
+        mergedCount: locations.length,
+      },
+    });
+  } catch (e) {
+    log('error', 'failed to create location merge activity', e);
+  }
+};

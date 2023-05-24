@@ -6,6 +6,7 @@ const feed = require('./feed');
 const feeds = require('./feeds');
 const activities = require('./activities');
 const notifications = require('./notifications');
+const rebuild = require('./rebuild');
 
 const cleanOldActivitiesTask = require('./activities/tasks/cleanOld')
 const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld')
@@ -65,6 +66,7 @@ async function Service(c) {
         sendSummary: sendSummary(config),
         cleanOld: cleanOldNotificationsTask.bind(null, config)
       }
-    }
+    },
+    rebuild: rebuild.bind(null, config),
   });
 };

@@ -83,8 +83,13 @@ async function addActivity(config, identifiers, activity, options) {
     return null;
   }
 
+  // Don't create notif
+  if (activityConfig.notifications === null) {
+    return null;
+  }
+
   // notif groups activities
-  const groupBy = fnOrValue(activityConfig?.notifications?.groupBy, { feed, activity });
+  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
   const groupedBy = getGroupBy(groupBy, feed, activity);
 
   const notif = groupedBy
@@ -143,6 +148,7 @@ async function addActivity(config, identifiers, activity, options) {
       object: createNewStoreKey('object'),
       target: createNewStoreKey('target'),
       labels: {
+        ...notif.store.labels,
         actor: activity.store?.labels?.actor,
         object: activity.store?.labels?.object,
         target: activity.store?.labels?.target,

@@ -27,7 +27,7 @@
     "deep-diff": "^1.0.2",
     "immer": "^9.0.1",
     "immutability-helper": "^3.0.0",
-    "knex": "^0.19.5",
+    "knex": "^2.4.2",
     "leaflet": "^1.7.1",
     "locutus": "^2.0.14",
     "lodash": "^4.17.15",

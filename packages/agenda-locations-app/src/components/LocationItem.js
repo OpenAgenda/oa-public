@@ -1,5 +1,5 @@
-
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import ActivityApp from '@openagenda/activity-apps/dist/client/apps/location';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries';
 
@@ -57,6 +57,7 @@ const LocationItem = ({
   location,
   settings,
   lang,
+  agendaUid,
   onSelect,
   onEdit,
   onRemove,
@@ -65,6 +66,8 @@ const LocationItem = ({
   goToMergeStep1FromDuplicates,
   seeDetails
 }) => {
+  const intl = useIntl();
+
   const myRemove = e => {
     e.stopPropagation();
     onRemove(location);
@@ -130,6 +133,9 @@ const LocationItem = ({
   );
 
   const className = ['row item'];
+
+  if (merge) className.push('cursor-pointer');
+
   const country = getLabels(location.countryCode, lang) || location.coutryCode;
   const editButton = (
     <button
@@ -205,11 +211,17 @@ const LocationItem = ({
           )}
           <button
             type="button"
-            className="btn btn-link  action"
+            className="btn btn-link action"
             onClick={mySeeDetails.bind(this)}
           >
             <FormattedMessage {...messages.detailsButton} />
           </button>
+          <ActivityApp
+            lang={intl.locale}
+            agendaUid={agendaUid}
+            locationUid={location.uid}
+            link
+          />
           {!merge ? editButton : null}
           {!merge ? removeButton : null}
         </div>

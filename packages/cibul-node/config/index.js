@@ -128,6 +128,7 @@ const config = {
     eventLocation: 'event_location',
     deleted: 'deleted',
     location: 'location',
+    locationSet: 'location_set',
     occurrence: 'occurrence',
     stakeholder: 'reviewer',
     stakeholderSettings: 'stakeholder_settings',

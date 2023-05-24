@@ -23,7 +23,6 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.21.0",
-    "@openagenda/activities": "^2.3.0",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
@@ -43,6 +42,7 @@
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
     "react-bootstrap": "^0.33.1",
+    "react-intersection-observer": "^9.4.1",
     "react-intl": "^5.12.2",
     "react-redux": "^7.1.3",
     "react-router-config": "^5.1.1",
@@ -50,6 +50,7 @@
     "redial": "^0.5.0",
     "redux-form": "^8.1.0",
     "regenerator-runtime": "^0.13.8",
+    "swr": "^2.1.1",
     "when": "^3.7.8"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "@babel/node": "^7.13.13",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",
+    "@openagenda/activities": "^2.3.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
@@ -73,7 +75,7 @@
     "history": "^4.10.1",
     "iscroll": "^5.2.0",
     "jest": "^28.1.2",
-    "knex": "^0.19.5",
+    "knex": "^2.4.2",
     "morgan": "^1.7.0",
     "mysql": "^2.16.0",
     "nodemon": "^2.0.6",
