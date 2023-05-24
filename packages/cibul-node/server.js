@@ -89,37 +89,36 @@ const log = logs('server');
 
     if (TASK || WEB) {
       require('./general/unsubscribed.front')(app);
-    }
+      app.use((req, res, next) => {
+        if (res.data === undefined) {
+          return next();
+        }
 
-    app.use((req, res, next) => {
-      if (res.data === undefined) {
-        return next();
-      }
-
-      res.format({
-        text() {
-          res.send(res.data);
-        },
-        html() {
-          res.send(res.data);
-        },
-        json() {
-          res.json(res.data);
-        },
-        default() {
-          res.send(res.data);
-        },
+        res.format({
+          text() {
+            res.send(res.data);
+          },
+          html() {
+            res.send(res.data);
+          },
+          json() {
+            res.json(res.data);
+          },
+          default() {
+            res.send(res.data);
+          },
+        });
       });
-    });
 
-    app.use((req, res, next) => next(new NotFound()));
+      app.use((req, res, next) => next(new NotFound()));
 
-    app.use(sentryErrorHandler({ tag: 'app' }));
-    app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
+      app.use(sentryErrorHandler({ tag: 'app' }));
+      app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
-    app.listen(config.port, () => {
-      console.log(`-- Server listening on port ${config.port} --`);
-    });
+      app.listen(config.port, () => {
+        console.log(`-- Server listening on port ${config.port} --`);
+      });
+    }
 
     if (API) {
       express()
@@ -131,7 +130,9 @@ const log = logs('server');
           logRequestMw,
           api,
         )
-        .listen(config.apiPort);
+        .listen(config.apiPort, () => {
+          console.log(`-- API listening on port ${config.apiPort} --`);
+        });
     }
 
     if (TASK) {
