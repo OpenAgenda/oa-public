@@ -46,6 +46,7 @@ module.exports = (queue, services) => {
       agenda = await core.agendas(agendaUid).get({
         detailed: true,
         access: 'internal',
+        includeEvent: true,
         private: null,
       });
     } catch (e) {
