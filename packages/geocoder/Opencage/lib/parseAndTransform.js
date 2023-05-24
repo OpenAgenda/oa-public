@@ -31,7 +31,11 @@ function parseItem(item) {
     adminLevel1: _.get(item, 'components.state', null),
     adminLevel2: _.get(item, 'components.state_district', _.get(item, 'components.county', null)),
     adminLevel4: _.get(item, 'components.village', _.get(item, 'components.town', _.get(item, 'components.city', null))),
-    adminLevel5: _.get(item, 'components.suburb', null),
+    adminLevel5: _.get(
+      item,
+      'components.borough',
+    _.get(item, 'components.suburb', null)
+    ),
     adminLevel6: _.get(item, 'components.city_block', _.get(item, 'components.suburb', _.get(item, 'components.city_district'))),
     postalCode: _.get(item, 'components.postcode', null),
     timezone: _.get(item, 'annotations.timezone.name', null),
