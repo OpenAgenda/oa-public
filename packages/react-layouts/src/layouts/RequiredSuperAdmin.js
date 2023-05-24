@@ -7,8 +7,7 @@ function RequiredSuperAdmin({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const history = useHistory();
 
@@ -24,8 +23,7 @@ function RequiredSuperAdmin({
     <ChildLayouts
       layouts={childLayouts}
       extraProps={extraProps}
-      onError={onError}
-      FallbackComponent={FallbackComponent}
+      fallback={fallback}
     >
       {children}
     </ChildLayouts>

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import uppy from 'uppy-server';
 import axios from 'axios';
 import mime from 'mime-types';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import Inbox from './Inbox';
 import Conversations from './Conversations';

@@ -2,20 +2,12 @@
 
 const log = require( '@openagenda/logs' )( 'events/interfaces/beforeRemove' );
 
-const legacyEventSearch = require( '../elasticsearch' );
-
 module.exports = async (services, event, context) => {
   const {
     agendaEvents: agendaEventsSvc
   } = services;
 
   log( 'will remove event %s', event.uid, { context } );
-
-  try {
-    await legacyEventSearch.removeEvent( { uid: event.uid } );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search for event %s', event.uid );
-  }
 
   let hasMore;
 

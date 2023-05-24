@@ -1,7 +1,5 @@
 "use strict";
 
-const { promisify } = require( 'util' );
-
 const knexLib = require( 'knex' );
 
 const config = require( '../testconfig' );
@@ -31,9 +29,9 @@ describe( '02 - control data - update', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '456' );
+    await redisClient.del( config.redisPrefix + '456' );
 
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.quit();
 
     await knex.destroy();
 
@@ -67,7 +65,7 @@ describe( '02 - control data - update', () => {
         } ]
       } );
 
-      updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '456' ) );
+      updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '456' ) );
 
     } );
 
@@ -107,7 +105,7 @@ describe( '02 - control data - update', () => {
         } ]
       } );
 
-      updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '456' ) );
+      updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '456' ) );
 
     } );
 

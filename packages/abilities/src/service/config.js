@@ -1,52 +1,34 @@
 import path from 'path';
-import knexLib from 'knex';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
 const config = {};
 
-function getKnexConfig(c) {
-  let knexConfig;
-
-  if (c.knex) {
-    knexConfig = {
-      ...c.knex.client.config,
-      pool: _.pick(c.knex.client.pool, 'min', 'max'),
-      schemas: {
-        ...c.knex.client.config.schemas,
-        ...c.schemas,
-      },
-    };
-  } else {
-    knexConfig = {
-      client: 'mysql',
-      connection: c.mysql,
-      schemas: c.schemas,
-    };
-  }
-
-  if (c.migrations) {
-    knexConfig.migrations = {
-      ...(c.knex ? c.knex.client.config.migrations : {}),
-      ...c.migrations,
-      directory: path.join(__dirname, '..', '..', 'migrations'),
-    };
-  }
-
-  return knexConfig;
-}
-
-export function init(c = {}) {
+export async function init(c = {}) {
   if (c.logger) {
     logs.setModuleConfig(c.logger);
   }
 
-  config.knex = knexLib(getKnexConfig(c));
+  Object.assign(config, _.pick(
+    c,
+    ['mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping', 'knex'],
+  ));
 
-  _.extend(
-    config,
-    _.pick(c, ['mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping'])
-  );
+  const {
+    knex,
+  } = config;
+
+  if (c.migrations) {
+    try {
+      await knex.migrate.latest({
+        tableName: 'inbox_migrations',
+        ...c.migrations,
+        directory: path.join(__dirname, '..', '..', 'migrations'),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export function migrate(options) {
@@ -64,7 +46,7 @@ export function seed(options) {
       '..',
       '..',
       'seeds',
-      options && options.scenarioName ? options.scenarioName : ''
+      options && options.scenarioName ? options.scenarioName : '',
     );
 
   return config.knex.seed.run({

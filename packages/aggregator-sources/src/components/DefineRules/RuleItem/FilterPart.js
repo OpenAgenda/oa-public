@@ -1,24 +1,27 @@
-import React from 'react';
 import messages from './messages';
 import extract from './extractFilterDisplayValues';
 
-export default ({
-  rule, intl, sourceAgendaSchema, sourceAgenda
-}) => {
-  const {
-    label, value, detail, casse, broken
-  } = extract({
+const extractTextField = textRule => {
+  if (!textRule) return null;
+  const unwantedKeys = ['caseSensitive', 'wholeValue', 'required'];
+  const keys = Object.keys(textRule).filter(k => !unwantedKeys.includes(k));
+  return keys[0];
+};
+
+export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
+  const { label, value, detail, casse, broken } = extract({
     intl,
     rule,
     sourceAgendaSchema,
     sourceAgenda,
   });
+  const textField = extractTextField(rule.query.text);
   const labelClass = `margin-right-xs ${broken ? 'text-danger' : ''}`;
   return (
     <div className="padding-v-xs">
       <span
         title={intl.formatMessage(
-          rule.required ? messages.requiredFilterDetail : messages.filterDetail
+          rule.required ? messages.requiredFilterDetail : messages.filterDetail,
         )}
         className={`pull-left badge badge-pill badge-${
           rule.required ? 'danger' : 'default'
@@ -32,13 +35,13 @@ export default ({
             {label}:
           </label>
           {value}
-          {rule.query.text ? (
+          {rule.query.text && rule.query.text[textField] ? (
             <span
               className={`badge badge-pill margin-right-xs badge-${
                 casse ? 'info' : 'default'
               }`}
               title={intl.formatMessage(
-                casse ? messages.caseSensitive : messages.caseInsensitive
+                casse ? messages.caseSensitive : messages.caseInsensitive,
               )}
             >
               aA

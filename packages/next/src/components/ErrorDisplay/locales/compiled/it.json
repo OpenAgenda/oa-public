@@ -1,0 +1,38 @@
+{
+  "next.components.ErrorDisplay.backToHome": [
+    {
+      "type": 0,
+      "value": "Back to home"
+    }
+  ],
+  "next.components.ErrorDisplay.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contatta il supporto"
+    }
+  ],
+  "next.components.ErrorDisplay.errorTrackingId": [
+    {
+      "type": 0,
+      "value": "Error tracking id"
+    }
+  ],
+  "next.components.ErrorDisplay.internalError": [
+    {
+      "type": 0,
+      "value": "Errore interno"
+    }
+  ],
+  "next.components.ErrorDisplay.internalErrorMsg": [
+    {
+      "type": 0,
+      "value": "Se il problema persiste, contattare l'assistenza."
+    }
+  ],
+  "next.components.ErrorDisplay.retry": [
+    {
+      "type": 0,
+      "value": "Retry"
+    }
+  ]
+}

@@ -10,10 +10,10 @@ module.exports = ({ config, render }) => (req, res, next) => {
     template: 'agenda/inbox',
     baseData: {
       event: {
-        backLink: agendaLink
+        backLink: agendaLink,
       },
       image: req.agenda.image,
-      title: req.agenda.title
+      title: req.agenda.title,
     },
     endpoint: '/home/inbox',
     initialState: {
@@ -28,10 +28,11 @@ module.exports = ({ config, render }) => (req, res, next) => {
         allowCreateConversation: true, // show creation button
         // maskCreationSubtitle: true,
         creationSubtitle: getLabel('titleSuggestLocationChange', req.lang),
+        creationDescriptionLabel: getLabel('suggestLocationChangeDesc', req.lang),
+        creationDesc: getLabel('locationName', { name: req.location.name }, req.lang),
         // creationDescriptionLabel: getLabel('wantContributeMakeRequest', req.lang),
         creationButtonLabel: getLabel('createConversation', req.lang),
         // topListForm: true, // add a conversation form on top of conversation list
-        creationDesc: getLabel('suggestLocationChangeDesc', req.lang),
         belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: agendaLink,
         onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
@@ -42,15 +43,15 @@ module.exports = ({ config, render }) => (req, res, next) => {
             agendaTitle: req.agenda.title,
             agendaUid: req.agenda.uid,
             locationName: req.location.name,
-            locationUid: req.location.uid
+            locationUid: req.location.uid,
           },
           destinationInbox: {
             type: 'agenda',
-            identifier: req.agenda.uid
-          }
-        }
+            identifier: req.agenda.uid,
+          },
+        },
       },
-      agenda: req.agenda
-    }
+      agenda: req.agenda,
+    },
   })(req, res, next);
 };

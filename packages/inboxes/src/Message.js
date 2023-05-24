@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import logger from '@openagenda/logs';

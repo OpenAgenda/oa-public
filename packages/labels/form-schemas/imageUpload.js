@@ -19,7 +19,7 @@ module.exports = {
   },
   "error": {
     "en": "A problem occurred during the upload. Please try again",
-    "fr": "Un problème est survenu pendant le chargement. Veuillez retenter.",
+    "fr": "Un problème est survenu pendant le chargement. Veuillez retenter",
     "de": "Es trat ein Problem beim Upload. Bitte versuche es erneut",
     "es": "Se produjo un problema durante la carga. Por favor, inténtelo de nuevo.",
     "it": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
@@ -51,7 +51,7 @@ module.exports = {
   },
   "remove": {
     "en": "Remove",
-    "fr": "Retirer",
+    "fr": "Supprimer",
     "de": "Löschen",
     "es": "Eliminar",
     "it": "Rimuovi",
@@ -70,7 +70,7 @@ module.exports = {
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
     "en": "Accepted files",
-    "de": "akzeptiert Dateien",
+    "de": "Akzeptierte Dateiformate",
     "es": "formatos aceptados",
     "it": "File accettati",
     "io": "crwdns14880:0crwdne14880:0"

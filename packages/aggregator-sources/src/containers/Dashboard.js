@@ -24,8 +24,7 @@ const fuseOptions = {
   shouldSort: true,
   threshold: 0.3,
   location: 0,
-  distance: 100,
-  maxPatternLength: 32,
+  distance: 250,
   minMatchCharLength: 1,
   keys: ['agenda.title'],
 };

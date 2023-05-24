@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
-function isWithinRole(role, item) {
-  if (!_.isArray(item.write)) return true;
+function isWithinRole(role, value) {
+  if (!_.isArray(value)) return true;
 
-  if (item.write.includes(role)) return true;
+  if (value.includes(role)) return true;
 
-  return item.write.includes(role);
+  return value.includes(role);
 }
 
 export default (role, item) => {
@@ -13,7 +13,11 @@ export default (role, item) => {
     return true;
   }
 
-  if (!isWithinRole(role, item)) return false;
+  if (!isWithinRole(role, item.write)) return false;
+
+  if (Array.isArray(item.display)) {
+    return isWithinRole(role, item.display);
+  }
 
   return item.display;
 };

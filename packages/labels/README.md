@@ -7,4 +7,10 @@ The OpenAgenda labels lib. This works both for server and front labels. Label fi
 
 ## Crowdin
 
-Changes are made in the .crowdin folder, they are spread throughout the labels project using the `.crowdin/dispatch` script.
+Label updates can be done in either the .crowdin folder or in the root files of the package. Creations must first be done in the root files.
+
+Then a sync must be made:
+
+If changes are made in the .crowdin folder, they are spread throughout the labels project using the `.crowdin/dispatch` script.
+
+If they are made in the packages root files (outside .crowdin folder), then the `.crowdin/aggregate` script should be called to update the .crowdin folder.

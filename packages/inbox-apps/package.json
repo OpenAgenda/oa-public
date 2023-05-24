@@ -21,7 +21,7 @@
     "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-form-components": "^2.1.14",
@@ -29,11 +29,11 @@
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/validators": "^2.4.0",
     "classnames": "^2.3.1",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "final-form": "^4.20.2",
     "immutability-helper": "^3.0.0",
     "js-cookie": "^2.2.0",
-    "knex": "^0.19.5",
+    "knex": "^2.4.2",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",
     "moment": "^2.27.0",
@@ -51,8 +51,8 @@
     "uppy": "^0.23.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@babel/node": "^7.13.13",
     "@cfaester/enzyme-adapter-react-18": "^0.6.0",
     "@loadable/babel-plugin": "^5.13.2",

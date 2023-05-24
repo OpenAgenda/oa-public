@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import Help from './Help';
 
@@ -13,11 +12,12 @@ export default props => {
     field: {
       field: name,
       label,
-      info
+      info,
     },
     onChange,
     value,
-    error
+    error,
+    enabled,
   } = props;
 
   const {
@@ -25,7 +25,7 @@ export default props => {
   } = props;
 
   const {
-    default: defaultValue
+    default: defaultValue,
   } = field;
 
   const isOptional = isFieldOptional(field, relatedValues.optional);
@@ -41,13 +41,14 @@ export default props => {
           name={name}
           onChange={() => onChange(checked ? falsyValue : true)}
           checked={checked}
+          disabled={!enabled}
         />
         <span className={classNames({ 'margin-right-xs': hasHelp(field) || !isOptional })}>{label}</span>
         {isOptional ? null : (
           <span
             className={classNames({
               'margin-right-xs': hasHelp(field),
-              error: !!error
+              error: !!error,
             })}
           >
             {`(${labels.required})`}

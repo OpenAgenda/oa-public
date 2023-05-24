@@ -28,7 +28,8 @@ module.exports = {
         name: 'Gaetan Latouche',
         thumbnail: '//graph.facebook.com/100002280111541/picture',
         email: 'gaetan@cibul.net',
-        culture: 'fr'
+        culture: 'fr',
+        ...query,
       } );
 
     }

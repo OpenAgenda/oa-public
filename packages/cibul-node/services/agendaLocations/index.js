@@ -12,6 +12,7 @@ const getAgendaUidsByIds = require('./interfaces/getAgendaUidsByIds');
 const onUpdate = require('./interfaces/onUpdate');
 const getAgendaLocationSettings = require('./interfaces/getAgendaLocationSettings');
 const getLinkedAgendas = require('./interfaces/getLinkedAgendas');
+const onLocationCreate = require('./interfaces/onLocationCreate');
 
 const plugAgendaApp = require('./plugAgendaApp');
 const plugAgendaAdminApp = require('./plugAgendaAdminApp');
@@ -40,7 +41,8 @@ module.exports.init = async (config, services) => {
     interfaces: {
       beforeMerge: beforeMerge(services),
       beforeRemove: beforeRemove(services),
-      onUpdate: onUpdate(queue),
+      onLocationCreate: onLocationCreate(services),
+      onUpdate: onUpdate(queue, services),
       getAgendaDetailsByUid: getAgendaDetailsByUid(config, services),
       getEventCounts: getEventCounts(config, services),
       getSetAgendasCount: getSetAgendasCount(services),

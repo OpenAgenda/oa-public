@@ -1,7 +1,7 @@
 {
   "title": "Nuovo evento aggiunto su {agenda}: {event}",
   "body": "L’evento <b>{event}</b>, creato nell'agenda <b>{sourceAgenda}</b> è stato aggiunto con stato <b>{state}</b> da <b>{user}</b>.",
-  "actionDescription": "Visualizza evento",
+  "actionDescription": "Vedere l'evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",

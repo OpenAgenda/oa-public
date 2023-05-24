@@ -29,7 +29,7 @@ app.get( '/:slug/events/:eventSlug/files/:file', ( req, res, next ) => {
 
   const file = _.head( req.formatted.custom.filter( c => c.fieldType === 'file' && c.name === req.params.file ) )
 
-  if ( !file ) return res.sendStatus( 404 );
+  if ( !file?.value ) return res.sendStatus( 404 );
 
   const s3FilePath = config.aws.imageBucketPath + file.value.uploaded;
 

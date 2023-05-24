@@ -9,8 +9,8 @@ function addV4Tracker(googleAnalyticsID) {
   previousScript.parentNode.insertBefore(el, previousScript);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args) {
-    window.dataLayer.push(args);
+  function gtag() {
+    window.dataLayer.push(arguments);
   }
   gtag('js', new Date());
   gtag('config', googleAnalyticsID);
@@ -21,7 +21,7 @@ export default function addGoogleAnalyticsTracker({ googleAnalyticsID }) {
     return;
   }
 
-  // console.log('adding google analytics tracker %s', googleAnalyticsID);xwc
+  /* console.log('adding google analytics tracker %s', googleAnalyticsID); */
 
   if (googleAnalyticsID.substr(0, 1) === 'G') {
     return addV4Tracker(googleAnalyticsID);

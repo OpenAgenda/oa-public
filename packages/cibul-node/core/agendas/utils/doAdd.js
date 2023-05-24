@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 const refreshAgenda = require('./refreshAgenda');
@@ -24,7 +24,6 @@ module.exports = async (core, payload, clean, options = {}) => {
     eventSearch,
     custom,
     tracker,
-    elasticsearch: legacyEventSearch,
     legacy,
   } = services;
 
@@ -130,12 +129,6 @@ module.exports = async (core, payload, clean, options = {}) => {
       access: 'internal',
       useAccountEmail: true,
     });
-  }
-
-  try {
-    await legacyEventSearch.updateEvent({ uid: event.uid });
-  } catch (e) {
-    log('error', 'could not update legacy search for event %s', event.uid);
   }
 
   const response = await payload.getResponse('event', access);

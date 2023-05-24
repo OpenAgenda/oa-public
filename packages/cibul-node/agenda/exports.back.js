@@ -1,13 +1,8 @@
 'use strict';
 
-const gaTrack = require('../lib/gaTrack.mw');
 const agendaSvc = require('../services/agenda');
-const cmn = require('../lib/commons-app');
-const legacyEventSvc = require('../services/event');
 const convertFormat = require('./ConvertFormat');
 const loadCredentials = require('./loadCredentials');
-
-const perPage = 20;
 
 const preMw = [
   agendaSvc.mw.load('uid'),
@@ -21,19 +16,10 @@ module.exports = app => {
     preMw,
     members.mw.authorizeAdminModOrKey(),
     loadCredentials,
-    convertFormat({ sendJSON: true, admin: true }),
-    agendaSvc.mw.search(perPage, true),
-    legacyEventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents(true),
-    agendaSvc.mw.cleanJson,
-    gaTrack('events', 'admin/export', 'json'),
-    (req, res) => {
-      cmn.renderJson(req, res, {
-        total: req.total,
-        offset: req.offset,
-        limit: req.limit,
-        events: req.formatted,
-      });
-    },
+    convertFormat({
+      sendJSON: true,
+      admin: true,
+      ga: ['events', 'admin/export', 'json'],
+    }),
   );
 };

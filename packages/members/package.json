@@ -16,21 +16,21 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
-    "@openagenda/verror": "^3.0.0",
-    "core-js": "^3.10.2",
+    "@openagenda/verror": "^3.1.0",
+    "core-js": "^3.29.1",
     "immutability-helper": "^3.0.1",
-    "knex": "^0.19.5",
+    "knex": "^2.4.2",
     "lodash": "^4.17.15",
     "regenerator-runtime": "^0.13.7",
     "slugify": "^1.4.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "eslint": "^8.24.0",

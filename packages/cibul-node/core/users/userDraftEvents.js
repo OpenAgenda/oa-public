@@ -14,6 +14,6 @@ module.exports = async function userDraftEvents(core, identifier, agendaUid, que
   }, nav, {
     total: true,
     draft: true,
-    useDefaultImage: true,
+    useDefaultImage: query.useDefaultImage ?? true,
   });
 };

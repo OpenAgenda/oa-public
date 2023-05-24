@@ -32,7 +32,7 @@
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -55,8 +55,32 @@
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
     {
+      "children": [
+        {
+          "type": 0,
+          "value": "Use the previous JSON export version"
+        }
+      ],
+      "type": 8,
+      "value": "link1"
+    },
+    {
       "type": 0,
-      "value": "Use the previous JSON export version"
+      "value": " (Documentation "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "here"
+        }
+      ],
+      "type": 8,
+      "value": "link2"
+    },
+    {
+      "type": 0,
+      "value": ")"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportSelection": [
@@ -69,18 +93,6 @@
     {
       "type": 0,
       "value": "Choose a format"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc1": [
-    {
-      "type": 0,
-      "value": "Documentation"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc2": [
-    {
-      "type": 0,
-      "value": "here"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import knexLib from 'knex';
 import testconfig from '../testconfig';
 import { initAndLoad, seed } from './service';
 
@@ -15,10 +16,24 @@ describe('Message', () => {
   let service;
   let Inbox;
 
+  let knex;
+
+  beforeAll(() => {
+    knex = knexLib({
+      schemas: testconfig.schemas,
+      client: 'mysql',
+      connection: {
+        ...testconfig.mysql,
+        database,
+      },
+    });
+  });
+
   beforeAll(async () => {
     service = await initAndLoad(
       {
         ...testconfig,
+        knex,
         mysql: { ...testconfig.mysql, database },
       },
       []
@@ -46,8 +61,8 @@ describe('Message', () => {
   });
 
   afterAll(async () => {
-    await service.config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
-    await service.config.knex.destroy();
+    await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
+    await knex.destroy();
   });
 
   describe('create', () => {
@@ -124,7 +139,7 @@ describe('Message', () => {
           body: 'Salut toi, mets moi admin, et vite !',
         })
       ).rejects.toMatchObject({
-        jse_info: {
+        info: {
           errors: {
             userUid: {
               code: 'required',
@@ -143,7 +158,7 @@ describe('Message', () => {
           userUid: 23456790,
         })
       ).rejects.toMatchObject({
-        message: 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }',
+        message: 'InboxUser {"userUid":23456790} not found in Inbox {"id":1}',
       });
     });
 

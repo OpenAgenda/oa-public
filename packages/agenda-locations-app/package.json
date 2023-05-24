@@ -16,8 +16,9 @@
     "prepack": "yarn oa-intl compile && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@emotion/react": "^11.10.0",
+    "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/countries": "^0.1.1",
@@ -29,7 +30,7 @@
     "@openagenda/validators": "^2.4.0",
     "@raruto/leaflet-gesture-handling": "^1.3.4",
     "axios": "^0.24.0",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
@@ -54,8 +55,8 @@
     "use-debounce": "^7.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@emotion/babel-plugin": "^11.10.5",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",

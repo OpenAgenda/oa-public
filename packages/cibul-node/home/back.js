@@ -62,7 +62,7 @@ function eventsList(req, res, next) {
 
   const offset = ((req.query.page || 1) - 1) * LIST_LIMIT;
 
-  req.log('fetching events owned by user %s', req.user.uid);
+  req.log.debug('fetching events owned by user %s', req.user.uid);
 
   eventsSvc.list({
     ownerUid: req.user.uid,
@@ -78,7 +78,7 @@ function eventsList(req, res, next) {
     draft: null,
     private: null
   }).then(({ total, items }) => {
-    req.log('fetched %s of %s events owned by user %s', items.length, total, req.user.uid);
+    req.log.debug('fetched %s of %s events owned by user %s', items.length, total, req.user.uid);
 
     res.send({
       total,

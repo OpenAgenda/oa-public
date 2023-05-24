@@ -1,1 +1,11 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "crwdns32999:0crwdne32999:0",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "crwdns33001:0crwdne33001:0",
+  "next.views.AgendaShow.AgendaHeader.contact": "crwdns33003:0crwdne33003:0",
+  "next.views.AgendaShow.AgendaHeader.export": "crwdns33005:0crwdne33005:0",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "crwdns33007:0crwdne33007:0",
+  "next.views.AgendaShow.EventItem.addToFavorites": "crwdns33009:0crwdne33009:0",
+  "next.views.AgendaShow.EventItem.featured": "crwdns33011:0crwdne33011:0",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "crwdns33013:0crwdne33013:0",
+  "next.views.AgendaShow.Favorites.favorites": "crwdns33015:0crwdne33015:0"
+}

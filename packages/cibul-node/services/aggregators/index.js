@@ -63,11 +63,13 @@ module.exports.init = (config, services) => {
             success: true
           };
         } catch (e) {
-          log('error', 'could not add event %s from %s to aggregator %s',
+          log.error(
+            'could not add event %s from %s to aggregator %s',
             eventUid,
             sourceAgenda.uid,
             aggregatorAgendaUid,
-            e.name === 'BadRequest' ? e.info : e);
+            e,
+          );
           return {
             success: false,
             errors: e.name === 'BadRequest' ? e.info : e
@@ -94,10 +96,12 @@ module.exports.init = (config, services) => {
             success: true
           };
         } catch (e) {
-          log('error', 'could not patch event %s on aggregator %s',
+          log.error(
+            'could not patch event %s on aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'BadRequest' ? e.info : e);
+            e,
+          );
           return {
             success: false,
             errors: e.name === 'BadRequest' ? e.info : e
@@ -114,10 +118,12 @@ module.exports.init = (config, services) => {
             success: true
           };
         } catch (e) {
-          log('error', 'could not remove event %s from aggregator %s',
+          log.error(
+            'could not remove event %s from aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'BadRequest' ? e.info : e);
+            e,
+          );
           return {
             success: false,
             errors: e.name === 'BadRequest' ? e.info : e

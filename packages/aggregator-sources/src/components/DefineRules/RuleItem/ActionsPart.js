@@ -1,11 +1,8 @@
-import React from 'react';
 import { hasFilter } from '../../../utils/rules';
 import extract from './extractActionsDisplayValues';
 import messages from './messages';
 
-export default ({
-  intl, rule, aggregatorAgendaSchema, aggregatorAgenda
-}) => (
+export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
   <div>
     {hasFilter(rule) ? (
       <span
@@ -24,9 +21,7 @@ export default ({
     )}
     <ul className="padding-left-md margin-bottom-z list-unstyled">
       {rule.actions.map(action => {
-        const {
-          label, value, detail, key, set
-        } = extract({
+        const { label, value, detail, key, set } = extract({
           intl,
           aggregatorAgendaSchema,
           aggregatorAgenda,

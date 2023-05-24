@@ -251,7 +251,11 @@ module.exports = class {
     // add and update
     fields.forEach(f => {
       if (this.getFieldExists(getItemSlug(f))) {
-        this.updateField(f);
+        try {
+          this.updateField(f);
+        } catch (errors) {
+          throw errors.map(e => ({ ...e, field: `${f.field}.${e.field}` }));
+        }
       } else {
         this.addField(f);
       }

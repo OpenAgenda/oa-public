@@ -8,7 +8,6 @@ module.exports = async (services, agenda) => {
     members,
     users: usersSvc,
     legacy,
-    elasticsearch: legacyEventSearch,
     keys,
     activities,
     inboxes: { Inbox },
@@ -18,12 +17,6 @@ module.exports = async (services, agenda) => {
   } = services;
 
   const controlDataSvc = legacy.controlData;
-
-  try {
-    await legacyEventSearch.updateAgenda(agenda.id);
-  } catch (e) {
-    log('error', 'could not update legacy search for agenda %s', agenda.slug, e);
-  }
 
   // inbox
   try {

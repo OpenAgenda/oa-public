@@ -1,33 +1,25 @@
-const traverseTable = require( '../src/utils/traverseTable' );
-const wn = require( 'when/node' );
-
 exports.up = async knex => {
 
   const { schemas } = knex.client.config;
 
-  await knex.schema.alterTable( schemas.feed_notification, t => {
-    t.timestamp( 'updated_at' ).nullable().defaultTo( null );
-  } );
+  await knex.schema.alterTable(schemas.feed_notification, t => {
+    t.timestamp('updated_at').nullable().defaultTo(null);
+  });
 
-  await wn.call(
-    traverseTable,
-    knex,
-    schemas.feed_notification,
-    q => q.whereNull( 'updated_at' ),
-    ( item, i, cb ) => {
+  const stream = knex(schemas.feed_notification)
+    .whereNull('updated_at')
+    .stream();
 
-      console.log( `Update notification n°${item.id}: copy created_at in updated_at` );
+  for await (const item of stream) {
+    console.log(`Update notification n°${item.id}: copy created_at in updated_at`);
 
-      knex.raw( `UPDATE \`${schemas.feed_notification}\` SET updated_at = created_at WHERE id = ?`, [ item.id ] )
-        .asCallback( cb );
-
-    }
-  );
+    await knex.raw(`UPDATE \`${schemas.feed_notification}\`
+                    SET updated_at = created_at
+                    WHERE id = ?`, [item.id]);
+  }
 
 };
 
 exports.down = knex => {
-
   //
-
 };

@@ -2,7 +2,7 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Veranstaltung hinzufügen"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
@@ -14,43 +14,43 @@
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Kontakt"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportieren"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "Offizielle Kalender"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "Favoriten Auswahl"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Ausgewählt"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "Aus Favoriten entfernen"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "Favorites"
+      "value": "Favoriten"
     }
   ]
 }

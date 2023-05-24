@@ -1007,6 +1007,52 @@ describe('05_02 - utils - rules', () => {
         )
       ).toEqual({});
     });
+
+    test('wholeValue valid', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  fdldf: null,
+                  caseSensitive: false,
+                  wholeValue: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            fdldf: null,
+          },
+        ),
+      ).toEqual({});
+    });
+
+    test('wholeValue invalid', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  fdldf: null,
+                  caseSensitive: false,
+                  wholeValue: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            fdldf: 're',
+          },
+        ),
+      ).toEqual(null);
+    });
   });
 
   describe('attendanceMode', () => {

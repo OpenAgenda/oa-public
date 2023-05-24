@@ -147,13 +147,15 @@ async function _setTags(knex, agendaId, reviewArticleId, fieldValueMap) {
     .where('review_article_id', reviewArticleId)
     .delete();
 
-  await knex('review_tag_article')
-    .insert(matchingTags.map(t => ({
-      review_article_id: reviewArticleId,
-      review_tag_id: t.id,
-      created_at: new Date(),
-      updated_at: new Date(),
-    })));
+  if (matchingTags.length) {
+    await knex('review_tag_article')
+      .insert(matchingTags.map(t => ({
+        review_article_id: reviewArticleId,
+        review_tag_id: t.id,
+        created_at: new Date(),
+        updated_at: new Date(),
+      })));
+  }
 }
 
 async function set({ knex }, agendaId, eventUid, schemas = [], customValues = []) {

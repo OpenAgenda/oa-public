@@ -1,7 +1,7 @@
 {
   "title": "Evento modificato su {agenda}: {event}.",
   "body": "Il <b>{event}</b> è stato modificato sulla <b>{agenda}</b>.",
-  "actionDescription": "Vedi l'evento",
+  "actionDescription": "Vedere l'evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",

@@ -128,7 +128,7 @@ function makeGetResponse(core, data) {
       originAgenda: await getOriginAgenda(core.services, data),
       member,
       formSchema,
-      [primaryKey]: await getCompiledEvent(core.services, data, 'after', access, formSchema, load),
+      [primaryKey]: await getCompiledEvent(core, data, 'after', access, formSchema, load),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null,
     };
   };

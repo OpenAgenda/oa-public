@@ -1,6 +1,4 @@
 {
-  "categoriesInfo": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
-  "movedOnline": "Transferit en linha",
   "attendanceMode": "Mòde de participacion",
   "onlineAttendanceMode": "En linha",
   "mixedAttendanceMode": "Mesclat",
@@ -14,12 +12,14 @@
   "cancelLanguageChange": "Anullar",
   "categoriesTitle": "Categorias",
   "tagsTitle": "Etiquetas",
+  "categoriesInfo": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
   "defaultTagGroupName": "Etiquetas",
   "required": "Requesit.",
   "categoriesRequired": "Requesit.",
   "requiredTagError": "Vos cal causir al mens un element",
   "requiredCategoryError": "Vos cal causir un element",
   "noSelection": "Pas res",
+  "movedOnline": "Transferit en linha",
   "postponed": "Remandat",
   "status": "Estatut"
 }

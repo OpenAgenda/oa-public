@@ -4,6 +4,7 @@ const _ = require('lodash');
 const bodyParser = require('body-parser');
 const qs = require('qs');
 const log = require('@openagenda/logs')('api/middleware/parseBodyData');
+const { BadRequest } = require('@openagenda/verror');
 
 function parseTalendBody(req, res, next) {
   let rawBody = '';
@@ -49,7 +50,13 @@ module.exports = [
       parser = bodyParser.json();
     }
 
-    parser(req, res, next);
+    parser(req, res, err => {
+      if (err?.type === 'entity.parse.failed') {
+        next(new BadRequest(err.message));
+        return;
+      }
+      next(err);
+    });
   },
   (req, res, next) => {
     if (_.isBuffer(req.body)) {

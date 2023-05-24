@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import FormSchemaComponent from '../client/src/index';
 
@@ -7,8 +7,6 @@ import wigglypoofValidator from './custom/wigglypoof.validator';
 import SimplePageDecorator from './decorators/SimpleTransparentPage';
 
 import '@openagenda/bs-templates/compiled/main.css';
-
-if (module.hot) module.hot.accept();
 
 export default {
   title: 'Other',
@@ -327,6 +325,31 @@ export function Conditional() {
         field: 'conditioned',
         fieldType: 'text',
         label: 'This is only enabled if first field is typed',
+        enableWith: 'anything',
+      }, {
+        field: 'alsoConditioned',
+        fieldType: 'checkbox',
+        label: 'This also.',
+        options: [{
+          id: 1,
+          value: 'one',
+          label: 'One',
+        }],
+        enableWith: 'anything',
+      }, {
+        field: 'andThisAsWell',
+        fieldType: 'boolean',
+        label: 'And this as well',
+        enableWith: 'anything',
+      }, {
+        field: 'thisToo',
+        fieldType: 'radio',
+        label: 'This too',
+        options: [{
+          id: 2,
+          value: 'two',
+          label: 'Two',
+        }],
         enableWith: 'anything',
       }],
     },

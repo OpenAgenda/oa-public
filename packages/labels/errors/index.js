@@ -142,7 +142,7 @@ module.exports = {
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
     "en": "There was trouble while saving the data, try again in a short while",
-    "de": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
+    "de": "Es gab ein Problem bei der Datenspeicherung, warten sie einen Moment und versuchen es erneut",
     "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo",
@@ -160,7 +160,7 @@ module.exports = {
     "de": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
     "es": "Este evento no está disponible porque está asociado con ninguna agenda",
     "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
-    "it": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
+    "it": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
     "io": "crwdns14066:0crwdne14066:0"
   },
   "defaultBack": {
@@ -176,7 +176,7 @@ module.exports = {
     "en": "Back to the agenda page",
     "de": "Zurück zum Veranstaltungskalender",
     "es": "Volver a la agenda",
-    "it": "Torna all'ordine del giorno",
+    "it": "Tornare all'agenda",
     "io": "crwdns14070:0crwdne14070:0"
   },
   "pageDoesNotExist": {

@@ -8,7 +8,6 @@ Find your way in the OpenAgenda code
 This document is a work in progress. Here are the main sections:
 
  * Integrating application
- * Symfony legacy
  * Services ( common crud, testing )
  * Agenda
  * Aggregation
@@ -62,27 +61,6 @@ console.log( `ssh -i ${require('os').homedir()}/.ssh/${key}.pem ubuntu@${ip}` );
 
 # Integrating application
 
-
-## A little bit of context
-
-Originally, the first version of the project ( before the spinoff Cibul/OpenAgenda ) was written in php symfony 1.4. Since then symfony has moved on, php has moved on too, but some functional blocks are still handled by the symfony project. These are:
-
- * the events list view in the connected user's home
- * the events list view in an agenda administration page
- * the creation, edition and deletion of events
- * in-app messaging
- * the 'notifications' tab in the connected user's home
- * the integrated agenda configuration pages
-
-A technological shift was made in 2014 to start using node.js for new features. Since then webservers host both a php app and a nodejs one. A first level routing is ensured by a local nginx configuration. The nodejs project started of with 3 transverse blocks, each tested and maintained in their own repository:
-
- * cibul-model: an interface library to the primary db
- * cibul-templates: a templates library to facilitate templating independently from other functional blocks
- * cibul-node: The integrating application containing the web application ( express-based ) and controller logic ( with authentication, authorization )
-
-'Servicification' happened first within cibul-node later in 2014, and then externally starting in mid 2015
-
-
 ## Integration of services
 
 The cibul-node project integrates the OpenAgenda project on the node-js side and provides logging and support features to the legacy php application. The configuration of the app is distributed to all service modules at the app launch using their ```.init``` endpoints.
@@ -96,41 +74,6 @@ The ```services/init.js``` script will list all files and folders found in the `
 Legacy in-app services do not have an .init function and are explicitly marked as .initless. These will progressively be deprecated.
 
 For other services, initialization and interfacing can be defined in a single file as long as interfacing is light. As interfacing becomes heavier, it is easy to break files within a folder with one main index.js file for passing configuration and one file per interface. See ```services/members/index.js``` for an example of a complete initialization/interface configuration of an external service.
-
-
-
-# Symfony legacy
-
-The php app sends system events to the node app through 2 channels:
-
- * redis
- * /legacy node app endpoint
-
-## /legacy endpoint
-
-Important reminder: in order to avoid having the php app hang and wait for a response from nodejs, the  first thing any controller should do in /legacy is to send back a response. Unless of course some processing result is needed by the legacy php app.
-
-    ( req, res, next ) => {
-
-      res.send( 'ok' );
-
-      // do more stuff here.
-
-    }
-
-Importanter reminder: if node does not respond to php request, it will progressively hog php processes leading to 502 errors on php web apps
-
-
-## Controllers
-
-#### Redirection to authentication
-
-Authentication menus are served by node process. A method can be used to verify if user is authenticated and redirect to signin screen with return redirect if the user is not signed in. In the controller where this must be done, just add the following:
-
-    $this->nodeAuth( $request );
-
-This is illustrated in `conversation/actions.class.php` in the `executeNew` action.
-
 
 
 # Services

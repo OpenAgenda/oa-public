@@ -5,12 +5,6 @@
       "value": "Agenda introuvable"
     }
   ],
-  "next.views.AgendaError.contactSupport": [
-    {
-      "type": 0,
-      "value": "Contacter le support"
-    }
-  ],
   "next.views.AgendaError.forbiddenMsg": [
     {
       "type": 0,
@@ -23,18 +17,6 @@
     {
       "type": 0,
       "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
-    }
-  ],
-  "next.views.AgendaError.internalError": [
-    {
-      "type": 0,
-      "value": "Erreur interne"
-    }
-  ],
-  "next.views.AgendaError.internalErrorMsg": [
-    {
-      "type": 0,
-      "value": "Si le problème persiste, veuillez contacter le support."
     }
   ],
   "next.views.AgendaError.notFoundMsg": [
@@ -86,13 +68,13 @@
   "next.views.AgendaError.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda"
+      "value": "Cercar una agenda"
     }
   ],
   "next.views.AgendaError.signIn": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Se connectar"
     }
   ],
   "next.views.AgendaError.unauthorizedMsg": [

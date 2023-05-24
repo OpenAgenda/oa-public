@@ -251,7 +251,7 @@ module.exports = {
     "en": "Agenda profile",
     "de": "Agenda Profil",
     "es": "Perfil de la agenda",
-    "it": "Profilo del diario",
+    "it": "Profilo dell'agenda",
     "io": "crwdns12552:0crwdne12552:0",
     "oc": "Perfil d'agenda"
   },
@@ -287,7 +287,7 @@ module.exports = {
     "en": "Delete agenda",
     "de": "löschen Agenda",
     "es": "Eliminar agenda",
-    "it": "Cancellare l'ordine del giorno",
+    "it": "Cancellare l'agenda",
     "io": "crwdns12560:0crwdne12560:0",
     "oc": "Suprimir l'agenda"
   },
@@ -296,7 +296,7 @@ module.exports = {
     "en": "Are you sure you want to remove this agenda ?",
     "de": "Bist du sicher, dass Sie dieseVerwaltungskalender entfernen?",
     "es": "¿Está seguro de que desea eliminar este agenda?",
-    "it": "Sei sicuro di voler cancellare questo ordine del giorno?",
+    "it": "Sei sicuro di voler cancellare questo agenda ?",
     "io": "crwdns12562:0crwdne12562:0",
     "oc": "Sètz segur·a de voler tirar aquesta agenda ?"
   },
@@ -662,7 +662,7 @@ module.exports = {
     "en": "Event form instructions",
     "de": "Veranstaltungsform Anweisungen",
     "es": "Entrada de consigna",
-    "it": "Istruzioni per l'immissione",
+    "it": "Istruzione di ingresso",
     "io": "crwdns12642:0crwdne12642:0",
     "oc": "Instruccions de formulari d'eveniment"
   },
@@ -671,7 +671,7 @@ module.exports = {
     "en": "The guideline appears at the beginning of the event entry form",
     "de": "Die Richtlinie erscheint zu Beginn der Veranstaltung Teilnahmeformular",
     "es": "El conjunto aparece al principio de la forma de entrada de evento",
-    "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento",
+    "it": "L'istruzione di ingresso viene all'inizio del modulo di registrazione dell'evento",
     "io": "crwdns12644:0crwdne12644:0",
     "oc": "La consigna apareis a la debuta del formulari de sasida d'eveniment"
   },
@@ -867,6 +867,7 @@ module.exports = {
     "en": "Learn more",
     "it": "Per saperne di più",
     "io": "crwdns32380:0crwdne32380:0",
-    "oc": "Ne saber mai"
+    "oc": "Ne saber mai",
+    "de": "Mehr erfahren"
   }
 }

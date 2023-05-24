@@ -51,9 +51,7 @@ function orderBy(k, after, column, orderDirection) {
 }
 
 module.exports = (k, nav) => {
-  const {
-    after, offset, limit, page, order
-  } = cleanNav(nav);
+  const { after, offset, limit, page, order } = cleanNav(nav);
 
   const [orderField, orderDirection] = order.split('.');
   let column = _.snakeCase(orderField);
@@ -63,14 +61,15 @@ module.exports = (k, nav) => {
   }
 
   if (_isMonoFieldSeek(after)) {
-    k.where('id', '>', after);
+    k.where('id', '>', after[0]);
   } else if (_isMultiFieldSeek(after)) {
-    k.where(builder => builder
-      .where(column, _operator(orderDirection), after[0] || 0)
-      .whereRaw(
-        `not (${column} = ? and id ${_operator('desc')} ?)`,
-        after || 0
-      ));
+    k.where(builder =>
+      builder
+        .where(column, _operator(orderDirection), after[0] || 0)
+        .whereRaw(
+          `not (${column} = ? and id ${_operator('desc')} ?)`,
+          after || 0,
+        ));
   } else if (offset) {
     k.offset(offset);
   } else if (page) {

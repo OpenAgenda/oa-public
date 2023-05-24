@@ -1,9 +1,9 @@
 "use strict";
 
 const  _ = require( 'lodash' );
-const VError = require( 'verror' );
 const { promisify } = require( 'util' );
 
+const VError = require( '@openagenda/verror' );
 const utils = require( '@openagenda/utils' );
 
 const details = require( './details' );

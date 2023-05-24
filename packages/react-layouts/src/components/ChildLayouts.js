@@ -12,14 +12,12 @@ export default function ChildLayouts({
   layouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
   ...newExtraProps
 }) {
   const props = {
     extraProps: { ...extraProps, ...newExtraProps },
-    onError,
-    FallbackComponent,
+    fallback,
   };
 
   // has child layout

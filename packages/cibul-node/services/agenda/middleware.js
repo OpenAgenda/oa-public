@@ -154,7 +154,7 @@ function loadAdminLayout(req, res, next) {
     // define tabs to display based on credentials
     wcb => {
       _getCredentialList(req.agenda, (err, credentials) => {
-        req.log('loaded credentials %s', credentials);
+        req.log.debug('loaded credentials %s', credentials);
 
         if (err) return wcb(err);
 

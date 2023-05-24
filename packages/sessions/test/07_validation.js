@@ -11,11 +11,13 @@ describe( 'session - unit (server): validate', () => {
       id: 1,
       uid: 12345678,
       email: 'gaetan.latouche@cibul.net',
+      expires: undefined,
       culture: 'fr',
       name: 'Gaetan Latouche',
       thumbnail: '//graph.facebook.com/100002280111541/picture',
       latestActivity: new Date( '1981-02-28T03:00:00+0100' ),
-      isNew: false
+      isNew: false,
+      isBlacklisted: false,
     };
 
     validate( sessionData ).should.eql( sessionData );

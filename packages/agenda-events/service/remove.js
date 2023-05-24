@@ -15,7 +15,7 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
 }
 
 module.exports.byEventUid = async (service, eventUid, options) => {
-  const { config, client, listByEventUid, queue } = service;
+  const { client, listByEventUid, queue } = service;
 
   let aesToBeRemoved = [], offset = 0, limit = 20;
 
@@ -24,7 +24,9 @@ module.exports.byEventUid = async (service, eventUid, options) => {
       if (aeToBeRemoved.aggregated) {
         await service.getAggregatedCount.dec(aeToBeRemoved.agendaUid);
       }
-      await queue(['onRemove', aeToBeRemoved, options ? options.context : undefined]);
+      if (queue) {
+        await queue('onRemove', aeToBeRemoved, options ? options.context : undefined);
+      }
     }
     offset += limit;
   }

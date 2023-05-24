@@ -4,7 +4,7 @@ module.exports = {
   "eventAlreadyAdded": {
     "en": "event is already part of agenda",
     "fr": "l'événement a déjà été ajouté dans l'agenda",
-    "it": "l'evento è già nel agenda",
+    "it": "l'evento è già nell'agenda",
     "de": "Veranstaltung steht bereits auf dem Programm",
     "pl": "wydarzenie jest już częścią porządku dziennego",
     "es": "el evento se ha añadido a la agenda",

@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.17",
+    "@babel/runtime-corejs3": "^7.21.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/event-form": "^1.5.1",
@@ -24,7 +24,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.18.2",
     "classnames": "^2.3.1",
-    "core-js": "^3.10.2",
+    "core-js": "^3.29.1",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "express": "^4.17.1",
@@ -55,8 +55,8 @@
     "superagent": "^3.8.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
     "@emotion/babel-plugin": "^11.10.5",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/outdated-browser": "^0.0.0",

@@ -2,20 +2,8 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
-const log = require('@openagenda/logs')('services/agendaStatistics');
-const rebuildActivityFeeds = require('@openagenda/activities/dist/service/rebuild').rebuild;
 
-async function resyncLegacySearch(services, agendaUid) {
-  log('info', 'resyncing agenda %d - legacy search index rebuild', agendaUid);
-
-  const agendaId = await services.knex('review').first('id')
-    .where('uid', agendaUid)
-    .then(result => result.id);
-
-  const result = await services.elasticsearch.resync({ agendaId });
-
-  log('info', 'agenda %d, resynced legacy search index', agendaId, result);
-}
+const log = logs('services/agendaStatistics');
 
 async function resyncSearch(core, agendaUid) {
   log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
@@ -29,11 +17,7 @@ async function resyncSearch(core, agendaUid) {
   }
 }
 
-function processJob({ services, config }) {
-  const {
-    activities: activitiesSvc
-  } = services;
-
+function processJob({ services }) {
   const { syncAgenda } = services.inboxes.tasks.sync;
 
   return (data, cb) => {
@@ -57,10 +41,6 @@ function processJob({ services, config }) {
         services.agendaEvents.tasks.transferLegacyData({ agendaUid: data.agendaUid });
         break;
 
-      case 'legacySearch':
-        resyncLegacySearch(services, data.agendaUid);
-        break;
-
       case 'inbox':
         services.agendas.get({ uid: data.agendaUid }, { private: null, internal: true }, (err, agenda) => {
           const stats = {};
@@ -73,29 +53,7 @@ function processJob({ services, config }) {
         break;
 
       case 'activityFeeds':
-        rebuildActivityFeeds(
-          null,
-          {
-            agendaUid: data.agendaUid,
-            ..._.pick(config.db, ['database', 'host', 'port', 'user', 'password', 'ssl']),
-            activityTable: config.schemas.activity,
-            feedTable: config.schemas.feed,
-            feedActivityTable: config.schemas.feed_activity,
-            feedFollowTable: config.schemas.feed_follow,
-            feedNotificationTable: config.schemas.feed_notification,
-            userTable: config.schemas.user,
-            reviewTable: config.schemas.agenda,
-            reviewArticleTable: config.schemas.agendaEvent,
-            eventTable: config.schemas.event,
-            reviewerTable: config.schemas.stakeholder,
-            aggregatorTable: config.schemas.aggregator,
-            migrationTable: 'activity_migrations',
-            logger: config.getLogConfig('oa', 'agendaStatistics', false),
-            cli: false,
-            service: activitiesSvc
-          },
-          logs('activities/rebuild')
-        );
+        services.activities.tasks.agendaRebuild(data.agendaUid);
         break;
       default:
         log('unrecognized task', data.type);
@@ -110,7 +68,7 @@ module.exports = (config, services) => {
 
   return Object.assign(() => {
     q.register({
-      processJob: processJob({ services, config })
+      processJob: processJob({ services, config }),
     });
 
     q.run();
@@ -119,23 +77,8 @@ module.exports = (config, services) => {
       q('processJob', {
         operation: 'resync',
         agendaUid,
-        type
+        type,
       }).then(() => log('enqueued %s %s', agendaUid, type));
     },
-    resyncLegacySearch: async () => {
-      let offset = 0;
-
-      let agendas = [];
-
-      while ((agendas = await services.agendas.list(offset, 1, { private: null })).length) {
-        const agenda = _.first(agendas);
-
-        await resyncLegacySearch(services, agenda.uid);
-
-        offset += 1;
-      }
-
-      log('info', 'DONE RESYNCING ALL AGENDAS');
-    }
   });
 };

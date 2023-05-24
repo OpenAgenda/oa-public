@@ -14,5 +14,9 @@ module.exports = (core, agendaOrUid) => async (uid, options = {}) => {
   return endpoints.remove(uid, {
     removeEvents: !!options.removeEvents,
     agendaUid: agenda.uid,
+    context: {
+      ...options.context,
+      agendaUid: agenda.uid,
+    },
   });
 };

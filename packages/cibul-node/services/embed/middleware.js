@@ -69,7 +69,7 @@ function renderEventItems( req, res, next ) {
 
       if ( err ) {
 
-        req.log( 'error', 'could not retrieve custom data of event %s: %s', e.id, err );
+        req.log.error( 'could not retrieve custom data of event %s: %s', e.id, err );
 
       } else {
 
@@ -351,7 +351,7 @@ function _getCustomFields( req, e, mapping, cb ) {
     if ( err ) return cb( err );
 
     req.agenda.getEventPublicCustomData( e, req.lang, ( err, custom ) => {
-      
+
       if ( err ) return cb( err );
 
       custom.forEach( ( c ) => {

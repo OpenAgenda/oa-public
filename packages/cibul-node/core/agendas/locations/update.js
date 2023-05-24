@@ -2,7 +2,7 @@
 
 const getAgenda = require('../utils/getAgenda');
 
-module.exports = (core, agendaOrUid) => async (uid, data) => {
+module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
   const {
     agendaLocations,
   } = core.services;
@@ -15,5 +15,6 @@ module.exports = (core, agendaOrUid) => async (uid, data) => {
     geocodeIfUndefined: true,
     includeImagePath: true,
     agendaUid: agenda.uid,
+    context: options.context,
   });
 };

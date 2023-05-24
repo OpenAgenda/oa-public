@@ -6,6 +6,7 @@ const feed = require('./feed');
 const feeds = require('./feeds');
 const activities = require('./activities');
 const notifications = require('./notifications');
+const rebuild = require('./rebuild');
 
 const cleanOldActivitiesTask = require('./activities/tasks/cleanOld')
 const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld')
@@ -18,6 +19,10 @@ module.exports = Service;
 
 async function Service(c) {
   const config = c;
+
+  config.queues = config.queues ?? {
+    addActivity: c.Queues(config.queue.names.addActivity),
+  };
 
   logger.setModuleConfig(c.logger);
 
@@ -44,7 +49,6 @@ async function Service(c) {
   const service = config.service = {};
 
   return Object.assign(service, {
-    shutdown: () => config.knex.destroy(),
     feed: feed.bind(null, config),
     feeds: feeds.bind(null, config),
     activities: Object.assign(
@@ -62,6 +66,7 @@ async function Service(c) {
         sendSummary: sendSummary(config),
         cleanOld: cleanOldNotificationsTask.bind(null, config)
       }
-    }
+    },
+    rebuild: rebuild.bind(null, config),
   });
 };

@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const _ = require('lodash');
 const slug = require('slugify');
 const sa = require('superagent');
@@ -16,25 +15,21 @@ const res = ({ latitude, longitude }) => `https://geo.api.gouv.fr/communes?lat=$
 
 const format = body => _.get(_.first(body), 'code');
 
-module.exports = redisClient => {
-  const cache = {
-    get: promisify(redisClient.hget.bind(redisClient, NS)),
-    set: promisify(redisClient.hset.bind(redisClient, NS)),
-  };
+module.exports = redisClient => async ({
+  city,
+  department,
+  latitude,
+  longitude,
+}) => {
+  const cached = await redisClient.hGet(NS, getKey({ city, department }));
 
-  return async ({
-    city, department, latitude, longitude
-  }) => {
-    const cached = await cache.get(getKey({ city, department }));
+  if (cached) {
+    return format(JSON.parse(cached));
+  }
 
-    if (cached) {
-      return format(JSON.parse(cached));
-    }
+  const { body } = await sa.get(res({ latitude, longitude }));
 
-    const { body } = await sa.get(res({ latitude, longitude }));
+  redisClient.hSet(NS, getKey({ city, department }), JSON.stringify(body));
 
-    cache.set(getKey({ city, department }), JSON.stringify(body));
-
-    return format(body);
-  };
+  return format(body);
 };

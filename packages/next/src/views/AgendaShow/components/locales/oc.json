@@ -1,1 +1,8 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Apondre un eveniment",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Agregar",
+  "next.views.AgendaShow.AgendaHeader.contact": "Contactar",
+  "next.views.AgendaShow.AgendaHeader.export": "Exportar",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda oficiala",
+  "next.views.AgendaShow.EventItem.featured": "Meses en avant"
+}

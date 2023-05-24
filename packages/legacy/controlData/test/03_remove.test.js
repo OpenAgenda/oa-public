@@ -32,9 +32,9 @@ describe( '03 - control data - remove', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '123' );
+    await redisClient.del( config.redisPrefix + '123' );
 
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.quit();
 
     await knex.destroy();
 
@@ -68,7 +68,7 @@ describe( '03 - control data - remove', () => {
         } ]
       } );
 
-      ctlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' ) );
+      ctlData = JSON.parse( await redisClient.get( config.redisPrefix + '123' ) );
 
     } );
 
@@ -82,7 +82,7 @@ describe( '03 - control data - remove', () => {
 
       await service.remove( aeRef );
 
-      ctlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' ) );
+      ctlData = JSON.parse( await redisClient.get( config.redisPrefix + '123' ) );
 
       expect( ctlData.ev.length ).toBe( 0 );
 
@@ -118,7 +118,7 @@ describe( '03 - control data - remove', () => {
         } ]
       } );
 
-      ctlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' ) );
+      ctlData = JSON.parse( await redisClient.get( config.redisPrefix + '123' ) );
 
     } );
 
@@ -132,7 +132,7 @@ describe( '03 - control data - remove', () => {
 
       await service.batchRemove( { uid: 1 } );
 
-      ctlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' ) );
+      ctlData = JSON.parse( await redisClient.get( config.redisPrefix + '123' ) );
 
       expect( ctlData.ev.length ).toBe( 0 );
 

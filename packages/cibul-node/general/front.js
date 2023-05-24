@@ -55,7 +55,6 @@ module.exports = app => {
   app.get(
     [ '/', '/en', '/de', '/es', '/br', '/it' ],
     preMw,
-    cmn.https,
     sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     cacheMw,
     _setLang,
@@ -96,7 +95,6 @@ module.exports = app => {
   app.get(
     ['/decouvrir/:page', '/discover/:page', '/entdecken/:page', '/scoprire/:page', 'descubrir/:page', '/decouvrirbr/:page'],
     preMw,
-    cmn.https,
     _corpoBrowserCache,
     cacheMw,
     _redirectLang,
@@ -142,7 +140,7 @@ async function corpo(cache, req, res, next) {
 
   if ( !page ) {
 
-    req.log( 'error', 'unknown page %s', pageName );
+    req.log.error( 'unknown page %s', pageName );
 
     return res.redirect( `/${req.lang}` );
 
@@ -198,13 +196,13 @@ async function corpo(cache, req, res, next) {
 
   cache.set( req.url, content, 60*60, err => {
 
-    if ( err ) req.log( 'error', 'could not cache %s', err );
+    if ( err ) req.log.error( 'could not cache %s', err );
 
   } );
 
   res.send( content );
 
-  req.log( 'info', {
+  req.log.info( {
     landing: page.getAlternateUrl( 'fr' ).split( '/' ).pop(),
     lang: req.lang,
     message: 'discover page: ' + req.params.page,
@@ -306,7 +304,7 @@ function start( req, res, next ) {
 
   action = action[ 0 ];
 
-  req.log( 'info', {
+  req.log.info( {
     message: 'corpo link: ' + action,
     action: action,
     userAgent: req.headers[ 'user-agent' ]

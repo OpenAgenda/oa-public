@@ -1,16 +1,16 @@
 'use strict';
 
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('agendaEvents/addEventCreationActivity');
 
 const getMemberName = require('./utils/getMemberName');
 
-module.exports = async (services, eventFeed, {
+module.exports = async function addEventCreationActivity(services, eventFeed, {
   ae,
   agenda,
   event,
   user,
-}, context) => {
+}, context) {
   log('processing');
   const {
     activities: activitiesSvc,

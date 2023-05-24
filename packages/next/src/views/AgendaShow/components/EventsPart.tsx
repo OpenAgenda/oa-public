@@ -43,13 +43,14 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
   });
 
   const seeMoreUrl = useMemo(() => {
-    const url = new URL(router.asPath, process.env.NEXT_PUBLIC_SITE_ROOT);
+    const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
+    const url = new URL(localePrefix + router.asPath, 'http://n');
     url.search = qs.stringify({
       ...query,
-      after: pages?.at(-1).after?.map(String),
+      after: pages?.[pages.length - 1].after?.map(String),
     });
     return url.pathname + url.search;
-  }, [router.asPath, query, pages]);
+  }, [router.locale, router.asPath, query, pages]);
 
   const nextPage = useCallback(e => {
     e.preventDefault();
@@ -58,6 +59,10 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
 
   if (isLoadingInitialData) {
     return <EventsSkeleton />;
+  }
+
+  if (isEmpty) {
+    return null;
   }
 
   return (

@@ -1,41 +1,20 @@
 'use strict';
 
 const _ = require('lodash');
-const logs = require('@openagenda/logs');
 
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
-
-function isEnabled(req) {
-  if (req.query.fromV2) {
-    return true;
-  }
-  if (req.credentials?.useJSONBridge) {
-    return true;
-  }
-
-  if (req.agenda?.credentials) {
-    return (
-      typeof req.agenda.credentials === 'string' ? JSON.parse(req.agenda.credentials) : req.agenda.credentials
-    )?.useJSONBridge ?? false;
-  }
-  return false;
-}
+const gaTrack = require('../lib/gaTrack');
 
 module.exports = function ConvertFormat({
   forceLimit = null,
   sendJSON = false,
   forceIncludeEmbedded = false,
   admin = false,
+  ga = null,
 }) {
-  const log = logs('agenda/ConvertFormat');
   return async (req, res, next) => {
-    if (!isEnabled(req)) {
-      log('info', 'Disabled. Using legacy JSON', req.params);
-      return next();
-    }
-
     const {
       legacy: {
         tagsAndCustom,
@@ -62,15 +41,33 @@ module.exports = function ConvertFormat({
       ...req.query,
     }, ['page', 'oaq']);
 
-    const agenda = await req.app.core.agendas(req.params.uid).get();
+    const agenda = await req.app.core.agendas(req.params.uid).get({
+      private: admin ? null : undefined,
+    });
 
-    const eventsList = await req.app.core
+    if (!agenda) {
+      return next({ code: 404 });
+    }
+
+    if (ga) {
+      gaTrack(req, agenda, ...ga);
+    }
+
+    const {
+      result: eventsList,
+      error,
+    } = await req.app.core
       .agendas(req.params.uid)
       .events.search(
         req.query,
         nav,
         { detailed: true, access: 'administrator' },
-      );
+      )
+      .then(result => ({ result }), e => ({ error: e }));
+
+    if (error) {
+      return next(error);
+    }
 
     const agendaSettings = {
       uid: req.params.uid,

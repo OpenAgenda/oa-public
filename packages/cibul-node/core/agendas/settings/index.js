@@ -5,7 +5,7 @@ const log = require('@openagenda/logs')('core/agendas/settings');
 const getMemberSchema = require('../utils/getMemberSchema');
 const getMergedSchema = require('./getMergedSchema');
 const getSchema = require('./getSchema');
-const UpdateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
+const updateLegacyFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require('./legacy/update');
 const resyncInbox = require('./resyncInbox');
@@ -25,17 +25,18 @@ module.exports = core => {
     legacy: legacySvc,
   } = services;
 
-  const updateCategorySetFromSchema = UpdateLegacySetFromSchema(core, 'categories');
-  const updateTagSetFromSchema = UpdateLegacySetFromSchema(core, 'tags');
+  const updateCategorySetFromSchema = updateLegacyFromSchema('categories');
+  const updateTagSetFromSchema = updateLegacyFromSchema('tags');
 
   const resyncFn = {
-    updateTagSet: (agendaUid, options) => updateTagSetFromSchema(agendaUid, options),
-    updateCategorySet: agendaUid => updateCategorySetFromSchema(agendaUid),
+    updateTagSet: (agendaUid, options) => updateTagSetFromSchema(core, agendaUid, options),
+    updateCategorySet: agendaUid => updateCategorySetFromSchema(core, agendaUid),
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
     updateLegacy: (agendaUid, options) => updateLegacy(core, agendaUid, options),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
+    rebuildActivities: agendaUid => services.activities.tasks.agendaRebuild(agendaUid),
   };
 
   tasks.register(resyncFn);

@@ -2,7 +2,6 @@
 
 const agendaEventStats = require('./lib/agendaEventStats');
 const db = require('./lib/db');
-const legacySearch = require('./lib/legacySearch');
 const searchStats = require('./lib/search');
 
 const Task = require('./task');
@@ -16,12 +15,10 @@ module.exports.init = (config, services) => {
       .where('uid', agendaUid);
     return {
       db: await db(agenda.id),
-      legacySearch: await legacySearch(agenda.id),
       agendaEvents: await agendaEventStats(services, agendaUid),
       search: await searchStats(services.eventSearch, agenda),
       hasFormSchema: !!agenda.form_schema_id,
       actions: {
-        resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
         rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
         resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
         resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,

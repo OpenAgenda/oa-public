@@ -15,7 +15,7 @@ module.exports = {
   "privateAgenda": {
     "en": "Private agenda",
     "fr": "Agenda privé",
-    "it": "Agenda privata",
+    "it": "Agenda privato",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
     "es": "Eventos privados",
@@ -70,8 +70,8 @@ module.exports = {
   "manage": {
     "en": "Manage",
     "fr": "Gérer",
-    "it": "Gestisci",
-    "de": "verwalten",
+    "it": "Gestire",
+    "de": "Verwalten",
     "pl": "Zarządzaj",
     "es": "Gestionar",
     "br": "Merañ",

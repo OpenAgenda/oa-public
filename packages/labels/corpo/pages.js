@@ -266,7 +266,7 @@ module.exports = {
     "en": "You animate a territory, a federation, several local coordinators ? The network of agendas is for you.",
     "de": "Sie animieren ein Gebiet, eine Föderation, mehrere lokale Koordinatoren? Das Netz der Kalenders ist für Sie.",
     "es": "A llevar un país, una federación, varios coordinadores locales? La red de agendas es para usted.",
-    "it": "Lei guida un territorio, una federazione, diversi coordinatori locali? La rete dei diari è per voi.",
+    "it": "Lei guida un territorio, una federazione, diversi coordinatori locali? Un rete d'agende è per voi.",
     "io": "crwdns13510:0crwdne13510:0"
   },
   "mainPricingNetworkPoint2": {
@@ -378,7 +378,7 @@ module.exports = {
     "en": "Basic agenda",
     "de": "Grund Agenda",
     "es": "simple Calendar",
-    "it": "agenda semplice",
+    "it": "Agenda semplice",
     "io": "crwdns13538:0crwdne13538:0"
   },
   "agendaPricingFreeAction": {
@@ -483,7 +483,7 @@ module.exports = {
     "en": "Customized agenda",
     "de": "Customized Agenda",
     "es": "Eventos personalizados",
-    "it": "Diario su misura",
+    "it": "Agenda su misura",
     "io": "crwdns13564:0crwdne13564:0"
   },
   "agendaPricingCustomPrice": {
@@ -587,7 +587,7 @@ module.exports = {
     "en": "Do you need to manage several agendas?",
     "de": "Sie benötigen mehrere Kalenders verwalten?",
     "es": "Es necesario varios agendas?",
-    "it": "Avete bisogno di diversi ordini del giorno?",
+    "it": "Avete bisogno di diversi agende ?",
     "io": "crwdns13590:0crwdne13590:0"
   },
   "agendaPricingNetworkDetail": {
@@ -812,7 +812,7 @@ module.exports = {
     "en": "You do not know how many events you manage per year ? We do.",
     "de": "Sie wissen nicht, wie viele Veranstaltungen, die Sie pro Jahr zu verwalten? Wir tun.",
     "es": "Usted no sabe cuántos eventos de manejar por año? Nosotros sí.",
-    "it": "Non sai quanti eventi gestisci all'anno? Noi lo facciamo.",
+    "it": "Non sai quanti eventi gestisci all'anno? Noi forse si.",
     "io": "crwdns13646:0crwdne13646:0"
   },
   "networkHowManyAction": {
@@ -892,7 +892,7 @@ module.exports = {
     "en": "Your event data is:",
     "de": "Ihre Veranstaltungdaten sind:",
     "es": "Sus datos de eventos son:",
-    "it": "I suoi dati di evento sono:",
+    "it": "I sui dati di evento sono:",
     "io": "crwdns13666:0crwdne13666:0"
   },
   "openDataStandard": {
@@ -1253,7 +1253,7 @@ module.exports = {
     "fr": "Le Réseau d'agendas - 400€/mois",
     "de": "Netzwerk der Kalenders - 400 € / Monat",
     "es": "Los agendas de red - 400 €/mes",
-    "it": "La rete dei diari - 400€/mese",
+    "it": "La rete d'agende - 400 €/mese",
     "io": "crwdns13756:0crwdne13756:0"
   },
   "networkOfferHeadTitle": {
@@ -1415,7 +1415,7 @@ module.exports = {
     "fr": "Réseau d'agendas",
     "de": "Netzwerk der Kalenders",
     "es": "Los planificadores de redes",
-    "it": "Rete di diari",
+    "it": "Rete di agende",
     "io": "crwdns13796:0crwdne13796:0"
   },
   "footerMore": {

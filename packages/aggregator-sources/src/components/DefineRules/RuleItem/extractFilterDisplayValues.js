@@ -110,12 +110,22 @@ const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
   const allFields = sourceAgendaSchema.fields.concat(eventTextFields);
   const field = pickFieldInFields(allFields, textField);
   const label = getLocaleValue(field.label, intl.locale);
+
+  let value = !rule.query.text.wholeValue
+    ? intl.formatMessage(messages.textFilterValue, {
+      value: rule.query.text[textField],
+    })
+    : intl.formatMessage(messages.textFilterWholeValue, {
+      value: rule.query.text[textField],
+    });
+  if (rule.query.text.wholeValue && !rule.query.text[textField]) {
+    value = intl.formatMessage(messages.textFilterNotDefined)
+  }
+
   return {
     label,
-    value: intl.formatMessage(messages.textFilterValue, {
-      value: rule.query.text[textField],
-    }),
-    casse: rule.query.text?.caseSensitive,
+    value,
+    casse: rule.query.text?.caseSensitive, 
   };
 };
 

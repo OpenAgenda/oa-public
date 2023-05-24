@@ -3,5 +3,5 @@
 module.exports = {
   head: require( './head' ),
   parseEvent: require( './parseEvent' ),
-  tail: () => 'END:VCALENDAR'
+  tail: () => 'END:VCALENDAR\r\n'
 }

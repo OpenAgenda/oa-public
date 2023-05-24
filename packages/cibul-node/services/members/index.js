@@ -42,7 +42,7 @@ function init(c, services) {
       getUserByEmail: getUserByEmail.bind(null, services),
       getAgendasByUid: getAgendasByUid.bind(null, services),
       onCreate: onCreate.bind(null, { services, config, activityQueue }),
-      onRemove: onRemove.bind(null, { services, members, activityQueue }),
+      onRemove: onRemove({ services, members, activityQueue }),
       onPatch: onPatch.bind(null, { services, config, activityQueue }),
     },
   }));

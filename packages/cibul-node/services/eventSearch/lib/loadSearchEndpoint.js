@@ -25,7 +25,7 @@ module.exports = (core, options = {}) => async (req, res, next) => {
     .events.search;
 
   const {
-    admin = false,
+    convertLegacy = false,
   } = options;
 
   const includeFields = extractIncludeFields(req.query);
@@ -49,7 +49,7 @@ module.exports = (core, options = {}) => async (req, res, next) => {
     },
   } = req.app.services;
 
-  if (!admin) {
+  if (convertLegacy) {
     req.searchQuery = {
       ...convert(
         req.searchQuery.oaq ?? {},

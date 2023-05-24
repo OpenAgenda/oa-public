@@ -120,7 +120,8 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       type: 'text',
       textField: keys[0],
       textValue: query.text[keys[0]],
-      caseSensitive: keys.length > 1 ? query.text[keys[1]] : false,
+      caseSensitive: keys.length > 1 && keys.includes('caseSensitive') ? query.text.caseSensitive : false,
+      wholeValue: keys.length > 1 && keys.includes('wholeValue') ? query.text.wholeValue : false,
     });
     return result;
   }
@@ -213,8 +214,9 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       return {
         query: {
           text: {
-            [values.textField]: values.textValue,
+            [values.textField]: values.textValue || null,
             caseSensitive: values.caseSensitive,
+            wholeValue: values.wholeValue,
           },
         },
         required,

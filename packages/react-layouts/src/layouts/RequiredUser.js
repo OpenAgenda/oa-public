@@ -11,8 +11,7 @@ function createRequiredUser(options = {}) {
     childLayouts,
     children,
     extraProps,
-    onError,
-    FallbackComponent,
+    fallback,
   }) {
     const history = useHistory();
     const location = useLocation();
@@ -52,8 +51,7 @@ function createRequiredUser(options = {}) {
       <ChildLayouts
         layouts={childLayouts}
         extraProps={extraProps}
-        onError={onError}
-        FallbackComponent={FallbackComponent}
+        fallback={fallback}
       >
         {children}
       </ChildLayouts>

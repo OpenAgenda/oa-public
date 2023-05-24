@@ -529,7 +529,7 @@ module.exports = {
     "fr": "Ordre des champs",
     "en": "Field order",
     "es": "Orden de los campos",
-    "it": "Ordine sul campo",
+    "it": "Ordine dei campi",
     "io": "crwdns14800:0crwdne14800:0"
   },
   "fieldFormOptional": {
@@ -766,7 +766,8 @@ module.exports = {
     "es": "Seleccionado",
     "it": "Selezionato",
     "oc": "Seleccionat",
-    "io": "crwdns32905:0crwdne32905:0"
+    "io": "crwdns32905:0crwdne32905:0",
+    "de": "Auswählen"
   },
   "notSelected": {
     "fr": "Non sélectionné",
@@ -774,7 +775,8 @@ module.exports = {
     "es": "No seleccionado",
     "it": "Non selezionato",
     "oc": "Pas seleccionat",
-    "io": "crwdns32907:0crwdne32907:0"
+    "io": "crwdns32907:0crwdne32907:0",
+    "de": "Nicht ausgewählt"
   },
   "enabledWhenLinkedFieldHasValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% est saisi",

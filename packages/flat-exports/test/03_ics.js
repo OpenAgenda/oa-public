@@ -28,7 +28,7 @@ describe('flat-exports - unit - ics', () => {
       const result = ics.parseEvent({ lang: 'fr' }, event);
 
       expect(result).toEqual(
-        ICSEvent.replace('{DTSTAMP}', moment.tz().format('YYYYMMDDTHHmm00Z').replace('+00:00', 'Z'))
+        ICSEvent.replace('{DTSTAMP}', moment.tz().format('YYYYMMDDTHHmm00[Z]'))
       );
     });
   });

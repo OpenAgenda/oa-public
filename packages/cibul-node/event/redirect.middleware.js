@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const { NotFound } = require('@openagenda/verror');
 const unserialize = require( 'locutus/php/var/unserialize' );
 
 const redirectTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/redirect.tpl', 'utf-8' ) );
@@ -65,7 +66,7 @@ function loadEvent(config, req, res, next) {
       returnPayload: true
     }).then(({ event, agenda } = {}) => {
       if (!event) {
-        return next(404);
+        return next(new NotFound());
       }
 
       req.agenda = agenda;
@@ -73,7 +74,7 @@ function loadEvent(config, req, res, next) {
 
       next();
     }, err => {
-      req.log('error', err);
+      req.log.error(err);
 
       next({
         code: _.get(err, 'message').indexOf('not found') === -1 ? 500 : 404
@@ -93,7 +94,7 @@ function loadSiteURL( config, req, res, next ) {
 
     } catch( e ) {
 
-      req.log( 'error', 'could not extract siteurl from store of embed %s', embed.uid );
+      req.log.error( 'could not extract siteurl from store of embed %s', embed.uid );
 
     }
 

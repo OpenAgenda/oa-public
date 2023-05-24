@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const knex = require('knex');
-const queueLib = require('@openagenda/queue');
 const logger = require('@openagenda/logs');
 
 const list = require('./service/list');
@@ -28,8 +27,18 @@ module.exports = c => {
   };
 
   const {
+    queue,
+  } = config;
+
+  const {
     interfaces
   } = config;
+
+  if (queue) {
+      queue.register({
+      onRemove: interfaces.onRemove,
+    });
+  }
 
   if (c.logger) {
     logger.setModuleConfig(c.logger);
@@ -37,8 +46,7 @@ module.exports = c => {
 
   const service = {
     config,
-    queue: queueLib(config.queueNames.interfaces, { redis: config.redis }),
-    legacyTransferQueue: queueLib('agendaEventTransfer', { redis: config.redis }),
+    queue,
     client: config.knex || knex({
       client: 'mysql',
       connection: config.mysql

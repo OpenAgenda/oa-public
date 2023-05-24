@@ -8,19 +8,8 @@ const resetCache = require('./lib/resetCache');
 module.exports = async (services, before, after, context) => {
   const {
     activities,
-    elasticsearch: legacyEventSearch,
     core,
   } = services;
-
-  if (legacyEventSearch) {
-    try {
-      await legacyEventSearch.updateAgenda(after.id);
-    } catch (e) {
-      log('error', 'could not update legacy search for agenda %s', after.slug, e);
-    }
-  } else {
-    log('warn', 'legacy search service was not initialized');
-  }
 
   // settings.{tracking,lab,inbox,contribution,translation}
 

@@ -1,3 +1,8 @@
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+const { withSentryConfig } = require('@sentry/nextjs');
+
+const nextVersion = require('next/package.json').version;
+
 const withTM = require('next-transpile-modules')([
   '@openagenda/intl',
   '@openagenda/react-filters',
@@ -13,6 +18,52 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const withSentry = c => withSentryConfig(c, { silent: true });
+
+function webpackCopyFiles(webpackConfig, files) {
+  const CopyFilePlugin = webpackConfig.plugins
+    .find(plugin => plugin.constructor.name === 'CopyFilePlugin')
+    .constructor;
+
+  for (const file of files) {
+    webpackConfig.plugins.push(
+      new CopyFilePlugin({
+        filePath: file.from,
+        cacheKey: nextVersion,
+        name: file.to,
+        minimize: false,
+        info: {
+          minimized: true,
+        },
+      }),
+    );
+  }
+}
+
+// https://nextjs.org/docs/advanced-features/security-headers
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin',
+  },
+];
+
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
   const {
@@ -21,7 +72,7 @@ const config = async () => {
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
 
-  return withBundleAnalyzer(withTM({
+  return withSentry(withBundleAnalyzer(withTM({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
       locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
@@ -62,8 +113,15 @@ const config = async () => {
     // typescript: {
     //   ignoreBuildErrors: true,
     // },
-    experimental: {
-      isrMemoryCacheSize: 0, // Defaults to 50MB
+    // Compression is enabled with nginx
+    compress: false,
+    async headers() {
+      return [
+        {
+          source: '/:path*',
+          headers: securityHeaders,
+        },
+      ];
     },
     async redirects() {
       return [
@@ -80,6 +138,7 @@ const config = async () => {
       }
 
       return {
+        beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
         fallback: [
           {
             source: '/:path*',
@@ -88,7 +147,28 @@ const config = async () => {
         ],
       };
     },
-  }));
+    webpack: (webpackConfig, options) => {
+      if (options.isServer) return webpackConfig;
+
+      webpackCopyFiles(webpackConfig, [
+        {
+          from: require.resolve('@openagenda/outdated-browser'),
+          to: 'static/chunks/outdated-browser.js',
+        },
+        {
+          from: require.resolve('@openagenda/outdated-browser/main.css'),
+          to: 'static/css/outdated-browser.css',
+        },
+      ]);
+
+      return webpackConfig;
+    },
+    sentry: {
+      hideSourceMaps: true,
+      transpileClientSDK: true,
+      tunnelRoute: '/monit',
+    },
+  })));
 };
 
 module.exports = config;

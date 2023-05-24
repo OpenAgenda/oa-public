@@ -14,7 +14,7 @@ module.exports = {
   "subtitle": {
     "fr": "Présentez-vous avant de saisir vos événements",
     "en": "Present yourself before starting to type in your events",
-    "it": "Presentatevi prima di aggiungere i vostri eventi",
+    "it": "Vi preghiamo di inserire i vostri dati prima di procedere al caricamento dell’evento",
     "de": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
     "br": "Lavarit piv oc'h a-raok skrivañ ho tarvoudoù",
     "es": "Presentarse antes de introducir sus eventos",

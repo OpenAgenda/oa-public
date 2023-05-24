@@ -3,7 +3,7 @@ const validators = require('../src');
 describe('choice validator', () => {
   describe('basic usage', () => {
     const validate = validators.choice({
-      options: [2, 4, 13, 12]
+      options: [2, 4, 13, 12],
     });
 
     it('is optional by default', () => {
@@ -28,7 +28,7 @@ describe('choice validator', () => {
       const validateChoice = validators.choice({
         options: [2, 4, 14],
         default: [2],
-        optional: false
+        optional: false,
       });
 
       try {
@@ -45,16 +45,16 @@ describe('choice validator', () => {
     const validateChoice = validators.choice({
       options: [2, 4, 12, 13],
       optional: false,
-      key: 'id'
+      key: 'id',
     });
 
     it('cleans keyed values', () => {
       expect(validateChoice([{
         id: 2,
-        label: 'two'
+        label: 'two',
       }, {
         id: 12,
-        value: 'twelve'
+        value: 'twelve',
       }])).toEqual([2, 12]);
     });
 
@@ -70,7 +70,7 @@ describe('choice validator', () => {
       expect(errors).toEqual([{
         code: 'choice.required',
         message: 'a (known) value must be chosen',
-        origin: 3
+        origin: 3,
       }]);
     });
 
@@ -79,7 +79,7 @@ describe('choice validator', () => {
         options: [2, 4, 12, 13],
         optional: false,
         key: 'id',
-        default: [2]
+        default: [2],
       });
 
       const clean = validate();
@@ -90,7 +90,7 @@ describe('choice validator', () => {
     it('unique option outputs clean unique value', () => {
       const validate = validators.choice({
         options: [2, 4],
-        unique: true
+        unique: true,
       });
 
       const clean = validate(2);
@@ -101,7 +101,7 @@ describe('choice validator', () => {
     it('option provided as string when options are integer is cleaned', () => {
       const validate = validators.choice({
         options: [2, 4],
-        unique: true
+        unique: true,
       });
 
       const clean = validate('2');
@@ -122,7 +122,7 @@ describe('choice validator', () => {
     it('default unique output is undefined by default', () => {
       const validate = validators.choice({
         options: [2, 4],
-        unique: true
+        unique: true,
       });
 
       const clean = validate();
@@ -134,7 +134,7 @@ describe('choice validator', () => {
       const validate = validators.choice({
         options: [22, 44],
         default: 22,
-        unique: true
+        unique: true,
       });
 
       const clean = validate();
@@ -147,7 +147,7 @@ describe('choice validator', () => {
     const validate = validators.choice({
       options: [2, 4, 12, 13],
       field: 'etpaf',
-      optional: false
+      optional: false,
     });
 
     it('when field value is set, it comes out in error', () => {
@@ -165,7 +165,7 @@ describe('choice validator', () => {
     const validate = validators.choice({
       options: [2, 4, 12, 13],
       min: 2,
-      max: 3
+      max: 3,
     });
 
     it('being below min throws error', () => {
@@ -179,7 +179,7 @@ describe('choice validator', () => {
         code: 'choice.required.min',
         message: 'between %min% and %max% choices must be made',
         values: { min: 2, max: 3 },
-        origin: 2
+        origin: 2,
       }]);
     });
 
@@ -194,14 +194,14 @@ describe('choice validator', () => {
         code: 'choice.required.max',
         message: 'between %min% and %max% choices must be made',
         values: { min: 2, max: 3 },
-        origin: [2, 4, 12, 13]
+        origin: [2, 4, 12, 13],
       }]);
     });
 
     it('if provided default is non array and choice is non unique, returned default is array', () => {
       const validateChoice = validators.choice({
         options: [1, 2, 3],
-        default: 2
+        default: 2,
       });
 
       const clean = validateChoice();
@@ -215,7 +215,7 @@ describe('choice validator', () => {
         optional: true,
         options: [2, 3],
         default: 2,
-        allowNull: true
+        allowNull: true,
       });
 
       const clean = validateChoice(null);

@@ -1,36 +1,38 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('activities/notifications/tasks/addActivity');
-const queue = require('@openagenda/queue');
 
 module.exports = config => {
-  const q = queue(config.queue.names.addActivity, { redis: config.queue.redis });
+  const queue = config.queues.addActivity;
+  
+  queue.register({
+    addActivity: addActivityTask.bind(null, config)
+  });
 
   return Object.assign(
     addActivity.bind(null, config),
-    { task: task.bind(null, config, q) },
+    {
+      task: () => {
+        config.queues.addActivity.run();
+
+        return {
+          shutdown: () => config.queues.addActivity.stop(),
+        };
+      },
+    }
   );
 };
 
-function task(config, q, onAdd = null) {
-  q.setConsumer(async ({ identifiers, activity }) => {
-    try {
-      const result = await addActivity(config, identifiers, activity);
-      if (onAdd) onAdd(null, result);
-    } catch (e) {
+async function addActivityTask(config, { identifiers, activity }) {
+  try {
+    await addActivity(config, identifiers, activity);
+  } catch (e) {
+    if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
       log('error', 'Error in addActivity task:', e);
-      console.log('error', 'Error in addActivity task:', e);
-      if (onAdd) onAdd(e);
     }
-  });
-
-  q.launch();
-
-  return {
-    shutdown: q.shutdown,
-  };
+  }
 }
 
 function fnOrValue(fnValue, ...params) {
@@ -64,12 +66,16 @@ async function addActivity(config, identifiers, activity, options) {
 
   const feed = await service.feed(identifiers).get({ internal: true });
 
-  if (!enableNotificationsForFeedTypes.includes(feed.entityType)) {
-    return null;
-  }
-
   if (feed === null) {
     throw new VError('Feed not found');
+  }
+
+  if (!enableNotificationsForFeedTypes?.includes(feed.entityType)) {
+    throw new VError({
+      meta: {
+        code: 'FEED_REJECTS_NOTIFICATION'
+      }
+    }, `Feed of type '${feed.entityType}' can't have notifications`);
   }
 
   // The actor is not notified of his actions
@@ -77,8 +83,13 @@ async function addActivity(config, identifiers, activity, options) {
     return null;
   }
 
+  // Don't create notif
+  if (activityConfig.notifications === null) {
+    return null;
+  }
+
   // notif groups activities
-  const groupBy = fnOrValue(activityConfig.notifications?.groupBy, { feed, activity });
+  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
   const groupedBy = getGroupBy(groupBy, feed, activity);
 
   const notif = groupedBy
@@ -137,6 +148,7 @@ async function addActivity(config, identifiers, activity, options) {
       object: createNewStoreKey('object'),
       target: createNewStoreKey('target'),
       labels: {
+        ...notif.store.labels,
         actor: activity.store?.labels?.actor,
         object: activity.store?.labels?.object,
         target: activity.store?.labels?.target,

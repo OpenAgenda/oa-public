@@ -32,7 +32,7 @@ function share( req, res, next ) {
 
   }
 
-  req.log( 'info', { message: 'sharing agenda', uid: req.agenda.uid, slug: req.agenda.slug, service: req.params.service } );
+  req.log.info( { message: 'sharing agenda', uid: req.agenda.uid, slug: req.agenda.slug, service: req.params.service } );
 
   res.redirect( shares.getLink( req.params.service, {
     title: req.agenda.title,

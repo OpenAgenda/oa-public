@@ -1,8 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
 const pug = require( 'pug' );
+const VError = require( '@openagenda/verror' );
 const mark = require( './mark' );
 
 module.exports = config => {

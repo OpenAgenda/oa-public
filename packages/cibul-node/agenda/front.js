@@ -113,7 +113,7 @@ module.exports = app => {
     agendaSvc.mw.load( 'uid', { cache: true } ),
     cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
     agendaSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
+    convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
     _format,
     _appendFacebookParams,
     _formatEmbedHeadLinks,
@@ -137,14 +137,9 @@ module.exports = app => {
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-      (req, res, next) => {
-        if (req.events) {
-          return next();
-        }
-        agendaSvc.mw.search(perPage)(req, res, next);
-      },
       middlewares.embedShow,
-    ])
+      ( req, res ) => res.send( req.render )
+    ]),
   );
 
   app.get(
@@ -160,12 +155,6 @@ module.exports = app => {
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-    (req, res, next) => {
-      if (req.events) {
-        return next();
-      }
-      agendaSvc.mw.search(perPage)(req, res, next);
-    },
     middlewares.embedShow,
     ( req, res ) => res.send( req.render )
   );
@@ -198,7 +187,6 @@ module.exports = app => {
   app.get(
     '/:slug.prv',
     preMw,
-    cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     ( req, res, next ) => {
@@ -220,7 +208,6 @@ module.exports = app => {
   app.get(
     '/:slug',
     preMw,
-    cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     ( req, res, next ) => {
@@ -388,7 +375,7 @@ function redirect( req, res, next ) {
 
   const redirect = req.genUrl( 'agendaShow', { slug: req.agenda.slug, oaq: req.query.oaq }, { protocol: 'https://' } );
 
-  req.log( 'info', 'redirecting to %s', redirect );
+  req.log.info( 'redirecting to %s', redirect );
 
   return res.redirect( 302, redirect );
 
@@ -796,7 +783,7 @@ function _loadAgendaLanguages(req, res, next) {
 
 function _layoutData( req, res ) {
 
-  req.log( 'loading layout data' );
+  req.log.debug( 'loading layout data' );
 
   const url = `${config.root}/${req.agenda.slug}`;
 

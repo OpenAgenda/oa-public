@@ -25,7 +25,6 @@ const modulesToInclude = [
   '@openagenda/home',
   '@openagenda/inbox-apps',
   '@openagenda/member-apps',
-  '@openagenda/outdated-browser',
   '@openagenda/user-apps',
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
@@ -50,7 +49,6 @@ const region = 'eu-west-1';
 const bucket = 'oasvc';
 const serviceName = require('./package.json').name.split('/').pop();
 
-const CLOUDFRONT_DISTRIBUTION_ID = 'E3NUCLR660OPQ4';
 const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
 const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || 8905;
 
@@ -275,8 +273,8 @@ module.exports = (env = {}, argv = {}) => {
             // } ),
             new S3Plugin({
               s3Options: {
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                accessKeyId: process.env.AWS_KEY,
+                secretAccessKey: process.env.AWS_SECRET,
                 region,
               },
               s3UploadOptions: {
@@ -296,7 +294,7 @@ module.exports = (env = {}, argv = {}) => {
                 },
               },
               cloudfrontInvalidateOptions: {
-                DistributionId: CLOUDFRONT_DISTRIBUTION_ID,
+                DistributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID,
                 Items: ['/*'],
               },
               progress: false,

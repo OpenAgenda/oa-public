@@ -47,6 +47,10 @@ function toAgenda(key) {
     targetFeed.entityType === 'agenda' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
 }
 
+function toLocationSet() {
+  return ({ targetFeed }) => targetFeed.entityType === 'locationSet';
+}
+
 async function isPublicTargetAgenda({ activity, config: { services } }) {
   return !!await services.agendas.get(
     { uid: getActivityEntity(activity, 'target.uid') },
@@ -76,6 +80,10 @@ function fromAgendaToAdminMod({ originFeed, targetFeed, follow }) {
     && isAdminMod({ follow });
 }
 
+function fromLocationSetToAgenda({ originFeed, targetFeed }) {
+  return originFeed.entityType === 'locationSet' && targetFeed.entityType === 'agenda';
+}
+
 // function fromAgendaToContributor({ originFeed, targetFeed, follow }) {
 //   return originFeed.entityType === 'agenda'
 //     && targetFeed.entityType === 'user'
@@ -91,15 +99,15 @@ function hasVisibleDiff({ activity, targetFeed, follow }) {
     return !!activity.store.diff;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields?.length) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields?.length) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields.length) {
+  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields?.length) {
     return true;
   }
 
@@ -128,11 +136,13 @@ async function maskUserIsNotAdminModOf({
     return;
   }
 
-  const role = preloadedRole ?? (await getMember(
-    services.members,
-    targetFeed.entityUid,
-    getActivityEntity(activity, key),
-  ))?.role;
+  const role = preloadedRole === undefined
+    ? (await getMember(
+      services.members,
+      targetFeed.entityUid,
+      getActivityEntity(activity, key),
+    ))?.role
+    : null;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
     return omit;
@@ -282,7 +292,7 @@ const activitiesConfig = {
           membersSvc,
           targetFeed.entityUid,
           getActivityEntity(activity, 'target.uid'),
-        )).role
+        ))?.role
         : null;
 
       const toOmit = await maskFor({
@@ -294,7 +304,7 @@ const activitiesConfig = {
       // Always omit the diff object
       toOmit.push('store.diff');
 
-      if (role !== null) {
+      if (role) {
         if (!isSuperiorToOrEqual(role, 'administrator')) toOmit.push('store.administratorFields');
         if (!isSuperiorToOrEqual(role, 'moderator')) toOmit.push('store.moderatorFields');
         if (!isSuperiorToOrEqual(role, 'contributor')) toOmit.push('store.contributorFields');
@@ -1222,9 +1232,216 @@ const activitiesConfig = {
         filter: 'target',
       },
     },
+    notifications: {
+      groupBy: ['target'],
+    },
   },
-  notifications: {
-    groupBy: ['target'],
+  /*
+  * location.create:
+  *   location -> agenda target -> adminMods
+  *            -> locationSet
+  *              -> agendas -> adminMods
+  *            -> creator
+  * */
+  'location.create': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+      otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+    }),
+    filterFollows: or(
+      toLocationSet(), // to location set
+      fromLocationSetToAgenda,
+      toAgenda('target.uid'), // to agenda
+      fromAgendaToAdminMod, // to adminMods
+      toUser('actor.uid'),
+    ),
+    labelIds: [
+      ['ActivityApps.locationCreate.full', ['actor', 'store.labels.target']],
+      ['ActivityApps.locationCreate.actor', ['actor']],
+      ['ActivityApps.locationCreate.target', ['store.labels.target']],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      locationUid: 'object.uid',
+      agendaUid: 'target.uid',
+      userName: 'store.labels.actor',
+      locationName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      location: {
+        highlight: true,
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+    },
+    notifications: null,
+  },
+  'location.update': {
+    mask: async props => {
+      const { activity, targetFeed, config } = props;
+      const membersSvc = config.services.members;
+
+      // preload member role, avoid double get
+      const role = targetFeed.entityType === 'user'
+        ? (await getMember(
+          membersSvc,
+          targetFeed.entityUid,
+          getActivityEntity(activity, 'target.uid'),
+        ))?.role
+        : null;
+
+      const toOmit = await maskFor({
+        sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+        otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+        userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      })({ ...props, preloadedRole: role }) || [];
+
+      // Always omit the diff object
+      toOmit.push('store.diff');
+
+      if (role) {
+        if (!isSuperiorToOrEqual(role, 'administrator')) toOmit.push('store.administratorFields');
+        if (!isSuperiorToOrEqual(role, 'moderator')) toOmit.push('store.moderatorFields');
+        if (!isSuperiorToOrEqual(role, 'contributor')) toOmit.push('store.contributorFields');
+      }
+
+      return toOmit;
+    },
+    filterFollows: or(
+      toLocationSet(), // to location set
+      fromLocationSetToAgenda,
+      toAgenda('target.uid'), // to agenda
+      fromAgendaToAdminMod, // to adminMods
+      toUser('actor.uid'),
+    ),
+    labelIds: [
+      ['ActivityApps.locationUpdate.full', ['actor', 'store.labels.target']],
+      ['ActivityApps.locationUpdate.actor', ['actor']],
+      ['ActivityApps.locationUpdate.target', ['store.labels.target']],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      locationUid: 'object.uid',
+      agendaUid: 'target.uid',
+      userName: 'store.labels.actor',
+      locationName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      location: {
+        highlight: true,
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+      singleDiff: {},
+      someDiff: {},
+      manyDiff: {},
+      locationField: {},
+      locationFields: {},
+    },
+    notifications: null,
+  },
+  'location.merge': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+      otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+    }),
+    filterFollows: or(
+      toLocationSet(), // to location set
+      fromLocationSetToAgenda,
+      toAgenda('target.uid'), // to agenda
+      fromAgendaToAdminMod, // to adminMods
+      toUser('actor.uid'),
+    ),
+    labelIds: [
+      ['ActivityApps.locationMerge.full', ['actor', 'store.labels.target']],
+      ['ActivityApps.locationMerge.actor', ['actor']],
+      ['ActivityApps.locationMerge.target', ['store.labels.target']],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      locationUid: 'object.uid',
+      agendaUid: 'target.uid',
+      userName: 'store.labels.actor',
+      locationName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+      mergedCount: 'store.mergedCount',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      location: {
+        highlight: true,
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+      mergedOthers: {},
+    },
+    notifications: null,
+  },
+  'location.remove': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+      otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+    }),
+    filterFollows: or(
+      toLocationSet(), // to location set
+      fromLocationSetToAgenda,
+      toAgenda('target.uid'), // to agenda
+      fromAgendaToAdminMod, // to adminMods
+      toUser('actor.uid'),
+    ),
+    labelIds: [
+      ['ActivityApps.locationRemove.full', ['actor', 'store.labels.target']],
+      ['ActivityApps.locationRemove.actor', ['actor']],
+      ['ActivityApps.locationRemove.target', ['store.labels.target']],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      locationUid: 'object.uid',
+      agendaUid: 'target.uid',
+      userName: 'store.labels.actor',
+      locationName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      location: {
+        highlight: true,
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+    },
+    notifications: null,
   },
 };
 

@@ -2,151 +2,139 @@
   "gcalStep2": [
     {
       "type": 0,
-      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
+      "value": "crwdns33037:0crwdne33037:0"
     }
   ],
   "gcalStep3": [
     {
       "type": 0,
-      "value": "3. Follow the instructions by pasting the link you copied in step 1"
+      "value": "crwdns33039:0crwdne33039:0"
     }
   ],
   "instructions": [
     {
       "type": 0,
-      "value": "Instructions"
+      "value": "crwdns33041:0crwdne33041:0"
     }
   ],
   "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "1. Copy the link in the field above and open"
+      "value": "crwdns33043:0crwdne33043:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "crwdns33045:0crwdne33045:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "crwdns33047:0crwdne33047:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
     {
       "type": 0,
-      "value": "Use the detailed format"
+      "value": "crwdns33049:0crwdne33049:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
     {
       "type": 0,
-      "value": "See the documentation"
+      "value": "crwdns33051:0crwdne33051:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [
     {
       "type": 0,
-      "value": "Export all events"
+      "value": "crwdns33053:0crwdne33053:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
     {
       "type": 0,
-      "value": "Use the previous JSON export version"
+      "value": "crwdns33055:0crwdne33055:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportSelection": [
     {
       "type": 0,
-      "value": "Export current event selection"
+      "value": "crwdns33057:0crwdne33057:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
     {
       "type": 0,
-      "value": "Choose a format"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc1": [
-    {
-      "type": 0,
-      "value": "Documentation"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.jsonDoc2": [
-    {
-      "type": 0,
-      "value": "here"
+      "value": "crwdns33059:0crwdne33059:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
-      "value": "Please log in to access the export link directly from this menu"
+      "value": "crwdns33065:0crwdne33065:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns33067:0crwdne33067:0"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
     {
       "type": 0,
-      "value": "Export every field"
+      "value": "crwdns33069:0crwdne33069:0"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
     {
       "type": 0,
-      "value": "Export in all languages"
+      "value": "crwdns33071:0crwdne33071:0"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
     {
       "type": 0,
-      "value": "Fields with options: display one value per column"
+      "value": "crwdns33073:0crwdne33073:0"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.input-field": [
     {
       "type": 0,
-      "value": "Select the fields to export"
+      "value": "crwdns33075:0crwdne33075:0"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.select-all": [
     {
       "type": 0,
-      "value": "Select all"
+      "value": "crwdns33077:0crwdne33077:0"
     }
   ],
   "outlookStep2": [
     {
       "type": 0,
-      "value": "2. At the bottom of the page, select the calendar icon"
+      "value": "crwdns33079:0crwdne33079:0"
     }
   ],
   "outlookStep3": [
     {
       "type": 0,
-      "value": "3. In the navigation pane, select \"Add calendar\""
+      "value": "crwdns33081:0crwdne33081:0"
     }
   ],
   "outlookStep4": [
     {
       "type": 0,
-      "value": "4. Select \"Subscribe from web\""
+      "value": "crwdns33083:0crwdne33083:0"
     }
   ],
   "outlookStep5": [
     {
       "type": 0,
-      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
+      "value": "crwdns33085:0crwdne33085:0"
     }
   ]
 }

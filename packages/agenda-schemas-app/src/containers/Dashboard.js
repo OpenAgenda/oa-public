@@ -5,7 +5,6 @@ import {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
-import { useQueryClient } from 'react-query';
 import { useHistory, useLocation } from 'react-router';
 import {
   Spinner,
@@ -84,7 +83,6 @@ function Dashboard() {
   const res = useRes(agenda);
   const history = useHistory();
   const historyLocation = useLocation();
-  const queryClient = useQueryClient();
   const { pathname, search } = historyLocation;
   const { memberMode } = useMemo(() => {
     if (pathname.includes('/member') && memberCredential) {
@@ -102,17 +100,32 @@ function Dashboard() {
     }
   }, [history, pathname, memberCredential, prefix]);
 
-  const { schema, parents, isLoading } = useEventSchemas(agenda, memberMode);
+  const {
+    schema,
+    parents,
+    isLoading,
+    refetch: refetchEventSchema,
+  } = useEventSchemas(agenda, memberMode);
+
+  const {
+    memberSchema,
+    memberParents,
+    isLoadingMember,
+    refetch: refetchMemberSchema,
+  } = useMemberSchemas(agenda, memberMode);
+
   const [currentFieldCount, setCurrentFieldCount] = useState(getSchemaFieldCount(schema));
-  const { memberSchema, memberParents, isLoadingMember } = useMemberSchemas(agenda, memberMode);
 
   useEffect(() => {
     if (schema?.fields) setCurrentFieldCount(getSchemaFieldCount(schema));
   }, [schema]);
 
   const onSuccess = () => {
-    if (memberMode) queryClient.removeQueries(['agenda-memberSchema', agenda.uid], { exact: true });
-    else queryClient.removeQueries(['agenda-eventSchema', agenda.uid], { exact: true });
+    if (memberMode) {
+      refetchMemberSchema();
+    } else {
+      refetchEventSchema();
+    }
   };
 
   const onUpdate = updatedSchema => {
@@ -155,7 +168,7 @@ function Dashboard() {
           topSidebar
           res={memberMode ? res.memberSchema : res.eventSchema}
           lang={lang}
-          addEnabled={maxFields > currentFieldCount}
+          addEnabled={maxFields > currentFieldCount || memberMode}
           settingsEnabled
           editableExtensions={editableParents}
           devState={{
@@ -185,7 +198,7 @@ function Dashboard() {
             },
           })}
         />
-        {maxFields === 1 && maxFields === currentFieldCount ? (
+        {maxFields === 1 && maxFields >= currentFieldCount ? (
           <div>
             <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
               {intl.formatMessage(messages.needMoreFields)}

@@ -13,8 +13,7 @@ function AgendaAdminDataLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const intl = useIntl();
   const history = useHistory();
@@ -74,8 +73,7 @@ function AgendaAdminDataLayout({
     <ChildLayouts
       layouts={childLayouts}
       extraProps={extraProps}
-      onError={onError}
-      FallbackComponent={FallbackComponent}
+      fallback={fallback}
       // additional extraProps
       agenda={data.agenda}
       agendaSchema={data.schema}

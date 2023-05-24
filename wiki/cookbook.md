@@ -21,6 +21,7 @@
    * Si on a modifié le pack
  * Redis
  * Regex
+ * Node
  * Yarn
    * Publier une lib publique de manière isolée
    * Patcher une lib publique de manière isolée
@@ -342,7 +343,17 @@ Utilitaires pour gérer des regex avec des routes express:
  * [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
  * [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
 
-express,regex
+## Node
+
+### Mise à jour
+
+Pour mettre à jour nodeJs à la dernière version LTS:
+
+**màj nvm**:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+**màj node**:
+nvm install 'lts/*' --reinstall-packages-from=node --latest-npm
 
 ## yarn
 
@@ -446,14 +457,10 @@ CLIENT_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/certs/ca.crt
 .....
 
 DEPLOY_ES_NGINX_PROXY=1
-ES1_HOST=es1
-ES1_DOMAIN=es1.local
-ES1_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.crt
-ES1_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.key
-ES7_HOST=es7
-ES7_DOMAIN=es7.local
-ES7_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
-ES7_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
+ES_HOST=es7
+ES_DOMAIN=es7.local
+ES_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
+ES_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
 ```
 
 Le script `oa/docker/devinstaller/ssl/create_domain_certificates.sh /chemin/complet/vers/devinstaller/ssl es.local7`  peut être utilisé pour générer les certificats. Le fichier destination ne doit pas déjà exister sans quoi la procédure n'aboutira pas.
@@ -580,11 +587,23 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
 
 ## Scripts
 
+### Pèle-Mèle
+
+ * **Ajout d'un membre sur de multiples agendas**: le script est sur prodifier, dossier scripts/member-group-operations. Il faut lister les slugs dans slugs.txt séparés par des retours à la ligne, puis lancer le `add.js`. Ce script pourrait resync les inbox & activités de l'agenda pour le membre, il ne le fait pas. L'API permet de faire cette manip désormais. Une refacto serait utile pour que le script n'ait plus à se connecter à la DB.
+ * **Identifier les événements non-agrégés parmis toutes les sources d'un agenda**: utile notamment pour les opérations nationales quand des différences de totaux sont constatés. `utils-scripts/packages/aggregators/identifyUnagreggatedEvents.js` appeler sur prodifier en définissant l'agenda à cibler avec une var d'environnement `AGENDA_UID`.
+
 ### MCC
 
- * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier
+ * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier. Il est déployé sur prodifier.
 
 ## Histoires
+
+### La cache des portails
+
+Le 07/03/2023
+
+Quand un `agenda-portal` va chercher un contenu à afficher en vue liste sur l'API, il met de coté une copie de ce qu'il lit de coté pendant 30 minutes. Si un visiteur vient voir la même page (même URL) sous ces 30 minutes, la copie épargne au portail un nouvel appel à l'API. Ceci est indépendant de l'activité sur OpenAgenda. Il peut arriver que le contenu de la liste évolue sous ces 30 minutes sur OpenAgenda, il ne sera alors répercuté sur le portail que lorsque la copie sera supprimée: au plus dans les prochaines 30 minutes. Nous pouvons réduire cette durée.
+
 
 ### L'ancien export JSON
 

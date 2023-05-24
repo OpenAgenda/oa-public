@@ -78,14 +78,13 @@ function search(req, res) {
         },
       });
     })
-
-    .catch(function (err) {
+    .catch(err => {
       log(err.message);
     });
 }
 
 async function getUsers(req, res, next) {
-  const { redisConfigStore } = req.app.services;
+  const { redis } = req.app.services;
 
   if (req.xhr) {
     if (req.query.uid) {
@@ -141,10 +140,7 @@ async function getUsers(req, res, next) {
   }
 
   cmn.render(req, res, 'admin/users', {
-    accountActivationMode: await redisConfigStore('accountActivationMode', {
-      defaultValue: 'manual',
-      throwOnError: false
-    }),
+    accountActivationMode: await redis.get('accountActivationMode') ?? 'manual',
   });
 }
 
@@ -201,12 +197,12 @@ async function userActivate(req, res, next) {
 }
 
 async function toggleActivationMode(req, res, next) {
-  const { redisConfigStore, sessions } = req.app.services;
+  const { redis } = req.app.services;
 
   try {
-    await redisConfigStore.set('accountActivationMode', req.query.mode);
-  } catch (e) {}
-  return res.redirect(`/admin/users`);
+    await redis.set('accountActivationMode', req.query.mode);
+  } catch (e) { /* e */ }
+  return res.redirect('/admin/users');
 }
 
 async function userBlacklist(req, res, next) {

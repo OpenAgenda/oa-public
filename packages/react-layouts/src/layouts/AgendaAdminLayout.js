@@ -1,6 +1,6 @@
 import React from 'react';
+import { ErrorBoundary } from '@sentry/react';
 import ChildLayouts from '../components/ChildLayouts';
-import ErrorBoundary from '../components/ErrorBoundary';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
@@ -8,8 +8,7 @@ function AgendaAdminLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const { agenda, role, sections } = extraProps;
 
@@ -23,15 +22,11 @@ function AgendaAdminLayout({
         </div>
 
         <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-          <ErrorBoundary
-            onError={onError}
-            FallbackComponent={FallbackComponent}
-          >
+          <ErrorBoundary fallback={fallback}>
             <ChildLayouts
               layouts={childLayouts}
               extraProps={extraProps}
-              onError={onError}
-              FallbackComponent={FallbackComponent}
+              fallback={fallback}
             >
               {children}
             </ChildLayouts>

@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('agendaEvents/onCreate');
 
@@ -16,7 +16,6 @@ const addEventAdditionActivity = require('./lib/addEventAdditionActivity');
 module.exports = async ({ config, services }, ae, context) => {
   const {
     activities: activitiesSvc,
-    elasticsearch: legacyEventSearch,
     custom,
     legacy: {
       controlData: controlDataSvc,
@@ -71,14 +70,6 @@ module.exports = async ({ config, services }, ae, context) => {
       await custom(agenda.formSchemaId).transferFromLegacy(event.uid, _.get(agenda, 'id'));
     } catch (e) {
       log('error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e);
-    }
-  }
-
-  if (context.legacy || context.aggregated) {
-    try {
-      await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
-    } catch (e) {
-      log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
 

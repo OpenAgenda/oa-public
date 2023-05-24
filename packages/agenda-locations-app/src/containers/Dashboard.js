@@ -145,6 +145,7 @@ function Dashboard() {
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
+
   const { mergeMode } = useMemo(() => {
     if (pathname.includes('merge') && settings?.access.merge.authorized) {
       dispatch(mergeActions.initiate());
@@ -256,8 +257,6 @@ function Dashboard() {
       dispatch(mergeActions.selectLocations(newLocationsUids.filter(e => e !== location.uid)));
       return;
     }
-    // basic beahavior
-    onLocationItemEdit(location);
   }, [onLocationItemEdit, dispatch, merge, mergeMode]);
 
   const renderMergeAction = useCallback(() => {
@@ -267,6 +266,7 @@ function Dashboard() {
           type="button"
           className="btn btn-danger"
           onClick={() => {
+            dispatch(mergeActions.closeMerge());
             history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
           }}
         >
@@ -289,7 +289,7 @@ function Dashboard() {
         <FormattedMessage {...messages.merge} />
       </button>
     );
-  }, [mergeMode, settings, search, page, prefix, history]);
+  }, [mergeMode, settings, search, page, prefix, history, dispatch]);
 
   const launchMerge = () => {
     dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal));
@@ -349,7 +349,7 @@ function Dashboard() {
           dispatch={dispatch}
           mergeActions={mergeActions}
           seeDetails={setOpenDetails}
-          seeSelection={() => history.push({ search: betterQsStringify({ ...search, page, uids: merge.locationUids }) })}
+          seeSelection={() => history.push({ search: betterQsStringify({ ...search, uids: merge.locationUids }) })}
           closeMerge={() => {
             dispatch(mergeActions.closeMerge());
             history.push({ pathname: prefix, search: betterQsStringify({ ...search, page }) });
@@ -451,6 +451,7 @@ function Dashboard() {
             <LocationItem
               merge={merge}
               lang={lang}
+              agendaUid={agenda.uid}
               location={location}
               onSelect={onLocationItemSelect}
               onEdit={onLocationItemEdit}
@@ -468,7 +469,7 @@ function Dashboard() {
                 } else {
                   const locationUids = location.duplicateCandidates.concat(location.uid);
                   dispatch(mergeActions.initiateFromDuplicates(locationUids, location.uid));
-                  history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ ...search, page, uids: locationUids }) });
+                  history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ uids: locationUids }) });
                 }
               }}
             />

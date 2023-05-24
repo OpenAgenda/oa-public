@@ -5,7 +5,6 @@ const qs = require('qs');
 
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
-const es = require('../../elasticsearch');
 const membersSvc = require('../../members');
 const config = require( '../../../config' );
 const p = require( '../../../lib/promises' );
@@ -37,7 +36,7 @@ module.exports = function( eventService ) {
     format: require('./format'),
     components: require('./components'),
     cleanEvents,
-    search,
+    search: () => new Error('event middleware search is no longer available'),
     layoutData
   }
 }
@@ -149,31 +148,6 @@ function loadEvent( paramName, fieldName, options ) {
   }
 
 }
-
-
-function search( limit ) {
-
-  return function( req, res, next ) {
-
-    es.search( req.query.oaq, {
-      limit,
-      page: req.query.page
-    }, function( err, data ) {
-
-      if ( err ) return next( err );
-
-      req.events = data.events;
-
-      req.total = data.total;
-
-      next();
-
-    });
-
-  }
-
-}
-
 
 function cleanEvents( req, res, next ) {
 
@@ -313,11 +287,11 @@ function _selectLanguage( v ) {
 
 async function _loadUserAgendaCreds( v ) {
 
-  v.req.log( 'loading user agenda creds' );
+  v.req.log.debug( 'loading user agenda creds' );
 
   if ( !v.req.user ) {
 
-    v.req.log( 'user is not logged' );
+    v.req.log.debug( 'user is not logged' );
 
     return v;
 
@@ -420,7 +394,7 @@ function _get( paramName, fieldName, inAgendaContext ) {
 
       if ( v.req.agenda && inAgendaContext ) getParams.reviewId = v.req.agenda.id;
 
-      v.req.log( 'getting event with params %s', JSON.stringify( getParams ) );
+      v.req.log.debug( 'getting event with params %s', JSON.stringify( getParams ) );
 
       svc.get( getParams, ( err, e ) => {
 
@@ -428,7 +402,7 @@ function _get( paramName, fieldName, inAgendaContext ) {
 
         if ( !e ) {
 
-          v.req.log( 'did not find event' );
+          v.req.log.debug( 'did not find event' );
 
           return rj( { code: 404 } );
 

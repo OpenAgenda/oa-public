@@ -306,7 +306,7 @@ export default class FormSchemaBuilder extends Component {
               ) : null}
               <div className="form-inline">
                 <FieldAddButton
-                  disabled={this.isDisabled(modes.ADDFIELD)}
+                  disabled={!addEnabled || this.isDisabled(modes.ADDFIELD)}
                   lang={lang}
                   onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
                 />

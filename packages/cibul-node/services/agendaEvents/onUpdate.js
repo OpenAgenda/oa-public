@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('agendaEvents/onUpdate');
 
@@ -20,7 +20,6 @@ function haveRealDiff(before, after) {
 module.exports = async ({ config, services }, before, after, context) => {
   const {
     legacy: legacySvc,
-    elasticsearch: legacyEventSearch,
   } = services;
 
   const controlDataSvc = legacySvc.controlData;
@@ -54,14 +53,6 @@ module.exports = async ({ config, services }, before, after, context) => {
       );
     } catch (e) {
       log('error', e);
-    }
-  }
-
-  if (context.aggregated) {
-    try {
-      await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
-    } catch (e) {
-      log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
 

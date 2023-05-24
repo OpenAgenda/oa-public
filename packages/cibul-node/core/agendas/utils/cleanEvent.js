@@ -27,10 +27,12 @@ const invalidLocationUidErrorItem = uid => ({
 });
 
 function extractLocationUidFromData({ completeEventData, data }) {
-  for (const value of [data?.locationUid, data?.location, data?.location?.uid]) {
-    if (value === null) {
-      return null;
-    }
+  if (
+    !data?.locationUid
+    && !data?.location?.uid
+    && (data?.locationUid === null || data?.location === null || data?.location?.uid === null)
+  ) {
+    return null;
   }
 
   return completeEventData?.location?.uid ?? completeEventData?.locationUid;

@@ -14,12 +14,10 @@ gzip on;
 gzip_types
   text/plain
   text/css
-  text/html
   text/xml
   text/javascript
   application/javascript
   application/x-javascript
-  application/xml
   application/json
   application/ld+json
   application/xml
@@ -34,7 +32,7 @@ large_client_header_buffers 4 16k;
 ##########################################################
 #             STATIC FILES
 
-location /_next {
+location ~/_next {
   include conf.d/nextjs_params;
 }
 
@@ -92,6 +90,15 @@ location ~ ^/[^/]+/event/[^/]+/(fr|en|de|es|it|br)$ {
 location ~ ^/[^/]+/(fr|en|de|es|it|br)$ {
   rewrite ^/([^/]+)/(fr|en|de|es|it|br)$ /$2?lang=$3 permanent;
   return 403;
+}
+
+
+
+##########################################################
+#            NEXT SPECIFIC ROUTES
+
+location /api/monit {
+  include conf.d/nextjs_params;
 }
 
 
@@ -250,12 +257,12 @@ location /widgets {
   include conf.d/nodejs_params;
 }
 
-location /agendas {
+location ~ ^/agendas(/.+|)$ {
   include conf.d/nodejs_params;
 }
 
 # agendas.:format
-location ~ /agendas\.[a-zA-Z0-9]* {
+location ~ ^/agendas\.[a-zA-Z0-9]* {
   include conf.d/nodejs_params;
 }
 
@@ -299,8 +306,16 @@ location /notifications {
   include conf.d/nodejs_params;
 }
 
+location /monit {
+  include conf.d/nodejs_params;
+}
+
 # /:agendaSlug/...
 location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
+  include conf.d/nodejs_params;
+}
+
+location = / {
   include conf.d/nodejs_params;
 }
 

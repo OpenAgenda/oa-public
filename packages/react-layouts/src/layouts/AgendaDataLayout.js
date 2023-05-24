@@ -10,8 +10,7 @@ function AgendaDataLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
 }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -44,8 +43,7 @@ function AgendaDataLayout({
     <ChildLayouts
       layouts={childLayouts}
       extraProps={extraProps}
-      onError={onError}
-      FallbackComponent={FallbackComponent}
+      fallback={fallback}
       // additional extraProps
       agenda={data}
       role={data.role}

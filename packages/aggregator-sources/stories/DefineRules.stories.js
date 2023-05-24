@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DefineRules from '../src/components/DefineRules';
 import Stepper from '../src/components/Stepper';
 import SourcesCanvasDecorator from './decorators/SourcesCanvas';
@@ -120,7 +118,7 @@ EditEmptyWithEnableWithField.storyName = 'Aggregator with required enableWith fi
 EditEmptyWithEnableWithField.decorators = [
   SourcesCanvasDecorator,
   ModalDecorator(
-    'EnableWith field should not block the configuration of rules. No required notification appears in modal'
+    'EnableWith field should not block the configuration of rules. No required notification appears in modal',
   ),
   IntlDecorator,
 ];

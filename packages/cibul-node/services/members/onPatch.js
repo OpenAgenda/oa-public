@@ -5,7 +5,7 @@ const _ = require('lodash');
 const agendas = require('@openagenda/agendas');
 const invitations = require('@openagenda/invitations');
 const log = require('@openagenda/logs')('services/members/onPatch');
-const resetCache = require('./lib/resetCache');
+const clearCache = require('./lib/clearCache');
 const { sendInvitation } = require('./lib/mail');
 
 async function onNewMember({ services, agenda, user, senderUser, context, member, activityQueue }) {
@@ -92,7 +92,7 @@ module.exports = async function onPatch({ services, config, activityQueue }, bef
       includeImagePath: true,
     });
 
-    await resetCache(services, member);
+    await clearCache(services, member);
 
     if (!agenda) throw new Error('Agenda not found');
 

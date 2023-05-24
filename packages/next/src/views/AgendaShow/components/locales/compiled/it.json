@@ -2,55 +2,55 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Aggiungere un evento"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "Aggregare"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Contattare"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Esportare"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "Agenda ufficiale"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "Aggiungere ai preferiti"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Selezionato"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "Rimuovere dai preferiti"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "Favorites"
+      "value": "Favoriti"
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-const service = require( './service' );
+const Service = require( './service' );
 const { rebuild } = require( '../src/service/rebuild' );
 const config = require( '../testconfig' );
 
@@ -10,6 +10,7 @@ describe.skip( 'activities - rebuid', function () {
 
   jest.setTimeout( 600000 );
 
+  let service;
   let knex;
 
   beforeAll(async () => {
@@ -19,15 +20,15 @@ describe.skip( 'activities - rebuid', function () {
       connection: config.mysql
     } );
 
-    await service.initAndLoad( {
+    service = await Service.initAndLoad( {
       ...config,
       knex
     }, [
-      'feed',
-      'feed_follow',
-      'feed_activity',
-      'feed_notification',
       'activity',
+      'feed',
+      'feed_activity',
+      'feed_follow',
+      'feed_notification',
       'rebuild_agenda',
       'rebuild_event',
       'rebuild_review_article',
@@ -54,7 +55,9 @@ describe.skip( 'activities - rebuid', function () {
       feedFollowTable: config.schemas.feed_follow,
       feedNotificationTable: config.schemas.feed_notification,
 
-      migrationTable: config.migrations.tableName
+      migrationTable: config.migrations.tableName,
+
+      service,
     } ), {
       info: console.log,
       error: console.error
@@ -74,7 +77,7 @@ describe.skip( 'activities - rebuid', function () {
         usersAffected: 108,
         stakeholdersAffected: 100,
         eventsAffected: 256,
-        reviewArticlesAffected: 172
+        reviewArticlesAffected: 256
       } );
 
   });

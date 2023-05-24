@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
 
 const knexLib = require( 'knex' );
 
@@ -32,9 +31,9 @@ describe( '07 - control data - locations', () => {
 
   afterAll( async () => {
 
-    await promisify( redisClient.del ).bind( redisClient )( config.redisPrefix + '789' );
+    await redisClient.del( config.redisPrefix + '789' );
 
-    await promisify( redisClient.quit ).bind( redisClient )();
+    await redisClient.quit();
 
     await knex.destroy();
 
@@ -50,7 +49,7 @@ describe( '07 - control data - locations', () => {
         longitude: 47
       } } );
 
-      const updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '789' ) );
+      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
 
       expect( updatedCtlData ).toEqual( {
         ev: [],
@@ -69,7 +68,7 @@ describe( '07 - control data - locations', () => {
         longitude: 50
       } } );
 
-      const updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '101' ) );
+      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '101' ) );
 
       expect( updatedCtlData ).toEqual( {
         ev: [],
@@ -82,7 +81,7 @@ describe( '07 - control data - locations', () => {
 
     test( 'remove removes location from control data', async () => {
 
-      const updatedCtlDataBefore = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '666' ) );
+      const updatedCtlDataBefore = JSON.parse( await redisClient.get( config.redisPrefix + '666' ) );
 
       expect( updatedCtlDataBefore ).toEqual( {
         ev: [],
@@ -91,7 +90,7 @@ describe( '07 - control data - locations', () => {
 
       await service.locationRemove( { agendaUid: 666, locationUid: 3 } );
 
-      const updatedCtlDataAfter = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '666' ) );
+      const updatedCtlDataAfter = JSON.parse( await redisClient.get( config.redisPrefix + '666' ) );
 
       expect( updatedCtlDataAfter ).toEqual( {
         ev: [],

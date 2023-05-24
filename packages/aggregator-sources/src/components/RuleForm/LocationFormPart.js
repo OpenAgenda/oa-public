@@ -1,4 +1,3 @@
-import React from 'react';
 import { /* useFormState, */ Field } from 'react-final-form';
 import { useIntl } from 'react-intl';
 import { ReactSelectField } from '@openagenda/react-shared';
@@ -40,7 +39,8 @@ export default () => {
               Field={Field}
               placeholder={intl.formatMessage(messages.addAValue)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-              formatCreateLabel={value => intl.formatMessage(messages.createOption, { value })}
+              formatCreateLabel={value =>
+                intl.formatMessage(messages.createOption, { value })}
               menuPosition="fixed"
               // initialValue={initialValues?.locationValues}
               isMulti

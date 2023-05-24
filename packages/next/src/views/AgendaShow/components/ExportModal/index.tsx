@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import qs from 'qs';
 import useSWR from 'swr';
@@ -49,10 +49,6 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.ExportModal.login',
     defaultMessage: 'Please log in to access the export link directly from this menu',
   },
-  exportJson: {
-    id: 'next.views.AgendaShow.ExportModal.exportJson',
-    defaultMessage: 'Use the previous JSON export version',
-  },
   exportAll: {
     id: 'next.views.AgendaShow.ExportModal.exportAll',
     defaultMessage: 'Export all events',
@@ -60,14 +56,6 @@ const messages = defineMessages({
   exportSelection: {
     id: 'next.views.AgendaShow.ExportModal.exportSelection',
     defaultMessage: 'Export current event selection',
-  },
-  jsonDoc1: {
-    id: 'next.views.AgendaShow.ExportModal.jsonDoc1',
-    defaultMessage: 'Documentation',
-  },
-  jsonDoc2: {
-    id: 'next.views.AgendaShow.ExportModal.jsonDoc2',
-    defaultMessage: 'here',
   },
   documentation: {
     id: 'next.views.AgendaShow.ExportModal.documentation',
@@ -77,35 +65,49 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.ExportModal.detailedFormat',
     defaultMessage: 'Use the detailed format',
   },
+  exportJson: {
+    id: 'next.views.AgendaShow.ExportModal.exportJson',
+    defaultMessage: '<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)',
+  },
 });
 
-const completeUrls = (agendaUid, queryString) => {
-  let apiQuery = queryString;
-  let jsonLegacyQuery = queryString; // JSONv1
-  if (queryString.includes('passed=1')) {
-    apiQuery = apiQuery.replace('passed=1', '');
-    jsonLegacyQuery = jsonLegacyQuery.replace('passed=1', 'relative[]=current&relative[]=upcoming&relative[]=passed');
-  }
-  if (!queryString.includes('passed=1') && !queryString.includes('relative') && !queryString.includes('timings')) {
-    apiQuery = apiQuery.length ? apiQuery.concat('&relative[]=current&relative[]=upcoming') : 'relative[]=current&relative[]=upcoming';
-  }
+function completeUrls(agendaUid, query) {
+  const upcomingOnly = !query.timings && query.passed !== '1';
+
+  const apiQuery = {
+    ...upcomingOnly ? {
+      relative: ['current', 'upcoming'],
+    } : null,
+    ...query,
+    passed: undefined, // omit passed
+  };
+  const jsonLegacyQuery = {
+    ...query.passed === '1' ? {
+      relative: ['passed', 'current', 'upcoming'],
+    } : null,
+    ...query,
+    passed: undefined, // omit passed
+  }; // JSONv1
+
+  const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
+  const jsonLegacyQueryString = qs.stringify(jsonLegacyQuery, { addQueryPrefix: true });
 
   return {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
     me: '/api/me',
     export: {
-      jsonV1: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQuery.length ? `?${jsonLegacyQuery}` : ''}`,
-      jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${apiQuery.length ? `?${apiQuery}` : ''}`,
-      pdf: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.pdf${apiQuery.length ? `?${apiQuery}` : ''}`,
-      xlsx: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQuery.length ? `?${apiQuery}` : ''}`,
-      gcal: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
-      ical: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
-      csv: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQuery.length ? `?${apiQuery}` : ''}`,
-      ics: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQuery.length ? `?${apiQuery}` : ''}`,
-      rss: `${process.env.NEXT_PUBLIC_SITE_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQuery.length ? `?${apiQuery}` : ''}`,
+      jsonV1: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQueryString}`,
+      jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${apiQueryString}`,
+      pdf: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.pdf${apiQueryString}`,
+      xlsx: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
+      gcal: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      ical: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      csv: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
+      ics: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
+      rss: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
     },
   };
-};
+}
 
 const fetcher = url => fetch(url)
   .then(
@@ -141,7 +143,12 @@ export default function ExportModal({
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
 
-  const [res, setRes] = useState(completeUrls(agendaUid, qs.stringify(query).length ? `${qs.stringify(query)}` : ''));
+  const [mode, setMode] = useState('selection');
+  const res = useMemo(() => {
+    if (mode === 'selection') return completeUrls(agendaUid, query);
+    if (mode === 'all') return completeUrls(agendaUid, { relative: ['passed', 'current', 'upcoming'] });
+  }, [mode, agendaUid, query]);
+
   const [spreadsheetOptions, setSpreadsheetOptions] = useState({
     format: 'xlsx',
     fields: [],
@@ -168,11 +175,6 @@ export default function ExportModal({
   const publicKey = meData?.apiKey;
   const fields = exportSettingsData?.spreadsheetColumns;
   const languages = exportSettingsData?.languages;
-
-  const setMode = mode => {
-    if (mode === 'selection') setRes(completeUrls(agendaUid, qs.stringify(query).length ? `${qs.stringify(query)}` : ''));
-    if (mode === 'all') setRes(completeUrls(agendaUid, 'passed=1'));
-  };
 
   const setChoice = (value, id) => {
     setDisplayButton(false);
@@ -238,7 +240,7 @@ export default function ExportModal({
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w={['sm', 'sm', 'lg']}>
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {
@@ -258,7 +260,11 @@ export default function ExportModal({
                 <Radio value="export-selection" onChange={() => setMode('selection')}>{intl.formatMessage(messages.exportSelection)}</Radio>
               </VStack>
             </RadioGroup>
-            <Accordion mt="4" onChange={(index: number) => setChoice(formats[index].type, formats[index].id)}>
+            <Accordion
+              allowToggle
+              mt="4"
+              onChange={(index: number) => setChoice(formats[index]?.type, formats[index]?.id)}
+            >
               {formats.map(({ type, id }) => (
                 <Fragment key={id}>
                   <AccordionItem>
@@ -296,14 +302,10 @@ export default function ExportModal({
                               </Link>
                             </Box>
                           </Flex>
-                          <Link href={res.export.jsonV1} isExternal color="primary.500">
-                            {intl.formatMessage(messages.exportJson)}
-                          </Link>
-                          {` (${intl.formatMessage(messages.jsonDoc1)}`}
-                          <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">
-                            {` ${intl.formatMessage(messages.jsonDoc2)}`}
-                          </Link>
-                          )
+                          {intl.formatMessage(messages.exportJson, {
+                            link1: (chunks: React.ReactNode) => <Link href={res.export.jsonV1} isExternal color="primary.500">{chunks}</Link>,
+                            link2: (chunks: React.ReactNode) => <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal color="primary.500">{chunks}</Link>,
+                          })}
                         </>
                       )}
                       {displayButton && id === formatChoice.id && (

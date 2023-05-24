@@ -155,7 +155,7 @@ module.exports = {
   "settings": {
     "en": "Settings",
     "fr": "Paramètres",
-    "de": "Die Einstellungen",
+    "de": "Einstellungen",
     "es": "Configuraciones",
     "it": "Impostazioni",
     "io": "crwdns11432:0crwdne11432:0",

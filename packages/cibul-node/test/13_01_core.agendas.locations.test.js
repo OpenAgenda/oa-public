@@ -5,7 +5,7 @@ const _ = require('lodash');
 const axios = require('axios');
 const FormData = require('form-data');
 const qs = require('qs');
-const logs = require('@openagenda/logs');
+const log = require('@openagenda/logs')('13_01');
 
 const api = require('../api');
 const Services = require('../services/init');
@@ -17,7 +17,6 @@ const testConfig = require('./testConfig');
 
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
-  const log = logs('13_01');
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
 
@@ -274,6 +273,55 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('agendaId is not provided in response', () => {
         expect(response.data.location.agendaId).toBeUndefined();
+      });
+    });
+
+    describe('bad requests', () => {
+      it('Wrong route throws 404', async () => {
+        const { errorResponse } = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/17026855/locations',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: {
+            access_token: accessToken,
+            nonce: 456456789,
+            data: {
+              name: 'Un lieu',
+              address: '15 rue de l\'adresse imaginaire, Trifouifoui',
+              countryCode: 'fr',
+            },
+          },
+        }).then(r => ({
+          response: r,
+        }), e => ({
+          errorResponse: e.response,
+        }));
+
+        expect(errorResponse.status).toBe(404);
+        expect(errorResponse.data.info).toBe('Unhandled route');
+      });
+
+      it('Double-encoded JSON throws bad request error', async () => {
+        const { errorResponse } = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            access_token: accessToken,
+            nonce: 898756479,
+            data: {
+              name: 'Chez les beaufs de kevin',
+              address: '12 grande rue, Chattancourt',
+              countryCode: 'fr',
+            },
+          }),
+        }).then(r => ({ response: r }), e => ({ errorResponse: e.response }));
+
+        expect(errorResponse.status).toBe(400);
       });
     });
 

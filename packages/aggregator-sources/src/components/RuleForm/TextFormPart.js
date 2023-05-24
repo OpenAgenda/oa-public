@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 
@@ -27,16 +26,17 @@ export default ({ sourceSchema = { fields: [] } }) => {
   const { values /* , initialValues */ } = form.getState();
 
   const options = useMemoOne(
-    () => sourceSchema.fields
-      .filter(v => stringType.includes(v.fieldType))
-      .concat(eventFields)
-      .map(({ field, label }) => ({
-        value: field,
-        label: getLocaleValue(label, intl.locale)
-          ? getLocaleValue(label, intl.locale)
-          : field,
-      })),
-    [intl.locale, sourceSchema.fields]
+    () =>
+      sourceSchema.fields
+        .filter(v => stringType.includes(v.fieldType))
+        .concat(eventFields)
+        .map(({ field, label }) => ({
+          value: field,
+          label: getLocaleValue(label, intl.locale)
+            ? getLocaleValue(label, intl.locale)
+            : field,
+        })),
+    [intl.locale, sourceSchema.fields],
   );
 
   return (
@@ -91,13 +91,23 @@ export default ({ sourceSchema = { fields: [] } }) => {
             component={Radio}
             name="caseSensitive"
             type="checkbox"
-            label="Respecter la casse"
+            label={intl.formatMessage(messages.RespectCase)}
             classNameGroup="radio filter-choice"
             helpBlock={(
               <div className="margin-h-z text-muted">
                 {intl.formatMessage(messages.textFilterCaseSensitive)}
               </div>
             )}
+          />
+        </div>
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="wholeValue"
+            type="checkbox"
+            label={intl.formatMessage(messages.wholeValueFilter)}
+            classNameGroup="radio filter-choice"
           />
         </div>
       </div>

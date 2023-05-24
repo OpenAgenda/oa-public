@@ -1,9 +1,7 @@
 'use strict';
 
-const VError = require('verror');
-
 const log = require('@openagenda/logs')('core/agendas/events/add');
-const { Forbidden } = require('@openagenda/verror');
+const { VError, Forbidden } = require('@openagenda/verror');
 
 const doAdd = require('../utils/doAdd');
 const createPayload = require('../utils/createPayload');

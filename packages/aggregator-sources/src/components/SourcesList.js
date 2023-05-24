@@ -1,6 +1,6 @@
 /* global __DEVELOPMENT__ */
 
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -39,16 +39,16 @@ function SourceItem({ source }) {
 
   const rulesJSON = useMemo(
     () => JSON.stringify(source.rules, null, 2),
-    [source.rules]
+    [source.rules],
   );
 
   const showModalRemove = useCallback(
     () => dispatch(modalsActions.showModal('removeSource', { source })),
-    [dispatch, source]
+    [dispatch, source],
   );
   const showModalUpdate = useCallback(async () => {
     const schema = await apiClient.get(
-      `/${source.agenda.slug}/settings/schema`
+      `/${source.agenda.slug}/settings/schema`,
     );
 
     dispatch(modalsActions.showModal('updateSource', { source, schema }));
@@ -148,7 +148,7 @@ export default function SourcesList({ sources, aggregatorAgendaSchema }) {
         aggregatorAgendaSchema={aggregatorAgendaSchema}
       />
     ),
-    [aggregatorAgendaSchema]
+    [aggregatorAgendaSchema],
   );
 
   if (!sources || !sources.length) {

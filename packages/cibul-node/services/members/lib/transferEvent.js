@@ -1,8 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-
-const log = logs('services/members/transferEvent');
+const log = require('@openagenda/logs')('services/members/transferEvent');
 
 function feedFollow(activities, follow, userUid, eventUid) {
   return activities.feed({
@@ -19,7 +17,6 @@ module.exports = async function transferEvent(services, event, member) {
     agendaEvents,
     events,
     activities,
-    elasticsearch: legacyEventSearch
   } = services;
 
   log('processing event to member', event.uid, member.id);
@@ -33,12 +30,6 @@ module.exports = async function transferEvent(services, event, member) {
   await events.update({ uid: event.uid }, {
     ownerUid: member.userUid
   }, { protected: false, transferToLegacy: true });
-
-  try {
-    await legacyEventSearch.updateEvent({ uid: event.uid });
-  } catch (e) {
-    log('error', 'could not update legacy search', event.slug);
-  }
 
   try {
     await feedFollow(activities, false, previousOwnerUid, event.uid);

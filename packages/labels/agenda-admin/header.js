@@ -24,7 +24,7 @@ module.exports = {
     "en": "Manage",
     "de": "Verwalten",
     "es": "Gestionar",
-    "it": "Gestisci",
+    "it": "Gestire",
     "io": "crwdns11390:0crwdne11390:0",
     "oc": "Gerir"
   },
@@ -40,7 +40,7 @@ module.exports = {
   "settings": {
     "fr": "Paramètres",
     "en": "Settings",
-    "de": "Die Einstellungen",
+    "de": "Einstellungen",
     "es": "Conjunto",
     "it": "Impostazione",
     "io": "crwdns11394:0crwdne11394:0",

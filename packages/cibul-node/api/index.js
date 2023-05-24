@@ -1,24 +1,21 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
 const { NotAuthenticated } = require('@openagenda/verror');
+const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
 
-const logRequests = require('../services/logRequests');
-const errors = require('../services/errors');
-
+const sentryErrorHandler = require('../lib/sentryErrorHandler');
 const mw = require('./middleware');
 const getSettingsEndpoint = require('./endpoints/settingsGet');
 const getSettingsResyncEndpoint = require('./endpoints/settingsResync');
+const apiErrorHandler = require('./errorHandler');
 
 const settings = {
   get: getSettingsEndpoint,
   resync: getSettingsResyncEndpoint,
 };
-
-const handleError = errors.bind(null, 'api');
 
 module.exports = core => {
   log('init');
@@ -28,12 +25,7 @@ module.exports = core => {
   app.core = core;
   app.services = core.services;
 
-  const {
-    verifySuperAdmin,
-  } = app.services.users.mw;
-
-  log('middleware');
-  app.use(logRequests.middleware);
+  const { verifySuperAdmin } = app.services.users.mw;
 
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([{
@@ -42,6 +34,11 @@ module.exports = core => {
     }]),
     mw.parseBodyData,
   ];
+
+  app.use((_req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    next();
+  });
 
   app.post('*', postMw);
   app.patch('*', postMw);
@@ -298,7 +295,9 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .create(req.parsedData)
+      .create(req.parsedData, {
+        userUid: req.user.uid,
+      })
       .then(
         location => res.json({
           success: true,
@@ -343,6 +342,28 @@ module.exports = core => {
     _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
   ).then(code => res.json({ code }), next));
 
+  app.get(
+    '/agendas/:agendaUid/locations/:locationUid/activities',
+    mw.member.allow(['contributor', 'moderator', 'administrator']),
+    async (req, res, next) => {
+      try {
+        console.log(req.event);
+
+        const activities = await app.services.activities
+          .feed({ entityType: 'user', entityUid: req.user.uid })
+          .activities.list({ object: `location:${req.params.locationUid}` }, req.query.fromId || 0, 20);
+
+        res.json({
+          activities,
+          config: req.query.withConfig ? app.services.activities.getFormatConfig() : undefined,
+        });
+      } catch (e) {
+        next(e);
+      }
+    },
+    (req, res) => activitiesMw.list({ entityType: 'location', entityUid: req.event.uid })(req, res),
+  );
+
   app.get('/agendas/:agendaUid/locations/settings', (req, res, next) => core
     .agendas(req.agenda.uid)
     .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
@@ -352,7 +373,11 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid)
-      .locations.merge(req.body.mergeIn, { uids: req.body.merged })
+      .locations.merge(req.body.mergeIn, { uids: req.body.merged }, null, {
+        context: {
+          userUid: req.user.uid,
+        },
+      })
       .then(location => res.json({
         location,
         success: true,
@@ -384,7 +409,17 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .update(req.locationIdentifier, req.parsedData)
+      .update(
+        req.locationIdentifier,
+        req.parsedData,
+        {
+          context: {
+            userUid: req.user.uid,
+            agendaUid: req.agenda.uid,
+            setUid: req.agenda.setUid,
+          },
+        },
+      )
       .then(location => res.json({
         success: true,
         location,
@@ -412,7 +447,13 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .remove(req.locationIdentifier)
+      .remove(req.locationIdentifier, {
+        context: {
+          userUid: req.user.uid,
+          agendaUid: req.agenda.uid,
+          setUid: req.agenda.setUid,
+        },
+      })
       .then(location => res.json({
         success: true,
         location,
@@ -513,56 +554,78 @@ module.exports = core => {
 
   app.get('/me/agendas/:agendaUid', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .getContext({
-        userUid: req.user.uid,
-        includes: req.query.includes,
-        relation: ['contributed', 'owned'],
-      })
-      .then(context => res.json(context), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .getContext({
+          userUid: req.user.uid,
+          includes: req.query.includes,
+          relation: ['contributed', 'owned'],
+        })
+        .then(context => res.json(context), next);
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events.search({
-        ...req.query,
-        relation: ['contributed', 'owned'],
-      }, req.query, {
-        useAfterKey: true,
-        userUid: req.user?.uid,
-      }).then(result => res.json({
-        success: true,
-        ...result,
-      }), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events.search({
+          ...req.query,
+          relation: ['contributed', 'owned'],
+        }, req.query, {
+          useAfterKey: true,
+          userUid: req.user?.uid,
+        }).then(result => res.json({
+          success: true,
+          ...result,
+        }), next);
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events/drafts', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events
-      .drafts({}, req.query)
-      .then(result => res.json({
-        success: true,
-        events: result.items,
-        total: result.total,
-      }), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events
+        .drafts({
+          useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+        }, req.query)
+        .then(result => res.json({
+          success: true,
+          events: result.items,
+          total: result.total,
+        }), next);
+    },
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid', [
     mw.member.load,
-    (req, res, next) => core
-      .users(req.user.uid)
-      .agendas(req.params.agendaUid)
-      .events(req.params.eventUid)
-      .getContext({ userUid: req.user.uid })
-      .then(context => res.json(context), next),
+    (req, res, next) => {
+      if (!req.user) {
+        return next(new NotAuthenticated('Authentication is required'));
+      }
+      core
+        .users(req.user.uid)
+        .agendas(req.params.agendaUid)
+        .events(req.params.eventUid)
+        .getContext({ userUid: req.user.uid })
+        .then(context => res.json(context), next);
+    },
   ]);
 
   app.get('/agendas', (req, res, next) => {
@@ -572,56 +635,16 @@ module.exports = core => {
     }).then(data => res.json({ ...data, success: true }), next);
   });
 
-  app.use((err, req, res, _next) => {
-    if ([
-      'BadRequestError',
-      'NotFoundError',
-      'ValidationError',
-    ].includes(err.name)) {
-      return res.status(err.statusCode).json({
-        errors: err.detail,
-      });
-    }
+  log('done');
 
-    if (err.name === 'UnauthorizedError') {
-      return res.status(err.statusCode).json({
-        message: err.message,
-      });
-    }
+  app.use(sentryErrorHandler({ tag: 'api' }));
+  app.use(apiErrorHandler);
 
-    if (err.name === 'BadRequest') {
-      return res.status(err.code).json({
-        message: err.message,
-        errors: err.info.errors,
-        info: _.omit(err.info, ['errors']),
-      });
-    }
-
-    if ([
-      'NotAuthenticated',
-      'Forbidden',
-      'NotFound',
-    ].includes(err.name)) {
-      return res.status(err.code).json({
-        message: err.message,
-        info: err.info,
-      });
-    }
-
-    handleError(new VError({
-      cause: err,
-      info: {
-        body: req.body,
-        query: req.query,
-      },
-    }), req);
-
-    return res.status(500).json({
-      message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com',
+  app.use((_req, res) => {
+    res.status(404).json({
+      info: 'Unhandled route',
     });
   });
-
-  log('done');
 
   return app;
 };

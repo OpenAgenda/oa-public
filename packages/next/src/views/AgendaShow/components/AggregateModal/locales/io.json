@@ -1,1 +1,8 @@
-{}
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": "crwdns33025:0crwdne33025:0",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "crwdns33027:0{agenda}crwdne33027:0",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "crwdns33029:0crwdne33029:0",
+  "next.views.AgendaShow.AggregateModal.signin": "crwdns33031:0crwdne33031:0",
+  "next.views.AgendaShow.AggregateModal.subtitle": "crwdns33033:0{agenda}crwdne33033:0",
+  "next.views.AgendaShow.AggregateModal.title": "crwdns33035:0crwdne33035:0"
+}

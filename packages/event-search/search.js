@@ -143,9 +143,11 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   } = validateOptions(options);
 
   try {
-    cleanNav = validateNav(nav);
+    cleanNav = validateNav(nav, {
+      maxResultWindow: config.dynamicSettings?.max_result_window,
+    });
   } catch (e) {
-    throw new BadRequest('nav is not valid');
+    throw e.name === 'BadRequest' ? e : new BadRequest('nav is not valid');
   }
 
   const requestedAggregations = shortRequestedAggregations
@@ -164,6 +166,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   try {
     cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
   } catch (errors) {
+    console.log('ERROR', errors);
     throw Array.isArray(errors) ? new BadRequest({ info: { errors } }, 'query is not valid') : errors;
   }
 

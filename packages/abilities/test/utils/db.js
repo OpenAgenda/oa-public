@@ -2,24 +2,30 @@ import { readFile } from 'fs';
 import { promisify } from 'util';
 import mysql from 'mysql';
 
-async function create({ user, password, database }) {
-  const conn = mysql.createConnection({ user, password });
+async function create(connection) {
+  const client = mysql.createConnection({ ...connection, database: undefined });
 
-  await promisify(conn.query).call(conn, `DROP DATABASE IF EXISTS ${database}`);
-  await promisify(conn.query).call(
-    conn,
-    `CREATE DATABASE IF NOT EXISTS ${database}`
-  );
+  client.connect();
 
-  conn.destroy();
+  const {
+    database,
+  } = connection;
+
+  await new Promise(rs => {
+    client.query(`DROP DATABASE IF EXISTS ${database}`, rs);
+  });
+
+  await new Promise(rs => {
+    client.query(`CREATE DATABASE IF NOT EXISTS ${database}`, rs);
+  });
+
+  client.destroy();
 }
 
-async function fixtures({ user, password, database }, schemas) {
+async function fixtures(connection, schemas) {
   const conn = mysql.createConnection({
     multipleStatements: true,
-    user,
-    password,
-    database,
+    ...connection,
   });
 
   for (const [schema, path] of Object.entries(schemas)) {

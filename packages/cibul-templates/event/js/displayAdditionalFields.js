@@ -173,44 +173,27 @@ function AdditionalFieldsSection({ additionalFields }) {
 }
 
 
-function displayAdditionalFields({ agendaUid, eventUid, lang }) {
-  get(window.env === 'tpl' ? '/server/testdata/agendawithadditionalfields.json' : `/api/agendas/${agendaUid}?detailed=1`, (err, agendaResponse) => {
-    if (err) {
-      log('error when trying to load agenda schema');
-      log(err)
-      return;
-    }
+function displayAdditionalFields({ agenda, event, lang }) {
+  if (!hasAdditionalFields(agenda.schema)) {
+    return;
+  }
 
-    get(window.env === 'tpl' ? '/server/testdata/eventdatawithadditionalfields.json' : `/api/agendas/${agendaUid}/events/${eventUid}`, (err, eventResponse) => {
-      if (err) {
-        log('error when trying to load event data');
-        log(err);
-        return;
-      }
+  const additionalFields = formatAdditionalFieldData(agenda.schema, event.event, lang);
 
-      if (!hasAdditionalFields(agendaResponse.schema)) {
-        return;
-      }
-
-      const additionalFields = formatAdditionalFieldData(agendaResponse.schema, eventResponse.event, lang);
-
-      ReactDom.render(
-        <IntlProvider
-          key={lang}
-          locale={lang}
-          messages={locales[lang]}
-          defaultLocale={getSupportedLocale(lang)}
-        >
-          <AdditionalFieldsSection
-            additionalFields={additionalFields}
-            lang={lang}
-          />
-        </IntlProvider>,
-        du.el('.js_additional_fields')
-      );
-    });
-  });
-
+  ReactDom.render(
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
+      <AdditionalFieldsSection
+        additionalFields={additionalFields}
+        lang={lang}
+      />
+    </IntlProvider>,
+    du.el('.js_additional_fields')
+  );
 }
 
 export default displayAdditionalFields;

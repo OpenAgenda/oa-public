@@ -1,7 +1,6 @@
 "use strict";
 
 const cmn = require( '../lib/commons-app' );
-const agendaSvc = require( '../services/agenda' );
 
 const preMw = [
   cmn.loadLogger( 'search front' ),
@@ -16,22 +15,6 @@ module.exports = app => {
     '/events/search',
     preMw,
     searchEvents
-  );
-
-  app.get(
-    '/widgets/:uid/search',
-    preMw,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    widgetSearchEvents
-  );
-
-  app.get(
-    '/widgets/:uid/:embedUid/search',
-    preMw,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    widgetSearchEvents
   );
 
   app.get(
@@ -65,7 +48,7 @@ function searchEvents( req, res, next ) {
 
   if ( !req.cleanSearch || !req.cleanSearch.what.length ) {
 
-    req.log( 'info', 'request received for searchEvents with no params.' );
+    req.log.info( 'request received for searchEvents with no params.' );
 
     return res.redirect( 302, '/events/latest' );
 
@@ -75,23 +58,9 @@ function searchEvents( req, res, next ) {
 
 }
 
-
-function widgetSearchEvents( req, res ) {
-
-  req.agenda.aggregate( req.query.oaq, {
-    showAll: false
-  }, function( err, result ) {
-
-    return cmn.renderJson( req, res, result );
-
-  });
-
-}
-
-
 function latestEvents( req, res ) {
 
-  req.log( 'info', 'request received for latestEvents.' );
+  req.log.info( 'request received for latestEvents.' );
 
   res.redirect( 301, req.genUrl( 'agendaSearch' ) );
 
@@ -104,7 +73,7 @@ function searchAgendas( req, res ) {
 
   if ( !req.query.oaq || !req.query.oaq.what.length ) {
 
-    req.log( 'info', 'request received for searchAgendas with no params.' );
+    req.log.info( 'request received for searchAgendas with no params.' );
 
     return res.redirect( 302, '/agendas/latest' );
 
@@ -117,7 +86,7 @@ function searchAgendas( req, res ) {
 
 function latestAgendas( req, res ) {
 
-  req.log( 'info', 'request received for latestAgendas' );
+  req.log.info( 'request received for latestAgendas' );
 
   res.redirect( 301, req.genUrl( 'agendaSearch' ) );
 

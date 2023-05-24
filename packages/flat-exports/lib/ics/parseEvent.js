@@ -1,67 +1,63 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const esc = require( './escape' );
-const moment = require( 'moment' );
-const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/exports' ) );
+const moment = require('moment');
+const getLabel = require('@openagenda/labels')(require('@openagenda/labels/exports'));
+const { getLocaleValue } = require('@openagenda/intl');
+const esc = require('./escape');
+const foldLine = require('./foldLine');
 
-module.exports = ( { lang, genUrl }, event ) => {
+function defaultGenUrl(e) {
+  return `https://openagenda.com/events/${e.slug}`;
+}
 
-  const possibleLanguages = _.keys( event.title );
+function getDescription(attributes, lang) {
+  return [attributes.description, attributes.url]
+    .join(` - ${getLabel('seeMore', lang)}: `);
+}
 
-  const language = possibleLanguages.includes( lang ) ? lang : possibleLanguages[ 0 ];
+function formatDate(date) {
+  return moment.utc(date).format('YYYYMMDDTHHmm00[Z]');
+}
 
+module.exports = ({ lang, genUrl }, event) => {
   const url = genUrl || defaultGenUrl;
 
-  const e = _.mapValues( {
-    summary: _.get( event.title, language, '' ),
-    description: [ _.get( event.description, language, null ), url( event ) ].filter( p => !!p ),
-    location: [ _.get( event, 'location.name', null ), _.get( event, 'location.address', null ) ],
-    geo: [ _.get( event, 'location.latitude' ), _.get( event, 'location.longitude' ) ].filter( coord => !!coord ),
-    organizer: _.get( event, 'contributor.name', 'OA' ),
-    url: url( event ),
-    lastModified: moment.utc( event.updatedAt ).format( 'YYYYMMDDTHHmm00Z' ),
-    timezone: event.timezone,
-  }, v => _.isArray( v ) ? v.map( esc ) : esc( v ) );
+  const attributes = {
+    title: esc(getLocaleValue(event.title, lang)),
+    description: esc(getLocaleValue(event.description, lang)),
+    url: esc(url(event)),
+    location: esc([event.location?.name, event.location?.address].filter(Boolean).join(' - ')),
+    geo: event.location?.latitude && event.location?.longitude
+      ? `${event.location?.latitude};${event.location?.longitude}`
+      : '',
+    organizer: esc(event.contributor?.name || 'OA'),
+    timezone: esc(event.timezone),
+    // lastModified: event.updatedAt,
+  };
 
-  const before = [
-    'BEGIN:VEVENT',
-  ].join( '\r\n' ) + '\r\n';
-    
-  const after = [
-    `TZID: ${e.timezone}`,
-    `SUMMARY: ${e.summary}`,
-    `DESCRIPTION:${e.description.join( ' - ' + getLabel( 'seeMore', language ) + ': ' )}`,
-    e.location.length ? `LOCATION:${e.location.join( ' - ' )}` : null,
-    e.geo.length === 2 ? `GEO:${e.geo.join( ';' )}` : null,
-    `ORGANIZER: ${e.organizer}`,
-    'STATUS:CONFIRMED',
-    `DTSTAMP:${moment.utc().format( 'YYYYMMDDTHHmm00' ) + 'Z'}`,
-    'END:VEVENT'
-  ].filter( line => !!line ).join( '\r\n' );
+  let ics = '';
+  ics += 'BEGIN:VEVENT\r\n';
 
-  return event.timings.map( t => before + _createTimingPart( event, t ) + after ).join( '\r\n' ) + '\r\n';
+  for (const timing of event.timings) {
+    const begin = formatDate(timing.begin);
+    const end = formatDate(timing.end);
+    const uid = [event.agenda?.uid || null, event.uid, begin].filter(Boolean).join('//');
 
-}
+    ics += `UID:${uid}\r\n`;
+    ics += `DTSTART:${begin}\r\n`;
+    ics += `DTEND:${end}\r\n`;
+  }
 
-function _createTimingPart( event, timing ) {
+  ics += `TZID:${attributes.timezone}\r\n`;
+  ics += `${foldLine(`SUMMARY:${attributes.title}`)}\r\n`;
 
-  const { begin, end } = timing;
+  ics += `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}\r\n`;
+  ics += attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}\r\n` : '';
+  ics += attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}\r\n` : '';
+  ics += `${foldLine(`ORGANIZER:${attributes.organizer}`)}\r\n`;
+  ics += 'STATUS:CONFIRMED\r\n';
+  ics += `DTSTAMP:${formatDate()}\r\n`;
+  ics += 'END:VEVENT\r\n';
 
-  return [
-    'UID:' + [ 
-      _.get( event, 'agenda.uid', null ), 
-      event.uid, 
-      moment.utc( begin ).format( 'YYYY-MM-DD//HH:mm:00' )
-    ].filter( i => !!i ).join( '//' ),
-    `DTSTART:${moment.utc( begin ).format( 'YYYYMMDDTHHmm00' ) + 'Z'}`,
-    `DTEND:${moment.utc( end ).format( 'YYYYMMDDTHHmm00' ) + 'Z'}`
-  ].join( '\r\n' ) + '\r\n';
-
-}
-
-function defaultGenUrl( e ) { 
-
-  return `https://openagenda.com/events/${e.slug}`;
-
-}
+  return ics;
+};

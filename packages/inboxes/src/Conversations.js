@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments';
 import mapper from './utils/mapper';
 import validate from './utils/validate';

@@ -18,7 +18,7 @@ module.exports = {
   "eventRemoveDetails": {
     "en": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events",
     "fr": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus.",
-    "de": "Bist du sicher, dass Sie dies tun? Wenn Sie das Veranstaltung aus dieserVerwaltungskalender entfernen, wird es nicht mehr in den Ausfuhr aufgeführt wird und von jedem Programm entfernt werden aggregiert Deine Veranstaltungen",
+    "de": "Bist du sicher, dass Sie dies tun? Wenn Sie die Veranstaltung aus dieser Verwaltungskalender entfernen, wird es nicht mehr in dem Ausfuhr aufgeführt wird und von jedem Programm entfernt werden aggregiert deine Veranstaltungen",
     "es": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
     "io": "crwdns14416:0crwdne14416:0",
     "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments"

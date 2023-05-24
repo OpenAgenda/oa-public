@@ -15,14 +15,14 @@
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
+    "@openagenda/verror": "^3.1.0",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.15",
-    "mysql": "^2.13.0",
-    "verror": "^1.10.0"
+    "mysql": "^2.13.0"
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.2",
-    "knex": "^0.20.13",
+    "knex": "^2.4.2",
     "mocha": "^7.0.1",
     "should": "^13.2.3"
   }

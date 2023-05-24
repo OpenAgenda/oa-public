@@ -13,12 +13,18 @@ const legacy = require('./lib/legacy');
 const log = logs('update');
 
 async function update({ service, isPatch }, current, data, options = {}) {
+  const {
+    decorateWithGeocodeData: {
+      shouldAttempt: shouldAttemptGeocode,
+    },
+  } = service;
+
   log('received %j payload', current.uid);
   await authorize(service, 'update', current.uid, options);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined
+  const geocodeResult = shouldAttemptGeocode(geocodeIfUndefined, data, isPatch)
     ? await service.decorateWithGeocodeData(data)
     : null;
 
@@ -30,7 +36,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   const dataToValidate = preCleanBeforeUpdate(data, current, {
     geocodeResult,
-    isPatch
+    isPatch,
   });
 
   const clean = {
@@ -70,7 +76,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   };
 
   if (service.interfaces.onUpdate) {
-    await service.interfaces.onUpdate(current, updated);
+    await service.interfaces.onUpdate(current, updated, options.context);
   }
   log(updated);
   return updated;
@@ -80,7 +86,7 @@ module.exports = async (
   { service, isPatch },
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get({ internals: service, endpoints: {} }, identifiers, options);
   if (!current) {
@@ -94,13 +100,13 @@ module.exports.byAgendaUid = async (
   agendaUid,
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get.byAgendaUid(
     { internals: service, endpoints: {} },
     agendaUid,
     identifiers,
-    options
+    options,
   );
 
   if (!current) {
@@ -115,7 +121,7 @@ module.exports.bySetUid = async (
   setUid,
   identifiers,
   data,
-  options = {}
+  options = {},
 ) => {
   const current = await get.bySetUid({ internals: service, endpoints: {} }, setUid, identifiers, options);
 

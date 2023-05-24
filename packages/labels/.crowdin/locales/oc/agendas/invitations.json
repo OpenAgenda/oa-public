@@ -2,8 +2,8 @@
   "invitationError": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt.",
   "invitationNotSent": "Lo convit s'es pas poscut mandar",
   "emailSubmitted": "Vòstres %count% emails sometuts son en cors de tractament",
-  "sentInvites": "Mandar de convits : %count%",
   "noNewInvite": "Pas cap convit foguèt pas mandat",
+  "sentInvites": "Mandar de convits : %count%",
   "resentInvites": "%count% convits son a se tornar mandar.<br/><br/>Notatz que los convits se pòdon pas mandar en massa mai d'un còp totas las 24 oras",
   "resentInvite": "Lo convit es a se tornar mandar"
 }

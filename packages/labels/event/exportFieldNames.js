@@ -211,7 +211,7 @@ module.exports = {
   "featured": {
     "en": "Featured",
     "fr": "En Une",
-    "de": "Hervorgehoben",
+    "de": "ausgewählt",
     "es": "En titular",
     "it": "Selezionato",
     "br": "Keleier pennañ",

@@ -1,9 +1,9 @@
 {
   "officialAgenda": "Ufficiale",
-  "privateAgenda": "Agenda privata",
+  "privateAgenda": "Agenda privato",
   "contact": "Contattare",
   "export": "Esportare",
   "addEvent": "Aggiungere un evento",
   "showCalendar": "Installare il agenda a vista",
-  "manage": "Gestisci"
+  "manage": "Gestire"
 }

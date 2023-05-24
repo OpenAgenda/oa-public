@@ -6,8 +6,6 @@ model = require( '../model' ),
 
 lib = require( '../../lib/lib' ),
 
-coms = require( '../../lib/coms' ),
-
 agendaSvc = require( '../agenda' );
 
 module.exports = {

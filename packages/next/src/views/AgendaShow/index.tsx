@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useLatest } from 'react-use';
+import { useLatest, usePrevious } from 'react-use';
 import qs from 'qs';
 import { Box, Container, useConst } from '@openagenda/uikit';
 import { FiltersProvider, useFilters } from '@openagenda/react-filters';
@@ -12,6 +12,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
+import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
 import useEventsQuery from './hooks/useEventsQuery';
@@ -126,11 +127,42 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
   const { data: pages } = useEventsQuery({ agenda, filters, query, includeFields });
 
+  const [_isPending, startTransition] = useTransition();
+
+  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
+    startTransition(() => {
+      setQuery(values);
+    });
+  }, []);
+
+  // Update filters if location change (back)
+  useEffect(() => {
+    const beforeHistoryChange = (href, { shallow }) => {
+      const currentUrl = new URL(router.asPath, 'http://n');
+      const url = new URL(href, 'http://n');
+
+      // change route
+      if (currentUrl.pathname !== url.pathname || !shallow) return;
+
+      const form = filtersFormRef.current;
+      const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
+
+      form.initialize(newUrlQuery);
+      form.submit();
+    };
+    router.events.on('beforeHistoryChange', beforeHistoryChange);
+
+    return () => {
+      router.events.off('beforeHistoryChange', beforeHistoryChange);
+    };
+  }, [router]);
+
   // SWR onSuccess
   // https://github.com/vercel/swr/issues/1733
   const latestRouter = useLatest(router);
+  const previousPages = usePrevious(pages);
   useEffect(() => {
-    if (pages?.length > 0) {
+    if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
       const mapFilter = filters.find(v => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
@@ -142,42 +174,23 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       const url = new URL(latestRouter.current.asPath, 'http://n').pathname
         + qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
-      if (url !== window.location.pathname + window.location.search) {
-        latestRouter.current.push(
-          new URL(latestRouter.current.asPath, 'http://n').pathname
-            + qs.stringify(latestQuery.current, { addQueryPrefix: true }),
-          null,
-          { shallow: true },
-        );
+      if (url !== latestRouter.current.asPath) {
+        latestRouter.current.push(url, null, { shallow: true });
       }
     }
-    // deps: should be only [pages], useEffectEvent from react when possible
-  }, [pages, filters, latestQuery, latestRouter]);
-
-  const [_isPending, startTransition] = useTransition();
-
-  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
-    startTransition(() => {
-      setQuery(values);
-    });
-  }, []);
-
-  // Update filters if location change (back)
-  useEffect(() => {
-    if (qs.stringify(latestQuery.current) !== qs.stringify(urlQuery)) {
-      const form = filtersFormRef.current;
-
-      form.initialize(urlQuery);
-      form.submit();
-    }
-  }, [latestQuery, urlQuery]);
+    // deps: on `pages` change, useEffectEvent from react when possible
+  }, [pages, previousPages, filters, latestQuery, latestRouter, urlQuery]);
 
   return (
     <>
       <main>
         <Metas agenda={agenda} query={query} preload={preload} />
 
-        {user ? <ContextBar agenda={agenda} /> : null}
+        {user ? (
+          <Box pos="sticky" top="0" zIndex="sticky">
+            <ContextBar agenda={agenda} />
+          </Box>
+        ) : null}
 
         <Box as="header" w="full" bg="#413a42" px="4" py="8">
           <Container maxW="container.xl" color="white">
@@ -254,6 +267,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
 AgendaShow.fetchLocale = locale => Promise.all([
   fetchLocale(locale),
+  fetchErrorLocale(locale),
   fetchCommonLocale('event/attendanceModes', locale),
   import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
 ]).then(results => Object.assign({}, ...results));

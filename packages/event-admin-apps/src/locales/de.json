@@ -2,5 +2,6 @@
   "EventAdminApp.Actions.createAnEvent": "Neue Veranstaltung erstellen",
   "EventAdminApp.BatchedStateSelector.ok": "Schließen",
   "EventAdminApp.Dashboard.previous": "Bisherige",
-  "EventAdminApp.messages.attendanceModes.mixed": "Gemischt"
+  "EventAdminApp.messages.attendanceModes.mixed": "Gemischt",
+  "EventAdminApp.EventItem.featured": "ausgewählt"
 }

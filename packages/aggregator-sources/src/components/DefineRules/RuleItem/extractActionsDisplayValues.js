@@ -1,4 +1,3 @@
-import React from 'react';
 import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
@@ -46,7 +45,7 @@ function getStateLabel(intl, value) {
   return intl.formatMessage(
     messages[
       ['refused', 'toModerate', 'readyToPublish', 'published'][value + 1]
-    ]
+    ],
   );
 }
 
@@ -67,9 +66,7 @@ function stateAction({ intl, action }) {
   };
 }
 
-export default ({
-  intl, aggregatorAgendaSchema, aggregatorAgenda, action
-}) => {
+export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
   const type = getType(action);
   const base = {
     type,
@@ -77,7 +74,6 @@ export default ({
     set: isSet(action),
   };
 
-  console.log('extratActionsIdplayValues action:', action, getValues(action));
   if (type === 'state') {
     return {
       ...base,
@@ -97,9 +93,8 @@ export default ({
       detail: null,
     };
   }
-  // console.log('field: ', field);
+
   const label = getLocaleValue(field.label, intl.locale);
-  // console.log('label: ', label);
 
   if (action.automatic) {
     return {
@@ -114,17 +109,8 @@ export default ({
     };
   }
 
-  const matchingOptions = getValues(action).map(value => field.options?.filter(o => o.id === value).pop());
-
-  // console.log('matchingOptions', matchingOptions, matchingOptions.length);
-  console.log(
-    'value : ',
-    matchingOptions[0] !== undefined
-      ? matchingOptions
-        .map(o => getLocaleValue(o?.label, intl.locale))
-        .join(', ')
-      : getValues(action)[0]
-  );
+  const matchingOptions = getValues(action).map(value =>
+    field.options?.filter(o => o.id === value).pop());
 
   return {
     ...base,
@@ -139,7 +125,7 @@ export default ({
       messages.aggregatorAgendaChoiceFieldValueDetail,
       {
         agendaTitle: aggregatorAgenda.title,
-      }
+      },
     ),
   };
 };

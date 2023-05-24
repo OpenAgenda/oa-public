@@ -13,7 +13,7 @@ module.exports = {
   "subHeading": {
     "fr": "Sous-titre",
     "en": "Sous-title",
-    "de": "Sous-Titel",
+    "de": "Untertitel",
     "es": "Subtítulos",
     "it": "Sottotitolo",
     "io": "crwdns14898:0crwdne14898:0",

@@ -1,84 +1,52 @@
 'use strict';
 
-const _ = require('lodash');
-
 const NetworkApps = require('@openagenda/network-apps');
 const eventFormSchema = require('@openagenda/event-form/src/schema');
 
-const log = require( '@openagenda/logs' )( 'services/networkApps' );
+const log = require('@openagenda/logs')('services/networkApps');
 
-const cmn = require( '../lib/commons-app' );
+const cmn = require('../lib/commons-app');
 
-const layout = require( './lib/layouts' ).load( 'main', {
-  title: 'Admin des réseaux'
-} );
+const layout = require('./lib/layouts').load('main', {
+  title: 'Admin des réseaux',
+});
 
-const router = NetworkApps.router;
+const { router } = NetworkApps;
 
 module.exports = parentApp => {
-  parentApp.use('/dist/networkApps',
+  parentApp.use(
+    '/dist/networkApps',
     router.dist,
-    (req, res, next) => res.send(404)
+    (req, res) => res.send(404),
   );
 
-  parentApp.use( '/admin/networks',
-    parentApp.services.sessions.mw.ifUnlogged(( req, res ) => res.redirect(302, '/')),
+  parentApp.use(
+    '/admin/networks',
+    parentApp.services.sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
     cmn.requireSuperAdmin,
-    router
+    router,
   );
-}
+};
 
-module.exports.init = (config, services) => {
+async function createAgenda(services, networkUid, data, user) {
   const {
-    agendas,
-    sessions
+    core,
   } = services;
 
-  router.setLayout(layout);
-
-  router.setService(NetworkApps({
-    CDNPath: config.aws.servicesBucketPath,
-    frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
-    logger: config.getLogConfig('svc', 'networkApps'),
-    interfaces: {
-      getEventSchema: () => eventFormSchema( { languages: true } ),
-      listNetworks: () => services.core.networks.list(),
-      getNetwork: uid => services.core.networks( uid ).get(),
-      getNetworkSchema: uid => services.core.networks( uid ).schema.get(),
-      setNetworkSchemaFields: ( uid, fields ) => services.core.networks( uid ).schema.updateFields( fields ),
-      getNetworkAgendas: uid => services.core.networks(uid).agendas(),
-      getLoggedUser: async req => req.user,
-      addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
-      removeAgendaFromNetwork: (uid, agendaUid) => services.core.networks(uid).agendas.remove(agendaUid),
-      createAgenda: createAgenda.bind(null, services),
-      createNetwork: data => services.networks.create(data)
-    }
-  }));
-
-}
-
-
-async function createAgenda(services, networkUid, data, user ) {
-  const {
-    core
-  } = services;
-
-  return core.networks( networkUid ).agendas.create( {
+  return core.networks(networkUid).agendas.create({
     ...data,
-    ownerId: user.id
-  } );
-
+    ownerId: user.id,
+  });
 }
 
 async function addAgendaToNetwork(services, uid, dirtySlug) {
   const {
     agendas,
-    core
+    core,
   } = services;
 
-  const slug = (
-    dirtySlug.split( '?' ).shift()
-  ).split( '/' ).pop();
+  const slug = dirtySlug.split('?').shift()
+    .split('/').pop();
 
   log('extracted slug %s', slug);
 
@@ -92,3 +60,26 @@ async function addAgendaToNetwork(services, uid, dirtySlug) {
 
   return agenda;
 }
+
+module.exports.init = (config, services) => {
+  router.setLayout(layout);
+
+  router.setService(NetworkApps({
+    CDNPath: config.aws.servicesBucketPath,
+    frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
+    logger: config.getLogConfig('svc', 'networkApps'),
+    interfaces: {
+      getEventSchema: () => eventFormSchema({ languages: true }),
+      listNetworks: () => services.core.networks.list(),
+      getNetwork: uid => services.core.networks(uid).get(),
+      getNetworkSchema: uid => services.core.networks(uid).schema.get(),
+      setNetworkSchemaFields: (uid, fields) => services.core.networks(uid).schema.updateFields(fields),
+      getNetworkAgendas: uid => services.core.networks(uid).agendas(),
+      getLoggedUser: async req => req.user,
+      addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
+      removeAgendaFromNetwork: (uid, agendaUid) => services.core.networks(uid).agendas.remove(agendaUid),
+      createAgenda: createAgenda.bind(null, services),
+      createNetwork: data => services.networks.create(data),
+    },
+  }));
+};

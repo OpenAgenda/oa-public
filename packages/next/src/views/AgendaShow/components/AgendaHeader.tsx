@@ -1,5 +1,6 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
+import { useCookies } from 'react-cookie';
 import {
   Stack,
   VStack,
@@ -21,6 +22,8 @@ import OfficialAgenda from 'components/OfficialAgenda';
 import PrivateAgenda from 'components/PrivateAgenda';
 import useLocationQuery from 'hooks/useLocationQuery';
 import keyCDNLoader from 'utils/keyCDNLoader';
+import hrefWithLang from 'utils/hrefWithLang';
+import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
 import ExportModal from './ExportModal';
 
@@ -83,7 +86,12 @@ export default function AgendaHeader({ agenda }) {
     isOpen: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
-  } = useDisclosure();
+  } = useDisclosure({ defaultIsOpen: urlQuery.displayExportModal === '1' });
+
+  const [cookies] = useCookies();
+  const sessionUser = getSession(cookies)?.user;
+  const contactHref = hrefWithLang(`/${agenda.slug}/contact`, sessionUser ? null : intl.locale);
+  const contributeHref = hrefWithLang(`/${agenda.slug}/contribute`, sessionUser ? null : intl.locale);
 
   return (
     <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
@@ -133,7 +141,7 @@ export default function AgendaHeader({ agenda }) {
         <Wrap shouldWrapChildren mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
           <Button
             as={Link}
-            href={mailtoUrl || `/${agenda.slug}/contact`}
+            href={mailtoUrl || contactHref}
             leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
             variant="outline"
             colorScheme="white"
@@ -188,7 +196,7 @@ export default function AgendaHeader({ agenda }) {
           ) : null}
           <Button
             as={Link}
-            href={`/${agenda.slug}/contribute`}
+            href={contributeHref}
             leftIcon={<FontAwesomeIcon icon={faPlus} />}
             colorScheme="primary"
           >

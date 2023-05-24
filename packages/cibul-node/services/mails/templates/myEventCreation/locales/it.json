@@ -1,7 +1,7 @@
 {
   "title": "Conferma della creazione del vostro evento su {agenda}: {event}.",
   "body": "Il tuo evento <b>{event}</b> è stato creato nell'agenda <b>{agenda}</b> con lo stato <b>{state}</b>.",
-  "actionDescription": "Visualizza l'evento",
+  "actionDescription": "Vedere l'evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",

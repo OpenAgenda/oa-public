@@ -26,7 +26,7 @@ module.exports = {
   "online": {
     "en": "Online",
     "fr": "En ligne",
-    "it": "In linea",
+    "it": "Evento online",
     "es": "En linea",
     "br": "Enlinenn",
     "io": "crwdns12904:0crwdne12904:0",
@@ -156,8 +156,8 @@ module.exports = {
   "manage": {
     "en": "Manage",
     "fr": "Gérer",
-    "it": "Gestisci",
-    "de": "verwalten",
+    "it": "Gestire",
+    "de": "Verwalten",
     "pl": "Zarządzaj",
     "br": "Merañ",
     "es": "Gestionar",
@@ -387,7 +387,7 @@ module.exports = {
   "privateAgenda": {
     "en": "Private agenda",
     "fr": "Agenda privé",
-    "it": "Agenda privata",
+    "it": "Agenda privato",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
     "br": "Deiziataer prevez",
@@ -416,7 +416,7 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Oramai in linea",
+    "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16090:0crwdne16090:0"
   },

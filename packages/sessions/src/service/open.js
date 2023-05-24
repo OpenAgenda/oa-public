@@ -1,13 +1,13 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, redisCommand, getUser } = require( './helpers' );
+const { cleanSession, callbackify, getUser } = require( './helpers' );
 const cookieValidate = require( '../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'sessions/open' );
 const validate = require( './validate' );
 const expressCookie = require( './expressCookie' );
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const VError = require( '@openagenda/verror' );
 
 
 module.exports = ( request, response, identifier, cb ) => {
@@ -72,9 +72,8 @@ async function open( request, response, identifier ) {
 
     const sessionKey = [ config.redis.prefix, sessionUser.uid ].join( ':' );
 
-    await redisCommand( 'set', [ sessionKey, JSON.stringify( sessionUser ) ] );
-
-    await redisCommand( 'expire', [ sessionKey, config.expire ] );
+    await config.redisClient.set(sessionKey, JSON.stringify(sessionUser));
+    await config.redisClient.expire(sessionKey, config.expire);
 
   } catch ( e ) {
 

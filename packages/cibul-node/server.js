@@ -1,42 +1,49 @@
-"use strict";
+'use strict';
+
+/* eslint global-require: "off", import/order: "off" */
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const sourceMapSupport = require('source-map-support');
-const express = require('express');
-require('@openagenda/polyfills/intl');
-require('@openagenda/polyfills/intl-locales');
-const logs = require('@openagenda/logs');
-
-const task = require('./task');
-const API = require('./api');
-const {
-  config,
-  loadServicesAndCore
-} = require('.');
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  require('source-map-support').install({ hookRequire: true });
+}
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
 const WEB = process.argv.includes('web');
+const API = process.argv.includes('api');
+
+require('@openagenda/polyfills/intl');
+require('@openagenda/polyfills/intl-locales');
+
+const logs = require('@openagenda/logs');
+const config = require('./config');
+
+// init logs before requires
+logs.init(config.logger || config.getLogConfig('oa', 'oa', false));
+
+require('./sentry.config');
+
+const Sentry = require('@sentry/node');
+const express = require('express');
+const helmet = require('helmet');
+const { NotFound } = require('@openagenda/verror');
+const task = require('./task');
+const instanciateAPI = require('./api');
+const initServices = require('./services/init');
+const Core = require('./core');
+const sentryErrorHandler = require('./lib/sentryErrorHandler');
+
+const log = logs('server');
 
 (async () => {
   try {
-    const {
-      services,
-      core
-    } = await loadServicesAndCore();
+    const services = await initServices();
+    const core = Core(services, config);
+    const api = instanciateAPI(core);
 
-    const api = API(core);
-
-    const {
-      sessions
-    } = services;
-
-    if (__DEVELOPMENT__) {
-      sourceMapSupport.install({ hookRequire: true });
-    }
-
-    const log = logs('server');
+    const { sessions } = services;
 
     log('info', 'running server');
 
@@ -45,14 +52,17 @@ const WEB = process.argv.includes('web');
     const genUrl = require('./services/genUrl').getSingleton();
     const admin = require('./admin');
     const web = require('./web');
+    const logRequestMw = require('./services/logRequests').middleware;
 
     app.core = core;
     app.services = services;
 
+    app.use(helmet.hsts(config.hsts));
+
     app.use(sessions.mw);
     app.use(sessions.mw.load({ detailed: true }));
 
-    app.use(require('./services/logRequests').middleware);
+    app.use(logRequestMw);
 
     // load gen url everywhere
     app.use((req, res, next) => {
@@ -95,28 +105,39 @@ const WEB = process.argv.includes('web');
         },
         json() {
           res.json(res.data);
-        }
+        },
+        default() {
+          res.send(res.data);
+        },
       });
     });
 
-    app.use((req, res, next) => next({ code: 404 }));
-    app.use((err, req, res, next) => cmn.catchError(req, res)(err));
+    app.use((req, res, next) => next(new NotFound()));
+
+    app.use(sentryErrorHandler({ tag: 'app' }));
+    app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
     app.listen(config.port, () => {
       console.log(`-- Server listening on port ${config.port} --`);
     });
 
-    if (WEB) {
-      express().use('/v2', api).listen(config.apiPort);
+    if (API) {
+      express()
+        .set('trust proxy', ['loopback', 'uniquelocal'])
+        .use(
+          '/v2',
+          Sentry.Handlers.requestHandler(),
+          helmet.hsts(config.hsts),
+          logRequestMw,
+          api,
+        )
+        .listen(config.apiPort);
     }
 
     if (TASK) {
       task(config, core, services);
     }
   } catch (e) {
-    const logs = require('@openagenda/logs');
-    const log = logs('server');
-
     log('error', 'could not init app:', e);
   }
 })();

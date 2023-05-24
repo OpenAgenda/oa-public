@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const mysql = require( 'mysql' );
 const redis = require( 'redis' );
-const { promisify } = require( 'util' );
+const { promisify } = require('util');
 
 module.exports = async ( config, fixtures ) => {
   const con = mysql.createConnection( {
@@ -15,9 +15,9 @@ module.exports = async ( config, fixtures ) => {
     host: config.mysql.host
   } );
 
-  const redisClient = redis.createClient();
+  const redisClient = redis.createClient(/*{ socket: { host: 'localhost', port: 6379 } }*/);
 
-  const redisSet = promisify( redisClient.set ).bind( redisClient );
+  await redisClient.connect();
 
   const { sql, redisKeyContents } = fixtures;
 
@@ -25,7 +25,7 @@ module.exports = async ( config, fixtures ) => {
 
   for( const redisKey of _.keys( redisKeyContents ) ) {
 
-    await redisSet( config.redisPrefix + redisKey, redisKeyContents[ redisKey ] );
+    await redisClient.set( config.redisPrefix + redisKey, redisKeyContents[ redisKey ] );
 
   }
 

@@ -1,8 +1,9 @@
 import { Fragment, useCallback, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Spacer, Link } from '@openagenda/uikit';
+import { chakra, Button, IconButton, Spacer, Link, Tooltip } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
+import StateTag from '../StateTag';
 import EventsModal from './EventsModal';
 import messages from './messages';
 
@@ -44,8 +45,10 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
     <>
       {isEmpty ? intl.formatMessage(messages.notContributed) : (
         <>
-          {intl.formatMessage(messages.myEvents)}
-          &nbsp;
+          <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
+            {intl.formatMessage(messages.myEvents)}
+            &nbsp;
+          </chakra.span>
           {drafts ? (
             <Button
               variant="link"
@@ -53,14 +56,38 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
               fontWeight="bold"
               onClick={() => onOpen({ key: 'drafts', slug: 'drafts' })}
             >
-              {intl.formatMessage(messages.drafts, { count: drafts })}
+              <Tooltip
+                hasArrow
+                label={intl.formatMessage(messages.drafts, { count: drafts })}
+              >
+                <chakra.span display={{ base: 'inline-flex', md: 'none' }} verticalAlign="middle" alignItems="center">
+                  <StateTag state="draft" />
+                  &nbsp;{intl.formatNumber(drafts)}
+                </chakra.span>
+              </Tooltip>
+              <chakra.span display={{ base: 'none', md: 'inline-flex' }} verticalAlign="middle" alignItems="center">
+                <StateTag state="draft" />
+                &nbsp;{intl.formatMessage(messages.drafts, { count: drafts })}
+              </chakra.span>
             </Button>
           ) : null}
           {drafts && states.length ? wordSeparator : null}
           {bundleStates.map((bundleState, index, arr) => (
             <Fragment key={bundleState.key}>
               <Button variant="link" colorScheme="white" fontWeight="bold" onClick={() => onOpen(bundleState)}>
-                {intl.formatMessage(messages[bundleState.slug], { count: bundleState.eventCount })}
+                <Tooltip
+                  hasArrow
+                  label={intl.formatMessage(messages[bundleState.slug], { count: bundleState.eventCount })}
+                >
+                  <chakra.span display={{ base: 'inline-flex', md: 'none' }} verticalAlign="middle" alignItems="center">
+                    <StateTag state={bundleState.key} />
+                    &nbsp;{intl.formatNumber(bundleState.eventCount)}
+                  </chakra.span>
+                </Tooltip>
+                <chakra.span display={{ base: 'none', md: 'inline-flex' }} verticalAlign="middle" alignItems="center">
+                  <StateTag state={bundleState.key} />
+                  &nbsp;{intl.formatMessage(messages[bundleState.slug], { count: bundleState.eventCount })}
+                </chakra.span>
               </Button>
               {index < arr.length - 1 ? wordSeparator : null}
             </Fragment>
@@ -72,6 +99,8 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
         as={Link}
         href={`/${agenda.slug}/contribute`}
         leftIcon={<FontAwesomeIcon icon={faPlus} />}
+        display={{ base: 'none', md: 'flex' }}
+        minW="auto"
         variant="outline"
         colorScheme="white"
         _hover={{
@@ -83,6 +112,21 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
       >
         {intl.formatMessage(messages.contribute)}
       </Button>
+      <IconButton
+        as={Link}
+        href={`/${agenda.slug}/contribute`}
+        icon={<FontAwesomeIcon icon={faPlus} />}
+        aria-label={intl.formatMessage(messages.contribute)}
+        display={{ base: 'flex', md: 'none' }}
+        variant="outline"
+        colorScheme="white"
+        _hover={{
+          bg: 'white',
+          borderColor: 'white',
+          color: 'primary.500',
+          textDecoration: 'none',
+        }}
+      />
 
       {modalState !== null ? (
         <EventsModal

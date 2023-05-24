@@ -32,7 +32,7 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     return required ? false : null;
   }
   const otherRuleFields = Object.keys(rule.query).filter(
-    f => !['location', 'tags', 'text'].includes(f)
+    f => !['location', 'tags', 'text'].includes(f),
   );
   log('evaluating remaining %s rule query fields', otherRuleFields?.length);
 
@@ -44,7 +44,7 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       log(
         'rule %s does not match and is %srequired',
         ruleField,
-        required ? '' : ' not'
+        required ? '' : ' not',
       );
       return required ? false : null;
     }

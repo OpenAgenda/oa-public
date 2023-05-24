@@ -4,6 +4,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
 import Providers from 'Providers';
+import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import getPreferredLocale from 'utils/getPreferredLocale';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -42,13 +43,18 @@ const useForceHtmlLangAttribute = preferredLocale => {
   }, [preferredLocale]);
 };
 
-function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithLayout<PageProps>) {
+function MyApp({
+  Component,
+  pageProps,
+  router,
+  universalCookies,
+}: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
 
-  const { intlMessages } = pageProps;
+  const { intlMessages, sessionLocale } = pageProps;
 
-  const locale = getPreferredLocale(router.query.lang, router.locale, pageProps.sessionLocale);
+  const locale = getPreferredLocale(router.query.lang, router.locale, sessionLocale);
 
   useForceHtmlLangAttribute(locale);
 
@@ -71,9 +77,11 @@ function MyApp({ Component, pageProps, router, universalCookies }: AppPropsWithL
         <title>OpenAgenda</title>
       </Head>
       <Providers locale={locale} intlMessages={intlMessages} cookies={universalCookies}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SentryErrorBoundary>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SentryErrorBoundary>
       </Providers>
     </>
   );

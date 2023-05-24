@@ -24,7 +24,7 @@ export default function Root({
       <LayoutManager
         store={layoutStore}
         apps={apps}
-        FallbackComponent={ErrorComponent}
+        fallback={ErrorComponent}
       >
         <NotFoundDisplayer history={history} apps={apps}>
           <NotFound />

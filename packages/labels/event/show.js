@@ -37,7 +37,7 @@ module.exports = {
     "en": "Online version",
     "fr": "Version en ligne",
     "io": "crwdns16454:0crwdne16454:0",
-    "it": "Versione in linea"
+    "it": "Versione online"
   },
   "otherShares": {
     "en": "Other shares",
@@ -62,7 +62,8 @@ module.exports = {
   "shareOnOA": {
     "en": "Share on OpenAgenda",
     "fr": "Partager sur OpenAgenda",
-    "io": "crwdns14434:0crwdne14434:0"
+    "io": "crwdns14434:0crwdne14434:0",
+    "it": "Condividere su un altro OpenAgenda"
   },
   "back": {
     "en": "Back",
@@ -193,8 +194,8 @@ module.exports = {
   "termsOfUse": {
     "en": "Terms of use",
     "fr": "Conditions d'utilisation",
-    "it": "Condizioni di utilizzo",
-    "de": "Nutzungsbedingungen",
+    "it": "Modalità d'utilizzo",
+    "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
     "es": "condiciones de uso",
     "br": "Penndivizoù implij",
@@ -245,12 +246,12 @@ module.exports = {
     "en": "Access the event online",
     "fr": "Accéder à l'événement en ligne",
     "io": "crwdns14472:0crwdne14472:0",
-    "it": "Accedere all'evento in linea"
+    "it": "Accedere all'evento online"
   },
   "seeAllEvents": {
     "en": "see all the events",
     "fr": "voir tous les événements",
-    "it": "Vedere tutti gli eventi",
+    "it": "vedere tutti gli eventi",
     "de": "alle Veranstaltungen ansehen",
     "pl": "Zobacz wszystkie wydarzenia",
     "es": "ver todos los eventos",
@@ -789,7 +790,7 @@ module.exports = {
   "editLocation": {
     "en": "Edit location",
     "fr": "Editer le lieu",
-    "it": "Pubblicare il luogo",
+    "it": "Modificare il luogo",
     "de": "Ortsbeschreibung bearbeiten",
     "pl": "Edytuj miejsce",
     "es": "Editar lugar",
@@ -912,7 +913,7 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Oramai in linea",
+    "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16124:0crwdne16124:0"
   },
@@ -920,13 +921,13 @@ module.exports = {
     "en": "The event is moved online",
     "fr": "L'événement a lieu en ligne",
     "io": "crwdns16126:0crwdne16126:0",
-    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
+    "it": "L'evento non è più proposto in presenza, ma oramai online"
   },
   "statusMovedOnlineInfo": {
     "en": "The event will no longer be attended to at a physical location",
     "fr": "La participation de l'événement n'est désormais plus possible en présentiel",
     "io": "crwdns16128:0crwdne16128:0",
-    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
+    "it": "L'evento non è più proposto in presenza, ma oramai online"
   },
   "statusPostponed": {
     "en": "Postponed",

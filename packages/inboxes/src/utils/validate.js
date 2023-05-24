@@ -1,4 +1,4 @@
-import VError from 'verror';
+import VError from '@openagenda/verror';
 import getFormErrors from './getAjvFormErrors';
 
 export default function validate(ajv, schemaId, data) {

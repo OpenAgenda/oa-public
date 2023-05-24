@@ -1,0 +1,38 @@
+{
+  "next.components.ErrorDisplay.backToHome": [
+    {
+      "type": 0,
+      "value": "crwdns33161:0crwdne33161:0"
+    }
+  ],
+  "next.components.ErrorDisplay.contactSupport": [
+    {
+      "type": 0,
+      "value": "crwdns33163:0crwdne33163:0"
+    }
+  ],
+  "next.components.ErrorDisplay.errorTrackingId": [
+    {
+      "type": 0,
+      "value": "crwdns33165:0crwdne33165:0"
+    }
+  ],
+  "next.components.ErrorDisplay.internalError": [
+    {
+      "type": 0,
+      "value": "crwdns33167:0crwdne33167:0"
+    }
+  ],
+  "next.components.ErrorDisplay.internalErrorMsg": [
+    {
+      "type": 0,
+      "value": "crwdns33169:0crwdne33169:0"
+    }
+  ],
+  "next.components.ErrorDisplay.retry": [
+    {
+      "type": 0,
+      "value": "crwdns33171:0crwdne33171:0"
+    }
+  ]
+}

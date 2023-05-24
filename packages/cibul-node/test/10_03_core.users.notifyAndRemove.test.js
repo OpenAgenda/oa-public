@@ -1,7 +1,5 @@
 'use strict';
 
-const promisifyRedis = require('@openagenda/utils/redis/promisify');
-
 const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
@@ -9,12 +7,14 @@ const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
 async function clearRedis(services) {
-  const pRedis = promisifyRedis(services.redis);
+  const {
+    redis,
+  } = services;
 
-  const keys = await pRedis.keys('inactiveUsers:*');
+  const keys = await redis.keys('inactiveUsers:*');
 
   for (const key of keys) {
-    await pRedis.del(key);
+    await redis.del(key);
   }
 }
 
@@ -59,15 +59,17 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   beforeAll(() => clearRedis(services));
 
   beforeAll(async () => {
-    const pRedis = promisifyRedis(services.redis);
+    const {
+      redis,
+    } = services;
 
-    await pRedis.set('inactiveUsers:3', JSON.stringify({
+    await redis.set('inactiveUsers:3', JSON.stringify({
       sent: [{
         name: 'first',
         date: '2020-01-01',
       }],
     }));
-    await pRedis.set('inactiveUsers:4', JSON.stringify({
+    await redis.set('inactiveUsers:4', JSON.stringify({
       sent: [{
         name: 'first',
         date: '2022-05-01',
@@ -76,7 +78,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         date: '2022-05-20',
       }],
     }));
-    await pRedis.set('inactiveUsers:5', JSON.stringify({
+    await redis.set('inactiveUsers:5', JSON.stringify({
       sent: [{
         name: 'first',
         date: '2022-05-01',

@@ -3,15 +3,9 @@
 const log = require('@openagenda/logs')('agenda service');
 const cache = require('../cache');
 const config = require('../../config');
-const es = require('../elasticsearch');
 const model = require('../model');
 const mw = require('./middleware');
 const exportLib = require('./exportLib');
-const tagsAndCategories = require('./tagsAndCategories');
-
-function search(query, options, cb) {
-  es.searchAgendas(query, options, cb);
-}
 
 function get(queryParams, options, cb) {
   if (arguments.length == 2) {
@@ -41,7 +35,7 @@ function get(queryParams, options, cb) {
 module.exports = {
   initless: true,
   list: model.agendas().list,
-  search,
+  search: () => { throw new Error('legacy search is no longer available'); },
   get,
   instanciate: require('./instance')
 }
@@ -49,5 +43,3 @@ module.exports = {
 module.exports.mw = mw(module.exports);
 
 module.exports.exports = exportLib(module.exports);
-
-module.exports.tagsAndCategories = tagsAndCategories(module.exports);

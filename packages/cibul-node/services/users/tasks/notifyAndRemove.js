@@ -1,9 +1,6 @@
 'use strict';
 
-const logs = require('@openagenda/logs');
-const promisifyRedis = require('@openagenda/utils/redis/promisify');
-
-const log = logs('services/users/tasks/notifyAndRemove');
+const log = require('@openagenda/logs')('services/users/tasks/notifyAndRemove');
 
 const storePrefix = 'inactiveUsers:';
 
@@ -131,19 +128,17 @@ function InactiveUserStateStore(services, prefix, options = {}) {
     onStateUpdate = () => {},
   } = options;
 
-  const pRedis = promisifyRedis(redis);
-
   return {
     set: (user, state) => {
       onStateUpdate({ user, state });
-      return pRedis.set(`${prefix}${user.uid}`, JSON.stringify(state), 'EX', storeExpire);
+      return redis.set(`${prefix}${user.uid}`, JSON.stringify(state), 'EX', storeExpire);
     },
     get: async user => {
       log(`${prefix}${user.uid}`);
-      return JSON.parse(await pRedis.get(`${prefix}${user.uid}`) || '{"sent": []}');
+      return JSON.parse(await redis.get(`${prefix}${user.uid}`) || '{"sent": []}');
     },
-    del: async user => pRedis.del(`${prefix}${user.uid}`),
-    list: () => pRedis.keys(`${prefix}*`)
+    del: async user => redis.del(`${prefix}${user.uid}`),
+    list: () => redis.keys(`${prefix}*`)
       .then(keys => keys.map(k => parseInt(k.substr(prefix.length), 10))),
   };
 }

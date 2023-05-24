@@ -38,7 +38,7 @@ module.exports = {
     "fr": "Invitation à un agenda",
     "de": "Einladung zum Veranstaltungskalender",
     "es": "Invitación a una agenda",
-    "it": "Invito ad un ordine del giorno",
+    "it": "Invito ad un agenda",
     "io": "crwdns15766:0crwdne15766:0"
   },
   "emailTitle": {

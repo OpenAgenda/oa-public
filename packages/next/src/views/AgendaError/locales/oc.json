@@ -1,1 +1,4 @@
-{}
+{
+  "next.views.AgendaError.searchAgenda": "Cercar una agenda",
+  "next.views.AgendaError.signIn": "Se connectar"
+}

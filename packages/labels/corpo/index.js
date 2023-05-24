@@ -185,7 +185,7 @@ module.exports = {
     "fr": "Agenda basique",
     "de": "Grund Agenda",
     "es": "agenda básica",
-    "it": "Diario di base",
+    "it": "Agenda di base",
     "io": "crwdns13318:0crwdne13318:0"
   },
   "unlimitedEvents": {
@@ -316,7 +316,7 @@ module.exports = {
     "fr": "Agenda premium",
     "de": "Premium-Agenda",
     "es": "Eventos de primera calidad",
-    "it": "Diario Premium",
+    "it": "Agenda Premium",
     "io": "crwdns13350:0crwdne13350:0"
   },
   "premiumCalendars": {
@@ -364,7 +364,7 @@ module.exports = {
     "fr": "Circuit de validation étendu",
     "de": "Workflow-Management",
     "es": "circuito de validación extendida",
-    "it": "Circuito di convalida esteso",
+    "it": "Circuito di convalida",
     "io": "crwdns13362:0crwdne13362:0"
   },
   "membersHierarchy": {
@@ -586,9 +586,9 @@ module.exports = {
   "termsOfUse": {
     "en": "Terms of use",
     "fr": "Conditions d'utilisation",
-    "de": "Nutzungsbedingungen",
+    "de": "Nutzungbestimmungen",
     "es": "condiciones de uso",
-    "it": "Termini e condizioni di utilizzo",
+    "it": "Modalità d'utilizzo",
     "br": "Penndivizoù implij",
     "io": "crwdns13416:0crwdne13416:0",
     "oc": "Condicions d'utilizacion"

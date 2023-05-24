@@ -2,19 +2,13 @@
   "next.views.AgendaError.agendaNotFound": [
     {
       "type": 0,
-      "value": "Agenda not found"
-    }
-  ],
-  "next.views.AgendaError.contactSupport": [
-    {
-      "type": 0,
-      "value": "Contact support"
+      "value": "L'agenda non è stato trovato"
     }
   ],
   "next.views.AgendaError.forbiddenMsg": [
     {
       "type": 0,
-      "value": "You do not have access to this agenda."
+      "value": "Non avete accesso a questa agenda."
     },
     {
       "type": 1,
@@ -22,25 +16,13 @@
     },
     {
       "type": 0,
-      "value": "Check the link provided to you or request access."
-    }
-  ],
-  "next.views.AgendaError.internalError": [
-    {
-      "type": 0,
-      "value": "Internal error"
-    }
-  ],
-  "next.views.AgendaError.internalErrorMsg": [
-    {
-      "type": 0,
-      "value": "If the problem persists, please contact support."
+      "value": "Verificate il link che vi è stato fornito o richiedete l'accesso."
     }
   ],
   "next.views.AgendaError.notFoundMsg": [
     {
       "type": 0,
-      "value": "There is no calendar corresponding to this link."
+      "value": "Non esiste un calendario corrispondente a questo link."
     },
     {
       "type": 1,
@@ -48,19 +30,19 @@
     },
     {
       "type": 0,
-      "value": "Either the link is invalid or the calendar has been deleted."
+      "value": "O il link non è valido o il calendario è stato cancellato."
     }
   ],
   "next.views.AgendaError.orSignup": [
     {
       "type": 0,
-      "value": "Or "
+      "value": "Oppure "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "sign up"
+          "value": "iscriviti"
         }
       ],
       "type": 8,
@@ -68,19 +50,19 @@
     },
     {
       "type": 0,
-      "value": " if you don't have an account yet."
+      "value": " se non hai ancora un account."
     }
   ],
   "next.views.AgendaError.requestInvitation": [
     {
       "type": 0,
-      "value": "Request an invitation"
+      "value": "Richiedere un invito"
     }
   ],
   "next.views.AgendaError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Access to this agenda is restricted,"
+      "value": "L'accesso a questa agenda è limitato,"
     },
     {
       "children": [],
@@ -89,25 +71,25 @@
     },
     {
       "type": 0,
-      "value": " authenticate yourself before you can access it."
+      "value": " autenticarsi prima di potere accedere."
     }
   ],
   "next.views.AgendaError.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Cerca un'agenda"
     }
   ],
   "next.views.AgendaError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Accedi"
     }
   ],
   "next.views.AgendaError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "Access to this agenda is restricted,"
+      "value": "L'accesso a questa agenda è limitato,"
     },
     {
       "type": 1,
@@ -115,7 +97,7 @@
     },
     {
       "type": 0,
-      "value": " authenticate yourself before you can access it."
+      "value": " autenticarsi prima di potere accedere."
     }
   ]
 }

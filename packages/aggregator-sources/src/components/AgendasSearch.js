@@ -9,13 +9,14 @@ function AgendasSearch({ res, render, fieldProps }) {
   const apiClient = useApiClient();
 
   const agendasSearchRequest = useCallback(
-    ({ search, page }) => apiClient.get(res, {
-      params: {
-        search: search === '' ? undefined : search,
-        page,
-      },
-    }),
-    [apiClient, res]
+    ({ search, page }) =>
+      apiClient.get(res, {
+        params: {
+          search: search === '' ? undefined : search,
+          page,
+        },
+      }),
+    [apiClient, res],
   );
 
   const { state, list, nextPage } = useAgendasSearch({
@@ -26,7 +27,7 @@ function AgendasSearch({ res, render, fieldProps }) {
   const debouncedList = useMemo(() => _.debounce(list, 400), [list]);
   const throttledNextPage = useMemo(
     () => _.throttle(nextPage, 400, { trailing: false }),
-    [nextPage]
+    [nextPage],
   );
 
   const onSearch = useCallback(values => list(values.search), [list]);
@@ -51,13 +52,13 @@ function AgendasSearch({ res, render, fieldProps }) {
         />
       </form>
     ),
-    [debouncedList, state.listLoading, fieldProps]
+    [debouncedList, state.listLoading, fieldProps],
   );
 
-  const form = useMemo(() => <Form onSubmit={onSearch} render={renderForm} />, [
-    onSearch,
-    renderForm,
-  ]);
+  const form = useMemo(
+    () => <Form onSubmit={onSearch} render={renderForm} />,
+    [onSearch, renderForm],
+  );
 
   return render({ state, form, nextPage: throttledNextPage });
 }

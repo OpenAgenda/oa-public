@@ -14,7 +14,9 @@ import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
-import getSession from '../../utils/getSession';
+import getSession from 'utils/getSession';
+import { errorToJSON } from 'utils/errorToJSON';
+import { logError } from 'utils/sentry';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
@@ -117,20 +119,19 @@ export const getServerSideProps: GetServerSideProps = async ({
     const intlMessages = await AgendaError.fetchLocale(locale)
       .catch(() => ({}));
 
-    const statusCode = e.code || 500;
+    const statusCode = Number.isInteger(e.code) ? e.code : 500;
     res.statusCode = statusCode;
 
     const props: ErrorPageProps = {
-      errorStatusCode: statusCode,
+      statusCode,
       agendaSlug,
       intlMessages,
     };
 
+    props.error = errorToJSON(e);
+
     if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error(e);
-        props.errorStack = VError.fullStack(e);
-      }
+      logError(e);
     }
 
     return { props };
@@ -141,7 +142,7 @@ const AgendaPage: NextPageWithLayout<PageProps> = props => {
   const intl = useIntl();
   const { fallback = {} } = props;
 
-  if ('errorStatusCode' in props) {
+  if ('statusCode' in props) {
     return (
       <AgendaError {...props} />
     );

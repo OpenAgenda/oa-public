@@ -13,7 +13,8 @@ describe( 'session - unit (iso): cookie data validate', () => {
         culture: 'fr',
         uid: 12345678,
         thumbnail: '//graph.facebook.com/100002280111541/picture'
-      }
+      },
+      expires: undefined,
     };
 
     validate( cookieData ).should.eql( cookieData );

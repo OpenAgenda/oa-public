@@ -60,6 +60,7 @@
   "AgendaLocations.IT.adminLevel4": "City",
   "AgendaLocations.IT.adminLevel5": "adminLevel5",
   "AgendaLocations.IT.adminLevel6": "City District",
+  "AgendaLocations.LocationConfirmation.browseDetails": "Browse the detailed information below then confirm your choice at the bottom of this menu",
   "AgendaLocations.LocationConfirmation.cancel": "Select another location",
   "AgendaLocations.LocationConfirmation.confirm": "Confirm",
   "AgendaLocations.LocationConfirmation.guide": "Are the details of this location correct ?",

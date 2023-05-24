@@ -1,11 +1,11 @@
 'use strict';
 
 const _ = require('lodash');
-
+const { NotFound } = require('@openagenda/verror');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const utils = require('./lib/utils');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 module.exports = async (service, agendaUid, eventUid, options = {}) => {
   const {
@@ -14,10 +14,10 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
   } = service;
 
   if (!agendaUid) {
-    throw new Error('Agenda uid is missing');
+    throw new NotFound('Agenda uid is missing');
   }
   if (!eventUid) {
-    throw new Error('Event uid is missing');
+    throw new NotFound('Event uid is missing');
   }
 
   const {

@@ -233,7 +233,7 @@ async function agendaEventShow(req, res) {
       contributor: member ? { uid: member.userUid } : null,
       agendaSlug: req.agenda.slug,
       agendaImage: req.agenda.image
-        ? `${config.aws.imageBucketPath}${req.agenda.image}`
+        ? req.agenda.image
         : config.aws.defaultImagePath,
     },
     oaRoot: config.root,
@@ -350,7 +350,6 @@ module.exports = app => {
   app.get(
     '/:slug.prv/events/:eventSlug',
     preMw,
-    cmn.https,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
     cmn.ifIsNot(
       'agenda.private',
@@ -380,7 +379,6 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug',
     preMw,
-    cmn.https,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
     cmn.ifIs(
       'agenda.private',
@@ -433,6 +431,7 @@ module.exports = app => {
       legacyEventSvc.mw.components,
       formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
       middlewares.customEmbedEventShow,
+      (req, res) => res.send(req.render),
     ]),
   );
 
@@ -454,7 +453,6 @@ module.exports = app => {
   app.get(
     '/events/:eventSlug',
     preMw,
-    cmn.https,
     (req, res, next) => {
       const integer = parseInt(req.params.eventSlug, 10);
 
@@ -481,7 +479,6 @@ module.exports = app => {
   app.get(
     '/events/:eventUid',
     preMw,
-    cmn.https,
     legacyEventSvc.mw.load('eventUid', 'uid'),
     (req, res, next) => {
       req.agenda = req.event.origin;

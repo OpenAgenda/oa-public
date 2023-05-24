@@ -20,7 +20,7 @@ import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
-import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
+// import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 import messages from './messages';
@@ -47,7 +47,8 @@ function EventImage({ src, loader = null }) {
       height="56"
       src={src}
       fallbackSrc={isDev && typeof src === 'string'
-        ? src.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
+        ? src.replace('cibuldev', 'cibul')
+          .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)
         : undefined}
       fallbackStrategy="onError"
       alt=""
@@ -129,11 +130,12 @@ function EventsModalBody({ agenda, bundleState }) {
       // add the cursor to the API endpoint
       return ['contextBar', 'events', bundleState.key, pageIndex, previousPageData.after];
     },
-    (_comp, _requestId, requestedState, page, after) => {
+    ([_comp, _requestId, requestedState, page, after]) => {
       if (requestedState === 'drafts') {
         const searchParamsStr = qs.stringify({
           offset: (page || 0) * PAGE_SIZE,
           limit: PAGE_SIZE,
+          useDefaultImage: false,
         });
         return fetch(`/api/me/agendas/${agenda.uid}/events/drafts?${searchParamsStr}`)
           .then(r => {
@@ -154,12 +156,13 @@ function EventsModalBody({ agenda, bundleState }) {
         });
     },
     {
+      keepPreviousData: true,
       revalidateFirstPage: false,
       // revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      use: [swrLaggyMiddleware],
+      // use: [swrLaggyMiddleware],
     },
   );
 
@@ -218,7 +221,7 @@ export default function EventsModal({ isOpen, onClose, agenda, bundleState }) {
       onClose={onClose}
     >
       <ModalOverlay />
-      <ModalContent w="xl">
+      <ModalContent>
         <ModalHeader
           sx={{
             ':has(> .chakra-modal__close-btn)': {

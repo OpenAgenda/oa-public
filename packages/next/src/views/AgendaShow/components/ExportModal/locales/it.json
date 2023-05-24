@@ -1,1 +1,25 @@
-{}
+{
+  "gcalStep2": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
+  "gcalStep3": "3. Segui le istruzioni incollando il link che hai copiato al punto 1",
+  "instructions": "Istruzioni",
+  "instructionsCopyLink": "1. Copiare il link nel campo qui sopra e aprirlo",
+  "next.views.AgendaShow.ExportModal.cancel": "Annulla",
+  "next.views.AgendaShow.ExportModal.close": "Chiudere",
+  "next.views.AgendaShow.ExportModal.detailedFormat": "Usa il formato dettagliato",
+  "next.views.AgendaShow.ExportModal.documentation": "Vedere la documentazione",
+  "next.views.AgendaShow.ExportModal.exportAll": "Esportare tutti gli eventi",
+  "next.views.AgendaShow.ExportModal.exportJson": "<link1>Usa la versione precedente dell'esportazione JSON</link1> (Documentazione <link2>qui</link2>)",
+  "next.views.AgendaShow.ExportModal.exportSelection": "Esportare la selezione di eventi",
+  "next.views.AgendaShow.ExportModal.inputFormat": "Scegliere un formatto",
+  "next.views.AgendaShow.ExportModal.login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
+  "next.views.AgendaShow.ExportModal.title": "Esportare",
+  "next.views.AgendaShow.SpreadsheetOptions.all-fields": "Esportare tutte le informazione",
+  "next.views.AgendaShow.SpreadsheetOptions.all-languages": "Esportare tutte le lingue",
+  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": "Campi con opzioni: visualizza un valore per colonna",
+  "next.views.AgendaShow.SpreadsheetOptions.input-field": "Selezionare i campi da esportare",
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": "Selezionare tutto",
+  "outlookStep2": "2. In fondo alla pagina, seleziona l'icona del calendario",
+  "outlookStep3": "3. Nel pannello di navigazione, seleziona \"Aggiungi calendario\"",
+  "outlookStep4": "4. Selezionare \"Iscriviti dal web\"",
+  "outlookStep5": "5. Incolla l'URL che hai copiato nel passo 1. Selezionare \"Importa\"."
+}

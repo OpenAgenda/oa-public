@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useState, useCallback, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -8,11 +8,11 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
 import { css } from '@emotion/react';
+import { ErrorBoundary } from '@sentry/react';
 import session from '@openagenda/sessions/client';
 import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications';
 import * as mainActions from '../reducers/main';
 import ChildLayouts from '../components/ChildLayouts';
-import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
 import Logo from '../components/Logo';
 import Search from '../components/Search';
@@ -102,8 +102,7 @@ function MainLayout({
   childLayouts,
   children,
   extraProps,
-  onError,
-  FallbackComponent,
+  fallback,
   history,
 }) {
   const intl = useIntl();
@@ -112,7 +111,8 @@ function MainLayout({
 
   const user = useSelector(state => state.main.user, shallowEqual);
   const userLoaded = useSelector(state => state.main.userLoaded);
-  const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
+  const userLoading = useSelector(state =>
+    _.get(state, 'main.userLoading', true));
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
   const isTranslator = useSelector(state => state.main.isTranslator);
@@ -123,17 +123,17 @@ function MainLayout({
 
   const loadLayoutData = useCallback(
     () => dispatch(mainActions.getUser()),
-    [dispatch]
+    [dispatch],
   );
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
-    [dispatch]
+    [dispatch],
   );
 
   const toggleUserPanel = useCallback(
     () => setUserPanelOpened(state => !state),
-    [setUserPanelOpened]
+    [setUserPanelOpened],
   );
 
   const closeUserPanel = useCallback(() => {
@@ -148,16 +148,16 @@ function MainLayout({
       toggleUserPanel();
       history.push(path);
     },
-    [history, toggleUserPanel]
+    [history, toggleUserPanel],
   );
 
   const ErrorComponent = useCallback(
-    props => React.createElement(FallbackComponent, { ...props, lang: intl.locale }),
-    [FallbackComponent, intl.locale]
+    props => React.createElement(fallback, { ...props, lang: intl.locale }),
+    [fallback, intl.locale],
   );
 
   const [sessionUser, setSessionUser] = useState(
-    typeof document !== 'undefined' ? getDefaultSessionUser : null
+    typeof document !== 'undefined' ? getDefaultSessionUser : null,
   );
 
   useInterval(() => {
@@ -199,7 +199,7 @@ function MainLayout({
     setViewedAnnoucement(
       user?.announcement
         && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
-          === user.announcement.id
+          === user.announcement.id,
     );
   }, [user]);
 
@@ -288,7 +288,7 @@ function MainLayout({
                           {
                             'collapse in': userPanelOpened,
                             collapsed: !userPanelOpened,
-                          }
+                          },
                         )}
                         role="menu"
                       >
@@ -366,15 +366,14 @@ function MainLayout({
         />
       ) : null}
 
-      <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
+      <ErrorBoundary fallback={ErrorComponent}>
         {userLoading ? (
           <Loading />
         ) : (
           <ChildLayouts
             layouts={childLayouts}
             extraProps={extraProps}
-            onError={onError}
-            FallbackComponent={ErrorComponent}
+            fallback={ErrorComponent}
             // additional extraProps
             user={user}
             lang={intl.locale}

@@ -8,7 +8,7 @@
   "next.views.AgendaShow.AggregateModal.noAgenda": [
     {
       "type": 0,
-      "value": "Warning: You are not currently administering any agenda. You need to create one before you can aggregate "
+      "value": "Attenzione: Al momento non si sta amministrando alcuna agenda. È necessario crearne una prima di poter aggregare "
     },
     {
       "type": 1,
@@ -22,19 +22,19 @@
   "next.views.AgendaShow.AggregateModal.shouldConnect": [
     {
       "type": 0,
-      "value": "You need to sign in to your account to aggregate this agenda."
+      "value": "È necessario accedere al proprio account per aggregare questa agenda."
     }
   ],
   "next.views.AgendaShow.AggregateModal.signin": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Accedi"
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
-      "value": "Events published by "
+      "value": "Gli eventi pubblicati da "
     },
     {
       "type": 1,
@@ -42,7 +42,7 @@
     },
     {
       "type": 0,
-      "value": " will be automatically added to the selected agenda."
+      "value": " saranno aggiunti automaticamente all'agenda selezionata."
     }
   ],
   "next.views.AgendaShow.AggregateModal.title": [

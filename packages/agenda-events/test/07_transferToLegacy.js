@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const mysql = require('mysql');
 const should = require('should');
-const queue = require('@openagenda/queue');
 
 const Service = require('../');
 const config = require('../testconfig');
