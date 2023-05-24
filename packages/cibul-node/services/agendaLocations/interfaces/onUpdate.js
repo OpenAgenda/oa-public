@@ -4,8 +4,8 @@ const _ = require('lodash');
 const { diff } = require('deep-diff');
 const labels = require('@openagenda/labels/agenda-locations/exportHeaders');
 const VError = require('@openagenda/verror');
-const createLocationFeeds = require('../lib/createLocationFeeds');
 const log = require('@openagenda/logs')('services/agendaLocations/onUpdate');
+const createLocationFeeds = require('../lib/createLocationFeeds');
 
 function getFieldReadAccess(fieldSchema) {
   if (!fieldSchema.read || fieldSchema.read.includes('contributor')) {
@@ -21,7 +21,7 @@ function getFieldReadAccess(fieldSchema) {
   }
 }
 
-module.exports = (queue, services) => {
+module.exports = function onUpdate(queue, services) {
   return async (before, after, context) => {
     log('location %s', before.uid);
     try {
@@ -35,8 +35,6 @@ module.exports = (queue, services) => {
       log('error', 'failed to evaluate distance', e);
     }
 
-    console.log('context', context);
-
     // Activity
     const { core, activities, members } = services;
     const { agendaUid, userUid } = context;
@@ -46,6 +44,7 @@ module.exports = (queue, services) => {
       agenda = await core.agendas(agendaUid).get({
         detailed: true,
         access: 'internal',
+        includeEvent: true,
         private: null,
       });
     } catch (e) {

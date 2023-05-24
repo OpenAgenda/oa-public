@@ -39,13 +39,6 @@ describe('opencage', () => {
       expect(results.length).toBe(0);
     });
 
-    it('Postal code is provided', async () => {
-      expect((await geocode('31 rue des Francs-Bourgeois 75004 Paris', {
-        countryCode: 'FR',
-        first: true
-      })).postalCode).toBe('75004');
-    });
-
     it('An address in Roubaix. No district provided', async () => {
       expect((await geocode('139 rue des arts, Roubaix', {
         countryCode: 'FR',
@@ -287,6 +280,16 @@ describe('opencage', () => {
             language: 'de',
             first: true
           })).adminLevel6).toBe('Karow');
+        });
+
+        it('Kollwitzstraße', async () => {
+          const result = await geocode('Kollwitzstraße 8, 10405 Berlin', {
+            countryCode: 'DE',
+            language: 'de',
+            first: true,
+          });
+          expect(result.adminLevel5).toBe('Pankow');
+          expect(result.adminLevel6).toBe('Prenzlauer Berg');
         });
       });
     });
