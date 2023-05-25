@@ -813,15 +813,15 @@ module.exports = {
   },
   "readAccess": {
     "fr": "Lecture",
-    "en": "Linked to %fieldName% field",
-    "es": "Relacionado con el campo %fieldName%",
-    "it": "Relativo al campo %fieldName%",
+    "en": "Read",
+    "es": "Lectura",
+    "it": "Lettura",
   },
   "writeAccess": {
     "fr": "Écriture",
-    "en": "Linked to %fieldName% field",
-    "es": "Relacionado con el campo %fieldName%",
-    "it": "Relativo al campo %fieldName%",
+    "en": "Write",
+    "es": "Escritura",
+    "it": "Scrittura",
   },
   "adminAccess": {
     "fr": "administrateur",
