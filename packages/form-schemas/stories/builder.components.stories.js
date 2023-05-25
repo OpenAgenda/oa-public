@@ -665,7 +665,7 @@ export function FieldPreview() {
         <h2 className="text-center margin-v-md">Field access</h2>
 
         <div className="col-lg-4 col-md-6">
-          <strong>enableWith is an object containing the name of the linked field and the values triggering the enable</strong>
+          <strong>Field with a single or multiple access right</strong>
           <FormSchemaBuilder
             {...getBuilderProps([
               {
