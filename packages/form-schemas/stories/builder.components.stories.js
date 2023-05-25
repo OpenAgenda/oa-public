@@ -662,6 +662,51 @@ export function FieldPreview() {
       </div>
 
       <div className="row">
+        <h2 className="text-center margin-v-md">Field access</h2>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>enableWith is an object containing the name of the linked field and the values triggering the enable</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                field: 'un-premier-champ',
+                label: 'Un premier champ',
+                fieldType: 'text',
+                write: [
+                  'administrator',
+                  'moderator',
+                ],
+              },
+              {
+                field: 'un-deuxieme-champ',
+                label: 'Un deuxième champ',
+                fieldType: 'text',
+                read: [
+                  'administrator',
+                  'contributor',
+                ],
+              },
+              {
+                field: 'un-troisieme-champ',
+                label: 'Un troisième champ',
+                fieldType: 'text',
+                write: [
+                  'administrator',
+
+                ],
+                read: [
+                  'administrator',
+                  'moderator',
+                  'contributor',
+                ],
+              },
+            ])}
+          />
+        </div>
+
+      </div>
+
+      <div className="row">
         <h2 className="text-center margin-v-md">Standard fields</h2>
         <div className="col-lg-4 col-md-6">
           <strong>Field with boolean</strong>
