@@ -413,8 +413,6 @@ module.exports = core => {
         {
           context: {
             userUid: req.user.uid,
-            agendaUid: req.agenda.uid,
-            setUid: req.agenda.setUid,
           },
         },
       )
@@ -431,7 +429,11 @@ module.exports = core => {
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .patch(req.locationIdentifier, req.parsedData)
+      .patch(req.locationIdentifier, req.parsedData, {
+        context: {
+          userUid: req.user.uid,
+        },
+      })
       .then(location => res.json({
         success: true,
         location,
@@ -448,8 +450,6 @@ module.exports = core => {
       .remove(req.locationIdentifier, {
         context: {
           userUid: req.user.uid,
-          agendaUid: req.agenda.uid,
-          setUid: req.agenda.setUid,
         },
       })
       .then(location => res.json({

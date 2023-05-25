@@ -7,6 +7,10 @@ module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
     agendaLocations,
   } = core.services;
 
+  const {
+    context = {},
+  } = options;
+
   const agenda = await getAgenda(core.services, agendaOrUid);
 
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
@@ -15,6 +19,10 @@ module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
     geocodeIfUndefined: true,
     includeImagePath: true,
     agendaUid: agenda.uid,
-    context: options.context,
+    context: {
+      ...context,
+      agendaUid: agenda.uid,
+      setUid: agenda.setUid,
+    },
   });
 };
