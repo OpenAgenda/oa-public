@@ -6,7 +6,7 @@ const log = require('@openagenda/logs')('activities/notifications/tasks/addActiv
 
 module.exports = config => {
   const queue = config.queues.addActivity;
-  
+
   queue.register({
     addActivity: addActivityTask.bind(null, config)
   });
@@ -30,7 +30,7 @@ async function addActivityTask(config, { identifiers, activity }) {
     await addActivity(config, identifiers, activity);
   } catch (e) {
     if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
-      log('error', 'Error in addActivity task:', e);
+      log.error(new VError(e, 'Error in addActivity task'));
     }
   }
 }
