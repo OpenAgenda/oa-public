@@ -9,7 +9,7 @@ import {
   isFieldMultilingual,
   isFieldLinked,
   getFieldTypeIcon,
-  isAccessUnknown,
+  isAccessUndefined,
   getFieldAccess,
 } from './utils';
 
@@ -84,7 +84,7 @@ export default function Head(props) {
       >
         {getLabelPrefix(field, lang)}{getLocaleValue(field.label, lang)}
       </label>
-      {isAccessUnknown(field) ? null
+      {isAccessUndefined(field) ? null
         : (
           <span className="form-tooltip-icon icon-hide margin-right-xs">
             {hasIcon ? <i className="access" /> : null }

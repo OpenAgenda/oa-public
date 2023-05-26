@@ -10,7 +10,7 @@ import {
   getDefaultValueLabel,
   getFieldTypeIcon,
   allowItemDisplayToggle,
-  isAccessUnknown,
+  isAccessUndefined,
   getFieldAccess,
 } from './utils';
 
@@ -149,7 +149,7 @@ export default function Content(props) {
           </>
         ) : null}
       </div>
-      {isAccessUnknown(field) ? null
+      {isAccessUndefined(field) ? null
         : (
           <div className="margin-top-xs">
             <span className="form-icon margin-right-sm">

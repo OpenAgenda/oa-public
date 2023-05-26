@@ -112,21 +112,8 @@ export function allowItemDisplayToggle(field) {
   return false;
 }
 
-export const isAccessUnknown = field => {
-  if (field.read === null && field.write === null) {
-    return true;
-  }
-  if (!field.read && !field.write) {
-    return true;
-  }
-  if (field.read === null && !field.write) {
-    return true;
-  }
-  if (field.write === null && !field.read) {
-    return true;
-  }
-};
-
+export const isAccessUndefined = field =>
+  !field.read && !field.write;
 export function getFieldAccess(field, lang) {
   const multilingual = {
     administrator: getLabel('adminAccess', lang),
@@ -137,17 +124,17 @@ export function getFieldAccess(field, lang) {
   const writeFieldAccess = field?.write?.map(access => multilingual[access]).join(', ');
   const readFieldAccess = field?.read?.map(access => multilingual[access]).join(', ');
 
-  if ((field.write && !field.read) || (field.write && field.read === null)) {
+  if (field.write && !field.read) {
     return (
       <>{getLabel('writeAccess', lang)}: {writeFieldAccess}</>
     );
   }
-  if ((field.read && !field.write) || (field.read && field.write === null)) {
+  if (field.read && !field.write) {
     return (
       <>{getLabel('readAccess', lang)}: {readFieldAccess}</>
     );
   }
-  if ((field.write && field.read) || (field.write !== null && field.read !== null)) {
+  if (field.write && field.read) {
     return (
       <>
         <span>{getLabel('readAccess', lang)}: {readFieldAccess}</span>

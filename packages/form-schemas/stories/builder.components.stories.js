@@ -670,7 +670,7 @@ export function FieldPreview() {
             {...getBuilderProps([
               {
                 field: 'un-premier-champ',
-                label: 'Un premier champ',
+                label: 'Un champ restreint aux adminmods à l\'écriture',
                 fieldType: 'text',
                 write: [
                   'administrator',
@@ -679,7 +679,7 @@ export function FieldPreview() {
               },
               {
                 field: 'un-deuxieme-champ',
-                label: 'Un deuxième champ',
+                label: 'Un champ restreint aux admincontrib en lecture',
                 fieldType: 'text',
                 read: [
                   'administrator',
@@ -688,7 +688,7 @@ export function FieldPreview() {
               },
               {
                 field: 'un-troisieme-champ',
-                label: 'Un troisième champ',
+                label: 'Un champ restreint aux admin en écriture et aux adminmodscontrib en lecture',
                 fieldType: 'text',
                 write: [
                   'administrator',
