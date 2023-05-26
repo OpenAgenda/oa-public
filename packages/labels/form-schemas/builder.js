@@ -812,5 +812,36 @@ module.exports = {
     "es": "Relacionado con el campo %fieldName%",
     "it": "Relativo al campo %fieldName%",
     "io": "crwdns32917:0%fieldName%crwdne32917:0"
+  },
+  "readAccess": {
+    "fr": "Lecture",
+    "en": "Read",
+    "es": "Lectura",
+    "it": "Lettura",
+  },
+  "writeAccess": {
+    "fr": "Écriture",
+    "en": "Write",
+    "es": "Escritura",
+    "it": "Scrittura",
+  },
+  "adminAccess": {
+    "fr": "administrateur",
+    "en": "adminitrator",
+    "es": "administrador",
+    "it": "administratore",
+  },
+  "moderatorAccess": {
+    "fr": "moderateur",
+    "en": "moderator",
+    "es": "moderador",
+    "it": "moderatore",
+  },
+  "contributorAccess": {
+    "fr": "contributeur",
+    "en": "contributor",
+    "es": "ccontribuidor",
+    "it": "contributore",
   }
+
 }

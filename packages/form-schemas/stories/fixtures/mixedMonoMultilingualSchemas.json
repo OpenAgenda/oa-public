@@ -7,11 +7,19 @@
         {
             "field": "status",
             "display": true,
-            "fieldType": "abstract"
+            "fieldType": "abstract",
+            "write": [
+                "administrator",
+                "moderator"
+            ]
         },
         {
             "field": "languages",
-            "fieldType": "abstract"
+            "fieldType": "abstract",
+            "read": [
+                "administrator",
+                "moderator"
+            ]
         },
         {
             "field": "title",

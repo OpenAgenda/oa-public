@@ -10,6 +10,8 @@ import {
   getDefaultValueLabel,
   getFieldTypeIcon,
   allowItemDisplayToggle,
+  isAccessUndefined,
+  getFieldAccess,
 } from './utils';
 
 import {
@@ -119,7 +121,7 @@ export default function Content(props) {
           : (
             <span className="form-icon margin-right-sm">
               <i className="hidden-field" />
-              <span className="optional">{getLabel('hiddenField', lang)}</span>
+              <span className="his-hidden">{getLabel('hiddenField', lang)}</span>
             </span>
           )}
         {field.fieldType ? (
@@ -147,6 +149,15 @@ export default function Content(props) {
           </>
         ) : null}
       </div>
+      {isAccessUndefined(field) ? null
+        : (
+          <div className="margin-top-xs">
+            <span className="form-icon margin-right-sm">
+              <i className="access" />
+              <span className="his-hidden">{getFieldAccess(field, lang)}</span>
+            </span>
+          </div>
+        )}
       {field.field ? (
         <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>{getLabel('jsonKey', lang)}: {field.field}</div>
       ) : null }
