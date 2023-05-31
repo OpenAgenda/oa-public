@@ -16,6 +16,7 @@ const getPermalink = require('../lib/getPermalink');
 const convertKeywords = require('../lib/convertKeywords');
 const convertAge = require('../lib/convertAge');
 const convertMember = require('../lib/convertMember');
+const flattenTagSet = require('../../utils/flattenTagSet');
 
 const bordeauxFormSchema = require('./fixtures/bordeaux.formSchema.json');
 const bordeauxTagSet = require('./fixtures/bordeaux.tagSet.json');
@@ -31,6 +32,7 @@ const meudonEventV1 = require('./fixtures/meudon.eventV1.json');
 const meudonEventV2 = require('./fixtures/meudon.eventV2.json');
 const meudonTagSet = require('./fixtures/meudon.tagSet.json');
 const meudonFormSchema = require('./fixtures/meudon.formSchema.json');
+const JNAFlattenTagSet = require('./fixtures/JNA.flattenTagSet.json');
 
 const bordeauxAgendaSettings = {
   legacy: bordeauxTagSet,
@@ -150,9 +152,19 @@ describe('Return the event\'s tagGroup', () => {
   });
 
   test('Event with tags', () => {
+
     expect(getTags(lilleAgendaSettings, lilleEventV2)).toStrictEqual(
       { tagGroups: lilleEventV1.tagGroups, tags: lilleEventV1.tags },
     );
+  });
+});
+
+describe('Fixes', () => {
+  test('fieldSlug should strictly match with flattened tagSet values', () => {
+    const result = flattenTagSet(JNAFlattenTagSet.tagSet, JNAFlattenTagSet.tagFields);
+
+    expect(result[0].fieldSlug).toBeUndefined();
+    expect(result[1].fieldSlug).toBe('cocher-la-case-si-vous-etes-en-lien-avec-un-partenaire-national-de-loperation-agenda');
   });
 });
 

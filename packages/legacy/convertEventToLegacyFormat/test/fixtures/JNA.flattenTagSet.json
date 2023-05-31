@@ -1,0 +1,270 @@
+{
+  "tagSet":     {
+    "groups": [
+      {
+        "name": "Type d'événement",
+        "required": true,
+        "unique": true,
+        "access": "public",
+        "tags": [
+          {
+            "slug": "conference-et-table-ronde",
+            "label": "Conférence et table-ronde",
+            "schemaOptionId": "31018.4",
+            "id": 132501
+          }
+        ]
+      },
+      {
+        "name": "Cocher la case si vous êtes en lien avec un partenaire national de l'opération",
+        "required": true,
+        "unique": false,
+        "access": "public",
+        "tags": [
+          {
+            "slug": "bonduelle",
+            "label": "Bonduelle",
+            "schemaOptionId": "34142.4",
+            "id": 132539
+          }
+        ]
+      }
+    ]
+  },
+  "tagFields": [
+    {
+      "field": "type-devenement",
+      "label": "Type d'événement",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "options": [
+        {
+          "id": 1,
+          "value": "atelier-et-jeux",
+          "label": {
+            "fr": "Atelier et jeux"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 31018,
+      "schemaType": "network"
+    },
+    {
+      "field": "thematiques-de-votre-evenement-pour-les-jnagri-etou-votre-filiere-animation-de-decouverte-des-metiers",
+      "label": "Thématique(s) de votre événement pour les JNAgri et/ou votre filière",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 62,
+          "value": "animation-de-decouverte-des-metiers",
+          "label": "Animation de découverte des métiers",
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 34142,
+      "schemaType": "agenda"
+    },
+    {
+      "field": "type-de-public",
+      "label": {
+        "fr": "Type de public"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "options": [
+        {
+          "id": 29,
+          "value": "tout-public",
+          "label": {
+            "fr": "Tout public"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "multiselect",
+      "schemaId": 31018,
+      "schemaType": "network"
+    },
+    {
+      "field": "conditions-de-participation",
+      "label": {
+        "fr": "Tarif"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "options": [
+        {
+          "id": 33,
+          "value": "acces-libre",
+          "label": {
+            "fr": "Accès libre"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 34,
+          "value": "entree-payante",
+          "label": {
+            "fr": "Entrée payante"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "select",
+      "schemaId": 31018,
+      "schemaType": "network"
+    },
+    {
+      "field": "type-de-structure",
+      "label": {
+        "fr": "Type de structure"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "fr": "Quelle structure organisatrice êtes-vous ?"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "options": [
+        {
+          "id": 111,
+          "value": "association",
+          "label": {
+            "fr": "Association"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 31018,
+      "schemaType": "network"
+    },
+    {
+      "field": "cocher-la-case-si-vous-etes-en-lien-avec-un-partenaire-national-de-loperation-agenda",
+      "label": "Cocher la case si vous êtes en lien avec un partenaire national de l'opération",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "selfHandled": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 4,
+          "value": "bonduelle",
+          "label": "Bonduelle",
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 34142,
+      "schemaType": "agenda"
+    }
+  ]
+}

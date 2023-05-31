@@ -1,0 +1,3668 @@
+{
+  "agendaSettings": {
+    "uid": "5643135",
+    "slug": "jna2023",
+    "legacy": {
+      "tagSet": {
+        "groups": [
+          {
+            "name": "Type d'événement",
+            "required": true,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "atelier-et-jeux",
+                "label": "Atelier et jeux",
+                "schemaOptionId": "31018.1",
+                "id": 132498
+              },
+              {
+                "slug": "animation-en-ligne",
+                "label": "Animation en ligne",
+                "schemaOptionId": "31018.2",
+                "id": 132499
+              },
+              {
+                "slug": "concours",
+                "label": "Concours",
+                "schemaOptionId": "31018.3",
+                "id": 132500
+              },
+              {
+                "slug": "conference-et-table-ronde",
+                "label": "Conférence et table-ronde",
+                "schemaOptionId": "31018.4",
+                "id": 132501
+              },
+              {
+                "slug": "demonstration-de-savoir-faire",
+                "label": "Démonstration de savoir-faire",
+                "schemaOptionId": "31018.5",
+                "id": 132502
+              },
+              {
+                "slug": "exposition",
+                "label": "Exposition",
+                "schemaOptionId": "31018.6",
+                "id": 132503
+              },
+              {
+                "slug": "degustation-buffet-collation",
+                "label": "Dégustation, buffet, collation...",
+                "schemaOptionId": "31018.7",
+                "id": 132504
+              },
+              {
+                "slug": "marche-et-vente-de-produits",
+                "label": "Marché et vente de produits",
+                "schemaOptionId": "31018.8",
+                "id": 132505
+              },
+              {
+                "slug": "prix-et-palmares",
+                "label": "Prix et palmarès",
+                "schemaOptionId": "31018.9",
+                "id": 132506
+              },
+              {
+                "slug": "projection",
+                "label": "Projection",
+                "schemaOptionId": "31018.10",
+                "id": 132507
+              },
+              {
+                "slug": "randonnee",
+                "label": "Randonnée",
+                "schemaOptionId": "31018.224",
+                "id": 132508
+              },
+              {
+                "slug": "spectacle",
+                "label": "Spectacle",
+                "schemaOptionId": "31018.11",
+                "id": 132509
+              },
+              {
+                "slug": "journee-portes-ouvertes-salon-festival",
+                "label": "Journée portes ouvertes, salon, festival...",
+                "schemaOptionId": "31018.12",
+                "id": 132510
+              },
+              {
+                "slug": "visite-guidee-visite-insolite",
+                "label": "Visite guidée / visite insolite",
+                "schemaOptionId": "31018.13",
+                "id": 132511
+              },
+              {
+                "slug": "visite-libre",
+                "label": "Visite libre",
+                "schemaOptionId": "31018.136",
+                "id": 132512
+              },
+              {
+                "slug": "autre-precisez-dans-le-champ-ci-dessous",
+                "label": "Autre (précisez dans le champ ci-dessous)",
+                "schemaOptionId": "31018.14",
+                "id": 132532
+              }
+            ]
+          },
+          {
+            "name": "Thématique(s) de votre événement pour les JNAgri et/ou votre filière",
+            "required": true,
+            "unique": false,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "animation-de-decouverte-des-metiers",
+                "label": "Animation de découverte des métiers",
+                "schemaOptionId": "34142.62",
+                "id": 138541
+              },
+              {
+                "slug": "aquaculture-et-peche",
+                "label": "Aquaculture et pêche",
+                "schemaOptionId": "34142.49",
+                "id": 138542
+              },
+              {
+                "slug": "biodiversite-et-ecologie",
+                "label": "Biodiversité et écologie",
+                "schemaOptionId": "34142.50",
+                "id": 138543
+              },
+              {
+                "slug": "cultures-de-plein-champs",
+                "label": "Cultures de plein champs",
+                "schemaOptionId": "34142.51",
+                "id": 138544
+              },
+              {
+                "slug": "elevage",
+                "label": "Elevage",
+                "schemaOptionId": "34142.52",
+                "id": 138545
+              },
+              {
+                "slug": "forets",
+                "label": "Forêts",
+                "schemaOptionId": "34142.53",
+                "id": 138546
+              },
+              {
+                "slug": "machinismeagroequipement",
+                "label": "Machinisme/agroéquipement",
+                "schemaOptionId": "34142.54",
+                "id": 138547
+              },
+              {
+                "slug": "maraichagehorticulturearboriculture",
+                "label": "Maraîchage/horticulture/arboriculture",
+                "schemaOptionId": "34142.55",
+                "id": 138548
+              },
+              {
+                "slug": "paysage-et-espaces-verts",
+                "label": "Paysage et espaces verts",
+                "schemaOptionId": "34142.56",
+                "id": 138549
+              },
+              {
+                "slug": "productions-insolites-energie-races-insolites-ppam",
+                "label": "Productions insolites (énergie, races insolites, PPAM..)",
+                "schemaOptionId": "34142.57",
+                "id": 138550
+              },
+              {
+                "slug": "recherche-et-enseignement",
+                "label": "Recherche et enseignement",
+                "schemaOptionId": "34142.58",
+                "id": 138551
+              },
+              {
+                "slug": "transformation-et-vente-de-produits-agroalimentaire-artisanat-circuit-court",
+                "label": "Transformation et vente de produits (agroalimentaire, artisanat, circuit-court)",
+                "schemaOptionId": "34142.59",
+                "id": 138552
+              },
+              {
+                "slug": "viticulture",
+                "label": "Viticulture",
+                "schemaOptionId": "34142.60",
+                "id": 138553
+              }
+            ]
+          },
+          {
+            "name": "Type de public",
+            "required": true,
+            "unique": false,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "tout-public",
+                "label": "Tout public",
+                "schemaOptionId": "31018.29",
+                "id": 132514
+              },
+              {
+                "slug": "jeune-public",
+                "label": "Jeune public",
+                "schemaOptionId": "31018.30",
+                "id": 132515
+              },
+              {
+                "slug": "public-adulte",
+                "label": "Public adulte",
+                "schemaOptionId": "31018.31",
+                "id": 132516
+              },
+              {
+                "slug": "reserve-aux-scolaires",
+                "label": "Réservé aux scolaires",
+                "schemaOptionId": "31018.32",
+                "id": 132517
+              },
+              {
+                "slug": "reserve-aux-professionnels",
+                "label": "Réservé aux professionnels",
+                "schemaOptionId": "31018.166",
+                "id": 132518
+              }
+            ]
+          },
+          {
+            "name": "Tarif",
+            "required": true,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "acces-libre",
+                "label": "Accès libre",
+                "schemaOptionId": "31018.33",
+                "id": 132519
+              },
+              {
+                "slug": "entree-payante",
+                "label": "Entrée payante",
+                "schemaOptionId": "31018.34",
+                "id": 132520
+              }
+            ]
+          },
+          {
+            "name": "Condition de participation",
+            "required": true,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "acces-libre",
+                "label": "Accès libre",
+                "schemaOptionId": "34142.63",
+                "id": 132519
+              },
+              {
+                "slug": "sur-reservation",
+                "label": "Sur réservation",
+                "schemaOptionId": "34142.64",
+                "id": 138554
+              }
+            ]
+          },
+          {
+            "name": "Animation sur inscription",
+            "required": true,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "oui",
+                "label": "Oui",
+                "schemaOptionId": "31018.131",
+                "id": 132535
+              },
+              {
+                "slug": "non",
+                "label": "Non",
+                "schemaOptionId": "31018.132",
+                "id": 132536
+              }
+            ]
+          },
+          {
+            "name": "Type de structure",
+            "required": true,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "association",
+                "label": "Association",
+                "schemaOptionId": "31018.111",
+                "id": 132523
+              },
+              {
+                "slug": "collectivite-territoriale",
+                "label": "Collectivité territoriale",
+                "schemaOptionId": "31018.112",
+                "id": 132524
+              },
+              {
+                "slug": "ecole-etablissement-denseignement",
+                "label": "École / Établissement d’enseignement",
+                "schemaOptionId": "31018.113",
+                "id": 132525
+              },
+              {
+                "slug": "entreprise-agricole-ou-para-agricole",
+                "label": "Entreprise agricole ou para-agricole",
+                "schemaOptionId": "31018.114",
+                "id": 132526
+              },
+              {
+                "slug": "entreprise-agroalimentaire",
+                "label": "Entreprise agroalimentaire",
+                "schemaOptionId": "31018.115",
+                "id": 132527
+              },
+              {
+                "slug": "exploitation-ou-groupement-agricole",
+                "label": "Exploitation ou groupement agricole",
+                "schemaOptionId": "31018.116",
+                "id": 132528
+              },
+              {
+                "slug": "federation-ou-syndicat",
+                "label": "Fédération ou syndicat",
+                "schemaOptionId": "31018.117",
+                "id": 132529
+              },
+              {
+                "slug": "instituts-de-recherche",
+                "label": "Instituts de recherche",
+                "schemaOptionId": "31018.118",
+                "id": 132530
+              },
+              {
+                "slug": "point-de-vente",
+                "label": "Point de vente",
+                "schemaOptionId": "31018.119",
+                "id": 132531
+              },
+              {
+                "slug": "autre-precisez-dans-le-champ-ci-dessous",
+                "label": "Autre (précisez dans le champ ci-dessous)",
+                "schemaOptionId": "31018.120",
+                "id": 132532
+              }
+            ]
+          },
+          {
+            "name": "Cocher la case si vous êtes en lien avec un partenaire national de l'opération",
+            "required": true,
+            "unique": false,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "agridemain",
+                "label": "#agridemain",
+                "schemaOptionId": "34142.2",
+                "id": 132537
+              },
+              {
+                "slug": "u-enseigne-hyper-u-super-u-u-express-utile",
+                "label": "U Enseigne (Hyper U, Super U, U Express, Utile)",
+                "schemaOptionId": "34142.3",
+                "id": 132538
+              },
+              {
+                "slug": "bonduelle",
+                "label": "Bonduelle",
+                "schemaOptionId": "34142.4",
+                "id": 132539
+              },
+              {
+                "slug": "marche-international-de-rungis",
+                "label": "Marché international de Rungis",
+                "schemaOptionId": "34142.5",
+                "id": 138555
+              },
+              {
+                "slug": "inrae",
+                "label": "Inrae",
+                "schemaOptionId": "34142.10",
+                "id": 132542
+              },
+              {
+                "slug": "invivo",
+                "label": "InVivo",
+                "schemaOptionId": "34142.11",
+                "id": 132541
+              },
+              {
+                "slug": "mutualia",
+                "label": "Mutualia",
+                "schemaOptionId": "34142.9",
+                "id": 138556
+              },
+              {
+                "slug": "apecita",
+                "label": "apecita",
+                "schemaOptionId": "34142.67",
+                "id": 138557
+              },
+              {
+                "slug": "axema",
+                "label": "Axema",
+                "schemaOptionId": "34142.7",
+                "id": 132551
+              },
+              {
+                "slug": "agriculture-biologique-agence-bio",
+                "label": "Agriculture Biologique (Agence Bio)",
+                "schemaOptionId": "34142.12",
+                "id": 138558
+              },
+              {
+                "slug": "ministere-de-lagriculture-et-de-lalimentation",
+                "label": "Ministère de l'Agriculture et de l'Alimentation",
+                "schemaOptionId": "34142.13",
+                "id": 138559
+              },
+              {
+                "slug": "academie-dagriculture-de-france",
+                "label": "Académie d’Agriculture de France",
+                "schemaOptionId": "34142.14",
+                "id": 132545
+              },
+              {
+                "slug": "acta",
+                "label": "Acta",
+                "schemaOptionId": "34142.37",
+                "id": 138560
+              },
+              {
+                "slug": "association-francaise-dagriculture-urbaine",
+                "label": "Association Française d'Agriculture Urbaine",
+                "schemaOptionId": "34142.18",
+                "id": 132550
+              },
+              {
+                "slug": "agriculteurs-de-bretagne",
+                "label": "Agriculteurs de Bretagne",
+                "schemaOptionId": "34142.15",
+                "id": 132547
+              },
+              {
+                "slug": "agridees",
+                "label": "agriDées",
+                "schemaOptionId": "34142.68",
+                "id": 138561
+              },
+              {
+                "slug": "agroparistech-alumni",
+                "label": "AgroParisTech Alumni",
+                "schemaOptionId": "34142.16",
+                "id": 132548
+              },
+              {
+                "slug": "anefa",
+                "label": "ANEFA",
+                "schemaOptionId": "34142.17",
+                "id": 132549
+              },
+              {
+                "slug": "bienvenue-a-la-ferme",
+                "label": "Bienvenue à la ferme",
+                "schemaOptionId": "34142.19",
+                "id": 132552
+              },
+              {
+                "slug": "bleu-blanc-coeur",
+                "label": "Bleu Blanc Cœur",
+                "schemaOptionId": "34142.20",
+                "id": 132553
+              },
+              {
+                "slug": "blue-bees",
+                "label": "Blue Bees",
+                "schemaOptionId": "34142.69",
+                "id": 138562
+              },
+              {
+                "slug": "bouge-ton-coq",
+                "label": "Bouge ton coq",
+                "schemaOptionId": "34142.70",
+                "id": 138563
+              },
+              {
+                "slug": "cest-qui-le-patron",
+                "label": "C'est qui le patron",
+                "schemaOptionId": "34142.71",
+                "id": 138564
+              },
+              {
+                "slug": "agricultures-et-territoires-chambres-dagriculture",
+                "label": "Agricultures et territoires - Chambres d'agriculture",
+                "schemaOptionId": "34142.36",
+                "id": 138565
+              },
+              {
+                "slug": "cofarming",
+                "label": "CoFarming",
+                "schemaOptionId": "34142.21",
+                "id": 132555
+              },
+              {
+                "slug": "fncuma",
+                "label": "FNCUMA",
+                "schemaOptionId": "34142.27",
+                "id": 132564
+              },
+              {
+                "slug": "demain-la-terre",
+                "label": "Demain la Terre",
+                "schemaOptionId": "34142.22",
+                "id": 132556
+              },
+              {
+                "slug": "entrepreneurs-des-territoires",
+                "label": "Entrepreneurs des territoires",
+                "schemaOptionId": "34142.23",
+                "id": 132558
+              },
+              {
+                "slug": "entreprise-et-decouverte",
+                "label": "Entreprise et Découverte",
+                "schemaOptionId": "34142.79",
+                "id": 138672
+              },
+              {
+                "slug": "fairefrance",
+                "label": "FaireFrance",
+                "schemaOptionId": "34142.24",
+                "id": 132559
+              },
+              {
+                "slug": "fermes-davenir",
+                "label": "Fermes d’Avenir",
+                "schemaOptionId": "34142.25",
+                "id": 132561
+              },
+              {
+                "slug": "fermiers-de-loue",
+                "label": "Fermiers de Loué",
+                "schemaOptionId": "34142.43",
+                "id": 132562
+              },
+              {
+                "slug": "feve",
+                "label": "feve",
+                "schemaOptionId": "34142.72",
+                "id": 138566
+              },
+              {
+                "slug": "filiere-crc",
+                "label": "Filière CRC",
+                "schemaOptionId": "34142.26",
+                "id": 132563
+              },
+              {
+                "slug": "fna-negoce-agricole",
+                "label": "FNA (négoce agricole)",
+                "schemaOptionId": "34142.40",
+                "id": 138567
+              },
+              {
+                "slug": "fnsea",
+                "label": "FNSEA",
+                "schemaOptionId": "34142.73",
+                "id": 138568
+              },
+              {
+                "slug": "franceagritwittos",
+                "label": "FranceAgriTwittos",
+                "schemaOptionId": "34142.39",
+                "id": 132565
+              },
+              {
+                "slug": "ihedrea",
+                "label": "IHEDREA",
+                "schemaOptionId": "34142.44",
+                "id": 132566
+              },
+              {
+                "slug": "jeunes-agriculteurs",
+                "label": "Jeunes agriculteurs",
+                "schemaOptionId": "34142.74",
+                "id": 138569
+              },
+              {
+                "slug": "junia",
+                "label": "JUNIA",
+                "schemaOptionId": "34142.75",
+                "id": 138570
+              },
+              {
+                "slug": "les-agriculteurs-ont-du-coeur",
+                "label": "Les agriculteurs ont du cœur",
+                "schemaOptionId": "34142.29",
+                "id": 132570
+              },
+              {
+                "slug": "manitou",
+                "label": "Manitou",
+                "schemaOptionId": "34142.47",
+                "id": 138571
+              },
+              {
+                "slug": "ccmsa-mutualite-sociale-agricole",
+                "label": "CCMSA - Mutualité sociale agricole",
+                "schemaOptionId": "34142.31",
+                "id": 138572
+              },
+              {
+                "slug": "open-agrifood",
+                "label": "Open AgriFood",
+                "schemaOptionId": "34142.32",
+                "id": 132572
+              },
+              {
+                "slug": "pour-de-bon",
+                "label": "Pour de bon",
+                "schemaOptionId": "34142.66",
+                "id": 138573
+              },
+              {
+                "slug": "pour-une-agriculture-du-vivant",
+                "label": "Pour une agriculture du vivant",
+                "schemaOptionId": "34142.48",
+                "id": 138574
+              },
+              {
+                "slug": "produit-en-ile-de-france",
+                "label": "Produit en Île-de-France",
+                "schemaOptionId": "34142.80",
+                "id": 138736
+              },
+              {
+                "slug": "sucrine-club",
+                "label": "Sucrine Club",
+                "schemaOptionId": "34142.42",
+                "id": 132574
+              },
+              {
+                "slug": "syndicat-des-distillateurs-independants",
+                "label": "Syndicat des distillateurs indépendants",
+                "schemaOptionId": "34142.76",
+                "id": 138575
+              },
+              {
+                "slug": "terra-vitis",
+                "label": "Terra Vitis",
+                "schemaOptionId": "34142.77",
+                "id": 132575
+              },
+              {
+                "slug": "trame",
+                "label": "Trame",
+                "schemaOptionId": "34142.33",
+                "id": 132576
+              },
+              {
+                "slug": "vigneron-independant",
+                "label": "Vigneron indépendant",
+                "schemaOptionId": "34142.34",
+                "id": 138576
+              },
+              {
+                "slug": "vox-demeter",
+                "label": "Vox Demeter",
+                "schemaOptionId": "34142.78",
+                "id": 138577
+              },
+              {
+                "slug": "reseau-des-pat",
+                "label": "Réseau des PAT",
+                "schemaOptionId": "34142.65",
+                "id": 138578
+              }
+            ]
+          },
+          {
+            "name": "Acceptez-vous de recevoir l’infolettre des JNAgri et la communication de ses organisateurs (#agridemain et Make.org Foundation) ?",
+            "required": true,
+            "unique": true,
+            "access": "contributor",
+            "tags": [
+              {
+                "slug": "oui",
+                "label": "Oui",
+                "schemaOptionId": "31018.154",
+                "id": 132535
+              },
+              {
+                "slug": "non",
+                "label": "Non",
+                "schemaOptionId": "31018.155",
+                "id": 132536
+              }
+            ]
+          },
+          {
+            "name": "Souhaitez-vous recevoir des affiches des JNAgri ?",
+            "required": false,
+            "unique": true,
+            "access": "public",
+            "tags": [
+              {
+                "slug": "oui",
+                "label": "Oui",
+                "schemaOptionId": "31018.174",
+                "id": 132535
+              },
+              {
+                "slug": "non",
+                "label": "Non",
+                "schemaOptionId": "31018.175",
+                "id": 132536
+              }
+            ]
+          }
+        ]
+      },
+      "categorySet": null
+    },
+    "formSchema": {
+      "custom": {},
+      "fields": [
+        {
+          "field": "type-devenement",
+          "label": "Type d'événement",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 1,
+              "value": "atelier-et-jeux",
+              "label": {
+                "fr": "Atelier et jeux"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 2,
+              "value": "animation-en-ligne",
+              "label": {
+                "fr": "Animation en ligne"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 3,
+              "value": "concours",
+              "label": {
+                "fr": "Concours"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 4,
+              "value": "conference-et-table-ronde",
+              "label": {
+                "fr": "Conférence et table-ronde"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 5,
+              "value": "demonstration-de-savoir-faire",
+              "label": {
+                "fr": "Démonstration de savoir-faire"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 6,
+              "value": "exposition",
+              "label": {
+                "fr": "Exposition"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 7,
+              "value": "degustation-buffet-collation",
+              "label": {
+                "fr": "Dégustation, buffet, collation..."
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 8,
+              "value": "marche-et-vente-de-produits",
+              "label": {
+                "fr": "Marché et vente de produits"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 9,
+              "value": "prix-et-palmares",
+              "label": {
+                "fr": "Prix et palmarès"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 10,
+              "value": "projection",
+              "label": {
+                "fr": "Projection"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 224,
+              "value": "randonnee",
+              "label": {
+                "fr": "Randonnée"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 11,
+              "value": "spectacle",
+              "label": {
+                "fr": "Spectacle"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 12,
+              "value": "journee-portes-ouvertes-salon-festival",
+              "label": {
+                "fr": "Journée portes ouvertes, salon, festival..."
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 13,
+              "value": "visite-guidee-visite-insolite",
+              "label": {
+                "fr": "Visite guidée / visite insolite"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 136,
+              "value": "visite-libre",
+              "label": {
+                "fr": "Visite libre"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 14,
+              "value": "autre-precisez-dans-le-champ-ci-dessous",
+              "label": {
+                "fr": "Autre (précisez dans le champ ci-dessous)"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "si-autre-type-devenement",
+          "label": {
+            "fr": "Si autre type d'événement, préciser"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": {
+            "field": "type-devenement",
+            "value": 14
+          },
+          "optionalWith": null,
+          "related": {
+            "enable": [
+              "type-devenement"
+            ],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "thematiques-de-votre-evenement-pour-les-jnagri-etou-votre-filiere-animation-de-decouverte-des-metiers",
+          "label": "Thématique(s) de votre événement pour les JNAgri et/ou votre filière",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 62,
+              "value": "animation-de-decouverte-des-metiers",
+              "label": "Animation de découverte des métiers",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 49,
+              "value": "aquaculture-et-peche",
+              "label": "Aquaculture et pêche",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 50,
+              "value": "biodiversite-et-ecologie",
+              "label": "Biodiversité et écologie",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 51,
+              "value": "cultures-de-plein-champs",
+              "label": "Cultures de plein champs",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 52,
+              "value": "elevage",
+              "label": "Elevage",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 53,
+              "value": "forets",
+              "label": "Forêts",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 54,
+              "value": "machinismeagroequipement",
+              "label": "Machinisme/agroéquipement",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 55,
+              "value": "maraichagehorticulturearboriculture",
+              "label": "Maraîchage/horticulture/arboriculture",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 56,
+              "value": "paysage-et-espaces-verts",
+              "label": "Paysage et espaces verts",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 57,
+              "value": "productions-insolites-energie-races-insolites-ppam",
+              "label": "Productions insolites (énergie, races insolites, PPAM..)",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 58,
+              "value": "recherche-et-enseignement",
+              "label": "Recherche et enseignement",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 59,
+              "value": "transformation-et-vente-de-produits-agroalimentaire-artisanat-circuit-court",
+              "label": "Transformation et vente de produits (agroalimentaire, artisanat, circuit-court)",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 60,
+              "value": "viticulture",
+              "label": "Viticulture",
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 34142,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "type-de-public",
+          "label": {
+            "fr": "Type de public"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 29,
+              "value": "tout-public",
+              "label": {
+                "fr": "Tout public"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 30,
+              "value": "jeune-public",
+              "label": {
+                "fr": "Jeune public"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 31,
+              "value": "public-adulte",
+              "label": {
+                "fr": "Public adulte"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 32,
+              "value": "reserve-aux-scolaires",
+              "label": {
+                "fr": "Réservé aux scolaires"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 166,
+              "value": "reserve-aux-professionnels",
+              "label": {
+                "fr": "Réservé aux professionnels"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "multiselect",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "age",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "conditions-de-participation",
+          "label": {
+            "fr": "Tarif"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 33,
+              "value": "acces-libre",
+              "label": {
+                "fr": "Accès libre"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 34,
+              "value": "entree-payante",
+              "label": {
+                "fr": "Entrée payante"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "select",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "detail-des-conditions-de-participation",
+          "label": {
+            "fr": "Entrée payante, tarif :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "condition-de-participation",
+          "label": "Condition de participation",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 63,
+              "value": "acces-libre",
+              "label": "Accès libre",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 64,
+              "value": "sur-reservation",
+              "label": "Sur réservation",
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 34142,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "conditions",
+          "label": {
+            "fr": "Conditions de participation :"
+          },
+          "info": {
+            "fr": "Préciser \"Sur réservation\" ou \"Accès libre\""
+          },
+          "sub": {
+            "fr": ""
+          },
+          "placeholder": {
+            "fr": null
+          },
+          "display": false,
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "registration",
+          "label": {
+            "fr": "Inscriptions (sur Weezevent par exemple) :"
+          },
+          "info": {
+            "fr": "Ne pas remplir si vous avez écrit \"Accès libre\" ci-dessus. Si animation sur inscription, préciser le lien, le courriel ou le téléphone"
+          },
+          "sub": {
+            "fr": "Séparez les items par des tabulations ou des virgules"
+          },
+          "display": true,
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "autres-precision",
+          "label": {
+            "fr": "Autres précisions :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "Indiquez les conditions particulières : photographies interdites, nombre limité de places disponibles, matériel à prévoir, etc."
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "accessibility",
+          "label": {
+            "fr": "Accessibilité"
+          },
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "numero-de-telephone-pour-renseignements-",
+          "label": {
+            "fr": "Numéro de téléphone pour renseignements :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "renseignements-",
+          "label": {
+            "fr": "Site internet :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "link",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "facebook-",
+          "label": {
+            "fr": "Facebook :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "link",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "instagram-",
+          "label": {
+            "fr": "Instagram :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "link",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "twitter-",
+          "label": {
+            "fr": "Twitter :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "link",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "animation-sur-inscription",
+          "label": {
+            "fr": "Animation sur inscription"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": false,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 131,
+              "value": "oui",
+              "label": {
+                "fr": "Oui"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 132,
+              "value": "non",
+              "label": {
+                "fr": "Non"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "location",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null,
+          "schema": {
+            "fields": [
+              {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public",
+                  "list"
+                ],
+                "write": [
+                  "internal"
+                ],
+                "label": {
+                  "en": "Id",
+                  "fr": "Identifiant",
+                  "io": "crwdns12102:0crwdne12102:0",
+                  "it": "ID",
+                  "oc": "Identificant"
+                }
+              },
+              {
+                "field": "setUid",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal"
+                ]
+              },
+              {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal"
+                ],
+                "max": 100
+              },
+              {
+                "field": "name",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "Name",
+                  "fr": "Nom",
+                  "io": "crwdns12104:0crwdne12104:0",
+                  "it": "Nome",
+                  "oc": "Nom"
+                }
+              },
+              {
+                "field": "address",
+                "optional": false,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Address",
+                  "fr": "Adresse",
+                  "io": "crwdns12106:0crwdne12106:0",
+                  "it": "Indirizzo",
+                  "oc": "Adreiça"
+                }
+              },
+              {
+                "field": "countryCode",
+                "optional": false,
+                "fieldType": "text",
+                "max": 2,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Country code",
+                  "fr": "Code pays",
+                  "io": "crwdns12120:0crwdne12120:0",
+                  "it": "Codice del paese",
+                  "oc": "Còdi país"
+                }
+              },
+              {
+                "field": "adminLevel1",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region"
+                }
+              },
+              {
+                "field": "adminLevel2",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament"
+                }
+              },
+              {
+                "field": "adminLevel3",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255
+              },
+              {
+                "field": "adminLevel4",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 100
+              },
+              {
+                "field": "city",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 100,
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila"
+                }
+              },
+              {
+                "field": "adminLevel5",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255
+              },
+              {
+                "field": "adminLevel6",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255
+              },
+              {
+                "field": "district",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "District",
+                  "fr": "Quartier",
+                  "io": "crwdns12122:0crwdne12122:0",
+                  "it": "Quartiere",
+                  "oc": "Districte"
+                }
+              },
+              {
+                "field": "postalCode",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 20,
+                "label": {
+                  "en": "Postal code",
+                  "fr": "Code postal",
+                  "io": "crwdns12116:0crwdne12116:0",
+                  "it": "Codice postale",
+                  "oc": "Còdi postal"
+                }
+              },
+              {
+                "field": "insee",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 10,
+                "label": {
+                  "en": "INSEE Code",
+                  "fr": "Code INSEE",
+                  "io": "crwdns12118:0crwdne12118:0",
+                  "it": "Codice INSEE (Francia)",
+                  "oc": "Còdi INSEE"
+                }
+              },
+              {
+                "field": "latitude",
+                "optional": false,
+                "fieldType": "latitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Latitude",
+                  "fr": "Latitude",
+                  "io": "crwdns12112:0crwdne12112:0",
+                  "it": "Latitudine",
+                  "oc": "Latitud"
+                }
+              },
+              {
+                "field": "longitude",
+                "optional": false,
+                "fieldType": "longitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Longitude",
+                  "fr": "Longitude",
+                  "io": "crwdns12114:0crwdne12114:0",
+                  "it": "Longitudine",
+                  "oc": "Longitud"
+                }
+              },
+              {
+                "field": "region",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region"
+                }
+              },
+              {
+                "field": "department",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament"
+                }
+              },
+              {
+                "field": "timezone",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "updatedAt",
+                "optional": false,
+                "fieldType": "date",
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal"
+                ]
+              },
+              {
+                "field": "createdAt",
+                "optional": false,
+                "fieldfieldType": "date",
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal"
+                ]
+              },
+              {
+                "field": "image",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "stream",
+                "allowNull": true
+              },
+              {
+                "field": "description",
+                "label": {
+                  "en": "Description",
+                  "fr": "Description",
+                  "de": "Beschreibung",
+                  "es": "descripción",
+                  "it": "Descrizione",
+                  "oc": "Descripcion",
+                  "io": "crwdns32875:0crwdne32875:0"
+                },
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 5000
+              },
+              {
+                "field": "tags",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "pass"
+              },
+              {
+                "field": "website",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "link",
+                "label": {
+                  "en": "Website",
+                  "fr": "Site internet",
+                  "es": "Sitio web",
+                  "oc": "Site web",
+                  "io": "crwdns32871:0crwdne32871:0"
+                }
+              },
+              {
+                "field": "email",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "email"
+              },
+              {
+                "field": "phone",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "phone"
+              },
+              {
+                "field": "links",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "list": true,
+                "fieldType": "link"
+              },
+              {
+                "field": "access",
+                "label": {
+                  "en": "Access",
+                  "fr": "Accès",
+                  "it": "Come arrivare",
+                  "de": "Zugang",
+                  "pl": "Dostęp",
+                  "es": "acceso",
+                  "br": "Moned",
+                  "oc": "Accès",
+                  "io": "crwdns32873:0crwdne32873:0"
+                },
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 1000
+              },
+              {
+                "field": "state",
+                "optional": true,
+                "fieldType": "choice",
+                "unique": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "default": 0,
+                "options": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "field": "imageCredits",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "enableWith": "image"
+              },
+              {
+                "field": "imageRightsAreHeld",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "enableWith": "image"
+              },
+              {
+                "field": "extId",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "duplicateCandidates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100
+                },
+                "default": null,
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "disqualifiedDuplicates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100
+                },
+                "default": null,
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "mergedIn",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": [
+                  "internal",
+                  "public"
+                ],
+                "write": [
+                  "internal"
+                ]
+              }
+            ],
+            "schemaId": "location"
+          }
+        },
+        {
+          "field": "timings",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null,
+          "label": "Horaires",
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+          "info": "Définissez les horaires de votre événement",
+          "enabledRanges": [
+            {
+              "begin": "2023-06-12T00:00",
+              "end": "2023-06-25T23:59"
+            }
+          ]
+        },
+        {
+          "field": "description",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "longDescription",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "image",
+          "label": {
+            "fr": "Image de l'événement "
+          },
+          "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large (2 Mo maximum)"
+          },
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "imageCredits",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "type-de-structure",
+          "label": {
+            "fr": "Type de structure"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "Quelle structure organisatrice êtes-vous ?"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 111,
+              "value": "association",
+              "label": {
+                "fr": "Association"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 112,
+              "value": "collectivite-territoriale",
+              "label": {
+                "fr": "Collectivité territoriale"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 113,
+              "value": "ecole-etablissement-denseignement",
+              "label": {
+                "fr": "École / Établissement d’enseignement"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 114,
+              "value": "entreprise-agricole-ou-para-agricole",
+              "label": {
+                "fr": "Entreprise agricole ou para-agricole"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 115,
+              "value": "entreprise-agroalimentaire",
+              "label": {
+                "fr": "Entreprise agroalimentaire"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 116,
+              "value": "exploitation-ou-groupement-agricole",
+              "label": {
+                "fr": "Exploitation ou groupement agricole"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 117,
+              "value": "federation-ou-syndicat",
+              "label": {
+                "fr": "Fédération ou syndicat"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 118,
+              "value": "instituts-de-recherche",
+              "label": {
+                "fr": "Instituts de recherche"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 119,
+              "value": "point-de-vente",
+              "label": {
+                "fr": "Point de vente"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 120,
+              "value": "autre-precisez-dans-le-champ-ci-dessous",
+              "label": {
+                "fr": "Autre (précisez dans le champ ci-dessous)"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "si-autre-structure-preciser",
+          "label": {
+            "fr": "Si autre structure, préciser"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": {
+            "field": "type-de-structure",
+            "value": 120
+          },
+          "optionalWith": null,
+          "related": {
+            "enable": [
+              "type-de-structure"
+            ],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "cocher-la-case-si-vous-etes-en-lien-avec-un-partenaire-national-de-loperation-agenda",
+          "label": "Cocher la case si vous êtes en lien avec un partenaire national de l'opération",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 2,
+              "value": "agridemain",
+              "label": "#agridemain",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 3,
+              "value": "u-enseigne-hyper-u-super-u-u-express-utile",
+              "label": "U Enseigne (Hyper U, Super U, U Express, Utile)",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 4,
+              "value": "bonduelle",
+              "label": "Bonduelle",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 5,
+              "value": "marche-international-de-rungis",
+              "label": "Marché international de Rungis",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 10,
+              "value": "inrae",
+              "label": "Inrae",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 11,
+              "value": "invivo",
+              "label": "InVivo",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 9,
+              "value": "mutualia",
+              "label": "Mutualia",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 67,
+              "value": "apecita",
+              "label": "apecita",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 7,
+              "value": "axema",
+              "label": "Axema",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 12,
+              "value": "agriculture-biologique-agence-bio",
+              "label": "Agriculture Biologique (Agence Bio)",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 13,
+              "value": "ministere-de-lagriculture-et-de-lalimentation",
+              "label": "Ministère de l'Agriculture et de l'Alimentation",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 14,
+              "value": "academie-dagriculture-de-france",
+              "label": "Académie d’Agriculture de France",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 37,
+              "value": "acta",
+              "label": "Acta",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 18,
+              "value": "association-francaise-dagriculture-urbaine",
+              "label": "Association Française d'Agriculture Urbaine",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 15,
+              "value": "agriculteurs-de-bretagne",
+              "label": "Agriculteurs de Bretagne",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 68,
+              "value": "agridees",
+              "label": "agriDées",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 16,
+              "value": "agroparistech-alumni",
+              "label": "AgroParisTech Alumni",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 17,
+              "value": "anefa",
+              "label": "ANEFA",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 19,
+              "value": "bienvenue-a-la-ferme",
+              "label": "Bienvenue à la ferme",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 20,
+              "value": "bleu-blanc-coeur",
+              "label": "Bleu Blanc Cœur",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 69,
+              "value": "blue-bees",
+              "label": "Blue Bees",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 70,
+              "value": "bouge-ton-coq",
+              "label": "Bouge ton coq",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 71,
+              "value": "cest-qui-le-patron",
+              "label": "C'est qui le patron",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 36,
+              "value": "agricultures-et-territoires-chambres-dagriculture",
+              "label": "Agricultures et territoires - Chambres d'agriculture",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 21,
+              "value": "cofarming",
+              "label": "CoFarming",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 27,
+              "value": "fncuma",
+              "label": "FNCUMA",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 22,
+              "value": "demain-la-terre",
+              "label": "Demain la Terre",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 23,
+              "value": "entrepreneurs-des-territoires",
+              "label": "Entrepreneurs des territoires",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 79,
+              "value": "entreprise-et-decouverte",
+              "label": "Entreprise et Découverte",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 24,
+              "value": "fairefrance",
+              "label": "FaireFrance",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 25,
+              "value": "fermes-davenir",
+              "label": "Fermes d’Avenir",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 43,
+              "value": "fermiers-de-loue",
+              "label": "Fermiers de Loué",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 72,
+              "value": "feve",
+              "label": "feve",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 26,
+              "value": "filiere-crc",
+              "label": "Filière CRC",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 40,
+              "value": "fna-negoce-agricole",
+              "label": "FNA (négoce agricole)",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 73,
+              "value": "fnsea",
+              "label": "FNSEA",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 39,
+              "value": "franceagritwittos",
+              "label": "FranceAgriTwittos",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 44,
+              "value": "ihedrea",
+              "label": "IHEDREA",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 74,
+              "value": "jeunes-agriculteurs",
+              "label": "Jeunes agriculteurs",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 75,
+              "value": "junia",
+              "label": "JUNIA",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 29,
+              "value": "les-agriculteurs-ont-du-coeur",
+              "label": "Les agriculteurs ont du cœur",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 47,
+              "value": "manitou",
+              "label": "Manitou",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 31,
+              "value": "ccmsa-mutualite-sociale-agricole",
+              "label": "CCMSA - Mutualité sociale agricole",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 32,
+              "value": "open-agrifood",
+              "label": "Open AgriFood",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 66,
+              "value": "pour-de-bon",
+              "label": "Pour de bon",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 48,
+              "value": "pour-une-agriculture-du-vivant",
+              "label": "Pour une agriculture du vivant",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 80,
+              "value": "produit-en-ile-de-france",
+              "label": "Produit en Île-de-France",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 42,
+              "value": "sucrine-club",
+              "label": "Sucrine Club",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 76,
+              "value": "syndicat-des-distillateurs-independants",
+              "label": "Syndicat des distillateurs indépendants",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 77,
+              "value": "terra-vitis",
+              "label": "Terra Vitis",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 33,
+              "value": "trame",
+              "label": "Trame",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 34,
+              "value": "vigneron-independant",
+              "label": "Vigneron indépendant",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 78,
+              "value": "vox-demeter",
+              "label": "Vox Demeter",
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 65,
+              "value": "reseau-des-pat",
+              "label": "Réseau des PAT",
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 34142,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "acceptez-vous-de-recevoir-linfolettre-des-jna-et-la-communication-de-ses-organisateurs-agridemain-et-makeorg-foundation",
+          "label": "Acceptez-vous de recevoir l’infolettre des JNAgri et la communication de ses organisateurs (#agridemain et Make.org Foundation) ?",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": [
+            "contributor",
+            "moderator",
+            "administrator"
+          ],
+          "read": [
+            "contributor",
+            "moderator",
+            "administrator"
+          ],
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 154,
+              "value": "oui",
+              "label": {
+                "fr": "Oui"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 155,
+              "value": "non",
+              "label": {
+                "fr": "Non"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "si-oui-veuillez-indiquer-votre-courriel-",
+          "label": {
+            "fr": "Veuillez indiquer votre courriel :"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": [
+            "contributor",
+            "moderator",
+            "administrator"
+          ],
+          "read": [
+            "contributor",
+            "moderator",
+            "administrator"
+          ],
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": {
+            "field": "acceptez-vous-de-recevoir-linfolettre-des-jna-et-la-communication-de-ses-organisateurs-agridemain-et-makeorg-foundation",
+            "value": 154
+          },
+          "optionalWith": null,
+          "related": {
+            "enable": [
+              "acceptez-vous-de-recevoir-linfolettre-des-jna-et-la-communication-de-ses-organisateurs-agridemain-et-makeorg-foundation"
+            ],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "email",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "souhaitez-vous-recevoir-des-affiches-des-jna",
+          "label": "Souhaitez-vous recevoir des affiches des JNAgri ?",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": "Si oui, merci de remplir le formulaire suivant (il est aux normes de la Poste, soient 38 caractères par champ, 5 caractères pour le code postal, obligation de fournir un numéro de téléphone et un courriel)",
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "options": [
+            {
+              "id": 174,
+              "value": "oui",
+              "label": {
+                "fr": "Oui"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 175,
+              "value": "non",
+              "label": {
+                "fr": "Non"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "radio",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "prenom-et-nom-en-minuscules",
+          "label": {
+            "fr": "Prénom et nom (en minuscules)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 38,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "structure-ex-ferme-de-la-roche",
+          "label": {
+            "fr": "Structure (ex : Ferme de la Roche)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 38,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "adresse-1-ex-48-rue-des-primeveres",
+          "label": {
+            "fr": "Adresse 1 (ex : 48 rue des Primevères)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 38,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "adresse-2-ex-batiment-5",
+          "label": {
+            "fr": "Adresse 2 (ex : Bâtiment 5)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 38,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "code-postal-ou-code-cedex-ex-80090",
+          "label": {
+            "fr": "Code postal ou code cedex (ex : 80090)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 5,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "commune-ex-saint-brieuc",
+          "label": {
+            "fr": "Commune (ex : Saint-Brieuc)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": 38,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "courriel-obligatoire",
+          "label": {
+            "fr": "Courriel (obligatoire)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "numero-de-telephone-obligatoire",
+          "label": {
+            "fr": "Numéro de téléphone (obligatoire)"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "remarque-specifique",
+          "label": {
+            "fr": "Remarque spécifique"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "(ne remplir que si vous souhaitez commander des affiches)"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        },
+        {
+          "field": "keywords",
+          "display": false,
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "attendanceMode",
+          "display": true,
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "onlineAccessLink",
+          "display": true,
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "status",
+          "fieldType": "abstract",
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "jaccepte-eventuellement-daccueillir-des-scolaires-a-loccasion-des-jnagri",
+          "label": "J'accepte éventuellement d'accueillir des scolaires à l'occasion des JNAgri",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "fieldType": "boolean",
+          "schemaId": 34142,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "par-quelle-compagnie-etes-vous-assures",
+          "label": {
+            "fr": "Par quelle compagnie êtes-vous assurés ?"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": null,
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text",
+          "schemaId": 31018,
+          "schemaType": "network"
+        }
+      ]
+    },
+    "interfaces": {},
+    "admin": false,
+    "root": "https://d.openagenda.com"
+  },
+  "event": {
+    "longDescription": {
+      "fr": "Rejoignez-nous pour un café-rencontre sur le thème des fruits et légumes de saison et du bien manger sans se ruiner.\nUn café-rencontre co-animé avec La Route de la Santé et en présence d’un maraîcher partenaire de l’association.  \nCette animation a lieu dans le cadre des rendez-vous de l’alimentation de l’Eurométropole de Strasbourg.\nPlus d’infos sur [strasbourg.eu/rdv-alimentation](https://www.strasbourg.eu/rdv-alimentation)"
+    },
+    "country": {
+      "de": "Frankreich (Metropolitan)",
+      "code": "FR",
+      "oc": "França (Metropolitana)",
+      "en": "France (Metropolitan)",
+      "it": "Francia (continente)",
+      "fr": "France (Métropole)",
+      "es": "Francia (Metropolitana)"
+    },
+    "featured": false,
+    "private": 0,
+    "keywords": {},
+    "conditions-de-participation": 33,
+    "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": false
+    },
+    "souhaitez-vous-recevoir-des-affiches-des-jna": 175,
+    "thematiques-de-votre-evenement-pour-les-jnagri-etou-votre-filiere-animation-de-decouverte-des-metiers": [
+      59,
+      55,
+      62
+    ],
+    "dateRange": {
+      "ar": "الجمعة ١٦ يونيو, 09:00",
+      "de": "Freitag 16 Juni, 09:00",
+      "en": "Friday 16 June, 09:00",
+      "it": "Venerdì 16 giugno, 09:00",
+      "fr": "Vendredi 16 juin, 09h00",
+      "es": "Viernes 16 junio, 09:00"
+    },
+    "timezone": "Europe/Paris",
+    "imageCredits": null,
+    "cocher-la-case-si-vous-etes-en-lien-avec-un-partenaire-national-de-loperation-agenda": [
+      65
+    ],
+    "originAgenda": {
+      "image": "agenda5643135.jpg?__ts=1675950289713",
+      "uid": 5643135,
+      "title": "Journées Nationales de l'Agriculture 2023"
+    },
+    "autres-precision": "15 participants maximum",
+    "description": {
+      "fr": "Café-rencontre \"manger des fruits et légumes de saison sans se ruiner\""
+    },
+    "title": {
+      "fr": "Café-rencontre \"manger des fruits et légumes de saison sans se ruiner\""
+    },
+    "type-de-structure": 112,
+    "onlineAccessLink": null,
+    "createdAt": "2023-05-05T13:00:30.000Z",
+    "uid": 69054288,
+    "acceptez-vous-de-recevoir-linfolettre-des-jna-et-la-communication-de-ses-organisateurs-agridemain-et-makeorg-foundation": 155,
+    "draft": 0,
+    "timings": [
+      {
+        "begin": "2023-06-16T09:00:00+02:00",
+        "end": "2023-06-16T11:00:00+02:00"
+      }
+    ],
+    "member": {
+      "uid": 84874273,
+      "role": 1,
+      "phone": "0368987662",
+      "organization": "Eurométropole de Strasbourg",
+      "name": "Emilie Thiers",
+      "invited": false,
+      "position": "Stagiaire - Chargée de projet",
+      "email": "emilie.thiers@strasbourg.eu",
+      "_agg": "eyJ1aWQiOjg0ODc0MjczLCJuYW1lIjoiRW1pbGllIFRoaWVycyJ9"
+    },
+    "links": [
+      {
+        "link": "https://www.strasbourg.eu/rdv-alimentation"
+      }
+    ],
+    "numero-de-telephone-pour-renseignements-": "07 77 26 91 80",
+    "state": 2,
+    "type-devenement": 4,
+    "slug": "cafe-rencontre-manger-des-fruits-et-legumes-de-saison-sans-se-ruiner",
+    "updatedAt": "2023-05-30T13:41:44.000Z",
+    "addMethod": "contribution",
+    "image": {
+      "filename": "9ab9443f28244574b653f0883b75ad24.base.image.jpg",
+      "size": {
+        "width": 700,
+        "height": 1020
+      },
+      "variants": [
+        {
+          "filename": "9ab9443f28244574b653f0883b75ad24.full.image.jpg",
+          "size": {
+            "width": 1418,
+            "height": 2067
+          },
+          "type": "full"
+        },
+        {
+          "filename": "9ab9443f28244574b653f0883b75ad24.thumb.image.jpg",
+          "size": {
+            "width": 200,
+            "height": 200
+          },
+          "type": "thumbnail"
+        }
+      ],
+      "base": "https://cibuldev.s3.amazonaws.com/"
+    },
+    "condition-de-participation": 64,
+    "attendanceMode": 1,
+    "sourceAgendas": [],
+    "creatorUid": 84874273,
+    "type-de-public": [
+      29
+    ],
+    "par-quelle-compagnie-etes-vous-assures": "PNAS Assurances",
+    "renseignements-": "http://www.caritas-alsace.org",
+    "registration": [
+      {
+        "type": "email",
+        "value": "epicerie.cronenbourg@federationcaritas.org"
+      }
+    ],
+    "location": {
+      "disqualifiedDuplicates": [],
+      "access": {},
+      "city": "Strasbourg",
+      "timezone": "Europe/Paris",
+      "postalCode": "67200",
+      "latitude": 48.596435,
+      "imageCredits": null,
+      "description": {},
+      "setUid": null,
+      "uid": 6199831,
+      "createdAt": "2023-05-05T12:59:06.000Z",
+      "duplicateCandidates": [],
+      "countryCode": "FR",
+      "adminLevel5": "Cronenbourg",
+      "links": [],
+      "state": 1,
+      "extId": null,
+      "department": "Bas-Rhin",
+      "slug": "epicerie-solidaire-de-cronenbourg-caritas-alsace_5145732",
+      "email": null,
+      "longitude": 7.715971,
+      "updatedAt": "2023-05-05T13:09:17.000Z",
+      "image": "location6199831.jpg?_ts=1683292101391",
+      "website": null,
+      "address": "133 route de Mittelhausbergen 67200 Strasbourg",
+      "adminLevel3": "Eurométropole de Strasbourg",
+      "agendaUid": 5643135,
+      "adminLevel1": "Grand Est",
+      "adminLevel2": "Bas-Rhin",
+      "mergedIn": null,
+      "_agg": "eyJ1aWQiOjYxOTk4MzEsIm5hbWUiOiLDiXBpY2VyaWUgc29saWRhaXJlIGRlIENyb25lbmJvdXJnIENhcml0YXMgQWxzYWNlIn0=",
+      "tags": null,
+      "insee": "67482",
+      "phone": null,
+      "district": "Cronenbourg",
+      "name": "Épicerie solidaire de Cronenbourg Caritas Alsace",
+      "region": "Grand Est"
+    },
+    "ownerUid": 84874273,
+    "conditions": {},
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "status": 1,
+    "lastTiming": {
+      "begin": "2023-06-16T09:00:00+02:00",
+      "end": "2023-06-16T11:00:00+02:00"
+    },
+    "nextTiming": {
+      "begin": "2023-06-16T09:00:00+02:00",
+      "end": "2023-06-16T11:00:00+02:00"
+    }
+  }
+}
