@@ -113,6 +113,11 @@ import { createCluster } from 'redis';
 Une interface d'administration permet d'avoir une vue d'ensemble sur l'utilisation du cluster
 
 
+### Avoir les droits admin sur un noeud
+
+https://www.infomaniak.com/fr/support/faq/2346/jelastic-cloud-lancer-des-commandes-avec-un-acces-root-sur-nimporte-quel-conteneur
+
+
 ## Mails
 
 Un éditeur de template peut être lancé depuis cibul-node: `yarn mails-editor`.
