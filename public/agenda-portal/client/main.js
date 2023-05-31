@@ -77,7 +77,7 @@ function progressiveLoad(pageProps, canvasSelector) {
     const scrollHeight = $(document).height();
     const scrollPosition = $(window).height() + $(window).scrollTop();
 
-    if ((scrollHeight - scrollPosition) / scrollHeight !== 0) {
+    if ((scrollHeight - scrollPosition) > 10) {
       return;
     }
 
@@ -85,16 +85,16 @@ function progressiveLoad(pageProps, canvasSelector) {
       ? `?${window.location.href.split('?').pop()}`
       : '';
 
-    nextProgressiveLoadPage += 1;
-
     loadListContent(
       `/events/p/${nextProgressiveLoadPage}${queryPart}`,
       null,
       (err, result) => {
-        const eventItemsHTML = $(result.html)
-          .filter(canvasSelector)
-          .get(0)
-          .innerHTML.trim();
+        const eventItemsHTML = $(canvasSelector, result.html).html().trim();
+
+        nextProgressiveLoadPage += 1;
+
+        console.log(eventItemsHTML);
+        // console.log(result.html);
 
         if (eventItemsHTML.length) {
           $(canvasSelector).first().append(eventItemsHTML);
@@ -105,7 +105,7 @@ function progressiveLoad(pageProps, canvasSelector) {
         } else {
           rockBottom = true;
         }
-      }
+      },
     );
   });
 }
