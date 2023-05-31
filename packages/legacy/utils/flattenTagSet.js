@@ -18,4 +18,4 @@ module.exports = (tagSet, formSchema) => (tagSet?.groups ?? [])
       field: tagGroup.name,
       fieldSlug,
     };
-})), []);
+  })), []);

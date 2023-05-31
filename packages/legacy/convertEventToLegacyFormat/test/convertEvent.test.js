@@ -152,7 +152,6 @@ describe('Return the event\'s tagGroup', () => {
   });
 
   test('Event with tags', () => {
-
     expect(getTags(lilleAgendaSettings, lilleEventV2)).toStrictEqual(
       { tagGroups: lilleEventV1.tagGroups, tags: lilleEventV1.tags },
     );
