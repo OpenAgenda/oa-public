@@ -90,9 +90,9 @@ function set(...args) {
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return client
-    .sendCommand(['SET', redisKey, value, 'ex', `${ttlValue}`])
-    .then(() => resolve(value, cb), e => reject(e, cb));
+  return client.set(redisKey, value, {
+    EX: `${ttlValue}`,
+  }).then(() => resolve(value, cb), e => reject(e, cb));
 }
 
 async function hget(...args) {
