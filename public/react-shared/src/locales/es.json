@@ -1,6 +1,7 @@
 {
-  "ReactShared.ImageInput.acceptedFiles": "formatos aceptados",
+  "ReactShared.ImageInput.acceptedFiles": "Formatos aceptados",
   "ReactShared.ImageInput.remove": "Eliminar",
   "ReactShared.ImageInput.update": "Cambiar imagen",
-  "ReactShared.ImageInput.upload": "Cargar imagen"
+  "ReactShared.ImageInput.upload": "Cargar imagen",
+  "ReactShared.AgendaContextBar.addEvent": "Añadir un evento"
 }
