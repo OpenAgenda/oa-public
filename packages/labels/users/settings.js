@@ -33,7 +33,7 @@ module.exports = {
     "en": "Profile image",
     "fr": "Image de profil",
     "de": "Profilbild",
-    "es": "imagen del perfil",
+    "es": "Imagen del perfil",
     "it": "Immagine del profilo",
     "io": "crwdns15826:0crwdne15826:0",
     "oc": "Imatge de perfil"
@@ -180,7 +180,7 @@ module.exports = {
     "en": "Image",
     "fr": "Image",
     "de": "Bild",
-    "es": "imagen",
+    "es": "Imagen",
     "it": "Immagine",
     "io": "crwdns15858:0crwdne15858:0",
     "oc": "Imatge"
@@ -427,7 +427,7 @@ module.exports = {
     "en": "Agenda aggregated",
     "fr": "Agenda agrégé",
     "de": "Veranstaltungskalender aggregiert",
-    "es": "agenda asociado",
+    "es": "Agenda importado",
     "it": "agenda aggregato",
     "io": "crwdns15914:0crwdne15914:0",
     "oc": "Agenda agregada"
@@ -481,7 +481,7 @@ module.exports = {
     "en": "Search an agenda",
     "fr": "Rechercher un agenda",
     "de": "Suche einen Veranstaltungskalender",
-    "es": "agenda de búsqueda",
+    "es": "Buscar una agenda",
     "it": "Cerca un'agenda",
     "br": "Klask un deiziataer",
     "io": "crwdns15926:0crwdne15926:0",

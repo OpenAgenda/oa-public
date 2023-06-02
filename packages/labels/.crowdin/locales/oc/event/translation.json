@@ -1,3 +1,10 @@
 {
-  "translationHelp": "Ne saber mai"
+  "translationHelp": "Ne saber mai",
+  "translationTitle": "Traduccion automatica",
+  "sourceLanguage": "Lenga de referéncia",
+  "targetLanguages": "Lengas de destinacion",
+  "processingTranslation": "Traduccion en cors",
+  "savingPartialTranslation": "Las traduccions son estadas recuperadas pas que parcialament. Enregistram pasmens",
+  "sourceChange": "Cambiar",
+  "deactivatedTranslation": "La traduccion automatica es desactivada"
 }

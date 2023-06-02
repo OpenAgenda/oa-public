@@ -171,7 +171,7 @@ module.exports = {
     "de": "suchen, wenn ich die Karte verschiebe",
     "pl": "Wyszukaj podczas zmiany mapy",
     "br": "Klask pa zilec'hian ar gartenn",
-    "es": "Mira cuando muevo el mapa",
+    "es": "Busca cuando cambia el mapa",
     "io": "crwdns12930:0crwdne12930:0",
     "oc": "Cercar quand desplaci la mapa"
   },

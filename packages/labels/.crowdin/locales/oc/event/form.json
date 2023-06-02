@@ -21,5 +21,6 @@
   "noSelection": "Pas res",
   "movedOnline": "Transferit en linha",
   "postponed": "Remandat",
-  "status": "Estatut"
+  "status": "Estatut",
+  "noDates": "Cal indicar al mens un orari"
 }

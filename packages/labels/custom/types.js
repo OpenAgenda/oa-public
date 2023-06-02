@@ -77,7 +77,7 @@ module.exports = {
     "en": "Image",
     "fr": "Image",
     "de": "Bild",
-    "es": "imagen",
+    "es": "Imagen",
     "it": "Immagine",
     "io": "crwdns14030:0crwdne14030:0",
     "oc": "Imatge"

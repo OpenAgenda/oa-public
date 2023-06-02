@@ -10,5 +10,6 @@
   "passwordCouldNotBeModified": "Lo senhal se posquèt pas cambiar",
   "passwordResetSent": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email",
   "resetLinkOutdated": "Lo ligam es passat. Tornatz ensajar.",
-  "passwordUpdated": "Vòstre senhal es estat mes a jorn."
+  "passwordUpdated": "Vòstre senhal es estat mes a jorn.",
+  "invalidToken": "Geton invalid"
 }

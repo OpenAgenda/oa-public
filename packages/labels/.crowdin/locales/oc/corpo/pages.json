@@ -8,5 +8,20 @@
   "footerAgendaPricing": "Agenda",
   "footerMore": "Ne saber mai",
   "footerContactUs": "Contactar",
-  "footerContactSubscribe": "S'abonar"
+  "footerContactSubscribe": "S'abonar",
+  "pricingTitle": "Tarifas",
+  "agendaPricingPresPoint1": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri.",
+  "agendaPricingPresPoint3": "Sincronizatz vòstra agenda amb vòstres mèdias e partejatz-la amb lo monde entièr coma #OpenData.",
+  "agendaPricingFreeTitle": "Agenda basica",
+  "agendaPricingFreePrice": "Gratuit",
+  "agendaPricingFreeFeature5": "Moderacion",
+  "agendaPriceCustomFeature3": "Moderacion",
+  "agendaPricingCustomAction": "Nos contactar",
+  "networkPricingFree": "Gratuit",
+  "contactUsLabel": "Nos contactar",
+  "footerTailored": "A faiçon",
+  "tailoredTitle": "A faiçon",
+  "expertiseDeploy": "Desplega de la ret",
+  "expertiseAnimation": "Animacion de comunautat",
+  "contactTitle": "Nos contactar"
 }

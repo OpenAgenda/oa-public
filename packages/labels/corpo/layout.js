@@ -41,7 +41,7 @@ module.exports = {
     "en": "Sign in",
     "fr": "Connexion",
     "de": "Anmelden",
-    "es": "acceder",
+    "es": "Conectarse",
     "it": "Accedi",
     "br": "Kevreañ",
     "io": "crwdns13438:0crwdne13438:0",

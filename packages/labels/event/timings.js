@@ -8,6 +8,7 @@ module.exports = {
     "de": "Klicken und Ziehen Sie auf dem Plan, um Ihre Zeiten zu definieren.",
     "pl": "Kliknij i przeciągnij na siatce aby utworzyć nowy rozkład",
     "es": "Haga clic y arrastre en la parrilla para crear un nuevo horario.",
-    "io": "crwdns14648:0crwdne14648:0"
+    "io": "crwdns14648:0crwdne14648:0",
+    "oc": "Clicatz e bloegatz sus la grasilha per definir un novèl orari."
   }
 }

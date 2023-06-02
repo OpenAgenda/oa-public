@@ -1,4 +1,19 @@
 {
   "addEvent": "Apondre un eveniment",
-  "addEventOr": "o"
+  "addEventOr": "o",
+  "editorTitle": "Eveniments ligats",
+  "editorInfo": "Ligatz d'autres eveniments de l'agenda a vòstre eveniment",
+  "showTitle": "Véser tanben",
+  "emptyReferences": "I a actualament pas d'eveniments ligats",
+  "emptySearch": "Pas de resultat per aquesta recerca",
+  "addEventSuggest": "Cargar d'eveniments similars",
+  "search": "Cercar per títol o per nom de lòc",
+  "searchResultTitle": "Resultats de recerca",
+  "suggestionResultTitle": "Suggestions d'eveniments similars",
+  "nothingToSuggestTitle": "Eveniments similars",
+  "nothingToSuggest": "Los eveniments similars se pòdon cargar pas que s'avètz ja emplit lo formulari d'eveniment",
+  "noSuggestionsTitle": "Eveniments similars",
+  "noSuggestions": "Pas cap eveniment similar trobat",
+  "noOtherSuggestionsTitle": "Eveniments similars",
+  "noOtherSuggestions": "Pas d'autre eveniment similar trobat"
 }

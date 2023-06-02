@@ -1,3 +1,5 @@
 {
-  "react-layouts.AdminSections.newTab": "Nuevo!"
+  "react-layouts.AdminSections.newTab": "Nuevo!",
+  "react-layouts.MainLayout.searchAgenda": "Buscar una agenda",
+  "react-layouts.components.Search.search": "Buscar"
 }

@@ -13,5 +13,6 @@
   "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} e 1 autre eveniment} other {{event} e {others} autres eveniments}}",
   "ActivityApps.notifications.eventCreate": "{actor} a creat {object} sus {target}.",
   "ActivityApps.notifications.eventUpdate": "{actor} a metut {object} a jorn sus {target}.",
-  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} e 1 autre utilizaire} other {{user} e {others} autres utilizaires}}"
+  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} e 1 autre utilizaire} other {{user} e {others} autres utilizaires}}",
+  "ActivityApps.noHistory": "Vòstras activitats seràn afichadas aquí."
 }

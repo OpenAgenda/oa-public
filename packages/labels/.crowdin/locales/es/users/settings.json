@@ -2,7 +2,7 @@
   "modify": "Editar",
   "accountParameters": "Configuración de la cuenta",
   "userProfile": "perfil de usuario",
-  "profileImage": "imagen del perfil",
+  "profileImage": "Imagen del perfil",
   "email": "e-mail",
   "newEmail": "Nueva dirección de correo electrónico",
   "password": "Contraseña",
@@ -18,7 +18,7 @@
   "save": "guardar cambios",
   "saving": "Ahorro",
   "saved": "Cambios guardan",
-  "image": "imagen",
+  "image": "Imagen",
   "actualPassword": "Contraseña actual",
   "newPassword": "Nueva contraseña",
   "confirmation": "confirmación",
@@ -45,11 +45,11 @@
   "accountRemoved": "Su cuenta ha sido eliminada",
   "agendaEventUpdate": "evento actualiza",
   "agendaEventPublished": "evento publicado",
-  "agendaNewAggregator": "agenda asociado",
+  "agendaNewAggregator": "Agenda importado",
   "notificationsSummary": "resumen agenda",
   "emailUnsubscription": "correo electrónico para darse de baja",
   "emails": "mensajes de correo electrónico",
   "allNotifications": "todas las notificaciones",
   "chooseEmailsSent": "Elija qu'OpenAgenda me envía mensajes de correo electrónico",
-  "filterInputPlaceholder": "agenda de búsqueda"
+  "filterInputPlaceholder": "Buscar una agenda"
 }

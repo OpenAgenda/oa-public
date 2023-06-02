@@ -249,7 +249,7 @@ module.exports = {
     "en": "{target} aggregated {object} from {actor}.",
     "fr": "{target} a agrégé {object} à partir de {actor}.",
     "de": "{target} {object} {from} {actor} aggregiert.",
-    "es": "{target} ha agregado {object} de {actor}.",
+    "es": "{target} ha importado {object} de {actor}.",
     "br": "{target} en/he deus toueziet {object} diwar {actor}.",
     "it": "{target} ha aggregato {object} da {actor}.",
     "io": "crwdns11248:0{target}crwdnd11248:0{object}crwdnd11248:0{actor}crwdne11248:0",

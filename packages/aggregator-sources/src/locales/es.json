@@ -1,3 +1,16 @@
 {
-  "aggregator-sources.AggregatorRulesModal.save": "Guardar"
+  "aggregator-sources.AggregatorRulesModal.save": "Guardar",
+  "aggregator-sources.AddSourceModal.makeASearch": "Buscar",
+  "aggregator-sources.AddSourceModal.noAgendas": "Ninguna agenda corresponde",
+  "aggregator-sources.AddSourceModal.searchAgenda": "Buscar una agenda",
+  "aggregator-sources.Dashboard.searchAgenda": "Buscar una agenda",
+  "aggregator-sources.DefineRules.actionsDetails": "Siempre se asignan las siguientes acciones al evento importado",
+  "aggregator-sources.EvaluateOptions.evaluateOption0": "Importar sólo los próximos eventos",
+  "aggregator-sources.EvaluateOptions.evaluateOption1": "Importar todos los eventos",
+  "aggregator-sources.EvaluateOptions.evaluateOption2": "Importa eventos actuales y futuros",
+  "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": "Sí, pero quiero mantener los eventos ya importados",
+  "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Sí, y también quiero eliminar los eventos ya importados",
+  "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Los eventos que se publiquen en la agenda {agenda} dejarán de importarse.{br} ¿Está seguro de que desea eliminar esta agenda de las fuentes?",
+  "aggregator-sources.RuleForm.useActionsDesc": "Cuando procede, la regla asocia el evento importado con valores específicos del agenda importador.",
+  "aggregator-sources.SlugSearch.enterLink": "Introduzca un enlace a la página de la agenda"
 }

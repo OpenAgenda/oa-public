@@ -1,5 +1,5 @@
 {
-  "title": "Nouvel événement ajouté sur {agenda}",
+  "title": "Nouvel événement ajouté sur {agenda}: {event}",
   "body": "<b>{event}</b> provenant de l'agenda <b>{sourceAgenda}</b> a été ajouté avec le statut <b>{state}</b> par <b>{user}</b>.",
   "actionDescription": "Voir l'événement",
   "tocontrol": "à contrôler",

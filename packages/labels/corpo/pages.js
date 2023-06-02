@@ -54,7 +54,7 @@ module.exports = {
     "fr": "Chercher un agenda",
     "en": "Look for an agenda",
     "de": "Suche nach einer Verwaltungskalender",
-    "es": "agenda de búsqueda",
+    "es": "Buscar una agenda",
     "it": "Cercare un'agenda",
     "io": "crwdns13458:0crwdne13458:0"
   },
@@ -135,7 +135,7 @@ module.exports = {
     "fr": "Ils sont agrégeables par d'autres agendas de la plateforme",
     "en": "They can be aggregated in other agendas",
     "de": "Du kannst auch in anderen Kalenders aggregiert werden",
-    "es": "Ellos aggregatable por otra plataforma agendas",
+    "es": "Ellos importable por otras agendas",
     "it": "Possono essere aggregate da altre agende della piattaforma",
     "io": "crwdns13478:0crwdne13478:0"
   },
@@ -307,7 +307,8 @@ module.exports = {
     "de": "Preisgestaltung",
     "es": "Tarifas",
     "it": "Tariffe",
-    "io": "crwdns13520:0crwdne13520:0"
+    "io": "crwdns13520:0crwdne13520:0",
+    "oc": "Tarifas"
   },
   "agendaPricingTitle": {
     "fr": "Offres agenda",
@@ -355,7 +356,8 @@ module.exports = {
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios",
     "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri.",
-    "io": "crwdns13532:0crwdne13532:0"
+    "io": "crwdns13532:0crwdne13532:0",
+    "oc": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri."
   },
   "agendaPricingPresPoint2": {
     "fr": "Seul ? En équipe de quelques dizaines ? De dizaines de milliers ?<br>Votre agenda s'adapte à votre contexte",
@@ -371,7 +373,8 @@ module.exports = {
     "de": "Synchronisiere deinen Kalender mit deinen Medien und teile es mit der ganzen Welt als #OpenData.",
     "es": "Su agenda está sincronizado con todos sus medios y distribuir por todos",
     "it": "La vostra agenda può essere sincronizzata con tutti i vostri media e distribuita a tutti gli utenti.",
-    "io": "crwdns13536:0crwdne13536:0"
+    "io": "crwdns13536:0crwdne13536:0",
+    "oc": "Sincronizatz vòstra agenda amb vòstres mèdias e partejatz-la amb lo monde entièr coma #OpenData."
   },
   "agendaPricingFreeTitle": {
     "fr": "Agenda simple",
@@ -379,7 +382,8 @@ module.exports = {
     "de": "Grund Agenda",
     "es": "simple Calendar",
     "it": "Agenda semplice",
-    "io": "crwdns13538:0crwdne13538:0"
+    "io": "crwdns13538:0crwdne13538:0",
+    "oc": "Agenda basica"
   },
   "agendaPricingFreeAction": {
     "fr": "Créer un agenda",
@@ -396,7 +400,8 @@ module.exports = {
     "de": "Kostenlos",
     "es": "gratis",
     "it": "Gratuito",
-    "io": "crwdns13542:0crwdne13542:0"
+    "io": "crwdns13542:0crwdne13542:0",
+    "oc": "Gratuit"
   },
   "agendaPricingFreeFeature1": {
     "fr": "Evénements et membres illimités",
@@ -436,7 +441,8 @@ module.exports = {
     "de": "Mäßigung",
     "es": "moderación",
     "it": "Moderazione",
-    "io": "crwdns13552:0crwdne13552:0"
+    "io": "crwdns13552:0crwdne13552:0",
+    "oc": "Moderacion"
   },
   "agendaPricingFreeFeature6": {
     "fr": "Hiérarchie des membres à deux niveaux",
@@ -524,7 +530,8 @@ module.exports = {
     "de": "Mäßigung",
     "es": "moderación",
     "it": "Moderazione",
-    "io": "crwdns13574:0crwdne13574:0"
+    "io": "crwdns13574:0crwdne13574:0",
+    "oc": "Moderacion"
   },
   "agendaPriceCustomFeature4": {
     "fr": "Hiérarchie des membres à trois niveaux",
@@ -580,7 +587,8 @@ module.exports = {
     "de": "Kontaktiere uns",
     "es": "Contáctenos",
     "it": "Contattateci",
-    "io": "crwdns13588:0crwdne13588:0"
+    "io": "crwdns13588:0crwdne13588:0",
+    "oc": "Nos contactar"
   },
   "agendaPricingNetwork": {
     "fr": "Vous avez besoin de plusieurs agendas?",
@@ -618,7 +626,7 @@ module.exports = {
     "fr": "Vous animez une fédération ? Un territoire ?<br>Déployez un réseau d'agendas et agrégez en temps réel tous les événements",
     "en": "You coordinate a federation ? A territory ?<br>Deploy a network of agendas and aggregate all your events in real-time",
     "de": "Sie koordinieren, um einen Verband? Ein Gebiet? <br> ein Netzwerk von Kalenders bereitstellen und alle Veranstaltungen in Echtzeit aggregiert",
-    "es": "A llevar una federación? Un territorio? <br> desplegar una red de agendas y en tiempo real agregado todos los eventos",
+    "es": "A llevar una federación? Un territorio? <br>Desplegar una red de agendas y en tiempo real importado todos los eventos",
     "it": "Dirigete una federazione? Un territorio <br>Deploy una rete di agende e aggrega in tempo reale tutti gli eventi",
     "io": "crwdns13598:0crwdne13598:0"
   },
@@ -628,7 +636,8 @@ module.exports = {
     "de": "Kostenlos",
     "es": "gratis",
     "it": "Gratuito",
-    "io": "crwdns13600:0crwdne13600:0"
+    "io": "crwdns13600:0crwdne13600:0",
+    "oc": "Gratuit"
   },
   "networkUpTo": {
     "fr": "jusqu'à",
@@ -1246,7 +1255,8 @@ module.exports = {
     "de": "Kontaktiere uns",
     "es": "contáctenos",
     "it": "Contattateci",
-    "io": "crwdns13754:0crwdne13754:0"
+    "io": "crwdns13754:0crwdne13754:0",
+    "oc": "Nos contactar"
   },
   "networkOfferTitle": {
     "en": "Network of agendas - 400€/month",
@@ -1390,7 +1400,8 @@ module.exports = {
     "de": "maßgeschneiderte",
     "es": "costumbre",
     "it": "Su misura",
-    "io": "crwdns13790:0crwdne13790:0"
+    "io": "crwdns13790:0crwdne13790:0",
+    "oc": "A faiçon"
   },
   "footerOffers": {
     "en": "The offers",
@@ -1524,7 +1535,8 @@ module.exports = {
     "de": "maßgeschneiderte",
     "es": "costumbre",
     "it": "Su misura",
-    "io": "crwdns13822:0crwdne13822:0"
+    "io": "crwdns13822:0crwdne13822:0",
+    "oc": "A faiçon"
   },
   "tailoredHeadTitle": {
     "en": "OpenAgenda - A tailored offer for your event management and communication needs",
@@ -1572,7 +1584,8 @@ module.exports = {
     "de": "Network Deployment",
     "es": "despliegue de red",
     "it": "Implementazione della rete",
-    "io": "crwdns13834:0crwdne13834:0"
+    "io": "crwdns13834:0crwdne13834:0",
+    "oc": "Desplega de la ret"
   },
   "expertiseAnimation": {
     "fr": "Animation de communauté",
@@ -1580,7 +1593,8 @@ module.exports = {
     "de": "Community-Management",
     "es": "Animación comunidad",
     "it": "Animazione per la comunità",
-    "io": "crwdns13836:0crwdne13836:0"
+    "io": "crwdns13836:0crwdne13836:0",
+    "oc": "Animacion de comunautat"
   },
   "expertiseModeration": {
     "fr": "Modération des contenus",
@@ -1634,7 +1648,7 @@ module.exports = {
     "fr": "Toutes les possibilités de recherche du moteur OpenAgenda",
     "en": "All search features available on OpenAgenda",
     "de": "Alle Suchfunktionen auf OpenAgenda",
-    "es": "Todas las oportunidades de investigación motor OpenAgenda",
+    "es": "Todas las funciones de búsqueda disponible su OpenAgenda",
     "it": "Tutte le possibilità di ricerca del motore OpenAgenda",
     "io": "crwdns13850:0crwdne13850:0"
   },
@@ -1874,7 +1888,7 @@ module.exports = {
     "en": "Ministry of National Education,<br> Higher Education and Research",
     "fr": "Ministère de l'Éducation nationale,<br> de l'Enseignement supérieur<br> et de la Recherche",
     "de": "Ministerium für Bildung, <br> Hochschulen und Forschung",
-    "es": "Ministerio de Educación Nacional, Francia Educación Superior e Investigación <br>",
+    "es": "Ministerio Francès de la Educación Nacional,<br> Educación Superior e Investigación",
     "it": "Ministero dell'Educazione Nazionale,<br> Istruzione Superiore<br> e Ricerca",
     "io": "crwdns13910:0crwdne13910:0"
   },
@@ -1972,7 +1986,8 @@ module.exports = {
     "de": "Kontaktiere uns",
     "es": "contáctenos",
     "it": "Contattateci",
-    "io": "crwdns13934:0crwdne13934:0"
+    "io": "crwdns13934:0crwdne13934:0",
+    "oc": "Nos contactar"
   },
   "contactHeadTitle": {
     "en": "OpenAgenda - Contact us",
@@ -2122,7 +2137,7 @@ module.exports = {
     "en": "Aggregate events from other agendas into yours",
     "fr": "Agrégez les événements d'autres agendas sur le votre",
     "de": "Aggregate Veranstaltungen von anderen Kalenders in Ihre",
-    "es": "Agregar los otros eventos en su agenda",
+    "es": "Importar los otros eventos en su agenda",
     "it": "Aggregare eventi da altre agende per conto proprio",
     "io": "crwdns13972:0crwdne13972:0"
   },

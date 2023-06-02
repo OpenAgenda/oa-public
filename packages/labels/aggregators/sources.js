@@ -41,7 +41,7 @@ module.exports = {
     "fr": "Pour agréger de nouveaux agendas, [allez sur un agenda que vous souhaitez agréger](%searchLink%), puis cliquez sur Exporter > Agréger dans > **%agenda%**.",
     "en": "To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **%agenda%**",
     "de": "Um neue Agenden zusammenzufassen, [rufen Sie die Seite](%searchLink%) der Tagesordnung auf, die Sie hinzufügen möchten und klicken Sie auf Exportieren > Agregieren in > **%agenda%**",
-    "es": "Para añadir nuevos calendarios, [abre la pagina del calendario](%searchLink%) que desea y pulsa sobre Exportar > Agregar en > **%agenda%**",
+    "es": "Para añadir nuevos calendarios, [abre la pagina del calendario](%searchLink%) que desea y pulsa sobre Exportar > Importar en > **%agenda%**",
     "it": "Per aggregare nuovi agende, [vai a un agenda che vuoi aggregare](%searchLink%), quindi clicca su Aggrega in > **%agenda%**",
     "io": "crwdns13012:0%searchLink%crwdnd13012:0%agenda%crwdne13012:0",
     "oc": "Per agregar d'agendas novèlas, [anatz sus la pagina de l'agenda](%searchLink%) que volètz apondre e clicatz sus Expòrt > Agregar dins > **%agenda%**"
@@ -59,7 +59,7 @@ module.exports = {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
     "en": "This agenda aggregates events from the agenda you want to add it to. Agregation loops are not permitted.",
     "de": "DieseVerwaltungskalender agregates Veranstaltungen von andere Kalenders.",
-    "es": "Este agenda agrupa los eventos del agenda que desee agregar. Los bucles de agregación no están permitidos.",
+    "es": "Este agenda agrupa los eventos del agenda que desee importar. Los bucles de importación no están permitidos.",
     "it": "Questo agenda aggrega gli eventi dell'agenda a cui si desidera aggiungerli. I cicli di aggregazione non sono ammessi.",
     "io": "crwdns13016:0crwdne13016:0",
     "oc": "Aquela agenda agrega d'eveniments de l'agenda a la quala la volètz apondre. Las boclas d'agregacion son enebidas."
@@ -68,7 +68,7 @@ module.exports = {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",
     "de": "Suche eine Verwaltungskalender",
-    "es": "agenda de búsqueda",
+    "es": "Buscar una agenda",
     "it": "Cerca un'agenda",
     "br": "Klask un deiziataer",
     "io": "crwdns13018:0crwdne13018:0",

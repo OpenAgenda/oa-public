@@ -128,7 +128,7 @@ module.exports = {
     "fr": "Résultat de la recherche",
     "en": "Search result",
     "de": "Suchergebnis",
-    "es": "resultados de la búsqueda",
+    "es": "Resultados de la búsqueda",
     "it": "Risultato della ricerca",
     "io": "crwdns15628:0crwdne15628:0"
   },

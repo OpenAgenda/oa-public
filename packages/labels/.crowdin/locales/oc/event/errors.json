@@ -1,1 +1,7 @@
-{}
+{
+  "timings.empty": "Cal indicar al mens un orari",
+  "location.required": "Cal precisar lo lòc",
+  "timings.toolong": "I pòt pas aver mai de 800 oraris per un sol eveniment",
+  "timings.min.1": "Cal indicar al mens un orari",
+  "timings.invalid": "Cal indicar al mens un orari"
+}

@@ -156,7 +156,7 @@ module.exports = {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
     "fr": "{agenda} a agrégé {event} à partir de {sourceAgenda}.",
     "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
-    "es": "{event} del {agenda} agregada de {sourceAgenda}.",
+    "es": "{agenda} ha importado {event} de {sourceAgenda}.",
     "it": "{agenda} ha aggregato {event} da {sourceAgenda}.",
     "io": "crwdns11076:0{agenda}crwdnd11076:0{event}crwdnd11076:0{sourceAgenda}crwdne11076:0",
     "oc": "{agenda} a agregat {event} de {sourceAgenda}."

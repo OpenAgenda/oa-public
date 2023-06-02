@@ -107,5 +107,22 @@
   "ActivityApps.systemUnpublishEvent.withoutTarget": "crwdns32710:0{eventName}crwdne32710:0",
   "ActivityApps.unpublishEvent.actor": "crwdns32712:0{userName}crwdnd32712:0{eventName}crwdne32712:0",
   "ActivityApps.unpublishEvent.full": "crwdns32714:0{userName}crwdnd32714:0{eventName}crwdnd32714:0{agendaName}crwdne32714:0",
-  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0"
+  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0",
+  "ActivityApps.LocationApp.history": "crwdns33177:0crwdne33177:0",
+  "ActivityApps.LocationApp.locationHistory": "crwdns33179:0crwdne33179:0",
+  "ActivityApps.LocationApp.openHistory": "crwdns33181:0crwdne33181:0",
+  "ActivityApps.history": "crwdns33183:0crwdne33183:0",
+  "ActivityApps.locationCreate.actor": "crwdns33185:0{userName}crwdnd33185:0{locationName}crwdne33185:0",
+  "ActivityApps.locationCreate.full": "crwdns33187:0{userName}crwdnd33187:0{locationName}crwdnd33187:0{agendaName}crwdne33187:0",
+  "ActivityApps.locationCreate.target": "crwdns33189:0{locationName}crwdnd33189:0{agendaName}crwdne33189:0",
+  "ActivityApps.locationMerge.actor": "crwdns33191:0{userName}crwdnd33191:0{locationName}crwdne33191:0",
+  "ActivityApps.locationMerge.full": "crwdns33193:0{userName}crwdnd33193:0{locationName}crwdnd33193:0{agendaName}crwdne33193:0",
+  "ActivityApps.locationMerge.target": "crwdns33195:0{locationName}crwdnd33195:0{agendaName}crwdne33195:0",
+  "ActivityApps.locationRemove.actor": "crwdns33197:0{userName}crwdnd33197:0{locationName}crwdne33197:0",
+  "ActivityApps.locationRemove.full": "crwdns33199:0{userName}crwdnd33199:0{locationName}crwdnd33199:0{agendaName}crwdne33199:0",
+  "ActivityApps.locationRemove.target": "crwdns33201:0{locationName}crwdnd33201:0{agendaName}crwdne33201:0",
+  "ActivityApps.locationUpdate.actor": "crwdns33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdne33203:0",
+  "ActivityApps.locationUpdate.full": "crwdns33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdne33205:0",
+  "ActivityApps.locationUpdate.target": "crwdns33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdne33207:0",
+  "ActivityApps.noHistory": "crwdns33209:0crwdne33209:0"
 }

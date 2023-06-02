@@ -1,1 +1,5 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Añadir un evento",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Importar",
+  "next.views.AgendaShow.AgendaHeader.export": "Exportar"
+}

@@ -18,7 +18,7 @@ module.exports = {
     "it": "Esportare",
     "de": "Exportieren",
     "pl": "Exportuj",
-    "es": "exportación",
+    "es": "Exportar",
     "br": "Ezporzhiañ",
     "io": "crwdns14428:0crwdne14428:0",
     "oc": "Exportar"

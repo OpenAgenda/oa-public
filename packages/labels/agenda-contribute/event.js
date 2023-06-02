@@ -87,7 +87,7 @@ module.exports = {
     "it": "Registrare l’evento",
     "de": "Die Veranstalltung erstellen",
     "br": "Krouiñ an darvoud",
-    "es": "crear evento",
+    "es": "Crear evento",
     "io": "crwdns11522:0crwdne11522:0",
     "oc": "Crear l'eveniment"
   },
@@ -202,14 +202,16 @@ module.exports = {
     "en": "Suggest a change",
     "it": "Suggerisci un cambiamento",
     "io": "crwdns16420:0crwdne16420:0",
-    "oc": "Suggerir una modificacion"
+    "oc": "Suggerir una modificacion",
+    "es": "Sugerir un cambio"
   },
   "cancelShare": {
     "fr": "Annuler le partage",
     "en": "Cancel the share",
     "it": "Cancellare la condivisione",
     "oc": "Anullar lo partatge",
-    "io": "crwdns16422:0crwdne16422:0"
+    "io": "crwdns16422:0crwdne16422:0",
+    "es": "Cancelar el compartimiento"
   },
   "close": {
     "fr": "Fermer",

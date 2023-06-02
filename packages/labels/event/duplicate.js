@@ -16,7 +16,7 @@ module.exports = {
     "en": "Search an agenda",
     "de": "Veranstaltungskalender suchen",
     "br": "Klask un deiziataer",
-    "es": "Buscar un agenda",
+    "es": "Buscar una agenda",
     "it": "Cerca un'agenda",
     "io": "crwdns14120:0crwdne14120:0",
     "oc": "Cercar una agenda"

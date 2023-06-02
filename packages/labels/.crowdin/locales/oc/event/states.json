@@ -1,5 +1,14 @@
 {
   "refused": "refusat",
   "controlled": "prèste a publicar",
-  "published": "publicat"
+  "published": "publicat",
+  "tocontrol": "e cors de moderacion",
+  "tobecontrolled": "e cors de moderacion",
+  "featured": "en una",
+  "all": "véser tot",
+  "state": "estatut",
+  "stateChanged": "L'estatut de l'eveniment a cambiat",
+  "featuredChange": "L'eveniment es ara en una",
+  "unfeaturedChange": "L'eveniment es pas pus en una",
+  "stateFieldInfo": "Lo camp es pas accessible als contributors"
 }

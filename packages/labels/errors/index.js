@@ -161,7 +161,8 @@ module.exports = {
     "es": "Este evento no está disponible porque está asociado con ninguna agenda",
     "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
     "it": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
-    "io": "crwdns14066:0crwdne14066:0"
+    "io": "crwdns14066:0crwdne14066:0",
+    "oc": "Aqueste eveniment es pas disponible coma es pas associat a quala agenda que siá."
   },
   "defaultBack": {
     "fr": "Revenir à l'accueil",
@@ -169,7 +170,8 @@ module.exports = {
     "de": "Zurück zur Startseite",
     "es": "volver al inicio",
     "it": "Torna alla home page",
-    "io": "crwdns14068:0crwdne14068:0"
+    "io": "crwdns14068:0crwdne14068:0",
+    "oc": "Tornar a l'acuèlh"
   },
   "defaultAgendaBack": {
     "fr": "Revenir à l'agenda",
@@ -177,7 +179,8 @@ module.exports = {
     "de": "Zurück zum Veranstaltungskalender",
     "es": "Volver a la agenda",
     "it": "Tornare all'agenda",
-    "io": "crwdns14070:0crwdne14070:0"
+    "io": "crwdns14070:0crwdne14070:0",
+    "oc": "Tornar a la pagina d'agenda"
   },
   "pageDoesNotExist": {
     "fr": "La page que vous avez demandé n'existe pas",
@@ -185,11 +188,13 @@ module.exports = {
     "de": "Die von Ihnen angeforderte Seite existiert nicht",
     "es": "La página solicitada no existe",
     "it": "La pagina richiesta non esiste",
-    "io": "crwdns14072:0crwdne14072:0"
+    "io": "crwdns14072:0crwdne14072:0",
+    "oc": "La pagina demandada existís pas"
   },
   "invalidOrIncompleteEvent": {
     "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
     "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
-    "io": "crwdns16424:0crwdne16424:0"
+    "io": "crwdns16424:0crwdne16424:0",
+    "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
   }
 }

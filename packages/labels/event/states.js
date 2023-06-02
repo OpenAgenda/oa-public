@@ -18,7 +18,8 @@ module.exports = {
     "es": "con moderación",
     "br": "da habaskaat",
     "it": "moderatamente",
-    "io": "crwdns14604:0crwdne14604:0"
+    "io": "crwdns14604:0crwdne14604:0",
+    "oc": "e cors de moderacion"
   },
   "tobecontrolled": {
     "fr": "en modération",
@@ -27,7 +28,8 @@ module.exports = {
     "es": "con moderación",
     "br": "da habaskaat",
     "it": "moderatamente",
-    "io": "crwdns14606:0crwdne14606:0"
+    "io": "crwdns14606:0crwdne14606:0",
+    "oc": "e cors de moderacion"
   },
   "controlled": {
     "fr": "prêt à publier",
@@ -56,7 +58,8 @@ module.exports = {
     "es": "en una",
     "br": "keleier pennañ",
     "it": "prima pagina",
-    "io": "crwdns14612:0crwdne14612:0"
+    "io": "crwdns14612:0crwdne14612:0",
+    "oc": "en una"
   },
   "all": {
     "fr": "voir tous",
@@ -65,7 +68,8 @@ module.exports = {
     "es": "ver todas",
     "br": "gwelet pep tra",
     "it": "vedi tutti",
-    "io": "crwdns14614:0crwdne14614:0"
+    "io": "crwdns14614:0crwdne14614:0",
+    "oc": "véser tot"
   },
   "state": {
     "fr": "statut",
@@ -74,7 +78,8 @@ module.exports = {
     "es": "estatus",
     "br": "Statud",
     "it": "stato",
-    "io": "crwdns14616:0crwdne14616:0"
+    "io": "crwdns14616:0crwdne14616:0",
+    "oc": "estatut"
   },
   "stateChanged": {
     "fr": "Le statut de l'événement a été modifié",
@@ -83,7 +88,8 @@ module.exports = {
     "es": "El estado del evento fue cambiado",
     "br": "Cheñchet eo stad an darvoud",
     "it": "Lo stato dell'evento è stato modificato",
-    "io": "crwdns14618:0crwdne14618:0"
+    "io": "crwdns14618:0crwdne14618:0",
+    "oc": "L'estatut de l'eveniment a cambiat"
   },
   "featuredChange": {
     "fr": "L'événement est désormais en une",
@@ -92,7 +98,8 @@ module.exports = {
     "es": "El caso está ahora en una",
     "br": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
     "it": "L'evento è ora in uno",
-    "io": "crwdns14620:0crwdne14620:0"
+    "io": "crwdns14620:0crwdne14620:0",
+    "oc": "L'eveniment es ara en una"
   },
   "unfeaturedChange": {
     "fr": "L'événement n'est plus en une",
@@ -101,13 +108,15 @@ module.exports = {
     "es": "El evento ya no es una",
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
     "it": "L'evento non è più in uno",
-    "io": "crwdns14622:0crwdne14622:0"
+    "io": "crwdns14622:0crwdne14622:0",
+    "oc": "L'eveniment es pas pus en una"
   },
   "stateFieldInfo": {
     "fr": "Ce champ n'est pas accessible aux contributeurs",
     "en": "This field is not available to contributors",
     "it": "I contributori non possono vedere né modificare questo campo",
     "io": "crwdns16460:0crwdne16460:0",
-    "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl"
+    "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
+    "oc": "Lo camp es pas accessible als contributors"
   }
 }

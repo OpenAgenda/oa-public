@@ -1,7 +1,7 @@
 {
   "translationTitle": "traducción automática",
   "sourceLanguage": "idioma de referencia",
-  "targetLanguages": "idiomas de destino",
+  "targetLanguages": "Idiomas de destino",
   "translationHelp": "Más información",
   "processingTranslation": "Traducción en curso",
   "savingPartialTranslation": "Las traducciones no pudieron recuperarse parcialmente. ahorro",

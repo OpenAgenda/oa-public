@@ -7,7 +7,8 @@ module.exports = {
     "de": "automatisierte Übersetzung",
     "es": "traducción automática",
     "it": "Traduzione automatica",
-    "io": "crwdns14650:0crwdne14650:0"
+    "io": "crwdns14650:0crwdne14650:0",
+    "oc": "Traduccion automatica"
   },
   "translationInfo": {
     "fr": "",
@@ -21,15 +22,17 @@ module.exports = {
     "de": "Ausgangssprache",
     "es": "idioma de referencia",
     "it": "Riferimenti linguistici",
-    "io": "crwdns14652:0crwdne14652:0"
+    "io": "crwdns14652:0crwdne14652:0",
+    "oc": "Lenga de referéncia"
   },
   "targetLanguages": {
     "fr": "Langues de destination",
     "en": "Destination languages",
     "de": "Zielsprachen",
-    "es": "idiomas de destino",
+    "es": "Idiomas de destino",
     "it": "Lingue di destinazione",
-    "io": "crwdns14654:0crwdne14654:0"
+    "io": "crwdns14654:0crwdne14654:0",
+    "oc": "Lengas de destinacion"
   },
   "translationHelp": {
     "fr": "En savoir plus",
@@ -46,7 +49,8 @@ module.exports = {
     "de": "Verarbeitung Übersetzung",
     "es": "Traducción en curso",
     "it": "Traduzione in corso",
-    "io": "crwdns14658:0crwdne14658:0"
+    "io": "crwdns14658:0crwdne14658:0",
+    "oc": "Traduccion en cors"
   },
   "savingPartialTranslation": {
     "en": "Translations were retrieved partially only. Saving anyways",
@@ -54,7 +58,8 @@ module.exports = {
     "de": "Übersetzungen wurden zum Teil nur abgerufen. Speichern sowieso",
     "es": "Las traducciones no pudieron recuperarse parcialmente. ahorro",
     "it": "Le traduzioni hanno potuto essere recuperate solo in parte. Backup in corso",
-    "io": "crwdns14660:0crwdne14660:0"
+    "io": "crwdns14660:0crwdne14660:0",
+    "oc": "Las traduccions son estadas recuperadas pas que parcialament. Enregistram pasmens"
   },
   "sourceChange": {
     "en": "Change",
@@ -62,7 +67,8 @@ module.exports = {
     "de": "Veränderung",
     "es": "Cambiar",
     "it": "Cambia",
-    "io": "crwdns14662:0crwdne14662:0"
+    "io": "crwdns14662:0crwdne14662:0",
+    "oc": "Cambiar"
   },
   "deactivatedTranslation": {
     "en": "The automated translation is deactivated",
@@ -70,6 +76,7 @@ module.exports = {
     "de": "Die automatische Übersetzung ist deaktiviert",
     "es": "El módulo de traducción automática se desactiva",
     "it": "Il modulo di traduzione automatica è disabilitato",
-    "io": "crwdns14664:0crwdne14664:0"
+    "io": "crwdns14664:0crwdne14664:0",
+    "oc": "La traduccion automatica es desactivada"
   }
 }

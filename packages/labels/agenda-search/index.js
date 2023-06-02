@@ -23,7 +23,7 @@ module.exports = {
     "en": "Search results for \"%search%\"",
     "fr": "Résultats de la recherche \"%search%\"",
     "de": "Suchergebnisse für \"%search%",
-    "es": "Resultados de búsqueda para \"Búsqueda%\"",
+    "es": "Resultados de búsqueda para \"%search%\"",
     "it": "Risultati della ricerca per \"%search%\"",
     "io": "crwdns12416:0%search%crwdne12416:0",
     "oc": "Resultats de recèrca per \"%search%\""
@@ -32,7 +32,7 @@ module.exports = {
     "en": "Search agendas",
     "fr": "Recherche d'agendas",
     "de": "Kalendersucher",
-    "es": "Búsqueda de agendas",
+    "es": "Buscar una agenda",
     "it": "Ricerca del diario",
     "io": "crwdns12418:0crwdne12418:0",
     "oc": "Recèrca d'agendas"
@@ -41,7 +41,7 @@ module.exports = {
     "en": "Calendar search results",
     "fr": "Résultats de la recherche agendas",
     "de": "Kalendersuchergebnisse",
-    "es": "resultados agendas",
+    "es": "Resultados de búsqueda",
     "it": "Risultati della ricerca del diario",
     "io": "crwdns12420:0crwdne12420:0",
     "oc": "Resultats de la recèrca d'agendas"
@@ -59,7 +59,7 @@ module.exports = {
     "en": "Sorry, no agendas matched this search",
     "fr": "Désolé, aucun agenda ne correspond à cette recherche",
     "de": "Leider stimmte keine Agenda mit dieser Suche überein",
-    "es": "Lo sentimos, hay una agenda coincide con esta búsqueda",
+    "es": "Lo sentimos, ninguna agenda coincide con esta búsqueda",
     "it": "Spiacenti, nessun agenda corrisponde a questa ricerca",
     "io": "crwdns12424:0crwdne12424:0",
     "oc": "Desolats, pas cap agenda correspond a aquesta recèrca"

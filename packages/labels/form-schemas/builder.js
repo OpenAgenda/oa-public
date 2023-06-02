@@ -209,7 +209,7 @@ module.exports = {
   "removeLabelLanguages": {
     "fr": "Retirer les langues",
     "en": "Clear languages",
-    "es": "eliminar idiomas",
+    "es": "Eliminar idiomas",
     "it": "Rimozione delle lingue",
     "io": "crwdns14730:0crwdne14730:0"
   },
@@ -374,7 +374,8 @@ module.exports = {
     "en": "Title",
     "it": "Titolo",
     "oc": "Títol",
-    "io": "crwdns32883:0crwdne32883:0"
+    "io": "crwdns32883:0crwdne32883:0",
+    "es": "título"
   },
   "sectionInfo": {
     "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
@@ -399,7 +400,7 @@ module.exports = {
   "languagesFieldType": {
     "fr": "Langues de saisie",
     "en": "Input languages",
-    "es": "idiomas de entrada",
+    "es": "Idiomas de entrada",
     "it": "Lingue di ingresso",
     "de": "Wählen Sie eine Sprache",
     "br": "Choazit ur yezh",
@@ -817,31 +818,30 @@ module.exports = {
     "fr": "Lecture",
     "en": "Read",
     "es": "Lectura",
-    "it": "Lettura",
+    "it": "Lettura"
   },
   "writeAccess": {
     "fr": "Écriture",
     "en": "Write",
     "es": "Escritura",
-    "it": "Scrittura",
+    "it": "Scrittura"
   },
   "adminAccess": {
     "fr": "administrateur",
     "en": "adminitrator",
     "es": "administrador",
-    "it": "administratore",
+    "it": "administratore"
   },
   "moderatorAccess": {
     "fr": "moderateur",
     "en": "moderator",
     "es": "moderador",
-    "it": "moderatore",
+    "it": "moderatore"
   },
   "contributorAccess": {
     "fr": "contributeur",
     "en": "contributor",
     "es": "ccontribuidor",
-    "it": "contributore",
+    "it": "contributore"
   }
-
 }
