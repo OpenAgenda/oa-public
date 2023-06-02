@@ -1,4 +1,10 @@
 {
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
-  "ReactFilters.messages.filterTitles.languages": "Idiomas"
+  "ReactFilters.messages.filterTitles.languages": "Idiomas",
+  "ReactFilters.filters.searchFilter.placeholder": "Buscar",
+  "ReactFilters.filters.searchFilter.previewLabel": "Buscar",
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
+  "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
+  "ReactFilters.messages.map.searchWithMap": "Buscar en el mapa",
+  "ReactFilters.messages.relative.upcoming": "Próximos"
 }
