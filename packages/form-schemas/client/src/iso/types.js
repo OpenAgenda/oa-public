@@ -19,5 +19,6 @@ module.exports = {
   file: 'pass',
   date: 'date',
   boolean: 'boolean',
-  abstract: 'abstract'
-}
+  abstract: 'abstract',
+  pass: 'pass',
+};

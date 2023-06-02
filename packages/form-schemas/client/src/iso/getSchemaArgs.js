@@ -36,7 +36,6 @@ module.exports = (fields, accessType = null, al = null, options = {}) => {
     })
     .map(f => {
       const validatorConfiguration = getValidatorFromField(f, params);
-
       return validatorConfiguration;
     }).reduce((schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f), {});
 };

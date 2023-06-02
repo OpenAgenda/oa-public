@@ -42,7 +42,7 @@ const map = [{
   parser: convertToChoice.bind(null, { unique: false }),
   type: 'choice'
 }, {
-  field: ['textarea', 'markdown', 'html'],
+  field: ['textarea', 'markdown', 'html', 'pass'],
   parser: convertTo,
   type: 'text'
 }, {
