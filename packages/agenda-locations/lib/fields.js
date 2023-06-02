@@ -42,7 +42,7 @@ module.exports = [{
   read: ['internal', 'public', 'administrator', 'moderator', 'contributor', 'list', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   fieldType: 'text',
-  max: 100,
+  max: 150,
   label: labels.name,
 }, {
   field: 'address',
