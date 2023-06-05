@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
+const redis = require( 'redis' );
+const Queues = require('@openagenda/queues');
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -25,17 +27,27 @@ describe( 'activities - feed', () => {
 
     beforeEach(async () => {
 
+      const redisClient = redis.createClient({
+        socket: {
+          host: config.redis.host,
+          port: config.redis.port,
+        },
+      });
+
       service = await Service.initAndLoad({
         ...config,
         knex: knexLib({
           client: 'mysql',
           connection: config.mysql
-        })
+        }),
+        Queues: Queues({
+          redis: redisClient,
+        }),
       }, [ 'feed', 'feed_follow' ] );
 
     });
 
-    afterAll(() => service.shutdown());
+    // afterAll(() => service.shutdown());
 
 
     it('call feed method with bad entity type', () => {

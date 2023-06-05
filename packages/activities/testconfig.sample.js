@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require( 'path' );
+const Queues = require('@openagenda/queues');
 
 module.exports = {
   root: 'http://localhost:3000/',
@@ -55,10 +56,12 @@ module.exports = {
       addActivity: 'notificationAddActivityTest',
       sendSummary: 'notificationSendSummaryTest'
     },
+  },
+  queues: Queues({
     redis: {
       host: 'localhost',
       port: 6379
     }
-  },
+  }),
   enableNotificationsForFeedTypes: ['user'],
 };
