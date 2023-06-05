@@ -1,1 +1,4 @@
-{}
+{
+  "next.views.AgendaShow.showUpcomingEventsOnly": "Mostrar sólo los próximos eventos",
+  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Ningún evento próximo} one {1 evento próximo} other {# eventos próximos}}"
+}

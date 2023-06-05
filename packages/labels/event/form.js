@@ -173,7 +173,7 @@ module.exports = {
     "en": "Image of the event",
     "it": "Immagine dell'evento",
     "de": "Bild der Veranstaltung",
-    "es": "imagen del evento",
+    "es": "Imagen del evento",
     "br": "Skeudenn an darvoud",
     "io": "crwdns14296:0crwdne14296:0"
   },
@@ -191,7 +191,7 @@ module.exports = {
     "en": "Image credits",
     "it": "Crediti immagine",
     "de": "Bildnachweise",
-    "es": "créditos del imágen",
+    "es": "Créditos del imágen",
     "br": "Perc'henn ar skeudenn",
     "io": "crwdns14300:0crwdne14300:0",
     "oc": "Crèdits de l'imatge"
@@ -369,7 +369,7 @@ module.exports = {
     "en": "Input languages",
     "it": "Scegli una lingua",
     "de": "Wählen Sie eine Sprache",
-    "es": "idiomas de entrada",
+    "es": "Idiomas de entrada",
     "br": "Choazit ur yezh",
     "io": "crwdns14336:0crwdne14336:0"
   },
@@ -407,7 +407,8 @@ module.exports = {
     "de": "Es muss mindestens ein Zeitpunkt definiert werden.",
     "es": "Al menos una zona debe definirse",
     "br": "Ret eo lakaat un eur da vihanañ",
-    "io": "crwdns14344:0crwdne14344:0"
+    "io": "crwdns14344:0crwdne14344:0",
+    "oc": "Cal indicar al mens un orari"
   },
   "categoriesTitle": {
     "en": "Categories",

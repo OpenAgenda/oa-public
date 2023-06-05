@@ -26,7 +26,8 @@ module.exports = {
     "en": "Invalid token",
     "fr": "Token invalide",
     "it": "Token non valido",
-    "io": "crwdns13062:0crwdne13062:0"
+    "io": "crwdns13062:0crwdne13062:0",
+    "oc": "Geton invalid"
   },
   "userNotFound": {
     "en": "User not found",

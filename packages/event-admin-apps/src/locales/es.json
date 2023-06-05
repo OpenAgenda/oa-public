@@ -6,5 +6,17 @@
   "EventAdminApp.messages.attendanceModes.offline": "Desconnectad",
   "EventAdminApp.messages.attendanceModes.online": "En linea",
   "EventAdminApp.messages.exports.export": "Exportar",
-  "EventAdminApp.messages.exports.exportSelection": "Exportar"
+  "EventAdminApp.messages.exports.exportSelection": "Exportar",
+  "EventAdminApp.Dashboard.searchPlaceholder": "Buscar",
+  "EventAdminApp.EmptyDashboard.addSources": "Importa eventos publicados en otras agendas mediante <link>Añadiéndolas a fuentes</link>",
+  "EventAdminApp.EventItem.aggregatedFrom": "Importado da <link>{title}</link>",
+  "EventAdminApp.RemoveModal.removeDesc": "¿Está seguro de que desea hacerlo? Si elimina el evento de esta agenda, dejará de aparecer en las exportaciones y se eliminará de cualquier agenda que agregue sus eventos",
+  "EventAdminApp.messages.exports.exportDesc": "Descargar {total, plural, =0 {# evento} one {# evento} other {# eventos}}",
+  "EventAdminApp.messages.exports.toDOCX": "docx",
+  "EventAdminApp.messages.exports.toICS": "ics",
+  "EventAdminApp.messages.exports.toJSON": "json",
+  "EventAdminApp.messages.exports.toMD": "md",
+  "EventAdminApp.messages.exports.toRSS": "rss",
+  "EventAdminApp.messages.exports.toTXT": "txt",
+  "EventAdminApp.messages.relative.upcoming": "Próximos"
 }

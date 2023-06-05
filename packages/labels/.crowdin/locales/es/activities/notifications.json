@@ -13,5 +13,5 @@
   "agenda.setOfficial": "El objetivo {agenda} se hizo oficial.",
   "agenda.setUnofficial": "El agenda de destino se convirtió en oficial.",
   "agenda.publishEvent": "{actor} publicado el {object} en {target}",
-  "agenda.aggregateEvent": "{target} ha agregado {object} de {actor}."
+  "agenda.aggregateEvent": "{target} ha importado {object} de {actor}."
 }

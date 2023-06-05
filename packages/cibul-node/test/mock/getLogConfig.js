@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-module.exports = ( prefix, key ) => ( {
+module.exports = (prefix, key) => ({
   debug: {
-    prefix: prefix + ':' + key + ':'
+    prefix: `${prefix}:${key}:`,
   },
-  token: null
-} );
+  token: null,
+});

@@ -1,7 +1,7 @@
 {
   "myAgendas": "mis agendas",
   "createAgenda": "Crear un agenda",
-  "searchAgenda": "agenda de búsqueda",
+  "searchAgenda": "Buscar una agenda",
   "myEvents": "Mis eventos",
   "messages": "mensajes",
   "notifications": "Notificaciones",
@@ -16,7 +16,7 @@
   "orCreateYourAgenda": "Contribuir a un agenda existente",
   "noResult": "ningún resultado encontrado",
   "createEvent": "crear evento",
-  "searchEvent": "Busca un evento",
+  "searchEvent": "Buscar un evento",
   "selectAgenda": "Seleccione el agenda en el que crear el evento",
   "privateAgenda": "Eventos privados",
   "privateEvent": "evento privado",

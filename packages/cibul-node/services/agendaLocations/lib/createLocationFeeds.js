@@ -1,7 +1,14 @@
 'use strict';
 
+const log = require('@openagenda/logs')('services/agendaLocations/lib/createLocationFeeds');
+
 module.exports = async function createLocationFeeds(services, { agendaUid, locationUid, setUid }) {
   const { activities } = services;
+
+  if (!activities) {
+    log.warn('activities service is not enabled');
+    return;
+  }
 
   let locationFeed;
   let setFeed;

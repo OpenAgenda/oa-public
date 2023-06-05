@@ -1,4 +1,9 @@
 {
   "required": "Requesit",
-  "choice.required": "Requesit"
+  "choice.required": "Requesit",
+  "noOrigin": "Aqueste eveniment es pas disponible coma es pas associat a quala agenda que siá.",
+  "defaultBack": "Tornar a l'acuèlh",
+  "defaultAgendaBack": "Tornar a la pagina d'agenda",
+  "pageDoesNotExist": "La pagina demandada existís pas",
+  "invalidOrIncompleteEvent": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
 }

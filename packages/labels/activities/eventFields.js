@@ -41,6 +41,7 @@ module.exports = {
     "en": "image",
     "it": "immagine",
     "io": "crwdns11190:0crwdne11190:0",
-    "oc": "imatge"
+    "oc": "imatge",
+    "es": "imagen"
   }
 }

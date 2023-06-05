@@ -65,7 +65,7 @@ module.exports = {
     "en": "Image",
     "fr": "Image",
     "de": "Bild",
-    "es": "imagen",
+    "es": "Imagen",
     "it": "Immagine",
     "io": "crwdns14160:0crwdne14160:0",
     "oc": "Imatge"
@@ -196,7 +196,7 @@ module.exports = {
     "en": "Registration",
     "fr": "Inscription",
     "de": "Registrierung",
-    "es": "Registro",
+    "es": "Herramientas de registro",
     "it": "Strumenti di registrazione",
     "io": "crwdns16430:0crwdne16430:0"
   },

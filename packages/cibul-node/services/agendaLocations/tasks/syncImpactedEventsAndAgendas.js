@@ -8,7 +8,7 @@ module.exports = services => async function syncImpactedEventsAndAgendas(before,
     legacy,
     events: eventsSvc,
     agendaEvents,
-    tracker
+    tracker,
   } = services;
 
   tracker('agendaLocations.syncImpactedEventsAndAgendas');
@@ -20,7 +20,7 @@ module.exports = services => async function syncImpactedEventsAndAgendas(before,
       includeFields: ['uid'],
       access: 'internal',
       private: null,
-      draft: null
+      draft: null,
     })
     .then(events => events.map(e => e.uid));
 
@@ -41,7 +41,7 @@ module.exports = services => async function syncImpactedEventsAndAgendas(before,
 
       log('resyncing event %s in agenda %s', eventUid, agendaUid);
       await core.agendas(agendaUid).events.search.resyncEvent(eventUid, {
-        throwOnError: false
+        throwOnError: false,
       });
 
       if (!impactedAgendaUids.includes(agendaUid)) {
@@ -54,7 +54,7 @@ module.exports = services => async function syncImpactedEventsAndAgendas(before,
   for (const agendaUid of impactedAgendaUids) {
     await controlData.locationSet({
       agendaUid,
-      location: after
+      location: after,
     });
   }
 

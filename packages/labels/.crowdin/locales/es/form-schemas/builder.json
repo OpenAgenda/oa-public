@@ -27,7 +27,7 @@
   "editFieldInfo": "Editar las propiedades de este campo",
   "addLabelLanguages": "Establecer idioma",
   "submitLabelLanguages": "validar",
-  "removeLabelLanguages": "eliminar idiomas",
+  "removeLabelLanguages": "Eliminar idiomas",
   "fieldLabelLanguages": "etiquetas de idioma",
   "textFieldType": "Campo de texto",
   "textareaFieldType": "Texto (Párrafo)",
@@ -41,7 +41,7 @@
   "booleanFieldType": "Unica checkbox",
   "imageFieldType": "Imagen",
   "unknownFieldType": "Tipo desconocido",
-  "languagesFieldType": "idiomas de entrada",
+  "languagesFieldType": "Idiomas de entrada",
   "markdownMultilingualFieldType": "Multilingüe de texto enriquecido",
   "registrationFieldType": "Enlaces, teléfono, correo electrónico",
   "locationFieldType": "Selección del sitio",
@@ -93,5 +93,6 @@
   "enabledWhenLinkedFieldHasSpecificValue": "Activo cuando el campo %linkedFieldName% toma el valor %specificValue%",
   "optionalWhenLinkedFieldHasValue": "Opcional cuando se introduce el campo %linkedFieldName%",
   "optionalWhenLinkedFieldHasSpecificValue": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
-  "linkedTo": "Relacionado con el campo %fieldName%"
+  "linkedTo": "Relacionado con el campo %fieldName%",
+  "sectionLabel": "título"
 }

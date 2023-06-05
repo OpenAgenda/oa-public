@@ -113,6 +113,11 @@ import { createCluster } from 'redis';
 Une interface d'administration permet d'avoir une vue d'ensemble sur l'utilisation du cluster
 
 
+### Avoir les droits admin sur un noeud
+
+https://www.infomaniak.com/fr/support/faq/2346/jelastic-cloud-lancer-des-commandes-avec-un-acces-root-sur-nimporte-quel-conteneur
+
+
 ## Mails
 
 Un éditeur de template peut être lancé depuis cibul-node: `yarn mails-editor`.
@@ -604,6 +609,20 @@ Le 07/03/2023
 
 Quand un `agenda-portal` va chercher un contenu à afficher en vue liste sur l'API, il met de coté une copie de ce qu'il lit de coté pendant 30 minutes. Si un visiteur vient voir la même page (même URL) sous ces 30 minutes, la copie épargne au portail un nouvel appel à l'API. Ceci est indépendant de l'activité sur OpenAgenda. Il peut arriver que le contenu de la liste évolue sous ces 30 minutes sur OpenAgenda, il ne sera alors répercuté sur le portail que lorsque la copie sera supprimée: au plus dans les prochaines 30 minutes. Nous pouvons réduire cette durée.
 
+
+### Les tags vs les champs additionnels
+
+À l'origine, nous permettions la saisie de deux champs à choix au delà des champs standards: les catégories et les tags. L'admin de l'agenda pouvait saisir autant de catégories et / ou tags qu'ils voulaient. Les catégories se limitaient à un seul choix pasr événemetn, les tags plusieurs.
+
+Puis on a permis de créer des groupes de tags, de choisir quel groupe était obligatoire, lesquels étaient à choix multiples.
+
+L'export JSON affiche encore ces deux champs: catégories et tags. Il affiche les tags sous leurs deux déclinaisons: celle d'origine (liste plate de tags), puis celle plus complète (liste de groupes de tags). Les valeurs sont monolingues.
+
+Puis on a rendu le modèle de données plus libre en permettant de saisir des champs additionnels aux types plus variés que les tags/catégories. Un champ additionnel à son nom et son type (liste de radios, de checkbox, select à choix unique ou multiple, champ texte, champ zone de texte, etc.). Les définitions de champs (les labels, info, options) peuvent être saisies dans plusieurs langues.
+
+L'API v2 reflète la dernière version de ces évolutions: les données des champs additionnels apparaissent sous leurs propres clés
+
+L'ancien export JSON présente une version taggéifiée/catégorisée des données qui converties du format "champ additionnels". L'ancien embed aussi.
 
 ### L'ancien export JSON
 

@@ -5,7 +5,7 @@ module.exports = {
     "it": "Cercare quando sposto la mappa",
     "fr": "rechercher quand je déplace la carte",
     "en": "search when I move the map",
-    "es": "busca cuando el mapa cambia",
+    "es": "busca cuando cambia el mapa",
     "de": "suchen, wenn ich die Karte verschiebe",
     "ar": "إبحت عندما أزيح الخيطة",
     "br": "klask pa zilec'hian ar gartenn",

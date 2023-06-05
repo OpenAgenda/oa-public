@@ -2,7 +2,7 @@
   "agenda.publishEvent": "{user} registró {event} sobre el agenda {agenda}.",
   "agenda.unpublishEvent": "{user} ha cancellado la publicacion de {event} en la agenda  {agenda}.",
   "agenda.removeEvent": "{user} {event} sobre el agenda {agenda} eliminado.",
-  "agenda.aggregateEvent": "{event} del agenda agregada de {sourceAgenda}.",
+  "agenda.aggregateEvent": "{agenda} ha importado {event} de {sourceAgenda}.",
   "event.create": "{user} creado {event} en el agenda del {agenda}.",
   "event.update": "{user} ha actualizado {event} de {agenda}.",
   "event.delete": "{user} elimina eventos de la agenda {agenda}."

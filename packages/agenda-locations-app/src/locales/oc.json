@@ -187,5 +187,9 @@
   "AgendaLocations.stepper.notDuplicates": "Aquestes son pas de doblons",
   "AgendaLocations.stepper.see": "veire",
   "AgendaLocations.stepper.seeDetails": "Detalhs",
-  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc"
+  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc",
+  "AgendaLocations.CountryField.country": "País ( camp requesit )",
+  "AgendaLocations.LocationConfirmation.browseDetails": "Consultatz las informacions detalhadas dejós puèi confirmatz vòstra causida en bas d'aqueste menut",
+  "AgendaLocations.LocationDetailModal.removedMessage": "Lo lòc que cercatz foguèt suprimit",
+  "AgendaLocations.LocationDetailModal.removedModalTitle": "Lòc suprimit"
 }

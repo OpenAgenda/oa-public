@@ -13,5 +13,6 @@
   "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} i uno altro evento} other {{event} i {others} altri eventi}}",
   "ActivityApps.notifications.eventCreate": "{actor} ha creato {object} in {target}.",
   "ActivityApps.notifications.eventUpdate": "{actor} ha aggiornato {object} su {target}.",
-  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} et 1 altro utente} other {{user} et {others} altri utenti}}"
+  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} et 1 altro utente} other {{user} et {others} altri utenti}}",
+  "ActivityApps.noHistory": "Le vostre attività saranno visualizzate qui."
 }

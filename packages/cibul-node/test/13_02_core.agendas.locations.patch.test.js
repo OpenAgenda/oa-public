@@ -51,26 +51,34 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('location is patched', async () => {
-    await core.agendas(64260763).locations.patch(37923057, {
+    core.agendas(64260763).locations.patch(37923057, {
       name: 'Un étang',
     });
 
-    const row = await core.services.knex('location').first(['placename']).where('uid', 37923057);
-
-    expect(row.placename).toBe('Un étang');
+    await new Promise(rs => {
+      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
+        const row = await core.services.knex('location').first(['placename']).where('uid', 37923057);
+        expect(row.placename).toBe('Un étang');
+        rs();
+      });
+    });
   });
 
   it('index of agenda where location is patched is refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
       address: '13 rue du désespoir, Roubaix',
-    });
+    }).then(() => core.services.tracker('patched'));
 
-    await new Promise(rs => {
-      core.services.tracker.on('eventSearch.onUpdate.agendas_89904399', async () => {
+    await new Promise((rs, rj) => {
+      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
         const { events } = await core.agendas(64260763).events.search({
           locationUid: 37923057,
         });
-        expect(events[0].location.address).toBe('13 rue du désespoir, Roubaix');
+        try {
+          expect(events[0].location.address).toBe('13 rue du désespoir, Roubaix');
+        } catch (e) {
+          return rj(e);
+        }
         rs();
       }, true);
     });
@@ -81,10 +89,14 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
       address: '23 rue de l\'Espérance, 59100 Roubaix',
     });
 
-    await new Promise(rs => {
-      core.services.tracker.on('eventSearch.onUpdate.agendas_89904399', async () => {
+    await new Promise((rs, rj) => {
+      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
         const { events } = await core.agendas(89904399).events.search({ locationUid: 37923057 });
-        expect(events[0].location.address).toBe('23 rue de l\'Espérance, 59100 Roubaix');
+        try {
+          expect(events[0].location.address).toBe('23 rue de l\'Espérance, 59100 Roubaix');
+        } catch (e) {
+          return rj(e);
+        }
         rs();
       }, true);
     });

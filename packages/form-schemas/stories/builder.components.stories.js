@@ -662,6 +662,51 @@ export function FieldPreview() {
       </div>
 
       <div className="row">
+        <h2 className="text-center margin-v-md">Field access</h2>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with a single or multiple access right</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                field: 'un-premier-champ',
+                label: 'Un champ restreint aux adminmods à l\'écriture',
+                fieldType: 'text',
+                write: [
+                  'administrator',
+                  'moderator',
+                ],
+              },
+              {
+                field: 'un-deuxieme-champ',
+                label: 'Un champ restreint aux admincontrib en lecture',
+                fieldType: 'text',
+                read: [
+                  'administrator',
+                  'contributor',
+                ],
+              },
+              {
+                field: 'un-troisieme-champ',
+                label: 'Un champ restreint aux admin en écriture et aux adminmodscontrib en lecture',
+                fieldType: 'text',
+                write: [
+                  'administrator',
+
+                ],
+                read: [
+                  'administrator',
+                  'moderator',
+                  'contributor',
+                ],
+              },
+            ])}
+          />
+        </div>
+
+      </div>
+
+      <div className="row">
         <h2 className="text-center margin-v-md">Standard fields</h2>
         <div className="col-lg-4 col-md-6">
           <strong>Field with boolean</strong>

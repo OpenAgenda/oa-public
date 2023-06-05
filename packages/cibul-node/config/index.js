@@ -45,7 +45,6 @@ const config = {
     sentry,
   } : {
     prefix: 'oa:',
-    enableDebug: 'oa:*',
     token: false,
   },
   name: 'cibul-node',

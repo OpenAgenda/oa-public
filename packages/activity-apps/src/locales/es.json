@@ -1,1 +1,5 @@
-{}
+{
+  "ActivityApps.aggregateEvent.actor": "<event>{eventName}</event> fue importado de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",
+  "ActivityApps.aggregateEvent.full": "<agenda>{agendaName}</agenda> importaba <event>{eventName}</event> de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",
+  "ActivityApps.notifications.agendaAggregateEvent": "{target} ha importado {object} de {actor}."
+}

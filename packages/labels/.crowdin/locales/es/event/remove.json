@@ -1,5 +1,5 @@
 {
   "eventRemoveTitle": "Eliminar un evento de agenda",
-  "eventRemoveDetails": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
+  "eventRemoveDetails": "¿Está seguro de que desea hacerlo? Si elimina el evento de esta agenda, dejará de aparecer en las exportaciones y se eliminará de cualquier agenda que agregue sus eventos",
   "confirm": "Confirmar"
 }

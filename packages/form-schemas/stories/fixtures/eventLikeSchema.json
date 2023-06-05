@@ -7,18 +7,32 @@
             "label": "Image",
             "purpose": "Image principale de l'événement",
             "optional": true,
-            "display": false
+            "display": false,
+            "write": [
+                "administrator",
+                "moderator"
+            ],
+            "read": [
+                "administrator",
+                "moderator"
+            ]
         },
         {
             "field": "imageCredits",
             "fieldType": "text",
             "label": "Crédits image",
-            "optional": true
+            "optional": true,
+            "write" : null,
+            "read": null
         },
         {
             "field": "languages",
             "fieldType": "languages",
-            "label": "Langues"
+            "label": "Langues",
+            "read": [
+                "administrator",
+                "moderator"
+            ]
         },
         {
             "field": "title",
@@ -27,7 +41,11 @@
             "label": {
                 "en": "Title",
                 "fr": "Titre"
-            }
+            },
+            "write": [
+                "administrator",
+                "moderator"
+            ]
         },
         {
             "field": "description",

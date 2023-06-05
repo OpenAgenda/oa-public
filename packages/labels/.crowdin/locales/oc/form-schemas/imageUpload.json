@@ -1,3 +1,11 @@
 {
-  "remove": "Suprimir"
+  "remove": "Suprimir",
+  "upload": "Cargar un imatge",
+  "update": "Metre l'imatge a jorn",
+  "error": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
+  "tip": "Depausatz un imatge dins la zòna grisada.",
+  "replace": "Remplaçar lo fichièr",
+  "loading": "Cargament en cors",
+  "or": "O",
+  "acceptedExtensions": "Fichièrs acceptats"
 }
