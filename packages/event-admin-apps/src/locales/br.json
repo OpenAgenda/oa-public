@@ -2,8 +2,8 @@
   "EventAdminApp.Actions.createAnEvent": "Krouiñ un darvoud",
   "EventAdminApp.BatchedStateSelector.ok": "Serriñ",
   "EventAdminApp.BatchedStateSelector.title": "Kadarnaat",
-  "EventAdminApp.FiltersPortal.filters": "Siloù",
   "EventAdminApp.Dashboard.next": "War-lerc'h",
+  "EventAdminApp.FiltersPortal.filters": "Siloù",
   "EventAdminApp.messages.attendanceModes.mixed": "Kemmesk",
   "EventAdminApp.messages.attendanceModes.offline": "War al lec’h",
   "EventAdminApp.messages.attendanceModes.online": "Enlinenn"

@@ -2,7 +2,7 @@
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
-      "value": "My agendas"
+      "value": "Mis agendas"
     }
   ],
   "next.components.Navbar.myEvents": [
@@ -26,7 +26,7 @@
   "next.components.Navbar.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.components.Navbar.signOut": [
@@ -38,7 +38,7 @@
   "next.components.Navbar.signUp": [
     {
       "type": 0,
-      "value": "Sign up"
+      "value": "Inscribirse"
     }
   ]
 }

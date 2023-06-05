@@ -2,13 +2,13 @@
   "next.views.AgendaShow.AggregateModal.createAgenda": [
     {
       "type": 0,
-      "value": "Create an agenda"
+      "value": "Crear un agenda"
     }
   ],
   "next.views.AgendaShow.AggregateModal.noAgenda": [
     {
       "type": 0,
-      "value": "Warning: You are not currently administering any agenda. You need to create one before you can aggregate "
+      "value": "Advertencia: Actualmente no está administrando ninguna agenda. Debe crear una antes de poder agregar "
     },
     {
       "type": 1,
@@ -22,19 +22,19 @@
   "next.views.AgendaShow.AggregateModal.shouldConnect": [
     {
       "type": 0,
-      "value": "You need to sign in to your account to aggregate this agenda."
+      "value": "Debe iniciar sesión en su cuenta para importar esta agenda."
     }
   ],
   "next.views.AgendaShow.AggregateModal.signin": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
-      "value": "Events published by "
+      "value": "Los eventos publicados por "
     },
     {
       "type": 1,
@@ -42,13 +42,13 @@
     },
     {
       "type": 0,
-      "value": " will be automatically added to the selected agenda."
+      "value": " se añadirán automáticamente a la agenda seleccionada."
     }
   ],
   "next.views.AgendaShow.AggregateModal.title": [
     {
       "type": 0,
-      "value": "Aggregate to an agenda"
+      "value": "Importar en un agenda"
     }
   ]
 }

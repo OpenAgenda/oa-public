@@ -1,8 +1,8 @@
 {
-  "AgendaStats.Dashboard.save": "Guardar",
   "AgendaStats.ChartWrapper.remove": "Eliminar",
   "AgendaStats.Dashboard.cancel": "Anular",
   "AgendaStats.Dashboard.changeOrder": "Clasificar",
+  "AgendaStats.Dashboard.save": "Guardar",
   "AgendaStats.IntervalSelect.day": "día",
   "AgendaStats.IntervalSelect.month": "mes",
   "AgendaStats.IntervalSelect.week": "semana",

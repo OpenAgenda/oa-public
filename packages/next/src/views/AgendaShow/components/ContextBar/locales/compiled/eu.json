@@ -8,7 +8,7 @@
   "next.views.AgendaShow.ContextBar.contribute": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Añadir un evento"
     }
   ],
   "next.views.AgendaShow.ContextBar.drafts": [
@@ -78,13 +78,13 @@
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
-      "value": "Manage"
+      "value": "Gestionar"
     }
   ],
   "next.views.AgendaShow.ContextBar.myEvents": [
     {
       "type": 0,
-      "value": "My events in this agenda:"
+      "value": "Mis eventos en esta agenda:"
     }
   ],
   "next.views.AgendaShow.ContextBar.notContributed": [

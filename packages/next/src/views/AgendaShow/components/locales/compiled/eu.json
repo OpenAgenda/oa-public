@@ -2,13 +2,13 @@
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Añadir un evento"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "Importar"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.contact": [
@@ -20,7 +20,7 @@
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [

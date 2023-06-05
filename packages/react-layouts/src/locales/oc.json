@@ -1,6 +1,6 @@
 {
-  "react-layouts.AdminHeader.return": "Anar a l'acuèlh de l'agenda",
   "react-layouts.AdminHeader.administration": "Administracion",
+  "react-layouts.AdminHeader.return": "Anar a l'acuèlh de l'agenda",
   "react-layouts.AdminSections.newTab": "Novèl !",
   "react-layouts.MainLayout.createAgenda": "Crear una agenda",
   "react-layouts.MainLayout.general": "General",

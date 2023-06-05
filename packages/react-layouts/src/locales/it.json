@@ -1,13 +1,13 @@
 {
+  "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
   "react-layouts.AdminSections.newTab": "Nuovo!",
   "react-layouts.MainLayout.help": "Aiuto",
   "react-layouts.MainLayout.myAgendas": "Le mie agende",
   "react-layouts.MainLayout.myEvents": "I miei eventi",
   "react-layouts.MainLayout.searchAgenda": "Cerca un'agenda",
   "react-layouts.MainLayout.settings": "Impostazioni",
+  "react-layouts.MainLayout.signin": "Accedi",
   "react-layouts.MainLayout.signout": "Uscire",
-  "react-layouts.components.Search.search": "Cerca",
-  "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
   "react-layouts.MainLayout.translate": "Gestire",
-  "react-layouts.MainLayout.signin": "Accedi"
+  "react-layouts.components.Search.search": "Cerca"
 }

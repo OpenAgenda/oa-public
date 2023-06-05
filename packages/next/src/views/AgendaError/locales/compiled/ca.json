@@ -36,13 +36,13 @@
   "next.views.AgendaError.orSignup": [
     {
       "type": 0,
-      "value": "Or "
+      "value": "O "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "sign up"
+          "value": "regístrate"
         }
       ],
       "type": 8,
@@ -50,7 +50,7 @@
     },
     {
       "type": 0,
-      "value": " if you don't have an account yet."
+      "value": " si aún no tienes una cuenta."
     }
   ],
   "next.views.AgendaError.requestInvitation": [
@@ -77,13 +77,13 @@
   "next.views.AgendaError.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Buscar una agenda"
     }
   ],
   "next.views.AgendaError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.views.AgendaError.unauthorizedMsg": [

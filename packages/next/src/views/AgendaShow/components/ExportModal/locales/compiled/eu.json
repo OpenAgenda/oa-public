@@ -26,7 +26,7 @@
   "next.views.AgendaShow.ExportModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Anular"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -50,7 +50,7 @@
   "next.views.AgendaShow.ExportModal.exportAll": [
     {
       "type": 0,
-      "value": "Export all events"
+      "value": "Descargar todos los eventos"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportJson": [
@@ -98,13 +98,13 @@
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
-      "value": "Please log in to access the export link directly from this menu"
+      "value": "Inicie sesión para acceder al enlace de exportación directamente desde este menú"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": [

@@ -1,9 +1,5 @@
 {
-  "AgendaContribute.Member.subtitle": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
-  "AgendaContribute.Member.title": "Willkommen!",
-  "AgendaContribute.Stepper.confirmation": "Bestätigung",
-  "AgendaContribute.Stepper.event": "Meine Veranstaltung",
-  "AgendaContribute.Stepper.member": "Kontaktdaten",
+  "AgendaContribute.CanvasWithStepper.addEvent": "Veranstaltung hinzufügen",
   "AgendaContribute.CanvasWithStepper.editDraftTitle": "Entwurf",
   "AgendaContribute.Confirmation.contactAdministrators": "Kontaktiere den Administrator",
   "AgendaContribute.Confirmation.createOtherEvent": "Eine weitere Veranstaltung hinzufügen",
@@ -17,5 +13,9 @@
   "AgendaContribute.EventNew.draft": "Deinen Entwurf speichern",
   "AgendaContribute.EventNew.updateDraft": "Den Entwurf aktualisieren",
   "AgendaContribute.EventShare.share": "Veranstaltung anlegen",
-  "AgendaContribute.CanvasWithStepper.addEvent": "Veranstaltung hinzufügen"
+  "AgendaContribute.Member.subtitle": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
+  "AgendaContribute.Member.title": "Willkommen!",
+  "AgendaContribute.Stepper.confirmation": "Bestätigung",
+  "AgendaContribute.Stepper.event": "Meine Veranstaltung",
+  "AgendaContribute.Stepper.member": "Kontaktdaten"
 }

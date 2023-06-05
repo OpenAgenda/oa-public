@@ -2,7 +2,7 @@
   "aggregate-button": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "Importar"
     }
   ],
   "cibulTemplates.displayContextBar.completeAction": [
@@ -74,7 +74,7 @@
   "event/contributor/email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Dirección de correo electrónico"
     }
   ],
   "event/contributor/emptyContactInfo": [
@@ -122,7 +122,7 @@
   "export-all-button": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "export-select-button": [

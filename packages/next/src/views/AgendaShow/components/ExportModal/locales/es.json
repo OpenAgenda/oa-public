@@ -1,6 +1,6 @@
 {
-  "next.views.AgendaShow.ExportModal.exportAll": "Descargar todos los eventos",
-  "next.views.AgendaShow.ExportModal.title": "Exportar",
   "next.views.AgendaShow.ExportModal.cancel": "Anular",
-  "next.views.AgendaShow.ExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú"
+  "next.views.AgendaShow.ExportModal.exportAll": "Descargar todos los eventos",
+  "next.views.AgendaShow.ExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
+  "next.views.AgendaShow.ExportModal.title": "Exportar"
 }

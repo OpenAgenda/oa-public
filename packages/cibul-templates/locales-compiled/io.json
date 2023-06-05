@@ -8,19 +8,19 @@
   "cibulTemplates.displayContextBar.completeAction": [
     {
       "type": 0,
-      "value": "Complete"
+      "value": "crwdns32480:0crwdne32480:0"
     }
   ],
   "cibulTemplates.displayContextBar.displayAction": [
     {
       "type": 0,
-      "value": "Display"
+      "value": "crwdns32482:0crwdne32482:0"
     }
   ],
   "cibulTemplates.displayContextBar.modifyAction": [
     {
       "type": 0,
-      "value": "Modify"
+      "value": "crwdns32484:0crwdne32484:0"
     }
   ],
   "displayAdditionalFields.emptyValue": [

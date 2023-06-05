@@ -2,109 +2,109 @@
   "aggregate-button": [
     {
       "type": 0,
-      "value": "Agréger"
+      "value": "Importar"
     }
   ],
   "cibulTemplates.displayContextBar.completeAction": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "Complete"
     }
   ],
   "cibulTemplates.displayContextBar.displayAction": [
     {
       "type": 0,
-      "value": "Afficher"
+      "value": "Display"
     }
   ],
   "cibulTemplates.displayContextBar.modifyAction": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Modify"
     }
   ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,
-      "value": "Aucune saisie"
+      "value": "No input"
     }
   ],
   "displayAdditionalFields.goToAdditionalFields": [
     {
       "type": 0,
-      "value": "voir"
+      "value": "see"
     }
   ],
   "displayAdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "Fichier non chargé"
+      "value": "No file is loaded"
     }
   ],
   "displayAdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "Image non chargée"
+      "value": "No image is loaded"
     }
   ],
   "displayAdditionalFields.noSelectionValue": [
     {
       "type": 0,
-      "value": "Aucune sélection"
+      "value": "No selection"
     }
   ],
   "displayAdditionalFields.privateField": [
     {
       "type": 0,
-      "value": "Information privée"
+      "value": "Restricted information"
     }
   ],
   "event/contributor-section": [
     {
       "type": 0,
-      "value": "Contributeur"
+      "value": "Contributor"
     }
   ],
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Editer la fiche"
+      "value": "Edit"
     }
   ],
   "event/contributor/email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Dirección de correo electrónico"
     }
   ],
   "event/contributor/emptyContactInfo": [
     {
       "type": 0,
-      "value": "Aucune information de contact n'a été saisie"
+      "value": "No contact information available"
     }
   ],
   "event/contributor/name": [
     {
       "type": 0,
-      "value": "Nom"
+      "value": "Name"
     }
   ],
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organisme"
+      "value": "Organization"
     }
   ],
   "event/contributor/phone": [
     {
       "type": 0,
-      "value": "Téléphone"
+      "value": "Phone"
     }
   ],
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Fonction"
+      "value": "Position"
     }
   ],
   "event/contributor/role": [
@@ -116,31 +116,31 @@
   "event/private-section": [
     {
       "type": 0,
-      "value": "Information privée"
+      "value": "Private information"
     }
   ],
   "export-all-button": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Exportar"
     }
   ],
   "export-select-button": [
     {
       "type": 0,
-      "value": "Exporter la sélection"
+      "value": "Export the selection"
     }
   ],
   "more-button": [
     {
       "type": 0,
-      "value": "plus"
+      "value": "more"
     }
   ],
   "share-button": [
     {
       "type": 0,
-      "value": "Partager sur OpenAgenda"
+      "value": "Share on OpenAgenda"
     }
   ]
 }

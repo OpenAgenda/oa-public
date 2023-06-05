@@ -1,14 +1,14 @@
 {
-  "AgendaSettings.contribution.closedContibutionDesc": "L'agenda accèpta las contribucions novèlas",
   "AgendaSetting.contribution.contributionRestrictDates": "Restrénher las datas de dintrada",
   "AgendaSettings.CreationSecondStep.formEvent": "Eveniment de formulari",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Autorizar l'inscripcion en linha als eveniments",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Los eveniments en linha se pòdon associar a de lòcs fisics",
   "AgendaSettings.contribution.closedContibution": "Tampat",
+  "AgendaSettings.contribution.closedContibutionDesc": "L'agenda accèpta las contribucions novèlas",
+  "AgendaSettings.contribution.contribUseFields": "Convidar los membres a se presentar (organizacion, telefòne, nom, títol, email, <a>camps personalizables</a>)",
   "AgendaSettings.contribution.contribution": "Contribucion",
   "AgendaSettings.contribution.openContribution": "Dobrir",
   "AgendaSettings.contribution.openContributionDesc": "Qual utilizaire que siá pòt apondre d'eveniments, jos vòstra moderacion",
   "AgendaSettings.contribution.reducedContribution": "Redusit",
-  "AgendaSettings.contribution.reducedContributionDesc": "Sols los utilizaires convidats pòdon apondre d'eveniments",
-  "AgendaSettings.contribution.contribUseFields": "Convidar los membres a se presentar (organizacion, telefòne, nom, títol, email, <a>camps personalizables</a>)"
+  "AgendaSettings.contribution.reducedContributionDesc": "Sols los utilizaires convidats pòdon apondre d'eveniments"
 }

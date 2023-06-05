@@ -2,6 +2,6 @@
   "next.views.AgendaShow.filter": "Filtre",
   "next.views.AgendaShow.filters": "Filtres",
   "next.views.AgendaShow.help": "Ajuda",
-  "next.views.AgendaShow.termsOfUse": "Condicions d'utilizacion",
-  "next.views.AgendaShow.seeMore": "Ne véser mai"
+  "next.views.AgendaShow.seeMore": "Ne véser mai",
+  "next.views.AgendaShow.termsOfUse": "Condicions d'utilizacion"
 }

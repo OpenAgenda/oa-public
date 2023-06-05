@@ -1,9 +1,4 @@
 {
-  "AgendaContribute.Member.subtitle": "Vi preghiamo di inserire i vostri dati prima di procedere al caricamento dell’evento",
-  "AgendaContribute.Member.title": "Benvenuti!",
-  "AgendaContribute.Stepper.confirmation": "Conferma",
-  "AgendaContribute.Stepper.event": "Il mio evento",
-  "AgendaContribute.Stepper.member": "Informazione membro",
   "AgendaContribute.Canvas.fromAgenda": "dell'agenda",
   "AgendaContribute.Canvas.shareEvent": "Condividere un evento",
   "AgendaContribute.Canvas.takeEvent": "Prendere",
@@ -26,16 +21,21 @@
   "AgendaContribute.ErrorMessage.registration": "Strumenti di registrazione",
   "AgendaContribute.ErrorMessage.suggestChange": "Suggerisci un cambiamento",
   "AgendaContribute.ErrorMessage.timings": "Orari",
+  "AgendaContribute.ErrorMessage.title": "Titolo",
   "AgendaContribute.EventEdit.update": "Aggiorna",
   "AgendaContribute.EventNew.create": "Registrare l’evento",
   "AgendaContribute.EventNew.deleteDraft": "Cancellare la bozza",
   "AgendaContribute.EventNew.draft": "Registrare una bozza",
   "AgendaContribute.EventNew.updateDraft": "Modificare la bozza",
   "AgendaContribute.EventShare.share": "Aggiungere un evento",
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": "Vedere l'evento in {agenda}",
+  "AgendaContribute.Member.subtitle": "Vi preghiamo di inserire i vostri dati prima di procedere al caricamento dell’evento",
+  "AgendaContribute.Member.title": "Benvenuti!",
   "AgendaContribute.RequestEditionRights.noEditionRights": "Non avete accesso all'edizione di questo evento.",
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": "Solo i campi aggiuntivi dell'agenda possono essere modificati qui.",
   "AgendaContribute.RequestEditionRights.requestEditionRights": "Chiedere il diritto di modificare questo evento",
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
-  "AgendaContribute.EventWasSuccessfullyShared.goTo": "Vedere l'evento in {agenda}",
-  "AgendaContribute.ErrorMessage.title": "Titolo"
+  "AgendaContribute.Stepper.confirmation": "Conferma",
+  "AgendaContribute.Stepper.event": "Il mio evento",
+  "AgendaContribute.Stepper.member": "Informazione membro"
 }

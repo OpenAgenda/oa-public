@@ -1,9 +1,4 @@
 {
-  "AgendaContribute.Member.subtitle": "Presentase antes de introducir sus eventos",
-  "AgendaContribute.Member.title": "Bienvenido!",
-  "AgendaContribute.Stepper.confirmation": "Confirmación",
-  "AgendaContribute.Stepper.event": "Mi evento",
-  "AgendaContribute.Stepper.member": "Perfil de miembro",
   "AgendaContribute.Canvas.fromAgenda": "de la agenda",
   "AgendaContribute.Canvas.shareEvent": "Compartir un evento",
   "AgendaContribute.Canvas.takeEvent": "Tomar",
@@ -43,6 +38,8 @@
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": "El evento se publica ahora en \"{agenda}\"",
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": "El evento se ha añadido a \"{agenda}\". Será revisado antes de ser publicado",
   "AgendaContribute.Member.share": "Esta agenda requiere que se introduzca alguna información sobre usted para permitir que se compartan eventos",
+  "AgendaContribute.Member.subtitle": "Presentase antes de introducir sus eventos",
+  "AgendaContribute.Member.title": "Bienvenido!",
   "AgendaContribute.RequestEditionRights.noEditionRights": "You do not have edition rights on this event.",
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": "Aquí solo se pueden editar las entradas adicionales del formulario.",
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": "Este evento se ha añadido a la agenda \"%agenda%\" a través de un compartimiento o por agregación. Sólo los miembros de la agenda donde se aportó el evento pueden modificar su contenido.",
@@ -50,5 +47,8 @@
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)",
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": "Actualmente sólo se muestran los campos adicionales de la agenda",
   "AgendaContribute.ShowFullEventForm.showEventFields": "Edit event fields",
-  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published."
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published.",
+  "AgendaContribute.Stepper.confirmation": "Confirmación",
+  "AgendaContribute.Stepper.event": "Mi evento",
+  "AgendaContribute.Stepper.member": "Perfil de miembro"
 }

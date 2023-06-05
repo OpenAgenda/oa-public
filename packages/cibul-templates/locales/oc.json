@@ -1,5 +1,4 @@
 {
-  "share-button": "Partejar sus OpenAgenda",
   "aggregate-button": "Agregar",
   "cibulTemplates.displayContextBar.completeAction": "Acabar",
   "cibulTemplates.displayContextBar.displayAction": "Afichar",
@@ -22,5 +21,6 @@
   "event/private-section": "Informacion privada",
   "export-all-button": "Exportar",
   "export-select-button": "Exportar la seleccion",
-  "more-button": "mai"
+  "more-button": "mai",
+  "share-button": "Partejar sus OpenAgenda"
 }
