@@ -232,7 +232,7 @@ module.exports = ({ labels }) => [{
   helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/'
 }, {
   field: 'links',
-  fieldType: 'integer',
-  optional: false,
+  fieldType: 'pass',
+  optional: true,
   write: ['internal']
 }];
