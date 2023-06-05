@@ -76,7 +76,6 @@ services:
     environment:
       TZ: Etc/UTC
       NODE_ENV: ${NODE_ENV}
-      DEBUG: ${DEBUG}
       DEBUG_COLORS: ${DEBUG_COLORS}
       TERM: ${TERM}
       COLORTERM: ${COLORTERM}
