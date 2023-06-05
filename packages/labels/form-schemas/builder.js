@@ -71,7 +71,7 @@ module.exports = {
   "editFieldCancel": {
     "fr": "Annuler",
     "en": "Cancel",
-    "es": "anular",
+    "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14692:0crwdne14692:0",
@@ -87,7 +87,7 @@ module.exports = {
   "fieldLabel": {
     "fr": "Titre du champ",
     "en": "Field title",
-    "es": "campo de título",
+    "es": "Campo para el título",
     "it": "Titolo del campo",
     "io": "crwdns14696:0crwdne14696:0"
   },
@@ -200,7 +200,7 @@ module.exports = {
   "submitLabelLanguages": {
     "fr": "Enregistrer",
     "en": "Submit",
-    "es": "validar",
+    "es": "Validar",
     "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns14728:0crwdne14728:0",
@@ -258,7 +258,7 @@ module.exports = {
     "fr": "Email",
     "en": "Email",
     "de": "Email",
-    "es": "Email",
+    "es": "Dirección de correo electrónico",
     "it": "Email",
     "br": "Postel",
     "io": "crwdns14744:0crwdne14744:0",
@@ -498,7 +498,7 @@ module.exports = {
   "orderCancel": {
     "fr": "Annuler",
     "en": "Cancel",
-    "es": "anular",
+    "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14792:0crwdne14792:0",
@@ -619,7 +619,7 @@ module.exports = {
   "cancelFieldEdit": {
     "fr": "Annuler",
     "en": "Cancel",
-    "es": "anular",
+    "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14820:0crwdne14820:0",
@@ -660,7 +660,7 @@ module.exports = {
   "optionEditCancel": {
     "fr": "Annuler",
     "en": "Cancel",
-    "es": "anular",
+    "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14830:0crwdne14830:0",
@@ -685,7 +685,7 @@ module.exports = {
   "optionRemove": {
     "fr": "Retirer",
     "en": "Remove",
-    "es": "Finalizar la clasificación",
+    "es": "Eliminar",
     "it": "Rimuovi",
     "br": "Lemel",
     "io": "crwdns14836:0crwdne14836:0",

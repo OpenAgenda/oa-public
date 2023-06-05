@@ -41,7 +41,7 @@ module.exports = {
     "fr": "Paramètres",
     "en": "Settings",
     "de": "Einstellungen",
-    "es": "Conjunto",
+    "es": "Configuración",
     "it": "Impostazione",
     "io": "crwdns11394:0crwdne11394:0",
     "oc": "Reglatges"

@@ -1,9 +1,9 @@
 {
   "myProfile": "perfil",
   "myEvents": "Mis eventos",
-  "settings": "configuraciones",
+  "settings": "Configuración",
   "signout": "Salir",
-  "myAgendas": "mis agendas",
+  "myAgendas": "Mis agendas",
   "searchAgendas": "Buscar una agenda",
   "createAgenda": "Crear un agenda",
   "general": "general",

@@ -3,7 +3,7 @@
   "unsubscribedFail": "Se produjo un problema. Por favor, inténtelo de nuevo pronto o contactar con el soporte",
   "unsubscribeFromNotification": "Me darse de baja de este tipo de notificaciones",
   "unsubscribeFromAllNotifications": "notificaciones Darse de baja de esta agenda",
-  "notificationTitle": "notificación",
+  "notificationTitle": "Notificación",
   "seeAgenda": "Ver la agenda",
   "seeEvent": "Ver evento",
   "agendaEventPublished": "%user% registró %event%.",

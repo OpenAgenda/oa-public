@@ -5,7 +5,7 @@ module.exports = {
     "en": "Identifier",
     "fr": "Identifiant",
     "de": "Kennzeichnung",
-    "es": "login",
+    "es": "Identificador",
     "it": "Login",
     "io": "crwdns14146:0crwdne14146:0"
   },
@@ -100,7 +100,7 @@ module.exports = {
     "en": "Last update",
     "fr": "Dernière mise à jour",
     "de": "Letztes Update",
-    "es": "última actualización",
+    "es": "Última actualización",
     "it": "Ultimo aggiornamento",
     "io": "crwdns14168:0crwdne14168:0"
   },
@@ -132,7 +132,7 @@ module.exports = {
     "en": "First start time",
     "fr": "Première ouverture",
     "de": "Erste Startzeit",
-    "es": "la primera apertura",
+    "es": "Primera apertura",
     "it": "Prima apertura",
     "io": "crwdns14176:0crwdne14176:0"
   },
@@ -148,7 +148,7 @@ module.exports = {
     "en": "Last date",
     "fr": "Dernière date",
     "de": "Letztes Datum",
-    "es": "fecha tope",
+    "es": "Último día",
     "it": "Ultima data",
     "io": "crwdns14180:0crwdne14180:0"
   },
@@ -156,7 +156,7 @@ module.exports = {
     "en": "Last start time",
     "fr": "Dernière ouverture",
     "de": "Letzte Startzeit",
-    "es": "última apertura",
+    "es": "Última apertura",
     "it": "Ultima apertura",
     "io": "crwdns14182:0crwdne14182:0"
   },
@@ -164,7 +164,7 @@ module.exports = {
     "en": "Last time end",
     "fr": "Dernière fermeture",
     "de": "Zuletzt Ende",
-    "es": "cierre anterior",
+    "es": "Último horario",
     "it": "Ultima chiusura",
     "io": "crwdns14184:0crwdne14184:0"
   },
@@ -416,7 +416,7 @@ module.exports = {
     "en": "Origin agenda ( title )",
     "fr": "Agenda d'origine ( titre )",
     "de": "Origin Agenda (Titel)",
-    "es": "libro original (título)",
+    "es": "Agenda original (título)",
     "it": "agenda originale ( titolo )",
     "io": "crwdns14240:0crwdne14240:0"
   },

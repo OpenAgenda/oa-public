@@ -188,7 +188,8 @@ module.exports = {
     "io": "crwdns11546:0crwdne11546:0",
     "de": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
     "it": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
-    "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
+    "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
+    "es": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
   },
   "shareRestrictionInfo": {
     "fr": "Les points suivants doivent être résolus afin de rendre l'événement \"%event%\" partageable sur l'agenda \"%agenda%\"",

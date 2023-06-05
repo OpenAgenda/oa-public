@@ -2,5 +2,5 @@
   "map": "mapa",
   "passed": "eventos pasados",
   "location": "lugar",
-  "fromTo": "% De% empezar a% end%"
+  "fromTo": "de %start% a %end%"
 }

@@ -8,7 +8,7 @@ module.exports = {
     "de": "Heute",
     "pl": "Dzisiaj",
     "br": "Hiziv",
-    "es": "hoy",
+    "es": "Hoy",
     "io": "crwdns15928:0crwdne15928:0",
     "oc": "Uèi"
   },

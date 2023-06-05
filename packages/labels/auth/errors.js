@@ -20,7 +20,8 @@ module.exports = {
     "fr": "Le mot de passe est incorrect",
     "it": "Questo password non è corretto",
     "io": "crwdns13060:0crwdne13060:0",
-    "oc": "Lo senhal es incorrècte"
+    "oc": "Lo senhal es incorrècte",
+    "es": "Esta contraseña es incorrecta"
   },
   "invalidToken": {
     "en": "Invalid token",
@@ -55,7 +56,8 @@ module.exports = {
     "fr": "Le mot de passe ne correspond pas.",
     "it": "La password deve corrispondere.",
     "io": "crwdns13070:0crwdne13070:0",
-    "oc": "Lo senhal correspond pas."
+    "oc": "Lo senhal correspond pas.",
+    "es": "La contraseña debe coincidir."
   },
   "fieldCannotBeEmpty": {
     "en": "Field cannot be empty",
@@ -69,14 +71,16 @@ module.exports = {
     "fr": "Le mot de passe n'a pas pu être modifié",
     "it": "La password non può essere modificata",
     "io": "crwdns13074:0crwdne13074:0",
-    "oc": "Lo senhal se posquèt pas cambiar"
+    "oc": "Lo senhal se posquèt pas cambiar",
+    "es": "No se ha podido modificar la contraseña"
   },
   "passwordResetSent": {
     "en": "A password reset is being sent to your email",
     "fr": "Un lien de réinitialisation du mot de passe est envoyé à votre adresse email",
     "it": "Una reimpostazione della password è stata inviata alla sua email",
     "io": "crwdns13076:0crwdne13076:0",
-    "oc": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email"
+    "oc": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email",
+    "es": "A password reset is being sent to your email"
   },
   "resetLinkOutdated": {
     "en": "The link is outdated. Try again.",
@@ -90,6 +94,7 @@ module.exports = {
     "fr": "Votre mot de passe a été mis à jour.",
     "it": "La tua password è stata aggiornata.",
     "io": "crwdns13080:0crwdne13080:0",
-    "oc": "Vòstre senhal es estat mes a jorn."
+    "oc": "Vòstre senhal es estat mes a jorn.",
+    "es": "Su contraseña ha sido actualizada."
   }
 }

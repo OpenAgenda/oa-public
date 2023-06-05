@@ -6,7 +6,7 @@
   "actionDescription": "Ver la agenda",
   "sentBy": "Publicado por <b>{senderName}</b> ",
   "reply": "respuesta",
-  "unsubscribe": "Dejar de recibir mensajes {agenda, seleccione, null {mis} {otros agendas de mensajería electrónico}}",
+  "unsubscribe": "Dejar de recibir mensajes {agenda, select, null {de mi mensajeria} other {de las mensajerias de las agendas}}",
   "memberUnsubscribe": "Dejar de recibir mensajes de correo esta agenda",
   "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
 }

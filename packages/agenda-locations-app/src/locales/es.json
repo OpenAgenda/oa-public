@@ -10,5 +10,12 @@
   "AgendaLocations.LocationSearch.create": "Crear un nuevo lugar",
   "AgendaLocations.LocationSearch.namePlaceholder": "Introduzca el nombre de la ubicación del evento",
   "AgendaLocations.LocationSearch.noResult": "Ningún resultado coincide con su entrada",
-  "AgendaLocations.LocationSearch.searching": "Buscando..."
+  "AgendaLocations.LocationSearch.searching": "Buscando...",
+  "AgendaLocations.CreateForm.title": "Crear un nuevo lugar",
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": "Anular",
+  "AgendaLocations.LocationForm.cancel": "Anular",
+  "AgendaLocations.LocationForm.geocodeFieldCancel": "Anular",
+  "AgendaLocations.LocationSelector.remove": "Eliminar",
+  "AgendaLocations.LocationSelector.title": "Crear un nuevo lugar",
+  "AgendaLocations.RemoveModal.cancel": "Anular"
 }

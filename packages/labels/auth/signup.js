@@ -106,7 +106,7 @@ module.exports = {
     "it": "Accedi",
     "de": "Anmelden",
     "pl": "Połącz się",
-    "es": "login",
+    "es": "Conectarse",
     "br": "Kevreit",
     "io": "crwdns13148:0crwdne13148:0",
     "oc": "Me connectar"
@@ -150,7 +150,7 @@ module.exports = {
     "it": "Email",
     "de": "E-Mail",
     "pl": "Poczta elektroniczna",
-    "es": "e-mail",
+    "es": "Dirección de correo electrónico",
     "br": "Postel",
     "io": "crwdns13152:0crwdne13152:0",
     "oc": "Email"
@@ -194,7 +194,7 @@ module.exports = {
     "it": "Creando un account si accettano le %terms% e le %policy%.",
     "de": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
     "pl": "Tworząc konto zgadzasz się na %terms% i %policy%.",
-    "es": "Al crear una cuenta en la que acepta los términos% y la política .",
+    "es": "Al crear una cuenta en la que acepta los %terms%  y la %policy%.",
     "br": "Pa grouit ur gont e asantit d'ar %terms% ha d'ar %policy%.",
     "io": "crwdns13160:0%terms%crwdnd13160:0%policy%crwdne13160:0",
     "oc": "En creat un compte, consentissètz a las %terms% e a la%policy%."
@@ -253,6 +253,7 @@ module.exports = {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
     "en": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network.",
     "io": "crwdns31312:0crwdne31312:0",
-    "oc": "Vòstre compte OpenAgenda serà ligat al compte causit. L'autentificacion se farà en passant pel malhum social."
+    "oc": "Vòstre compte OpenAgenda serà ligat al compte causit. L'autentificacion se farà en passant pel malhum social.",
+    "es": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social."
   }
 }

@@ -186,7 +186,8 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a renommé} other {{actor} ont renommé}} l'agenda {beforeTitle} en {afterTitle}.",
     "it": "{actor} ha cambiato il nome dell'agenda da {beforeTitle} a {afterTitle}.",
     "io": "crwdns11234:0{actor}crwdnd11234:0{beforeTitle}crwdnd11234:0{afterTitle}crwdne11234:0",
-    "oc": "{actor} a tornat nomenar l'agenda {beforeTitle} en {afterTitle}."
+    "oc": "{actor} a tornat nomenar l'agenda {beforeTitle} en {afterTitle}.",
+    "es": "{actor} cambió el nombre del agenda {beforeTitle} a {afterTitle}."
   },
   "agenda.setOfficial": {
     "en": "The agenda {target} became official.",

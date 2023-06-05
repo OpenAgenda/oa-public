@@ -1,3 +1,5 @@
 {
-  "next.views.AgendaShow.ContextBar.contribute": "Añadir un evento"
+  "next.views.AgendaShow.ContextBar.contribute": "Añadir un evento",
+  "next.views.AgendaShow.ContextBar.manage": "Gestionar",
+  "next.views.AgendaShow.ContextBar.myEvents": "Mis eventos en esta agenda:"
 }

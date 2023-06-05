@@ -1,12 +1,12 @@
 {
-  "myAgendas": "mis agendas",
+  "myAgendas": "Mis agendas",
   "createAgenda": "Crear un agenda",
   "searchAgenda": "Buscar una agenda",
   "myEvents": "Mis eventos",
   "messages": "mensajes",
   "notifications": "Notificaciones",
   "addAnEvent": "Añadir un evento",
-  "manage": "gestionar",
+  "manage": "Gestionar",
   "moderate": "moderado",
   "officialAgenda": "agenda",
   "welcomeTitle": "Bienvenido a su cuenta OpenAgenda!",
@@ -25,9 +25,10 @@
   "see": "Ver",
   "support": "apoyo",
   "modify": "Editar",
-  "noTitle": "título indefinido",
+  "noTitle": "Título indefinido",
   "noLocation": "Localización no especificado",
   "noEventsCreated": "No ha creado ningún evento",
   "show": "Ver",
-  "seeMore": "Ver más"
+  "seeMore": "Ver más",
+  "otherActions": "Otras acciones"
 }

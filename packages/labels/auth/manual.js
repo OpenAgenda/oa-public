@@ -6,7 +6,8 @@ module.exports = {
     "en": "Verification of you account creation request",
     "io": "crwdns13086:0crwdne13086:0",
     "it": "Verifica della tua richiesta di creazione dell'account",
-    "oc": "Verificacion de vòstra demanda de creacion de compte"
+    "oc": "Verificacion de vòstra demanda de creacion de compte",
+    "es": "Verificación de su solicitud de creación de cuenta"
   },
   "context": {
     "fr": "En raison d'une quantité importante et récente de création de contenus publicitaires automatisés sur la plateforme, une étape temporaire de vérification des nouveaux comptes est nécessaire.",

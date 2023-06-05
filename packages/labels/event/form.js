@@ -108,7 +108,7 @@ module.exports = {
     "en": "Title",
     "it": "Titolo",
     "de": "Titel",
-    "es": "título",
+    "es": "Título",
     "br": "Titl",
     "io": "crwdns14284:0crwdne14284:0",
     "oc": "Títol"
@@ -395,7 +395,7 @@ module.exports = {
     "en": "Cancel",
     "it": "Annulla",
     "de": "Abbrechen",
-    "es": "anular",
+    "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns14342:0crwdne14342:0",
     "oc": "Anullar"
@@ -415,7 +415,7 @@ module.exports = {
     "fr": "Catégories",
     "it": "Categorie",
     "de": "Kategorien",
-    "es": "categorías",
+    "es": "Categorías",
     "br": "Rummadoù",
     "io": "crwdns14346:0crwdne14346:0",
     "oc": "Categorias"
@@ -425,7 +425,7 @@ module.exports = {
     "fr": "Tags",
     "it": "Etichette",
     "de": "Tags",
-    "es": "etiquetas",
+    "es": "Etiquetas",
     "br": "Merkoù",
     "io": "crwdns14348:0crwdne14348:0",
     "oc": "Etiquetas"

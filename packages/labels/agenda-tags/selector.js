@@ -5,7 +5,7 @@ module.exports = {
     "en": "Tags",
     "fr": "Tags",
     "de": "Stichworte",
-    "es": "etiquetas",
+    "es": "Etiquetas",
     "it": "Tags",
     "io": "crwdns12750:0crwdne12750:0",
     "oc": "Mots-claus"

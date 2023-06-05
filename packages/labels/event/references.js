@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Evénements liés",
     "en": "Related events",
     "de": "ähnliche Veranstaltungen",
-    "es": "eventos relacionados",
+    "es": "Eventos relacionados",
     "it": "Eventi correlati",
     "io": "crwdns14368:0crwdne14368:0",
     "oc": "Eveniments ligats"

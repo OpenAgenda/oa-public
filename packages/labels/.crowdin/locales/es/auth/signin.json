@@ -1,8 +1,8 @@
 {
   "connection": "acceder",
-  "incorrectPassword": "El correo electrónico o la contraseña son incorrectos",
-  "resetPassword": "restablecimiento de contraseña",
-  "email": "e-mail",
+  "incorrectPassword": "El correo electrónico o la contraseña son incorrectos.",
+  "resetPassword": "Restablecimiento de contraseña",
+  "email": "Dirección de correo electrónico",
   "password": "Contraseña",
   "signin": "Conectarse",
   "lostPassword": "He perdido mi contraseña",

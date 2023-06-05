@@ -8,7 +8,7 @@
   "emailTitleForExistantUser": "Usted se convirtió en el título %credencial% de la agenda %title%",
   "emailInscription": "Inscribirse",
   "emailShowAgenda": "Ver la agenda",
-  "emailSignup": "contratar",
+  "emailSignup": "Inscribirse",
   "emailDescription": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**",
   "newMessage": "El agenda %agenda% escribió un mensaje"
 }

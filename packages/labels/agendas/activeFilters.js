@@ -34,7 +34,7 @@ module.exports = {
   "fromTo": {
     "en": "from %start% to %end%",
     "fr": "du %start% au %end%",
-    "es": "% De% empezar a% end%",
+    "es": "de %start% a %end%",
     "it": "dal %start% al %end%",
     "de": "von %start% bis %end%",
     "br": "eus an %start% d'an %end%",

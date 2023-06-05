@@ -262,7 +262,7 @@ module.exports = {
     "fr": "Email",
     "en": "Email",
     "de": "Email",
-    "es": "e-mail",
+    "es": "Dirección de correo electrónico",
     "it": "Email",
     "br": "Postel",
     "io": "crwdns15656:0crwdne15656:0",

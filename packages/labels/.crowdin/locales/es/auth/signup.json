@@ -8,16 +8,17 @@
   "createAccount": "Crear una cuenta",
   "captchaTryAgain": "Por favor, inténtelo de nuevo",
   "hasAccount": "Ya ha utilizado OpenAgenda ?",
-  "connect": "login",
+  "connect": "Conectarse",
   "pseudonym": "Nombre de usuario",
   "pseudonymSub": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
   "emailSub": "OpenAgenda enviará sus notificaciones a esta dirección. No se transmitirá a ningún tercero.",
-  "email": "e-mail",
+  "email": "Dirección de correo electrónico",
   "password": "Contraseña",
   "repeatPassword": "Repetir contraseña",
   "signup": "Acceptar i crear la cuenta",
-  "agree": "Al crear una cuenta en la que acepta los términos% y la política .",
+  "agree": "Al crear una cuenta en la que acepta los %terms%  y la %policy%.",
   "termsOfUse": "Condiciones de uso",
   "policy": "política de confidencialidad",
-  "culture": "Idioma"
+  "culture": "Idioma",
+  "socialDescription": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social."
 }

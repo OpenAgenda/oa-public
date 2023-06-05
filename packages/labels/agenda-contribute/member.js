@@ -87,7 +87,7 @@ module.exports = {
     "it": "Email",
     "de": "E-Mail",
     "br": "Postel",
-    "es": "e-mail",
+    "es": "Dirección de correo electrónico",
     "io": "crwdns11566:0crwdne11566:0",
     "oc": "Email"
   },
@@ -97,7 +97,7 @@ module.exports = {
     "it": "Validare",
     "de": "Weiter",
     "br": "Validañ",
-    "es": "validar",
+    "es": "Validar",
     "io": "crwdns11568:0crwdne11568:0",
     "oc": "Sometre"
   }

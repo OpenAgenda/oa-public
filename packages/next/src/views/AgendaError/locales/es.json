@@ -1,4 +1,5 @@
 {
   "next.views.AgendaError.searchAgenda": "Buscar una agenda",
-  "next.views.AgendaError.signIn": "Conectarse"
+  "next.views.AgendaError.signIn": "Conectarse",
+  "next.views.AgendaError.orSignup": "O <link>regístrate</link> si aún no tienes una cuenta."
 }

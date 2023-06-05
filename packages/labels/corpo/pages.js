@@ -21,7 +21,7 @@ module.exports = {
     "fr": "Aujourd'hui",
     "en": "Today",
     "de": "Heute",
-    "es": "hoy",
+    "es": "Hoy",
     "it": "Oggi",
     "io": "crwdns13450:0crwdne13450:0",
     "oc": "Uèi"
@@ -167,7 +167,7 @@ module.exports = {
     "fr": "Pilotez un agenda participatif",
     "en": "Manage a collaborative calendar",
     "de": "Verwalten einer kollaborativen Kalender",
-    "es": "Pilotar un agenda participativo",
+    "es": "Pilotar una agenda participativa",
     "it": "Pilotare un'agenda partecipativa",
     "io": "crwdns13486:0crwdne13486:0"
   },
@@ -215,7 +215,7 @@ module.exports = {
     "fr": "Produits",
     "en": "Offers",
     "de": "Bietet an",
-    "es": "productos",
+    "es": "Productos",
     "it": "Prodotti",
     "io": "crwdns13498:0crwdne13498:0"
   },
@@ -223,7 +223,7 @@ module.exports = {
     "fr": "Agenda",
     "en": "Agenda",
     "de": "Agenda",
-    "es": "agenda",
+    "es": "Agenda",
     "it": "Agenda",
     "br": "Deiziataer",
     "io": "crwdns13500:0crwdne13500:0",
@@ -233,7 +233,7 @@ module.exports = {
     "fr": "Réseau d'agendas",
     "en": "Network of Agendas",
     "de": "Netzwerk von Agendas",
-    "es": "Los planificadores de redes",
+    "es": "Rede de agenda",
     "it": "Rete di agende",
     "io": "crwdns13502:0crwdne13502:0"
   },
@@ -297,7 +297,7 @@ module.exports = {
     "fr": "Agenda basique",
     "en": "Basic Agenda",
     "de": "Grund Agenda",
-    "es": "agenda básica",
+    "es": "Agenda básica",
     "it": "Agenda di base",
     "io": "crwdns13518:0crwdne13518:0"
   },
@@ -602,7 +602,7 @@ module.exports = {
     "fr": "Les réseau d'agendas vous permettent de gérer une multitude d'agendas interconnectés",
     "en": "Agenda Networks enable you to manage a multitude of interconnected agendas",
     "de": "Agenda-Netzwerke ermöglichen es Ihnen, eine Vielzahl von miteinander verbundenen Kalenders zu verwalten",
-    "es": "La red de agendas permiten administrar una multitud de agendas interconectados",
+    "es": "La red de agendas permiten administrar una multitud de agendas en red",
     "it": "Le reti di agende consentono di gestire una moltitudine di agende interconnesse",
     "io": "crwdns13592:0crwdne13592:0"
   },
@@ -787,7 +787,7 @@ module.exports = {
     "fr": "À partir de 12 000 €/an",
     "en": "Starting at 12,000 € / year",
     "de": "Ab 12.000 €/Jahr",
-    "es": "A partir de 12 000 €/año",
+    "es": "A partir de 12 000 €/año*",
     "it": "Da 12,000 €/anno",
     "io": "crwdns13638:0crwdne13638:0"
   },
@@ -820,7 +820,7 @@ module.exports = {
     "fr": "Vous ne savez pas combien d’événements vous gérez par an ? Nous oui.",
     "en": "You do not know how many events you manage per year ? We do.",
     "de": "Sie wissen nicht, wie viele Veranstaltungen, die Sie pro Jahr zu verwalten? Wir tun.",
-    "es": "Usted no sabe cuántos eventos de manejar por año? Nosotros sí.",
+    "es": "¿Usted no sabe cuántos eventos de manejar por año? Nosotros sí.",
     "it": "Non sai quanti eventi gestisci all'anno? Noi forse si.",
     "io": "crwdns13646:0crwdne13646:0"
   },
@@ -1061,7 +1061,7 @@ module.exports = {
     "fr": "Créez votre agenda !",
     "en": "Create an agenda !",
     "de": "Erstelle eine Verwaltungskalender!",
-    "es": "Crear su agenda!",
+    "es": "¡Create tu agenda!",
     "it": "Crea la tua agenda!",
     "io": "crwdns13706:0crwdne13706:0"
   },
@@ -1069,7 +1069,7 @@ module.exports = {
     "en": "The Premium Agenda - 90€/month",
     "fr": "L'agenda premium - 90 €/mois",
     "de": "Die Premium-Agenda - 90 € / Monat",
-    "es": "La Agenda Premium - 90 € / mes",
+    "es": "La Agenda Premium - 90 €/mes",
     "it": "L'agenda dei premi - 90 €/mese",
     "io": "crwdns13708:0crwdne13708:0"
   },
@@ -1093,7 +1093,7 @@ module.exports = {
     "en": "You get all the features from an Open Agenda, plus...",
     "fr": "Profitez de toutes les fonctions de l'Agenda gratuit, avec en plus...",
     "de": "Sie erhalten alle Funktionen von Open Verwaltungskalender, plus ...",
-    "es": "Disfrutar de todas las características del agenda libre, con más ...",
+    "es": "Disfrutar de todas las características de la agenda libre, con más...",
     "it": "Approfittate di tutte le caratteristiche del agenda Gratuito, più...",
     "io": "crwdns13714:0crwdne13714:0"
   },
@@ -1591,7 +1591,7 @@ module.exports = {
     "fr": "Animation de communauté",
     "en": "Community management",
     "de": "Community-Management",
-    "es": "Animación comunidad",
+    "es": "Animación de comunidad",
     "it": "Animazione per la comunità",
     "io": "crwdns13836:0crwdne13836:0",
     "oc": "Animacion de comunautat"
@@ -1984,7 +1984,7 @@ module.exports = {
     "en": "Contact us",
     "fr": "Contactez-nous",
     "de": "Kontaktiere uns",
-    "es": "contáctenos",
+    "es": "Contáctenos",
     "it": "Contattateci",
     "io": "crwdns13934:0crwdne13934:0",
     "oc": "Nos contactar"
@@ -2113,7 +2113,7 @@ module.exports = {
     "en": "Manage private data",
     "fr": "Gérez des données privées",
     "de": "Verwalten private Daten",
-    "es": "Manejo de datos privados",
+    "es": "Gestionar datos privados",
     "it": "Gestire i dati privati",
     "io": "crwdns13966:0crwdne13966:0"
   },

@@ -42,7 +42,7 @@ module.exports = {
     "en": "Cancel",
     "fr": "Annuler",
     "de": "Stornieren",
-    "es": "anular",
+    "es": "Anular",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns13246:0crwdne13246:0",

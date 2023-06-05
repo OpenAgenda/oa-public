@@ -7,6 +7,6 @@
   "phoneSub": "Los caracteres permitidos: cifras, espacio, -, + o ()",
   "name": "Nombre Apellido",
   "position": "función",
-  "email": "e-mail",
-  "submit": "validar"
+  "email": "Dirección de correo electrónico",
+  "submit": "Validar"
 }

@@ -1,5 +1,5 @@
 {
-  "title": "El agenda de la agenda {agenda} publicó su evento {event}",
+  "title": "El agenda {agenda} publicó su evento {event}",
   "actionDescription": "Ver evento",
   "unsubscribe": "Dejar de recibir los cambios de estado de mis eventos",
   "memberUnsubscribe": "Dejar de recibir los cambios de estado de mis eventos en esta agenda",

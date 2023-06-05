@@ -124,5 +124,13 @@
   "ActivityApps.locationUpdate.actor": "crwdns33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdne33203:0",
   "ActivityApps.locationUpdate.full": "crwdns33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdne33205:0",
   "ActivityApps.locationUpdate.target": "crwdns33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdne33207:0",
-  "ActivityApps.noHistory": "crwdns33209:0crwdne33209:0"
+  "ActivityApps.noHistory": "crwdns33209:0crwdne33209:0",
+  "ActivityApps.XAdministrators": "crwdns33211:0count={count}crwdne33211:0",
+  "ActivityApps.XContributors": "crwdns33213:0count={count}crwdne33213:0",
+  "ActivityApps.XModerators": "crwdns33215:0count={count}crwdne33215:0",
+  "ActivityApps.XReaders": "crwdns33217:0count={count}crwdne33217:0",
+  "ActivityApps.agendaSendMessage.full": "crwdns33219:0{userName}crwdnd33219:0{agendaName}crwdne33219:0",
+  "ActivityApps.agendaSendMessage.fullWithSubject": "crwdns33221:0{userName}crwdnd33221:0{subject}crwdnd33221:0{agendaName}crwdne33221:0",
+  "ActivityApps.agendaSendMessage.withoutTarget": "crwdns33223:0{userName}crwdne33223:0",
+  "ActivityApps.agendaSendMessage.withoutTargetWithSubject": "crwdns33225:0{userName}crwdnd33225:0{subject}crwdne33225:0"
 }

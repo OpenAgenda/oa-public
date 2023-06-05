@@ -3,7 +3,7 @@
   "share": "Compartir",
   "online": "En linea",
   "addEvent": "Añadir un evento",
-  "startToFinish": "del %start% a %finish%",
+  "startToFinish": "%start% a %finish%",
   "startTime": "%start%, %time%",
   "addToMyAgenda": "Añadir a mi agenda",
   "searchInThisAgenda": "Buscar en este agenda",

@@ -12,5 +12,14 @@
   "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Sí, y también quiero eliminar los eventos ya importados",
   "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Los eventos que se publiquen en la agenda {agenda} dejarán de importarse.{br} ¿Está seguro de que desea eliminar esta agenda de las fuentes?",
   "aggregator-sources.RuleForm.useActionsDesc": "Cuando procede, la regla asocia el evento importado con valores específicos del agenda importador.",
-  "aggregator-sources.SlugSearch.enterLink": "Introduzca un enlace a la página de la agenda"
+  "aggregator-sources.SlugSearch.enterLink": "Introduzca un enlace a la página de la agenda",
+  "aggregator-sources.AggregatorRulesModal.cancel": "Anular",
+  "aggregator-sources.Dashboard.startUse": "Inicio",
+  "aggregator-sources.DefineRules.cancel": "Anular",
+  "aggregator-sources.DefineRules.remove": "Eliminar",
+  "aggregator-sources.DefineRules.withActions": "{actionCount, plural, =1 {con 1 accion} other {con # acciones}}",
+  "aggregator-sources.EvaluateOptions.cancel": "Anular",
+  "aggregator-sources.RemoveSourceModal.cancel": "Anular",
+  "aggregator-sources.SourcesList.remove": "Eliminar",
+  "aggregator-sources.UpdateSourceModal.cancel": "Anular"
 }

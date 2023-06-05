@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Traduction automatique",
     "en": "Automated translation",
     "de": "automatisierte Übersetzung",
-    "es": "traducción automática",
+    "es": "Traducción automática",
     "it": "Traduzione automatica",
     "io": "crwdns14650:0crwdne14650:0",
     "oc": "Traduccion automatica"

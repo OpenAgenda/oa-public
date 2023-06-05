@@ -403,7 +403,7 @@ module.exports = {
     "en": "Workflow management",
     "fr": "Circuit de validation étendu",
     "de": "Workflow-Management",
-    "es": "circuito de validación extendida",
+    "es": "Circuito de validación extendido",
     "it": "Circuito di convalida",
     "io": "crwdns13362:0crwdne13362:0",
     "oc": "Gestion dels flusses de trabalh"
@@ -466,7 +466,7 @@ module.exports = {
     "en": "Community management",
     "fr": "Animation de communauté",
     "de": "Community-Management",
-    "es": "Animación comunidad",
+    "es": "Animación de comunidad",
     "it": "Animazione per la comunità",
     "io": "crwdns13376:0crwdne13376:0",
     "oc": "Animacion de comunautat"

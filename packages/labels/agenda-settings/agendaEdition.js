@@ -23,7 +23,7 @@ module.exports = {
     "en": "Title",
     "fr": "Titre",
     "de": "Titel",
-    "es": "título",
+    "es": "Título",
     "it": "Titolo",
     "io": "crwdns12502:0crwdne12502:0",
     "oc": "Títol"
@@ -417,7 +417,7 @@ module.exports = {
     "fr": "Gérez les clés",
     "en": "Manage keys",
     "de": "verwalten Tasten",
-    "es": "Administrar llave",
+    "es": "Administrar llaves",
     "it": "Gestire le chiave",
     "io": "crwdns12588:0crwdne12588:0",
     "oc": "Gerir las claus"
