@@ -41,6 +41,7 @@ module.exports = async function (configObject = null, options = {}) {
 
   await init('knex', require('./knex'));
   await init('redis', require('./redis'));
+  await init('bull', require('./bull'));
   await init('errors', require('./errors'));
   await init('tracker', require('./tracker'));
   await init('queues', require('./queues'));
