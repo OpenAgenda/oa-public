@@ -347,8 +347,6 @@ module.exports = core => {
     mw.member.allow(['contributor', 'moderator', 'administrator']),
     async (req, res, next) => {
       try {
-        console.log(req.event);
-
         const activities = await app.services.activities
           .feed({ entityType: 'user', entityUid: req.user.uid })
           .activities.list({ object: `location:${req.params.locationUid}` }, req.query.fromId || 0, 20);
