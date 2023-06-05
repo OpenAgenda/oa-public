@@ -50,7 +50,7 @@ module.exports = async function prepareSummary(config) {
           service.tasks.notifications.sendSummary({ user, feedId: item.id, notifications });
         }
       } catch (e) {
-        log('error', `Can't send notifications summary to user ${user.uid}`, e);
+        log('error', `Can't send notifications summary to user ${item.entity_uid}`, e);
       }
     }
   } catch (e2) {

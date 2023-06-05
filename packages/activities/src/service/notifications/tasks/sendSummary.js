@@ -23,7 +23,7 @@ async function task(config) {
     redis: redisClient
   } = config;
 
-  while (summary = await redisClient.lPop(config.queue.names.sendSummary)) {
+  while (summary = JSON.parse(await redisClient.lPop(config.queue.names.sendSummary))) {
 
     try {
 
