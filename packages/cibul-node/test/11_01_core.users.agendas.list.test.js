@@ -24,6 +24,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

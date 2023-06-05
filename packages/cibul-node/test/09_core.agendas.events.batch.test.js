@@ -22,6 +22,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
         'simpleCache',
         'accessTokens',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',

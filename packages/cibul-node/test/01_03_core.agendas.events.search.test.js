@@ -23,6 +23,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',

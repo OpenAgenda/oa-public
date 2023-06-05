@@ -23,6 +23,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

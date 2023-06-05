@@ -20,6 +20,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

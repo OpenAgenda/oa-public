@@ -22,6 +22,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'accessTokens',

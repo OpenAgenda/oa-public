@@ -24,6 +24,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

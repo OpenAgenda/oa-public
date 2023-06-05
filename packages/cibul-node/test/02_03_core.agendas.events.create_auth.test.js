@@ -20,6 +20,7 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',

@@ -34,6 +34,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

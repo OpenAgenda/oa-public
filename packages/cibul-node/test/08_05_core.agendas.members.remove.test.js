@@ -22,6 +22,7 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

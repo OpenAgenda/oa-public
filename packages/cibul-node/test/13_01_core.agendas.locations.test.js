@@ -32,6 +32,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

@@ -19,6 +19,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',

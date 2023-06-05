@@ -26,6 +26,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',

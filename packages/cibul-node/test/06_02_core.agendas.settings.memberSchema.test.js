@@ -24,6 +24,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'accessTokens',

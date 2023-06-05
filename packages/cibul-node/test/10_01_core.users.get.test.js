@@ -20,6 +20,7 @@ describe('10 - core - functional (server): core.users().get()', () => {
         'accessTokens',
         'files',
         'queues',
+        'bull',
         'events',
         'agendas',
         'agendaEvents',

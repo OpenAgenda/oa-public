@@ -22,6 +22,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
         'simpleCache',
         'tracker', // for testing
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',
