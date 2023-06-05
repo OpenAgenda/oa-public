@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title>Demande d'activation: <%= subject %></mj-title>
-    <mj-preview><%= message %></mj-preview>
+    <mj-prev><%= message %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>

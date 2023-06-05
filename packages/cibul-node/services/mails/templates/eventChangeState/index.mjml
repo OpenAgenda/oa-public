@@ -1,9 +1,9 @@
 <mjml>
   <mj-head>
     <mj-title><%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %></mj-title>
-    <mj-preview>
+    <mj-prev>
       <%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %>
-    </mj-preview>
+    </mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>

@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title><%= event.title %></mj-title>
-    <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
+    <mj-prev><%= event.title %> - <%= event.description %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>

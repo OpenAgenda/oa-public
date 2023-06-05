@@ -1,5 +1,7 @@
 <%- __('title', { agenda }) %>:
-
+<% if (typeof subject !== 'undefined') { %>
+  <%- subject %>
+<% } %>
 <%- message %>
 
 <%- __('actionDescription') %>: <%- link %>

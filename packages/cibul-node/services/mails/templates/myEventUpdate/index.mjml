@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title><%= __('title', { agenda, event }) %></mj-title>
-    <mj-preview><%= __('title', { agenda, event }) %></mj-preview>
+    <mj-prev><%= __('title', { agenda, event }) %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>

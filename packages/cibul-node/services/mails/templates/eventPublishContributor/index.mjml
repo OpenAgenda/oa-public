@@ -1,9 +1,9 @@
 <mjml>
   <mj-head>
     <mj-title><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></mj-title>
-    <mj-preview>
+    <mj-prev>
       <%= typeof message !== 'undefined' ? message : __('title', { agenda: agendaTitle, event: eventTitle }) %>
-    </mj-preview>
+    </mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>

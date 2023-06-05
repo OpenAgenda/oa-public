@@ -8,6 +8,7 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
+  subject: 'REGARDEZ CE LIEN !',
   message: 'Bonjour,\n' +
     '\n' +
     'Le ministère nous demande de vous diffuser le lien suivant :\n' +

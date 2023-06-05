@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title><%= agenda ? __('titleWithAgenda', { agenda }) : __('title') %></mj-title>
-    <mj-preview><%= message %></mj-preview>
+    <mj-prev><%= message %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
