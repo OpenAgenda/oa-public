@@ -10,6 +10,7 @@
   "addLanguage": "Apondre una lenga",
   "selectLanguage": "Seleccionar",
   "cancelLanguageChange": "Anullar",
+  "noDates": "Cal indicar al mens un orari",
   "categoriesTitle": "Categorias",
   "tagsTitle": "Etiquetas",
   "categoriesInfo": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
@@ -21,6 +22,5 @@
   "noSelection": "Pas res",
   "movedOnline": "Transferit en linha",
   "postponed": "Remandat",
-  "status": "Estatut",
-  "noDates": "Cal indicar al mens un orari"
+  "status": "Estatut"
 }

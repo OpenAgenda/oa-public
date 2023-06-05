@@ -1,14 +1,14 @@
 {
-  "submit": "Sometre",
-  "cancel": "Anullar",
-  "uploadButton": "Seleccionar",
   "description": "Aqueste eveniment es estat apondut d'un autra agenda. Podètz modificar las informacions seguentas, especificas a la vòstra agenda",
   "loadingError": "I a agut un problèma al cargament de las donadas. Mercés de tornar cargar la pagina.",
   "invalidError": "De camps contenon de donadas invalidas. Mercés de los corregir abans de sometre lo formulari.",
+  "submit": "Sometre",
   "submitted": "Validat",
   "saveErrorTitle": "Error d'enregistrament",
   "saveError": "I a agut un problèma a l'enregistrament de las donadas. Mercés de tornar ensajar o de tornar cargar la pagina.",
   "saveSuccess": "Las donadas son plan estadas enregistradas",
   "invalidTags": "D'unas etiquetas sometudas son pas validas",
-  "invalidCategories": "La categoria seleccionada es pas valida"
+  "invalidCategories": "La categoria seleccionada es pas valida",
+  "cancel": "Anullar",
+  "uploadButton": "Seleccionar"
 }

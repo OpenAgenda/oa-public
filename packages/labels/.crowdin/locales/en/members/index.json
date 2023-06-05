@@ -82,5 +82,7 @@
   "order.activity": "activity",
   "orderSort": "Sort order",
   "sortBy": "Order by",
-  "removeFilter": "Remove filter"
+  "removeFilter": "Remove filter",
+  "subject": "Subject",
+  "sendAlsoToMe": "Send me this message"
 }

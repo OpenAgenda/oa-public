@@ -1,11 +1,11 @@
 {
-  "addEvent": "Apondre un eveniment",
-  "addEventOr": "o",
   "editorTitle": "Eveniments ligats",
   "editorInfo": "Ligatz d'autres eveniments de l'agenda a vòstre eveniment",
   "showTitle": "Véser tanben",
   "emptyReferences": "I a actualament pas d'eveniments ligats",
   "emptySearch": "Pas de resultat per aquesta recerca",
+  "addEvent": "Apondre un eveniment",
+  "addEventOr": "o",
   "addEventSuggest": "Cargar d'eveniments similars",
   "search": "Cercar per títol o per nom de lòc",
   "searchResultTitle": "Resultats de recerca",

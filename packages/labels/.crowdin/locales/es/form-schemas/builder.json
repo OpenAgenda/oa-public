@@ -39,6 +39,7 @@
   "checkboxFieldType": "Selección múltiple elección",
   "radioFieldType": "Selección de una sola elección",
   "booleanFieldType": "Unica checkbox",
+  "sectionLabel": "título",
   "imageFieldType": "Imagen",
   "unknownFieldType": "Tipo desconocido",
   "languagesFieldType": "Idiomas de entrada",
@@ -94,5 +95,9 @@
   "optionalWhenLinkedFieldHasValue": "Opcional cuando se introduce el campo %linkedFieldName%",
   "optionalWhenLinkedFieldHasSpecificValue": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
   "linkedTo": "Relacionado con el campo %fieldName%",
-  "sectionLabel": "título"
+  "readAccess": "Lectura",
+  "writeAccess": "Escritura",
+  "adminAccess": "administrador",
+  "moderatorAccess": "moderador",
+  "contributorAccess": "ccontribuidor"
 }

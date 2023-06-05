@@ -10,7 +10,7 @@
   "undraft": "Crear evento",
   "addEvent": "Añadir un evento",
   "editDraftTitle": "Borrador",
-  "close": "cerca",
   "suggestChange": "Sugerir un cambio",
-  "cancelShare": "Cancelar el compartimiento"
+  "cancelShare": "Cancelar el compartimiento",
+  "close": "cerca"
 }
