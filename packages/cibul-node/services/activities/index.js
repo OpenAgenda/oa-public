@@ -28,12 +28,12 @@ module.exports.init = async (config, services) => {
     migrations: config.enableMigrations ? {
       tableName: 'activity_migrations',
     } : null,
+    redis: services.redis,
     queue: {
       names: {
         addActivity: config.queues.notificationAddActivity,
         sendSummary: config.queues.notificationSendSummary,
       },
-      redis: config.redis,
     },
     Queues: services.queues,
     interfaces: {
