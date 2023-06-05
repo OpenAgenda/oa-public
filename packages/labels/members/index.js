@@ -678,5 +678,13 @@ module.exports = {
     "it": "Rimuovere il filtro",
     "io": "crwdns16150:0crwdne16150:0",
     "oc": "Tirar lo filtre"
+  },
+  "subject": {
+    "fr": "Sujet",
+    "en": "Subject"
+  },
+  "sendAlsoToMe": {
+    "fr": "M'envoyer ce message",
+    "en": "Send me this message"
   }
 }
