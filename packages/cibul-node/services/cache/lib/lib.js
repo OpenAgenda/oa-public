@@ -14,11 +14,11 @@ module.exports = {
   init: init
 }
 
-function init( config ) {
+function init( config, services ) {
 
   if ( !config.useCache ) return;
 
-  cli = redis.createClient( config.redis.port, config.redis.host );
+  cli = services.redis;
 
 }
 
@@ -32,13 +32,15 @@ function get( key, subKey, cb ) {
 
   if ( arguments.length === 3 ) {
 
-    cli.hget( key, subKey, onResponse );
+    cli.hGet( key, subKey )
+      .then(r => onResponse(null, r), onResponse);
 
   } else {
 
     cb = subKey;
 
-    cli.get( key, onResponse );
+    cli.get( key )
+      .then(r => onResponse(null, r), onResponse);
 
   }
 
@@ -84,11 +86,13 @@ function load( keys, method, expire, args, cb ) {
 
     if ( utils.isArray( keys ) ) {
 
-      cli.hset( keys[ 0 ], keys[ 1 ], JSON.stringify( data ), onRedisResponse );
+      cli.hSet( keys[ 0 ], keys[ 1 ], JSON.stringify( data ) )
+        .then(r => onRedisResponse(null, r), onRedisResponse);
 
     } else {
 
-      cli.set( keys, JSON.stringify( data ), onRedisResponse );
+      cli.set( keys, JSON.stringify( data ) )
+        .then(r => onRedisResponse(null, r), onRedisResponse);
 
     }
 

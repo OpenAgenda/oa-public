@@ -12,9 +12,9 @@ module.exports = {
   plugApp
 };
 
-function init(config) {
+function init(config, services) {
   return new Stats({
-    redisClient: config.redisClient
+    redisClient: services.redis
   });
 }
 
@@ -68,14 +68,7 @@ function plugApp(app) {
 
 class Stats {
   constructor(config) {
-    this.redisClient = new Proxy(config.redisClient, {
-      get(target, propKey) {
-        if (typeof target[propKey] === 'function') {
-          return promisify(target[propKey]).bind(target);
-        }
-        return target[propKey];
-      },
-    })
+    this.redisClient = config.redisClient;
   }
 
   async set(agendaUid, data) {
