@@ -4,12 +4,12 @@
         ? __('subjectForExistingMember', { agenda, role: __(role) })
         : __('subject', { agenda, roleVerb: __(role + 'Verb') })
       %></mj-title>
-    <mj-preview>
+    <mj-prev>
       <%= isMember
         ? __('subjectForExistingMember', { agenda, role: __(role) })
         : __('subject', { agenda, roleVerb: __(role + 'Verb') })
       %>
-    </mj-preview>
+    </mj-prev>
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 

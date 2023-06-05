@@ -50,7 +50,7 @@ module.exports = {
     "en": "Title",
     "fr": "Titre",
     "de": "Titel",
-    "es": "título",
+    "es": "Título",
     "it": "Titolo",
     "io": "crwdns12450:0crwdne12450:0",
     "oc": "Títol"

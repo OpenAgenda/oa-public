@@ -92,7 +92,7 @@ module.exports = {
     "it": "da %start% a %finish%",
     "de": "von %start% bis %finish%",
     "pl": "od %start% do %finish%",
-    "es": "Del%start% al %finish %",
+    "es": "%start% a %finish%",
     "br": "eus an %start% d'an %finish%",
     "io": "crwdns14440:0%start%crwdnd14440:0%finish%crwdne14440:0",
     "oc": "%start% a %finish%"
@@ -103,7 +103,7 @@ module.exports = {
     "it": "lo %start% @ %time%",
     "de": "%start% @ %time%",
     "pl": "o %start% @ %time%",
-    "es": "El %start% @ %time%",
+    "es": "el %start% @ %time%",
     "br": "da %start% @ %time%",
     "io": "crwdns14442:0%start%crwdnd14442:0%time%crwdne14442:0"
   },
@@ -295,7 +295,7 @@ module.exports = {
     "it": "Annulla",
     "de": "annulieren",
     "pl": "Anuluj",
-    "es": "anular",
+    "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns14482:0crwdne14482:0",
     "oc": "Anullar"
@@ -346,7 +346,8 @@ module.exports = {
     "en": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
     "io": "crwdns14496:0crwdne14496:0",
     "it": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
-    "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
+    "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
+    "es": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
   },
   "eventState": {
     "en": "Event state",
@@ -803,7 +804,7 @@ module.exports = {
     "it": "Azioni",
     "de": "Aktionen",
     "pl": "Działania",
-    "es": "valores",
+    "es": "Otras acciones",
     "br": "Oberoù",
     "io": "crwdns14588:0crwdne14588:0"
   },

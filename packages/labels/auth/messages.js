@@ -82,7 +82,7 @@ module.exports = {
     "it": "Esiste già un account con la sua email. Accedi utilizzando la sua email e la sua password",
     "de": "Ein Konto mit deiner E-Mail existiert bereits. Bitte melde sich mit deiner E-Mail-Adresse und Ihrem Passwort an.",
     "pl": "Konto z Twoim e-mailem już istnieje. Zaloguj się używając swojego adresu e-mail i hasła",
-    "es": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña.",
+    "es": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña",
     "br": "Ur gont hag a implij ho chomlec'h postel zo anezhi dija. Implijit ho chomlec'h postel hag ho ker-tremen evit kevreañ, mar plij.",
     "io": "crwdns13110:0crwdne13110:0",
     "oc": "Existís ja un compte amb vòstra adreça email. Mercés de vos connectar amb vòstres email e senhal"

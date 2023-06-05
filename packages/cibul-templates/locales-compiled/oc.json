@@ -2,73 +2,73 @@
   "aggregate-button": [
     {
       "type": 0,
-      "value": "Agréger"
+      "value": "Agregar"
     }
   ],
   "cibulTemplates.displayContextBar.completeAction": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "Acabar"
     }
   ],
   "cibulTemplates.displayContextBar.displayAction": [
     {
       "type": 0,
-      "value": "Afficher"
+      "value": "Afichar"
     }
   ],
   "cibulTemplates.displayContextBar.modifyAction": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Modificar"
     }
   ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,
-      "value": "Aucune saisie"
+      "value": "Pas d'intrada"
     }
   ],
   "displayAdditionalFields.goToAdditionalFields": [
     {
       "type": 0,
-      "value": "voir"
+      "value": "veire"
     }
   ],
   "displayAdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "Fichier non chargé"
+      "value": "Pas cap fichièr cargat"
     }
   ],
   "displayAdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "Image non chargée"
+      "value": "Pas cap imatge cargat"
     }
   ],
   "displayAdditionalFields.noSelectionValue": [
     {
       "type": 0,
-      "value": "Aucune sélection"
+      "value": "Pas cap seleccion"
     }
   ],
   "displayAdditionalFields.privateField": [
     {
       "type": 0,
-      "value": "Information privée"
+      "value": "Informacion restrencha"
     }
   ],
   "event/contributor-section": [
     {
       "type": 0,
-      "value": "Contributeur"
+      "value": "Contributor·a"
     }
   ],
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Editer la fiche"
+      "value": "Modificar"
     }
   ],
   "event/contributor/email": [
@@ -80,7 +80,7 @@
   "event/contributor/emptyContactInfo": [
     {
       "type": 0,
-      "value": "Aucune information de contact n'a été saisie"
+      "value": "Pas cap informacion de contacte disponibla"
     }
   ],
   "event/contributor/name": [
@@ -92,49 +92,49 @@
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organisme"
+      "value": "Organizacion"
     }
   ],
   "event/contributor/phone": [
     {
       "type": 0,
-      "value": "Téléphone"
+      "value": "Telefòne"
     }
   ],
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Fonction"
+      "value": "Foncion"
     }
   ],
   "event/contributor/role": [
     {
       "type": 0,
-      "value": "Role"
+      "value": "Ròtle"
     }
   ],
   "event/private-section": [
     {
       "type": 0,
-      "value": "Information privée"
+      "value": "Informacion privada"
     }
   ],
   "export-all-button": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Exportar"
     }
   ],
   "export-select-button": [
     {
       "type": 0,
-      "value": "Exporter la sélection"
+      "value": "Exportar la seleccion"
     }
   ],
   "more-button": [
     {
       "type": 0,
-      "value": "plus"
+      "value": "mai"
     }
   ],
   "share-button": [

@@ -1,9 +1,9 @@
 {
   "refused": "refusat",
-  "controlled": "prèste a publicar",
-  "published": "publicat",
   "tocontrol": "e cors de moderacion",
   "tobecontrolled": "e cors de moderacion",
+  "controlled": "prèste a publicar",
+  "published": "publicat",
   "featured": "en una",
   "all": "véser tot",
   "state": "estatut",

@@ -5,7 +5,7 @@ module.exports = {
     "en": "Categories",
     "fr": "Catégories",
     "de": "Kategorien",
-    "es": "categorías",
+    "es": "Categorías",
     "it": "Categorie",
     "io": "crwdns11470:0crwdne11470:0",
     "oc": "Categorias"

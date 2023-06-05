@@ -38,7 +38,7 @@ module.exports = {
     "it": "Oggi",
     "de": "Heute",
     "pl": "Dziś",
-    "es": "hoy",
+    "es": "Hoy",
     "io": "crwdns12786:0crwdne12786:0",
     "oc": "Uèi"
   },

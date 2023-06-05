@@ -1,6 +1,6 @@
 {
   "subject": " {agenda} : {event} ha cambiado de estado",
-  "title": "Su evento <b>{event}</b> ocurrió<b>{beforeState}</b> au statut <b>{afterState}</b> estado afterState en la agenda <b>{agenda}</b>.",
+  "title": "El evento <b>{event}</b> ha pasado de <b>{beforeState}</b> a <b>{afterState}</b> en la agenda <b>{agenda}</b>.",
   "actionDescription": "Ver evento",
   "tocontrol": "al control",
   "controlled": "listo para su publicación",

@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Enregistrer",
     "en": "Submit",
     "de": "Rekord",
-    "es": "Guardar",
+    "es": "Validar",
     "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns14886:0crwdne14886:0",
@@ -68,7 +68,7 @@ module.exports = {
     "it": "Annulla",
     "de": "Annulieren",
     "pl": "Anuluj",
-    "es": "anular",
+    "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns16466:0crwdne16466:0",
     "oc": "Anullar"

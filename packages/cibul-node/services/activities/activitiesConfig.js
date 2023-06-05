@@ -1443,6 +1443,42 @@ const activitiesConfig = {
     },
     notifications: null,
   },
+  'agenda.sendMessage': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+    }),
+    filterFollows: or(
+      fromAgendaToAdminMod, // to adminMods
+    ),
+    labelIds: [
+      ['ActivityApps.agendaSendMessage.fullWithSubject', ['actor', 'store.labels.target', 'store.subject']],
+      ['ActivityApps.agendaSendMessage.full', ['actor', 'store.labels.target']],
+      ['ActivityApps.agendaSendMessage.withoutTargetWithSubject', ['store.subject']],
+      ['ActivityApps.agendaSendMessage.withoutTarget', []],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      agendaUid: 'target.uid',
+      userName: 'store.labels.actor',
+      agendaName: 'store.labels.target',
+      subject: 'store.subject',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      subj: {
+        highlight: true,
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+      recipientRoles: {},
+    },
+    notifications: null,
+  },
 };
 
 module.exports = activitiesConfig;

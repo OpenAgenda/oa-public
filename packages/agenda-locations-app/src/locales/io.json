@@ -60,6 +60,7 @@
   "AgendaLocations.IT.adminLevel4": "crwdns17036:0crwdne17036:0",
   "AgendaLocations.IT.adminLevel5": "crwdns17038:0crwdne17038:0",
   "AgendaLocations.IT.adminLevel6": "crwdns17040:0crwdne17040:0",
+  "AgendaLocations.LocationConfirmation.browseDetails": "crwdns33173:0crwdne33173:0",
   "AgendaLocations.LocationConfirmation.cancel": "crwdns17042:0crwdne17042:0",
   "AgendaLocations.LocationConfirmation.confirm": "crwdns17044:0crwdne17044:0",
   "AgendaLocations.LocationConfirmation.guide": "crwdns17046:0crwdne17046:0",
@@ -192,6 +193,5 @@
   "AgendaLocations.stepper.notDuplicates": "crwdns17296:0crwdne17296:0",
   "AgendaLocations.stepper.see": "crwdns17298:0crwdne17298:0",
   "AgendaLocations.stepper.seeDetails": "crwdns17300:0crwdne17300:0",
-  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0",
-  "AgendaLocations.LocationConfirmation.browseDetails": "crwdns33173:0crwdne33173:0"
+  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0"
 }

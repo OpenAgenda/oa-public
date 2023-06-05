@@ -27,7 +27,7 @@
   "role": "papel",
   "selectRole": "Seleccione un rol",
   "name": "apellido",
-  "email": "e-mail",
+  "email": "Dirección de correo electrónico",
   "phone": "Teléfono",
   "position": "puesto",
   "organization": "organización",

@@ -79,7 +79,7 @@ module.exports = {
     "en": "Signup",
     "fr": "Sign up",
     "de": "s'inscrire",
-    "es": "contratar",
+    "es": "Inscribirse",
     "it": "Iscriviti",
     "io": "crwdns15776:0crwdne15776:0"
   },

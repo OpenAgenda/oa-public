@@ -4,7 +4,11 @@ const tfy = require('./lib/taskify');
 const resetApiCounters = require('./general/resetApiCounters.task');
 
 module.exports = (config, core, services) => {
-  tfy(resetApiCounters, { period: 'daily', time: '00:00' });
+  tfy(resetApiCounters(config, services), {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '00:00',
+  });
 
   tfy(services.agendaSearch.rebuild, {
     period: 'weekly',

@@ -36,7 +36,6 @@ module.exports.init = async (config, services) => {
     },
 
     // Queuing
-    redis: config.redis,
     queueName: 'mails',
     Queues: queues,
 

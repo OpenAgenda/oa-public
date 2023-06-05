@@ -76,7 +76,6 @@ services:
     environment:
       TZ: Etc/UTC
       NODE_ENV: ${NODE_ENV}
-      DEBUG: ${DEBUG}
       DEBUG_COLORS: ${DEBUG_COLORS}
       TERM: ${TERM}
       COLORTERM: ${COLORTERM}
@@ -165,7 +164,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:6.0.6
+    image: redis:7.0.11
     restart: always
     ports:
       - 6379:6379

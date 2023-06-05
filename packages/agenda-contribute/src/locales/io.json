@@ -17,12 +17,14 @@
   "AgendaContribute.Confirmation.showMyEvents": "crwdns16291:0crwdne16291:0",
   "AgendaContribute.ErrorMessage.cancelChange": "crwdns16361:0crwdne16361:0",
   "AgendaContribute.ErrorMessage.conditions": "crwdns16363:0crwdne16363:0",
+  "AgendaContribute.ErrorMessage.description": "crwdns32376:0crwdne32376:0",
   "AgendaContribute.ErrorMessage.imageCredits": "crwdns16367:0crwdne16367:0",
   "AgendaContribute.ErrorMessage.longDescription": "crwdns16369:0crwdne16369:0",
   "AgendaContribute.ErrorMessage.registration": "crwdns16371:0crwdne16371:0",
   "AgendaContribute.ErrorMessage.shareRestrictionInfo": "crwdns16375:0{event}crwdnd16375:0{agenda}crwdne16375:0",
   "AgendaContribute.ErrorMessage.suggestChange": "crwdns16377:0crwdne16377:0",
   "AgendaContribute.ErrorMessage.timings": "crwdns16379:0crwdne16379:0",
+  "AgendaContribute.ErrorMessage.title": "crwdns32378:0crwdne32378:0",
   "AgendaContribute.EventEdit.update": "crwdns16293:0crwdne16293:0",
   "AgendaContribute.EventIsAlreadyInTarget.goBack": "crwdns16295:0crwdne16295:0",
   "AgendaContribute.EventIsAlreadyInTarget.isInTarget": "crwdns16297:0crwdne16297:0",
@@ -35,6 +37,7 @@
   "AgendaContribute.EventWasSuccessfullyShared.goTo": "crwdns16327:0{agenda}crwdne16327:0",
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": "crwdns16329:0{agenda}crwdne16329:0",
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": "crwdns16331:0{agenda}crwdne16331:0",
+  "AgendaContribute.Member.share": "crwdns32446:0crwdne32446:0",
   "AgendaContribute.Member.subtitle": "crwdns16335:0crwdne16335:0",
   "AgendaContribute.Member.title": "crwdns16337:0crwdne16337:0",
   "AgendaContribute.RequestEditionRights.noEditionRights": "crwdns16339:0crwdne16339:0",
@@ -47,8 +50,5 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "crwdns16353:0crwdne16353:0",
   "AgendaContribute.Stepper.confirmation": "crwdns16355:0crwdne16355:0",
   "AgendaContribute.Stepper.event": "crwdns16357:0crwdne16357:0",
-  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0",
-  "AgendaContribute.ErrorMessage.description": "crwdns32376:0crwdne32376:0",
-  "AgendaContribute.ErrorMessage.title": "crwdns32378:0crwdne32378:0",
-  "AgendaContribute.Member.share": "crwdns32446:0crwdne32446:0"
+  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0"
 }

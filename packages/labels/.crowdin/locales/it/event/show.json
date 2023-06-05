@@ -4,6 +4,7 @@
   "printPermalink": "Versione online",
   "otherShares": "Condividere",
   "allShares": "Condividere",
+  "shareOnOA": "Condividere su un altro OpenAgenda",
   "back": "Indietro",
   "ticketingLink": "Modalità d'iscrizione",
   "startToFinish": "da %start% a %finish%",
@@ -92,6 +93,5 @@
   "statusCancelledInfo": "L'evento è annullato",
   "statusFull": "Completo",
   "markAsFull": "L'evento è esaurito",
-  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento",
-  "shareOnOA": "Condividere su un altro OpenAgenda"
+  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento"
 }

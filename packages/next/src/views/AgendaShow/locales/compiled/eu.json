@@ -46,7 +46,7 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": [
     {
       "type": 0,
-      "value": "Show upcoming events only"
+      "value": "Mostrar sólo los próximos eventos"
     }
   ],
   "next.views.AgendaShow.termsOfUse": [
@@ -100,7 +100,7 @@
           "value": [
             {
               "type": 0,
-              "value": "No upcoming event"
+              "value": "Ningún evento próximo"
             }
           ]
         },
@@ -108,7 +108,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 upcoming event"
+              "value": "1 evento próximo"
             }
           ]
         },
@@ -119,7 +119,7 @@
             },
             {
               "type": 0,
-              "value": " upcoming events"
+              "value": " eventos próximos"
             }
           ]
         }

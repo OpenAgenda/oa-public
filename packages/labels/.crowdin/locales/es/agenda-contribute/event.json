@@ -10,7 +10,8 @@
   "undraft": "Crear evento",
   "addEvent": "Añadir un evento",
   "editDraftTitle": "Borrador",
-  "close": "cerca",
   "suggestChange": "Sugerir un cambio",
-  "cancelShare": "Cancelar el compartimiento"
+  "cancelShare": "Cancelar el compartimiento",
+  "close": "cerca",
+  "requestEditionRightsInfo": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
 }

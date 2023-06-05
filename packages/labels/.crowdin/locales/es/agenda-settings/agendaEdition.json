@@ -1,7 +1,7 @@
 {
   "image": "Imagen",
   "description": "descripción",
-  "title": "título",
+  "title": "Título",
   "titlePlaceholder": "Mi organización, mi fiesta, mi ciudad, otra",
   "website": "Sitio web",
   "websitePlaceholder": "http://monsite.com",
@@ -44,7 +44,7 @@
   "description.tooManyLines": "La descripción no debe exceder de 4 líneas",
   "advanced": "Avanzado",
   "accessKeys": "Acceso teclas",
-  "manageKeys": "Administrar llave",
+  "manageKeys": "Administrar llaves",
   "labeling": "Etiquetado",
   "officialAgenda": "Agenda",
   "nonOfficialAgenda": "Eventos no oficiales",

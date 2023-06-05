@@ -1,4 +1,5 @@
 {
+  "displayAdditionalFields.goToAdditionalFields": "vedere",
   "event/contributor-section": "Collaboratore",
   "event/contributor/edit": "Modificare",
   "event/contributor/email": "Email",
@@ -6,6 +7,5 @@
   "event/contributor/organization": "Ragione sociale",
   "event/contributor/position": "Ruolo",
   "export-all-button": "Esportare",
-  "displayAdditionalFields.goToAdditionalFields": "vedere",
   "share-button": "Condividere su un altro OpenAgenda"
 }

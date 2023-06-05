@@ -2,6 +2,7 @@
   "ActivityApps.Notifications.markAllAsRead": "Segna tutto come letto",
   "ActivityApps.Notifications.next": "Prossimo",
   "ActivityApps.Notifications.noNotif": "Nessuna notifica.",
+  "ActivityApps.noHistory": "Le vostre attività saranno visualizzate qui.",
   "ActivityApps.notifications.agendaAddSource": "{actor} ha aggiunto {object} come fonte di {target}.",
   "ActivityApps.notifications.agendaAggregateEvent": "{target} ha aggregato {object} da {actor}.",
   "ActivityApps.notifications.agendaCreate": "{actor} ha creato l'agenda {target}.",
@@ -13,6 +14,5 @@
   "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} i uno altro evento} other {{event} i {others} altri eventi}}",
   "ActivityApps.notifications.eventCreate": "{actor} ha creato {object} in {target}.",
   "ActivityApps.notifications.eventUpdate": "{actor} ha aggiornato {object} su {target}.",
-  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} et 1 altro utente} other {{user} et {others} altri utenti}}",
-  "ActivityApps.noHistory": "Le vostre attività saranno visualizzate qui."
+  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} et 1 altro utente} other {{user} et {others} altri utenti}}"
 }

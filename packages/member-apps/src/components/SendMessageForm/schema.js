@@ -10,14 +10,25 @@ export default function getMessageSchema({ getLabel, lang }) {
         }@openagenda.com`,
       },
       {
+        field: 'subject',
+        fieldType: 'text',
+        label: getLabel('subject'),
+      },
+      {
         field: 'message',
         fieldType: 'markdown',
         label: getLabel('message'),
+        optional: false,
       },
       {
         field: 'inactive',
         fieldType: 'boolean',
         label: getLabel('sendOnlyToInactives'),
+      },
+      {
+        field: 'sendToMe',
+        fieldType: 'boolean',
+        label: getLabel('sendAlsoToMe'),
       },
     ],
   };

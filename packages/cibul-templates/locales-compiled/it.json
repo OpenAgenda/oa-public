@@ -32,7 +32,7 @@
   "displayAdditionalFields.goToAdditionalFields": [
     {
       "type": 0,
-      "value": "see"
+      "value": "vedere"
     }
   ],
   "displayAdditionalFields.noFile": [
@@ -140,7 +140,7 @@
   "share-button": [
     {
       "type": 0,
-      "value": "Share on OpenAgenda"
+      "value": "Condividere su un altro OpenAgenda"
     }
   ]
 }

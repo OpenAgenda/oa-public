@@ -1,7 +1,4 @@
 {
-  "AgendaSchema.adaptForm": "crwdns32847:0crwdne32847:0",
-  "AgendaSchema.canAddField": "crwdns32851:0crwdne32851:0",
-  "AgendaSchema.needMoreFields": "crwdns32863:0crwdne32863:0",
   "AgendaSchema.AfterRedirectModal.body": "crwdns32831:0crwdne32831:0",
   "AgendaSchema.AfterRedirectModal.title": "crwdns32833:0crwdne32833:0",
   "AgendaSchema.EmbedSelection.eventInfo": "crwdns32835:0crwdne32835:0",
@@ -10,12 +7,15 @@
   "AgendaSchema.EmbedSelection.memberInfoAsk": "crwdns32841:0crwdne32841:0",
   "AgendaSchema.EmbedSelection.members": "crwdns32843:0crwdne32843:0",
   "AgendaSchema.EmbedSelection.notActivated": "crwdns32845:0crwdne32845:0",
+  "AgendaSchema.adaptForm": "crwdns32847:0crwdne32847:0",
   "AgendaSchema.adaptMemberForm": "crwdns32849:0crwdne32849:0",
+  "AgendaSchema.canAddField": "crwdns32851:0crwdne32851:0",
   "AgendaSchema.event": "crwdns32853:0crwdne32853:0",
   "AgendaSchema.eventDetail": "crwdns32855:0crwdne32855:0",
   "AgendaSchema.goToContrib": "crwdns32857:0crwdne32857:0",
   "AgendaSchema.member": "crwdns32859:0crwdne32859:0",
   "AgendaSchema.memberDetail": "crwdns32861:0crwdne32861:0",
+  "AgendaSchema.needMoreFields": "crwdns32863:0crwdne32863:0",
   "AgendaSchema.network": "crwdns32865:0crwdne32865:0",
   "AgendaSchema.networkDetail": "crwdns32867:0crwdne32867:0",
   "AgendaSchema.warning": "crwdns32869:0crwdne32869:0"

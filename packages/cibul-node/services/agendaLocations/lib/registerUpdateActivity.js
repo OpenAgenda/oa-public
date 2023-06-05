@@ -66,40 +66,46 @@ module.exports = async function registerUpdateActivity({
 
     if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
       accu[fieldAccess].push(fieldSchema.field);
-    } else {
+    } else if (fieldSchema.label) {
       accu[fieldAccess].push({ label: fieldSchema.label });
     }
 
     return accu;
   }, {});
 
-  let member;
+  const hasChanges = changedFields.contributor?.length
+    || changedFields.moderator?.length
+    || changedFields.administrator?.length;
 
-  try {
-    member = await members.get({ agendaUid, userUid }, { detailed: true });
-  } catch (e) {
-    return log('error', new VError(e, 'Error to get member', { agendaUid, userUid }));
-  }
+  if (hasChanges) {
+    let member;
 
-  try {
-    await activities.feed({ entityType: 'location', entityUid: after.uid }).activities.add({
-      actor: `user:${userUid}`,
-      verb: 'location.update',
-      object: `location:${after.uid}`,
-      target: `agenda:${agenda.uid}`,
-      store: {
-        labels: {
-          actor: member.name ?? member.custom?.contactName ?? member.user.fullName,
-          object: before.title,
-          target: agenda.title,
+    try {
+      member = await members.get({ agendaUid, userUid }, { detailed: true });
+    } catch (e) {
+      return log('error', new VError(e, 'Error to get member', { agendaUid, userUid }));
+    }
+
+    try {
+      await activities.feed({ entityType: 'location', entityUid: after.uid }).activities.add({
+        actor: `user:${userUid}`,
+        verb: 'location.update',
+        object: `location:${after.uid}`,
+        target: `agenda:${agenda.uid}`,
+        store: {
+          labels: {
+            actor: member.name ?? member.custom?.contactName ?? member.user.fullName,
+            object: before.title,
+            target: agenda.title,
+          },
+          diff: changes,
+          contributorFields: changedFields.contributor,
+          moderatorFields: changedFields.moderator,
+          administratorFields: changedFields.administrator,
         },
-        diff: changes,
-        contributorFields: changedFields.contributor,
-        moderatorFields: changedFields.moderator,
-        administratorFields: changedFields.administrator,
-      },
-    });
-  } catch (e) {
-    log('error', 'failed to create location update activity', e);
+      });
+    } catch (e) {
+      log('error', 'failed to create location update activity', e);
+    }
   }
 };

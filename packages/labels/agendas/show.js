@@ -50,7 +50,7 @@ module.exports = {
     "de": "von %start% zu %finish%",
     "pl": "od %start% do %finish%",
     "br": "eus an %start% d'an %finish%",
-    "es": "del %start% a %finish%",
+    "es": "%start% a %finish%",
     "io": "crwdns12908:0%start%crwdnd12908:0%finish%crwdne12908:0",
     "oc": "%start% a %finish%"
   },

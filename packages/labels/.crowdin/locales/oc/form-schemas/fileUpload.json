@@ -1,10 +1,10 @@
 {
-  "remove": "Suprimir",
   "upload": "Cargar un fichièr",
   "error": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
   "tip": "Depausatz un fichièr dins la zòna grisada.",
   "replace": "Remplaçar lo fichièr",
   "loading": "Cargament en cors",
   "or": "O",
-  "acceptedExtensions": "Fichièrs acceptats"
+  "acceptedExtensions": "Fichièrs acceptats",
+  "remove": "Suprimir"
 }

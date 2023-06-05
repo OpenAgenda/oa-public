@@ -18,7 +18,7 @@ module.exports = {
     "it": "L'e-mail o la password non è corretta.",
     "de": "Deine E-Mail oder dein Passwort ist falsch.",
     "pl": "Twój adres e-mail lub hasło jest nieprawidłowe.",
-    "es": "El correo electrónico o la contraseña son incorrectos",
+    "es": "El correo electrónico o la contraseña son incorrectos.",
     "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
     "io": "crwdns13114:0crwdne13114:0",
     "oc": "L'email o lo senhal son pas corrèctes."
@@ -29,7 +29,7 @@ module.exports = {
     "it": "Reimpostare la password",
     "de": "Passwort zurücksetzen",
     "pl": "Zresetuj hasło",
-    "es": "restablecimiento de contraseña",
+    "es": "Restablecimiento de contraseña",
     "br": "Adderaouekaat ho ker-tremen",
     "io": "crwdns13116:0crwdne13116:0",
     "oc": "Reïnicializatz vòstre senhal"
@@ -40,7 +40,7 @@ module.exports = {
     "it": "Email",
     "de": "E-Mail",
     "pl": "Poczta elektroniczna",
-    "es": "e-mail",
+    "es": "Dirección de correo electrónico",
     "br": "Postel",
     "io": "crwdns13118:0crwdne13118:0",
     "oc": "Email"

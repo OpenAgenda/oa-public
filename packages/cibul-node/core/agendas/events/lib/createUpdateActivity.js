@@ -43,14 +43,12 @@ module.exports = async function createActivity(services, before, after, context)
     return log('error', new VError(e, 'Error to get user %s', context.userUid));
   }
 
-  const changes = diff(
-    before,
-    after,
-  );
+  const changes = diff(before, after);
 
   const allChangedFields = (changes ?? [])
     .map(v => v.path[0])
-    .filter((v, i, a) => a.indexOf(v) === i);
+    .filter((v, i, a) => a.indexOf(v) === i)
+    .filter(field => field !== 'state');
 
   const changedFields = allChangedFields.reduce((accu, changedField) => {
     const fieldSchema = formSchema.fields.find(v => v.field === changedField);
@@ -72,28 +70,34 @@ module.exports = async function createActivity(services, before, after, context)
 
     if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
       accu[fieldAccess].push(fieldSchema.field);
-    } else {
+    } else if (fieldSchema.label) {
       accu[fieldAccess].push({ label: fieldSchema.label });
     }
 
     return accu;
   }, {});
 
-  await activities.feed({ entityType: 'event', entityUid: after.uid }).activities.add({
-    actor: `user:${user.uid}`,
-    verb: 'event.update',
-    object: `event:${after.uid}`,
-    target: `agenda:${agenda.uid}`,
-    store: {
-      labels: {
-        actor: user.fullName,
-        object: before.title,
-        target: agenda.title,
+  const hasChanges = changedFields.contributor?.length
+    || changedFields.moderator?.length
+    || changedFields.administrator?.length;
+
+  if (hasChanges) {
+    await activities.feed({ entityType: 'event', entityUid: after.uid }).activities.add({
+      actor: `user:${user.uid}`,
+      verb: 'event.update',
+      object: `event:${after.uid}`,
+      target: `agenda:${agenda.uid}`,
+      store: {
+        labels: {
+          actor: user.fullName,
+          object: before.title,
+          target: agenda.title,
+        },
+        diff: changes,
+        contributorFields: changedFields.contributor,
+        moderatorFields: changedFields.moderator,
+        administratorFields: changedFields.administrator,
       },
-      diff: changes,
-      contributorFields: changedFields.contributor,
-      moderatorFields: changedFields.moderator,
-      administratorFields: changedFields.administrator,
-    },
-  });
+    });
+  }
 };

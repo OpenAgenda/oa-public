@@ -1,5 +1,8 @@
 {
   "react-layouts.AdminSections.newTab": "Nuevo!",
+  "react-layouts.MainLayout.myAgendas": "Mis agendas",
   "react-layouts.MainLayout.searchAgenda": "Buscar una agenda",
+  "react-layouts.MainLayout.signin": "Conectarse",
+  "react-layouts.MainLayout.signout": "Cerrar sesión",
   "react-layouts.components.Search.search": "Buscar"
 }

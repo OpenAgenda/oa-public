@@ -42,7 +42,7 @@ module.exports = {
     "en": "Email",
     "fr": "Email",
     "de": "E-Mail",
-    "es": "e-mail",
+    "es": "Dirección de correo electrónico",
     "it": "Email",
     "br": "Postel",
     "io": "crwdns15828:0crwdne15828:0",
@@ -307,7 +307,7 @@ module.exports = {
     "en": "Bad password",
     "fr": "Mauvais mot de passe",
     "de": "Falsches Passwort",
-    "es": "contraseña incorrecta",
+    "es": "Contraseña incorrecta",
     "it": "Password errata",
     "io": "crwdns15886:0crwdne15886:0",
     "oc": "Marrit senhal"

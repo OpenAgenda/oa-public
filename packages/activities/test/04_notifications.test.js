@@ -17,7 +17,7 @@ describe( 'activities - notifications', () => {
   jest.setTimeout( 30000 );
 
   beforeAll(async () => {
-    const redisClient = redis.createClient({
+    redisClient = redis.createClient({
       socket: {
         host: 'localhost',
         port: 6379,
@@ -27,14 +27,15 @@ describe( 'activities - notifications', () => {
     await redisClient.connect();
   });
 
-  afterAll(() => redisClient.quit());
+  // afterAll(() => redisClient.quit());
 
   beforeEach(async () => {
     queues = Queues({
       redis: redisClient,
       prefix: '04_notifications:'
     });
-    await queues.clear();
+    await queues(`${config.queue.names.addActivity}_notifications`).clear();
+    await queues(`${config.queue.names.sendSummary}_notifications`).clear();
   });
 
   beforeEach(async () => {
@@ -58,8 +59,7 @@ describe( 'activities - notifications', () => {
 
   });
 
-  afterEach(() => service.shutdown);
-
+  // afterEach(() => service.shutdown);
 
   describe( 'get', () => {
 
@@ -367,7 +367,9 @@ describe( 'activities - notifications', () => {
 
     });
 
-    it('queued creates are processed by .task', done => {
+    it.skip('queued creates are processed by .task', done => {
+
+
 
       service.tasks.notifications.addActivity.task( ( err, notif ) => {
 

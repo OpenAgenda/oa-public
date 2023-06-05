@@ -1,1 +1,7 @@
-{}
+{
+  "incorrectPassword": "Esta contraseña es incorrecta",
+  "passwordsMustMatch": "La contraseña debe coincidir.",
+  "passwordCouldNotBeModified": "No se ha podido modificar la contraseña",
+  "passwordResetSent": "A password reset is being sent to your email",
+  "passwordUpdated": "Su contraseña ha sido actualizada."
+}

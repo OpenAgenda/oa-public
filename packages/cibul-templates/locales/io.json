@@ -1,5 +1,8 @@
 {
   "aggregate-button": "crwdns30500:0crwdne30500:0",
+  "cibulTemplates.displayContextBar.completeAction": "crwdns32480:0crwdne32480:0",
+  "cibulTemplates.displayContextBar.displayAction": "crwdns32482:0crwdne32482:0",
+  "cibulTemplates.displayContextBar.modifyAction": "crwdns32484:0crwdne32484:0",
   "displayAdditionalFields.emptyValue": "crwdns30504:0crwdne30504:0",
   "displayAdditionalFields.goToAdditionalFields": "crwdns30506:0crwdne30506:0",
   "displayAdditionalFields.noFile": "crwdns30508:0crwdne30508:0",
@@ -19,8 +22,5 @@
   "export-all-button": "crwdns30536:0crwdne30536:0",
   "export-select-button": "crwdns30538:0crwdne30538:0",
   "more-button": "crwdns30540:0crwdne30540:0",
-  "share-button": "crwdns30542:0crwdne30542:0",
-  "cibulTemplates.displayContextBar.completeAction": "crwdns32480:0crwdne32480:0",
-  "cibulTemplates.displayContextBar.displayAction": "crwdns32482:0crwdne32482:0",
-  "cibulTemplates.displayContextBar.modifyAction": "crwdns32484:0crwdne32484:0"
+  "share-button": "crwdns30542:0crwdne30542:0"
 }

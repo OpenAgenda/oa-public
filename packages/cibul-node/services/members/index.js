@@ -3,7 +3,7 @@
 const Service = require('@openagenda/members');
 const log = require('@openagenda/logs')('services/members');
 
-const activities = require('./lib/activities');
+const activitiesTask = require('./lib/activities');
 
 const getEventCountByUserUid = require('./getEventCountByUserUid');
 const getUsersByUid = require('./getUsersByUid');
@@ -18,17 +18,16 @@ const mw = require('./middleware');
 const mail = require('./lib/mail');
 
 const members = {};
-const config = {};
 
-function init(c, services) {
-  Object.assign(config, c);
-
+function init(config, services) {
   const {
     queues,
+    bull,
+    activities,
   } = services;
 
   const activityQueue = queues('memberActivities');
-  const messageQueue = queues('memberMessages');
+  const messageQueueName = 'memberMessages';
 
   Object.assign(members, Service({
     knex: config.knex,
@@ -49,12 +48,14 @@ function init(c, services) {
 
   const messages = mail.messages(config, {
     members,
-    queue: messageQueue,
+    bull,
+    activities,
+    queueName: messageQueueName,
   });
 
   const {
     task: activityTask,
-  } = activities({ queue: activityQueue });
+  } = activitiesTask({ queue: activityQueue });
 
   mw.sendMessage.init(messages);
 

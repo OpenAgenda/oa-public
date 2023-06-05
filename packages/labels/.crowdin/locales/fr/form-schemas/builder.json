@@ -111,5 +111,10 @@
   "enabledWhenLinkedFieldHasSpecificValue": "Actif lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
   "optionalWhenLinkedFieldHasValue": "Optionnel lorsque le champ %linkedFieldName% est saisi",
   "optionalWhenLinkedFieldHasSpecificValue": "Optionnel lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
-  "linkedTo": "Lié au champ %fieldName%"
+  "linkedTo": "Lié au champ %fieldName%",
+  "readAccess": "Lecture",
+  "writeAccess": "Écriture",
+  "adminAccess": "administrateur",
+  "moderatorAccess": "moderateur",
+  "contributorAccess": "contributeur"
 }

@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Titre",
     "en": "Title",
     "de": "Titel",
-    "es": "título",
+    "es": "Título",
     "it": "Titolo",
     "io": "crwdns14896:0crwdne14896:0",
     "oc": "Títol"

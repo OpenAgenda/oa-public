@@ -1,14 +1,14 @@
 {
+  "MemberApps.Form.GDPRSummary": "Questi dati saranno visibili solo ai moderatori dell’Agenda e non saranno resi pubblici.",
   "MemberApps.Form.cancel": "Annulla",
   "MemberApps.Form.confirm": "Ok",
   "MemberApps.Form.confirmRemove": "Lasciare l'agenda",
   "MemberApps.Form.confirmRemoveInfo": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
+  "MemberApps.Form.moreInfo": "Per saperne di più",
   "MemberApps.Form.remove": "Vorrei lasciare l'agenda",
   "MemberApps.Form.removeFail": "La richiesta non è riuscita. Riprova a breve. Se il problema persiste, inviaci un breve messaggio a support@openagenda.com",
   "MemberApps.Form.removeSuccess": "Lei non è più membro dell'agenda",
   "MemberApps.Form.save": "Salva",
   "MemberApps.Form.success": "Aggiornamento fatto",
-  "MemberApps.Form.updateTitle": "Modulo di contatto",
-  "MemberApps.Form.GDPRSummary": "Questi dati saranno visibili solo ai moderatori dell’Agenda e non saranno resi pubblici.",
-  "MemberApps.Form.moreInfo": "Per saperne di più"
+  "MemberApps.Form.updateTitle": "Modulo di contatto"
 }

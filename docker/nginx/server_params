@@ -32,12 +32,12 @@ large_client_header_buffers 4 16k;
 ##########################################################
 #             STATIC FILES
 
-location ~/_next {
+location /_next {
   include conf.d/nextjs_params;
 }
 
 # cibul-templates/dist
-location ~/(css|fonts|images|js) {
+location ~ ^/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;
   include conf.d/static_params;
 }

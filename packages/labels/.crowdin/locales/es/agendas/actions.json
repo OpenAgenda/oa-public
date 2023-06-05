@@ -1,7 +1,7 @@
 {
   "actionsInProcess": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve.",
   "ownershipTransfered": "La propiedad del evento fue transferido con éxito",
-  "spreadsheetTitle": "descargar",
+  "spreadsheetTitle": "Descargar",
   "allLanguages": "todos los idiomas",
   "spreadsheetDescription": "Limitar datos descargados algunos idiomas"
 }

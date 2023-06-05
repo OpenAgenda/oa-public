@@ -1,13 +1,13 @@
 {
+  "MemberApps.Form.GDPRSummary": "Aquela informacion se poirà veire pels moderators de l'agenda",
+  "MemberApps.Form.cancel": "Anullar",
   "MemberApps.Form.confirm": "Ok",
   "MemberApps.Form.confirmRemove": "Me tirar de l'agenda",
   "MemberApps.Form.confirmRemoveInfo": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh.",
-  "MemberApps.Form.GDPRSummary": "Aquela informacion se poirà veire pels moderators de l'agenda",
+  "MemberApps.Form.moreInfo": "Ne legir mai",
   "MemberApps.Form.remove": "M'agradariá d'èsser tirat·da de l'agenda",
   "MemberApps.Form.removeFail": "La requèsta capitèt pas. Tornatz ensajar dins un brieu. Se lo problèma demòra, mandatz-nos un messatjòt a support@openagenda.com",
   "MemberApps.Form.removeSuccess": "Sètz pas pus membre de l'agenda",
-  "MemberApps.Form.cancel": "Anullar",
-  "MemberApps.Form.moreInfo": "Ne legir mai",
   "MemberApps.Form.save": "Enregistrar",
   "MemberApps.Form.success": "La mesa a jorn capitèt",
   "MemberApps.Form.updateTitle": "Formulari de contacte"

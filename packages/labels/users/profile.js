@@ -29,7 +29,7 @@ module.exports = {
     "it": "Impostazioni",
     "de": "Einstellungen",
     "pl": "Ustawienia",
-    "es": "configuraciones",
+    "es": "Configuración",
     "br": "Arventennoù",
     "io": "crwdns15806:0crwdne15806:0",
     "oc": "Reglatges"
@@ -51,7 +51,7 @@ module.exports = {
     "it": "Le mie agende",
     "de": "Meine Agendas",
     "pl": "Moje porządki dzienne",
-    "es": "mis agendas",
+    "es": "Mis agendas",
     "br": "Ma Deiziataerioù",
     "io": "crwdns15810:0crwdne15810:0",
     "oc": "Mas agendas"

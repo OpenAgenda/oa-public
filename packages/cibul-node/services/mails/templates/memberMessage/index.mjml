@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title><%= __('title', { agenda }) %></mj-title>
-    <mj-preview><%= message %></mj-preview>
+    <mj-prev><%= typeof subject !== 'undefined' ? subject : message %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
@@ -12,7 +12,7 @@
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= __('title', { agenda }) %></h1>
+          <h1 class="title"><%= typeof subject !== 'undefined' ? subject : __('title', { agenda }) %></h1>
         </mj-text>
 
         <mj-markdown><%- message %></mj-markdown>

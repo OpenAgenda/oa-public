@@ -2,13 +2,13 @@
   "description": "Este evento es de una agenda diferente. Puede editar la siguiente información específica a su agenda",
   "loadingError": "Hubo un problema al cargar los datos. Actualizar la página en un momento.",
   "invalidError": "Algunos campos contienen valores no válidos. Solucionarlos antes de reintentar una oferta.",
-  "submit": "validar",
+  "submit": "Validar",
   "submitted": "validado",
   "saveErrorTitle": "Error de copia de seguridad",
   "saveError": "Hubo un problema al guardar. Inténtelo de nuevo o volver a cargar la página.",
   "saveSuccess": "Los datos han sido actualizados",
   "invalidTags": "Algunas etiquetas presentadas no son válidos",
   "invalidCategories": "La categoría seleccionada no es válida",
-  "cancel": "anular",
+  "cancel": "Anular",
   "uploadButton": "seleccionar"
 }

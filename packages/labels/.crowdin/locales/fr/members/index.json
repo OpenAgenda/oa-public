@@ -82,5 +82,7 @@
   "order.activity": "activité",
   "orderSort": "Ordre de tri",
   "sortBy": "Trié par",
-  "removeFilter": "Supprimer le filtre"
+  "removeFilter": "Supprimer le filtre",
+  "subject": "Sujet",
+  "sendAlsoToMe": "M'envoyer ce message"
 }

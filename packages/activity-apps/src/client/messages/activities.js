@@ -325,10 +325,44 @@ export default defineMessages({
     id: 'ActivityApps.locationRemove.target',
     defaultMessage: 'Location <location>{locationName}</location> was removed on agenda <agenda>{agendaName}</agenda>.'
   },
+  // agenda.sendMessage
+  'agendaSendMessage.full': {
+    id: 'ActivityApps.agendaSendMessage.full',
+    defaultMessage: '<user>{userName}</user> sent a message to <recipientRoles></recipientRoles> on agenda <agenda>{agendaName}</agenda>.',
+  },
+  'agendaSendMessage.withoutTarget': {
+    id: 'ActivityApps.agendaSendMessage.withoutTarget',
+    defaultMessage: '<user>{userName}</user> sent a message to <recipientRoles></recipientRoles>.',
+  },
+  'agendaSendMessage.fullWithSubject': {
+    id: 'ActivityApps.agendaSendMessage.fullWithSubject',
+    defaultMessage: '<user>{userName}</user> sent <subj>{subject}</subj> to <recipientRoles></recipientRoles> on agenda <agenda>{agendaName}</agenda>.',
+  },
+  'agendaSendMessage.withoutTargetWithSubject': {
+    id: 'ActivityApps.agendaSendMessage.withoutTargetWithSubject',
+    defaultMessage: '<user>{userName}</user> sent <subj>{subject}</subj> to <recipientRoles></recipientRoles>.',
+  },
 
   XOthers: {
     id: 'ActivityApps.XOthers',
     defaultMessage: '{count, plural, =1 {# other} other {# others}}'
+  },
+
+  XAdministrators: {
+    id: 'ActivityApps.XAdministrators',
+    defaultMessage: '{count, plural, =1 {# administrator} other {# administrators}}'
+  },
+  XModerators: {
+    id: 'ActivityApps.XModerators',
+    defaultMessage: '{count, plural, =1 {# moderator} other {# moderators}}'
+  },
+  XContributors: {
+    id: 'ActivityApps.XContributors',
+    defaultMessage: '{count, plural, =1 {# contributor} other {# contributors}}'
+  },
+  XReaders: {
+    id: 'ActivityApps.XReaders',
+    defaultMessage: '{count, plural, =1 {# reader} other {# readers}}'
   },
 
   // app

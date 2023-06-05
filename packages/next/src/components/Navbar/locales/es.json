@@ -1,3 +1,5 @@
 {
-  "next.components.Navbar.signIn": "Conectarse"
+  "next.components.Navbar.myAgendas": "Mis agendas",
+  "next.components.Navbar.signIn": "Conectarse",
+  "next.components.Navbar.signUp": "Inscribirse"
 }

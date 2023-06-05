@@ -4,5 +4,5 @@
   "abortedAuth": "Autenticación se detuvo en %service%",
   "facebookEmailMissing": "El correo electrónico asociada con su cuenta de Facebook no está disponible. Visita Facebook para confirmar.",
   "genericError": "Hubo una preocupación. Gracias a volver a intentarlo más tarde",
-  "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña."
+  "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña"
 }

@@ -41,7 +41,7 @@ module.exports = {
     "en": "Notification",
     "fr": "Notification",
     "de": "Benachrichtigung",
-    "es": "notificación",
+    "es": "Notificación",
     "br": "Kemenn",
     "it": "Notifica",
     "io": "crwdns14970:0crwdne14970:0"

@@ -19,8 +19,7 @@ function init(config, services) {
     mysql: config.db,
     knex: config.knex,
     queue,
-    redis: config.redis,
-    redisClient: config.redisClient,
+    redisClient: services.redis,
     logger: config.getLogConfig('svc', 'agendaEvents'),
     schemas: {
       agendaEvent: config.schemas.agendaEventService,

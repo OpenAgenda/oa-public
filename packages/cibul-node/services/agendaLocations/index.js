@@ -36,7 +36,7 @@ module.exports.init = async (config, services) => {
 
   const instance = AgendaLocations({
     knex: config.knex,
-    redis: config.redisClient,
+    redis: services.redis,
     imagePath: config.aws.imageBucketPath,
     interfaces: {
       beforeMerge: beforeMerge(services),

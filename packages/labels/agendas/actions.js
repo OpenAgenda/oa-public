@@ -27,7 +27,7 @@ module.exports = {
     "it": "Scaricare",
     "de": "Herunterladen",
     "pl": "Pobieranie",
-    "es": "descargar",
+    "es": "Descargar",
     "io": "crwdns12766:0crwdne12766:0",
     "oc": "Descargar"
   },

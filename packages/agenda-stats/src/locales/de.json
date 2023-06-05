@@ -1,9 +1,9 @@
 {
+  "AgendaState.message.emptyOption": "(Ohne Wert)",
+  "AgendaStats.BooleanTooltipItem.notSelected": "Nicht ausgewählt",
+  "AgendaStats.BooleanTooltipItem.selected": "Auswählen",
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": "{value, plural, =0 {{value, number} Veranstaltung} one {{value, number} Veranstaltung} other {{value, number} Veranstaltungen}}",
   "AgendaStats.ComposedChart.tooltipContentEvents": "{value, plural, =0 {{value, number} Veranstaltung} one {{value, number} Veranstaltung} other {{value, number} Veranstaltungen}}",
   "AgendaStats.CustomTooltip.events": "{value, number} Veranstaltungen",
-  "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {Veranstaltung} one {event} other {Veranstaltungen}}",
-  "AgendaState.message.emptyOption": "(Ohne Wert)",
-  "AgendaStats.BooleanTooltipItem.notSelected": "Nicht ausgewählt",
-  "AgendaStats.BooleanTooltipItem.selected": "Auswählen"
+  "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {Veranstaltung} one {event} other {Veranstaltungen}}"
 }

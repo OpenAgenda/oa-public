@@ -1,14 +1,21 @@
 {
   "AgendaLocations.AgendaAdminLocation.search": "Se filtra la lista",
+  "AgendaLocations.CreateForm.title": "Crear un nuevo lugar",
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": "Anular",
   "AgendaLocations.LocationConfirmation.suggest": "Sugerir un cambio",
   "AgendaLocations.LocationDetails.description": "descripción",
   "AgendaLocations.LocationDetails.image": "Imagen",
+  "AgendaLocations.LocationForm.cancel": "Anular",
   "AgendaLocations.LocationForm.description": "descripción",
+  "AgendaLocations.LocationForm.geocodeFieldCancel": "Anular",
   "AgendaLocations.LocationForm.image": "Imagen",
   "AgendaLocations.LocationForm.imageCredits": "Créditos de las imágenes",
   "AgendaLocations.LocationForm.imageInfo": "Seleccione sólo las imágenes para las que tenga una licencia válida.",
   "AgendaLocations.LocationSearch.create": "Crear un nuevo lugar",
   "AgendaLocations.LocationSearch.namePlaceholder": "Introduzca el nombre de la ubicación del evento",
   "AgendaLocations.LocationSearch.noResult": "Ningún resultado coincide con su entrada",
-  "AgendaLocations.LocationSearch.searching": "Buscando..."
+  "AgendaLocations.LocationSearch.searching": "Buscando...",
+  "AgendaLocations.LocationSelector.remove": "Eliminar",
+  "AgendaLocations.LocationSelector.title": "Crear un nuevo lugar",
+  "AgendaLocations.RemoveModal.cancel": "Anular"
 }

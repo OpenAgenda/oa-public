@@ -6,7 +6,7 @@ module.exports = {
     "en": "My agendas",
     "de": "Meine Agendas",
     "br": "Ma deiziataerioù",
-    "es": "mis agendas",
+    "es": "Mis agendas",
     "it": "Le mie agende",
     "io": "crwdns14900:0crwdne14900:0",
     "oc": "Mas agendas"
@@ -40,7 +40,8 @@ module.exports = {
     "en": "Other actions",
     "it": "Azioni",
     "io": "crwdns16472:0crwdne16472:0",
-    "oc": "Autras accions"
+    "oc": "Autras accions",
+    "es": "Otras acciones"
   },
   "removeMember": {
     "fr": "Me retirer de l'agenda",
@@ -111,7 +112,7 @@ module.exports = {
     "en": "Manage",
     "de": "Verwalten",
     "br": "Merañ",
-    "es": "gestionar",
+    "es": "Gestionar",
     "it": "Gestire",
     "io": "crwdns14914:0crwdne14914:0",
     "oc": "Gerir"
@@ -301,7 +302,7 @@ module.exports = {
     "en": "Title not defined",
     "de": "Bitte fügen Sie Ihrer Veranstaltung einen Titel hinzu.",
     "br": "N'eo ket termenet an titl",
-    "es": "título indefinido",
+    "es": "Título indefinido",
     "it": "Titolo non definito",
     "io": "crwdns14952:0crwdne14952:0",
     "oc": "Títol non definit"
