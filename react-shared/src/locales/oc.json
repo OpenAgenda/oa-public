@@ -1,6 +1,4 @@
 {
-  "ReactShared.ConsentBanner.informationText": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Sètz segur·a que volètz partir d'aquesta pagina ? Totas las donadas pas enregistradas seràn perdudas.",
   "ReactShared.AgendaAdminModContextBar.empty": "Aquesta agenda es voida",
   "ReactShared.AgendaAdminModContextBar.events": "Eveniments dins aquesta agenda",
   "ReactShared.AgendaAdminModContextBar.manage": "Gerir",
@@ -25,6 +23,7 @@
   "ReactShared.AgendaContextBar.refusedModalTitle": "Eveniments refusats",
   "ReactShared.ConsentBanner.accept": "Acceptar",
   "ReactShared.ConsentBanner.decline": "Refusar",
+  "ReactShared.ConsentBanner.informationText": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?",
   "ReactShared.ConsentBanner.moreInfoLink": "Clicatz aicí per aver mai d'informacions",
   "ReactShared.EventSelection.emptyList": "Pas cap eveniment foguèt pas trobat",
   "ReactShared.EventSelection.undefinedDescription": "Desripcion pas dintrada",
@@ -36,5 +35,6 @@
   "ReactShared.ImageInput.remove": "Suprimir",
   "ReactShared.ImageInput.tooManyFiles": "Tròp de fichièrs, se'n accepta pas qu'un",
   "ReactShared.ImageInput.update": "Metre l'imatge a jorn",
-  "ReactShared.ImageInput.upload": "Cargar un imatge"
+  "ReactShared.ImageInput.upload": "Cargar un imatge",
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Sètz segur·a que volètz partir d'aquesta pagina ? Totas las donadas pas enregistradas seràn perdudas."
 }

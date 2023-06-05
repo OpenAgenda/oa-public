@@ -1,4 +1,8 @@
 {
+  "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
+  "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
+  "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
+  "ReactShared.AgendaContextBar.moderated": "{count} da moderare",
   "ReactShared.ConsentBanner.accept": "Accettare",
   "ReactShared.ConsentBanner.decline": "Rifiutare",
   "ReactShared.ConsentBanner.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio Google Analytics. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?",
@@ -8,9 +12,5 @@
   "ReactShared.ImageInput.remove": "Rimuovi",
   "ReactShared.ImageInput.update": "Aggiorna l'immagine",
   "ReactShared.ImageInput.upload": "Carica un'immagine",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi.",
-  "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
-  "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
-  "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
-  "ReactShared.AgendaContextBar.moderated": "{count} da moderare"
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi."
 }
