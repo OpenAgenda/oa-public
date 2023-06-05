@@ -283,6 +283,7 @@ raw.push(knex('event_2').insert([{
   slug: 'un-evenement-sur-un-agenda-qui-ne-laisse-pas-mod-publish',
   owner_uid: 63170203,
   creator_uid: 63170203,
+  agenda_uid: 17026855,
   title: JSON.stringify({
     fr: 'Encore un autre événement',
   }),
@@ -291,6 +292,7 @@ raw.push(knex('event_2').insert([{
     end: new Date('2019-05-06T11:00:00'),
   }]),
   location_uid: 123,
+  links: '[]',
   description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),

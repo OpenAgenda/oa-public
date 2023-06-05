@@ -104,7 +104,7 @@ async function fromAccess(core, agenda, agendaEvent, access) {
     compareRoles,
   } = core.services.members.utils;
 
-  const isAtLeastContributor = compareRoles.isSuperiorToOrEqual(access, 'contributor');
+  const isAtLeastContributor = compareRoles.isSuperiorToOrEqual(access, 'contributor') || access === 'internal';
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
 
   return {
@@ -123,7 +123,7 @@ module.exports = (core, operation, {
   member,
   access,
 }) => {
-  if (member) {
+  if (member && access !== 'internal') {
     return fromMember(core, agenda, agendaEvent, event, member);
   }
 

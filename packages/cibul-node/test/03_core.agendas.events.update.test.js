@@ -20,6 +20,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         'redis',
         'simpleCache',
         'queues',
+        'bull',
         'files',
         'events',
         'agendas',
@@ -485,6 +486,16 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       }, { access: 'administrator' });
 
       expect(event.locationUid).toBeUndefined();
+    });
+
+    it('internal patch patches', async () => {
+      const patchedEvent = await core.agendas(37026800).events.patch(88888888, {
+        location: { uid: 73780602 },
+      }, {
+        access: 'internal',
+      });
+
+      expect(patchedEvent.location.uid).toBe(73780602);
     });
   });
 
