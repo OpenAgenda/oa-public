@@ -8,7 +8,7 @@
   "rtp.editForm.invalidTime": "InvalidTime",
   "rtp.editForm.openRecurrencerModal": "Definir un horario recurrente",
   "rtp.editForm.startTime": "Hora de inicio",
-  "rtp.editForm.title": "Editar horario",
+  "rtp.editForm.title": "Modificar los horarios",
   "rtp.multiRecurrencerForm.after": "After",
   "rtp.multiRecurrencerForm.confirmation": "Se han añadido horarios recurrentes",
   "rtp.multiRecurrencerForm.countTooSmall": "La cuenta debe ser mayor que 0",
@@ -56,5 +56,5 @@
   "rtp.recurrencerForm.week": "semana",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {semana} other {semanas}}",
   "rtp.reset": "Borrar",
-  "rtp.scheduler.openMultiRecurrencerModal": "Define recurrencia"
+  "rtp.scheduler.openMultiRecurrencerModal": "Definir una recurrencia"
 }

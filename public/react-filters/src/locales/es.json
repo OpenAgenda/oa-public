@@ -1,4 +1,20 @@
 {
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
-  "ReactFilters.messages.filterTitles.languages": "Idiomas"
+  "ReactFilters.messages.filterTitles.languages": "Idiomas",
+  "ReactFilters.DateRangeFilter.startDate": "Inicio",
+  "ReactFilters.DefinedRangeFilter.startDate": "Inicio",
+  "ReactFilters.dateRanges.currentMonth": "Este mes",
+  "ReactFilters.dateRanges.currentWeek": "Esta semana",
+  "ReactFilters.dateRanges.thisWeekend": "Este fin de semana",
+  "ReactFilters.dateRanges.today": "Hoy",
+  "ReactFilters.dateRanges.tomorrow": "Mañana",
+  "ReactFilters.filters.searchFilter.placeholder": "Buscar",
+  "ReactFilters.filters.searchFilter.previewLabel": "Buscar",
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
+  "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
+  "ReactFilters.messages.filterTitles.state": "Estado",
+  "ReactFilters.messages.filterTitles.timings": "Fecha",
+  "ReactFilters.messages.map.searchWithMap": "Buscar en el mapa",
+  "ReactFilters.messages.provenance.contribution": "Contribución",
+  "ReactFilters.messages.relative.upcoming": "Próximos"
 }
