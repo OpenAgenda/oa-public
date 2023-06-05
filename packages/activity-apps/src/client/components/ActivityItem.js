@@ -4,11 +4,10 @@ import { getLocaleValue } from '@openagenda/intl';
 import fieldsMessages from '@openagenda/common-labels/event/fields';
 import locationFieldsMessages from '@openagenda/labels/agenda-locations/exportHeaders';
 import formatState from '../utils/formatState';
-import formatRole from '../utils/formatRole';
+import { formatRole, formatXRole } from '../utils/formatRole';
 import createFormatActivity from '../utils/formatActivity';
 import messages from '../messages/activities';
 import useSsr from '../hooks/useSSR';
-
 
 function getDiffFields(activity) {
   const { contributorFields = [], moderatorFields = [], administratorFields = [] } = activity.store;
@@ -88,6 +87,13 @@ function renderTag({ chunks, tagName, activity, intl, entities, link, highlight,
   // location merge
   if (tagName === 'mergedOthers') {
     return renderHighlight(intl.formatMessage(messages.XOthers, { count: entities.mergedCount }));
+  }
+  // agenda sendMessage
+  if (tagName === 'recipientRoles') {
+    const translatedRoles = Object.entries(activity.store.recipientRoles)
+      .sort(([, a], [, b]) => b - a)
+      .map(([role, count]) => renderHighlight(formatXRole(intl, role, count)))
+    return intl.formatList(translatedRoles);
   }
 
   if (tagName === 'state') {

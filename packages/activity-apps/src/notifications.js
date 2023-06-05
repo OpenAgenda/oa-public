@@ -6,7 +6,7 @@ const get = require('lodash/get');
 const escape = require('lodash/escape');
 const notificationsMessages = require('./client/messages/notifications');
 const formatState = require('./client/utils/formatState');
-const formatRole = require('./client/utils/formatRole');
+const { formatRole } = require('./client/utils/formatRole');
 
 const subjectTypeLabels = defineMessages({
   user: {
@@ -182,7 +182,7 @@ exports['event.create'] = (notification, options) => {
   }
 
   return {
-    url: '/agendas/:target',
+    url: formatUrl('/agendas/:target', subjectsProps),
     label,
   };
 };
