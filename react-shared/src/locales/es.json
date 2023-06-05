@@ -3,5 +3,6 @@
   "ReactShared.ImageInput.remove": "Eliminar",
   "ReactShared.ImageInput.update": "Cambiar imagen",
   "ReactShared.ImageInput.upload": "Cargar imagen",
+  "ReactShared.AgendaAdminModContextBar.manage": "Gestionar",
   "ReactShared.AgendaContextBar.addEvent": "Añadir un evento"
 }
