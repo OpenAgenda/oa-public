@@ -2,4 +2,4 @@
 
 const logs = require('@openagenda/logs');
 
-logs.init({ debug: { prefix: 'oa:' } });
+logs.init({ prefix: 'oa:', enableDebug: false });
