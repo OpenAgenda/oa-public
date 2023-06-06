@@ -7,7 +7,7 @@
   "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
-    "postinstall": "husky install"
+    "postinstall": "./scripts/postinstall.sh"
   },
   "config": {
     "commitizen": {
