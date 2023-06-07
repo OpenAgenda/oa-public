@@ -31,7 +31,7 @@ export function BaseField({
   );
 };
 
-export function BasicInput({ type, placeholder, className, spellCheck, ...props }) {
+export function BasicInput({ onChange = null, type, placeholder, className, spellCheck, ...props }) {
   return (
     <BaseField {...props}>
       <input
@@ -40,6 +40,10 @@ export function BasicInput({ type, placeholder, className, spellCheck, ...props 
         placeholder={placeholder}
         className={className}
         spellCheck={spellCheck}
+        onChange={t => {
+          props.input.onChange(t);
+          if(onChange) onChange(t.target.value);
+        }}
       />
     </BaseField>
   );

@@ -9,10 +9,10 @@ import { BasicInput } from '../utils/inputs';
 import * as agendaActions from '../reducers/agenda';
 import catchFormErrors from '../utils/catchFormErrors';
 
-function validate( values ) {
+function validate(values) {
   const errors = {};
 
-  if ( values.googleAnalytics && values.googleAnalytics.length > 255 ) {
+  if (values.googleAnalytics && values.googleAnalytics.length > 255) {
     errors.googleAnalytics = 'string.toolong';
   }
 
@@ -21,7 +21,9 @@ function validate( values ) {
 
 function getFormValues(agenda) {
   return {
-    googleAnalytics: _.get(agenda, 'settings.tracking.googleAnalytics', null)
+    googleAnalytics: _.get(agenda, 'settings.tracking.googleAnalytics', null),
+    googleAnalyticsSecret: _.get(agenda, 'settings.tracking.googleAnalyticsSecret', null),
+    secretCheck: !!_.get(agenda, 'settings.tracking.googleAnalyticsSecret', null),
   };
 }
 
@@ -45,30 +47,74 @@ export default function TrackingSettingsForm() {
       onSubmit={onSubmit}
       initialValues={initialValues}
       validate={validate}
+      mutators={{
+        setFormAttribute: ([fieldName, fieldVal], state, { changeValue }) => {
+          changeValue(state, fieldName, () => fieldVal);
+        }
+      }}
     >
-      {({ handleSubmit, pristine, hasValidationError }) => (
+      {({ handleSubmit, pristine, hasValidationError, form }) => (
         <form onSubmit={handleSubmit}>
-          <p>{getLabel( 'statsDescription' )}</p>
+          <p>{getLabel('statsDescription')}</p>
 
           <Field
+            onChange={v => {
+              if (v?.substr(0, 1) !== 'G') {
+                form.mutators.setFormAttribute("secretCheck", false);
+                form.mutators.setFormAttribute("googleAnalyticsSecret", "");
+              }
+            }}
             name="googleAnalytics"
             component={BasicInput}
             type="text"
-            label={getLabel( 'googleAnalyticsId' )}
+            label={getLabel('googleAnalyticsId')}
             placeholder="GA_TRACKING_ID"
             className="form-control"
             parse={_.identity} // to keep empty value
           />
 
-          <button
+          <Field
+            name="secretCheck"
+            type="checkbox"
+            subscription={{ value: true }}
+            render={({ input }) => {
+              const googleAnalyticsValue = form.getState().values.googleAnalytics;
+              const disabled = googleAnalyticsValue ? !(googleAnalyticsValue?.substr(0, 1) === 'G') : true;
+              return (
+                <div className="checkbox">
+                  <label for='gaSecretCheckbox'>
+                    <input id='gaSecretCheckbox' {...input} disabled={disabled} checked={!!form.getState().values?.secretCheck && !disabled} title={getLabel('googleAnalyticsTitle')}/>
+                    <b>{getLabel('googleAnalyticsLabel')}</b>
+                    <br />
+                    <span className="text-muted">{getLabel('googleAnalyticsInfo')}</span>
+                  </label>
+                </div>
+              )
+            }}
+          />
+
+          {form.getState().values?.secretCheck ? (
+            <Field
+              name="googleAnalyticsSecret"
+              component={BasicInput}
+              type="text"
+              label={getLabel('googleAnalyticsSecret')}
+              placeholder="GA_TRACKING_SECRET"
+              className="form-control"
+              parse={_.identity} // to keep empty value
+            />
+          ) : null}
+
+          < button
             type="submit"
-            className={cn( 'btn btn-primary', { disabled: pristine || hasValidationError } )}
+            className={cn('btn btn-primary', { disabled: pristine || hasValidationError })}
             disabled={pristine || hasValidationError ? true : undefined}
           >
-            {getLabel( 'update' )}
+            {getLabel('update')}
           </button>
         </form>
-      )}
-    </Form>
+      )
+      }
+    </Form >
   );
 }
