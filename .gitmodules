@@ -1,7 +1,0 @@
-[submodule "public"]
-	path = public
-	url = https://github.com/OpenAgenda/oa-public
-	update = merge
-	branch = main
-	fetchRecurseSubmodules = true
-	ignore = none
