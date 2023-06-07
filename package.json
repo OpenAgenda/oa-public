@@ -8,7 +8,7 @@
   "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
-    "postinstall": "git config core.hooksPath public/.husky && yarn workspace oa-public postinstall",
+    "postinstall": "git config core.hooksPath public/.husky && husky install",
     "prepack": "yarn workspaces foreach --topological-dev --interlaced --verbose run prepack",
     "start": "yarn workspace cibul-node start",
     "watch": "yarn workspace cibul-node watch",
