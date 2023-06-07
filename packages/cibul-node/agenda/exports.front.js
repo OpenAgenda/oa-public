@@ -128,7 +128,7 @@ module.exports = app => {
       field: 'uid',
     }),
     cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    gaTrack.mw('settings', 'export', 'pdf'),
+    gaTrack.mw('events', 'export', 'pdf'),
     buildPDF,
   );
 };

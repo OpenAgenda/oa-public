@@ -8,7 +8,7 @@ const pThrottle = require('p-throttle');
 // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
 
 module.exports = function gaTrackEvent(gaTrackingId, cid, category, action, label, rest) {
-  return axios.post('http://www.google-analytics.com/collect', qs.stringify({
+  return axios.post('https://www.google-analytics.com/collect', qs.stringify({
     // API Version.
     v: '1',
     // Tracking ID / Property ID.

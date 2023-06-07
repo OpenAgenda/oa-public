@@ -195,27 +195,13 @@ async function eventMailSend(req, res, next) {
       lang: req.lang,
     });
 
-    gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
+    // gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
 
     res.send({ count: emails.length });
 
-    log('ICI ', {
-      name: req.event.location.name,
-      lat: req.event.location.latitude,
-      lng: req.event.location.longitude,
-      zoom: 16,
-      staticMap: config.staticTiles?.replace(
-        /{w}|{h}|{lon}|{lat}|{z}/gi,
-        matched => ({
-          w: 600,
-          h: 140,
-          z: 16,
-          lon: req.event.location.longitude,
-          lat: req.event.location.latitude,
-        }[matched]),
-      ),
-
-    });
+    for (let i = 0; i < emails.length; i++) {
+      gaTrack(req, req.agenda, 'event', 'share', 'emails');
+    }
   } catch (err) {
     return next(err);
   }
