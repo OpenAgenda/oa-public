@@ -1,0 +1,412 @@
+.location-form {
+
+  /**
+   * prevent narrow menu in mobile mode
+   */
+  min-width: 340px;
+
+  .form-head {
+
+    display: block;
+    padding: 0 0 2em;
+
+    h2 {
+
+      margin-top: 10px;
+      margin-left: 0; // sf
+
+    }
+
+  }
+
+  input[placeholder] {
+
+    text-overflow: ellipsis;
+
+  }
+
+  .suggestion-nav {
+
+    position: absolute;
+    right: 0;
+    top: 1.8em;
+
+    a {
+
+      padding: 0 0.2em;
+
+      &.disabled {
+
+        color: $oa-gray-lighter;
+
+      }
+
+    }
+
+  }
+
+  .stakeholder {
+
+    padding: 1em 0;
+    position: relative;
+
+    ul {
+
+      padding: 0;
+
+      li {
+
+        display: inline-block;
+        color: $oa-gray;
+        margin-right: 0.5em;
+
+      }
+
+    }
+
+  }
+
+  .map {
+
+    min-height: 300px;
+
+  }
+
+  .error {
+
+    color: $oa-red;
+
+  }
+
+  .geocode {
+
+    i {
+
+      min-height: 1.4em;
+      display: block;
+      min-width: 0.9em;
+      padding: 0.2em;
+
+    }
+
+  }
+
+  .country {
+
+    .Select-control {
+
+      max-width: 13em;
+
+    }
+
+    .Select {
+
+      z-index: 10000;
+
+    }
+
+  }
+
+  .bottom {
+
+    padding-top: 1em;
+
+    .btn-primary {
+
+      float: right;
+
+    }
+
+  }
+
+  .alternatives {
+
+    padding: 0.5em 0 1em;
+
+    ul {
+
+      list-style-type: none;
+      padding: 0;
+
+    }
+
+
+    li {
+
+      padding-bottom: 0.2em;
+      cursor: pointer;
+
+      label {
+
+        margin-right: 0.5em;
+
+      }
+
+    }
+
+    &.checkbox-alternatives {
+
+      padding: 0;
+
+      ul, li {
+
+        margin: 0;
+        padding: 0;
+
+      }
+
+    }
+
+    &.image-alternatives {
+
+      li {
+
+        display: inline-block;
+        overflow: hidden;
+        opacity: 0.8;
+        width: 120px;
+        height: 75px;
+        position: relative;
+        margin-right: 1em;
+
+        &:hover {
+
+          opacity: 1;
+
+        }
+
+      }
+
+      img {
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        height: auto;
+        -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+
+      }
+
+    }
+
+  }
+
+
+
+
+  .multilingual-group {
+
+    .language-bar ul {
+
+      margin-bottom: 0;
+
+    }
+
+    padding: 2em 0;
+
+    .multilingual-input-field {
+
+      padding: 0;
+
+    }
+
+  }
+
+  .gt-selector {
+
+    margin-top: 2em;
+
+    h2 {
+
+      font-size: 1em;
+      font-weight: bold;
+
+    }
+
+    .gt-head {
+
+      padding: 0;
+
+    }
+
+  }
+
+
+  .state {
+
+    padding: 1em 0;
+
+    .rc-switch {
+
+      margin-right: 1em;
+      position: relative;
+      display: inline-block;
+      box-sizing: border-box;
+      width: 44px;
+      height: 22px;
+      line-height: 20px;
+      vertical-align: middle;
+      border-radius: 20px 20px;
+      border: 1px solid #ccc;
+      background-color: $oa-warning;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+
+      &:after {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        left: 2px;
+        top: 1px;
+        border-radius: 50% 50%;
+        background-color: #ffffff;
+        content: " ";
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+        -webkit-transform: scale(1);
+                transform: scale(1);
+        transition: left 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+        -webkit-animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+                animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+        -webkit-animation-duration: 0.3s;
+                animation-duration: 0.3s;
+        -webkit-animation-name: rcSwitchOff;
+                animation-name: rcSwitchOff;
+
+        &:hover {
+          -webkit-transform: scale(1.1);
+                  transform: scale(1.1);
+          -webkit-animation-name: rcSwitchOn;
+                  animation-name: rcSwitchOn;
+        }
+
+      }
+
+      .rc-switch-inner {
+
+        color: $oa-white;
+        font-size: 12px;
+        position: absolute;
+        left: 24px;
+
+      }
+
+      &.rc-switch-checked {
+
+        border: 1px solid #87d068;
+        background-color: #87d068;
+
+        .rc-switch-inner {
+
+          color: $oa-white;
+          left: 6px;
+
+        }
+
+        &:after {
+
+          left: 22px;
+
+        }
+
+      }
+
+      &.rc-switch-disabled {
+
+        cursor: no-drop;
+        background: #ccc;
+        border-color: #ccc;
+
+        &:after {
+
+          background: #9e9e9e;
+          -webkit-animation-name: none;
+                  animation-name: none;
+          cursor: no-drop;
+
+        }
+
+        &:hover:after {
+
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+          -webkit-animation-name: none;
+                  animation-name: none;
+
+        }
+
+      }
+
+    }
+
+    .rc-switch-label {
+
+      display: inline-block;
+      line-height: 20px;
+      font-size: 14px;
+      padding-left: 10px;
+      vertical-align: middle;
+      white-space: normal;
+      pointer-events: none;
+      -webkit-user-select: text;
+         -moz-user-select: text;
+          -ms-user-select: text;
+              user-select: text;
+
+    }
+
+    @-webkit-keyframes rcSwitchOn {
+      0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+      50% {
+        -webkit-transform: scale(1.25);
+                transform: scale(1.25);
+      }
+      100% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+    }
+    @keyframes rcSwitchOn {
+      0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+      50% {
+        -webkit-transform: scale(1.25);
+                transform: scale(1.25);
+      }
+      100% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+    }
+    @-webkit-keyframes rcSwitchOff {
+      0% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+      100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+    }
+    @keyframes rcSwitchOff {
+      0% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+      100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+    }
+
+  }
+
+}

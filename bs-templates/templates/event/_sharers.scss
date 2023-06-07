@@ -1,0 +1,70 @@
+#event {
+  
+  .sharers {
+
+    display: none;
+
+    margin: 0 0 40px 30px;
+
+    @media (min-width: 768px) {
+
+      display: block;
+
+    }
+
+    a {
+      color: $oa-gray;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 100px;
+      max-height: 100px;
+
+      &:hover {
+        color: $oa-blue;
+
+        .avatar {
+          border-color: $oa-blue;
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin: 10px 3px;
+      vertical-align: middle;
+    }
+
+    span {
+
+      display: block;
+      margin: 5px 0;
+      height: 40px;
+    }
+
+    .avatar {
+      display: block;
+      width: 70px;
+      height: 70px;
+      background: $oa-white;
+    }
+
+    .empty {
+
+      .avatar {
+
+        background-image: url( '//s3.eu-central-1.amazonaws.com/oastatic/graylogo70.png' );
+        background-position: center;
+
+      }
+
+    }
+
+  }
+
+}

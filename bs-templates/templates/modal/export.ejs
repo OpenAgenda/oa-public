@@ -1,0 +1,76 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+
+<div class="popup-overlay big">
+  <section>
+    <div class="popup-content">
+      <form class="export export-form">
+        <button class="close" type="button">
+          <i class="fa fa-times fa-lg"></i>
+        </button>
+        <h2>Exporter</h2>
+        <div class="form-group margin-top-sm">
+          <div class="radio">
+            <label for="export-all">
+              <input type="radio" id="export-all" />
+              Exporter tous les événements de l'agenda
+            </label>
+          </div>
+          <div class="radio">
+            <label for="export-selection">
+              <input type="radio" id="export-selection" />
+              Exporter la sélection d'événements en cours
+            </label>
+          </div>
+        </div>
+
+        <strong>Format de l'export</strong>
+        <div class="form-group">
+          <div class="radio">
+            <label for="spreadsheet">
+              <input class="" type="radio" name="format" id="spreadsheet" value="Tableur (Excel / CSV)">Tableur (Excel / CSV) </label>
+          </div>
+          <div class="radio">
+            <label for="pdf">
+              <input class="" type="radio" name="format" id="pdf" value="PDF">PDF </label>
+          </div>
+          <div class="radio">
+            <label for="jsonV2">
+              <input class="" type="radio" name="format" id="jsonV2" value="JSON / API">JSON / API </label>
+          </div>
+          <div class="flex-container margin-bottom-xs margin-left-md">
+            <button type="submit" class="btn btn-primary">Exporter</button>
+            <div class="checkbox margin-left-sm">
+              <label for="detailed" class="">
+                <input id="detailed" type="checkbox" name="detailed"> Utiliser le format détaillé </label>
+              <br>
+              <a href="https://developers.openagenda.com/10-lecture/" target="_blank" rel="noreferrer">Voir la documentation</a>
+            </div>
+          </div>
+          <a href="/events.json" target="_blank" rel="noreferrer" class="margin-left-md">Utiliser la précédente version de l'export JSON</a> (Documentation <a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> ici</a>) <div class="radio">
+            <label for="gcal">
+              <input class="" type="radio" name="format" id="gcal" value="Google Agenda">Google Agenda </label>
+          </div>
+          <div class="radio">
+            <label for="outlook">
+              <input class="" type="radio" name="format" id="outlook" value="Outlook">Outlook </label>
+          </div>
+          <div class="radio">
+            <label for="ical">
+              <input class="" type="radio" name="format" id="ical" value="iCal">iCal </label>
+          </div>
+          <div class="radio">
+            <label for="ics">
+              <input class="" type="radio" name="format" id="ics" value="ICS">ICS </label>
+          </div>
+          <div class="radio">
+            <label for="rss">
+              <input class="" type="radio" name="format" id="rss" value="RSS">RSS </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<% include ../layout/_bottom.ejs %>

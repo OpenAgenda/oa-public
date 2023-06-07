@@ -1,0 +1,188 @@
+#event {
+
+  .detail-item {
+    position: relative;
+
+    h3 {
+
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      text-align: center;
+      width: 30px;
+      display: inline-block;
+
+      i {
+        color: $oa-silver;
+        font-size: 28px;
+      }
+
+    }
+
+    .detail-item-content {
+
+      display: inline-block;
+      width: 80%;
+      vertical-align: middle;
+      margin: 0;
+
+    }
+
+    .info {
+      color: $oa-silver;
+    }
+
+
+    p {
+      margin: 5px 0;
+    }
+
+    &.conditions {
+
+      padding: 10px 0 0;
+
+      h3 {
+
+        display: initial;
+        color: $oa-gray;
+        font-size: 16px;
+
+        i {
+
+          width: auto;
+          vertical-align: middle;
+
+        }
+
+        span {
+
+          vertical-align: middle;
+          padding-left: 0.5em;
+
+        }
+
+      }
+
+      .detail-item-content {
+
+        padding: 0 1em 0 3em;
+
+      }
+
+    }
+
+  }
+
+  .credits {
+
+    color: $oa-gray;
+    font-size: 0.9em;
+    text-align: right;
+    display: block;
+
+  }
+
+  .registration {
+
+    list-style-type: none;
+    padding-left: 1em;
+    margin: 10px 0;
+
+    a {
+
+      color: $oa-black;
+
+      &:hover {
+
+        color: $oa-blue;
+
+      }
+
+    }
+
+    span {
+
+      padding-left: 0.7em;
+
+    }
+
+    li {
+
+      padding-bottom: 0.8em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      &:last-child {
+
+        padding-bottom: 0;
+
+      }
+
+    }
+
+    i {
+
+      width: 1.5em;
+      color: $oa-silver;
+
+    }
+
+  }
+
+  .acc {
+
+    display: inline-block;
+    width: 30px !important;
+    height: 30px !important;
+    vertical-align: middle;
+    background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-30-2.png");
+
+    &.hi {
+      background-position: 120px 60px;
+    }
+
+    &.pi {
+      background-position: 120px 120px;
+    }
+
+    &.mi {
+      background-position: 120px 90px;
+    }
+
+    &.vi {
+      background-position: 120px 180px;
+    }
+
+    &.ii {
+      background-position: 120px 0px;
+    }
+
+  }
+
+  .location-side {
+
+    .map {
+
+      margin: 10px 0 20px 40px;
+      height: 200px;
+      max-width: 80%;
+
+    }
+
+    .location-info-parts {
+
+      display: inline;
+      margin-left: 0;
+
+      li {
+
+        padding-right: 10px;
+        padding-left: 0;
+
+      }
+
+    }
+
+  }
+
+}

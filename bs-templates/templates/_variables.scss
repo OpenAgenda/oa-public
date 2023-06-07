@@ -1,0 +1,43 @@
+$oa-blue: #41acdd;
+$oa-black: #413a42;
+$oa-dark-purple: #413a42;
+$oa-white: #fff;
+$oa-silver: silver;
+$oa-gray: gray;
+$oa-gray-lightish: #bbb;
+$oa-gray-light: #ccc;
+$oa-gray-lighter: #eee;
+$oa-gray-lightest: #fafafa;
+$oa-red: #da4453;
+$state-danger-text: $oa-red;
+$oa-green: #5cb85c;
+$oa-yellow: rgba(240, 194, 12, 0.6);
+$oa-orange: #FF813D;
+$oa-warning: #f6bb42;
+$oa-danger: $oa-red;
+
+$form-border: #aab2bd;
+
+$brand-primary: $oa-blue;
+$brand-success: $oa-green;
+$navbar-default-bg: $oa-white;
+$text-color: $oa-black;
+$input-color-placeholder: rgba( $oa-gray, 0.8 );
+
+$jumbotron-bg: transparent;
+$jumbotron-padding: 15px;
+
+$headings-font-weight: 300;
+
+// Social colors
+$facebook-color: #3B5A9B;
+$twitter-color: #009DEC;
+$google-color: #D44032;
+$linkedin-color: #4875B4;
+$pinterest-color: #CA2128;
+$widget-color: $oa-blue;
+$tumblr-color: #32506d;
+
+$fa-font-path: "//s3.eu-central-1.amazonaws.com/oastatic/fontawesome-6.1.1/webfonts";
+$tinymce-lightgray: "//s3.eu-central-1.amazonaws.com/oastatic/tinymce/skins/lightgray";
+$leaflet-073: "//s3.eu-central-1.amazonaws.com/oastatic/leaflet-0.7.3";

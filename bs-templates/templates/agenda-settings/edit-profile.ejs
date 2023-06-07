@@ -1,0 +1,72 @@
+<% include ../layout/_top.ejs %>
+<div class="container agenda-admin">
+    <% include ../agenda-admin/_admin-header.ejs %>
+
+    <div class="row wsq">
+        <% include ../agenda-admin/_admin-tabs.ejs %>
+
+        <div class="col col-sm-9 body">
+            <div class="agenda-settings-edit">
+                <div class="profile">
+                    <h2 class="margin-bottom-md">Profil de l'agenda</h2>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="image-upload">
+                                <label>Image</label>
+                                <form class="empty" method="post"
+                                      enctype="multipart/form-data" target="frame76356">
+                                    <div class="form-inline actions">
+                                        <span></span>
+                                        <div class="form-group upload-group">
+                                            <input name="image" type="file" accept=".png, .gif, .jpg, .jpeg, .bmp" />
+                                            <button tabindex="-1" class="btn btn-default">
+                                                <i class="fa fa-upload"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <span></span>
+                                    <input type="hidden" name="callback" value="uploadCallback40986" />
+                                    <span></span>
+                                </form>
+                                <iframe name="frame76356" style="display:none;"></iframe>
+                            </div>
+                            <form>
+                                <div class="form-group">
+                                    <label for="title">Nom</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="Mon organisation, mon festival, ma ville, autre" />
+                                    <div class="text-right">255</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <div>
+                                        <textarea name="description" rows="6" class="form-control"></textarea>
+                                    </div>
+                                    <div class="text-right">160</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">Site web</label>
+                                    <input name="url" type="text" placeholder="http://monsite.com"
+                                           class="form-control" />
+                                </div>
+                                <div class="form-group margin-v-md">
+                                    <label for="slug">Adresse web personnalisée</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">openagenda.com/</div>
+                                        <input name="slug" value="" type="text" placeholder="URL"
+                                               class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<% include ../layout/_bottom.ejs %>
