@@ -8,5 +8,8 @@ module.exports = {
   rules: {
     'header-max-length': [0],
     'subject-case': [0]
-  }
+  },
+  ignores: [
+    commit => /^(Merge commit (.*?))(?:\r?\n)*$/m.test(commit)
+  ]
 };
