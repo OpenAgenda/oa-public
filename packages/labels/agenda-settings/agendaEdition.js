@@ -814,6 +814,22 @@ module.exports = {
     "io": "crwdns12672:0crwdne12672:0",
     "oc": "Identificant de seguit Google Analytics"
   },
+  "googleAnalyticsSecret": {
+    "fr": "Clé secrete de suivi Google Analytics",
+    "en": "Google Analytics Tracking Secret key",
+  },
+  "googleAnalyticsTitle": {
+    "fr": "Seulement pour les utilisateurs GA4",
+    "en": "Only for GA4 users",
+  },
+  "googleAnalyticsLabel": {
+    "fr": "Suivi des exports et utilisation de l'API",
+    "en": "Track export and API usage",
+  },
+  "googleAnalyticsInfo": {
+    "fr": "Pour créer un secret, accédez à l\'interface utilisateur de Google Analytics : Admin > Flux de données > choisir votre flux > Protocole de mesure > Créer",
+    "en": "To create a new secret, navigate in the Google Analytics UI to: Admin > Data Streams > choose your stream > Measurement Protocol > Create"
+  },
   "stats": {
     "fr": "Statistiques",
     "en": "Statistics",

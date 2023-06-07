@@ -8,7 +8,7 @@
   "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
-    "postinstall": "git config core.hooksPath public/.husky && yarn workspace oa-public postinstall",
+    "postinstall": "git config core.hooksPath public/.husky && husky install",
     "prepack": "yarn workspaces foreach --topological-dev --interlaced --verbose run prepack",
     "start": "yarn workspace cibul-node start",
     "watch": "yarn workspace cibul-node watch",
@@ -16,7 +16,9 @@
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
-    "release": "./scripts/release/00-release.sh"
+    "release": "./scripts/release/00-release.sh",
+    "pull-public": "git subtree pull --prefix public --squash oa-public",
+    "push-public": "git subtree push --prefix public oa-public"
   },
   "config": {
     "commitizen": {
