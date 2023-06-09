@@ -153,9 +153,7 @@ export default class FormSchemaComponent extends Component {
           loading: false,
         });
       }
-    }).catch(() => {
-      // console.log('form-schemas: there was an error during submit', err);
-    });
+    }).catch(errorResponse => this.onServerError(errorResponse));
   }
 
   onServerError(res) {
