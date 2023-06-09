@@ -1,4 +1,4 @@
-# MEP (Mise en production)
+# MEP (Mise En Production)
 ## Overview
 
 This package deploys OpenAgenda on Jelastic PAAS
@@ -24,6 +24,28 @@ The following environment variables are required for the run to work:
  * **FONTAWESOME_NPM_AUTH_TOKEN**: required to fetch Fontawesome assets
  * **WEB_ENV_NAME**: name of the web apps environment
  * **TASK_ENV_NAME**: name of the task app environment
+
+Make sure you have the rights to git clone the main oa repo. The jelastic ssh key can also be used for that purpose. Load it by running the following commands:
+
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/thejelasticprivatekey
+
+Source: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+Create a `.yarnrc.yml` file in the home folder containing the following:
+
+```
+npmRegistries:
+  //registry.npmjs.org:
+    npmAuthToken: "${NPM_TOKEN}"
+```
+
+The current working directory should be the one where the run script is located:
+
+```
+cd pathtothispackage
+RUN_ALL=1 node run.mjs
+```
 
 ## Steps
 
