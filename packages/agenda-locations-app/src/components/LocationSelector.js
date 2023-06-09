@@ -66,13 +66,13 @@ const LocationSelector = ({
   const [detailedLocation, setDetailedLocation] = useState();
 
   useEffect(() => {
-    if (seeDetails) {
+    if (seeDetails && location?.uid) {
       axios.get(res.get.replace(':locationUid', location.uid), {}).then(response => {
         const { data } = response;
         setDetailedLocation(data);
       });
     }
-  }, [res.get, location.uid, seeDetails]);
+  }, [res.get, location?.uid, seeDetails]);
 
   const onSelect = l => {
     onChange(confirmRequired ? 'confirm' : 'show', l);
@@ -136,7 +136,7 @@ const LocationSelector = ({
           </button>
           <button
             type="button"
-            onClick={() => switchToSearch(location)}
+            onClick={() => switchToSearch()}
             className="btn btn-default"
           >
             {location ? <FormattedMessage {...messages.change} /> : <FormattedMessage {...messages.find} />}

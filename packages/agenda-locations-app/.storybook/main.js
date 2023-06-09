@@ -3,11 +3,17 @@ module.exports = {
     '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  webpackFinal(config) {
-    config.optimization.splitChunks.chunks = 'initial';
-    return config;
-  },
   core: {
     builder: 'webpack5',
+  },
+  webpackFinal(config) {
+    config.module.rules.push({
+      test: /\.(js|mjs|jsx)$/,
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    return config;
   }
 };

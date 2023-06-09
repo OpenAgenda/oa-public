@@ -85,9 +85,7 @@ class LocationComponent extends Component {
   onChange(mode, location) {
     this.setState({ mode });
 
-    if (location !== undefined) {
-      this.props.onChange(location);
-    }
+    this.props.onChange(location);
   }
 
   renderSelector() {
