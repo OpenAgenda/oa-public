@@ -26,7 +26,8 @@ function extractGoogleSessionId(req) {
     return split[3];
   }
   const date = new Date();
-  return hashString(`${req?.user?.uid ?? req.agenda.uid}${date.toJSON().substring(0, 10)}`);
+  if (req?.user?.uid || req?.agenda?.uid) return hashString(`${req?.user?.uid ?? req?.agenda?.uid}${date.toJSON().substring(0, 10)}`);
+  return null;
 }
 
 function extractUserInfos(req) {
@@ -48,9 +49,9 @@ function gaTrack(req, agenda, category, action, label = null) {
   if (!gaId) {
     return;
   }
-  /*   if (process.env.NODE_ENV !== 'production') {
-      return;
-    } */
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
 
   const { cid, sid, ...rest } = extractUserInfos(req);
 
