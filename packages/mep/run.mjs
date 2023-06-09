@@ -24,7 +24,7 @@ const {
   RUN_UPLOAD_TO_TASK: runUploadToTask,
   RUN_ALL: runAll,
   WEB_ENV_NAME: webEnvName,
-  WEB_TASK_NAME: taskEnvName,
+  TASK_ENV_NAME: taskEnvName,
 } = process.env;
 
 const remoteNginxDir = '/var/lib/nginx/config';

@@ -113,3 +113,9 @@ export const EventCreateByDuplication = componentFromFixtures(
 
   '?agendaUid=109&eventUid=21832558',
 );
+
+export const Event502 = componentFromFixtures(
+  'Server returns a 502 error when the contributor attempts a save. The app should not crash and invite the user to resubmit after a short while',
+  110,
+  '/event/01',
+);
