@@ -90,6 +90,12 @@ dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
     eventUid,
   } = req.params;
 
+  const statusCode = getFixtures(req.params.agendaSlug)?.postResponseStatusCode ?? 200;
+
+  if (statusCode >= 400) {
+    return res.status(statusCode).send();
+  }
+
   const updatedEvent = {
     ...JSON.parse(req.body.data),
     uid: parseInt(eventUid, 10),

@@ -313,6 +313,28 @@ storySets.EventCreateByDuplicationOrigin = {
   agenda: basicDetailedAgenda,
 };
 
+storySets.Event502 = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  agenda: {
+    ...basicDetailedAgenda,
+    uid: 110,
+    slug: 'agenda502',
+  },
+  event: basicEventResponse,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 110,
+      slug: 'agenda502',
+    },
+  },
+  eventContext: eventContributorContext,
+  postResponseStatusCode: 502,
+};
+
 storySets.BasicConfirmation = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();
@@ -667,6 +689,11 @@ storySets.ShareWhenNotAMemberFromAgenda = {
   }),
 };
 
-module.exports = Object.assign(function getFixtures(agendaUid) {
-  return Object.keys(storySets).map(key => storySets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
+module.exports = Object.assign(function getFixtures(agendaUidOrSlug) {
+  return Object.keys(storySets).map(key => storySets[key]).find(set => {
+    if (Number.isNaN(parseInt(agendaUidOrSlug, 10))) {
+      return set.extraProps.agenda.slug === agendaUidOrSlug;
+    }
+    return set.extraProps.agenda.uid === parseInt(agendaUidOrSlug, 10);
+  });
 }, storySets, { getLocation });
