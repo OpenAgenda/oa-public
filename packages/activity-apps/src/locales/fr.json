@@ -1,7 +1,5 @@
 {
-  "ActivityApps.LocationApp.history": "Historique",
-  "ActivityApps.LocationApp.locationHistory": "Historique du lieu",
-  "ActivityApps.LocationApp.openHistory": "Voir l'historique",
+  "ActivityApps.HistoryModal.noActivity": "Aucune activité",
   "ActivityApps.Notifications.markAllAsRead": "Tout marquer comme lu",
   "ActivityApps.Notifications.next": "Suivant",
   "ActivityApps.Notifications.noNotif": "Aucune notification.",

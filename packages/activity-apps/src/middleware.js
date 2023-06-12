@@ -34,14 +34,15 @@ function init( c ) {
 
 }
 
-function list( options ) {
+function list( options, preQuery = {} ) {
 
   return ( req, res ) => {
 
-    const query = _.pick( req.query, [ 'actor', 'verb', 'object', 'target' ] );
+    const query = { ...preQuery, ...req.query };
+    const listQuery = _.pick( query, [ 'actor', 'verb', 'object', 'target' ] );
     const limit = config.limit;
 
-    const { datetimeRange, fromId } = req.query;
+    const { datetimeRange, fromId } = query;
 
     if ( datetimeRange ) {
       const [ afterAt, beforeAt ] = datetimeRange.split( '|' );
@@ -53,7 +54,7 @@ function list( options ) {
 
     const svc = options ? activitiesSvc.feed( options ) : activitiesSvc;
 
-    svc.activities.list( query, fromId || 0, limit )
+    svc.activities.list( listQuery, fromId || 0, limit )
       .then( activities => {
         res.send( { activities } );
       } )

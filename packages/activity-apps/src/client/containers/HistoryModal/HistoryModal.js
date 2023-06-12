@@ -7,23 +7,16 @@ import { useModal, Modal, Spinner } from '@openagenda/react-shared';
 import { ActivityItem } from '../../components';
 
 const messages = defineMessages({
-  openHistory: {
-    id: 'ActivityApps.LocationApp.openHistory',
-    defaultMessage: 'Open history',
+  noActivity: {
+    id: 'ActivityApps.HistoryModal.noActivity',
+    defaultMessage: 'No activity',
   },
-  history: {
-    id: 'ActivityApps.LocationApp.history',
-    defaultMessage: 'History',
-  },
-  locationHistory: {
-    id: 'ActivityApps.LocationApp.locationHistory',
-    defaultMessage: 'Location history',
-  }
 });
 
 const PAGE_SIZE = 20;
 
-function ModalContent({ agendaUid, locationUid }) {
+function ModalContent({ res }) {
+  const intl = useIntl();
   const {
     data: pages,
     error,
@@ -36,13 +29,13 @@ function ModalContent({ agendaUid, locationUid }) {
       if (previousPageData && !previousPageData.activities?.length) return null;
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['ActivityApps/location', 'activities', locationUid];
+      if (pageIndex === 0) return ['ActivityApps/HistoryModal', res];
 
       // add the cursor to the API endpoint
-      return ['ActivityApps/location', 'activities', locationUid, previousPageData[previousPageData.length - 1].id];
+      return ['ActivityApps/HistoryModal', res, previousPageData[previousPageData.length - 1].id];
     },
-    ([_comp, _requestId, _locationUid, fromId]) => {
-      return fetch(`/api/agendas/${agendaUid}/locations/${locationUid}/activities?${qs.stringify({
+    ([_comp, _res, fromId]) => {
+      return fetch(`${res}?${qs.stringify({
         fromId,
         withConfig: fromId ? undefined : true
       })}`)
@@ -83,6 +76,14 @@ function ModalContent({ agendaUid, locationUid }) {
     );
   }
 
+  if (isEmpty) {
+    return (
+      <div className="padding-v-md text-center" style={{ position: 'relative' }}>
+        {intl.formatMessage(messages.noActivity)}
+      </div>
+    );
+  }
+
   return (
     <>
       <ul className="list-unstyled activity-list" style={{ padding: '0' }}>
@@ -102,8 +103,7 @@ function ModalContent({ agendaUid, locationUid }) {
   );
 }
 
-export default function LocationApp({ agendaUid, locationUid, link = false }) {
-  const intl = useIntl();
+export default function HistoryModal({ trigger: Trigger, res, modalTitle }) {
   const activitiesModal = useModal();
 
   const openModal = useCallback(e => {
@@ -118,23 +118,15 @@ export default function LocationApp({ agendaUid, locationUid, link = false }) {
 
   return (
     <>
-      {link ? (
-        <button className="btn btn-link action" onClick={openModal}>
-          {intl.formatMessage(messages.history)}
-        </button>
-      ) : (
-        <button className="btn btn-default" onClick={openModal}>
-          {intl.formatMessage(messages.openHistory)}
-        </button>
-      )}
+      <Trigger openModal={openModal} />
 
       {activitiesModal.isOpen ? (
         <Modal
-          title={intl.formatMessage(messages.locationHistory)}
-          classNames={{ overlay: 'popup-overlay big' }}
+          title={modalTitle}
+          classNames={{ overlay: 'popup-overlay big activity-modal' }}
           onClose={closeModal}
         >
-          <ModalContent agendaUid={agendaUid} locationUid={locationUid} />
+          <ModalContent res={res} />
         </Modal>
       ) : null}
     </>
