@@ -1,5 +1,5 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
-import ActivityApp from '@openagenda/activity-apps/dist/client/apps/location';
+import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries';
 
@@ -50,7 +50,23 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationItem.verifyAndMerge',
     defaultMessage: 'Verify and Merge',
   },
+  history: {
+    id: 'AgendaLocations.LocationItem.history',
+    defaultMessage: 'History',
+  },
+  locationHistory: {
+    id: 'AgendaLocations.LocationItem.locationHistory',
+    defaultMessage: 'Location history',
+  },
 });
+
+function LocationHistoryTrigger({ openModal, children }) {
+  return (
+    <button type="button" className="btn btn-link action" onClick={openModal}>
+      {children}
+    </button>
+  );
+}
 
 const LocationItem = ({
   merge,
@@ -216,11 +232,15 @@ const LocationItem = ({
           >
             <FormattedMessage {...messages.detailsButton} />
           </button>
-          <ActivityApp
+          <ActivitiesModal
             lang={intl.locale}
-            agendaUid={agendaUid}
-            locationUid={location.uid}
-            link
+            trigger={({ openModal }) => (
+              <LocationHistoryTrigger openModal={openModal}>
+                {intl.formatMessage(messages.history)}
+              </LocationHistoryTrigger>
+            )}
+            res={`/api/agendas/${agendaUid}/locations/${location.uid}/activities`}
+            modalTitle={intl.formatMessage(messages.locationHistory)}
           />
           {!merge ? editButton : null}
           {!merge ? removeButton : null}

@@ -130,6 +130,8 @@
   "AgendaLocations.LocationForm.website": "Site web",
   "AgendaLocations.LocationItem.detailsButton": "Détail",
   "AgendaLocations.LocationItem.edit": "Modifier",
+  "AgendaLocations.LocationItem.history": "Historique",
+  "AgendaLocations.LocationItem.locationHistory": "Historique du lieu",
   "AgendaLocations.LocationItem.noEvent": "Aucun événement associé",
   "AgendaLocations.LocationItem.refLocationMerge": "Lieu référence de la fusion",
   "AgendaLocations.LocationItem.remove": "Supprimer",
