@@ -156,8 +156,6 @@ window.asap(async options => {
 
   const prv = privateData();
 
-  console.log(params);
-
   if (params.hasOwnershipTransfer) {
     ownershipTransfer({
       lang: params.lang
@@ -179,7 +177,7 @@ window.asap(async options => {
           ? '/server/testdata/eventdatawithadditionalfields.json'
           : `/api/agendas/${params.agendaUid}/events/${params.uid}`,
       )
-        .then(event => {
+        .then(({ event }) => {
           displayAdditionalFields({
             lang: params.lang,
             agenda,
@@ -187,7 +185,7 @@ window.asap(async options => {
           });
 
           if (roles.includes(ROLES.EVENTEDITOR)) {
-            prv.activities(params.agendaUid, params.uid, event.locationUid, params.lang);
+            prv.activities(params.agendaUid, params.uid, event.location?.uid, params.lang);
           }
         }, err => {
           log('error when trying to load event data');

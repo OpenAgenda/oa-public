@@ -178,7 +178,7 @@ function displayAdditionalFields({ agenda, event, lang }) {
     return;
   }
 
-  const additionalFields = formatAdditionalFieldData(agenda.schema, event.event, lang);
+  const additionalFields = formatAdditionalFieldData(agenda.schema, event, lang);
 
   ReactDom.render(
     <IntlProvider
