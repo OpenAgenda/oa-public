@@ -6,8 +6,13 @@ const createLocationFeeds = require('../lib/createLocationFeeds');
 
 module.exports = services => async (mergeInLocation, locations, context) => {
   const {
+    core,
     events: eventSvc,
+    activities,
+    members,
   } = services;
+
+  const { agendaUid, userUid } = context;
 
   log(
     'info',
@@ -32,8 +37,12 @@ module.exports = services => async (mergeInLocation, locations, context) => {
 
       try {
         log('setting location %s on event %s', mergeInLocation.uid, event.uid);
-        await eventSvc.patch(event.uid, {
-          locationUid: mergeInLocation.uid,
+        await core.agendas(agendaUid).events.patch(event.uid, {
+          location: {
+            uid: mergeInLocation.uid,
+          },
+        }, {
+          access: 'internal',
         });
       } catch (e) {
         offsetErrored += 1;
@@ -43,8 +52,6 @@ module.exports = services => async (mergeInLocation, locations, context) => {
   }
 
   // Activity
-  const { core, activities, members } = services;
-  const { agendaUid, userUid } = context;
   let agenda;
 
   try {

@@ -104,14 +104,14 @@ const renderFileField = (field, m) => (<>
   </div>
 </>);
 
-const renderImageField = (field, m) => (<>
+const renderImageField = (field, m, updatedAt) => (<>
   {renderLabel(field, m)}
   <div className="row margin-bottom-sm">
     <div className="col-xs-12 col-print-6">
       {field.value ? (
         <img
           className="img-responsive"
-          src={field.value.link}
+          src={`${field.value.link}?_ts=${updatedAt}`}
           alt={field.label}
         />
       ) : (
@@ -133,14 +133,14 @@ const renderHTML= (field, m ) => (
   </>
 )
 
-const renderField = (field, m) => {
+const renderField = (field, m, updatedAt) => {
   switch (field.fieldType) {
     case 'link':
     case 'phone':
     case 'email':
       return renderLinkField(field, m);
     case 'image':
-      return renderImageField(field, m);
+      return renderImageField(field, m, updatedAt);
     case 'file':
       return renderFileField(field, m);
     case 'markdown':
@@ -151,7 +151,7 @@ const renderField = (field, m) => {
   }
 }
 
-function AdditionalFieldsSection({ additionalFields }) {
+function AdditionalFieldsSection({ additionalFields, updatedAt }) {
   const m = useIntl().formatMessage;
 
   return (<>
@@ -161,7 +161,7 @@ function AdditionalFieldsSection({ additionalFields }) {
           <ul className="list-unstyled additional-fields">
             {additionalFields.map(field => (
               <li key={field.key} className="padding-bottom-xs">
-                {renderField(field, m)}
+                {renderField(field, m, updatedAt)}
               </li>
             ))}
           </ul>
@@ -178,6 +178,7 @@ function displayAdditionalFields({ agenda, event, lang }) {
     return;
   }
 
+  const updatedAt = new Date(event.updatedAt);
   const additionalFields = formatAdditionalFieldData(agenda.schema, event, lang);
 
   ReactDom.render(
@@ -190,6 +191,7 @@ function displayAdditionalFields({ agenda, event, lang }) {
       <AdditionalFieldsSection
         additionalFields={additionalFields}
         lang={lang}
+        updatedAt={updatedAt.getTime()}
       />
     </IntlProvider>,
     du.el('.js_additional_fields')

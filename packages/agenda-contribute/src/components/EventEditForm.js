@@ -30,7 +30,7 @@ function EventEditForm({
       actionComponents={[{
         position: 'bottom',
         Component: ({ onSubmit, loading }) => (
-          <div className="wsq padding-all-md padding-top-z">
+          <div className="wsq padding-all-md">
             <button
               type="button"
               className="btn btn-primary btn-block"

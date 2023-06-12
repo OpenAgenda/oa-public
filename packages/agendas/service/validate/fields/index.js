@@ -129,6 +129,14 @@ module.exports = [{
       field: 'googleAnalytics',
       type: 'text',
       max: 255
+    }, {
+      field: 'googleAnalyticsSecret',
+      type: 'text',
+      max: 255
+    }, {
+      field: 'matomo',
+      type: 'text',
+      max: 255
     }]
   }, {
     field: 'lab',

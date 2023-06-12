@@ -29,7 +29,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
     { service: internals, isPatch: true },
     mergeInItem.uid,
     data,
-    { ...options }
+    { ...options },
   ) : mergeInItem;
 
   log('removing other locations');
@@ -46,7 +46,7 @@ module.exports = async ({ internals, endpoints }, mergeInUid, query, data, optio
   { internals, endpoints },
   await get({ internals, endpoints }, mergeInUid),
   await list(internals, query, {}, { ...options, total: null, detailed: true }),
-  data
+  data,
 );
 
 module.exports.byAgendaUid = async (
@@ -55,7 +55,7 @@ module.exports.byAgendaUid = async (
   mergeInUid,
   query,
   data,
-  options = {}
+  options = {},
 ) => merge(
   { internals, endpoints },
   await get.byAgendaUid({ internals, endpoints }, agendaUid, mergeInUid),
@@ -64,10 +64,10 @@ module.exports.byAgendaUid = async (
     agendaUid,
     query,
     {},
-    { ...options, total: null, detailed: true }
+    { ...options, total: null, detailed: true },
   ),
   data,
-  options
+  options,
 );
 
 module.exports.bySetUid = async (
@@ -76,7 +76,7 @@ module.exports.bySetUid = async (
   mergeInUid,
   query,
   data,
-  options = {}
+  options = {},
 ) => merge(
   { internals, endpoints },
   await get.bySetUid({ internals, endpoints }, setUid, mergeInUid),
@@ -85,8 +85,8 @@ module.exports.bySetUid = async (
     setUid,
     query,
     {},
-    { ...options, total: null, detailed: true }
+    { ...options, total: null, detailed: true },
   ),
   data,
-  options
+  options,
 );
