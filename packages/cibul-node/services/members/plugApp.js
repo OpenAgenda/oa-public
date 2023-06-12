@@ -24,6 +24,7 @@ module.exports = function plugApp(app) {
     '/:agendaSlug/admin/members/stats',
     '/:agendaSlug/admin/members/invite',
     '/:agendaSlug/admin/members/send-message',
+    '/:agendaSlug/admin/members/message-history',
     '/:agendaSlug/admin/members/:id',
     '/:agendaSlug/admin/members/:id/details',
     '/:agendaSlug/admin/members/:id/invite/resend',
@@ -73,6 +74,24 @@ module.exports = function plugApp(app) {
     '/:agendaSlug/admin/members/send-message',
     mw.authorize.agendaHasCredential.bind(null, 'invitationMessage'),
     mw.sendMessage,
+  );
+
+  app.get(
+    '/:agendaSlug/admin/members/message-history',
+    async (req, res, next) => {
+      try {
+        const activities = await app.services.activities
+          .feed({ entityType: 'agenda', entityUid: req.agenda.uid })
+          .activities.list({ verb: 'agenda.sendMessage' }, req.query.fromId || 0, 20);
+
+        res.json({
+          activities,
+          config: req.query.withConfig ? app.services.activities.getFormatConfig() : undefined,
+        });
+      } catch (e) {
+        next(e);
+      }
+    },
   );
 
   // keep 'details' part as long as there are controllers in agenda/members.back.js
