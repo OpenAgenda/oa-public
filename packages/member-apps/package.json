@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.21.0",
+    "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/form-schemas": "^1.9.2",

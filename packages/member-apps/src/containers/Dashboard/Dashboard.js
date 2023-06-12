@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
+import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
@@ -14,6 +15,7 @@ import {
 } from '@openagenda/react-shared';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
+import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal';
 
 import MemberItem from '../../components/MemberItem';
 import MemberForm from '../../components/Form';
@@ -23,6 +25,13 @@ import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
 import renderSearchInput from '../../utils/renderSearchInput';
 import I18nContext from '../../contexts/I18nContext';
+
+const messages = defineMessages({
+  messageHistory: {
+    id: 'MemberApps.Dashboard.messageHistory',
+    defaultMessage: 'Message history',
+  },
+});
 
 const Loading = () => (
   <div className="padding-v-md" style={{ position: 'relative' }}>
@@ -74,6 +83,19 @@ function OrderField({ action, input, title }) {
   );
 }
 
+function HistoryModalButton({ openModal, children }) {
+  return (
+    <button
+      type="button"
+      className="btn btn-link btn-link-inline margin-left-sm"
+      onClick={openModal}
+    >
+      {children}
+    </button>
+  );
+}
+
+@injectIntl
 @withLayoutData('agenda', 'member', 'role', 'user')
 @connect(
   (state, props) => {
@@ -277,6 +299,7 @@ class Dashboard extends Component {
       i18n,
       user,
       schema,
+      intl,
     } = this.props;
     const { getLabel, lang } = i18n;
 
@@ -475,19 +498,32 @@ class Dashboard extends Component {
               ) : null
           }
           {total > 0 && agenda.credentials.invitationMessage ? (
-            <button
-              type="button"
-              className="btn btn-default btn-medium margin-left-sm"
-              onClick={() =>
-                showModal('writeToMembers', {
-                  query: {
-                    search: query.search || undefined,
-                    role: credFilters,
-                  },
-                })}
-            >
-              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-            </button>
+            <>
+              <button
+                type="button"
+                className="btn btn-default btn-medium margin-left-sm"
+                onClick={() =>
+                  showModal('writeToMembers', {
+                    query: {
+                      search: query.search || undefined,
+                      role: credFilters,
+                    },
+                  })}
+              >
+                {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+              </button>
+
+              <HistoryModal
+                lang={lang}
+                trigger={({ openModal }) => (
+                  <HistoryModalButton openModal={openModal}>
+                    {intl.formatMessage(messages.messageHistory)}
+                  </HistoryModalButton>
+                )}
+                res={`/${agenda.slug}/admin/members/message-history`}
+                modalTitle={intl.formatMessage(messages.messageHistory)}
+              />
+            </>
           ) : null}
           {total > 0 && !agenda.credentials.invitationMessage ? (
             <a
