@@ -368,7 +368,6 @@ module.exports = core => {
         next(e);
       }
     },
-    (req, res) => activitiesMw.list({ entityType: 'location', entityUid: req.event.uid })(req, res),
   );
 
   app.get('/agendas/:agendaUid/locations/settings', (req, res, next) => core

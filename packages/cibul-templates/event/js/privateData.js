@@ -9,11 +9,13 @@ import createInboxApp from '@openagenda/inbox-apps/dist/app';
 import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
-const activitiesLocationApp = require( '@openagenda/activity-apps/dist/client/apps/location' );
+import eventShowLabels from '@openagenda/labels/event/show';
+import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal';
 import remote from '../../js/lib/remote';
 import activities from './activities';
 
 const getInboxesLabel = makeLabelGetter(inboxesLabels);
+const getEventShowLabel = makeLabelGetter(eventShowLabels);
 
 const defaults = {
   uid: false,
@@ -35,6 +37,14 @@ const defaults = {
 };
 
 let log;
+
+function LocationHistoryTrigger({ openModal, lang }) {
+  return (
+    <button type="button" className="btn btn-default" onClick={openModal}>
+      {getEventShowLabel('seeHistory', lang)}
+    </button>
+  );
+}
 
 module.exports = options => {
 
@@ -103,7 +113,12 @@ module.exports = options => {
       locationActivitiesRoot.appendChild(locationActivitiesElem);
 
       ReactDOM.render(
-        activitiesLocationApp({ lang, agendaUid, locationUid }),
+        ActivitiesModal({
+          lang,
+          trigger: ({ openModal }) => LocationHistoryTrigger({ openModal, lang }),
+          res: `/api/agendas/${agendaUid}/locations/${locationUid}/activities`,
+          modalTitle: getEventShowLabel('locationHistory', lang),
+        }),
         locationActivitiesElem,
       );
     }

@@ -985,5 +985,13 @@ module.exports = {
     "fr": "L'événement n'accepte plus de nouveaux participants",
     "it": "I nuovi partecipanti non sono più accettati all'evento",
     "io": "crwdns16146:0crwdne16146:0"
+  },
+  "seeHistory": {
+    "en": "See history",
+    "fr": "Voir l'historique"
+  },
+  "locationHistory": {
+    "en": "Location history",
+    "fr": "Historique du lieu"
   }
 }
