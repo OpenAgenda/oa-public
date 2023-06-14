@@ -12,7 +12,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
-import addMatomotracker from 'utils/addMatomoTracker';
+import addMatomoTracker from 'utils/addMatomoTracker';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
@@ -110,10 +110,10 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
     }
     if (agenda?.settings?.tracking?.matomoUrl && agenda?.settings?.tracking?.matomoSiteId) {
       if (agenda?.settings?.tracking?.matomoAskForConsent && cookies.MatomoCookieConsent === 'true') {
-        addMatomotracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
+        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
       }
       if (!agenda?.settings?.tracking?.matomoAskForConsent) {
-        addMatomotracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
+        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
       }
     }
   }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda?.settings?.tracking?.googleAnalytics, agenda?.settings?.tracking?.matomoUrl,
