@@ -128,14 +128,32 @@ module.exports = [{
     fields: [{
       field: 'googleAnalytics',
       type: 'text',
-      max: 255
+      max: 255,
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['administrator', 'internal'],
     }, {
       field: 'googleAnalyticsSecret',
       type: 'text',
+      read: ['administrator', 'internal'],
+      write: ['administrator', 'internal'],
       max: 255
     }, {
-      field: 'matomo',
+      field: 'matomoUrl',
       type: 'text',
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['administrator', 'internal'],
+      max: 255
+    }, {
+      field: 'matomoSiteId',
+      type: 'text',
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['administrator', 'internal'],
+      max: 255
+    },  {
+      field: 'matomoAskForConsent',
+      type: 'text',
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['administrator', 'internal'],
       max: 255
     }]
   }, {

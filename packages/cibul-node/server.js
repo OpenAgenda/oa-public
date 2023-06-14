@@ -57,7 +57,12 @@ const log = logs('server');
     app.core = core;
     app.services = services;
 
-    app.use(helmet.hsts(config.hsts));
+    const secureHeaders = [
+      helmet.strictTransportSecurity(config.hsts),
+      helmet.xFrameOptions(),
+    ];
+
+    app.use(secureHeaders);
 
     app.use(sessions.mw);
     app.use(sessions.mw.load({ detailed: true }));
@@ -126,7 +131,7 @@ const log = logs('server');
         .use(
           '/v2',
           Sentry.Handlers.requestHandler(),
-          helmet.hsts(config.hsts),
+          secureHeaders,
           logRequestMw,
           api,
         )

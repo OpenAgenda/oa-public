@@ -12,6 +12,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
+import addMatomoTracker from 'utils/addMatomoTracker';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
@@ -104,10 +105,19 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
-    if (agenda?.settings?.tracking?.googleAnalytics && cookies.CookieConsent === 'true') {
+    if (agenda?.settings?.tracking?.googleAnalytics && cookies.GaCookieConsent === 'true') {
       addGoogleAnalyticsTracker({ googleAnalyticsID: agenda.settings.tracking.googleAnalytics });
     }
-  }, [cookies.CookieConsent, agenda?.settings?.tracking?.googleAnalytics]);
+    if (agenda?.settings?.tracking?.matomoUrl && agenda?.settings?.tracking?.matomoSiteId) {
+      if (agenda?.settings?.tracking?.matomoAskForConsent && cookies.MatomoCookieConsent === 'true') {
+        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
+      }
+      if (!agenda?.settings?.tracking?.matomoAskForConsent) {
+        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
+      }
+    }
+  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda?.settings?.tracking?.googleAnalytics, agenda?.settings?.tracking?.matomoUrl,
+    agenda?.settings?.tracking?.matomoSiteId, agenda?.settings?.tracking?.matomoAskForConsent]);
 
   const filtersToInclude = useMemo(() => {
     const additionalFilters = agenda.schema.fields
@@ -247,9 +257,10 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         </FiltersProvider>
       </main>
 
-      {agenda.settings?.tracking?.googleAnalytics && cookies.CookieConsent === undefined ? (
-        <ConsentBanner setCookie={setCookie} />
-      ) : null}
+      {(cookies.GaCookieConsent === undefined && agenda.settings?.tracking?.googleAnalytics)
+        || (cookies.MatomoCookieConsent === undefined && agenda?.settings?.tracking?.matomoAskForConsent) ? (
+          <ConsentBanner setCookie={setCookie} consentFor={agenda.settings?.tracking?.googleAnalytics ? 'ga' : 'matomo'} />
+        ) : null}
 
       {isMounted ? (
         <Suspense>
