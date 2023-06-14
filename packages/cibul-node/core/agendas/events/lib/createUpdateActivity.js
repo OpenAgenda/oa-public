@@ -25,7 +25,7 @@ module.exports = async function createActivity(services, before, after, context)
   log('processing');
 
   const { users, activities } = services;
-  const { agenda, formSchema } = context;
+  const { agenda, member, formSchema } = context;
 
   if (!activities) {
     return log('warn', 'activities service is not initialized');
@@ -89,7 +89,7 @@ module.exports = async function createActivity(services, before, after, context)
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: user.fullName,
+          actor: member.name ?? member.custom?.contactName ?? user.fullName,
           object: before.title,
           target: agenda.title,
         },
