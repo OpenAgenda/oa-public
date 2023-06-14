@@ -20,17 +20,20 @@ if (process.env.NODE_ENV === 'production') {
 
 const script = process.env.PORTAL_DEV ? 'dev' : 'server';
 
+const browserRefreshBin = require.resolve('browser-refresh/bin/browser-refresh');
+const webpackBin = require.resolve('webpack/bin/webpack');
+
 concurrently([
   {
     name: 'server',
-    command: `yarn browser-refresh ${script}`,
+    command: `${browserRefreshBin} ${script}`,
     env: {
       NODE_ENV: 'development'
     }
   },
   {
     name: 'build',
-    command: `yarn webpack serve --config ${path.join(__dirname, 'webpack.inte.js')} --hot`,
+    command: `${webpackBin} serve --config ${path.join(__dirname, 'webpack.inte.js')} --hot`,
     cwd: path.dirname(__dirname), // to use the good webpack
     env: {
       PORTAL_DIR: portalDir,
