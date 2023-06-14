@@ -32,6 +32,10 @@ Make sure you have the rights to git clone the main oa repo. The jelastic ssh ke
 
 Source: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
+In a jelastic environment, the eval&ssh-add will need to be done after every reboot. Add the commands in the .bashrc file.
+
+Also, all targetted sub-groups (web & task) should reference the public key variant in their `.ssh/authorized_keys` file to enable ssh connections coming from the mep environment.
+
 Create a `.yarnrc.yml` file in the home folder containing the following:
 
 ```

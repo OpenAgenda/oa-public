@@ -1,9 +1,5 @@
 import { Client } from 'ssh2';
-import { exec as execCb } from 'node:child_process';
-import { promisify } from 'util';
 import fs from 'fs';
-
-const exec = promisify(execCb)
 
 async function runCommand(conn, command) {
   return new Promise((rs, rj) => {

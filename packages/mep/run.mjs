@@ -35,9 +35,11 @@ const pm2Commands = [
 
 const envVars = await fs.readFile(envFilePath, 'utf8').then(data => JSON.parse(data));
 
+const response = await getNodesAndGroups(webEnvName, ['web', 'next', 'api'], { jelasticAccessToken });
+
 const {
   nodeGroups
-} = await getNodesAndGroups(webEnvName, ['web', 'next', 'api'], { jelasticAccessToken });
+} = response;
 
 if (runBuild || runAll) {
   await clearDir(dir);
