@@ -11,7 +11,7 @@ export default async function rsync(nodes, srcFolder, destPath, {
   for (const node of nodes) {
     console.log(`rsync to node ${node.endpoint}`);
     const result = await exec(
-      `rsync --${options.join(' --')} -e 'ssh -i ${SSHKeyPath} -p 3022' ${srcFolder}/ ${node.endpoint}:${destPath}`,
+      `rsync --${options.join(' --')} -e 'ssh -i ${SSHKeyPath}' ${srcFolder}/ ${node.endpoint}:${destPath}`,
       {
         maxBuffer: Infinity,
       }

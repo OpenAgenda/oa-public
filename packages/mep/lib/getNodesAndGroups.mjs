@@ -28,7 +28,7 @@ export default async function getNodesAndGroups(envName, groups, {
       .map(node => ({
         displayName: node.displayName,
         name: node.name,
-        endpoint: node.url.replace(/^http(s|):\/\//, ''),
+        endpoint: `root@${node.url.replace(/^http(s|):\/\//, '')}`,
       })),
     nodeGroups: envInfo.nodeGroups
       .filter(({
