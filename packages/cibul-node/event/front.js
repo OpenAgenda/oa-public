@@ -16,6 +16,7 @@ const members = require('../services/members');
 
 const cacheMw = require('../lib/cache.mw');
 const cmn = require('../lib/commons-app');
+const removeFromHeader = require('../lib/removeXFromHeader');
 const config = require('../config');
 const embedSvc = require('../services/embed');
 const legacyEventSvc = require('../services/event');
@@ -430,6 +431,7 @@ module.exports = app => {
       legacyEventSvc.mw.format,
       legacyEventSvc.mw.components,
       formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
+      removeFromHeader,
       middlewares.customEmbedEventShow,
       (req, res) => res.send(req.render),
     ]),
@@ -446,6 +448,7 @@ module.exports = app => {
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
     formatAgendaLinks('customEmbedShowPreview', ['uid', 'embedUid']),
+    removeFromHeader,
     middlewares.customEmbedEventShow,
     (req, res) => res.send(req.render),
   );
