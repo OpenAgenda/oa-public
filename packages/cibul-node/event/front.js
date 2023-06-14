@@ -416,6 +416,7 @@ module.exports = app => {
     embedSvc.mw.renderEvent,
     cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     _appendFacebookParams,
+    removeXFrameOptionsHeader,
     renderAgendaEmbedEvent,
     (req, res) => res.send(req.render),
   );
