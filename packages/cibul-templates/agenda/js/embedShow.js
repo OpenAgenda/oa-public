@@ -8,7 +8,7 @@ domUtils = require( '../../js/lib/domUtils' ),
 
 facebookEmbedded = require( '../../widgets/lib/facebookPage' ),
 
-debug = require( 'debug' ), log,
+debug = require( 'debug' ), log = console.log,
 
 activeFilters = require( '../../widgets/activeFilters/activeFilters' ),
 

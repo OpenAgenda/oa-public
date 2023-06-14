@@ -31,7 +31,6 @@ export default async function rexec(nodes, commands, { SSHKeyPath }) {
         rs();
       }).connect({
         host: node.endpoint.split('@').pop(),
-        port: 3022,
         privateKey,
         username: node.endpoint.split('@').shift(),
       });

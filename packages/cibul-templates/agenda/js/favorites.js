@@ -208,8 +208,7 @@ function _saveFavUids( uids ) {
 }
 
 function _getFavUids() {
-
-  var v =  JSON.parse( store.get( params.storeKey ) || '{}' );
+  var v =  store.get( params.storeKey ) || {};
 
   return v[ params.agendaUid ] || [];
 
