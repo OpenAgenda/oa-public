@@ -28,7 +28,7 @@ export default async function getNodesAndGroups(envName, groups, {
       .map(node => ({
         displayName: node.displayName,
         name: node.name,
-        endpoint: `${node.id}-${envInfo.env.uid}@${jelasticDomain}`
+        endpoint: node.url.replace(/^http(s|):\/\//, ''),
       })),
     nodeGroups: envInfo.nodeGroups
       .filter(({
