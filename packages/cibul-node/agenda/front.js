@@ -22,7 +22,7 @@ const agendaSvc = require('../services/agenda');
 const cacheMw = require('../lib/cache.mw');
 const cmn = require('../lib/commons-app');
 const getStatusLabel = require('../lib/getStatusLabel');
-const removeFromHeader = require('../lib/removeXFromHeader');
+const removeXFrameOptionsHeader = require('../lib/removeXFrameOptionsHeader');
 const config = require('../config');
 const embedSvc = require('../services/embed');
 const members = require('../services/members');
@@ -123,7 +123,7 @@ module.exports = app => {
     showXhr('agenda/embedShow'),
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData(_layoutData, 'oae.css'), // this needs to switch to embed base css ( can be deactivated )
-    removeFromHeader,
+    removeXFrameOptionsHeader,
     renderEmbedShow,
     (req, res) => res.send(req.render),
   );
@@ -138,7 +138,7 @@ module.exports = app => {
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-      removeFromHeader,
+      removeXFrameOptionsHeader,
       middlewares.embedShow,
       (req, res) => res.send(req.render),
     ]),
@@ -157,7 +157,7 @@ module.exports = app => {
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load('embedUid', 'uid'),
     convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-    removeFromHeader,
+    removeXFrameOptionsHeader,
     middlewares.embedShow,
     (req, res) => res.send(req.render),
   );
