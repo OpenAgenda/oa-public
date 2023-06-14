@@ -252,6 +252,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         userUid: actingUserUid,
         agenda,
         formSchema,
+        member: actingMember,
       });
     } catch (e) {
       log('error', 'failed to create activity', e);
