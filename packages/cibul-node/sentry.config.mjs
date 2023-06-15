@@ -1,10 +1,8 @@
-'use strict';
-
 // This file configures the initialization of Sentry on the server.
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-const { init, Integrations } = require('@sentry/node');
+import { init, Integrations } from '@sentry/node';
 
 const SENTRY_DSN = process.env.SENTRY_DSN
   || process.env.NEXT_PUBLIC_SENTRY_DSN
@@ -17,7 +15,7 @@ if (ENV === 'production') {
     environment: ENV === 'production' ? 'production' : 'development',
     integrations: integrations => [
       ...integrations
-        .filter(integration => !['OnUncaughtException', 'Modules'].includes(integration.name)),
+        .filter(({ name }) => !['OnUncaughtException', 'Modules'].includes(name)),
       new Integrations.OnUncaughtException({
         exitEvenIfOtherHandlersAreRegistered: false,
       }),

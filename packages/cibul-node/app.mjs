@@ -1,9 +1,7 @@
-'use strict';
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const qs = require('qs');
-const Sentry = require('@sentry/node');
+import express from 'express';
+import bodyParser from 'body-parser';
+import qs from 'qs';
+import Sentry from '@sentry/node';
 
 const app = express();
 
@@ -23,4 +21,4 @@ app
     next();
   });
 
-module.exports = app;
+export default app;
