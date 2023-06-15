@@ -107,7 +107,7 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/embed/events', // add X-frame-options
+    '/agendas/:uid/embed/events',
     preMw,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load('uid', { cache: true }),
@@ -129,7 +129,7 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/embeds/:embedUid/events', // add X-frame-options
+    '/agendas/:uid/embeds/:embedUid/events',
     preMw,
     cacheMw('customEmbedShow', 'params.embedUid', 30, [
       cmn.redirectLegacySearch,
