@@ -38,6 +38,7 @@ raw.push(knex('review').insert([
   load('sql/agendas/arles.json'), // 99501607
   load('sql/agendas/albi.json'), // 48353388
   load('sql/agendas/albigeois.json'), // 93399464,
+  load('sql/agendas/223.json'), // 49405812
 ]));
 
 raw.push(knex('reviewer').insert([

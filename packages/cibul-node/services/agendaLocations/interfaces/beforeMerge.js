@@ -37,7 +37,7 @@ module.exports = services => async (mergeInLocation, locations, context) => {
 
       try {
         log('setting location %s on event %s', mergeInLocation.uid, event.uid);
-        await core.agendas(agendaUid).events.patch(event.uid, {
+        await core.agendas(event.agendaUid).events.patch(event.uid, {
           location: {
             uid: mergeInLocation.uid,
           },
