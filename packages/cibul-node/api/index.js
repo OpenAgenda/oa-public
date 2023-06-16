@@ -4,7 +4,6 @@ const _ = require('lodash');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
 const { NotAuthenticated } = require('@openagenda/verror');
-const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
 
 const sentryErrorHandler = require('../lib/sentryErrorHandler');
 const gaTrack = require('../lib/gaTrack');
