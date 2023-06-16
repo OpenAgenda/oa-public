@@ -21,7 +21,7 @@ import admin from './admin.js';
 import web from './web.js';
 import task from './task.mjs';
 import { middleware as logRequestMw } from './services/logRequests.js';
-import sentryErrorHandler from './lib/sentryErrorHandler.js';
+import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
 import { getSingleton as getGenUrlSingleton } from './services/genUrl/index.js';
 import unsubscribedFront from './general/unsubscribed.front.js';

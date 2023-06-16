@@ -1,12 +1,10 @@
-'use strict';
-
-const sentry = require('@sentry/node');
+import sentry from '@sentry/node';
 
 function isObject(o) {
   return Object.prototype.toString.call(o) === '[object Object]';
 }
 
-module.exports = function sentryErrorHandler(options) {
+export default function sentryErrorHandler(options) {
   const originalHandler = sentry.Handlers.errorHandler(options);
 
   return function sentryErrorMiddleware(err, req, res, next) {
@@ -31,4 +29,4 @@ module.exports = function sentryErrorHandler(options) {
       originalHandler(err, req, res, next);
     });
   };
-};
+}
