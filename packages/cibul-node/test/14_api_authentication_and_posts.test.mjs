@@ -1,15 +1,10 @@
-'use strict';
-
-const axios = require('axios');
-const FormData = require('form-data');
-
-const Core = require('../core');
-const api = require('../api');
-
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import axios from 'axios';
+import FormData from 'form-data';
+import Core from '../core/index.js';
+import api from '../api/index.mjs';
+import Services from '../services/init.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('14 - core - functional(server): api authentication and posts', () => {
   let core;

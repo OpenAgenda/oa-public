@@ -1,15 +1,11 @@
-'use strict';
-
-const axios = require('axios');
-const ih = require('immutability-helper');
-const { produce } = require('immer');
-
-const api = require('../api');
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import axios from 'axios';
+import ih from 'immutability-helper';
+import { produce } from 'immer';
+import api from '../api/index.mjs';
+import Core from '../core/index.js';
+import Services from '../services/init.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('01 - core - functional (server): core.agendas().events.search()', () => {
   let core;

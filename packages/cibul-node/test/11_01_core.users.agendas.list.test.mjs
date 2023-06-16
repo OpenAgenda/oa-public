@@ -1,14 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const axios = require('axios');
-
-const api = require('../api');
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import _ from 'lodash';
+import axios from 'axios';
+import api from '../api/index.mjs';
+import Services from '../services/init.js';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('11 - core - functional (server): core.users().agendas.list()', () => {
   let core;

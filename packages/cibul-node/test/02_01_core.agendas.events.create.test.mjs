@@ -1,18 +1,20 @@
-'use strict';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import _ from 'lodash';
+import axios from 'axios';
+import FormData from 'form-data';
+import ih from 'immutability-helper';
+import request from 'superagent';
+import api from '../api/index.mjs';
+import Core from '../core/index.js';
+import Services from '../services/init.js';
+import eventsFixtures from './fixtures/events/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
-const fs = require('fs');
-const _ = require('lodash');
-const axios = require('axios');
-const FormData = require('form-data');
-const ih = require('immutability-helper');
-const request = require('superagent');
-
-const api = require('../api');
-const Core = require('../core');
-const Services = require('../services/init');
-const eventsFixtures = require('./fixtures/events');
-const loadFixtures = require('./fixtures/load');
-const testConfig = require('./testConfig');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe('02 - core - functional (server): core.agendas().events.create()', () => {
   let core;

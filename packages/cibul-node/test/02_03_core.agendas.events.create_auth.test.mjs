@@ -1,12 +1,9 @@
-'use strict';
-
-const axios = require('axios');
-
-const api = require('../api');
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-const testConfig = require('./testConfig');
+import axios from 'axios';
+import api from '../api/index.mjs';
+import Core from '../core/index.js';
+import Services from '../services/init.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('02 - core - functional (server): core.agendas().events.create api authentication', () => {
   let core;

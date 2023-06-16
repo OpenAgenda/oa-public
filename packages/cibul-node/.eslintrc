@@ -10,7 +10,7 @@
       "error",
       {
         "devDependencies": [
-          "test/**/*.js",
+          "test/**/*.?([m|c])js",
           "testconfig.sample.js",
           "testconfig.js"
         ]

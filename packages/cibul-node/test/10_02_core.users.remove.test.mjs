@@ -1,13 +1,9 @@
-'use strict';
-
-const axios = require('axios');
-
-const Services = require('../services/init');
-const Core = require('../core');
-const api = require('../api');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import axios from 'axios';
+import api from '../api/index.mjs';
+import Services from '../services/init.js';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('10 - core - functional (server): core.users().remove()', () => {
   let core;

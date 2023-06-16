@@ -14,7 +14,7 @@ import helmet from 'helmet';
 import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
 import app from './app.mjs';
-import instanciateAPI from './api/index.js';
+import instanciateAPI from './api/index.mjs';
 import initServices from './services/init.js';
 import Core from './core/index.js';
 import admin from './admin.js';

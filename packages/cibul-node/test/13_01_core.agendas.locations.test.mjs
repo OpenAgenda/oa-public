@@ -1,19 +1,21 @@
-'use strict';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import _ from 'lodash';
+import axios from 'axios';
+import FormData from 'form-data';
+import qs from 'qs';
+import logs from '@openagenda/logs';
+import api from '../api/index.mjs';
+import Services from '../services/init.js';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
-const fs = require('fs');
-const _ = require('lodash');
-const axios = require('axios');
-const FormData = require('form-data');
-const qs = require('qs');
-const log = require('@openagenda/logs')('13_01');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const api = require('../api');
-const Services = require('../services/init');
-const Core = require('../core');
-
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+const log = logs('13_01');
 
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;

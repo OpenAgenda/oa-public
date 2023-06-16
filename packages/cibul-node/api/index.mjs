@@ -1,23 +1,22 @@
-'use strict';
+import _ from 'lodash';
+import express from 'express';
+import logs from '@openagenda/logs';
+import { NotAuthenticated } from '@openagenda/verror';
+import sentryErrorHandler from '../lib/sentryErrorHandler';
+import gaTrack from '../lib/gaTrack';
+import mw from './middleware';
+import getSettingsEndpoint from './endpoints/settingsGet';
+import getSettingsResyncEndpoint from './endpoints/settingsResync';
+import apiErrorHandler from './errorHandler';
 
-const _ = require('lodash');
-const express = require('express');
-const log = require('@openagenda/logs')('api');
-const { NotAuthenticated } = require('@openagenda/verror');
-
-const sentryErrorHandler = require('../lib/sentryErrorHandler');
-const gaTrack = require('../lib/gaTrack');
-const mw = require('./middleware');
-const getSettingsEndpoint = require('./endpoints/settingsGet');
-const getSettingsResyncEndpoint = require('./endpoints/settingsResync');
-const apiErrorHandler = require('./errorHandler');
+const log = logs('api');
 
 const settings = {
   get: getSettingsEndpoint,
   resync: getSettingsResyncEndpoint,
 };
 
-module.exports = core => {
+export default core => {
   log('init');
 
   const app = express();
@@ -28,10 +27,12 @@ module.exports = core => {
   const { verifySuperAdmin } = app.services.users.mw;
 
   const postMw = [
-    app.services.events.middleware.imageTransformAndUpload([{
-      name: 'image',
-      unique: true,
-    }]),
+    app.services.events.middleware.imageTransformAndUpload([
+      {
+        name: 'image',
+        unique: true,
+      },
+    ]),
     mw.parseBodyData,
   ];
 
@@ -172,13 +173,19 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/settings/eventSchema', [
     mw.member.allow(['administrator', 'moderator']),
     gaTrack.mw('api', 'get', 'eventSchema'),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMerged({ lang: req.lang || req.query.lang || 'fr' })
+    (req, res, next) => core.agendas(req.agenda.uid)
+      .settings
+      .schema
+      .getMerged({ lang: req.lang || req.query.lang || 'fr' })
       .then(data => res.json({ ...data }), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/eventSchema/configure', [
     mw.member.allow(['administrator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getAndParents({ lang: req.lang || req.query.lang || 'fr' })
+    (req, res, next) => core.agendas(req.agenda.uid)
+      .settings
+      .schema
+      .getAndParents({ lang: req.lang || req.query.lang || 'fr' })
       .then(data => res.json({ ...data }), next),
   ]);
 
@@ -195,21 +202,30 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.load,
     gaTrack.mw('api', 'get', 'memberSchema'),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr', member: req.member })
+    (req, res, next) => core.agendas(req.agenda.uid)
+      .settings
+      .schema
+      .getMember({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr', member: req.member })
       .then(data => res.json({ ...data }), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
     mw.member.load,
     mw.member.allow(['administrator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMemberAndParents({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
+    (req, res, next) => core.agendas(req.agenda.uid)
+      .settings
+      .schema
+      .getMemberAndParents({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
       .then(data => res.json({ ...data }), next),
   ]);
 
   app.post('/agendas/:agendaUid/settings/memberSchema/configure', [
     mw.member.load,
     mw.member.allow(['administrator']),
-    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateMemberFields(req.parsedData.fields, { actingMember: req.member })
+    (req, res, next) => core.agendas(req.agenda.uid)
+      .settings
+      .schema
+      .updateMemberFields(req.parsedData.fields, { actingMember: req.member })
       .then(() => res.json({
         success: true,
       }), err => {
@@ -586,15 +602,15 @@ module.exports = core => {
         .users(req.user.uid)
         .agendas(req.params.agendaUid)
         .events.search({
-          ...req.query,
-          relation: ['contributed', 'owned'],
-        }, req.query, {
-          useAfterKey: true,
-          userUid: req.user?.uid,
-        }).then(result => res.json({
-          success: true,
-          ...result,
-        }), next);
+        ...req.query,
+        relation: ['contributed', 'owned'],
+      }, req.query, {
+        useAfterKey: true,
+        userUid: req.user?.uid,
+      }).then(result => res.json({
+        success: true,
+        ...result,
+      }), next);
     },
   ]);
 
