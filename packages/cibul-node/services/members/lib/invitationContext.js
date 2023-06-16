@@ -2,12 +2,12 @@
 
 const _ = require('lodash');
 
-module.exports = (invitation, defaultContext = null) => {
+module.exports = (invitation, agendaUid, defaultContext = null) => {
   const action = _.get(
     invitation,
     'data.actions',
     [],
-  ).find(v => v.name === 'linkMember');
+  ).findLast(v => v.name === 'linkMember' && v.params[0].agendaUid === agendaUid);
   return _.get(action, 'params.1', defaultContext); // message is in there
 };
 

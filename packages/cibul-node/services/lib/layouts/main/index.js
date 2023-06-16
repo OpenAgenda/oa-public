@@ -26,8 +26,8 @@ function parser( data ) {
   if ( !data.scripts.bottom ) data.scripts.bottom = [];
 
   data.scripts.bottom.splice( data.scripts.bottom.length, 0,
-    { src: '//code.jquery.com/jquery-2.2.4.min.js' },
-    { src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' }
+    { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
+    { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' }
   );
 
   return ih( data, {

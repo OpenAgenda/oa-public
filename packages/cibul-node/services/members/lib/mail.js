@@ -112,7 +112,7 @@ async function send({ config, services }, {
 async function sendInvitation({ services, config }, {
   invitation, member, context, agenda,
 }) {
-  const invitationContext = extractInvitationContext(invitation, context);
+  const invitationContext = extractInvitationContext(invitation, agenda.uid, context);
   try {
     await createSenderActivity(services, { agenda, invitationContext, member });
   } catch (e) {

@@ -5,8 +5,8 @@
   "description": "OpenAgenda main app",
   "scripts": {
     "test": "NODE_OPTIONS=\"--max-old-space-size=5120\" jest --runInBand --forceExit",
-    "start": "TZ=Etc/UTC node server.js web admin task api",
-    "watch": "TZ=Etc/UTC nodemon server.js web admin task api",
+    "start": "TZ=Etc/UTC node server.mjs web admin task api",
+    "watch": "TZ=Etc/UTC nodemon server.mjs web admin task api",
     "dev": "DEV_SERVER_PORT=8905 yarn start",
     "background": "nohup npm start >/dev/null 2>&1 &",
     "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
@@ -146,6 +146,7 @@
     "rss": "^1.2.2",
     "sanitize-html": "^1.20.1",
     "slug": "0.9.1",
+    "source-map-support": "^0.5.21",
     "superagent": "^3.8.2",
     "turndown": "^5.0.3",
     "type-is": "^1.6.18",
@@ -158,7 +159,6 @@
     "@openagenda/mails-editor": "^2.0.0",
     "form-data": "^3.0.0",
     "jest": "^28.1.2",
-    "sinon": "^7.5.0",
-    "source-map-support": "^0.5.21"
+    "sinon": "^7.5.0"
   }
 }

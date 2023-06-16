@@ -1,9 +1,7 @@
-'use strict';
+import tfy from './lib/taskify.js';
+import resetApiCounters from './general/resetApiCounters.task.js';
 
-const tfy = require('./lib/taskify');
-const resetApiCounters = require('./general/resetApiCounters.task');
-
-module.exports = (config, core, services) => {
+export default (config, core, services) => {
   tfy(resetApiCounters(config, services), {
     // bootOffset: 1000,
     period: 'daily',

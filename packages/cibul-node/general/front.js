@@ -180,8 +180,8 @@ async function corpo(cache, req, res, next) {
   }
 
   [
-    '//code.jquery.com/jquery-2.2.4.min.js',
-    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+    'https://code.jquery.com/jquery-2.2.4.min.js',
+    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
     '/js/landing.js'
   ].forEach(src => pageScripts.push({ src }));
 
