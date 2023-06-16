@@ -32,7 +32,7 @@ module.exports = {
 
   parserOptions: {
     requireConfigFile: false,
-    ecmaVersion: 6,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
