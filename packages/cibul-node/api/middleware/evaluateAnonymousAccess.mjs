@@ -1,6 +1,4 @@
-'use strict';
-
-const { Forbidden } = require('@openagenda/verror');
+import { Forbidden } from '@openagenda/verror';
 
 function evaluateAnonymousAccess(req, _res, next) {
   const isUIAPICall = req.baseUrl === '/api';
@@ -16,4 +14,4 @@ function evaluateAnonymousAccess(req, _res, next) {
   next();
 }
 
-module.exports = evaluateAnonymousAccess;
+export default evaluateAnonymousAccess;

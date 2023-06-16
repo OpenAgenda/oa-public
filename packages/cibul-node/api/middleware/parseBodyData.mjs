@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import bodyParser from 'body-parser';
+import qs from 'qs';
+import { BadRequest } from '@openagenda/verror';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const bodyParser = require('body-parser');
-const qs = require('qs');
-const log = require('@openagenda/logs')('api/middleware/parseBodyData');
-const { BadRequest } = require('@openagenda/verror');
+const log = logs('api/middleware/parseBodyData');
 
 function parseTalendBody(req, res, next) {
   let rawBody = '';
@@ -28,7 +28,7 @@ function parseTalendBody(req, res, next) {
   req.on('error', next);
 }
 
-module.exports = [
+export default [
   (req, res, next) => {
     let parser;
 

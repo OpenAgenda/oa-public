@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 const parseBool = v => (typeof v === 'string' ? v === 'true' : !!v);
 
-module.exports = function eventUpdate(req, res, next) {
+export default function eventUpdate(req, res, next) {
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
   if (_.get(req, 'file.path')) {
     _.set(req.parsedData, 'image.path', _.get(req, 'file.path', undefined));
@@ -23,4 +21,4 @@ module.exports = function eventUpdate(req, res, next) {
       defaultLang: req.headers.lang,
     },
   ).then(event => res.json({ success: true, event }), next);
-};
+}

@@ -1,5 +1,3 @@
-'use strict';
-
 const redirectURL = req => {
   const path = `${req.baseUrl}/agendas/${req.agenda.uid}.prv`;
 
@@ -12,7 +10,7 @@ const redirectURL = req => {
   return `${path}?${queryPart}`;
 };
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   if (!req.agenda.private) {
     return next();
   }

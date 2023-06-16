@@ -1,8 +1,6 @@
-'use strict';
+import convert from '@openagenda/legacy/convertLegacyFilter/index.js';
 
-const convert = require('@openagenda/legacy/convertLegacyFilter');
-
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const {
     legacy: {
       tagsAndCustom,

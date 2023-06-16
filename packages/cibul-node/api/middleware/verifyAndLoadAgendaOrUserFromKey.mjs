@@ -1,8 +1,6 @@
-'use strict';
+import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.mjs';
 
-const verifyAndLoadAccessTokenUser = require('./verifyAndLoadAccessTokenUser');
-
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const {
     accessTokens,
     keys: keysSvc,

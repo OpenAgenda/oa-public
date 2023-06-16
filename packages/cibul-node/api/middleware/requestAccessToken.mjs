@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('api/middleware/requestAccessToken');
+const log = logs('api/middleware/requestAccessToken');
 
-module.exports = async function requestAccessToken(req, res) {
+export default async function requestAccessToken(req, res) {
   try {
     log('requesting accessToken for code %s', req.parsedData.code);
     const token = await req.app.core.users({

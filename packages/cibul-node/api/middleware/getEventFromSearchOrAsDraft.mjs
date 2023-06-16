@@ -1,13 +1,9 @@
-'use strict';
+import { NotFound, Forbidden } from '@openagenda/verror';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDraft');
+const log = logs('api/middleware/getEventFromSearchOrAsDraft');
 
-const {
-  NotFound,
-  Forbidden,
-} = require('@openagenda/verror');
-
-module.exports = async function getEventFromSearchOrAsDraft(req, res, next) {
+export default async function getEventFromSearchOrAsDraft(req, res, next) {
   const {
     core,
   } = req.app.services;
@@ -77,4 +73,4 @@ module.exports = async function getEventFromSearchOrAsDraft(req, res, next) {
       return next(err2);
     }
   }
-};
+}

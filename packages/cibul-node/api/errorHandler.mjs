@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const { VError } = require('@openagenda/verror');
-const errors = require('../services/errors');
+import _ from 'lodash';
+import { VError } from '@openagenda/verror';
+import errors from '../services/errors.js';
 
 const handleError = errors.bind(null, 'api');
 
-module.exports = function apiErrorHandler(err, req, res, _next) {
+export default function apiErrorHandler(err, req, res, _next) {
   if ([
     'BadRequestError',
     'NotFoundError',

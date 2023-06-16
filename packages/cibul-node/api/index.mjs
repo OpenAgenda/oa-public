@@ -2,12 +2,12 @@ import _ from 'lodash';
 import express from 'express';
 import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
-import sentryErrorHandler from '../lib/sentryErrorHandler';
-import gaTrack from '../lib/gaTrack';
-import mw from './middleware';
-import getSettingsEndpoint from './endpoints/settingsGet';
-import getSettingsResyncEndpoint from './endpoints/settingsResync';
-import apiErrorHandler from './errorHandler';
+import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
+import gaTrack from '../lib/gaTrack.js';
+import * as mw from './middleware/index.mjs';
+import getSettingsEndpoint from './endpoints/settingsGet.mjs';
+import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
+import apiErrorHandler from './errorHandler.mjs';
 
 const log = logs('api');
 
@@ -602,15 +602,15 @@ export default core => {
         .users(req.user.uid)
         .agendas(req.params.agendaUid)
         .events.search({
-        ...req.query,
-        relation: ['contributed', 'owned'],
-      }, req.query, {
-        useAfterKey: true,
-        userUid: req.user?.uid,
-      }).then(result => res.json({
-        success: true,
-        ...result,
-      }), next);
+          ...req.query,
+          relation: ['contributed', 'owned'],
+        }, req.query, {
+          useAfterKey: true,
+          userUid: req.user?.uid,
+        }).then(result => res.json({
+          success: true,
+          ...result,
+        }), next);
     },
   ]);
 

@@ -1,12 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import { utils as memberUtils } from '@openagenda/members';
+import { NotAuthenticated, Forbidden } from '@openagenda/verror';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const { NotAuthenticated, Forbidden } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('api/middleware/member');
+const log = logs('api/middleware/member');
 
-const {
-  isSuperiorTo,
-} = require('@openagenda/members').utils.compareRoles;
+const { isSuperiorTo } = memberUtils.compareRoles;
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
@@ -81,7 +80,7 @@ function loadContext(req, res, next) {
   next();
 }
 
-module.exports = {
+export default {
   load,
   verify: verify.bind(null, defaultRoles),
   allow: roles => verify.bind(null, roles),
