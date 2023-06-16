@@ -78,7 +78,7 @@ export default class AgendaDashboard extends Component {
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-          {intl.formatMessage(messages.noActivity)}
+          {intl.formatMessage(messages.noAgendaActivity)}
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

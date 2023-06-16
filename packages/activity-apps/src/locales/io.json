@@ -54,7 +54,6 @@
   "ActivityApps.locationUpdate.actor": "crwdns33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdne33203:0",
   "ActivityApps.locationUpdate.full": "crwdns33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdne33205:0",
   "ActivityApps.locationUpdate.target": "crwdns33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdne33207:0",
-  "ActivityApps.noHistory": "crwdns33209:0crwdne33209:0",
   "ActivityApps.notifications.agenda": "crwdns32598:0others={others}crwdnd32598:0agenda={agenda}crwdnd32598:0agenda={agenda}crwdnd32598:0agenda={agenda}crwdnd32598:0others={others}crwdne32598:0",
   "ActivityApps.notifications.agendaAcceptInvitation": "crwdns32600:0{actor}crwdnd32600:0{invitedRole}crwdnd32600:0{target}crwdne32600:0",
   "ActivityApps.notifications.agendaAddEvent": "crwdns32602:0{actor}crwdnd32602:0{object}crwdnd32602:0{target}crwdnd32602:0{sourceAgendaName}crwdne32602:0",

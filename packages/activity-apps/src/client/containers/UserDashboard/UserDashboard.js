@@ -88,7 +88,7 @@ export default class UserDashboard extends Component {
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-          {intl.formatMessage(messages.noActivity)}
+          {intl.formatMessage(messages.noUserActivity)}
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

@@ -366,12 +366,16 @@ export default defineMessages({
   },
 
   // app
-  noHistory: {
-    id: 'ActivityApps.noHistory',
-    defaultMessage: 'Your activities will be displayed here.'
-  },
   history: {
     id: 'ActivityApps.history',
     defaultMessage: 'History'
   },
+  noUserActivity: {
+    id: 'ActivityApps.noUserActivity',
+    defaultMessage: 'Your activities will be displayed here.'
+  },
+  noAgendaActivity: {
+    id: 'ActivityApps.noAgendaActivity',
+    defaultMessage: 'Your agenda activity will be displayed here.'
+  }
 });

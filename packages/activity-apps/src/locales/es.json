@@ -1,5 +1,7 @@
 {
   "ActivityApps.aggregateEvent.actor": "<event>{eventName}</event> fue importado de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",
   "ActivityApps.aggregateEvent.full": "<agenda>{agendaName}</agenda> importaba <event>{eventName}</event> de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",
+  "ActivityApps.noAgendaActivity": "La actividad de su agenda aparecerá aquí.",
+  "ActivityApps.noUserActivity": "Sus actividades aparecerán aquí.",
   "ActivityApps.notifications.agendaAggregateEvent": "{target} ha importado {object} de {actor}."
 }
