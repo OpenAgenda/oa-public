@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['airbnb'],
-  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks'],
+  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks', 'unicorn'],
   rules: {
     strict: ['error', 'safe'],
     'no-param-reassign': ['error', { props: false }],
@@ -149,6 +149,8 @@ module.exports = {
         additionalHooks: '^useMemoOne|useCallbackOne|use.*Effect$',
       },
     ],
+
+    'unicorn/prefer-node-protocol': 'error',
   },
 
   overrides: [
