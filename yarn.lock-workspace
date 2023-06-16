@@ -6582,14 +6582,14 @@ __metadata:
   linkType: soft
 
 "@openagenda/verror@npm:^3.1.0":
-  version: 3.1.3
-  resolution: "@openagenda/verror@npm:3.1.3"
+  version: 3.1.4
+  resolution: "@openagenda/verror@npm:3.1.4"
   dependencies:
     assertion-error: ^1.1.0
     depd: ^2.0.0
     inherits: ^2.0.4
     sprintf-js: ^1.1.2
-  checksum: ec6377c73cac573eacdd01b86ffe138803f0353dafdc351ab50fc2c9685f11524cb7641286cc193cba49d8134d50831f8a57e9168d3009abd607be96d5fee2a4
+  checksum: 6341b3fa6148d06512c4326af957868ebf8c4f0998eca044a8421df6a587a930f5da38324fdad9d998536fd2ec08e1d14b7de5ba20203cc6b7a78bf2dbfe997d
   languageName: node
   linkType: hard
 
