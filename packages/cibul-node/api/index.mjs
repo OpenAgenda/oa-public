@@ -59,9 +59,9 @@ export default core => {
   app.param('agendaSlug', mw.loadAgenda);
 
   // control all the things
-  app.post('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
-  app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
-  app.get('/agendas/:agendaUid.prv', mw.member.verify);
+  app.post('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
+  app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
+  app.get('/agendas/:agendaUid.prv', mw.member.allow());
   app.get([
     '/agendas/:agendaUid',
     '/agendas/:agendaUid/events/:eventUid',

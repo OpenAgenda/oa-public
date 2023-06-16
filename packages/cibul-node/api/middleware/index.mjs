@@ -1,6 +1,6 @@
 export { default as verifyAndLoadAgendaOrUserFromKey } from './verifyAndLoadAgendaOrUserFromKey.mjs';
 export { default as verifyAndLoadAccessTokenUser } from './verifyAndLoadAccessTokenUser.mjs';
-export { default as member } from './member.mjs';
+export * as member from './member.mjs';
 export { default as loadAgenda } from './loadAgenda.mjs';
 export { default as eventUpdate } from './eventUpdate.mjs';
 export { default as redirectIfPrivate } from './redirectIfPrivate.mjs';

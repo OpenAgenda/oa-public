@@ -9,37 +9,39 @@ const { isSuperiorTo } = memberUtils.compareRoles;
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
-async function verify(roles, req, res, next) {
-  const {
-    members,
-  } = req.app.services;
+export function allow(roles = defaultRoles) {
+  return async (req, res, next) => {
+    const {
+      members,
+    } = req.app.services;
 
-  if (!req.user) {
-    return next(new NotAuthenticated('User is not authenticated'));
-  }
+    if (!req.user) {
+      return next(new NotAuthenticated('User is not authenticated'));
+    }
 
-  req.member = await members.get({
-    agendaUid: req.agenda.uid,
-    userUid: req.user.uid,
-  });
-
-  if (!req.member) {
-    return next(new Forbidden('Not authorized for non-members'));
-  }
-
-  req.access = members.utils.getRoleSlug(req.member.role);
-
-  if (!roles.includes(req.access)) {
-    return res.status(403).json({
-      error: 'user is not authorized to contribute to agenda',
-      agendaUid: req.params.agendaUid,
+    req.member = await members.get({
+      agendaUid: req.agenda.uid,
+      userUid: req.user.uid,
     });
-  }
 
-  next();
+    if (!req.member) {
+      return next(new Forbidden('Not authorized for non-members'));
+    }
+
+    req.access = members.utils.getRoleSlug(req.member.role);
+
+    if (!roles.includes(req.access)) {
+      return res.status(403).json({
+        error: 'user is not authorized to contribute to agenda',
+        agendaUid: req.params.agendaUid,
+      });
+    }
+
+    next();
+  };
 }
 
-async function load(req, _res, next) {
+export async function load(req, _res, next) {
   const {
     members,
   } = req.app.services;
@@ -60,14 +62,14 @@ async function load(req, _res, next) {
   next();
 }
 
-function moderatorCannotInviteAdministrator(req, res, next) {
+export function moderatorCannotInviteAdministrator(req, res, next) {
   if (isSuperiorTo(req.body.role, req.member.role)) {
     return res.status(400).json({ error: 'You cannot invite administrators' });
   }
   return next();
 }
 
-function loadContext(req, res, next) {
+export function loadContext(req, res, next) {
   req.context = _.merge({
     lang: req.lang || 'fr',
     sender: {
@@ -79,11 +81,3 @@ function loadContext(req, res, next) {
   }, req.body.context);
   next();
 }
-
-export default {
-  load,
-  verify: verify.bind(null, defaultRoles),
-  allow: roles => verify.bind(null, roles),
-  moderatorCannotInviteAdministrator,
-  loadContext,
-};
