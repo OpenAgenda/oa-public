@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from 'querystring';
+import { ParsedUrlQuery } from 'node:querystring';
 import qs from 'qs';
 import { useCallback, useRef } from 'react';
 import ContentLoader from 'react-content-loader';
