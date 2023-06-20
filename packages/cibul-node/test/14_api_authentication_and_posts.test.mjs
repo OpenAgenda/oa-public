@@ -136,4 +136,16 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     expect(response.status).toBe(200);
   });
+
+  it('an agenda key on a /me/agendas call should throw a 403', async () => {
+    const {
+      error
+    } = await axios({
+      method: 'get',
+      url: 'http://localhost:3000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
+    }).then(r => ({ response: r }), e => ({ error: e }));
+
+    expect(error.response.status).toBe(403);
+    expect(error.response.data.message).toBe('agenda key cannot be used for this route');
+  });
 });
