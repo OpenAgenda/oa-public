@@ -13,7 +13,6 @@ module.exports = {
 }
 
 function parser( data ) {
-
   return ih( data, {
     labels: { $set: flattenLabels( labels, data.lang ) },
     tel: { $set: '+33972178337' },

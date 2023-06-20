@@ -152,8 +152,6 @@ async function corpo(cache, req, res, next) {
 
   }
 
-  const metas = page.getHeadPart();
-
   const stats = {
     agendas: await _getStat( 'review' ),
     contributors: await _getStat( 'reviewer' ),
@@ -189,7 +187,7 @@ async function corpo(cache, req, res, next) {
     page.render(stats),
     {
       lang: page.getLang(),
-      metas, // used?
+      metas: page.getHeadPart(),
       scripts: pageScripts
     }
   );
