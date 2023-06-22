@@ -33,7 +33,7 @@ const messages = defineMessages({
 });
 
 const UpdateForm = ({
-  detailedInfo = true
+  detailedInfo = true,
 }) => {
   const { lang, agenda } = useLayoutData();
   const tiles = useSelector(state => state.settings.mapTiles);
@@ -83,7 +83,7 @@ const UpdateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    axios.post(res.update.replace(':locationUid', locationUid), form)
+    return axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(() => {
         if (nq) history.push(nq); else history.push(prefix);
         dispatch(onGoingActions.initiate('update'));

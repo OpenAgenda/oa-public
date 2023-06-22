@@ -280,11 +280,11 @@ const LocationForm = ({
     setLocation({ ...location, description });
   };
 
-  const set = () => {
+  const set = async () => {
     setAwaitPost(true);
-    onSubmit(location);
+    await onSubmit(location);
     setAwaitPost(false);
-  }
+  };
 
   const renderErrors = () => (
     <div className="errors">
