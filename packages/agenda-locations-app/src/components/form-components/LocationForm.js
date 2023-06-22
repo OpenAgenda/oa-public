@@ -185,11 +185,11 @@ const LocationForm = ({
   onSubmit,
   errors,
   tiles,
-  awaitPost,
 }) => {
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
+  const [awaitPost, setAwaitPost] = useState(false);
 
   if (!location.countryCode) location.countryCode = 'FR';
 
@@ -280,7 +280,11 @@ const LocationForm = ({
     setLocation({ ...location, description });
   };
 
-  const set = () => onSubmit(location);
+  const set = () => {
+    setAwaitPost(true);
+    onSubmit(location);
+    setAwaitPost(false);
+  }
 
   const renderErrors = () => (
     <div className="errors">

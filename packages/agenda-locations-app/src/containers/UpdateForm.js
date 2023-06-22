@@ -39,7 +39,6 @@ const UpdateForm = ({
   const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
-  const [awaitPost, setAwaitPost] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings } = useSettings(agenda);
@@ -84,16 +83,13 @@ const UpdateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    setAwaitPost(true);
     axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(() => {
         if (nq) history.push(nq); else history.push(prefix);
         dispatch(onGoingActions.initiate('update'));
         setErrors(false);
-        setAwaitPost(false);
       }).catch(err => {
         setErrorModal(err);
-        setAwaitPost(false);
       });
   };
 
@@ -143,7 +139,6 @@ const UpdateForm = ({
         onSubmit={onSubmit}
         errors={errors}
         displayExtIdLink
-        awaitPost={awaitPost}
       />
     </>
   );
