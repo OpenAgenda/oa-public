@@ -46,6 +46,7 @@ const CreateForm = ({
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const dispatch = useDispatch();
+  const [awaitPost, setAwaitPost] = useState(false);
 
   const CreateFormHeader = () => (
     <div className="head padding-bottom-md">
@@ -75,13 +76,16 @@ const CreateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
+    setAwaitPost(true);
     axios.post(res.create, form)
       .then(() => {
         dispatch(onGoingActions.initiate('create'));
         if (nq) history.push(nq); else history.push(prefix);
         setErrors(false);
+        setAwaitPost(false);
       }).catch(err => {
         setErrorModal(err);
+        setAwaitPost(false);
       });
   };
 
@@ -117,6 +121,7 @@ const CreateForm = ({
           mode="create"
           errors={errors}
           displayExtIdLink
+          awaitPost={awaitPost}
         />
       ) : null}
     </>

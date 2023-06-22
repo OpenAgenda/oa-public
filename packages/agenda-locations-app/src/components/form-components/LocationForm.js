@@ -185,6 +185,7 @@ const LocationForm = ({
   onSubmit,
   errors,
   tiles,
+  awaitPost,
 }) => {
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
@@ -557,6 +558,7 @@ const LocationForm = ({
             e.preventDefault();
             set();
           }}
+          disabled={awaitPost}
         >
           {intl.formatMessage(messages[`${mode}Submit`])}
         </button>

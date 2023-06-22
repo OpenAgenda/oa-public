@@ -62,6 +62,7 @@ const LocationSelector = ({
 }) => {
   const [errors, setErrors] = useState(false);
   const [seeDetails, setSeeDetails] = useState(false);
+  const [awaitPost, setAwaitPost] = useState(false);
 
   const [detailedLocation, setDetailedLocation] = useState();
 
@@ -106,11 +107,14 @@ const LocationSelector = ({
     if (clean.image instanceof File) form.append('image', clean.image);
     delete clean.image;
     form.append('data', JSON.stringify(clean));
+    setAwaitPost(true);
     axios.post(res.create, form)
       .then(result => {
         onSelect(result.data.location);
+        setAwaitPost(false);
       }).catch(err => {
         console.log(err);
+        setAwaitPost(true);
       });
   };
 
@@ -205,6 +209,7 @@ const LocationSelector = ({
       tiles={tiles}
       mode="create"
       errors={errors}
+      awaitPost={awaitPost}
     />
   );
 
