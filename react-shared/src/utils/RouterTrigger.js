@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Route } from 'react-router-dom';
 
-@withRouter
 class RouterTrigger extends Component {
   static defaultProps = {
     trigger: () => {}
@@ -110,4 +109,4 @@ class RouterTrigger extends Component {
   }
 }
 
-export default RouterTrigger;
+export default withRouter(RouterTrigger);
