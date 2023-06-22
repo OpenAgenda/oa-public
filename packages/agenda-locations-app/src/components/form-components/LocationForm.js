@@ -315,7 +315,7 @@ const LocationForm = ({
     </div>
   );
 
-  const renderExId = () => {
+  const renderExtId = () => {
     if (!displayExtIdLink) return;
     if (detailedInfo && (location.extId || showExtId)) {
       return (
@@ -541,7 +541,7 @@ const LocationForm = ({
       />
 
       {detailedInfo ? renderDetailsInfo() : null}
-      {renderExId()}
+      {renderExtId()}
 
       {errors ? renderErrors() : ''}
 
