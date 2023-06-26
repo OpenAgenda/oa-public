@@ -39,6 +39,20 @@ const STATES = {
 
 const utils = require('@openagenda/utils');
 
+function validateImageCredits(value, otherValues = {}, options = {}) {
+  const {
+    isEnabled = false,
+  } = options;
+
+  const hasImage = !!otherValues?.image;
+
+  if (hasImage && isEnabled) {
+    return validators.text({ field: 'imageCredits', max: 255, optional: false })(value);
+  }
+
+  return validators.text({ field: 'imageCredits', max: 255, optional: true })(value);
+}
+
 function validateImageRights(value, otherValues = {}, options = {}) {
   const {
     optional = true,
@@ -69,7 +83,7 @@ const baseValidators = [
     field: 'name', min: 3, max: 100, optional: false
   }),
   validators.pass({ field: 'image' }),
-  validators.text({ field: 'imageCredits', max: 255, optional: true }),
+  validateImageCredits,
   validateImageRights,
   validators.text({
     field: 'address', min: 3, max: 255, optional: false

@@ -198,7 +198,13 @@ const LocationForm = ({
     setLocation({ ...location, [name]: value });
   };
 
-  const getLabel = (name, values) => {
+  const clearRequired = str => {
+    if (str.includes('.required')) return str.split('.')[1];
+    return str;
+  };
+
+  const getLabel = (unclearName, values) => {
+    const name = clearRequired(unclearName);
     let str;
     let k;
     // see if label is defined in agenda settings
