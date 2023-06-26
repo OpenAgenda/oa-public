@@ -1,6 +1,7 @@
 {
   "myAgendas": "Mis agendas",
   "createAgenda": "Crear un agenda",
+  "otherActions": "Otras acciones",
   "searchAgenda": "Buscar una agenda",
   "myEvents": "Mis eventos",
   "messages": "mensajes",
@@ -29,6 +30,5 @@
   "noLocation": "Localización no especificado",
   "noEventsCreated": "No ha creado ningún evento",
   "show": "Ver",
-  "seeMore": "Ver más",
-  "otherActions": "Otras acciones"
+  "seeMore": "Ver más"
 }

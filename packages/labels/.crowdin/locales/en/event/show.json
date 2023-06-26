@@ -110,5 +110,7 @@
   "statusCancelledInfo": "The event has been permanently cancelled",
   "statusFull": "Fully booked",
   "markAsFull": "The event is fully booked",
-  "statusFullInfo": "New participants are no longer accepted to the event"
+  "statusFullInfo": "New participants are no longer accepted to the event",
+  "seeHistory": "See history",
+  "locationHistory": "Location history"
 }
