@@ -9,6 +9,7 @@ const getNodeGroupNames = ({ nodeGroups }, displayNames) => nodeGroups
 
 export default async function getNodesAndGroups(envName, groups, {
   jelasticAccessToken,
+  user = 'root'
 }) {
   const {
     data: envInfo
@@ -38,7 +39,7 @@ export default async function getNodesAndGroups(envName, groups, {
         groupDisplayName: nodeGroups.find(g => g.name === node.nodeGroup).displayName,
         name: node.name,
         endpoint: node.url.replace(/^http(s|):\/\//, ''),
-        connectionEndpoint: `root@${node.url.replace(/^http(s|):\/\//, '')}`,
+        connectionEndpoint: `${user}@${node.url.replace(/^http(s|):\/\//, '')}`,
       })),
     nodeGroups,
   };

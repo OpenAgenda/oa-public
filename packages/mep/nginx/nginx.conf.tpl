@@ -61,8 +61,6 @@ http {
             return 301 https://developers.openagenda.com;
         }
 
-        include conf.d/server_params;
-
         location /v2 {
             add_header 'Access-Control-Allow-Origin' '*';
             add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
