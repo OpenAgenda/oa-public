@@ -143,6 +143,44 @@ describe('list validator', () => {
     });
   });
 
+  describe('not optional', () => {
+    const validate = validators.list({ optional: false }, [
+      validators.link(),
+      validators.phone(),
+      validators.email(),
+    ]);
+
+    it('undefined or empty list is not accepted by required validate', () => {
+      let errors;
+      try {
+        validate();
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toEqual([{
+        code: 'list.wrongtype',
+        message: 'value should be a list',
+        origin: undefined,
+      }]);
+    });
+
+    it('empty list is not accepted by required validate', () => {
+      let errors;
+      try {
+        validate([]);
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toEqual([{
+        code: 'required',
+        message: 'value cannot be empty',
+        origin: [],
+      }]);
+    });
+  });
+
   describe('optional', () => {
     const validate = validators.list({ optional: true }, [
       validators.link(),
