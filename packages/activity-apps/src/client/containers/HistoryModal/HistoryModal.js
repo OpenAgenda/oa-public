@@ -44,15 +44,6 @@ function ModalContent({ res }) {
           throw new Error('Can\'t list activities');
         })
     },
-    {
-      keepPreviousData: true,
-      revalidateFirstPage: false,
-      // revalidateOnMount: false,
-      // revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      // use: [swrLaggyMiddleware],
-    },
   );
 
   const isLoadingInitialData = !pages && !error;
