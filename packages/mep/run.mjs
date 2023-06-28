@@ -38,7 +38,8 @@ const envVars = await fs.readFile(envFilePath, 'utf8').then(data => JSON.parse(d
 const response = await getNodesAndGroups(webEnvName, ['web', 'next', 'api'], { jelasticAccessToken });
 
 const {
-  nodeGroups
+  nodeGroups,
+  nodes,
 } = response;
 
 if (runBuild || runAll) {
@@ -101,7 +102,7 @@ if (runUpdateNginx || runAll) {
     jelasticAccessToken,
     SSHKeyPath,
     envVars,
-    nodeGroups,
+    nodes,
     remoteNginxDir,
   });
   await uploadNginxFilesAndReload({
