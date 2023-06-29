@@ -16,6 +16,7 @@ const {
   JELASTIC_SSH_KEY: SSHKeyPath,
   JELASTIC_ACCESS_TOKEN: jelasticAccessToken,
   ENV_FILE_PATH: envFilePath,
+  LOCAL_ENV_FILE_PATH: localEnvFilePath,
   RUN_BUILD: runBuild,
   RUN_UPLOAD_TO_WEB: runUploadToWeb,
   RUN_UPLOAD_TO_API: runUploadToAPI,
@@ -33,7 +34,10 @@ const pm2Commands = [
   'pm2 save',
 ];
 
-const envVars = await fs.readFile(envFilePath, 'utf8').then(data => JSON.parse(data));
+const envVars = Object.assign(
+  await fs.readFile(envFilePath, 'utf8').then(data => JSON.parse(data)),
+  await fs.readFile(localEnvFilePath, 'utf8').then(data => JSON.parse(data)),
+);
 
 const response = await getNodesAndGroups(webEnvName, ['web', 'next', 'api'], { jelasticAccessToken });
 
