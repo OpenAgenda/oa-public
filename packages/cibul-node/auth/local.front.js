@@ -220,7 +220,7 @@ function signupSubmit(req, res) {
 
         const user = await users.create(
           {
-            fullName: req.body.full_name,
+            fullName: req.body.full__name,
             email: req.body.email,
             password: req.body.password,
             culture: req.body.culture || req.lang,

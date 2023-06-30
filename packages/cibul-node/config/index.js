@@ -152,10 +152,10 @@ const config = {
     unsubscriptionLink: 'unsubscription_link',
   },
   mtCaptcha: {
-    enabled: !!prod.mtCaptcha,
-    verifyUrl: prod.mtCaptcha?.verifyUrl,
-    siteKey: prod.mtCaptcha?.siteKey,
-    privateKey: prod.mtCaptcha?.privateKey,
+    enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED ? parseInt(process.env.OA_MT_CAPTCHA_ENABLED, 10) : prod.mtCaptcha),
+    verifyUrl: process.env.OA_MT_CAPTCHA_VERIFY_URL ?? prod.mtCaptcha?.verifyUrl,
+    siteKey: process.env.OA_MT_CAPTCHA_SITE_KEY ?? prod.mtCaptcha?.siteKey,
+    privateKey: process.env.OA_MT_CAPTCHA_PRIVATE_KEY ?? prod.mtCaptcha?.privateKey,
   },
   auth: {
     facebook: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID ? {
@@ -177,10 +177,11 @@ const config = {
   },
   crisp: prod.crisp || process.env.CRISP_WEBSITE_ID,
   es75: prod.elasticsearch?.v7_5 ?? {
+    agendaEventsIndex: process.env.ES_AGENDA_EVENTS_INDEX ?? (process.env.NODE_ENV === 'production' ? 'main' : 'dev'),
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
-    ssl: process.env.ES_USE_SSL ? {
+    ssl: !!parseInt(process.env.ES_USE_SSL, 10) ? {
       key: fs.readFileSync(process.env.CLIENT_SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.CLIENT_SSL_CERT, 'utf-8'),
     } : null,
@@ -333,16 +334,6 @@ const config = {
   translators: prod?.translators ?? [],
   routes: {
     globals: {
-      agendaFeed: {
-        method: 'get',
-        uri: '/agendas/:uid.atom',
-        legacy: true,
-      },
-      agendaCsv: {
-        method: 'get',
-        uri: '/agendas/:uid.csv',
-        legacy: true,
-      },
       agendaAdminWeb: {
         method: 'get',
         uri: '/:slug/admin/webembed',
@@ -492,41 +483,9 @@ const config = {
         method: 'get',
         uri: '/:slug/admin/locations',
       },
-      agendaAdminLocationsCsv: {
-        method: 'get',
-        uri: '/:slug/admin/locations/exports.csv',
-      },
       agendaLocationSet: {
         method: 'post',
         uri: '/:slug/locations',
-      },
-      agendaAdminLocationSet: {
-        method: 'post',
-        uri: '/:slug/admin/locations',
-      },
-      agendaAdminLocationRemove: {
-        method: 'post',
-        uri: '/:slug/admin/locations/remove',
-      },
-      agendaAdminLocationMerge: {
-        method: 'post',
-        uri: '/:slug/admin/locations/merge',
-      },
-      agendaAdminLocationTerms: {
-        method: 'get',
-        uri: '/:slug/admin/locations/terms',
-      },
-      locationGeocode: {
-        method: 'get',
-        uri: '/:slug/locations/geocode',
-      },
-      locationINSEE: {
-        method: 'get',
-        uri: '/:slug/locations/insee',
-      },
-      locationReverseGeocode: {
-        method: 'get',
-        uri: '/:slug/locations/geocode/reverse',
       },
       locationResync: {
         method: 'get',
@@ -535,22 +494,6 @@ const config = {
       locationToVerifyCount: {
         method: 'get',
         uri: '/:slug/admin/locations/verifycount',
-      },
-      locationNewImageUpload: {
-        method: 'post',
-        uri: '/:slug/locations/image',
-      },
-      locationNewImageRemove: {
-        method: 'post',
-        uri: '/:slug/locations/image/remove',
-      },
-      locationImageUpload: {
-        method: 'post',
-        uri: '/:slug/locations/:locationUid/image',
-      },
-      locationImageRemove: {
-        method: 'post',
-        uri: '/:slug/locations/:locationUid/image/remove',
       },
       agendaLocationGet: {
         method: 'get',
@@ -600,38 +543,6 @@ const config = {
         method: 'get',
         uri: '/:slug/actions',
       },
-      agendaEventAdd: {
-        method: 'get',
-        uri: '/:slug/actions/add/:eventUid',
-      },
-      agendaEventRemove: {
-        method: 'get',
-        uri: '/:slug/actions/remove/:eventUid',
-      },
-      agendaJsonEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.json',
-      },
-      agendaCsvEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.csv',
-      },
-      agendaPdfEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.pdf',
-      },
-      agendaXlsxEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.xlsx',
-      },
-      agendaRssEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.rss',
-      },
-      agendaIcsEvents: {
-        method: 'get',
-        uri: '/agendas/:uid/events.ics',
-      },
     },
   },
 };
@@ -644,9 +555,14 @@ debug.disable();
 
 debug.enable(config.logger.enableDebug);
 
+const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => ({
+  ...ops,
+  [pair.split(':')[0]]: pair.split(':')[1]
+}), {}) : (prod.insightOps ?? {});
+
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
-  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[key],
+  token: insightOpsKeys[key],
 });
 
 module.exports = config;
