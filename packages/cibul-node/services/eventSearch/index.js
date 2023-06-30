@@ -49,16 +49,14 @@ module.exports.init = async (config, services) => {
 
   const node = `${protocol}://${host}:${port}`;
 
-  const defaultIndex = _.get(config, 'es75.defaultIndex', process.env.NODE_ENV === 'production' ? 'main' : 'dev');
-
-  log('using elasticsearch node %s, default index %s', node, defaultIndex);
+  log('using elasticsearch node %s, default index %s', node, config.es75.agendaEventsIndex);
 
   const eventSearch = EventSearch({
     elasticsearch: {
       node,
       ssl: _.get(config, 'es75.ssl'),
     },
-    defaultIndex,
+    defaultIndex: config.es75.agendaEventsIndex,
     logger: config.getLogConfig('svc', 'eventSearch'),
     interfaces: {
       onUpdate: ({ set }) => {
