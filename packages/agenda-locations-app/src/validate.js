@@ -45,7 +45,6 @@ function validateImageCredits(value, otherValues = {}, options = {}) {
   } = options;
 
   const hasImage = !!otherValues?.image;
-
   if (hasImage && isEnabled) {
     return validators.text({ field: 'imageCredits', max: 255, optional: false })(value);
   }
@@ -61,7 +60,6 @@ function validateImageRights(value, otherValues = {}, options = {}) {
   if (!isEnabled) return;
 
   const hasImage = !!otherValues?.image;
-
   if (!hasImage) {
     return;
   }
@@ -75,6 +73,7 @@ function validateImageRights(value, otherValues = {}, options = {}) {
 }
 
 validateImageRights.field = 'imageRightsAreHeld';
+validateImageCredits.field = 'imageCredits';
 
 // validators applying for all locations of all agendas
 const baseValidators = [
