@@ -14,7 +14,7 @@ schema.register({
   choice: choiceValidator,
 });
 
-module.exports = schema({
+const validate = schema({
   aggsSizeLimit: {
     type: 'integer',
   },
@@ -76,3 +76,10 @@ module.exports = schema({
     type: 'pass',
   },
 });
+
+module.exports = function validateSearchOptions(options = {}) {
+  return validate({
+    ...options,
+    includeFields: options.includeFields || options.if,
+  });
+};

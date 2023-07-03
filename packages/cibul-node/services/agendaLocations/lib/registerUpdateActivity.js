@@ -21,6 +21,36 @@ function getFieldReadAccess(fieldSchema) {
   }
 }
 
+function getUpdatedTags(changes, schema) {
+  if (!changes) return [];
+
+  const tagIds = [];
+
+  for (const change of changes) {
+    if (change.path.length === 1 && change.path[0] === 'tags') {
+      if (change.item.kind === 'N') { // new item
+        tagIds.push(change.item.rhs.id);
+      }
+      if (change.item.kind === 'D') { // deleted item
+        tagIds.push(change.item.lhs.id);
+      }
+    }
+
+    if (change.path.length === 3 && change.path[0] === 'tags' && change.path[2] === 'id') {
+      if (change.kind !== 'N') { // not new
+        tagIds.push(change.lhs);
+      }
+      if (change.kind !== 'D') { // not delete
+        tagIds.push(change.rhs);
+      }
+    }
+  }
+
+  return tagIds
+    .map(tagId => schema.fields.find(fieldSchema => fieldSchema.options?.find(option => option.id === tagId)))
+    .filter((v, i, a) => a.indexOf(v) === i);
+}
+
 module.exports = async function registerUpdateActivity({
   services,
   agendaUid,
@@ -42,9 +72,11 @@ module.exports = async function registerUpdateActivity({
     (path, key) => path.length === 0 && key === 'updatedAt',
   );
 
+  const updatedTags = getUpdatedTags(changes, locationSchema);
+
   const allChangedFields = (changes ?? [])
     .map(v => v.path[0])
-    .filter((v, i, a) => a.indexOf(v) === i);
+    .filter((v, i, a) => a.indexOf(v) === i && v !== 'tags');
 
   const changedFields = allChangedFields.reduce((accu, changedField) => {
     const fieldSchema = locationSchema.fields.find(v => v.field === changedField);
@@ -68,10 +100,14 @@ module.exports = async function registerUpdateActivity({
       accu[fieldAccess].push(fieldSchema.field);
     } else if (fieldSchema.label) {
       accu[fieldAccess].push({ label: fieldSchema.label });
+    } else if (labels[fieldSchema.field]) {
+      accu[fieldAccess].push(fieldSchema.field);
     }
 
     return accu;
-  }, {});
+  }, {
+    contributor: updatedTags.map(fieldSchema => ({ label: fieldSchema.label })),
+  });
 
   const hasChanges = changedFields.contributor?.length
     || changedFields.moderator?.length
