@@ -72,8 +72,8 @@ const fieldTypeChoices = [{
 
 const flatChoices = lang => fieldTypeChoices.map(c => ({
   ...c,
-  label: c.label[lang],
-  info: c.info?.[lang],
+  label: c.label[lang] || c.label.en,
+  info: c.info?.[lang] || c.info?.en,
 }));
 
 const getFieldType = valueOrId => fieldTypeChoices
