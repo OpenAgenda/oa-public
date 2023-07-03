@@ -146,7 +146,7 @@ export default function SpreadsheetOptions({
           <HStack ml="4" mt="2" gap="2">
             {languages.map(lang => (
               <Box key={lang}>
-                <Checkbox key={lang} onChange={handleLanguage}>{lang.toUpperCase()}</Checkbox>
+                <Checkbox key={lang} value={lang} onChange={handleLanguage}>{lang.toUpperCase()}</Checkbox>
               </Box>
             ))}
           </HStack>

@@ -569,12 +569,20 @@ export default core => {
       });
   });
 
-  app.get('/me/agendas', (req, res, next) => {
-    core.users(req.user).agendas.list(req.query)
-      .then(data => res.json({ ...data, success: true }), next);
-  });
+  app.get('/me/agendas', [
+    mw.rejectAgendaKey,
+    (req, res, next) => core
+      .users(req.user)
+      .agendas
+      .list(req.query)
+      .then(
+        data => res.json({ ...data, success: true }),
+        next
+      )
+  ]);
 
   app.get('/me/agendas/:agendaUid', [
+    mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
       if (!req.user) {
@@ -593,6 +601,7 @@ export default core => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [
+    mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
       if (!req.user) {
@@ -615,6 +624,7 @@ export default core => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events/drafts', [
+    mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
       if (!req.user) {
@@ -636,6 +646,7 @@ export default core => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid', [
+    mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
       if (!req.user) {

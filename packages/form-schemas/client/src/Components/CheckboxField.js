@@ -30,6 +30,7 @@ export default function CheckboxField(props) {
               disabled={!enabled}
             />
             {o.label}
+            {o.info && <div className="text-muted">{o.info}</div>}
           </label>
         </div>
       ))}

@@ -75,7 +75,7 @@ const CreateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    axios.post(res.create, form)
+    return axios.post(res.create, form)
       .then(() => {
         dispatch(onGoingActions.initiate('create'));
         if (nq) history.push(nq); else history.push(prefix);

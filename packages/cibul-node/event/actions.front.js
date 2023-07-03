@@ -87,8 +87,6 @@ function actionDatesJson(req, res, next) {
 }
 
 async function eventMailSend(req, res, next) {
-  log('eventMailSend');
-
   const { events: eventsSvc } = req.app.services;
 
   let customData = null;
@@ -115,8 +113,6 @@ async function eventMailSend(req, res, next) {
   try {
     const emails = (typeof req.body.mailsend === 'string' ? req.body.mailsend : '').split(/[\s;,\n\r]+/);
 
-    req.log.debug('will send event as email to %s', emails.join(', '));
-
     const logo = req.agenda.image
       ? {
         src: config.aws.imageBucketPath + req.agenda.image.replace('.com/', '.com/rwtb'),
@@ -129,7 +125,11 @@ async function eventMailSend(req, res, next) {
 
     const link = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
 
-    log('info', 'queuing event mails for %s', emails.join('|'), emails.length);
+    log.info('eventMailSend', {
+      link,
+      targettedEmailsCount: emails.length,
+      message: 'queuing emails'
+    });
 
     const dateRange = range(req.event.timings.map(t => ({
       start: new Date(t.begin),

@@ -4,8 +4,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import clearDir from './clearDir.mjs';
-import getNodeGroupEndpoint from './getNodeGroupEndpoint.mjs';
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const renderNginxConf = _.template(await fs.promises.readFile(`${__dirname}/../nginx/nginx.conf.tpl`, 'utf-8'));
@@ -25,9 +23,15 @@ async function copyAndEditFile(src, destDir, edits = {}) {
   await fs.promises.writeFile(`${destDir}/${filename}`, content, 'utf-8');
 }
 
+function getNodesEndpoints(nodes, groupDisplayName) {
+  return nodes
+    .filter(n => n.groupDisplayName === groupDisplayName)
+    .map(n => n.endpoint);
+}
+
 export default async function prepareNginxFiles({
   dir,
-  nodeGroups,
+  nodes,
   envVars,
 }) {
   const {
@@ -49,9 +53,9 @@ export default async function prepareNginxFiles({
       domain,
       APIDomain,
       serverPort,
-      APIEndpoint: getNodeGroupEndpoint(nodeGroups, 'api'),
-      NextEndpoint: getNodeGroupEndpoint(nodeGroups, 'next'),
-      WebEndpoint: getNodeGroupEndpoint(nodeGroups, 'web'),
+      APIEndpoints: getNodesEndpoints(nodes, 'api'),
+      NextEndpoints: getNodesEndpoints(nodes, 'next'),
+      WebEndpoints: getNodesEndpoints(nodes, 'web'),
     }),
     'utf-8'
   );

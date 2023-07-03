@@ -12,14 +12,14 @@ events {
 }
 
 http {
-    upstream api_servers {
-        server <%= APIEndpoint %>:<%= serverPort %>;
+    upstream api_servers {<% APIEndpoints.forEach(ep => { %>
+        server <%= ep %>:<%= serverPort %>;<% }); %>
     }
-    upstream next_servers {
-        server <%= NextEndpoint %>:<%= serverPort %>;
+    upstream next_servers {<% NextEndpoints.forEach(ep => { %>
+        server <%= ep %>:<%= serverPort %>;<% }); %>
     }
-    upstream web_servers {
-        server <%= WebEndpoint %>:<%= serverPort %>;
+    upstream web_servers {<% WebEndpoints.forEach(ep => { %>
+        server <%= ep %>:<%= serverPort %>;<% }); %>
     }
 
     include /etc/nginx/mime.types;
@@ -42,18 +42,6 @@ http {
         include conf.d/server_params;
     }
 
-    server {
-        server_name <%= domain %>;
-        
-        ssl_certificate      /var/lib/jelastic/SSL/jelastic.chain;
-        ssl_certificate_key  /var/lib/jelastic/SSL/jelastic.key;
-
-        listen [::]:443 ssl ipv6only=on; # managed by Certbot
-        listen 443 ssl default_server; # managed by Certbot
-
-        include conf.d/server_params;
-    }
-
 ####################### API #######################
     server {
         listen 80;
@@ -64,20 +52,10 @@ http {
             return 301 https://$server_name$request_uri;
         }
 
-        include conf.d/server_params;
-    }
-
-    server {
-        listen 443;
-        server_name <%= APIDomain %>;
-
         access_log /var/log/nginx/<%= APIDomain %>.access.log;
         error_log /var/log/nginx/<%= APIDomain %>.error.log;
 
         client_max_body_size 20m;
-        
-        ssl_certificate      /var/lib/jelastic/SSL/jelastic.chain;
-        ssl_certificate_key  /var/lib/jelastic/SSL/jelastic.key;
 
         location / {
             return 301 https://developers.openagenda.com;
@@ -90,10 +68,6 @@ http {
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
 
             proxy_pass http://api_servers;
-            proxy_set_header  Host              $host;
-            proxy_set_header  X-Real-IP         $remote_addr;
-            proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
-            proxy_set_header  X-Forwarded-Proto $scheme;
             proxy_buffering off;
         }
     }

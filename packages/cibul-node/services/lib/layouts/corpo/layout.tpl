@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="<%= lang %>"/>
     <link rel="stylesheet" href="/css/oa-main.css?v=1"/>
-    <!--metas-->
+    <%= metas %>
   </head>
   <body class="landing" style="background: gray;">
     <div id="outdated"></div>

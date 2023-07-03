@@ -30,9 +30,9 @@ export default async function rexec(nodes, commands, { SSHKeyPath }) {
         conn.end();
         rs();
       }).connect({
-        host: node.endpoint.split('@').pop(),
+        host: node.connectionEndpoint.split('@').pop(),
         privateKey,
-        username: node.endpoint.split('@').shift(),
+        username: node.connectionEndpoint.split('@').shift(),
       });
 
       conn.on('error', (err) => {

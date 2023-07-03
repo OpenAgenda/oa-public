@@ -106,7 +106,7 @@ const LocationSelector = ({
     if (clean.image instanceof File) form.append('image', clean.image);
     delete clean.image;
     form.append('data', JSON.stringify(clean));
-    axios.post(res.create, form)
+    return axios.post(res.create, form)
       .then(result => {
         onSelect(result.data.location);
       }).catch(err => {

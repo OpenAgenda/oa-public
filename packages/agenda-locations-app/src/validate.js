@@ -29,7 +29,7 @@ const validators = {
   pass,
   multilingual,
   regex,
-  choice
+  choice,
 };
 
 const STATES = {
@@ -39,15 +39,27 @@ const STATES = {
 
 const utils = require('@openagenda/utils');
 
+function validateImageCredits(value, otherValues = {}, options = {}) {
+  const {
+    isEnabled = false,
+  } = options;
+
+  const hasImage = !!otherValues?.image;
+  if (hasImage && isEnabled) {
+    return validators.text({ field: 'imageCredits', max: 255, optional: false })(value);
+  }
+
+  return validators.text({ field: 'imageCredits', max: 255, optional: true })(value);
+}
+
 function validateImageRights(value, otherValues = {}, options = {}) {
   const {
     optional = true,
-    isEnabled = false
+    isEnabled = false,
   } = options;
   if (!isEnabled) return;
 
   const hasImage = !!otherValues?.image;
-
   if (!hasImage) {
     return;
   }
@@ -55,60 +67,61 @@ function validateImageRights(value, otherValues = {}, options = {}) {
     options: [true],
     field: 'imageRightsAreHeld',
     optional,
-    unique: true
+    unique: true,
   });
   return validateBoolean(value);
 }
 
 validateImageRights.field = 'imageRightsAreHeld';
+validateImageCredits.field = 'imageCredits';
 
 // validators applying for all locations of all agendas
 const baseValidators = [
   validators.number({ field: 'agendaId', optional: true }),
   validators.text({
-    field: 'name', min: 3, max: 100, optional: false
+    field: 'name', min: 3, max: 100, optional: false,
   }),
   validators.pass({ field: 'image' }),
-  validators.text({ field: 'imageCredits', max: 255, optional: true }),
+  validateImageCredits,
   validateImageRights,
   validators.text({
-    field: 'address', min: 3, max: 255, optional: false
+    field: 'address', min: 3, max: 255, optional: false,
   }),
   validators.text({
-    field: 'adminLevel1', min: 0, max: 300, optional: true
+    field: 'adminLevel1', min: 0, max: 300, optional: true,
   }),
   validators.text({
-    field: 'adminLevel2', min: 3, max: 300, optional: true
+    field: 'adminLevel2', min: 3, max: 300, optional: true,
   }),
   validators.text({
-    field: 'adminLevel3', min: 3, max: 300, optional: true
+    field: 'adminLevel3', min: 3, max: 300, optional: true,
   }),
   validators.text({
-    field: 'adminLevel4', min: 2, max: 300, optional: true
+    field: 'adminLevel4', min: 2, max: 300, optional: true,
   }),
   validators.text({
-    field: 'city', min: 2, max: 300, optional: true
+    field: 'city', min: 2, max: 300, optional: true,
   }),
   validators.text({ field: 'adminLevel5', optional: true }),
   validators.text({ field: 'adminLevel6', optional: true }),
   validators.text({ field: 'district', optional: true }),
   validators.text({
-    field: 'department', min: 3, max: 300, optional: true
+    field: 'department', min: 3, max: 300, optional: true,
   }),
   validators.text({
-    field: 'region', min: 0, max: 300, optional: true
+    field: 'region', min: 0, max: 300, optional: true,
   }),
   validators.text({
-    field: 'postalCode', min: 3, max: 20, optional: true
+    field: 'postalCode', min: 3, max: 20, optional: true,
   }),
   validators.text({
-    field: 'insee', min: 3, max: 20, optional: true
+    field: 'insee', min: 3, max: 20, optional: true,
   }),
   validators.text({
-    field: 'countryCode', min: 2, max: 2, optional: false
+    field: 'countryCode', min: 2, max: 2, optional: false,
   }),
   validators.text({
-    field: 'eveId', min: 0, max: 42, optional: true
+    field: 'eveId', min: 0, max: 42, optional: true,
   }),
   validators.multilingual({
     field: 'description',
@@ -125,11 +138,11 @@ const baseValidators = [
   validators.link({ field: 'website', min: 0, optional: true }),
   validators.email({ field: 'email', min: 0, optional: true }),
   validators.text({
-    field: 'extId', min: 0, max: 255, optional: true
+    field: 'extId', min: 0, max: 255, optional: true,
   }),
   validators.text({ field: 'timezone', min: 0, optional: true }),
   validators.phone({
-    field: 'phone', min: 0, max: 42, optional: true
+    field: 'phone', min: 0, max: 42, optional: true,
   }),
   validators.latitude({ field: 'latitude', optional: true }),
   validators.longitude({ field: 'longitude', optional: true }),
@@ -169,7 +182,7 @@ function validate(data, pSettings/* , pPartial */, options = {}) {
   /* let partial = pPartial; */
   // clean arguments
 
-/*   if (arguments.length === 2 && typeof settings === 'boolean') {
+  /*   if (arguments.length === 2 && typeof settings === 'boolean') {
     partial = settings;
     settings = {};
   } else if (arguments.length === 1) {
@@ -180,26 +193,26 @@ function validate(data, pSettings/* , pPartial */, options = {}) {
 
   // establish validators depending on settings
 
-/*   if (partial) {
+  /*   if (partial) {
     locationValidators = _getValidators(settings).filter(v => Object.keys(data).indexOf(v.field) !== -1);
   } else { */
-    locationValidators = _getValidators(settings);
+  locationValidators = _getValidators(settings);
   /* } */
 
   const {
     clean,
-    errors
+    errors,
   } = locationValidators.reduce((carry, validator) => {
     const {
-      field: fieldName
+      field: fieldName,
     } = validator;
     try {
       return {
         ...carry,
         clean: {
           ...carry.clean,
-          [fieldName]: validator(data?.[fieldName], data, options)
-        }
+          [fieldName]: validator(data?.[fieldName], data, options),
+        },
       };
     } catch (fieldErrors) {
       return {
