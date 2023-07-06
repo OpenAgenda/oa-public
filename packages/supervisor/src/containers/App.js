@@ -68,6 +68,11 @@ function App({ user }) {
                         Elasticsearch
                       </Link>
                     </li>
+                    <li>
+                      <a href={`${normalizedPath}/bullboard`}>
+                        Bullboard
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>
