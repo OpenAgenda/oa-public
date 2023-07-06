@@ -7880,6 +7880,7 @@ __metadata:
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
+    react-select: ^3.1.1
     react-use: ^15.3.4
     redial: ^0.5.0
     redux: ^4.0.5
@@ -8035,6 +8036,7 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     toggle-selection: ^1.0.6
+    webpack: ^4.46.0
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^18.2.0
@@ -17309,6 +17311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "axios@npm:1.4.0"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 7fb6a4313bae7f45e89d62c70a800913c303df653f19eafec88e56cea2e3821066b8409bc68be1930ecca80e861c52aa787659df0ffec6ad4d451c7816b9386b
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^2.2.0":
   version: 2.2.0
   resolution: "axobject-query@npm:2.2.0"
@@ -19649,7 +19662,7 @@ __metadata:
     "@sentry/node": ^7.45.0
     async: ^2.3.0
     aws-sdk: ^2.544.0
-    axios: ^0.21.1
+    axios: ^1.4.0
     body-parser: ^1.19.0
     bullmq: ^3.14.0
     concurrently: ^7.3.0
@@ -25947,6 +25960,16 @@ __metadata:
     debug:
       optional: true
   checksum: f5982e0eb481818642492d3ca35a86989c98af1128b8e1a62911a3410621bc15d2b079e8170b35b19d3bdee770b73ed431a257ed86195af773771145baa57845
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.2
+  resolution: "follow-redirects@npm:1.15.2"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: faa66059b66358ba65c234c2f2a37fcec029dc22775f35d9ad6abac56003268baf41e55f9ee645957b32c7d9f62baf1f0b906e68267276f54ec4b4c597c2b190
   languageName: node
   linkType: hard
 
