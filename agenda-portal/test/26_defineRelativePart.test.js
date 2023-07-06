@@ -16,7 +16,7 @@ describe('26 - defineRelativePart', () => {
 
   test('data-count attribute defines limit if data-random-from-set is not set', () => {
     const relative = defineRelativePart({
-      'data-count': '3',
+      count: '3',
     });
 
     expect(relative).toBe('?limit=3');
@@ -24,8 +24,8 @@ describe('26 - defineRelativePart', () => {
 
   test('data-count defines subsetRandom and data-random-from-set limit if both are set', () => {
     const relative = defineRelativePart({
-      'data-count': '3',
-      'data-random-from-set': '20',
+      count: '3',
+      randomFromSet: '20',
     });
 
     expect(relative).toBe('?subsetRandom=3&limit=20');
@@ -33,7 +33,7 @@ describe('26 - defineRelativePart', () => {
 
   test('data-lang adds lang to relative part', () => {
     const relative = defineRelativePart({
-      'data-lang': 'de',
+      lang: 'de',
     });
 
     expect(relative).toBe('?lang=de');
