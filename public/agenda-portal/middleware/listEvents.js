@@ -14,30 +14,22 @@ module.exports = withAggs => async (req, res, next) => {
     let filtersBase;
 
     if (withAggs) {
-      filtersBase = (await proxy.list(
-        agendaUid,
-        {
+      filtersBase = (
+        await proxy.list(agendaUid, {
           aggregations: filtersToAggregations(filters, true),
           limit: 0,
-        }
-      )).aggregations;
+        })
+      ).aggregations;
     }
 
-    const {
-      total,
-      offset,
-      limit,
-      events,
-      aggregations,
-    } = await proxy
-      .list(
-        agendaUid,
-        {
-          aggregations: withAggs ? filtersToAggregations(filters) : undefined,
-          ...req.query,
-          page: parseInt(_.get(req, 'params.page', 1), 10),
-        }
-      );
+    const { total, offset, limit, events, aggregations } = await proxy.list(
+      agendaUid,
+      {
+        aggregations: withAggs ? filtersToAggregations(filters) : undefined,
+        ...req.query,
+        page: parseInt(_.get(req, 'params.page', 1), 10),
+      },
+    );
 
     const pages = paginate({
       offset,
@@ -47,12 +39,16 @@ module.exports = withAggs => async (req, res, next) => {
 
     req.data = _.assign(req.data || {}, {
       query: req.query,
-      searchString: qs.stringify(_.omit(req.query, 'aggregations'), { addQueryPrefix: true }),
+      searchString: qs.stringify(_.omit(req.query, 'aggregations'), {
+        addQueryPrefix: true,
+      }),
       total,
-      events: events?.map((e, index) => transform(e, req, res, {
-        total,
-        index: offset + index,
-      })) ?? events,
+      events:
+        events?.map((e, index) =>
+          transform(e, req, res, {
+            total,
+            index: offset + index,
+          })) ?? events,
       aggregations,
       pages,
       hasPages: pages.length > 1,
