@@ -1,6 +1,8 @@
 const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
+const defineRelativePart = require('./defineRelativePart');
+
 function getHash() {
   return (window.location.hash || '').replace(/^#/, '');
 }
@@ -21,12 +23,6 @@ function isPortalHash() {
 function updateRelativePath(state, relative) {
   state.relative = relative;
   window.location.hash = relative;
-}
-
-function appendAttributeValueToQuery(iframe, current, key, attrKey) {
-  return `${current}${
-    current.includes('?') ? '&' : '?'
-  }${key}=${iframe.getAttribute(attrKey)}`;
 }
 
 function onMessage(state, { message }) {
@@ -101,57 +97,19 @@ module.exports = (iframe, options = {}) => {
   log('loading', selector);
 
   const base = iframe.getAttribute(selector);
-  let relative = '';
 
   iframe.setAttribute('style', 'width: 1px; min-width: 100%;');
 
-  if (iframe.getAttribute('data-query')) {
-    relative = `?${iframe.getAttribute('data-query')}`;
-  } else if (monitorHash && isPortalHash()) {
-    relative = getHash();
-  }
-
-  // This iframe parent should track base and
-
-  if (
-    iframe.getAttribute('data-count')
-    && !iframe.getAttribute('data-random-from-set')
-  ) {
-    relative = appendAttributeValueToQuery(
-      iframe,
-      relative,
-      'limit',
-      'data-count',
-    );
-  }
-
-  if (
-    iframe.getAttribute('data-count')
-    && iframe.getAttribute('data-random-from-set')
-  ) {
-    relative = appendAttributeValueToQuery(
-      iframe,
-      relative,
-      'limit',
-      'data-random-from-set',
-    );
-    relative = appendAttributeValueToQuery(
-      iframe,
-      relative,
-      'subsetRandom',
-      'data-count',
-    );
-  }
-
-  if (iframe.getAttribute('data-lang')) {
-    log('adding %s lang to relative path', iframe.getAttribute('data-lang'));
-    relative = appendAttributeValueToQuery(
-      iframe,
-      relative,
-      'lang',
-      'data-lang',
-    );
-  }
+  const relative = defineRelativePart(
+    {
+      query: iframe.getAttribute('data-query'),
+      count: iframe.getAttribute('data-count'),
+      randomFromSet: iframe.getAttribute('data-random-from-set'),
+      lang: iframe.getAttribute('data-lang'),
+      prefilter: iframe.getAttribute('data-prefilter'),
+    },
+    monitorHash && isPortalHash() ? getHash() : null,
+  );
 
   const state = {
     iframe,
