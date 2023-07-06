@@ -24,7 +24,9 @@ function updateRelativePath(state, relative) {
 }
 
 function appendAttributeValueToQuery(iframe, current, key, attrKey) {
-  return `${current}${current.includes('?') ? '&' : '?'}${key}=${iframe.getAttribute(attrKey)}`;
+  return `${current}${
+    current.includes('?') ? '&' : '?'
+  }${key}=${iframe.getAttribute(attrKey)}`;
 }
 
 function onMessage(state, { message }) {
@@ -76,7 +78,7 @@ function updateIframeOnHashChange(state) {
 
       updateIFrameSource(state);
     },
-    false
+    false,
   );
 }
 
@@ -111,27 +113,33 @@ module.exports = (iframe, options = {}) => {
 
   // This iframe parent should track base and
 
-  if (iframe.getAttribute('data-count') && !iframe.getAttribute('data-random-from-set')) {
+  if (
+    iframe.getAttribute('data-count')
+    && !iframe.getAttribute('data-random-from-set')
+  ) {
     relative = appendAttributeValueToQuery(
       iframe,
       relative,
       'limit',
-      'data-count'
+      'data-count',
     );
   }
 
-  if (iframe.getAttribute('data-count') && iframe.getAttribute('data-random-from-set')) {
+  if (
+    iframe.getAttribute('data-count')
+    && iframe.getAttribute('data-random-from-set')
+  ) {
     relative = appendAttributeValueToQuery(
       iframe,
       relative,
       'limit',
-      'data-random-from-set'
+      'data-random-from-set',
     );
     relative = appendAttributeValueToQuery(
       iframe,
       relative,
       'subsetRandom',
-      'data-count'
+      'data-count',
     );
   }
 
@@ -141,7 +149,7 @@ module.exports = (iframe, options = {}) => {
       iframe,
       relative,
       'lang',
-      'data-lang'
+      'data-lang',
     );
   }
 
@@ -169,7 +177,7 @@ module.exports = (iframe, options = {}) => {
       log: false,
       onMessage: onMessage.bind(null, state),
     },
-    iframe
+    iframe,
   );
 
   if (monitorHash) {
