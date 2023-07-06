@@ -3,6 +3,8 @@ const { iframeResize } = require('iframe-resizer');
 
 const defineRelativePart = require('./defineRelativePart');
 
+const { removePreFromRelativePart } = defineRelativePart;
+
 function getHash() {
   return (window.location.hash || '').replace(/^#/, '');
 }
@@ -20,9 +22,22 @@ function isPortalHash() {
   return ['?', '/'].includes(hash.substring(0, 1));
 }
 
+function getRelative(iframe, hash) {
+  return defineRelativePart(
+    {
+      query: iframe.getAttribute('data-query'),
+      count: iframe.getAttribute('data-count'),
+      randomFromSet: iframe.getAttribute('data-random-from-set'),
+      lang: iframe.getAttribute('data-lang'),
+      pre: iframe.getAttribute('data-pre'),
+    },
+    hash,
+  );
+}
+
 function updateRelativePath(state, relative) {
   state.relative = relative;
-  window.location.hash = relative;
+  window.location.hash = removePreFromRelativePart(relative);
 }
 
 function onMessage(state, { message }) {
@@ -55,6 +70,7 @@ function onMessage(state, { message }) {
 }
 
 function updateIFrameSource({ iframe, base, relative }) {
+  log('updateIFrameSource', { relative });
   iframe.setAttribute('src', base + relative);
 }
 
@@ -63,14 +79,17 @@ function updateIframeOnHashChange(state) {
     'hashchange',
     () => {
       const hash = getHash();
+      const filteredRelative = removePreFromRelativePart(state.relative);
 
-      log('updateIframeOnHashChange - %s vs %s', state.relative, hash);
+      log('updateIframeOnHashChange - %s vs %s', filteredRelative, hash);
 
-      if (hash === state.relative) {
+      if (hash === filteredRelative) {
         return;
       }
 
-      state.relative = hash;
+      // what is this relative ??? there should be a part of the query that comes from
+      // iframe attributes and another from...
+      state.relative = getRelative(state.iframe, hash);
 
       updateIFrameSource(state);
     },
@@ -100,14 +119,8 @@ module.exports = (iframe, options = {}) => {
 
   iframe.setAttribute('style', 'width: 1px; min-width: 100%;');
 
-  const relative = defineRelativePart(
-    {
-      query: iframe.getAttribute('data-query'),
-      count: iframe.getAttribute('data-count'),
-      randomFromSet: iframe.getAttribute('data-random-from-set'),
-      lang: iframe.getAttribute('data-lang'),
-      prefilter: iframe.getAttribute('data-prefilter'),
-    },
+  const relative = getRelative(
+    iframe,
     monitorHash && isPortalHash() ? getHash() : null,
   );
 

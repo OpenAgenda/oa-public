@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const qs = require('qs');
 
 module.exports = function defineRelativePart(attr, hash = null) {
@@ -13,18 +14,34 @@ module.exports = function defineRelativePart(attr, hash = null) {
     path = hashPath;
   }
 
-  if (attr['data-random-from-set'] && attr['data-count']) {
+  if (attr.randomFromSet && attr.count) {
     Object.assign(query, {
-      subsetRandom: attr['data-count'],
-      limit: attr['data-random-from-set'],
+      subsetRandom: attr.count,
+      limit: attr.randomFromSet,
     });
-  } else if (attr['data-count']) {
-    query.limit = attr['data-count'];
+  } else if (attr.count) {
+    query.limit = attr.count;
   }
 
-  if (attr['data-lang']) {
-    query.lang = attr['data-lang'];
+  if (attr.lang) {
+    query.lang = attr.lang;
+  }
+
+  if (attr.pre) {
+    query.pre = attr.pre;
   }
 
   return path + (Object.keys(query).length ? `?${qs.stringify(query)}` : '');
+};
+
+module.exports.removePreFromRelativePart = function removePreFromRelativePart(
+  relativePart,
+) {
+  const [path, query] = relativePart.split('?');
+
+  if (!query) {
+    return path;
+  }
+
+  return [path, qs.stringify(_.omit(qs.parse(query ?? ''), ['pre']))].join('?');
 };
