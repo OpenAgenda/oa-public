@@ -12,9 +12,9 @@ import {
   withLayoutData,
   Modal,
   Dropdown,
+  Spinner,
 } from '@openagenda/react-shared';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
 import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal';
 
 import MemberItem from '../../components/MemberItem';

@@ -1,4 +1,4 @@
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 
 import I18nContext from '../contexts/I18nContext';
 
@@ -97,7 +97,7 @@ export default function renderSearchInput({
       <input {...props.input} {...inputAttrs} onChange={onChange} />
       <button type="submit" className="btn">
         {loading ? (
-          <Spinner spinner={searchSpinner} />
+          <Spinner options={searchSpinner} />
         ) : (
           <i className="fa fa-search" aria-hidden="true" />
         )}
