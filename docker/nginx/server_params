@@ -36,6 +36,11 @@ location /_next {
   include conf.d/nextjs_params;
 }
 
+# dynamic scripts
+location ~ ^/js/(matomo|crisp)\.js$ {
+  include conf.d/nodejs_params;
+}
+
 # cibul-templates/dist
 location ~ ^/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;
@@ -312,6 +317,10 @@ location /monit {
 
 # /:agendaSlug/...
 location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
+  include conf.d/nodejs_params;
+}
+
+location /reports {
   include conf.d/nodejs_params;
 }
 
