@@ -28,8 +28,6 @@ var utils = require( '@openagenda/utils' ),
 
   toggle = require( './toggle' ),
 
-  preloadSpin = require( './preloadSpin' ),
-
   debug = require( 'debug' ),
 
   log = debug( 'main' ),
@@ -53,8 +51,6 @@ var utils = require( '@openagenda/utils' ),
 window.IScroll = require( 'iscroll' );
 
 du.asapReady( function () {
-
-  preloadSpin();
 
   if ( !utils.size( params ) ) {
 
