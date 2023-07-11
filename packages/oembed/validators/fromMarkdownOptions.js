@@ -30,5 +30,5 @@ module.exports = schema({
   filterInvalidLinks: {
     type: 'bool',
     default: false
-  }
+  },
 });

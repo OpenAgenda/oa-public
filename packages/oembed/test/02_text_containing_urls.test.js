@@ -4,6 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const OEmbed = require('..');
+const options = require('../testconfig');
 
 const IFRAMELY_OBJECT_KEYS = [
   'url',
@@ -18,32 +19,9 @@ const IFRAMELY_OBJECT_KEYS = [
   'thumbnail_width',
   'thumbnail_height',
   'html',
-  'cache_age'
+  'cache_age',
+  'options'
 ];
-
-const options = {
-  iframely: {
-    key: process.env.IFRAMELY_KEY
-  },
-  filters: [
-    'youtube',
-    'dailymotion',
-    '/day\.ly/',
-    'vimeo',
-    'soundcloud',
-    'twitter\.com\/.+\/status\/[0-9]+$',
-    'flickr',
-    'instagram',
-    'tumblr',
-    'prezi',
-    'google',
-    'ted',
-    'ina\.fr',
-    'youtu',
-    'calameo',
-    'allocine',
-  ]
-};
 
 const texts = {
   raffut: fs.readFileSync(`${__dirname}/fixtures/forroraffut.md`, 'utf-8'),
@@ -102,5 +80,15 @@ describe('parsing links from markdown', () => {
 
     expect(result.length).toBe(1);
     expect(result[0].link.indexOf('youtube') !== -1).toBeTruthy();
+  });
+
+  test('keep no embedable links', async () => {
+    const result = await oe.fromMarkdown('http://jacbac.github.io/bibliotech/posts/2013/post-install-linux-distrib/', {
+      includeEmbedlessLinks: true,
+      filterInvalidLinks: true
+    });
+
+    expect(result.length).toBe(1);
+    expect(result[0].data).toBeUndefined();
   });
 });
