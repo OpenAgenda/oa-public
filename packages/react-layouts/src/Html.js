@@ -9,6 +9,7 @@ function Html({
   initialState,
   extractor,
   translateMode,
+  cspNonce,
 }) {
   const htmlAttrs = helmet.htmlAttributes.toComponent();
   const bodyAttrs = helmet.bodyAttributes.toComponent();
@@ -23,6 +24,7 @@ function Html({
 
         <script
           type="text/javascript"
+          nonce={cspNonce}
           dangerouslySetInnerHTML={{
             __html:
               'window._jipt = ['
@@ -34,7 +36,7 @@ function Html({
           }}
         />
         {translateMode ? (
-          <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js" />
+          <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js" nonce={cspNonce} />
         ) : null}
 
         {helmet.script.toComponent()}
@@ -44,16 +46,18 @@ function Html({
           src="https://code.jquery.com/jquery-3.4.1.min.js"
           integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
           crossOrigin="anonymous"
+          nonce={cspNonce}
         />
         <script
           src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
           integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
           crossOrigin="anonymous"
+          nonce={cspNonce}
         />
 
-        <link rel="stylesheet" href="/css/oa-main.css?v=2" />
+        <link rel="stylesheet" href="/css/oa-main.css?v=2" nonce={cspNonce} />
 
-        {extractor ? extractor.getLinkElements() : null}
+        {extractor ? extractor.getLinkElements({ nonce: cspNonce }) : null}
       </head>
       <body {...bodyAttrs}>
         <div id="outdated" />
@@ -68,7 +72,7 @@ function Html({
           />
         )}
 
-        {extractor ? extractor.getScriptElements() : null}
+        {extractor ? extractor.getScriptElements({ nonce: cspNonce }) : null}
       </body>
     </html>
   );
