@@ -3193,7 +3193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs3@npm:^7.10.2, @babel/runtime-corejs3@npm:^7.12.5, @babel/runtime-corejs3@npm:^7.21.0, @babel/runtime-corejs3@npm:^7.9.0":
+"@babel/runtime-corejs3@npm:^7.10.2, @babel/runtime-corejs3@npm:^7.21.0, @babel/runtime-corejs3@npm:^7.9.0":
   version: 7.21.0
   resolution: "@babel/runtime-corejs3@npm:7.21.0"
   dependencies:
@@ -7400,27 +7400,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-calendar-apps@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@openagenda/agenda-calendar-apps@npm:1.3.0"
-  dependencies:
-    "@babel/runtime-corejs3": ^7.12.5
-    "@openagenda/labels": ^2.3.0
-    core-js: ^3.6.5
-    express: ^4.17.1
-    immutability-helper: ^3.0.0
-    lodash: ^4.17.15
-    moment: ^2.27.0
-    prop-types: ^15.6.0
-    react: ^16.13.1
-    react-big-calendar: ^0.17.0
-    react-dom: ^16.13.1
-    react-spinkit: ^3.0.0
-    superagent: ^3.8.2
-  checksum: ed8ef386e73e0dd58ff82494abf121ca020bcb258fa233ef74249db4298a95bbd58ed51fa3f4ea86d39dd2b1396e9ef3c63c03eabc90d22db4017cdd20007d25
-  languageName: node
-  linkType: hard
-
 "@openagenda/agenda-contribute@^1.5.2, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-contribute@workspace:packages/agenda-contribute"
@@ -8035,6 +8014,7 @@ __metadata:
     regenerator-runtime: ^0.13.7
     rimraf: ^3.0.1
     toggle-selection: ^1.0.6
+    webpack: ^4.46.0
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^18.2.0
@@ -8261,7 +8241,7 @@ __metadata:
     superagent: ^3.8.1
     terser-webpack-plugin: ^2.3.3
     webpack: ^5.53.0
-    webpack-manifest-plugin: ^3.2.0
+    webpack-assets-manifest: ^5.0.6
     webpackbar: ^5.0.0-3
     when: ~3.7.8
     xhr: ^2.2.0
@@ -9118,7 +9098,6 @@ __metadata:
     "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.5.9
@@ -9354,7 +9333,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/oembed@^2.1.14, @openagenda/oembed@workspace:packages/oembed":
+"@openagenda/oembed@^2.2.0, @openagenda/oembed@workspace:packages/oembed":
   version: 0.0.0-use.local
   resolution: "@openagenda/oembed@workspace:packages/oembed"
   dependencies:
@@ -9366,6 +9345,7 @@ __metadata:
     "@openagenda/validators": ^2.4.0
     axios: ^0.21.1
     babel-jest: ^26.6.3
+    cheerio: ^1.0.0-rc.10
     core-js: ^3.29.1
     jest: ^28.1.2
     lodash: ^4.17.15
@@ -9405,13 +9385,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/pepjs@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "@openagenda/pepjs@npm:0.5.4"
-  checksum: b49c7792be097b780e434c3f6b32d354aaae6a7f1b92fe49af8aee42774dcdfe3f80fd1107f5f2844865b3f8e3c7f9947ad56debd0000bc967d0206eab06c76e
-  languageName: node
-  linkType: hard
-
 "@openagenda/polyfills@^1.2.4, @openagenda/polyfills@workspace:public/polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:public/polyfills"
@@ -9424,7 +9397,6 @@ __metadata:
     "@formatjs/intl-numberformat": ^6.1.4
     "@formatjs/intl-pluralrules": ^4.0.6
     "@formatjs/intl-relativetimeformat": ^8.0.4
-    "@openagenda/pepjs": ^0.5.4
     core-js: ^3.29.1
     dom4: ^2.1.6
     globalthis: ^1.0.1
@@ -9544,6 +9516,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.21.0
     "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.5.9
@@ -9562,7 +9535,6 @@ __metadata:
     react-tagsinput: ^3.16.1
     rimraf: ^3.0.1
     should: ^13.2.3
-    spin.js: 2.3.2
     to-markdown: ^3.0.1
   peerDependencies:
     react: ^18.2.0
@@ -19582,7 +19554,6 @@ __metadata:
     "@openagenda/activities": ^2.3.0
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
-    "@openagenda/agenda-calendar-apps": ^1.3.0
     "@openagenda/agenda-contribute": ^1.5.2
     "@openagenda/agenda-docx": ^1.2.1
     "@openagenda/agenda-events": ^1.11.14
@@ -19625,7 +19596,7 @@ __metadata:
     "@openagenda/network-apps": ^1.1.13
     "@openagenda/networks": ^1.2.14
     "@openagenda/newsletter": ^2.0.1
-    "@openagenda/oembed": ^2.1.14
+    "@openagenda/oembed": ^2.2.0
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/pdf": ^0.1.5
     "@openagenda/polyfills": ^1.2.4
@@ -19710,6 +19681,7 @@ __metadata:
     slug: 0.9.1
     source-map-support: ^0.5.21
     superagent: ^3.8.2
+    ts-dedent: ^2.2.0
     turndown: ^5.0.3
     type-is: ^1.6.18
     uuid: ^3.4.0
@@ -19748,7 +19720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.x, classnames@npm:^2.1.3, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.4, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
+"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.4, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
@@ -21942,13 +21914,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-arithmetic@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "date-arithmetic@npm:3.1.0"
-  checksum: 9c2d9094b9fd9d861afc2a63c2bc9d279b742d3911ab3790523afb66ef82723240cf5d369ea7afd372ba290dd74fad8b20d87edb7c2235af7f95cd0c51a64252
-  languageName: node
-  linkType: hard
-
 "date-extended@npm:~0.0.3":
   version: 0.0.6
   resolution: "date-extended@npm:0.0.6"
@@ -22805,7 +22770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dom-helpers@npm:^2.3.0 || ^3.0.0, dom-helpers@npm:^3.2.0, dom-helpers@npm:^3.2.1, dom-helpers@npm:^3.4.0":
+"dom-helpers@npm:^3.2.0, dom-helpers@npm:^3.2.1, dom-helpers@npm:^3.4.0":
   version: 3.4.0
   resolution: "dom-helpers@npm:3.4.0"
   dependencies:
@@ -28979,7 +28944,7 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.1.0, invariant@npm:^2.2.0, invariant@npm:^2.2.2, invariant@npm:^2.2.4":
+"invariant@npm:^2.2.0, invariant@npm:^2.2.2, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -32133,13 +32098,6 @@ fsevents@~2.1.1:
   version: 3.2.0
   resolution: "loader-utils@npm:3.2.0"
   checksum: c7b9a8dc4b3bc19e9ef563c48e3a18ea9f8bb2da1ad38a12e4b88358cfba5f148a7baf12d78fe78ffcb718ce1e062ab31fcf5c148459f1247a672a4213471e80
-  languageName: node
-  linkType: hard
-
-"loaders.css@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "loaders.css@npm:0.1.2"
-  checksum: e1a8ee3b02f92e75cc9b20d7a391f145dbdb21efcd08713a2b94b8ded2bc250f7e21df3f4a8d675ac93a6351f0c43b6c43529d9002c683a19f6599751a29500a
   languageName: node
   linkType: hard
 
@@ -38757,27 +38715,6 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"react-big-calendar@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "react-big-calendar@npm:0.17.0"
-  dependencies:
-    classnames: ^2.1.3
-    date-arithmetic: ^3.0.0
-    dom-helpers: ^2.3.0 || ^3.0.0
-    invariant: ^2.1.0
-    lodash: ^4.17.4
-    prop-types: ^15.5.8
-    react-overlays: ^0.7.0
-    react-prop-types: ^0.4.0
-    uncontrollable: ^3.3.1 || ^4.0.0
-    warning: ^2.0.0
-  peerDependencies:
-    react: ^15.3.0 || ^16.0.0
-    react-dom: ^15.3.0 || ^16.0.0
-  checksum: b5a54fa06dd0dc9b9a3ce7926ddd913c652f21706c21181757b3b3fa754d6ed5fbaed4954abaa85d34cdcd36df1aad800b8e50e46fd79dcd5ca864042cc652b5
-  languageName: node
-  linkType: hard
-
 "react-bootstrap@npm:0.33.1, react-bootstrap@npm:^0.33.1":
   version: 0.33.1
   resolution: "react-bootstrap@npm:0.33.1"
@@ -39371,22 +39308,6 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"react-overlays@npm:^0.7.0":
-  version: 0.7.4
-  resolution: "react-overlays@npm:0.7.4"
-  dependencies:
-    classnames: ^2.2.5
-    dom-helpers: ^3.2.1
-    prop-types: ^15.5.10
-    prop-types-extra: ^1.0.1
-    warning: ^3.0.0
-  peerDependencies:
-    react: ^0.14.9 || >=15.3.0
-    react-dom: ^0.14.9 || >=15.3.0
-  checksum: 95ec9de607b2d83951eae6e41b71c249e0894607e0aa163450ee0009083b00965d2706902e2502a3423c9d12f4552532cbf8f4ec50cf09247daa0f5b83be3585
-  languageName: node
-  linkType: hard
-
 "react-overlays@npm:^0.9.0":
   version: 0.9.1
   resolution: "react-overlays@npm:0.9.1"
@@ -39651,18 +39572,6 @@ fsevents@~2.1.1:
     react: ^15.0.0 || ^16.0.0
     react-dom: ^15.0.0 || ^16.0.0
   checksum: 29a2a00e09e0f5d4dea4424f945dc7dab9b611184c60b01bd24082b6293f9e5e4bafe0e4386d4c52a2c9c651caff3eeb5ce0966917a0bd06ba1165306853c822
-  languageName: node
-  linkType: hard
-
-"react-spinkit@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-spinkit@npm:3.0.0"
-  dependencies:
-    classnames: ^2.2.3
-    loaders.css: ^0.1.2
-    object-assign: ^4.1.0
-    prop-types: ^15.5.8
-  checksum: 78235ee3b37c21d0f34e8c76d2d87de3a0bb4fbcc50d47995345cc5cc28ed8f3ba13cb6314768f06f23acd72d60fc8ec0018c52baa08a7c323096445bc47c90f
   languageName: node
   linkType: hard
 
@@ -42985,7 +42894,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"source-list-map@npm:^2.0.0, source-list-map@npm:^2.0.1":
+"source-list-map@npm:^2.0.0":
   version: 2.0.1
   resolution: "source-list-map@npm:2.0.1"
   checksum: 806efc6f75e7cd31e4815e7a3aaf75a45c704871ea4075cb2eb49882c6fca28998f44fc5ac91adb6de03b2882ee6fb02f951fdc85e6a22b338c32bfe19557938
@@ -45272,6 +45181,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"ts-dedent@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "ts-dedent@npm:2.2.0"
+  checksum: 93ed8f7878b6d5ed3c08d99b740010eede6bccfe64bce61c5a4da06a2c17d6ddbb80a8c49c2d15251de7594a4f93ffa21dd10e7be75ef66a4dc9951b4a94e2af
+  languageName: node
+  linkType: hard
+
 "ts-easing@npm:^0.2.0":
   version: 0.2.0
   resolution: "ts-easing@npm:0.2.0"
@@ -45834,17 +45750,6 @@ resolve@^2.0.0-next.3:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
-  languageName: node
-  linkType: hard
-
-"uncontrollable@npm:^3.3.1 || ^4.0.0":
-  version: 4.1.0
-  resolution: "uncontrollable@npm:4.1.0"
-  dependencies:
-    invariant: ^2.1.0
-  peerDependencies:
-    react: ">=0.11.0"
-  checksum: ea347892935c21fca5427e93b238514d9e009e9cedfddcc557c21f8fa831eb1b348b382255d179032a57aa543e99802545158613782ee1e9f634162085097e4e
   languageName: node
   linkType: hard
 
@@ -46957,15 +46862,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"warning@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "warning@npm:2.1.0"
-  dependencies:
-    loose-envify: ^1.0.0
-  checksum: ffde73563b851122fa9c196939c578ff271b0067065728ad8a4cc5a03255764352288882283bee26de50058b00c9c374ee0e1e9539655104779591b4be393ba7
-  languageName: node
-  linkType: hard
-
 "warning@npm:^3.0.0":
   version: 3.0.0
   resolution: "warning@npm:3.0.0"
@@ -47352,18 +47248,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack-manifest-plugin@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "webpack-manifest-plugin@npm:3.2.0"
-  dependencies:
-    tapable: ^2.0.0
-    webpack-sources: ^2.2.0
-  peerDependencies:
-    webpack: ^4.44.2
-  checksum: 70c7e7fcbe6232a881eb89e53b1cbee74e874196b2569cb1fca9a768d9c0ad86fadf3af7de6effa1047379cbfad6a949c532296c65cf43ea333284ff546a5e64
-  languageName: node
-  linkType: hard
-
 "webpack-merge@npm:^5.7.3, webpack-merge@npm:^5.8.0":
   version: 5.8.0
   resolution: "webpack-merge@npm:5.8.0"
@@ -47404,16 +47288,6 @@ resolve@^2.0.0-next.3:
   version: 3.2.3
   resolution: "webpack-sources@npm:3.2.3"
   checksum: 989e401b9fe3536529e2a99dac8c1bdc50e3a0a2c8669cbafad31271eadd994bc9405f88a3039cd2e29db5e6d9d0926ceb7a1a4e7409ece021fe79c37d9c4607
-  languageName: node
-  linkType: hard
-
-"webpack-sources@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "webpack-sources@npm:2.2.0"
-  dependencies:
-    source-list-map: ^2.0.1
-    source-map: ^0.6.1
-  checksum: 8276fd6c90039d1e08acc51d53d5aa6efac43b5bec9dad878cb5ec7b336c93d25599f1675a354183ab31358a060421feda6f8e56f4453e53502c81b081fda102
   languageName: node
   linkType: hard
 
