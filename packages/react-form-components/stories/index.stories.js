@@ -9,7 +9,6 @@ import LanguageBar from '../components/LanguageBar';
 import MultilingualInputField from '../components/MultilingualInputField';
 import GroupTagSelector from '../components/GroupTagSelector';
 import MultiInputField from '../components/MultiInputField';
-import Spinner from '../components/Spinner';
 import makeLabelGetter from '../lib/makeLabelGetter';
 import labels from '../labels';
 import validators from '../validators';
@@ -372,16 +371,4 @@ storiesOf( 'Multi input', module )
       ] ) }
       onChange={onChange}
     />
-  ) );
-
-storiesOf( 'Spinner', module )
-  .addDecorator( PageDecorator )
-  .add( 'relative', () => (
-    <span>
-      <p>Use this spinner to show that stuff is loading. Spreads to the first parent in position: relative.</p>
-
-      <div style={{ height: '300px', position: 'relative', border: '1px solid #ccc' }}>
-        <Spinner />
-      </div>
-    </span>
   ) );
