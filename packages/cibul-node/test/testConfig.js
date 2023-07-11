@@ -35,9 +35,9 @@ const testConfig = {
     key: process.env.OPENCAGE_KEY,
   },
   es75: {
+    agendaEventsIndex: 'test',
     host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
     port: process.env.OA_ELASTICSEARCH_750_DEV_PORT,
-    defaultIndex: 'test',
     ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
       key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
