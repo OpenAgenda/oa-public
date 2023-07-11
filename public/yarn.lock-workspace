@@ -6225,13 +6225,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/pepjs@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "@openagenda/pepjs@npm:0.5.4"
-  checksum: b49c7792be097b780e434c3f6b32d354aaae6a7f1b92fe49af8aee42774dcdfe3f80fd1107f5f2844865b3f8e3c7f9947ad56debd0000bc967d0206eab06c76e
-  languageName: node
-  linkType: hard
-
 "@openagenda/polyfills@^1.2.4, @openagenda/polyfills@workspace:polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:polyfills"
@@ -6244,7 +6237,6 @@ __metadata:
     "@formatjs/intl-numberformat": ^6.1.4
     "@formatjs/intl-pluralrules": ^4.0.6
     "@formatjs/intl-relativetimeformat": ^8.0.4
-    "@openagenda/pepjs": ^0.5.4
     core-js: ^3.29.1
     dom4: ^2.1.6
     globalthis: ^1.0.1
