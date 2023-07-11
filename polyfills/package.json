@@ -21,7 +21,6 @@
     "@formatjs/intl-numberformat": "^6.1.4",
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@formatjs/intl-relativetimeformat": "^8.0.4",
-    "@openagenda/pepjs": "^0.5.4",
     "core-js": "^3.29.1",
     "dom4": "^2.1.6",
     "globalthis": "^1.0.1",
