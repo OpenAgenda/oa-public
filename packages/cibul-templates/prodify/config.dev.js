@@ -1,7 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
-const { WebpackManifestPlugin } = require( 'webpack-manifest-plugin' );
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const ProgressBar = require( 'webpackbar' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const LoadablePlugin = require( '@loadable/webpack-plugin' );
@@ -11,7 +11,7 @@ const BABEL_EXCLUDE_REGEX = require( './babelExcludeRegex' );
 
 module.exports = ( { entry, output } ) => ({
   mode: 'development',
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   entry: {
     ...entry,
     // webapp: path.join( path.dirname( __dirname ), 'webapp/index.js' )
@@ -68,7 +68,11 @@ module.exports = ( { entry, output } ) => ({
     moduleIds: 'named'
   },
   plugins: [
-    new WebpackManifestPlugin(),
+    new WebpackAssetsManifest({
+      publicPath: true,
+      integrity: true,
+      integrityHashes: ['sha256'],
+    }),
     new ProgressBar({ basic: false }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*.chunk.js']

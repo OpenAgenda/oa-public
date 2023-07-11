@@ -1,12 +1,14 @@
-<% if ( head.js ) { %>
+<%
+const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
+%><% if ( head.js ) { %>
 <% for ( var i in head.js ) { %>
 <% if ( typeof head.js[i] == 'string' ) { %>
-    <script type="text/javascript" src="<%= head.js[i] %>"></script>
+    <script type="text/javascript" src="<%= head.js[i] %>"<%- nonceAttr %>></script>
 <% } else { %>
-    <script type="text/javascript"<% for ( var a in head.js[i] ) { %> <%= a %><% if ( head.js[i][a]!==true) { %>="<%= head.js[i][a] %>"<% } %><% } %>></script>
+    <script type="text/javascript"<%- nonceAttr %><% for ( var a in head.js[i] ) { %> <%= a %><% if ( head.js[i][a]!==true) { %>="<%= head.js[i][a] %>"<% } %><% } %>></script>
 <% } %>
 <% } %>
 <% } %>
 <% for ( var i in js ) { %>
-    <script type="text/javascript" src="<%= js[i] %>"></script>
+    <script type="text/javascript" src="<%= js[i] %>"<%- nonceAttr %>></script>
 <% } %>
