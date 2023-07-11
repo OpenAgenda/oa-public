@@ -8,6 +8,7 @@ import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
 import apiErrorHandler from './errorHandler.mjs';
+import boolQuery from '../lib/boolQuery.js';
 
 const log = logs('api');
 
@@ -143,6 +144,7 @@ export default core => {
         useAfterKey: true,
         userUid: req.user?.uid,
         includeLocationImagePath: true,
+        includeEmbedScripts: boolQuery(req.query.includeEmbedScripts, true),
         agendaKey: req.agendaKey,
       }).then(result => res.json({
         success: true,
@@ -577,8 +579,8 @@ export default core => {
       .list(req.query)
       .then(
         data => res.json({ ...data, success: true }),
-        next
-      )
+        next,
+      ),
   ]);
 
   app.get('/me/agendas/:agendaUid', [

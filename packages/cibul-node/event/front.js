@@ -294,6 +294,8 @@ const middlewares = {
         lang: req.lang,
         originalUrl: req.originalUrl,
         detailed: true,
+        includeEmbedScripts: true,
+        cspNonce: res.locals.cspNonce,
       }).then(indexedEvent => {
         if (!indexedEvent) {
           return next({ code: 404 });

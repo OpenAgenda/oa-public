@@ -18,6 +18,8 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     useAfterKey = false,
     longDescriptionFormat = null,
     useDateHoursMinutesFormat = false,
+    includeEmbedScripts = true,
+    cspNonce = null,
     ...searchOptions
   } = options;
 
@@ -56,6 +58,8 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     parsers.push(convertLongDescription.load({
       services: core.services,
       conversion: longDescriptionFormat,
+      includeEmbedScripts,
+      cspNonce,
     }));
   }
 

@@ -1,5 +1,6 @@
 import { NotFound, Forbidden } from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import boolQuery from '../../lib/boolQuery.js';
 
 const log = logs('api/middleware/getEventFromSearchOrAsDraft');
 
@@ -29,6 +30,7 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
         useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
         includeLabels: req.query.includeLabels,
         monolingual: req.query.monolingual,
+        includeEmbedScripts: boolQuery(req.query.includeEmbedScripts, true),
       });
     return next();
   } catch (err) {

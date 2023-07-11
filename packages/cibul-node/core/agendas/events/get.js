@@ -26,6 +26,8 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat,
     useLocationObjectFormat,
     longDescriptionFormat,
+    includeEmbedScripts,
+    cspNonce,
     private: loadPrivate,
   } = {
     lang: null,
@@ -41,6 +43,8 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat: false,
     useLocationObjectFormat: false,
     longDescriptionFormat: null,
+    includeEmbedScripts: true,
+    cspNonce: null,
     private: false,
     ...options,
   };
@@ -70,6 +74,8 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
       event.longDescription = convertLongDescription(event, {
         services: core.services,
         conversion: longDescriptionFormat,
+        includeEmbedScripts,
+        cspNonce,
       });
     }
     log('event fetched');

@@ -20,7 +20,6 @@ module.exports = app => {
   require('./services/mails/unsubscription')(app);
   require('./event/files')(app);
   app.services.agendaDocx.plugApp(app);
-  require('./services/agendaCalendar')(app);
   require('./home/back')(app);
   require('./general/front')(app);
   require('./general/session.back')(app);
@@ -40,6 +39,8 @@ module.exports = app => {
   require('./agenda/activities.back')(app);
   require('./services/stats').plugApp(app);
   require('./services/supervisor').plugApp(app, '/supervisor');
+  app.services.reports.plugApp(app);
+  app.services.dynamicScripts.plugApp(app);
   require('./webapp')(app);
   require('./services/agendas').plugApp(app);
   require('./services/activities')(app);

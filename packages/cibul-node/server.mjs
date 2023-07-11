@@ -7,6 +7,7 @@ import '@openagenda/polyfills/intl-locales.js';
 import './lib/initLog.mjs';
 import './sentry.config.mjs';
 
+import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
 import Sentry from '@sentry/node';
 import express from 'express';
@@ -23,6 +24,7 @@ import task from './task.mjs';
 import { middleware as logRequestMw } from './services/logRequests.js';
 import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
+import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import { getSingleton as getGenUrlSingleton } from './services/genUrl/index.js';
 import unsubscribedFront from './general/unsubscribed.front.js';
 
@@ -34,6 +36,14 @@ const API = process.argv.includes('api');
 const log = logs('server');
 
 const secureHeaders = [
+  (req, res, next) => {
+    req.app = app;
+    res.setHeader('X-Powered-By', 'OpenAgenda');
+    res.setHeader('Reporting-Endpoints', `default="${config.root}/reports"`);
+    res.locals.cspNonce = randomBytes(16).toString('base64');
+    next();
+  },
+  contentSecurityPolicy(),
   helmet.strictTransportSecurity(config.hsts),
   helmet.xFrameOptions(),
 ];

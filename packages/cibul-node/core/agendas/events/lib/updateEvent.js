@@ -24,8 +24,6 @@ module.exports = async function updateEvent(services, {
     try {
       clean.event.links = await processOEmbed(oembed, clean.event.longDescription, {
         current: clean.event.links,
-        includeEmbedlessLinks: true,
-        filterInvalidLinks: true,
       });
       log('retrieved %s links', clean.event.links.length);
     } catch (e) {
