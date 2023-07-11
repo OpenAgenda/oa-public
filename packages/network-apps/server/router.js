@@ -4,7 +4,9 @@ const _ = require('lodash');
 const bodyParser = require('body-parser');
 const express = require('express');
 const serialize = require('serialize-javascript');
-
+const { createElement } = require('react');
+const ReactDOM = require('react-dom/server');
+const { Spinner } = require('@openagenda/react-shared');
 const log = require('@openagenda/logs')('router');
 
 const router = express.Router({ mergeParams: true });
@@ -90,7 +92,7 @@ router.post(
       res.json(await router.service.addAgendaToNetwork(
         parseInt(req.params.uid),
         req.body.slugOrUrl.split('/').pop()
-     ));
+      ));
     } catch (e) {
       log('error', 'agenda add', e);
       next(e);
@@ -104,7 +106,7 @@ router.post(
       res.json(await router.service.removeAgendaFromNetwork(
         parseInt(req.params.uid),
         parseInt(req.params.agendaUid)
-     ));
+      ));
     } catch (e) {
       log('error', 'agenda add', e);
       next(e);
@@ -119,7 +121,7 @@ router.post(
         parseInt(req.params.uid),
         req.body,
         await router.service.getLoggedUser(req)
-     ));
+      ));
     } catch (e) {
       next(e);
     }
@@ -147,7 +149,9 @@ async function _renderPage(req, res, next) {
 
   res.end(router.layout(
     `<div>
-      <div class="js_preload_spin" id="app"></div>
+      <div id="app">${ReactDOM.renderToString(
+        createElement(Spinner)
+      )}</div>
       <script type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
       <script defer type="text/javascript" src="${_getClientAppPath(router.service.name, router.service.config)}"></script>
     </div>`, layoutData));
@@ -165,5 +169,5 @@ function _getClientAppPath(serviceName, config) {
   return [
     config.CDNPath + serviceName,
     distFileName
- ].join('/');
+  ].join('/');
 }
