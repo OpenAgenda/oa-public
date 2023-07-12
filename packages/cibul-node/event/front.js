@@ -17,6 +17,7 @@ const members = require('../services/members');
 const cacheMw = require('../lib/cache.mw');
 const cmn = require('../lib/commons-app');
 const removeXFrameOptionsHeader = require('../lib/removeXFrameOptionsHeader');
+const contentSecurityPolicy = require('../lib/contentSecurityPolicy');
 const config = require('../config');
 const embedSvc = require('../services/embed');
 const legacyEventSvc = require('../services/event');
@@ -26,6 +27,30 @@ const redirectMiddelware = require('./redirect.middleware')(config);
 const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
 const getAgendaReferences = require('./lib/getAgendaReferences');
 const getEventLayoutData = require('./lib/getEventLayoutData');
+
+const csp = contentSecurityPolicy({
+  ...contentSecurityPolicy.defaultDirectives,
+  frameSrc: [
+    ...contentSecurityPolicy.defaultDirectives.frameSrc,
+    'https://www.youtube.com',
+    'https://player.vimeo.com',
+    'https://v.calameo.com',
+    'https://w.soundcloud.com',
+    'https://docs.google.com',
+    'https://www.dailymotion.com',
+    'https://drive.google.com',
+    'https://player.allocine.fr',
+    'https://cdn.iframe.ly',
+    'https://www.google.com',
+    'https://maps.google.com',
+    'https://prezi.com',
+    'https://player.twitch.tv',
+    'https://livemap.getwemap.com',
+    'https://www.arte.tv',
+    'https://vimeo.com',
+    'https://platform.twitter.com',
+  ],
+});
 
 function getRouteValues(req, keys) {
   const routeValues = [];
@@ -315,6 +340,7 @@ const middlewares = {
       }, next);
     },
     cmn.loadBaseData(getEventLayoutData, 'oa-main.css'),
+    csp,
     wrap(agendaEventShow),
   ],
   customEmbedEventShow: [
@@ -327,6 +353,7 @@ const middlewares = {
     cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     embedSvc.mw.loadCustomLayoutData,
     _appendSettings,
+    csp,
     renderAgendaEmbedEvent,
   ],
 };
@@ -419,6 +446,7 @@ module.exports = app => {
     cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     _appendFacebookParams,
     removeXFrameOptionsHeader,
+    csp,
     renderAgendaEmbedEvent,
     (req, res) => res.send(req.render),
   );

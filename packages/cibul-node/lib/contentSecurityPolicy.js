@@ -22,26 +22,7 @@ const defaultDirectives = {
   ],
   objectSrc: ["'none'"],
   mediaSrc: ["'self'", 'https:', 'data:'],
-  frameSrc: [
-    "'self'",
-    'https://www.youtube.com',
-    'https://player.vimeo.com',
-    'https://v.calameo.com',
-    'https://w.soundcloud.com',
-    'https://docs.google.com',
-    'https://www.dailymotion.com',
-    'https://drive.google.com',
-    'https://player.allocine.fr',
-    'https://cdn.iframe.ly',
-    'https://www.google.com',
-    'https://maps.google.com',
-    'https://prezi.com',
-    'https://player.twitch.tv',
-    'https://livemap.getwemap.com',
-    'https://www.arte.tv',
-    'https://vimeo.com',
-    'https://platform.twitter.com',
-  ],
+  frameSrc: ["'self'"],
   scriptSrc: [
     "'self'",
     // "'unsafe-inline'",
@@ -60,10 +41,11 @@ const defaultDirectives = {
   upgradeInsecureRequests: [],
   blockAllMixedContent: [],
   reportTo: ['default'],
+  reportUri: [req => `${req.app.core.getConfig().root}/reports`], // for firefox, the new IE
 };
 
 module.exports = (directives = defaultDirectives) => helmet.contentSecurityPolicy({
-  reportOnly: true,
+  // reportOnly: true,
   useDefaults: false,
   directives,
 });
