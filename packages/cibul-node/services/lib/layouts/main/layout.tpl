@@ -8,16 +8,16 @@ const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/favicon.ico">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/oa-main.css?v=1"<%- nonceAttr %>>
+    <link rel="stylesheet" href="/css/oa-main.css?v=1"<%= nonceAttr %>>
     <meta name="robots" content="index, follow">
 <% for ( meta of metas ) { %>
     <meta property="<%= meta.property %>" content="<%= meta.content %>">
 <% } %>
 <% for ( script of scripts.top ) { %>
   <% if (script.src) { %>
-    <script type="text/javascript" src="<%= script.src %>"<%- nonceAttr %>></script>
+    <script type="text/javascript" src="<%= script.src %>"<%= nonceAttr %>></script>
   <% } else if (script.body) { %>
-    <script type="text/javascript"<%- nonceAttr %>><%= script.body %></script>
+    <script type="text/javascript"<%= nonceAttr %>><%= script.body %></script>
   <% } %>
 <% } %>
   </head>
@@ -89,13 +89,13 @@ const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
       </div>
     </nav>
     {content}
-    <script type="text/javascript"<%- nonceAttr %>>window.templates='bs';</script>
-    <script type="text/javascript" src="/js/bsLayoutMain.js"<%- nonceAttr %>></script>
+    <script type="text/javascript"<%= nonceAttr %>>window.templates='bs';</script>
+    <script type="text/javascript" src="/js/bsLayoutMain.js"<%= nonceAttr %>></script>
 <% for ( script of scripts.bottom ) { %>
   <% if (script.src) { %>
-    <script type="text/javascript" src="<%= script.src %>"<%- nonceAttr %>></script>
+    <script type="text/javascript" src="<%= script.src %>"<%= nonceAttr %>></script>
   <% } else if (script.body) { %>
-    <script type="text/javascript"<%- nonceAttr %>><%= script.body %></script>
+    <script type="text/javascript"<%= nonceAttr %>><%= script.body %></script>
   <% } %>
 <% } %>
   </body>
