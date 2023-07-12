@@ -27,6 +27,8 @@ const privateData = require('./privateData');
 
 const hours = require('./hours');
 
+const print = require('./print');
+
 const permalink = require('./permalink');
 
 const portalTimings = require('./portalTimings');
@@ -87,6 +89,8 @@ window.asap(async options => {
   log = debug('event');
 
   displayReferences(params.agendaUid, params.uid);
+
+  print();
 
   permalink();
 
