@@ -577,8 +577,8 @@ export default core => {
       .list(req.query)
       .then(
         data => res.json({ ...data, success: true }),
-        next
-      )
+        next,
+      ),
   ]);
 
   app.get('/me/agendas/:agendaUid', [

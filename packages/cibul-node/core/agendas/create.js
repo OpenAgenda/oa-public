@@ -1,7 +1,6 @@
 'use strict';
 
 const { BadRequest } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('core/agendas/create');
 
 module.exports = async (core, data, options = {}) => {
   const {

@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 
 module.exports = async (services, agenda) => {
@@ -26,7 +25,7 @@ module.exports = async (services, agenda) => {
       log('create inbox (agenda uid %d)', agenda.uid);
       await new Inbox().create({
         type: 'agenda',
-        identifier: agenda.uid
+        identifier: agenda.uid,
       });
     } catch (e) {
       log('error', 'failed to create agenda inbox', e);
@@ -40,7 +39,7 @@ module.exports = async (services, agenda) => {
     try {
       agendaFeed = await activities.feed({
         entityType: 'agenda',
-        entityUid: agenda.uid
+        entityUid: agenda.uid,
       }).create();
     } catch (e) {
       log('error', 'failed to created agenda feed', e);
@@ -49,8 +48,8 @@ module.exports = async (services, agenda) => {
 
   const user = await usersSvc.findOne({
     query: {
-      id: agenda.ownerId
-    }
+      id: agenda.ownerId,
+    },
   });
 
   if (user.isNew) {
@@ -58,20 +57,20 @@ module.exports = async (services, agenda) => {
   }
 
   try {
-    await controlDataSvc.rebuild( agenda.uid );
+    await controlDataSvc.rebuild(agenda.uid);
     await controlDataSvc.memberSet({
       agendaUid: agenda.uid,
       userUid: user.uid,
-      role: 2
+      role: 2,
     });
   } catch (e) {
     log('error', 'failed to set agenda control data', e);
   }
 
-  const { member } = await members.create({
+  await members.create({
     agendaUid: agenda.uid,
     userUid: user.uid,
-    role: 2
+    role: 2,
   }, { requireCustom: false }).catch(e => {
     if (e) log('error', 'failed to create member');
     throw e;
@@ -86,9 +85,9 @@ module.exports = async (services, agenda) => {
         store: {
           labels: {
             actor: user.fullName,
-            target: agenda.title
-          }
-        }
+            target: agenda.title,
+          },
+        },
       });
     } catch (e) {
       log('error', 'failed to create agenda create activity', e);
@@ -106,7 +105,7 @@ module.exports = async (services, agenda) => {
   try {
     await keys({
       type: 'agendaFullRead',
-      identifier: agenda.uid
+      identifier: agenda.uid,
     }).create();
   } catch (e) {
     log('error', 'failed to create agenda key', e);
