@@ -10,35 +10,41 @@ module.exports = async (services, agenda) => {
     legacy,
     keys,
     activities,
-    inboxes: { Inbox },
+    inboxes,
     eventSearch,
     agendaSearch,
-    discord
+    discord,
   } = services;
+
+  const Inbox = inboxes?.Inbox;
 
   const controlDataSvc = legacy.controlData;
 
   // inbox
-  try {
-    log('create inbox (agenda uid %d)', agenda.uid);
-    await new Inbox().create({
-      type: 'agenda',
-      identifier: agenda.uid
-    });
-  } catch (e) {
-    log('error', 'failed to create agenda inbox', e);
+  if (Inbox) {
+    try {
+      log('create inbox (agenda uid %d)', agenda.uid);
+      await new Inbox().create({
+        type: 'agenda',
+        identifier: agenda.uid
+      });
+    } catch (e) {
+      log('error', 'failed to create agenda inbox', e);
+    }
   }
 
   let agendaFeed;
 
   // feed / activity
-  try {
-    agendaFeed = await activities.feed({
-      entityType: 'agenda',
-      entityUid: agenda.uid
-    }).create();
-  } catch(e) {
-    log('error', 'failed to created agenda feed', e);
+  if (activities) {
+    try {
+      agendaFeed = await activities.feed({
+        entityType: 'agenda',
+        entityUid: agenda.uid
+      }).create();
+    } catch (e) {
+      log('error', 'failed to created agenda feed', e);
+    }
   }
 
   const user = await usersSvc.findOne({
@@ -89,7 +95,7 @@ module.exports = async (services, agenda) => {
     }
   }
 
-  if (agenda.indexed) {
+  if (agendaSearch && agenda.indexed) {
     try {
       await agendaSearch.set(agenda);
     } catch (e) {
@@ -112,11 +118,13 @@ module.exports = async (services, agenda) => {
     log('error', 'failed to create agenda index');
   }
 
-  try {
-    await discord.notifyAgendaCreation(agenda, user);
-  } catch (e) {
-    log('error', 'failed to notify discord %s', e);
+  if (discord) {
+    try {
+      await discord.notifyAgendaCreation(agenda, user);
+    } catch (e) {
+      log('error', 'failed to notify discord %s', e);
+    }
   }
 
   log('done');
-}
+};

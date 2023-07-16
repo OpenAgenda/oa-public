@@ -1,14 +1,42 @@
 'use strict';
 
-const { promisify } = require('util');
+const { BadRequest } = require('@openagenda/verror');
+const log = require('@openagenda/logs')('core/agendas/create');
 
 module.exports = async (core, data, options = {}) => {
-  const setAgenda = promisify(core.services.agendas.set);
+  const {
+    services: {
+      agendas,
+    },
+    users,
+  } = core;
+
+  const {
+    userUid,
+  } = options;
+
+  if (!userUid) {
+    throw new BadRequest('userUid must be defined');
+  }
+
+  const user = await users.get(userUid);
+
+  if (!user) {
+    throw new BadRequest('provided userUid matches no account');
+  }
 
   const {
     success,
     agenda,
-  } = await setAgenda(data);
+    errors,
+  } = await agendas.set({
+    ...data,
+    ownerId: user.id,
+  });
+
+  if (errors?.length) {
+    throw new BadRequest({ info: { errors } }, 'invalid data');
+  }
 
   if (!success) {
     throw new Error('could not create agenda');
