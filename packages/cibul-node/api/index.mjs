@@ -73,6 +73,13 @@ export default core => {
     '/agendas/:agendaUid',
   ], mw.redirectIfPrivate);
 
+  app.post(
+    '/agendas',
+    (req, res, next) => core.agendas
+      .create(req.parsedData, { userUid: req.user.uid })
+      .then(agenda => res.json(agenda), next),
+  );
+
   app.patch(
     '/agendas/:agendaUid',
     mw.member.load,

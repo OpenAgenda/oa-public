@@ -1,3 +1,5 @@
+import axios from 'axios';
+import api from '../api/index.mjs';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 
@@ -61,6 +63,48 @@ describe('07 - core - functional (server): core.agendas().create', () => {
 
         expect(member.role).toBe('administrator');
       });
+    });
+  });
+
+  describe('api', () => {
+    let server;
+    let accessToken;
+
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
+    });
+
+    afterAll(() => server.close());
+
+    beforeAll(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
+      }).then(r => r.data.access_token);
+    });
+
+    test('basic create', async () => {
+      const response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/agendas',
+        headers: {
+          'access-token': accessToken,
+          nonce: 38928943,
+          'content-type': 'application/json',
+        },
+        data: {
+          title: 'Un agenda créé via API',
+          description: 'Test',
+        },
+      });
+
+      expect(response.data.title).toBe('Un agenda créé via API');
     });
   });
 });
