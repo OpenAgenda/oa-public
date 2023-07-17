@@ -1,7 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
-const { WebpackManifestPlugin } = require( 'webpack-manifest-plugin' );
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const ProgressBar = require( 'webpackbar' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
@@ -78,7 +78,11 @@ module.exports = ( { entry, output } ) => ({
   },
   plugins: [
     // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
-    new WebpackManifestPlugin(),
+    new WebpackAssetsManifest({
+      publicPath: true,
+      integrity: true,
+      integrityHashes: ['sha256'],
+    }),
     new ProgressBar( { basic: false } ),
     new CleanWebpackPlugin( {
       cleanOnceBeforeBuildPatterns: [ '**/*.chunk.js', '**/webapp*.js' ]

@@ -110,7 +110,7 @@ module.exports = function ( templateName, data, cb ) {
 
     }
 
-    if ( data.env ) templateRender = _insertEnvironment( templateRender, data.env );
+    if ( data.env ) templateRender = _insertEnvironment( templateRender, data.env, data.cspNonce );
 
     cb( null, templateRender );
 
@@ -417,9 +417,12 @@ function _loadScripts( templateName, scriptsBase ) {
 
 }
 
-function _insertEnvironment( render, environment ) {
+function _insertEnvironment( render, environment, cspNonce ) {
 
-  return render.replace( '<head>', '<head><script type="text/javascript">window.env="' + environment + '"</script>' );
+  const nonce = cspNonce ? ` nonce="${cspNonce}"` : '';
+  const script = `<script type="text/javascript"${nonce}>window.env="${environment}"</script>`
+
+  return render.replace( '<head>', `<head>${script}` );
 
 }
 

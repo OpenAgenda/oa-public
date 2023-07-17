@@ -1,14 +1,16 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<%
+const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
+%><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"<%- nonceAttr %>></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"<%- nonceAttr %>></script>
 <% if ( typeof bottom !== 'undefined' ) { %>
 <% if ( typeof bottom.scriptSources !== 'undefined' ) { %>
 <% bottom.scriptSources.forEach( function( src ) { %>
-<script type="text/javascript" src="<%= src %>"></script>
+<script type="text/javascript" src="<%= src %>"<%- nonceAttr %>></script>
 <% } ); %>
 <% } %>
 <% if ( bottom.scripts ) { %>
 <% bottom.scripts.forEach( function( script ) { %>
-<script type="text/javascript"><%- script %></script>
+<script type="text/javascript"<%- nonceAttr %>><%- script %></script>
 <% }); %>
 <% } %>
 <% if ( bottom.scriptTags ) { %>

@@ -38,6 +38,7 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
   lang,
   originalUrl,
   detailed = false,
+  cspNonce,
 }) {
   const {
     core,
@@ -66,6 +67,8 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
       includeLabels: true,
       includeLocationImagePath: true,
       includeImageTimestamps: true,
+      includeEmbedScripts: true,
+      cspNonce,
     });
 
   if (!event) {

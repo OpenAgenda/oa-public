@@ -21,7 +21,7 @@ module.exports = config => (req, res, next) => {
   if (req.cookies.translateMode) {
     scripts.top = [
       { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
-      { src: '//cdn.crowdin.com/jipt/jipt.js' }
+      { src: 'https://cdn.crowdin.com/jipt/jipt.js' }
     ];
   }
 
@@ -59,6 +59,7 @@ module.exports = config => (req, res, next) => {
       })
     }],
     translateMode,
-    isTranslator
+    isTranslator,
+    cspNonce: res.locals.cspNonce,
   }));
 };

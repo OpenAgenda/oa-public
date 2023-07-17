@@ -9,7 +9,7 @@ module.exports = function getLongDescriptionLinks(links) {
   }
 
   const tst = links.map(link => {
-    if (link.data) {
+    if (link.data?.html) {
       return {
         link: link.link,
         code: link.data.html,

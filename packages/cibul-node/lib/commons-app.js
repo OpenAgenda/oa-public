@@ -258,6 +258,7 @@ function errorResponse(req, res, err, jsr) {
     const layoutData = {
       lang: req.lang,
       title: error.code,
+      cspNonce: res.locals.cspNonce,
     };
 
     if (!error.back && req.agenda) {
@@ -446,7 +447,8 @@ function loadBaseData( func, cssFile ) {
         scripts: []
       },
       scriptsBase: '/js',
-      domain: config.domain
+      domain: config.domain,
+      cspNonce: res.locals.cspNonce,
     }
 
     if ( func ) {
@@ -478,8 +480,8 @@ function loadBaseData( func, cssFile ) {
 
     if (req.cookies.translateMode) {
       // Note: bottom is before head
-      req.baseData.bottom.scripts.push(`window._jipt = [['project', 'openagenda']];`);
-      req.baseData.head.js.crowdin = '//cdn.crowdin.com/jipt/jipt.js';
+      req.baseData.bottom.scripts.push('window._jipt = [[\'project\', \'openagenda\']];');
+      req.baseData.head.js.crowdin = 'https://cdn.crowdin.com/jipt/jipt.js';
     }
 
     if (typeof next === 'function') {

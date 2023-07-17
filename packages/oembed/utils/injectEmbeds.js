@@ -2,17 +2,31 @@
 
 const _ = require('lodash');
 const { parse } = require('node-html-parser');
+const validateOptions = require('../validators/injectEmbedsOptions');
 
-module.exports = (html = '', linkEmbedPairs = []) => {
+function convertScriptToHtml(script, cspNonce) {
+  let attributes = Object.keys(script)
+    .map(key => (script[key] === true ? key : `${key}="${script[key]}"`))
+    .join(' ');
+
+  if (cspNonce) {
+    attributes += ` nonce="${cspNonce}"`;
+  }
+
+  return `<script ${attributes}></script>`;
+}
+
+module.exports = (html = '', linkEmbedPairs = [], options) => {
   if (!linkEmbedPairs || !linkEmbedPairs.length) {
     return html;
   }
 
-  return parse(html)
+  const { includeEmbedScripts, cspNonce } = validateOptions(options);
+
+  const HTMLWithEmbeds = parse(html)
     .querySelectorAll('a')
     .reduce((injected, aNode) => {
-
-      if (aNode.rawAttrs.indexOf('href')===-1) {
+      if (aNode.rawAttrs.indexOf('href') === -1) {
         return injected;
       }
 
@@ -24,7 +38,7 @@ module.exports = (html = '', linkEmbedPairs = []) => {
         return injected;
       }
 
-      const embedCode = match.data ? match.data.html : match.code;
+      const embedCode = match.data?.html;
 
       if (!embedCode) {
         return injected;
@@ -32,4 +46,17 @@ module.exports = (html = '', linkEmbedPairs = []) => {
 
       return injected.replace(aNode.outerHTML, embedCode);
     }, html);
+
+  if (!includeEmbedScripts) {
+    return HTMLWithEmbeds;
+  }
+
+  const scripts = linkEmbedPairs
+    .filter((obj, index, self) => {
+      if (!obj.data?.script) return false;
+      return index === self.findIndex(o => o.data?.script?.src === obj.data.script.src);
+    })
+    .map(link => convertScriptToHtml(link.data.script, cspNonce));
+
+  return `${HTMLWithEmbeds}${scripts.join('')}`;
 }

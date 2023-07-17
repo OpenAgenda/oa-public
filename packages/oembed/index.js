@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const axios = require('axios');
 const mdExtractor = require('markdown-link-extractor');
+const cheerio = require('cheerio');
 
 const logger = require('@openagenda/logs');
 
@@ -25,9 +26,31 @@ const isLink = v => {
 }
 
 const isEmbedlessLink = (filters, link) => {
-  return !filters.filter(
-    filter => filter.test(link)
-  ).length;
+  return !filters.some(filter => filter.test(link));
+}
+
+function extractScript(linkData) {
+  const $ = cheerio.load(linkData.html);
+
+  const scriptElem = $('script').get(0);
+
+  if (!scriptElem) {
+    return linkData;
+  }
+
+  const script = Object.entries(scriptElem.attribs)
+    .reduce((accu, [key, value]) => {
+      accu[key] = value === '' ? true : value;
+      return accu;
+    }, {});
+
+  $('script').remove();
+
+  return {
+    ...linkData,
+    html: $('body').html(),
+    script,
+  };
 }
 
 module.exports = class OEmbed {
@@ -44,18 +67,27 @@ module.exports = class OEmbed {
     }
   }
 
-  get(url) {
+  async get(url, options = {}) {
     log('getting data for %s', url);
 
-    return axios.get(this.params.iframely.res, {
-      params: {
-        api_key: this.params.iframely.key,
-        url
-      }
-    }).then(r => {
+    try {
+      const result = await axios.get(this.params.iframely.res, {
+        params: {
+          api_key: this.params.iframely.key,
+          url,
+          lazy: options.lazy ? 1 : 0,
+        },
+      });
+
       log('retrieved data for %s', url);
-      return r.data;
-    });
+
+      return extractScript(result.data);
+    } catch (err) {
+      if (err?.response?.status === 417) {
+        return null;
+      }
+      throw err;
+    }
   }
 
   fromMarkdown(md = '', options = {}) {
@@ -73,19 +105,19 @@ module.exports = class OEmbed {
     });
 
     return Promise.all(urls.map(async url => {
-      const matchingCurrent = _.first(cleanOptions.current.filter(c => c.link === url));
+      const matchingCurrent = cleanOptions.current.find(c => c.link === url);
 
       if (matchingCurrent) return matchingCurrent;
 
       const item = { link: _.unescape(url) };
 
-      if (!this.params.filters.some(filter => filter.test(url))) return item;
+      if (isEmbedlessLink(this.params.filters, url)) return item;
 
       try {
-        return {
-          link: _.unescape(url),
-          data: await this.get(url)
-        };
+        item.data = await this.get(url, {
+          lazy: cleanOptions.lazy,
+        })
+        return item;
       } catch (e) {
         log('error', 'could not retrieve code for %s', url, e);
         return null;
@@ -93,7 +125,7 @@ module.exports = class OEmbed {
     })).then(res => res.filter(r => !!r));
   }
 
-  injectEmbeds(html, links) {
-    return injectEmbeds(html, links);
+  injectEmbeds(html, links, options) {
+    return injectEmbeds(html, links, options);
   }
 };

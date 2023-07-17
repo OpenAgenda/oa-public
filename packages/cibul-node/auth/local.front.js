@@ -411,12 +411,17 @@ async function activate(req, res) {
     const html = renderManualPage(req.lang);
 
     if (req.agenda) {
-      return res.send(layouts.agenda(html, req));
+      return res.send(layouts.agenda(html, {
+        lang: req.lang,
+        agenda: req.agenda,
+        cspNonce: res.locals.cspNonce,
+      }));
     }
 
     return res.send(layouts.main(html, {
       lang: req.lang,
       title: getLabel(manualLabels.title, req.lang),
+      cspNonce: res.locals.cspNonce,
     }));
   }
 
