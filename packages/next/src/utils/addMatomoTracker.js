@@ -5,18 +5,24 @@ export default function addMatomoTracker({ matomoUrl, matomoSiteId, matomoCustom
     console.log('addMatomoCustomTracker');
     const custom = new Function(matomoCustom);
     custom();
-    return; 
+    return;
   }
-  console.log('addMatomoDefaultTracker');
+  console.log('addMatomoDefaultTracker', matomoUrl, matomoSiteId, matomoCustom);
   var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
-  (function() {
-    var u=`${matomoUrl}`;
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', matomoSiteId]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src=`//cdn.matomo.cloud/${matomoUrl}matomo.js`; s.parentNode.insertBefore(g,s);
-  })();
+  var u = `https://${matomoUrl}`;
+  _paq.push(['setTrackerUrl', u + 'matomo.php']);
+  _paq.push(['setSiteId', matomoSiteId]);
+  var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+  g.async = true; g.src = `//cdn.matomo.cloud/${matomoUrl}matomo.js`; s.parentNode.insertBefore(g, s);
 }
+
+/* [[['trackPageView']], ['enableLinkTracking'], ['setTrackerUrl', u + 'matomo.php']] */
+
+/* {
+  matomoUrl:
+  matomoSiteId: 
+  matomoPaq: []
+} */
