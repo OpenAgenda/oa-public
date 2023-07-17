@@ -45,7 +45,7 @@ const defaultDirectives = {
 };
 
 module.exports = (directives = defaultDirectives) => helmet.contentSecurityPolicy({
-  // reportOnly: true,
+  reportOnly: true,
   useDefaults: false,
   directives,
 });
