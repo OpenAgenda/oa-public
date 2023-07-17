@@ -2,7 +2,7 @@
 
 const { Router } = require('express');
 
-const gaTrackFormat = require('./lib/gaTrackFormat');
+const trackFormat = require('./lib/trackFormat');
 const loadSearchEndpoint = require('./lib/loadSearchEndpoint');
 const loadSearchStream = require('./lib/loadSearchStream');
 const loadAgendaLanguagesAndFormSchemas = require('./lib/loadAgendaLanguagesAndFormSchemas');
@@ -32,7 +32,7 @@ module.exports = services => ({
     ),
     loadAgendaLanguagesAndFormSchemas(services),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
-    gaTrackFormat,
+    trackFormat,
     ifFormat('csv', streamCSV),
     ifFormat('xlsx', streamXLSX),
     ifFormat('ics', streamICS),
@@ -50,7 +50,7 @@ module.exports = services => ({
     loadSearchEndpoint(services.core, { admin: true }),
     loadAgendaLanguagesAndFormSchemas(services),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
-    gaTrackFormat,
+    trackFormat,
     ifJSONStreamRequested(loadSearchStream()),
     ifFormat('csv', streamCSV),
     ifFormat('xlsx', streamXLSX),

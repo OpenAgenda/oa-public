@@ -3,7 +3,7 @@ import express from 'express';
 import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
-import gaTrack from '../lib/gaTrack.js';
+import track from '../lib/track.js';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
@@ -74,6 +74,13 @@ export default core => {
     '/agendas/:agendaUid',
   ], mw.redirectIfPrivate);
 
+  app.post(
+    '/agendas',
+    (req, res, next) => core.agendas
+      .create(req.parsedData, { userUid: req.user.uid })
+      .then(agenda => res.json(agenda), next),
+  );
+
   app.patch(
     '/agendas/:agendaUid',
     mw.member.load,
@@ -135,7 +142,7 @@ export default core => {
       '/agendas/slug/:agendaSlug/events',
     ],
     mw.convertLegacyFilter,
-    gaTrack.mw('api', 'list', 'events'),
+    track.mw('api', 'list', 'events'),
     (req, res, next) => core
       .agendas(req.agenda.uid).events
       .search(req.convertedQuery, req.convertedQuery, {
@@ -159,7 +166,7 @@ export default core => {
   ], [
     mw.evaluateAnonymousAccess,
     mw.getEventFromSearchOrAsDraft,
-    gaTrack.mw('api', 'get', 'events'),
+    track.mw('api', 'get', 'events'),
     (req, res) => res.json({
       success: true,
       event: req.event,
@@ -168,13 +175,13 @@ export default core => {
 
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
-    gaTrack.mw('api', 'get', 'settings'),
+    track.mw('api', 'get', 'settings'),
     settings.get,
   ]);
 
   app.get('/agendas/:agendaUid/settings/eventSchema', [
     mw.member.allow(['administrator', 'moderator']),
-    gaTrack.mw('api', 'get', 'eventSchema'),
+    track.mw('api', 'get', 'eventSchema'),
     (req, res, next) => core.agendas(req.agenda.uid)
       .settings
       .schema
@@ -203,7 +210,7 @@ export default core => {
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.load,
-    gaTrack.mw('api', 'get', 'memberSchema'),
+    track.mw('api', 'get', 'memberSchema'),
     (req, res, next) => core.agendas(req.agenda.uid)
       .settings
       .schema
@@ -237,7 +244,7 @@ export default core => {
 
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
-    gaTrack.mw('api', 'list', 'members'),
+    track.mw('api', 'list', 'members'),
     (req, res, next) => core
       .agendas(req.agenda.uid).members.list(req.query, req.query, {
         userUid: req.user.uid,
@@ -270,7 +277,7 @@ export default core => {
 
   app.get('/agendas/:agendaUid/members/email/:email', [
     mw.member.load,
-    gaTrack.mw('api', 'get', 'memberEmail'),
+    track.mw('api', 'get', 'memberEmail'),
     (req, res, next) => core.agendas(req.agenda.uid).members.get({
       email: req.params.email,
     }, { userUid: req.user.uid }).then(data => res.json(data), next),
@@ -278,7 +285,7 @@ export default core => {
 
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
-    gaTrack.mw('api', 'get', 'member'),
+    track.mw('api', 'get', 'member'),
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .get(req.params.userUid, {
@@ -485,7 +492,7 @@ export default core => {
 
   app.get(
     '/agendas/:agendaUid/locations',
-    gaTrack.mw('api', 'list', 'locations'),
+    track.mw('api', 'list', 'locations'),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .list(req.query, req.query, {

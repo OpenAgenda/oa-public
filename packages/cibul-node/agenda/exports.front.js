@@ -4,7 +4,7 @@ const _ = require('lodash');
 const cbify = require('@openagenda/utils/cbify');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
-const gaTrack = require('../lib/gaTrack');
+const track = require('../lib/track');
 const config = require('../config');
 const convertFormat = require('./ConvertFormat');
 const loadCredentials = require('./loadCredentials');
@@ -96,7 +96,7 @@ module.exports = app => {
     preMw,
     checkKey((req, res, _next) => res.status(400).json({ error: 'Provided key is invalid' })),
     loadCredentials,
-    convertFormat({ sendJSON: true, ga: ['events', 'export', 'json'] }),
+    convertFormat({ sendJSON: true, trackInfos: ['events', 'export', 'json'] }),
   );
 
   app.get(
@@ -107,7 +107,7 @@ module.exports = app => {
     loadTagSet,
     loadCategorySet,
     loadEmbedUids,
-    gaTrack.mw('settings', 'export', 'json'),
+    track.mw('settings', 'export', 'json'),
     (req, res) => cmn.renderJson(req, res, _.assign(
       _.pick(req.agenda, ['title', 'description', 'slug', 'url']),
       {
@@ -128,7 +128,7 @@ module.exports = app => {
       field: 'uid',
     }),
     cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    gaTrack.mw('events', 'export', 'pdf'),
+    track.mw('events', 'export', 'pdf'),
     buildPDF,
   );
 };

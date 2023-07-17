@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 
 module.exports = async (services, agenda) => {
@@ -10,41 +9,47 @@ module.exports = async (services, agenda) => {
     legacy,
     keys,
     activities,
-    inboxes: { Inbox },
+    inboxes,
     eventSearch,
     agendaSearch,
-    discord
+    discord,
   } = services;
+
+  const Inbox = inboxes?.Inbox;
 
   const controlDataSvc = legacy.controlData;
 
   // inbox
-  try {
-    log('create inbox (agenda uid %d)', agenda.uid);
-    await new Inbox().create({
-      type: 'agenda',
-      identifier: agenda.uid
-    });
-  } catch (e) {
-    log('error', 'failed to create agenda inbox', e);
+  if (Inbox) {
+    try {
+      log('create inbox (agenda uid %d)', agenda.uid);
+      await new Inbox().create({
+        type: 'agenda',
+        identifier: agenda.uid,
+      });
+    } catch (e) {
+      log('error', 'failed to create agenda inbox', e);
+    }
   }
 
   let agendaFeed;
 
   // feed / activity
-  try {
-    agendaFeed = await activities.feed({
-      entityType: 'agenda',
-      entityUid: agenda.uid
-    }).create();
-  } catch(e) {
-    log('error', 'failed to created agenda feed', e);
+  if (activities) {
+    try {
+      agendaFeed = await activities.feed({
+        entityType: 'agenda',
+        entityUid: agenda.uid,
+      }).create();
+    } catch (e) {
+      log('error', 'failed to created agenda feed', e);
+    }
   }
 
   const user = await usersSvc.findOne({
     query: {
-      id: agenda.ownerId
-    }
+      id: agenda.ownerId,
+    },
   });
 
   if (user.isNew) {
@@ -52,20 +57,20 @@ module.exports = async (services, agenda) => {
   }
 
   try {
-    await controlDataSvc.rebuild( agenda.uid );
+    await controlDataSvc.rebuild(agenda.uid);
     await controlDataSvc.memberSet({
       agendaUid: agenda.uid,
       userUid: user.uid,
-      role: 2
+      role: 2,
     });
   } catch (e) {
     log('error', 'failed to set agenda control data', e);
   }
 
-  const { member } = await members.create({
+  await members.create({
     agendaUid: agenda.uid,
     userUid: user.uid,
-    role: 2
+    role: 2,
   }, { requireCustom: false }).catch(e => {
     if (e) log('error', 'failed to create member');
     throw e;
@@ -80,16 +85,16 @@ module.exports = async (services, agenda) => {
         store: {
           labels: {
             actor: user.fullName,
-            target: agenda.title
-          }
-        }
+            target: agenda.title,
+          },
+        },
       });
     } catch (e) {
       log('error', 'failed to create agenda create activity', e);
     }
   }
 
-  if (agenda.indexed) {
+  if (agendaSearch && agenda.indexed) {
     try {
       await agendaSearch.set(agenda);
     } catch (e) {
@@ -100,7 +105,7 @@ module.exports = async (services, agenda) => {
   try {
     await keys({
       type: 'agendaFullRead',
-      identifier: agenda.uid
+      identifier: agenda.uid,
     }).create();
   } catch (e) {
     log('error', 'failed to create agenda key', e);
@@ -112,11 +117,13 @@ module.exports = async (services, agenda) => {
     log('error', 'failed to create agenda index');
   }
 
-  try {
-    await discord.notifyAgendaCreation(agenda, user);
-  } catch (e) {
-    log('error', 'failed to notify discord %s', e);
+  if (discord) {
+    try {
+      await discord.notifyAgendaCreation(agenda, user);
+    } catch (e) {
+      log('error', 'failed to notify discord %s', e);
+    }
   }
 
   log('done');
-}
+};
