@@ -151,11 +151,19 @@ module.exports = [{
       max: 255
     },  {
       field: 'matomoAskForConsent',
-      type: 'text',
+      type: 'boolean',
       read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
       write: ['administrator', 'internal'],
       max: 255
-    }]
+    },
+    , {
+      field: 'matomoCustom',
+      type: 'text',
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['administrator', 'internal'],
+      max: 500
+    },
+  ]
   }, {
     field: 'lab',
     type: 'schema',
