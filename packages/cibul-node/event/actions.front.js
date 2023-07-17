@@ -15,7 +15,7 @@ const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
 const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
-const gaTrack = require('../lib/gaTrack');
+const track = require('../lib/track');
 const ics = require('../services/events/lib/ics');
 
 function getDates(event, lang) {
@@ -128,7 +128,7 @@ async function eventMailSend(req, res, next) {
     log.info('eventMailSend', {
       link,
       targettedEmailsCount: emails.length,
-      message: 'queuing emails'
+      message: 'queuing emails',
     });
 
     const dateRange = range(req.event.timings.map(t => ({
@@ -195,12 +195,10 @@ async function eventMailSend(req, res, next) {
       lang: req.lang,
     });
 
-    // gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
-
     res.send({ count: emails.length });
 
     for (let i = 0; i < emails.length; i++) {
-      gaTrack(req, req.agenda, 'event', 'share', 'emails');
+      track(req, req.agenda, 'event', 'share', 'emails');
     }
   } catch (err) {
     return next(err);

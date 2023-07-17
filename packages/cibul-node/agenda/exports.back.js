@@ -19,7 +19,7 @@ module.exports = app => {
     convertFormat({
       sendJSON: true,
       admin: true,
-      ga: ['events', 'admin/export', 'json'],
+      trackInfos: ['events', 'admin/export', 'json'],
     }),
   );
 };
