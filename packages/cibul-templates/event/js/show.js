@@ -2,8 +2,7 @@
 import du from '@openagenda/dom-utils';
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
-import trackConsent from '../../agenda/js/trackConsent';
-import addGoogleAnalyticsTracker from '../../agenda/js/addGoogleAnalyticsTracker';
+import addTrackers from '../../agenda/js/addTrackers';
 
 const debug = require('debug');
 
@@ -94,12 +93,7 @@ window.asap(async options => {
 
   permalink();
 
-  trackConsent(options, {
-    onConsentConfirmed: () => addGoogleAnalyticsTracker({
-      agendaUID: params.agendaUid,
-      googleAnalyticsID: params.googleAnalyticsID
-    })
-  });
+  addTrackers(params);
 
   displayShareButtons(params, !!params.user);
   eventMap();

@@ -72,6 +72,7 @@ module.exports = ( { entry, output } ) => ({
     minimizer: [
       new TerserPlugin( {
         cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
+        extractComments: false,
         // parallel: true
       } )
     ]
