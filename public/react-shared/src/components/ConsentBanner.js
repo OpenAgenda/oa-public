@@ -5,20 +5,20 @@ import { defineMessages, useIntl } from 'react-intl';
 const messages = defineMessages({
   informationText: {
     id: 'ReactShared.ConsentBanner.informationText',
-    defaultMessage: 'This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?'
+    defaultMessage: 'This agenda uses cookies from the {service} tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?',
   },
   moreInfoLink: {
     id: 'ReactShared.ConsentBanner.moreInfoLink',
-    defaultMessage: 'Click here for more information'
+    defaultMessage: 'Click here for more information',
   },
   decline: {
     id: 'ReactShared.ConsentBanner.decline',
-    defaultMessage: 'Decline'
+    defaultMessage: 'Decline',
   },
   accept: {
     id: 'ReactShared.ConsentBanner.accept',
-    defaultMessage: 'Accept'
-  }
+    defaultMessage: 'Accept',
+  },
 });
 
 const defaultStyle = {
@@ -29,7 +29,7 @@ const defaultStyle = {
 };
 
 export default ({
-  onAccept, customMessages = null, customStyle = null, show = false, link = ''
+  onAccept, customMessages = null, customStyle = null, show = false, link = '', consentFor = 'ga', cookieName,
 }) => {
   const intl = useIntl();
 
@@ -58,17 +58,20 @@ export default ({
       overlayClasses={defineStyle('overlayClasses')}
       onAccept={onScroll => (onScroll ? null : onAccept())}
       expires={100}
+      cookieName={cookieName}
     >
-      {defineMessage('informationText')}
-      <div className="margin-top-xs">
-        <a
-          href={link}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {defineMessage('moreInfoLink')}
-        </a>
-      </div>
+      {intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analitycs' : 'Matomo' })}
+      {link ? (
+        <div className="margin-top-xs">
+          <a
+            href={link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {defineMessage('moreInfoLink')}
+          </a>
+        </div>
+      ) : null}
     </CookieConsent>
   );
 };
