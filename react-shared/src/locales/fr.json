@@ -23,7 +23,7 @@
   "ReactShared.AgendaContextBar.refusedModalTitle": "Événements refusés",
   "ReactShared.ConsentBanner.accept": "Accepter",
   "ReactShared.ConsentBanner.decline": "Refuser",
-  "ReactShared.ConsentBanner.informationText": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateurs de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous ?",
+  "ReactShared.ConsentBanner.informationText": "Cet agenda utilise des cookies du service de suivi d'audience {service}. Ils aident les administrateurs de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous ?",
   "ReactShared.ConsentBanner.moreInfoLink": "Cliquez ici pour en savoir plus",
   "ReactShared.EventSelection.emptyList": "Aucun événement ne correspond à cette sélection",
   "ReactShared.EventSelection.undefinedDescription": "Description non saisie",
