@@ -312,6 +312,85 @@ describe('events - functional - create', () => {
 
       assert(error instanceof ValidationError);
     });
+
+    it('timings are written down in db in event timezone when in DHM', async () => {
+      const event = await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timezone: 'Europe/Paris',
+        timings: [{
+          begin: {
+            date: '2023-07-20',
+            hours: 12,
+            minutes: 0
+          },
+          end: {
+            date: '2023-07-20',
+            hours: 23,
+            minutes: 0,
+          }
+        }],
+      });
+
+      expect(event.timings).toEqual([
+        {
+          begin: '2023-07-20T12:00:00.000+02:00',
+          end: '2023-07-20T23:00:00.000+02:00'
+        }
+      ]);
+    });
+
+    it('timings are written down in db in event timezone when in DHM', async () => {
+      const event = await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timezone: 'Europe/Paris',
+        timings: [{
+          begin: {
+            date: '2023-07-20',
+            hours: 12,
+            minutes: 0
+          },
+          end: {
+            date: '2023-07-20',
+            hours: 23,
+            minutes: 0,
+          }
+        }],
+      });
+
+      expect(event.timings).toEqual([
+        {
+          begin: '2023-07-20T12:00:00.000+02:00',
+          end: '2023-07-20T23:00:00.000+02:00'
+        }
+      ]);
+    });
+
+    it('timings are written down in db in event timezone when in YMHThms format', async () => {
+      const event = await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timezone: 'Europe/Paris',
+        timings: [{
+          begin: '2023-07-20T12:00:00.000+02:00',
+          end: '2023-07-20T23:00:00.000+02:00'
+        }],
+      });
+
+      expect(event.timings).toEqual([
+        {
+          begin: '2023-07-20T12:00:00.000+02:00',
+          end: '2023-07-20T23:00:00.000+02:00'
+        }
+      ]);
+    });
   });
 
   describe('other', () => {
