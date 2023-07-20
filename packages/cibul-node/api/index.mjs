@@ -4,11 +4,11 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
 import track from '../lib/track.js';
+import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
 import apiErrorHandler from './errorHandler.mjs';
-import boolQuery from '../lib/boolQuery.js';
 
 const log = logs('api');
 
