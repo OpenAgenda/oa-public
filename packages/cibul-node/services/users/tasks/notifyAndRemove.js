@@ -7,7 +7,7 @@ const storePrefix = 'inactiveUsers:';
 const inactiveTime = ((365 * 3) - 30) * 24 * 60 * 60 * 1000;
 const storeExpire = 60 * 60 * 24 * 30 * 2; // 2 months
 const limit = 100;
-const maxHandledUsers = 3000;
+const maxHandledUsers = 5000;
 
 async function sendEmail(services, user, template, options = {}) {
   const {
@@ -239,10 +239,17 @@ module.exports = services => async function notifyAndRemove(options = {}) {
       }
 
       log('info', 'removing account of %s', user.uid);
-      await usersSvc.remove(user.uid);
-      await sendEmail(services, user, 'inactiveUserAccountRemoved', options);
+      try {
+        await usersSvc.remove(user.uid);
+        await sendEmail(services, user, 'inactiveUserAccountRemoved', options);
+        counts.removals += 1;
+      } catch (error) {
+        log.error({
+          message: `failed to remove account ${user.uid}`,
+          error,
+        });
+      }
       await stateStore.del(user, state);
-      counts.removals += 1;
     }
   }
 
