@@ -142,7 +142,7 @@ async function maskUserIsNotAdminModOf({
       targetFeed.entityUid,
       getActivityEntity(activity, key),
     ))?.role
-    : null;
+    : preloadedRole;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
     return omit;
