@@ -37,7 +37,7 @@ defaults = {
 
 params;
 
-window.asap( function( options ) {
+window.hook( function( options ) {
 
   params = cn.extend( {
     autoscroll: true

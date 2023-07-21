@@ -199,8 +199,8 @@ function _appendSettings(req, res, next) {
         GDPRInformation: {
           $set: agenda?.settings?.contribution?.messages?.GDPRInformation,
         },
-        googleAnalyticsID: {
-          $set: agenda?.settings?.tracking?.googleAnalytics,
+        tracking: {
+          $set: agenda?.settings?.tracking,
         },
       },
       mailto: {
