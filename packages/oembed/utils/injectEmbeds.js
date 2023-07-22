@@ -53,7 +53,7 @@ module.exports = (html = '', linkEmbedPairs = [], options) => {
 
   const scripts = linkEmbedPairs
     .filter((obj, index, self) => {
-      if (!obj.data?.script) return false;
+      if (!obj || !obj.data?.script) return false;
       return index === self.findIndex(o => o.data?.script?.src === obj.data.script.src);
     })
     .map(link => convertScriptToHtml(link.data.script, cspNonce));
