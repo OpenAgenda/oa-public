@@ -31,4 +31,8 @@ module.exports = schema({
     type: 'bool',
     default: false
   },
+  lazy: {
+    type: 'bool',
+    default: false
+  },
 });
