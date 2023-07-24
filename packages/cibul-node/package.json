@@ -65,7 +65,7 @@
     "@openagenda/network-apps": "^1.1.13",
     "@openagenda/networks": "^1.2.14",
     "@openagenda/newsletter": "^2.0.1",
-    "@openagenda/oembed": "^2.2.0",
+    "@openagenda/oembed": "^2.2.1",
     "@openagenda/outdated-browser": "^0.0.0",
     "@openagenda/pdf": "^0.1.5",
     "@openagenda/polyfills": "^1.2.4",
