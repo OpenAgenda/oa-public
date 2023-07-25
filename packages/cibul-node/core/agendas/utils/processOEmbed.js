@@ -10,7 +10,6 @@ module.exports = (
     current = [],
     includeEmbedlessLinks = true,
     filterInvalidLinks = true,
-    omitScript = true,
     lazy = true,
   },
 ) => {
@@ -21,6 +20,6 @@ module.exports = (
 
   log('processing oembed');
   return oembed.fromMarkdown(Object.values(text).join('\n'), {
-    current, includeEmbedlessLinks, filterInvalidLinks, omitScript, lazy,
+    current, includeEmbedlessLinks, filterInvalidLinks, lazy,
   }).then(links => links.map(link => _.set(link, 'type', 'oembed')));
 };
