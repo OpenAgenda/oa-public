@@ -70,7 +70,7 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
   if (updatedSet === null) {
     if (await knex('category_set').first('id').where('id', id)) {
       log('info', 'deleting categorySet %s', id);
-      await knex('category_set').delete('id', id);
+      // await knex('category_set').delete('id', id); // category sets have a tendency to be deleted even when they shouldn't be.
       await setCategories(knex, id, { categories: [] });
     }
 
