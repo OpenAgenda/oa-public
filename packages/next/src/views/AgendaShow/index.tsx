@@ -12,7 +12,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
-import addMatomoTracker from 'utils/addMatomoTracker';
+import { addMatomoTracker, addMatomoClientTracker } from 'utils/addMatomoTracker';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
@@ -25,6 +25,9 @@ import ContentGrid from './components/ContentGrid';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
+
+const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
+const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
 
 const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
   // ssr: false,
@@ -105,19 +108,38 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
-    if (agenda?.settings?.tracking?.googleAnalytics && cookies.GaCookieConsent === 'true') {
-      addGoogleAnalyticsTracker({ googleAnalyticsID: agenda.settings.tracking.googleAnalytics });
+    if (!MATOMO_URL || !MATOMO_SITE_ID) {
+      return;
     }
-    if (agenda?.settings?.tracking?.matomoUrl && agenda?.settings?.tracking?.matomoSiteId) {
-      if (agenda?.settings?.tracking?.matomoAskForConsent && cookies.MatomoCookieConsent === 'true') {
-        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
-      }
-      if (!agenda?.settings?.tracking?.matomoAskForConsent) {
-        addMatomoTracker({ matomoUrl: agenda.settings.tracking.matomoUrl, matomoSiteId: agenda.settings.tracking.matomoSiteId });
+
+    addMatomoTracker({
+      matomoUrl: MATOMO_URL,
+      matomoSiteId: MATOMO_SITE_ID,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!agenda.settings?.tracking) {
+      return;
+    }
+
+    const {
+      googleAnalytics,
+      matomoUrl,
+      matomoSiteId,
+      matomoAskForConsent,
+      matomoCustom,
+    } = agenda.settings.tracking;
+
+    if (googleAnalytics && cookies.GaCookieConsent === 'true') {
+      addGoogleAnalyticsTracker({ googleAnalyticsID: googleAnalytics });
+    }
+    if (matomoUrl && matomoSiteId) {
+      if (!matomoAskForConsent || (matomoAskForConsent && cookies.MatomoCookieConsent === 'true')) {
+        addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
       }
     }
-  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda?.settings?.tracking?.googleAnalytics, agenda?.settings?.tracking?.matomoUrl,
-    agenda?.settings?.tracking?.matomoSiteId, agenda?.settings?.tracking?.matomoAskForConsent]);
+  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda.settings?.tracking]);
 
   const filtersToInclude = useMemo(() => {
     const additionalFilters = agenda.schema.fields
