@@ -202,7 +202,7 @@ async function corpo(cache, req, res, next) {
     });
   }
 
-  if (config.matomoCloudCode) {
+  if (config.matomoCloudId) {
     pageScripts.push({
       src: '/js/matomo.js',
       integrity: dynamicScripts.hashes.matomo,

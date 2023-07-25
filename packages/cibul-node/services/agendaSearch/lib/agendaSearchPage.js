@@ -25,9 +25,10 @@ module.exports = config => (req, res, next) => {
     ];
   }
 
-  if (config.matomoCloudCode) {
+  if (config.matomoCloudId) {
     scripts.bottom.push({
-      body: config.matomoCloudCode
+      src: '/js/matomo.js',
+      integrity: req.app.services.dynamicScripts.hashes.matomo,
     });
   }
 
