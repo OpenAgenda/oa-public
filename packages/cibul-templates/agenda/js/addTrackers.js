@@ -9,9 +9,7 @@ import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import appLocales from '../../locales-compiled';
 
 import addGoogleAnalyticsTracker from '../../agenda/js/addGoogleAnalyticsTracker';
-import addMatomoTracker from '../../agenda/js/addMatomoTracker';
-
-
+import { addMatomoClientTracker } from '../../agenda/js/addMatomoTracker';
 
 export default ({ tracking , lang }) => {
   const {
@@ -23,8 +21,8 @@ export default ({ tracking , lang }) => {
 
   if (!googleAnalyticsID && !matomoUrl) return;
 
-  if (matomoUrl & matomoSiteId && !matomoAskForConsent) {
-    return addMatomoTracker(tracking);
+  if (matomoUrl && matomoSiteId && !matomoAskForConsent) {
+    return addMatomoClientTracker(tracking);
   }
 
   const gaConsent = Cookies.get('GaCookieConsent');
@@ -37,7 +35,7 @@ export default ({ tracking , lang }) => {
   }
 
   if (matomoUrl && matomoSiteId && matomoConsent) {
-    return addMatomoTracker(tracking);
+    return addMatomoClientTracker(tracking);
   }
 
   const div = document.createElement('div');
@@ -59,7 +57,7 @@ export default ({ tracking , lang }) => {
             googleAnalyticsID: googleAnalyticsID
           })
         } else if ( matomoUrl && matomoSiteId) {
-          return addMatomoTracker(tracking);
+          return addMatomoClientTracker(tracking);
         }
       }}
       consentFor={googleAnalyticsID ? 'ga' :'matomo'}

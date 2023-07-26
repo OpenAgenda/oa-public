@@ -1,3 +1,10 @@
+declare global {
+  interface Window {
+    Matomo?: any
+    matomoPluginAsyncInit?: any
+  }
+}
+
 function normalizeUrl(url) {
   let result = url;
 
@@ -64,13 +71,11 @@ export function addMatomoClientTracker({
 
   if (window.Matomo?.initialized) {
     addTracker();
+  } else if (Array.isArray(window.matomoPluginAsyncInit)) {
+    window.matomoPluginAsyncInit.push(addTracker);
   } else {
-    if (Array.isArray(window.matomoPluginAsyncInit)) {
-      window.matomoPluginAsyncInit.push(addTracker);
-    } else {
-      window.matomoPluginAsyncInit = [
-        addTracker,
-      ];
-    }
+    window.matomoPluginAsyncInit = [
+      addTracker,
+    ];
   }
 }

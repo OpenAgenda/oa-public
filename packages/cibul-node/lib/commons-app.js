@@ -471,8 +471,12 @@ function loadBaseData( func, cssFile ) {
       req.baseData.head.js.outdated = '/js/outdated.js';
     }
 
-    if (config.matomoCloudCode) {
-      req.baseData.bottom.scripts.push(config.matomoCloudCode);
+    if (config.matomoCloudId) {
+      req.baseData.head.js.matomo = {
+        async: true,
+        src: '/js/matomo.js',
+        // integrity: dynamicScripts.hashes.matomo,
+      };
     }
 
     req.baseData.translateMode = Boolean(req.cookies.translateMode);

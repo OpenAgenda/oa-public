@@ -5,7 +5,6 @@ const debug = require('debug');
 const sentry = require('@sentry/node');
 
 const prod = require('./prod');
-const loadMatomoCloudCode = require('./loadMatomoCloudCode');
 
 const config = {
   env: process.env.NODE_ENV ?? 'development',
@@ -56,7 +55,6 @@ const config = {
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
   embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
   matomoCloudId: prod.matomoCloudId ?? process.env.MATOMO_CLOUD_ID,
-  matomoCloudCode: loadMatomoCloudCode(prod.matomoCloudId ?? process.env.MATOMO_CLOUD_ID),
   useCache: false,
   agendaCacheExpire: 30 * 1000,
   shares: {
