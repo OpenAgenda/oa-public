@@ -93,6 +93,8 @@ module.exports = ({
       key,
       size: limit,
       from: offset,
+      cms: 'agenda-portal',
+      host: app.locals.root,
     };
 
     if (query && query.detailed) {
