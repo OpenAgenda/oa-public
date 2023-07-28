@@ -56,7 +56,7 @@ const renderLabel = (field, m) => (
 const renderDefaultField = (field, m) => (<>
   {renderLabel(field, m)}
   <div className={field.fieldType === 'date' ? 'date margin-bottom-sm' : 'margin-bottom-sm'}>
-    {field.value ? field.value : (
+    {field.value !== undefined ? field.value : (
       <em className="text-muted">{m(messages.noInput)}</em>
     )}
   </div>
