@@ -39,6 +39,7 @@ const CreateForm = ({
   const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [pageSpin, setPageSpin] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings, isLoading } = useSettings(agenda);
@@ -61,6 +62,7 @@ const CreateForm = ({
   );
 
   const onSubmit = location => {
+    setPageSpin(true);
     let clean;
     const options = {
       optional: false,
@@ -77,10 +79,12 @@ const CreateForm = ({
     form.append('data', JSON.stringify(clean));
     return axios.post(res.create, form)
       .then(() => {
+        setPageSpin(false);
         dispatch(onGoingActions.initiate('create'));
         if (nq) history.push(nq); else history.push(prefix);
         setErrors(false);
       }).catch(err => {
+        setPageSpin(false);
         setErrorModal(err);
       });
   };
@@ -117,6 +121,7 @@ const CreateForm = ({
           mode="create"
           errors={errors}
           displayExtIdLink
+          pageSpin={pageSpin}
         />
       ) : null}
     </>

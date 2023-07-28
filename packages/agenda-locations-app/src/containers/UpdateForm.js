@@ -39,6 +39,7 @@ const UpdateForm = ({
   const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [pageSpin, setPageSpin] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings } = useSettings(agenda);
@@ -68,6 +69,7 @@ const UpdateForm = ({
   );
 
   const onSubmit = updatedLocation => {
+    setPageSpin(true);
     let clean;
     const options = {
       optional: true,
@@ -85,10 +87,12 @@ const UpdateForm = ({
     form.append('data', JSON.stringify(clean));
     return axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(() => {
+        setPageSpin(false);
         if (nq) history.push(nq); else history.push(prefix);
         dispatch(onGoingActions.initiate('update'));
         setErrors(false);
       }).catch(err => {
+        setPageSpin(false);
         setErrorModal(err);
       });
   };
@@ -139,6 +143,7 @@ const UpdateForm = ({
         onSubmit={onSubmit}
         errors={errors}
         displayExtIdLink
+        pageSpin={pageSpin}
       />
     </>
   );
