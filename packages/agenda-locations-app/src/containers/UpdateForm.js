@@ -78,6 +78,7 @@ const UpdateForm = ({
     try {
       clean = validate(updatedLocation, settings, options);
     } catch (err) {
+      setPageSpin(false);
       setErrors(err);
       return;
     }

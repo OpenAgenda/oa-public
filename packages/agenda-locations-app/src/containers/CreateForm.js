@@ -71,6 +71,7 @@ const CreateForm = ({
     try {
       clean = validate(location, settings, options);
     } catch (err) {
+      setPageSpin(false);
       setErrors(err);
       return;
     }
