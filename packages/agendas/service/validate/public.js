@@ -14,7 +14,8 @@ schema.register({
   slug: require('../slugs/validator'),
   choice: require('@openagenda/validators/choice'),
   email: require('@openagenda/validators/email'),
-  ip: require('@openagenda/validators/ip')
+  ip: require('@openagenda/validators/ip'),
+  pass: require('@openagenda/validators/pass'),
 });
 
 module.exports = schema(legacy.public);
