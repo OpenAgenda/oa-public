@@ -20,6 +20,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     useDateHoursMinutesFormat = false,
     includeEmbedScripts = true,
     cspNonce = null,
+    includeLocationLegacyAdminLevels = true,
     ...searchOptions
   } = options;
 
@@ -34,6 +35,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     access: 'internal',
     private: null,
     useCache: true,
+    includeLocationLegacyAdminLevels,
   });
 
   if (!agenda) {

@@ -237,6 +237,10 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre événement',
   }),
+  timings: JSON.stringify([{
+    begin: new Date('2023-05-06T10:00:00'),
+    end: new Date('2023-05-06T11:00:00'),
+  }]),
   description: JSON.stringify({ fr: 'Une desc.' }),
   timezone: 'Europe/Paris',
   location_uid: 123,

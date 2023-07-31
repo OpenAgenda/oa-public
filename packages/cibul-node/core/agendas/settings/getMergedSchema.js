@@ -32,6 +32,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     includeDateRange = false,
     includeAgendaEvent = false,
     includeOriginAgenda = false,
+    includeLocationLegacyAdminLevels = true,
     access = 'public',
     actingMember,
   } = options;
@@ -108,18 +109,24 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     });
   }
 
+  const mergeOptions = {
+    includeLocationLegacyAdminLevels,
+  };
+
   if (includeEvent) {
-    mergeArgs.push({
+    log('returning schema with event for access %s', access);
+    return merge.schemasWithEvent(...mergeArgs, {
+      ...mergeOptions,
       access,
       includeNonDataFields,
     });
-
-    log('returning schema with event for access %s', access);
-    return merge.schemasWithEvent.apply(null, mergeArgs);
   }
 
   log('returning schema without event for access %s', access);
-  mergeArgs.push(access?.read === 'internal' ? null : { access });
 
-  return merge.schemas(...mergeArgs);
+  if (access?.read !== 'internal') {
+    mergeOptions.access = access;
+  }
+
+  return merge.schemas(...mergeArgs, mergeOptions);
 };
