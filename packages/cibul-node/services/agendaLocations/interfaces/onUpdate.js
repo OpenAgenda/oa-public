@@ -60,14 +60,24 @@ module.exports = function onUpdate(queue, services) {
     }
 
     if (userUid) {
-      await registerUpdateActivity({
-        services,
-        agendaUid,
-        userUid,
-        agenda,
-        before,
-        after,
-      });
+      try {
+        await registerUpdateActivity({
+          services,
+          agendaUid,
+          userUid,
+          agenda,
+          before,
+          after,
+        });
+      } catch (e) {
+        log.error(new VError({
+          cause: e,
+          info: {
+            agendaUid,
+            locationUid: before.uid,
+          },
+        }, 'Failed to register update activity'));
+      }
     } else {
       log.debug('no userUid in context, not registering activity');
     }
