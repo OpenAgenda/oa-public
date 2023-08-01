@@ -1,2 +1,1 @@
 proxy_pass http://next_servers;
-proxy_buffering off;

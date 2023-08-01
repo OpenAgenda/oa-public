@@ -1,2 +1,1 @@
 proxy_pass http://web_servers;
-proxy_buffering off;

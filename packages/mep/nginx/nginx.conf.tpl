@@ -1,6 +1,6 @@
 user nginx;
 worker_processes  auto;
-worker_rlimit_nofile 2048;
+worker_rlimit_nofile 4096;
 load_module modules/ngx_stream_module.so;
 #load_module modules/ngx_http_modsecurity_module.so;
 
@@ -71,7 +71,6 @@ http {
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
 
             proxy_pass http://api_servers;
-            proxy_buffering off;
         }
     }
 }
