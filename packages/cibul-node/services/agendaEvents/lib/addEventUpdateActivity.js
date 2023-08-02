@@ -38,21 +38,6 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     target: agenda.title,
   };
 
-  if (isUnpublished && (core.constants.stateChangeTypes.system === changeStateType)) {
-    log('system unpublish');
-    return activitiesSvc.feed({
-      entityType: 'event',
-      entityUid: event.uid,
-    }).activities.add({
-      ...activityInfo,
-      verb: 'agenda.systemUnpublishEvent',
-      store: {
-        contributorUid: after.userUid,
-        labels: activityLabels,
-      },
-    });
-  }
-
   if (isPublished) {
     log('publishing');
     return activitiesSvc.feed({
@@ -106,6 +91,22 @@ module.exports = async (services, { agenda, event, user }, before, after, change
         sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
         // origin is not always set. When the event was created by script for example.
         originAgendaUid: event.origin ? event.origin.uid : null,
+      },
+    });
+  }
+
+  if (before.state !== after.state && changeStateType === core.constants.stateChangeTypes.system) {
+    log('system change state');
+    return activitiesSvc.feed({
+      entityType: 'agenda',
+      entityUid: agenda.uid,
+    }).activities.add({
+      ...activityInfo,
+      verb: 'agenda.systemChangeEventState',
+      store: {
+        labels: activityLabels,
+        oldState: before.state,
+        newState: after.state,
       },
     });
   }

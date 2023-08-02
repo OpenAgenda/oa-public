@@ -776,6 +776,44 @@ const activitiesConfig = {
       groupBy: ['target'],
     },
   },
+  /*
+  * agenda.systemChangeEventState:
+  *   event -> agenda target -> adminMods
+  *         -> contributor
+  * */
+  'agenda.systemChangeEventState': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+    }),
+    filterFollows: or(
+      toAgenda('target.uid'), // to aggregator
+      fromAgendaToAdminMod, // to adminMods
+      toUser('store.contributorUid'), // to contributor
+    ),
+    labelIds: [
+      ['ActivityApps.systemChangeEventState.full', ['store.labels.target']],
+      ['ActivityApps.systemChangeEventState.withoutTarget', []],
+    ],
+    entities: {
+      eventUid: 'object.uid',
+      agendaUid: 'target.uid',
+      eventName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+    },
+    tags: {
+      event: {
+        link: '/agendas/:agendaUid/events/:eventUid',
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+    },
+    notifications: {
+      groupBy: ['target'],
+    },
+  },
   'agenda.sendInvitation': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
