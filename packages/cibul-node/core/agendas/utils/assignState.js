@@ -14,7 +14,8 @@ function defineState({
   agenda,
   authorizations,
   isUndrafted,
-  hasEvent
+  hasEvent,
+  currentState,
 }, requestedState) {
   const {
     canChangeState,
@@ -64,7 +65,7 @@ function defineState({
   // be moderated.
   if (hasEvent && !canChangeState) {
     log('event %s to be moderated', mustBeModerated ? 'needs' : 'does not need');
-    return mustBeModerated ? {
+    return mustBeModerated && currentState !== -1 ? {
       state: 0,
       type: TYPES.system
     } : {
@@ -92,7 +93,7 @@ function defineState({
   };
 }
 
-module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
+module.exports = (agenda, event, clean, data, { draft, authorizations, currentState }) => {
   const { state, type } = draft ? {
     state: undefined,
     type: null
@@ -101,6 +102,7 @@ module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
     hasEvent: !!event,
     authorizations,
     isUndrafted: event?.draft && !draft,
+    currentState,
   }, data.state);
 
   log('assigning state: %s', state);

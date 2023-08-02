@@ -112,6 +112,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   } = assignState(agenda, event, clean, data, {
     authorizations,
     draft,
+    currentState: agendaEvent?.state,
   });
 
   const payload = createPayload(core, agenda);
