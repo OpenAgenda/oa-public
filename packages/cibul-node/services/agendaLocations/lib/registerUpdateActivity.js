@@ -28,11 +28,17 @@ function getUpdatedTags(changes, schema) {
 
   for (const change of changes) {
     if (change.path.length === 1 && change.path[0] === 'tags') {
-      if (change.item.kind === 'N') { // new item
-        tagIds.push(change.item.rhs.id);
-      }
-      if (change.item.kind === 'D') { // deleted item
-        tagIds.push(change.item.lhs.id);
+      if (change.kind === 'A') {
+        if (change.item.kind === 'N') { // new item
+          tagIds.push(change.item.rhs.id);
+        }
+        if (change.item.kind === 'D') { // deleted item
+          tagIds.push(change.item.lhs.id);
+        }
+      } else if (change.kind === 'N') { // new array
+        tagIds.push(...change.item.rhs.map(tag => tag.id));
+      } else if (change.kind === 'D') { // deleted array
+        tagIds.push(...change.item.lhs.map(tag => tag.id));
       }
     }
 
