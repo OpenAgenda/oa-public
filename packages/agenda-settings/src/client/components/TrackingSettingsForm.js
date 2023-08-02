@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { Form, Field } from 'react-final-form';
+import { isEqual } from 'lodash';
 import Select from 'react-select';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -16,8 +17,34 @@ function validate(values) {
   if (values.googleAnalytics && values.googleAnalytics.length > 255) {
     errors.googleAnalytics = 'string.toolong';
   }
-
+  if (values.matomoUrl1 && !parseInt(values.matomoSiteId)) {
+    errors.matomoSiteId = 'not a number'
+  }
   return errors;
+}
+
+function splitOnFirstOccurrence(inputString, charToSplit) {
+  const indexOfChar = inputString.indexOf(charToSplit);
+  if (indexOfChar !== -1) {
+    const firstPart = inputString.slice(0, indexOfChar);
+    const secondPart = inputString.slice(indexOfChar);
+    return [firstPart, secondPart];
+  } else {
+    return [inputString, ""];
+  }
+}
+
+function matomoUrlInitialValue(tracking) {
+  const matomoUrls = {
+    matomoUrl1: null,
+    matomoUrl2: null,
+  }
+  if (tracking?.matomoUrl) {
+    const splitUrl = splitOnFirstOccurrence(tracking.matomoUrl, '.');
+    matomoUrls.matomoUrl1 = splitUrl[0];
+    matomoUrls.matomoUrl2 = splitUrl[1];
+  }
+  return matomoUrls;
 }
 
 function getFormValues(agenda) {
@@ -25,9 +52,9 @@ function getFormValues(agenda) {
     googleAnalytics: _.get(agenda, 'settings.tracking.googleAnalytics', null),
     googleAnalyticsSecret: _.get(agenda, 'settings.tracking.googleAnalyticsSecret', null),
     secretCheck: !!_.get(agenda, 'settings.tracking.googleAnalyticsSecret', null),
-    matomoUrl: agenda?.settings?.tracking?.matomoUrl ? agenda.settings.tracking.matomoUrl.replace('.matomo.cloud/', '') : null,
     matomoSiteId: _.get(agenda, 'settings.tracking.matomoSiteId', null),
     matomoAskForConsent: agenda?.settings?.tracking?.matomoAskForConsent === false ? false : true,
+    ...matomoUrlInitialValue(agenda.settings.tracking)
   };
 }
 
@@ -44,14 +71,19 @@ export default function TrackingSettingsForm() {
   const dispatch = useDispatch();
 
   const initialValues = useMemo(() => getFormValues(agenda), [agenda]);
+
   const onSubmit = useCallback(
     (data, form) => {
-      if (data.matomoUrl) {
-        data = {...data, matomoUrl: `${data.matomoUrl}.matomo.cloud/`}
+      if (data.matomoUrl1 && !data.matomoUrl2) {
+        data = { ...data, matomoUrl: `${data.matomoUrl1}.matomo.cloud/` }
+      }
+      if (data.matomoUrl1 && data.matomoUrl2) {
+        data = { ...data, matomoUrl: `${data.matomoUrl1}${data.matomoUrl2}` }
       }
       return dispatch(agendaActions.edit({ settings: { tracking: data } }))
-      .then(result => form.reset(result.data.agenda.settings.tracking))
-      .catch(error => catchFormErrors(error, 'settings.tracking'))},
+        .then(result => form.reset(getFormValues(result.data.agenda/* .settings.tracking */)))
+        .catch(error => catchFormErrors(error, 'settings.tracking'))
+    },
     [dispatch]
   );
 
@@ -70,7 +102,7 @@ export default function TrackingSettingsForm() {
     >
       {({ handleSubmit, pristine, hasValidationError, form }) => (
         <form onSubmit={handleSubmit}>
-          <p>{getLabel('statsDescription')}</p>
+          <p>{getLabel('statsDescription')} <a href={'https://doc.openagenda.com/mesurer-la-consultation-de-son-agenda/'}>{getLabel('moreInfo')}</a></p>
 
           <div className="margin-bottom-sm">
             <Select
@@ -144,17 +176,20 @@ export default function TrackingSettingsForm() {
 
             {service?.value === 'matomo' ? (
               <>
-                <Field
-                  name="matomoUrl"
-                  component={InputGroup}
-                  type="text"
-                  label={getLabel('matomoUrl')}
-                  placeholder="example"
-                  className="form-control"
-                  parse={_.identity} // to keep empty value
-                  before={<span className="input-group-addon" id="basic-addon1">https://</span>}
-                  after={<span className="input-group-addon" id="basic-addon2">.matomo.cloud/</span>}
-                />
+                <div className="form-group">
+                  <label htmlFor="matomUrl">Url</label>
+                  <div className="input-group">
+                    <span className="input-group-addon" id="basic-addon1">https://</span>
+                    <input className="form-control" type="text" name="matomoUrl1" placeholder="example" value={form.getState().values?.matomoUrl1 || ''}
+                      onChange={v => form.mutators.setFormAttribute('matomoUrl1', v.target.value)}
+                    />
+                    <div className="input-group-addon input-group-addon-right-25">
+                      <input className="form-control" type="text" name="matomoUrl2" placeholder=".matomo.cloud/" value={form.getState().values?.matomoUrl2 || ''}
+                        onChange={v => form.mutators.setFormAttribute('matomoUrl2', v.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 <Field
                   name="matomoSiteId"
@@ -186,15 +221,16 @@ export default function TrackingSettingsForm() {
                 <div className="info-block-sm margin-bottom-sm">
                   {getLabel('matomoCustomConfig')}
                   <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=matomoSettings}`} className="link-primary">
-                  {getLabel('matomoSupport')}
+                    {getLabel('matomoSupport')}
                   </a>
                 </div>
               </>) : null}
           </div>
+
           < button
             type="submit"
-            className={cn('btn btn-primary', { disabled: pristine || hasValidationError })}
-            disabled={pristine || hasValidationError ? true : undefined}
+            className={cn('btn btn-primary', { disabled: isEqual(form.getState().initialValues, form.getState().values) || hasValidationError })}
+            disabled={isEqual(form.getState().initialValues, form.getState().values) || hasValidationError ? true : undefined}
           >
             {getLabel('update')}
           </button>
