@@ -147,6 +147,15 @@ export default defineMessages({
     id: 'ActivityApps.systemUnpublishEvent.withoutTarget',
     defaultMessage: '<event>{eventName}</event> has been automatically unpublished for moderation.'
   },
+  // agenda.systemChangeEventState
+  'systemChangeEventState.full': {
+    id: 'ActivityApps.systemChangeEventState.full',
+    defaultMessage: '<event>{eventName}</event> has been automatically put back in moderation as it has been edited by its contributor on <agenda>{agendaName}</agenda>.'
+  },
+  'systemChangeEventState.withoutTarget': {
+    id: 'ActivityApps.systemChangeEventState.withoutTarget',
+    defaultMessage: '<event>{eventName}</event> has been automatically put back in moderation as it has been edited by its contributor.'
+  },
   // agenda.sendInvitation
   'sendInvitation.full': {
     id: 'ActivityApps.sendInvitation.full',

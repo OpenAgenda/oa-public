@@ -358,6 +358,26 @@ exports['agenda.systemUnpublishEvent'] = (notification, options) => {
   };
 };
 
+exports['agenda.systemChangeEventState'] = (notification, options) => {
+  const { intl } = options;
+  const { subjectsProps, values } = getProps(notification, options);
+
+  const label = intl.formatMessage(notificationsMessages['agenda.systemChangeEventState'], values);
+
+  // If 1 event, go to the event
+  if (subjectsProps.object.counter === 1) {
+    return {
+      url: formatUrl('/agendas/:target/events/:object', subjectsProps),
+      label,
+    };
+  }
+
+  return {
+    url: formatUrl('/agendas/:target', subjectsProps),
+    label,
+  };
+};
+
 exports['agenda.sendInvitation'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
