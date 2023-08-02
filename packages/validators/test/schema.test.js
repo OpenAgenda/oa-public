@@ -32,7 +32,7 @@ describe('schema validator', () => {
           type: 'link'
         }
       });
-      
+
       expect(validate({})).toEqual({});
     });
 
@@ -1031,6 +1031,31 @@ describe('schema validator', () => {
         expect(errored).toBe(false);
       });
 
+      it('when enableWith is used on a required field, it can only be required if related field has a boolean value', () => {
+        const validate = schema({
+          image: {
+            type: 'text'
+          },
+          imagePasVolée: {
+            optional: false,
+            enableWith: 'image',
+            type: 'boolean',
+          }
+        });
+
+        let result;
+        let errored = false;
+
+        try {
+          result = validate({});
+        } catch (e) {
+          errored = true;
+        }
+
+        expect(errored).toBe(false);
+        expect(result.imagePasVolée).toBeNull();
+      });
+
       it('enableWith with a list value enables field only when the list is not empty', () => {
         const validate = schema({
           selection: {
@@ -1282,7 +1307,7 @@ describe('schema validator', () => {
           someNumber: 'twelve'
         });
 
-        expect(clean.someNumber).toBe(undefined);
+        expect(clean.someNumber).toBeNull();
       });
 
     });
@@ -1531,10 +1556,10 @@ describe('schema validator', () => {
 
     expect(validate.part({
       attendanceMode: 1,
-      onlineAccessLink: undefined
+      onlineAccessLink: null
     })).toEqual({
       attendanceMode: 1,
-      onlineAccessLink: undefined
+      onlineAccessLink: null
     });
 
   });
@@ -1568,6 +1593,36 @@ describe('schema validator', () => {
     })).toEqual({
       attendanceMode: 2,
       onlineAccessLink: 'https://openagenda.com'
+    });
+  });
+
+  it('enableWith is evaluated by partial validation - matching 2', () => {
+    schema.register({
+      choice: validators.choice,
+      link: validators.link
+    });
+
+    const validate = schema({
+      attendanceMode: {
+        default: 1,
+        type: 'choice',
+        unique: true,
+        options: [1, 2, 3]
+      },
+      onlineAccessLink: {
+        optional: false,
+        enableWith: {
+          field: 'attendanceMode',
+          value: [2, 3]
+        },
+        type: 'link'
+      }
+    });
+
+    expect(validate.part({
+      attendanceMode: 2
+    })).toEqual({
+      attendanceMode: 2
     });
   });
 
