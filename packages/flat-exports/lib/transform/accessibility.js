@@ -18,11 +18,11 @@ module.exports = function accessibility({ languages, includeLanguages }, { targe
   return {
     source: 'accessibility',
     target: targetLanguages.map(l => (target || 'accessibility') + (languages.length > 1 ? ` - ${l.toUpperCase()}` : '')),
-    transform: v /* { hi: true, vi: true, pi: true, mi: true } */ => targetLanguages
+    transform: v => targetLanguages
       .map(l => Object.keys(v ?? {})
         .filter(k => !!v[k])
         .map(code => code)
         .map(code => labels[code][l])
-        .join(' | '))
+        .join(' | ')),
   };
 };

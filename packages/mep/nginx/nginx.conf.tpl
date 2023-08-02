@@ -14,12 +14,15 @@ events {
 http {
     upstream api_servers {<% APIEndpoints.forEach(ep => { %>
         server <%= ep %>:<%= serverPort %>;<% }); %>
+        keepalive <%= APIEndpoints.length * 2 %>;
     }
     upstream next_servers {<% NextEndpoints.forEach(ep => { %>
         server <%= ep %>:<%= serverPort %>;<% }); %>
+        keepalive <%= NextEndpoints.length * 2 %>;
     }
     upstream web_servers {<% WebEndpoints.forEach(ep => { %>
         server <%= ep %>:<%= serverPort %>;<% }); %>
+        keepalive <%= WebEndpoints.length * 2 %>;
     }
 
     include /etc/nginx/mime.types;

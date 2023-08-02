@@ -87,6 +87,7 @@ module.exports = function getDefaultFieldMap(options = {}) {
     target: getTarget('conditions'),
     type: 'multilingual',
   }, {
+    source: 'accessibility',
     type: 'accessibility',
     target: getTarget('accessibility'),
   }, {

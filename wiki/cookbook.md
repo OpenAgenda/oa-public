@@ -618,11 +618,13 @@ Puis on a permis de créer des groupes de tags, de choisir quel groupe était ob
 
 L'export JSON affiche encore ces deux champs: catégories et tags. Il affiche les tags sous leurs deux déclinaisons: celle d'origine (liste plate de tags), puis celle plus complète (liste de groupes de tags). Les valeurs sont monolingues.
 
-Puis on a rendu le modèle de données plus libre en permettant de saisir des champs additionnels aux types plus variés que les tags/catégories. Un champ additionnel à son nom et son type (liste de radios, de checkbox, select à choix unique ou multiple, champ texte, champ zone de texte, etc.). Les définitions de champs (les labels, info, options) peuvent être saisies dans plusieurs langues.
+Puis on a rendu le modèle de données plus libre en 2018 en permettant de saisir des champs additionnels aux types plus variés que les tags/catégories. Un champ additionnel à son nom et son type (liste de radios, de checkbox, select à choix unique ou multiple, champ texte, champ zone de texte, etc.). Les définitions de champs (les labels, info, options) peuvent être saisies dans plusieurs langues.
 
 L'API v2 reflète la dernière version de ces évolutions: les données des champs additionnels apparaissent sous leurs propres clés
 
 L'ancien export JSON présente une version taggéifiée/catégorisée des données qui converties du format "champ additionnels". L'ancien embed aussi.
+
+La structure de tags d'un agenda est visible sur cette route: https://openagenda.com/agendas/{agendaUID}/settings.json
 
 ### L'ancien export JSON
 

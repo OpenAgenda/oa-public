@@ -833,6 +833,10 @@ module.exports = {
     "en": "Choose your tracking service (Google Analytics or Matomo)", 
     "fr": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
   },
+  "moreInfo": {
+    "en": "more info", 
+    "fr": "plus d’info",
+  },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
     "en": "Google Analytics Tracking ID",

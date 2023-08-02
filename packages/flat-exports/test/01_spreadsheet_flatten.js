@@ -237,6 +237,41 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
 
       expect(flat['Catégories']).toEqual('Fourchette 😊 Orteil');
     });
+
+    test('Accessibility is provided in one field per language', () => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr', 'en'],
+        labels,
+        includeFields: ['accessibility'],
+        includeLanguages: ['fr'],
+        formSchema: {
+          fields: [{
+            field: 'accessibility',
+            fieldType: 'accessibility',
+            label: {
+              fr: 'Accessibilité particulière',
+              en: 'Accessibilité particulière',
+            },
+            schemaType: 'event',
+          }],
+        },
+      });
+
+      expect(
+        flatten({
+          accessibility: {
+            ii: true,
+            hi: false,
+            vi: true,
+            pi: false,
+            mi: false,
+          },
+        }),
+      ).toEqual({
+        'Accessibilité - FR': 'Handicap intellectuel | Handicap visuel',
+      });
+    });
   });
 
   describe('Get headers', () => {

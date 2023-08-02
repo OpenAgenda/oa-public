@@ -137,6 +137,7 @@ function Dashboard() {
   const [openDetails, setOpenDetails] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [spinMerge, setSpinMerge] = useState(false)
   const intl = useIntl();
   const res = useRes(agenda);
   const { locationUid: detailLocationUid } = useParams();
@@ -292,7 +293,7 @@ function Dashboard() {
   }, [mergeMode, settings, search, page, prefix, history, dispatch]);
 
   const launchMerge = () => {
-    dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal));
+    dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal, setSpinMerge));
   };
 
   const disqualifyMergeCandidates = () => {
@@ -356,6 +357,7 @@ function Dashboard() {
           }}
           disqualifyDuplicates={disqualifyMergeCandidates}
           launchMerge={launchMerge}
+          pageSpin={spinMerge}
         />
       ) : null}
       {merge?.step === 2 || merge?.step === 3 ? null : (

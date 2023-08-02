@@ -13,6 +13,7 @@ module.exports = (core, agendaOrUid) => async (identifiers, options = {}) => {
 
   return endpoints.get(identifiers, {
     ...options,
+    throwOnNotFound: true,
     includeImagePath: true,
     context: { agendaUid: agenda.uid },
   });

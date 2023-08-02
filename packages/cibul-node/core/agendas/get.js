@@ -53,6 +53,7 @@ async function get(core, agendaUid, options = {}) {
     includeMemberSchema = false,
     includeSplitMemberSchema = false,
     actingMember = null,
+    includeLocationLegacyAdminLevels = true,
   } = options;
 
   log('getting agenda %s, info with access %s', agendaUid, access);
@@ -106,6 +107,7 @@ async function get(core, agendaUid, options = {}) {
       includeAgendaEvent,
       includeOriginAgenda,
       actingMember,
+      includeLocationLegacyAdminLevels,
       access: typeof access === 'string' ? { read: access } : access,
     });
   }

@@ -26,7 +26,8 @@ const GeoFieldsAndMap = ({
   enableGeocode = false,
   res,
   tiles,
-  errors
+  errors,
+  setDisabled,
 }) => {
   const intl = useIntl();
   const [geocodeNoResults, setGeocodeNoResults] = useState(false);
@@ -70,7 +71,10 @@ const GeoFieldsAndMap = ({
     if (value === undefined) return;
     axios.get(res.geocode, { params: { address: value, countryCode: location?.countryCode } })
       .then(response => {
-        if (!response.data.results[0]) setGeocodeNoResults(true);
+        if (!response.data.results[0]) {
+          setGeocodeNoResults(true);
+          if (setDisabled) setDisabled(true);
+        }
         const obj = response.data.results[0];
         if (obj.countryCode === 'fr') {
           fetchINSEE(obj);
@@ -93,11 +97,12 @@ const GeoFieldsAndMap = ({
         }
         setGeocodeNoResults(false);
         setGeocodeLoading(false);
+        if (setDisabled) setDisabled(false);
       })
       .catch(err => {
         setGeocodeError(err);
       });
-  }, [location, onChange, res.geocode, fetchINSEE]);
+  }, [location, onChange, res.geocode, fetchINSEE, setDisabled]);
 
   const updateLocationReverseGeocode = (lat, long) => {
     setGeocodeEdit(false);
