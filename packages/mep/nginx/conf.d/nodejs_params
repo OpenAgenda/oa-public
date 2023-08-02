@@ -1,1 +1,3 @@
 proxy_pass http://web_servers;
+proxy_hide_header X-Powered-By;
+add_header X-Powered-By OpenAgenda;
