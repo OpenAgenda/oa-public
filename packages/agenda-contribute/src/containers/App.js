@@ -56,16 +56,19 @@ function App(props) {
 
   const prefix = usePrefix(agenda);
 
+  const isAtShare = matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid` })?.isExact;
+
   const shouldGoToShareMember = !agendaContextIsLoading
-    && matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid` })?.isExact
+    && isAtShare
     && isMemberDataRequired(agenda)
-    && !agendaContext?.me?.member;
+    && (!agendaContext?.me?.member || !agendaContext?.me?.isValid);
 
   const isAtShareMember = matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member` })?.isExact;
 
-  const shouldGoToFirstStep = !agendaContextIsLoading
+  const shouldGoToCreateFirstStep = !agendaContextIsLoading
     && !shouldGoToShareMember
     && !isAtShareMember
+    && !isAtShare
     && !matchStepPath(location, prefix, 'member')
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
@@ -81,15 +84,15 @@ function App(props) {
       return;
     }
 
-    if (!shouldGoToFirstStep || isAtShareMember) {
+    if (!shouldGoToCreateFirstStep || isAtShareMember) {
       return;
     }
 
     log('  Base path is requested, user is not a member. Redirecting to member step');
     replaceWithStep(history, location, prefix, 'member');
-  }, [shouldGoToFirstStep, shouldGoToShareMember, history, prefix, location, isAtShareMember]);
+  }, [shouldGoToCreateFirstStep, shouldGoToShareMember, history, prefix, location, isAtShareMember]);
 
-  if (agendaContextIsLoading || shouldGoToFirstStep || shouldGoToShareMember) {
+  if (agendaContextIsLoading || shouldGoToCreateFirstStep || shouldGoToShareMember) {
     return <Loading />;
   }
 

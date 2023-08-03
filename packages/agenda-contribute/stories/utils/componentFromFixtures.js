@@ -14,6 +14,7 @@ export default function componentFromFixtures(message, agendaUid, entryRoute = '
     agenda
   } = fixtures(agendaUid);
 
+
   const history = createMemoryHistory({
     initialEntries: [`/${agenda.slug}/contribute${entryRoute}`]
   });
