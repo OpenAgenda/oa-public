@@ -38,7 +38,6 @@ const log = logs('server');
 const secureHeaders = [
   (req, res, next) => {
     req.app = app;
-    res.setHeader('X-Powered-By', 'OpenAgenda');
     res.setHeader('Reporting-Endpoints', `default="${config.root}/reports"`);
     res.locals.cspNonce = randomBytes(16).toString('base64');
     next();
