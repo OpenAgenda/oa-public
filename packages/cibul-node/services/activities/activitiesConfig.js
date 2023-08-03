@@ -301,8 +301,8 @@ const activitiesConfig = {
         userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       })({ ...props, preloadedRole: role }) || [];
 
-      // Always omit the diff object
-      toOmit.push('store.diff');
+      // Always omit the diff object and userUid (owner)
+      toOmit.push('store.diff', 'store.userUid');
 
       if (role) {
         if (!isSuperiorToOrEqual(role, 'administrator')) toOmit.push('store.administratorFields');
@@ -315,8 +315,8 @@ const activitiesConfig = {
     filterFollows: [
       hasVisibleDiff,
       or(
-        fromEventToUser,
         toAgenda('target.uid'),
+        toUser('store.userUid'),
         fromAgendaToAdminMod,
       ),
     ],

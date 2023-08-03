@@ -186,6 +186,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       agenda,
       formSchema,
       member: actingMember,
+      agendaEvent,
     });
   } catch (e) {
     log('error', 'failed to create activity', e);
