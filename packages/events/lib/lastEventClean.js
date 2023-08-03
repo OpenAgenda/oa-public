@@ -66,7 +66,7 @@ module.exports = (event, options = {}) => {
   if (event.image && Object.keys(event.image).length) {
     event.image.base = imagePath;
   } else if (event.image) {
-    delete event.image;
+    event.image = null;
   }
 
   if (useDefaultImage && !event?.image?.filename) {

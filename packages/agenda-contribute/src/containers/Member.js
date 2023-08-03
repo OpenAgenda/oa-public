@@ -25,6 +25,7 @@ export default function Member({
   history,
 }) {
   log('loading');
+
   const queryClient = useQueryClient();
   const location = useLocation();
   const prefix = usePrefix(agenda);

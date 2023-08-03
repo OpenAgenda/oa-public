@@ -31,21 +31,22 @@ function mapValuesToValidators(fields, values, defaults) {
       valuesWithDefaults,
       fields
    ),
-    value: _extractValue(_.get(values, fieldName), values, valuesWithDefaults, fields, fields[fieldName])
+    value: _.get(values, fieldName),
+    isEnabled: _isEnabled(valuesWithDefaults, fields, fields[fieldName]),
   }));
 }
 
 
-function _extractValue(value, values, valuesWithDefaults, fields, fieldOptions = {}) {
+function _isEnabled(valuesWithDefaults, fields, fieldOptions = {}) {
   if (!_.get(fieldOptions, 'enableWith')) {
-    return value;
+    return true;
   }
 
   if (withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults, fields)) {
-    return value;
+    return true;
   }
 
-  return null;
+  return false;
 }
 
 function _makeValidator(type, field, options, values, fields) {
@@ -57,9 +58,9 @@ function _makeValidator(type, field, options, values, fields) {
   if (type === 'list') {
     validatorOptions.validators = registeredValidators;
   }
-  
+
   if (
-    validatorOptions.enableWith && 
+    validatorOptions.enableWith &&
     !withFieldValueMatches(validatorOptions, 'enableWith', values, fields)
   ) {
     validatorOptions.optional = true;
@@ -69,7 +70,7 @@ function _makeValidator(type, field, options, values, fields) {
 
   if (
     optionalIsUndefined &&
-    validatorOptions.optionalWith && 
+    validatorOptions.optionalWith &&
     !withFieldValueMatches(validatorOptions, 'optionalWith', values, fields)
   ) {
     validatorOptions.optional = false;

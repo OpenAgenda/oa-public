@@ -30,7 +30,7 @@ describe( 'schema functions ( unit tests )', () => {
 
       expect(flattened.length).toBe(1);
 
-      expect(_.keys( flattened[ 0 ] )).toEqual([ 'field', 'validator', 'value' ]);
+      expect(_.keys( flattened[ 0 ] )).toEqual([ 'field', 'validator', 'value', 'isEnabled' ]);
 
       expect(_.pick( flattened[ 0 ], [ 'field', 'value' ] )).toEqual({
         field: 'title',
@@ -53,7 +53,8 @@ describe( 'schema functions ( unit tests )', () => {
 
       expect(flattened.length).toBe(3);
 
-      expect(flattened.map( f => f.value )).toEqual([ 'Jeff', null, null ]);
+      expect(flattened.map( f => f.value )).toEqual([ 'Jeff', null, 'Nobody' ]);
+      expect(flattened.map( f => f.isEnabled )).toEqual([ true, true, false ]);
 
     } );
 

@@ -26,7 +26,6 @@ export default function MemberSharing({
   history,
 }) {
   log('loading');
-
   const queryClient = useQueryClient();
   const location = useLocation();
   const prefix = usePrefix(agenda);
@@ -50,6 +49,11 @@ export default function MemberSharing({
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
+    detailedAgendaIsLoading,
+    detailedAgenda,
+  } = useDetailedAgenda(agenda.uid);
+
+  const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
     detailedAgenda: fromAgenda,
   } = useDetailedAgenda(fromAgendaUid);
@@ -59,7 +63,7 @@ export default function MemberSharing({
     return <Loading />;
   }
 
-  if (agendaContextIsLoading || eventIsLoading || fromAgendaIsLoading) {
+  if (agendaContextIsLoading || eventIsLoading || fromAgendaIsLoading || detailedAgendaIsLoading) {
     return <Loading />;
   }
 
@@ -74,7 +78,7 @@ export default function MemberSharing({
         <div className="wsq padding-all-md">
           <MemberForm
             mode="share"
-            agenda={agenda}
+            agenda={detailedAgenda}
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {

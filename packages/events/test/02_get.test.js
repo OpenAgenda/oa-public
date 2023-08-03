@@ -158,7 +158,7 @@ describe('events - functional - get', () => {
     });
 
     it('null credit and null image appear as null in events', async () => {
-      assert.equal(await svc.get(66724283).then(e => e.image), undefined);
+      assert.equal(await svc.get(66724283).then(e => e.image), null);
     });
 
     it('if access is internal, internal fields are returned', async () => {
@@ -286,7 +286,7 @@ describe('events - functional - get', () => {
           min: null,
           max: null
         });
-        
+
         assert.deepEqual(eventHavingEmptyObjectInAgeInDb.age, {
           min: null,
           max: null

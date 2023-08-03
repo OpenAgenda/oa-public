@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const https = require( 'https' );
 
-const app = require( 'express' )();
+const app = require( 'express' ).Router();
 
 const config = require( '../config' );
 const legacyEventSvc = require( '../services/event' );

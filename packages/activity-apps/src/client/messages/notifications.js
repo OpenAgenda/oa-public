@@ -77,6 +77,10 @@ export default defineMessages({
     id: 'ActivityApps.notifications.agendaSystemUnpublishEvent',
     defaultMessage: '{object} has been automatically unpublished on {target} for moderation.'
   },
+  'agenda.systemChangeEventState': {
+    id: 'ActivityApps.notifications.agendaSystemChangeEventState',
+    defaultMessage: '{object} has been automatically put back in moderation as {objectCount, plural, one {it has} other {they have}} been edited by {objectCount, plural, one {its contributor} other {their contributors}} on {target}.'
+  },
   'agenda.sendInvitation': {
     id: 'ActivityApps.notifications.agendaSendInvitation',
     defaultMessage: '{actor} invited {object} as <hl><role>{invitedRole}</role></hl> on {target}.'

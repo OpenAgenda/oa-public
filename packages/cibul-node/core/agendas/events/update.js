@@ -112,6 +112,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   } = assignState(agenda, event, clean, data, {
     authorizations,
     draft,
+    currentState: agendaEvent?.state,
   });
 
   const payload = createPayload(core, agenda);
@@ -174,6 +175,22 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     return returnPayload ? response : response.updated;
   }
 
+  const formSchema = await payload.getFormSchema({ access: 'internal' });
+
+  try {
+    const beforeEvent = await payload.getCompiledEvent('before');
+    const afterEvent = await payload.getCompiledEvent();
+
+    await createUpdateActivity(core.services, beforeEvent, afterEvent, {
+      userUid: actingUserUid,
+      agenda,
+      formSchema,
+      member: actingMember,
+    });
+  } catch (e) {
+    log('error', 'failed to create activity', e);
+  }
+
   // if event is not draft or was just undrafted, agendaEvent ref must be set
   if (clean.agendaEvent) {
     try {
@@ -231,8 +248,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent();
 
-  const formSchema = await payload.getFormSchema({ access: 'internal' });
-
   try {
     await eventSearch.update({
       ...response,
@@ -245,19 +260,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   const before = await payload.getCompiledEvent('before');
-
-  if (!before.draft) {
-    try {
-      await createUpdateActivity(core.services, before, compiledEvent, {
-        userUid: actingUserUid,
-        agenda,
-        formSchema,
-        member: actingMember,
-      });
-    } catch (e) {
-      log('error', 'failed to create activity', e);
-    }
-  }
 
   await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
     event: compiledEvent,

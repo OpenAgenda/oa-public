@@ -1,11 +1,13 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { getSupportedLocale } from '@openagenda/intl';
+import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
+import commonLocales from '@openagenda/common-labels';
 import { ActivityItem } from '../../components';
-import locales from '../../../locales-compiled';
+import appLocales from '../../../locales-compiled';
 
 import 'moment/locale/fr';
 
+const locales = mergeLocales(appLocales, commonLocales);
 
 export default function(options) {
 

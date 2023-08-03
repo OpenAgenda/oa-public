@@ -13,7 +13,7 @@ const baseAggregations = [
 ];
 
 module.exports = services => {
-  const app = express();
+  const app = express.Router();
 
   app.get('/*', (req, res, next) => {
     req.search = {

@@ -544,6 +544,7 @@ const LocationForm = ({
         res={res}
         tiles={tiles}
         errors={errors}
+        setDisabled={setAwaitPost}
       />
 
       {detailedInfo ? renderDetailsInfo() : null}

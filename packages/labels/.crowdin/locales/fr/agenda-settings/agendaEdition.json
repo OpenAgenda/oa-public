@@ -95,6 +95,7 @@
   "matomoCustomConfig": "Je souhaite utiliser une configuration Matomo particulière. ",
   "matomoSupport": "Contacter le support",
   "trackSelectPlaceholder": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
+  "moreInfo": "plus d’info",
   "googleAnalyticsId": "Identifiant de suivi Google Analytics",
   "googleAnalyticsSecret": "Clé secrete de suivi Google Analytics",
   "googleAnalyticsTitle": "Seulement pour les utilisateurs GA4",

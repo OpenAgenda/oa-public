@@ -20,7 +20,7 @@ const settings = {
 export default core => {
   log('init');
 
-  const app = express();
+  const app = express.Router();
 
   app.core = core;
   app.services = core.services;

@@ -12,6 +12,7 @@ const agendaNotAMemberContext = require('./agendaNotAMember.context.json');
 const agendaIncompleteContributorContext = require('./agendaContributor.incomplete.context.json');
 const basicEventResponse = require('./event.json');
 const bareboneEventResponse = require('./barebone.event.json');
+const agendaWithMemberSchema = require('./agenda.withMemberSchema.json');
 
 function getLocation(uid) {
   return [basicEventResponse.event.location].filter(l => l.uid === parseInt(uid, 10)).pop();
@@ -32,6 +33,7 @@ storySets.ContributorGoesToEventStepAfterMemberFormSubmit = {
     }),
   },
 };
+
 
 storySets.MemberIsAdminModAndDataIsIncomplete = {
   agendaContext: produce(agendaIncompleteContributorContext, draft => {
@@ -671,6 +673,19 @@ storySets.ShareWhenNotAMember = {
     },
   },
 };
+
+storySets.ShareWithMemberAdditionalFields = {
+  agendaContext: agendaNotAMemberContext,
+  agenda: agendaWithMemberSchema,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...agendaWithMemberSchema,
+      uid: 310,
+    },
+  },
+};
+
 storySets.ShareWhenNotAMemberFromAgenda = {
   agenda: produce(basicDetailedAgenda, draft => {
     draft.uid = 5686;
