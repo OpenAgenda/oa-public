@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
@@ -265,6 +265,17 @@ describe('agenda-locations - functional - patch & update', () => {
           .then(e => JSON.parse(e.store).image);
 
         expect(image).toBe(null);
+      },
+    );
+
+    it(
+      'fix: extId should be cleared when specifying null in patch',
+      async () => {
+        const patched = await svc(7196947).patch(14471367, {
+          extId: null,
+        }, { includeImagePath: true });
+
+        expect(patched.extId).toBeNull();
       },
     );
 

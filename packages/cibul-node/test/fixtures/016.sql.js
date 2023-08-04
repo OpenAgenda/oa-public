@@ -31,6 +31,7 @@ raw.push(knex('reviewer').insert([
 
 raw.push(knex('location').insert([
   load('sql/locations/laPiscine.json'),
+  load('sql/locations/laBaignoire.json'),
 ]));
 
 raw.push(knex('network').insert([

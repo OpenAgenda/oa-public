@@ -12,14 +12,21 @@ export default async function cloneAndBuildOA({
     API_DOMAIN: APIDomain,
     NODE_ENV: nodeEnv,
     OA_SERVER_PORT: serverPort,
+    NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
   } = envVars;
 
-  await fs.writeFile(`${dir}/next.local`, [
+  const nextEnvVars = [
     `DOMAIN=${domain}`,
     `API_DOMAIN=${APIDomain}`,
     `NODE_ENV=${nodeEnv}`,
     `NEXT_API_INTERNAL_BASE_URL=http://${getNodeGroupEndpoint(nodeGroups, 'web')}:${serverPort}`,
-  ].join('\n'));
+  ];
+
+  if (nodeEnv === 'production') {
+    nextEnvVars.push(`NEXT_PUBLIC_ASSET_PREFIX=${nextPublicAssetPrefix}`);
+  }
+
+  await fs.writeFile(`${dir}/next.local`, nextEnvVars.join('\n'));
 
   await fs.writeFile(`${dir}/prod.js`, [
     'module.exports = {};'

@@ -22,6 +22,14 @@ En production, 2 environnements web identiques sont prêts. L'un est actif, l'au
 
 Il gère aussi le décryptage/encryptage des requêtes https: c'est donc là que sont placés les certificats pour le site ainsi que pour l'API.
 
+### Faire une bascule après une mise à jour
+
+La bascule se fait via l'outil "Traffic Distributor" affiché dans la liste des add-ons du groupe noeuds "nginx" de l'environnement Traffic distributor (à coté du add on Lets Encrypt, non utilisé pour la prod).
+
+En cliquant sur "Configure", on voit apparaitre le menu permettant la bascule d'un environnement à l'autre. Il suffit d'appliquer un ratio à 100 sur l'environnement cible de la mise en production et d'appliquer.
+
+### Configuration
+
 **Important**: On a constaté qu'il n'était pas fonctionnel tant que les configurations 'reuse' n'étaient pas commentées. Tant que ce n'est pas fait, les requêtes en post lancent des exceptions nginx.
 
 Dans `conf.d/ssl.conf`, il faut donc commenter les lignes correspondant à IPv6:

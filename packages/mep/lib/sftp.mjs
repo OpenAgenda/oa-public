@@ -10,7 +10,7 @@ export default async function sftp(nodes, file, destPath, {
   for (const node of nodes) {
     console.log('sftp of %s to %s %s', file, node.connectionEndpoint, destPath);
     const result = await exec(
-      `scp -i ${SSHKeyPath} ${file} ${node.connectionEndpoint}:${destPath}`,
+      `scp -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${file} ${node.connectionEndpoint}:${destPath}`,
       {
         maxBuffer: Infinity,
       }
@@ -23,3 +23,5 @@ export default async function sftp(nodes, file, destPath, {
   }
   return results;
 }
+
+
