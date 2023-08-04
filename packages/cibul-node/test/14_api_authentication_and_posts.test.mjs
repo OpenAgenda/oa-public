@@ -44,7 +44,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
   });
 
   beforeAll(async () => {
-    server = await api(core).listen(3000);
+    server = await api(core, { useRouter: false }).listen(3000);
   });
 
   const axiosJSONPayload = {

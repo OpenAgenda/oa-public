@@ -129,7 +129,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     let response;
 
     beforeAll(async () => {
-      server = api(core).listen(3000);
+      server = api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());

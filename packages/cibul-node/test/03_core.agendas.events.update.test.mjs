@@ -502,7 +502,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());

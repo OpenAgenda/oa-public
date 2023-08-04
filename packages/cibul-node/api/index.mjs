@@ -17,10 +17,10 @@ const settings = {
   resync: getSettingsResyncEndpoint,
 };
 
-export default core => {
+export default (core, { useRouter = true } = {}) => {
   log('init');
 
-  const app = express.Router();
+  const app = useRouter ? express.Router() : express();
 
   app.core = core;
   app.services = core.services;

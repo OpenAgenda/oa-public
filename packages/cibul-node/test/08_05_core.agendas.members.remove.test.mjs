@@ -62,7 +62,7 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());

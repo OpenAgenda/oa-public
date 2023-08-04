@@ -185,7 +185,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());
