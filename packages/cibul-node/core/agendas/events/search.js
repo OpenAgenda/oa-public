@@ -18,6 +18,9 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     useAfterKey = false,
     longDescriptionFormat = null,
     useDateHoursMinutesFormat = false,
+    includeEmbedScripts = true,
+    cspNonce = null,
+    includeLocationLegacyAdminLevels = true,
     ...searchOptions
   } = options;
 
@@ -32,6 +35,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     access: 'internal',
     private: null,
     useCache: true,
+    includeLocationLegacyAdminLevels,
   });
 
   if (!agenda) {
@@ -56,6 +60,8 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     parsers.push(convertLongDescription.load({
       services: core.services,
       conversion: longDescriptionFormat,
+      includeEmbedScripts,
+      cspNonce,
     }));
   }
 

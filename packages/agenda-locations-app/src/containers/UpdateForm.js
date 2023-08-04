@@ -33,12 +33,14 @@ const messages = defineMessages({
 });
 
 const UpdateForm = ({
-  detailedInfo = true
+  detailedInfo = true,
 }) => {
   const { lang, agenda } = useLayoutData();
   const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [pageSpin, setPageSpin] = useState(false);
+  const [unfoundLocation, setUnfoundLocation] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings } = useSettings(agenda);
@@ -47,9 +49,8 @@ const UpdateForm = ({
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const nq = historyLocation.state || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
   const { isLoading, data: location } = useQuery(['location', locationUid], () => (
-    axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => {
-      return response.data.location;
-    })
+    axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => response.data.location)
+      .catch(err => setUnfoundLocation(true))
   ), { cacheTime: 0 });
 
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const UpdateForm = ({
   );
 
   const onSubmit = updatedLocation => {
+    setPageSpin(true);
     let clean;
     const options = {
       optional: true,
@@ -76,6 +78,7 @@ const UpdateForm = ({
     try {
       clean = validate(updatedLocation, settings, options);
     } catch (err) {
+      setPageSpin(false);
       setErrors(err);
       return;
     }
@@ -83,12 +86,14 @@ const UpdateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    axios.post(res.update.replace(':locationUid', locationUid), form)
+    return axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(() => {
+        setPageSpin(false);
         if (nq) history.push(nq); else history.push(prefix);
         dispatch(onGoingActions.initiate('update'));
         setErrors(false);
       }).catch(err => {
+        setPageSpin(false);
         setErrorModal(err);
       });
   };
@@ -117,29 +122,33 @@ const UpdateForm = ({
       </i>
     );
   }
+
   return (
     <>
-      {errorModal ? (
+      {errorModal || unfoundLocation ? (
         <ErrorModal
           close={() => setErrorModal(false)}
           error={errorModal}
         />
       ) : null}
-      <LocationForm
-        Header={UpdateFormHeader()}
-        showToggler
-        res={res}
-        lang={lang}
-        locationProp={location}
-        detailedInfo={detailedInfo}
-        settings={settings}
-        onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
-        tiles={tiles}
-        mode="update"
-        onSubmit={onSubmit}
-        errors={errors}
-        displayExtIdLink
-      />
+      {!unfoundLocation ? (
+        <LocationForm
+          Header={UpdateFormHeader()}
+          showToggler
+          res={res}
+          lang={lang}
+          locationProp={location}
+          detailedInfo={detailedInfo}
+          settings={settings}
+          onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
+          tiles={tiles}
+          mode="update"
+          onSubmit={onSubmit}
+          errors={errors}
+          displayExtIdLink
+          pageSpin={pageSpin}
+        />
+      ) : null}
     </>
   );
 };

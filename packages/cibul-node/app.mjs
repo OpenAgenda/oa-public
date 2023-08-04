@@ -14,11 +14,6 @@ app
   .set('query parser', str => qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }))
   .use(Sentry.Handlers.requestHandler())
   .use(bodyParser.json({ limit: '5mb', verify: rawBodySaver }))
-  .use(bodyParser.urlencoded({ limit: '500kb', extended: true, verify: rawBodySaver }))
-  .use((req, res, next) => {
-    req.app = app;
-    res.setHeader('X-Powered-By', 'OpenAgenda');
-    next();
-  });
+  .use(bodyParser.urlencoded({ limit: '500kb', extended: true, verify: rawBodySaver }));
 
 export default app;

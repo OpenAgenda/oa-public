@@ -658,6 +658,21 @@ export function Checkboxes() {
           value: 'option-five',
           label: 'Option Five',
         }],
+      }, {
+        field: 'acheckboxfieldwithinfo',
+        fieldType: 'checkbox',
+        label: 'Make an informed choice, or not',
+        options: [{
+          id: 9,
+          value: 'option-nine',
+          label: 'Option Nine',
+          info: 'info one, info two.',
+        }, {
+          id: 10,
+          value: 'option-ten',
+          label: 'Option Ten',
+          info: 'an info',
+        }],
       }],
     },
   };

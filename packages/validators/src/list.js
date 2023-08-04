@@ -83,6 +83,10 @@ module.exports = function list(...args) {
       return clean;
     }
 
+    if (Array.isArray(value) && !params.optional && !value.length) {
+      throw formatErrors(params, value, 'required', 'value cannot be empty');
+    }
+
     if (!_.isArray(value)) {
       throw formatErrors(params, value, 'list.wrongtype', 'value should be a list');
     }

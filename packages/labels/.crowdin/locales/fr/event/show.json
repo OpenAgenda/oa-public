@@ -110,5 +110,7 @@
   "statusCancelledInfo": "L'événement a été annulé de manière permanente",
   "statusFull": "Complet",
   "markAsFull": "L'événement est complet",
-  "statusFullInfo": "L'événement n'accepte plus de nouveaux participants"
+  "statusFullInfo": "L'événement n'accepte plus de nouveaux participants",
+  "seeHistory": "Voir l'historique",
+  "locationHistory": "Historique du lieu"
 }

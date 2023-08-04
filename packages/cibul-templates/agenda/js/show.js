@@ -4,7 +4,6 @@ import React from 'react';
 import displayExportButton from './displayExportButton';
 import displayAggregateButton from './displayAggregateButton';
 import displayContextBar from './displayContextBar';
-import trackConsent from './trackConsent';
 import addGoogleAnalyticsTracker from './addGoogleAnalyticsTracker';
 
 const controllers = require('../../widgets/controller/main'),
@@ -80,13 +79,6 @@ window.asap(options => {
     total = totalLib('.js_total', options.lang);
 
   const initialQuery = window.location.href;
-
-  trackConsent(options, {
-    onConsentConfirmed: () => addGoogleAnalyticsTracker({
-      agendaUID: uid,
-      googleAnalyticsID: options.googleAnalyticsID
-    })
-  });
 
   favorites.init({
     agendaUid: options.uid,

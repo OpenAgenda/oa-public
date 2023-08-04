@@ -25,7 +25,7 @@ module.exports = async function createActivity(services, before, after, context)
   log('processing');
 
   const { users, activities } = services;
-  const { agenda, member, formSchema } = context;
+  const { agenda, member, formSchema, agendaEvent } = context;
 
   if (!activities) {
     return log('warn', 'activities service is not initialized');
@@ -97,6 +97,7 @@ module.exports = async function createActivity(services, before, after, context)
         contributorFields: changedFields.contributor,
         moderatorFields: changedFields.moderator,
         administratorFields: changedFields.administrator,
+        userUid: agendaEvent.userUid,
       },
     });
   }

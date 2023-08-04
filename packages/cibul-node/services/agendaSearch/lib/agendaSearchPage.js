@@ -21,13 +21,14 @@ module.exports = config => (req, res, next) => {
   if (req.cookies.translateMode) {
     scripts.top = [
       { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
-      { src: '//cdn.crowdin.com/jipt/jipt.js' }
+      { src: 'https://cdn.crowdin.com/jipt/jipt.js' }
     ];
   }
 
-  if (config.matomoCloudCode) {
+  if (config.matomoCloudId) {
     scripts.bottom.push({
-      body: config.matomoCloudCode
+      src: '/js/matomo.js',
+      integrity: req.app.services.dynamicScripts.hashes.matomo,
     });
   }
 
@@ -59,6 +60,7 @@ module.exports = config => (req, res, next) => {
       })
     }],
     translateMode,
-    isTranslator
+    isTranslator,
+    cspNonce: res.locals.cspNonce,
   }));
 };

@@ -3,7 +3,6 @@
 const log = require('@openagenda/logs')('services/eventSearch/agendaIndexSearch');
 
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
-const validateAgendaSearchOptions = require('./lib/validateAgendaSearchOptions');
 const amendRestrictedFieldsWithInternalAccess = require('./lib/amendRestrictedFieldsWithInternalAccess');
 
 module.exports = (eventSearch, agenda) => {
@@ -16,7 +15,7 @@ module.exports = (eventSearch, agenda) => {
     log('agenda %s', agenda.uid);
 
     return searchIndex.search(query, nav, {
-      ...validateAgendaSearchOptions(options),
+      ...options,
       formSchema,
     });
   }
@@ -27,7 +26,7 @@ module.exports = (eventSearch, agenda) => {
     log('agenda %s', agenda.uid, query);
 
     return searchIndex.search.stream(query, {
-      ...validateAgendaSearchOptions(options),
+      ...options,
       formSchema,
     });
   }

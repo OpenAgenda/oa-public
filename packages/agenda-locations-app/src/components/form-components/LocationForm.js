@@ -189,6 +189,7 @@ const LocationForm = ({
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
+  const [awaitPost, setAwaitPost] = useState(false);
 
   if (!location.countryCode) location.countryCode = 'FR';
 
@@ -197,7 +198,13 @@ const LocationForm = ({
     setLocation({ ...location, [name]: value });
   };
 
-  const getLabel = (name, values) => {
+  const clearRequired = str => {
+    if (str.includes('.required')) return str.split('.')[1];
+    return str;
+  };
+
+  const getLabel = (unclearName, values) => {
+    const name = clearRequired(unclearName);
     let str;
     let k;
     // see if label is defined in agenda settings
@@ -279,7 +286,11 @@ const LocationForm = ({
     setLocation({ ...location, description });
   };
 
-  const set = () => onSubmit(location);
+  const set = async () => {
+    setAwaitPost(true);
+    await onSubmit(location);
+    setAwaitPost(false);
+  };
 
   const renderErrors = () => (
     <div className="errors">
@@ -310,7 +321,7 @@ const LocationForm = ({
     </div>
   );
 
-  const renderExId = () => {
+  const renderExtId = () => {
     if (!displayExtIdLink) return;
     if (detailedInfo && (location.extId || showExtId)) {
       return (
@@ -533,10 +544,11 @@ const LocationForm = ({
         res={res}
         tiles={tiles}
         errors={errors}
+        setDisabled={setAwaitPost}
       />
 
       {detailedInfo ? renderDetailsInfo() : null}
-      {renderExId()}
+      {renderExtId()}
 
       {errors ? renderErrors() : ''}
 
@@ -557,6 +569,7 @@ const LocationForm = ({
             e.preventDefault();
             set();
           }}
+          disabled={awaitPost}
         >
           {intl.formatMessage(messages[`${mode}Submit`])}
         </button>

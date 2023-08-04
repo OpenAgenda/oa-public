@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/oembed",
-  "version": "2.1.14",
+  "version": "2.2.1",
   "main": "index.js",
   "license": "MIT",
   "author": "Kaoré",
@@ -12,6 +12,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
     "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
     "core-js": "^3.29.1",
     "lodash": "^4.17.15",
     "markdown-link-extractor": "^1.2.0",

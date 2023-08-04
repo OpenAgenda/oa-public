@@ -34,7 +34,7 @@ function schema(options) {
 
     flattened.forEach(flat => {
       try {
-        clean[flat.field] = flat.validator(flat.value);
+        clean[flat.field] = flat.isEnabled ? flat.validator(flat.value) : null;
       } catch (errs) {
         if (!_.isArray(errs)) throw errs;
 
@@ -104,7 +104,7 @@ function schema(options) {
     }
 
     if (cursor.enableWith && !withFieldValueMatches(cursor, 'enableWith', contextValues, params.fields)) {
-      return;
+      return null;
     }
 
     const validator = registeredValidators[type](cursor);

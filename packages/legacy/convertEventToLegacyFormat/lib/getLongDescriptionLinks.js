@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = function getLongDescriptionLinks(links) {
+module.exports = function getLongDescriptionLinks(linksWithNulls) {
+  const links = (linksWithNulls || []).filter(l => !!l);
+
   if (!links) {
     return null;
   }
@@ -9,7 +11,7 @@ module.exports = function getLongDescriptionLinks(links) {
   }
 
   const tst = links.map(link => {
-    if (link.data) {
+    if (link.data?.html) {
       return {
         link: link.link,
         code: link.data.html,

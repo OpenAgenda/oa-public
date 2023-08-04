@@ -71,3 +71,8 @@ export const ShareWhenNotAMember = componentFromFixtures(
   'Non-member user shares event. Member form is presented.',
   309, '/event/01/from/5686'
 );
+
+export const ShareWhenNotAMemberAndExtendedMemberSchema = componentFromFixtures(
+  'Non-member user shares event. Member form is presented.',
+  310, '/event/01/from/5686'
+);

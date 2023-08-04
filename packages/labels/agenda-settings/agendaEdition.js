@@ -805,6 +805,38 @@ module.exports = {
     "io": "crwdns12670:0crwdne12670:0",
     "oc": "Messatge mandat de l'agenda \"La setmana de l'industria\""
   },
+  "matomoUrl": {
+    "en": "Url", 
+    "fr": "Url",
+  },
+  "matomoSiteId": {
+    "en": "Site id", 
+    "fr": "Identifiant du site",
+  },
+  "matomoAskForConsent": {
+    "en": "Request user consent", 
+    "fr": "Demander le consentement de l'utilisateur",
+  },
+  "matomoAskForConsentInfo": {
+    "en": "My Matomo configurationg requires asking for consent", 
+    "fr": "Ma configuration Matomo nécessite de demander le consentement",
+  },
+  "matomoCustomConfig": {
+    "en": "I want to use a particular Matomo configuration. ", 
+    "fr": "Je souhaite utiliser une configuration Matomo particulière. ",
+  },
+  "matomoSupport": {
+    "en": "Contact support", 
+    "fr": "Contacter le support",
+  },
+  "trackSelectPlaceholder": {
+    "en": "Choose your tracking service (Google Analytics or Matomo)", 
+    "fr": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
+  },
+  "moreInfo": {
+    "en": "more info", 
+    "fr": "plus d’info",
+  },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
     "en": "Google Analytics Tracking ID",
@@ -840,13 +872,13 @@ module.exports = {
     "oc": "Estatisticas"
   },
   "statsTabDescription": {
-    "fr": "Paramètrez votre identifiant de suivi Google Analytics",
-    "en": "Set your Google Analytics Tracking ID",
-    "de": "Stelle Deine Google Analytics-Tracking-ID",
-    "es": "Configurar su ID de seguimiento de Google Analytics",
-    "it": "Imposta il tuo identificativo di tracciamento di Google Analytics",
+    "fr": "Paramétrer vos informations de suivi",
+    "en": "Set up your tracking information",
+    "de": "Richten Sie Ihre Tracking-Informationen ein",
+    "es": "Configura tu información de seguimiento",
+    "it": "Imposta le tue informazioni di tracciamento",
     "io": "crwdns12676:0crwdne12676:0",
-    "oc": "Definissètz vòstre identificant de seguit Google Analytics"
+    "oc": "Parametrar las vòstas informacions de seguit"
   },
   "statsDescription": {
     "fr": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",

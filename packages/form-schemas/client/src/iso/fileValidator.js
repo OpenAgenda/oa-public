@@ -26,11 +26,47 @@ const baseFields = {
   }
 };
 
+function isEmptyObject(obj, visited = new Set()) {
+  if (obj === null || typeof obj === 'undefined') {
+    return true;
+  }
+
+  if (Array.isArray(obj) && obj.length === 0) {
+    return true;
+  }
+
+  if (typeof obj === 'object' && Object.keys(obj).length === 0) {
+    return true;
+  }
+
+  if (typeof obj !== 'object') {
+    return !obj;
+  }
+
+  if (visited.has(obj)) {
+    return true;
+  }
+
+  visited.add(obj);
+
+  for (const key in obj) {
+    if (!isEmptyObject(obj[key], visited)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 module.exports = (validatorOptions = {}) => v => {
   const optional = validatorOptions?.optional === undefined ? true : validatorOptions?.optional;
 
   if (!optional && !v) {
     throw requiredError(validatorOptions?.field);
+  }
+
+  if (!v) {
+    return null;
   }
 
   const fields = {
@@ -67,7 +103,7 @@ module.exports = (validatorOptions = {}) => v => {
 
   const clean = schema(fields)(v);
 
-  if (!Object.keys(clean).filter(k => clean[k] !== null).length) {
+  if (isEmptyObject(clean)) {
     return null;
   }
 

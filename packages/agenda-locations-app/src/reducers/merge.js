@@ -94,22 +94,25 @@ export function selectTarget(target) {
   };
 }
 
-export function launchMerge(merge, res, nextLocation, setErrorModal) {
+export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
   return ({ history }, { dispatch }) => {
     const merged = merge.locationUids.filter(uid => uid !== merge.target.uid);
     if (!merge.target) console.log('no target for merge!!');
     if (!merge || !merge.target || !merge.locationUids.length) return;
+    setSpin(true);
     const body = {
       mergeIn: merge.target.uid,
       merged,
     };
     axios.post(res.merge, body)
       .then(() => {
+        setSpin(false);
         history.push(nextLocation);
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         dispatch(onGoingActions.initiate('merge'));
       })
       .catch(err => {
+        setSpin(false);
         console.log('error', err);
         setErrorModal(err);
       });

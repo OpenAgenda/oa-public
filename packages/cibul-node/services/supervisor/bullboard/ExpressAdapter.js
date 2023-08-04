@@ -11,7 +11,7 @@ const wrapAsync = fn => async (req, res, next) =>
 
 module.exports = class ExpressAdapter {
   constructor() {
-    this.app = express();
+    this.app = express.Router();
     this.basePath = '';
     this.viewPath = '';
     this.uiConfig = {};

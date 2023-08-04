@@ -9,9 +9,9 @@ export default async function rsync(nodes, srcFolder, destPath, {
 }) {
   const results = [];
   for (const node of nodes) {
-    console.log(`rsync to node ${node.endpoint}`);
+    console.log(`rsync to node ${node.connectionEndpoint}`);
     const result = await exec(
-      `rsync --${options.join(' --')} -e 'ssh -i ${SSHKeyPath}' ${srcFolder}/ ${node.endpoint}:${destPath}`,
+      `rsync --${options.join(' --')} -e 'ssh -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${srcFolder}/ ${node.connectionEndpoint}:${destPath}`,
       {
         maxBuffer: Infinity,
       }

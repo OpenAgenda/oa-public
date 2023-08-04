@@ -1,5 +1,5 @@
-
 import { defineMessages, FormattedMessage } from 'react-intl';
+import { Spinner } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   duplicatesSelection: {
@@ -80,7 +80,8 @@ function MergeStepper({
   seeDetails,
   launchMerge,
   seeSelection,
-  disqualifyDuplicates
+  disqualifyDuplicates,
+  pageSpin = false,
 }) {
   const { step } = merge;
   let step2Class = 'step';
@@ -211,6 +212,9 @@ function MergeStepper({
           </button>
         ) : null}
       </div>
+      {pageSpin ? (
+        <Spinner page messages={pageSpin.messages} />
+      ) : null}
     </div>
   );
 }

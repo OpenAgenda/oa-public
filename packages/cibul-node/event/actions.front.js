@@ -15,7 +15,7 @@ const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
 const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
-const gaTrack = require('../lib/gaTrack');
+const track = require('../lib/track');
 const ics = require('../services/events/lib/ics');
 
 function getDates(event, lang) {
@@ -87,8 +87,6 @@ function actionDatesJson(req, res, next) {
 }
 
 async function eventMailSend(req, res, next) {
-  log('eventMailSend');
-
   const { events: eventsSvc } = req.app.services;
 
   let customData = null;
@@ -115,8 +113,6 @@ async function eventMailSend(req, res, next) {
   try {
     const emails = (typeof req.body.mailsend === 'string' ? req.body.mailsend : '').split(/[\s;,\n\r]+/);
 
-    req.log.debug('will send event as email to %s', emails.join(', '));
-
     const logo = req.agenda.image
       ? {
         src: config.aws.imageBucketPath + req.agenda.image.replace('.com/', '.com/rwtb'),
@@ -129,7 +125,11 @@ async function eventMailSend(req, res, next) {
 
     const link = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
 
-    log('info', 'queuing event mails for %s', emails.join('|'), emails.length);
+    log.info('eventMailSend', {
+      link,
+      targettedEmailsCount: emails.length,
+      message: 'queuing emails',
+    });
 
     const dateRange = range(req.event.timings.map(t => ({
       start: new Date(t.begin),
@@ -195,12 +195,10 @@ async function eventMailSend(req, res, next) {
       lang: req.lang,
     });
 
-    // gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
-
     res.send({ count: emails.length });
 
     for (let i = 0; i < emails.length; i++) {
-      gaTrack(req, req.agenda, 'event', 'share', 'emails');
+      track(req, req.agenda, 'event', 'share', 'emails');
     }
   } catch (err) {
     return next(err);

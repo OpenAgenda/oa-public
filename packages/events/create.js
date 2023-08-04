@@ -10,7 +10,7 @@ const setLegacy = require('./lib/legacy/set');
 const generateFileKey = require('./lib/generateFileKey');
 const processImage = require('./lib/processImage');
 const handleInterface = require('./lib/handleInterface');
-const convertDateHoursMinutesTimings = require('./utils/convertDateHoursMinutesTimings');
+const convertAndInjectTimingsWithTimezone = require('./utils/convertAndInjectTimingsWithTimezone');
 const lastClean = require('./lib/lastEventClean');
 
 module.exports = async (service, data, o = {}) => {
@@ -51,7 +51,7 @@ module.exports = async (service, data, o = {}) => {
     });
   }
 
-  convertDateHoursMinutesTimings(clean.timings, clean.timezone);
+  clean.timings = convertAndInjectTimingsWithTimezone(clean.timings, clean.timezone);
 
   if (userUid) {
     Object.assign(clean, {

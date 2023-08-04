@@ -36,6 +36,11 @@ location /_next {
   include conf.d/nextjs_params;
 }
 
+# dynamic scripts
+location ~ ^/js/(matomo|crisp)\.js$ {
+  include conf.d/nodejs_params;
+}
+
 # cibul-templates/dist
 location ~ ^/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;
@@ -59,7 +64,7 @@ location = /favicon.ico {
 ##########################################################
 # CLOSED STUFF
 
-location /legacy {
+location ~ ^/legacy(|/.+)$ {
   return 403 "Nope.";
 }
 
@@ -114,7 +119,7 @@ location ~ ^/agendas/([0-9]+)/events\.v2\.json$ {
   include conf.d/nodejs_params;
 }
 
-location /locations {
+location ~ ^/locations(|/.+)$ {
   add_header 'Access-Control-Allow-Origin' '*';
   add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
   add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
@@ -149,115 +154,115 @@ location ~ ^/(en|de|br|es|it)$ {
   include conf.d/nodejs_params;
 }
 
-location /api {
+location ~ ^/api(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /events {
+location ~ ^/events(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /users {
+location ~ ^/users(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /incoming-emails {
+location ~ ^/incoming-emails(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-# location /locations {
+# location ~ ^/locations(|/.+)$ {
 #   include conf.d/nodejs_params;
 # }
 
-location /home {
+location ~ ^/home(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /admin {
+location ~ ^/admin(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /dist {
+location ~ ^/dist(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /abilities {
+location ~ ^/abilities(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /unsubscribe {
+location ~ ^/unsubscribe(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /docx {
+location ~ ^/docx(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /signin {
+location ~ ^/signin(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /signup {
+location ~ ^/signup(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /signout {
+location ~ ^/signout(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /newsletter {
+location ~ ^/newsletter(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /services {
+location ~ ^/services(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /flash {
+location ~ ^/flash(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /start {
+location ~ ^/start(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /discover {
+location ~ ^/discover(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /decouvrir {
+location ~ ^/decouvrir(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /entdecken {
+location ~ ^/entdecken(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /decouvrirbr {
+location ~ ^/decouvrirbr(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /descubrir {
+location ~ ^/descubrir(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /scoprire {
+location ~ ^/scoprire(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /session {
+location ~ ^/session(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /latest-inbox-timestamp {
+location ~ ^/latest-inbox-timestamp(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /widgets {
+location ~ ^/widgets(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/agendas(/.+|)$ {
+location ~ ^/agendas(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
@@ -266,52 +271,56 @@ location ~ ^/agendas\.[a-zA-Z0-9]* {
   include conf.d/nodejs_params;
 }
 
-location /facebook {
+location ~ ^/facebook(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /twitter {
+location ~ ^/twitter(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /google {
+location ~ ^/google(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /activate {
+location ~ ^/activate(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /password {
+location ~ ^/password(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /new {
+location ~ ^/new(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /supervisor {
+location ~ ^/supervisor(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /settings {
+location ~ ^/settings(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /support {
+location ~ ^/support(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /notifications {
+location ~ ^/notifications(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location /monit {
+location ~ ^/monit(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
 # /:agendaSlug/...
 location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/reports(|/.+)$ {
   include conf.d/nodejs_params;
 }
 

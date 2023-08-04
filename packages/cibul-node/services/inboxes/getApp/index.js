@@ -8,7 +8,7 @@ const agendaEndpoints = require('./endpointRouters/agenda');
 const supportEndpoints = require('./endpointRouters/support');
 
 module.exports = (config, services) => {
-  const app = express();
+  const app = express.Router();
 
   pages(app, config, services);
 

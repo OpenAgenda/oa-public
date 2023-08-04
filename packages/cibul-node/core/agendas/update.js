@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const _ = require('lodash');
 
 const { BadRequest } = require('@openagenda/verror');
@@ -14,8 +13,6 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
     agendaSearch,
   } = core.services;
 
-  const setAgenda = promisify(agendas.set);
-
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
   log('updating agenda of uid %s', agendaUid);
@@ -24,7 +21,7 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
     success,
     errors,
     agenda,
-  } = await setAgenda({ uid: agendaUid }, data, options);
+  } = await agendas.set({ uid: agendaUid }, data, options);
 
   if (errors?.length) throw new BadRequest({ info: { errors } }, 'invalid data');
 

@@ -98,17 +98,7 @@ export default class OptionsField extends Component {
       mode,
     } = this.state;
 
-    return ![modes.EDITING, modes.ORDERING].includes(mode);
-  }
-
-  isOrderingDisabled() {
-    const {
-      mode,
-    } = this.state;
-
-    if (mode === modes.EDITING) return true;
-
-    if (this.getOptions().length < 2) return true;
+    return ![modes.EDITING].includes(mode);
   }
 
   isOptionDisabled(index) {
@@ -124,48 +114,12 @@ export default class OptionsField extends Component {
     return false;
   }
 
-  renderOrder() {
-    const {
-      lang,
-    } = this.props;
-
-    const {
-      mode,
-    } = this.state;
-
-    if (mode !== modes.ORDERING) {
-      return (
-        <button
-          type="button"
-          onClick={this.setMode.bind(this, modes.ORDERING)}
-          className="btn btn-primary order-action"
-          disabled={this.isOrderingDisabled()}
-        >
-          {getLabel('optionOrder', lang)}
-        </button>
-      );
-    }
-
-    return (
-      <div className="text-center">
-        <p className="margin-top-md">{getLabel('orderInstruction', lang)}</p>
-        <button
-          type="button"
-          onClick={() => this.setMode(null)}
-          className="btn btn-primary margin-top-sm"
-        >
-          {getLabel('optionOrderEndAction', lang)}
-        </button>
-      </div>
-    );
-  }
-
   renderAdd() {
     const { field, lang } = this.props;
 
     const { mode } = this.state;
 
-    if (![modes.ADDING, modes.ORDERING].includes(mode)) {
+    if (![modes.ADDING].includes(mode)) {
       return (
         <button
           type="button"
@@ -213,7 +167,7 @@ export default class OptionsField extends Component {
               {this.getOptions().map((option, index) => (
                 <Draggable
                   index={index}
-                  isDragDisabled={mode !== modes.ORDERING}
+                  isDragDisabled={mode === modes.ORDERING}
                   draggableId={option.value}
                   key={option.value}
                 >
@@ -254,7 +208,6 @@ export default class OptionsField extends Component {
       <div className="options-field-form">
         {this.getOptions().length ? this.renderDraggableOptions() : <div className="margin-top-md margin-bottom-sm text-center">{getLabel('emptyOptions', lang)}</div> }
         {this.renderAdd()}
-        {this.renderOrder()}
       </div>
     );
   }

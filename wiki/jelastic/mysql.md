@@ -55,6 +55,45 @@ mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -uj
 
 [Documentation Jelastic](https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/)
 
+### Ajustements de configuration
+
+#### Le sort buffer
+
+Il est insuffisant sur la configuration par défaut. Il faut l'augmenter à 262144. Sur chaque noeud, se connecter pour lancer la requête suivante:
+
+    SET GLOBAL sort_buffer_size = 256000000
+
+Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/conf.d/my_custom.cnf) sous la clause [mysqld]:
+
+    sort_buffer_size=256000000
+
+Si la valeur est suffisante, une erreur `ER_OUT_OF_SORTMEMORY` ne surviendra pas dans le noeud de tâches quand une resynchro d'index est lancée sur un gros agenda.
+
+
+## Chargement de la base dans les noeuds
+
+Les commandes sql via le client dans les bases primaires passent en replication: une instruction du type `mysql> create database NOMDELABASE;` conduira à la création d'une base oa sur les autres noeuds si la réplication est fonctionnelle. Ce n'est pas le cas avec le chargement d'un dump depuis le terminal de type `mysql -uLUTILISATEURDB -p NOMDELABASE < NOMDELABASE.dump`. Il faut donc lancer la commande du chargement de dump sur chacun des noeuds.
+
+Commencer par charger le dump sur un des noeuds pour ensuite le copier dans le NFS. Le plus rapide est d'utiliser `sftp` pour charger le dump dans un des noeuds: `sftp -i cle ubuntu@serveurousetrouveledump`, de get le dump.
+
+Une fois le dump récupéré, il peut être placé dans le NFS: `mv oa.dump /var/lib/jelastic/backup`
+
+Avant de le charger dans le premier noeud (primaire/maitre), il faut se connecter sur un prompt mysql pour créer la base: `mysql> create database NOMDELABASE;`. Utile ensuite de se connecter sur le prompt mysql d'un noeud voisin pour vérifier que la base vide à bien été créée, sans quoi il y a un problème de réplication.
+
+Puis, dans chaque noeud et en parallèle pour aller plus vite, charger le dump dans la base: `mysql -uLUTILISATEURDB -p NOMDELABASE < /var/lib/jelastic/backup/oa.dump`.
+
+Ca va prendre un moment. Éviter le trop secouer les connections lors du chargement, les noeuds du cluster pour éviter que le chargement du dump se fasse de manière partielle. Si jamais le chargement n'est pas fait de manière complète, l'opération peut être relancée après un `mysql> drop database NOMDELABASE;` sur un noeud maitre. L'instruction passera par la réplication et la base sera supprimée sur les autres noeuds.
+
+Une fois que la base est chargée sur tous les noeuds, un test de réplication ne peut pas nuire. Il suffit de se connecter sur le prompt mysql d'un noeud primaire et d'insérer out de mettre à jour une donnée:
+
+`select id from form_schema order by id desc limit 1;` pour connaitre le dernier id
+
+`insert into form_schema (store) values ('{}');` puis on a l'id de l'entrée.
+
+On se connecte sur un autre noeud et on regarde si on a bien récupéré l'id qui vient d'être créé:
+
+`select id from form_schema order by id desc limit 1;`
+
 ## Ajustements de configuration ProxySQL
 
 ### Sécurisation

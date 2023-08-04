@@ -35,7 +35,7 @@ Les variables d'environnement:
 
  * **ES_JAVA_OPTS: -Xms2g -Xmx2g**: [La documentation officielle d'elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html) conseille de ne pas assigner plus de 50% de la valeur de la mémoire vive d'un serveur au paramètre min et max de la heap java.. et que ce n'est pas utile de mettre plus de 32gb. Pour un noeud qui dispose de 4 gigas, il faut donc mettre *-Xms2g -Xmx2g*
  * **JELASTIC_EXPOSE: 9200**: Le répartiteur de charge s'autoconfigure au fil de l'ajout et de la suppression de noeuds. Il faut quand même expliciter le port vers lequel il redirige les requêtes s'il est autre que le port 80. [Une variable d'environnement doit être précisée](https://docs.jelastic.com/container-ports/)
- * **OTHER_SEED_HOSTS: ' '**: Dans la configuration d'un noeud elasticsearch, une liste d'IP est donnée pour que le noeud puisse se signaler un un noeud 'master' et rejoindre le cluster. L'image `openagenda/jelastic-elasticsearch` liste le noeud donnée par la variable jelastic `MASTER_IP` mais permet également de préciser plus d'IP. C'est utile de désigner plusieurs IP lorsque le cluster comporte plusieurs noeuds pour le rendre plus résilient. Mais pour démarrer, la variable d'environnement servant à préciser ces IP additionnelles peut être laissée vide. Mais elle doit être définie: si jelastic ne permet pas de définir des variables d'environnement vides, laisser un espace suffira (dans des quotes sans quoi jelastic ne chargera pas la variable)
+ * **OTHER_SEED_HOSTS: ' '**: Dans la configuration d'un noeud elasticsearch, une liste d'IP est donnée pour que le noeud puisse se signaler à un noeud 'master' et rejoindre le cluster. L'image `openagenda/jelastic-elasticsearch` liste le noeud donnée par la variable jelastic `MASTER_IP` mais permet également de préciser plus d'IP. C'est utile de désigner plusieurs IP lorsque le cluster comporte plusieurs noeuds pour le rendre plus résilient. Jelastic ne permet pas de rien préciser. Alors on remet la valeur déjà définie dans MASTER_IP, séparée au début par une virgule. Exemple: `, 10.101.14.92`
 
 Une fois l'équilibrage, le(s) serveur(s) d'application et le variables d'environnement configurés, choisir un nom d'environnement et lancer la création.
 
@@ -147,10 +147,31 @@ Ouvrir la topologie de l'environnement et cliquer sur `+1` dans la section de re
 
 2 noeuds ça parait bien
 
+## Ajouter un noeud
+
+Avant d'ajouter un noeud (un serveur/container), il faut comprendre la notion elasticsearch de "shard". Un cluster elasticsearch héberge plusieurs index, chaque index est découpé en un nombre prédéfini de shards. Chaque shard contient une tranche des documents de l'index. Le nombre de shards d'un index est défini à sa création. Par exemple, l'index "agendas" est composé de 1 shard, l'index events en comporte 5.
+
+Chaque shard peut être associé à un ou plusieurs réplicats. Les réplicats sont également définits à l'initialisation mais peuvent être redéfinis une fois l'index créé sans interruption de service. L'interface d'administration `/supervisor/elasticsearch` affiche un controle qui permet d'incrémenter ou de décrémenter le nombre de réplicats.
+
+Quand on ajoute un noeud et qu'il est intégré au cluster (ça se fait en utilisant l'action de scalabilité horizontale "+1" sur l'UI), le cluster repartit équitablement les shards et réplicats parmis les noeuds disponibles, jusqu'à arriver à une distribution optimale. Si le nombre de noeuds dépasse le nombre de shards+réplicats, certains noeuds seront inutilisés tant que le nombre de réplicats n'aura pas été incrémenté.
+
+## Retirer un noeud
+
+Ne pas en retirer plusieurs d'un coup. Après le retrait d'un noeud, le cluster répartit de nouveau les shards & réplicats parmi les noeuds restants. Il lui faut quelques minutes. Moins d'un quart d'heure.
+
+Si un noeud est retiré sans autres instruction au préalable, le cluster passe sur un état orange: il doit promouvoir des réplicats en shard "primaires" selon ce qui se trouvait au niveau du noeud retiré (c-à-d s'il contenait des shards primaires). Une manière plus soft de retirer un noeud consiste à mettre à jour la configuration du cluster en listant le noeud à exclure (le dernier dans le sous-groupe sera retiré au moment du clic sur "-1")
+
+curl -XPUT http://localhost:9200/_cluster/settings -H 'Content-Type: application/json' -d '{"transient" : {"cluster.routing.allocation.exclude._ip" : "10.101.21.84"}}'
+
+Le noeud exclu va perdre sa charge, il peut être alors retiré et l'état du cluster reste au vert. Une fois le noeud retiré, la liste d'exclusion peut-être réinitialisée. Si l'IP venait à être réassociée à un noeud au moment de sa création, il ne serait pas intégré au cluster.
+
 ## Quelques routes utiles:
 
-Lister les shards: `/_cat/shards?format=json`
+ * Lister les shards: `/_cat/shards?format=json`
+ * Avoir un résumé de l'état du cluster: `_cluster/health?pretty=true`
+
 
 ## Liens utiles
 
  * [Variables d'environnement Jelastic](https://docs.jelastic.com/environment-variables)
+ * [Retirer un noeud](https://medium.com/@sanyamkj/removing-a-node-from-a-elasticsearch-cluster-gracefully-6122d00faf9) et [ici](https://docs.oracle.com/cd/E92519_02/pt856pbr3/eng/pt/tpst/task_RemovingANodeFromACluster.html?pli=ul_d46e43_tpst)

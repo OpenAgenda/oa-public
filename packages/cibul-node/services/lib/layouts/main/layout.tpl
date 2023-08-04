@@ -1,21 +1,23 @@
-<!DOCTYPE html>
+<%
+const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
+%><!DOCTYPE html>
 <html lang="<%= lang %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="shortcut icon" href="/images/favicon.ico">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/oa-main.css?v=1"/>
+    <link rel="stylesheet" href="/css/oa-main.css?v=1"<%= nonceAttr %>>
     <meta name="robots" content="index, follow">
 <% for ( meta of metas ) { %>
-    <meta property="<%= meta.property %>" content="<%= meta.content %>" />
+    <meta property="<%= meta.property %>" content="<%= meta.content %>">
 <% } %>
 <% for ( script of scripts.top ) { %>
   <% if (script.src) { %>
-    <script type="text/javascript" src="<%= script.src %>"></script>
+    <script type="text/javascript" src="<%= script.src %>"<%= nonceAttr %>></script>
   <% } else if (script.body) { %>
-    <script type="text/javascript"><%= script.body %></script>
+    <script type="text/javascript"<%= nonceAttr %>><%= script.body %></script>
   <% } %>
 <% } %>
   </head>
@@ -87,13 +89,13 @@
       </div>
     </nav>
     {content}
-    <script type="text/javascript">window.templates='bs';</script>
-    <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
+    <script type="text/javascript"<%= nonceAttr %>>window.templates='bs';</script>
+    <script type="text/javascript" src="/js/bsLayoutMain.js"<%= nonceAttr %>></script>
 <% for ( script of scripts.bottom ) { %>
   <% if (script.src) { %>
-    <script type="text/javascript" src="<%= script.src %>"></script>
+    <script type="text/javascript" src="<%= script.src %>"<%= nonceAttr %>></script>
   <% } else if (script.body) { %>
-    <script type="text/javascript"><%= script.body %></script>
+    <script type="text/javascript"<%= nonceAttr %>><%= script.body %></script>
   <% } %>
 <% } %>
   </body>

@@ -11,30 +11,23 @@ import componentFromFixtures from './utils/componentFromFixtures';
 
 export default {
   title: 'App - Step 1: Member',
-  decorators: [ProvidersDecorator]
+  decorators: [ProvidersDecorator],
 };
 
 export const ContributorGoesToEventStepAfterMemberFormSubmit = componentFromFixtures(
   `Contributor is shown event form upon successful submission of member form data.
   Press the save button.`,
-  1, '/member'
+  1,
+  '/member',
 );
 
-export const MemberIsAdminModAndDataIsIncomplete = componentFromFixtures(
-  'User is AdminMod and member data is incomplete. Event form is presented anyways.', 2
-);
+export const MemberIsAdminModAndDataIsIncomplete = componentFromFixtures('User is AdminMod and member data is incomplete. Event form is presented anyways.', 2);
 
-export const MemberIsContributorAndDataIsCompleteAndFresh = componentFromFixtures(
-  'Agenda is open, contributor data is complete and fresh. Event form is presented. User can go back to the first step by clicking on it.', 3
-);
+export const MemberIsContributorAndDataIsCompleteAndFresh = componentFromFixtures('Agenda is open, contributor data is complete and fresh. Event form is presented. User can go back to the first step by clicking on it.', 3);
 
-export const MemberIsContributorAndDataIsCompleteButIsOld = componentFromFixtures(
-  'Agenda is open, contributor data is complete but has not been refreshed recently. User is redirected to the member step.', 4
-);
+export const MemberIsContributorAndDataIsCompleteButIsOld = componentFromFixtures('Agenda is open, contributor data is complete but has not been refreshed recently. User is redirected to the member step.', 4);
 
-export const MemberDataRequiredAndContributorIsIncomplete = componentFromFixtures(
-  'Agenda is open but requires member data. User is a contributor with an incomplete form. He is shown the member form.', 5
-);
+export const MemberDataRequiredAndContributorIsIncomplete = componentFromFixtures('Agenda is open but requires member data. User is a contributor with an incomplete form. He is shown the member form.', 5);
 
 export const NonMemberOnMembersOnly = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,12 +50,12 @@ export const NonMemberOnMembersOnly = () => {
         createApp({
           initialState: loadInitialState(),
           history: createMemoryHistory({
-            initialEntries: ['/some-agenda/contribute']
-          })
+            initialEntries: ['/some-agenda/contribute'],
+          }),
         }),
         {
-          extraProps: fixtures(6).extraProps
-        }
+          extraProps: fixtures(6).extraProps,
+        },
       ) : null}
     </>
   );
@@ -71,17 +64,11 @@ export const NonMemberOnMembersOnly = () => {
 export const ClosedAgendaForAdminMods = componentFromFixtures(
   `Agenda is closed to contributions.
   AdminMod can access form but is notified of the closed state`,
-  7
+  7,
 );
 
-export const ClosedAgendaForContributor = componentFromFixtures(
-  'Agenda is closed to contributions. Contributor is faced with a message indicating he cannot contribute', 8
-);
+export const ClosedAgendaForContributor = componentFromFixtures('Agenda is closed to contributions. Contributor is faced with a message indicating he cannot contribute', 8);
 
-export const NonMemberIsShownMemberFormOnContributiveAgenda = componentFromFixtures(
-  'Agenda is open to anyone and requires new members to type in their member information', 9
-);
+export const NonMemberIsShownMemberFormOnContributiveAgenda = componentFromFixtures('Agenda is open to anyone and requires new members to type in their member information', 9);
 
-export const NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = componentFromFixtures(
-  'Non member goes to event form on agenda not requiring member information', 10
-);
+export const NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = componentFromFixtures('Non member goes to event form on agenda not requiring member information', 10);

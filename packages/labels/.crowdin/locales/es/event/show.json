@@ -26,6 +26,7 @@
   "cancelEvent": "Marcar el evento como Cancelado",
   "uncancelEvent": "El evento no está Cancelado",
   "cancelInfo": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
+  "requestEditionRightsInfo": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)",
   "eventState": "Estado de eventos",
   "published": "publicado",
   "publishedInfo": "Publicar este caso para que sea visible en la agenda",
@@ -75,6 +76,5 @@
   "contactForm": "formulario de contacto",
   "contactEmail": "administradores de contacto",
   "contactEmailButton": "Enviar un email",
-  "contributionRestricted": "La contribución a este agenda está restringido",
-  "requestEditionRightsInfo": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
+  "contributionRestricted": "La contribución a este agenda está restringido"
 }

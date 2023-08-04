@@ -149,13 +149,20 @@ module.exports = [{
       read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
       write: ['administrator', 'internal'],
       max: 255
-    },  {
+    }, {
       field: 'matomoAskForConsent',
-      type: 'text',
+      type: 'boolean',
       read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
       write: ['administrator', 'internal'],
       max: 255
-    }]
+    }, {
+      field: 'matomoCustom',
+      type: 'pass',
+      list: true,
+      read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
+      write: ['internal'],
+    },
+  ]
   }, {
     field: 'lab',
     type: 'schema',

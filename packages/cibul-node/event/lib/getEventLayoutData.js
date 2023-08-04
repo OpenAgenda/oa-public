@@ -77,7 +77,7 @@ module.exports = function getEventLayoutData(req) {
       hasOwnershipTransfer,
       moderatorCanPublish: (req.agenda.settings.contribution?.canPublish ?? ['moderators', 'administrators']).includes('moderators'),
       GDPRInformation: req.agenda.settings.contribution?.messages?.GDPRInformation,
-      googleAnalyticsID: req.agenda.settings.tracking?.googleAnalytics
+      tracking: req.agenda.settings.tracking,
     },
     settings: req.agenda.settings,
     hasOwnershipTransfer

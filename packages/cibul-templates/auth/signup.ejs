@@ -30,8 +30,8 @@
           <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
             <form id="signup-form" class="margin-h-md" method="post">
               <div class="form-group<%= errors.fullName ? ' has-error' : '' %>">
-                <label for="full_name" class="control-label"><%= __( 'pseudonym' ) %></label>
-                <input name="full_name" class="form-control" value="<%= full_name %>" />
+                <label for="full__name" class="control-label"><%= __( 'pseudonym' ) %></label>
+                <input name="full__name" class="form-control" value="<%= full_name %>" />
                 <% if ( errors.fullName ) { %>
                   <span class="text-danger"><%= __( errors.fullName ) %></span>
                 <% } else { %>

@@ -7,6 +7,7 @@ const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newslet
 const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'newsletter' );
+const getAssetsManifest = require('../lib/getAssetsManifest');
 const config = require( '../config' );
 
 const layout = require( '../services/lib/layouts' ).load( 'corpo', {
@@ -33,6 +34,7 @@ const cmn = require( '../lib/commons-app' );
 const newsletter = require( '@openagenda/newsletter' );
 const mails = require( '../services/mails' );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
+const contentSecurityPolicy = require('../lib/contentSecurityPolicy');
 
 const preMw = [
   cmn.loadLogger( 'general' ),
@@ -47,8 +49,13 @@ module.exports = app => {
 
       if (!cached) return next();
 
+      const { content, scriptCSPHashes } = cached;
+
+      const cspError = setCSPHeader(scriptCSPHashes, req, res);
+      if (cspError) return next(cspError);
+
       res.set('Content-Type', 'text/html');
-      res.send(cached);
+      res.send(content);
     });
   };
 
@@ -131,6 +138,31 @@ function _setLang( req, res, next ) {
 
 }
 
+function setCSPHeader(hashes, req, res) {
+  let cspError;
+  contentSecurityPolicy({
+    ...contentSecurityPolicy.defaultDirectives,
+    fontSrc: [
+      ...contentSecurityPolicy.defaultDirectives.fontSrc,
+      'https://client.crisp.chat',
+    ],
+    styleSrc: [
+      ...contentSecurityPolicy.defaultDirectives.styleSrc,
+      'https://client.crisp.chat',
+    ],
+    scriptSrc: [
+      ...contentSecurityPolicy.defaultDirectives.scriptSrc,
+      ...hashes,
+    ],
+    connectSrc: [
+      ...contentSecurityPolicy.defaultDirectives.connectSrc,
+      'wss://client.relay.crisp.chat',
+    ],
+  })(req, res, err => {
+    cspError = err;
+  });
+  return cspError;
+}
 
 async function corpo(cache, req, res, next) {
 
@@ -152,6 +184,7 @@ async function corpo(cache, req, res, next) {
 
   }
 
+  const { dynamicScripts } = req.app.services;
   const metas = page.getHeadPart();
 
   const stats = {
@@ -164,37 +197,50 @@ async function corpo(cache, req, res, next) {
 
   if ((config.crisp || '').length) {
     pageScripts.push({
-      content: `window.$crisp=[];
-        window.CRISP_WEBSITE_ID='${config.crisp}';
-        (function(){
-          d=document;
-          s=d.createElement("script");
-          s.src="https://client.crisp.chat/l.js";
-          s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
-        })();`
+      src: '/js/crisp.js',
+      integrity: dynamicScripts.hashes.crisp,
     });
   }
 
-  if (config.matomoCloudCode) {
-    pageScripts.push({ content: config.matomoCloudCode });
+  if (config.matomoCloudId) {
+    pageScripts.push({
+      src: '/js/matomo.js',
+      integrity: dynamicScripts.hashes.matomo,
+    });
   }
 
-  [
-    'https://code.jquery.com/jquery-2.2.4.min.js',
-    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-    '/js/landing.js'
-  ].forEach(src => pageScripts.push({ src }));
+  const assetsManifest = await getAssetsManifest();
+
+  pageScripts.push(
+    {
+      src: 'https://code.jquery.com/jquery-2.2.4.min.js',
+      integrity: 'sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=',
+      crossorigin: '',
+    },
+    {
+      src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+      integrity: 'sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=',
+      crossorigin: '',
+    },
+    assetsManifest['landing.js'],
+  );
+
+  const scriptCSPHashes = pageScripts.map(s => `'${s.integrity}'`)
+
+  const cspError = setCSPHeader(scriptCSPHashes, req, res);
+  if (cspError) return next(cspError);
 
   const content = layout(
     page.render(stats),
     {
       lang: page.getLang(),
-      metas, // used?
-      scripts: pageScripts
+      metas: page.getHeadPart(),
+      scripts: pageScripts,
+      // cspNonce: res.locals.cspNonce,
     }
   );
 
-  cache.set( req.url, content, 60*60, err => {
+  cache.set( req.url, { content, scriptCSPHashes }, 60*60, err => {
 
     if ( err ) req.log.error( 'could not cache %s', err );
 

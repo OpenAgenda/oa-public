@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
-const gaTrack = require('../../lib/gaTrack');
+const track = require('../../lib/track');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 
 module.exports = (services, service, app, base) => {
@@ -29,7 +29,7 @@ module.exports = (services, service, app, base) => {
         members.mw.loadOrFail(req, res, next);
       }
     },
-    gaTrack.mw('locations', 'export', 'json'),
+    track.mw('locations', 'export', 'json'),
     loadLocationEndpoints(service),
     (req, res, next) => {
       req.locations.list(

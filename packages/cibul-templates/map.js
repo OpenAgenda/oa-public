@@ -9,7 +9,6 @@ module.exports = [
   'admin/users',
   'agenda/show',
   'agenda/embedShow',
-  'agenda/action',
   'agendaSearch/index',
   'auth/signin',
   'auth/signup',
@@ -36,8 +35,6 @@ module.exports = [
   'newsletter/show',
   'newsletter/unsubscribe',
   'newsletter/unsubscribeComplete',
-
-  'adminRedirect/index',
 
   'agendaAdminEvents/index',
 

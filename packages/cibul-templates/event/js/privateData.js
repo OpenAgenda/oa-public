@@ -73,7 +73,7 @@ module.exports = options => {
   }) {
     log('displaying menus', me);
 
-    if (me.authorizations?.canEditEvent) {
+    if (me?.authorizations?.canEditEvent) {
       log('can edit event, displaying status change controls');
       for (const el of du.els('.js_status')) {
         du.removeClass(el, 'display-none');
@@ -84,13 +84,13 @@ module.exports = options => {
       du.removeClass(du.el('.js_disabled_status'), 'display-none');
     }
 
-    if (me.authorizations?.canChangeState) {
+    if (me?.authorizations?.canChangeState) {
       du.removeClass(du.el('.js_can_change_state'), 'display-none');
     } else {
       du.removeClass(du.el('.js_cannot_change_state'), 'display-none');
     }
 
-    if (me.authorizations?.canPublish) {
+    if (me?.authorizations?.canPublish) {
       du.removeClass(du.el('.js_can_publish_event'), 'display-none');
     }
   }

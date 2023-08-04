@@ -6,7 +6,7 @@ createReactClass = require( 'create-react-class' ),
 
 PropTypes = require( 'prop-types' ),
 
-Spinner = require( './Spinner' );
+{ Spinner } = require( '@openagenda/react-shared' );
 
 module.exports = createReactClass( {
 
@@ -163,14 +163,15 @@ module.exports = createReactClass( {
   renderSpinner: function() {
 
     return <div className="input-spinner">
-      <Spinner
-        loading={this.isLoading()}
-        spinner={{
-          width: 1,
-          length: 3,
-          radius: 4,
-          color: '#666'
-        }} />
+      {this.isLoading() ? (
+        <Spinner
+          options={{
+            width: 1,
+            length: 3,
+            radius: 4,
+            color: '#666'
+          }} />
+      ) : null}
     </div>
 
   },
@@ -178,7 +179,7 @@ module.exports = createReactClass( {
   renderButton: function() {
 
     return <span className="input-group-btn">
-      <button 
+      <button
         className="btn btn-default"
         type="button"
         onClick={this.onCommit}>

@@ -1,13 +1,10 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
+import Services from '../services/init.js';
+import Core from '../core/index.js';
 
-// const api = require('../api');
-const Services = require('../services/init');
-const Core = require('../core');
-
-const loadFixtures = require('./fixtures/load');
-const testConfig = require('./testConfig');
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('07 - core - functional (server): core.agendas().update', () => {
   let core;

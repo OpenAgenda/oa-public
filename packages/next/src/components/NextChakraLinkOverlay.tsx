@@ -1,4 +1,4 @@
-import { UrlObject } from 'url';
+import { UrlObject } from 'node:url';
 import { PropsWithChildren } from 'react';
 import NextLink, { LinkProps as NextLinkProps } from 'next/link';
 import {

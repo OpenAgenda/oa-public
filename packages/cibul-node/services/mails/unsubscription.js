@@ -15,7 +15,7 @@ const {
 } = require( './lib/tokenRegex' );
 
 const getLabel = makeLabelGetter( labels );
-const app = express();
+const app = express.Router();
 
 
 let config;

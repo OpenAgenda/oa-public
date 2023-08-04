@@ -230,7 +230,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     let response;
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -313,7 +313,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           headers: {
             'content-type': 'application/json',
           },
-          data: JSON.stringify({
+          data: JSON.stringify(JSON.stringify({
             access_token: accessToken,
             nonce: 898756479,
             data: {
@@ -321,9 +321,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
               address: '12 grande rue, Chattancourt',
               countryCode: 'fr',
             },
-          }),
+          })),
         }).then(r => ({ response: r }), e => ({ errorResponse: e.response }));
-
         expect(errorResponse.status).toBe(400);
       });
     });

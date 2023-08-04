@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const _ = require('lodash');
 const React = require('react');
@@ -346,6 +346,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
         extractor,
         lang,
         translateMode,
+        cspNonce: res.locals.cspNonce,
       });
       res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
     } catch (e) {

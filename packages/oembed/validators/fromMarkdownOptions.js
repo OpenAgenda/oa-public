@@ -30,5 +30,9 @@ module.exports = schema({
   filterInvalidLinks: {
     type: 'bool',
     default: false
-  }
+  },
+  lazy: {
+    type: 'bool',
+    default: false
+  },
 });

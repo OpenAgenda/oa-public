@@ -153,7 +153,7 @@
                 rel="nofollow"
               ><i class="fa fa-envelope-o"></i></a>
             <% } %>
-            <a href="#" onclick="window.print(); return false;" class="text-muted"><i class="fa fa-print"></i></a>
+            <a href="#" class="text-muted js_print"><i class="fa fa-print"></i></a>
             <a title="<%= __('copyInClipboard') %>" href="<%= indexedEvent.permalink %>" class="js_permalink text-muted"><i class="fa fa-link"></i></a>
             <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <div class="js_shareAll share-button">

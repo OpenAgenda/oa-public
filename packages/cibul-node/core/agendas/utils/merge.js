@@ -89,10 +89,12 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   return compiled;
 }
 
-function appendLocationSchema(schema) {
+function appendLocationSchema(schema, options = {}) {
   const locationField = schema.fields.find(f => f.field === 'location');
 
-  const locationSchema = getLocationSchema();
+  const locationSchema = getLocationSchema({
+    includeLegacyAdminLevels: options.includeLocationLegacyAdminLevels,
+  });
 
   if (locationField?.legacy?.tagSet) {
     locationField.schema = merge(
@@ -110,7 +112,11 @@ function appendLocationSchema(schema) {
 
 module.exports.event = mergeEvent;
 
-module.exports.schemas = (...args) => appendLocationSchema(merge(...args));
+module.exports.schemas = (...args) => {
+  const mergeOptions = args && args.length ? args[args.length - 1] : {};
+  const { includeLocationLegacyAdminLevels } = mergeOptions;
+  return appendLocationSchema(merge(...args), { includeLocationLegacyAdminLevels });
+};
 
 module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const schemas = args.concat([]);
@@ -119,6 +125,7 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
     includeNonDataFields,
     memberSchema = null,
     includeAgendaEvent = false,
+    includeLocationLegacyAdminLevels,
   } = schemas.pop();
 
   if (memberSchema) {
@@ -150,6 +157,7 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
       access: access?.read === 'internal' ? null : access,
       excludeNonDataFields: !includeNonDataFields,
     }),
+    { includeLocationLegacyAdminLevels },
   );
 };
 

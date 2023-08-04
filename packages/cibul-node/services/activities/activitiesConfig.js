@@ -142,7 +142,7 @@ async function maskUserIsNotAdminModOf({
       targetFeed.entityUid,
       getActivityEntity(activity, key),
     ))?.role
-    : null;
+    : preloadedRole;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
     return omit;
@@ -301,8 +301,8 @@ const activitiesConfig = {
         userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       })({ ...props, preloadedRole: role }) || [];
 
-      // Always omit the diff object
-      toOmit.push('store.diff');
+      // Always omit the diff object and userUid (owner)
+      toOmit.push('store.diff', 'store.userUid');
 
       if (role) {
         if (!isSuperiorToOrEqual(role, 'administrator')) toOmit.push('store.administratorFields');
@@ -315,8 +315,8 @@ const activitiesConfig = {
     filterFollows: [
       hasVisibleDiff,
       or(
-        fromEventToUser,
         toAgenda('target.uid'),
+        toUser('store.userUid'),
         fromAgendaToAdminMod,
       ),
     ],
@@ -755,6 +755,44 @@ const activitiesConfig = {
     labelIds: [
       ['ActivityApps.systemUnpublishEvent.full', ['store.labels.target']],
       ['ActivityApps.systemUnpublishEvent.withoutTarget', []],
+    ],
+    entities: {
+      eventUid: 'object.uid',
+      agendaUid: 'target.uid',
+      eventName: 'store.labels.object',
+      agendaName: 'store.labels.target',
+    },
+    tags: {
+      event: {
+        link: '/agendas/:agendaUid/events/:eventUid',
+        filter: 'object',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+        filter: 'target',
+      },
+    },
+    notifications: {
+      groupBy: ['target'],
+    },
+  },
+  /*
+  * agenda.systemChangeEventState:
+  *   event -> agenda target -> adminMods
+  *         -> contributor
+  * */
+  'agenda.systemChangeEventState': {
+    mask: maskFor({
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
+    }),
+    filterFollows: or(
+      toAgenda('target.uid'), // to aggregator
+      fromAgendaToAdminMod, // to adminMods
+      toUser('store.contributorUid'), // to contributor
+    ),
+    labelIds: [
+      ['ActivityApps.systemChangeEventState.full', ['store.labels.target']],
+      ['ActivityApps.systemChangeEventState.withoutTarget', []],
     ],
     entities: {
       eventUid: 'object.uid',

@@ -502,7 +502,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -515,6 +515,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           'content-type': 'application/json',
         },
         data: {
+          // contributor
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
       }).then(r => r.data.access_token);
@@ -813,6 +814,34 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       });
 
       expect(event.title.fr).toBe('Patché');
+    });
+
+    it('additional field value is not dropped from index on patch', async () => {
+      const { events: [event] } = await core.agendas(92983929).events.search({
+        state: null,
+        uid: 19390294,
+      }, {}, {
+        detailed: true,
+        access: 'administrator',
+      });
+
+      expect(event.categories).toBe(2);
+
+      await core.agendas(92983929).events.patch(19390294, {
+        title: { fr: 'Et bim' },
+      }, {
+        access: 'administrator',
+      }).then(() => {}, e => console.log(e));
+
+      const { events: [patchedEvent] } = await core.agendas(92983929).events.search({
+        state: null,
+        uid: 19390294,
+      }, {}, {
+        detailed: true,
+        access: 'administrator',
+      });
+
+      expect(patchedEvent.categories).toBe(2);
     });
   });
 });

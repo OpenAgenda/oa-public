@@ -21,6 +21,7 @@ module.exports = services => async (req, res, next) => {
       ...req.searchOptions,
       aggregations: ['languages'],
       returnAgenda: true,
+      includeLocationLegacyAdminLevels: false,
     });
 
     req.languages = languageCounts.map(c => c.key);

@@ -109,7 +109,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     let contribAccessToken;
 
     beforeAll(async () => {
-      server = await api(core).listen(3000);
+      server = await api(core, { useRouter: false }).listen(3000);
 
       adminAccessToken = await axios({
         method: 'post',

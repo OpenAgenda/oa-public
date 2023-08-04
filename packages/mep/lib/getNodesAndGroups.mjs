@@ -9,6 +9,7 @@ const getNodeGroupNames = ({ nodeGroups }, displayNames) => nodeGroups
 
 export default async function getNodesAndGroups(envName, groups, {
   jelasticAccessToken,
+  user = 'root'
 }) {
   const {
     data: envInfo
@@ -21,22 +22,25 @@ export default async function getNodesAndGroups(envName, groups, {
 
   const nodeGroupNames = getNodeGroupNames(envInfo, groups);
 
+  const nodeGroups = envInfo.nodeGroups
+  .filter(({
+    name,
+  }) => nodeGroupNames.includes(name))
+  .map(g => ({
+    ...g,
+    endpoint: `${g.name}.${envInfo.env.domain}`
+  }));
+
   return {
     nodes: envInfo
       .nodes
       .filter(n => nodeGroupNames.includes(n.nodeGroup))
       .map(node => ({
-        displayName: node.displayName,
+        groupDisplayName: nodeGroups.find(g => g.name === node.nodeGroup).displayName,
         name: node.name,
-        endpoint: `root@${node.url.replace(/^http(s|):\/\//, '')}`,
+        endpoint: node.url.replace(/^http(s|):\/\//, ''),
+        connectionEndpoint: `${user}@${node.url.replace(/^http(s|):\/\//, '')}`,
       })),
-    nodeGroups: envInfo.nodeGroups
-      .filter(({
-        name,
-      }) => nodeGroupNames.includes(name))
-      .map(g => ({
-        ...g,
-        endpoint: `${g.name}.${envInfo.env.domain}`
-      })),
+    nodeGroups,
   };
 }

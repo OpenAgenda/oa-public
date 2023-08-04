@@ -14,6 +14,7 @@ const flatten = (values = []) => values.map(v => (v && v instanceof Object ? v.v
 
 module.exports = config => {
   const validate = validators.list({
+    optional: config.optional ?? true,
     field: config.field,
     types: ['link', 'phone', 'email'],
     validators: {
