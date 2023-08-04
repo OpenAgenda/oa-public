@@ -5,7 +5,7 @@ const { produce } = require('immer');
 module.exports = produce((draft, current, options = {}) => {
   const {
     geocodeResult,
-    isPatch
+    isPatch,
   } = options;
 
   if (!draft.extId && current.extId) {
@@ -15,7 +15,7 @@ module.exports = produce((draft, current, options = {}) => {
   if (geocodeResult?.latitude && isPatch) {
     Object.assign(draft, {
       latitude: geocodeResult.latitude,
-      longitude: geocodeResult.longitude
+      longitude: geocodeResult.longitude,
     });
   } else if (geocodeResult) {
     Object.assign(draft, geocodeResult);
