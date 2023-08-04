@@ -8,7 +8,7 @@ module.exports = produce((draft, current, options = {}) => {
     isPatch,
   } = options;
 
-  if (!draft.extId && current.extId) {
+  if (draft.extId === undefined && current.extId) {
     draft.extId = current.extId;
   }
 

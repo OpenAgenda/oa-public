@@ -269,6 +269,17 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
+      'fix: extId should be cleared when specifying null in patch',
+      async () => {
+        const patched = await svc(7196947).patch(14471367, {
+          extId: null,
+        }, { includeImagePath: true });
+
+        expect(patched.extId).toBeNull();
+      },
+    );
+
+    it(
       'fix: patch without countryCode or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
       async () => {
         let error;
