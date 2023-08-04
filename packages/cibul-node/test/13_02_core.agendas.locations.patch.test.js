@@ -65,6 +65,14 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     });
   });
 
+  it('patching with null removes data', async () => {
+    const patchedLocation = await core.agendas(64260763).locations.patch(37923068, {
+      extId: null,
+    });
+
+    expect(patchedLocation.extId).toBeNull();
+  });
+
   it('index of agenda where location is patched is refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
       address: '13 rue du désespoir, Roubaix',
