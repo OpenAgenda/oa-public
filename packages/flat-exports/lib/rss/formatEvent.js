@@ -36,7 +36,7 @@ module.exports = (event, options = {}) => {
     description: formatDescription(
       _.get(event.description, lang, ''),
       _.get(event.dateRange, lang, event.dateRange.fr),
-      _.get(event.html, lang, ''),
+      _.get(event.longDescription, lang, ''),
     ),
     url: cleanOptions.genUrl(event),
     guid: [
