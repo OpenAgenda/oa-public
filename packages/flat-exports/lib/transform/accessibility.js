@@ -8,11 +8,11 @@ module.exports = function accessibility({ languages, includeLanguages }, { targe
   let targetLanguages = languages;
 
   if (possibleLanguages && includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l) && includeLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l) && includeLanguages.includes(l));
   } else if (possibleLanguages) {
-    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l));
   } else if (includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => (includeLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => includeLanguages.includes(l));
   }
 
   return {
