@@ -17,7 +17,7 @@ describe('flat-exports - unit - rss', () => {
 
   test('formatEvent - custom genUrl', () => {
     expect(
-      formatEvent(event, { genUrl: e => `grut${e.uid}` }).url
+      formatEvent(event, { genUrl: e => `grut${e.uid}` }).url,
     ).toEqual(`grut${event.uid}`);
   });
 });
