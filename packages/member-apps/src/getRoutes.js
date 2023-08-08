@@ -1,11 +1,13 @@
 import { loadable } from '@openagenda/react-shared';
 
-const App = loadable(() => import(/* webpackChunkName: "members-App" */ './containers/App/App'));
-const Dashboard = loadable(() => import(
-  /* webpackChunkName: "members-Dashboard" */ './containers/Dashboard/Dashboard'
-));
+const App = loadable(() =>
+  import(/* webpackChunkName: "members-App" */ './containers/App/App'));
+const Dashboard = loadable(() =>
+  import(
+    /* webpackChunkName: "members-Dashboard" */ './containers/Dashboard/Dashboard'
+  ));
 
-export default function (prefix = '') {
+export default function getRoutes(prefix = '') {
   return [
     {
       path: prefix,

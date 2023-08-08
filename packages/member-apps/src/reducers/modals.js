@@ -4,7 +4,7 @@ const CLOSE = 'member-apps/modals/CLOSE';
 
 const initialState = {};
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = null) {
   switch (action.type) {
     case SHOW:
       return {

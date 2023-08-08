@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default storyFn => (
   <div className="container top-margined">
     <div className="row wsq">

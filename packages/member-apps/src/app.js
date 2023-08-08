@@ -6,7 +6,7 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/members',
-      apiRoot: `localhost:${process.env.PORT || 3000}`,
+      apiRoot: `http://localhost:${process.env.PORT || 9001}`,
       perPageLimit: 20,
     },
     res: {
@@ -20,12 +20,12 @@ const defaults = {
   },
 };
 
-export default function (options) {
+export default function app(options) {
   const { initialState } = _.merge({}, defaults, options);
 
   const { apiRoot, prefix } = initialState.settings;
 
-  const getApp = () => createApp({
+  return createApp({
     ...options,
     initialState,
     apiRoot,
@@ -33,17 +33,4 @@ export default function (options) {
     getRoutes,
     legacyApiClient: true,
   });
-
-  const result = getApp();
-
-  if (module.hot) {
-    module.hot.accept('./getRoutes', () => {
-      const newApp = getApp();
-
-      result.Content = newApp.Content;
-      result.triggerHooks = newApp.triggerHooks;
-    });
-  }
-
-  return result;
 }
