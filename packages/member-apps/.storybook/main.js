@@ -6,4 +6,14 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
+  webpackFinal(config) {
+    config.module.rules.push({
+      test: /\.(js|mjs|jsx)$/,
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    return config;
+  },
 };
