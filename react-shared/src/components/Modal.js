@@ -9,7 +9,10 @@ export default class Modal extends Component {
     visible: PropTypes.bool,
     onClose: PropTypes.func,
     disableBodyScroll: PropTypes.bool,
-    classNames: PropTypes.shape({ overlay: PropTypes.string }),
+    classNames: PropTypes.shape({
+      overlay: PropTypes.string,
+      title: PropTypes.string,
+    }),
     children: PropTypes.node.isRequired,
     contentRef: PropTypes.oneOfType([
       PropTypes.func,
@@ -24,6 +27,7 @@ export default class Modal extends Component {
     onClose: null,
     classNames: {
       overlay: 'popup-overlay',
+      title: 'popup-title',
     },
     contentRef: null,
   };
@@ -123,10 +127,10 @@ export default class Modal extends Component {
     }
 
     return (
-      <div className={classNames.overlay} ref={this.overlayRef}>
+      <div className={classNames.overlay ?? 'popup-overlay'} ref={this.overlayRef}>
         <section ref={this.ref}>
           {title ? (
-            <header className="popup-title">
+            <header className={classNames.title ?? 'popup-title'}>
               <h2>{title}</h2>
               <button
                 type="button"
