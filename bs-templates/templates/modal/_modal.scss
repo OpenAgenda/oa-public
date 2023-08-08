@@ -23,6 +23,11 @@
     .popup-title {
       display: block;
       padding: 16px 2em;
+
+      &.padding-bottom-z {
+        padding-bottom: 0;
+      }
+      
       text-align: left;
       width: 100%;
       position: relative;
