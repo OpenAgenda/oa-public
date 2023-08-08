@@ -32,7 +32,10 @@ export const Simple = () => {
         <Modal
           title="Modal"
           onClose={closeModal}
-          classNames={{ overlay: 'popup-overlay' }}
+          classNames={{
+            overlay: 'popup-overlay',
+            title: 'popup-title padding-bottom-z',
+          }}
           disableBodyScroll
         >
           <p>Hey I am a modal</p>
@@ -60,7 +63,9 @@ export const NoHeader = () => {
       {display ? (
         <Modal
           onClose={closeModal}
-          classNames={{ overlay: 'popup-overlay big' }}
+          classNames={{
+            overlay: 'popup-overlay big'
+          }}
           disableBodyScroll
         >
           <form className="export-form">
