@@ -357,7 +357,7 @@ export function invite(agenda, data) {
     types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      const emails = _.get(data, 'emails', [])
+      const emails = _.get(data, 'emails', '')
         .split(/[\s\n,]+/)
         .map(email => email.trim())
         .filter(email => !!email);
