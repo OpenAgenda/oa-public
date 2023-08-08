@@ -56,7 +56,7 @@ export default function reducer(state = initialState, action = null) {
         loaded: true,
         data: action.result.members,
         total: action.result.total,
-        credFilters: [].concat(action.query.credentials || []),
+        credFilters: [].concat(action.query.role || []),
         page: 1,
         error: null,
         loadLoading: false,
