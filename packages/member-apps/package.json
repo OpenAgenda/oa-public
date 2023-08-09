@@ -45,7 +45,7 @@
     "emoji-regex": "^10.2.1",
     "final-form": "^4.20.2",
     "history": "^4.10.1",
-    "js-base64": "^2.5.1",
+    "js-base64": "^3.7.5",
     "lodash": "^4.17.15",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",

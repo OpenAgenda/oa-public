@@ -31,7 +31,7 @@
     "history": "^4.10.1",
     "immer": "^9.0.1",
     "immutability-helper": "^3.0.1",
-    "js-base64": "^2.5.1",
+    "js-base64": "^3.7.5",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
     "prop-types": "^15.6.0",
