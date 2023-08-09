@@ -50,6 +50,21 @@ Il sert pour la cache serveur et pour les traitements de tâches mises en file d
 
 La configuration est détaillée dans `redis.md`
 
+## Les environnement web
+
+Comportent un serveur http qui reçoit les requêtes et les transfère vers les sous-noeuds qui doivent les traiter. Il y en a 3:
+
+ * API: contient les noeuds qui traitent les requêtes API
+ * Web: contient les noeuds qui traitent les requêtes non-next (cibul-node)
+ * Next: voilà.
+
+Les process node dans chaque sous groupe sont gérés par pm2 en mode cluster. Par défaut, ce sont 4 process qui sont lancés par noeud. Mais selon la charge et le nombre de core de disponibles, il peut être utile d'adapter ce nombre. Les commandes utiles:
+
+`nproc`: pour connaitre le nombre de cores de disponibles sur un noeud
+`pm2 scale server +2`: pour ajouter 2 process à l'application "server" (Nom de l'application pour les sous-groupes "web" et "api". Pour le sous-groupe "next", l'application s'appelle "next")
+
+Ce n'est à priori pas dramatique s'il y a plus de process que de noeuds. Ce qu'on veut éviter c'est d'en avoir moins pour ne pas sous-utiliser les ressources du noeud.
+
 ## Mise en production & Administration
 
 Cet environnement héberge plusieurs outils d'administration de la plateforme:
