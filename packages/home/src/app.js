@@ -10,7 +10,7 @@ const defaults = {
     },
     res: {
       list: '/agendas',
-      create: '/new',
+      create: '/agendas/new',
       events: '/home/events',
       messages: '/home/messages',
       notifs: '/home/notifications',
