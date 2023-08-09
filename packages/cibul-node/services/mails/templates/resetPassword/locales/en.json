@@ -1,5 +1,6 @@
 {
   "title": "Activate your OpenAgenda account",
   "description": "Click the following button to reset your password:",
-  "actionDescription": "Reset password"
+  "actionDescription": "Reset password",
+  "changeEmailSettings": "Change my email sending settings"
 }

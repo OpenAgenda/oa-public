@@ -56,7 +56,7 @@ export default function reducer(state = initialState, action = null) {
         loaded: true,
         data: action.result.members,
         total: action.result.total,
-        credFilters: [].concat(action.query.credentials || []),
+        credFilters: [].concat(action.query.role || []),
         page: 1,
         error: null,
         loadLoading: false,
@@ -357,7 +357,7 @@ export function invite(agenda, data) {
     types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      const emails = _.get(data, 'emails', [])
+      const emails = _.get(data, 'emails', '')
         .split(/[\s\n,]+/)
         .map(email => email.trim())
         .filter(email => !!email);

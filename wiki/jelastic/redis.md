@@ -71,3 +71,5 @@ Une fois que tout marche, on peut désactiver la demande de mot de passe et bloq
 ## Sécurisation
 
 Une fois que l'outil d'administration (p3x) est configuré, l'accès SLB peut être désactivé pour empecher toute connexion provenant d'internet.
+
+Le pare-feu peut limiter les connexions au cluster sur le port 6379 aux environnements web (sous-groupes api et web), tâche ainsi que l'environnement hébergeant l'application p3x. Le port 16379 doit rester accessible au réseau local (la règle prédéfinie peut rester active). Les autres règles du parefeu peuvent être désactivées.

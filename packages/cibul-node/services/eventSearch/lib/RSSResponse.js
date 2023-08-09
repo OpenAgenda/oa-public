@@ -25,6 +25,7 @@ module.exports = core => async (req, res, next) => {
     } = await req.search(query, req.query, {
       ...req.searchOptions,
       returnAgenda: true,
+      longDescriptionFormat: 'HTML',
     });
 
     const rssOptions = {

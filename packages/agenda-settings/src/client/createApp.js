@@ -6,10 +6,10 @@ import getRoutes from './createRoutes';
 const defaults = {
   initialState: {
     settings: {
-      prefix: '/new'
+      prefix: '/agendas/new'
     },
     res: {
-      create: '/new',
+      create: '/agendas/new',
       slugAvailable: '/agendas/slugs/available',
       onCreated: '/:slug/admin/settings/gettingStarted'
     },

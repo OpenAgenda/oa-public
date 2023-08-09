@@ -521,14 +521,6 @@ module.exports = {
     "it": "Invia il messaggio",
     "io": "crwdns15718:0crwdne15718:0"
   },
-  "sendMessageToMembers": {
-    "fr": "Envoyer un message aux membres",
-    "en": "Send a message to the members",
-    "de": "Senden Sie eine Nachricht an die Mitglieder",
-    "es": "Enviar mensaje al miembro",
-    "it": "Invia un messaggio ai membri",
-    "io": "crwdns15720:0crwdne15720:0"
-  },
   "sendMessageToAll": {
     "fr": "Envoyer un message à tous les membres",
     "en": "Send a message to all members",

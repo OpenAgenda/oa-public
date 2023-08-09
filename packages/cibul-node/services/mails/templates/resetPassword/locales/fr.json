@@ -1,5 +1,6 @@
 {
   "title": "Activation de votre compte OpenAgenda",
   "description": "Cliquez sur le bouton suivant pour réinitialiser votre mot de passe:",
-  "actionDescription": "Réinitialiser le mot de passe"
+  "actionDescription": "Réinitialiser le mot de passe",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
 }

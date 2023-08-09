@@ -16,7 +16,7 @@ const defaults = {
     },
     res: {
       agendas: {
-        create: '/new',
+        create: '/agendas/new',
         list: '/home/agendas'
       }
     },

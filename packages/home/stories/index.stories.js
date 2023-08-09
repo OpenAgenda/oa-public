@@ -82,7 +82,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
   res: {
     agendas: {
       contribute: '/:slug/contribute',
-      create: '/new',
+      create: '/agendas/new',
       list: '/agendas.json',
       show: '/:slug',
       showPrivate: '/:slug.prv',

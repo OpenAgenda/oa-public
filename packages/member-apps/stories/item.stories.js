@@ -1,4 +1,3 @@
-import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 
 import MemberItem from '../src/components/MemberItem';
@@ -34,22 +33,23 @@ export const viewedByAdministrator = () => (
     }}
     userRole={2}
     i18n={{
-      getLabel: code => ({
-        noName: 'Sans nom',
-        moreInfoModerator: 'Un détail sur le modérateur',
-        moreInfoAdministrator: "Un détail sur l'administrateur",
-        noContrib: 'Pas de contributions',
-        invited: 'Invité',
-        deleted: 'Supprimé',
-        moderator: 'Modérateur',
-        administrator: 'Administrateur',
-        contributor: 'Contributeur',
-        changeRole: 'Modifier le rôle',
-        removeMember: 'Retirer le membre',
-        event: 'x événements',
-        editProfile: 'Modifier le profil',
-        sendAMessage: 'Contacter',
-      }[code] ?? code),
+      getLabel: code =>
+        ({
+          noName: 'Sans nom',
+          moreInfoModerator: 'Un détail sur le modérateur',
+          moreInfoAdministrator: "Un détail sur l'administrateur",
+          noContrib: 'Pas de contributions',
+          invited: 'Invité',
+          deleted: 'Supprimé',
+          moderator: 'Modérateur',
+          administrator: 'Administrateur',
+          contributor: 'Contributeur',
+          changeRole: 'Modifier le rôle',
+          removeMember: 'Retirer le membre',
+          event: 'x événements',
+          editProfile: 'Modifier le profil',
+          sendAMessage: 'Contacter',
+        }[code] ?? code),
     }}
     LinkComponent={({ children }) => (
       <a href="#bim" className="btn btn-link padding-left-z">

@@ -1,5 +1,8 @@
 {
   "MemberApps.Dashboard.messageHistory": "Historique des messages",
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": "Le message sera envoyé à la sélection courante ({count, plural, =1 {1 membre} other {# membres}} sur {total})",
+  "MemberApps.Dashboard.sendMessageToMembers": "Envoyer un message aux membres",
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "Le message sera envoyé {total, plural, =1 {au seul membre} other {à tous les # membres}} de l'agenda",
   "MemberApps.Form.GDPRSummary": "Ces informations seront visibles des modérateurs de l'agenda. ",
   "MemberApps.Form.cancel": "Annuler",
   "MemberApps.Form.confirm": "Ok",

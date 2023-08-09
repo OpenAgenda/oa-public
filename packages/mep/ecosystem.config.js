@@ -4,7 +4,7 @@ module.exports = {
     script: 'server.mjs',
     args: '${args}',
     cwd: '/root/oa/packages/cibul-node',
-    instances: 1,
+    instances: 4,
     exec_mode: 'cluster',
     env: ${env},
   }]
