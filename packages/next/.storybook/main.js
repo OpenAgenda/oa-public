@@ -14,6 +14,11 @@ module.exports = {
       Buffer: ['buffer', 'Buffer'],
     }));
 
+    // Fix next/dynamic with suspense
+    config.plugins.push(new webpack.DefinePlugin({
+      'process.env.__NEXT_REACT_ROOT': 'true',
+    }));
+
     return config;
   },
 };

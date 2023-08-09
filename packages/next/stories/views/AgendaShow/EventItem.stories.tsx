@@ -1,4 +1,5 @@
 import { Container } from '@openagenda/uikit';
+import { FiltersProvider } from '@openagenda/react-filters';
 import Providers from 'Providers';
 import AgendaShow from 'views/AgendaShow';
 import EventItem from 'views/AgendaShow/components/EventItem';
@@ -21,9 +22,11 @@ export default {
 
 function Wrapper({ children }) {
   return (
-    <Container maxW="container.md">
-      {children}
-    </Container>
+    <FiltersProvider>
+      <Container maxW="container.md">
+        {children}
+      </Container>
+    </FiltersProvider>
   );
 }
 
