@@ -240,6 +240,9 @@ const config = {
     'teknowa.com',
     'xegge.com',
     'rubeshi.com',
+    'tipent.com',
+    'tiuas.com',
+    'touchend.com',
   ],
   api: {
     redis: {
