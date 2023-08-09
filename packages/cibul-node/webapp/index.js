@@ -150,7 +150,7 @@ const initialState = async req => {
       res: {
         agendas: {
           contribute: '/:slug/contribute',
-          create: '/new',
+          create: '/agendas/new',
           list: '/home/agendas',
           show: '/:slug',
           showPrivate: '/:slug.prv',
@@ -188,11 +188,11 @@ const initialState = async req => {
     },
     agendaSettingsNew: {
       settings: {
-        prefix: '/new',
+        prefix: '/agendas/new',
         apiRoot,
       },
       res: {
-        create: '/new',
+        create: '/agendas/new',
         slugAvailable: '/agendas/slugs/available',
         onCreated: '/:slug/admin/getting-started',
       },
@@ -541,7 +541,7 @@ module.exports = app => {
       '/home/agendas/member',
       '/home/activities',
       '/settings(/*?)?',
-      '/new',
+      '/agendas/new',
       '/home/inbox(/*?)?',
       '/support(/*?)?',
       '/:slug/admin/events(/*?)?',

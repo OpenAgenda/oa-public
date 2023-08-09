@@ -15,7 +15,7 @@ module.exports = app => {
   } = app.services;
 
   app.post(
-    '/new',
+    '/agendas/new',
     sessions.mw.loadOrRedirect(),
     agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
     mw.create
