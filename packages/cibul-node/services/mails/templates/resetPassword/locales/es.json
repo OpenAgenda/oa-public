@@ -1,5 +1,6 @@
 {
   "title": "Restablecimiento de la contraseña",
   "description": "Haga clic en el botón de abajo para restablecer la contraseña:",
-  "actionDescription": "Restablecimiento de la contraseña"
+  "actionDescription": "Restablecimiento de la contraseña",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
 }
