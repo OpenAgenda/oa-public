@@ -302,6 +302,7 @@ AgendaShow.fetchLocale = locale => Promise.all([
   fetchLocale(locale),
   fetchErrorLocale(locale),
   fetchCommonLocale('event/attendanceModes', locale),
+  fetchCommonLocale('event/statuses', locale),
   import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
 ]).then(results => Object.assign({}, ...results));
 

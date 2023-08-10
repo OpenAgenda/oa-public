@@ -1,0 +1,73 @@
+{
+    "image": {
+        "filename": "9dd94297dcd8412f9d234724223639ab.base.image.jpg",
+        "size": {
+            "width": 700,
+            "height": 495
+        },
+        "variants": [
+            {
+                "filename": "9dd94297dcd8412f9d234724223639ab.full.image.jpg",
+                "size": {
+                    "width": 2000,
+                    "height": 1414
+                },
+                "type": "full"
+            },
+            {
+                "filename": "9dd94297dcd8412f9d234724223639ab.thumb.image.jpg",
+                "size": {
+                    "width": 200,
+                    "height": 200
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+    },
+    "interetintercommunal": [],
+    "featured": false,
+    "attendanceMode": 1,
+    "keywords": {},
+    "dateRange": {
+        "ar": "السبت ٥ أغسطس, 16:00",
+        "de": "Samstag 5 August, 16:00",
+        "en": "Saturday 5 August, 16:00",
+        "it": "Sabato 5 agosto, 16:00",
+        "fr": "Samedi 5 août, 16h00",
+        "es": "Sábado 5 agosto, 16:00"
+    },
+    "imageCredits": "Les irrécupérables du Jeu de Rôle",
+    "originAgenda": {
+        "image": "agenda37476516.jpg?__ts=1674036803469",
+        "uid": 37476516,
+        "title": "Ville de Wambrechies"
+    },
+    "description": {
+        "fr": "Essayez-vous au Jeu de Rôle avec les Irrécupérables du Jeu de Rôle !"
+    },
+    "label": [],
+    "title": {
+        "fr": "L'été au kiosque | Jeu de rôle Grandeur Nature"
+    },
+    "onlineAccessLink": null,
+    "uid": 14096229,
+    "recurringevent": [],
+    "location": {
+        "address": "parc de robersart",
+        "city": "Wambrechies",
+        "latitude": 50.681733,
+        "name": "Kiosque du parc de Robersart",
+        "longitude": 3.058182
+    },
+    "categories-metropolitaines": [
+        28
+    ],
+    "slug": "lete-au-kiosque-or-jeu-de-role-grandeur-nature",
+    "status": 6,
+    "lastTiming": {
+        "begin": "2023-08-05T16:00:00+02:00",
+        "end": "2023-08-05T18:00:00+02:00"
+    },
+    "nextTiming": null
+}

@@ -31,6 +31,11 @@ import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 
+import {
+  EventStatusBadge,
+  EventStatusTooltip,
+} from 'components/EventStatus';
+
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
@@ -154,135 +159,138 @@ function EventItem({ event, agenda, imagePriority = false }) {
         </Flex>
       </Box>
 
-      <LinkBox
-        as="section"
-        display="flex"
-        flexDirection="column"
-        gap="4"
-        position="relative"
-        // py="4"
-        pt="4"
-        w={{ base: 'full', xl: '75%' }}
-        bg="white"
-        // border="1px solid"
-        // borderColor="oaGray.100"
-        borderRadius="sm"
-      // _hover={{
-      //   borderColor: 'primary.500',
-      // }}
-      >
-        <Flex direction="row" align="center" px="6" justify="space-between">
-          <Heading as="h2" fontSize="xl">
-            <LinkOverlay
-              href={`/${agenda.slug}/events/${event.slug}`}
-              _hover={{
-                _before: {
-                  border: '1px solid',
-                  borderColor: 'primary.500',
-                },
-              }}
-            >
-              {getLocaleValue(event.title, intl.locale)}
-            </LinkOverlay>
-          </Heading>
+      <EventStatusTooltip intl={intl} status={event.status}>
+        <LinkBox
+          as="section"
+          display="flex"
+          flexDirection="column"
+          gap="4"
+          position="relative"
+          // py="4"
+          pt="4"
+          w={{ base: 'full', xl: '75%' }}
+          bg="white"
+          // border="1px solid"
+          // borderColor="oaGray.100"
+          borderRadius="sm"
+        // _hover={{
+        //   borderColor: 'primary.500',
+        // }}
+        >
+          <Flex direction="row" align="center" px="6" justify="space-between">
+            {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
+            <Heading as="h2" fontSize="xl">
+              <LinkOverlay
+                href={`/${agenda.slug}/events/${event.slug}`}
+                _hover={{
+                  _before: {
+                    border: '1px solid',
+                    borderColor: 'primary.500',
+                  },
+                }}
+              >
+                {getLocaleValue(event.title, intl.locale)}
+              </LinkOverlay>
+            </Heading>
 
-          <FavoriteButton agenda={agenda} event={event} />
-        </Flex>
+            <FavoriteButton agenda={agenda} event={event} />
+          </Flex>
 
-        {/* eslint-disable-next-line no-nested-ternary */}
-        {event.image
-          ? event.image?.size?.width && event.image?.size?.height ? (
-            <Image
-              src={process.env.NODE_ENV === 'development'
-                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                : `${IMAGE_PREFIX}${event.image.filename}`}
-              fallbackSrc={process.env.NODE_ENV === 'development'
-                ? `${IMAGE_PREFIX}${event.image.filename}`
-                : undefined}
-              fallbackStrategy="onError"
-              width={event.image.size.width}
-              height={event.image.size.height}
-              loader={keyCDNLoader}
-              alt=""
-              m="auto"
-              w="full"
-              priority={imagePriority}
-            />
-          ) : (
-            <Image
-              src={process.env.NODE_ENV === 'development'
-                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                : `${IMAGE_PREFIX}${event.image.filename}`}
-              fallbackSrc={process.env.NODE_ENV === 'development'
-                ? `${IMAGE_PREFIX}${event.image.filename}`
-                : undefined}
-              fallbackStrategy="onError"
-              fill
-              // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-              pos="unset !important"
-              w="full !important"
-              h="auto !important"
-              loader={keyCDNLoader}
-              alt=""
-              m="auto"
-              priority={imagePriority}
-            />
-          )
-          : null}
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {event.image
+            ? event.image?.size?.width && event.image?.size?.height ? (
+              <Image
+                src={process.env.NODE_ENV === 'development'
+                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                  : `${IMAGE_PREFIX}${event.image.filename}`}
+                fallbackSrc={process.env.NODE_ENV === 'development'
+                  ? `${IMAGE_PREFIX}${event.image.filename}`
+                  : undefined}
+                fallbackStrategy="onError"
+                width={event.image.size.width}
+                height={event.image.size.height}
+                loader={keyCDNLoader}
+                alt=""
+                m="auto"
+                w="full"
+                priority={imagePriority}
+              />
+            ) : (
+              <Image
+                src={process.env.NODE_ENV === 'development'
+                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                  : `${IMAGE_PREFIX}${event.image.filename}`}
+                fallbackSrc={process.env.NODE_ENV === 'development'
+                  ? `${IMAGE_PREFIX}${event.image.filename}`
+                  : undefined}
+                fallbackStrategy="onError"
+                fill
+                // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                pos="unset !important"
+                w="full !important"
+                h="auto !important"
+                loader={keyCDNLoader}
+                alt=""
+                m="auto"
+                priority={imagePriority}
+              />
+            )
+            : null}
 
-        {/* TODO: add a title with a precise date */}
-        <Text px="6">
-          {getLocaleValue(event.description, intl.locale)}
-        </Text>
+          {/* TODO: add a title with a precise date */}
+          <Text px="6">
+            {getLocaleValue(event.description, intl.locale)}
+          </Text>
 
-        <Flex justify="space-between">
-          <List spacing="2" px="6" color="oaGray.500" pb="4">
-            <ListItem ml="6">
-              <ListIcon as={FontAwesomeIcon} icon={faClock} verticalAlign="" ml="-6" />
-              {getLocaleValue(event.dateRange, intl.locale)}
-            </ListItem>
-            {event.onlineAccessLink ? (
+          <Flex justify="space-between">
+            <List spacing="2" px="6" color="oaGray.500" pb="4">
               <ListItem ml="6">
-                <ListIcon as={FontAwesomeIcon} icon={faLink} verticalAlign="" ml="-6" />
-                {intl.formatMessage(attendanceModesMessages.online)}
+                <ListIcon as={FontAwesomeIcon} icon={faClock} verticalAlign="" ml="-6" />
+                {getLocaleValue(event.dateRange, intl.locale)}
               </ListItem>
-            ) : null}
-            {event.location ? (
-              <ListItem ml="6">
-                <ListIcon as={FontAwesomeIcon} icon={faLocationDot} verticalAlign="" ml="-6" />
-                {event.location.name}{event.location.city ? `, ${event.location.city}` : ''}
-              </ListItem>
-            ) : null}
-          </List>
+              {event.onlineAccessLink ? (
+                <ListItem ml="6">
+                  <ListIcon as={FontAwesomeIcon} icon={faLink} verticalAlign="" ml="-6" />
+                  {intl.formatMessage(attendanceModesMessages.online)}
+                </ListItem>
+              ) : null}
+              {event.location ? (
+                <ListItem ml="6">
+                  <ListIcon as={FontAwesomeIcon} icon={faLocationDot} verticalAlign="" ml="-6" />
+                  {event.location.name}{event.location.city ? `, ${event.location.city}` : ''}
+                </ListItem>
+              ) : null}
+            </List>
 
-          <Box
-            float="right"
-            display="flex"
-            alignItems="flex-end"
-            alignSelf="flex-end"
-          >
-            <Button
-              as={Link}
-              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
-              colorScheme="primary"
-              borderRadius="sm"
-              display={{ base: 'none', sm: 'inline-flex' }}
+            <Box
+              float="right"
+              display="flex"
+              alignItems="flex-end"
+              alignSelf="flex-end"
             >
-              Partager
-            </Button>
+              <Button
+                as={Link}
+                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                colorScheme="primary"
+                borderRadius="sm"
+                display={{ base: 'none', sm: 'inline-flex' }}
+              >
+                Partager
+              </Button>
 
-            <Button
-              as={Link}
-              href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
-              colorScheme="primary"
-              borderRadius="sm"
-              display={{ base: 'inline-flex', sm: 'none' }}
-            >
-              <FontAwesomeIcon icon={faShare} />
-            </Button>
-          </Box>
-        </Flex>
-      </LinkBox>
+              <Button
+                as={Link}
+                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                colorScheme="primary"
+                borderRadius="sm"
+                display={{ base: 'inline-flex', sm: 'none' }}
+              >
+                <FontAwesomeIcon icon={faShare} />
+              </Button>
+            </Box>
+          </Flex>
+        </LinkBox>
+      </EventStatusTooltip>
     </Flex>
   );
 }
