@@ -7,27 +7,27 @@ import messages from '@openagenda/common-labels/event/statuses';
 
 const map = [{
   id: 1,
-  slug: 'statusScheduled',
+  slug: 'scheduled',
   colorScheme: 'green',
 }, {
   id: 2,
-  slug: 'statusRescheduled',
+  slug: 'rescheduled',
   colorScheme: 'warning',
 }, {
   id: 3,
-  slug: 'statusMovedOnline',
+  slug: 'movedOnline',
   colorScheme: 'warning',
 }, {
   id: 4,
-  slug: 'statusPostponed',
+  slug: 'postponed',
   colorScheme: 'warning',
 }, {
   id: 5,
-  slug: 'statusFull',
+  slug: 'full',
   colorScheme: 'red',
 }, {
   id: 6,
-  slug: 'statusCancelled',
+  slug: 'cancelled',
   colorScheme: 'red',
 }];
 
