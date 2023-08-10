@@ -1,52 +1,52 @@
 const { defineMessages } = require('react-intl');
 
 module.exports = defineMessages({
-  statusScheduled: {
+  scheduled: {
     id: 'common.event.statuses.scheduled',
     defaultMessage: 'Scheduled',
   },
-  statusScheduledInfo: {
+  scheduledInfo: {
     id: 'common.event.statuses.scheduledInfo',
     defaultMessage: 'The event is scheduled at the indicated location and time',
   },
-  statusRescheduled: {
+  rescheduled: {
     id: 'common.event.statuses.rescheduled',
     defaultMessage: 'Rescheduled',
   },
-  statusRescheduledInfo: {
+  rescheduledInfo: {
     id: 'common.event.statuses.rescheduledInfo',
     defaultMessage: 'The timings and dates of the event have been modified',
   },
-  statusMovedOnline: {
+  movedOnline: {
     id: 'common.event.statuses.movedOnline',
     defaultMessage: 'Moved online',
   },
-  statusMovedOnlineInfo: {
+  movedOnlineInfo: {
     id: 'common.event.statuses.movedOnlineInfo',
     defaultMessage: 'The event will no longer be attended to at a physical location',
   },
-  statusPostponed: {
+  postponed: {
     id: 'common.event.statuses.postponed',
     defaultMessage: 'Postponed',
   },
-  statusPostponedInfo: {
+  postponedInfo: {
     id: 'common.event.statuses.postponedInfo',
     defaultMessage:
       'The event dates are no longer valid. New dates are not yet known',
   },
-  statusFull: {
+  full: {
     id: 'common.event.statuses.full',
     defaultMessage: 'Fully booked',
   },
-  statusFullInfo: {
+  fullInfo: {
     id: 'common.event.statuses.fullInfo',
     defaultMessage: 'New participants are no longer accepted to the event',
   },
-  statusCancelled: {
+  cancelled: {
     id: 'common.event.statuses.cancelled',
     defaultMessage: 'Cancelled',
   },
-  statusCancelledInfo: {
+  cancelledInfo: {
     id: 'common.event.statuses.cancelledInfo',
     defaultMessage: 'The event has been permanently cancelled',
   },
