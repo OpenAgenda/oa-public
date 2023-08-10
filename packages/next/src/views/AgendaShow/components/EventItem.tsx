@@ -106,7 +106,7 @@ function FavoriteButton({ agenda, event }) {
       icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
       minW="0"
       ml="6"
-    // px="0"
+      alignSelf="flex-start"
     />
   );
 }
@@ -177,9 +177,9 @@ function EventItem({ event, agenda, imagePriority = false }) {
         //   borderColor: 'primary.500',
         // }}
         >
-          <Flex direction="row" align="center" px="6" justify="space-between">
-            {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
+          <Flex direction="row" align="center" px="6" justify="space-between" alignItems="flex-start">
             <Heading as="h2" fontSize="xl">
+              {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
               <LinkOverlay
                 href={`/${agenda.slug}/events/${event.slug}`}
                 _hover={{
