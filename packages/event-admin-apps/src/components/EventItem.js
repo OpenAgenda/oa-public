@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useMutation, useQueryClient } from 'react-query';
@@ -10,6 +10,7 @@ import addQueryPrefix from '../utils/addQueryPrefix';
 import toggleEventItemValue from '../utils/toggleEventItemValue';
 import EventStateSelector from './EventStateSelector';
 import EventItemShareLine from './EventItemShareLine';
+import StatusBadge from './StatusBadge';
 
 const messages = defineMessages({
   createdBy: {
@@ -92,111 +93,7 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.unnamedMemberInfo',
     defaultMessage: 'Member has not specified his/her name',
   },
-  statusRescheduledInfo: {
-    id: 'EventAdminApp.EventItem.statusRescheduledInfo',
-    defaultMessage: 'The timings and dates of the event have been modified',
-  },
-  statusRescheduled: {
-    id: 'EventAdminApp.EventItem.statusRescheduled',
-    defaultMessage: 'Rescheduled',
-  },
-  statusMovedOnlineInfo: {
-    id: 'EventAdminApp.EventItem.statusMovedOnlineInfo',
-    defaultMessage:
-      'The event will no longer be attended to at a physical location',
-  },
-  statusMovedOnline: {
-    id: 'EventAdminApp.EventItem.statusMovedOnline',
-    defaultMessage: 'Moved online',
-  },
-  statusPostponedInfo: {
-    id: 'EventAdminApp.EventItem.statusPostponedInfo',
-    defaultMessage:
-      'The event dates are no longer valid. New dates are not yet known',
-  },
-  statusPostponed: {
-    id: 'EventAdminApp.EventItem.statusPostponed',
-    defaultMessage: 'Postponed',
-  },
-  statusFullInfo: {
-    id: 'EventAdminApp.EventItem.statusFullInfo',
-    defaultMessage: 'New participants are no longer accepted to the event',
-  },
-  statusFull: {
-    id: 'EventAdminApp.EventItem.statusFull',
-    defaultMessage: 'Fully booked',
-  },
-  statusCancelledInfo: {
-    id: 'EventAdminApp.EventItem.statusCancelledInfo',
-    defaultMessage: 'The event has been permanently cancelled',
-  },
-  statusCancelled: {
-    id: 'EventAdminApp.EventItem.statusCancelled',
-    defaultMessage: 'Cancelled',
-  },
 });
-
-function StatusBadge({ status }) {
-  const intl = useIntl();
-  let elem;
-
-  switch (status) {
-    case 2:
-      elem = (
-        <span
-          title={intl.formatMessage(messages.statusRescheduledInfo)}
-          className="label label-warning"
-        >
-          {intl.formatMessage(messages.statusRescheduled)}
-        </span>
-      );
-      break;
-    case 3:
-      elem = (
-        <span
-          title={intl.formatMessage(messages.statusMovedOnlineInfo)}
-          className="label label-warning"
-        >
-          {intl.formatMessage(messages.statusMovedOnline)}
-        </span>
-      );
-      break;
-    case 4:
-      elem = (
-        <span
-          title={intl.formatMessage(messages.statusPostponedInfo)}
-          className="label label-warning"
-        >
-          {intl.formatMessage(messages.statusPostponed)}
-        </span>
-      );
-      break;
-    case 5:
-      elem = (
-        <span
-          title={intl.formatMessage(messages.statusFullInfo)}
-          className="label label-danger"
-        >
-          {intl.formatMessage(messages.statusFull)}
-        </span>
-      );
-      break;
-    case 6:
-      elem = (
-        <span
-          title={intl.formatMessage(messages.statusCancelledInfo)}
-          className="label label-danger"
-        >
-          {intl.formatMessage(messages.statusCancelled)}
-        </span>
-      );
-      break;
-    default:
-      return null;
-  }
-
-  return <span className="padding-right-sm status">{elem}</span>;
-}
 
 export default function EventItem({
   redirectURL,
@@ -232,13 +129,14 @@ export default function EventItem({
 
   const onSelect = useCallback(
     () => selectEvent(event.uid),
-    [event.uid, selectEvent]
+    [event.uid, selectEvent],
   );
 
   const mutation = useMutation(
-    value => apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-      featured: value,
-    }),
+    value =>
+      apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+        featured: value,
+      }),
     {
       onSuccess: toggleEventItemValue({
         queryClient,
@@ -254,46 +152,48 @@ export default function EventItem({
 
   const onMouseEnter = useCallback(
     () => setTimeout(() => setHovered(true)),
-    []
+    [],
   );
   const onMouseLeave = useCallback(
     () => setTimeout(() => setHovered(false)),
-    []
+    [],
   );
 
   const adminNavStr = useMemo(
-    () => qs.stringify(
-      {
-        admin_nav: {
-          ...addQueryPrefix(query),
-          page: page > 1 ? page : null,
-          index,
-          first: isFirst || null,
-          last: isLast || null,
+    () =>
+      qs.stringify(
+        {
+          admin_nav: {
+            ...addQueryPrefix(query),
+            page: page > 1 ? page : null,
+            index,
+            first: isFirst || null,
+            last: isLast || null,
+          },
         },
-      },
-      {
-        addQueryPrefix: true,
-        arrayFormat: 'brackets',
-        skipNulls: true,
-      }
-    ),
-    [index, isFirst, isLast, page, query]
+        {
+          addQueryPrefix: true,
+          arrayFormat: 'brackets',
+          skipNulls: true,
+        },
+      ),
+    [index, isFirst, isLast, page, query],
   );
 
-  const memberPlaceholderMsg = member => event.member?.name ?? (
-  <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
-    {member?.role
-      ? intl.formatMessage(messages.memberPlaceholder, {
-        role: intl.formatMessage(
-          messages[
-            ['contributor', 'administrator', 'moderator'][member.role - 1]
-          ]
-        ),
-      })
-      : intl.formatMessage(messages.noRoleMemberPlaceholder)}
-  </span>
-  );
+  const memberPlaceholderMsg = member =>
+    event.member?.name ?? (
+      <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
+        {member?.role
+          ? intl.formatMessage(messages.memberPlaceholder, {
+            role: intl.formatMessage(
+              messages[
+                ['contributor', 'administrator', 'moderator'][member.role - 1]
+              ],
+            ),
+          })
+          : intl.formatMessage(messages.noRoleMemberPlaceholder)}
+      </span>
+    );
 
   return (
     <li
@@ -312,7 +212,7 @@ export default function EventItem({
             color: inherit;
           `}
         >
-          <StatusBadge status={event.status} />
+          <StatusBadge status={event.status} intl={intl} />
 
           <b>{getLocaleValue(event.title, intl.locale)}</b>
 
@@ -345,15 +245,16 @@ export default function EventItem({
         <div className="margin-top-xs">
           {intl.formatMessage(messages.createdBy, {
             name: memberPlaceholderMsg(event.member),
-            link: chunks => (event.member ? (
-              <a
-                href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
-              >
-                {chunks}
-              </a>
-            ) : (
-              <i>{chunks}</i>
-            )),
+            link: chunks =>
+              (event.member ? (
+                <a
+                  href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
+                >
+                  {chunks}
+                </a>
+              ) : (
+                <i>{chunks}</i>
+              )),
           })}
         </div>
       ) : null}
@@ -382,7 +283,12 @@ export default function EventItem({
       <div className="margin-top-xs">
         <ul className="list-inline">
           <li>
-            <EventStateSelector agenda={agenda} event={event} query={query} page={page} />
+            <EventStateSelector
+              agenda={agenda}
+              event={event}
+              query={query}
+              page={page}
+            />
           </li>
 
           <li>
