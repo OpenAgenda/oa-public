@@ -243,6 +243,7 @@ const config = {
     'tipent.com',
     'tiuas.com',
     'touchend.com',
+    'royalka.com',
   ],
   api: {
     redis: {
