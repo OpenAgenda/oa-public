@@ -413,7 +413,7 @@
 <% if ( mailto?.enabled ) { %>
     <h3 class="margin-top-lg"><%= __( 'contactEmail' ) %></h3>
     <div class="padding-all-md wsq" style="text-align: center;">
-      <a href="<%= mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
+      <a href="mailto:<%= mailto.email %>?subject=<%= mailto.subject %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
     </div>
 <% } else { %>
     <div class="display-none js_inbox_event_canvas inbox-section" id="inbox">
