@@ -41,6 +41,7 @@
   "ReactFilters.messages.filterTitles.adminLevel3": "Administrative level 3",
   "ReactFilters.messages.filterTitles.attendanceMode": "Mòde de participacion",
   "ReactFilters.messages.filterTitles.city": "Vila",
+  "ReactFilters.messages.filterTitles.countryCode": "País",
   "ReactFilters.messages.filterTitles.createdAt": "Data de creacion",
   "ReactFilters.messages.filterTitles.department": "Departament",
   "ReactFilters.messages.filterTitles.district": "Districte",

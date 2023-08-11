@@ -39,7 +39,8 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         // props for MapFilter
         tileAttribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileUrl: opts.mapTiles ?? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        tileUrl:
+          opts.mapTiles ?? 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       });
       break;
     case 'addMethod':
@@ -273,6 +274,16 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         missingValue,
         aggregation: {
           type: 'cities',
+        },
+      });
+      break;
+    case 'countryCode':
+      defaults(filter, {
+        type: 'choice',
+        options: null, // from the aggregation
+        missingValue,
+        aggregation: {
+          type: 'countryCodes',
         },
       });
       break;

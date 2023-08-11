@@ -44,6 +44,7 @@
   "ReactFilters.messages.filterTitles.adminLevel3": "Administrative level 3",
   "ReactFilters.messages.filterTitles.attendanceMode": "Attendance mode",
   "ReactFilters.messages.filterTitles.city": "City",
+  "ReactFilters.messages.filterTitles.countryCode": "Country",
   "ReactFilters.messages.filterTitles.createdAt": "Creation date",
   "ReactFilters.messages.filterTitles.department": "Department",
   "ReactFilters.messages.filterTitles.district": "District",

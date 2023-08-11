@@ -1,9 +1,5 @@
 import _ from 'lodash';
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MockAdapter from '@openagenda/axios-mock-adapter';
 import { apiClient } from '@openagenda/react-shared';
 import example from './templates/example.ejs';
@@ -118,10 +114,12 @@ export const SimpleExample = () => {
         locale: 'fr',
         locales: {
           en: {
-            eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
+            eventsTotal:
+              '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
           },
           fr: {
-            eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+            eventsTotal:
+              '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
           },
         },
         defaultViewport: {
@@ -149,7 +147,12 @@ export const Playground = () => {
     <div>
       <label htmlFor="angedaUid">
         Agenda UID :
-        <input name="angedaUid" type="text" ref={agendaUidRef} defaultValue="89904399" />
+        <input
+          name="angedaUid"
+          type="text"
+          ref={agendaUidRef}
+          defaultValue="89904399"
+        />
       </label>
       <label htmlFor="apiKey">
         Api key :
@@ -158,7 +161,10 @@ export const Playground = () => {
 
       <button
         type="button"
-        onClick={() => setRes(`https://dapi.openagenda.com/v2/agendas/${agendaUidRef.current?.value}/events?key=${apiKeyRef.current?.value}`)}
+        onClick={() =>
+          setRes(
+            `https://dapi.openagenda.com/v2/agendas/${agendaUidRef.current?.value}/events?key=${apiKeyRef.current?.value}`,
+          )}
       >
         Valider
       </button>
@@ -171,10 +177,12 @@ export const Playground = () => {
           locale: 'fr',
           locales: {
             en: {
-              eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
+              eventsTotal:
+                '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
             },
             fr: {
-              eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+              eventsTotal:
+                '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
             },
           },
           defaultViewport: {
@@ -290,22 +298,36 @@ export const Languages = () => (
     options={{
       locale: 'fr',
       filtersBase: {
-        languages: [{
-          key: 'fr', eventCount: 9,
-        }, {
-          key: 'de', eventCount: 10,
-        }, {
-          key: 'en', eventCount: 12,
-        }],
+        languages: [
+          {
+            key: 'fr',
+            eventCount: 9,
+          },
+          {
+            key: 'de',
+            eventCount: 10,
+          },
+          {
+            key: 'en',
+            eventCount: 12,
+          },
+        ],
       },
       aggregations: {
-        languages: [{
-          key: 'fr', eventCount: 9,
-        }, {
-          key: 'de', eventCount: 10,
-        }, {
-          key: 'en', eventCount: 12,
-        }],
+        languages: [
+          {
+            key: 'fr',
+            eventCount: 9,
+          },
+          {
+            key: 'de',
+            eventCount: 10,
+          },
+          {
+            key: 'en',
+            eventCount: 12,
+          },
+        ],
       },
     }}
     html={_.template(`
@@ -351,6 +373,39 @@ export const City = () => (
 );
 City.storyName = 'City filter';
 
+export const CountryCode = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        countryCode: [
+          { key: 'FR', eventCount: 127 },
+          { key: 'ES', eventCount: 40 },
+          { key: 'EN', eventCount: 33 },
+          { key: 'IT', eventCount: 33 },
+          { key: 'PT', eventCount: 29 },
+          { key: 'BD', eventCount: 24 },
+        ],
+      },
+      aggregations: {
+        countryCode: [
+          { key: 'FR', eventCount: 34 },
+          { key: 'ES', eventCount: 25 },
+          { key: 'EN', eventCount: 16 },
+          { key: 'IT', eventCount: 7 },
+        ],
+      },
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'countryCode' }) %>"
+      ></div>
+    `)()}
+  />
+);
+CountryCode.storyName = 'CountryCode filter';
+
 export const Keywords = () => (
   <Html
     options={{
@@ -360,7 +415,7 @@ export const Keywords = () => (
           { key: 'CLAVIM', eventCount: 73 },
           { key: 'Espace Andrée Chedid', eventCount: 21 },
           { key: 'La Halle des Épinettes', eventCount: 21 },
-          { key: 'Les Maisons d\'Issy', eventCount: 17 },
+          { key: "Les Maisons d'Issy", eventCount: 17 },
           { key: 'Atelier Janusz Korczak', eventCount: 15 },
           { key: 'philo', eventCount: 13 },
           { key: 'Espace Jeunes Anne Frank', eventCount: 11 },
@@ -371,7 +426,7 @@ export const Keywords = () => (
           { key: 'CLAVIM', eventCount: 73 },
           { key: 'Espace Andrée Chedid', eventCount: 21 },
           { key: 'La Halle des Épinettes', eventCount: 21 },
-          { key: 'Les Maisons d\'Issy', eventCount: 17 },
+          { key: "Les Maisons d'Issy", eventCount: 17 },
           { key: 'Atelier Janusz Korczak', eventCount: 15 },
           { key: 'philo', eventCount: 13 },
           { key: 'Espace Jeunes Anne Frank', eventCount: 11 },
@@ -443,10 +498,12 @@ export const Total = () => (
       locale: 'fr',
       locales: {
         en: {
-          eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
+          eventsTotal:
+            '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
         },
         fr: {
-          eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+          eventsTotal:
+            '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
         },
       },
       total: 42,

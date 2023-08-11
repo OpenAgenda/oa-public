@@ -23,6 +23,7 @@
   "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modalità di partecipazione",
   "ReactFilters.messages.filterTitles.city": "Città",
+  "ReactFilters.messages.filterTitles.countryCode": "Paese",
   "ReactFilters.messages.filterTitles.createdAt": "Creazione del record",
   "ReactFilters.messages.filterTitles.department": "Provincia",
   "ReactFilters.messages.filterTitles.district": "Quartiere",
