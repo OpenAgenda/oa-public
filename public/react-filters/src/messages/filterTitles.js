@@ -41,6 +41,10 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.department',
     defaultMessage: 'Department',
   },
+  countryCode: {
+    id: 'ReactFilters.messages.filterTitles.countryCode',
+    defaultMessage: 'Country',
+  },
   city: {
     id: 'ReactFilters.messages.filterTitles.city',
     defaultMessage: 'City',
@@ -63,7 +67,7 @@ export default defineMessages({
   },
   keyword: {
     id: 'ReactFilters.messages.filterTitles.keyword',
-    defaultMessage: 'Keywords'
+    defaultMessage: 'Keywords',
   },
   state: {
     id: 'ReactFilters.messages.filterTitles.state',

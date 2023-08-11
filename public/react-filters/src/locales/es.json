@@ -10,6 +10,7 @@
   "ReactFilters.filters.searchFilter.previewLabel": "Buscar",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
+  "ReactFilters.messages.filterTitles.countryCode": "País",
   "ReactFilters.messages.filterTitles.languages": "Idiomas",
   "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
   "ReactFilters.messages.filterTitles.state": "Estado",

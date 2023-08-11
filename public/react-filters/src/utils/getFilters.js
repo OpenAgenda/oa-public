@@ -21,6 +21,7 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'updatedAt', staticRanges, inputRanges },
     { name: 'state' },
     { name: 'attendanceMode' },
+    { name: 'countryCode' },
     { name: 'region' },
     { name: 'department' },
     { name: 'adminLevel3' },
@@ -35,9 +36,10 @@ export default function getFilters(intl, fields, opts = {}) {
     .concat(getAdditionalFilters(fields))
     .filter(filter => opts.include?.includes(filter.name) ?? true)
     .filter(filter => !opts.exclude?.includes(filter.name))
-    .map(filter => withDefaultFilterConfig(filter, intl, {
-      dateFnsLocale: opts.dateFnsLocale,
-      mapTiles: opts.mapTiles,
-      missingValue: opts.missingValue,
-    }));
+    .map(filter =>
+      withDefaultFilterConfig(filter, intl, {
+        dateFnsLocale: opts.dateFnsLocale,
+        mapTiles: opts.mapTiles,
+        missingValue: opts.missingValue,
+      }));
 }

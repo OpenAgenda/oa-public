@@ -44,6 +44,7 @@
   "ReactFilters.messages.filterTitles.adminLevel3": "Intercommunalité",
   "ReactFilters.messages.filterTitles.attendanceMode": "Mode de participation",
   "ReactFilters.messages.filterTitles.city": "Ville",
+  "ReactFilters.messages.filterTitles.countryCode": "Pays",
   "ReactFilters.messages.filterTitles.createdAt": "Date de création",
   "ReactFilters.messages.filterTitles.department": "Département",
   "ReactFilters.messages.filterTitles.district": "Quartier",
