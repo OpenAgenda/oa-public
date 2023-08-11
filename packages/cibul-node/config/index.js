@@ -85,6 +85,7 @@ const config = {
   },
   mails: {
     transport: prod.mails?.transport ?? {
+      pool: !!parseInt(process.env.MAIL_POOL, 10),
       host: process.env.MAIL_HOST ?? '127.0.0.1',
       port: process.env.MAIL_PORT ?? '1025',
       secure: !!parseInt(process.env.MAIL_SECURE, 10),
@@ -97,7 +98,7 @@ const config = {
       rateLimit: 14,
       rateDelta: 1000,
     },
-    disableVerify: !!process.env.MAIL_DISABLE_VERIFY,
+    disableVerify: !!parseInt(process.env.MAIL_DISABLE_VERIFY, 10),
     defaults: {
       from: '"OpenAgenda" <no-reply@mail.openagenda.com>',
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
@@ -243,6 +244,7 @@ const config = {
     'tipent.com',
     'tiuas.com',
     'touchend.com',
+    'royalka.com',
   ],
   api: {
     redis: {

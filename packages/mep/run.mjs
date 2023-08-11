@@ -60,7 +60,12 @@ const runs = [];
 if (runUploadToAPI || runAll) {
   runs.push(async () => {
     const nodes = (await getNodesAndGroups(webEnvName, ['api'], { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(nodes, 'api', { SSHKeyPath, envVars, dir });
+    await buildAndUploadEcosystemFile(nodes, 'api', {
+      SSHKeyPath,
+      envVars,
+      dir,
+      instances: 4,
+    });
     await rsync(nodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
     await rexec(nodes, pm2Commands, { SSHKeyPath });
   });
@@ -69,7 +74,12 @@ if (runUploadToAPI || runAll) {
 if (runUploadToWeb || runAll) {
   runs.push(async () => {
     const nodes = (await getNodesAndGroups(webEnvName, ['web'], { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(nodes, 'web admin', { SSHKeyPath, envVars, dir });
+    await buildAndUploadEcosystemFile(nodes, 'web admin', {
+      SSHKeyPath,
+      envVars,
+      dir,
+      instances: 4,
+    });
     await rsync(nodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
     await rexec(nodes, pm2Commands, { SSHKeyPath });
   });
@@ -92,7 +102,12 @@ if (runUploadToNext || runAll) {
 if (runUploadToTask || runAll) {
   runs.push(async () => {
     const taskNodes = (await getNodesAndGroups(taskEnvName, null, { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(taskNodes, 'task', { SSHKeyPath, envVars, dir });
+    await buildAndUploadEcosystemFile(taskNodes, 'task', {
+      SSHKeyPath,
+      envVars,
+      dir,
+      instances: 1,
+    });
     await rsync(taskNodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
     await rexec(taskNodes, pm2Commands, { SSHKeyPath });
   });

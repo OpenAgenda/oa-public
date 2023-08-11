@@ -6,6 +6,7 @@ export default async function buildAndUploadEcosystemFile(nodes, args, options =
     SSHKeyPath,
     envVars,
     dir,
+    instances,
   } = options;
 
   const configFilePath = `${dir}/${args.replace(/\s/g, '-')}.config.js`;
@@ -13,6 +14,7 @@ export default async function buildAndUploadEcosystemFile(nodes, args, options =
   await copyAndEditFile('ecosystem.config.js', configFilePath, {
     env: JSON.stringify(envVars, null, 2),
     args,
+    instances,
   });
 
   await sftp(

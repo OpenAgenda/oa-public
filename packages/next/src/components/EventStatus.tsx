@@ -34,7 +34,7 @@ const map = [{
 export function EventStatusBadge({ intl, status }) {
   const { slug, colorScheme } = map.find(i => i.id === status);
   return (
-    <Badge colorScheme={colorScheme} variant="solid">
+    <Badge colorScheme={colorScheme} variant="solid" mr="2" py="0.75">
       {intl.formatMessage(messages[slug])}
     </Badge>
   );

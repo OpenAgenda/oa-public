@@ -1,0 +1,211 @@
+{
+    "longDescription": {
+        "de": "## Die Tiefen der Reserven\nBegeben Sie sich bei einer außergewöhnlichen Tour durch die Naturschutzgebiete in das Leben einer Sammlung zeitgenössischer Kunst und entdecken Sie die verschiedenen Gewerke, die täglich bei der Installation, Konservierung und Reparatur der Werke tätig sind.\n## + Konzert des Orchestre National d'Île-de-France\n### Flöte, Oboe und Tanz: klassische und zeitgenössische Werke!\nDas Nationalorchester der Île-de-France wurde 1974 gegründet. Es hat die Mission, überall und für alle auf dem Gebiet der Francilien zu spielen. Als Orchester mit variabler Geometrie, das sich an alle Arten von Publikum und Orte anpassen kann, treten die Musiker und Musikerinnen des Nationalorchesters der Île-de-France jeden Sommer während einer außergewöhnlichen Kammermusiktour im Rahmen von «Mein Sommer, meine Region».",
+        "en": "## The underbelly of the Reserves\nDuring an exceptional tour of the reserve spaces, enter into the life of a contemporary art collection and discover the different trades that intervene daily to install, preserve and repair the works.\n## + Concert of the Orchestre National d'Île-de-France\n### Flute, oboe and dance: classical and contemporary works!\nThe Orchestre national d'Île-de-France was founded in 1974\\. Its mission is to play everywhere and for everyone in Ile-de-France. An orchestra with variable geometry capable of adapting to all types of audiences and places, the musicians of the Orchestre national d'Île-de-France perform every summer during an exceptional tour of chamber music as part of “My summer, my region”.",
+        "it": "## I sotto delle Riserve\nDurante un tour eccezionale degli spazi di riserva, entra nella vita di una collezione di arte contemporanea e scopri i diversi mestieri che intervengono quotidianamente per installare, conservare e riparare le opere.\n## + Concerto dell'Orchestra Nazionale dell'Île-de-France\n### Flauto, oboe e danza: opere classiche e contemporanee!\nL'Orchestre national d'Île-de-France è stata fondata nel 1974\\. La sua missione è di suonare ovunque e per tutti nel territorio della Francia. Orchestra a geometria variabile capace di adattarsi a tutti i tipi di pubblico e di luogo, i musicisti e musici dell'Orchestra nazionale dell'Île-de-France si esibiscono ogni estate nel corso di un eccezionale tour di musica da camera, nell'ambito di «La mia estate, la mia regione».",
+        "fr": "Les dessous des Réserves\n------------------------\n\nLors d’une visite exceptionnelle des espaces de réserve, entrez dans la vie d’une collection d’art contemporain et découvrez les différents corps de métiers qui interviennent au quotidien pour installer, conserver et réparer les œuvres.\n\n\\+ Concert de l'Orchestre National d'Île-de-France\n--------------------------------------------------\n\n### Flûte, hautbois et danse : œuvres classiques et contemporaines !\n\nL’Orchestre national d’Île-de-France a été fondé en 1974. Il a pour mission de jouer partout et pour tous sur le territoire francilien. Orchestre à géométrie variable capable de s’adapter à tous types de publics et de lieux, les musiciens et musiciennes de l’Orchestre national d’Île-de-France se produisent tous les étés au cours d’une tournée exceptionnelle de musique de chambre, dans le cadre de « Mon été, ma région ».",
+        "es": "## La parte inferior de las Reservas\nEn una visita excepcional a los espacios de reserva, entra en la vida de una colección de arte contemporáneo y descubre los diferentes oficios que intervienen en la vida cotidiana para instalar, conservar y reparar las obras.\n## + Concierto de la Orquesta Nacional de Île-de-France\n### Flauta, oboe y danza: ¡obras clásicas y contemporáneas!\nLa Orquesta Nacional de Île-de-France fue fundada en 1974\\. Tiene la misión de tocar en todas partes y para todos en el territorio de Francia. Orquesta de geometría variable capaz de adaptarse a todo tipo de públicos y lugares, los músicos y músicos de la Orquesta Nacional de Île-de-France actúan todos los veranos durante una gira excepcional de música de cámara, en el marco de «Mi verano, mi región»."
+    },
+    "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+    },
+    "featured": true,
+    "private": 0,
+    "keywords": {},
+    "conditions-de-participation": [
+        12,
+        15
+    ],
+    "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": true
+    },
+    "dateRange": {
+        "ar": "السبت ١٦ سبتمبر, 16:00",
+        "de": "Samstag 16 September, 16:00",
+        "en": "Saturday 16 September, 16:00",
+        "it": "Sabato 16 settembre, 16:00",
+        "fr": "Samedi 16 septembre, 16h00",
+        "es": "Sábado 16 septiembre, 16:00"
+    },
+    "timezone": "Europe/Paris",
+    "imageCredits": "Paris Gallery Week-end © Francesca Avanzinelli",
+    "originAgenda": {
+        "image": "agenda4350114.jpg?__ts=1686156541295",
+        "uid": 4350114,
+        "title": "Journées européennes du patrimoine 2023 : Île-de-France"
+    },
+    "description": {
+        "de": "Die Unterseite der Reserven...",
+        "en": "The bottom of the Reserves...",
+        "it": "La parte inferiore delle riserve...",
+        "fr": "Les dessous des Réserves...",
+        "es": "La parte inferior de las reservas..."
+    },
+    "title": {
+        "de": "Führung \"Les Dessous des Réserve\" im Frac île-de-France + Konzert des Orchestre National d'Île-de-France",
+        "en": "Guided tour \"Les dessous des Réserves\" at Frac île-de-France + concert of the Orchestre National d'Île-de-France",
+        "it": "Visita guidata \"Les sous des Réserves\" al Frac île-de-France + concerto dell'Orchestre National d'Île-de-France",
+        "fr": "Visite guidée \"Les dessous des Réserves\" au Frac île-de-France + concert de l'Orchestre National d'Île-de-France",
+        "es": "Visita guiada \"Les dessous des Réserves\" al Frac île-de-France + concierto de la Orquesta Nacional de Île-de-France"
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2023-07-13T14:52:23.000Z",
+    "uid": 28613193,
+    "types-devenement": 11,
+    "draft": 0,
+    "timings": [
+        {
+            "begin": "2023-09-16T16:00:00+02:00",
+            "end": "2023-09-16T17:30:00+02:00"
+        }
+    ],
+    "member": {
+        "uid": 49986439,
+        "role": 1,
+        "phone": "01 76 21 13 28",
+        "organization": "Frac Île-de-France",
+        "name": "Léa Dolivet",
+        "invited": false,
+        "position": "Chargée de communication et de médiation",
+        "email": "ldolivet@fraciledefrance.com",
+        "_agg": "eyJ1aWQiOjQ5OTg2NDM5LCJuYW1lIjoiTMOpYSBEb2xpdmV0In0="
+    },
+    "links": [],
+    "theme": [
+        16
+    ],
+    "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+    "state": 2,
+    "slug": "visite-guidee-les-dessous-des-reserves-au-frac-ile-de-france-concert-de-lorchestre-national-dile-de-france",
+    "updatedAt": "2023-07-17T22:50:27.000Z",
+    "addMethod": "contribution",
+    "image": {
+        "filename": "bd3a5ff7336a475fb651b7cd84e4fa4a.base.image.jpg",
+        "size": {
+            "width": 700,
+            "height": 466
+        },
+        "variants": [
+            {
+                "filename": "bd3a5ff7336a475fb651b7cd84e4fa4a.full.image.jpg",
+                "size": {
+                    "width": 2500,
+                    "height": 1666
+                },
+                "type": "full"
+            },
+            {
+                "filename": "bd3a5ff7336a475fb651b7cd84e4fa4a.thumb.image.jpg",
+                "size": {
+                    "width": 200,
+                    "height": 200
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "sourceAgendas": [],
+    "creatorUid": 49986439,
+    "type-de-public": 40,
+    "registration": [
+        {
+            "type": "email",
+            "value": "reserves@fraciledefrance.com"
+        }
+    ],
+    "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+            "de": "U-Bahn 5 - Haltestelle Bobigny Raymond Quesneau",
+            "en": "Metro 5 - Bobigny Raymond Quesneau stop",
+            "it": "Metro 5 - fermata Bobigny Raymond Quesneau",
+            "fr": "Métro 5 - arrêt Bobigny Raymond Quesneau",
+            "es": "Metro 5 - parada Bobigny Raymond Quesneau"
+        },
+        "types-de-lieu": [
+            15
+        ],
+        "city": "Romainville",
+        "timezone": "Europe/Paris",
+        "postalCode": "93230",
+        "latitude": 48.895436,
+        "imageCredits": "Frac île-de-france, les réserves, romainville © Martin Argyroglo",
+        "description": {
+            "de": "Frac Île-de-France erhält einen Raum für seine Sammlung in Romainville, der 1.600 m2 für die Erhaltung und Verwaltung der Werke umfasst, um ihre Verbreitung im gesamten Gebiet der Île-de-France zu optimieren. Um den Zugang zur Sammlung zu ermöglichen, sind 450m2 Räume für die Öffentlichkeit zugänglich, für ein neuartiges Projekt der Präsentation von Werken, das auf partizipativer Weise «Raus aus deiner Reserve! » organisiert ist.\nLes Réserves befindet sich in einem neuen Gebäude in diesem neuen Zentrum für zeitgenössische Kunst im Osten von Paris - einer ehemaligen Industriebrache, die von der Architekturbehörde Freaks saniert wurde, die auch die Fiminco-Stiftung und mehrere Galerien beherbergt, die unter dem Label zusammengefasst sind «Komunuma», Kunsthandwerker und die Mode- und Designschule Parsons Paris.\nDieses neue Gebäude ermöglicht es, die Tätigkeit mit und rund um die Sammlung, von den Werken, aus denen sie besteht, bis hin zu allen damit verbundenen Berufen in Bezug auf die Er",
+            "en": "the Frac Île-de-France has a space to host its collection, in Romainville, which includes 1,600 m2 dedicated to the conservation and management of works, in order to optimize their dissemination throughout the territory of the Île-de-France. To offer access to the collection, 450m2 of spaces are open to the public, for a new project of presentation of works organized in a participatory mode «Get out of your reserve!».\nThe Reserves occupy a new building within this new centre of contemporary art in eastern Paris – a former industrial wasteland rehabilitated by the architecture agency Freaks, which also hosts the Fiminco Foundation and several galleries, grouped under the label «Komunuma», artisans of art, and the fashion and design school Parsons Paris.\nThis new building allows us to see the action taken with and around the collection, from the works that make it up to all the related professions in terms of conservation, management and dissemination of the collection.",
+            "it": "il Frac Île-de-France si dota di uno spazio destinato ad accogliere la sua collezione, a Romainville, che comprende 1.600 m2 destinati alla conservazione e alla gestione delle opere, al fine di ottimizzare la loro diffusione su tutto il territorio dell'Île-de-France. Per offrire un accesso alla collezione, 450m2 di spazi sono aperti al pubblico, per un progetto inedito di presentazione di opere organizzato in modo partecipativo «Esci dalla tua riserva! ».\nLes Réserves occupa un nuovo edificio all'interno di questo nuovo polo d'arte contemporanea dell'est parigino - vecchia zona industriale riabilitata dallo studio di architettura Freaks, che ospita anche la Fondazione Fiminco e diverse gallerie, raggruppate sotto il marchio «Komunuma», artigiani d'arte, e la scuola di moda e design Parsons Paris.\nQuesto nuovo edificio permette di vedere l'azione svolta con e intorno alla collezione, dalle opere che la costituiscono fino all'insieme dei mestieri ad essa collegati in termini di conservaz",
+            "fr": "Le Frac Île-de-France se dote d’un espace destiné à accueillir sa collection, à Romainville, qui comprend 1 600 m² dévolus à la conservation et à la gestion des œuvres, afin d’optimiser leur diffusion sur tout le territoire de l’Île-de-France. Pour offrir un accès à la collection, 450 m² d’espaces sont ouverts au public, pour un projet inédit de présentation d’oeuvres organisé sur un mode participatif « Sors de ta réserve ! ».\n\nLes Réserves occupent un bâtiment neuf au sein de ce nouveau pôle d’art contemporain de l’est parisien – ancienne friche industrielle réhabilitée par l’agence d’architecture Freaks, qui accueille également la Fondation Fiminco et plusieurs galeries, regroupées sous le label « Komunuma », des artisans d’art, et l’école de mode et de design Parsons Paris.\n\nCe nouveau bâtiment permet de donner à voir l’action menée avec et autour de la collection, depuis les œuvres qui la constituent jusqu’à l’ensemble des métiers qui s’y rattachent en termes de conservation, de gestion et de diffusion de la collection.",
+            "es": "el Frac Île-de-France se dota de un espacio destinado a acoger su colección, en Romainville, que comprende 1.600 m2 dedicados a la conservación y gestión de las obras, con el fin de optimizar su difusión en todo el territorio de la Isla de Francia. Para ofrecer acceso a la colección, 450m2 de espacios están abiertos al público, para un proyecto inédito de presentación de obras organizado de forma participativa «¡Sal de tu reserva! ».\nLas Reservas ocupan un edificio nuevo dentro de este nuevo polo de arte contemporáneo del este parisino - antiguo páramo industrial rehabilitado por la agencia de arquitectura Freaks, que acoge también la Fundación Fiminco y varias galerías, agrupadas bajo el sello «Komunuma», artesanos del arte, y la escuela de moda y diseño Parsons París.\nEste nuevo edificio permite dar a conocer la acción llevada a cabo con y alrededor de la colección, desde las obras que la constituyen hasta el conjunto de los oficios que se relacionan con ella en términos de conservac"
+        },
+        "setUid": null,
+        "uid": 85409727,
+        "createdAt": "2022-07-21T10:25:32.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+            "http://sorsdetareserve.com"
+        ],
+        "state": 1,
+        "extId": null,
+        "department": "Seine-Saint-Denis",
+        "slug": "les-reserves-frac-ile-de-france_2174764",
+        "email": "communication@fraciledefrance.com",
+        "longitude": 2.433589,
+        "updatedAt": "2023-07-17T08:10:49.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location85409727.jpg",
+        "website": "https://www.fraciledefrance.com/",
+        "address": "43 rue de la Commune de Paris 93230 Romainville",
+        "adminLevel3": "Est Ensemble",
+        "agendaUid": 4350114,
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Seine-Saint-Denis",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjg1NDA5NzI3LCJuYW1lIjoiTGVzIFLDqXNlcnZlcyBkdSBGUkFDIMOObGUtZGUtRnJhbmNlIn0=",
+        "tags": [
+            {
+                "id": 15,
+                "label": "Musée, salle d'exposition"
+            }
+        ],
+        "insee": "93063",
+        "phone": "01 76 21 13 33",
+        "district": null,
+        "name": "Les Réserves du FRAC Île-de-France",
+        "region": "Île-de-France"
+    },
+    "ownerUid": 49986439,
+    "conditions": {
+        "de": "Auf Anmeldung - begrenzte Anzahl an Plätzen",
+        "en": "Upon registration - limited number of places",
+        "it": "Su iscrizione - numero di posti limitato",
+        "fr": "Sur inscription - nombre de places limité",
+        "es": "Previa inscripción - número limitado de plazas"
+    },
+    "diffusion-sur-le-pass-culture": [],
+    "age": {
+        "min": 6,
+        "max": 99
+    },
+    "status": 1,
+    "lastTiming": {
+        "begin": "2023-09-16T16:00:00+02:00",
+        "end": "2023-09-16T17:30:00+02:00"
+    },
+    "nextTiming": {
+        "begin": "2023-09-16T16:00:00+02:00",
+        "end": "2023-09-16T17:30:00+02:00"
+    }
+}
