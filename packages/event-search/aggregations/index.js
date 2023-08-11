@@ -27,6 +27,7 @@ const sourceAgendas = require('./sourceAgendas');
 const aggregationTypes = {
   additionalFields,
   additionalFieldMetrics,
+  countryCodes: terms('location.countryCode'),
   cities: terms('location.city'),
   districts: terms('location.district'),
   geohash,
