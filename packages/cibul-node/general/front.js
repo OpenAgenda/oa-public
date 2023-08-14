@@ -46,7 +46,7 @@ function setLang(req, res, next) {
     '/es': 'es',
     '/br': 'br',
     '/it': 'it',
-  }, req.url, null);
+  }, req.originalUrl, null);
 
   if (!req.lang) return res.redirect(302, '/');
 
@@ -91,7 +91,7 @@ function getStat(schema, lang) {
 }
 
 async function corpo(cache, req, res, next) {
-  const pageName = req.params.page || req.url.substr(1);
+  const pageName = req.params.page || req.originalUrl.substr(1);
 
   const page = landingPages(pageName);
 
@@ -160,7 +160,7 @@ async function corpo(cache, req, res, next) {
     },
   );
 
-  cache.set(req.url, { content, scriptCSPHashes }, 60 * 60, err => {
+  cache.set(req.originalUrl, { content, scriptCSPHashes }, 60 * 60, err => {
     if (err) req.log.error('could not cache %s', err);
   });
 
@@ -272,7 +272,7 @@ function redirectLegacyLinks(req, res, next) {
 module.exports = app => {
   const cache = app.services.simpleCache('landing');
   const cacheMw = (req, res, next) => {
-    cache.get(req.url, (err, cached) => {
+    cache.get(req.originalUrl, (err, cached) => {
       if (err) return next(err);
 
       if (!cached) return next();
