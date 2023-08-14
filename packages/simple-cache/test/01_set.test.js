@@ -58,6 +58,14 @@ describe('simple-cache - functional (service): set', () => {
       expect(value).toBe('train');
     });
 
+    it('set converts object to JSON', async () => {
+      await cache('blaaaa').set('rgh', { thisIsJSON: true }, 10);
+
+      const value = await cli.get(`${config.prefix}:blaaaa:rgh`);
+
+      expect(value).toBe('{"thisIsJSON":true}');
+    });
+
     it(
       'set stores value in specific namespace, id, key redis key',
       async () => {
@@ -101,6 +109,18 @@ describe('simple-cache - functional (service): set', () => {
               rs();
             });
           }, 2000);
+        });
+      }),
+    );
+
+    it(
+      'set converts object to JSON',
+      () => new Promise(rs => {
+        cache('blaaaa').set('rgh', { thisIsJSON: true }, 10, _err => {
+          cli.get(`${config.prefix}:blaaaa:rgh`).then(value => {
+            expect(value).toBe('{"thisIsJSON":true}');
+            rs();
+          });
         });
       }),
     );

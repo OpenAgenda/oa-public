@@ -90,7 +90,7 @@ function set(...args) {
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return client.set(redisKey, value, {
+  return client.set(redisKey, value instanceof Object ? JSON.stringify(value) : value, {
     EX: `${ttlValue}`,
   }).then(() => resolve(value, cb), e => reject(e, cb));
 }
