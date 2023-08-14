@@ -277,7 +277,7 @@ module.exports = app => {
 
       if (!cached) return next();
 
-      const { content, scriptCSPHashes } = cached;
+      const { content, scriptCSPHashes } = JSON.parse(cached);
 
       const cspError = setCSPHeader(scriptCSPHashes, req, res);
       if (cspError) return next(cspError);
