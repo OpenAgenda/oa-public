@@ -202,6 +202,17 @@ describe('02 - event search - functional: location', () => {
       ]);
     });
 
+    it('countryCode is a possible aggregation', async () => {
+      const { aggregations } = await service('location').search({
+        state: null,
+      }, {}, { detailed: true, aggregations: 'countryCodes' });
+
+      expect(aggregations.countryCodes).toEqual([
+        { key: 'FR', eventCount: 3 },
+        { key: 'ES', eventCount: 1 },
+      ]);
+    });
+
     it('missing option to count events without cities', async () => {
       const { aggregations } = await service('location').search({}, {}, {
         detailed: true,
