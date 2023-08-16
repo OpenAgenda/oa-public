@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const addressParser = require('nodemailer/lib/addressparser');
 const { handleMjmlConfig, registerComponent } = require('mjml-core');
 const isEmail = require('isemail');
@@ -38,12 +38,13 @@ class Mails {
 
   static flattenRecipients(recipients) {
     return (Array.isArray(recipients) ? recipients : [recipients]).reduce(
-      (result, recipient) => result.concat(
-        typeof recipient === 'string'
-          ? addressParser(recipient)
-          : this.recipientToArray(recipient)
-      ),
-      []
+      (result, recipient) =>
+        result.concat(
+          typeof recipient === 'string'
+            ? addressParser(recipient)
+            : this.recipientToArray(recipient),
+        ),
+      [],
     );
   }
 
@@ -53,7 +54,7 @@ class Mails {
     if (options.template) {
       const templateDir = path.join(
         config.templatesDir || '',
-        options.template
+        options.template,
       );
 
       if (!await fileExists(templateDir)) {
@@ -78,7 +79,7 @@ class Mails {
               address: recipient.address,
             },
           },
-          'Invalid email address'
+          'Invalid email address',
         );
         log.error(error);
         errors.push(error);
@@ -98,7 +99,10 @@ class Mails {
 
       try {
         if (!enqueue || !config.queues) {
-          if (typeof config.sendFilter === 'function' && !await config.sendFilter(params)) {
+          if (
+            typeof config.sendFilter === 'function'
+            && !await config.sendFilter(params)
+          ) {
             log.info('Sending filtered', {
               recipient,
               template: options.template,
@@ -112,7 +116,7 @@ class Mails {
 
           Object.assign(
             params,
-            await this.render(params.template, params.data, params)
+            await this.render(params.template, params.data, params),
           );
         }
 
@@ -120,7 +124,7 @@ class Mails {
           ? config.transporter.sendMail.bind(config.transporter)
           : config.queues.prepareMails.bind(
             config.queues.prepareMails,
-            'method'
+            'method',
           );
         const result = await method(params);
 
@@ -131,7 +135,7 @@ class Mails {
             info: params,
             cause: error,
           },
-          'Error on sending mail'
+          'Error on sending mail',
         );
         log.error(wrappedError);
         errors.push(wrappedError);

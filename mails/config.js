@@ -1,11 +1,14 @@
 'use strict';
 
-const fs = require('fs/promises');
-const path = require('path');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 const nodemailer = require('nodemailer');
 const VError = require('@openagenda/verror');
 const logs = require('@openagenda/logs');
-const { getFallbackedMessages, getSupportedLocale } = require('@openagenda/intl');
+const {
+  getFallbackedMessages,
+  getSupportedLocale,
+} = require('@openagenda/intl');
 const { createIntl, createIntlCache } = require('@formatjs/intl');
 const fileExists = require('./utils/fileExists');
 
@@ -57,11 +60,10 @@ async function createMultiIntl(templatesDir) {
       // eslint-disable-next-line import/no-dynamic-require,global-require
       const locales = require(path.join(localesPath, localeFile));
 
-      messagesPerLang[lang] = Object.keys(locales)
-        .reduce((accu, key) => {
-          accu[`${template}.${key}`] = locales[key];
-          return accu;
-        }, messagesPerLang[lang] || {});
+      messagesPerLang[lang] = Object.keys(locales).reduce((accu, key) => {
+        accu[`${template}.${key}`] = locales[key];
+        return accu;
+      }, messagesPerLang[lang] || {});
     }
   }
 
@@ -71,16 +73,19 @@ async function createMultiIntl(templatesDir) {
 
   for (const lang in fallbackedMessages) {
     if (Object.prototype.hasOwnProperty.call(fallbackedMessages, lang)) {
-      result[lang] = createIntl({
-        locale: lang,
-        messages: fallbackedMessages[lang],
-        defaultLocale: getSupportedLocale(lang),
-        onError(e) {
-          if (e.code !== 'MISSING_DATA') {
-            console.error(e);
-          }
-        }
-      }, cache);
+      result[lang] = createIntl(
+        {
+          locale: lang,
+          messages: fallbackedMessages[lang],
+          defaultLocale: getSupportedLocale(lang),
+          onError(e) {
+            if (e.code !== 'MISSING_DATA') {
+              console.error(e);
+            }
+          },
+        },
+        cache,
+      );
     }
   }
 
@@ -124,7 +129,7 @@ async function createConfig(c = {}) {
       logger: transportLogger,
       rateLimit: undefined,
     },
-    config.defaults
+    config.defaults,
   );
 
   if (!config.disableVerify) {
@@ -133,7 +138,7 @@ async function createConfig(c = {}) {
     } catch (error) {
       const wrappedError = new VError(
         error,
-        'Invalid transporter configuration'
+        'Invalid transporter configuration',
       );
       log.error(wrappedError);
       throw wrappedError;
