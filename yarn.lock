@@ -11115,6 +11115,7 @@ __metadata:
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
     "@openagenda/logs": ^1.1.9
+    "@openagenda/verror": ^3.1.0
     jest: ^28.1.2
     redis: ^4.6.6
   languageName: unknown
