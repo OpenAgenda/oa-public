@@ -125,4 +125,17 @@ describe('simple-cache - functional (service): set', () => {
       }),
     );
   });
+
+  describe('error handling', () => {
+    it('VError adds arguments in redis error when thrown', async () => {
+      const info = await cache('blob').set('value').catch(e => e).then(e => e.info);
+      expect(info).toEqual({
+        namespace: 'blob',
+        identifier: null,
+        key: '',
+        ttlValue: 'value',
+        value: null,
+      });
+    });
+  });
 });
