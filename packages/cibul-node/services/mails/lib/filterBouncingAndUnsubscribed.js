@@ -15,20 +15,29 @@ module.exports = async (services, config, params) => {
     : null;
   const email = params.to.address;
 
-  try {
-    const { data: bounce } = await axios(`https://api.mailgun.net/v3/${config.mailgun.domain}/bounces/${email}`, {
+  if (config.mailgun) {
+    const {
       auth: {
-        username: 'api',
-        password: config.mailgun.apiKey,
+        domain,
+        apiKey,
       },
-    });
+    } = config.mailgun;
 
-    if (bounce && bounce.code) {
-      return false;
-    }
-  } catch (error) {
-    if (error.response && error.response.status !== 404) {
-      log.error('Cannot check bounced address on Mailgun', error);
+    try {
+      const { data: bounce } = await axios(`https://api.mailgun.net/v3/${domain}/bounces/${email}`, {
+        auth: {
+          username: 'api',
+          password: apiKey,
+        },
+      });
+
+      if (bounce && bounce.code) {
+        return false;
+      }
+    } catch (error) {
+      if (error.response && error.response.status !== 404) {
+        log.error('Cannot check bounced address on Mailgun', error);
+      }
     }
   }
 
