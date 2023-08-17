@@ -2,11 +2,11 @@
 
 const _ = require('lodash');
 const axios = require('axios');
+const logs = require('@openagenda/logs');
 
 const isUnsubscribed = require('./isUnsubscribed');
 
 module.exports = async (services, config, params) => {
-  const { logs } = services;
   const log = logs('services/mails/filterBouncingAndUnsubscribed');
 
   const { unsubscriptions } = params.to;
