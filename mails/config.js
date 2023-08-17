@@ -3,6 +3,7 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
 const VError = require('@openagenda/verror');
 const logs = require('@openagenda/logs');
 const {
@@ -123,14 +124,24 @@ async function createConfig(c = {}) {
   };
 
   // Transporter
-  config.transporter = nodemailer.createTransport(
-    {
-      ...config.transport,
-      logger: transportLogger,
-      rateLimit: undefined,
-    },
-    config.defaults,
-  );
+  if (config.transport.mailgun) {
+    config.transporter = nodemailer.createTransport(
+      mg({
+        ...config.transport.mailgun,
+        logger: transportLogger,
+      }),
+      config.defaults,
+    );
+  } else {
+    config.transporter = nodemailer.createTransport(
+      {
+        ...config.transport,
+        logger: transportLogger,
+        rateLimit: undefined,
+      },
+      config.defaults,
+    );
+  }
 
   if (!config.disableVerify) {
     try {
