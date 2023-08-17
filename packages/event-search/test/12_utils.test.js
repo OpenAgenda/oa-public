@@ -390,6 +390,11 @@ describe('event-search - unit: utils', () => {
       }
       expect(error[0].code).toBe('string.tooshort');
     });
+
+    it('CountryCode null is valid', () => {
+      const clean = validateQuery({ countryCode: ['null', 'FR'] }, {});
+      expect(clean.countryCode).toStrictEqual(['FR', 'null']);
+    });
   });
 
   describe('cleanRequestedAggregation', () => {
