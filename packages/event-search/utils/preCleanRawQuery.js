@@ -8,6 +8,10 @@ const {
 const convertTimingsRange = require('./convertTimingsRange');
 
 module.exports = produce((query = {}) => {
+  if (query.countryCode && query.countryCode.length && query.countryCode.includes('null')) {
+    query.countryCode = query.countryCode.filter(c => c !== 'null');
+  }
+
   try {
     ['state', 'status'].forEach(f => {
       if (!query[f]) {

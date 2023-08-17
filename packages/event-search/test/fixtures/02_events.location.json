@@ -36,7 +36,7 @@
         "region": "Hauts-de-France",
         "adminLevel3": "mel",
         "adminLevel5": "1er",
-        "countryCode": "FR",
+        "countryCode": null,
         "timezone": "Europe/Paris",
         "protections-appellation-et-labels": [50, 41]
       },
