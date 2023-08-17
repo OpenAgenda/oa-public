@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const createMails = require('../index');
@@ -62,13 +62,14 @@ describe('sendMail', () => {
       expect(errors).toHaveLength(0);
 
       expect(
-        results.map(v => _.omit(
-          JSON.parse(v.message),
-          'envelopeTime',
-          'messageId',
-          'messageTime',
-          'response',
-        )),
+        results.map(v =>
+          _.omit(
+            JSON.parse(v.message),
+            'envelopeTime',
+            'messageId',
+            'messageTime',
+            'response',
+          )),
       ).toMatchSnapshot();
     });
 
@@ -85,7 +86,7 @@ describe('sendMail', () => {
       expect(errors).toMatchSnapshot();
     });
 
-    it('send a mail with an error don\'t send anything', async () => {
+    it("send a mail with an error don't send anything", async () => {
       const { errors } = await mails.send({
         template: 'helloWorld',
         to: 'kevin.bertho@@gmail',
@@ -115,13 +116,14 @@ describe('sendMail', () => {
       expect(message.data.domain).toBe('https://openagenda.com');
     });
 
-    it('sendMail with a missing template throw an error', () => expect(
-      mails.send({
-        template: 'unknow',
-        to: 'kevin.bertho@gmail.com',
-        queue: false,
-      }),
-    ).rejects.toThrow('Email template \'unknow\' does not exist'));
+    it('sendMail with a missing template throw an error', () =>
+      expect(
+        mails.send({
+          template: 'unknow',
+          to: 'kevin.bertho@gmail.com',
+          queue: false,
+        }),
+      ).rejects.toThrow("Email template 'unknow' does not exist"));
 
     it('sendMail with a text email', async () => {
       const res = await mails.send({
@@ -130,8 +132,7 @@ describe('sendMail', () => {
           name: '',
         },
         subject: 'Nouvel inscrit à la newsletter',
-        text:
-          '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
+        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
         data: {
           root: 'https://openagenda.com',
           emailSettingsLink: 'https://openagenda.com/settings/emails',
@@ -186,7 +187,8 @@ describe('sendMail', () => {
       }
 
       expect(
-        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
+        results.map(v =>
+          _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
     });
 
@@ -216,8 +218,57 @@ describe('sendMail', () => {
       expect(results[0].envelope.from).toBe(from);
 
       expect(
-        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
+        results.map(v =>
+          _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
+    });
+  });
+
+  describe('Mailgun transport', () => {
+    it('sends mail', async () => {
+      const {
+        MAILGUN_API_KEY: apiKey,
+        MAILGUN_DOMAIN: domain,
+        MAILGUN_TEST_TARGET_EMAIL: testEmail = 'support@openagenda.com',
+      } = process.env;
+
+      if (!apiKey || !domain) {
+        console.log(
+          'test can only be run if MAILGUN_API_KEY and MAILGUN_DOMAIN env vars are set',
+        );
+        return;
+      }
+
+      mails = await createMails({
+        templatesDir,
+        transport: {
+          mailgun: {
+            auth: {
+              apiKey,
+              domain,
+            },
+          },
+        },
+        defaults: {
+          from: 'no-reply@openagenda.com',
+          data: {
+            domain: 'https://openagenda.com',
+          },
+        },
+      });
+
+      const {
+        results: [result],
+      } = await mails.send({
+        template: 'helloWorld',
+        data: {
+          username: 'bertho',
+        },
+        to: [testEmail],
+        queue: false,
+      });
+
+      expect(result.status).toBe(200);
     });
   });
 
