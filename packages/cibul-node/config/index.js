@@ -6,6 +6,13 @@ const sentry = require('@sentry/node');
 
 const prod = require('./prod');
 
+const mailgun = {
+  auth: {
+    domain: process.env.MAILGUN_DOMAIN,
+    apiKey: process.env.MAILGUN_KEY,
+  },
+};
+
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
@@ -84,7 +91,9 @@ const config = {
     } : undefined,
   },
   mails: {
-    transport: prod.mails?.transport ?? {
+    transport: process.env.NODE_ENV === 'production' ? {
+      mailgun,
+    } : {
       pool: !!parseInt(process.env.MAIL_POOL, 10),
       host: process.env.MAIL_HOST ?? '127.0.0.1',
       port: process.env.MAIL_PORT ?? '1025',
@@ -292,10 +301,7 @@ const config = {
     apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
     contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
   },
-  mailgun: {
-    domain: prod.mailgun?.domain ?? process.env.MAILGUN_DOMAIN,
-    apiKey: prod.mailgun?.apiKey ?? process.env.MAILGUN_KEY,
-  },
+  mailgun,
   oembed: {
     res: 'https://iframe.ly/api/oembed',
     key: process.env.IFRAMELY_KEY || (prod.iframely && prod.iframely.key),
