@@ -6,6 +6,7 @@ export default function getFiltersBase(fields, opts = {}) {
     { name: 'locationUid' },
     { name: 'sourceAgendaUid' },
     { name: 'originAgendaUid' },
+    { name: 'country' },
     { name: 'region' },
     { name: 'department' },
     { name: 'city' },
@@ -14,9 +15,10 @@ export default function getFiltersBase(fields, opts = {}) {
     { name: 'keyword' },
   ]
     .filter(filter => !opts.exclude?.includes(filter.name))
-    .map(filter => withDefaultFilterConfig(filter, null, {
-      dateFnsLocale: opts.dateFnsLocale,
-      mapTiles: opts.mapTiles,
-      missingValue: opts.missingValue,
-    }));
+    .map(filter =>
+      withDefaultFilterConfig(filter, null, {
+        dateFnsLocale: opts.dateFnsLocale,
+        mapTiles: opts.mapTiles,
+        missingValue: opts.missingValue,
+      }));
 }
