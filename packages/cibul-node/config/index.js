@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const debug = require('debug');
 const sentry = require('@sentry/node');
 
@@ -189,7 +189,7 @@ const config = {
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
-    ssl: !!parseInt(process.env.ES_USE_SSL, 10) ? {
+    ssl: parseInt(process.env.ES_USE_SSL, 10) ? {
       key: fs.readFileSync(process.env.CLIENT_SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.CLIENT_SSL_CERT, 'utf-8'),
     } : null,
@@ -566,8 +566,8 @@ debug.enable(config.logger.enableDebug);
 
 const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => ({
   ...ops,
-  [pair.split(':')[0]]: pair.split(':')[1]
-}), {}) : (prod.insightOps ?? {});
+  [pair.split(':')[0]]: pair.split(':')[1],
+}), {}) : prod.insightOps ?? {};
 
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
