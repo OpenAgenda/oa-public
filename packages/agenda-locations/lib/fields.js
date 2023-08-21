@@ -96,6 +96,7 @@ module.exports = [{
   read: ['internal', 'public', 'administrator', 'moderator', 'contributor', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 100,
+  label: labels.city,
 }, {
   field: 'city',
   optional: true,
