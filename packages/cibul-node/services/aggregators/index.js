@@ -96,7 +96,8 @@ module.exports.init = (config, services) => {
             success: true,
           };
         } catch (e) {
-          log.error(
+          const isBadRequest = e.name === 'BadRequest';
+          log[isBadRequest ? 'warn' : 'error'](
             'could not patch event %s on aggregator %s',
             eventUid,
             aggregatorAgendaUid,
@@ -104,7 +105,7 @@ module.exports.init = (config, services) => {
           );
           return {
             success: false,
-            errors: e.name === 'BadRequest' ? e.info : e,
+            errors: isBadRequest ? e.info : e,
           };
         }
       },
