@@ -49,7 +49,7 @@ http {
     server {
         listen 80;
 
-        server_name <%= APIDomain %>;
+        server_name <%= APIDomain %> <%= additionalAPIDomains %>;
 
         if ($real_scheme != "https") {
             return 301 https://$server_name$request_uri;
