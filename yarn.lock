@@ -8639,7 +8639,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/verror": ^3.1.0
     angular-expressions: ^0.3.0
-    aws-sdk: ^2.544.0
+    aws-sdk: ^2.1440.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
     core-js: ^3.29.1
@@ -9710,7 +9710,7 @@ __metadata:
   dependencies:
     "@openagenda/eslint-config": ^1.4.0
     "@openagenda/verror": ^3.1.0
-    aws-sdk: ^2.544.0
+    aws-sdk: ^2.1440.0
     axios: ^0.21.1
     eslint: ^8.24.0
     express: ^4.17.1
@@ -9781,7 +9781,7 @@ __metadata:
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.5.9
     autosize: ^5.0.1
-    aws-sdk: ^2.544.0
+    aws-sdk: ^2.1440.0
     babel-loader: ^8.2.2
     body-parser: ^1.18.3
     classnames: ^2.3.1
@@ -18906,7 +18906,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.544.0, aws-sdk@npm:^2.77.0, aws-sdk@npm:^2.784.0":
+"aws-sdk@npm:^2.1440.0":
+  version: 2.1440.0
+  resolution: "aws-sdk@npm:2.1440.0"
+  dependencies:
+    buffer: 4.9.2
+    events: 1.1.1
+    ieee754: 1.1.13
+    jmespath: 0.16.0
+    querystring: 0.2.0
+    sax: 1.2.1
+    url: 0.10.3
+    util: ^0.12.4
+    uuid: 8.0.0
+    xml2js: 0.5.0
+  checksum: 0f71a5f571391b3cc59fddde95b8d17b5fd33c464ab9aa558da0bb6f03c98ba8e005a6a7701370efe1052efa875a71e48f13707c9821807fba552abe28403710
+  languageName: node
+  linkType: hard
+
+"aws-sdk@npm:^2.77.0, aws-sdk@npm:^2.784.0":
   version: 2.889.0
   resolution: "aws-sdk@npm:2.889.0"
   dependencies:
@@ -21396,7 +21414,7 @@ __metadata:
     "@openagenda/verror": ^3.1.0
     "@sentry/node": ^7.45.0
     async: ^2.3.0
-    aws-sdk: ^2.544.0
+    aws-sdk: ^2.1440.0
     axios: ^1.4.0
     body-parser: ^1.19.0
     bullmq: ^3.14.0
@@ -32997,6 +33015,13 @@ fsevents@~2.1.1:
   version: 0.15.0
   resolution: "jmespath@npm:0.15.0"
   checksum: 353bb9e69cc4c1560be0a4df43cb4020abc246e1c60cb5b55dcc76d8c858383f1633faf22ccaf6a5e09568a2077d0f4f1e989e6fcfd496b5cef87964cc8cb9e7
+  languageName: node
+  linkType: hard
+
+"jmespath@npm:0.16.0":
+  version: 0.16.0
+  resolution: "jmespath@npm:0.16.0"
+  checksum: 2d602493a1e4addfd1350ac8c9d54b1b03ed09e305fd863bab84a4ee1f52868cf939dd1a08c5cdea29ce9ba8f86875ebb458b6ed45dab3e1c3f2694503fb2fd9
   languageName: node
   linkType: hard
 
@@ -49246,6 +49271,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"uuid@npm:8.0.0":
+  version: 8.0.0
+  resolution: "uuid@npm:8.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 56d4e23aa7ac26fa2db6bd1778db34cb8c9f5a10df1770a27167874bf6705fc8f14a4ac414af58a0d96c7653b2bd4848510b29d1c2ef8c91ccb17429c1872b5e
+  languageName: node
+  linkType: hard
+
 "uuid@npm:^2.0.1":
   version: 2.0.3
   resolution: "uuid@npm:2.0.3"
@@ -50744,6 +50778,16 @@ resolve@^2.0.0-next.3:
     sax: ">=0.6.0"
     xmlbuilder: ~9.0.1
   checksum: ca8b2fee430d450a18947786bfd7cd1a353ee00fc6fd550acbc8a8e65f1b4df5e9786fcb2990c1a5514ecd554d445fb74e1d716b3a4fcfffc10554aeb5db482b
+  languageName: node
+  linkType: hard
+
+"xml2js@npm:0.5.0":
+  version: 0.5.0
+  resolution: "xml2js@npm:0.5.0"
+  dependencies:
+    sax: ">=0.6.0"
+    xmlbuilder: ~11.0.0
+  checksum: 1aa71d62e5bc2d89138e3929b9ea46459157727759cbc62ef99484b778641c0cd21fb637696c052d901a22f82d092a3e740a16b4ce218e81ac59b933535124ea
   languageName: node
   linkType: hard
 
