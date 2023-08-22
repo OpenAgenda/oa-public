@@ -1,13 +1,8 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/mails/beforeSend');
 const createUnsubscriptionToken = require('./createUnsubscriptionToken');
-
-
-module.exports = async (services, config, params) => {
-  await defineUnsubscriptionLinks(services, config, params);
-};
 
 async function defineUnsubscriptionLinks(services, config, params) {
   log('processing', _.get(params, 'to.address'));
@@ -16,11 +11,11 @@ async function defineUnsubscriptionLinks(services, config, params) {
 
   const {
     unsubscriptions,
-    address: email
+    address: email,
   } = params.to;
 
   // user or email
-  const user = await usersSvc.findOne( { query: { email, isActivated: true } } );
+  const user = await usersSvc.findOne({ query: { email, isActivated: true } });
 
   params.data.isRegisteredUser = !!user;
 
@@ -45,15 +40,19 @@ async function defineUnsubscriptionLinks(services, config, params) {
     _.set(params.data, dataPath, unsubscribeLink);
 
     if (!params.list || !params.list.unsubscribe) {
-      params.list = Object.assign({}, params.list, {
+      params.list = {
+        ...params.list,
         unsubscribe: [
           unsubscribeLink,
-          'support@openagenda.com'
-        ]
-      });
+          'support@openagenda.com',
+        ],
+      };
     }
   }
 
   log('done', params.list);
 }
 
+module.exports = async (services, config, params) => {
+  await defineUnsubscriptionLinks(services, config, params);
+};

@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const _ = require('lodash');
 const sanitizeHtml = require('sanitize-html');
 const createMails = require('@openagenda/mails');
