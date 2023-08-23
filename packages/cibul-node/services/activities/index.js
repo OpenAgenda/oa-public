@@ -1,6 +1,6 @@
 'use strict';
 
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const Service = require('@openagenda/activities');
 const sessions = require('@openagenda/sessions');
 const mw = require('@openagenda/activity-apps/dist/middleware');
