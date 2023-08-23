@@ -6,7 +6,7 @@ import AgendaShow from 'views/AgendaShow';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 
 export default {
-  title: 'AgendaShow/ContextBar',
+  title: 'views/AgendaShow/ContextBar',
   component: AggregateModal,
   loaders: [
     async () => ({

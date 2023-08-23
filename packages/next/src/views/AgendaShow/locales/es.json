@@ -1,4 +1,12 @@
 {
+  "next.views.AgendaShow.filter": "",
+  "next.views.AgendaShow.filters": "",
+  "next.views.AgendaShow.help": "",
+  "next.views.AgendaShow.includePassedEvents": "",
+  "next.views.AgendaShow.seeEvents": "",
+  "next.views.AgendaShow.seeMore": "",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Mostrar sólo los próximos eventos",
+  "next.views.AgendaShow.termsOfUse": "",
+  "next.views.AgendaShow.totalEvents": "",
   "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Ningún evento próximo} one {1 evento próximo} other {# eventos próximos}}"
 }

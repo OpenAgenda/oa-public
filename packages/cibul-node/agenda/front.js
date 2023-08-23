@@ -36,6 +36,11 @@ const loadCredentials = require('./loadCredentials');
 
 const perPage = 20;
 
+function removeCsp(req, res, next) {
+  res.removeHeader('Content-Security-Policy');
+  next();
+}
+
 const preMw = [
   cmn.loadLogger('agenda front'),
 ];
@@ -62,6 +67,8 @@ const middlewares = {
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData(_layoutData),
     embedSvc.mw.loadCustomLayoutData,
+    removeXFrameOptionsHeader,
+    removeCsp,
     renderEmbedShow,
   ],
 };
@@ -74,6 +81,7 @@ module.exports = app => {
     preMw,
     agendaSvc.mw.load('uid', { basicLoad: true, cache: true }),
     cmn.ifIs('agenda.private', (req, res, next) => { next({ code: 403 }); }),
+    removeCsp,
     controlDataSvc.embedMiddleware,
     controlDataSvc.middleware,
   );
@@ -124,6 +132,7 @@ module.exports = app => {
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData(_layoutData, 'oae.css'), // this needs to switch to embed base css ( can be deactivated )
     removeXFrameOptionsHeader,
+    removeCsp,
     renderEmbedShow,
     (req, res) => res.send(req.render),
   );
@@ -138,7 +147,6 @@ module.exports = app => {
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
       convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-      removeXFrameOptionsHeader,
       middlewares.embedShow,
       (req, res) => res.send(req.render),
     ]),
@@ -157,7 +165,6 @@ module.exports = app => {
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load('embedUid', 'uid'),
     convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-    removeXFrameOptionsHeader,
     middlewares.embedShow,
     (req, res) => res.send(req.render),
   );

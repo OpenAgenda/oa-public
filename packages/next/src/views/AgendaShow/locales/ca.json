@@ -1,1 +1,12 @@
-{}
+{
+  "next.views.AgendaShow.filter": "",
+  "next.views.AgendaShow.filters": "",
+  "next.views.AgendaShow.help": "",
+  "next.views.AgendaShow.includePassedEvents": "",
+  "next.views.AgendaShow.seeEvents": "",
+  "next.views.AgendaShow.seeMore": "",
+  "next.views.AgendaShow.showUpcomingEventsOnly": "",
+  "next.views.AgendaShow.termsOfUse": "",
+  "next.views.AgendaShow.totalEvents": "",
+  "next.views.AgendaShow.totalUpcomingEvents": ""
+}

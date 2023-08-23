@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import { useIntl } from 'react-intl';
 import { getFallbackChain } from '@openagenda/intl';
 import context from 'contexts/dateFnsLocale';
 
@@ -22,7 +23,9 @@ const byLangs = {
   oc: dynamic(() => import('date-fns/locale/oc/index').then(createProvider)),
 };
 
-const DateFnsLocaleProvider = ({ locale, children }) => {
+const DateFnsLocaleProvider = ({ children }) => {
+  const { locale } = useIntl();
+
   const Provider = useMemo(() => {
     const fallbacks = getFallbackChain(locale);
     return byLangs[fallbacks.find(l => byLangs[l])];

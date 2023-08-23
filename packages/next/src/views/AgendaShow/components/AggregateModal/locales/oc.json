@@ -1,5 +1,8 @@
 {
   "next.views.AgendaShow.AggregateModal.createAgenda": "Crear una agenda",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "",
   "next.views.AgendaShow.AggregateModal.signin": "Se connectar",
+  "next.views.AgendaShow.AggregateModal.subtitle": "",
   "next.views.AgendaShow.AggregateModal.title": "Agregar a una agenda"
 }

@@ -4,9 +4,9 @@
 
 import fetchLocale0 from 'components/ConsentBanner/locales';
 import fetchLocale1 from 'components/ErrorDisplay/locales';
-import fetchLocale2 from 'components/Navbar/locales';
-import fetchLocale3 from 'components/OfficialAgenda/locales';
-import fetchLocale4 from 'components/PrivateAgenda/locales';
+import fetchLocale2 from 'components/LockIcon/locales';
+import fetchLocale3 from 'components/Navbar/locales';
+import fetchLocale4 from 'components/OfficialAgenda/locales';
 import fetchLocale5 from 'components/SearchInput/locales';
 import fetchLocale6 from 'views/AgendaShow/components/AggregateModal/locales';
 import fetchLocale7 from 'views/AgendaShow/components/ContextBar/locales';

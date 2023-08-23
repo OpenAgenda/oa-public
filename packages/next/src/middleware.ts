@@ -3,7 +3,6 @@ import browserslistConfig from '@openagenda/browserslist-config';
 import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'config/constants';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -22,19 +21,25 @@ export async function middleware(req: NextRequest) {
   const nextLocale = req.nextUrl.locale;
   const qsLocale = req.nextUrl.searchParams.get('lang');
 
-  const defaultLocale = userLocale || DEFAULT_LOCALE;
+  // const defaultLocale = userLocale || DEFAULT_LOCALE;
 
   const locale = getPreferredLocale(qsLocale, nextLocale, userLocale);
 
-  if (nextLocale === 'default' && locale !== defaultLocale && SUPPORTED_LOCALES.includes(locale)) {
-    if (qsLocale === locale) {
-      req.nextUrl.searchParams.delete('lang');
-    }
-
+  if (nextLocale === 'default') {
     return NextResponse.redirect(
       new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
     );
   }
+
+  // if (nextLocale === 'default' && locale !== defaultLocale && SUPPORTED_LOCALES.includes(locale)) {
+  //   if (qsLocale === locale) {
+  //     req.nextUrl.searchParams.delete('lang');
+  //   }
+  //
+  //   return NextResponse.redirect(
+  //     new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
+  //   );
+  // }
 
   /* outdated browser */
   const isOutdated = isOutdatedBrowser(

@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
 import dedent from 'dedent';
@@ -32,13 +33,26 @@ initialize({
 
 export const parameters = { layout: 'fullscreen' };
 
-// Clean the cache at each story change
 export const decorators = [
+  // Clean the cache at each story change
   storyFn => (
     <SWRConfig value={{ provider: () => new Map() }}>
       {storyFn()}
     </SWRConfig>
   ),
+  // Fix uikit theme
+  storyFn => {
+    useLayoutEffect(() => {
+      const root = document.documentElement;
+      root.dataset.theme = 'light';
+
+      return () => {
+        delete root.dataset.theme;
+      };
+    }, []);
+
+    return storyFn();
+  },
 ];
 
 // Provide the MSW addon loader globally

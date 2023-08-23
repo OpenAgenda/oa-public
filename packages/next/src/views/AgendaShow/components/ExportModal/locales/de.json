@@ -1,3 +1,25 @@
 {
-  "next.views.AgendaShow.ExportModal.close": "Schließen"
+  "gcalStep2": "",
+  "gcalStep3": "",
+  "instructions": "",
+  "instructionsCopyLink": "",
+  "next.views.AgendaShow.ExportModal.cancel": "",
+  "next.views.AgendaShow.ExportModal.close": "Schließen",
+  "next.views.AgendaShow.ExportModal.detailedFormat": "",
+  "next.views.AgendaShow.ExportModal.documentation": "",
+  "next.views.AgendaShow.ExportModal.exportAll": "",
+  "next.views.AgendaShow.ExportModal.exportJson": "",
+  "next.views.AgendaShow.ExportModal.exportSelection": "",
+  "next.views.AgendaShow.ExportModal.inputFormat": "",
+  "next.views.AgendaShow.ExportModal.login": "",
+  "next.views.AgendaShow.ExportModal.title": "",
+  "next.views.AgendaShow.SpreadsheetOptions.all-fields": "",
+  "next.views.AgendaShow.SpreadsheetOptions.all-languages": "",
+  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": "",
+  "next.views.AgendaShow.SpreadsheetOptions.input-field": "",
+  "next.views.AgendaShow.SpreadsheetOptions.select-all": "",
+  "outlookStep2": "",
+  "outlookStep3": "",
+  "outlookStep4": "",
+  "outlookStep5": ""
 }

@@ -1,0 +1,285 @@
+{
+  "success": true,
+  "total": 155,
+  "events": [],
+  "after": null,
+  "sort": "timingsWithFeatured.asc",
+  "aggregations": {
+    "interetintercommunal": [
+      {
+        "key": "null",
+        "eventCount": 70
+      },
+      {
+        "id": 1,
+        "value": "true",
+        "label": {
+          "fr": "Événement d'intérêt intercommunal",
+          "en": "Événement d'intérêt intercommunal"
+        },
+        "display": true,
+        "key": 1,
+        "eventCount": 62
+      }
+    ],
+    "recurringevent": [
+      {
+        "key": "null",
+        "eventCount": 114
+      },
+      {
+        "id": 2,
+        "value": "true",
+        "label": {
+          "fr": "Événement récurrent",
+          "en": "Événement récurrent"
+        },
+        "display": true,
+        "key": 2,
+        "eventCount": 11
+      }
+    ],
+    "categories-metropolitaines": [
+      {
+        "key": "null",
+        "eventCount": 15
+      },
+      {
+        "id": 3,
+        "value": "atelier",
+        "label": {
+          "fr": "Atelier"
+        },
+        "display": true,
+        "key": 3,
+        "eventCount": 44
+      },
+      {
+        "id": 17,
+        "value": "musique",
+        "label": {
+          "fr": "Musique"
+        },
+        "display": true,
+        "key": 17,
+        "eventCount": 33
+      },
+      {
+        "id": 20,
+        "value": "spectacle",
+        "label": {
+          "fr": "Spectacle"
+        },
+        "display": true,
+        "key": 20,
+        "eventCount": 22
+      },
+      {
+        "id": 23,
+        "value": "visite-balade",
+        "label": {
+          "fr": "Visite - Balade"
+        },
+        "display": true,
+        "key": 23,
+        "eventCount": 21
+      },
+      {
+        "id": 13,
+        "value": "fete-festival",
+        "label": {
+          "fr": "Fête - Festival"
+        },
+        "display": true,
+        "key": 13,
+        "eventCount": 19
+      },
+      {
+        "id": 22,
+        "value": "theatre",
+        "label": {
+          "fr": "Théâtre"
+        },
+        "display": true,
+        "key": 22,
+        "eventCount": 14
+      },
+      {
+        "id": 6,
+        "value": "cinema",
+        "label": {
+          "fr": "Cinéma"
+        },
+        "display": true,
+        "key": 6,
+        "eventCount": 13
+      },
+      {
+        "id": 7,
+        "value": "conference-rencontre",
+        "label": {
+          "fr": "Conférence - Rencontre"
+        },
+        "display": true,
+        "key": 7,
+        "eventCount": 13
+      },
+      {
+        "id": 10,
+        "value": "developpement-durable",
+        "label": {
+          "fr": "Développement durable"
+        },
+        "display": true,
+        "key": 10,
+        "eventCount": 10
+      },
+      {
+        "id": 12,
+        "value": "exposition",
+        "label": {
+          "fr": "Exposition"
+        },
+        "display": true,
+        "key": 12,
+        "eventCount": 9
+      },
+      {
+        "id": 14,
+        "value": "formation",
+        "label": {
+          "fr": "Formation"
+        },
+        "display": true,
+        "key": 14,
+        "eventCount": 5
+      },
+      {
+        "id": 5,
+        "value": "ceremonie",
+        "label": {
+          "fr": "Cérémonie"
+        },
+        "display": true,
+        "key": 5,
+        "eventCount": 5
+      },
+      {
+        "id": 15,
+        "value": "lecture",
+        "label": {
+          "fr": "Lecture"
+        },
+        "display": true,
+        "key": 15,
+        "eventCount": 4
+      },
+      {
+        "id": 16,
+        "value": "mode",
+        "label": {
+          "fr": "Mode"
+        },
+        "display": true,
+        "key": 16,
+        "eventCount": 4
+      },
+      {
+        "id": 18,
+        "value": "reunion-publique",
+        "label": {
+          "fr": "Réunion publique"
+        },
+        "display": true,
+        "key": 18,
+        "eventCount": 4
+      },
+      {
+        "id": 19,
+        "value": "sante",
+        "label": {
+          "fr": "Santé"
+        },
+        "display": true,
+        "key": 19,
+        "eventCount": 4
+      },
+      {
+        "id": 4,
+        "value": "braderie-brocante",
+        "label": {
+          "fr": "Braderie - Brocante"
+        },
+        "display": true,
+        "key": 4,
+        "eventCount": 4
+      },
+      {
+        "id": 9,
+        "value": "danse",
+        "label": {
+          "fr": "Danse"
+        },
+        "display": true,
+        "key": 9,
+        "eventCount": 4
+      },
+      {
+        "id": 11,
+        "value": "emploi",
+        "label": {
+          "fr": "Emploi"
+        },
+        "display": true,
+        "key": 11,
+        "eventCount": 3
+      },
+      {
+        "id": 21,
+        "value": "sport",
+        "label": {
+          "fr": "Sport"
+        },
+        "display": true,
+        "key": 21,
+        "eventCount": 3
+      },
+      {
+        "id": 28,
+        "value": "aucune",
+        "label": {
+          "fr": "Aucune catégorie"
+        },
+        "display": false,
+        "key": 28,
+        "eventCount": 3
+      },
+      {
+        "id": 8,
+        "value": "conseil-municipal",
+        "label": {
+          "fr": "Conseil Municipal"
+        },
+        "display": true,
+        "key": 8,
+        "eventCount": 3
+      }
+    ],
+    "label": [
+      {
+        "key": "null",
+        "eventCount": 107
+      },
+      {
+        "id": 27,
+        "value": "journees-europeennes-du-patrimoine",
+        "label": {
+          "fr": "Journées Européennes du Patrimoine"
+        },
+        "display": true,
+        "key": 27,
+        "eventCount": 6
+      }
+    ]
+  }
+}

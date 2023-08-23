@@ -1,5 +1,11 @@
 {
   "next.views.AgendaShow.AgendaHeader.addEvent": "Añadir un evento",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Importar",
-  "next.views.AgendaShow.AgendaHeader.export": "Exportar"
+  "next.views.AgendaShow.AgendaHeader.contact": "",
+  "next.views.AgendaShow.AgendaHeader.export": "Exportar",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "",
+  "next.views.AgendaShow.EventItem.addToFavorites": "",
+  "next.views.AgendaShow.EventItem.featured": "",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "",
+  "next.views.AgendaShow.Favorites.favorites": ""
 }

@@ -82,7 +82,7 @@
 
 			target[fragments[fragments.length - 1]] = modules[id];
 		}
-		
+
 		// Expose private modules for unit tests
 		if (exports.AMDLC_TESTS) {
 			privateModules = exports.privateModules || {};
@@ -34653,7 +34653,7 @@ define("tinymce/Compat", [
 	tinymce.ThemeManager = AddOnManager.ThemeManager;
 
 	tinymce.dom = tinymce.dom || {};
-	tinymce.dom.Event = EventUtils.Event;
+	tinymce.dom.EventPage = EventUtils.Event;
 
 	Tools.each(Tools, function(func, key) {
 		tinymce[key] = func;

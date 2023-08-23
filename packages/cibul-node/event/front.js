@@ -52,6 +52,11 @@ const csp = contentSecurityPolicy({
   ],
 });
 
+function removeCsp(req, res, next) {
+  res.removeHeader('Content-Security-Policy');
+  next();
+}
+
 function getRouteValues(req, keys) {
   const routeValues = [];
 
@@ -353,7 +358,8 @@ const middlewares = {
     cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     embedSvc.mw.loadCustomLayoutData,
     _appendSettings,
-    csp,
+    removeXFrameOptionsHeader,
+    removeCsp,
     renderAgendaEmbedEvent,
   ],
 };
@@ -446,7 +452,7 @@ module.exports = app => {
     cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     _appendFacebookParams,
     removeXFrameOptionsHeader,
-    csp,
+    removeCsp,
     renderAgendaEmbedEvent,
     (req, res) => res.send(req.render),
   );
@@ -462,7 +468,6 @@ module.exports = app => {
       legacyEventSvc.mw.format,
       legacyEventSvc.mw.components,
       formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
-      removeXFrameOptionsHeader,
       middlewares.customEmbedEventShow,
       (req, res) => res.send(req.render),
     ]),
@@ -479,7 +484,6 @@ module.exports = app => {
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
     formatAgendaLinks('customEmbedShowPreview', ['uid', 'embedUid']),
-    removeXFrameOptionsHeader,
     middlewares.customEmbedEventShow,
     (req, res) => res.send(req.render),
   );

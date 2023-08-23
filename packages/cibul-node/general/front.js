@@ -3,6 +3,7 @@
 const { callbackify } = require('node:util');
 const _ = require('lodash');
 
+
 const __ = require('@openagenda/labels')(require('@openagenda/labels/newsletter/subscribe'));
 const landing = require('@openagenda/landing');
 const sessions = require('@openagenda/sessions');

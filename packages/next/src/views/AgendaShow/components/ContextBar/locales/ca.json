@@ -1,1 +1,27 @@
-{}
+{
+  "next.views.AgendaShow.ContextBar.complete": "",
+  "next.views.AgendaShow.ContextBar.contribute": "",
+  "next.views.AgendaShow.ContextBar.drafts": "",
+  "next.views.AgendaShow.ContextBar.draftsModalInfo": "",
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": "",
+  "next.views.AgendaShow.ContextBar.edit": "",
+  "next.views.AgendaShow.ContextBar.empty": "",
+  "next.views.AgendaShow.ContextBar.events": "",
+  "next.views.AgendaShow.ContextBar.inModeration": "",
+  "next.views.AgendaShow.ContextBar.inModerationModalInfo": "",
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": "",
+  "next.views.AgendaShow.ContextBar.manage": "",
+  "next.views.AgendaShow.ContextBar.myEvents": "",
+  "next.views.AgendaShow.ContextBar.notContributed": "",
+  "next.views.AgendaShow.ContextBar.published": "",
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": "",
+  "next.views.AgendaShow.ContextBar.publishedModalTitle": "",
+  "next.views.AgendaShow.ContextBar.readyToPublish": "",
+  "next.views.AgendaShow.ContextBar.refused": "",
+  "next.views.AgendaShow.ContextBar.refusedModalInfo": "",
+  "next.views.AgendaShow.ContextBar.refusedModalTitle": "",
+  "next.views.AgendaShow.ContextBar.show": "",
+  "next.views.AgendaShow.ContextBar.toBeModerated": "",
+  "next.views.AgendaShow.ContextBar.undefinedDescription": "",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": ""
+}

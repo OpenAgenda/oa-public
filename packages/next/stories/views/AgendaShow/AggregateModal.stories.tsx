@@ -8,7 +8,7 @@ import userFixtures from './fixtures/user.json';
 import aggregateModalAgendas from './fixtures/aggregateModalAgendas.json';
 
 export default {
-  title: 'AgendaShow/AggregateModal',
+  title: 'views/AgendaShow/AggregateModal',
   component: AggregateModal,
   loaders: [
     async () => ({

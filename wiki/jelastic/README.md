@@ -50,7 +50,7 @@ Il sert pour la cache serveur et pour les traitements de tâches mises en file d
 
 La configuration est détaillée dans `redis.md`
 
-## Les environnement web
+## Les environnements web
 
 Comportent un serveur http qui reçoit les requêtes et les transfère vers les sous-noeuds qui doivent les traiter. Il y en a 3:
 

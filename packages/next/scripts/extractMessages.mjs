@@ -249,6 +249,7 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     files: sourceFilesInDir.map(relativeToCwd),
     output: relativeToCwd(path.join(localesDir, '%lang%.json')),
     langs: DEFAULT_LANGS,
+    definedDefault: DEFAULT_LANGS, // define empty locales for all langs
     skipIndex: true,
     skipEmpty: true,
   });
