@@ -124,7 +124,7 @@ export default function LoggedBody({ agenda }) {
         <ModalFooter>
           <Button
             as={Link}
-            href="/new"
+            href="/agendas/new"
             colorScheme="primary"
           >
             {intl.formatMessage(messages.createAgenda)}

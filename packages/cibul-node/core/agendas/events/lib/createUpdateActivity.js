@@ -31,6 +31,10 @@ module.exports = async function createActivity(services, before, after, context)
     return log('warn', 'activities service is not initialized');
   }
 
+  if (after.draft) {
+    return;
+  }
+
   let user;
 
   if (!_.get(context, 'userUid')) {

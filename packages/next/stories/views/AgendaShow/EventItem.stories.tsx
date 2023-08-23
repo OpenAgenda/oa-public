@@ -8,6 +8,8 @@ import agendaFixtures from '../../fixtures/mel.agenda.json';
 import offlineEvent from '../../fixtures/events/offline.json';
 import onlineEvent from '../../fixtures/events/online.json';
 import mixedEvent from '../../fixtures/events/mixed.json';
+import withALongTitle from '../../fixtures/events/withALongTitle.json';
+import cancelledEvent from '../../fixtures/events/cancelled.json';
 import withoutImageEvent from '../../fixtures/events/withoutImage.json';
 import featuredEvent from '../../fixtures/events/featured.json';
 
@@ -73,11 +75,47 @@ export function WithoutImage(_args, { loaded: { intlMessages } }) {
   );
 }
 
+export function WithALongTitle(_args, { loaded: { intlMessages } }) {
+  return (
+    <Providers locale="fr" intlMessages={intlMessages}>
+      <Wrapper>
+        <EventItem agenda={agendaFixtures} event={withALongTitle} />
+      </Wrapper>
+    </Providers>
+  );
+}
+
 export function Featured(_args, { loaded: { intlMessages } }) {
   return (
     <Providers locale="fr" intlMessages={intlMessages}>
       <Wrapper>
         <EventItem agenda={agendaFixtures} event={featuredEvent} />
+      </Wrapper>
+    </Providers>
+  );
+}
+
+export function Cancelled(_args, { loaded: { intlMessages } }) {
+  return (
+    <Providers locale="fr" intlMessages={intlMessages}>
+      <Wrapper>
+        <EventItem agenda={agendaFixtures} event={cancelledEvent} />
+      </Wrapper>
+    </Providers>
+  );
+}
+
+export function RescheduledWithALongTitle(_args, { loaded: { intlMessages } }) {
+  return (
+    <Providers locale="fr" intlMessages={intlMessages}>
+      <Wrapper>
+        <EventItem
+          agenda={agendaFixtures}
+          event={{
+            ...withALongTitle,
+            status: 2,
+          }}
+        />
       </Wrapper>
     </Providers>
   );

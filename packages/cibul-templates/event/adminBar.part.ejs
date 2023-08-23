@@ -45,7 +45,11 @@
         <li class="list-group-info-item">
           <span><%= __( states[`state${indexedEvent.state}`].label + 'ContributorInfo' ) %></span>
           <div class="margin-top-sm">
-            <a class="btn btn-primary" href="/<%= slug %>/events/<%= indexedEvent.slug %>/contact"><%= __( 'contactAdministrators' ) %></a>
+            <% if ( mailto?.enabled ) { %>
+              <a class="btn btn-primary" href="mailto:<%= mailto.email %>?subject=<%= mailto.subject %>"><%= __( 'contactAdministrators' ) %></a>
+            <% } else { %>
+              <a class="btn btn-primary" href="/<%= slug %>/events/<%= indexedEvent.slug %>/contact"><%= __( 'contactAdministrators' ) %></a>
+            <% } %>
           </div>
         </li>
       </ul>

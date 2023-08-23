@@ -1,5 +1,6 @@
 {
   "title": "Attivare il account OpenAgenda",
   "description": "Cliccare il seguente pulsante per reimpostare la password:",
-  "actionDescription": "Reimpostare la password"
+  "actionDescription": "Reimpostare la password",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
 }

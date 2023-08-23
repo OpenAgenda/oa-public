@@ -209,7 +209,7 @@ describe('11 - event-search - unit: formatEvent', () => {
     () => {
       expect(
         formatted._search_full_address_text,
-      ).toBe('Alice 8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
+      ).toBe('Alice 8 rue Alice, 92400 Courbevoie FR Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
     },
   );
 

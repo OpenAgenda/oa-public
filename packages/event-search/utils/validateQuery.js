@@ -272,10 +272,20 @@ function extractAdditionalValuesFromFields(fields, dirty, { emptyValue }) {
   }, {});
 }
 
-function validateQuery(dirty, { formSchema, emptyValue }) {
-  const preCleaned = preCleanRawQuery(dirty);
+function filterNullCountryCode(dirty) {
+  if (dirty.countryCode && dirty.countryCode.length && dirty.countryCode.includes('null')) {
+    return true;
+  }
+  return false;
+}
 
+function validateQuery(dirty, { formSchema, emptyValue }) {
+  const isCountryCodeNull = filterNullCountryCode(dirty);
+  const preCleaned = preCleanRawQuery(dirty);
   const clean = validate(preCleaned);
+  if (isCountryCodeNull) {
+    clean.countryCode = clean.countryCode.concat(['null']);
+  }
 
   if ((clean.search || '').length && !clean.sort) {
     clean.sort = 'score';

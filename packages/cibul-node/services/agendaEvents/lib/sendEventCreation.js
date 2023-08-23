@@ -60,6 +60,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
   }
 
   if (creatorMemberId) {
+    log('acting member is event creator, sending myEventCreation mail to %s', creatorUser.email);
     await mails.send({
       template: 'myEventCreation',
       to: {
@@ -84,10 +85,18 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
     });
   }
 
+  const nonCreatorMembers = members.filter(member => member.user.uid !== creatorUser.uid);
+
+  if (!nonCreatorMembers.length) {
+    log('there are no members other than creator to send email to');
+    return;
+  }
+
+  log('sending eventCreation email to %s members other than creator', nonCreatorMembers.length);
+
   await mails.send({
     template: 'eventCreation',
-    to: members
-      .filter(member => member.user.uid !== creatorUser.uid)
+    to: nonCreatorMembers
       .filter(member => {
         if (!member.user) {
           log('warn', 'no user was found matching member %s', member.id);

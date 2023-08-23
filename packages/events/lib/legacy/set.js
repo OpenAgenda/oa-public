@@ -27,9 +27,9 @@ module.exports = async (client, event) => {
     operation
   } = await eventEntry(client, data);
 
-  const {
-    id: eventLocationId
-  } = await eventLocationEntry(client, eventId, data);
+  if (locationId) {
+    await eventLocationEntry(client, eventId, data);
+  }
 
   await occurrenceEntries(client, eventId, data);
 

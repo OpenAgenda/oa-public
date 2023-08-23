@@ -13,7 +13,7 @@ module.exports.init = (config, services) => {
   log('init');
   const {
     agendas: agendasSvc,
-    tracker
+    tracker,
   } = services;
 
   let task;
@@ -30,7 +30,7 @@ module.exports.init = (config, services) => {
         aggregatorAgendaUid,
         sourceAgenda,
         eventUid,
-        paths
+        paths,
       }) => services.agendaEvents.utils.setSourcePaths(
         aggregatorAgendaUid,
         eventUid,
@@ -44,7 +44,7 @@ module.exports.init = (config, services) => {
         batched,
         paths,
         sourceAgenda,
-        aggregated
+        aggregated,
       }) => {
         tracker('aggregators.referenceEvent');
         try {
@@ -56,11 +56,11 @@ module.exports.init = (config, services) => {
               paths,
               sourceAgenda,
               batched,
-              access: 'administrator'
+              access: 'administrator',
             });
           tracker('aggregators.referenceEvent.done');
           return {
-            success: true
+            success: true,
           };
         } catch (e) {
           log.error(
@@ -72,7 +72,7 @@ module.exports.init = (config, services) => {
           );
           return {
             success: false,
-            errors: e.name === 'BadRequest' ? e.info : e
+            errors: e.name === 'BadRequest' ? e.info : e,
           };
         }
       },
@@ -81,7 +81,7 @@ module.exports.init = (config, services) => {
         eventUid,
         payload,
         batched,
-        aggregated
+        aggregated,
       }) => {
         tracker('aggregators.updateEventReference');
         try {
@@ -89,14 +89,15 @@ module.exports.init = (config, services) => {
             aggregated,
             batched,
             partial: true,
-            access: 'administrator'
+            access: 'administrator',
           });
           tracker('aggregators.updateEventReference.done');
           return {
-            success: true
+            success: true,
           };
         } catch (e) {
-          log.error(
+          const isBadRequest = e.name === 'BadRequest';
+          log[isBadRequest ? 'warn' : 'error'](
             'could not patch event %s on aggregator %s',
             eventUid,
             aggregatorAgendaUid,
@@ -104,7 +105,7 @@ module.exports.init = (config, services) => {
           );
           return {
             success: false,
-            errors: e.name === 'BadRequest' ? e.info : e
+            errors: isBadRequest ? e.info : e,
           };
         }
       },
@@ -112,10 +113,10 @@ module.exports.init = (config, services) => {
         try {
           await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, {
             batched,
-            protectFromOriginRemove: true
+            protectFromOriginRemove: true,
           });
           return {
-            success: true
+            success: true,
           };
         } catch (e) {
           log.error(
@@ -126,7 +127,7 @@ module.exports.init = (config, services) => {
           );
           return {
             success: false,
-            errors: e.name === 'BadRequest' ? e.info : e
+            errors: e.name === 'BadRequest' ? e.info : e,
           };
         }
       },
@@ -134,12 +135,12 @@ module.exports.init = (config, services) => {
         .agendaEvents(agendaUid).get(eventUid)
         .then(ae => (ae ? {
           sourcePaths: ae.sourcePaths,
-          aggregated: ae.aggregated
+          aggregated: ae.aggregated,
         } : null)),
       listEventReferences: (agendaUid, after, query = {}) => services.core.agendas(agendaUid).events.search(
         { ...query, state: 2 },
         { after },
-        { useAfterKey: true, detailed: true }
+        { useAfterKey: true, detailed: true },
       ),
       loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
         .events.get(eventUid, { detailed: true }),
@@ -153,9 +154,9 @@ module.exports.init = (config, services) => {
         return agendasSvc.list(query, 0, 200, {
           internal: true,
           includeImagePath: true,
-          useDefaultImage: true
+          useDefaultImage: true,
         }).then(({ agendas }) => agendas.map(a => _.pick(a, [
-          'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'
+          'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt',
         ])));
       },
       getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount(),
@@ -164,7 +165,7 @@ module.exports.init = (config, services) => {
           aggregatorAgenda,
           sourceAgenda,
           user,
-          member
+          member,
         });
       },
       onRemoveSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
@@ -172,10 +173,10 @@ module.exports.init = (config, services) => {
           aggregatorAgenda,
           sourceAgenda,
           user,
-          member
+          member,
         });
       },
-    }
+    },
   });
 
   return {
@@ -188,6 +189,6 @@ module.exports.init = (config, services) => {
     task: () => {
       task = aggregators.task();
       return task;
-    }
+    },
   };
 };

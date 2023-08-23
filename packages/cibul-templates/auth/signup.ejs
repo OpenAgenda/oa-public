@@ -1,4 +1,4 @@
-<% if ( agenda ) { %>
+<% if ( agenda && !agenda.private) { %>
   <% include ../agenda/head.part.ejs %>
 <% } %>
 <div class="container page-dialog signup">

@@ -2,6 +2,7 @@
 
 const redis = require('redis');
 const logger = require('@openagenda/logs');
+const VError = require('@openagenda/verror');
 
 const log = logger('index');
 
@@ -90,9 +91,18 @@ function set(...args) {
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return client.set(redisKey, value, {
+  return client.set(redisKey, value instanceof Object ? JSON.stringify(value) : value, {
     EX: `${ttlValue}`,
-  }).then(() => resolve(value, cb), e => reject(e, cb));
+  }).then(() => resolve(value, cb), e => reject(new VError({
+    cause: e,
+    info: {
+      namespace,
+      identifier,
+      key,
+      ttlValue,
+      value,
+    },
+  }), cb));
 }
 
 async function hget(...args) {
@@ -145,7 +155,16 @@ function hset(...args) {
 
   return client
     .hSet(hash, valueKey, value instanceof Object ? JSON.stringify(value) : value)
-    .then(() => resolve(value, cb), e => reject(e, cb));
+    .then(() => resolve(value, cb), e => reject(new VError({
+      cause: e,
+      info: {
+        prefix,
+        namespace,
+        identifier,
+        key,
+        value,
+      },
+    }), cb));
 }
 
 function ttl(svc, namespace, identifier, key, cb) {

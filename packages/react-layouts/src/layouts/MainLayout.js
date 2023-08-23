@@ -98,13 +98,7 @@ function TranslateLink() {
 
 const getDefaultSessionUser = () => session.getUser();
 
-function MainLayout({
-  childLayouts,
-  children,
-  extraProps,
-  fallback,
-  history,
-}) {
+function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   const intl = useIntl();
 
   const [userPanelOpened, setUserPanelOpened] = useState(false);
@@ -335,7 +329,10 @@ function MainLayout({
                                 </a>
                               </li>
                               <li>
-                                <a href="/new" onClick={panelLink('/new')}>
+                                <a
+                                  href="/agendas/new"
+                                  onClick={panelLink('/agendas/new')}
+                                >
                                   {intl.formatMessage(messages.createAgenda)}
                                 </a>
                               </li>

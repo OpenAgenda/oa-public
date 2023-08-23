@@ -49,7 +49,7 @@ http {
     server {
         listen 80;
 
-        server_name <%= APIDomain %>;
+        server_name <%= APIDomain %> <%= additionalAPIDomains %>;
 
         if ($real_scheme != "https") {
             return 301 https://$server_name$request_uri;
@@ -59,6 +59,7 @@ http {
         error_log /var/log/nginx/<%= APIDomain %>.error.log;
 
         client_max_body_size 20m;
+        large_client_header_buffers 4 16k;
 
         location / {
             return 301 https://developers.openagenda.com;
@@ -70,6 +71,8 @@ http {
             add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
 
+            proxy_http_version 1.1;
+            proxy_set_header "Connection" "";
             proxy_pass http://api_servers;
         }
     }

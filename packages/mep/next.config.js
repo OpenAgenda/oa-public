@@ -4,7 +4,7 @@ module.exports = {
     script: '../../node_modules/.bin/next',
     args: 'start -p ${port}',
     cwd: '/root/oa/packages/next',
-    instances: 1,
+    instances: 4,
     exec_mode: 'cluster'
   }]
 };

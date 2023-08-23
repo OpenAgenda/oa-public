@@ -59,6 +59,7 @@ module.exports = async ({ config, services }, {
   if (!creator) {
     log('creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug);
   } else if (agendaEvent.agendaUid === event.agendaUid) {
+    log('agenda is origin agenda and user is creator, sending myEventUpdate');
     await mails.send({
       template: 'myEventUpdate',
       to: {

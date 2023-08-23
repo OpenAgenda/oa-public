@@ -131,17 +131,6 @@ describe('02 - event search - functional: location', () => {
       );
     });
 
-    it('adminLevel5 is a possible aggregation', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, {}, { detailed: true, aggregations: 'adminLevels5' });
-
-      expect(aggregations.adminLevels5).toEqual([
-        { key: '1er', eventCount: 1 },
-        { key: '2eme', eventCount: 1 },
-      ]);
-    });
-
     it('filter on empty location data', async () => {
       const { events } = await service('location').search({
         city: 'null',
@@ -188,6 +177,16 @@ describe('02 - event search - functional: location', () => {
 
       expect(event.uid).toBe(2);
     });
+
+    it('filter on countryCode null', async () => {
+      const { events } = await service('location').search({
+        countryCode: ['null'],
+      }, {
+      }, {
+        detailed: true,
+      });
+      expect(events.length).toBe(2);
+    });
   });
 
   describe('aggregations', () => {
@@ -199,6 +198,28 @@ describe('02 - event search - functional: location', () => {
       expect(aggregations.adminLevels3).toEqual([
         { key: 'test', eventCount: 3 },
         { key: 'mel', eventCount: 1 },
+      ]);
+    });
+
+    it('adminLevel5 is a possible aggregation', async () => {
+      const { aggregations } = await service('location').search({
+        state: null,
+      }, {}, { detailed: true, aggregations: 'adminLevels5' });
+
+      expect(aggregations.adminLevels5).toEqual([
+        { key: '1er', eventCount: 1 },
+        { key: '2eme', eventCount: 1 },
+      ]);
+    });
+
+    it('countryCode is a possible aggregation', async () => {
+      const { aggregations } = await service('location').search({
+        state: null,
+      }, {}, { detailed: true, aggregations: 'countryCodes' });
+
+      expect(aggregations.countryCodes).toEqual([
+        { key: 'FR', eventCount: 2 },
+        { key: 'ES', eventCount: 1 },
       ]);
     });
 

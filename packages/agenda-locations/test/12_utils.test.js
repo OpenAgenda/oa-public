@@ -2,6 +2,7 @@
 
 const decorateWithCounts = require('../lib/decorateWithCounts');
 const geoFields = require('../utils/geoFields');
+const getSchema = require('../lib/getSchema');
 
 describe('utils', () => {
   describe('geoFields', () => {
@@ -53,6 +54,28 @@ describe('utils', () => {
           eventCount: 24,
         },
       ]);
+    });
+  });
+
+  describe('getSchema', () => {
+    it('gets schema with legacy admin level field names by default', () => {
+      const schema = getSchema();
+
+      const cityField = schema.fields.find(s => s.field === 'city');
+      const adminLevel4 = schema.fields.find(s => s.field === 'adminLevel4');
+
+      expect(cityField.field).toBe('city');
+      expect(adminLevel4.field).toBe('adminLevel4');
+    });
+
+    it('gets schema without legacy admin level field names if includeLegacyAdminLevels option is set to false', () => {
+      const schema = getSchema({ includeLegacyAdminLevels: false });
+
+      const cityField = schema.fields.find(s => s.field === 'city');
+      const adminLevel4 = schema.fields.find(s => s.field === 'adminLevel4');
+
+      expect(cityField).toBeUndefined();
+      expect(adminLevel4.field).toBe('adminLevel4');
     });
   });
 });

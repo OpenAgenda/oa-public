@@ -1,10 +1,17 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const debug = require('debug');
 const sentry = require('@sentry/node');
 
 const prod = require('./prod');
+
+const mailgun = {
+  auth: {
+    domain: process.env.MAILGUN_DOMAIN,
+    apiKey: process.env.MAILGUN_KEY,
+  },
+};
 
 const config = {
   env: process.env.NODE_ENV ?? 'development',
@@ -84,7 +91,10 @@ const config = {
     } : undefined,
   },
   mails: {
-    transport: prod.mails?.transport ?? {
+    transport: process.env.NODE_ENV === 'production' ? {
+      mailgun,
+    } : {
+      pool: !!parseInt(process.env.MAIL_POOL, 10),
       host: process.env.MAIL_HOST ?? '127.0.0.1',
       port: process.env.MAIL_PORT ?? '1025',
       secure: !!parseInt(process.env.MAIL_SECURE, 10),
@@ -97,7 +107,7 @@ const config = {
       rateLimit: 14,
       rateDelta: 1000,
     },
-    disableVerify: !!process.env.MAIL_DISABLE_VERIFY,
+    disableVerify: !!parseInt(process.env.MAIL_DISABLE_VERIFY, 10),
     defaults: {
       from: '"OpenAgenda" <no-reply@mail.openagenda.com>',
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
@@ -179,7 +189,7 @@ const config = {
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
-    ssl: !!parseInt(process.env.ES_USE_SSL, 10) ? {
+    ssl: parseInt(process.env.ES_USE_SSL, 10) ? {
       key: fs.readFileSync(process.env.CLIENT_SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.CLIENT_SSL_CERT, 'utf-8'),
     } : null,
@@ -240,6 +250,10 @@ const config = {
     'teknowa.com',
     'xegge.com',
     'rubeshi.com',
+    'tipent.com',
+    'tiuas.com',
+    'touchend.com',
+    'royalka.com',
   ],
   api: {
     redis: {
@@ -287,10 +301,7 @@ const config = {
     apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
     contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
   },
-  mailgun: {
-    domain: prod.mailgun?.domain ?? process.env.MAILGUN_DOMAIN,
-    apiKey: prod.mailgun?.apiKey ?? process.env.MAILGUN_KEY,
-  },
+  mailgun,
   oembed: {
     res: 'https://iframe.ly/api/oembed',
     key: process.env.IFRAMELY_KEY || (prod.iframely && prod.iframely.key),
@@ -555,8 +566,8 @@ debug.enable(config.logger.enableDebug);
 
 const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => ({
   ...ops,
-  [pair.split(':')[0]]: pair.split(':')[1]
-}), {}) : (prod.insightOps ?? {});
+  [pair.split(':')[0]]: pair.split(':')[1],
+}), {}) : prod.insightOps ?? {};
 
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,

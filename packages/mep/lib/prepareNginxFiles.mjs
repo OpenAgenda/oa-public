@@ -36,6 +36,7 @@ export default async function prepareNginxFiles({
 }) {
   const {
     API_DOMAIN: APIDomain,
+    ADDITIONAL_API_DOMAINS: additionalAPIDomains = '',
     DOMAIN: domain,
     OA_SERVER_PORT: serverPort,
   } = envVars;
@@ -52,6 +53,7 @@ export default async function prepareNginxFiles({
     renderNginxConf({
       domain,
       APIDomain,
+      additionalAPIDomains,
       serverPort,
       APIEndpoints: getNodesEndpoints(nodes, 'api'),
       NextEndpoints: getNodesEndpoints(nodes, 'next'),

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { ReactSelectInput } from '@openagenda/react-shared';
 import { css } from '@emotion/react';
@@ -127,12 +127,12 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
         value: 2,
       },
     ],
-    [intl]
+    [intl],
   );
 
   const selectValue = useMemo(
     () => stateOptions.find(o => o.value === value),
-    [value, stateOptions]
+    [value, stateOptions],
   );
 
   return (

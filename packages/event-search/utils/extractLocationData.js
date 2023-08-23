@@ -7,6 +7,7 @@ const aggObjects = require('./aggregatorObjects');
 const locationFields = [
   'name',
   'address',
+  'countryCode',
   'city',
   'region',
   'department',
@@ -62,7 +63,7 @@ module.exports = function extractLocationData(location) {
   const formattedLocation = formatLocation(location);
 
   return {
-    country,
+    country: Object.keys(country).length ? country : undefined,
     location: formattedLocation,
     search: extractSearchData(formattedLocation, country),
     emptyFields: locationFields.filter(f => !(formattedLocation[f] ?? '').length),

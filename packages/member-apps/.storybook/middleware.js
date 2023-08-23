@@ -80,8 +80,9 @@ module.exports = router => {
     const reg = new RegExp(search, 'i');
 
     const members = memberListResult.members.filter(
-      v => (v.custom.contactName && v.custom.contactName.match(reg))
-        || (v.user.fullName && v.user.fullName.match(reg))
+      v =>
+        (v.custom.contactName && v.custom.contactName.match(reg))
+        || (v.user.fullName && v.user.fullName.match(reg)),
     );
     const total = members.length;
 
@@ -91,13 +92,14 @@ module.exports = router => {
     });
   });
 
-  router.get('/stats', (req, res) => res.json({
-    total: 17,
-    totalPerRole: {
-      contributor: 14,
-      administrator: 3,
-    },
-  }));
+  router.get('/stats', (req, res) =>
+    res.json({
+      total: 17,
+      totalPerRole: {
+        contributor: 14,
+        administrator: 3,
+      },
+    }));
 
   router.patch(
     '/update/:id',
@@ -112,7 +114,8 @@ module.exports = router => {
       };
       next();
     },
-    ({ result }, res) => res.status(result.errors.length ? 400 : 200).json(result)
+    ({ result }, res) =>
+      res.status(result.errors.length ? 400 : 200).json(result),
   );
 
   router.post('/invite', (req, res) => {
@@ -144,7 +147,7 @@ module.exports = router => {
     console.log('received %j', req.body);
 
     const memberIndex = memberListResult.members.findIndex(
-      m => m.userUid === parseInt(req.params.userUid, 10)
+      m => m.userUid === parseInt(req.params.userUid, 10),
     );
 
     let data;
@@ -167,7 +170,7 @@ module.exports = router => {
         ...carry,
         [map[key]]: data[key],
       }),
-      {}
+      {},
     );
 
     if (Object.keys(customData).length) {
@@ -183,7 +186,7 @@ module.exports = router => {
 
   router.get('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
     const legacyFormatMember = memberListResult.members.find(
-      m => m.userUid === parseInt(req.params.userUid, 10)
+      m => m.userUid === parseInt(req.params.userUid, 10),
     );
 
     const map = {
@@ -203,8 +206,8 @@ module.exports = router => {
         {
           userUid: legacyFormatMember.user.uid,
           role: utils.getRoleSlug(legacyFormatMember.role),
-        }
-      )
+        },
+      ),
     );
   });
 

@@ -31,6 +31,20 @@ const messages = defineMessages({
     id: 'MemberApps.Dashboard.messageHistory',
     defaultMessage: 'Message history',
   },
+  sendMessageToMembers: {
+    id: 'MemberApps.Dashboard.sendMessageToMembers',
+    defaultMessage: 'Send a message to the members',
+  },
+  sendMessageToFilteredMembers: {
+    id: 'MemberApps.Dashboard.sendMessageToFilteredMembers',
+    defaultMessage:
+      'The message will be sent to the current selection ({count, plural, =1 {1 member} other {# members}} out of {total})',
+  },
+  sendMessageToUnfilteredMembers: {
+    id: 'MemberApps.Dashboard.sendMessageToUnfilteredMembers',
+    defaultMessage:
+      'The message will be sent to {total, plural, =1 {the only member} other {all # members}} of the agenda',
+  },
 });
 
 const Loading = () => (
@@ -319,6 +333,8 @@ class Dashboard extends Component {
     const inviteMembersModal = modals.inviteMembers || {};
     const memberReinvitedModal = modals.memberReinvited || {};
     const writeToMembersModal = modals.writeToMembers || {};
+
+    const isListFiltered = !!Object.keys(query ?? {}).length;
 
     if (loadLoading) {
       return <Loading />;
@@ -709,13 +725,24 @@ class Dashboard extends Component {
 
         {writeToMembersModal.visible && (
           <Modal
-            title={getLabel('sendMessageToMembers')}
+            title={intl.formatMessage(messages.sendMessageToMembers)}
             visible={writeToMembersModal.visible || false}
             onClose={() => closeModal('writeToMembers')}
             classNames={{
               overlay: 'popup-overlay big',
+              title: 'popup-title padding-bottom-z',
             }}
           >
+            <p>
+              {isListFiltered
+                ? intl.formatMessage(messages.sendMessageToFilteredMembers, {
+                  count: total,
+                  total: stats.total,
+                })
+                : intl.formatMessage(messages.sendMessageToUnfilteredMembers, {
+                  total: stats.total,
+                })}
+            </p>
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
                 onSubmit={data =>

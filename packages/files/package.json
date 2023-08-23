@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@openagenda/verror": "^3.1.0",
-    "aws-sdk": "^2.544.0",
+    "aws-sdk": "^2.1440.0",
     "express": "^4.17.1",
     "file-type": "^15.0.0",
     "gm": "^1.23.1",
