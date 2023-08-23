@@ -11,18 +11,24 @@ function _sleep(ms) {
 }
 
 async function runFilterTask(config, params) {
+  const logPayload = {
+    recipient: params.to,
+    template: params.template,
+  };
   try {
+    log.info('Evaluating send', logPayload);
     if (typeof config.sendFilter === 'function') {
       const allowed = await config.sendFilter(params);
 
       if (!allowed) {
-        log.info('Send prevented (ex: unsubscribed or previously bounced)', {
-          recipient: params.to,
-          template: params.template,
-        });
+        log.info(
+          'Send prevented (ex: unsubscribed or previously bounced)',
+          logPayload,
+        );
         return;
       }
     }
+    log.info('Send is allowed and will proceed', logPayload);
 
     if (typeof config.beforeSend === 'function') {
       await config.beforeSend(params);
@@ -38,6 +44,7 @@ async function runFilterTask(config, params) {
 
     const defaultLang = params.lang || config.defaults.lang;
     const { disableHtml, disableText, disableSubject } = params;
+    log.info('Rendering', logPayload);
     const result = await render(config, params.template, params.data, {
       disableHtml,
       disableText,
@@ -46,6 +53,8 @@ async function runFilterTask(config, params) {
     });
 
     Object.assign(params, result);
+
+    log.info('Queuing for send', logPayload);
 
     config.queues.sendMails('method', params);
   } catch (error) {
