@@ -103,10 +103,13 @@ class Mails {
             typeof config.sendFilter === 'function'
             && !await config.sendFilter(params)
           ) {
-            log.info('Sending filtered', {
-              recipient,
-              template: options.template,
-            });
+            log.info(
+              'Send prevented (ex: unsubscribed or previously bounced)',
+              {
+                recipient,
+                template: options.template,
+              },
+            );
             continue;
           }
 
