@@ -16,7 +16,7 @@ async function runFilterTask(config, params) {
       const allowed = await config.sendFilter(params);
 
       if (!allowed) {
-        log.info('Sending filtered', {
+        log.info('Send prevented (ex: unsubscribed or previously bounced)', {
           recipient: params.to,
           template: params.template,
         });
@@ -28,7 +28,11 @@ async function runFilterTask(config, params) {
       await config.beforeSend(params);
     }
 
-    params.data.__ = defaultFormatMessage(config, params.template, params.data.lang);
+    params.data.__ = defaultFormatMessage(
+      config,
+      params.template,
+      params.data.lang,
+    );
 
     Object.assign(params.data, config.defaults.data);
 
