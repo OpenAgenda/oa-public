@@ -140,16 +140,10 @@ async function createConfig(c = {}) {
         }
 
         if (err) {
-          transportLogger.error(
-            'Send error for %s: %s',
-            messageId,
-            err.message,
-          );
+          transportLogger.error(`Send error for ${messageId}: ${err.message}`);
         } else {
           transportLogger.info(
-            'Sending message %s to <%s>',
-            messageId,
-            recipients.join(', '),
+            `Sending message ${messageId} to <${recipients.join(', ')}>`,
           );
         }
         cb(err, result);
