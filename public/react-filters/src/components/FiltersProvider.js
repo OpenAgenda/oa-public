@@ -129,7 +129,7 @@ function FiltersProvider(
     // filters config
     missingValue = null,
     mapTiles = null,
-    dateFnsLocale = null,
+    dateFnsLocale = undefined,
     // for test
     apiClient = null,
     // form config
