@@ -6,9 +6,9 @@ import fetchErrorLocale from 'components/ErrorDisplay/locales';
 // import fetchLocale from './locales';
 
 export type EventErrorProps = {
-  // agendaSlug: string,
-  // eventSlug: string,
-  // statusCode: number,
+  agendaSlug: string,
+  eventSlug: string,
+  statusCode: number,
   error?: JsonError
 };
 
@@ -51,7 +51,12 @@ export type EventErrorProps = {
 //   },
 // });
 
-export default function EventError({ /* agendaSlug, eventSlug, statusCode, */ error }: EventErrorProps) {
+export default function EventError({
+  agendaSlug: _agendaSlug,
+  eventSlug: _eventSlug,
+  statusCode: _statusCode,
+  error,
+}: EventErrorProps) {
   // const router = useRouter();
   // const intl = useIntl();
 
