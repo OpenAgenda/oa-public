@@ -1,6 +1,7 @@
 {
   "next.components.Navbar.myAgendas": "Mas agendas",
   "next.components.Navbar.myEvents": "Mos eveniments",
+  "next.components.Navbar.profileMenu": "",
   "next.components.Navbar.settings": "Reglatges",
   "next.components.Navbar.signIn": "Se connectar",
   "next.components.Navbar.signOut": "Desconnexion",

@@ -1,1 +1,9 @@
-{}
+{
+  "next.components.Navbar.myAgendas": "",
+  "next.components.Navbar.myEvents": "",
+  "next.components.Navbar.profileMenu": "",
+  "next.components.Navbar.settings": "",
+  "next.components.Navbar.signIn": "",
+  "next.components.Navbar.signOut": "",
+  "next.components.Navbar.signUp": ""
+}

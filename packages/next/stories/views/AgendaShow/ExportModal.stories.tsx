@@ -9,7 +9,7 @@ import userFixtures from './fixtures/user.json';
 import columns from './fixtures/columns.json';
 
 export default {
-  title: 'AgendaShow/ExportModal',
+  title: 'views/AgendaShow/ExportModal',
   component: ExportModal,
   loaders: [
     async () => ({

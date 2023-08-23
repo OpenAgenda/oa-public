@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
-import PrivateAgenda from 'components/PrivateAgenda';
+import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import hrefWithLang from 'utils/hrefWithLang';
@@ -125,7 +125,7 @@ export default function AgendaHeader({ agenda }) {
           ) : null}
           {agenda.private ? (
             <NoBreak>
-              <PrivateAgenda ml="4" />
+              <LockIcon type="agenda" ml="4" />
             </NoBreak>
           ) : null}
         </Heading>

@@ -3,7 +3,7 @@ import Layout from 'components/Layout';
 import fetchAllLocales from '../utils/fetchAllLocales';
 
 export default {
-  title: 'Layout',
+  title: 'components/Layout',
   component: Layout,
   loaders: [
     async () => ({

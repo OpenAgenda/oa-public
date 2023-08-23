@@ -15,7 +15,7 @@ function getColor(state) {
     case 'published':
       return 'states.published';
     case 'draft':
-      return 'transparent';
+      return 'black';
     default:
       return 'black'; // default, does not exist
   }

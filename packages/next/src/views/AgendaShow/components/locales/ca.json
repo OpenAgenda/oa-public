@@ -1,1 +1,11 @@
-{}
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "",
+  "next.views.AgendaShow.AgendaHeader.contact": "",
+  "next.views.AgendaShow.AgendaHeader.export": "",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "",
+  "next.views.AgendaShow.EventItem.addToFavorites": "",
+  "next.views.AgendaShow.EventItem.featured": "",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "",
+  "next.views.AgendaShow.Favorites.favorites": ""
+}

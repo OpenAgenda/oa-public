@@ -1,7 +1,7 @@
 import { Heading, NoBreak, Stack, VStack } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
-import PrivateAgenda from 'components/PrivateAgenda';
+import LockIcon from 'components/LockIcon';
 import NextChakraLink from 'components/NextChakraLink';
 import keyCDNLoader from 'utils/keyCDNLoader';
 
@@ -47,7 +47,7 @@ export default function AgendaHeader({ agenda }) {
           ) : null}
           {agenda.private ? (
             <NoBreak>
-              <PrivateAgenda ml="4" />
+              <LockIcon type="agenda" ml="4" />
             </NoBreak>
           ) : null}
         </Heading>

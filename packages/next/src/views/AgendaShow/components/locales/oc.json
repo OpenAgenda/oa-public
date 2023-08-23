@@ -4,5 +4,8 @@
   "next.views.AgendaShow.AgendaHeader.contact": "Contactar",
   "next.views.AgendaShow.AgendaHeader.export": "Exportar",
   "next.views.AgendaShow.AgendaHeader.officialAgenda": "Agenda oficiala",
-  "next.views.AgendaShow.EventItem.featured": "Meses en avant"
+  "next.views.AgendaShow.EventItem.addToFavorites": "",
+  "next.views.AgendaShow.EventItem.featured": "Meses en avant",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "",
+  "next.views.AgendaShow.Favorites.favorites": ""
 }

@@ -11,7 +11,7 @@ import {
 import PricingCard from 'components/PricingCard';
 
 export default {
-  title: 'Landing',
+  title: 'components/Landing',
 };
 
 const HeadingComponent = () => (

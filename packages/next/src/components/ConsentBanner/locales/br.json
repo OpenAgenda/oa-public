@@ -1,1 +1,6 @@
-{}
+{
+  "next.components.ConsentBanner.accept": "",
+  "next.components.ConsentBanner.decline": "",
+  "next.components.ConsentBanner.informationText": "",
+  "next.components.ConsentBanner.moreInfoLink": ""
+}

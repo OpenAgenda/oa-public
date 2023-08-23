@@ -1,1 +1,8 @@
-{}
+{
+  "next.components.ErrorDisplay.backToHome": "",
+  "next.components.ErrorDisplay.contactSupport": "",
+  "next.components.ErrorDisplay.errorTrackingId": "",
+  "next.components.ErrorDisplay.internalError": "",
+  "next.components.ErrorDisplay.internalErrorMsg": "",
+  "next.components.ErrorDisplay.retry": ""
+}

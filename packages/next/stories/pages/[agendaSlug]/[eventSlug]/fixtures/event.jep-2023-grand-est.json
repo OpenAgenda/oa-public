@@ -1,0 +1,177 @@
+{
+  "nextTiming": {
+    "begin": "2023-09-16T14:00:00+02:00",
+    "end": "2023-09-16T18:00:00+02:00"
+  },
+  "lastTiming": {
+    "begin": "2023-09-16T14:00:00+02:00",
+    "end": "2023-09-16T18:00:00+02:00"
+  },
+  "originAgenda": {
+    "image": "agenda2775782.jpg?__ts=1686156598680",
+    "uid": 2775782,
+    "title": "Journées européennes du patrimoine 2023 : Grand Est"
+  },
+  "state": 2,
+  "featured": false,
+  "dateRange": {
+    "ar": "السبت ١٦ سبتمبر, 14:00",
+    "de": "Samstag 16 September, 14:00",
+    "en": "Saturday 16 September, 14:00",
+    "it": "Sabato 16 settembre, 14:00",
+    "fr": "Samedi 16 septembre, 14h00",
+    "es": "Sábado 16 septiembre, 14:00"
+  },
+  "member": {
+    "uid": 28043633,
+    "role": 1,
+    "phone": "0388800090",
+    "organization": "Paroisse Catholique Saint-Gall de RITTERSHOFFEN",
+    "name": "Rémy de HATTEN",
+    "invited": false,
+    "position": "Membre de la Pastorale du Tourisme - Guide",
+    "email": "remy.de-hatten@orange.fr",
+    "_agg": "eyJ1aWQiOjI4MDQzNjMzLCJuYW1lIjoiUsOpbXkgZGUgSEFUVEVOIn0="
+  },
+  "title": {
+    "fr": "Visite libre des riches vitraux d'une église 🇩🇪"
+  },
+  "types-devenement": 10,
+  "theme": [
+    16
+  ],
+  "image": {
+    "filename": "a6ed275f25df440b8da0ff82c9684cfe.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 528
+    },
+    "variants": [
+      {
+        "filename": "a6ed275f25df440b8da0ff82c9684cfe.full.image.jpg",
+        "size": {
+          "width": 3600,
+          "height": 2714
+        },
+        "type": "full"
+      },
+      {
+        "filename": "a6ed275f25df440b8da0ff82c9684cfe.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "imageCredits": "Paroisse Catholique de RITTERSHOFFEN",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": [],
+    "access": {
+      "de": "Parkplatz vor dem Gebäude, behindertengerechter Zugang.",
+      "en": "Parking in front of the building, disabled access.",
+      "it": "Parcheggio davanti all'edificio, accesso disabili.",
+      "fr": "Parking devant l'édifice, accès handicapés.",
+      "es": "Aparcamiento delante del edificio, acceso para discapacitados."
+    },
+    "types-de-lieu": [
+      3
+    ],
+    "city": "Rittershoffen",
+    "timezone": "Europe/Paris",
+    "postalCode": "67690",
+    "latitude": 48.902513,
+    "imageCredits": "©Rémy de Hatten",
+    "description": {
+      "de": "Nach dem Zweiten Weltkrieg bestand das Dorf aus Baracken und die provisorische Kirche aus Holz.\nIm Jahr 1950, als der Pfarrer Joseph Jochum in das Dorf berufen wurde, begann er mit dem Wiederaufbau des Gebäudes und führte die Baupläne durch. Er zeichnete die Skizzen des Glases, das er ökumenisch wollte. Tristan Ruhlmann, Glasmeister, übernahm die Regie.\nDie Kirche wurde 1961 erbaut und das Fenster für Allerheiligen 1962, kurz vor der Eröffnung des Vatikans II, nach dem Wunsch des Kurators Jochum, errichtet.\nSeither zieht dieses Fenster viele Besucher und Liebhaber moderner Kunst an.",
+      "en": "After the Second World War, the village consisted of barracks and the church, temporary, was made of wood.\nIn 1950, when the parish priest Joseph Jochum was appointed to the village, he undertook the reconstruction of the building and carried out the plans. He drew the sketches of the stained glass window that he wanted ecumenical. It was Tristan Ruhlmann, master glassmaker, who ensured the realization.\nThe construction of the church was carried out in 1961 and the stained glass window was set up for All Saints' Day 1962, on the eve of the opening of the Second Vatican Ecumenical Council, in accordance with the wish of Pastor Jochum.\nSince then, this stained glass window has attracted many visitors and lovers of modern art.",
+      "it": "Dopo la seconda guerra mondiale, il villaggio era costituito da baracche e la chiesa, provvisoria, era di legno.\nNel 1950, quando il parroco Joseph Jochum è stato nominato nel villaggio, ha intrapreso la ricostruzione dell'edificio e ne ha realizzato i piani. Ha disegnato gli schizzi della vetrata che desiderava ecumenica. Tristan Ruhlmann, mastro vetraio, ne ha assicurato la realizzazione.\nLa costruzione della chiesa è stata realizzata nel 1961 e la vetrata è stata realizzata per Ognissanti 1962, alla vigilia dell'apertura del Concilio Ecumenico Vaticano II, secondo il desiderio del parroco Jochum.\nDa allora, questa vetrata attira molti visitatori e appassionati di arte moderna.",
+      "fr": "Après la Seconde Guerre mondiale, le village était constitué de baraques et l'église, provisoire, était en bois.\n\nEn 1950, lorsque le curé Joseph Jochum a été nommé dans le village, il a entrepris la reconstruction du bâtiment et en a réalisé les plans. Il a dessiné les esquisses du vitrail qu'il souhaitait œcuménique. C'est Tristan Ruhlmann, maître-verrier, qui en a assuré la réalisation.\n\nLa construction de l'église a été réalisée en 1961 et le vitrail a été mis en place pour la Toussaint 1962, à la veille de l'ouverture du Concile œcuménique Vatican II, conformément au souhait du curé Jochum.\n\nDepuis, ce vitrail attire de nombreux visiteurs et amateurs d'art moderne.",
+      "es": "Después de la Segunda Guerra Mundial, el pueblo estaba formado por barracas y la iglesia, provisional, era de madera.\nEn 1950, cuando el párroco Joseph Jochum fue nombrado en el pueblo, emprendió la reconstrucción del edificio y realizó los planos. Dibujó los bocetos del vitral que deseaba ecuménico. Tristán Ruhlmann, maestro vidriero, se encargó de su realización.\nLa construcción de la iglesia fue realizada en 1961 y la vidriera se instaló para Todos los Santos 1962, en vísperas de la apertura del Concilio Ecuménico Vaticano II, de acuerdo con el deseo del párroco Jochum.\nDesde entonces, esta vidriera atrae a numerosos visitantes y amantes del arte moderno."
+    },
+    "setUid": null,
+    "uid": 31078236,
+    "createdAt": "2019-04-29T18:36:14.000Z",
+    "duplicateCandidates": [],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Bas-Rhin",
+    "slug": "eglise-catholique-saint-gall798_5033_5558_8807_14375_20065",
+    "email": "remy.de-hatten@orange.fr",
+    "longitude": 7.955837,
+    "updatedAt": "2022-07-12T14:33:51.000Z",
+    "image": "location47368815.jpg",
+    "website": "",
+    "address": "161 Route de Hatten, 67690 Rittershoffen",
+    "adminLevel3": null,
+    "agendaUid": 2775782,
+    "adminLevel1": "Grand Est",
+    "adminLevel2": "Bas-Rhin",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjMxMDc4MjM2LCJuYW1lIjoiw4lnbGlzZSBTYWludC1HYWxsIn0=",
+    "tags": [
+      {
+        "id": 3,
+        "label": "Édifice religieux"
+      }
+    ],
+    "insee": "67404",
+    "phone": "03 88 80 00 90",
+    "district": null,
+    "name": "Église Saint-Gall",
+    "region": "Grand Est"
+  },
+  "timings": [
+    {
+      "begin": "2023-09-16T14:00:00+02:00",
+      "end": "2023-09-16T18:00:00+02:00"
+    }
+  ],
+  "description": {
+    "fr": "Journées européennes du patrimoine 2023"
+  },
+  "longDescription": {
+    "fr": "Visitez librement cette église et découvrez ses riches vitraux. Des dépliants explicatifs gratuits sont à disposition en Français, Allemand, Anglais et Italien."
+  },
+  "conditions-de-participation": [
+    12
+  ],
+  "type-de-public": 40,
+  "conditions": {},
+  "registration": [],
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "keywords": {},
+  "diffusion-sur-le-pass-culture": [],
+  "siret": null,
+  "prix-pass-culture": null,
+  "url-pass-culture": null,
+  "status": 1,
+  "uid": 15274614,
+  "slug": "vitraux-de-tristan-ruhlmann-eglise-saint-gall-de-rittershoffen",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2023-08-07T15:49:38.000Z",
+  "creatorUid": 28043633,
+  "ownerUid": 28043633,
+  "updatedAt": "2023-08-14T14:20:30.000Z",
+  "links": []
+}

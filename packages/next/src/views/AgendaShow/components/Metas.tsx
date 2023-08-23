@@ -8,7 +8,10 @@ export default function Metas({ agenda, query, preload }) {
   const router = useRouter();
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
+  const canonicalUrl = absUrl.origin + absUrl.pathname;
   const pageTitle = `${agenda.title} | OpenAgenda`;
+
+  const languages = agenda.summary.languages ? Object.keys(agenda.summary.languages) : [];
 
   return (
     <Head>
@@ -19,8 +22,8 @@ export default function Metas({ agenda, query, preload }) {
         <meta name="robots" content="noindex, nofollow" />
       )}
 
-      <link rel="canonical" href={absUrl.origin + absUrl.pathname} />
-      {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+      <link rel="canonical" href={canonicalUrl} />
+      {languages.map(key => (key === intl.locale ? null : (
         <link
           key={`alternate:${key}`}
           rel="alternate"
@@ -30,7 +33,7 @@ export default function Metas({ agenda, query, preload }) {
             : `${absUrl.origin}${absUrl.pathname}?lang=${key}`}
         />
       )))}
-      <link rel="alternate" hrefLang="x-default" href={absUrl.origin + absUrl.pathname} />
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       <meta property="og:site_name" content="OpenAgenda" />
       <meta property="og:type" content="website" />
@@ -38,10 +41,10 @@ export default function Metas({ agenda, query, preload }) {
       <meta property="og:description" content={agenda.description} />
       {/* <meta property="og:type" content="website" /> */}
       <meta property="og:locale" content={intl.locale} />
-      {Object.keys(agenda.summary.languages).map(key => (key === intl.locale ? null : (
+      {languages.map(key => (key === intl.locale ? null : (
         <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
       )))}
-      <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
+      <meta property="og:url" content={canonicalUrl} />
       {agenda.image ? (
         <meta property="og:image" content={agenda.image} />
       ) : null}
@@ -51,7 +54,7 @@ export default function Metas({ agenda, query, preload }) {
       <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
       <meta property="twitter:description" content={agenda.description} />
       <meta property="twitter:domain" content="@oagenda" />
-      <meta property="twitter:url" content={absUrl.origin + absUrl.pathname} />
+      <meta property="twitter:url" content={canonicalUrl} />
       {agenda.image ? (
         <meta property="twitter:image" content={agenda.image} />
       ) : null}

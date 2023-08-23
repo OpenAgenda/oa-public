@@ -1,9 +1,13 @@
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
-import { chakra, Box, Container, Flex, Grid, GridItem, Heading } from '@openagenda/uikit';
+import { chakra, Box, Container, Flex, Grid, GridItem, Heading, Link, Button } from '@openagenda/uikit';
 import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import AgendaHeader from './components/AgendaHeader';
+import AdditionalFields from './components/AdditionalFields';
+import * as additionalFieldsUtils from './utils/additionalFields';
 import fetchLocale from './locales';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
@@ -13,7 +17,9 @@ const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? va
 
 export type EventShowProps = {
   agenda: {
+    uid: number
     title: string
+    schema: Record<string, any>
   }
   event: {
     title: Record<string, string>
@@ -27,11 +33,29 @@ export type EventShowProps = {
     }
     imageCredits?: string
     longDescription?: Record<string, string>
+    keywords?: Record<string, string[]>
+    createdAt: string
+    updatedAt: string
+    location?: {
+      agendaUid: number
+      name: string
+    }
   }
 };
 
 function EventShow({ agenda, event }: EventShowProps) {
   const intl = useIntl();
+  const dateFnsLocale = useDateFnsLocale();
+
+  const hasAdditionalFields = useMemo(
+    () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
+    [agenda.schema],
+  );
+
+  const additionalFields = useMemo(
+    () => additionalFieldsUtils.formatAdditionalFieldData(agenda.schema, event, intl.locale, dateFnsLocale),
+    [agenda.schema, dateFnsLocale, event, intl.locale],
+  );
 
   return (
     <>
@@ -40,19 +64,6 @@ function EventShow({ agenda, event }: EventShowProps) {
           <AgendaHeader agenda={agenda} />
         </Container>
       </Box>
-
-      {/* <Flex
-        maxW="container.xl"
-        mx="auto"
-        pt="8"
-        gap={{ base: '8', lg: '24' }}
-        direction={{ base: 'column', lg: 'row-reverse' }}
-      >
-
-        <Box bg="orange" h="200px" flex="2">
-          Event
-        </Box>
-      </Flex> */}
 
       <Grid
         templateAreas={{
@@ -89,7 +100,7 @@ function EventShow({ agenda, event }: EventShowProps) {
           </Flex>
         </GridItem>
 
-        <GridItem area="event">
+        <GridItem area="event" display="flex" flexDirection="column" gap="12">
           <Flex
             as="main"
             display="flex"
@@ -97,7 +108,7 @@ function EventShow({ agenda, event }: EventShowProps) {
             gap="4"
             position="relative"
             // py="4"
-            pt="4"
+            py="4"
             bg="white"
             // border="1px solid"
             // borderColor="oaGray.100"
@@ -185,7 +196,87 @@ function EventShow({ agenda, event }: EventShowProps) {
                 dangerouslySetInnerHTML={{ __html: getLocaleValue(event.longDescription, intl.locale) }}
               />
             ) : null}
+
+            {event.keywords?.[intl.locale]?.length ? (
+              <chakra.div px={8} color="oaGray.500">
+                {intl.formatList(event.keywords[intl.locale], { style: 'narrow' })}
+              </chakra.div>
+            ) : null}
           </Flex>
+
+          {/* additional fields */}
+          {hasAdditionalFields ? (
+            <Flex
+              display="flex"
+              direction="column"
+              gap="4"
+              position="relative"
+              // mt="8"
+              // py="4"
+              p="8"
+              bg="white"
+              // border="1px solid"
+              // borderColor="oaGray.100"
+              borderRadius="sm"
+              // _hover={{
+              //   borderColor: 'primary.500',
+              // }}
+            >
+              <AdditionalFields
+                additionalFields={additionalFields}
+                updatedAt={event.updatedAt !== event.createdAt ? event.updatedAt : null}
+              />
+            </Flex>
+          ) : null}
+
+          {/* location */}
+          {event.location ? (
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">À propos du lieu</Heading>
+              <Flex
+                display="flex"
+                direction="column"
+                gap="4"
+                position="relative"
+                // mt="8"
+                // py="4"
+                p="8"
+                bg="white"
+                // border="1px solid"
+                // borderColor="oaGray.100"
+                borderRadius="sm"
+                // _hover={{
+                //   borderColor: 'primary.500',
+                // }}
+              >
+                {event.location.agendaUid === agenda.uid ? (
+                  <Button
+                    as={Link}
+                    href="/"
+                    // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
+                    variant="outline"
+                    colorScheme="white"
+                    borderColor="oaGray.300"
+                    color="blackAlpha.800"
+                    _hover={{
+                      bg: 'oaGray.100',
+                      borderColor: 'oaGray.400',
+                      color: 'blackAlpha.900',
+                      textDecoration: 'none',
+                    }}
+                    position="absolute"
+                    top="6"
+                    right="6"
+                  >
+                    Éditer le lieu
+                  </Button>
+                ) : null}
+                <chakra.span fontWeight="bold">
+                  {event.location.name}
+                </chakra.span>
+              </Flex>
+            </div>
+          ) : null}
         </GridItem>
 
         <GridItem area="footer">

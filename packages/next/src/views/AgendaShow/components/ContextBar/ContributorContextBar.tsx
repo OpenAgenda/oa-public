@@ -32,7 +32,7 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
     eventCount: 0,
     slug: 'refused',
   }, {
-    key: [0, 1],
+    key: 0, // and 1
     eventCount: 0,
     slug: 'inModeration',
   }, {

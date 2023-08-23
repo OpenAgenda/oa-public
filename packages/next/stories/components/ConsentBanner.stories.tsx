@@ -8,7 +8,7 @@ import ConsentBanner from 'components/ConsentBanner';
 import fetchAllLocales from '../utils/fetchAllLocales';
 
 export default {
-  title: 'ConsentBanner',
+  title: 'components/ConsentBanner',
   component: ConsentBanner,
   loaders: [
     async () => ({

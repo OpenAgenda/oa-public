@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { SWRConfig } from 'swr';
 import qs from 'qs';
-import { useIntl, createIntlCache, createIntl } from 'react-intl';
+import { createIntlCache, createIntl } from 'react-intl';
 import { getFilters, filtersToAggregations } from '@openagenda/react-filters';
 import { getSupportedLocale } from '@openagenda/intl';
 import VError from '@openagenda/verror';
@@ -139,7 +139,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 const AgendaPage: NextPageWithLayout<PageProps> = props => {
-  const intl = useIntl();
   const { fallback = {} } = props;
 
   if ('statusCode' in props) {
@@ -149,7 +148,7 @@ const AgendaPage: NextPageWithLayout<PageProps> = props => {
   }
 
   return (
-    <DateFnsLocaleProvider locale={intl.locale}>
+    <DateFnsLocaleProvider>
       <SWRConfig value={{ fallback }}>
         <AgendaShow {...props} />
       </SWRConfig>

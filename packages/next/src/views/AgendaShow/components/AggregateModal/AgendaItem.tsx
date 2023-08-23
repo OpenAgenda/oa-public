@@ -3,7 +3,7 @@ import qs from 'qs';
 import { HStack, Text, Link, NoBreak } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
-import PrivateAgenda from 'components/PrivateAgenda';
+import LockIcon from 'components/LockIcon';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 
@@ -56,7 +56,8 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           ) : null}
           {targetAgenda.private ? (
             <NoBreak>
-              <PrivateAgenda
+              <LockIcon
+                type="agenda"
                 ml="2"
                 tooltipProps={{
                   bg: 'black',

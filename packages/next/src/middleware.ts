@@ -3,7 +3,6 @@ import browserslistConfig from '@openagenda/browserslist-config';
 import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'config/constants';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
