@@ -28,7 +28,6 @@ async function runFilterTask(config, params) {
         return;
       }
     }
-    log.info('Send is allowed and will proceed', logPayload);
 
     if (typeof config.beforeSend === 'function') {
       await config.beforeSend(params);
@@ -44,7 +43,6 @@ async function runFilterTask(config, params) {
 
     const defaultLang = params.lang || config.defaults.lang;
     const { disableHtml, disableText, disableSubject } = params;
-    log.info('Rendering', logPayload);
     const result = await render(config, params.template, params.data, {
       disableHtml,
       disableText,
