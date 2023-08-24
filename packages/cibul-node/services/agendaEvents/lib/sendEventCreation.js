@@ -5,7 +5,6 @@ const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 const log = require('@openagenda/logs')('agendaEvents/sendEventCreation');
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods');
 
 module.exports = async ({ config, services }, { agendaEvent, context }) => {
   const {
@@ -52,7 +51,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(membersSvc, agenda.uid);
+  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
   if (!mails) {
     log('warn', 'mails service was not initialized');

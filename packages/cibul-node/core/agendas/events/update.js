@@ -15,7 +15,7 @@ const formatError = require('../utils/formatError');
 
 const loadAuthorizations = require('../../utils/authorizations');
 
-const { containsEventData } = cleanEvent;
+const { containsEventData, isDifferent: isEventDifferent } = cleanEvent;
 
 const { filterUnauthorized } = loadAuthorizations;
 
@@ -23,6 +23,7 @@ const assignState = require('../utils/assignState');
 const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
 const updateEvent = require('./lib/updateEvent');
 const createUpdateActivity = require('./lib/createUpdateActivity');
+const sendUpdateEmail = require('./lib/sendUpdateEmail');
 
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
@@ -177,19 +178,20 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const formSchema = await payload.getFormSchema({ access: 'internal' });
 
-  try {
-    const beforeEvent = await payload.getCompiledEvent('before');
-    const afterEvent = await payload.getCompiledEvent();
-
-    await createUpdateActivity(core.services, beforeEvent, afterEvent, {
-      userUid: actingUserUid,
-      agenda,
-      formSchema,
-      member: actingMember,
-      agendaEvent,
-    });
-  } catch (e) {
-    log('error', 'failed to create activity', e);
+  const beforeEvent = await payload.getCompiledEvent('before');
+  const afterEvent = await payload.getCompiledEvent();
+  if (isEventDifferent(beforeEvent, afterEvent)) {
+    try {
+      await createUpdateActivity(core.services, beforeEvent, afterEvent, {
+        userUid: actingUserUid,
+        agenda,
+        formSchema,
+        member: actingMember,
+        agendaEvent,
+      });
+    } catch (e) {
+      log('error', 'failed to create activity', e);
+    }
   }
 
   // if event is not draft or was just undrafted, agendaEvent ref must be set
@@ -261,6 +263,18 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   const before = await payload.getCompiledEvent('before');
+
+  if (isEventDifferent(before, compiledEvent)) {
+    try {
+      await sendUpdateEmail(core, {
+        batched,
+        event: compiledEvent,
+        agenda,
+      });
+    } catch (e) {
+      log('error', 'failed to send update notification email', e);
+    }
+  }
 
   await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
     event: compiledEvent,

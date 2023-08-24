@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const { diff } = require('deep-diff');
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
@@ -234,7 +235,17 @@ async function cleanEvent(services, agenda, data, options = {}) {
   }, pre, options);
 }
 
+function isDifferent(a, b) {
+  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt'];
+
+  return !!diff(
+    _.omit(a, ignoredFields),
+    _.omit(b, ignoredFields),
+  );
+}
+
 module.exports = cleanEvent;
 module.exports.validateEvent = validateEvent;
 module.exports.containsEventData = containsEventData;
+module.exports.isDifferent = isDifferent;
 module.exports.eventFields = eventFields;

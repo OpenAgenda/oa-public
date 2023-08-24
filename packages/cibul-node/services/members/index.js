@@ -16,6 +16,7 @@ const onPatch = require('./onPatch');
 const plugApp = require('./plugApp');
 const mw = require('./middleware');
 const mail = require('./lib/mail');
+const listAllAdminMods = require('./lib/listAllAdminMods');
 
 const members = {};
 
@@ -58,6 +59,8 @@ function init(config, services) {
   } = activitiesTask({ queue: activityQueue });
 
   mw.sendMessage.init(messages);
+
+  members.utils.listAllAdminMods = listAllAdminMods(members);
 
   return Object.assign(
     module.exports,

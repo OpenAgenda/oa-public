@@ -1,25 +1,26 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('services/agendaEvents/sendEventUpdate');
+const log = require('@openagenda/logs')('core/events/sendUpdateEmail');
 
-const agendaLogo = require('./utils/agendaLogo');
-const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods');
-const getStateSlug = require('./utils/getStateSlug');
+const eventLink = (root, agenda, event) => `${root}/${agenda.slug}/events/${event.slug}`;
 
-module.exports = async ({ config, services }, {
-  agendaEvent, context, agenda, event,
-}) => {
-  const {
-    root,
-  } = config;
+const agendaLogo = agenda => (agenda?.image ? {
+  src: agenda.image.replace('.com/', '.com/rwtb'),
+  width: '100px',
+} : {
+  src: 'https://openagenda.com/images/openagenda.png',
+  width: '300px',
+});
+
+module.exports = async function sendUpdateEmail(core, { batched, agenda, event }) {
+  const { root } = core.getConfig();
 
   const {
     mails,
     members: membersSvc,
     users: usersSvc,
-  } = services;
+  } = core.services;
 
   if (!mails) {
     log('warn', 'mails is not initialized');
@@ -27,60 +28,55 @@ module.exports = async ({ config, services }, {
   }
 
   log('processing');
-  if (_.get(context, 'batched')) {
+  if (batched) {
     log('part of batch, not sending event update emails');
     return;
   }
 
-  const stateLabel = getStateSlug(agendaEvent);
-
   const link = eventLink(root, agenda, event);
-
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(membersSvc, agenda.uid);
+  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
-  if (!event.creatorUid) {
-    log('warn', 'creatorUid is missing, cannot send emails');
-    return;
+  if (!event.ownerUid) {
+    throw new Error('event owner reference is missing. Not sending update mail');
   }
 
-  const creatorUser = await usersSvc.findOne({
-    query: { uid: event.creatorUid },
+  const ownerUser = await usersSvc.findOne({
+    query: { uid: event.ownerUid },
   });
 
-  const creator = await membersSvc.get({
+  const ownerMember = await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: creatorUser.uid,
+    userUid: ownerUser.uid,
   });
 
-  const creatorLang = creatorUser.culture || 'fr';
+  const ownerLang = ownerUser.culture || 'fr';
 
-  if (!creator) {
-    log('creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug);
-  } else if (agendaEvent.agendaUid === event.agendaUid) {
-    log('agenda is origin agenda and user is creator, sending myEventUpdate');
+  if (!ownerMember) {
+    log('owner member was not found for user of uid % in agenda %s', event.ownerUid, agenda.slug);
+  } else if (agenda.uid === event.originAgenda.uid) {
+    log('agenda is origin agenda and user is owner, sending myEventUpdate');
     await mails.send({
       template: 'myEventUpdate',
       to: {
-        address: creatorUser.email,
+        address: ownerUser.email,
         unsubscriptions: [{
           rule: ['receive', 'myEventUpdate'],
           dataPath: 'unsubscribeLink',
         }, {
-          memberId: creator.id,
+          memberId: ownerMember.id,
           rule: ['receive', 'myEventUpdate'],
           dataPath: 'memberUnsubscribeLink',
         }],
       },
       data: {
-        event: event.title[creatorLang] || _.find(event.title),
+        event: event.title[ownerLang] ?? _.find(event.title),
         agenda: agenda.title,
-        state: stateLabel,
         logo,
         link,
       },
-      lang: creatorLang,
+      lang: ownerLang,
     });
   }
 
@@ -88,7 +84,7 @@ module.exports = async ({ config, services }, {
     template: 'eventUpdate',
     to: members
       .filter(member => !!member.user)
-      .filter(member => !creator || (member.id !== creator.id))
+      .filter(member => !ownerMember || (member.id !== ownerMember.id))
       .map(member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
@@ -111,10 +107,8 @@ module.exports = async ({ config, services }, {
       }),
     data: {
       agenda: agenda.title,
-      state: stateLabel,
       logo,
       link,
     },
   });
-  log('done');
 };

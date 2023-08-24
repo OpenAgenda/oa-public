@@ -6,16 +6,9 @@ const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('agendaEvents/onUpdate');
 
 const fallbackContextGet = require('./lib/fallbackContextGet');
-const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
 const addEventAggregationActivity = require('./lib/addEventAggregationActivity');
-
-function haveRealDiff(before, after) {
-  return _.uniq([...Object.keys(before), ...Object.keys(after)])
-    .filter(key => ['createdAt', 'updatedAt', 'state'].includes(key) && before[key] !== after[key])
-    .length > 0;
-}
 
 module.exports = async ({ config, services }, before, after, context) => {
   const {
@@ -56,22 +49,10 @@ module.exports = async ({ config, services }, before, after, context) => {
     }
   }
 
-  if (!haveRealDiff(before, after)) {
-    return;
-  }
+  const stateChanged = before.state !== after.state;
 
   // Send emails
-  if (before.state === after.state) {
-    // eventUpdate
-    // myEventUpdate
-    try {
-      await sendEventUpdate({ config, services }, {
-        agendaEvent: after, before, context, agenda, event,
-      });
-    } catch (error) {
-      log.error(new VError(error, 'Cannot send event update emails'));
-    }
-  } else {
+  if (stateChanged) {
     // eventChangeState
     // myEventChangeState
     try {
@@ -83,7 +64,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     }
   }
 
-  if (user) {
+  if (stateChanged && user) {
     try {
       await addEventUpdateActivity(services, { agenda, event, user }, before, after, context.stateChangeType);
     } catch (e) {
