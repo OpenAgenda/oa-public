@@ -13,10 +13,13 @@ import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
 import getSession from 'utils/getSession';
 import getPreferredLocale from 'utils/getPreferredLocale';
+import generateNonce from 'utils/generateNonce';
+import generateCSP from 'utils/generateCSP';
 
 type CustomDocumentProps = {
   sessionLocale?: string
   outdatedBrowser?: boolean
+  nonce: string
 }
 type MyDocumentProps = DocumentProps & CustomDocumentProps
 type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
@@ -66,6 +69,7 @@ function MyDocument({
   assetPrefix,
   sessionLocale,
   outdatedBrowser,
+  nonce,
 }: MyDocumentProps) {
   const preferredLocale = getPreferredLocale(
     __NEXT_DATA__.query.lang,
@@ -79,7 +83,7 @@ function MyDocument({
       style={{ colorScheme: 'light' }}
       data-theme="light"
     >
-      <Head>
+      <Head nonce={nonce}>
         {process.env.NEXT_PUBLIC_ASSET_PREFIX ? (
           <>
             <link rel="preconnect" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} crossOrigin="" />
@@ -99,7 +103,7 @@ function MyDocument({
       <body className="chakra-ui-light">
         <div id="outdated" />
         <Main />
-        <NextScript />
+        <NextScript nonce={nonce} />
         {outdatedBrowser ? (
           <OutdatedScript assetPrefix={assetPrefix} locale={preferredLocale} />
         ) : null}
@@ -119,6 +123,10 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   const sessionLocale = getSession(cookies)?.user?.culture;
 
+  // CSP
+  const nonce = generateNonce();
+  ctx.res.setHeader('Content-Security-Policy-Report-Only', generateCSP({ nonce }));
+
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: wrapApp({ cookies, sessionLocale }),
@@ -132,6 +140,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
     ...initialProps,
     sessionLocale,
     outdatedBrowser,
+    nonce,
     styles: (
       <>
         {initialProps.styles}

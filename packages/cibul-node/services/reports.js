@@ -12,7 +12,13 @@ module.exports.init = config => {
         '/reports',
         bodyParser.json({ type: 'application/reports+json', limit: '5mb' }),
         (req, res) => {
-          req.body?.map(row => log.info(row));
+          if (Array.isArray(req.body)) {
+            for (const row of req.body) {
+              log.info(row);
+            }
+          } else if (req.body) {
+            log.info(req.body);
+          }
           res.status(200).send('OK');
         },
       );

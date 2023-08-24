@@ -62,6 +62,10 @@ const securityHeaders = [
     key: 'Referrer-Policy',
     value: 'origin-when-cross-origin',
   },
+  {
+    key: 'Reporting-Endpoints',
+    value: `default="${process.env.NEXT_PUBLIC_ROOT}/reports"`,
+  },
 ];
 
 /** @type {() => import('next').NextConfig} */
