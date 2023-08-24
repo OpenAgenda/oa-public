@@ -9716,7 +9716,7 @@ __metadata:
     express: ^4.17.1
     file-type: ^15.0.0
     form-data: ^3.0.0
-    gm: ^1.23.1
+    gm: ^1.25.0
     is-stream: ^2.0.0
     jest: ^28.1.2
     lint-staged: ^10.2.11
@@ -29234,7 +29234,7 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"gm@npm:^1.17.0, gm@npm:^1.23.1":
+"gm@npm:^1.17.0":
   version: 1.23.1
   resolution: "gm@npm:1.23.1"
   dependencies:
@@ -29243,6 +29243,18 @@ fsevents@~2.1.1:
     cross-spawn: ^4.0.0
     debug: ^3.1.0
   checksum: 33180fce816bd1c2680e5dfdb7dbe6da58b52c627379df2bfca06bbb03d03ad657530da3a3c70f65f8020d19cbb8ed23711a2c0fb5c75d9ae941deca6511bf40
+  languageName: node
+  linkType: hard
+
+"gm@npm:^1.25.0":
+  version: 1.25.0
+  resolution: "gm@npm:1.25.0"
+  dependencies:
+    array-parallel: ~0.1.3
+    array-series: ~0.1.5
+    cross-spawn: ^4.0.0
+    debug: ^3.1.0
+  checksum: 4c4b56ef15b2d290d35178515698968f75906db9a7932d477754e0b49c8ee264de7a43a8642433ebfbdb281b3bd65eccf3c81316e91c25a0c353a2a7719773a6
   languageName: node
   linkType: hard
 

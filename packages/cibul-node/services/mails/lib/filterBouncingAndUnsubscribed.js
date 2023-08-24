@@ -1,45 +1,15 @@
 'use strict';
 
 const _ = require('lodash');
-const axios = require('axios');
-const logs = require('@openagenda/logs');
 
 const isUnsubscribed = require('./isUnsubscribed');
 
 module.exports = async (services, config, params) => {
-  const log = logs('services/mails/filterBouncingAndUnsubscribed');
-
   const { unsubscriptions } = params.to;
   const abilityArgs = unsubscriptions && unsubscriptions.length
     ? _.find(unsubscriptions, 'memberId') || unsubscriptions[unsubscriptions.length - 1]
     : null;
   const email = params.to.address;
-
-  if (config.mailgun) {
-    const {
-      auth: {
-        domain,
-        apiKey,
-      },
-    } = config.mailgun;
-
-    try {
-      const { data: bounce } = await axios(`https://api.mailgun.net/v3/${domain}/bounces/${email}`, {
-        auth: {
-          username: 'api',
-          password: apiKey,
-        },
-      });
-
-      if (bounce && bounce.code) {
-        return false;
-      }
-    } catch (error) {
-      if (error.response && error.response.status !== 404) {
-        log.error('Cannot check bounced address on Mailgun', error);
-      }
-    }
-  }
 
   if (!abilityArgs || !abilityArgs.rule) {
     return true;

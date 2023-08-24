@@ -12,13 +12,13 @@ const messages = require('./messages');
 
 async function createSenderActivity(services, { agenda, invitationContext, member }) {
   const {
-    activities
+    activities,
   } = services;
 
   const user = await services.users.findOne({
     query: {
-      uid: invitationContext.sender.userUid
-    }
+      uid: invitationContext.sender.userUid,
+    },
   });
 
   if (!user) {
@@ -27,7 +27,7 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
 
   return activities.feed({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }).activities.add({
     actor: `user:${user.uid}`,
     verb: 'agenda.sendInvitation',
@@ -37,10 +37,10 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
       labels: {
         actor: invitationContext.sender.memberName || user.fullName,
         object: member.custom.email,
-        target: agenda.title
+        target: agenda.title,
       },
-      role: member.role
-    }
+      role: member.role,
+    },
   });
 }
 
@@ -77,9 +77,9 @@ function processSend({ config, services }, {
       unsubscriptions: [
         {
           rule: ['receive', 'invitation'],
-          dataPath: 'unsubscribeLink'
-        }
-      ]
+          dataPath: 'unsubscribeLink',
+        },
+      ],
     },
     data: {
       logo: agendaLogo(config, agenda),
@@ -88,9 +88,9 @@ function processSend({ config, services }, {
       role,
       message,
       footnote,
-      isMember
+      isMember,
     },
-    lang
+    lang,
   });
 }
 
@@ -134,7 +134,7 @@ async function sendInvitation({ services, config }, {
 
 async function resendInvitation({ services, config }, { agenda, member }) {
   const {
-    invitation
+    invitation,
   } = await invitations.get({ email: member.custom.email });
 
   if (!invitation) {
@@ -148,5 +148,5 @@ module.exports = {
   sendInvitation,
   send,
   resendInvitation,
-  messages
+  messages,
 };
