@@ -16,7 +16,7 @@ const mailgun = {
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-  superAdminIds: [1, 2, 11258, 15453, 124500, 149412, 147323],
+  superAdminIds: [1, 2, 11258, 15453, 124500, 149412, 147323, 110989],
   jsVersion: 42,
   cssVersion: 2,
   interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
