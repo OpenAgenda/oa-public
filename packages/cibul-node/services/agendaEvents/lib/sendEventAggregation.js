@@ -6,7 +6,6 @@ const log = require('@openagenda/logs')('agendaEvents/sendEventAggregation');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods');
 const getStateSlug = require('./utils/getStateSlug');
 
 module.exports = async ({ config, services }, { agendaEvent, context }) => {
@@ -29,7 +28,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(membersSvc, agenda.uid);
+  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
   const originAgenda = await agendas.get({
     uid: event.agendaUid,

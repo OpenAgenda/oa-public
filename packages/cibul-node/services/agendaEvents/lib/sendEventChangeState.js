@@ -8,7 +8,6 @@ const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods');
 const getStateSlug = require('./utils/getStateSlug');
 
 async function sendToContributor({
@@ -100,7 +99,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   const link = eventLink(root, agenda, event);
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(membersSvc, agenda.uid);
+  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
   const contributorUser = await usersSvc.findOne({
     query: { uid: agendaEvent.userUid },

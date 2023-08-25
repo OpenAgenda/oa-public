@@ -843,5 +843,11 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       expect(patchedEvent.categories).toBe(2);
     });
+
+    it('empty patch', async () => {
+      await core.agendas(92983929).events.patch(19390294, {}, {
+        access: 'administrator',
+      }).then(() => {}, e => console.log(e));
+    });
   });
 });
