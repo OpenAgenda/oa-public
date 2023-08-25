@@ -89,7 +89,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       expect(Object.keys(events[0].location)).toEqual([
         'uid', 'setUid', 'slug', 'name', 'address',
         'countryCode', 'adminLevel1', 'adminLevel2',
-        'adminLevel3', 'city', 'adminLevel5',
+        'adminLevel3', 'adminLevel4', 'city', 'adminLevel5',
         'district', 'postalCode', 'insee', 'latitude', 'longitude',
         'region', 'department', 'timezone',
         'updatedAt', 'createdAt', 'image', 'description', 'tags',

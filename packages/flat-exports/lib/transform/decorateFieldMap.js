@@ -23,6 +23,7 @@ const handledTypes = [
   'multilingual',
   'latitude',
   'longitude',
+  'boolean',
 ];
 
 const isIncluded = (fieldMap, includeFields, f) => includeFields.some(includeField => includeField === f.field && !fieldMap.some(field => field.source === f.field));
