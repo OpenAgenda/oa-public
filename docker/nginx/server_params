@@ -316,7 +316,7 @@ location ~ ^/monit(|/.+)$ {
 }
 
 # /:agendaSlug/...
-location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions) {
+location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact) {
   include conf.d/nodejs_params;
 }
 
