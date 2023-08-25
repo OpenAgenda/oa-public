@@ -9,6 +9,7 @@ module.exports = async function filterEventByRole(agenda, event, context = {}) {
       },
     ) : filtered
   ), {
+    firstTiming: event.firstTiming,
     nextTiming: event.nextTiming,
     lastTiming: event.lastTiming,
   });
