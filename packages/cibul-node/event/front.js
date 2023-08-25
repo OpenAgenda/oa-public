@@ -54,6 +54,7 @@ const csp = contentSecurityPolicy({
 
 function removeCsp(req, res, next) {
   res.removeHeader('Content-Security-Policy');
+  res.removeHeader('Content-Security-Policy-Report-Only');
   next();
 }
 
