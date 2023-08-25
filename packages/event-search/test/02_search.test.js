@@ -170,7 +170,7 @@ describe('02 - event search - functional: search', () => {
             uid: 6,
           });
 
-          const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
+          const postParseFields = ['contributor', 'lastTiming', 'nextTiming', 'firstTiming'];
 
           const expectedFields = service.getConfig().baseSearchIncludes.concat(postParseFields).map(f => f.split('.')[0]);
 
@@ -254,7 +254,7 @@ describe('02 - event search - functional: search', () => {
             'updatedAt', 'image',
             'attendanceMode', 'creatorUid',
             'registration', 'location', 'ownerUid',
-            'age', 'lastTiming',
+            'age', 'firstTiming', 'lastTiming',
             'nextTiming',
           ],
         );

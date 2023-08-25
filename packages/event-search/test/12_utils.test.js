@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 
-const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
+const appendFirstNextAndLastTiming = require('../utils/appendFirstNextAndLastTiming');
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
@@ -35,7 +35,7 @@ const fx = {
 };
 
 describe('event-search - unit: utils', () => {
-  describe('appendNextAndLastTiming', () => {
+  describe('appendFirstNextAndLastTiming', () => {
     it('returns object decorated with next and last timing', () => {
       const next = {
         begin: dateStrFromNow(1),
@@ -47,7 +47,7 @@ describe('event-search - unit: utils', () => {
         end: dateStrFromNow(3),
       };
 
-      const { nextTiming, lastTiming } = appendNextAndLastTiming({
+      const { nextTiming, lastTiming } = appendFirstNextAndLastTiming({
         timings: [{
           begin: dateStrFromNow(-2),
           end: dateStrFromNow(-2),

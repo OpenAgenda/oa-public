@@ -10,6 +10,7 @@ module.exports = produce(event => {
   const now = new Date();
 
   Object.assign(event, {
+    firstTiming: event.timings[0],
     lastTiming: event.timings.slice(-1).shift(),
     nextTiming: null,
   });
