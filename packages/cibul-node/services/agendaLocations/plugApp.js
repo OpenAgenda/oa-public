@@ -14,9 +14,9 @@ module.exports = (config, services, instance, app, base) => {
         includeFields: [
           'uid', 'setUid', 'slug', 'name', 'address',
           'countryCode', 'adminLevel1', 'adminLevel2',
-          'adminLevel3', 'city', 'adminLevel5',
+          'adminLevel3', 'adminLevel4', 'adminLevel5',
           'district', 'postalCode', 'insee', 'latitude', 'longitude',
-          'region', 'department', 'timezone',
+          'region', 'department', 'city', 'timezone',
           'updatedAt', 'createdAt', 'image', 'description', 'tags',
           'website', 'email', 'phone', 'links', 'access',
           'state', 'imageCredits', 'extId',
