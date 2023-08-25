@@ -20,7 +20,7 @@ export default async function uploadNginxFilesAndReload({
 
   await rsync(nginxNodes, `${dir}/nginx`, remoteNginxDir, {
     SSHKeyPath,
-    options: ['verbose', 'archive', 'compress', 'force'],
+    options: '-aAXEWHx',
   });
 
   await rexec(nginxNodes, [
