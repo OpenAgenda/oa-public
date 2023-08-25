@@ -16,7 +16,7 @@ const getIndexName = require('./utils/getIndexName');
 const getMLTDSLPart = require('./utils/getMLTDSLPart');
 const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
-const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
+const appendFirstNextAndLastTiming = require('./utils/appendFirstNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
 const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
 const includePathInLocationImage = require('./utils/includePathInLocationImage');
@@ -51,7 +51,7 @@ function buildEventParsers({
 }) {
   const parsers = [
     convertToLocalTimezone,
-    appendNextAndLastTiming,
+    appendFirstNextAndLastTiming,
   ];
 
   if (!detailed) {
