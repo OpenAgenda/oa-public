@@ -14,7 +14,7 @@ import { cache } from '@openagenda/uikit';
 import getSession from 'utils/getSession';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import generateNonce from 'utils/generateNonce';
-import generateCSP from 'utils/generateCSP';
+import CSP from 'utils/contentSecurityPolicy';
 
 type CustomDocumentProps = {
   sessionLocale?: string
@@ -125,7 +125,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   // CSP
   const nonce = generateNonce();
-  ctx.res.setHeader('Content-Security-Policy-Report-Only', generateCSP({ nonce }));
+  ctx.res.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
 
   ctx.renderPage = () =>
     originalRenderPage({
