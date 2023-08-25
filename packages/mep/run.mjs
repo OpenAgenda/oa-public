@@ -19,10 +19,12 @@ const {
   LOCAL_ENV_FILE_PATH: localEnvFilePath,
   RUN_BUILD: runBuild,
   RUN_UPLOAD_TO_WEB: runUploadToWeb,
-  RUN_UPLOAD_TO_API: runUploadToAPI,
-  RUN_UPLOAD_TO_NEXT: runUploadToNext,
-  RUN_UPDATE_NGINX: runUpdateNginx,
   RUN_UPLOAD_TO_TASK: runUploadToTask,
+  RUN_UPDATE_WEB: runUpdateWeb,
+  RUN_UPDATE_API: runUpdateAPI,
+  RUN_UPDATE_NEXT: runUpdateNext,
+  RUN_UPDATE_TASK: runUpdateTask,
+  RUN_UPDATE_NGINX: runUpdateNginx,
   RUN_ALL: runAll,
   WEB_ENV_NAME: webEnvName,
   TASK_ENV_NAME: taskEnvName,
@@ -55,23 +57,27 @@ if (runBuild || runAll) {
   });
 }
 
-const runs = [];
+const uploads = [];
 
-if (runUploadToAPI || runAll) {
-  runs.push(async () => {
-    const nodes = (await getNodesAndGroups(webEnvName, ['api'], { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(nodes, 'api', {
-      SSHKeyPath,
-      envVars,
-      dir,
-      instances: 4,
-    });
-    await rsync(nodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
-    await rexec(nodes, pm2Commands, { SSHKeyPath });
+if (runUploadToWeb || runAll) {
+  uploads.push(async () => {
+    const nodes = (await getNodesAndGroups(webEnvName, ['data'], { jelasticAccessToken })).nodes;
+    await rsync(nodes, `${dir}/oa`, '/data/oa', { SSHKeyPath });
   });
 }
 
-if (runUploadToWeb || runAll) {
+if (runUploadToTask || runAll) {
+  uploads.push(async () => {
+    const taskNodes = (await getNodesAndGroups(taskEnvName, null, { jelasticAccessToken })).nodes;
+    await rsync(taskNodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
+  });
+}
+
+await Promise.all(uploads.map(run => run()));
+
+const runs = [];
+
+if (runUpdateWeb || runAll) {
   runs.push(async () => {
     const nodes = (await getNodesAndGroups(webEnvName, ['web'], { jelasticAccessToken })).nodes;
     await buildAndUploadEcosystemFile(nodes, 'web admin', {
@@ -80,15 +86,26 @@ if (runUploadToWeb || runAll) {
       dir,
       instances: 4,
     });
-    await rsync(nodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
     await rexec(nodes, pm2Commands, { SSHKeyPath });
   });
 }
 
-if (runUploadToNext || runAll) {
+if (runUpdateAPI || runAll) {
+  runs.push(async () => {
+    const nodes = (await getNodesAndGroups(webEnvName, ['api'], { jelasticAccessToken })).nodes;
+    await buildAndUploadEcosystemFile(nodes, 'api', {
+      SSHKeyPath,
+      envVars,
+      dir,
+      instances: 4,
+    });
+    await rexec(nodes, pm2Commands, { SSHKeyPath });
+  });
+}
+
+if (runUpdateNext || runAll) {
   runs.push(async () => {
     const nextNodes = (await getNodesAndGroups(webEnvName, ['next'], { jelasticAccessToken })).nodes;
-    await rsync(nextNodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
 
     await copyAndEditFile('next.config.js', `${dir}/next.config.js`, {
       port: envVars.OA_SERVER_PORT,
@@ -99,7 +116,7 @@ if (runUploadToNext || runAll) {
   });
 }
 
-if (runUploadToTask || runAll) {
+if (runUpdateTask || runAll) {
   runs.push(async () => {
     const taskNodes = (await getNodesAndGroups(taskEnvName, null, { jelasticAccessToken })).nodes;
     await buildAndUploadEcosystemFile(taskNodes, 'task', {
@@ -108,29 +125,30 @@ if (runUploadToTask || runAll) {
       dir,
       instances: 1,
     });
-    await rsync(taskNodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
     await rexec(taskNodes, pm2Commands, { SSHKeyPath });
   });
 }
 
-await Promise.all(runs.map(run => run()));
-
 if (runUpdateNginx || runAll) {
-  await prepareNginxFiles({
-    dir,
-    jelasticAccessToken,
-    SSHKeyPath,
-    envVars,
-    nodes,
-    remoteNginxDir,
-  });
-  await uploadNginxFilesAndReload({
-    dir,
-    webEnvName,
-    jelasticAccessToken,
-    remoteNginxDir,
-    SSHKeyPath,
+  runs.push(async () => {
+    await prepareNginxFiles({
+      dir,
+      jelasticAccessToken,
+      SSHKeyPath,
+      envVars,
+      nodes,
+      remoteNginxDir,
+    });
+    await uploadNginxFilesAndReload({
+      dir,
+      webEnvName,
+      jelasticAccessToken,
+      remoteNginxDir,
+      SSHKeyPath,
+    });
   });
 }
+
+await Promise.all(runs.map(run => run()));
 
 console.log('done');
