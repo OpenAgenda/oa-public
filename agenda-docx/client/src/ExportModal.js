@@ -87,10 +87,6 @@ export default class ExportModal extends Component {
         en: 'Limit dates',
         fr: 'Limiter les dates',
       },
-      eventsLimit: {
-        en: 'The export can include a maximum of 1000 events per document.',
-        fr: "L'export peut intégrer au maximum 1000 événements par document.",
-      },
     },
   };
 
@@ -369,7 +365,6 @@ export default class ExportModal extends Component {
           )}
         </div>
         {isQueued ? <p>{labels.queued}</p> : this.renderQueueControl(!hasFile)}
-        {!isQueued ? <span>{labels.eventsLimit}</span> : null}
         {hasFile ? (
           <div className="margin-top-md">
             <sup>(1)</sup> : <span>{labels.downloadInfo}</span>

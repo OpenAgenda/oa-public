@@ -78,10 +78,6 @@ export default class Main extends Component {
         en: 'Limit dates',
         fr: 'Limiter les dates',
       },
-      eventsLimit: {
-        en: 'The export can include a maximum of 1000 events per document.',
-        fr: "L'export peut intégrer au maximum 1000 événements par document.",
-      },
     },
   };
 
