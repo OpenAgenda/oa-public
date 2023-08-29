@@ -40,5 +40,6 @@ module.exports = {
   },
   ignores: [
     commit => /^(Merge commit (.*?))(?:\r?\n)*$/m.test(commit),
+    commit => /^(Split '(.*?)' into commit (.*?))(?:\r?\n)*$/m.test(commit),
   ],
 };
