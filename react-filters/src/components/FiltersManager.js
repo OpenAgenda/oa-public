@@ -36,26 +36,29 @@ import MapFilter from './filters/MapFilter';
 import CustomFilter from './filters/CustomFilter';
 import FavoritesFilter from './filters/FavoritesFilter';
 
-const FiltersManager = React.forwardRef(function FiltersManager({
-  aggregations: initialAggregations = {},
-  query: initialQuery = {},
-  total: initialTotal = 0,
-  defaultViewport,
-  res,
-  filtersBase: initialFiltersBase,
-  agendaUid,
-  onLoad,
+const FiltersManager = React.forwardRef(function FiltersManager(
+  {
+    aggregations: initialAggregations = {},
+    query: initialQuery = {},
+    total: initialTotal = 0,
+    defaultViewport,
+    res,
+    filtersBase: initialFiltersBase,
+    agendaUid,
+    onLoad,
 
-  choiceComponent = ChoiceFilter,
-  dateRangeComponent = DateRangeFilter,
-  definedRangeComponent = DefinedRangeFilter,
-  searchComponent = SearchFilter,
-  mapComponent = MapFilter,
-  customComponent = CustomFilter,
-  favoritesComponent = FavoritesFilter,
+    choiceComponent = ChoiceFilter,
+    dateRangeComponent = DateRangeFilter,
+    definedRangeComponent = DefinedRangeFilter,
+    searchComponent = SearchFilter,
+    mapComponent = MapFilter,
+    customComponent = CustomFilter,
+    favoritesComponent = FavoritesFilter,
 
-  ...rest
-}, ref) {
+    ...rest
+  },
+  ref,
+) {
   const intl = useIntl();
   const form = useForm();
   const widgetSeed = useUIDSeed();
@@ -66,6 +69,7 @@ const FiltersManager = React.forwardRef(function FiltersManager({
     setFilters,
     setWidgets,
     filtersOptions,
+    searchMethod,
   } = useContext(FiltersAndWidgetsContext);
 
   const [query, setQuery] = useState(() => initialQuery);
@@ -76,21 +80,27 @@ const FiltersManager = React.forwardRef(function FiltersManager({
   const filtersBaseQuery = useQuery(
     ['react-filters', 'filtersBase', agendaUid],
     async () => {
-      const filtersToLoad = filters.filter(filter => filter.type === 'choice' && !filter.options);
+      const filtersToLoad = filters.filter(
+        filter => filter.type === 'choice' && !filter.options,
+      );
 
       if (!filtersToLoad.length) {
         return {};
       }
 
-      return (await getEvents(
-        null, // apiClient
-        res,
-        { uid: agendaUid },
-        filters.filter(filter => filter.type === 'choice' && !filter.options),
-        { size: 0 },
-        null, // pageParam
-        false, // filtersBase
-      )).aggregations;
+      return (
+        await getEvents(
+          null, // apiClient
+          res,
+          { uid: agendaUid },
+          filters.filter(filter => filter.type === 'choice' && !filter.options),
+          { size: 0 },
+          null, // pageParam
+          false, // filtersBase
+          0,
+          searchMethod,
+        )
+      ).aggregations;
     },
     {
       initialData: initialFiltersBase,
@@ -99,9 +109,13 @@ const FiltersManager = React.forwardRef(function FiltersManager({
     },
   );
 
-  const getOptions = useGetFilterOptions(intl, filtersBaseQuery.data, aggregations);
+  const getOptions = useGetFilterOptions(
+    intl,
+    filtersBaseQuery.data,
+    aggregations,
+  );
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(null, res, query);
+  const loadGeoData = useLoadGeoData(null, res, query, { searchMethod });
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
@@ -115,17 +129,29 @@ const FiltersManager = React.forwardRef(function FiltersManager({
       const filtersOnPage = extractFiltersFromDom();
 
       const newFilters = filtersOnPage.map(nextFilter => {
-        const completedNext = withDefaultFilterConfig(nextFilter, intl, filtersOptions);
-        const found = filters.find(v =>
-          JSON.stringify(omit(v, 'elemRef')) === JSON.stringify(omit(completedNext, 'elemRef')));
+        const completedNext = withDefaultFilterConfig(
+          nextFilter,
+          intl,
+          filtersOptions,
+        );
+        const found = filters.find(
+          v =>
+            JSON.stringify(omit(v, 'elemRef'))
+            === JSON.stringify(omit(completedNext, 'elemRef')),
+        );
 
         // Conserve if found & elem has not changed
-        return found && document.body.contains(found.elem) ? found : completedNext;
+        return found && document.body.contains(found.elem)
+          ? found
+          : completedNext;
       });
 
       const newWidgets = widgetsOnPage.map(nextWidget => {
-        const found = widgets.find(v =>
-          JSON.stringify(omit(v, 'elemRef')) === JSON.stringify(omit(nextWidget, 'elemRef')));
+        const found = widgets.find(
+          v =>
+            JSON.stringify(omit(v, 'elemRef'))
+            === JSON.stringify(omit(nextWidget, 'elemRef')),
+        );
 
         // Conserve if found & elem has not changed
         return found && document.body.contains(found.elem) ? found : nextWidget;
@@ -155,7 +181,10 @@ const FiltersManager = React.forwardRef(function FiltersManager({
       }
     },
     updateLocation: values => {
-      const queryStr = qs.stringify(values, { addQueryPrefix: true, skipNulls: true });
+      const queryStr = qs.stringify(values, {
+        addQueryPrefix: true,
+        skipNulls: true,
+      });
 
       window.history.pushState(
         {},
@@ -199,7 +228,11 @@ const FiltersManager = React.forwardRef(function FiltersManager({
         return (
           <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
             <span>
-              <FavoriteToggle agendaUid={agendaUid} widget={widget} {...widget} />
+              <FavoriteToggle
+                agendaUid={agendaUid}
+                widget={widget}
+                {...widget}
+              />
             </span>
           </Portal>
         );
@@ -237,13 +270,16 @@ const FiltersManager = React.forwardRef(function FiltersManager({
 });
 
 const Wrapper = forwardRef(function Wrapper(props, ref) {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  }));
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
