@@ -304,7 +304,7 @@ function Dashboard() {
         res.search,
         agenda,
         filters,
-        { size: 0 },
+        { size: 0, state: null },
         null,
         true,
         20,
@@ -326,6 +326,7 @@ function Dashboard() {
         filters,
         {
           sort: 'updatedAt.desc',
+          state: null,
           ...query,
           detailed: true,
           if: [
