@@ -69,6 +69,7 @@ const IntlProvided = React.forwardRef(
       initialValues,
       onSubmit,
       subscription,
+      searchMethod,
       children,
     },
     ref,
@@ -112,6 +113,7 @@ const IntlProvided = React.forwardRef(
           onSubmit={onSubmit}
           initialValues={initialValues}
           subscription={subscription}
+          searchMethod={searchMethod}
         >
           {children}
         </FiltersForm>
@@ -136,6 +138,7 @@ function FiltersProvider(
     onSubmit = null,
     initialValues = null,
     subscription = defaultSubscription,
+    searchMethod = 'get',
   },
   ref,
 ) {
@@ -151,6 +154,7 @@ function FiltersProvider(
       onSubmit={onSubmit}
       initialValues={initialValues}
       subscription={subscription}
+      searchMethod={searchMethod}
     >
       {children}
     </IntlProvided>

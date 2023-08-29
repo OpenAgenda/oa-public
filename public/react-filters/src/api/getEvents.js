@@ -10,6 +10,7 @@ export default async function getEvents(
   pageParam,
   filtersBase,
   pageSize = 20,
+  searchMethod = 'get',
 ) {
   const params = {
     aggsSizeLimit: 1500,
@@ -22,10 +23,18 @@ export default async function getEvents(
     .replace(':slug', agenda.slug)
     .replace(':uid', agenda.uid);
 
-  return fetch(`${url}?${qs.stringify(params, { skipNulls: true })}`).then(
-    r => {
-      if (r.ok) return r.json();
-      throw new Error("Can't list events");
-    },
-  );
+  const p = searchMethod === 'get'
+    ? fetch(`${url}?${qs.stringify(params, { skipNulls: true })}`)
+    : fetch(url, {
+      method: 'post',
+      body: JSON.stringify(params),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+  return p.then(r => {
+    if (r.ok) return r.json();
+    throw new Error("Can't list events");
+  });
 }

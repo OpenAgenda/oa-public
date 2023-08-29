@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import qs from 'qs';
 
-export default function useLoadGeoData(_apiClient, res, query) {
+export default function useLoadGeoData(_apiClient, res, query, options = {}) {
+  const { searchMethod = 'get' } = options;
+
   return useCallback(
     async (filter, bounds, zoom) => {
       const northEast = bounds.getNorthEast().wrap();
@@ -25,11 +27,19 @@ export default function useLoadGeoData(_apiClient, res, query) {
         },
       };
 
-      const result = await fetch(`${res}?${qs.stringify(params, { skipNulls: true })}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t load geo data');
-        });
+      const result = await (searchMethod === 'get'
+        ? fetch(`${res}?${qs.stringify(params, { skipNulls: true })}`)
+        : fetch(res, {
+          method: 'post',
+          body: JSON.stringify(params),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      ).then(r => {
+        if (r.ok) return r.json();
+        throw new Error("Can't load geo data");
+      });
 
       return result.aggregations.geohash;
     },
