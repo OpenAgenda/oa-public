@@ -4,7 +4,6 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
 import track from '../lib/track.js';
-import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
@@ -122,6 +121,11 @@ export default (core, { useRouter = true } = {}) => {
       }), next),
   );
 
+  app.post('/agendas/:agendaUid/events/search', [
+    track.mw('api', 'list', 'events'),
+    mw.searchAgendaEvents(core, 'parsedData'),
+  ]);
+
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
   app.patch('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
@@ -136,28 +140,14 @@ export default (core, { useRouter = true } = {}) => {
       private: null,
     }).then(event => res.json({ success: true, event }), next));
 
-  app.get(
-    [
-      '/agendas/:agendaUid/events',
-      '/agendas/slug/:agendaSlug/events',
-    ],
+  app.get([
+    '/agendas/:agendaUid/events',
+    '/agendas/slug/:agendaSlug/events',
+  ], [
     mw.convertLegacyFilter,
     track.mw('api', 'list', 'events'),
-    (req, res, next) => core
-      .agendas(req.agenda.uid).events
-      .search(req.convertedQuery, req.convertedQuery, {
-        aggregations: req.query.aggs,
-        ...req.convertedQuery,
-        useAfterKey: true,
-        userUid: req.user?.uid,
-        includeLocationImagePath: true,
-        includeEmbedScripts: boolQuery(req.query.includeEmbedScripts, true),
-        agendaKey: req.agendaKey,
-      }).then(result => res.json({
-        success: true,
-        ...result,
-      }), next),
-  );
+    mw.searchAgendaEvents(core),
+  ]);
 
   app.get([
     '/agendas/:agendaUid/events/:eventUid',

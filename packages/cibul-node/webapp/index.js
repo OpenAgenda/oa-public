@@ -442,6 +442,7 @@ const initialState = async req => {
       },
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json',
+        search: '/api/agendas/:uid/events/search',
       },
     },
     agendaLocationAdmin: {

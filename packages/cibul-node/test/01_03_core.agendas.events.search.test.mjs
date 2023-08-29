@@ -292,6 +292,32 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
     });
 
+    describe('successful list using post', () => {
+      let response;
+
+      beforeAll(async () => {
+        response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/2/events/search',
+          headers: {
+            'access-token': accessToken,
+            nonce: 8439793,
+            'content-type': 'application/json',
+          },
+          data: {
+            state: [-1, 0, 1, 2],
+            detailed: 1,
+            uid: 2,
+          },
+        }).then(r => r.data, err => err.response.data);
+      });
+
+      it('search results match query', () => {
+        expect(response.events.length).toBe(1);
+        expect(response.events[0].uid).toBe(2);
+      });
+    });
+
     describe('successful get for adminmod user', () => {
       let response;
 
