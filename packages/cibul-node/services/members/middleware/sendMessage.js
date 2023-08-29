@@ -23,7 +23,10 @@ module.exports = (req, res, _next) => {
     sendToMe: req.body.sendToMe,
     withActions: req.body.inactive ? false : null,
     agenda: _.pick(req.agenda, ['uid', 'slug', 'title', 'image']),
-    sender: req.member,
+    sender: {
+      ...req.member,
+      user: req.user,
+    },
   });
 
   res.send('gemini jellikers batman');

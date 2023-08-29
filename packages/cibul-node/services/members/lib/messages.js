@@ -20,7 +20,7 @@ async function _loadInvitation(member) {
     .then(r => (r ? r.invitation : null));
 }
 
-async function addActivity(config, activities, data, recipientRoles) {
+async function addActivity(activities, data, recipientRoles) {
   try {
     const senderName = data.sender.custom?.contactName ?? data.sender.user.fullName;
 
@@ -123,10 +123,12 @@ async function sendMessageChain(config, { queue, members, activities }, jobData)
   }, {
     after: context.after || 0,
     limit: 1,
+  }, {
+    detailed: true,
   });
 
   if (!member) {
-    await addActivity(config, activities, data, context.recipientRoles);
+    await addActivity(activities, data, context.recipientRoles);
     return;
   }
 
