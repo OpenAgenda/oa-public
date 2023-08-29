@@ -301,12 +301,14 @@ function Dashboard() {
     () =>
       getEvents(
         apiClient,
-        res.jsonExport,
+        res.search,
         agenda,
         filters,
         { size: 0 },
         null,
         true,
+        20,
+        'post',
       ),
     {
       staleTime: 1000,
@@ -319,7 +321,7 @@ function Dashboard() {
     () =>
       getEvents(
         apiClient,
-        res.jsonExport,
+        res.search,
         agenda,
         filters,
         {
@@ -350,6 +352,9 @@ function Dashboard() {
           ],
         },
         page,
+        false,
+        20,
+        'post',
       ),
     {
       staleTime: 10000,
@@ -590,6 +595,7 @@ function Dashboard() {
       intl={intl}
       ref={filtersFormRef}
       filters={filters}
+      searchMethod="post"
       dateFnsLocale={dateFnsLocales[intl.locale]}
     >
       <header>

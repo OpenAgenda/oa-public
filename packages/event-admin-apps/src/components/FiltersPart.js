@@ -19,8 +19,7 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
   const res = useSelector(state => state.res);
 
   const geoRes = useMemo(
-    () =>
-      res.jsonExport.replace(':slug', agenda.slug).replace(':uid', agenda.uid),
+    () => res.search.replace(':slug', agenda.slug).replace(':uid', agenda.uid),
     [agenda.slug, agenda.uid],
   );
 
@@ -31,7 +30,9 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
 
   const getOptions = useGetFilterOptions(intl, filterAggs, aggregations);
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(apiClient, geoRes, query);
+  const loadGeoData = useLoadGeoData(apiClient, geoRes, query, {
+    searchMethod: 'post',
+  });
 
   const [initialViewport] = useState(() => aggregations.viewport);
 

@@ -10,6 +10,7 @@ module.exports = {
     fastRefresh: true,
     // strictMode: true,
   },
+  staticDirs: ['./public'],
   webpackFinal(config) {
     config.module.rules.push({
       test: /\.(js|mjs|jsx)$/,

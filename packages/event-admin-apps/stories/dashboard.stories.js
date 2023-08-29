@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import MockAdapter from '@openagenda/axios-mock-adapter';
+import { rest } from 'msw';
+
+import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { modalLocales } from '@openagenda/react-share-menus';
@@ -19,12 +19,6 @@ export default {
   decorators: [SimplePageDecorator, ProvidersDecorator],
 };
 
-const mock = new MockAdapter(axios, {
-  delayResponse: 1000,
-});
-
-mock.onGet('/agendas/123456/admin/settings/exports').reply(200, exportSettings);
-
 export const OpenModal = () => {
   const [, setDisplay] = useState(true);
   return (
@@ -36,4 +30,13 @@ export const OpenModal = () => {
       />
     </IntlProvider>
   );
+};
+
+OpenModal.parameters = {
+  msw: {
+    handlers: [
+      rest.get('/agendas/123456/admin/settings/exports', (req, res, ctx) =>
+        res(ctx.json(exportSettings))),
+    ],
+  },
 };

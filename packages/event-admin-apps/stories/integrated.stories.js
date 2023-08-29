@@ -1,8 +1,7 @@
+import { rest } from 'msw';
 import { useRef } from 'react';
 import { createMemoryHistory } from 'history';
-import axios from 'axios';
 import { wrapApp } from '@openagenda/react-shared';
-import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import createApp from '../src/app';
 import AdminPageDecorator from './decorators/AdminPage';
@@ -20,6 +19,7 @@ const getDefaultState = () => ({
   },
   res: {
     jsonExport: '/:slug/events.json',
+    search: '/:slug/events/search',
   },
 });
 
@@ -28,29 +28,6 @@ export default {
 };
 
 export function Presentation() {
-  const mock = new MockAdapter(axios, {
-    delayResponse: 1000,
-  });
-
-  mock.onGet('/la-gargouille/events.json').reply(200, mainData);
-
-  mock
-    .onGet('/agendas/48959239/admin/settings/exports')
-    .reply(200, exportSettings);
-
-  mock
-    .onPost('/:agendaSlug/events/:eventSlug/state')
-    .reply(({ data, routeParams }) => {
-      const parsed = JSON.parse(data);
-      const event = JSON.parse(
-        JSON.stringify(
-          mainData.events.find(e => e.slug === routeParams.eventSlug),
-        ),
-      );
-
-      return [200, { ...event, ...parsed }];
-    });
-
   const filtersContainerRef = useRef();
 
   return (
@@ -88,5 +65,26 @@ export function Presentation() {
     </>
   );
 }
+
+Presentation.parameters = {
+  msw: {
+    handlers: [
+      rest.post('/la-gargouille/events/search', (req, res, ctx) => {
+        console.log(req.body);
+        return res(ctx.json(mainData));
+      }),
+      rest.get('/agendas/48959239/admin/settings/exports', (req, res, ctx) =>
+        res(ctx.json(exportSettings))),
+      rest.post('/:agendaSlug/events/:eventSlug/state', (req, res, ctx) => {
+        const event = JSON.parse(
+          JSON.stringify(
+            mainData.events.find(e => e.slug === req.params.eventSlug),
+          ),
+        );
+        return res(ctx.json({ ...event, ...req.body }));
+      }),
+    ],
+  },
+};
 
 Presentation.decorators = [AdminPageDecorator, ProvidersDecorator];

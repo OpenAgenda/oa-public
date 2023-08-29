@@ -16,7 +16,8 @@
   ],
   "main": "dist/app.js",
   "scripts": {
-    "start": "NODE_ENV=development start-storybook -p 9001 --ci",
+    "storybook": "NODE_ENV=development start-storybook -p 9001 --ci",
+    "sb": "yarn storybook",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn oa-intl compile && yarn build",
@@ -65,15 +66,17 @@
     "@emotion/babel-plugin": "^11.10.5",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",
-    "@openagenda/axios-mock-adapter": "^1.21.2",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react": "^6.5.9",
     "babel-loader": "^8.2.2",
+    "dedent": "^0.7.0",
     "eslint": "^8.24.0",
     "history": "^4.10.1",
     "lint-staged": "^10.2.11",
+    "msw": "^0.49.2",
+    "msw-storybook-addon": "^1.7.0",
     "prettier-eslint-cli": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -90,5 +93,8 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }
