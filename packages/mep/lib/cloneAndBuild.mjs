@@ -58,7 +58,7 @@ export default async function cloneAndBuild({
   }
 
   return new Promise((rs, rj) => {
-    const p = exec(buildCommands.join('\n'), {
+    const p = exec(buildCommands.join(' && '), {
       maxBuffer: Infinity,
       env: {
         ...process.env,
