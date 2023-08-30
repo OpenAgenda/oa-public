@@ -66,7 +66,11 @@ module.exports = async (current, data, options = {}) => {
     compiled.image = await axiosInstance
       .get(cleanURL)
       .then(response => response?.data)
-      .catch(() => {
+      .catch(error => {
+        log.error({
+          message: 'failed to parse image URL',
+          error,
+        });
         throw new ValidationError({
           field: 'image',
           code: 'url.invalid',
