@@ -1,0 +1,107 @@
+.accessibility {
+
+  ul {
+
+    margin-top: 1em;
+
+  }
+
+  li {
+
+    width: 96px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+
+    & > * {
+
+      cursor: pointer;
+
+    }
+
+    .box {
+
+      border-radius: 4px;
+      padding: 1em 0;
+
+    }
+
+    .checked {
+
+      background: $oa-blue;
+
+    }
+
+    label {
+
+      display: block;
+
+    }
+
+  }
+
+  .ill {
+  
+    display: inline-block;
+    width: 60px!important;
+    height: 60px!important;
+    vertical-align: middle;
+    background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-60.png");
+
+  }
+
+  .checked .vi {
+
+    background-position: 120px 0;
+
+  }
+
+  .hi {
+
+    background-position: 0 60px;  
+
+  }
+
+  .checked .hi {
+
+    background-position: 120px 60px;
+
+  }
+
+  .mi {
+
+    background-position: 0 120px;
+
+  }
+
+  .checked .mi {
+
+    background-position: 120px 120px;
+
+  }
+
+  .pi {
+
+    background-position: 0 180px;
+
+  }
+
+  .checked .pi {
+
+    background-position: 120px 180px;
+
+  }
+
+  .sl {
+
+    background-position: 0 240px;
+
+  }
+
+  .checked .sl {
+
+    background-position: 120px 240px;
+
+  }
+
+}

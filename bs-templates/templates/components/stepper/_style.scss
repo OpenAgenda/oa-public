@@ -1,0 +1,123 @@
+.stepper-container {
+
+  position: relative;
+
+  &:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: 0;
+    z-index: 1;
+  }
+
+  .stepper {
+    counter-reset: step;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-left: 0;
+
+    &.gray-bg-lightest .step {
+      background-color: $oa-gray-lightest;
+    }
+
+    &.gray-bg-lightest .step {
+      background-color: $oa-gray-lightest;
+    }
+
+    .step {
+      font-size: 14px;
+      color: #7d7d7d;
+      z-index: 2;
+      background-color: white;
+
+      &:before {
+        width: 30px;
+        height: 30px;
+        content: counter(step);
+        counter-increment: step;
+        line-height: 28px;
+        border: 2px solid #7d7d7d;
+        display: inline-block;
+        text-align: center;
+        border-radius: 50%;
+        background-color: white;
+        margin-right: 8px;
+      }
+
+      &:not(:first-child):before {
+        margin-left: 8px;
+      }
+
+      &:not(:last-child) {
+        padding-right: 8px;
+      }
+
+      &.activable {
+        cursor: pointer;
+
+        &:hover {
+          color: $oa-blue;
+          text-decoration: none;
+
+          &:before {
+
+            border-color: $oa-blue;
+
+          }
+        }
+
+      }
+
+      &.passed:before, &.validated:before, &.activable:before, &.confirmation:before {
+      }
+
+      &.passed:before, &.validated:before {
+        border-color: $oa-blue;
+        color: $oa-blue;
+        content: '\f00c';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+      }
+
+      &.active {
+        font-weight: bold;
+
+        &:before {
+          color: white;
+          border-color: $oa-blue;
+          background-color: $oa-blue;
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
+          content: '\f303';
+        }
+      }
+      &.confirmation {
+        &:before {
+          content: '\f00c';
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
+        }
+
+      }
+    }
+  }
+}
+
+
+.stepper-gray-background {
+
+  .stepper-container {
+
+    .stepper .step {
+
+      background-color: $oa-gray-lighter;
+
+    }
+
+  }
+
+}

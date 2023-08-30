@@ -1,0 +1,114 @@
+.registration-input {
+
+  label {
+
+    display: block;
+    padding-bottom: 0.2em;
+
+  }
+
+  &.error label {
+
+    color: $oa-red;
+
+  }
+
+  .react-tagsinput {
+    
+    background-color: $oa-white;
+    border: 1px solid $oa-gray-light;
+    border-radius: 4px;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-top: 3px;
+
+    input {
+      border: none;
+      outline: none;
+      padding: 0.4em;
+    }
+
+    .react-tagsinput-tag {
+
+      span, i {
+
+        color: $oa-white; /* required for legacy event form */
+
+      }
+
+      a:hover {
+
+        text-decoration: none;
+
+      }
+
+      a::before {
+        color: $oa-white;
+        content: " x";
+        cursor: pointer;
+      }
+
+      i {
+        padding: 0 0.4em 0 0.2em;
+      }
+
+      background-color: $oa-blue;
+      border-radius: 2px;
+      border: 1px solid $oa-blue;
+      color: $oa-white;
+      display: inline-block;
+      margin-bottom: 3px;
+      margin-right: 5px;
+      padding: 4px;
+
+      &.error {
+      
+        background-color: transparent;
+        border: 1px solid $oa-red;
+        color: $oa-red;
+
+        span, i {
+
+          color: $oa-red; /* required for legacy event form */
+
+        }
+
+        a::before {
+
+          color: $oa-red;
+
+        }
+
+      }
+
+    }
+
+    .react-tagsinput-remove {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .react-tagsinput-input {
+      
+      background: transparent;
+      border: 0;
+      margin-bottom: 4px;
+      outline: none;
+      padding: 5px 4px 4px;
+      width: 80px;
+
+      &::-webkit-input-placeholder {
+          color: $input-color-placeholder;
+      }
+      &::-moz-placeholder {
+         color: $input-color-placeholder;
+         opacity:  1;
+      }
+      &:-ms-input-placeholder {
+         color: $input-color-placeholder;
+      }
+
+    }
+
+  }
+}

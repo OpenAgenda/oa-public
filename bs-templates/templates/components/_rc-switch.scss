@@ -1,0 +1,113 @@
+//colors
+$color_celeste_approx: #ccc;
+$white: #fff;
+$black_26: rgba(0, 0, 0, 0.26);
+$color_mabel_approx: #d5f1fd;
+$color_mantis_approx: #87d068;
+$color_star_dust_approx: #9e9e9e;
+
+.rc-switch {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 44px;
+  height: 22px;
+  line-height: 20px;
+  vertical-align: middle;
+  border-radius: 20px 20px;
+  border: 1px solid $color_celeste_approx;
+  background-color: $color_celeste_approx;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  &:after {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 2px;
+    top: 1px;
+    border-radius: 50% 50%;
+    background-color: $white;
+    content: " ";
+    cursor: pointer;
+    box-shadow: 0 2px 5px $black_26;
+    transform: scale(1);
+    transition: left 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+    animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+    animation-duration: 0.3s;
+    animation-name: rcSwitchOff;
+  }
+  &:focus {
+    box-shadow: 0 0 0 2px $color_mabel_approx;
+    outline: none;
+  }
+  &:hover:after {
+    transform: scale(1.1);
+    animation-name: rcSwitchOn;
+  }
+}
+
+.rc-switch-inner {
+  color: $white;
+  font-size: 12px;
+  position: absolute;
+  left: 24px;
+  top: 0;
+}
+
+.rc-switch-checked {
+  border: 1px solid $color_mantis_approx;
+  background-color: $color_mantis_approx;
+  .rc-switch-inner {
+    left: 6px;
+  }
+  &:after {
+    left: 22px;
+  }
+}
+
+.rc-switch-disabled {
+  cursor: no-drop;
+  background: $color_celeste_approx;
+  border-color: $color_celeste_approx;
+  &:after {
+    background: $color_star_dust_approx;
+    animation-name: none;
+    cursor: no-drop;
+  }
+  &:hover:after {
+    transform: scale(1);
+    animation-name: none;
+  }
+}
+
+.rc-switch-label {
+  display: inline-block;
+  line-height: 20px;
+  font-size: 14px;
+  padding-left: 10px;
+  vertical-align: middle;
+  white-space: normal;
+  pointer-events: none;
+  user-select: text;
+}
+
+@keyframes rcSwitchOn {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes rcSwitchOff {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
