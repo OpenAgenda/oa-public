@@ -337,4 +337,6 @@ module.exports = app => {
     redirectLegacyLinks,
     corpo.bind(null, cache),
   );
+
+  app.get('/events', (req, res) => res.redirect(302, '/agendas'));
 };
