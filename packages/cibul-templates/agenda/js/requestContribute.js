@@ -16,13 +16,16 @@ const defaults = {
   }
 };
 
-window.hook( options => {
-  const { initialState } = _.merge( {}, defaults, options );
+window.hook(options => {
+  const { initialState } = _.merge({}, defaults, options);
   const extraProps = {
     user: initialState.user,
     agenda: initialState.agenda,
     ...options.extraProps
   };
 
-  ReactDOM.render( wrapApp( createApp( { initialState } ), { extraProps } ), du.el( '.js_canvas' ) );
-} );
+  ReactDOM.render(wrapApp(
+    createApp({ initialState }),
+    { extraProps }
+  ), du.el('.js_canvas'));
+});
