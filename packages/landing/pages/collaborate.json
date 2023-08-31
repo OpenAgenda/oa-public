@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "kollaborative-agenda" },
     { "lang" : "es", "key" : "agenda-collaborativo" },
     { "lang" : "br", "key" : "agenda-collaboratif-br" },
-    { "lang": "it", "key": "agenda-collaborativa" }
+    { "lang": "it", "key": "agenda-collaborativa" },
+    { "lang" : "oc", "key" : "agenda-collaboratif-oc" }
   ],
   "head" : {
     "title" : "collaborateHeadTitle",

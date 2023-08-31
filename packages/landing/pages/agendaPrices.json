@@ -11,6 +11,8 @@
     "lang" : "br", "key" : "tarifs-agenda-br"
   }, {
     "lang" : "it", "key" : "prezzi-diario"
+  }, {
+    "lang" : "oc", "key" : "tarifs-agenda-oc"
   } ],
   "head" : {
     "title" : "agendaPricingTitle",

@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "ein-massgeschneidertes-angebot" },
     { "lang" : "es", "key" : "une-offre-sur-mesure-es" },
     { "lang" : "br", "key" : "une-offre-sur-mesure-br" },
-    { "lang" : "it", "key" : "une-offre-sur-mesure-it" }
+    { "lang" : "it", "key" : "une-offre-sur-mesure-it" },
+    { "lang" : "oc", "key" : "une-offre-sur-mesure-oc" }
   ],
   "head" : {
     "title" : "tailoredHeadTitle",

@@ -11,6 +11,8 @@
     "lang" : "br", "key" : "reseau-d-agendas-br"
   }, {
     "lang" : "it", "key" : "rete-di-calendari"
+  }, {
+    "lang" : "oc", "key" : "reseau-d-agendas-oc"
   } ],
   "head" : {
     "title": "networkOfferHeadTitle",
