@@ -19,7 +19,7 @@ const config = {
   superAdminIds: [1, 2, 11258, 15453, 124500, 149412, 147323, 110989],
   jsVersion: 42,
   cssVersion: 2,
-  interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
+  interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
   nextPort: process.env.OA_NEXT_PORT || 8901,
   port: process.env.OA_SERVER_PORT || 8903,
   apiPort: process.env.OA_API_PORT || 8902,
