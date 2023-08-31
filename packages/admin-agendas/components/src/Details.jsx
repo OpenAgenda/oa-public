@@ -144,18 +144,18 @@ export default createReactClass( {
 
     return (
       <tr key={member.id}>
-        <td className="text-primary">{member.user.uid}</td>
+        <td className="text-primary">{member.user?.uid ?? `Utilisateur supprimé (${member.userUid})`}</td>
         <td>{roleToString( member.role )}</td>
-        <td>{member.user.fullName}</td>
-        <td>{member.user.username}</td>
-        <td>{member.user.email}</td>
-        <td>le {member.user.createdAt}</td>
+        <td>{member.user?.fullName}</td>
+        <td>{member.user?.username}</td>
+        <td>{member.user?.email}</td>
+        <td>le {member.user?.createdAt}</td>
         <td>
-          <a href={'/admin/users/signin?uid=' + member.user.uid}>
+          <a href={'/admin/users/signin?uid=' + member.user?.uid}>
             <i className="fa fa-sign-in" aria-hidden="true"></i>
           </a>
           {' '}
-          <a href={'/admin/users?userUid=' + member.user.uid}>
+          <a disabled={!member.user?.uid} href={member.user?.uid ? '/admin/users?userUid=' + member.user.uid : '#'}>
             <i className="fa fa-user" aria-hidden="true"></i>
           </a>
         </td>
