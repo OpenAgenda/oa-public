@@ -90,6 +90,8 @@ Si la mise en production n'est pas en phase de test, les 3 variables suivantes s
 
 Pour lancer une mise en prod, il faut `ssh` sur le serveur de mep et lancer la commande `run.sh`. Il y a 2 environnements web, la mise en prod vise l'environnement qui ne reçoit pas de traffic. Leur noms découlent de la manière dont ils sont présenter sur le menu de bascule du distributeur: bleu et orange.
 
+Une procédure est détaillée dans `mep.md`
+
 PHPMyAdmin est également installé sur ce serveur. La procédure d'installation est détaillée dans phpmyadmin.md
 
 ### ElasticHQ
