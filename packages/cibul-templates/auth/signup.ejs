@@ -84,6 +84,9 @@
                   <option value="it" <%= typeof culture !== 'undefined' && culture === 'it' ? 'selected' : '' %>>
                     Italiano
                   </option>
+                  <option value="oc" <%= typeof culture !== 'undefined' && culture === 'oc' ? 'selected' : '' %>>
+                    Occitan
+                  </option>
                 </select>
                 <% if ( errors.culture ) { %>
                   <span class="text-danger"><%= __( errors.culture ) %></span>
