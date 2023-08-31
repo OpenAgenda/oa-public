@@ -15,6 +15,9 @@
     "lang" : "br",
     "key" : "agenda-basique-br"
   }, {
+    "lang" : "oc",
+    "key" : "agenda-basique-oc"
+  }, {
     "lang" : "it",
     "key" : "agenda-basique-it"
   } ],

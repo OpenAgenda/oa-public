@@ -11,6 +11,8 @@
     "lang" : "br", "key" : "tarifs-br"
   }, {
     "lang" : "it", "key" : "tariffe"
+  }, {
+    "lang" : "oc", "key" : "tarifs-oc"
   } ],
   "head" : {
     "title" : "pricingTitle",

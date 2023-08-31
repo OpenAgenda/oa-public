@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "kontaktiere-uns" },
     { "lang" : "es", "key" : "contactos" },
     { "lang" : "br", "key" : "contactez-nous-br" },
-    { "lang": "it", "key" : "contattaci" }
+    { "lang": "it", "key" : "contattaci" },
+    { "lang" : "oc", "key" : "contactez-nous-oc" }
   ],
   "head" : {
     "title" : "contactHeadTitle",

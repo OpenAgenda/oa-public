@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "deine-website" },
     { "lang" : "es", "key" : "vuestro-sitio-web" },
     { "lang" : "br", "key" : "votre-site-br" },
-    { "lang" : "it", "key": "il-tuo-sito" }
+    { "lang" : "it", "key": "il-tuo-sito" },
+    { "lang" : "oc", "key" : "votre-site-oc" }
   ],
   "head" : {
     "title" : "embedTitle",

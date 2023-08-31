@@ -11,6 +11,8 @@
     "lang" : "br", "key" : "tarifs-reseaux-br"
   }, {
     "lang" : "it", "key" : "tariffe-di-rete"
+  }, {
+    "lang" : "oc", "key" : "tarifs-reseaux-oc"
   } ],
   "head" : {
     "title" : "networkPricingTitle",

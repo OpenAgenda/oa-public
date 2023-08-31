@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "referenzen" },
     { "lang" : "es", "key" : "referencias" },
     { "lang" : "br", "key" : "temoignagesbr" },
-    { "lang": "it", "key": "testimonianza" }
+    { "lang": "it", "key": "testimonianza" },
+    { "lang" : "oc", "key" : "temoignagesoc" }
   ],
   "head" : {
     "title" : "testimoniesHeadTitle",

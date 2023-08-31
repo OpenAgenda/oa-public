@@ -5,7 +5,8 @@
     { "lang" : "de", "key" : "ihre-berichterstattung" },
     { "lang" : "es", "key" : "reporting-es" },
     { "lang" : "br", "key" : "reporting-br" },
-    { "lang" : "it", "key" : "reporting-it" }
+    { "lang" : "it", "key" : "reporting-it" },
+    { "lang" : "oc", "key" : "reporting-oc" }
   ],
   "head" : {
     "title" : "reportingToolDescription",

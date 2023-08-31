@@ -150,7 +150,7 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 ##########################################################
 #                NODEJS
 
-location ~ ^/(en|de|br|es|it)$ {
+location ~ ^/(en|de|br|es|it|oc)$ {
   include conf.d/nodejs_params;
 }
 
@@ -239,6 +239,10 @@ location ~ ^/entdecken(|/.+)$ {
 }
 
 location ~ ^/decouvrirbr(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/decouvriroc(|/.+)$ {
   include conf.d/nodejs_params;
 }
 

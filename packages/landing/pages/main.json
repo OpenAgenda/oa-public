@@ -17,6 +17,9 @@
   }, {
     "lang": "it",
     "key": "it"
+  }, {
+    "lang": "oc",
+    "key": "oc"
   } ],
   "head" : {
     "title" : "OpenAgenda",
