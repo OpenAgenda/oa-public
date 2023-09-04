@@ -397,6 +397,35 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('unsuccessful create cause extId to long', () => {
+      let error;
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/locations',
+            headers: {
+              'access-token': accessToken,
+              nonce: 1231499,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Marre',
+              address: '4 route de Charny, 55100 Marre',
+              countryCode: 'fr',
+              extId: 'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd'
+            },
+          });
+        } catch (e) {
+          // console.log(e.data.response)
+          error = e;
+        }
+      });
+      it('test error message', () => {
+        expect(error.response.data.message).toBe('data is invalid');
+      });
+    });
+
     describe('successful create with an image', () => {
       beforeAll(async () => {
         try {
