@@ -12,6 +12,8 @@ import {
 } from '@openagenda/react-shared';
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
+import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation';
+
 import getSchemaFieldCount from '../lib/getSchemaFieldCount';
 import useRes from '../hooks/useRes';
 import useEventSchemas from '../hooks/useEventSchemas';
@@ -180,6 +182,7 @@ function Dashboard() {
           onSuccess={onSuccess}
           components={{
             enabledRanges: EnabledRanges,
+            defaultLocation: DefaultLocation,
           }}
           customFieldConfigurationSchemas={({
             timings: {
@@ -193,6 +196,20 @@ function Dashboard() {
                 field: 'enabledRanges',
                 fieldType: 'enabledRanges',
                 label: 'Configurateur des saisie de dates',
+                selfHandled: ['label', 'info', 'help', 'sub'],
+              }],
+            },
+            location: {
+              fields: [{
+                field: 'label',
+                fieldType: 'abstract',
+              }, {
+                field: 'sub',
+                fieldType: 'abstract',
+              }, {
+                field: 'default',
+                fieldType: 'defaultLocation',
+                label: 'Choose Default Location',
                 selfHandled: ['label', 'info', 'help', 'sub'],
               }],
             },
