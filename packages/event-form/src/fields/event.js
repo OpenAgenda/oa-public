@@ -84,11 +84,11 @@ module.exports = ({ labels }) => [{
   field: 'title',
   fieldType: 'text',
   optional: false,
-  max: 140,
+  max: 150,
   label: labels?.title,
   placeholder: labels?.titlePlaceholder,
   purpose: labels?.titlePurpose,
-  sub: labels?.titleSub
+  sub: labels?.titleSub,
 }, {
   languages: [],
   field: 'description',
