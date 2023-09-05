@@ -4,6 +4,26 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const countries = require('./countries');
 
+const charsToClean = [
+  1, 2, 3, 4, 5, 6, 7, 8,
+  11, // VT
+  12, // form feed - https://www.compart.com/en/unicode/U+000C
+  15, // shift in
+  18, // DC2
+  19, // DC3
+  21, // NAK
+  24, // Cancel
+  26, // SUB
+  27, // Esc
+  28, // File separator
+  29, // GS group separator
+  30, // RS
+  31, // Information separator
+  8232,
+  8233,
+  769, // U+0301
+].map(c => String.fromCharCode(c));
+
 function _accessibility(acc, lang) {
   return acc.map(a => ({
     label: {
@@ -150,10 +170,22 @@ function _closestDiffWithNow(timings, passed, timezone) {
   return firstNext || diffs.shift();
 }
 
+function cleanString(str) {
+  if (typeof str !== 'string') return str;
+  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), ' ');
+}
+
+function cleanStrings(obj) {
+  return Object.keys(obj).reduce((carry, key) => ({
+    ...carry,
+    [key]: cleanString(obj[key]),
+  }), {});
+}
+
 module.exports = (event, options) => {
   const { from, to, lang } = _.merge({ lang: 'fr' }, options);
 
-  const flattened = _singleLanguage(
+  const flattened = cleanStrings(_singleLanguage(
     [
       'title',
       'description',
@@ -165,8 +197,8 @@ module.exports = (event, options) => {
       'location.access',
     ],
     lang,
-    event
-  );
+    event,
+  ));
 
   const timezone = _.get(event, 'timezone', 'Europe/Paris');
   const passed = _passedFlag(flattened.timings, timezone);

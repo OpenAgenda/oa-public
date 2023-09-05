@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const formatEvent = require('../server/lib/formatEvent');
@@ -11,9 +11,21 @@ const decoratedEvent = JSON.parse(
 );
 
 describe('unit - formatEvent', () => {
+  let formatted;
+
+  beforeAll(() => {
+    formatted = formatEvent(inputEvent, { lang: 'fr' });
+  });
+
   test('flatten and decorate event to get it ready for docx', () => {
     expect(
-      _.omit(formatEvent(inputEvent, { lang: 'fr' }), 'diffWithNow')
+      _.omit(formatted, 'diffWithNow'),
     ).toEqual(_.omit(decoratedEvent, 'diffWithNow'));
+  });
+
+  test('Non-XML-compatible character is cleaned up', () => {
+    expect(
+      formatted.conditions.charCodeAt(2),
+    ).toBe(32);
   });
 });
