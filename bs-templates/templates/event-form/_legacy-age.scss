@@ -1,0 +1,41 @@
+.target-age {
+
+  & > * {
+
+    margin-right: 5px;
+
+  }
+
+  .age-inputs {
+
+    display: inline-block;
+
+    label {
+
+      font-weight: normal;
+
+    }
+
+    .Select-control {
+
+      width: 150px;
+
+    }
+
+    .Select-placeholder {
+
+      padding: 0px 52px 8px 10px;
+
+    }
+
+    .Select {
+
+      display: inline-block;
+      vertical-align: middle;
+      z-index: 3;
+
+    }
+
+  }
+
+}

@@ -1,0 +1,80 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-admin getting-started">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="top-margined wsq">
+                <div class="content clearfix">
+                    <div>
+                        <h2>Bravo votre agenda est prêt!</h2>
+                        <p class="text-muted">Quelques actions simples pour bien débuter avec votre agenda</p>
+                    </div>
+
+                    <div class="margin-v-lg">
+                        <p><b>Ajouter votre premier événement</b></p>
+                        <div class="margin-v-md">
+                            <a class="btn btn-primary" href="#">
+                                Ajouter un événement
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="margin-v-lg">
+                        <b>Ajoutez une image de profil à votre agenda</b><br />
+                        <span class="text-muted">
+                            Un agenda avec une image est plus ceci cela etc.
+                        </span>
+                        <div class="image-upload margin-v-lg">
+                            <form method="post" 
+                                enctype="multipart/form-data" target="profileAgendaEdition"
+                                action="/mon-agenda/admin/settings/setImage"
+                                data-reactid=".5xhxduasru.0.1.0.0.2">
+                                <div class="form-inline actions">
+                                    <a class="btn btn-default">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <div class="form-group upload-group">
+                                        <input name="image" type="file" accept=".png, .gif, .jpg, .jpeg, .bmp">
+                                        <button tabindex="-1" class="btn btn-default">
+                                            <i class="fa fa-upload"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <span></span>
+                                <input type="hidden" name="callback" value="uploadCallbackprofileAgendaEdition" />
+                                <img src="https://cibuldev.s3.amazonaws.com/agenda27545135.jpg?rand=0.9640793301360169" />
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="margin-v-lg">
+                        <b>Envoyez le lien vers votre agenda à vos contributeurs!</b><br />
+                        <span class="text-muted">
+                            Copiez-collez ce lien et envoyez-le par email ou via vos réseaux sociaux
+                        </span>
+                        <div class="input-group margin-v-md">
+                            <input type="text" class="form-control" value="http://openagenda.com/mon-agenda"
+                                   readonly />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-block" title="Copier le lien">
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="margin-v-lg">
+                        <p><b>Integrez votre agenda dans votre site web</b></p>
+                        <div class="margin-v-md">
+                            <a class="btn btn-primary" href="#">
+                                Créer une vue intégrée
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../layout/_bottom.ejs %>

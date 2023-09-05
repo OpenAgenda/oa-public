@@ -1,0 +1,221 @@
+/**
+ * if its in the corpo folder, then it is a corpo style.
+ */
+.landing {
+
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  @import "header";
+  @import "carousel";
+  @import "media";
+  @import "price";
+  @import "typed";
+  @import "big-events";
+  @import "odometer-theme";
+  @import "embed-previews";
+
+  // Footer
+  @import "footer";
+
+  .hook {
+
+    font-weight: 400;
+
+  }
+
+  .spaced {
+    padding-bottom: 4em;
+    padding-top: 4em;
+  }
+
+
+  .font-size-11 {
+
+    font-size: 1.1em;
+
+  }
+
+  .font-size-15 {
+
+    font-size: 1.5em;
+
+  }
+
+
+  .counters {
+
+    span {
+
+      display: inline-block;
+      padding: 0 1em;
+      font-size: 1.2em;
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+    }
+
+  }
+
+  .row > h2 {
+    // border-bottom: 1px solid $oa-gray-light;
+    margin-bottom: 1em;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 200;
+  }
+
+  strong.h1 {
+    color: $brand-primary;
+    display: block;
+  }
+
+  blockquote {
+    footer:before {
+      content: none;
+    }
+
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+
+    strong {
+      color: $oa-black;
+    }
+  }
+
+  hr {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0;
+    border-top: 2px solid #eeeeee;
+  }
+
+  small {
+    font-weight: 400;
+    line-height: 1;
+    color: #777;
+  }
+
+  .background-white {
+    background: $oa-white;
+
+    .shadow {
+      -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .background-gray {
+
+    background: $oa-gray-lighter;
+
+    .shadow {
+      -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+    }
+
+  }
+
+  .background-blue {
+
+    background: $oa-blue;
+
+    h1, h2, h3, p, ul {
+      color: $oa-white;
+    }
+
+    .btn {
+
+      border-color: $oa-white;
+
+    }
+
+  }
+
+  .background-dark-purple {
+
+    background: $oa-dark-purple;
+
+    h1, h2, p, li {
+      color: $oa-white;
+    }
+
+  }
+
+  .background-orange {
+
+    background: $oa-orange;
+
+    h1, h2, p, li {
+      color: $oa-white;
+    }
+
+  }
+
+  @import "presentation";
+  @import "functions";
+  @import "testimonials";
+  @import "contact";
+  @import "summary";
+
+
+  #references {
+    background-color: $oa-black;
+
+    h2 {
+      color: $oa-white;
+      margin: 0 0 40px;
+    }
+
+    #carousel-screens {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  #ready {
+    h2 {
+      margin: 0 0 30px;
+    }
+
+    a.btn {
+      padding: 10px 35px;
+    }
+  }
+
+  @media(max-width: $screen-sm) {
+    #presentation {
+      .hook {
+        margin-top: 20px;
+        font-size: 55px;
+      }
+    }
+
+    #trio-actions:nth-child(n+2) {
+      ul li {
+        margin-bottom: 20px;
+      }
+    }
+
+    #references {
+      #carousel-screens {
+        width: 100%;
+      }
+    }
+
+    .pricing > ul {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container top-margined home home-events">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <ul class="home-nav list-inline">
+        <li>
+          <a href="#">Mes agendas</a>
+        </li>
+        <li class="active">
+          <h2 href="#">Mes événements</h2>
+        </li>
+      </ul>
+      <div class="wsq padding-v-sm">
+        <div class="header padding-h-md">
+          <div class="hidden-xs pull-right">
+            <a class="btn btn-primary" type="button">Créer un événement</a>
+          </div>
+        </div>
+        <form class="padding-h-md">
+          <div class="form-group search ">
+            <div class="input-icon-right">
+              <input name="search" type="text" placeholder="Rechercher un événement" class="form-control" value="">
+              <button type="submit" class="btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <ul class="list-unstyled padding-top-sm">
+
+          <li class="event-item media">
+            <div class="padding-all-md">
+              <div class="media-left">
+                <a href="#">
+                  <img 
+                    src="https://cibul.s3.amazonaws.com/evtbevent_escapage_266435.jpg" 
+                    class="media-object ill avatar" 
+                    alt="Escapage">
+                </a>
+              </div>
+              <div class="media-body">
+                <div class="title media-heading">
+                  <div class="agenda">Saison culturelle SQY</div>
+                  <a href="/saison-culturelle-sqy/events/escapage">
+                    <strong>Escapage</strong>
+                  </a>
+                </div>
+                <div class="event-detail-part">Bbiblothèque du Château</div>
+                <div class="event-detail-part">9 janvier - 6 mars, les mardis</div>
+                <div class="actions">
+                  <a href="#">Modifier</a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="event-item media draft">
+            <div class="padding-all-md">
+              <div class="media-left">
+                <a href="/saison-culturelle-sqy/events/carte-de-voeux-et-photophore-de-fete">
+                  <img src="https://cibul.s3.amazonaws.com/evtbevent_carte-de-voeux-et-photophore-de-fete_168604.jpg" class="media-object ill avatar" alt="Carte de voeux et photophore de fête">
+                </a>
+              </div>
+              <div class="media-body">
+                <a href="#">
+                  <div class="title media-heading">
+                    <div class="agenda">Saison culturelle SQY</div>
+                    
+                      <span>Aucun titre</span>
+                    
+                  </div>
+                  <div class="event-detail-part">Lieu non défini</div>
+                  <div class="event-detail-part">Aucune date définie</div>
+                </a>
+                <div class="actions">
+                  <span class="badge badge-sm badge-default">Brouillon</span>
+                  <a href="#">Modifier</a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="event-item media">
+            <div class="padding-all-md">
+              <div class="media-left">
+                <a href="/saison-culturelle-sqy/events/carte-de-voeux-et-photophore-de-fete">
+                  <img src="https://cibul.s3.amazonaws.com/evtbevent_carte-de-voeux-et-photophore-de-fete_168604.jpg" class="media-object ill avatar" alt="Carte de voeux et photophore de fête">
+                </a>
+              </div>
+              <div class="media-body">
+                <div class="title media-heading">
+                  <div class="agenda">Saison culturelle SQY</div>
+                  <a href="#">
+                    <strong>Carte de voeux et photophore de fête</strong>
+                  </a>
+                </div>
+                <div class="event-detail-part">Médiathèque des 7 mares</div>
+                <div class="event-detail-part">Mercredi 3 janvier, 14h00</div>
+                <div class="actions">
+                  <a href="#">Modifier</a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js"></script>
+<script src="https://s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js"></script>
+
+<% include ../layout/_bottom.ejs %>

@@ -1,0 +1,37 @@
+{
+  "attendanceMode": "Mode de participation",
+  "backToList": "Retour à la liste",
+  "customFilters": "Filtres personnalisés",
+  "filters": "Filtres",
+  "searchInAgenda": "Rechercher dans cet agenda",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "previousFem": "précédente",
+  "nextFem": "suivante",
+  "goToPage": "Aller à la page",
+  "contribute": "Proposer un événement",
+  "eventsTotal": "{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}",
+  "city": "Ville",
+  "keywords": "Mots clés",
+  "favorites": "Favoris",
+  "integrate": "Intégrer cette sélection dans votre site",
+
+  "searchPlaceholder": "Rechercher",
+  "searchWhenMoving": "Rechercher quand je déplace la carte",
+
+  "offline":  "Hors ligne",
+  "online": "En ligne",
+  "mixed":  "Mixte",
+  "passed": "Passé",
+  "current": "En cours",
+  "upcoming":  "À venir",
+  
+  "noAvailableTiming": "Aucun horaire n'est disponible",
+  "addToFavorites": "Ajouter aux favoris",
+  "accessOnlineEvent": "Accéder à l'événement",
+
+  "trackConsent.informationText": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?",
+  "trackConsent.moreInfoLink": "Cliquez ici pour en savoir plus",
+  "trackConsent.decline": "Refuser",
+  "trackConsent.accept": "Accepter"
+}
