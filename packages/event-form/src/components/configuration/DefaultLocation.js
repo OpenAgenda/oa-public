@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import countries from '@openagenda/countries/labels'; 
+import countries from '@openagenda/countries/labels';
 import defaultLocationLabels from '@openagenda/labels/event/defaultLocation';
 import flattenLabels from '@openagenda/labels/flatten';
 
