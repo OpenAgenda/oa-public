@@ -138,7 +138,7 @@ module.exports = [{
   languages: [],
   fieldType: 'text',
   optional: false,
-  max: 140,
+  max: 150,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {

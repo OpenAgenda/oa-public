@@ -58,7 +58,7 @@ module.exports = async (current, data, options = {}) => {
         'Accept-Charset': '*',
         Accept: '*/*'
       },
-      timeout: 30000,
+      timeout: 10000,
       responseType: 'stream',
       maxContentLength: maxImageSize
     });
