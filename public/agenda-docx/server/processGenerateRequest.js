@@ -6,6 +6,8 @@ const agendaFiles = require('./lib/agendaFiles');
 const defaultState = require('./defaultState');
 const generateDocument = require('./generateDocument');
 
+const log = require('@openagenda/logs')('processGenerateRequest');
+
 module.exports = async function processGenerateRequest({
   s3,
   localTmpPath,
@@ -53,7 +55,7 @@ module.exports = async function processGenerateRequest({
       createdAt: new Date(),
     };
   } catch (e) {
-    console.log('error', e);
+    log.error(e, e.properties.errors);
   }
 
   state.queued = false;
