@@ -340,6 +340,7 @@ module.exports = [{
   fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 100,
 }, {
   field: 'eveId',
   optional: true,
