@@ -1,6 +1,0 @@
-{
-  "common.event.states.published": "Publicat",
-  "common.event.states.readyToPublish": "Prèste per publicar",
-  "common.event.states.refused": "Refusat",
-  "common.event.states.toModerate": "De revisar"
-}

@@ -1,1 +1,0 @@
-# @openagenda/react-share-menus

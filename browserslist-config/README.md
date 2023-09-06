@@ -1,1 +1,0 @@
-# @openagenda/browserslist-config

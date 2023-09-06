@@ -1,4 +1,0 @@
-{
-  "common.errors.endLessThanBegin": "Au moins un horaire est invalide avec une heure de fin antérieure à l'heure de début",
-  "common.errors.required": "Requis"
-}
