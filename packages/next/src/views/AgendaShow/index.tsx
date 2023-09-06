@@ -89,6 +89,9 @@ const includeFields = [
   'location.longitude',
 ];
 
+const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
+const isDifferentPathname = (pathname1, pathname2) => stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
+
 function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
@@ -101,6 +104,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const initialValues = useConst(() => urlQuery);
 
   const [query, setQuery] = useState(() => urlQuery);
+
   const latestQuery = useLatest(query);
 
   const isMounted = useIsMounted();
@@ -173,8 +177,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       const currentUrl = new URL(router.asPath, 'http://n');
       const url = new URL(href, 'http://n');
 
-      // change route
-      if (currentUrl.pathname !== url.pathname || !shallow) return;
+      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
 
       const form = filtersFormRef.current;
       const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
