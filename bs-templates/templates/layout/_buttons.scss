@@ -1,0 +1,75 @@
+.btn {
+  &.btn-link-inline {
+    @extend .btn-link;
+
+    display: inline;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    text-align: inherit;
+    white-space: normal;
+    line-height: inherit;
+    font-size: inherit;
+  }
+
+  // Colored .text-${name} in .btn-link
+  &.btn-link {
+    @each $name, $color in (
+      primary: $brand-primary,
+      success: $brand-success,
+      info: $brand-info,
+      warning: $brand-warning,
+      danger: $brand-danger
+    ) {
+      &.text-#{$name} {
+        color: darken($color, 10%);
+
+        &:hover, &:focus {
+          text-decoration: underline darken($color, 10%);
+        }
+      }
+
+      &.btn-hover-#{$name} {
+        &:hover, &:focus {
+          color: darken($color, 10%);
+          text-decoration: underline darken($color, 10%);
+        }
+      }
+    }
+  }
+
+  &.btn-bordered {
+    background: transparent;
+    border-width: 1px;
+    color: inherit;
+
+    // For Help link in header
+    i {
+      font-size: 1.2em;
+      vertical-align: baseline;
+    }
+
+    @each $name, $color in (
+      primary: $brand-primary,
+      success: $brand-success,
+      info: $brand-info,
+      warning: $brand-warning,
+      danger: $brand-danger
+    ) {
+      &.btn-#{$name} {
+        border-color: $color;
+        color: $color;
+
+        &:hover {
+          color: $oa-white;
+          border-color: lighten($color, 10);
+          background-color: $color;
+        }
+      }
+    }
+  }
+
+  &.btn-rounded {
+    border-radius: 100px;
+  }
+}

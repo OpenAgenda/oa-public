@@ -1,0 +1,16 @@
+{
+  "name": "@openagenda/browserslist-config",
+  "version": "1.0.0",
+  "description": "Browserslist config for OpenAgenda",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenAgenda/oa-public.git",
+    "directory": "browserslist-config"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

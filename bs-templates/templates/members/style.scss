@@ -1,0 +1,107 @@
+.members-admin {
+
+  .nav-pills {
+
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+
+    & > li {
+
+      margin-top: 12px;
+
+      & > a, & > a:focus {
+
+        color: $oa-black;
+        background-color: initial;
+
+      }
+
+      & > a:hover {
+
+        color: $oa-blue;
+        background-color: transparent;
+
+      }
+
+    }
+
+    & > li.active {
+
+      & > a, & > a:focus {
+
+        color: $oa-white;
+        background-color: $oa-blue;
+
+      }
+
+      & > a:hover {
+
+        background-color: lighten($oa-blue, 8);
+
+      }
+
+    }
+
+    & > li.locked {
+
+      position: absolute;
+      right: 0;
+
+      & > a {
+
+        border: #eee 1px solid;
+
+      }
+
+    }
+
+  }
+
+  ul.dropdown-menu[aria-labelledby="dropdown-actions"] {
+
+    li[role=presentation] {
+
+      position: relative;
+
+      .fa.fa-unlock-alt {
+
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+
+      }
+
+    }
+
+  }
+
+  .bo-list-item {
+
+    padding: 1em 0;
+
+    .media-body .media-heading .badge {
+
+      vertical-align: baseline;
+
+    }
+
+  }
+
+  .invite-members-form {
+
+    .emails-input {
+
+      textarea {
+
+        max-height: 250px;
+
+      }
+
+    }
+
+  }
+
+}

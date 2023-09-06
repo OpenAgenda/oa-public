@@ -1,0 +1,23 @@
+{{#if navigation.available}}
+<nav role="navigation">
+  <ul class="nav justify-content-between">
+    <li class="nav-item">
+      {{#if navigation.previous}}
+      <a class="nav-link" href="{{navigation.previous}}">{{i18n 'previous'}}</a>
+      {{else}}
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{i18n 'previous'}}</a>
+      {{/if}}
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{navigation.list}}">{{navigation.position}} / {{navigation.total}}</a>
+    </li>
+    <li class="nav-item">
+      {{#if navigation.next}}
+      <a class="nav-link" href="{{navigation.next}}">{{i18n 'next'}}</a>
+      {{else}}
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{i18n 'next'}}</a>
+      {{/if}}
+    </li>
+  </ul>
+</nav>
+{{/if}}

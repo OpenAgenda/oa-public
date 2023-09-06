@@ -1,0 +1,6 @@
+@use "mixin";
+@use "../../variables";
+
+.agenda-item {
+  @include mixin.agenda-item();
+}

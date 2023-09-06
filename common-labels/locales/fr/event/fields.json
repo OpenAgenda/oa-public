@@ -1,0 +1,18 @@
+{
+  "common.event.fields.accessibility": "Accessibilité particulière",
+  "common.event.fields.age": "Âge du public ciblé",
+  "common.event.fields.attendanceMode": "Mode de participation",
+  "common.event.fields.conditions": "Conditions de participation, tarifs",
+  "common.event.fields.description": "Description courte",
+  "common.event.fields.image": "Image",
+  "common.event.fields.imageCredits": "Crédits de l'image",
+  "common.event.fields.keywords": "Mots clés",
+  "common.event.fields.location": "Lieu",
+  "common.event.fields.longDescription": "Description longue",
+  "common.event.fields.onlineAccessLink": "Lien d'accès",
+  "common.event.fields.registration": "Outils d'inscription",
+  "common.event.fields.slug": "Slug",
+  "common.event.fields.status": "État",
+  "common.event.fields.timings": "Horaires",
+  "common.event.fields.title": "Titre"
+}

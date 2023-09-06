@@ -1,0 +1,69 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+  <div class="popup-overlay big">
+    <section>
+      <div class="popup-content">
+        <form class="export-form ">
+          <a class="export-close">
+            <i class="fa fa-times fa-lg"></i>
+          </a>
+          <h1 class="export-title-big">Partager l'événement</h1>
+          <!--PARTAGE OA-->
+          <h2 class="export-title-md">Partager sur OpenAgenda</h2>
+          <div class="form-group search">
+            <div class="input-icon-right">
+              <input name="search" type="text" placeholder="Rechercher un agenda" class="form-control" autocomplete="off" value="">
+              <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="padding-v-sm">
+            <div class="agenda-item media">
+              <div class="media-left">
+                <a>
+                  <img class="media-object ill avatar" src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <div class="title media-heading">
+                  <button type="button" class="btn btn-link-inline"><strong>Nuit européenne des musées 2021 : La Réunion</strong><span class="official"><i></i></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-v-sm">
+            <div class="agenda-item media">
+              <div class="media-left">
+                <a>
+                  <img class="media-object ill avatar" src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <div class="title media-heading">
+                  <button type="button" class="btn btn-link-inline"><strong>Nuit européenne des musées 2021 : La Réunion</strong><span class="official"><i></i></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--PARTAGE EMAIL-->
+          <h2 class="export-title-md">Partager par email</h2>
+          <div class="form-group">
+            <div class="input-group input-textarea">
+              <textarea class="form-control export-textarea" cols="30" id="textarea" placeholder="Saissez les adresses email auxquelles vous souhaitez envoyer l'événement"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+          <!--PARTAGE CALENDRIER-->
+          <h2 class="export-title-md">Importer dans un calendrier personnel</h2>
+          <div class="share-menu">
+          <div class="margin-bottom-md btn-adds">
+            <button type="submit" class="btn btn-default">Google Calendar</button>
+            <button type="submit" class="btn btn-default">Yahoo! Calendar</button>
+            <button type="submit" class="btn btn-default">Windows Live</button>
+            <button type="submit" class="btn btn-default">ICS</button>
+          </div></div>
+        </form>
+      </div>
+    </section>
+  </div>
+<% include ../layout/_bottom.ejs %>
+

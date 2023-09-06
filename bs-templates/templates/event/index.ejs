@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="staging.css">
+    <meta name="title" content="OpenAgenda" />
+    <meta name="description" content="Maintenance" />
+  </head>
+  <body id="event">
+    <% include ../header/_header.ejs %>
+    <% include _admin-bar.ejs %>
+    <% include _agenda-header.ejs %>
+
+    <div id="content" class="js_page_body">
+
+      <div class="container">
+        <div class="row">
+          <section class="col-sm-7 col-sm-offset-1 col-xs-12">
+            <div class="langs">
+              <ul>
+                <li class="current"><a>fr</a></li>
+                <li><a>en</a></li>
+              </ul>
+            </div>
+
+            <div class="event-content margin-print-bottom-lg">
+              <span class="print-permalink padding-bottom-sm display-none">Lien: https://lepermalien.com</span>
+              <div class="padding-h-md padding-top-md status">
+                <span class="label label-warning" title="Les dates de cet événement ont été déplacées">Reprogrammé</span>
+                <span class="label label-warning">Passé en ligne</span>
+                <span class="label label-danger">Reporté</span>
+                <span class="label label-danger">Annulé</span>
+              </div>
+              <h1>Portes ouvertes à la ferme</h1>
+              <!--<h1>FHKHkhdskflhsqlfhjdlhlhklHKLHFKLDHSKLHSFKLHSDJKLHFjdklhfklhjsklhfkjlfhklfhdsklhHJLHFDSLHFJKLDSHLFHJDSLHJSFdlhlhfdslhfkdlHDLHJDLHFSLHFJLSHDJLDHJdfhskjhfdlshfjklhLHJLDFHKLHFDJLHFDJSLHFJSLDHFJDSLHJLHdjlsfhjdslhfjldshjlHHHFLDHL</h1>-->
+              <div class="row">
+                <div class="col-xs-12 col-print-6">
+                  <img class="img-responsive " src="//cibul.s3.amazonaws.com/event_mastodon-big-business-krokodil_512724.jpg">
+                </div>
+              </div>
+              <p class="short-description">Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier !</p>
+            </div>
+
+          </section>
+
+          <aside class="col-sm-4 col-aside sidebar col-xs-12">
+            <div class="sidebar-content">
+              <section class="detail-item margin-bottom-xs shares">
+                <h3><i class="fa fa-share-alt"></i></h3>
+                <div class="detail-item-content">
+                  <a rel="nofollow" class="btn btn-primary event-action" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/action">
+                    <img alt="logo" src="https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png"> Partager sur OpenAgenda
+                  </a>
+                </div>
+              </section>
+              <section class="detail-item share margin-bottom-md shares">
+                Autre&nbsp;:
+                <a href="#" title="Facebook" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+                <a href="#" title="Twitter" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+                <a href="#" title="LinkedIn" target="_blank" class="li disabled" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+                <a href="#" title="Imprimer" target="_blank" class="li" rel="nofollow"><i class="fa fa-print"></i></a>
+                <a href="#" title="Permalien" target="_blank" class="li" rel="nofollow"><i class="fa fa-link"></i></a>
+                <a href="#" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
+              </section>
+
+              <div class="row">
+                <div class="col-sm-12 col-print-6 padding-print-h-z">
+                  <section class="detail-item">
+                    <h3><i class="fa fa-clock-o"></i></h3>
+                    <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
+                  </section>
+                  <section class="detail-item">
+                    <h3><i class="fa fa-history"></i></h3>
+                    <p class="detail-item-content"><span>6 mars - 2 octobre, les dimanches</span><span class="badge badge-outline-default margin-all-xs">passé</span></p>
+                  </section>
+                  <section class="detail-item margin-bottom-sm">
+                    <% include _hours.js.ejs %>
+                  </section>
+                </div>
+                <div class="col-sm-12 col-print-6 padding-print-h-z">
+                  <section class="detail-item margin-bottom-md">
+                    <h3><i class="fa fa-ticket"></i></h3>
+                    <div class="detail-item-content">
+                      <p>sans réservation</p>
+                    </div>
+                  </section>
+
+                  <section class="detail-item margin-bottom-md online-access-link">
+                    <h3><i class="fa fa-link"></i></h3>
+                    <a href="#" class="btn btn-default">Accéder à l'événement</a>
+                    <span class="display-none">https://streamingouebbsite.com</span>
+                  </section>
+
+                  <section class="detail-item location-side margin-bottom-md">
+                    <h3><i class="fa fa-map-marker"></i></h3>
+                    <div class="detail-item-content">
+                      <p>
+                        <a href="/aev-iledefrance?oaq%5Blocation%5D=52370332&amp;lang=fr">Lieu de RDV : Ferme pédagogique de la Butte Pinson</a>
+                      </p>
+                      <span class="margin-right-xs">16 Rue Suzanne Valadon, 95360 Montmagny, France</span>
+                      <ul class="info list-inline location-info-parts">
+                        <li><span>Val-d'Oise</span></li>
+                        <li><span>Ile-de-France</span></li>
+                        <li><span>France</span></li>
+                      </ul>
+                    </div><!--
+                    --><% include _leaflet-map.ejs %>
+                  </section>
+                </div>
+              </div>
+
+
+              <section class="sharers">
+                <ul><!--
+                  --><li>
+                    <a href="/enlarge-your-paris"><!--
+
+                      --><img class="avatar" alt="Enlarge your Paris" src="//cibul.s3.amazonaws.com/rwtbreview_enlarge-your-paris_01.jpg"><!--
+
+                      --><span>Enlarge your Paris</span>
+                    </a>
+                  </li><!--
+
+                  --><li>
+                    <a href="/parisdepeches"><!--
+
+                      --><img class="avatar" alt="Paris Dépêches" src="//cibul.s3.amazonaws.com/rwtbreview_parisdepeches_00.jpg"><!--
+
+                      --><span>Paris Dépêches</span>
+                    </a>
+                  </li><!--
+
+                  --><li>
+                    <a href="/hop"><!--
+
+                      --><img class="avatar" alt="Hop" src="//cibul.s3.amazonaws.com/rwtbreview_hop_00.jpg"><!--
+
+                      --><span>Hop</span>
+                    </a>
+                  </li><!--
+                --></ul>
+              </section>
+
+              <% include _hours.nojs.ejs %>
+            </div>
+          </aside>
+
+          <section class="col-sm-7 col-sm-offset-1 col-xs-12">
+
+            <div class="event-content">
+
+              <div class="category">
+                <label>Catégorie:</label>
+                <span>Apprendre</span>
+              </div>
+
+              <div class="tags">
+                <label>Tags:</label>
+                <ul>
+                  <li>Jeunes</li>, <li>Nous sommes candidats à la labellisation!</li>, <li>Résidents quartier prioritaire politique de la ville ou zone de revitalisation rurale</li>
+                </ul>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-print-6">
+                  <img class="img-responsive col-print-6" src="https://cibul.s3.amazonaws.com/event_les-arbres-des-buttes-du-parisis_444686.jpg" />
+                </div>
+              </div>
+              <div class="credits margin-h-xs">Les crédits de l'image</div>
+
+              <div class="description event-content-section">
+
+                <p>Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier ! Au programme : mise en pâturage du troupeau et soins apportés aux animaux...</p>
+
+                <p>
+                  <div class="row">
+                    <div class="col-xs-12 col-print-6">
+                      <img src="http://3.bp.blogspot.com/-YQ9659xqKA8/T3R3snSFpwI/AAAAAAAAAd4/rmaUgAkQQWM/s1600/The-Titanic.jpg">
+                    </div>
+                  </div>
+                </p>
+
+              </div>
+
+              <div class="custom js_custom event-content-section">
+                <dl class="event-item-info">
+                  <dt class="privateable">
+                    <span>Structure ou association intervenante qui est aussi un label super long</span>
+                    <div class="private-label">
+                      <i class="fa fa-unlock-alt"></i>
+                      <span>Information privée</span>
+                    </div>
+                  </dt>
+                  <dd>
+                    <span>La Licorne</span>
+                  </dd>
+                  <dt class="privateable">
+                    <span>Type de public</span>
+                    <div class="private-label">
+                      <i class="fa fa-unlock-alt"></i>
+                      <span>Information privée</span>
+                    </div>
+                  </dt>
+                  <dd>
+                    <span>4 - sans réservation</span>
+                  </dd>
+                  <dt>Mode d'inscription</dt>
+                  <dd>
+                    <span>pas de réservation</span>
+                  </dd>
+                  <dt>Email(s) de l'animateur</dt>
+                  <dd>
+                    <span>fermepeda@r2k.coop</span>
+                  </dd>
+                  <dt>PRIF</dt>
+                  <dd>
+                    <span>20 - Butte Pinson</span>
+                  </dd>
+                  <dt>Thématique</dt>
+                  <dd>
+                    <span>1 - Agriculture</span>
+                  </dd>
+                  <dt>Profil</dt>
+                  <dd>
+                    <span>1 - Apprendre</span>
+                  </dd>
+                  <dd>
+                    <div class="row">
+                      <div class="col-xs-12 col-print-6">
+                        <img src="//cibul.s3.amazonaws.com/47863189.75190536.illustration.jpg" alt="Photo d'illustration">
+                      </div>
+                    </div>
+                  </dd>
+                </dl>
+
+              </div>
+
+              <div class="keywords">
+                <span>fdsqfds, fdsqfdqs, fdqfdsqf, fdqfdsf, fdsqfdsf, fqdfdssq</span>
+              </div>
+
+            </div>
+
+            <div class="location-details event-secondary">
+              <h3>A propos du lieu</h3>
+              <div class="event-content">
+
+                <div class="location-head">
+                  <label>
+                    <a href="/rdj2016?oaq%5Blocation%5D=29143614&amp;lang=fr">Arboretum Le jardin de Gaston fhdsqfhjdslqfhjkdsqhfjklsqhjfldsshjqkflsdhjqklfhjdskqlfhjdqlhfkjsqlhfjkdslqhfjksdlqhfjkdslqhfjksqlhfjksqlhfjdlqhfjkdqlhfjkqsl</a>
+                  </label>
+                  <span>Avenue de Plaisance, Saint-Martin-de-Crau, Bouches du Rhône, Provence-Alpes-Côte d'Azur</span>
+                  <div class="tags">
+                    <label>Tags:</label>
+                    <ul>
+                      <li>Jardin de collection (botanique, arboretum...)</li>, <li>Jardin public</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p>Inauguré en juin 2014, ce lieu exceptionnel de 4 ha, s’est enrichi, au fil des années, d’espèces végétales remarquables dont 140 essences d’arbres. Il s’est doté aussi de volières ainsi que d’une belle collection de canards d’ornement (mandarins, oies, carolins, cygnes blancs…) faisant partie de la quarantaine d’espèces ornithologiques que l’on peut y découvrir du poste d’observation installé sur place.  Le microclimat propre à cet arboretum a permis la plantation d’arbustes (azalées, rhododendrons) ou encore de bulbes qui embellissent le parc au début du printemps (crocus, jonquilles, narcisses…). Aussi, différentes espèces originaires de divers continents (Amérique, Asie….) y sont présentes. Enfin, le service des espaces verts a réalisé un circuit numéroté, reliant une quinzaine d’arbres présents sur le site. Chaque chiffre est associé à une espèce et renvoie à une fiche détaillée. Au total, seize fiches sont désormais téléchargeables sur l’application Smartphone de la ville et via le flashcode présent sur le panneau situé à l’entrée principale de cet arboretum. fhdsjqlfhsdjqlfsjkqlhfsjklqhfjkslqhfjksslqhfjkdslqhfjslqhfjkdqhfkdslqfhjdslqfhjslqhfjkdsqlhfjkdlqhfkjslqhfjksqlhfjkqlhfjdslqhhfjkdksqhfjkkdqlhfjkkdsqhfjksqlhfjdqlhfjskqlhfjkdqlhfjkdqlhfjksql</p>
+
+                <p>
+                  <strong>Accès:</strong>
+                  <span>Ouvert toute l'année de 7h à 21h. Visite libre et gratuite. Parking.</span>
+                </p>
+
+                <div class="location-image row">
+                  <div class="col-xs-12 col-print-6">
+                    <img
+                      class="img-responsive"
+                      src="//cibul.s3.amazonaws.com/location29143614.jpg"
+                      alt="Arboretum Le jardin de Gaston"
+                    >
+                    <span class="credits">Les crédits de l'image</span>
+                  </div>
+                </div>
+
+                <ul class="list-unstyled">
+
+                  <li>
+                    <i class="fa fa-globe"></i>
+                    <a href="http://www.ville-saint-martin-de-crau.fr">
+                      <span>http://www.ville-saint-martin-de-crau.fr</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <i class="fa fa-phone"></i>
+                    <a href="tel:04 90 47 98 40">
+                      <span>04 90 47 98 40</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <i class="fa fa-tags"></i><!--
+                    --><ul class="location-tags">
+                        <li>Jardin de collection (botanique, arboretum...)</li>,
+                        <li>Jardin public</li>
+                      </ul>
+                  </li>
+
+                  <li class="location-links">
+                    <label>Liens additionnels</label>:
+                    <a href="#" target="_blank">http://unlien.com</a>
+                    <a href="#" target="_blank">http://unautrelien.com</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
+
+            <div class="event-secondary">
+
+              <h3 class="privateable">
+                <span>A propos du contributeur</span>
+                <div class="private-label">
+                  <i class="fa fa-unlock-alt"></i>
+                  <span>Information privée</span>
+                </div>
+              </h3>
+
+              <div class="event-content">
+                <dl class="event-content-section event-item-info">
+
+                  <dt>Organisation</dt>
+                  <dd>UIMM de Maine-et-Loire</dd>
+
+                  <dt>Numéro de contact</dt>
+                  <dd>02 41 24 26 98</dd>
+
+                  <dt>Nom du contact</dt>
+                  <dd>Barreau Lucie</dd>
+
+                  <dt>Position du contact</dt>
+                  <dd>Chargée de communication</dd>
+
+                </dl>
+              </div>
+
+            </div>
+
+            <div class="event-secondary activity-section">
+              <h3 class="privateable">
+                <span>Activité</span>
+                <div class="private-label">
+                  <i class="fa fa-unlock-alt"></i>
+                  <span>Information privée</span>
+                </div>
+              </h3>
+              <div class="event-content">
+                <ul class="list-unstyled padding-h-sm padding-v-md">
+                  <li class="padding-bottom-xs">
+                    <label class="pull-left margin-right-sm small">15 mai 2017 14:59</label>
+                    <p><strong>Kaoré - OpenAgenda</strong> a mis à jour l'événement dans l'agenda <a href="/agendas/48959239">La Gargouille</a>.</p>
+                  </li>
+                  <li class="text-center">
+                    <button class="btn btn-default">Charger plus</button>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
+            <% include _inbox %>
+
+            <div class="signature">
+              <p>Crée par lucas le mardi 25 février 2015, 18h20</span> - <a href="#">contacter</a>
+            </div>
+
+          </section>
+
+          <footer id="footer" class="col-sm-4 col-xs-12">
+            <p>
+              <a href="/">OpenAgenda</a> ·
+              <a href="/about">À propos</a> ·
+              <a href="#" target="_blank">Aide</a> ·
+              <a href="#">Conditions d'utilisation</a>
+            </p>
+          </footer>
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

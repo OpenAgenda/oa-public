@@ -1,0 +1,86 @@
+<div class="sidebar">
+  <div class="mobile-top-nav text-center" data-sidebar-toggle>
+    <button class="btn btn-link">{{i18n 'backToList'}}</button>
+  </div>
+  <div class="sidebar-wrapper">
+    <div class="my-4">
+      {{filter
+        name='geo'
+        mapClass='map-container'
+        height='180px'
+        searchMessage=(i18n 'searchWhenMoving')
+        searchWithMap=true
+        tileAttribution='Map data © OpenStreetMap contributors'
+        tileUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      }}
+    </div>
+
+    <div class="my-4">
+      {{filter name='timings'}}
+      {{filter name='timings' type='definedRange' staticRanges=(array 'today' 'tomorrow')}}
+    </div>
+
+    <div class="my-4">
+      <b>{{i18n 'passed'}} / {{i18n 'current'}} / {{i18n 'upcoming'}}</b>
+      {{filter name='relative'}}
+
+      <b>{{i18n 'attendanceMode'}}</b>
+      {{filter name='attendanceMode' inputType='radio'}}
+
+      <b>{{i18n 'city'}}</b>
+      {{filter name='city'}}
+
+      <b>{{i18n 'keywords'}}</b>
+      {{filter name='keyword'}}
+
+      <b>{{i18n 'customFilters'}}</b>
+
+      {{#customFilter
+        query=(object relative=(array 'current' 'upcoming') attendanceMode='1')
+        activeClass='active'
+        inactiveClass='inactive'
+        className='checkbox'
+        handlerSelector='label'
+      }}
+        <label for="custom-example" tabindex="0">
+          <input type="checkbox" id="custom-example">
+          En cours + à venir + hors ligne
+        </label>
+      {{/customFilter}}
+
+      {{#customFilter
+        query=(object timings=(object gte='2021-06-23T22:00:00.000Z' lte='2021-06-24T21:59:59.999Z'))
+        handlerSelector='.checkbox'
+        activeClass='active'
+        inactiveClass='inactive'
+        className='checkbox'
+      }}
+        <label for="jeudi">
+          <input type="checkbox" id="jeudi">
+          Jeudi 24 juin
+        </label>
+      {{/customFilter}}
+
+      {{#customFilter
+        type='favorites'
+        activeClass='active'
+        inactiveClass='inactive'
+        className='checkbox'
+        activeFilterLabel=(i18n 'favorites')
+      }}
+        <label for="favorites">
+          <input type="checkbox" id="favorites">
+          {{i18n 'favorites'}}
+        </label>
+      {{/customFilter}}
+    </div>
+
+    {{widget
+      name='total'
+      message='eventsTotal'
+      tagName='span'
+      className='mobile-bottom-nav'
+      attributes='data-sidebar-toggle'
+    }}
+  </div>
+</div>

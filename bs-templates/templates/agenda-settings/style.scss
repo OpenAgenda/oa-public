@@ -1,0 +1,100 @@
+.agenda-settings-creation {
+
+  .table-responsive {
+    overflow: visible;
+  }
+
+  table {
+    td:first-of-type {
+      cursor: pointer;
+    }
+  }
+
+  form {
+    margin-top: 30px;
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
+
+    .form-group + .form-group {
+      margin: 28px 0;
+    }
+  }
+
+  .dropdown {
+    .dropdown-menu {
+      padding: 0;
+    }
+
+    label {
+      font-weight: normal;
+    }
+
+    .container-fluid {
+      margin: 10px 0;
+    }
+  }
+}
+
+.agenda-settings-edit {
+  form {
+    textarea {
+      resize: vertical;
+    }
+
+    p.label {
+      margin-bottom: 5px;
+    }
+  }
+
+  & > .profile .image-upload form {
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 250px;
+    height: 250px;
+    max-width: 250px;
+
+    img {
+      border-radius: 50%;
+    }
+
+    /*.actions {
+      padding: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }*/
+  }
+
+  .advanced {
+
+    table.table > tbody > tr.inactive:hover {
+      background-color: #f5f5f5;
+    }
+
+    table.table > tbody > tr > td:nth-of-type(2n) {
+      padding: 8px 15px;
+    }
+
+    input[readonly] {
+      background-color: $oa-white;
+    }
+
+    .input-group-addon-right-25 {
+      padding: 0;
+      margin: 0;
+      width: 25%;
+      border: 0;
+      
+      input.form-control {
+        border-left: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+    }
+
+  }
+}

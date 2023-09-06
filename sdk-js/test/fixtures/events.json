@@ -1,0 +1,125 @@
+[
+  {
+    "uid": 40784373,
+    "slug": "a-title-3440251",
+    "private": false,
+    "timezone": "Europe/Paris",
+    "draft": false,
+    "updatedAt": "2022-04-20T12:36:42.711Z",
+    "createdAt": "2022-04-20T12:36:42.711Z",
+    "creatorUid": 31046551,
+    "ownerUid": 31046551,
+    "agendaUid": 73181342,
+    "fileKey": "578d25548d3e4369a10f5c675fa3d63e",
+    "attendanceMode": 1,
+    "onlineAccessLink": null,
+    "locationUid": 78372099,
+    "image": null,
+    "imageCredits": null,
+    "title": {
+      "fr": "Un titre",
+      "en": "A title"
+    },
+    "description": {
+      "fr": "On va faire un truc",
+      "en": "We make a truc"
+    },
+    "longDescription": {},
+    "keywords": {},
+    "conditions": {},
+    "age": {},
+    "registration": [],
+    "accessibility": {
+      "hi": false,
+      "ii": false,
+      "vi": false,
+      "mi": false,
+      "pi": false
+    },
+    "timings": [
+      {
+        "begin": "2022-04-20T12:35:22.586Z",
+        "end": "2022-04-20T13:35:22.586Z"
+      },
+      {
+        "begin": "2022-04-21T12:35:22.587Z",
+        "end": "2022-04-21T13:35:22.587Z"
+      }
+    ],
+    "status": 1,
+    "references": [],
+    "links": [],
+    "location": {
+      "uid": 78372099,
+      "setUid": null,
+      "slug": "passage-du-ponceau375",
+      "name": "Passage du Ponceau",
+      "address": "Passage du Ponceau",
+      "countryCode": "FR",
+      "adminLevel1": "Île-de-France",
+      "adminLevel2": "Paris",
+      "adminLevel3": null,
+      "city": "Paris",
+      "adminLevel5": null,
+      "district": null,
+      "postalCode": "75002",
+      "insee": "75056",
+      "latitude": 48.86758,
+      "longitude": 2.352454,
+      "region": "Île-de-France",
+      "department": "Paris",
+      "timezone": "Europe/Paris",
+      "updatedAt": "2018-02-16T16:18:46.000Z",
+      "createdAt": "2018-02-16T16:18:46.000Z",
+      "image": null,
+      "description": {},
+      "tags": null,
+      "website": null,
+      "email": null,
+      "phone": null,
+      "links": [],
+      "access": {},
+      "state": 1,
+      "imageCredits": null,
+      "extId": null,
+      "duplicateCandidates": null,
+      "disqualifiedDuplicates": null,
+      "mergedIn": null,
+      "agendaUid": 73181342
+    },
+    "addMethod": "contribution",
+    "stand": null,
+    "section": [],
+    "state": 2,
+    "featured": false,
+    "sourcePaths": [],
+    "aggregated": null,
+    "canEdit": true,
+    "sourceAgendas": [],
+    "originAgenda": {
+      "uid": 73181342,
+      "slug": "test-api",
+      "title": "Test API",
+      "description": "Test API for SDK",
+      "image": "https://cibul.s3.amazonaws.com/agenda73181342.jpg",
+      "url": null
+    },
+    "member": {
+      "id": 81130,
+      "order": 81130,
+      "deletedUser": false,
+      "invited": false,
+      "role": 2,
+      "createdAt": "2018-02-16T14:17:12.000Z",
+      "updatedAt": "2022-04-20T12:33:34.000Z",
+      "custom": {
+        "email": "kevin.bertho@gmail.com",
+        "contactName": "Kévin Berthommier - OpenAgenda"
+      },
+      "actionsCounter": 5102,
+      "agendaUid": 73181342,
+      "userUid": 31046551,
+      "slug": "kevin-berthommier-op"
+    }
+  }
+]

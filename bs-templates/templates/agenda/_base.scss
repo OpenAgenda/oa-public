@@ -1,0 +1,247 @@
+// specific agenda page design
+
+#agenda {
+  // agenda without events
+
+  #content {
+    padding: 15px 0;
+  }
+
+  #content.no-event {
+    padding: 175px 15px;
+    text-align: center;
+  }
+
+
+  // selected filters
+  .filters {
+
+    margin: 0 0 15px;
+
+    a {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .active {
+      margin-bottom: 10px;
+      margin-right: 10px;
+
+      a {
+        background: $oa-gray-lightest;
+        color: $oa-black;
+        padding-right: 30px;
+
+        &:after {
+          content: "\f00c";
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
+          height: 20px;
+          line-height: 40px;
+          position: absolute;
+          right: 2px;
+          top: -1px;
+          width: 20px;
+        }
+
+        &:hover {
+          background: $oa-red;
+          color: $oa-white;
+
+          &:after {
+            content: "\f00d";
+          }
+        }
+      }
+    }
+  }
+
+  // main content
+  .main-content {
+    //padding-right: 50px;
+
+    article {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      padding-right: 15px;
+    }
+  }
+
+  .event-card {
+
+    color: $oa-black;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.1s;
+
+    &:hover {
+
+      border-color: $oa-blue;
+      border-radius: 3px;
+
+      .metas li {
+        color: $oa-gray;
+      }
+
+    }
+  }
+
+  .event-action {
+    vertical-align: middle;
+    background: $oa-blue;
+    border: none;
+    color: $oa-white;
+    display: inline-block;
+    padding: 8px 18px 8px 14px;
+    width: 100%;
+
+    img {
+      margin: -1px 2px 0 0;
+    }
+
+    &:hover {
+      opacity: 0.9;
+      // background: $oa-blue;
+    }
+
+    &.disabled {
+      background: transparent;
+      color: $oa-gray;
+
+      &:hover {
+        color: $oa-gray;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      border-radius: 2px 0 0 0;
+      bottom: 0;
+      position: absolute;
+      right: 15px;
+      width: auto;
+    }
+  }
+
+  .event-aside {
+
+    text-align: right;
+    position: relative;
+    bottom: 8px;
+
+    &> div {
+      text-align: left;
+      margin-top: 17px;
+      position: relative;
+    }
+
+    &> div > span {
+      display: inline-block;
+    }
+
+
+    .time-count {
+      color: $oa-gray;
+      clear: right;
+      padding-left: 3px;
+    }
+
+
+
+    .featured {
+      position: absolute;
+      right: 0;
+    }
+
+
+    @media (min-width: 768px) {
+
+      .event-aside {
+        left: 20px;
+      }
+
+      &> div {
+        display: inline-block;
+      }
+
+      &> div > span {
+        display: block;
+      }
+
+      .featured {
+        position: relative;
+      }
+
+      .time-count {
+        margin-top: 10px;
+      }
+
+    }
+
+    @media (min-width: 1200px) {
+
+    }
+
+  }
+
+  .event-header {
+
+    background: $oa-gray-lightest;
+    border: 1px solid $oa-gray-lighter;
+    border-radius: 3px 3px 0 0;
+    font-size: 14px;
+    margin: 0 0 -3px;
+    padding: 10px 20px;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+
+    i {
+      color: $oa-gray;
+      margin-right: 10px;
+    }
+
+    @media (min-width: 768px) {
+      position: relative;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .event-text {
+    position: relative;
+    transition: all 0.1s;
+  }
+
+  .event-title {
+    margin: 0;
+    transition: all 0.1s;
+  }
+
+  .metas {
+
+    list-style: none;
+
+    li {
+
+      margin: 0 0 5px 0;
+
+      i {
+        width: 1em;
+        text-align: center;
+      }
+
+    }
+
+    li.org {
+
+      padding-top: 5px;
+
+    }
+
+  }
+
+}

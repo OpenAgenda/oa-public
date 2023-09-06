@@ -1,0 +1,59 @@
+/* Icon in input + spin */
+.input-icon {
+
+  &-right, &-left {
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background-color: transparent;
+
+      &:focus, &:active, &:focus:active {
+        outline: none;
+      }
+
+      &:active {
+        box-shadow: inset 0 0px 5px rgba(0, 0, 0, 0.125);
+      }
+    }
+  }
+
+  &-right {
+
+    input {
+      padding-right: 34px;
+    }
+
+    button {
+      right: 0;
+
+      .spin-canvas {
+        left: initial;
+        right: 8px;
+        background-color: transparent;
+      }
+    }
+
+  }
+
+  &-left {
+
+    input {
+      padding-left: 34px;
+    }
+
+    button {
+      left: 0;
+
+      .spin-canvas {
+        left: 8px;
+        right: initial;
+        background-color: transparent;
+      }
+    }
+
+  }
+
+}

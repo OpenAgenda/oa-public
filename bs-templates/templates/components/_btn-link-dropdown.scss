@@ -1,0 +1,41 @@
+.btn-link-dropdown {
+  display: inline-block;  
+  &:focus-visible {
+    outline: none;
+  }
+
+  & > button.btn-link {
+    border: 0;
+    border-color: transparent;
+    background: transparent;
+    &:active,&:hover,&:focus,&:focus-visible {
+      border-color: transparent;
+      background: transparent;
+      outline: none;
+    }
+  }
+  .dropdown-menu {
+    margin: 0;
+    padding: 0;
+    & > li {
+      & > a {
+        &:hover {
+          background: transparent;
+        }
+        padding: 0;
+      }
+      &.disabled {
+        a {
+          color: $oa-gray-light;
+        }
+      }
+    }
+  }
+  &.open {
+    & > .btn-link.dropdown-toggle {
+      color: $oa-blue;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+}

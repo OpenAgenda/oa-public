@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@openagenda",
+      {
+        "loose": true
+      }
+    ]
+  ],
+  "plugins": [
+    "handlebars-inline-precompile"
+  ],
+  "sourceType": "unambiguous"
+}

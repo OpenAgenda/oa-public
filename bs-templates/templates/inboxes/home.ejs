@@ -1,0 +1,27 @@
+<% include ../layout/_top.ejs %>
+<div class="container top-margined">
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-8">
+      <div class="wsq">
+        <!-- #tweak: retiré le padding-all -->
+        <div class="inbox inbox-user">
+          <h3 class="inbox-breadcrumbs">Messagerie</h3>
+          <div>
+
+            <h4>Conversations en cours</h4>
+            <% include _list-item.ejs %>
+            <% include _list-item-2.ejs %>
+            <% include _list-item.ejs %>
+            <% include _list-item.ejs %>
+
+            <h4>Conversations fermées</h4>
+            <% include _list-item.ejs %>
+            <% include _list-item.ejs %>
+            <% include _list-item.ejs %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

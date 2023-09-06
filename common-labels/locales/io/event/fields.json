@@ -1,0 +1,18 @@
+{
+  "common.event.fields.accessibility": "crwdns32718:0crwdne32718:0",
+  "common.event.fields.age": "crwdns32720:0crwdne32720:0",
+  "common.event.fields.attendanceMode": "crwdns32722:0crwdne32722:0",
+  "common.event.fields.conditions": "crwdns32724:0crwdne32724:0",
+  "common.event.fields.description": "crwdns32726:0crwdne32726:0",
+  "common.event.fields.image": "crwdns32728:0crwdne32728:0",
+  "common.event.fields.imageCredits": "crwdns32730:0crwdne32730:0",
+  "common.event.fields.keywords": "crwdns32732:0crwdne32732:0",
+  "common.event.fields.location": "crwdns32734:0crwdne32734:0",
+  "common.event.fields.longDescription": "crwdns32736:0crwdne32736:0",
+  "common.event.fields.onlineAccessLink": "crwdns32738:0crwdne32738:0",
+  "common.event.fields.registration": "crwdns32740:0crwdne32740:0",
+  "common.event.fields.slug": "crwdns32742:0crwdne32742:0",
+  "common.event.fields.status": "crwdns32744:0crwdne32744:0",
+  "common.event.fields.timings": "crwdns32746:0crwdne32746:0",
+  "common.event.fields.title": "crwdns32748:0crwdne32748:0"
+}

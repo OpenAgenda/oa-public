@@ -1,0 +1,72 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+<div class="container page-dialog signup">
+  <div class="top-margined bottom-margined">
+    <div class="row">
+      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md margin-bottom-lg jumbotron">
+        <div class="margin-h-sm">
+          <p>Un message en entête de page</p>
+        </div>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
+        <div class="row">
+          <div class="col-sm-12 margin-h-md">
+            <h2>Création d'un nouveau compte</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="info-block text-center margin-v-lg margin-h-md">
+              <label>Vous avez déjà utilisé OpenAgenda&nbsp;?</label>
+              <button class="btn btn-primary">Connectez-vous</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="margin-h-md bg-danger padding-all-sm">Un truc est à raconter ici.</p>
+          </div>
+        </div>
+        <div class="row margin-top-md">
+          <div class="col-md-6">
+            <form class="margin-h-md">
+              <div class="form-group">
+                <label>Pseudo / Nom d'utilisateur</label>
+                <input class="form-control"/>
+                <span class="sub">Votre pseudo ou nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre</span>
+              </div>
+              <div class="form-group has-error">
+                <label class="control-label">Email</label>
+                <input class="form-control" type="email"/>
+                <span class="text-danger">L'email n'est pas valide</span>
+              </div>
+              <div class="form-group">
+                <label>Mot de passe</label>
+                <input class="form-control" type="password"/>
+              </div>
+              <div class="form-group">
+                <label>Répéter le mot de passe</label>
+                <input class="form-control" type="password"/>
+              </div>
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Je ne suis pas un robot
+                  </label>
+                </div>
+              </div>
+              <p class="margin-v-md">En créant un compte vous acceptez les <a href="#">Conditions d'Utilisation</a> ainsi que la <a href="#">Politique de confidentialité</a>.</p>
+              <div class="form-group margin-bottom-lg">
+                <button class="btn btn-primary btn-block" type="submit">Accepter et créer le compte</button>
+              </div>
+            </form>
+          </div>
+          <% include ./_social.ejs %>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

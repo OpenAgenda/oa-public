@@ -1,0 +1,62 @@
+.signup, .signin {
+
+  .sub {
+    font-size: 13px;
+  }
+
+  .gray {
+    color: $oa-gray-light;
+  }
+
+  .jumbotron {
+
+    p:last-child {
+
+      margin: 0;
+
+    }
+
+  }
+
+  .light-border-left {
+    border-left: 1px solid $oa-gray-lighter;
+  }
+
+  @media screen and (max-width: 768px) {
+    border-left: none;
+  }
+
+  .btn-facebook {
+
+    color: $oa-white;
+    background-color: $facebook-color;
+
+    &:hover {
+      background-color: lighten( $facebook-color, 10 );
+    }
+
+  }
+
+  .btn-twitter {
+
+    color: $oa-white;
+    background-color: $twitter-color;
+
+    &:hover {
+      background-color: lighten( $twitter-color, 10 );
+    }
+
+  }
+
+  .btn-google {
+
+    color: $oa-white;
+    background-color: $google-color;
+
+    &:hover {
+      background-color: lighten( $google-color, 10 );
+    }
+
+  }
+
+}

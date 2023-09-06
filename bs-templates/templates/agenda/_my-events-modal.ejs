@@ -1,0 +1,27 @@
+<div class="popup-overlay big">
+  <section class="padding-h-md">
+    <h2>Mes brouillons</h2>
+    <div class="info-block-sm warning-outline margin-bottom-md">
+      Les brouillons ne sont pas visibles des modérateurs de l'agenda. Ils doivent être complétés avant de pouvoir être modérés et publiés.
+    </div>
+    <strong>Vous avez 3 brouillons sur cet agenda</strong>
+    <ul class="list-unstyled padding-v-sm">
+      <% include ../event-items/_abbaye.ejs %>
+      <% include ../event-items/_abbaye.ejs %>
+      <% include ../event-items/_abbaye.ejs %>
+    </ul>
+    <ul class="pager margin-top-z">
+      <li class="margin-right-xs disabled" title="Previous">
+        <span>
+          <i class="fa fa-lg fa-angle-left"></i>
+        </span>
+      </li>
+      <li class="margin-right-xs">1 – 20</li>
+      <li title="Next">
+        <span tabindex="0" role="button">
+          <i class="fa fa-lg fa-angle-right"></i>
+        </span>
+      </li>
+    </ul>
+  </section>
+</div>

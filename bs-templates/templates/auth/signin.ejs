@@ -1,0 +1,53 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+<div class="container page-dialog signin">
+  <div class="top-margined bottom-margined">
+    <div class="row">
+      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md margin-bottom-lg jumbotron">
+        <p>Un message en entête de page</p>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="margin-h-md">
+              <h2>Connexion</h2>
+            
+              <p class="bg-danger padding-all-sm">Votre email ou mot de passe est invalide - <a href="#">Réinitialiser votre mot de passe</a></p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="row margin-top-md">
+          <div class="col-sm-6">
+            <form class="margin-h-md">
+              <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="email"/>
+              </div>
+              <div class="form-group has-error">
+                <label class="control-label">Mot de passe</label>
+                <input class="form-control" type="password"/>
+                <span class="text-danger">Le mot de passe est invalide.</span>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit">Valider</button>
+              </div>
+            </form>
+          </div>
+          <% include ./_social.ejs %>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 margin-v-md">
+            <div class="margin-h-md">
+              <p>Vous n'avez pas encore de compte? <a href="#">Créez-en un</a></p>
+              <p><a href="#">J'ai perdu mon mot de passe</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

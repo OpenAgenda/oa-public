@@ -1,0 +1,213 @@
+.landing-header {
+
+  margin-bottom: 0;
+
+  .navbar-header {
+    .logo {
+      width: 185px;
+      height: 32px;
+      background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-white-185.png");
+      background-size: cover;
+    }
+  }
+
+  .collapsing, .collapse {
+    transition: height 0.2s;
+  }
+
+  .language-menu {
+    & > a {
+      text-transform: uppercase;
+    }
+  }
+
+  .navbar-nav {
+    .tel a {
+      border-radius: 16px;
+      background-color: transparent;
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    z-index: 2002;
+    padding-bottom: 0;
+    min-height: 75px;
+    border: none;
+
+    .navbar-nav {
+      .navbar-btn {
+        margin: 23px 15px 24px;
+      }
+
+      .tel {
+
+        div {
+          padding-top: 24px;
+        }
+
+        a {
+          color: $oa-white;
+          border-color: darken($oa-white, 5);
+
+          &:hover, &:focus {
+            color: darken($oa-white, 10);
+            border-color: darken($oa-white, 15);
+          }
+        }
+
+      }
+
+      > li {
+
+        a, div {
+          color: $oa-white;
+        }
+
+        > * {
+          padding: 30px 15px;
+
+          &:hover, &:focus {
+            color: darken($oa-white, 15);
+          }
+
+        }
+
+      }
+
+      > li.signup > a {
+        color: $oa-blue;
+        font-weight: bold;
+        -webkit-transition: color 200ms ease;
+        -moz-transition: color 200ms ease;
+        -ms-transition: color 200ms ease;
+        -o-transition: color 200ms ease;
+        transition: color 200ms ease;
+
+        &:hover {
+          color: lighten($oa-blue, 10);
+        }
+      }
+    }
+
+    .navbar-brand {
+      padding: 22px 15px;
+      height: 80px;
+    }
+
+    .navbar-header {
+      padding-left: 10px;
+    }
+
+    .language-menu {
+      &.open > a, &.open > a:hover, &.open > a:focus {
+        background-color: transparent;
+        color: darken($oa-white, 15);
+      }
+
+      & > ul.dropdown-menu {
+        top: 21px;
+        right: 0;
+        text-align: right;
+        min-width: 0;
+      }
+
+      .selected {
+        background-color: #eee;
+        color: $oa-black;
+
+        &:hover {
+          background-color: darken(#eee, 10%);
+        }
+      }
+    }
+
+    .search-form {
+      float: left;
+      margin: 0 0 0 1em;
+
+      .search-input {
+        width: 210px;
+      }
+    }
+
+    .profile {
+      & > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        display: inline-block;
+        cursor: pointer;
+
+        img {
+          width: 30px;
+          max-height: 30px;
+        }
+
+      }
+
+      .dropdown-menu {
+        min-width: 400px;
+        margin: 0;
+        padding: 0;
+
+        .row {
+          li {
+            padding: 0 10px;
+
+            img {
+              width: 24px;
+            }
+
+            a {
+              color: #333;
+              padding: 10px 0;
+              display: block;
+            }
+
+            &:hover {
+              background: #f5f5f5;
+
+              a {
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * mobile menu adjustments - hack over bootstrap, isolated from the rest.
+   */
+
+  @media (max-width: $screen-sm) {
+
+    padding: 0 15px;
+
+    .navbar-header {
+      .logo {
+        background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png");
+      }
+    }
+
+    .navbar-nav {
+      .navbar-btn {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+
+    padding: 0;
+
+    .container {
+      width: 100%;
+    }
+
+  }
+}
