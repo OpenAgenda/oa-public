@@ -1,0 +1,1014 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sendMail Euthreal transport override default "from" value 1`] = `
+Array [
+  Object {
+    "accepted": Array [
+      "kevin.bertho@gmail.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
+    "envelope": Object {
+      "from": "admin@openagenda.com",
+      "to": Array [
+        "kevin.bertho@gmail.com",
+      ],
+    },
+    "messageSize": 6141,
+    "rejected": Array [],
+  },
+]
+`;
+
+exports[`sendMail Euthreal transport send email directly (without queue) - helloWorld template 1`] = `
+Array [
+  Object {
+    "accepted": Array [
+      "kevin.bertho@gmail.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
+    "envelope": Object {
+      "from": "no-reply@openagenda.com",
+      "to": Array [
+        "kevin.bertho@gmail.com",
+      ],
+    },
+    "messageSize": 6181,
+    "rejected": Array [],
+  },
+  Object {
+    "accepted": Array [
+      "kevin.berthommier@openagenda.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
+    "envelope": Object {
+      "from": "no-reply@openagenda.com",
+      "to": Array [
+        "kevin.berthommier@openagenda.com",
+      ],
+    },
+    "messageSize": 6154,
+    "rejected": Array [],
+  },
+  Object {
+    "accepted": Array [
+      "kaore@openagenda.com",
+    ],
+    "ehlo": Array [
+      "PIPELINING",
+      "8BITMIME",
+      "SMTPUTF8",
+      "AUTH LOGIN PLAIN",
+    ],
+    "envelope": Object {
+      "from": "no-reply@openagenda.com",
+      "to": Array [
+        "kaore@openagenda.com",
+      ],
+    },
+    "messageSize": 6139,
+    "rejected": Array [],
+  },
+]
+`;
+
+exports[`sendMail JSON transport send a mail to an invalid email returns with errors 1`] = `
+Array [
+  [VError: Invalid email address],
+]
+`;
+
+exports[`sendMail JSON transport send a mail with an error don't send anything 1`] = `
+Array [
+  [VError: Invalid email address],
+]
+`;
+
+exports[`sendMail JSON transport send email - helloWorld template 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "domain": "https://openagenda.com",
+      "username": "bertho",
+    },
+    "headers": Object {},
+    "html": "<!doctype html>
+<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+  <head>
+    <title>
+      
+    </title>
+    <!--[if !mso]><!-->
+    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <!--<![endif]-->
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+    <style type=\\"text/css\\">
+      #outlook a { padding:0; }
+      body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+      p { display:block;margin:13px 0; }
+    </style>
+    <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+    <!--[if lte mso 11]>
+    <style type=\\"text/css\\">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+    
+      <!--[if !mso]><!-->
+        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <style type=\\"text/css\\">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+    
+    <style type=\\"text/css\\">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    <style media=\\"screen and (min-width:480px)\\">
+      .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+    </style>
+    
+  
+    <style type=\\"text/css\\">
+    
+    
+    </style>
+    <style type=\\"text/css\\">
+    
+    </style>
+    
+  </head>
+  <body style=\\"word-spacing:normal;\\">
+    
+    
+      <div
+         style=\\"\\"
+      >
+        
+      
+      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+    
+      
+      <div  style=\\"margin:0px auto;max-width:600px;\\">
+        
+        <table
+           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+              >
+                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+            
+      <div
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+      >
+        
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <div
+         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+      >Hello bertho !</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+      >
+        <tbody>
+          <tr>
+            <td
+               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+            >
+              <a
+                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+              >
+                Go to OpenAgenda
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+  </body>
+</html>
+  ",
+    "queue": false,
+    "subject": "Hello bertho !
+",
+    "template": "helloWorld",
+    "text": "Hello bertho !
+Go to https://openagenda.com
+",
+    "to": Array [
+      Object {
+        "address": "kevin.bertho@gmail.com",
+        "name": "",
+      },
+    ],
+  },
+  Object {
+    "data": Object {
+      "domain": "https://openagenda.com",
+      "username": "bertho",
+    },
+    "headers": Object {},
+    "html": "<!doctype html>
+<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+  <head>
+    <title>
+      
+    </title>
+    <!--[if !mso]><!-->
+    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <!--<![endif]-->
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+    <style type=\\"text/css\\">
+      #outlook a { padding:0; }
+      body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+      p { display:block;margin:13px 0; }
+    </style>
+    <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+    <!--[if lte mso 11]>
+    <style type=\\"text/css\\">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+    
+      <!--[if !mso]><!-->
+        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <style type=\\"text/css\\">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+    
+    <style type=\\"text/css\\">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    <style media=\\"screen and (min-width:480px)\\">
+      .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+    </style>
+    
+  
+    <style type=\\"text/css\\">
+    
+    
+    </style>
+    <style type=\\"text/css\\">
+    
+    </style>
+    
+  </head>
+  <body style=\\"word-spacing:normal;\\">
+    
+    
+      <div
+         style=\\"\\"
+      >
+        
+      
+      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+    
+      
+      <div  style=\\"margin:0px auto;max-width:600px;\\">
+        
+        <table
+           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+              >
+                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+            
+      <div
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+      >
+        
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <div
+         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+      >Hello bertho !</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+      >
+        <tbody>
+          <tr>
+            <td
+               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+            >
+              <a
+                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+              >
+                Go to OpenAgenda
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+  </body>
+</html>
+  ",
+    "queue": false,
+    "subject": "Hello bertho !
+",
+    "template": "helloWorld",
+    "text": "Hello bertho !
+Go to https://openagenda.com
+",
+    "to": Array [
+      Object {
+        "address": "kevin.berthommier@openagenda.com",
+        "name": "",
+      },
+    ],
+  },
+  Object {
+    "data": Object {
+      "domain": "https://openagenda.com",
+      "username": "kaore",
+    },
+    "headers": Object {},
+    "html": "<!doctype html>
+<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+  <head>
+    <title>
+      
+    </title>
+    <!--[if !mso]><!-->
+    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <!--<![endif]-->
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+    <style type=\\"text/css\\">
+      #outlook a { padding:0; }
+      body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+      p { display:block;margin:13px 0; }
+    </style>
+    <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+    <!--[if lte mso 11]>
+    <style type=\\"text/css\\">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+    
+      <!--[if !mso]><!-->
+        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <style type=\\"text/css\\">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+    
+    <style type=\\"text/css\\">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    <style media=\\"screen and (min-width:480px)\\">
+      .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+    </style>
+    
+  
+    <style type=\\"text/css\\">
+    
+    
+    </style>
+    <style type=\\"text/css\\">
+    
+    </style>
+    
+  </head>
+  <body style=\\"word-spacing:normal;\\">
+    
+    
+      <div
+         style=\\"\\"
+      >
+        
+      
+      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+    
+      
+      <div  style=\\"margin:0px auto;max-width:600px;\\">
+        
+        <table
+           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+              >
+                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+            
+      <div
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+      >
+        
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <div
+         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+      >Hello kaore !</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+      >
+        <tbody>
+          <tr>
+            <td
+               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+            >
+              <a
+                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+              >
+                Go to OpenAgenda
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+  </body>
+</html>
+  ",
+    "queue": false,
+    "subject": "Hello kaore !
+",
+    "template": "helloWorld",
+    "text": "Hello kaore !
+Go to https://openagenda.com
+",
+    "to": Array [
+      Object {
+        "address": "kaore@openagenda.com",
+        "data": Object {
+          "username": "kaore",
+        },
+        "name": "Kaoré",
+      },
+    ],
+  },
+]
+`;
+
+exports[`sendMail translations choose a lang per recipient 1`] = `
+Array [
+  Object {
+    "envelope": Object {
+      "from": false,
+      "to": Array [
+        "kevin.bertho@gmail.com",
+      ],
+    },
+    "message": Object {
+      "data": Object {
+        "domain": "https://openagenda.com",
+        "lang": "fr",
+        "username": "bertho",
+      },
+      "headers": Object {},
+      "html": "<!doctype html>
+<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+  <head>
+    <title>
+      
+    </title>
+    <!--[if !mso]><!-->
+    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <!--<![endif]-->
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+    <style type=\\"text/css\\">
+      #outlook a { padding:0; }
+      body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+      p { display:block;margin:13px 0; }
+    </style>
+    <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+    <!--[if lte mso 11]>
+    <style type=\\"text/css\\">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+    
+      <!--[if !mso]><!-->
+        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <style type=\\"text/css\\">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+    
+    <style type=\\"text/css\\">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    <style media=\\"screen and (min-width:480px)\\">
+      .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+    </style>
+    
+  
+    <style type=\\"text/css\\">
+    
+    
+    </style>
+    <style type=\\"text/css\\">
+    
+    </style>
+    
+  </head>
+  <body style=\\"word-spacing:normal;\\">
+    
+    
+      <div
+         style=\\"\\"
+      >
+        
+      
+      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+    
+      
+      <div  style=\\"margin:0px auto;max-width:600px;\\">
+        
+        <table
+           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+              >
+                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+            
+      <div
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+      >
+        
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <div
+         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+      >Salut bertho</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+      >
+        <tbody>
+          <tr>
+            <td
+               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+            >
+              <a
+                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+              >
+                Aller sur OpenAgenda
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+  </body>
+</html>
+  ",
+      "lang": "en",
+      "queue": false,
+      "subject": "Salut bertho
+",
+      "template": "helloWorld-i18n",
+      "text": "Salut bertho
+Aller sur OpenAgenda: https://openagenda.com
+",
+      "to": Array [
+        Object {
+          "address": "kevin.bertho@gmail.com",
+          "data": Object {
+            "username": "bertho",
+          },
+          "lang": "fr",
+          "name": "",
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`sendMail translations take a default lang 1`] = `
+Array [
+  Object {
+    "envelope": Object {
+      "from": false,
+      "to": Array [
+        "kevin.bertho@gmail.com",
+      ],
+    },
+    "message": Object {
+      "data": Object {
+        "domain": "https://openagenda.com",
+        "lang": "en",
+        "username": "bertho",
+      },
+      "headers": Object {},
+      "html": "<!doctype html>
+<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+  <head>
+    <title>
+      
+    </title>
+    <!--[if !mso]><!-->
+    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <!--<![endif]-->
+    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+    <style type=\\"text/css\\">
+      #outlook a { padding:0; }
+      body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+      table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+      img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+      p { display:block;margin:13px 0; }
+    </style>
+    <!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]-->
+    <!--[if lte mso 11]>
+    <style type=\\"text/css\\">
+      .mj-outlook-group-fix { width:100% !important; }
+    </style>
+    <![endif]-->
+    
+      <!--[if !mso]><!-->
+        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <style type=\\"text/css\\">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+    
+    <style type=\\"text/css\\">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    <style media=\\"screen and (min-width:480px)\\">
+      .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
+    </style>
+    
+  
+    <style type=\\"text/css\\">
+    
+    
+    </style>
+    <style type=\\"text/css\\">
+    
+    </style>
+    
+  </head>
+  <body style=\\"word-spacing:normal;\\">
+    
+    
+      <div
+         style=\\"\\"
+      >
+        
+      
+      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+    
+      
+      <div  style=\\"margin:0px auto;max-width:600px;\\">
+        
+        <table
+           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+              >
+                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+            
+      <div
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+      >
+        
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <div
+         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+      >Hello bertho</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                >
+                  
+      <table
+         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+      >
+        <tbody>
+          <tr>
+            <td
+               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+            >
+              <a
+                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+              >
+                Go to OpenAgenda
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+  </body>
+</html>
+  ",
+      "lang": "en",
+      "queue": false,
+      "subject": "Hello bertho
+",
+      "template": "helloWorld-i18n",
+      "text": "Hello bertho
+Go to OpenAgenda: https://openagenda.com
+",
+      "to": Array [
+        Object {
+          "address": "kevin.bertho@gmail.com",
+          "data": Object {
+            "username": "bertho",
+          },
+          "name": "",
+        },
+      ],
+    },
+  },
+]
+`;

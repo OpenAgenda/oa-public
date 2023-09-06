@@ -1,0 +1,209 @@
+@use 'uppy/dist/uppy.css';
+
+.inbox {
+  &.inbox-user {
+    padding: 20px 30px;
+  }
+
+  h4 { // subtitles: "Conversations past" & "Conversation ongoing"
+    padding: 30px 0 0;
+
+    &:first-of-type {
+      padding-top: 10px;
+    }
+  }
+
+  .main-avatar {
+    .primary {
+      width: 60px;
+      vertical-align: bottom;
+    }
+
+    .belongs {
+      width: 25px;
+    }
+  }
+
+  .well {
+    box-shadow: none;
+  }
+
+  .inbox-title {
+    // 220 of button width + 8
+    padding-right: 228px;
+  }
+
+  /**
+   * alternative to title
+   */
+  .inbox-breadcrumbs {
+    font-size: 20px;
+    padding-bottom: 20px;
+    line-height: 1.4em;
+
+    i {
+      font-weight: bold;
+      padding: 0 10px;
+    }
+  }
+
+  .inbox-head {
+    padding-bottom: 20px;
+    word-break: break-word;
+
+    .inbox-breadcrumbs {
+      padding-bottom: 0;
+    }
+
+    .inbox-actions {
+      background: $oa-gray-lightest;
+      border-radius: 3px;
+      text-align: center;
+      padding: 20px;
+
+      button:not(:last-child):not(.btn-link) {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .btn-creation {
+    margin-top: 16px;
+    //position: absolute;
+    //top: 28px;
+    //right: 12px;
+    //margin-left: 8px;
+    //max-width: 220px;
+    //white-space: nowrap;
+    //text-overflow: ellipsis;
+    //overflow: hidden;
+  }
+
+  .btn-resume {
+    padding-bottom: 0;
+  }
+
+  img.author-avatar {
+    width: 60px;
+
+    &:not(.belongs) {
+      vertical-align: bottom;
+    }
+
+    &.belongs {
+      width: 25px;
+    }
+
+    &-inline {
+      width: 24px;
+
+      &.belongs {
+        width: 10px;
+      }
+    }
+  }
+
+  .conversation-item {
+    margin: 30px 0;
+    overflow: visible;
+
+    .conversation-item-message {
+      img {
+        width: 24px;
+        vertical-align: bottom;
+      }
+
+      .message br {
+        content: "";
+        margin-bottom: 0.5em;
+        display: block;
+      }
+
+      .message-info {
+        color: $oa-gray;
+      }
+    }
+  }
+
+  .media {
+    table-layout: fixed;
+    width: 100%;
+    display: table;
+
+    .media-left, .media-right {
+      position: relative;
+
+      img.belongs {
+        border: 3px solid $oa-white;
+        background: $oa-white;
+        box-sizing: content-box;
+        position: absolute;
+        right: 10px;
+        top: 40px;
+      }
+    }
+
+    .media-body {
+      width: 90%;
+      word-break: break-word;
+      overflow: visible;
+
+      .conversation-item-message {
+        border-left: 3px solid $oa-blue;
+        padding-left: 8px;
+
+        .message {
+          line-height: 16px;
+        }
+      }
+    }
+
+    .message-form textarea, .conversation-form textarea {
+      resize: vertical;
+      min-height: 71px;
+    }
+  }
+
+  &.inbox-agenda-admin {
+    .btn-creation, .btn-back {
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .conversation-title-entity:not(a:hover) {
+    color: $oa-black;
+  }
+
+  .attachments-upload {
+    .popup-content {
+      padding: 2em;
+    }
+
+    .uppy-Dashboard {
+      .UppyIcon {
+        height: 60px;
+      }
+
+      .uppy-Dashboard-inner {
+        border: 2px dashed $oa-gray;
+      }
+
+      .uppy-DashboardItem-edit {
+        display: none; // Just for Kaoré
+      }
+    }
+  }
+
+  .attachment-image {
+    max-width: 75px;
+  }
+}
+
+#event {
+  .inbox {
+    button.btn-creation {
+      margin-top: 0;
+    }
+  }
+}

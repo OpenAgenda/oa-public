@@ -1,0 +1,91 @@
+// Media block
+// ===========
+// Enforcement of the bootstrap media block
+
+$b: '.media';
+
+#{$b} {
+  padding: 3em 0;
+  line-height: 1.5;
+
+  &-right img {
+    margin-left: 20em;
+    margin-right: 1em;
+
+    &.big {
+      margin-left: 10em;
+    }
+  }
+
+  &-left img {
+    margin-right: 20em;
+    margin-left: 1em;
+
+    &.big {
+      margin-right: 10em;
+    }
+  }
+
+  &-heading {
+    font-size: 2.5em;
+    margin-bottom: 0.8em;
+
+    em {
+      color: $brand-primary;
+      font-style: normal;
+    }
+  }
+
+  p {
+    margin: 1em 0;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 1.6;
+  }
+
+  @media (max-width: $screen-md) {
+    padding: 4em 2em;
+
+    img {
+      max-width: 256px;
+    }
+
+    &-right img, &-right img.big {
+      margin-left: 2em;
+    }
+
+    &-left img, &-left img.big {
+      margin-right: 2em;
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+    &-middle {
+      display: block;
+      padding: 0;
+      width: auto;
+    }
+
+    &-right img {
+      margin-left: 0;
+      margin-top: 1em;
+    }
+
+    &-left img {
+      margin-right: 0;
+      margin-bottom: 1em;
+    }
+
+    .col-xs-4 {
+      padding: 0;
+
+      img {
+        max-width: 128px;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+  }
+}

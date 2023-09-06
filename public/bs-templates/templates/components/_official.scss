@@ -1,0 +1,86 @@
+/**
+ * used in agenda search page and agenda page
+ */
+.official {
+
+  display: inline;
+  position: relative;
+  margin-left: 5px;
+  vertical-align: middle;
+  line-height: 1em;
+  white-space: nowrap;
+
+  &:before {
+    content: "\feff"; // zero width no-break space
+  }
+
+  .tooltip {
+
+    display: none;
+
+  }
+
+  i {
+
+    width: 14px;
+    height: 14px;
+    background: url("//s3.eu-central-1.amazonaws.com/oastatic/official.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+
+    &:hover {
+      background-position: 0 -28px;
+    }
+
+  }
+
+  &.big i {
+
+    width: 28px;
+    height: 28px;
+    background-position: -14px 0;
+
+    &:hover {
+      background-position: -14px -28px
+    }
+
+  }
+
+  &:hover .tooltip {
+
+    display: block;
+    opacity: 1;
+    right: -122px;
+    min-width: 120px;
+
+    &.right {
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 15px;
+    }
+
+    .tooltip-inner {
+      background-color: $oa-black;
+    }
+
+    &.right .tooltip-arrow {
+      border-right-color: $oa-black;
+    }
+
+  }
+
+  &.big .tooltip {
+
+    top: 3px;
+
+    .tooltip-inner {
+      background-color: $oa-white;
+      color: $oa-black;
+    }
+
+    &.right .tooltip-arrow {
+      border-right-color: $oa-white;
+    }
+
+  }
+
+}

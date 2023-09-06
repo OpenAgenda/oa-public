@@ -1,0 +1,42 @@
+{{>layout.top}}
+
+{{>head tagName="h1"}}
+
+<div class="container">
+  <div class="row pt-4">
+    <div class="col-md-4 mb-4 order-md-12">
+      {{filter name="search"}}
+    </div>
+
+    <div class="col-md-8 order-md-1 mb-4">
+      <div class="row">
+        <div class="col-md-10 offset-md-2">
+          {{widget name='total' message='eventsTotal'}}
+
+          {{widget name='activeFilters' className='active-filters'}}
+
+          <button class="main-show-sidebar float-right btn btn-outline-primary btn-sm wbg" data-sidebar-toggle>
+            <i class="fa fa-plus"></i>
+            {{i18n 'filters'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="events">
+        {{>list}}
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      {{>sidebar}}
+    </div>
+  </div>
+</div>
+
+<div data-oa-filters-root></div>
+
+{{>layout.bottom}}
