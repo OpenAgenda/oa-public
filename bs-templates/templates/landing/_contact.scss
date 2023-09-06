@@ -1,0 +1,40 @@
+.contact {
+
+  display: inline-block;
+  text-align: left;
+
+  ul {
+
+    padding-left: 0;
+    margin: 2em 0;
+
+  }
+
+  li {
+
+    padding: 0.5em 0;
+
+  }
+
+  i {
+
+    padding-right: 0.5em;
+
+  }
+
+  a {
+
+    font-size: 18px;
+    color: $oa-gray;
+    font-weight: 200;
+    text-decoration: none;
+
+  }
+
+  a:hover {
+
+    color: $oa-blue;
+
+  }
+
+}

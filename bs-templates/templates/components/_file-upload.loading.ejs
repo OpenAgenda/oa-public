@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label>Chargement en cours (*) ( le loader est plus visible quand il tourne )</label>
+  <div class="file-upload">
+    <div class="file-dropzone" aria-disabled="false">
+      <div class="margin-top-lg">
+        <button class="btn btn-primary loading-file margin-top-sm">
+          <label>Charger un fichier</label>
+          <% include _spin-white-inline.ejs %>
+        </button>
+        <div class="margin-v-xs">
+          <label class="control-label">Chargement en cours</label>
+        </div>
+      </div>
+      <input type="file" accept=".pdf" autocomplete="off" name="yourfile" style="display: none;">
+    </div>
+  </div>
+</div>

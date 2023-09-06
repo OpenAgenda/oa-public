@@ -1,0 +1,73 @@
+// Container
+$container: 90% !important;
+$margin: auto;
+
+// Main
+$border-color: #fdb417;
+$size: 12px;
+$bg: none;
+
+// Header
+$header-wrapper-bg: none;
+
+$header-item-bg:rgb(255, 255, 255);
+$header-item-border: 1px solid transparent;
+$header-item-border-radius: 4px;
+
+$header-placeholder: #849095;
+
+$header-input-bg: transparent;
+$header-input-color: #849095;
+
+$header-input-active-color: #7d888d;
+
+$header-input-size: $size;
+$header-input-weight: 0;
+
+// Month-Year
+$month-year-color: #3e484f;
+$month-year-bg: transparent;
+$month-year-border: transparent;
+$month-year-weight: 0;
+$month-year-size: $size;
+
+$arrow-bg: #fff;
+$arrow-border: #fae207;
+$arrow-radius: 5px;
+
+// Week
+$week-color: rgb(132, 144, 149);
+$week-weight: 400;
+$week-size: $size;
+
+// Body
+$body-color-no-selection: #413a42;
+$body-color-with-selection: #a1a1a1;
+
+$body-bg: #fff;
+$body-bg-radius: 1.333em;
+
+$body-color-selected: rgba(255, 255, 255, 0.85);
+$body-selected-bg: #e64818;
+$body-selected-radius: 1.042em;
+
+$body-preview-radius: 1.333em;
+
+$body-size: $size;
+
+// Preview
+$preview-bg: transparent;
+
+// Today
+$today-weight: 500;
+
+$today-color-not-selected:#e64818;
+$today-color-selected:#fae207;
+
+$today-content-selected: #fae207;
+$today-content: "";
+$today-content-bg:#e64818;
+
+// Disabled dates
+$passive-bg: transparent;
+$passive-color: #d5dce0;

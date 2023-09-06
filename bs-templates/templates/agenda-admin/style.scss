@@ -1,0 +1,122 @@
+.agenda-admin {
+
+  margin: 60px auto;
+
+  .header {
+
+    padding: 20px;
+
+    .agenda-logo {
+      display: block;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        max-width: 100%;
+      }
+    }
+
+  }
+
+  .body {
+    padding: 0 30px 2em;
+  }
+
+  .nav {
+    padding-bottom: 20px;
+    ul {
+      display: inline-block;
+      padding: 0 6px;
+      margin-bottom: 0;
+    }
+    li {
+      display: none;
+      &.menu-item {
+        display: inline-block;
+        padding: 0 10px;
+        margin: 0;
+        &.selected {
+          border-left: none;
+          color: $oa-blue;
+        }
+      }
+    }
+    @media (min-width: $screen-md-min) {
+      ul {
+        display: block;
+        padding: 0;
+      }
+      li {
+        display: block;
+        &.menu-item {
+          display: block;
+          padding: 0 0 0 20px;
+          &.selected {
+            border-left: 4px solid $oa-blue;
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    .filters {
+      background: transparent;
+
+      & > div {
+        background: $oa-white;
+        margin: 10px;
+        padding: 10px 20px;
+      }
+    }
+  }
+
+  &.redirect {
+
+    .body {
+      text-align: center;
+      padding: 16em 0;
+    }
+
+  }
+
+}
+
+.agenda-admin-filters-layout {
+  .body {
+    @media (min-width: $screen-md-min) {
+      padding: 0;
+      display: flex;
+    }
+  }
+
+  .oa-filter-total {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .rdrDateRangePickerWrapper {
+    flex-direction: column;
+
+    .rdrDefinedRangesWrapper {
+      border: none;
+
+      .rdrStaticRanges {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .rdrStaticRange {
+          border: none;
+
+          .rdrStaticRangeLabel {
+            padding: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .oa-collapse-item {
+    border-bottom: 1px solid $oa-gray-lightish;
+  }
+}
