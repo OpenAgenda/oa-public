@@ -1,0 +1,21 @@
+{{>layout.top}}
+<div class="container">
+  <div class="row">
+    <div class="events">
+      <ul class="list-unstyled js_progressive_load_disabled">
+      {{#each events}}
+        <li>
+            <a data-event-slug="{{slug}}" href="#" class="event-item my-1">
+              <div class="wbg px-2 py-1">
+                <h3>{{title}}</h3>
+                <span>{{range}}</span>
+              </div>
+              <script type="application/ld+json">{{{JSONLD}}}</script>
+            </a>
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+{{>layout.bottom}}

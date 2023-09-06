@@ -1,0 +1,88 @@
+// Carousel
+// ========
+// Enforcement of the bootstrap carousel
+
+.carousel-inner > .item {
+  img {
+    margin: 0;
+  }
+}
+
+.carousel-control {
+  background-image: none;
+  opacity: 1;
+  text-shadow: none;
+
+  .fa {
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    color: $oa-blue;
+    opacity: 1;
+    font-size: 7em;
+
+    &:active {
+      opacity: .85;
+    }
+
+    &:hover {
+      opacity: .6;
+    }
+
+    &:focus {
+      opacity: .6;
+    }
+  }
+
+  &.left i {
+    left: -50%;
+  }
+
+  &.right i {
+    right: -50%;
+  }
+}
+
+.carousel-indicators {
+  bottom: 0;
+}
+
+.carousel-caption {
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-shadow: none;
+
+  &:before {
+    content: "";
+    background-color: $oa-black;
+    opacity: 0.6;
+    z-index: -1;
+    -webkit-filter: brightness(60%);
+    -moz-filter: brightness(60%);
+    -o-filter: brightness(60%);
+    filter: brightness(60%);
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+
+@media(max-width: $screen-sm) {
+  .carousel-control {
+    .fa {
+      font-size: 3em;
+    }
+
+    &.right i {
+      right: -25%;
+    }
+
+    &.left i {
+      left: -25%;
+    }
+  }
+}

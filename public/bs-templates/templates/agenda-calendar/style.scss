@@ -1,0 +1,72 @@
+@use 'react-big-calendar.css';
+
+.agenda-calendar {
+
+  .spin-canvas {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba( 255, 255, 255, 0.5 );
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 4;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .rbc-calendar {
+
+    min-height: 800px;
+    width: 100%;
+
+    .rbc-event {
+
+      padding: 0;
+      background: $oa-blue;
+      color: $oa-white;
+
+      .rbc-event-content {
+
+        label {
+
+          margin-bottom: 0;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .calendar-event-item {
+
+    background-color: $oa-blue;
+    color: $oa-white;
+    padding: 2px 4px;
+    cursor: pointer;
+
+    label {
+
+      cursor: pointer;
+
+    }
+
+  }
+
+  .calendar-more-item {
+
+    background: $oa-white;
+    color: $oa-black;
+
+    label {
+      cursor: pointer;
+    }
+
+
+  }
+
+}

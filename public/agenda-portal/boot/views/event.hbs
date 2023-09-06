@@ -1,0 +1,69 @@
+{{>layout.top}}
+{{>head tagName="h2"}}
+<div class="container">
+  <div class="row py-4">
+    <div class="col-sm-4 order-sm-12">
+      {{#if event.location}}
+        {{>event/map}}
+      {{/if}}
+
+      {{#if event.onlineAccessLink}}
+        <a class="btn btn-primary btn-block mb-4" href="{{event.onlineAccessLink}}" target="_blank">{{i18n 'accessOnlineEvent'}}</a>
+      {{/if}}
+
+      {{>event/timings}}
+
+      {{filter type='choice' name='relative'}}
+    </div>
+    <div class="col-sm-8 order-sm-1">
+      <div class="row">
+        <div class="col-md-2 text-center">
+          {{>event/share}}
+        </div>
+        <div class="col-md-10">
+          {{>navigation}}
+          <main role="main">
+            <div class="wbg p-4">
+              <h1>{{event.title}} {{#customWidget
+                name='favorite'
+                tagName='span'
+                aria-label=(i18n 'addToFavorites')
+                className='float-right'
+                eventUid=event.uid
+                activeClass='fas'
+                inactiveClass='far'
+                activeTargetSelector='i'
+                handlerSelector='i'
+              }}</h1>
+              
+                <i class="far fa-star" tabindex="0"></i>
+              {{/customWidget}}
+              {{#if event.timing}}
+              <p><strong>{{event.timing.labels.begin.day}} @ {{event.timing.labels.begin.time}} - {{event.timing.labels.end.time}}</strong></p>
+              {{/if}}
+              <p>{{event.description}}</p>
+            </div>
+            {{#if event.image}}
+            <div class="wbg text-center">
+              <img class="img-fluid" src="{{image event.image}}" alt="{{event.description}}" />
+            </div>
+            {{/if}}
+            {{#if event.longDescription}}
+            <div class="wbg p-4">
+              {{{event.longDescription}}}
+            </div>
+            {{/if}}
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="application/ld+json">
+{{#if event.timing}}
+{{{event.timing.JSONLD}}}
+{{else}}
+{{{event.JSONLD}}}
+{{/if}}
+</script>
+{{>layout.bottom}}

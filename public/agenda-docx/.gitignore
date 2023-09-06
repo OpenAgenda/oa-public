@@ -1,0 +1,6 @@
+.idea
+node_modules
+client/build
+client/dist
+
+.~lock.*#
