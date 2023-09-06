@@ -1,1 +1,0 @@
-## OpenAgenda monorepo - public part

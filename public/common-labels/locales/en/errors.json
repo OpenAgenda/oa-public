@@ -1,4 +1,0 @@
-{
-  "common.errors.endLessThanBegin": "At least one timing is invalid with an begin time occuring after the end time",
-  "common.errors.required": "Required"
-}

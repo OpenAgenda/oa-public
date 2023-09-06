@@ -1,8 +1,0 @@
-config.json
-node_modules
-**.css
-cache
-assets/js
-boot/.env
-*.code-workspace
-yarn.lock
