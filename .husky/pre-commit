@@ -18,7 +18,7 @@ maybe_modified_package() {
   NAME=$(echo "$1" | jq -r .name)
   LOCATION=$(echo "$1" | jq -r .location)
 
-  if [ -n "$(git --no-pager diff --cached --name-only --diff-filter=ACDMR -z -- "$LOCATION")" ]; then
+  if [ -n "$(git --no-pager diff --cached --name-only --diff-filter=ACDMR -- "$LOCATION")" ]; then
     MODIFIED_PACKAGES="$MODIFIED_PACKAGES --include $NAME"
   fi
 }
