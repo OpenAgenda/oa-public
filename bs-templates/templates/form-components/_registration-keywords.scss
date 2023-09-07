@@ -49,6 +49,11 @@
         cursor: pointer;
       }
 
+      button {
+        background-color: transparent;
+        border: 0;
+      }
+
       i {
         padding: 0 0.4em 0 0.2em;
       }
@@ -61,6 +66,10 @@
       margin-bottom: 3px;
       margin-right: 5px;
       padding: 4px;
+
+      &:hover {
+        background-color: lighten($oa-blue, 5);
+      }
 
       &.error {
       
