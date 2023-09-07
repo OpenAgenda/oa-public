@@ -35,6 +35,12 @@
     }
 
     .react-tagsinput-tag {
+      cursor: pointer;
+      margin-right: 5px;
+
+      strong {
+        margin-left: 4px;
+      }
 
       span, i {
 
@@ -51,11 +57,16 @@
       a::before {
         color: $oa-white;
         content: " x";
-        cursor: pointer;
+      }
+
+      button {
+        background-color: transparent;
+        border: 0;
+        font-weight: bold;
       }
 
       i {
-        padding: 0 0.4em 0 0.2em;
+        padding: 0 0.2em;
       }
 
       background-color: $oa-blue;
@@ -67,7 +78,6 @@
       font-size: 13px;
       font-weight: 400;
       margin-bottom: 5px;
-      margin-right: 5px;
       padding: 5px;
 
       &.error {
@@ -88,6 +98,22 @@
 
         }
 
+      }
+
+      &:hover {
+        background-color: $oa-white;
+        border-color: $oa-red;
+        color: $oa-red;
+        span, i, a::before, button {
+          color: $oa-red;
+        }
+        &.error {
+          color: $oa-white;
+          background-color: $oa-red;
+          span, i, a::before, button {
+            color: $oa-white;
+          }
+        }
       }
 
     }
