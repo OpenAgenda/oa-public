@@ -27,7 +27,7 @@ const KeywordsComponent = ({
   };
 
   return (
-    <div className="keywords">
+    <div className="multi-input">
       <div>
         <TagsInput
           value={value}

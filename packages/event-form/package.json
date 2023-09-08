@@ -19,6 +19,7 @@
     "@openagenda/react-form-components": "^2.1.14",
     "@openagenda/react-shared": "^2.4.0",
     "@openagenda/react-timingspicker": "^1.4.0",
+    "@openagenda/registration-apps": "^0.0.0",
     "@openagenda/validators": "^2.4.0",
     "core-js": "^3.29.1",
     "date-fns": "^2.11.1",
