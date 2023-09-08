@@ -13,6 +13,8 @@ import {
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
 import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation';
+import LocationCheckbox from '@openagenda/event-form/build/components/configuration/LocationCheckbox';
+import BooleanField from '@openagenda/form-schemas/client/build/Components/BooleanField';
 
 import getSchemaFieldCount from '../lib/getSchemaFieldCount';
 import useRes from '../hooks/useRes';
@@ -195,7 +197,7 @@ function Dashboard() {
               }, {
                 field: 'enabledRanges',
                 fieldType: 'enabledRanges',
-                label: 'Configurateur des saisie de dates',
+                label: 'a Label',
                 selfHandled: ['label', 'info', 'help', 'sub'],
               }],
             },
@@ -209,8 +211,35 @@ function Dashboard() {
               }, {
                 field: 'default',
                 fieldType: 'defaultLocation',
-                label: 'Choose Default Location',
+                label: 'another label',
                 selfHandled: ['label', 'info', 'help', 'sub'],
+                res,
+              }, {
+                field: 'allowCreate',
+                fieldType: 'boolean',
+                label: {
+                  fr: 'Les contributeurs peuvent créer de nouveaux lieux',
+                  en: 'Contributors can create new locations',
+                },
+                selfHandled: ['label', 'info', 'help', 'sub'],
+                default: true,
+                info: {
+                  fr: 'Les contributeurs ne trouvant pas le lieu à associer à leur événement à la suite d\'une recherche sur la base de lieux de l\'agenda peuvent en définir un nouveau',
+                  en: 'When creating or editing an event, contributors that do not find the location to link to their event after doing a search on the agenda index can create a new one.',
+                },
+              }, {
+                field: 'disableChange',
+                fieldType: 'boolean',
+                label: {
+                  fr: 'Les contributeurs ne peuvent pas changer un lieu sélectionné',
+                  en: 'Contributors cannot change a pre-defined location',
+                },
+                selfHandled: ['label', 'info', 'help', 'sub'],
+                default: false,
+                info: {
+                  fr: 'Il n\'est pas possible au contributeur de changer la sélection d\'un lieu sur le formulaire événement lorsque celui-ci est déjà défini.',
+                  en: 'Contributors cannot change an already selected (by default or not) location from the event form.',
+                },
               }],
             },
           })}
