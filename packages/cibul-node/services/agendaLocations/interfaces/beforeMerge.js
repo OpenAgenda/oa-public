@@ -1,7 +1,7 @@
 'use strict';
 
 const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('services/agendaLocations/locationsWillMerge');
+const log = require('@openagenda/logs')('services/agendaLocations/beforeMerge');
 const createLocationFeeds = require('../lib/createLocationFeeds');
 
 module.exports = services => async (mergeInLocation, locations, context) => {
@@ -76,7 +76,6 @@ module.exports = services => async (mergeInLocation, locations, context) => {
       locationUid: mergeInLocation.uid,
     });
   } catch (e) {
-    console.log(e);
     return log.error(new VError({
       cause: e,
       info: {
