@@ -32,6 +32,19 @@ const messages = defineMessages({
   },
 });
 
+const UpdateFormHeader = ({ nq, history }) => (
+  <div className="form-head">
+    {nq ? (
+      <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
+        <i className="fa fa-angle-left margin-right-sm" />
+        <span><FormattedMessage {...messages.back} /></span>
+      </button>
+    ) : null}
+    <h2><FormattedMessage {...messages.title} /></h2>
+    <span className="info"><FormattedMessage {...messages.info} /></span>
+  </div>
+);
+
 const UpdateForm = ({
   detailedInfo = true,
 }) => {
@@ -48,32 +61,22 @@ const UpdateForm = ({
   const historyLocation = useLocation();
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const nq = historyLocation.state || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
-  const { isLoading, data: location } = useQuery(['location', locationUid], () => (
-    axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => response.data.location)
-      .catch(err => setUnfoundLocation(true))
-  ), { cacheTime: 0 });
+  const { isLoading, data: location } = useQuery(
+    ['location', locationUid],
+    () => axios.get(res.get.replace(':locationUid', locationUid), {})
+      .then(response => response.data.location)
+      .catch(_err => setUnfoundLocation(true)),
+    { cacheTime: 0 },
+  );
 
   const dispatch = useDispatch();
-
-  const UpdateFormHeader = () => (
-    <div className="form-head">
-      {nq ? (
-        <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
-          <i className="fa fa-angle-left margin-right-sm" />
-          <span><FormattedMessage {...messages.back} /></span>
-        </button>
-      ) : null}
-      <h2><FormattedMessage {...messages.title} /></h2>
-      <span className="info"><FormattedMessage {...messages.info} /></span>
-    </div>
-  );
 
   const onSubmit = updatedLocation => {
     setPageSpin(true);
     let clean;
     const options = {
       optional: true,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox
+      isEnabled: settings?.displayImageRightsConfirmCheckbox,
     };
     try {
       clean = validate(updatedLocation, settings, options);
@@ -133,7 +136,7 @@ const UpdateForm = ({
       ) : null}
       {!unfoundLocation ? (
         <LocationForm
-          Header={UpdateFormHeader()}
+          Header={UpdateFormHeader({ nq, history })}
           showToggler
           res={res}
           lang={lang}
