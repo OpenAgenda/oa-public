@@ -17,9 +17,11 @@ import validators from './validators';
 
 import errorLabels from '@openagenda/labels/event/errors';
 
+import Registration from '@openagenda/registration-apps';
+
 const eventFormComponents = {
   age: require('./components/Age'),
-  registration: require('./components/Registration'),
+  registration: Registration,
   keywords: require('./components/Keywords'),
   timings: require('./components/Timings'),
   location: require('./components/Location'),
