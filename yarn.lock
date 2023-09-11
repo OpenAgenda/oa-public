@@ -11184,6 +11184,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-tagsinput: ^3.19.0
+    rimraf: ^3.0.1
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0

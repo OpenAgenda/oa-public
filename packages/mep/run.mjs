@@ -32,7 +32,8 @@ const {
 
 const remoteNginxDir = '/var/lib/nginx/config';
 const pm2Commands = [
-  'pm2 startOrReload ecosystem.config.js --update-env',
+  'pm2 delete ecosystem.config.js',
+  'pm2 start ecosystem.config.js',
   'pm2 save',
 ];
 

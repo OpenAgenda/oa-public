@@ -13,8 +13,6 @@ import {
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
 import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation';
-import LocationCheckbox from '@openagenda/event-form/build/components/configuration/LocationCheckbox';
-import BooleanField from '@openagenda/form-schemas/client/build/Components/BooleanField';
 
 import getSchemaFieldCount from '../lib/getSchemaFieldCount';
 import useRes from '../hooks/useRes';
