@@ -94,9 +94,7 @@ function getStat(schema, lang) {
 }
 
 async function corpo(cache, req, res, next) {
-  console.log(req);
   const pageName = req.params.page || req.originalUrl.substr(1);
-  console.log('pageName', pageName);
   const page = landingPages(pageName);
 
   if (!page) {
@@ -295,7 +293,7 @@ module.exports = app => {
     ['/', '/en', '/de', '/es', '/br', '/it', '/oc'],
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    // cacheMw,
+    cacheMw,
     setLang,
     corpo.bind(null, cache),
   );
@@ -335,7 +333,7 @@ module.exports = app => {
     ['/decouvrir/:page', '/discover/:page', '/entdecken/:page', '/scoprire/:page', 'descubrir/:page', '/decouvrirbr/:page', 'decouvriroc/:page'],
     preMw,
     corpoBrowserCache,
-    // cacheMw,
+    cacheMw,
     redirectLang,
     redirectLegacyLinks,
     corpo.bind(null, cache),
