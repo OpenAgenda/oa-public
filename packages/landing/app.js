@@ -43,8 +43,6 @@ app.get( [ '/:page', '/' ], ( req, res, next ) => {
 
   let page = req.params.page || null;
 
-  console.log( 'ip %s requesting page %s', req.ip, page );
-
   try {
 
     req.content = p( page ).render( req.optionalData );

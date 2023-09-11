@@ -28,7 +28,6 @@ module.exports = config => {
   } );
 
   return page => {
-    console.log('page', page);
     if ( !page ) {
 
       page = 'root';
@@ -44,9 +43,7 @@ module.exports = config => {
       return null;
 
     }
-    console.log('pageParams', pageParams, page);
     let lang = _pageLang( pageParams[ 0 ], page );
-    console.log('lang', lang);
     return {
       render: render.bind( null, pageParams[ 0 ], lang ),
       getHeadPart: getHeadPart.bind( null, pageParams[ 0 ], lang ),
