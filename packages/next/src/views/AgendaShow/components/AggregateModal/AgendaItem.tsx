@@ -18,7 +18,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
 
   return (
     <Link
-      href={`${targetAgenda.slug}/admin/sources?${qs.stringify({
+      href={`/${targetAgenda.slug}/admin/sources?${qs.stringify({
         source: agenda.slug,
         redirect: url.pathname,
       })}`}

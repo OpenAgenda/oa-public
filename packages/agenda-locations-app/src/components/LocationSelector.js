@@ -59,6 +59,7 @@ const LocationSelector = ({
   allowRemove = false,
   tiles,
   staticMapTiles,
+  enableDetails = true,
 }) => {
   const [errors, setErrors] = useState(false);
   const [seeDetails, setSeeDetails] = useState(false);
@@ -127,13 +128,15 @@ const LocationSelector = ({
               <FormattedMessage {...messages.remove} />
             </button>
           ) : null}
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={() => setSeeDetails(true)}
-          >
-            <FormattedMessage {...messages.see} />
-          </button>
+          {enableDetails ? (
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={() => setSeeDetails(true)}
+            >
+              <FormattedMessage {...messages.see} />
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={() => switchToSearch()}

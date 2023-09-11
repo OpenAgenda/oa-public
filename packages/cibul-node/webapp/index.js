@@ -482,6 +482,9 @@ const initialState = async req => {
         eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
         memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
         suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+        listLocations: '/api/agendas/:agendaUid/locations?itemsKey=items',
+        getLocationDetails: '/locations/:locationUid.json',
+        staticTiles: config.staticTiles,
       },
     },
     // Admin

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TagsInput from 'react-tagsinput';
 
 const KeywordsComponent = ({
@@ -27,7 +27,7 @@ const KeywordsComponent = ({
   };
 
   return (
-    <div className="keywords">
+    <div className="multi-input">
       <div>
         <TagsInput
           value={value}
@@ -42,7 +42,7 @@ const KeywordsComponent = ({
               value.push(e.target.value);
               myOnChange(value);
             },
-            style: value ? { width: '630px' } : null
+            style: value ? { width: '630px' } : null,
           }}
         />
       </div>

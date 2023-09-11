@@ -32,8 +32,21 @@ const messages = defineMessages({
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
+const CreateFormHeader = ({ nq, history }) => (
+  <div className="head padding-bottom-md">
+    {nq ? (
+      <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
+        <i className="fa fa-angle-left margin-right-sm" />
+        <span><FormattedMessage {...messages.back} /></span>
+      </button>
+    ) : null}
+    <h2><FormattedMessage {...messages.title} /></h2>
+    <span className="info"><FormattedMessage {...messages.info} /></span>
+  </div>
+);
+
 const CreateForm = ({
-  detailedInfo = true
+  detailedInfo = true,
 }) => {
   const { lang, agenda } = useLayoutData();
   const tiles = useSelector(state => state.settings.mapTiles);
@@ -48,25 +61,12 @@ const CreateForm = ({
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const dispatch = useDispatch();
 
-  const CreateFormHeader = () => (
-    <div className="head padding-bottom-md">
-      {nq ? (
-        <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
-          <i className="fa fa-angle-left margin-right-sm" />
-          <span><FormattedMessage {...messages.back} /></span>
-        </button>
-      ) : null}
-      <h2><FormattedMessage {...messages.title} /></h2>
-      <span className="info"><FormattedMessage {...messages.info} /></span>
-    </div>
-  );
-
   const onSubmit = location => {
     setPageSpin(true);
     let clean;
     const options = {
       optional: false,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox
+      isEnabled: settings?.displayImageRightsConfirmCheckbox,
     };
     try {
       clean = validate(location, settings, options);
@@ -109,7 +109,7 @@ const CreateForm = ({
       ) : null}
       {!isLoading ? (
         <LocationForm
-          Header={CreateFormHeader()}
+          Header={CreateFormHeader({ nq, history })}
           showToggler={false}
           res={res}
           lang={lang}
