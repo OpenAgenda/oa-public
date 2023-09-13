@@ -9,6 +9,7 @@ const timings = require('./timings');
 const formatTime = require('./formatTime');
 const image = require('./image');
 const registration = require('./registration');
+const age = require('./age');
 const firstLastDate = require('./firstLastDate');
 const permalink = require('./permalink');
 
@@ -120,11 +121,9 @@ module.exports = function getDefaultFieldMap(options = {}) {
       false: null,
     },
   }, {
-    source: 'age.min',
-    target: getTarget('age.min'),
-  }, {
-    source: 'age.max',
-    target: getTarget('age.max'),
+    source: 'age',
+    target: getTarget('age'),
+    type: 'age',
   }, {
     source: 'originAgenda.title',
     target: getTarget('origin.title'),
@@ -163,6 +162,7 @@ module.exports = function getDefaultFieldMap(options = {}) {
     firstLastDate: firstLastDate.bind(null, subOptions),
     image: image.bind(null),
     registration: registration.bind(null, { source: c.source, target: c.target }),
+    age: age.bind(null, { source: c.source, target: c.target }),
     permalink: permalink.bind(null, subOptions, { source: c.source, target: c.target }),
   }, c.type, defaultMap)(c));
 };
