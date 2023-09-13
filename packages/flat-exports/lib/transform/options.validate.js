@@ -12,7 +12,7 @@ schema.register({
   num: numberValidator,
 });
 
-module.exports = schema({
+const validate = schema({
   languages: {
     type: 'text',
     max: 2,
@@ -56,3 +56,11 @@ module.exports = schema({
     list: true,
   },
 });
+
+module.exports = options => {
+  const clean = validate(options);
+
+  clean.includeLanguages = clean.includeLanguages.filter(l => !!l);
+
+  return clean;
+};
