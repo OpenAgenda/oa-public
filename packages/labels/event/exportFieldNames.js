@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+  "age": {
+    "en": "Target age",
+    "fr": "Âge du public ciblé"
+  },
   "uid": {
     "en": "Identifier",
     "fr": "Identifiant",
