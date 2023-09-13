@@ -60,7 +60,9 @@ const validate = schema({
 module.exports = options => {
   const clean = validate(options);
 
-  clean.includeLanguages = clean.includeLanguages.filter(l => !!l);
+  if (Array.isArray(clean.includeLanguages)) {
+    clean.includeLanguages = clean.includeLanguages.filter(l => !!l);
+  }
 
   return clean;
 };
