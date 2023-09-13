@@ -4,10 +4,10 @@ const Log = require('../utils/Log')('Aggregators/loadSourceRemoves');
 
 module.exports = async (
   { listEventReferences, enqueueRemove },
-  { aggregatorAgendaUid, sourceAgendaUid }
+  { aggregatorAgendaUid, sourceAgendaUid },
 ) => {
   const log = Log(
-    `source agenda ${sourceAgendaUid} of aggregator agenda ${aggregatorAgendaUid}`
+    `source agenda ${sourceAgendaUid} of aggregator agenda ${aggregatorAgendaUid}`,
   );
   let after;
   let hasMore = true;
@@ -16,7 +16,7 @@ module.exports = async (
   while (hasMore) {
     const { after: nextAfter, events } = await listEventReferences(
       sourceAgendaUid,
-      after
+      after,
     );
 
     log('enqueuing %s removes', events.length);

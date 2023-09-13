@@ -59,7 +59,7 @@ module.exports = (data, options = {}) => {
 
   const result = (patch ? validate.part : validate)({
     ...data,
-    ...(rules ? { rules } : {}),
+    ...rules ? { rules } : {},
   });
 
   if (isProtected) {

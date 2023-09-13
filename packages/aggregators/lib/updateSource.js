@@ -12,7 +12,7 @@ module.exports = async (
   aggregatorAgenda,
   sourceId,
   sourceRules = [],
-  options = {}
+  options = {},
 ) => {
   const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
 
@@ -27,7 +27,7 @@ module.exports = async (
   const { aggregator /* , source: updatedSource */ } = await updateSourceEntry(
     aggregatorAgenda,
     source,
-    sourceRules
+    sourceRules,
   );
 
   if (query !== null) {

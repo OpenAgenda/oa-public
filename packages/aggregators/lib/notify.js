@@ -12,7 +12,7 @@ module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
   const aggregationAction = determineAggregationAction(
     type,
     data.before,
-    data.event
+    data.event,
   );
 
   if (!aggregationAction) {
@@ -20,7 +20,7 @@ module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
     return;
   }
 
-  if (!(await getAgendaSourceId(agenda))) {
+  if (!await getAgendaSourceId(agenda)) {
     log('not a source');
     return;
   }
@@ -33,7 +33,7 @@ module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
       'agenda.slug',
       'event.uid',
       'event.slug',
-    ])
+    ]),
   );
 
   queue('dispatch', aggregationAction, data);

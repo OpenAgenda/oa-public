@@ -6,17 +6,15 @@ const paths = require('../utils/paths');
 
 module.exports = async (
   { getEventReference, updateSourcePaths, unreferenceEvent },
-  data
+  data,
 ) => {
-  const {
-    aggregatorAgendaUid, sourceAgendaUid, eventUid, batched
-  } = data;
+  const { aggregatorAgendaUid, sourceAgendaUid, eventUid, batched } = data;
 
   const log = Log(
-    `event uid ${eventUid} of source agenda uid ${sourceAgendaUid} from aggregator agenda ${aggregatorAgendaUid}`
+    `event uid ${eventUid} of source agenda uid ${sourceAgendaUid} from aggregator agenda ${aggregatorAgendaUid}`,
   );
 
-  const reference = data.reference || (await getEventReference(aggregatorAgendaUid, eventUid));
+  const reference = data.reference || await getEventReference(aggregatorAgendaUid, eventUid);
 
   if (!reference) {
     log('did not find reference in aggregator');
@@ -25,17 +23,17 @@ module.exports = async (
 
   const updatedPaths = paths.getFiltered(
     reference.sourcePaths,
-    sourceAgendaUid
+    sourceAgendaUid,
   );
 
   if (reference.aggregated && !updatedPaths.length) {
     log(
-      'no source references are left, event must be unlisted from aggregator agenda'
+      'no source references are left, event must be unlisted from aggregator agenda',
     );
     const { success, errors } = await unreferenceEvent(
       aggregatorAgendaUid,
       eventUid,
-      { batched }
+      { batched },
     );
     if (success) {
       log('removed reference');
@@ -45,7 +43,7 @@ module.exports = async (
     return { success: false, errors };
   }
   log(
-    'other source references are present, current source ref must be removed'
+    'other source references are present, current source ref must be removed',
   );
   await updateSourcePaths({
     aggregatorAgendaUid,
