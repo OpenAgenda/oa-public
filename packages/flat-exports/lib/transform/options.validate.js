@@ -9,7 +9,7 @@ const numberValidator = require('@openagenda/validators/number');
 schema.register({
   text: textValidator,
   pass: passValidator,
-  num: numberValidator
+  num: numberValidator,
 });
 
 module.exports = schema({
@@ -17,21 +17,21 @@ module.exports = schema({
     type: 'text',
     max: 2,
     min: 2,
-    list: true
+    list: true,
   },
   lang: {
     type: 'text',
     min: 2,
     max: 2,
-    default: 'en'
+    default: 'en',
   },
   labels: {
-    type: 'pass'
+    type: 'pass',
   },
   separator: {
     type: 'text',
     default: ' | ',
-    trim: false
+    trim: false,
   },
   includeFields: {
     type: 'text',
@@ -39,20 +39,20 @@ module.exports = schema({
   },
   includeLanguages: {
     type: 'text',
-    list: { default: null }
+    list: { default: null },
   },
   formSchema: {
-    type: 'pass'
+    type: 'pass',
   },
   maintainedFields: {
     type: 'text',
-    list: { default: [] }
+    list: { default: [] },
   },
   agendaUid: {
-    type: 'num'
+    type: 'num',
   },
   spreadFields: {
     type: 'text',
     list: true,
-  }
+  },
 });
