@@ -75,8 +75,8 @@ function Registration(props) {
         inputProps={{
           value: inputValue,
           onChange: onInputChange,
-          placeholder: placeholder && !value.length ? flattenLabel(placeholder, lang) : undefined,
-          style: !(value ?? []).length ? { width: '630px' } : null,
+          placeholder: placeholder && !value?.length ? flattenLabel(placeholder, lang) : undefined,
+          style: !value?.length ? { width: '630px' } : null,
         }}
       />
     </div>
