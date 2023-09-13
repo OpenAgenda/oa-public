@@ -189,6 +189,45 @@ describe('PassCultureSDK', () => {
 
       expect(Array.isArray(dates)).toBe(true);
     });
+
+    it('booking limit is required', async () => {
+      const pc = PassCultureSDK(key);
+
+      const { priceCategories: [{
+        id: priceCategoryId,
+      }]} = await pc.offers.events(testEventId).get();
+
+      const error = await pc.offers.events(testEventId).dates.create({
+        dates: [{
+          beginningDatetime: '2023-09-18T14:00:00+02:00',
+          priceCategoryId,
+          quantity: 3,
+        }],
+      }).catch(e => e);
+
+      expect(error.response.data).toEqual({
+        'dates.0.bookingLimitDatetime': [ 'Ce champ est obligatoire' ]
+      });
+    });
+
+    it('booking limit can be the same as the beginningDateTime', async () => {
+      const pc = PassCultureSDK(key);
+
+      const { priceCategories: [{
+        id: priceCategoryId,
+      }]} = await pc.offers.events(testEventId).get();
+
+      const { dates } = await pc.offers.events(testEventId).dates.create({
+        dates: [{
+          beginningDatetime: '2023-09-19T14:00:00+02:00',
+          bookingLimitDatetime: '2023-09-19T14:00:00+02:00',
+          priceCategoryId,
+          quantity: 3,
+        }],
+      });
+
+      expect(Array.isArray(dates)).toBe(true);
+    });
   });
 
   describe('offers.events.dates.patch', () => {
