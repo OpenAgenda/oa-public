@@ -1,41 +1,41 @@
-"use strict";
+'use strict';
 
-const abilitiesSvc = require( '@openagenda/abilities' );
-const getUnsubscriptionTarget = require( './getUnsubscriptionTarget' );
+const abilitiesSvc = require('@openagenda/abilities');
+const getUnsubscriptionTarget = require('./getUnsubscriptionTarget');
 
-module.exports = async ( services, { knex }, entity, action, subject, conditions, fields ) => {
+module.exports = async (services, { knex }, entity, action, subject, conditions, fields) => {
   const usersSvc = services.users;
-  const target = getUnsubscriptionTarget( entity );
+  const target = getUnsubscriptionTarget(entity);
 
-  if ( !target ) {
-    throw new Error( '`email` or `entityName` plus `identifier` are required for check an unsubscription' );
+  if (!target) {
+    throw new Error('`email` or `entityName` plus `identifier` are required for check an unsubscription');
   }
 
   // Defined target
-  if ( target.identifier ) {
-    const ability = await abilitiesSvc.get( target.entityName, target.identifier );
+  if (target.identifier) {
+    const ability = await abilitiesSvc.get(target.entityName, target.identifier);
 
-    return !ability.can( action, subject, conditions, fields );
+    return !ability.can(action, subject, conditions, fields);
   }
 
   // User found target
-  const user = await usersSvc.findOne( {
+  const user = await usersSvc.findOne({
     query: {
-      email: target.email
-    }
-  } );
+      email: target.email,
+    },
+  });
 
-  if ( user ) {
-    const ability = await abilitiesSvc.get( 'user', user.uid );
+  if (user) {
+    const ability = await abilitiesSvc.get('user', user.uid);
 
-    return !ability.can( action, subject, conditions, fields );
+    return !ability.can(action, subject, conditions, fields);
   }
 
   // Email target
-  if ( target.email ) {
-    return !!( await knex( 'unsubscribed' )
+  if (target.email) {
+    return !!await knex('unsubscribed')
       .select()
       .first()
-      .where( { email: target.email } ) );
+      .where({ email: target.email });
   }
-}
+};
