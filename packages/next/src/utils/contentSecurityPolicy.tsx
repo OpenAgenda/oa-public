@@ -32,12 +32,16 @@ const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
   ],
   'script-src-attr': ["'none'"],
-  'style-src': ["'self'", "'unsafe-inline'"],
+  'style-src': [
+    "'self'",
+    "'unsafe-inline'",
+    ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
+  ],
   'media-src': ["'self'", 'https:', 'data:'],
   'frame-src': ["'self'"],
   'connect-src': [
     "'self'",
-    ...process.env.NEXT_PUBLIC_MATOMO_URL ? `https://${process.env.NEXT_PUBLIC_MATOMO_URL}` : [],
+    ...process.env.NEXT_PUBLIC_MATOMO_URL ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`] : [],
   ],
   'upgrade-insecure-requests': [],
   'block-all-mixed-content': [],

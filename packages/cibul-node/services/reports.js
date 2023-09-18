@@ -11,6 +11,7 @@ module.exports.init = config => {
       app.post(
         '/reports',
         bodyParser.json({ type: 'application/reports+json', limit: '5mb' }),
+        bodyParser.json({ type: 'application/csp-report', limit: '5mb' }),
         (req, res) => {
           if (Array.isArray(req.body)) {
             for (const row of req.body) {
