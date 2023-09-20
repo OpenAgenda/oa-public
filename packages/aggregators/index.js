@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const logs = require('@openagenda/logs');
 
 const log = logs('aggregators');
@@ -54,15 +53,13 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
       updateSourcePaths: interfaces.updateSourcePaths,
       updateEventReference: interfaces.updateEventReference,
       enqueueRemove: queue.bind(null, 'removeEvent'),
+      enqueueEvaluate: queue.bind(null, 'evaluateEvent'),
     }),
-    removeEvent: removeEvent.bind(
-      null,
-      _.pick(interfaces, [
-        'getEventReference',
-        'updateSourcePaths',
-        'unreferenceEvent',
-      ]),
-    ),
+    removeEvent: removeEvent.bind(null, {
+      getEventReference: interfaces.getEventReference,
+      unreferenceEvent: interfaces.unreferenceEvent,
+      enqueueRemove: queue.bind(null, 'removeEvent'),
+    }),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
       enqueueEvaluate: queue.bind(null, 'evaluateEvent'),

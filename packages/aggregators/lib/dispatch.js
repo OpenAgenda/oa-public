@@ -10,25 +10,26 @@ module.exports = async ({ queue, knex }, action, data) => {
   log('dispatch');
   const { agenda, event } = data;
 
-  const aggregators = await getSourceAndAggregatorPairs(knex, agenda);
-  for (const ag of aggregators) {
-    const aggregatorLimit = ag.limit === null ? DEFAULT_LIMIT : ag.limit;
-
+  const aggregatorsBuffer = (
+    await getSourceAndAggregatorPairs(knex, agenda)
+  ).map(ag => {
     if (action === 'evaluateEvent') {
-      await queue('evaluateEvent', {
+      return {
+        aggregatorLimit: ag.limit === null ? DEFAULT_LIMIT : ag.limit,
         aggregatorAgendaUid: ag.agendaUid,
         sourceRules: ag.sourceRules,
         aggregatorRules: ag.aggregatorRules,
-        aggregatorLimit,
-        ...data,
-      });
-    } else {
-      await queue('removeEvent', {
-        aggregatorAgendaUid: ag.agendaUid,
-        sourceAgendaUid: agenda.uid,
-        eventUid: event.uid,
-        ...data,
-      });
+      };
     }
-  }
+    return {
+      aggregatorAgendaUid: ag.agendaUid,
+      sourceAgendaUid: agenda.uid,
+      eventUid: event.uid,
+    };
+  });
+
+  await queue(action, {
+    aggregatorsBuffer,
+    ...data,
+  });
 };
