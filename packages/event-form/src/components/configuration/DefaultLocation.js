@@ -22,11 +22,11 @@ const DefaultLocation = ({
 
   const options = extractCountryNames();
   const selectValue = options.find(option => option.value === value?.countryCode);
-  const [mode, setMode] = useState(value.uid ? 'show' : 'search');
+  const [mode, setMode] = useState(value?.uid ? 'show' : 'search');
   const [loc, setLoc] = useState(null);
 
   useEffect(() => {
-    if (value.uid) {
+    if (value?.uid) {
       axios.get(field.res.getLocationDetails.replace(':locationUid', value.uid)).then(r => setLoc(r.data));
     }
   }, []);
