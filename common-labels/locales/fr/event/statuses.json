@@ -1,14 +1,5 @@
 {
   "common.event.statuses.cancelled": "Annulé",
-  "common.event.statuses.cancelledInfo": "L'événement a été annulé définitivement",
-  "common.event.statuses.full": "Complet",
-  "common.event.statuses.fullInfo": "L'événement n'accepte plus de nouveaux participants",
   "common.event.statuses.movedOnline": "Déplacé en ligne",
-  "common.event.statuses.movedOnlineInfo": "La participation de l'événement n'est désormais plus possible en présentiel",
-  "common.event.statuses.postponed": "Reporté",
-  "common.event.statuses.postponedInfo": "L'événement a été reporté à des dates encore non connues",
-  "common.event.statuses.rescheduled": "Reprogrammé",
-  "common.event.statuses.rescheduledInfo": "Les dates et/ou horaires de l'événement ont été modifiées",
-  "common.event.statuses.scheduled": "Programmé",
-  "common.event.statuses.scheduledInfo": "L'événement aura ou a eu lieu au lieu et aux horaires annoncés"
+  "common.event.statuses.movedOnlineInfo": "La participation de l'événement n'est désormais plus possible en présentiel"
 }
