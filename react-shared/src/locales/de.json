@@ -23,7 +23,6 @@
   "ReactShared.AgendaContextBar.refusedModalTitle": "Abgelehnte Veranstaltungen",
   "ReactShared.ConsentBanner.accept": "Akzeptieren",
   "ReactShared.ConsentBanner.decline": "Ablehnen",
-  "ReactShared.ConsentBanner.informationText": "Diese Agenda verwendet Cookies des Trackingdienstes {service}. Sie ermöglichen den Administratoren der Agenda einen Einblick darüber, welche Inhalte von Besuchern auf Websites angezeigt werden. Akzeptieren Sie sie?",
   "ReactShared.ConsentBanner.moreInfoLink": "Klicken Sie hier für weitere Informationen",
   "ReactShared.EventSelection.emptyList": "Es wurden keine passenden Ereignisse gefunden",
   "ReactShared.EventSelection.undefinedDescription": "Undefinierte Beschreibung",
