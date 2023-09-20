@@ -27,64 +27,64 @@ export default {
   title: 'Integrated',
 };
 
-export function Presentation() {
-  const filtersContainerRef = useRef();
+export const Presentation = {
+  render: function Render() {
+    const filtersContainerRef = useRef();
 
-  return (
-    <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
-        ref={filtersContainerRef}
-      />
-      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-        {wrapApp(
-          createApp({
-            history: createMemoryHistory(),
-            initialState: getDefaultState({}),
-          }),
-          {
-            disableScrollToTop: true,
-            extraProps: {
-              agendaSchema: {
-                fields: [],
-              },
-              lang: 'fr',
-              agenda: {
-                uid: 48959239,
-                slug: 'la-gargouille',
-                title: 'La gargouille',
-                credentials: {
-                  aggregator: true,
+    return (
+      <>
+        <div
+          className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
+          ref={filtersContainerRef}
+        />
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
+          {wrapApp(
+            createApp({
+              history: createMemoryHistory(),
+              initialState: getDefaultState({}),
+            }),
+            {
+              disableScrollToTop: true,
+              extraProps: {
+                agendaSchema: {
+                  fields: [],
                 },
+                lang: 'fr',
+                agenda: {
+                  uid: 48959239,
+                  slug: 'la-gargouille',
+                  title: 'La gargouille',
+                  credentials: {
+                    aggregator: true,
+                  },
+                },
+                filtersContainerRef,
               },
-              filtersContainerRef,
             },
-          },
-        )}
-      </div>
-    </>
-  );
-}
-
-Presentation.parameters = {
-  msw: {
-    handlers: [
-      rest.post('/la-gargouille/events/search', (req, res, ctx) => {
-        console.log(req.body);
-        return res(ctx.json(mainData));
-      }),
-      rest.get('/agendas/48959239/admin/settings/exports', (req, res, ctx) =>
-        res(ctx.json(exportSettings))),
-      rest.post('/:agendaSlug/events/:eventSlug/state', (req, res, ctx) => {
-        const event = JSON.parse(
-          JSON.stringify(
-            mainData.events.find(e => e.slug === req.params.eventSlug),
-          ),
-        );
-        return res(ctx.json({ ...event, ...req.body }));
-      }),
-    ],
+          )}
+        </div>
+      </>
+    );
   },
+  parameters: {
+    msw: {
+      handlers: [
+        rest.post('/la-gargouille/events/search', (req, res, ctx) => {
+          console.log(req.body);
+          return res(ctx.json(mainData));
+        }),
+        rest.get('/agendas/48959239/admin/settings/exports', (req, res, ctx) =>
+          res(ctx.json(exportSettings))),
+        rest.post('/:agendaSlug/events/:eventSlug/state', (req, res, ctx) => {
+          const event = JSON.parse(
+            JSON.stringify(
+              mainData.events.find(e => e.slug === req.params.eventSlug),
+            ),
+          );
+          return res(ctx.json({ ...event, ...req.body }));
+        }),
+      ],
+    },
+  },
+  decorators: [AdminPageDecorator, ProvidersDecorator],
 };
-
-Presentation.decorators = [AdminPageDecorator, ProvidersDecorator];
