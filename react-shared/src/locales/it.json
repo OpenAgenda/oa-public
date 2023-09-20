@@ -5,12 +5,7 @@
   "ReactShared.AgendaContextBar.moderated": "{count} da moderare",
   "ReactShared.ConsentBanner.accept": "Accettare",
   "ReactShared.ConsentBanner.decline": "Rifiutare",
-  "ReactShared.ConsentBanner.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio {service}. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?",
   "ReactShared.ConsentBanner.moreInfoLink": "Per saperne di più",
   "ReactShared.ImageInput.acceptedFiles": "File accettati",
-  "ReactShared.ImageInput.fileTooLarge": "Il documento {fileName} è {fileSize}, il limite superiore per la dimensione del file è {maxSize}",
-  "ReactShared.ImageInput.remove": "Rimuovi",
-  "ReactShared.ImageInput.update": "Aggiorna l'immagine",
-  "ReactShared.ImageInput.upload": "Carica un'immagine",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi."
+  "ReactShared.ImageInput.remove": "Rimuovi"
 }
