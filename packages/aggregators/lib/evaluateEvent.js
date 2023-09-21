@@ -17,21 +17,28 @@ module.exports = async (
     referenceEvent,
     updateEventReference,
     enqueueRemove,
+    enqueueEvaluate,
   },
   data,
 ) => {
   const {
     agenda: sourceAgenda,
     event,
-    aggregatorAgendaUid,
     batched,
     formSchema: sourceAgendaFormSchema,
-    aggregatorLimit,
+    aggregatorsBuffer,
   } = data;
 
   const log = Log(
     `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
   );
+
+  if (aggregatorsBuffer.length === 0) {
+    log('no more items in aggregatorsBuffer');
+    return;
+  }
+  const aggregator = aggregatorsBuffer.shift();
+  const { sourceRules, aggregatorRules, aggregatorAgendaUid, aggregatorLimit } = aggregator;
 
   if (
     typeof getAggregatedCount === 'function'
@@ -56,9 +63,7 @@ module.exports = async (
     }
   }
 
-  const rules = []
-    .concat(data.aggregatorRules || [])
-    .concat(data.sourceRules || []);
+  const rules = [].concat(aggregatorRules || []).concat(sourceRules || []);
 
   const aggregatorSchema = await getMergedSchema(aggregatorAgendaUid);
   const evaluateResult = evaluateRules(
@@ -96,21 +101,25 @@ module.exports = async (
 
   if (reference && !reference.aggregated) {
     log('is already referenced and was done so manually. Not processed.');
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
     return;
   }
   if (!shouldAggregate && !reference) {
     log('Is not and should not be referenced. Not processed.');
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
     return;
   }
 
   if (shouldAggregate && reference && isShortestPath && evaluateResultChange) {
-    return updateEventReference({
+    updateEventReference({
       aggregatorAgendaUid,
       eventUid: event.uid,
       payload,
       batched,
       aggregated: aggregatedKey,
     });
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
 
   if (
@@ -125,6 +134,7 @@ module.exports = async (
     log(
       'Is referenced and should be through current source, but paths are unchanged. Not processed',
     );
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
     return;
   }
 
@@ -146,16 +156,19 @@ module.exports = async (
 
   if (updatedPaths && !updatedPaths.length) {
     log('source paths are empty. Removing reference');
-    return enqueueRemove({
+    enqueueRemove({
       sourceAgendaUid: sourceAgenda.uid,
       eventUid: event.uid,
       aggregatorAgendaUid,
       reference,
       batched,
     });
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
   if (updatedPaths) {
     log('source paths need to be updated. Updating reference');
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
     return updateSourcePaths({
       aggregatorAgendaUid,
       sourceAgenda,
@@ -179,7 +192,7 @@ module.exports = async (
   } else {
     log('done', { step: 'not referenced', errors });
   }
-
+  await enqueueEvaluate({ aggregatorsBuffer, ...data });
   return {
     success,
     operation: 'aggregation',

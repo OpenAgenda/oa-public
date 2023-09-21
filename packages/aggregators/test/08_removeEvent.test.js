@@ -19,12 +19,17 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid,
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid,
+            eventUid,
+          },
+        ],
         sourceAgendaUid,
-        eventUid,
-      }
+      },
     );
 
     const unreferenceCall = tracker.calls.pop();
@@ -47,12 +52,17 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+            eventUid: 1,
+          },
+        ],
+      },
     );
 
     expect(tracker.calls.pop().name).toBe('updateSourcePaths');
@@ -68,12 +78,17 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+            eventUid: 1,
+          },
+        ],
+      },
     );
 
     expect(tracker.calls.pop().name).toBe('updateSourcePaths');
@@ -88,18 +103,23 @@ describe('08 - removeEvent', () => {
           aggregated: true,
         }),
         unsetSourceUidOnExistingReference: tracker(
-          'unsetSourceUidOnExistingReference'
+          'unsetSourceUidOnExistingReference',
         ),
         unreferenceEvent: tracker('unreferenceEvent', {
           success: false,
           errors: ['error1'],
         }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+            eventUid: 1,
+          },
+        ],
+      },
     );
 
     expect(result).toEqual({ success: false, errors: ['error1'] });
