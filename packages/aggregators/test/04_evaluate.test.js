@@ -1,6 +1,9 @@
 'use strict';
 
-const evaluate = require('../lib/evaluateEvent');
+const {
+  evaluateEvent: evaluate,
+  processEvaluate,
+} = require('../lib/evaluateEvent');
 const { getJSON } = require('./utils');
 
 describe('04 - evaluateBis', () => {
@@ -9,10 +12,9 @@ describe('04 - evaluateBis', () => {
   describe('simple evaluate leading to new reference', () => {
     const data = getJSON('/fixtures/evaluate/data2');
     let referenceData;
-    let result;
 
     beforeAll(async () => {
-      result = await evaluate(
+      await evaluate(
         {
           getMergedSchema: async () =>
             getJSON('fixtures/evaluate/getMergedSchema'),
@@ -26,10 +28,6 @@ describe('04 - evaluateBis', () => {
         },
         { ...data, batched: false },
       );
-    });
-
-    test('result provides operation key set to `aggregation` when event was aggregated', () => {
-      expect(result.operation).toBe('aggregation');
     });
 
     describe('referenceEvent call', () => {
@@ -336,7 +334,7 @@ describe('04 - evaluateBis', () => {
 
   it('evaluate is not skipped if limit is set to -1', async () => {
     const data = getJSON('/fixtures/evaluate/data2');
-    const result = await evaluate(
+    const result = await processEvaluate(
       {
         getAggregatedCount: () => 42000,
         getMergedSchema: async () =>
@@ -348,19 +346,17 @@ describe('04 - evaluateBis', () => {
       },
       {
         ...data,
-        aggregatorsBuffer: [
-          {
-            aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
-            aggregatorLimit: -1,
-            aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
-            sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-          },
-        ],
+        sourceAgenda: data.agenda,
+        aggregator: {
+          aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
+          aggregatorLimit: -1,
+          aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+        },
+        log: e => e,
       },
     );
 
-    expect(result).toEqual({
-      success: true,
-    });
+    expect(result).toEqual('updateSourcePaths');
   });
 });
