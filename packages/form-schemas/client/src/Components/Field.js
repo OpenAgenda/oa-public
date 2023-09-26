@@ -47,6 +47,7 @@ const FieldComponents = {
 const log = debug('Field');
 
 const decoratedByFieldComponent = (field, key) => {
+  if (field.field === 'location' && key === 'sub' && field.disableChange) return true;
   if (['boolean'].includes(field.fieldType)) return true;
   if (field.selfHandled.length === 0) return false;
   return field.selfHandled.includes(key);
