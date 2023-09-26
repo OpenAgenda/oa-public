@@ -62,6 +62,19 @@ const messages = defineMessages({
   },
 });
 
+const roles = {
+  2: 'administrator',
+  administrator: 'administrator',
+  3: 'moderator',
+  moderator: 'moderator',
+  1: 'contributor',
+  contributor: 'contributor',
+  4: 'reader',
+  reader: 'reader',
+};
+
+const defaultGetRoleSlug = code => roles[String(code).toLowerCase()];
+
 const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
 
 const Canvas = (title, content, { mode, onClose }) =>
@@ -102,6 +115,7 @@ export default ({
   schema, // optional preloaded member schema
   userRole,
 }) => {
+  console.log('userRole', userRole);
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(getRes), {
       select: ({ data }) => data,
@@ -237,7 +251,7 @@ export default ({
               patch: saveRes,
               post: saveRes,
             }}
-            role={userRole}
+            role={defaultGetRoleSlug(userRole)}
             values={loadedMember}
             schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}
