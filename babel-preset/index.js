@@ -88,6 +88,7 @@ module.exports = declare((api, options) => {
         ...envOpts
       }
     ],
+    require('@babel/preset-typescript'),
     [
       require('@babel/preset-react'),
       {
