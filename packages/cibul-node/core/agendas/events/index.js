@@ -8,6 +8,7 @@ const list = require('./list');
 const create = require('./create');
 const remove = require('./remove');
 const update = require('./update');
+const references = require('./references');
 const validate = require('./validate');
 
 module.exports = core => {
@@ -22,6 +23,7 @@ module.exports = core => {
     remove: remove.bind(null, core, agendaUid),
     update: update.bind(null, core, agendaUid),
     patch: update.patch.bind(null, core, agendaUid),
+    references: references.bind(null, core, agendaUid),
     validate: Object.assign(
       validate.bind(null, core, agendaUid),
       { eventFields: validate.eventFields },

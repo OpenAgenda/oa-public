@@ -140,6 +140,12 @@ export default (core, { useRouter = true } = {}) => {
       private: null,
     }).then(event => res.json({ success: true, event }), next));
 
+  app.get('/agendas/:agendaUid/events/:eventUid/references', (req, res, next) => core
+    .agendas(req.agenda.uid).events
+    .references(req.event.uid, {}, {
+      userUid: req.user?.uid,
+    }).then(references => res.json({ success: true, references }), next));
+
   app.get([
     '/agendas/:agendaUid/events',
     '/agendas/slug/:agendaSlug/events',
