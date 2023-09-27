@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "prepack": {
+      "dependsOn": ["^prepack"]
+    },
+    "@openagenda/next#build": {
+      "dependsOn": ["^prepack"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "@openagenda/uikit#prepack": {
+      "outputs": ["dist/**"],
+      "inputs": ["src/**"]
+    }
+  }
+}

@@ -30,7 +30,8 @@
   ],
   "workspaces": [
     "packages/*",
-    "public"
+    "public",
+    "public/*"
   ],
   "packageManager": "yarn@3.2.4",
   "resolutions": {
@@ -63,7 +64,8 @@
     "jest": "^28.1.2",
     "jszip": "^3.9.1",
     "regenerator-runtime": "^0.13.8",
-    "tmp": "^0.2.1"
+    "tmp": "^0.2.1",
+    "turbo": "^1.10.14"
   },
   "dependenciesMeta": {
     "webpack-dev-server": {
