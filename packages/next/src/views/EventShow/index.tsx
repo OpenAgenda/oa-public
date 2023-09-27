@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import useSWR from 'swr';
-import { getLocaleValue } from '@openagenda/intl';
 import {
   chakra,
   Box,

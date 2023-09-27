@@ -4,6 +4,7 @@ import EventShow from 'views/EventShow';
 import Sidebar from 'views/EventShow/components/Sidebar';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
+import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventFixtures from '../../fixtures/events/sample.json';
 import onlineEventFixtures from '../../fixtures/events/online.json';
 
@@ -24,11 +25,11 @@ export default {
 };
 
 export function Simple() {
-  return <Sidebar event={eventFixtures} />;
+  return <Sidebar agenda={agendaFixtures} event={eventFixtures} />;
 }
 
 export function Private() {
-  return <Sidebar event={{ ...eventFixtures, private: true }} />;
+  return <Sidebar agenda={agendaFixtures} event={{ ...eventFixtures, private: true }} />;
 }
 
 export function Past() {
@@ -40,6 +41,7 @@ export function Past() {
 
   return (
     <Sidebar
+      agenda={agendaFixtures}
       event={{
         ...eventFixtures,
         timings,
@@ -59,6 +61,7 @@ export function Future() {
 
   return (
     <Sidebar
+      agenda={agendaFixtures}
       event={{
         ...eventFixtures,
         timings,
@@ -70,5 +73,5 @@ export function Future() {
 }
 
 export function Online() {
-  return <Sidebar event={onlineEventFixtures} />;
+  return <Sidebar agenda={agendaFixtures} event={onlineEventFixtures} />;
 }
