@@ -1,9 +1,9 @@
 import { Container } from '@openagenda/uikit';
 import { FiltersProvider } from '@openagenda/react-filters';
-import Providers from 'Providers';
 import AgendaShow from 'views/AgendaShow';
 import EventItem from 'views/AgendaShow/components/EventItem';
-import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
+import intlMessagesLoader from '../../loaders/intlMessagesLoader';
+import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 import offlineEvent from '../../fixtures/events/offline.json';
 import onlineEvent from '../../fixtures/events/online.json';
@@ -17,106 +17,56 @@ export default {
   title: 'views/AgendaShow/EventItem',
   component: EventItem,
   loaders: [
-    async () => ({
-      intlMessages: await AgendaShow.fetchLocale('fr'),
-    }),
+    intlMessagesLoader(AgendaShow.fetchLocale),
+  ],
+  decorators: [
+    Story => (
+      <FiltersProvider>
+        <Container maxW="container.md">
+          <Story />
+        </Container>
+      </FiltersProvider>
+    ),
+    ProvidersDecorator,
   ],
 };
 
-function Wrapper({ children }) {
-  return (
-    <DateFnsLocaleProvider>
-      <FiltersProvider>
-        <Container maxW="container.md">
-          {children}
-        </Container>
-      </FiltersProvider>
-    </DateFnsLocaleProvider>
-  );
+export function Offline() {
+  return <EventItem agenda={agendaFixtures} event={offlineEvent} />;
 }
 
-export function Offline(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={offlineEvent} />
-      </Wrapper>
-    </Providers>
-  );
+export function Online() {
+  return <EventItem agenda={agendaFixtures} event={onlineEvent} />;
 }
 
-export function Online(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={onlineEvent} />
-      </Wrapper>
-    </Providers>
-  );
+export function Mixed() {
+  return <EventItem agenda={agendaFixtures} event={mixedEvent} />;
 }
 
-export function Mixed(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={mixedEvent} />
-      </Wrapper>
-    </Providers>
-  );
+export function WithoutImage() {
+  return <EventItem agenda={agendaFixtures} event={withoutImageEvent} />;
 }
 
-export function WithoutImage(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={withoutImageEvent} />
-      </Wrapper>
-    </Providers>
-  );
+export function WithALongTitle() {
+  return <EventItem agenda={agendaFixtures} event={withALongTitle} />;
 }
 
-export function WithALongTitle(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={withALongTitle} />
-      </Wrapper>
-    </Providers>
-  );
+export function Featured() {
+  return <EventItem agenda={agendaFixtures} event={featuredEvent} />;
 }
 
-export function Featured(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={featuredEvent} />
-      </Wrapper>
-    </Providers>
-  );
+export function Cancelled() {
+  return <EventItem agenda={agendaFixtures} event={cancelledEvent} />;
 }
 
-export function Cancelled(_args, { loaded: { intlMessages } }) {
+export function RescheduledWithALongTitle() {
   return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem agenda={agendaFixtures} event={cancelledEvent} />
-      </Wrapper>
-    </Providers>
-  );
-}
-
-export function RescheduledWithALongTitle(_args, { loaded: { intlMessages } }) {
-  return (
-    <Providers locale="fr" intlMessages={intlMessages}>
-      <Wrapper>
-        <EventItem
-          agenda={agendaFixtures}
-          event={{
-            ...withALongTitle,
-            status: 2,
-          }}
-        />
-      </Wrapper>
-    </Providers>
+    <EventItem
+      agenda={agendaFixtures}
+      event={{
+        ...withALongTitle,
+        status: 2,
+      }}
+    />
   );
 }

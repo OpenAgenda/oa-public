@@ -1,24 +1,27 @@
-const webpack = require('webpack');
+import { dirname, join } from 'node:path';
 
-module.exports = {
-  stories: [
-    '../stories/**/*.stories.@(tsx|ts|jsx|js)',
-  ],
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
+
+export default {
   framework: {
-    name: '@storybook/nextjs',
+    name: getAbsolutePath('@storybook/nextjs'),
     options: {},
   },
-  addons: [],
-  webpackFinal(config) {
-    config.plugins.push(new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-    }));
 
-    // Fix next/dynamic with suspense
-    config.plugins.push(new webpack.DefinePlugin({
-      'process.env.__NEXT_REACT_ROOT': 'true',
-    }));
+  stories: [
+    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
 
-    return config;
+  core: {
+    builder: getAbsolutePath('@storybook/builder-webpack5'),
   },
+
+  staticDirs: ['public'],
+
+  env: config => ({
+    ...config,
+    __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
+  }),
 };

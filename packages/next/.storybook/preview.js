@@ -10,6 +10,7 @@ initialize({
 
     if (sameOrigin && url.pathname === '/index.json') return;
     if (sameOrigin && url.pathname === '/runtime-error') return;
+    if (sameOrigin && url.pathname === '/favicon.svg') return;
     if (sameOrigin && url.pathname.endsWith('.iframe.bundle.js')) return;
     if (sameOrigin && url.pathname.endsWith('.hot-update.json')) return;
     if (sameOrigin && url.pathname.endsWith('.hot-update.js')) return;
@@ -35,13 +36,13 @@ export const parameters = { layout: 'fullscreen' };
 
 export const decorators = [
   // Clean the cache at each story change
-  storyFn => (
+  Story => (
     <SWRConfig value={{ provider: () => new Map() }}>
-      {storyFn()}
+      <Story />
     </SWRConfig>
   ),
   // Fix uikit theme
-  storyFn => {
+  Story => {
     useLayoutEffect(() => {
       const root = document.documentElement;
       root.dataset.theme = 'light';
@@ -51,7 +52,7 @@ export const decorators = [
       };
     }, []);
 
-    return storyFn();
+    return <Story />;
   },
 ];
 

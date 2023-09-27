@@ -43,12 +43,22 @@ export const getServerSideProps: GetServerSideProps = async ({
       { event },
     ] = await Promise.all([
       EventShow.fetchLocale(locale),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`)
+      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
+        headers: {
+          Authorization: req.headers.authorization,
+          Cookie: req.headers.cookie,
+        },
+      })
         .then(r => {
           if (r.ok) return r.json();
           throw new VError[r.status](r.statusText);
         }),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`)
+      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`, {
+        headers: {
+          Authorization: req.headers.authorization,
+          Cookie: req.headers.cookie,
+        },
+      })
         .then(r => {
           if (r.ok) return r.json();
           throw new VError[r.status](r.statusText);
@@ -59,6 +69,9 @@ export const getServerSideProps: GetServerSideProps = async ({
       intlMessages,
       agenda,
       event,
+      preload: [
+        `https://d.openagenda.com/api/agendas/${agenda.uid}/events/${event.uid}/references`,
+      ],
     };
 
     return { props };

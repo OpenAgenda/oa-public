@@ -1,12 +1,32 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import useSWR from 'swr';
 import { getLocaleValue } from '@openagenda/intl';
-import { chakra, Box, Container, Flex, Grid, GridItem, Heading, Link, Button } from '@openagenda/uikit';
+import {
+  chakra,
+  Box,
+  Container,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+  Button,
+  List,
+  ListItem,
+  ListIcon,
+} from '@openagenda/uikit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
+import { faPhone } from '@fortawesome/pro-solid-svg-icons';
 import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
+import { FetchStatus } from 'config/types';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
+import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
+import Sidebar from './components/Sidebar';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import fetchLocale from './locales';
 
@@ -24,6 +44,11 @@ export type EventShowProps = {
   event: {
     title: Record<string, string>
     description: Record<string, string>
+    dateRange: Record<string, string>
+    timings: {
+      begin: string
+      end: string
+    }[]
     image?: {
       size?: {
         width: number
@@ -39,11 +64,111 @@ export type EventShowProps = {
     location?: {
       agendaUid: number
       name: string
+      address: string
+      tags?: {
+        id: number
+        label: string
+      }[]
+      description?: Record<string, string>
+      access?: Record<string, string>
+      image?: string
+      imageCredits?: string
+      website?: string
+      phone?: string
+      links?: string[]
     }
-  }
+  },
+  preload?: string[]
 };
 
-function EventShow({ agenda, event }: EventShowProps) {
+function fetcher(url) {
+  return fetch(url)
+    .then(
+      r => {
+        if (r.ok) return r.json();
+        // TODO should recreate an error with data in `await r.json()` and/or status
+        throw new Error('Error');
+      },
+    );
+}
+
+function SuggestLocationChangeButton({ agenda, event }) {
+  const {
+    data: {
+      me,
+    } = {},
+    status,
+  } = useSWR(
+    `/api/me/agendas/${agenda.uid}?includes[]=me.member`,
+    fetcher,
+  );
+
+  if (status === FetchStatus.Fetching) return null;
+
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me.member.role);
+
+  if (isAdminMod) return null;
+
+  return (
+    <Button
+      as={Link}
+      href={`/${agenda.slug}/locations/${event.uid}.${event.location.uid}/suggest-change`}
+      variant="outline"
+      alignSelf="flex-start"
+      borderColor="oaGray.300"
+      color="blackAlpha.800"
+      _hover={{
+        bg: 'oaGray.100',
+        color: 'blackAlpha.900',
+        textDecoration: 'none',
+      }}
+    >
+      Suggérer une modification de lieu
+    </Button>
+  );
+}
+
+function EditLocationButton({ agenda }) {
+  const {
+    data: {
+      me,
+    } = {},
+    status,
+  } = useSWR(
+    `/api/me/agendas/${agenda.uid}?includes[]=me.member`,
+    fetcher,
+  );
+
+  if (status === FetchStatus.Fetching) return null;
+
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me.member.role);
+
+  if (!isAdminMod) return null;
+
+  return (
+    <Button
+      as={Link}
+      href="/"
+      // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
+      variant="outline"
+      // colorScheme="white"
+      borderColor="oaGray.300"
+      color="blackAlpha.800"
+      _hover={{
+        bg: 'oaGray.100',
+        color: 'blackAlpha.900',
+        textDecoration: 'none',
+      }}
+      position="absolute"
+      top="6"
+      right="6"
+    >
+      Éditer le lieu
+    </Button>
+  );
+}
+
+function EventShow({ agenda, event, preload }: EventShowProps) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
@@ -59,6 +184,8 @@ function EventShow({ agenda, event }: EventShowProps) {
 
   return (
     <>
+      <Metas agenda={agenda} event={event} preload={preload} />
+
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container maxW="container.lg" color="white">
           <AgendaHeader agenda={agenda} />
@@ -79,24 +206,14 @@ function EventShow({ agenda, event }: EventShowProps) {
         }}
         gridTemplateRows="auto minmax(0, 1fr)"
         rowGap="8"
-        columnGap="24"
+        columnGap="10"
         pt="8"
         m="auto"
         maxW="container.lg"
       >
         <GridItem area="sidebar">
           <Flex direction="row" gap="8">
-            <Flex
-              gap="6"
-              direction="column"
-              w="full"
-              // w={{ base: 'full', xl: '75%' }}
-              // px={{ base: '4', xl: '0' }}
-            >
-              <Box bg="red" h="100px" w="full">
-                Sidebar
-              </Box>
-            </Flex>
+            <Sidebar agenda={agenda} event={event} />
           </Flex>
         </GridItem>
 
@@ -117,12 +234,17 @@ function EventShow({ agenda, event }: EventShowProps) {
           //   borderColor: 'primary.500',
           // }}
           >
-            <Heading as="h1" fontSize="4xl" px="8">
-              {getLocaleValue(event.title, intl.locale)}
-            </Heading>
-            <Box fontSize="xl" px="8">
-              {getLocaleValue(event.description, intl.locale)}
-            </Box>
+            {event.title?.[intl.locale] ? (
+              <Heading as="h1" fontSize="4xl" px="8">
+                {event.title[intl.locale]}
+              </Heading>
+            ) : null}
+
+            {event.description?.[intl.locale] ? (
+              <Heading as="h1" fontSize="4xl" px="8">
+                {event.description[intl.locale]}
+              </Heading>
+            ) : null}
 
             <div>
               {/* eslint-disable-next-line no-nested-ternary */}
@@ -173,7 +295,7 @@ function EventShow({ agenda, event }: EventShowProps) {
               ) : null}
             </div>
 
-            {event.longDescription ? (
+            {event.longDescription?.[intl.locale] ? (
               <chakra.div
                 px="8"
                 sx={{
@@ -193,7 +315,7 @@ function EventShow({ agenda, event }: EventShowProps) {
                   },
                 }}
                 // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: getLocaleValue(event.longDescription, intl.locale) }}
+                dangerouslySetInnerHTML={{ __html: event.longDescription[intl.locale] }}
               />
             ) : null}
 
@@ -250,30 +372,108 @@ function EventShow({ agenda, event }: EventShowProps) {
                 // }}
               >
                 {event.location.agendaUid === agenda.uid ? (
-                  <Button
-                    as={Link}
-                    href="/"
-                    // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
-                    variant="outline"
-                    colorScheme="white"
-                    borderColor="oaGray.300"
-                    color="blackAlpha.800"
-                    _hover={{
-                      bg: 'oaGray.100',
-                      borderColor: 'oaGray.400',
-                      color: 'blackAlpha.900',
-                      textDecoration: 'none',
-                    }}
-                    position="absolute"
-                    top="6"
-                    right="6"
-                  >
-                    Éditer le lieu
-                  </Button>
+                  <EditLocationButton agenda={agenda} />
                 ) : null}
-                <chakra.span fontWeight="bold">
-                  {event.location.name}
-                </chakra.span>
+                <div>
+                  <chakra.div fontWeight="bold">
+                    {event.location.name}
+                  </chakra.div>
+                  <chakra.div>
+                    {event.location.address}
+                  </chakra.div>
+                </div>
+
+                {event.location.tags?.length ? (
+                  <div>
+                    <chakra.span fontWeight="bold">
+                      Tags:&nbsp;
+                    </chakra.span>
+                    {intl.formatList(event.location.tags.map(tag => tag.label), { style: 'narrow' })}
+                  </div>
+                ) : null}
+
+                {event.location.description[intl.locale] ? (
+                  <div>
+                    {event.location.description[intl.locale]}
+                  </div>
+                ) : null}
+
+                {event.location.access[intl.locale] ? (
+                  <div>
+                    <chakra.span fontWeight="bold">
+                      Accés:&nbsp;
+                    </chakra.span>
+                    {event.location.access[intl.locale]}
+                  </div>
+                ) : null}
+
+                <div>
+                  {event.location.image ? (
+                    <Image
+                      src={process.env.NODE_ENV === 'development'
+                        ? `${DEV_IMAGE_PREFIX}${event.location.image}`
+                        : `${IMAGE_PREFIX}${event.location.image}`}
+                      fallbackSrc={process.env.NODE_ENV === 'development'
+                        ? `${IMAGE_PREFIX}${event.location.image}`
+                        : undefined}
+                      fallbackStrategy="onError"
+                      fill
+                      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                      pos="unset !important"
+                      w="full !important"
+                      h="auto !important"
+                      loader={keyCDNLoader}
+                      alt=""
+                      m="auto"
+                      priority
+                    />
+                  ) : null}
+
+                  {event.location.imageCredits ? (
+                    <Flex justify="flex-end" color="oaGray.500" px="2">
+                      {event.location.imageCredits}
+                    </Flex>
+                  ) : null}
+                </div>
+
+                {event.location.website || event.location.phone ? (
+                  <List spacing="2">
+                    {event.location.website ? (
+                      <ListItem>
+                        <ListIcon as={FontAwesomeIcon} icon={faGlobe} verticalAlign="middle" />
+                        <Link isExternal href={event.location.website} colorScheme="primary">
+                          {event.location.website}
+                        </Link>
+                      </ListItem>
+                    ) : null}
+
+                    {event.location.phone ? (
+                      <ListItem>
+                        <ListIcon as={FontAwesomeIcon} icon={faPhone} verticalAlign="middle" />
+                        <Link isExternal href={`tel:${event.location.phone}`} colorScheme="primary">
+                          {event.location.phone}
+                        </Link>
+                      </ListItem>
+                    ) : null}
+                  </List>
+                ) : null}
+
+                {event.location.links?.length ? (
+                  <chakra.div>
+                    Plus de liens:
+                    <List>
+                      {event.location.links?.map(link => (
+                        <ListItem key={link}>
+                          <Link isExternal href={link} colorScheme="primary">
+                            {link}
+                          </Link>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </chakra.div>
+                ) : null}
+
+                <SuggestLocationChangeButton agenda={agenda} event={event} />
               </Flex>
             </div>
           ) : null}

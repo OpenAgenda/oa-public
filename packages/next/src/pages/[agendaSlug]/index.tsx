@@ -49,10 +49,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       AgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
-        headers: new Headers({
+        headers: {
           Cookie: req.headers.cookie,
           Authorization: req.headers.authorization,
-        }),
+        },
       }).then(r => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);

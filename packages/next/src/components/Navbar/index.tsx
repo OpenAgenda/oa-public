@@ -159,7 +159,7 @@ function ProfileMenu({ user, portalRef }) {
 
       {/* Mobile content */}
       <IconButton
-        aria-label="Open Menu"
+        aria-label="Open Menu" // TODO translate
         size="md"
         variant="ghost"
         mr="4"
