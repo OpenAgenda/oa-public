@@ -311,7 +311,15 @@
   "ReactShared.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "Questa agenda utilizza i cookie del servizio di monitoraggio Google Analytics. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?"
+      "value": "Questa agenda utilizza i cookie del servizio di monitoraggio "
+    },
+    {
+      "type": 1,
+      "value": "service"
+    },
+    {
+      "type": 0,
+      "value": ". Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?"
     }
   ],
   "ReactShared.ConsentBanner.moreInfoLink": [
