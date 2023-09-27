@@ -1,3 +1,5 @@
+const format = /[^\u0000-\u00ff]/;
+
 export default async (req, res, next) => {
   const {
     simpleCache,
@@ -14,6 +16,13 @@ export default async (req, res, next) => {
   } : {
     slug: agendaSlug,
   };
+
+  if (identifier.slug && format.test(identifier.slug)) {
+    return res.status(404).json({
+      error: 'no unicode char in slug',
+      agendaSlug: identifier.slug,
+    });
+  }
 
   req.agenda = await simpleCache.hash('agendas', agendaUid || agendaSlug).get('api', { json: true });
 

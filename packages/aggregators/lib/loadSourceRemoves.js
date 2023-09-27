@@ -24,9 +24,13 @@ module.exports = async (
 
     for (const { uid: eventUid } of events) {
       await enqueueRemove({
-        aggregatorAgendaUid,
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid,
+            eventUid,
+          },
+        ],
         sourceAgendaUid,
-        eventUid,
         batched: true,
       });
     }

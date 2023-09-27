@@ -21,13 +21,12 @@ module.exports = async (services, config, params) => {
 
   const { memberId, rule } = abilityArgs;
 
-  // member
   if (memberId && await isUnsubscribed(services, config, { entityName: 'member', identifier: memberId }, ...rule)) {
     log('%s: member is unsubscribed. Email filtered', email);
     return false;
   }
 
-  if (await isUnsubscribed(services, config, email, ...rule)) {
+  if (!memberId && await isUnsubscribed(services, config, email, ...rule)) {
     log('%s: user is unsubscribed. Email filtered', email);
     return false;
   }

@@ -217,7 +217,6 @@ describe('events - functional - create', () => {
   });
 
   describe('timings', () => {
-
     it('using datehourminutes format', async () => {
       const event = await svc.create({
         title: 'Event with datehourminutes timing',
@@ -445,6 +444,20 @@ describe('events - functional - create', () => {
       }, { draft: true });
 
       assert.equal(event.title, undefined);
+    });
+
+    it('timezone validation', async () => {
+      let error;
+      try {
+        await svc.create({
+          timezone: 'UTC+1'
+        }, { draft: true });
+      } catch (e) {
+        error = e;
+      }
+
+      assert(error instanceof ValidationError);
+      assert.equal(error.detail[0].code, 'timezone.invalid');
     });
 
     it('provided context is passed to interface call', done => {

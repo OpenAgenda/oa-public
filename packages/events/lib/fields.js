@@ -26,7 +26,7 @@ module.exports = [{
   write: ['internal']
 }, {
   field: 'timezone',
-  fieldType: 'text',
+  fieldType: 'timezone',
   default: 'Europe/Paris',
   read: ['internal', 'public'],
   write: ['internal', 'public']

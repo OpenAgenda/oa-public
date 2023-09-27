@@ -11,7 +11,7 @@ Sur https://app.jpe.infomaniak.com/
 
 ### Groupe de serveurs MySQL
 
-Lancer la création d'un nouvel environnement - en passant pas le bouton "nouvel environnement" - avec une base de données MySQL CE 8.x.x. Pas d'équilibrage, pas d'App Serveurs. En sélectionnant l'item MySQL choisi dans la topologie, sa configuration apparaitra dans le menu central.
+Lancer la création d'un nouvel environnement - en passant par le bouton "nouvel environnement" - avec une base de données MySQL CE 8.x.x. Pas d'équilibrage, pas d'App Serveurs. En sélectionnant l'item MySQL choisi dans la topologie, sa configuration apparaitra dans le menu central.
 
 La capacité en cloudlets doit être suffisante pour votre besoins. Des ajustements seront probablement nécessaires. Dans notre cas, nous choisissons une capacité fixe de 48 cloudlets par serveur, ce qui équivaut à 6G de RAM pour 19Ghz de capacité de calcul.
 
@@ -61,7 +61,7 @@ mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -uj
 
 Il est insuffisant sur la configuration par défaut. Il faut l'augmenter à 262144. Sur chaque noeud, se connecter pour lancer la requête suivante:
 
-    SET GLOBAL sort_buffer_size = 256000000
+    SET GLOBAL sort_buffer_size = 256000000;
 
 Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/conf.d/my_custom.cnf) sous la clause [mysqld]:
 
@@ -70,7 +70,19 @@ Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/c
 Si la valeur est suffisante, une erreur `ER_OUT_OF_SORTMEMORY` ne surviendra pas dans le noeud de tâches quand une resynchro d'index est lancée sur un gros agenda.
 
 
-## Chargement de la base dans les noeuds
+#### Le query timeout
+
+Pour éviter les timeout pour les requêtes un peu gourmandes, il faut ajuster la configuration de chaque noeud ProxySQL:
+
+```
+mysql -h 127.0.0.1 -P6032 -uadmin -padmin
+
+select * from global_variables;
+update global_variables set variable_value=1200000 where variable_name='mysql-default_query_timeout';
+LOAD MYSQL VARIABLES TO RUNTIME;
+
+
+## Chargement de la base dans les noeuds
 
 Les commandes sql via le client dans les bases primaires passent en replication: une instruction du type `mysql> create database NOMDELABASE;` conduira à la création d'une base oa sur les autres noeuds si la réplication est fonctionnelle. Ce n'est pas le cas avec le chargement d'un dump depuis le terminal de type `mysql -uLUTILISATEURDB -p NOMDELABASE < NOMDELABASE.dump`. Il faut donc lancer la commande du chargement de dump sur chacun des noeuds.
 

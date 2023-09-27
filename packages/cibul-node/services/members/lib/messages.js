@@ -177,44 +177,6 @@ async function task(config, { queue, bull, members, activities }) {
   worker.on('failed', (job, error) => log.error(job.name, 'failed', job.data, error));
   // worker.on('active', job => {});
   worker.on('completed', (job, result, prev) => log.debug(job.name, 'completed', prev));
-
-  /* queue.register({
-    stream: async (query, data) => {
-      if (data.sendToMe) {
-        queue('sendMessage', data.sender, data);
-      }
-
-      const { total } = await members.list({
-        ...query,
-        withActions: data.withActions,
-        deletedUsers: false,
-      }, {
-        limit: 0,
-      }, {
-        includeTotal: 0,
-      });
-
-      console.log('TOTAL', total);
-
-      members
-        .stream({
-          ...query,
-          withActions: data.withActions,
-          deletedUsers: false,
-          detailed: true,
-        })
-        .on('data', member => queue('sendMessage', member, data)); // TODO ignore if data.sender === member
-    },
-    sendMessage: _sendMessage.bind(null, config),
-
-    // sendMessageChain:
-  });
-
-  queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn, args) => {});
-  queue.on('success', (fn, args, result) => log(fn, 'success'));
-
-  queue.run(); */
 }
 
 module.exports = (config, { bull, members, activities, queueName }) => {

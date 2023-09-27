@@ -35,12 +35,16 @@ module.exports = async (
       await enqueueEvaluate({
         agenda: _.pick(sourceAgenda, ['slug', 'title', 'id', 'uid']),
         event,
-        aggregatorAgendaUid,
-        aggregatorRules,
-        aggregatorLimit,
         batched: true,
         formSchema,
-        sourceRules,
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid,
+            aggregatorRules,
+            aggregatorLimit,
+            sourceRules,
+          },
+        ],
       });
     }
   }

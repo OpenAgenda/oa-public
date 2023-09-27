@@ -11,11 +11,11 @@ const registration = require('../iso/src/validators/registration');
 const accessibility = require('../iso/src/validators/accessibility');
 const enrichedLinks = require('../iso/src/validators/enrichedLinks');
 const references = require('../iso/src/validators/references');
+const timezone = require('../iso/src/validators/timezone');
 const age = require('../iso/src/validators/age');
 const keywords = require('../iso/src/validators/keywords');
 const compileForValidation = require('./compileForValidation');
 const ValidationError = require('./ValidationError');
-const date = require('@openagenda/validators/date');
 
 const eventCustomValidators = {
   timings,
@@ -25,7 +25,8 @@ const eventCustomValidators = {
   stream,
   keywords,
   enrichedLinks,
-  references
+  references,
+  timezone,
 };
 
 const publicFields = fields.filter(f => (f.write || []).includes('public'));

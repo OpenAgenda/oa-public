@@ -78,7 +78,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
       member.user.uid === creatorUser.uid && visibleForCreator
     ));
 
-  log('sending aggregation email to %s members', targetedMembers.length);
+  log('%s: sending aggregation email to %s members', agendaEvent.agendaUid, targetedMembers.length);
 
   await mails.send({
     template: 'eventAggregation',
