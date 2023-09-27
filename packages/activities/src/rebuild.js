@@ -421,7 +421,11 @@ async function checkLocationSetFollow(config, report, originFeed, targetFeed) {
 
 // options: { agendaUid, setUid, since }
 module.exports = async function rebuild(config, options = {}) {
-  const { service, knex, schemas } = config;
+  const { service, knex, schemas, logger } = config;
+
+  if (logger) {
+    log.setConfig(logger);
+  }
 
   const report = {
     userFeedsCreated: 0,

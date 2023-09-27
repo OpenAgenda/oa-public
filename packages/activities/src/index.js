@@ -10,19 +10,11 @@ const rebuild = require('./rebuild');
 
 const cleanOldActivitiesTask = require('./activities/tasks/cleanOld')
 const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld')
-const addActivityTask = require('./notifications/tasks/addActivity');
-const prepareSummaryTask = require('./notifications/tasks/prepareSummary');
-const sendSummary = require('./notifications/tasks/sendSummary');
-
 
 module.exports = Service;
 
 async function Service(c) {
   const config = c;
-
-  config.queues = config.queues ?? {
-    addActivity: c.Queues(config.queue.names.addActivity),
-  };
 
   logger.setModuleConfig(c.logger);
 
@@ -33,11 +25,10 @@ async function Service(c) {
     }
   });
 
-
   if (c.migrations !== null) {
     Object.assign(config.knex.client.config, {
       migrations: Object.assign({}, c.migrations, {
-        directory: path.resolve(path.dirname(__dirname), '../migrations')
+        directory: path.resolve(path.dirname(__dirname), 'migrations')
       })
     });
   }
@@ -61,9 +52,6 @@ async function Service(c) {
         cleanOld: cleanOldActivitiesTask.bind(null, config)
       },
       notifications: {
-        addActivity: addActivityTask(config),
-        prepareSummary: prepareSummaryTask.bind(null, config),
-        sendSummary: sendSummary(config),
         cleanOld: cleanOldNotificationsTask.bind(null, config)
       }
     },

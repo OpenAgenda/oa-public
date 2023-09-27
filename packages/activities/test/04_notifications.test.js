@@ -2,8 +2,6 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-const redis = require('redis');
-const Queues = require( '@openagenda/queues' );
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -11,50 +9,13 @@ const config = require( '../testconfig' );
 let service;
 
 describe( 'activities - notifications', () => {
-  let redisClient;
-  let queues;
-
-  jest.setTimeout( 30000 );
-
-  beforeAll(async () => {
-    redisClient = redis.createClient({
-      socket: {
-        host: 'localhost',
-        port: 6379,
-      }
-    });
-
-    await redisClient.connect();
-  });
-
-  // afterAll(() => redisClient.quit());
-
   beforeEach(async () => {
-    queues = Queues({
-      redis: redisClient,
-      prefix: '04_notifications:'
-    });
-    await queues(`${config.queue.names.addActivity}_notifications`).clear();
-    await queues(`${config.queue.names.sendSummary}_notifications`).clear();
-  });
-
-  beforeEach(async () => {
-
     service = await Service.initAndLoad({
       ...config,
-      redis,
       knex: knexLib( {
         client: 'mysql',
         connection: config.mysql
       } ),
-      Queues: queues,
-      queue: {
-        ...config.queue,
-        names: {
-          addActivity: `${config.queue.names.addActivity}_notifications`,
-          sendSummary: `${config.queue.names.sendSummary}_notifications`
-        }
-      },
     } );
 
   });
@@ -144,7 +105,7 @@ describe( 'activities - notifications', () => {
     it('add an activity to a new notification', () => {
 
       return expect(
-        service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
+        service.feed(({ entityType: 'user', entityUid: 42 })).notifications.addActivity({
           actor: 'user:12312312',
           verb: 'event.create',
           object: 'event:78978978',
@@ -189,7 +150,7 @@ describe( 'activities - notifications', () => {
       () => {
 
         return expect(
-          service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
+          service.feed({ entityType: 'user', entityUid: 42 }).notifications.addActivity( {
             actor: 'user:12312312',
             verb: 'agenda.changeEventState',
             object: 'event:78978978',
@@ -238,7 +199,7 @@ describe( 'activities - notifications', () => {
       () => {
 
         return expect(
-          service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
+          service.feed({ entityType: 'user', entityUid: 42 }).notifications.addActivity( {
             actor: 'user:12312315',
             verb: 'agenda.changeEventState',
             object: 'event:78978978',
@@ -285,7 +246,7 @@ describe( 'activities - notifications', () => {
     it('add an activity to an existant notification', () => {
 
       return expect(
-        service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
+        service.feed({ entityType: 'user', entityUid: 42 }).notifications.addActivity( {
           actor: 'user:86868686',
           verb: 'event.create',
           object: 'event:12312345',
@@ -329,7 +290,7 @@ describe( 'activities - notifications', () => {
     it('add an activity to an inexistant feed', () => {
 
       return expect(
-        service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 86 }, {
+        service.feed({ entityType: 'user', entityUid: 86 }).notifications.addActivity( {
           actor: 'user:86868686',
           verb: 'event.create',
           object: 'event:12312345',
@@ -349,7 +310,7 @@ describe( 'activities - notifications', () => {
     it('add an activity to an agenda feed', () => {
 
       return expect(
-        service.tasks.notifications.addActivity( { entityType: 'agenda', entityUid: 86 }, {
+        service.feed({ entityType: 'agenda', entityUid: 86 }).notifications.addActivity( {
           actor: 'user:86868686',
           verb: 'agenda.create',
           target: 'agenda:48648352',

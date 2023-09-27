@@ -1,6 +1,8 @@
-import _ from 'lodash';
+'use strict';
 
-export default function applyMask(activity) {
+const _ = require('lodash');
+
+module.exports = function applyMask(activity) {
   const { mask, ...rest } = activity;
 
   if (mask) {

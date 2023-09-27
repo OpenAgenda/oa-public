@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const Service = require( './service' );
-const { rebuild } = require( '../src/service/rebuild' );
+const { rebuild } = require( '../src/rebuild' );
 const config = require( '../testconfig' );
 
 describe.skip( 'activities - rebuid', function () {

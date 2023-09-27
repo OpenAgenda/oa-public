@@ -2,7 +2,7 @@
 
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
-const Service = require('../../src/service');
+const Service = require('../../src');
 
 module.exports = Service;
 

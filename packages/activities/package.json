@@ -10,33 +10,18 @@
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/activities",
-  "main": "dist/service/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel src -d dist -s",
-    "test": "jest --runInBand --detectOpenHandles --forceExit",
-    "prepack": "yarn build"
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.21.0",
-    "@openagenda/intl": "^1.1.3",
-    "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
-    "async": "^2.3.0",
-    "core-js": "^3.29.1",
-    "is-promise": "^2.1.0",
-    "lodash": "^4.17.15",
-    "moment": "^2.27.0",
-    "regenerator-runtime": "^0.13.8",
-    "when": "^3.7.8"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.0",
-    "@openagenda/babel-preset": "^1.5.0",
-    "@openagenda/queues": "^2.0.0",
     "jest": "^28.1.2",
     "knex": "^2.4.2",
     "mysql": "^2.18.1"

@@ -1,9 +1,10 @@
 'use strict';
 
+const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
-const _ = require('lodash');
+const log = require('@openagenda/logs')('activities/add');
 
 schema.register({
   text: validators.text,
@@ -99,7 +100,13 @@ async function addActivityToFeed(config, { activity, targetFeed, mask }) {
   const { service, enableNotificationsForFeedTypes } = config;
 
   if (enableNotificationsForFeedTypes?.includes(targetFeed.entityType)) {
-    await service.feed(targetFeed).notifications.addActivity(_.omit(activity, mask));
+    try {
+      await service.feed(targetFeed).notifications.addActivity(_.omit(activity, mask));
+    } catch (e) {
+      if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
+        log.error(new VError(e, 'Error in addActivity task'));
+      }
+    }
   }
 }
 

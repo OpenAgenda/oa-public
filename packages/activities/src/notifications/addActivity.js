@@ -2,38 +2,6 @@
 
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('activities/notifications/tasks/addActivity');
-
-module.exports = config => {
-  const queue = config.queues.addActivity;
-
-  queue.register({
-    addActivity: addActivityTask.bind(null, config)
-  });
-
-  return Object.assign(
-    addActivity.bind(null, config),
-    {
-      task: () => {
-        config.queues.addActivity.run();
-
-        return {
-          shutdown: () => config.queues.addActivity.stop(),
-        };
-      },
-    }
-  );
-};
-
-async function addActivityTask(config, { identifiers, activity }) {
-  try {
-    await addActivity(config, identifiers, activity);
-  } catch (e) {
-    if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
-      log.error(new VError(e, 'Error in addActivity task'));
-    }
-  }
-}
 
 function fnOrValue(fnValue, ...params) {
   return typeof fnValue === 'function'
@@ -51,7 +19,7 @@ function getGroupBy(groupBy, feed, activity) {
     .join('|');
 }
 
-async function addActivity(config, identifiers, activity, options) {
+module.exports = async function addActivity(config, identifiers, activity, options) {
   const {
     service,
     knex,

@@ -2,8 +2,6 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-const redis = require( 'redis' );
-const Queues = require('@openagenda/queues');
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -13,17 +11,8 @@ describe( 'activities - activities', () => {
 
   let service;
   let knex;
-  let redisClient;
 
   beforeEach(async () => {
-
-    redisClient = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
-    });
-
     knex = knexLib( {
       client: 'mysql',
       connection: config.mysql
@@ -31,18 +20,8 @@ describe( 'activities - activities', () => {
 
     service = await Service.initAndLoad( {
       ...config,
-      queue: {
-        names: {
-          addActivity: `${config.queue.names.addActivity}_activities`,
-          sendSummary: `${config.queue.names.sendSummary}_activities`
-        }
-      },
       knex,
-      Queues: Queues({
-        redis: redisClient,
-      })
     } );
-
   });
 
   afterEach(async () => {
@@ -590,9 +569,6 @@ describe( 'activities - activities', () => {
           client: 'mysql',
           connection: config.mysql
         } ),
-        Queues: Queues({
-          redis: redisClient,
-        }),
         activities: {
           'event.publish': {
             filterFollows: [
