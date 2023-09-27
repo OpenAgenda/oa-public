@@ -129,7 +129,7 @@ module.exports = async function registerUpdateActivity({
     }
 
     try {
-      await activities.feed({ entityType: 'location', entityUid: after.uid }).activities.add({
+      await activities.addActivity({ entityType: 'location', entityUid: after.uid }, {
         actor: `user:${userUid}`,
         verb: 'location.update',
         object: `location:${after.uid}`,

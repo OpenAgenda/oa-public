@@ -29,7 +29,7 @@ module.exports = async ({ services }, ae, context) => {
   try {
     if (context.deletion) {
       if (agenda.uid === event.agendaUid) {
-        await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+        await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
           actor: `user:${user.uid}`,
           verb: 'event.delete',
           object: `event:${event.uid}`,
@@ -43,7 +43,7 @@ module.exports = async ({ services }, ae, context) => {
           },
         });
       } else {
-        await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+        await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
           actor: `agenda:${agenda.uid}`,
           verb: 'agenda.removeDeletedEvent',
           object: `event:${event.uid}`,
@@ -58,7 +58,7 @@ module.exports = async ({ services }, ae, context) => {
         });
       }
     } else if (user) {
-      await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+      await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
         actor: `user:${user.uid}`,
         verb: 'agenda.removeEvent',
         object: `event:${event.uid}`,
@@ -76,7 +76,7 @@ module.exports = async ({ services }, ae, context) => {
         },
       });
     } else {
-      await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+      await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
         actor: `agenda:${agenda.uid}`,
         verb: 'agenda.systemRemoveEvent',
         object: `event:${event.uid}`,

@@ -30,14 +30,8 @@ export default (config, core, services) => {
     time: '01:30',
   });
 
-  tfy(services.activities.tasks.notifications.prepareSummary, {
+  tfy(services.activities.notifications().enqueueSummaries, {
     // bootOffset: 1000,
-    period: 'daily',
-    time: '05:00',
-  });
-
-  tfy(services.activities.tasks.notifications.sendSummary.task, {
-    // bootOffset: 5000,
     period: 'daily',
     time: '08:00',
   });
@@ -72,7 +66,9 @@ export default (config, core, services) => {
 
   services.agendaStatistics.task();
 
-  services.activities.tasks.notifications.addActivity.task();
+  services.activities.addActivity.task();
+
+  services.activities.prepareSummary.task();
 
   services.mails.task();
 

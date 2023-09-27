@@ -6,10 +6,10 @@ module.exports = function onRemoveSource(services, {
   user,
   member,
 }) {
-  return services.activities.feed({
+  return services.activities.addActivity({
     entityType: 'agenda',
     entityUid: aggregatorAgenda.uid,
-  }).activities.add({
+  }, {
     actor: `user:${user.uid}`,
     verb: 'agenda.removeSource',
     object: `agenda:${sourceAgenda.uid}`,

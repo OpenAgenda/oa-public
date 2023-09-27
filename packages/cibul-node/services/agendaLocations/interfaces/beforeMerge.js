@@ -95,7 +95,7 @@ module.exports = services => async (mergeInLocation, locations, context) => {
   }
 
   try {
-    await activities.feed({ entityType: 'location', entityUid: mergeInLocation.uid }).activities.add({
+    await activities.addActivity({ entityType: 'location', entityUid: mergeInLocation.uid }, {
       actor: `user:${userUid}`,
       verb: 'location.merge',
       object: `location:${mergeInLocation.uid}`,

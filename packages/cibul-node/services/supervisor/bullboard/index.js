@@ -14,6 +14,8 @@ module.exports.plugApp = (app, base = '/bullboard') => {
   createBullBoard({
     queues: [
       new BullMQAdapter(new Queue('memberMessages', { prefix: '{memberMessages}' })),
+      new BullMQAdapter(new Queue('addActivity', { prefix: '{addActivity}' })),
+      new BullMQAdapter(new Queue('prepareSummary', { prefix: '{prepareSummary}' })),
     ],
     serverAdapter,
   });

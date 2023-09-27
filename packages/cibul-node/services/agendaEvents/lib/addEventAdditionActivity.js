@@ -19,7 +19,7 @@ module.exports = async (
 
   const { sourceAgenda } = context;
 
-  await activitiesSvc.feed(eventFeed).activities.add({
+  await activitiesSvc.addActivity(eventFeed, {
     actor: `user:${user.uid}`,
     verb: 'agenda.addEvent',
     object: `event:${event.uid}`,

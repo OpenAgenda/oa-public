@@ -40,10 +40,10 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   if (isPublished) {
     log('publishing');
-    return activitiesSvc.feed({
+    return activitiesSvc.addActivity({
       entityType: 'event',
       entityUid: event.uid,
-    }).activities.add({
+    }, {
       ...activityInfo,
       verb: 'agenda.publishEvent',
       store: {
@@ -59,10 +59,10 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   if (isRefused) {
     log('refusing');
-    return activitiesSvc.feed({
+    return activitiesSvc.addActivity({
       entityType: 'event',
       entityUid: event.uid,
-    }).activities.add({
+    }, {
       ...activityInfo,
       verb: 'agenda.refuseEvent',
       store: {
@@ -78,10 +78,10 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   if (isUnpublished) {
     log('unpublishing');
-    return activitiesSvc.feed({
+    return activitiesSvc.addActivity({
       entityType: 'event',
       entityUid: event.uid,
-    }).activities.add({
+    }, {
       ...activityInfo,
       verb: 'agenda.unpublishEvent',
       store: {
@@ -97,10 +97,10 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   if (before.state !== after.state && changeStateType === core.constants.stateChangeTypes.system) {
     log('system change state');
-    return activitiesSvc.feed({
+    return activitiesSvc.addActivity({
       entityType: 'agenda',
       entityUid: agenda.uid,
-    }).activities.add({
+    }, {
       ...activityInfo,
       verb: 'agenda.systemChangeEventState',
       store: {
@@ -113,10 +113,10 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   if (before.state !== after.state) {
     log('change state');
-    return activitiesSvc.feed({
+    return activitiesSvc.addActivity({
       entityType: 'agenda',
       entityUid: agenda.uid,
-    }).activities.add({
+    }, {
       ...activityInfo,
       verb: 'agenda.changeEventState',
       store: {

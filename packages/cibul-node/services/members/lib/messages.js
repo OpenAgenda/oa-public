@@ -24,7 +24,7 @@ async function addActivity(activities, data, recipientRoles) {
   try {
     const senderName = data.sender.custom?.contactName ?? data.sender.user.fullName;
 
-    await activities.feed({ entityType: 'agenda', entityUid: data.agenda.uid }).activities.add({
+    await activities.addActivity({ entityType: 'agenda', entityUid: data.agenda.uid }, {
       actor: `user:${data.sender.userUid}`,
       verb: 'agenda.sendMessage',
       // object: `event:${after.uid}`,

@@ -8,10 +8,10 @@ const activities = require('../../activities');
 function addMemberCreate({
   user, member, agenda, senderUser, context
 }) {
-  return activities.feed({
+  return activities.addActivity({
     entityType: 'agenda',
     entityUid: agenda.uid
-  }).activities.add({
+  }, {
     actor: `user:${senderUser.uid}`,
     verb: 'agenda.addMember',
     object: `user:${user.uid}`,
@@ -30,10 +30,10 @@ function addMemberCreate({
 function addMemberRemove({
   user, member, agenda, userMember, memberUser
 }) {
-  return activities.feed({
+  return activities.addActivity({
     entityType: 'agenda',
     entityUid: agenda.uid
-  }).activities.add({
+  }, {
     actor: `user:${user.uid}`, // user removing
     verb: 'agenda.removeMember',
     object: `user:${memberUser.uid}`, // user being removed
@@ -72,7 +72,7 @@ async function addMemberRoleChange({
     entityUid: agenda.uid
   }, { credential: member.role });
 
-  await agendaFeed.activities.add({
+  await activities.addActivity(agendaFeed, {
     actor: `user:${senderUser.uid}`,
     verb: 'agenda.setMemberRole',
     object: `user:${user.uid}`,

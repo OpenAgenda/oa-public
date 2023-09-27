@@ -35,7 +35,7 @@ module.exports = async (services, before, after, context) => {
   );
 
   if (changes?.length) {
-    activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
+    activities.addActivity({ entityType: 'agenda', entityUid: after.uid }, {
       actor: `user:${context.user.uid}`,
       verb: 'agenda.update',
       target: `agenda:${after.uid}`,
@@ -50,7 +50,7 @@ module.exports = async (services, before, after, context) => {
   }
 
   if (before.official !== after.official && after.official) {
-    activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
+    activities.addActivity({ entityType: 'agenda', entityUid: after.uid }, {
       actor: `user:${context.user.uid}`,
       verb: 'agenda.setOfficial',
       target: `agenda:${after.uid}`,

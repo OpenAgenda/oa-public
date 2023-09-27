@@ -78,7 +78,7 @@ module.exports = async (services, agenda) => {
 
   if (agendaFeed) {
     try {
-      await activities.feed(agendaFeed).activities.add({
+      await activities.addActivity(agendaFeed, {
         actor: `user:${user.uid}`,
         verb: 'agenda.create',
         target: `agenda:${agenda.uid}`,

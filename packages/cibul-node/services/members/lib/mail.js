@@ -25,10 +25,10 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
     throw new Error('Sender not found');
   }
 
-  return activities.feed({
+  return activities.addActivity({
     entityType: 'agenda',
     entityUid: agenda.uid,
-  }).activities.add({
+  }, {
     actor: `user:${user.uid}`,
     verb: 'agenda.sendInvitation',
     object: `email:${member.custom.email}`,

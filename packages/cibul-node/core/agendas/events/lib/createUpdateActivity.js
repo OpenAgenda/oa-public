@@ -86,7 +86,7 @@ module.exports = async function createActivity(services, before, after, context)
     || changedFields.administrator?.length;
 
   if (hasChanges) {
-    await activities.feed({ entityType: 'event', entityUid: after.uid }).activities.add({
+    await activities.addActivity({ entityType: 'event', entityUid: after.uid }, {
       actor: `user:${user.uid}`,
       verb: 'event.update',
       object: `event:${after.uid}`,

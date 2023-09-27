@@ -37,10 +37,10 @@ module.exports = services => async (location, context = {}) => {
       return log('error', new VError(e, 'Error to get agenda', context.agendaUid));
     }
 
-    await activities.feed({
+    await activities.addActivity({
       entityType: 'location',
       entityUid: location.uid,
-    }).activities.add({
+    }, {
       actor: `user:${context.userUid}`,
       verb: 'location.create',
       object: `location:${location.uid}`,

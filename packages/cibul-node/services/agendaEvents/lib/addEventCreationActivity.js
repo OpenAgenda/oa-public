@@ -38,7 +38,7 @@ module.exports = async function addEventCreationActivity(services, eventFeed, {
       private: null,
     });
 
-    await activitiesSvc.feed(eventFeed).activities.add({
+    await activitiesSvc.addActivity(eventFeed, {
       actor: `user:${user.uid}`,
       verb: 'event.duplicate',
       object: `event:${event.uid}`,
@@ -55,7 +55,7 @@ module.exports = async function addEventCreationActivity(services, eventFeed, {
       },
     });
   } else {
-    await activitiesSvc.feed(eventFeed).activities.add({
+    await activitiesSvc.addActivity(eventFeed, {
       actor: `user:${user.uid}`,
       verb: 'event.create',
       object: `event:${event.uid}`,

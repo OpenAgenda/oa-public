@@ -7,7 +7,7 @@ module.exports = async (services, eventFeed, { agenda, event, ae }, context) => 
 
   const { sourceAgenda } = context;
 
-  await activitiesSvc.feed(eventFeed).activities.add({
+  await activitiesSvc.addActivity(eventFeed, {
     actor: `agenda:${sourceAgenda.uid}`,
     verb: 'agenda.aggregateEvent',
     object: `event:${event.uid}`,

@@ -5,8 +5,10 @@ const Service = require('@openagenda/activities');
 const sessions = require('@openagenda/sessions');
 const mw = require('@openagenda/activity-apps/dist/middleware');
 const unsubscribedSvc = require('@openagenda/unsubscribed');
+const createPrepareSummaryQueue = require('./prepareSummary');
 const sendSummary = require('./sendSummary');
 const activitiesConfig = require('./activitiesConfig');
+const addActivity = require('./addActivity');
 
 const activities = {};
 const preMw = [
@@ -22,26 +24,23 @@ module.exports = app => {
 };
 
 module.exports.init = async (config, services) => {
+  const { bull } = services;
+
+  const prepareSummary = createPrepareSummaryQueue({ bull, activities });
+
   const service = await Service({
     knex: config.knex,
     schemas: config.schemas,
     migrations: config.enableMigrations ? {
       tableName: 'activity_migrations',
     } : null,
-    redis: services.redis,
-    queue: {
-      names: {
-        addActivity: config.queues.notificationAddActivity,
-        sendSummary: config.queues.notificationSendSummary,
-      },
-    },
-    Queues: services.queues,
     interfaces: {
       getUser: uid => services.users.get(uid, { detailed: true }),
       isUnsubscribed: uid => promisify(unsubscribedSvc(uid).is)({
         subject: 'notifications',
         type: 'notifications_summary',
       }),
+      prepareSummary,
       sendSummary: (...args) => sendSummary(config, ...args),
     },
     services, // used in mask
@@ -77,6 +76,9 @@ module.exports.init = async (config, services) => {
 
     return result;
   };
+
+  service.addActivity = addActivity({ bull, activities });
+  service.prepareSummary = prepareSummary;
 
   Object.assign(activities, service);
 

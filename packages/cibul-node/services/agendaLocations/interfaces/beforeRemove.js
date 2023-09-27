@@ -89,7 +89,7 @@ module.exports = services => async (location, options = {}) => {
     }
 
     try {
-      await activities.feed({ entityType: 'location', entityUid: location.uid }).activities.add({
+      await activities.addActivity({ entityType: 'location', entityUid: location.uid }, {
         actor: `user:${userUid}`,
         verb: 'location.remove',
         object: `location:${location.uid}`,
