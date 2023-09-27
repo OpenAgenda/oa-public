@@ -11,7 +11,7 @@ function flatLabel(label, lang) {
   if (typeof label === 'string') {
     return label;
   }
-  
+
   return label[lang] ?? label[Object.keys(label).shift()];
 }
 
@@ -67,7 +67,8 @@ function formatValue(field, value, { lang, timezone }) {
 function formatAdditionalFieldData(schema, event, lang) {
   const additionalFields = schema.fields
     .filter(f => f.schemaType !== 'event')
-    .filter(f => f.fieldType !== 'abstract');
+    .filter(f => f.fieldType !== 'abstract')
+    .filter(f => f.type !== 'section');
 
   const timezone = event.timezone ?? (event.location?.timezone ?? 'Europe/Paris');
 
