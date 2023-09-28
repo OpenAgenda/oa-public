@@ -101,6 +101,22 @@
       "value": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu"
     }
   ],
+  "next.views.AgendaShow.ExportModal.openData": [
+    {
+      "type": 0,
+      "value": "The content of this agenda can be used following the "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Open Data principle"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,

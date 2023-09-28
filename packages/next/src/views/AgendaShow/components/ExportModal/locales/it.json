@@ -12,6 +12,7 @@
   "next.views.AgendaShow.ExportModal.exportSelection": "Esportare la selezione di eventi",
   "next.views.AgendaShow.ExportModal.inputFormat": "Scegliere un formatto",
   "next.views.AgendaShow.ExportModal.login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
+  "next.views.AgendaShow.ExportModal.openData": "",
   "next.views.AgendaShow.ExportModal.title": "Esportare",
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": "Esportare tutte le informazione",
   "next.views.AgendaShow.SpreadsheetOptions.all-languages": "Esportare tutte le lingue",

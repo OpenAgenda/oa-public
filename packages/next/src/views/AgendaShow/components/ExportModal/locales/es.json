@@ -12,6 +12,7 @@
   "next.views.AgendaShow.ExportModal.exportSelection": "",
   "next.views.AgendaShow.ExportModal.inputFormat": "",
   "next.views.AgendaShow.ExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
+  "next.views.AgendaShow.ExportModal.openData": "",
   "next.views.AgendaShow.ExportModal.title": "Exportar",
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": "",
   "next.views.AgendaShow.SpreadsheetOptions.all-languages": "",

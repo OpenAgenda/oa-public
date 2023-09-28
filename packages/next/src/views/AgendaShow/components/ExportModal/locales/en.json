@@ -12,6 +12,7 @@
   "next.views.AgendaShow.ExportModal.exportSelection": "Export current event selection",
   "next.views.AgendaShow.ExportModal.inputFormat": "Choose a format",
   "next.views.AgendaShow.ExportModal.login": "Please log in to access the export link directly from this menu",
+  "next.views.AgendaShow.ExportModal.openData": "The content of this agenda can be used following the <link>Open Data principle</link>",
   "next.views.AgendaShow.ExportModal.title": "Export",
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": "Export every field",
   "next.views.AgendaShow.SpreadsheetOptions.all-languages": "Export in all languages",

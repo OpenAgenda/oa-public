@@ -69,6 +69,10 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.ExportModal.exportJson',
     defaultMessage: '<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)',
   },
+  openDataInfo: {
+    id: 'next.views.AgendaShow.ExportModal.openData',
+    defaultMessage: 'The content of this agenda can be used following the <link>Open Data principle</link>',
+  },
 });
 
 function completeUrls(agendaUid, query) {
@@ -252,10 +256,15 @@ export default function ExportModal({
 
           <ModalCloseButton />
         </ModalHeader>
+        <Box alignItems="start" pb="4" ml="6" mr="6">
+          {intl.formatMessage(messages.openDataInfo, {
+            link: (chunks: React.ReactNode) => <Link href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata" isExternal color="primary.500">{chunks}</Link>,
+          })}
+        </Box>
         <Box alignItems="start" pb="4">
           <form className="export export-form" onSubmit={handleSubmit}>
             <RadioGroup defaultValue="export-selection">
-              <VStack spacing="2" ml="4" alignItems="start">
+              <VStack spacing="2" ml="6" alignItems="start">
                 <Radio value="export-all" onChange={() => setMode('all')}>{intl.formatMessage(messages.exportAll)}</Radio>
                 <Radio value="export-selection" onChange={() => setMode('selection')}>{intl.formatMessage(messages.exportSelection)}</Radio>
               </VStack>
