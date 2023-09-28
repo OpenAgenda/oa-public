@@ -1,6 +1,6 @@
 'use strict';
 
-const { removeEvent, processRemove } = require('../lib/removeEvent');
+const removeEvent = require('../lib/removeEvent');
 
 const { Tracker } = require('./utils');
 
@@ -11,20 +11,26 @@ describe('08 - removeEvent', () => {
     const sourceAgendaUid = 71413881;
     const eventUid = 1;
 
-    await processRemove({
-      getEventReference: tracker('getEventReference', {
-        sourceAgendaUid: [sourceAgendaUid],
-        aggregated: true,
-      }),
-      updateSourcePaths: tracker('updateSourcePaths'),
-      unreferenceEvent: tracker('unreferenceEvent', { success: true }),
-      enqueueRemove: q => q,
-      aggregator: {
-        aggregatorAgendaUid,
-        eventUid,
+    await removeEvent(
+      {
+        getEventReference: tracker('getEventReference', {
+          sourceAgendaUid: [sourceAgendaUid],
+          aggregated: true,
+        }),
+        updateSourcePaths: tracker('updateSourcePaths'),
+        unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
-      sourceAgendaUid,
-    });
+      {
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid,
+            eventUid,
+          },
+        ],
+        sourceAgendaUid,
+      },
+    );
 
     const unreferenceCall = tracker.calls.pop();
 
@@ -90,29 +96,32 @@ describe('08 - removeEvent', () => {
 
   test('if unreference fails, result provides success bool at false and errors', async () => {
     const tracker = Tracker();
-    const result = await processRemove({
-      getEventReference: tracker('getEventReference', {
-        sourceAgendaUid: [71413881],
-        aggregated: true,
-      }),
-      unsetSourceUidOnExistingReference: tracker(
-        'unsetSourceUidOnExistingReference',
-      ),
-      unreferenceEvent: tracker('unreferenceEvent', {
-        success: false,
-        errors: ['error1'],
-      }),
-      enqueueRemove: q => q,
-      sourceAgendaUid: 71413881,
-      aggregator: {
-        aggregatorAgendaUid: 123,
-        eventUid: 1,
+    const result = await removeEvent(
+      {
+        getEventReference: tracker('getEventReference', {
+          sourceAgendaUid: [71413881],
+          aggregated: true,
+        }),
+        unsetSourceUidOnExistingReference: tracker(
+          'unsetSourceUidOnExistingReference',
+        ),
+        unreferenceEvent: tracker('unreferenceEvent', {
+          success: false,
+          errors: ['error1'],
+        }),
+        enqueueRemove: q => q,
       },
-    });
+      {
+        sourceAgendaUid: 71413881,
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+            eventUid: 1,
+          },
+        ],
+      },
+    );
 
-    expect(result).toEqual({
-      action: 'failed to remove reference',
-      errors: ['error1'],
-    });
+    expect(result).toEqual({ success: false, errors: ['error1'] });
   });
 });

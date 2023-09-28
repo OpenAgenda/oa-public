@@ -8,7 +8,7 @@ const pickReferenceValues = require('../utils/pickReferenceValues');
 const limit = require('../utils/limit');
 const generateChecksum = require('../utils/generateChecksum');
 
-const processEvaluate = async (
+module.exports = async (
   {
     getAggregatedCount,
     getMergedSchema,
@@ -17,10 +17,29 @@ const processEvaluate = async (
     referenceEvent,
     updateEventReference,
     enqueueRemove,
+    enqueueEvaluate,
   },
-  { sourceAgenda, event, batched, sourceAgendaFormSchema, aggregator, log },
+  data,
 ) => {
+  const {
+    agenda: sourceAgenda,
+    event,
+    batched,
+    formSchema: sourceAgendaFormSchema,
+    aggregatorsBuffer,
+  } = data;
+
+  const log = Log(
+    `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
+  );
+
+  if (aggregatorsBuffer.length === 0) {
+    log('no more items in aggregatorsBuffer');
+    return;
+  }
+  const aggregator = aggregatorsBuffer.shift();
   const { sourceRules, aggregatorRules, aggregatorAgendaUid, aggregatorLimit } = aggregator;
+
   if (
     typeof getAggregatedCount === 'function'
     && limit.exists(aggregatorLimit)
@@ -40,7 +59,7 @@ const processEvaluate = async (
         aggregatorLimit,
         aggregatorAgendaUid,
       );
-      return 'limitReached';
+      return;
     }
   }
 
@@ -82,11 +101,13 @@ const processEvaluate = async (
 
   if (reference && !reference.aggregated) {
     log('is already referenced and was done so manually. Not processed.');
-    return 'alread...machintruc etc';
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
   if (!shouldAggregate && !reference) {
     log('Is not and should not be referenced. Not processed.');
-    return 'Is not and should not be referenced. Not processed.';
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
 
   if (shouldAggregate && reference && isShortestPath && evaluateResultChange) {
@@ -97,7 +118,8 @@ const processEvaluate = async (
       batched,
       aggregated: aggregatedKey,
     });
-    return 'updatedReference';
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
 
   if (
@@ -112,7 +134,8 @@ const processEvaluate = async (
     log(
       'Is referenced and should be through current source, but paths are unchanged. Not processed',
     );
-    return 'Is referenced and should be through current source, but paths are unchanged. Not processed';
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
 
   if (reference && !shouldAggregate) {
@@ -140,18 +163,18 @@ const processEvaluate = async (
       reference,
       batched,
     });
-
-    return 'source paths are empty. Removing reference';
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return;
   }
   if (updatedPaths) {
     log('source paths need to be updated. Updating reference');
-    updateSourcePaths({
+    await enqueueEvaluate({ aggregatorsBuffer, ...data });
+    return updateSourcePaths({
       aggregatorAgendaUid,
       sourceAgenda,
       eventUid: event.uid,
       paths: updatedPaths,
     });
-    return 'updateSourcePaths';
   }
 
   const { errors, success } = await referenceEvent({
@@ -169,72 +192,9 @@ const processEvaluate = async (
   } else {
     log('done', { step: 'not referenced', errors });
   }
-
-  return 'referenceEvent';
-};
-
-const evaluateEvent = async (
-  {
-    getAggregatedCount,
-    getMergedSchema,
-    getEventReference, // fetch current ref on aggregator
-    updateSourcePaths,
-    referenceEvent,
-    updateEventReference,
-    enqueueRemove,
-    enqueueEvaluate,
-  },
-  data,
-) => {
-  const {
-    agenda: sourceAgenda,
-    event,
-    batched,
-    formSchema: sourceAgendaFormSchema,
-    aggregatorsBuffer,
-    report = { counts: {}, erroredEventUids: [] },
-  } = data;
-
-  const log = Log(
-    `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
-  );
-
-  if (aggregatorsBuffer.length === 0) {
-    log.info(report);
-    log('no more items in aggregatorsBuffer');
-    return;
-  }
-  const aggregator = aggregatorsBuffer.shift();
-  try {
-    const action = await processEvaluate(
-      {
-        getAggregatedCount,
-        getMergedSchema,
-        getEventReference, // fetch current ref on aggregator
-        updateSourcePaths,
-        referenceEvent,
-        updateEventReference,
-        enqueueRemove,
-      },
-      {
-        sourceAgenda,
-        event,
-        batched,
-        sourceAgendaFormSchema,
-        aggregator,
-        log,
-      },
-    );
-
-    report.counts[action] = (report.counts[action] ?? 0) + 1;
-  } catch (error) {
-    report.errors = (report.errors ?? 0) + 1;
-    report.erroredEvents = (report.erroredEvent ?? []).concat([event.uid]);
-  }
-  await enqueueEvaluate({ ...data, report });
-};
-
-module.exports = {
-  processEvaluate,
-  evaluateEvent,
+  await enqueueEvaluate({ aggregatorsBuffer, ...data });
+  return {
+    success,
+    operation: 'aggregation',
+  };
 };
