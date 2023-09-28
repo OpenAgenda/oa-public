@@ -12,3 +12,4 @@ export default (field, values) => Object.keys(field.related || {})
     ...relatedValues,
     [withField]: getRelatedFieldValues(field, values, withField)
   }), {});
+  
