@@ -132,6 +132,16 @@ Un volume local contient tout le déploiement ghost: /var/lib/ghost. Pour dépla
 
 Pour changer de version de ghost (mineur ou patch), il suffit de changer d'image docker ghost dans la topologie du serveur sur Infomaniak. Le site sera indisponible le temps que la réinstallation se fasse.
 
+## Elasticsearch
+
+### Vider les logs
+
+Si pour une raison ou une autre les fichiers de logs (/var/log/run.log) se remplissent au point de poser des problème d'occupation disque, il ne faut pas supprimer le log mais plutôt le tronquer:
+
+`cd /var/log && echo "$(tail -1000 run.log)" > run.log`
+
+Le process du noeud écrivant dans le fichier s'accroche à un descripteur de fichier qu'il ne lache que quand le service est relancé. Si le descripteur reste occupé alors que la commande `rm` est utilisée, le fichier n'apparait plus sur un `ls`, mais il reste présent sur le disque: l'espace n'est pas libéré et il faut relancer le service. Tronquer le fichier ne pose pas ce problème.
+
 ## React
 
 ### Contexte
