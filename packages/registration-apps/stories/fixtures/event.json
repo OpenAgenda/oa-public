@@ -1,0 +1,183 @@
+{
+    "longDescription": {
+        "fr": "Fabrication d'un herbier médicinal indiviudel de 5 plantes médicinales issues des pots collectifs pour les observer, les connaître et savoir les utiliser.\n\n**Informations pratiques**\nDurée de l'atelier : 2h\nLieu : RDV à la Ferme urbaine de la Gare Saint Sauveur"
+    },
+    "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "oc": "França (Metropolitana)",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+    },
+    "interetintercommunal": [],
+    "featured": false,
+    "private": 0,
+    "keywords": {},
+    "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+    },
+    "dateRange": {
+        "ar": "السبت ٣٠ سبتمبر, 15:00",
+        "de": "Samstag 30 September, 15:00",
+        "en": "Saturday 30 September, 15:00",
+        "it": "Sabato 30 settembre, 15:00",
+        "fr": "Samedi 30 septembre, 15h00",
+        "es": "Sábado 30 septiembre, 15:00"
+    },
+    "timezone": "Europe/Paris",
+    "imageCredits": "© lille3000",
+    "originAgenda": {
+        "uid": 40806617,
+        "image": "agenda40806617.jpg?__ts=1666087987379",
+        "title": "Gare Saint Sauveur"
+    },
+    "description": {
+        "fr": "Atelier Ferme urbaine \"Les plantes et leurs bienfaits de la santé\" proposé par La Nature Cultive la santé"
+    },
+    "title": {
+        "fr": "Atelier adulte Ferme urbaine \"Les plantes et leurs bienfaits de la santé\""
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2023-05-16T09:46:38.000Z",
+    "uid": 92066665,
+    "draft": 0,
+    "timings": [
+        {
+            "begin": "2023-09-30T15:00:00+02:00",
+            "end": "2023-09-30T17:00:00+02:00"
+        },
+        {
+            "begin": "2023-10-15T14:00:00+02:00",
+            "end": "2023-10-15T16:00:00+02:00"
+        }
+    ],
+    "links": [],
+    "categories-specifiques-la-cart": [],
+    "state": 2,
+    "categories-metropolitaines": [
+        7
+    ],
+    "slug": "atelier-ferme-urbaine-les-plantes-et-leurs-bienfaits-de-la-sante",
+    "updatedAt": "2023-08-29T06:13:08.000Z",
+    "addMethod": "aggregation",
+    "image": {
+        "filename": "9eef337421744850a3e11ce4ceb4248e.base.image.jpg",
+        "size": {
+            "width": 700,
+            "height": 467
+        },
+        "variants": [
+            {
+                "filename": "9eef337421744850a3e11ce4ceb4248e.full.image.jpg",
+                "size": {
+                    "width": 6000,
+                    "height": 4000
+                },
+                "type": "full"
+            },
+            {
+                "filename": "9eef337421744850a3e11ce4ceb4248e.thumb.image.jpg",
+                "size": {
+                    "width": 200,
+                    "height": 200
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "sourceAgendas": [
+        {
+            "image": "agenda40806617.jpg?__ts=1666087987379",
+            "private": 0,
+            "indexed": 1,
+            "locationSetUid": null,
+            "official": 1,
+            "description": "Retrouvez tout le programme de ce qui ce passe dans ce lieu emblématique de la culture lilloise.",
+            "title": "Gare Saint Sauveur",
+            "url": "https://garesaintsauveur.lille3000.eu/",
+            "_agg": "eyJ1aWQiOjQwODA2NjE3LCJ0aXRsZSI6IkdhcmUgU2FpbnQgU2F1dmV1ciIsImltYWdlIjoiYWdlbmRhNDA4MDY2MTcuanBnP19fdHM9MTY2NjA4Nzk4NzM3OSJ9",
+            "uid": 40806617,
+            "createdAt": "2019-03-08T15:30:11.000Z",
+            "officializedAt": "2022-04-20T13:51:27.000Z",
+            "slug": "gare-saint-sauveur",
+            "updatedAt": "2023-08-28T22:21:05.000Z"
+        }
+    ],
+    "creatorUid": 99246155,
+    "recurringevent": [],
+    "registration": [],
+    "location": {
+        "disqualifiedDuplicates": [],
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": "59046",
+        "latitude": 50.627319,
+        "imageCredits": "© Laurent Ghesquière",
+        "description": {
+            "fr": "Ouverte en mars 2009 à l'occasion d'Europe XXL, la Gare Saint Sauveur, autrefois gare de marchandises, a été réhabilitée par la Ville de Lille pour vous proposer tout au long de l'année événements culturels et espaces de loisirs."
+        },
+        "setUid": null,
+        "uid": 10703365,
+        "createdAt": "2022-11-16T12:45:58.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": "Lille-Centre",
+        "links": [
+            "https://www.facebook.com/garesaintsauveur",
+            "https://www.instagram.com/lagaresaintsauveur/"
+        ],
+        "state": 1,
+        "extId": null,
+        "department": "Nord",
+        "slug": "gare-saint-sauveur_3633205",
+        "email": null,
+        "longitude": 3.069793,
+        "updatedAt": "2023-03-15T09:24:58.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location10703365.jpg?_ts=1678872211639",
+        "website": "",
+        "address": "17 bd Jean Baptiste Lebas",
+        "adminLevel3": "Métropole Européenne de Lille",
+        "agendaUid": 40806617,
+        "adminLevel4": "Lille",
+        "adminLevel1": "Hauts-de-France",
+        "adminLevel2": "Nord",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjEwNzAzMzY1LCJuYW1lIjoiR2FyZSBTYWludCBTYXV2ZXVyIn0=",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Lille-Centre",
+        "name": "Gare Saint Sauveur",
+        "region": "Hauts-de-France"
+    },
+    "ownerUid": 99246155,
+    "conditions": {
+        "fr": "Gratuit (accessible dans la limite des places disponibles)"
+    },
+    "age": {
+        "min": null,
+        "max": null
+    },
+    "status": 1,
+    "firstTiming": {
+        "begin": "2023-09-30T15:00:00+02:00",
+        "end": "2023-09-30T17:00:00+02:00"
+    },
+    "lastTiming": {
+        "begin": "2023-09-30T15:00:00+02:00",
+        "end": "2023-09-30T17:00:00+02:00"
+    },
+    "nextTiming": {
+        "begin": "2023-09-30T15:00:00+02:00",
+        "end": "2023-09-30T17:00:00+02:00"
+    }
+}

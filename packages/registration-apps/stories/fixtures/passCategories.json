@@ -1,0 +1,1300 @@
+{
+  "categories": [
+    {
+      "value": "ATELIER_PRATIQUE_ART",
+      "label": "Atelier, stage de pratique artistique",
+      "related": []
+    },
+    {
+      "value": "CINE_PLEIN_AIR",
+      "label": "Cinéma plein air",
+      "related": []
+    },
+    {
+      "value": "CONCERT",
+      "label": "Concert",
+      "related": [
+        "MusicTypeEnum"
+      ]
+    },
+    {
+      "value": "CONCOURS",
+      "label": "Concours - jeux",
+      "related": []
+    },
+    {
+      "value": "CONFERENCE",
+      "label": "Conférence",
+      "related": []
+    },
+    {
+      "value": "EVENEMENT_CINE",
+      "label": "Évènement cinématographique",
+      "related": []
+    },
+    {
+      "value": "EVENEMENT_JEU",
+      "label": "Évènements - jeux",
+      "related": []
+    },
+    {
+      "value": "EVENEMENT_MUSIQUE",
+      "label": "Autre type d'évènement musical",
+      "related": [
+        "MusicTypeEnum"
+      ]
+    },
+    {
+      "value": "EVENEMENT_PATRIMOINE",
+      "label": "Évènement et atelier patrimoine",
+      "related": []
+    },
+    {
+      "value": "FESTIVAL_ART_VISUEL",
+      "label": "Festival d'arts visuels / arts numériques",
+      "related": []
+    },
+    {
+      "value": "FESTIVAL_CINE",
+      "label": "Festival de cinéma",
+      "related": []
+    },
+    {
+      "value": "FESTIVAL_LIVRE",
+      "label": "Festival et salon du livre",
+      "related": []
+    },
+    {
+      "value": "FESTIVAL_MUSIQUE",
+      "label": "Festival de musique",
+      "related": [
+        "MusicTypeEnum"
+      ]
+    },
+    {
+      "value": "FESTIVAL_SPECTACLE",
+      "label": "Festival de spectacle vivant",
+      "related": [
+        "ShowTypeEnum"
+      ]
+    },
+    {
+      "value": "LIVESTREAM_EVENEMENT",
+      "label": "Livestream d'évènement",
+      "related": [
+        "ShowTypeEnum"
+      ]
+    },
+    {
+      "value": "LIVESTREAM_MUSIQUE",
+      "label": "Livestream musical",
+      "related": [
+        "MusicTypeEnum"
+      ]
+    },
+    {
+      "value": "LIVESTREAM_PRATIQUE_ARTISTIQUE",
+      "label": "Pratique artistique - livestream",
+      "related": []
+    },
+    {
+      "value": "RENCONTRE",
+      "label": "Rencontre",
+      "related": []
+    },
+    {
+      "value": "RENCONTRE_EN_LIGNE",
+      "label": "Rencontre en ligne",
+      "related": []
+    },
+    {
+      "value": "RENCONTRE_JEU",
+      "label": "Rencontres - jeux",
+      "related": []
+    },
+    {
+      "value": "SALON",
+      "label": "Salon, Convention",
+      "related": []
+    },
+    {
+      "value": "SEANCE_CINE",
+      "label": "Séance de cinéma",
+      "related": []
+    },
+    {
+      "value": "SEANCE_ESSAI_PRATIQUE_ART",
+      "label": "Séance d'essai",
+      "related": []
+    },
+    {
+      "value": "SPECTACLE_REPRESENTATION",
+      "label": "Spectacle, représentation",
+      "related": [
+        "ShowTypeEnum"
+      ]
+    },
+    {
+      "value": "VISITE",
+      "label": "Visite",
+      "related": []
+    },
+    {
+      "value": "VISITE_GUIDEE",
+      "label": "Visite guidée",
+      "related": []
+    }
+  ],
+  "related": [
+    {
+      "schema": "MusicTypeEnum",
+      "options": [
+        {
+          "value": "JAZZ-ACID_JAZZ",
+          "label": "Jazz - Acid Jazz"
+        },
+        {
+          "value": "JAZZ-AVANT_GARDE_JAZZ",
+          "label": "Jazz - Jazz d'avant-garde"
+        },
+        {
+          "value": "JAZZ-BEBOP",
+          "label": "Jazz - Bebop"
+        },
+        {
+          "value": "JAZZ-BIG_BAND",
+          "label": "Jazz - Big Band"
+        },
+        {
+          "value": "JAZZ-BLUE_NOTE",
+          "label": "Jazz - Blue Note"
+        },
+        {
+          "value": "JAZZ-COOL_JAZZ",
+          "label": "Jazz - Cool Jazz"
+        },
+        {
+          "value": "JAZZ-CROSSOVER_JAZZ",
+          "label": "Jazz - Jazz Crossover"
+        },
+        {
+          "value": "JAZZ-DIXIELAND",
+          "label": "Jazz - Dixieland"
+        },
+        {
+          "value": "JAZZ-ETHIO_JAZZ",
+          "label": "Jazz - Ethio-jazz"
+        },
+        {
+          "value": "JAZZ-FUSION",
+          "label": "Jazz - Fusion"
+        },
+        {
+          "value": "JAZZ-JAZZ_CONTEMPORAIN",
+          "label": "Jazz - Jazz contemporain"
+        },
+        {
+          "value": "JAZZ-JAZZ_FUNK",
+          "label": "Jazz - Jazz Funk"
+        },
+        {
+          "value": "JAZZ-MAINSTREAM",
+          "label": "Jazz - Jazz Mainstream"
+        },
+        {
+          "value": "JAZZ-MANOUCHE",
+          "label": "Jazz - Jazz manouche"
+        },
+        {
+          "value": "JAZZ-TRADITIONEL",
+          "label": "Jazz - Jazz traditionnel"
+        },
+        {
+          "value": "JAZZ-VOCAL_JAZZ",
+          "label": "Jazz - Jazz vocal"
+        },
+        {
+          "value": "JAZZ-RAGTIME",
+          "label": "Jazz - Ragtime"
+        },
+        {
+          "value": "JAZZ-SMOOTH",
+          "label": "Jazz - Jazz Smooth"
+        },
+        {
+          "value": "JAZZ-OTHER",
+          "label": "Jazz - Autre"
+        },
+        {
+          "value": "BLUES-BLUES_ACOUSTIQUE",
+          "label": "Blues - Blues acoustique"
+        },
+        {
+          "value": "BLUES-BLUES_CONTEMPORAIN",
+          "label": "Blues - Blues contemporain"
+        },
+        {
+          "value": "BLUES-BLUES_ELECTRIQUE",
+          "label": "Blues - Blues électrique"
+        },
+        {
+          "value": "BLUES-BLUES_ROCK",
+          "label": "Blues - Blues Rock"
+        },
+        {
+          "value": "BLUES-CHICAGO_BLUES",
+          "label": "Blues - Chicago Blues"
+        },
+        {
+          "value": "BLUES-CLASSIC_BLUES",
+          "label": "Blues - Blues classique"
+        },
+        {
+          "value": "BLUES-COUNTRY_BLUES",
+          "label": "Blues - Country Blues"
+        },
+        {
+          "value": "BLUES-DELTA_BLUES",
+          "label": "Blues - Delta Blues"
+        },
+        {
+          "value": "BLUES-RAGTIME",
+          "label": "Blues - Ragtime"
+        },
+        {
+          "value": "BLUES-OTHER",
+          "label": "Blues - Autre"
+        },
+        {
+          "value": "REGGAE-TWO_TONE",
+          "label": "Reggae - Two-Tone"
+        },
+        {
+          "value": "REGGAE-DANCEHALL",
+          "label": "Reggae - Dancehall"
+        },
+        {
+          "value": "REGGAE-DUB",
+          "label": "Reggae - Dub"
+        },
+        {
+          "value": "REGGAE-ROOTS",
+          "label": "Reggae - Roots"
+        },
+        {
+          "value": "REGGAE-SKA",
+          "label": "Reggae - Ska"
+        },
+        {
+          "value": "REGGAE-ZOUK",
+          "label": "Reggae - Zouk"
+        },
+        {
+          "value": "REGGAE-OTHER",
+          "label": "Reggae - Autre"
+        },
+        {
+          "value": "CLASSIQUE-AVANT_GARDE",
+          "label": "Classique - Avant-garde"
+        },
+        {
+          "value": "CLASSIQUE-BAROQUE",
+          "label": "Classique - Baroque"
+        },
+        {
+          "value": "CLASSIQUE-CHANT",
+          "label": "Classique - Chant"
+        },
+        {
+          "value": "CLASSIQUE-CHORALE",
+          "label": "Classique - Chorale"
+        },
+        {
+          "value": "CLASSIQUE-CONTEMPORAIN",
+          "label": "Classique - Contemporain"
+        },
+        {
+          "value": "CLASSIQUE-EXPRESSIONISTE",
+          "label": "Classique - Expressionniste"
+        },
+        {
+          "value": "CLASSIQUE-IMPRESSIONISTE",
+          "label": "Classique - Impressionniste"
+        },
+        {
+          "value": "CLASSIQUE-MEDIEVALE",
+          "label": "Classique - Médiévale"
+        },
+        {
+          "value": "CLASSIQUE-MINIMALISTE",
+          "label": "Classique - Minimaliste"
+        },
+        {
+          "value": "CLASSIQUE-MODERNE",
+          "label": "Classique - Moderne"
+        },
+        {
+          "value": "CLASSIQUE-ORATORIO",
+          "label": "Classique - Oratorio"
+        },
+        {
+          "value": "CLASSIQUE-OPERA",
+          "label": "Classique - Opéra"
+        },
+        {
+          "value": "CLASSIQUE-RENAISSANCE",
+          "label": "Classique - Renaissance"
+        },
+        {
+          "value": "CLASSIQUE-ROMANTIQUE",
+          "label": "Classique - Romantique"
+        },
+        {
+          "value": "CLASSIQUE-OTHER",
+          "label": "Classique - Autre"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-AFRICAINE",
+          "label": "Musique du monde - Africaine"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-AFRO_BEAT",
+          "label": "Musique du monde - Afrobeat"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-AFRO_POP",
+          "label": "Musique du monde - Afro-pop"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-ALTERNATIVO",
+          "label": "Musique du monde - Alternativo"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-AMERIQUE_DU_NORD",
+          "label": "Musique du monde - Amérique du Nord"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-AMERIQUE_DU_SUD",
+          "label": "Musique du monde - Amérique du Sud"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-ASIATIQUE",
+          "label": "Musique du monde - Asiatique"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-BALADAS_Y_BOLEROS",
+          "label": "Musique du monde - Baladas y Boleros"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-BOSSA_NOVA",
+          "label": "Musique du monde - Bossa Nova"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-BRESILIENNE",
+          "label": "Musique du monde - Brésilienne"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-CAJUN",
+          "label": "Musique du monde - Cajun"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-CALYPSO",
+          "label": "Musique du monde - Calypso"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-CARIBEENNE",
+          "label": "Musique du monde - Caribéenne"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-CELTIQUE",
+          "label": "Musique du monde - Celtique"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-CUMBIA",
+          "label": "Musique du monde - Cumbia"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-FLAMENCO",
+          "label": "Musique du monde - Flamenco"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-GRECQUE",
+          "label": "Musique du monde - Grecque"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-INDIENNE",
+          "label": "Musique du monde - Indienne"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-LATIN_JAZZ",
+          "label": "Musique du monde - Latin Jazz"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-MOYEN_ORIENT",
+          "label": "Musique du monde - Moyen-Orient"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-LATINE_CONTEMPORAINE",
+          "label": "Musique du monde - Latine contemporaine"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-NUEVO_FLAMENCO",
+          "label": "Musique du monde - Nuevo Flamenco"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-POP_LATINO",
+          "label": "Musique du monde - Pop Latino"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-PORTUGUESE_FADO",
+          "label": "Musique du monde - Fado Portugais"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-RAI",
+          "label": "Musique du monde - Raï"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-SALSA",
+          "label": "Musique du monde - Salsa"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-TANGO_ARGENTIN",
+          "label": "Musique du monde - Tango Argentin"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-YIDDISH",
+          "label": "Musique du monde - Yiddish"
+        },
+        {
+          "value": "MUSIQUE_DU_MONDE-OTHER",
+          "label": "Musique du monde - Autre"
+        },
+        {
+          "value": "POP-BRITPOP",
+          "label": "Pop - Britpop"
+        },
+        {
+          "value": "POP-BUBBLEGUM",
+          "label": "Pop - Bubblegum"
+        },
+        {
+          "value": "POP-DANCE_POP",
+          "label": "Pop - Dance Pop"
+        },
+        {
+          "value": "POP-DREAM_POP",
+          "label": "Pop - Dream Pop"
+        },
+        {
+          "value": "POP-ELECTRO_POP",
+          "label": "Pop - Électro-Pop"
+        },
+        {
+          "value": "POP-INDIE_POP",
+          "label": "Pop - Indie Pop"
+        },
+        {
+          "value": "POP-J_POP",
+          "label": "Pop - J-Pop"
+        },
+        {
+          "value": "POP-K_POP",
+          "label": "Pop - K-Pop"
+        },
+        {
+          "value": "POP-POP_PUNK",
+          "label": "Pop - Pop Punk"
+        },
+        {
+          "value": "POP-POP_ROCK",
+          "label": "Pop - Pop Rock"
+        },
+        {
+          "value": "POP-POWER_POP",
+          "label": "Pop - Power Pop"
+        },
+        {
+          "value": "POP-SOFT_ROCK",
+          "label": "Pop - Soft Rock"
+        },
+        {
+          "value": "POP-SYNTHPOP",
+          "label": "Pop - Synthpop"
+        },
+        {
+          "value": "POP-TEEN_POP",
+          "label": "Pop - Teen Pop"
+        },
+        {
+          "value": "POP-OTHER",
+          "label": "Pop - Autre"
+        },
+        {
+          "value": "ROCK-ACID_ROCK",
+          "label": "Rock - Acid Rock"
+        },
+        {
+          "value": "ROCK-ARENA_ROCK",
+          "label": "Rock - Arena Rock"
+        },
+        {
+          "value": "ROCK-ART_ROCK",
+          "label": "Rock - Art Rock"
+        },
+        {
+          "value": "ROCK-COLLEGE_ROCK",
+          "label": "Rock - College Rock"
+        },
+        {
+          "value": "ROCK-GLAM_ROCK",
+          "label": "Rock - Glam Rock"
+        },
+        {
+          "value": "ROCK-GRUNGE",
+          "label": "Rock - Grunge"
+        },
+        {
+          "value": "ROCK-HARD_ROCK",
+          "label": "Rock - Hard Rock"
+        },
+        {
+          "value": "ROCK-INDIE_ROCK",
+          "label": "Rock - Indie Rock"
+        },
+        {
+          "value": "ROCK-LO_FI",
+          "label": "Rock - Lo-fi"
+        },
+        {
+          "value": "ROCK-PROG_ROCK",
+          "label": "Rock - Rock progressif"
+        },
+        {
+          "value": "ROCK-PSYCHEDELIC",
+          "label": "Rock - Psychédélique"
+        },
+        {
+          "value": "ROCK-ROCK_N_ROLL",
+          "label": "Rock - Rock'n'Roll"
+        },
+        {
+          "value": "ROCK-EXPERIMENTAL",
+          "label": "Rock - Expérimental"
+        },
+        {
+          "value": "ROCK-ROCKABILLY",
+          "label": "Rock - Rockabilly"
+        },
+        {
+          "value": "ROCK-SHOEGAZE",
+          "label": "Rock - Shoegaze"
+        },
+        {
+          "value": "ROCK-ELECTRO",
+          "label": "Rock - Électro"
+        },
+        {
+          "value": "ROCK-OTHER",
+          "label": "Rock - Autre"
+        },
+        {
+          "value": "METAL-BLACK_METAL",
+          "label": "Metal - Black Metal"
+        },
+        {
+          "value": "METAL-DEATH_METAL",
+          "label": "Metal - Death Metal"
+        },
+        {
+          "value": "METAL-DOOM_METAL",
+          "label": "Metal - Doom Metal"
+        },
+        {
+          "value": "METAL-GOTHIC",
+          "label": "Metal - Gothique"
+        },
+        {
+          "value": "METAL-METAL_CORE",
+          "label": "Metal - Metalcore"
+        },
+        {
+          "value": "METAL-METAL_PROGRESSIF",
+          "label": "Metal - Metal progressif"
+        },
+        {
+          "value": "METAL-TRASH_METAL",
+          "label": "Metal - Trash Metal"
+        },
+        {
+          "value": "METAL-METAL_INDUSTRIEL",
+          "label": "Metal - Metal industriel"
+        },
+        {
+          "value": "METAL-FUSION",
+          "label": "Metal - Fusion"
+        },
+        {
+          "value": "METAL-OTHER",
+          "label": "Metal - Autre"
+        },
+        {
+          "value": "PUNK-POST_PUNK",
+          "label": "Punk - Post-Punk"
+        },
+        {
+          "value": "PUNK-HARDCORE_PUNK",
+          "label": "Punk - Hardcore Punk"
+        },
+        {
+          "value": "PUNK-AFRO_PUNK",
+          "label": "Punk - Afro-Punk"
+        },
+        {
+          "value": "PUNK-GRINDCORE",
+          "label": "Punk - Grindcore"
+        },
+        {
+          "value": "PUNK-NOISE_ROCK",
+          "label": "Punk - Noise Rock"
+        },
+        {
+          "value": "PUNK-OTHER",
+          "label": "Punk - Autre"
+        },
+        {
+          "value": "FOLK-FOLK_CONTEMPORAINE",
+          "label": "Folk - Folk contemporaine"
+        },
+        {
+          "value": "FOLK-INDIE_FOLK",
+          "label": "Folk - Indie Folk"
+        },
+        {
+          "value": "FOLK-FOLK_ROCK",
+          "label": "Folk - Folk Rock"
+        },
+        {
+          "value": "FOLK-NEW_ACOUSTIC",
+          "label": "Folk - New Acoustic"
+        },
+        {
+          "value": "FOLK-FOLK_TRADITIONELLE",
+          "label": "Folk - Folk traditionnelle"
+        },
+        {
+          "value": "FOLK-TEX_MEX",
+          "label": "Folk - Tex-Mex"
+        },
+        {
+          "value": "FOLK-OTHER",
+          "label": "Folk - Autre"
+        },
+        {
+          "value": "COUNTRY-COUNTRY_ALTERNATIVE",
+          "label": "Country - Country alternative"
+        },
+        {
+          "value": "COUNTRY-AMERICANA",
+          "label": "Country - Americana"
+        },
+        {
+          "value": "COUNTRY-BLUEGRASS",
+          "label": "Country - Bluegrass"
+        },
+        {
+          "value": "COUNTRY-COUNTRY_CONTEMPORAINE",
+          "label": "Country - Country contemporaine"
+        },
+        {
+          "value": "COUNTRY-GOSPEL_COUNTRY",
+          "label": "Country - Gospel Country"
+        },
+        {
+          "value": "COUNTRY-COUNTRY_POP",
+          "label": "Country - Country Pop"
+        },
+        {
+          "value": "COUNTRY-OTHER",
+          "label": "Country - Autre"
+        },
+        {
+          "value": "ELECTRO-BITPOP",
+          "label": "Électro - Bitpop"
+        },
+        {
+          "value": "ELECTRO-BREAKBEAT",
+          "label": "Électro - Breakbeat"
+        },
+        {
+          "value": "ELECTRO-CHILLWAVE",
+          "label": "Électro - Chillwave"
+        },
+        {
+          "value": "ELECTRO-DANCE",
+          "label": "Électro - Dance"
+        },
+        {
+          "value": "ELECTRO-DOWNTEMPO",
+          "label": "Électro - Downtempo"
+        },
+        {
+          "value": "ELECTRO-DRUM_AND_BASS",
+          "label": "Électro - Drum and Bass"
+        },
+        {
+          "value": "ELECTRO-DUBSTEP",
+          "label": "Électro - Dubstep"
+        },
+        {
+          "value": "ELECTRO-EXPERIMENTAL",
+          "label": "Électro - Expérimental"
+        },
+        {
+          "value": "ELECTRO-ELECTRONICA",
+          "label": "Électro - Électronica"
+        },
+        {
+          "value": "ELECTRO-GARAGE",
+          "label": "Électro - Garage"
+        },
+        {
+          "value": "ELECTRO-GRIME",
+          "label": "Électro - Grime"
+        },
+        {
+          "value": "ELECTRO-HARD_DANCE",
+          "label": "Électro - Hard Dance"
+        },
+        {
+          "value": "ELECTRO-HARDCORE",
+          "label": "Électro - Hardcore"
+        },
+        {
+          "value": "ELECTRO-HOUSE",
+          "label": "Électro - House"
+        },
+        {
+          "value": "ELECTRO-INDUSTRIEL",
+          "label": "Électro - Industriel"
+        },
+        {
+          "value": "ELECTRO-LOUNGE",
+          "label": "Électro - Lounge"
+        },
+        {
+          "value": "ELECTRO-TECHNO",
+          "label": "Électro - Techno"
+        },
+        {
+          "value": "ELECTRO-TRANCE",
+          "label": "Électro - Trance"
+        },
+        {
+          "value": "ELECTRO-OTHER",
+          "label": "Électro - Autre"
+        },
+        {
+          "value": "HIP_HOP_RAP-BOUNCE",
+          "label": "Hip-Hop & Rap - Bounce"
+        },
+        {
+          "value": "HIP_HOP_RAP-HIP_HOP",
+          "label": "Hip-Hop & Rap - Hip-Hop"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_ALTERNATIF",
+          "label": "Hip-Hop & Rap - Rap alternatif"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_EAST_COAST",
+          "label": "Hip-Hop & Rap - Rap East Coast"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_FRANCAIS",
+          "label": "Hip-Hop & Rap - Rap français"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_GANGSTA",
+          "label": "Hip-Hop & Rap - Rap gangsta"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_HARDCORE",
+          "label": "Hip-Hop & Rap - Rap hardcore"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_LATINO",
+          "label": "Hip-Hop & Rap - Rap latino"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_OLD_SCHOOL",
+          "label": "Hip-Hop & Rap - Rap Old School"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_UNDERGROUND",
+          "label": "Hip-Hop & Rap - Rap underground"
+        },
+        {
+          "value": "HIP_HOP_RAP-RAP_WEST_COAST",
+          "label": "Hip-Hop & Rap - Rap West Coast"
+        },
+        {
+          "value": "HIP_HOP_RAP-TRAP",
+          "label": "Hip-Hop & Rap - Trap"
+        },
+        {
+          "value": "HIP_HOP_RAP-TRIP_HOP",
+          "label": "Hip-Hop & Rap - Trip Hop"
+        },
+        {
+          "value": "HIP_HOP_RAP-R&B_CONTEMPORAIN",
+          "label": "Hip-Hop & Rap - R&B contemporain"
+        },
+        {
+          "value": "HIP_HOP_RAP-DISCO",
+          "label": "Hip-Hop & Rap - Disco"
+        },
+        {
+          "value": "HIP_HOP_RAP-DOO_WOP",
+          "label": "Hip-Hop & Rap - Doo-Wop"
+        },
+        {
+          "value": "HIP_HOP_RAP-FUNK",
+          "label": "Hip-Hop & Rap - Funk"
+        },
+        {
+          "value": "HIP_HOP_RAP-SOUL",
+          "label": "Hip-Hop & Rap - Soul"
+        },
+        {
+          "value": "HIP_HOP_RAP-MOTOWN",
+          "label": "Hip-Hop & Rap - Motown"
+        },
+        {
+          "value": "HIP_HOP_RAP-NEO_SOUL",
+          "label": "Hip-Hop & Rap - Néo-Soul"
+        },
+        {
+          "value": "HIP_HOP_RAP-SOUL_PSYCHEDELIQUE",
+          "label": "Hip-Hop & Rap - Soul psychédélique"
+        },
+        {
+          "value": "HIP_HOP_RAP-OTHER",
+          "label": "Hip-Hop & Rap - Autre"
+        },
+        {
+          "value": "GOSPEL-SPIRITUAL_GOSPEL",
+          "label": "Gospel - Gospel spirituel"
+        },
+        {
+          "value": "GOSPEL-TRADITIONAL_GOSPEL",
+          "label": "Gospel - Gospel traditionnel"
+        },
+        {
+          "value": "GOSPEL-SOUTHERN_GOSPEL",
+          "label": "Gospel - Gospel du Sud"
+        },
+        {
+          "value": "GOSPEL-CONTEMPORARY_GOSPEL",
+          "label": "Gospel - Gospel contemporain"
+        },
+        {
+          "value": "GOSPEL-BLUEGRASS_GOSPEL",
+          "label": "Gospel - Bluegrass Gospel"
+        },
+        {
+          "value": "GOSPEL-BLUES_GOSPEL",
+          "label": "Gospel - Blues Gospel"
+        },
+        {
+          "value": "GOSPEL-COUNTRY_GOSPEL",
+          "label": "Gospel - Gospel Country"
+        },
+        {
+          "value": "GOSPEL-HYBRID_GOSPEL",
+          "label": "Gospel - Gospel hybride"
+        },
+        {
+          "value": "GOSPEL-OTHER",
+          "label": "Gospel - Autre"
+        },
+        {
+          "value": "CHANSON_VARIETE-MUSETTE",
+          "label": "Chanson & Variété - Musette"
+        },
+        {
+          "value": "CHANSON_VARIETE-CHANSON_FRANCAISE",
+          "label": "Chanson & Variété - Chanson française"
+        },
+        {
+          "value": "CHANSON_VARIETE-MUSIC_HALL",
+          "label": "Chanson & Variété - Music Hall"
+        },
+        {
+          "value": "CHANSON_VARIETE-FOLKLORE_FRANCAIS",
+          "label": "Chanson & Variété - Folklore français"
+        },
+        {
+          "value": "CHANSON_VARIETE-CHANSON_À_TEXTE",
+          "label": "Chanson & Variété - Chanson à texte"
+        },
+        {
+          "value": "CHANSON_VARIETE-SLAM",
+          "label": "Chanson & Variété - Slam"
+        },
+        {
+          "value": "CHANSON_VARIETE-OTHER",
+          "label": "Chanson & Variété - Autre"
+        },
+        {
+          "value": "OTHER",
+          "label": "Autre"
+        }
+      ]
+    },
+    {
+      "schema": "ShowTypeEnum",
+      "options": [
+        {
+          "value": "ART_DE_LA_RUE-CARNAVAL",
+          "label": "Art de la rue - Carnaval"
+        },
+        {
+          "value": "ART_DE_LA_RUE-FANFARE",
+          "label": "Art de la rue - Fanfare"
+        },
+        {
+          "value": "ART_DE_LA_RUE-MIME",
+          "label": "Art de la rue - Mime"
+        },
+        {
+          "value": "ART_DE_LA_RUE-PARADE",
+          "label": "Art de la rue - Parade"
+        },
+        {
+          "value": "ART_DE_LA_RUE-THEATRE_DE_RUE",
+          "label": "Art de la rue - Theatre de rue"
+        },
+        {
+          "value": "ART_DE_LA_RUE-THEATRE_PROMENADE",
+          "label": "Art de la rue - Theatre promenade"
+        },
+        {
+          "value": "ART_DE_LA_RUE-OTHER",
+          "label": "Art de la rue - Other"
+        },
+        {
+          "value": "CIRQUE-CIRQUE_CONTEMPORAIN",
+          "label": "Cirque - Cirque contemporain"
+        },
+        {
+          "value": "CIRQUE-CIRQUE_HORS_LES_MURS",
+          "label": "Cirque - Cirque hors les murs"
+        },
+        {
+          "value": "CIRQUE-CIRQUE_TRADITIONNEL",
+          "label": "Cirque - Cirque traditionnel"
+        },
+        {
+          "value": "CIRQUE-CIRQUE_VOYAGEUR",
+          "label": "Cirque - Cirque voyageur"
+        },
+        {
+          "value": "CIRQUE-CLOWN",
+          "label": "Cirque - Clown"
+        },
+        {
+          "value": "CIRQUE-HYPNOSE",
+          "label": "Cirque - Hypnose"
+        },
+        {
+          "value": "CIRQUE-MENTALISTE",
+          "label": "Cirque - Mentaliste"
+        },
+        {
+          "value": "CIRQUE-SPECTACLE_DE_MAGIE",
+          "label": "Cirque - Spectacle de magie"
+        },
+        {
+          "value": "CIRQUE-SPECTACLE_EQUESTRE",
+          "label": "Cirque - Spectacle equestre"
+        },
+        {
+          "value": "CIRQUE-OTHER",
+          "label": "Cirque - Other"
+        },
+        {
+          "value": "DANSE-BALLET",
+          "label": "Danse - Ballet"
+        },
+        {
+          "value": "DANSE-CANCAN",
+          "label": "Danse - Cancan"
+        },
+        {
+          "value": "DANSE-CLAQUETTE",
+          "label": "Danse - Claquette"
+        },
+        {
+          "value": "DANSE-CLASSIQUE",
+          "label": "Danse - Classique"
+        },
+        {
+          "value": "DANSE-CONTEMPORAINE",
+          "label": "Danse - Contemporaine"
+        },
+        {
+          "value": "DANSE-DANSE_DU_MONDE",
+          "label": "Danse - Danse du monde"
+        },
+        {
+          "value": "DANSE-FLAMENCO",
+          "label": "Danse - Flamenco"
+        },
+        {
+          "value": "DANSE-MODERNE_JAZZ",
+          "label": "Danse - Moderne jazz"
+        },
+        {
+          "value": "DANSE-SALSA",
+          "label": "Danse - Salsa"
+        },
+        {
+          "value": "DANSE-SWING",
+          "label": "Danse - Swing"
+        },
+        {
+          "value": "DANSE-TANGO",
+          "label": "Danse - Tango"
+        },
+        {
+          "value": "DANSE-URBAINE",
+          "label": "Danse - Urbaine"
+        },
+        {
+          "value": "DANSE-OTHER",
+          "label": "Danse - Other"
+        },
+        {
+          "value": "HUMOUR-CAFE_THEATRE",
+          "label": "Humour - Cafe theatre"
+        },
+        {
+          "value": "HUMOUR-IMPROVISATION",
+          "label": "Humour - Improvisation"
+        },
+        {
+          "value": "HUMOUR-SEUL_EN_SCENE",
+          "label": "Humour - Seul en scene"
+        },
+        {
+          "value": "HUMOUR-SKETCH",
+          "label": "Humour - Sketch"
+        },
+        {
+          "value": "HUMOUR-STAND_UP",
+          "label": "Humour - Stand up"
+        },
+        {
+          "value": "HUMOUR-VENTRILOQUE",
+          "label": "Humour - Ventriloque"
+        },
+        {
+          "value": "HUMOUR-OTHER",
+          "label": "Humour - Other"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-CABARET",
+          "label": "Spectacle musical - Cabaret"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-CAFE_CONCERT",
+          "label": "Spectacle musical - Cafe concert"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-CLAQUETTE",
+          "label": "Spectacle musical - Claquette"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-COMEDIE_MUSICALE",
+          "label": "Spectacle musical - Comedie musicale"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-OPERA_BOUFFE",
+          "label": "Spectacle musical - Opera bouffe"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-OPERETTE",
+          "label": "Spectacle musical - Operette"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-REVUE",
+          "label": "Spectacle musical - Revue"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-BURLESQUE",
+          "label": "Spectacle musical - Burlesque"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-COMEDIE_BALLET",
+          "label": "Spectacle musical - Comedie ballet"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-OPERA_COMIQUE",
+          "label": "Spectacle musical - Opera comique"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-OPERA_BALLET",
+          "label": "Spectacle musical - Opera ballet"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-THEATRE_MUSICAL",
+          "label": "Spectacle musical - Theatre musical"
+        },
+        {
+          "value": "SPECTACLE_MUSICAL-OTHER",
+          "label": "Spectacle musical - Other"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-CONTE",
+          "label": "Spectacle jeunesse - Conte"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-THEATRE_JEUNESSE",
+          "label": "Spectacle jeunesse - Theatre jeunesse"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-SPECTACLE_PETITE_ENFANCE",
+          "label": "Spectacle jeunesse - Spectacle petite enfance"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-MAGIE_ENFANCE",
+          "label": "Spectacle jeunesse - Magie enfance"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-SPECTACLE_PEDAGOGIQUE",
+          "label": "Spectacle jeunesse - Spectacle pedagogique"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-MARIONETTES",
+          "label": "Spectacle jeunesse - Marionettes"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-COMEDIE_MUSICALE_JEUNESSE",
+          "label": "Spectacle jeunesse - Comedie musicale jeunesse"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-THEATRE_D_OMBRES",
+          "label": "Spectacle jeunesse - Theatre d ombres"
+        },
+        {
+          "value": "SPECTACLE_JEUNESSE-OTHER",
+          "label": "Spectacle jeunesse - Other"
+        },
+        {
+          "value": "THEATRE-BOULEVARD",
+          "label": "Theatre - Boulevard"
+        },
+        {
+          "value": "THEATRE-CLASSIQUE",
+          "label": "Theatre - Classique"
+        },
+        {
+          "value": "THEATRE-COMEDIE",
+          "label": "Theatre - Comedie"
+        },
+        {
+          "value": "THEATRE-CONTEMPORAIN",
+          "label": "Theatre - Contemporain"
+        },
+        {
+          "value": "THEATRE-LECTURE",
+          "label": "Theatre - Lecture"
+        },
+        {
+          "value": "THEATRE-SPECTACLE_SCENOGRAPHIQUE",
+          "label": "Theatre - Spectacle scenographique"
+        },
+        {
+          "value": "THEATRE-THEATRE_EXPERIMENTAL",
+          "label": "Theatre - Theatre experimental"
+        },
+        {
+          "value": "THEATRE-THEATRE_D_OBJET",
+          "label": "Theatre - Theatre d objet"
+        },
+        {
+          "value": "THEATRE-TRAGEDIE",
+          "label": "Theatre - Tragedie"
+        },
+        {
+          "value": "THEATRE-OTHER",
+          "label": "Theatre - Other"
+        },
+        {
+          "value": "PLURIDISCIPLINAIRE-PERFORMANCE",
+          "label": "Pluridisciplinaire - Performance"
+        },
+        {
+          "value": "PLURIDISCIPLINAIRE-POESIE",
+          "label": "Pluridisciplinaire - Poesie"
+        },
+        {
+          "value": "PLURIDISCIPLINAIRE-OTHER",
+          "label": "Pluridisciplinaire - Other"
+        },
+        {
+          "value": "OTHER-SON_ET_LUMIERE",
+          "label": "Other - Son et lumiere"
+        },
+        {
+          "value": "OTHER-SPECTACLE_SUR_GLACE",
+          "label": "Other - Spectacle sur glace"
+        },
+        {
+          "value": "OTHER-SPECTACLE_HISTORIQUE",
+          "label": "Other - Spectacle historique"
+        },
+        {
+          "value": "OTHER-SPECTACLE_AQUATIQUE",
+          "label": "Other - Spectacle aquatique"
+        },
+        {
+          "value": "OTHER-OTHER",
+          "label": "Other - Other"
+        },
+        {
+          "value": "OPERA-OPERA_SERIE",
+          "label": "Opera - Opera serie"
+        },
+        {
+          "value": "OPERA-GRAND_OPERA",
+          "label": "Opera - Grand opera"
+        },
+        {
+          "value": "OPERA-OPERA_BOUFFE",
+          "label": "Opera - Opera bouffe"
+        },
+        {
+          "value": "OPERA-OPERA_COMIQUE",
+          "label": "Opera - Opera comique"
+        },
+        {
+          "value": "OPERA-OPERA_BALLET",
+          "label": "Opera - Opera ballet"
+        },
+        {
+          "value": "OPERA-SINGSPIEL",
+          "label": "Opera - Singspiel"
+        },
+        {
+          "value": "OPERA-OTHER",
+          "label": "Opera - Other"
+        },
+        {
+          "value": "OTHER",
+          "label": "Autre"
+        }
+      ]
+    }
+  ]
+}
