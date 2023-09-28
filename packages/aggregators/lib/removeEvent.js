@@ -5,17 +5,10 @@ const Log = require('../utils/Log')('Aggregators/removeEvent');
 const paths = require('../utils/paths');
 
 module.exports = async (
-  { getEventReference, updateSourcePaths, unreferenceEvent, enqueueRemove },
+  { getEventReference, updateSourcePaths, unreferenceEvent },
   data,
 ) => {
-  const { aggregatorsBuffer, sourceAgendaUid, batched } = data;
-  if (aggregatorsBuffer.length === 0) {
-    Log('no more items in aggregatorsBuffer');
-
-    return;
-  }
-  const aggregator = aggregatorsBuffer.shift();
-  const { aggregatorAgendaUid, eventUid } = aggregator;
+  const { aggregatorAgendaUid, sourceAgendaUid, eventUid, batched } = data;
 
   const log = Log(
     `event uid ${eventUid} of source agenda uid ${sourceAgendaUid} from aggregator agenda ${aggregatorAgendaUid}`,
@@ -25,7 +18,6 @@ module.exports = async (
 
   if (!reference) {
     log('did not find reference in aggregator');
-    await enqueueRemove({ aggregatorsBuffer, ...data });
     return;
   }
 
@@ -45,11 +37,9 @@ module.exports = async (
     );
     if (success) {
       log('removed reference');
-      await enqueueRemove({ aggregatorsBuffer, ...data });
       return { success: true };
     }
     log('failed to remove reference', errors);
-    await enqueueRemove({ aggregatorsBuffer, ...data });
     return { success: false, errors };
   }
   log(
@@ -60,5 +50,4 @@ module.exports = async (
     eventUid,
     paths: updatedPaths,
   });
-  await enqueueRemove({ aggregatorsBuffer, ...data });
 };

@@ -1,13 +1,13 @@
 'use strict';
 
-const fs = require('node:fs');
+const fs = require('fs');
 
 const addSource = require('../lib/addSource');
 const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
 
 function _getJSON(relativePath) {
   return JSON.parse(
-    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8'),
+    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8')
   );
 }
 
@@ -36,7 +36,7 @@ describe('06 - addSource', () => {
         { uid: 123, slug: 'ndm2020' },
         { uid: 456, slug: 'ndm2020-idf' },
         [],
-        { query: { relative: 'current' } },
+        { query: { relative: 'current' } }
       );
     });
 
@@ -67,7 +67,7 @@ describe('06 - addSource', () => {
             enqueuedListEventReferencesQuery.push(query);
             if (looped) {
               return _async(
-                'fixtures/addSource/listEventReferencesAfterNull',
+                'fixtures/addSource/listEventReferencesAfterNull'
               )();
             }
             looped = true;
@@ -77,7 +77,7 @@ describe('06 - addSource', () => {
             enqueuedForEvaluate.push(data);
           },
         },
-        _getJSON('fixtures/addSource/loadSourceEvaluates'),
+        _getJSON('fixtures/addSource/loadSourceEvaluates')
       );
     });
 
@@ -85,9 +85,12 @@ describe('06 - addSource', () => {
       expect(Object.keys(enqueuedForEvaluate[0])).toEqual([
         'agenda',
         'event',
+        'aggregatorAgendaUid',
+        'aggregatorRules',
+        'aggregatorLimit',
         'batched',
         'formSchema',
-        'aggregatorsBuffer',
+        'sourceRules',
       ]);
     });
 
