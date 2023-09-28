@@ -26,9 +26,14 @@ describe('createEventOffer', () => {
   });
 
   it('created event offer returns PC created objects in eventOffer, priceCategories and dates keys', async () => {
+    const event = pickEvent('visite-guidee-des-collections-5223531');
+
+    const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
+
+
     const result = await createEventOffer(
       pc,
-      pickEvent('visite-guidee-des-collections-5223531'),
+      event,
       {
         venueId,
         category: 'CINE_PLEIN_AIR',
@@ -40,11 +45,11 @@ describe('createEventOffer', () => {
           price: 14
         }],
         dates: [{
-          timingId: 1699801200000,
+          timingId,
           priceCategoryIndex: 0,
           quantity: 3,
         }, {
-          timingId: 1699801200000,
+          timingId,
           priceCategoryIndex: 1,
           quantity: 6,
         }],

@@ -180,8 +180,8 @@ describe('PassCultureSDK', () => {
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [{
-          beginningDatetime: '2023-09-17T14:00:00+02:00',
-          bookingLimitDatetime: '2023-09-17T14:00:00+02:00',
+          beginningDatetime: '2024-09-17T14:00:00+02:00',
+          bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
           priceCategoryId,
           quantity: 3,
         }],
@@ -199,7 +199,7 @@ describe('PassCultureSDK', () => {
 
       const error = await pc.offers.events(testEventId).dates.create({
         dates: [{
-          beginningDatetime: '2023-09-18T14:00:00+02:00',
+          beginningDatetime: '2024-09-18T14:00:00+02:00',
           priceCategoryId,
           quantity: 3,
         }],
@@ -219,8 +219,8 @@ describe('PassCultureSDK', () => {
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [{
-          beginningDatetime: '2023-09-19T14:00:00+02:00',
-          bookingLimitDatetime: '2023-09-19T14:00:00+02:00',
+          beginningDatetime: '2024-09-19T14:00:00+02:00',
+          bookingLimitDatetime: '2024-09-19T14:00:00+02:00',
           priceCategoryId,
           quantity: 3,
         }],
@@ -242,7 +242,7 @@ describe('PassCultureSDK', () => {
 
       const dateAfterPatch = await pc.offers.events(testEventId).dates(date.id).patch({
         quantity: date.quantity + 1,
-      }).then(r => r, e => e);
+      }).then(r => r, e => e.response.data);
 
       expect(dateAfterPatch.quantity).toBe(date.quantity + 1);
     });
@@ -266,12 +266,15 @@ describe('PassCultureSDK', () => {
     });
 
     it('lists available categories', async () => {
-      const categories = await pc.offers.events.categories.list();
-      
+      const { categories, related } = await pc.offers.events.categories.list();
+
       expect(categories[0]).toEqual({
-        code: 'ATELIER_PRATIQUE_ART',
-        label: 'Atelier, stage de pratique artistique'
+        value: 'ATELIER_PRATIQUE_ART',
+        label: 'Atelier, stage de pratique artistique',
+        related: [],
       });
+
+      expect(related.find(r => r.schema === 'MusicTypeEnum').options[0]).toEqual({ value: 'JAZZ-ACID_JAZZ', label: 'Jazz - Acid Jazz' });
     });
   });
 });

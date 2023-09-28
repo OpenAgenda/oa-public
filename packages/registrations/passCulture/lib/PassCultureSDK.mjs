@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import axios from 'axios';
+import typeLabels from './typeLabels.json';
 
 const {
   PASS_API_DOMAIN: domain,
@@ -9,20 +11,51 @@ const headers = apiKey =>  ({
   'Authorization': `Bearer ${apiKey}`,
 });
 
+const labelizeENUMValue = value => {
+  if (typeLabels[value]) {
+    return typeLabels[value];
+  }
+  return value.split('-').map(p => _.capitalize(p).replace(/_/g, ' ')).join(' - ')
+}
+
+function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
+  const relatedSchemas = openAPIObj.components.schemas[schema].properties[relatedKey].discriminator.mapping;
+
+  return Object.keys(relatedSchemas).map(value => {
+    const obj = openAPIObj.components.schemas[relatedSchemas[value].split('/').pop()];
+
+    return ({
+      value,
+      label: obj.description,
+      related: obj.required
+      .filter(r => r !== key)
+      .map(r => obj.properties[r]['$ref'].split('/').pop())
+    });
+  });
+}
+
 async function listEventOfferCategories() {
   const openAPIObj = await axios({
     method: 'get',
     url: `${domain}/public/offers/v1/event/openapi.json`
   }).then(r => r.data);
 
-  const categoriesSchemas = openAPIObj.components.schemas['EventOfferCreation'].properties.categoryRelatedFields.discriminator.mapping;
-    
-  return Object.keys(categoriesSchemas).map(code => {
-    return ({
-      code,
-      label: openAPIObj.components.schemas[categoriesSchemas[code].split('/').pop()].description,
-    });
-  });
+  const categories = extractSchemaOptions(openAPIObj, 'EventOfferCreation', 'category', 'categoryRelatedFields');
+
+  const related = categories.reduce((r, category) => r.concat(
+    category.related.filter(item => !r.includes(item))
+  ), []).map(r => ({
+    schema: r,
+    options: openAPIObj.components.schemas[r].enum.map(value => ({
+      value,
+      label: labelizeENUMValue(value),
+    })),
+  }));
+
+  return {
+    categories,
+    related
+  };
 }
 
 function call(apiKey, method, path, data = {}) {
