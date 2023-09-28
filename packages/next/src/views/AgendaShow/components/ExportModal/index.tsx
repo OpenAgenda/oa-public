@@ -278,7 +278,7 @@ export default function ExportModal({
                 <Fragment key={id}>
                   <AccordionItem>
                     <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
+                      <Box as="span" flex="1" textAlign="left" ml="2">
                         {type}
                       </Box>
                       <AccordionIcon />
