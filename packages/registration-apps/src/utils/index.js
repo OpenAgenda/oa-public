@@ -3,7 +3,7 @@ function extractLinks(value) {
     return value;
   }
   if (typeof value === 'object') {
-    return value.links ?? [];
+    return value?.links ?? [];
   }
 
   return [];
