@@ -5,7 +5,8 @@
   "scripts": {
     "prepack": "yarn oa-intl compile && yarn build",
     "build": "babel --copy-files src -d dist -s",
-    "start": "start-storybook -p 9001 --ci",
+    "storybook": "start-storybook -p 9001 --ci",
+    "sb": "yarn storybook",
     "extract-messages": "yarn oa-intl",
     "test": "jest"
   },

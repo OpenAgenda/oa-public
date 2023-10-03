@@ -33,7 +33,7 @@ export default function useEventFormConfig(agenda) {
     };
   }
 
-  cleanupSchemaForForm(detailedAgenda.schema, { locale });
+  cleanupSchemaForForm(detailedAgenda.schema, { locale, agenda, apiRoot });
 
   if (
     agendaContext?.me?.authorizations?.canChangeState
@@ -56,8 +56,6 @@ export default function useEventFormConfig(agenda) {
       lang: locale,
       schema: detailedAgenda.schema,
       locationRes: injectAgendaUIDAndSlug(res.locations, apiRoot, agenda),
-      referencesRes: res.references,
-      suggestionsRes: res.suggestions,
       maxFileSize: files.maxSize,
       fileStore: files.store,
       tiles,
