@@ -2,8 +2,7 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( { res } ) => {
-
+module.exports = ({ res }) => {
   return {
     field: 'references',
     label: {
