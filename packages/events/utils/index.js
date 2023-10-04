@@ -5,5 +5,5 @@ const convertDateHoursMinutesTimings = require('./convertDateHoursMinutesTimings
 
 module.exports = {
   formatRegistration,
-  convertDateHoursMinutesTimings
+  convertDateHoursMinutesTimings,
 };

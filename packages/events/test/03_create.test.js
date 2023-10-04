@@ -1,8 +1,7 @@
 'use strict';
 
+const fs = require('node:fs');
 const axios = require('axios');
-const fs = require('fs');
-const assert = require('assert');
 const Files = require('@openagenda/files');
 const ValidationError = require('../lib/ValidationError');
 
@@ -10,12 +9,11 @@ const TMP_IMG_PATH = '/tmp/eventTestImage.png';
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
-const create = require('../create');
+const fixtures = require('./fixtures');
 
 const data = {
   title: 'An event',
@@ -24,10 +22,10 @@ const data = {
   onlineAccessLink: 'https://openagenda.com',
   timings: [{
     begin: '2020-11-30T08:00:00.000Z',
-    end: '2020-11-30T10:00:00.000Z'
+    end: '2020-11-30T10:00:00.000Z',
   }],
   conditions: 'Free',
-  keywords: ['One', 'Two', 'Three']
+  keywords: ['One', 'Two', 'Three'],
 };
 
 describe('events - functional - create', () => {
@@ -40,7 +38,7 @@ describe('events - functional - create', () => {
 
     svc = Service({
       knex: f.client,
-      imagePath: config.imagePath
+      imagePath: config.imagePath,
     });
   });
 
@@ -51,169 +49,162 @@ describe('events - functional - create', () => {
       try {
         created = await svc.create(data);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     });
 
     it('result is created event', () => {
-      assert.equal(created.title.en, 'An event');
+      expect(created.title.en).toBe('An event');
     });
 
     it('entry is added in table', async () => {
       const title = await f.client('event_2')
         .first(['title'])
         .where('uid', created.uid)
-        .then(r => r.title)
+        .then(r => r.title);
 
-      assert.equal(title, '{"en":"An event"}');
+      expect(title).toBe('{"en":"An event"}');
     });
 
     it('conditions and keywords are set', () => {
-      assert.equal(created.conditions.en, 'Free');
+      expect(created.conditions.en).toBe('Free');
 
-      assert.deepEqual(created.keywords, {
-        en: ['One', 'Two', 'Three']
+      expect(created.keywords).toEqual({
+        en: ['One', 'Two', 'Three'],
       });
     });
 
     it('if timezone is not specified, defaults to Europe/Paris', async () => {
-      assert.equal(created.timezone, 'Europe/Paris');
+      expect(created.timezone).toBe('Europe/Paris');
     });
   });
 
   describe('create with image', () => {
-    let svc;
+    let imageTestsSvc;
 
-    beforeAll(done => {
+    beforeAll(() => new Promise(done => {
       fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
         .pipe(fs.createWriteStream('/tmp/dog.png'))
-        .on('close', done)
-    });
-    
-    beforeAll(done => {
+        .on('close', done);
+    }));
+
+    beforeAll(() => new Promise(done => {
       fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
         .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
-        .on('close', done)
-    });
+        .on('close', done);
+    }));
 
     beforeAll(() => {
-      svc = Service({
+      imageTestsSvc = Service({
         knex: f.client,
         Files: Files(dConfig.files),
-        imagePath: config.imagePath
+        imagePath: config.imagePath,
       });
     });
 
     it('image is uploaded', async () => {
-      const created = await svc.create({
+      const created = await imageTestsSvc.create({
         title: 'An online event with an image',
         description: 'Joyful dog',
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: '2020-12-22T11:35:00.000+0200',
-          end: '2020-12-22T13:30:00.000+0200'
+          end: '2020-12-22T13:30:00.000+0200',
         }],
-        image: fs.createReadStream('/tmp/dog.png')
+        image: fs.createReadStream('/tmp/dog.png'),
       });
 
-      await axios.head('https:' + config.imagePath + created.image.filename);
+      expect(
+        await axios.head(
+          `https:${config.imagePath}${created.image.filename}`,
+        ).then(r => r.status),
+      ).toBe(200);
     });
 
-    it(
-      'validation error is thrown when unknown image format is provided',
-      async () => {
-        try {
-          await svc.create({
-            title: 'Event create given a text stream instead of image',
-            description: 'Nope',
-            attendanceMode: 2,
-            onlineAccessLink: 'https://openagenda.com',
-            timings: [{
-              begin: '2020-12-22T11:35:00.000+0200',
-              end: '2020-12-22T13:30:00.000+0200'
-            }],
-            image: fs.createReadStream('/tmp/notanimage.txt')
-          });
-        } catch (e) {
-          assert(e instanceof ValidationError);
-          return;
-        }
-
-        throw new Error('Should have failed.');
-      }
-    );
-
-    it('image at null is no image at all', async () => {
-      await svc.create({
+    it('validation error is thrown when unknown image format is provided', async () => {
+      const error = await imageTestsSvc.create({
         title: 'Event create given a text stream instead of image',
         description: 'Nope',
-        image: null,
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: '2020-12-22T11:35:00.000+0200',
-          end: '2020-12-22T13:30:00.000+0200'
-        }]
-      });
+          end: '2020-12-22T13:30:00.000+0200',
+        }],
+        image: fs.createReadStream('/tmp/notanimage.txt'),
+      }).catch(e => e);
+
+      expect(error instanceof ValidationError).toBeTruthy();
+    });
+
+    it('image at null is no image at all', async () => {
+      expect(
+        await imageTestsSvc.create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          image: null,
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timings: [{
+            begin: '2020-12-22T11:35:00.000+0200',
+            end: '2020-12-22T13:30:00.000+0200',
+          }],
+        }).then(({ image }) => image),
+      ).toBe(null);
     });
 
     it('image can be passed as a non-encoded url (and as a encoded url)', async () => {
-      const event = await svc.create({
+      const event = await imageTestsSvc.create({
         ...data,
         image: {
           url: 'https://lerize.villeurbanne.fr/wp-content/uploads/2023/01/230303_YaminaBenahmeddaho_©Francesca_Mantovani_editions_Gallimard-scaled.jpg',
-        }
+        },
       });
 
       const response = await axios.head(`https:${config.imagePath}${event.image.filename}`);
-      assert.equal(response.status, 200);
+      expect(response.status).toBe(200);
     });
 
     it('validation error is thrown when malformed url is provided for image', async () => {
-      const error = await svc.create({
+      const error = await imageTestsSvc.create({
         ...data,
         image: { url: '%C4%97%' },
       }).then(() => {}, e => e);
 
-      assert.equal(error.name, 'ValidationError');
+      expect(error.name).toBe('ValidationError');
     });
 
     it('validation error is thrown when invalid url is provided for image', async () => {
       let error;
       try {
-        await svc.create({
+        await imageTestsSvc.create({
           ...data,
           image: {
-            url: 'https://s3.eu-central-1.amazonaws.com/oastatic/onda-185.png'
-          }
+            url: 'https://s3.eu-central-1.amazonaws.com/oastatic/onda-185.png',
+          },
         });
       } catch (e) {
         error = e;
       }
-      assert(error instanceof ValidationError);
+      expect(error instanceof ValidationError).toBeTruthy();
     });
 
-    it(
-      'image can be passed through a local file path, deleted after upload',
-      done => {
-        fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async err => {
-          const event = await svc.create({
-            ...data,
-            image: {
-              path: TMP_IMG_PATH
-            }
-          });
-
-          assert.equal(typeof event.image.filename, 'string');
-
-          assert.equal(fs.existsSync(TMP_IMG_PATH), false);
-
-          done();
+    it('image can be passed through a local file path, deleted after upload', () => new Promise(done => {
+      fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async () => {
+        const event = await imageTestsSvc.create({
+          ...data,
+          image: {
+            path: TMP_IMG_PATH,
+          },
         });
-      }
-    );
 
+        expect(typeof event.image.filename).toBe('string');
+        expect(fs.existsSync(TMP_IMG_PATH)).toBe(false);
+
+        done();
+      });
+    }));
   });
 
   describe('timings', () => {
@@ -227,21 +218,21 @@ describe('events - functional - create', () => {
           begin: {
             date: '2020-10-21',
             hours: 20,
-            minutes: 10
+            minutes: 10,
           },
           end: {
             date: '2020-10-21',
             hours: 21,
-            minutes: 5
-          }
-        }]
+            minutes: 5,
+          },
+        }],
       });
 
-      assert.equal(event.timings[0].begin, '2020-10-21T20:10:00.000+02:00');
+      expect(event.timings[0].begin).toBe('2020-10-21T20:10:00.000+02:00');
     });
 
     it('fix: DHM timing with hours value at 0 is valid', async () => {
-      await svc.create({
+      const event = await svc.create({
         title: 'Event with datehourminutes timing',
         description: 'Nope',
         attendanceMode: 2,
@@ -250,15 +241,17 @@ describe('events - functional - create', () => {
           begin: {
             date: '2020-10-21',
             hours: 0,
-            minutes: 0
+            minutes: 0,
           },
           end: {
             date: '2020-10-21',
             hours: 23,
-            minutes: 59
-          }
-        }]
+            minutes: 59,
+          },
+        }],
       });
+
+      expect(event).toBeTruthy();
     });
 
     it(
@@ -268,12 +261,12 @@ describe('events - functional - create', () => {
           ...data,
           location: {
             ...data.location,
-            timezone: 'America/Vancouver'
-          }
+            timezone: 'America/Vancouver',
+          },
         });
 
-        assert.equal(created.timezone, 'America/Vancouver');
-      }
+        expect(created.timezone).toBe('America/Vancouver');
+      },
     );
 
     it(
@@ -284,32 +277,27 @@ describe('events - functional - create', () => {
           timezone: 'Asia/Tokyo',
           location: {
             ...data.location,
-            timezone: 'America/Vancouver'
-          }
+            timezone: 'America/Vancouver',
+          },
         });
 
-        assert.equal(created.timezone, 'Asia/Tokyo');
-      }
+        expect(created.timezone).toBe('Asia/Tokyo');
+      },
     );
 
     it('timings must have a duration', async () => {
-      let error;
-      try {
-        await svc.create({
-          title: 'Event create given a text stream instead of image',
-          description: 'Nope',
-          attendanceMode: 2,
-          onlineAccessLink: 'https://openagenda.com',
-          timings: [{
-            begin: '2022-01-09T11:00:00.000+0200',
-            end: '2022-01-09T11:00:00.000+0200'
-          }],
-        });
-      } catch (e) {
-        error = e;
-      }
+      const error = await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: '2022-01-09T11:00:00.000+0200',
+          end: '2022-01-09T11:00:00.000+0200',
+        }],
+      }).catch(e => e);
 
-      assert(error instanceof ValidationError);
+      expect(error instanceof ValidationError).toBe(true);
     });
 
     it('timings are written down in db in event timezone when in DHM', async () => {
@@ -323,50 +311,21 @@ describe('events - functional - create', () => {
           begin: {
             date: '2023-07-20',
             hours: 12,
-            minutes: 0
+            minutes: 0,
           },
           end: {
             date: '2023-07-20',
             hours: 23,
             minutes: 0,
-          }
+          },
         }],
       });
 
       expect(event.timings).toEqual([
         {
           begin: '2023-07-20T12:00:00.000+02:00',
-          end: '2023-07-20T23:00:00.000+02:00'
-        }
-      ]);
-    });
-
-    it('timings are written down in db in event timezone when in DHM', async () => {
-      const event = await svc.create({
-        title: 'Event create given a text stream instead of image',
-        description: 'Nope',
-        attendanceMode: 2,
-        onlineAccessLink: 'https://openagenda.com',
-        timezone: 'Europe/Paris',
-        timings: [{
-          begin: {
-            date: '2023-07-20',
-            hours: 12,
-            minutes: 0
-          },
-          end: {
-            date: '2023-07-20',
-            hours: 23,
-            minutes: 0,
-          }
-        }],
-      });
-
-      expect(event.timings).toEqual([
-        {
-          begin: '2023-07-20T12:00:00.000+02:00',
-          end: '2023-07-20T23:00:00.000+02:00'
-        }
+          end: '2023-07-20T23:00:00.000+02:00',
+        },
       ]);
     });
 
@@ -379,15 +338,15 @@ describe('events - functional - create', () => {
         timezone: 'Europe/Paris',
         timings: [{
           begin: '2023-07-20T12:00:00.000+02:00',
-          end: '2023-07-20T23:00:00.000+02:00'
+          end: '2023-07-20T23:00:00.000+02:00',
         }],
       });
 
       expect(event.timings).toEqual([
         {
           begin: '2023-07-20T12:00:00.000+02:00',
-          end: '2023-07-20T23:00:00.000+02:00'
-        }
+          end: '2023-07-20T23:00:00.000+02:00',
+        },
       ]);
     });
   });
@@ -401,18 +360,18 @@ describe('events - functional - create', () => {
         .where('uid', event.uid)
         .then(r => r.private);
 
-      assert.equal(isPrivate, true);
+      expect(isPrivate).toBeTruthy();
     });
 
     it('fileKey is defined at create', async () => {
-      const event = await svc.create(data)
+      const event = await svc.create(data);
 
       const fileKey = await f.client('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
         .then(r => r.file_key);
 
-      assert.equal(fileKey.length, 32);
+      expect(fileKey.length).toBe(32);
     });
 
     it('fileKey can be passed through options at create', async () => {
@@ -423,122 +382,102 @@ describe('events - functional - create', () => {
         .where('uid', event.uid)
         .then(r => r.file_key);
 
-      assert.equal(fileKey, 'blaireau');
+      expect(fileKey).toBe('blaireau');
     });
 
     it('draft create does not require all fields to be specified', async () => {
-      try {
-        const event = await svc.create({
-          title: 'Un titre'
-        }, { draft: true });
-  
-        assert.equal(typeof event.uid, 'number');
-      } catch (e) {
-        console.log(e);
-      }
+      expect(typeof await svc.create({
+        title: 'Un titre',
+      }, { draft: true }).then(({ uid }) => uid)).toBe('number');
     });
 
     it('draft create does not required title to be specified', async () => {
       const event = await svc.create({
-        description: 'Une description'
+        description: 'Une description',
       }, { draft: true });
 
-      assert.equal(event.title, undefined);
+      expect(event.title).toBeUndefined();
     });
 
     it('timezone validation', async () => {
-      let error;
-      try {
-        await svc.create({
-          timezone: 'UTC+1'
-        }, { draft: true });
-      } catch (e) {
-        error = e;
-      }
+      const error = await svc.create({
+        timezone: 'UTC+1',
+      }, { draft: true }).catch(e => e);
 
-      assert(error instanceof ValidationError);
-      assert.equal(error.detail[0].code, 'timezone.invalid');
+      expect(error instanceof ValidationError).toBeTruthy();
+      expect(error.detail[0].code).toBe('timezone.invalid');
     });
 
-    it('provided context is passed to interface call', done => {
-      const onCreate = (createdEvent, context) => {
-        assert.equal(context.agendaUid, 123);
+    it('provided context is passed to interface call', () => new Promise(done => {
+      const onCreate = (_, context) => {
+        expect(context.agendaUid).toBe(123);
         done();
       };
 
-      const svc = Service({
+      const svcForContextTest = Service({
         knex: f.client,
         interfaces: {
-          onCreate
-        }
+          onCreate,
+        },
       });
 
-      svc.create(data, {
+      svcForContextTest.create(data, {
         context: {
-          agendaUid: 123
-        }
+          agendaUid: 123,
+        },
       });
+    }));
+
+    it('agendaUid is associated to created event when passed in context', async () => {
+      const event = await svc.create(data, {
+        context: {
+          agendaUid: 123,
+        },
+      });
+
+      expect(event.agendaUid).toBe(123);
     });
-
-    it(
-      'agendaUid is associated to created event when passed in context',
-      async () => {
-        const event = await svc.create(data, {
-          context: {
-            agendaUid: 123
-          }
-        });
-
-        assert.equal(event.agendaUid, 123);
-      }
-    );
 
     it('location can be provided as object', async () => {
       const event = await svc.create({
         ...data,
         attendanceMode: 1,
         location: {
-          uid: 123
-        }
+          uid: 123,
+        },
       });
 
-      assert.equal(event.locationUid, 123);
+      expect(event.locationUid).toBe(123);
     });
 
-    it(
-      'if userUid is provided in context, it is added as creatorUid and ownerUid of event',
-      async () => {
-        const event = await svc.create(data, {
-          context: {
-            userUid: 123
-          },
-          access: 'internal'
-        });
+    it('if userUid is provided in context, it is added as creatorUid and ownerUid of event', async () => {
+      const event = await svc.create(data, {
+        context: {
+          userUid: 123,
+        },
+        access: 'internal',
+      });
 
-        assert.equal(event.creatorUid, 123);
-        assert.equal(event.ownerUid, 123);
-      }
-    );
+      expect(event.creatorUid).toBe(123);
+      expect(event.ownerUid).toBe(123);
+    });
 
     it('if an interface returns a promise, it will be waited upon', async () => {
       let calledOnCreate = false;
 
-      const svc = Service({
+      const interfaceTestSvc = Service({
         knex: f.client,
         interfaces: {
-          onCreate: async (createdEvent, context) => {
+          onCreate: async () => {
             await new Promise(rs => setTimeout(rs, 10));
             calledOnCreate = true;
-          }
-        }
+          },
+        },
       });
 
-      await svc.create(data);
+      await interfaceTestSvc.create(data);
 
-      assert(calledOnCreate);
-
+      expect(calledOnCreate).toBe(true);
     });
-
   });
-
-})
+});

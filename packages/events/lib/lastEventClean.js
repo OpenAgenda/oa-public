@@ -1,12 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
-
 const convertDateHoursMinutesTimings = require('../utils/convertDateHoursMinutesTimings');
 const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess');
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
-const clean = require('@openagenda/validators/schema/clean');
 
 const getPathAndFilename = file => {
   if (!file) {
@@ -16,7 +13,7 @@ const getPathAndFilename = file => {
   const filename = parts.pop();
   return {
     filename,
-    path: `${parts.join('/')}/`
+    path: `${parts.join('/')}/`,
   };
 };
 
@@ -33,7 +30,7 @@ module.exports = (event, options = {}) => {
     useDefaultImage,
     imageAsLink,
     useDateHoursMinutesFormat,
-    useLocationObjectFormat
+    useLocationObjectFormat,
   } = options;
 
   const additionalFields = [];
@@ -56,7 +53,7 @@ module.exports = (event, options = {}) => {
 
   const {
     path: defaultImagePath,
-    filename: defaultImageFilename
+    filename: defaultImageFilename,
   } = getPathAndFilename(defaultImage);
 
   if (event.image) {
@@ -72,7 +69,7 @@ module.exports = (event, options = {}) => {
   if (useDefaultImage && !event?.image?.filename) {
     event.image = {
       filename: defaultImageFilename,
-      base: defaultImagePath
+      base: defaultImagePath,
     };
   }
 
@@ -100,7 +97,7 @@ module.exports = (event, options = {}) => {
       access,
       includeFields,
       additionalFields,
-      excludeFields
-    }
+      excludeFields,
+    },
   );
 };
