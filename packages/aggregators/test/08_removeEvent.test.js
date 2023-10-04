@@ -1,6 +1,6 @@
 'use strict';
 
-const removeEvent = require('../lib/removeEvent');
+const { removeEvent, processRemove } = require('../lib/removeEvent');
 
 const { Tracker } = require('./utils');
 
@@ -11,7 +11,7 @@ describe('08 - removeEvent', () => {
     const sourceAgendaUid = 71413881;
     const eventUid = 1;
 
-    await removeEvent(
+    await processRemove(
       {
         getEventReference: tracker('getEventReference', {
           sourceAgendaUid: [sourceAgendaUid],
@@ -19,12 +19,14 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
         aggregatorAgendaUid,
+        event: { uid: eventUid },
         sourceAgendaUid,
-        eventUid,
-      }
+        log: r => r,
+      },
     );
 
     const unreferenceCall = tracker.calls.pop();
@@ -47,12 +49,17 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        event: { uid: 1 },
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+          },
+        ],
+      },
     );
 
     expect(tracker.calls.pop().name).toBe('updateSourcePaths');
@@ -68,12 +75,17 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        event: { uid: 1 },
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: 123,
+          },
+        ],
+      },
     );
 
     expect(tracker.calls.pop().name).toBe('updateSourcePaths');
@@ -81,27 +93,32 @@ describe('08 - removeEvent', () => {
 
   test('if unreference fails, result provides success bool at false and errors', async () => {
     const tracker = Tracker();
-    const result = await removeEvent(
+    const result = await processRemove(
       {
         getEventReference: tracker('getEventReference', {
           sourceAgendaUid: [71413881],
           aggregated: true,
         }),
         unsetSourceUidOnExistingReference: tracker(
-          'unsetSourceUidOnExistingReference'
+          'unsetSourceUidOnExistingReference',
         ),
         unreferenceEvent: tracker('unreferenceEvent', {
           success: false,
           errors: ['error1'],
         }),
+        enqueueRemove: q => q,
       },
       {
-        aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1,
-      }
+        event: { uid: 1 },
+        aggregatorAgendaUid: 123,
+        log: r => r,
+      },
     );
 
-    expect(result).toEqual({ success: false, errors: ['error1'] });
+    expect(result).toEqual({
+      action: 'failed to remove reference',
+      errors: ['error1'],
+    });
   });
 });
