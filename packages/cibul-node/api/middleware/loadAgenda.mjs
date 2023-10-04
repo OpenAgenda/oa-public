@@ -18,7 +18,7 @@ export default async (req, res, next) => {
   };
 
   if (identifier.slug && format.test(identifier.slug)) {
-    return res.status(404).json({
+    return res.status(400).json({
       error: 'no unicode char in slug',
       agendaSlug: identifier.slug,
     });
