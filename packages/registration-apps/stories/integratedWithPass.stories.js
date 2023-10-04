@@ -48,26 +48,32 @@ export function EmptyAtLoad() {
 }
 
 export function WithData() {
-  const [value, setValue] = useState({
-    links: ['https://openagenda.com'],
-    passCulture: {
-      category: 'CONCERT',
-      subCategory: 'JAZZ-BEBOP',
-      priceCategories: [{
-        label: 'Tarif normal',
-        price: '12000',
-      }],
-      dates: [{
-        timingId: 1696078800000,
-        priceCategoryIndex: 0,
-        quantity: 15,
-      }, {
-        timingId: 1697371200000,
-        priceCategoryIndex: 0,
-        quantity: 20,
-      }],
+  const [value, setValue] = useState([
+    'https://openagenda.com', // this should be cleaned
+    { type: 'email', value: 'email@domain.com' },
+    {
+      type: 'link',
+      value: 'https://passCulture.com/offers/2199832',
+      service: 'passCulture',
+      data: {
+        category: 'CONCERT',
+        subCategory: 'JAZZ-BEBOP',
+        priceCategories: [{
+          label: 'Tarif normal',
+          price: '12000',
+        }],
+        dates: [{
+          timingId: 1696078800000,
+          priceCategoryIndex: 0,
+          quantity: 15,
+        }, {
+          timingId: 1697371200000,
+          priceCategoryIndex: 0,
+          quantity: 20,
+        }],
+      },
     },
-  });
+  ]);
 
   return (
     <div className="oa-form col-lg-offset-3 col-lg-6">

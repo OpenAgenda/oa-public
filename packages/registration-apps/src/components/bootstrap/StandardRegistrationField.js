@@ -4,7 +4,7 @@ import getItemAttributes from '../../utils/getRegistrationItemAttributes';
 
 function RegistrationItem({ key, tag, onRemove, className }) {
   const tagValue = tag instanceof Object ? tag.value : tag;
-  const { type, icon } = getItemAttributes(tagValue);
+  const { type, icon } = getItemAttributes(tag);
 
   return (
     <button

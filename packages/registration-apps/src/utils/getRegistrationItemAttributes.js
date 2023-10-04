@@ -1,29 +1,14 @@
-import emailValidator from '@openagenda/validators/email';
-import phoneValidator from '@openagenda/validators/phone';
-import linkValidator from '@openagenda/validators/link';
-
-const attributes = [{
-  code: 'email',
-  icon: 'fa fa-envelope',
-  validate: emailValidator({ optional: false }),
-}, {
-  code: 'link',
-  icon: 'fa fa-link',
-  validate: linkValidator({ optional: false }),
-}, {
-  code: 'phone',
-  icon: 'fa fa-phone',
-  validate: phoneValidator({ optional: false }),
-}];
-
 export default function getRegistrationItemAttributes(item) {
-  for (const { type, validate, icon } of attributes) {
-    try {
-      validate(item);
-      return { type, icon };
-    } catch (e) { /* */ }
-  }
-  return {
+  return [{
+    type: 'email',
+    icon: 'fa fa-envelope',
+  }, {
+    type: 'link',
+    icon: 'fa fa-link',
+  }, {
+    type: 'phone',
+    icon: 'fa fa-phone',
+  }].find(a => a.type === item.type) || {
     type: 'error',
     icon: 'fa fa-exclamation-circle',
   };

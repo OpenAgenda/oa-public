@@ -1,17 +1,8 @@
 import { useState, useCallback, useContext } from 'react';
 import PassCultureCheckbox from './passCulture/Checkbox';
-
-import {
-  updateValue,
-  getNormalizedValue,
-} from './utils';
-
 import ComponentsContext from './components/Context';
-
-const dedupe = items => items.reduce(
-  (deduped, item) => (deduped.includes(item) ? deduped : deduped.concat(item)),
-  [],
-);
+import spreadRegistrationValuesByService from './utils/spreadRegistrationValuesByService';
+import mergeSpreadRegistrationValues from './utils/mergeSpreadRegistrationValues';
 
 const flattenLabel = (label, lang) => {
   if (!label) return label;
@@ -32,9 +23,12 @@ function Registration(props) {
     lang = 'en',
   } = props;
 
-  const normalizedValue = getNormalizedValue(value, settings);
-
   const { StandardRegistrationField } = useContext(ComponentsContext);
+
+  const {
+    passCulture: passCultureValue,
+    standard: standardValue,
+  } = spreadRegistrationValuesByService(value);
 
   const [inputValue, setInputValue] = useState('');
 
@@ -57,32 +51,34 @@ function Registration(props) {
   const onStandardChange = useCallback(updatedValue => {
     setInputValue('');
     propsOnChange(
-      updateValue(value, {
-        links: dedupe([].concat(updatedValue)),
-      }, settings),
+      mergeSpreadRegistrationValues({
+        standard: updatedValue,
+        passCulture: passCultureValue,
+      }),
     );
-  }, [propsOnChange, settings, value]);
+  }, [propsOnChange, passCultureValue]);
 
   return (
     <div className="multi-input">
       {settings.passCulture ? (
         <PassCultureCheckbox
-          value={normalizedValue.passCulture}
+          value={passCultureValue}
           settings={settings.passCulture}
           timings={relatedValues?.timings ?? []}
-          onChange={passValue => propsOnChange(
-            updateValue(value, {
-              passCulture: passValue,
-            }, settings),
+          onChange={updatedPassCultureValue => propsOnChange(
+            mergeSpreadRegistrationValues({
+              standard: standardValue,
+              passCulture: updatedPassCultureValue,
+            }),
           )}
         />
       ) : null}
       <StandardRegistrationField
-        value={normalizedValue.links}
+        value={standardValue}
         inputValue={inputValue}
         onChange={onStandardChange}
         onInputChange={onInputChange}
-        placeholder={placeholder && !value?.length ? flattenLabel(placeholder, lang) : undefined}
+        placeholder={placeholder && !standardValue?.length ? flattenLabel(placeholder, lang) : undefined}
       />
     </div>
   );
