@@ -174,7 +174,8 @@ module.exports = ({ labels }) => [{
     field: 'attendanceMode',
     value: 2
   },
-  disableChange: false
+  disableChange: false,
+  selfHandled: ['sub'],
 }, {
   display: false,
   field: 'onlineAccessLink',
