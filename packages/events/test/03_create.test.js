@@ -399,6 +399,22 @@ describe('events - functional - create', () => {
       expect(event.title).toBeUndefined();
     });
 
+    it('registration is stored as a list of { type, value } objects', async () => {
+      const event = await svc.create({
+        registration: ['inscriptions@oagenda.com'],
+      }, { draft: true });
+
+      const parsedRegistrationColValue = await f.client('event_2')
+        .first('registration')
+        .where('uid', event.uid)
+        .then(r => JSON.parse(r.registration));
+
+      expect(parsedRegistrationColValue).toEqual([{
+        type: 'email',
+        value: 'inscriptions@oagenda.com',
+      }]);
+    });
+
     it('timezone validation', async () => {
       const error = await svc.create({
         timezone: 'UTC+1',

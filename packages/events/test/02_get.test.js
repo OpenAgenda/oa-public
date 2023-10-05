@@ -60,6 +60,17 @@ describe('events - functional - get', () => {
     it('get on a soft-deleted event returns null', async () => {
       expect(await svc.get(44822046)).toBeNull();
     });
+
+    it('registration data is a list of { type, value } objects', async () => {
+      const { registration } = await svc.get({ slug: 'salon-science-en-livre' });
+      expect(registration).toEqual([
+        {
+          value: 'https://www.eventbrite.fr/e/billets-salon-science-en-livre-122233558865',
+          type: 'link',
+        },
+        { value: 'salon@scienceenlivre.org', type: 'email' },
+      ]);
+    });
   });
 
   describe('options', () => {

@@ -1,6 +1,9 @@
 'use strict';
 
 const convertDateHoursMinutesTimings = require('../utils/convertDateHoursMinutesTimings');
+const {
+  toListOfObjects: registationAsListOfObjects,
+} = require('../iso/src/validators/registration');
 const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess');
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
@@ -89,6 +92,10 @@ module.exports = (event, options = {}) => {
 
   if (event.age && !Object.keys(event.age).filter(k => event.age[k] !== undefined).length) {
     event.age = { min: null, max: null };
+  }
+
+  if (event.registration) {
+    event.registration = registationAsListOfObjects(event.registration);
   }
 
   return filterItemValuesByFieldAccess(

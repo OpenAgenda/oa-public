@@ -214,15 +214,26 @@ describe('validate', () => {
   });
 
   describe('registration', () => {
-    it('if type is given in registration, it is removed', async () => {
-      const clean = await validate({
-        registration: [{
-          type: 'email',
-          value: 'an@email.com',
-        }],
+    it('if registration data is provided as a list of strings, it is converted into a list of { type, value } objects', async () => {
+      const { registration } = await validate({
+        registration: ['an@email.com'],
       }, { isDraft: true });
 
-      expect(clean.registration[0]).toBe('an@email.com');
+      expect(registration).toEqual([{
+        type: 'email',
+        value: 'an@email.com',
+      }]);
+    });
+
+    it('registration data can be provided as list of objects', async () => {
+      const { registration } = await validate({
+        registration: [{ type: 'email', value: 'an@email.com' }],
+      }, { isDraft: true });
+
+      expect(registration).toEqual([{
+        type: 'email',
+        value: 'an@email.com',
+      }]);
     });
   });
 });
