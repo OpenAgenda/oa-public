@@ -131,7 +131,8 @@ class LocationComponent extends Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, field } = this.props;
+    console.log(field);
     const spinnerCanvasStyle = {
       height: 37,
       position: 'relative',
@@ -161,8 +162,16 @@ class LocationComponent extends Component {
     }
 
     return (
-      <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
-        {this.renderSelector()}
+      <div>
+        <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
+          {this.renderSelector()}
+        </div>
+        {!field.disableChange && field.sub ? (
+          <div className="sub">
+            {field.sub}
+          </div>
+        )
+          : null}
       </div>
     );
   }

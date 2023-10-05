@@ -1,7 +1,11 @@
 {
-  "aggregatorAgendaUid": 50522407,
-  "sourceRules": [],
-  "aggregatorRules": [],
+  "aggregatorsBuffer": [{
+    "aggregatorAgendaUid": 50522407,
+    "sourceRules": [],
+    "aggregatorRules": [],
+    "aggregatorLimit": null
+  }],
+
   "event": {
     "id": 678407,
     "uid": 28304431,
@@ -1094,6 +1098,5 @@
         "schemaId": 21
       }
     ]
-  },
-  "aggregatorLimit": null
+  }
 }
