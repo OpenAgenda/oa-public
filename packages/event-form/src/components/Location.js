@@ -132,7 +132,7 @@ class LocationComponent extends Component {
 
   render() {
     const { value, field } = this.props;
-    console.log(field);
+
     const spinnerCanvasStyle = {
       height: 37,
       position: 'relative',
