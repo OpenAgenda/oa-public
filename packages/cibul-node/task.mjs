@@ -76,6 +76,8 @@ export default (config, core, services) => {
 
   core.tasks();
 
+  // core.agendas.utils.clearAgendasCache();
+
   services.supervisor.elasticsearch.task();
 
   services.agendaLocations.task({

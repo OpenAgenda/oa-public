@@ -12,6 +12,7 @@ const get = require('./get');
 const search = require('./search');
 const rebuild = require('./rebuild');
 const flattenMemberInfo = require('./utils/flattenMemberInfo');
+const clearAgendasCache = require('./utils/clearAgendasCache');
 
 module.exports = core => {
   const settings = Settings(core);
@@ -41,6 +42,9 @@ module.exports = core => {
     slug: agendaSlug => ({
       get: get.slug.bind(null, core, agendaSlug),
     }),
-    utils: { flattenMemberInfo },
+    utils: {
+      flattenMemberInfo,
+      clearAgendasCache: clearAgendasCache.bind(null, core.services),
+    },
   });
 };
