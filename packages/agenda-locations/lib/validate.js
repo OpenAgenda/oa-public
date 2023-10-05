@@ -15,6 +15,8 @@ const pass = require('@openagenda/validators/pass');
 const phone = require('@openagenda/validators/phone');
 const text = require('@openagenda/validators/text');
 const multilingual = require('@openagenda/validators/multilingual');
+const choice = require('@openagenda/validators/choice');
+const boolean = require('@openagenda/validators/boolean');
 
 schema.register({
   email,
@@ -27,6 +29,8 @@ schema.register({
   text,
   stream,
   multilingual,
+  choice,
+  boolean,
 });
 
 const validateStream = stream({ optional: false });
@@ -44,8 +48,11 @@ const fields = require('./fields').filter(field => field.write.includes('contrib
   );
 
 const validate = schema(fields);
-validate.withoutImageCreditsDep = schema(ih(fields, {
+validate.withoutImageCreditsAndRightsDeps = schema(ih(fields, {
   imageCredits: {
+    $unset: ['enableWith']
+  },
+  imageRightsAreHeld: {
     $unset: ['enableWith']
   }
 }));
@@ -57,7 +64,7 @@ module.exports = (values, options = {}) => {
     ...options,
   };
 
-  const fn = ignoreImage && values.image ? validate.withoutImageCreditsDep : validate;
+  const fn = ignoreImage && values.image ? validate.withoutImageCreditsAndRightsDeps : validate;
 
   try {
     return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(ignoreImage ? _.omit(values, ['image']) : values);
