@@ -54,7 +54,6 @@ function validateImageCredits(value, otherValues = {}, options = {}) {
 
 function validateImageRights(value, otherValues = {}, options = {}) {
   const {
-    optional = true,
     isEnabled = false,
   } = options;
   if (!isEnabled) return;
@@ -66,7 +65,7 @@ function validateImageRights(value, otherValues = {}, options = {}) {
   const validateBoolean = validators.choice({
     options: [true],
     field: 'imageRightsAreHeld',
-    optional,
+    optional: !isEnabled,
     unique: true,
   });
   return validateBoolean(value);
