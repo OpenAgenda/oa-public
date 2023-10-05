@@ -17,7 +17,7 @@ const extractType = v => {
 };
 
 export default function spreadRegistrationValuesByService(value = []) {
-  return value.reduce((spread, v) => {
+  return (value || []).reduce((spread, v) => {
     const item = typeof v === 'string' ? {
       type: extractType(v),
       value: v,
