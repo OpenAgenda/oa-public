@@ -42,19 +42,19 @@ const fields = require('./fields').filter(field => field.write.includes('contrib
       [field.field]: {
         ..._.omit(field, ['field', 'db', 'read', 'fieldType']),
         type: field.fieldType,
-      }
+      },
     }),
-    {}
+    {},
   );
 
 const validate = schema(fields);
 validate.withoutImageCreditsAndRightsDeps = schema(ih(fields, {
   imageCredits: {
-    $unset: ['enableWith']
+    $unset: ['enableWith'],
   },
   imageRightsAreHeld: {
-    $unset: ['enableWith']
-  }
+    $unset: ['enableWith'],
+  },
 }));
 
 module.exports = (values, options = {}) => {
