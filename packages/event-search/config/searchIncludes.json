@@ -43,7 +43,9 @@
     "age",
     "state",
     "member",
-    "links"
+    "links",
+    "firstTiming",
+    "lastTiming"
   ],
   "other": [
     "location.uid",
