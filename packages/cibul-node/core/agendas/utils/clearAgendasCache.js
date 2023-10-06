@@ -1,5 +1,6 @@
 'use strict';
 
+const STOP = -1;
 const log = require('@openagenda/logs')('core/agendas/utils/clearAgendasCache');
 
 async function clearAgendasCache(services) {
@@ -7,17 +8,30 @@ async function clearAgendasCache(services) {
     simpleCache,
     agendas: svcAgendas,
   } = services;
-  let idGreaterThan = 0;
+  let offset = 0;
 
   try {
-    while (true) {
-      const { agendas } = await svcAgendas.list({ idGreaterThan }, 0, 20, { private: null, onlyIncludeFields: ['uid', 'id'], internal: true });
+    let count = 0;
+    while (offset !== STOP) {
+      const { agendas } = await svcAgendas.list({}, offset, 20, {
+        private: null,
+        onlyIncludeFields: ['uid', 'id'],
+        internal: true,
+        offsetAsLastId: true,
+      });
+
       for (const { uid } of agendas) {
         await simpleCache.hash('core.agendas.get', uid).del();
+        count += 1;
       }
-      if (agendas.length === 0) break;
-      idGreaterThan = agendas[agendas.length - 1].id;
+
+      offset = agendas.length === 0 ? STOP : agendas[agendas.length - 1].id;
+
+      if (!(count % 1000)) {
+        log.info('processed %s agendas', count);
+      }
     }
+    log.info('done clearing cache of %s agendas', count);
   } catch (error) {
     log('error', error);
   }
