@@ -8570,7 +8570,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activity-apps@^1.2.1, @openagenda/activity-apps@workspace:packages/activity-apps":
+"@openagenda/activity-apps@^1.2.1, @openagenda/activity-apps@workspace:^, @openagenda/activity-apps@workspace:packages/activity-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/activity-apps@workspace:packages/activity-apps"
   dependencies:
@@ -10586,6 +10586,7 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": ^6.4.2
     "@fortawesome/react-fontawesome": ^0.2.0
     "@next/bundle-analyzer": ^13.1.1
+    "@openagenda/activity-apps": "workspace:^"
     "@openagenda/browserslist-config": ^1.0.0
     "@openagenda/common-labels": ^1.2.4
     "@openagenda/eslint-config": ^1.4.0
@@ -10597,9 +10598,11 @@ __metadata:
     "@openagenda/tsconfig": ^0.0.0
     "@openagenda/uikit": ^0.0.1
     "@openagenda/verror": ^3.1.0
+    "@raruto/leaflet-gesture-handling": ^1.4.4
     "@sentry/nextjs": ^7.45.0
     "@storybook/builder-webpack5": ^7.4.2
     "@storybook/nextjs": ^7.4.2
+    "@types/leaflet": ^1.9.6
     axios: ^0.21.1
     base64-js: ^1.5.1
     css-loader: ^6.8.1
@@ -10625,6 +10628,7 @@ __metadata:
     react-dom: ^18.2.0
     react-intersection-observer: ^9.4.1
     react-intl: ^5.12.2
+    react-leaflet: ^4.2.1
     react-use: ^17.4.0
     sharp: ^0.31.1
     storybook: ^7.4.2
@@ -17035,6 +17039,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:*":
+  version: 7946.0.11
+  resolution: "@types/geojson@npm:7946.0.11"
+  checksum: 93fe7e9c5d16b0a836058ee4b87f8b022d53893d5a8e7ab52c8bf64d12039d076df99f3764c1c4da13abaa1001115fd899330edba4d8d8fa4a4feb162650b22c
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:*, @types/glob@npm:^7.1.1":
   version: 7.1.1
   resolution: "@types/glob@npm:7.1.1"
@@ -17204,6 +17215,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: ee0d098693bf4af44be756eed02daf95f5d0fd4b5b02da952a5952e08842baddf6a986a9ea5f9e460729782f1a0a47848c892ad96ea188b66a363feb49a1536f
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:^1.9.6":
+  version: 1.9.6
+  resolution: "@types/leaflet@npm:1.9.6"
+  dependencies:
+    "@types/geojson": "*"
+  checksum: 64776f0ffb005950d4e07f1cccce861307c9c2b6be3151050b83f1c94eb837951856933fed91e8cdfa1ca9fdc72873af27c9a53a7ffe9981097f21373e3a1322
   languageName: node
   linkType: hard
 
@@ -43295,6 +43315,19 @@ fsevents@~2.1.1:
     react: ^18.0.0
     react-dom: ^18.0.0
   checksum: da6351ac89c110039d1e9e72888e7c8c04982a87c0e48c1a2eafc689b52e88e95cc74f7e621eddab7d2de1f4979ad34c3bc74483d60ef44b0ef89f67ee237d1a
+  languageName: node
+  linkType: hard
+
+"react-leaflet@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "react-leaflet@npm:4.2.1"
+  dependencies:
+    "@react-leaflet/core": ^2.1.0
+  peerDependencies:
+    leaflet: ^1.9.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: 79222c2ba0c62facaa3dfee18f7a692f917a4fb744ba8d22269a77f9779fc9634962230eb51265ff2563a1a5e3287d2ec16640ee7f5de459458027e05cd756ba
   languageName: node
   linkType: hard
 
