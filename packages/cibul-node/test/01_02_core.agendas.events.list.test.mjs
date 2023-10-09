@@ -1,11 +1,7 @@
-'use strict';
-
-const Core = require('../core');
-const Services = require('../services/init');
-
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('01 - core - functional (server): core.agendas().events.list()', () => {
   let core;
@@ -183,7 +179,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
     });
 
     it('schema is available under formSchema key, with public fields, excluding id', () => {
-      expect(result.formSchema.fields.filter(f => f.field === 'id').length).toBe(0);
+      expect(result.formSchema.fields.filter(({ field }) => field === 'id').length).toBe(0);
     });
 
     it('event is provided in payload', () => {
@@ -212,7 +208,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
 
     it('admin fields are given in schema', () => {
       expect(
-        adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length,
+        adminResult.formSchema.fields.filter(({ field }) => ['thematique', 'note'].includes(field)).length,
       ).toBe(2);
     });
 
@@ -221,7 +217,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
     });
 
     it('event id field is not provided if access is administrator', () => {
-      expect(adminResult.formSchema.fields.filter(f => f.field === 'id').length).toBe(0);
+      expect(adminResult.formSchema.fields.filter(({ field }) => field === 'id').length).toBe(0);
     });
 
     it('event id field is provided if access is internal', () => {
@@ -229,26 +225,26 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
     });
 
     it('id field is present if formSchema if access is internal', () => {
-      expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toBe(1);
+      expect(internalResult.formSchema.fields.filter(({ field }) => field === 'id').length).toBe(1);
     });
   });
 
   describe('other', () => {
     it('list can indicate addMethod to be contribution', async () => {
       const events = await core.agendas(1).events.list({}, { limit: 10 });
-      expect(events.filter(e => e.uid === 1).pop().addMethod).toBe('contribution');
+      expect(events.filter(({ uid }) => uid === 1).pop().addMethod).toBe('contribution');
     });
 
     it('list can indicate addMethod to be aggregation', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 10 });
-      expect(events.filter(e => e.uid === 2).pop().addMethod).toBe('aggregation');
+      expect(events.filter(({ uid }) => uid === 2).pop().addMethod).toBe('aggregation');
     });
 
     it('updatedAt is max between event & agenda_event records', async () => {
       const events = await core.agendas(2).events.list();
 
       expect(
-        events.filter(e => e.uid === 1).pop().updatedAt.getTime(),
+        events.filter(({ uid }) => uid === 1).pop().updatedAt.getTime(),
       ).toBe(
         new Date('2022-06-30T09:00:00.000Z').getTime(),
       );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import api from '../api/index.mjs';
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import loadFixtures from './fixtures/load.js';

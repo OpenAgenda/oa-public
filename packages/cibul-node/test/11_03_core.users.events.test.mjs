@@ -1,10 +1,7 @@
-'use strict';
-
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('11 - core - functional (server): core.users().agendas.events', () => {
   let core;
@@ -59,7 +56,7 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
       const result = await core.users(63170203).agendas(17026855).events.search();
 
       expect(result.total).toBe(2);
-      expect(result.events.map(e => e.uid)).toEqual([
+      expect(result.events.map(({ uid }) => uid)).toEqual([
         19201989,
         19390293,
       ]);
@@ -71,7 +68,7 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
       }, {});
 
       expect(result.total).toBe(3);
-      expect(result.events.map(e => e.uid)).toEqual([
+      expect(result.events.map(({ uid }) => uid)).toEqual([
         19201989,
         19390293,
         99999999,

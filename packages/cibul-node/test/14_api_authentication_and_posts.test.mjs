@@ -2,7 +2,7 @@ import axios from 'axios';
 import FormData from 'form-data';
 import Core from '../core/index.js';
 import api from '../api/index.mjs';
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
@@ -139,7 +139,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
   it('an agenda key on a /me/agendas call should throw a 403', async () => {
     const {
-      error
+      error,
     } = await axios({
       method: 'get',
       url: 'http://localhost:3000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',

@@ -16,7 +16,7 @@ import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
 import app from './app.mjs';
 import instanciateAPI from './api/index.mjs';
-import initServices from './services/init.js';
+import initServices from './services/init.mjs';
 import Core from './core/index.js';
 import admin from './admin.js';
 import web from './web.js';
@@ -48,7 +48,7 @@ const secureHeaders = [
 ];
 
 try {
-  const services = await initServices();
+  const services = await initServices(config);
   const core = Core(services, config);
   const api = instanciateAPI(core);
 

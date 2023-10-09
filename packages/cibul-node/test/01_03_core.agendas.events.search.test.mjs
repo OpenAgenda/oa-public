@@ -3,7 +3,7 @@ import ih from 'immutability-helper';
 import { produce } from 'immer';
 import api from '../api/index.mjs';
 import Core from '../core/index.js';
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
