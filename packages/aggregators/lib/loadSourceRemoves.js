@@ -22,11 +22,15 @@ module.exports = async (
     log('enqueuing %s removes', events.length);
     count += events.length;
 
-    for (const { uid: eventUid } of events) {
+    for (const event of events) {
       await enqueueRemove({
-        aggregatorAgendaUid,
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid,
+          },
+        ],
+        event,
         sourceAgendaUid,
-        eventUid,
         batched: true,
       });
     }

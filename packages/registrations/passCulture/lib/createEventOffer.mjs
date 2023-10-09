@@ -1,11 +1,9 @@
 import formatEvent from './formatEvent.mjs';
 
-const omit = (obj, fields = []) => Object.keys(obj).reduce((filtered, key) => {
-  if (fields.includes(key)) {
-    return filtered;
-  }
-  return Object.assign(filtered, { [key]: obj[key] });
-}, {});
+const omit = (obj, fields = []) => Object.keys(obj).reduce(
+  (filtered, key) => fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] }),
+  {}
+);
 
 export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
   const {

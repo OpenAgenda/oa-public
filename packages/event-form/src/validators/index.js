@@ -1,7 +1,7 @@
 const multilingualValidator = require('@openagenda/validators/multilingual');
 
 module.exports = {
-  registration: require('../validators/registration'),
+  registration: require('@openagenda/events/iso/build/validators/registration'),
   age: require('@openagenda/events/iso/build/validators/age'),
   accessibility: require('../validators/accessibility'),
   keywords: require('../validators/keywords'),

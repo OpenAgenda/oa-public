@@ -3,6 +3,9 @@
 const knex = require('knex');
 const logger = require('@openagenda/logs');
 
+const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
+const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
+const getFieldsByAccess = require('@openagenda/utils/fields/getFieldsByAccess');
 const create = require('./create');
 const get = require('./get');
 const list = require('./list');
@@ -13,23 +16,20 @@ const setFromLegacy = require('./lib/legacy/from');
 const imageVariants = require('./lib/imageVariants');
 
 const utils = require('./utils');
-const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
-const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
-const getFieldsByAccess = require('@openagenda/utils/fields/getFieldsByAccess');
 const fields = require('./lib/fields');
 
 module.exports = c => {
   const config = Object.keys(c).reduce((carriedConfig, key) => (
     carriedConfig[key] !== undefined && c[key] !== undefined ? {
       ...carriedConfig,
-      [key]: c[key]
+      [key]: c[key],
     } : carriedConfig), {
     imagePath: '',
     defaultImage: null,
     Files: null,
     schema: 'event_2',
     maxImageSize: 20971520, // 20MB
-    interfaces: null
+    interfaces: null,
   });
 
   if (c.logger) {
@@ -41,19 +41,19 @@ module.exports = c => {
     clients: {
       knex: c.knex || knex({
         client: 'mysql',
-        connection: config.mysql
-      })
+        connection: config.mysql,
+      }),
     },
     imageTransformAndUpload: config.Files && config.Files({
       key: 'image',
-      variants: imageVariants(config.Files)
+      variants: imageVariants(config.Files),
     }),
     interfaces: config.interfaces,
     fieldUtils: {
       fromItemToEntry: fromItemToEntry.bind(null, fields),
       fromEntryToItem: fromEntryToItem.bind(null, fields),
       getFieldsByAccess: getFieldsByAccess.bind(null, fields),
-    }
+    },
   };
 
   const endpoints = {
@@ -65,9 +65,9 @@ module.exports = c => {
     remove: remove.bind(null, service),
     update: update.bind(null, { service }),
     middleware: {
-      imageTransformAndUpload: service.imageTransformAndUpload?.middleware
+      imageTransformAndUpload: service.imageTransformAndUpload?.middleware,
     },
-    utils
+    utils,
   };
 
   endpoints.setFromLegacy = setFromLegacy.bind(null, { service, endpoints });

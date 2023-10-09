@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const config = require('../testconfig');
@@ -59,6 +59,14 @@ describe('02 - event search - functional: timings sorting', () => {
     });
 
     expect(event.timings).toBeInstanceOf(Array);
+  });
+
+  it('explicitely requested first and last timings', async () => {
+    const { events: [event] } = await service('timings').search({}, { size: 1 }, {
+      includeFields: ['uid', 'firstTiming', 'lastTiming'],
+    });
+
+    expect(Object.keys(event)).toEqual(['uid', 'lastTiming', 'firstTiming']);
   });
 
   it(

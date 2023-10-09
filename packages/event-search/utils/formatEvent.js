@@ -84,16 +84,20 @@ module.exports = produce((event, options = {}) => {
 
   if (event.timings) {
     const timezone = event.timezone || (event.location ? event.location.timezone : null);
+    const lastTiming = new Date(event.timings.reduce(
+      (last, timing) => (timing.end > last ? timing.end : last),
+      event.timings[0].end,
+    ));
+    const firstTiming = new Date(event.timings.reduce(
+      (first, timing) => (timing.begin < first ? timing.begin : first),
+      event.timings[0].begin,
+    ));
     Object.assign(event, {
       dateRange: dateRange(event.timings, timezone, ['fr', 'ar', 'en', 'de', 'es', 'it']),
-      _search_last_timing: new Date(event.timings.reduce(
-        (last, timing) => (timing.end > last ? timing.end : last),
-        event.timings[0].end,
-      )),
-      _search_first_timing: new Date(event.timings.reduce(
-        (first, timing) => (timing.begin < first ? timing.begin : first),
-        event.timings[0].begin,
-      )),
+      firstTiming,
+      lastTiming,
+      _search_last_timing: lastTiming,
+      _search_first_timing: firstTiming,
       timings: event.timings.map(t => ({
         ...t,
         _search_begin_from_midnight: secondsMidnightDiff(t.begin, timezone),

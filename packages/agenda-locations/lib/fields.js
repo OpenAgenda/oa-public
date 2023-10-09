@@ -330,7 +330,7 @@ module.exports = [{
     field: 'store.imageRightsAreHeld',
     assign: true,
   },
-  fieldType: 'text',
+  fieldType: 'boolean',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   enableWith: 'image',

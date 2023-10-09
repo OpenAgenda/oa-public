@@ -101,6 +101,22 @@
       "value": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut"
     }
   ],
+  "next.views.AgendaShow.ExportModal.openData": [
+    {
+      "type": 0,
+      "value": "Le contenu de cet agenda est utilisable selon le principe de "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "la licence ouverte"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,

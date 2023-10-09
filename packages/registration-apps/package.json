@@ -18,11 +18,18 @@
     "build:cjs": "babel --copy-files src -d lib -s",
     "clean": "rimraf esm lib",
     "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'"
+    "prettier": "prettier-eslint --write '**/*.js'",
+    "test": "jest"
   },
   "dependencies": {
+    "@openagenda/react-shared": "^2.4.0",
     "@openagenda/validators": "^2.4.0",
-    "react-tagsinput": "^3.19.0"
+    "date-fns": "^2.11.1",
+    "immer": "^9.0.1",
+    "react-select": "^5.7.4",
+    "react-tagsinput": "^3.19.0",
+    "slugify": "^1.4.6",
+    "validator": "^12.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
@@ -33,7 +40,11 @@
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react": "^6.5.9",
+    "babel-jest": "^26.6.3",
     "eslint": "^8.24.0",
+    "jest": "^28.1.2",
+    "msw": "^0.49.2",
+    "msw-storybook-addon": "^1.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.1"
@@ -41,5 +52,13 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/test/*.js"
+    ]
   }
 }

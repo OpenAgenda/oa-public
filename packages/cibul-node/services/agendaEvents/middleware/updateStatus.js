@@ -22,7 +22,8 @@ module.exports = (req, res, next) => {
   core
     .agendas(req.agenda.uid).events
     .patch(req.event.uid, payload, {
-      userUid: req.user.uid
+      userUid: req.user.uid,
+      private: !!req.agenda.private,
     }).then(() => {
       res.redirect(302, req.query.redirect ? base64.decode(req.query.redirect) : `/${req.agenda.slug}/events/${req.event.slug}`);
     }, next);

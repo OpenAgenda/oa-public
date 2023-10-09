@@ -44,8 +44,11 @@
  * Scripts
    * MCC
      * Téléchargement des images d'un agenda
- * Histoires
+ * Histoires et notes
+   * La cache des portails
+   * Les tags vs les champs additionnels
    * L'ancien export JSON
+   * Les événements liés
 
 ## GIT
 
@@ -131,6 +134,16 @@ Les sites de documentation utilisent un déploiement avec un équilibreur nginx 
 Un volume local contient tout le déploiement ghost: /var/lib/ghost. Pour déplacer un site ghost d'un environnement à un autre, il suffit de reprendre le contenu du dossier /var/lib/ghost/content
 
 Pour changer de version de ghost (mineur ou patch), il suffit de changer d'image docker ghost dans la topologie du serveur sur Infomaniak. Le site sera indisponible le temps que la réinstallation se fasse.
+
+## Elasticsearch
+
+### Vider les logs
+
+Si pour une raison ou une autre les fichiers de logs (/var/log/run.log) se remplissent au point de poser des problème d'occupation disque, il ne faut pas supprimer le log mais plutôt le tronquer:
+
+`cd /var/log && echo "$(tail -1000 run.log)" > run.log`
+
+Le process du noeud écrivant dans le fichier s'accroche à un descripteur de fichier qu'il ne lache que quand le service est relancé. Si le descripteur reste occupé alors que la commande `rm` est utilisée, le fichier n'apparait plus sur un `ls`, mais il reste présent sur le disque: l'espace n'est pas libéré et il faut relancer le service. Tronquer le fichier ne pose pas ce problème.
 
 ## React
 
@@ -601,7 +614,7 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
 
  * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier. Il est déployé sur prodifier.
 
-## Histoires
+## Histoires et notes
 
 ### La cache des portails
 
@@ -651,3 +664,59 @@ Un nombre non négligeable de scripts de synchronisations utilisent encore l'anc
 Dans notre admin agenda, cette passerelle est activée sur le toggle "JSON export V1 is generated from the V2 format" - il est aujourd'hui activé sur tous les agendas sauf 800 à peu près.
 
 Je viens de désactiver celui de Bordeaux tourisme: une exception s'affichait sur l'ancien export JSON. Un problème se situe sur la conversion des données.
+
+### Les événements liés
+
+La fonctionnalité permet d'ajouter des références d'autres événements d'un même agenda sur un événement donné. Ce n'est pas symétrique: une référence d'un événement A ajoutée à un événement B rend l'événment A visible sur les données de l'événement B. L'inverse n'est pas vrai.
+
+event-form
+ * src/fields/references: définition du champ à placer dans le formulaire
+ * src/components/References: composant qui se place dans le formulaire et qui permet l'ajout d'événements liés
+
+A minima, pour activer la fonction il faut ajouter un champ sur sa config agenda ou réseau:
+
+```
+{
+    "fields": [
+      {
+        "field": "references",
+        "fieldType": "abstract"
+      }
+    ]
+}
+```
+
+Par défaut, le champ permettant l'ajout d'événements liés fera des suggestions. Pour les proposer, ce sont les champ `title`, `description` et `location` (le `_search_full_address_text`) qui sont regardés: la clé `related` du champ prend par défaut comme valeur `["title", "description", "location"]`.
+
+Pour changer les champs comparés, il suffit de redéfinir la clé `related`. Les champs additionnels à choix peuvent servir dans l'évaluation:
+
+```
+{
+    "fields": [
+      {
+        "field": "references",
+        "fieldType": "abstract",
+        "related": ["type-devenement", "publics-cibles", "location"]
+      }
+    ]
+}
+```
+
+Il est possible de jouer sur la pondération des champs comparés avec le paramètre boost:
+
+```
+{
+  "field": "references",
+  "fieldType": "abstract",
+  "boost": {
+    "type-devenement": 50,
+    "publics-cibles": 10,
+    "location": 5
+  },
+  "suggest": true
+}
+```
+
+Si la fonction de suggestions auto n'est pas souhaitée, elle se désactive en plaçant une clé `suggest` à `false`.
+
+Les événements liés s'appuyent sur la fonctionnalité MLT d'Elasticsearch. Elle à sa suite de tests sur le package `event-search`.

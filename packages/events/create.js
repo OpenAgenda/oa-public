@@ -20,17 +20,17 @@ module.exports = async (service, data, o = {}) => {
   const {
     context,
     private: privateOption,
-    fileKey
+    fileKey,
   } = options;
 
   const {
     agendaUid,
-    userUid
+    userUid,
   } = context;
 
   const clean = await validate(data, {
     isDraft: options.draft,
-    maxImageSize: service.config.maxImageSize
+    maxImageSize: service.config.maxImageSize,
   });
 
   Object.assign(clean, {
@@ -41,13 +41,13 @@ module.exports = async (service, data, o = {}) => {
     createdAt: new Date(),
     fileKey: fileKey || generateFileKey(),
     draft: options.draft,
-    private: !!privateOption
+    private: !!privateOption,
   });
 
   if (options.useProvidedIdentifiers) {
     Object.assign(clean, {
       uid: data.uid,
-      slug: data.slug
+      slug: data.slug,
     });
   }
 
@@ -56,7 +56,7 @@ module.exports = async (service, data, o = {}) => {
   if (userUid) {
     Object.assign(clean, {
       creatorUid: userUid,
-      ownerUid: userUid
+      ownerUid: userUid,
     });
   }
 
@@ -88,6 +88,6 @@ module.exports = async (service, data, o = {}) => {
     ...options,
     locations: options.detailed ? await handleInterface(service, 'getLocations', clean.locationUid) : null,
     agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', clean.agendaUid, { private: privateOption }) : null,
-    imagePath: service.config.imagePath
+    imagePath: service.config.imagePath,
   });
 };

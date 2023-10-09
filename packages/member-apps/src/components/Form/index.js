@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import ReactMarkdown from 'react-markdown';
 import { MoreInfo } from '@openagenda/react-shared';
+import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
@@ -62,19 +63,6 @@ const messages = defineMessages({
   },
 });
 
-const roles = {
-  2: 'administrator',
-  administrator: 'administrator',
-  3: 'moderator',
-  moderator: 'moderator',
-  1: 'contributor',
-  contributor: 'contributor',
-  4: 'reader',
-  reader: 'reader',
-};
-
-const defaultGetRoleSlug = code => roles[String(code).toLowerCase()];
-
 const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
 
 const Canvas = (title, content, { mode, onClose }) =>
@@ -115,7 +103,6 @@ export default ({
   schema, // optional preloaded member schema
   userRole,
 }) => {
-  console.log('userRole', userRole);
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(getRes), {
       select: ({ data }) => data,
@@ -251,7 +238,10 @@ export default ({
               patch: saveRes,
               post: saveRes,
             }}
-            role={defaultGetRoleSlug(userRole)}
+            role={getRoleSlug(userRole, {
+              throwIfUnknown: false,
+              default: undefined,
+            })}
             values={loadedMember}
             schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}

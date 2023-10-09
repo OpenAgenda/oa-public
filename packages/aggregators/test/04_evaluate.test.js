@@ -1,37 +1,39 @@
 'use strict';
 
-const evaluate = require('../lib/evaluateEvent');
+const {
+  evaluateEvent: evaluate,
+  processEvaluate,
+} = require('../lib/evaluateEvent');
 const { getJSON } = require('./utils');
 
-describe('04 - evaluate', () => {
-  const data = getJSON('/fixtures/evaluate/data');
+describe('04 - evaluateBis', () => {
+  const initalData = getJSON('/fixtures/evaluate/data');
 
   describe('simple evaluate leading to new reference', () => {
+    const data = getJSON('/fixtures/evaluate/data');
     let referenceData;
-    let result;
 
     beforeAll(async () => {
-      result = await evaluate(
+      await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference'),
           referenceEvent: d => {
             referenceData = d;
             return { success: true };
           },
+          enqueueEvaluate: q => q,
         },
-        { ...data, batched: false }
+        { ...data, batched: false },
       );
-    });
-
-    test('result provides operation key set to `aggregation` when event was aggregated', () => {
-      expect(result.operation).toBe('aggregation');
     });
 
     describe('referenceEvent call', () => {
       test('aggregatorAgendaUid is provided in the call', () => {
         expect(referenceData.aggregatorAgendaUid).toBe(
-          data.aggregatorAgendaUid
+          initalData.aggregatorsBuffer[0].aggregatorAgendaUid,
         );
       });
 
@@ -53,7 +55,7 @@ describe('04 - evaluate', () => {
 
       test('aggregated key is provided', () => {
         expect(referenceData.aggregated).toEqual(
-          'fd030fdcfb94622b8e8358dcb1a11d94'
+          'fd030fdcfb94622b8e8358dcb1a11d94',
         );
       });
 
@@ -75,26 +77,30 @@ describe('04 - evaluate', () => {
   });
 
   describe('evaluate leading to the paths of a reference being updated', () => {
+    const data = getJSON('/fixtures/evaluate/data');
     let updatePathsData;
 
     beforeAll(async () => {
       await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference.2'),
           updateSourcePaths: d => {
             updatePathsData = d;
             return { success: true };
           },
+          enqueueEvaluate: q => q,
         },
-        data
+        data,
       );
     });
 
     describe('updateSourcePaths call', () => {
       test('uid of the aggregating agenda is provided', () => {
         expect(updatePathsData.aggregatorAgendaUid).toBe(
-          data.aggregatorAgendaUid
+          initalData.aggregatorsBuffer[0].aggregatorAgendaUid,
         );
       });
 
@@ -117,23 +123,30 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.5'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference.5'),
           updateEventReference: d => {
             updateEventData = d;
           },
+          enqueueEvaluate: q => q,
         },
         {
-          aggregatorAgendaUid: 50522407,
-          sourceRules: getJSON(
-            '/fixtures/evaluate/rulesActingOnAnAdditionalChoiceField'
-          ),
+          aggregatorsBuffer: [
+            {
+              aggregatorAgendaUid: 50522407,
+              sourceRules: getJSON(
+                '/fixtures/evaluate/rulesActingOnAnAdditionalChoiceField',
+              ),
+              aggregatorLimit: null,
+            },
+          ],
           agenda: getJSON('/fixtures/evaluate/sourceAgenda'),
           formSchema: getJSON('/fixtures/evaluate/sourceFormSchema'),
           event: getJSON('/fixtures/evaluate/eventBeforeAndAfter').after,
           before: getJSON('/fixtures/evaluate/eventBeforeAndAfter').before,
-          aggregatorLimit: null,
-        }
+        },
       );
     });
 
@@ -151,27 +164,31 @@ describe('04 - evaluate', () => {
 
     test('updateEventReference is provided with new aggregate key', () => {
       expect(updateEventData.aggregated).toBe(
-        'fc4d4eb0abc54822d23f717dd6e05081'
+        'fc4d4eb0abc54822d23f717dd6e05081',
       );
     });
   });
 
   describe('evaluate with no call for change', () => {
+    const data = getJSON('/fixtures/evaluate/data');
     let called = false;
 
     beforeAll(async () => {
       await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference.3'),
           updateSourcePaths: () => {
             called = 'updateSourcePaths';
           },
           referenceEvent: () => {
             called = 'referenceEvent';
           },
+          enqueueEvaluate: q => q,
         },
-        data
+        data,
       );
     });
 
@@ -181,22 +198,34 @@ describe('04 - evaluate', () => {
   });
 
   describe('evaluate with call to remove source from paths', () => {
+    const data = getJSON('/fixtures/evaluate/data');
     let args;
 
     beforeAll(async () => {
       await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.4'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference.4'),
           updateSourcePaths: a => {
             args = a;
             return { success: true };
           },
+          enqueueEvaluate: q => q,
         },
         {
           ...data,
-          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-        }
+          aggregatorsBuffer: [
+            {
+              aggregatorAgendaUid:
+                data.aggregatorsBuffer[0].aggregatorAgendaUid,
+              aggregatorLimit: data.aggregatorsBuffer[0].aggregatorLimit,
+              aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+              sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+            },
+          ],
+        },
       );
     });
 
@@ -206,21 +235,33 @@ describe('04 - evaluate', () => {
   });
 
   describe('evaluate with call to remove reference altogether', () => {
+    const data = getJSON('/fixtures/evaluate/data');
     let args;
 
     beforeAll(async () => {
       await evaluate(
         {
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
+          getMergedSchema: async () =>
+            getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () =>
+            getJSON('fixtures/evaluate/getEventReference.3'),
           enqueueRemove(a) {
             args = a;
           },
+          enqueueEvaluate: q => q,
         },
         {
           ...data,
-          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-        }
+          aggregatorsBuffer: [
+            {
+              aggregatorAgendaUid:
+                data.aggregatorsBuffer[0].aggregatorAgendaUid,
+              aggregatorLimit: data.aggregatorsBuffer[0].aggregatorLimit,
+              aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+              sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+            },
+          ],
+        },
       );
     });
 
@@ -236,57 +277,86 @@ describe('04 - evaluate', () => {
   });
 
   it('evaluate is skipped if limit is set to null (default)', async () => {
+    const data = getJSON('/fixtures/evaluate/data');
     const result = await evaluate(
       {
         getAggregatedCount: () => 365,
-        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        getMergedSchema: async () =>
+          getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () =>
+          getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
+        enqueueEvaluate: q => q,
       },
       {
         ...data,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-      }
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
+            aggregatorLimit: data.aggregatorsBuffer[0].aggregatorLimit,
+            aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+            sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+          },
+        ],
+      },
     );
 
     expect(result).toBeUndefined();
   });
 
   it('evaluate is skipped if limit is set to 1000', async () => {
+    const data = getJSON('/fixtures/evaluate/data');
     const result = await evaluate(
       {
         getAggregatedCount: () => 1000,
-        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        getMergedSchema: async () =>
+          getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () =>
+          getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
+        enqueueEvaluate: q => q,
       },
       {
         ...data,
-        aggregatorLimit: 1000,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-      }
+        aggregatorsBuffer: [
+          {
+            aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
+            aggregatorLimit: 1000,
+            aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+            sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+          },
+        ],
+      },
     );
 
     expect(result).toBeUndefined();
   });
 
   it('evaluate is not skipped if limit is set to -1', async () => {
-    const result = await evaluate(
+    const data = getJSON('/fixtures/evaluate/data');
+    const result = await processEvaluate(
       {
         getAggregatedCount: () => 42000,
-        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        getMergedSchema: async () =>
+          getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () =>
+          getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
+        enqueueEvaluate: q => q,
       },
       {
         ...data,
-        aggregatorLimit: -1,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
-      }
+        sourceAgenda: data.agenda,
+        aggregator: {
+          aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
+          aggregatorLimit: -1,
+          aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
+          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
+        },
+        log: e => e,
+      },
     );
 
-    expect(result).toEqual({
-      success: true,
-    });
+    expect(result).toEqual('updateSourcePaths');
   });
 });

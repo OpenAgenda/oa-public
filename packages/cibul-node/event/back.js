@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
@@ -12,7 +12,7 @@ module.exports = app => {
     sessions,
     members,
     core,
-    agendas: agendasSvc
+    agendas: agendasSvc,
   } = app.services;
 
   app.get(
@@ -23,15 +23,15 @@ module.exports = app => {
     (req, res) => {
       req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
         load: {
-          custom: true
+          custom: true,
         },
         returnPayload: true,
         access: req.member ? members.utils.getRoleSlug(req.member.role) : 'nobody',
       }).then(result => res.json({
         event: result.event,
-        schema: result.formSchema
+        schema: result.formSchema,
       }));
-    }
+    },
   );
 
   app.get(
@@ -45,7 +45,7 @@ module.exports = app => {
         if (!event?.references?.length) {
           return res.json({
             references: null,
-            events: []
+            events: [],
           });
         }
         req.originAgendaUid = event.agendaUid;
@@ -59,41 +59,43 @@ module.exports = app => {
       .then(({ events }) => {
         res.json({
           references: renderReferences({ events }),
-          events
+          events,
         });
-      }, next)
+      }, next),
   );
 
-  app.get([
-    '/agendas/:uid/events/suggestions',
-    '/agendas/:uid/events/:eventUid/suggestions'
-  ],
-  sessions.mw.loadOrRedirect(),
-  (req, res, next) => {
-    req.agenda = { uid: req.params.uid };
-    next();
-  },
-  (req, res, next) => {
-    req.sample = req.query.sample;
-    req.agendaUid = req.params.uid;
-    req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e, 10));
-    next();
-  },
-  (req, res) => {
-    req.app.services.core.agendas(req.params.uid).events.search({
-      date: {
-        gte: JSON.stringify(new Date()).split('T')[0],
-        timezone: 'Europe/Paris'
-      },
-      mlt: req.sample,
-      boost: req.query.boost
-    }, {}, {
-      userUid: req?.user.uid,
-      monolingual: req.lang
-    }).then(result => {
-      res.json(result);
-    });
-  });
+  app.get(
+    [
+      '/agendas/:uid/events/suggestions',
+      '/agendas/:uid/events/:eventUid/suggestions',
+    ],
+    sessions.mw.loadOrRedirect(),
+    (req, res, next) => {
+      req.agenda = { uid: req.params.uid };
+      next();
+    },
+    (req, res, next) => {
+      req.sample = req.query.sample;
+      req.agendaUid = req.params.uid;
+      req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e, 10));
+      next();
+    },
+    (req, res) => {
+      req.app.services.core.agendas(req.params.uid).events.search({
+        date: {
+          gte: JSON.stringify(new Date()).split('T')[0],
+          timezone: 'Europe/Paris',
+        },
+        mlt: req.sample,
+        boost: req.query.boost,
+      }, {}, {
+        userUid: req?.user.uid,
+        monolingual: req.lang,
+      }).then(result => {
+        res.json(result);
+      });
+    },
+  );
 
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
@@ -105,7 +107,7 @@ module.exports = app => {
         eventUid: req.params.eventUid,
         userUid: req.user?.uid,
         lang: req.lang,
-        originalUrl: req.originalUrl
+        originalUrl: req.originalUrl,
       }).then(indexedEvent => {
         if (!indexedEvent) {
           return next({ code: 404 });
@@ -122,7 +124,7 @@ module.exports = app => {
       }
 
       const {
-        activities: activitiesSvc
+        activities: activitiesSvc,
       } = req.app.services;
 
       const limit = 20;
@@ -138,7 +140,7 @@ module.exports = app => {
         feed.activities.list(
           { object: `event:${req.event.uid}`/* , target: `agenda:${req.agenda.uid}` */ },
           req.query.fromId || 0,
-          limit
+          limit,
         )
 
           .then(activities => {
@@ -150,11 +152,11 @@ module.exports = app => {
               count: activities.length,
               nextUrl: lastPage
                 ? null
-                : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[activities.length - 1].id}`
+                : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[activities.length - 1].id}`,
             });
           })
           .catch(next);
       });
-    }
+    },
   );
 };
