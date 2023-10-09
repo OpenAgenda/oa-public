@@ -101,15 +101,11 @@ module.exports = services => async (location, options = {}) => {
             target: agenda.title,
           },
         },
+      }, {
+        removeFeed: true,
       });
     } catch (e) {
       log('error', 'failed to create location remove activity', e);
     }
-  }
-
-  try {
-    await activities.feed({ entityType: 'location', entityUid: location.uid }).remove();
-  } catch (e) {
-    log.error(`failed to remove feed location ${location.uid}`, e);
   }
 };
