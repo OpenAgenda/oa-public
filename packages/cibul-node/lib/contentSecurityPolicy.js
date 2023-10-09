@@ -10,6 +10,7 @@ const defaultDirectives = {
     "'self'",
     'https://fonts.gstatic.com',
     'https://s3.eu-central-1.amazonaws.com/oastatic/',
+    'https://oastatic.s3.eu-central-1.amazonaws.com/',
   ],
   imgSrc: ["'self'", 'https:', 'data:', 'blob:'],
   // styleSrc: ["'self'", "'unsafe-inline'"],
