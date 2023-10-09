@@ -43,7 +43,6 @@ export default ({ tracking , lang }) => {
   const gaCookieBannerLink = `https://support.google.com/analytics/answer/6004245?hl=${lang}`;
   const mergedLocales = mergeLocales(appLocales, sharedLocales);
 
-  console.log('render Banner');
   return ReactDom.render(
     <IntlProvider
       key={lang}
