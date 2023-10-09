@@ -54,8 +54,6 @@ export default function References({ agenda, event }) {
 
   if (!references?.length) return null;
 
-  console.log({ references, status });
-
   return (
     <SimpleGrid columns={3} spacing="2">
       {references.map(agendaReference => (

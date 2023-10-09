@@ -9,6 +9,7 @@ import { faFacebookF, faTwitter, faLinkedinIn } from 'icons/brands';
 import OAIcon from 'components/OAIcon';
 import Timings from './Timings';
 import References from './References';
+import Map from './Map';
 
 function getRegistrationIcon(type: string) {
   switch (type) {
@@ -258,6 +259,17 @@ export default function Sidebar({ agenda, event }) {
       <Box ml="12">
         <Timings timings={event.timings} timezone={event.timezone} />
       </Box>
+
+      {event.location?.latitude && event.location?.longitude ? (
+        <Box ml="12">
+          <Map
+            width={300}
+            height={200}
+            center={[event.location.latitude, event.location.longitude]}
+            zoom={14}
+          />
+        </Box>
+      ) : null}
 
       <Box ml="12">
         <References agenda={agenda} event={event} />
