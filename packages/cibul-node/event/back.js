@@ -131,7 +131,7 @@ module.exports = app => {
 
       const feed = activitiesSvc.feed({
         entityType: 'user',
-        entityUid: req.member.userUid,
+        entityUid: req.user.uid,
       });
 
       feed.get().then(data => {

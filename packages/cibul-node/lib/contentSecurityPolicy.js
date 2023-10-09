@@ -10,6 +10,7 @@ const defaultDirectives = {
     "'self'",
     'https://fonts.gstatic.com',
     'https://s3.eu-central-1.amazonaws.com/oastatic/',
+    'https://oastatic.s3.eu-central-1.amazonaws.com/',
   ],
   imgSrc: ["'self'", 'https:', 'data:', 'blob:'],
   // styleSrc: ["'self'", "'unsafe-inline'"],
@@ -32,7 +33,13 @@ const defaultDirectives = {
     // 'https://maxcdn.bootstrapcdn.com',
     // 'https://client.crisp.chat',
   ],
-  connectSrc: ["'self'"]
+  connectSrc: [
+    "'self'",
+    req => {
+      const { matomoCloudId } = req.app.core.getConfig();
+      return matomoCloudId ? `https://${matomoCloudId}` : '';
+    },
+  ]
     .concat(process.env.DEV_SERVER_PORT ? [
       req => `wss://${req.app.core.getConfig().domain}:${process.env.DEV_SERVER_PORT}`,
     ] : []),

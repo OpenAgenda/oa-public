@@ -238,7 +238,10 @@ export default ({
               patch: saveRes,
               post: saveRes,
             }}
-            role={getRoleSlug(userRole, { throwIfUnknown: false, default: undefined })}
+            role={getRoleSlug(userRole, {
+              throwIfUnknown: false,
+              default: undefined,
+            })}
             values={loadedMember}
             schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}

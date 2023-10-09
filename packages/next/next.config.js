@@ -4,6 +4,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const nextVersion = require('next/package.json').version;
 
 const withTM = require('next-transpile-modules')([
+  '@openagenda/activity-apps',
   '@openagenda/intl',
   '@openagenda/react-filters',
   '@openagenda/react-shared',

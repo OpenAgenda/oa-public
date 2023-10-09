@@ -60,7 +60,7 @@ export default ({
       expires={100}
       cookieName={cookieName}
     >
-      {intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analitycs' : 'Matomo' })}
+      {intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo' })}
       {link ? (
         <div className="margin-top-xs">
           <a

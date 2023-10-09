@@ -43,7 +43,7 @@ export default function ConsentBanner({
   return (
     <Flex p="4" bg="oaGray.900" gap="2" alignItems="center" pos="fixed" bottom="0" right="0" left="0" zIndex="banner" direction={['column', 'row']}>
       <Box mt="2">
-        <Text color="white">{intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analitycs' : 'Matomo' })}</Text>
+        <Text color="white">{intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo' })}</Text>
         {consentFor === 'ga' ? <Link mt="3" href={link} isExternal color="primary.500">{intl.formatMessage(messages.moreInfoLink)}</Link> : null}
       </Box>
       <Spacer />

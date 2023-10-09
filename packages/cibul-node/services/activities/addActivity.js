@@ -5,15 +5,20 @@ const log = require('@openagenda/logs')('services/activities/addActivity');
 module.exports = ({ bull, activities }) => {
   const queue = new bull.Queue('addActivity', { prefix: '{addActivity}' });
 
-  return Object.assign(function addActivity(feedIdentifiers, activity) {
-    return queue.add('addActivity', { feedIdentifiers, activity });
+  return Object.assign(function addActivity(feedIdentifiers, activity, options) {
+    return queue.add('addActivity', { feedIdentifiers, activity, options });
   }, {
     task() {
       const worker = new bull.Worker(queue.name, async job => {
         switch (job.name) {
           case 'addActivity': {
-            const { feedIdentifiers, activity } = job.data;
+            const { feedIdentifiers, activity, options } = job.data;
             await activities.feed(feedIdentifiers).activities.add(activity);
+
+            if (options.removeFeed) {
+              await activities.feed(feedIdentifiers).remove();
+            }
+
             break;
           }
           default:

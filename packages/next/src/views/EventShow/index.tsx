@@ -18,6 +18,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
 import { faPhone } from '@fortawesome/pro-solid-svg-icons';
+import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import { FetchStatus } from 'config/types';
@@ -25,7 +26,9 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
+import Activities from './components/Activities';
 import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import fetchLocale from './locales';
 
@@ -476,12 +479,15 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
               </Flex>
             </div>
           ) : null}
+
+          <Activities
+            agenda={agenda}
+            event={event}
+          />
         </GridItem>
 
         <GridItem area="footer">
-          <Box bg="green" h="200px" w="full">
-            Footer
-          </Box>
+          <Footer agenda={agenda} />
         </GridItem>
       </Grid>
 
@@ -497,6 +503,12 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
   );
 }
 
-EventShow.fetchLocale = fetchLocale;
+EventShow.fetchLocale = locale => Promise.all([
+  fetchLocale(locale),
+  // fetchErrorLocale(locale),
+  fetchCommonLocale('event/fields', locale),
+  fetchCommonLocale('event/states', locale),
+  import(`@openagenda/activity-apps/src/locales-compiled/${locale}.json`).then(mod => mod.default),
+]).then(results => Object.assign({}, ...results));
 
 export default EventShow;

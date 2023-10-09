@@ -34,11 +34,26 @@ function getLocationFieldLabel(field, intl) {
   return getLocaleValue(field.label, intl.locale);
 }
 
-function renderHighlight(text) {
+function defaultRenderHighlight(text) {
   return <span className="activity-highlight">{text}</span>
 }
 
-function renderTag({ chunks, tagName, activity, intl, entities, link, highlight, filter }) {
+function defaultRenderLink(link, text) {
+  return <a href={link}>{text}</a>
+}
+
+function renderTag({
+  chunks,
+  tagName,
+  activity,
+  intl,
+  entities,
+  link,
+  highlight,
+  filter,
+  renderHighlight = defaultRenderHighlight,
+  renderLink = defaultRenderLink,
+}) {
   let result = chunks;
 
   // event update
@@ -105,7 +120,7 @@ function renderTag({ chunks, tagName, activity, intl, entities, link, highlight,
   }
 
   if (link) {
-    result = <a href={link}>{result}</a>;
+    result = renderLink(link, result);
   }
 
   if (highlight) {
@@ -115,24 +130,38 @@ function renderTag({ chunks, tagName, activity, intl, entities, link, highlight,
   return result;
 }
 
-export default function ActivityItem({ config, activity }) {
+export default function ActivityItem({
+  config,
+  activity,
+  component: Component,
+  renderHighlight,
+  renderLink,
+}) {
   const intl = useIntl();
   const formatActivity = useMemo(
     () =>
       createFormatActivity({
         intl,
         activities: config,
-        renderTag,
+        renderTag: options => renderTag({ ...options, renderHighlight, renderLink }),
       }),
     [config],
   );
 
   const { isBrowser } = useSsr();
 
+  const formattedActivity = formatActivity(activity);
+
+  if (Component) {
+    return (
+      <Component formattedActivity={formattedActivity} activity={activity} isBrowser={isBrowser} />
+    );
+  }
+
   return (
     <li>
       <span className="activity-info activity-item">
-        {formatActivity(activity)}
+        {formattedActivity}
       </span>
       <span className="activity-time" style={{ visibility: isBrowser ? 'visible' : 'hidden' }}>
         <FormattedDate value={activity.createdAt} dateStyle="long" timeStyle="short" />

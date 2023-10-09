@@ -17,13 +17,7 @@ const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   'font-src': ["'self'"],
   'form-action': ["'self'"],
   'frame-ancestors': ["'none'"],
-  'img-src': [
-    "'self'",
-    'https:',
-    'data:',
-    'blob:',
-    ...process.env.NEXT_PUBLIC_IMAGE_PREFIX ? [process.env.NEXT_PUBLIC_IMAGE_PREFIX] : [],
-  ],
+  'img-src': ["'self'", 'https:', 'data:', 'blob:'],
   'object-src': ["'none'"],
   'script-src': [
     "'strict-dynamic'",
@@ -41,6 +35,7 @@ const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   'frame-src': ["'self'"],
   'connect-src': [
     "'self'",
+    ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
     ...process.env.NEXT_PUBLIC_MATOMO_URL ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`] : [],
   ],
   'upgrade-insecure-requests': [],

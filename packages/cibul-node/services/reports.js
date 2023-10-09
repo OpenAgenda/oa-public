@@ -18,11 +18,7 @@ module.exports.init = config => {
               log.info(row);
             }
           } else if (req.body) {
-            log.info({
-              body: req.body,
-              jsonStringifiedBody: JSON.stringify(req.body),
-              bodyType: Object.prototype.toString.call(req.body),
-            });
+            log.info(req.body);
           }
           res.status(200).send('OK');
         },
