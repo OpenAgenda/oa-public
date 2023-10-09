@@ -1,11 +1,8 @@
-'use strict';
-
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-const eventFixtures = require('./fixtures/events');
-
-const testConfig = require('./testConfig');
+import Core from '../core/index.js';
+import Services from '../services/init.mjs';
+import eventFixtures from './fixtures/events/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('02 - core - functional (server): core.agendas().events.create() - aggregations', () => {
   const memberUserUid = 63170200;

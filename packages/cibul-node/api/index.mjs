@@ -214,6 +214,11 @@ export default (core, { useRouter = true } = {}) => {
       .then(data => res.json({ ...data }), next),
   ]);
 
+  app.get('/agendas/:agendaUid/settings/passCulture', [
+    // mw.member.load,
+    (req, res, next) => req.json('ok')
+  ]);
+
   app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
     mw.member.load,
     mw.member.allow(['administrator']),

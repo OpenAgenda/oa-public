@@ -1,8 +1,6 @@
-'use strict';
+import redis from 'redis';
 
-const redis = require('redis');
-
-module.exports.init = async config => {
+export async function init(config) {
   const redisClient = config.redis.clusterMode
     ? redis.createCluster({
       rootNodes: config.redis.nodes.map(node => ({
@@ -28,4 +26,4 @@ module.exports.init = async config => {
       await redisClient.quit();
     },
   });
-};
+}

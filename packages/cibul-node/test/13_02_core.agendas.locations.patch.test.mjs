@@ -1,11 +1,7 @@
-'use strict';
-
-const Core = require('../core');
-const Services = require('../services/init');
-
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('13 - core - functional(server): core.agendas().locations.patch', () => {
   let core;

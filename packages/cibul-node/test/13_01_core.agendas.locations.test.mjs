@@ -7,7 +7,7 @@ import FormData from 'form-data';
 import qs from 'qs';
 import logs from '@openagenda/logs';
 import api from '../api/index.mjs';
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import Core from '../core/index.js';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
@@ -413,7 +413,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
               name: 'Marre',
               address: '4 route de Charny, 55100 Marre',
               countryCode: 'fr',
-              extId: 'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd'
+              extId: 'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd',
             },
           });
         } catch (e) {

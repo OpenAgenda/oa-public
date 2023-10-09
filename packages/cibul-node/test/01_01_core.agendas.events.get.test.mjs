@@ -1,10 +1,7 @@
-'use strict';
-
-const Core = require('../core');
-const Services = require('../services/init');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('core - functional (server): core.agendas().events.get()', () => {
   let core;
@@ -190,7 +187,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('schema is available under formSchema key, with public fields, excluding id', () => {
-      expect(result.formSchema.fields.filter(f => f.field === 'id').length).toEqual(0);
+      expect(result.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(0);
     });
 
     it('event is provided in payload', () => {
@@ -218,7 +215,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('admin fields are given in schema', () => {
-      expect(adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length).toEqual(2);
+      expect(adminResult.formSchema.fields.filter(({ field }) => ['thematique', 'note'].includes(field)).length).toEqual(2);
     });
 
     it('event id is not provided if access is administrator', () => {
@@ -226,7 +223,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('event id field is not provided if access is administrator', () => {
-      expect(adminResult.formSchema.fields.filter(f => f.field === 'id').length).toEqual(0);
+      expect(adminResult.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(0);
     });
 
     it('event id field is provided if access is internal', () => {
@@ -238,7 +235,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('id field is present if formSchema if access is internal', () => {
-      expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toEqual(1);
+      expect(internalResult.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(1);
     });
   });
 

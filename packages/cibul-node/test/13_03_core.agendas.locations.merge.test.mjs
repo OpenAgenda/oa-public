@@ -1,10 +1,7 @@
-'use strict';
-
-const Services = require('../services/init');
-const Core = require('../core');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('13 - core - functional(server): core.agendas().locations.merge', () => {
   let core;
@@ -53,7 +50,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
 
   it('merge location name is updated', async () => {
     expect(
-      await core.services.knex('location').first('placename').where('uid', 76464022).then(r => r.placename),
+      await core.services.knex('location').first('placename').where('uid', 76464022).then(({ placename }) => placename),
     ).toBe('Fusionné');
   });
 
@@ -63,7 +60,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
         .select('id')
         .whereIn('uid', [95155140, 97506318])
         .where('deleted', 1)
-        .then(rows => rows.length),
+        .then(({ length }) => length),
     ).toBe(2);
   });
 
@@ -72,7 +69,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
       await core.services.knex('event_2')
         .first('location_uid')
         .where('slug', 'que-ferons-nous-de-nos-deserts')
-        .then(r => r.location_uid),
+        .then(({ location_uid: locationUID }) => locationUID),
     ).toBe(76464022);
   });
 
@@ -81,7 +78,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
       await core.services.knex('event_location')
         .first('location_id')
         .where('event_id', 802994)
-        .then(r => r.location_id),
+        .then(({ location_id: locationID }) => locationID),
     ).toBe(8);
   });
 });

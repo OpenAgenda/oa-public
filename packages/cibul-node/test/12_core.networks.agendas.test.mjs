@@ -1,10 +1,7 @@
-'use strict';
-
-const Services = require('../services/init');
-const Core = require('../core');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('12 - core - functional (server): core.networks().agendas', () => {
   let core;

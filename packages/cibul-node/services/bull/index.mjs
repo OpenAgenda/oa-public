@@ -1,11 +1,10 @@
 /* eslint-disable max-classes-per-file */
 
-'use strict';
+import bullmq from 'bullmq';
+import IORedis from 'ioredis';
+import logs from '@openagenda/logs';
 
-const bullmq = require('bullmq');
-const IORedis = require('ioredis');
-
-const log = require('@openagenda/logs')('services/bull');
+const log = logs('services/bull');
 
 function createRedisConnection(config) {
   if (config.redis.clusterMode) {
@@ -33,7 +32,7 @@ function checkPrefixOption(opts) {
   }
 }
 
-module.exports.init = (config, _services) => {
+export function init(config, _services) {
   log('init');
 
   const connection = createRedisConnection(config);
@@ -81,4 +80,4 @@ module.exports.init = (config, _services) => {
     QueueEvents,
     FlowProducer,
   };
-};
+}

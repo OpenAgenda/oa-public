@@ -8,7 +8,7 @@ import ih from 'immutability-helper';
 import request from 'superagent';
 import api from '../api/index.mjs';
 import Core from '../core/index.js';
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import eventsFixtures from './fixtures/events/index.js';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';

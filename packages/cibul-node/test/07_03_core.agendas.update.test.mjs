@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 
-import Services from '../services/init.js';
+import Services from '../services/init.mjs';
 import Core from '../core/index.js';
 
 import loadFixtures from './fixtures/load.js';

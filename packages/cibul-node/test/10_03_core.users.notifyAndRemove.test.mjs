@@ -1,10 +1,7 @@
-'use strict';
-
-const Services = require('../services/init');
-const Core = require('../core');
-const loadFixtures = require('./fixtures/load');
-
-const testConfig = require('./testConfig');
+import Services from '../services/init.mjs';
+import Core from '../core/index.js';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 async function clearRedis(services) {
   const {
@@ -101,14 +98,14 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   });
 
   it('users that have been notified once more than 20 days ago are sent a second email', () => {
-    const heleneState = stateUpdates.find(state => state.user.uid === 3).state;
+    const heleneState = stateUpdates.find(({ user }) => user.uid === 3).state;
 
     expect(heleneState.sent.length).toBe(2);
     expect(heleneState.sent[1].name).toBe('second');
   });
 
   it('users that have been notified two times with last notification made more than 7 days ago are notified a third and last time', () => {
-    const margauxState = stateUpdates.find(state => state.user.uid === 4).state;
+    const margauxState = stateUpdates.find(({ user }) => user.uid === 4).state;
 
     expect(margauxState.sent.length).toBe(3);
     expect(margauxState.sent[2].name).toBe('last');
@@ -140,7 +137,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       send: false,
     });
 
-    const jeanBenoitState = newStateUpdates.find(state => state.user.uid === 1).state;
+    const jeanBenoitState = newStateUpdates.find(({ user }) => user.uid === 1).state;
 
     expect(jeanBenoitState.sent.length).toBe(1);
     expect(jeanBenoitState.sent[0].name).toBe('first');
@@ -155,6 +152,6 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       send: false,
     });
 
-    expect(newStateUpdates.filter(state => state.user.uid === 6).length).toBe(0);
+    expect(newStateUpdates.filter(({ user }) => user.uid === 6).length).toBe(0);
   });
 });
