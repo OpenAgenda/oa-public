@@ -8,6 +8,7 @@ const pickEvent = slug => fixtures.find(e => slug === e.slug);
 
 const {
   PASS_API_KEY: key,
+  PASS_API_DOMAIN: api,
   PASS_SIREN: siren,
 } = process.env;
 
@@ -20,7 +21,7 @@ describe('verifyAndCreateEventOffer', () => {
   let venueId;
 
   beforeAll(async () => {
-    pc = PassCultureSDK(key);
+    pc = PassCultureSDK({ api, key });
 
     venueId = (await pc.offers.offererVenues())[0].venues[0].id;
   });

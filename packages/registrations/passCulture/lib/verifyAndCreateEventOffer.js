@@ -1,6 +1,6 @@
 import { BadRequest } from '@openagenda/verror';
 
-import createEventOffer from './createEventOffer';
+import createEventOffer from './createEventOffer.js';
 
 export default async function verifyAndCreateEventOffer({ pc, siren }, event, data = {}) {
   const {

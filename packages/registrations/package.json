@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
@@ -17,10 +18,5 @@
   "devDependencies": {
     "dotenv": "^16.3.1",
     "jest": "^28.1.2"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/*/test/*.test.js"
-    ]
   }
 }

@@ -9,6 +9,7 @@ const pickEvent = slug => fixtures.find(e => slug === e.slug);
 const {
   PASS_API_KEY: key,
   PASS_TEST_EVENT_ID: testEventId,
+  PASS_API_DOMAIN: api,
 } = process.env;
 
 if (!key || !testEventId) {
@@ -20,7 +21,7 @@ describe('PassCultureSDK', () => {
     let items;
 
     beforeAll(async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       items = await pc.offers.offererVenues();
     });
@@ -59,7 +60,7 @@ describe('PassCultureSDK', () => {
     let response;
 
     beforeAll(async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const offererVenues = await pc.offers.offererVenues();
 
@@ -78,7 +79,7 @@ describe('PassCultureSDK', () => {
     let event;
 
     beforeAll(async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       event = await pc.offers.events(23808).get();
     });
@@ -96,7 +97,7 @@ describe('PassCultureSDK', () => {
 
   describe('offers.events.create', () => {
     it('create provides data of created offer including its id', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const [{ venues: [{ id: venueId }]}] = await pc.offers.offererVenues();
 
@@ -116,7 +117,7 @@ describe('PassCultureSDK', () => {
 
   describe('offers.events.priceCategories.create', () => {
     it('create a price category for an event offer', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
         priceCategories: [{
@@ -135,7 +136,7 @@ describe('PassCultureSDK', () => {
 
   describe('offers.events.priceCategories.patch', () => {
     it('patch a price category for an event offer', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
         priceCategories: [{
@@ -162,7 +163,7 @@ describe('PassCultureSDK', () => {
 
   describe('offers.events.dates.list', () => {
     it('lists dates of an event offer', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { dates } = await pc.offers.events(testEventId).dates.list();
 
@@ -172,7 +173,7 @@ describe('PassCultureSDK', () => {
 
   describe('offers.events.dates.create', () => {
     it('returns list of created dates', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { priceCategories: [{
         id: priceCategoryId,
@@ -191,7 +192,7 @@ describe('PassCultureSDK', () => {
     });
 
     it('booking limit is required', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { priceCategories: [{
         id: priceCategoryId,
@@ -211,7 +212,7 @@ describe('PassCultureSDK', () => {
     });
 
     it('booking limit can be the same as the beginningDateTime', async () => {
-      const pc = PassCultureSDK(key);
+      const pc = PassCultureSDK({ key, api });
 
       const { priceCategories: [{
         id: priceCategoryId,
@@ -234,7 +235,7 @@ describe('PassCultureSDK', () => {
     let pc;
 
     beforeAll(() => {
-      pc = PassCultureSDK(key);
+      pc = PassCultureSDK({ key, api });
     });
 
     it('increment the quantity', async () => {
@@ -262,7 +263,7 @@ describe('PassCultureSDK', () => {
     let pc;
 
     beforeAll(() => {
-      pc = PassCultureSDK(key);
+      pc = PassCultureSDK({ key, api });
     });
 
     it('lists available categories', async () => {

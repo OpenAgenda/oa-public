@@ -1,9 +1,9 @@
-import PassCulture from "./passCulture";
+import PassCulture from './passCulture/index.js';
 
 export default function Registrations({
-  PassCultureKey
+  passCulture: passCultureParams
 }) {
   return {
-    passCulture: PassCulture({ key: PassCultureKey }),
+    passCulture: PassCulture(passCultureParams),
   };
 }

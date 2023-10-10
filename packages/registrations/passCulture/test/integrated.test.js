@@ -7,13 +7,14 @@ const pickEvent = slug => fixtures.find(e => slug === e.slug);
 const {
   PASS_API_KEY: key,
   PASS_SIREN: singleSiren,
+  PASS_API_DOMAIN: api,
 } = process.env;
 
 
 describe('integrated', () => {
   let pc;
   beforeAll(() => {
-    pc = PassCulture({ key });
+    pc = PassCulture({ key, api });
   });
 
   describe('verifyAndCreateEventOffer', () => {
@@ -48,7 +49,7 @@ describe('integrated', () => {
   });
 
   describe('getParameters', () => {
-    it.only('gets available categories, related offers and offerer venues', async () => {
+    it('gets available categories, related offers and offerer venues', async () => {
       const pcParams = await pc({ siren: [singleSiren] }).getParameters();
 
       expect(Object.keys(pcParams)).toEqual(['categories', 'related', 'offererVenues']);
