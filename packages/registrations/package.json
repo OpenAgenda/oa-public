@@ -2,6 +2,7 @@
   "name": "@openagenda/registrations",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
@@ -19,7 +20,7 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/*/test/*.test.mjs"
+      "<rootDir>/*/test/*.test.js"
     ]
   }
 }

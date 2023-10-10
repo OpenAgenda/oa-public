@@ -1,8 +1,8 @@
 import 'dotenv/config';
-import formatEvent from '../lib/formatEvent.mjs';
-import PassCultureSDK from '../lib/PassCultureSDK.mjs';
+import formatEvent from '../lib/formatEvent.js';
+import PassCultureSDK from '../lib/PassCultureSDK.js';
 
-import fixtures from './fixtures/cart.events.json' assert { type: 'json' };
+import fixtures from './fixtures/cart.events.json';
 
 const pickEvent = slug => fixtures.find(e => slug === e.slug);
 
@@ -206,7 +206,7 @@ describe('PassCultureSDK', () => {
       }).catch(e => e);
 
       expect(error.response.data).toEqual({
-        'dates.0.bookingLimitDatetime': [ 'Ce champ est obligatoire' ]
+        'dates.0.bookingLimitDatetime': ['field required']
       });
     });
 
