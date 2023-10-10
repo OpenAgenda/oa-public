@@ -12,7 +12,6 @@ const fb = require('@openagenda/facebook');
 const getEventLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/show'));
 const sessions = require('../services/sessions');
-const registration = require('@openagenda/registration/src/validate').getTypesAndValues;
 const slugs = require('@openagenda/slugs');
 const forbiddenLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/forbidden'));
 const utils = require('@openagenda/utils');
