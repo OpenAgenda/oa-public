@@ -7,12 +7,26 @@ const canPublish = (agenda, access) => (
   || ['administrators', 'moderators']
 ).map(v => v.replace(/s$/, '')).includes(access);
 
-// user can read if he is the contributing member...
-// but we do not index this information...
-const canRead = (compareRoles, agendaEvent, event, member) =>
-  (agendaEvent.state === 2 && !event.private)
-  || compareRoles.isSuperiorToOrEqual(member?.role, 'moderator')
-  || (agendaEvent.userUid === member?.userUid);
+function canRead(compareRoles, agendaEvent, event, member) {
+  // event is published on a public agenda
+  if (agendaEvent.state === 2 && !event.private) {
+    return true;
+  }
+  // user is moderator
+  if (compareRoles.isSuperiorToOrEqual(member?.role, 'moderator')) {
+    return true;
+  }
+  // user is the contributing member
+  if (agendaEvent.userUid === member?.userUid) {
+    return true;
+  }
+  // event is private and published and user is contributor of the agenda
+  if (agendaEvent.state === 2 && event.private && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) {
+    return true;
+  }
+  return false;
+}
+
 const canCreateEvent = (services, member, agendaIsClosed) => {
   const {
     members: {
