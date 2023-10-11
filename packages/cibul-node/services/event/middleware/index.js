@@ -38,9 +38,17 @@ async function loadMissing(req) {
     return;
   }
 
+  const legacyLocationMissing = !req.event.locations?.[0]?.uid;
+
+  const missing = ['timings', 'online_access_link', 'registration', 'conditions', 'status'];
+
+  if (legacyLocationMissing) {
+    missing.push('location_uid');
+  }
+
   const record = await req.app.services
     .knex('event_2')
-    .first(['timings', 'online_access_link', 'registration', 'conditions', 'status'])
+    .first(missing)
     .where('uid', req.event.uid);
 
   req.event.timings = record ? (JSON.parse(record.timings) || []).map(t => ({
@@ -60,6 +68,28 @@ async function loadMissing(req) {
 
   req.event.statusLabel = getStatusLabel(req.event.status, req.lang);
   req.event.isNotScheduled = req.event.status !== 1;
+
+  if (legacyLocationMissing && record?.location_uid) {
+    const l = await req.app.services
+      .knex('location')
+      .first()
+      .where('uid', record.location_uid);
+
+    if (l) {
+      Object.assign(req.event.locations[0], {
+        id: l.id,
+        uid: l.uid,
+        name: l.placename,
+        address: l.address,
+        city: l.city,
+        region: l.region,
+        postalCode: l.postal_code,
+        latitude: l.latitude,
+        longitude: l.longitude,
+        country: l.country_code,
+      });
+    }
+  }
 }
 
 function cleanEvents(req, res, next) {
