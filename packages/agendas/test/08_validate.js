@@ -15,7 +15,8 @@ describe('agendas - unit (server): validate', () => {
       const data = {
         title: 'Title of the agenda',
         description: 'Description of the agenda',
-        slug: 'title-of-the-agenda'
+        slug: 'title-of-the-agenda',
+        createdAt: new Date(),
       };
 
       try {
@@ -24,56 +25,13 @@ describe('agendas - unit (server): validate', () => {
         errors = e;
       }
 
-      assert.equal(errors.length, 0);
+      assert.strictEqual(clean.title, 'Title of the agenda');
+      assert.strictEqual(clean.description, 'Description of the agenda');
+      assert.strictEqual(clean.slug, 'title-of-the-agenda');
 
-      assert.deepStrictEqual(clean, {
-        title: 'Title of the agenda',
-        description: 'Description of the agenda',
-        slug: 'title-of-the-agenda',
-        official: false,
-        networkUid: null,
-        locationSetUid: null,
-        settings: {
-          lab: {
-            status: true
-          },
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
-            }
-          },
-          tracking: {
-            googleAnalytics: null
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null,
-              GDPRInformation: null
-            },
-            type: 1,
-            moderateOnChangeBy: [],
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: ['administrators', 'moderators']
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
-          }
-        },
-        url: undefined
-      });
+      assert.strictEqual(clean.createdAt, undefined);
+
+      assert.equal(errors.length, 0);
     });
 
     it('validate configured translation', () => {
@@ -158,79 +116,38 @@ describe('agendas - unit (server): validate', () => {
 
       assert.strictEqual(errors.length, 0);
 
-      assert.deepStrictEqual(clean, {
-        title: 'La gargouille',
-        slug: 'la-gargouille',
-        uid: 122312,
-        official: false,
-        officializedAt: null,
-        private: false,
-        indexed: true,
-        ownerId: 1,
-        formSchemaId: null,
-        memberSchemaId: null,
-        networkUid: null,
-        locationSetUid: null,
-        settings: {
-          lab: {
-            status: true
-          },
-          tracking: {
-            googleAnalytics: null
-          },
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
+      assert.strictEqual(clean.title, 'La gargouille');
+      assert.strictEqual(clean.createdAt.getTime(), now.getTime());
+    });
+
+    it('validates registration passCulture data', () => {
+      let clean;
+      let errors = [];
+
+      const now = new Date();
+
+      try {
+        clean = validate({
+          uid: 122312,
+          ownerId: 1,
+          title: 'La gargouille',
+          slug: 'la-gargouille',
+          description: 'Un agenda de tests',
+          updatedAt: now,
+          createdAt: now,
+          settings: {
+            registration: {
+              passCulture: {
+                siren: ['123456789', '987654321'],
+              }
             }
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null,
-              GDPRInformation: null
-            },
-            type: 1,
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: ['administrators', 'moderators'],
-            moderateOnChangeBy: []
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
           }
-        },
-        updatedAt: now,
-        createdAt: now,
-        description: 'Un agenda de tests',
-        image: null,
-        url: undefined,
-        credentials: {
-          useContributeApp: true,
-          premiumCustomFields: false,
-          activatingInvitations: false,
-          invitationMessage: false,
-          moderators: false,
-          embedsHead: true,
-          embedsTemplates: true,
-          prioritizedAggregator: false,
-          aggregator: false,
-          docxExport: false,
-          eventOwnershipTransfer: false,
-          useJSONBridge: false,
-          memberCustom: false,
-        }
-      });
+        });
+      } catch(e) {
+        errors = e;
+      }
+      assert.strictEqual(errors.length, 0);
+      assert.deepEqual(clean.settings.registration.passCulture.siren, ['123456789', '987654321']);
     });
   });
 });

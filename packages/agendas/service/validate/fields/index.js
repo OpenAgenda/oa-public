@@ -161,8 +161,7 @@ module.exports = [{
       list: true,
       read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
       write: ['internal'],
-    },
-  ]
+    }],
   }, {
     field: 'lab',
     type: 'schema',
@@ -327,6 +326,22 @@ module.exports = [{
     },{
       field: 'options',
       type: 'text'
+    }]
+  }, {
+    field: 'registration',
+    type: 'schema',
+    read: ['internal', 'legacy'],
+    write: ['internal'],
+    fields: [{
+      field: 'passCulture',
+      type: 'schema',
+      optional: true,
+      fields: [{
+        field: 'siren',
+        list: { default: null },
+        type: 'text',
+        optional: false,
+      }]
     }]
   }]
 }, {

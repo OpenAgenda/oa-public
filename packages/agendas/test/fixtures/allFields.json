@@ -49,6 +49,22 @@
           "googleAnalytics": {
             "type": "text",
             "max": 255
+          },
+          "matomoUrl": {
+            "type": "text",
+            "max": 255
+          },
+          "matomoSiteId": {
+            "type": "text",
+            "max": 255
+          },
+          "matomoAskForConsent": {
+            "type": "boolean",
+            "max": 255
+          },
+          "matomoCustom": {
+            "type": "pass",
+            "list": true
           }
         }
       },
@@ -223,6 +239,22 @@
           },
           "options": {
             "type": "text"
+          }
+        }
+      },
+      "registration": {
+        "fields": {
+          "passCulture": {
+            "fields": {
+              "siren": {
+                "list": {
+                  "default": null
+                },
+                "optional": false,
+                "type": "text"
+              }
+            },
+            "optional": true
           }
         }
       }

@@ -399,10 +399,10 @@ module.exports = app => {
     sessions.mw.ifUnlogged(
       (req, res) => {
         const query = qs.stringify(req.query, { addQueryPrefix: true });
-        const redirect = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
+        const redirectTo = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
           .toString('base64');
 
-        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
+        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`);
       },
     ),
     members.mw.load,

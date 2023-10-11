@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import axios from 'axios';
-import typeLabels from './typeLabels.json';
+import * as url from 'url';
+import { readFile } from 'fs/promises';
 
-const {
-  PASS_API_DOMAIN: domain,
-} = process.env;
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const typeLabels = await readFile(`${__dirname}/typeLabels.json`, 'utf8').then(JSON.parse);
 
 const headers = apiKey =>  ({
   'accept': 'application/json',
@@ -34,10 +35,10 @@ function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
   });
 }
 
-async function listEventOfferCategories() {
+async function listEventOfferCategories({ api }) {
   const openAPIObj = await axios({
     method: 'get',
-    url: `${domain}/public/offers/v1/event/openapi.json`
+    url: `${api}/public/offers/v1/event/openapi.json`
   }).then(r => r.data);
 
   const categories = extractSchemaOptions(openAPIObj, 'EventOfferCreation', 'category', 'categoryRelatedFields');
@@ -58,40 +59,40 @@ async function listEventOfferCategories() {
   };
 }
 
-function call(apiKey, method, path, data = {}) {
+function call({ key, api }, method, path, data = {}) {
   return axios({
     method,
-    url: `${domain}/${path}`,
-    headers: headers(apiKey),
+    url: `${api}/${path}`,
+    headers: headers(key),
     ...(method === 'get' ? { params: data } : { data }),
   }).then(r => r.data);
 }
 
-export default function PassCultureSDK(key) {
+export default function PassCultureSDK(params) {
   return {
     offers: {
       events: Object.assign(eventId => ({
-        get: call.bind(null, key, 'get', `/public/offers/v1/events/${eventId}`),
+        get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}`),
         priceCategories: Object.assign(categoryId => ({
-          patch: call.bind(null, key, 'patch', `/public/offers/v1/events/${eventId}/price_categories/${categoryId}`),
+          patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/price_categories/${categoryId}`),
         }), {
-          create: call.bind(null, key, 'post', `/public/offers/v1/events/${eventId}/price_categories`),
+          create: call.bind(null, params, 'post', `/public/offers/v1/events/${eventId}/price_categories`),
         }),
         dates: Object.assign(dateId => ({
-          get: call.bind(null, key, 'get', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
-          patch: call.bind(null, key, 'patch', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
+          get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
+          patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
         }), {
-          list: call.bind(null, key, 'get', `/public/offers/v1/events/${eventId}/dates`),
-          create: call.bind(null, key, 'post', `/public/offers/v1/events/${eventId}/dates`),
+          list: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates`),
+          create: call.bind(null, params, 'post', `/public/offers/v1/events/${eventId}/dates`),
         }),
       }), {
-        list: call.bind(null, key, 'get', '/public/offers/v1/events'),
-        create: call.bind(null, key, 'post', '/public/offers/v1/events'),
+        list: call.bind(null, params, 'get', '/public/offers/v1/events'),
+        create: call.bind(null, params, 'post', '/public/offers/v1/events'),
         categories: {
-          list: listEventOfferCategories,
+          list: listEventOfferCategories.bind(null, params),
         }
       }),
-      offererVenues: call.bind(null, key, 'get', '/public/offers/v1/offerer_venues'),
+      offererVenues: call.bind(null, params, 'get', '/public/offers/v1/offerer_venues'),
     },
   }
 }

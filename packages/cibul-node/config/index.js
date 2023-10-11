@@ -299,6 +299,10 @@ const config = {
     apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
     contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
   },
+  passCulture: {
+    key: process.env.PASS_CULTURE_KEY,
+    api: process.env.PASS_CULTURE_API,
+  },
   mailgun,
   oembed: {
     res: 'https://iframe.ly/api/oembed',

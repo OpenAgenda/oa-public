@@ -1,26 +1,27 @@
 import 'dotenv/config';
+import verifyAndCreateEventOffer from '../lib/verifyAndCreateEventOffer';
+import PassCultureSDK from '../lib/PassCultureSDK.js';
 
-import createEventOffer from '../lib/createEventOffer';
-import PassCultureSDK from '../lib/PassCultureSDK.mjs';
-
-import fixtures from './fixtures/cart.events.json' assert { type: 'json' };
+import fixtures from './fixtures/cart.events.json';
 
 const pickEvent = slug => fixtures.find(e => slug === e.slug);
 
 const {
   PASS_API_KEY: key,
+  PASS_API_DOMAIN: api,
+  PASS_SIREN: siren,
 } = process.env;
 
 if (!key) {
   throw new Error('PASS_API_KEY env var must be defined');
 }
 
-describe('createEventOffer', () => {
+describe('verifyAndCreateEventOffer', () => {
   let pc;
   let venueId;
 
   beforeAll(async () => {
-    pc = PassCultureSDK(key);
+    pc = PassCultureSDK({ api, key });
 
     venueId = (await pc.offers.offererVenues())[0].venues[0].id;
   });
@@ -30,9 +31,8 @@ describe('createEventOffer', () => {
 
     const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
 
-
-    const result = await createEventOffer(
-      pc,
+    const result = await verifyAndCreateEventOffer(
+      { pc, siren },
       event,
       {
         venueId,

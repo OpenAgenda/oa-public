@@ -4,10 +4,9 @@ const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('services/agendaLocations/beforeMerge');
 const createLocationFeeds = require('../lib/createLocationFeeds');
 
-module.exports = services => async (mergeInLocation, locations, context) => {
+module.exports = (queue, services) => async (mergeInLocation, locations, context) => {
   const {
     core,
-    events: eventSvc,
     activities,
     members,
   } = services;
@@ -21,35 +20,7 @@ module.exports = services => async (mergeInLocation, locations, context) => {
     mergeInLocation.uid,
   );
 
-  for (const locationUid of locations.map(l => l.uid)) {
-    let hasMore = true;
-    let offsetErrored = 0;
-
-    do {
-      const event = await eventSvc.list({
-        locationUid,
-      }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null }).then(events => events.pop());
-
-      if (!event) {
-        hasMore = false;
-        continue;
-      }
-
-      try {
-        log('setting location %s on event %s', mergeInLocation.uid, event.uid);
-        await core.agendas(event.agendaUid).events.patch(event.uid, {
-          location: {
-            uid: mergeInLocation.uid,
-          },
-        }, {
-          access: 'internal',
-        });
-      } catch (e) {
-        offsetErrored += 1;
-        log('error', 'failed to update event %s with location uid %s', event.uid, locationUid, e);
-      }
-    } while (hasMore);
-  }
+  queue('beforeMergeEventUpdate', locations.map(l => l.uid), mergeInLocation.uid);
 
   // Activity
   let agenda;

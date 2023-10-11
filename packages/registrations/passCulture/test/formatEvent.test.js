@@ -1,6 +1,6 @@
-import formatEvent from '../lib/formatEvent.mjs';
+import formatEvent from '../lib/formatEvent.js';
 
-import fixtures from './fixtures/cart.events.json' assert { type: 'json' };
+import fixtures from './fixtures/cart.events.json';
 
 const pickEvent = slug => fixtures.find(e => slug === e.slug);
 const isBase64 = value => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);

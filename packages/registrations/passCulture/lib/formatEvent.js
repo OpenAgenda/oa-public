@@ -2,7 +2,7 @@ import {
   flatten,
   formatText,
   processImage,
-} from './utils.mjs';
+} from './utils.js';
 
 const acc = ({ accessibility: a }) => ({
   audioDisabilityCompliant: a.hi ?? false,

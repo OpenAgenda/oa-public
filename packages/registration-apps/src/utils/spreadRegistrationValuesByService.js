@@ -1,7 +1,7 @@
 import isURL from 'validator/lib/isURL';
 import isEmail from 'validator/lib/isEmail';
 
-const isPhone = v => /^(\\+|)([\\d\\s\\.\\-]|\\([\\d\\s]\\))+$/.test(v);
+const isPhone = v => /^(\+|)([\d\s.-]|\([\d\s]\))+$/.test(v);
 
 const extractType = v => {
   if (isPhone(v)) {

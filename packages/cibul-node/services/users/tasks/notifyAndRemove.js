@@ -2,10 +2,11 @@
 
 const log = require('@openagenda/logs')('services/users/tasks/notifyAndRemove');
 
+const InactiveUsersStateStore = require('./InactiveUsersStateStore');
+
 const storePrefix = 'inactiveUsers:';
 
 const inactiveTime = ((365 * 3) - 30) * 24 * 60 * 60 * 1000;
-const storeExpire = 60 * 60 * 24 * 30 * 2; // 2 months
 const limit = 100;
 const maxHandledUsers = 5000;
 
@@ -119,30 +120,6 @@ async function loadInactiveUsers(services, time, uids = null) {
   return users;
 }
 
-function InactiveUserStateStore(services, prefix, options = {}) {
-  const {
-    redis,
-  } = services;
-
-  const {
-    onStateUpdate = () => {},
-  } = options;
-
-  return {
-    set: (user, state) => {
-      onStateUpdate({ user, state });
-      return redis.set(`${prefix}${user.uid}`, JSON.stringify(state), 'EX', storeExpire);
-    },
-    get: async user => {
-      log(`${prefix}${user.uid}`);
-      return JSON.parse(await redis.get(`${prefix}${user.uid}`) || '{"sent": []}');
-    },
-    del: async user => redis.del(`${prefix}${user.uid}`),
-    list: () => redis.keys(`${prefix}*`)
-      .then(keys => keys.map(k => parseInt(k.substr(prefix.length), 10))),
-  };
-}
-
 function getLastSendFromNow(state) {
   return Math.ceil((new Date().getTime() - new Date(state.sent[state.sent.length - 1].date).getTime()) / (1000 * 60 * 60 * 24));
 }
@@ -170,7 +147,7 @@ module.exports = services => async function notifyAndRemove(options = {}) {
     users: usersSvc,
   } = services;
 
-  const stateStore = InactiveUserStateStore(services, storePrefix, options);
+  const stateStore = InactiveUsersStateStore(services, storePrefix, options);
 
   const storedUserUids = await stateStore.list();
 
@@ -188,6 +165,7 @@ module.exports = services => async function notifyAndRemove(options = {}) {
   for (const user of users) {
     log('processing user %s', user.uid);
     const state = await stateStore.get(user);
+
     counts.processed += 1;
 
     if (!state.sent.length) {
