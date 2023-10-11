@@ -40,6 +40,13 @@ function checkUser(req, res, next) {
   return next();
 }
 
+function renderEmbedInbox(req, res, next) {
+  if (!req.user) return next();
+  cmn.render(req, res, 'event/embedInbox', {
+    metas: {},
+  });
+}
+
 module.exports = (app, config, services) => {
   const {
     sessions,
@@ -159,5 +166,26 @@ module.exports = (app, config, services) => {
         }, next);
     },
     renderSuggestLocationChangeApp({ config, render })
+  );
+
+  app.use(
+    '/:slug/events/:eventSlug/embed-inbox',
+    sessions.mw.loadOrRedirect(),
+    agendas.mw.loadBy({
+      path: 'params.slug',
+      field: 'slug',
+    }),
+    members.mw.load,
+    loadEvent,
+    cmn.loadBaseData(req => ({
+      pageClass: 'wsq inbox',
+      scriptParams: {
+        role: req.member.role,
+        agenda: req.agenda,
+        event: req.event,
+        lang: req.lang,
+      },
+    }), 'oa-main.css'),
+    renderEmbedInbox,
   );
 };
