@@ -1,0 +1,15 @@
+{
+  "css" : {
+    "main": "../../../public/bs-templates/compiled/main.css"
+  },
+
+  "base" : {
+    "metas" : {
+      "title" : "OpenAgenda"
+    },
+    "lang" : "fr",
+    "indexed": false
+  },
+
+  "js" : true
+}

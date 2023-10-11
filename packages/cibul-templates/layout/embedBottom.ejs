@@ -1,0 +1,10 @@
+<% if ( typeof bottom !== 'undefined' ) { %>
+  <% if ( bottom.scripts ) { %>
+    <% bottom.scripts.forEach( function( script ) { %>
+      <script type="text/javascript"><%- script %></script>
+    <% }); %>
+  <% } %>
+<% } %>
+<div id="outdated"></div>
+</body>
+</html>

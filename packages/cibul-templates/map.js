@@ -18,6 +18,7 @@ module.exports = [
   'auth/resetPassword',
   'event/show',
   'event/action',
+  'event/embedInbox',
   'event/embedShow',
   'event/action',
   'dialog/index',
