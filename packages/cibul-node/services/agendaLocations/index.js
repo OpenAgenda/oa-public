@@ -19,6 +19,7 @@ const plugAgendaAdminApp = require('./plugAgendaAdminApp');
 const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
+const beforeMergeEventUpdate = require('./tasks/beforeMergeEventUpdate');
 const detectDuplicateCandidates = require('./tasks/detectDuplicateCandidates');
 // const clearAllDuplicateCandidates = require('./tasks/clearAllDuplicateCandidates');
 
@@ -30,6 +31,7 @@ module.exports.init = async (config, services) => {
 
   queue.register({
     syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services),
+    beforeMergeEventUpdate: beforeMergeEventUpdate(services),
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
@@ -39,7 +41,7 @@ module.exports.init = async (config, services) => {
     redis: services.redis,
     imagePath: config.aws.imageBucketPath,
     interfaces: {
-      beforeMerge: beforeMerge(services),
+      beforeMerge: beforeMerge(queue, services),
       beforeRemove: beforeRemove(services),
       onLocationCreate: onLocationCreate(services),
       onUpdate: onUpdate(queue, services),
