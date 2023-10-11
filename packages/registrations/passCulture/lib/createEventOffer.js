@@ -1,4 +1,4 @@
-import formatEvent from './formatEvent.mjs';
+import formatEvent from './formatEvent.js';
 
 const omit = (obj, fields = []) => Object.keys(obj).reduce(
   (filtered, key) => fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] }),

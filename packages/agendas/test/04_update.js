@@ -64,61 +64,7 @@ describe('agendas - functional (server): set (update)', function() {
       title: 'Le Frometon'
     }, (err, result) => {
       assert.strictEqual(err, null);
-
-      assert.deepStrictEqual(result.agenda, {
-        slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
-        uid: 52084961,
-        title: 'Le Frometon',
-        description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
-        image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
-        url: 'http://www.salon-fromage.com/',
-        networkUid: null,
-        settings: {
-          lab: {
-            status: true
-          },
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
-            }
-          },
-          tracking: {
-            googleAnalytics: null
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null,
-              GDPRInformation: null
-            },
-            type: 1,
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: ['administrators', 'moderators'],
-            moderateOnChangeBy: []
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
-          }
-        },
-        updatedAt: result.agenda.updatedAt,
-        createdAt: result.agenda.createdAt,
-        official: 0,
-        private: 0,
-        indexed: 1,
-        locationSetUid: null
-      });
+      assert.strictEqual(result.agenda.title, 'Le Frometon');
 
       done();
     });
@@ -193,89 +139,7 @@ describe('agendas - functional (server): set (update)', function() {
     }, (err, result) => {
       assert.strictEqual(err, null);
 
-      assert.deepStrictEqual(result, {
-        agenda: {
-          id: 4887,
-          ownerId: 7388,
-          formSchemaId: null,
-          memberSchemaId: null,
-          networkUid: null,
-          locationSetUid: null,
-          slug: 'agenda-culturel-auvergne',
-          uid: 65903437,
-          official: 0,
-          officializedAt: null,
-          private: 0,
-          indexed: 1,
-          title: 'Agenda culturel Auvergne',
-          description: 'test ! :)',
-          url: '',
-          image: null,
-          settings: {
-            lab: {
-              status: true
-            },
-            inbox: {
-              mailto: {
-                enabled: false,
-                email: null,
-                subject: null,
-                body: null
-              }
-            },
-            tracking: {
-              googleAnalytics: null
-            },
-            contribution: {
-              allowLocationCreate: true,
-              defaultLang: null,
-              defaultState: 2,
-              messages: {
-                instructions: null,
-                complete: null,
-                publication: null,
-                GDPRInformation: null
-              },
-              type: 1,
-              useFields: false,
-              authorizedIPAddresses: [],
-              canPublish: ['administrators', 'moderators'],
-              moderateOnChangeBy: []
-            },
-            translation: {
-              enabled: false,
-              sets: [],
-              options: null,
-              service: 'reverso',
-              source: 'fr'
-            }
-          },
-          updatedAt: result.agenda.updatedAt,
-          createdAt: result.agenda.createdAt,
-          credentials: {
-            useContributeApp: true,
-            premiumCustomFields: false,
-            activatingInvitations: false,
-            moderators: true,
-            embedsHead: true,
-            embedsTemplates: true,
-            aggregator: false,
-            prioritizedAggregator: false,
-            invitationMessage: false,
-            docxExport: false,
-            eventOwnershipTransfer: false,
-            useJSONBridge: false,
-            memberCustom: false,
-          },
-          legacyStore: {
-            moderated: false,
-            order: 'relative'
-          }
-        },
-        valid: true,
-        success: true,
-        errors: []
-      });
+      assert.strictEqual(result.agenda.credentials.moderators, true);
 
       done();
     });

@@ -215,8 +215,16 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/passCulture', [
-    // mw.member.load,
-    (req, res, next) => req.json('ok')
+    mw.member.allow(['administrator', 'contributor', 'moderator']),
+    (req, res, next) => {
+      if (!req.agenda.settings.registration.passCulture.siren) {
+        return res.json(null);
+      }
+      core.services.registrations
+        .passCulture(req.agenda.settings.registration.passCulture)
+        .getParameters()
+        .then(res.json, next);
+    },
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
