@@ -249,7 +249,8 @@ export default function Sidebar({ agenda, event }) {
                 justifySelf="end"
               />
               <Link isExternal href={getRegistrationLink(registrationItem)} colorScheme="primary">
-                {registrationItem.type === 'link' ? 'S\'inscrire / réserver' : registrationItem.value}
+                {registrationItem.type === 'link' ? 'S\'inscrire / réserver :' : ''}
+                {registrationItem.value}
               </Link>
             </Fragment>
           ))}

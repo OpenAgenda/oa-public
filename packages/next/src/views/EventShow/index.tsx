@@ -27,6 +27,7 @@ import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
 import Activities from './components/Activities';
+import Inbox from './components/Inbox';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import * as additionalFieldsUtils from './utils/additionalFields';
@@ -481,6 +482,11 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
           ) : null}
 
           <Activities
+            agenda={agenda}
+            event={event}
+          />
+
+          <Inbox
             agenda={agenda}
             event={event}
           />

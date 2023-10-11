@@ -4,7 +4,7 @@ import { FormattedDate } from 'react-intl';
 import { chakra, Heading, Link, Flex, Button } from '@openagenda/uikit';
 import ActivityItem from '@openagenda/activity-apps/src/client/components/ActivityItem';
 import isNextUrl from 'utils/isNextUrl';
-import NextChakraLink from '../../../../components/NextChakraLink';
+import NextChakraLink from 'components/NextChakraLink';
 
 const PAGE_SIZE = 20;
 
@@ -76,19 +76,6 @@ export default function Activities({ agenda, event }) {
     e.preventDefault();
     setSize(s => s + 1);
   }, [setSize]);
-
-  console.log({
-    pages,
-    error,
-    size,
-    setSize,
-  });
-  console.log({
-    isLoadingInitialData,
-    isLoadingMore,
-    isEmpty,
-    isReachingEnd,
-  });
 
   if (isLoadingInitialData || isEmpty) {
     return null;
