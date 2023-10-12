@@ -72,7 +72,10 @@ async function addMemberRoleChange({
     entityUid: agenda.uid
   }, { credential: member.role });
 
-  await activities.addActivity(agendaFeed, {
+  await activities.addActivity({
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  }, {
     actor: `user:${senderUser.uid}`,
     verb: 'agenda.setMemberRole',
     object: `user:${user.uid}`,
