@@ -26,7 +26,7 @@ Sur https://app.jpe.infomaniak.com/
 
 Lancer la création d'un nouvel environnement. Avec:
 
- * Un équilibrage nginx 1.18.0: laisser la configuration proposée (1 à 4 cloudlets en scalabilité horizontale). Désactiver le SLB.
+ * Un équilibrage nginx 1.18.0: laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale). Désactiver le SLB.
  * Des serveurs d'applications à partir de l'image docker `openagenda/jelastic-elasticsearch`: on utilise une scalabilité horizontale. Il n'est pas utile de définir une fourchette pour un même noeud. On peut partir sur une configuration non ajustable avec 4 gigas de ram. (32 cloudlets au moment de l'écriture de ce guide). Désactiver le SLB.
 
 L'option ssl qui chapotte l'environnement doit rester désactivée.
