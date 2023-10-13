@@ -10,13 +10,21 @@ const validates = {
   email: emailValidator(),
 };
 
-const extractType = value => {
+const extractType = (value, options = {}) => {
+  const {
+    throwOnError = true,
+  } = options;
   for (const type of ['phone', 'email', 'link']) {
     try {
       validates[type](value);
       return type;
     } catch (e) { /* not of type */ }
   }
+
+  if (!throwOnError) {
+    return null;
+  }
+
   throw new Error('unknown registration type');
 };
 
@@ -26,7 +34,7 @@ function toListOfObjects(v) {
     .map(item => (
       typeof item === 'string' ? {
         value: item,
-        type: extractType(item),
+        type: extractType(item, { throwOnError: false }),
       } : item
     ));
 }
