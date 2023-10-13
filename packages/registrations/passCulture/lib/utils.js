@@ -1,9 +1,16 @@
 import axios from 'axios';
-import { remark } from 'remark'
-import strip from 'strip-markdown'
+import { remark } from 'remark';
+import strip from 'strip-markdown';
 import gm from 'gm';
 
 const imagick = gm.subClass({ imageMagick: true });
+
+export function omit(obj, fields = []) {
+  return Object.keys(obj).reduce(
+    (filtered, key) => fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] }),
+    {}
+  );
+}
 
 export function flatten(label, requestedLang, options = {}) {
   const {
