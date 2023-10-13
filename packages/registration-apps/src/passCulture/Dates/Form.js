@@ -1,9 +1,3 @@
-/* {
-  timingId: 1699801200000,
-  priceCategoryIndex: 0,
-  quantity: 3,
-} */
-
 import { useContext } from 'react';
 
 import ComponentsContext from '../../components/Context';

@@ -4,7 +4,6 @@ import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
 import Dates from './Dates';
 import {
-  loadData,
   addPriceCategory,
   removePriceCategory,
   changePriceCategory,
@@ -31,10 +30,12 @@ export default function Form({
   } = useContext(ComponentsContext);
 
   useEffect(() => {
-    loadData(settings).then(data => {
-      setPassData(data);
-      setIsLoadingPassData(false);
-    });
+    fetch(settings.res.settings)
+      .then(r => r.json())
+      .then(data => {
+        setPassData(data);
+        setIsLoadingPassData(false);
+      });
   }, []);
 
   if (isLoadingPassData) {
@@ -46,6 +47,7 @@ export default function Form({
   const {
     categories,
     related,
+    offererVenues,
   } = passData;
 
   const relatedCategory = (
@@ -55,6 +57,19 @@ export default function Form({
 
   return (
     <form>
+      <Select
+        label="Lieu"
+        value={value?.venueId}
+        placeholder="Sélectionner un lieu"
+        options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
+          value: v.id,
+          label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+        }))}
+        onChange={option => setValue({
+          ...value,
+          venueId: option.value,
+        })}
+      />
       <Select
         label="Catégorie"
         value={value?.category}

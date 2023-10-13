@@ -4,7 +4,7 @@ import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
 
 import PassForm from '../src/passCulture/Form';
 
-import passCategories from './fixtures/passCategories.json';
+import passSettings from './fixtures/passSettings.json';
 
 import event from './fixtures/event.json';
 
@@ -19,8 +19,8 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/categories', (req, res, ctx) => res(
-          ctx.json(passCategories),
+        rest.get('/settings', (req, res, ctx) => res(
+          ctx.json(passSettings),
         )),
       ],
     },
@@ -32,7 +32,7 @@ export const Empty = () => (
     timings={event.timings}
     settings={{
       res: {
-        categories: '/categories',
+        settings: '/settings',
       },
     }}
     onSubmit={() => {}}
@@ -42,6 +42,9 @@ export const Empty = () => (
 export const WithData = () => (
   <PassForm
     value={{
+      venueId: 548,
+      category: 'CONCERT',
+      subCategory: 'ROCK-LO_FI',
       priceCategories: [{
         label: 'Tarif normal',
         price: '20',
@@ -58,7 +61,7 @@ export const WithData = () => (
     timings={event.timings}
     settings={{
       res: {
-        categories: '/categories',
+        settings: '/settings',
       },
     }}
     onSubmit={() => {}}
