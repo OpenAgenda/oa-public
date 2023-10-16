@@ -105,6 +105,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.wentWell',
     defaultMessage: ' was succesfull',
   },
+  onGoing: {
+    id: 'AgendaLocations.AgendaAdminLocation.onGoing',
+    defaultMessage: '  is ongoing, this might take a few minutes.',
+  },
   createAction: {
     id: 'AgendaLocations.AgendaAdminLocation.createAction',
     defaultMessage: ' Location creation',
@@ -529,7 +533,7 @@ function Dashboard() {
           onClose={() => dispatch(onGoingActions.close())}
         >
           <div className="text-center">
-            <p>{`${intl.formatMessage(messages[`${onGoing.name}Action`])} ${intl.formatMessage(messages.wentWell)}`}</p>
+            <p>{`${intl.formatMessage(messages[`${onGoing.name}Action`])} ${onGoing.name !== 'merge' ? intl.formatMessage(messages.wentWell) : intl.formatMessage(messages.onGoing)}`}</p>
             <button className="btn btn-primary" type="button" onClick={() => dispatch(onGoingActions.close())}>Ok</button>
           </div>
         </Modal>

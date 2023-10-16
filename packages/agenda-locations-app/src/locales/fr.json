@@ -21,6 +21,7 @@
   "AgendaLocations.AgendaAdminLocation.mergeAction": "La fusion de lieux",
   "AgendaLocations.AgendaAdminLocation.mergeDescription": "Fusion de lieux",
   "AgendaLocations.AgendaAdminLocation.mergeInProgress": "La fusion est en cours",
+  "AgendaLocations.AgendaAdminLocation.onGoing": "est en cours, cela pourrait prendre quelques minutes.",
   "AgendaLocations.AgendaAdminLocation.postalCode": "Code postal",
   "AgendaLocations.AgendaAdminLocation.search": "Filtrer la liste",
   "AgendaLocations.AgendaAdminLocation.somethingWentWrong": "Une erreur est survenue, veuillez contacter le support si cela se reproduit",

@@ -21,6 +21,7 @@
   "AgendaLocations.AgendaAdminLocation.mergeAction": "Locations merge",
   "AgendaLocations.AgendaAdminLocation.mergeDescription": "Locations merge",
   "AgendaLocations.AgendaAdminLocation.mergeInProgress": "Merge is in progress",
+  "AgendaLocations.AgendaAdminLocation.onGoing": "is ongoing, this might take a few minutes.",
   "AgendaLocations.AgendaAdminLocation.postalCode": "postalCode",
   "AgendaLocations.AgendaAdminLocation.search": "Filter list",
   "AgendaLocations.AgendaAdminLocation.somethingWentWrong": "An error has occurred, please contact support if it happens again",
