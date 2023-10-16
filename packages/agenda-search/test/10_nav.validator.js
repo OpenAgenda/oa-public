@@ -68,6 +68,16 @@ describe('10 - validators - nav', () => {
     }).sort, 'createdAt.desc');
   });
 
+  it('BadRequest is thrown when nav from exeed max', () => {
+    try {
+      navValidator({ from: 10001 })
+    } catch (error) {
+      assert.equal(error.name, 'BadRequest');
+      return;
+    }
+    throw new Error('should not reach here');
+  });
+
   it('BadRequest is thrown when nav contains invalid values', () => {
     try {
       navValidator({
