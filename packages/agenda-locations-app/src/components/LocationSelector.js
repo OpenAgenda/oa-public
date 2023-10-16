@@ -60,6 +60,7 @@ const LocationSelector = ({
   tiles,
   staticMapTiles,
   enableDetails = true,
+  placeholder = null,
 }) => {
   const [errors, setErrors] = useState(false);
   const [seeDetails, setSeeDetails] = useState(false);
@@ -179,6 +180,7 @@ const LocationSelector = ({
       allowCreate={allowCreate}
       onCreateRequest={onCreateRequest}
       onSelect={e => onSelect(e)}
+      placeholder={placeholder}
     />
   );
 
