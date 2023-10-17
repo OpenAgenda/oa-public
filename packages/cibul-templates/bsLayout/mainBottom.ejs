@@ -1,6 +1,6 @@
 <%
 const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
-%><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"<%- nonceAttr %>></script>
+%><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"<%- nonceAttr %>></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"<%- nonceAttr %>></script>
 <% if ( typeof bottom !== 'undefined' ) { %>
 <% if ( typeof bottom.scriptSources !== 'undefined' ) { %>
