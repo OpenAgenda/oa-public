@@ -19,7 +19,7 @@ const plugAgendaAdminApp = require('./plugAgendaAdminApp');
 const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
-const beforeMergeEventUpdate = require('./tasks/beforeMergeEventUpdate');
+const updateEventLocationReferences = require('./tasks/updateEventLocationReferences');
 const detectDuplicateCandidates = require('./tasks/detectDuplicateCandidates');
 // const clearAllDuplicateCandidates = require('./tasks/clearAllDuplicateCandidates');
 
@@ -31,7 +31,7 @@ module.exports.init = async (config, services) => {
 
   queue.register({
     syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services),
-    beforeMergeEventUpdate: beforeMergeEventUpdate(services),
+    updateEventLocationReferences: updateEventLocationReferences(services),
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));

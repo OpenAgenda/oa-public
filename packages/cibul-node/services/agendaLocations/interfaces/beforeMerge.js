@@ -20,7 +20,7 @@ module.exports = (queue, services) => async (mergeInLocation, locations, context
     mergeInLocation.uid,
   );
 
-  queue('beforeMergeEventUpdate', locations.map(l => l.uid), mergeInLocation.uid);
+  queue('updateEventLocationReferences', locations.map(l => l.uid), mergeInLocation.uid);
 
   // Activity
   let agenda;
