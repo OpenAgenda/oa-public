@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useLatest, usePrevious } from 'react-use';
 import qs from 'qs';
 import { Box, Container, useConst } from '@openagenda/uikit';
-import { FiltersProvider, useFilters } from '@openagenda/react-filters';
+import { FiltersProvider, getAdditionalFilters, useFilters } from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -146,9 +146,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda.settings?.tracking]);
 
   const filtersToInclude = useMemo(() => {
-    const additionalFilters = agenda.schema.fields
-      .filter(fieldSchema => fieldSchema.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
-      .map(fieldSchema => fieldSchema.field);
+    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
+      .map(({ fieldSchema }) => fieldSchema.field);
 
     return ['geo', 'timings', ...additionalFilters];
   }, [agenda.schema.fields]);

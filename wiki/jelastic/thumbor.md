@@ -10,9 +10,10 @@ Sur https://app.jpe.infomaniak.com/
 
 Lancer la création d'un nouvel environnement. Avec:
 
- * Un VPS Ubuntu 22.04: laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
-   Désactiver le SLB.
-   Une IPv4
+ * *Equilibrage*: Nginx; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
+ * *App Serveurs*: VPS Ubuntu 22.04; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
+
+Activer le SSL intégré.
 
 ## Installation de Thumbor
 
@@ -20,11 +21,7 @@ En ssh, exécuter les commandes suivantes pour installer les paquets nécessaire
 
 ```bash
 apt update
-apt install -y python3-venv python3-pip
-apt install -y libcurl4-openssl-dev libssl-dev
-apt install -y python3-opencv libopencv-dev
-apt install -y libjpeg-dev libpng-dev libwebp-dev webp
-apt install -y supervisor
+apt install -y python3-venv python3-pip libcurl4-openssl-dev libssl-dev python3-opencv libopencv-dev libjpeg-dev libpng-dev libwebp-dev webp supervisor
 ```
 
 Activer supervisor:
@@ -37,8 +34,7 @@ systemctl enable supervisor
 Installer Thumbor:
 
 ```bash
-pip install pycurl
-pip install thumbor
+pip install pycurl thumbor
 ```
 
 Générer la configuration de Thumbor:
@@ -78,7 +74,7 @@ Créer le fichier de configuration de supervisor pour Thumbor (`/etc/supervisor/
 
 ```
 [program:thumbor]
-command=thumbor --conf=/etc/thumbor.conf
+command=thumbor -p 80 --conf=/etc/thumbor.conf
 process_name=thumbor
 numprocs=1
 user=root

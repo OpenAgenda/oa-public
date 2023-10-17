@@ -21,6 +21,15 @@ describe('opencage', () => {
         first: true
       });
       expect(res.adminLevel3).toBe('Tours Métropole Val de Loire');
+    }); 
+
+    it('Lathus', async () => {
+      const res = await geocode('Lathus', {
+        countryCode: 'FR',
+        first: true
+      });
+      console.log(res);
+      expect(res.adminLevel4).toBe('Lathus-Saint-Rémy');
     });
 
     it('Timezone is provided', async () => {

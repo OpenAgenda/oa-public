@@ -1,8 +1,8 @@
 'use strict';
 
-const log = require('@openagenda/logs')('services/agendaLocations/tasks/beforeMergeEventUpdate');
+const log = require('@openagenda/logs')('services/agendaLocations/tasks/updateEventLocationReferences');
 
-module.exports = services => async function beforeMergeEventUpdate(locationsUids, mergedInLocationUid) {
+module.exports = services => async function updateEventLocationReferences(locationsUids, mergedInLocationUid) {
   const {
     core,
     events: eventsSvc,

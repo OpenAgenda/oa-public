@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { SWRConfig } from 'swr';
 import qs from 'qs';
 import { createIntlCache, createIntl } from 'react-intl';
-import { getFilters, filtersToAggregations } from '@openagenda/react-filters';
+import { getFilters, filtersToAggregations, getAdditionalFilters } from '@openagenda/react-filters';
 import { getSupportedLocale } from '@openagenda/intl';
 import VError from '@openagenda/verror';
 import { NextPageWithLayout } from 'pages/_app';
@@ -13,7 +13,6 @@ import AgendaError, { AgendaErrorProps } from 'views/AgendaError';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
-import { isChoiceField, isAdditionalField } from 'utils/schemaFields';
 import getSession from 'utils/getSession';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
@@ -70,9 +69,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       },
     }, intlCache);
 
-    const additionalFilters = agenda.schema.fields
-      .filter(fieldSchema => isAdditionalField(fieldSchema) && isChoiceField(fieldSchema))
-      .map(fieldSchema => fieldSchema.field);
+    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
+      .map(({ fieldSchema }) => fieldSchema.field);
 
     const filtersToInclude = ['geo', 'timings', ...additionalFilters];
 
@@ -87,14 +85,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     } : null;
 
     const paramsBase = {
-      aggsSizeLimit: 2000,
+      aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, true),
       size: 0,
       ...prefilter,
     };
 
     const params = {
-      aggsSizeLimit: 2000,
+      aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       size: 10,

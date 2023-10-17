@@ -25,8 +25,8 @@ const defaultDirectives = {
   mediaSrc: ["'self'", 'https:', 'data:'],
   frameSrc: ["'self'"],
   scriptSrc: [
-    "'self'",
-    // "'unsafe-inline'",
+    'https:', // backward compatibility
+    "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     (req, res) => `'nonce-${res.locals.cspNonce}'`,
     // 'https://code.jquery.com',
