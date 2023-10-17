@@ -81,7 +81,8 @@ const LocationSearch = ({
   init = null,
   allowCreate,
   onCreateRequest,
-  onSelect
+  onSelect,
+  placeholder,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState(init));
   const intl = useIntl();
@@ -188,7 +189,7 @@ const LocationSearch = ({
     >
       <SearchInput
         initValue={init}
-        placeholder={intl.formatMessage(messages.namePlaceholder)}
+        placeholder={placeholder || intl.formatMessage(messages.namePlaceholder)}
         onChange={v => dispatch({ type: 'setQuery', query: { search: v } })}
         onFocus={onFocus}
       />

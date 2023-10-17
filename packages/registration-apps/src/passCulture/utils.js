@@ -12,16 +12,6 @@ export function isConfigured(data) {
   return !!Object.keys(omit(data, ['checked'])).length;
 }
 
-export function loadData({ res }) {
-  return fetch(res.categories).then(r => {
-    if (r.ok) {
-      return r.json();
-    }
-
-    throw new Error('Failed to fetch pass categories');
-  });
-}
-
 export function isPriceCategoryValid(value = {}) {
   const {
     price,

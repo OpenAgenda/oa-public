@@ -55,5 +55,4 @@ describe('integrated', () => {
       expect(Object.keys(pcParams)).toEqual(['categories', 'related', 'offererVenues']);
     });
   });
-
 });

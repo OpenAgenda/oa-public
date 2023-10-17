@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { useState } from 'react';
 
 import Registration from '../src/bootstrap';
-import passCategories from './fixtures/passCategories.json';
+import passSettings from './fixtures/passSettings.json';
 
 import event from './fixtures/event.json';
 
@@ -14,8 +14,8 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/categories', (req, res, ctx) => res(
-          ctx.json(passCategories),
+        rest.get('/settings', (req, res, ctx) => res(
+          ctx.json(passSettings),
         )),
       ],
     },
@@ -37,7 +37,7 @@ export function EmptyAtLoad() {
           settings: {
             passCulture: {
               res: {
-                categories: '/categories',
+                settings: '/settings',
               },
             },
           },

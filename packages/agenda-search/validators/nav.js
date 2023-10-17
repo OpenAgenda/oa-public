@@ -45,13 +45,23 @@ const schema = schemas({
   }
 });
 
-module.exports = navQuery => {
+module.exports =(navQuery, options= {}) => {
   let clean;
+
+  const {
+    maxResultWindow = 10000,
+  } = options;
 
   try {
     clean = schema(navQuery);
   } catch(errors) {
     throw new BadRequest({ info: { errors } }, 'invalid navigation parameters');
+  }
+
+  if ((clean.from ?? 0) + (clean.size ?? 20) > maxResultWindow) {
+    const fromKey = Object.keys(navQuery).includes('offset') ? 'offset' : 'from';
+    const toKey = Object.keys(navQuery).includes('limit') ? 'limit' : 'size';
+    throw new BadRequest(`${fromKey} + ${toKey} cannot exceed ${maxResultWindow}. Use "after" navigation for better performance.`);
   }
 
   if (clean.page !== null) {

@@ -93,6 +93,7 @@ class LocationComponent extends Component {
       lang,
       value,
       relatedValues,
+      field,
     } = this.props;
 
     const allowRemove = relatedValues?.optional?.attendanceMode === 2;
@@ -125,6 +126,7 @@ class LocationComponent extends Component {
           settings={this.getSettings()}
           res={this.state.res}
           onChange={this.onChange.bind(this)}
+          placeholder={field.placeholder}
         />
       </Provider>
     );

@@ -1,9 +1,8 @@
+import logs from '@openagenda/logs';
 import formatEvent from './formatEvent.js';
+import { omit } from './utils.js';
 
-const omit = (obj, fields = []) => Object.keys(obj).reduce(
-  (filtered, key) => fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] }),
-  {}
-);
+const log = logs('createEventOffer');
 
 export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
   const {
@@ -20,12 +19,16 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
   const eventOffer = await formatEvent(OAEvent, { venueId, category }, { lang });
 
   const createdEventOffer = await pc.offers.events.create(eventOffer);
+  
+  log('created event offer %s', createdEventOffer.id);
 
   const {
     priceCategories: createdPriceCategories,
   } = await pc.offers.events(createdEventOffer.id).priceCategories.create({
     priceCategories
   });
+
+  log('created %s price categories', createdPriceCategories.length);
 
   const { dates: createdDates } = await pc.offers.events(createdEventOffer.id).dates.create({
     dates: dates.map(d => {
@@ -39,6 +42,8 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
       }, ['timingId', 'priceCategoryIndex'])
     })
   });
+
+  log('created %s dates', createdDates.length);
 
   return {
     eventOffer: createdEventOffer,

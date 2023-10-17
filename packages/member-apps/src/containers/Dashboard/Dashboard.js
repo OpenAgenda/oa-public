@@ -17,6 +17,7 @@ import {
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal';
 
+import RequestFeatureLink from '../../components/RequestFeatureLink';
 import MemberItem from '../../components/MemberItem';
 import MemberForm from '../../components/Form';
 import InviteMembersForm from '../../components/InviteMembersForm';
@@ -44,6 +45,16 @@ const messages = defineMessages({
     id: 'MemberApps.Dashboard.sendMessageToUnfilteredMembers',
     defaultMessage:
       'The message will be sent to {total, plural, =1 {the only member} other {all # members}} of the agenda',
+  },
+  writeToMembersActivation: {
+    id: 'MemberApps.Dashboard.writeToMembersActivation',
+    defaultMessage:
+      "This feature is activated upon request. It allows an administrator to send a  grouped message to a selection of members. Write us a short message and we'll process your request promptly.",
+  },
+  nameModeratorsActivation: {
+    id: 'MemberApps.Dashboard.nameModeratorsActivation',
+    defaultMessage:
+      "This feature is activated upon request. It allows you to name a member as moderator. Write us a short message and we'll process your request promptly.",
   },
 });
 
@@ -394,16 +405,15 @@ class Dashboard extends Component {
               >
                 <ul className="list-unstyled margin-v-z">
                   <li key="moderators-feature">
-                    <a
-                      className="btn btn-link padding-v-xs btn-block"
-                      href={`/support?origin=${encodeURIComponent(
-                        window.location.pathname,
-                      )}&subject=moderators`}
-                    >
-                      <i className="golden-icon" />
-                      &nbsp;
-                      {getLabel('nameModerators')}
-                    </a>
+                    <RequestFeatureLink
+                      subject="moderators"
+                      linkLabel={getLabel('nameModerators')}
+                      btnClassName="btn btn-link padding-v-xs btn-block"
+                      message={intl.formatMessage(
+                        messages.nameModeratorsActivation,
+                      )}
+                      helpLink="https://doc.openagenda.com/les-differents-roles-des-membres-sur-un-openagenda-collaboratif/"
+                    />
                   </li>
                 </ul>
               </Dropdown>
@@ -542,17 +552,13 @@ class Dashboard extends Component {
             </>
           ) : null}
           {total > 0 && !agenda.credentials.invitationMessage ? (
-            <a
-              className="btn btn-default btn-medium margin-left-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`/support?origin=${encodeURIComponent(
-                window.location.pathname,
-              )}&subject=writeToAll`}
-            >
-              <i className="golden-icon" />{' '}
-              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-            </a>
+            <RequestFeatureLink
+              subject="writeToAll"
+              linkLabel={getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+              btnClassName="btn btn-default btn-medium margin-left-sm"
+              message={intl.formatMessage(messages.writeToMembersActivation)}
+              helpLink="https://doc.openagenda.com/la-messagerie/"
+            />
           ) : null}
         </div>
 

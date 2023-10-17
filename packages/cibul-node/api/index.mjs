@@ -223,7 +223,7 @@ export default (core, { useRouter = true } = {}) => {
       core.services.registrations
         .passCulture(req.agenda.settings.registration.passCulture)
         .getParameters()
-        .then(res.json, next);
+        .then(data => res.json(data), next);
     },
   ]);
 
