@@ -38,7 +38,11 @@
         line-height: 20px;
         margin: 0;
         font-weight: 600;
+        i {
+          vertical-align: middle;
+        }
       }
+
 
       > .close-link {
         background: none;
