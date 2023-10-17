@@ -20,10 +20,11 @@ const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   'img-src': ["'self'", 'https:', 'data:', 'blob:'],
   'object-src': ["'none'"],
   'script-src': [
+    'https:', // backward compatibility
+    "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     ({ nonce = '' }) => `'nonce-${nonce}'`,
     ...process.env.NODE_ENV === 'development' ? ["'unsafe-eval'"] : [],
-    ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
   ],
   'script-src-attr': ["'none'"],
   'style-src': [
