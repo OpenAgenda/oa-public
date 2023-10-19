@@ -36,7 +36,22 @@ const attendanceModeField = {
   ],
 };
 
-const pickFieldInFields = (fields, field) => fields.filter(f => f.field === field).pop();
+const findDisplayedValue = (field, rule, filterFieldName, intl) => {
+  if (field.fieldType !== 'boolean') {
+    return field.options
+      .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
+      .map(o => getLocaleValue(o.label, intl.locale))
+      .join(', ');
+  }
+  return [].concat(
+    rule.query[filterFieldName]
+      .map(v => getLocaleValue(formLabels[`${v}Boolean`], intl.locale))
+      .join(', '),
+  );
+};
+
+const pickFieldInFields = (fields, field) =>
+  fields.filter(f => f.field === field).pop();
 
 function getFilterType(rule) {
   if (!hasFilter(rule)) return null;
@@ -58,9 +73,7 @@ function getTextFilterField(rule) {
   return Object.keys(rule.query.text)[0];
 }
 
-const choiceFilter = ({
-  intl, rule, sourceAgendaSchema, sourceAgenda
-}) => {
+const choiceFilter = ({ intl, rule, sourceAgendaSchema, sourceAgenda }) => {
   const filterFieldName = getFilterField(rule);
   const allFields = sourceAgendaSchema.fields.concat(attendanceModeField);
   const field = pickFieldInFields(allFields, filterFieldName);
@@ -74,10 +87,7 @@ const choiceFilter = ({
   }
   return {
     label: getLocaleValue(field.label, intl.locale),
-    value: field.options
-      .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
-      .map(o => getLocaleValue(o.label, intl.locale))
-      .join(', '),
+    value: findDisplayedValue(field, rule, filterFieldName, intl),
     detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
       agendaTitle: sourceAgenda.title,
     }),
@@ -119,19 +129,17 @@ const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
       value: rule.query.text[textField],
     });
   if (rule.query.text.wholeValue && !rule.query.text[textField]) {
-    value = intl.formatMessage(messages.textFilterNotDefined)
+    value = intl.formatMessage(messages.textFilterNotDefined);
   }
 
   return {
     label,
     value,
-    casse: rule.query.text?.caseSensitive, 
+    casse: rule.query.text?.caseSensitive,
   };
 };
 
-export default ({
-  intl, sourceAgenda, sourceAgendaSchema, rule
-}) => {
+export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
   const type = getFilterType(rule);
   switch (type) {
     case 'location':
