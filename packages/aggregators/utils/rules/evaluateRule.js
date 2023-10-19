@@ -39,8 +39,10 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   for (const ruleField of otherRuleFields) {
     const values = [].concat(data[ruleField]) || [];
     const query = [].concat(rule.query[ruleField]);
-
-    if (!values.filter(v => query.includes(v)).length) {
+    if (!values.filter(v => {
+      if (v === undefined) return query.includes(null);
+      return query.includes(v);
+    }).length) {
       log(
         'rule %s does not match and is %srequired',
         ruleField,
