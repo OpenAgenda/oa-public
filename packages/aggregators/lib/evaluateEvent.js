@@ -135,8 +135,8 @@ const processEvaluate = async (
     log('source paths are empty. Removing reference');
     enqueueRemove({
       sourceAgendaUid: sourceAgenda.uid,
-      eventUid: event.uid,
-      aggregatorAgendaUid,
+      event,
+      aggregatorsBuffer: [{ aggregatorAgendaUid }],
       reference,
       batched,
     });
