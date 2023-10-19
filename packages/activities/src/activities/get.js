@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
+const log = require( '@openagenda/logs' )( 'activities/get' );
 const applyMask = require('./utils/applyMask');
 
 schema.register({
@@ -85,6 +86,7 @@ module.exports = async function get(config, feedIdentifiers, activityId) {
   const activity = await request;
 
   if (!activity) {
+    log.error('Cannot get activity', { where, request: request.toSQL().toNative() });
     throw new Error('Activity doesn\'t exists');
   }
 

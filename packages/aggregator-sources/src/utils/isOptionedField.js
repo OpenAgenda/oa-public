@@ -1,7 +1,8 @@
 function isOptionedField(field) {
   return (
-    ['radio', 'checkbox', 'select', 'multiselect'].includes(field?.fieldType)
-    && field.options?.length
+    ['radio', 'checkbox', 'select', 'multiselect', 'boolean'].includes(
+      field?.fieldType,
+    ) && (field.fieldType !== 'boolean' ? field.options?.length : true)
   );
 }
 

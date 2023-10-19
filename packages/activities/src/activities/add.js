@@ -163,6 +163,8 @@ async function add(config) {
 
   const [activityId] = await knex(config.schemas.activity).insert(fields);
 
+  log.info('Activity inserted:', activityId)
+
   const activity = await service.activities.get(activityId);
 
   const feedContainsActivity = [];

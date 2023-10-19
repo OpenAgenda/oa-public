@@ -323,8 +323,8 @@ describe('05_02 - utils - rules', () => {
           ],
           null,
           null,
-          {}
-        )
+          {},
+        ),
       ).toEqual({
         thematiques: [12, 13, 14],
       });
@@ -353,8 +353,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             thematiques: 11,
-          }
-        )
+          },
+        ),
       ).toEqual({
         thematiques: [13, 14],
       });
@@ -383,8 +383,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             thematiques: 11,
-          }
-        )
+          },
+        ),
       ).toEqual({
         thematiques: [12, 13, 14],
       });
@@ -415,8 +415,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             thematiques: 11,
-          }
-        )
+          },
+        ),
       ).toEqual({
         thematiques: [12, 13, 14],
       });
@@ -465,7 +465,7 @@ describe('05_02 - utils - rules', () => {
           title: 'Mon event',
           category: 12,
           type: 1,
-        }
+        },
       );
 
       expect(result).toEqual({
@@ -490,7 +490,7 @@ describe('05_02 - utils - rules', () => {
         {
           title: 'Mon event',
           type: 3, // this option in agg has a label which matches one in some other field in source
-        }
+        },
       );
 
       expect(result).toEqual({
@@ -565,7 +565,7 @@ describe('05_02 - utils - rules', () => {
           },
         ],
         sourceAgendaSchema,
-        null
+        null,
       );
 
       test('tag evaluate passes if data has tag specified in query', () => {
@@ -573,7 +573,7 @@ describe('05_02 - utils - rules', () => {
           evaluate({
             title: 'A thing',
             tags: [1, 2],
-          })
+          }),
         ).toEqual({});
       });
 
@@ -582,7 +582,7 @@ describe('05_02 - utils - rules', () => {
           evaluate({
             title: 'A thing',
             tags: [3],
-          })
+          }),
         ).toBe(null);
       });
 
@@ -600,8 +600,8 @@ describe('05_02 - utils - rules', () => {
             {
               title: 'Another thing',
               tags: [3],
-            }
-          )
+            },
+          ),
         ).toEqual({});
       });
     });
@@ -619,7 +619,7 @@ describe('05_02 - utils - rules', () => {
           required: false,
         },
         sourceAgendaSchema,
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       test('if data does not match rule, there is no transform', () => {
@@ -627,7 +627,7 @@ describe('05_02 - utils - rules', () => {
           evaluate({
             title: 'Line 77',
             tags: [2],
-          })
+          }),
         ).toEqual({});
       });
 
@@ -636,7 +636,7 @@ describe('05_02 - utils - rules', () => {
           evaluate({
             title: 'Transformed line 77',
             tags: [1, 33],
-          })
+          }),
         ).toEqual({
           type: [1],
         });
@@ -675,8 +675,8 @@ describe('05_02 - utils - rules', () => {
             {
               title: 'Evénement de la ville de Lille',
               tags: [2, 3],
-            }
-          )
+            },
+          ),
         ).toEqual({
           type: [1, 21],
         });
@@ -698,7 +698,7 @@ describe('05_02 - utils - rules', () => {
         },
       ],
       null,
-      null
+      null,
     );
 
     test('if one location evaluated field does not match, the rule does not match', () => {
@@ -709,7 +709,7 @@ describe('05_02 - utils - rules', () => {
             city: 'Paris',
             region: 'Ile-de-France',
           },
-        })
+        }),
       ).toBeNull();
     });
 
@@ -721,7 +721,7 @@ describe('05_02 - utils - rules', () => {
             region: 'Ile-de-France',
             city: 'Courbevoie',
           },
-        })
+        }),
       ).toEqual({});
     });
 
@@ -748,8 +748,8 @@ describe('05_02 - utils - rules', () => {
             location: {
               city: 'Toulouse',
             },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
 
@@ -771,8 +771,8 @@ describe('05_02 - utils - rules', () => {
             location: {
               city: 'Toulouse',
             },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
 
@@ -796,8 +796,8 @@ describe('05_02 - utils - rules', () => {
             location: {
               name: 'Palais tokyo',
             },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
   });
@@ -817,8 +817,45 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             intercommunal_interest: true,
-          }
-        )
+          },
+        ),
+      ).toEqual({});
+    });
+
+    test('evaluation based on boolean value passed in array', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                intercommunal_interest: [true],
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            intercommunal_interest: true,
+          },
+        ),
+      ).toEqual({});
+    });
+
+    test('evaluation based on boolean, value passed in a array and null', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                intercommunal_interest: [null],
+              },
+            },
+          ],
+          null,
+          null,
+          {
+          },
+        ),
       ).toEqual({});
     });
 
@@ -836,8 +873,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             intercommunal_interest: false,
-          }
-        )
+          },
+        ),
       ).toBeNull();
     });
   });
@@ -859,8 +896,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             title: '092ORG',
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('simple string no match', () => {
@@ -880,8 +917,8 @@ describe('05_02 - utils - rules', () => {
           {
             orga: '92ORG',
             organisateur: '92RG92',
-          }
-        )
+          },
+        ),
       ).toBeNull();
     });
     test('array string', () => {
@@ -900,8 +937,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             organisateur: ['92ORG920', '10'], // ['92ORG920'] <- ça plutot
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('multilang string', () => {
@@ -920,8 +957,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             organisateur: { fr: '92ORG_2020', en: '2020-921ORG' },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('multilang array string', () => {
@@ -940,8 +977,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             organisateur: { fr: ['92ORG_2020'], en: ['2020-921ORG', '10'] },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('simple string, case option true', () => {
@@ -961,8 +998,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             title: '092org',
-          }
-        )
+          },
+        ),
       ).toEqual(null);
     });
     test('simple string, case option false', () => {
@@ -982,8 +1019,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             title: '092org',
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('longDesc', () => {
@@ -1003,8 +1040,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             longDescription: { fr: 'ceci est dans la description longue' },
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
 
@@ -1070,8 +1107,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             attendanceMode: 3,
-          }
-        )
+          },
+        ),
       ).toEqual({});
     });
     test('attendanceMode no match', () => {
@@ -1088,8 +1125,8 @@ describe('05_02 - utils - rules', () => {
           null,
           {
             attendanceMode: 2,
-          }
-        )
+          },
+        ),
       ).toBeNull();
     });
   });
@@ -1107,7 +1144,7 @@ describe('05_02 - utils - rules', () => {
         listOfRules,
         sourceAgendaFormSchema,
         aggregatorSchema,
-        event
+        event,
       );
 
       expect(result.intermunicipal_interest).toEqual([1]);

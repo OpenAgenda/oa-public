@@ -28,7 +28,6 @@ describe('opencage', () => {
         countryCode: 'FR',
         first: true
       });
-      console.log(res);
       expect(res.adminLevel4).toBe('Lathus-Saint-Rémy');
     });
 

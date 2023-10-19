@@ -16,6 +16,14 @@
       }
     },
     {
+      "field": "test",
+      "label": {
+        "fr": "test boolean",
+        "en": "test boolean"
+      },
+      "fieldType": "boolean"
+    },
+    {
       "field": "title",
       "fieldType": "abstract",
       "label": {
