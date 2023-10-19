@@ -40,11 +40,18 @@ raw.push(knex('review').insert([
     private: 1,
     settings: JSON.stringify({}),
   }),
+  load('sql/agendas/laPiscineRoubaix.json', {
+    uid: 12345,
+    title: 'Un agenda configuré pour le pass',
+    settings: '{"tracking":{"googleAnalytics":null,"matomoUrl":null,"matomoSiteId":null,"matomoCustom":[]},"lab":{"status":true},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null,"GDPRInformation":null},"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null},"registration":{"passCulture":{"siren":["809346158"]}}}',
+    network_uid: null,
+  }),
 ]));
 
 raw.push(knex('user').insert([
   load('./sql/users/50304.json'),
   load('./sql/users/50300.json'),
+  load('./sql/users/helene.json', { uid: 789789 }),
 ]));
 
 raw.push(knex('api_key_set').insert([
@@ -58,6 +65,11 @@ raw.push(knex('reviewer').insert([
     id: 713866872,
     agenda_uid: 78971487,
     user_uid: 63170200,
+  }),
+  load('./sql/members/71386687.json', {
+    id: 4845649789,
+    agenda_uid: 12345,
+    user_uid: 789789,
   }),
 ]));
 

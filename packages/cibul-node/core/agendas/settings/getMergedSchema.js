@@ -18,6 +18,16 @@ async function loadFormSchema(formSchemas, agendaId, formSchemaId) {
   return null;
 }
 
+function dispatchSettingsInFields(agenda, schema) {
+  const registrationField = schema.fields.find(({ field }) => field === 'registration');
+
+  if (agenda.settings?.registration?.passCulture && registrationField) {
+    registrationField.settings = agenda.settings.registration;
+  }
+
+  return schema;
+}
+
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {
     formSchemas,
@@ -115,11 +125,11 @@ module.exports = async (services, agendaOrUid, options = {}) => {
 
   if (includeEvent) {
     log('returning schema with event for access %s', access);
-    return merge.schemasWithEvent(...mergeArgs, {
+    return dispatchSettingsInFields(agenda, merge.schemasWithEvent(...mergeArgs, {
       ...mergeOptions,
       access,
       includeNonDataFields,
-    });
+    }));
   }
 
   log('returning schema without event for access %s', access);
@@ -128,5 +138,5 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     mergeOptions.access = access;
   }
 
-  return merge.schemas(...mergeArgs, mergeOptions);
+  return dispatchSettingsInFields(agenda, merge.schemas(...mergeArgs, mergeOptions));
 };
