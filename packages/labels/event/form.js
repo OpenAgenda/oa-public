@@ -558,5 +558,17 @@ module.exports = {
     "en": "Status",
     "io": "crwdns16110:0crwdne16110:0",
     "oc": "Estatut"
-  }
+  },
+  "trueBoolean": {
+    "fr": "Vrai",
+    "en": "True",
+  },
+  "falseBoolean": {
+    "fr": "Faux",
+    "en": "False",
+  },
+  "nullBoolean": {
+    "fr": "Non défini",
+    "en": "Undefined",
+  },
 };
