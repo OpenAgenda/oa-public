@@ -33,7 +33,7 @@ export default ({ sourceSchema }) => {
 
   const { values /* , initialValues */ } = form.getState();
 
-  const options = useMemoOne(
+  const fieldSelectionOptions = useMemoOne(
     () =>
       sourceSchema.fields
         .filter(isOptionedField)
@@ -45,32 +45,52 @@ export default ({ sourceSchema }) => {
     [intl.locale, sourceSchema.fields],
   );
 
-  const fieldName = useMemoOne(() => values.choiceField, [values]);
-  const prevFieldName = usePrevious(fieldName);
+  const chosenFieldName = useMemoOne(() => values.choiceField, [values]);
+  const prevChosenFieldName = usePrevious(chosenFieldName);
 
-  const fieldSchema = useMemoOne(() => {
-    if (fieldName === 'attendanceMode') {
+  const chosenField = useMemoOne(() => {
+    if (chosenFieldName === 'attendanceMode') {
       return {
         options: AttendanceOptions,
       };
     }
-    return sourceSchema.fields.find(v => v.field === fieldName);
-  }, [sourceSchema, fieldName]);
+    return sourceSchema.fields.find(v => v.field === chosenFieldName);
+  }, [sourceSchema, chosenFieldName]);
 
   useIsomorphicLayoutEffect(() => {
-    if (prevFieldName && fieldName && prevFieldName !== fieldName) {
+    if (
+      prevChosenFieldName
+      && chosenFieldName
+      && prevChosenFieldName !== chosenFieldName
+    ) {
       form.change('choiceValues', null);
     }
-  }, [prevFieldName, fieldName, form]);
+  }, [prevChosenFieldName, chosenFieldName, form]);
 
-  const valuesOptions = useMemoOne(() => {
-    if (fieldSchema?.options) {
-      return fieldSchema.options.map(v => ({
+  const ChoiceValuesOptions = useMemoOne(() => {
+    if (chosenField?.options) {
+      return chosenField.options.map(v => ({
         value: v.id,
         label: getLocaleValue(v.label, intl.locale),
       }));
     }
-  }, [fieldSchema, intl.locale]);
+    if (chosenField?.fieldType === 'boolean') {
+      return [
+        {
+          value: true,
+          label: getLocaleValue(formLabels.trueBoolean, intl.locale),
+        },
+        {
+          value: false,
+          label: getLocaleValue(formLabels.falseBoolean, intl.locale),
+        },
+        {
+          value: 'null',
+          label: getLocaleValue(formLabels.nullBoolean, intl.locale),
+        },
+      ];
+    }
+  }, [chosenField, intl]);
 
   return (
     <>
@@ -86,7 +106,7 @@ export default ({ sourceSchema }) => {
               Field={Field}
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-              options={options}
+              options={fieldSelectionOptions}
               menuPosition="fixed"
               isSearchable
               // initialValue={initialValues?.choiceField}
@@ -114,7 +134,7 @@ export default ({ sourceSchema }) => {
                 } */
                 placeholder={intl.formatMessage(messages.selectValue)}
                 noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-                options={valuesOptions}
+                options={ChoiceValuesOptions}
                 menuPosition="fixed"
                 isMulti
                 isSearchable

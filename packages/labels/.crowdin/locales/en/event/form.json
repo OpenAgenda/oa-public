@@ -58,5 +58,8 @@
   "cancelled": "Canceled",
   "full": "Full",
   "postponed": "Postponed",
-  "status": "Status"
+  "status": "Status",
+  "trueBoolean": "True",
+  "falseBoolean": "False",
+  "nullBoolean": "Undefined"
 }

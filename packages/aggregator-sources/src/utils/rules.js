@@ -16,9 +16,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     return {};
   }
 
-  const {
-    query, required, transform = [], actions = transform
-  } = rule;
+  const { query, required, transform = [], actions = transform } = rule;
 
   const result = {
     withFilter: false,
@@ -51,7 +49,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       }
 
       const fieldSchema = aggregatorAgendaSchema.fields.find(
-        v => v.field === action.field
+        v => v.field === action.field,
       );
 
       if (!fieldSchema) {
@@ -70,7 +68,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
             field: fieldSchema.field,
             values: ids,
             set: hasSet,
-          }
+          },
       );
     });
 
@@ -120,8 +118,14 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       type: 'text',
       textField: keys[0],
       textValue: query.text[keys[0]],
-      caseSensitive: keys.length > 1 && keys.includes('caseSensitive') ? query.text.caseSensitive : false,
-      wholeValue: keys.length > 1 && keys.includes('wholeValue') ? query.text.wholeValue : false,
+      caseSensitive:
+        keys.length > 1 && keys.includes('caseSensitive')
+          ? query.text.caseSensitive
+          : false,
+      wholeValue:
+        keys.length > 1 && keys.includes('wholeValue')
+          ? query.text.wholeValue
+          : false,
     });
     return result;
   }
@@ -159,7 +163,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       }
 
       const fieldSchema = aggregatorAgendaSchema.fields.find(
-        v => v.field === action.field
+        v => v.field === action.field,
       );
 
       if (!fieldSchema) {
@@ -225,7 +229,8 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
     case 'choice': {
       return {
         query: {
-          [values.choiceField]: values.choiceValues,
+          [values.choiceField]: values.choiceValues.map(v =>
+            (v === 'null' ? null : v)),
         },
         required,
         actions,
