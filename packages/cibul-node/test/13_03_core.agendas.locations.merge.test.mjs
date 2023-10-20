@@ -35,6 +35,8 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
     });
 
     core = Core(services, testConfig);
+
+    services.agendaLocations.task({ reset: true, detectDuplicates: false });
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -45,6 +47,9 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
       uids: [95155140, 97506318],
     }, {
       name: 'Fusionné',
+    });
+    return new Promise(rs => {
+      core.services.tracker.on('agendaLocations.updateEventLocationReferences.done', rs, true);
     });
   });
 
