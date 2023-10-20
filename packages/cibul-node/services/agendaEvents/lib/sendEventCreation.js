@@ -84,7 +84,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
     });
   }
 
-  const nonCreatorMembers = members.filter(member => member.user.uid !== creatorUser.uid);
+  const nonCreatorMembers = members.filter(member => member.user && member.user.uid !== creatorUser.uid);
 
   if (!nonCreatorMembers.length) {
     log('there are no members other than creator to send email to');
