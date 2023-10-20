@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const log = require('@openagenda/logs')('services/users/tasks/anonymizeUser');
 
 async function resyncMemberEvents({ core, agendaUid, userUid }) {
@@ -27,22 +26,6 @@ module.exports = function anonymizeDeletedUser(services) {
       members: membersSvc,
       tracker,
     } = services;
-
-    if (activitiesSvc) {
-      log('removing user feed for user %s', user.uid);
-      await promisify(
-        activitiesSvc.feed({
-          entityType: 'user',
-          entityUid: user.uid,
-        }).remove,
-      )();
-
-      log('anonymizing activities for user %s', user.uid);
-      await activitiesSvc.activities.anonymize(`user:${user.uid}`);
-      if (user.email) {
-        await activitiesSvc.activities.anonymize(`email:${user.email}`);
-      }
-    }
 
     const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });
 
@@ -72,6 +55,20 @@ module.exports = function anonymizeDeletedUser(services) {
       } = member;
 
       await resyncMemberEvents({ core, agendaUid, userUid: user.uid });
+    }
+
+    if (activitiesSvc) {
+      log('removing user feed for user %s', user.uid);
+      await activitiesSvc.feed({
+        entityType: 'user',
+        entityUid: user.uid,
+      }).remove();
+
+      log('anonymizing activities for user %s', user.uid);
+      await activitiesSvc.activities.anonymize(`user:${user.uid}`);
+      if (user.email) {
+        await activitiesSvc.activities.anonymize(`email:${user.email}`);
+      }
     }
 
     tracker('users.anonymizeDeletedUser.done');
