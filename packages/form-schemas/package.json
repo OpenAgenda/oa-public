@@ -9,6 +9,8 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/form-schemas",
   "scripts": {
+    "sb": "yarn start",
+    "storybook": "yarn start",
     "start": "start-storybook -p 9001 --ci",
     "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
     "prepack": "yarn build",

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import passValidator from '@openagenda/validators/pass';
+
 import FormSchemaComponent from '../client/src/index';
 
 import WigglyPoofComponent from './custom/WigglyPoofComponent';
@@ -527,6 +529,48 @@ export function WithLinkedFields() {
         fieldType: 'text',
       },
       ],
+    },
+  };
+
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
+export function WithLinkedFieldsOfOtherTypes() {
+  const props = {
+    lang: 'fr',
+    values: {
+      dodo: '🦤',
+    },
+    components: {
+      displayDodo: ({ relatedValues }) => (<div>Should show a dodo here: {JSON.stringify(relatedValues.other)}</div>),
+    },
+    schema: {
+      custom: {
+        displayDodo: passValidator,
+      },
+      fields: [{
+        field: 'dodo',
+        label: 'Dodo',
+        fieldType: 'text',
+      }, {
+        field: 'fieldThatShowsDodo',
+        label: 'Field that shows dodo',
+        fieldType: 'displayDodo',
+        related: {
+          other: ['dodo'],
+        },
+      }, {
+        field: 'enabledWhenThereIsADodo',
+        label: 'Field that is enabled when there is a dodo',
+        fieldType: 'boolean',
+        enableWith: 'dodo',
+      }],
     },
   };
 
