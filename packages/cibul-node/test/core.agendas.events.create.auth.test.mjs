@@ -5,7 +5,7 @@ import Services from '../services/init.mjs';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
-describe('02 - core - functional (server): core.agendas().events.create api authentication', () => {
+describe('core - functional (server): core.agendas().events.create api authentication', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
