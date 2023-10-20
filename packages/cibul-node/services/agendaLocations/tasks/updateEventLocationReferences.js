@@ -6,9 +6,11 @@ module.exports = services => async function updateEventLocationReferences(locati
   const {
     core,
     events: eventsSvc,
+    tracker,
   } = services;
 
   let events = [];
+  tracker('agendaLocations.updateEventLocationReferences');
 
   for (const locationUid of locationsUids) {
     let hasMore = true;
@@ -49,4 +51,5 @@ module.exports = services => async function updateEventLocationReferences(locati
       log('error', 'failed to update event %s with location uid %s', event.uid, event.locationUid, e);
     }
   }
+  tracker('agendaLocations.updateEventLocationReferences.done');
 };
