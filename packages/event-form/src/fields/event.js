@@ -137,7 +137,7 @@ module.exports = ({ labels }) => [{
   info: labels?.registrationInfo,
   placeholder: labels?.registrationPlaceholder,
   sub: labels?.registrationSub,
-  related: ['timings'],
+  related: { other: ['timings'] },
 }, {
   field: 'accessibility',
   fieldType: 'accessibility',
