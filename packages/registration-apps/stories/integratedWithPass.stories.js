@@ -33,7 +33,11 @@ export function EmptyAtLoad() {
         onChange={setValue}
         field={{
           placeholder: 'Truc bidule',
-          relatedValues: { timings: event.timings },
+          relatedValues: {
+            other: {
+              timings: event.timings,
+            },
+          },
           settings: {
             passCulture: {
               res: {
@@ -87,7 +91,7 @@ export function WithData() {
           settings: {
             passCulture: {
               res: {
-                categories: '/categories',
+                settings: '/settings',
               },
             },
           },
