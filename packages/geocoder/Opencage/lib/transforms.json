@@ -101,5 +101,25 @@
     "update" : {
       "adminLevel4" : "Villeneuve-d'Ascq"
     }
+  },
+  {
+    "matchAny" : {
+      "adminLevel1" : [
+        "Provence-Alpes-Côte-d'Azur"
+      ]
+    },
+    "update" : {
+      "adminLevel1" : "Provence-Alpes-Côte d'Azur"
+    }
+  },
+  {
+    "matchAny" : {
+      "adminLevel1" : [
+        "Grand-Est"
+      ]
+    },
+    "update" : {
+      "adminLevel1" : "Grand Est"
+    }
   }
 ]
