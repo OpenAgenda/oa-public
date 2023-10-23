@@ -3,6 +3,14 @@
 const bodyParser = require('body-parser');
 const log = require('@openagenda/logs')('reports');
 
+function logReport(report) {
+  if (report?.body?.sourceFile?.startsWith('chrome-extension')) {
+    return;
+  }
+
+  log.info(report);
+}
+
 module.exports.init = config => {
   log.setConfig(config.getLogConfig('oa', 'reports'));
 
@@ -15,10 +23,10 @@ module.exports.init = config => {
         (req, res) => {
           if (Array.isArray(req.body)) {
             for (const row of req.body) {
-              log.info(row);
+              logReport({ headers: req.headers, ...row });
             }
           } else if (req.body) {
-            log.info(req.body);
+            logReport({ headers: req.headers, ...req.body });
           }
           res.status(200).send('OK');
         },
