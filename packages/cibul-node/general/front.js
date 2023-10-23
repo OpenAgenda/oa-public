@@ -3,7 +3,6 @@
 const { callbackify } = require('node:util');
 const _ = require('lodash');
 
-
 const __ = require('@openagenda/labels')(require('@openagenda/labels/newsletter/subscribe'));
 const landing = require('@openagenda/landing');
 const sessions = require('@openagenda/sessions');
@@ -67,6 +66,7 @@ function setCSPHeader(hashes, req, res) {
     styleSrc: [
       ...contentSecurityPolicy.defaultDirectives.styleSrc,
       'https://client.crisp.chat',
+      'https://oastatic.s3.eu-central-1.amazonaws.com',
     ],
     scriptSrc: [
       ...contentSecurityPolicy.defaultDirectives.scriptSrc,
