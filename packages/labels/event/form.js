@@ -560,15 +560,15 @@ module.exports = {
     "oc": "Estatut"
   },
   "trueBoolean": {
-    "fr": "Vrai",
-    "en": "True",
+    "fr": "Sélectionné",
+    "en": "Selected",
   },
   "falseBoolean": {
-    "fr": "Faux",
-    "en": "False",
+    "fr": "Non sélectionné",
+    "en": "Not selected",
   },
   "nullBoolean": {
-    "fr": "Non défini",
-    "en": "Undefined",
+    "fr": "(Sans valeur)",
+    "en": "(No value)",
   },
 };
