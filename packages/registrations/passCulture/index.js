@@ -1,15 +1,21 @@
 import PassCultureSDK from './lib/PassCultureSDK.js';
-import verifyAndCreateEventOffer from './lib/verifyAndCreateEventOffer.js';
+import validateEventOffer from './lib/validateEventOffer.js';
+import createEventOffer from './lib/createEventOffer.js';
+import verifyAndCreateEventOffer from './lib/validateAndCreateEventOffer.js';
 import getParameters from './lib/getParameters.js';
 
 export default function PassCulture({
   key,
   api,
-}) {
-  const pc = PassCultureSDK({ key, api });
+  offerLink,
+}, params) {
+  const pc = PassCultureSDK({ key, api, offerLink });
 
-  return params => ({
-    verifyAndCreateEventOffer: verifyAndCreateEventOffer.bind(null, { ...params, pc }),
+  return {
+    validateEventOffer: validateEventOffer.bind(null, { ...params, pc }),
+    validateAndCreateEventOffer: verifyAndCreateEventOffer.bind(null, { ...params, pc }),
+    createEventOffer: createEventOffer.bind(null, pc),
     getParameters: getParameters.bind(null, { ...params, pc }),
-  });
+    getEventOfferLink: eventOffer => pc.offers.events(eventOffer.id).getLink(),
+  };
 }
