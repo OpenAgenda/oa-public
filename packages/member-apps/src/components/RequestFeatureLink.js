@@ -1,5 +1,4 @@
 import Modal from '@openagenda/react-shared/lib/components/Modal';
-import { MoreInfo } from '@openagenda/react-shared';
 import { defineMessages, useIntl } from 'react-intl';
 import { useState } from 'react';
 
@@ -11,6 +10,10 @@ const messages = defineMessages({
   link: {
     id: 'AgendaMember.RequestFeatureLink.link',
     defaultMessage: 'Ask for feature activation',
+  },
+  findOutMore: {
+    id: 'AgendaMember.RequestFeatureLink.findOutMore',
+    defaultMessage: 'find out more',
   },
 });
 
@@ -27,6 +30,9 @@ const RequestFeatureLink = ({
     <>
       {showModal ? (
         <Modal
+          classNames={{
+            overlay: 'popup-overlay big',
+          }}
           title={(
             <>
               <i className="golden-icon margin-right-xs" />
@@ -37,18 +43,22 @@ const RequestFeatureLink = ({
         >
           <div>
             <div>
-              {message}{' '}
+              {message}
+              {' '}
               {helpLink ? (
-                <MoreInfo
-                  className="margin-left-xs"
-                  id="helpLink"
-                  link={helpLink}
-                />
+                <a
+                  className="margin-right-xs"
+                  target="_blank"
+                  rel="noreferrer"
+                  href={helpLink}
+                >
+                  {intl.formatMessage(messages.findOutMore)}
+                </a>
               ) : null}
             </div>
             <div className="text-center">
               <a
-                className="btn btn-default btn-medium text-center margin-top-md margin-bottom-sm"
+                className="btn btn-primary btn-medium text-center margin-top-md margin-bottom-sm"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={`/support?origin=${encodeURIComponent(
