@@ -269,10 +269,15 @@ function runScroll(config, set, scrollId, scroll) {
     }));
 }
 
+function clearScroll(config, set, scrollId) {
+  return config.client.clearScroll({ scrollId });
+}
+
 module.exports = (config, set) => {
   const methods = {
     search: search.bind(null, config, set),
     scroll: runScroll.bind(null, config, set),
+    clearScroll: clearScroll.bind(null, config, set),
   };
 
   return Object.assign(methods.search, {

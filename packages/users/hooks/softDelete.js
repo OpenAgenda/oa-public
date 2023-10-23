@@ -70,9 +70,11 @@ module.exports = function softDelete(field, additionalParams = {}) {
 
             context.data[deleteField] = 1;
             context.data.isActivated = 0;
-            context.data.username = `*removed-${date.getFullYear()}-${
+            const name = `*removed-${date.getFullYear()}-${
               date.getMonth() + 1
             }-${date.getDate()}-${before.id}`;
+            context.data.username = name;
+            context.data.image = null;
             context.data.email = null;
 
             await setInStore('email', 'params.before.email')(context);
