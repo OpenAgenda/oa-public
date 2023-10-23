@@ -330,7 +330,7 @@ module.exports = [{
   }, {
     field: 'registration',
     type: 'schema',
-    read: ['internal', 'legacy'],
+    read: ['internal', 'legacy', 'public', 'legacyPublic'],
     write: ['internal'],
     fields: [{
       field: 'passCulture',

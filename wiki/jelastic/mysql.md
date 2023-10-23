@@ -347,3 +347,25 @@ SAVE MYSQL VARIABLES TO DISK;
 Tester la nouvelle configuration : Testez la nouvelle configuration pour vous assurer qu'elle fonctionne comme prévu.
 
 Échanger les anciens certificats avec les nouveaux : Enfin, échangez les anciens certificats avec les nouveaux. Cela peut être fait un serveur à la fois, chaque serveur étant mis à jour, testé, puis échangé avant de passer au serveur suivant. Cela garantira qu'il n'y a pas d'interruption de service pendant le processus de mise à jour des certificats.
+
+## Commandes utiles
+
+### Enlever et remettre un slave mysql sur proxysql
+
+En étant connecté sur le serveur d'admin de ProxySQL (`mysql -h 127.0.0.1 -P6032 -uadmin -padmin`).
+
+```sql
+SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;
+
+# Enlever le slave
+UPDATE mysql_servers SET status='OFFLINE_SOFT' WHERE hostname='node135831'; # CHANGE THE HOSTNAME
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+
+# Remettre le slave
+UPDATE mysql_servers SET status='ONLINE' WHERE hostname='node135831'; # CHANGE THE HOSTNAME
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+```
+
+Plus de doc [ici](https://proxysql.com/documentation/backend-server-configuration/).

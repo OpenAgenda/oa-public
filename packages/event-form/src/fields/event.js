@@ -3,61 +3,61 @@ module.exports = ({ labels }) => [{
   fieldType: 'integer',
   optional: false,
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'uid',
   fieldType: 'integer',
   optional: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'slug',
   fieldType: 'text',
   optional: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'private',
   fieldType: 'boolean',
   default: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'timezone',
   fieldType: 'text',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'draft',
   fieldType: 'boolean',
   default: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'createdAt',
   fieldType: 'date',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'creatorUid',
   fieldType: 'integer',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'ownerUid',
   fieldType: 'integer',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'updatedAt',
   fieldType: 'date',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'agendaUid',
   fieldType: 'integer',
   optional: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'fileKey',
   fieldType: 'text',
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'locationUid',
   fieldType: 'integer',
   optional: false,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'image',
   fieldType: 'image',
@@ -67,18 +67,18 @@ module.exports = ({ labels }) => [{
   allowURL: true,
   allowPath: true,
   imageWithSizeAndVariants: true,
-  extensions: ['jpg', 'bmp', 'png', 'jpeg', 'webp']
+  extensions: ['jpg', 'bmp', 'png', 'jpeg', 'webp'],
 }, {
   field: 'imageCredits',
   fieldType: 'text',
   optional: true,
   label: labels?.imageCredits,
   enableWith: 'image',
-  max: 255
+  max: 255,
 }, {
   field: 'languages',
   fieldType: 'languages',
-  label: labels?.languages
+  label: labels?.languages,
 }, {
   languages: [],
   field: 'title',
@@ -98,7 +98,7 @@ module.exports = ({ labels }) => [{
   label: labels?.description,
   purpose: labels?.descriptionPurpose,
   placeholder: labels?.descriptionPlaceholder,
-  sub: labels?.descriptionSub
+  sub: labels?.descriptionSub,
 }, {
   languages: [],
   field: 'keywords',
@@ -107,7 +107,7 @@ module.exports = ({ labels }) => [{
   max: 255,
   label: labels?.keywords,
   placeholder: labels?.keywordsPlaceholder,
-  sub: labels?.keywordsSub
+  sub: labels?.keywordsSub,
 }, {
   languages: [],
   field: 'longDescription',
@@ -115,7 +115,7 @@ module.exports = ({ labels }) => [{
   label: labels?.longDescription,
   max: 10000,
   sub: labels?.longDescriptionSub,
-  placeholder: labels?.longDescriptionPlaceholder
+  placeholder: labels?.longDescriptionPlaceholder,
 }, {
   languages: [],
   field: 'conditions',
@@ -123,12 +123,12 @@ module.exports = ({ labels }) => [{
   label: labels?.conditions,
   max: 255,
   placeholder: labels?.conditionsPlaceholder,
-  sub: labels?.conditionsSub
+  sub: labels?.conditionsSub,
 }, {
   field: 'age',
   fieldType: 'age',
   optional: true,
-  label: labels?.age
+  label: labels?.age,
 }, {
   field: 'registration',
   fieldType: 'registration',
@@ -136,12 +136,13 @@ module.exports = ({ labels }) => [{
   label: labels?.registration,
   info: labels?.registrationInfo,
   placeholder: labels?.registrationPlaceholder,
-  sub: labels?.registrationSub
+  sub: labels?.registrationSub,
+  related: { other: ['timings'] },
 }, {
   field: 'accessibility',
   fieldType: 'accessibility',
   optional: true,
-  label: labels?.accessibility
+  label: labels?.accessibility,
 }, {
   display: false,
   field: 'attendanceMode',
@@ -153,18 +154,18 @@ module.exports = ({ labels }) => [{
     id: 1,
     value: 'offline',
     label: labels?.offlineAttendanceMode,
-    info: labels?.offlineAttendanceModeInfo
+    info: labels?.offlineAttendanceModeInfo,
   }, {
     id: 2,
     value: 'online',
     label: labels?.onlineAttendanceMode,
-    info: labels?.onlineAttendanceModeInfo
+    info: labels?.onlineAttendanceModeInfo,
   }, {
     id: 3,
     value: 'mixed',
     label: labels?.mixedAttendanceMode,
-    info: labels?.mixedAttendanceModeInfo
-  }]
+    info: labels?.mixedAttendanceModeInfo,
+  }],
 }, {
   field: 'location',
   fieldType: 'location',
@@ -172,7 +173,7 @@ module.exports = ({ labels }) => [{
   sub: labels?.locationSub,
   optionalWith: {
     field: 'attendanceMode',
-    value: 2
+    value: 2,
   },
   disableChange: false,
   selfHandled: ['sub'],
@@ -184,8 +185,8 @@ module.exports = ({ labels }) => [{
   optional: false,
   enableWith: {
     field: 'attendanceMode',
-    value: [2, 3]
-  }
+    value: [2, 3],
+  },
 }, {
   field: 'status',
   fieldType: 'select',
@@ -195,34 +196,34 @@ module.exports = ({ labels }) => [{
   options: [{
     id: 1,
     value: 'scheduled',
-    label: labels?.scheduled
+    label: labels?.scheduled,
   }, {
     id: 2,
     value: 'rescheduled',
-    label: labels?.rescheduled
+    label: labels?.rescheduled,
   }, {
     id: 3,
     value: 'movedOnline',
-    label: labels?.movedOnline
+    label: labels?.movedOnline,
   }, {
     id: 4,
     value: 'postponed',
-    label: labels?.postponed
+    label: labels?.postponed,
   }, {
     id: 5,
     value: 'full',
-    label: labels?.full
+    label: labels?.full,
   }, {
     id: 6,
     value: 'cancelled',
-    label: labels?.cancelled
-  }]
+    label: labels?.cancelled,
+  }],
 }, {
   field: 'references',
   fieldType: 'integer',
   list: true,
   optional: true,
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'timings',
   fieldType: 'timings',
@@ -230,10 +231,10 @@ module.exports = ({ labels }) => [{
   optional: false,
   label: labels?.timings,
   info: labels?.timingsInfo,
-  helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/'
+  helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/',
 }, {
   field: 'links',
   fieldType: 'pass',
   optional: true,
-  write: ['internal']
+  write: ['internal'],
 }];

@@ -16,7 +16,7 @@ import testConfig from './testConfig.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-describe('02 - core - functional (server): core.agendas().events.create()', () => {
+describe('core - functional (server): core.agendas().events.create()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '002.sql'));

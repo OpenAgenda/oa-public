@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import verifyAndCreateEventOffer from '../lib/verifyAndCreateEventOffer';
+import validateAndCreateEventOffer from '../lib/validateAndCreateEventOffer';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 
 import fixtures from './fixtures/cart.events.json';
@@ -16,7 +16,7 @@ if (!key) {
   throw new Error('PASS_API_KEY env var must be defined');
 }
 
-describe('verifyAndCreateEventOffer', () => {
+describe('validateAndCreateEventOffer', () => {
   let pc;
   let venueId;
 
@@ -31,7 +31,7 @@ describe('verifyAndCreateEventOffer', () => {
 
     const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
 
-    const result = await verifyAndCreateEventOffer(
+    const result = await validateAndCreateEventOffer(
       { pc, siren },
       event,
       {

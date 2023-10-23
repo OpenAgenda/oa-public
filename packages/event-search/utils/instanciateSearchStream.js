@@ -3,12 +3,12 @@
 const { Readable } = require( 'stream' );
 const log = require('@openagenda/logs')('stream');
 
-module.exports = ({ search, scroll }, alias, query, options) => {
-  return new SearchStream(search, scroll, alias, query, options);
+module.exports = ({ search, scroll, clearScroll }, alias, query, options) => {
+  return new SearchStream(search, scroll, clearScroll, alias, query, options);
 }
 
 class SearchStream extends Readable {
-  constructor(search, scroll, alias, query = {}, options = {} ) {
+  constructor(search, scroll, clearScroll, alias, query = {}, options = {}) {
     log('instanciated stream for alias %s', alias);
 
     super( {
@@ -19,6 +19,7 @@ class SearchStream extends Readable {
     this._alias = alias;
     this._search = search;
     this._scroll = scroll;
+    this._clearScroll = clearScroll;
     this._query = query;
     this._options = options;
     this._bufferedEvents = [];
@@ -37,6 +38,11 @@ class SearchStream extends Readable {
     }
 
     this._popBuffer();
+  }
+
+  async _destroy(err, callback) {
+    await this._clearScroll(this._scrollId);
+    callback(err);
   }
 
   async _firstRead() {

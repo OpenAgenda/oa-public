@@ -178,6 +178,25 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         viewport: null,
       });
     });
+
+    it('agenda pass culture settings is loaded with agenda and is readable by default', async () => {
+      const agenda = await core.agendas(12345).get({ detailed: true });
+      expect(typeof agenda.settings.registration.passCulture).toBe('object');
+    });
+
+    it('registration-specific settings is loaded in registration field', async () => {
+      const agenda = await core.agendas(12345).get({
+        detailed: true,
+        includeEvent: true,
+      });
+
+      expect(
+        _.omit(
+          agenda.schema.fields.find(({ field }) => field === 'registration').settings.passCulture,
+          ['res'],
+        ),
+      ).toEqual(agenda.settings.registration.passCulture);
+    });
   });
 
   describe('api', () => {

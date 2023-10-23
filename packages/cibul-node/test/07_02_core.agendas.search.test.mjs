@@ -50,7 +50,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('search returns all indexed agendas by default', async () => {
       const { total } = await core.agendas.search();
 
-      expect(total).toBe(2);
+      expect(total).toBe(3);
     });
 
     it('size nav value limits number of agendas returned in one call', async () => {

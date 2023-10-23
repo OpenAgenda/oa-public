@@ -11,6 +11,7 @@ const doAdd = require('../utils/doAdd');
 const extractUserUid = require('../utils/extractUserUid');
 const loadAuthorizations = require('../../utils/authorizations');
 const processOEmbed = require('../utils/processOEmbed');
+const createPassCultureOffer = require('./lib/createPassCultureOffer');
 
 const cleanEvent = require('../utils/cleanEvent');
 
@@ -71,6 +72,15 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   log('  cleaned data');
 
+  if (clean.passCulture) {
+    log('  There is a pass culture payload');
+    try {
+      clean.event.registration = await createPassCultureOffer(core, agenda, clean);
+    } catch (e) {
+      log('error', e);
+    }
+  }
+
   const authorizations = await loadAuthorizations(core, 'create', {
     agenda,
     member,
@@ -104,6 +114,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (duplicateOrigin && isImageToDuplicate(clean.event.image)) {
       clean.event.image = cleanDuplicateImage(core, clean.event.image);
     }
+
     const event = await events.create(clean.event, {
       context: {
         userUid,

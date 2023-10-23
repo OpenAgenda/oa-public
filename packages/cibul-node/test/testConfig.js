@@ -49,6 +49,11 @@ const testConfig = {
     key: process.env.IFRAMELY_KEY,
   },
   enableMigrations: false,
+  passCulture: {
+    key: process.env.PASS_CULTURE_KEY,
+    api: process.env.PASS_CULTURE_API,
+    offerLink: process.env.PASS_CULTURE_OFFER_LINK,
+  },
 };
 
 module.exports = {

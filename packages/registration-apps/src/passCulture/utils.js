@@ -8,6 +8,24 @@ const omit = (obj, fields = []) => Object.keys(obj).reduce(
   {},
 );
 
+function isDTMFormat(d) {
+  return d.date && d.hours !== undefined && d.minutes !== undefined;
+}
+
+function fZ(n) {
+  return n < 10 ? `0${n}` : n;
+}
+
+function convertDTMToDAte({ date, hours, minutes }) {
+  return new Date(`${date}T${fZ(hours)}:${fZ(minutes)}:00`);
+}
+
+function getTimingId(timing) {
+  return (
+    isDTMFormat(timing.begin) ? convertDTMToDAte(timing.begin) : new Date(timing.begin)
+  ).getTime();
+}
+
 export function isConfigured(data) {
   return !!Object.keys(omit(data, ['checked'])).length;
 }
@@ -75,11 +93,18 @@ export function changePriceCategory(value, index, { price, label }) {
 }
 
 export function getTimingLabel(timing) {
-  return format(new Date(timing.begin), 'yyyy-MM-dd HH:mm');
+  return format(
+    isDTMFormat(timing.begin) ? convertDTMToDAte(timing.begin) : new Date(timing.begin),
+    'yyyy-MM-dd HH:mm',
+  );
+}
+
+export function getTime(d) {
+  return (isDTMFormat(d) ? convertDTMToDAte(d) : new Date(d)).getTime();
 }
 
 export function findTimingLabel(timings, timingId) {
-  const timing = timings.find(t => new Date(t.begin).getTime() === timingId);
+  const timing = timings.find(t => getTimingId(t) === timingId);
 
   if (!timing) {
     throw new Error(`Could not find timing matching ${timingId}`);

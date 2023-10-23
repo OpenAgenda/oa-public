@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import ComponentsContext from '../../components/Context';
 
-import { getTimingLabel } from '../utils';
+import { getTimingLabel, getTime } from '../utils';
 
 export default function DateForm({
   value,
@@ -21,16 +21,18 @@ export default function DateForm({
     Button,
   } = useContext(ComponentsContext);
 
+  const timingOptions = timings.map(t => ({
+    value: getTime(t.begin),
+    label: `${getTimingLabel(t)} `,
+  }));
+
   return (
     <Form type="inline">
       <Select
         id="date-timing"
         label="Plage horaire"
         value={value.timingId}
-        options={timings.map(t => ({
-          value: new Date(t.begin).getTime(),
-          label: `${getTimingLabel(t)} `,
-        }))}
+        options={timingOptions}
         onChange={o => onChange({ ...value, timingId: o.value })}
       />
       <Select
