@@ -35,7 +35,7 @@ module.exports = function profileImage() {
           ],
         });
       }
-    } else if (image === null) {
+    } else if (image === null && before.image) {
       try {
         context.data.image = null;
 

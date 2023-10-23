@@ -134,6 +134,11 @@ function buildFieldSchema(type, options = {}) {
         default: [],
         list: true,
       },
+      other: {
+        type: 'text',
+        default: [],
+        list: true,
+      },
     },
 
     constraints: {

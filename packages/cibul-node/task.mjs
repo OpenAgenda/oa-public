@@ -117,9 +117,9 @@ export default (config, core, services) => {
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
 
-  removeMembersWithDeletedUser(config, services)
+  /* removeMembersWithDeletedUser(config, services)
     .then(
       () => console.error('BROKE MEMBERS FINISHED'),
       e => console.error('BROKE MEMBERS FAIL', e),
-    );
+    ); */
 };

@@ -1,8 +1,6 @@
 import { BadRequest } from '@openagenda/verror';
 
-import createEventOffer from './createEventOffer.js';
-
-export default async function verifyAndCreateEventOffer({ pc, siren }, event, data = {}) {
+export default async function validateEventOffer({ pc, siren }, event, data = {}) {
   const {
     venueId,
   } = data;
@@ -16,5 +14,5 @@ export default async function verifyAndCreateEventOffer({ pc, siren }, event, da
     throw new BadRequest(`offerer ${siren} has no venue with id ${venueId}`);
   }
 
-  return createEventOffer(pc, event, data);
+  return data;
 }

@@ -13,9 +13,9 @@ function Registration(props) {
   const {
     onChange: propsOnChange,
     value = [],
+    relatedValues = {},
     field: {
       placeholder,
-      relatedValues = {},
       settings = {
         passCulture: null,
       },
@@ -64,7 +64,7 @@ function Registration(props) {
         <PassCultureCheckbox
           value={passCultureValue}
           settings={settings.passCulture}
-          timings={relatedValues?.timings ?? []}
+          timings={relatedValues?.other?.timings ?? []}
           onChange={updatedPassCultureValue => propsOnChange(
             mergeSpreadRegistrationValues({
               standard: standardValue,

@@ -1,6 +1,7 @@
 {
+  "AgendaMember.RequestFeatureLink.findOutMore": "en savoir plus",
   "AgendaMember.RequestFeatureLink.link": "Demander l'activation de la fonctionnalité",
-  "AgendaMember.RequestFeatureLink.title": "Activation de le fonctionnalité",
+  "AgendaMember.RequestFeatureLink.title": "Activation de la fonctionnalité",
   "MemberApps.Dashboard.messageHistory": "Historique des messages",
   "MemberApps.Dashboard.nameModeratorsActivation": "Cette fonctionalité est activée sur demande. Elle vous permet de nommer un membre en tant que modérateur. Écrivez-nous un petit message et nous traiteront votre demande dans les plus brefs délais!",
   "MemberApps.Dashboard.sendMessageToFilteredMembers": "Le message sera envoyé à la sélection courante ({count, plural, =1 {1 membre} other {# membres}} sur {total})",

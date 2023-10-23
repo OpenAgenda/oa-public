@@ -59,7 +59,7 @@
   "full": "Complet",
   "postponed": "Reporté",
   "status": "État",
-  "trueBoolean": "Vrai",
-  "falseBoolean": "Faux",
-  "nullBoolean": "Non défini"
+  "trueBoolean": "Sélectionné",
+  "falseBoolean": "Non sélectionné",
+  "nullBoolean": "(Sans valeur)"
 }

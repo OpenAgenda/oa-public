@@ -59,7 +59,7 @@
   "full": "Full",
   "postponed": "Postponed",
   "status": "Status",
-  "trueBoolean": "True",
-  "falseBoolean": "False",
-  "nullBoolean": "Undefined"
+  "trueBoolean": "Selected",
+  "falseBoolean": "Not selected",
+  "nullBoolean": "(No value)"
 }

@@ -72,29 +72,17 @@ function validateEvent({
   location,
 }, data, options = {}) {
   const {
-    draft,
-    partial,
-    evaluateEvent,
-    event,
-    validateWithStoredData,
-    defaultLang,
-    optionalSecondaryFields,
-    paths,
-    member,
-    access,
-  } = {
-    defaultLang: null,
-    evaluateEvent: true,
-    event: null,
-    validateWithStoredData: false,
-    draft: false,
-    partial: false,
-    optionalSecondaryFields: false,
-    paths: null,
-    member: null,
-    access: 'public',
-    ...typeof options === 'boolean' ? { evaluateEvent: options } : options,
-  };
+    draft = false,
+    partial = false,
+    evaluateEvent = true,
+    event = null,
+    validateWithStoredData= false,
+    defaultLang = null,
+    optionalSecondaryFields = false,
+    paths = null,
+    member = null,
+    access = 'public',
+  } = typeof options === 'boolean' ? { evaluateEvent: options } : options;
 
   const schemaExtensions = {
     network: networkFormSchema,
@@ -105,7 +93,7 @@ function validateEvent({
   //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
-  const languages = _.get(data, 'languages') || extractLanguages(null, event ? {
+  const languages = data?.languages || extractLanguages(null, event ? {
     ...event,
     ...data,
   } : data, { defaultLanguage: defaultLang });
@@ -194,10 +182,20 @@ function validateEvent({
   return clean;
 }
 
-async function cleanEvent(services, agenda, data, options = {}) {
+function isDifferent(a, b) {
+  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt'];
+
+  return !!diff(
+    _.omit(a, ignoredFields),
+    _.omit(b, ignoredFields),
+  );
+}
+
+module.exports = Object.assign(async function cleanEvent(services, agenda, data, options = {}) {
   const {
     members,
     agendaEvents,
+    registrations,
   } = services;
 
   const completeEventData = options.validateWithStoredData ? {
@@ -226,26 +224,25 @@ async function cleanEvent(services, agenda, data, options = {}) {
     pre.location = location;
   }
 
-  return validateEvent({
+  const clean = validateEvent({
     getRoleSlug: members.utils.getRoleSlug,
     formSchema: agenda.formSchema,
     networkFormSchema: _.get(agenda, 'network.formSchema'),
     location,
     validateAgendaEvent: agendaEvents.validate,
   }, pre, options);
-}
 
-function isDifferent(a, b) {
-  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt'];
+  const passCulturePayload = clean.event.registration?.find(({ service }) => service === 'passCulture')?.data;
+  if (passCulturePayload && registrations) {
+    clean.passCulture = await registrations(agenda.settings.registration).passCulture.validateEventOffer(clean.event, passCulturePayload);
+  } else if (passCulturePayload) {
+    log('passCulture payload is set but registrations is not initialized');
+  }
 
-  return !!diff(
-    _.omit(a, ignoredFields),
-    _.omit(b, ignoredFields),
-  );
-}
-
-module.exports = cleanEvent;
-module.exports.validateEvent = validateEvent;
-module.exports.containsEventData = containsEventData;
-module.exports.isDifferent = isDifferent;
-module.exports.eventFields = eventFields;
+  return clean;
+}, {
+  validateEvent,
+  containsEventData,
+  isDifferent,
+  eventFields,
+});

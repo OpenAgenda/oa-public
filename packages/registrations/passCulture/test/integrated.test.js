@@ -14,19 +14,19 @@ const {
 describe('integrated', () => {
   let pc;
   beforeAll(() => {
-    pc = PassCulture({ key, api });
+    pc = PassCulture({ key, api, siren: [singleSiren] });
   });
 
-  describe('verifyAndCreateEventOffer', () => {
-    it('created event offer returns PC created objects in eventOffer, priceCategories and dates keys', async () => {
+  describe('validateAndCreateEventOffer', () => {
+    it.only('created event offer returns PC created objects in eventOffer, priceCategories and dates keys', async () => {
       const event = pickEvent('visite-guidee-des-collections-5223531');
   
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
   
-      const result = await pc({ siren: [singleSiren] }).verifyAndCreateEventOffer(event, {
+      const result = await pc.validateAndCreateEventOffer(event, {
         venueId: 548,
         category: 'CINE_PLEIN_AIR',
-        priceCategories: [{
+        priceCategories: [{ 
           label: 'Tarif réduit',
           price: 8,
         }, {

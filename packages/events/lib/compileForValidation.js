@@ -143,11 +143,6 @@ module.exports = async (current, data, options = {}) => {
       .find(o => o.value === data.status).id;
   }
 
-  if (data?.registration) {
-    compiled.registration = removeRegistrationTypes(data.registration);
-    editedFields.push('registration');
-  }
-
   return {
     compiled,
     editedFields

@@ -44,6 +44,22 @@
           }
         }
       },
+      "registration": {
+        "fields": {
+          "passCulture": {
+            "fields": {
+              "siren": {
+                "list": {
+                  "default": null
+                },
+                "optional": false,
+                "type": "text"
+              }
+            },
+            "optional": true
+          }
+        }
+      },
       "tracking": {
         "fields": {
           "googleAnalytics": {
