@@ -22,7 +22,15 @@ function dispatchSettingsInFields(agenda, schema) {
   const registrationField = schema.fields.find(({ field }) => field === 'registration');
 
   if (agenda.settings?.registration?.passCulture && registrationField) {
-    registrationField.settings = agenda.settings.registration;
+    registrationField.settings = {
+      ...agenda.settings.registration,
+      passCulture: {
+        ...agenda.settings.registration.passCulture,
+        res: {
+          settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
+        },
+      },
+    };
   }
 
   return schema;

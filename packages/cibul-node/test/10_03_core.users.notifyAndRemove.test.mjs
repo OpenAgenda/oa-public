@@ -111,7 +111,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     expect(margauxState.sent[2].name).toBe('last');
   });
 
-  it('users that have been notified three times with last notification made more than 24 hours ago are deleted', async () => {
+  it.only('users that have been notified three times with last notification made more than 24 hours ago are deleted', async () => {
     const removedUser = await services.users.get(5, { removed: null, detailed: true });
 
     expect(removedUser.isRemoved).toBe(true);

@@ -191,8 +191,11 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       expect(
-        agenda.schema.fields.find(({ field }) => field === 'registration').settings,
-      ).toEqual(agenda.settings.registration);
+        _.omit(
+          agenda.schema.fields.find(({ field }) => field === 'registration').settings.passCulture,
+          ['res'],
+        ),
+      ).toEqual(agenda.settings.registration.passCulture);
     });
   });
 
