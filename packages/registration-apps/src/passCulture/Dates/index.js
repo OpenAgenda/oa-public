@@ -17,13 +17,14 @@ export default function Dates({
 }) {
   const {
     Button,
+    Section,
   } = useContext(ComponentsContext);
 
   const [newItem, setNewItem] = useState(initWithOpenForm);
   const [editing, setEditing] = useState(false);
 
   return (
-    <div>
+    <>
       <b>Dates</b>
       <DateItems
         value={value.dates ?? []}
@@ -55,6 +56,6 @@ export default function Dates({
           label="Ajouter une date"
         />
       )}
-    </div>
+    </>
   );
 }

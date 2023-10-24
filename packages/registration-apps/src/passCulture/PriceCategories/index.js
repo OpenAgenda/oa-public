@@ -22,7 +22,7 @@ export default function PriceCategories({
   const [editing, setEditing] = useState(false);
 
   return (
-    <div>
+    <>
       <b>Tarifs</b>
       <PriceCategoryItems
         value={value.priceCategories}
@@ -50,6 +50,6 @@ export default function PriceCategories({
           label="Ajouter un tarif"
         />
       )}
-    </div>
+    </>
   );
 }

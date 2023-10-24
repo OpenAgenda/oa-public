@@ -24,6 +24,7 @@ export default function Form({
   const [value, setValue] = useState(initialValue ?? {});
 
   const {
+    Section,
     Spinner,
     Select,
     Button,
@@ -57,71 +58,81 @@ export default function Form({
 
   return (
     <form>
-      <Select
-        label="Lieu"
-        value={value?.venueId}
-        placeholder="Sélectionner un lieu"
-        options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
-          value: v.id,
-          label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
-        }))}
-        onChange={option => setValue({
-          ...value,
-          venueId: option.value,
-        })}
-      />
-      <Select
-        label="Catégorie"
-        value={value?.category}
-        placeholder="Sélectionner une catégorie"
-        options={categories}
-        onChange={option => setValue({
-          ...value,
-          category: option.value,
-        })}
-      />
-      {relatedCategoryOptions.length ? (
+      <Section>
         <Select
-          label="Sous-catégorie"
-          value={value.subCategory}
-          placeholder="Sous-catégorie"
-          options={relatedCategoryOptions}
+          label="Lieu"
+          value={value?.venueId}
+          placeholder="Sélectionner un lieu"
+          options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
+            value: v.id,
+            label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+          }))}
           onChange={option => setValue({
             ...value,
-            subCategory: option.value,
+            venueId: option.value,
           })}
         />
-      ) : null}
-      <PriceCategories
-        value={value}
-        onAdd={pc => setValue(addPriceCategory(value, pc))}
-        onRemove={pc => setValue(removePriceCategory(value, pc))}
-        onChange={(index, pc) => {
-          setValue(changePriceCategory(value, index, pc));
-        }}
-      />
-      <Dates
-        value={value}
-        onAdd={d => setValue({
-          ...value,
-          dates: (value.dates ?? []).concat(d),
-        })}
-        onRemove={d => setValue(removeDate(value, d))}
-        onChange={(i, d) => setValue(changeDate(value, i, d))}
-        timings={timings}
-      />
-      <Button
-        disabled={!isValid(value)}
-        shape="primary"
-        label="Enregistrer"
-        onClick={() => onSubmit(value)}
-      />
+      </Section>
+      <Section>
+        <Select
+          label="Catégorie"
+          value={value?.category}
+          placeholder="Sélectionner une catégorie"
+          options={categories}
+          onChange={option => setValue({
+            ...value,
+            category: option.value,
+          })}
+        />
+        {relatedCategoryOptions.length ? (
+          <Select
+            label="Sous-catégorie"
+            value={value.subCategory}
+            placeholder="Sous-catégorie"
+            options={relatedCategoryOptions}
+            onChange={option => setValue({
+              ...value,
+              subCategory: option.value,
+            })}
+          />
+        ) : null}
+      </Section>
+      <Section>
+        <PriceCategories
+          value={value}
+          onAdd={pc => setValue(addPriceCategory(value, pc))}
+          onRemove={pc => setValue(removePriceCategory(value, pc))}
+          onChange={(index, pc) => {
+            setValue(changePriceCategory(value, index, pc));
+          }}
+        />
+      </Section>
+      <Section>
+        <Dates
+          value={value}
+          onAdd={d => setValue({
+            ...value,
+            dates: (value.dates ?? []).concat(d),
+          })}
+          onRemove={d => setValue(removeDate(value, d))}
+          onChange={(i, d) => setValue(changeDate(value, i, d))}
+          timings={timings}
+        />
+      </Section>
+      <Section>
+        <Button
+          disabled={!isValid(value)}
+          shape="primary"
+          label="Enregistrer"
+          onClick={() => onSubmit(value)}
+        />
 
-      <Button
-        shape="link-danger"
-        label="Tout supprimer"
-        onClick={onClear}
-      />
+        <Button
+          shape="link-danger"
+          label="Annuler"
+          onClick={onClear}
+        />
+      </Section>
     </form>
   );
 }

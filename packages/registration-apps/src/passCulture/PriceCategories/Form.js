@@ -8,15 +8,17 @@ export default function PriceCategoryForm({
   isValid,
   onSubmit,
   onCancel,
+  mode = 'add',
   submitLabel = 'Ajouter',
 }) {
   const {
     Input,
     Button,
+    EmbeddedForm,
   } = useContext(ComponentsContext);
 
   return (
-    <form className="form-inline">
+    <EmbeddedForm title={mode === 'edit' ? 'Modification de tarif' : 'Nouveau tarif'}>
       <Input
         id="price-category-label"
         value={value.label ?? ''}
@@ -48,6 +50,6 @@ export default function PriceCategoryForm({
         onClick={onCancel}
         label="Annuler"
       />
-    </form>
+    </EmbeddedForm>
   );
 }

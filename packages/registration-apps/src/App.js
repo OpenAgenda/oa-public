@@ -58,6 +58,7 @@ function Registration(props) {
     );
   }, [propsOnChange, passCultureValue]);
 
+
   return (
     <div className="multi-input">
       {settings.passCulture ? (

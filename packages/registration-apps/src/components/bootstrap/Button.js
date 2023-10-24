@@ -20,11 +20,13 @@ export default function Button({
   onClick,
   label,
   shape,
+  unmargined = false,
+  unpadded = false
 }) {
   return (
     <button
       type={type === 'button' ? 'button' : 'submit'}
-      className={`btn ${buttonClass(shape)} margin-right-xs`}
+      className={`btn ${buttonClass(shape)} ${unmargined ? 'margin-h-z' : 'margin-right-xs'} ${unpadded ? 'padding-h-z' : ''}`}
       onClick={onClick}
       disabled={disabled}
     >
