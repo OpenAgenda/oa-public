@@ -69,11 +69,15 @@ function setCSPHeader(hashes, req, res) {
       'https://oastatic.s3.eu-central-1.amazonaws.com',
     ],
     scriptSrc: [
-      ...contentSecurityPolicy.defaultDirectives.scriptSrc,
-      ...hashes,
+      // strict-dynamic + hashes doesn't work with Safari
+      "'self'",
+      'https://code.jquery.com',
+      'https://maxcdn.bootstrapcdn.com',
+      'https://client.crisp.chat',
     ],
     connectSrc: [
       ...contentSecurityPolicy.defaultDirectives.connectSrc,
+      'https://client.crisp.chat',
       'wss://client.relay.crisp.chat',
     ],
   })(req, res, err => {
@@ -162,9 +166,9 @@ async function corpo(cache, req, res, next) {
     },
   );
 
-  cache.set(req.originalUrl, { content, scriptCSPHashes }, 60 * 60, err => {
-    if (err) req.log.error('could not cache %s', err);
-  });
+  // cache.set(req.originalUrl, { content, scriptCSPHashes }, 60 * 60, err => {
+  //   if (err) req.log.error('could not cache %s', err);
+  // });
 
   res.send(content);
 
