@@ -18,7 +18,10 @@ export default function DateItems({
 
   const {
     Button,
+    List,
+    ListItem,
     ListItemPart,
+    ListItemLine,
   } = useContext(ComponentsContext);
 
   if (!value.length) {
@@ -26,9 +29,9 @@ export default function DateItems({
   }
 
   return (
-    <ul className="margin-v-z list-unstyled">
+    <List>
       {value.map(({ timingId, priceCategoryIndex, quantity }, index) => (
-        <li key={`${timingId}-${priceCategoryIndex}`}>
+        <ListItem key={`${timingId}-${priceCategoryIndex}`}>
           {editedItemIndex === index ? (
             <DateForm
               value={editValue}
@@ -55,31 +58,43 @@ export default function DateItems({
             />
           ) : (
             <>
-              <ListItemPart>{findTimingLabel(timings, timingId)}</ListItemPart>
-              <ListItemPart>{priceCategories[priceCategoryIndex].label}</ListItemPart>
-              <ListItemPart>{quantity} places</ListItemPart>
-              <Button
-                type="button"
-                disabled={disabled || editedItemIndex !== -1}
-                shape="link"
-                onClick={() => {
-                  setEditedItemIndex(index);
-                  setEditValue({ timingId, priceCategoryIndex, quantity });
-                  onToggleEditing(true);
-                }}
-                label="Modifier"
-              />
-              <Button
-                type="button"
-                disabled={disabled || editValue}
-                label="Supprimer"
-                shape="danger-link"
-                onClick={() => onRemove({ timingId, priceCategoryIndex, quantity })}
-              />
+              <ListItemLine>
+                <ListItemPart>{findTimingLabel(timings, timingId)}</ListItemPart>
+                <ListItemPart>{priceCategories[priceCategoryIndex].label}</ListItemPart>
+                <ListItemPart>{quantity} places</ListItemPart>
+              </ListItemLine>
+              <ListItemLine>
+                <ListItemPart>
+                  <Button
+                    unmargined
+                    unpadded
+                    type="button"
+                    disabled={disabled || editedItemIndex !== -1}
+                    shape="link"
+                    onClick={() => {
+                      setEditedItemIndex(index);
+                      setEditValue({ timingId, priceCategoryIndex, quantity });
+                      onToggleEditing(true);
+                    }}
+                    label="Modifier"
+                  />
+                </ListItemPart>
+                <ListItemPart>
+                  <Button
+                    unmargined
+                    unpadded
+                    type="button"
+                    disabled={disabled || editValue}
+                    label="Supprimer"
+                    shape="danger-link"
+                    onClick={() => onRemove({ timingId, priceCategoryIndex, quantity })}
+                  />
+                </ListItemPart>
+              </ListItemLine>
             </>
           )}
-        </li>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }

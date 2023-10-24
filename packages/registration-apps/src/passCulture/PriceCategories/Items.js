@@ -14,7 +14,9 @@ export default function PriceCategoryItems({
 }) {
   const {
     Button,
+    ListItem,
     ListItemPart,
+    List,
   } = useContext(ComponentsContext);
 
   const [editValue, setEditValue] = useState(false);
@@ -28,11 +30,12 @@ export default function PriceCategoryItems({
     );
   }
   return (
-    <ul className="margin-v-z list-unstyled">
+    <List>
       {value.map(({ label, price }, index) => (
-        <li key={slug(`${label} ${price}`, { lower: true, strict: true })}>
+        <ListItem key={slug(`${label} ${price}`, { lower: true, strict: true })}>
           {editedItemIndex === index ? (
             <PriceCategoryForm
+              mode="edit"
               value={editValue}
               onChange={v => setEditValue(v)}
               isValid={isPriceCategoryValid(editValue)}
@@ -51,27 +54,35 @@ export default function PriceCategoryItems({
             <>
               <ListItemPart>{label}</ListItemPart>
               <ListItemPart>{price} €</ListItemPart>
-              <Button
-                type="submit"
-                disabled={disabled || editedItemIndex !== -1}
-                shape="link"
-                onClick={() => {
-                  setEditedItemIndex(index);
-                  setEditValue({ label, price });
-                  onToggleEditing(true);
-                }}
-                label="Modifier"
-              />
-              <Button
-                disabled={disabled || editValue}
-                shape="danger-link"
-                onClick={() => onRemove({ label, price })}
-                label="Supprimer"
-              />
+              <ListItemPart>
+                <Button
+                  unmargined
+                  unpadded
+                  type="submit"
+                  disabled={disabled || editedItemIndex !== -1}
+                  shape="link"
+                  onClick={() => {
+                    setEditedItemIndex(index);
+                    setEditValue({ label, price });
+                    onToggleEditing(true);
+                  }}
+                  label="Modifier"
+                />
+              </ListItemPart>
+              <ListItemPart>
+                <Button
+                  unmargined
+                  unpadded
+                  disabled={disabled || editValue}
+                  shape="danger-link"
+                  onClick={() => onRemove({ label, price })}
+                  label="Supprimer"
+                />
+              </ListItemPart>
             </>
           )}
-        </li>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }

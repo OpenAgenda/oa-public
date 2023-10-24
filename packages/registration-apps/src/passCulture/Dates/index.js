@@ -14,6 +14,8 @@ export default function Dates({
   timings,
   onChange,
   onRemove,
+  onSubFormToggle,
+  disabled = false,
 }) {
   const {
     Button,
@@ -23,14 +25,17 @@ export default function Dates({
   const [editing, setEditing] = useState(false);
 
   return (
-    <div>
+    <>
       <b>Dates</b>
       <DateItems
         value={value.dates ?? []}
         priceCategories={value.priceCategories ?? []}
         timings={timings}
-        disabled={newItem}
-        onToggleEditing={setEditing}
+        disabled={newItem || disabled}
+        onToggleEditing={edit => {
+          setEditing(edit);
+          onSubFormToggle(edit);
+        }}
         onChange={onChange}
         onRemove={onRemove}
       />
@@ -49,12 +54,15 @@ export default function Dates({
         />
       ) : (
         <Button
-          onClick={() => setNewItem({})}
-          disabled={editing || !(value.priceCategories ?? []).length}
+          onClick={() => {
+            setNewItem({});
+            onSubFormToggle(true);
+          }}
+          disabled={editing || !(value.priceCategories ?? []).length || disabled}
           shape="unpadded-link"
           label="Ajouter une date"
         />
       )}
-    </div>
+    </>
   );
 }

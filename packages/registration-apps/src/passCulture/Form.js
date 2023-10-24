@@ -22,8 +22,10 @@ export default function Form({
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passData, setPassData] = useState(null);
   const [value, setValue] = useState(initialValue ?? {});
+  const [openSubForm, setOpenSubForm] = useState();
 
   const {
+    Section,
     Spinner,
     Select,
     Button,
@@ -57,71 +59,97 @@ export default function Form({
 
   return (
     <form>
-      <Select
-        label="Lieu"
-        value={value?.venueId}
-        placeholder="Sélectionner un lieu"
-        options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
-          value: v.id,
-          label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
-        }))}
-        onChange={option => setValue({
-          ...value,
-          venueId: option.value,
-        })}
-      />
-      <Select
-        label="Catégorie"
-        value={value?.category}
-        placeholder="Sélectionner une catégorie"
-        options={categories}
-        onChange={option => setValue({
-          ...value,
-          category: option.value,
-        })}
-      />
-      {relatedCategoryOptions.length ? (
+      <Section>
         <Select
-          label="Sous-catégorie"
-          value={value.subCategory}
-          placeholder="Sous-catégorie"
-          options={relatedCategoryOptions}
+          disabled={openSubForm}
+          label="Lieu"
+          value={value?.venueId}
+          placeholder="Sélectionner un lieu"
+          options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
+            value: v.id,
+            label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+          }))}
           onChange={option => setValue({
             ...value,
-            subCategory: option.value,
+            venueId: option.value,
           })}
         />
-      ) : null}
-      <PriceCategories
-        value={value}
-        onAdd={pc => setValue(addPriceCategory(value, pc))}
-        onRemove={pc => setValue(removePriceCategory(value, pc))}
-        onChange={(index, pc) => {
-          setValue(changePriceCategory(value, index, pc));
-        }}
-      />
-      <Dates
-        value={value}
-        onAdd={d => setValue({
-          ...value,
-          dates: (value.dates ?? []).concat(d),
-        })}
-        onRemove={d => setValue(removeDate(value, d))}
-        onChange={(i, d) => setValue(changeDate(value, i, d))}
-        timings={timings}
-      />
-      <Button
-        disabled={!isValid(value)}
-        shape="primary"
-        label="Enregistrer"
-        onClick={() => onSubmit(value)}
-      />
-
-      <Button
-        shape="link-danger"
-        label="Tout supprimer"
-        onClick={onClear}
-      />
+      </Section>
+      <Section>
+        <Select
+          disabled={openSubForm}
+          label="Catégorie"
+          value={value?.category}
+          placeholder="Sélectionner une catégorie"
+          options={categories}
+          onChange={option => setValue({
+            ...value,
+            category: option.value,
+          })}
+        />
+        {relatedCategoryOptions.length ? (
+          <Select
+            disabled={openSubForm}
+            label="Sous-catégorie"
+            value={value.subCategory}
+            placeholder="Sous-catégorie"
+            options={relatedCategoryOptions}
+            onChange={option => setValue({
+              ...value,
+              subCategory: option.value,
+            })}
+          />
+        ) : null}
+      </Section>
+      <Section>
+        <PriceCategories
+          disabled={openSubForm && openSubForm !== 'priceCategories'}
+          value={value}
+          onAdd={pc => {
+            setValue(addPriceCategory(value, pc));
+            setOpenSubForm(false);
+          }}
+          onRemove={pc => setValue(removePriceCategory(value, pc))}
+          onSubFormToggle={open => setOpenSubForm(open ? 'priceCategories' : false)}
+          onChange={(index, pc) => {
+            setValue(changePriceCategory(value, index, pc));
+            setOpenSubForm(false);
+          }}
+        />
+      </Section>
+      <Section>
+        <Dates
+          disabled={openSubForm && openSubForm !== 'dates'}
+          value={value}
+          onAdd={d => {
+            setValue({
+              ...value,
+              dates: (value.dates ?? []).concat(d),
+            });
+            setOpenSubForm(false);
+          }}
+          onRemove={d => setValue(removeDate(value, d))}
+          onChange={(i, d) => {
+            setValue(changeDate(value, i, d));
+            setOpenSubForm(false);
+          }}
+          onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
+          timings={timings}
+        />
+      </Section>
+      <Section>
+        <Button
+          disabled={!isValid(value) || openSubForm}
+          shape="primary"
+          label="Enregistrer"
+          onClick={() => onSubmit(value)}
+        />
+        <Button
+          shape="link-danger"
+          label="Annuler"
+          onClick={onClear}
+        />
+      </Section>
     </form>
   );
 }

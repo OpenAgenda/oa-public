@@ -13,12 +13,14 @@ export default function DateForm({
   priceCategories,
   timings,
   submitLabel = 'Ajouter',
+  mode = 'add',
 }) {
   const {
     Select,
     Input,
     Form,
     Button,
+    EmbeddedForm,
   } = useContext(ComponentsContext);
 
   const timingOptions = timings.map(t => ({
@@ -27,7 +29,7 @@ export default function DateForm({
   }));
 
   return (
-    <Form type="inline">
+    <EmbeddedForm title={mode === 'edit' ? 'Modification de date' : 'Nouvelle date'}>
       <Select
         id="date-timing"
         label="Plage horaire"
@@ -66,6 +68,6 @@ export default function DateForm({
         onClick={onCancel}
         label="Annuler"
       />
-    </Form>
+    </EmbeddedForm>
   );
 }

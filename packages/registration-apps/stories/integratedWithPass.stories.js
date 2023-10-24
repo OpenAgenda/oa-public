@@ -31,13 +31,13 @@ export function EmptyAtLoad() {
         value={value}
         lang="fr"
         onChange={setValue}
+        relatedValues={{
+          other: {
+            timings: event.timings,
+          },
+        }}
         field={{
           placeholder: 'Truc bidule',
-          relatedValues: {
-            other: {
-              timings: event.timings,
-            },
-          },
           settings: {
             passCulture: {
               res: {
@@ -85,9 +85,13 @@ export function WithData() {
         value={value}
         lang="fr"
         onChange={setValue}
+        relatedValues={{
+          other: {
+            timings: event.timings,
+          },
+        }}
         field={{
           placeholder: 'Truc bidule',
-          relatedValues: { timings: event.timings },
           settings: {
             passCulture: {
               res: {
