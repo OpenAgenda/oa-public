@@ -74,6 +74,7 @@ function setCSPHeader(hashes, req, res) {
       'https://code.jquery.com',
       'https://maxcdn.bootstrapcdn.com',
       'https://client.crisp.chat',
+      'https://cdn.matomo.cloud',
     ],
     connectSrc: [
       ...contentSecurityPolicy.defaultDirectives.connectSrc,

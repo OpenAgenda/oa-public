@@ -29,9 +29,6 @@ const defaultDirectives = {
     "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     (req, res) => `'nonce-${res.locals.cspNonce}'`,
-    // 'https://code.jquery.com',
-    // 'https://maxcdn.bootstrapcdn.com',
-    // 'https://client.crisp.chat',
   ],
   connectSrc: [
     "'self'",
