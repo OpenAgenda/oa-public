@@ -4,7 +4,12 @@ const bodyParser = require('body-parser');
 const log = require('@openagenda/logs')('reports');
 
 function logReport(report) {
-  if (report?.body?.sourceFile?.startsWith('chrome-extension')) {
+  if (
+    report?.body?.sourceFile?.startsWith('chrome-extension')
+    || report?.body?.sourceFile?.startsWith('safari-extension')
+    || report?.['csp-report']?.['blocked-uri']?.startsWith('chrome-extension')
+    || report?.['csp-report']?.['source-file']?.startsWith('safari-extension')
+  ) {
     return;
   }
 
