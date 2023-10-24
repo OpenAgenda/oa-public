@@ -14,10 +14,11 @@ export default function Dates({
   timings,
   onChange,
   onRemove,
+  onSubFormToggle,
+  disabled = false,
 }) {
   const {
     Button,
-    Section,
   } = useContext(ComponentsContext);
 
   const [newItem, setNewItem] = useState(initWithOpenForm);
@@ -30,8 +31,11 @@ export default function Dates({
         value={value.dates ?? []}
         priceCategories={value.priceCategories ?? []}
         timings={timings}
-        disabled={newItem}
-        onToggleEditing={setEditing}
+        disabled={newItem || disabled}
+        onToggleEditing={edit => {
+          setEditing(edit);
+          onSubFormToggle(edit);
+        }}
         onChange={onChange}
         onRemove={onRemove}
       />
@@ -50,8 +54,11 @@ export default function Dates({
         />
       ) : (
         <Button
-          onClick={() => setNewItem({})}
-          disabled={editing || !(value.priceCategories ?? []).length}
+          onClick={() => {
+            setNewItem({});
+            onSubFormToggle(true);
+          }}
+          disabled={editing || !(value.priceCategories ?? []).length || disabled}
           shape="unpadded-link"
           label="Ajouter une date"
         />

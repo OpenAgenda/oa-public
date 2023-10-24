@@ -22,6 +22,7 @@ export default function Form({
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passData, setPassData] = useState(null);
   const [value, setValue] = useState(initialValue ?? {});
+  const [openSubForm, setOpenSubForm] = useState();
 
   const {
     Section,
@@ -60,6 +61,7 @@ export default function Form({
     <form>
       <Section>
         <Select
+          disabled={openSubForm}
           label="Lieu"
           value={value?.venueId}
           placeholder="Sélectionner un lieu"
@@ -75,6 +77,7 @@ export default function Form({
       </Section>
       <Section>
         <Select
+          disabled={openSubForm}
           label="Catégorie"
           value={value?.category}
           placeholder="Sélectionner une catégorie"
@@ -86,6 +89,7 @@ export default function Form({
         />
         {relatedCategoryOptions.length ? (
           <Select
+            disabled={openSubForm}
             label="Sous-catégorie"
             value={value.subCategory}
             placeholder="Sous-catégorie"
@@ -99,34 +103,47 @@ export default function Form({
       </Section>
       <Section>
         <PriceCategories
+          disabled={openSubForm && openSubForm !== 'priceCategories'}
           value={value}
-          onAdd={pc => setValue(addPriceCategory(value, pc))}
+          onAdd={pc => {
+            setValue(addPriceCategory(value, pc));
+            setOpenSubForm(false);
+          }}
           onRemove={pc => setValue(removePriceCategory(value, pc))}
+          onSubFormToggle={open => setOpenSubForm(open ? 'priceCategories' : false)}
           onChange={(index, pc) => {
             setValue(changePriceCategory(value, index, pc));
+            setOpenSubForm(false);
           }}
         />
       </Section>
       <Section>
         <Dates
+          disabled={openSubForm && openSubForm !== 'dates'}
           value={value}
-          onAdd={d => setValue({
-            ...value,
-            dates: (value.dates ?? []).concat(d),
-          })}
+          onAdd={d => {
+            setValue({
+              ...value,
+              dates: (value.dates ?? []).concat(d),
+            });
+            setOpenSubForm(false);
+          }}
           onRemove={d => setValue(removeDate(value, d))}
-          onChange={(i, d) => setValue(changeDate(value, i, d))}
+          onChange={(i, d) => {
+            setValue(changeDate(value, i, d));
+            setOpenSubForm(false);
+          }}
+          onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
           timings={timings}
         />
       </Section>
       <Section>
         <Button
-          disabled={!isValid(value)}
+          disabled={!isValid(value) || openSubForm}
           shape="primary"
           label="Enregistrer"
           onClick={() => onSubmit(value)}
         />
-
         <Button
           shape="link-danger"
           label="Annuler"

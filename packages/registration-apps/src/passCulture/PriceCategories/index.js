@@ -10,9 +10,11 @@ import PriceCategoryItems from './Items';
 export default function PriceCategories({
   initWithOpenForm = false,
   value = [],
+  onSubFormToggle,
   onAdd,
   onRemove,
   onChange,
+  disabled = false,
 }) {
   const {
     Button,
@@ -27,8 +29,11 @@ export default function PriceCategories({
       <PriceCategoryItems
         value={value.priceCategories}
         onRemove={onRemove}
-        disabled={newItem}
-        onToggleEditing={setEditing}
+        disabled={newItem || disabled}
+        onToggleEditing={edit => {
+          setEditing(edit);
+          onSubFormToggle(edit);
+        }}
         onChange={onChange}
       />
       {newItem ? (
@@ -44,8 +49,11 @@ export default function PriceCategories({
         />
       ) : (
         <Button
-          onClick={() => setNewItem({})}
-          disabled={editing}
+          onClick={() => {
+            setNewItem({});
+            onSubFormToggle(true);
+          }}
+          disabled={editing || disabled}
           shape="unpadded-link"
           label="Ajouter un tarif"
         />

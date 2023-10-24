@@ -1,6 +1,6 @@
-export default function ListItem({ children, key }) {
+export default function ListItem({ children }) {
   return (
-    <li className="margin-v-xs" key={key}>
+    <li className="margin-v-xs">
       {children}
     </li>
   );
