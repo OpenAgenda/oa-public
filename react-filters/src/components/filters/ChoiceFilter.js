@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useMemo, useState,
-} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
@@ -51,11 +49,13 @@ function Preview({
       return [];
     }
 
-    return [].concat(input.value)
-      .map(v => options.find(option => option.value === v) ?? {
-        value: v,
-        label: intl.formatMessage(messages.unrecognizedOption, { value: v }),
-      });
+    return [].concat(input.value).map(
+      v =>
+        options.find(option => option.value === v) ?? {
+          value: v,
+          label: intl.formatMessage(messages.unrecognizedOption, { value: v }),
+        },
+    );
   }, [input.value, options, intl]);
 
   const onRemove = useCallback(
@@ -94,17 +94,21 @@ function Preview({
   });
 }
 
-const ChoiceFilter = React.forwardRef(function ChoiceFilter({
-  name,
-  filter,
-  getTotal,
-  getOptions,
-  disabled,
-  collapsed,
-  inputType = 'checkbox',
-  pageSize = 10,
-  searchMinSize = 2 * pageSize,
-}, _ref) {
+const ChoiceFilter = React.forwardRef(function ChoiceFilter(
+  {
+    name,
+    filter,
+    getTotal,
+    getOptions,
+    disabled,
+    collapsed,
+    inputType = 'checkbox',
+    pageSize = 10,
+    searchMinSize = 2 * pageSize,
+    sort,
+  },
+  _ref,
+) {
   const intl = useIntl();
   const seed = useUIDSeed();
 
@@ -122,6 +126,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
     getOptions,
     collapsed,
     pageSize,
+    sort,
   });
 
   return (
@@ -144,22 +149,23 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
         </div>
       ) : null}
 
-      {foundOptions.map((option, index) => (index < countOptions ? (
-        <Field
-          key={seed(option)}
-          name={name}
-          subscription={subscription}
-          parse={parseValue}
-          format={formatValue}
-          component={ChoiceField}
-          type={inputType}
-          value={option.value}
-          option={option}
-          filter={filter}
-          getTotal={getTotal}
-          disabled={disabled}
-        />
-      ) : null))}
+      {foundOptions.map((option, index) =>
+        (index < countOptions ? (
+          <Field
+            key={seed(option)}
+            name={name}
+            subscription={subscription}
+            parse={parseValue}
+            format={formatValue}
+            component={ChoiceField}
+            type={inputType}
+            value={option.value}
+            option={option}
+            filter={filter}
+            getTotal={getTotal}
+            disabled={disabled}
+          />
+        ) : null))}
 
       {hasMoreOptions ? (
         <button
@@ -185,15 +191,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
 });
 
 const Collapsable = React.forwardRef(function Collapsable(
-  {
-    name,
-    filter,
-    component,
-    getTotal,
-    getOptions,
-    disabled,
-    ...rest
-  },
+  { name, filter, component, getTotal, getOptions, disabled, ...rest },
   ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);

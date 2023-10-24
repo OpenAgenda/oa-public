@@ -1,20 +1,56 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
+import { useIntl } from 'react-intl';
 import Fuse from 'fuse.js';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
+
+function getCollator(locale, defaultLocale) {
+  try {
+    return new Intl.Collator(locale, {
+      sensitivity: 'base',
+      usage: 'sort',
+    });
+  } catch {
+    return new Intl.Collator(defaultLocale, {
+      sensitivity: 'base',
+      usage: 'sort',
+    });
+  }
+}
+
+function filterOptions({ options, fuse, searchValue, sort, collator }) {
+  if (searchValue === '') {
+    if (sort === 'alphabetical') {
+      return options.sort((a, b) => collator.compare(a.label, b.label));
+    }
+
+    return options;
+  }
+
+  return fuse.search(searchValue).map(v => v.item);
+}
 
 export default function useChoiceState({
   filter,
   getOptions,
   pageSize,
   collapsed = false,
+  sort,
 }) {
+  const intl = useIntl();
   const [countOptions, setCountOptions] = useState(pageSize);
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
+  const collator = useMemo(
+    () => getCollator(intl.locale, intl.defaultLocale),
+    [intl.defaultLocale, intl.locale],
+  );
+
   const [searchValue, setSearchValue] = useState('');
   const previousSearchValue = usePrevious(searchValue);
-  const [foundOptions, setFoundOptions] = useState(options);
+  const [foundOptions, setFoundOptions] = useState(
+    filterOptions({ options, searchValue, sort, collator }),
+  );
 
   const moreOptions = useCallback(
     () => setCountOptions(v => v + pageSize),
@@ -35,12 +71,13 @@ export default function useChoiceState({
   const onSearchChange = useCallback(e => setSearchValue(e.target.value), []);
 
   const fuse = useConstant(
-    () => new Fuse(options, {
-      threshold: 0.3,
-      ignoreLocation: true,
-      distance: 100,
-      keys: ['label'],
-    }),
+    () =>
+      new Fuse(options, {
+        threshold: 0.3,
+        ignoreLocation: true,
+        distance: 100,
+        keys: ['label'],
+      }),
   );
 
   // Update fuse docs if options change
@@ -48,13 +85,17 @@ export default function useChoiceState({
     if (options !== fuse._docs) {
       fuse.setCollection(options);
 
-      const newOptions = searchValue === ''
-        ? options
-        : fuse.search(searchValue).map(v => v.item);
+      const newOptions = filterOptions({
+        options,
+        fuse,
+        searchValue,
+        sort,
+        collator,
+      });
 
       setFoundOptions(newOptions);
     }
-  }, [fuse, searchValue, options]);
+  }, [fuse, searchValue, options, sort, collator]);
 
   // Update search results if search change
   useIsomorphicLayoutEffect(() => {
@@ -62,9 +103,13 @@ export default function useChoiceState({
       previousSearchValue !== undefined
       && searchValue !== previousSearchValue
     ) {
-      const newOptions = searchValue === ''
-        ? options
-        : fuse.search(searchValue).map(v => v.item);
+      const newOptions = filterOptions({
+        options,
+        fuse,
+        searchValue,
+        sort,
+        collator,
+      });
 
       // if (newOptions.length <= pageSize || searchValue === '') {
       //   lessOptions();
@@ -72,7 +117,7 @@ export default function useChoiceState({
 
       setFoundOptions(newOptions);
     }
-  }, [fuse, searchValue, options, previousSearchValue]);
+  }, [fuse, searchValue, options, previousSearchValue, sort, collator]);
 
   return {
     options,
