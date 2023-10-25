@@ -354,7 +354,7 @@ function Dashboard() {
           dispatch={dispatch}
           mergeActions={mergeActions}
           seeDetails={setOpenDetails}
-          seeSelection={() => history.push({ search: betterQsStringify({ ...search, uids: merge.locationUids }) })}
+          seeSelection={() => history.push({ search: betterQsStringify({ uids: merge.locationUids }) })}
           closeMerge={() => {
             dispatch(mergeActions.closeMerge());
             history.push({ pathname: prefix, search: betterQsStringify({ ...search, page }) });
