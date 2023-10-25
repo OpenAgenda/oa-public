@@ -220,9 +220,8 @@ export default (core, { useRouter = true } = {}) => {
       if (!req.agenda.settings.registration.passCulture.siren) {
         return res.json(null);
       }
-      core.services.registrations
-        .passCulture(req.agenda.settings.registration.passCulture)
-        .getParameters()
+      core.services.registrations(req.agenda.settings.registration)
+        .passCulture.getParameters()
         .then(data => res.json(data), next);
     },
   ]);
