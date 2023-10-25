@@ -35,7 +35,7 @@ export default function useChoiceState({
   getOptions,
   pageSize,
   collapsed = false,
-  sort,
+  sort = null,
 }) {
   const intl = useIntl();
   const [countOptions, setCountOptions] = useState(pageSize);
