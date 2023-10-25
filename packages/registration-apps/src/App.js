@@ -61,7 +61,7 @@ function Registration(props) {
 
   return (
     <div className="multi-input">
-      {settings.passCulture ? (
+      {(settings.passCulture?.siren ?? []).length ? (
         <PassCultureCheckbox
           value={passCultureValue}
           settings={settings.passCulture}

@@ -52,7 +52,7 @@ export default ({
             alt="Logo Pass Culture"
             width={100}
           />
-          <div className="text-muted">Je souhaite créer une billeterie pass culture pour cet événement</div>
+          <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
         </label>
       </div>
     </>
