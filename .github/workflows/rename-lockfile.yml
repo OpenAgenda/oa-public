@@ -1,0 +1,26 @@
+name: Rename yarn.lock
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  rename:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Rename yarn.lock to yarn.lock-workspace
+        run: |
+          if [ -f yarn.lock ]; then
+            mv yarn.lock yarn.lock-workspace
+            git config user.name "Action GitHub"
+            git config user.email "action-github@github.com"
+            git add yarn.lock-workspace
+            git commit -m "chore: rename yarn.lock to yarn.lock-workspace"
+            git push
+          fi

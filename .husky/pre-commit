@@ -19,7 +19,11 @@ maybe_modified_package() {
   LOCATION=$(echo "$1" | jq -r .location)
 
   if [ -n "$(git --no-pager diff --cached --name-only --diff-filter=ACDMR -- "$LOCATION")" ]; then
-    MODIFIED_PACKAGES="$MODIFIED_PACKAGES --include $NAME"
+    if [ -z "$MODIFIED_PACKAGES" ]; then
+      MODIFIED_PACKAGES="$NAME"
+    else
+      MODIFIED_PACKAGES="$MODIFIED_PACKAGES,$NAME"
+    fi
   fi
 }
 
@@ -32,5 +36,5 @@ if [ -z "$MODIFIED_PACKAGES" ]; then
 fi
 
 yarn workspaces foreach \
-  --verbose --topological-dev $(echo "$MODIFIED_PACKAGES" | xargs) \
+  -Rpv --topological-dev --from "{$MODIFIED_PACKAGES}" \
   run lint-staged

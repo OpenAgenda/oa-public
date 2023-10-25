@@ -17,8 +17,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18, 20]
+        # See supported Node.js release schedule at https://github.com/nodejs/Release
 
     steps:
     - name: Git checkout
@@ -32,15 +32,17 @@ jobs:
     - name: Start Redis
       uses: superchargejs/redis-github-action@1.2.0
 
+    - run: mv yarn.lock-workspace yarn.lock
+
     - run: yarn -v
 
     - run: yarn config
 
     - run: yarn
 
-    - run: yarn workspaces foreach --parallel --topological-dev --interlaced --verbose run prepack
+    - run: yarn workspaces foreach -Apv --topological-dev run prepack
 
-    - run: yarn workspaces foreach -tv run test --colors
+    - run: yarn workspaces foreach -Atv run test --colors
       env:
         AWS_DEV_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
         AWS_DEV_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_SECRET_ACCESS_KEY }}
