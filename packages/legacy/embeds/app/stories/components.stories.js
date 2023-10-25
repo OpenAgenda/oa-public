@@ -6,7 +6,6 @@ import MockAdapter from 'axios-mock-adapter';
 import EmbedCodePresentation from '../src/components/EmbedCodePresentation';
 import ConfigurationMenuSelector from '../src/components/ConfigurationMenuSelector';
 import GeneralMenu from '../src/components/GeneralMenu';
-import SharesMenu from '../src/components/SharesMenu';
 import AdvancedMenu from '../src/components/AdvancedMenu';
 import TilesMapMenu from '../src/components/TilesMapMenu';
 import PositioningMapMenu from '../src/components/PositioningMapMenu';
@@ -65,9 +64,6 @@ export const configutionMenuSelector = () => (
       label: 'Général',
       value: 'general'
     }, {
-      label: 'Partages',
-      value: 'shares'
-    }, {
       label: 'Widgets: Carte',
       value: 'map'
     }, {
@@ -92,13 +88,6 @@ export const configutionMenuSelector = () => (
 
 export const generalMenu = () => (
   <GeneralMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
-);
-
-export const sharesMenu = () => (
-  <SharesMenu
     embed={toulouseEmbed}
     onChange={onChange}
   />
