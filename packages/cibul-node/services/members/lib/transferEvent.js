@@ -23,13 +23,17 @@ module.exports = async function transferEvent(services, event, member) {
 
   const previousOwnerUid = event.ownerUid;
 
+  await events.patch({ uid: event.uid }, {
+    ownerUid: member.userUid
+  }, { protected: false, transferToLegacy: true, access: 'internal', });
+
+  log('patched event %s to set user %s as its owner', event.uid, member.userUid);
+
   await agendaEvents(member.agendaUid).update(event.uid, {
     userUid: member.userUid
   }, { protected: false, transferToLegacy: true });
 
-  await events.update({ uid: event.uid }, {
-    ownerUid: member.userUid
-  }, { protected: false, transferToLegacy: true });
+  log('patched agenda event ref %s.%s to associate it with user %s', member.agendaUid, event.uid, member.userUid);
 
   try {
     await feedFollow(activities, false, previousOwnerUid, event.uid);
