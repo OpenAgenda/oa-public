@@ -24,16 +24,10 @@ const {
   from: fromDHM
 } = require('../iso/src/convertDateHoursMinutesTiming');
 
-const removeRegistrationTypes = (registration = []) => registration
-  .map(rItem => rItem?.type ? rItem.value : rItem);
-
-module.exports = async (current, data, options = {}) => {
+module.exports = async function compileForValidation(current, data, options = {}) {
   const {
-    maxImageSize
-  } = {
-    maxImageSize: 20971520,
-    ...options
-  };
+    maxImageSize = 20971520,
+  } = options;
 
   const editedFields = Object.keys(_.omit(data, ['draft'])).filter(f => fieldNames.includes(f));
 
