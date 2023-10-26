@@ -46,6 +46,10 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
+  protected: {
+    type: 'boolean',
+    default: true,
+  },
   fileKey: {
     type: 'text'
   }

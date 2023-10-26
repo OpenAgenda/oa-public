@@ -27,9 +27,10 @@ const {
 module.exports = async function compileForValidation(current, data, options = {}) {
   const {
     maxImageSize = 20971520,
+    protectedMode = true,
   } = options;
 
-  const editedFields = Object.keys(_.omit(data, ['draft'])).filter(f => fieldNames.includes(f));
+  const editedFields = Object.keys(_.omit(data, ['draft'])).filter(f => protectedMode ? fieldNames.includes(f) : true);
 
   const compiled = {
     ...(current || {}),

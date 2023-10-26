@@ -271,6 +271,27 @@ describe('events - functional - update', () => {
         assert.equal(result.links.length, 1);
     });
 
+    it('ownerUid can be patched when in unprotected mode only', async () => {
+      const protectedPatch = await svc.patch({ uid: 16687899 }, {
+        ownerUid: 99999999,
+      }, {
+        transferToLegacy: true,
+        access: 'internal',
+      });
+
+      expect(protectedPatch.ownerUid).toBe(96815475);
+
+      const unprotectedPatched = await svc.patch({ uid: 16687899 }, {
+        ownerUid: 99999999,
+      }, {
+        protected: false,
+        transferToLegacy: true,
+        access: 'internal',
+      });
+
+      expect(unprotectedPatched.ownerUid).toBe(99999999);
+    });
+
     it('age provided as empty object is cleaned to { min: null, max: null }', async () => {
       const { age } = await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
         age: {}
