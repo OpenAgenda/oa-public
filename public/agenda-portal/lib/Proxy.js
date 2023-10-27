@@ -34,6 +34,7 @@ module.exports = ({
   app,
 }) => {
   async function _fetch(agendaUid, res, userQuery) {
+    log('fetch on %s (%s) with userQuery %j', agendaUid, res, userQuery);
     const clientPreFilter = userQuery.pre ? qs.parse(userQuery.pre) : {};
 
     const query = {
