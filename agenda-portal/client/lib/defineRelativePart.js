@@ -6,7 +6,7 @@ module.exports = function defineRelativePart(attr, hash = null) {
   let path = '';
 
   if (attr.query) {
-    Object.assign(qs.parse(attr.query));
+    Object.assign(query, qs.parse(attr.query));
   } else if (hash) {
     const [hashPath, hashQuery] = hash.split('?');
 
@@ -31,7 +31,12 @@ module.exports = function defineRelativePart(attr, hash = null) {
     query.pre = attr.pre;
   }
 
-  return path + (Object.keys(query).length ? `?${qs.stringify(query)}` : '');
+  // path can only be root or /events. Other pages are not handled
+  const cleanPath = /^($|\/events|\/p\/)/.test(path) ? path : '';
+
+  return (
+    cleanPath + (Object.keys(query).length ? `?${qs.stringify(query)}` : '')
+  );
 };
 
 module.exports.removePreFromRelativePart = function removePreFromRelativePart(
@@ -44,4 +49,16 @@ module.exports.removePreFromRelativePart = function removePreFromRelativePart(
   }
 
   return [path, qs.stringify(_.omit(qs.parse(query ?? ''), ['pre']))].join('?');
+};
+
+module.exports.appendPreToNav = function appendPreToNav(nav, pre) {
+  const [path, queryString] = nav.split('?');
+  const query = qs.parse(queryString);
+  const preQuery = pre?.length ? qs.parse(pre) : {};
+
+  if (Object.keys(preQuery).length) {
+    query.pre = preQuery;
+  }
+
+  return path + (Object.keys(query).length ? `?${qs.stringify(query)}` : '');
 };
