@@ -101,7 +101,6 @@
     "deep-diff": "^1.0.2",
     "exceljs": "^4.3.0",
     "express": "^4.17.1",
-    "express-rate-limit": "^6.2.0",
     "fast-csv": "^3.4.0",
     "fast-levenshtein": "^2.0.6",
     "feathers-authentication-hooks": "^0.3.0",

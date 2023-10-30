@@ -30,40 +30,47 @@ const eventCustomValidators = {
 
 const publicFields = fields.filter(f => (f.write || []).includes('public'));
 
-const validate = new FormSchema({
-  fields: publicFields,
-  custom: eventCustomValidators,
-}).getValidate();
+const validate = {
+  protected: new FormSchema({
+    fields: publicFields,
+    custom: eventCustomValidators,
+  }).getValidate(),
+  unprotected: new FormSchema({
+    fields,
+    custom: eventCustomValidators,
+  }).getValidate()
+};
 
-const draftValidate = new FormSchema({
-  fields: publicFields.map(f => ({ ...f, optional: true })),
-  custom: eventCustomValidators,
-}).getValidate();
+const draftValidate = {
+  protected: new FormSchema({
+    fields: publicFields.map(f => ({ ...f, optional: true })),
+    custom: eventCustomValidators,
+  }).getValidate(),
+  unprotected: new FormSchema({
+    fields: fields.map(f => ({ ...f, optional: true })),
+    custom: eventCustomValidators,
+  }).getValidate(),
+};
 
 module.exports = async (data, options = {}) => {
   const {
-    isPatch,
-    isDraft,
-    maxImageSize,
-    current,
-  } = {
-    isPatch: false,
-    isDraft: false,
-    current: null,
-    maxImageSize: 20971520, // 20MB
-    ...options,
-  };
+    isPatch = false,
+    isDraft = false,
+    current = null,
+    maxImageSize = 20971520, // 20MB
+    protected: protectedMode = true,
+  } = options;
 
   const {
     editedFields,
     compiled,
-  } = await compileForValidation(current, data, { maxImageSize });
+  } = await compileForValidation(current, data, { maxImageSize, protectedMode });
 
   log('validating %s for %s', isDraft ? 'draft' : 'non-draft', isPatch ? 'patch' : 'create/update');
 
   try {
     // draft event does not require anything.
-    const clean = (isDraft ? draftValidate : validate)(compiled);
+    const clean = (isDraft ? draftValidate : validate)[protectedMode ? 'protected' : 'unprotected'](compiled);
 
     return isDraft || isPatch ? editedFields.reduce((patch, field) => ({
       ...patch,

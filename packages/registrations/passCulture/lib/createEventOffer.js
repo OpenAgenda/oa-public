@@ -1,6 +1,6 @@
 import logs from '@openagenda/logs';
 import formatEvent from './formatEvent.js';
-import { omit } from './utils.js';
+import { omit, pick } from './utils.js';
 
 const log = logs('createEventOffer');
 
@@ -16,38 +16,65 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     category
   } = PCData;
 
+  const result = {
+    eventOffer: null,
+    priceCategories: null,
+    dates: null,
+    error: null,
+  };
+
   const eventOffer = await formatEvent(OAEvent, { venueId, category }, { lang });
 
-  const createdEventOffer = await pc.offers.events.create(eventOffer);
+  try {
+    result.eventOffer = await pc.offers.events.create(eventOffer);
+  } catch (e) {
+    throw e.response.data;
+  }
   
-  log('created event offer %s', createdEventOffer.id);
+  log('created event offer %s', result.eventOffer.id);
 
-  const {
-    priceCategories: createdPriceCategories,
-  } = await pc.offers.events(createdEventOffer.id).priceCategories.create({
-    priceCategories
-  });
+  try {
+    const {
+      priceCategories: createdPriceCategories,
+    } = await pc.offers.events(result.eventOffer.id).priceCategories.create({
+      priceCategories
+    });
 
-  log('created %s price categories', createdPriceCategories.length);
+    result.priceCategories = createdPriceCategories;
+    log('created %s price categories', createdPriceCategories.length);
+  } catch (e) {
+    log('failed to create price categories');
+    return {
+      ...result,
+      error: pick(e.response, ['status', 'data']),
+    };
+  }
 
-  const { dates: createdDates } = await pc.offers.events(createdEventOffer.id).dates.create({
-    dates: dates.map(d => {
-      const timing = OAEvent.timings.find(t => d.timingId === new Date(t.begin).getTime());
+  try {
+    const {
+      dates: createdDates,
+    } = await pc.offers.events(result.eventOffer.id).dates.create({
+      dates: dates.map(d => {
+        const timing = OAEvent.timings.find(t => d.timingId === new Date(t.begin).getTime());
+  
+        return omit({
+          ...d,
+          priceCategoryId: result.priceCategories[d.priceCategoryIndex].id,
+          beginningDatetime: timing.begin,
+          bookingLimitDatetime: timing.begin,
+        }, ['timingId', 'priceCategoryIndex'])
+      }),
+    });
+    result.dates = createdDates;
 
-      return omit({
-        ...d,
-        priceCategoryId: createdPriceCategories[d.priceCategoryIndex].id,
-        beginningDatetime: timing.begin,
-        bookingLimitDatetime: timing.begin,
-      }, ['timingId', 'priceCategoryIndex'])
-    })
-  });
+    log('created %s dates', createdDates.length);
+  } catch (e) {
+    log('failed to create dates');
+    return {
+      ...result,
+      error: pick(e.response, ['status', 'data']),
+    };
+  }
 
-  log('created %s dates', createdDates.length);
-
-  return {
-    eventOffer: createdEventOffer,
-    priceCategories: createdPriceCategories,
-    dates: createdDates,
-  };
+  return result;
 }
