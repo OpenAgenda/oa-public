@@ -43,8 +43,14 @@ export default function Dates({
         <DateForm
           value={newItem}
           priceCategories={value.priceCategories ?? []}
-          onChange={v => setNewItem(v)}
-          onCancel={() => setNewItem(false)}
+          onChange={v => {
+            setNewItem(v);
+            onSubFormToggle(false);
+          }}
+          onCancel={() => {
+            setNewItem(false);
+            onSubFormToggle(false);
+          }}
           onSubmit={() => {
             onAdd(newItem);
             setNewItem(false);

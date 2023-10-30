@@ -40,6 +40,7 @@ export function EmptyAtLoad() {
           placeholder: 'Truc bidule',
           settings: {
             passCulture: {
+              siren: [809346158],
               res: {
                 settings: '/settings',
               },
@@ -94,6 +95,7 @@ export function WithData() {
           placeholder: 'Truc bidule',
           settings: {
             passCulture: {
+              siren: [809346158],
               res: {
                 settings: '/settings',
               },

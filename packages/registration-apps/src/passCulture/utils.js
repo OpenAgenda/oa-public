@@ -43,7 +43,24 @@ export function isPriceCategoryValid(value = {}) {
     );
 }
 
-export function isDateValid() {
+export function isDateValid(d, priceCategories) {
+  if (!d || typeof d !== 'object') {
+    return false;
+  }
+  for (const key of ['timingId', 'priceCategoryIndex', 'quantity']) {
+    if (d[key] === undefined) {
+      return false;
+    }
+  }
+
+  if (priceCategories[d.priceCategoryIndex] === undefined) {
+    return false;
+  }
+
+  if (isNaN(parseInt(d.quantity, 10))) {
+    return false;
+  }
+
   return true;
 }
 
