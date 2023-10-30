@@ -38,11 +38,11 @@ describe('validateAndCreateEventOffer', () => {
         venueId,
         category: 'CINE_PLEIN_AIR',
         priceCategories: [{
-          label: 'Tarif réduit',
-          price: 8,
+          label: 'Tarif réduit',  
+          price: 8, 
         }, {
           label: 'Plein tarif',
-          price: 14
+          price: 14,
         }],
         dates: [{
           timingId,
@@ -56,6 +56,6 @@ describe('validateAndCreateEventOffer', () => {
       }
     );
 
-    expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates'])
+    expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates', 'error']);
   });
 });
