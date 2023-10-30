@@ -10,7 +10,7 @@ async function detectAllDuplicatesCandidates({ endpoints, internals }, options =
   while (after !== -1) {
     const {
       after: nextAfter,
-      items: locations
+      items: locations,
     } = await endpoints.list({}, { after, includeFields: ['uid'] });
 
     if (!locations.length) {
