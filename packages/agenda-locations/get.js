@@ -56,7 +56,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   if (internals.interfaces.getEventCounts && includeEventCounts) {
     decorateWithCounts(
       location,
-      await internals.interfaces.getEventCounts([location.uid], context)
+      await internals.interfaces.getEventCounts([location.uid], context),
     );
   }
 
