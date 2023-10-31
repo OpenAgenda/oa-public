@@ -53,7 +53,7 @@ export function isDateValid(d, priceCategories) {
     }
   }
 
-  if (priceCategories[d.priceCategoryIndex] === undefined) {
+  if (!priceCategories || priceCategories[d.priceCategoryIndex] === undefined) {
     return false;
   }
 
