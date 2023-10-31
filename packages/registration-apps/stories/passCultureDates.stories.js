@@ -97,3 +97,34 @@ export const WithDates = () => {
     />
   );
 };
+
+export const WithInvalidDates = () => {
+  const [value, setValue] = useState({
+    priceCategories: [{
+      price: 15,
+      label: 'Tarif normal',
+    }],
+    dates: [{
+      timingId: 1696078800000,
+      priceCategoryIndex: 0,
+      quantity: 15,
+    }, {
+      timingId: 1697381200000,
+      priceCategoryIndex: 0,
+      quantity: 20,
+    }],
+  });
+
+  return (
+    <PassDates
+      timings={event.timings}
+      value={value}
+      onAdd={date => setValue({
+        ...value,
+        dates: (value.dates ?? []).concat(date),
+      })}
+      onRemove={date => setValue(removeDate(value, date))}
+      onChange={(index, date) => setValue(changeDate(value, index, date))}
+    />
+  );
+}

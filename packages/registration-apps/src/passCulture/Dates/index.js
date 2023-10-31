@@ -56,7 +56,7 @@ export default function Dates({
             setNewItem(false);
           }}
           timings={timings}
-          isValid={isDateValid(newItem, value.priceCategories)}
+          isValid={isDateValid(newItem, value.priceCategories, timings)}
         />
       ) : (
         <Button

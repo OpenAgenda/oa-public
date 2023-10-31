@@ -86,5 +86,3 @@ function Registration(props) {
 }
 
 export default Registration;
-
-export * from './validators';

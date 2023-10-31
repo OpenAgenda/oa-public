@@ -43,7 +43,7 @@ export function isPriceCategoryValid(value = {}) {
     );
 }
 
-export function isDateValid(d, priceCategories) {
+export function isDateValid(d, priceCategories, timings) {
   if (!d || typeof d !== 'object') {
     return false;
   }
@@ -61,10 +61,14 @@ export function isDateValid(d, priceCategories) {
     return false;
   }
 
+  if (!(timings ?? []).find(t => getTimingId(t) === d.timingId)) {
+    return false;
+  }
+
   return true;
 }
 
-export function isValid(v) {
+export function isValid(v, timings) {
   if (!v.priceCategories?.length) {
     return false;
   }
@@ -79,7 +83,7 @@ export function isValid(v) {
   }
 
   for (const date of v.dates ?? []) {
-    if (!isDateValid(date)) {
+    if (!isDateValid(date, v.priceCategories, timings)) {
       return false;
     }
   }
@@ -120,11 +124,18 @@ export function getTime(d) {
   return (isDTMFormat(d) ? convertDTMToDAte(d) : new Date(d)).getTime();
 }
 
-export function findTimingLabel(timings, timingId) {
+export function findTimingLabel(timings, timingId, options = {}) {
+  const {
+    throwNotFound = true,
+  } = options;
   const timing = timings.find(t => getTimingId(t) === timingId);
 
-  if (!timing) {
+  if (!timing && throwNotFound) {
     throw new Error(`Could not find timing matching ${timingId}`);
+  }
+
+  if (!timing) {
+    return null;
   }
 
   return getTimingLabel(timing);
@@ -145,5 +156,17 @@ export function removeDate(value, { timingId, priceCategoryIndex }) {
     const matchingIndex = draft.dates.findIndex(d => d.timingId === timingId && d.priceCategoryIndex === priceCategoryIndex);
 
     draft.dates = draft.dates.filter((d, index) => index !== matchingIndex);
+  });
+}
+
+export function decorateDates(dates = [], timings = []) {
+  return dates.map(date => {
+    const timingLabel = findTimingLabel(timings, date.timingId, { throwNotFound: false });
+
+    return {
+      timingLabel,
+      hasMatchingTiming: timingLabel,
+      ...date,
+    };
   });
 }
