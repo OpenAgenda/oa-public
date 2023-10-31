@@ -44,6 +44,10 @@ Dans `conf.d/ssl.conf`, il faut donc commenter les lignes correspondant à IPv6:
 
 La configuration d'un mode maintenance est détaillée dans `maintenance.md`
 
+### ModSecurity
+
+Un pare-feu applicatif qui scan les requêtes entrantes pour bloquer celles qu'il juge malicieuses. La configuration de modsecurity est détaillée dans `modsecurity.md`
+
 ## Le cluster Redis
 
 Il sert pour la cache serveur et pour les traitements de tâches mises en file d'attente.
@@ -101,3 +105,7 @@ Une installation de python sur le noeud d'admin est nécessaire. Le guide d'inst
 La commande suivante permet de vérifier la présence de Python 3.4+: `python3 -V`
 
 On a besoin de pip aussi `sudo apt install -y python3-pip`
+
+### Les logs
+
+Par défaut, ils sont un peu éparpillés. Par souci de simplification, on rassemble leur définition sur `/etc/nginx/nginx.jelastic.conf` sous les noms `/var/log/nginx/access.log` et `/var/log/nginx/error.log`.
