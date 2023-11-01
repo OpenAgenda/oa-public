@@ -483,6 +483,53 @@ export function SelectFields() {
           value: 'wall',
           label: 'Wall',
         }],
+      }, {
+        field: 'state',
+        label: 'Statut',
+        help: null,
+        helpLink: null,
+        helpContent: null,
+        default: 0,
+        info: 'Single select with default value set to 0',
+        sub: null,
+        placeholder: null,
+        display: true,
+        enable: true,
+        origin: null,
+        enableWith: null,
+        optionalWith: null,
+        related: { enable: [], optional: [], other: [] },
+        selfHandled: [],
+        options: [
+          {
+            id: -1,
+            value: 'refused',
+            label: 'Refusé',
+            info: null,
+            display: true
+          },
+          {
+            id: 0,
+            value: 'tocontrol',
+            label: 'En modération',
+            display: true
+          },
+          {
+            id: 1,
+            value: 'controlled',
+            label: 'Prêt à publier',
+            info: null,
+            display: true
+          },
+          {
+            id: 2,
+            value: 'published',
+            label: 'Publié',
+            info: null,
+            display: true
+          }
+        ],
+        fieldType: 'select'
       }],
     },
     onChange: setValues,

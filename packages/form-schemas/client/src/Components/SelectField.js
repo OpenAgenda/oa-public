@@ -15,7 +15,7 @@ const getSelectOptions = (field, opts = {}) => {
     if (!o.display) {
       return false;
     }
-    if (!value) {
+    if ([undefined, null].includes(value)) {
       return true;
     }
     return [].concat(value).includes(o.id);
@@ -31,7 +31,7 @@ const getCurrentValue = ({ isFresh, field, value }) => {
     return getSelectOptions(field, { value });
   }
 
-  if (isFresh && field.default) {
+  if (isFresh && field.default !== undefined) {
     return getSelectOptions(field, { value: field.default });
   }
 };
