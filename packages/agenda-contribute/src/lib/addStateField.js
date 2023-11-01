@@ -2,7 +2,15 @@ import _ from 'lodash';
 import labels from '@openagenda/labels/event/states';
 import makeLabelGetter from '@openagenda/labels';
 
-export default function addStateField(schema, locale) {
+export default function addStateField(agenda, locale) {
+  const {
+    schema,
+    settings: {
+      contribution: {
+        defaultState,
+      }
+    }
+  } = agenda;
   const getLabel = makeLabelGetter(labels, locale);
 
   schema.fields.push({
@@ -10,6 +18,7 @@ export default function addStateField(schema, locale) {
     fieldType: 'select',
     label: _.capitalize(getLabel('state')),
     info: getLabel('stateFieldInfo'),
+    default: defaultState,
     options: [{
       id: -1,
       value: 'refused',
