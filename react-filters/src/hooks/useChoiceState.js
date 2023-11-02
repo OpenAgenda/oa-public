@@ -41,6 +41,16 @@ export default function useChoiceState({
   const [countOptions, setCountOptions] = useState(pageSize);
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
+  const fuse = useConstant(
+    () =>
+      new Fuse(options, {
+        threshold: 0.3,
+        ignoreLocation: true,
+        distance: 100,
+        keys: ['label'],
+      }),
+  );
+
   const collator = useMemo(
     () => getCollator(intl.locale, intl.defaultLocale),
     [intl.defaultLocale, intl.locale],
@@ -49,7 +59,13 @@ export default function useChoiceState({
   const [searchValue, setSearchValue] = useState('');
   const previousSearchValue = usePrevious(searchValue);
   const [foundOptions, setFoundOptions] = useState(
-    filterOptions({ options, searchValue, sort, collator }),
+    filterOptions({
+      options,
+      fuse,
+      searchValue,
+      sort,
+      collator,
+    }),
   );
 
   const moreOptions = useCallback(
@@ -69,16 +85,6 @@ export default function useChoiceState({
   const hasMoreOptions = countOptions < foundOptions.length;
 
   const onSearchChange = useCallback(e => setSearchValue(e.target.value), []);
-
-  const fuse = useConstant(
-    () =>
-      new Fuse(options, {
-        threshold: 0.3,
-        ignoreLocation: true,
-        distance: 100,
-        keys: ['label'],
-      }),
-  );
 
   // Update fuse docs if options change
   useIsomorphicLayoutEffect(() => {
