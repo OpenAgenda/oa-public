@@ -14,7 +14,7 @@ async function getLocation(endpoints, locationOrUid) {
 async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUid, options = {}) {
   const {
     saveCandidates,
-    geoRange
+    geoRange,
   } = cleanDetectCandidatesOptions(options);
   const { config } = internals;
   const location = await getLocation(endpoints, locationOrUid);
@@ -31,7 +31,7 @@ async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUi
     southWest: {
       lat: location.latitude - geoRange,
       lng: location.longitude - geoRange,
-    }
+    },
   };
   const excludeUids = []
     .concat(location.uid ? [location.uid] : [])
@@ -42,7 +42,7 @@ async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUi
   while (after !== -1) {
     const {
       after: nextAfter,
-      items: locations
+      items: locations,
     } = await endpoints.list({ geo: geoFilter, excludeUid: excludeUids }, { after });
     if (!locations.length) {
       after = -1;

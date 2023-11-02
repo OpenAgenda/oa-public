@@ -39,9 +39,15 @@ export default function PriceCategories({
       {newItem ? (
         <PriceCategoryForm
           value={newItem}
-          onChange={v => setNewItem(v)}
+          onChange={v => {
+            setNewItem(v);
+            onSubFormToggle(false);
+          }}
           isValid={isPriceCategoryValid(newItem)}
-          onCancel={() => setNewItem(false)}
+          onCancel={() => {
+            setNewItem(false);
+            onSubFormToggle(false);
+          }}
           onSubmit={() => {
             onAdd(newItem);
             setNewItem(false);

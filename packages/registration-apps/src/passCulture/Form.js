@@ -139,7 +139,7 @@ export default function Form({
       </Section>
       <Section>
         <Button
-          disabled={!isValid(value) || openSubForm}
+          disabled={!isValid(value, timings) || openSubForm}
           shape="primary"
           label="Enregistrer"
           onClick={() => onSubmit(value)}

@@ -9092,7 +9092,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.9.14, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.9.15, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -22669,7 +22669,7 @@ __metadata:
     "@openagenda/agenda-events": "npm:^1.11.14"
     "@openagenda/agenda-locations": "npm:^2.1.2"
     "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-portal": "npm:^6.9.14"
+    "@openagenda/agenda-portal": "npm:^6.9.15"
     "@openagenda/agenda-schemas-app": "npm:^0.0.0"
     "@openagenda/agenda-search": "npm:^1.4.0"
     "@openagenda/agenda-settings": "npm:^1.4.0"
@@ -22742,7 +22742,6 @@ __metadata:
     deep-diff: "npm:^1.0.2"
     exceljs: "npm:^4.3.0"
     express: "npm:^4.17.1"
-    express-rate-limit: "npm:^6.2.0"
     fast-csv: "npm:^3.4.0"
     fast-levenshtein: "npm:^2.0.6"
     feathers-authentication-hooks: "npm:^0.3.0"
@@ -28167,15 +28166,6 @@ __metadata:
     prom-client: "npm:~10.2.2"
     url-value-parser: "npm:^1.0.0"
   checksum: 04a89d560cd640658fa6a8d48fc4c589ed037b5ee8e1d74fca761d0e679f8caad68d7a8503ae1df7bdf62d30df0804b55ab2c33f21a2046ad9887fe2df769c87
-  languageName: node
-  linkType: hard
-
-"express-rate-limit@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "express-rate-limit@npm:6.2.0"
-  peerDependencies:
-    express: ^4
-  checksum: 5afb5573a11c22c93b7531780035515b5525de421722a4b5047e4ac343d93dac5e3e2f55a0205ed7973f4f1d43f0e71932e9d241c87cada49932066de4871456
   languageName: node
   linkType: hard
 

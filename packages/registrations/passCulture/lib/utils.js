@@ -12,6 +12,10 @@ export function omit(obj, fields = []) {
   );
 }
 
+export function pick(obj, fields = []) {
+  return fields.reduce((c, f) => ({ ...c, [f]: obj[f] }), {});
+}
+
 export function flatten(label, requestedLang, options = {}) {
   const {
     fallbackLang = 'fr',

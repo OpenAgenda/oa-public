@@ -39,7 +39,7 @@ export default function useEventFormConfig(agenda) {
     agendaContext?.me?.authorizations?.canChangeState
     && !detailedAgenda.schema.fields.find(f => f.field === 'state')
   ) {
-    addStateField(detailedAgenda.schema, locale);
+    addStateField(detailedAgenda, locale);
   }
 
   return {

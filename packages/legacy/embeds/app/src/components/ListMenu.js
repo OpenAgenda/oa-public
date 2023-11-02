@@ -7,7 +7,6 @@ import { ReactSelectInput } from '@openagenda/react-shared';
 import ConfigurationMenuSelector from './ConfigurationMenuSelector';
 import EmbedCodePresentation from './EmbedCodePresentation';
 import GeneralMenu from './GeneralMenu';
-import SharesMenu from './SharesMenu';
 import AdvancedMenu from './AdvancedMenu';
 
 const flatten = (obj = {}, lang) => obj[obj[lang] ? lang : Object.keys(obj).shift()];
@@ -16,10 +15,6 @@ const messages = defineMessages({
   generalMenu: {
     id: 'LegacyEmbed.App.generalMenu',
     defaultMessage: 'General'
-  },
-  sharesMenu: {
-    id: 'LegacyEmbed.App.sharesMenu',
-    defaultMessage: 'Shares'
   },
   advancedMenu: {
     id: 'LegacyEmbed.App.advancedMenu',
@@ -101,9 +96,6 @@ export default ({
               label: m(messages.generalMenu),
               value: 'general'
             }, {
-              label: m(messages.sharesMenu),
-              value: 'shares'
-            }, {
               label: m(messages.advancedMenu),
               value: 'advanced'
             }]}
@@ -122,12 +114,6 @@ export default ({
             ) : null}
             {selectedMenu === 'advanced' ? (
               <AdvancedMenu
-                embed={editedEmbed}
-                onChange={setEditedEmbed}
-              />
-            ) : null}
-            {selectedMenu === 'shares' ? (
-              <SharesMenu
                 embed={editedEmbed}
                 onChange={setEditedEmbed}
               />

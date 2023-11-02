@@ -20,6 +20,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
     ...(await validate(data, {
       isPatch,
       isDraft: options.draft,
+      protected: options.protected,
       maxImageSize: service.config.maxImageSize,
       current
     })),

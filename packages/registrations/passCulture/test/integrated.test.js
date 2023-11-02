@@ -42,9 +42,10 @@ describe('integrated', () => {
           priceCategoryIndex: 1,
           quantity: 6,
         }],
+        error: null,
       });
   
-      expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates']);
+      expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates', 'error']);
     });
   });
 

@@ -36,28 +36,4 @@
     {TimingsComponent}
   </div>
 
-  <div class="share">
-{block:FacebookShareUrl}
-    <a href="{FacebookShareUrl}"><i class="fa fa-facebook-official"></i></a>
-{/block:FacebookShareUrl}
-{block:TwitterShareUrl}
-    <a href="{TwitterShareUrl}"><i class="fa fa-twitter-square"></i></a>
-{/block:TwitterShareUrl}
-{block:GoogleShareUrl}
-    <a href="{GoogleShareUrl}"><i class="fa fa-google-plus-square"></i></a>
-{/block:GoogleShareUrl}
-{block:LinkedInShareUrl}
-    <a href="{LinkedInShareUrl}"><i class="fa fa-linkedin-square"></i></a>
-{/block:LinkedInShareUrl}
-{block:TumblrShareUrl}
-    <a href="{TumblrShareUrl}"><i class="fa fa-tumblr-square"></i></a>
-{/block:TumblrShareUrl}
-{block:PinterestShareUrl}
-    <a href="{PinterestShareUrl}"><i class="fa fa-pinterest-square"></i></a>
-{/block:PinterestShareUrl}
-{block:EmailShareUrl}
-    <a target="_blank" href="{EmailShareUrl}"><i class="fa fa-envelope"></i></a>
-{/block:EmailShareUrl}
-  </div>
-
 </div>

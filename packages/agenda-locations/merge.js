@@ -24,13 +24,15 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
     await internals.interfaces.beforeMerge(mergeInItem, toBeMerged, options.context);
   }
 
+  const removeFromDuplicates = toBeMerged.map(l => l.uid);
+
   log('updating merged location'); // if data
-  const updatedMerged = data ? await update(
+  const updatedMerged = await update(
     { service: internals, isPatch: true },
     mergeInItem.uid,
-    data,
+    { ...data || {}, duplicateCandidates: mergeInItem.duplicateCandidates.filter(el => !removeFromDuplicates.includes(el)) },
     { ...options },
-  ) : mergeInItem;
+  );
 
   log('removing other locations');
   for (const location of toBeMerged) {
