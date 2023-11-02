@@ -1,9 +1,11 @@
-const log = require('debug')('iframe.parent');
+const debug = require('debug');
 const { iframeResize } = require('iframe-resizer');
+
+const log = debug('iframe.parent');
 
 const defineRelativePart = require('./defineRelativePart');
 
-const { removePreFromRelativePart } = defineRelativePart;
+const { removePreFromRelativePart, appendPreToNav } = defineRelativePart;
 
 function getHash() {
   return (window.location.hash || '').replace(/^#/, '');
@@ -41,25 +43,27 @@ function updateRelativePath(state, relative) {
 }
 
 function onMessage(state, { message }) {
+  log('onMessage', state, message);
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
     if (isPortalHash()) {
+      log('  isPortalHash');
       state.iframe.iFrameResizer.sendMessage({
         code: 'nav',
-        nav: getHash(),
+        nav: appendPreToNav(getHash(), state.iframe.getAttribute('data-pre')),
       });
     }
   } else if (message.nav) {
-    log('received nav from iframe', message);
+    log('  received nav from iframe', message);
     updateRelativePath(state, message.nav);
   } else if (message.code === 'internal') {
-    log('received internal link click from iframe');
+    log('  received internal link click from iframe');
     state.iframe.scrollIntoView();
     if (state.iframeScrollOffset) {
       document.querySelector('html').scrollBy(0, -state.iframeScrollOffset);
     }
   } else if (message.code === 'fromSelection') {
-    log('received selection slug', message.eventSlug);
+    log('  received selection slug', message.eventSlug);
     window.location.href = `${
       (state.target || '#undefined-data-target-url')
       + (state.targetIsIframe ? '#' : '')
@@ -70,7 +74,7 @@ function onMessage(state, { message }) {
 }
 
 function updateIFrameSource({ iframe, base, relative }) {
-  log('updateIFrameSource', { relative });
+  log('updateIFrameSource', { base, relative });
   iframe.setAttribute('src', base + relative);
 }
 

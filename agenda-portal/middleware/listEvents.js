@@ -18,6 +18,7 @@ module.exports = withAggs => async (req, res, next) => {
         await proxy.list(agendaUid, {
           aggregations: filtersToAggregations(filters, true),
           limit: 0,
+          pre: req.query.pre,
         })
       ).aggregations;
     }
