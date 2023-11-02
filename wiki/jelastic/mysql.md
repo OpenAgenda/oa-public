@@ -76,10 +76,13 @@ Pour éviter les timeout pour les requêtes un peu gourmandes, il faut ajuster l
 
 ```
 mysql -h 127.0.0.1 -P6032 -uadmin -padmin
+```
 
+```sql
 select * from global_variables;
 update global_variables set variable_value=1200000 where variable_name='mysql-default_query_timeout';
 LOAD MYSQL VARIABLES TO RUNTIME;
+```
 
 
 ## Chargement de la base dans les noeuds
@@ -156,11 +159,65 @@ Pour le groupe "ProxySQL", toutes les règles peuvent être désactivées, à l'
 
 ## Backups automatisés
 
-Sur un des serveurs MySQL esclaves, ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql`:
+Sur un des serveurs MySQL esclaves, faire `crontab -e` puis ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql`:
 
 ```
 0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u $DB_USER -p $DB_PASS -d $DB_NAME
 ```
+
+Activer cron si ce n'est pas déjà le cas:
+
+```
+sudo -i
+yum install polkit
+systemctl enable --now crond
+```
+
+###
+
+Pour sécuriser les backups sur un autre serveur:
+
+1. Ajouter la clé ssh publique à `.ssh/authorized_keys`
+2. Créer le script suivant sur le second serveur:
+    ```bash
+    #!/bin/bash
+    
+    HOST="XXX.XXX.XXX.XXX"
+    USER="root"
+    PORT="22"
+    
+    SOURCE_DIR="/data/backups"
+    DEST_DIR="/data/backups"
+    
+    BACKUP_COUNT=5
+    
+    LATEST_FILE=$(ssh -p $PORT $USER@$HOST "ls -t $SOURCE_DIR | head -n 1")
+    
+    if [ -n "$LATEST_FILE" ]; then
+        if [ ! -f "$DEST_DIR/$LATEST_FILE" ]; then
+            scp -P $PORT $USER@$HOST:"$SOURCE_DIR/$LATEST_FILE" "$DEST_DIR/$LATEST_FILE"
+            echo "File downloaded: $LATEST_FILE"
+        else
+            echo "The file $LATEST_FILE already exists locally."
+        fi
+    else
+        echo "No file found in $SOURCE_DIR"
+    fi
+    
+    cd $DEST_DIR || exit 1
+    
+    files_to_remove=$(ls -t | tail -n +$(($BACKUP_COUNT + 1)))
+    if [[ ! -z "$files_to_remove" ]]; then
+        echo "$files_to_remove" | xargs rm --
+        echo "Removed $(echo "$files_to_remove" | wc -w) excess files."
+    else
+        echo "The number of files in $DEST_DIR is less than $BACKUP_COUNT, nothing to remove."
+    fi
+    ```
+3. Ajouter le cron suivant:
+    ```
+    0 5 * * Sun /root/download_backup.sh
+    ```
 
 ## Supervision
 
