@@ -2,6 +2,8 @@
 
 const defineRelativePart = require('../client/lib/defineRelativePart');
 
+const { appendPreToNav } = defineRelativePart;
+
 describe('26 - defineRelativePart', () => {
   test('hash values are loaded in relative part when set', () => {
     const relative = defineRelativePart(
@@ -37,5 +39,43 @@ describe('26 - defineRelativePart', () => {
     });
 
     expect(relative).toBe('?lang=de');
+  });
+
+  test('some random unrelated value is loaded in hash', () => {
+    const relative = defineRelativePart(
+      {
+        lang: 'fr',
+      },
+      'unrelatedvalue',
+    );
+
+    expect(relative).toBe('?lang=fr');
+  });
+
+  test('another page of list is loaded in hash', () => {
+    const relative = defineRelativePart(
+      {
+        lang: 'fr',
+      },
+      '/p/2',
+    );
+
+    expect(relative).toBe('/p/2?lang=fr');
+  });
+
+  describe('appendPreToNav', () => {
+    test('does as it is named when pre exists', () => {
+      expect(appendPreToNav('/p/3?lang=fr', 'keyword%5B0%5D=théâtre')).toBe(
+        '/p/3?lang=fr&pre%5Bkeyword%5D%5B0%5D=th%C3%A9%C3%A2tre',
+      );
+    });
+
+    test('does nothing if there is no pre', () => {
+      expect(appendPreToNav('/p/3?lang=fr')).toBe('/p/3?lang=fr');
+    });
+
+    test('appends to empty path', () => {
+      expect(appendPreToNav('', 'lang=fr')).toBe('?pre%5Blang%5D=fr');
+    });
   });
 });
