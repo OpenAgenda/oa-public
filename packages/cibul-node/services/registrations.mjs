@@ -10,5 +10,6 @@ export function init(config) {
   }
   return Registrations({
     passCulture: config.passCulture,
+    logger: config.getLogConfig('svc', 'registrations'),
   });
 }
