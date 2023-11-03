@@ -18,6 +18,7 @@ export default function addStateField(agenda, locale) {
     fieldType: 'select',
     label: _.capitalize(getLabel('state')),
     info: getLabel('stateFieldInfo'),
+    sub: getLabel('stateFieldSub'),
     default: defaultState,
     options: [{
       id: -1,

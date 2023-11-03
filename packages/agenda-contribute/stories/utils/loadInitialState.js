@@ -16,7 +16,7 @@ export default function loadInitialState() {
       members: '/api/agendas/:agendaUid/members',
       detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
       locations: {
-        get: '/locations/:uid.json',
+        get: '/locations/:locationUid.json',
         index: '/api/agendas/:agendaUid/locations?itemsKey=items',
         create: '/agendas/:agendaUid/locations',
         geocode: '/locations/geocode',

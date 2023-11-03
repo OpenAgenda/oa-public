@@ -6,6 +6,7 @@ module.exports = {
   core: {
     builder: 'webpack5'
   },
+  staticDirs: ['./public'],
   webpackFinal(config) {
     config.module.rules.push({
       test: /\.(js|mjs|jsx)$/,
@@ -17,4 +18,3 @@ module.exports = {
     return config;
   }
 };
-
