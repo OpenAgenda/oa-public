@@ -1,8 +1,10 @@
 import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
 import formatEvent from './formatEvent.js';
 import { omit, pick } from './utils.js';
+import formatErrors from './formatErrors.js';
 
-const log = logs('createEventOffer');
+const log = logs('passCulture/createEventOffer');
 
 export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
   const {
@@ -28,7 +30,11 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
-    throw e.response.data;
+    throw new BadRequest({
+      info: {
+        errors: formatErrors(e.response.data),
+      }
+    }, 'data is invalid');
   }
   
   log('created event offer %s', result.eventOffer.id);
