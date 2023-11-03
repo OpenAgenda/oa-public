@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import qs from 'qs';
+import getQuerySeparator from '../utils/getQuerySeparator';
 
 export default function useLoadGeoData(_apiClient, res, query, options = {}) {
   const { searchMethod = 'get' } = options;
@@ -28,7 +29,11 @@ export default function useLoadGeoData(_apiClient, res, query, options = {}) {
       };
 
       const result = await (searchMethod === 'get'
-        ? fetch(`${res}?${qs.stringify(params, { skipNulls: true })}`)
+        ? fetch(
+          `${res}${getQuerySeparator(res)}${qs.stringify(params, {
+            skipNulls: true,
+          })}`,
+        )
         : fetch(res, {
           method: 'post',
           body: JSON.stringify(params),
