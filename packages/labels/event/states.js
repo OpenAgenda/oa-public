@@ -112,11 +112,15 @@ module.exports = {
     "oc": "L'eveniment es pas pus en una"
   },
   "stateFieldInfo": {
-    "fr": "Ce champ n'est pas accessible aux contributeurs",
-    "en": "This field is not available to contributors",
+    "fr": "L'accès à ce champ est restreint aux administrateurs et modérateurs de l'agenda",
+    "en": "Access to this field is limited to administrators and moderators of the agenda",
     "it": "I contributori non possono vedere né modificare questo campo",
     "io": "crwdns16460:0crwdne16460:0",
     "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
     "oc": "Lo camp es pas accessible als contributors"
+  },
+  "stateFieldSub": {
+    "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
+    "en": "Important: the event will be visible and shareable only when it will be published"
   }
 }
