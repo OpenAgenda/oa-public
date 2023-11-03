@@ -37,7 +37,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     }, 'data is invalid');
   }
   
-  log('created event offer %s', result.eventOffer.id);
+  log.info('created event offer %s', result.eventOffer.id);
 
   try {
     const {
@@ -47,7 +47,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
 
     result.priceCategories = createdPriceCategories;
-    log('created %s price categories', createdPriceCategories.length);
+    log.info('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
   } catch (e) {
     log('failed to create price categories');
     return {
@@ -73,7 +73,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
     result.dates = createdDates;
 
-    log('created %s dates', createdDates.length);
+    log.info('%s: created %s dates', result.eventOffer.id, createdDates.length);
   } catch (e) {
     log('failed to create dates');
     return {
