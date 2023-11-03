@@ -26,11 +26,11 @@ export default function DateItems({
     MoreInfo,
   } = useContext(ComponentsContext);
 
+  const decoratedDates = useMemo(() => decorateDates(value, timings), [value, timings]);
+
   if (!value.length) {
     return <div>Aucune date n&apos;est encore définie. {priceCategories.length ? 'Ajoutez une date en cliquant sur le lien ci-dessous' : 'Commencez par définir des catégories de prix'}</div>;
   }
-
-  const decoratedDates = useMemo(() => decorateDates(value, timings), [value, timings]);
 
   return (
     <List>
