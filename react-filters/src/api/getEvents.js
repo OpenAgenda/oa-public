@@ -1,5 +1,6 @@
 import qs from 'qs';
 import filtersToAggregations from '../utils/filtersToAggregations';
+import getQuerySeparator from '../utils/getQuerySeparator';
 
 export default async function getEvents(
   _apiClient,
@@ -24,7 +25,11 @@ export default async function getEvents(
     .replace(':uid', agenda.uid);
 
   const p = searchMethod === 'get'
-    ? fetch(`${url}?${qs.stringify(params, { skipNulls: true })}`)
+    ? fetch(
+      `${url}${getQuerySeparator(url)}${qs.stringify(params, {
+        skipNulls: true,
+      })}`,
+    )
     : fetch(url, {
       method: 'post',
       body: JSON.stringify(params),
