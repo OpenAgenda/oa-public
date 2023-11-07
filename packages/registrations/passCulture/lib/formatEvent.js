@@ -28,6 +28,7 @@ export default async function formatEvent(event, ...args) {
     name: flatten(event.title, lang),
     accessibility: acc(event),
     description: await formatText(event.longDescription),
+    hasTicket: false,
   };
 
   if (event.image) {

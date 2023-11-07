@@ -116,17 +116,15 @@ describe('createEventOffer', () => {
           }]
         },
       );
-  
+
       expect(result.eventOffer.id).toBeDefined();
-  
-      expect(result.error).toEqual({
-        status: 400,
-        data: {
-          'priceCategories.0.label': [
-            'ensure this value has at least 1 characters',
-          ],
-        },
-      });
+
+      expect(result.errors).toEqual([{
+        message: 'failed to create price categories',
+        fieldLabel: 'Pass Culture',
+        code: 'registration.pass.invalidPriceCategory.label',
+        label: 'Toutes les catégories de prix doivent avoir un label de défini'
+      }]);
     });
   
     it('stores dates errors in an error key of result data, eventOffer id is provided', async () => {
@@ -153,12 +151,12 @@ describe('createEventOffer', () => {
   
       expect(result.eventOffer.id).toBeDefined();
   
-      expect(result.error).toEqual({
-        status: 400,
-        data: {
-          'dates.0.quantity': ['Value must be positive']
-        },
-      });
+      expect(result.errors).toEqual([{
+        message: 'failed to create all dates',
+        fieldLabel: 'Pass Culture',
+        code: 'registration.pass.invalidDate.quantity',
+        label: "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs"
+      }]);
     });
   });
 });

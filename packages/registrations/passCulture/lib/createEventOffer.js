@@ -49,10 +49,10 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     result.priceCategories = createdPriceCategories;
     log.info('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
   } catch (e) {
-    log('failed to create price categories');
+    log.error('failed to create price categories', e);
     return {
       ...result,
-      error: pick(e.response, ['status', 'data']),
+      errors: formatErrors(e.response.data),
     };
   }
 
@@ -75,10 +75,10 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
 
     log.info('%s: created %s dates', result.eventOffer.id, createdDates.length);
   } catch (e) {
-    log('failed to create dates');
+    log.error('failed to create dates', e);
     return {
       ...result,
-      error: pick(e.response, ['status', 'data']),
+      errors: formatErrors(e.response.data),
     };
   }
 

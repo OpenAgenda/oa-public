@@ -2,16 +2,20 @@ import logs from '@openagenda/logs';
 
 const log = logs('formatErrors');
 
+const isPriceCategoryKey = key => key.indexOf('priceCategories') === 0;
+const isDateKey = key => key.indexOf('dates') === 0;
+
 export default function formatErrors(error) {
   const formattedError = {
     message: 'failed to create pass offer',
     fieldLabel: 'Pass Culture',
   };
 
-  const key = Object.keys(error).pop();
+  const key = Object.keys(error).pop() ?? 'unhandled';
+  const message = (error[key] ?? []).pop();
 
   if (key === 'venueId') {
-    if (error.venueId.pop() === 'There is no venue with this id associated to your API key') {
+    if (message === 'There is no venue with this id associated to your API key') {
       return [{
         ...formattedError,
         code: 'registration.pass.unknownVenueId',
@@ -20,13 +24,45 @@ export default function formatErrors(error) {
     }
   }
   if (key === 'categoryRelatedFields') {
-    if (error[key].pop().indexOf('No match for discriminator') !== -1) {
+    if (message.indexOf('No match for discriminator') !== -1) {
       return [{
         ...formattedError,
         code: 'registration.pass.invalidRelatedCategory',
         label: 'La sous-catégorie choisie n\'a pas été acceptée par le Pass Culture',
       }];
     }
+  }
+
+  if (isPriceCategoryKey(key) && message.indexOf('ensure this value has at least') !== -1) {
+    return [{
+      ...formattedError,
+      message: 'failed to create price categories',
+      code: 'registration.pass.invalidPriceCategory.label',
+      label: 'Toutes les catégories de prix doivent avoir un label de défini'
+    }];
+  } else if (isPriceCategoryKey(key)) {
+    return [{
+      ...formattedError,
+      message: 'failed to create all price categories',
+      code: 'registration.pass.invalidPriceCategory',
+      label: 'Certaines catégories de prix n\'ont pas pu être créées',
+    }]
+  }
+
+  if (isDateKey(key) && message.indexOf('Value must be positive') !== -1) {
+    return [{
+      ...formattedError,
+      message: 'failed to create all dates',
+      code: 'registration.pass.invalidDate.quantity',
+      label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
+    }];
+  } else if (isDateKey(key)) {
+    return [{
+      ...formattedError,
+      message: 'failed to create all dates',
+      code: 'registration.pass.invalidDate',
+      label: 'Certaines dates n\'ont pas pu être créées'
+    }];
   }
 
   log.info(error);
