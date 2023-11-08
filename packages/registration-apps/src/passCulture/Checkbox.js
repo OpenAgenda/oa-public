@@ -1,9 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
 import FormModal from './FormModal';
-import { isValid } from './utils';
-
-const logoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-240.png';
+import { isValid, logoPath, } from './utils';
 
 export default ({
   value,

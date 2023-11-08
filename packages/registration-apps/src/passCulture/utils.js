@@ -26,6 +26,8 @@ function getTimingId(timing) {
   ).getTime();
 }
 
+export const logoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-240.png';
+
 export function isConfigured(data) {
   return !!Object.keys(omit(data, ['checked'])).length;
 }
