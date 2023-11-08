@@ -13,6 +13,9 @@ const getStatusLabel = require('../../../lib/getStatusLabel');
 const format = require('./format');
 const components = require('./components');
 
+
+const registrationToListOfObjects = require('@openagenda/events/iso/src/validators/registration').toListOfObjects;
+
 const { w } = p;
 const { getRoleSlug } = membersSvc.utils;
 
@@ -58,7 +61,10 @@ async function loadMissing(req) {
 
   req.event.onlineAccessLink = record?.online_access_link;
 
-  req.event.ticketLink = JSON.parse(record?.registration || '[]')
+  req.event.registration = registrationToListOfObjects(JSON.parse(record?.registration || '[]'));
+
+  req.event.ticketLink = req.event.registration
+    .map(r => r.value)
     .filter(isURL)
     .pop();
 

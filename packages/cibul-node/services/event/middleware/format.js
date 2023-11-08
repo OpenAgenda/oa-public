@@ -5,7 +5,8 @@ const _ = require( 'lodash' );
 const qs = require( 'qs' );
 const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
-const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
+const getTypeAndValuesOfRegistration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
+const flattenRegistration = require( '@openagenda/registration/src/validate' ).clean;
 const getTimings = require('../lib/getTimings');
 const getDates = require('../lib/getDates');
 const range = require( '@openagenda/date-range' );
@@ -115,8 +116,7 @@ function _location( v ) {
 
 
 function _registration( v ) {
-
-  v.formatted.registration = registration( v.req.event.getTicketLink( true ) );
+  v.formatted.registration = v.req.event.registration;
 
   return v;
 
