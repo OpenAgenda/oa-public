@@ -43,9 +43,7 @@ export function ConfirmationFailure() {
           value: 'https://link.pass.com',
           service: 'passCulture',
           data: {
-            eventOffer: {
-              id: 123,
-            },
+            id: 123,
             errors: [{
               message: 'failed to create all dates',
               fieldLabel: 'Pass Culture',
