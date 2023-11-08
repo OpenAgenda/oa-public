@@ -303,6 +303,7 @@ const config = {
     key: process.env.PASS_CULTURE_KEY,
     api: process.env.PASS_CULTURE_API,
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
+    offerEditLink: process.env.PASS_CULTURE_OFFER_EDIT_LINK,
   },
   mailgun,
   oembed: {

@@ -399,6 +399,10 @@ const initialState = async req => {
         showMyEvents: '/home/events',
         removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
         contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact',
+        passCulture: {
+          show: config.passCulture.offerLink,
+          edit: config.passCulture.offerEditLink,
+        },
       },
       memberFreshness: new Date(60 * 60 * 24 * 30 * 120 * 1000),
       files: {
