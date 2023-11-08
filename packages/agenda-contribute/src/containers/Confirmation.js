@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import PassCultureConfirmation from '@openagenda/registration-apps/src/passCulture/Confirmation';
 
 import steps from '../lib/steps';
 import CanvasWithStepper from '../components/CanvasWithStepper';
@@ -86,10 +87,15 @@ export default function Confirmation({ history, agenda }) {
       {confirmationCustomMessage ? (
         <Instructions message={confirmationCustomMessage} className="margin-bottom-lg" />
       ) : (
-        <div className="padding-h-md padding-top-lg padding-bottom-xs wsq">
+        <div className="padding-h-md padding-top-lg padding-bottom-md wsq">
           <p className="text-center margin-bottom-xs margin-top-sm">{m(messages[`recapDetailState${createdEvent.state}`])}</p>
         </div>
       )}
+      <PassCultureConfirmation
+        className="event-instruction padding-all-md padding-v-sm"
+        event={createdEvent}
+        res={res.passCulture}
+      />
       <div className="padding-all-md padding-top-sm wsq">
         <ul className="list-unstyled text-center margin-h-lg">
           <li className="margin-top-md">

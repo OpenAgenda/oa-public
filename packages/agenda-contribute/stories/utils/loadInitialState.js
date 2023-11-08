@@ -30,7 +30,11 @@ export default function loadInitialState() {
       showEvent: '/agendas/:agendaUid/events/:eventUid',
       removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
       showMyEvents: '/home/events',
-      contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
+      contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact',
+      passCulture: {
+        edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
+        show: 'https://integration.passculture.app/offre/:id',
+      },
     },
     memberFreshness,
     files: {
