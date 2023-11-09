@@ -3,5 +3,14 @@
 
   "parserOptions": {
     "sourceType": "module"
-  }
+  },
+
+  "overrides": [{
+    "files": [
+      "**/*.js"
+    ],
+    "rules": {
+      "import/extensions": ["error", "ignorePackages"]
+    }
+  }]
 }

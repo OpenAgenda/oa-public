@@ -1,5 +1,5 @@
-import createEventOffer from './createEventOffer';
-import validateEventOffer from './validateEventOffer';
+import createEventOffer from './createEventOffer.js';
+import validateEventOffer from './validateEventOffer.js';
 
 export default async function validateAndCreateEventOffer({ pc, siren }, event, data = {}) {
   return createEventOffer(

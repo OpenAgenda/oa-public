@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
-import formatEvent from './formatEvent';
-import { omit } from './utils';
-import formatErrors from './formatErrors';
+import formatEvent from './formatEvent.js';
+import { omit } from './utils.js';
+import formatErrors from './formatErrors.js';
 
 const log = logs('passCulture/createEventOffer');
 
