@@ -59,7 +59,7 @@ export function isDateValid(d, priceCategories, timings) {
     return false;
   }
 
-  if (isNaN(parseInt(d.quantity, 10))) {
+  if (Number.isNaN(parseInt(d.quantity, 10))) {
     return false;
   }
 

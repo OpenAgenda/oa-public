@@ -1,7 +1,7 @@
 import { useState, useContext, useMemo } from 'react';
 
 import ComponentsContext from '../../components/Context';
-import { findTimingLabel, isDateValid, decorateDates } from '../utils';
+import { isDateValid, decorateDates } from '../utils';
 import DateForm from './Form';
 
 export default function DateItems({
