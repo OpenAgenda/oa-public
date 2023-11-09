@@ -232,6 +232,7 @@ module.exports = ({ labels }) => [{
   placeholder: labels?.registrationPlaceholder,
   sub: labels?.registrationSub,
   related: { other: ['timings'] },
+  selfHandled: ['info'],
 }, {
   field: 'links',
   fieldType: 'pass',

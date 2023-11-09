@@ -1,4 +1,3 @@
-
 import { defineMessages, useIntl } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';
@@ -23,7 +22,7 @@ const messages = {
       defaultMessage: 'Cancel',
     },
   }),
-  ...adminLevels
+  ...adminLevels,
 };
 
 const GeoBadges = ({
@@ -33,7 +32,7 @@ const GeoBadges = ({
   geocodeEditValue = null,
   editGeocode,
   setGeocodeFieldValue,
-  cancelEditGeocode
+  cancelEditGeocode,
 }) => {
   const intl = useIntl();
   const geo = geoFields(location?.countryCode).fields.map(e => ({ ...e, value: location?.[e.field] }));
@@ -54,7 +53,7 @@ const GeoBadges = ({
             className="btn btn-primary margin-right-xs"
             onClick={() => setGeocodeFieldValue(
               geocodeEdit,
-              geocodeEditValue
+              geocodeEditValue,
             )}
           >
             {intl.formatMessage(messages.geocodeFieldSave)}
@@ -86,14 +85,14 @@ const GeoBadges = ({
               type="button"
               className={
                 `badge badge-default margin-bottom-xs ${
-                  (field.value
+                  field.value
                     ? 'badge-outline-primary'
-                    : 'badge-outline-warn')
+                    : 'badge-outline-warn'
                 }`
               }
               onClick={() => editGeocode(
                 field.field,
-                location?.[field.field]
+                location?.[field.field],
               )}
             >
               <span>

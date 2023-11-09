@@ -16,6 +16,7 @@ function Registration(props) {
     relatedValues = {},
     field: {
       placeholder,
+      info,
       settings = {
         passCulture: null,
       },
@@ -58,7 +59,6 @@ function Registration(props) {
     );
   }, [propsOnChange, passCultureValue]);
 
-
   return (
     <div className="multi-input">
       {(settings.passCulture?.siren ?? []).length ? (<>
@@ -81,6 +81,7 @@ function Registration(props) {
         onChange={onStandardChange}
         onInputChange={onInputChange}
         placeholder={placeholder && !standardValue?.length ? flattenLabel(placeholder, lang) : undefined}
+        infoLabel={info}
       />
     </div>
   );

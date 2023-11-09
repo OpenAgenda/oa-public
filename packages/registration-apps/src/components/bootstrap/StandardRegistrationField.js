@@ -26,20 +26,24 @@ export default function StandardRegistrationField({
   onChange,
   onInputChange,
   placeholder,
+  infoLabel,
 }) {
   return (
-    <TagsInput
-      onChange={onChange}
-      renderTag={RegistrationItem}
-      value={value ?? []}
-      onlyUnique
-      addOnBlur
-      inputProps={{
-        value: inputValue,
-        onChange: onInputChange,
-        placeholder,
-        style: !value?.length ? { width: '630px' } : null,
-      }}
-    />
+    <>
+      <div className="margin-bottom-xs">{infoLabel}</div>
+      <TagsInput
+        onChange={onChange}
+        renderTag={RegistrationItem}
+        value={value ?? []}
+        onlyUnique
+        addOnBlur
+        inputProps={{
+          value: inputValue,
+          onChange: onInputChange,
+          placeholder,
+          style: !value?.length ? { width: '630px' } : null,
+        }}
+      />
+    </>
   );
 }
