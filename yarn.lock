@@ -8871,6 +8871,7 @@ __metadata:
     "@openagenda/member-apps": "npm:^2.1.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/react-shared": "npm:^2.4.0"
+    "@openagenda/registration-apps": "npm:^0.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/react": "npm:^6.5.9"
     axios: "npm:^0.21.1"
@@ -8892,6 +8893,8 @@ __metadata:
     js-base64: "npm:^3.7.5"
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:^0.5.31"
+    msw: "npm:^0.49.2"
+    msw-storybook-addon: "npm:^1.7.0"
     nodemon: "npm:^2.0.4"
     prop-types: "npm:^15.6.0"
     qs: "npm:^6.9.4"
@@ -11378,9 +11381,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/registrations@workspace:packages/registrations"
   dependencies:
+    "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^1.4.0"
     dotenv: "npm:^16.3.1"
+    eslint: "npm:^8.24.0"
     gm: "npm:^1.25.0"
+    image-type: "npm:^5.2.0"
+    is-base64: "npm:^1.1.0"
     jest: "npm:^28.1.2"
     lodash: "npm:^4.17.15"
     qs: "npm:^6.9.1"
@@ -16837,6 +16846,13 @@ __metadata:
   version: 0.1.1
   resolution: "@tokenizer/token@npm:0.1.1"
   checksum: 4605b4425ea04f778238e56be42d94e98284c085e978c8b815e7f2b6a8bcfe32828f89bcbea8269ae48302b31250d6a2f871f451aae1cbd1dbc63e7e346d1d9a
+  languageName: node
+  linkType: hard
+
+"@tokenizer/token@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@tokenizer/token@npm:0.3.0"
+  checksum: 7ab9a822d4b5ff3f5bca7f7d14d46bdd8432528e028db4a52be7fbf90c7f495cc1af1324691dda2813c6af8dc4b8eb29de3107d4508165f9aa5b53e7d501f155
   languageName: node
   linkType: hard
 
@@ -28862,6 +28878,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-type@npm:^18.1.0":
+  version: 18.6.0
+  resolution: "file-type@npm:18.6.0"
+  dependencies:
+    readable-web-to-node-stream: "npm:^3.0.2"
+    strtok3: "npm:^7.0.0"
+    token-types: "npm:^5.0.1"
+  checksum: fdb6d1800bf73becc9f4bd5108fe3ff0b7fe314d8efe4f9985363f33df210e75e5d1e3caca7201f1ab2a349897bf3f793e15b6317c28be67d93ab1c095b7c8fa
+  languageName: node
+  linkType: hard
+
 "file-uri-to-path@npm:1, file-uri-to-path@npm:1.0.0":
   version: 1.0.0
   resolution: "file-uri-to-path@npm:1.0.0"
@@ -31932,6 +31959,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"image-type@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "image-type@npm:5.2.0"
+  dependencies:
+    file-type: "npm:^18.1.0"
+  checksum: bc90de0f5296e25bb143bfdb149474ecac8fd55e878b75fdf70133b60ac38652564db3cbc088407706325968eaad4ff47e079ce7c6ce3c3f30b3efaab9ea9003
+  languageName: node
+  linkType: hard
+
 "imagesloaded@npm:^4.1":
   version: 4.1.4
   resolution: "imagesloaded@npm:4.1.4"
@@ -32494,6 +32530,16 @@ __metadata:
   version: 0.3.2
   resolution: "is-arrayish@npm:0.3.2"
   checksum: f59b43dc1d129edb6f0e282595e56477f98c40278a2acdc8b0a5c57097c9eff8fe55470493df5775478cf32a4dc8eaf6d3a749f07ceee5bc263a78b2434f6a54
+  languageName: node
+  linkType: hard
+
+"is-base64@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "is-base64@npm:1.1.0"
+  bin:
+    is-base64: bin/is-base64
+    is_base64: bin/is-base64
+  checksum: d9f73739a7d0af48403b0f9091822a2596665e5c9e1e428ba2cef00133c1bccf97cf6fcc07e0b39950e47c3a434fb19c42d2f39578d34f5eb9e66e074bc8449f
   languageName: node
   linkType: hard
 
@@ -40603,6 +40649,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peek-readable@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "peek-readable@npm:5.0.0"
+  checksum: 060aece3a907a157b4839aa923b61b664b59cac7296dc8d8e0ddcc39065a4f1e328dd2f171c8a49e869aabc6e076a1be59f939183fb0ababc81f3c870006d672
+  languageName: node
+  linkType: hard
+
 "peek-stream@npm:^1.1.0":
   version: 1.1.3
   resolution: "peek-stream@npm:1.1.3"
@@ -44335,6 +44388,15 @@ __metadata:
   version: 2.0.0
   resolution: "readable-web-to-node-stream@npm:2.0.0"
   checksum: a1fa1a789ba0cf8accae60cbfee71e7267ecb8b4e5fc6ece89c2b1151681a216167b524bbb79d1976717e80662e43d82fd597f8f5580c15f27aa37d33602023f
+  languageName: node
+  linkType: hard
+
+"readable-web-to-node-stream@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "readable-web-to-node-stream@npm:3.0.2"
+  dependencies:
+    readable-stream: "npm:^3.6.0"
+  checksum: 533d5cd1580232a2c753e52a245be13fc552e6f82c5053a8a8da7ea1063d73a34f936a86b3d4433cdb4a13dd683835cfc87f230936cb96d329a1e28b6040f42e
   languageName: node
   linkType: hard
 
@@ -48378,6 +48440,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strtok3@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "strtok3@npm:7.0.0"
+  dependencies:
+    "@tokenizer/token": "npm:^0.3.0"
+    peek-readable: "npm:^5.0.0"
+  checksum: 63a72b10a302719242bfd31ca53955a06bb091dfec46ef14ca10c4b17ab15780ed8365cd5b270cfbde92d571f677539957add436e4bf9cccdf9977b40d762583
+  languageName: node
+  linkType: hard
+
 "stubs@npm:^3.0.0":
   version: 3.0.0
   resolution: "stubs@npm:3.0.0"
@@ -49579,6 +49651,16 @@ __metadata:
     "@tokenizer/token": "npm:^0.1.0"
     ieee754: "npm:^1.1.13"
   checksum: 6dc2ae7c7329735e8ba9abbeb52dc4e4986ac6d064bfcbe6b1f8fb334f14db29bfad216e1130c7a42deeee9014a49357a86a41084e9160d0374e17aedb9bcc20
+  languageName: node
+  linkType: hard
+
+"token-types@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "token-types@npm:5.0.1"
+  dependencies:
+    "@tokenizer/token": "npm:^0.3.0"
+    ieee754: "npm:^1.2.1"
+  checksum: cb671b2b52271362816d22b7a076082b0da033cd7807992b81ae53cfd8541bd013ac29e455c3c7a8bb4f88aa1c5315a12353c3599b7f568df238d3c1723f9d8d
   languageName: node
   linkType: hard
 
