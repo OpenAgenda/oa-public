@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import createEventOffer from '../lib/createEventOffer';
 
-import PassCultureSDK from '../lib/PassCultureSDK.js';
+import PassCultureSDK from '../lib/PassCultureSDK';
 
 import fixtures from './fixtures/cart.events.json';
 
@@ -29,11 +29,11 @@ describe('createEventOffer', () => {
   describe('Event offer errors', () => {
     it('throws error when venueId is not valid', async () => {
       const event = pickEvent('inauguration-du-festival-international-du-film-dart-fifa');
-  
+
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
-  
+
       let error;
-  
+
       try {
         await createEventOffer(
           pc,
@@ -46,14 +46,14 @@ describe('createEventOffer', () => {
               price: 8,
             }, {
               label: 'Plein tarif',
-              price: 14
+              price: 14,
             }],
             dates: [{
               timingId,
               priceCategoryIndex: 0,
               quantity: 3,
             }],
-          }
+          },
         );
       } catch (e) {
         error = e;
@@ -62,14 +62,14 @@ describe('createEventOffer', () => {
       expect(error.name).toBe('BadRequest');
       expect(Array.isArray(error.info.errors)).toBe(true);
     });
-    
+
     it('throws error when category is not valid', async () => {
       const event = pickEvent('inauguration-du-festival-international-du-film-dart-fifa');
-  
+
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
-  
+
       let error;
-  
+
       try {
         await createEventOffer(
           pc,
@@ -82,19 +82,19 @@ describe('createEventOffer', () => {
               price: 8,
             }, {
               label: 'Plein tarif',
-              price: 14
+              price: 14,
             }],
             dates: [{
               timingId,
               priceCategoryIndex: 0,
               quantity: 3,
             }],
-          }
-        )
+          },
+        );
       } catch (e) {
         error = e;
       }
-  
+
       expect(error.name).toBe('BadRequest');
       expect(Array.isArray(error.info.errors)).toBe(true);
     });
@@ -103,7 +103,7 @@ describe('createEventOffer', () => {
   describe('Price category or dates errors', () => {
     it('stores priceCategory errors in an error key of result data, eventOffer id is provided', async () => {
       const event = pickEvent('inauguration-du-festival-international-du-film-dart-fifa');
-  
+
       const result = await createEventOffer(
         pc,
         event,
@@ -111,9 +111,9 @@ describe('createEventOffer', () => {
           venueId,
           category: 'CINE_PLEIN_AIR',
           priceCategories: [{
-            label: '',  
-            price: 8, 
-          }]
+            label: '',
+            price: 8,
+          }],
         },
       );
 
@@ -123,14 +123,14 @@ describe('createEventOffer', () => {
         message: 'failed to create price categories',
         fieldLabel: 'Pass Culture',
         code: 'registration.pass.invalidPriceCategory.label',
-        label: 'Toutes les catégories de prix doivent avoir un label de défini'
+        label: 'Toutes les catégories de prix doivent avoir un label de défini',
       }]);
     });
-  
+
     it('stores dates errors in an error key of result data, eventOffer id is provided', async () => {
       const event = pickEvent('inauguration-du-festival-international-du-film-dart-fifa');
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
-  
+
       const result = await createEventOffer(
         pc,
         event,
@@ -139,7 +139,7 @@ describe('createEventOffer', () => {
           category: 'CINE_PLEIN_AIR',
           priceCategories: [{
             label: 'Tarif normal',
-            price: 8
+            price: 8,
           }],
           dates: [{
             priceCategoryIndex: 0,
@@ -148,14 +148,14 @@ describe('createEventOffer', () => {
           }],
         },
       );
-  
+
       expect(result.eventOffer.id).toBeDefined();
-  
+
       expect(result.errors).toEqual([{
         message: 'failed to create all dates',
         fieldLabel: 'Pass Culture',
         code: 'registration.pass.invalidDate.quantity',
-        label: "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs"
+        label: "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs",
       }]);
     });
   });

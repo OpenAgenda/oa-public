@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
-import formatEvent from './formatEvent.js';
-import { omit, pick } from './utils.js';
-import formatErrors from './formatErrors.js';
+import formatEvent from './formatEvent';
+import { omit } from './utils';
+import formatErrors from './formatErrors';
 
 const log = logs('passCulture/createEventOffer');
 
@@ -15,7 +15,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     priceCategories = [],
     dates = [],
     venueId,
-    category
+    category,
   } = PCData;
 
   const result = {
@@ -33,17 +33,17 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     throw new BadRequest({
       info: {
         errors: formatErrors(e.response.data),
-      }
+      },
     }, 'data is invalid');
   }
-  
+
   log.info('created event offer %s', result.eventOffer.id);
 
   try {
     const {
       priceCategories: createdPriceCategories,
     } = await pc.offers.events(result.eventOffer.id).priceCategories.create({
-      priceCategories
+      priceCategories,
     });
 
     result.priceCategories = createdPriceCategories;
@@ -62,13 +62,13 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     } = await pc.offers.events(result.eventOffer.id).dates.create({
       dates: dates.map(d => {
         const timing = OAEvent.timings.find(t => d.timingId === new Date(t.begin).getTime());
-  
+
         return omit({
           ...d,
           priceCategoryId: result.priceCategories[d.priceCategoryIndex].id,
           beginningDatetime: timing.begin,
           bookingLimitDatetime: timing.begin,
-        }, ['timingId', 'priceCategoryIndex'])
+        }, ['timingId', 'priceCategoryIndex']);
       }),
     });
     result.dates = createdDates;

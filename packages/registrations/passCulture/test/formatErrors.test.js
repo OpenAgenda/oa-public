@@ -1,11 +1,11 @@
-import formatErrors from "../lib/formatErrors";
+import formatErrors from '../lib/formatErrors';
 
 describe('formatErrors', () => {
   test('problem with venueId', () => {
     expect(
       formatErrors({
-        venueId: [ 'There is no venue with this id associated to your API key' ]
-      })
+        venueId: ['There is no venue with this id associated to your API key'],
+      }),
     ).toEqual([{
       message: 'failed to create pass offer',
       fieldLabel: 'Pass Culture',
@@ -18,7 +18,7 @@ describe('formatErrors', () => {
     expect(
       formatErrors({
         categoryRelatedFields: [
-          "No match for discriminator 'subcategory_id' and value 'CHAMPIONNATS_PIERRE_PAPIER_CISEAU' (allowed values: 'ATELIER_PRATIQUE_ART', 'CINE_PLEIN_AIR', 'CONCERT', 'CONCOURS', 'CONFERENCE', 'EVENEMENT_CINE', 'EVENEMENT_JEU', 'EVENEMENT_MUSIQUE', 'EVENEMENT_PATRIMOINE', 'FESTIVAL_ART_VISUEL', 'FESTIVAL_CINE', 'FESTIVAL_LIVRE', 'FESTIVAL_MUSIQUE', 'FESTIVAL_SPECTACLE', 'LIVESTREAM_EVENEMENT', 'LIVESTREAM_MUSIQUE', 'LIVESTREAM_PRATIQUE_ARTISTIQUE', 'RENCONTRE_EN_LIGNE', 'RENCONTRE_JEU', 'RENCONTRE', 'SALON', 'SEANCE_CINE', 'SEANCE_ESSAI_PRATIQUE_ART', 'SPECTACLE_REPRESENTATION', 'VISITE_GUIDEE', 'VISITE')"
+          "No match for discriminator 'subcategory_id' and value 'CHAMPIONNATS_PIERRE_PAPIER_CISEAU' (allowed values: 'ATELIER_PRATIQUE_ART', 'CINE_PLEIN_AIR', 'CONCERT', 'CONCOURS', 'CONFERENCE', 'EVENEMENT_CINE', 'EVENEMENT_JEU', 'EVENEMENT_MUSIQUE', 'EVENEMENT_PATRIMOINE', 'FESTIVAL_ART_VISUEL', 'FESTIVAL_CINE', 'FESTIVAL_LIVRE', 'FESTIVAL_MUSIQUE', 'FESTIVAL_SPECTACLE', 'LIVESTREAM_EVENEMENT', 'LIVESTREAM_MUSIQUE', 'LIVESTREAM_PRATIQUE_ARTISTIQUE', 'RENCONTRE_EN_LIGNE', 'RENCONTRE_JEU', 'RENCONTRE', 'SALON', 'SEANCE_CINE', 'SEANCE_ESSAI_PRATIQUE_ART', 'SPECTACLE_REPRESENTATION', 'VISITE_GUIDEE', 'VISITE')",
         ],
       }),
     ).toEqual([{
@@ -40,7 +40,7 @@ describe('formatErrors', () => {
       message: 'failed to create price categories',
       fieldLabel: 'Pass Culture',
       code: 'registration.pass.invalidPriceCategory.label',
-      label: 'Toutes les catégories de prix doivent avoir un label de défini'
+      label: 'Toutes les catégories de prix doivent avoir un label de défini',
     }]);
   });
 
@@ -48,12 +48,12 @@ describe('formatErrors', () => {
     expect(
       formatErrors({
         'dates.2.quantity': ['Value must be positive'],
-      })
+      }),
     ).toEqual([{
       message: 'failed to create all dates',
       fieldLabel: 'Pass Culture',
       code: 'registration.pass.invalidDate.quantity',
-      label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs'
+      label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
     }]);
   });
 
@@ -61,9 +61,9 @@ describe('formatErrors', () => {
     expect(
       formatErrors({
         'priceCategories.something': [
-          'something'
-        ]
-      })
+          'something',
+        ],
+      }),
     ).toEqual([{
       message: 'failed to create all price categories',
       fieldLabel: 'Pass Culture',
@@ -75,15 +75,15 @@ describe('formatErrors', () => {
   test('generic problem with dates', () => {
     expect(
       formatErrors({
-        'dates.something': ['something']
-      })
+        'dates.something': ['something'],
+      }),
     ).toEqual([{
       message: 'failed to create all dates',
       fieldLabel: 'Pass Culture',
       code: 'registration.pass.invalidDate',
-      label: 'Certaines dates n\'ont pas pu être créées'
-    }])
-  })
+      label: 'Certaines dates n\'ont pas pu être créées',
+    }]);
+  });
 
   test('unhandled Pass error', () => {
     expect(

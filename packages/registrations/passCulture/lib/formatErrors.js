@@ -38,15 +38,17 @@ export default function formatErrors(error) {
       ...formattedError,
       message: 'failed to create price categories',
       code: 'registration.pass.invalidPriceCategory.label',
-      label: 'Toutes les catégories de prix doivent avoir un label de défini'
+      label: 'Toutes les catégories de prix doivent avoir un label de défini',
     }];
-  } else if (isPriceCategoryKey(key)) {
+  }
+
+  if (isPriceCategoryKey(key)) {
     return [{
       ...formattedError,
       message: 'failed to create all price categories',
       code: 'registration.pass.invalidPriceCategory',
       label: 'Certaines catégories de prix n\'ont pas pu être créées',
-    }]
+    }];
   }
 
   if (isDateKey(key) && message.indexOf('Value must be positive') !== -1) {
@@ -56,12 +58,12 @@ export default function formatErrors(error) {
       code: 'registration.pass.invalidDate.quantity',
       label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
     }];
-  } else if (isDateKey(key)) {
+  } if (isDateKey(key)) {
     return [{
       ...formattedError,
       message: 'failed to create all dates',
       code: 'registration.pass.invalidDate',
-      label: 'Certaines dates n\'ont pas pu être créées'
+      label: 'Certaines dates n\'ont pas pu être créées',
     }];
   }
 

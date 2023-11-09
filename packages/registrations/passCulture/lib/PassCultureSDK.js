@@ -1,23 +1,23 @@
+import * as url from 'node:url';
+import { readFile } from 'node:fs/promises';
 import _ from 'lodash';
 import axios from 'axios';
-import * as url from 'url';
-import { readFile } from 'fs/promises';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const typeLabels = await readFile(`${__dirname}/typeLabels.json`, 'utf8').then(JSON.parse);
 
-const headers = apiKey =>  ({
-  'accept': 'application/json',
-  'Authorization': `Bearer ${apiKey}`,
+const headers = apiKey => ({
+  accept: 'application/json',
+  Authorization: `Bearer ${apiKey}`,
 });
 
 const labelizeENUMValue = value => {
   if (typeLabels[value]) {
     return typeLabels[value];
   }
-  return value.split('-').map(p => _.capitalize(p).replace(/_/g, ' ')).join(' - ')
-}
+  return value.split('-').map(p => _.capitalize(p).replace(/_/g, ' ')).join(' - ');
+};
 
 function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
   const relatedSchemas = openAPIObj.components.schemas[schema].properties[relatedKey].discriminator.mapping;
@@ -25,26 +25,26 @@ function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
   return Object.keys(relatedSchemas).map(value => {
     const obj = openAPIObj.components.schemas[relatedSchemas[value].split('/').pop()];
 
-    return ({
+    return {
       value,
       label: obj.description,
       related: obj.required
-      .filter(r => r !== key)
-      .map(r => obj.properties[r]['$ref'].split('/').pop())
-    });
+        .filter(r => r !== key)
+        .map(r => obj.properties[r].$ref.split('/').pop()),
+    };
   });
 }
 
 async function listEventOfferCategories({ api }) {
   const openAPIObj = await axios({
     method: 'get',
-    url: `${api}/public/offers/v1/event/openapi.json`
+    url: `${api}/public/offers/v1/event/openapi.json`,
   }).then(r => r.data);
 
   const categories = extractSchemaOptions(openAPIObj, 'EventOfferCreation', 'category', 'categoryRelatedFields');
 
   const related = categories.reduce((r, category) => r.concat(
-    category.related.filter(item => !r.includes(item))
+    category.related.filter(item => !r.includes(item)),
   ), []).map(r => ({
     schema: r,
     options: openAPIObj.components.schemas[r].enum.map(value => ({
@@ -55,7 +55,7 @@ async function listEventOfferCategories({ api }) {
 
   return {
     categories,
-    related
+    related,
   };
 }
 
@@ -64,7 +64,7 @@ function call({ key, api }, method, path, data = {}) {
     method,
     url: `${api}/${path}`,
     headers: headers(key),
-    ...(method === 'get' ? { params: data } : { data }),
+    ...method === 'get' ? { params: data } : { data },
   }).then(r => r.data);
 }
 
@@ -95,5 +95,5 @@ export default function PassCultureSDK(params) {
       }),
       offererVenues: call.bind(null, params, 'get', '/public/offers/v1/offerer_venues'),
     },
-  }
+  };
 }

@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import validateAndCreateEventOffer from '../lib/validateAndCreateEventOffer';
-import PassCultureSDK from '../lib/PassCultureSDK.js';
+import PassCultureSDK from '../lib/PassCultureSDK';
 
 import fixtures from './fixtures/cart.events.json';
 
@@ -38,8 +38,8 @@ describe('validateAndCreateEventOffer', () => {
         venueId,
         category: 'CINE_PLEIN_AIR',
         priceCategories: [{
-          label: 'Tarif réduit',  
-          price: 8, 
+          label: 'Tarif réduit',
+          price: 8,
         }, {
           label: 'Plein tarif',
           price: 14,
@@ -53,7 +53,7 @@ describe('validateAndCreateEventOffer', () => {
           priceCategoryIndex: 1,
           quantity: 6,
         }],
-      }
+      },
     );
 
     expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates', 'error']);

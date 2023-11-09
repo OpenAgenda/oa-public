@@ -1,8 +1,8 @@
-import PassCultureSDK from './lib/PassCultureSDK.js';
-import validateEventOffer from './lib/validateEventOffer.js';
-import createEventOffer from './lib/createEventOffer.js';
-import verifyAndCreateEventOffer from './lib/validateAndCreateEventOffer.js';
-import getParameters from './lib/getParameters.js';
+import PassCultureSDK from './lib/PassCultureSDK';
+import validateEventOffer from './lib/validateEventOffer';
+import createEventOffer from './lib/createEventOffer';
+import verifyAndCreateEventOffer from './lib/validateAndCreateEventOffer';
+import getParameters from './lib/getParameters';
 
 export default function PassCulture({
   key,

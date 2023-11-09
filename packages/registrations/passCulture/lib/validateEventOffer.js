@@ -5,11 +5,8 @@ export default async function validateEventOffer({ pc, siren }, event, data = {}
     venueId,
   } = data;
 
-  const hasVenue = (
-    await pc.offers.offererVenues({ siren })
-      .then(offererVenues => offererVenues.reduce((acc, { venues }) => [...acc, ...venues], []).find(v => v.id === venueId))
-  )
-
+  const hasVenue = await pc.offers.offererVenues({ siren })
+    .then(offererVenues => offererVenues.reduce((acc, { venues }) => [...acc, ...venues], []).find(v => v.id === venueId));
   if (!hasVenue) {
     throw new BadRequest(`offerer ${siren} has no venue with id ${venueId}`);
   }

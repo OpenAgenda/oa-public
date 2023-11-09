@@ -1,5 +1,5 @@
-import PassCulture from './passCulture/index.js';
 import logs from '@openagenda/logs';
+import PassCulture from './passCulture/index';
 
 export default function Registrations({
   passCulture: passCultureParams,

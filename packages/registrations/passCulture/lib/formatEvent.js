@@ -2,7 +2,7 @@ import {
   flatten,
   formatText,
   processImage,
-} from './utils.js';
+} from './utils';
 
 const acc = ({ accessibility: a }) => ({
   audioDisabilityCompliant: a.hi ?? false,
@@ -34,7 +34,7 @@ export default async function formatEvent(event, ...args) {
   if (event.image) {
     const {
       base,
-      variants
+      variants,
     } = event.image;
     formatted.image = {
       file: await processImage(
@@ -48,7 +48,7 @@ export default async function formatEvent(event, ...args) {
   if (venueId) {
     formatted.location = {
       type: 'physical',
-      venueId
+      venueId,
     };
   }
 

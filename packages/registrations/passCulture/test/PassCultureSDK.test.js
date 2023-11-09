@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import formatEvent from '../lib/formatEvent.js';
-import PassCultureSDK from '../lib/PassCultureSDK.js';
+import formatEvent from '../lib/formatEvent';
+import PassCultureSDK from '../lib/PassCultureSDK';
 
 import fixtures from './fixtures/cart.events.json';
 
@@ -39,7 +39,7 @@ describe('PassCultureSDK', () => {
     it('offerer is the organization linked to a set of venues, it is defined by an id, a name and a siren', () => {
       const [{ offerer }] = items;
       ['id', 'name', 'siren'].forEach(k => expect(
-        Object.keys(offerer).includes(k)
+        Object.keys(offerer).includes(k),
       ).toBe(true));
     });
 
@@ -99,16 +99,16 @@ describe('PassCultureSDK', () => {
     it('create provides data of created offer including its id', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const [{ venues: [{ id: venueId }]}] = await pc.offers.offererVenues();
+      const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
 
       const formatted = await formatEvent(
         pickEvent('animation-enfant-parure-de-terre-2615625'),
         { venueId, category: 'CINE_PLEIN_AIR' },
-        { lang: 'fr' }
+        { lang: 'fr' },
       );
 
       const { id, name } = await pc.offers.events.create(formatted);
-      
+
       console.log('created event %s', id);
       expect(typeof id).toBe('number');
       expect(name).toBe(formatted.name);
@@ -121,8 +121,8 @@ describe('PassCultureSDK', () => {
 
       const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
         priceCategories: [{
-          label: `Prix ${(new Date()).getTime()}`,
-          price: 0
+          label: `Prix ${new Date().getTime()}`,
+          price: 0,
         }],
       });
 
@@ -140,13 +140,13 @@ describe('PassCultureSDK', () => {
 
       const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
         priceCategories: [{
-          label: `Prix ${(new Date()).getTime()}`,
-          price: 0
+          label: `Prix ${new Date().getTime()}`,
+          price: 0,
         }],
       });
 
       const priceCategory = priceCategories.pop();
-      const patchedLabel = `Pas gratuit ${(new Date()).getTime()}`;
+      const patchedLabel = `Pas gratuit ${new Date().getTime()}`;
 
       const patchedPriceCategory = await pc.offers.events(testEventId).priceCategories(priceCategory.id).patch({
         label: patchedLabel,
@@ -156,7 +156,7 @@ describe('PassCultureSDK', () => {
       expect(patchedPriceCategory).toEqual({
         ...priceCategory,
         label: patchedLabel,
-        price: 12
+        price: 12,
       });
     });
   });
@@ -175,9 +175,11 @@ describe('PassCultureSDK', () => {
     it('returns list of created dates', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const { priceCategories: [{
-        id: priceCategoryId,
-      }]} = await pc.offers.events(testEventId).get();
+      const {
+        priceCategories: [{
+          id: priceCategoryId,
+        }],
+      } = await pc.offers.events(testEventId).get();
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [{
@@ -194,9 +196,11 @@ describe('PassCultureSDK', () => {
     it('booking limit is required', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const { priceCategories: [{
-        id: priceCategoryId,
-      }]} = await pc.offers.events(testEventId).get();
+      const {
+        priceCategories: [{
+          id: priceCategoryId,
+        }],
+      } = await pc.offers.events(testEventId).get();
 
       const error = await pc.offers.events(testEventId).dates.create({
         dates: [{
@@ -207,16 +211,18 @@ describe('PassCultureSDK', () => {
       }).catch(e => e);
 
       expect(error.response.data).toEqual({
-        'dates.0.bookingLimitDatetime': ['field required']
+        'dates.0.bookingLimitDatetime': ['field required'],
       });
     });
 
     it('booking limit can be the same as the beginningDateTime', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const { priceCategories: [{
-        id: priceCategoryId,
-      }]} = await pc.offers.events(testEventId).get();
+      const {
+        priceCategories: [{
+          id: priceCategoryId,
+        }],
+      } = await pc.offers.events(testEventId).get();
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [{

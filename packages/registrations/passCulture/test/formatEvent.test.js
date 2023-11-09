@@ -1,4 +1,4 @@
-import formatEvent from '../lib/formatEvent.js';
+import formatEvent from '../lib/formatEvent';
 
 import fixtures from './fixtures/cart.events.json';
 
@@ -30,7 +30,7 @@ describe('formatEvent', () => {
   it('Pass description is text variant of OA event long description', async () => {
     const ev = pickEvent('visite-guidee-le-cri-de-liberte-chagall-politique-464182');
 
-    const description = await formatEvent(ev, { lang: 'fr' }).then( e => e.description);
+    const description = await formatEvent(ev, { lang: 'fr' }).then(e => e.description);
 
     expect(description.length).toBe(1000);
   });
@@ -42,7 +42,7 @@ describe('formatEvent', () => {
 
     expect(formatted.location).toEqual({
       type: 'physical',
-      venueId: 12345
+      venueId: 12345,
     });
   });
 
@@ -62,7 +62,7 @@ describe('formatEvent', () => {
     const formatted = await formatEvent(ev, { lang: 'fr' });
 
     expect(
-      isBase64(formatted.image.file)
+      isBase64(formatted.image.file),
     ).toBe(true);
   });
 });
