@@ -1,13 +1,12 @@
-import event from './fixtures/event.json';
 import Confirmation from '../src/passCulture/Confirmation';
+import event from './fixtures/event.json';
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';
 
-
 export default {
   title: 'Confimation',
-}
+};
 
 export function ConfimationSuccess() {
   return (
@@ -21,7 +20,7 @@ export function ConfimationSuccess() {
           data: {
             eventOffer: {
               id: 123,
-            }
+            },
           },
         }],
       }}
@@ -30,7 +29,7 @@ export function ConfimationSuccess() {
         show: 'https://integration.passculture.app/offre/:id',
       }}
     />
-  )
+  );
 }
 
 export function ConfirmationFailure() {
@@ -49,14 +48,14 @@ export function ConfirmationFailure() {
               fieldLabel: 'Pass Culture',
               code: 'registration.pass.invalidDate.quantity',
               label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
-            }]
+            }],
           },
-        }]
+        }],
       }}
       res={{
         edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
         show: 'https://integration.passculture.app/offre/:id',
       }}
     />
-  )
+  );
 }

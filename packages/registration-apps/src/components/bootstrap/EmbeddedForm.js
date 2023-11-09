@@ -6,5 +6,5 @@ export default function EmbeddedForm({ children, title }) {
       </div>
       {children}
     </div>
-  )
+  );
 }

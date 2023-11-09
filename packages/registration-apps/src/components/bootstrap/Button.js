@@ -21,7 +21,7 @@ export default function Button({
   label,
   shape,
   unmargined = false,
-  unpadded = false
+  unpadded = false,
 }) {
   return (
     <button

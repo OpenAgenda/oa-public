@@ -127,4 +127,4 @@ export const WithInvalidDates = () => {
       onChange={(index, date) => setValue(changeDate(value, index, date))}
     />
   );
-}
+};

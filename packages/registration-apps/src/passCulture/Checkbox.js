@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
 import FormModal from './FormModal';
-import { isValid, logoPath, } from './utils';
+import { isValid, logoPath } from './utils';
 
 export default ({
   value,
@@ -14,10 +14,12 @@ export default ({
   const hasTimings = !!(timings ?? [])?.length;
   const hasData = Object.keys(value ?? {}).length;
 
-  const issues = useMemo(() => []
-    .concat(!hasTimings ? 'Des horaires doivent être saisis dans le champ Horaires' : [])
-    .concat(hasData && !isValid(value, timings) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : [])
-  , [hasTimings, hasData, value, timings]);
+  const issues = useMemo(
+    () => []
+      .concat(!hasTimings ? 'Des horaires doivent être saisis dans le champ Horaires' : [])
+      .concat(hasData && !isValid(value, timings) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    [hasTimings, hasData, value, timings],
+  );
 
   const onCheck = useCallback(() => {
     setShowModal(true);
@@ -61,9 +63,12 @@ export default ({
             width={100}
           />
           <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
-          {issues.length ? <ul className="padding-left-sm">{issues.map(issue => (
-            <li className="text-danger">{issue}</li>
-          ))}</ul> : null}
+          {issues.length ? (
+            <ul className="padding-left-sm">{issues.map(issue => (
+              <li className="text-danger">{issue}</li>
+            ))}
+            </ul>
+          ) : null}
         </label>
       </div>
     </>
