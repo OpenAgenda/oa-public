@@ -1,8 +1,12 @@
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
+
 import PassCulture from '..';
 import fixtures from './fixtures/cart.events.json';
 
 const pickEvent = slug => fixtures.find(e => slug === e.slug);
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 const {
   PASS_API_KEY: key,
@@ -17,12 +21,18 @@ describe('integrated', () => {
   });
 
   describe('validateAndCreateEventOffer', () => {
-    it('created event offer returns PC created objects in eventOffer, priceCategories and dates keys', async () => {
-      const event = pickEvent('visite-guidee-des-collections-5223531');
+    let result;
 
+    beforeAll(async () => {
+      const event = pickEvent('visite-guidee-des-collections-5223531');
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
 
-      const result = await pc.validateAndCreateEventOffer(event, {
+      result = await pc.validateAndCreateEventOffer({
+        ...event,
+        image: {
+          path: `${__dirname}/fixtures/image.jpg`,
+        },
+      }, {
         venueId: 548,
         category: 'CINE_PLEIN_AIR',
         priceCategories: [{
@@ -43,14 +53,29 @@ describe('integrated', () => {
         }],
         error: null,
       });
+    });
 
-      expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates', 'error']);
+    it('created event offer returns PC created objects in eventOffer, priceCategories and dates keys', () => {
+      expect(
+        Object.keys(result),
+      ).toEqual([
+        'eventOffer',
+        'priceCategories',
+        'dates',
+        'error',
+      ]);
+    });
+
+    it('Created event offer has associated image', () => {
+      expect(
+        result.eventOffer.image.url.substr(0, 8),
+      ).toBe('https://');
     });
   });
 
   describe('getParameters', () => {
     it('gets available categories, related offers and offerer venues', async () => {
-      const pcParams = await pc({ siren: [singleSiren] }).getParameters();
+      const pcParams = await pc.getParameters();
 
       expect(Object.keys(pcParams)).toEqual(['categories', 'related', 'offererVenues']);
     });

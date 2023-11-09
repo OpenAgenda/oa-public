@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises';
 import axios from 'axios';
 import { remark } from 'remark';
 import strip from 'strip-markdown';
@@ -46,20 +47,22 @@ export async function formatText(value, options = {}) {
   return stripped;
 }
 
-export function processImage(URL) {
-  return new Promise((rs, rj) => axios
-    .get(URL, {
-      responseType: 'arraybuffer',
-    })
-    .then(response => imagick(response.data)
-      .resize(800, 1200, '^')
+export async function processImage({ url, path }) {
+  const input = await (url ? axios.get(url, {
+    responseType: 'arraybuffer',
+  }).then(r => r.data) : fs.readFile(path));
+
+  return new Promise((rs, rj) => {
+    imagick(input).resize(800, 1200, '^')
       .gravity('Center')
       .crop(800, 1200)
-      .toBuffer((err, resizedBuffer) => {
+      .toBuffer((err, buffer) => {
         if (err) {
           rj(err);
           return;
         }
-        rs(resizedBuffer.toString('base64'));
-      })));
+
+        rs(buffer.toString('base64'));
+      });
+  });
 }

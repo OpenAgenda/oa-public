@@ -35,11 +35,15 @@ export default async function formatEvent(event, ...args) {
     const {
       base,
       variants,
+      path,
     } = event.image;
+
     formatted.image = {
-      file: await processImage(
-        `${base}${variants.find(v => v.type === 'full').filename}`,
-      ),
+      file: await processImage(path ? {
+        path,
+      } : {
+        url: `${base}${variants.find(v => v.type === 'full').filename}`,
+      }),
     };
 
     formatted.image.credit = event.imageCredits;
