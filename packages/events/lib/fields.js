@@ -5,70 +5,70 @@ module.exports = [{
   optional: false,
   fieldType: 'integer',
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'uid',
   fieldType: 'integer',
   optional: false,
   read: ['internal', 'public'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'slug',
   fieldType: 'text',
   optional: false,
   read: ['internal', 'public'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'private',
   fieldType: 'boolean',
   default: false,
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'timezone',
   fieldType: 'timezone',
   default: 'Europe/Paris',
   read: ['internal', 'public'],
-  write: ['internal', 'public']
+  write: ['internal', 'public'],
 }, {
   field: 'draft',
   fieldType: 'boolean',
   default: false,
   read: ['internal', 'public'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'updatedAt',
   optional: false,
   fieldType: 'date',
   read: ['internal', 'public'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'createdAt',
   optional: false,
   fieldType: 'date',
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'creatorUid',
   fieldType: 'integer',
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'ownerUid',
   fieldType: 'integer',
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'agendaUid',
   fieldType: 'integer',
   optional: false,
   read: ['internal', 'public'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'fileKey',
   fieldType: 'text',
   read: ['internal'],
-  write: ['internal']
+  write: ['internal'],
 }, {
   field: 'attendanceMode',
   fieldType: 'radio',
@@ -77,35 +77,35 @@ module.exports = [{
   default: 1,
   options: [{
     id: 1,
-    value: 'offline'
+    value: 'offline',
   }, {
     id: 2,
-    value: 'online'
+    value: 'online',
   }, {
     id: 3,
-    value: 'mixed'
+    value: 'mixed',
   }],
   read: ['internal', 'public'],
-  write: ['internal', 'public']
+  write: ['internal', 'public'],
 }, {
   field: 'onlineAccessLink',
   fieldType: 'link',
   optional: false,
   enableWith: {
     field: 'attendanceMode',
-    value: [2, 3]
+    value: [2, 3],
   },
   read: ['internal', 'public'],
-  write: ['internal', 'public']
+  write: ['internal', 'public'],
 }, {
   field: 'locationUid',
   fieldType: 'integer',
   optionalWith: {
     field: 'attendanceMode',
-    value: 2
+    value: 2,
   },
   read: ['internal', 'public'],
-  write: ['internal', 'public']
+  write: ['internal', 'public'],
 }, {
   field: 'image',
   fieldType: 'stream',
@@ -117,8 +117,8 @@ module.exports = [{
   db: {
     type: 'json',
     field: 'image',
-    assign: true
-  }
+    assign: true,
+  },
 }, {
   field: 'imageCredits',
   fieldType: 'text',
@@ -131,8 +131,8 @@ module.exports = [{
   db: {
     type: 'json',
     field: 'image.credits',
-    assign: true
-  }
+    assign: true,
+  },
 }, {
   field: 'title',
   languages: [],
@@ -142,8 +142,8 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'description',
   languages: [],
@@ -153,8 +153,8 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'longDescription',
   languages: [],
@@ -164,8 +164,8 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'keywords',
   fieldType: 'keywords',
@@ -177,8 +177,8 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'conditions',
   languages: [],
@@ -187,17 +187,17 @@ module.exports = [{
   read: ['internal', 'public'],
   max: 255,
   db: {
-    type: 'json'
+    type: 'json',
   },
-  fieldType: 'text'
+  fieldType: 'text',
 }, {
   field: 'age',
   fieldType: 'age',
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'registration',
   fieldType: 'registration',
@@ -205,23 +205,23 @@ module.exports = [{
   read: ['internal', 'public'],
   max: 2000,
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'accessibility',
   fieldType: 'accessibility',
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
+    type: 'json',
   },
   default: {
     mi: false,
     hi: false,
     pi: false,
     vi: false,
-    ii: false
-  }
+    ii: false,
+  },
 }, {
   field: 'timings',
   fieldType: 'timings',
@@ -230,8 +230,8 @@ module.exports = [{
   write: ['internal', 'public'],
   max: 800,
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'status',
   fieldType: 'radio',
@@ -239,29 +239,29 @@ module.exports = [{
   options: [{
     // event is scheduled to occur at provided timings
     id: 1,
-    value: 'scheduled'
+    value: 'scheduled',
   }, {
     // event has been rescheduled, timings have been changed from what was previously published
     id: 2,
-    value: 'rescheduled'
+    value: 'rescheduled',
   }, {
     // event has been rescheduled and will occur entirely online
     id: 3,
-    value: 'movedOnline'
+    value: 'movedOnline',
   }, {
     // new timings are unknown...
     id: 4,
-    value: 'postponed'
+    value: 'postponed',
   }, {
     id: 5,
-    value: 'full'
+    value: 'full',
   }, {
     // event was cancelled
     id: 6,
-    value: 'cancelled'
+    value: 'cancelled',
   }],
   write: ['internal', 'public'],
-  read: ['internal', 'public']
+  read: ['internal', 'public'],
 }, {
   field: 'references',
   fieldType: 'references',
@@ -269,8 +269,8 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }, {
   field: 'links',
   fieldType: 'enrichedLinks',
@@ -279,8 +279,8 @@ module.exports = [{
   read: ['internal', 'public'],
   default: [],
   db: {
-    type: 'json'
-  }
+    type: 'json',
+  },
 }].map(f => {
   f.label = f.field;
   if (f.options) {
