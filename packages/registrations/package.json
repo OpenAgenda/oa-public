@@ -1,17 +1,30 @@
 {
   "name": "@openagenda/registrations",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "prepack": "tsup passCulture/iso --clean --format cjs",
     "lint": "eslint -c .eslintrc '**/*.js'"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./index.js"
+    },
+    "./passCulture/iso/*": {
+      "import": "./passCulture/iso/*.js",
+      "require": "./dist/*.cjs"
+    }
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
     "@openagenda/verror": "^3.1.0",
     "axios": "^1.4.0",
+    "date-fns": "^2.11.1",
+    "date-fns-tz": "2.0.0",
     "gm": "^1.25.0",
     "lodash": "^4.17.15",
     "qs": "^6.9.1",
@@ -24,6 +37,7 @@
     "eslint": "^8.24.0",
     "image-type": "^5.2.0",
     "is-base64": "^1.1.0",
+    "tsup": "^6.2.3",
     "jest": "^28.1.2"
   }
 }
