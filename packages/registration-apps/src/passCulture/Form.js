@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
+import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
@@ -9,7 +10,6 @@ import {
   changePriceCategory,
   removeDate,
   changeDate,
-  isValid,
 } from './utils';
 
 export default function Form({
@@ -139,7 +139,7 @@ export default function Form({
       </Section>
       <Section>
         <Button
-          disabled={!isValid(value, timings) || openSubForm}
+          disabled={!validateLocalData(value, { timings }, { boolMode: true }) || openSubForm}
           shape="primary"
           label="Enregistrer"
           onClick={() => onSubmit(value)}

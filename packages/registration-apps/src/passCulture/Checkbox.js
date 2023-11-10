@@ -1,7 +1,9 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
+import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
+
 import FormModal from './FormModal';
-import { isValid, logoPath, } from './utils';
+import { logoPath } from './utils';
 
 export default ({
   value,
@@ -14,10 +16,12 @@ export default ({
   const hasTimings = !!(timings ?? [])?.length;
   const hasData = Object.keys(value ?? {}).length;
 
-  const issues = useMemo(() => []
-    .concat(!hasTimings ? 'Des horaires doivent être saisis dans le champ Horaires' : [])
-    .concat(hasData && !isValid(value, timings) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : [])
-  , [hasTimings, hasData, value, timings]);
+  const issues = useMemo(
+    () => []
+      .concat(!hasTimings ? 'Des horaires doivent être saisis dans le champ Horaires' : [])
+      .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    [hasTimings, hasData, value, timings],
+  );
 
   const onCheck = useCallback(() => {
     setShowModal(true);

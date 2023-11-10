@@ -1,96 +1,16 @@
-import isFloat from 'validator/lib/isFloat';
-import { format } from 'date-fns';
-
 import { produce } from 'immer';
 
-const omit = (obj, fields = []) => Object.keys(obj).reduce(
-  (filtered, key) => (fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] })),
-  {},
-);
+import {
+  omit,
+  findTimingLabel,
+} from '@openagenda/registrations/passCulture/iso/utils';
 
-function isDTMFormat(d) {
-  return d.date && d.hours !== undefined && d.minutes !== undefined;
-}
-
-function fZ(n) {
-  return n < 10 ? `0${n}` : n;
-}
-
-function convertDTMToDAte({ date, hours, minutes }) {
-  return new Date(`${date}T${fZ(hours)}:${fZ(minutes)}:00`);
-}
-
-function getTimingId(timing) {
-  return (
-    isDTMFormat(timing.begin) ? convertDTMToDAte(timing.begin) : new Date(timing.begin)
-  ).getTime();
-}
+export * from '@openagenda/registrations/passCulture/iso/utils';
 
 export const logoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-240.png';
 
 export function isConfigured(data) {
   return !!Object.keys(omit(data, ['checked'])).length;
-}
-
-export function isPriceCategoryValid(value = {}) {
-  const {
-    price,
-    label,
-  } = value;
-
-  return isFloat(price ?? '')
-    && parseFloat(price) >= 0
-    && (
-      typeof label === 'string' && label.length
-    );
-}
-
-export function isDateValid(d, priceCategories, timings) {
-  if (!d || typeof d !== 'object') {
-    return false;
-  }
-  for (const key of ['timingId', 'priceCategoryIndex', 'quantity']) {
-    if (d[key] === undefined) {
-      return false;
-    }
-  }
-
-  if (!priceCategories || priceCategories[d.priceCategoryIndex] === undefined) {
-    return false;
-  }
-
-  if (isNaN(parseInt(d.quantity, 10))) {
-    return false;
-  }
-
-  if (!(timings ?? []).find(t => getTimingId(t) === d.timingId)) {
-    return false;
-  }
-
-  return true;
-}
-
-export function isValid(v, timings) {
-  if (!v.priceCategories?.length) {
-    return false;
-  }
-  for (const pc of v.priceCategories ?? []) {
-    if (!isPriceCategoryValid(pc)) {
-      return false;
-    }
-  }
-
-  if (!v.dates?.length) {
-    return false;
-  }
-
-  for (const date of v.dates ?? []) {
-    if (!isDateValid(date, v.priceCategories, timings)) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 export function addPriceCategory(value, { price, label }) {
@@ -113,34 +33,6 @@ export function changePriceCategory(value, index, { price, label }) {
   return produce(value, draft => {
     draft.priceCategories[index] = { price, label };
   });
-}
-
-export function getTimingLabel(timing) {
-  return format(
-    isDTMFormat(timing.begin) ? convertDTMToDAte(timing.begin) : new Date(timing.begin),
-    'yyyy-MM-dd HH:mm',
-  );
-}
-
-export function getTime(d) {
-  return (isDTMFormat(d) ? convertDTMToDAte(d) : new Date(d)).getTime();
-}
-
-export function findTimingLabel(timings, timingId, options = {}) {
-  const {
-    throwNotFound = true,
-  } = options;
-  const timing = timings.find(t => getTimingId(t) === timingId);
-
-  if (!timing && throwNotFound) {
-    throw new Error(`Could not find timing matching ${timingId}`);
-  }
-
-  if (!timing) {
-    return null;
-  }
-
-  return getTimingLabel(timing);
 }
 
 export function changeDate(value, index, { timingId, priceCategoryIndex, quantity }) {

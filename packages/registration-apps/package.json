@@ -23,13 +23,11 @@
   },
   "dependencies": {
     "@openagenda/react-shared": "^2.4.0",
-    "@openagenda/validators": "^2.4.0",
-    "date-fns": "^2.11.1",
+    "@openagenda/registrations": "^0.0.2",
     "immer": "^9.0.1",
     "react-select": "^5.7.4",
     "react-tagsinput": "^3.19.0",
-    "slugify": "^1.4.6",
-    "validator": "^12.2.0"
+    "slugify": "^1.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

@@ -1,7 +1,9 @@
 import { useState, useContext, useMemo } from 'react';
+import { validateDate } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../../components/Context';
-import { findTimingLabel, isDateValid, decorateDates, } from '../utils';
+import { decorateDates } from '../utils';
+
 import DateForm from './Form';
 
 export default function DateItems({
@@ -40,7 +42,7 @@ export default function DateItems({
             <DateForm
               value={editValue}
               onChange={v => setEditValue(v)}
-              isValid={isDateValid(editValue, priceCategories, timings)}
+              isValid={validateDate(editValue, { priceCategories, timings, boolMode: true })}
               submitLabel="Modifier"
               timings={timings}
               priceCategories={priceCategories ?? []}

@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import slug from 'slugify';
+import { validatePriceCategory } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../../components/Context';
-import { isPriceCategoryValid } from '../utils';
 import PriceCategoryForm from './Form';
 
 export default function PriceCategoryItems({
@@ -38,7 +38,7 @@ export default function PriceCategoryItems({
               mode="edit"
               value={editValue}
               onChange={v => setEditValue(v)}
-              isValid={isPriceCategoryValid(editValue)}
+              isValid={validatePriceCategory(editValue, { boolMode: true })}
               onCancel={() => {
                 setEditedItemIndex(-1);
                 onToggleEditing(false);

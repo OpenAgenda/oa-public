@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
+import { validateDate } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../../components/Context';
-
-import { isDateValid } from '../utils';
 
 import DateForm from './Form';
 import DateItems from './Items';
@@ -56,7 +55,11 @@ export default function Dates({
             setNewItem(false);
           }}
           timings={timings}
-          isValid={isDateValid(newItem, value.priceCategories, timings)}
+          isValid={validateDate(newItem, {
+            priceCategories: value.priceCategories,
+            timings,
+            boolMode: true,
+          })}
         />
       ) : (
         <Button

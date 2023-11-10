@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
+import { validatePriceCategory } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../../components/Context';
-
-import { isPriceCategoryValid } from '../utils';
 
 import PriceCategoryForm from './Form';
 import PriceCategoryItems from './Items';
@@ -43,7 +42,7 @@ export default function PriceCategories({
             setNewItem(v);
             onSubFormToggle(false);
           }}
-          isValid={isPriceCategoryValid(newItem)}
+          isValid={validatePriceCategory(newItem, { boolMode: true })}
           onCancel={() => {
             setNewItem(false);
             onSubFormToggle(false);
