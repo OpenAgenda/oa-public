@@ -8,8 +8,8 @@ module.exports = function handleError({ res, log }, error) {
 
     res.json({
       success: false,
-      errors: error.info,
-      event: null
+      errors: error.info.errors,
+      event: null,
     });
   } else {
     log('error', error);

@@ -6,7 +6,7 @@ module.exports = async function createPassCultureOffer(core, agenda, clean) {
   const {
     services: {
       registrations,
-    }
+    },
   } = core;
 
   const {
@@ -19,10 +19,10 @@ module.exports = async function createPassCultureOffer(core, agenda, clean) {
     eventOffer,
     errors,
   } = await passCultureService.createEventOffer(clean.event, passCulture);
-  
+
   return produce(clean.event.registration, draft => {
     const item = draft.find(r => r.service === 'passCulture');
-    
+
     item.data.id = eventOffer.id;
     item.value = passCultureService.getEventOfferLink(eventOffer);
 
@@ -30,4 +30,4 @@ module.exports = async function createPassCultureOffer(core, agenda, clean) {
       item.data.errors = errors;
     }
   });
-}
+};

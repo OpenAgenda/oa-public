@@ -11,13 +11,12 @@ const doAdd = require('../utils/doAdd');
 const extractUserUid = require('../utils/extractUserUid');
 const loadAuthorizations = require('../../utils/authorizations');
 const processOEmbed = require('../utils/processOEmbed');
-const createPassCultureOffer = require('./lib/createPassCultureOffer');
 
 const cleanEvent = require('../utils/cleanEvent');
-
 const getAgenda = require('../utils/getAgenda');
-
 const assignState = require('../utils/assignState');
+
+const createPassCultureOffer = require('./lib/createPassCultureOffer');
 
 const {
   isImageToDuplicate,
