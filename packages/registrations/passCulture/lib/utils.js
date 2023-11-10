@@ -4,30 +4,11 @@ import { remark } from 'remark';
 import strip from 'strip-markdown';
 import gm from 'gm';
 
+import { flatten } from '../iso/utils.js';
+
+export * from '../iso/utils.js';
+
 const imagick = gm.subClass({ imageMagick: true });
-
-export function omit(obj, fields = []) {
-  return Object.keys(obj).reduce(
-    (filtered, key) => (fields.includes(key) ? filtered : Object.assign(filtered, { [key]: obj[key] })),
-    {},
-  );
-}
-
-export function pick(obj, fields = []) {
-  return fields.reduce((c, f) => ({ ...c, [f]: obj[f] }), {});
-}
-
-export function flatten(label, requestedLang, options = {}) {
-  const {
-    fallbackLang = 'fr',
-  } = options;
-
-  if (typeof label === 'string') return label;
-
-  for (const lang of [requestedLang, fallbackLang, Object.keys(label || {}).shift()]) {
-    if (label?.[lang]) return label[lang];
-  }
-}
 
 export async function formatText(value, options = {}) {
   const {

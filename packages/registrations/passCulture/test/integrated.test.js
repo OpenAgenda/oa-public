@@ -34,7 +34,7 @@ describe('integrated', () => {
         },
       }, {
         venueId: 548,
-        category: 'CINE_PLEIN_AIR',
+        category: 'EVENEMENT_JEU',
         priceCategories: [{
           label: 'Tarif réduit',
           price: 8,

@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import createEventOffer from '../lib/createEventOffer';
+import createEventOffer from '../createEventOffer.js';
 
-import PassCultureSDK from '../lib/PassCultureSDK';
+import PassCultureSDK from '../lib/PassCultureSDK.js';
 
 import fixtures from './fixtures/cart.events.json';
 
@@ -157,6 +157,40 @@ describe('createEventOffer', () => {
         code: 'registration.pass.invalidDate.quantity',
         label: "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs",
       }]);
+    });
+  });
+
+  describe('Successful creates', () => {
+    it('OAEvent with timings in DHM format', async () => {
+      const { errors } = await createEventOffer(
+        pc,
+        {
+          title: { fr: 'DHM' },
+          timings: [{
+            begin: { date: '2023-11-12', hours: 9, minutes: 30 },
+            end: { date: '2023-11-12', hours: 12, minutes: 0 },
+          }],
+        },
+        {
+          priceCategories: [
+            {
+              price: 789,
+              label: 'Pouik',
+            },
+          ],
+          dates: [
+            {
+              priceCategoryIndex: 0,
+              quantity: 789,
+              timingId: 1699777800000,
+            },
+          ],
+          venueId: 548,
+          category: 'EVENEMENT_JEU',
+        },
+      );
+
+      expect(errors).toBeNull();
     });
   });
 });

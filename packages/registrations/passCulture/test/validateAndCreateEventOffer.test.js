@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import validateAndCreateEventOffer from '../lib/validateAndCreateEventOffer';
-import PassCultureSDK from '../lib/PassCultureSDK';
+import validateAndCreateEventOffer from '../validateAndCreateEventOffer.js';
+import PassCultureSDK from '../lib/PassCultureSDK.js';
 
 import fixtures from './fixtures/cart.events.json';
 

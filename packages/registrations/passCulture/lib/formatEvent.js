@@ -5,10 +5,10 @@ import {
 } from './utils.js';
 
 const acc = ({ accessibility: a }) => ({
-  audioDisabilityCompliant: a.hi ?? false,
-  mentalDisabilityCompliant: (a.pi || a.ii) ?? false,
-  motorDisabilityCompliant: a.mi ?? false,
-  visualDisabilityCompliant: a.vi ?? false,
+  audioDisabilityCompliant: a?.hi ?? false,
+  mentalDisabilityCompliant: (a?.pi || a?.ii) ?? false,
+  motorDisabilityCompliant: a?.mi ?? false,
+  visualDisabilityCompliant: a?.vi ?? false,
 });
 
 export default async function formatEvent(event, ...args) {

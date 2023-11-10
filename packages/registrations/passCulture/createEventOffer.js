@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
-import formatEvent from './formatEvent.js';
-import { omit } from './utils.js';
-import formatErrors from './formatErrors.js';
+import formatEvent from './lib/formatEvent.js';
+import { omit, getTimingId, isDHMFormat, convertDHMToDate } from './lib/utils.js';
+import formatErrors from './lib/formatErrors.js';
 
 const log = logs('passCulture/createEventOffer');
 
@@ -22,7 +22,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     eventOffer: null,
     priceCategories: null,
     dates: null,
-    error: null,
+    errors: null,
   };
 
   const eventOffer = await formatEvent(OAEvent, { venueId, category }, { lang });
@@ -56,20 +56,22 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     };
   }
 
+  const datesPayload = dates.map(d => {
+    const timing = OAEvent.timings.find(t => d.timingId === getTimingId(t, OAEvent.timezone));
+
+    return omit({
+      ...d,
+      priceCategoryId: result.priceCategories[d.priceCategoryIndex].id,
+      beginningDatetime: isDHMFormat(timing.begin) ? convertDHMToDate(timing.begin, { timezone: OAEvent.timezone }) : timing.begin,
+      bookingLimitDatetime: isDHMFormat(timing.begin) ? convertDHMToDate(timing.begin, { timezone: OAEvent.timezone }) : timing.begin,
+    }, ['timingId', 'priceCategoryIndex']);
+  });
+
   try {
     const {
       dates: createdDates,
     } = await pc.offers.events(result.eventOffer.id).dates.create({
-      dates: dates.map(d => {
-        const timing = OAEvent.timings.find(t => d.timingId === new Date(t.begin).getTime());
-
-        return omit({
-          ...d,
-          priceCategoryId: result.priceCategories[d.priceCategoryIndex].id,
-          beginningDatetime: timing.begin,
-          bookingLimitDatetime: timing.begin,
-        }, ['timingId', 'priceCategoryIndex']);
-      }),
+      dates: datesPayload,
     });
     result.dates = createdDates;
 
