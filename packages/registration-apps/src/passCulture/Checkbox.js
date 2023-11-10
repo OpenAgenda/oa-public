@@ -65,9 +65,12 @@ export default ({
             width={100}
           />
           <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
-          {issues.length ? <ul className="padding-left-sm">{issues.map(issue => (
-            <li className="text-danger">{issue}</li>
-          ))}</ul> : null}
+          {issues.length ? (
+            <ul className="padding-left-sm">{issues.map(issue => (
+              <li className="text-danger">{issue}</li>
+            ))}
+            </ul>
+          ) : null}
         </label>
       </div>
     </>
