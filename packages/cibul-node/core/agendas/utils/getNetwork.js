@@ -4,7 +4,7 @@ const VError = require('@openagenda/verror');
 
 module.exports = async (services, networkUid) => {
   const {
-    networks
+    networks,
   } = services;
 
   if (!networkUid) return null;

@@ -2,14 +2,14 @@
 
 module.exports = async (customService, formSchemaId, itemUid, data, { agendaId }) => {
   const result = {
-    errors: []
+    errors: [],
   };
 
   try {
     const options = {
       context: { legacy: false },
       validate: false,
-      partial: true // always true, considering that data is already validated
+      partial: true, // always true, considering that data is already validated
     };
 
     if (agendaId) {
@@ -18,7 +18,7 @@ module.exports = async (customService, formSchemaId, itemUid, data, { agendaId }
 
     Object.assign(
       result,
-      await customService(formSchemaId).set(itemUid, data, options)
+      await customService(formSchemaId).set(itemUid, data, options),
     );
   } catch (errors) {
     result.errors = errors;

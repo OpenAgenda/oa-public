@@ -4,7 +4,7 @@ const VError = require('@openagenda/verror');
 
 module.exports = async (services, schemaIds = []) => {
   const {
-    formSchemas
+    formSchemas,
   } = services;
 
   const schemas = [];

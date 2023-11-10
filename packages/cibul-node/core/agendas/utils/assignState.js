@@ -7,7 +7,7 @@ const { Forbidden } = require('@openagenda/verror');
 const TYPES = {
   default: 'default',
   requested: 'requested',
-  system: 'system'
+  system: 'system',
 };
 
 function defineState({
@@ -20,7 +20,7 @@ function defineState({
   const {
     canChangeState,
     canPublish,
-    mustBeModerated
+    mustBeModerated,
   } = authorizations;
 
   const agendaDefaultState = agenda?.settings?.contribution?.defaultState;
@@ -30,7 +30,7 @@ function defineState({
     log('no explicit state requested%s', isUndrafted ? ', event is undrafted' : '');
     return {
       state: agendaDefaultState,
-      type: TYPES.default
+      type: TYPES.default,
     };
   }
 
@@ -38,10 +38,10 @@ function defineState({
     log('event is undrafted');
     return canChangeState ? {
       state: requestedState,
-      type: TYPES.requested
+      type: TYPES.requested,
     } : {
       state: agendaDefaultState,
-      type: TYPES.default
+      type: TYPES.default,
     };
   }
 
@@ -51,14 +51,14 @@ function defineState({
     && !canPublish
   ) {
     throw new Forbidden({
-      info: { uid: agenda.uid }
+      info: { uid: agenda.uid },
     }, 'not authorized to publish events');
   }
 
   if (hasEvent && explicitStateRequested && canChangeState) {
     return {
       state: requestedState,
-      type: TYPES.requested
+      type: TYPES.requested,
     };
   }
   // event exists, is added to agenda. It is a new addition. It should
@@ -67,36 +67,36 @@ function defineState({
     log('event %s to be moderated', mustBeModerated ? 'needs' : 'does not need');
     return mustBeModerated && currentState !== -1 ? {
       state: 0,
-      type: TYPES.system
+      type: TYPES.system,
     } : {
       state: undefined,
-      type: TYPES.default
+      type: TYPES.default,
     };
   }
 
   if (hasEvent) {
     return explicitStateRequested ? {
       state: requestedState,
-      type: TYPES.requested
+      type: TYPES.requested,
     } : {
       state: undefined,
-      type: TYPES.default
+      type: TYPES.default,
     };
   }
 
   return explicitStateRequested && canChangeState ? {
     state: requestedState,
-    type: TYPES.requested
+    type: TYPES.requested,
   } : {
     state: agendaDefaultState,
-    type: TYPES.default
+    type: TYPES.default,
   };
 }
 
 module.exports = (agenda, event, clean, data, { draft, authorizations, currentState }) => {
   const { state, type } = draft ? {
     state: undefined,
-    type: null
+    type: null,
   } : defineState({
     agenda,
     hasEvent: !!event,
@@ -115,7 +115,7 @@ module.exports = (agenda, event, clean, data, { draft, authorizations, currentSt
 
   return {
     state,
-    type
+    type,
   };
 };
 

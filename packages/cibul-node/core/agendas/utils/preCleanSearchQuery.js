@@ -6,7 +6,7 @@ const { isInteger } = require('@openagenda/utils');
 
 module.exports = function preCleanSearchQuery(query, options = {}) {
   const {
-    targetKey = 'uid'
+    targetKey = 'uid',
   } = options;
 
   if (!isInteger(query?.search)) {

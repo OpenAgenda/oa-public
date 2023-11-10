@@ -76,7 +76,7 @@ function validateEvent({
     partial = false,
     evaluateEvent = true,
     event = null,
-    validateWithStoredData= false,
+    validateWithStoredData = false,
     defaultLang = null,
     optionalSecondaryFields = false,
     paths = null,

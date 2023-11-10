@@ -8,4 +8,4 @@ module.exports = (event, agendaEvent) => {
     return 'aggregation';
   }
   return 'share';
-}
+};

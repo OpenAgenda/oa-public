@@ -1,7 +1,7 @@
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js'; 
 import Core from '../core/index.js';
 import Services from '../services/init.mjs';
+import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.js';
 
 describe('core - functional: core.agendas().events.create() - Pass Culture', () => {
   let core;
@@ -61,10 +61,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
         description: 'Test pass',
         timings: [{
           begin: new Date('2024-02-28T15:00:00+0100'),
-          end: new Date('2024-02-28T20:00:00+0100')
+          end: new Date('2024-02-28T20:00:00+0100'),
         }],
         location: {
-          uid: 1234
+          uid: 1234,
         },
         registration: [{
           type: 'link',
@@ -77,25 +77,25 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
               {
                 price: 12,
                 label: 'Tarif normal',
-              }
+              },
             ],
             dates: [
               {
                 timingId: 1709128800000,
                 priceCategoryIndex: 0,
                 quantity: 300,
-              }
-            ]
-          }
-        }]
+              },
+            ],
+          },
+        }],
       }, {
         access: 'contributor',
       });
 
       expect(
-        event.registration[0].value
+        event.registration[0].value,
       ).toBe(
-        testConfig.passCulture.offerLink.replace(':id', event.registration[0].data.id)
+        testConfig.passCulture.offerLink.replace(':id', event.registration[0].data.id),
       );
     });
   });
