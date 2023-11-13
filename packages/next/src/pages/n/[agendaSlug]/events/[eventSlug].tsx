@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { SWRConfig } from 'swr';
 import VError from '@openagenda/verror';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
@@ -36,11 +37,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   const query = parseLocationQuery(resolvedUrl);
   const locale = getPreferredLocale(query.lang, nextLocale, getSession(req.cookies)?.user?.culture);
 
+  const eventUrl = `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
+
   try {
     const [
       intlMessages,
       agenda,
-      { event },
+      eventResponse,
     ] = await Promise.all([
       EventShow.fetchLocale(locale),
       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
@@ -53,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           if (r.ok) return r.json();
           throw new VError[r.status](r.statusText);
         }),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`, {
+      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}${eventUrl}`, {
         headers: {
           Authorization: req.headers.authorization,
           Cookie: req.headers.cookie,
@@ -65,13 +68,18 @@ export const getServerSideProps: GetServerSideProps = async ({
         }),
     ]);
 
+    const { event } = eventResponse;
+
     const props: PageProps = {
       intlMessages,
       agenda,
-      event,
+      // event,
       preload: [
         `https://d.openagenda.com/api/agendas/${agenda.uid}/events/${event.uid}/references`,
       ],
+      fallback: {
+        [eventUrl]: eventResponse,
+      },
     };
 
     return { props };
@@ -152,6 +160,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 // });
 
 const EventPage: NextPageWithLayout<PageProps> = props => {
+  const { fallback = {} } = props;
+
   if ('statusCode' in props) {
     return (
       <EventError {...props} />
@@ -160,7 +170,9 @@ const EventPage: NextPageWithLayout<PageProps> = props => {
 
   return (
     <DateFnsLocaleProvider>
-      <EventShow {...props} />
+      <SWRConfig value={{ fallback }}>
+        <EventShow {...props} />
+      </SWRConfig>
     </DateFnsLocaleProvider>
   );
 };

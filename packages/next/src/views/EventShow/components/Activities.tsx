@@ -77,7 +77,7 @@ export default function Activities({ agenda, event }) {
     setSize(s => s + 1);
   }, [setSize]);
 
-  if (isLoadingInitialData || isEmpty) {
+  if (isLoadingInitialData || isEmpty || error) {
     return null;
   }
 

@@ -159,7 +159,7 @@ Pour le groupe "ProxySQL", toutes les règles peuvent être désactivées, à l'
 
 ## Backups automatisés
 
-Sur un des serveurs MySQL esclaves, faire `crontab -e` puis ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql`:
+Sur un des serveurs MySQL esclaves, faire `crontab -e` puis ajouter la ligne suivante:
 
 ```
 0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u $DB_USER -p $DB_PASS -d $DB_NAME
@@ -173,7 +173,7 @@ yum install polkit
 systemctl enable --now crond
 ```
 
-###
+### Copier les backups sur un autre serveur
 
 Pour sécuriser les backups sur un autre serveur:
 

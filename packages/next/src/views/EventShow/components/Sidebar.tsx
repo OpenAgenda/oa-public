@@ -1,9 +1,9 @@
 import { Fragment, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, IconButton, Link } from '@openagenda/uikit';
+import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, IconButton, Link, List, ListItem } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
-import { faShareNodes, faEnvelope, faClock, faSquareCheck } from 'icons/regular';
+import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 'icons/regular';
 import { faPrint, faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
 import { faFacebookF, faTwitter, faLinkedinIn } from 'icons/brands';
 import OAIcon from 'components/OAIcon';
@@ -262,14 +262,38 @@ export default function Sidebar({ agenda, event }) {
       </Box>
 
       {event.location?.latitude && event.location?.longitude ? (
-        <Box ml="12">
+        <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center">
+          <Icon
+            as={FaIcon}
+            icon={faLocationDot}
+            size="2xl"
+            color="oaGray.300"
+          />
+          <Box>
+            <p>{event.location.name}</p>
+            <Link
+              isExternal
+              href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
+              colorScheme="primary"
+            >
+              {event.location.address}
+            </Link>
+            <Wrap color="oaGray.500">
+              {['department', 'region', 'country'].map(part => (
+                <WrapItem key={part}>
+                  {event.location[part]}
+                </WrapItem>
+              ))}
+            </Wrap>
+          </Box>
           <Map
             width={300}
             height={200}
             center={[event.location.latitude, event.location.longitude]}
             zoom={14}
+            aspectRatioProps={{ gridColumn: 2 }}
           />
-        </Box>
+        </Grid>
       ) : null}
 
       <Box ml="12">
@@ -278,3 +302,5 @@ export default function Sidebar({ agenda, event }) {
     </Flex>
   );
 }
+
+// https://openagenda.com/ndm/events/visite-libre-de-lexposition-tarz-broder-au-maroc-hier-et-aujourdhui?admin_nav%5Bq.search%5D=atelier&admin_nav%5Bq.sort%5D=score&admin_nav%5Bpage%5D=3&admin_nav%5Bindex%5D=0
