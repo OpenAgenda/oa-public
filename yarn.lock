@@ -11395,6 +11395,7 @@ __metadata:
     qs: "npm:^6.9.1"
     remark: "npm:^14.0.3"
     strip-markdown: "npm:^5.0.1"
+    tsup: "npm:^6.2.3"
   languageName: unknown
   linkType: soft
 
@@ -22767,6 +22768,7 @@ __metadata:
     deep-diff: "npm:^1.0.2"
     exceljs: "npm:^4.3.0"
     express: "npm:^4.17.1"
+    express-rate-limit: "npm:^7.1.4"
     fast-csv: "npm:^3.4.0"
     fast-levenshtein: "npm:^2.0.6"
     feathers-authentication-hooks: "npm:^0.3.0"
@@ -22803,7 +22805,7 @@ __metadata:
     passport-twitter: "npm:^1.0.4"
     planer: "npm:^1.1.1"
     qs: "npm:^6.9.1"
-    rate-limit-redis: "npm:^3.0.0"
+    rate-limit-redis: "npm:^4.2.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-router: "npm:^5.1.2"
@@ -28220,6 +28222,15 @@ __metadata:
     prom-client: "npm:~10.2.2"
     url-value-parser: "npm:^1.0.0"
   checksum: 04a89d560cd640658fa6a8d48fc4c589ed037b5ee8e1d74fca761d0e679f8caad68d7a8503ae1df7bdf62d30df0804b55ab2c33f21a2046ad9887fe2df769c87
+  languageName: node
+  linkType: hard
+
+"express-rate-limit@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "express-rate-limit@npm:7.1.4"
+  peerDependencies:
+    express: 4 || 5 || ^5.0.0-beta.1
+  checksum: d76b9b8f309218cef12faa26d87c919a33537b553f04349007a29945eebc4e74577904dc95e2cec42af703ee0c901a9d47d547f1d2c7ac652ac07eff67adc95b
   languageName: node
   linkType: hard
 
@@ -42904,12 +42915,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rate-limit-redis@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "rate-limit-redis@npm:3.0.0"
+"rate-limit-redis@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "rate-limit-redis@npm:4.2.0"
   peerDependencies:
-    express-rate-limit: ^6
-  checksum: 8b6d8f42e26e5fd980e51afd221fa4d98097c5c0e9c4c68eb9fce3b7623ec64538a8f8dd65e0cc2a4ef30360e549e5ef83bef22484bb580634ffb1123e218948
+    express-rate-limit: ">= 6"
+  checksum: e8e60d3971f05efce9ffdc05fdb1da8137443d80638d3796cc00d58a58128c8cb005c1fa19b4fc5f49076d5ddd4ed85aaccc761747037d79cd21f86d690a143c
   languageName: node
   linkType: hard
 
