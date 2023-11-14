@@ -5,6 +5,7 @@ const cbify = require('@openagenda/utils/cbify');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const track = require('../lib/track');
+const rateLimiter = require('../lib/rateLimiter');
 const config = require('../config');
 const convertFormat = require('./ConvertFormat');
 const loadCredentials = require('./loadCredentials');
@@ -87,7 +88,10 @@ module.exports = app => {
   const {
     members,
     agendas,
+    redis,
   } = app.services;
+
+  const limiter = rateLimiter(redis.ioRedis);
 
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
@@ -123,6 +127,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events.pdf',
     preMw,
+    limiter,
     agendas.mw.loadBy({
       path: 'params.uid',
       field: 'uid',

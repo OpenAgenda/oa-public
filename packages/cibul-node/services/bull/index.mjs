@@ -1,27 +1,9 @@
 /* eslint-disable max-classes-per-file */
 
 import bullmq from 'bullmq';
-import IORedis from 'ioredis';
 import logs from '@openagenda/logs';
 
 const log = logs('services/bull');
-
-function createRedisConnection(config) {
-  if (config.redis.clusterMode) {
-    return new IORedis.Cluster(config.redis.nodes, {
-      redisOptions: {
-        password: config.redis.password,
-        maxRetriesPerRequest: null,
-      },
-    });
-  }
-
-  return new IORedis({
-    port: config.redis.port,
-    host: config.redis.host,
-    maxRetriesPerRequest: null,
-  });
-}
 
 function checkPrefixOption(opts) {
   if (!opts.prefix?.match(/\{.+\}/)) {
@@ -32,10 +14,10 @@ function checkPrefixOption(opts) {
   }
 }
 
-export function init(config, _services) {
+export function init(config, services) {
   log('init');
 
-  const connection = createRedisConnection(config);
+  const connection = services.redis.ioRedis;
 
   class Queue extends bullmq.Queue {
     constructor(name, opts, con) {
