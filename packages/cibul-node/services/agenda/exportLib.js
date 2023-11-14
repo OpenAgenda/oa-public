@@ -5,7 +5,7 @@ const async = require( 'async' );
 const w = require( 'when' );
 
 const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
-const slugs = require( '@openagenda/slugs' );
+const slug = require('slugify');
 const utils = require( '@openagenda/utils' );
 
 const config = require( '../../config' );
@@ -191,7 +191,7 @@ function _addTagGroups( v ) {
   .map( g => ( {
     name: g.name,
     access: g.access || 'public',
-    slug: g.name ? slugs.generate( g.name ) : null,
+    slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
     tags: g.tags.filter( t => tagIds.indexOf( t.id ) !== -1 ).map( t => ( _.assign( {
       label: t.label,
       slug: t.slug,

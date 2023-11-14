@@ -391,6 +391,8 @@ Une petite modification sur agenda-portal à patcher sur npm peut se faire simpl
 
 ## Certificats
 
+Edit (13-11-2023): le cluster n'est plus accessible depuis internet depuis la migration vers jelastic. Les connexions ne sont plus sécurisées et le traffic ne transite que sur le réseau local. Il n'est plus nécessaire d'implémenter l'authentification des clients par clés.
+
 L'accès du cluster elasticsearch en production est protégé par une vérification de clés authentifiant le client executant la recherche. Un proxy nginx se charge de cette vérification.
 
 [Client] -> [Nginx] -> [Elasticsearch]
@@ -428,7 +430,11 @@ Autrement, il est également possible d'utiliser directement le certificat de v�
 
 La paire certificat/clé est dans le keepass technique. Elle est nécessaire pour créer de nouvelle clés clients.
 
-#### L'autorité
+## L'autorité de certification
+
+Elle sert pour l'identification des utilisateurs souhaitant se connecter aux outils d'administration d'OA.
+
+### Création
 
 Si l'autorité doit être créée, utiliser les informations suivantes (en suivant les commandes détaillées dans le script create_oa_authority)
 
@@ -444,7 +450,21 @@ Autrement, il est également possible de prolonger la validité de l'autorité: 
 
 En production, seul le certificat se place dans le sous-groupe du répartiteur, ici: `/etc/nginx/certs/auth.pem`
 
-#### Les clients
+### mise à jour
+
+L'autorité de certification doit être mise à jour lorsque sa date d'expiration approche. La procédure consiste utiliser la clé privée pour signer un nouveau certificat qui remplacera celui sur le point d'expirer: ceci évite à devoir remplacer toutes les clés clientes liées.
+
+Commencer par faire un backup du certificat. Puis:
+
+ * Génerer un csr: `openssl x509 -x509toreq -in ca.crt -signkey private/ca.key -out ca.csr`
+
+ * Vérifier le csr: `openssl req -noout -text -in ca.csr`
+
+ * Générer un certificat utilisant la clé privée: `openssl x509 -req -days 365 -in ca.csr -signkey private/ca.key -out ca.crt`
+
+Reste à placer ce nouveau certificat là ou il doit être déployé à la place de l'ancien et de recharger nginx.
+
+## Les clients
 
 Mettre autre chose que ce qui a été précisé dans le CN de l'autorité:
 

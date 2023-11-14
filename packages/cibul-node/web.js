@@ -18,7 +18,6 @@ module.exports = app => {
   require('./services/networkApps')(app);
   require('./services/abilities')(app);
   require('./services/mails/unsubscription')(app);
-  require('./event/files')(app);
   app.services.agendaDocx.plugApp(app);
   require('./home/back')(app);
   require('./general/front')(app);
