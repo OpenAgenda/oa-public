@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
+import { getTime } from '@openagenda/registrations/passCulture/iso/utils';
 
 import FormModal from './FormModal';
 import { logoPath } from './utils';
@@ -13,14 +14,21 @@ export default ({
 }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const hasTimings = !!(timings ?? [])?.length;
   const hasData = Object.keys(value ?? {}).length;
+
+  const upcomingTimings = useMemo(() => {
+    if (!Array.isArray(timings)) {
+      return [];
+    }
+    const now = new Date().getTime();
+    return timings.filter(({ begin }) => getTime(begin) > now);
+  }, [timings]);
 
   const issues = useMemo(
     () => []
-      .concat(!hasTimings ? 'Des horaires doivent être saisis dans le champ Horaires' : [])
+      .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
       .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
-    [hasTimings, hasData, value, timings],
+    [upcomingTimings, hasData, value, timings],
   );
 
   const onCheck = useCallback(() => {
@@ -56,7 +64,7 @@ export default ({
             type="checkbox"
             checked={!!value}
             onChange={onCheck}
-            disabled={!hasData && !hasTimings}
+            disabled={!hasData && !upcomingTimings.length}
           />
           <Image
             className="margin-left-sm"

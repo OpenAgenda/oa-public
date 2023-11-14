@@ -139,7 +139,7 @@ export default function Form({
       </Section>
       <Section>
         <Button
-          disabled={!validateLocalData(value, { timings }, { boolMode: true }) || openSubForm}
+          disabled={!validateLocalData(value, { timings }, { boolMode: true, categories, related }) || openSubForm}
           shape="primary"
           label="Enregistrer"
           onClick={() => onSubmit(value)}
