@@ -98,6 +98,8 @@ services:
       ES_HOST: ${ES_HOST}
       ES_PORT: ${ES_PORT:-9200}
       ES_USE_SSL: ${ES_USE_SSL}
+      REDIS_CLUSTER_NODES: ${REDIS_CLUSTER_NODES}
+      REDIS_PWD: ${REDIS_PWD}
       REDIS_PORT: ${REDIS_PORT}
       REDIS_HOST: ${REDIS_HOST}
       AWS_KEY: ${AWS_KEY}
