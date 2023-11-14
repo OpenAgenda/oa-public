@@ -49,7 +49,7 @@ Installer `thumbor_loaders`:
 
 ```bash
 cd thumbor_loaders
-pip install .
+pip install -e .
 ```
 
 ## Configuration
@@ -57,7 +57,7 @@ pip install .
 Modifier les valeurs suivantes de `/etc/thumbor.conf`:
 
 ```
-LOADER=thumbor_loaders.s3_loader
+LOADER=thumbor_loaders.oa_loader
 AUTO_WEBP = True
 AUTO_AVIF = True
 AUTO_AVIF = True
