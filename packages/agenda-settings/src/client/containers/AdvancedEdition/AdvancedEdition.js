@@ -6,7 +6,8 @@ import {
   KeysManager,
   InboxSettingsForm,
   TrackingSettingsForm,
-  LabSettingsForm
+  LabSettingsForm,
+  PassSettings
 } from '../../components';
 import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
@@ -187,6 +188,15 @@ export default function AdvancedEdition() {
             description={<b>{getLabel('stats')}</b>}
             closedComponent={getLabel('statsTabDescription')}
             openedComponent={<TrackingSettingsForm />}
+          />
+
+          <TableRow
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            tabName="pass"
+            description={<b>{getLabel('pass')}</b>}
+            closedComponent={getLabel('passTabDescription')}
+            openedComponent={<PassSettings />}
           />
 
           <TableRow
