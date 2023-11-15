@@ -12,7 +12,8 @@
         "devDependencies": [
           "test/**/*.js",
           "testconfig.sample.js",
-          "testconfig.js"
+          "testconfig.js",
+          "stories/**/*.js"
         ]
       }
     ]

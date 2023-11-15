@@ -15,6 +15,8 @@
   "AgendaContribute.Confirmation.recapDetailState2": "Votre événement est bien enregistré et a été publié sur l'agenda.",
   "AgendaContribute.Confirmation.seeEventAction": "Voir mon événement",
   "AgendaContribute.Confirmation.showMyEvents": "Voir tous mes événements",
+  "AgendaContribute.EditConfirmation.end": "Terminer",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "L'événement a été mis à jour",
   "AgendaContribute.ErrorMessage.cancelChange": "Annuler le partage",
   "AgendaContribute.ErrorMessage.conditions": "Conditions",
   "AgendaContribute.ErrorMessage.description": "Description",

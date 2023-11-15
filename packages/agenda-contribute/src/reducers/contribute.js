@@ -9,6 +9,7 @@ const {
 } = utils;
 
 const EVENT_CREATE_SUCCESS = 'agenda-contribute/EVENT_CREATE_SUCCESS';
+const EVENT_UPDATE_SUCCESS = 'agenda-contribute/EVENT_UPDATE_SUCCESS';
 const EVENT_SHARE_SUCCESS = 'agenda-contribute/EVENT_SHARE_SUCCESS';
 const EVENT_SHARE_DISPLAY_EVENT_FIELDS = 'agenda-contribute/EVENT_SHARE_DISPLAY_EVENT_FIELDS';
 const REDIRECTING = 'agenda-contribute/REDIRECTING';
@@ -19,6 +20,11 @@ function reducer(state = {}, action = {}) {
       return {
         ...state,
         createdEvent: action.event,
+      };
+    case EVENT_UPDATE_SUCCESS:
+      return {
+        ...state,
+        updatedEvent: action.event,
       };
     case EVENT_SHARE_SUCCESS:
       return {
@@ -113,20 +119,39 @@ function eventDelete({ agenda, event }) {
 }
 
 function eventUpdateSuccess({ agenda, response }) {
-  return ({ history, location }, { getState }) => {
-    const { res } = getState();
+  return ({ history, location }, { dispatch, getState }) => {
+    const {
+      res,
+      settings: {
+        prefix,
+      },
+    } = getState();
 
     const {
       event,
     } = response.body;
 
-    return doRedirect(
-      history,
-      location,
-      res.showEvent
-        .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid),
-    );
+    const hasPassCultureData = !!event.registration.find(r => r.service === 'passCulture');
+
+    if (!hasPassCultureData) {
+      return doRedirect(
+        history,
+        location,
+        res.showEvent
+          .replace(':agendaUid', agenda.uid)
+          .replace(':eventUid', event.uid),
+      );
+    }
+
+    dispatch({
+      type: EVENT_UPDATE_SUCCESS,
+      event,
+    });
+
+    history.push({
+      ...history.location,
+      pathname: `${prefix.replace(':slug', agenda.slug)}/event/${event.uid}/confirmation`,
+    });
   };
 }
 

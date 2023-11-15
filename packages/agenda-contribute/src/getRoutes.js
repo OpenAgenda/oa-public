@@ -42,6 +42,11 @@ const Confirmation = loadable(() => import(
   './containers/Confirmation'
 ));
 
+const EditConfirmation = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-EditConfirmation" */
+  './containers/EditConfirmation'
+));
+
 const Landing = loadable(() => import(
   /* webpackChunkName: "agendaContribute-Landing" */
   './containers/Landing'
@@ -66,6 +71,9 @@ export default (prefix = '') => [
       path: `${prefix}/event/:eventUid`,
       component: EventEdit,
       exact: true,
+    }, {
+      path: `${prefix}/event/:eventUid/confirmation`,
+      component: EditConfirmation,
     }, {
       path: `${prefix}/event/:eventUid/draft`,
       component: EventDraft,

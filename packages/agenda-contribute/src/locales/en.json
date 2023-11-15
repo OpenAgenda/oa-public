@@ -15,6 +15,8 @@
   "AgendaContribute.Confirmation.recapDetailState2": "Your event has been published and is visible on the agenda.",
   "AgendaContribute.Confirmation.seeEventAction": "View my event",
   "AgendaContribute.Confirmation.showMyEvents": "List all my events",
+  "AgendaContribute.EditConfirmation.end": "Close",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "The event was updated",
   "AgendaContribute.ErrorMessage.cancelChange": "Cancel the share",
   "AgendaContribute.ErrorMessage.conditions": "Conditions",
   "AgendaContribute.ErrorMessage.description": "Description",
