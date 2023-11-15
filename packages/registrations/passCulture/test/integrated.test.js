@@ -62,7 +62,7 @@ describe('integrated', () => {
         'eventOffer',
         'priceCategories',
         'dates',
-        'error',
+        'errors',
       ]);
     });
 

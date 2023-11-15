@@ -4,6 +4,8 @@ import {
   validateLocalData,
 } from '../iso/validate.js';
 
+import settings from './fixtures/settings.json';
+
 describe('validate', () => {
   describe('validateDate', () => {
     test('undefined is not a date', () => {
@@ -161,6 +163,8 @@ describe('validate', () => {
         quantity: '1',
         timingId: 1920532380000,
       }],
+      category: 'CONCERT',
+      subcategory: 'JAZZ-BEBOP',
     };
 
     const matchingTimings = [{
@@ -170,6 +174,80 @@ describe('validate', () => {
         minutes: 13,
       },
     }];
+
+    test('a category must be defined', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          category: undefined,
+        }, { timings: matchingTimings }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('registration.pass.requiredCategory');
+    });
+
+    test('a valid category must be defined', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          category: 'WALL_STARING',
+        }, { timings: matchingTimings }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('registration.pass.unknownCategory');
+    });
+
+    test('if a category not requiring a subcategory is set, subcategory is not read', () => {
+      const clean = validateLocalData({
+        ...validData,
+        category: 'CINE_PLEIN_AIR',
+        subcategory: 'AIR_MARIN',
+      }, { timings: matchingTimings }, settings);
+
+      expect(clean.category).toBe('CINE_PLEIN_AIR');
+
+      expect(clean.subcategory).toBeUndefined();
+    });
+
+    test('if a category requiring a subcategory is set, subcategory must be set', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          category: 'CONCERT',
+          subcategory: undefined,
+        }, { timings: matchingTimings }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('registration.pass.requiredSubcategory');
+    });
+
+    test('subcategory must be defined in related subcategories of set category', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          category: 'CONCERT',
+          subcategory: 'DANSE-CONTEMPORAINE',
+        }, { timings: matchingTimings }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('registration.pass.invalidSubcategory');
+    });
 
     test('at least one price category must be defined', () => {
       let error;
@@ -182,7 +260,7 @@ describe('validate', () => {
 
       expect(
         error.info.errors.map(e => e.code),
-      ).toContain('registration.pass.requiredPassCategories');
+      ).toContain('registration.pass.requiredPriceCategories');
     });
 
     test('venueId is required', () => {
@@ -194,7 +272,7 @@ describe('validate', () => {
         error = e;
       }
 
-      expect(error.info.errors[0].code).toBe('registration.pass.invalidVenueId');
+      expect(error.info.errors.map(({ code }) => code)).toContain('registration.pass.invalidVenueId');
     });
 
     test('at least one date should be defined', () => {
@@ -223,9 +301,11 @@ describe('validate', () => {
     });
 
     test('returns clean data when input is valid', () => {
-      const clean = validateLocalData(validData, { timings: matchingTimings });
+      const clean = validateLocalData(validData, { timings: matchingTimings }, settings);
 
       expect(clean).toEqual({
+        category: 'CONCERT',
+        subcategory: 'JAZZ-BEBOP',
         priceCategories: [{ price: 0, label: 'Gratuit' }],
         dates: [{
           priceCategoryIndex: 0,

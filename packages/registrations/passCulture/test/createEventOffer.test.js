@@ -167,8 +167,8 @@ describe('createEventOffer', () => {
         {
           title: { fr: 'DHM' },
           timings: [{
-            begin: { date: '2023-11-12', hours: 9, minutes: 30 },
-            end: { date: '2023-11-12', hours: 12, minutes: 0 },
+            begin: { date: '2033-11-12', hours: 9, minutes: 30 },
+            end: { date: '2033-11-12', hours: 12, minutes: 0 },
           }],
         },
         {
@@ -182,7 +182,7 @@ describe('createEventOffer', () => {
             {
               priceCategoryIndex: 0,
               quantity: 789,
-              timingId: 1699777800000,
+              timingId: 2015397000000,
             },
           ],
           venueId: 548,
