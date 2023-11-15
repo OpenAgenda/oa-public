@@ -10,5 +10,6 @@
   "stateChanged": "The event state has changed",
   "featuredChange": "The event is now featured",
   "unfeaturedChange": "The event is no longer featured",
-  "stateFieldInfo": "This field is not available to contributors"
+  "stateFieldInfo": "Access to this field is limited to administrators and moderators of the agenda",
+  "stateFieldSub": "Important: the event will be visible and shareable only when it will be published"
 }

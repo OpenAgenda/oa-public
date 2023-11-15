@@ -10,5 +10,6 @@
   "stateChanged": "Le statut de l'événement a été modifié",
   "featuredChange": "L'événement est désormais en une",
   "unfeaturedChange": "L'événement n'est plus en une",
-  "stateFieldInfo": "Ce champ n'est pas accessible aux contributeurs"
+  "stateFieldInfo": "L'accès à ce champ est restreint aux administrateurs et modérateurs de l'agenda",
+  "stateFieldSub": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié"
 }

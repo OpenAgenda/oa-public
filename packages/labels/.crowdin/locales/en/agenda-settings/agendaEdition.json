@@ -107,5 +107,6 @@
   "lab": "Lab",
   "labTabDescription": "Use the features available in beta version",
   "eventStatusDesc": "Activate event status controls (cancelled, full, rescheduled...)",
-  "eventStatusKnowMore": "Learn more"
+  "eventStatusKnowMore": "Learn more",
+  "pass": "Pass Culture"
 }
