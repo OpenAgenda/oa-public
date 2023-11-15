@@ -1326,6 +1326,27 @@
                         "motorDisabilityCompliant": false,
                         "visualDisabilityCompliant": false
                     }
+                },
+                {
+                    "siretComment": "",
+                    "createdDatetime": "2023-03-13T10:00:12.072329Z",
+                    "id": 548,
+                    "location": {
+                        "address": "35 rue de l'agenda",
+                        "city": "Paris",
+                        "postalCode": "75011",
+                        "type": "physical"
+                    },
+                    "legalName": "OPEN AGENDA",
+                    "publicName": "Lieu Oa 2",
+                    "siret": "80934615800011",
+                    "activityDomain": "OTHER",
+                    "accessibility": {
+                        "audioDisabilityCompliant": false,
+                        "mentalDisabilityCompliant": false,
+                        "motorDisabilityCompliant": false,
+                        "visualDisabilityCompliant": false
+                    }
                 }
             ]
         }

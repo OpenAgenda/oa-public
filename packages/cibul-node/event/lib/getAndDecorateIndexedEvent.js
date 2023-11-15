@@ -119,8 +119,16 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
       draft.location.OSMItineraryLink = `https://www.openstreetmap.org/directions?to=${latitude}%2C${longitude}`;
     }
 
+    if (event.registration.filter(r => r.service === 'passCulture').length) {
+      draft.passCulture = {
+        img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
+        label: getLabel('accessPassOffer', lang),
+        ...event.registration.find(r => r.service === 'passCulture'),
+      };
+    }
+
     if (draft.registration?.length) {
-      draft.registration.forEach(r => {
+      draft.registration.filter(r => !r.service).forEach(r => {
         Object.assign(r, {
           phone: {
             icon: 'fa-phone',
