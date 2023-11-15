@@ -217,7 +217,7 @@ export function WithoutDataWithPassedTimings() {
           onChange={setValue}
           relatedValues={{
             other: {
-              timings: [],
+              timings: event.timings.filter(t => new Date(t.date) < new Date()),
             },
           }}
           field={{
@@ -227,6 +227,61 @@ export function WithoutDataWithPassedTimings() {
                 siren: [809346158],
                 res: {
                   settings: '/settings',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+}
+
+export function WithAlreadyCreatedPassOffer() {
+  const [value, setValue] = useState([{
+    type: 'link',
+    value: 'https://integration.passculture.app/offre/49397',
+    service: 'passCulture',
+    data: {
+      venueId: 548,
+      category: 'CONFERENCE',
+      priceCategories: [{
+        price: 89,
+        label: 'Tarfi narlmo',
+      }],
+      dates: [{
+        timingId: 1696078800000,
+        priceCategoryIndex: 0,
+        quantity: 879,
+      }],
+      id: 49397,
+    },
+  }]);
+
+  return (
+    <>
+      <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
+        Checkbox is disabled with relevent message when offer is already created
+      </div>
+      <div className="oa-form col-lg-offset-3 col-lg-6">
+        <Registration
+          value={value}
+          lang="fr"
+          onChange={setValue}
+          relatedValues={{
+            other: {
+              timings: event.timings,
+            },
+          }}
+          field={{
+            placeholder: 'Truc bidule',
+            settings: {
+              passCulture: {
+                siren: [809346158],
+                res: {
+                  settings: '/settings',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
                 },
               },
             },

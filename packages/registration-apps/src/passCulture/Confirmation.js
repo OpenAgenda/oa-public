@@ -6,9 +6,9 @@ import { logoPath } from './utils';
 export default function Confirmation({ event, res, className }) {
   const passData = event.registration.find(r => r.service === 'passCulture')?.data;
 
-  const editLink = useMemo(() => res.edit.replace(':id', passData.id), [res, passData]);
-  const showLink = useMemo(() => res.show.replace(':id', passData.id), [res, passData]);
-  const hasErrors = useMemo(() => (passData.errors ?? []).length, [passData]);
+  const editLink = useMemo(() => res.edit.replace(':id', passData?.id), [res, passData]);
+  const showLink = useMemo(() => res.show.replace(':id', passData?.id), [res, passData]);
+  const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
 
   if (!passData) {
     return null;
@@ -33,7 +33,7 @@ export default function Confirmation({ event, res, className }) {
             </>
           ) : (
             <>
-              <p>L&apos;offre Pass Culture a été créée avec succès. Vous pouvez y accéder depuis la section &quot;Inscription&quot; de la fiche événement ou en cliquant sur un des liens suivants.</p>
+              <p>L&apos;offre Pass Culture a été créée avec succès. Vous pouvez y accéder depuis la barre latérale de la fiche détaillée de l&apos;événement ou en cliquant sur un des liens suivants.</p>
               <a href={editLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Administrer l&apos;offre</a>
               <a href={showLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Voir l&apos;offre</a>
             </>

@@ -4,6 +4,7 @@ import { validateLocalData } from '@openagenda/registrations/passCulture/iso/val
 import { getTime } from '@openagenda/registrations/passCulture/iso/utils';
 
 import FormModal from './FormModal';
+import UnlinkModal from './UnlinkModal';
 import { logoPath } from './utils';
 
 export default ({
@@ -12,9 +13,11 @@ export default ({
   timings = [],
   settings,
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const hasData = Object.keys(value ?? {}).length;
+
+  const offerAlreadyExists = value?.id;
 
   const upcomingTimings = useMemo(() => {
     if (!Array.isArray(timings)) {
@@ -32,29 +35,36 @@ export default ({
   );
 
   const onCheck = useCallback(() => {
-    setShowModal(true);
-  }, []);
+    setModal(offerAlreadyExists ? 'unlink' : 'show');
+  }, [offerAlreadyExists]);
 
   const onClear = useCallback(() => {
     onChange(null);
-    setShowModal(false);
+    setModal(null);
   }, [onChange]);
 
   const onSubmit = useCallback(v => {
     onChange(v);
-    setShowModal(false);
+    setModal(null);
   }, [onChange]);
 
   return (
     <>
-      {showModal ? (
+      {modal === 'show' ? (
         <FormModal
           timings={timings}
           settings={settings}
           value={value}
-          onClose={() => setShowModal(false)}
+          onClose={() => setModal(null)}
           onSubmit={onSubmit}
           onClear={onClear}
+        />
+      ) : null}
+      {modal === 'unlink' ? (
+        <UnlinkModal
+          editPassHRef={settings.res.offerEditLink.replace(':id', value.id)}
+          onConfirm={onClear}
+          onClose={() => setModal(null)}
         />
       ) : null}
       <div className="checkbox">
@@ -64,7 +74,7 @@ export default ({
             type="checkbox"
             checked={!!value}
             onChange={onCheck}
-            disabled={!hasData && !upcomingTimings.length}
+            disabled={(!hasData && !upcomingTimings.length)}
           />
           <Image
             className="margin-left-sm"
@@ -72,8 +82,22 @@ export default ({
             alt="Logo Pass Culture"
             width={100}
           />
-          <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
-          {issues.length ? (
+          {offerAlreadyExists ? (
+            <>
+              <div>Une offre pass est déjà associée à cette fiche. Décochez la case pour la dissocier.</div>
+              <a
+                rel="noreferrer"
+                className="btn btn-link padding-all-z"
+                target="_blank"
+                href={settings.res.offerEditLink.replace(':id', value.id)}
+              >
+                Gérer mon offre sur la plateforme du Pass
+              </a>
+            </>
+          ) : (
+            <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
+          )}
+          {!offerAlreadyExists && issues.length ? (
             <ul className="padding-left-sm">{issues.map(issue => (
               <li className="text-danger">{issue}</li>
             ))}

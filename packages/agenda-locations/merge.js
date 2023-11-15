@@ -30,7 +30,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
   const updatedMerged = await update(
     { service: internals, isPatch: true },
     mergeInItem.uid,
-    { ...data || {}, duplicateCandidates: mergeInItem.duplicateCandidates.filter(el => !removeFromDuplicates.includes(el)) },
+    { ...data || {}, duplicateCandidates: (mergeInItem.duplicateCandidates ?? []).filter(el => !removeFromDuplicates.includes(el)) },
     { ...options },
   );
 

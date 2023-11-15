@@ -25,6 +25,12 @@ const updateEvent = require('./lib/updateEvent');
 const createUpdateActivity = require('./lib/createUpdateActivity');
 const sendUpdateEmail = require('./lib/sendUpdateEmail');
 
+const createPassCultureOffer = require('./lib/createPassCultureOffer');
+
+const {
+  hasPassCultureOffer,
+} = createPassCultureOffer;
+
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
@@ -115,6 +121,15 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     draft,
     currentState: agendaEvent?.state,
   });
+
+  if (clean.passCulture && !hasPassCultureOffer(event)) {
+    log('  There is a pass culture payload');
+    try {
+      clean.event.registration = await createPassCultureOffer(core, agenda, clean);
+    } catch (e) {
+      log('error', e);
+    }
+  }
 
   const payload = createPayload(core, agenda);
 
