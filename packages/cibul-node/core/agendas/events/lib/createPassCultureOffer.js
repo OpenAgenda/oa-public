@@ -31,3 +31,11 @@ module.exports = async function createPassCultureOffer(core, agenda, clean) {
     }
   });
 };
+
+module.exports.hasPassCultureOffer = function hasPassCultureOffer({ registration }) {
+  if (!registration) {
+    return false;
+  }
+
+  return registration.find(({ service, data }) => service === 'passCulture' && data.id);
+};
