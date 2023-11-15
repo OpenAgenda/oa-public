@@ -917,5 +917,15 @@ module.exports = {
     "io": "crwdns32380:0crwdne32380:0",
     "oc": "Ne saber mai",
     "de": "Mehr erfahren"
+  },
+  "pass": {
+    "fr": "Pass Culture",
+    "en": "Pass Culture"
+  },
+  "passTabDescription": {
+    "fr": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda",
+  },
+  "askForActivation": {
+    "fr": "Demande d'activation"
   }
 }

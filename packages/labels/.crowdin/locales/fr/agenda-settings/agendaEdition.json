@@ -107,5 +107,8 @@
   "lab": "Lab",
   "labTabDescription": "Utilisez les fonctionnalités disponibles en version bêta",
   "eventStatusDesc": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
-  "eventStatusKnowMore": "En savoir plus"
+  "eventStatusKnowMore": "En savoir plus",
+  "pass": "Pass Culture",
+  "passTabDescription": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda",
+  "askForActivation": "Demande d'activation"
 }

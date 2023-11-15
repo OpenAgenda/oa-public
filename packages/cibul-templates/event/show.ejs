@@ -213,6 +213,12 @@
                   <% }); %>
                   </ul>
                   <% } %>
+                  <% if (indexedEvent.passCulture) { %>
+                        <a class="btn btn-default margin-left-xl" target="_blank" href="<%= indexedEvent.passCulture.value %>" >
+                          <img src="<%= indexedEvent.passCulture.img %>" class="margin-right-xs"></img>
+                          <%= indexedEvent.passCulture.label %>
+                        </a>
+                    <% } %>
                 </section>
               <% } %>
             </div>

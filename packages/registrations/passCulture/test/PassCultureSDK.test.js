@@ -1,6 +1,7 @@
 import 'dotenv/config';
-import formatEvent from '../lib/formatEvent';
-import PassCultureSDK from '../lib/PassCultureSDK';
+
+import formatEvent from '../lib/formatEvent.js';
+import PassCultureSDK from '../lib/PassCultureSDK.js';
 
 import fixtures from './fixtures/cart.events.json';
 
