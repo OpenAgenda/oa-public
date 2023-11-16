@@ -91,8 +91,6 @@ module.exports = app => {
     redis,
   } = app.services;
 
-  const limiter = rateLimiter(redis.ioRedis);
-
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
   app.get(
@@ -127,7 +125,9 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events.pdf',
     preMw,
-    limiter,
+    rateLimiter(redis.ioRedis, {
+      keyGenerator: req => `${req.ip}|export-pdf|${req.params.uid}`,
+    }),
     agendas.mw.loadBy({
       path: 'params.uid',
       field: 'uid',

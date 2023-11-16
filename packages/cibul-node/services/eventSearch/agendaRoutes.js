@@ -20,14 +20,19 @@ const handleError = require('./lib/handleError');
 module.exports = services => {
   const { redis } = services;
 
-  const limiter = rateLimiter(redis.ioRedis);
+  const limiter = rateLimiter(redis.ioRedis, {
+    keyGenerator: req => `${req.ip}|export-${req.params.format}|${req.params.agendaUid}`,
+  });
 
   return {
     getPublic: () => Router({
       mergeParams: true,
     }).get(
       '',
-      limiter,
+      ifFormat(
+        ['csv', 'xlsx', 'ics', 'txt', 'md'],
+        limiter,
+      ),
       ifFormat(
         ['csv', 'xlsx', 'ics', 'txt', 'md'],
         loadSearchEndpoint(services.core),
@@ -51,7 +56,7 @@ module.exports = services => {
       mergeParams: true,
     }).get(
       '',
-      limiter,
+      ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], limiter),
       services.members.mw.authorizeAdminModOrKey({
         agendaUidPath: 'params.agendaUid',
       }),

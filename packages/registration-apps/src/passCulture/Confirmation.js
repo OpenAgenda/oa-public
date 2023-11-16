@@ -6,8 +6,8 @@ import { logoPath } from './utils';
 export default function Confirmation({ event, res, className }) {
   const passData = event.registration.find(r => r.service === 'passCulture')?.data;
 
-  const editLink = useMemo(() => res?.edit.replace(':id', passData?.id), [res, passData]);
-  const showLink = useMemo(() => res?.show.replace(':id', passData?.id), [res, passData]);
+  const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData?.id), [res, passData]);
+  const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData?.id), [res, passData]);
   const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
 
   if (!passData) {
