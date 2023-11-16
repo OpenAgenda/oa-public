@@ -9,7 +9,6 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/users",
   "main": "service/index.js",
   "scripts": {
-    "knex": "babel-node $(yarn bin knex)",
     "test": "jest --detectOpenHandles --forceExit",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write '**/*.js'",
@@ -36,7 +35,6 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/files": "^3.1.0",
-    "@openagenda/fixtures": "^2.0.2",
     "@openagenda/keys": "^2.2.10",
     "eslint": "^8.24.0",
     "jest": "^28.1.2",

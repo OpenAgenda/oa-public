@@ -5,7 +5,6 @@ const path = require('path');
 const sinon = require('sinon');
 const tmp = require('tmp');
 const knexLib = require('knex');
-const fixtures = require('@openagenda/fixtures');
 const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
 const Files = require('@openagenda/files');
@@ -42,25 +41,24 @@ const getConfig = options => ({
 beforeEach(async () => {
   knex = knexLib({
     client: 'mysql',
-    connection: { ...config.mysql, database },
+    connection: { ...config.mysql, database: null },
     schemas: config.schemas,
   });
 
-  await keysSvc.initAndLoad(
+  await knex.raw(`DROP DATABASE IF EXISTS ${database};`);
+  await knex.raw(`CREATE DATABASE ${database};`);
+  await knex.raw(`USE ${database};`);
+
+  knex.client.connectionSettings.database = database;
+
+  await keysSvc.init(
     {
       ...config,
       knex,
       mysql: { ...config.mysql, database },
       migrations: null,
     },
-    []
   );
-
-  await knex.raw(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
-  await knex.raw(`USE \`${database}\`;`);
-  knex.client.config.connection.database = database;
-
-  fixtures.init({ mysql: { ...config.mysql, database } });
 
   await knex.migrate.latest({
     directory: path.join(__dirname, '../../keys/migrations'),
@@ -69,7 +67,7 @@ beforeEach(async () => {
   await knex.migrate.latest({
     directory: path.join(__dirname, '../migrations'),
   });
-  await knex.seed.run({ directory: path.join(__dirname, '../seeds/dev') });
+  await knex.seed.run({ directory: path.join(__dirname, '../seeds') });
 });
 
 afterEach(async () => {
