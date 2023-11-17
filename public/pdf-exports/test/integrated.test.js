@@ -5,12 +5,14 @@ import PDFExports from '../index.js';
 import FixturesStream from './lib/fixturesStream.js';
 import agenda from './fixtures/agenda.json' assert { type: 'json' };
 
+const pdfTestFolder = process.env.PDF_TEST_FOLDER;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const eventStream = new FixturesStream(`${__dirname}/fixtures/event.json`);
 const writeStream = fs.createWriteStream(
-  `${__dirname}/../pdf-test/streamOutputTest.pdf`,
+  `${pdfTestFolder}/streamOutputTest.pdf`,
 );
 
 const pdfExports = PDFExports({});
