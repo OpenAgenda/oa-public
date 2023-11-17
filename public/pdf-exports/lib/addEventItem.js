@@ -67,7 +67,7 @@ export default async function addEventItem(
 
   for (const key of accessibilityKeys) {
     if (event.accessibility?.[key] === true) {
-      iconsArr.push(`./images/accessibility/${key}.png`);
+      iconsArr.push(`${__dirname}/../images/accessibility/${key}.png`);
     }
   }
 
