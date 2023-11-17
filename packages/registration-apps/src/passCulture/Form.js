@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../components/Context';
@@ -14,43 +14,21 @@ import {
 
 export default function Form({
   value: initialValue,
-  settings,
   timings,
   onSubmit,
   onClear,
+  categories,
+  related,
+  offererVenues,
 }) {
-  const [isLoadingPassData, setIsLoadingPassData] = useState(true);
-  const [passData, setPassData] = useState(null);
   const [value, setValue] = useState(initialValue ?? {});
   const [openSubForm, setOpenSubForm] = useState();
 
   const {
     Section,
-    Spinner,
     Select,
     Button,
   } = useContext(ComponentsContext);
-
-  useEffect(() => {
-    fetch(settings.res.settings)
-      .then(r => r.json())
-      .then(data => {
-        setPassData(data);
-        setIsLoadingPassData(false);
-      });
-  }, []);
-
-  if (isLoadingPassData) {
-    return (
-      <Spinner />
-    );
-  }
-
-  const {
-    categories,
-    related,
-    offererVenues,
-  } = passData;
 
   const relatedCategory = (
     categories.find(c => c.value === value.category)?.related ?? []

@@ -6,7 +6,9 @@ export default function FormModal({
   onSubmit,
   onClear,
   value,
-  settings,
+  categories,
+  related,
+  offererVenues,
   timings,
 }) {
   return (
@@ -20,7 +22,9 @@ export default function FormModal({
       <div className="margin-v-md">
         <Form
           value={value}
-          settings={settings}
+          categories={categories}
+          related={related}
+          offererVenues={offererVenues}
           timings={timings}
           onSubmit={onSubmit}
           onClear={onClear}

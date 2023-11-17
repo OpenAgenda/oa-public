@@ -61,8 +61,8 @@ export function WithData() {
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
       data: {
-        category: 'CONCERT',
-        subCategory: 'JAZZ-BEBOP',
+        venueId: 548,
+        category: 'CINE_PLEIN_AIR',
         priceCategories: [{
           label: 'Tarif normal',
           price: '12000',
@@ -72,7 +72,7 @@ export function WithData() {
           priceCategoryIndex: 0,
           quantity: 15,
         }, {
-          timingId: 1697371200000,
+          timingId: 2012990400000,
           priceCategoryIndex: 0,
           quantity: 20,
         }],
