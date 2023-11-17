@@ -1,6 +1,8 @@
 {
   "name": "@openagenda/pdf-exports",
+  "version": "0.0.1",
   "type": "module",
+  "main": "index.js",
   "exports": {
     "./package.json": "./package.json",
     ".": "./index.js"
