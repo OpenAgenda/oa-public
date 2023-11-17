@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import PDFExports from '../index.js';
 import FixturesStream from './lib/fixturesStream.js';
 import agenda from './fixtures/agenda.json' assert { type: 'json' };

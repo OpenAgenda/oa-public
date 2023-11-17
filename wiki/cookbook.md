@@ -636,6 +636,14 @@ Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise 
 
 ## Histoires et notes
 
+### ESMisation
+
+Certains packages écrits en ESM servent au moins en partie et sur le serveur et sur des apps react.
+
+Par exemple, `@openagenda/registrations` sert principalement dans `cibul-node` mais une sous-partie d'utilitaires et de validateurs sert également pour `@openagenda/registration-apps`. Dans ces ces cas, un build est nécessaire pour rendre les fichiers utilisables et dans un environnement commonjs et dans un environnement module. Les fichiers disponibles dans les deux variantes doivent être présentés dans le `package.json` sous la clé `exports` et la lib de build `tsup` est à utiliser pour build les variants... en suivant l'exemple de `@openagenda/registrations`.
+
+Sans ça, les fichiers qui seront importés via une app react webpackifiée pour être utilisée sur le serveur (en ssr par ex) le seront en commonjs ce qui provoquera des exceptions d'imports.
+
 ### La cache des portails
 
 Le 07/03/2023

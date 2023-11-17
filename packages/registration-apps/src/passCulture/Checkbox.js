@@ -43,7 +43,7 @@ export default ({
         setPassSettingsData(data);
         setIsLoadingPassData(false);
       });
-  }, []);
+  }, [settings]);
 
   const onCheck = useCallback(() => {
     setModal(offerAlreadyExists ? 'unlink' : 'show');

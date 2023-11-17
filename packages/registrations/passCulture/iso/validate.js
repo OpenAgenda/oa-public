@@ -151,7 +151,6 @@ export function validateLocalData(data, event, options = {}) {
     dates: [],
     venueId: null,
   };
-
   if (!data.category) {
     errors.push({
       message: 'category is required',
