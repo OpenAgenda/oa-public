@@ -14,6 +14,7 @@ export default async function GenerateExportStream(
   options = {},
 ) {
   const { agenda } = options;
+
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
   const margin = 20;

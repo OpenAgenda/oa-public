@@ -1,7 +1,13 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import urlToBuffer from './urlToBuffer.js';
 import addText from './addText.js';
 import addIcon from './addIcon.js';
 import flattenLabel from './flattenLabel.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default async function addEventItem(
   agenda,
@@ -51,9 +57,9 @@ export default async function addEventItem(
 
   const textMaxWidth = doc.page.width - imageWidth - base.margin * 3;
 
-  const locationIconPath = './images/location.png';
-  const onlineLinkPath = './images/onlineLink.png';
-  const dateRangeIconPath = './images/calendar.png';
+  const locationIconPath = `${__dirname}/../images/location.png`;
+  const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
+  const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
 
   const iconsArr = [];
 

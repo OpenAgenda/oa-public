@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addDocumentHeader from '../lib/addDocumentHeader.js';
 import addPageHeader from '../lib/addPageHeader.js';
