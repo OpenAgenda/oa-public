@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.21.0",
+    "@babel/runtime-corejs3": "^7.23.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/event-form": "^1.5.1",
@@ -57,8 +57,8 @@
     "superagent": "^3.8.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.0",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.3",
     "@emotion/babel-plugin": "^11.10.5",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/outdated-browser": "^0.0.0",

@@ -221,9 +221,26 @@ class Users extends Service {
       throw new errors.NotFound('User not found for `verifyPassword`');
     }
 
+    const password = typeof data === 'string' ? data : data.password;
+
+    if (user.password.length === 40) { // sha1
+      const isValid = crypto.verifyPassword(
+        user.password,
+        password,
+        user.salt,
+        true,
+      );
+
+      if (isValid) {
+        await this.changePassword(user.uid, { password });
+      }
+
+      return isValid;
+    }
+
     return crypto.verifyPassword(
       user.password,
-      typeof data === 'string' ? data : data.password,
+      password,
       user.salt,
     );
   }

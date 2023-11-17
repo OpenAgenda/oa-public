@@ -33,7 +33,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.21.0",
+    "@babel/runtime-corejs3": "^7.23.2",
     "@emotion/react": "^11.10.0",
     "@openagenda/agenda-docx": "^1.2.1",
     "@openagenda/common-labels": "^1.0.0",
@@ -61,8 +61,8 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.0",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.3",
     "@emotion/babel-plugin": "^11.10.5",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",

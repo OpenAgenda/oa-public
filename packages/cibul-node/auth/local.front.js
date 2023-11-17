@@ -81,7 +81,7 @@ function signinSubmit(req, res, next) {
 
       w({ err, req, res, data, user })
         .then(
-          auth.ifUserLoaded(false, v => {
+          auth.ifUserLoaded(false, async v => {
             if (v.err && v.err.name !== 'NotFound') {
               v.req.log.error(
                 'user could not be loaded with data %j',
@@ -90,6 +90,9 @@ function signinSubmit(req, res, next) {
             }
 
             _.merge(v.data, v.req.body);
+
+            // slow down a bruteforce
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             return auth.renderSignin(v);
           }),

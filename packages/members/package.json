@@ -16,7 +16,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.21.0",
+    "@babel/runtime-corejs3": "^7.23.2",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
@@ -29,8 +29,8 @@
     "slugify": "^1.4.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.0",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "eslint": "^8.24.0",

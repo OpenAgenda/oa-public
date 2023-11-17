@@ -15,16 +15,16 @@ function randomHash(length = 32) {
 
 function hashPassword(password, salt) {
   return crypto
-    .createHash('sha1')
+    .createHash('sha256')
     .update(salt + password)
     .digest('hex');
 }
 
-function verifyPassword(hashedPassword, password, salt) {
+function verifyPassword(hashedPassword, password, salt, sha1) {
   return (
     hashedPassword
     === crypto
-      .createHash('sha1')
+      .createHash(sha1 ? 'sha1' : 'sha256')
       .update(salt + password, 'utf-8')
       .digest('hex')
   );
