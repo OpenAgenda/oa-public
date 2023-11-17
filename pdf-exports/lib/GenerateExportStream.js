@@ -1,5 +1,4 @@
 import PDFDocument from 'pdfkit';
-import agenda from '../test/fixtures/agenda.json' assert { type: 'json' };
 import addDocumentHeader from './addDocumentHeader.js';
 import addPageHeader from './addPageHeader.js';
 import addEventItem from './addEventItem.js';
@@ -12,7 +11,9 @@ export default async function GenerateExportStream(
   config,
   eventStream,
   writeStream,
+  options = {},
 ) {
+  const { agenda } = options;
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
   const margin = 20;
