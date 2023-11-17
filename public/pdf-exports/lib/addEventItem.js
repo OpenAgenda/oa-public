@@ -71,9 +71,9 @@ export default async function addEventItem(
     }
   }
 
-  const thumbnailFilename = event.image.variants.find(
+  const thumbnailFilename = event.image?.variants.find(
     el => el.type === 'thumbnail',
-  ).filename;
+  )?.filename;
   const imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
 
   const imageOptions = {
