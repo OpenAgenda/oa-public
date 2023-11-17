@@ -12,7 +12,7 @@ export default function formatErrors(error) {
   };
 
   const key = Object.keys(error).pop() ?? 'unhandled';
-  const message = (error[key] ?? []).pop();
+  const message = (error[key] ?? [])?.[0];
 
   if (key === 'venueId') {
     if (message === 'There is no venue with this id associated to your API key') {

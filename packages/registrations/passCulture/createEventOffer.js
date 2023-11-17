@@ -16,6 +16,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     dates = [],
     venueId,
     category,
+    // subcategory,
   } = PCData;
 
   const result = {

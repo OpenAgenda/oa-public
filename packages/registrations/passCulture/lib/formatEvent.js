@@ -59,7 +59,9 @@ export default async function formatEvent(event, ...args) {
   if (category) {
     formatted.categoryRelatedFields = {
       category,
+      // musicType: 'HIP_HOP_RAP-DOO_WOP',
     };
   }
+
   return formatted;
 }

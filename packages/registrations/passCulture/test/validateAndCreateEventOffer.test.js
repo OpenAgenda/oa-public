@@ -33,10 +33,10 @@ describe('validateAndCreateEventOffer', () => {
 
     const result = await validateAndCreateEventOffer(
       { pc, siren },
-      event,
+      { ...event, image: undefined },
       {
         venueId,
-        category: 'CINE_PLEIN_AIR',
+        category: 'EVENEMENT_CINE',
         priceCategories: [{
           label: 'Tarif réduit',
           price: 8,
@@ -56,6 +56,11 @@ describe('validateAndCreateEventOffer', () => {
       },
     );
 
-    expect(Object.keys(result)).toEqual(['eventOffer', 'priceCategories', 'dates', 'error']);
+    expect(Object.keys(result)).toEqual([
+      'eventOffer',
+      'priceCategories',
+      'dates',
+      'errors',
+    ]);
   });
 });

@@ -126,16 +126,12 @@ export function validatePriceCategory(value, options = {}) {
 }
 
 export function validateLocalData(data, event, options = {}) {
-  // console.log('data');
-  // console.log(JSON.stringify(data, null, 2));
-  // console.log('event');
-  // console.log(JSON.stringify(event, null, 2));
-  // console.log('options');
-  // console.log(JSON.stringify(options, null, 2));
   const fieldLabel = 'Pass Culture';
 
   const {
     boolMode = false,
+    categories,
+    related,
   } = options;
 
   const {
@@ -156,12 +152,56 @@ export function validateLocalData(data, event, options = {}) {
     venueId: null,
   };
 
-  if (data.category) {
+  if (!data.category) {
+    errors.push({
+      message: 'category is required',
+      code: 'registration.pass.requiredCategory',
+      label: 'Une catégorie doit être définie',
+      field: 'category',
+    });
+  }
+
+  const matchingSettingsCategory = (categories ?? []).find(({ value }) => data.category === value);
+
+  if (data.category && !matchingSettingsCategory) {
+    errors.push({
+      message: 'unknown category',
+      code: 'registration.pass.unknownCategory',
+      label: 'La catégorie spécifiée est inconnue',
+      field: 'category',
+    });
+  }
+
+  if (data.category && matchingSettingsCategory) {
     clean.category = data.category;
   }
 
-  if (data.subcategory) {
-    clean.subcategory = data.subcategory;
+  const subcategoryIsRequired = clean.category && !!matchingSettingsCategory.related.length;
+
+  if (subcategoryIsRequired && !data.subcategory) {
+    errors.push({
+      message: 'subcategory is required',
+      code: 'registration.pass.requiredSubcategory',
+      label: 'Une sous-catégorie doit être définie',
+      field: 'category',
+    });
+  }
+
+  const matchingSettingsSubcategory = subcategoryIsRequired && related
+    .find(({ schema }) => schema === matchingSettingsCategory.related[0])
+    .options.find(({ value }) => value === data.subcategory);
+
+  if (subcategoryIsRequired && !matchingSettingsSubcategory) {
+    errors.push({
+      message: 'invalid subcategory',
+      code: 'registration.pass.invalidSubcategory',
+      label: 'La sous-catégorie spécifiée est invalide',
+      field: 'subcategory',
+    });
+  }
+
+  if (matchingSettingsSubcategory) {
+    clean.subcategory = matchingSettingsSubcategory.value;
   }
 
   clean.venueId = parseInt(venueId, 10);
@@ -181,7 +221,7 @@ export function validateLocalData(data, event, options = {}) {
     }
     errors.push({
       message: 'at least one price category must be defined',
-      code: 'registration.pass.requiredPassCategories',
+      code: 'registration.pass.requiredPriceCategories',
       label: 'Au moins une catégorie de prix doit être définie',
       field: 'priceCategories',
     });
@@ -254,7 +294,9 @@ export async function validateEventOffer({ pc, siren }, event, data = {}) {
     venueId,
   } = data;
 
-  const clean = validateLocalData(data, event);
+  const { categories, related } = await pc.offers.events.categories.list();
+
+  const clean = validateLocalData(data, event, { categories, related });
 
   const hasVenue = await pc.offers.offererVenues({ siren })
     .then(offererVenues => offererVenues.reduce((acc, { venues }) => [...acc, ...venues], []).find(v => v.id === venueId));
