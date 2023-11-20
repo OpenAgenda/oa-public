@@ -446,8 +446,8 @@ const initialState = async req => {
         jsonExport: '/agendas/:uid/admin/events.v2.json',
         search: '/api/agendas/:uid/events/search',
         passCulture: {
-          edit: config.passCulture?.offerLink,
-          show: config.passCulture?.offerEditLink,
+          edit: config.passCulture?.offerEditLink,
+          show: config.passCulture?.offerLink,
         },
       },
     },
