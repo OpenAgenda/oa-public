@@ -1,14 +1,18 @@
-'use strict';
+import { dirname, join, resolve } from 'node:path';
+import sass from 'sass';
 
-const path = require('path');
-const sass = require('sass');
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
 
-module.exports = {
-  stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  addons: ['@storybook/addon-essentials'],
+export default {
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  framework: {
+    name: getAbsolutePath('@storybook/react-webpack5'),
+    options: {},
+  },
+  staticDirs: ['../dist'],
+  addons: [getAbsolutePath('@storybook/addon-essentials')],
   webpackFinal: async config => {
     config.module.rules.push({
       test: /\.scss$/,
@@ -18,24 +22,17 @@ module.exports = {
         {
           loader: require.resolve('sass-loader'),
           options: {
-            implementation: sass
-          }
-        }
+            implementation: sass,
+          },
+        },
       ],
-      include: path.resolve(__dirname, '..'),
+      include: resolve(__dirname, '..'),
     });
     config.module.rules.push({
       test: /\.ejs$/,
       use: ['raw-loader'],
-      include: path.resolve(__dirname, '../stories'),
+      include: resolve(__dirname, '../stories'),
     });
     return config;
-  },
-  core: {
-    builder: 'webpack5'
-  },
-  reactOptions: {
-    fastRefresh: true,
-    // strictMode: true,
   },
 };
