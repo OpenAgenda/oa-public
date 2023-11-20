@@ -4,6 +4,7 @@ import { validateLocalData } from '@openagenda/registrations/passCulture/iso/val
 import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
 import Dates from './Dates';
+import CustomDesc from './CustomDesc';
 import {
   addPriceCategory,
   removePriceCategory,
@@ -114,6 +115,9 @@ export default function Form({
           onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
           timings={timings}
         />
+      </Section>
+      <Section>
+        <CustomDesc value={value} onChange={v => setValue({ ...value, customDesc: v })} />
       </Section>
       <Section>
         <Button
