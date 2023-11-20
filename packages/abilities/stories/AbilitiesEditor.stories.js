@@ -1,22 +1,15 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 import AbilitiesEditor from '../src/client/AbilitiesEditor';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-function withJestSleep(ms = 1) {
-  return element => (process.env.STORYBOOK_MODE === 'test'
-    ? {
-      element,
-      jestWaitTime: ms,
-    }
-    : element);
-}
-
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-storiesOf('AbilitiesEditor', module)
-  .add('for a user', () => withJestSleep(1500)(
+export default {
+  title: 'AbilitiesEditor',
+};
+
+export function ForUser() {
+  return (
     <AbilitiesEditor
       locale="fr"
       entityName="user"
@@ -28,8 +21,11 @@ storiesOf('AbilitiesEditor', module)
         }/abilities/form-index`,
       }}
     />
-  ))
-  .add('with HeaderComponent', () => withJestSleep(1500)(
+  );
+}
+
+export function HeaderComponent() {
+  return (
     <AbilitiesEditor
       locale="fr"
       entityName="user"
@@ -42,8 +38,11 @@ storiesOf('AbilitiesEditor', module)
       }}
       HeaderComponent={() => <div>Un header bidon</div>}
     />
-  ))
-  .add('with filter input', () => withJestSleep(1500)(
+  );
+}
+
+export function FilterInput() {
+  return (
     <AbilitiesEditor
       locale="fr"
       entityName="user"
@@ -62,4 +61,5 @@ storiesOf('AbilitiesEditor', module)
         </div>
       )}
     />
-  ));
+  );
+}

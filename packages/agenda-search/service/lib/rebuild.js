@@ -30,6 +30,7 @@ module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda
     }).then(r => r.body));
   } catch (err) {
     if (err.meta.statusCode !== 404) {
+      console.log(err);
       throw new Error('failed to retrieve previous indices', err);
     }
   }
@@ -91,7 +92,7 @@ module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda
     log('info', 'agendas index exists.. deleting');
     await client.indices.delete({ index: alias })
   }
-  
+
   await client.indices.putAlias({
     index: newIndex,
     name: alias

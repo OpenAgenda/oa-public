@@ -1,7 +1,6 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import dedent from 'dedent';
 
-// eslint-disable-next-line import/prefer-default-export
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

@@ -1,6 +1,4 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/client/apps/user';
 import PageDecorator from './decorators/PageDecorator';
@@ -20,10 +18,20 @@ const getDefaultState = ( { apiRoot } = {} ) => ({
   }
 });
 
+export default {
+  title: 'User',
+  decorators: [
+    PageDecorator,
+  ],
+}
 
-storiesOf( 'User', module )
-  .addDecorator( PageDecorator )
-  .add( 'app', () => wrapApp( createApp( {
+export function App() {
+  return wrapApp(createApp({
     history: createMemoryHistory(),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ) ) );
+    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` }),
+  }), {
+    extraProps: {
+      lang: 'fr',
+    },
+  });
+}

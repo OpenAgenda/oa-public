@@ -10,12 +10,12 @@ module.exports = {
   },
   defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
   elasticsearch: {
-    node: 'https://' + process.env.ES_HOST,
+    node: 'https://' + process.env.OA_ELASTICSEARCH_750_DEV_HOST,
     log: 'trace',
-    ssl: process.env.ES_USE_SSL ? {
-      rejectUnauthorized: !process.env.ES_SSL_NO_VERIFY,
-      key: fs.readFileSync(process.env.ES_CLIENT_SSL_KEY, 'utf-8'),
-      cert: fs.readFileSync(process.env.ES_CLIENT_SSL_CERT, 'utf-8')
+    ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
+      rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
+      key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
     } : null
   }
 }

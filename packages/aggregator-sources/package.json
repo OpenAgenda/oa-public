@@ -10,7 +10,7 @@
   "license": "ISC",
   "main": "dist/app.js",
   "scripts": {
-    "start": "NODE_ENV=development STORYBOOK_PORT=9001 start-storybook -p 9001 --ci",
+    "start": "storybook dev -p 9001 --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn oa-intl compile && yarn build",
@@ -67,9 +67,8 @@
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react": "^6.5.9",
+    "@storybook/react-webpack5": "^7.4.2",
     "axios": "^0.21.1",
-    "babel-loader": "^8.2.2",
     "eslint": "^8.24.0",
     "history": "^4.10.1",
     "jest": "^28.1.2",
@@ -81,7 +80,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "webpack": "^4.46.0"
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

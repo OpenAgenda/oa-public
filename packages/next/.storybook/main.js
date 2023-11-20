@@ -18,7 +18,7 @@ export default {
     builder: getAbsolutePath('@storybook/builder-webpack5'),
   },
 
-  staticDirs: ['public'],
+  staticDirs: ['./public'],
 
   env: config => ({
     ...config,

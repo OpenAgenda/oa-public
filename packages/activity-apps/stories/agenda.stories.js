@@ -1,6 +1,4 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import createApp from '../src/client/apps/agenda';
 import PageDecorator from './decorators/PageDecorator';
 
@@ -25,14 +23,18 @@ const getDefaultState = ( { apiRoot } = {} ) => ({
   }
 });
 
+export default {
+  title: 'Agenda',
+  decorators: [
+    PageDecorator,
+  ],
+};
 
-storiesOf( 'Agenda', module )
-  .addDecorator( PageDecorator )
-  .add( 'app', () => {
-    const { element } = createApp( {
-      history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    return element;
+export function App() {
+  const { element } = createApp( {
+    history: createMemoryHistory(),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
   } );
+
+  return element;;
+}

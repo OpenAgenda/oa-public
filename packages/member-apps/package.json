@@ -12,7 +12,7 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/member-apps",
   "main": "dist/index.js",
   "scripts": {
-    "start": "start-storybook -p 9001 --ci",
+    "start": "storybook dev -p 9001 --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
     "test": "jest",
@@ -67,15 +67,13 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react": "^6.5.9",
-    "babel-loader": "^8.2.2",
+    "@storybook/react-webpack5": "^7.4.2",
     "errorhandler": "^1.5.0",
     "eslint": "^8.24.0",
     "express": "^4.17.1",
     "jest": "^28.1.2",
     "lint-staged": "^10.2.11",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.4",
     "prettier-eslint-cli": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -83,7 +81,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "webpack": "^5.53.0"
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
