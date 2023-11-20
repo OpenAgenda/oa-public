@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
@@ -10,76 +10,11 @@ const service = {};
 
 module.exports = service;
 
-module.exports.init = (config, services) => {
-  sessions.init({
-    redisClient: services.redis,
-    redis: {
-      prefix: config.session.namespace,
-    },
-    sessionCookie: config.session,
-    writableCookie: {
-      maxAge: config.session.maxAge,
-      name: config.session.writableName // overriden by iso configuration
-    },
-    expire: config.session.maxAge / 1000,
-    interfaces: {
-      getUser: getUser.bind(null, services, config.aws.imageBucketPath)
-    },
-    logger: config.getLogConfig('oa', 'sessions', false)
-  });
-
-  Object.assign(service, sessions);
-
-  service.mw.load = load;
-  service.mw.loadOrRedirect = loadOrRedirect;
-  service.mw.requireSuperAdmin = _requireSuperAdmin(config);
-
-  return service;
-}
-
-function loadOrRedirect(options) {
-  return load({
-    detailed: false,
-    redirect: true,
-    msg: 'authRequired',
-    ...options
-  });
-}
-
-function load({ detailed, redirect, msg } = {}) {
-  return (req, res, next) => {
-    sessions.get(req, { detailed }, (err, user) => {
-      if (err) return next(err);
-      if (!user && redirect) {
-        const redirect = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
-        return res.redirect(302, `${req.agenda ? '/' + req.agenda.slug : ''}/signin?redirect=${redirect}&msg=${msg}`);
-      }
-
-      if (user && user.isBlacklisted) {
-        sessions.setFlash(req, res, `
-          <div class="text-center margin-top-sm">
-            <strong>${getAuthMessageLabel('isBlacklisted', user.culture)}</strong>
-            <p>${getAuthMessageLabel('isBlacklistedInfo', user.culture)}</p>
-          </div>`
-        );
-        sessions.close(req, () => {
-          res.redirect(302, '/');
-        });
-      } else {
-        req.user = user;
-        next();
-      }
-    });
-  };
-}
-
 function getUser(services, imageBucketPath, query, cb) {
-
   log('info', 'requested user with %j', query);
 
   services.users.findOne({ query: _.pick(query, 'id', 'uid', 'email'), detailed: true })
     .then(user => {
-
       if (!user) {
         const error = new VError('failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email'));
 
@@ -98,25 +33,56 @@ function getUser(services, imageBucketPath, query, cb) {
         email: user.email,
         culture: user.culture,
         isNew: !!user.isNew,
-        isBlacklisted: user.isBlacklisted
+        isBlacklisted: user.isBlacklisted,
       });
-
     })
     .catch(err => {
-
       log('error', new VError(err, 'failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email')));
       cb(err, null);
-
     });
-
 }
 
-function _requireSuperAdmin(config) {
+function load({ detailed, redirect, msg } = {}) {
+  return (req, res, next) => {
+    sessions.get(req, { detailed }, (err, user) => {
+      if (err) return next(err);
+      if (!user && redirect) {
+        const redirectURL = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
+        return res.redirect(302, `${req.agenda ? `/${req.agenda.slug}` : ''}/signin?redirect=${redirectURL}&msg=${msg}`);
+      }
+
+      if (user && user.isBlacklisted) {
+        sessions.setFlash(req, res, `
+          <div class="text-center margin-top-sm">
+            <strong>${getAuthMessageLabel('isBlacklisted', user.culture)}</strong>
+            <p>${getAuthMessageLabel('isBlacklistedInfo', user.culture)}</p>
+          </div>`);
+        sessions.close(req, () => {
+          res.redirect(302, '/');
+        });
+      } else {
+        req.user = user;
+        next();
+      }
+    });
+  };
+}
+
+function loadOrRedirect(options) {
+  return load({
+    detailed: false,
+    redirect: true,
+    msg: 'authRequired',
+    ...options,
+  });
+}
+
+function requireSuperAdmin(config) {
   return (req, res, next) => {
     sessions.get(req, { detailed: true }, (err, session) => {
       if (err) return next(err);
 
-      const id = session.id;
+      const { id } = session;
 
       if (config.superAdminIds.indexOf(parseInt(id, 10)) !== -1) {
         next();
@@ -126,5 +92,32 @@ function _requireSuperAdmin(config) {
         res.redirect(302, '/');
       }
     });
-  }
+  };
 }
+
+module.exports.init = (config, services) => {
+  sessions.init({
+    redisClient: services.redis,
+    redis: {
+      prefix: config.session.namespace,
+    },
+    sessionCookie: config.session,
+    writableCookie: {
+      maxAge: config.session.maxAge,
+      name: config.session.writableName, // overriden by iso configuration
+    },
+    expire: config.session.maxAge / 1000,
+    interfaces: {
+      getUser: getUser.bind(null, services, config.aws.imageBucketPath),
+    },
+    logger: config.getLogConfig('oa', 'sessions', false),
+  });
+
+  Object.assign(service, sessions);
+
+  service.mw.load = load;
+  service.mw.loadOrRedirect = loadOrRedirect;
+  service.mw.requireSuperAdmin = requireSuperAdmin(config);
+
+  return service;
+};
