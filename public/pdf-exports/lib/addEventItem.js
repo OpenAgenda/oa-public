@@ -74,7 +74,9 @@ export default async function addEventItem(
   const thumbnailFilename = event.image?.variants.find(
     el => el.type === 'thumbnail',
   )?.filename;
-  const imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
+  const imageUrl = thumbnailFilename
+    ? await urlToBuffer(event.image.base + thumbnailFilename)
+    : undefined;
 
   const imageOptions = {
     cover: [imageWidth, imageHeight],
@@ -82,7 +84,7 @@ export default async function addEventItem(
     valign: 'center',
   };
 
-  if (!simulate) {
+  if (!simulate && imageUrl) {
     doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
   }
 
