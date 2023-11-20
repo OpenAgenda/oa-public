@@ -21,10 +21,8 @@ export default async function addEventItem(
     base = {
       margin: 20,
       color: '#413a42',
-      fontFamily: 'Helvetica',
       fontSize: 10,
     },
-    titleFontFamily = 'Helvetica-Bold',
     secondaryColor = '#808080',
     simulate = false,
   } = options;
@@ -35,6 +33,7 @@ export default async function addEventItem(
   };
 
   let widthOfIcon = null;
+  let heightOfIcon = null;
   let heightOfTitle = null;
   let widthOfTitle = null;
   let heightOfDescription = null;
@@ -94,7 +93,7 @@ export default async function addEventItem(
     width: textMaxWidth,
     fontSize: 10,
     base,
-    fontFamily: titleFontFamily,
+    bold: true,
     simulate,
   });
 
@@ -115,15 +114,12 @@ export default async function addEventItem(
 
   localCursor.y += heightOfDescription + base.margin / 10;
 
-  const { width: widthOfDateRangeIcon } = await addIcon(
-    doc,
-    dateRangeIconPath,
-    localCursor,
-    iconHeightAndWidth,
-    { simulate },
-  );
+  const { width: widthOfDateRangeIcon, height: heightOfDateRangeIcon } = await addIcon(doc, dateRangeIconPath, localCursor, iconHeightAndWidth, {
+    simulate,
+  });
+
   localCursor.x += widthOfDateRangeIcon + base.margin / 10;
-  localCursor.y += base.margin / 14;
+  localCursor.y -= base.margin / 16;
 
   const dateRange = addText(
     doc,
@@ -136,6 +132,7 @@ export default async function addEventItem(
   heightOfDateRange = dateRange.height;
 
   localCursor.x += widthOfDateRange + base.margin / 4;
+  localCursor.y += base.margin / 16;
 
   for (const icon of iconsArr) {
     localCursor.x += iconHeightAndWidth + base.margin / 3;
@@ -143,9 +140,11 @@ export default async function addEventItem(
       simulate,
     });
     widthOfIcon = iconItem.width;
+    heightOfIcon = iconItem.height;
   }
-
-  localCursor.y += heightOfDateRange + base.margin / 10;
+  localCursor.y
+    += Math.max(heightOfDateRangeIcon, heightOfDateRange, heightOfIcon)
+    + base.margin / 10;
   localCursor.x = imageWidth + base.margin * 2;
 
   if (event.location.name || event.location.address) {
@@ -157,7 +156,7 @@ export default async function addEventItem(
       { simulate },
     );
     localCursor.x += widthOfLocationIcon + base.margin / 10;
-    localCursor.y += base.margin / 14;
+    localCursor.y -= base.margin / 16;
 
     const location = addText(
       doc,
@@ -189,7 +188,7 @@ export default async function addEventItem(
     );
 
     localCursor.x += widthOfOnelineLinkIcon + base.margin / 3;
-    localCursor.y += base.margin / 14;
+    localCursor.y -= base.margin / 16;
 
     const onlineLink = addText(doc, localCursor, event.onlineAccessLink, {
       width: textMaxWidth,
