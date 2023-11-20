@@ -7,7 +7,6 @@ import formatErrors from './lib/formatErrors.js';
 const log = logs('passCulture/createEventOffer');
 
 export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
-  console.log('createEventOffer', OAEvent, PCData);
   const {
     lang = 'fr',
   } = options;
