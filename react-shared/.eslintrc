@@ -12,6 +12,7 @@
       "files": [
         "src/**/*.js",
         "test/**/*.js",
+        ".storybook/**/*.js",
         "stories/**/*.js"
       ],
 
