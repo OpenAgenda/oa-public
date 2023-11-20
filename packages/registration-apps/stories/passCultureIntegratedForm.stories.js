@@ -61,6 +61,7 @@ export const WithData = () => (
         timingId: 1696078800000,
         quantity: 2,
       }],
+      customDesc: 'Custom Desc',
     }}
     timings={event.timings}
     categories={categories}
