@@ -4,21 +4,25 @@ export default function addText(doc, cursor, text, options = {}) {
     color,
     base = {
       color: '#000000',
-      fontFamily: 'Helvetica',
       fontSize: 12,
     },
-    fontFamily,
     width,
     underline,
     link,
     align,
     simulate = false,
+    bold = false,
   } = options;
+
+  const regularFontPath = './fonts/Assistant-Regular.ttf';
+  const boldFontPath = './fonts/Assistant-Bold.ttf';
+
+  const selectedFont = bold ? boldFontPath : regularFontPath;
 
   if (!simulate) {
     doc
       .fillColor(color ?? base.color)
-      .font(fontFamily ?? base.fontFamily)
+      .font(selectedFont)
       .fontSize(fontSize ?? base.fontSize)
       .text(text, cursor.x, cursor.y, { width, underline, link, align });
   }
