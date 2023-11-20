@@ -152,4 +152,45 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       expect(error.response.data.message).toBe('agenda key cannot be used for this route');
     });
   });
+
+  describe('user key', () => {
+    const userKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
+
+    it('/me/agendas route is not accessible if no key is provided', async () => {
+      const {
+        error,
+      } = await axios({
+        method: 'get',
+        url: 'http://localhost:3000/me/agendas',
+      }).then(r => ({ response: r }), e => ({ error: e }));
+
+      expect(error.response.status).toBe(403);
+      expect(error.response.data.message).toBe('could not find user or calendar matching key');
+    });
+
+    it('a public key provided in query can be used to access /me/agendas route', async () => {
+      const {
+        response,
+      } = await axios({
+        method: 'get',
+        url: `http://localhost:3000/me/agendas?key=${userKey}`,
+      }).then(r => ({ response: r }), e => ({ error: e }));
+
+      expect(response.status).toBe(200);
+    });
+
+    it('a public key provided in query can be placed in headers to access /me/agendas route', async () => {
+      const {
+        response,
+      } = await axios({
+        method: 'get',
+        url: 'http://localhost:3000/me/agendas',
+        headers: {
+          key: userKey,
+        },
+      }).then(r => ({ response: r }), e => ({ error: e }));
+
+      expect(response.status).toBe(200);
+    });
+  });
 });
