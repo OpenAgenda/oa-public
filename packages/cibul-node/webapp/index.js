@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const matchMw = require('@openagenda/react-integration-app/middleware');
@@ -445,6 +445,10 @@ const initialState = async req => {
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json',
         search: '/api/agendas/:uid/events/search',
+        passCulture: {
+          edit: config.passCulture?.offerEditLink,
+          show: config.passCulture?.offerLink,
+        },
       },
     },
     agendaLocationAdmin: {

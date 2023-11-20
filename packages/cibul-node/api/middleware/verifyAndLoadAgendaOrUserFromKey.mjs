@@ -10,22 +10,24 @@ export default async (req, res, next) => {
     return next();
   }
 
-  if (!req.query.key && req.headers['access-token']) {
+  const publicKey = req.query.key ?? req.headers.key;
+
+  if (!publicKey && req.headers['access-token']) {
     return verifyAndLoadAccessTokenUser(req, res, next);
   }
 
   const isUIAPI = req.baseUrl === '/api';
 
-  if (isUIAPI && !req.query.key) {
+  if (isUIAPI && !publicKey) {
     return next();
   }
 
-  req.user = await accessTokens.getUserFromKey(req.query.key).then(u => u, () => null);
+  req.user = await accessTokens.getUserFromKey(publicKey).then(u => u, () => null);
 
-  if (!req.user && req.query.key) {
+  if (!req.user && publicKey) {
     req.agendaKey = await keysSvc({
       type: 'agendaFullRead',
-      key: req.query.key,
+      key: publicKey,
     }).get({ cache: true });
   }
 
@@ -35,7 +37,7 @@ export default async (req, res, next) => {
     }
   } catch (e) {
     return res.status(403).json({
-      error: e.message,
+      message: e.message,
     });
   }
 

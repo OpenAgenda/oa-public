@@ -1,0 +1,39 @@
+{
+  "name": "@openagenda/pdf-exports",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "node test/addEventItem.test.js && node test/addFooter.test.js && node test/addHeader.test.js",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write",
+      "eslint -c .eslintrc"
+    ]
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@openagenda/babel-preset": "^1.5.0",
+    "axios": "^0.21.1",
+    "lodash": "^4.17.21",
+    "pdfkit": "^0.13.0",
+    "qs": "^6.9.1",
+    "readable-stream": "^4.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/plugin-syntax-import-attributes": "^7.23.3",
+    "@openagenda/eslint-config": "^1.4.0",
+    "eslint": "^8.24.0",
+    "lint-staged": "^10.2.11",
+    "prettier-eslint-cli": "^7.1.0"
+  }
+}

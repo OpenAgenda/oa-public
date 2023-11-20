@@ -11,6 +11,12 @@ import event from './fixtures/event.json';
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';
 
+const {
+  categories,
+  related,
+  offererVenues,
+} = passSettings;
+
 export default {
   title: 'PassCulture/Integrated Form',
   decorators: [Story => (
@@ -30,11 +36,9 @@ export default {
 export const Empty = () => (
   <PassForm
     timings={event.timings}
-    settings={{
-      res: {
-        settings: '/settings',
-      },
-    }}
+    categories={categories}
+    related={related}
+    offererVenues={offererVenues}
     onSubmit={() => {}}
   />
 );
@@ -57,13 +61,12 @@ export const WithData = () => (
         timingId: 1696078800000,
         quantity: 2,
       }],
+      customDesc: 'Custom Desc',
     }}
     timings={event.timings}
-    settings={{
-      res: {
-        settings: '/settings',
-      },
-    }}
+    categories={categories}
+    related={related}
+    offererVenues={offererVenues}
     onSubmit={() => {}}
   />
 );

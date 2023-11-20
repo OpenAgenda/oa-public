@@ -11,6 +11,7 @@ const streamCSV = require('./lib/streamCSV');
 const streamICS = require('./lib/streamICS');
 const RSSResponse = require('./lib/RSSResponse');
 const streamXLSX = require('./lib/streamXLSX');
+const streamPDF = require('./lib/streamPDF');
 const streamMarkdown = require('./lib/streamMarkdown');
 const ifFormat = require('./lib/ifFormat');
 const ifJSONStreamRequested = require('./lib/ifJSONStreamRequested');
@@ -30,11 +31,11 @@ module.exports = services => {
     }).get(
       '',
       ifFormat(
-        ['csv', 'xlsx', 'ics', 'txt', 'md'],
+        ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
         limiter,
       ),
       ifFormat(
-        ['csv', 'xlsx', 'ics', 'txt', 'md'],
+        ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
         loadSearchEndpoint(services.core),
       ),
       ifFormat(
@@ -42,10 +43,11 @@ module.exports = services => {
         loadSearchEndpoint(services.core, { convertLegacy: true }),
       ),
       loadAgendaLanguagesAndFormSchemas(services),
-      ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
+      ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'], loadSearchStream()),
       trackFormat,
       ifFormat('csv', streamCSV),
       ifFormat('xlsx', streamXLSX),
+      ifFormat('pdf', streamPDF),
       ifFormat('ics', streamICS),
       ifFormat(['md', 'txt'], streamMarkdown),
       ifFormat('rss', RSSResponse(services.core)),

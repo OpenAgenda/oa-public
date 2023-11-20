@@ -11,7 +11,7 @@ const acc = ({ accessibility: a }) => ({
   visualDisabilityCompliant: a?.vi ?? false,
 });
 
-export default async function formatEvent(event, ...args) {
+export default async function formatEvent(event, customDesc, ...args) {
   const options = args.pop();
   const passData = args[0] ?? {};
 
@@ -27,7 +27,7 @@ export default async function formatEvent(event, ...args) {
   const formatted = {
     name: flatten(event.title, lang),
     accessibility: acc(event),
-    description: await formatText(event.longDescription),
+    description: await formatText(customDesc || event.longDescription),
     hasTicket: false,
   };
 

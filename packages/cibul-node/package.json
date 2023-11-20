@@ -68,6 +68,7 @@
     "@openagenda/oembed": "^2.2.1",
     "@openagenda/outdated-browser": "^0.0.0",
     "@openagenda/pdf": "^0.1.5",
+    "@openagenda/pdf-exports": "^0.0.1",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/queues": "^2.0.0",
     "@openagenda/react-integration-app": "^1.6.1",

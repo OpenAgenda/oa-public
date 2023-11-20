@@ -11,6 +11,7 @@ import * as redis from './redis.mjs';
 import * as bull from './bull/index.mjs';
 import * as formSchemas from './formSchemas.mjs';
 import * as registrations from './registrations.mjs';
+import * as pdfExports from './pdfExports.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -130,6 +131,7 @@ export default async function initServices(config = null, options = {}) {
   await init('facebook', require('./facebook.js'));
   await init('formSchemas', formSchemas);
   await init('registrations', registrations);
+  await init('pdfExports', pdfExports);
   await init('custom', require('./custom/index.js'));
   await init('genUrl', require('./genUrl/index.js'));
   await init('invitations', require('./invitations.js'));

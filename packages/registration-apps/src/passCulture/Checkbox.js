@@ -1,5 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-import { Image } from '@openagenda/react-shared';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { Image, Spinner } from '@openagenda/react-shared';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 import { getTime } from '@openagenda/registrations/passCulture/iso/utils';
 
@@ -14,6 +14,8 @@ export default ({
   settings,
 }) => {
   const [modal, setModal] = useState(false);
+  const [isLoadingPassData, setIsLoadingPassData] = useState(true);
+  const [passSettingsData, setPassSettingsData] = useState({});
 
   const hasData = Object.keys(value ?? {}).length;
 
@@ -30,9 +32,18 @@ export default ({
   const issues = useMemo(
     () => []
       .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
-      .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
-    [upcomingTimings, hasData, value, timings],
+      .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    [upcomingTimings, hasData, value, timings, passSettingsData],
   );
+
+  useEffect(() => {
+    fetch(settings.res.settings)
+      .then(r => r.json())
+      .then(data => {
+        setPassSettingsData(data);
+        setIsLoadingPassData(false);
+      });
+  }, [settings]);
 
   const onCheck = useCallback(() => {
     setModal(offerAlreadyExists ? 'unlink' : 'show');
@@ -50,10 +61,13 @@ export default ({
 
   return (
     <>
-      {modal === 'show' ? (
+      {modal === 'show' && isLoadingPassData ? <Spinner /> : null}
+      {modal === 'show' && !isLoadingPassData ? (
         <FormModal
           timings={timings}
-          settings={settings}
+          categories={passSettingsData.categories}
+          related={passSettingsData.related}
+          offererVenues={passSettingsData.offererVenues}
           value={value}
           onClose={() => setModal(null)}
           onSubmit={onSubmit}
@@ -95,9 +109,9 @@ export default ({
               </a>
             </>
           ) : (
-            <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
+            <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>
           )}
-          {!offerAlreadyExists && issues.length ? (
+          {!offerAlreadyExists && !isLoadingPassData && issues.length ? (
             <ul className="padding-left-sm">{issues.map(issue => (
               <li className="text-danger">{issue}</li>
             ))}

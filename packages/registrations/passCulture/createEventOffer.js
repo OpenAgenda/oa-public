@@ -26,7 +26,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     errors: null,
   };
 
-  const eventOffer = await formatEvent(OAEvent, { venueId, category }, { lang });
+  const eventOffer = await formatEvent(OAEvent, PCData?.customDesc, { venueId, category }, { lang });
 
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);

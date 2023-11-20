@@ -218,6 +218,8 @@ function Dashboard() {
   const res = useSelector(state => state.res);
   const mapTiles = useSelector(state => state.settings.mapTiles);
 
+  const [passTabOpen, setPassTab] = useState(false);
+
   const parsedLocationSearch = useMemo(
     () =>
       qs.parse(location.search, {
@@ -350,6 +352,7 @@ function Dashboard() {
             'originAgenda.uid',
             'originAgenda.title',
             'onlineAccessLink',
+            'registration',
           ],
         },
         page,
@@ -800,6 +803,9 @@ function Dashboard() {
             redirectURL={redirectURL}
             isFirst={(page - 1) * PAGE_SIZE + index === 0}
             isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
+            passRes={res.passCulture}
+            passTabIsOpen={passTabOpen === event.uid}
+            setPassTab={e => setPassTab(e)}
           />
         ))}
       </ul>
