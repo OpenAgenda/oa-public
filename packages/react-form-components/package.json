@@ -8,7 +8,7 @@
   "scripts": {
     "test": "mocha --exit",
     "build": "rimraf build && babel components -d build -s",
-    "start": "start-storybook -s ./stories/static -p 9001",
+    "start": "storybook dev -p 9001",
     "prepack": "yarn build"
   },
   "dependencies": {
@@ -32,13 +32,13 @@
     "@babel/core": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
-    "@storybook/react": "^6.5.9",
-    "babel-loader": "^8.2.2",
+    "@storybook/react-webpack5": "^7.4.2",
     "mocha": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.1",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "react": "^18.2.0"

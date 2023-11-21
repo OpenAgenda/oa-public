@@ -1,5 +1,4 @@
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
@@ -16,9 +15,15 @@ const getDefaultState = () => ({
   stats: {},
 });
 
-export default storiesOf('App', module)
-  .addDecorator(PageDecorator)
-  .add('all', () => wrapApp(
+export default {
+  title: 'App',
+  decorators: [
+    PageDecorator,
+  ],
+};
+
+export function All() {
+  return wrapApp(
     createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState(),
@@ -35,5 +40,6 @@ export default storiesOf('App', module)
           fields: [],
         },
       },
-    }
-  ));
+    },
+  );
+}

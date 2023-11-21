@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "start-storybook -c .storybook -p 9001 --ci",
+    "start": "storybook dev -p 9001 --ci",
     "prepack": "yarn clean && yarn oa-intl compile && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "yarn oa-intl",
@@ -58,7 +58,7 @@
     "@openagenda/axios-mock-adapter": "^1.21.2",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react": "^6.5.9",
+    "@storybook/react-webpack5": "^7.4.2",
     "axios": "^0.21.1",
     "eslint": "^8.24.0",
     "history": "^4.10.1",
@@ -67,7 +67,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.0.3",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.1",
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",

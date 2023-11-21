@@ -12,14 +12,16 @@ const getDefaultState = () => ({
 
 export default { title: 'App' };
 
-export const announcement = () => wrapApp(
-  createApp({
-    history: createMemoryHistory({ initialEntries: ['/announcement'] }),
-    initialState: getDefaultState(),
-  }),
-  {
-    extraProps: {
-      user: {},
+export const announcement = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory({ initialEntries: ['/announcement'] }),
+      initialState: getDefaultState(),
+    }),
+    {
+      extraProps: {
+        user: {},
+        lang: 'fr',
+      },
     },
-  }
-);
+  );

@@ -1,6 +1,4 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import MockAdapter from '@openagenda/axios-mock-adapter';
 import createApp from '../src/app';
@@ -22,7 +20,7 @@ const getDefaultState = () => ({
 
 const mockApi = () => {
   const mock = new MockAdapter(axios, {
-    delayResponse: 2000
+    delayResponse: 500
   });
   mock.onGet('/users/me').reply(200, {
     id: 11258,
@@ -41,21 +39,23 @@ const mockApi = () => {
   });
 };
 
+export default {
+  title: 'App',
+}
 
-storiesOf('App', module)
-  .add('all', () => {
-    mockApi();
+export function All() {
+  mockApi();
 
-    return wrapApp(createApp({
-      history: createMemoryHistory(),
-      initialState: getDefaultState()
-    }), {
-      extraProps: {
-        user: {
-          id: 1,
-          uid: 75052324
-        },
-        lang: 'fr'
-      }
-    });
+  return wrapApp(createApp({
+    history: createMemoryHistory(),
+    initialState: getDefaultState()
+  }), {
+    extraProps: {
+      user: {
+        id: 1,
+        uid: 75052324
+      },
+      lang: 'fr'
+    }
   });
+}
