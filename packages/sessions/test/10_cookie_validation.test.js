@@ -1,6 +1,6 @@
 "use strict";
 
-const should = require( 'should' );
+
 const validate = require( '../src/iso/cookie.validate.js' );
 
 describe( 'session - unit (iso): cookie data validate', () => {
@@ -17,7 +17,9 @@ describe( 'session - unit (iso): cookie data validate', () => {
       expires: undefined,
     };
 
-    validate( cookieData ).should.eql( cookieData );
+    expect(
+      validate( cookieData )
+    ).toEqual( cookieData );
 
   } );
 

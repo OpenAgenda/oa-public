@@ -1,6 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
 const validate = require( '../src/service/validate' );
 
 describe( 'session - unit (server): validate', () => {
@@ -20,7 +19,9 @@ describe( 'session - unit (server): validate', () => {
       isBlacklisted: false,
     };
 
-    validate( sessionData ).should.eql( sessionData );
+    expect(
+      validate( sessionData ),
+    ).toEqual( sessionData );
 
   } );
 

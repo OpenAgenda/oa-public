@@ -1,8 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
-const sessions = require( '../src/service' );
+const Sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
@@ -10,26 +9,28 @@ const h = require( './lib/helpers' );
 describe( 'session - functional (server): get', () => {
   let client;
   let request;
+  let sessions;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await h.createClient(config.redis);
   });
 
-
-  beforeEach(() => h.clearRedis(config.redis, client));
-
-  beforeEach( () => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
+  beforeAll( () => {
+    sessions = Sessions({
+      ...config,
+      redisClient: client,
+    });
+  });
   
-  beforeEach( () => {
+  beforeAll( () => {
     request = { cookies: {}, session: {} };
 
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
   } );
+
+  beforeEach(() => h.clearRedis(config.redis, client));
   
-  afterEach(() => client.quit());
+  afterAll(() => client.quit());
 
   it( 'get takes request and calls back with session data', done => {
 
@@ -37,9 +38,8 @@ describe( 'session - functional (server): get', () => {
 
       sessions.get( request, ( err, session ) => {
 
-        should( err ).equal( null );
-
-        Object.keys( session ).should.eql( [
+        expect(err).toBeNull();
+        expect(Object.keys( session )).toEqual([
           'culture',
           'uid',
           'name',
@@ -50,11 +50,11 @@ describe( 'session - functional (server): get', () => {
           'expires',
           'isNew',
           'isBlacklisted'
-        ] );
+        ]);
 
-        _.omit( session, [ 'latestActivity', 'expires' ] )
-
-        .should.eql( {
+        expect(
+          _.omit( session, [ 'latestActivity', 'expires' ] )
+        ).toEqual({
           id: 1,
           uid: 1234,
           email: 'gaetan@cibul.net',
@@ -63,7 +63,7 @@ describe( 'session - functional (server): get', () => {
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture',
           isBlacklisted: false
-        } );
+        });
 
         done();
 
@@ -79,11 +79,11 @@ describe( 'session - functional (server): get', () => {
 
       sessions.get( 12345678, ( err, session ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
-        _.omit( session, [ 'latestActivity', 'expires' ] )
-
-        .should.eql( {
+        expect(
+          _.omit( session, [ 'latestActivity', 'expires' ] )
+        ).toEqual({
           id: 1,
           email: 'gaetan@cibul.net',
           uid: 12345678,
@@ -92,7 +92,7 @@ describe( 'session - functional (server): get', () => {
           culture: 'fr',
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture'
-        } );
+        });
 
         done();
 
@@ -106,9 +106,8 @@ describe( 'session - functional (server): get', () => {
 
     sessions.get( 12345678, ( err, session ) => {
 
-      should( err ).equal( null );
-
-      should( session ).equal( null );
+      expect(err).toBeNull();
+      expect(session).toBeNull();
 
       done();
 

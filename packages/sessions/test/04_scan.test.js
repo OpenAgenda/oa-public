@@ -1,31 +1,29 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const should = require( 'should' );
-const sessions = require( '../src/service' );
+const Sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
 
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
 describe( 'session - functional (server): scan', () => {
   let client;
   let request;
+  let sessions;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await h.createClient(config.redis);
+  });
+  
+  beforeAll( () => {
+    sessions = Sessions({
+      ...config,
+      redisClient: client,
+    });
   });
 
   beforeEach(() => h.clearRedis(config.redis, client));
-
-  beforeEach(() => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
 
   beforeEach(() => {
     request = {
@@ -35,8 +33,6 @@ describe( 'session - functional (server): scan', () => {
 
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
   });
-
-  afterEach(() => client.quit());
 
   beforeEach( done => {
 
@@ -49,24 +45,25 @@ describe( 'session - functional (server): scan', () => {
         i++;
 
         wcb();
-
+        
       } );
-
+      
     }, err => { done(); } );
-
+    
   } );
-
+  
+  afterAll(() => client.quit());
 
   it( 'scans through open sessions', done => {
 
     sessions.scan( 0, 2, ( err, sessions, nextCursor ) => {
       try {
 
-        should( err ).equal( null );
+        expect( err ).toBeNull();
 
-        nextCursor.should.not.equal( 0 );
+        expect(nextCursor).not.toBe(0);
 
-        should( sessions.length ).not.lessThan( 2 );
+        expect( sessions.length ).toBeGreaterThanOrEqual(2);
 
         done();        
 
@@ -85,11 +82,11 @@ describe( 'session - functional (server): scan', () => {
 
     sessions.scan( 0, ( err, sessions, nextCursor ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
       done();
 
-    } );1
+    } );
 
   } );
 
@@ -98,7 +95,7 @@ describe( 'session - functional (server): scan', () => {
 
     sessions.scan( 6, 10, ( err, sessions, cursor ) => {
 
-      cursor.should.equal( 0 );
+      expect(cursor).toBe(0);
 
       done();
 

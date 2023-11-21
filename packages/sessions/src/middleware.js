@@ -5,26 +5,39 @@ const cookieSessionLib = require( 'cookie-session' );
 const cookieParserLib = require( 'cookie-parser' );
 const validateCookie = require( '../iso/cookie.validate' );
 
-let cookieSession, cookieParser, sessions;
+function _logLoad( req, data ) {
 
-module.exports = _.extend( use, {
-  open,
-  load,
-  close,
-  sync,
-  ifLogged: ifLoggedState.bind( null, true ),
-  ifUnlogged: ifLoggedState.bind( null, false ),
-  init
-} );
+  if ( req.log && req.log.load ) {
 
-
-function use( req, res, next ) {
-
-  if ( !cookieSession ) {
-
-    throw new Error( 'Session service not initialized' );
+    req.log.load( data );
 
   }
+
+}
+
+function ifLoggedState( sessions, state, fn ) {
+
+  return ( req, res, next ) => {
+
+    sessions.isLogged( req )
+
+      .catch( next )
+
+      .then( is => {
+
+        if ( state === is ) return fn( req, res, next );
+
+        next();
+
+      } )
+
+  }
+
+}
+
+
+
+function use({ cookieSession, cookieParser }, req, res, next ) {
 
   cookieParser( req, res, err => {
 
@@ -52,71 +65,7 @@ function use( req, res, next ) {
 
 }
 
-
-
-function ifLoggedState( state, fn ) {
-
-  return ( req, res, next ) => {
-
-    sessions.isLogged( req )
-
-      .catch( next )
-
-      .then( is => {
-
-        if ( state === is ) return fn( req, res, next );
-
-        next();
-
-      } )
-
-  }
-
-}
-
-
-function close( targetNamespace = 'result' ) {
-
-  return ( req, res, next ) => {
-
-    sessions.close( req, ( err, result ) => {
-
-      if ( err ) return next( err );
-
-      req[ targetNamespace ] = result;
-
-      next();
-
-    } );
-
-  }
-
-}
-
-
-/**
- * proxy for service sync method
- */
-function sync( targetNamespace = 'result' ) {
-
-  return ( req, res, next ) => {
-
-    sessions.sync( req, ( err, result ) => {
-
-      if ( err ) return next( err );
-
-      req[ targetNamespace ] = result;
-
-      next();
-
-    } );
-
-  }
-
-}
-
-
-function open( identifierNamespace = 'userIdentifier', targetNamespace = 'result' ) {
+function open( { sessions }, identifierNamespace = 'userIdentifier', targetNamespace = 'result' ) {
 
   return ( req, res, next ) => {
 
@@ -138,12 +87,12 @@ function open( identifierNamespace = 'userIdentifier', targetNamespace = 'result
  * load session in req object
  */
 
-function load( options ) {
+function load( { sessions } , options ) {
 
   let params = _.extend( {
     target: 'user',
     detailed: false
-  }, options || {} );
+  }, options || {} );
 
   return ( req, res, next ) => {
 
@@ -163,24 +112,59 @@ function load( options ) {
 
 }
 
+function close( { sessions }, targetNamespace = 'result' ) {
 
-function init( config, service ) {
+  return ( req, res, next ) => {
 
-  cookieSession = cookieSessionLib( config.sessionCookie );
+    sessions.close( req, ( err, result ) => {
 
-  cookieParser = cookieParserLib();
+      if ( err ) return next( err );
 
-  sessions = service;
+      req[ targetNamespace ] = result;
+
+      next();
+
+    } );
+
+  }
 
 }
 
 
-function _logLoad( req, data ) {
+/**
+ * proxy for service sync method
+ */
+function sync( { sessions }, targetNamespace = 'result' ) {
 
-  if ( req.log && req.log.load ) {
+  return ( req, res, next ) => {
 
-    req.log.load( data );
+    sessions.sync( req, ( err, result ) => {
+
+      if ( err ) return next( err );
+
+      req[ targetNamespace ] = result;
+
+      next();
+
+    } );
 
   }
 
+}
+
+module.exports = (sessions, config) => {
+  const cookieSession = cookieSessionLib( config.sessionCookie );
+  const cookieParser = cookieParserLib();
+
+  return Object.assign(
+    use.bind(null, { cookieSession, cookieParser }),
+    {
+      open: open.bind(null, { sessions }),
+      load: load.bind(null, { sessions }),
+      close: close.bind(null, { sessions }),
+      sync: sync.bind(null, { sessions }),
+      ifLogged: ifLoggedState.bind( null, sessions, true ),
+      ifUnlogged: ifLoggedState.bind( null, sessions, false ),
+    }
+  );
 }

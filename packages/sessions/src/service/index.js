@@ -6,50 +6,15 @@ const mw = require( '../middleware' );
 const isoConfig = require( '../../iso/config' );
 const cookieValidate = require( '../../iso/cookie.validate' );
 const expressCookie = require( './expressCookie' );
-const serviceConfig = require( './config' );
 const get = require( './get' );
 const open = require( './open' );
 const close = require( './close' );
 const scan = require( './scan' );
 const sync = require( './sync' );
 
-let config, interfaces;
-
-let log = console.log;
-
-module.exports = {
-  init,
-  open,
-  get,
-  scan,
-  sync,
-  close,
-  setFlash: ( req, res, message ) => set( config.writableCookie.name, req, res, 'flash', message ),
-  isLogged,
-  getCulture,
-  mw
-}
-
-function set( cookieName, request, response, name, value ) {
-
-  expressCookie( cookieName, request, response ).set( name, value );
-
-}
-
-
-async function isLogged( request ) {
-
-  let user = await get.promise( request );
-
-  return !!user;
-
-}
-
 function getCulture( request ) {
-
   try {
-
-    let user = cookieValidate( request.session ).user;
+    const user = cookieValidate( request.session ).user;
 
     if ( user ) return user.culture;
 
@@ -58,43 +23,38 @@ function getCulture( request ) {
   }
 
   return null;
-
 }
 
 
-function init( c ) {
+module.exports = (options = {}) => {
+  const config = Object.assign({
+    initialized: false,
+    redisClient: null,
+    interfaces: {},
+    sessionCookie: Object.assign({}, options.sessionCookie ?? null, {
+      name: isoConfig.cookies.session
+    }),
+    writableCookie: Object.assign({}, options.writableCookie, {
+      name: isoConfig.cookies.writable
+    }),
+  }, options);
 
-  serviceConfig.init( c );
-
-  config = c;
-
-  config.sessionCookie = _.extend( {}, c.sessionCookie, {
-    name: isoConfig.cookies.session
-  } );
-
-  config.writableCookie = _.extend( {}, c.writableCookie, {
-    name: isoConfig.cookies.writable
-  } );
-
-  if ( c.logger ) {
-
-    logger.setModuleConfig( c.logger );
-
+  if (options.logger) {
+    logger.setModuleConfig(options.logger);
   }
-;
 
-  [ get, open, close, sync, scan ].forEach( end => {
+  const service = {
+    get: get.bind(null, config),
+    open: open.bind(null, config),
+    close: close.bind(null, config),
+    sync: sync.bind(null, config),
+    scan: scan.bind(null, config),
+    setFlash: (req, res, message) => expressCookie(config, req, res).set('flash', message),
+    isLogged: async request => !!(await get.promise(config, request)),
+    getCulture,
+  };
 
-    if ( end.init ) end.init();
+  service.mw = mw(service, config);
 
-  } );
-
-  log = logger( 'sessions' );
-
-  interfaces = c.interfaces;
-
-  mw.init( config, module.exports );
-
-  expressCookie.init( config );
-
+  return service;
 }

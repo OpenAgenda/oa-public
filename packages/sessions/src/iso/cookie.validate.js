@@ -48,7 +48,7 @@ const fields = {
         type: 'choice',
         optional: false,
         unique: true,
-        options: [ 'fr', 'en', 'de', 'es', 'it', 'br' ]
+        options: [ 'fr', 'en', 'de', 'es', 'it', 'br', 'oc' ]
       },
       uid: {
         type: 'integer',

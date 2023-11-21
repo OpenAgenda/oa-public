@@ -1,12 +1,8 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
 
-const should = require( 'should' );
-const ih = require( 'immutability-helper' );
-const sessions = require( '../src/service' );
+const Sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
@@ -15,21 +11,22 @@ describe( 'session - functional (server): open', () => {
   let client;
   let request;
   let response;
+  let sessions;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await h.createClient(config.redis);
   });
 
+  beforeAll( () => {
+    sessions = Sessions({
+      ...config,
+      redisClient: client,
+    });
+  });
 
   beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeEach( () => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
-
-  beforeEach( () => {
-
+  beforeEach(() => {
     request = { cookies: {}, session: {} };
 
     response = {
@@ -38,23 +35,22 @@ describe( 'session - functional (server): open', () => {
     }
 
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
+  });
 
-  } );
-
-  afterEach(() => client.quit());
+  afterAll(() => client.quit());
 
   it( 'open a session by providing a request object and a user identifier', done => {
 
-    sessions.open( request, { uid: 123 }, ( err, result ) => {
+    sessions.open( request, { uid: 123 }, ( err, result ) => {
 
-      result.success.should.equal( true );
-
-      Object.keys( result ).should.eql( [
+      expect(err).toBeNull();
+      expect(result.success).toBe(true);
+      expect(Object.keys(result)).toEqual([
         'success', // true if ok
         'data', // session data stored on the server side
         'cookieData', // session data stored on the session cookie
         'errors' // list of errors in case success was false
-      ] );
+      ]);
 
       done();
 
@@ -63,47 +59,46 @@ describe( 'session - functional (server): open', () => {
   } );
 
   it( 'open stores complete session data in redis', done => {
-
     sessions.open( request, { uid: 12345678 }, ( err, result ) => {
-
       client.get([config.redis.prefix, 12345678].join(':')).then(result => {
-        let parsed = JSON.parse( result );
+        const parsed = JSON.parse( result );
 
-        Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'culture', 'uid', 'name', 'thumbnail' ] );
+        expect(Object.keys(parsed)).toEqual([
+          'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'culture', 'uid', 'name', 'thumbnail'
+        ]);
 
         done();
       } );
     } );
-
   } );
 
-  it( 'open updates given request object with cookie sqession information', done => {
+  it( 'open updates given request object with cookie session information', done => {
+    expect(request.session).toEqual({});
 
-    request.session.should.eql( {} );
-
-    sessions.open( request, { uid: 12345678 }, ( err, result ) => {
-
-      _.omit(request.session, ['expires']).should.eql( {
+    sessions.open(request, { uid: 12345678 }, ( err, _result ) => {
+      expect(err).toBeNull();
+      expect(
+        _.omit(request.session, ['expires']),
+      ).toEqual({
         user: {
           culture: 'fr',
           uid: 12345678,
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture'
         }
-      } );
+      });
 
       done();
-
-    } )
-
-  } );
+    });
+  });
 
   it( 'open uses identifier data on getUser interface to retrieve user data details', done => {
 
-    sessions.init( _.extend( {}, config, {
+    const sessionWithSpecificGetUser = Sessions({
+      ...config,
+      redisClient: client,
       interfaces: {
         getUser: ( query, cb ) => {
-
           cb( null, {
             id: 1,
             uid: 1234,
@@ -112,40 +107,38 @@ describe( 'session - functional (server): open', () => {
             name: 'Gaetan Latouche',
             thumbnail: '//graph.facebook.com/100002280111541/picture'
           } );
-
         }
       }
-    } ) );
+    });
 
-    sessions.open( request, { uid: 1234 }, ( err, result ) => {
+    sessionWithSpecificGetUser.open( request, { uid: 1234 }, ( _err, result ) => {
 
-      result.data.uid.should.equal( 1234 );
+      expect(result.data.uid).toBe(1234);
 
       done();
 
     } );
 
-  } );
+  });
 
   it( 'open sets an expiration on session', done => {
+    const sessionsWithSmallExpire = Sessions({
+      ...config,
+      expire: 1,
+      redisClient: client,
+    });
 
-    sessions.init( ih( config, {
-      expire: {
-        $set: 1
-      }
-    } ) );
+    sessionsWithSmallExpire.open( request, { uid: 1234 }, ( err, result ) => {
 
-    sessions.open( request, { uid: 1234 }, ( err, result ) => {
+      sessionsWithSmallExpire.get( request, ( err, user ) => {
 
-      sessions.get( request, ( err, user ) => {
-
-        should( user ).not.equal( null );
+        expect(user).not.toBeNull();
 
         setTimeout( () => {
 
-          sessions.get( request, ( err, user ) => {
+          sessionsWithSmallExpire.get( request, ( err, user ) => {
 
-            should( user ).equal( null );
+            expect(user).toBeNull();
 
             done();
 
@@ -164,7 +157,9 @@ describe( 'session - functional (server): open', () => {
 
     sessions.open( request, response, { uid: 1234 }, ( err, result ) => {
 
-      Buffer.from( response.writable[ config.writableCookie.name ], 'base64' ).toString( 'utf-8' ).should.equal( '{}' );
+      expect(
+        Buffer.from( response.writable[ config.writableCookie.name ], 'base64' ).toString( 'utf-8' )
+      ).toBe('{}');
 
       done();
 

@@ -1,26 +1,25 @@
 "use strict";
 
-const config = require( './config' );
-const { cleanSession, callbackify } = require( './helpers' );
+const { callbackify } = require( './helpers' );
 const log = require( '@openagenda/logs' )( 'scan' );
 const _ = require( 'lodash' );
 
-module.exports = function( cursor, count, options, cb ) {
+module.exports = function( config, cursor, count, options, cb ) {
 
-  if ( arguments.length == 3 ) {
+  if ( arguments.length === 4 ) {
 
     options = {};
-    cb = arguments[ 2 ];
+    cb = arguments[ 3 ];
 
-  } else if ( arguments.length == 2 ) {
+  } else if ( arguments.length == 3 ) {
 
     count = 10;
     options = {};
-    cb = arguments[ 1 ];
+    cb = arguments[ 2 ];
 
   }
 
-  callbackify( scan( cursor, count, options ), ( err, r ) => {
+  callbackify( scan( config, cursor, count, options ), ( err, r ) => {
 
     if ( err ) return cb( err );
 
@@ -30,7 +29,7 @@ module.exports = function( cursor, count, options, cb ) {
 
 }
 
-async function scan( cursor, limit, options = {} ) {
+async function scan( config, cursor, limit, options = {} ) {
   let iterationFetches = [], updatedCursor = -1;
 
   while ( iterationFetches.length < limit && updatedCursor !== 0 ) {

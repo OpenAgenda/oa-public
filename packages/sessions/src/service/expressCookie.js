@@ -2,9 +2,8 @@
 
 const _ = require( 'lodash' );
 
-let config;
-
-module.exports = ( name, request, response ) => {
+module.exports = ( config, request, response ) => {
+  const { name } = config.writableCookie;
 
   let values = _decode( request, name );
 
@@ -30,7 +29,7 @@ module.exports = ( name, request, response ) => {
 
     request.cookies[ name ] = encoded;
 
-    response.cookie( name, encoded, { maxAge: config.writableCookie.maxAge, encode: str => str } );
+    response.cookie( name, encoded, { maxAge: config.writableCookie.maxAge, encode: str => str } );
 
   }
 

@@ -6,38 +6,56 @@ const ih = require( 'immutability-helper' );
 const sa = require( 'superagent' );
 const base64 = require( '@openagenda/utils/base64' );
 const config = require( '../testconfig' );
-const sessions = require( '../src/service' );
+const Sessions = require( '../src/service' );
 const helpers = require( './lib/helpers' );
 
-const mw = sessions.mw;
-
 describe( 'session - functional (server): middleware', () => {
-  let server;
   let client;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await helpers.createClient(config.redis);
   });
 
   beforeEach(() => helpers.clearRedis(config.redis, client));
 
-  beforeEach(() => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
-
-  afterEach(() => client.quit());
+  afterAll(() => client.quit());
 
   describe( '.sync', () => {
 
     let server;
+    let sessionsWithGetUser;
+
+    const getUserResult = {
+      id: 1,
+      uid: 12345678,
+      isNew: false,
+      name: 'Gaetan Latouche',
+      thumbnail: '//graph.facebook.com/100002280111541/picture',
+      email: 'gaetan@cibul.net',
+    };
+
+    let culture = 'fr'
+
+    beforeEach(() => {
+      sessionsWithGetUser = Sessions({
+        ...config,
+        redisClient: client,
+        interfaces: {
+          getUser: ( query, cb ) => {
+            cb( null, { ...getUserResult, culture });
+          }
+        }
+      });
+
+      
+    })
 
     afterEach( done => server.close( done.bind( null ) ) );
 
     it( 'updates session with data fetched from getUser interface', done => {
 
       server = helpers.launchTestApp( {
-        use: mw,
+        use: sessionsWithGetUser.mw,
         'get:/land' : helpers.roundTrip,
         'post:/signin' : [
           ( req, res, next ) => {
@@ -47,38 +65,17 @@ describe( 'session - functional (server): middleware', () => {
             next();
 
           },
-          mw.open(),
+          sessionsWithGetUser.mw.open(),
           ( req, res ) => { res.send( 'ok' ) }
         ],
         'post:/sync' : [
           ( req, res, next ) => {
-
-            // change test getUser to send different
-            // data.
-            sessions.init( ih( config, {
-              interfaces: {
-                getUser: {
-                  $set: ( query, cb ) => {
-
-                    cb( null, {
-                      id: 1,
-                      uid: 1234,
-                      email: 'blorg@cibul.net',
-                      culture: 'en',
-                      name: 'Gaetanne',
-                      thumbnail: null,
-                      isNew: false
-                    } );
-
-                  }
-                }
-              }
-            } ) );
+            culture = 'en';
 
             next();
 
           },
-          mw.sync(),
+          sessionsWithGetUser.mw.sync(),
           ( req, res ) => {
 
             res.send( 'ok' )
@@ -91,9 +88,10 @@ describe( 'session - functional (server): middleware', () => {
 
         let dc = base64.decode( res.header[ 'set-cookie' ][ 0 ].split( '=' )[ 1 ].split( ';' )[ 0 ] ).replace( String.fromCharCode( 0 ), '' );
 
-        JSON.parse( dc )
-
-          .user.culture.should.equal( 'en' );
+        
+        expect(
+          JSON.parse(dc).user.culture
+        ).toBe('en');
 
         done()
 
@@ -116,8 +114,18 @@ describe( 'session - functional (server): middleware', () => {
   } );
 
   describe( '.open', () => {
-
+    let sessions;
+    let mw;
     let server;
+
+    beforeAll( () => {
+      sessions = Sessions({
+        ...config,
+        redisClient: client,
+      });
+  
+      mw = sessions.mw;
+    });
 
     afterEach( done => server.close( done.bind( null ) ) );
 
@@ -139,7 +147,9 @@ describe( 'session - functional (server): middleware', () => {
 
           sessions.get( req, ( err, session ) => {
 
-            _.omit(session, ['expires']).should.eql( {
+            expect(
+              _.omit(session, ['expires'])
+            ).toEqual({
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
@@ -184,7 +194,9 @@ describe( 'session - functional (server): middleware', () => {
             req.result.success.should.equal( true );
 
             // resut will contain result of session open operation
-            _.omit(req.result.cookieData, ['expires']).should.eql( {
+            expect(
+              _.omit(req.result.cookieData, ['expires'])
+            ).toEqual( {
               user: {
                 culture: 'fr',
                 uid: 123,
@@ -201,7 +213,9 @@ describe( 'session - functional (server): middleware', () => {
 
           sessions.get( req, ( err, session ) => {
 
-            _.omit(session, ['expires']).should.eql( {
+            expect(
+              _.omit(session, ['expires'])
+            ).toEqual( {
               culture: 'fr',
               uid: 123,
               name: 'Gaetan Latouche',
@@ -241,8 +255,18 @@ describe( 'session - functional (server): middleware', () => {
   } );
 
   describe( '.ifLogged / .ifUnlogged', () => {
-
+    let sessions;
+    let mw;
     let server;
+
+    beforeAll( () => {
+      sessions = Sessions({
+        ...config,
+        redisClient: client,
+      });
+  
+      mw = sessions.mw;
+    });
 
     beforeEach(() => helpers.clearRedis(config.redis, client));
 
@@ -266,7 +290,7 @@ describe( 'session - functional (server): middleware', () => {
 
       _runClientIfLoggedRoutine( false ).then( res => {
 
-        res.body.should.eql( { ladida: true } );
+        expect(res.body).toEqual( { ladida: true } );
 
         done();
 
@@ -297,7 +321,7 @@ describe( 'session - functional (server): middleware', () => {
 
       _runClientIfLoggedRoutine( true ).then( res => {
 
-        res.body.should.eql( { ladida: false } );
+        expect(res.body).toEqual( { ladida: false } );
 
         done();
 
@@ -323,7 +347,7 @@ describe( 'session - functional (server): middleware', () => {
 
       _runClientIfLoggedRoutine( false ).then( res => {
 
-        res.body.should.eql( { ladida: false } );
+        expect(res.body).toEqual( { ladida: false } );
 
         done();
 
@@ -353,7 +377,7 @@ describe( 'session - functional (server): middleware', () => {
 
       _runClientIfLoggedRoutine( true ).then( res => {
 
-        res.body.should.eql( { ladida: true } );
+        expect(res.body).toEqual( { ladida: true } );
 
         done();
 
@@ -376,8 +400,18 @@ describe( 'session - functional (server): middleware', () => {
   } )
 
   describe( '.close', () => {
-
+    let sessions;
+    let mw;
     let server;
+
+    beforeAll( () => {
+      sessions = Sessions({
+        ...config,
+        redisClient: client,
+      });
+  
+      mw = sessions.mw;
+    });
 
     afterEach( done => server.close( done.bind( null ) ) );
 
@@ -395,9 +429,9 @@ describe( 'session - functional (server): middleware', () => {
 
           sessions.close( req, ( err, result ) => {
 
-            result.success.should.equal( true );
+            expect(result.success).toBe(true);
 
-            should( req.session ).equal( null );
+            expect(req.session).toBeNull();
 
             res.send( 'ok' );
 
@@ -425,9 +459,9 @@ describe( 'session - functional (server): middleware', () => {
           mw.close(),
           ( req, res, next ) => {
 
-            req.result.success.should.equal( true );
+            expect(req.result.success).toBe(true);
 
-            should( req.session ).equal( null );
+            expect(req.session).toBeNull();
 
             res.send( 'ok' );
 
@@ -454,8 +488,18 @@ describe( 'session - functional (server): middleware', () => {
   } );
 
   describe( '.load', () => {
-
+    let sessions;
+    let mw;
     let server;
+
+    beforeAll( () => {
+      sessions = Sessions({
+        ...config,
+        redisClient: client,
+      });
+  
+      mw = sessions.mw;
+    });
 
     afterEach( done => server.close( done.bind( null ) ) );
 
@@ -473,7 +517,9 @@ describe( 'session - functional (server): middleware', () => {
           mw.load(),
           ( req, res ) => {
 
-            _.omit(req.user, ['expires']).should.eql( {
+            expect(
+              _.omit(req.user, ['expires'])
+            ).toEqual({
               culture: 'fr',
               uid: 123,
               name: 'Gaetan Latouche',
@@ -513,7 +559,9 @@ describe( 'session - functional (server): middleware', () => {
           mw.load( { detailed: true } ),
           ( req, res ) => {
 
-            _.omit( req.user, [ 'latestActivity', 'expires' ] ).should.eql( {
+            expect(
+              _.omit( req.user, [ 'latestActivity', 'expires' ] )
+            ).toEqual({
               id: 1,
               culture: 'fr',
               uid: 123,

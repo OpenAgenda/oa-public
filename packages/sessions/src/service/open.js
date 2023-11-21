@@ -1,6 +1,5 @@
 "use strict";
 
-const config = require( './config' );
 const { cleanSession, callbackify, getUser } = require( './helpers' );
 const cookieValidate = require( '../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'sessions/open' );
@@ -10,7 +9,7 @@ const _ = require( 'lodash' );
 const VError = require( '@openagenda/verror' );
 
 
-module.exports = ( request, response, identifier, cb ) => {
+module.exports = ( config, request, response, identifier, cb ) => {
 
   if ( !cb ) {
 
@@ -20,19 +19,20 @@ module.exports = ( request, response, identifier, cb ) => {
 
   }
 
-  callbackify( open( request, response, identifier ), cb );
+  callbackify( open( config, request, response, identifier ), cb );
 
 }
 
 module.exports.promise = open;
 
-async function open( request, response, identifier ) {
-
-  if ( !config.initialized ) throw new Error( 'service has not been initialized' );
+async function open( config, request, response, identifier ) {
+  const {
+    interfaces,
+  } = config;
 
   log( 'attempting session open for user %j', identifier );
 
-  let user = await getUser( identifier );
+  let user = await getUser(interfaces, identifier);
 
   let sessionUser = null, cookieData = null;
 
@@ -95,7 +95,7 @@ async function open( request, response, identifier ) {
   // clear writable cookie
   if ( response ) {
 
-    expressCookie( config.writableCookie.name, request, response ).clear();
+    expressCookie( config, request, response ).clear();
 
   }
 

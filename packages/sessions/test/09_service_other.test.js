@@ -1,8 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
-const sessions = require( '../src/service' );
+const Sessions = require( '../src/service' );
 const expressCookie = require( '../src/service/expressCookie' );
 const config = require( '../testconfig' );
 const isoConfig = require( '../src/iso/config' );
@@ -12,17 +11,22 @@ const serviceHelpers = require( '../src/service/helpers' );
 describe( 'session - functional (server): isLogged & getCulture', () => {
   let client;
   let request;
+  let sessions;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await h.createClient(config.redis);
   });
 
   beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeEach(() => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
+  beforeAll( () => {
+    sessions = Sessions({
+      ...config,
+      redisClient: client,
+    });
+
+    mw = sessions.mw;
+  });
 
   beforeEach(() => {
     request = {
@@ -33,7 +37,7 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
   });
 
-  afterEach(() => client.quit());
+  afterAll(() => client.quit());
 
   describe( '.isLogged', () => {
 
@@ -58,7 +62,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
-      (await sessions.isLogged( req )).should.equal( true );
+      expect(
+        await sessions.isLogged( req )
+      ).toBe(true);
 
     } );
 
@@ -71,7 +77,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
-      (await sessions.isLogged( req )).should.equal( false );
+      expect(
+        await sessions.isLogged( req )
+      ).toBe(false);
 
     } );
 
@@ -83,7 +91,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       let session = { somekey: '123' };
 
-      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123', expires: undefined } );
+      expect(
+        serviceHelpers.cleanSession( session )
+      ).toEqual( { somekey: '123', expires: undefined } );
 
     } );
 
@@ -99,7 +109,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
         }
       }
 
-      sessions.getCulture( req ).should.equal( 'en' );
+      expect(
+        sessions.getCulture( req )
+      ).toBe( 'en' );
 
     } );
 
@@ -109,7 +121,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
         session: {}
       };
 
-      should( sessions.getCulture( req ) ).equal( null );
+      expect(
+        sessions.getCulture( req )
+      ).toBeNull();
 
     } );
 
@@ -131,7 +145,9 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       sessions.setFlash( req, res, 'pédo-phile d\'ici' );
 
-      should( expressCookie( config.writableCookie.name, req, res ).get().flash ).equal( 'pédo-phile d\'ici' );
+      expect(
+        expressCookie( config, req, res ).get().flash
+      ).toBe( 'pédo-phile d\'ici' );
 
     } );
 

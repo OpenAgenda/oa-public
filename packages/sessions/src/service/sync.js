@@ -1,20 +1,19 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'sync' );
 const get = require( './get' );
 const open = require( './open' );
 
 const { callbackify } = require( './helpers' );
 
-module.exports = ( request, cb ) => {
+module.exports = (config, request, cb ) => {
 
-  callbackify( sync( request ), cb );
+  callbackify( sync( config, request ), cb );
 
 }
 
-async function sync( request ) {
+async function sync( config, request ) {
 
-  let user = await get.promise( request );
+  let user = await get.promise( config, request );
 
   if ( !user ) {
 
@@ -27,6 +26,6 @@ async function sync( request ) {
 
   }
 
-  return await open.promise( request, null, { uid: user.uid } );
+  return await open.promise( config, request, null, { uid: user.uid } );
 
 }
