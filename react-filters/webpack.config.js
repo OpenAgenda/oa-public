@@ -3,7 +3,7 @@
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const mkdirp = require('mkdirp');
+const { mkdirp } = require('mkdirp');
 const webpack = require('webpack');
 const ProgressBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');

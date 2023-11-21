@@ -103,7 +103,7 @@
     "express": "^4.17.1",
     "jest": "^28.1.2",
     "lint-staged": "^10.2.11",
-    "mkdirp": "^1.0.4",
+    "mkdirp": "^3.0.1",
     "nodemon": "^2.0.15",
     "prettier-eslint-cli": "^7.1.0",
     "raw-loader": "^4.0.2",
