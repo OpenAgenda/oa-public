@@ -33,7 +33,7 @@
     "@openagenda/intl": "^1.1.3",
     "glob": "^8.0.1",
     "lodash": "^4.17.21",
-    "mkdirp": "^1.0.4",
+    "mkdirp": "^3.0.1",
     "rimraf": "^3.0.2",
     "yargs": "^17.4.1"
   }
