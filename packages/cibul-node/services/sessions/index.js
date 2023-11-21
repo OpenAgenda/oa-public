@@ -22,6 +22,7 @@ module.exports.init = (config, services) => {
     interfaces: {
       getUser: getUser.bind(null, services, config.aws.imageBucketPath),
     },
+    cultures: config.interfaceLanguages,
     logger: config.getLogConfig('oa', 'sessions', false),
   });
 
