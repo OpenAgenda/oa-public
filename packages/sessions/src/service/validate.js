@@ -1,38 +1,47 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
-const cookieUserFields = require( '../../iso/cookie.validate' ).validateLogged.fields.user.fields;
-const extend = require( 'lodash/extend' );
+const schema = require('@openagenda/validators/schema');
+const extend = require('lodash/extend');
 
-schema.register( {
-  boolean: require( '@openagenda/validators/boolean' ),
-  choice: require( '@openagenda/validators/choice' ),
-  integer: require( '@openagenda/validators/integer' ),
-  email: require( '@openagenda/validators/email' ),
-  text: require( '@openagenda/validators/text' ),
-  date: require( '@openagenda/validators/date' ),
-  link: require( '@openagenda/validators/link' )
-} );
+const booleanValidator = require('@openagenda/validators/boolean');
+const choiceValidator = require('@openagenda/validators/choice');
+const integerValidator = require('@openagenda/validators/integer');
+const emailValidator = require('@openagenda/validators/email');
+const textValidator = require('@openagenda/validators/text');
+const dateValidator = require('@openagenda/validators/date');
+const linkValidator = require('@openagenda/validators/link');
 
-module.exports = schema( extend( {
+const { fields: cookieUserFields } = require('../../iso/cookie.validate').validateLogged.fields.user;
+
+schema.register({
+  boolean: booleanValidator,
+  choice: choiceValidator,
+  integer: integerValidator,
+  email: emailValidator,
+  text: textValidator,
+  date: dateValidator,
+  link: linkValidator,
+});
+
+module.exports = schema(extend({
   id: {
     type: 'integer',
-    optional: false
+    optional: false,
   },
   email: {
-    type: 'email'
+    type: 'email',
   },
   latestActivity: {
-    type: 'date'
+    type: 'date',
   },
   expires: {
-    type: 'date'
+    type: 'date',
   },
   isNew: {
-    type: 'boolean'
+    type: 'boolean',
   },
   isBlacklisted: {
     type: 'boolean',
     default: false,
-  }
-}, cookieUserFields ) );
+  },
+}, cookieUserFields));

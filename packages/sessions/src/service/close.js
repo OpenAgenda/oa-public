@@ -1,39 +1,32 @@
-"use strict";
+'use strict';
 
-const { cleanSession, callbackify } = require( './helpers' );
-const _ = require( 'lodash' );
-
-module.exports = (config, request, cb ) => {
-
-  callbackify( close( config, request ), cb );
-
-}
+const { cleanSession, callbackify } = require('./helpers');
 
 function closeByUid(config, uid) {
-  return config.redisClient.del([config.redis.prefix, uid].join(':'))
+  return config.redisClient.del([config.redis.prefix, uid].join(':'));
 }
 
-async function close( config, request ) {
+async function close(config, request) {
+  const cookieUser = cleanSession(request.session).user;
 
-  const cookieUser = cleanSession( request.session ).user;
-
-  if ( !cookieUser ) {
-
+  if (!cookieUser) {
     return {
       success: false,
-      errors: [ { code: 'user.notfound' } ]
-    }
-
+      errors: [{ code: 'user.notfound' }],
+    };
   }
 
-  await closeByUid(config, cookieUser.uid)
+  await closeByUid(config, cookieUser.uid);
 
   request.session = null;
 
   return {
-    success: true
-  }
-
+    success: true,
+  };
 }
+
+module.exports = (config, request, cb) => {
+  callbackify(close(config, request), cb);
+};
 
 module.exports.byUid = closeByUid;
