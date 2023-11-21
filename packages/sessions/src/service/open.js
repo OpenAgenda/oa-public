@@ -1,10 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('sessions/open');
 const VError = require('@openagenda/verror');
 const cookieValidate = require('../../iso/cookie.validate');
-const validate = require('./validate');
+const validator = require('./validator');
 const expressCookie = require('./expressCookie');
 const { cleanSession, callbackify, getUser } = require('./helpers');
 
@@ -31,6 +30,7 @@ function extractArgs(config, request, response, identifier, cb) {
 async function open(config, request, response, identifier) {
   const {
     interfaces,
+    cultures,
   } = config;
 
   log('attempting session open for user %j', identifier);
@@ -54,11 +54,14 @@ async function open(config, request, response, identifier) {
   const latestActivity = new Date();
   const expires = new Date(latestActivity.getTime() + config.expire * 1000);
 
+  const validate = validator({ cultures });
+
   try {
-    sessionUser = validate(_.extend({
+    sessionUser = validate({
       latestActivity,
       expires,
-    }, user));
+      ...user,
+    });
   } catch (errors) {
     log('error', 'user validation failed on %j', user, errors);
 

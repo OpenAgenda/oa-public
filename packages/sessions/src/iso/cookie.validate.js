@@ -1,44 +1,50 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const schema = require( '@openagenda/validators/schema' );
+const _ = require('lodash');
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  choice: require( '@openagenda/validators/choice' ),
-  integer: require( '@openagenda/validators/integer' ),
-  text: require( '@openagenda/validators/text' ),
-  link: require( '@openagenda/validators/link' ),
-  date: require( '@openagenda/validators/date' ),
-  boolean: require( '@openagenda/validators/boolean' )
-} );
+const choiceValidator = require('@openagenda/validators/choice');
+const integerValidator = require('@openagenda/validators/integer');
+const textValidator = require('@openagenda/validators/text');
+const linkValidator = require('@openagenda/validators/link');
+const dateValidator = require('@openagenda/validators/date');
+const booleanValidator = require('@openagenda/validators/boolean');
 
+schema.register({
+  choice: choiceValidator,
+  integer: integerValidator,
+  text: textValidator,
+  link: linkValidator,
+  date: dateValidator,
+  boolean: booleanValidator,
+});
 
 const writableFields = {
   flash: {
     type: 'text',
-    max: 1000
+    max: 1000,
   },
   inbox: {
     lastRequestTime: {
       type: 'integer',
-      default: 0
+      default: 0,
     },
     lastKnownState: {
       type: 'boolean',
-      default: false
-    }
+      default: false,
+    },
   },
   notifications: {
     updatedAt: {
       type: 'date',
-      default: null
+      default: null,
     },
     count: {
       type: 'integer',
-      default: null
-    }
+      default: null,
+    },
   },
-}
+};
 
 const fields = {
   user: {
@@ -48,51 +54,43 @@ const fields = {
         type: 'choice',
         optional: false,
         unique: true,
-        options: [ 'fr', 'en', 'de', 'es', 'it', 'br', 'oc' ]
+        options: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
       },
       uid: {
         type: 'integer',
-        optional: false
+        optional: false,
       },
       name: {
         type: 'text',
-        optional: false
+        optional: false,
       },
       thumbnail: {
         type: 'link',
-        optional: true
-      }
-    }
+        optional: true,
+      },
+    },
   },
   expires: {
     type: 'date',
-    optional: true
-  }
+    optional: true,
+  },
 };
 
-// jumping through hoops because an empty subobject in schema is processed
-// as default: user is not always specified.
+const validateUnlogged = schema(_.omit(fields, ['user']));
+const validateLogged = schema(fields);
 
-const validateWritable = schema( writableFields );
-
-const validateLogged = schema( fields );
-
-const validateUnlogged = schema( _.omit( fields, [ 'user' ] ) );
-
-module.exports = _.extend( _validate, {
-  validateLogged,
-  validateUnlogged,
-  writable: validateWritable
-} );
-
-function _validate( dirty ) {
-
-  if ( dirty && _.isObject( dirty ) && !dirty.user ) {
-
-    return validateUnlogged( dirty );
-
+function validate(dirty) {
+  if (dirty && _.isObject(dirty) && !dirty.user) {
+    return validateUnlogged(dirty);
   }
 
-  return validateLogged( dirty );
-
+  return validateLogged(dirty);
 }
+
+const validateWritable = schema(writableFields);
+
+module.exports = Object.assign(validate, {
+  validateLogged,
+  validateUnlogged,
+  writable: validateWritable,
+});
