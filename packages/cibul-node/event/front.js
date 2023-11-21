@@ -10,7 +10,6 @@ const agendaSvc = require('@openagenda/agendas');
 
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
 const errorLabels = require('@openagenda/labels/errors');
-const sessions = require('@openagenda/sessions');
 
 const members = require('../services/members');
 
@@ -373,6 +372,7 @@ const preMw = [
 module.exports = app => {
   const {
     agendas: agendasSvc,
+    sessions,
   } = app.services;
 
   app.get(

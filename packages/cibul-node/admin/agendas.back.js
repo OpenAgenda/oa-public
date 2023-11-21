@@ -1,15 +1,14 @@
 'use strict';
 
 const _ = require('lodash');
-const sessions = require('@openagenda/sessions');
 const agendasSvc = require('@openagenda/agendas');
 const { mw } = require('@openagenda/admin-agendas');
 const cmn = require('../lib/commons-app');
 
-const preMw = [
+const PreMw = ({ sessions }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-  cmn.requireSuperAdmin
+  cmn.requireSuperAdmin,
 ];
 
 function index(req, res) {
@@ -18,8 +17,10 @@ function index(req, res) {
 
 module.exports = app => {
   const {
-    aggregators
+    aggregators,
   } = app.services;
+
+  const preMw = PreMw(app.services);
 
   app.get('/admin/agendas/', preMw, index);
   app.get('/admin/agendas/search', preMw, mw.agendas.list);

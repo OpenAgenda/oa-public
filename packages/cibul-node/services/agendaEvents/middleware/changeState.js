@@ -3,7 +3,6 @@
 const typeis = require('type-is');
 const base64 = require('@openagenda/utils/base64');
 const states = require('@openagenda/agenda-events/iso/states');
-const sessions = require('../../sessions');
 
 const actionLabels = require('@openagenda/labels')(
   require('@openagenda/labels/agendas/actions')
@@ -56,6 +55,9 @@ module.exports = (req, res, next) => {
 }
 
 module.exports.batched = (req, res, next) => {
+  const {
+    sessions,
+  } = req.app.services;
   const stateSwitch = switches[req.body.state];
 
   if (!stateSwitch) {

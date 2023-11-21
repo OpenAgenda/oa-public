@@ -4,7 +4,6 @@ const _ = require('lodash');
 const { promisify } = require('util');
 const moment = require('moment');
 const async = require('async');
-const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('admin/back');
 const agendasSvc = require('@openagenda/agendas');
 const cmn = require('../lib/commons-app');
@@ -13,13 +12,15 @@ const model = require('../services/model');
 const adminSvc = require('../services/admin/admin');
 const config = require('../config');
 
-const preMw = [
+const PreMw = ({ sessions }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
   cmn.requireSuperAdmin,
 ];
 
-module.exports = (app) => {
+module.exports = app => {
+  const preMw = PreMw(app.services);
+
   app.get('/admin', preMw, index);
   app.get('/admin/search', preMw, search);
   app.get('/admin/users', preMw, getUsers);
@@ -271,6 +272,10 @@ function userUpdate(req, res, next) {
 }
 
 function userSignin(req, res) {
+  const {
+    sessions,
+  } = req.app.services;
+
   sessions.open(req, res, req.loadedUser, () => {
     if (req.xhr) return cmn.renderJson(req, res, { success: true });
 

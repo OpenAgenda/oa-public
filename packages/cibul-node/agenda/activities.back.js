@@ -1,12 +1,11 @@
 "use strict";
 
 const React = require('react');
-const sessions = require('@openagenda/sessions');
 const mw = require('@openagenda/activity-apps/dist/middleware');
 const cmn = require('../lib/commons-app');
 
 module.exports = app => {
-  const { agendas, members } = app.services;
+  const { agendas, members, sessions } = app.services;
 
   const preMw = [
     cmn.loadLogger('agendaActivities'),

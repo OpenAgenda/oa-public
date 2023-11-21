@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const sessions = require('@openagenda/sessions');
 const range = require('@openagenda/date-range');
 const agendaSvc = require('@openagenda/agendas');
 const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
@@ -14,11 +13,6 @@ function getBooleanQuery(param) {
   if (param === '0' || param === 'false') return false;
   if (param === '1' || param === 'true') return true;
 }
-
-const preMw = [
-  cmn.loadLogger('home'),
-  sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/'))
-];
 
 async function agendasList(req, res, next) {
   const page = req.query.page || 1;
@@ -98,6 +92,15 @@ function eventsList(req, res, next) {
 }
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
+
+  const preMw = [
+    cmn.loadLogger('home'),
+    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/'))
+  ];
+
   app.get(
     '/home/agendas',
     preMw,

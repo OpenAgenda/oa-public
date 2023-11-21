@@ -2,7 +2,6 @@
 
 const { promisify } = require('node:util');
 const Service = require('@openagenda/activities');
-const sessions = require('@openagenda/sessions');
 const mw = require('@openagenda/activity-apps/dist/middleware');
 const unsubscribedSvc = require('@openagenda/unsubscribed');
 const createPrepareSummaryQueue = require('./prepareSummary');
@@ -11,11 +10,16 @@ const activitiesConfig = require('./activitiesConfig');
 const addActivity = require('./addActivity');
 
 const activities = {};
-const preMw = [
-  sessions.mw.ifUnlogged((req, res) => res.status(400).json({ error: 'Not logged' })),
-];
+
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
+  const preMw = [
+    sessions.mw.ifUnlogged((req, res) => res.status(400).json({ error: 'Not logged' })),
+  ];
+
   app.get('/notifications/count', preMw, mw.notifications.count);
   app.get('/notifications/list', preMw, mw.notifications.list);
   app.get('/notifications/remove/:notifId', preMw, mw.notifications.remove);
