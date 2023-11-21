@@ -79,7 +79,7 @@
     "eslint": "^8.24.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^1.5.0",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^3.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "sass": "^1.52.1",
     "sass-loader": "^8.0.2",

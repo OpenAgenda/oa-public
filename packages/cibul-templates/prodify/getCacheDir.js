@@ -3,7 +3,7 @@
 const os = require( 'os' );
 const fs = require( 'fs' );
 const path = require( 'path' );
-const mkdirp = require( 'mkdirp' );
+const { mkdirp } = require( 'mkdirp' );
 
 
 module.exports = function getCacheDir( name ) {

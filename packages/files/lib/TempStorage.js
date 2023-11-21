@@ -4,7 +4,7 @@ const fs = require('fs');
 const os = require('os');
 const { join } = require('path');
 const crypto = require('crypto');
-const mkdirp = require('mkdirp');
+const { mkdirp } = require('mkdirp');
 
 function getFilename(req, file, cb) {
   crypto.randomBytes(16, (err, raw) => {

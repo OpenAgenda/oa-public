@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
+const { mkdirp } = require('mkdirp');
 const dedent = require('dedent');
 const fileExists = require('./fileExists');
 

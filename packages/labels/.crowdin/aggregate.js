@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const mkdirp = require('mkdirp');
+const { mkdirp } = require('mkdirp');
 const { DEFAULT_LANGS } = require('@openagenda/intl');
 const getLabelFiles = require('../getLabelFiles');
 

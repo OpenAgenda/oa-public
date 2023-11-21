@@ -2,7 +2,7 @@ var fs = require( 'fs' ),
 
   path = require( 'path' ),
 
-  mkdirp = require( 'mkdirp' ),
+  { mkdirp } = require( 'mkdirp' ),
 
   async = require( 'async' ),
 
