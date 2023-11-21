@@ -51,10 +51,10 @@ const fields = {
     optional: true,
     fields: {
       culture: {
-        type: 'choice',
+        type: 'text',
+        min: 2,
+        max: 2,
         optional: false,
-        unique: true,
-        options: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
       },
       uid: {
         type: 'integer',

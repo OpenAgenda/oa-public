@@ -13,6 +13,7 @@ module.exports = {
     maxAge: 1000 * 60 * 60 * 48,
     name: 'oa.rw', // overriden by iso configuration
   },
+  cultures: ['fr', 'en', 'es'],
   redis: {
     host: 'localhost',
     port: 6379,

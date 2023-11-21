@@ -1,7 +1,6 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
-const extend = require('lodash/extend');
 
 const booleanValidator = require('@openagenda/validators/boolean');
 const choiceValidator = require('@openagenda/validators/choice');
@@ -23,7 +22,7 @@ schema.register({
   link: linkValidator,
 });
 
-module.exports = schema(extend({
+module.exports = config => schema({
   id: {
     type: 'integer',
     optional: false,
@@ -44,4 +43,11 @@ module.exports = schema(extend({
     type: 'boolean',
     default: false,
   },
-}, cookieUserFields));
+  ...cookieUserFields,
+  culture: {
+    type: 'choice',
+    optional: false,
+    unique: true,
+    options: config.cultures,
+  },
+});
