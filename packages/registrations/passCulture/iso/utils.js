@@ -83,3 +83,9 @@ export function getRelatedFieldName(categories, category) {
   const enumValue = (categories.find(({ value }) => value === category)?.related ?? [])[0];
   return enumValue ? _.camelCase(enumValue.replace('Enum', '')) : undefined;
 }
+
+export function getRelatedFieldOptions(related, relatedFieldName) {
+  const enumValue = `${relatedFieldName.replace(/^\w/, c => c.toUpperCase())}Enum`;
+
+  return related.find(({ schema }) => schema === enumValue).options ?? [];
+}

@@ -1,5 +1,5 @@
 import { BadRequest } from '@openagenda/verror';
-import { getRelatedFieldName } from '../utils.js';
+import { getRelatedFieldName, getRelatedFieldOptions } from '../utils.js';
 
 export default function validateRelatedField({ categories, related }, data) {
   const relatedFieldName = getRelatedFieldName(categories, data.category);
@@ -21,10 +21,7 @@ export default function validateRelatedField({ categories, related }, data) {
     });
   }
 
-  const typeEnumValue = categories.find(({ value }) => value === data.category).related[0];
-
-  const matchingOption = (related.find(({ schema }) => schema === typeEnumValue)?.options ?? [])
-    .find(({ value }) => value === data[relatedFieldName]);
+  const matchingOption = getRelatedFieldOptions(related, relatedFieldName).find(({ value }) => value === data[relatedFieldName]);
 
   if (!matchingOption) {
     throw new BadRequest({
