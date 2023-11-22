@@ -1,11 +1,9 @@
-declare global {
-  interface Window {
-    Matomo?: any
-    matomoPluginAsyncInit?: any
-  }
-}
+declare const window: {
+  Matomo?: any
+  matomoPluginAsyncInit?: any
+} & Window;
 
-function normalizeUrl(url) {
+function normalizeUrl(url: string) {
   let result = url;
 
   if (result.startsWith('https://')) {

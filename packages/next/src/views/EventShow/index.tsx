@@ -20,9 +20,13 @@ import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
 import { faPhone } from '@fortawesome/pro-solid-svg-icons';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import Image from 'components/Image';
+import ConsentBanner from 'components/ConsentBanner';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import { FetchStatus } from 'config/types';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
+import useMatomoTracker from 'hooks/useMatomoTracker';
+import useClientAnalytics from 'hooks/useClientAnalytics';
+import type { Agenda } from 'types';
 import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
@@ -39,11 +43,7 @@ const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? value[Object.keys(value).shift()];
 
 export type EventShowProps = {
-  agenda: {
-    uid: number
-    title: string
-    schema: Record<string, any>
-  }
+  agenda: Agenda
   event: {
     title: Record<string, string>
     description: Record<string, string>
@@ -174,6 +174,9 @@ function EditLocationButton({ agenda }) {
 function EventShow({ agenda, event, preload }: EventShowProps) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
+
+  useMatomoTracker();
+  const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
   const hasAdditionalFields = useMemo(
     () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
@@ -496,6 +499,10 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
           <Footer agenda={agenda} />
         </GridItem>
       </Grid>
+
+      {needConsentFor ? (
+        <ConsentBanner consentFor={needConsentFor} />
+      ) : null}
 
       <div>
         <h1>Une autre page NextJs</h1>

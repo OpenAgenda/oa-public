@@ -18,7 +18,7 @@ export default {
 };
 
 export function ConsentBannerComponent(_args, { loaded: { intlMessages } }) {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, _setCookie, removeCookie] = useCookies();
 
   useEffect(() => {
     removeCookie('CookieConsent');
@@ -29,9 +29,7 @@ export function ConsentBannerComponent(_args, { loaded: { intlMessages } }) {
       {cookies.CookieConsent && <Button mx="4" colorScheme="red" onClick={() => removeCookie('CookieConsent')}>removeCookie</Button>}
       <p>CookieConsent : {cookies.CookieConsent}</p>
       {cookies.CookieConsent === undefined && (
-        <ConsentBanner
-          setCookie={setCookie}
-        />
+        <ConsentBanner />
       )}
     </Providers>
   );

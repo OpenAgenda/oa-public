@@ -1,5 +1,4 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { useCookies } from 'react-cookie';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -11,11 +10,12 @@ import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
-import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
-import { addMatomoTracker, addMatomoClientTracker } from 'utils/addMatomoTracker';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
+import useMatomoTracker from 'hooks/useMatomoTracker';
+import useClientAnalytics from 'hooks/useClientAnalytics';
+import type { Agenda } from 'types';
 import useEventsQuery from './hooks/useEventsQuery';
 import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
@@ -25,9 +25,6 @@ import ContentGrid from './components/ContentGrid';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
-
-const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
-const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
 
 const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
   // ssr: false,
@@ -53,17 +50,7 @@ const DynamicLdJson = dynamic(() => import('./components/LdJson'), {
 DynamicEventsPart.render.preload();
 
 export type AgendaShowProps = {
-  agenda: {
-    slug: string,
-    uid: number,
-    title: string,
-    description: string,
-    schema: any,
-    settings: any,
-    summary: any,
-    indexed: boolean | number,
-    image?: string,
-  },
+  agenda: Agenda,
   preload?: string[]
 };
 
@@ -109,41 +96,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
   const isMounted = useIsMounted();
 
-  const [cookies, setCookie] = useCookies();
-
-  useEffect(() => {
-    if (!MATOMO_URL || !MATOMO_SITE_ID) {
-      return;
-    }
-
-    addMatomoTracker({
-      matomoUrl: MATOMO_URL,
-      matomoSiteId: MATOMO_SITE_ID,
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!agenda.settings?.tracking) {
-      return;
-    }
-
-    const {
-      googleAnalytics,
-      matomoUrl,
-      matomoSiteId,
-      matomoAskForConsent,
-      matomoCustom,
-    } = agenda.settings.tracking;
-
-    if (googleAnalytics && cookies.GaCookieConsent === 'true') {
-      addGoogleAnalyticsTracker({ googleAnalyticsID: googleAnalytics });
-    }
-    if (matomoUrl && matomoSiteId) {
-      if (!matomoAskForConsent || (matomoAskForConsent && cookies.MatomoCookieConsent === 'true')) {
-        addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
-      }
-    }
-  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, agenda.settings?.tracking]);
+  useMatomoTracker();
+  const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
   const filtersToInclude = useMemo(() => {
     const additionalFilters = getAdditionalFilters(agenda.schema.fields)
@@ -281,10 +235,9 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         </FiltersProvider>
       </main>
 
-      {(cookies.GaCookieConsent === undefined && agenda.settings?.tracking?.googleAnalytics)
-        || (cookies.MatomoCookieConsent === undefined && agenda?.settings?.tracking?.matomoAskForConsent) ? (
-          <ConsentBanner setCookie={setCookie} consentFor={agenda.settings?.tracking?.googleAnalytics ? 'ga' : 'matomo'} />
-        ) : null}
+      {needConsentFor ? (
+        <ConsentBanner consentFor={needConsentFor} />
+      ) : null}
 
       {isMounted ? (
         <Suspense>
