@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile } from 'node:fs/promises';
 import { Readable } from 'readable-stream';
 
 export default class FixturesStream extends Readable {

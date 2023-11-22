@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import cursorYOverflowing from '../lib/cursorYOverflowing.js';
 import addFooter from '../lib/addFooter.js';
