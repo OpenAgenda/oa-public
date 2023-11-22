@@ -3,6 +3,7 @@ import { BadRequest } from '@openagenda/verror';
 import validateDate from './validateDate.js';
 import validatePriceCategory from './validatePriceCategory.js';
 import validateRelatedField from './validateRelatedField.js';
+import validateBookingContact from './validateBookingContact.js';
 
 export default function validateLocalData(data, event, options = {}) {
   const fieldLabel = 'Pass Culture';
@@ -23,6 +24,7 @@ export default function validateLocalData(data, event, options = {}) {
     priceCategories = [],
     dates = [],
     venueId,
+    bookingContact,
   } = data ?? {};
 
   const clean = {
@@ -134,6 +136,14 @@ export default function validateLocalData(data, event, options = {}) {
         ...e,
         index,
       }));
+    }
+  }
+
+  if (bookingContact) {
+    try {
+      clean.bookingContact = validateBookingContact(bookingContact);
+    } catch (error) {
+      error.info.errors.forEach(e => errors.push(e));
     }
   }
 

@@ -302,6 +302,36 @@ describe('validate', () => {
       expect(error.info.errors.map(e => e.code)).toContain('registration.pass.requiredDates');
     });
 
+    test('invalid bookingContact throws an error', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          bookingContact: 'notanemail',
+        }, { timings: [] }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors.map(e => e.code)).toContain('registration.pass.bookingContact.invalid');
+    });
+
+    test('valid bookingContact does not throw an error', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          bookingContact: 'a@valid.email',
+        }, { timings: [] }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors.map(e => e.code)).not.toContain('registration.pass.bookingContact.invalid');
+    });
+
     test('boolMode returns false when data is not valid', () => {
       const isValid = validateLocalData({
         priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
