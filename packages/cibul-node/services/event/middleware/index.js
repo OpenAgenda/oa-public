@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const qs = require('qs');
 
-const sessions = require('@openagenda/sessions');
 const utils = require('@openagenda/utils');
 const validateLink = require('@openagenda/validators/link')();
 const membersSvc = require('../../members');
@@ -229,6 +228,10 @@ async function _loadUserAgendaCreds(v) {
 }
 
 function _loadUserCreds(v) {
+  const {
+    sessions,
+  } = v.req.app.services;
+
   v.user.logged = sessions.isLogged(v.req);
 
   return w.promise((rs, rj) => {

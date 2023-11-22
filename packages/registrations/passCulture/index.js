@@ -1,5 +1,5 @@
 import PassCultureSDK from './lib/PassCultureSDK.js';
-import { validateEventOffer } from './iso/validate.js';
+import validateEventOffer from './iso/validate/validateEventOffer.js';
 import createEventOffer from './createEventOffer.js';
 import verifyAndCreateEventOffer from './validateAndCreateEventOffer.js';
 import getParameters from './lib/getParameters.js';

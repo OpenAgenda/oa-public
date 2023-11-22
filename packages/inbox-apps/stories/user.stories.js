@@ -33,41 +33,44 @@ const getDefaultState = ( { apiRoot } = {} ) => ({
   modals: {}
 });
 
+export default {
+  title: 'App',
+};
 
-storiesOf( 'App', module )
-  .add( 'all', () => {
-    const element = wrapApp(createApp( {
-      history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } ));
+export function All() {
+  const element = wrapApp(createApp( {
+    history: createMemoryHistory(),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ));
 
-    return (
-      <div className="container top-margined">
-        <div className="row wsq">
-          <div className="margin-all-sm">
-            <div className="inbox inbox-user">
-              {element}
-            </div>
+  return (
+    <div className="container top-margined">
+      <div className="row wsq">
+        <div className="margin-all-sm">
+          <div className="inbox inbox-user">
+            {element}
           </div>
         </div>
       </div>
-    );
-  } )
-  .add( 'unavailable conversation', () => {
-    const element = wrapApp(createApp( {
-      history: createMemoryHistory( { initialEntries: [ '/conversation/123' ] } ),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } ) );
+    </div>
+  );
+}
 
-    return (
-      <div className="container top-margined">
-        <div className="row wsq">
-          <div className="margin-all-sm">
-            <div className="inbox inbox-user">
-              {element}
-            </div>
+export function UnavailableConversation() {
+  const element = wrapApp(createApp( {
+    history: createMemoryHistory( { initialEntries: [ '/conversation/123' ] } ),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) );
+
+  return (
+    <div className="container top-margined">
+      <div className="row wsq">
+        <div className="margin-all-sm">
+          <div className="inbox inbox-user">
+            {element}
           </div>
         </div>
       </div>
-    );
-  } );
+    </div>
+  );
+}

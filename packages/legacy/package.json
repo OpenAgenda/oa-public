@@ -8,7 +8,7 @@
   "scripts": {
     "sb": "yarn start",
     "build": "babel --copy-files embeds/app/src -d embeds/app/dist -s",
-    "start": "start-storybook -c embeds/app/.storybook -p 9001 --ci",
+    "start": "storybook dev -c embeds/app/.storybook -p 9001 --ci",
     "test": "jest --runInBand --testEnvironment=node",
     "prepack": "yarn extract-messages -c && yarn build",
     "extract-messages": "yarn oa-intl 'embeds/app/src/**/*.js' --output 'embeds/app/src/locales/%lang%.json' --compiled 'embeds/app/src/locales-compiled/%lang%.json'"
@@ -48,14 +48,14 @@
     "@babel/core": "^7.23.3",
     "@loadable/babel-plugin": "^5.13.2",
     "@openagenda/babel-preset": "^1.5.0",
-    "@storybook/react": "^6.5.9",
-    "babel-loader": "^8.2.2",
+    "@storybook/react-webpack5": "^7.4.2",
     "jest": "^28.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "redis": "^4.6.6",
     "redux": "^4.0.5",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",

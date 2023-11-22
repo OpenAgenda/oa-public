@@ -11,7 +11,7 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/home",
   "scripts": {
-    "start": "NODE_ENV=development start-storybook -p 9001 --ci",
+    "start": "storybook dev -p 9001 --ci",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build",
@@ -34,7 +34,6 @@
     "@openagenda/members": "^1.15.13",
     "@openagenda/react-shared": "^2.4.0",
     "axios": "^0.21.1",
-    "axios-mock-adapter": "^1.19.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "final-form": "^4.20.2",
@@ -42,7 +41,6 @@
     "lodash": "^4.17.15",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
-    "react-bootstrap": "0.33.1",
     "react-final-form": "^6.5.3",
     "react-helmet-async": "^1.0.3",
     "react-intl": "^5.12.2",
@@ -63,9 +61,8 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react": "^6.5.9",
-    "babel-loader": "^8.2.2",
-    "core-js": "^3.29.1",
+    "@storybook/react-webpack5": "^7.4.2",
+    "axios-mock-adapter": "^1.19.0",
     "eslint": "^8.24.0",
     "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^7.1.0",
@@ -75,7 +72,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "webpack": "^5.53.0"
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

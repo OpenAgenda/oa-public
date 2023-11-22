@@ -109,7 +109,7 @@ export default ({
               </a>
             </>
           ) : (
-            <div className="text-muted">Je souhaite créer une billetterie pass culture pour cet événement</div>
+            <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>
           )}
           {!offerAlreadyExists && !isLoadingPassData && issues.length ? (
             <ul className="padding-left-sm">{issues.map(issue => (

@@ -1,32 +1,25 @@
-"use strict";
+'use strict';
 
-const log = require( '@openagenda/logs' )( 'sync' );
-const get = require( './get' );
-const open = require( './open' );
+const get = require('./get');
+const open = require('./open');
 
-const { callbackify } = require( './helpers' );
+const { callbackify } = require('./helpers');
 
-module.exports = ( request, cb ) => {
+async function sync(config, request) {
+  const user = await get.promise(config, request);
 
-  callbackify( sync( request ), cb );
-
-}
-
-async function sync( request ) {
-
-  let user = await get.promise( request );
-
-  if ( !user ) {
-
+  if (!user) {
     return {
       success: false,
-      errors: [ {
-        code: 'session.notfound'
-      } ]
-    }
-
+      errors: [{
+        code: 'session.notfound',
+      }],
+    };
   }
 
-  return await open.promise( request, null, { uid: user.uid } );
-
+  return open.promise(config, request, null, { uid: user.uid });
 }
+
+module.exports = (config, request, cb) => {
+  callbackify(sync(config, request), cb);
+};

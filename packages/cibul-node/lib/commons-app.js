@@ -11,7 +11,6 @@ const qs = require( 'qs' );
 const VError = require( '@openagenda/verror' );
 
 const logger = require( '@openagenda/logs' );
-const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
 const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
@@ -140,6 +139,9 @@ function loadLogger(name) {
  */
 function lang( req, res, next ) {
   req.lang = 'fr';
+  const {
+    sessions,
+  } = req.app.services;
 
   sessions.isLogged( req ).then( isLogged => {
     if ( isLogged ) {

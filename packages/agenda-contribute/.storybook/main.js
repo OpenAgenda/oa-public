@@ -1,20 +1,14 @@
-module.exports = {
-  stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  core: {
-    builder: 'webpack5'
+import { dirname, join } from 'node:path';
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
+
+export default {
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  framework: {
+    name: getAbsolutePath('@storybook/react-webpack5'),
+    options: {},
   },
   staticDirs: ['./public'],
-  webpackFinal(config) {
-    config.module.rules.push({
-      test: /\.(js|mjs|jsx)$/,
-      resolve: {
-        fullySpecified: false,
-      },
-    });
-
-    return config;
-  }
 };

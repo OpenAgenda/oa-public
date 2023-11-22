@@ -16,7 +16,7 @@
   ],
   "main": "dist/app.js",
   "scripts": {
-    "storybook": "NODE_ENV=development start-storybook -p 9001 --ci",
+    "storybook": "storybook dev -p 9001 --ci",
     "sb": "yarn storybook",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
@@ -69,8 +69,7 @@
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react": "^6.5.9",
-    "babel-loader": "^8.2.2",
+    "@storybook/react-webpack5": "^7.4.2",
     "dedent": "^0.7.0",
     "eslint": "^8.24.0",
     "history": "^4.10.1",
@@ -84,7 +83,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "webpack": "^5.72.0"
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

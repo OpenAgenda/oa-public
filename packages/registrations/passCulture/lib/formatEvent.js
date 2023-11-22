@@ -17,17 +17,20 @@ export default async function formatEvent(event, ...args) {
 
   const {
     lang = 'fr',
+    categories,
+    related,
   } = options;
 
   const {
     venueId,
     category,
+    customDesc,
   } = passData;
 
   const formatted = {
     name: flatten(event.title, lang),
     accessibility: acc(event),
-    description: await formatText(event.longDescription),
+    description: await formatText(customDesc || event.longDescription),
     hasTicket: false,
   };
 
@@ -54,6 +57,10 @@ export default async function formatEvent(event, ...args) {
       type: 'physical',
       venueId,
     };
+  }
+
+  if (!category) {
+    return formatted;
   }
 
   if (category) {

@@ -8,15 +8,8 @@ const log = logs('passCulture/createEventOffer');
 
 export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
   const {
-    lang = 'fr',
-  } = options;
-
-  const {
     priceCategories = [],
     dates = [],
-    venueId,
-    category,
-    // subcategory,
   } = PCData;
 
   const result = {
@@ -26,7 +19,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     errors: null,
   };
 
-  const eventOffer = await formatEvent(OAEvent, { venueId, category }, { lang });
+  const eventOffer = await formatEvent(OAEvent, PCData, options);
 
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);

@@ -11,7 +11,6 @@ const agendas = require('@openagenda/agendas');
 const fb = require('@openagenda/facebook');
 const getEventLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/show'));
-const sessions = require('../services/sessions');
 const slug = require('slugify');
 const forbiddenLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/forbidden'));
 const utils = require('@openagenda/utils');
@@ -74,6 +73,10 @@ const middlewares = {
 };
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
+
   app.options('*/controldata*', (req, res) => res.sendStatus(200));
 
   app.get(

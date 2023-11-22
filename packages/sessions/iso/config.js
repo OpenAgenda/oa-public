@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../lib/iso/config' );
+module.exports = require('../lib/iso/config');

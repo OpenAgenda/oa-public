@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
-    "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
+    "storybook": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
     "knex": "babel-node $(yarn bin knex)",
     "build": "babel components/src -d components/lib -s",
     "clean": "rimraf components/lib",
@@ -46,7 +46,7 @@
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
-    "@storybook/react": "^6.5.9",
+    "@storybook/react-webpack5": "^7.4.2",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
@@ -58,7 +58,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.1",
-    "webpack": "^4.46.0"
+    "storybook": "^7.4.2"
   },
   "peerDependencies": {
     "react": "^18.2.0"

@@ -14,6 +14,8 @@ import ListItemPart from './ListItemPart';
 import ListItemLine from './ListItemLine';
 import EmbeddedForm from './EmbeddedForm';
 import MoreInfo from './MoreInfo';
+import Checkbox from './Checkbox';
+import Textarea from './Textarea';
 
 const components = {
   StandardRegistrationField,
@@ -30,6 +32,8 @@ const components = {
   ListItemPart,
   EmbeddedForm,
   MoreInfo,
+  Checkbox,
+  Textarea,
 };
 
 export default function BootstrapComponentsProvider({ children }) {

@@ -7,7 +7,6 @@ const qs = require('qs');
 const labels = require('@openagenda/labels/auth/messages');
 const emailValidator = require('@openagenda/validators/email')();
 const getLabel = require('@openagenda/labels')(labels);
-const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('auth/lib/auth');
 
 const cmn = require('../../lib/commons-app');
@@ -376,7 +375,7 @@ function signin(values) {
 
   const { services } = req.app;
 
-  sessions.open(req, res, user, async (err, session) => {
+  services.sessions.open(req, res, user, async (err, session) => {
     if (err) req.log.error({ message: 'could not open session', error: err });
 
     let redirectUrl;

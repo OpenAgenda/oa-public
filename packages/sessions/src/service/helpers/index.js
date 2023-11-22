@@ -3,20 +3,18 @@
 const _ = require( 'lodash' );
 const cookieValidate = require( '../../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'helpers' );
-const config = require( '../config' );
 
 module.exports = {
   cleanSession,
-  interfaces,
   callbackify,
   getUser
 }
 
-function getUser( identifier ) {
+function getUser( interfaces, identifier ) {
 
   try {
 
-    return interfaces( 'getUser', identifier );
+    return callInterface( interfaces, 'getUser', identifier );
 
   } catch ( e ) {
 
@@ -45,11 +43,11 @@ function callbackify( p, cb ) {
 }
 
 
-function interfaces( name, args ) {
+function callInterface( interfaces, name, args ) {
 
   return new Promise( ( rs, rj ) => {
 
-    config.interfaces[ name ].apply( null, ( _.isArray( args ) ? args : [ args ] ).concat( ( err, result ) => {
+    interfaces[ name ].apply( null, ( _.isArray( args ) ? args : [ args ] ).concat( ( err, result ) => {
 
       if ( err ) return rj( err );
 

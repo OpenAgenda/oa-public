@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const express = require( 'express' );
-const sessions = require( '@openagenda/sessions' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const labels = require( '@openagenda/labels/unsubscription' );
 const log = require( '@openagenda/logs' )( 'services/mails/unsubscription' );
@@ -36,6 +35,9 @@ function task() {
 }
 
 function plugApp( parentApp, path = '' ) {
+  const {
+    sessions,
+  } = parentApp.services;
   app.use( `/unsubscribe/:token(${TOKEN_REGEX_STRING})`, ( req, res, next ) => {
     const { token } = req.params;
 
