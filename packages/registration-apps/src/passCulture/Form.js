@@ -31,6 +31,7 @@ export default function Form({
     Section,
     Select,
     Button,
+    Input,
   } = useContext(ComponentsContext);
 
   const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, value.category), [categories, value.category]);
@@ -118,6 +119,16 @@ export default function Form({
       </Section>
       <Section>
         <CustomDesc value={value} onChange={v => setValue({ ...value, customDesc: v })} />
+      </Section>
+      <Section>
+        <Input
+          id="booking-contact"
+          value={value.bookingContact}
+          label="Email de contact"
+          type="email"
+          onChange={e => setValue({ ...value, bookingContact: e.target.value })}
+          sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
+        />
       </Section>
       <Section>
         <Button

@@ -3,6 +3,7 @@ export default function Input({
   label,
   type = 'text',
   placeholder,
+  sub,
   onChange,
   value = '',
 }) {
@@ -17,6 +18,7 @@ export default function Input({
         className="form-control"
         placeholder={placeholder}
       />
+      {sub ? <span className="sub">{sub}</span> : null}
     </div>
   );
 }
