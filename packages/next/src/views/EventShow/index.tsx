@@ -27,7 +27,9 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useMatomoTracker from 'hooks/useMatomoTracker';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import type { Agenda } from 'types';
+import useSession from 'hooks/useSession';
 import Metas from './components/Metas';
+import ContextBar from './components/ContextBar';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
 import Activities from './components/Activities';
@@ -35,6 +37,7 @@ import Inbox from './components/Inbox';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import * as additionalFieldsUtils from './utils/additionalFields';
+import useEvent from './hooks/useEvent';
 import fetchLocale from './locales';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
@@ -79,7 +82,7 @@ export type EventShowProps = {
       website?: string
       phone?: string
       links?: string[]
-    }
+    },
   },
   preload?: string[]
 };
@@ -171,12 +174,16 @@ function EditLocationButton({ agenda }) {
   );
 }
 
-function EventShow({ agenda, event, preload }: EventShowProps) {
+function EventShow({ agenda, preload }: EventShowProps) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
   useMatomoTracker();
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
+
+  const session = useSession();
+
+  const { event } = useEvent();
 
   const hasAdditionalFields = useMemo(
     () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
@@ -191,6 +198,10 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
   return (
     <>
       <Metas agenda={agenda} event={event} preload={preload} />
+
+      <Box pos="sticky" top="0" zIndex="sticky">
+        <ContextBar agenda={agenda} />
+      </Box>
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container maxW="container.lg" color="white">
@@ -247,9 +258,9 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
             ) : null}
 
             {event.description?.[intl.locale] ? (
-              <Heading as="h1" fontSize="4xl" px="8">
+              <Box fontSize="xl" px="8">
                 {event.description[intl.locale]}
-              </Heading>
+              </Box>
             ) : null}
 
             <div>
@@ -380,6 +391,7 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
                 {event.location.agendaUid === agenda.uid ? (
                   <EditLocationButton agenda={agenda} />
                 ) : null}
+
                 <div>
                   <chakra.div fontWeight="bold">
                     {event.location.name}
@@ -413,34 +425,36 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
                   </div>
                 ) : null}
 
-                <div>
-                  {event.location.image ? (
-                    <Image
-                      src={process.env.NODE_ENV === 'development'
-                        ? `${DEV_IMAGE_PREFIX}${event.location.image}`
-                        : `${IMAGE_PREFIX}${event.location.image}`}
-                      fallbackSrc={process.env.NODE_ENV === 'development'
-                        ? `${IMAGE_PREFIX}${event.location.image}`
-                        : undefined}
-                      fallbackStrategy="onError"
-                      fill
-                      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-                      pos="unset !important"
-                      w="full !important"
-                      h="auto !important"
-                      loader={keyCDNLoader}
-                      alt=""
-                      m="auto"
-                      priority
-                    />
-                  ) : null}
+                {event.location.image || event.location.imageCredits ? (
+                  <div>
+                    {event.location.image ? (
+                      <Image
+                        src={process.env.NODE_ENV === 'development'
+                          ? `${DEV_IMAGE_PREFIX}${event.location.image}`
+                          : `${IMAGE_PREFIX}${event.location.image}`}
+                        fallbackSrc={process.env.NODE_ENV === 'development'
+                          ? `${IMAGE_PREFIX}${event.location.image}`
+                          : undefined}
+                        fallbackStrategy="onError"
+                        fill
+                        // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                        pos="unset !important"
+                        w="full !important"
+                        h="auto !important"
+                        loader={keyCDNLoader}
+                        alt=""
+                        m="auto"
+                        priority
+                      />
+                    ) : null}
 
-                  {event.location.imageCredits ? (
-                    <Flex justify="flex-end" color="oaGray.500" px="2">
-                      {event.location.imageCredits}
-                    </Flex>
-                  ) : null}
-                </div>
+                    {event.location.imageCredits ? (
+                      <Flex justify="flex-end" color="oaGray.500" px="2">
+                        {event.location.imageCredits}
+                      </Flex>
+                    ) : null}
+                  </div>
+                ) : null}
 
                 {event.location.website || event.location.phone ? (
                   <List spacing="2">
@@ -489,10 +503,12 @@ function EventShow({ agenda, event, preload }: EventShowProps) {
             event={event}
           />
 
-          <Inbox
-            agenda={agenda}
-            event={event}
-          />
+          {session?.user ? (
+            <Inbox
+              agenda={agenda}
+              event={event}
+            />
+          ) : null}
         </GridItem>
 
         <GridItem area="footer">

@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { chakra, Button, IconButton, Spacer, Link, Tooltip } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears } from '@fortawesome/pro-solid-svg-icons';
-import StateTag from '../StateTag';
+import StateTag from 'components/StateTag';
 import messages from './messages';
 
 const wordSeparator = <>&nbsp;·&nbsp;</>;
