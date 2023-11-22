@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
+import _ from 'lodash';
 
 const fZ = n => (n < 10 ? `0${n}` : n);
 
@@ -76,4 +77,9 @@ export function findTimingLabel(timings, timingId, options = {}) {
   }
 
   return getTimingLabel(timing);
+}
+
+export function getRelatedFieldName(categories, category) {
+  const enumValue = (categories.find(({ value }) => value === category)?.related ?? [])[0];
+  return enumValue ? _.camelCase(enumValue.replace('Enum', '')) : undefined;
 }

@@ -11,17 +11,20 @@ const acc = ({ accessibility: a }) => ({
   visualDisabilityCompliant: a?.vi ?? false,
 });
 
-export default async function formatEvent(event, customDesc, ...args) {
+export default async function formatEvent(event, ...args) {
   const options = args.pop();
   const passData = args[0] ?? {};
 
   const {
     lang = 'fr',
+    categories,
+    related,
   } = options;
 
   const {
     venueId,
     category,
+    customDesc,
   } = passData;
 
   const formatted = {
@@ -54,6 +57,10 @@ export default async function formatEvent(event, customDesc, ...args) {
       type: 'physical',
       venueId,
     };
+  }
+
+  if (!category) {
+    return formatted;
   }
 
   if (category) {
