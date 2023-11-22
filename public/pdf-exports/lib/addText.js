@@ -3,22 +3,36 @@ export default function addText(doc, cursor, text, options = {}) {
     fontSize,
     color,
     base = {
-      color: '#000000',
-      fontFamily: 'Helvetica',
+      color: '#413a42',
       fontSize: 12,
     },
-    fontFamily,
     width,
     underline,
     link,
     align,
     simulate = false,
+    bold = false,
+    medium = false,
   } = options;
+
+  let selectedFont;
+
+  const regularFontPath = './fonts/Assistant-Regular.ttf';
+  const mediumFontPath = './fonts/Assistant-Medium.ttf';
+  const boldFontPath = './fonts/Assistant-Bold.ttf';
+
+  if (bold) {
+    selectedFont = boldFontPath;
+  } else if (medium) {
+    selectedFont = mediumFontPath;
+  } else {
+    selectedFont = regularFontPath;
+  }
 
   if (!simulate) {
     doc
       .fillColor(color ?? base.color)
-      .font(fontFamily ?? base.fontFamily)
+      .font(selectedFont)
       .fontSize(fontSize ?? base.fontSize)
       .text(text, cursor.x, cursor.y, { width, underline, link, align });
   }
