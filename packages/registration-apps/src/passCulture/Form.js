@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../components/Context';
@@ -11,6 +11,8 @@ import {
   changePriceCategory,
   removeDate,
   changeDate,
+  getRelatedFieldName,
+  getRelatedFieldOptions,
 } from './utils';
 
 export default function Form({
@@ -31,10 +33,8 @@ export default function Form({
     Button,
   } = useContext(ComponentsContext);
 
-  const relatedCategory = (
-    categories.find(c => c.value === value.category)?.related ?? []
-  )[0];
-  const relatedCategoryOptions = relatedCategory ? related.find(r => r.schema === relatedCategory).options : [];
+  const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, value.category), [categories, value.category]);
+  const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
 
   return (
     <form>
@@ -59,23 +59,23 @@ export default function Form({
           disabled={openSubForm}
           label="Catégorie"
           value={value?.category}
-          placeholder="Sélectionner une catégorie"
+          placeholder="Choix requis"
           options={categories}
           onChange={option => setValue({
             ...value,
             category: option.value,
           })}
         />
-        {relatedCategoryOptions.length ? (
+        {relatedCategoryFieldName ? (
           <Select
             disabled={openSubForm}
-            label="Sous-catégorie"
-            value={value.subCategory}
-            placeholder="Sous-catégorie"
+            label={relatedCategoryFieldName === 'musicType' ? 'Type de musique' : 'Type de spectacle'}
+            value={value[relatedCategoryFieldName]}
+            placeholder="Choix requis"
             options={relatedCategoryOptions}
             onChange={option => setValue({
               ...value,
-              subCategory: option.value,
+              [relatedCategoryFieldName]: option.value,
             })}
           />
         ) : null}

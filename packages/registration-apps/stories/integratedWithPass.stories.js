@@ -117,7 +117,7 @@ export function WithDataWithoutTimings() {
       service: 'passCulture',
       data: {
         category: 'CONCERT',
-        subCategory: 'JAZZ-BEBOP',
+        musicType: 'JAZZ-BEBOP',
         priceCategories: [{
           label: 'Tarif normal',
           price: '12000',
