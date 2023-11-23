@@ -8,7 +8,7 @@
   "main": "lib/service/index.js",
   "scripts": {
     "build": "rimraf lib && babel src -d lib -s",
-    "test": "mocha --exit",
+    "test": "jest --runInBand",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build"
   },
@@ -32,13 +32,14 @@
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
+    "@openagenda/eslint-config": "^1.4.0",
     "async": "^2.1.4",
+    "eslint": "^8.24.0",
     "express": "^4.17.1",
     "immutability-helper": "^2.3.0",
+    "jest": "^28.1.2",
     "jsdom": "^15.2.1",
-    "mocha": "^7.0.1",
     "rimraf": "^3.0.1",
-    "should": "^13.2.3",
     "superagent": "^3.3.1"
   }
 }

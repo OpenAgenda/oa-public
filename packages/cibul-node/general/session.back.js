@@ -1,12 +1,14 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' );
 const agendas = require( '@openagenda/agendas' );
 
 const cmn = require( '../lib/commons-app' );
 const members = require( '../services/members' );
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
   app.get(
     '/session',
     sessions.mw.ifUnlogged( ( req, res ) => res.send( null ) ),
@@ -52,6 +54,9 @@ function role( req, res, next ) {
 
 // retrieve additional stuff related to current user session
 function _loadDetailed(req, res, next) {
+  const {
+    sessions,
+  } = req.app.services;
   sessions.get( req, {detailed: true}, (err, session) => {
     members.list({
       userUid: req.user.uid,

@@ -14,6 +14,10 @@
     ".": {
       "import": "./index.js"
     },
+    "./passCulture/iso/validate": {
+      "import": "./passCulture/iso/validate/index.js",
+      "require": "./dist/validate/index.cjs"
+    },
     "./passCulture/iso/*": {
       "import": "./passCulture/iso/*.js",
       "require": "./dist/*.cjs"

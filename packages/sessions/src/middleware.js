@@ -1,186 +1,123 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const cookieSessionLib = require( 'cookie-session' );
-const cookieParserLib = require( 'cookie-parser' );
-const validateCookie = require( '../iso/cookie.validate' );
+const _ = require('lodash');
+const cookieSessionLib = require('cookie-session');
+const cookieParserLib = require('cookie-parser');
+const validateCookie = require('../iso/cookie.validate');
 
-let cookieSession, cookieParser, sessions;
-
-module.exports = _.extend( use, {
-  open,
-  load,
-  close,
-  sync,
-  ifLogged: ifLoggedState.bind( null, true ),
-  ifUnlogged: ifLoggedState.bind( null, false ),
-  init
-} );
-
-
-function use( req, res, next ) {
-
-  if ( !cookieSession ) {
-
-    throw new Error( 'Session service not initialized' );
-
+function _logLoad(req, data) {
+  if (req.log && req.log.load) {
+    req.log.load(data);
   }
-
-  cookieParser( req, res, err => {
-
-    cookieSession( req, res, err => {
-
-      if ( err ) return next( err );
-
-      if ( Object.keys( req.session ).length ) {
-
-        return next();
-
-      }
-  
-      Object.keys( validateCookie.validateUnlogged.default ).forEach( k => {
-
-        req.session[ k ] = validateCookie.validateUnlogged.default[ k ];
-
-      } );  
-
-      next();
-
-    } );  
-
-  } );
-
 }
 
+function ifLoggedState(sessions, state, fn) {
+  return (req, res, next) => {
+    sessions.isLogged(req)
 
+      .catch(next)
 
-function ifLoggedState( state, fn ) {
-
-  return ( req, res, next ) => {
-
-    sessions.isLogged( req )
-
-      .catch( next )
-
-      .then( is => {
-
-        if ( state === is ) return fn( req, res, next );
+      .then(is => {
+        if (state === is) return fn(req, res, next);
 
         next();
-
-      } )
-
-  }
-
+      });
+  };
 }
 
+function use({ cookieSession, cookieParser }, req, res, next) {
+  cookieParser(req, res, _err => {
+    cookieSession(req, res, err => {
+      if (err) return next(err);
 
-function close( targetNamespace = 'result' ) {
+      if (Object.keys(req.session).length) {
+        return next();
+      }
 
-  return ( req, res, next ) => {
-
-    sessions.close( req, ( err, result ) => {
-
-      if ( err ) return next( err );
-
-      req[ targetNamespace ] = result;
+      Object.keys(validateCookie.validateUnlogged.default).forEach(k => {
+        req.session[k] = validateCookie.validateUnlogged.default[k];
+      });
 
       next();
-
-    } );
-
-  }
-
+    });
+  });
 }
 
+function open({ sessions }, identifierNamespace = 'userIdentifier', targetNamespace = 'result') {
+  return (req, res, next) => {
+    sessions.open(req, req[identifierNamespace], (err, result) => {
+      if (err) return next(err);
 
-/**
- * proxy for service sync method
- */
-function sync( targetNamespace = 'result' ) {
-
-  return ( req, res, next ) => {
-
-    sessions.sync( req, ( err, result ) => {
-
-      if ( err ) return next( err );
-
-      req[ targetNamespace ] = result;
+      req[targetNamespace] = result;
 
       next();
-
-    } );
-
-  }
-
-}
-
-
-function open( identifierNamespace = 'userIdentifier', targetNamespace = 'result' ) {
-
-  return ( req, res, next ) => {
-
-    sessions.open( req, req[ identifierNamespace ], ( err, result ) => {
-
-      if ( err ) return next( err );
-
-      req[ targetNamespace ] = result;
-
-      next();
-
-    } );
-
-  }
-
+    });
+  };
 }
 
 /**
  * load session in req object
  */
 
-function load( options ) {
-
-  let params = _.extend( {
+function load({ sessions }, options) {
+  const params = _.extend({
     target: 'user',
-    detailed: false
-  }, options || {} );
+    detailed: false,
+  }, options || {});
 
-  return ( req, res, next ) => {
+  return (req, res, next) => {
+    sessions.get(req, { detailed: params.detailed }, (err, user) => {
+      if (err) return next(err);
 
-    sessions.get( req, { detailed: params.detailed }, ( err, user ) => {
+      req[params.target] = user;
 
-      if ( err ) return next( err );
-
-      req[ params.target ] = user;
-
-      _logLoad( req, { userUid: user ? user.uid : null } );
+      _logLoad(req, { userUid: user ? user.uid : null });
 
       next();
-
-    } );
-
-  }
-
+    });
+  };
 }
 
+function close({ sessions }, targetNamespace = 'result') {
+  return (req, res, next) => {
+    sessions.close(req, (err, result) => {
+      if (err) return next(err);
 
-function init( config, service ) {
+      req[targetNamespace] = result;
 
-  cookieSession = cookieSessionLib( config.sessionCookie );
-
-  cookieParser = cookieParserLib();
-
-  sessions = service;
-
+      next();
+    });
+  };
 }
 
+/**
+ * proxy for service sync method
+ */
+function sync({ sessions }, targetNamespace = 'result') {
+  return (req, res, next) => {
+    sessions.sync(req, (err, result) => {
+      if (err) return next(err);
 
-function _logLoad( req, data ) {
+      req[targetNamespace] = result;
 
-  if ( req.log && req.log.load ) {
-
-    req.log.load( data );
-
-  }
-
+      next();
+    });
+  };
 }
+
+module.exports = (sessions, config) => {
+  const cookieSession = cookieSessionLib(config.sessionCookie);
+  const cookieParser = cookieParserLib();
+
+  return Object.assign(
+    use.bind(null, { cookieSession, cookieParser }),
+    {
+      open: open.bind(null, { sessions }),
+      load: load.bind(null, { sessions }),
+      close: close.bind(null, { sessions }),
+      sync: sync.bind(null, { sessions }),
+      ifLogged: ifLoggedState.bind(null, sessions, true),
+      ifUnlogged: ifLoggedState.bind(null, sessions, false),
+    },
+  );
+};

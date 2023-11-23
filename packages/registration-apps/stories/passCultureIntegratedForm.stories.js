@@ -48,7 +48,7 @@ export const WithData = () => (
     value={{
       venueId: 548,
       category: 'CONCERT',
-      subCategory: 'ROCK-LO_FI',
+      musicType: 'ROCK-LO_FI',
       priceCategories: [{
         label: 'Tarif normal',
         price: '20',

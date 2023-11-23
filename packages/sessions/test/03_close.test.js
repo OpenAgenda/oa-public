@@ -1,11 +1,8 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
-const async = require( 'async' );
-const should = require( 'should' );
-const sessions = require( '../src/service' );
+
+const Sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const config = require( '../testconfig' );
 const h = require( './lib/helpers' );
@@ -15,17 +12,20 @@ const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.
 describe( 'session - functional (server): close', () => {
   let client;
   let request;
+  let sessions;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await h.createClient(config.redis);
   });
 
   beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeEach(() => sessions.init({
-    ...config,
-    redisClient: client,
-  }));
+  beforeAll( () => {
+    sessions = Sessions({
+      ...config,
+      redisClient: client,
+    });
+  });
 
   beforeEach(() => {
     request = {
@@ -36,7 +36,7 @@ describe( 'session - functional (server): close', () => {
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
   });
 
-  afterEach(() => client.quit());
+  afterAll(() => client.quit());
 
   it( 'close ends the session using the request object', done => {
 
@@ -44,7 +44,7 @@ describe( 'session - functional (server): close', () => {
 
       sessions.close( request, ( err, result ) => {
 
-        result.success.should.equal( true );
+        expect(result.success).toBe(true);
 
         done();
 
@@ -60,7 +60,7 @@ describe( 'session - functional (server): close', () => {
 
       sessions.close( request, ( err, result ) => {
 
-        should( request.session ).equal( null );          
+        expect(request.session).toBe(null);
 
         done();
 
@@ -76,14 +76,16 @@ describe( 'session - functional (server): close', () => {
 
       client.get([config.redis.prefix, 12345678].join(':')).then(result => {
 
-        JSON.parse( result ).email.should.equal( 'gaetan@cibul.net' );
+        expect(
+          JSON.parse( result ).email
+        ).toBe( 'gaetan@cibul.net' );
 
         sessions.close( request, ( err, result ) => {
 
           client.get([config.redis.prefix, 12345678].join(':')).then(result => {
 
-            should( err ).equal( null );
-            should( result ).equal( null );
+            expect(err).toBe(null);
+            expect(result).toBe(null);
 
             done();
 

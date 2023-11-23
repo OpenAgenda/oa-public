@@ -4,7 +4,6 @@ export default function addFooter(doc, text, bottomMargin, options = {}) {
   const {
     base = {
       color: '#413a42',
-      fontFamily: 'Helvetica',
       fontSize: 10,
     },
     simulate = false,

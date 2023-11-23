@@ -1,60 +1,47 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-let config;
+function _decode(req, name) {
+  const encoded = req.cookies[name];
 
-module.exports = ( name, request, response ) => {
+  let decoded = {};
 
-  let values = _decode( request, name );
+  if (!encoded) return decoded;
+
+  try {
+    decoded = JSON.parse(
+      Buffer.from(encoded, 'base64').toString('utf8'),
+    );
+  } catch (e) { /* console.log(e) */ }
+
+  return decoded;
+}
+
+module.exports = (config, request, response) => {
+  const { name } = config.writableCookie;
+
+  const values = _decode(request, name);
+
+  function clear() {
+    if (typeof response.cookie !== 'function') return;
+
+    response.cookie(name, Buffer.from(JSON.stringify({}), 'utf8').toString('base64'), { maxAge: 1 });
+  }
+
+  function set(key, update) {
+    _.set(values, key, update);
+
+    const encoded = Buffer.from(JSON.stringify(values), 'utf8').toString('base64');
+
+    request.cookies[name] = encoded;
+
+    response.cookie(name, encoded, { maxAge: config.writableCookie.maxAge, encode: str => str });
+  }
 
   return {
     set,
     clear,
-    get: () => values
-  }
-
-  function clear() {
-
-    if ( typeof response.cookie !== 'function' ) return;
-
-    response.cookie( name, ( Buffer.from( JSON.stringify( {} ), 'utf8' ) ).toString( 'base64' ), { maxAge: 1 } );
-
-  }
-
-  function set( key, update ) {
-
-    _.set( values, key, update );
-
-    let encoded = ( Buffer.from( JSON.stringify( values ), 'utf8' ) ).toString( 'base64' );
-
-    request.cookies[ name ] = encoded;
-
-    response.cookie( name, encoded, { maxAge: config.writableCookie.maxAge, encode: str => str } );
-
-  }
-
-}
-
-
-function _decode( req, name ) {
-
-  const encoded = req.cookies[ name ];
-
-  let decoded = {};
-
-  if ( !encoded ) return decoded;
-
-  try {
-
-    decoded = JSON.parse(
-      ( Buffer.from( encoded, 'base64' ) ).toString( 'utf8' )
-    );
-
-  } catch( e ) {}
-
-  return decoded;
-
-}
-
-module.exports.init = c => config = c;
+    get: () => values,
+  };
+};

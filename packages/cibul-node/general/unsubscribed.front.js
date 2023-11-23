@@ -2,12 +2,9 @@
 
 const async = require( 'async' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
-const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
 const cmn = require( '../lib/commons-app' );
-
-const logged = sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) );
 
 /**
  * this follows a more classic way of using express.
@@ -16,11 +13,14 @@ const logged = sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) 
  */
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
 
   app.get(
     '/unsubscribe' + unsubscribed.app.routes.list,
     cmn.lang,
-    logged,
+    sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     ( req, res, next ) => {
 
       if ( req.user.uid !== parseInt( req.params.userUid ) ) {

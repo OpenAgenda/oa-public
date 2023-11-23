@@ -1,6 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
 const jsdom = require( 'jsdom' );
 const cookiesLib = require( 'cookies-js' );
 const base64 = require( '@openagenda/utils/base64' );
@@ -25,7 +24,9 @@ describe( 'session - functional (client): session', () => {
 
       cookie.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
-      clientSession.getUser().should.eql( {
+      expect(
+        clientSession.getUser()
+      ).toEqual( {
         uid: 123,
         name: 'tony',
         culture: 'en',
@@ -38,7 +39,7 @@ describe( 'session - functional (client): session', () => {
 
       clientSession.test.loadCookiesLib( cookie );
 
-      should( clientSession.getUser() ).eql( null );
+      expect( clientSession.getUser() ).toBeNull();
 
     } );
 
@@ -46,16 +47,15 @@ describe( 'session - functional (client): session', () => {
 
   describe( '.isLogged', function() {
 
-    this.timeout( 30000 );
-
     it( 'returns true if user is logged', () => {
-
 
       clientSession.test.loadCookiesLib( cookie );
 
       cookie.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
-      clientSession.isLogged().should.eql( true );
+      expect(
+        clientSession.isLogged(),
+      ).toBe(true);
 
     } );
 
@@ -63,7 +63,9 @@ describe( 'session - functional (client): session', () => {
 
       clientSession.test.loadCookiesLib( cookie );
 
-      clientSession.isLogged().should.eql( false );
+      expect(
+        clientSession.isLogged()
+      ).toBe(false);
 
     } );
 
@@ -77,7 +79,9 @@ describe( 'session - functional (client): session', () => {
       // this is for test env only
       clientSession.test.loadCookiesLib( cookie );
 
-      clientSession.inbox.getSummary().should.eql( {
+      expect(
+        clientSession.inbox.getSummary()
+      ).toEqual( {
         lastRequestTime: 0,
         lastKnownState: false
       } );
@@ -94,7 +98,9 @@ describe( 'session - functional (client): session', () => {
         lastKnownState: true
       } );
 
-      clientSession.inbox.getSummary().should.eql( {
+      expect(
+        clientSession.inbox.getSummary()
+      ).toEqual( {
         lastRequestTime: 1000,
         lastKnownState: true
       } );
@@ -111,7 +117,7 @@ describe( 'session - functional (client): session', () => {
       // this is for test env only
       clientSession.test.loadCookiesLib( cookie );
 
-      should( clientSession.notifications.getCount() ).eql( null );
+      expect( clientSession.notifications.getCount() ).toBeNull();
 
     } );
 
@@ -122,7 +128,7 @@ describe( 'session - functional (client): session', () => {
 
       clientSession.notifications.setCount( 36 );
 
-      clientSession.notifications.getCount().should.eql( 36 );
+      expect(clientSession.notifications.getCount()).toBe(36);
 
     } );
 
@@ -139,7 +145,7 @@ describe( 'session - functional (client): session', () => {
 
       in10mn.setTime( in10mn.getTime() + 1000 * 60 * 10 );
 
-      should( clientSession.notifications.getCount( in10mn ) ).eql( null );
+      expect(clientSession.notifications.getCount( in10mn )).toBeNull();
 
     } );
 
@@ -148,13 +154,11 @@ describe( 'session - functional (client): session', () => {
   describe( '.flash', () => {
 
     it( 'returns null if no flash message is defined', () => {
-
       // necessary for initializing cookies lib in test
       // environment - see cookies-js documentation
       clientSession.test.loadCookiesLib( cookie );
 
-      should( clientSession.flash() ).equal( null );
-
+      expect( clientSession.flash() ).toBeNull();
     } );
 
     it( 'if a flash is set, returns the flash value', () => {
@@ -163,7 +167,7 @@ describe( 'session - functional (client): session', () => {
 
       cookie.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
 
-      clientSession.flash().should.eql( 'grut' );
+      expect(clientSession.flash()).toBe('grut');
 
     } );
 
@@ -175,7 +179,7 @@ describe( 'session - functional (client): session', () => {
 
       clientSession.flash();
 
-      should( clientSession.flash() ).eql( null );
+      expect(clientSession.flash()).toBeNull();
 
     } );
 

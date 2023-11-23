@@ -1,4 +1,4 @@
-import formatEvent from '../lib/formatEvent';
+import formatEvent from '../lib/formatEvent.js';
 
 import fixtures from './fixtures/cart.events.json';
 

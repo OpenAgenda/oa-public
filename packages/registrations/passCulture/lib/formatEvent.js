@@ -2,6 +2,7 @@ import {
   flatten,
   formatText,
   processImage,
+  getRelatedFieldName,
 } from './utils.js';
 
 const acc = ({ accessibility: a }) => ({
@@ -11,17 +12,20 @@ const acc = ({ accessibility: a }) => ({
   visualDisabilityCompliant: a?.vi ?? false,
 });
 
-export default async function formatEvent(event, customDesc, ...args) {
+export default async function formatEvent(event, ...args) {
   const options = args.pop();
   const passData = args[0] ?? {};
 
   const {
     lang = 'fr',
+    categories = [],
   } = options;
 
   const {
     venueId,
     category,
+    bookingContact,
+    customDesc,
   } = passData;
 
   const formatted = {
@@ -56,11 +60,24 @@ export default async function formatEvent(event, customDesc, ...args) {
     };
   }
 
+  if (!category) {
+    return formatted;
+  }
+
   if (category) {
+    const relatedFieldName = getRelatedFieldName(categories, category);
+
     formatted.categoryRelatedFields = {
       category,
-      // musicType: 'HIP_HOP_RAP-DOO_WOP',
     };
+
+    if (relatedFieldName) {
+      formatted.categoryRelatedFields[relatedFieldName] = passData[relatedFieldName];
+    }
+  }
+
+  if (bookingContact) {
+    formatted.bookingContact = bookingContact;
   }
 
   return formatted;

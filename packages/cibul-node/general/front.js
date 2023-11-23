@@ -5,7 +5,6 @@ const _ = require('lodash');
 
 const __ = require('@openagenda/labels')(require('@openagenda/labels/newsletter/subscribe'));
 const landing = require('@openagenda/landing');
-const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('newsletter');
 const newsletter = require('@openagenda/newsletter');
 const getAssetsManifest = require('../lib/getAssetsManifest');
@@ -182,6 +181,9 @@ async function corpo(cache, req, res, next) {
 }
 
 function newsletterSubscribe(req, res) {
+  const {
+    sessions,
+  } = req.app.services;
   callbackify(newsletter.addSubscriber)(req.body.email, err => {
     if (err) {
       log('error', { service: 'newsletter', message: err.message, error: err });
@@ -277,6 +279,9 @@ function redirectLegacyLinks(req, res, next) {
 }
 
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
   const cache = app.services.simpleCache('landing');
   const cacheMw = (req, res, next) => {
     cache.get(req.originalUrl, (err, cached) => {

@@ -4,7 +4,6 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 
 const cmn = require('../../lib/commons-app');
-const resyncSession = require('./middleware/resyncSession');
 const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
@@ -58,7 +57,13 @@ module.exports = function plugApp(app) {
   app.patch(
     '/users/:__feathersId',
     sessions.mw.open('user', 'sessionResult'),
-    resyncSession(),
+    (req, res, next) => {
+      if (!res.data) {
+        return next();
+      }
+
+      sessions.mw.sync('syncResult')(req, res, next);
+    },
   );
 
   // send confirmation email after requestChangeEmail

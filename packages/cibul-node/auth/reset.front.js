@@ -5,19 +5,21 @@ const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const labels = require('@openagenda/labels/auth/errors');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
-const sessions = require('../../sessions');
+
 
 const getLabel = makeLabelGetter(labels);
 
 const config = require( '../config' );
 
-const preMw = [
-  cmn.loadBaseData('oa-main.css'),
-  sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
-];
-
-
 module.exports = app => {
+  const {
+    sessions,
+  } = app.services;
+
+  const preMw = [
+    cmn.loadBaseData('oa-main.css'),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+  ];
 
   app.get( '/password/lost', preMw, lostPassword );
   app.post( '/password/lost', preMw, lostPasswordSubmit );
@@ -133,6 +135,9 @@ function _render( req, res, uri, data ) {
 
 
 function _redirectToSignin( req, res, message ) {
+  const {
+    sessions,
+  } = req.app.services;
 
   return values => {
 

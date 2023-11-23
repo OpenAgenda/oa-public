@@ -2,7 +2,7 @@ import {
   validateDate,
   validatePriceCategory,
   validateLocalData,
-} from '../iso/validate.js';
+} from '../iso/validate/index.js';
 
 import settings from './fixtures/settings.json';
 
@@ -164,7 +164,7 @@ describe('validate', () => {
         timingId: 1920532380000,
       }],
       category: 'CONCERT',
-      subcategory: 'JAZZ-BEBOP',
+      musicType: 'JAZZ-BEBOP',
     };
 
     const matchingTimings = [{
@@ -217,43 +217,53 @@ describe('validate', () => {
       expect(clean.subcategory).toBeUndefined();
     });
 
-    test('if a category requiring a subcategory is set, subcategory must be set', () => {
+    test('if a category requiring a subType is set, musicType/showType must be set', () => {
       let error;
 
       try {
         validateLocalData({
           ...validData,
           category: 'CONCERT',
-          subcategory: undefined,
+          musicType: undefined,
         }, { timings: matchingTimings }, settings);
       } catch (e) {
         error = e;
       }
 
-      expect(error.info.errors[0].code).toBe('registration.pass.requiredSubcategory');
+      expect(error.info.errors[0].code).toBe('registration.pass.musicType.required');
     });
 
-    test('subcategory must be defined in related subcategories of set category', () => {
+    test('if a category requiring a subType is set, subType must be valid', () => {
       let error;
 
       try {
         validateLocalData({
           ...validData,
           category: 'CONCERT',
-          subcategory: 'DANSE-CONTEMPORAINE',
+          musicType: 'ZIKMU',
         }, { timings: matchingTimings }, settings);
       } catch (e) {
         error = e;
       }
 
-      expect(error.info.errors[0].code).toBe('registration.pass.invalidSubcategory');
+      expect(error.info.errors[0].code).toBe('registration.pass.musicType.invalid');
+    });
+
+    test('valid subType is included in clean data', () => {
+      const { musicType } = validateLocalData({
+        ...validData,
+        category: 'CONCERT',
+        musicType: 'JAZZ-ACID_JAZZ',
+      }, { timings: matchingTimings }, settings);
+
+      expect(musicType).toBe('JAZZ-ACID_JAZZ');
     });
 
     test('at least one price category must be defined', () => {
       let error;
 
       try {
-        validateLocalData({}, { timings: [] });
+        validateLocalData({}, { timings: [] }, settings);
       } catch (e) {
         error = e;
       }
@@ -267,7 +277,10 @@ describe('validate', () => {
       let error;
 
       try {
-        validateLocalData({ ...validData, venueId: undefined }, { timings: matchingTimings });
+        validateLocalData({
+          ...validData,
+          venueId: undefined,
+        }, { timings: matchingTimings }, settings);
       } catch (e) {
         error = e;
       }
@@ -281,12 +294,42 @@ describe('validate', () => {
       try {
         validateLocalData({
           priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
-        }, { timings: [] });
+        }, { timings: [] }, settings);
       } catch (e) {
         error = e;
       }
 
       expect(error.info.errors.map(e => e.code)).toContain('registration.pass.requiredDates');
+    });
+
+    test('invalid bookingContact throws an error', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          bookingContact: 'notanemail',
+        }, { timings: [] }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors.map(e => e.code)).toContain('registration.pass.bookingContact.invalid');
+    });
+
+    test('valid bookingContact does not throw an error', () => {
+      let error;
+
+      try {
+        validateLocalData({
+          ...validData,
+          bookingContact: 'a@valid.email',
+        }, { timings: [] }, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors.map(e => e.code)).not.toContain('registration.pass.bookingContact.invalid');
     });
 
     test('boolMode returns false when data is not valid', () => {
@@ -295,7 +338,7 @@ describe('validate', () => {
         dates: [],
       }, {
         timings: [],
-      }, { boolMode: true });
+      }, { ...settings, boolMode: true });
 
       expect(isValid).toBe(false);
     });
@@ -305,7 +348,7 @@ describe('validate', () => {
 
       expect(clean).toEqual({
         category: 'CONCERT',
-        subcategory: 'JAZZ-BEBOP',
+        musicType: 'JAZZ-BEBOP',
         priceCategories: [{ price: 0, label: 'Gratuit' }],
         dates: [{
           priceCategoryIndex: 0,

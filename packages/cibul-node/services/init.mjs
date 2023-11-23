@@ -139,7 +139,7 @@ export default async function initServices(config = null, options = {}) {
   await init('logRequests', require('./logRequests.js'));
   await init('mails', require('./mails/index.js'));
   await init('model', require('./model/index.js'));
-  await init('sessions', require('./sessions.js'));
+  await init('sessions', require('./sessions/index.js'));
   await init('networkApps', require('./networkApps.js'));
   await init('networks', require('./networks.js'));
   await init('newsletter', require('./newsletter.js'));

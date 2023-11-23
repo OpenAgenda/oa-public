@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require('lodash');
-const sessions = require('@openagenda/sessions');
 const cmn = require('../lib/commons-app');
 
 function _loadUser(detailed, req, res, next) {
@@ -44,6 +43,11 @@ function latestInboxMessageTimestamp(req, res, next) {
 }
 
 module.exports = app => {
+  const {
+    services: {
+      sessions,
+    },
+  } = app;
   app.get(
     '/latest-inbox-timestamp',
     cmn.loadLogger('latestInboxMessageTimestamp'),

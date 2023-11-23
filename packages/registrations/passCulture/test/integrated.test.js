@@ -77,7 +77,9 @@ describe('integrated', () => {
     it('gets available categories, related offers and offerer venues', async () => {
       const pcParams = await pc.getParameters();
 
-      expect(Object.keys(pcParams)).toEqual(['categories', 'related', 'offererVenues']);
+      expect(
+        Object.keys(pcParams),
+      ).toEqual(['categories', 'related', 'offererVenues']);
     });
   });
 });

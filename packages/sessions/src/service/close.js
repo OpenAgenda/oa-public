@@ -1,41 +1,32 @@
-"use strict";
+'use strict';
 
-const config = require( './config' );
-const { cleanSession, callbackify } = require( './helpers' );
-const log = require( '@openagenda/logs' )( 'close' );
-const _ = require( 'lodash' );
+const { cleanSession, callbackify } = require('./helpers');
 
-module.exports = ( request, cb ) => {
-
-  callbackify( close( request ), cb );
-
+function closeByUid(config, uid) {
+  return config.redisClient.del([config.redis.prefix, uid].join(':'));
 }
 
-function closeByUid(uid) {
-  return config.redisClient.del([config.redis.prefix, uid].join(':'))
-}
+async function close(config, request) {
+  const cookieUser = cleanSession(request.session).user;
 
-async function close( request ) {
-
-  const cookieUser = cleanSession( request.session ).user;
-
-  if ( !cookieUser ) {
-
+  if (!cookieUser) {
     return {
       success: false,
-      errors: [ { code: 'user.notfound' } ]
-    }
-
+      errors: [{ code: 'user.notfound' }],
+    };
   }
 
-  const result = await closeByUid(cookieUser.uid)
+  await closeByUid(config, cookieUser.uid);
 
   request.session = null;
 
   return {
-    success: true
-  }
-
+    success: true,
+  };
 }
+
+module.exports = (config, request, cb) => {
+  callbackify(close(config, request), cb);
+};
 
 module.exports.byUid = closeByUid;

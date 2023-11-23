@@ -5,6 +5,7 @@ import urlToBuffer from './urlToBuffer.js';
 import addText from './addText.js';
 import addIcon from './addIcon.js';
 import flattenLabel from './flattenLabel.js';
+import addRegistration from './addRegistration.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,10 +22,8 @@ export default async function addEventItem(
     base = {
       margin: 20,
       color: '#413a42',
-      fontFamily: 'Helvetica',
       fontSize: 10,
     },
-    titleFontFamily = 'Helvetica-Bold',
     secondaryColor = '#808080',
     simulate = false,
   } = options;
@@ -35,6 +34,7 @@ export default async function addEventItem(
   };
 
   let widthOfIcon = null;
+  let heightOfIcon = null;
   let heightOfTitle = null;
   let widthOfTitle = null;
   let heightOfDescription = null;
@@ -42,13 +42,16 @@ export default async function addEventItem(
   let widthOfDateRange = null;
   let heightOfDateRange = null;
   let widthOfLocation = null;
-  let heightOfLocation = 0;
+  let heightOfLocation = null;
   let widthOfOnlineLink = null;
   let heightOfOnlineLink = null;
-  let widthOfRegistration = null;
-  let heightOfRegistration = null;
   let widthOfEventLink = null;
   let heightOfEventLink = null;
+  let widthOfRegistration = null;
+  let heightOfRegistration = null;
+
+  const widthOfReg = {};
+  const heightOfReg = {};
 
   const imageWidth = 90;
   const imageHeight = 90;
@@ -60,6 +63,9 @@ export default async function addEventItem(
   const locationIconPath = `${__dirname}/../images/location.png`;
   const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
   const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
+  const emailIconPath = `${__dirname}/../images/email.png`;
+  const phoneIconPath = `${__dirname}/../images/phone.png`;
+  const linkIconPath = `${__dirname}/../images/link.png`;
 
   const iconsArr = [];
 
@@ -94,7 +100,7 @@ export default async function addEventItem(
     width: textMaxWidth,
     fontSize: 10,
     base,
-    fontFamily: titleFontFamily,
+    bold: true,
     simulate,
   });
 
@@ -115,15 +121,12 @@ export default async function addEventItem(
 
   localCursor.y += heightOfDescription + base.margin / 10;
 
-  const { width: widthOfDateRangeIcon } = await addIcon(
-    doc,
-    dateRangeIconPath,
-    localCursor,
-    iconHeightAndWidth,
-    { simulate },
-  );
-  localCursor.x += widthOfDateRangeIcon + base.margin / 10;
-  localCursor.y += base.margin / 14;
+  const { width: widthOfDateRangeIcon, height: heightOfDateRangeIcon } = await addIcon(doc, dateRangeIconPath, localCursor, iconHeightAndWidth, {
+    simulate,
+  });
+
+  localCursor.x += widthOfDateRangeIcon + base.margin / 3;
+  localCursor.y -= base.margin / 16;
 
   const dateRange = addText(
     doc,
@@ -136,6 +139,7 @@ export default async function addEventItem(
   heightOfDateRange = dateRange.height;
 
   localCursor.x += widthOfDateRange + base.margin / 4;
+  localCursor.y += base.margin / 16;
 
   for (const icon of iconsArr) {
     localCursor.x += iconHeightAndWidth + base.margin / 3;
@@ -143,9 +147,11 @@ export default async function addEventItem(
       simulate,
     });
     widthOfIcon = iconItem.width;
+    heightOfIcon = iconItem.height;
   }
-
-  localCursor.y += heightOfDateRange + base.margin / 10;
+  localCursor.y
+    += Math.max(heightOfDateRangeIcon, heightOfDateRange, heightOfIcon)
+    + base.margin / 10;
   localCursor.x = imageWidth + base.margin * 2;
 
   if (event.location.name || event.location.address) {
@@ -156,8 +162,9 @@ export default async function addEventItem(
       iconHeightAndWidth,
       { simulate },
     );
-    localCursor.x += widthOfLocationIcon + base.margin / 10;
-    localCursor.y += base.margin / 14;
+
+    localCursor.x += widthOfLocationIcon + base.margin / 3;
+    localCursor.y -= base.margin / 16;
 
     const location = addText(
       doc,
@@ -189,7 +196,7 @@ export default async function addEventItem(
     );
 
     localCursor.x += widthOfOnelineLinkIcon + base.margin / 3;
-    localCursor.y += base.margin / 14;
+    localCursor.y -= base.margin / 16;
 
     const onlineLink = addText(doc, localCursor, event.onlineAccessLink, {
       width: textMaxWidth,
@@ -206,19 +213,24 @@ export default async function addEventItem(
 
   localCursor.x = imageWidth + base.margin * 2;
 
-  event.registration
-    .filter(obj => obj.type === 'email')
-    .forEach(({ value: email }) => {
-      const registration = addText(doc, localCursor, email, {
-        width: textMaxWidth,
-        fontSize: 10,
-        base,
-        simulate,
-      });
-      widthOfRegistration = registration.width;
-      heightOfRegistration = registration.height;
-      localCursor.y += heightOfRegistration + base.margin / 10;
-    });
+  const registration = await addRegistration(
+    event,
+    doc,
+    localCursor,
+    lang,
+    base,
+    iconHeightAndWidth,
+    widthOfReg,
+    heightOfReg,
+    emailIconPath,
+    phoneIconPath,
+    linkIconPath,
+    { simulate },
+  );
+
+  widthOfRegistration = registration.width;
+  heightOfRegistration = registration.height;
+  localCursor.y += heightOfRegistration + base.margin / 10;
 
   const eventLink = addText(
     doc,
@@ -236,6 +248,7 @@ export default async function addEventItem(
   );
   widthOfEventLink = eventLink.width;
   heightOfEventLink = eventLink.height;
+
   localCursor.y += heightOfEventLink;
 
   const itemHeight = Math.max(imageHeight, localCursor.y - cursor.y) + base.margin;

@@ -12,7 +12,6 @@ export default async function addDocumentHeader(
     base = {
       margin: 20,
       color: '#413a42',
-      fontFamily: 'Helvetica',
       fontSize: 10,
     },
   } = options;

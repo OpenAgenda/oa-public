@@ -36,7 +36,9 @@ describe('validateAndCreateEventOffer', () => {
       { ...event, image: undefined },
       {
         venueId,
-        category: 'EVENEMENT_CINE',
+        category: 'CONCERT',
+        musicType: 'JAZZ-BEBOP',
+        bookingContact: 'support@openagenda.com',
         priceCategories: [{
           label: 'Tarif réduit',
           price: 8,
