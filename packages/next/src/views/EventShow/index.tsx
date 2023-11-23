@@ -47,43 +47,6 @@ const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? va
 
 export type EventShowProps = {
   agenda: Agenda
-  event: {
-    title: Record<string, string>
-    description: Record<string, string>
-    dateRange: Record<string, string>
-    timings: {
-      begin: string
-      end: string
-    }[]
-    image?: {
-      size?: {
-        width: number
-        height: number
-      }
-      filename: string
-    }
-    imageCredits?: string
-    longDescription?: Record<string, string>
-    keywords?: Record<string, string[]>
-    createdAt: string
-    updatedAt: string
-    location?: {
-      agendaUid: number
-      name: string
-      address: string
-      tags?: {
-        id: number
-        label: string
-      }[]
-      description?: Record<string, string>
-      access?: Record<string, string>
-      image?: string
-      imageCredits?: string
-      website?: string
-      phone?: string
-      links?: string[]
-    },
-  },
   preload?: string[]
 };
 
