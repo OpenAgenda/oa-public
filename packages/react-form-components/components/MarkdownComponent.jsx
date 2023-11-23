@@ -264,12 +264,15 @@ function makeUrlConverter( editor ) {
   editor.convertURL = convertURL_;
 
   function convertURL_( url, name, elm ) {
-
     fn.apply( this, arguments );
+
+    if (/^mailto:/.test(url)) {
+      return url;
+    }
 
     var regex = new RegExp( "(http:|https:)?\/\/" );
     if ( !regex.test( url ) ) {
-      return url = "http://" + url
+      return url = "https://" + url
     }
     return url;
 
