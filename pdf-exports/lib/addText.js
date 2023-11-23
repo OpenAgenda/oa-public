@@ -1,3 +1,9 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export default function addText(doc, cursor, text, options = {}) {
   const {
     fontSize,
@@ -17,9 +23,9 @@ export default function addText(doc, cursor, text, options = {}) {
 
   let selectedFont;
 
-  const regularFontPath = './fonts/Assistant-Regular.ttf';
-  const mediumFontPath = './fonts/Assistant-Medium.ttf';
-  const boldFontPath = './fonts/Assistant-Bold.ttf';
+  const regularFontPath = `${__dirname}/../fonts/Assistant-Regular.ttf`;
+  const mediumFontPath = `${__dirname}/../fonts/Assistant-Medium.ttf`;
+  const boldFontPath = `${__dirname}/../fonts/Assistant-Bold.ttf`;
 
   if (bold) {
     selectedFont = boldFontPath;
