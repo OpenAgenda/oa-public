@@ -15,4 +15,4 @@ export default function useMatomoTracker() {
       matomoSiteId: MATOMO_SITE_ID,
     });
   }, []);
-};
+}
