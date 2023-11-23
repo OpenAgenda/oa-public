@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, IconButton, Link, List, ListItem } from '@openagenda/uikit';
+import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, IconButton, Link } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
 import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 'icons/regular';

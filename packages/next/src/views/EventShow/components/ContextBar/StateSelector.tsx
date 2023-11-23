@@ -69,14 +69,14 @@ export default function StateSelector({ agenda }) {
           <StateTag state="refused" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.refused)}</b>
-            Cet événement n'est pas compatible avec l'agenda et ne sera pas publié
+            Cet événement n&apos;est pas compatible avec l&apos;agenda et ne sera pas publié
           </Flex>
         </MenuItem>
         <MenuItem onClick={() => changeState(0)}>
           <StateTag state="toControl" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.toModerate)}</b>
-            Cet événement doit être modéré et n'est pas prêt à être publié
+            Cet événement doit être modéré et n&apos;est pas prêt à être publié
           </Flex>
         </MenuItem>
         <MenuItem onClick={() => changeState(1)}>
@@ -90,7 +90,7 @@ export default function StateSelector({ agenda }) {
           <StateTag state="published" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.published)}</b>
-            Publiez cet événement pour le rendre visible sur l'agenda
+            Publiez cet événement pour le rendre visible sur l&apos;agenda
           </Flex>
         </MenuItem>
       </MenuList>

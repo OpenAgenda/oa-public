@@ -1,3 +1,4 @@
+import { SWRConfig } from 'swr';
 import EventShow from 'pages/n/[agendaSlug]/events/[eventSlug]';
 import EventShowView from 'views/EventShow';
 import intlMessagesLoader from '../../../loaders/intlMessagesLoader';
@@ -18,26 +19,70 @@ export default {
   ],
 };
 
-export function Sample(_args, { loaded: { intlMessages } }) {
-  return (
+export const Sample = {
+  render: (_args, { loaded: { intlMessages } }) => (
     <EventShow.Layout>
-      <EventShow
-        intlMessages={intlMessages}
-        agenda={agendaFixtures}
-        event={eventFixtures}
-      />
+      <SWRConfig
+        value={{
+          fallback: {
+            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${eventFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
+              success: true,
+              event: eventFixtures,
+            },
+          },
+        }}
+      >
+        <EventShow
+          intlMessages={intlMessages}
+          agenda={agendaFixtures}
+        />
+      </SWRConfig>
     </EventShow.Layout>
-  );
-}
+  ),
+  parameters: {
+    nextjs: {
+      router: {
+        pathname: '/[agendaSlug]/events/[eventSlug]',
+        asPath: `${agendaFixtures.slug}/events/${eventFixtures.slug}`,
+        query: {
+          agendaSlug: agendaFixtures.slug,
+          eventSlug: eventFixtures.slug,
+        },
+      },
+    },
+  },
+};
 
-export function JEP2023(_args, { loaded: { intlMessages } }) {
-  return (
+export const JEP2023 = {
+  render: (_args, { loaded: { intlMessages } }) => (
     <EventShow.Layout>
-      <EventShow
-        intlMessages={intlMessages}
-        agenda={agendaJEPFixtures}
-        event={eventJEPFixtures}
-      />
+      <SWRConfig
+        value={{
+          fallback: {
+            [`/api/agendas/slug/${agendaJEPFixtures.slug}/events/slug/${eventJEPFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
+              success: true,
+              event: eventJEPFixtures,
+            },
+          },
+        }}
+      >
+        <EventShow
+          intlMessages={intlMessages}
+          agenda={agendaJEPFixtures}
+        />
+      </SWRConfig>
     </EventShow.Layout>
-  );
-}
+  ),
+  parameters: {
+    nextjs: {
+      router: {
+        pathname: '/[agendaSlug]/events/[eventSlug]',
+        asPath: `${agendaJEPFixtures.slug}/events/${eventJEPFixtures.slug}`,
+        query: {
+          agendaSlug: agendaJEPFixtures.slug,
+          eventSlug: eventJEPFixtures.slug,
+        },
+      },
+    },
+  },
+};
