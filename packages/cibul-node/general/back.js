@@ -18,7 +18,7 @@ function _loadUser(detailed, req, res, next) {
 function latestInboxMessageTimestamp(req, res, next) {
   const { Inbox } = req.app.services.inboxes;
 
-  new Inbox.user(req.user.uid).conversations.list(0, 1)
+  Inbox.user(req.user.uid).conversations.list(0, 1)
     .then(({ data }) => {
       const latestConversation = _.head(data);
 
