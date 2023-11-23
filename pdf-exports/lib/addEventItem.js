@@ -50,9 +50,6 @@ export default async function addEventItem(
   let widthOfRegistration = null;
   let heightOfRegistration = null;
 
-  const widthOfReg = {};
-  const heightOfReg = {};
-
   const imageWidth = 90;
   const imageHeight = 90;
 
@@ -217,15 +214,14 @@ export default async function addEventItem(
     event,
     doc,
     localCursor,
-    lang,
-    base,
-    iconHeightAndWidth,
-    widthOfReg,
-    heightOfReg,
-    emailIconPath,
-    phoneIconPath,
-    linkIconPath,
-    { simulate },
+    {
+      base,
+      iconHeightAndWidth,
+      emailIconPath,
+      phoneIconPath,
+      linkIconPath,
+    },
+    { simulate, lang },
   );
 
   widthOfRegistration = registration.width;
