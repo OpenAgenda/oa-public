@@ -12,10 +12,8 @@ export default async function addDocumentHeader(
     base = {
       margin: 20,
       color: '#413a42',
-      fontFamily: 'Helvetica',
       fontSize: 10,
     },
-    titleFontFamily = 'Helvetica-Bold',
     secondaryColor = '#808080',
   } = options;
 
@@ -49,7 +47,7 @@ export default async function addDocumentHeader(
     doc,
     localCursor,
     agenda.title,
-    { width: textMaxWidth, fontSize: 14, base, fontFamily: titleFontFamily },
+    { width: textMaxWidth, fontSize: 14, base, bold: true },
   );
 
   localCursor.y += heightOfTitle + base.margin / 10;
