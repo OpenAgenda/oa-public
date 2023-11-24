@@ -913,14 +913,6 @@
   "height": 800
   },
   "type": "full"
-  },
-  {
-  "filename": "347c52b650d84e8aad815ac8afbc7472.thumb.image.jpg",
-  "size": {
-  "width": 200,
-  "height": 200
-  },
-  "type": "thumbnail"
   }
   ],
   "base": "https://cibul.s3.amazonaws.com/"
@@ -1402,7 +1394,7 @@
   "updatedAt": "2023-09-07T03:53:40.000Z",
   "addMethod": "contribution",
   "image": {
-  "filename": "347c52b650d84e8aad815ac8afbc7472.base.image.jpg",
+  "filename": "event_l-acantah_381580.jpg",
   "size": {
   "width": 700,
   "height": 373
@@ -1417,7 +1409,7 @@
   "type": "full"
   },
   {
-  "filename": "347c52b650d84e8aad815ac8afbc7472.thumb.image.jpg",
+  "filename": "evtbevent_l-acantah_381580.jpg",
   "size": {
   "width": 200,
   "height": 200
