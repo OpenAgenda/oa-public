@@ -2,13 +2,15 @@
 
 const log = require('@openagenda/logs')('paths');
 
-const clean = sourcePaths => (sourcePaths ? sourcePaths.map(path => [].concat(path)) : []);
-const pathIsIncluded = (paths, path) => paths.map(p => p.join('.')).includes(path.join('.'));
+const clean = sourcePaths =>
+  (sourcePaths ? sourcePaths.map(path => [].concat(path)) : []);
+const pathIsIncluded = (paths, path) =>
+  paths.map(p => p.join('.')).includes(path.join('.'));
 
 module.exports.updateIsRequired = (
-  referencePaths = [],
-  sourcePaths = [],
-  leaf
+  referencePaths = [], // paths that are currently referenced in aggregator
+  sourcePaths = [], // paths that are currently referenced in source
+  leaf = null, // uid of source
 ) => {
   log('updateIsRequired', { referencePaths, sourcePaths, leaf });
   const pathsFromSource = clean(referencePaths)
@@ -17,8 +19,8 @@ module.exports.updateIsRequired = (
 
   const cleanSourcePaths = clean(sourcePaths);
 
-  if (!cleanSourcePaths.length) {
-    return false;
+  if (!cleanSourcePaths.length && !pathsFromSource.length) {
+    return true;
   }
 
   if (cleanSourcePaths.length !== pathsFromSource.length) {
@@ -26,13 +28,17 @@ module.exports.updateIsRequired = (
   }
 
   const differentSourcePaths = cleanSourcePaths.filter(
-    p => !pathIsIncluded(pathsFromSource, p)
+    p => !pathIsIncluded(pathsFromSource, p),
   );
 
   return !!differentSourcePaths.length;
 };
 
-module.exports.getAmended = (referencePaths = [], sourcePaths = [], leaf) => {
+module.exports.getAmended = (
+  referencePaths = [],
+  sourcePaths = [],
+  leaf = null,
+) => {
   log('getAmended', { referencePaths, sourcePaths, leaf });
   const paths = clean(referencePaths);
 
@@ -52,15 +58,16 @@ module.exports.getAmended = (referencePaths = [], sourcePaths = [], leaf) => {
   return paths;
 };
 
-module.exports.getFiltered = (referencePaths = [], leaf) => {
+module.exports.getFiltered = (referencePaths = [], leaf = null) => {
   log('getFiltered', { referencePaths, leaf });
   return clean(referencePaths).filter(p => !p.includes(leaf));
 };
 
 module.exports.endsShortestPath = (referencePaths, leaf) => {
-  const shortestPath = referencePaths.reduce((shortest, path) => (shortest && shortest.length < path.length ? shortest : path));
+  const shortestPath = referencePaths.reduce((shortest, path) =>
+    (shortest && shortest.length < path.length ? shortest : path));
 
   return !!referencePaths.filter(
-    p => p.length === shortestPath.length && p[p.length - 1] === leaf
+    p => p.length === shortestPath.length && p[p.length - 1] === leaf,
   ).length;
 };
