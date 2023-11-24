@@ -91,13 +91,12 @@ export default async function addEventItem(
 
   if (!thumbnailFilename) {
     imageUrl = oaLogoPath;
-    console.log(imageUrl);
-  } else {
-    if (newVersionThumbnail) {
-      imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
-    }
+  } else if (!newVersionThumbnail) {
     const baseImageUrl = `https://img.openagenda.com/u/${imageWidth}x${imageHeight}/cibul/`;
     imageUrl = await urlToBuffer(baseImageUrl + event.image.filename);
+  } else {
+    imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
+    console.log(imageUrl);
   }
 
   if (!simulate && imageUrl) {
