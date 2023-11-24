@@ -50,6 +50,8 @@ export default async function addEventItem(
   let widthOfRegistration = null;
   let heightOfRegistration = null;
 
+  let imageUrl;
+
   const imageWidth = 90;
   const imageHeight = 90;
 
@@ -63,6 +65,7 @@ export default async function addEventItem(
   const emailIconPath = `${__dirname}/../images/email.png`;
   const phoneIconPath = `${__dirname}/../images/phone.png`;
   const linkIconPath = `${__dirname}/../images/link.png`;
+  const oaLogoPath = `${__dirname}/../images/oaLogo.png`;
 
   const iconsArr = [];
 
@@ -77,15 +80,25 @@ export default async function addEventItem(
   const thumbnailFilename = event.image?.variants.find(
     el => el.type === 'thumbnail',
   )?.filename;
-  const imageUrl = thumbnailFilename
-    ? await urlToBuffer(event.image.base + thumbnailFilename)
-    : undefined;
+
+  const newVersionThumbnail = thumbnailFilename?.includes('.thumb.image.jpg');
 
   const imageOptions = {
     cover: [imageWidth, imageHeight],
     align: 'center',
     valign: 'center',
   };
+
+  if (!thumbnailFilename) {
+    imageUrl = oaLogoPath;
+    console.log(imageUrl);
+  } else {
+    if (newVersionThumbnail) {
+      imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
+    }
+    const baseImageUrl = `https://img.openagenda.com/u/${imageWidth}x${imageHeight}/cibul/`;
+    imageUrl = await urlToBuffer(baseImageUrl + event.image.filename);
+  }
 
   if (!simulate && imageUrl) {
     doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
