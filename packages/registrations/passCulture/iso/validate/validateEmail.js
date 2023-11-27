@@ -10,7 +10,7 @@ export default function validateBookingContact(dirty, field) {
           message: 'email is invalid',
           code: `registration.pass.${field}.invalid`,
           label: 'L\'email est invalide',
-          field: field,
+          field,
         }],
       },
     });
