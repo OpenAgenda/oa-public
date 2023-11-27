@@ -1,10 +1,11 @@
-import { useContext, useState, useMemo } from 'react';
+import { useContext, useState, useMemo, useEffect } from 'react';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
 import Dates from './Dates';
-import CustomDesc from './CustomDesc';
+import Description from './Description';
+import BookingEmail from './BookingEmail';
 import {
   addPriceCategory,
   removePriceCategory,
@@ -23,6 +24,7 @@ export default function Form({
   categories,
   related,
   offererVenues,
+  bookingEmail,
 }) {
   const [value, setValue] = useState(initialValue ?? {});
   const [openSubForm, setOpenSubForm] = useState();
@@ -36,6 +38,16 @@ export default function Form({
 
   const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, value.category), [categories, value.category]);
   const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
+  const venuesOptions = offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
+    value: v.id,
+    label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+  }));
+
+  useEffect(() => {
+    if (venuesOptions.length === 1) {
+      setValue({ ...value, venueId: venuesOptions[0].value });
+    }
+  }, []);
 
   return (
     <form>
@@ -45,10 +57,7 @@ export default function Form({
           label="Lieu"
           value={value?.venueId}
           placeholder="Sélectionner un lieu"
-          options={offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
-            value: v.id,
-            label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
-          }))}
+          options={venuesOptions}
           onChange={option => setValue({
             ...value,
             venueId: option.value,
@@ -118,7 +127,7 @@ export default function Form({
         />
       </Section>
       <Section>
-        <CustomDesc value={value} onChange={v => setValue({ ...value, customDesc: v })} />
+        <Description value={value} onChange={v => setValue({ ...value, description: v })} />
       </Section>
       <Section>
         <Input
@@ -129,6 +138,9 @@ export default function Form({
           onChange={e => setValue({ ...value, bookingContact: e.target.value })}
           sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
         />
+      </Section>
+      <Section>
+        <BookingEmail value={value} onChange={v => setValue({ ...value, bookingEmail: v })} settingsBookingEmail={bookingEmail} />
       </Section>
       <Section>
         <Button

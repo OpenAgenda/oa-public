@@ -68,6 +68,7 @@ export default ({
           categories={passSettingsData.categories}
           related={passSettingsData.related}
           offererVenues={passSettingsData.offererVenues}
+          bookingEmail={settings?.bookingEmail}
           value={value}
           onClose={() => setModal(null)}
           onSubmit={onSubmit}
