@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useLayoutData } from '@openagenda/react-shared';
-import ListVenues from '@openagenda/registration-apps/src/components/bootstrap/ListVenues';
+import ListVenues from '@openagenda/registration-apps/lib/components/bootstrap/ListVenues';
 import I18nContext from '../contexts/I18nContext';
 
 export default function PassSettings() {
