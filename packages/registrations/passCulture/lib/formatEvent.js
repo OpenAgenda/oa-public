@@ -25,13 +25,14 @@ export default async function formatEvent(event, ...args) {
     venueId,
     category,
     bookingContact,
-    customDesc,
+    description,
+    bookingEmail,
   } = passData;
 
   const formatted = {
     name: flatten(event.title, lang),
     accessibility: acc(event),
-    description: await formatText(customDesc || event.longDescription),
+    description: await formatText(description || event.longDescription),
     hasTicket: false,
   };
 
@@ -78,6 +79,10 @@ export default async function formatEvent(event, ...args) {
 
   if (bookingContact) {
     formatted.bookingContact = bookingContact;
+  }
+
+  if (bookingEmail) {
+    formatted.bookingEmail = bookingEmail;
   }
 
   return formatted;
