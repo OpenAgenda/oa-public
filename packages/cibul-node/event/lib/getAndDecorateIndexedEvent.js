@@ -128,7 +128,7 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
     }
 
     if (draft.registration?.length) {
-      draft.registration.filter(r => !r.service).forEach(r => {
+      draft.registration = draft.registration.filter(r => !r.service).forEach(r => {
         Object.assign(r, {
           phone: {
             icon: 'fa-phone',
