@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  BadRequest
+  BadRequest,
 } = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
@@ -15,15 +15,15 @@ schema.register({
   link,
   choice,
   boolean,
-  number
+  number,
 });
 
 const fieldCollection = (type, codes, options = {}) => codes.reduce((fields, code) => ({
   ...fields,
   [code]: {
     type,
-    ...options
-  }
+    ...options,
+  },
 }), {});
 
 const validate = schema({
@@ -31,70 +31,70 @@ const validate = schema({
     facebookappid: {
       type: 'text',
       default: false,
-      max: 100
+      max: 100,
     },
     head: {
       type: 'text',
-      default: ''
+      default: '',
     },
     siteurl: {
       type: 'link',
       default: '',
-      max: 1000
+      max: 1000,
     },
     layout: {
       lang: {
         type: 'text',
         default: 'en',
         max: 2,
-        min: 2
+        min: 2,
       },
       mapTiles: {
         type: 'text',
-        default: false
+        default: false,
       },
       mapPositionMode: {
         type: 'choice',
         unique: true,
         options: ['all', 'manual'],
-        default: 'all'
+        default: 'all',
       },
       mapCorners: fieldCollection('text', ['neLat', 'neLng', 'swLat', 'swLng'], null),
       mapAuto: {
         type: 'boolean',
-        default: false
+        default: false,
       },
       layoutmode: {
         type: 'choice',
         options: ['standard', 'tiled', 'cascading', 'nocss'],
         default: 'standard',
-        unique: true
+        unique: true,
       },
       autoscroll: {
         type: 'boolean',
-        default: true
+        default: true,
       },
       use_event_slug: {
         type: 'boolean',
-        default: false
+        default: false,
       },
       synchref: {
         type: 'boolean',
-        default: true
+        default: true,
       },
       customcss: {
         type: 'text',
-        default: false
+        default: false,
       },
       linkcss: {
         type: 'link',
-        default: false
+        default: false,
       },
       use_default_css: fieldCollection('boolean', ['list', 'map', 'search', 'categories', 'tags', 'calendar'], { default: true }),
-      shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], { default: false })
-    }
+      shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], { default: false }),
+    },
   },
-  template: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 })
+  template: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 }),
 });
 
 module.exports = (data = {}) => {

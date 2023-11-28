@@ -9,27 +9,30 @@ const validate = require('./validate');
 module.exports = ({ interfaces, knex }, agendaUid) => async (uid, data = {}) => {
   const embed = await get({ interfaces, knex }, agendaUid, uid, {
     includeId: true,
-    throwIfNotFound: true
+    throwIfNotFound: true,
   });
 
   log('updating with %j', data);
+  try {
+    const { template, config } = validate(data);
+    await knex('review_embed').update({
+      store: serialize(config),
+      template: JSON.stringify(template),
+      updated_at: new Date(),
+    }).where({
+      id: embed.id,
+    });
 
-  const { template, config } = validate(data);
+    log('update successful');
 
-  await knex('review_embed').update({
-    store: serialize(config),
-    template: JSON.stringify(template),
-    updated_at: new Date()
-  }).where({
-    id: embed.id
-  });
-
-  log('update successful');
-
-  return {
-    uid,
-    agendaUid,
-    template,
-    config
-  };
+    return {
+      uid,
+      agendaUid,
+      template,
+      config,
+    };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
