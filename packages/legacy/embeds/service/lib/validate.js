@@ -102,7 +102,7 @@ module.exports = (data = {}) => {
     const clean = validate(data);
     if (clean.config.layout.mapCorners.neLat === 'false') {
       Object.keys(clean.config.layout.mapCorners).forEach(corner => {
-        clean.config.layout.mapCorner[corner] = false;
+        clean.config.layout.mapCorners[corner] = false;
       });
     }
     ['customcss', 'mapTiles'].forEach(field => {
