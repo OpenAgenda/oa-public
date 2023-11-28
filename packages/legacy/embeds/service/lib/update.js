@@ -13,26 +13,21 @@ module.exports = ({ interfaces, knex }, agendaUid) => async (uid, data = {}) => 
   });
 
   log('updating with %j', data);
-  try {
-    const { template, config } = validate(data);
-    await knex('review_embed').update({
-      store: serialize(config),
-      template: JSON.stringify(template),
-      updated_at: new Date(),
-    }).where({
-      id: embed.id,
-    });
+  const { template, config } = validate(data);
+  await knex('review_embed').update({
+    store: serialize(config),
+    template: JSON.stringify(template),
+    updated_at: new Date(),
+  }).where({
+    id: embed.id,
+  });
 
-    log('update successful');
+  log('update successful');
 
-    return {
-      uid,
-      agendaUid,
-      template,
-      config,
-    };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  return {
+    uid,
+    agendaUid,
+    template,
+    config,
+  };
 };
