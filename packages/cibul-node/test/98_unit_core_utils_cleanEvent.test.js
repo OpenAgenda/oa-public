@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  validateEvent,
-} = require('../core/agendas/utils/cleanEvent');
+const validateEvent = require('../core/agendas/utils/cleanEvent/validateEvent');
 
 describe('98 - core unit - cleanEvent', () => {
   describe('validateEvent', () => {
