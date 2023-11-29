@@ -17,6 +17,12 @@ export default {
         rest.get('/settings', (req, res, ctx) => res(
           ctx.json(passSettings),
         )),
+        rest.get('/contextForAdminMod', (req, res, ctx) => res(
+          ctx.json({ me: { member: { role: 'administrator' } } }),
+        )),
+        rest.get('/contextForContribOrNonMember', (req, res, ctx) => res(
+          ctx.status(404),
+        )),
       ],
     },
   },
@@ -43,6 +49,39 @@ export function EmptyAtLoad() {
               siren: [809346158],
               res: {
                 settings: '/settings',
+                context: '/contextForAdminMod',
+              },
+            },
+          },
+        }}
+      />
+    </div>
+  );
+}
+
+export function EmptyAtLoadSeenByContributor() {
+  const [value, setValue] = useState();
+
+  return (
+    <div className="oa-form col-lg-offset-3 col-lg-6">
+      <p>Contributor (or not member at all) does not have access to pass checkbox</p>
+      <Registration
+        value={value}
+        lang="fr"
+        onChange={setValue}
+        relatedValues={{
+          other: {
+            timings: event.timings,
+          },
+        }}
+        field={{
+          placeholder: 'Truc bidule',
+          settings: {
+            passCulture: {
+              siren: [809346158],
+              res: {
+                settings: '/settings',
+                context: '/contextForContribOrNonMember',
               },
             },
           },
@@ -98,6 +137,7 @@ export function WithData() {
               siren: [809346158],
               res: {
                 settings: '/settings',
+                context: '/contextForAdminMod',
               },
             },
           },
@@ -157,6 +197,7 @@ export function WithDataWithoutTimings() {
                 siren: [809346158],
                 res: {
                   settings: '/settings',
+                  context: '/contextForAdminMod',
                 },
               },
             },
@@ -192,6 +233,7 @@ export function WithoutDataWithoutTimings() {
                 siren: [809346158],
                 res: {
                   settings: '/settings',
+                  context: '/contextForAdminMod',
                 },
               },
             },
@@ -227,6 +269,7 @@ export function WithoutDataWithPassedTimings() {
                 siren: [809346158],
                 res: {
                   settings: '/settings',
+                  context: '/contextForAdminMod',
                 },
               },
             },
@@ -282,6 +325,7 @@ export function WithAlreadyCreatedPassOffer() {
                   settings: '/settings',
                   offerLink: '/#/:id/show',
                   offerEditLink: '/#/:id/edit',
+                  context: '/contextForAdminMod',
                 },
               },
             },

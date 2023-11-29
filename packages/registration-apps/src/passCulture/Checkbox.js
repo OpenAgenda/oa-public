@@ -16,6 +16,7 @@ export default ({
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
+  const [hasAccess, setHasAccess] = useState(false);
 
   const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
   const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
@@ -44,6 +45,14 @@ export default ({
         setPassSettingsData(data);
         setIsLoadingPassData(false);
       });
+
+    fetch(settings.res.context)
+      .then(r => r.json())
+      .then(data => {
+        setHasAccess(['administrator', 'moderator'].includes(data.me.member?.role));
+      }).catch(() => {
+        setHasAccess(false);
+      });
   }, [settings]);
 
   const onCheck = useCallback(() => {
@@ -59,6 +68,10 @@ export default ({
     onChange(v);
     setModal(null);
   }, [onChange]);
+
+  if (!hasAccess) {
+    return null;
+  }
 
   return (
     <>
@@ -121,6 +134,7 @@ export default ({
           ) : null}
         </label>
       </div>
+      <b>Autres outils</b>
     </>
   );
 };
