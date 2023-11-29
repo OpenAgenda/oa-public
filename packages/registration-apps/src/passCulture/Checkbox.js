@@ -17,7 +17,8 @@ export default ({
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
 
-  const hasData = Object.keys(value ?? {}).length;
+  const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
+  const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
 
   const offerAlreadyExists = value?.id;
 
@@ -32,8 +33,8 @@ export default ({
   const issues = useMemo(
     () => []
       .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
-      .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
-    [upcomingTimings, hasData, value, timings, passSettingsData],
+      .concat(hasData && hasSettingsData && !validateLocalData(value, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    [upcomingTimings, hasData, value, timings, passSettingsData, hasSettingsData],
   );
 
   useEffect(() => {
