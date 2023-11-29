@@ -8,6 +8,7 @@ const eventSchema = require('@openagenda/event-form/src/schema');
 const labels = require('@openagenda/labels/event/form');
 
 const validateEvent = require('./validateEvent');
+const getWriteAccess = require('./getWriteAccess');
 
 const eventFields = eventSchema.eventFields({
   labels,
@@ -83,7 +84,7 @@ module.exports = Object.assign(async function cleanEvent(services, agenda, data,
   const passCulturePayload = clean.event.registration?.find(({ service }) => service === 'passCulture')?.data;
   if (passCulturePayload && registrations) {
     clean.passCulture = await registrations(agenda.settings.registration).passCulture.validateEventOffer(clean.event, passCulturePayload);
-  } else if (passCulturePayload) {
+  } else if (passCulturePayload && !registrations) {
     log('passCulture payload is set but registrations is not initialized');
   }
 
