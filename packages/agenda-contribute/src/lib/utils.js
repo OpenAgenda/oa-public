@@ -255,6 +255,35 @@ function shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventF
   return !!requestedDisplayEventFields;
 }
 
+function removeUnduplicatable(destinationAgenda, agenda, data) {
+  log('filtering unduplicatable event data');
+
+  if (!agenda) {
+    return null;
+  }
+
+  const unduplicatableFields = [
+    'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings',
+  ].concat(
+    agenda.schema.fields
+      .filter(f => !(f.duplicatable ?? true))
+      .map(f => f.field),
+  );
+
+  const locationOriginIsDestinationAgenda = data?.location?.agendaUid === destinationAgenda.uid;
+  const sameLocationSet = !!destinationAgenda?.locationSetUid && (data?.location?.setUid === destinationAgenda?.locationSetUid);
+
+  if (!locationOriginIsDestinationAgenda && !sameLocationSet) {
+    unduplicatableFields.push('location');
+  }
+
+  return Object.keys(data)
+    .filter(field => !unduplicatableFields.includes(field))
+    .reduce((filtered, field) => Object.assign(filtered, {
+      [field]: data[field],
+    }), {});
+}
+
 export default {
   isMemberDataRequired,
   isContributionType,
@@ -269,4 +298,5 @@ export default {
   shouldDisplayEventFields,
   filterState,
   filterEventData,
+  removeUnduplicatable,
 };
