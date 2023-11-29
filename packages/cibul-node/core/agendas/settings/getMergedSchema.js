@@ -30,6 +30,7 @@ function dispatchSettingsInFields(services, agenda, schema) {
       passCulture: {
         ...agenda.settings.registration.passCulture,
         res: {
+          context: `/api/me/agendas/${agenda.uid}`,
           settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
           offerLink: registrations?.settings.passCulture.offerLink,
           offerEditLink: registrations?.settings.passCulture.offerEditLink,
