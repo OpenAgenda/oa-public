@@ -3,7 +3,7 @@ import extract from './extractActionsDisplayValues';
 import messages from './messages';
 
 export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
-  <div>
+  <div className="padding-v-xs">
     {hasFilter(rule) ? (
       <span
         title={intl.formatMessage(messages.actionsAfterFilterDetail)}
@@ -29,11 +29,7 @@ export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
         });
 
         return (
-          <li
-            key={key}
-            title={detail}
-            className="padding-left-xs padding-bottom-xs"
-          >
+          <li key={key} title={detail} className="padding-left-xs">
             <label htmlFor={key} className="margin-right-xs">
               {label}:
             </label>
