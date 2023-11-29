@@ -85,5 +85,30 @@ describe('utils', () => {
 
       expect(duplicatableData.timings).toBeUndefined();
     });
+
+    test('registration items linked to specific ticketing services are filtered', () => {
+      const duplicatableData = removeUnduplicatable({
+        title: 'Destination agenda',
+      }, {
+        title: 'Source Agenda',
+        schema: { fields: [] },
+      }, {
+        title: 'Event title',
+        registration: [{
+          type: 'link',
+          value: 'https://openagenda.com',
+        }, {
+          type: 'link',
+          value: 'https://pass.culture.fr',
+          service: 'passCulture',
+          data: {},
+        }],
+      });
+
+      expect(duplicatableData.registration).toEqual([{
+        type: 'link',
+        value: 'https://openagenda.com',
+      }]);
+    });
   });
 });

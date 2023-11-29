@@ -279,9 +279,16 @@ function removeUnduplicatable(destinationAgenda, agenda, data) {
 
   return Object.keys(data)
     .filter(field => !unduplicatableFields.includes(field))
-    .reduce((filtered, field) => Object.assign(filtered, {
-      [field]: data[field],
-    }), {});
+    .reduce((filtered, field) => {
+      if (field === 'registration') {
+        return Object.assign(filtered, {
+          registration: (data.registration ?? []).filter(r => r.service === undefined),
+        });
+      }
+      return Object.assign(filtered, {
+        [field]: data[field],
+      });
+    }, {});
 }
 
 export default {
