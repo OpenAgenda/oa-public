@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { validatePriceCategory } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../../components/Context';
 
 import PriceCategoryForm from './Form';
 import PriceCategoryItems from './Items';
+
+const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
 
 export default function PriceCategories({
   initWithOpenForm = false,
@@ -21,6 +23,16 @@ export default function PriceCategories({
 
   const [newItem, setNewItem] = useState(initWithOpenForm);
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (hasPriceCategories(value)) {
+      return;
+    }
+    onAdd({
+      label: 'Tarif unique',
+      price: 0,
+    });
+  }, []);
 
   return (
     <>
