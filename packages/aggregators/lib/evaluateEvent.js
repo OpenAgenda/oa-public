@@ -18,9 +18,14 @@ const processEvaluate = async (
     updateEventReference,
     enqueueRemove,
   },
-  { sourceAgenda, event, batched, sourceAgendaFormSchema, aggregator, log },
+  { sourceAgenda, event, batched, sourceAgendaFormSchema, aggregator },
 ) => {
   const { sourceRules, aggregatorRules, aggregatorAgendaUid, aggregatorLimit } = aggregator;
+
+  const log = Log(
+    `${event.slug}: ${sourceAgenda.slug} (${sourceAgenda.uid}) -> (${aggregatorAgendaUid})`,
+  );
+
   if (
     typeof getAggregatedCount === 'function'
     && limit.exists(aggregatorLimit)
@@ -193,17 +198,17 @@ const evaluateEvent = async (
     report = { counts: {}, erroredEvents: [] },
   } = data;
 
-  const log = Log(
-    `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
-  );
-
   if (aggregatorsBuffer.length === 0) {
+    const log = Log(
+      `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
+    );
     log('info', report);
     log('no more items in aggregatorsBuffer');
     return;
   }
-  log(`${aggregatorsBuffer.length} aggregators remaining to process`);
+
   const aggregator = aggregatorsBuffer.shift();
+
   try {
     const action = await processEvaluate(
       {
@@ -221,7 +226,6 @@ const evaluateEvent = async (
         batched,
         sourceAgendaFormSchema,
         aggregator,
-        log,
       },
     );
 
