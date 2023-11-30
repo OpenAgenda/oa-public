@@ -2,6 +2,9 @@
 
 const { Forbidden } = require('@openagenda/verror');
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const {
+  NotFound,
+} = require('@openagenda/verror');
 const getMemberSchema = require('../utils/getMemberSchema');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
@@ -42,6 +45,10 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
     access,
     private: null,
   });
+
+  if (!agenda) {
+    throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
+  }
 
   const memberRes = identifier?.constructor.name !== 'Object'
     ? await members.get({
