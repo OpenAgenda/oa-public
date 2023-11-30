@@ -13,6 +13,7 @@ import TextFormPart from './TextFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
+import LanguagesFormPart from './LanguagesFormPart';
 
 export default function RuleForm({
   SubmitButton,
@@ -136,6 +137,29 @@ export default function RuleForm({
                 sourceSchema={sourceSchema}
               />
               <RequiredFieldPart />
+            </div>
+          ) : null}
+
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.languagesFilter)}
+            value="languages"
+            classNameGroup={classNames('radio')}
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterLanguages)}
+              </div>
+            )}
+          />
+
+          {values.type === 'languages' ? (
+            <div className="radio-sub-block">
+              <LanguagesFormPart
+                aggregatorAgendaSchema={aggregatorAgendaSchema}
+                sourceSchema={sourceSchema}
+              />
             </div>
           ) : null}
 

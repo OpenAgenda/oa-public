@@ -30,6 +30,7 @@ export default function RuleItem({
           rule={rule}
           intl={intl}
           sourceAgenda={sourceAgenda}
+          sourceAgendaSchema={sourceAgendaSchema}
           aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
         />

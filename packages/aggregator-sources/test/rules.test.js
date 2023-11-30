@@ -27,7 +27,7 @@ describe('utils - rules', () => {
             },
           ],
         },
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       expect(values).toEqual({
@@ -59,7 +59,7 @@ describe('utils - rules', () => {
             },
           ],
         },
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       expect(values.actions[0].set).toEqual(true);
@@ -89,7 +89,7 @@ describe('utils - rules', () => {
           ],
           required: true,
         },
-        aggAgendaSchema2
+        aggAgendaSchema2,
       );
 
       expect(values.withActions).toBe(true);
@@ -106,7 +106,7 @@ describe('utils - rules', () => {
           actions: [],
           required: true,
         },
-        aggAgendaSchema2
+        aggAgendaSchema2,
       );
       expect(values).toEqual({
         withFilter: true,
@@ -117,7 +117,28 @@ describe('utils - rules', () => {
         type: 'text',
         textField: 'organisateur',
         textValue: '92ORG',
+        wholeValue: false,
       });
+    });
+
+    it('with text copy action', () => {
+      const values = ruleToValues(
+        {
+          query: {},
+          actions: [
+            {
+              automatic: false,
+              field: 'customtextField',
+              values: {
+                $copy: 'another-text-field',
+              },
+            },
+          ],
+          required: false,
+        },
+        aggregatorAgendaSchema,
+      );
+      expect(values.actions[0].copyValues).toEqual('another-text-field');
     });
   });
 
@@ -133,7 +154,7 @@ describe('utils - rules', () => {
             { id: '2', field: 'state', values: 0 },
           ],
         },
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       expect(rule).toEqual({
@@ -169,7 +190,7 @@ describe('utils - rules', () => {
             },
           ],
         },
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       expect(rule.actions[0].values).toEqual({ $set: [28] });
@@ -189,7 +210,7 @@ describe('utils - rules', () => {
             },
           ],
         },
-        aggregatorAgendaSchema
+        aggregatorAgendaSchema,
       );
 
       expect(rule.required).toEqual(false);
@@ -208,6 +229,35 @@ describe('utils - rules', () => {
         query: { text: { organisateur: '92ORG' } },
         required: true,
         actions: [],
+      });
+    });
+    it('with text copy action', () => {
+      const rule = valuesToRule(
+        {
+          withFilter: false,
+          withActions: true,
+          actions: [
+            {
+              id: '1',
+              field: 'customtextField',
+              copyValues: 'another-text-field',
+            },
+          ],
+        },
+        aggregatorAgendaSchema,
+      );
+      expect(rule).toEqual({
+        actions: [
+          {
+            automatic: false,
+            field: 'customtextField',
+            values: {
+              $copy: 'another-text-field',
+            },
+          },
+        ],
+        query: {},
+        required: false,
       });
     });
   });

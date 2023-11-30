@@ -8,6 +8,13 @@ function isSet(action) {
   return false;
 }
 
+function isCopy(action) {
+  if (action.values instanceof Object) {
+    return Object.keys(action.values)[0] === '$copy';
+  }
+  return false;
+}
+
 function getKey(action) {
   return `action-${JSON.stringify(action)}`;
 }
@@ -19,7 +26,17 @@ function getType(action) {
   return null;
 }
 
-function getValues(action) {
+function getValues(action, sourceAgendaSchema, local) {
+  if (
+    action.values instanceof Object
+    && action.values.$copy
+    && sourceAgendaSchema?.fields.find(f => f.field === action.values.$copy)
+  ) {
+    const label = sourceAgendaSchema?.fields.find(
+      f => f.field === action.values.$copy,
+    ).label;
+    return [].concat(label[local] || label);
+  }
   if (action.values instanceof Object) {
     return [].concat(action.values[Object.keys(action.values)[0]]);
   }
@@ -66,12 +83,19 @@ function stateAction({ intl, action }) {
   };
 }
 
-export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
+export default ({
+  intl,
+  aggregatorAgendaSchema,
+  aggregatorAgenda,
+  action,
+  sourceAgendaSchema,
+}) => {
   const type = getType(action);
   const base = {
     type,
     key: getKey(action),
     set: isSet(action),
+    copy: isCopy(action),
   };
 
   if (type === 'state') {
@@ -120,7 +144,7 @@ export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
         ? matchingOptions
           .map(o => getLocaleValue(o?.label, intl.locale))
           .join(', ')
-        : getValues(action)[0],
+        : getValues(action, sourceAgendaSchema, intl.locale)[0],
     detail: intl.formatMessage(
       messages.aggregatorAgendaChoiceFieldValueDetail,
       {

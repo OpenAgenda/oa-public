@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.textFilter',
     defaultMessage: 'Text field filter',
   },
+  languagesFilter: {
+    id: 'aggregator-sources.RuleForm.languagesFilter',
+    defaultMessage: 'Languages filter',
+  },
   RespectCase: {
     id: 'aggregator-sources.RuleForm.RespectCase',
     defaultMessage: 'Respect case',
@@ -117,6 +121,11 @@ export default defineMessages({
     defaultMessage:
       'Apply the rule to events corresponding to one value coming from text fields of the source.',
   },
+  helpFilterLanguages: {
+    id: 'aggregator-sources.RuleForm.helpFilterLanguages',
+    defaultMessage:
+      'Apply the rule to events having a specific language defined in the source.',
+  },
   helpFilterTag: {
     id: 'aggregator-sources.RuleForm.helpFilterTag',
     defaultMessage:
@@ -168,5 +177,51 @@ export default defineMessages({
   wholeValueFilter: {
     id: 'aggregator-sources.RuleForm.wholeValueFilter',
     defaultMessage: 'The whole value of the field is compared to the filter',
+  },
+  setTextValue: {
+    id: 'aggregator-sources.RuleForm.setTextValue',
+    defaultMessage: 'define a value',
+  },
+  copyTextValue: {
+    id: 'aggregator-sources.RuleForm.copyTextValue',
+    defaultMessage: 'copy a value',
+  },
+  copyTextPlaceholder: {
+    id: 'aggregator-sources.RuleForm.copyTextPlaceholder',
+    defaultMessage: 'select the source field to copy',
+  },
+  setTextTitle: {
+    id: 'aggregator-sources.RuleForm.setTextTitle',
+    defaultMessage:
+      'Your entry will be applied to the targeted field when aggregating the event on your agenda',
+  },
+  copyTextTitle: {
+    id: 'aggregator-sources.RuleForm.copyTextTitle',
+    defaultMessage:
+      'The value defined in the targeted source field will be applied to the targeted field when aggregating the event on your agenda',
+  },
+  textPlaceholder: {
+    id: 'aggregator-sources.RuleForm.textPlaceholder',
+    defaultMessage: 'Text field',
+  },
+  textareaPlaceholder: {
+    id: 'aggregator-sources.RuleForm.textareaPlaceholder',
+    defaultMessage: 'Textarea',
+  },
+  markdownPlaceholder: {
+    id: 'aggregator-sources.RuleForm.markdownPlaceholder',
+    defaultMessage: 'Rich text',
+  },
+  emailPlaceholder: {
+    id: 'aggregator-sources.RuleForm.emailPlaceholder',
+    defaultMessage: 'Email',
+  },
+  phonePlaceholder: {
+    id: 'aggregator-sources.RuleForm.phonePlaceholder',
+    defaultMessage: 'Phone',
+  },
+  linkPlaceholder: {
+    id: 'aggregator-sources.RuleForm.linkPlaceholder',
+    defaultMessage: 'Hyperlink',
   },
 });
