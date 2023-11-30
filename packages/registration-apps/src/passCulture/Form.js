@@ -16,6 +16,8 @@ import {
   getRelatedFieldOptions,
 } from './utils';
 
+const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
+
 export default function Form({
   value: initialValue,
   timings,
@@ -44,9 +46,23 @@ export default function Form({
   }));
 
   useEffect(() => {
-    if (venuesOptions.length === 1) {
-      setValue({ ...value, venueId: venuesOptions[0].value });
+    const defaultsAtInit = {};
+    if (venuesOptions.length === 1 && !value.venueId) {
+      defaultsAtInit.venueId = venuesOptions[0].value;
     }
+
+    if (!hasPriceCategories(value)) {
+      defaultsAtInit.priceCategories = [{
+        label: 'Tarif unique',
+        price: 0,
+      }];
+    }
+
+    if (!Object.keys(defaultsAtInit).length) {
+      return;
+    }
+
+    setValue({ ...value, ...defaultsAtInit });
   }, []);
 
   return (
