@@ -128,7 +128,8 @@ const getActionValues = ({ action, sourceAgendaSchema, aggregatorAgendaSchema, f
   }
   const actionOperation = Object.keys(action.values).pop();
   if (actionOperation === '$set' && action.values[actionOperation].constructor === Object && action.values[actionOperation].$copy) {
-    return data[action.values[actionOperation].$copy];
+    const value = data[action.values[actionOperation].$copy];
+    return typeof value === 'object' ? value[Object.keys(value)[0]] : value;
   }
   return action.values[actionOperation];
 };
