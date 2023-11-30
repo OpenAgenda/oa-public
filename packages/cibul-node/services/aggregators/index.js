@@ -72,7 +72,7 @@ module.exports.init = (config, services) => {
           );
           return {
             success: false,
-            errors: e.name === 'BadRequest' ? e.info : e,
+            errors: e.name === 'BadRequest' ? e.info.errors ?? e.info : e,
           };
         }
       },
