@@ -167,7 +167,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
   }
 
-  if (agenda.network && clean.networkCustom) {
+  if (agenda.network?.formSchemaId && clean.networkCustom) {
     const result = await setCustom(
       custom,
       agenda.network.formSchemaId,
@@ -195,6 +195,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const beforeEvent = await payload.getCompiledEvent('before');
   const afterEvent = await payload.getCompiledEvent();
+
   if (isEventDifferent(beforeEvent, afterEvent)) {
     try {
       await createUpdateActivity(core.services, beforeEvent, afterEvent, {
