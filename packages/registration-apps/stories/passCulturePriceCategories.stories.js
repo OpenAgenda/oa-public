@@ -23,7 +23,7 @@ export const Empty = () => {
   const [value, setValue] = useState({});
   return (
     <>
-      <p>First price category is labelled directly `Tarif unique` and priced at 0. It is preloaded when form is empty of price categories at load.</p>
+      <p>First price category is labelled directly `Tarif unique` and priced at 0.</p>
       <PassPriceCategories
         value={value ?? []}
         onAdd={pc => setValue(addPriceCategory(value, pc))}

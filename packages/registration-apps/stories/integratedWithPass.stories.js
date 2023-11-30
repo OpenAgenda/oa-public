@@ -33,6 +33,7 @@ export function EmptyAtLoad() {
 
   return (
     <div className="oa-form col-lg-offset-3 col-lg-6">
+      <p>Form will be preloaded with one pricing `Tarif unique` with price at 0.</p>
       <Registration
         value={value}
         lang="fr"
