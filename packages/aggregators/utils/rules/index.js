@@ -117,6 +117,22 @@ function extractAutomaticValues(
     );
 }
 
+const getActionValues = ({ action, sourceAgendaSchema, aggregatorAgendaSchema, field, data }) => {
+  if (action.automatic) {
+    return extractAutomaticValues(
+      sourceAgendaSchema,
+      aggregatorAgendaSchema,
+      field,
+      data,
+    );
+  }
+  const actionOperation = Object.keys(action.values).pop();
+  if (actionOperation === '$set' && action.values[actionOperation].constructor === Object && action.values[actionOperation].$copy) {
+    return data[action.values[actionOperation].$copy];
+  }
+  return action.values[actionOperation];
+};
+
 module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   const { stop, actions } = evaluateRules(
     rules,
@@ -167,15 +183,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       [field]: actionsByField[field].reduce((fieldTransform, action) => {
         const actionOperation = Object.keys(action.values).pop();
         const fieldOperation = Object.keys(fieldTransform).pop();
-        const actionValues = action.automatic
-          ? extractAutomaticValues(
-            sourceAgendaSchema,
-            aggregatorAgendaSchema,
-            field,
-            data,
-          )
-          : action.values[actionOperation];
-
+        const actionValues = getActionValues({ action, sourceAgendaSchema, aggregatorAgendaSchema, field, data });
         const currentFieldTransformValues = [].concat(
           fieldTransform[fieldOperation],
         );
