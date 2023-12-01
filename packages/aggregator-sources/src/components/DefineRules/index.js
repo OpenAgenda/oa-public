@@ -267,6 +267,7 @@ export default function DefineRules({
           SubmitButton={UpdateRuleSubmitButton}
           disabledChoice={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
+          /* sourceAgenda={sourceAgenda} */
           aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
       </div>

@@ -5,10 +5,9 @@ import messages from './messages';
 export default function validate(
   intl,
   values,
-  aggregatorAgendaSchema /* , sourceSchema */
+  aggregatorAgendaSchema /* , sourceSchema */,
 ) {
   const errors = {};
-
   if (values.withFilter && !values.type) {
     errors.type = intl.formatMessage(messages.requiredType);
   }
@@ -48,13 +47,14 @@ export default function validate(
     })
     .forEach(fieldSchema => {
       const aggActionIndex = values.actions?.findIndex(
-        v => v?.field && v.field === fieldSchema.field
+        v => v?.field && v.field === fieldSchema.field,
       );
       const aggAction = values.actions?.[aggActionIndex];
 
       const hasValue = Array.isArray(aggAction?.values)
         ? aggAction.values.length
-        : ![null, undefined, ''].includes(aggAction?.values);
+        : ![null, undefined, ''].includes(aggAction?.values)
+          || ![null, undefined, ''].includes(aggAction?.copyValues);
       const isAuto = aggAction?.automatic;
 
       if (
@@ -65,7 +65,7 @@ export default function validate(
         _.set(
           errors,
           ['actions', aggActionIndex, 'values'],
-          intl.formatMessage(messages.requiredValues)
+          intl.formatMessage(messages.requiredValues),
         );
       }
     });

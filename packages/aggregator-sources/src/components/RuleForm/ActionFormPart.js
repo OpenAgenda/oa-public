@@ -239,53 +239,63 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
             </label>
           </div>
           {textFieldMode === 'set' ? (
-            <Field
-              key={`${name}-values-${action.field}`}
-              name={`${name}.values`}
-              render={({ input }) => (
-                <div className="row">
-                  <div className="form-group form-group-v-aligned">
-                    <div className="col-sm-12">
-                      <input
-                        type="text"
-                        className="form-control"
-                        {...input}
-                        placeholder={intl.formatMessage(
-                          messages[`${fieldSchema.fieldType}Placeholder`],
-                        )}
-                        onChange={e => {
-                          form.batch(() => {
-                            form.change(`${name}.values`, e.target.value);
-                            form.change(`${name}.copyValues`, undefined);
-                          });
-                        }}
-                      />
+            <>
+              <div className="text-muted margin-bottom-sm">
+                {intl.formatMessage(messages.setTextTitle)}
+              </div>
+              <Field
+                key={`${name}-values-${action.field}`}
+                name={`${name}.values`}
+                render={({ input }) => (
+                  <div className="row">
+                    <div className="form-group form-group-v-aligned">
+                      <div className="col-sm-12">
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...input}
+                          placeholder={intl.formatMessage(
+                            messages[`${fieldSchema.fieldType}Placeholder`],
+                          )}
+                          onChange={e => {
+                            form.batch(() => {
+                              form.change(`${name}.values`, e.target.value);
+                              form.change(`${name}.copyValues`, undefined);
+                            });
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            />
+                )}
+              />
+            </>
           ) : null}
           {textFieldMode === 'copy' ? (
-            <div className="margin-bottom-md">
-              <ReactSelectField
-                key={`${name}-copyValues-${action.field}`}
-                Field={Field}
-                name={`${name}.copyValues`}
-                placeholder={intl.formatMessage(messages.copyTextPlaceholder)}
-                noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-                options={textFieldCopyOptions}
-                menuPosition="fixed"
-                isDisabled={action?.automatic}
-                isSearchable
-                onChange={e => {
-                  form.batch(() => {
-                    form.change(`${name}.values`, undefined);
-                    form.change(`${name}.copyValues`, e.value);
-                  });
-                }}
-              />
-            </div>
+            <>
+              <div className="text-muted margin-bottom-sm">
+                {intl.formatMessage(messages.copyTextTitle)}
+              </div>
+              <div className="margin-bottom-md">
+                <ReactSelectField
+                  key={`${name}-copyValues-${action.field}`}
+                  Field={Field}
+                  name={`${name}.copyValues`}
+                  placeholder={intl.formatMessage(messages.copyTextPlaceholder)}
+                  noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+                  options={textFieldCopyOptions}
+                  menuPosition="fixed"
+                  isDisabled={action?.automatic}
+                  isSearchable
+                  onChange={e => {
+                    form.batch(() => {
+                      form.change(`${name}.values`, undefined);
+                      form.change(`${name}.copyValues`, e.value);
+                    });
+                  }}
+                />
+              </div>
+            </>
           ) : null}
 
           {advancedMode ? advanceModeSetField : null}

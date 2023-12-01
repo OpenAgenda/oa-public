@@ -25,11 +25,12 @@ export default function RuleForm({
   isAggregator,
   aggregatorAgendaSchema,
   sourceSchema,
+  sourceAgenda,
   displayTagFilter,
 }) {
   const intl = useIntl();
   const formState = useFormState();
-
+  console.log('sourceAgenda', sourceAgenda);
   const error = !formState.dirtySinceLastSubmit && formState.submitError
     ? formState.submitError
     : null;
@@ -159,6 +160,7 @@ export default function RuleForm({
               <LanguagesFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
+                sourceAgendaUid={sourceAgenda.uid}
               />
             </div>
           ) : null}

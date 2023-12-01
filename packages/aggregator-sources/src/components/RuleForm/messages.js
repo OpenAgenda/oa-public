@@ -180,15 +180,15 @@ export default defineMessages({
   },
   setTextValue: {
     id: 'aggregator-sources.RuleForm.setTextValue',
-    defaultMessage: 'define a value',
+    defaultMessage: 'Define a value',
   },
   copyTextValue: {
     id: 'aggregator-sources.RuleForm.copyTextValue',
-    defaultMessage: 'copy a value',
+    defaultMessage: 'Copy a value',
   },
   copyTextPlaceholder: {
     id: 'aggregator-sources.RuleForm.copyTextPlaceholder',
-    defaultMessage: 'select the source field to copy',
+    defaultMessage: 'Select the source field to copy',
   },
   setTextTitle: {
     id: 'aggregator-sources.RuleForm.setTextTitle',
