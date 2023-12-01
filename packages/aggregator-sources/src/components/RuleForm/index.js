@@ -13,7 +13,6 @@ import TextFormPart from './TextFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
-import LanguagesFormPart from './LanguagesFormPart';
 
 export default function RuleForm({
   SubmitButton,
@@ -153,15 +152,6 @@ export default function RuleForm({
               </div>
             )}
           />
-
-          {values.type === 'languages' ? (
-            <div className="radio-sub-block">
-              <LanguagesFormPart
-                aggregatorAgendaSchema={aggregatorAgendaSchema}
-                sourceSchema={sourceSchema}
-              />
-            </div>
-          ) : null}
 
           {displayTagFilter ? (
             <Field
