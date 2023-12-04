@@ -40,6 +40,13 @@ type Event = {
     links?: string[]
   }
   state: number
+  featured: boolean
+  originAgenda: {
+    uid: number
+    image: string
+    title: string
+  }
+  status: number;
 };
 
 async function fetcher(url: string) {

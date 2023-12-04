@@ -44,6 +44,7 @@
     "base64-js": "^1.5.1",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
+    "emoji-regex": "^10.3.0",
     "fast-json-stable-stringify": "^2.1.0",
     "iframe-resizer-react": "^1.1.0",
     "leaflet": "^1.9.3",
@@ -61,6 +62,7 @@
     "react-use": "^17.4.0",
     "sharp": "^0.31.1",
     "swr": "^2.1.1",
+    "tlds": "^1.247.0",
     "universal-cookie": "^4.0.4",
     "use-local-storage-state": "^18.1.2"
   },

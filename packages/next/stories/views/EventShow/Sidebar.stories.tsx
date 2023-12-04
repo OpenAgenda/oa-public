@@ -25,11 +25,11 @@ export default {
 };
 
 export function Simple() {
-  return <Sidebar agenda={agendaFixtures} event={eventFixtures} />;
+  return <Sidebar agenda={agendaFixtures} event={eventFixtures} contentLocale="fr" />;
 }
 
 export function Private() {
-  return <Sidebar agenda={agendaFixtures} event={{ ...eventFixtures, private: true }} />;
+  return <Sidebar agenda={agendaFixtures} event={{ ...eventFixtures, private: true }} contentLocale="fr" />;
 }
 
 export function Past() {
@@ -48,6 +48,7 @@ export function Past() {
         lastTiming: timings[0],
         nextTiming: null,
       }}
+      contentLocale="fr"
     />
   );
 }
@@ -68,10 +69,11 @@ export function Future() {
         lastTiming: timings[0],
         nextTiming: timings[0],
       }}
+      contentLocale="fr"
     />
   );
 }
 
 export function Online() {
-  return <Sidebar agenda={agendaFixtures} event={onlineEventFixtures} />;
+  return <Sidebar agenda={agendaFixtures} event={onlineEventFixtures} contentLocale="fr" />;
 }

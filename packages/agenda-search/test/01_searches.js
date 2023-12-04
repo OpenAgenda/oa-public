@@ -247,6 +247,12 @@ describe('01 - Search', function() {
 
       assert.equal(agendas[0].image, config.defaultImage);
     });
+
+    it('if agenda has an image and includeImagePath is false, image path is removed', async () => {
+      const { agendas } = await svc.list({ uid: 89904399 }, {}, { useDefaultImage: true });
+
+      assert.equal(agendas[0].image, 'agenda89904399.jpg');
+    });
   });
 
   describe('Filters', () => {

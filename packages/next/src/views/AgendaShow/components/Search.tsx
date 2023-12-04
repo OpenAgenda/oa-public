@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import { SearchFilter as ReactFiltersSearchFilter } from '@openagenda/react-filters';
 import { chakra, HTMLChakraProps } from '@openagenda/uikit';
-import SearchInput from 'components/SearchInput';
+import SearchInput from 'components/NavbarSearchInput';
 
 const StyledSearchInput = chakra(SearchInput);
 
