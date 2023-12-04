@@ -1,5 +1,5 @@
 {
-  "next.components.SearchInput.ariaLabel": [
+  "next.components.NavbarSearchInput.ariaLabel": [
     {
       "type": 0,
       "value": "Cerca"

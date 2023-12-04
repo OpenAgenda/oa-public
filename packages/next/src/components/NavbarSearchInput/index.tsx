@@ -5,12 +5,12 @@ import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   ariaLabel: {
-    id: 'next.components.SearchInput.ariaLabel',
+    id: 'next.components.NavbarSearchInput.ariaLabel',
     defaultMessage: 'Search',
   },
 });
 
-type SearchInputProps = {
+type NavbarSearchInputProps = {
   name?: string;
   placeholder?: string;
   className?: string;
@@ -22,7 +22,7 @@ type SearchInputProps = {
 };
 
 // TODO use isLoading & disabled
-export default function SearchInput({
+export default function NavbarSearchInput({
   name = 'search',
   className,
   input,
@@ -31,7 +31,7 @@ export default function SearchInput({
   placeholder,
   // isLoading,
   // disabled,
-}: SearchInputProps) {
+}: NavbarSearchInputProps) {
   const intl = useIntl();
 
   return (
