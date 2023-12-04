@@ -315,9 +315,9 @@ export default function ExportModal({
                         <>
                           {!userLogged && <Text>{intl.formatMessage(messages.logIn)}</Text>}
                           <Flex ml="5" mb="2" alignItems="center">
-                            <Button disabled={!userLogged} colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
+                            <Button isDisabled={!userLogged} colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
                             <Box ml="4">
-                              <Checkbox disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
+                              <Checkbox isDisabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
                               <br />
                               <Link href="https://developers.openagenda.com/10-lecture/" isExternal color="primary.500">
                                 {intl.formatMessage(messages.documentation)}
