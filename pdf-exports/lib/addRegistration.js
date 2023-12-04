@@ -1,83 +1,107 @@
 import addText from './addText.js';
 import addIcon from './addIcon.js';
 
+const addRegistrationItem = async (
+  type,
+  registrationItem,
+  iconPath,
+  doc,
+  localCursor,
+  params = {},
+  options = {},
+) => {
+  const { iconHeightAndWidth, base } = params;
+
+  const { simulate = false } = options;
+
+  const { width: widthOfRegistrationIcon } = await addIcon(
+    doc,
+    iconPath,
+    localCursor,
+    iconHeightAndWidth,
+    { simulate },
+  );
+
+  localCursor.x += widthOfRegistrationIcon + base.margin / 3;
+  localCursor.y -= base.margin / 16;
+
+  let linkPrefix = '';
+  switch (type) {
+    case 'email':
+      linkPrefix = 'mailto:';
+      break;
+    default:
+      break;
+  }
+
+  const reg = addText(doc, localCursor, registrationItem, {
+    underline: false,
+    link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
+    base,
+    simulate,
+  });
+
+  const widthOfReg = reg.width;
+  const heightOfReg = reg.height;
+
+  localCursor.x += widthOfReg + base.margin / 2;
+
+  return {
+    width: widthOfRegistrationIcon + base.margin / 3 + widthOfReg,
+    height: heightOfReg,
+  };
+};
+
 export default async function addRegistration(
   event,
   doc,
   cursor,
-  lang,
-  base,
-  iconHeightAndWidth,
-  widthOfReg,
-  heightOfReg,
-  emailIconPath,
-  phoneIconPath,
-  linkIconPath,
+  params = {},
   options = {},
 ) {
+  const {
+    base,
+    iconHeightAndWidth,
+    emailIconPath,
+    phoneIconPath,
+    linkIconPath,
+  } = params;
+  const { simulate = false, lang } = options;
+
   const localCursor = {
     y: cursor.y,
     x: cursor.x,
   };
 
   let widthOfRegistrationLabel = null;
+  let heightOfRegistrationLabel = null;
+  let widthOfRegistrationItem = null;
+  let heightOfRegistrationItem = null;
+
+  const { registration = [] } = event;
 
   const registrationLabel = {
     fr: 'Réservation',
   };
 
-  const { simulate = false } = options;
-
-  const addRegistrationLabel = addText(
-    doc,
-    localCursor,
-    `${registrationLabel[lang]}:`,
-    {
-      underline: true,
-      base,
-      medium: true,
-      simulate,
-    },
-  );
-
-  widthOfRegistrationLabel = addRegistrationLabel.width;
-
-  localCursor.x += widthOfRegistrationLabel + base.margin / 3;
-  localCursor.y += base.margin / 16;
-
-  const registration = async (type, value, iconPath) => {
-    const { width: widthOfRegistrationIcon } = await addIcon(
+  if (registration.length > 0) {
+    const addRegistrationLabel = addText(
       doc,
-      iconPath,
       localCursor,
-      iconHeightAndWidth,
-      { simulate },
+      `${registrationLabel[lang]}:`,
+      {
+        underline: true,
+        base,
+        medium: true,
+        simulate,
+      },
     );
+    widthOfRegistrationLabel = addRegistrationLabel.width;
+    heightOfRegistrationLabel = addRegistrationLabel.height;
 
-    localCursor.x += widthOfRegistrationIcon + base.margin / 3;
-    localCursor.y -= base.margin / 16;
-
-    let linkPrefix = '';
-    switch (type) {
-      case 'email':
-        linkPrefix = 'mailto:';
-        break;
-      default:
-        break;
-    }
-
-    const reg = addText(doc, localCursor, value, {
-      underline: false,
-      link: type !== 'phone' ? linkPrefix + value : undefined,
-      base,
-      simulate,
-    });
-
-    widthOfReg[type] = reg.width;
-    heightOfReg[type] = reg.height + base.margin / 10;
-
-    localCursor.x += widthOfReg[type] + base.margin / 2;
-  };
+    localCursor.x += widthOfRegistrationLabel + base.margin / 3;
+    localCursor.y += base.margin / 16;
+  }
 
   const typesWithIcons = [
     { type: 'email', iconPath: emailIconPath },
@@ -85,41 +109,41 @@ export default async function addRegistration(
     { type: 'link', iconPath: linkIconPath },
   ];
 
-  for (const { type, iconPath } of typesWithIcons) {
-    const matchingEvents = event.registration.filter(obj => obj.type === type);
-    if (matchingEvents.length > 0) {
-      for (const { value } of matchingEvents) {
-        await registration(type, value, iconPath);
-      }
-    }
+  function getTypeAndIconPath(type) {
+    const typeWithIcon = typesWithIcons.find(item => item.type === type);
+    return {
+      type: typeWithIcon.type,
+      iconPath: typeWithIcon.iconPath,
+    };
   }
 
-  const existingTypes = typesWithIcons
-    .filter(({ type }) => heightOfReg[type] !== undefined)
-    .map(({ type }) => type);
+  for (const registrationItem of registration) {
+    const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
+    const reg = await addRegistrationItem(
+      type,
+      registrationItem.value,
+      iconPath,
+      doc,
+      localCursor,
+      {
+        iconHeightAndWidth,
+        base,
+      },
+      { simulate },
+    );
+    widthOfRegistrationItem = reg.width;
+    heightOfRegistrationItem = reg.height;
+  }
 
-  const totalHeightOfReg = Math.max(
-    ...existingTypes.map(type => heightOfReg[type]),
+  const totalWidth = widthOfRegistrationLabel + base.margin / 3 + widthOfRegistrationItem;
+  const totalHeight = Math.max(
+    heightOfRegistrationLabel,
+    heightOfRegistrationItem,
   );
-  const totalWidthOfReg = existingTypes.reduce(
-    (totalWidth, type) => totalWidth + widthOfReg[type],
-    0,
-  );
-  const totalIconWidth = existingTypes.reduce(
-    (totalWidth, _type) => totalWidth + iconHeightAndWidth,
-    0,
-  );
-  const totalMarginWidth = (base.margin / 2) * (existingTypes.length - 1);
-
-  localCursor.y += totalHeightOfReg + base.margin / 10;
+  localCursor.y += totalHeight + base.margin / 10;
 
   return {
-    width:
-      widthOfRegistrationLabel
-      + totalWidthOfReg
-      + totalIconWidth
-      + totalMarginWidth,
-    height: totalHeightOfReg,
-    cursor: localCursor,
+    width: totalWidth,
+    height: totalHeight,
   };
 }
