@@ -172,7 +172,7 @@ export default function ExportModal({
   ];
 
   const { user } = useUser();
-  const { data: meData } = useSWR(res.me, fetcher);
+  const { data: meData, mutate: meMutate } = useSWR(res.me, fetcher);
   const { data: exportSettingsData } = useSWR(res.agendaExportSettings, fetcher);
 
   const userLogged = !!user;
@@ -195,16 +195,29 @@ export default function ExportModal({
     setDisplayButton(true);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (userLogged && formatChoice.id === 'jsonV2') {
       const jsonUrl = new URL(res.export.jsonV2);
+
+      let key = publicKey;
+
+      if (!key) {
+        try {
+          await fetch('/users/me/generateApiKey?$client[publicKey]=true');
+          const data = await meMutate();
+          key = data.apiKey;
+        } catch (error) {
+          console.log('Can\'t generate api key', error);
+        }
+      }
+
       if (jsonDetailed) {
         jsonUrl.searchParams.append('detailed', '1');
       } else {
         jsonUrl.searchParams.delete('detailed');
       }
-      jsonUrl.searchParams.append('key', publicKey);
+      jsonUrl.searchParams.append('key', key);
       window.open(jsonUrl);
       return onClose();
     }
@@ -302,9 +315,9 @@ export default function ExportModal({
                         <>
                           {!userLogged && <Text>{intl.formatMessage(messages.logIn)}</Text>}
                           <Flex ml="5" mb="2" alignItems="center">
-                            <Button disabled={!userLogged} colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
+                            <Button isDisabled={!userLogged} colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
                             <Box ml="4">
-                              <Checkbox disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
+                              <Checkbox isDisabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)}>{intl.formatMessage(messages.detailedFormat)}</Checkbox>
                               <br />
                               <Link href="https://developers.openagenda.com/10-lecture/" isExternal color="primary.500">
                                 {intl.formatMessage(messages.documentation)}
