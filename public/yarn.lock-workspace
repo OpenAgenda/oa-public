@@ -232,7 +232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.0.0, @babel/helper-module-imports@npm:^7.0.0-beta.49, @babel/helper-module-imports@npm:^7.16.7, @babel/helper-module-imports@npm:^7.22.15":
+"@babel/helper-module-imports@npm:^7.0.0, @babel/helper-module-imports@npm:^7.16.7, @babel/helper-module-imports@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/helper-module-imports@npm:7.22.15"
   dependencies:
@@ -1824,7 +1824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.0.0-beta.49, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.19, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.23.4, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3, @babel/types@npm:^7.9.5":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.19, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.23.4, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3, @babel/types@npm:^7.9.5":
   version: 7.23.4
   resolution: "@babel/types@npm:7.23.4"
   dependencies:
@@ -5027,10 +5027,10 @@ __metadata:
     "@babel/preset-env": "npm:^7.23.3"
     "@babel/preset-react": "npm:^7.23.3"
     "@babel/preset-typescript": "npm:^7.23.3"
+    "@sigmacomputing/babel-plugin-lodash": "npm:^3.3.5"
     "@types/react": "npm:^18.2.37"
     babel-plugin-add-module-exports: "npm:^1.0.4"
     babel-plugin-dynamic-import-node: "npm:^2.3.3"
-    babel-plugin-lodash: "npm:^3.3.4"
     babel-plugin-react-intl: "npm:^8.2.25"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -6319,6 +6319,19 @@ __metadata:
   peerDependencies:
     "@redis/client": ^1.0.0
   checksum: ec637500f1544384724ed57542274b70f9f0c2f2a5253fcdb63c809322167996740f4effd3666e4984600684fb37eb79efe6ab09309e36b68c964cbd8789641c
+  languageName: node
+  linkType: hard
+
+"@sigmacomputing/babel-plugin-lodash@npm:^3.3.5":
+  version: 3.3.5
+  resolution: "@sigmacomputing/babel-plugin-lodash@npm:3.3.5"
+  dependencies:
+    "@babel/helper-module-imports": "npm:^7.0.0"
+    "@babel/types": "npm:^7.0.0"
+    glob: "npm:^7.1.1"
+    lodash: "npm:^4.17.10"
+    require-package-name: "npm:^2.0.1"
+  checksum: 2d50b1cfe8daac6cf5e8c5c3b05234e1db719503545fbca02d6be3412c7e5d9f52e8bcc9e83182a223f82ab81f3a00f0c859d73a8639d604d86e6782c550ab60
   languageName: node
   linkType: hard
 
@@ -10059,19 +10072,6 @@ __metadata:
     "@types/babel__core": "npm:^7.1.14"
     "@types/babel__traverse": "npm:^7.0.6"
   checksum: 0de811e91478378d61a3468724d1695f399ddba8a17dec255a6fa37542503dba61f019f48a87cb9315c3d64d346bd43c88c073a74e9a06852e1c13a302d2d692
-  languageName: node
-  linkType: hard
-
-"babel-plugin-lodash@npm:^3.3.4":
-  version: 3.3.4
-  resolution: "babel-plugin-lodash@npm:3.3.4"
-  dependencies:
-    "@babel/helper-module-imports": "npm:^7.0.0-beta.49"
-    "@babel/types": "npm:^7.0.0-beta.49"
-    glob: "npm:^7.1.1"
-    lodash: "npm:^4.17.10"
-    require-package-name: "npm:^2.0.1"
-  checksum: 1a1db624f70c1e9badd3ca112bc6819157e75768aab949c424cfabe562765d7f22cf93e5e088e820d5d5b1da7b2bd9d045cb54a5790616b65da1f84eda2ecc08
   languageName: node
   linkType: hard
 
