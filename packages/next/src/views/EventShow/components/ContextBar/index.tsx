@@ -6,6 +6,7 @@ import base64 from 'utils/base64';
 import useEvent from '../../hooks/useEvent';
 import StateSelector from './StateSelector';
 import ContextBarButton from './ContextBarButton';
+import OtherActions from './OtherActions';
 
 const Column = chakra(Box, {
   baseStyle: {
@@ -79,7 +80,7 @@ export default function ContextBar({ agenda }) {
           </ContextBarButton>
         </Column>
         <Column>
-          Colonne 4
+          <OtherActions agenda={agenda} />
         </Column>
       </SimpleGrid>
     </Collapse>

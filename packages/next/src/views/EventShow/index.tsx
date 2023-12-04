@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import {
@@ -14,7 +15,11 @@ import {
   List,
   ListItem,
   ListIcon,
+  Tabs,
+  TabList,
+  Tab,
 } from '@openagenda/uikit';
+import { getFallbackChain } from '@openagenda/intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
 import { faPhone } from '@fortawesome/pro-solid-svg-icons';
@@ -26,8 +31,10 @@ import { FetchStatus } from 'config/types';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useMatomoTracker from 'hooks/useMatomoTracker';
 import useClientAnalytics from 'hooks/useClientAnalytics';
+import useSearchParams from 'hooks/useSearchParams';
 import type { Agenda } from 'types';
 import useSession from 'hooks/useSession';
+import { FALLBACK_LOCALE, FALLBACK_LOCALES } from 'config/constants';
 import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
 import AgendaHeader from './components/AgendaHeader';
@@ -36,6 +43,7 @@ import Activities from './components/Activities';
 import Inbox from './components/Inbox';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
+import StatusTag from './components/StatusTag';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import useEvent from './hooks/useEvent';
 import fetchLocale from './locales';
@@ -59,6 +67,16 @@ function fetcher(url) {
         throw new Error('Error');
       },
     );
+}
+
+// TODO copier le comportement de `getPreferredLocale` ?
+function getContentLocale(contentLocales, contentLocale, locale) {
+  return [
+    ...getFallbackChain(contentLocale, FALLBACK_LOCALES, locale),
+    FALLBACK_LOCALE,
+    contentLocales[0],
+  ]
+    .find(l => contentLocales.includes(l));
 }
 
 function SuggestLocationChangeButton({ agenda, event }) {
@@ -139,6 +157,7 @@ function EditLocationButton({ agenda }) {
 
 function EventShow({ agenda, preload }: EventShowProps) {
   const intl = useIntl();
+  const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
   useMatomoTracker();
@@ -148,14 +167,38 @@ function EventShow({ agenda, preload }: EventShowProps) {
 
   const { event } = useEvent();
 
+  const languages = Object.keys(event.title);
+
+  const { cl } = useSearchParams() as { cl?: string };
+  const contentLocale = getContentLocale(languages, cl, intl.locale);
+
+  const [tabIndex, setTabIndex] = useState(() => languages.indexOf(contentLocale));
+  const handleTabsChange = index => {
+    setTabIndex(index);
+
+    const url = new URL(router.asPath, 'http://n');
+    url.searchParams.set('cl', languages[index]);
+    router.replace(
+      url.pathname + url.search,
+      null,
+      { shallow: true, scroll: false },
+    );
+  };
+
   const hasAdditionalFields = useMemo(
     () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
     [agenda.schema],
   );
 
   const additionalFields = useMemo(
-    () => additionalFieldsUtils.formatAdditionalFieldData(agenda.schema, event, intl.locale, dateFnsLocale),
-    [agenda.schema, dateFnsLocale, event, intl.locale],
+    () => additionalFieldsUtils.formatAdditionalFieldData({
+      schema: agenda.schema,
+      event,
+      locale: contentLocale,
+      defaultLocale: intl.locale,
+      dateFnsLocale,
+    }),
+    [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
   return (
@@ -192,119 +235,136 @@ function EventShow({ agenda, preload }: EventShowProps) {
         maxW="container.lg"
       >
         <GridItem area="sidebar">
-          <Flex direction="row" gap="8">
-            <Sidebar agenda={agenda} event={event} />
+          <Flex direction="row" gap="8" mt="16">
+            <Sidebar agenda={agenda} event={event} contentLocale={contentLocale} />
           </Flex>
         </GridItem>
 
         <GridItem area="event" display="flex" flexDirection="column" gap="12">
-          <Flex
-            as="main"
-            display="flex"
-            direction="column"
-            gap="4"
-            position="relative"
-            // py="4"
-            py="4"
-            bg="white"
-            // border="1px solid"
-            // borderColor="oaGray.100"
-            borderRadius="sm"
-          // _hover={{
-          //   borderColor: 'primary.500',
-          // }}
-          >
-            {event.title?.[intl.locale] ? (
-              <Heading as="h1" fontSize="4xl" px="8">
-                {event.title[intl.locale]}
-              </Heading>
-            ) : null}
+          <div>
+            <Tabs index={tabIndex} onChange={handleTabsChange} colorScheme="primary">
+              <TabList>
+                {languages.map(language => (
+                  <Tab key={language}>{language.toUpperCase()}</Tab>
+                ))}
+              </TabList>
+            </Tabs>
 
-            {event.description?.[intl.locale] ? (
-              <Box fontSize="xl" px="8">
-                {event.description[intl.locale]}
-              </Box>
-            ) : null}
-
-            <div>
-              {/* eslint-disable-next-line no-nested-ternary */}
-              {event.image
-                ? event.image?.size?.width && event.image?.size?.height ? (
-                  <Image
-                    src={process.env.NODE_ENV === 'development'
-                      ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                      : `${IMAGE_PREFIX}${event.image.filename}`}
-                    fallbackSrc={process.env.NODE_ENV === 'development'
-                      ? `${IMAGE_PREFIX}${event.image.filename}`
-                      : undefined}
-                    fallbackStrategy="onError"
-                    width={event.image.size.width}
-                    height={event.image.size.height}
-                    loader={keyCDNLoader}
-                    alt=""
-                    m="auto"
-                    w="full"
-                    priority
-                  />
-                ) : (
-                  <Image
-                    src={process.env.NODE_ENV === 'development'
-                      ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                      : `${IMAGE_PREFIX}${event.image.filename}`}
-                    fallbackSrc={process.env.NODE_ENV === 'development'
-                      ? `${IMAGE_PREFIX}${event.image.filename}`
-                      : undefined}
-                    fallbackStrategy="onError"
-                    fill
-                    // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-                    pos="unset !important"
-                    w="full !important"
-                    h="auto !important"
-                    loader={keyCDNLoader}
-                    alt=""
-                    m="auto"
-                    priority
-                  />
-                )
-                : null}
-
-              {event.imageCredits ? (
-                <Flex justify="flex-end" color="oaGray.500" px="2">
-                  {event.imageCredits}
-                </Flex>
+            <Flex
+              as="main"
+              display="flex"
+              direction="column"
+              gap="4"
+              position="relative"
+              p="8"
+              bg="white"
+              // border="1px solid"
+              // borderColor="oaGray.100"
+              borderRadius="sm"
+              // _hover={{
+              //   borderColor: 'primary.500',
+              // }}
+            >
+              {event.status !== 1 ? (
+                <chakra.div>
+                  <StatusTag status={event.status} />
+                </chakra.div>
               ) : null}
-            </div>
 
-            {event.longDescription?.[intl.locale] ? (
-              <chakra.div
-                px="8"
-                sx={{
-                  ul: {
-                    ps: '40px',
-                    mb: '10px',
-                  },
-                  p: {
-                    mb: '10px',
-                  },
-                  a: {
-                    color: 'primary.500',
-                    _hover: {
-                      color: 'primary.600',
-                      textDecoration: 'underline',
-                    },
-                  },
-                }}
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: event.longDescription[intl.locale] }}
-              />
-            ) : null}
+              {event.title?.[contentLocale] ? (
+                <Heading as="h1" fontSize="4xl">
+                  {event.title[contentLocale]}
+                </Heading>
+              ) : null}
 
-            {event.keywords?.[intl.locale]?.length ? (
-              <chakra.div px={8} color="oaGray.500">
-                {intl.formatList(event.keywords[intl.locale], { style: 'narrow' })}
+              {event.description?.[contentLocale] ? (
+                <Box fontSize="xl">
+                  {event.description[contentLocale]}
+                </Box>
+              ) : null}
+
+              <chakra.div mx="-8">
+                {/* eslint-disable-next-line no-nested-ternary */}
+                {event.image
+                  ? event.image?.size?.width && event.image?.size?.height ? (
+                    <Image
+                      src={process.env.NODE_ENV === 'development'
+                        ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                        : `${IMAGE_PREFIX}${event.image.filename}`}
+                      fallbackSrc={process.env.NODE_ENV === 'development'
+                        ? `${IMAGE_PREFIX}${event.image.filename}`
+                        : undefined}
+                      fallbackStrategy="onError"
+                      width={event.image.size.width}
+                      height={event.image.size.height}
+                      loader={keyCDNLoader}
+                      alt=""
+                      m="auto"
+                      w="full"
+                      priority
+                    />
+                  ) : (
+                    <Image
+                      src={process.env.NODE_ENV === 'development'
+                        ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                        : `${IMAGE_PREFIX}${event.image.filename}`}
+                      fallbackSrc={process.env.NODE_ENV === 'development'
+                        ? `${IMAGE_PREFIX}${event.image.filename}`
+                        : undefined}
+                      fallbackStrategy="onError"
+                      fill
+                      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                      pos="unset !important"
+                      w="full !important"
+                      h="auto !important"
+                      loader={keyCDNLoader}
+                      alt=""
+                      m="auto"
+                      priority
+                    />
+                  )
+                  : null}
+
+                {event.imageCredits ? (
+                  <Flex justify="flex-end" color="oaGray.500" px="2">
+                    {event.imageCredits}
+                  </Flex>
+                ) : null}
               </chakra.div>
-            ) : null}
-          </Flex>
+
+              {event.longDescription?.[contentLocale] ? (
+                <chakra.div
+                  sx={{
+                    ul: {
+                      ps: '40px',
+                      mb: '10px',
+                    },
+                    p: {
+                      mb: '10px',
+                      _last: {
+                        mb: '0',
+                      },
+                    },
+                    a: {
+                      color: 'primary.500',
+                      _hover: {
+                        color: 'primary.600',
+                        textDecoration: 'underline',
+                      },
+                    },
+                  }}
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{ __html: event.longDescription[contentLocale] }}
+                />
+              ) : null}
+
+              {event.keywords?.[contentLocale]?.length ? (
+                <chakra.div px={8} color="oaGray.500">
+                  {intl.formatList(event.keywords[contentLocale], { style: 'narrow' })}
+                </chakra.div>
+              ) : null}
+            </Flex>
+          </div>
 
           {/* additional fields */}
           {hasAdditionalFields ? (
@@ -373,18 +433,18 @@ function EventShow({ agenda, preload }: EventShowProps) {
                   </div>
                 ) : null}
 
-                {event.location.description[intl.locale] ? (
+                {event.location.description[contentLocale] ? (
                   <div>
-                    {event.location.description[intl.locale]}
+                    {event.location.description[contentLocale]}
                   </div>
                 ) : null}
 
-                {event.location.access[intl.locale] ? (
+                {event.location.access[contentLocale] ? (
                   <div>
                     <chakra.span fontWeight="bold">
                       Accés:&nbsp;
                     </chakra.span>
-                    {event.location.access[intl.locale]}
+                    {event.location.access[contentLocale]}
                   </div>
                 ) : null}
 

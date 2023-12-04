@@ -10,7 +10,7 @@ import {
 } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
-import LoadingBody from './LoadingBody';
+import ModalLoadingBody from 'components/ModalLoadingBody';
 import UnloggedBody from './UnloggedBody';
 import LoggedBody from './LoggedBody';
 import messages from './messages';
@@ -21,7 +21,7 @@ interface AggregateModalProps {
   agenda: Record<string, any>;
 }
 
-function AggregateModalContent({ agenda, user }) {
+function AggregateModalBody({ agenda, user }) {
   if (!user) {
     return <UnloggedBody agenda={agenda} />;
   }
@@ -76,9 +76,9 @@ export default function AggregateModal({
         </ModalHeader>
 
         {status === FetchStatus.Fetching ? (
-          <LoadingBody />
+          <ModalLoadingBody />
         ) : (
-          <AggregateModalContent agenda={agenda} user={user} />
+          <AggregateModalBody agenda={agenda} user={user} />
         )}
       </ModalContent>
     </Modal>

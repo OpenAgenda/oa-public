@@ -3,8 +3,8 @@ import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants';
 export default function getLocaleValue(
   labels,
   lang,
-  defaultLang = DEFAULT_LANG,
-  fallbackMap = DEFAULT_FALLBACK_MAP
+  defaultLangs = [DEFAULT_LANG],
+  fallbackMap = DEFAULT_FALLBACK_MAP,
 ) {
   if (!labels || typeof labels !== 'object') {
     return labels;
@@ -17,11 +17,13 @@ export default function getLocaleValue(
   }
 
   if (lang in fallbackMap) {
-    return getLocaleValue(labels, fallbackMap[lang], defaultLang, fallbackMap);
+    return getLocaleValue(labels, fallbackMap[lang], defaultLangs, fallbackMap);
   }
 
-  if (defaultLang && keys.find(v => v === defaultLang)) {
-    return labels[defaultLang];
+  for (const defaultLang of [].concat(defaultLangs)) {
+    if (defaultLang && keys.includes(defaultLang)) {
+      return labels[defaultLang];
+    }
   }
 
   return labels[keys[0]];

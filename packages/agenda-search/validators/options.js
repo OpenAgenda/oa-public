@@ -22,6 +22,10 @@ module.exports = schemas({
     type: 'boolean',
     default: false
   },
+  includeImagePath: {
+    type: 'boolean',
+    default: true
+  },
   indexed: {
     type: 'boolean',
     allowNull: true,

@@ -1,9 +1,12 @@
 import IframeResizer from 'iframe-resizer-react';
+import { useIntl } from 'react-intl';
 import { Heading, Flex } from '@openagenda/uikit';
 
 const ROOT = process.env.NEXT_PUBLIC_ROOT;
 
 export default function Inbox({ agenda, event }) {
+  const intl = useIntl();
+
   return (
     <div>
       <Heading as="h2" fontSize="2xl" mb="4">Messagerie</Heading>
@@ -24,7 +27,7 @@ export default function Inbox({ agenda, event }) {
         // }}
       >
         <IframeResizer
-          src={`${ROOT}/${agenda.slug}/events/${event.slug}/embed-inbox`}
+          src={`${ROOT}/${agenda.slug}/events/${event.slug}/embed-inbox?lang=${intl.locale}`}
           style={{ width: '1px', minWidth: '100%' }}
         />
       </Flex>

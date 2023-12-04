@@ -5,9 +5,9 @@ import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
 import { Button, ModalBody, ModalFooter, Text, VStack, Link } from '@openagenda/uikit';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import LoadingBody from './LoadingBody';
+import ModalLoadingBody from 'components/ModalLoadingBody';
+import SearchInput from 'components/SearchInput';
 import Description from './Description';
-import SearchInput from './SearchInput';
 import AgendaItem from './AgendaItem';
 import messages from './messages';
 
@@ -85,7 +85,7 @@ export default function LoggedBody({ agenda }) {
   });
 
   if (isLoadingInitialData) {
-    return <LoadingBody />;
+    return <ModalLoadingBody />;
   }
 
   // TODO if noAgendas return (/* ... */)

@@ -27,7 +27,7 @@ import {
 } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
-import SearchInput from 'components/SearchInput';
+import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import hrefWithLang from 'utils/hrefWithLang';

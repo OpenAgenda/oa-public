@@ -1,0 +1,69 @@
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
+import debounce from 'lodash/debounce';
+import { InputGroup, Input, InputRightElement, Button } from '@openagenda/uikit';
+import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const messages = defineMessages({
+  ariaLabel: {
+    id: 'next.components.SearchInput.ariaLabel',
+    defaultMessage: 'Search',
+  },
+});
+
+interface SearchInputProps {
+  name?: string;
+  onChange: (value: string) => void;
+  initialValue?: string;
+  onButtonClick?: () => void;
+  placeholder?: string
+}
+
+export default function SearchInput({
+  name = 'search',
+  onChange: onChangeCallback,
+  initialValue = '',
+  onButtonClick = null,
+  placeholder,
+}: SearchInputProps) {
+  const intl = useIntl();
+  const [searchText, setSearchText] = useState(initialValue);
+
+  const debouncedOnChange = useMemo(
+    () => debounce((value: string) => onChangeCallback(value), 500),
+    [onChangeCallback],
+  );
+
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+    debouncedOnChange(e.target.value);
+  }, [debouncedOnChange]);
+
+  useEffect(() => {
+    if (initialValue) {
+      setSearchText(initialValue);
+    }
+  }, [initialValue]);
+
+  return (
+    <InputGroup>
+      <Input
+        name={name}
+        value={searchText}
+        onChange={onChange}
+        placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}
+      />
+      <InputRightElement>
+        <Button
+          variant="ghost"
+          type="submit"
+          onClick={onButtonClick}
+          aria-label={intl.formatMessage(messages.ariaLabel)}
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </Button>
+      </InputRightElement>
+    </InputGroup>
+  );
+}

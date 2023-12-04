@@ -1,0 +1,133 @@
+import React, { useCallback, useState, useEffect } from 'react';
+import useSWRInfinite from 'swr/infinite';
+import qs from 'qs';
+import { useInView } from 'react-intersection-observer';
+import { VStack } from '@openagenda/uikit';
+import ModalLoadingBody from 'components/ModalLoadingBody';
+import SearchInput from 'components/SearchInput';
+import AgendaItem from './AgendaItem';
+
+const PAGE_SIZE = 20;
+
+export default function ShareOnOA({ agenda, event }) {
+  const [searchValue, setSearchValue] = useState('');
+
+  const onSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      search: { value: string }
+    };
+
+    setSearchValue(target.search.value);
+  }, []);
+
+  const {
+    data: pages,
+    error,
+    size,
+    setSize,
+    // isValidating,
+  } = useSWRInfinite(
+    (pageIndex, previousPageData) => {
+      if (previousPageData && previousPageData.agendas?.length < PAGE_SIZE) {
+        // reached the end of second route
+        if (previousPageData.secondRoutePage) return null;
+        // reached the end of first route
+        return ['shareModal', 'agendas', searchValue, pageIndex + 1, 1];
+      }
+
+      // first page, we don't have `previousPageData`
+      if (pageIndex === 0) return ['shareModal', 'agendas', searchValue, 1, 0];
+
+      if (previousPageData.secondRoutePage) {
+        return ['shareModal', 'agendas', searchValue, pageIndex + 1, previousPageData.secondRoutePage + 1];
+      }
+
+      return ['shareModal', 'agendas', searchValue, pageIndex + 1, 0];
+    },
+    ([_comp, _requestId, search, page, secondRoutePage]) => {
+      const route = secondRoutePage ? '/api/agendas' : '/home/agendas';
+
+      const searchParamsStr = qs.stringify({
+        search: search !== '' ? search : undefined,
+        page: secondRoutePage || page,
+        contributionType: secondRoutePage ? 1 : undefined,
+        includeImagePath: 0,
+        useDefaultImage: 0,
+      });
+
+      return fetch(`${route}?${searchParamsStr}`)
+        .then(r => {
+          if (r.ok) return r.json();
+          throw new Error('Can\'t list agendas');
+        })
+        .then(result => ({
+          ...result,
+          secondRoutePage,
+        }));
+    },
+    {
+      keepPreviousData: true,
+      revalidateFirstPage: false,
+      // revalidateOnMount: false,
+      // revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      // use: [swrLaggyMiddleware],
+    },
+  );
+
+  // reset page size on unmount
+  useEffect(() => () => {
+    setSize(1);
+  }, [setSize]);
+
+  const isLoadingInitialData = !pages && !error;
+  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isEmpty = pages?.[0]?.agendas?.length === 0;
+  const isReachingEnd = isEmpty
+    || (pages && pages[pages.length - 1]?.secondRoutePage && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+
+  const { ref } = useInView({
+    onChange: inView => {
+      if (inView && !isReachingEnd && !isLoadingMore) {
+        setSize(size + 1).catch(() => null);
+      }
+    },
+  });
+
+  if (isLoadingInitialData) {
+    return <ModalLoadingBody />;
+  }
+
+  const uniqueAgendaUids = new Set();
+
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <SearchInput onChange={setSearchValue} />
+      </form>
+
+      <VStack spacing="4" pt="4" align="start">
+        {pages.map(
+          page => page.agendas.filter(targetAgenda => {
+            if (uniqueAgendaUids.has(targetAgenda.uid)) {
+              return false;
+            }
+            uniqueAgendaUids.add(targetAgenda.uid);
+            return true;
+          }).map(targetAgenda => (
+            <AgendaItem
+              key={targetAgenda.uid}
+              agenda={agenda}
+              targetAgenda={targetAgenda}
+              event={event}
+            />
+          )),
+        )}
+      </VStack>
+
+      <div ref={ref} />
+    </>
+  );
+}

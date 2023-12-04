@@ -1,19 +1,13 @@
 import { formatInTimeZone } from 'date-fns-tz';
 import { nl2br, markdownToHTML } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
+import { FALLBACK_LOCALE } from 'config/constants';
 
 export function hasAdditionalFields(schema) {
   return !!schema.fields.filter(f => f.schemaType !== 'event').length;
 }
 
-function flatLabel(label, locale) {
-  if (typeof label === 'string') {
-    return label;
-  }
-
-  return label[locale] ?? label[Object.keys(label)[0]];
-}
-
-function formatValue(field, value, { locale, timezone, dateFnsLocale }) {
+function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLocale }) {
   if (Array.isArray(value) && value.length === 1 && value[0] === null) {
     return null;
   }
@@ -34,7 +28,7 @@ function formatValue(field, value, { locale, timezone, dateFnsLocale }) {
       if (!option) {
         return;
       }
-      return flatLabel(option.label, locale);
+      return getLocaleValue(option.label, locale, [defaultLocale, FALLBACK_LOCALE]);
     });
 
     return labels.length ? labels : null;
@@ -62,7 +56,7 @@ function formatValue(field, value, { locale, timezone, dateFnsLocale }) {
   return value;
 }
 
-export function formatAdditionalFieldData(schema, event, locale, dateFnsLocale) {
+export function formatAdditionalFieldData({ schema, event, locale, defaultLocale, dateFnsLocale }) {
   const additionalFields = schema.fields
     .filter(f => f.schemaType !== 'event')
     .filter(f => f.fieldType !== 'abstract');
@@ -72,8 +66,8 @@ export function formatAdditionalFieldData(schema, event, locale, dateFnsLocale) 
   return additionalFields.map(field => {
     const value = event[field.field];
 
-    const formattedValue = formatValue(field, value, { locale, timezone, dateFnsLocale });
-    const label = flatLabel(field.label, locale);
+    const formattedValue = formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLocale });
+    const label = getLocaleValue(field.label, locale, [defaultLocale, FALLBACK_LOCALE]);
 
     return {
       key: field.field,
