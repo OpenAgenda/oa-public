@@ -681,6 +681,7 @@ export default (core, { useRouter = true } = {}) => {
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+      includeImagePath: !(req.query.includeImagePath && req.query.includeImagePath === '0'),
       includeFields: req.query.fields ? [].concat(req.query.fields) : null,
     }).then(data => res.json({ ...data, success: true }), next);
   });
