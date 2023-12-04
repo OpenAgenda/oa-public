@@ -19,11 +19,11 @@ function extract(extracted, schema, data = {}, path = '') {
 
   for (const field of fields) {
     if (field.schema) {
-      extract(extracted, field.schema, data[field.field], [path, field.field].filter(v => v).join('.'));
+      extract(extracted, field.schema, data?.[field.field], [path, field.field].filter(v => v).join('.'));
       continue;
     }
 
-    const value = data[field.field];
+    const value = data?.[field.field];
 
     if (isValueEmptyList(field, value)) {
       extracted.emptyListFields.push([path, field.field].join('.'));

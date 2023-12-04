@@ -1,52 +1,14 @@
 'use strict';
 
 const _ = require('lodash');
-const { diff } = require('deep-diff');
 
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-
-const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent');
-
-const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
 const { BadRequest } = require('@openagenda/verror');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const eventSchema = require('@openagenda/event-form/src/schema');
+const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent/validateEvent');
 
-const labels = require('@openagenda/labels/event/form');
-
-const eventFields = eventSchema.eventFields({
-  labels,
-});
-
-const eventFieldNames = eventFields.map(f => f.field);
-
-const invalidLocationUidErrorItem = uid => ({
-  field: 'location',
-  code: 'invalid',
-  message: 'provided location uid is invalid',
-  origin: uid,
-  step: 'validation',
-});
-
-function extractLocationUidFromData({ completeEventData, data }) {
-  if (
-    !data?.locationUid
-    && !data?.location?.uid
-    && (data?.locationUid === null || data?.location === null || data?.location?.uid === null)
-  ) {
-    return null;
-  }
-
-  return completeEventData?.location?.uid ?? completeEventData?.locationUid;
-}
-
-function asArray(obj) {
-  return _.keys(obj).map(k => obj[k]).filter(s => !!s);
-}
-
-function containsEventData(data) {
-  const fields = eventFieldNames.filter(f => f !== 'languages');
-  return !!Object.keys(data ?? {}).filter(f => fields.includes(f)).length;
-}
+const getWriteAccess = require('./getWriteAccess');
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
@@ -64,8 +26,19 @@ function distributeCleanData(consolidatedClean, schemaExtensions) {
   };
 }
 
-function validateEvent({
-  getRoleSlug,
+const invalidLocationUidErrorItem = uid => ({
+  field: 'location',
+  code: 'invalid',
+  message: 'provided location uid is invalid',
+  origin: uid,
+  step: 'validation',
+});
+
+function asArray(obj) {
+  return _.keys(obj).map(k => obj[k]).filter(s => !!s);
+}
+
+module.exports = function validateEvent({
   validateAgendaEvent,
   formSchema,
   networkFormSchema,
@@ -82,7 +55,7 @@ function validateEvent({
     paths = null,
     member = null,
     access = 'public',
-  } = typeof options === 'boolean' ? { evaluateEvent: options } : options;
+  } = options;
 
   const schemaExtensions = {
     network: networkFormSchema,
@@ -104,7 +77,7 @@ function validateEvent({
     languages,
     schemaExtensions: asArray(schemaExtensions),
     access: {
-      write: member ? getRoleSlug(member.role) : access,
+      write: getWriteAccess(member, access),
     },
     includeEventFields: !!evaluateEvent,
   });
@@ -180,69 +153,4 @@ function validateEvent({
   }
 
   return clean;
-}
-
-function isDifferent(a, b) {
-  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt'];
-
-  return !!diff(
-    _.omit(a, ignoredFields),
-    _.omit(b, ignoredFields),
-  );
-}
-
-module.exports = Object.assign(async function cleanEvent(services, agenda, data, options = {}) {
-  const {
-    members,
-    agendaEvents,
-    registrations,
-  } = services;
-
-  const completeEventData = options.validateWithStoredData ? {
-    ...options.event,
-    ...data,
-  } : data;
-
-  const locationUid = extractLocationUidFromData({ data, completeEventData });
-
-  const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid,
-  }, {
-    returnMergeTarget: true,
-    deleted: null,
-  }).catch(e => {
-    if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
-      throw e;
-    }
-  }) : null;
-
-  log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
-
-  const pre = locationUid !== undefined ? { ...data, locationUid } : data;
-
-  if (location) {
-    pre.location = location;
-  }
-
-  const clean = validateEvent({
-    getRoleSlug: members.utils.getRoleSlug,
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get(agenda, 'network.formSchema'),
-    location,
-    validateAgendaEvent: agendaEvents.validate,
-  }, pre, options);
-
-  const passCulturePayload = clean.event.registration?.find(({ service }) => service === 'passCulture')?.data;
-  if (passCulturePayload && registrations) {
-    clean.passCulture = await registrations(agenda.settings.registration).passCulture.validateEventOffer(clean.event, passCulturePayload);
-  } else if (passCulturePayload) {
-    log('passCulture payload is set but registrations is not initialized');
-  }
-
-  return clean;
-}, {
-  validateEvent,
-  containsEventData,
-  isDifferent,
-  eventFields,
-});
+};

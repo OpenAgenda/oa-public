@@ -38,6 +38,8 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 
       const hasSet = action.values?.$set !== undefined;
 
+      const isCopy = action.values?.$copy !== undefined;
+
       const ids = hasSet ? action.values.$set : action.values;
 
       if (action.field === 'state') {
@@ -56,20 +58,29 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
         return;
       }
 
-      result.actions.push(
-        action.automatic
-          ? {
-            id: _.uniqueId(),
-            field: fieldSchema.field,
-            automatic: action.automatic,
-          }
-          : {
-            id: _.uniqueId(),
-            field: fieldSchema.field,
-            values: ids,
-            set: hasSet,
-          },
-      );
+      if (isCopy) {
+        result.actions.push({
+          id: _.uniqueId(),
+          field: fieldSchema.field,
+          copyValues: action.values.$copy,
+          set: hasSet,
+        });
+      } else {
+        result.actions.push(
+          action.automatic
+            ? {
+              id: _.uniqueId(),
+              field: fieldSchema.field,
+              automatic: action.automatic,
+            }
+            : {
+              id: _.uniqueId(),
+              field: fieldSchema.field,
+              values: ids,
+              set: hasSet,
+            },
+        );
+      }
     });
 
     if (result.actions.length) {
@@ -175,6 +186,14 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
           field: action.field,
           values: null,
           automatic: true,
+        };
+      }
+
+      if (action.copyValues) {
+        return {
+          field: action.field,
+          values: { $copy: action.copyValues },
+          automatic: false,
         };
       }
 

@@ -89,7 +89,7 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
           },
         }],
       }, {
-        access: 'contributor',
+        access: 'moderator',
       });
 
       expect(

@@ -19,7 +19,16 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     errors: null,
   };
 
-  const eventOffer = await formatEvent(OAEvent, PCData, options);
+  const {
+    categories,
+    related,
+  } = !options.categories || !options.related ? await pc.offers.events.categories.list() : options;
+
+  const eventOffer = await formatEvent(OAEvent, PCData, {
+    ...options,
+    categories,
+    related,
+  });
 
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);

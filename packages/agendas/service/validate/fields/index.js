@@ -341,6 +341,11 @@ module.exports = [{
         list: { default: null },
         type: 'text',
         optional: false,
+      }, {
+        field: 'bookingEmail',
+        type: 'email',
+        default: null,
+        optional: true,
       }]
     }]
   }]

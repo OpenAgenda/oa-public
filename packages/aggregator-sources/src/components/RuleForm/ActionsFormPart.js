@@ -13,7 +13,7 @@ import isOptionedField from '../../utils/isOptionedField';
 import ActionFormPart from './ActionFormPart';
 import messages from './messages';
 
-export default ({ aggregatorAgendaSchema }) => {
+export default ({ aggregatorAgendaSchema, sourceSchema }) => {
   const intl = useIntl();
   const form = useForm();
   const { values } = form.getState();
@@ -69,6 +69,7 @@ export default ({ aggregatorAgendaSchema }) => {
                   id={values.actions[index].id}
                   name={name}
                   aggregatorAgendaSchema={aggregatorAgendaSchema}
+                  sourceSchema={sourceSchema}
                 />
               </div>
 

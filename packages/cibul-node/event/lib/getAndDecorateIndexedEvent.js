@@ -119,7 +119,7 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
       draft.location.OSMItineraryLink = `https://www.openstreetmap.org/directions?to=${latitude}%2C${longitude}`;
     }
 
-    if (draft.registration?.length && event.registration.filter(r => r.service === 'passCulture').length) {
+    if (event.registration?.length && event.registration.filter(r => r.service === 'passCulture').length) {
       draft.passCulture = {
         img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
         label: getLabel('accessPassOffer', lang),
@@ -128,23 +128,21 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
     }
 
     if (draft.registration?.length) {
-      draft.registration.filter(r => !r.service).forEach(r => {
-        Object.assign(r, {
-          phone: {
-            icon: 'fa-phone',
-            prefix: 'tel:',
-          },
-          link: {
-            icon: 'fa-link',
-            prefix: '',
-            label: getLabel('registerBook', lang),
-          },
-          email: {
-            icon: 'fa-envelope',
-            prefix: 'mailto:',
-          },
-        }[r.type]);
-      });
+      draft.registration = draft.registration.filter(r => !r.service).map(r => Object.assign(r, {
+        phone: {
+          icon: 'fa-phone',
+          prefix: 'tel:',
+        },
+        link: {
+          icon: 'fa-link',
+          prefix: '',
+          label: getLabel('registerBook', lang),
+        },
+        email: {
+          icon: 'fa-envelope',
+          prefix: 'mailto:',
+        },
+      }[r.type]));
     }
 
     const permalink = `${root}/agendas/${agendaUid}/events/${event.uid}`;

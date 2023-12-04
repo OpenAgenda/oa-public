@@ -21,13 +21,13 @@ describe('13 - paths', () => {
             [111, 222],
             [100, 6, 222],
           ],
-          333
-        )
+          333,
+        ),
       ).toBe(true);
     });
 
-    test('if source does not have any paths, it is a root', () => {
-      expect(updateIsRequired([[333]], [], 333)).toBe(false);
+    test('if source does not have any paths and is not referenced, reference update is required', () => {
+      expect(updateIsRequired([[777, 222]], [], 333)).toBe(true);
     });
 
     test('all paths of source are known to reference', () => {
@@ -41,8 +41,8 @@ describe('13 - paths', () => {
             [111, 222],
             [100, 6, 222],
           ],
-          333
-        )
+          333,
+        ),
       ).toBe(false);
     });
   });
@@ -55,7 +55,7 @@ describe('13 - paths', () => {
           [111, 222],
           [100, 6, 222],
         ],
-        333
+        333,
       );
 
       expect(amended).toEqual([
@@ -74,7 +74,7 @@ describe('13 - paths', () => {
           [111, 222],
           [100, 6, 222],
         ],
-        333
+        333,
       );
 
       expect(amended).toEqual([
@@ -98,7 +98,7 @@ describe('13 - paths', () => {
           [888, 1, 23],
           [111, 222, 333],
         ],
-        333
+        333,
       );
 
       expect(filtered).toEqual([[888, 1, 23]]);
@@ -111,7 +111,7 @@ describe('13 - paths', () => {
           [888, 1, 23],
           [111, 222, 333],
         ],
-        333
+        333,
       );
 
       expect(filtered).toEqual([[888, 1, 23]]);

@@ -10,6 +10,7 @@ export default function FormModal({
   related,
   offererVenues,
   timings,
+  bookingEmail,
 }) {
   return (
     <Modal
@@ -28,6 +29,7 @@ export default function FormModal({
           timings={timings}
           onSubmit={onSubmit}
           onClear={onClear}
+          bookingEmail={bookingEmail}
         />
       </div>
     </Modal>

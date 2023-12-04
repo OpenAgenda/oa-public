@@ -2,8 +2,14 @@ import { hasFilter } from '../../../utils/rules';
 import extract from './extractActionsDisplayValues';
 import messages from './messages';
 
-export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
-  <div>
+export default ({
+  intl,
+  rule,
+  aggregatorAgendaSchema,
+  aggregatorAgenda,
+  sourceAgendaSchema,
+}) => (
+  <div className="padding-v-xs">
     {hasFilter(rule) ? (
       <span
         title={intl.formatMessage(messages.actionsAfterFilterDetail)}
@@ -21,19 +27,16 @@ export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
     )}
     <ul className="padding-left-md margin-bottom-z list-unstyled">
       {rule.actions.map(action => {
-        const { label, value, detail, key, set } = extract({
+        const { label, value, detail, key, set, copy } = extract({
           intl,
           aggregatorAgendaSchema,
           aggregatorAgenda,
           action,
+          sourceAgendaSchema,
         });
 
         return (
-          <li
-            key={key}
-            title={detail}
-            className="padding-left-xs padding-bottom-xs"
-          >
+          <li key={key} title={detail} className="padding-left-xs">
             <label htmlFor={key} className="margin-right-xs">
               {label}:
             </label>
@@ -43,6 +46,14 @@ export default ({ intl, rule, aggregatorAgendaSchema, aggregatorAgenda }) => (
                 title={intl.formatMessage(messages.replacingActionDetail)}
               >
                 ↦
+              </span>
+            ) : null}
+            {copy ? (
+              <span
+                className="badge badge-pill badge-default margin-right-xs"
+                title={intl.formatMessage(messages.copy)}
+              >
+                <i className="fa fa-copy" />
               </span>
             ) : null}
             {value}

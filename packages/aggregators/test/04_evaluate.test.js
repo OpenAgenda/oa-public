@@ -6,7 +6,7 @@ const {
 } = require('../lib/evaluateEvent');
 const { getJSON } = require('./utils');
 
-describe('04 - evaluateBis', () => {
+describe('04 - evaluateEvent', () => {
   const initalData = getJSON('/fixtures/evaluate/data');
 
   describe('simple evaluate leading to new reference', () => {
@@ -268,8 +268,8 @@ describe('04 - evaluateBis', () => {
     test('enqueueRemove is provided with payload required for removal', () => {
       expect(Object.keys(args)).toEqual([
         'sourceAgendaUid',
-        'eventUid',
-        'aggregatorAgendaUid',
+        'event',
+        'aggregatorsBuffer',
         'reference',
         'batched',
       ]);

@@ -10,7 +10,7 @@ const getNetwork = require('../utils/getNetwork');
 const merge = require('../utils/merge');
 const getMemberSchema = require('../utils/getMemberSchema');
 
-async function loadFormSchema(formSchemas, agendaId, formSchemaId) {
+async function loadFormSchema(formSchemas, formSchemaId) {
   if (formSchemaId) {
     return formSchemas.get(formSchemaId);
   }
@@ -30,6 +30,7 @@ function dispatchSettingsInFields(services, agenda, schema) {
       passCulture: {
         ...agenda.settings.registration.passCulture,
         res: {
+          context: `/api/me/agendas/${agenda.uid}`,
           settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
           offerLink: registrations?.settings.passCulture.offerLink,
           offerEditLink: registrations?.settings.passCulture.offerEditLink,
@@ -63,7 +64,6 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
   const {
-    id: agendaId,
     networkUid,
     formSchemaId,
   } = agenda;
@@ -72,7 +72,6 @@ module.exports = async (services, agendaOrUid, options = {}) => {
 
   const formSchema = await loadFormSchema(
     formSchemas,
-    agendaId,
     formSchemaId,
     !!_.get(network, 'formSchemaId'),
   ).then(s => (s ? { ...s, type: 'agenda' } : s));
