@@ -100,7 +100,7 @@ module.exports = declare((api, options) => {
   ];
 
   const plugins = [
-    require('babel-plugin-lodash'),
+    require('@sigmacomputing/babel-plugin-lodash'),
     require('babel-plugin-add-module-exports'),
     transformRuntime ? [
       require('@babel/plugin-transform-runtime'),
