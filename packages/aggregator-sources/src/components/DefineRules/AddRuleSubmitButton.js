@@ -12,6 +12,7 @@ export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const hasFilter = values.tagValues?.length
     || values.locationValues
     || values.textValue
+    || values.languages
     || (values.type === 'text' && values.wholeValue)
     || hasChoiceValues;
   const disabled = !hasFilter

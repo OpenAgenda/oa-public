@@ -240,6 +240,7 @@ export default function DefineRules({
           disabledChoice={!sourceSchema?.fields?.length}
           isAggregator={isAggregator}
           sourceSchema={sourceSchema}
+          sourceAgenda={sourceAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
       </div>
@@ -267,7 +268,7 @@ export default function DefineRules({
           SubmitButton={UpdateRuleSubmitButton}
           disabledChoice={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
-          /* sourceAgenda={sourceAgenda} */
+          sourceAgenda={sourceAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
       </div>

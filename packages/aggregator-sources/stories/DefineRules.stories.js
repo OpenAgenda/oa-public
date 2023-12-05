@@ -68,6 +68,7 @@ export const AddSource = () => (
       aggregatorAgenda={aggregatorAgenda}
       aggregatorAgendaSchema={aggregatorAgendaSchema}
       sourceSchema={sourceAgendaSchema}
+      sourceAgenda={sourceAgenda}
       initialRules={[]}
       onSubmit={() => {}}
       onCancel={() => {}}
@@ -87,7 +88,6 @@ export const EditEmpty = () => (
     aggregator={aggregator}
     aggregatorAgenda={aggregatorAgenda}
     aggregatorAgendaSchema={aggregatorAgendaSchema}
-    sourceAgenda={sourceAgenda}
     sourceSchema={sourceAgendaSchema}
     initialRules={[]}
     onSubmit={() => {}}

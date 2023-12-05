@@ -58,7 +58,9 @@ function getFilterType(rule) {
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags', 'text'].includes(key) ? key : 'choice';
+  return ['location', 'tags', 'text', 'languages'].includes(key)
+    ? key
+    : 'choice';
 }
 
 function getFilterLocationType(rule) {
@@ -139,6 +141,17 @@ const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
   };
 };
 
+const languagesFilter = ({ intl, rule }) => {
+  const values = rule.query.languages.map(el => {
+    const formated = intl.formatDisplayName(el, { type: 'language' });
+    return formated.charAt(0).toUpperCase() + formated.slice(1);
+  });
+  return {
+    label: intl.formatMessage(messages.languagesFilter),
+    value: values.join(' ,'),
+  };
+};
+
 export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
   const type = getFilterType(rule);
   switch (type) {
@@ -148,6 +161,9 @@ export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
       return textFilter({ intl, rule, sourceAgendaSchema });
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
+    case 'languages': {
+      return languagesFilter({ intl, rule });
+    }
     default:
       return choiceFilter({
         intl,

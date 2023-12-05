@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { useFormState, Field } from 'react-final-form';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import messages from './messages';
@@ -28,9 +29,10 @@ export default function RuleForm({
   sourceAgenda,
   displayTagFilter,
 }) {
+  const res = useSelector(state => state.res);
   const intl = useIntl();
   const formState = useFormState();
-  console.log('sourceAgenda', sourceAgenda);
+
   const error = !formState.dirtySinceLastSubmit && formState.submitError
     ? formState.submitError
     : null;
@@ -161,7 +163,9 @@ export default function RuleForm({
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
                 sourceAgendaUid={sourceAgenda.uid}
+                res={res.getSourceLang}
               />
+              <RequiredFieldPart />
             </div>
           ) : null}
 

@@ -224,4 +224,8 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.linkPlaceholder',
     defaultMessage: 'Hyperlink',
   },
+  selectLanguages: {
+    id: 'aggregator-sources.RuleForm.selectLanguages',
+    defaultMessage: 'Select languages',
+  },
 });
