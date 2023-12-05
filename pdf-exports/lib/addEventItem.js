@@ -1,11 +1,11 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import urlToBuffer from './urlToBuffer.js';
 import addText from './addText.js';
 import addIcon from './addIcon.js';
 import flattenLabel from './flattenLabel.js';
 import addRegistration from './addRegistration.js';
+import thumbnail from './thumbnail.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,8 +50,6 @@ export default async function addEventItem(
   let widthOfRegistration = null;
   let heightOfRegistration = null;
 
-  let imageUrl;
-
   const imageWidth = 90;
   const imageHeight = 90;
 
@@ -65,7 +63,6 @@ export default async function addEventItem(
   const emailIconPath = `${__dirname}/../images/email.png`;
   const phoneIconPath = `${__dirname}/../images/phone.png`;
   const linkIconPath = `${__dirname}/../images/link.png`;
-  const oaLogoPath = `${__dirname}/../images/oaLogo.png`;
 
   const iconsArr = [];
 
@@ -77,27 +74,13 @@ export default async function addEventItem(
     }
   }
 
-  const thumbnailFilename = event.image?.variants.find(
-    el => el.type === 'thumbnail',
-  )?.filename;
-
-  const newVersionThumbnail = thumbnailFilename?.includes('.thumb.image.jpg');
-
   const imageOptions = {
     cover: [imageWidth, imageHeight],
     align: 'center',
     valign: 'center',
   };
 
-  if (!thumbnailFilename) {
-    imageUrl = oaLogoPath;
-  } else if (!newVersionThumbnail) {
-    const baseImageUrl = `https://img.openagenda.com/u/${imageWidth}x${imageHeight}/cibul/`;
-    imageUrl = await urlToBuffer(baseImageUrl + event.image.filename);
-  } else {
-    imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
-    console.log(imageUrl);
-  }
+  const imageUrl = await thumbnail(event, __dirname, imageWidth, imageHeight);
 
   if (!simulate && imageUrl) {
     doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
