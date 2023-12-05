@@ -4,7 +4,8 @@ import filterEventDataFixturesWiths from './fixtures/filterEventDataWiths.json';
 
 const {
   filterEventData,
-  schemaWithoutEventFields
+  schemaWithoutEventFields,
+  removeUnduplicatable,
 } = utils;
 
 describe('utils', () => {
@@ -20,11 +21,11 @@ describe('utils', () => {
         canEditEvent: true,
         canChangeState: true,
         schema,
-        displayEventFields: false
+        displayEventFields: false,
       });
 
       expect(filteredEvent).toEqual({
-        state: 2
+        state: 2,
       });
     });
 
@@ -39,7 +40,7 @@ describe('utils', () => {
         canEditEvent: false,
         canChangeState: true,
         schema,
-        displayEventFields: false
+        displayEventFields: false,
       });
 
       expect(filteredEvent).toEqual({ state: 2 });
@@ -48,7 +49,7 @@ describe('utils', () => {
     test('event field values are provided when linked to a field where authorization is provided', () => {
       const {
         event,
-        schema
+        schema,
       } = filterEventDataFixturesWiths;
 
       const filteredEvent = filterEventData({
@@ -56,7 +57,7 @@ describe('utils', () => {
         canEditEvent: false,
         canChangeState: true,
         schema,
-        displayEventFields: false
+        displayEventFields: false,
       });
 
       expect(Object.keys(filteredEvent)).toEqual(['state', 'image']);
@@ -67,6 +68,47 @@ describe('utils', () => {
       const filtered = schemaWithoutEventFields(filterEventDataFixturesWiths.schema);
 
       expect(filtered.fields.find(f => f.field === 'image').enable).toBe(false);
+    });
+  });
+
+  describe('removeUnduplicatable', () => {
+    test('timings are removed from data to be used in duplication context', () => {
+      const duplicatableData = removeUnduplicatable({
+        title: 'Destination agenda',
+      }, {
+        title: 'Source Agenda',
+        schema: { fields: [] },
+      }, {
+        title: 'Event title',
+        timings: [{ begin: 'begin', en: 'end' }],
+      });
+
+      expect(duplicatableData.timings).toBeUndefined();
+    });
+
+    test('registration items linked to specific ticketing services are filtered', () => {
+      const duplicatableData = removeUnduplicatable({
+        title: 'Destination agenda',
+      }, {
+        title: 'Source Agenda',
+        schema: { fields: [] },
+      }, {
+        title: 'Event title',
+        registration: [{
+          type: 'link',
+          value: 'https://openagenda.com',
+        }, {
+          type: 'link',
+          value: 'https://pass.culture.fr',
+          service: 'passCulture',
+          data: {},
+        }],
+      });
+
+      expect(duplicatableData.registration).toEqual([{
+        type: 'link',
+        value: 'https://openagenda.com',
+      }]);
     });
   });
 });

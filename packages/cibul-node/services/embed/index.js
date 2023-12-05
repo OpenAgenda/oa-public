@@ -1,74 +1,58 @@
-"use strict";
+'use strict';
 
-var log = require( '@openagenda/logs' )( 'embed service' ),
+const log = require('@openagenda/logs')('embed service');
 
-model = require( '../model' ),
+const model = require('../model');
 
-lib = require( '../../lib/lib' ),
+const lib = require('../../lib/lib');
 
-agendaSvc = require( '../agenda' );
+const agendaSvc = require('../agenda');
 
 module.exports = {
   initless: true,
-  get
-}
+  get,
+};
 
-module.exports.mw = require( './middleware' )( module.exports );
+module.exports.mw = require('./middleware')(module.exports);
 
-function get( params, cb ) {
+function get(params, cb) {
+  model.reviewEmbeds().get(params, (err, result) => {
+    if (err) return cb(err);
 
-  model.reviewEmbeds().get( params, function( err, result ) {
+    if (!result) return cb('embed configuration not found');
 
-    if ( err ) return cb( err );
-
-    if ( !result ) return cb( 'embed configuration not found' );
-
-    cb( null, instanciate( result ) );
-
+    cb(null, instanciate(result));
   });
-
 }
 
-function instanciate( data ) {
-
-  const instance = model.reviewEmbeds().instance( data );
+function instanciate(data) {
+  const instance = model.reviewEmbeds().instance(data);
 
   let agenda;
 
-  return lib.extend( {}, instance, {
-    getControlData
-  } );
+  return lib.extend({}, instance, {
+    getControlData,
+  });
 
-  function getControlData( cb ) {
+  function getControlData(cb) {
+    getAgenda((err, a) => {
+      if (err) return cb(err);
 
-    getAgenda( ( err, a ) => {
-
-      if ( err ) return cb( err );
-
-      a.getControlData( ( err, ctlData ) => {
-
-        instance.decorateAgendaControlData( ctlData, cb );
-
-      } );
-
-    } );
-
-  }
-
-  function getAgenda( cb ) {
-
-    if ( agenda ) return cb( null, agenda );
-
-    instance.getAgenda( function( err, a ) {
-
-      if ( err ) cb( err );
-
-      agenda = agendaSvc.instanciate( a );
-
-      cb( null, agenda );
-
+      a.getControlData((err, ctlData) => {
+        instance.decorateAgendaControlData(ctlData, cb);
+      });
     });
-
   }
 
+  function getAgenda(cb) {
+    if (agenda) return cb(null, agenda);
+
+    instance.getAgenda((err, a) => {
+      if (err) cb(err);
+
+      agenda = agendaSvc.instanciate(a);
+
+      cb(null, agenda);
+    });
+  }
 }

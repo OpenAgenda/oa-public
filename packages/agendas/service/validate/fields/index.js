@@ -165,7 +165,7 @@ module.exports = [{
   }, {
     field: 'lab',
     type: 'schema',
-    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'moderator', 'internal', 'public', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'status',
@@ -341,6 +341,11 @@ module.exports = [{
         list: { default: null },
         type: 'text',
         optional: false,
+      }, {
+        field: 'bookingEmail',
+        type: 'email',
+        default: null,
+        optional: true,
       }]
     }]
   }]

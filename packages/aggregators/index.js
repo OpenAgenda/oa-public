@@ -58,6 +58,7 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
     removeEvent: removeEvent.bind(null, {
       getEventReference: interfaces.getEventReference,
       unreferenceEvent: interfaces.unreferenceEvent,
+      updateSourcePaths: interfaces.updateSourcePaths,
       enqueueRemove: queue.bind(null, 'removeEvent'),
     }),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {

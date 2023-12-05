@@ -7,8 +7,8 @@ export default function Checkbox({
   info = null,
 }) {
   return (
-    <div className="margin-right-sm margin-bottom-sm">
-      <label htmlFor={id} className="margin-h-xs">
+    <div className="checkbox margin-right-sm margin-bottom-sm">
+      <label htmlFor={id}>
         <input
           id={id}
           checked={value}
@@ -16,9 +16,9 @@ export default function Checkbox({
           onChange={onChange}
           className="margin-right-sm"
         />
-        {label}
+        <strong>{label}</strong>
+        {info ? (<div className="text-muted"> {info} </div>) : null}
       </label>
-      {info ? (<div className="text-muted margin-h-xs"> {info} </div>) : null}
     </div>
   );
 }

@@ -7,36 +7,13 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
+import utils from '../lib/utils';
+
+const {
+  removeUnduplicatable,
+} = utils;
+
 const log = debug('useEventDataForDuplicate');
-
-function removeUnduplicatable(destinationAgenda, agenda, data) {
-  log('filtering unduplicatable event data');
-
-  if (!agenda) {
-    return null;
-  }
-
-  const unduplicatableFields = [
-    'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings',
-  ].concat(
-    agenda.schema.fields
-      .filter(f => !(f.duplicatable ?? true))
-      .map(f => f.field),
-  );
-
-  const locationOriginIsDestinationAgenda = data?.location?.agendaUid === destinationAgenda.uid;
-  const sameLocationSet = !!destinationAgenda?.locationSetUid && (data?.location?.setUid === destinationAgenda?.locationSetUid);
-
-  if (!locationOriginIsDestinationAgenda && !sameLocationSet) {
-    unduplicatableFields.push('location');
-  }
-
-  return Object.keys(data)
-    .filter(field => !unduplicatableFields.includes(field))
-    .reduce((filtered, field) => Object.assign(filtered, {
-      [field]: data[field],
-    }), {});
-}
 
 export default function useEventDataForDuplicate(destinationAgenda) {
   const location = useLocation();

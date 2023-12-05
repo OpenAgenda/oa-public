@@ -34,6 +34,7 @@ describe('integrated', () => {
         },
       }, {
         venueId: 548,
+        bookingEmail: 'clem@oa.com',
         category: 'EVENEMENT_JEU',
         priceCategories: [{
           label: 'Tarif réduit',

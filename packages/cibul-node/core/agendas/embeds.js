@@ -8,16 +8,16 @@ module.exports = (core, agendaUid) => {
   const {
     services: {
       legacy: {
-        embeds
-      }
-    }
+        embeds,
+      },
+    },
   } = core;
 
   return Object.assign(embedUid => ({
     update: embeds(agendaUid).update.bind(null, embedUid),
-    get: embeds(agendaUid).get.bind(null, embedUid)
+    get: embeds(agendaUid).get.bind(null, embedUid),
   }), {
     create: embeds(agendaUid).create,
-    list: embeds(agendaUid).list
+    list: embeds(agendaUid).list,
   });
 };

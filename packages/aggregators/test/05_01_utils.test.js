@@ -128,6 +128,22 @@ describe('05 - utils', () => {
       ]);
     });
 
+    test('clean copy action', () => {
+      const clean = cleanRule({
+        actions: [{
+          aggregField: {
+            $copy: 'sourceField',
+          },
+        }],
+      });
+      expect(clean.actions).toEqual([
+        {
+          field: 'aggregField',
+          values: { $copy: 'sourceField' },
+        },
+      ]);
+    });
+
     test('state in value is converted to an action', () => {
       const clean = cleanRule({
         query: {

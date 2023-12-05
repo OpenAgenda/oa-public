@@ -9,7 +9,7 @@ export default function Input({
 }) {
   return (
     <div className="form-group margin-right-sm">
-      <label htmlFor={id} className="margin-right-xs">{label}</label>
+      {label ? (<label htmlFor={id} className="margin-right-xs">{label}</label>) : null}
       <input
         id={id}
         value={value}

@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       // event,
       preload: [
-        `https://d.openagenda.com/api/agendas/${agenda.uid}/events/${event.uid}/references`,
+        `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
       ],
       fallback: {
         [eventUrl]: eventResponse,

@@ -16,8 +16,10 @@ export default ({
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
+  const [hasAccess, setHasAccess] = useState(false);
 
-  const hasData = Object.keys(value ?? {}).length;
+  const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
+  const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
 
   const offerAlreadyExists = value?.id;
 
@@ -32,8 +34,8 @@ export default ({
   const issues = useMemo(
     () => []
       .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
-      .concat(hasData && !validateLocalData(value, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
-    [upcomingTimings, hasData, value, timings, passSettingsData],
+      .concat(hasData && hasSettingsData && !validateLocalData(value, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    [upcomingTimings, hasData, value, timings, passSettingsData, hasSettingsData],
   );
 
   useEffect(() => {
@@ -42,6 +44,14 @@ export default ({
       .then(data => {
         setPassSettingsData(data);
         setIsLoadingPassData(false);
+      });
+
+    fetch(settings.res.context)
+      .then(r => r.json())
+      .then(data => {
+        setHasAccess(['administrator', 'moderator'].includes(data.me.member?.role));
+      }).catch(() => {
+        setHasAccess(false);
       });
   }, [settings]);
 
@@ -59,6 +69,10 @@ export default ({
     setModal(null);
   }, [onChange]);
 
+  if (!hasAccess) {
+    return null;
+  }
+
   return (
     <>
       {modal === 'show' && isLoadingPassData ? <Spinner /> : null}
@@ -68,6 +82,7 @@ export default ({
           categories={passSettingsData.categories}
           related={passSettingsData.related}
           offererVenues={passSettingsData.offererVenues}
+          bookingEmail={settings?.bookingEmail}
           value={value}
           onClose={() => setModal(null)}
           onSubmit={onSubmit}
@@ -119,6 +134,7 @@ export default ({
           ) : null}
         </label>
       </div>
+      <b>Autres outils</b>
     </>
   );
 };

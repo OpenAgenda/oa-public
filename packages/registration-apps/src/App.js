@@ -62,20 +62,17 @@ function Registration(props) {
   return (
     <div className="multi-input">
       {(settings.passCulture?.siren ?? []).length ? (
-        <>
-          <PassCultureCheckbox
-            value={passCultureValue}
-            settings={settings.passCulture}
-            timings={relatedValues?.other?.timings ?? []}
-            onChange={updatedPassCultureValue => propsOnChange(
-              mergeSpreadRegistrationValues({
-                standard: standardValue,
-                passCulture: updatedPassCultureValue,
-              }),
-            )}
-          />
-          <b>Autres outils</b>
-        </>
+        <PassCultureCheckbox
+          value={passCultureValue}
+          settings={settings.passCulture}
+          timings={relatedValues?.other?.timings ?? []}
+          onChange={updatedPassCultureValue => propsOnChange(
+            mergeSpreadRegistrationValues({
+              standard: standardValue,
+              passCulture: updatedPassCultureValue,
+            }),
+          )}
+        />
       ) : null}
       <StandardRegistrationField
         value={standardValue}

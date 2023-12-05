@@ -6,8 +6,13 @@ export type AgendaSettingsTracking = {
   matomoCustom?: string[][]
 };
 
+export type AgendaSettingsLab = {
+  status?: boolean
+};
+
 export type AgendaSettings = {
   tracking?: AgendaSettingsTracking
+  lab?: AgendaSettingsLab
 };
 
 export type Agenda = {

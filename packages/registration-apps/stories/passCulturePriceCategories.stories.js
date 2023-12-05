@@ -22,12 +22,16 @@ export default {
 export const Empty = () => {
   const [value, setValue] = useState({});
   return (
-    <PassPriceCategories
-      value={value ?? []}
-      onAdd={pc => setValue(addPriceCategory(value, pc))}
-      onRemove={pc => setValue(removePriceCategory(value, pc))}
-      onChange={(index, pc) => setValue(changePriceCategory(value, index, pc))}
-    />
+    <>
+      <p>First price category is labelled directly `Tarif unique` and priced at 0.</p>
+      <PassPriceCategories
+        value={value ?? []}
+        onAdd={pc => setValue(addPriceCategory(value, pc))}
+        onRemove={pc => setValue(removePriceCategory(value, pc))}
+        onChange={(index, pc) => setValue(changePriceCategory(value, index, pc))}
+        onSubFormToggle={() => {}}
+      />
+    </>
   );
 };
 

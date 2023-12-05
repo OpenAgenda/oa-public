@@ -1,15 +1,26 @@
 import { Fragment, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, IconButton, Link } from '@openagenda/uikit';
+import {
+  Flex,
+  Icon,
+  Button,
+  Wrap,
+  WrapItem,
+  Grid,
+  Box,
+  Tag,
+  HStack,
+  Link,
+  useDisclosure,
+} from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
 import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 'icons/regular';
-import { faPrint, faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
-import { faFacebookF, faTwitter, faLinkedinIn } from 'icons/brands';
-import OAIcon from 'components/OAIcon';
+import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
 import Timings from './Timings';
 import References from './References';
 import Map from './Map';
+import ShareModal from './ShareModal';
 
 function getRegistrationIcon(type: string) {
   switch (type) {
@@ -37,7 +48,7 @@ function getRegistrationLink({ value, type }: { value: string, type: string }) {
   }
 }
 
-export default function Sidebar({ agenda, event }) {
+export default function Sidebar({ agenda, event, contentLocale }) {
   const intl = useIntl();
 
   const isUpcoming = useMemo(() => {
@@ -46,6 +57,12 @@ export default function Sidebar({ agenda, event }) {
   }, [event.timings]);
 
   const canShare = !event.private && event.state === 2;
+
+  const {
+    isOpen: shareIsOpen,
+    onOpen: shareOnOpen,
+    onClose: shareOnClose,
+  } = useDisclosure();
 
   return (
     <Flex
@@ -64,15 +81,15 @@ export default function Sidebar({ agenda, event }) {
           mt="1"
         />
         <Button
-          onClick={() => {}}
-          leftIcon={<OAIcon />}
+          onClick={shareOnOpen}
+          // leftIcon={<OAIcon />}
           variant="solid"
           colorScheme="primary"
           isDisabled={!canShare}
         >
-          Partager sur OpenAgenda
+          Partager
         </Button>
-        <Wrap gridColumn="2" mt="2" align="center">
+        {/* <Wrap gridColumn="2" mt="2" align="center">
           <WrapItem>Autres partages:</WrapItem>
           <WrapItem>
             <IconButton
@@ -164,7 +181,7 @@ export default function Sidebar({ agenda, event }) {
               minW="1em"
             />
           </WrapItem>
-        </Wrap>
+        </Wrap> */}
       </Grid>
 
       {/* <Flex direction="row" gap="4" align="center" grow="1">
@@ -299,6 +316,16 @@ export default function Sidebar({ agenda, event }) {
       <Box ml="12">
         <References agenda={agenda} event={event} />
       </Box>
+
+      {shareIsOpen ? (
+        <ShareModal
+          isOpen
+          onClose={shareOnClose}
+          agenda={agenda}
+          event={event}
+          contentLocale={contentLocale}
+        />
+      ) : null}
     </Flex>
   );
 }

@@ -29,10 +29,16 @@ export default function PassImage({
 
   return (
     <span
-      className={passTabIsOpen ? 'badge badge-default margin-left-xs' : 'margin-left-xs'}
-      css={css`
-      padding: 1px 6px 1px 1px;
+      className="badge badge-default margin-left-xs"
+      css={passTabIsOpen ? css`
+      padding: 0px 6px 0px 1px;
       border-radius: 15px;
+      cursor: pointer;
+      ` : css`
+      padding: 0px 6px 0px 1px;
+      cursor: pointer;
+      border-radius: 15px;
+      border-color: transparent;
       `}
     >
       <img

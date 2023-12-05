@@ -444,6 +444,52 @@ describe('05_02 - utils - rules', () => {
         content: 'test2',
       });
     });
+
+    test('action on text Field copy from source additional text field long version', () => {
+      const input = {
+        content: {
+          fr: 'test',
+        },
+      };
+
+      const ruleset = [
+        {
+          actions: [
+            {
+              field: 'otherField',
+              values: { $copy: 'content' },
+            }],
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toEqual({
+        otherField: 'test',
+      });
+    });
+
+    test('action on text Field copy from source additional text field short version', () => {
+      const input = {
+        content: 'test',
+      };
+
+      const ruleset = [
+        {
+          actions: [{
+            otherField: {
+              $copy: 'content',
+            },
+          }],
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toEqual({
+        otherField: 'test',
+      });
+    });
   });
 
   describe('automatic actions', () => {

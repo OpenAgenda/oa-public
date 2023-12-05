@@ -11,8 +11,8 @@ module.exports = config => (req, res, next) => {
   const scripts = {
     top: [],
     bottom: [
-      { src: '/js/agendaSearchIndex.js' }
-    ]
+      { src: '/js/agendaSearchIndex.js' },
+    ],
   };
 
   const translateMode = Boolean(req.cookies.translateMode);
@@ -21,7 +21,7 @@ module.exports = config => (req, res, next) => {
   if (req.cookies.translateMode) {
     scripts.top = [
       { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
-      { src: 'https://cdn.crowdin.com/jipt/jipt.js' }
+      { src: 'https://cdn.crowdin.com/jipt/jipt.js' },
     ];
   }
 
@@ -39,7 +39,7 @@ module.exports = config => (req, res, next) => {
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
         ga('create', '${config.googleAnalyticsId}', 'auto');
-        ga('send', 'pageview');`
+        ga('send', 'pageview');`,
     });
   }
 
@@ -56,8 +56,8 @@ module.exports = config => (req, res, next) => {
         canvas: '.js_search_canvas',
         agendas: req.result.agendas,
         total: req.result.total,
-        res: '/agendas.json'
-      })
+        res: '/agendas.json',
+      }),
     }],
     translateMode,
     isTranslator,

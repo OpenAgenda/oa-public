@@ -163,4 +163,8 @@ export default defineMessages({
     defaultMessage:
       'this filter refers to a field that cannot be found. It may have been deleted from the source agenda',
   },
+  copy: {
+    id: 'aggregator-sources.DefineRules.copy',
+    defaultMessage: 'this action will copy the value of a source field',
+  },
 });

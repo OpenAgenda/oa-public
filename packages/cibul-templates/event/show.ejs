@@ -188,7 +188,7 @@
                   <% if (!indexedEvent.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
                 </p>
               </section>
-              <% if (indexedEvent.conditions || indexedEvent.registration.length ) { %>
+              <% if (indexedEvent.conditions || indexedEvent.registration.length || indexedEvent.passCulture) { %>
                 <section class="detail-item conditions margin-v-md">
                   <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
                   <% if (indexedEvent.conditions) { %>
