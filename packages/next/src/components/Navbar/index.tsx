@@ -1,6 +1,5 @@
-import { ParsedUrlQuery } from 'node:querystring';
-import qs from 'qs';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import ContentLoader from 'react-content-loader';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
@@ -32,6 +31,7 @@ import Image from 'components/Image';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
+import { useNavbarSearch } from 'contexts/NavbarSearchManager';
 import logoPic from '../../../public/images/openagenda.png';
 
 const messages = defineMessages({
@@ -67,6 +67,40 @@ const messages = defineMessages({
 
 const StyledSearchInput = chakra(SearchInput);
 
+function useSearch() {
+  const router = useRouter();
+  const {
+    inputValue,
+    setInputValue,
+    searchValue,
+    setSearchValue,
+  } = useNavbarSearch();
+
+  const onSearch = useCallback(e => {
+    e.preventDefault();
+
+    const target = e.target as typeof e.target & {
+      search: { value: string }
+    };
+
+    const qsSearch = target.search.value !== '' ? `?search=${encodeURIComponent(target.search.value)}` : '';
+
+    if (typeof setSearchValue === 'function') {
+      return router.push(qsSearch, null, { shallow: true });
+    }
+
+    router.push(`/n/agendas${qsSearch}`);
+  }, [router]);
+
+  return useMemo(() => ({
+    inputValue,
+    setInputValue,
+    searchValue,
+    setSearchValue,
+    onSearch,
+  }), [inputValue, onSearch, searchValue, setInputValue, setSearchValue]);
+}
+
 function ProfileLoader(props) {
   const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
 
@@ -94,11 +128,11 @@ function ProfileMenu({ user, portalRef }) {
   const collapseId = 'header-menu-collapse';
   const { getButtonProps, isOpen } = useDisclosure({ id: collapseId });
 
-  const onSearch = useCallback(e => {
-    e.preventDefault();
-    const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
-    window.location.assign(`/agendas?${qs.stringify(query)}`);
-  }, []);
+  const {
+    inputValue,
+    setInputValue,
+    onSearch,
+  } = useSearch();
 
   const button = user.image ? (
     <Image
@@ -171,7 +205,14 @@ function ProfileMenu({ user, portalRef }) {
         <Collapse id={collapseId} in={isOpen}>
           <Box display={{ base: 'block', lg: 'none' }}>
             <form onSubmit={onSearch}>
-              <StyledSearchInput h="50px" maxW="full" />
+              <StyledSearchInput
+                h="50px"
+                maxW="full"
+                input={{
+                  value: inputValue,
+                  onChange: e => setInputValue(e.target.value),
+                }}
+              />
             </form>
 
             <Box py="2">
@@ -266,11 +307,12 @@ function ProfileBar({ portalRef }) {
 
 export default function Navbar() {
   const intl = useIntl();
-  const onSearch = useCallback(e => {
-    e.preventDefault();
-    const query = Object.fromEntries(new FormData(e.currentTarget).entries()) as ParsedUrlQuery;
-    window.location.assign(`/agendas?${qs.stringify(query)}`);
-  }, []);
+
+  const {
+    inputValue,
+    setInputValue,
+    onSearch,
+  } = useSearch();
 
   const headerRef = useRef();
 
@@ -293,7 +335,12 @@ export default function Navbar() {
               />
             </Flex>
             <Flex as="form" onSubmit={onSearch} display={{ base: 'none', lg: 'flex' }}>
-              <SearchInput />
+              <SearchInput
+                input={{
+                  value: inputValue,
+                  onChange: e => setInputValue(e.target.value),
+                }}
+              />
             </Flex>
           </Flex>
 

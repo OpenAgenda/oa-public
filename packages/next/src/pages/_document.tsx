@@ -116,7 +116,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const originalRenderPage = ctx.renderPage;
 
   const cookies = new Cookies(ctx.req?.headers?.cookie);
-  const responseCookies = new ResponseCookies(new Headers(ctx.res.getHeaders?.() as HeadersInit));
+  const responseCookies = new ResponseCookies(new Headers(ctx.res?.getHeaders?.() as HeadersInit));
 
   const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
     || cookies.get('outdatedBrowser') === 'true';
@@ -125,7 +125,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   // CSP
   const nonce = generateNonce();
-  ctx.res.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
+  ctx.res?.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
 
   ctx.renderPage = () =>
     originalRenderPage({
