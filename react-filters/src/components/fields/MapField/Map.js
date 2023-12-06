@@ -91,19 +91,32 @@ function isEmptyValue(value) {
   return !value || value === '';
 }
 
+function convertToKFormat(intl, number) {
+  if (number >= 1000) {
+    return `${intl.formatNumber((number / 1000).toFixed(1))}k`;
+  }
+
+  return number.toString();
+}
+
 function MarkerClusterIcon({ latitude, longitude, eventCount }) {
+  const intl = useIntl();
   const map = useMap();
   const position = useMemo(() => [latitude, longitude], [latitude, longitude]);
   const icon = useMemo(
-    () => new L.DivIcon({
-      html: `<div style="pointer-events: none;"><span>${eventCount}</span></div>`,
-      className: cn('marker-cluster leaflet-interactive', {
-        'marker-cluster-small': eventCount < 10,
-        'marker-cluster-medium': eventCount < 100,
-        'marker-cluster-large': eventCount >= 100,
+    () =>
+      new L.DivIcon({
+        html: `<div style="pointer-events: none;"><span>${convertToKFormat(
+          intl,
+          eventCount,
+        )}</span></div>`,
+        className: cn('marker-cluster leaflet-interactive', {
+          'marker-cluster-small': eventCount < 10,
+          'marker-cluster-medium': eventCount < 100,
+          'marker-cluster-large': eventCount >= 100,
+        }),
+        iconSize: new L.Point(40, 40),
       }),
-      iconSize: new L.Point(40, 40),
-    }),
     [eventCount],
   );
 
@@ -162,11 +175,15 @@ const Map = React.forwardRef(
     const mapRef = useRef();
     const programmaticMoveRef = useRef(false);
 
-    const [viewport] = useState(() => (input.value ? valueToViewport(input.value) : initialViewport));
+    const [viewport] = useState(() =>
+      (input.value ? valueToViewport(input.value) : initialViewport));
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
-    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport || worldViewport).pad(padRatio));
+    const [bounds] = useState(() =>
+      viewportToBounds(viewport || defaultViewport || worldViewport).pad(
+        padRatio,
+      ));
     useImperativeHandle(ref, () => ({
       setData,
       onQueryChange: newViewport => {
@@ -189,7 +206,11 @@ const Map = React.forwardRef(
           map.once('moveend', () => reloadData());
 
           programmaticMoveRef.current = true;
-          map.fitBounds(viewportToBounds(newViewport || defaultViewport || worldViewport).pad(padRatio));
+          map.fitBounds(
+            viewportToBounds(
+              newViewport || defaultViewport || worldViewport,
+            ).pad(padRatio),
+          );
         } else {
           reloadData();
         }
@@ -228,7 +249,11 @@ const Map = React.forwardRef(
 
     useEffect(() => {
       // Become not user controlled if value is cleared
-      if (!isEmptyValue(previousValue) && isEmptyValue(input.value) && userControlled) {
+      if (
+        !isEmptyValue(previousValue)
+        && isEmptyValue(input.value)
+        && userControlled
+      ) {
         setUserControlled(false);
       }
     });
@@ -253,9 +278,12 @@ const Map = React.forwardRef(
       }
     }, [displayedMarkers, onChange, previousUserControlled, userControlled]);
 
-    const gestureHandlingOptions = useMemo(() => ({
-      locale: intl.locale,
-    }), [intl.locale]);
+    const gestureHandlingOptions = useMemo(
+      () => ({
+        locale: intl.locale,
+      }),
+      [intl.locale],
+    );
 
     return (
       <MapContainer
@@ -269,10 +297,7 @@ const Map = React.forwardRef(
         worldCopyJump
         // minZoom={1}
       >
-        <TileLayer
-          attribution={tileAttribution}
-          url={tileUrl}
-        />
+        <TileLayer attribution={tileAttribution} url={tileUrl} />
 
         {displayedMarkers
           ? data.map(entry => (
@@ -285,7 +310,10 @@ const Map = React.forwardRef(
           ))
           : null}
 
-        <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
+        <OnMapMove
+          onChange={onChange}
+          programmaticMoveRef={programmaticMoveRef}
+        />
       </MapContainer>
     );
   },
