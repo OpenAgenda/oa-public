@@ -499,7 +499,8 @@ describe('05_02 - utils - rules', () => {
             {
               field: 'otherField',
               values: { $copy: 'content' },
-            }],
+            },
+          ],
         },
       ];
 
@@ -517,11 +518,13 @@ describe('05_02 - utils - rules', () => {
 
       const ruleset = [
         {
-          actions: [{
-            otherField: {
-              $copy: 'content',
+          actions: [
+            {
+              otherField: {
+                $copy: 'content',
+              },
             },
-          }],
+          ],
         },
       ];
 
@@ -940,8 +943,7 @@ describe('05_02 - utils - rules', () => {
           ],
           null,
           null,
-          {
-          },
+          {},
         ),
       ).toEqual({});
     });

@@ -10,55 +10,52 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   if (!data) {
     throw new Error('data is required');
   }
-  const required = rule.required === undefined ? true : !!rule.required;
 
-  if (
-    rule.query.location
-    && !evaluateLocation(data.location, rule.query.location)
-  ) {
+  const { required, query, actions } = rule;
+
+  const isRequired = !!(required ?? true);
+
+  if (query.location && !evaluateLocation(data.location, query.location)) {
     log('location filter is set but does not match');
-    return required ? false : null;
+    return isRequired ? false : null;
   }
 
-  if (
-    rule.query.tags
-    && !evaluateLabels(sourceAgendaSchema, rule.query.tags, data)
-  ) {
+  if (query.tags && !evaluateLabels(sourceAgendaSchema, query.tags, data)) {
     log('tags filter is set but does not match');
-    return required ? false : null;
+    return isRequired ? false : null;
   }
 
-  if (rule.query.text && !evaluateText(rule.query.text, data)) {
+  if (query.text && !evaluateText(query.text, data)) {
     log('text filter is set but does not match');
-    return required ? false : null;
+    return isRequired ? false : null;
   }
 
-  if (rule.query.languages && !evaluateLanguages(rule.query.languages, data)) {
+  if (query.languages && !evaluateLanguages(query.languages, data)) {
     log('language filter is set but does nor match');
     return required ? false : null;
   }
 
-  const otherRuleFields = Object.keys(rule.query).filter(
+  const otherRuleFields = Object.keys(query).filter(
     f => !['location', 'tags', 'text', 'languages'].includes(f),
   );
   log('evaluating remaining %s rule query fields', otherRuleFields?.length);
 
   for (const ruleField of otherRuleFields) {
     const values = [].concat(data[ruleField]) || [];
-    const query = [].concat(rule.query[ruleField]);
+    const ruleQuery = [].concat(query[ruleField]);
     if (
       !values.filter(v => {
-        if (v === undefined) return query.includes(null);
-        return query.includes(v);
+        if (v === undefined) return ruleQuery.includes(null);
+        return ruleQuery.includes(v);
       }).length
     ) {
       log(
         'rule %s does not match and is %srequired',
         ruleField,
-        required ? '' : ' not',
+        isRequired ? '' : ' not',
       );
-      return required ? false : null;
+      return isRequired ? false : null;
     }
   }
-  return rule.actions;
+  return actions;
 };

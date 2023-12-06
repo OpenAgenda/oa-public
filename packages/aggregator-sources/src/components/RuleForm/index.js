@@ -156,7 +156,6 @@ export default function RuleForm({
               </div>
             )}
           />
-
           {values.type === 'languages' ? (
             <div className="radio-sub-block">
               <LanguagesFormPart
@@ -168,7 +167,6 @@ export default function RuleForm({
               <RequiredFieldPart />
             </div>
           ) : null}
-
           {displayTagFilter ? (
             <Field
               component={Radio}
