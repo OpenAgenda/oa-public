@@ -16,11 +16,12 @@ module.exports = async ({ alias, client, cleanIndexedAgenda }, query, nav, optio
   ), {})) : null;
 
   const cleanNav = validateNav(nav);
+  const cleanOptions = validateOptions(options);
 
   const DSL = queryToDSL(
     inflatedQuery,
     cleanNav,
-    validateOptions(options)
+    cleanOptions,
   );
 
   const {
@@ -42,7 +43,7 @@ module.exports = async ({ alias, client, cleanIndexedAgenda }, query, nav, optio
     sort: cleanNav.sort,
     agendas: result.body.hits.hits
       .map(hit => hit._source)
-      .map(agenda => cleanIndexedAgenda(agenda, options)),
+      .map(agenda => cleanIndexedAgenda(agenda, cleanOptions)),
     total: result.body.hits.total.value
   };
 }
