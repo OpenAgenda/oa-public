@@ -6203,7 +6203,7 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/react-shared": "npm:^2.4.0"
     "@storybook/react-webpack5": "npm:^7.4.2"
-    axios: "npm:^0.21.1"
+    axios: "npm:^1.4.0"
     classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
     eslint: "npm:^8.24.0"

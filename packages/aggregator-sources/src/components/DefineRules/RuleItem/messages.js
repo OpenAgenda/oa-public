@@ -165,6 +165,11 @@ export default defineMessages({
   },
   copy: {
     id: 'aggregator-sources.DefineRules.copy',
-    defaultMessage: 'this action will copy the value of a source field',
+    defaultMessage:
+      'The value defined in the targeted source field will be applied to the targeted field when aggregating the event on your agenda',
+  },
+  languagesFilter: {
+    id: 'aggregator-sources.DefineRules.languagesFilter',
+    defaultMessage: 'Language filter',
   },
 });

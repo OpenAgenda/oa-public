@@ -140,6 +140,27 @@ describe('utils - rules', () => {
       );
       expect(values.actions[0].copyValues).toEqual('another-text-field');
     });
+
+    it('with language filter', () => {
+      const values = ruleToValues(
+        {
+          query: {
+            languages: ['es', 'en'],
+          },
+          actions: [],
+          required: true,
+        },
+        aggregatorAgendaSchema,
+      );
+      expect(values).toEqual({
+        actions: [],
+        withActions: false,
+        withFilter: true,
+        required: true,
+        type: 'languages',
+        languages: ['es', 'en'],
+      });
+    });
   });
 
   describe('valuesToRule', () => {
@@ -258,6 +279,24 @@ describe('utils - rules', () => {
         ],
         query: {},
         required: false,
+      });
+    });
+    it('with language filter', () => {
+      const rule = valuesToRule(
+        {
+          withFilter: true,
+          type: 'languages',
+          languages: ['es', 'de'],
+          required: true,
+        },
+        aggregatorAgendaSchema,
+      );
+      expect(rule).toEqual({
+        query: {
+          languages: ['es', 'de'],
+        },
+        actions: [],
+        required: true,
       });
     });
   });

@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "total": 3054,
+  "events": [],
+  "after": null,
+  "sort": "timingsWithFeatured.asc",
+  "aggregations": {
+    "languages": [
+      {
+        "key": "fr",
+        "eventCount": 3054
+      },
+      {
+        "key": "de",
+        "eventCount": 3044
+      },
+      {
+        "key": "en",
+        "eventCount": 3044
+      },
+      {
+        "key": "es",
+        "eventCount": 3044
+      },
+      {
+        "key": "it",
+        "eventCount": 3044
+      },
+      {
+        "key": "pl",
+        "eventCount": 2
+      }
+    ]
+  }
+}

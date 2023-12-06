@@ -224,6 +224,7 @@ const initialState = async req => {
         getAgenda: '/api/agendas/slug/:slug',
         getAggregator: '/:slug/admin/aggregator',
         setAggregator: '/:slug/admin/aggregator',
+        getSourceLang: '/api/agendas/:agendaUid/events?aggs[]=languages&size=0'
       },
     },
     agendaSettingsEdit: {

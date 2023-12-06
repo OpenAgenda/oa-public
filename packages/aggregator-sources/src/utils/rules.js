@@ -141,6 +141,15 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     return result;
   }
 
+  if (query.languages) {
+    Object.assign(result, {
+      type: 'languages',
+      languages: query.languages,
+      withFilter: true,
+    });
+    return result;
+  }
+
   const [key] = Object.keys(query);
 
   // Choice filter
@@ -250,6 +259,15 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         query: {
           [values.choiceField]: values.choiceValues.map(v =>
             (v === 'null' ? null : v)),
+        },
+        required,
+        actions,
+      };
+    }
+    case 'languages': {
+      return {
+        query: {
+          languages: values.languages,
         },
         required,
         actions,

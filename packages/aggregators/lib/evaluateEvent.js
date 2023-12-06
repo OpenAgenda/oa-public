@@ -41,7 +41,7 @@ const processEvaluate = async (
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {
       log(
         'info',
-        `Limit ${aggregatorLimit} has been reached reached on aggregator agenda uid ${aggregatorAgendaUid}. Not processed`,
+        `Limit ${aggregatorLimit} has been reached on aggregator agenda uid ${aggregatorAgendaUid}. Not processed`,
       );
       return 'limitReached';
     }

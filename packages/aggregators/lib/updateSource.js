@@ -1,6 +1,7 @@
 'use strict';
 
 const Log = require('../utils/Log')('Aggregators/updateSource');
+const limit = require('../utils/limit');
 
 module.exports = async (
   {
@@ -38,6 +39,7 @@ module.exports = async (
       sourceAgenda: source.agenda,
       sourceRules,
       formSchema: await getMergedSchema(source.agenda.uid),
+      aggregatorLimit: limit.get(aggregator),
       query,
     });
   }

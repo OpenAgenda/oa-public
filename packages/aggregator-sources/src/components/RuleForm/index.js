@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { useFormState, Field } from 'react-final-form';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import messages from './messages';
@@ -25,8 +26,10 @@ export default function RuleForm({
   isAggregator,
   aggregatorAgendaSchema,
   sourceSchema,
+  sourceAgenda,
   displayTagFilter,
 }) {
+  const res = useSelector(state => state.res);
   const intl = useIntl();
   const formState = useFormState();
 
@@ -153,16 +156,17 @@ export default function RuleForm({
               </div>
             )}
           />
-
           {values.type === 'languages' ? (
             <div className="radio-sub-block">
               <LanguagesFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
+                sourceAgendaUid={sourceAgenda.uid}
+                res={res.getSourceLang}
               />
+              <RequiredFieldPart />
             </div>
           ) : null}
-
           {displayTagFilter ? (
             <Field
               component={Radio}
