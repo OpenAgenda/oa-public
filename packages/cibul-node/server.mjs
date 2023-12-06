@@ -17,7 +17,7 @@ import config from './config/index.js';
 import app from './app.mjs';
 import instanciateAPI from './api/index.mjs';
 import initServices from './services/init.mjs';
-import Core from './core/index.js';
+import Core from './core/index.mjs';
 import admin from './admin.js';
 import web from './web.js';
 import task from './task.mjs';

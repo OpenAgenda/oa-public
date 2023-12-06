@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import Services from '../services/init.mjs';
-import Core from '../core/index.js';
+import Core from '../core/index.mjs';
 
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';

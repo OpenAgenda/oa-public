@@ -1,4 +1,4 @@
-import Core from '../core/index.js';
+import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
 import eventFixtures from './fixtures/events/index.js';
 import loadFixtures from './fixtures/load.js';

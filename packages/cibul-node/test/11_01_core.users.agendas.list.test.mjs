@@ -2,7 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
-import Core from '../core/index.js';
+import Core from '../core/index.mjs';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
