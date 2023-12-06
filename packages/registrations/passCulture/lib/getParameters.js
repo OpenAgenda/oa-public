@@ -1,13 +1,14 @@
 export default async function getParameters({ pc, siren }) {
   return Promise.all([
     pc.offers.events.categories.list(),
-    pc.offers.offererVenues({ siren }),
-  ]).then(([{
+  ].concat(
+    [].concat(siren).map(sirenItem => pc.offers.offererVenues({ siren: sirenItem })),
+  )).then(([{
     categories,
     related,
-  }, offererVenues]) => ({
+  }, ...offererVenuesPerSiren]) => ({
     categories,
     related,
-    offererVenues,
+    offererVenues: offererVenuesPerSiren.reduce((carry, item) => carry.concat(item), []),
   }));
 }
