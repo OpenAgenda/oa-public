@@ -16,7 +16,7 @@ import { faFacebookF, faXTwitter, faLinkedinIn } from 'icons/brands';
 export default function OtherShares({ contentLocale }) {
   const router = useRouter();
 
-  const eventUrl = `${window.location.origin}${router.asPath}?cl=${contentLocale}`;
+  const eventUrl = `${process.env.NEXT_PUBLIC_ROOT}${router.asPath}?cl=${contentLocale}`;
 
   return (
     <VStack align="stretch" spacing="6">
@@ -116,7 +116,7 @@ export default function OtherShares({ contentLocale }) {
           alignItems="center"
           justifyContent="space-between"
         >
-          {window.location.origin + router.asPath}
+          {process.env.NEXT_PUBLIC_ROOT + router.asPath}
           <Button
             colorScheme="primary"
             variant="outline"
