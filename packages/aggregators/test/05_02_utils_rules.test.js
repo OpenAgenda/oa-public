@@ -141,6 +141,47 @@ describe('05_02 - utils - rules', () => {
       });
     });
 
+    test('languages filter passing', () => {
+      const input = {
+        title: {
+          en: 'a title',
+          fr: 'un titre',
+        },
+      };
+
+      const ruleset = [
+        {
+          query: {
+            languages: ['en', 'es'],
+          },
+          required: true,
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toEqual({});
+    });
+
+    test('languages filter failling', () => {
+      const input = {
+        title: 'un titre',
+      };
+
+      const ruleset = [
+        {
+          query: {
+            languages: ['en'],
+          },
+          required: true,
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toBeNull();
+    });
+
     test('if state is set multiple actions, last state is applied state only if $set is used', () => {
       const ruleset = [
         {
@@ -458,7 +499,8 @@ describe('05_02 - utils - rules', () => {
             {
               field: 'otherField',
               values: { $copy: 'content' },
-            }],
+            },
+          ],
         },
       ];
 
@@ -476,11 +518,13 @@ describe('05_02 - utils - rules', () => {
 
       const ruleset = [
         {
-          actions: [{
-            otherField: {
-              $copy: 'content',
+          actions: [
+            {
+              otherField: {
+                $copy: 'content',
+              },
             },
-          }],
+          ],
         },
       ];
 
@@ -899,8 +943,7 @@ describe('05_02 - utils - rules', () => {
           ],
           null,
           null,
-          {
-          },
+          {},
         ),
       ).toEqual({});
     });
