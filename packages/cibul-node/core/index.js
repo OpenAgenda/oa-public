@@ -4,6 +4,7 @@ const Agendas = require('./agendas');
 const Networks = require('./networks');
 const Users = require('./users');
 const Tasks = require('./tasks');
+const LocationSets = require('./locationSets');
 
 const {
   TYPES: stateChangeTypes
@@ -19,11 +20,12 @@ module.exports = (services, config) => {
   core.agendas = Agendas(core);
   core.networks = Networks(core);
   core.users = Users(core);
+  core.locationSets = LocationSets(core);
 
   services.core = core;
 
   core.constants = {
-    stateChangeTypes
+    stateChangeTypes,
   };
 
   return core;

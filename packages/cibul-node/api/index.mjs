@@ -686,6 +686,20 @@ export default (core, { useRouter = true } = {}) => {
     }).then(data => res.json({ ...data, success: true }), next);
   });
 
+  app.get('/networks/:uid', (req, res, next) => {
+    core.networks(req.params.uid).get().then(
+      network => res.json(_.pick(network, ['uid', 'title'])),
+      next,
+    );
+  });
+
+  app.get('/locationSets/:uid', (req, res, next) => {
+    core.locationSets(req.params.uid).get().then(
+      locationSet => res.json(_.pick(locationSet, ['uid', 'title'])),
+      next,
+    );
+  });
+
   log('done');
 
   app.use(sentryErrorHandler({ tag: 'api' }));
