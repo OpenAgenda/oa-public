@@ -16,6 +16,10 @@ import fetchLocale from './locales';
 
 const PAGE_SIZE = 20;
 
+export type AgendasSearchProps = {
+  preload?: string[]
+};
+
 function Head({ total, network, locationSet }) {
   const intl = useIntl();
   const query = useLocationQuery() as {
@@ -50,7 +54,7 @@ function Head({ total, network, locationSet }) {
   return <H1 fontSize="4xl" mb="8">{intl.formatMessage(messages.latestUpdated)}</H1>;
 }
 
-function AgendasSearch() {
+function AgendasSearch({ preload }: AgendasSearchProps) {
   const intl = useIntl();
   const router = useRouter();
   const { searchValue: search } = useNavbarSearch();
@@ -100,6 +104,7 @@ function AgendasSearch() {
       revalidateFirstPage: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateIfStale: false,
     },
   );
 
@@ -134,13 +139,14 @@ function AgendasSearch() {
   if (isLoadingInitialData) {
     // TODO loading
     return (
-      <Metas />
+      <Metas preload={preload} />
     );
   }
 
   return (
     <>
       <Metas
+        preload={preload}
         networkTitle={network?.title}
         locationSetTitle={locationSet?.title}
       />
