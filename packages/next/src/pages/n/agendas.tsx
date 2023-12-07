@@ -92,8 +92,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     props.fallback[`/api/networks/${query.network}`] = network;
   }
 
-  if (query.network) {
-    props.fallback[`/api/locationSet/${query.locationSet}`] = locationSet;
+  if (query.locationSet) {
+    props.fallback[`/api/locationSets/${query.locationSet}`] = locationSet;
   }
 
   return { props };
