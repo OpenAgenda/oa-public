@@ -30,7 +30,7 @@ export default function Metas({ networkTitle = null, locationSetTitle = null }) 
 
   return (
     <Head>
-      <title>{pageTitle} | OpenAgenda</title>
+      <title>{`${pageTitle} | OpenAgenda`}</title>
 
       <meta name="robots" content={`${query.search || query.after ? 'noindex' : 'index'}, follow`} />
 
