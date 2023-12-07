@@ -16,10 +16,11 @@ export default function useLocationSet() {
 
   const {
     data: locationSet,
+    ...rest
   } = useSWRImmutable(
     query.locationSet ? `/api/locationSets/${query.locationSet}` : null,
     fetcher,
   );
 
-  return { locationSet };
+  return { locationSet, ...rest };
 }

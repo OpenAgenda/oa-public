@@ -43,11 +43,11 @@ function Head({ total, network, locationSet }) {
     );
   }
 
-  if (query.network) {
+  if (query.network && network) {
     return <H1 fontSize="4xl" mb="8">{network.title}</H1>;
   }
 
-  if (query.locationSet) {
+  if (query.locationSet && locationSet) {
     return <H1 fontSize="4xl" mb="8">{locationSet.title}</H1>;
   }
 
