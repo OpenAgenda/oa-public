@@ -1,4 +1,4 @@
-<% include _top.ejs %>
+<%- include('_top.ejs') %>
 <div id="presentation" class="secondary">
   <div class="container">
     <div class="spaced">
@@ -9,21 +9,21 @@
 </div>
 <div id="functions">
 
-  <% include _basic.ejs %>
+  <%- include('_basic.ejs') %>
 
-  <% include _summary.ejs %>
+  <%- include('_summary.ejs') %>
 
-  <% include _third-party.ejs %>
+  <%- include('_third-party.ejs') %>
 
-  <% include _testimonial.ejs %>
+  <%- include('_testimonial.ejs') %>
 
   <%- include( '_testimonial.ejs', { backgroundColor: 'gray' } ) %>
 
-  <% include _team.ejs %>
+  <%- include('_team.ejs') %>
 
-  <% include _embed-previews.ejs %>
+  <%- include('_embed-previews.ejs') %>
 
-  <% include _contact.ejs %>
+  <%- include('_contact.ejs') %>
 
 
   <div class="background-gray">
@@ -70,5 +70,5 @@
         </ul>
       </div>
     </div>
-  </div> 
+  </div>
 </footer>

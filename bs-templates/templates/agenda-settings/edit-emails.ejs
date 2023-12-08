@@ -1,21 +1,21 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 <div class="container agenda-admin">
-  <% include ../agenda-admin/_admin-header.ejs %>
+  <%- include('../agenda-admin/_admin-header.ejs') %>
 
   <div class="row wsq">
-    <% include ../agenda-admin/_admin-tabs.ejs %>
+    <%- include('../agenda-admin/_admin-tabs.ejs') %>
 
     <div class="col col-sm-9 body">
       <h2 class="margin-bottom-md">Gestion des envois emails</h2>
 
       <div class="form-group">
         <label>Envoyer un email aux administrateurs et modérateurs à chaque</label>
-        <% include _activity-emails %>
+        <%- include('_activity-emails') %>
       </div>
 
       <div class="form-group">
         <label>M'envoyer un email à chaque</label>
-        <% include _activity-emails %>
+        <%- include('_activity-emails') %>
       </div>
 
     </div>

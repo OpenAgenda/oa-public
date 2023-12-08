@@ -8,7 +8,7 @@
             <div class="title media-heading">
                 <strong>Rendez-vous aux jardins de trapelune</strong>
                 <% if (typeof official !== 'undefined' && official) { %>
-                <% include ./_official.ejs %>
+                <%- include('./_official.ejs') %>
                 <% } %>
             </div>
             <% if (typeof minimal === 'undefined' || !minimal) { %>

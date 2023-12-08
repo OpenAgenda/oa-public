@@ -1,4 +1,4 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 <div class="container">
   <div class="row top-margined">
 
@@ -6,15 +6,15 @@
 
       <h2>Tiny MCE (markdown-component, legacy)</h2>
       <div class="wsq padding-all-md margin-bottom-lg">
-        <% include _tinymce-component %>
+        <%- include('_tinymce-component') %>
       </div>
 
       <h2>Slate (markdown/html component)</h2>
       <div class="wsq padding-all-md margin-bottom-lg">
-        <% include _slate-component %>
+        <%- include('_slate-component') %>
       </div>
     </section>
 
   </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

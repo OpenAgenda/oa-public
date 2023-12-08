@@ -4959,7 +4959,7 @@ __metadata:
     async: "npm:^1.5.0"
     bootstrap: "npm:3.3.5"
     colors: "npm:^1.4.0"
-    ejs: "npm:^2.7.4"
+    ejs: "npm:^3.1.9"
     express: "npm:^4.17.1"
     moment: "npm:^2.27.0"
     node-watch: "npm:^0.3.5"
@@ -5106,7 +5106,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/queues": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.1.0"
-    ejs: "npm:^2.7.4"
+    ejs: "npm:^3.1.9"
     eslint: "npm:^8.24.0"
     isemail: "npm:^3.2.0"
     jest: "npm:^29.7.0"
@@ -5204,7 +5204,7 @@ __metadata:
     date-fns: "npm:^2.11.1"
     date-fns-tz: "npm:^1.3.7"
     dotenv: "npm:^10.0.0"
-    ejs: "npm:^3.1.6"
+    ejs: "npm:^3.1.9"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -13701,21 +13701,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^2.7.4":
-  version: 2.7.4
-  resolution: "ejs@npm:2.7.4"
-  checksum: d5700120ce5dd10e0853085003862f5d78c198326ed634838aa7f8b0bf1efd65ad9fa0f2bac0053af05afeb21fb015595166b2c4fc83c7ef8f481e469a01ad52
-  languageName: node
-  linkType: hard
-
-"ejs@npm:^3.1.6, ejs@npm:^3.1.8":
-  version: 3.1.8
-  resolution: "ejs@npm:3.1.8"
+"ejs@npm:^3.1.8, ejs@npm:^3.1.9":
+  version: 3.1.9
+  resolution: "ejs@npm:3.1.9"
   dependencies:
     jake: "npm:^10.8.5"
   bin:
     ejs: bin/cli.js
-  checksum: a6bd58633c5b3ae19a2bfea1b94033585ad85c87ec15961f8c89c93ffdafb8b2358af827f37f7552b35d9f5393fdbd98d35a8cbcd0ee2540b7f9f7a194e86a1a
+  checksum: f0e249c79128810f5f6d5cbf347fc906d86bb9384263db0b2a9004aea649f2bc2d112736de5716c509c80afb4721c47281bd5b57c757d3b63f1bf5ac5f885893
   languageName: node
   linkType: hard
 
