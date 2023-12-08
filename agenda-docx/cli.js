@@ -1,6 +1,6 @@
 'use strict';
 
-const Prompt = require('prompt-input');
+const inquirer = require('inquirer');
 const generateDocument = require('./server/generateDocument');
 
 const reducer = undefined;
@@ -60,7 +60,16 @@ const reducer = undefined;
 // ];
 
 function _term(message, options = {}) {
-  return new Prompt(Object.assign(options, { message })).run();
+  return inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'response',
+        message,
+        ...options,
+      },
+    ])
+    .then(answers => answers.response);
 }
 
 (async () => {
@@ -70,7 +79,7 @@ function _term(message, options = {}) {
       {
         // default: '/home/bertho/Téléchargements/template4.docx'
         default: `${__dirname}/input.docx`,
-      }
+      },
     );
 
     const localTmpPath = await _term(
@@ -78,7 +87,7 @@ function _term(message, options = {}) {
       {
         // default: '/home/bertho/Téléchargements'
         default: '/var/tmp/docx',
-      }
+      },
     );
 
     const agendaUid = await _term('What is the uid of the agenda to export?', {
