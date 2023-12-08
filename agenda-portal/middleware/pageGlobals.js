@@ -6,7 +6,7 @@ function middleware(options, req, res, next) {
   const { mainScript, iframable } = {
     mainScript: 'main.js',
     iframable: req.app.locals.iframable,
-    ...(options || {}),
+    ...options || {},
   };
 
   const stylesheets = [`${req.app.locals.assetsRoot}/dist/main.css`].map(s => ({
@@ -14,20 +14,21 @@ function middleware(options, req, res, next) {
   }));
 
   const topScripts = [
+    // 'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
     // 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
     // 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
   ];
 
   const bottomScripts = [
     `${req.app.locals.assetsRoot}/js/${mainScript}`,
-    'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
+    `${req.app.locals.assetsRoot}/spin.js`,
     `${req.app.locals.assetsRoot}/jquery.spin.js`,
-    `${req.app.locals.assetsRoot}/dist/main.js`
+    `${req.app.locals.assetsRoot}/dist/main.js`,
   ];
 
   if (iframable) {
     bottomScripts.push(
-      `${req.app.locals.assetsRoot}/js/iframeResizeContent.js`
+      `${req.app.locals.assetsRoot}/js/iframeResizeContent.js`,
     );
   }
 
