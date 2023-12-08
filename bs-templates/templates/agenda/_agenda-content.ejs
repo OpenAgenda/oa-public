@@ -11,8 +11,8 @@
               <li class="active">
                 <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-external-link"></i></span>&nbsp; Exporter la sélection</span></button>
               </li>
-            </ul>       
-          </div>      
+            </ul>
+          </div>
           <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
             Filtres
           </button>
@@ -28,10 +28,10 @@
                   <label for="map-sync">Rechercher quand je déplace la carte</label>
                 </div>
               </div>
-              <div class="calendar">              
+              <div class="calendar">
                 <div>
-                  <% include ../components/_calendar %>
-                </div>             
+                  <%- include('../components/_calendar') %>
+                </div>
               </div>
               <div class="filter">
                 <div class="side-content cbpgct" data-cbctl="48959239|bs" data-flag="1">
@@ -177,7 +177,7 @@
               </div>
             </aside>
             <section class="col-sm-9">
-              <a class="event-card" href="undefined">                
+              <a class="event-card" href="undefined">
                 <div class="event-title padding-top-sm padding-h-md margin-bottom-sm">
                   <span class="fav js_fav_item pull-right" data-event-uid="48948894" data-fav-flagged="1"><i class="fa fa-star-o"></i></span>
                   <span class="label label-warning status margin-right-sm">Passé en ligne</span>
@@ -202,7 +202,7 @@
               </a>
               <a class="event-action js_event_action" type="button" href="/event/action.part" data-flagged="1">
                 <img alt="logo" src="https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
-                <span>Partager</span> 
+                <span>Partager</span>
               </a>
             </section>
           </article>
@@ -232,7 +232,7 @@
               </a>
               <a class="event-action js_event_action" type="button" href="/event/action.part" data-flagged="1">
                 <img alt="logo" src="https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
-                <span>Partager</span> 
+                <span>Partager</span>
               </a>
             </section>
           </article>
@@ -266,7 +266,7 @@
             <i class="fa fa-calendar-o side-icon"></i><span class="side-title">Choisissez une date</span>
             </h3>
             <div class="side-content">
-              <% include ../components/_calendar %>
+              <%- include('../components/_calendar') %>
             </div>
           </section>
           <section class="side-item side-categories js_category_widget">

@@ -1,4 +1,4 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 
 <div class="container agenda-admin getting-started">
     <div class="row">
@@ -25,7 +25,7 @@
                             Un agenda avec une image est plus ceci cela etc.
                         </span>
                         <div class="image-upload margin-v-lg">
-                            <form method="post" 
+                            <form method="post"
                                 enctype="multipart/form-data" target="profileAgendaEdition"
                                 action="/mon-agenda/admin/settings/setImage"
                                 data-reactid=".5xhxduasru.0.1.0.0.2">
@@ -77,4 +77,4 @@
     </div>
 </div>
 
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

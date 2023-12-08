@@ -1,9 +1,9 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 
 <div class="container-fluid agenda-admin agenda-admin-filters-layout">
   <div class="row">
     <div class="col-md-offset-2 col-md-7 wsq">
-      <% include ../agenda-admin/_admin-header.ejs %>
+      <%- include('../agenda-admin/_admin-header.ejs') %>
     </div>
   </div>
   <div class="row body">
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="col-md-5 col-md-pull-3 col-sm-12 wsq">
-      <% include ./_event-items.ejs %>
+      <%- include('./_event-items.ejs') %>
     </div>
   </div>
 </div>
