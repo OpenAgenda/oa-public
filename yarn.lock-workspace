@@ -4849,7 +4849,7 @@ __metadata:
     debug: "npm:^4.1.1"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
-    hbs: "npm:^4.1.0"
+    hbs: "npm:^4.2.0"
     http-proxy: "npm:^1.18.1"
     iframe-resizer: "npm:^4.2.10"
     immutability-helper: "npm:^3.0.0"
@@ -16127,24 +16127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"handlebars@npm:4.5.3":
-  version: 4.5.3
-  resolution: "handlebars@npm:4.5.3"
-  dependencies:
-    neo-async: "npm:^2.6.0"
-    optimist: "npm:^0.6.1"
-    source-map: "npm:^0.6.1"
-    uglify-js: "npm:^3.1.4"
-  dependenciesMeta:
-    uglify-js:
-      optional: true
-  bin:
-    handlebars: bin/handlebars
-  checksum: 4a498289622008e756e7bdf53779153dbd956ef77bf8ede3753b8b1aea5860bd386c3062252643e81fbbb5312f2a2e94926d7ef9444de03399d7eb7957fac01a
-  languageName: node
-  linkType: hard
-
-"handlebars@npm:^4.0.5, handlebars@npm:^4.7.7":
+"handlebars@npm:4.7.7":
   version: 4.7.7
   resolution: "handlebars@npm:4.7.7"
   dependencies:
@@ -16159,6 +16142,24 @@ __metadata:
   bin:
     handlebars: bin/handlebars
   checksum: 4c0913fc0018a2a2e358ee94e4fe83f071762b8bec51a473d187e6642e94e569843adcf550ffe329554c63ad450c062f3a05447bd2e3fff5ebfe698e214225c6
+  languageName: node
+  linkType: hard
+
+"handlebars@npm:^4.0.5, handlebars@npm:^4.7.7":
+  version: 4.7.8
+  resolution: "handlebars@npm:4.7.8"
+  dependencies:
+    minimist: "npm:^1.2.5"
+    neo-async: "npm:^2.6.2"
+    source-map: "npm:^0.6.1"
+    uglify-js: "npm:^3.1.4"
+    wordwrap: "npm:^1.0.0"
+  dependenciesMeta:
+    uglify-js:
+      optional: true
+  bin:
+    handlebars: bin/handlebars
+  checksum: 7aff423ea38a14bb379316f3857fe0df3c5d66119270944247f155ba1f08e07a92b340c58edaa00cfe985c21508870ee5183e0634dcb53dd405f35c93ef7f10d
   languageName: node
   linkType: hard
 
@@ -16355,13 +16356,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hbs@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "hbs@npm:4.1.0"
+"hbs@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "hbs@npm:4.2.0"
   dependencies:
-    handlebars: "npm:4.5.3"
-    walk: "npm:2.3.14"
-  checksum: ebe51857939d316734c9c141fc5368b2763fe8e07501ea6faf98cd33635df256b5e9fd0dd1c323a1747f70e49cd6aa844454d790e8ca92e3f04ca7ec2d73ab2c
+    handlebars: "npm:4.7.7"
+    walk: "npm:2.3.15"
+  checksum: 94edabf66075021c41d676d05d95c8aa646cd8231dbdd68d01ebbf84ab5948369f6da47a02043d5cdc56a6d449517faaf832e2c2128668b8421370aa19cd796d
   languageName: node
   linkType: hard
 
@@ -20280,13 +20281,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:~0.0.1":
-  version: 0.0.10
-  resolution: "minimist@npm:0.0.10"
-  checksum: c505a020144b6e49f2b1c7d1e378f3692b7102e989b4a49338fc171eb4229ddddb430e779ff803dcb11854050e3fe3c2298962a7d73c20df7c2044c92b2ba1da
-  languageName: node
-  linkType: hard
-
 "minipass-collect@npm:^1.0.2":
   version: 1.0.2
   resolution: "minipass-collect@npm:1.0.2"
@@ -21729,16 +21723,6 @@ __metadata:
   dependencies:
     is-wsl: "npm:^1.1.0"
   checksum: 03f78b1ab464fd0d97543e2a90e47ca872e2324696bc13f741467693060fe058e87e38e9cfc9f3b568e60dfb31579fbe664d8e806b2f219262c423da953bba4c
-  languageName: node
-  linkType: hard
-
-"optimist@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "optimist@npm:0.6.1"
-  dependencies:
-    minimist: "npm:~0.0.1"
-    wordwrap: "npm:~0.0.2"
-  checksum: 8cb417328121e732dbfb4d94d53bb39b1406446b55323ed4ce787decc52394927e051ba879eb3ffa3171fe22a35ce13b460114b60effcead77443ee87c2f9b0f
   languageName: node
   linkType: hard
 
@@ -28502,7 +28486,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"walk@npm:2.3.14, walk@npm:^2.3.14, walk@npm:^2.3.9":
+"walk@npm:2.3.15":
+  version: 2.3.15
+  resolution: "walk@npm:2.3.15"
+  dependencies:
+    foreachasync: "npm:^3.0.0"
+  checksum: c390221ff6fdb8e95f9b03d90fa9980edc2c01ce9efac44c0ade2036ee2823bf2bc9abfae388bdf64ab59e9262610e7cf6634ad54acac018e62621b85edad2cf
+  languageName: node
+  linkType: hard
+
+"walk@npm:^2.3.14, walk@npm:^2.3.9":
   version: 2.3.14
   resolution: "walk@npm:2.3.14"
   dependencies:
@@ -29061,13 +29054,6 @@ __metadata:
   version: 1.0.0
   resolution: "wordwrap@npm:1.0.0"
   checksum: 7ed2e44f3c33c5c3e3771134d2b0aee4314c9e49c749e37f464bf69f2bcdf0cbf9419ca638098e2717cff4875c47f56a007532f6111c3319f557a2ca91278e92
-  languageName: node
-  linkType: hard
-
-"wordwrap@npm:~0.0.2":
-  version: 0.0.3
-  resolution: "wordwrap@npm:0.0.3"
-  checksum: b3b212f8b2167091f59bc60929ada2166eb157abb6c8c82e2a705fe5aa5876440c3966ab39eb6c7bcb2ff0ac0c8d9fba726a9c2057b83bd65cdc1858f9d816ce
   languageName: node
   linkType: hard
 
