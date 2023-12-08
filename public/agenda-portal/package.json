@@ -73,7 +73,7 @@
     "date-fns-tz": "^2.0.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
-    "hbs": "^4.1.0",
+    "hbs": "^4.2.0",
     "iframe-resizer": "^4.2.10",
     "immutability-helper": "^3.0.0",
     "inquirer": "^8.2.6",
