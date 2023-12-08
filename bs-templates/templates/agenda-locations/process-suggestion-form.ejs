@@ -1,4 +1,4 @@
-<% include ./_formTop.ejs %>
+<%- include('./_formTop.ejs') %>
 <div class="location-form">
   <div class="form-head">
     <a>retour</a>
@@ -7,7 +7,7 @@
       <span class="text-center suggestion-nav">
         <a href="#">
           <i class="fa fa-arrow-left"></i>
-        </a>  
+        </a>
         <a href="#">2/4</a>
         <a href="#">
           <i class="fa fa-arrow-right"></i>
@@ -22,18 +22,18 @@
       <a href="#" class="text-danger">Ignorer cette suggestion</a>
     </div>
   </div>
-  <% include ./_name-disabled %>
-  <% include ./_country-disabled %>
-  <% include ./_address-disabled %>
-  <% include ./_image-with-alternatives %>
-  <% include ./_access-description-disabled %>
-  <% include ./_telephone-disabled %>
-  <% include ./_website %>
-  <% include ./_links-disabled %>
-  <% include ./_tags-with-alternatives %>
+  <%- include('./_name-disabled') %>
+  <%- include('./_country-disabled') %>
+  <%- include('./_address-disabled') %>
+  <%- include('./_image-with-alternatives') %>
+  <%- include('./_access-description-disabled') %>
+  <%- include('./_telephone-disabled') %>
+  <%- include('./_website') %>
+  <%- include('./_links-disabled') %>
+  <%- include('./_tags-with-alternatives') %>
   <div class="form-group bottom">
     <a href="#">Annuler</a>
     <button class="btn btn-primary">Créer</button>
   </div>
 </div>
-<% include ./_formBottom.ejs %>
+<%- include('./_formBottom.ejs') %>

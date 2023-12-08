@@ -1,4 +1,4 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 <div class="container top-margined">
   <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
@@ -6,8 +6,8 @@
         <div class="inbox inbox-user padding-all-sm">
           <!-- #tweak: encadrer l'entete d'une conversation devient nécéssaire quand des actions son présentes -->
           <div class="inbox-head">
-            <!-- 
-              #tweak: presentation "fil d'ariane" proposé par romain 
+            <!--
+              #tweak: presentation "fil d'ariane" proposé par romain
 
               La partie Messagerie ramène sur la vue liste
             -->
@@ -18,7 +18,7 @@
             </h3>
             <!-- #tweak: les actions sont placées sous le titre -->
             <div class="inbox-actions">
-              <!-- #tweak: 
+              <!-- #tweak:
                 les labels détaillent plus l'action prise:
 
                 au lieu de 'Accepter' -> 'Ajouter en tant que contributer'
@@ -49,9 +49,9 @@
                       <div class="form-group margin-v-xs">
                         <div>
                           <!-- #tweak: précision dans le placeholder, parce que ça semblera évident pour la plupart -->
-                          <textarea 
-                            class="form-control" 
-                            name="body" 
+                          <textarea
+                            class="form-control"
+                            name="body"
                             placeholder="Demandez des précisions avant d'accepter la demande"></textarea>
                         </div>
                       </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      
+
   </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>
