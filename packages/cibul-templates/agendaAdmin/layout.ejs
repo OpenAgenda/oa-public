@@ -1,4 +1,4 @@
-<% include ../layout/mainTop %>
+<%- include('../layout/mainTop') %>
 <div class="page">
   <div class="wsq container <%= mainClass %>" id="review-admin-menu">
     <header>
@@ -24,7 +24,7 @@
           <h2><%= __('Manage') %></h2>
         </li>
 <% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }); %>
 <% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
       <ul class="sidebar-item">
@@ -32,7 +32,7 @@
           <h2><%= __('Export') %></h2>
         </li>
 <% tabs.filter( function( t ) { return t.section == 'export' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }) %>
       </ul>
 <% } %>
@@ -40,7 +40,7 @@
       <ul class="sidebar-item">
         <li class="menu-item title js_menu_item"><h2><%= __('Customize') %></h2></li>
 <% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }) %>
       </ul>
 <% } %>
@@ -48,4 +48,4 @@
     --><div class="main">
       <!-- content -->
     </div>
-<% include ../layout/mainBottom %>
+<%- include('../layout/mainBottom') %>

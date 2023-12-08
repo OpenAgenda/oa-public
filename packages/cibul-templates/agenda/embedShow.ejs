@@ -1,4 +1,4 @@
-<% include customEmbedStyles.part.ejs %>
+<%- include('customEmbedStyles.part.ejs') %>
 <div id="content">
   <div class="container">
     <div class="row">
@@ -18,7 +18,7 @@
 <% } %>
       </section>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content js_list_content">
-        <% include ./embedShow.part.ejs %>
+        <%- include('./embedShow.part.ejs') %>
       </section>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content text-center">
         <span class="load-next js_load_next"><%= __( 'loadMore' ) %></span>

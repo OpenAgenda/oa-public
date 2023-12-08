@@ -1,9 +1,9 @@
 <% if (type=='html') {             // HTML PART             %>
 
-<% include sections/top %>
+<%- include('sections/top') %>
   <span class="sectionTitle" style="<%= css.sectionTitle %>"><%= __('The agenda of') %></span>
-<% include sections/bottom %>
-<% include sections/top %>
+<%- include('sections/bottom') %>
+<%- include('sections/top') %>
   <table>
     <tbody>
       <tr>
@@ -25,19 +25,19 @@
     <a target="_blank" href="<%= genUrl('agendaShow', {}, { abs: true }) %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
   </p>
 <% } %>
-<% include sections/bottom %>
+<%- include('sections/bottom') %>
 
 <% if (featuredEvents && featuredEvents.length) { %>
 <% featuredEvents.forEach(function( event ) { %>
-<% include sections/top %>
-  <% include event/featured %>
-<% include sections/bottom %>
+<%- include('sections/top') %>
+  <%- include('event/featured') %>
+<%- include('sections/bottom') %>
 <% }); %>
 
 <% } %>
 
 <% if (items && items.length) { %>
-<% for ( var i = 0; i < items.length; i++ ) { 
+<% for ( var i = 0; i < items.length; i++ ) {
 
   var item = items[i],
 
@@ -45,21 +45,21 @@
 
 %>
 <% if (item.itemType=='segment') { %>
-<% include sections/top %>
-    <% include sections/segment %>
-<% include sections/bottom %>
+<%- include('sections/top') %>
+    <%- include('sections/segment') %>
+<%- include('sections/bottom') %>
 <% } else { %>
 <% var event = item; %>
-<% include event/item %>
+<%- include('event/item') %>
 <% } %>
 <% } %>
 <% } %>
 
-<% include sections/spacer %>
+<%- include('sections/spacer') %>
 
 <% if ( contributable ) { %>
 
-<% include sections/top %>
+<%- include('sections/top') %>
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody id="addEventLinkCanvas" style="<%= css.addEventLinkCanvas %>">
       <tr>
@@ -69,13 +69,13 @@
       </tr>
     </tbody>
   </table>
-<% include sections/bottom %>
+<%- include('sections/bottom') %>
 
 <% } %>
 
-<% include sections/spacer %>
+<%- include('sections/spacer') %>
 
-<% include sections/top %>
+<%- include('sections/top') %>
 
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody id="linksCanvas" style="<%= css.linksCanvas %>">
@@ -109,17 +109,17 @@
     </tbody>
   </table>
 
-<% include sections/bottom %>
+<%- include('sections/bottom') %>
 
-<% include sections/spacer %>
+<%- include('sections/spacer') %>
 
-<% include sections/top %>
+<%- include('sections/top') %>
 
   <div style="<%= css.logoCanvas %>" class="logoCanvas">
-    <a href="https://openagenda.com" target="_blank"><img class="logo" style="<%= css.logo %>" src="<%= logo %>"></a>  
+    <a href="https://openagenda.com" target="_blank"><img class="logo" style="<%= css.logo %>" src="<%= logo %>"></a>
   </div>
 
-<% include sections/bottom %>
+<%- include('sections/bottom') %>
 
 <% } else {              // TEXT PART             %>
 
@@ -130,7 +130,7 @@
 <% if (featuredEvents && featuredEvents.length) { %>
 
 <% featuredEvents.forEach(function( event ) { %>
-  <% include event/featured %>
+  <%- include('event/featured') %>
 <% }); %>
 
 <% } %>
@@ -138,7 +138,7 @@
 <% if (items && items.length) { %>
 
 <% items.forEach(function(item) { %>
-<% if (item.itemType=='segment') { %><% include sections/segment %><% } else { %><% var event = item; %><% include event/item %><% } %>
+<% if (item.itemType=='segment') { %><%- include('sections/segment') %><% } else { %><% var event = item; %><%- include('event/item') %><% } %>
 <% }); %>
 
 <% } %>

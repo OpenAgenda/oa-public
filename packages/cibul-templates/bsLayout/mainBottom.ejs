@@ -19,6 +19,6 @@ const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
 <% }); %>
 <% } %>
 <% } %>
-<% include ../layout/js.part.ejs %>
+<%- include('../layout/js.part.ejs') %>
 </body>
 </html>

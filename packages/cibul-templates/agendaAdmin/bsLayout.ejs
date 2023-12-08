@@ -1,4 +1,4 @@
-<% include ../bsLayout/mainTop %>
+<%- include('../bsLayout/mainTop') %>
 <div class="container agenda-admin<%= typeof mainClass !== 'undefined' ? ' ' + mainClass : '' %>">
   <div class="row wsq header">
 <% if ( agenda.image ) { %>
@@ -23,7 +23,7 @@
           <h2><%= __('Manage') %></h2>
         </li>
 <% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }); %>
       </ul>
 <% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
@@ -32,7 +32,7 @@
           <h2><%= __('Export') %></h2>
         </li>
 <% tabs.filter( function( t ) { return t.section == 'export' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }) %>
       </ul>
 <% } %>
@@ -42,7 +42,7 @@
           <h2><%= __('Customize') %></h2>
         </li>
 <% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
-      <% include ./tab.part.ejs %>
+      <%- include('./tab.part.ejs') %>
 <% }) %>
       </ul>
 <% } %>
@@ -52,4 +52,4 @@
     </div>
   </div>
 </div>
-<% include ../bsLayout/mainBottom %>
+<%- include('../bsLayout/mainBottom') %>
