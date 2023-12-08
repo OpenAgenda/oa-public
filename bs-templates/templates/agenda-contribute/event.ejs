@@ -1,5 +1,5 @@
-<% include ../layout/_top.ejs %>
-<% include ../agenda/_header.ejs %>
+<%- include('../layout/_top.ejs') %>
+<%- include('../agenda/_header.ejs') %>
 <div class="container">
   <div class="row">
     <div class="col-lg-offset-3 col-lg-6">
@@ -7,7 +7,7 @@
         <h2 class="margin-top-lg margin-bottom-md">Ajouter un événement</h2>
       </div>
       <div class="stepper-gray-background margin-top-lg">
-        <% include ../components/stepper/_three-h-steps.ejs %>
+        <%- include('../components/stepper/_three-h-steps.ejs') %>
       </div>
       <div class="event-instruction boxed warning padding-all-md margin-top-lg">
         Un message d'avertissement
@@ -35,7 +35,7 @@
         <label class="padding-bottom-sm">There are some errors on your form</label>
         <ul>
           <li>
-            <label>This field</label>: 
+            <label>This field</label>:
             <span>You wrote nothing</span>
           </li>
           <li>
@@ -51,4 +51,4 @@
     </div>
   </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

@@ -1,21 +1,21 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 <div class="container">
   <div class="row top-margined">
 
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="content event-references">
-        
+
         <h2 class="margin-bottom-lg">Event form list presentation</h2>
 
         <div class="configure">
-        
+
           <label>Evénements liés</label>
           <p>Liez d'autres événements de l'agenda à votre événement</p>
 
           <ul class="list-unstyled references">
-            <li><% include _reference-item.ejs %></li>
-            <li><% include _reference-item.ejs %></li>
-            <li><% include _reference-item.ejs %></li>
+            <li><%- include('_reference-item.ejs') %></li>
+            <li><%- include('_reference-item.ejs') %></li>
+            <li><%- include('_reference-item.ejs') %></li>
           </ul>
 
           <a class="btn btn-primary" href="#">Ajouter un événement</a>
@@ -26,10 +26,10 @@
           <div class="search dropdown open">
             <input type="text" class="form-control" placeholder="Chercher via titre ou lieu" />
             <ul class="dropdown-menu">
-              <li><% include _reference-item-section.ejs %></li>
-              <li><% include _reference-item.ejs %></li>
-              <li><% include _reference-item.ejs %></li>
-              <li><% include _reference-item.ejs %></li>
+              <li><%- include('_reference-item-section.ejs') %></li>
+              <li><%- include('_reference-item.ejs') %></li>
+              <li><%- include('_reference-item.ejs') %></li>
+              <li><%- include('_reference-item.ejs') %></li>
             </ul>
           </div>
 
@@ -50,7 +50,7 @@
         <div class="media content wsq">
           <div class="media-left">
             <a class="event-pic" href="#">
-              <img class="media-object" src="//cibul.s3.amazonaws.com/evtbevent_les-estivales-2016_707612.jpg"> 
+              <img class="media-object" src="//cibul.s3.amazonaws.com/evtbevent_les-estivales-2016_707612.jpg">
             </a>
           </div>
           <div class="media-body">
@@ -82,4 +82,4 @@
 
   </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

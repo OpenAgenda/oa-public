@@ -1,5 +1,5 @@
-<% include ../layout/_top.ejs %>
-<% include ../agenda/_header.ejs %>
+<%- include('../layout/_top.ejs') %>
+<%- include('../agenda/_header.ejs') %>
 <div class="container page-dialog signin">
   <div class="top-margined bottom-margined">
     <div class="row">
@@ -13,10 +13,10 @@
           <div class="col-sm-12">
             <div class="margin-h-md">
               <h2>Connexion</h2>
-            
+
               <p class="bg-danger padding-all-sm">Votre email ou mot de passe est invalide - <a href="#">Réinitialiser votre mot de passe</a></p>
             </div>
-            
+
           </div>
         </div>
         <div class="row margin-top-md">
@@ -36,7 +36,7 @@
               </div>
             </form>
           </div>
-          <% include ./_social.ejs %>
+          <%- include('./_social.ejs') %>
         </div>
         <div class="row">
           <div class="col-sm-12 margin-v-md">
@@ -50,4 +50,4 @@
     </div>
   </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

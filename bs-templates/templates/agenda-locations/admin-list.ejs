@@ -1,12 +1,12 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
   <div class="container agenda-admin">
-    <% include ../agenda-admin/_admin-header.ejs %>
+    <%- include('../agenda-admin/_admin-header.ejs') %>
       <div class="row wsq">
-        <% include ../agenda-admin/_admin-tabs.ejs %>
+        <%- include('../agenda-admin/_admin-tabs.ejs') %>
           <div class="col col-sm-9 body">
             <div class="agenda-admin-locations">
               <div>
-                <% include ./_location-set %>
+                <%- include('./_location-set') %>
                   <div class="row list-actions">
                     <div class="col col-sm-12">
                       <div class="form-inline">
@@ -19,7 +19,7 @@
                       </div>
                     </div>
                   </div>
-                  <% include ./_merge-menu %> 
+                  <%- include('./_merge-menu') %>
                   <div class="row list-filters">
                     <div class="col col-sm-12">
                       <div class="form-inline">
@@ -43,14 +43,14 @@
                         <p>Total: 151 lieux</p>
                       </div>
                     </div>
-                    
-                    <% include ./_list-item-basic %>
-                    <% include ./_list-item-merge %>
-                    <% include ./_list-item-merge-target %>
+
+                    <%- include('./_list-item-basic') %>
+                    <%- include('./_list-item-merge') %>
+                    <%- include('./_list-item-merge-target') %>
                     <div>____________________________________________________________________</div>
-                    <% include ./_list-item-toverify %>
-                      <% include ./_list-item-suggestion %>
-                        <% include ./_list-item %>
+                    <%- include('./_list-item-toverify') %>
+                      <%- include('./_list-item-suggestion') %>
+                        <%- include('./_list-item') %>
                           <div class="item">
                             <div class="actions btn-group">
                               <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
@@ -725,4 +725,4 @@
 
   </div>
   </div>
-  <% include ../layout/_bottom.ejs %>
+  <%- include('../layout/_bottom.ejs') %>
