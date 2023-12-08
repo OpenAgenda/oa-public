@@ -1,4 +1,4 @@
-<% include ./head.part.ejs %>
+<%- include('./head.part.ejs') %>
     <div id="agenda">
 <% if ( !agenda.isEmpty ) { %>
         <div id="content">
@@ -25,7 +25,7 @@
                                         </div>
                                     </div>
                                     <div class="calendar">
-                                        <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>         
+                                        <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
                                     </div>
                                     <div class="filter">
                                         <section   section class="side-item side-categories js_category_widget">
@@ -47,10 +47,10 @@
                                     <div class="total-text js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
                                 </div>
                             </div>
-                        </div>	
+                        </div>
                     </section>
                     <section class="col-sm-8 main-content js_list_content">
-                        <% include ./show.part.ejs %>
+                        <%- include('./show.part.ejs') %>
                     </section>
                     <aside class="col-sm-4 col-aside sidebar">
                         <section class="side-item side-search">
@@ -93,7 +93,7 @@
                             <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
                         </section>
                         <% var footerUid = agenda.uid; %>
-                        <% include ../bsLayout/footer.part.ejs %>
+                        <%- include('../bsLayout/footer.part.ejs') %>
                     </aside>
                 </div>
             </div>
@@ -109,7 +109,7 @@
     </div>
 <% var centeredFooter = true; %>
 <% var footerUid = agenda.uid; %>
-<% include ../bsLayout/footer.part.ejs %>
+<%- include('../bsLayout/footer.part.ejs') %>
 <% } %>
 </div>
-<% include show.jsonld.ejs %>
+<%- include('show.jsonld.ejs') %>

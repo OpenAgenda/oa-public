@@ -16,10 +16,11 @@ export default function useNetwork() {
 
   const {
     data: network,
+    ...rest
   } = useSWRImmutable(
     query.network ? `/api/networks/${query.network}` : null,
     fetcher,
   );
 
-  return { network };
+  return { network, ...rest };
 }
