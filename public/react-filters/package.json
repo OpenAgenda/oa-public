@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
-    "@emotion/react": "^11.10.0",
+    "@emotion/react": "^11.11.1",
     "@formatjs/cli": "^2.11.3",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/react-portal-ssr": "^1.0.1",
@@ -86,7 +86,7 @@
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.3",
-    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/babel-preset-css-prop": "^11.11.0",
     "@openagenda/axios-mock-adapter": "^1.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",

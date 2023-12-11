@@ -44,9 +44,9 @@
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@chakra-ui/theme-tools": "^2.0.16",
-    "@emotion/cache": "^11.10.5",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "framer-motion": "^7.5.1",
     "react-remove-scroll": "^2.5.5"
   },
