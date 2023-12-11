@@ -35,7 +35,7 @@
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "history": "^4.10.1",
-    "immer": "^9.0.6",
+    "immer": "^10.0.3",
     "languages": "^0.1.3",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",

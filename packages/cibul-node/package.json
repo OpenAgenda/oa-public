@@ -109,7 +109,7 @@
     "helmet": "^7.0.0",
     "history": "^4.10.1",
     "http-proxy": "^1.18.0",
-    "immer": "^9.0.1",
+    "immer": "^10.0.3",
     "immutability-helper": "^3.0.0",
     "ioredis": "^5.3.2",
     "isemail": "^3.1.2",

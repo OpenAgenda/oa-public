@@ -5551,7 +5551,7 @@ __metadata:
     debug: "npm:^4.1.1"
     express: "npm:^4.17.1"
     history: "npm:^4.10.1"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
     js-base64: "npm:^3.7.5"
     lodash: "npm:^4.17.15"
@@ -5684,7 +5684,7 @@ __metadata:
     express: "npm:^4.17.1"
     form-data: "npm:^3.0.0"
     history: "npm:^4.10.1"
-    immer: "npm:^9.0.6"
+    immer: "npm:^10.0.3"
     languages: "npm:^0.1.3"
     leaflet: "npm:^1.7.1"
     lodash: "npm:^4.17.21"
@@ -5740,7 +5740,7 @@ __metadata:
     express: "npm:^4.17.1"
     fast-levenshtein: "npm:^2.0.6"
     geolib: "npm:^2.0.24"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.0"
     jaro-winkler: "npm:^0.2.8"
     jest: "npm:^29.7.0"
@@ -5882,7 +5882,7 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     lodash: "npm:^4.17.15"
     mocha: "npm:^7.0.1"
     rss: "npm:^1.2.1"
@@ -6532,7 +6532,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
     express: "npm:^4.17.1"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.1"
     jest: "npm:^29.7.0"
     languages: "npm:^0.1.3"
@@ -6578,7 +6578,7 @@ __metadata:
     debug: "npm:^4.1.1"
     deep-diff: "npm:^1.0.2"
     eslint: "npm:^8.24.0"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
     moment: "npm:^2.27.0"
@@ -7061,7 +7061,7 @@ __metadata:
     axios-mock-adapter: "npm:^1.19.0"
     debug: "npm:^4.1.1"
     deep-diff: "npm:^1.0.2"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -7683,7 +7683,7 @@ __metadata:
     flatted: "npm:^2.0.1"
     he: "npm:^1.2.0"
     history: "npm:^4.10.1"
-    immer: "npm:^8.0.1"
+    immer: "npm:^10.0.3"
     iscroll: "npm:^5.2.0"
     lint-staged: "npm:^10.2.11"
     lodash: "npm:^4.17.15"
@@ -7742,7 +7742,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     eslint: "npm:^8.24.0"
     history: "npm:^4.10.1"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     lint-staged: "npm:^10.2.11"
     lodash: "npm:^4.17.15"
     prettier-eslint-cli: "npm:^7.1.0"
@@ -7969,7 +7969,7 @@ __metadata:
     "@storybook/react-webpack5": "npm:^7.4.2"
     babel-jest: "npm:^29.7.0"
     eslint: "npm:^8.24.0"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
     msw: "npm:^0.49.2"
     msw-storybook-addon: "npm:^1.7.0"
@@ -15364,7 +15364,7 @@ __metadata:
     helmet: "npm:^7.0.0"
     history: "npm:^4.10.1"
     http-proxy: "npm:^1.18.0"
-    immer: "npm:^9.0.1"
+    immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.0"
     ioredis: "npm:^5.3.2"
     isemail: "npm:^3.1.2"
@@ -23600,17 +23600,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immer@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "immer@npm:8.0.1"
-  checksum: 5bda1b1e382b08e5c88bf84b710050d20b87455cc52b90b00ae2208932132bea6d780e05ea1cf73757214b7916a3b1f8ce21702e7ef40d90d187c896bcadb43e
-  languageName: node
-  linkType: hard
-
-"immer@npm:^9.0.1, immer@npm:^9.0.6":
-  version: 9.0.7
-  resolution: "immer@npm:9.0.7"
-  checksum: 80740aede86e89eb3a1de5f97f9045a971fa41a45488a9471c930579ce49a268a001df757be3609af9133157dd6fefb45000f61fbc3ff24e853aaa0163c7a6b0
+"immer@npm:^10.0.3":
+  version: 10.0.3
+  resolution: "immer@npm:10.0.3"
+  checksum: 282a4f8479a40f7d12b2b3243c095e3e892bf99058e2ffcdd6b8e9fd143e6a90f2717ab9b6c8b97c927ffb8054465c8f647056f41660dbfd672e240cf1063503
   languageName: node
   linkType: hard
 
