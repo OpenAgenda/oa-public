@@ -49,7 +49,8 @@ describe( 'session - functional (server): get', () => {
           'latestActivity',
           'expires',
           'isNew',
-          'isBlacklisted'
+          'isBlacklisted',
+          'transverseApiAccess'
         ]);
 
         expect(
@@ -62,7 +63,8 @@ describe( 'session - functional (server): get', () => {
           isNew: false,
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture',
-          isBlacklisted: false
+          isBlacklisted: false,
+          transverseApiAccess: false,
         });
 
         done();
@@ -91,7 +93,8 @@ describe( 'session - functional (server): get', () => {
           isBlacklisted: false,
           culture: 'fr',
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture'
+          thumbnail: '//graph.facebook.com/100002280111541/picture',
+          transverseApiAccess: false,
         });
 
         done();

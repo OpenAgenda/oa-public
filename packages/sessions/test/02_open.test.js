@@ -60,7 +60,7 @@ describe('session - functional (server): open', () => {
         const parsed = JSON.parse(result);
 
         expect(Object.keys(parsed)).toEqual([
-          'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'culture', 'uid', 'name', 'thumbnail',
+          'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'transverseApiAccess', 'culture', 'uid', 'name', 'thumbnail',
         ]);
 
         rs();
