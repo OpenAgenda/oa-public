@@ -43,7 +43,7 @@ module.exports = ( { entry, output } ) => ({
       },
       {
         test: /\.ejs$/,
-        loader: 'ejs-compiled-loader-webpack4'
+        loader: 'compile-ejs-loader'
       },
       {
         test: /\.(css|html|tblr)$/,

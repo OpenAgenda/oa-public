@@ -1,9 +1,9 @@
 <% if ( agenda && !agenda.private ) { %>
-<% include ../agenda/head.part.ejs %>
+<%- include('../agenda/head.part.ejs') %>
 <% } %>
 <div class="container page-dialog signin">
   <div class="top-margined bottom-margined">
-    <% include _headMessage.ejs %>
+    <%- include('_headMessage.ejs') %>
     <div class="row">
       <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
         <div class="row">

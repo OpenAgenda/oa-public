@@ -8,9 +8,9 @@
     <meta name="description" content="Maintenance" />
   </head>
   <body id="event">
-    <% include ../header/_header.ejs %>
-    <% include _admin-bar.ejs %>
-    <% include _agenda-header.ejs %>
+    <%- include('../header/_header.ejs') %>
+    <%- include('_admin-bar.ejs') %>
+    <%- include('_agenda-header.ejs') %>
 
     <div id="content" class="js_page_body">
 
@@ -75,7 +75,7 @@
                     <p class="detail-item-content"><span>6 mars - 2 octobre, les dimanches</span><span class="badge badge-outline-default margin-all-xs">passé</span></p>
                   </section>
                   <section class="detail-item margin-bottom-sm">
-                    <% include _hours.js.ejs %>
+                    <%- include('_hours.js.ejs') %>
                   </section>
                 </div>
                 <div class="col-sm-12 col-print-6 padding-print-h-z">
@@ -105,7 +105,7 @@
                         <li><span>France</span></li>
                       </ul>
                     </div><!--
-                    --><% include _leaflet-map.ejs %>
+                    --><%- include('_leaflet-map.ejs') %>
                   </section>
                 </div>
               </div>
@@ -142,7 +142,7 @@
                 --></ul>
               </section>
 
-              <% include _hours.nojs.ejs %>
+              <%- include('_hours.nojs.ejs') %>
             </div>
           </aside>
 
@@ -364,7 +364,7 @@
               </div>
             </div>
 
-            <% include _inbox %>
+            <%- include('_inbox') %>
 
             <div class="signature">
               <p>Crée par lucas le mardi 25 février 2015, 18h20</span> - <a href="#">contacter</a>

@@ -1,16 +1,16 @@
 <div class="header">
   <div class="content">
 <% if ( pager.routeName == 'searchAgendas' ) { %>
-    <% include ./searchAgendasHeader %>
+    <%- include('./searchAgendasHeader') %>
 <% } else { %>
-    <% include ./latestAgendasHeader %>
+    <%- include('./latestAgendasHeader') %>
 <% } %>
   </div>
 </div>
 <div class="canvas">
   <div class="sidebar"></div>
   <main>
-    <% include ../general/pages %>
+    <%- include('../general/pages') %>
     <ul>
 <% agendas.forEach(function( agenda ) { %>
       <li>
@@ -36,6 +36,6 @@
       </li>
 <% }); %>
     </ul>
-    <% include ../general/pages %>
+    <%- include('../general/pages') %>
   </main>
 </div>

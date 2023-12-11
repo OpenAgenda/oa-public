@@ -32,7 +32,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/members": "^1.15.13",
-    "@openagenda/react-shared": "^2.4.0",
+    "@openagenda/react-shared": "^2.4.1",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
@@ -56,7 +56,7 @@
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.3",
     "@babel/runtime-corejs3": "^7.23.2",
-    "@emotion/babel-plugin": "^11.10.5",
+    "@emotion/babel-plugin": "^11.11.0",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
@@ -72,7 +72,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

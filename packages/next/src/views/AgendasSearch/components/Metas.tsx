@@ -18,7 +18,7 @@ function usePageTitle({ networkTitle, locationSetTitle }) {
   return intl.formatMessage(messages.pageTitle);
 }
 
-export default function Metas({ networkTitle = null, locationSetTitle = null }) {
+export default function Metas({ networkTitle = null, locationSetTitle = null, preload }) {
   const intl = useIntl();
   const query = useLocationQuery();
   const router = useRouter();
@@ -30,7 +30,7 @@ export default function Metas({ networkTitle = null, locationSetTitle = null }) 
 
   return (
     <Head>
-      <title>{pageTitle} | OpenAgenda</title>
+      <title>{`${pageTitle} | OpenAgenda`}</title>
 
       <meta name="robots" content={`${query.search || query.after ? 'noindex' : 'index'}, follow`} />
 
@@ -44,6 +44,10 @@ export default function Metas({ networkTitle = null, locationSetTitle = null }) 
         />
       )))}
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+
+      {preload?.map(href => (
+        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      ))}
     </Head>
   );
 }

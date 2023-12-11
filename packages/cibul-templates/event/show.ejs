@@ -16,7 +16,7 @@
   }
 %>
 
-<% include ./adminBar.part.ejs %>
+<%- include('./adminBar.part.ejs') %>
 
 <header class="agenda-header">
   <div class="container">
@@ -224,7 +224,7 @@
             </div>
             <div class="col-sm-12 col-print-6 padding-print-h-z">
               <section class="detail-item timings margin-bottom-md">
-                <% include _months.part.ejs %>
+                <%- include('_months.part.ejs') %>
               </section>
               <% if (indexedEvent.availableAccessibilities.length) { %>
               <% indexedEvent.availableAccessibilities.forEach(i => { %>
@@ -288,7 +288,7 @@
             </div>
           </div>
           <section class="detail-item">
-            <% include ../bsLayout/footer.part.ejs %>
+            <%- include('../bsLayout/footer.part.ejs') %>
           </section>
         </div>
       </aside>

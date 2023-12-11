@@ -1,4 +1,4 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
   <div class="container legacy-event-form">
     <div class="row top-margined">
       <section class="col-sm-8 col-sm-offset-2 wsq">
@@ -585,11 +585,11 @@
                 </div>
 
                 <div class="margin-v-md">
-                  <% include _registration.ejs %>
+                  <%- include('_registration.ejs') %>
                 </div>
 
                 <div class="margin-v-md">
-                  <% include _registration-empty.ejs %>
+                  <%- include('_registration-empty.ejs') %>
                 </div>
 
                 <div class="accessibility">
@@ -682,7 +682,7 @@
                       <ul class="list-unstyled">
                         <li>
                           <label>
-                            <span>Ceci est un petit texte</span>  
+                            <span>Ceci est un petit texte</span>
                           </label>
                         </li>
                         <li class="lang-unit">
@@ -830,7 +830,7 @@
 
                   <label>Horaires</label>
 
-                  <% include _timings-picker.ejs %>
+                  <%- include('_timings-picker.ejs') %>
 
                 </div>
 
@@ -880,4 +880,4 @@
     </section>
   </div>
   </div>
-  <% include ../layout/_bottom.ejs %>
+  <%- include('../layout/_bottom.ejs') %>

@@ -4,17 +4,17 @@ import { FetchStatus } from 'config/types';
 const swrStatusMiddleware: Middleware = useSWRNext => (key, fetcher, config) => {
   const swr = useSWRNext(key, fetcher, config);
   return Object.defineProperty(swr, 'status', {
-    enumerable: true,
     get() {
       let status = FetchStatus.Idle;
+      const isDataUndefined = typeof swr.data === 'undefined';
 
-      if (!swr.isValidating && !swr.error && !swr.data) {
+      if (!swr.isValidating && !swr.error && isDataUndefined) {
         status = FetchStatus.Idle;
-      } else if (swr.isValidating && !swr.error && !swr.data) {
+      } else if (swr.isValidating && !swr.error && isDataUndefined) {
         status = FetchStatus.Fetching;
-      } else if (swr.data) {
+      } else if (!isDataUndefined) {
         status = FetchStatus.Fetched;
-      } else if (swr.error && !swr.data) {
+      } else if (swr.error && isDataUndefined) {
         status = FetchStatus.Failed;
       }
       return status;

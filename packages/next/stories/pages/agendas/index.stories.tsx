@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import AgendaSearch from 'pages/n/agendas';
+import AgendaSearch from 'pages/agendas';
 import AgendaSearchView from 'views/AgendasSearch';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';

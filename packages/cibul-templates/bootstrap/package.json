@@ -21,10 +21,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/twbs/bootstrap-sass/issues"
-  },
-  "devDependencies": {
-    "node-sass": "~2.0",
-    "mincer": "~1.2",
-    "ejs": "~1.0"
   }
 }

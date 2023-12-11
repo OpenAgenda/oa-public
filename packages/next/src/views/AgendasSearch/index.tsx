@@ -7,12 +7,18 @@ import qs from 'qs';
 import { VStack, Container, H1, Text, Button, Flex } from '@openagenda/uikit';
 import { useNavbarSearch } from 'contexts/NavbarSearchManager';
 import useLocationQuery from 'hooks/useLocationQuery';
-import fetchLocale from './locales';
+import useNetwork from './hooks/useNetwork';
+import useLocationSet from './hooks/useLocationSet';
 import AgendaItem from './components/AgendaItem';
 import Metas from './components/Metas';
 import messages from './messages';
+import fetchLocale from './locales';
 
 const PAGE_SIZE = 20;
+
+export type AgendasSearchProps = {
+  preload?: string[]
+};
 
 function Head({ total, network, locationSet }) {
   const intl = useIntl();
@@ -37,24 +43,25 @@ function Head({ total, network, locationSet }) {
     );
   }
 
-  if (query.network) {
+  if (query.network && network) {
     return <H1 fontSize="4xl" mb="8">{network.title}</H1>;
   }
 
-  if (query.locationSet) {
+  if (query.locationSet && locationSet) {
     return <H1 fontSize="4xl" mb="8">{locationSet.title}</H1>;
   }
 
   return <H1 fontSize="4xl" mb="8">{intl.formatMessage(messages.latestUpdated)}</H1>;
 }
 
-function AgendasSearch() {
+function AgendasSearch({ preload }: AgendasSearchProps) {
   const intl = useIntl();
   const router = useRouter();
   const { searchValue: search } = useNavbarSearch();
   const query = useLocationQuery();
 
-  const { network, locationSet } = query;
+  const { network } = useNetwork();
+  const { locationSet } = useLocationSet();
 
   const {
     data: pages,
@@ -66,11 +73,17 @@ function AgendasSearch() {
       // reached the end
       if (previousPageData && !previousPageData.agendas?.length) return null;
 
+      const reqQuery = {
+        search,
+        network: query.network,
+        locationSet: query.locationSet,
+      };
+
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['AgendasSearch', 'agendas', { search, network, locationSet }, pageIndex, query.after];
+      if (pageIndex === 0) return ['AgendasSearch', 'agendas', reqQuery, pageIndex, query.after];
 
       // add the cursor to the API endpoint
-      return ['AgendasSearch', 'agendas', { search, network, locationSet }, pageIndex, previousPageData.after];
+      return ['AgendasSearch', 'agendas', reqQuery, pageIndex, previousPageData.after];
     },
     ([_comp, _requestId, reqQuery, _pageIndex, after]) =>
       fetch(`/api/agendas${qs.stringify({
@@ -91,6 +104,7 @@ function AgendasSearch() {
       revalidateFirstPage: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateIfStale: false,
     },
   );
 
@@ -125,22 +139,23 @@ function AgendasSearch() {
   if (isLoadingInitialData) {
     // TODO loading
     return (
-      <Metas />
+      <Metas preload={preload} />
     );
   }
 
   return (
     <>
       <Metas
-        networkTitle={query.network ? pages[0].agendas[0]?.network?.title : null}
-        locationSetTitle={query.network ? pages[0].agendas[0]?.locationSet?.title : null}
+        preload={preload}
+        networkTitle={network?.title}
+        locationSetTitle={locationSet?.title}
       />
 
       <Container maxW="container.md" bg="white" my="20" p="12">
         <Head
           total={pages[0].total}
-          network={pages[0].agendas[0]?.network}
-          locationSet={pages[0].agendas[0]?.locationSet}
+          network={network}
+          locationSet={locationSet}
         />
 
         <VStack align="stretch" spacing="8">

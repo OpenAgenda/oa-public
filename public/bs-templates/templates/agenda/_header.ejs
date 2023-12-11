@@ -11,7 +11,7 @@
           <div class="agenda-title">
             <h1>L'agenda de la Gargouille</h1>
             <div class="agenda-badges">
-              <% include ../components/_official-big %>
+              <%- include('../components/_official-big') %>
               <div class="tooltip-icon big">
                 <i class="fa fa-unlock-alt"></i>
                 <div class="tooltip right" role="tooltip">
@@ -24,7 +24,7 @@
           <p>Evénements sur Paris</p>
         </a>
         <p><a target="_blank" href="http://cibul.net">http://cibul.net</a></p>
-        <% if ( typeof actions !== 'undefined' ) { %><% include _actions.ejs %><% } %>
+        <% if ( typeof actions !== 'undefined' ) { %><%- include ('_actions.ejs') %><% } %>
       </div><!--
       --><div class="col-sm-3 action-container">
         <p class="share">Partager&nbsp;:

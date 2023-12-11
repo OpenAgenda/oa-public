@@ -25,7 +25,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.4.0",
+    "@openagenda/react-shared": "^2.4.1",
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/validators": "^2.4.0",
     "classnames": "^2.3.1",
@@ -61,7 +61,7 @@
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/inboxes": "^1.1.14",
     "@storybook/react-webpack5": "^7.4.2",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^29.7.0",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
@@ -74,8 +74,8 @@
     "errorhandler": "^1.5.0",
     "express": "^4.17.1",
     "history": "^4.10.1",
-    "jest": "^28.1.2",
-    "jest-environment-jsdom": "^28.1.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.4",
     "react": "^18.2.0",
@@ -86,7 +86,7 @@
     "redux-mock-store": "^1.5.4",
     "reload": "^3.0.4",
     "rimraf": "^3.0.1",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

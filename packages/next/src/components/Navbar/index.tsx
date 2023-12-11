@@ -89,7 +89,7 @@ function useSearch() {
       return router.push(qsSearch, null, { shallow: true });
     }
 
-    router.push(`/n/agendas${qsSearch}`);
+    router.push(`/agendas${qsSearch}`);
   }, [router]);
 
   return useMemo(() => ({

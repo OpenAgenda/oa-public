@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`get simple get for a user 1`] = `
-Array [
-  Object {
+[
+  {
     "actions": "create",
     "conditions": null,
     "entityName": "user",
@@ -12,7 +12,7 @@ Array [
     "reason": null,
     "subject": "event",
   },
-  Object {
+  {
     "actions": "receive",
     "conditions": null,
     "entityName": "user",
@@ -22,9 +22,9 @@ Array [
     "reason": null,
     "subject": "activity",
   },
-  Object {
+  {
     "actions": "receive",
-    "conditions": Object {
+    "conditions": {
       "verb": "spam",
     },
     "entityName": "user",
@@ -34,7 +34,7 @@ Array [
     "reason": null,
     "subject": "activity",
   },
-  Object {
+  {
     "actions": "receive",
     "conditions": null,
     "entityName": "user",

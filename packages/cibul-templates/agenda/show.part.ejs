@@ -14,7 +14,7 @@
 <% } else { %>
 
 <% events.forEach(function( event ) { %>
-  <% include ../eventLists/agendaItem.part.ejs %>
+  <%- include('../eventLists/agendaItem.part.ejs') %>
 <% }) %>
 
 <% } %>

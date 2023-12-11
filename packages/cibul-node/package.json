@@ -29,7 +29,7 @@
     "@openagenda/agenda-events": "^1.11.14",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/agenda-locations-app": "^0.0.0",
-    "@openagenda/agenda-portal": "^6.9.17",
+    "@openagenda/agenda-portal": "^6.9.18",
     "@openagenda/agenda-schemas-app": "^0.0.0",
     "@openagenda/agenda-search": "^1.4.0",
     "@openagenda/agenda-settings": "^1.4.0",
@@ -73,7 +73,7 @@
     "@openagenda/queues": "^2.0.0",
     "@openagenda/react-integration-app": "^1.6.1",
     "@openagenda/react-layouts": "^2.2.1",
-    "@openagenda/react-shared": "^2.4.0",
+    "@openagenda/react-shared": "^2.4.1",
     "@openagenda/registration": "^1.1.4",
     "@openagenda/registrations": "^0.0.2",
     "@openagenda/sdk-js": "workspace:^",
@@ -109,7 +109,7 @@
     "helmet": "^7.0.0",
     "history": "^4.10.1",
     "http-proxy": "^1.18.0",
-    "immer": "^9.0.1",
+    "immer": "^10.0.3",
     "immutability-helper": "^3.0.0",
     "ioredis": "^5.3.2",
     "isemail": "^3.1.2",
@@ -159,7 +159,7 @@
   "devDependencies": {
     "@openagenda/mails-editor": "^2.0.0",
     "form-data": "^3.0.0",
-    "jest": "^28.1.2",
+    "jest": "^29.7.0",
     "sinon": "^7.5.0"
   }
 }
