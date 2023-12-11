@@ -28,6 +28,7 @@ module.exports = function getUser(services, imageBucketPath, query, cb) {
         culture: user.culture,
         isNew: !!user.isNew,
         isBlacklisted: user.isBlacklisted,
+        transverseApiAccess: user.transverseApiAccess,
       });
     })
     .catch(err => {

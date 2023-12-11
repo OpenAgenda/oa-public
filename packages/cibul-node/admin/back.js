@@ -170,7 +170,7 @@ async function userActivate(req, res, next) {
         { internal: true }
       );
 
-      await mails.send( {
+      await mails.send({
         template: 'activatedAccount',
         to: req.loadedUser.email,
         lang: req.loadedUser.culture,
@@ -178,7 +178,7 @@ async function userActivate(req, res, next) {
           activateLink: config.root,
         },
         queue: false,
-      } );
+      });
 
       if (req.accepts(['json', 'html']) === 'html') {
         return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
@@ -217,7 +217,7 @@ async function userBlacklist(req, res, next) {
     req.loadedUser = await usersSvc.patch(
       userUid,
       { isBlacklisted },
-      { internal: true }
+      { internal: true },
     );
 
     if (isBlacklisted) {
@@ -240,32 +240,35 @@ function userUpdate(req, res, next) {
   usersSvc
     .get(req.loadedUser.uid, { detailed: true, removed: null })
     .then(async (user) => {
-      const store = user.store || {};
-
-      if (!store.enable_secret && req.body.enable_secret) {
+      if (req.body.enable_secret === 'true') {
         await usersSvc.generateApiKey(
           user.uid,
           {
             secretKey: true,
           },
-          { removed: null }
-        );
-
-        user = await usersSvc.patch(
-          user.uid,
-          {
-            store: {
-              ...store,
-              enable_secret: true,
-            },
-          },
-          { detailed: true, removed: null, internal: true }
+          { removed: null },
         );
       }
 
+      const patchedData = {};
+
+      if (req.body.enable_secret !== undefined) {
+        patchedData.store = { enable_secret: req.body.enable_secret === 'true' };
+      }
+
+      if (req.body.transverseApiAccess) {
+        patchedData.transverseApiAccess = req.body.transverseApiAccess === 'true';
+      }
+
+      const respUser = await usersSvc.patch(
+        user.uid,
+        patchedData,
+        { detailed: true, removed: null, internal: true },
+      );
+
       res.json({
         success: true,
-        user,
+        user: respUser,
       });
     })
     .catch(next);

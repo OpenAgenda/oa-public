@@ -17,6 +17,7 @@ const sendToken = require('./lib/sendToken');
 const replaceIdMe = require('./lib/replaceIdMe');
 const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
 const verifySuperAdmin = require('./middleware/verifySuperAdmin');
+const verifyTransverseApiAccess = require('./middleware/verifyTransverseApiAccess');
 
 const svcHooks = require('./hooks');
 const notifyAndRemove = require('./tasks/notifyAndRemove');
@@ -95,6 +96,7 @@ async function init(config, services) {
   service.mw = {
     loadBySessionOrKey,
     verifySuperAdmin: verifySuperAdmin(config.superAdminIds),
+    verifyTransverseApiAccess,
   };
 
   services.tokens = tokensService;
