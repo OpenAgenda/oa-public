@@ -1,18 +1,9 @@
 "use strict";
 
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
 const rss = require('rss');
-
 const log = require('@openagenda/logs')('middleware');
-
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agenda-search/index'));
-
 const url = require('./url');
-
-const createFactory = type => React.createElement.bind(null, type);
-
-const Body = createFactory(require('../../components/lib/Body.js'));
 
 module.exports = service => ({
   rebuild: rebuild.bind(null, service),
@@ -53,19 +44,12 @@ function list(service, req, res, next) {
     if (req.params.format === 'json') {
       return res.json(result);
     }
-    
+
     req.result = result;
 
     if (req.params.format === 'rss') {
       return _renderRss(service, req, res);
     }
-
-    req.content = ReactDOMServer.renderToString(Body({
-      ...result,
-      lang: req.lang,
-      network: req.network,
-      locationSet: req.locationSet,
-    }));
 
     next();
   }, next);
