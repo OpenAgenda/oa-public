@@ -253,7 +253,7 @@
                 <h3><i class="fa fa-map-marker"></i></h3>
                 <div class="detail-item-content">
                   <p>
-                    <%- indexedEvent.location.name %><% /* escaped in model already */ %>
+                    <%= indexedEvent.location.name %>
                   </p>
                   <span class="margin-right-xs"><a target="_blank" href="<%= indexedEvent.location.OSMItineraryLink || '#' %>"><%= indexedEvent.location.address %></a></span>
                   <ul class="info list-inline location-info-parts">
