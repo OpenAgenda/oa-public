@@ -9,6 +9,7 @@ export default class UserShow extends Component {
     this.handleSubmitChangePassword = this.handleSubmitChangePassword.bind(this);
     this.renderMember = this.renderMember.bind(this);
     this.toggleApiSecret = this.toggleApiSecret.bind(this);
+    this.toggleApiTransverse = this.toggleApiTransverse.bind(this);
   }
 
   state = {
@@ -53,6 +54,10 @@ export default class UserShow extends Component {
 
     this.props.onUserUpdate( { enable_secret: !(this.props.user.store && this.props.user.store.enable_secret) } );
 
+  }
+
+  toggleApiTransverse() {
+    this.props.onUserUpdate({ transverseApiAccess: !(this.props.user && this.props.user.transverseApiAccess)})
   }
 
   render() {
@@ -119,6 +124,19 @@ export default class UserShow extends Component {
                 unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
                 onChange={this.toggleApiSecret}
                 checked={!!user.apiSecret}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Enable API transverse</td>
+            <td>
+              <Switch
+                ref="switch"
+                className="rc-switch"
+                checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                onChange={this.toggleApiTransverse}
+                checked={user.transverseApiAccess}
               />
             </td>
           </tr>
