@@ -55,7 +55,7 @@
     "redis": "^4.6.6",
     "redux": "^4.0.5",
     "should": "^13.2.3",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -101,7 +101,7 @@
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
     "sass": "^1.69.5",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

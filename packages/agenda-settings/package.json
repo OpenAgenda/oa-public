@@ -68,7 +68,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

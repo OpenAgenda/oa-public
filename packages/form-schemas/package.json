@@ -71,7 +71,7 @@
     "mysql": "^2.18.1",
     "rimraf": "^3.0.1",
     "should": "^13.2.3",
-    "storybook": "^7.4.2"
+    "storybook": "^7.6.4"
   },
   "keywords": [],
   "author": "",
