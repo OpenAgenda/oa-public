@@ -36,7 +36,7 @@ describe('createEventOffer', () => {
 
       try {
         await createEventOffer(
-          pc,
+          { pc },
           event,
           {
             venueId: 123,
@@ -72,7 +72,7 @@ describe('createEventOffer', () => {
 
       try {
         await createEventOffer(
-          pc,
+          { pc },
           event,
           {
             venueId,
@@ -105,7 +105,7 @@ describe('createEventOffer', () => {
       const event = pickEvent('inauguration-du-festival-international-du-film-dart-fifa');
 
       const result = await createEventOffer(
-        pc,
+        { pc },
         event,
         {
           venueId,
@@ -132,7 +132,7 @@ describe('createEventOffer', () => {
       const timingId = event.timings.map(t => new Date(t.begin).getTime()).pop();
 
       const result = await createEventOffer(
-        pc,
+        { pc },
         event,
         {
           venueId,
@@ -163,7 +163,7 @@ describe('createEventOffer', () => {
   describe('Successful creates', () => {
     it('OAEvent with timings in DHM format', async () => {
       const { errors } = await createEventOffer(
-        pc,
+        { pc },
         {
           title: { fr: 'DHM' },
           timings: [{
