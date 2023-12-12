@@ -1,8 +1,8 @@
 'use strict';
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
+const os = require('node:os');
+const fs = require('node:fs');
+const path = require('node:path');
 const { mkdirp } = require('mkdirp');
 const webpack = require('webpack');
 const ProgressBar = require('webpackbar');
@@ -36,7 +36,7 @@ const modulesToInclude = [
   'yallist',
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
-  `node_modules/(?!(${modulesToInclude.join('|')}))`
+  `node_modules/(?!(${modulesToInclude.join('|')}))`,
 );
 
 const serviceName = require('./package.json').name.split('/').pop();
@@ -122,11 +122,7 @@ module.exports = (env = {}, argv = {}) => {
       minimize: envName === 'production',
       minimizer: [
         new TerserPlugin({
-          cache: process.env.DISABLE_WEBPACK_CACHE
-            ? false
-            : getCacheDir('terser-webpack-plugin'),
-          // parallel: true
-          sourceMap: true,
+          terserOptions: { sourceMap: true },
         }),
       ],
     },
@@ -147,7 +143,7 @@ module.exports = (env = {}, argv = {}) => {
       new CleanWebpackPlugin(),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
-      })
-    ]
+      }),
+    ],
   };
 };
