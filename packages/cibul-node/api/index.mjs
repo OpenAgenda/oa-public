@@ -24,7 +24,7 @@ export default (core, { useRouter = true } = {}) => {
   app.core = core;
   app.services = core.services;
 
-  const { verifySuperAdmin } = app.services.users.mw;
+  const { verifySuperAdmin, verifyTransverseApiAccess } = app.services.users.mw;
 
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([
@@ -699,6 +699,21 @@ export default (core, { useRouter = true } = {}) => {
       next,
     );
   });
+
+  app.get('/events', [
+    verifyTransverseApiAccess,
+    (req, res, next) => {
+      core.events.search(req.query, req.query, {
+        useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+        includeFields: req.query.includeFields,
+        detailed: req.query.detailed,
+        monolingual: req.query.monolingual,
+        includeImageTimestamp: req.query.includeImageTimestamp,
+        includeLocationImagePath: req.query.includeLocationImagePath,
+        useAfterKey: true,
+      }).then(data => res.json({ ...data, success: true }), next);
+    },
+  ]);
 
   log('done');
 

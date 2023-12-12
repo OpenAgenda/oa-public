@@ -25,6 +25,7 @@ async function getUserFromKey(services, keyField, keyString = null) {
     query: {
       id: apiKeySet.user_id,
     },
+    detailed: true,
   });
 
   simpleCache('users', `${keyField}:${keyString}`).set(JSON.stringify(user), 60 * 60);

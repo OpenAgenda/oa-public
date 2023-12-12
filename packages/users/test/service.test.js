@@ -1,7 +1,7 @@
 'use strict';
 
 // const fs = require('fs');
-const path = require('path');
+const path = require('node:path');
 const sinon = require('sinon');
 const tmp = require('tmp');
 const knexLib = require('knex');
@@ -51,14 +51,12 @@ beforeEach(async () => {
 
   knex.client.connectionSettings.database = database;
 
-  await keysSvc.init(
-    {
-      ...config,
-      knex,
-      mysql: { ...config.mysql, database },
-      migrations: null,
-    },
-  );
+  await keysSvc.init({
+    ...config,
+    knex,
+    mysql: { ...config.mysql, database },
+    migrations: null,
+  });
 
   await knex.migrate.latest({
     directory: path.join(__dirname, '../../keys/migrations'),
@@ -133,6 +131,7 @@ describe('methods', () => {
       expect(user).toHaveProperty('isBlacklisted');
       expect(user).toHaveProperty('apiKey');
       expect(user).toHaveProperty('apiSecret');
+      expect(user).toHaveProperty('transverseApiAccess');
     });
 
     it('get user with internal option', async () => {
@@ -153,7 +152,7 @@ describe('methods', () => {
       const user = await service.get(75052324, { includeImagePath: true });
 
       expect(user.image).toBe(
-        '//openagendatst.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+        '//openagendatst.s3.amazonaws.com/review_kaore-olafsson_01.jpg',
       );
       expect(user.email).toBe('kaoreolafsson@gmail.com');
     });
@@ -205,7 +204,7 @@ describe('methods', () => {
 
       expect(total).toBe(2);
       expect(users.map(v => v.uid)).toEqual(
-        expect.arrayContaining([27639980, 54505079])
+        expect.arrayContaining([27639980, 54505079]),
       );
     });
 
@@ -277,7 +276,6 @@ describe('methods', () => {
         },
         detailed: true,
       });
-
       expect(user.apiKey).toBe(key);
     });
   });
@@ -289,7 +287,7 @@ describe('methods', () => {
           fullName: 'Jean-Eude',
           email: 'gaetan@cibul.net',
           password: 'pa**word',
-        })
+        }),
       ).rejects.toThrow('Already exist');
     });
 
@@ -301,7 +299,7 @@ describe('methods', () => {
           password: 'pa**word',
           isActivated: true,
         },
-        { detailed: true }
+        { detailed: true },
       );
 
       expect(user.isActivated).toBe(true);
@@ -313,7 +311,7 @@ describe('methods', () => {
 
       const user = await service.create(
         { fullName: 'Jean-Eude', email: 'jean-eude@oa.com', password },
-        { detailed: true, internal: true }
+        { detailed: true, internal: true },
       );
 
       expect(user.password).not.toBe(password);
@@ -323,7 +321,7 @@ describe('methods', () => {
       const email = 'jean-eude@oa.com';
       const user = await service.create(
         { fullName: 'Jean-Eude', email, password: 'pa**word' },
-        { detailed: true }
+        { detailed: true },
       );
 
       const token = await service.config
@@ -342,7 +340,7 @@ describe('methods', () => {
           password: 'pa**word',
           isActivated: true,
         },
-        { detailed: true }
+        { detailed: true },
       );
 
       const token = await service.config
@@ -361,7 +359,7 @@ describe('methods', () => {
           password: 'pa**word',
           isActivated: true,
         },
-        { detailed: true, internal: true }
+        { detailed: true, internal: true },
       );
 
       expect(typeof user.replyToken).toBe('string');
@@ -378,7 +376,7 @@ describe('methods', () => {
 
     it('patch user with a too long language', async () => {
       await expect(
-        service.patch(kaoreUid, { culture: 'francaisDeFrânce' })
+        service.patch(kaoreUid, { culture: 'francaisDeFrânce' }),
       ).rejects.toMatchObject({
         errors: [
           {
@@ -394,7 +392,7 @@ describe('methods', () => {
       const user = await service.patch(
         38157927,
         { isActivated: true },
-        { internal: true }
+        { internal: true },
       );
 
       await expect(user.isActivated).toBe(true);
@@ -438,7 +436,7 @@ describe('methods', () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
           newEmail: 'romain.lange@gmail.com',
-        })
+        }),
       ).rejects.toThrow('Already exist');
     });
 
@@ -446,7 +444,7 @@ describe('methods', () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
           newEmail: 'romain.langegmail.com',
-        })
+        }),
       ).rejects.toMatchObject({
         errors: [
           {
@@ -461,7 +459,7 @@ describe('methods', () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
           newEmail: 'romain.lange@gmail.com;',
-        })
+        }),
       ).rejects.toMatchObject({
         errors: [
           {
@@ -494,7 +492,7 @@ describe('methods', () => {
           query: {
             token: '87071649646742ee8dce48e4eb1dc0b0',
           },
-        })
+        }),
       ).rejects.toThrow('Already exist');
     });
 
@@ -504,7 +502,7 @@ describe('methods', () => {
           query: {
             token: '87071649646742ee8dce48e4eb1dccbd',
           },
-        })
+        }),
       ).rejects.toThrow('Bad token');
     });
   });
@@ -529,7 +527,7 @@ describe('methods', () => {
       await expect(
         service.changePassword(17133001, {
           password: null,
-        })
+        }),
       ).rejects.toMatchObject({
         errors: [
           {
@@ -595,7 +593,7 @@ describe('methods', () => {
         },
         {
           detailed: true,
-        }
+        },
       );
 
       expect(user.lastSignin).toStrictEqual(now);
@@ -609,7 +607,7 @@ describe('methods', () => {
         },
         {
           detailed: true,
-        }
+        },
       );
 
       expect(user.lastInboxCheck).toStrictEqual(now);
@@ -623,7 +621,7 @@ describe('methods', () => {
         },
         {
           detailed: true,
-        }
+        },
       );
 
       expect(user.lastNotified).toStrictEqual(now);

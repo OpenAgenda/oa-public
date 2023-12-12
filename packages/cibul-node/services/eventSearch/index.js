@@ -11,7 +11,6 @@ const rebuild = require('./rebuild');
 const agendaIndexSearch = require('./agendaIndexSearch');
 const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
-const transverseEventSearchApp = require('./transverseEventSearchApp');
 const agendaRoutes = require('./agendaRoutes');
 
 async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
@@ -109,7 +108,6 @@ module.exports.init = async (config, services) => {
       search: transverseSearch,
     },
     apps: {
-      events: transverseEventSearchApp.bind(null, services),
       agendas: agendaRoutes(services),
     },
     cluster: eventSearch.cluster,

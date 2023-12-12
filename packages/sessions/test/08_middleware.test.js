@@ -29,6 +29,7 @@ describe('session - functional (server): middleware', () => {
       name: 'Gaetan Latouche',
       thumbnail: '//graph.facebook.com/100002280111541/picture',
       email: 'gaetan@cibul.net',
+      transverseApiAccess: false,
     };
 
     let culture = 'fr';
@@ -144,6 +145,7 @@ describe('session - functional (server): middleware', () => {
               email: 'gaetan@cibul.net',
               latestActivity: session.latestActivity,
               isBlacklisted: false,
+              transverseApiAccess: false,
             });
 
             res.send('ok');
@@ -199,6 +201,7 @@ describe('session - functional (server): middleware', () => {
               email: 'gaetan@cibul.net',
               latestActivity: session.latestActivity,
               isBlacklisted: false,
+              transverseApiAccess: false,
             });
 
             res.send('ok');
@@ -442,6 +445,7 @@ describe('session - functional (server): middleware', () => {
               isNew: false,
               latestActivity: req.user.latestActivity,
               isBlacklisted: false,
+              transverseApiAccess: false,
             });
 
             res.send('ok');
@@ -477,6 +481,7 @@ describe('session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               email: 'gaetan@cibul.net',
               isBlacklisted: false,
+              transverseApiAccess: false,
             });
 
             res.send('ok');

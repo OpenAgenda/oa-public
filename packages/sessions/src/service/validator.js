@@ -43,6 +43,10 @@ module.exports = config => schema({
     type: 'boolean',
     default: false,
   },
+  transverseApiAccess: {
+    type: 'boolean',
+    default: false,
+  },
   ...cookieUserFields,
   culture: {
     type: 'choice',
