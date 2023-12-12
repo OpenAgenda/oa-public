@@ -70,11 +70,9 @@ module.exports = ( { entry, output } ) => ({
     moduleIds: 'deterministic',
     // minimize: false,
     minimizer: [
-      new TerserPlugin( {
-        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
-        extractComments: false,
-        // parallel: true
-      } )
+      new TerserPlugin({
+        terserOptions: { sourceMap: true },
+      }),
     ]
   },
   plugins: [
