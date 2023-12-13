@@ -38,7 +38,7 @@ function _sendResult(req, res, agendaUid, ctlDataStr, embedCtlDataStr) {
   }
 
   res.set({
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/javascript',
     'Content-Length': body.length,
   });
 
