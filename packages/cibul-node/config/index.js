@@ -51,11 +51,7 @@ const config = {
   logger: process.env.NODE_ENV === 'production' ? {
     prefix: 'oa:',
     enableDebug: false,
-    token: insightOpsKeys?.main ?? null,
-    errorsTracking: {
-      insightOpsKey: prod.insightOps?.clientErrors ?? null,
-      sentryDsn: prod.sentry?.dsn ?? null,
-    },
+    token: insightOpsKeys?.oa ?? null,
     sentry,
   } : {
     prefix: 'oa:',
