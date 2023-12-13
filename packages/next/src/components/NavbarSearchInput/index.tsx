@@ -35,7 +35,13 @@ export default function NavbarSearchInput({
   const intl = useIntl();
 
   return (
-    <InputGroup bg="oaGray.10" flex="1" w="initial" h="full" className={className}>
+    <InputGroup
+      bg="oaGray.10"
+      flex="1"
+      w="initial"
+      h="full"
+      className={className}
+    >
       <Input
         h="inherit"
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}

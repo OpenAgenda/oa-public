@@ -1,4 +1,10 @@
 {
+  "next.components.Navbar.help": [
+    {
+      "type": 0,
+      "value": "Aide"
+    }
+  ],
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
