@@ -45,7 +45,8 @@
     "member",
     "links",
     "firstTiming",
-    "lastTiming"
+    "lastTiming",
+    "nextTiming"
   ],
   "other": [
     "location.uid",

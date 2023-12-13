@@ -51,17 +51,21 @@ function buildEventParsers({
 }) {
   const parsers = [
     convertToLocalTimezone,
-    appendFirstNextAndLastTiming,
   ];
+
+  const firstNextOrLastRequested = detailed || !!['firstTiming', 'lastTiming', 'nextTiming'].filter(f => (requestedIncludes || []).includes(f)).length;
+
+  if (firstNextOrLastRequested) {
+    parsers.push(appendFirstNextAndLastTiming);
+  }
 
   if (!detailed) {
     parsers.push(e => produce(e, draft => {
-      if (!(requestedIncludes || []).includes('timings')) {
-        delete draft.timings;
-      }
-      if (!(requestedIncludes || []).includes('timezone')) {
-        delete draft.timezone;
-      }
+      ['timings', 'timezone', 'firstTiming', 'lastTiming', 'nextTiming'].forEach(f => {
+        if (!(requestedIncludes || []).includes(f)) {
+          delete draft[f];
+        }
+      });
     }));
   }
 
