@@ -14,7 +14,6 @@ const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agend
 const slug = require('slugify');
 const forbiddenLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/forbidden'));
 const utils = require('@openagenda/utils');
-const controlDataSvc = require('../services/legacy').controlData;
 const agendaSvc = require('../services/agenda');
 
 const cacheMw = require('../lib/cache.mw');
@@ -75,6 +74,9 @@ const middlewares = {
 module.exports = app => {
   const {
     sessions,
+    legacy: {
+      controlData: controlDataSvc,
+    },
   } = app.services;
 
   app.options('*/controldata*', (req, res) => res.sendStatus(200));
