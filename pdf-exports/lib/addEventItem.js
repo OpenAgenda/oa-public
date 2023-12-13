@@ -10,6 +10,10 @@ import thumbnail from './thumbnail.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const locationIconPath = `${__dirname}/../images/location.png`;
+const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
+const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
+
 export default async function addEventItem(
   agenda,
   event,
@@ -56,13 +60,6 @@ export default async function addEventItem(
   const iconHeightAndWidth = 10;
 
   const textMaxWidth = doc.page.width - imageWidth - base.margin * 3;
-
-  const locationIconPath = `${__dirname}/../images/location.png`;
-  const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
-  const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
-  const emailIconPath = `${__dirname}/../images/email.png`;
-  const phoneIconPath = `${__dirname}/../images/phone.png`;
-  const linkIconPath = `${__dirname}/../images/link.png`;
 
   const iconsArr = [];
 
@@ -212,9 +209,6 @@ export default async function addEventItem(
     {
       base,
       iconHeightAndWidth,
-      emailIconPath,
-      phoneIconPath,
-      linkIconPath,
     },
     { simulate, lang },
   );
