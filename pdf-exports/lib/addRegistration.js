@@ -10,17 +10,25 @@ const addRegistrationItem = async (
   params = {},
   options = {},
 ) => {
-  const { iconHeightAndWidth, base } = params;
+  const {
+    iconHeightAndWidth,
+    base,
+  } = params;
 
   const { simulate = false } = options;
 
-  const { width: widthOfRegistrationIcon } = await addIcon(
+  let widthOfRegistrationIcon = null;
+  let widthOfReg = null;
+  let heightOfReg = null;
+
+  const registrationIcon = await addIcon(
     doc,
     iconPath,
     localCursor,
     iconHeightAndWidth,
     { simulate },
   );
+  widthOfRegistrationIcon = registrationIcon.width;
 
   localCursor.x += widthOfRegistrationIcon + base.margin / 3;
   localCursor.y -= base.margin / 16;
@@ -34,15 +42,26 @@ const addRegistrationItem = async (
       break;
   }
 
+  const simulateReg = addText(doc, localCursor, registrationItem, {
+    fontSize: 10,
+    underline: false,
+    link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
+    base,
+    simulate: true,
+  });
+  const simulatewidthOfReg = simulateReg.width;
+
   const reg = addText(doc, localCursor, registrationItem, {
+    width: simulatewidthOfReg + base.margin / 3,
+    fontSize: 10,
     underline: false,
     link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
     base,
     simulate,
   });
 
-  const widthOfReg = reg.width;
-  const heightOfReg = reg.height;
+  widthOfReg = reg.width;
+  heightOfReg = reg.height;
 
   localCursor.x += widthOfReg + base.margin / 2;
 
@@ -51,6 +70,62 @@ const addRegistrationItem = async (
     height: heightOfReg,
   };
 };
+
+export async function simulateAddRegistration(
+  registration,
+  doc,
+  cursor,
+  params = {},
+) {
+  const {
+    base,
+    iconHeightAndWidth,
+    emailIconPath,
+    phoneIconPath,
+    linkIconPath,
+    textMaxWidth,
+  } = params;
+
+  const localCursor = {
+    y: cursor.y,
+    x: cursor.x,
+  };
+
+  const typesWithIcons = [
+    { type: 'email', iconPath: emailIconPath },
+    { type: 'phone', iconPath: phoneIconPath },
+    { type: 'link', iconPath: linkIconPath },
+  ];
+
+  function getTypeAndIconPath(type) {
+    const typeWithIcon = typesWithIcons.find(item => item.type === type);
+    return {
+      type: typeWithIcon.type,
+      iconPath: typeWithIcon.iconPath,
+    };
+  }
+
+  const { type, iconPath } = getTypeAndIconPath(registration.type);
+
+  const simulateReg = await addRegistrationItem(
+    type,
+    registration.value,
+    iconPath,
+    doc,
+    localCursor,
+    {
+      iconHeightAndWidth,
+      base,
+      textMaxWidth,
+    },
+    { simulate: true },
+  );
+
+  return {
+    width: simulateReg.width,
+    height: simulateReg.height,
+  };
+}
 
 export default async function addRegistration(
   event,
@@ -65,6 +140,7 @@ export default async function addRegistration(
     emailIconPath,
     phoneIconPath,
     linkIconPath,
+    textMaxWidth,
   } = params;
   const { simulate = false, lang } = options;
 
@@ -75,8 +151,6 @@ export default async function addRegistration(
 
   let widthOfRegistrationLabel = null;
   let heightOfRegistrationLabel = null;
-  let widthOfRegistrationItem = null;
-  let heightOfRegistrationItem = null;
 
   const { registration = [] } = event;
 
@@ -117,9 +191,23 @@ export default async function addRegistration(
     };
   }
 
+  let totalWidth = null;
+  let totalHeight = heightOfRegistrationLabel;
+
   for (const registrationItem of registration) {
+    const {
+      width: simulateItemsWidth,
+      height: simulateItemsHeight,
+    } = await simulateAddRegistration(registrationItem, doc, cursor, params);
+
+    if (localCursor.x + simulateItemsWidth + base.margin / 3 > textMaxWidth) {
+      localCursor.x = widthOfRegistrationLabel + base.margin / 3;
+      localCursor.y += simulateItemsHeight + base.margin / 16;
+      totalHeight += simulateItemsHeight + base.margin / 16;
+    }
+
     const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
-    const reg = await addRegistrationItem(
+    await addRegistrationItem(
       type,
       registrationItem.value,
       iconPath,
@@ -128,19 +216,11 @@ export default async function addRegistration(
       {
         iconHeightAndWidth,
         base,
+        textMaxWidth,
       },
       { simulate },
     );
-    widthOfRegistrationItem = reg.width;
-    heightOfRegistrationItem = reg.height;
   }
-
-  const totalWidth = widthOfRegistrationLabel + base.margin / 3 + widthOfRegistrationItem;
-  const totalHeight = Math.max(
-    heightOfRegistrationLabel,
-    heightOfRegistrationItem,
-  );
-  localCursor.y += totalHeight + base.margin / 10;
 
   return {
     width: totalWidth,

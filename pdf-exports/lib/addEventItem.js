@@ -124,7 +124,7 @@ export default async function addEventItem(
     doc,
     localCursor,
     flattenLabel(event.dateRange, lang),
-    { width: textMaxWidth, fontSize: 10, base, simulate },
+    { width: textMaxWidth - (iconHeightAndWidth + base.margin / 3), fontSize: 10, base, simulate },
   );
 
   widthOfDateRange = dateRange.width;
@@ -163,7 +163,7 @@ export default async function addEventItem(
       localCursor,
       `${event.location?.name} - ${event.location?.address}`,
       {
-        width: textMaxWidth,
+        width: textMaxWidth - (iconHeightAndWidth + base.margin / 3),
         fontSize: 10,
         base,
         underline: false,
@@ -191,7 +191,7 @@ export default async function addEventItem(
     localCursor.y -= base.margin / 16;
 
     const onlineLink = addText(doc, localCursor, event.onlineAccessLink, {
-      width: textMaxWidth,
+      width: textMaxWidth - (iconHeightAndWidth + base.margin / 3),
       fontSize: 10,
       base,
       underline: false,
@@ -215,12 +215,14 @@ export default async function addEventItem(
       emailIconPath,
       phoneIconPath,
       linkIconPath,
+      textMaxWidth,
     },
     { simulate, lang },
   );
 
-  widthOfRegistration = registration.width;
+  widthOfRegistration = Math.min(textMaxWidth, registration.width);
   heightOfRegistration = registration.height;
+
   localCursor.y += heightOfRegistration + base.margin / 10;
 
   const eventLink = addText(
