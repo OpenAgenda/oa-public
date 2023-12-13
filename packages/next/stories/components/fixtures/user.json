@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "uid": 75052324,
+  "fullName": "Kaoré - OpenAgenda",
+  "username": "kaore-olafsson",
+  "email": "kaore@oagenda.com",
+  "culture": "fr",
+  "image": "user.profile.75052324.jpg",
+  "isNew": false,
+  "createdAt": "2011-04-09T08:27:01.000Z",
+  "updatedAt": "2023-05-16T12:31:23.000Z",
+  "hasSocialAccount": true,
+  "hasLocalAccount": true,
+  "announcement": null
+}
