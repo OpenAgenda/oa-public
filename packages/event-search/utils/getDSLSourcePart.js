@@ -4,8 +4,8 @@ module.exports = (includes = null) => {
   const source = {
     excludes: [
       '_*',
-      'timings._*'
-    ]
+      'timings._*',
+    ],
   };
 
   if (includes === null) {
@@ -14,6 +14,6 @@ module.exports = (includes = null) => {
 
   return {
     ...source,
-    includes
-  }
-}
+    includes,
+  };
+};

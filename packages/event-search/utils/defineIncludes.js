@@ -51,6 +51,10 @@ module.exports = ({
     })
     .filter(field => !!field);
 
+  if (includes.includes('nextTiming')) {
+    includes.push('timings');
+  }
+
   if (!access || !formSchema) {
     return _keepHigherOrderIncludes(includes);
   }
