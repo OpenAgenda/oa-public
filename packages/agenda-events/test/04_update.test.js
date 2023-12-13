@@ -2,16 +2,15 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const should = require('should');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
-describe('agendaEvents - 04 - functional (server): update', function() {
+describe.only('agendaEvents - 04 - functional (server): update', function() {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -19,14 +18,14 @@ describe('agendaEvents - 04 - functional (server): update', function() {
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service(config);
   });
 
   describe('simple update', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await svc(62792452).update(10974548, {
         featured: true,
         state: 2,
@@ -35,21 +34,21 @@ describe('agendaEvents - 04 - functional (server): update', function() {
     });
 
     it('result provides success boolean', () => {
-      result.success.should.equal(true);
+      expect(result.success).toBe(true);
     });
 
     it('result provides updated value', () => {
-      result.updated.featured.should.equal(true);
-      result.updated.state.should.equal(2);
+      expect(result.updated.featured).toBe(true);
+      expect(result.updated.state).toBe(2);
     });
 
     it('result provides value prior to update in before key', () => {
-      result.before.featured.should.equal(false);
-      result.before.state.should.equal(1);
+      expect(result.before.featured).toBe(false);
+      expect(result.before.state).toBe(1);
     });
 
     it('aggregated value is not directly updatable', () => {
-      result.updated.aggregated.should.equal('achecksumvalue');
+      expect(result.updated.aggregated).toBe('achecksumvalue');
     });
   });
 
@@ -59,12 +58,12 @@ describe('agendaEvents - 04 - functional (server): update', function() {
 
     const forcedDate = new Date('2018-02-28T08:00:00.000Z');
 
-    before(async () => {
+    beforeAll(async () => {
       await svc(1).create(11, { userUid: 1 });
       await svc(1).create(12, { userUid: 2 });
     });
 
-    before(async () => {
+    beforeAll(async () => {
       await svc(1).update(11, {
         userUid: 3,
         createdAt: forcedDate
@@ -81,19 +80,19 @@ describe('agendaEvents - 04 - functional (server): update', function() {
     });
 
     it('protected ref userUid is unchanged', async () => {
-      protectedRef.userUid.should.equal(1);
+      expect(protectedRef.userUid).toBe(1);
     });
 
     it('protected ref createdAt timestamp is unchanged', async () => {
-      protectedRef.createdAt.should.not.eql(forcedDate);
+      expect(protectedRef.createdAt).not.toEqual(forcedDate);
     });
 
     it('unprotected ref userUid is changed', async () => {
-      unprotectedRef.userUid.should.equal(3);
+      expect(unprotectedRef.userUid).toBe(3);
     });
 
     it('unprotected ref createdAt timestamp is changed', async () => {
-      unprotectedRef.createdAt.should.eql(forcedDate);
+      expect(unprotectedRef.createdAt).toEqual(forcedDate);
     });
 
   } );
@@ -107,7 +106,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         state: '1'
       });
 
-      result.updated.state.should.equal(1);
+      expect(result.updated.state).toBe(1);
     });
 
     it('simple update to refused state', async () => {
@@ -115,7 +114,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         state: -1
       });
 
-      result.updated.state.should.equal(-1);
+      expect(result.updated.state).toBe(-1);
     });
 
     it('updated of aggregated key is done through options', async () => {
@@ -124,7 +123,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
           aggregated: 'updatedchecksum'
         });
 
-      result.updated.aggregated.should.equal('updatedchecksum');
+      expect(result.updated.aggregated).toBe('updatedchecksum');
     });
 
     it('simple update to canEdit set to true', async () => {
@@ -132,7 +131,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         canEdit: true
       });
 
-      result.updated.canEdit.should.equal(true);
+      expect(result.updated.canEdit).toBe(true);
     });
 
     it('update is part update', async () => {
@@ -144,7 +143,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         state: -1
       });
 
-      result.updated.canEdit.should.equal(true);
+      expect(result.updated.canEdit).toBe(true);
     });
 
     it('update on sourcePaths field replaces previous list', async () => {
@@ -152,7 +151,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         sourcePaths: [88, [11]]
       });
 
-      result.updated.sourcePaths.should.eql([88, [11]]);
+      expect(result.updated.sourcePaths).toEqual([88, [11]]);
     });
 
     it('update without state does not change current state', async () => {
@@ -162,7 +161,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
 
       const result = await svc(62792452).update(10974548, {});
 
-      result.updated.state.should.equal(-1);
+      expect(result.updated.state).toBe(-1);
     });
 
 
@@ -171,7 +170,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         interfaces: {
           onUpdate: {
             $set: (before, after, context) => {
-              context.userUid.should.equal(111);
+              expect(context.userUid).toBe(111);
               done();
             }
           }

@@ -1,16 +1,14 @@
 'use strict';
 
-const should = require('should');
-
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
 
 describe('agendaEvents - 12 - functional (server): getAggregatedCount', function() {
-  let svc, get;
+  let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     const fx = await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -27,11 +25,11 @@ describe('agendaEvents - 12 - functional (server): getAggregatedCount', function
 
   it('should count aggregated only, for agenda only, after a year ago by default', async () => {
     const count = await svc(62792452).getAggregatedCount();
-    count.should.equal(2);
+    expect(count).toBe(2);
   });
 
   it('a different since can be specified', async () => {
     const count = await svc(62792452).getAggregatedCount(new Date('2015-01-01'));
-    count.should.equal(3);
+    expect(count).toBe(3);
   });
 });

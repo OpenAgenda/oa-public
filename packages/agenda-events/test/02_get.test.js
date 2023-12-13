@@ -1,11 +1,11 @@
 'use strict';
 
 const _ = require('lodash');
-const assert = require('assert');
+const assert = require('node:assert');
 const redis = require('redis');
 const Queues = require('@openagenda/queues');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
@@ -17,7 +17,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
   let svc, get;
   let redisClient;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -25,7 +25,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     ]);
   });
 
-  before(async () => {
+  beforeAll(async () => {
     redisClient = redis.createClient({
       socket: { host: 'localhost', port: 6379 }
     });
@@ -33,7 +33,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     await redisClient.connect();
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       ...config,
       queue: Queues({
@@ -58,12 +58,12 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     get = svc.get;
   });
 
-  after(async () => redisClient.quit());
+  afterAll(async () => redisClient.quit());
 
   describe('simple get', () => {
     let ref;
 
-    before(async () => {
+    beforeAll(async () => {
       ref = await svc(62792452).get(10974548)
     });
 

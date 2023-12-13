@@ -1,23 +1,20 @@
 'use strict';
 
 const _ = require('lodash');
-const mysql = require('mysql');
-const should = require('should');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
-describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function() {
+describe.only('agenda-events - 07 - transferToLegacy - transfer to legacy', function() {
   let svc;
-  this.timeout(40000);
 
   const knex = require('knex')({
     client: 'mysql',
     connection: config.mysql
   });
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -39,7 +36,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
 
     let beforeCreate, afterCreate, ae;
 
-    before(async () => {
+    beforeAll(async () => {
       ae = (await svc(agenda.uid).create(event.uid)).created;
 
       beforeCreate = await knex('review_article')
@@ -49,11 +46,11 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
         });
     });
 
-    before(async () => {
+    beforeAll(async () => {
       await svc.legacyTransfer.to(ae);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       afterCreate = await knex('review_article')
         .first().where({
           event_id: event.id,
@@ -62,13 +59,13 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
     });
 
     it('creates legacy record when not previously existing', () => {
-      should(beforeCreate).not.ok;
+      expect(beforeCreate).not.toBeTruthy();
 
-      afterCreate.should.be.ok;
+      expect(afterCreate).toBeTruthy();
     });
 
     it('legacy record is marked as published if ae is published', () => {
-      _.pick(afterCreate, ['state', 'is_published']).should.eql({
+      expect(_.pick(afterCreate, ['state', 'is_published'])).toEqual({
         state: 2,
         is_published: 1
       });
@@ -77,7 +74,9 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
     it('agenda_event reference stores legacy id', async () => {
       const updatedRef = await svc(agenda.uid).get(event.uid);
 
-      updatedRef.legacyId.should.equal(agenda.id + '.' + event.id);
+      expect(
+        updatedRef.legacyId
+      ).toBe(agenda.id + '.' + event.id);
     });
 
   });
@@ -95,7 +94,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
           review_id: 4608
         });
 
-      after.user_id.should.equal(1909);
+      expect(after.user_id).toEqual(1909);
     });
 
     it('updates record when existing', async () => {
@@ -113,12 +112,12 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
         review_id: 4608
       });
 
-      _.pick(before, ['is_published', 'state']).should.eql({
+      expect(_.pick(before, ['is_published', 'state'])).toEqual({
         state: 1,
         is_published: 0
       });
 
-      _.pick(after, ['is_published', 'state']).should.eql({
+      expect(_.pick(after, ['is_published', 'state'])).toEqual({
         state: 2,
         is_published: 1
       });
@@ -127,7 +126,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
     it('updates record when existing and has legacy id', async () => {
       const { updated } = await svc(62792452).update(10974548, { featured: 1 });
 
-      updated.featured.should.equal(true);
+      expect(updated.featured).toEqual(true);
     });
 
     it('removes record', async () => {
@@ -163,7 +162,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
         review_id: 4608
       });
 
-      after.featured.should.equal(1);
+      expect(after.featured).toEqual(1);
     });
 
     it('adds event_editor entry if edition right is not set', async () => {
@@ -179,7 +178,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
         review_id: 4608
       });
 
-      _.omit(after, ['created_at', 'updated_at']).should.eql({
+      expect(_.omit(after, ['created_at', 'updated_at'])).toEqual({
         type: 1,
         event_id: 190093,
         review_id: 4608
@@ -198,7 +197,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
         review_id: 4608
       });
 
-      should(after).equal(undefined);
+      expect(after).toBeUndefined();
 
     });
 

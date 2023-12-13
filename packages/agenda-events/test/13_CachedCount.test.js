@@ -1,6 +1,5 @@
 'use strict';
 
-const should = require('should');
 const redis = require('redis');
 
 const CachedCount = require('../service/lib/CachedCount');
@@ -8,7 +7,7 @@ const CachedCount = require('../service/lib/CachedCount');
 describe('agendaEvents - 13 - unit (server): CachedCount', () => {
   let redisClient, cache;
 
-  before(async () => {
+  beforeAll(async () => {
     redisClient = redis.createClient({
       host: 'localhost',
       port: 6379,
@@ -23,17 +22,17 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
     await redisClient.del('agenda_events:CachedCount:ns:889798');
   });
 
-  after(async () => await redisClient.quit());
+  afterAll(async () => await redisClient.quit());
 
   it('increments by one', async () => {
     const count = await cache.inc(889798, 1);
-    count.should.equal(124);
+    expect(count).toBe(124);
   });
 
   it('clears after provided lifetime', done => {
     setTimeout(() => {
       redisClient.get('agenda_events:CachedCount:ns:889798').then(result => {
-        should(result).equal(null);
+        expect(result).toBeNull();
         done();
       });
     }, 1010);
@@ -41,12 +40,12 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
 
   it('increments by two', async () => {
     const count = await cache.inc(889798, 2);
-    count.should.equal(125);
+    expect(count).toBe(125);
   });
 
   it('decrements by two', async () => {
     const count = await cache.dec(889798, 2);
-    count.should.equal(121);
+    expect(count).toBe(121);
   });
 
   it('loads value from function on first execution, from cached on second', async () => {
@@ -59,9 +58,8 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
     const firstCallResult = await cache(889798);
     const secondCallResult = await cache(889798);
 
-    callCount.should.equal(1)
-    firstCallResult.should.equal(42);
-    secondCallResult.should.equal(42);
+    expect(callCount).toBe(1)
+    expect(firstCallResult).toBe(42);
+    expect(secondCallResult).toBe(42);
   });
-
 });

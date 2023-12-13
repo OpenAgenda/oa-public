@@ -1,15 +1,13 @@
 'use strict';
 
-const should = require('should');
-
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
 describe('agendaEvents - functional (server): utils', function() {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -17,24 +15,23 @@ describe('agendaEvents - functional (server): utils', function() {
    ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service(config);
   });
 
   describe('setSourcePaths', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await svc.utils.setSourcePaths(62792452, 16425580, [[123]]);
     });
 
     it('updated ref includes set source uid', () => {
-      result.updated.sourcePaths.should.eql([[123]]);
+      expect(result.updated.sourcePaths).toEqual([[123]]);
     });
 
     it('ref before did not include source uid', () => {
-      result.before.sourcePaths.should.eql([]);
+      expect(result.before.sourcePaths).toEqual([]);
     });
   });
-
 });

@@ -2,17 +2,15 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const should = require('should');
 const redis = require('redis');
 
 const Queues = require('@openagenda/queues');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
-describe('agendaEvents - 05 - functional (server): remove', function() {
-  this.timeout(20000);
+describe.only('agendaEvents - 05 - functional (server): remove', function() {
   let svc;
   let redisClient;
 
@@ -24,7 +22,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
    ]);
   });
 
-  before(async () => {
+  beforeAll(async () => {
     redisClient = redis.createClient({
       socket: { host: 'localhost', port: 6379 }
     });
@@ -41,13 +39,13 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
     const result = await svc(62792452).remove(10974548);
     const after = await svc(62792452).get(10974548);
 
-    result.success.should.equal(true);
+    expect(result.success).toBe(true);
 
-    before.should.not.equal(null);
+    expect(before).not.toBeNull();
 
-    should(after).equal(null);
+    expect(after).toBeNull();
 
-    _.pick(result.removed, ['eventUid', 'agendaUid']).should.eql({
+    expect(_.pick(result.removed, ['eventUid', 'agendaUid'])).toEqual({
       eventUid: 10974548,
       agendaUid: 62792452
     });
@@ -59,9 +57,9 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
     const result = await svc.remove.byLegacyId(42, 24);
     const after = await svc(62792452).get(10974548);
 
-    result.success.should.equal(true);
-    before.should.not.equal(null);
-    should(after).equal(null);
+    expect(result.success).toBe(true);
+    expect(before).not.toBeNull();
+    expect(after).toBeNull();
   });
 
 
@@ -70,16 +68,16 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
     const result = await svc.remove.byLegacyId(null, 24);
     const after = await svc(62792452).get(10974548);
 
-    result.success.should.equal(true);
-    before.should.not.equal(null);
-    should(after).equal(null);
+    expect(result.success).toBe(true);
+    expect(before).not.toBeNull();
+    expect(after).toBeNull();
   });
 
 
   it('all references of given event can be removed in one call', async () => {
     const result = await svc.remove(15205357);
 
-    result.should.eql({
+    expect(result).toEqual({
       success: true,
       removed: 2
     });
@@ -101,7 +99,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
         onRemove: (removed, context) => {
           count++;
 
-          removed.eventUid.should.equal(15205357);
+          expect(removed.eventUid).toEqual(15205357);
 
           if (count === 2) {
             done();
@@ -121,7 +119,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
       interfaces: {
         onRemove: {
           $set: (removed, context) => {
-            context.userUid.should.equal(111);
+            expect(context.userUid).toEqual(111);
 
             done();
 
@@ -136,5 +134,4 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
       }
     });
   });
-
 });

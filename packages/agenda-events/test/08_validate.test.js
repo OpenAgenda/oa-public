@@ -1,23 +1,22 @@
 'use strict';
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 
 describe('agendaEvents - functional (server): validation', function() {
   let svc;
 
-  before(() => {
+  beforeAll(() => {
     svc = Service(config);
   });
 
   it('base validate endpoint validates data part of an agendaEvent reference', () => {
-    svc.validate( {
+    expect(svc.validate( {
       state: 2,
       featured: true
-    }).should.eql( {
+    })).toEqual( {
       state: 2,
       featured: true,
       userUid: null,
@@ -27,7 +26,7 @@ describe('agendaEvents - functional (server): validation', function() {
   });
 
   it('base validate endpoint has a field key as any validators validator would', () => {
-    _.keys(svc.validate.fields).should.eql([
+    expect(_.keys(svc.validate.fields)).toEqual([
       'state',
       'featured',
       'userUid',
@@ -37,9 +36,9 @@ describe('agendaEvents - functional (server): validation', function() {
   });
 
   it('validate endpoint assigns default state value when it is unspecified', () => {
-    svc.validate({
+    expect(svc.validate({
       featured: true
-    }).should.eql( {
+    })).toEqual({
       state: 2,
       featured: true,
       userUid: null,
@@ -49,18 +48,18 @@ describe('agendaEvents - functional (server): validation', function() {
   });
 
   it('validate endpoint does not include state if not provided and optional state option is set', () => {
-    svc.validate({
+    expect(svc.validate({
       featured: true
-    }, { optionalSecondaryFields: true }).should.eql({
+    }, { optionalSecondaryFields: true })).toEqual({
       featured: true,
       userUid: null
     });
   });
 
   it('validate can do things partially', () => {
-    svc.validate({
+    expect(svc.validate({
       state: 0
-    }, { partial: true }).should.eql({
+    }, { partial: true })).toEqual({
       state: 0
     });
   });

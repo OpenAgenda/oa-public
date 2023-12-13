@@ -2,10 +2,10 @@
 
 const _ = require('lodash');
 const redis = require('redis');
-const assert = require('assert');
+const assert = require('node:assert');
 const Queues = require('@openagenda/queues');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const states = require('../iso/states');
 
@@ -19,7 +19,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
   let redisClient;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -27,7 +27,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     ]);
   });
 
-  before(async () => {
+  beforeAll(async () => {
     redisClient = redis.createClient({
       socket: { host: 'localhost', port: 6379 }
     });
@@ -35,7 +35,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     await redisClient.connect();
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       ...config,
       queue: Queues({
@@ -54,7 +54,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     });
   });
 
-  after(async () => redisClient.quit());
+  afterAll(async () => redisClient.quit());
 
   it('simple list', async () => {
     const result = await svc(62792452).list(100, 10);

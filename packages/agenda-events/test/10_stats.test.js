@@ -1,15 +1,13 @@
 'use strict';
 
-const should = require('should');
-
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
 describe('agendaEvents - functional (server): stats', function() {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -17,14 +15,14 @@ describe('agendaEvents - functional (server): stats', function() {
    ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service(config);
   });
 
   it('countByUserUid (unrestricted)', async () => {
     const counts = await svc(62792452).stats.countByUserUid();
 
-    counts.should.eql([{
+    expect(counts).toEqual([{
       count: 2283, userUid: null
     }, {
       count: 2, userUid: 123
@@ -38,7 +36,7 @@ describe('agendaEvents - functional (server): stats', function() {
   it('countByUserUid (for specific user uids)', async () => {
     const counts = await svc( 62792452 ).stats.countByUserUid( [ 12312312 ] );
 
-    counts.should.eql( [ {
+    expect(counts).toEqual( [ {
       count: 1, userUid: 12312312
     } ] );
 

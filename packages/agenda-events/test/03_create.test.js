@@ -2,10 +2,9 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const should = require('should');
 const mysql = require('mysql');
 
-const Service = require('../');
+const Service = require('..');
 const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
@@ -13,7 +12,7 @@ const fixtures = require('./fixtures');
 describe('agendaEvents - 03 - functional (server): create', function() {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
@@ -21,7 +20,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service(config);
   });
 
@@ -29,7 +28,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
     let rows;
     let result;
 
-    before(done => {
+    beforeAll(done => {
       svc(1111).create(2222).then(r => {
         result = r;
         const con = mysql.createConnection(config.mysql);
@@ -42,22 +41,24 @@ describe('agendaEvents - 03 - functional (server): create', function() {
     });
 
     it('one entry in db is created', () => {
-      rows.length.should.equal(1);
+      expect(rows.length).toBe(1);
     });
 
     it('entry has specified agenda and event references', () => {
-      _.pick(rows[0], ['agenda_uid', 'event_uid']).should.eql({
+      expect(
+        _.pick(rows[0], ['agenda_uid', 'event_uid'])
+      ).toEqual({
         agenda_uid: 1111,
         event_uid: 2222
       });
     });
 
     it('aggregated db field is null by default', () => {
-      should(rows[0].aggregated).equal(null);
+      expect(rows[0].aggregated).toBeNull();
     });
 
     it('created result specifies aggregated to be null', () => {
-      should(result.created.aggregated).equal(null);
+      expect(result.created.aggregated).toBeNull();
     });
 
   });
@@ -65,7 +66,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
   describe('create with some more values', () => {
     const result = {};
 
-    before(async () => {
+    beforeAll(async () => {
       result.byUser = await svc(1212).create(3434, {
         userUid: 5656
       });
@@ -80,20 +81,26 @@ describe('agendaEvents - 03 - functional (server): create', function() {
     });
 
     it('userUid is provided in created ref', () => {
-      result.byUser.created.userUid.should.equal(5656);
+      expect(
+        result.byUser.created.userUid
+      ).toBe(5656);
     });
 
     it('aggregated key is provided in created ref when set at creation', () => {
-      result.aggregated.created.aggregated.should.equal('9fae1');
+      expect(
+        result.aggregated.created.aggregated
+      ).toBe('9fae1');
     });
 
     it('cannot create an entry both as aggregated and associated with user', () => {
-      result.aggregatedAndUser.success.should.equal(false);
+      expect(
+        result.aggregatedAndUser.success
+      ).toBe(false);
     });
 
   });
 
-  it( 'simple create forcing timestamp values', async () => {
+  it('simple create forcing timestamp values', async () => {
 
     const createdAt = new Date( '2017-02-28T08:00:00.000Z' );
 
@@ -106,18 +113,21 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       updatedAt
     }, { protected: false } );
 
-    result.created.createdAt.toString().should.equal( createdAt.toString() );
+    expect(
+      result.created.createdAt.toString()
+    ).toBe(createdAt.toString());
 
-    result.created.updatedAt.toString().should.equal( updatedAt.toString() );
-
-  } );
+    expect(
+      result.created.updatedAt.toString()
+    ).toBe(updatedAt.toString());
+  });
 
   it('context can be passed in options to be transfered to onCreate interface', done => {
     svc = Service(ih(config, {
       interfaces: {
         onCreate: {
           $set: (created, context) => {
-            context.userUid.should.equal(111);
+            expect(context.userUid).toBe(111);
           }
         }
       }
@@ -136,7 +146,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       interfaces: {
         onCreate: {
           $set: (created, context) => {
-            should(context.userUid).equal(null);
+            expect(context.userUid).toBeNull();
           }
         }
       }
@@ -150,7 +160,6 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       created
     } = await svc(1212).create(3446, { canEdit: true });
 
-    created.canEdit.should.equal(true);
+    expect(created.canEdit).toBe(true);
   });
-
 });
