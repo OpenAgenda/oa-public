@@ -1,12 +1,13 @@
-import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import formatEvent from './lib/formatEvent.js';
 import { omit, getTimingId, isDHMFormat, convertDHMToDate } from './lib/utils.js';
 import formatErrors from './lib/formatErrors.js';
 
-const log = logs('passCulture/createEventOffer');
-
-export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
+export default async function createEventOffer(internals, OAEvent, PCData, options = {}) {
+  const {
+    pc,
+    log = { info: () => {}, error: () => {} },
+  } = internals;
   const {
     priceCategories = [],
     dates = [],
@@ -30,17 +31,20 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     related,
   });
 
+  log.info('createEventOffer - attempting create', { eventOffer });
+
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
+    log.info('createEventOffer - create failed', { error: e?.response?.data });
     throw new BadRequest({
       info: {
-        errors: formatErrors(e.response.data),
+        errors: formatErrors(e.response.data, { log }),
       },
     }, 'data is invalid');
   }
 
-  log.info('created event offer %s', result.eventOffer.id);
+  log.info('createEventOffer - created event offer %s', result.eventOffer.id);
 
   try {
     const {
@@ -50,12 +54,12 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
 
     result.priceCategories = createdPriceCategories;
-    log.info('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
+    log.info('createEventOffer - %s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
   } catch (e) {
-    log.error('failed to create price categories', e);
+    log.error('createEventOffer - failed to create price categories', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data),
+      errors: formatErrors(e.response.data, { log }),
     };
   }
 
@@ -78,12 +82,12 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
     result.dates = createdDates;
 
-    log.info('%s: created %s dates', result.eventOffer.id, createdDates.length);
+    log.info('createEventOffer - %s: created %s dates', result.eventOffer.id, createdDates.length);
   } catch (e) {
-    log.error('failed to create dates', e);
+    log.error('createEventOffer - failed to create dates', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data),
+      errors: formatErrors(e.response.data, { log }),
     };
   }
 
