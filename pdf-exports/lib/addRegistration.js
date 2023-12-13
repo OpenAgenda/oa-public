@@ -1,5 +1,15 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import addText from './addText.js';
 import addIcon from './addIcon.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const emailIconPath = `${__dirname}/../images/email.png`;
+const phoneIconPath = `${__dirname}/../images/phone.png`;
+const linkIconPath = `${__dirname}/../images/link.png`;
 
 const addRegistrationItem = async (
   type,
@@ -59,13 +69,7 @@ export default async function addRegistration(
   params = {},
   options = {},
 ) {
-  const {
-    base,
-    iconHeightAndWidth,
-    emailIconPath,
-    phoneIconPath,
-    linkIconPath,
-  } = params;
+  const { base, iconHeightAndWidth } = params;
   const { simulate = false, lang } = options;
 
   const localCursor = {
@@ -103,22 +107,13 @@ export default async function addRegistration(
     localCursor.y += base.margin / 16;
   }
 
-  const typesWithIcons = [
-    { type: 'email', iconPath: emailIconPath },
-    { type: 'phone', iconPath: phoneIconPath },
-    { type: 'link', iconPath: linkIconPath },
-  ];
-
-  function getTypeAndIconPath(type) {
-    const typeWithIcon = typesWithIcons.find(item => item.type === type);
-    return {
-      type: typeWithIcon.type,
-      iconPath: typeWithIcon.iconPath,
-    };
-  }
-
   for (const registrationItem of registration) {
-    const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
+    const { type, iconPath } = [
+      { type: 'email', iconPath: emailIconPath },
+      { type: 'phone', iconPath: phoneIconPath },
+      { type: 'link', iconPath: linkIconPath },
+    ].find(item => item.type === registrationItem.type);
+
     const reg = await addRegistrationItem(
       type,
       registrationItem.value,
