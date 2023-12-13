@@ -1,11 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
-import { chakra, CloseButton, Container } from '@openagenda/uikit';
+import rehypeExternalLinks from 'rehype-external-links';
+import { chakra, CloseButton, Container, Link } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 
-const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
-const remarkPlugins: any[] = [breaks];
+const remarkPlugins = [breaks];
+const rehypePlugins = [[rehypeExternalLinks, {
+  target: '_blank',
+  rel: ['nofollow', 'noopener', 'noreferrer'],
+}]] as any; // import("unified").PluggableList;
+
+const reactMdComponents = {
+  a(props) {
+    const { node, ...rest } = props;
+    return <Link colorScheme="primary" {...rest} />;
+  },
+};
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 
@@ -54,8 +65,6 @@ export default function Announcement() {
     setDisplayAnnouncement(false);
   }, [user]);
 
-  console.log({ user, displayAnnouncement });
-
   if (!user?.announcement || !displayAnnouncement) {
     return null;
   }
@@ -81,7 +90,11 @@ export default function Announcement() {
         justifyContent="space-between"
       >
         <chakra.div alignSelf="center">
-          <ReactMarkdown linkTarget={getTarget} remarkPlugins={remarkPlugins}>
+          <ReactMarkdown
+            remarkPlugins={remarkPlugins}
+            rehypePlugins={rehypePlugins}
+            components={reactMdComponents}
+          >
             {user.announcement.content}
           </ReactMarkdown>
         </chakra.div>

@@ -49,7 +49,8 @@ export const WithAnnouncement = {
                 + 'Lorem ipsum dolor sit amet,\n'
                 + 'consectetur adipisicing elit.\n'
                 + 'Ab amet at, autem commodi eaque enim eum fugiat illo iure necessitatibus neque,\n'
-                + 'nesciunt nisi porro quasi quo sint veniam veritatis voluptate.',
+                + 'nesciunt nisi porro quasi quo sint veniam veritatis voluptate. [test](/home) [test](https://google.fr)\n\n'
+                + '![image](https://imagesdev-1cb1b.kxcdn.com/user.profile.75052324.jpg?format=webp&width=32)',
               kind: 'danger',
             },
           }),
