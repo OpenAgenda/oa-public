@@ -1,5 +1,48 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
-import { mode } from '@chakra-ui/theme-tools';
+import { mode, transparentize } from '@chakra-ui/theme-tools';
+import { runIfFn } from '@chakra-ui/shared-utils';
+
+const variantGhost = defineStyle(props => {
+  const { colorScheme: c, theme } = props;
+
+  if (c === 'gray') {
+    return {
+      color: mode('gray.800', 'whiteAlpha.900')(props),
+      _hover: {
+        bg: mode('gray.100', 'whiteAlpha.200')(props),
+      },
+      _active: { bg: mode('gray.200', 'whiteAlpha.300')(props) },
+    };
+  }
+
+  const darkHoverBg = transparentize(`${c}.200`, 0.12)(theme);
+  const darkActiveBg = transparentize(`${c}.200`, 0.24)(theme);
+
+  return {
+    color: mode(`${c}.500`, `${c}.200`)(props),
+    bg: 'transparent',
+    _hover: {
+      bg: mode(`${c}.50`, darkHoverBg)(props),
+    },
+    _active: {
+      bg: mode(`${c}.100`, darkActiveBg)(props),
+    },
+  };
+});
+
+const variantOutline = defineStyle(props => {
+  const { colorScheme: c } = props;
+  const borderColor = mode('gray.200', 'whiteAlpha.300')(props);
+  return {
+    border: '1px solid',
+    borderColor: c === 'gray' ? borderColor : 'currentColor',
+    '.chakra-button__group[data-attached][data-orientation=horizontal] > &:not(:last-of-type)':
+      { marginEnd: '-1px' },
+    '.chakra-button__group[data-attached][data-orientation=vertical] > &:not(:last-of-type)':
+      { marginBottom: '-1px' },
+    ...runIfFn(variantGhost, props),
+  };
+});
 
 type AccessibleColor = {
   bg?: string;
@@ -74,8 +117,8 @@ const variantLink = defineStyle(props => {
 });
 
 const variants = {
-  // ghost: variantGhost,
-  // outline: variantOutline,
+  ghost: variantGhost,
+  outline: variantOutline,
   solid: variantSolid,
   link: variantLink,
   // unstyled: variantUnstyled,
