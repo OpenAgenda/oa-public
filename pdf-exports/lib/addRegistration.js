@@ -3,7 +3,7 @@ import addIcon from './addIcon.js';
 
 const addRegistrationItem = async (
   type,
-  registrationItem,
+  registration,
   iconPath,
   doc,
   localCursor,
@@ -42,20 +42,20 @@ const addRegistrationItem = async (
       break;
   }
 
-  const simulateReg = addText(doc, localCursor, registrationItem, {
+  const simulateReg = addText(doc, localCursor, registration.label, {
     fontSize: 10,
     underline: false,
-    link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
+    link: type !== 'phone' ? linkPrefix + registration.value : undefined,
     base,
     simulate: true,
   });
   const simulatewidthOfReg = simulateReg.width;
 
-  const reg = addText(doc, localCursor, registrationItem, {
+  const reg = addText(doc, localCursor, registration.label, {
     width: simulatewidthOfReg + base.margin / 3,
     fontSize: 10,
     underline: false,
-    link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
+    link: type !== 'phone' ? linkPrefix + registration.value : undefined,
     base,
     simulate,
   });
@@ -109,7 +109,7 @@ export async function simulateAddRegistration(
 
   const simulateReg = await addRegistrationItem(
     type,
-    registration.value,
+    registration,
     iconPath,
     doc,
     localCursor,
@@ -194,22 +194,40 @@ export default async function addRegistration(
   let totalWidth = null;
   let totalHeight = heightOfRegistrationLabel;
 
-  for (const registrationItem of registration) {
+  for (const [index, registrationItem] of registration.entries()) {
+    registrationItem.label = registrationItem.value;
+
+    const isFirstItemOnLine = localCursor.x === widthOfRegistrationLabel + base.margin / 3;
+
     const {
       width: simulateItemsWidth,
       height: simulateItemsHeight,
-    } = await simulateAddRegistration(registrationItem, doc, cursor, params);
+    } = await simulateAddRegistration(registrationItem, doc, localCursor, params);
 
-    if (localCursor.x + simulateItemsWidth + base.margin / 3 > textMaxWidth) {
-      localCursor.x = widthOfRegistrationLabel + base.margin / 3;
-      localCursor.y += simulateItemsHeight + base.margin / 16;
-      totalHeight += simulateItemsHeight + base.margin / 16;
+    const isTooLong = localCursor.x + simulateItemsWidth + base.margin / 3 > textMaxWidth;
+
+    if (isTooLong) {
+      if (!isFirstItemOnLine) {
+        localCursor.x = widthOfRegistrationLabel + base.margin / 3;
+        localCursor.y += simulateItemsHeight + base.margin / 16;
+        totalHeight += simulateItemsHeight + base.margin / 16;
+      }
+
+      while (true) {
+        registrationItem.label = `${registrationItem.label.slice(0, -2)}…`;
+
+        const { width } = await simulateAddRegistration(registrationItem, doc, localCursor, params);
+
+        if (localCursor.x + width + base.margin / 3 <= textMaxWidth) {
+          break;
+        }
+      }
     }
 
     const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
     await addRegistrationItem(
       type,
-      registrationItem.value,
+      registrationItem,
       iconPath,
       doc,
       localCursor,
@@ -220,6 +238,14 @@ export default async function addRegistration(
       },
       { simulate },
     );
+
+    const isLast = index === registration.length - 1;
+
+    if (isTooLong && !isLast) {
+      localCursor.x = widthOfRegistrationLabel + base.margin / 3;
+      localCursor.y += simulateItemsHeight + base.margin / 16;
+      totalHeight += simulateItemsHeight + base.margin / 16;
+    }
   }
 
   return {
