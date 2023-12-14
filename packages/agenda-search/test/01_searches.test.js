@@ -9,9 +9,8 @@ const getDetailedAgenda = require('./app/getDetailedAgenda');
 
 describe('01 - Search', function() {
   let svc;
-  this.timeout(30000);
 
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
@@ -26,12 +25,12 @@ describe('01 - Search', function() {
     });
   });
 
-  before(() => svc.rebuild());
+  beforeAll(() => svc.rebuild());
 
   describe('Default (no searches, no filters, no options)', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await svc({});
     });
 

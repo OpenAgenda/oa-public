@@ -8,9 +8,7 @@ const getDetailedAgenda = require('./app/getDetailedAgenda');
 
 describe('02 - Indexed and not indexed', function() {
   let svc;
-  this.timeout(30000);
-
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
@@ -19,7 +17,7 @@ describe('02 - Indexed and not indexed', function() {
     });
   });
 
-  before(() => svc.rebuild());
+  beforeAll(() => svc.rebuild());
 
   it('only indexed agendas are returned by default', async () => {
     const {
