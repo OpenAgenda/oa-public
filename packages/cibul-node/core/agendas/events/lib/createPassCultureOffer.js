@@ -1,10 +1,9 @@
 'use strict';
 
+const { produce } = require('immer');
 const log = require('@openagenda/logs')('core/agendas/events/createPassCultureOffer');
 
-const { produce } = require('immer');
-
-module.exports = async function createPassCultureOffer(core, agenda, clean) {
+module.exports = async function createPassCultureOffer(core, agenda, clean, before) {
   log.info('called');
 
   const {
@@ -22,7 +21,7 @@ module.exports = async function createPassCultureOffer(core, agenda, clean) {
   const {
     eventOffer,
     errors,
-  } = await passCultureService.createEventOffer(clean.event, passCulture);
+  } = await passCultureService.createEventOffer(clean.event, passCulture, { before });
 
   log.info('createEventOffer result', { eventOffer, errors });
 
