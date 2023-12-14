@@ -5648,12 +5648,11 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     immutability-helper: "npm:^2.2.2"
+    jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mocha: "npm:^7.0.1"
     mysql: "npm:^2.11.1"
     redis: "npm:^4.6.6"
-    should: "npm:^13.2.3"
   languageName: unknown
   linkType: soft
 
@@ -6031,11 +6030,10 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     async: "npm:^1.5.2"
+    jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mocha: "npm:^7.0.1"
     mysql: "npm:^2.10.2"
-    should: "npm:^13.2.3"
     slugify: "npm:^1.4.5"
     when: "npm:^3.7.8"
   languageName: unknown
