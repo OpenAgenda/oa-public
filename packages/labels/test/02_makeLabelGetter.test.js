@@ -1,6 +1,5 @@
 'use strict';
 
-const should = require( 'should' );
 const makeLabelGetter = require( '../makeLabelGetter' );
 
 const messages = {
@@ -40,41 +39,41 @@ describe( 'makeLabelGetter - functional', () => {
 
   it( 'simple label', () => {
 
-    getLabel( 'helloWorld', 'fr' ).should.eql( 'Bonjour le monde' );
+    expect(getLabel( 'helloWorld', 'fr' )).toBe( 'Bonjour le monde' );
 
   } );
 
   it( 'simple label with values', () => {
 
-    getLabel( 'welcome', { name: 'Bertho', age: 23 }, 'fr' ).should.eql( 'Bonjour Bertho, tu as 23 ans' );
+    expect(getLabel( 'welcome', { name: 'Bertho', age: 23 }, 'fr' )).toBe( 'Bonjour Bertho, tu as 23 ans' );
 
   } );
 
   it( 'simple label with quote', () => {
 
-    getLabel( 'simpleWithQuote', { name: 'Bertho', age: 23 }, 'fr' ).should.eql( 'Bonjour l\'monde' );
+    expect(getLabel( 'simpleWithQuote', { name: 'Bertho', age: 23 }, 'fr' )).toBe( 'Bonjour l\'monde' );
 
   } );
 
   it( 'simple label with escaped quote', () => {
 
-    getLabel( 'simpleWithEscapedQuote', { name: 'Bertho', age: 23 }, 'fr' ).should.eql( 'Bonjour l\'monde' );
+    expect(getLabel( 'simpleWithEscapedQuote', { name: 'Bertho', age: 23 }, 'fr' )).toBe( 'Bonjour l\'monde' );
 
   } );
 
   it( 'ICU message', () => {
 
-    getLabel( 'yourPhotos', { numPhotos: 0 }, 'fr' ).should.eql( 'Vous n\'avez pas de photos.' );
-    getLabel( 'yourPhotos', { numPhotos: 1 }, 'fr' ).should.eql( 'Vous avez une photo.' );
-    getLabel( 'yourPhotos', { numPhotos: 42 }, 'fr' ).should.eql( 'Vous avez 42 photos.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 0 }, 'fr' )).toBe( 'Vous n\'avez pas de photos.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 1 }, 'fr' )).toBe( 'Vous avez une photo.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 42 }, 'fr' )).toBe( 'Vous avez 42 photos.' );
 
   } );
 
   it( 'fallback language', () => {
 
-    getLabel( 'yourPhotos', { numPhotos: 0 }, 'it' ).should.eql( 'You have no photos.' );
-    getLabel( 'yourPhotos', { numPhotos: 1 }, 'it' ).should.eql( 'You have one photo.' );
-    getLabel( 'yourPhotos', { numPhotos: 42 }, 'it' ).should.eql( 'You have 42 photos.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 0 }, 'it' )).toBe( 'You have no photos.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 1 }, 'it' )).toBe( 'You have one photo.' );
+    expect(getLabel( 'yourPhotos', { numPhotos: 42 }, 'it' )).toBe( 'You have 42 photos.' );
 
   } );
 
