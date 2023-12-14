@@ -1,330 +1,306 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' );
+const generateTagSet = require('../lib/utils/generateTagSet');
 
-const generateTagSet = require( '../lib/utils/generateTagSet' );
-
-describe( '02 - utils - generateTagSet', () => {
-
-  it( 'transforms a checkbox field into a tag group', () => {
-
-    generateTagSet( {
-      fields: [ {
+describe('02 - utils - generateTagSet', () => {
+  it('transforms a checkbox field into a tag group', () => {
+    expect(generateTagSet({
+      fields: [{
         field: 'nantes',
         origin: 'tags',
         label: 'Nantes',
         fieldType: 'checkbox',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          lable: 'Un'
-        } ]
-      } ]
-    } ).set.groups.length.should.equal( 1 );
+          lable: 'Un',
+        }],
+      }],
+    }).set.groups.length).toBe(1);
+  });
 
-  } );
-
-  it( 'transforms a radio field into a tag group', () => {
-
-    generateTagSet( {
-      fields: [ {
+  it('transforms a radio field into a tag group', () => {
+    expect(generateTagSet({
+      fields: [{
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          lable: 'Un'
-        } ]
-      } ]
-    } ).set.groups.length.should.equal( 1 );
+          lable: 'Un',
+        }],
+      }],
+    }).set.groups.length).toBe(1);
+  });
 
-  } );
-
-  it( 'does not consider field if origin is set to another value than "tags"', () => {
-
-    should(generateTagSet( {
-      fields: [ {
+  it('does not consider field if origin is set to another value than "tags"', () => {
+    expect(generateTagSet({
+      fields: [{
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'radio',
         schemaId: 1,
         origin: 'custom',
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          lable: 'Un'
-        } ]
-      } ]
-    } ).set).equal(null);
-  } );
+          lable: 'Un',
+        }],
+      }],
+    }).set).toBeNull();
+  });
 
-  it( 'matches a field with an existing tag group based on a monolingual label', () => {
+  it('matches a field with an existing tag group based on a monolingual label', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Nantes',
-        tags: [ {
+        tags: [{
           id: 122,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
+    expect(generateTagSet(schema, tagSet).set.groups.length).toBe(1);
+    expect(generateTagSet(schema, tagSet).set.groups[0].name).toBe('Nantes');
+  });
 
-    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Nantes' );
-
-  } );
-
-  it( 'matches a field with an existing tag group based on a multilingual label', () => {
-
+  it('matches a field with an existing tag group based on a multilingual label', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'nantes',
         origin: 'tags',
         label: { fr: 'Nantes', en: 'Nantes' },
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          lable: 'Un'
-        } ]
-      } ]
+          lable: 'Un',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Nantes',
-        tags: []
-      } ]
+        tags: [],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
+    expect(generateTagSet(schema, tagSet).set.groups.length).toBe(1);
+    expect(generateTagSet(schema, tagSet).set.groups[0].name).toBe('Nantes');
+  });
 
-    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Nantes' );
-
-  } );
-
-  it( 'a field with a name matching no group is added', () => {
-
+  it('a field with a name matching no group is added', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'london',
         label: { fr: 'Londres', en: 'London' },
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Nantes',
-        tags: []
-      } ]
+        tags: [],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
+    expect(generateTagSet(schema, tagSet).set.groups.length).toBe(1);
+    expect(generateTagSet(schema, tagSet).set.groups[0].name).toBe('Londres');
+  });
 
-    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Londres' );
-
-  } );
-
-  it( 'a pre-existing tag is completed with a schemaOptionId key', () => {
-
+  it('a pre-existing tag is completed with a schemaOptionId key', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'nantes',
         label: { fr: 'Nantes', en: 'Nantes' },
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Nantes',
-        tags: [ {
+        tags: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.groups[ 0 ].tags[ 0 ].schemaOptionId.should.equal( '1.1' );
+    expect(generateTagSet(schema, tagSet).set.groups[0].tags[0].schemaOptionId).toBe('1.1');
+  });
 
-  } );
-
-  it( 'a schemaOptionId is used for tag match if set', () => {
-
+  it('a schemaOptionId is used for tag match if set', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'nantes',
         label: { fr: 'Nantes', en: 'Nantes' },
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        } ]
-      } ]
+          label: 'Un',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Nantes',
-        tags: [ {
+        tags: [{
           id: 123,
           schemaOptionId: '1.1',
           value: 'douze',
-          label: 'Douze'
-        } ]
-      } ]
+          label: 'Douze',
+        }],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.groups[ 0 ].tags[ 0 ].id.should.equal( 123 );
+    expect(generateTagSet(schema, tagSet).set.groups[0].tags[0].id).toBe(123);
+  });
 
-  } );
-
-  it( 'updates pre-existing tag set', () => {
-
+  it('updates pre-existing tag set', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         origin: 'tags',
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'checkbox',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
+          label: 'Un',
         }, {
           id: 2,
           value: 'deux',
-          label: 'Deux'
-        } ]
+          label: 'Deux',
+        }],
       }, {
         origin: 'tags',
         field: 'paris',
         label: 'Paris',
         fieldType: 'checkbox',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 3,
           value: 'trois',
-          label: 'Trois'
+          label: 'Trois',
         }, {
           id: 4,
           value: 'quatre',
-          label: 'Quatre'
-        } ]
-      } ]
+          label: 'Quatre',
+        }],
+      }],
     };
 
     const tagSet = {
-      groups: [ {
+      groups: [{
         name: 'Paris',
         required: true,
         unique: false,
-        tags: [ {
+        tags: [{
           slug: 'trois',
           label: 'Trois',
-          id: 192018
+          id: 192018,
         }, {
           label: 'Cinq',
-          slug: 'cinq'
-        } ]
+          slug: 'cinq',
+        }],
       }, {
         name: 'Lyon',
         required: true,
         unique: false,
-        tags: [ {
+        tags: [{
           label: 'Six',
           slug: 'six',
-          id: 192019
-        } ]
-      } ]
+          id: 192019,
+        }],
+      }],
     };
 
-    generateTagSet( schema, tagSet ).set.should.eql( {
-      groups: [ {
-        "name": "Nantes",
-        "access": "public",
-        "required": true,
-        "unique": false,
-        "tags": [ {
-          "slug": "un",
-          "label": "Un",
-          "schemaOptionId": "1.1"
+    expect(generateTagSet(schema, tagSet).set).toEqual({
+      groups: [{
+        name: 'Nantes',
+        access: 'public',
+        required: true,
+        unique: false,
+        tags: [{
+          slug: 'un',
+          label: 'Un',
+          schemaOptionId: '1.1',
         }, {
-          "slug": "deux",
-          "label": "Deux",
-          "schemaOptionId": "1.2"
-        } ]
+          slug: 'deux',
+          label: 'Deux',
+          schemaOptionId: '1.2',
+        }],
       }, {
-        "name": "Paris",
-        "access": "public",
-        "required": true,
-        "unique": false,
-        "tags": [ {
-          "label": "Trois",
-          "slug": "trois",
-          "id": 192018, // maintain those, its important
-          "schemaOptionId": "1.3" // add those
+        name: 'Paris',
+        access: 'public',
+        required: true,
+        unique: false,
+        tags: [{
+          label: 'Trois',
+          slug: 'trois',
+          id: 192018, // maintain those, its important
+          schemaOptionId: '1.3', // add those
         }, {
-          "slug": "quatre",
-          "label": "Quatre",
-          "schemaOptionId": "1.4"
-        } ]
-      } ]
-    } );
+          slug: 'quatre',
+          label: 'Quatre',
+          schemaOptionId: '1.4',
+        }],
+      }],
+    });
+  });
 
-  } );
-
-
-  it( 'takes a form schema and returns a matching tag set', () => {
-
+  it('takes a form schema and returns a matching tag set', () => {
     const schema = {
       nextOptionId: 8,
-      "defaultLabelLanguage": null,
+      defaultLabelLanguage: null,
       fields: [
         {
           field: 'niveau-scolaire',
           label: {
-            fr: 'Niveau scolaire'
+            fr: 'Niveau scolaire',
           },
           info: null,
-          sub : null,
+          sub: null,
           help: null,
           helpLink: null,
           write: 'contributor',
@@ -334,144 +310,140 @@ describe( '02 - utils - generateTagSet', () => {
           min: null,
           max: null,
           schemaId: 1,
-          options: [ {
+          options: [{
             id: 1,
             value: 'ecole',
             label: {
-              fr: 'Niveau scolaire: Ecole'
-            }
+              fr: 'Niveau scolaire: Ecole',
+            },
           },
           {
             id: 2,
             value: 'college',
             label: {
-              fr: 'Niveau scolaire: Collège'
-            }
+              fr: 'Niveau scolaire: Collège',
+            },
           },
           {
-            "id": 3,
-            "value": "lycee",
-            "label": {
-              "fr": "Niveau scolaire: Lycée"
-            }
+            id: 3,
+            value: 'lycee',
+            label: {
+              fr: 'Niveau scolaire: Lycée',
+            },
           },
           {
-            "id": 4,
-            "value": "autre",
-            "label": {
-              "fr": "Niveau scolaire: Autre"
-            }
-          } ],
-          fieldType: "checkbox",
-          "placeholder" : null,
-          "origin" : "tags",
-          enableWith : null,
+            id: 4,
+            value: 'autre',
+            label: {
+              fr: 'Niveau scolaire: Autre',
+            },
+          }],
+          fieldType: 'checkbox',
+          placeholder: null,
+          origin: 'tags',
+          enableWith: null,
           related: [],
-          default: null
+          default: null,
         },
         {
-          field: "style-musical",
+          field: 'style-musical',
           label: {
-            "fr": "Style musical"
+            fr: 'Style musical',
           },
           info: null,
-          placeholder : null,
-          sub : null,
+          placeholder: null,
+          sub: null,
           help: null,
           helpLink: null,
           write: 'contributor',
           read: null,
-          "optional": true,
+          optional: true,
           display: true,
           schemaId: 1,
-          "options": [
+          options: [
             {
-              "id": 5,
-              "value": "a-cappella",
-              "label": {
-                "fr": "Style musical : A cappella"
-              }
+              id: 5,
+              value: 'a-cappella',
+              label: {
+                fr: 'Style musical : A cappella',
+              },
             },
             {
-              "id": 6,
-              "value": "afrique",
-              "label": {
-                "fr": "Style musical : Afrique"
-              }
+              id: 6,
+              value: 'afrique',
+              label: {
+                fr: 'Style musical : Afrique',
+              },
             },
             {
-              "id": 7,
-              "value": "baroque",
-              "label": {
-                "fr": "Style musical : Baroque"
-              }
-            }
+              id: 7,
+              value: 'baroque',
+              label: {
+                fr: 'Style musical : Baroque',
+              },
+            },
           ],
-          "fieldType": "radio",
-          "origin" : "tags",
-          enableWith : null,
+          fieldType: 'radio',
+          origin: 'tags',
+          enableWith: null,
           related: [],
-          default: null
-        }
+          default: null,
+        },
       ],
-      custom: null
+      custom: null,
     };
 
-    generateTagSet( schema ).set.should.eql( {
-      "groups": [ {
-        "name": "Niveau scolaire",
-        "access": "public",
-        "tags": [
+    expect(generateTagSet(schema).set).toEqual({
+      groups: [{
+        name: 'Niveau scolaire',
+        access: 'public',
+        tags: [
           {
-            "label": "Niveau scolaire: Ecole",
-            "slug": "ecole",
-            "schemaOptionId" : "1.1"
+            label: 'Niveau scolaire: Ecole',
+            slug: 'ecole',
+            schemaOptionId: '1.1',
           },
           {
-            "label": "Niveau scolaire: Collège",
-            "slug": "college",
-            "schemaOptionId" : "1.2"
+            label: 'Niveau scolaire: Collège',
+            slug: 'college',
+            schemaOptionId: '1.2',
           },
           {
-            "label": "Niveau scolaire: Lycée",
-            "slug": "lycee",
-            "schemaOptionId" : "1.3"
+            label: 'Niveau scolaire: Lycée',
+            slug: 'lycee',
+            schemaOptionId: '1.3',
           },
           {
-            "label": "Niveau scolaire: Autre",
-            "slug": "autre",
-            "schemaOptionId" : "1.4"
-          }
+            label: 'Niveau scolaire: Autre',
+            slug: 'autre',
+            schemaOptionId: '1.4',
+          },
         ],
-        "required": true,
-        "unique": false
+        required: true,
+        unique: false,
       }, {
-        "name": "Style musical",
-        "access" : "public",
-        "tags": [
+        name: 'Style musical',
+        access: 'public',
+        tags: [
           {
-            "label": "Style musical : A cappella",
-            "slug": "a-cappella",
-            "schemaOptionId" : "1.5"
+            label: 'Style musical : A cappella',
+            slug: 'a-cappella',
+            schemaOptionId: '1.5',
           },
           {
-            "label": "Style musical : Afrique",
-            "slug": "afrique",
-            "schemaOptionId" : "1.6"
+            label: 'Style musical : Afrique',
+            slug: 'afrique',
+            schemaOptionId: '1.6',
           },
           {
-            "label": "Style musical : Baroque",
-            "slug": "baroque",
-            "schemaOptionId" : "1.7"
-          }
+            label: 'Style musical : Baroque',
+            slug: 'baroque',
+            schemaOptionId: '1.7',
+          },
         ],
-        "required": false,
-        "unique": true
-      } ]
-    } );
-
-  } );
-
-} );
-
-
+        required: false,
+        unique: true,
+      }],
+    });
+  });
+});
