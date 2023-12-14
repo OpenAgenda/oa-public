@@ -2,9 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
-
-  svc = require( './service' ),
+const svc = require( './service' ),
 
   ih = require( 'immutability-helper' ),
 
@@ -72,7 +70,7 @@ describe( 'extended events - functional (server): list', function() {
 
   it( 'list custom data by form schema id', async () => {
 
-    ( await svc( 29 ).list( {}, 3, 5 ) ).items.should.eql( [
+    expect(( await svc( 29 ).list( {}, 3, 5 ) ).items).toEqual( [
       { identifier: 444, custom: { edition: 3, contender: 'bill' } },
       { identifier: 555, custom: { edition: 4, contender: 'john' } },
       { identifier: 666, custom: { edition: 5, contender: 'bobby' } },
@@ -84,13 +82,13 @@ describe( 'extended events - functional (server): list', function() {
 
   it( 'list gives total', async () => {
 
-    ( await svc( 29 ).list( {}, 30, 5 ) ).total.should.equal( 14 );
+    expect( (await svc( 29 ).list( {}, 30, 5 )).total ).toBe( 14 );
 
   } );
 
   it( 'list can target specific identifiers', async () => {
 
-    ( await svc( 29 ).list( { identifier: [ 123, 837 ] }, 0, 20 ) ).items.should.eql( [
+    expect(( await svc( 29 ).list( { identifier: [ 123, 837 ] }, 0, 20 ) ).items).toEqual( [
       { identifier: 123, custom: { edition: 9, contender: 'pinky' } },
       { identifier: 837, custom: { edition: 10, contender: 'sugar' } }
     ] );

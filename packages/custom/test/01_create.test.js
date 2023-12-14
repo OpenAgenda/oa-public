@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 
 const schema = require( '@openagenda/validators/schema' );
 
@@ -16,8 +15,6 @@ schema.register( {
 } );
 
 describe( 'extended events - functional (server): create', function() {
-
-  this.timeout( 4000 );
 
   beforeEach( async () => {
 
@@ -47,7 +44,7 @@ describe( 'extended events - functional (server): create', function() {
       contender: 'steve'
     } );
 
-    result.success.should.equal( true );
+    expect(result.success).toBe(true);
 
   } );
 
@@ -64,7 +61,7 @@ describe( 'extended events - functional (server): create', function() {
 
         con.end();
 
-        rows.length.should.equal( 1 );
+        expect(rows.length).toBe( 1 );
 
         done();
 

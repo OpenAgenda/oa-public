@@ -2,9 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
-
-  _ = require( 'lodash' ),
+const  _ = require( 'lodash' ),
 
   svc = require( './service' ),
 
@@ -21,7 +19,7 @@ schema.register( {
   text: require( '@openagenda/validators/text' )
 } );
 
-describe( 'extended events - functional (server): get', function() {
+describe( 'extended events - functional (server): remove', function() {
 
   beforeEach( async () => {
 
@@ -44,16 +42,43 @@ describe( 'extended events - functional (server): get', function() {
 
   } );
 
-  it( 'get custom data by form schema id and identifier', async () => {
+  beforeEach( async () => {
 
     await svc( 12 ).create( 123, {
       edition: 12,
       contender: 'Phteve'
     } );
 
-    ( await svc( 12 ).get( 123 ) ).should.eql( {
-      edition: 12,
-      contender: 'Phteve'
+  } );
+
+  it( 'remove custom data by form schema id and identifier', async () => {
+
+    expect( await svc( 12 ).remove( 123 ) ).toEqual( {
+      success: true,
+      removed: {
+        contender: 'Phteve',
+        edition: 12
+      }
+    } );
+
+  } );
+
+  it( 'remove effectively removes', done => {
+
+    svc( 12 ).remove( 123 ).then( () => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12, 123 ], ( err, rows ) => {
+
+        con.end();
+
+        expect(rows.length).toBe( 0 );
+
+        done();
+
+      } );
+
     } );
 
   } );

@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'test';
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 
 const schema = require( '@openagenda/validators/schema' );
 
@@ -24,7 +23,7 @@ describe( 'extended events - functional (server): update', function() {
 
     let result;
 
-    before( async () => {
+    beforeAll( async () => {
       await svc.initAndLoad( ih( config, {
         interfaces: {
           getValidator: {
@@ -41,7 +40,7 @@ describe( 'extended events - functional (server): update', function() {
       } ) );
     } );
 
-    before(async () => {
+    beforeAll(async () => {
       await svc( 3819893 ).create( 123, {
         edition: 12,
         contender: 'steve'
@@ -54,7 +53,7 @@ describe( 'extended events - functional (server): update', function() {
     });
 
     it('success key is true if update is successful', () => {
-      result.success.should.equal(true);
+      expect(result.success).toBe(true);
     });
 
     it('record in db is updated', done => {
@@ -65,14 +64,16 @@ describe( 'extended events - functional (server): update', function() {
         [3819893, 123],
         ( err, rows ) => {
           con.end();
-          rows.length.should.equal(1);
-          JSON.parse(rows[0].store).contender.should.equal('bob');
+          expect(rows.length).toBe(1);
+          expect(
+            JSON.parse(rows[0].store).contender,
+          ).toBe('bob');
           done();
       });
     });
 
     it('before key contains values before update', () => {
-      result.before.should.eql({
+      expect(result.before).toEqual({
         edition: 12,
         contender: 'steve'
       });
@@ -82,7 +83,7 @@ describe( 'extended events - functional (server): update', function() {
 
   describe('partial', () => {
 
-    before( async () => {
+    beforeAll( async () => {
       await svc.initAndLoad( ih( config, {
         interfaces: {
           getValidator: {
@@ -110,7 +111,7 @@ describe( 'extended events - functional (server): update', function() {
         contender: 'Boris'
       }, { partial: true } );
 
-      result.should.eql({
+      expect(result).toEqual({
         success: true,
         before: {
           edition: 22,

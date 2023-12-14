@@ -2,15 +2,11 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
-
-  _ = require( 'lodash' ),
+const _ = require( 'lodash' ),
 
   svc = require( './service' ),
 
   ih = require( 'immutability-helper' ),
-
-  mysql = require( 'mysql' ),
 
   config = require( '../testconfig' ),
 
@@ -51,18 +47,18 @@ describe( 'extended events - functional (server): set', function() {
       contender: 'steve'
     } );
 
-    result.success.should.equal( true );
+    expect(result.success).toBe(true);
 
-    result.operation.should.equal( 'create' );
+    expect(result.operation).toBe( 'create' );
 
     const result2 = await svc( 3819893 ).set( 123, {
       edition: 12,
       contender: 'bob'
     } );
 
-    result2.success.should.equal( true );
+    expect(result2.success).toBe(true);
 
-    result2.operation.should.equal( 'update' );
+    expect(result2.operation).toBe( 'update' );
 
   } );
 
