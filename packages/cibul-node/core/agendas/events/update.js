@@ -127,7 +127,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     try {
       clean.event.registration = await createPassCultureOffer(core, agenda, clean);
     } catch (e) {
-      log.error('  Pass culture offer creation failed', { error: e, eventUid: event.uid });
+      log.error('  Pass culture offer creation failed', { error: e, eventUid: event.uid, clean, event });
     }
   } else {
     log.info('  There is no pass culture payload', { eventUid: event.uid });
