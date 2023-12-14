@@ -163,6 +163,8 @@ function EventShow({ agenda, preload }: EventShowProps) {
   useMatomoTracker();
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
+  const mailtoSettings = agenda.settings?.inbox?.mailto;
+
   const session = useSession();
 
   const { event } = useEvent();
@@ -433,13 +435,13 @@ function EventShow({ agenda, preload }: EventShowProps) {
                   </div>
                 ) : null}
 
-                {event.location.description[contentLocale] ? (
+                {event.location.description?.[contentLocale] ? (
                   <div>
                     {event.location.description[contentLocale]}
                   </div>
                 ) : null}
 
-                {event.location.access[contentLocale] ? (
+                {event.location.access?.[contentLocale] ? (
                   <div>
                     <chakra.span fontWeight="bold">
                       Accés:&nbsp;
@@ -526,7 +528,26 @@ function EventShow({ agenda, preload }: EventShowProps) {
             event={event}
           />
 
-          {session?.user ? (
+          {mailtoSettings?.enabled ? (
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">
+                Contacter les administrateurs
+              </Heading>
+              <Flex bg="white" justify="space-around">
+                <Button
+                  as={Link}
+                  href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
+                  variant="solid"
+                  colorScheme="primary"
+                  my="8"
+                >
+                  Envoyer un email
+                </Button>
+              </Flex>
+            </div>
+          ) : null}
+
+          {!mailtoSettings?.enabled && session?.user ? (
             <Inbox
               agenda={agenda}
               event={event}

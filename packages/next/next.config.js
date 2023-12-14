@@ -13,6 +13,7 @@ const withTM = require('next-transpile-modules')([
   'intl-messageformat',
   'intl-messageformat-parser',
   'react-intl',
+  'react-markdown',
 ]);
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

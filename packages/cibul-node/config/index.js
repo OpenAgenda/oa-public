@@ -13,6 +13,14 @@ const mailgun = {
   },
 };
 
+const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
+  ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => {
+    const [key, value] = pair.split(':');
+    ops[key] = value;
+    return ops;
+  }, {})
+  : prod.insightOps ?? {};
+
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
@@ -43,11 +51,7 @@ const config = {
   logger: process.env.NODE_ENV === 'production' ? {
     prefix: 'oa:',
     enableDebug: false,
-    token: prod.insightOps?.main ?? null,
-    errorsTracking: {
-      insightOpsKey: prod.insightOps?.clientErrors ?? null,
-      sentryDsn: prod.sentry?.dsn ?? null,
-    },
+    token: insightOpsKeys?.oa ?? null,
     sentry,
   } : {
     prefix: 'oa:',
@@ -567,11 +571,6 @@ if (process.env.DEBUG) {
 debug.disable();
 
 debug.enable(config.logger.enableDebug);
-
-const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => ({
-  ...ops,
-  [pair.split(':')[0]]: pair.split(':')[1],
-}), {}) : prod.insightOps ?? {};
 
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,

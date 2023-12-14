@@ -63,6 +63,8 @@ const includeFields = [
   'description',
   'dateRange',
   'timings',
+  'nextTiming',
+  'lastTiming',
   'onlineAccessLink',
   'attendanceMode',
   'status',

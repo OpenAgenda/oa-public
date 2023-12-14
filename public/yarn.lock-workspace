@@ -2778,6 +2778,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/shared-utils@npm:2.0.4":
+  version: 2.0.4
+  resolution: "@chakra-ui/shared-utils@npm:2.0.4"
+  checksum: 05eee356ac023068d1113beb2259b5e02a95d08546e692edae60e225b2b6034eaa5a517f013c51c8f069467963bb185bb36b85f0ca00498ef33c5bb56b32f87d
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/shared-utils@npm:2.0.5":
   version: 2.0.5
   resolution: "@chakra-ui/shared-utils@npm:2.0.5"
@@ -5467,6 +5474,7 @@ __metadata:
     "@chakra-ui/focus-lock": "npm:^2.0.16"
     "@chakra-ui/icons": "npm:^2.0.17"
     "@chakra-ui/react": "npm:^2.4.9"
+    "@chakra-ui/shared-utils": "npm:2.0.4"
     "@chakra-ui/theme-tools": "npm:^2.0.16"
     "@emotion/cache": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
