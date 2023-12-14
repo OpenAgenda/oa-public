@@ -1,32 +1,40 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
+const redis = require('redis');
 const knexLib = require( 'knex' );
 const service = require( './service' );
-const config = require( '../testconfig' );
+const testconfig = require( '../testconfig' );
 
 describe( 'keys - update', function () {
+  let knex, redisClient;
 
-  this.timeout( 30000 );
+  beforeAll( async () => {
+    knex = knexLib({
+      client: 'mysql',
+      connection: testconfig.mysql
+    });
 
-  before( async () => {
+    redisClient = redis.createClient(testconfig.redis.connection);
+    await redisClient.connect();
 
     await service.initAndLoad( {
-      ...config,
-      knex: knexLib({
-        client: 'mysql',
-        connection: config.mysql
-      })
+      ...testconfig,
+      redis: {
+        ...testconfig.redis,
+        client: redisClient,
+      },
+      knex,
     } );
-
   } );
 
   it( 'update a key by his id', async () => {
 
     const result = await service( 1 ).update( { label: 'The key of dead' } );
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 1,
       type: 'userPublic',
       identifier: 98596585,
@@ -40,7 +48,9 @@ describe( 'keys - update', function () {
     const result = await service( { type: 'userPublic', identifier: 98596585, key: '2733c8183cca49dcbfbaefd6c957f5b6' } )
       .update( { label: 'Clé' } );
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 2,
       type: 'userPublic',
       identifier: 98596585,
@@ -58,7 +68,7 @@ describe( 'keys - update', function () {
 
     } catch ( e ) {
 
-      e.name.should.equal( 'ValidationError' );
+      expect(e.name).toBe( 'ValidationError' );
 
     }
 

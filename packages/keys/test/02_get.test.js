@@ -1,42 +1,50 @@
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const sinon = require( 'sinon' );
+const should = require('should');
 const knexLib = require( 'knex' );
+const redis = require( 'redis' );
 const service = require( './service' );
 const testconfig = require( '../testconfig' );
 const config = require( '../service/config' );
 
 describe( 'keys - get', function () {
+  let knex, redisClient;
 
-  this.timeout( 30000 );
+  beforeAll( async () => {
+    knex = knexLib({
+      client: 'mysql',
+      connection: testconfig.mysql
+    });
 
-  before( async () => {
+    redisClient = redis.createClient(config.redis.connection);
+    await redisClient.connect();
 
     await service.initAndLoad( {
       ...testconfig,
-      knex: knexLib({
-        client: 'mysql',
-        connection: testconfig.mysql
-      })
+      redis: {
+        ...testconfig.redis,
+        client: redisClient,
+      },
+      knex,
     } );
-
   } );
 
-  afterEach( async () => {
+  afterAll(() => knex.destroy());
 
-    const { client, prefix } = config.redis;
-
-    const keys = await client.keys( prefix + '*' );
-
-    if ( keys && keys.length ) await client.del(keys.join(','));
-
-  } );
+  afterEach(async () => {
+    const { prefix } = testconfig.redis;
+    for (const key of await redisClient.keys( prefix + '*' )) {
+      await redisClient.del(key);
+    }
+  });
 
   it( 'get a key by his id', async () => {
 
     const result = await service( 1 ).get();
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 1,
       type: 'userPublic',
       identifier: 98596585,
@@ -54,7 +62,9 @@ describe( 'keys - get', function () {
     } )
       .get();
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 2,
       type: 'userPublic',
       identifier: 98596585,
@@ -68,7 +78,9 @@ describe( 'keys - get', function () {
     const result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } )
       .get();
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 2,
       type: 'userPublic',
       identifier: 98596585,
@@ -87,17 +99,21 @@ describe( 'keys - get', function () {
     };
 
     const spy = sinon.spy( config, 'knex' );
-    spy.callCount.should.equal( 0 );
+    expect(spy.callCount).toBe( 0 );
 
     let result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get();
 
-    spy.callCount.should.equal( 1 );
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+    expect(spy.callCount).toBe( 1 );
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( exceptedResult );
 
     result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get();
 
-    spy.callCount.should.equal( 2 );
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+    expect(spy.callCount).toBe( 2 );
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( exceptedResult );
 
     spy.restore();
 
@@ -113,17 +129,17 @@ describe( 'keys - get', function () {
     };
 
     const spy = sinon.spy( config, 'knex' );
-    spy.callCount.should.equal( 0 );
+    expect(spy.callCount).toBe( 0 );
 
     let result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get( { cache: true } );
 
-    spy.callCount.should.equal( 1 );
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+    expect(spy.callCount).toBe( 1 );
+    expect(_.omit( result, [ 'key', 'createdAt' ] )).toEqual( exceptedResult );
 
     result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get( { cache: true } );
 
-    spy.callCount.should.equal( 1 );
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+    expect(spy.callCount).toBe( 1 );
+    expect(_.omit( result, [ 'key', 'createdAt' ] )).toEqual( exceptedResult );
 
   } );
 

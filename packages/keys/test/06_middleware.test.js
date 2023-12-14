@@ -1,43 +1,59 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const knexLib = require( 'knex' );
+const redis = require('redis');
 const service = require( './service' );
 const mw = require( '../middleware' );
-const config = require( '../testconfig' );
+const testconfig = require( '../testconfig' );
 
 describe( 'keys - middleware', function () {
+  let knex, redisClient;
 
-  this.timeout( 30000 );
+  beforeAll( async () => {
+    knex = knexLib({
+      client: 'mysql',
+      connection: testconfig.mysql
+    });
 
-  beforeEach( async () => {
+    redisClient = redis.createClient(testconfig.redis.connection);
+    await redisClient.connect();
 
     await service.initAndLoad( {
-      ...config,
-      knex: knexLib({
-        client: 'mysql',
-        connection: config.mysql
-      })
+      ...testconfig,
+      redis: {
+        ...testconfig.redis,
+        client: redisClient,
+      },
+      knex,
     } );
-
   } );
+
+  afterAll(() => knex.destroy());
+
+  afterEach(async () => {
+    const { prefix } = testconfig.redis;
+    
+    for (const key of await redisClient.keys( prefix + '*' )) {
+      await redisClient.del(key);
+    }
+  });
 
   it( 'create successfully', done => {
 
     const req = {
-      identifiers: { type: 'userPublic', identifier: 98596585 },
+      identifiers: { type: 'userPublic', identifier: 98596586 },
       body: { label: 'Ma première clé #ému' }
     }
 
     mw.create()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      _.omit( req.result, [ 'key', 'createdAt' ] ).should.eql( {
+      expect(_.omit( req.result, [ 'key', 'createdAt' ] )).toEqual( {
         id: 3,
         type: 'userPublic',
-        identifier: 98596585,
+        identifier: 98596586,
         label: 'Ma première clé #ému'
       } );
 
@@ -56,7 +72,7 @@ describe( 'keys - middleware', function () {
 
     mw.create()( req, {}, err => {
 
-      err.should.eql( {
+      expect(err).toEqual( {
         code: 400,
         json: {
           errors: [
@@ -84,9 +100,9 @@ describe( 'keys - middleware', function () {
 
     mw.get()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      _.omit( req.result, [ 'key', 'createdAt' ] ).should.eql( {
+      expect(_.omit( req.result, [ 'key', 'createdAt' ] )).toEqual( {
         id: 1,
         type: 'userPublic',
         identifier: 98596585,
@@ -107,9 +123,9 @@ describe( 'keys - middleware', function () {
 
     mw.get()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      _.omit( req.result, [ 'key', 'createdAt' ] ).should.eql( {
+      expect(_.omit( req.result, [ 'key', 'createdAt' ] )).toEqual( {
         id: 2,
         type: 'userPublic',
         identifier: 98596585,
@@ -130,7 +146,7 @@ describe( 'keys - middleware', function () {
 
     mw.get()( req, {}, err => {
 
-      err.should.eql( {
+      expect(err).toEqual( {
         code: 400,
         json: {
           errors: [
@@ -158,11 +174,9 @@ describe( 'keys - middleware', function () {
 
     mw.list()( req, {}, err => {
 
-      console.log(err);
+      expect(err).toBeUndefined();
 
-      should( err ).equal( undefined );
-
-      req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+      expect(req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
         {
           id: 1,
           type: 'userPublic',
@@ -192,9 +206,9 @@ describe( 'keys - middleware', function () {
 
     mw.list()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+      expect(req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
         {
           id: 2,
           type: 'userPublic',
@@ -218,10 +232,10 @@ describe( 'keys - middleware', function () {
 
     mw.list()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      req.result.total.should.equal( 2 );
-      req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+      expect(req.result.total).toBe(2);
+      expect(req.result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
         {
           id: 1,
           type: 'userPublic',
@@ -251,9 +265,9 @@ describe( 'keys - middleware', function () {
 
     mw.update()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      _.omit( req.result, [ 'key', 'createdAt' ] ).should.eql( {
+      expect(_.omit( req.result, [ 'key', 'createdAt' ] )).toEqual( {
         id: 1,
         type: 'userPublic',
         identifier: 98596585,
@@ -275,9 +289,9 @@ describe( 'keys - middleware', function () {
 
     mw.update()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      _.omit( req.result, [ 'key', 'createdAt' ] ).should.eql( {
+      expect(_.omit( req.result, [ 'key', 'createdAt' ] )).toEqual( {
         id: 2,
         type: 'userPublic',
         identifier: 98596585,
@@ -298,9 +312,9 @@ describe( 'keys - middleware', function () {
 
     mw.remove()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      req.result.should.eql( 1 );
+      expect(req.result).toBe(1);
 
       done();
 
@@ -316,9 +330,9 @@ describe( 'keys - middleware', function () {
 
     mw.remove()( req, {}, err => {
 
-      should( err ).equal( undefined );
+      expect(err).toBeUndefined();
 
-      req.result.should.eql( 1 );
+      expect(req.result).toBe(1);
 
       done();
 

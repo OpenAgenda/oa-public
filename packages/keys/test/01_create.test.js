@@ -1,33 +1,47 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const knexLib = require( 'knex' );
+const redis = require('redis');
 const service = require( './service' );
 const config = require( '../testconfig' );
 
 describe( 'keys - create', function () {
+  let knex, redisClient;
 
-  this.timeout( 30000 );
+  beforeAll( async () => {
+    knex = knexLib({
+      client: 'mysql',
+      connection: config.mysql
+    });
 
-  before( async () => {
+    redisClient = redis.createClient(config.redis.connection);
+    await redisClient.connect();
 
     await service.initAndLoad( {
       ...config,
-      knex: knexLib({
-        client: 'mysql',
-        connection: config.mysql
-      })
+      knex,
     } );
 
   } );
+
+  afterAll(() => knex.destroy());
+
+  afterAll(async () => {
+    const { prefix } = config.redis;
+    for (const key of await redisClient.keys( prefix + '*' )) {
+      await redisClient.del(key);
+    }
+  });
 
   it( 'create an user key', async () => {
 
     const result = await service( { type: 'userPublic', identifier: 98596585 } )
       .create( { label: 'Ma première clé #ému' } );
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual( {
       id: 3,
       type: 'userPublic',
       identifier: 98596585,
@@ -40,7 +54,9 @@ describe( 'keys - create', function () {
 
     const result = await service( { type: 'userPublic', identifier: 98596585 } ).create();
 
-    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+    expect(
+      _.omit( result, [ 'key', 'createdAt' ] )
+    ).toEqual({
       id: 4,
       type: 'userPublic',
       identifier: 98596585,

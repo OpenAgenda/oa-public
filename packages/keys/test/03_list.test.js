@@ -1,32 +1,38 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
+const redis = require( 'redis' );
 const knexLib = require( 'knex' );
 const service = require( './service' );
-const config = require( '../testconfig' );
+const testconfig = require( '../testconfig' );
 
 describe( 'keys - list', function () {
+  let knex, redisClient;
 
-  this.timeout( 30000 );
+  beforeAll( async () => {
+    knex = knexLib({
+      client: 'mysql',
+      connection: testconfig.mysql
+    });
 
-  before( async () => {
+    redisClient = redis.createClient(testconfig.redis.connection);
+    await redisClient.connect();
 
     await service.initAndLoad( {
-      ...config,
-      knex: knexLib({
-        client: 'mysql',
-        connection: config.mysql
-      })
+      ...testconfig,
+      redis: {
+        ...testconfig.redis,
+        client: redisClient,
+      },
+      knex,
     } );
-
   } );
 
   it( 'simple list', async () => {
 
     const result = await service( { type: 'userPublic', identifier: 98596585 } ).list();
 
-    result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+    expect(result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
       {
         id: 1,
         type: 'userPublic',
@@ -47,7 +53,7 @@ describe( 'keys - list', function () {
 
     const result = await service( { type: 'userPublic', identifier: 98596585 } ).list( 1, 1 );
 
-    result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+    expect(result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
       {
         id: 2,
         type: 'userPublic',
@@ -62,8 +68,8 @@ describe( 'keys - list', function () {
 
     const result = await service( { type: 'userPublic', identifier: 98596585 } ).list( { total: true } );
 
-    result.total.should.equal( 2 );
-    result.items.map( v => _.omit( v, 'key', 'createdAt' ) ).should.eql( [
+    expect(result.total).toBe( 2 );
+    expect(result.items.map( v => _.omit( v, 'key', 'createdAt' ) )).toEqual( [
       {
         id: 1,
         type: 'userPublic',
@@ -84,7 +90,7 @@ describe( 'keys - list', function () {
 
     const result = await service( { type: 'userPublic', identifier: 98597885 } ).list();
 
-    result.items.length.should.equal( 0 );
+    expect(result.items.length).toBe( 0 );
 
   } );
 
