@@ -3,10 +3,9 @@
 const knex = require( 'knex' );
 const _ = require( 'lodash' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 const { promisify } = require( 'util' );
 
-const Service = require( '../' );
+const Service = require( '..' );
 const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 
@@ -14,10 +13,10 @@ describe( 'network - functional ( server ): get', function() {
 
   let k, svc;
 
-   before( async () => {
-
+   beforeAll( async () => {
     const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true
+      multipleStatements: true,
+      ssl: true
     } ) );
 
     const query = promisify( con.query.bind( con ) );
@@ -25,10 +24,9 @@ describe( 'network - functional ( server ): get', function() {
     const result = await query( fixtures );
 
     con.end();
-
   } );
 
-  before( () => {
+  beforeAll( () => {
 
     k = knex( {
       client: 'mysql',
@@ -41,7 +39,7 @@ describe( 'network - functional ( server ): get', function() {
 
   } );
 
-  after( () => {
+  afterAll( () => {
 
     k.destroy();
 
@@ -49,7 +47,7 @@ describe( 'network - functional ( server ): get', function() {
 
   it( 'get gets', async () => {
 
-    should( await svc.get( 1 ) ).eql( {
+    expect( await svc.get( 1 ) ).toEqual( {
       uid: 1,
       formSchemaId: 2,
       title: 'Métropole de Toulouse'

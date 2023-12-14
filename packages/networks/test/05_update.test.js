@@ -3,33 +3,31 @@
 const knex = require( 'knex' );
 const _ = require( 'lodash' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 const { promisify } = require( 'util' );
 
-const Service = require( '../' );
+const Service = require( '..' );
 const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 
 describe( 'networks - functional ( server ): update', function() {
-
   let k, svc, network;
 
-   before( async () => {
+   beforeAll( async () => {
 
     const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true
+      multipleStatements: true,
+      ssl: true,
     } ) );
 
     const query = promisify( con.query.bind( con ) );
 
-    const result = await query( fixtures );
+    await query( fixtures );
 
     con.end();
 
   } );
 
-  before( () => {
-
+  beforeAll( () => {
     k = knex( {
       client: 'mysql',
       connection: _.assign( {
@@ -38,11 +36,9 @@ describe( 'networks - functional ( server ): update', function() {
     } );
 
     svc = Service( { knex: k } );
-
   } );
 
-  before( async () => {
-
+  beforeAll( async () => {
     network = await svc.update( 13, {
       title: 'Ville de Genève',
       formSchemaId: 123
@@ -51,38 +47,27 @@ describe( 'networks - functional ( server ): update', function() {
     await svc.patch( 13, {
       formSchemaId: 456
     } );
-
   } );
 
-  after( () => {
-
+  afterAll( () => {
     k.destroy();
-
   } );
 
   it( 'update returns updated network object', async () => {
+    expect(network.title).toBe( 'Ville de Genève' );
 
-    network.title.should.equal( 'Ville de Genève' );
-
-    network.uid.should.equal( 13 );
-
+    expect(network.uid).toBe( 13 );
   } );
 
   it( 'update commits network to db', async () => {
-
     const fromDb = await k( 'network' ).first( 'title' ).where( 'uid', 13 );
 
-    fromDb.title.should.equal( 'Ville de Genève' );
-
+    expect(fromDb.title).toBe( 'Ville de Genève' );
   } );
 
   it( 'patch updates specified value only', async () => {
-
     const fromDb = await k( 'network' ).first( [ 'title', 'form_schema_id' ] ).where( 'uid', 13 );
 
-    fromDb.form_schema_id.should.equal( 456 );
-
+    expect(fromDb.form_schema_id).toBe( 456 );
   } );
-
-
 } );

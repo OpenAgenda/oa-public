@@ -3,33 +3,30 @@
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 const { promisify } = require( 'util' );
 
-const Service = require( '../' );
+const Service = require( '..' );
 const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 
 describe( 'networks - functional ( server ): list', function() {
-
   let k, svc;
 
-   before( async () => {
-
+   beforeAll( async () => {
     const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true
+      multipleStatements: true,
+      ssl: true,
     } ) );
 
     const query = promisify( con.query.bind( con ) );
 
-    const result = await query( fixtures );
+    await query( fixtures );
 
     con.end();
 
   } );
 
-  before( () => {
-
+  beforeAll( () => {
     k = knex( {
       client: 'mysql',
       connection: _.assign( {
@@ -38,19 +35,16 @@ describe( 'networks - functional ( server ): list', function() {
     } );
 
     svc = Service( { knex: k } );
-
   } );
 
-  after( () => {
-
+  afterAll( () => {
     k.destroy();
-
   } );
 
   it( 'list lists', async () => {
-
-    ( await svc.list() ).map( n => _.pick( n, [ 'uid', 'formSchemaId', 'title' ] ) )
-      .should.eql( [ {
+    expect(
+      ( await svc.list() ).map( n => _.pick( n, [ 'uid', 'formSchemaId', 'title' ] ) )
+    ).toEqual([ {
         uid: 1,
         formSchemaId: 2,
         title: 'Métropole de Toulouse'
@@ -62,8 +56,7 @@ describe( 'networks - functional ( server ): list', function() {
         uid: 3,
         formSchemaId: 21,
         title: 'Orléans Métropole'
-      } ] );
-
+      } ]);
   } );
 
 } );
