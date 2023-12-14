@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -16,18 +14,16 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: express app', function () {
 
-  this.timeout( 30000 ); // pour la bécane de course de kevin
-
   let parentApp, server;
 
   // initialize service
-  before( done => {
+  beforeAll( done => {
 
     service.initAndLoad( config, done );
 
   } );
 
-  before( () => {
+  beforeAll( () => {
 
     parentApp = express();
 
@@ -39,38 +35,32 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'generate link based on values', () => {
 
-      service.app.genUrl( 'add', {
+      expect(service.app.genUrl( 'add', {
         userUid: 123,
         subject: 'agenda',
         identifier: 218,
         type: 'event_added'
-      } )
-
-        .should.equal( '/unsubscribe/u/123/s/agenda/i/218/t/event_added' );
+      } )).toBe( '/unsubscribe/u/123/s/agenda/i/218/t/event_added' );
 
     } );
 
     it( 'generate link without type', () => {
 
-      service.app.genUrl( 'add', {
+      expect(service.app.genUrl( 'add', {
         userUid: 123,
         subject: 'agenda',
         identifier: 218
-      } )
-
-        .should.equal( '/unsubscribe/u/123/s/agenda/i/218' );
+      } )).toBe( '/unsubscribe/u/123/s/agenda/i/218' );
 
     } );
 
     it( 'generate link without identifier', () => {
 
-      service.app.genUrl( 'add', {
+      expect(service.app.genUrl( 'add', {
         userUid: 123,
         subject: 'notifications',
         type: 'summary'
-      } )
-
-        .should.equal( '/unsubscribe/u/123/s/notifications/t/summary' )
+      } )).toBe( '/unsubscribe/u/123/s/notifications/t/summary' )
 
     } );
 
@@ -79,7 +69,7 @@ describe( 'unsubscribed - functional: express app', function () {
   describe( 'http calls', () => {
 
     // plug service app to parent app
-    before( () => {
+    beforeAll( () => {
 
       // response is handled by parent app
       parentApp.use( '/unsubscribe', ( req, res, next ) => {
@@ -111,7 +101,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'ok' );
+          expect(res.text).toBe( 'ok' );
 
           done();
 
@@ -125,7 +115,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'nok' );
+          expect(res.text).toBe( 'nok' );
 
           done();
 
@@ -143,7 +133,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
             .end( ( err, res ) => {
 
-              res.text.should.equal( 'ok' );
+              expect(res.text).toBe( 'ok' );
 
               done();
 
@@ -159,7 +149,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'ok' )
+          expect(res.text).toBe( 'ok' )
 
           done();
 
@@ -177,7 +167,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
             .end( ( err, res ) => {
 
-              res.text.should.equal( 'ok' );
+              expect(res.text).toBe( 'ok' );
 
               done();
 
@@ -193,7 +183,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'ok' );
+          expect(res.text).toBe( 'ok' );
 
           done();
 
@@ -208,7 +198,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'ok' )
+          expect(res.text).toBe( 'ok' )
 
           done();
 
@@ -226,7 +216,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
             .end( ( err, res ) => {
 
-              res.text.should.equal( 'ok' );
+              expect(res.text).toBe( 'ok' );
 
               done();
 

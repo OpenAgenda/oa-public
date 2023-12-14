@@ -5,7 +5,8 @@ module.exports = {
     host : '127.0.0.1',
     database : 'oatest_unsubscribed',
     password : 'grut',
-    user : 'root'
+    user : 'root',
+    ssl: true,
   },
   schemas: {
     unsubscribed: 'unsubscribed'

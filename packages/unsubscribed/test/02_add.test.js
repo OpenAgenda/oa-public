@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -11,8 +9,6 @@ const should = require( 'should' ),
   _ = require( 'lodash' );
 
 describe( 'unsubscribed - functional: .add', function() {
-
-  this.timeout( 5000 );
 
   beforeEach( done => {
 
@@ -34,9 +30,9 @@ describe( 'unsubscribed - functional: .add', function() {
 
         con.end();
 
-        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
-
-        .should.eql( {
+        expect(
+          _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+        ).toEqual( {
           type: 'some.type',
           subject: 'agenda',
           identifier: '2',
@@ -65,9 +61,9 @@ describe( 'unsubscribed - functional: .add', function() {
 
         con.end();
 
-        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
-
-        .should.eql( {
+        expect(
+          _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+        ).toEqual( {
           type: null,
           subject: 'agenda',
           identifier: '12',
@@ -96,9 +92,9 @@ describe( 'unsubscribed - functional: .add', function() {
 
         con.end();
 
-        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
-
-        .should.eql( {
+        expect(
+          _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+        ).toEqual( {
           subject: 'notifications',
           type: 'summary',
           identifier: null,
@@ -128,8 +124,9 @@ describe( 'unsubscribed - functional: .add', function() {
 
         con.end();
 
-        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
-          .should.eql( {
+        expect(
+          _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+        ).toEqual( {
             type: 'eventEmail',
             subject: 'email',
             identifier: 'bertho@cibul.net',

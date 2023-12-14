@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -11,8 +9,6 @@ const should = require( 'should' ),
   _ = require( 'lodash' );
 
 describe( 'unsubscribed - functional: .list', function () {
-
-  this.timeout( 5000 );
 
   beforeEach( done => {
 
@@ -26,9 +22,9 @@ describe( 'unsubscribed - functional: .list', function () {
 
     service( userUid ).list( ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      result.unsubscriptions.should.eql( [ {
+      expect(result.unsubscriptions).toEqual( [ {
         id: 8,
         userUid: 75052324,
         type: 'agenda_event_update',
@@ -76,9 +72,9 @@ describe( 'unsubscribed - functional: .list', function () {
 
     service( userUid ).list( { type: 'agenda_event_submit_moderation' }, ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      result.unsubscriptions.should.eql( [ {
+      expect(result.unsubscriptions).toEqual( [ {
         id: 7,
         userUid: 75052324,
         type: 'agenda_event_submit_moderation',

@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -12,7 +10,7 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: .remove', function() {
 
-  before( done => {
+  beforeAll( done => {
 
     service.initAndLoad( config, done );
 
@@ -30,7 +28,7 @@ describe( 'unsubscribed - functional: .remove', function() {
 
       con.query( 'select count(id) as c from unsubscribed', ( err, rows ) => {
 
-        rows[ 0 ].c.should.equal( 6 );
+        expect(rows[ 0 ].c).toBe( 6 );
 
         service( 12345678 ).remove( {
           type: 'some.type',
@@ -38,13 +36,13 @@ describe( 'unsubscribed - functional: .remove', function() {
           identifier: 2
         }, ( err, result ) => {
 
-          result.success.should.equal( true );
+          expect(result.success).toBe(true);
 
-          result.deletedCount.should.equal( 1 );
+          expect(result.deletedCount).toBe( 1 );
 
           con.query( 'select count( id ) as c from unsubscribed', ( err, rows ) => {
 
-            rows[ 0 ].c.should.equal( 5 );
+            expect(rows[ 0 ].c).toBe( 5 );
 
             done();
 
@@ -71,9 +69,9 @@ describe( 'unsubscribed - functional: .remove', function() {
         subject: 'notifications',
       }, ( err, result ) => {
 
-        result.success.should.equal( true );
+        expect(result.success).toBe(true);
 
-        result.deletedCount.should.equal( 1 );
+        expect(result.deletedCount).toBe( 1 );
 
         done();
 

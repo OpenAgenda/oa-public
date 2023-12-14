@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -12,9 +10,7 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: .clear', function() {
 
-  this.timeout( 5000 );
-
-  before( done => {
+  beforeAll( done => {
 
     service.initAndLoad( config, done );
 
@@ -30,9 +26,9 @@ describe( 'unsubscribed - functional: .clear', function() {
 
         service( userUid ).clear( ( err, result ) => {
 
-          result.success.should.equal( true );
+          expect(result.success).toBe( true );
 
-          result.deletedCount.should.equal( 2 );
+          expect(result.deletedCount).toBe( 2 );
 
           done();
 

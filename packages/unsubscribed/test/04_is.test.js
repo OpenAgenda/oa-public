@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  service = require( './service' ),
+const service = require( './service' ),
 
   config = require( '../testconfig' ),
 
@@ -11,8 +9,6 @@ const should = require( 'should' ),
   _ = require( 'lodash' );
 
 describe( 'unsubscribed - functional: .is', function() {
-
-  this.timeout( 5000 );
 
   beforeEach( done => {
 
@@ -32,13 +28,13 @@ describe( 'unsubscribed - functional: .is', function() {
 
     service( userUid ).is( values, ( err, is ) => {
 
-      is.should.equal( false );
+      expect(is).toBe(false);
 
       service( userUid ).add( values, ( err, result ) => {
 
         service( userUid ).is( values, ( err, is ) => {
 
-          is.should.equal( true );
+          expect(is).toBe(true);
 
           done();
 
@@ -62,13 +58,13 @@ describe( 'unsubscribed - functional: .is', function() {
 
     service( userUid ).is( values, ( err, is ) => {
 
-      is.should.equal( false );
+      expect(is).toBe(false);
 
       service( userUid ).add( values, err => {
 
         service( userUid ).is( values, ( err, is ) => {
 
-          is.should.equal( true );
+          expect(is).toBe(true);
 
           done();
 
@@ -93,7 +89,7 @@ describe( 'unsubscribed - functional: .is', function() {
 
     service( userUid ).is( values, ( err, is ) => {
 
-      is.should.equal( false );
+      expect(is).toBe( false );
 
       service( userUid ).add( values, ( err, result ) => {
 
@@ -102,7 +98,7 @@ describe( 'unsubscribed - functional: .is', function() {
           identifier: 2
         }, ( err, is ) => {
 
-          is.should.equal( true );
+          expect(is).toBe(true);
 
           done();
 
