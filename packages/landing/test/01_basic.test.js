@@ -2,11 +2,9 @@
 
 process.env.NODE_ENV = 'test';
 
-const fs = require( 'fs' );
+const fs = require( 'node:fs' );
 
 const segments = require( '../segment-pages' );
-
-const should = require( 'should' );
 
 describe( 'segments renderer basic usage', () => {
 
@@ -36,21 +34,15 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    let expected = [
+    expect(f( 'configuration' ).render()).toBe([
       '<h1>You can customize your event form</h1>',
       '<p>Customize contribution rules</p>'
-    ].join( '' );
-
-    f( 'configuration' ).render()
-
-    .should.equal( expected );
-
+    ].join( '' ));
   } );
 
 
   it( 'with a layout wrapped around the segments', () => {
-
-    let f = segments( {
+    const f = segments( {
       templates: {
         basic: fs.readFileSync( __dirname + '/templates/basic.pug', 'utf-8' ),
         layout: fs.readFileSync( __dirname + '/templates/layout.pug', 'utf-8' )
@@ -68,19 +60,14 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    let expected = [
+    expect(f( 'configuration' ).render()).toBe([
       '<div class="layout">',
         '<h1>This is the page title</h1>',
         '<div>',
           '<p>Customize contribution rules</p>',
         '</div>',
       '</div>'
-    ].join( '' )
-
-    f( 'configuration' ).render()
-
-    .should.equal( expected );
-
+    ].join( '' ));
   } );
 
 
@@ -109,20 +96,14 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    let expected = [
+    expect(f( 'configuration' ).render()).toBe([
       '<h1>You can tweak the content of segments at page level</h1>',
       '<h1>You can customize your event form</h1>'
-    ].join( '' );
-
-    f( 'configuration' ).render()
-
-    .should.equal( expected );
-
+    ].join( '' ));
   } );
 
 
   it( 'with links pointing to other pages', () => {
-
     let f = segments( {
       basePath: '/pages',
       templates: {
@@ -148,15 +129,12 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    f( 'page1' ).render()
-
-    .should.equal( [
+    expect(f( 'page1' ).render()).toBe([
       '<div class="layout">',
         '<h1>This is page 1</h1>',
         '<div><a href="/pages/page2">Yay</a></div>',
       '</div>'
-    ].join( '' ) );
-
+    ].join( '' ));
   } );
 
 
@@ -182,20 +160,16 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    f( 'page1' ).render()
-
-    .should.equal( [
+    expect(f( 'page1' ).render()).toBe([
       '<div class="layout">',
         '<h1>This is page 1</h1>',
         '<div><a href="https://janinelagardienne.com">Janine</a></div>',
       '</div>'
-    ].join( '' ) );
-
-  } )
+    ].join( '' ));
+  } );
 
 
   it( 'with several languages', () => {
-
     let f = segments( {
       templates: {
         basic: fs.readFileSync( __dirname + '/templates/basic.pug', 'utf-8' ),
@@ -220,18 +194,16 @@ describe( 'segments renderer basic usage', () => {
       } ]
     } );
 
-    let expected = [
+    expect(
+      f( 'configuration' ).render( { lang: 'en' } )
+    ).toBe([
       '<div class="layout">',
         '<h1>This is the page title</h1>',
         '<div>',
           '<p>Customize contribution rules</p>',
         '</div>',
       '</div>'
-    ].join( '' )
-
-    f( 'configuration' ).render( { lang: 'en' } )
-
-    .should.equal( expected );
+    ].join( '' ));
 
   } );
 
