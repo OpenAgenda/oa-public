@@ -6359,11 +6359,10 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     immutability-helper: "npm:^3.0.0"
+    jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mocha: "npm:^7.0.1"
     mysql: "npm:^2.13.0"
-    should: "npm:^13.2.3"
   languageName: unknown
   linkType: soft
 
