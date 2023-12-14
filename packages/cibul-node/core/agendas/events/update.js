@@ -123,12 +123,14 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   });
 
   if (clean.passCulture && !hasPassCultureOffer(event)) {
-    log('  There is a pass culture payload');
+    log.info('  There is a pass culture payload with event', { eventUid: event.uid });
     try {
       clean.event.registration = await createPassCultureOffer(core, agenda, clean);
     } catch (e) {
-      log('error', e);
+      log.error('  Pass culture offer creation failed', { error: e, eventUid: event.uid });
     }
+  } else {
+    log.info('  There is no pass culture payload', { eventUid: event.uid });
   }
 
   const payload = createPayload(core, agenda);
