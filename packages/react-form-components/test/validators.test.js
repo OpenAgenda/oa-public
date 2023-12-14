@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-validators = require( '../validators' );
+var validators = require( '../validators' );
 
 describe( 'validators', () => {
 
@@ -14,10 +12,10 @@ describe( 'validators', () => {
         tags: [ { id: 0, label: 'Tag 0' } ]
       }, {
         required: true,
-        tags: [ { id: 1, label: 'Tag 1' }, { id: 2, label: 'Tag 2' } ]
+        tags: [ { id: 1, label: 'Tag 1' }, { id: 2, label: 'Tag 2' } ]
       }, {
         required: true,
-        tags: [ { id: 3, label: 'Tag 3' }, { id: 4, label: 'Tag 4' } ]
+        tags: [ { id: 3, label: 'Tag 3' }, { id: 4, label: 'Tag 4' } ]
       } ]
     };
 
@@ -48,9 +46,9 @@ describe( 'validators', () => {
 
       }
 
-      errors.length.should.equal( 2 );
+      expect(errors.length).toBe( 2 );
 
-      groupErrors.length.should.equal( 1 );
+      expect(groupErrors.length).toBe( 1 );
 
     } );
 
@@ -69,11 +67,9 @@ describe( 'validators', () => {
 
       }
 
-      should.exist( errors );
+      expect(errors.length).toBe( 1 );
 
-      errors.length.should.equal( 1 );
-
-      errors[ 0 ].code.should.equal( 'groupTags.required' );
+      expect(errors[ 0 ].code).toBe( 'groupTags.required' );
 
     } );
 
@@ -91,7 +87,7 @@ describe( 'validators', () => {
 
       }
 
-      should.not.exist( errors );
+      expect(errors).toBeUndefined();
 
     } );
 
