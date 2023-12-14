@@ -2,23 +2,19 @@
 
 process.env.NODE_ENV = 'test';
 
-const knex = require( 'knex' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const legacy = require( '../service/legacy' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const legacy = require( '../service/legacy/index.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - unit (server): legacy bridging', function() {
 
-  this.timeout( 30000 );
-
-  before( () => svc.init( {
+  beforeAll( () => svc.init( {
     ...config,
     Files: Files(dConfig.files)
   } ) );
@@ -51,7 +47,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
         let currentStore = JSON.parse( rows[ 0 ].store );
 
-        currentStore.moderated.should.equal( false );
+        expect(currentStore.moderated).toBe(false);
 
         legacy( 4818 ).applyToLegacy( {
           settings: {
@@ -63,7 +59,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
           con.query( 'select store from agenda where id = 4818', ( err, rows ) => {
 
-            JSON.parse( rows[ 0 ].store ).moderated.should.equal( true );
+            expect(JSON.parse( rows[ 0 ].store ).moderated).toBe(true);
 
             done();
 

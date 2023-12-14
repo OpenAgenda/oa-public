@@ -1,20 +1,16 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): set (create)', function() {
-
-  this.timeout( 30000 );
-
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -31,7 +27,7 @@ describe( 'agendas - functional (server): set (create)', function() {
     }
   } ) );
 
-  before( () => svc.init( {
+  beforeAll( () => svc.init( {
     ...config,
     Files: Files(dConfig.files)
   } ) );
@@ -49,15 +45,15 @@ describe( 'agendas - functional (server): set (create)', function() {
       description: 'This is necessary'
     }, ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.pick( result.agenda, [ 'slug', 'image', 'title' ] ).should.eql( {
+      expect(_.pick( result.agenda, [ 'slug', 'image', 'title' ] )).toEqual( {
         slug: 'hello-world',
         image: null,
         title: 'Hello World'
       } );
 
-      _.pick( result, [ 'valid', 'success', 'errors' ] ).should.eql( {
+      expect(_.pick( result, [ 'valid', 'success', 'errors' ] )).toEqual( {
         valid: true,
         success: true,
         errors: []
@@ -76,7 +72,7 @@ describe( 'agendas - functional (server): set (create)', function() {
       description: 'This is necessary'
     } );
 
-    agenda.title.should.equal('Hello World');
+    expect(agenda.title).toBe('Hello World');
   });
 
 
@@ -86,11 +82,11 @@ describe( 'agendas - functional (server): set (create)', function() {
       ownerId: 3
     }, ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      result.valid.should.equal( false );
+      expect(result.valid).toBe( false );
 
-      result.errors.should.eql( [ {
+      expect(result.errors).toEqual( [ {
         field: 'title',
         code: 'required',
         message: 'a string is required',
@@ -123,9 +119,9 @@ describe( 'agendas - functional (server): set (create)', function() {
       url: 'www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm'
     }, ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.pick( result.agenda, [ 'slug', 'title', 'description' ] ).should.eql( {
+      expect(_.pick( result.agenda, [ 'slug', 'title', 'description' ] )).toEqual( {
         slug: 'courbevoie',
         title: 'Courbevoie',
         description: 'Que faire à Courbevoie'
@@ -146,7 +142,7 @@ describe( 'agendas - functional (server): set (create)', function() {
       description: 'Evénements d\'une rando en Espagne/France/Italie'
     }, ( err, result ) => {
 
-      should( result.agenda.id ).equal( undefined );
+      expect(result.agenda.id).toBeUndefined();
 
       done();
 
@@ -162,9 +158,9 @@ describe( 'agendas - functional (server): set (create)', function() {
       interfaces: {
         onCreate: ( agenda ) => {
 
-          agenda.title.should.equal( 'Niargl' );
+          expect(agenda.title).toBe( 'Niargl' );
 
-          should( agenda.id ).not.equal( undefined );
+          expect( agenda.id ).not.toBeUndefined();
 
           done();
 
@@ -189,9 +185,9 @@ describe( 'agendas - functional (server): set (create)', function() {
       description: 'Evénements d\'une rando en Espagne/France/Italie'
     }, { internal: true }, ( err, result ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.isObject( _.get( result, 'agenda.credentials' ) ).should.equal( true );
+      expect(_.isObject( _.get( result, 'agenda.credentials' ) )).toBe(true);
 
       done();
 

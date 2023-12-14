@@ -3,26 +3,23 @@
 process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
-const svc = require( '../' );
+const svc = require( '../service/index.js' );
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
+} = require( '../testconfig.sample.js' );
 
 describe( 'agendas - functional (server): middleware', function () {
 
-  this.timeout( 30000 );
-
-  before( () => svc.init( {
+  beforeAll( () => svc.init( {
     ...config,
     Files: Files(dConfig.files)
   } ) );
 
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -53,7 +50,7 @@ describe( 'agendas - functional (server): middleware', function () {
 
       function next() {
 
-        req.agenda.title.should.equal( 'EPN "Espace Torcy"' );
+        expect(req.agenda.title).toBe( 'EPN "Espace Torcy"' );
 
         done();
 
@@ -64,16 +61,16 @@ describe( 'agendas - functional (server): middleware', function () {
     it( '.load namespaces can be specified', done => {
 
       const req = {
-          uid: 94345899
-        },
+        uid: 94345899
+      },
 
-        res = {};
+      res = {};
 
       svc.middleware.load( { namespaces: { identifiers: { uid: 'uid' }, result: 'a' } } )( req, res, next );
 
       function next( err ) {
 
-        req.a.title.should.equal( 'EPN "Espace Torcy"' );
+        expect(req.a.title).toBe( 'EPN "Espace Torcy"' );
 
         done();
 
@@ -99,7 +96,7 @@ describe( 'agendas - functional (server): middleware', function () {
 
       function next( err ) {
 
-        req.a.should.instanceOf( svc.Agenda );
+        expect(req.a).toBeInstanceOf( svc.Agenda );
 
         done();
 

@@ -3,20 +3,17 @@
 process.env.NODE_ENV = 'test';
 
 const mysql = require( 'mysql' );
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): remove', function() {
 
-  this.timeout( 30000 );
-
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -33,7 +30,7 @@ describe( 'agendas - functional (server): remove', function() {
     }
   } ) );
 
-  before( () => svc.init( {
+  beforeAll( () => svc.init( {
     ...config,
     Files: Files(dConfig.files)
   } ) );
@@ -49,15 +46,15 @@ describe( 'agendas - functional (server): remove', function() {
 
     con.query( `select id from ${config.schemas.agenda} where id = ?`, 4875, ( err, rows ) => {
 
-      rows.length.should.equal( 1 );
+      expect(rows.length).toBe( 1 );
 
       svc.remove( 4875, ( err, result ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
         con.query( `select id from ${config.schemas.agenda} where id = ?`, 4875, ( err, rows ) => {
 
-          rows.length.should.equal( 0 );
+          expect(rows.length).toBe( 0 );
 
           con.end();
 
@@ -77,15 +74,15 @@ describe( 'agendas - functional (server): remove', function() {
 
     con.query( `select id from ${config.schemas.agenda} where id = ?`, 4826, ( err, rows ) => {
 
-      rows.length.should.equal( 1 );
+      expect(rows.length).toBe( 1 );
 
       svc.remove( 4826, ( err, result ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
         con.query( `select id from ${config.schemas.agenda} where id = ?`, 4826, ( err, rows ) => {
 
-          rows.length.should.equal( 0 );
+          expect(rows.length).toBe( 0 );
 
           con.end();
 
@@ -108,14 +105,14 @@ describe( 'agendas - functional (server): remove', function() {
       interfaces: {
         beforeRemove: ( agenda, cb ) => {
 
-          agenda.id.should.equal( 4830 );
+          expect(agenda.id).toBe( 4830 );
 
           cb();
 
         },
         onRemove: agenda => {
 
-          agenda.id.should.equal( 4830 );
+          expect(agenda.id).toBe( 4830 );
 
           done();
 

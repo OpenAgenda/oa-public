@@ -1,12 +1,11 @@
 'use strict';
 
 const fs = require('fs');
-const should = require('should');
 const assert = require('assert');
 
 const {
   utils
-} = require('../');
+} = require('../service');
 
 const fx = {
   private: require('./fixtures/privateFields.json'),
@@ -26,7 +25,7 @@ describe('agendas - utils', () => {
         title: 'Un agenda'
       });
 
-      filtered.should.eql({
+      expect(filtered).toEqual({
         title: 'Un agenda'
       });
     });
@@ -36,7 +35,7 @@ describe('agendas - utils', () => {
         title: 'Un agenda'
       }, 'read', 'hobgoblin');
 
-      filtered.should.eql({
+      expect(filtered).toEqual({
         title: 'Un agenda'
       });
     });
@@ -47,7 +46,7 @@ describe('agendas - utils', () => {
         title: 'Un agenda'
       });
 
-      filtered.should.eql({
+      expect(filtered).toEqual({
         title: 'Un agenda'
       });
     });
@@ -58,7 +57,7 @@ describe('agendas - utils', () => {
         title: 'Un agenda'
       }, 'read', 'internal');
 
-      filtered.should.eql({
+      expect(filtered).toEqual({
         id: 218,
         title: 'Un agenda'
       });
@@ -73,7 +72,7 @@ describe('agendas - utils', () => {
         }
       }, 'read', 'administrator');
 
-      filtered.settings.contribution.type.should.equal(1);
+      expect(filtered.settings.contribution.type).toBe(1);
     });
 
   });
@@ -85,15 +84,15 @@ describe('agendas - utils', () => {
     });
 
     it('objectified fields derived from legacy private matches legacy format', () => {
-      legacy.private.should.eql(fx.private);
+      expect(legacy.private).toEqual(fx.private);
     });
 
     it('objectified fields derived from legacy validation fields matches legacy format', () => {
-      legacy.all.should.eql(fx.all);
+      expect(legacy.all).toEqual(fx.all);
     });
 
     it('list existing credentials', () => {
-      utils.credentials.should.eql(fx.credentials);
+      expect(utils.credentials).toEqual(fx.credentials);
     });
 
   });

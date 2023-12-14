@@ -5,20 +5,17 @@ process.env.NODE_ENV = 'test';
 const _ = require( 'lodash' );
 
 const async = require( 'async' );
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): get', function() {
 
-  this.timeout( 30000 );
-
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -35,7 +32,7 @@ describe( 'agendas - functional (server): get', function() {
     }
   } ) );
 
-  before( () => {
+  beforeAll( () => {
     svc.init( {
       ...config,
       Files: Files(dConfig.files)
@@ -46,7 +43,7 @@ describe( 'agendas - functional (server): get', function() {
 
     const agenda = await svc.get( 4875 );
 
-    _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
+    expect(_.pick( agenda, [ 'slug', 'uid', 'title' ] )).toEqual( {
       slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
       uid: 52084961,
       title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
@@ -58,9 +55,9 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( 4875, ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect( err ).toBeNull();
 
-      _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
+      expect(_.pick( agenda, [ 'slug', 'uid', 'title' ] )).toEqual( {
         slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
         uid: 52084961,
         title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
@@ -76,9 +73,9 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( 4875, { internal: true }, ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.pick( agenda, [ 'memberSchemaId'] ).should.eql( {
+      expect(_.pick( agenda, [ 'memberSchemaId'] )).toEqual( {
         memberSchemaId: null,
       } );
 
@@ -93,9 +90,9 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.findOne( 'Produits Laitiers', ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      agenda.uid.should.equal( 52084961 );
+      expect(agenda.uid).toBe( 52084961 );
 
       done();
 
@@ -108,7 +105,7 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( 4875, { includeImagePath: true }, ( err, agenda ) => {
 
-      agenda.image.should.equal( config.imagePath + 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' )
+      expect(agenda.image).toBe( config.imagePath + 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' )
 
       done();
 
@@ -121,10 +118,10 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( 4848, { detailed: true }, ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      agenda.publishedEvents.should.equal( 10 );
-      agenda.upcomingPublishedEvents.should.equal( 8 );
+      expect(agenda.publishedEvents).toBe( 10 );
+      expect(agenda.upcomingPublishedEvents).toBe( 8 );
 
       done();
 
@@ -137,7 +134,7 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( 4848, { detailed: true, includeRestricted: true }, ( err, agenda ) => {
 
-      agenda.totalEvents.should.equal( 19 );
+      expect(agenda.totalEvents).toBe( 19 );
 
       done();
 
@@ -149,9 +146,9 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { slug: 'epn-espace-torcy' }, ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
+      expect(_.pick( agenda, [ 'slug', 'uid', 'title' ] )).toEqual( {
         slug: 'epn-espace-torcy',
         uid: 94345899,
         title: 'EPN "Espace Torcy"'
@@ -168,8 +165,8 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { slug: 'agenda-culture-gradignan' }, ( err, agenda ) => {
 
-      should( err ).equal( null );
-      should( agenda ).equal( null );
+      expect(err).toBeNull();
+      expect( agenda ).toBeNull();
 
       done();
 
@@ -181,7 +178,7 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { slug: 'agenda-culture-gradignan' }, { private: null }, ( err, agenda ) => {
 
-      agenda.slug.should.equal( 'agenda-culture-gradignan' );
+      expect(agenda.slug).toBe( 'agenda-culture-gradignan' );
 
       done();
 
@@ -193,7 +190,7 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { slug: 'agenda-culture-gradignan' }, { private: true }, ( err, agenda ) => {
 
-      agenda.slug.should.equal( 'agenda-culture-gradignan' );
+      expect(agenda.slug).toBe( 'agenda-culture-gradignan' );
 
       done();
 
@@ -206,7 +203,7 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { uid: 94345899 }, ( err, agenda ) => {
 
-      should( _.get( agenda, 'credentials' ) ).equal( undefined );
+      expect( _.get( agenda, 'credentials' ) ).toBeUndefined();
 
       done();
 
@@ -219,9 +216,9 @@ describe( 'agendas - functional (server): get', function() {
 
     svc.get( { uid: 94345899 }, { internal: true }, ( err, agenda ) => {
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
-      _.get( agenda, 'credentials' ).should.eql( {
+      expect(_.get( agenda, 'credentials' )).toEqual( {
         useContributeApp: true,
         premiumCustomFields: false,
         activatingInvitations: false,
@@ -260,9 +257,9 @@ describe( 'agendas - functional (server): get', function() {
 
     }, err => {
 
-      remaining.should.equal( 0 );
+      expect(remaining).toBe( 0 );
 
-      should( err ).equal( null );
+      expect(err).toBeNull();
 
       done();
 

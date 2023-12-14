@@ -3,19 +3,16 @@
 const {
   service: config,
   dependencies: dConfig
-} = require('../testconfig.sample');
+} = require('../testconfig.sample.js');
 
 const mysql = require('mysql');
 const assert = require('assert');
 const Files = require('@openagenda/files');
 
-const svc = require('../');
+const svc = require('../service/index.js');
 
 describe('agendas - functional (server): set (update)', function() {
-
-  this.timeout(30000);
-
-  before(require('./fixtures/load.js').bind(null, {
+  beforeAll(require('./fixtures/load.js').bind(null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -33,7 +30,7 @@ describe('agendas - functional (server): set (update)', function() {
     }
   }));
 
-  before(() => svc.init({
+  beforeAll(() => svc.init({
     ...config,
     Files: Files(dConfig.files)
   }));

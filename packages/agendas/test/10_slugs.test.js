@@ -2,20 +2,17 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' );
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): slugs', function() {
 
-  this.timeout( 30000 );
-
-  before( () => {
+  beforeAll( () => {
 
     svc.init( {
       ...config,
@@ -24,7 +21,7 @@ describe( 'agendas - functional (server): slugs', function() {
 
   } );
 
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -47,9 +44,9 @@ describe( 'agendas - functional (server): slugs', function() {
 
       svc.slugs.isTaken( 'agenda-culturel-auvergne', ( err, result ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
-        result.should.eql( {
+        expect(result).toEqual( {
           taken: true,
           valid: true,
           errors: []
@@ -65,9 +62,9 @@ describe( 'agendas - functional (server): slugs', function() {
 
       svc.slugs.isTaken( 'tapetonslugunique', ( err, result ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
-        result.should.eql( {
+        expect(result).toEqual( {
           taken: false,
           valid: true,
           errors: []
@@ -83,9 +80,9 @@ describe( 'agendas - functional (server): slugs', function() {
 
       svc.slugs.isTaken( 'This is not a slug', ( err, result ) => {
 
-        should( err ).equal( null );
+        expect(err).toBeNull();
 
-        result.should.eql( {
+        expect(result).toEqual( {
           taken: null,
           valid: false,
           errors: [ {

@@ -10,15 +10,13 @@ const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
+} = require( '../testconfig.sample.js' );
 
-const svc = require( '../' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): list', function () {
 
-  this.timeout( 30000 );
-
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -35,7 +33,7 @@ describe( 'agendas - functional (server): list', function () {
     }
   } ) );
 
-  before( () => {
+  beforeAll( () => {
     svc.init( {
       ...config,
       Files: Files(dConfig.files)
@@ -46,7 +44,7 @@ describe( 'agendas - functional (server): list', function () {
 
     const { agendas } = await svc.list( 0, 10 );
 
-    agendas.length.should.equal( 10 );
+    expect(agendas.length).toEqual( 10 );
 
   } );
 
@@ -56,11 +54,11 @@ describe( 'agendas - functional (server): list', function () {
 
       svc.list( {}, 4, 1, { internal: true }, ( err, offsetAgendas ) => {
 
-        agendas.length.should.equal( 10 );
+        expect(agendas.length).toEqual( 10 );
 
-        offsetAgendas.length.should.equal( 1 );
+        expect(offsetAgendas.length).toEqual( 1 );
 
-        agendas[ 4 ].id.should.equal( offsetAgendas[ 0 ].id );
+        expect(agendas[ 4 ].id).toEqual( offsetAgendas[ 0 ].id );
 
         done();
 
@@ -77,7 +75,7 @@ describe( 'agendas - functional (server): list', function () {
       private: null
     }, ( err, agendas ) => {
 
-      agendas[ 0 ].publishedEvents.should.equal( 9 );
+      expect(agendas[ 0 ].publishedEvents).toEqual( 9 );
 
       done();
 
@@ -91,7 +89,7 @@ describe( 'agendas - functional (server): list', function () {
       internal: true
     });
 
-    agendas[0].id.should.equal(4892);
+    expect(agendas[0].id).toEqual(4892);
   });
 
   it('list with { offsetAsLastId } and { order: id.desc } option allows for using id value as offset in reverse id order', async () => {
@@ -102,7 +100,7 @@ describe( 'agendas - functional (server): list', function () {
       internal: true
     });
 
-    agendas[0].id.should.equal(4889);
+    expect(agendas[0].id).toEqual(4889);
   });
 
   it('list with { offsetAsLastId } provides lastId key in result', async () => {
@@ -111,7 +109,7 @@ describe( 'agendas - functional (server): list', function () {
       internal: true
     });
 
-    lastId.should.equal(4892);
+    expect(lastId).toEqual(4892);
   });
 
   it( 'list with { internal: false } does not include internal fields', done => {
@@ -147,7 +145,7 @@ describe( 'agendas - functional (server): list', function () {
       includeImagePath: true,
       detailed: true
     }, ( err, agendas ) => {
-      agendas[ 0 ].image.should.equal( '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg' );
+      expect(agendas[ 0 ].image).toEqual( '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg' );
       done();
     } );
 
@@ -161,7 +159,7 @@ describe( 'agendas - functional (server): list', function () {
       private: null
     }, 94, 1, ( err, agendas ) => {
 
-      agendas[ 0 ].publishedEvents.should.equal( 9 );
+      expect(agendas[ 0 ].publishedEvents).toEqual( 9 );
 
       done();
 
@@ -189,13 +187,13 @@ describe( 'agendas - functional (server): list', function () {
     svc.list( 85, 10, ( err, agendas ) => {
 
       // this agenda is private
-      agendas.filter( a => a.uid === 54289989 ).length.should.equal( 0 );
+      expect(agendas.filter( a => a.uid === 54289989 ).length).toEqual( 0 );
 
       // these aren't
-      agendas.filter( a => a.uid === 24821824 ).length.should.equal( 1 );
-      agendas.filter( a => a.uid === 17582566 ).length.should.equal( 1 );
+      expect(agendas.filter( a => a.uid === 24821824 ).length).toEqual( 1 );
+      expect(agendas.filter( a => a.uid === 17582566 ).length).toEqual( 1 );
 
-      agendas.length.should.equal( 10 );
+      expect(agendas.length).toEqual( 10 );
 
       done();
 
@@ -208,7 +206,7 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( 0, 30, ( err, agendas ) => {
 
-      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 1 );
+      expect(agendas.filter( a => a.uid === 90695263 ).length).toEqual( 1 );
 
       done();
 
@@ -221,7 +219,7 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( 0, 30, { indexed: true }, ( err, agendas ) => {
 
-      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 0 );
+      expect(agendas.filter( a => a.uid === 90695263 ).length).toEqual( 0 );
 
       done();
 
@@ -234,7 +232,7 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( 0, 30, { total: true }, ( err, agendas, total ) => {
 
-      total.should.equal( 97 );
+      expect(total).toEqual( 97 );
 
       done();
 
@@ -247,7 +245,7 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( { ids: [] }, 0, 10, ( err, agendas ) => {
 
-      agendas.length.should.equal( 0 );
+      expect(agendas.length).toEqual( 0 );
 
       done();
 
@@ -260,7 +258,7 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( { ids: [ 4829, 4848 ] }, 0, 2, ( err, agendas ) => {
 
-      agendas.length.should.equal( 2 );
+      expect(agendas.length).toEqual( 2 );
 
       done();
 
@@ -290,8 +288,8 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( { ids: [ 4828, 4848 ], detailed: true, private: null, search: 'gradignan' }, 0, 2, ( err, agendas ) => {
 
-      agendas.length.should.equal( 1 );
-      agendas[ 0 ].publishedEvents.should.equal( 9 );
+      expect(agendas.length).toEqual( 1 );
+      expect(agendas[ 0 ].publishedEvents).toEqual( 9 );
 
       done();
 
@@ -303,8 +301,8 @@ describe( 'agendas - functional (server): list', function () {
 
     svc.list( { ids: [ 4828, 4848 ], search: 'gradignan' }, 0, 2, { detailed: true, private: null }, ( err, agendas ) => {
 
-      agendas.length.should.equal( 1 );
-      agendas[ 0 ].publishedEvents.should.equal( 9 );
+      expect(agendas.length).toEqual( 1 );
+      expect(agendas[ 0 ].publishedEvents).toEqual( 9 );
 
       done();
 
@@ -319,7 +317,7 @@ describe( 'agendas - functional (server): list', function () {
 
     agendas.map( a => a.id ).forEach( id => {
 
-      ( id > 4930 ).should.equal( true );
+      expect(( id > 4930 )).toEqual( true );
 
     } );
 
@@ -334,7 +332,7 @@ describe( 'agendas - functional (server): list', function () {
 
       agendas.forEach( a => {
 
-        ( a.updatedAt > new Date( '2016-01-29T07:55:09.000Z' ) ).should.equal( true );
+        expect(( a.updatedAt > new Date( '2016-01-29T07:55:09.000Z' ) )).toEqual( true );
 
       } );
 
@@ -373,8 +371,9 @@ describe( 'agendas - functional (server): list', function () {
       let prevUpdatedAt = agendas[ 0 ].updatedAt;
 
       agendas.forEach( a => {
-
-        a.updatedAt.should.be.belowOrEqual( prevUpdatedAt );
+        expect(
+          a.updatedAt.getTime()
+        ).toBeLessThanOrEqual(prevUpdatedAt.getTime());
 
         prevUpdatedAt = a.updatedAt;
 
@@ -403,9 +402,8 @@ describe( 'agendas - functional (server): list', function () {
 
     }, err => {
 
-      remaining.should.equal( 0 );
-
-      should( err ).equal( null );
+      expect(remaining).toEqual( 0 );
+      expect(err).toBeNull();
 
       done();
 

@@ -5,20 +5,18 @@ process.env.NODE_ENV = 'test';
 const async = require( 'async' );
 const fs = require( 'fs' );
 const mysql = require( 'mysql' );
-const should = require( 'should' );
+
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
-const svc = require( '../' );
+} = require( '../testconfig.sample.js' );
+const svc = require( '../service/index.js' );
 
 describe( 'agendas - functional (server): instanciate', function () {
 
-  this.timeout( 30000 );
-
-  before( () => {
+  beforeAll( () => {
 
     svc.init( {
       ...config,
@@ -27,7 +25,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
   } );
 
-  before( require( './fixtures/load.js' ).bind( null, {
+  beforeAll( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -63,7 +61,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
 
-      should( agenda.getData().id ).equal( undefined )
+      expect( agenda.getData().id ).toBeUndefined();
 
       done();
 
@@ -75,7 +73,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
 
-      should( agenda.getData( { internal: true } ).id ).equal( 4826 );
+      expect( agenda.getData( { internal: true } ).id ).toBe( 4826 );
 
       done();
 
@@ -93,7 +91,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
       con.query( 'select * from agenda where id = ?', aId, ( err, rows ) => {
 
-        should( rows[ 0 ].image ).equal( null );
+        expect( rows[ 0 ].image ).toBeNull();
 
         wcb();
 
@@ -111,7 +109,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
       con.query( 'select * from agenda where id = ?', aId, ( err, rows ) => {
 
-        should( rows[ 0 ].image.split('?')[0] ).equal( 'agenda' + rows[ 0 ].uid + '.jpg' );
+        expect( rows[ 0 ].image.split('?')[0] ).toBe( 'agenda' + rows[ 0 ].uid + '.jpg' );
 
         con.end();
 
@@ -128,7 +126,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4820, { instanciate: true }, ( err, a ) => {
 
-      a.getImage().split('?')[0].should.equal( 'review_planning-intervenants_00.jpg' );
+      expect(a.getImage().split('?')[0]).toBe( 'review_planning-intervenants_00.jpg' );
 
       done();
 
@@ -141,7 +139,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4820, { instanciate: true }, ( err, a ) => {
 
-      a.getImage( true ).should.equal( '//openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg' );
+      expect(a.getImage( true )).toBe( '//openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg' );
 
       done();
 
@@ -153,9 +151,9 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4832, { instanciate: true }, ( err, a ) => {
 
-      should( a.getImage() ).equal( null );
+      expect( a.getImage() ).toBeNull();
 
-      should( a.getImage( true ) ).equal( null );
+      expect( a.getImage( true ) ).toBeNull();
 
       done();
 
@@ -169,9 +167,9 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4832, { instanciate: true }, ( err, a ) => {
 
-      should( a.getImage( false, true ) ).equal( config.defaultImagePath );
+      expect( a.getImage( false, true ) ).toBe( config.defaultImagePath );
 
-      should( a.getImage( true, true ) ).equal( config.defaultImagePath );
+      expect( a.getImage( true, true ) ).toBe( config.defaultImagePath );
 
       svc.init( {
         ...config,
