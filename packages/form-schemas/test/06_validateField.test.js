@@ -13,8 +13,8 @@ describe('form-schemas -06- validateField', () => {
         field: 'atextfield',
         fieldType: 'text',
         label: {
-          fr: 'Un champ texte'
-        }
+          fr: 'Un champ texte',
+        },
       })).toStrictEqual({
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
@@ -42,7 +42,7 @@ describe('form-schemas -06- validateField', () => {
         default: undefined,
         constraints: undefined,
         selfHandled: [],
-        enable: true
+        enable: true,
       });
     });
 
@@ -50,7 +50,7 @@ describe('form-schemas -06- validateField', () => {
       expect(iso.validateField({
         field: 'atextfield',
         fieldType: 'text',
-        label: 'Un champ texte'
+        label: 'Un champ texte',
       }).label).toBe('Un champ texte');
     });
 
@@ -60,8 +60,8 @@ describe('form-schemas -06- validateField', () => {
         fieldType: 'text',
         languages: ['fr', 'en', 'it'],
         label: {
-          fr: 'Un champ texte multilingue'
-        }
+          fr: 'Un champ texte multilingue',
+        },
       })).toStrictEqual({
         field: 'amultilingualtextfield',
         label: { fr: 'Un champ texte multilingue' },
@@ -90,7 +90,7 @@ describe('form-schemas -06- validateField', () => {
         default: undefined,
         constraints: undefined,
         selfHandled: [],
-        enable: true
+        enable: true,
       });
     });
 
@@ -101,12 +101,12 @@ describe('form-schemas -06- validateField', () => {
         label: { fr: 'Choix multiples' },
         options: [{
           value: 1,
-          label: { fr: 'Un' }
+          label: { fr: 'Un' },
         }, {
           value: 2,
-          label: { fr: 'Deux' }
+          label: { fr: 'Deux' },
         }],
-        origin: null
+        origin: null,
       })).toStrictEqual({
         field: 'anoptionlist',
         label: { fr: 'Choix multiples' },
@@ -127,15 +127,15 @@ describe('form-schemas -06- validateField', () => {
             value: '1',
             label: { fr: 'Un' },
             display: true,
-            info: null
+            info: null,
           },
           {
             id: undefined,
             value: '2',
             label: { fr: 'Deux' },
             display: true,
-            info: null
-          }
+            info: null,
+          },
         ],
         fieldType: 'radio',
         origin: null,
@@ -148,7 +148,7 @@ describe('form-schemas -06- validateField', () => {
         default: undefined,
         constraints: undefined,
         selfHandled: [],
-        enable: true
+        enable: true,
       });
     });
 
@@ -160,25 +160,25 @@ describe('form-schemas -06- validateField', () => {
         options: [{
           id: 1,
           value: '1',
-          label: 'Un'
+          label: 'Un',
         }, {
           id: 2,
           value: '2',
-          label: 'Deux'
+          label: 'Deux',
         }],
-        origin: null
+        origin: null,
       }).options).toStrictEqual([{
         id: 1,
         value: '1',
         label: 'Un',
         display: true,
-        info: null
+        info: null,
       }, {
         id: 2,
         value: '2',
         label: 'Deux',
         display: true,
-        info: null
+        info: null,
       }]);
     });
 
@@ -190,7 +190,7 @@ describe('form-schemas -06- validateField', () => {
         info: { fr: 'Avec un détail explicatif' },
         min: 3,
         max: 10,
-        origin: null
+        origin: null,
       })).toStrictEqual({
         field: 'atextfield',
         label: { fr: 'Un champ de texte libre' },
@@ -218,7 +218,7 @@ describe('form-schemas -06- validateField', () => {
         default: undefined,
         constraints: undefined,
         selfHandled: [],
-        enable: true
+        enable: true,
       });
     });
 
@@ -227,12 +227,12 @@ describe('form-schemas -06- validateField', () => {
         field: 'acustomfield',
         fieldType: 'someCustomType',
         label: {
-          fr: 'Un champ au type personnalisé'
-        }
+          fr: 'Un champ au type personnalisé',
+        },
       }, {
         custom: {
-          someCustomType: customValidator
-        }
+          someCustomType: customValidator,
+        },
       })).toStrictEqual({
         field: 'acustomfield',
         label: { fr: 'Un champ au type personnalisé' },
@@ -260,7 +260,7 @@ describe('form-schemas -06- validateField', () => {
         default: undefined,
         constraints: undefined,
         selfHandled: [],
-        enable: true
+        enable: true,
       });
     });
 
@@ -271,7 +271,7 @@ describe('form-schemas -06- validateField', () => {
         label: 'A monolingual label',
       }, { defaultLabelLanguage: 'fr' }).label)
         .toStrictEqual({
-          fr: 'A monolingual label'
+          fr: 'A monolingual label',
         });
     });
 
@@ -279,11 +279,11 @@ describe('form-schemas -06- validateField', () => {
       expect(iso.validateField({
         field: 'afield',
         fieldType: 'abstract',
-        optional: false
+        optional: false,
       })).toStrictEqual({
         field: 'afield',
         optional: false,
-        fieldType: 'abstract'
+        fieldType: 'abstract',
       });
     });
 
@@ -294,9 +294,9 @@ describe('form-schemas -06- validateField', () => {
           field: 'afield',
           fieldType: 'text',
           label: 'A label',
-          enableWith: 'anotherfield'
+          enableWith: 'anotherfield',
         }).related).toStrictEqual({ enable: ['anotherfield'], optional: [], other: [] });
-      }
+      },
     );
 
     it('enableWith can be an object', () => {
@@ -308,16 +308,16 @@ describe('form-schemas -06- validateField', () => {
         info: 'Activated if "Or that" value is checked',
         enableWith: {
           field: 'checkboxes',
-          value: 2
-        }
+          value: 2,
+        },
       }, {
         custom: null,
         defaultLabelLanguage: 'fr',
-        requireLabels: true
+        requireLabels: true,
       });
       expect(field.enableWith).toStrictEqual({
         field: 'checkboxes',
-        value: 2
+        value: 2,
       });
     });
   });
@@ -330,7 +330,7 @@ describe('form-schemas -06- validateField', () => {
         label: 'A label',
       }), ['write', 'read'])).toStrictEqual({
         read: null,
-        write: null
+        write: null,
       });
     });
 
@@ -339,7 +339,7 @@ describe('form-schemas -06- validateField', () => {
         field: 'f',
         fieldType: 'text',
         label: 'alabel',
-        read: ['steve', 'janine']
+        read: ['steve', 'janine'],
       }).read).toStrictEqual(['steve', 'janine']);
     });
   });
