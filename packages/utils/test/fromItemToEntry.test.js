@@ -1,6 +1,7 @@
 'use strict';
 
 const fromItemToEntry = require('../fields/fromItemToEntry');
+const getItemValue = require('../fields/lib/getItemValue');
 const eventsFields = require('./fixtures/db/eventsFields');
 
 describe('utils - fromItemToEntry', () => {
@@ -236,25 +237,35 @@ describe('utils - fromItemToEntry', () => {
     });
 
     it('adminLevel defined', () => {
-      const entry = fromItemToEntry([
-        {
-          field: 'city',
-          optional: true,
-          fieldType: 'text',
-          read: ['internal', 'public', 'terms'],
-          write: ['internal', 'administrator', 'moderator', 'contributor'],
-          max: 100,
-        }, {
-          field: 'adminLevel4',
-          optional: true,
-          fieldType: 'text',
-          db: 'city',
-          read: ['internal', 'public', 'terms'],
-          write: ['internal', 'administrator', 'moderator', 'contributor'],
-          max: 100,
-        }], { adminLevel4: 'Admin4 Name', city: null });
+      const entry = fromItemToEntry([{
+        field: 'city',
+        optional: true,
+        fieldType: 'text',
+        linkedFields: [{ field: 'adminLevel4', fieldType: 'text', db: 'city' }],
+      }], { adminLevel4: 'Admin4 Name', city: null });
 
       expect(entry.city).toBe('Admin4 Name');
+    });
+
+    it('several fields in map point to same column', () => {
+      const loadedFromItemToEntry = fromItemToEntry.loadWithLinkedFields([{
+        field: 'adminLevel6',
+        fieldType: 'text',
+        db: 'city_district',
+      }, {
+        field: 'district',
+        fieldType: 'text',
+        db: 'city_district',
+      }]);
+
+      const entry = loadedFromItemToEntry({
+        adminLevel6: 'Milieu',
+      }, {
+        adminLevel6: 'Centre',
+        district: 'Centre',
+      });
+
+      expect(entry.city_district).toBe('Milieu');
     });
 
     it('adminLevel undefined', () => {
@@ -277,6 +288,29 @@ describe('utils - fromItemToEntry', () => {
 
       const entry = fct({ adminLevel4: null, city: 'City Name' });
       expect(entry.city).toBe('City Name');
+    });
+  });
+
+  describe('utilities unit tests', () => {
+    it('getItemValue with current', () => {
+      const value = getItemValue({
+        field: 'adminLevel6',
+        fieldType: 'text',
+        db: 'city_district',
+        linkedFields: [{ field: 'district', fieldType: 'text', db: 'city_district' }],
+      }, { adminLevel6: 'Milieu' }, 'Centre');
+
+      expect(value).toBe('Milieu');
+    });
+
+    it('getItemValue without current', () => {
+      const value = getItemValue({
+        field: 'city',
+        fieldType: 'text',
+        linkedFields: [{ field: 'adminLevel4', fieldType: 'text', db: 'city' }],
+      }, { adminLevel4: 'Admin4 Name', city: null });
+
+      expect(value).toBe('Admin4 Name');
     });
   });
 });
