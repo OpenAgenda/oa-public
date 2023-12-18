@@ -280,6 +280,23 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
+      'fix: adminLevels should be patchable',
+      async () => {
+        const prePatch = await svc(7196947).get(14471367, { detailed: true });
+
+        expect(prePatch.adminLevel5).toBeNull();
+
+        const patched = await svc(7196947).patch(14471367, { adminLevel5: 'Centre' });
+
+        expect(patched.adminLevel5).toBe('Centre');
+
+        const postPatch = await svc(7196947).get(14471367, { detailed: true });
+
+        expect(postPatch.adminLevel5).toBe('Centre');
+      },
+    );
+
+    it(
       'fix: patch without countryCode or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
       async () => {
         let error;
