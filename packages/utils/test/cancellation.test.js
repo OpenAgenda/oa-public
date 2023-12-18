@@ -12,7 +12,7 @@ describe('utils - cancellation', () => {
       const uncancelled = stripCancellationFromTitle({
         fr: 'Annulé | Entrée libre et gratuite au Musée des Amériques-Auch',
         de: 'Abgesagt | Freier und kostenloser Eintritt ins Amerikanische Museum',
-        en: 'Cancelled | Free admission to the Museum of the Americas-Auch',
+        en: 'Canceled | Free admission to the Museum of the Americas-Auch',
         es: 'Cancelado | Entrada libre y gratuita en el Museo de las Américas-Auch',
         it: 'Cancellato | Ingresso libero e gratuito al Museo delle Americhe-Auch'
       });
@@ -42,7 +42,7 @@ describe('utils - cancellation', () => {
       expect(cancelled).toEqual({
         fr: 'Annulé | Entrée libre et gratuite au Musée des Amériques-Auch',
         de: 'Abgesagt | Freier und kostenloser Eintritt ins Amerikanische Museum',
-        en: 'Cancelled | Free admission to the Museum of the Americas-Auch',
+        en: 'Canceled | Free admission to the Museum of the Americas-Auch',
         es: 'Cancelado | Entrada libre y gratuita en el Museo de las Américas-Auch',
         it: 'Cancellato | Ingresso libero e gratuito al Museo delle Americhe-Auch'
       });

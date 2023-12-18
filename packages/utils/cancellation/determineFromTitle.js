@@ -4,6 +4,7 @@ const slug = require('slugify');
 
 const cancelled = [
   /^annule/g,
+  /^canceled/g,
   /^cancelled/g,
   /^abgesagt/g
 ];
