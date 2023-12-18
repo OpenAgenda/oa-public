@@ -11,8 +11,8 @@ describe('utils - fromItemToEntry', () => {
         db: {
           format: data => (typeof data.image === 'string' ? { filename: data.image } : data.image),
           type: 'json',
-          fields: 'image'
-        }
+          fields: 'image',
+        },
       }], { image: 'image.jpg' });
 
       expect(image).toEqual('{"filename":"image.jpg"}');
@@ -31,8 +31,8 @@ describe('utils - fromItemToEntry', () => {
     it('title is jsonified', () => {
       const entry = fromItemToEntry(eventsFields, {
         title: {
-          fr: 'Un événement'
-        }
+          fr: 'Un événement',
+        },
       });
 
       expect(entry.title).toBe('{"fr":"Un événement"}');
@@ -41,8 +41,8 @@ describe('utils - fromItemToEntry', () => {
     it('longDescription field is underscored', () => {
       const entry = fromItemToEntry(eventsFields, {
         longDescription: {
-          fr: 'Une description longue'
-        }
+          fr: 'Une description longue',
+        },
       });
 
       expect(entry.long_description).toBe('{"fr":"Une description longue"}');
@@ -51,7 +51,7 @@ describe('utils - fromItemToEntry', () => {
     it('image credits is placed in a object in the image field', () => {
       const entry = fromItemToEntry(eventsFields, {
         image: 'image.jpg',
-        imageCredits: 'Gaetan Latouche 2020'
+        imageCredits: 'Gaetan Latouche 2020',
       });
 
       expect(entry.image).toBe('{"filename":"image.jpg","credits":"Gaetan Latouche 2020"}');
@@ -59,10 +59,10 @@ describe('utils - fromItemToEntry', () => {
 
     it('if only image is specified and credits are already loaded in current entry, credits are not overwritten', () => {
       const entry = fromItemToEntry(eventsFields, {
-        image: 'image.maj.jpg'
+        image: 'image.maj.jpg',
       }, {
         image: 'image.jpg',
-        imageCredits: 'Gaetan Latouche 2020'
+        imageCredits: 'Gaetan Latouche 2020',
       });
 
       expect(entry.image).toBe('{"filename":"image.maj.jpg","credits":"Gaetan Latouche 2020"}');
@@ -70,11 +70,11 @@ describe('utils - fromItemToEntry', () => {
 
     it('if image is null it should be null in entry', () => {
       const entry = fromItemToEntry(eventsFields, {
-        image: null
+        image: null,
       }, {
         image: {
-          filename: 'image.png'
-        }
+          filename: 'image.png',
+        },
       });
 
       expect(entry.image).toBe(null);
@@ -84,14 +84,14 @@ describe('utils - fromItemToEntry', () => {
       const entry = fromItemToEntry(
         [{
           field: 'draft',
-          fieldTYpe: 'boolean'
+          fieldTYpe: 'boolean',
         }],
         {
-          draft: false
+          draft: false,
         },
         {
-          draft: true
-        }
+          draft: true,
+        },
       );
 
       expect(entry.draft).toBe(false);
@@ -101,13 +101,13 @@ describe('utils - fromItemToEntry', () => {
       const entry = fromItemToEntry(eventsFields, {
         timings: [{
           begin: '2020-10-10T08:00:00.000Z',
-          end: '2020-10-10T20:00:00.000Z'
-        }]
+          end: '2020-10-10T20:00:00.000Z',
+        }],
       }, {
         timings: [{
           begin: '2020-11-22T13:00:00.000+01:00',
-          end: '2020-11-22T13:30:00.000+01:00'
-        }]
+          end: '2020-11-22T13:30:00.000+01:00',
+        }],
       });
 
       expect(entry.timings).toBe('[{"begin":"2020-10-10T08:00:00.000Z","end":"2020-10-10T20:00:00.000Z"}]');
@@ -123,13 +123,13 @@ describe('utils - fromItemToEntry', () => {
     it('null is set on json field with subfield', () => {
       const entry = fromItemToEntry(eventsFields, {
         image: null,
-        imageCredits: null
+        imageCredits: null,
       }, {
         image: {
           filename: '5f9bbe1df90a43a8a059a56ad6e26c2a.base.image.jpg',
-          base: 'https://cibuldev.s3.amazonaws.com/'
+          base: 'https://cibuldev.s3.amazonaws.com/',
         },
-        imageCredits: null
+        imageCredits: null,
       });
 
       expect(entry.image).toBe('{"credits":null}');
@@ -139,7 +139,7 @@ describe('utils - fromItemToEntry', () => {
       const entry = fromItemToEntry(eventsFields, {
         longDescription: {},
       }, {
-        longDescription: { fr: 'gfdsgfdsgfdsgfds\nfdqsfdsq\nfqds' }
+        longDescription: { fr: 'gfdsgfdsgfdsgfds\nfdqsfdsq\nfqds' },
       });
 
       expect(entry.long_description).toBe('{}');
@@ -155,11 +155,11 @@ describe('utils - fromItemToEntry', () => {
         read: ['internal', 'public', 'list', 'terms'],
         write: ['internal', 'administrator', 'moderator', 'contributor'],
         fieldType: 'text',
-        max: 100
+        max: 100,
       }], { name: 'The Name' });
 
       expect(entry).toEqual({
-        placename: 'The Name'
+        placename: 'The Name',
       });
     });
 
@@ -171,28 +171,28 @@ describe('utils - fromItemToEntry', () => {
           db: {
             type: 'json',
             field: 'store.image',
-            assign: true
+            assign: true,
           },
           read: ['internal', 'public'],
           write: ['internal', 'administrator', 'moderator', 'contributor'],
           fieldType: 'stream',
-          allowNull: true
+          allowNull: true,
         }, {
           field: 'imageCredits',
           optional: true,
           db: {
             type: 'json',
             field: 'store.imageCredits',
-            assign: true
+            assign: true,
           },
           fieldType: 'text',
           read: ['internal', 'public'],
           write: ['internal', 'administrator', 'moderator', 'contributor'],
-          enableWith: 'image'
-        }
+          enableWith: 'image',
+        },
       ], {
         image: '//cibuldev.s3.amazonaws.com/location36419450.jpg',
-        imageCredits: 'me'
+        imageCredits: 'me',
       });
 
       expect(entry.store).toBe('{"image":"//cibuldev.s3.amazonaws.com/location36419450.jpg","imageCredits":"me"}');
@@ -211,7 +211,7 @@ describe('utils - fromItemToEntry', () => {
         },
         optional: true,
         read: ['internal', 'public'],
-        write: ['internal', 'contributor']
+        write: ['internal', 'contributor'],
       }, {
         field: 'disqualifiedDuplicates',
         fieldType: 'integer',
@@ -224,12 +224,12 @@ describe('utils - fromItemToEntry', () => {
         },
         optional: true,
         read: ['internal', 'public'],
-        write: ['internal', 'contributor']
+        write: ['internal', 'contributor'],
       }], {
-        duplicateCandidates: [1, 2]
+        duplicateCandidates: [1, 2],
       }, {
         duplicateCandidates: [3, 4],
-        disqualifiedDuplicates: [5, 6]
+        disqualifiedDuplicates: [5, 6],
       });
 
       expect(entry.duplicates).toBe('{"candidates":[1,2],"disqualified":[5,6]}');
@@ -243,7 +243,7 @@ describe('utils - fromItemToEntry', () => {
           fieldType: 'text',
           read: ['internal', 'public', 'terms'],
           write: ['internal', 'administrator', 'moderator', 'contributor'],
-          max: 100
+          max: 100,
         }, {
           field: 'adminLevel4',
           optional: true,
@@ -251,7 +251,7 @@ describe('utils - fromItemToEntry', () => {
           db: 'city',
           read: ['internal', 'public', 'terms'],
           write: ['internal', 'administrator', 'moderator', 'contributor'],
-          max: 100
+          max: 100,
         }], { adminLevel4: 'Admin4 Name', city: null });
 
       expect(entry.city).toBe('Admin4 Name');
@@ -264,7 +264,7 @@ describe('utils - fromItemToEntry', () => {
         fieldType: 'text',
         read: ['internal', 'public', 'terms'],
         write: ['internal', 'administrator', 'moderator', 'contributor'],
-        max: 100
+        max: 100,
       }, {
         field: 'adminLevel4',
         optional: true,
@@ -272,7 +272,7 @@ describe('utils - fromItemToEntry', () => {
         db: 'city',
         read: ['internal', 'public', 'terms'],
         write: ['internal', 'administrator', 'moderator', 'contributor'],
-        max: 100
+        max: 100,
       }]);
 
       const entry = fct({ adminLevel4: null, city: 'City Name' });
