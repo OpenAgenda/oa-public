@@ -6,6 +6,7 @@ const isoConfig = require('../../iso/config');
 const cookieValidate = require('../../iso/cookie.validate');
 const expressCookie = require('./expressCookie');
 const get = require('./get');
+const refresh = require('./refresh');
 const open = require('./open');
 const close = require('./close');
 const scan = require('./scan');
@@ -39,6 +40,7 @@ module.exports = (options = {}) => {
 
   const service = {
     get: get.bind(null, config),
+    refresh: refresh.bind(null, config),
     open: open.bind(null, config),
     close: close.bind(null, config),
     sync: sync.bind(null, config),

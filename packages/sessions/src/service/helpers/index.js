@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('helpers');
+const validator = require('../validator');
 const cookieValidate = require('../../../iso/cookie.validate');
 
 function callbackify(p, cb) {
@@ -49,8 +50,37 @@ function cleanSession(session = {}, data = {}) {
   return session;
 }
 
+function generateSessionUser(config, user) {
+  const {
+    cultures,
+    expire,
+  } = config;
+
+  const latestActivity = new Date();
+  const expires = new Date(latestActivity.getTime() + expire * 1000);
+
+  const validate = validator({ cultures });
+
+  try {
+    return {
+      sessionUser: validate({
+        latestActivity,
+        expires,
+        ...user,
+      }),
+      expires,
+      errors: [],
+    };
+  } catch (errors) {
+    return {
+      errors,
+    };
+  }
+}
+
 module.exports = {
   cleanSession,
   callbackify,
   getUser,
+  generateSessionUser,
 };
