@@ -5,6 +5,7 @@ module.exports = {
     database: 'oatest_aes',
     user: 'root',
     password: 'grut',
+    ssl: true,
   },
   schemas: {
     network: 'network',

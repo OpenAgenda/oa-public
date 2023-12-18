@@ -36,7 +36,8 @@ describe('form-schemas -06- validateField', () => {
         enableWith: null,
         related: {
           enable: [],
-          optional: []
+          optional: [],
+          other: [],
         },
         default: undefined,
         constraints: undefined,
@@ -83,7 +84,8 @@ describe('form-schemas -06- validateField', () => {
         enableWith: null,
         related: {
           enable: [],
-          optional: []
+          optional: [],
+          other: [],
         },
         default: undefined,
         constraints: undefined,
@@ -140,7 +142,8 @@ describe('form-schemas -06- validateField', () => {
         enableWith: null,
         related: {
           enable: [],
-          optional: []
+          optional: [],
+          other: [],
         },
         default: undefined,
         constraints: undefined,
@@ -209,7 +212,8 @@ describe('form-schemas -06- validateField', () => {
         enableWith: null,
         related: {
           enable: [],
-          optional: []
+          optional: [],
+          other: [],
         },
         default: undefined,
         constraints: undefined,
@@ -250,7 +254,8 @@ describe('form-schemas -06- validateField', () => {
         enableWith: null,
         related: {
           enable: [],
-          optional: []
+          optional: [],
+          other: [],
         },
         default: undefined,
         constraints: undefined,
@@ -290,7 +295,7 @@ describe('form-schemas -06- validateField', () => {
           fieldType: 'text',
           label: 'A label',
           enableWith: 'anotherfield'
-        }).related).toStrictEqual({ enable: ['anotherfield'], optional: [] });
+        }).related).toStrictEqual({ enable: ['anotherfield'], optional: [], other: [] });
       }
     );
 

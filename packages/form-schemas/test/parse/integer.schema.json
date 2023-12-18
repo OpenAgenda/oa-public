@@ -29,7 +29,8 @@
     "optionalWith": null,
     "related" : {
       "enable": [],
-      "optional": []
+      "optional": [],
+      "other": []
     },
     "default" : null,
     "constraints": "undefined",
