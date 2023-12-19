@@ -4,8 +4,9 @@ const slug = require('slugify');
 
 const cancelled = [
   /^annule/g,
+  /^canceled/g,
   /^cancelled/g,
-  /^abgesagt/g
+  /^abgesagt/g,
 ];
 
 module.exports = title => {
@@ -16,7 +17,7 @@ module.exports = title => {
   for (const titleStr of Object.values(title)) {
     const matches = cancelled.filter(rgx => !!slug(titleStr, {
       lower: true,
-      strict: true
+      strict: true,
     }).match(rgx));
 
     if (matches.length) {
@@ -25,4 +26,4 @@ module.exports = title => {
   }
 
   return false;
-}
+};

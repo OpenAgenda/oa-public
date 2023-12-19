@@ -59,6 +59,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   // string image means image is unchanged.
   const entry = service.fieldUtils.fromItemToEntry(clean, current);
+
   await service.clients
     .knex(service.config.schema)
     .update(legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)))
