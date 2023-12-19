@@ -78,7 +78,7 @@ export default ({
       {modal === 'show' && isLoadingPassData ? <Spinner /> : null}
       {modal === 'show' && !isLoadingPassData ? (
         <FormModal
-          timings={timings}
+          timings={upcomingTimings}
           categories={passSettingsData.categories}
           related={passSettingsData.related}
           offererVenues={passSettingsData.offererVenues}

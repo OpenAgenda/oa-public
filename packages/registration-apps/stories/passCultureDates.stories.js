@@ -30,10 +30,27 @@ export const Empty = () => (
   </>
 );
 
+export const EmptyWithOnePriceCategoriesAndOneTiming = () => (
+  <>
+    <p>Date and price are preselected</p>
+    <PassDates
+      onSubFormToggle={s => console.log(s)}
+      timings={event.timings.slice(0, 1)}
+      value={{
+        priceCategories: [{
+          price: 15,
+          label: 'Tarif normal',
+        }],
+      }}
+    />
+  </>
+);
+
 export const EmptyWithPriceCategories = () => (
   <>
     <p>User is informed that no dates are defined, add button is enabled</p>
     <PassDates
+      onSubFormToggle={s => console.log(s)}
       timings={event.timings}
       value={{
         priceCategories: [{
@@ -56,6 +73,7 @@ export const EmptyWithOpenForm = () => {
     <>
       <p>Technical state to avoid having to open form at every reload</p>
       <PassDates
+        onSubFormToggle={s => console.log(s)}
         timings={event.timings}
         initWithOpenForm
         value={value}
@@ -86,6 +104,7 @@ export const WithDates = () => {
   });
   return (
     <PassDates
+      onSubFormToggle={s => console.log(s)}
       timings={event.timings}
       value={value}
       onAdd={date => setValue({
@@ -117,6 +136,7 @@ export const WithInvalidDates = () => {
 
   return (
     <PassDates
+      onSubFormToggle={s => console.log(s)}
       timings={event.timings}
       value={value}
       onAdd={date => setValue({
