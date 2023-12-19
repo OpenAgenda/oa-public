@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import utils from '@openagenda/utils';
 import uniqueLoad from '../lib/uniqueLoad';
-import toMarkdown from 'to-markdown';
 import marked from 'marked';
+
+import turndown from 'turndown';
+const TurndownService = turndown.default || turndown;
+const ts = new TurndownService();
 
 
 export default class MarkdownComponent extends Component {
@@ -164,7 +167,7 @@ export default class MarkdownComponent extends Component {
 
   onTinyMCEChange( html ) {
 
-    const editorMarkdown = toMarkdown( html );
+    const editorMarkdown = ts.turndown( html );
 
     this.setState( {
       editorMarkdown
