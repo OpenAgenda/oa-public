@@ -896,7 +896,7 @@ function widget( elem, options ) {
       });
     });
 
-    const map = await createMap(du.el(elem, 'div'), {
+    map = await createMap(du.el(elem, 'div'), {
       center: state.center,
       zoom: state.zoom
     });
