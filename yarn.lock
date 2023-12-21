@@ -5741,7 +5741,7 @@ __metadata:
     errorhandler: "npm:^1.5.0"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
-    fast-levenshtein: "npm:^2.0.6"
+    fastest-levenshtein: "npm:^1.0.16"
     geolib: "npm:^2.0.24"
     immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.0"
@@ -7960,6 +7960,7 @@ __metadata:
     "@storybook/react-webpack5": "npm:^7.4.2"
     babel-jest: "npm:^29.7.0"
     eslint: "npm:^8.24.0"
+    fastest-levenshtein: "npm:^1.0.16"
     immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
     msw: "npm:^0.49.2"
@@ -20866,6 +20867,13 @@ __metadata:
   version: 1.0.12
   resolution: "fastest-levenshtein@npm:1.0.12"
   checksum: 1755f98942952d5acd773eef03f9f9f046d95c447b10d1ef672df65a40f9a4d3f176ef60ae93e465f1c2bae127b7eb047d4df7e0dce492805bda76aff325dc88
+  languageName: node
+  linkType: hard
+
+"fastest-levenshtein@npm:^1.0.16":
+  version: 1.0.16
+  resolution: "fastest-levenshtein@npm:1.0.16"
+  checksum: 7e3d8ae812a7f4fdf8cad18e9cde436a39addf266a5986f653ea0d81e0de0900f50c0f27c6d5aff3f686bcb48acbd45be115ae2216f36a6a13a7dbbf5cad878b
   languageName: node
   linkType: hard
 
