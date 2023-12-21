@@ -231,7 +231,7 @@ module.exports = ({ labels }) => [{
   info: labels?.registrationInfo,
   placeholder: labels?.registrationPlaceholder,
   sub: labels?.registrationSub,
-  related: { other: ['timings'] },
+  related: { other: ['timings', 'location'] },
   selfHandled: ['info'],
 }, {
   field: 'links',
