@@ -7,7 +7,7 @@ const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
-} = require('../testconfig.sample');
+} = require('./testconfig');
 
 const fields = require('../lib/fields');
 const Service = require('..');
@@ -19,7 +19,7 @@ async function getAgendaDetailsByUid(uid, _fields = []) {
       id: { 7196947: 25221 }[uid],
       locationSetUid: { 7196947: 1903810 }[uid],
     },
-    fields
+    fields,
   );
 }
 

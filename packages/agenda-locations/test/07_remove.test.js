@@ -5,7 +5,7 @@ const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
-} = require('../testconfig.sample');
+} = require('./testconfig');
 
 const Service = require('..');
 const fixtures = require('./fixtures');
