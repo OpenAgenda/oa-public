@@ -146,7 +146,6 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 }
 
 
-
 ##########################################################
 #                NODEJS
 
@@ -292,6 +291,10 @@ location ~ ^/password(|/.+)$ {
 }
 
 location ~ ^/agendas/new(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/embeds {
   include conf.d/nodejs_params;
 }
 
