@@ -71,10 +71,43 @@ export function EmptyAtLoadWithOneTiming() {
         onChange={setValue}
         relatedValues={{
           other: {
+            timings: event.timings,
+            location: null,
+          },
+        }}
+        field={{
+          placeholder: 'Truc bidule',
+          settings: {
+            passCulture: {
+              siren: [809346158],
+              res: {
+                settings: '/settings',
+                context: '/contextForAdminMod',
+              },
+            },
+          },
+        }}
+      />
+    </div>
+  );
+}
+
+export function EmptyAtLoadWithPreslectedLocation() {
+  const [value, setValue] = useState();
+  return (
+    <div className="oa-form col-lg-offset-3 col-lg-6">
+      <p>Form will be preloaded if venue name is close to location name.</p>
+      <Registration
+        value={value}
+        lang="fr"
+        onChange={setValue}
+        relatedValues={{
+          other: {
             timings: [{
               begin: { date: '2024-09-30', hours: 15, minutes: 0 },
               end: { date: '2024-09-30', hours: 17, minutes: 0 },
             }],
+            location: { name: 'Lieu Oa 2' },
           },
         }}
         field={{
