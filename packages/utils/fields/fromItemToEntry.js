@@ -30,7 +30,11 @@ const loadJSONValue = (JSONValue, path, value, assign = false) => {
 
   const parsedJSONValue = JSON.parse(JSONValue);
 
-  if (Array.isArray(parsedJSONValue) || !assign) {
+  if (Array.isArray(parsedJSONValue)) {
+    return value === null ? value : JSON.stringify(value);
+  }
+
+  if (!assign) {
     return JSON.stringify(value);
   }
 
@@ -62,6 +66,7 @@ function fromItemToDbEntry(fields, data, current) {
 
     if (entryType === 'json') {
       const preformatted = formatFunction ? formatFunction(data) : data[field.field];
+
       const value = loadJSONValue(
         entry[entryField] !== undefined ? entry[entryField] : currentEntry?.[entryField],
         entryPath,

@@ -247,6 +247,29 @@ describe('utils - fromItemToEntry', () => {
       expect(entry.city).toBe('Admin4 Name');
     });
 
+    it('list with default null is not stringify', () => {
+      const entry = fromItemToEntry([{
+        field: 'duplicateCandidates',
+        fieldType: 'integer',
+        list: {
+          max: 100,
+          default: null,
+        },
+        db: {
+          type: 'json',
+          field: 'duplicates_candidates',
+        },
+        optional: true,
+        read: ['internal', 'public'],
+        write: ['internal', 'contributor'],
+      }], {
+        duplicateCandidates: null,
+      }, {
+        duplicateCandidates: [3, 4],
+      });
+      expect(entry.duplicates_candidates).toBeNull();
+    });
+
     it('several fields in map point to same column', () => {
       const loadedFromItemToEntry = fromItemToEntry.loadWithLinkedFields([{
         field: 'adminLevel6',
