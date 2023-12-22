@@ -274,7 +274,6 @@ module.exports = function(uid) {
    */
 
   function update(originWidget, updatedParams, isExclusive) {
-
     if (arguments.length == 1) {
       updatedParams = originWidget;
 
@@ -694,7 +693,6 @@ module.exports = function(uid) {
    */
 
   function isDifferent(data) {
-
     for (var i in currentRequestParams) {
 
       if (typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i]) return true;

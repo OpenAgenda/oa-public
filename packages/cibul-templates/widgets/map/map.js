@@ -339,10 +339,13 @@ function widget( elem, options ) {
     } else if ( reqParams.uid ) {
 
       log('  nav update includes event selection. Bounds are defined around event');
+      const coords = locations[ activeLocations[ 0 ] ]?.coords;
 
-      bounds = m.createBounds( locations[ activeLocations[ 0 ] ].coords );
+      if (coords) {
+        bounds = m.createBounds( coords );
+        navHistory.add( reqParams, bounds );
+      }
 
-      navHistory.add( reqParams, bounds );
 
     } else if ( activeBounds ) {
 
