@@ -290,7 +290,11 @@ location ~ ^/password(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/agendas(|/.+)$ {
+location ~ ^/agendas/new(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/embeds {
   include conf.d/nodejs_params;
 }
 
