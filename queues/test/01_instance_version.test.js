@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const queues = require( '..' );
 const redis = require( 'redis' );
 
@@ -38,13 +36,13 @@ describe( 'instance version', () => {
 
     await q( 'doThing', 1, 2, 3 );
 
-    (
+    expect(
       await q.len()
-    ).should.equal(1);
+    ).toBe(1);
 
-    (
+    expect(
       await redisCli.lPop( 'v2q:02_instance_version' )
-    ).should.equal(
+    ).toBe(
       '{"method":"doThing","args":[1,2,3]}'
     );
 
@@ -54,9 +52,9 @@ describe( 'instance version', () => {
 
     function doOtherThing( one, two, three ) {
 
-      one.should.equal( 1 );
-      two.should.equal( 2 );
-      three.should.equal( 3 );
+      expect(one).toBe( 1 );
+      expect(two).toBe( 2 );
+      expect(three).toBe( 3 );
 
       done();
 
@@ -76,7 +74,7 @@ describe( 'instance version', () => {
 
     q.on( 'error', ( method, args, error ) => {
 
-      error.message.should.equal( 'Unregistered method: doUnkownThing' );
+      expect(error.message).toBe( 'Unregistered method: doUnkownThing' );
 
       done();
 
@@ -96,7 +94,7 @@ describe( 'instance version', () => {
 
     function doesThings( message ) {
 
-      message.should.equal( 'ok' );
+      expect(message).toBe( 'ok' );
 
       done();
 
