@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createMemoryHistory } from 'history';
 import createApp from '@openagenda/inbox-apps/dist/app';
 import { wrapApp } from '@openagenda/react-shared';
@@ -24,12 +24,10 @@ const defaults = {
   },
 };
 
-window.asap(options => {
+window.hook(options => {
   const params = _.merge({}, defaults, options);
 
   const { role, event, agenda, lang } = params;
-
-  console.log({ role, event, agenda, lang });
 
   const user = session.getUser();
   const { ownerUid } = event;
@@ -80,7 +78,9 @@ window.asap(options => {
     }
   })();
 
-  ReactDOM.render(
+  const root = createRoot(du.el('.js_canvas'));
+
+  root.render(
     wrapApp(
       createApp({
         initialState: {
@@ -148,6 +148,5 @@ window.asap(options => {
         disableScrollToTop: true,
       },
     ),
-    du.el('.js_canvas'),
   );
 });
