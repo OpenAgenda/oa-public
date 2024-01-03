@@ -19,6 +19,7 @@ const swrStatusMiddleware: Middleware = useSWRNext => (key, fetcher, config) => 
       }
       return status;
     },
+    enumerable: true,
   });
 };
 
