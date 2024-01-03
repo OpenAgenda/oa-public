@@ -123,7 +123,7 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
 
   const seeMoreUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
-    const url = new URL(localePrefix + router.asPath, 'http://n');
+    const url = new URL(localePrefix + router.asPath, 'https://n');
     url.search = qs.stringify({
       ...query,
       after: pages?.[pages.length - 1].after?.map(String),

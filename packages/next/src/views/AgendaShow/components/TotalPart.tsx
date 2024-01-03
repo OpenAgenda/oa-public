@@ -15,7 +15,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
 
   const passedUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
-    const url = new URL(localePrefix + router.asPath, 'http://n');
+    const url = new URL(localePrefix + router.asPath, 'https://n');
 
     if (passed) {
       url.searchParams.delete('passed');

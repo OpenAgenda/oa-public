@@ -9,7 +9,7 @@ export default function UnloggedBody({ agenda }) {
   const intl = useIntl();
   const router = useRouter();
 
-  const url = new URL(router.asPath, 'http://n');
+  const url = new URL(router.asPath, 'https://n');
   url.searchParams.set('displayAggregatorModal', '1');
   const redirectUrlPart = base64.encode(url.pathname + url.search);
 
