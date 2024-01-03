@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWRMutation from 'swr/mutation';
-import { useIntl } from 'react-intl';
 import { formatInTimeZone } from 'date-fns-tz';
 import ky from 'ky';
 import {
@@ -96,7 +95,6 @@ async function sendEmails(url, { arg }: { arg: string[] }): Promise<{ count: num
 }
 
 export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
-  const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
@@ -109,7 +107,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const currentAndUpcomingTimings = event.timings.filter(timing => new Date(timing.begin) > now);
 
-  const [selectedTimingIndex, setSelectedTimingIndex] = useState(() => currentAndUpcomingTimings.length === 1 ? '0' : '');
+  const [selectedTimingIndex, setSelectedTimingIndex] = useState(() => (currentAndUpcomingTimings.length === 1 ? '0' : ''));
   const [service, setService] = useState('');
 
   const onSelectTiming = e => setSelectedTimingIndex(e.target.value);

@@ -27,10 +27,10 @@ export default function EmailConfirmationAlert({
       <AlertDialogOverlay />
 
       <AlertDialogContent>
-        <AlertDialogHeader>Partager l'événement</AlertDialogHeader>
+        <AlertDialogHeader>Partager l&apos;événement</AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
-          L'événement a été envoyé à {count} adresse email.
+          L&apos;événement a été envoyé à {count} adresse email.
         </AlertDialogBody>
         <AlertDialogFooter>
           <Button ref={cancelRef} onClick={onClose} colorScheme="primary">

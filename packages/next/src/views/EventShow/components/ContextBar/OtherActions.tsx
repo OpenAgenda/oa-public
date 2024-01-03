@@ -40,10 +40,7 @@ export default function OtherActions({ agenda }) {
   const { member, authorizations } = useMember();
 
   const isAdminMod = member?.role === 'administrator' || member?.role === 'moderator';
-  const {
-    canEditEvent = false,
-    canPublish = false,
-  } = authorizations ?? {};
+  const { canEditEvent = false } = authorizations ?? {};
 
   const {
     isOpen: removeIsOpen,
