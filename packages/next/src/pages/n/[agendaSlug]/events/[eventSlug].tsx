@@ -6,6 +6,8 @@ import Layout from 'components/Layout';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import EventShow, { EventShowProps } from 'views/EventShow';
 import EventError, { EventErrorProps } from 'views/EventError';
+import { AgendaProvider } from 'views/EventShow/contexts/agenda';
+import type { Agenda } from 'types';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
@@ -19,7 +21,9 @@ type CommonProps = {
 
 type ShowPageProps = EventShowProps & CommonProps;
 type ErrorPageProps = EventErrorProps & CommonProps;
-type PageProps = ShowPageProps | ErrorPageProps;
+type PageProps = ShowPageProps & {
+  agenda: Agenda
+} | ErrorPageProps;
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -75,6 +79,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       // event,
       preload: [
+        `/api/me/agendas/${agenda.uid}?includes[]=me.member&includes[]=me.authorizations`,
         `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
       ],
       fallback: {
@@ -168,10 +173,14 @@ const EventPage: NextPageWithLayout<PageProps> = props => {
     );
   }
 
+  const { agenda } = props;
+
   return (
     <DateFnsLocaleProvider>
       <SWRConfig value={{ fallback }}>
-        <EventShow {...props} />
+        <AgendaProvider agenda={agenda}>
+          <EventShow {...props} />
+        </AgendaProvider>
       </SWRConfig>
     </DateFnsLocaleProvider>
   );
