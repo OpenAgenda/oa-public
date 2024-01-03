@@ -123,6 +123,7 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
+    'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'react/static-property-placement': ['error', 'static public field'],
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
