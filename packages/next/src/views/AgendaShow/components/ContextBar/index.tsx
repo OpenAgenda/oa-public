@@ -4,17 +4,6 @@ import { FetchStatus } from 'config/types';
 import ContributorContextBar from './ContributorContextBar';
 import ModeratorContextBar from './ModeratorContextBar';
 
-function fetcher(url) {
-  return fetch(url)
-    .then(
-      r => {
-        if (r.ok) return r.json();
-        // TODO should recreate an error with data in `await r.json()` and/or status
-        throw new Error('Error');
-      },
-    );
-}
-
 export default function ContextBar({ agenda }) {
   const {
     data: {
@@ -22,10 +11,7 @@ export default function ContextBar({ agenda }) {
       events,
     } = {},
     status,
-  } = useSWR(
-    `/api/me/agendas/${agenda.uid}?includes[]=me.member&includes[]=me.authorizations&includes[]=me.events&includes[]=events`,
-    fetcher,
-  );
+  } = useSWR(`/api/me/agendas/${agenda.uid}?includes[]=me.member&includes[]=me.authorizations&includes[]=me.events&includes[]=events`);
 
   if (status === FetchStatus.Fetching) return null;
 
