@@ -55,7 +55,7 @@ server {
     }
 
     ssl_verify_client on;
-    ssl_client_certificate /etc/nginx/certs/auth.pem;
+    ssl_client_certificate /etc/nginx/conf.d/certs/auth.pem;
 
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot

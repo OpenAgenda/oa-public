@@ -448,7 +448,7 @@ Les clients devront également être mis à jour. Et une fois la paire de l'auto
 
 Autrement, il est également possible de prolonger la validité de l'autorité: https://www.golinuxcloud.com/renew-self-signed-certificate-openssl/
 
-En production, seul le certificat se place dans le sous-groupe du répartiteur, ici: `/etc/nginx/certs/auth.pem`
+En production, seul le certificat se place dans le sous-groupe du répartiteur, ici: `/etc/nginx/conf.d/certs/auth.pem`
 
 ### mise à jour
 
