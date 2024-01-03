@@ -1,16 +1,8 @@
 'use strict';
 
-const planer = require('planer');
-const { JSDOM } = require('jsdom');
-const TurndownService = require('turndown');
 const { addressParser } = require('@openagenda/mails');
 const log = require('@openagenda/logs')('service/mails/incomingEmails');
-
-const turndownService = new TurndownService();
-const dom = new JSDOM('', {
-  FetchExternalResources: false,
-  ProcessExternalResources: false
-}).window.document;
+const extractMarkdownFromEmailBody = require('./extractMarkdownFromEmailBody');
 
 const REPLY_REG = /reply\+([-0-9a-fA-F]{36})@mail\.openagenda\.com/i;
 const REFERENCE_REG = /inboxMessage\/(\d+)@mail\.openagenda\.com/i;
@@ -66,16 +58,14 @@ module.exports = ({ services }) => async (req, res, next) => {
       // throw new Error('Conversation not found');
     }
 
-    const body = planer.extractFrom(req.body['stripped-html'], 'text/html', dom);
-
     log.info('Incoming email', {
       userUid: user.uid,
       conversationId,
-      data: req.body
+      data: req.body,
     });
 
     await conversation.messages.create({
-      body: turndownService.turndown(body)
+      body: extractMarkdownFromEmailBody(req.body),
     });
 
     res.sendStatus(200);

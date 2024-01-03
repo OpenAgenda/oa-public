@@ -12,6 +12,7 @@ export default ({
   onChange,
   timings = [],
   settings,
+  location,
 }) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
@@ -78,7 +79,8 @@ export default ({
       {modal === 'show' && isLoadingPassData ? <Spinner /> : null}
       {modal === 'show' && !isLoadingPassData ? (
         <FormModal
-          timings={timings}
+          location={location}
+          timings={upcomingTimings}
           categories={passSettingsData.categories}
           related={passSettingsData.related}
           offererVenues={passSettingsData.offererVenues}

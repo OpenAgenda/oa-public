@@ -252,6 +252,11 @@
                 },
                 "optional": false,
                 "type": "text"
+              },
+              "bookingEmail": {
+                "default": null,
+                "optional": true,
+                "type": "email"
               }
             },
             "optional": true

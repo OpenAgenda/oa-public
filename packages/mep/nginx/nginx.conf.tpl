@@ -24,6 +24,9 @@ http {
         server <%= ep %>:<%= serverPort %>;<% }); %>
         keepalive <%= WebEndpoints.length * 2 %>;
     }
+    upstream superadmin {
+        server localhost:<%= superAdminPort %>;
+    }
 
     include /etc/nginx/mime.types;
 
@@ -43,6 +46,21 @@ http {
         }
 
         include conf.d/server_params;
+    }
+
+################### superadmin routes #####################
+
+    server {
+        listen <%= superAdminPort %>;
+
+        server_name <%= domain %>;
+
+        ssl_verify_client on;
+        ssl_client_certificate <%= clientAuthCertPath %>;
+
+        location ~ ^/(admin|supervisor)(|/.+)$ {
+            include conf.d/nodejs_params;
+        }
     }
 
 ####################### API #######################

@@ -69,6 +69,16 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     expect(patchedLocation.extId).toBeNull();
   });
 
+  it('patch of adminLevel', async () => {
+    await core.agendas(64260763).locations.patch(37923068, {
+      adminLevel6: 'Milieu',
+    });
+
+    const row = await core.services.knex('location').first('*').where('uid', 37923068);
+
+    expect(row.city_district).toBe('Milieu');
+  });
+
   it('index of agenda where location is patched is refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
       address: '13 rue du désespoir, Roubaix',

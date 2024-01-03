@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import ComponentsContext from '../../components/Context';
 
@@ -27,6 +27,24 @@ export default function DateForm({
     label: `${getTimingLabel(t)} `,
   }));
 
+  const priceCategoriesOptions = priceCategories.map(({ label }, index) => ({
+    value: index,
+    label,
+  }));
+
+  useEffect(() => {
+    const initialValue = {};
+    if (timingOptions.length === 1) {
+      initialValue.timingId = timingOptions[0].value;
+    }
+    if (priceCategoriesOptions.length === 1) {
+      initialValue.priceCategoryIndex = priceCategoriesOptions[0].value;
+    }
+    if (Object.keys(initialValue).length) {
+      onChange({ ...value, ...initialValue });
+    }
+  }, []);
+
   return (
     <EmbeddedForm title={mode === 'edit' ? 'Modification de date' : 'Nouvelle date'}>
       <Select
@@ -40,10 +58,7 @@ export default function DateForm({
         id="date-price-category"
         label="Catégorie de prix"
         value={value?.priceCategoryIndex}
-        options={priceCategories.map(({ label }, index) => ({
-          value: index,
-          label,
-        }))}
+        options={priceCategoriesOptions}
         onChange={o => onChange({ ...value, priceCategoryIndex: o.value })}
       />
       <Input

@@ -1,4 +1,5 @@
 import { useContext, useState, useMemo, useEffect } from 'react';
+import { distance } from 'fastest-levenshtein';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 
 import ComponentsContext from '../components/Context';
@@ -18,6 +19,22 @@ import {
 
 const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
 
+const checkForLocationMatch = (oaLocation, venues) => {
+  const resp = venues.reduce((carry, item) => {
+    const levenshteinPercent = (distance(oaLocation.name, item.publicName) * 100) / Math.max(oaLocation.name.length, item.publicName.length);
+    if (levenshteinPercent < 0.8) {
+      if (!carry || carry.levenshteinPercent < levenshteinPercent) {
+        return {
+          id: item.id,
+          levenshteinPercent,
+        };
+      }
+    }
+    return carry;
+  }, null);
+  return resp?.id || null;
+};
+
 export default function Form({
   value: initialValue,
   timings,
@@ -27,6 +44,7 @@ export default function Form({
   related,
   offererVenues,
   bookingEmail,
+  oaLocation,
 }) {
   const [value, setValue] = useState(initialValue ?? {});
   const [openSubForm, setOpenSubForm] = useState();
@@ -49,6 +67,11 @@ export default function Form({
     const defaultsAtInit = {};
     if (venuesOptions.length === 1 && !value.venueId) {
       defaultsAtInit.venueId = venuesOptions[0].value;
+    }
+
+    if (venuesOptions.length > 1 && oaLocation.name) {
+      const match = checkForLocationMatch(oaLocation, offererVenues.reduce((carry, item) => carry.concat(item.venues), []));
+      if (match) defaultsAtInit.venueId = match;
     }
 
     if (!hasPriceCategories(value)) {

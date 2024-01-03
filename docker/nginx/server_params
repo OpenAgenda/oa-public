@@ -146,7 +146,6 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 }
 
 
-
 ##########################################################
 #                NODEJS
 
@@ -178,8 +177,14 @@ location ~ ^/home(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/admin(|/.+)$ {
-  include conf.d/nodejs_params;
+location ~ ^/(admin|supervisor)(|/.+)$ {
+  proxy_pass http://superadmin;
+  proxy_set_header  Host              $host;
+  proxy_set_header  X-Real-IP         $remote_addr;
+  proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+  proxy_set_header  X-Forwarded-Proto $scheme;
+  proxy_hide_header X-Powered-By;
+  add_header X-Powered-By OpenAgenda;
 }
 
 location ~ ^/dist(|/.+)$ {
@@ -292,6 +297,10 @@ location ~ ^/password(|/.+)$ {
 }
 
 location ~ ^/agendas/new(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/embeds {
   include conf.d/nodejs_params;
 }
 

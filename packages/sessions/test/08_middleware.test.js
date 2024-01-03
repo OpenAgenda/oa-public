@@ -76,7 +76,6 @@ describe('session - functional (server): middleware', () => {
 
       _runClientSyncRoutine().then(res => {
         const dc = base64.decode(res.header['set-cookie'][0].split('=')[1].split(';')[0]).replace(String.fromCharCode(0), '');
-
         expect(
           JSON.parse(dc).user.culture,
         ).toBe('en');

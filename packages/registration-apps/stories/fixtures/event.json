@@ -53,6 +53,10 @@
             "end": { "date": "2023-09-30", "hours": 17, "minutes": 0 }
         },
         {
+            "begin": { "date": "2024-09-30", "hours": 15, "minutes": 0 },
+            "end": { "date": "2024-09-30", "hours": 17, "minutes": 0 }
+        },
+        {
             "begin": { "date": "2033-10-15", "hours": 14, "minutes": 0 },
             "end": { "date": "2033-10-15", "hours": 16, "minutes": 0 }
         }

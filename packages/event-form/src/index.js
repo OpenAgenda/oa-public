@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
+import errorLabels from '@openagenda/labels/event/errors';
+import Registration from '@openagenda/registration-apps';
 import appendFormConfigurations from './utils/appendFormConfigurations';
 import extractLanguages from './utils/extractLanguages';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
@@ -14,10 +16,6 @@ import schemaLanguages from './utils/schemaLanguages';
 import injectValidators from './utils/injectValidators';
 import updateLanguages from './utils/updateLanguages';
 import validators from './validators';
-
-import errorLabels from '@openagenda/labels/event/errors';
-
-import Registration from '@openagenda/registration-apps';
 
 const eventFormComponents = {
   age: require('./components/Age'),
@@ -38,18 +36,18 @@ class EventForm extends Component {
     super(props);
 
     const languages = extractLanguages(props.schema, this.props.values, {
-      defaultLanguage: props.lang
+      defaultLanguage: props.lang,
     });
 
     const {
       schema,
-      hash
+      hash,
     } = this.buildEventSchema(languages, props);
 
     const values = ih(props.values ?? {}, {
       languages: {
-        $set: languages //schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
-      }
+        $set: languages, // schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
+      },
     });
 
     this.state = {
@@ -57,7 +55,7 @@ class EventForm extends Component {
       schema,
       hash,
       files: [],
-      loading: false
+      loading: false,
     };
   }
 
@@ -66,14 +64,14 @@ class EventForm extends Component {
 
     const languageChanges = identifyLanguageChanges(
       _.get(this.state, 'values.languages'), // before
-      _.get(values, 'languages') // now
+      _.get(values, 'languages'), // now
     );
 
     const update = _.omitBy({
       errors,
       globalError,
       files,
-      loading
+      loading,
     }, _.isUndefined);
 
     if (values) update.values = values;
@@ -86,21 +84,21 @@ class EventForm extends Component {
         this.state.values,
         multilingualFieldNames,
         _.get(this, 'state.values.languages.0'),
-        _.first(languageChanges.swapped)
+        _.first(languageChanges.swapped),
       ), {
         languages: {
-          $set: [languageChanges.swapped[0]]
-        }
+          $set: [languageChanges.swapped[0]],
+        },
       });
     } else if (languageChanges.removed.length) {
       update.values = ih(removeMultilingualValues(
         this.state.values,
         multilingualFieldNames,
-        languageChanges.removed
+        languageChanges.removed,
       ), {
         languages: {
-          $set: this.state.values.languages.filter(l => !languageChanges.removed.includes(l))
-        }
+          $set: this.state.values.languages.filter(l => !languageChanges.removed.includes(l)),
+        },
       });
     }
 
@@ -110,7 +108,7 @@ class EventForm extends Component {
       update.values.languages = schemaLanguages.getFromSchemaAndValues(
         update.schema,
         lang,
-        update.values.languages
+        update.values.languages,
       );
     }
 
@@ -130,14 +128,14 @@ class EventForm extends Component {
       languages,
       schemaExtensions: p.schemaExtensions,
       access: {
-        write: p.role
-      }
+        write: p.role,
+      },
     });
 
     appendFormConfigurations(schema, {
       locationRes: p.locationRes,
       tiles: p.tiles,
-      fileStore: p.fileStore
+      fileStore: p.fileStore,
     });
 
     injectValidators(schema);
@@ -146,7 +144,7 @@ class EventForm extends Component {
 
     return {
       schema,
-      hash: JSON.stringify(languages) // only language changes may trigger schema changes
+      hash: JSON.stringify(languages), // only language changes may trigger schema changes
     };
   }
 
@@ -165,7 +163,7 @@ class EventForm extends Component {
     const {
       values,
       schema,
-      hash
+      hash,
     } = this.state;
 
     return (
@@ -174,7 +172,7 @@ class EventForm extends Component {
         method="post"
         // unloadWarning={unloadWarning ?? true}
         role={role}
-        stateless={true}
+        stateless
         maxFileSize={maxFileSize}
         lang={lang}
         components={eventFormComponents}
@@ -187,12 +185,12 @@ class EventForm extends Component {
         schema={schema}
         hash={hash}
         classNames={ih(classNames ?? {}, {
-          field: { $set: 'padding-v-sm form-group' }
+          field: { $set: 'padding-v-sm form-group' },
         })}
         actionComponents={actionComponents}
         onSubmitSuccess={onSubmitSuccess}
         labels={{
-          errors: errorLabels
+          errors: errorLabels,
         }}
       />
     );
@@ -200,5 +198,5 @@ class EventForm extends Component {
 }
 
 export default Object.assign(EventForm, {
-  validators
+  validators,
 });

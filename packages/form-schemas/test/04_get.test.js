@@ -11,7 +11,7 @@ const fx = {
   schemas: {
     integer,
     number,
-  }
+  },
 };
 
 describe('form-schemas -04- functional (server): get', () => {
@@ -22,7 +22,7 @@ describe('form-schemas -04- functional (server): get', () => {
   beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'form_schema.data.sql'
+      'form_schema.data.sql',
     ]);
   });
 
@@ -44,7 +44,7 @@ describe('form-schemas -04- functional (server): get', () => {
     const result = await svc.get(id);
     expect(result).toStrictEqual({
       ...fx.schemas.integer,
-      id
+      id,
     });
   });
 
@@ -59,7 +59,7 @@ describe('form-schemas -04- functional (server): get', () => {
 
     expect(validate({
       participants: 1,
-      someIgnoredField: 'lol'
+      someIgnoredField: 'lol',
     })).toStrictEqual({ participants: 1 });
   });
 

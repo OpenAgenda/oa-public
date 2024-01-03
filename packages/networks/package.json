@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha"
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
@@ -15,7 +15,6 @@
     "mysql": "^2.13.0"
   },
   "devDependencies": {
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
+    "jest": "^29.7.0"
   }
 }

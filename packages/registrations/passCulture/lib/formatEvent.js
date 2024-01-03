@@ -19,6 +19,7 @@ export default async function formatEvent(event, ...args) {
   const {
     lang = 'fr',
     categories = [],
+    before: eventBefore,
   } = options;
 
   const {
@@ -38,7 +39,7 @@ export default async function formatEvent(event, ...args) {
 
   if (event.image) {
     const {
-      base,
+      base: currentBase,
       variants,
       path,
     } = event.image;
@@ -47,7 +48,7 @@ export default async function formatEvent(event, ...args) {
       file: await processImage(path ? {
         path,
       } : {
-        url: `${base}${variants.find(v => v.type === 'full').filename}`,
+        url: `${currentBase ?? eventBefore?.image?.base}${variants.find(v => v.type === 'full').filename}`,
       }),
     };
 

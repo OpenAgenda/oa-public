@@ -47,14 +47,14 @@ Une fois l'install du nginx et du mysql local faite, le plus simple est de tél�
 
 On sécurise le machin encore plus pour ne permettre le chargement de la page que quand une clé client est fournie, similairement au fonctionnement du cluster elasticsearch en mode sécurisé.
 
-Pour ça, il faut avoir une autorité de certification sous la main. Un certificat autorité et sa clé privée. Et commencer par placer le certificat quelque part dans le serveur. Sous `/etc/nginx/certs/auth.pem`
+Pour ça, il faut avoir une autorité de certification sous la main. Un certificat autorité et sa clé privée. Et commencer par placer le certificat quelque part dans le serveur. Sous `/etc/nginx/conf.d/certs/auth.pem`
 
 On génère les clés clientes avec le script `create_client_certificate.sh` et on précise un mot de passe quand la question "Enter Export Password" est posée.
 
 Dans la conf nginx, on ajoute la clause suivante:
 
     ssl_verify_client on;
-    ssl_client_certificate /etc/nginx/certs/auth.pem;
+    ssl_client_certificate /etc/nginx/conf.d/certs/auth.pem;
 
 On redémarre: on ne devrait plus avoir accès à phpmyadmin, sauf à charger la clé p12 dans son navigateur.
 

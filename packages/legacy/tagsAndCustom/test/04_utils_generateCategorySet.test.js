@@ -1,30 +1,29 @@
-"use strict";
-
-const should = require('should');
+'use strict';
 
 const generateCategorySet = require('../lib/utils/generateCategorySet');
 
 describe('04 - utils - generateCategorySet', () => {
-
   it('transforms a radio field into a category set', () => {
-    generateCategorySet({
-      fields: [{
-        field: 'nantes',
-        label: 'Nantes',
-        fieldType: 'radio',
-        schemaId: 1,
-        origin: 'categories',
-        options: [{
-          id: 1,
-          value: 'un',
-          label: 'Un'
-        }]
-      }]
-    }).set.categories.length.should.equal(1);
+    expect(
+      generateCategorySet({
+        fields: [{
+          field: 'nantes',
+          label: 'Nantes',
+          fieldType: 'radio',
+          schemaId: 1,
+          origin: 'categories',
+          options: [{
+            id: 1,
+            value: 'un',
+            label: 'Un',
+          }],
+        }],
+      }).set.categories.length,
+    ).toBe(1);
   });
 
   it('does not consider field if origin is set to another value than "categories"', () => {
-    should(generateCategorySet({
+    expect(generateCategorySet({
       fields: [{
         field: 'nantes',
         label: 'Nantes',
@@ -34,10 +33,10 @@ describe('04 - utils - generateCategorySet', () => {
         options: [{
           id: 1,
           value: 'un',
-          lable: 'Un'
-        }]
-      }]
-    }).set).equal(null);
+          lable: 'Un',
+        }],
+      }],
+    }).set).toBeNull();
   });
 
   it('a pre-existing category is completed with a schemaOptionId key', () => {
@@ -51,22 +50,23 @@ describe('04 - utils - generateCategorySet', () => {
         options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        }]
-      }]
+          label: 'Un',
+        }],
+      }],
     };
 
     const categorySet = {
       name: 'Nantes',
-      categories: [ {
+      categories: [{
         id: 1,
         value: 'un',
-        label: 'Un'
-      } ]
+        label: 'Un',
+      }],
     };
 
-    generateCategorySet(schema, categorySet).set
-      .categories[0].schemaOptionId.should.equal('1.1');
+    expect(
+      generateCategorySet(schema, categorySet).set.categories[0].schemaOptionId,
+    ).toBe('1.1');
   });
 
   it('a schemaOptionId is used for category match if set', () => {
@@ -80,9 +80,9 @@ describe('04 - utils - generateCategorySet', () => {
         options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
-        }]
-      }]
+          label: 'Un',
+        }],
+      }],
     };
 
     const categorySet = {
@@ -91,149 +91,145 @@ describe('04 - utils - generateCategorySet', () => {
         id: 123,
         schemaOptionId: '1.1',
         value: 'douze',
-        label: 'Douze'
-      }]
+        label: 'Douze',
+      }],
     };
 
-    generateCategorySet(schema, categorySet).set
-      .categories[0].id.should.equal(123);
+    expect(
+      generateCategorySet(schema, categorySet).set.categories[0].id,
+    ).toBe(123);
   });
 
   it('updates pre-existing category set', () => {
     const schema = {
-      fields: [ {
+      fields: [{
         origin: 'tags',
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'checkbox',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 1,
           value: 'un',
-          label: 'Un'
+          label: 'Un',
         }, {
           id: 2,
           value: 'deux',
-          label: 'Deux'
-        } ]
+          label: 'Deux',
+        }],
       }, {
         origin: 'categories',
         field: 'paris',
         label: 'Paris',
         fieldType: 'radio',
         schemaId: 1,
-        options: [ {
+        options: [{
           id: 3,
           value: 'trois',
-          label: 'Trois'
+          label: 'Trois',
         }, {
           id: 4,
           value: 'quatre',
-          label: 'Quatre'
-        } ]
-      } ]
+          label: 'Quatre',
+        }],
+      }],
     };
 
     const categorySet = {
       name: 'Paris',
       required: true,
       unique: false,
-      categories: [ {
+      categories: [{
         slug: 'trois',
         label: 'Trois',
-        id: 192018
+        id: 192018,
       }, {
         label: 'Cinq',
-        slug: 'cinq'
-      } ]
+        slug: 'cinq',
+      }],
     };
 
-    generateCategorySet(schema, categorySet).set.should.eql({
-      "name": "Paris",
-      "required": true,
-      "categories": [{
-        "label": "Trois",
-        "slug": "trois",
-        "id": 192018, // maintain those, its important
-        "schemaOptionId": "1.3" // add those
+    expect(
+      generateCategorySet(schema, categorySet).set,
+    ).toEqual({
+      name: 'Paris',
+      required: true,
+      categories: [{
+        label: 'Trois',
+        slug: 'trois',
+        id: 192018, // maintain those, its important
+        schemaOptionId: '1.3', // add those
       }, {
-        "slug": "quatre",
-        "label": "Quatre",
-        "schemaOptionId": "1.4"
-      }]
+        slug: 'quatre',
+        label: 'Quatre',
+        schemaOptionId: '1.4',
+      }],
     });
-
   });
 
-
   it('takes a form schema and returns a matching category set', () => {
-
     const schema = {
       nextOptionId: 8,
-      "defaultLabelLanguage": null,
+      defaultLabelLanguage: null,
       fields: [{
-        field: "style-musical",
+        field: 'style-musical',
         label: {
-          "fr": "Style musical"
+          fr: 'Style musical',
         },
         info: null,
-        placeholder : null,
-        sub : null,
+        placeholder: null,
+        sub: null,
         help: null,
         helpLink: null,
         write: 'contributor',
         read: null,
-        "optional": true,
+        optional: true,
         display: true,
         schemaId: 1,
-        "options": [{
-          "id": 5,
-          "value": "a-cappella",
-          "label": {
-            "fr": "Style musical : A cappella"
-          }
+        options: [{
+          id: 5,
+          value: 'a-cappella',
+          label: {
+            fr: 'Style musical : A cappella',
+          },
         }, {
-          "id": 6,
-          "value": "afrique",
-          "label": {
-            "fr": "Style musical : Afrique"
-          }
+          id: 6,
+          value: 'afrique',
+          label: {
+            fr: 'Style musical : Afrique',
+          },
         }, {
-          "id": 7,
-          "value": "baroque",
-          "label": {
-            "fr": "Style musical : Baroque"
-          }
+          id: 7,
+          value: 'baroque',
+          label: {
+            fr: 'Style musical : Baroque',
+          },
         }],
-        "fieldType": "radio",
-        "origin" : "categories",
-        enableWith : null,
+        fieldType: 'radio',
+        origin: 'categories',
+        enableWith: null,
         related: [],
-        default: null
+        default: null,
       }],
-      custom: null
+      custom: null,
     };
 
-    generateCategorySet(schema).set.should.eql({
-      "name": "Style musical",
-      "categories": [{
-        "label": "Style musical : A cappella",
-        "slug": "a-cappella",
-        "schemaOptionId" : "1.5"
+    expect(generateCategorySet(schema).set).toEqual({
+      name: 'Style musical',
+      categories: [{
+        label: 'Style musical : A cappella',
+        slug: 'a-cappella',
+        schemaOptionId: '1.5',
       }, {
-        "label": "Style musical : Afrique",
-        "slug": "afrique",
-        "schemaOptionId" : "1.6"
+        label: 'Style musical : Afrique',
+        slug: 'afrique',
+        schemaOptionId: '1.6',
       }, {
-        "label": "Style musical : Baroque",
-        "slug": "baroque",
-        "schemaOptionId" : "1.7"
+        label: 'Style musical : Baroque',
+        slug: 'baroque',
+        schemaOptionId: '1.7',
       }],
-      "required": false
+      required: false,
     });
-
-  } );
-
-} );
-
-
+  });
+});

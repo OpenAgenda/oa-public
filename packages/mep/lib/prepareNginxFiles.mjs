@@ -39,6 +39,8 @@ export default async function prepareNginxFiles({
     ADDITIONAL_API_DOMAINS: additionalAPIDomains = '',
     DOMAIN: domain,
     OA_SERVER_PORT: serverPort,
+    OA_SUPERADMIN_PORT: superAdminPort,
+    CLIENT_SSL_CERT: clientAuthCertPath,
   } = envVars;
 
   if ((await fs.promises.readdir(dir)).includes('nginx')) {
@@ -58,6 +60,8 @@ export default async function prepareNginxFiles({
       APIEndpoints: getNodesEndpoints(nodes, 'api'),
       NextEndpoints: getNodesEndpoints(nodes, 'next'),
       WebEndpoints: getNodesEndpoints(nodes, 'web'),
+      superAdminPort,
+      clientAuthCertPath,
     }),
     'utf-8'
   );

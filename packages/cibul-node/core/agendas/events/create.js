@@ -77,6 +77,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       clean.event.registration = await createPassCultureOffer(core, agenda, clean);
     } catch (e) {
       log('error', e);
+      throw e;
     }
   }
 
