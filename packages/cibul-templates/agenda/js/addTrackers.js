@@ -17,7 +17,7 @@ export default ({ tracking , lang }) => {
     matomoUrl,
     matomoSiteId,
     matomoAskForConsent
-  } = tracking;
+  } = tracking ?? {};
 
   if (!googleAnalyticsID && !matomoUrl) return;
 
