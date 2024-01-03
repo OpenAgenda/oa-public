@@ -18,7 +18,7 @@ import ShareOnOA from './ShareOnOA';
 import UnloggedBody from './UnloggedBody';
 import OtherShares from './OtherShares';
 
-function ShareModalBody({ agenda, event, contentLocale }) {
+function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) {
   const { user } = useUser();
 
   return (
@@ -37,7 +37,7 @@ function ShareModalBody({ agenda, event, contentLocale }) {
             )}
           </TabPanel>
           <TabPanel>
-            <OtherShares contentLocale={contentLocale} />
+            <OtherShares contentLocale={contentLocale} onClose={onClose} onEmailSent={onEmailSent} />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -51,13 +51,14 @@ export default function ShareModal({
   agenda,
   event,
   contentLocale,
+  onEmailSent,
 }) {
   const { status } = useUser();
 
   return (
     <Modal
       size="xl"
-      isCentered
+      // isCentered
       // scrollBehavior="inside"
       isOpen={isOpen}
       onClose={onClose}
@@ -78,7 +79,13 @@ export default function ShareModal({
         {status === FetchStatus.Fetching ? (
           <ModalLoadingBody />
         ) : (
-          <ShareModalBody agenda={agenda} event={event} contentLocale={contentLocale} />
+          <ShareModalBody
+            agenda={agenda}
+            event={event}
+            contentLocale={contentLocale}
+            onClose={onClose}
+            onEmailSent={onEmailSent}
+          />
         )}
       </ModalContent>
     </Modal>

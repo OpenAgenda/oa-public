@@ -1,11 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
+import { useAgenda } from '../contexts/agenda';
+import useEvent from '../hooks/useEvent';
 // import { SUPPORTED_LOCALES } from 'config/constants';
 
-export default function Metas({ agenda, event, preload }) {
+export default function Metas({ preload }) {
   const intl = useIntl();
   const router = useRouter();
+
+  const agenda = useAgenda();
+  const { event } = useEvent();
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
   const canonicalUrl = absUrl.origin + absUrl.pathname;
