@@ -43,6 +43,9 @@
         "GDPRInformation": null
       },
       "useFields": false
+    },
+    "lab": {
+      "status": true
     }
   },
   "summary": {
