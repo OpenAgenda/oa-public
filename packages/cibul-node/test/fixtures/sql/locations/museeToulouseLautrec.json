@@ -24,6 +24,6 @@
   "set_uid": null,
   "ext_id": null,
   "deleted": 0,
-  "duplicates": "{\"candidates\":[]}",
+  "duplicate_candidates": null,
   "merged_in": null
 }
