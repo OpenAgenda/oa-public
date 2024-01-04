@@ -129,8 +129,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   // Update filters if location change (back)
   useEffect(() => {
     const beforeHistoryChange = (href, { shallow }) => {
-      const currentUrl = new URL(router.asPath, 'http://n');
-      const url = new URL(href, 'http://n');
+      const currentUrl = new URL(router.asPath, 'https://n');
+      const url = new URL(href, 'https://n');
 
       if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
 
@@ -161,7 +161,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         mapElem.onQueryChange(pages[0].aggregations.viewport);
       }
 
-      const url = new URL(latestRouter.current.asPath, 'http://n').pathname
+      const url = new URL(latestRouter.current.asPath, 'https://n').pathname
         + qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
       if (url !== latestRouter.current.asPath) {

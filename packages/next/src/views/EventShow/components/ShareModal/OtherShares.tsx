@@ -1,4 +1,8 @@
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import useSWRMutation from 'swr/mutation';
+import { formatInTimeZone } from 'date-fns-tz';
+import ky from 'ky';
 import {
   chakra,
   VStack,
@@ -7,16 +11,139 @@ import {
   Link,
   Textarea,
   Button,
-  UnorderedList,
-  ListItem,
+  Select,
+  RadioGroup,
+  Radio,
+  Stack,
+  useTimeout, Tooltip,
 } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import { faFacebookF, faXTwitter, faLinkedinIn } from 'icons/brands';
+import extractEmails from 'utils/extractEmails';
+import copyText from 'utils/copyText';
+import useEvent from '../../hooks/useEvent';
+import { useAgenda } from '../../contexts/agenda';
 
-export default function OtherShares({ contentLocale }) {
+function padTo2Digits(num: number) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDateToGoogleCalendar(date: Date) {
+  // eslint-disable-next-line prefer-template
+  return date.getUTCFullYear()
+    + padTo2Digits(date.getUTCMonth() + 1)
+    + padTo2Digits(date.getUTCDate())
+    + 'T'
+    + padTo2Digits(date.getUTCHours())
+    + padTo2Digits(date.getUTCMinutes())
+    + padTo2Digits(date.getUTCSeconds())
+    + 'Z';
+}
+
+function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLocale }) {
+  if (timingIndex === '') {
+    return null;
+  }
+
+  const timing = event.timings[timingIndex];
+  const begin = new Date(timing.begin);
+  const end = new Date(timing.end);
+
+  const location = encodeURIComponent(`${event.location.name} - ${event.location.address}`);
+
+  switch (service) {
+    case 'google':
+      // eslint-disable-next-line prefer-template
+      return 'https://www.google.com/calendar/render?action=TEMPLATE'
+        + `&text=${encodeURIComponent(event.title[contentLocale])}`
+        + `&dates=${formatDateToGoogleCalendar(begin)}/${formatDateToGoogleCalendar(end)}`
+        + `&ctz=${event.timezone}`
+        + `&details=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
+        + (event.location ? `&location=${location}` : '')
+        + `&sprop=website:${encodeURIComponent(eventUrl)}`;
+    case 'yahoo':
+      // eslint-disable-next-line prefer-template
+      return 'https://calendar.yahoo.com/?v=60'
+        + `&TITLE=${encodeURIComponent(event.title[contentLocale])}`
+        + `&ST=${formatInTimeZone(begin, event.timezone, 'yyyyMMdd\'T\'HHmmss')}`
+        + `&ET=${formatInTimeZone(end, event.timezone, 'yyyyMMdd\'T\'HHmmss')}`
+        + `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
+        + (event.location ? `&in_loc=${location}` : '');
+    case 'live':
+      // eslint-disable-next-line prefer-template
+      return 'https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose'
+        + '&rru=addevent'
+        + `&startdt=${formatInTimeZone(begin, event.timezone, 'yyyy-MM-dd\'T\'HH:mm:ss')}`
+        + `&enddt=${formatInTimeZone(end, event.timezone, 'yyyy-MM-dd\'T\'HH:mm:ss')}`
+        + `&subject=${encodeURIComponent(event.title[contentLocale])}`
+        + `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
+        + (event.location ? `&location=${location}` : '');
+    case 'ics':
+      return `/${agenda.slug}/events/${event.slug}/ics?timing=${timingIndex}&dl=1`;
+    default:
+      return null;
+  }
+}
+
+async function sendEmails(url, { arg }: { arg: string[] }): Promise<{ count: number }> {
+  return ky.post(url, {
+    json: {
+      mailsend: arg.join(';'),
+    },
+  }).json();
+}
+
+export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   const router = useRouter();
+  const dateFnsLocale = useDateFnsLocale();
+
+  const agenda = useAgenda();
+  const { event } = useEvent();
 
   const eventUrl = `${process.env.NEXT_PUBLIC_ROOT}${router.asPath}?cl=${contentLocale}`;
+
+  const now = new Date();
+
+  const currentAndUpcomingTimings = event.timings.filter(timing => new Date(timing.begin) > now);
+
+  const [selectedTimingIndex, setSelectedTimingIndex] = useState(() => (currentAndUpcomingTimings.length === 1 ? '0' : ''));
+  const [service, setService] = useState('');
+
+  const onSelectTiming = e => setSelectedTimingIndex(e.target.value);
+
+  const importUrl = getImportUrl({
+    service,
+    agenda,
+    event,
+    eventUrl,
+    timingIndex: selectedTimingIndex,
+    contentLocale,
+  });
+
+  const [emailValue, setEmailValue] = useState('');
+  const handleEmailsChange = e => {
+    setEmailValue(e.target.value);
+  };
+
+  const emails = useMemo(() => extractEmails(emailValue), [emailValue]);
+
+  const { trigger, isMutating } = useSWRMutation(
+    `/${agenda.slug}/events/${event.uid}/email`,
+    sendEmails,
+    {
+      onSuccess(data) {
+        onClose();
+        onEmailSent(data.count);
+      },
+    },
+  );
+
+  const [copied, setCopied] = useState(false);
+
+  useTimeout(() => {
+    setCopied(false);
+  }, copied ? 1000 : null);
 
   return (
     <VStack align="stretch" spacing="6">
@@ -38,7 +165,7 @@ export default function OtherShares({ contentLocale }) {
           <Button
             as={Link}
             variant="outline"
-            href="https://twitter.com"
+            href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl)}`}
             isExternal
             colorScheme="primary"
             leftIcon={<FaIcon icon={faXTwitter} />}
@@ -48,7 +175,7 @@ export default function OtherShares({ contentLocale }) {
           <Button
             as={Link}
             variant="outline"
-            href="https://linkedin.com"
+            href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl)}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
             isExternal
             colorScheme="primary"
             leftIcon={<FaIcon icon={faLinkedinIn} />}
@@ -65,42 +192,73 @@ export default function OtherShares({ contentLocale }) {
         <Textarea
           mb="2"
           placeholder="Veuillez saisir les addresses email auxquelles vous souhaiter envoyer l'événement"
+          value={emailValue}
+          onChange={handleEmailsChange}
         />
         <Button
           type="submit"
           colorScheme="primary"
+          isDisabled={!emails.length}
+          isLoading={isMutating}
+          onClick={() => trigger(emails)}
         >
           Envoyer
         </Button>
       </div>
 
-      <div>
-        <Text fontSize="lg" fontWeight="bold" mb="2">
-          Importer dans un calendrier personnel
-        </Text>
-        <UnorderedList>
-          <ListItem>
-            <Link colorScheme="primary" href="https://oa.com">
-              Google Calendar
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link colorScheme="primary" href="https://oa.com">
-              Yahoo! Calendar
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link colorScheme="primary" href="https://oa.com">
-              Windows Live
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link colorScheme="primary" href="https://oa.com">
-              ICS
-            </Link>
-          </ListItem>
-        </UnorderedList>
-      </div>
+      {currentAndUpcomingTimings.length ? (
+        <div>
+          <Text fontSize="lg" fontWeight="bold" mb="2">
+            Importer dans un calendrier personnel
+          </Text>
+
+          <Select
+            placeholder="Séléctionner une date"
+            mb="2"
+            onChange={onSelectTiming}
+            value={selectedTimingIndex}
+          >
+            {currentAndUpcomingTimings.map((timing, index) => {
+              if (new Date(timing.begin) < now) return null;
+              return (
+                <option key={timing.begin} value={index}>
+                  {formatInTimeZone(timing.begin, event.timezone, 'PPPP, HH:mm', { locale: dateFnsLocale })}
+                  &nbsp;-&nbsp;
+                  {formatInTimeZone(timing.end, event.timezone, 'HH:mm', { locale: dateFnsLocale })}
+                </option>
+              );
+            })}
+          </Select>
+
+          <RadioGroup onChange={setService} value={service} mb="2">
+            <Stack>
+              <Radio value="google">
+                Google Calendar
+              </Radio>
+              <Radio value="yahoo">
+                Yahoo! Calendar
+              </Radio>
+              <Radio value="live">
+                Windows Live
+              </Radio>
+              <Radio value="ics">
+                ICS
+              </Radio>
+            </Stack>
+          </RadioGroup>
+
+          <Button
+            type="submit"
+            as={Link}
+            href={importUrl}
+            isExternal
+            colorScheme="primary"
+            isDisabled={service === '' || selectedTimingIndex === ''}
+          >
+            Importer
+          </Button>
+        </div>
+      ) : null}
 
       <div>
         <Text fontSize="lg" fontWeight="bold" mb="2">
@@ -117,15 +275,27 @@ export default function OtherShares({ contentLocale }) {
           justifyContent="space-between"
         >
           {process.env.NEXT_PUBLIC_ROOT + router.asPath}
-          <Button
-            colorScheme="primary"
-            variant="outline"
-            size="sm"
-            mx="1"
-            onClick={() => {}}
+          <Tooltip
+            label="Copié"
+            hasArrow
+            placement="auto"
+            isOpen={copied}
+            arrowSize={8}
+            arrowPadding={6}
           >
-            Copier
-          </Button>
+            <Button
+              colorScheme="primary"
+              variant="outline"
+              size="sm"
+              mx="1"
+              onClick={async () => {
+                const success = await copyText(process.env.NEXT_PUBLIC_ROOT + router.asPath);
+                if (success) setCopied(true);
+              }}
+            >
+              Copier
+            </Button>
+          </Tooltip>
         </chakra.div>
       </div>
     </VStack>

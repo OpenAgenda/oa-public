@@ -64,7 +64,7 @@ export default function ProfileMenu({ user, portalRef }) {
           display={{ base: 'none', lg: 'flex' }}
           p="4"
           py="0"
-          alignSelf="center"
+          alignSelf="stretch"
         >
           {button}
         </MenuButton>

@@ -1,16 +1,26 @@
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
 
-type Event = {
+type Timing = {
+  begin: string
+  end: string
+};
+
+type Registration = {
+  type: string
+  value: string
+};
+
+export type Event = {
   uid: number
   slug: string
   title: Record<string, string>
   description: Record<string, string>
   dateRange: Record<string, string>
-  timings: {
-    begin: string
-    end: string
-  }[]
+  timezone: string
+  timings: Timing[]
+  nextTiming: Timing | null
+  lastTiming: Timing
   image?: {
     size?: {
       width: number
@@ -21,9 +31,12 @@ type Event = {
   imageCredits?: string
   longDescription?: Record<string, string>
   keywords?: Record<string, string[]>
+  conditions?: Record<string, string>
+  registration?: Registration[]
   createdAt: string
   updatedAt: string
   location?: {
+    uid: number
     agendaUid: number
     name: string
     address: string
@@ -38,7 +51,10 @@ type Event = {
     website?: string
     phone?: string
     links?: string[]
+    latitude?: number
+    longitude?: number
   }
+  onlineAccessLink?: string
   state: number
   featured: boolean
   originAgenda: {
@@ -46,15 +62,10 @@ type Event = {
     image: string
     title: string
   }
-  status: number;
+  status: number
+  private: boolean
+  ownerUid: number
 };
-
-async function fetcher(url: string) {
-  const response = await fetch(url);
-  if (response.ok) return response.json();
-  // TODO should recreate an error with data in `await r.json()` and/or status
-  throw new Error('Error');
-}
 
 export default function useEvent() {
   const router = useRouter();
@@ -65,7 +76,6 @@ export default function useEvent() {
     ...rest
   } = useSWRImmutable<{ success: boolean, event: Event }>(
     `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
-    fetcher,
   );
 
   return { event: data.event, ...rest };

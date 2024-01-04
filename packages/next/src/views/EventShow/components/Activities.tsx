@@ -5,6 +5,8 @@ import { chakra, Heading, Link, Flex, Button } from '@openagenda/uikit';
 import ActivityItem from '@openagenda/activity-apps/src/client/components/ActivityItem';
 import isNextUrl from 'utils/isNextUrl';
 import NextChakraLink from 'components/NextChakraLink';
+import { useAgenda } from '../contexts/agenda';
+import useEvent from '../hooks/useEvent';
 
 const PAGE_SIZE = 20;
 
@@ -35,7 +37,10 @@ function Activity({ formattedActivity, activity, isBrowser }) {
   );
 }
 
-export default function Activities({ agenda, event }) {
+export default function Activities() {
+  const agenda = useAgenda();
+  const { event } = useEvent();
+
   const {
     data: pages,
     error,

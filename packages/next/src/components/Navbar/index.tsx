@@ -98,7 +98,7 @@ export default function Navbar() {
             </Flex>
           </Flex>
 
-          <Flex direction="row" align="stretch">
+          <Flex direction="row" align="center">
             <HelpButton />
             <ProfileBar portalRef={headerRef} />
           </Flex>

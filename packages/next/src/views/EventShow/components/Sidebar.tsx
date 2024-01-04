@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Flex,
@@ -17,10 +17,13 @@ import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
 import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 'icons/regular';
 import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
+import { useAgenda } from '../contexts/agenda';
+import useEvent from '../hooks/useEvent';
 import Timings from './Timings';
 import References from './References';
 import Map from './Map';
 import ShareModal from './ShareModal';
+import EmailConfirmationAlert from './EmailConfirmationAlert';
 
 function getRegistrationIcon(type: string) {
   switch (type) {
@@ -48,8 +51,11 @@ function getRegistrationLink({ value, type }: { value: string, type: string }) {
   }
 }
 
-export default function Sidebar({ agenda, event, contentLocale }) {
+export default function Sidebar({ contentLocale }) {
   const intl = useIntl();
+
+  const agenda = useAgenda();
+  const { event } = useEvent();
 
   const isUpcoming = useMemo(() => {
     const now = new Date();
@@ -63,6 +69,18 @@ export default function Sidebar({ agenda, event, contentLocale }) {
     onOpen: shareOnOpen,
     onClose: shareOnClose,
   } = useDisclosure();
+
+  const [emailSent, setEmailSent] = useState(0);
+  const {
+    isOpen: emailSentIsOpen,
+    onOpen: emailSentOnOpen,
+    onClose: emailSentOnClose,
+  } = useDisclosure();
+
+  const onEmailSent = count => {
+    setEmailSent(count);
+    emailSentOnOpen();
+  };
 
   return (
     <Flex
@@ -324,6 +342,15 @@ export default function Sidebar({ agenda, event, contentLocale }) {
           agenda={agenda}
           event={event}
           contentLocale={contentLocale}
+          onEmailSent={onEmailSent}
+        />
+      ) : null}
+
+      {emailSentIsOpen ? (
+        <EmailConfirmationAlert
+          isOpen
+          onClose={emailSentOnClose}
+          count={emailSent}
         />
       ) : null}
     </Flex>

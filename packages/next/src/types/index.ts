@@ -34,4 +34,6 @@ export type Agenda = {
   summary: any;
   indexed: boolean | number;
   image?: string;
+  official: 0 | 1;
+  private: 0 | 1;
 };

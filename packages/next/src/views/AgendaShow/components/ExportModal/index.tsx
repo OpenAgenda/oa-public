@@ -2,6 +2,7 @@ import { useState, useMemo, Fragment } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import qs from 'qs';
 import useSWR from 'swr';
+import ky from 'ky';
 import {
   Modal,
   ModalOverlay,
@@ -113,16 +114,15 @@ function completeUrls(agendaUid, query) {
   };
 }
 
-const fetcher = url => fetch(url)
-  .then(
-    r => {
-      if (r.ok) return r.json();
-      if (r.status === 401) return null;
-      // TODO should recreate an error with data in `await r.json()`
-      // console.log('ERROR response', await r.json());
-      throw new Error('Error');
-    },
-  );
+const fetcher = url => ky(url, {
+  hooks: {
+    afterResponse: [
+      (_request, _options, response) => {
+        if (response.status === 401) return new Response();
+      },
+    ],
+  },
+}).json();
 
 interface ExportModalProps {
   agendaUid: string;
@@ -172,8 +172,8 @@ export default function ExportModal({
   ];
 
   const { user } = useUser();
-  const { data: meData, mutate: meMutate } = useSWR(res.me, fetcher);
-  const { data: exportSettingsData } = useSWR(res.agendaExportSettings, fetcher);
+  const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
+  const { data: exportSettingsData } = useSWR<any>(res.agendaExportSettings, fetcher);
 
   const userLogged = !!user;
   const publicKey = meData?.apiKey;

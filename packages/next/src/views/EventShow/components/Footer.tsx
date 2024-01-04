@@ -1,6 +1,9 @@
 import { chakra, Link } from '@openagenda/uikit';
+import { useAgenda } from '../contexts/agenda';
 
-export default function Footer({ agenda }) {
+export default function Footer() {
+  const agenda = useAgenda();
+
   return (
     <footer>
       <Link href="/" colorScheme="primary">OpenAgenda</Link>

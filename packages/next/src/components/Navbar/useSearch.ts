@@ -25,7 +25,7 @@ export default function useSearch() {
     }
 
     router.push(`/agendas${qsSearch}`);
-  }, [router]);
+  }, [router, setSearchValue]);
 
   return useMemo(() => ({
     inputValue,
