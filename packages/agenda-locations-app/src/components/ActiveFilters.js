@@ -1,4 +1,3 @@
-
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
@@ -13,6 +12,10 @@ const messages = defineMessages({
   uids: {
     id: 'AgendaLocations.Filters.uids',
     defaultMessage: 'Locations selection',
+  },
+  hasDuplicateCandidates: {
+    id: 'AgendaLocations.Filters.hasDuplicateCandidates',
+    defaultMessage: 'With duplicates candidates',
   },
 });
 
