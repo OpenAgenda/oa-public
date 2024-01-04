@@ -1,5 +1,5 @@
 'use strict';
-
+const { Forbidden }= require('@openagenda/verror');
 const cmn = require('../../../lib/commons-app');
 
 const render = require('./render');
@@ -11,6 +11,7 @@ const renderEventContactApp = require('./renders/eventContactApp');
 const renderAdminEventContactApp = require('./renders/adminEventContactApp');
 const renderRequestContributeApp = require('./renders/requestContributeApp');
 const renderSuggestLocationChangeApp = require('./renders/suggestLocationChangeApp');
+const renderSuggestEventChangeApp = require('./renders/suggestEventChangeApp');
 
 function eventLoader(events) {
   return (req, res, next) => {
@@ -165,7 +166,33 @@ module.exports = (app, config, services) => {
           next();
         }, next);
     },
-    renderSuggestLocationChangeApp({ config, render })
+    renderSuggestLocationChangeApp({ config, render }),
+  );
+
+  app.use(
+    '/:slug/events/:eventUid/suggest-change',
+    sessions.mw.loadOrRedirect(),
+    agendas.mw.loadBy({
+      path: 'params.slug',
+      field: 'slug',
+    }),
+    members.mw.load,
+    cmn.loadBaseData('oa-main.css'),
+    (req, res, next) => {
+      console.log('suggestEventChange', req.params.eventUid);
+      events.get(req.params.eventUid, { detailed: true, access: 'internal' })
+        .then(event => {
+          console.log('event', event);
+          console.log(req.member);
+          if (event.ownerUid === req.member.userUid && req.member.role === 1) {
+            req.event = event;
+            next();
+            return;
+          }
+          next(new Forbidden('not authorized to read event'));
+        }, next);
+    },
+    renderSuggestEventChangeApp({ config, render }),
   );
 
   app.use(
