@@ -8,9 +8,11 @@ async function disqualifyCandidate(endpoints, dirtyUids) {
   const loadedLocationUids = locations.map(l => l.uid);
   for (const location of locations) {
     const toMove = location.duplicateCandidates.filter(c => loadedLocationUids.includes(c));
+    const newDuplicateCandidates = location.duplicateCandidates.filter(c => !toMove.includes(c));
+    const newDisqualifiedDuplicates = (location.disqualifiedDuplicates || []).concat(toMove);
     await endpoints.patch(location.uid, {
-      duplicateCandidates: location.duplicateCandidates.filter(c => !toMove.includes(c)),
-      disqualifiedDuplicates: (location.disqualifiedDuplicates || []).concat(toMove),
+      duplicateCandidates: newDuplicateCandidates.length ? newDuplicateCandidates : null,
+      disqualifiedDuplicates: newDisqualifiedDuplicates.length ? newDisqualifiedDuplicates : null,
     });
   }
 }
