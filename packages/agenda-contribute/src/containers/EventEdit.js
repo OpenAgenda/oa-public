@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
 
 import EventEditForm from '../components/EventEditForm';
 import Canvas from '../components/Canvas';
@@ -12,6 +13,19 @@ import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 import usePrefix from '../hooks/usePrefix';
 import RequestEditionRights from '../components/RequestEditionRights';
+import Instructions from '../components/Instructions';
+
+const messages = defineMessages({
+  unpublishWarningWithLink: {
+    id: 'AgendaContribute.EventEdit.unpublishWarningWithLink',
+    defaultMessage: 'Carefull, updating this event will unpublish it for moderators to review. You can also suggest changes to moderators if they are small. [Suggest Change]<a></a>',
+  },
+});
+
+const willModerateOnUpdate = (event, agendaSettings, me) => {
+  if (event.state === 2 && agendaSettings.contribution.moderateOnChangeBy.includes(me.member.role)) return true;
+  return false;
+};
 
 const {
   replaceWithStep,
@@ -26,6 +40,8 @@ export default function EventEdit({
   const {
     eventUid, // as a string
   } = useParams();
+
+  const m = useIntl().formatMessage;
 
   const location = useLocation();
 
@@ -71,6 +87,14 @@ export default function EventEdit({
           />
         </div>
       ) : null}
+      {willModerateOnUpdate(event, agenda.settings, eventContext.me) ? (
+        <Instructions
+          message={m(messages.unpublishWarningWithLink, {
+            a: () => `(/${agenda.slug}/events/${event.uid}/suggest-change/conversation/create)`,
+          })}
+          className="margin-bottom-lg"
+        />
+      ) : null}
       <EventEditForm
         res={`${apiRoot}${location.pathname}`}
         config={{
@@ -94,6 +118,7 @@ export default function EventEdit({
             response,
           }));
         }}
+        useSubmitModal={willModerateOnUpdate(event, agenda.settings, eventContext.me)}
       />
     </Canvas>
   );
