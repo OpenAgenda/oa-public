@@ -1,4 +1,3 @@
-
 import { defineMessages, useIntl } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';
@@ -10,9 +9,9 @@ const messages = {
     incompleteLocations: {
       id: 'AgendaLocations.DropdownIncompleteLocation.incompleteLocations',
       defaultMessage: 'See incomplete Locations',
-    }
+    },
   }),
-  ...adminLevels
+  ...adminLevels,
 };
 
 const IncompleteLocationsFilterDropdown = ({

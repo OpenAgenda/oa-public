@@ -275,7 +275,8 @@ describe('agenda-locations - functional - merge - duplicates', () => {
     it('clean duplicates candidata of merge Target', async () => {
       const target = await f.client('location').first()
         .where('uid', 52174054);
-      expect(target.duplicates).toStrictEqual('{"candidates":[],"disqualified":[]}');
+      expect(target.duplicate_candidates).toBeNull();
+      expect(target.duplicate_disqualified).toBeNull();
     });
   });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('services/agendaLocations/detectDuplicatesCandidates');
+const log = require('@openagenda/logs')('services/agendaLocations/detectDuplicateCandidates');
 
 module.exports = async (services, options) => {
   const {

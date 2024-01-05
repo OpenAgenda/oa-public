@@ -135,11 +135,11 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded candidates in db', () => {
-      expect(JSON.parse(entry.duplicates).candidates).toStrictEqual([30]);
+      expect(JSON.parse(entry.duplicate_candidates)).toStrictEqual([30]);
     });
 
     it('patching candidates in duplicates does not affect other duplicates fields', () => {
-      expect(JSON.parse(entry.duplicates).disqualified).toStrictEqual([5]);
+      expect(JSON.parse(entry.duplicate_disqualified)).toStrictEqual([5]);
     });
   });
 

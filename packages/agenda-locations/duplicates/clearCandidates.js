@@ -15,7 +15,7 @@ async function clearCandidates(endpoints) {
     }
 
     for (const location of locations) {
-      await endpoints.patch(location, { duplicateCandidates: [] });
+      await endpoints.patch(location, { duplicateCandidates: null });
     }
 
     after = nextAfter;

@@ -8,14 +8,14 @@ export default (agenda, page, search) => {
   const size = useSelector(state => state.settings.pageSize);
   const from = size * (page - 1);
 
-  const { isLoading, error, data } = useQuery(['locations', page, search],
-    () => (
-      axios.get(res.index, {
-        params: {
-          page, from, size, search: search.search, uids: search.uids, hasNull: search.hasNull, state: search.state
-        }
-      }).then(response => response.data)
-    ));
+  const { isLoading, error, data } = useQuery(
+    ['locations', page, search],
+    () => axios.get(res.index, {
+      params: {
+        page, from, size, search: search.search, uids: search.uids, hasNull: search.hasNull, state: search.state, hasDuplicateCandidates: search.hasDuplicateCandidates,
+      },
+    }).then(response => response.data),
+  );
   return {
     isLoading,
     error,

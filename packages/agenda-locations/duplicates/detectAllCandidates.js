@@ -1,10 +1,10 @@
 'use strict';
 
-const detectDuplicatesCandidates = require('./detectCandidates');
+const detectDuplicateCandidates = require('./detectCandidates');
 
 const sleep = ms => new Promise(rs => setTimeout(rs, ms));
 
-async function detectAllDuplicatesCandidates({ endpoints, internals }, options = {}) {
+async function detectAllDuplicateCandidates({ endpoints, internals }, options = {}) {
   let after = 0;
 
   while (after !== -1) {
@@ -19,7 +19,7 @@ async function detectAllDuplicatesCandidates({ endpoints, internals }, options =
     }
 
     for (const location of locations) {
-      await detectDuplicatesCandidates({ endpoints, internals }, location.uid, { saveCandidates: true });
+      await detectDuplicateCandidates({ endpoints, internals }, location.uid, { saveCandidates: true });
       if (options.sleep) {
         await sleep(options.sleep);
       }
@@ -28,4 +28,4 @@ async function detectAllDuplicatesCandidates({ endpoints, internals }, options =
   }
 }
 
-module.exports = detectAllDuplicatesCandidates;
+module.exports = detectAllDuplicateCandidates;
