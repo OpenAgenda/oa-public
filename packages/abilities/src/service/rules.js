@@ -16,39 +16,39 @@ const splitIfNeeded = (value, delimiter = '|') => {
   return value;
 };
 
-export function format(rules) {
-  const _format = rule => ({
-    id: rule.id || null,
-    entity_name: rule.entityName || null,
-    identifier: rule.identifier || null,
-    actions: joinIfArray(rule.actions || rule.action),
-    subject: joinIfArray(rule.subject),
-    inverted: rule.inverted || false,
-    conditions: rule.conditions ? JSON.stringify(rule.conditions) : null,
-    fields: joinIfArray(rule.fields) || null,
-    reason: rule.reason || null,
-  });
-
-  return Array.isArray(rules) ? rules.map(_format) : _format(rules);
+export function format(r) {
+  return Array.isArray(r)
+    ? r.map(format)
+    : {
+      id: r.id || null,
+      entity_name: r.entityName || null,
+      identifier: r.identifier || null,
+      actions: joinIfArray(r.actions || r.action),
+      subject: joinIfArray(r.subject),
+      inverted: r.inverted || false,
+      conditions: r.conditions ? JSON.stringify(r.conditions) : null,
+      fields: joinIfArray(r.fields) || null,
+      reason: r.reason || null,
+    };
 }
 
-export function parse(rules) {
-  const _parse = rule => ({
-    id: rule.id || null,
-    entityName: rule.entityName || null,
-    identifier: rule.identifier || null,
-    actions: splitIfNeeded(rule.actions || rule.action),
-    subject: splitIfNeeded(rule.subject),
-    inverted: !!rule.inverted,
-    conditions:
-      typeof rule.conditions === 'string'
-        ? JSON.parse(rule.conditions)
-        : rule.conditions || null,
-    fields: splitIfNeeded(rule.fields) || null,
-    reason: rule.reason || null,
-  });
-
-  return Array.isArray(rules) ? rules.map(_parse) : _parse(rules);
+export function parse(r) {
+  return Array.isArray(r)
+    ? r.map(parse)
+    : {
+      id: r.id || null,
+      entityName: r.entityName || null,
+      identifier: r.identifier || null,
+      actions: splitIfNeeded(r.actions || r.action),
+      subject: splitIfNeeded(r.subject),
+      inverted: !!r.inverted,
+      conditions:
+          typeof r.conditions === 'string'
+            ? JSON.parse(r.conditions)
+            : r.conditions || null,
+      fields: splitIfNeeded(r.fields) || null,
+      reason: r.reason || null,
+    };
 }
 
 export async function list(entityName, identifier) {
