@@ -2,7 +2,8 @@ import _ from 'lodash';
 import { AbilityBuilder } from '@casl/ability';
 import config from './config';
 
-const joinIfArray = (value, delimiter = '|') => (Array.isArray(value) ? value.join(delimiter) : value);
+const joinIfArray = (value, delimiter = '|') =>
+  (Array.isArray(value) ? value.join(delimiter) : value);
 const splitIfNeeded = (value, delimiter = '|') => {
   if (typeof value === 'string' && value.includes(delimiter)) {
     return value.split(delimiter);
@@ -62,7 +63,7 @@ export async function list(entityName, identifier) {
     )
   ) {
     throw new TypeError(
-      '`identifier` should be a number or an array of numbers'
+      '`identifier` should be a number or an array of numbers',
     );
   }
 
@@ -77,7 +78,8 @@ export async function list(entityName, identifier) {
     request.where('identifier', identifier);
   }
 
-  const rules = _.map(await request, row => _.mapKeys(row, (v, k) => _.camelCase(k)));
+  const rules = _.map(await request, row =>
+    _.mapKeys(row, (v, k) => _.camelCase(k)));
 
   return parse(rules);
 }
