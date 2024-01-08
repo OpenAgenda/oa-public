@@ -10,7 +10,6 @@ const range = require('@openagenda/date-range');
 const log = require('@openagenda/logs')('event/actions');
 
 const { getLocaleValue } = require('@openagenda/intl');
-const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
@@ -87,7 +86,10 @@ function actionDatesJson(req, res, next) {
 }
 
 async function eventMailSend(req, res, next) {
-  const { events: eventsSvc } = req.app.services;
+  const {
+    events: eventsSvc,
+    mails,
+  } = req.app.services;
 
   let customData = null;
 

@@ -348,7 +348,7 @@ async function activateResend(req, res) {
       });
 
       if (token) {
-        await users.config.interfaces.sendToken(config)({
+        await users.config.interfaces.sendToken(config, req.app.services)({
           result: token,
           params: { user, optionals },
         });
