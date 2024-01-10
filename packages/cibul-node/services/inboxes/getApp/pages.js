@@ -1,5 +1,6 @@
 'use strict';
-const { Forbidden }= require('@openagenda/verror');
+
+const { Forbidden } = require('@openagenda/verror');
 const cmn = require('../../../lib/commons-app');
 
 const render = require('./render');
@@ -16,11 +17,11 @@ const renderSuggestEventChangeApp = require('./renders/suggestEventChangeApp');
 function eventLoader(events) {
   return (req, res, next) => {
     events.get({
-      slug: req.params.eventSlug
+      slug: req.params.eventSlug,
     }, {
       access: 'internal',
       includeImagePath: true,
-      private: null
+      private: null,
     }).then(event => {
       req.event = event;
       next();
@@ -55,7 +56,7 @@ module.exports = (app, config, services) => {
     agendas,
     members,
     events,
-    agendaLocations
+    agendaLocations,
   } = services;
 
   const loadEvent = eventLoader(events);
@@ -66,9 +67,9 @@ module.exports = (app, config, services) => {
     checkUser,
     (req, res, next) => {
       usersSvc.refresh(req.user.uid, {
-        lastInboxCheck: true
+        lastInboxCheck: true,
       }).then(() => res.sendStatus(200)).catch(next);
-    }
+    },
   );
 
   app.use(
@@ -76,11 +77,11 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
-    renderContactInboxApp({ render, config })
+    renderContactInboxApp({ render, config }),
   );
 
   app.use(
@@ -88,13 +89,13 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadTarget.options({ detailed: true }),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oa-main.css'),
-    renderMemberContactApp({ render, services, config })
+    renderMemberContactApp({ render, services, config }),
   );
 
   app.use(
@@ -102,13 +103,13 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     agendas.mw.authorizeByIPAddress(),
     cmn.loadBaseData('oa-main.css'),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
-    renderAdminEventContactApp({ render, config })
+    renderAdminEventContactApp({ render, config }),
   );
 
   app.use(
@@ -116,12 +117,12 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
     loadEvent,
-    renderEventContactApp({ render, config })
+    renderEventContactApp({ render, config }),
   );
 
   app.use(
@@ -129,13 +130,13 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oa-main.css'),
     loadEvent,
-    renderEditionRequestApp({ render, config })
+    renderEditionRequestApp({ render, config }),
   );
 
   app.use(
@@ -143,11 +144,11 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
-    renderRequestContributeApp({ services, config, render })
+    renderRequestContributeApp({ services, config, render }),
   );
 
   app.use(
@@ -155,7 +156,7 @@ module.exports = (app, config, services) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
-      field: 'slug'
+      field: 'slug',
     }),
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
@@ -179,11 +180,8 @@ module.exports = (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
     (req, res, next) => {
-      console.log('suggestEventChange', req.params.eventUid);
       events.get(req.params.eventUid, { detailed: true, access: 'internal' })
         .then(event => {
-          console.log('event', event);
-          console.log(req.member);
           if (event.ownerUid === req.member.userUid && req.member.role === 1) {
             req.event = event;
             next();

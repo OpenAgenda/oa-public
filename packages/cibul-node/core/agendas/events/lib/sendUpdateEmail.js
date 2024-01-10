@@ -80,31 +80,33 @@ module.exports = async function sendUpdateEmail(core, { batched, agenda, event }
     });
   }
 
+  const adminModMembers = members
+    .filter(member => !!member.user)
+    .filter(member => !ownerMember || (member.id !== ownerMember.id));
+
+  log('sending eventUpdate to %s adminmods', adminModMembers.length);
   await mails.send({
     template: 'eventUpdate',
-    to: members
-      .filter(member => !!member.user)
-      .filter(member => !ownerMember || (member.id !== ownerMember.id))
-      .map(member => {
-        const lang = member.user.culture || 'fr';
-        const eventTitle = event.title[lang] || _.find(event.title);
+    to: adminModMembers.map(member => {
+      const lang = member.user.culture || 'fr';
+      const eventTitle = event.title[lang] || _.find(event.title);
 
-        return {
-          address: member.user.email,
-          lang: member.user.culture,
-          unsubscriptions: [{
-            rule: ['receive', 'eventUpdate'],
-            dataPath: 'unsubscribeLink',
-          }, {
-            memberId: member.id,
-            rule: ['receive', 'eventUpdate'],
-            dataPath: 'memberUnsubscribeLink',
-          }],
-          data: {
-            event: eventTitle,
-          },
-        };
-      }),
+      return {
+        address: member.user.email,
+        lang: member.user.culture,
+        unsubscriptions: [{
+          rule: ['receive', 'eventUpdate'],
+          dataPath: 'unsubscribeLink',
+        }, {
+          memberId: member.id,
+          rule: ['receive', 'eventUpdate'],
+          dataPath: 'memberUnsubscribeLink',
+        }],
+        data: {
+          event: eventTitle,
+        },
+      };
+    }),
     data: {
       agenda: agenda.title,
       logo,

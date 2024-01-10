@@ -9,23 +9,23 @@ module.exports = ({ services, config, render }) => (req, res, next) => {
 
   const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
     req.targetMember.role,
-    'moderator'
+    'moderator',
   );
 
   const userName = _.get(
     req.targetMember,
     'custom.contactName',
-    req.targetMember.user.fullName
+    req.targetMember.user.fullName,
   );
 
   render({
     template: 'agenda/inbox',
     baseData: {
       event: {
-        backLink: `/${req.agenda.slug}`
+        backLink: `/${req.agenda.slug}`,
       },
       image: req.agenda.image,
-      title: req.agenda.title
+      title: req.agenda.title,
     },
     endpoint: targetIsAdminMod ? '/home/inbox' : `/agendas/${req.agenda.uid}/inbox`,
     initialState: {
@@ -52,15 +52,15 @@ module.exports = ({ services, config, render }) => (req, res, next) => {
             agendaTitle: req.agenda.title,
             agendaUid: req.agenda.uid,
             userUid: req.targetMember.user.uid,
-            userName
+            userName,
           },
-          destinationInbox: targetIsAdminMod ? {
+          destinationInbox: targetIsAdminMod ? [] : {
             type: 'user',
-            identifier: req.targetMember.user.uid
-          } : []
-        }
+            identifier: req.targetMember.user.uid,
+          },
+        },
       },
-      agenda: req.agenda
-    }
+      agenda: req.agenda,
+    },
   })(req, res, next);
 };

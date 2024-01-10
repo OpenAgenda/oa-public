@@ -7,7 +7,6 @@ const invitations = require('@openagenda/invitations');
 
 const log = require('@openagenda/logs')('services/members/messages');
 
-const mails = require('../../mails');
 const agendaLogo = require('./agendaLogo');
 const invitationContext = require('./invitationContext');
 
@@ -44,7 +43,7 @@ async function addActivity(activities, data, recipientRoles) {
   }
 }
 
-async function _sendMessage(config, member, { subject, message, agenda, lang, replyTo }) {
+async function _sendMessage({ mails, config }, member, { subject, message, agenda, lang, replyTo }) {
   const email = _.get(
     member,
     'custom.email',
@@ -95,7 +94,7 @@ async function _sendMessage(config, member, { subject, message, agenda, lang, re
   });
 }
 
-async function sendMessageChain(config, { queue, members, activities }, jobData) {
+async function sendMessageChain(config, { queue, members, activities, mails }, jobData) {
   const { query, data } = jobData;
   const context = {
     recipientRoles: {},
@@ -105,7 +104,7 @@ async function sendMessageChain(config, { queue, members, activities }, jobData)
   if (!context.sentToMe) {
     if (data.sendToMe) {
       try {
-        await _sendMessage(config, data.sender, data);
+        await _sendMessage({ mails, config }, data.sender, data);
         context.recipientRoles[data.sender.role] = (context.recipientRoles[data.sender.role] || 0) + 1;
       } catch (e) {
         log.error('Cannot send message to member', data.sender.uid);
@@ -141,7 +140,7 @@ async function sendMessageChain(config, { queue, members, activities }, jobData)
   }
 
   try {
-    await _sendMessage(config, member, data);
+    await _sendMessage({ config, mails }, member, data);
     context.recipientRoles[member.role] = (context.recipientRoles[member.role] || 0) + 1;
   } catch (e) {
     log.error('Cannot send message to member', member.uid);
@@ -150,13 +149,13 @@ async function sendMessageChain(config, { queue, members, activities }, jobData)
   await queue.add('sendMessageChain', { query, data, context });
 }
 
-async function task(config, { queue, bull, members, activities }) {
+async function task(config, { queue, bull, members, activities, mails }) {
   log('task');
 
   const worker = new bull.Worker(queue.name, async job => {
     switch (job.name) {
       case 'sendMessageChain':
-        await sendMessageChain(config, { queue, members, activities }, job.data);
+        await sendMessageChain(config, { queue, members, activities, mails }, job.data);
         break;
       default:
         log.warn(`Unkown job ${job.name}`);
@@ -179,10 +178,10 @@ async function task(config, { queue, bull, members, activities }) {
   worker.on('completed', (job, result, prev) => log.debug(job.name, 'completed', prev));
 }
 
-module.exports = (config, { bull, members, activities, queueName }) => {
+module.exports = (config, { bull, members, activities, queueName, mails }) => {
   const queue = new bull.Queue(queueName, { prefix: `{${queueName}}` });
 
   return Object.assign((query, data) => queue.add('sendMessageChain', { query, data }), {
-    task: () => task(config, { queue, bull, members, activities }),
+    task: () => task(config, { queue, bull, members, activities, mails }),
   });
 };

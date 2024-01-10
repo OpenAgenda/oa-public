@@ -7,6 +7,7 @@
   "sentBy": "Envoyé par <b>{senderName}</b>",
   "reply": "Répondre",
   "unsubscribe": "Ne plus recevoir les messages {agenda, select, null {de ma messagerie} other {des messageries des agendas}}",
+  "unsubscribeGuest": "Ne plus recevoir les emails d'OpenAgenda",
   "memberUnsubscribe": "Ne plus recevoir les messages de la messagerie de cet agenda",
   "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
 }

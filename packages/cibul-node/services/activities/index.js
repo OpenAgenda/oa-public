@@ -1,16 +1,13 @@
 'use strict';
 
-const { promisify } = require('node:util');
 const Service = require('@openagenda/activities');
 const mw = require('@openagenda/activity-apps/dist/middleware');
-const unsubscribedSvc = require('@openagenda/unsubscribed');
 const createPrepareSummaryQueue = require('./prepareSummary');
 const sendSummary = require('./sendSummary');
 const activitiesConfig = require('./activitiesConfig');
 const addActivity = require('./addActivity');
 
 const activities = {};
-
 
 module.exports = app => {
   const {
@@ -40,12 +37,9 @@ module.exports.init = async (config, services) => {
     } : null,
     interfaces: {
       getUser: uid => services.users.get(uid, { detailed: true }),
-      isUnsubscribed: uid => promisify(unsubscribedSvc(uid).is)({
-        subject: 'notifications',
-        type: 'notifications_summary',
-      }),
+      isUnsubscribed: () => false,
       prepareSummary,
-      sendSummary: (...args) => sendSummary(config, ...args),
+      sendSummary: (...args) => sendSummary(config, services, ...args),
     },
     services, // used in mask
     activities: activitiesConfig,

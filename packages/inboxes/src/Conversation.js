@@ -83,14 +83,14 @@ export default class Conversation {
       {
         createInboxUserOnNull: false,
       },
-      options
+      options,
     );
 
     await this._loadInbox();
 
     const inboxUser = await this._getInboxUser(
       this.userUid ? { userUid: this.userUid } : data.creatorInboxUser,
-      { inbox: this.inbox, createOnNull: params.createInboxUserOnNull }
+      { inbox: this.inbox, createOnNull: params.createInboxUserOnNull },
     );
 
     if (!inboxUser.data) {
@@ -98,21 +98,21 @@ export default class Conversation {
     }
 
     const destinationInboxes = await Promise.all(
-      [].concat(data.destinationInbox || []).map(v => new Inbox(v).get())
+      [].concat(data.destinationInbox || []).map(v => new Inbox(v).get()),
     );
     const destinationNotFound = destinationInboxes.filter(v => !v.data);
 
     if (destinationNotFound && destinationNotFound.length) {
       throw new VError(
         'Destination Inbox(es) %j not found',
-        destinationNotFound
+        destinationNotFound,
       );
     }
 
     validate(
       ajv,
       createSchema,
-      _.omit(data, 'destinationInbox', 'creatorInboxUser')
+      _.omit(data, 'destinationInbox', 'creatorInboxUser'),
     );
 
     if (!types || !types[data.type]) {
@@ -128,7 +128,7 @@ export default class Conversation {
       data,
       'params',
       'destinationInbox',
-      'creatorInboxUser'
+      'creatorInboxUser',
     );
 
     const createdAt = new Date();
@@ -161,7 +161,7 @@ export default class Conversation {
             conversationId: this.identifiers.id,
           });
         }
-      })
+      }),
     );
 
     if (data.message) {
@@ -172,7 +172,7 @@ export default class Conversation {
         },
         {
           createdAt,
-        }
+        },
       );
     }
 
@@ -191,7 +191,7 @@ export default class Conversation {
       .column(
         mapper
           .listFields(conversationFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.conversation}.${v}`)
+          .map(v => `${schemas.conversation}.${v}`),
       )
       .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
@@ -202,9 +202,9 @@ export default class Conversation {
             'db',
             options,
             true,
-            'creatorInboxUser.'
+            'creatorInboxUser.',
           )
-          .map(v => `creatorInboxUser.${v}`)
+          .map(v => `creatorInboxUser.${v}`),
       )
       .column(
         mapper
@@ -214,35 +214,35 @@ export default class Conversation {
             'db',
             options,
             true,
-            'creatorInbox.'
+            'creatorInbox.',
           )
-          .map(v => `creatorInbox.${v}`)
+          .map(v => `creatorInbox.${v}`),
       )
       .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.inboxConversation}.conversation_id`,
-        `${schemas.conversation}.id` // TODO try to add a .on condition with inbox id
+        `${schemas.conversation}.id`, // TODO try to add a .on condition with inbox id
       )
       .leftJoin(
         schemas.inbox,
         `${schemas.inbox}.id`,
-        `${schemas.inboxConversation}.inbox_id`
+        `${schemas.inboxConversation}.inbox_id`,
       )
       .leftJoin(
         schemas.message,
         `${schemas.message}.conversation_id`,
-        `${schemas.conversation}.id`
+        `${schemas.conversation}.id`,
       )
       .leftJoin(
         `${schemas.inboxUser} as creatorInboxUser`,
         'creatorInboxUser.id',
-        `${schemas.conversation}.creator_inbox_user_id`
+        `${schemas.conversation}.creator_inbox_user_id`,
       )
       .leftJoin(
         `${schemas.inbox} as creatorInbox`,
         'creatorInbox.id',
-        'creatorInboxUser.inbox_id'
+        'creatorInboxUser.inbox_id',
       )
       .where(
         _.mapKeys(
@@ -250,16 +250,16 @@ export default class Conversation {
             conversationFieldsMap,
             'select',
             this.identifiers,
-            options
+            options,
           ),
-          (v, key) => `${schemas.conversation}.${key}`
-        )
+          (v, key) => `${schemas.conversation}.${key}`,
+        ),
       )
       .groupBy(`${schemas.conversation}.id`, `${schemas.inbox}.id`)
       .orderByRaw('(closedAt IS NOT NULL)')
       .orderByRaw('latestMessageId DESC')
       .orderByRaw(
-        `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`
+        `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`,
       );
 
     if (this.userUid) {
@@ -273,16 +273,17 @@ export default class Conversation {
               'db',
               options,
               true,
-              'inboxUser.'
+              'inboxUser.',
             )
-            .map(v => `${schemas.inboxUser}.${v}`)
+            .map(v => `${schemas.inboxUser}.${v}`),
         )
-        .leftJoin(schemas.inboxUser, join => join
-          .on(
-            `${schemas.inboxUser}.inbox_id`,
-            `${schemas.inboxConversation}.inbox_id`
-          )
-          .onNull(`${schemas.inboxUser}.left_at`))
+        .leftJoin(schemas.inboxUser, join =>
+          join
+            .on(
+              `${schemas.inboxUser}.inbox_id`,
+              `${schemas.inboxConversation}.inbox_id`,
+            )
+            .onNull(`${schemas.inboxUser}.left_at`))
         .where(`${schemas.inboxUser}.user_uid`, this.userUid)
         .groupBy(`${schemas.inboxUser}.id`);
 
@@ -297,7 +298,7 @@ export default class Conversation {
       // viewed by inbox endpoint
       request.where(
         `${schemas.inboxConversation}.inbox_id`,
-        this.inbox.data.id
+        this.inbox.data.id,
       );
     }
 
@@ -311,7 +312,7 @@ export default class Conversation {
     let result = _.reduce(
       { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
       (accu, value, key) => _.set(accu, key, value),
-      {}
+      {},
     );
 
     result = await populateDetails(this.svc, result, this.inbox);
@@ -334,7 +335,7 @@ export default class Conversation {
 
     const _inboxUser = await this._getInboxUser(
       this.userUid ? { userUid: this.userUid } : inboxUser,
-      { inbox: this.inbox }
+      { inbox: this.inbox },
     );
 
     if (!_inboxUser.data) {
@@ -370,7 +371,7 @@ export default class Conversation {
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.conversation}.id`,
-        `${schemas.inboxConversation}.conversation_id`
+        `${schemas.inboxConversation}.conversation_id`,
       )
       .where(
         _.mapKeys(
@@ -378,25 +379,23 @@ export default class Conversation {
             conversationFieldsMap,
             'select',
             this.identifiers,
-            options
+            options,
           ),
-          (v, key) => `${schemas.conversation}.${key}`
-        )
+          (v, key) => `${schemas.conversation}.${key}`,
+        ),
       );
 
     return this.get();
   }
 
   async action(code, inboxUser) {
-    const {
-      knex, schemas, interfaces, defaultAction
-    } = this.svc.config;
+    const { knex, schemas, interfaces, defaultAction } = this.svc.config;
 
     await this._loadConversation();
 
     const _inboxUser = await this._getInboxUser(
       this.userUid ? { userUid: this.userUid } : inboxUser,
-      { inbox: this.inbox }
+      { inbox: this.inbox },
     );
 
     if (!_inboxUser.data) {
@@ -411,7 +410,7 @@ export default class Conversation {
         "This action (%s) doesn't exist for a conversation of type %s (%j)",
         code,
         this.data.type,
-        this.identifiers
+        this.identifiers,
       );
     }
 
@@ -455,13 +454,13 @@ export default class Conversation {
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.conversation}.id`,
-        `${schemas.inboxConversation}.conversation_id`
+        `${schemas.inboxConversation}.conversation_id`,
       )
       .where(
         _.mapKeys(
           mapper.toDb(conversationFieldsMap, 'select', this.identifiers),
-          (v, key) => `${schemas.conversation}.${key}`
-        )
+          (v, key) => `${schemas.conversation}.${key}`,
+        ),
       );
 
     try {
@@ -472,7 +471,7 @@ export default class Conversation {
           cause: e,
           info: { conversation: this, code },
         },
-        'Error in onAction interface'
+        'Error in onAction interface',
       );
     }
 
@@ -510,7 +509,7 @@ export default class Conversation {
       throw new VError(
         'InboxUser %j not found in Inbox %j',
         identifiers,
-        this.inbox.identifiers
+        this.inbox.identifiers,
       );
     }
 
@@ -532,16 +531,16 @@ export default class Conversation {
           const keep = await interfaces.filterAction(
             inbox.data,
             conversation,
-            action
+            action,
           );
 
           if (!keep) {
             return result;
           }
 
-          return [...(await result), action];
+          return [...await result, action];
         },
-        []
+        [],
       );
 
     if (

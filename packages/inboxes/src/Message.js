@@ -40,7 +40,7 @@ export default class Message {
         createInboxUserOnNull: false,
         createdAt: null,
       },
-      options
+      options,
     );
 
     await this._loadConversation();
@@ -48,7 +48,7 @@ export default class Message {
       || (
         await this._getInboxUser(
           { userUid: this.userUid || data.userUid },
-          { createOnNull: params.createInboxUserOnNull }
+          { createOnNull: params.createInboxUserOnNull },
         )
       ).data;
 
@@ -80,7 +80,7 @@ export default class Message {
     log.info(
       'Message is created in conversation %d',
       this.conversation.data.id,
-      { msg: this.data, inboxUser }
+      { msg: this.data, inboxUser },
     );
 
     if (interfaces.onMessageCreate) {
@@ -104,7 +104,7 @@ export default class Message {
       .column(
         mapper
           .listFields(messageFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.message}.${v}`)
+          .map(v => `${schemas.message}.${v}`),
       )
       .column(
         mapper
@@ -114,30 +114,30 @@ export default class Message {
             'db',
             options,
             true,
-            'inboxUser.'
+            'inboxUser.',
           )
-          .map(v => `${schemas.inboxUser}.${v}`)
+          .map(v => `${schemas.inboxUser}.${v}`),
       )
       .column(
         mapper
           .listFields(inboxFieldsMap, 'select', 'db', options, true, 'inbox.')
-          .map(v => `${schemas.inbox}.${v}`)
+          .map(v => `${schemas.inbox}.${v}`),
       )
       .leftJoin(
         schemas.inboxUser,
         `${schemas.inboxUser}.id`,
-        `${schemas.message}.inbox_user_id`
+        `${schemas.message}.inbox_user_id`,
       )
       .leftJoin(
         schemas.inbox,
         `${schemas.inbox}.id`,
-        `${schemas.inboxUser}.inbox_id`
+        `${schemas.inboxUser}.inbox_id`,
       )
       .where(
         _.mapKeys(
           mapper.toDb(messageFieldsMap, 'select', this.identifiers, options),
-          (v, key) => `${schemas.message}.${key}`
-        )
+          (v, key) => `${schemas.message}.${key}`,
+        ),
       );
 
     if (options && options.latest) {
@@ -151,7 +151,7 @@ export default class Message {
     const result = _.reduce(
       { ...row, ...mapper.toObj(messageFieldsMap, row, options) },
       (accu, value, key) => _.set(accu, key, value),
-      row ? {} : null
+      row ? {} : null,
     );
 
     this.data = await populateDetails(this.svc, result, this.inbox);
@@ -197,7 +197,7 @@ export default class Message {
     if (!this.conversation.data) {
       throw new VError(
         'Conversation %j not found',
-        this.conversation.identifiers
+        this.conversation.identifiers,
       );
     }
   }
@@ -210,7 +210,7 @@ export default class Message {
       throw new VError(
         'InboxUser %j not found in Inbox %j',
         identifiers,
-        this.inbox.identifiers
+        this.inbox.identifiers,
       );
     }
 

@@ -47,7 +47,7 @@ async function init(config, services) {
       max: 100,
     },
     interfaces: {
-      sendToken: sendToken.bind(null, config),
+      sendToken: sendToken.bind(null, config, services),
     },
   });
 
@@ -75,7 +75,7 @@ async function init(config, services) {
       onPatch: onPatch.bind(null, config, services),
       onGenerateApiKey: onGenerateApiKey.bind(null, config),
       onActivation,
-      sendToken: sendToken.bind(null, config),
+      sendToken: sendToken.bind(null, config, services),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
         get: identifiers => keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
