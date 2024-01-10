@@ -98,7 +98,7 @@ function EditLocationButton() {
   return (
     <Button
       as={Link}
-      href="/"
+      href={`${agenda.slug}/admin/locations/${event.location.uid}/edit`}
       // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
       variant="outline"
       // colorScheme="white"
