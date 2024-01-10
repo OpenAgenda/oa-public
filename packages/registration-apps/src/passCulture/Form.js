@@ -6,6 +6,8 @@ import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
 import Dates from './Dates';
 import Description from './Description';
+import Name from './Name';
+import Duration from './Duration';
 import BookingEmail from './BookingEmail';
 import {
   addPriceCategory,
@@ -44,16 +46,21 @@ export default function Form({
   related,
   offererVenues,
   bookingEmail,
-  oaLocation,
+  oaLocation = null,
+  title = null,
+  longDesc = null,
 }) {
   const [value, setValue] = useState(initialValue ?? {});
   const [openSubForm, setOpenSubForm] = useState();
+  const titleWarning = title ? title.length > 90 : false;
+  const longDescWarning = longDesc ? longDesc.length > 1000 : false;
 
   const {
     Section,
     Select,
     Button,
     Input,
+    Checkbox,
   } = useContext(ComponentsContext);
 
   const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, value.category), [categories, value.category]);
@@ -64,12 +71,12 @@ export default function Form({
   }));
 
   useEffect(() => {
-    const defaultsAtInit = {};
+    const defaultsAtInit = { duo: true };
     if (venuesOptions.length === 1 && !value.venueId) {
       defaultsAtInit.venueId = venuesOptions[0].value;
     }
 
-    if (venuesOptions.length > 1 && oaLocation.name) {
+    if (venuesOptions.length > 1 && oaLocation?.name) {
       const match = checkForLocationMatch(oaLocation, offererVenues.reduce((carry, item) => carry.concat(item.venues), []));
       if (match) defaultsAtInit.venueId = match;
     }
@@ -88,6 +95,7 @@ export default function Form({
     setValue({ ...value, ...defaultsAtInit });
   }, []);
 
+  // add eventDuration
   return (
     <form>
       <Section>
@@ -166,7 +174,15 @@ export default function Form({
         />
       </Section>
       <Section>
-        <Description value={value} onChange={v => setValue({ ...value, description: v })} />
+        <Duration value={value} onChange={v => setValue({ ...value, eventDuration: v })} timings={timings} />
+      </Section>
+      {titleWarning ? (
+        <Section>
+          <Name value={value} onChange={v => setValue({ ...value, name: v })} title={title} />
+        </Section>
+      ) : null }
+      <Section>
+        <Description value={value} onChange={v => setValue({ ...value, description: v })} longDesc={longDesc} longDescWarning={longDescWarning} />
       </Section>
       <Section>
         <Input
@@ -180,6 +196,14 @@ export default function Form({
       </Section>
       <Section>
         <BookingEmail value={value} onChange={v => setValue({ ...value, bookingEmail: v })} settingsBookingEmail={bookingEmail} />
+      </Section>
+      <Section>
+        <Checkbox
+          info="Cette option permet au bénéficiaire de venir accompagné. La seconde place sera délivrée au même tarif que la première, quel que soit l’accompagnateur."
+          value={value.duo}
+          onChange={() => setValue({ ...value, duo: !value.duo })}
+          label="Réservations “Duo”"
+        />
       </Section>
       <Section>
         <Button

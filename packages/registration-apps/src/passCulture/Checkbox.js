@@ -13,6 +13,8 @@ export default ({
   timings = [],
   settings,
   location,
+  longDesc,
+  title,
 }) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
@@ -66,6 +68,7 @@ export default ({
   }, [onChange]);
 
   const onSubmit = useCallback(v => {
+    if (v.eventDuration === '') delete v.eventDuration;
     onChange(v);
     setModal(null);
   }, [onChange]);
@@ -79,6 +82,8 @@ export default ({
       {modal === 'show' && isLoadingPassData ? <Spinner /> : null}
       {modal === 'show' && !isLoadingPassData ? (
         <FormModal
+          title={title}
+          longDesc={longDesc}
           location={location}
           timings={upcomingTimings}
           categories={passSettingsData.categories}
