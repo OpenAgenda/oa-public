@@ -164,6 +164,18 @@ export default function validateLocalData(data, event, options = {}) {
     clean.description = data.description;
   }
 
+  if (data.name) {
+    clean.name = data.name;
+  }
+
+  if (data.duo) {
+    clean.duo = data.duo;
+  }
+
+  if (data.eventDuration) {
+    clean.eventDuration = data.eventDuration;
+  }
+
   if (bookingEmail) {
     try {
       clean.bookingEmail = validateEmail(bookingEmail, 'bookingEmail');
