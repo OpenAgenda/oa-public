@@ -54,10 +54,10 @@ module.exports = ({ services, config, render }) => (req, res, next) => {
             userUid: req.targetMember.user.uid,
             userName,
           },
-          destinationInbox: targetIsAdminMod ? {
+          destinationInbox: targetIsAdminMod ? [] : {
             type: 'user',
             identifier: req.targetMember.user.uid,
-          } : [],
+          },
         },
       },
       agenda: req.agenda,
