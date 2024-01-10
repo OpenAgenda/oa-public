@@ -117,6 +117,7 @@ const config = {
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
     },
   },
+  unsubscriptionsSecret: process.env.UNSUBSCRIPTIONS_SECRET,
   schemas: {
     activity: 'activity',
     agenda: 'review',
@@ -146,7 +147,6 @@ const config = {
     userToken: 'user_token',
     legacyCredentialSet: 'review_credential',
     invitation: 'invitation_2', // new invitation
-    unsubscribed: 'unsubscribed_2', // first unsubscribe addresses newsletter only
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',
     feed_follow: 'activity_feed_follow',
@@ -159,7 +159,6 @@ const config = {
     message: 'inboxes_message',
     messageAttachment: 'inboxes_message_attachment',
     rule: 'rule',
-    unsubscriptionLink: 'unsubscription_link',
   },
   mtCaptcha: {
     enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED ? parseInt(process.env.OA_MT_CAPTCHA_ENABLED, 10) : prod.mtCaptcha),

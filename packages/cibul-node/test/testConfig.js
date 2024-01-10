@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
@@ -54,6 +54,7 @@ const testConfig = {
     api: process.env.PASS_CULTURE_API,
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
   },
+  unsubscriptionsSecret: 'supersecretstring',
 };
 
 module.exports = {

@@ -186,4 +186,6 @@ module.exports.init = async (config, services) => {
   });
 
   await abilitiesSvc.config.migrate();
+
+  return abilitiesSvc;
 };
