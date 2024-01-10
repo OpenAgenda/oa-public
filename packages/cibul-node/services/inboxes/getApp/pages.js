@@ -180,11 +180,8 @@ module.exports = (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
     (req, res, next) => {
-      console.log('suggestEventChange', req.params.eventUid);
       events.get(req.params.eventUid, { detailed: true, access: 'internal' })
         .then(event => {
-          console.log('event', event);
-          console.log(req.member);
           if (event.ownerUid === req.member.userUid && req.member.role === 1) {
             req.event = event;
             next();

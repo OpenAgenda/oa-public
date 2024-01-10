@@ -21,8 +21,7 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
   } = services;
   const { Inbox } = services.inboxes;
 
-  // eslint-disable-next-line
-  const conv = await new Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
+  const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
 
   if (msg.data.inboxUser) {
@@ -134,7 +133,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   });
 }
 
-module.exports = async (services, conversation, message) => {
+module.exports = async function onMessageCreate(services, conversation, message) {
   const usersSvc = services.users;
 
   try {
