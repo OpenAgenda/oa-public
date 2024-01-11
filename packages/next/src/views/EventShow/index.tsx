@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import {
   chakra,
   Box,
+  Center,
   Container,
   Flex,
   Grid,
@@ -17,6 +18,13 @@ import {
   Tabs,
   TabList,
   Tab,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
 } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
@@ -36,11 +44,12 @@ import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
-import Activities from './components/Activities';
+import { Activities, ActivitiesList } from './components/Activities';
 import Inbox from './components/Inbox';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
+import ContributorSection from './components/ContributorSection';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import useEvent from './hooks/useEvent';
@@ -59,11 +68,11 @@ export type EventShowProps = {
 function SuggestLocationChangeButton() {
   const agenda = useAgenda();
   const { event } = useEvent();
-  const { member, status } = useMember();
+  const { me, status } = useMember();
 
   if (status === FetchStatus.Fetching) return null;
 
-  const isAdminMod = member && ['administrator', 'moderator'].includes(member.role);
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me?.member.role);
 
   if (isAdminMod) return null;
 
@@ -87,11 +96,13 @@ function SuggestLocationChangeButton() {
 }
 
 function EditLocationButton() {
-  const { member, status } = useMember();
+  const { me, status } = useMember();
+  const { event } = useEvent();
+  const agenda = useAgenda();
 
   if (status === FetchStatus.Fetching) return null;
 
-  const isAdminMod = member && ['administrator', 'moderator'].includes(member.role);
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me?.member.role);
 
   if (!isAdminMod) return null;
 
@@ -118,6 +129,60 @@ function EditLocationButton() {
   );
 }
 
+function LocationHistory() {
+  const agenda = useAgenda();
+  const { event } = useEvent();
+
+  const { me } = useMember();
+  const { canEditEvent = false } = me?.authorizations ?? {};
+
+  const {
+    isOpen,
+    onOpen,
+    onClose,
+  } = useDisclosure();
+
+  if (!canEditEvent) {
+    return null;
+  }
+
+  return (
+    <>
+      <Button onClick={onOpen} alignSelf="start">
+        Voir l&apos;historique
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader
+            sx={{
+              ':has(> .chakra-modal__close-btn)': {
+                pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
+              },
+            }}
+          >
+            Historique du lieu
+            <ModalCloseButton />
+          </ModalHeader>
+
+          <ModalBody>
+            <Activities res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}>
+              <ActivitiesList
+                emptyElem={(
+                  <Center py="12">
+                    Aucune activité
+                  </Center>
+                )}
+              />
+            </Activities>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
 function EventShow({ preload }: EventShowProps) {
   const intl = useIntl();
   const router = useRouter();
@@ -132,7 +197,7 @@ function EventShow({ preload }: EventShowProps) {
   const session = useSession();
 
   const { event } = useEvent();
-  const { member } = useMember();
+  const { me } = useMember();
 
   const languages = Object.keys(event.title);
 
@@ -168,8 +233,8 @@ function EventShow({ preload }: EventShowProps) {
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
-  const isOwner = event.ownerUid === member?.uid;
-  const isAdminMod = member?.role === 'administrator' || member?.role === 'moderator';
+  const isOwner = event.ownerUid === me?.member?.uid;
+  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
   const displayContextBar = isOwner || isAdminMod;
 
@@ -491,11 +556,23 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
 
                 <SuggestLocationChangeButton />
+
+                <LocationHistory />
               </Flex>
             </div>
           ) : null}
 
-          <Activities />
+          <ContributorSection contentLocale={contentLocale} />
+
+          <Activities
+            res={`/agendas/${agenda.uid}/events/${event.uid}/activities`}
+            hideEmpty
+          >
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">Historique</Heading>
+              <ActivitiesList p={8} />
+            </div>
+          </Activities>
 
           {mailtoSettings?.enabled ? (
             <div>

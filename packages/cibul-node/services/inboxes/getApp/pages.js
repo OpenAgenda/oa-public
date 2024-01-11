@@ -180,7 +180,7 @@ module.exports = (app, config, services) => {
     cmn.loadBaseData(req => ({
       pageClass: 'wsq inbox',
       scriptParams: {
-        role: req.member.role,
+        role: req.member?.role,
         agenda: req.agenda,
         event: req.event,
         lang: req.lang,
