@@ -14,12 +14,13 @@ export async function formatText(value, options = {}) {
   const {
     lang = 'fr',
     limit = 1000,
+    markdownToString = true,
   } = options;
 
-  const stripped = await remark()
+  const stripped = markdownToString ? await remark()
     .use(strip)
     .process(flatten(value, lang))
-    .then(f => String(f));
+    .then(f => String(f)) : value;
 
   if (limit && stripped.length > limit) {
     return `${stripped.substring(0, limit - 6)} (...)`;

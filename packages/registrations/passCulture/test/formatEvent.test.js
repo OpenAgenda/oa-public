@@ -8,7 +8,6 @@ const isBase64 = value => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-
 describe('formatEvent', () => {
   it('title is flattened and goes in name', async () => {
     const ev = pickEvent('visite-guidee-le-cri-de-liberte-chagall-politique-464182');
-
     expect(
       await formatEvent(ev, { lang: 'fr' }).then(e => e.name),
     ).toBe('Visite guidée - Le cri de liberté : Chagall politique');
