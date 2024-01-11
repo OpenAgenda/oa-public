@@ -14,8 +14,8 @@ export default function Input({
 }) {
   return (
     <div className={`form-group margin-right-sm ${warning ? 'has-warning' : ''}`}>
-      {label ? (<label htmlFor={id} className="margin-right-xs">{label}</label>) : null}
-      {info ? <div className="text-muted">{info}</div> : null}
+      {label ? (<label htmlFor={id} className={`margin-right-xs ${info ? 'margin-bottom-z' : ''}`}>{label}</label>) : null}
+      {info ? <div className="margin-bottom-xs">{info}</div> : null}
       <input
         id={id}
         value={value}

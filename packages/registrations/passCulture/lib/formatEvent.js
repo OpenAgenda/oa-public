@@ -34,7 +34,7 @@ export default async function formatEvent(event, ...args) {
   } = passData;
 
   const formatted = {
-    name: await formatText(name || flatten(event.title, lang), { limit: 90 }),
+    name: await formatText(name || flatten(event.title, lang), { limit: 90, markdownToString: false }),
     accessibility: acc(event),
     description: await formatText(description || event.longDescription),
     hasTicket: false,
@@ -96,6 +96,6 @@ export default async function formatEvent(event, ...args) {
   if (eventDuration) {
     formatted.eventDuration = eventDuration;
   }
-
+  console.log('end', formatted);
   return formatted;
 }
