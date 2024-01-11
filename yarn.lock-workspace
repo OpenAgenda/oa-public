@@ -4773,13 +4773,14 @@ __metadata:
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/queues": "npm:2.0.0"
     "@openagenda/verror": "npm:^3.1.0"
     angular-expressions: "npm:^0.3.0"
     aws-sdk: "npm:^2.1440.0"
     babel-jest: "npm:^29.7.0"
     babel-loader: "npm:^9.1.3"
     core-js: "npm:^3.29.1"
-    css-loader: "npm:^3.4.2"
+    css-loader: "npm:^4.3.0"
     date-fns: "npm:^1.29.0"
     docxtemplater: "npm:^3.14.2"
     eslint: "npm:^8.24.0"
@@ -4800,10 +4801,11 @@ __metadata:
     react-datepicker: "npm:^1.6.0"
     react-dom: "npm:^18.2.0"
     react-final-form: "npm:^6.5.3"
+    redis: "npm:^4.6.6"
     regenerator-runtime: "npm:^0.13.7"
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
-    sass-loader: "npm:^8.0.2"
+    sass-loader: "npm:^10.1.1"
     source-map-loader: "npm:^2.0.1"
     style-loader: "npm:^1.1.3"
     superagent: "npm:^3.8.3"
@@ -5163,7 +5165,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/queues@npm:^2.0.0, @openagenda/queues@workspace:queues":
+"@openagenda/queues@npm:2.0.0, @openagenda/queues@npm:^2.0.0, @openagenda/queues@workspace:queues":
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:queues"
   dependencies:
@@ -7886,6 +7888,13 @@ __metadata:
   version: 7.0.9
   resolution: "@types/json-schema@npm:7.0.9"
   checksum: 46a9e92b7922495a50f55632d802f7e7ab2dffd76b3f894baf7b28012e73983df832977bedd748aa9a2bc8400c6e8659ca39faf6ccd93d71d41d5b0293338a0e
+  languageName: node
+  linkType: hard
+
+"@types/json-schema@npm:^7.0.5":
+  version: 7.0.15
+  resolution: "@types/json-schema@npm:7.0.15"
+  checksum: a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
   languageName: node
   linkType: hard
 
@@ -10722,7 +10731,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:^6.2.0, camelcase@npm:^6.3.0":
+"camelcase@npm:^6.0.0, camelcase@npm:^6.2.0, camelcase@npm:^6.3.0":
   version: 6.3.0
   resolution: "camelcase@npm:6.3.0"
   checksum: 0d701658219bd3116d12da3eab31acddb3f9440790c0792e0d398f0a520a6a4058018e546862b6fba89d7ae990efaeb97da71e1913e9ebf5a8b5621a3d55c710
@@ -12168,6 +12177,28 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: ba9065a63f7531d50197207f2c9abb4d75f7e46db27bcfeb6b615a9fb1b1bf48ef4ccdf0f161ff6d35b6fe8752ee3259ee8eeca492666fd2703277d4d3c83534
+  languageName: node
+  linkType: hard
+
+"css-loader@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "css-loader@npm:4.3.0"
+  dependencies:
+    camelcase: "npm:^6.0.0"
+    cssesc: "npm:^3.0.0"
+    icss-utils: "npm:^4.1.1"
+    loader-utils: "npm:^2.0.0"
+    postcss: "npm:^7.0.32"
+    postcss-modules-extract-imports: "npm:^2.0.0"
+    postcss-modules-local-by-default: "npm:^3.0.3"
+    postcss-modules-scope: "npm:^2.2.0"
+    postcss-modules-values: "npm:^3.0.0"
+    postcss-value-parser: "npm:^4.1.0"
+    schema-utils: "npm:^2.7.1"
+    semver: "npm:^7.3.2"
+  peerDependencies:
+    webpack: ^4.27.0 || ^5.0.0
+  checksum: adc0a57a3639519c5012c031ddebdfdb8f1f01930f46cf62ad2d8dff5c42bcbfb1acbab237cb7c5ce0125ef3236f5aadb5b64fe2b5d2a7e749cd9e245430a9c3
   languageName: node
   linkType: hard
 
@@ -22348,6 +22379,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-modules-local-by-default@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "postcss-modules-local-by-default@npm:3.0.3"
+  dependencies:
+    icss-utils: "npm:^4.1.1"
+    postcss: "npm:^7.0.32"
+    postcss-selector-parser: "npm:^6.0.2"
+    postcss-value-parser: "npm:^4.1.0"
+  checksum: 007fd7286b4e120edfdf1a41f2006e9c8cb49e1613a4e3f0fdc184ad14273a1bbfc39ced3bc7cbad9af64bf67056e8ea0dcfda16d3057562343a48ee9ec2ccac
+  languageName: node
+  linkType: hard
+
 "postcss-modules-local-by-default@npm:^4.0.3":
   version: 4.0.3
   resolution: "postcss-modules-local-by-default@npm:4.0.3"
@@ -24842,6 +24885,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass-loader@npm:^10.1.1":
+  version: 10.5.2
+  resolution: "sass-loader@npm:10.5.2"
+  dependencies:
+    klona: "npm:^2.0.4"
+    loader-utils: "npm:^2.0.0"
+    neo-async: "npm:^2.6.2"
+    schema-utils: "npm:^3.0.0"
+    semver: "npm:^7.3.2"
+  peerDependencies:
+    fibers: ">= 3.1.0"
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+    sass: ^1.3.0
+    webpack: ^4.36.0 || ^5.0.0
+  peerDependenciesMeta:
+    fibers:
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+  checksum: 5ba4a83459fbb50e21d4f4b1b59baf1ddf8dd404099b6d1f2ec887c6903659e505879915030dd9efb1c6dd5fde2d515a19f418487b73d1cc59f6aad60c79bcf5
+  languageName: node
+  linkType: hard
+
 "sass-loader@npm:^12.4.0":
   version: 12.4.0
   resolution: "sass-loader@npm:12.4.0"
@@ -24861,31 +24929,6 @@ __metadata:
     sass:
       optional: true
   checksum: 179dba7bce7f7b4e38ce6fb1a21ce50879db0951d1611ffd3c9ade45f5ec41a2ae89cb207de4a921fe6f1465d432350b81497f8f8fbe0148ef97167c8622aa0b
-  languageName: node
-  linkType: hard
-
-"sass-loader@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "sass-loader@npm:8.0.2"
-  dependencies:
-    clone-deep: "npm:^4.0.1"
-    loader-utils: "npm:^1.2.3"
-    neo-async: "npm:^2.6.1"
-    schema-utils: "npm:^2.6.1"
-    semver: "npm:^6.3.0"
-  peerDependencies:
-    fibers: ">= 3.1.0"
-    node-sass: ^4.0.0
-    sass: ^1.3.0
-    webpack: ^4.36.0 || ^5.0.0
-  peerDependenciesMeta:
-    fibers:
-      optional: true
-    node-sass:
-      optional: true
-    sass:
-      optional: true
-  checksum: 6d59e3b0f6d2e76413f752d3c75f3b3e220a1a52aeadcaafb8e20ea24e2d41a5a2677779f6da8f8d7abf9f63064cc537fdf0f2eeab92951c88f9035a1f07f755
   languageName: node
   linkType: hard
 
@@ -24957,7 +25000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^2.6.1, schema-utils@npm:^2.7.0":
+"schema-utils@npm:^2.7.0":
   version: 2.7.0
   resolution: "schema-utils@npm:2.7.0"
   dependencies:
@@ -24965,6 +25008,17 @@ __metadata:
     ajv: "npm:^6.12.2"
     ajv-keywords: "npm:^3.4.1"
   checksum: 723c3c856a0313a89aa81c5fb2c93d4b11225f5cdd442665fddd55d3c285ae72e079f5286a3a9a1a973affe888f6c33554a2cf47b79b24cd8de2f1f756a6fb1b
+  languageName: node
+  linkType: hard
+
+"schema-utils@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "schema-utils@npm:2.7.1"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.5"
+    ajv: "npm:^6.12.4"
+    ajv-keywords: "npm:^3.5.2"
+  checksum: f484f34464edd8758712d5d3ba25a306e367dac988aecaf4ce112e99baae73f33a807b5cf869240bb6648c80720b36af2d7d72be3a27faa49a2d4fc63fa3f85f
   languageName: node
   linkType: hard
 
@@ -25065,7 +25119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4":
+"semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4":
   version: 7.5.4
   resolution: "semver@npm:7.5.4"
   dependencies:
