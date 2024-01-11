@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const express = require('express');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.dev');
@@ -16,7 +16,7 @@ dev.use(
   require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath,
-  })
+  }),
 );
 
 dev.use(require('webpack-hot-middleware')(compiler));

@@ -1,6 +1,6 @@
 'use strict';
 
-const os = require('os');
+const os = require('node:os');
 
 module.exports = {
   s3: {
@@ -14,8 +14,8 @@ module.exports = {
     separator: ':',
     redis: {
       port: 6379,
-      host: 'localhost'
-    }
+      host: 'localhost',
+    },
   },
-  localTmpPath: os.tmpdir()
+  localTmpPath: os.tmpdir(),
 };
