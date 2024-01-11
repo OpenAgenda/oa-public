@@ -21,7 +21,10 @@
     "location.longitude",
     "timezone",
     "attendanceMode",
-    "onlineAccessLink"
+    "onlineAccessLink",
+    "firstTiming",
+    "lastTiming",
+    "nextTiming"
   ],
   "detailed" : [
     "longDescription",
@@ -43,10 +46,7 @@
     "age",
     "state",
     "member",
-    "links",
-    "firstTiming",
-    "lastTiming",
-    "nextTiming"
+    "links"
   ],
   "other": [
     "location.uid",
