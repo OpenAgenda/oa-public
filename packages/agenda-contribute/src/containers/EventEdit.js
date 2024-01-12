@@ -18,7 +18,7 @@ import Instructions from '../components/Instructions';
 const messages = defineMessages({
   unpublishWarningWithLink: {
     id: 'AgendaContribute.EventEdit.unpublishWarningWithLink',
-    defaultMessage: 'Carefull, updating this event will unpublish it for moderators to review. You can also suggest changes to moderators if they are small. [Suggest Change]<a></a>',
+    defaultMessage: 'If modified, the event will be unpublished for moderation. You can also suggest minor changes to moderators by writing a message. [Suggest Change]<a></a>',
   },
 });
 
