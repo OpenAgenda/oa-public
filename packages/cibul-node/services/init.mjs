@@ -14,6 +14,7 @@ import * as registrations from './registrations.mjs';
 import * as pdfExports from './pdfExports.mjs';
 import * as mails from './mails/index.mjs';
 import * as unsubscriptions from './unsubscriptions.mjs';
+import * as security from './security.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -140,6 +141,7 @@ export default async function initServices(config = null, options = {}) {
   await init('legacy', require('./legacy.js'));
   await init('logRequests', require('./logRequests.js'));
   await init('unsubscriptions', unsubscriptions);
+  await init('security', security);
   await init('mails', mails);
   await init('model', require('./model/index.js'));
   await init('sessions', require('./sessions/index.js'));

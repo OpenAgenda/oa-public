@@ -46,6 +46,10 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/requestAccessToken', mw.requestAccessToken);
 
+  app.post('/password/evaluate', (req, res) => {
+    res.json(req.app.services.security.passwords.evaluate(req.body.password));
+  });
+
   // access token control and user load
   app.post('*', mw.verifyAndLoadAccessTokenUser);
   app.patch('*', mw.verifyAndLoadAccessTokenUser);
