@@ -22,5 +22,7 @@
     "includeActionLinks" : false,
     "mailto" : false,
     "helpLink" : "https://doc.openagenda.com"
-  }
+  },
+
+  "js": true
 }
