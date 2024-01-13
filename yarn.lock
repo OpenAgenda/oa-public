@@ -8043,6 +8043,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/security@workspace:packages/security":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/security@workspace:packages/security"
+  dependencies:
+    "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/verror": "npm:^3.1.0"
+    dotenv: "npm:^16.3.1"
+    eslint: "npm:^8.24.0"
+    zxcvbn: "npm:^4.4.2"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/service-utils@npm:^2.0.0":
   version: 2.0.0
   resolution: "@openagenda/service-utils@npm:2.0.0"
@@ -42162,5 +42174,12 @@ __metadata:
   version: 2.0.4
   resolution: "zwitch@npm:2.0.4"
   checksum: 3c7830cdd3378667e058ffdb4cf2bb78ac5711214e2725900873accb23f3dfe5f9e7e5a06dcdc5f29605da976fc45c26d9a13ca334d6eea2245a15e77b8fc06e
+  languageName: node
+  linkType: hard
+
+"zxcvbn@npm:^4.4.2":
+  version: 4.4.2
+  resolution: "zxcvbn@npm:4.4.2"
+  checksum: 862f101cc95247b30290bad67ade333e430a16763bb771ce4e4c5414396d987f9a64288225675c96bd6f8d3eba65da0dee119b2a4eaa2e249da3f540b036942e
   languageName: node
   linkType: hard
