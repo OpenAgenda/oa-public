@@ -10,6 +10,7 @@ import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventFixtures from '../../fixtures/events/sample.json';
 import onlineEventFixtures from '../../fixtures/events/online.json';
+import passCultureEventFixtures from '../../fixtures/events/passCulture.json';
 
 export default {
   title: 'views/EventShow/Sidebar',
@@ -111,6 +112,14 @@ export function Future() {
 export function Online() {
   return (
     <Fixtures event={onlineEventFixtures}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
+}
+
+export function PassCulture() {
+  return (
+    <Fixtures event={passCultureEventFixtures}>
       <Sidebar contentLocale="fr" />
     </Fixtures>
   );

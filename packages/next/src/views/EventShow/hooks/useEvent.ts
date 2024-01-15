@@ -65,6 +65,12 @@ export type Event = {
   status: number
   private: boolean
   ownerUid: number
+  passCulture?: {
+    service: string
+    type: string
+    value: string
+    img: string
+  }
 };
 
 export default function useEvent() {
