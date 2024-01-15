@@ -21,12 +21,12 @@ export default function StateSelector({ agenda }) {
   const intl = useIntl();
 
   const { event, mutate } = useEvent();
-  const { authorizations } = useMember();
+  const { me } = useMember();
 
   const {
     canChangeState = false,
     canPublish = false,
-  } = authorizations ?? {};
+  } = me?.authorizations ?? {};
 
   const changeState = async (state: number) => {
     try {

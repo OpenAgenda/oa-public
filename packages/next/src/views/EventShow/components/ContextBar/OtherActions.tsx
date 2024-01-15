@@ -37,10 +37,10 @@ export default function OtherActions({ agenda }) {
   const router = useRouter();
 
   const { event, mutate } = useEvent();
-  const { member, authorizations } = useMember();
+  const { me } = useMember();
 
-  const isAdminMod = member?.role === 'administrator' || member?.role === 'moderator';
-  const { canEditEvent = false } = authorizations ?? {};
+  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+  const { canEditEvent = false } = me?.authorizations ?? {};
 
   const {
     isOpen: removeIsOpen,

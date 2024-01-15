@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       eventResponse,
     ] = await Promise.all([
       EventShow.fetchLocale(locale),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
+      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`, {
         headers: {
           Authorization: req.headers.authorization,
           Cookie: req.headers.cookie,

@@ -30,6 +30,7 @@ export type Agenda = {
   title: string;
   description: string;
   schema: Record<string, any>;
+  memberSchema?: Record<string, any>;
   settings?: AgendaSettings;
   summary: any;
   indexed: boolean | number;
