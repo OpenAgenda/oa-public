@@ -5,7 +5,6 @@ import { FaIcon } from 'icons';
 import { faLock } from 'icons/regular';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useMember from '../hooks/useMember';
-import useEvent from '../hooks/useEvent';
 import { useAgenda } from '../contexts/agenda';
 import * as additionalFieldsUtils from '../utils/additionalFields';
 import AdditionalFields from './AdditionalFields';
@@ -15,7 +14,6 @@ export default function ContributorSection({ contentLocale }) {
   const dateFnsLocale = useDateFnsLocale();
 
   const agenda = useAgenda();
-  const { event } = useEvent();
   const { member } = useMember();
 
   const additionalFields = useMemo(
@@ -28,8 +26,6 @@ export default function ContributorSection({ contentLocale }) {
     }) : null),
     [agenda.memberSchema, dateFnsLocale, member, contentLocale, intl.locale],
   );
-
-  console.log(additionalFields);
 
   if (!member) {
     return null;

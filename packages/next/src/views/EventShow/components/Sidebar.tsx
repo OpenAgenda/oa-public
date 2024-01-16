@@ -304,7 +304,7 @@ export default function Sidebar({ contentLocale }) {
                 color: 'blackAlpha.900',
                 textDecoration: 'none',
               }}
-              leftIcon={<img src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png" />}
+              leftIcon={<img src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png" alt="" />}
               justifySelf="start"
             >
               Accéder à l&apos;offre pass Culture
