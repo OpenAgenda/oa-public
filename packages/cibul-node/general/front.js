@@ -31,7 +31,6 @@ const legacyPages = {
   network: 'network-of-agendas',
 };
 
-const mails = require('../services/mails');
 const cmn = require('../lib/commons-app');
 const mwHelpers = require('../services/lib/middlewareHelpers');
 const contentSecurityPolicy = require('../lib/contentSecurityPolicy');
@@ -183,6 +182,7 @@ async function corpo(cache, req, res, next) {
 function newsletterSubscribe(req, res) {
   const {
     sessions,
+    mails,
   } = req.app.services;
   callbackify(newsletter.addSubscriber)(req.body.email, err => {
     if (err) {

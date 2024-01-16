@@ -4,8 +4,9 @@ const date = require('@openagenda/validators/date');
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 const text = require('@openagenda/validators/text');
+const boolean = require('@openagenda/validators/boolean');
 
-schema.register({ integer, text, date });
+schema.register({ integer, text, date, boolean });
 
 const isNumber = a => typeof a === 'number';
 
@@ -72,11 +73,15 @@ const validate = schema({
       default: null,
     },
   },
+  hasDuplicateCandidates: {
+    type: 'boolean',
+    default: null,
+  },
 });
 
 module.exports = async (service, k, deleted, query) => {
   const {
-    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo, hasNull
+    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo, hasNull, hasDuplicateCandidates,
   } = validate(query);
   const agendaId = agendaUid
     ? await service.interfaces
@@ -129,6 +134,9 @@ module.exports = async (service, k, deleted, query) => {
   }
   if (deleted === false) {
     k.where('deleted', '<>', 1);
+  }
+  if (hasDuplicateCandidates === true) {
+    k.whereNotNull('duplicate_candidates');
   }
   if (hasNull) {
     const mapped = hasNull.map(e => ({

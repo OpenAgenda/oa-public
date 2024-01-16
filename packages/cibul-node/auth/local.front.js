@@ -112,6 +112,18 @@ function signinSubmit(req, res, next) {
   )(req, res, next);
 }
 
+function passwordComplexity(values) {
+  const {
+    security,
+  } = values.req.app.services;
+
+  if (security.passwords.evaluate(values.req.body.password).score === 0) {
+    _.set(values, 'data.errors.password', 'tooWeak');
+  }
+
+  return values;
+}
+
 function passwordMatchCheck(values) {
   if (values.req.body.password !== values.req.body.repeat) {
     if (!values.data.errors) values.data.errors = {};
@@ -201,6 +213,8 @@ function signupSubmit(req, res) {
   log('signupSubmit');
 
   w({ req, res, data: req.body })
+    .then(passwordComplexity)
+
     .then(passwordMatchCheck)
 
     .then(captchaCheck)
@@ -223,7 +237,7 @@ function signupSubmit(req, res) {
 
         const user = await users.create(
           {
-            fullName: req.body.full__name,
+            fullName: req.body.full_name,
             email: req.body.email,
             password: req.body.password,
             culture: req.body.culture || req.lang,
@@ -348,7 +362,7 @@ async function activateResend(req, res) {
       });
 
       if (token) {
-        await users.config.interfaces.sendToken(config)({
+        await users.config.interfaces.sendToken(config, req.app.services)({
           result: token,
           params: { user, optionals },
         });

@@ -42,7 +42,6 @@
     "qs": "^6.9.1",
     "rc-switch": "^1.4.3",
     "react-helmet-async": "^1.0.3",
-    "react-hot-loader": "^4.13.0",
     "react-intl": "^5.12.2",
     "react-leaflet": "^3.1.0",
     "react-query": "^3.6.0",

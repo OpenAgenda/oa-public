@@ -28,10 +28,13 @@ export default async function formatEvent(event, ...args) {
     bookingContact,
     description,
     bookingEmail,
+    duo = false,
+    name = null,
+    eventDuration = null,
   } = passData;
 
   const formatted = {
-    name: flatten(event.title, lang),
+    name: await formatText(name || flatten(event.title, lang), { limit: 90, markdownToString: false }),
     accessibility: acc(event),
     description: await formatText(description || event.longDescription),
     hasTicket: false,
@@ -84,6 +87,14 @@ export default async function formatEvent(event, ...args) {
 
   if (bookingEmail) {
     formatted.bookingEmail = bookingEmail;
+  }
+
+  if (duo) {
+    formatted.enableDoubleBookings = duo;
+  }
+
+  if (eventDuration) {
+    formatted.eventDuration = eventDuration;
   }
 
   return formatted;

@@ -81,8 +81,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
       await svc(7196947).duplicates.detect(77635822, { saveCandidates: true });
       const entry1 = await f.client('location').first().where('uid', 77635822);
       const entry2 = await f.client('location').first().where('uid', 77635823);
-      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([77635823]);
-      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([77635822]);
+      expect(JSON.parse(entry1.duplicate_candidates)).toStrictEqual([77635823]);
+      expect(JSON.parse(entry2.duplicate_candidates)).toStrictEqual([77635822]);
     });
   });
 
@@ -97,13 +97,13 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     });
 
     it('both location uid are not in each other candidates anymore', () => {
-      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([]);
-      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([]);
+      expect(JSON.parse(entry1.duplicate_candidates)).toBeNull();
+      expect(JSON.parse(entry2.duplicate_candidates)).toBeNull();
     });
 
     it('both location uid are now in each other disqualified duplicates', () => {
-      expect(JSON.parse(entry1.duplicates).disqualified).toStrictEqual([77164958]);
-      expect(JSON.parse(entry2.duplicates).disqualified).toStrictEqual([90760072]);
+      expect(JSON.parse(entry1.duplicate_disqualified)).toStrictEqual([77164958]);
+      expect(JSON.parse(entry2.duplicate_disqualified)).toStrictEqual([90760072]);
     });
   });
 
@@ -115,8 +115,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     it('duplicates are found and saved', async () => {
       const entry1 = await f.client('location').first().where('uid', 48681219);
       const entry2 = await f.client('location').first().where('uid', 62705984);
-      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([62705984]);
-      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([48681219]);
+      expect(JSON.parse(entry1.duplicate_candidates)).toStrictEqual([62705984]);
+      expect(JSON.parse(entry2.duplicate_candidates)).toStrictEqual([48681219]);
     });
   });
 
@@ -130,12 +130,12 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     });
 
     it('clear all candidates', () => {
-      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([]);
-      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([]);
+      expect(JSON.parse(entry1.duplicate_candidates)).toBeNull();
+      expect(JSON.parse(entry2.duplicate_candidates)).toBeNull();
     });
 
     it('doesn`t change the disqualified', () => {
-      expect(JSON.parse(entry1.duplicates).disqualified).toStrictEqual([1]);
+      expect(JSON.parse(entry1.duplicate_disqualified)).toStrictEqual([1]);
     });
   });
 });

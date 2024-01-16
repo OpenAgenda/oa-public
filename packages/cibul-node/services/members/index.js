@@ -25,6 +25,7 @@ function init(config, services) {
     queues,
     bull,
     activities,
+    mails,
   } = services;
 
   const activityQueue = queues('memberActivities');
@@ -51,6 +52,7 @@ function init(config, services) {
     members,
     bull,
     activities,
+    mails,
     queueName: messageQueueName,
   });
 

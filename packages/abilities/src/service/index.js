@@ -14,7 +14,7 @@ function getEditableRules(ability, entity) {
 
   const editableRulesGetter = _.get(
     config,
-    `interfaces.editableRules.${entityName}`
+    `interfaces.editableRules.${entityName}`,
   );
 
   if (!_.isFunction(editableRulesGetter)) {
@@ -27,7 +27,7 @@ function getEditableRules(ability, entity) {
     const subject = { ...rule.conditions, [SUBJECT_NAME]: rule.subject };
     const relevantRule = ability.relevantRuleFor(
       rule.actions || rule.action,
-      subject
+      subject,
     );
 
     const isAble = !!relevantRule && !relevantRule.inverted;
@@ -41,11 +41,12 @@ function getEditableRules(ability, entity) {
 
 function batchUpdate({ table, column }, collection) {
   return config.knex.transaction(trx => {
-    const queries = collection.map(item => config
-      .knex(table)
-      .where(column, item[column])
-      .update(item)
-      .transacting(trx));
+    const queries = collection.map(item =>
+      config
+        .knex(table)
+        .where(column, item[column])
+        .update(item)
+        .transacting(trx));
 
     return Promise.all(queries).then(trx.commit).catch(trx.rollback);
   });
@@ -54,7 +55,7 @@ function batchUpdate({ table, column }, collection) {
 export async function getFormIndex(ability, options = {}) {
   const completeFormFn = _.get(
     config,
-    `interfaces.completeFormIndex.${ability.entityName}`
+    `interfaces.completeFormIndex.${ability.entityName}`,
   );
   const neededEntities = _.isFunction(completeFormFn)
     ? await completeFormFn(ability, options)
@@ -66,7 +67,7 @@ export async function getFormIndex(ability, options = {}) {
     if (Object.prototype.hasOwnProperty.call(neededEntities, entityName)) {
       const listEntitiesFn = _.get(
         config,
-        `interfaces.listEntities.${entityName}`
+        `interfaces.listEntities.${entityName}`,
       );
 
       if (!_.isArray(neededEntities[entityName])) {
@@ -80,7 +81,7 @@ export async function getFormIndex(ability, options = {}) {
       entities[entityName] = await listEntitiesFn(neededEntities[entityName]);
       Array.prototype.push.apply(
         entitiesRules,
-        await rulesLib.list(entityName, neededEntities[entityName])
+        await rulesLib.list(entityName, neededEntities[entityName]),
       );
     }
   }
@@ -104,7 +105,7 @@ export async function getFormIndex(ability, options = {}) {
 
             const defineFn = _.get(
               config,
-              `interfaces.defineFor.${entityName}`
+              `interfaces.defineFor.${entityName}`,
             );
 
             const entity = _.find(entities[entityName], {
@@ -123,14 +124,14 @@ export async function getFormIndex(ability, options = {}) {
                 entityName,
                 identifier,
                 entity,
-              }))
+              })),
             );
           },
-          []
-        )
+          [],
+        ),
       );
     },
-    []
+    [],
   );
 
   return formIndex;
@@ -138,16 +139,17 @@ export async function getFormIndex(ability, options = {}) {
 
 export async function updateFormIndex(ability, data) {
   const formIndex = await ability.getFormIndex();
-  const matchesRule = test => _.matches(
-    _.pick(
-      test,
-      'entityName',
-      'identifier',
-      'actions',
-      'subject',
-      'conditions'
-    )
-  );
+  const matchesRule = test =>
+    _.matches(
+      _.pick(
+        test,
+        'entityName',
+        'identifier',
+        'actions',
+        'subject',
+        'conditions',
+      ),
+    );
 
   const { toCreate, toUpdate } = formIndex.reduce(
     (result, rule) => {
@@ -174,14 +176,14 @@ export async function updateFormIndex(ability, data) {
 
       return result;
     },
-    { toCreate: [], toUpdate: [] }
+    { toCreate: [], toUpdate: [] },
   );
 
   await Promise.all([
     toUpdate.length
       ? batchUpdate(
         { table: config.schemas.rule, column: 'id' },
-        rulesLib.format(toUpdate)
+        rulesLib.format(toUpdate),
       )
       : null,
     toCreate.length
@@ -243,7 +245,5 @@ service.middleware = {
 };
 
 export default service;
-export {
-  middleware, rulesLib as rules, createAbility, createBuilder
-};
+export { middleware, rulesLib as rules, createAbility, createBuilder };
 export { default as config, init } from './config';

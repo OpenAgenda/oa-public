@@ -4,7 +4,7 @@ const _ = require('lodash');
 const marked = require('marked');
 
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
-const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
+const log = require('@openagenda/logs')('services/agendaEvents/sendEventChangeState');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
@@ -101,9 +101,13 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
   const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
+  log('Found %s adminmods', members.length);
+
   const contributorUser = await usersSvc.findOne({
     query: { uid: agendaEvent.userUid },
   });
+
+  log('%s contributor user%s', contributorUser ? 'Found' : 'Did not find', contributorUser ? ` ${contributorUser.uid}` : '');
 
   const contributor = contributorUser ? await membersSvc.get({
     agendaUid: agenda.uid,
@@ -119,11 +123,20 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
     },
   });
 
+  if (contributorUser) {
+    log('%s corresponding member%s', contributor ? 'Found' : 'Did not find', contributor ? ` (${contributor.id})` : '');
+  }
+
   const eventIsPublished = agendaEvent.state === agendaEventStates.PUBLISHED;
   const eventIsRefused = agendaEvent.state === agendaEventStates.REFUSED;
 
+  if (eventIsPublished) log('event is published');
+  if (eventIsRefused) log('event is refused');
+
   const creatorIsAdminmod = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
   const visibleForCreator = creatorIsAdminmod || (!agenda.private && eventIsPublished);
+
+  if (visibleForCreator) log('creator should see change');
 
   const contributorIsAdminmod = contributor?.role
     && membersSvc.utils.compareRoles.isSuperiorToOrEqual(contributor.role, 'moderator');
@@ -180,10 +193,19 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
         return !!member.user;
       })
-      .filter(member =>
-        (sentToCreator && member.user.uid === creatorUser.uid)
-        || (sentToContributor && member.user.uid === contributorUser.uid))
+      .filter(member => {
+        if (sentToCreator && member.user.uid === creatorUser.uid) {
+          // if notification was sent to creator and creator is member, should not receive eventChangeState.
+          return false;
+        }
+        if (sentToContributor && member.user.uid === contributorUser.uid) {
+          // if notification was sent to contributor and is adminmod member, should not receive eventChangeState.
+          return false;
+        }
+        return true;
+      })
       .map(member => {
+        log('sending to member %s', member.id);
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
 

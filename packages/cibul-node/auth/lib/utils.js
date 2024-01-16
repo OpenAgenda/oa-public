@@ -82,6 +82,8 @@ function render(template, defaults) {
       res.status(400);
     }
 
+    _.set(data, 'scriptParams.lang', req.lang);
+
     cmn.render(req, res, template, data);
 
     return values;

@@ -53,7 +53,11 @@ function buildEventParsers({
     convertToLocalTimezone,
   ];
 
-  const firstNextOrLastRequested = detailed || !!['firstTiming', 'lastTiming', 'nextTiming'].filter(f => (requestedIncludes || []).includes(f)).length;
+  const firstNextOrLastRequested = (requestedIncludes ?? []).length ? [
+    'firstTiming',
+    'lastTiming',
+    'nextTiming',
+  ].filter(f => requestedIncludes.includes(f)).length : true;
 
   if (firstNextOrLastRequested) {
     parsers.push(appendFirstNextAndLastTiming);
@@ -61,7 +65,7 @@ function buildEventParsers({
 
   if (!detailed) {
     parsers.push(e => produce(e, draft => {
-      ['timings', 'timezone', 'firstTiming', 'lastTiming', 'nextTiming'].forEach(f => {
+      ['timings', 'timezone'].forEach(f => {
         if (!(requestedIncludes || []).includes(f)) {
           delete draft[f];
         }

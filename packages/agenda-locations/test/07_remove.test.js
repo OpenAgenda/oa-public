@@ -102,7 +102,7 @@ describe('agenda-locations - functional - remove', () => {
     it('remove removed uid from duplicates candidates', async () => {
       await new Promise(r => setTimeout(r, 40));
       const test = await svc(7196947).get(51665986);
-      expect(test.duplicateCandidates).toStrictEqual([]);
+      expect(test.duplicateCandidates).toBeNull();
     });
   });
 

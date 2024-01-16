@@ -4,14 +4,14 @@ const { BadRequest } = require('@openagenda/verror');
 
 const buildDistancesAndEvaluate = require('./buildDistancesAndEvaluate');
 const cleanDetectCandidatesOptions = require('./cleanDetectCandidatesOptions');
-const addDuplicatesCandidates = require('./addCandidates');
+const addDuplicateCandidates = require('./addCandidates');
 
 async function getLocation(endpoints, locationOrUid) {
   const location = locationOrUid?.constructor.name === 'Object' ? locationOrUid : await endpoints.get(locationOrUid);
   return location;
 }
 
-async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUid, options = {}) {
+async function detectDuplicateCandidates({ internals, endpoints }, locationOrUid, options = {}) {
   const {
     saveCandidates,
     geoRange,
@@ -58,9 +58,9 @@ async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUi
   }
 
   if (saveCandidates) {
-    await addDuplicatesCandidates(endpoints, location.uid, candidates);
+    await addDuplicateCandidates(endpoints, location.uid, candidates);
   }
   return candidates;
 }
 
-module.exports = detectDuplicatesCandidates;
+module.exports = detectDuplicateCandidates;

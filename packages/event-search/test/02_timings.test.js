@@ -69,6 +69,14 @@ describe('02 - event search - functional: timings sorting', () => {
     expect(Object.keys(event)).toEqual(['uid', 'lastTiming', 'firstTiming']);
   });
 
+  it('default search call returns first, next and last timings', async () => {
+    const { events: [event] } = await service('timings').search({}, { size: 1 });
+
+    expect(event.firstTiming).toBeTruthy();
+    expect(event.lastTiming).toBeTruthy();
+    expect(event.nextTiming).toBeTruthy();
+  });
+
   it(
     'filtered on specific upcoming period focuses search on the filtered period',
     async () => {
@@ -91,7 +99,12 @@ describe('02 - event search - functional: timings sorting', () => {
       includeFields: ['uid', 'nextTiming'],
     });
 
-    expect(Object.keys(event)).toEqual(['uid', 'nextTiming']);
+    expect(Object.keys(event)).toEqual([
+      'uid',
+      'firstTiming',
+      'lastTiming',
+      'nextTiming',
+    ]);
   });
 
   describe('sorts', () => {

@@ -1129,5 +1129,22 @@ module.exports = {
     "en": "**Location name**: %name%",
     "it": "**Nome del luogo**: %name%",
     "io": "crwdns33175:0%name%crwdne33175:0"
+  },
+  "eventTitle": {
+    "fr": "**Titre de l'événement**: %name%",
+    "en": "**Event Title**: %name%",
+    "it": "**Titolo dell'evento**: %name%",
+  },
+  "titleSuggestEventChange": {
+    "fr": "Suggérer une modification sur l'événement",
+    "en": "Suggest a change on the event",
+  },
+  "youSuggestedAEventChange": {
+    "fr": "Vous avez suggeré une modification sur l'événement",
+    "en": "You suggested a change on the event",
+  },
+  "suggestedAEventChange": {
+    "fr": "a suggeré une modification sur l'événement",
+    "en": "suggested a change on the event",
   }
 }

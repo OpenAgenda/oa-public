@@ -67,6 +67,8 @@ function Registration(props) {
           settings={settings.passCulture}
           timings={relatedValues?.other?.timings ?? []}
           location={relatedValues?.other?.location ?? {}}
+          title={relatedValues?.other?.title?.fr || relatedValues?.other?.title || null}
+          longDesc={relatedValues?.other?.longDescription?.fr || relatedValues?.other?.longDescription || null}
           onChange={updatedPassCultureValue => propsOnChange(
             mergeSpreadRegistrationValues({
               standard: standardValue,

@@ -80,7 +80,7 @@
     "mkdirp": "^3.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "sass": "^1.52.1",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^10.1.1",
     "source-map-loader": "^2.0.1",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.53.0",

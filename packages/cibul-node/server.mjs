@@ -26,7 +26,6 @@ import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import { getSingleton as getGenUrlSingleton } from './services/genUrl/index.js';
-import unsubscribedFront from './general/unsubscribed.front.js';
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
@@ -92,7 +91,6 @@ try {
   }
 
   if (TASK || WEB) {
-    unsubscribedFront(app);
     app.use((req, res, next) => {
       if (res.data === undefined) {
         return next();

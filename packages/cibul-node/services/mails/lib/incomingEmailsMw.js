@@ -1,6 +1,5 @@
 'use strict';
 
-const { addressParser } = require('@openagenda/mails');
 const log = require('@openagenda/logs')('service/mails/incomingEmails');
 const extractMarkdownFromEmailBody = require('./extractMarkdownFromEmailBody');
 
@@ -9,8 +8,15 @@ const REFERENCE_REG = /inboxMessage\/(\d+)@mail\.openagenda\.com/i;
 
 module.exports = ({ services }) => async (req, res, next) => {
   try {
-    const usersSvc = services.users;
-    const { Inbox } = services.inboxes;
+    const {
+      users: usersSvc,
+      inboxes: {
+        Inbox,
+      },
+      mails: {
+        addressParser,
+      },
+    } = services;
 
     if (!req.body['X-Mailgun-Incoming']) {
       return res.sendStatus(200);
@@ -51,7 +57,7 @@ module.exports = ({ services }) => async (req, res, next) => {
       // throw new Error('User not found');
     }
 
-    const conversation = await new Inbox.user(user.uid).conversations.get(conversationId);
+    const conversation = await Inbox.user(user.uid).conversations.get(conversationId);
 
     if (!conversation) {
       return res.sendStatus(200);

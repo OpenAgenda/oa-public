@@ -170,6 +170,7 @@ module.exports.init = async (c, services) => {
             ],
           },
           suggest_location_change: {},
+          suggest_event_change: {},
           contact_member: {},
 
           // call to actions
