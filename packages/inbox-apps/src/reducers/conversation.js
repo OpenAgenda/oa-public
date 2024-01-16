@@ -40,7 +40,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         loaded: true,
-        query: action.result.query,
+        query: action.query,
         data: action.result.conversation,
         messages: action.result.messages,
         lastPage: action.result.messages.length < action.perPageLimit,
