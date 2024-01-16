@@ -96,6 +96,6 @@ export default async function formatEvent(event, ...args) {
   if (eventDuration) {
     formatted.eventDuration = eventDuration;
   }
-  console.log('end', formatted);
+
   return formatted;
 }
