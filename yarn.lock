@@ -6846,6 +6846,7 @@ __metadata:
     concurrently: "npm:^6.0.2"
     core-js: "npm:^3.29.1"
     cors: "npm:^2.8.5"
+    dompurify: "npm:^3.0.8"
     enzyme: "npm:^3.3.0"
     enzyme-to-json: "npm:^3.4.2"
     errorhandler: "npm:^1.5.0"
@@ -6858,7 +6859,7 @@ __metadata:
     js-cookie: "npm:^2.2.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    marked: "npm:^0.7.0"
+    marked: "npm:^11.1.1"
     moment: "npm:^2.27.0"
     morgan: "npm:^1.9.1"
     mysql: "npm:^2.16.0"
@@ -18705,6 +18706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dompurify@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "dompurify@npm:3.0.8"
+  checksum: e89e03d3dbd99abd64cd90705ce2cdfbc60ee9726ee53f9860e8a2d91b828ef2c173e7031529f9a3aa169ad0fbb76115c6a6683b545bf1ac5d94cc6176fb2a50
+  languageName: node
+  linkType: hard
+
 "domutils@npm:^2.0.0, domutils@npm:^2.4.3, domutils@npm:^2.5.2, domutils@npm:^2.6.0, domutils@npm:^2.7.0":
   version: 2.8.0
   resolution: "domutils@npm:2.8.0"
@@ -27709,6 +27717,15 @@ __metadata:
   bin:
     marked: bin/marked
   checksum: 41ba9b516d625c0060650afb2dd203ce02ea46e2f416231109c4a6cb703cd7db12d3cc59e38a686d5bad9c7b386c4f6407c0535044b9271ec7ad8b112d1a5384
+  languageName: node
+  linkType: hard
+
+"marked@npm:^11.1.1":
+  version: 11.1.1
+  resolution: "marked@npm:11.1.1"
+  bin:
+    marked: bin/marked.js
+  checksum: 77137491bb9610ceaa42a2f487ea00ec13836f19c3d41cabb80f16b283461a1d14285de42725c09d8a2fb029ae10633b07e76afc76113c8067e68eaedfdf8bf6
   languageName: node
   linkType: hard
 

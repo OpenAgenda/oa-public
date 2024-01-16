@@ -242,6 +242,10 @@ class Conversation extends Component {
 
     const { ContentWrapper, focusFistConversation } = settings;
 
+    const origin = conversation?.store?.params?.origin
+      ? decodeURIComponent(conversation.store.params.origin)
+      : null;
+
     const content = loading || !loaded
       ? <div className="text-center padding-v-md">
         <Spinner
@@ -272,9 +276,9 @@ class Conversation extends Component {
               disableFirstPartLink={!showBackLink(settings, conversations)}
             />
 
-            {conversation.store && conversation.store.params && conversation.store.params.origin ? (
+            {origin ? (
               <div className="text-muted">
-                ({getLabel('from')} <em>{decodeURIComponent(conversation.store.params.origin)})</em>
+                ({getLabel('from')} <em><a href={origin} target="_blank">{origin}</a></em>)
               </div>
             ) : null}
 
