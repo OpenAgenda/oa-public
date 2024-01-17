@@ -7998,6 +7998,7 @@ __metadata:
   resolution: "@openagenda/registrations@workspace:packages/registrations"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^1.4.0"
     date-fns: "npm:^2.11.1"
