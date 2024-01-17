@@ -26,13 +26,16 @@ export default function ContextBar() {
   const router = useRouter();
   const agenda = useAgenda();
   const { event } = useEvent();
-  const { member, status } = useMember();
+  const {
+    me,
+    status,
+  } = useMember();
 
   const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
   const url = new URL(localePrefix + router.asPath, 'https://n');
   const currentUrl = url.pathname + url.search;
 
-  const isAdminMod = member?.role === 'administrator' || member?.role === 'moderator';
+  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
   if (status === FetchStatus.Fetching) {
     return null;

@@ -264,7 +264,7 @@ export default function Sidebar({ contentLocale }) {
         </Grid>
       ) : null}
 
-      {event.registration?.length ? (
+      {event.registration?.length || event.passCulture ? (
         <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center">
           <Icon
             as={FaIcon}
@@ -289,6 +289,27 @@ export default function Sidebar({ contentLocale }) {
               </Link>
             </Fragment>
           ))}
+          {event.passCulture ? (
+            <Button
+              as={Link}
+              href={event.passCulture.value}
+              isExternal
+              gridColumn="2"
+              variant="outline"
+              bg="white"
+              borderColor="oaGray.300"
+              color="blackAlpha.800"
+              _hover={{
+                bg: 'oaGray.100',
+                color: 'blackAlpha.900',
+                textDecoration: 'none',
+              }}
+              leftIcon={<img src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png" alt="" />}
+              justifySelf="start"
+            >
+              Accéder à l&apos;offre pass Culture
+            </Button>
+          ) : null}
         </Grid>
       ) : null}
 

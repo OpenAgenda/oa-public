@@ -23,7 +23,7 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         loaded: true,
-        query: action.result.query,
+        query: action.query,
         data: action.result.conversations,
         total: action.result.total,
         totalOpened: action.result.totalOpened,
@@ -97,7 +97,7 @@ export function load( query, agenda ) {
 
 export function nextPage(agenda) {
   return ( { getState, dispatch } ) => {
-    const { res, inbox, event, settings: { perPageLimit } } = getState();
+    const { res, inbox, event, settings: { perPageLimit, defaultQuery } } = getState();
 
     return dispatch( {
       types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
@@ -109,7 +109,9 @@ export function nextPage(agenda) {
           .replace( ':eventUid', event && event.uid ),
         {
           params: {
+            ..._.pick( defaultQuery, 'type', 'typeIdentifier' ),
             ...inbox.query,
+            total: undefined,
             page: inbox.page + 1
           }
         }
