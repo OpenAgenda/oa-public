@@ -34,7 +34,7 @@ function getCallerFile( stackFilePosition = 1 ) {
 
   Error.prepareStackTrace = originalFunc;
 
-  return callerfile;
+  return callerfile.replace('file://', '');
 }
 
 

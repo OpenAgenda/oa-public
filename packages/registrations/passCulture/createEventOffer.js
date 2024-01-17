@@ -1,13 +1,12 @@
+import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import formatEvent from './lib/formatEvent.js';
 import { omit, getTimingId, isDHMFormat, convertDHMToDate } from './lib/utils.js';
 import formatErrors from './lib/formatErrors.js';
 
-export default async function createEventOffer(internals, OAEvent, PCData, options = {}) {
-  const {
-    pc,
-    log = { info: () => {}, error: () => {} },
-  } = internals;
+const log = logs('passCulture/createEventOffer');
+
+export default async function createEventOffer(pc, OAEvent, PCData, options = {}) {
   const {
     priceCategories = [],
     dates = [],
@@ -31,20 +30,20 @@ export default async function createEventOffer(internals, OAEvent, PCData, optio
     related,
   });
 
-  log.info('createEventOffer - attempting create', { eventOffer });
+  log.info('attempting create', { eventOffer });
 
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
-    log.info('createEventOffer - create failed', { error: e?.response?.data });
+    log.info('create failed', { error: e?.response?.data });
     throw new BadRequest({
       info: {
-        errors: formatErrors(e.response.data, { log }),
+        errors: formatErrors(e.response.data),
       },
     }, 'data is invalid');
   }
 
-  log.info('createEventOffer - created event offer %s', result.eventOffer.id);
+  log.info('created event offer %s', result.eventOffer.id);
 
   try {
     const {
@@ -54,12 +53,12 @@ export default async function createEventOffer(internals, OAEvent, PCData, optio
     });
 
     result.priceCategories = createdPriceCategories;
-    log.info('createEventOffer - %s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
+    log.info('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
   } catch (e) {
-    log.error('createEventOffer - failed to create price categories', e);
+    log.error('failed to create price categories', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data, { log }),
+      errors: formatErrors(e.response.data),
     };
   }
 
@@ -82,12 +81,12 @@ export default async function createEventOffer(internals, OAEvent, PCData, optio
     });
     result.dates = createdDates;
 
-    log.info('createEventOffer - %s: created %s dates', result.eventOffer.id, createdDates.length);
+    log.info('%s: created %s dates', result.eventOffer.id, createdDates.length);
   } catch (e) {
-    log.error('createEventOffer - failed to create dates', e);
+    log.error('failed to create dates', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data, { log }),
+      errors: formatErrors(e.response.data),
     };
   }
 

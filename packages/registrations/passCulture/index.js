@@ -8,14 +8,13 @@ export default function PassCulture({
   key,
   api,
   offerLink,
-  log = { info: () => {}, error: () => {} },
 }, params) {
   const pc = PassCultureSDK({ key, api, offerLink });
 
   return {
     validateEventOffer: validateEventOffer.bind(null, { ...params, pc }),
-    validateAndCreateEventOffer: validateAndCreateEventOffer.bind(null, { ...params, pc, log }),
-    createEventOffer: createEventOffer.bind(null, { pc, log }),
+    validateAndCreateEventOffer: validateAndCreateEventOffer.bind(null, { ...params, pc }),
+    createEventOffer: createEventOffer.bind(null, pc),
     getParameters: getParameters.bind(null, { ...params, pc }),
     getEventOfferLink: eventOffer => pc.offers.events(eventOffer.id).getLink(),
   };
