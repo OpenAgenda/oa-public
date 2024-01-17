@@ -60,6 +60,10 @@ const validate = schema({
     type: 'integer',
     list: true,
   },
+  locationExtId: {
+    type: 'text',
+    list: true,
+  },
   ownerUid: {
     type: 'integer',
     list: true,

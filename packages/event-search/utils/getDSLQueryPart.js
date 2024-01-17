@@ -15,6 +15,7 @@ const termsFiltersMap = {
   adminLevel5: 'location.adminLevel5',
   countryCode: 'location.countryCode',
   locationUid: 'location.uid',
+  locationExtId: 'location.extId',
   uid: 'uid',
   slug: 'slug',
   ownerUid: 'ownerUid',
