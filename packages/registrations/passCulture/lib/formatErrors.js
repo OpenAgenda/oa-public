@@ -1,9 +1,11 @@
+import logs from '@openagenda/logs';
+
+const log = logs('formatErrors');
+
 const isPriceCategoryKey = key => key.indexOf('priceCategories') === 0;
 const isDateKey = key => key.indexOf('dates') === 0;
 
-export default function formatErrors(error, options = {}) {
-  const { log } = options;
-
+export default function formatErrors(error) {
   const formattedError = {
     message: 'failed to create pass offer',
     fieldLabel: 'Pass Culture',
@@ -74,9 +76,7 @@ export default function formatErrors(error, options = {}) {
     }];
   }
 
-  if (log) {
-    log.error('formatError', { error });
-  }
+  log.info(error);
 
   return [{
     ...formattedError,
