@@ -6955,22 +6955,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/invitations@npm:^1.1.7":
-  version: 1.1.7
-  resolution: "@openagenda/invitations@npm:1.1.7"
-  dependencies:
-    "@openagenda/logs": "npm:^1.1.2"
-    "@openagenda/mysql-utils": "npm:^2.0.4"
-    "@openagenda/service-utils": "npm:^2.0.0"
-    "@openagenda/validators": "npm:^2.0.1"
-    async: "npm:^3.2.0"
-    knex: "npm:^2.4.2"
-    lodash: "npm:^4.17.4"
-    uuid: "npm:^3.0.1"
-  checksum: d424f25b4a5ab6611f7b1b6c5c92c815d971afdf67993c09e1cf7cb2596e3db41cdb9ec81a84678145a26e2184950f08d9b2f2299f526d1838b70c8c47d8219e
-  languageName: node
-  linkType: hard
-
 "@openagenda/keys@npm:^2.2.10, @openagenda/keys@workspace:packages/keys":
   version: 0.0.0-use.local
   resolution: "@openagenda/keys@workspace:packages/keys"
@@ -7080,7 +7064,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/logs@npm:^1.0.8, @openagenda/logs@npm:^1.1.2, @openagenda/logs@npm:^1.1.9, @openagenda/logs@workspace:public/logs":
+"@openagenda/logs@npm:^1.0.8, @openagenda/logs@npm:^1.1.9, @openagenda/logs@workspace:public/logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:public/logs"
   dependencies:
@@ -15367,7 +15351,6 @@ __metadata:
     "@openagenda/inbox-apps": "npm:^1.2.1"
     "@openagenda/inboxes": "npm:^1.1.14"
     "@openagenda/intl": "npm:^1.1.3"
-    "@openagenda/invitations": "npm:^1.1.7"
     "@openagenda/keys": "npm:^2.2.10"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/landing": "npm:^1.3.16"
@@ -40629,7 +40612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^3.0.0, uuid@npm:^3.0.1, uuid@npm:^3.1.0, uuid@npm:^3.3.2, uuid@npm:^3.4.0":
+"uuid@npm:^3.0.0, uuid@npm:^3.1.0, uuid@npm:^3.3.2, uuid@npm:^3.4.0":
   version: 3.4.0
   resolution: "uuid@npm:3.4.0"
   bin:
