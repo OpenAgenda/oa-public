@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const axios = require('axios');
 const _ = require('lodash');
 const qs = require('qs');
