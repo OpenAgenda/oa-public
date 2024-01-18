@@ -154,6 +154,7 @@ async function captchaCheck(values) {
   const captchaToken = values.req.body['mtcaptcha-verifiedtoken'];
 
   if (!captchaToken) {
+    log.info('mtCaptcha token is missing');
     throw new Error('MissingCaptcha');
   }
 
@@ -181,7 +182,10 @@ async function captchaCheck(values) {
 
   const { tokeninfo: tokenInfo } = result.data;
 
-  log.info('mtCaptcha check ip:', tokenInfo.ip, values.req.ip);
+  log.info('mtCaptcha ip check', {
+    tokenInfoIP: tokenInfo.ip,
+    ip: values.req.ip,
+  });
 
   return values;
 }
