@@ -8259,6 +8259,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/usage-counters@workspace:packages/usage-counters":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/usage-counters@workspace:packages/usage-counters"
+  dependencies:
+    jest: "npm:^29.7.0"
+    knex: "npm:^2.4.2"
+    lodash: "npm:^4.17.21"
+    mysql: "npm:^2.18.1"
+    redis: "npm:^4.6.6"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/user-apps@npm:^1.2.1, @openagenda/user-apps@workspace:packages/user-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/user-apps@workspace:packages/user-apps"
