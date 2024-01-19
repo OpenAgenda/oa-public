@@ -1,6 +1,8 @@
 'use strict';
 
 const winston = require('winston');
+const cloneError = require('../context');
+const context = require('../context');
 
 class SentryTransport extends winston.Transport {
   constructor(options) {
@@ -50,9 +52,8 @@ class SentryTransport extends winston.Transport {
 
     if (msg.length) {
       if (error) {
-        const enhancedError = Object.assign(Object.create(Object.getPrototypeOf(error)), error);
+        const enhancedError = cloneError(error);
         enhancedError.message = `${msg} ${error.name}${error.message.length ? `: ${error.message}` : ''}`;
-        enhancedError.stack = error.stack;
 
         error = enhancedError;
       } else {
@@ -75,6 +76,13 @@ class SentryTransport extends winston.Transport {
 
       scope.setLevel(this.levelsMap[level]);
       scope.setTag('namespace', ns);
+
+      const store = context.getStore();
+
+      if (store) {
+        scope.setTags(store);
+      }
+
       scope.setContext('data', displayedMeta);
 
       scope.addEventProcessor(event => {
