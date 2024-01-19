@@ -6,6 +6,7 @@ const LE = require('r7insight_node');
 const getTransporters = require('./getTransporters');
 const Logger = require('./Logger');
 const { getCallerFile, getModule } = require('./utils/caller');
+const context = require('./context');
 
 LE.provisionWinston(winston);
 
@@ -26,6 +27,7 @@ module.exports = Object.assign(
     init,
     setModuleConfig,
     createLogger2,
+    context,
   },
   basicLogger,
   getCustomProperties(basicLogger)
