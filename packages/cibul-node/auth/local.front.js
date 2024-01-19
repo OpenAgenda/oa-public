@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const axios = require('axios');
 const _ = require('lodash');
 const qs = require('qs');
@@ -66,6 +66,12 @@ function guessFullName(req, res, next) {
 }
 
 function signinSubmit(req, res, next) {
+  const logBundle = {
+    ip: req.ip,
+    agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
+    email: req.body.email,
+  };
+  log.info('signin attempt', logBundle);
   pLib.authenticate(
     'local-signin',
     {
@@ -73,20 +79,20 @@ function signinSubmit(req, res, next) {
     },
     (err, user, data) => {
       if (err) {
-        req.log.error(
-          'passport could not complete signing and received error',
-          err,
-        );
+        log.info('signin attempt failed', {
+          ...logBundle,
+          error: err,
+        });
       }
 
       w({ err, req, res, data, user })
         .then(
           auth.ifUserLoaded(false, async v => {
             if (v.err && v.err.name !== 'NotFound') {
-              v.req.log.error(
-                'user could not be loaded with data %j',
-                v.data,
-              );
+              log.info('signin attempt failed', {
+                ...logBundle,
+                error: v.err,
+              });
             }
 
             _.merge(v.data, v.req.body);
@@ -106,6 +112,14 @@ function signinSubmit(req, res, next) {
         )
 
         .then(auth.ifUserLoaded(true, auth.signin))
+
+        .then(v => {
+          log.info('signin attempt %s', v.data.errors ? 'failed' : 'successful', {
+            ...logBundle,
+            errors: v.data.errors,
+          });
+          return v;
+        })
 
         .done(auth.done, cmn.catchError(req, res));
     },
@@ -140,6 +154,7 @@ async function captchaCheck(values) {
   const captchaToken = values.req.body['mtcaptcha-verifiedtoken'];
 
   if (!captchaToken) {
+    log.info('mtCaptcha token is missing');
     throw new Error('MissingCaptcha');
   }
 
@@ -167,7 +182,10 @@ async function captchaCheck(values) {
 
   const { tokeninfo: tokenInfo } = result.data;
 
-  log.info('mtCaptcha check ip:', tokenInfo.ip, values.req.ip);
+  log.info('mtCaptcha ip check', {
+    tokenInfoIP: tokenInfo.ip,
+    ip: values.req.ip,
+  });
 
   return values;
 }
@@ -210,7 +228,14 @@ function pLoadCaptcha(v) {
 
 function signupSubmit(req, res) {
   const { users } = req.app.services;
-  log('signupSubmit');
+  const logBundle = {
+    ip: req.ip,
+    email: req.body.email,
+    fullName: req.body.full_name,
+    agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
+  };
+
+  log.info('signup attempt', logBundle);
 
   w({ req, res, data: req.body })
     .then(passwordComplexity)
@@ -221,6 +246,7 @@ function signupSubmit(req, res) {
 
     .then(async values => {
       if (values.data.errors) {
+        log.info('signup attempt failed', logBundle);
         return values;
       }
 
@@ -233,8 +259,6 @@ function signupSubmit(req, res) {
       }
 
       try {
-        log('creating user');
-
         const user = await users.create(
           {
             fullName: req.body.full_name,
@@ -250,11 +274,10 @@ function signupSubmit(req, res) {
         );
 
         if (user) {
-          log('created user');
+          log.info('signup attempt successful, created user', logBundle);
           values.user = user;
         }
       } catch (err) {
-        log('error', err);
         values.data.errors = {};
 
         if (
@@ -285,6 +308,11 @@ function signupSubmit(req, res) {
         if (_.isObject(err.errors) && Object.keys(err.errors) > 0) {
           values.data.errors = err.errors;
         }
+
+        log.info('signup attempt failed', {
+          ...logBundle,
+          errors: values.data.errors,
+        });
       }
 
       return values;
