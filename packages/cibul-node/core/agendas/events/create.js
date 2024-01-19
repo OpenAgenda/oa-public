@@ -23,8 +23,6 @@ const {
 } = cleanDuplicateImage;
 
 module.exports = async (core, agendaUid, data, options = {}) => {
-  log('info', 'creating event on agenda %s', agendaUid);
-
   const {
     services,
   } = core;
@@ -35,126 +33,145 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   } = services;
 
   const {
-    access,
-    draft,
-    defaultLang,
-    filterUnauthorizedData,
-    returnPayload,
+    access = 'public',
+    draft = false,
+    defaultLang = 'en',
+    filterUnauthorizedData = false,
+    returnPayload = false,
     fileKey,
     duplicateOrigin,
-  } = {
-    access: 'public', // read or write?
-    draft: false,
-    defaultLang: 'en',
-    filterUnauthorizedData: false,
-    returnPayload: false,
-    ...options,
-  };
+    callOrigin = 'ui',
+  } = options;
 
   const userUid = extractUserUid(data, options);
 
-  const member = userUid ? await members.get({ agendaUid, userUid }) : null;
-
-  const agenda = await getAgenda(core.services, agendaUid, {
-    detailed: true,
-    includeMemberSchema: true,
-  });
-  log('  loaded agenda %s', agenda.slug);
-
-  const clean = await cleanEvent(services, agenda, data, {
-    draft,
-    defaultLang,
-    filterUnauthorizedData,
-    member,
-    access,
+  log.info('info', 'attempting create', {
+    agendaUid,
+    callOrigin,
+    userUid,
   });
 
-  log('  cleaned data');
+  let response;
 
-  if (clean.passCulture) {
-    log('  There is a pass culture payload');
+  try {
+    const member = userUid ? await members.get({ agendaUid, userUid }) : null;
+
+    const agenda = await getAgenda(core.services, agendaUid, {
+      detailed: true,
+      includeMemberSchema: true,
+    });
+    log('  loaded agenda %s', agenda.slug);
+
+    const clean = await cleanEvent(services, agenda, data, {
+      draft,
+      defaultLang,
+      filterUnauthorizedData,
+      member,
+      access,
+    });
+
+    log('  cleaned data');
+
+    if (clean.passCulture) {
+      log('  There is a pass culture payload');
+      try {
+        clean.event.registration = await createPassCultureOffer(core, agenda, clean);
+      } catch (e) {
+        log('error', e);
+        throw e;
+      }
+    }
+
+    const authorizations = await loadAuthorizations(core, 'create', {
+      agenda,
+      member,
+      access,
+    });
+
+    if (!authorizations.canCreateEvent) {
+      throw new Forbidden('not authorized to create event');
+    }
+
+    assignState(agenda, null, clean, data, {
+      authorizations,
+      draft,
+    });
+    log('  associated state');
+
+    const payload = createPayload(core, agenda);
+
     try {
-      clean.event.registration = await createPassCultureOffer(core, agenda, clean);
+      clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
+        current: clean.event.links,
+      });
+      log('  retrieved %s links', clean.event.links.length);
     } catch (e) {
-      log('error', e);
+      log('error', '  could not retrieve oembeds', e);
+    }
+
+    log('  pre-validation done', { agendaUid });
+
+    try {
+      if (duplicateOrigin && isImageToDuplicate(clean.event.image)) {
+        clean.event.image = cleanDuplicateImage(core, clean.event.image);
+      }
+
+      const event = await events.create(clean.event, {
+        context: {
+          userUid,
+          agendaUid,
+        },
+        detailed: true,
+        access: 'internal',
+        private: !!agenda.private,
+        draft,
+        fileKey,
+      });
+
+      payload.setItem('event', event);
+
+      log('created event', event.uid);
+    } catch (e) {
+      if (e.toString() === 'ValidationError: Invalid data') {
+        log('info', 'invalid data', e);
+        throw new BadRequest({
+          info: { errors: e.detail },
+        }, 'invalid data');
+      }
+      log('error', 'failed to create event', {
+        agendaUid: agenda.uid,
+        event: clean.event,
+      });
       throw e;
     }
-  }
 
-  const authorizations = await loadAuthorizations(core, 'create', {
-    agenda,
-    member,
-    access,
-  });
-
-  if (!authorizations.canCreateEvent) {
-    throw new Forbidden('not authorized to create event');
-  }
-
-  assignState(agenda, null, clean, data, {
-    authorizations,
-    draft,
-  });
-  log('  associated state');
-
-  const payload = createPayload(core, agenda);
-
-  try {
-    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
-      current: clean.event.links,
-    });
-    log('  retrieved %s links', clean.event.links.length);
-  } catch (e) {
-    log('error', '  could not retrieve oembeds', e);
-  }
-
-  log('  pre-validation done', { agendaUid });
-
-  try {
-    if (duplicateOrigin && isImageToDuplicate(clean.event.image)) {
-      clean.event.image = cleanDuplicateImage(core, clean.event.image);
-    }
-
-    const event = await events.create(clean.event, {
-      context: {
-        userUid,
-        agendaUid,
+    response = await doAdd(core, payload, ih(clean, {
+      agendaEvent: {
+        canEdit: { $set: true },
       },
-      detailed: true,
-      access: 'internal',
-      private: !!agenda.private,
+      // required for custom legacy sync only.
+      agendaId: { $set: agenda.id },
+    }), {
       draft,
-      fileKey,
+      userUid,
+      access,
+      duplicateOrigin,
     });
-
-    payload.setItem('event', event);
-
-    log('created event', event.uid);
   } catch (e) {
-    if (e.toString() === 'ValidationError: Invalid data') {
-      log('info', 'invalid data', e);
-      throw new BadRequest({
-        info: { errors: e.detail },
-      }, 'invalid data');
-    }
-    log('error', 'failed to create event', {
-      agendaUid: agenda.uid,
-      event: clean.event,
+    log.info('create failed', {
+      error: e,
+      agendaUid,
+      userUid,
+      callOrigin,
     });
     throw e;
   }
 
-  const response = await doAdd(core, payload, ih(clean, {
-    agendaEvent: {
-      canEdit: { $set: true },
-    },
-    // required for custom legacy sync only.
-    agendaId: { $set: agenda.id },
-  }), {
-    draft,
+  log.info('create successful', {
+    agendaUid,
     userUid,
-    access,
-    duplicateOrigin,
+    eventUid: response.event.uid,
+    callOrigin,
   });
 
   return returnPayload ? response : response.event;

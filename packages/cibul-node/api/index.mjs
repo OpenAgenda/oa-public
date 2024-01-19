@@ -119,6 +119,7 @@ export default (core, { useRouter = true } = {}) => {
         },
         access: req.access,
         defaultLang: req.headers.lang,
+        callOrigin: 'api',
       }).then(event => res.json({
         success: true,
         event,
