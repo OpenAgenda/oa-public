@@ -26,6 +26,7 @@ import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import { getSingleton as getGenUrlSingleton } from './services/genUrl/index.js';
+import * as logContextMw from './lib/logContextMw.mjs';
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
@@ -60,12 +61,13 @@ try {
   app.core = core;
   app.services = services;
 
-  app.use(secureHeaders);
-
-  app.use(sessions.mw);
-  app.use(sessions.mw.load({ detailed: true }));
-
-  app.use(logRequestMw);
+  app.use(
+    secureHeaders,
+    sessions.mw,
+    sessions.mw.load({ detailed: true }),
+    logContextMw.withUserUid,
+    logRequestMw,
+  );
 
   // load gen url everywhere
   app.use((req, res, next) => {
@@ -127,6 +129,7 @@ try {
       .set('trust proxy', ['loopback', 'uniquelocal'])
       .use(
         '/v2',
+        logContextMw.withContext,
         Sentry.Handlers.requestHandler(),
         secureHeaders,
         logRequestMw,

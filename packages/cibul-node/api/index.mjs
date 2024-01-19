@@ -4,6 +4,7 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
 import track from '../lib/track.js';
+import * as logContextMw from '../lib/logContextMw.mjs';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
@@ -56,6 +57,8 @@ export default (core, { useRouter = true } = {}) => {
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
+
+  app.use(logContextMw.withUserUid);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
