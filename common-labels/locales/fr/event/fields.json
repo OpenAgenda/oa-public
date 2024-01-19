@@ -1,4 +1,5 @@
 {
+  "common.event.fields.age": "Âge du public ciblé",
   "common.event.fields.image": "Image",
   "common.event.fields.keywords": "Mots clés",
   "common.event.fields.onlineAccessLink": "Lien d'accès à l'événement en ligne",
