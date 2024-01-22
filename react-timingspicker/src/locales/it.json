@@ -1,4 +1,6 @@
 {
+  "rtp.definedTimings": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} {timingsCount, plural, =0 {} other {il {when, date, short}}}",
+  "rtp.definedTimingsInRange": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} del {from, date, short} al {to, date, short}",
   "rtp.editForm.adjust": "Modificare",
   "rtp.editForm.endTime": "Orario di fine",
   "rtp.editForm.startTime": "Orario d'inizio",
@@ -11,5 +13,6 @@
   "rtp.recurrencerForm.countTooSmall": "Il conto deve essere maggiore di 0",
   "rtp.recurrencerForm.day": "giorno",
   "rtp.recurrencerForm.month": "mese",
+  "rtp.recurrencerForm.someDisabledValues": "Alcuni orari sono già in uso o non aperti:",
   "rtp.recurrencerForm.week": "settimana"
 }
