@@ -1,8 +1,8 @@
 'use strict';
 
 const winston = require('winston');
-const cloneError = require('../context');
 const context = require('../context');
+const cloneError = require('../utils/cloneError');
 
 class SentryTransport extends winston.Transport {
   constructor(options) {
