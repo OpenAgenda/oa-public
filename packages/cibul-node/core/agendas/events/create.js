@@ -45,7 +45,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   const userUid = extractUserUid(data, options);
 
-  log.info('info', 'attempting create', {
+  log.info('attempting create', {
     agendaUid,
     callOrigin,
     userUid,
