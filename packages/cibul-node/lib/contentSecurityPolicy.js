@@ -8,22 +8,29 @@ const defaultDirectives = {
   frameAncestors: ["'none'"],
   fontSrc: [
     "'self'",
-    'https://fonts.gstatic.com',
     'https://s3.eu-central-1.amazonaws.com/oastatic/',
     'https://oastatic.s3.eu-central-1.amazonaws.com/',
   ],
-  imgSrc: ["'self'", 'https:', 'data:', 'blob:'],
+  imgSrc: [
+    "'self'",
+    'https:',
+    'data:',
+    'blob:',
+    req => {
+      const { matomoCloudId } = req.app.core.getConfig();
+      return matomoCloudId ? `https://${matomoCloudId}` : '';
+    },
+  ],
   // styleSrc: ["'self'", "'unsafe-inline'"],
   styleSrc: [
     "'self'",
     "'unsafe-inline'",
     // "'strict-dynamic'",
     // (req, res) => `'nonce-${res.locals.cspNonce}'`,
-    'https://fonts.googleapis.com',
   ],
   objectSrc: ["'none'"],
   mediaSrc: ["'self'", 'https:', 'data:'],
-  frameSrc: ["'self'"],
+  frameSrc: ["'self'", 'https://service.mtcaptcha.com', 'https://service2.mtcaptcha.com'],
   scriptSrc: [
     'https:', // backward compatibility
     "'unsafe-inline'", // backward compatibility
