@@ -1,1 +1,7 @@
-{}
+{
+  "common.event.statuses.cancelled": "Anullat",
+  "common.event.statuses.full": "Totalament complèt",
+  "common.event.statuses.movedOnline": "Transferit en linha",
+  "common.event.statuses.postponed": "Remandat",
+  "common.event.statuses.rescheduled": "Tornat planificar"
+}
