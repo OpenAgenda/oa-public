@@ -4,6 +4,7 @@
   "rtp.editForm.adjust": "Modificare",
   "rtp.editForm.endTime": "Orario di fine",
   "rtp.editForm.startTime": "Orario d'inizio",
+  "rtp.editForm.title": "Modificare i orari",
   "rtp.multiRecurrencerForm.confirmation": "Sono stati aggiunti gli orari ricorrenti",
   "rtp.multiRecurrencerForm.countTooSmall": "Il conto deve essere maggiore di 0",
   "rtp.multiRecurrencerForm.day": "giorno",
