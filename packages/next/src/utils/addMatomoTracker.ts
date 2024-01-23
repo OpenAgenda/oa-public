@@ -3,7 +3,7 @@ declare const window: {
   matomoPluginAsyncInit?: any
 } & Window;
 
-function normalizeUrl(url: string) {
+export function normalizeUrl(url: string) {
   let result = url;
 
   if (result.startsWith('https://')) {
