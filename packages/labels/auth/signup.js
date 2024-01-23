@@ -238,10 +238,11 @@ module.exports = {
     "oc": "Ne legir mai"
   },
   "orSocial": {
-    "fr": "Où",
+    "fr": "Ou",
     "en": "Or",
     "io": "crwdns31308:0crwdne31308:0",
-    "oc": "O"
+    "oc": "O",
+    "es": "O"
   },
   "socialHead": {
     "fr": "Création à partir d'un compte Facebook, Twitter ou Google",

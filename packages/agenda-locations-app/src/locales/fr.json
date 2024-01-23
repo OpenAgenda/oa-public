@@ -94,7 +94,7 @@
   "AgendaLocations.LocationDetails.phone": "Téléphone",
   "AgendaLocations.LocationDetails.refAgendas": "{count, plural, =0 {nothing} one {Ce lieu est aussi référencé sur l'agenda } other {Ce lieu est aussi référencé sur les agendas }}",
   "AgendaLocations.LocationDetails.website": "Site web",
-  "AgendaLocations.LocationForm.access": "Accès",
+  "AgendaLocations.LocationForm.access": "Conditions d'accès",
   "AgendaLocations.LocationForm.addLanguage": "Ajouter une langue",
   "AgendaLocations.LocationForm.address": "Adresse",
   "AgendaLocations.LocationForm.addressPlaceholder": "Numéro Voie, Ville (exemple : 82 Boulevard de Clichy, Paris)",

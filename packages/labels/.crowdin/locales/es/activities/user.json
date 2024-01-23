@@ -16,7 +16,9 @@
   "event.create": "{user} creado {event} en el agenda del {agenda}.",
   "event.update": "{user} ha actualizado {event} de {agenda}.",
   "event.delete": "{user} elimina {event} de la agenda {agenda}.",
-  "activities": "actividades",
+  "activities": "Actividades",
   "next": "Próximo",
-  "noActivity": "Sus actividades aparecerán aquí."
+  "noActivity": "Sus actividades aparecerán aquí.",
+  "agenda.removeMember": "{originMember} ha eliminado {user} ({credential}) de {agenda}.",
+  "history": "Historia"
 }

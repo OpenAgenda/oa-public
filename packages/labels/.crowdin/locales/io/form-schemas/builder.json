@@ -111,5 +111,10 @@
   "enabledWhenLinkedFieldHasSpecificValue": "crwdns32911:0%linkedFieldName%crwdnd32911:0%specificValue%crwdne32911:0",
   "optionalWhenLinkedFieldHasValue": "crwdns32913:0%linkedFieldName%crwdne32913:0",
   "optionalWhenLinkedFieldHasSpecificValue": "crwdns32915:0%linkedFieldName%crwdnd32915:0%specificValue%crwdne32915:0",
-  "linkedTo": "crwdns32917:0%fieldName%crwdne32917:0"
+  "linkedTo": "crwdns32917:0%fieldName%crwdne32917:0",
+  "readAccess": "crwdns33227:0crwdne33227:0",
+  "writeAccess": "crwdns33229:0crwdne33229:0",
+  "adminAccess": "crwdns33231:0crwdne33231:0",
+  "moderatorAccess": "crwdns33233:0crwdne33233:0",
+  "contributorAccess": "crwdns33235:0crwdne33235:0"
 }

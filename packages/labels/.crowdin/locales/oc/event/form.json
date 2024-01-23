@@ -22,5 +22,8 @@
   "noSelection": "Pas res",
   "movedOnline": "Transferit en linha",
   "postponed": "Remandat",
-  "status": "Estatut"
+  "status": "Estatut",
+  "longDescription": "Descripcion longa",
+  "trueBoolean": "Seleccionat",
+  "falseBoolean": "Pas seleccionat"
 }

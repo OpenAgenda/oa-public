@@ -23,7 +23,7 @@
   "ReactShared.AgendaContextBar.refusedModalTitle": "crwdns32472:0crwdne32472:0",
   "ReactShared.ConsentBanner.accept": "crwdns16724:0crwdne16724:0",
   "ReactShared.ConsentBanner.decline": "crwdns16726:0crwdne16726:0",
-  "ReactShared.ConsentBanner.informationText": "crwdns16728:0crwdne16728:0",
+  "ReactShared.ConsentBanner.informationText": "crwdns16728:0{service}crwdne16728:0",
   "ReactShared.ConsentBanner.moreInfoLink": "crwdns16730:0crwdne16730:0",
   "ReactShared.EventSelection.emptyList": "crwdns32474:0crwdne32474:0",
   "ReactShared.EventSelection.undefinedDescription": "crwdns32476:0crwdne32476:0",

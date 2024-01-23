@@ -93,5 +93,6 @@
   "lab": "Lab",
   "labTabDescription": "Utilizzare le caratteristiche disponibili nella versione beta",
   "eventStatusDesc": "Attivare i controlli dello stato dell'evento (cancellato, pieno, riprogrammato...)",
-  "eventStatusKnowMore": "Per saperne di più"
+  "eventStatusKnowMore": "Per saperne di più",
+  "matomoSupport": "Contatta il supporto"
 }

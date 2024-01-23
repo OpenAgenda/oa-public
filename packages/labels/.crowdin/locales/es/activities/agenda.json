@@ -15,8 +15,8 @@
   "agenda.aggregateEvent": "{agenda} ha importado {event} de {sourceAgenda}.",
   "event.create": "{user} creada {event}.",
   "event.update": "{user} ha actualizado {event}.",
-  "event.delete": "{user} eliminió {eventos}.",
-  "activities": "actividades",
+  "event.delete": "{user} eliminió {event}.",
+  "activities": "Actividades",
   "next": "Próximo",
   "noActivity": "La actividad de su agenda aparecerá aquí."
 }

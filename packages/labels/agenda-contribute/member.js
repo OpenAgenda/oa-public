@@ -37,7 +37,7 @@ module.exports = {
     "it": "Ragione sociale",
     "de": "Unternehmen",
     "br": "Aozadur",
-    "es": "organización",
+    "es": "Organización",
     "io": "crwdns11556:0crwdne11556:0",
     "oc": "Organizacion"
   },
@@ -77,7 +77,7 @@ module.exports = {
     "it": "Ruolo",
     "de": "Funktion",
     "br": "Karg",
-    "es": "función",
+    "es": "Función",
     "io": "crwdns11564:0crwdne11564:0",
     "oc": "Foncion dins l'organizacion"
   },

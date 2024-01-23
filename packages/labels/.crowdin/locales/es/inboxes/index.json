@@ -1,5 +1,5 @@
 {
-  "inbox": "mensajería",
+  "inbox": "Mensajería",
   "conversation": "conversación",
   "conversations": "conversaciones",
   "ongoingConversations": "conversaciones en curso",
@@ -9,7 +9,7 @@
   "newConversation": "nueva conversación",
   "createConversation": "Crear una conversación",
   "noResult": "ningún resultado",
-  "back": "regreso",
+  "back": "Regreso",
   "showAllConversations": "Ver todas las conversaciones",
   "actions": "valores",
   "resolvedConversation": "conversación resuelto",
@@ -20,7 +20,7 @@
   "lastMessagePostedRelativeDate": "Último mensaje puesto allí %date%",
   "viewConversation": "vista de conversación",
   "submit": "Validar",
-  "required": "necesario",
+  "required": "Necesario",
   "message": "mensaje",
   "yourMessage": "vuestro mensaje",
   "send": "enviar a",
@@ -76,7 +76,7 @@
   "yourMessageWillBeSigned": "Se firmará su mensaje",
   "messageSent": "Mensaje enviado",
   "yourMessageHasBeenSent": "Su mensaje ha sido enviado correctamente.",
-  "close": "cerca",
+  "close": "Cerca",
   "cancel": "Anular",
   "confirm": "Confirmar",
   "closeConversation": "Cerrar conversación",
@@ -133,7 +133,7 @@
   "oneAttachment": "1 adjunto",
   "nAttachments": "%nbr% adjuntos",
   "uploadError": "Error de descarga",
-  "from": "Desde",
+  "from": "de",
   "validate": "validar",
   "supportPlaceholder": "Buenos dias,\n\nTengo un problema cuando uso OpenAgenda con ..."
 }

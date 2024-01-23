@@ -47,5 +47,7 @@
   "LegacyEmbed.TilesMapMenu.tilesInputLabel": "Indicatz un ligam de teules personalizat de far servir per la mapa",
   "LegacyEmbed.TilesMapMenu.tilesInputPlaceholder": "Pegatz lo modèl de ligam del teule aquí",
   "LegacyEmbed.UpdateButton.save": "Enregistrar la configuracion",
-  "LegacyEmbed.UpdateButton.saved": "Configuracion enregistrada"
+  "LegacyEmbed.UpdateButton.saved": "Configuracion enregistrada",
+  "LegacyEmbed.Presentation.contactUs": "Nos contactar",
+  "LegacyEmbed.Presentation.moreInfo": "Ne saber mai"
 }

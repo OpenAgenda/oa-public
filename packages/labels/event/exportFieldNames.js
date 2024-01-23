@@ -3,7 +3,8 @@
 module.exports = {
   "age": {
     "en": "Target age",
-    "fr": "Âge du public ciblé"
+    "fr": "Âge du public ciblé",
+    "io": "crwdns33352:0crwdne33352:0"
   },
   "uid": {
     "en": "Identifier",
@@ -11,13 +12,14 @@ module.exports = {
     "de": "Kennzeichnung",
     "es": "Identificador",
     "it": "Login",
-    "io": "crwdns14146:0crwdne14146:0"
+    "io": "crwdns14146:0crwdne14146:0",
+    "oc": "Identificant"
   },
   "title": {
     "en": "Title",
     "fr": "Titre",
     "de": "Titel",
-    "es": "título",
+    "es": "Título",
     "it": "Titolo",
     "io": "crwdns14148:0crwdne14148:0",
     "oc": "Títol"
@@ -26,7 +28,7 @@ module.exports = {
     "en": "Description",
     "fr": "Description",
     "de": "Beschreibung",
-    "es": "descripción",
+    "es": "Descripción",
     "it": "Descrizione",
     "io": "crwdns14150:0crwdne14150:0",
     "oc": "Descripcion"
@@ -37,15 +39,17 @@ module.exports = {
     "de": "Lange Beschreibung",
     "es": "Descripción larga",
     "it": "Descrizione lunga",
-    "io": "crwdns14152:0crwdne14152:0"
+    "io": "crwdns14152:0crwdne14152:0",
+    "oc": "Descripcion longa"
   },
   "conditions": {
     "en": "Condition details",
     "fr": "Détail des conditions",
     "de": "Zustand Details",
-    "es": "condiciones de venta al por menor",
+    "es": "Condiciones de participación",
     "it": "Dettagli delle condizioni",
-    "io": "crwdns14154:0crwdne14154:0"
+    "io": "crwdns14154:0crwdne14154:0",
+    "oc": "Detalh de las condicions"
   },
   "keywords": {
     "en": "Keywords",
@@ -63,7 +67,8 @@ module.exports = {
     "de": "Lange Beschreibung - HTML",
     "es": "Descripción larga - HTML",
     "it": "Descrizione lunga - HTML",
-    "io": "crwdns14158:0crwdne14158:0"
+    "io": "crwdns14158:0crwdne14158:0",
+    "oc": "Descripcion longa - HTML"
   },
   "image": {
     "en": "Image",
@@ -90,7 +95,8 @@ module.exports = {
     "de": "Miniaturansicht",
     "es": "estudio",
     "it": "Panoramica",
-    "io": "crwdns14164:0crwdne14164:0"
+    "io": "crwdns14164:0crwdne14164:0",
+    "oc": "Vinheta"
   },
   "originalImage": {
     "en": "Source image",
@@ -98,7 +104,8 @@ module.exports = {
     "de": "Quelle Bild",
     "es": "fuente de la imagen",
     "it": "Immagine sorgente",
-    "io": "crwdns14166:0crwdne14166:0"
+    "io": "crwdns14166:0crwdne14166:0",
+    "oc": "Image sorsa"
   },
   "updatedAt": {
     "en": "Last update",
@@ -106,7 +113,8 @@ module.exports = {
     "de": "Letztes Update",
     "es": "Última actualización",
     "it": "Ultimo aggiornamento",
-    "io": "crwdns14168:0crwdne14168:0"
+    "io": "crwdns14168:0crwdne14168:0",
+    "oc": "Darrièra mesa a jorn"
   },
   "createdAt": {
     "en": "Creation date",
@@ -122,7 +130,8 @@ module.exports = {
     "de": "Timings Überblick",
     "es": "Resumen Horario",
     "it": "Riassunto orario",
-    "io": "crwdns14172:0crwdne14172:0"
+    "io": "crwdns14172:0crwdne14172:0",
+    "oc": "Resumit oraris"
   },
   "firstDate": {
     "en": "First date",
@@ -130,7 +139,8 @@ module.exports = {
     "de": "Erste Verabredung",
     "es": "primera fecha",
     "it": "Prima data",
-    "io": "crwdns14174:0crwdne14174:0"
+    "io": "crwdns14174:0crwdne14174:0",
+    "oc": "Primièra data"
   },
   "firstTimeStart": {
     "en": "First start time",
@@ -138,7 +148,8 @@ module.exports = {
     "de": "Erste Startzeit",
     "es": "Primera apertura",
     "it": "Prima apertura",
-    "io": "crwdns14176:0crwdne14176:0"
+    "io": "crwdns14176:0crwdne14176:0",
+    "oc": "Primièra obertura"
   },
   "firstTimeEnd": {
     "en": "First end time",
@@ -146,7 +157,8 @@ module.exports = {
     "de": "Erste Endzeit",
     "es": "primer cierre",
     "it": "Prima chiusura",
-    "io": "crwdns14178:0crwdne14178:0"
+    "io": "crwdns14178:0crwdne14178:0",
+    "oc": "Primièra tampadura"
   },
   "lastDate": {
     "en": "Last date",
@@ -154,7 +166,8 @@ module.exports = {
     "de": "Letztes Datum",
     "es": "Último día",
     "it": "Ultima data",
-    "io": "crwdns14180:0crwdne14180:0"
+    "io": "crwdns14180:0crwdne14180:0",
+    "oc": "Darrièra data"
   },
   "lastTimeStart": {
     "en": "Last start time",
@@ -162,7 +175,8 @@ module.exports = {
     "de": "Letzte Startzeit",
     "es": "Última apertura",
     "it": "Ultima apertura",
-    "io": "crwdns14182:0crwdne14182:0"
+    "io": "crwdns14182:0crwdne14182:0",
+    "oc": "Darrièra obertura"
   },
   "lastTimeEnd": {
     "en": "Last time end",
@@ -170,7 +184,8 @@ module.exports = {
     "de": "Zuletzt Ende",
     "es": "Último horario",
     "it": "Ultima chiusura",
-    "io": "crwdns14184:0crwdne14184:0"
+    "io": "crwdns14184:0crwdne14184:0",
+    "oc": "Darrièra tampadura"
   },
   "timings": {
     "en": "Detailed timings",
@@ -178,7 +193,8 @@ module.exports = {
     "de": "detaillierte Timings",
     "es": "agenda detallado",
     "it": "Orari dettagliati",
-    "io": "crwdns14186:0crwdne14186:0"
+    "io": "crwdns14186:0crwdne14186:0",
+    "oc": "Oraris detalhats"
   },
   "isoTimings": {
     "en": "ISO timings",
@@ -186,7 +202,8 @@ module.exports = {
     "de": "ISO-Timings",
     "es": "ISO horas",
     "it": "Orari ISO",
-    "io": "crwdns14188:0crwdne14188:0"
+    "io": "crwdns14188:0crwdne14188:0",
+    "oc": "Oraris ISO"
   },
   "registrationUrl": {
     "en": "Registration link",
@@ -194,7 +211,8 @@ module.exports = {
     "de": "Registrierungslink",
     "es": "Enlace de registro",
     "it": "Link per la registrazione",
-    "io": "crwdns14190:0crwdne14190:0"
+    "io": "crwdns14190:0crwdne14190:0",
+    "oc": "Ligam d'inscripcion"
   },
   "registration": {
     "en": "Registration",
@@ -202,7 +220,8 @@ module.exports = {
     "de": "Registrierung",
     "es": "Herramientas de registro",
     "it": "Strumenti di registrazione",
-    "io": "crwdns16430:0crwdne16430:0"
+    "io": "crwdns16430:0crwdne16430:0",
+    "oc": "Inscripcion"
   },
   "accessibility": {
     "en": "Accessibility",
@@ -210,7 +229,8 @@ module.exports = {
     "de": "Zugänglichkeit",
     "es": "accesibilidad",
     "it": "Accessibilità",
-    "io": "crwdns14192:0crwdne14192:0"
+    "io": "crwdns14192:0crwdne14192:0",
+    "oc": "Accessibilitat"
   },
   "featured": {
     "en": "Featured",
@@ -228,12 +248,14 @@ module.exports = {
     "de": "Verknüpfung",
     "es": "enlace",
     "it": "Link",
-    "io": "crwdns14196:0crwdne14196:0"
+    "io": "crwdns14196:0crwdne14196:0",
+    "oc": "Ligam"
   },
   "permalink": {
     "en": "Permalink",
     "fr": "Permalien",
-    "io": "crwdns16432:0crwdne16432:0"
+    "io": "crwdns16432:0crwdne16432:0",
+    "oc": "Permaligam"
   },
   "location.uid": {
     "en": "Location identifier",
@@ -241,7 +263,8 @@ module.exports = {
     "de": "Ortskennung",
     "es": "Identificador del lugar",
     "it": "Identificatore di posizione",
-    "io": "crwdns14198:0crwdne14198:0"
+    "io": "crwdns14198:0crwdne14198:0",
+    "oc": "Identificant del lòc"
   },
   "location.latitude": {
     "en": "Latitude",
@@ -265,7 +288,7 @@ module.exports = {
     "en": "Location name",
     "fr": "Nom du lieu",
     "de": "Standortnamen",
-    "es": "Nombre del Lugar",
+    "es": "Lugar Nombre",
     "it": "Nome del luogo",
     "io": "crwdns14204:0crwdne14204:0",
     "oc": "Nom de lòc"
@@ -333,7 +356,8 @@ module.exports = {
     "de": "Ort Bild",
     "es": "Imagen del lugar",
     "it": "Immagine del luogo",
-    "io": "crwdns14218:0crwdne14218:0"
+    "io": "crwdns14218:0crwdne14218:0",
+    "oc": "Image del lòc"
   },
   "location.imageCredits": {
     "en": "Location image credits",
@@ -341,7 +365,8 @@ module.exports = {
     "de": "Location image credits",
     "es": "Los créditos para la imagen del lugar",
     "it": "Crediti dell'immagine del luogo",
-    "io": "crwdns14220:0crwdne14220:0"
+    "io": "crwdns14220:0crwdne14220:0",
+    "oc": "Crèdits de l'image del lòc"
   },
   "location.phone": {
     "en": "Location phone",
@@ -349,7 +374,8 @@ module.exports = {
     "de": "Ort Telefon",
     "es": "teléfono del lugar",
     "it": "Numero di telefono del luogo",
-    "io": "crwdns14222:0crwdne14222:0"
+    "io": "crwdns14222:0crwdne14222:0",
+    "oc": "Telefòne del lòc"
   },
   "location.website": {
     "en": "Location website",
@@ -357,7 +383,8 @@ module.exports = {
     "de": "Location Website",
     "es": "el sitio web del lugar",
     "it": "Sito web del luogo",
-    "io": "crwdns14224:0crwdne14224:0"
+    "io": "crwdns14224:0crwdne14224:0",
+    "oc": "Site web del lòc"
   },
   "location.links": {
     "en": "Location links",
@@ -365,7 +392,8 @@ module.exports = {
     "de": "Ort Links",
     "es": "enlaces del lugar",
     "it": "Link del luogo",
-    "io": "crwdns14226:0crwdne14226:0"
+    "io": "crwdns14226:0crwdne14226:0",
+    "oc": "Ligams del lòc"
   },
   "location.tags": {
     "en": "Location tags",
@@ -373,7 +401,8 @@ module.exports = {
     "de": "Location-Tags",
     "es": "Etiquetas del lugar",
     "it": "Tag del posto",
-    "io": "crwdns14228:0crwdne14228:0"
+    "io": "crwdns14228:0crwdne14228:0",
+    "oc": "Etiquetas del lòc"
   },
   "location.description": {
     "en": "Location description",
@@ -381,7 +410,8 @@ module.exports = {
     "de": "Ortsbeschreibung",
     "es": "Descripción del lugar",
     "it": "Descrizione del luogo",
-    "io": "crwdns14230:0crwdne14230:0"
+    "io": "crwdns14230:0crwdne14230:0",
+    "oc": "Descripcion del lòc"
   },
   "location.access": {
     "en": "Location access / directions",
@@ -389,7 +419,8 @@ module.exports = {
     "de": "Standortzugriff / Richtungen",
     "es": "De acceso / Direcciones",
     "it": "Accesso / Indicazioni",
-    "io": "crwdns14232:0crwdne14232:0"
+    "io": "crwdns14232:0crwdne14232:0",
+    "oc": "Accès / Itinerari"
   },
   "tags": {
     "en": "Tags",
@@ -406,7 +437,8 @@ module.exports = {
     "de": "Mindestalter",
     "es": "edad mínima",
     "it": "Età minima",
-    "io": "crwdns14236:0crwdne14236:0"
+    "io": "crwdns14236:0crwdne14236:0",
+    "oc": "Atge minimum"
   },
   "age.max": {
     "en": "Maximum age",
@@ -414,7 +446,8 @@ module.exports = {
     "de": "Höchstalter",
     "es": "Edad máxima",
     "it": "Età massima",
-    "io": "crwdns14238:0crwdne14238:0"
+    "io": "crwdns14238:0crwdne14238:0",
+    "oc": "Atge maximum"
   },
   "origin.title": {
     "en": "Origin agenda ( title )",
@@ -422,7 +455,8 @@ module.exports = {
     "de": "Origin Agenda (Titel)",
     "es": "Agenda original (título)",
     "it": "agenda originale ( titolo )",
-    "io": "crwdns14240:0crwdne14240:0"
+    "io": "crwdns14240:0crwdne14240:0",
+    "oc": "Agenda d'origina (títol)"
   },
   "origin.uid": {
     "en": "Origin agenda (uid)",
@@ -430,7 +464,8 @@ module.exports = {
     "de": "Origin Kalender (uid)",
     "es": "agenda original (uid)",
     "it": "Agenda originale ( uid )",
-    "io": "crwdns14242:0crwdne14242:0"
+    "io": "crwdns14242:0crwdne14242:0",
+    "oc": "Agenda d'origina (uid)"
   },
   "contributor.email": {
     "en": "Contributor: Email",
@@ -438,7 +473,8 @@ module.exports = {
     "de": "Anbieter: E-Mail",
     "es": "Colaborador: Email",
     "it": "Collaboratore: Email",
-    "io": "crwdns14244:0crwdne14244:0"
+    "io": "crwdns14244:0crwdne14244:0",
+    "oc": "Contributor : Email"
   },
   "contributor.contactNumber": {
     "en": "Contributor: Phone number",
@@ -446,7 +482,8 @@ module.exports = {
     "de": "Anbieter: Telefonnummer",
     "es": "Colaborador: Teléfono",
     "it": "Collaboratore: Telefono",
-    "io": "crwdns14246:0crwdne14246:0"
+    "io": "crwdns14246:0crwdne14246:0",
+    "oc": "Contributor : numèro de telefòne"
   },
   "contributor.contactName": {
     "en": "Contributor: Name",
@@ -454,7 +491,8 @@ module.exports = {
     "de": "Contributor: Name",
     "es": "Colaborador: Nombre",
     "it": "Collaboratore: Nome",
-    "io": "crwdns14248:0crwdne14248:0"
+    "io": "crwdns14248:0crwdne14248:0",
+    "oc": "Contributor : Nom"
   },
   "contributor.contactPosition": {
     "en": "Contributor: Title",
@@ -462,7 +500,8 @@ module.exports = {
     "de": "Anbieter: Titel",
     "es": "Colaborador: Función",
     "it": "Collaboratore: ruolo",
-    "io": "crwdns14250:0crwdne14250:0"
+    "io": "crwdns14250:0crwdne14250:0",
+    "oc": "Contributor : Foncion"
   },
   "contributor.organization": {
     "en": "Contributor: organization",
@@ -470,7 +509,8 @@ module.exports = {
     "de": "Anbieter: Unternehmen",
     "es": "Colaborador: organización",
     "it": "Collaboratore: organizzazione",
-    "io": "crwdns14252:0crwdne14252:0"
+    "io": "crwdns14252:0crwdne14252:0",
+    "oc": "Contributor : organizacion"
   },
   "category": {
     "en": "Category",
@@ -478,7 +518,8 @@ module.exports = {
     "de": "Kategorie",
     "es": "categoría",
     "it": "Categoria",
-    "io": "crwdns14254:0crwdne14254:0"
+    "io": "crwdns14254:0crwdne14254:0",
+    "oc": "Categoria"
   },
   "location.district": {
     "en": "District",
@@ -504,7 +545,8 @@ module.exports = {
     "de": "Verknüpfte Veranstaltungen",
     "es": "eventos relacionados",
     "it": "Eventi correlati",
-    "io": "crwdns14260:0crwdne14260:0"
+    "io": "crwdns14260:0crwdne14260:0",
+    "oc": "Eveniments ligats"
   },
   "attendanceMode": {
     "fr": "Mode de participation",
@@ -523,49 +565,65 @@ module.exports = {
     "es": "Enlace de acceso",
     "it": "Collegamento di accesso",
     "br": "Liamm moned",
-    "io": "crwdns16154:0crwdne16154:0"
+    "io": "crwdns16154:0crwdne16154:0",
+    "oc": "Ligam d'accès"
   },
   "status": {
     "fr": "État",
     "en": "Status",
     "io": "crwdns16156:0crwdne16156:0",
-    "oc": "Estatut"
+    "oc": "Estatut",
+    "es": "Estado"
   },
   "member.uid": {
     "fr": "Membre: identifiant",
     "en": "Member: Identifier",
-    "io": "crwdns16434:0crwdne16434:0"
+    "io": "crwdns16434:0crwdne16434:0",
+    "es": "Member: Identifier",
+    "oc": "Membre : identificant"
   },
   "member.role": {
     "fr": "Membre: rôle",
     "en": "Member: role",
-    "io": "crwdns16436:0crwdne16436:0"
+    "io": "crwdns16436:0crwdne16436:0",
+    "es": "Miembro: función",
+    "oc": "Membre : ròtle"
   },
   "member.phone": {
     "fr": "Membre: téléphone",
     "en": "Member: phone",
-    "io": "crwdns16438:0crwdne16438:0"
+    "io": "crwdns16438:0crwdne16438:0",
+    "es": "Miembro: teléfono",
+    "oc": "Membre : telefòne"
   },
   "member.email": {
     "fr": "Membre: email",
     "en": "Member: email",
     "it": "Membro: email",
-    "io": "crwdns16440:0crwdne16440:0"
+    "io": "crwdns16440:0crwdne16440:0",
+    "es": "Miembro: correo electrónico",
+    "oc": "Membre : email"
   },
   "member.organization": {
     "fr": "Membre: organisme",
     "en": "Member: organization",
-    "io": "crwdns16442:0crwdne16442:0"
+    "io": "crwdns16442:0crwdne16442:0",
+    "es": "Member: organization",
+    "oc": "Membre : organizacion"
   },
   "member.name": {
     "fr": "Membre: nom",
     "en": "Member: name",
-    "io": "crwdns16444:0crwdne16444:0"
+    "io": "crwdns16444:0crwdne16444:0",
+    "es": "Miembro: nombre",
+    "oc": "Membre : nom"
   },
   "member.position": {
     "fr": "Membre: fonction",
     "en": "Member: title",
     "io": "crwdns16446:0crwdne16446:0",
-    "it": "Membro: ruolo"
+    "it": "Membro: ruolo",
+    "es": "Miembro: título",
+    "oc": "Membre : foncion"
   }
 };

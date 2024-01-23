@@ -158,7 +158,7 @@ module.exports = {
     "en": "Barbados",
     "fr": "Barbados",
     "de": "Barbados",
-    "es": "barbados",
+    "es": "Barbados",
     "it": "Barbados",
     "io": "crwdns11644:0crwdne11644:0",
     "oc": "Barbados"
@@ -1695,7 +1695,7 @@ module.exports = {
     "en": "Solomon Islands",
     "fr": "Iles Salomon",
     "de": "Salomon-Inseln",
-    "es": "islas Salomón",
+    "es": "Islas Salomón",
     "it": "Isole Salomone",
     "io": "crwdns11986:0crwdne11986:0",
     "oc": "Illas Salamon"
@@ -1704,7 +1704,7 @@ module.exports = {
     "en": "Seychelles",
     "fr": "Seychelles",
     "de": "Seychellen",
-    "es": "seychelles",
+    "es": "Seychelles",
     "it": "Seychelles",
     "io": "crwdns11988:0crwdne11988:0",
     "oc": "Seichèlas"
@@ -1722,7 +1722,7 @@ module.exports = {
     "en": "Sweden",
     "fr": "Suède",
     "de": "Schweden",
-    "es": "gamuza",
+    "es": "Suecia",
     "it": "Svezia",
     "io": "crwdns11992:0crwdne11992:0",
     "oc": "Suècia"

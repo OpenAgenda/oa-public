@@ -1,6 +1,6 @@
 {
   "empty": "la categoría no puede estar vacía",
-  "duplicate": "Esta categoría ya existe",
+  "duplicate": "esta categoría ya existe",
   "categories": "Categorías",
   "subtitle": "Las categorías son una lista única opción",
   "listName": "Encabezando la lista",

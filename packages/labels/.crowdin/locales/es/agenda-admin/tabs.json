@@ -8,7 +8,7 @@
   "categories": "Categorías y Etiquetas",
   "inbox": "Mensajería",
   "customized": "Campos personalizados",
-  "sources": "fuentes",
+  "sources": "Fuentes",
   "facebook": "Facebook",
   "swapcard": "Swapcard",
   "web": "Integración web",
@@ -20,5 +20,6 @@
   "schema": "Formulario",
   "settings_contribution": "Contribución",
   "settings_advanced": "Avanzado",
-  "statistics": "Estadísticas"
+  "statistics": "Estadísticas",
+  "history": "Historia"
 }

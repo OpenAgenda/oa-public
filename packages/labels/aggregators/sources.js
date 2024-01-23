@@ -98,7 +98,7 @@ module.exports = {
     "fr": "Retirer des sources",
     "en": "Remove source",
     "de": "entfernen Quelle",
-    "es": "eliminar las fuentes",
+    "es": "Eliminar una agenda fuente",
     "it": "Rimozione dalle fonti",
     "io": "crwdns13024:0crwdne13024:0",
     "oc": "Tirar la sorsa"
@@ -107,7 +107,7 @@ module.exports = {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda des sources ?",
     "en": "Are you sure you want to delete this agenda from sources ?",
     "de": "Bist du sicher, dass du dieseVerwaltungskalender von Quellen löschen willst ?",
-    "es": "¿Está seguro de que desea eliminar este agenda fuentes?",
+    "es": "¿Está seguro de que desea eliminar esta agenda fuente?",
     "it": "Siete sicuri di voler eliminare questa agenda dalle fonti?",
     "io": "crwdns13026:0crwdne13026:0",
     "oc": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?"

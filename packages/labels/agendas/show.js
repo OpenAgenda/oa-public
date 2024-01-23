@@ -432,7 +432,8 @@ module.exports = {
     "fr": "Annulé",
     "it": "Cancellato",
     "io": "crwdns16094:0crwdne16094:0",
-    "oc": "Anullat"
+    "oc": "Anullat",
+    "es": "Cancelado"
   },
   "statusFull": {
     "en": "Fully booked",

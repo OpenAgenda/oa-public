@@ -4,7 +4,8 @@ module.exports = {
   "number.toosmall": {
     "fr": "Le nombre doit être supérieur ou égal à %min%",
     "en": "The number must be equal to or higher than %min%",
-    "io": "crwdns14032:0%min%crwdne14032:0"
+    "io": "crwdns14032:0%min%crwdne14032:0",
+    "oc": "Lo nombre deu èsser superior o egal a %min%"
   },
   "number.toobig": {
     "fr": "Le nombre doit être inférieur ou égal à %max%",
@@ -13,7 +14,8 @@ module.exports = {
     "es": "El número debe ser menor o igual al %max%",
     "br": "Arabat d'an niver bezañ ouzhpenn %max%",
     "it": "Il numero deve essere inferiore o uguale a %max%",
-    "io": "crwdns14034:0%max%crwdne14034:0"
+    "io": "crwdns14034:0%max%crwdne14034:0",
+    "oc": "Lo nombre deu èsser egal o inferior a %max%"
   },
   "multi-input.info": {
     "fr": "Saisissez une ou plusieurs valeurs",
@@ -22,7 +24,8 @@ module.exports = {
     "es": "Introduzca uno o más valores",
     "br": "Skrivit un talvoud pe meur a hini",
     "it": "Inserire uno o più valori",
-    "io": "crwdns14036:0crwdne14036:0"
+    "io": "crwdns14036:0crwdne14036:0",
+    "oc": "Dintratz una o mai d'una valor"
   },
   "multi-input.error": {
     "fr": "Les saisies non valides ne seront pas sauvegardées",
@@ -31,7 +34,8 @@ module.exports = {
     "es": "No se guardarán las entradas no válidas",
     "br": "Ne vo ket enrollet an traoù direizh",
     "it": "Le informazioni non valide non verranno salvate",
-    "io": "crwdns14038:0crwdne14038:0"
+    "io": "crwdns14038:0crwdne14038:0",
+    "oc": "Las entradas invalidas seràn pas enregistradas"
   },
   "string.tooshort": {
     "fr": "Le champ doit comporter au moins %min% caractères",
@@ -40,7 +44,8 @@ module.exports = {
     "es": "Este campo debe tener al menos %min% caracteres",
     "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
     "it": "Il campo deve contenere almeno %min% di caratteri",
-    "io": "crwdns14040:0%min%crwdne14040:0"
+    "io": "crwdns14040:0%min%crwdne14040:0",
+    "oc": "Lo camp deu aver al mens %min% caractèrs"
   },
   "string.toolong": {
     "fr": "Le champ doit comporter au plus %max% caractères",
@@ -49,7 +54,8 @@ module.exports = {
     "es": "Este campo no debe tener más de %max% caracteres",
     "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
     "it": "Il campo non deve contenere più di %max% di caratteri",
-    "io": "crwdns14042:0%max%crwdne14042:0"
+    "io": "crwdns14042:0%max%crwdne14042:0",
+    "oc": "Lo camp deu aver al mai %max% caractèrs"
   },
   "email.invalid": {
     "fr": "Un email valide doit être renseigné",
@@ -58,7 +64,8 @@ module.exports = {
     "es": "Un correo electrónico válido debe ser llenado",
     "br": "Ret eo lakaat ur chomlec'h postel reizh",
     "it": "Deve essere compilata un'e-mail valida",
-    "io": "crwdns14044:0crwdne14044:0"
+    "io": "crwdns14044:0crwdne14044:0",
+    "oc": "Se deu dintrar un email valide"
   },
   "phone.invalid": {
     "fr": "Un numéro de télephone valide doit être renseigné",
@@ -67,7 +74,8 @@ module.exports = {
     "es": "Un número de teléfono válido debe llenarse",
     "br": "Ret eo lakaat un niverenn bellgomz reizh",
     "it": "È necessario inserire un numero di telefono valido",
-    "io": "crwdns14046:0crwdne14046:0"
+    "io": "crwdns14046:0crwdne14046:0",
+    "oc": "Se deu dintrar un numèro de telefòne valide"
   },
   "link.invalid": {
     "fr": "Un lien valide doit être renseigné",
@@ -76,7 +84,8 @@ module.exports = {
     "es": "Una conexión válida debe llenarse",
     "br": "Ret eo lakaat ul liamm reizh",
     "it": "Un link valido deve essere compilato",
-    "io": "crwdns14048:0crwdne14048:0"
+    "io": "crwdns14048:0crwdne14048:0",
+    "oc": "Se deu dintrar un ligam valide"
   },
   "number.invalid": {
     "fr": "Un nombre valide doit être renseigné",
@@ -85,7 +94,8 @@ module.exports = {
     "es": "Un número válido debe llenarse",
     "br": "Ret eo lakaat un niver reizh",
     "it": "Deve essere inserito un numero valido",
-    "io": "crwdns14050:0crwdne14050:0"
+    "io": "crwdns14050:0crwdne14050:0",
+    "oc": "Se deu dintrar un nombre valide"
   },
   "integer.invalid": {
     "fr": "Un entier valide doit être renseigné",
@@ -94,7 +104,8 @@ module.exports = {
     "es": "Una completa válida deben llenarse",
     "br": "Ret eo lakaat un niver anterin reizh",
     "it": "Deve essere inserito un numero intero valido",
-    "io": "crwdns14052:0crwdne14052:0"
+    "io": "crwdns14052:0crwdne14052:0",
+    "oc": "Se deu dintrar un nombre entièr valide"
   },
   "integer.toobig": {
     "fr": "Cette valeur est trop grande",
@@ -103,7 +114,8 @@ module.exports = {
     "es": "Este valor es demasiado alto",
     "br": "Re vras eo an talvoud-mañ",
     "it": "Questo valore è troppo alto",
-    "io": "crwdns14054:0crwdne14054:0"
+    "io": "crwdns14054:0crwdne14054:0",
+    "oc": "Aquesta valor es tròp nauta"
   },
   "groupTags.required": {
     "fr": "Au moins un élément doit être sélectionné",
@@ -112,13 +124,14 @@ module.exports = {
     "es": "Al menos un elemento debe seleccionarse",
     "br": "Ret eo diuzañ un elfenn da vihanañ",
     "it": "Almeno una voce deve essere selezionata",
-    "io": "crwdns14056:0crwdne14056:0"
+    "io": "crwdns14056:0crwdne14056:0",
+    "oc": "Cal seleccionar al mens un element"
   },
   "required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario",
+    "es": "Necesario",
     "br": "Rekis",
     "it": "Richiesto",
     "io": "crwdns14058:0crwdne14058:0",
@@ -128,7 +141,7 @@ module.exports = {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario",
+    "es": "Necesario",
     "br": "Rekis",
     "it": "Richiesto",
     "io": "crwdns14060:0crwdne14060:0",
@@ -137,7 +150,8 @@ module.exports = {
   "choice.required.max": {
     "fr": "La sélection ne peut excéder %max% choix",
     "en": "The selection must not exceed %max% choices",
-    "io": "crwdns16098:0%max%crwdne16098:0"
+    "io": "crwdns16098:0%max%crwdne16098:0",
+    "oc": "La seleccion pòt pas aculhir mai de %max% causidas"
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
@@ -146,13 +160,15 @@ module.exports = {
     "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo",
-    "io": "crwdns14062:0crwdne14062:0"
+    "io": "crwdns14062:0crwdne14062:0",
+    "oc": "I a agut un problèma a l'enregistrament, tornatz ensajar dins un momenton"
   },
   "serverErrorTooLargeFile": {
     "fr": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
     "en": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
     "io": "crwdns14064:0%max%crwdne14064:0",
-    "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte"
+    "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
+    "oc": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets"
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",

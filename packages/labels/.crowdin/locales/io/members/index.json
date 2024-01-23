@@ -81,5 +81,7 @@
   "order.activity": "crwdns15754:0crwdne15754:0",
   "orderSort": "crwdns15756:0crwdne15756:0",
   "sortBy": "crwdns16148:0crwdne16148:0",
-  "removeFilter": "crwdns16150:0crwdne16150:0"
+  "removeFilter": "crwdns16150:0crwdne16150:0",
+  "subject": "crwdns33237:0crwdne33237:0",
+  "sendAlsoToMe": "crwdns33239:0crwdne33239:0"
 }

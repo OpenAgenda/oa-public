@@ -118,5 +118,6 @@
   "aggregator-sources.utils.stateMessages.state": "Stato",
   "aggregator-sources.utils.stateMessages.stateControlled": "Controllato",
   "aggregator-sources.utils.stateMessages.statePublished": "Pubblicato",
-  "aggregator-sources.utils.stateMessages.stateToControl": "Per controllare"
+  "aggregator-sources.utils.stateMessages.stateToControl": "Per controllare",
+  "aggregator-sources.RuleForm.emailPlaceholder": "Email"
 }
