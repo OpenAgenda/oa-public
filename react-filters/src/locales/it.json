@@ -21,6 +21,7 @@
   "ReactFilters.messages.filterTitles.keyword": "Parole Chiave",
   "ReactFilters.messages.filterTitles.locationUid": "Luogo",
   "ReactFilters.messages.filterTitles.region": "Regione",
+  "ReactFilters.messages.filterTitles.relative": "Passati / in corso / futuri",
   "ReactFilters.messages.filterTitles.state": "Stato",
   "ReactFilters.messages.filterTitles.timings": "Orari",
   "ReactFilters.messages.map.searchWithMap": "Cercare con la carta",
