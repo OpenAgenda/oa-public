@@ -1,6 +1,6 @@
 {
   "name": "oa",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "OpenAgenda monorepo",
   "main": "index.js",
   "repository": "https://github.com/OpenAgenda/oa",
