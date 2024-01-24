@@ -6,10 +6,7 @@ import addRegistration from '../lib/addRegistration.js';
 // import loadEventData from './lib/loadEventData.js';
 import eventData from './fixtures/registrationItem/events.json' assert { type: 'json' };
 
-const {
-
-  PDF_TEST_FOLDER: pdfTestFolder,
-} = process.env;
+const { PDF_TEST_FOLDER: pdfTestFolder } = process.env;
 
 const lang = 'fr';
 
@@ -19,7 +16,6 @@ const localCursor = {
   x: cursor.x,
 };
 
-let widthOfRegistration = null;
 let heightOfRegistration = null;
 
 const imageWidth = 90;
@@ -48,18 +44,9 @@ const linkIconPath = `${__dirname}/../images/link.png`;
     simulate = false,
   } = options;
 
-  const textMaxWidth = doc.page.width - imageWidth - base.margin * 3;
-
   doc.pipe(writeStream);
 
-  // const eventData = (await loadEventData(agendaUid, publicKey)).events.map(
-  //   e => ({
-  //     ...e,
-  //     description: {
-  //       fr: e.description.fr + lorem[Math.floor(Math.random() * lorem.length)],
-  //     },
-  //   }),
-  // );
+  localCursor.x += imageWidth + base.margin * 2;
 
   for (const event of eventData) {
     const registration = await addRegistration(
@@ -72,13 +59,11 @@ const linkIconPath = `${__dirname}/../images/link.png`;
         emailIconPath,
         phoneIconPath,
         linkIconPath,
-        textMaxWidth,
         imageWidth,
       },
       { simulate, lang },
     );
 
-    widthOfRegistration = Math.min(registration.width, textMaxWidth);
     heightOfRegistration = registration.height;
 
     localCursor.y += heightOfRegistration + base.margin / 10;

@@ -60,9 +60,6 @@ export default async function addEventItem(
   const locationIconPath = `${__dirname}/../images/location.png`;
   const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
   const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
-  const emailIconPath = `${__dirname}/../images/email.png`;
-  const phoneIconPath = `${__dirname}/../images/phone.png`;
-  const linkIconPath = `${__dirname}/../images/link.png`;
 
   const iconsArr = [];
 
@@ -124,7 +121,12 @@ export default async function addEventItem(
     doc,
     localCursor,
     flattenLabel(event.dateRange, lang),
-    { width: textMaxWidth - (iconHeightAndWidth + base.margin / 3), fontSize: 10, base, simulate },
+    {
+      width: textMaxWidth - (iconHeightAndWidth + base.margin / 3),
+      fontSize: 10,
+      base,
+      simulate,
+    },
   );
 
   widthOfDateRange = dateRange.width;
@@ -204,27 +206,24 @@ export default async function addEventItem(
   }
 
   localCursor.x = imageWidth + base.margin * 2;
+  if (event.registration.length !== 0) {
+    const registration = await addRegistration(
+      event,
+      doc,
+      localCursor,
+      {
+        base,
+        iconHeightAndWidth,
+        imageWidth,
+      },
+      { simulate, lang },
+    );
 
-  const registration = await addRegistration(
-    event,
-    doc,
-    localCursor,
-    {
-      base,
-      iconHeightAndWidth,
-      emailIconPath,
-      phoneIconPath,
-      linkIconPath,
-      textMaxWidth,
-    },
-    { simulate, lang },
-  );
+    widthOfRegistration = registration.width;
+    heightOfRegistration = registration.height;
 
-  widthOfRegistration = Math.min(textMaxWidth, registration.width);
-  heightOfRegistration = registration.height;
-
-  localCursor.y += heightOfRegistration + base.margin / 10;
-
+    localCursor.y += heightOfRegistration + base.margin / 10;
+  }
   const eventLink = addText(
     doc,
     localCursor,
