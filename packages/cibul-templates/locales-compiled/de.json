@@ -47,6 +47,12 @@
       "value": "This password is too weak 😑"
     }
   ],
+  "cibulTemplates.passwordField.usual": [
+    {
+      "type": 0,
+      "value": "Too usual 😑"
+    }
+  ],
   "cibulTemplates.passwordField.weak": [
     {
       "type": 0,

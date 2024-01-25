@@ -7,6 +7,7 @@
   "cibulTemplates.passwordField.great": "Très sécurisé 🥳",
   "cibulTemplates.passwordField.required": "Requis.",
   "cibulTemplates.passwordField.tooWeak": "Pas assez sûr 😑",
+  "cibulTemplates.passwordField.usual": "Trop commun 🤖",
   "cibulTemplates.passwordField.weak": "Peu sécurisé 😐",
   "cibulTemplates.passwordField.weakish": "Mieux, pas top 😬",
   "common.event.fields.accessibility": "",
