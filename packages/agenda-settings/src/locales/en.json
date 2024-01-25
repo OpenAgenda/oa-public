@@ -10,5 +10,6 @@
   "AgendaSettings.contribution.openContribution": "Open",
   "AgendaSettings.contribution.openContributionDesc": "Any user can add events, under your moderation",
   "AgendaSettings.contribution.reducedContribution": "Reduced",
-  "AgendaSettings.contribution.reducedContributionDesc": "Only invited users can add events"
+  "AgendaSettings.contribution.reducedContributionDesc": "Only invited users can add events",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "This information will be visible to the agenda moderators"
 }

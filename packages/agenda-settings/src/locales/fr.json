@@ -10,5 +10,6 @@
   "AgendaSettings.contribution.openContribution": "Ouverte",
   "AgendaSettings.contribution.openContributionDesc": "Tout utilisateur peut ajouter des événements, sous votre modération",
   "AgendaSettings.contribution.reducedContribution": "Réduite",
-  "AgendaSettings.contribution.reducedContributionDesc": "Seuls les invités peuvent ajouter des événements"
+  "AgendaSettings.contribution.reducedContributionDesc": "Seuls les invités peuvent ajouter des événements",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "Ces informations seront visibles des modérateurs de l'agenda. "
 }
