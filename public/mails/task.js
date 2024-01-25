@@ -66,6 +66,11 @@ async function runSendTask(config, params) {
 
     await config.transporter.sendMail(params);
 
+    log.info('Sent', {
+      to: params.to,
+      template: params.template,
+    });
+
     const timeDiff = Date.now() - now;
     const interval = config.transport.rateDelta / config.transport.rateLimit;
     const timeToWait = timeDiff > interval ? 0 : interval - timeDiff;
