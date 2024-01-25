@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addRegistration from '../lib/addRegistration.js';
-// import loadEventData from './lib/loadEventData.js';
 import eventData from './fixtures/registrationItem/events.json' assert { type: 'json' };
 
 const { PDF_TEST_FOLDER: pdfTestFolder } = process.env;
@@ -49,9 +48,9 @@ const linkIconPath = `${__dirname}/../images/link.png`;
   localCursor.x += imageWidth + base.margin * 2;
 
   for (const event of eventData) {
-    const registration = await addRegistration(
-      event,
+    const registration = addRegistration(
       doc,
+      event,
       localCursor,
       {
         base,

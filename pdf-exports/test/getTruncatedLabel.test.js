@@ -33,7 +33,7 @@ function addRectangle(doc, cursor, width, height, color) {
       underline: false,
     });
 
-    cursor.y += 50;
+    cursor.y += 20;
   }
   doc.end();
 })();

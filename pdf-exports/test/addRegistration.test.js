@@ -36,9 +36,9 @@ const {
   const eventData = (await loadEventData(agendaUid, publicKey)).events;
 
   for (const event of eventData) {
-    await addRegistration(
-      event,
+    addRegistration(
       doc,
+      event,
       cursor,
       {
         base,

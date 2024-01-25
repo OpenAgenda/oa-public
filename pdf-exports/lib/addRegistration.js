@@ -13,6 +13,23 @@ const typesWithIcons = [
   { type: 'link', iconPath: `${__dirname}/../images/link.png` },
 ];
 
+function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
+  const { lang = 'en', simulate = false } = options;
+
+  const { base } = params;
+
+  const registrationLabel = {
+    fr: 'Réservation',
+  };
+
+  return addText(doc, cursor, `${registrationLabel[lang]}:`, {
+    underline: true,
+    base,
+    medium: true,
+    simulate,
+  });
+}
+
 function getTypeAndIconPath(type) {
   const typeWithIcon = typesWithIcons.find(item => item.type === type);
   return {
@@ -21,7 +38,7 @@ function getTypeAndIconPath(type) {
   };
 }
 
-const addRegistrationItem = async (
+const addRegistrationItem = (
   doc,
   localCursor,
   label,
@@ -40,7 +57,7 @@ const addRegistrationItem = async (
 
   const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
 
-  await addIcon(doc, iconPath, localCursor, iconHeightAndWidth, { simulate });
+  addIcon(doc, iconPath, localCursor, iconHeightAndWidth, { simulate });
 
   localCursor.x += iconHeightAndWidth + base.margin / 3;
 
@@ -65,57 +82,48 @@ const addRegistrationItem = async (
   };
 };
 
-export default async function addRegistration(
-  event,
+export default function addRegistration(
   doc,
+  event,
   cursor,
   params = {},
   options = {},
 ) {
-  const { base, iconHeightAndWidth, imageWidth } = params;
-  const { simulate = false, lang } = options;
+  const { base, iconHeightAndWidth } = params;
+  const { simulate = false } = options;
+
+  const columnWidth = doc.page.width - cursor.x - base.margin;
 
   const localCursor = {
     y: cursor.y,
     x: cursor.x,
   };
 
-  let widthOfRegistrationLabel = null;
-
   const { registration = [] } = event;
 
-  const registrationLabel = {
-    fr: 'Réservation',
-  };
-
-  if (registration.length > 0) {
-    const addRegistrationLabel = addText(
-      doc,
-      localCursor,
-      `${registrationLabel[lang]}:`,
-      {
-        underline: true,
-        base,
-        medium: true,
-        simulate,
-      },
-    );
-    widthOfRegistrationLabel = addRegistrationLabel.width;
-
-    localCursor.x += widthOfRegistrationLabel + base.margin / 3;
+  if (registration.length === 0) {
+    return { width: 0, height: 0 };
   }
 
-  const columnWidth = doc.page.width - imageWidth - base.margin * 3;
-  const columnStart = imageWidth + base.margin * 2;
+  const { width: widthOfRegistrationLabel } = addRegistrationLabel(
+    doc,
+    localCursor,
+    params,
+    options,
+  );
+
+  localCursor.x += widthOfRegistrationLabel + base.margin / 3;
 
   const { height: lineHeight } = addText(doc, cursor, '.', {
     fontSize: 10,
     simulate: true,
   });
 
-  let globalHeight = lineHeight;
+  let height = lineHeight;
 
   let remainingWidth = columnWidth - widthOfRegistrationLabel - base.margin / 3;
+
+  let isMultiline = false;
 
   for (const [index, registrationItem] of registration.entries()) {
     const truncatedLabel = getTruncatedLabel(
@@ -127,7 +135,7 @@ export default async function addRegistration(
 
     const minRemainingWidth = (truncatedLabel.width + iconHeightAndWidth + (base.margin / 3) * 2) / 2;
 
-    const reg = await addRegistrationItem(
+    const reg = addRegistrationItem(
       doc,
       localCursor,
       truncatedLabel.label,
@@ -139,23 +147,27 @@ export default async function addRegistration(
       { simulate },
     );
 
-    const isLast = index === registration.length - 1;
+    if (index === registration.length - 1) {
+      break;
+    }
 
-    if (remainingWidth - reg.width - base.margin / 3 < minRemainingWidth) {
-      if (!isLast) {
-        localCursor.y += reg.height + base.margin / 16;
-        remainingWidth = columnWidth;
-        localCursor.x = columnStart;
-        globalHeight += reg.height;
-      }
+    const isReachingEndofLine = remainingWidth - reg.width - base.margin / 3 < minRemainingWidth;
+
+    if (!isReachingEndofLine) {
+      localCursor.x += truncatedLabel.width + base.margin / 3;
+      remainingWidth = remainingWidth - reg.width - base.margin / 3;
       continue;
     }
-    localCursor.x += truncatedLabel.width + base.margin / 3;
-    remainingWidth = remainingWidth - reg.width - base.margin / 3;
+
+    isMultiline = true;
+    localCursor.y += reg.height + base.margin / 16;
+    remainingWidth = columnWidth;
+    localCursor.x = cursor.x;
+    height += reg.height;
   }
 
   return {
-    width: localCursor.x,
-    height: globalHeight,
+    width: isMultiline ? columnWidth : localCursor.x - cursor.x,
+    height,
   };
 }
