@@ -1,4 +1,4 @@
-export default async function addIcon(
+export default function addIcon(
   doc,
   image,
   cursor,
