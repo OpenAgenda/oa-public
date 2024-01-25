@@ -6,13 +6,26 @@ describe('passwords', () => {
       valid,
       score,
       message,
-    } = security.passwords.evaluate('password');
+    } = security.passwords.evaluate('oui');
 
     expect(valid).toBe(false);
     expect(score).toBe(0);
     expect(message).toEqual({
       type: 'error',
       code: 'tooWeak',
+    });
+  });
+
+  test('usual password returns object with valid value set to false', () => {
+    const {
+      valid,
+      message,
+    } = security.passwords.evaluate('09876543211');
+
+    expect(valid).toBe(false);
+    expect(message).toEqual({
+      type: 'error',
+      code: 'usual',
     });
   });
 
