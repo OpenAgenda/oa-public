@@ -16,7 +16,7 @@
   "contributeToExisting": "Contribuir a un agenda existente",
   "orCreateYourAgenda": "Contribuir a un agenda existente",
   "noResult": "ningún resultado encontrado",
-  "createEvent": "crear evento",
+  "createEvent": "Crear un evento",
   "searchEvent": "Buscar un evento",
   "selectAgenda": "Seleccione el agenda en el que crear el evento",
   "privateAgenda": "Eventos privados",
@@ -30,5 +30,6 @@
   "noLocation": "Localización no especificado",
   "noEventsCreated": "No ha creado ningún evento",
   "show": "Ver",
-  "seeMore": "Ver más"
+  "seeMore": "Ver más",
+  "removeMemberInformation": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio."
 }

@@ -165,5 +165,9 @@
   "aggregator-sources.utils.stateMessages.state": "Estat",
   "aggregator-sources.utils.stateMessages.stateControlled": "Revisat",
   "aggregator-sources.utils.stateMessages.statePublished": "Publicat",
-  "aggregator-sources.utils.stateMessages.stateToControl": "De moderar"
+  "aggregator-sources.utils.stateMessages.stateToControl": "De moderar",
+  "aggregator-sources.DefineRules.textFilterNotDefined": "pas definit",
+  "aggregator-sources.DefineRules.textFilterWholeValue": "es egal a \"{value}\"",
+  "aggregator-sources.RuleForm.emailPlaceholder": "Email",
+  "aggregator-sources.RuleForm.wholeValueFilter": "La valor totala del camp es comparada al filtre"
 }

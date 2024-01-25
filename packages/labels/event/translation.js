@@ -20,7 +20,7 @@ module.exports = {
     "fr": "Langue réference",
     "en": "Source language",
     "de": "Ausgangssprache",
-    "es": "idioma de referencia",
+    "es": "Idioma original",
     "it": "Riferimenti linguistici",
     "io": "crwdns14652:0crwdne14652:0",
     "oc": "Lenga de referéncia"

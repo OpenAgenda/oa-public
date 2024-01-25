@@ -2,11 +2,11 @@
   "title": "Bienvenido!",
   "subtitle": "Presentarse antes de introducir sus eventos",
   "description": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública.",
-  "organisation": "organización",
+  "organisation": "Organización",
   "phone": "Teléfono",
   "phoneSub": "Los caracteres permitidos: cifras, espacio, -, + o ()",
   "name": "Nombre Apellido",
-  "position": "función",
+  "position": "Función",
   "email": "Dirección de correo electrónico",
   "submit": "Validar"
 }

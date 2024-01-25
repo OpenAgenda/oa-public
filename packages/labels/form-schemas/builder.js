@@ -498,7 +498,7 @@ module.exports = {
     "en": "Timings selection",
     "de": "Auswahl der Timings",
     "es": "La selección de los horarios",
-    "it": "Selezione del programma",
+    "it": "Selezione degli orari",
     "io": "crwdns14784:0crwdne14784:0"
   },
   "fileFieldType": {
@@ -547,7 +547,7 @@ module.exports = {
   "buttonSaved": {
     "fr": "Enregistré",
     "en": "Saved",
-    "es": "Guardado",
+    "es": "Guardar",
     "it": "Registrato",
     "de": "Gerettet",
     "io": "crwdns14788:0crwdne14788:0",
@@ -615,7 +615,7 @@ module.exports = {
   "requiredField": {
     "fr": "Obligatoire",
     "en": "Required",
-    "es": "Obligatorio",
+    "es": "Necesario",
     "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
@@ -650,13 +650,15 @@ module.exports = {
     "fr": "Choisissez un type de champ",
     "en": "Choose a field type",
     "de": "Wählen Sie einen Feldtyp",
-    "io": "crwdns32764:0crwdne32764:0"
+    "io": "crwdns32764:0crwdne32764:0",
+    "it": "Selezionare un tipo di campo"
   },
   "chooseOtherType": {
     "fr": "Choisir un autre type",
     "en": "Choose another type",
     "de": "Wählen Sie einen anderen Typ",
-    "io": "crwdns32766:0crwdne32766:0"
+    "io": "crwdns32766:0crwdne32766:0",
+    "it": "Seleziona un altro tipo"
   },
   "isLabelDuplicateError": {
     "fr": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
@@ -925,34 +927,39 @@ module.exports = {
     "en": "Read",
     "de": "Lesen",
     "es": "Lectura",
-    "it": "Lettura"
+    "it": "Lettura",
+    "io": "crwdns33227:0crwdne33227:0"
   },
   "writeAccess": {
     "fr": "Écriture",
     "en": "Write",
     "de": "Schreiben",
     "es": "Escritura",
-    "it": "Scrittura"
+    "it": "Scrittura",
+    "io": "crwdns33229:0crwdne33229:0"
   },
   "adminAccess": {
     "fr": "administrateur",
     "en": "adminitrator",
     "de": "administrator",
     "es": "administrador",
-    "it": "administratore"
+    "it": "administratore",
+    "io": "crwdns33231:0crwdne33231:0"
   },
   "moderatorAccess": {
     "fr": "moderateur",
     "en": "moderator",
     "de": "moderator",
     "es": "moderador",
-    "it": "moderatore"
+    "it": "moderatore",
+    "io": "crwdns33233:0crwdne33233:0"
   },
   "contributorAccess": {
     "fr": "contributeur",
     "en": "contributor",
     "de": "mitwirkender",
     "es": "contribuidor",
-    "it": "contributore"
+    "it": "contributore",
+    "io": "crwdns33235:0crwdne33235:0"
   }
 }

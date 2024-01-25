@@ -31,7 +31,7 @@ module.exports = {
     "fr": "Contributeur",
     "en": "Contributor",
     "de": "Beiträger",
-    "es": "contribuyente",
+    "es": "Contribuyente",
     "it": "Collaboratore",
     "io": "crwdns15606:0crwdne15606:0",
     "oc": "Contributor·a"
@@ -40,7 +40,7 @@ module.exports = {
     "fr": "Administrateur",
     "en": "Administrator",
     "de": "Administrator",
-    "es": "administrador",
+    "es": "Administrador",
     "it": "Amministratore",
     "io": "crwdns15608:0crwdne15608:0",
     "oc": "Administrator·a"
@@ -49,7 +49,7 @@ module.exports = {
     "fr": "Modérateur",
     "en": "Moderator",
     "de": "Moderator",
-    "es": "moderador",
+    "es": "Moderador",
     "it": "Moderatore",
     "io": "crwdns15610:0crwdne15610:0",
     "oc": "Moderator·a"
@@ -58,7 +58,7 @@ module.exports = {
     "fr": "Lecteur",
     "en": "Reader",
     "de": "Leser",
-    "es": "lector",
+    "es": "Lector",
     "it": "Lettore",
     "io": "crwdns15612:0crwdne15612:0",
     "oc": "Legeire·a"
@@ -67,7 +67,7 @@ module.exports = {
     "fr": "Contributeurs",
     "en": "Contributors",
     "de": "Mitwirkende",
-    "es": "colaboradores",
+    "es": "Colaboradores",
     "it": "Collaboratori",
     "io": "crwdns15614:0crwdne15614:0",
     "oc": "Contributor·a·s"
@@ -76,7 +76,7 @@ module.exports = {
     "fr": "Administrateurs",
     "en": "Administrators",
     "de": "Administratoren",
-    "es": "administradores",
+    "es": "Administradores",
     "it": "Amministratori",
     "io": "crwdns15616:0crwdne15616:0",
     "oc": "Administrator·a·s"
@@ -85,7 +85,7 @@ module.exports = {
     "fr": "Modérateurs",
     "en": "Moderators",
     "de": "Moderatoren",
-    "es": "moderadores",
+    "es": "Moderadores",
     "it": "Moderatori",
     "io": "crwdns15618:0crwdne15618:0",
     "oc": "Moderator·a·s"
@@ -236,7 +236,7 @@ module.exports = {
     "fr": "Rôle",
     "en": "Role",
     "de": "Rolle",
-    "es": "papel",
+    "es": "Role",
     "it": "Ruolo",
     "io": "crwdns15650:0crwdne15650:0",
     "oc": "Ròtle"
@@ -281,7 +281,7 @@ module.exports = {
     "fr": "Poste",
     "en": "Position",
     "de": "Position",
-    "es": "puesto",
+    "es": "Función",
     "it": "Ruolo",
     "io": "crwdns15660:0crwdne15660:0",
     "oc": "Foncion"
@@ -308,7 +308,7 @@ module.exports = {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario",
+    "es": "Necesario",
     "it": "Richiesto",
     "br": "Rekis",
     "io": "crwdns15666:0crwdne15666:0",
@@ -318,7 +318,7 @@ module.exports = {
     "fr": "La chaîne de caractères est trop courte",
     "en": "String is too short",
     "de": "String zu kurz",
-    "es": "La cadena es demasiado corta",
+    "es": "El texto es demasiado corto",
     "it": "La stringa è troppo corta",
     "io": "crwdns15668:0crwdne15668:0",
     "oc": "La cadena de caractèrs es tròp corteta"
@@ -557,7 +557,7 @@ module.exports = {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "cerca",
+    "es": "Cerca",
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15730:0crwdne15730:0",
@@ -669,14 +669,17 @@ module.exports = {
     "en": "Remove filter",
     "it": "Rimuovere il filtro",
     "io": "crwdns16150:0crwdne16150:0",
-    "oc": "Tirar lo filtre"
+    "oc": "Tirar lo filtre",
+    "es": "Eliminar filtro"
   },
   "subject": {
     "fr": "Sujet",
-    "en": "Subject"
+    "en": "Subject",
+    "io": "crwdns33237:0crwdne33237:0"
   },
   "sendAlsoToMe": {
     "fr": "M'envoyer ce message",
-    "en": "Send me this message"
+    "en": "Send me this message",
+    "io": "crwdns33239:0crwdne33239:0"
   }
 }

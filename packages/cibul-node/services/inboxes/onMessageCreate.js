@@ -136,6 +136,12 @@ async function sendMail(services, { inboxUser, conversation, message }) {
 module.exports = async function onMessageCreate(services, conversation, message) {
   const usersSvc = services.users;
 
+  log.info('new message', {
+    conversation: _.pick(conversation, ['id', 'type']),
+    isNewConversation: conversation.latestMessage.createdAt - conversation.createdAt < 100,
+    storeParams: conversation.store?.params,
+  });
+
   try {
     const [inboxesAgenda, inboxesUser] = _.partition(conversation.inboxes, ['type', 'user']);
 

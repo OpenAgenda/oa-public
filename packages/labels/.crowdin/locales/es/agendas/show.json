@@ -35,5 +35,6 @@
   "contact": "Contactar con",
   "officialAgenda": "Agenda oficial",
   "privateAgenda": "Eventos privados",
-  "showCalendar": "Ver el agenda"
+  "showCalendar": "Ver el agenda",
+  "statusCancelled": "Cancelado"
 }

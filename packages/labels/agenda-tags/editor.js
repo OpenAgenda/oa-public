@@ -165,7 +165,7 @@ module.exports = {
     "en": "Yes",
     "fr": "Oui",
     "de": "Ja",
-    "es": "sí",
+    "es": "Sí",
     "it": "Sì",
     "io": "crwdns12720:0crwdne12720:0",
     "oc": "Òc"
@@ -192,7 +192,7 @@ module.exports = {
     "en": "Ok",
     "fr": "Ok",
     "de": "OK",
-    "es": "bueno",
+    "es": "Ok",
     "it": "Ok",
     "io": "crwdns12726:0crwdne12726:0",
     "oc": "Ok"
@@ -211,7 +211,7 @@ module.exports = {
     "en": "Required",
     "fr": "Obligatoire",
     "de": "Erforderlich",
-    "es": "obligatorio",
+    "es": "Necesario",
     "it": "Richiesto",
     "br": "Rekis",
     "io": "crwdns12730:0crwdne12730:0",
@@ -275,7 +275,7 @@ module.exports = {
     "en": "Openly viewable",
     "fr": "Visible du public",
     "de": "offen sichtbar",
-    "es": "pública Visible",
+    "es": "Visible de todos",
     "it": "Visibile al pubblico",
     "io": "crwdns12744:0crwdne12744:0",
     "oc": "Publicament vesedor"
@@ -284,7 +284,7 @@ module.exports = {
     "en": "Viewable by agenda members only",
     "fr": "Visible uniquement des membres de l'agenda",
     "de": "nur sichtbar Agenda Mitglieder",
-    "es": "sólo los miembros visibles de la agenda",
+    "es": "Sólo los miembros de la agenda pueden verlo",
     "it": "Visibile solo ai membri dell'agenda",
     "io": "crwdns12746:0crwdne12746:0",
     "oc": "Vesedor sonque dels membres de l'agenda"

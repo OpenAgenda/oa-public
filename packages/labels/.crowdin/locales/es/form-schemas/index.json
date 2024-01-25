@@ -1,5 +1,5 @@
 {
-  "required": "campo obligatorio",
+  "required": "Campo obligatorio",
   "groupErrorHeader": "Algunas entradas deben ser corregidos",
   "submit": "Validar",
   "help": "Ayuda",

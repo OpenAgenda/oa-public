@@ -55,7 +55,8 @@ module.exports = {
     "en": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen.",
     "it": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
     "oc": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh.",
-    "io": "crwdns16476:0crwdne16476:0"
+    "io": "crwdns16476:0crwdne16476:0",
+    "es": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio."
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -202,7 +203,7 @@ module.exports = {
     "en": "Create an event",
     "de": "Neue Veranstaltung erstellen",
     "br": "Krouiñ un darvoud",
-    "es": "crear evento",
+    "es": "Crear un evento",
     "it": "Creare un evento",
     "io": "crwdns14932:0crwdne14932:0",
     "oc": "Crear un eveniment"

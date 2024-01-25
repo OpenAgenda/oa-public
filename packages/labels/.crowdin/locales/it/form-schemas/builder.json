@@ -57,7 +57,7 @@
   "registrationFieldType": "Link, telefono, e-mail",
   "locationFieldType": "Scelta della posizione",
   "accessibilityFieldType": "Scelta dell'accessibilità",
-  "timingsFieldType": "Selezione del programma",
+  "timingsFieldType": "Selezione degli orari",
   "fileFieldType": "File",
   "ageFieldType": "Selezione della fascia di età",
   "longDescriptionFieldType": "Campo di testo",
@@ -109,5 +109,7 @@
   "writeAccess": "Scrittura",
   "adminAccess": "administratore",
   "moderatorAccess": "moderatore",
-  "contributorAccess": "contributore"
+  "contributorAccess": "contributore",
+  "chooseFieldTypePlaceholder": "Selezionare un tipo di campo",
+  "chooseOtherType": "Seleziona un altro tipo"
 }

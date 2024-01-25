@@ -5,7 +5,7 @@ module.exports = {
     "en": "Official calendar",
     "fr": "Agenda officiel",
     "de": "Offizieller Kalender",
-    "es": "agenda",
+    "es": "Agenda oficial",
     "it": "Agenda ufficiale",
     "io": "crwdns12412:0crwdne12412:0",
     "oc": "Calendièr oficial"
@@ -77,7 +77,7 @@ module.exports = {
     "en": "%count% past events",
     "fr": "%count% événements passés",
     "de": "%count% vergangenen Veranstaltungen",
-    "es": "%count% sucesos pasados",
+    "es": "%count% eventos pasados",
     "it": "%count% eventi passati",
     "io": "crwdns12428:0%count%crwdne12428:0",
     "oc": "%count% eveniments passats"

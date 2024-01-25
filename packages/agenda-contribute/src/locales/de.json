@@ -17,5 +17,6 @@
   "AgendaContribute.Member.title": "Willkommen!",
   "AgendaContribute.Stepper.confirmation": "Bestätigung",
   "AgendaContribute.Stepper.event": "Meine Veranstaltung",
-  "AgendaContribute.Stepper.member": "Kontaktdaten"
+  "AgendaContribute.Stepper.member": "Kontaktdaten",
+  "AgendaContribute.EditConfirmation.end": "Schließen"
 }

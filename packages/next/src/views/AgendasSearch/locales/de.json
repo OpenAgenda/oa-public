@@ -4,7 +4,7 @@
   "next.views.AgendaSearch.pageTitle": "",
   "next.views.AgendaSearch.passedEvents": "",
   "next.views.AgendaSearch.searchResultHead": "",
-  "next.views.AgendaSearch.seeMore": "",
+  "next.views.AgendaSearch.seeMore": "Mehr sehen",
   "next.views.AgendaSearch.total": "",
-  "next.views.AgendaSearch.upcomingEvents": ""
+  "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Keine bevorstehende veranstaltung} one {1 bevorstehende veranstaltung} other {# bevorstehende veranstaltungen}}"
 }

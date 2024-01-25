@@ -1,8 +1,8 @@
 {
-  "filterList": "filtro",
+  "filterList": "Filtros",
   "title": "título",
   "locationName": "Lugar Nombre",
   "region": "Región",
-  "contributor": "contribuyente",
+  "contributor": "Contribuyente",
   "loading": "Cargando"
 }

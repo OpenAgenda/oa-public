@@ -1,5 +1,6 @@
 {
   "title": "Activatz vòstre compte OpenAgenda",
   "description": "Clicatz sul boton seguent per reïnicializar vòstre senhal :",
-  "actionDescription": "Reïnicializar lo senhal"
+  "actionDescription": "Reïnicializar lo senhal",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
 }

@@ -92,14 +92,16 @@ module.exports = {
     "fr": "Evénements liés",
     "io": "crwdns12126:0crwdne12126:0",
     "it": "Eventi associati",
-    "oc": "Eveniments associats"
+    "oc": "Eveniments associats",
+    "es": "Eventos asociados"
   },
   "agendaEventCount": {
     "en": "Associated events in agenda",
     "fr": "Evénements liés dans l'agenda",
     "io": "crwdns12128:0crwdne12128:0",
     "it": "Eventi associati nell'agenda",
-    "oc": "Eveniments associats dins l'agenda"
+    "oc": "Eveniments associats dins l'agenda",
+    "es": "Eventos asociados en la agenda"
   },
   "state": {
     "en": "Verified",
@@ -135,7 +137,7 @@ module.exports = {
     "it": "Come arrivare",
     "de": "Zugang",
     "pl": "Dostęp",
-    "es": "acceso",
+    "es": "Acceso",
     "br": "Moned",
     "oc": "Accès",
     "io": "crwdns32873:0crwdne32873:0"

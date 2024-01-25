@@ -1,5 +1,5 @@
 {
-  "actionsInProcess": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve.",
+  "actionsInProcess": "Su acción se está procesando. Los eventos con el estado %oldstate% passaran en breve a %newstate%.",
   "ownershipTransfered": "La propiedad del evento fue transferido con éxito",
   "spreadsheetTitle": "Descargar",
   "allLanguages": "todos los idiomas",

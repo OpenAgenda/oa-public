@@ -58,5 +58,8 @@
   "cancelled": "crwdns16106:0crwdne16106:0",
   "full": "crwdns16448:0crwdne16448:0",
   "postponed": "crwdns16108:0crwdne16108:0",
-  "status": "crwdns16110:0crwdne16110:0"
+  "status": "crwdns16110:0crwdne16110:0",
+  "trueBoolean": "crwdns33354:0crwdne33354:0",
+  "falseBoolean": "crwdns33356:0crwdne33356:0",
+  "nullBoolean": "crwdns33358:0crwdne33358:0"
 }

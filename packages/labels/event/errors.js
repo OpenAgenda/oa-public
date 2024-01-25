@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
     "en": "There cannot be more than 800 timings for a single event",
     "de": "Es kann nicht mehr als 800 Timings für ein einzelnes Veranstaltung sein",
-    "es": "No puede haber más de 800 segmentos de tiempo para el mismo evento",
+    "es": "No puede haber más de 800 franjas horarias para el mismo evento",
     "it": "Non possono esserci più di 800 fasce orarie per un singolo evento.",
     "io": "crwdns14144:0crwdne14144:0",
     "oc": "I pòt pas aver mai de 800 oraris per un sol eveniment"

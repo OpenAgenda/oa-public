@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Filtrer",
     "en": "Filter",
     "de": "Filtrer",
-    "es": "filtro",
+    "es": "Filtros",
     "it": "Filtro",
     "io": "crwdns11324:0crwdne11324:0",
     "oc": "Filtre"
@@ -41,7 +41,7 @@ module.exports = {
     "fr": "Contributeur",
     "en": "Contributor",
     "de": "Beiträger",
-    "es": "contribuyente",
+    "es": "Contribuyente",
     "it": "Collaboratore",
     "io": "crwdns11332:0crwdne11332:0",
     "oc": "Contributor·a"

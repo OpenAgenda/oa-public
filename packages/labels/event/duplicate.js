@@ -6,7 +6,7 @@ module.exports = {
     "en": "Create an agenda",
     "de": "Neuen Veranstaltungskalender erstellen",
     "br": "Krouiñ un deiziataer",
-    "es": "Crear un diario",
+    "es": "Crear una agenda",
     "it": "Creare un'agenda",
     "io": "crwdns14118:0crwdne14118:0",
     "oc": "Crear una agenda"
@@ -36,7 +36,7 @@ module.exports = {
     "en": "No result found",
     "de": "Keine Ergebnisse gefunden",
     "br": "N'eus bet kavet disoc'h ebet",
-    "es": "ningún resultado encontrado",
+    "es": "Ningún resultado encontrado",
     "it": "Nessun risultato trovato",
     "io": "crwdns14124:0crwdne14124:0",
     "oc": "Pas cap resultat trobat"
@@ -75,7 +75,7 @@ module.exports = {
     "fr": "Ou",
     "en": "Or",
     "de": "Oder",
-    "es": "o",
+    "es": "O",
     "it": "Oppure",
     "io": "crwdns14132:0crwdne14132:0",
     "oc": "O"
@@ -93,7 +93,7 @@ module.exports = {
     "fr": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
     "en": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.",
     "de": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Veranstaltungskalender gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden. ",
-    "es": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar.",
+    "es": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar.",
     "it": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla.",
     "io": "crwdns14136:0crwdne14136:0",
     "oc": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar."
@@ -102,7 +102,7 @@ module.exports = {
     "fr": "Créer le nouvel événement dans",
     "en": "Create the new event in",
     "de": "Erstellen Sie das neue Veranstaltung in",
-    "es": "Crear nuevo evento",
+    "es": "Crear un nuevo evento en",
     "it": "Creare il nuovo evento in",
     "io": "crwdns14138:0crwdne14138:0",
     "oc": "Crear l'eveniment novèl dins"

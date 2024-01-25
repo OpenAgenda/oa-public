@@ -191,5 +191,9 @@
   "AgendaLocations.stepper.notDuplicates": "Aquestes son pas de doblons",
   "AgendaLocations.stepper.see": "veire",
   "AgendaLocations.stepper.seeDetails": "Detalhs",
-  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc"
+  "AgendaLocations.stepper.targetChoice": "Causida de la cibla del lòc",
+  "AgendaLocations.LocationItem.history": "Istoric",
+  "AgendaLocations.LocationItem.locationHistory": "Istoric dels lòcs",
+  "AgendaLocations.RemoveModal.infoText": "Lo lòc es associat a {eventCount, plural, =0 {res} one {un eveniment} other {# eveniments}}, {agendaEventCount, plural, =0 {que cap faguèt l'objècte d'una contribucion sus l'agenda.} one {<link>que un</link> faguèt l'objècte d'una contribucion sus l'agenda.} other {<link>que #</link> faguèron l'objècte d'una contribucion sus l'agenda.}}",
+  "AgendaLocations.RemoveModal.infoTextEq": "Lo lòc es associat a {count, plural, =0 {res} one {<link>un eveniment.</link> En escafant lo lòc, los eveniments associats seràn tanben escafats.} other {<link># eveniments.</link> En escafant lo lòc, los eveniments associats seràn tanben escafats.}}"
 }
