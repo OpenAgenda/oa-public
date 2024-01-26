@@ -3,6 +3,7 @@
 const winston = require('winston');
 const DebugTransport = require('./transports/DebugTransport');
 const SentryTransport = require('./transports/SentryTransport');
+const context = require('./context');
 
 module.exports = function getTransporters(...configs) {
   const params = Object.assign(
@@ -34,6 +35,15 @@ module.exports = function getTransporters(...configs) {
         region: 'eu',
         json: true,
         withStack: true,
+        replacer(key, value) {
+          if (key === '') {
+            const store = context.getStore();
+            if (store) {
+              Object.assign(value, store);
+            }
+          }
+          return value;
+        },
       }),
     );
   }

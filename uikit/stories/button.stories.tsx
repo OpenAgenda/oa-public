@@ -76,6 +76,36 @@ export function All() {
         </Button>{' '}
         in a h1
       </Heading>
+
+      <HStack spacing="4">
+        <Button variant="ghost" colorScheme="primary" fontSize="xs">
+          Ghost button
+        </Button>
+        <Button variant="ghost" colorScheme="primary" fontSize="sm">
+          Ghost button
+        </Button>
+        <Button variant="ghost" colorScheme="primary" fontSize="md">
+          Ghost button
+        </Button>
+        <Button variant="ghost" colorScheme="primary" fontSize="lg">
+          Ghost button
+        </Button>
+      </HStack>
+
+      <HStack spacing="4">
+        <Button variant="outline" colorScheme="primary" fontSize="xs">
+          Outline button
+        </Button>
+        <Button variant="outline" colorScheme="primary" fontSize="sm">
+          Outline button
+        </Button>
+        <Button variant="outline" colorScheme="primary" fontSize="md">
+          Outline button
+        </Button>
+        <Button variant="outline" colorScheme="primary" fontSize="lg">
+          Outline button
+        </Button>
+      </HStack>
     </VStack>
   );
 }

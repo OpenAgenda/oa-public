@@ -1,13 +1,28 @@
 'use strict';
 
-const PromptInput = require('prompt-input');
-const PromptConfirm = require('prompt-confirm');
+const inquirer = require('inquirer');
 
 module.exports = {
-  term(message, options = {}) {
-    return new PromptInput(Object.assign(options, { message })).run();
+  term(message) {
+    return inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'response',
+          message,
+        },
+      ])
+      .then(answers => answers.response);
   },
-  confirm(message, options = {}) {
-    return new PromptConfirm(Object.assign(options, { message })).run();
+  confirm(message) {
+    return inquirer
+      .prompt([
+        {
+          type: 'confirm',
+          name: 'confirmation',
+          message,
+        },
+      ])
+      .then(answers => answers.confirmation);
   },
 };

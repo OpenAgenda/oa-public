@@ -1,9 +1,9 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getLocaleValue } from '@openagenda/intl';
 
 import addText from './addText.js';
 import addIcon from './addIcon.js';
-import flattenLabel from './flattenLabel.js';
 import addRegistration from './addRegistration.js';
 import thumbnail from './thumbnail.js';
 
@@ -81,7 +81,7 @@ export default async function addEventItem(
   const { height: titleHeight, width: titleWidth } = addText(
     doc,
     localCursor,
-    flattenLabel(event.title, { lang }),
+    getLocaleValue(event.title, lang),
     {
       width: columnMaxWidth,
       fontSize: 10,
@@ -97,7 +97,7 @@ export default async function addEventItem(
   const { height: descriptionHeight, width: descriptionWidth } = addText(
     doc,
     localCursor,
-    flattenLabel(event.description, { lang }),
+    getLocaleValue(event.description, lang),
     { width: columnMaxWidth, fontSize: 10, base, simulate },
   );
 
@@ -122,7 +122,7 @@ export default async function addEventItem(
   const { width: dateRangeWidth, height: dateRangeHeight } = addText(
     doc,
     localCursor,
-    flattenLabel(event.dateRange, { lang }),
+    getLocaleValue(event.dateRange, lang),
     {
       width: columnMaxWidth - (iconHeightAndWidth + base.margin / 3),
       fontSize: 10,

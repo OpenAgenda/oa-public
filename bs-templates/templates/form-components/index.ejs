@@ -1,40 +1,40 @@
-<% include ../layout/_top.ejs %>
-<% include ../agenda/_header.ejs %>
+<%- include('../layout/_top.ejs') %>
+<%- include('../agenda/_header.ejs') %>
 <div class="container">
     <div class="row top-margined oa-form">
         <section class="col-sm-6 col-sm-offset-3 margin-v-md wsq">
             <h2>Accessibility component</h2>
-            <% include _accessibility %>
+            <%- include('_accessibility') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3 margin-v-md">
             <h2>keywords component</h2>
-            <% include _keywords %>
+            <%- include('_keywords') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3 margin-v-md">
             <h2>age component</h2>
-            <% include _age %>
+            <%- include('_age') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3">
             <p>translation component</p>
-            <% include _translation %>
+            <%- include('_translation') %>
             <p>selecting source</p>
-            <% include _translation_select %>
+            <%- include('_translation_select') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3">
             <p>multi input field</p>
-            <% include _multi-input-field %>
+            <%- include('_multi-input-field') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3 disabled">
             <p>disabled multi input field</p>
-            <% include _multi-input-field %>
+            <%- include('_multi-input-field') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3">
             <p>multilingual input field</p>
-            <% include _multilingual-input-field %>
+            <%- include('_multilingual-input-field') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3">
             <p>language bar</p>
-            <% include _language-bar %>
+            <%- include('_language-bar') %>
         </section>
         <section class="col-sm-6 col-sm-offset-3">
             <p>Input with icon</p>
@@ -65,4 +65,4 @@
         </section>
     </div>
 </div>
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

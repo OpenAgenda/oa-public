@@ -1,10 +1,10 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 
 <div class="container agenda-admin">
-    <% include ../agenda-admin/_admin-header.ejs %>
+    <%- include('../agenda-admin/_admin-header.ejs') %>
 
     <div class="row wsq">
-        <% include ../agenda-admin/_admin-tabs.ejs %>
+        <%- include('../agenda-admin/_admin-tabs.ejs') %>
 
         <div class="col col-xs-9 body">
             <div class="members-admin">
@@ -147,7 +147,7 @@
                     </select>
             	</div>
 
-            
+
             	<button type="button" class="btn btn-danger">Cancel</button>
             	<button type="submit" class="btn btn-primary pull-right">Submit</button>
             </form>
@@ -155,4 +155,4 @@
     </section>
 </div>
 
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>
