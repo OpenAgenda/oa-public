@@ -90,6 +90,7 @@ export default function addRegistration(
   options = {},
 ) {
   const { base, iconHeightAndWidth } = params;
+
   const { simulate = false } = options;
 
   const columnWidth = doc.page.width - cursor.x - base.margin;

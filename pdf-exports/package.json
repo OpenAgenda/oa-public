@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
-    "@openagenda/intl": "workspace:^",
+    "@openagenda/intl": "^1.1.3",
     "axios": "^0.21.1",
     "lodash": "^4.17.21",
     "pdfkit": "^0.13.0",

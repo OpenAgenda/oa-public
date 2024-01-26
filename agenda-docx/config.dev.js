@@ -1,21 +1,17 @@
 'use strict';
 
-const os = require('os');
+const os = require('node:os');
 
 module.exports = {
   s3: {
-    region: 'eu-west-1',
-    accessKeyId: process.env.AWS_KEY,
-    secretAccessKey: process.env.AWS_SECRET,
-    bucket: process.env.AWS_BUCKET,
+    region: process.env.AWS_DEV_REGION,
+    accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+    bucket: process.env.AWS_DEV_BUCKET,
   },
-  queue: {
-    namespace: 'docx',
-    separator: ':',
-    redis: {
-      port: 6379,
-      host: 'localhost'
-    }
+  redis: {
+    port: 6379,
+    host: 'localhost',
   },
-  localTmpPath: os.tmpdir()
+  localTmpPath: os.tmpdir(),
 };
