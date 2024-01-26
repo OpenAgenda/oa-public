@@ -34,7 +34,6 @@ function goToNextLine(cursor, height, options) {
 export default async function addEventItem(
   agenda,
   event,
-  lang,
   doc,
   cursor,
   options = {},
@@ -47,6 +46,7 @@ export default async function addEventItem(
     },
     secondaryColor = '#808080',
     simulate = false,
+    lang,
   } = options;
 
   const localCursor = {
@@ -81,7 +81,7 @@ export default async function addEventItem(
   const { height: titleHeight, width: titleWidth } = addText(
     doc,
     localCursor,
-    flattenLabel(event.title, lang),
+    flattenLabel(event.title, { lang }),
     {
       width: columnMaxWidth,
       fontSize: 10,
@@ -97,7 +97,7 @@ export default async function addEventItem(
   const { height: descriptionHeight, width: descriptionWidth } = addText(
     doc,
     localCursor,
-    flattenLabel(event.description, lang),
+    flattenLabel(event.description, { lang }),
     { width: columnMaxWidth, fontSize: 10, base, simulate },
   );
 
@@ -122,7 +122,7 @@ export default async function addEventItem(
   const { width: dateRangeWidth, height: dateRangeHeight } = addText(
     doc,
     localCursor,
-    flattenLabel(event.dateRange, lang),
+    flattenLabel(event.dateRange, { lang }),
     {
       width: columnMaxWidth - (iconHeightAndWidth + base.margin / 3),
       fontSize: 10,

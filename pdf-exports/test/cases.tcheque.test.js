@@ -20,4 +20,5 @@ const pdfExports = PDFExports({});
 await eventStream.load();
 await pdfExports.GenerateExportStream(eventStream, writeStream, {
   agenda,
+  lang: 'fr',
 });
