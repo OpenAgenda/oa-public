@@ -14,7 +14,7 @@ const typesWithIcons = [
 ];
 
 function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
-  const { lang = 'en', simulate = false } = options;
+  const { lang, simulate = false } = options;
 
   const { base } = params;
 
