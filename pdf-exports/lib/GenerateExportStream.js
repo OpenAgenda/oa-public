@@ -5,15 +5,13 @@ import addEventItem from './addEventItem.js';
 import cursorYOverflowing from './cursorYOverflowing.js';
 import addFooter from './addFooter.js';
 
-const lang = 'fr';
-
 export default async function GenerateExportStream(
   config,
   eventStream,
   writeStream,
   options = {},
 ) {
-  const { agenda } = options;
+  const { agenda, lang } = options;
 
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
@@ -47,10 +45,9 @@ export default async function GenerateExportStream(
     const { height: simulatedHeight } = await addEventItem(
       agenda,
       event,
-      lang,
       doc,
       cursor,
-      { simulate: true },
+      { simulate: true, lang },
     );
 
     if (
@@ -71,9 +68,9 @@ export default async function GenerateExportStream(
     const { height: eventItemHeight } = await addEventItem(
       agenda,
       event,
-      lang,
       doc,
       cursor,
+      { lang },
     );
 
     cursor.y += eventItemHeight;
