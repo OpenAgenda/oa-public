@@ -50,13 +50,16 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
   }
 
   if (await unsubscriptionsSvc.registry.isRegistered(email)) {
-    // no account is associated with email but it is registered in the unsubscription registry
+    log.info('  no account is associated with email but it is registered in the unsubscription registry. Filtering.', { email });
     return false;
   }
 
-  if (config.mailgun && isMailgunBounced(config.mailgun, email)) {
+  if (config.mailgun && await isMailgunBounced(config.mailgun, email)) {
+    log.info('  mailgun bounced email. Filtering.', { email });
     return false;
   }
+
+  log('not filtering, send can proceed', JSON.stringify(params.template, null, 2));
 
   return true;
 }
