@@ -42,6 +42,10 @@ const messages = defineMessages({
   great: {
     id: 'cibulTemplates.passwordField.great',
     defaultMessage: 'Great 🥳',
+  },
+  usual: {
+    id: 'cibulTemplates.passwordField.usual',
+    defaultMessage: 'Too usual 🤖',
   }
 });
 

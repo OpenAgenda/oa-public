@@ -47,6 +47,12 @@
       "value": "Pas assez sûr 😑"
     }
   ],
+  "cibulTemplates.passwordField.usual": [
+    {
+      "type": 0,
+      "value": "Trop commun 🤖"
+    }
+  ],
   "cibulTemplates.passwordField.weak": [
     {
       "type": 0,

@@ -2,12 +2,19 @@ import _ from 'lodash';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { MarkdownInput } from '../../utils/inputs';
 import * as agendaActions from '../../reducers/agenda';
 import catchFormErrors from '../../utils/catchFormErrors';
+
+const messages = defineMessages({
+  GDPRInformationPlaceholder: {
+    id: "AgendaSettings.contribution.GDPRInformationPlaceholder",
+    defaultMessage: "This information will be visible to the agenda moderators"
+  }
+})
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':slug', agenda.slug);
 
@@ -52,6 +59,7 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication, hasGDPRInf
 
 export default function ContributionEdition() {
   const { agenda } = useLayoutData();
+  const intl = useIntl();
   const { getLabel, lang } = useContext(I18nContext);
   const dispatch = useDispatch();
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
@@ -263,6 +271,7 @@ export default function ContributionEdition() {
                           component={MarkdownInput}
                           lang={lang}
                           parse={_.identity}
+                          placeholder={intl.formatMessage(messages.GDPRInformationPlaceholder)}
                         />
                       </div>
                     ) : null}

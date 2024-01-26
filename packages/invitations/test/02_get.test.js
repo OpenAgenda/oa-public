@@ -1,6 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
 const service = require( './service' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
@@ -26,64 +25,61 @@ const invitationSample = {
   }
 };
 
-describe( 'invitations - functional (server): get an invitation', function () {
+describe( 'invitations - functional (server): get an invitation', () => {
 
-  this.timeout( 20000 );
-
-  before( 'init and load', done => {
+  beforeAll(done => {
 
     service.initAndLoad( config, done );
 
-  } );
+  });
 
-  it( 'get with email', done => {
+  it('get with email', done => {
 
     service.get( { email: 'kevin.bertho@gmail.com' } )
       .then( ( { invitation } ) => {
 
-        invitation._data.should.eql( invitationSample );
-        should( invitation.id ).eql( invitationSample.id );
-        should( invitation.email ).eql( invitationSample.email );
-        should( invitation.token ).eql( invitationSample.token );
-        should( invitation.data ).eql( invitationSample.store );
+        expect(invitation._data).toStrictEqual(invitationSample);
+        expect(invitation.id).toBe(invitationSample.id);
+        expect(invitation.email).toBe(invitationSample.email);
+        expect(invitation.token).toBe(invitationSample.token); 
+        expect(invitation.data).toStrictEqual(invitationSample.store);
 
         done();
 
       } )
       .catch( done );
 
-  } );
+  });
 
-  it( 'get with token', done => {
+  it('get with token', done => {
 
     service.get( { token: '066LREi0S3hUA2Uh273a6b147C15rMV2' } )
       .then( ( { invitation } ) => {
 
-        invitation._data.should.eql( invitationSample );
-        should( invitation.id ).eql( invitationSample.id );
-        should( invitation.email ).eql( invitationSample.email );
-        should( invitation.token ).eql( invitationSample.token );
-        should( invitation.data ).eql( invitationSample.store );
+        expect(invitation._data).toStrictEqual(invitationSample);
+        expect(invitation.id).toBe(invitationSample.id);
+        expect(invitation.email).toBe(invitationSample.email);
+        expect(invitation.token).toBe(invitationSample.token);
+        expect(invitation.data).toStrictEqual(invitationSample.store);
 
         done();
 
       } )
       .catch( done );
 
-  } );
+  });
 
-  it( 'get with bad token return null', done => {
+  it('get with bad token return null', done => {
 
     service.get( { token: '066LREi0S3hUA2Uh273a6b147C1mabite' } )
       .then( ( { invitation } ) => {
 
-        should( invitation ).equal( null );
-
+        expect(invitation).toBeNull();
         done();
 
       } )
       .catch( done );
 
-  } );
+  });
 
 } );
