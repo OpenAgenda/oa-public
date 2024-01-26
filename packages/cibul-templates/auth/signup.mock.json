@@ -26,6 +26,9 @@
       "facebookUid" : "something went wrong",
       "twitterUid" : "something went wrong",
       "googleUid" : "something went wrong"
+    },
+    "scriptParams": {
+      "lang": "fr"
     }
   },
   "noinvite" : {

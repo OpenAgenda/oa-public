@@ -26,11 +26,12 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
 
   const removeFromDuplicates = toBeMerged.map(l => l.uid);
 
-  log('updating merged location'); // if data
+  log('updating merged location');
+  const newDuplicateCandidates = (mergeInItem.duplicateCandidates ?? []).filter(el => !removeFromDuplicates.includes(el));
   const updatedMerged = await update(
     { service: internals, isPatch: true },
     mergeInItem.uid,
-    { ...data || {}, duplicateCandidates: (mergeInItem.duplicateCandidates ?? []).filter(el => !removeFromDuplicates.includes(el)) },
+    { ...data || {}, duplicateCandidates: newDuplicateCandidates.length ? newDuplicateCandidates : null },
     { ...options },
   );
 

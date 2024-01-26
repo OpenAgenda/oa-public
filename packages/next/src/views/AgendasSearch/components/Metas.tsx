@@ -18,7 +18,7 @@ function usePageTitle({ networkTitle, locationSetTitle }) {
   return intl.formatMessage(messages.pageTitle);
 }
 
-export default function Metas({ networkTitle = null, locationSetTitle = null }) {
+export default function Metas({ networkTitle = null, locationSetTitle = null, preload }) {
   const intl = useIntl();
   const query = useLocationQuery();
   const router = useRouter();
@@ -44,6 +44,10 @@ export default function Metas({ networkTitle = null, locationSetTitle = null }) 
         />
       )))}
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+
+      {preload?.map(href => (
+        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      ))}
     </Head>
   );
 }

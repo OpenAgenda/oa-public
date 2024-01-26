@@ -45,7 +45,7 @@ module.exports = {
     "it": "Condividere",
     "de": "Teilen",
     "pl": "Udostępnij",
-    "es": "Compartir, repartir",
+    "es": "Otros",
     "br": "Skignañ",
     "io": "crwdns14430:0crwdne14430:0"
   },
@@ -63,7 +63,8 @@ module.exports = {
     "en": "Share on OpenAgenda",
     "fr": "Partager sur OpenAgenda",
     "io": "crwdns14434:0crwdne14434:0",
-    "it": "Condividere su un altro OpenAgenda"
+    "it": "Condividere su un altro OpenAgenda",
+    "es": "Compartir su OpenAgenda"
   },
   "back": {
     "en": "Back",
@@ -71,7 +72,7 @@ module.exports = {
     "it": "Indietro",
     "de": "Zurück",
     "pl": "Wstecz",
-    "es": "regreso",
+    "es": "Regreso",
     "br": "Distreiñ",
     "io": "crwdns14436:0crwdne14436:0",
     "oc": "Tornar"
@@ -124,7 +125,7 @@ module.exports = {
     "it": "Privato",
     "de": "Privat",
     "pl": "Prywatne",
-    "es": "privado",
+    "es": "Privado",
     "br": "Prevez",
     "io": "crwdns14446:0crwdne14446:0",
     "oc": "Privat"
@@ -162,7 +163,8 @@ module.exports = {
     "fr": "Retirer de l'agenda",
     "io": "crwdns14454:0crwdne14454:0",
     "it": "Rimuovere dall'agenda",
-    "oc": "Tirat de l'agenda"
+    "oc": "Tirat de l'agenda",
+    "es": "Eliminar de la agenda"
   },
   "removeInfo": {
     "fr": "L'événement ne sera plus référencé sur l'agenda",
@@ -175,7 +177,7 @@ module.exports = {
     "it": "Su",
     "de": "über",
     "pl": "Dowiedz się więcej",
-    "es": "A proposito",
+    "es": "A propósito",
     "br": "Diwar-benn",
     "io": "crwdns14458:0crwdne14458:0",
     "oc": "A prepaus"
@@ -197,7 +199,7 @@ module.exports = {
     "it": "Modalità d'utilizzo",
     "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
-    "es": "condiciones de uso",
+    "es": "Condiciones de uso",
     "br": "Penndivizoù implij",
     "io": "crwdns14462:0crwdne14462:0",
     "oc": "Condicions d'utilizacion"
@@ -318,7 +320,7 @@ module.exports = {
   "uncancelEvent": {
     "en": "Uncancel event",
     "fr": "L'événement n'est plus annulé",
-    "es": "El evento no está Cancelado",
+    "es": "El evento no está cancelado",
     "io": "crwdns14488:0crwdne14488:0"
   },
   "cancelInfo": {
@@ -365,7 +367,7 @@ module.exports = {
     "it": "Pubblicato",
     "de": "veröffentlicht",
     "pl": "Opublikowano",
-    "es": "publicado",
+    "es": "Publicado",
     "br": "Embannet",
     "io": "crwdns14500:0crwdne14500:0",
     "oc": "Publicat"
@@ -386,7 +388,7 @@ module.exports = {
     "it": "L'evento è stato pubblicato e reso visibile sull'Agenda",
     "de": "Die Veranstaltung ist veröffentlicht und über den Kalender zugänglich.",
     "pl": "Wydarzenie zostało opublikowane i jest dostępne w kalendarzu",
-    "es": "El evento se publica y accesible en la agenda.",
+    "es": "El evento se publica y accesible en la agenda",
     "br": "Embannet eo an darvoud ha diskwelet en deiziataer.",
     "io": "crwdns14504:0crwdne14504:0"
   },
@@ -406,7 +408,7 @@ module.exports = {
     "it": "Rifiutato",
     "de": "abgelehnt",
     "pl": "Odrzucono",
-    "es": "rechazado",
+    "es": "Rechazado",
     "br": "Nac'het",
     "io": "crwdns14508:0crwdne14508:0",
     "oc": "Refusat"
@@ -437,7 +439,7 @@ module.exports = {
     "it": "Da verificare",
     "de": "muss bestätigt werden",
     "pl": "W trakcie weryfikacji",
-    "es": "con moderación",
+    "es": "A controlar",
     "br": "Da habaskaat",
     "io": "crwdns14514:0crwdne14514:0"
   },
@@ -477,7 +479,7 @@ module.exports = {
     "it": "Questo evento è stato verificato ed è pronto per essere pubblicato",
     "de": "Diese Veranstaltung ist überprüft worden und kann veröffentlicht werden.",
     "pl": "To wydarzenie zostało zweryfikowane. Jest gotowe do publikacji",
-    "es": "El evento fue moderado y se fija para ser publicado.",
+    "es": "El evento fue moderado y se fija para ser publicado",
     "br": "Gwiriet eo bet an darvoud-mañ ha prest eo da vezañ embannet.",
     "io": "crwdns14522:0crwdne14522:0"
   },
@@ -487,7 +489,7 @@ module.exports = {
     "it": "Non pubblicato",
     "de": "nicht veröffentlicht",
     "pl": "Nie opublikowano",
-    "es": "inédito",
+    "es": "Inédito",
     "br": "N'eo ket embannet",
     "io": "crwdns14524:0crwdne14524:0",
     "oc": "Pas publicat"
@@ -498,7 +500,7 @@ module.exports = {
     "it": "Indietro",
     "de": "Zurück zum Dashbord",
     "pl": "Powrót do zarządzania wydarzeniami",
-    "es": "Volver a la gestión de eventos",
+    "es": "Volver a la gestión",
     "br": "Distreiñ d'ar merañ darvoudoù",
     "io": "crwdns14526:0crwdne14526:0"
   },
@@ -518,7 +520,7 @@ module.exports = {
     "it": "Seleziona",
     "de": "zur Auswahl hinzufügen",
     "pl": "Dodaj do opisanych",
-    "es": "desarrollar una",
+    "es": "Destacar",
     "br": "Lakaat e-mesk ar c'heleier pennañ",
     "io": "crwdns14530:0crwdne14530:0"
   },
@@ -528,7 +530,7 @@ module.exports = {
     "it": "Cancella da selezionato",
     "de": "aus der Auswahl entfernen",
     "pl": "Usuń z opisanych",
-    "es": "Eliminar de una",
+    "es": "Eliminar de los eventos destacados",
     "br": "Lemel eus ar c'heleier pennañ",
     "io": "crwdns14532:0crwdne14532:0"
   },
@@ -538,7 +540,7 @@ module.exports = {
     "it": "Selezionato",
     "de": "ausgewählt",
     "pl": "Opisane",
-    "es": "Poner en una",
+    "es": "Destacado",
     "br": "E-mesk ar c'heleier pennañ",
     "io": "crwdns14534:0crwdne14534:0",
     "oc": "Meses en avant"
@@ -564,7 +566,7 @@ module.exports = {
     "it": "Duplicare",
     "de": "Veranstaltung dublizieren",
     "pl": "Powielić",
-    "es": "duplicar",
+    "es": "Duplicar",
     "br": "Eilañ",
     "io": "crwdns14540:0crwdne14540:0"
   },
@@ -680,7 +682,7 @@ module.exports = {
     "it": "Come arrivare",
     "de": "Zugang",
     "pl": "Dostęp",
-    "es": "acceso",
+    "es": "Acceso",
     "br": "Moned",
     "io": "crwdns14564:0crwdne14564:0",
     "oc": "Accès"
@@ -712,9 +714,10 @@ module.exports = {
     "it": "Categorie",
     "de": "Kategorie",
     "pl": "Kategorie",
-    "es": "categoría",
+    "es": "Categoría",
     "br": "Rummad",
-    "io": "crwdns14570:0crwdne14570:0"
+    "io": "crwdns14570:0crwdne14570:0",
+    "oc": "Categoria"
   },
   "contact": {
     "en": "Contact",
@@ -722,7 +725,7 @@ module.exports = {
     "it": "Contattare",
     "de": "kontaktieren",
     "pl": "Skontaktuj",
-    "es": "Contactar con",
+    "es": "Contactar",
     "br": "Mont e darempred",
     "io": "crwdns14572:0crwdne14572:0",
     "oc": "Contactar"
@@ -733,7 +736,7 @@ module.exports = {
     "it": "Contattare gli amministratori",
     "de": "die Administratoren kontaktieren",
     "pl": "Skontaktuj się z administratorem",
-    "es": "administradores de contacto",
+    "es": "Contactar los administradores",
     "br": "Mont e darempred gant ar verourien",
     "io": "crwdns14574:0crwdne14574:0"
   },
@@ -743,7 +746,7 @@ module.exports = {
     "it": "Fare una demanda di modifica del luogo. ",
     "de": "eine Änderung der Standortinformationen beantragen",
     "pl": "Zaproponuj zmianę miejsca",
-    "es": "Hacer un lugar de solicitud de cambio",
+    "es": "Solicitar una modificación del lugar",
     "br": "Goulenn cheñch al lec'h",
     "io": "crwdns14576:0crwdne14576:0"
   },
@@ -753,7 +756,7 @@ module.exports = {
     "it": "Demanda di modifica  del  luogo: %name%",
     "de": "Änderung der Standortinformationen: %name%",
     "pl": "Zaproponuj zmianę miejsca: %name%",
-    "es": "la solicitud de cambio de sede: %name%",
+    "es": "Solicitud de modificación del lugar: %name%",
     "br": "Goulenn da cheñch al lec'h : %name%",
     "io": "crwdns14578:0%name%crwdne14578:0"
   },
@@ -763,7 +766,7 @@ module.exports = {
     "it": "Buongiorno, Lei potrebbe apportare le modifiche seguenti al luogo chiamato '%name%'? Riferimento: %uid% - (dettaglia qui le modifiche)",
     "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
     "pl": "Witaj! Czy mógłbyś nanieść zmiany miejsca określonego mianem '%name%' ? odniesienie: %uid% - (sprecyzuj zmiany tutaj)",
-    "es": "Hola, ¿podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)",
+    "es": "¿Hola, podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)",
     "br": "Demat deoc'h, ha gallout a rafec'h ober ar cheñchamantoù-mañ el lec'h anvet '%name%' ? Dave : %uid% - (Skrivit ar cheñchamantoù amañ )",
     "io": "crwdns14580:0%name%crwdnd14580:0%uid%crwdne14580:0"
   },
@@ -783,7 +786,7 @@ module.exports = {
     "it": "Stato",
     "de": "Zustand",
     "pl": "Stan",
-    "es": "Estatus",
+    "es": "Estados",
     "br": "Statud",
     "io": "crwdns14584:0crwdne14584:0",
     "oc": "Estat"
@@ -819,14 +822,15 @@ module.exports = {
     "it": "Attività",
     "de": "Aktivitäten",
     "pl": "Działanie",
-    "es": "actividad",
+    "es": "Actividades",
     "br": "Obererezh",
     "io": "crwdns14590:0crwdne14590:0"
   },
   "history": {
     "en": "History",
     "fr": "Historique",
-    "io": "crwdns32758:0crwdne32758:0"
+    "io": "crwdns32758:0crwdne32758:0",
+    "es": "Historia"
   },
   "inbox": {
     "en": "Inbox",
@@ -834,7 +838,7 @@ module.exports = {
     "it": "Messaggi",
     "de": "Posteingang",
     "pl": "Skrzynka z informacjami",
-    "es": "mensajería",
+    "es": "Mensajería",
     "br": "Postelerezh",
     "io": "crwdns14592:0crwdne14592:0",
     "oc": "Messatjariá"
@@ -845,7 +849,7 @@ module.exports = {
     "it": "Modulo di contatto",
     "de": "Kontaktformular",
     "pl": "Formularz kontaktu",
-    "es": "formulario de contacto",
+    "es": "Formulario de contacto",
     "br": "Furmskrid darempred",
     "io": "crwdns14594:0crwdne14594:0"
   },
@@ -855,7 +859,7 @@ module.exports = {
     "it": "Contattare gli amministratori",
     "de": "die Veranstaltungskalender- Administratoren kontaktieren",
     "pl": "Skontaktuj się z administratorem",
-    "es": "administradores de contacto",
+    "es": "Contactar los administradores",
     "br": "Mont e darempred gant merourien an deiziataer",
     "io": "crwdns14596:0crwdne14596:0"
   },
@@ -882,7 +886,8 @@ module.exports = {
   "statusScheduled": {
     "en": "Scheduled",
     "fr": "Programmé",
-    "io": "crwdns16112:0crwdne16112:0"
+    "io": "crwdns16112:0crwdne16112:0",
+    "es": "Programado"
   },
   "markAsScheduled": {
     "en": "Clear the status of the event",
@@ -909,7 +914,8 @@ module.exports = {
   "statusRescheduledInfo": {
     "en": "The timings and dates of the event have been modified",
     "fr": "Les dates et/ou horaires de l'événement ont été modifiées",
-    "io": "crwdns16122:0crwdne16122:0"
+    "io": "crwdns16122:0crwdne16122:0",
+    "it": "Gli orari sono stati modificati"
   },
   "statusMovedOnline": {
     "en": "Moved online",
@@ -953,7 +959,8 @@ module.exports = {
     "en": "Canceled",
     "fr": "Annulé",
     "it": "Cancellato",
-    "io": "crwdns16136:0crwdne16136:0"
+    "io": "crwdns16136:0crwdne16136:0",
+    "es": "Cancelado"
   },
   "markAsCancelled": {
     "en": "The event is cancelled",
@@ -988,10 +995,13 @@ module.exports = {
   },
   "seeHistory": {
     "en": "See history",
-    "fr": "Voir l'historique"
+    "fr": "Voir l'historique",
+    "io": "crwdns33253:0crwdne33253:0"
   },
   "locationHistory": {
     "en": "Location history",
-    "fr": "Historique du lieu"
+    "fr": "Historique du lieu",
+    "oc": "Istoric dels lòcs",
+    "io": "crwdns33255:0crwdne33255:0"
   }
 }

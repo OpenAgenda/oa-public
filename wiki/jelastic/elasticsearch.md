@@ -119,12 +119,12 @@ La génération d'une autorité de certification n'est pas détaillée dans ce g
 
 Définir un volume local au niveau du répartiteur de charge pour un dossier qui contiendra le certificat "autorité": `/etc/nginx/certs`
 
-Y placer le certificat de l'autorité: `/etc/nginx/certs/auth.pem`.
+Y placer le certificat de l'autorité: `/etc/nginx/conf.d/certs/auth.pem`.
 
 Editer le fichier `/etc/nginx/conf.d/ssl.conf` et y placer la configuration qui activera la vérification client et la référence au certificat de l'autorité à utiliser:
 
     ssl_verify_client on;
-    ssl_client_certificate /etc/nginx/certs/auth.pem;
+    ssl_client_certificate /etc/nginx/conf.d/certs/auth.pem;
 
 Redémarrer le répartiteur, une connection en https nécessitera désormais un certificat client. Si celui-ci est installé sur un navigateur, la connexion demandera une confirmation de selection du certificat client avant d'accéder au cluster en https.
 

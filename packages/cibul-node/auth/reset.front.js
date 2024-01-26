@@ -195,7 +195,7 @@ async function _createAndSend( services, values ) {
   } );
 
   if ( token ) {
-    await tokensSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user } } );
+    await tokensSvc.config.interfaces.sendToken( config, services )( { result: token, params: { user: values.user } } );
   } else {
     token = await tokensSvc.create(
       {

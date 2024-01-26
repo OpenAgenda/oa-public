@@ -1,9 +1,13 @@
 'use strict';
 
-const mails = require('../../mails');
-const config = require('../../../config');
-
 module.exports = service => (req, res, next) => {
+  const {
+    mails,
+    core,
+  } = req.app.services;
+
+  const config = core.getConfig();
+
   if (res.data) {
     service.get(res.data.uid, { internal: true })
       .then(user => {
@@ -20,13 +24,12 @@ module.exports = service => (req, res, next) => {
           template: 'changeEmail',
           to: email,
           data: {
-            link
+            link,
           },
-          lang: req.lang
+          lang: req.lang,
         });
 
         next();
-
       })
       .catch(next);
   }

@@ -1,3 +1,7 @@
 {
-  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
+  "title": "Tu cuenta de OpenAgenda está inactiva y será eliminada en menos de 48 horas",
+  "content": "Tu cuenta de OpenAgenda lleva inactiva más de 3 años y será eliminada irreversiblemente si no tomas ninguna medida.\n\nPara evitarlo, conéctate haciendo clic en el botón de abajo.",
+  "subject": "Eliminación de su cuenta OpenAgenda",
+  "connect": "Conectarse a OpenAgenda"
 }

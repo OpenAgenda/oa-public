@@ -57,6 +57,9 @@
       "country": {
         "type": "keyword"
       },
+      "extId": {
+        "type": "keyword"
+      },
       "_agg": {
         "type": "keyword"
       }

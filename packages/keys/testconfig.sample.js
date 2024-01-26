@@ -18,6 +18,7 @@ module.exports = {
     key: 'key'
   },
   redis: {
+    prefix: 'keys',
     connection: {
       socket: {
         host: 'localhost',

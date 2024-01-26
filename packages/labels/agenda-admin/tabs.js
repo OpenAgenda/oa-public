@@ -42,7 +42,8 @@ module.exports = {
     "en": "History",
     "fr": "Historique",
     "io": "crwdns32762:0crwdne32762:0",
-    "oc": "Istoric"
+    "oc": "Istoric",
+    "es": "Historia"
   },
   "newTab": {
     "en": "New !",
@@ -93,7 +94,7 @@ module.exports = {
     "en": "Sources",
     "fr": "Sources",
     "de": "Quellen",
-    "es": "fuentes",
+    "es": "Fuentes",
     "it": "Fonti",
     "io": "crwdns11418:0crwdne11418:0",
     "oc": "Sorsas"

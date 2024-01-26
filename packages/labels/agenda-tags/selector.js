@@ -14,7 +14,7 @@ module.exports = {
     "en": "Tag Group",
     "fr": "Groupe de tags",
     "de": "Tag Group",
-    "es": "etiquetas de grupo",
+    "es": "Lista de etiquetas",
     "it": "Gruppo di tag",
     "io": "crwdns12752:0crwdne12752:0",
     "oc": "Grop de mots-claus"
@@ -50,7 +50,7 @@ module.exports = {
     "fr": "Aucun choix",
     "en": "None of the above",
     "de": "Nichts des oben Genannten",
-    "es": "otra opción",
+    "es": "Ninguna de las anteriores",
     "it": "Nessuna scelta",
     "io": "crwdns12760:0crwdne12760:0",
     "oc": "Pas res"

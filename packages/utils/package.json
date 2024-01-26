@@ -17,6 +17,6 @@
     "xhr": "^2.2.2"
   },
   "devDependencies": {
-    "jest": "^28.1.2"
+    "jest": "^29.7.0"
   }
 }

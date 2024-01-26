@@ -70,15 +70,13 @@ export default class Conversations {
 
     await this._loadInbox();
 
-    const {
-      query, offset, limit, options
-    } = parseListArguments(...args);
+    const { query, offset, limit, options } = parseListArguments(...args);
 
     const params = _.assign(
       {
         total: false,
       },
-      options
+      options,
     );
 
     validate(ajv, listSchema, query);
@@ -88,7 +86,7 @@ export default class Conversations {
       .column(
         mapper
           .listFields(conversationFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.conversation}.${v}`)
+          .map(v => `${schemas.conversation}.${v}`),
       )
       .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
@@ -99,9 +97,9 @@ export default class Conversations {
             'db',
             options,
             true,
-            'creatorInboxUser.'
+            'creatorInboxUser.',
           )
-          .map(v => `creatorInboxUser.${v}`)
+          .map(v => `creatorInboxUser.${v}`),
       )
       .column(
         mapper
@@ -111,47 +109,48 @@ export default class Conversations {
             'db',
             options,
             true,
-            'creatorInbox.'
+            'creatorInbox.',
           )
-          .map(v => `creatorInbox.${v}`)
+          .map(v => `creatorInbox.${v}`),
       )
       .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.inboxConversation}.conversation_id`,
-        `${schemas.conversation}.id`
+        `${schemas.conversation}.id`,
       )
       .leftJoin(
         schemas.inbox,
         `${schemas.inbox}.id`,
-        `${schemas.inboxConversation}.inbox_id`
+        `${schemas.inboxConversation}.inbox_id`,
       )
       .leftJoin(
         schemas.message,
         `${schemas.message}.conversation_id`,
-        `${schemas.conversation}.id`
+        `${schemas.conversation}.id`,
       )
       .leftJoin(
         `${schemas.inboxUser} as creatorInboxUser`,
         'creatorInboxUser.id',
-        `${schemas.conversation}.creator_inbox_user_id`
+        `${schemas.conversation}.creator_inbox_user_id`,
       )
       .leftJoin(
         `${schemas.inbox} as creatorInbox`,
         'creatorInbox.id',
-        'creatorInboxUser.inbox_id'
+        'creatorInboxUser.inbox_id',
       )
       .where(
         _.mapKeys(
           mapper.toDb(conversationFieldsMap, 'select', query, options),
-          (v, key) => `${schemas.conversation}.${key}`
-        )
+          (v, key) => `${schemas.conversation}.${key}`,
+        ),
       )
+      .havingNotNull('latestMessageId')
       .groupBy(`${schemas.conversation}.id`, `${schemas.inbox}.id`)
       .orderByRaw('(closedAt IS NOT NULL)')
       .orderByRaw('latestMessageId DESC')
       .orderByRaw(
-        `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`
+        `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`,
       );
 
     if (this.userUid) {
@@ -165,23 +164,24 @@ export default class Conversations {
               'db',
               options,
               true,
-              'inboxUser.'
+              'inboxUser.',
             )
-            .map(v => `${schemas.inboxUser}.${v}`)
+            .map(v => `${schemas.inboxUser}.${v}`),
         )
-        .leftJoin(schemas.inboxUser, join => join
-          .on(
-            `${schemas.inboxUser}.inbox_id`,
-            `${schemas.inboxConversation}.inbox_id`
-          )
-          .onNull(`${schemas.inboxUser}.left_at`))
+        .leftJoin(schemas.inboxUser, join =>
+          join
+            .on(
+              `${schemas.inboxUser}.inbox_id`,
+              `${schemas.inboxConversation}.inbox_id`,
+            )
+            .onNull(`${schemas.inboxUser}.left_at`))
         .where(`${schemas.inboxUser}.user_uid`, this.userUid)
         .groupBy(`${schemas.inboxUser}.id`);
     } else {
       // viewed by inbox endpoint
       request.where(
         `${schemas.inboxConversation}.inbox_id`,
-        this.inbox.data.id
+        this.inbox.data.id,
       );
     }
 
@@ -205,11 +205,13 @@ export default class Conversations {
     let result = await request
       .offset(offset)
       .limit(limit)
-      .then(rows => rows.map(row => _.reduce(
-        { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
-        (accu, value, key) => _.set(accu, key, value),
-        {}
-      )));
+      .then(rows =>
+        rows.map(row =>
+          _.reduce(
+            { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
+            (accu, value, key) => _.set(accu, key, value),
+            {},
+          )));
 
     result = await populateDetails(this.svc, result, this.inbox);
 

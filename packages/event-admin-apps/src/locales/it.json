@@ -52,7 +52,7 @@
   "EventAdminApp.EventItem.showLocation": "Vedere il luogo",
   "EventAdminApp.EventItem.showOnlineLocation": "Accedere all'evento online",
   "EventAdminApp.FiltersPortal.filters": "Filtri",
-  "EventAdminApp.messages.attendanceModes.mixed": "Misto",
+  "EventAdminApp.messages.attendanceModes.mixed": "Mista",
   "EventAdminApp.messages.attendanceModes.offline": "In presenza",
   "EventAdminApp.messages.attendanceModes.online": "Online",
   "EventAdminApp.messages.exports.export": "Esportare",
@@ -62,5 +62,7 @@
   "EventAdminApp.messages.status.full": "Completo",
   "EventAdminApp.messages.status.movedOnline": "Oramai online",
   "EventAdminApp.messages.status.postponed": "Riprogrammato",
-  "EventAdminApp.messages.status.rescheduled": "Riprogrammato"
+  "EventAdminApp.messages.status.rescheduled": "Riprogrammato",
+  "EventAdminApp.PassImage.edit": "Modificare",
+  "EventAdminApp.PassImage.see": "Vedere"
 }

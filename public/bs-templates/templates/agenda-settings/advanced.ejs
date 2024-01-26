@@ -1,9 +1,9 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 <div class="container agenda-admin">
-  <% include ../agenda-admin/_admin-header.ejs %>
+  <%- include('../agenda-admin/_admin-header.ejs') %>
 
   <div class="row wsq">
-    <% include ../agenda-admin/_admin-tabs.ejs %>
+    <%- include('../agenda-admin/_admin-tabs.ejs') %>
 
     <div class="col col-sm-9 body">
       <h2 class="margin-bottom-lg">Avancé</h2>
@@ -42,9 +42,9 @@
                   </div>
                   <div class="form-group">
                     <label>Email de réception</label>
-                    <input 
+                    <input
                       class="form-control"
-                      type="email" 
+                      type="email"
                       placeholder="votre@email.com">
                     <span>Un lien "mailto" pointant sur cet email sera présent sur les pages de l'agenda</span>
                   </div>

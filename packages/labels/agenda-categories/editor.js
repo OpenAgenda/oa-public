@@ -14,7 +14,7 @@ module.exports = {
     "en": "this category already exists",
     "fr": "cette catégorie est déjà existante",
     "de": "Diese Kategorie ist bereits vorhanden",
-    "es": "Esta categoría ya existe",
+    "es": "esta categoría ya existe",
     "it": "questa categoria esiste già",
     "io": "crwdns11446:0crwdne11446:0",
     "oc": "aquesta categoria existís ja"

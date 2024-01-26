@@ -6,14 +6,17 @@ const locales = require('@openagenda/activity-apps/dist/locales-compiled');
 const formatters = require('@openagenda/activity-apps/dist/notifications');
 const { createIntlByLocale } = require('@openagenda/intl');
 const log = require('@openagenda/logs')('services/activities/sendSummary');
-const mails = require('../mails');
 
 require('moment/locale/fr');
 
 const intlByLocale = createIntlByLocale(locales);
 
-module.exports = async function sendSummary(config, { user, notifications }, svcConfig) {
+module.exports = async function sendSummary(config, services, { user, notifications }, svcConfig) {
   if (!notifications.length) return;
+
+  const {
+    mails,
+  } = services;
 
   const activitiesConfig = svcConfig.activities;
 

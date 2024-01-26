@@ -50,5 +50,6 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "Avètz los dreits d'edicion sus l'eveniment. Cada modificacion que siá sus l'eveniment serà vesedoira pertot ont es publicat.",
   "AgendaContribute.Stepper.confirmation": "Confirmacion",
   "AgendaContribute.Stepper.event": "Mon eveniment",
-  "AgendaContribute.Stepper.member": "Fiicha de membre"
+  "AgendaContribute.Stepper.member": "Fiicha de membre",
+  "AgendaContribute.EditConfirmation.end": "Tampar"
 }

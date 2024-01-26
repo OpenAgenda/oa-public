@@ -3,6 +3,8 @@
 const util = require('util');
 const winston = require('winston');
 const debug = require('debug');
+const context = require('../context');
+const cloneError = require('../utils/cloneError');
 
 const isEmptyObject = obj => obj && Object.keys(obj).length === 0 && obj.constructor === Object;
 
@@ -40,10 +42,16 @@ class DebugTransport extends winston.Transport {
     let displayedMeta;
 
     if (meta instanceof Error) {
-      displayedMeta = meta;
+      displayedMeta = cloneError(meta);
     } else {
       const { namespace, ...metaToKeep } = meta;
       displayedMeta = metaToKeep;
+    }
+
+    const store = context.getStore();
+
+    if (store) {
+      Object.assign(displayedMeta, store);
     }
 
     const args = [msg].concat(

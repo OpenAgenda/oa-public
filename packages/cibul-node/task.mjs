@@ -72,12 +72,6 @@ export default (config, core, services) => {
     time: '03:00',
   }); */
 
-  tfy(services.mails.unsubscription.task, {
-    period: 'weekly',
-    day: 'saturday',
-    time: '03:00',
-  });
-
   services.agendaDocx.task();
 
   services.aggregators.task();
@@ -113,6 +107,10 @@ export default (config, core, services) => {
   services.agendaEvents.task();
 
   services.eventSearch.task();
+
+  if (services.unsubscriptions) {
+    services.unsubscriptions.task();
+  }
 
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();

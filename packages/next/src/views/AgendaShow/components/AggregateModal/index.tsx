@@ -41,7 +41,7 @@ export default function AggregateModal({
 
   // Remove displayAggregatorModal=1 from url
   const onClose = useCallback(() => {
-    const url = new URL(router.asPath, 'http://n');
+    const url = new URL(router.asPath, 'https://n');
 
     url.searchParams.delete('displayAggregatorModal');
 

@@ -2,9 +2,8 @@
 
 const _ = require('lodash');
 const invitations = require('@openagenda/invitations');
-const log = require('@openagenda/logs')('members/mail');
+const log = require('@openagenda/logs')('services/members/mail');
 const base64 = require('@openagenda/utils/base64');
-const mails = require('../../mails');
 
 const agendaLogo = require('./agendaLogo');
 const extractInvitationContext = require('./invitationContext');
@@ -49,6 +48,7 @@ function processSend({ config, services }, {
 }) {
   const {
     members,
+    mails,
   } = services;
 
   const isMember = !!member.userUid;

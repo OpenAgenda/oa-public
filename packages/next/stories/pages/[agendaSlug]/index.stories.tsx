@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 import AgendaShow from 'pages/[agendaSlug]';
 import AgendaShowView from 'views/AgendaShow';
+import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
@@ -22,7 +23,7 @@ export const Sample = {
     <AgendaShow.Layout>
       <AgendaShow
         intlMessages={intlMessages}
-        agenda={agendaFixtures}
+        agenda={agendaFixtures as Agenda}
       />
     </AgendaShow.Layout>
   ),

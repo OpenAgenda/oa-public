@@ -1,4 +1,4 @@
-<% include ../layout/_top.ejs %>
+<%- include('../layout/_top.ejs') %>
 
 <div class="container user-settings">
 	<div class="row">
@@ -30,7 +30,7 @@
 								<td>
                   <div class="form-group margin-bottom-lg">
                     <label>Appliquer les paramètres suivants pour tous les agendas</label>
-                    <% include ../agenda-settings/_activity-emails %>
+                    <%- include('../agenda-settings/_activity-emails') %>
                     <button class="margin-top-xs btn btn-primary">Appliquer</button>
                   </div>
                   <div class="form-group margin-bottom-lg">
@@ -57,11 +57,11 @@
                           </label>
                         </div>
                         <div class="margin-left-md">
-                          <% include ../agenda-settings/_activity-emails %>
+                          <%- include('../agenda-settings/_activity-emails') %>
                         </div>
                       </li>
                       <li>
-                        <div class="checkbox">                          
+                        <div class="checkbox">
                           <label>
                             <input type="checkbox" value="">
                             <strong>Ville de Genève</strong>
@@ -232,4 +232,4 @@
 	</section>
 </div>
 
-<% include ../layout/_bottom.ejs %>
+<%- include('../layout/_bottom.ejs') %>

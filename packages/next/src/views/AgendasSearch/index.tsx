@@ -16,6 +16,10 @@ import fetchLocale from './locales';
 
 const PAGE_SIZE = 20;
 
+export type AgendasSearchProps = {
+  preload?: string[]
+};
+
 function Head({ total, network, locationSet }) {
   const intl = useIntl();
   const query = useLocationQuery() as {
@@ -39,18 +43,18 @@ function Head({ total, network, locationSet }) {
     );
   }
 
-  if (query.network) {
+  if (query.network && network) {
     return <H1 fontSize="4xl" mb="8">{network.title}</H1>;
   }
 
-  if (query.locationSet) {
+  if (query.locationSet && locationSet) {
     return <H1 fontSize="4xl" mb="8">{locationSet.title}</H1>;
   }
 
   return <H1 fontSize="4xl" mb="8">{intl.formatMessage(messages.latestUpdated)}</H1>;
 }
 
-function AgendasSearch() {
+function AgendasSearch({ preload }: AgendasSearchProps) {
   const intl = useIntl();
   const router = useRouter();
   const { searchValue: search } = useNavbarSearch();
@@ -100,6 +104,7 @@ function AgendasSearch() {
       revalidateFirstPage: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateIfStale: false,
     },
   );
 
@@ -118,7 +123,7 @@ function AgendasSearch() {
 
   const seeMoreUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
-    const url = new URL(localePrefix + router.asPath, 'http://n');
+    const url = new URL(localePrefix + router.asPath, 'https://n');
     url.search = qs.stringify({
       ...query,
       after: pages?.[pages.length - 1].after?.map(String),
@@ -134,13 +139,14 @@ function AgendasSearch() {
   if (isLoadingInitialData) {
     // TODO loading
     return (
-      <Metas />
+      <Metas preload={preload} />
     );
   }
 
   return (
     <>
       <Metas
+        preload={preload}
         networkTitle={network?.title}
         locationSetTitle={locationSet?.title}
       />

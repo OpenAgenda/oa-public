@@ -59,7 +59,8 @@ function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLoc
 export function formatAdditionalFieldData({ schema, event, locale, defaultLocale, dateFnsLocale }) {
   const additionalFields = schema.fields
     .filter(f => f.schemaType !== 'event')
-    .filter(f => f.fieldType !== 'abstract');
+    .filter(f => f.fieldType !== 'abstract')
+    .filter(f => f.type !== 'section');
 
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 

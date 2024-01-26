@@ -42,7 +42,7 @@ module.exports = {
     "fr": "Validé",
     "en": "Submitted",
     "de": "eingereicht",
-    "es": "validado",
+    "es": "Validado",
     "it": "Convalidato",
     "io": "crwdns14632:0crwdne14632:0",
     "oc": "Validat"
@@ -106,7 +106,7 @@ module.exports = {
     "fr": "Sélectionner",
     "en": "Select",
     "de": "Wählen",
-    "es": "seleccionar",
+    "es": "Seleccionar",
     "it": "Seleziona",
     "io": "crwdns14646:0crwdne14646:0",
     "oc": "Seleccionar"

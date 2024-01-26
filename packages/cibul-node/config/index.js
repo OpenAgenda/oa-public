@@ -13,6 +13,14 @@ const mailgun = {
   },
 };
 
+const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
+  ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => {
+    const [key, value] = pair.split(':');
+    ops[key] = value;
+    return ops;
+  }, {})
+  : prod.insightOps ?? {};
+
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
@@ -43,11 +51,7 @@ const config = {
   logger: process.env.NODE_ENV === 'production' ? {
     prefix: 'oa:',
     enableDebug: false,
-    token: prod.insightOps?.main ?? null,
-    errorsTracking: {
-      insightOpsKey: prod.insightOps?.clientErrors ?? null,
-      sentryDsn: prod.sentry?.dsn ?? null,
-    },
+    token: insightOpsKeys?.oa ?? null,
     sentry,
   } : {
     prefix: 'oa:',
@@ -113,6 +117,7 @@ const config = {
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
     },
   },
+  unsubscriptionsSecret: process.env.UNSUBSCRIPTIONS_SECRET,
   schemas: {
     activity: 'activity',
     agenda: 'review',
@@ -142,7 +147,6 @@ const config = {
     userToken: 'user_token',
     legacyCredentialSet: 'review_credential',
     invitation: 'invitation_2', // new invitation
-    unsubscribed: 'unsubscribed_2', // first unsubscribe addresses newsletter only
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',
     feed_follow: 'activity_feed_follow',
@@ -155,7 +159,6 @@ const config = {
     message: 'inboxes_message',
     messageAttachment: 'inboxes_message_attachment',
     rule: 'rule',
-    unsubscriptionLink: 'unsubscription_link',
   },
   mtCaptcha: {
     enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED ? parseInt(process.env.OA_MT_CAPTCHA_ENABLED, 10) : prod.mtCaptcha),
@@ -567,11 +570,6 @@ if (process.env.DEBUG) {
 debug.disable();
 
 debug.enable(config.logger.enableDebug);
-
-const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => ({
-  ...ops,
-  [pair.split(':')[0]]: pair.split(':')[1],
-}), {}) : prod.insightOps ?? {};
 
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,

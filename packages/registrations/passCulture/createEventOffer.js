@@ -30,9 +30,12 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     related,
   });
 
+  log.info('attempting create', { eventOffer });
+
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
+    log.info('create failed', { error: e?.response?.data });
     throw new BadRequest({
       info: {
         errors: formatErrors(e.response.data),
@@ -69,6 +72,14 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
       bookingLimitDatetime: isDHMFormat(timing.begin) ? convertDHMToDate(timing.begin, { timezone: OAEvent.timezone }) : timing.begin,
     }, ['timingId', 'priceCategoryIndex']);
   });
+
+  if (eventOffer.status === 'PENDING') {
+    log.info('%s: did not create dates cause offer pending', result.eventOffer.id);
+    return {
+      ...result,
+      warning: 'pending',
+    }
+  }
 
   try {
     const {

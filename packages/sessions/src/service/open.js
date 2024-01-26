@@ -3,9 +3,13 @@
 const log = require('@openagenda/logs')('sessions/open');
 const VError = require('@openagenda/verror');
 const cookieValidate = require('../../iso/cookie.validate');
-const validator = require('./validator');
 const expressCookie = require('./expressCookie');
-const { cleanSession, callbackify, getUser } = require('./helpers');
+const {
+  cleanSession,
+  callbackify,
+  getUser,
+  generateSessionUser,
+} = require('./helpers');
 
 function extractArgs(config, request, response, identifier, cb) {
   if (!cb) {
@@ -30,15 +34,13 @@ function extractArgs(config, request, response, identifier, cb) {
 async function open(config, request, response, identifier) {
   const {
     interfaces,
-    cultures,
   } = config;
 
   log('attempting session open for user %j', identifier);
 
   const user = await getUser(interfaces, identifier);
 
-  let sessionUser = null; let
-    cookieData = null;
+  let cookieData = null;
 
   if (!user) {
     log('info', 'no user matching user was found for identifier %j', identifier);
@@ -49,22 +51,15 @@ async function open(config, request, response, identifier) {
     };
   }
 
-  // validate user data
+  // load clean user session data
+  const {
+    sessionUser,
+    expires,
+    errors,
+  } = generateSessionUser(config, user);
 
-  const latestActivity = new Date();
-  const expires = new Date(latestActivity.getTime() + config.expire * 1000);
-
-  const validate = validator({ cultures });
-
-  try {
-    sessionUser = validate({
-      latestActivity,
-      expires,
-      ...user,
-    });
-  } catch (errors) {
+  if (errors.length) {
     log('error', 'user validation failed on %j', user, errors);
-
     return { errors, success: false };
   }
 

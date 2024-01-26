@@ -138,5 +138,9 @@
   "from": "crwdns15240:0crwdne15240:0",
   "validate": "crwdns15242:0crwdne15242:0",
   "supportPlaceholder": "crwdns15244:0crwdne15244:0",
-  "locationName": "crwdns33175:0%name%crwdne33175:0"
+  "locationName": "crwdns33175:0%name%crwdne33175:0",
+  "eventTitle": "crwdns33476:0%name%crwdne33476:0",
+  "titleSuggestEventChange": "crwdns33478:0crwdne33478:0",
+  "youSuggestedAEventChange": "crwdns33480:0crwdne33480:0",
+  "suggestedAEventChange": "crwdns33482:0crwdne33482:0"
 }

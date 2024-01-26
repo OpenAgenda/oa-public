@@ -1,3 +1,5 @@
+import FieldCounter from './FieldCounter';
+
 export default function Input({
   id,
   label,
@@ -6,10 +8,14 @@ export default function Input({
   sub,
   onChange,
   value = '',
+  maxLength = null,
+  warning = null,
+  info = null,
 }) {
   return (
-    <div className="form-group margin-right-sm">
-      {label ? (<label htmlFor={id} className="margin-right-xs">{label}</label>) : null}
+    <div className={`form-group margin-right-sm ${warning ? 'has-warning' : ''}`}>
+      {label ? (<label htmlFor={id} className={`margin-right-xs ${info ? 'margin-bottom-z' : ''}`}>{label}</label>) : null}
+      {info ? <div className="margin-bottom-xs">{info}</div> : null}
       <input
         id={id}
         value={value}
@@ -17,7 +23,9 @@ export default function Input({
         onChange={onChange}
         className="form-control"
         placeholder={placeholder}
+        maxLength={maxLength}
       />
+      {maxLength && type === 'string' ? (<FieldCounter value={value} max={maxLength} />) : null}
       {sub ? <span className="sub">{sub}</span> : null}
     </div>
   );

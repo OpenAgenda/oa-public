@@ -16,7 +16,7 @@
   }
 %>
 
-<% include ./adminBar.part.ejs %>
+<%- include('./adminBar.part.ejs') %>
 
 <header class="agenda-header">
   <div class="container">
@@ -224,7 +224,7 @@
             </div>
             <div class="col-sm-12 col-print-6 padding-print-h-z">
               <section class="detail-item timings margin-bottom-md">
-                <% include _months.part.ejs %>
+                <%- include('_months.part.ejs') %>
               </section>
               <% if (indexedEvent.availableAccessibilities.length) { %>
               <% indexedEvent.availableAccessibilities.forEach(i => { %>
@@ -253,7 +253,7 @@
                 <h3><i class="fa fa-map-marker"></i></h3>
                 <div class="detail-item-content">
                   <p>
-                    <%- indexedEvent.location.name %><% /* escaped in model already */ %>
+                    <%= indexedEvent.location.name %>
                   </p>
                   <span class="margin-right-xs"><a target="_blank" href="<%= indexedEvent.location.OSMItineraryLink || '#' %>"><%= indexedEvent.location.address %></a></span>
                   <ul class="info list-inline location-info-parts">
@@ -288,7 +288,7 @@
             </div>
           </div>
           <section class="detail-item">
-            <% include ../bsLayout/footer.part.ejs %>
+            <%- include('../bsLayout/footer.part.ejs') %>
           </section>
         </div>
       </aside>

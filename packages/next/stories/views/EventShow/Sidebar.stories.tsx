@@ -1,12 +1,16 @@
+import { useRouter } from 'next/router';
+import { SWRConfig } from 'swr';
 import { subHours, addHours, startOfHour } from 'date-fns';
 import { Container } from '@openagenda/uikit';
 import EventShow from 'views/EventShow';
 import Sidebar from 'views/EventShow/components/Sidebar';
+import { AgendaProvider } from 'views/EventShow/contexts/agenda';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventFixtures from '../../fixtures/events/sample.json';
 import onlineEventFixtures from '../../fixtures/events/online.json';
+import passCultureEventFixtures from '../../fixtures/events/passCulture.json';
 
 export default {
   title: 'views/EventShow/Sidebar',
@@ -24,12 +28,43 @@ export default {
   ],
 };
 
+function Fixtures({ event, children }) {
+  const router = useRouter();
+  router.query.agendaSlug = agendaFixtures.slug;
+  router.query.eventSlug = event.slug;
+
+  return (
+    <AgendaProvider agenda={agendaFixtures}>
+      <SWRConfig
+        value={{
+          fallback: {
+            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${event.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
+              success: true,
+              event,
+            },
+          },
+        }}
+      >
+        {children}
+      </SWRConfig>
+    </AgendaProvider>
+  );
+}
+
 export function Simple() {
-  return <Sidebar agenda={agendaFixtures} event={eventFixtures} contentLocale="fr" />;
+  return (
+    <Fixtures event={eventFixtures}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
 }
 
 export function Private() {
-  return <Sidebar agenda={agendaFixtures} event={{ ...eventFixtures, private: true }} contentLocale="fr" />;
+  return (
+    <Fixtures event={{ ...eventFixtures, private: true }}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
 }
 
 export function Past() {
@@ -40,40 +75,52 @@ export function Past() {
   }];
 
   return (
-    <Sidebar
-      agenda={agendaFixtures}
+    <Fixtures
       event={{
         ...eventFixtures,
         timings,
         lastTiming: timings[0],
         nextTiming: null,
       }}
-      contentLocale="fr"
-    />
+    >
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
   );
 }
 
 export function Future() {
   const now = new Date();
   const timings = [{
-    begin: startOfHour(addHours(now, 1)),
-    end: startOfHour(addHours(now, 2)),
+    begin: startOfHour(addHours(now, 1)).toISOString(),
+    end: startOfHour(addHours(now, 2)).toISOString(),
   }];
 
   return (
-    <Sidebar
-      agenda={agendaFixtures}
+    <Fixtures
       event={{
         ...eventFixtures,
         timings,
         lastTiming: timings[0],
         nextTiming: timings[0],
       }}
-      contentLocale="fr"
-    />
+    >
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
   );
 }
 
 export function Online() {
-  return <Sidebar agenda={agendaFixtures} event={onlineEventFixtures} contentLocale="fr" />;
+  return (
+    <Fixtures event={onlineEventFixtures}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
+}
+
+export function PassCulture() {
+  return (
+    <Fixtures event={passCultureEventFixtures}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
 }

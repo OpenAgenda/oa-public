@@ -26,7 +26,8 @@ create table if not exists location (
   set_uid bigint(20) default null,
   insee varchar(10) default null,
   deleted tinyint(1) not null default 0,
-  duplicates varchar(2000) default null,
+  duplicate_candidates varchar(1000) default null,
+  duplicate_disqualified varchar(1000) default null,
   merged_in bigint(20) default null,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
@@ -36,6 +37,7 @@ create table if not exists location (
   index set_uid_idx (set_uid),
   index ext_id_idx (ext_id),
   index deleted_idx (deleted),
+  index duplicate_candidates_idx (duplicate_candidates),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

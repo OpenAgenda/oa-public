@@ -3,7 +3,7 @@ declare const window: {
   matomoPluginAsyncInit?: any
 } & Window;
 
-function normalizeUrl(url: string) {
+export function normalizeUrl(url: string) {
   let result = url;
 
   if (result.startsWith('https://')) {
@@ -39,7 +39,7 @@ export function addMatomoTracker({
   const scriptElem = document.createElement('script');
   const firstScript = document.getElementsByTagName('script')[0];
   scriptElem.async = true;
-  scriptElem.src = `https://cdn.matomo.cloud/${matomoDomain}/matomo.js`;
+  scriptElem.src = `https://${matomoDomain}/matomo.js`;
   firstScript.parentNode.insertBefore(scriptElem, firstScript);
 }
 

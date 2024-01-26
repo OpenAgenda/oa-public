@@ -1,11 +1,16 @@
 import IframeResizer from 'iframe-resizer-react';
 import { useIntl } from 'react-intl';
 import { Heading, Flex } from '@openagenda/uikit';
+import { useAgenda } from '../contexts/agenda';
+import useEvent from '../hooks/useEvent';
 
 const ROOT = process.env.NEXT_PUBLIC_ROOT;
 
-export default function Inbox({ agenda, event }) {
+export default function Inbox() {
   const intl = useIntl();
+
+  const agenda = useAgenda();
+  const { event } = useEvent();
 
   return (
     <div>

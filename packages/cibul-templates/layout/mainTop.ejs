@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
     <meta name="language" content="<%= lang %>" />
     <link rel="shortcut icon" href="/images/favicon.ico" />
-    <% include ./metas.part.ejs %>
-    <% include ./css.part.ejs %>
-    <% include ./js.part.ejs %>
+    <%- include('./metas.part.ejs') %>
+    <%- include('./css.part.ejs') %>
+    <%- include('./js.part.ejs') %>
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
     <div id="outdated"></div>

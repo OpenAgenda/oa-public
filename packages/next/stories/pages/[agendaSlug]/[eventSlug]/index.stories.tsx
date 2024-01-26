@@ -1,6 +1,7 @@
 import { SWRConfig } from 'swr';
 import EventShow from 'pages/n/[agendaSlug]/events/[eventSlug]';
 import EventShowView from 'views/EventShow';
+import { Agenda } from 'types';
 import intlMessagesLoader from '../../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../../decorators/ProvidersDecorator';
 import eventFixtures from '../../../fixtures/events/sample.json';
@@ -34,7 +35,7 @@ export const Sample = {
       >
         <EventShow
           intlMessages={intlMessages}
-          agenda={agendaFixtures}
+          agenda={agendaFixtures as Agenda}
         />
       </SWRConfig>
     </EventShow.Layout>
@@ -68,7 +69,7 @@ export const JEP2023 = {
       >
         <EventShow
           intlMessages={intlMessages}
-          agenda={agendaJEPFixtures}
+          agenda={agendaJEPFixtures as Agenda}
         />
       </SWRConfig>
     </EventShow.Layout>

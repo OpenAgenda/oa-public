@@ -27,8 +27,55 @@ const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
 const getAgendaReferences = require('./lib/getAgendaReferences');
 const getEventLayoutData = require('./lib/getEventLayoutData');
 
+function normalizeMatomoUrl(url) {
+  let result = url;
+
+  if (result.startsWith('https://')) {
+    result = result.slice(8);
+  }
+
+  if (result.endsWith('/')) {
+    result = result.slice(0, -1);
+  }
+
+  return result;
+}
+
+function cspTracking(req) {
+  const googleAnalytics = req.agenda.settings?.tracking?.googleAnalytics;
+  const matomoUrl = req.agenda.settings?.tracking?.matomoUrl;
+
+  if (!googleAnalytics && !matomoUrl) return '';
+
+  const result = [];
+
+  if (matomoUrl) {
+    result.push(`https://${normalizeMatomoUrl(matomoUrl)}`);
+  }
+
+  if (googleAnalytics) {
+    result.push(
+      'https://*.google-analytics.com',
+      'https://*.analytics.google.com',
+      'https://*.googletagmanager.com',
+      'https://*.g.doubleclick.net',
+      'https://*.google.com',
+    );
+  }
+
+  return result.join(' ');
+}
+
 const csp = contentSecurityPolicy({
   ...contentSecurityPolicy.defaultDirectives,
+  connectSrc: [
+    ...contentSecurityPolicy.defaultDirectives.connectSrc,
+    cspTracking,
+  ],
+  imgSrc: [
+    ...contentSecurityPolicy.defaultDirectives.imgSrc,
+    cspTracking,
+  ],
   frameSrc: [
     ...contentSecurityPolicy.defaultDirectives.frameSrc,
     'https://www.youtube.com',

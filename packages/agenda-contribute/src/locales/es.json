@@ -50,5 +50,6 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published.",
   "AgendaContribute.Stepper.confirmation": "Confirmación",
   "AgendaContribute.Stepper.event": "Mi evento",
-  "AgendaContribute.Stepper.member": "Perfil de miembro"
+  "AgendaContribute.Stepper.member": "Perfil de miembro",
+  "AgendaContribute.EditConfirmation.end": "Cerca"
 }

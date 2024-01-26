@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "cerca",
+    "es": "Cerca",
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15790:0crwdne15790:0",

@@ -5,6 +5,7 @@ import StateTag from 'components/StateTag';
 import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
 import useEvent from '../../hooks/useEvent';
+import useMember from '../../hooks/useMember';
 import ContextBarButton from './ContextBarButton';
 
 const stateMap = {
@@ -20,6 +21,12 @@ export default function StateSelector({ agenda }) {
   const intl = useIntl();
 
   const { event, mutate } = useEvent();
+  const { me } = useMember();
+
+  const {
+    canChangeState = false,
+    canPublish = false,
+  } = me?.authorizations ?? {};
 
   const changeState = async (state: number) => {
     try {
@@ -51,12 +58,28 @@ export default function StateSelector({ agenda }) {
     }
   };
 
+  if (!canChangeState) {
+    return (
+      <Flex
+        color="white"
+        bg="primary.500"
+        px="4"
+        justifyContent="start"
+      >
+        <StateTag state={event.state} marginEnd="0.5rem" />
+        <div>
+          Statut:&nbsp;
+          {intl.formatMessage(stateMessages[stateMap[event.state]])}
+        </div>
+      </Flex>
+    );
+  }
+
   return (
     <Menu matchWidth gutter={0}>
       <MenuButton
         as={ContextBarButton}
         textAlign="start"
-        lineHeight="normal"
         display="inline-flex"
         leftIcon={<StateTag state={event.state} />}
         rightIcon={<FaIcon icon={faChevronDown} />}
@@ -86,7 +109,7 @@ export default function StateSelector({ agenda }) {
             Cet événement a été modéré et est prêt à être publié
           </Flex>
         </MenuItem>
-        <MenuItem onClick={() => changeState(2)}>
+        <MenuItem isDisabled={!canPublish} onClick={() => changeState(2)}>
           <StateTag state="published" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.published)}</b>

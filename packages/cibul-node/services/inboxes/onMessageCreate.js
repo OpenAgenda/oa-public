@@ -1,83 +1,27 @@
-"use strict";
+'use strict';
 
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
-const mails = require('../mails');
 const genUrl = require('../genUrl');
-
-module.exports = async (services, conversation, message) => {
-  const usersSvc = services.users;
-
-  try {
-
-    const [inboxesAgenda, inboxesUser] = _.partition(conversation.inboxes, ['type', 'user']);
-
-    const inboxUsersToNotify = _([
-      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesAgenda, 'id')),
-      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesUser, 'id'))
-    ]).reject(['userUid', message.inboxUser.userUid]).uniqBy('userUid').value();
-
-    log('sending mails to %d users to notify new message', inboxUsersToNotify.length);
-
-    const chunks = _.chunk(inboxUsersToNotify, 100);
-
-    for (const chunk of chunks) {
-      const users = (await usersSvc.find({
-        query: {
-          uid: {
-            $in: _.map(chunk, 'userUid')
-          },
-          $skip: 0,
-          $limit: chunk.length
-        },
-        removed: false,
-        detailed: true,
-        internal: true
-      })).data;
-
-      const sendMailPromises = [];
-
-      for (const user of users) {
-        const inboxUserToNotify = _.chain(inboxUsersToNotify)
-          .remove(['userUid', user.uid])
-          .head()
-          .assign({ user })
-          .value();
-
-        sendMailPromises.push(
-          sendMail(services, { inboxUser: inboxUserToNotify, conversation, message })
-        );
-      }
-
-      Promise.all(sendMailPromises)
-        .catch(e => {
-          log('error', e);
-        });
-    }
-  } catch (e) {
-    log('error', e);
-  }
-
-};
 
 async function inboxIdsToInboxUsers(services, inboxes, ids) {
   const { InboxUsers } = services.inboxes;
 
   return _.map((await new InboxUsers().list({
     inboxId: ids,
-    leftAt: false
+    leftAt: false,
   }, 0, 10000)).data, o => ({ ...o, inbox: _.find(inboxes, ['id', o.inboxId]) }));
 }
 
 async function getSenderName(services, { inboxUser, conversation, message }) {
   const {
     users: usersSvc,
-    agendas: agendasSvc
+    agendas: agendasSvc,
   } = services;
   const { Inbox } = services.inboxes;
 
-  const conv = await new Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
+  const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
 
   if (msg.data.inboxUser) {
@@ -87,11 +31,11 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
   if (msg.data.inbox.type === 'agenda') {
     return (await promisify(agendasSvc.get)({ uid: msg.data.inbox.identifier }, {
       private: null,
-      includeImagePath: true
+      includeImagePath: true,
     })).title;
-  } else if (msg.data.inbox.type === 'user') {
+  } if (msg.data.inbox.type === 'user') {
     return (await usersSvc.get(msg.data.inbox.identifier, { removed: false, detailed: true })).fullName;
-  } else if (msg.data.inbox.type === 'support') {
+  } if (msg.data.inbox.type === 'support') {
     return 'Support - OpenAgenda';
   }
 }
@@ -99,7 +43,8 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
 async function sendMail(services, { inboxUser, conversation, message }) {
   const {
     agendas: agendasSvc,
-    members: membersSvc
+    members: membersSvc,
+    mails,
   } = services;
 
   const getAgenda = promisify(agendasSvc.get);
@@ -110,7 +55,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   const agenda = conversation.store.params && conversation.store.params.agendaUid
     ? await getAgenda(
       { uid: conversation.store.params.agendaUid },
-      { private: null, includeImagePath: true, internal: true }
+      { private: null, includeImagePath: true, internal: true },
     ) : null;
 
   const logo = agenda && agenda.image
@@ -120,7 +65,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   const member = agenda
     ? await membersSvc.get({
       agendaUid: agenda.uid,
-      userUid: user.uid
+      userUid: user.uid,
     })
     : null;
 
@@ -136,45 +81,44 @@ async function sendMail(services, { inboxUser, conversation, message }) {
     ? [
       {
         rule: ['receive', 'agendaInboxMessage'],
-        dataPath: 'unsubscribeLink'
-      }
+        dataPath: 'unsubscribeLink',
+      },
     ].concat(member && member.id ? [
       {
         memberId: member.id,
         rule: ['receive', 'agendaInboxMessage'],
-        dataPath: 'memberUnsubscribeLink'
-      }
+        dataPath: 'memberUnsubscribeLink',
+      },
     ] : [])
     : [
       {
         rule: ['receive', 'userInboxMessage'],
-        dataPath: 'unsubscribeLink'
-      }
+        dataPath: 'unsubscribeLink',
+      },
     ];
 
   const reference = `inboxMessage/${conversation.id}@mail.openagenda.com`;
   const agendaTitle = agenda ? agenda.title : null;
 
-
   return mails.send({
     template: 'inboxMessage',
     from: {
       name: senderName,
-      address: 'notifications@mail.openagenda.com'
+      address: 'notifications@mail.openagenda.com',
     },
     replyTo: {
       name: agendaTitle || 'OpenAgenda',
-      address: `reply+${user.replyToken}@mail.openagenda.com`
+      address: `reply+${user.replyToken}@mail.openagenda.com`,
     },
     to: {
       name: agendaTitle,
       address: `${agenda ? agenda.slug : 'inbox'}@mail.openagenda.com`,
-      unsubscriptions
+      unsubscriptions,
     },
     cc: {
       name: (member && member.custom.contactName) || user.fullName,
       address: user.email,
-      unsubscriptions
+      unsubscriptions,
     },
     references: reference,
     inReplyTo: reference,
@@ -183,8 +127,67 @@ async function sendMail(services, { inboxUser, conversation, message }) {
       link,
       senderName,
       agenda: agendaTitle,
-      message: message.body
+      message: message.body,
     },
-    lang
+    lang,
   });
 }
+
+module.exports = async function onMessageCreate(services, conversation, message) {
+  const usersSvc = services.users;
+
+  log.info('new message', {
+    conversation: _.pick(conversation, ['id', 'type']),
+    isNewConversation: conversation.latestMessage.createdAt - conversation.createdAt < 100,
+    storeParams: conversation.store?.params,
+  });
+
+  try {
+    const [inboxesAgenda, inboxesUser] = _.partition(conversation.inboxes, ['type', 'user']);
+
+    const inboxUsersToNotify = _([
+      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesAgenda, 'id')),
+      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesUser, 'id')),
+    ]).reject(['userUid', message.inboxUser.userUid]).uniqBy('userUid').value();
+
+    log('sending mails to %d users to notify new message', inboxUsersToNotify.length);
+
+    const chunks = _.chunk(inboxUsersToNotify, 100);
+
+    for (const chunk of chunks) {
+      const users = (await usersSvc.find({
+        query: {
+          uid: {
+            $in: _.map(chunk, 'userUid'),
+          },
+          $skip: 0,
+          $limit: chunk.length,
+        },
+        removed: false,
+        detailed: true,
+        internal: true,
+      })).data;
+
+      const sendMailPromises = [];
+
+      for (const user of users) {
+        const inboxUserToNotify = _.chain(inboxUsersToNotify)
+          .remove(['userUid', user.uid])
+          .head()
+          .assign({ user })
+          .value();
+
+        sendMailPromises.push(
+          sendMail(services, { inboxUser: inboxUserToNotify, conversation, message }),
+        );
+      }
+
+      Promise.all(sendMailPromises)
+        .catch(e => {
+          log('error', e);
+        });
+    }
+  } catch (e) {
+    log('error', e);
+  }
+};

@@ -9,10 +9,10 @@
   "agenda": "{others, plural, =0 {{agenda}} one {{agenda} y 1 otros} other {{agenda} y {others} otros}}",
   "agenda.addMember.withYou": "{actor} te ha añadido como credencial {target}.",
   "agenda.setMemberRole.withYou": "{actor} te ha llamado de {credential} en {target}.",
-  "agenda.create": "{actor} creó  el {agenda} {target}.",
+  "agenda.create": "{actor} creó la agenda {target}.",
   "agenda.rename": "{actor} cambió el nombre del agenda {beforeTitle} a {afterTitle}.",
-  "agenda.setOfficial": "El objetivo {agenda} se hizo oficial.",
-  "agenda.setUnofficial": "El agenda de destino se convirtió en oficial.",
-  "agenda.publishEvent": "{actor} publicado el {object} en {target}",
+  "agenda.setOfficial": "La agenda {target} se hizo oficial.",
+  "agenda.setUnofficial": "La agenda {target} se hizo oficial.",
+  "agenda.publishEvent": "{actor} publicado el {object} en {target}.",
   "agenda.aggregateEvent": "{target} ha importado {object} de {actor}."
 }

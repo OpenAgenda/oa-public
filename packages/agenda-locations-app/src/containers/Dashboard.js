@@ -53,6 +53,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.toVerify',
     defaultMessage: 'See locations to verify',
   },
+  duplicatesFilter: {
+    id: 'AgendaLocations.AgendaAdminLocation.duplicatesFilter',
+    defaultMessage: 'See locations with duplicates candidates',
+  },
+  duplicatesFilterHelp: {
+    id: 'AgendaLocations.AgendaAdminLocation.duplicatesFilterHelp',
+    defaultMessage: 'Limit the selection to potential duplicates that were detected automatically',
+  },
   verifiedInfo: {
     id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
     defaultMessage: 'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them',
@@ -141,7 +149,7 @@ function Dashboard() {
   const [openDetails, setOpenDetails] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
-  const [spinMerge, setSpinMerge] = useState(false)
+  const [spinMerge, setSpinMerge] = useState(false);
   const intl = useIntl();
   const res = useRes(agenda);
   const { locationUid: detailLocationUid } = useParams();
@@ -260,7 +268,6 @@ function Dashboard() {
         return;
       }
       dispatch(mergeActions.selectLocations(newLocationsUids.filter(e => e !== location.uid)));
-      return;
     }
   }, [onLocationItemEdit, dispatch, merge, mergeMode]);
 
@@ -383,6 +390,8 @@ function Dashboard() {
                     placeholder={intl.formatMessage(messages.filterList)}
                   />
                 </div>
+              </div>
+              <div className="form-inline margin-top-sm">
                 <div className="checkbox">
                   <label htmlFor="state-filter-checkbox">
                     <input
@@ -403,9 +412,35 @@ function Dashboard() {
                     />
                   </label>
                   <MoreInfo
-                    className="margin-h-sm"
+                    className="margin-left-xs"
                     id="checkbox-help"
                     content={intl.formatMessage(messages.verifiedInfo)}
+                    placement="top"
+                  />
+                </div>
+                <div className="checkbox margin-left-sm">
+                  <label htmlFor="hasDuplicateCandidates-filter-checkbox">
+                    <input
+                      id="hasDuplicateCandidates-filter-checkbox"
+                      type="checkbox"
+                      onChange={() => {
+                        if (search.hasDuplicateCandidates) removeFilter('hasDuplicateCandidates');
+                        else {
+                          history.push({
+                            search: betterQsStringify({ ...search, page, hasDuplicateCandidates: true }),
+                          });
+                        }
+                      }}
+                      checked={!!search.hasDuplicateCandidates}
+                    />{' '}
+                    <FormattedMessage
+                      {...messages.duplicatesFilter}
+                    />
+                  </label>
+                  <MoreInfo
+                    className="margin-h-xs"
+                    id="checkbox-help"
+                    content={intl.formatMessage(messages.duplicatesFilterHelp)}
                     placement="top"
                   />
                 </div>

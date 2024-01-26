@@ -45,6 +45,7 @@ module.exports = {
     "en": "events selection",
     "fr": "sélection d'événements",
     "io": "crwdns32504:0crwdne32504:0",
-    "oc": "seleccion d'eveniments"
+    "oc": "seleccion d'eveniments",
+    "es": "selección de eventos"
   }
 }

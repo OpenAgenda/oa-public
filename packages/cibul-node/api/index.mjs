@@ -4,6 +4,7 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
 import track from '../lib/track.js';
+import * as logContextMw from '../lib/logContextMw.mjs';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.mjs';
@@ -24,7 +25,7 @@ export default (core, { useRouter = true } = {}) => {
   app.core = core;
   app.services = core.services;
 
-  const { verifySuperAdmin } = app.services.users.mw;
+  const { verifySuperAdmin, verifyTransverseApiAccess } = app.services.users.mw;
 
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([
@@ -46,12 +47,18 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/requestAccessToken', mw.requestAccessToken);
 
+  app.post('/password/evaluate', (req, res) => {
+    res.json(req.app.services.security.passwords.evaluate(req.body.password));
+  });
+
   // access token control and user load
   app.post('*', mw.verifyAndLoadAccessTokenUser);
   app.patch('*', mw.verifyAndLoadAccessTokenUser);
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
+
+  app.use(logContextMw.withUserUid);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
@@ -115,6 +122,7 @@ export default (core, { useRouter = true } = {}) => {
         },
         access: req.access,
         defaultLang: req.headers.lang,
+        callOrigin: 'api',
       }).then(event => res.json({
         success: true,
         event,
@@ -699,6 +707,21 @@ export default (core, { useRouter = true } = {}) => {
       next,
     );
   });
+
+  app.get('/events', [
+    verifyTransverseApiAccess,
+    (req, res, next) => {
+      core.events.search(req.query, req.query, {
+        useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+        includeFields: req.query.includeFields,
+        detailed: req.query.detailed,
+        monolingual: req.query.monolingual,
+        includeImageTimestamp: req.query.includeImageTimestamp,
+        includeLocationImagePath: req.query.includeLocationImagePath,
+        useAfterKey: true,
+      }).then(data => res.json({ ...data, success: true }), next);
+    },
+  ]);
 
   log('done');
 

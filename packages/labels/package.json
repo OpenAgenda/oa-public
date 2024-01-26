@@ -12,21 +12,15 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/labels",
   "main": "makeLabelGetter.js",
   "scripts": {
-    "test": "mocha test --exit",
-    "import-labels": "node CSVToLabels",
-    "export-labels": "node labelsToCSV"
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "deep-diff": "^1.0.2",
-    "immutability-helper": "^3.0.1",
     "intl-messageformat": "^9.0.2",
     "intl-messageformat-parser": "^5.2.4",
-    "mkdirp": "^3.0.1",
-    "prompt-confirm": "^2.0.4",
-    "prompt-input": "^3.0.0"
+    "mkdirp": "^3.0.1"
   },
   "devDependencies": {
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
+    "jest": "^29.7.0"
   }
 }

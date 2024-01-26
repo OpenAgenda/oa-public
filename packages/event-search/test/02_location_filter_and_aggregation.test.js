@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const config = require('../testconfig');
@@ -186,6 +186,14 @@ describe('02 - event search - functional: location', () => {
         detailed: true,
       });
       expect(events.length).toBe(2);
+    });
+
+    it('filter on extId', async () => {
+      const { events: [event] } = await service('location').search({
+        locationExtId: '456',
+      }, { size: 1 }, { detailed: true });
+
+      expect(event.location.extId).toBe(456);
     });
   });
 

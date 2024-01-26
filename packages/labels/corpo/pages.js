@@ -354,7 +354,7 @@ module.exports = {
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères",
     "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
-    "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios",
+    "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!",
     "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri.",
     "io": "crwdns13532:0crwdne13532:0",
     "oc": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri."
@@ -371,7 +371,7 @@ module.exports = {
     "fr": "Votre agenda est synchronisable avec tous vos supports et diffusable par tous",
     "en": "Sync your calendar with your mediums and share it with the whole world as #OpenData.",
     "de": "Synchronisiere deinen Kalender mit deinen Medien und teile es mit der ganzen Welt als #OpenData.",
-    "es": "Su agenda está sincronizado con todos sus medios y distribuir por todos",
+    "es": "Su agenda está sincronizado con todos sus medios y distribuir por todo! #opendata.",
     "it": "La vostra agenda può essere sincronizzata con tutti i vostri media e distribuita a tutti gli utenti.",
     "io": "crwdns13536:0crwdne13536:0",
     "oc": "Sincronizatz vòstra agenda amb vòstres mèdias e partejatz-la amb lo monde entièr coma #OpenData."
@@ -398,7 +398,7 @@ module.exports = {
     "fr": "Gratuit",
     "en": "Free",
     "de": "Kostenlos",
-    "es": "gratis",
+    "es": "Gratis",
     "it": "Gratuito",
     "io": "crwdns13542:0crwdne13542:0",
     "oc": "Gratuit"
@@ -439,7 +439,7 @@ module.exports = {
     "fr": "Modération",
     "en": "Moderation",
     "de": "Mäßigung",
-    "es": "moderación",
+    "es": "Pre y post moderación",
     "it": "Moderazione",
     "io": "crwdns13552:0crwdne13552:0",
     "oc": "Moderacion"
@@ -498,7 +498,8 @@ module.exports = {
     "de": "(300 €/Monat*)",
     "es": "(300 €/mes*)",
     "it": "(300 €/mese*)",
-    "io": "crwdns13566:0crwdne13566:0"
+    "io": "crwdns13566:0crwdne13566:0",
+    "oc": "(300 €/mes*)"
   },
   "agendaPricingCustomYearlyPrice": {
     "fr": "3 500 €/an*",
@@ -506,7 +507,8 @@ module.exports = {
     "de": "3.500 €/Jahr*",
     "es": "3 500 €/año*",
     "it": "3,500 €/anno*",
-    "io": "crwdns13568:0crwdne13568:0"
+    "io": "crwdns13568:0crwdne13568:0",
+    "oc": "3 500 €/an*"
   },
   "agendaPriceCustomFeature1": {
     "fr": "Personnalisation avancée des fiches événements",
@@ -528,7 +530,7 @@ module.exports = {
     "fr": "Modération",
     "en": "Moderation",
     "de": "Mäßigung",
-    "es": "moderación",
+    "es": "Pre y post moderación",
     "it": "Moderazione",
     "io": "crwdns13574:0crwdne13574:0",
     "oc": "Moderacion"
@@ -634,7 +636,7 @@ module.exports = {
     "fr": "Gratuit",
     "en": "Free",
     "de": "Kostenlos",
-    "es": "gratis",
+    "es": "Gratis",
     "it": "Gratuito",
     "io": "crwdns13600:0crwdne13600:0",
     "oc": "Gratuit"
@@ -653,7 +655,8 @@ module.exports = {
     "de": "365 Veranstaltungen / Jahr",
     "es": "365 eventos / año",
     "it": "365 eventi/anno",
-    "io": "crwdns13604:0crwdne13604:0"
+    "io": "crwdns13604:0crwdne13604:0",
+    "oc": "365 eveniments/an"
   },
   "networkPricingFreePricing": {
     "fr": "0 €/an",
@@ -661,7 +664,8 @@ module.exports = {
     "de": "0 €/Jahr",
     "es": "0 € / año",
     "it": "0 €/anno",
-    "io": "crwdns13606:0crwdne13606:0"
+    "io": "crwdns13606:0crwdne13606:0",
+    "oc": "0 €/an"
   },
   "networkPricingFreeFeature1": {
     "fr": "Intégration web en marque blanche",
@@ -709,7 +713,8 @@ module.exports = {
     "de": "2 000 Veranstaltungen / Jahr",
     "es": "2000 eventos / año",
     "it": "2.000 eventi/anno",
-    "io": "crwdns13618:0crwdne13618:0"
+    "io": "crwdns13618:0crwdne13618:0",
+    "oc": "2 000 eveniments/an"
   },
   "networkPricingSmallCountDetail": {
     "fr": "(soit 5/jour)",
@@ -725,7 +730,8 @@ module.exports = {
     "de": "3.500 €/Jahr*",
     "es": "3 500 €/año*",
     "it": "3,500 €/anno*",
-    "io": "crwdns13622:0crwdne13622:0"
+    "io": "crwdns13622:0crwdne13622:0",
+    "oc": "3 500 € / an*"
   },
   "networkPricingSmallPricingDetail": {
     "fr": "(soit 292 €/mois*)",
@@ -1055,7 +1061,8 @@ module.exports = {
     "de": "Bereit ?",
     "es": "Listo ?",
     "it": "Pronti?",
-    "io": "crwdns13704:0crwdne13704:0"
+    "io": "crwdns13704:0crwdne13704:0",
+    "oc": "Prèste·a ?"
   },
   "getStartedButton": {
     "fr": "Créez votre agenda !",
@@ -1509,7 +1516,8 @@ module.exports = {
     "de": "deine Emailadresse",
     "es": "Su dirección de correo electrónico",
     "it": "Il tuo indirizzo e-mail",
-    "io": "crwdns13816:0crwdne13816:0"
+    "io": "crwdns13816:0crwdne13816:0",
+    "oc": "Vòstra adreça email"
   },
   "footerContactSubscribe": {
     "en": "Subscribe",
@@ -1568,7 +1576,8 @@ module.exports = {
     "de": "Operative Unterstützung",
     "es": "apoyo operativo",
     "it": "Supporto operativo",
-    "io": "crwdns13830:0crwdne13830:0"
+    "io": "crwdns13830:0crwdne13830:0",
+    "oc": "Supòrt operacional"
   },
   "expertiseEditorialGuide": {
     "fr": "Définition de l’axe éditorial",
@@ -1602,7 +1611,8 @@ module.exports = {
     "de": "Inhaltsmoderation",
     "es": "La moderación de contenidos",
     "it": "Moderazione dei contenuti",
-    "io": "crwdns13838:0crwdne13838:0"
+    "io": "crwdns13838:0crwdne13838:0",
+    "oc": "Moderacion de contenguts"
   },
   "expertiseReporting": {
     "fr": "Reporting",
@@ -1610,7 +1620,8 @@ module.exports = {
     "de": "Berichterstattung",
     "es": "la presentación de informes",
     "it": "Segnalazione",
-    "io": "crwdns13840:0crwdne13840:0"
+    "io": "crwdns13840:0crwdne13840:0",
+    "oc": "Rapòrts"
   },
   "expertiseTraining": {
     "fr": "Formation",
@@ -1618,7 +1629,8 @@ module.exports = {
     "de": "Ausbildung",
     "es": "formación",
     "it": "Formazione",
-    "io": "crwdns13842:0crwdne13842:0"
+    "io": "crwdns13842:0crwdne13842:0",
+    "oc": "Formacion"
   },
   "expertiseContentPromotion": {
     "fr": "Promotion des contenus",
@@ -1626,7 +1638,8 @@ module.exports = {
     "de": "Inhalt Förderung",
     "es": "la promoción de contenidos",
     "it": "Promozione dei contenuti",
-    "io": "crwdns13844:0crwdne13844:0"
+    "io": "crwdns13844:0crwdne13844:0",
+    "oc": "Promocion de contenguts"
   },
   "portalTitle": {
     "fr": "Un portail dédié à vos événements",
@@ -1921,7 +1934,7 @@ module.exports = {
     "fr": "Openagenda nous a permis de mieux identifier en amont les animations phares de nos salons et d'améliorer ainsi leur promotion via les réseaux sociaux notamment.",
     "de": "Ich wählte OpenAgenda wie es genau auf unsere Anforderungen abgestimmt: vereinen in einer einzigen Schnittstelle alle Animationen mit detaillierten Timings und Standorten. Die Plattform ermöglicht es uns, sobald ein Veranstaltung zu konfigurieren über mehrere Tage verteilen.",
     "es": "Openagenda nos permitió identificar mejor los faros actividades aguas arriba de nuestros salones y con ello mejorar su promoción a través de las redes sociales en particular.",
-    "it": "Openagenda ci ha permesso di identificare meglio in anticipo gli eventi chiave delle nostre fiere e quindi di migliorarne la promozione attraverso i social network in particolare.",
+    "it": "Openagenda ci ha permesso d'identificare meglio in anticipo gli eventi chiave delle nostre fiere e quindi di migliorarne la promozione attraverso i social network in particolare.",
     "io": "crwdns13918:0crwdne13918:0"
   },
   "anneLaureJanvierRole": {

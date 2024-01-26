@@ -12,7 +12,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
 
   const router = useRouter();
 
-  const url = new URL(router.asPath, 'http://n');
+  const url = new URL(router.asPath, 'https://n');
   // const redirectUrlPart = Buffer.from(url.pathname).toString('base64');
   const imageSrc = targetAgenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}`;
 

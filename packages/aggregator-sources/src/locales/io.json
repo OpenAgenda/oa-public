@@ -169,5 +169,21 @@
   "aggregator-sources.utils.stateMessages.state": "crwdns780:0crwdne780:0",
   "aggregator-sources.utils.stateMessages.stateControlled": "crwdns782:0crwdne782:0",
   "aggregator-sources.utils.stateMessages.statePublished": "crwdns784:0crwdne784:0",
-  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0"
+  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0",
+  "aggregator-sources.DefineRules.copy": "crwdns33416:0crwdne33416:0",
+  "aggregator-sources.DefineRules.languagesFilter": "crwdns33448:0crwdne33448:0",
+  "aggregator-sources.RuleForm.copyTextPlaceholder": "crwdns33418:0crwdne33418:0",
+  "aggregator-sources.RuleForm.copyTextTitle": "crwdns33420:0crwdne33420:0",
+  "aggregator-sources.RuleForm.copyTextValue": "crwdns33422:0crwdne33422:0",
+  "aggregator-sources.RuleForm.emailPlaceholder": "crwdns33424:0crwdne33424:0",
+  "aggregator-sources.RuleForm.helpFilterLanguages": "crwdns33426:0crwdne33426:0",
+  "aggregator-sources.RuleForm.languagesFilter": "crwdns33428:0crwdne33428:0",
+  "aggregator-sources.RuleForm.linkPlaceholder": "crwdns33430:0crwdne33430:0",
+  "aggregator-sources.RuleForm.markdownPlaceholder": "crwdns33432:0crwdne33432:0",
+  "aggregator-sources.RuleForm.phonePlaceholder": "crwdns33434:0crwdne33434:0",
+  "aggregator-sources.RuleForm.selectLanguages": "crwdns33450:0crwdne33450:0",
+  "aggregator-sources.RuleForm.setTextTitle": "crwdns33436:0crwdne33436:0",
+  "aggregator-sources.RuleForm.setTextValue": "crwdns33438:0crwdne33438:0",
+  "aggregator-sources.RuleForm.textPlaceholder": "crwdns33440:0crwdne33440:0",
+  "aggregator-sources.RuleForm.textareaPlaceholder": "crwdns33442:0crwdne33442:0"
 }

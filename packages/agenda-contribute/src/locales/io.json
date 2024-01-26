@@ -50,5 +50,10 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "crwdns16353:0crwdne16353:0",
   "AgendaContribute.Stepper.confirmation": "crwdns16355:0crwdne16355:0",
   "AgendaContribute.Stepper.event": "crwdns16357:0crwdne16357:0",
-  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0"
+  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0",
+  "AgendaContribute.EditConfirmation.end": "crwdns33406:0crwdne33406:0",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "crwdns33408:0crwdne33408:0",
+  "AgendaContribute.EventEdit.unpublishWarning": "crwdns33470:0crwdne33470:0",
+  "AgendaContribute.EventEdit.unpublishWarningTitle": "crwdns33472:0crwdne33472:0",
+  "AgendaContribute.EventEdit.unpublishWarningWithLink": "crwdns33474:0crwdne33474:0"
 }

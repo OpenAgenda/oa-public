@@ -48,5 +48,7 @@
   "requiredTagError": "Du musstmindestens eine Position auswählen.",
   "requiredCategoryError": "Du mussteine Position auswählen.",
   "noSelection": "Keiner der oben genannten Punkte",
-  "compulsoryNote": "Die mit * markierten Felder müssen ausgefüllt werden."
+  "compulsoryNote": "Die mit * markierten Felder müssen ausgefüllt werden.",
+  "trueBoolean": "Auswählen",
+  "falseBoolean": "Nicht ausgewählt"
 }

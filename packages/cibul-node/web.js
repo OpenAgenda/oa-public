@@ -3,7 +3,6 @@
 module.exports = app => {
   require('./services/users').plugApp(app);
   app.services.mails.plugApp(app);
-  app.use('/events/search', app.services.eventSearch.apps.events());
   app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.getPublic());
   app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.getRestricted());
   app.use('/agendas/:agendaUid/settings/exports', app.services.eventSearch.apps.agendas.getAgendaExportsSettings());
@@ -17,13 +16,11 @@ module.exports = app => {
   require('./services/agendaEvents')(app);
   require('./services/networkApps')(app);
   require('./services/abilities')(app);
-  require('./services/mails/unsubscription')(app);
   app.services.agendaDocx.plugApp(app);
   require('./home/back')(app);
   require('./general/front')(app);
   require('./general/session.back')(app);
   require('./general/back')(app);
-  require('./search/front')(app);
   require('./event/back')(app);
   require('./event/front')(app);
   require('./event/actions.front')(app);

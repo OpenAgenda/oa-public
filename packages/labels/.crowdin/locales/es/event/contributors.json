@@ -1,6 +1,6 @@
 {
-  "organization": "organización",
-  "contactNumber": "número de contacto",
+  "organization": "Organización",
+  "contactNumber": "Nombre de Contacto",
   "contactName": "Nombre de Contacto",
-  "contactPosition": "funcionamiento de los contactos"
+  "contactPosition": "Funcion del contacto"
 }

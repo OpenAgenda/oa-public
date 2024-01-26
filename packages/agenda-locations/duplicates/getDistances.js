@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const levenshtein = require('fast-levenshtein');
+const { distance } = require('fastest-levenshtein');
 const jaro = require('jaro-winkler');
 
 function getDistance(l1, l2) {
@@ -19,11 +19,11 @@ function getDistance(l1, l2) {
 }
 
 module.exports = (location1, location2) => {
-  const levenshteinName = levenshtein.get(location1.name, location2.name);
+  const levenshteinName = distance(location1.name, location2.name);
   const jaroName = 100 - jaro(location1.name, location2.name) * 100;
   const geoDistance = getDistance(
     _.pick(location1, ['latitude', 'longitude']),
-    _.pick(location2, ['latitude', 'longitude'])
+    _.pick(location2, ['latitude', 'longitude']),
   );
   const levenshteinPercent = (levenshteinName * 100) / Math.max(location1.name.length, location2.name.length);
 

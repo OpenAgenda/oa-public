@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Paramètres",
     "en": "Parameters",
     "de": "Parameter",
-    "es": "Configuracion",
+    "es": "Configuración",
     "it": "Impostazioni",
     "io": "crwdns12444:0crwdne12444:0",
     "oc": "Paramètres"
@@ -132,7 +132,7 @@ module.exports = {
     "fr": "Statut par défaut des événements",
     "en": "Default status of events",
     "de": "Default-Zustand der Veranstaltungen",
-    "es": "Eventos de estado por defecto",
+    "es": "Estado de les eventos por defecto",
     "it": "Stato di default degli eventi",
     "io": "crwdns12468:0crwdne12468:0",
     "oc": "Estatut per defaut dels eveniments"
@@ -151,7 +151,7 @@ module.exports = {
     "fr": "Vous pouvez modifier les événements ensuite.",
     "en": "You can edit the events later.",
     "de": "Du kannst später die Veranstaltungen bearbeiten.",
-    "es": "Se pueden cambiar los eventos a continuación.",
+    "es": "Puede actualizar los eventos más tarde.",
     "it": "È possibile modificare gli eventi in seguito.",
     "io": "crwdns12472:0crwdne12472:0",
     "oc": "Podètz modificar los eveniments mai tard."
@@ -206,7 +206,7 @@ module.exports = {
     "fr": "La chaîne de caractères est trop courte",
     "en": "String is too short",
     "de": "String zu kurz",
-    "es": "La cadena es demasiado corta",
+    "es": "El texto es demasiado corto",
     "it": "La stringa è troppo corta",
     "io": "crwdns12484:0crwdne12484:0",
     "oc": "La cadena de caractèrs es tròp corteta"
@@ -215,7 +215,7 @@ module.exports = {
     "fr": "La chaîne de caractères est trop longue",
     "en": "String is too long",
     "de": "String ist zu lang",
-    "es": "La cadena es demasiado larga",
+    "es": "El texto es demasiado largo",
     "it": "La stringa è troppo lunga",
     "io": "crwdns12486:0crwdne12486:0",
     "oc": "La cadena de caractèrs es tròp longa"
@@ -224,7 +224,7 @@ module.exports = {
     "fr": "Lien invalide",
     "en": "Invalid link",
     "de": "Ungültiger Link",
-    "es": "Vínculo no válido",
+    "es": "Enlace no válido",
     "it": "Collegamento non valido",
     "io": "crwdns12488:0crwdne12488:0",
     "oc": "Ligam invalid"
@@ -242,7 +242,7 @@ module.exports = {
     "fr": "La chaîne de caractères est trop courte",
     "en": "String is too short",
     "de": "String zu kurz",
-    "es": "La cadena es demasiado corta",
+    "es": "El texto es demasiado corto",
     "it": "La stringa è troppo corta",
     "io": "crwdns12492:0crwdne12492:0",
     "oc": "La cadena de caractèrs es tròp corteta"

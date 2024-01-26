@@ -34,7 +34,7 @@ function containsEventData(data) {
 }
 
 function isDifferent(a, b) {
-  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt'];
+  const ignoredFields = ['originAgenda', 'agenda', 'updatedAt', 'state'];
 
   return !!diff(
     _.omit(a, ignoredFields),

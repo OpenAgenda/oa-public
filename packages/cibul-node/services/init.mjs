@@ -12,6 +12,9 @@ import * as bull from './bull/index.mjs';
 import * as formSchemas from './formSchemas.mjs';
 import * as registrations from './registrations.mjs';
 import * as pdfExports from './pdfExports.mjs';
+import * as mails from './mails/index.mjs';
+import * as unsubscriptions from './unsubscriptions.mjs';
+import * as security from './security.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -137,7 +140,9 @@ export default async function initServices(config = null, options = {}) {
   await init('invitations', require('./invitations.js'));
   await init('legacy', require('./legacy.js'));
   await init('logRequests', require('./logRequests.js'));
-  await init('mails', require('./mails/index.js'));
+  await init('unsubscriptions', unsubscriptions);
+  await init('security', security);
+  await init('mails', mails);
   await init('model', require('./model/index.js'));
   await init('sessions', require('./sessions/index.js'));
   await init('networkApps', require('./networkApps.js'));
@@ -145,7 +150,6 @@ export default async function initServices(config = null, options = {}) {
   await init('newsletter', require('./newsletter.js'));
   await init('oembed', require('./oembed.js'));
   await init('simpleCache', require('./simpleCache.js'));
-  await init('unsubscribed', require('./unsubscribed.js'));
   await init('supervisor', require('./supervisor/index.js'));
   await init('stats', require('./stats/index.js'));
   await init('reports', require('./reports.js'));

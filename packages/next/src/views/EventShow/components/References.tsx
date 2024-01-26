@@ -9,17 +9,6 @@ const isDev = process.env.NODE_ENV === 'development';
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
-function fetcher(url) {
-  return fetch(url)
-    .then(
-      r => {
-        if (r.ok) return r.json();
-        // TODO should recreate an error with data in `await r.json()` and/or status
-        throw new Error('Error');
-      },
-    );
-}
-
 function getImageSrcProps(image?: string) {
   if (!image) {
     return {
@@ -45,10 +34,7 @@ export default function References({ agenda, event }) {
       references,
     } = {},
     status,
-  } = useSWRImmutable(
-    `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
-    fetcher,
-  );
+  } = useSWRImmutable(`/api/agendas/${agenda.uid}/events/${event.uid}/references`);
 
   if (status === FetchStatus.Fetching) return null;
 

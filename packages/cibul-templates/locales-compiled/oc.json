@@ -23,6 +23,192 @@
       "value": "Modificar"
     }
   ],
+  "cibulTemplates.passwordField.good": [
+    {
+      "type": 0,
+      "value": "Suffisamment sécurisé 🙂"
+    }
+  ],
+  "cibulTemplates.passwordField.great": [
+    {
+      "type": 0,
+      "value": "Très sécurisé 🥳"
+    }
+  ],
+  "cibulTemplates.passwordField.required": [
+    {
+      "type": 0,
+      "value": "Requis."
+    }
+  ],
+  "cibulTemplates.passwordField.tooWeak": [
+    {
+      "type": 0,
+      "value": "Pas assez sûr 😑"
+    }
+  ],
+  "cibulTemplates.passwordField.usual": [
+    {
+      "type": 0,
+      "value": "Trop commun 🤖"
+    }
+  ],
+  "cibulTemplates.passwordField.weak": [
+    {
+      "type": 0,
+      "value": "Peu sécurisé 😐"
+    }
+  ],
+  "cibulTemplates.passwordField.weakish": [
+    {
+      "type": 0,
+      "value": "Mieux, pas top 😬"
+    }
+  ],
+  "common.event.fields.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibility conditions"
+    }
+  ],
+  "common.event.fields.age": [
+    {
+      "type": 0,
+      "value": "Targeted public age"
+    }
+  ],
+  "common.event.fields.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Attendance mode"
+    }
+  ],
+  "common.event.fields.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "common.event.fields.description": [
+    {
+      "type": 0,
+      "value": "Short description"
+    }
+  ],
+  "common.event.fields.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "common.event.fields.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "common.event.fields.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
+  "common.event.fields.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.event.fields.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "common.event.fields.onlineAccessLink": [
+    {
+      "type": 0,
+      "value": "Access link"
+    }
+  ],
+  "common.event.fields.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "common.event.fields.slug": [
+    {
+      "type": 0,
+      "value": "Slug"
+    }
+  ],
+  "common.event.fields.status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "common.event.fields.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "common.event.fields.title": [
+    {
+      "type": 0,
+      "value": "Title"
+    }
+  ],
+  "common.event.states.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "common.event.states.readyToPublish": [
+    {
+      "type": 0,
+      "value": "Ready to publish"
+    }
+  ],
+  "common.event.states.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "common.event.states.toModerate": [
+    {
+      "type": 0,
+      "value": "To moderate"
+    }
+  ],
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "Reader"
+    }
+  ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,

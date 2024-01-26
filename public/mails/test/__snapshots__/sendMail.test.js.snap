@@ -1,123 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`sendMail Euthreal transport override default "from" value 1`] = `
-Array [
-  Object {
-    "accepted": Array [
+[
+  {
+    "accepted": [
       "kevin.bertho@gmail.com",
     ],
-    "ehlo": Array [
+    "ehlo": [
       "PIPELINING",
       "8BITMIME",
       "SMTPUTF8",
       "AUTH LOGIN PLAIN",
     ],
-    "envelope": Object {
+    "envelope": {
       "from": "admin@openagenda.com",
-      "to": Array [
+      "to": [
         "kevin.bertho@gmail.com",
       ],
     },
     "messageSize": 6141,
-    "rejected": Array [],
+    "rejected": [],
   },
 ]
 `;
 
 exports[`sendMail Euthreal transport send email directly (without queue) - helloWorld template 1`] = `
-Array [
-  Object {
-    "accepted": Array [
+[
+  {
+    "accepted": [
       "kevin.bertho@gmail.com",
     ],
-    "ehlo": Array [
+    "ehlo": [
       "PIPELINING",
       "8BITMIME",
       "SMTPUTF8",
       "AUTH LOGIN PLAIN",
     ],
-    "envelope": Object {
+    "envelope": {
       "from": "no-reply@openagenda.com",
-      "to": Array [
+      "to": [
         "kevin.bertho@gmail.com",
       ],
     },
     "messageSize": 6181,
-    "rejected": Array [],
+    "rejected": [],
   },
-  Object {
-    "accepted": Array [
+  {
+    "accepted": [
       "kevin.berthommier@openagenda.com",
     ],
-    "ehlo": Array [
+    "ehlo": [
       "PIPELINING",
       "8BITMIME",
       "SMTPUTF8",
       "AUTH LOGIN PLAIN",
     ],
-    "envelope": Object {
+    "envelope": {
       "from": "no-reply@openagenda.com",
-      "to": Array [
+      "to": [
         "kevin.berthommier@openagenda.com",
       ],
     },
     "messageSize": 6154,
-    "rejected": Array [],
+    "rejected": [],
   },
-  Object {
-    "accepted": Array [
+  {
+    "accepted": [
       "kaore@openagenda.com",
     ],
-    "ehlo": Array [
+    "ehlo": [
       "PIPELINING",
       "8BITMIME",
       "SMTPUTF8",
       "AUTH LOGIN PLAIN",
     ],
-    "envelope": Object {
+    "envelope": {
       "from": "no-reply@openagenda.com",
-      "to": Array [
+      "to": [
         "kaore@openagenda.com",
       ],
     },
     "messageSize": 6139,
-    "rejected": Array [],
+    "rejected": [],
   },
 ]
 `;
 
 exports[`sendMail JSON transport send a mail to an invalid email returns with errors 1`] = `
-Array [
+[
   [VError: Invalid email address],
 ]
 `;
 
 exports[`sendMail JSON transport send a mail with an error don't send anything 1`] = `
-Array [
+[
   [VError: Invalid email address],
 ]
 `;
 
 exports[`sendMail JSON transport send email - helloWorld template 1`] = `
-Array [
-  Object {
-    "data": Object {
+[
+  {
+    "data": {
       "domain": "https://openagenda.com",
       "username": "bertho",
     },
-    "headers": Object {},
+    "headers": {},
     "html": "<!doctype html>
-<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
       
     </title>
     <!--[if !mso]><!-->
-    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <style type=\\"text/css\\">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
       table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
@@ -135,78 +135,78 @@ Array [
     </noscript>
     <![endif]-->
     <!--[if lte mso 11]>
-    <style type=\\"text/css\\">
+    <style type="text/css">
       .mj-outlook-group-fix { width:100% !important; }
     </style>
     <![endif]-->
     
       <!--[if !mso]><!-->
-        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
-        <style type=\\"text/css\\">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
           @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
         </style>
       <!--<![endif]-->
 
     
     
-    <style type=\\"text/css\\">
+    <style type="text/css">
       @media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
       }
     </style>
-    <style media=\\"screen and (min-width:480px)\\">
+    <style media="screen and (min-width:480px)">
       .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
     </style>
     
   
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     
     </style>
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     </style>
     
   </head>
-  <body style=\\"word-spacing:normal;\\">
+  <body style="word-spacing:normal;">
     
     
       <div
-         style=\\"\\"
+         style=""
       >
         
       
-      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
-      <div  style=\\"margin:0px auto;max-width:600px;\\">
+      <div  style="margin:0px auto;max-width:600px;">
         
         <table
-           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;"
         >
           <tbody>
             <tr>
               <td
-                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+                 style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
               >
-                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
       <div
-         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
       >
         
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
       >
         <tbody>
           
               <tr>
                 <td
-                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <div
-         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
       >Hello bertho !</div>
     
                 </td>
@@ -214,19 +214,19 @@ Array [
             
               <tr>
                 <td
-                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;"
       >
         <tbody>
           <tr>
             <td
-               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+               align="center" bgcolor="#2494c7" role="presentation" style="border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;" valign="middle"
             >
               <a
-                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+                 href="https://openagenda.com" style="display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank"
               >
                 Go to OpenAgenda
               </a>
@@ -267,31 +267,31 @@ Array [
     "text": "Hello bertho !
 Go to https://openagenda.com
 ",
-    "to": Array [
-      Object {
+    "to": [
+      {
         "address": "kevin.bertho@gmail.com",
         "name": "",
       },
     ],
   },
-  Object {
-    "data": Object {
+  {
+    "data": {
       "domain": "https://openagenda.com",
       "username": "bertho",
     },
-    "headers": Object {},
+    "headers": {},
     "html": "<!doctype html>
-<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
       
     </title>
     <!--[if !mso]><!-->
-    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <style type=\\"text/css\\">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
       table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
@@ -309,78 +309,78 @@ Go to https://openagenda.com
     </noscript>
     <![endif]-->
     <!--[if lte mso 11]>
-    <style type=\\"text/css\\">
+    <style type="text/css">
       .mj-outlook-group-fix { width:100% !important; }
     </style>
     <![endif]-->
     
       <!--[if !mso]><!-->
-        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
-        <style type=\\"text/css\\">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
           @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
         </style>
       <!--<![endif]-->
 
     
     
-    <style type=\\"text/css\\">
+    <style type="text/css">
       @media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
       }
     </style>
-    <style media=\\"screen and (min-width:480px)\\">
+    <style media="screen and (min-width:480px)">
       .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
     </style>
     
   
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     
     </style>
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     </style>
     
   </head>
-  <body style=\\"word-spacing:normal;\\">
+  <body style="word-spacing:normal;">
     
     
       <div
-         style=\\"\\"
+         style=""
       >
         
       
-      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
-      <div  style=\\"margin:0px auto;max-width:600px;\\">
+      <div  style="margin:0px auto;max-width:600px;">
         
         <table
-           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;"
         >
           <tbody>
             <tr>
               <td
-                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+                 style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
               >
-                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
       <div
-         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
       >
         
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
       >
         <tbody>
           
               <tr>
                 <td
-                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <div
-         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
       >Hello bertho !</div>
     
                 </td>
@@ -388,19 +388,19 @@ Go to https://openagenda.com
             
               <tr>
                 <td
-                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;"
       >
         <tbody>
           <tr>
             <td
-               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+               align="center" bgcolor="#2494c7" role="presentation" style="border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;" valign="middle"
             >
               <a
-                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+                 href="https://openagenda.com" style="display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank"
               >
                 Go to OpenAgenda
               </a>
@@ -441,31 +441,31 @@ Go to https://openagenda.com
     "text": "Hello bertho !
 Go to https://openagenda.com
 ",
-    "to": Array [
-      Object {
+    "to": [
+      {
         "address": "kevin.berthommier@openagenda.com",
         "name": "",
       },
     ],
   },
-  Object {
-    "data": Object {
+  {
+    "data": {
       "domain": "https://openagenda.com",
       "username": "kaore",
     },
-    "headers": Object {},
+    "headers": {},
     "html": "<!doctype html>
-<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
       
     </title>
     <!--[if !mso]><!-->
-    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <style type=\\"text/css\\">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
       table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
@@ -483,78 +483,78 @@ Go to https://openagenda.com
     </noscript>
     <![endif]-->
     <!--[if lte mso 11]>
-    <style type=\\"text/css\\">
+    <style type="text/css">
       .mj-outlook-group-fix { width:100% !important; }
     </style>
     <![endif]-->
     
       <!--[if !mso]><!-->
-        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
-        <style type=\\"text/css\\">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
           @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
         </style>
       <!--<![endif]-->
 
     
     
-    <style type=\\"text/css\\">
+    <style type="text/css">
       @media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
       }
     </style>
-    <style media=\\"screen and (min-width:480px)\\">
+    <style media="screen and (min-width:480px)">
       .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
     </style>
     
   
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     
     </style>
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     </style>
     
   </head>
-  <body style=\\"word-spacing:normal;\\">
+  <body style="word-spacing:normal;">
     
     
       <div
-         style=\\"\\"
+         style=""
       >
         
       
-      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
-      <div  style=\\"margin:0px auto;max-width:600px;\\">
+      <div  style="margin:0px auto;max-width:600px;">
         
         <table
-           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;"
         >
           <tbody>
             <tr>
               <td
-                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+                 style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
               >
-                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
       <div
-         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
       >
         
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
       >
         <tbody>
           
               <tr>
                 <td
-                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <div
-         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
       >Hello kaore !</div>
     
                 </td>
@@ -562,19 +562,19 @@ Go to https://openagenda.com
             
               <tr>
                 <td
-                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;"
       >
         <tbody>
           <tr>
             <td
-               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+               align="center" bgcolor="#2494c7" role="presentation" style="border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;" valign="middle"
             >
               <a
-                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+                 href="https://openagenda.com" style="display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank"
               >
                 Go to OpenAgenda
               </a>
@@ -615,10 +615,10 @@ Go to https://openagenda.com
     "text": "Hello kaore !
 Go to https://openagenda.com
 ",
-    "to": Array [
-      Object {
+    "to": [
+      {
         "address": "kaore@openagenda.com",
-        "data": Object {
+        "data": {
           "username": "kaore",
         },
         "name": "Kaoré",
@@ -629,33 +629,33 @@ Go to https://openagenda.com
 `;
 
 exports[`sendMail translations choose a lang per recipient 1`] = `
-Array [
-  Object {
-    "envelope": Object {
+[
+  {
+    "envelope": {
       "from": false,
-      "to": Array [
+      "to": [
         "kevin.bertho@gmail.com",
       ],
     },
-    "message": Object {
-      "data": Object {
+    "message": {
+      "data": {
         "domain": "https://openagenda.com",
         "lang": "fr",
         "username": "bertho",
       },
-      "headers": Object {},
+      "headers": {},
       "html": "<!doctype html>
-<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
       
     </title>
     <!--[if !mso]><!-->
-    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <style type=\\"text/css\\">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
       table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
@@ -673,78 +673,78 @@ Array [
     </noscript>
     <![endif]-->
     <!--[if lte mso 11]>
-    <style type=\\"text/css\\">
+    <style type="text/css">
       .mj-outlook-group-fix { width:100% !important; }
     </style>
     <![endif]-->
     
       <!--[if !mso]><!-->
-        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
-        <style type=\\"text/css\\">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
           @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
         </style>
       <!--<![endif]-->
 
     
     
-    <style type=\\"text/css\\">
+    <style type="text/css">
       @media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
       }
     </style>
-    <style media=\\"screen and (min-width:480px)\\">
+    <style media="screen and (min-width:480px)">
       .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
     </style>
     
   
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     
     </style>
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     </style>
     
   </head>
-  <body style=\\"word-spacing:normal;\\">
+  <body style="word-spacing:normal;">
     
     
       <div
-         style=\\"\\"
+         style=""
       >
         
       
-      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
-      <div  style=\\"margin:0px auto;max-width:600px;\\">
+      <div  style="margin:0px auto;max-width:600px;">
         
         <table
-           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;"
         >
           <tbody>
             <tr>
               <td
-                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+                 style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
               >
-                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
       <div
-         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
       >
         
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
       >
         <tbody>
           
               <tr>
                 <td
-                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <div
-         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
       >Salut bertho</div>
     
                 </td>
@@ -752,19 +752,19 @@ Array [
             
               <tr>
                 <td
-                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;"
       >
         <tbody>
           <tr>
             <td
-               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+               align="center" bgcolor="#2494c7" role="presentation" style="border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;" valign="middle"
             >
               <a
-                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+                 href="https://openagenda.com" style="display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank"
               >
                 Aller sur OpenAgenda
               </a>
@@ -806,10 +806,10 @@ Array [
       "text": "Salut bertho
 Aller sur OpenAgenda: https://openagenda.com
 ",
-      "to": Array [
-        Object {
+      "to": [
+        {
           "address": "kevin.bertho@gmail.com",
-          "data": Object {
+          "data": {
             "username": "bertho",
           },
           "lang": "fr",
@@ -822,33 +822,33 @@ Aller sur OpenAgenda: https://openagenda.com
 `;
 
 exports[`sendMail translations take a default lang 1`] = `
-Array [
-  Object {
-    "envelope": Object {
+[
+  {
+    "envelope": {
       "from": false,
-      "to": Array [
+      "to": [
         "kevin.bertho@gmail.com",
       ],
     },
-    "message": Object {
-      "data": Object {
+    "message": {
+      "data": {
         "domain": "https://openagenda.com",
         "lang": "en",
         "username": "bertho",
       },
-      "headers": Object {},
+      "headers": {},
       "html": "<!doctype html>
-<html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
       
     </title>
     <!--[if !mso]><!-->
-    <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=edge\\">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--<![endif]-->
-    <meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <style type=\\"text/css\\">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
       #outlook a { padding:0; }
       body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
       table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
@@ -866,78 +866,78 @@ Array [
     </noscript>
     <![endif]-->
     <!--[if lte mso 11]>
-    <style type=\\"text/css\\">
+    <style type="text/css">
       .mj-outlook-group-fix { width:100% !important; }
     </style>
     <![endif]-->
     
       <!--[if !mso]><!-->
-        <link href=\\"https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700\\" rel=\\"stylesheet\\" type=\\"text/css\\">
-        <style type=\\"text/css\\">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
           @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
         </style>
       <!--<![endif]-->
 
     
     
-    <style type=\\"text/css\\">
+    <style type="text/css">
       @media only screen and (min-width:480px) {
         .mj-column-per-100 { width:100% !important; max-width: 100%; }
       }
     </style>
-    <style media=\\"screen and (min-width:480px)\\">
+    <style media="screen and (min-width:480px)">
       .moz-text-html .mj-column-per-100 { width:100% !important; max-width: 100%; }
     </style>
     
   
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     
     </style>
-    <style type=\\"text/css\\">
+    <style type="text/css">
     
     </style>
     
   </head>
-  <body style=\\"word-spacing:normal;\\">
+  <body style="word-spacing:normal;">
     
     
       <div
-         style=\\"\\"
+         style=""
       >
         
       
-      <!--[if mso | IE]><table align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" role=\\"presentation\\" style=\\"width:600px;\\" width=\\"600\\" ><tr><td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
-      <div  style=\\"margin:0px auto;max-width:600px;\\">
+      <div  style="margin:0px auto;max-width:600px;">
         
         <table
-           align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"width:100%;\\"
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;"
         >
           <tbody>
             <tr>
               <td
-                 style=\\"direction:ltr;font-size:0px;padding:20px 0;text-align:center;\\"
+                 style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;"
               >
-                <!--[if mso | IE]><table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\"><tr><td class=\\"\\" style=\\"vertical-align:top;width:600px;\\" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
       <div
-         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
       >
         
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"vertical-align:top;\\" width=\\"100%\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
       >
         <tbody>
           
               <tr>
                 <td
-                   align=\\"left\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <div
-         style=\\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;\\"
+         style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
       >Hello bertho</div>
     
                 </td>
@@ -945,19 +945,19 @@ Array [
             
               <tr>
                 <td
-                   align=\\"center\\" vertical-align=\\"middle\\" style=\\"font-size:0px;padding:10px 25px;word-break:break-word;\\"
+                   align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;"
                 >
                   
       <table
-         border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" role=\\"presentation\\" style=\\"border-collapse:separate;line-height:100%;\\"
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;"
       >
         <tbody>
           <tr>
             <td
-               align=\\"center\\" bgcolor=\\"#2494c7\\" role=\\"presentation\\" style=\\"border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;\\" valign=\\"middle\\"
+               align="center" bgcolor="#2494c7" role="presentation" style="border:none;border-radius:5px;cursor:auto;mso-padding-alt:10px 25px;background:#2494c7;" valign="middle"
             >
               <a
-                 href=\\"https://openagenda.com\\" style=\\"display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;\\" target=\\"_blank\\"
+                 href="https://openagenda.com" style="display:inline-block;background:#2494c7;color:white;font-family:Helvetica;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank"
               >
                 Go to OpenAgenda
               </a>
@@ -999,10 +999,10 @@ Array [
       "text": "Hello bertho
 Go to OpenAgenda: https://openagenda.com
 ",
-      "to": Array [
-        Object {
+      "to": [
+        {
           "address": "kevin.bertho@gmail.com",
-          "data": Object {
+          "data": {
             "username": "bertho",
           },
           "name": "",

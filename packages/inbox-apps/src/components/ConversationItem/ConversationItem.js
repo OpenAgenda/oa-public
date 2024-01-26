@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import marked from 'marked';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import qs from 'qs';
 import { AuthorAvatar, ConversationTitle, Link, LinkContainer } from '../';
 import I18nContext from '../../contexts/I18nContext';
@@ -165,6 +166,10 @@ export default class ConversationItem extends Component {
       </div>
     </Fragment> : null;
 
+    const origin = conversation.store?.params?.origin
+      ? decodeURIComponent(conversation.store.params.origin)
+      : null;
+
     return (
       <div className="media conversation-item">
         <div className="media-left media-top">
@@ -182,9 +187,9 @@ export default class ConversationItem extends Component {
             />
             {resolvedIcon}
 
-            {conversation.store?.params?.origin ? (
+            {origin ? (
               <div className="text-muted">
-                ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
+                ({getLabel( 'from' )} <em><a href={origin} target="_blank">{origin}</a></em>)
               </div>
             ) : null}
           </div>
@@ -195,11 +200,9 @@ export default class ConversationItem extends Component {
             <div
               className="message padding-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: marked( latestMessage.body, {
+                __html: DOMPurify.sanitize(marked.parse(latestMessage.body, {
                   breaks: true,
-                  sanitize: true,
-                  pedantic: true
-                } )
+                }))
               }}
             />
 

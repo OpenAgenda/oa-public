@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import marked from 'marked';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import qs from 'qs';
 import { AuthorAvatar } from '../';
 import I18nContext from '../../contexts/I18nContext';
@@ -73,11 +74,9 @@ export default class MessageItem extends Component {
             <div
               className="margin-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: marked( message.body, {
+                __html: DOMPurify.sanitize(marked.parse(message.body, {
                   breaks: true,
-                  sanitize: true,
-                  pedantic: true
-                } )
+                }))
               }}
             />
 

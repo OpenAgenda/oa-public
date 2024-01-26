@@ -15,9 +15,9 @@ module.exports = {
     "fr": "en modération",
     "en": "in moderation",
     "de": "in Maßen",
-    "es": "con moderación",
+    "es": "a controlar",
     "br": "da habaskaat",
-    "it": "moderatamente",
+    "it": "da moderare",
     "io": "crwdns14604:0crwdne14604:0",
     "oc": "e cors de moderacion"
   },
@@ -25,9 +25,9 @@ module.exports = {
     "fr": "en modération",
     "en": "in moderation",
     "de": "in Maßen",
-    "es": "con moderación",
+    "es": "a controlar",
     "br": "da habaskaat",
-    "it": "moderatamente",
+    "it": "da moderare",
     "io": "crwdns14606:0crwdne14606:0",
     "oc": "e cors de moderacion"
   },
@@ -95,7 +95,7 @@ module.exports = {
     "fr": "L'événement est désormais en une",
     "en": "The event is now featured",
     "de": "Die Veranstaltung wird nun vorgestellt",
-    "es": "El caso está ahora en una",
+    "es": "El evento esta destacado",
     "br": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
     "it": "L'evento è ora in uno",
     "io": "crwdns14620:0crwdne14620:0",
@@ -105,7 +105,7 @@ module.exports = {
     "fr": "L'événement n'est plus en une",
     "en": "The event is no longer featured",
     "de": "Die Veranstaltung ist nicht mehr funktions",
-    "es": "El evento ya no es una",
+    "es": "El evento ya no es más destacada",
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
     "it": "L'evento non è più in uno",
     "io": "crwdns14622:0crwdne14622:0",
@@ -121,6 +121,8 @@ module.exports = {
   },
   "stateFieldSub": {
     "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
-    "en": "Important: the event will be visible and shareable only when it will be published"
+    "en": "Important: the event will be visible and shareable only when it will be published",
+    "it": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
+    "io": "crwdns33404:0crwdne33404:0"
   }
 }

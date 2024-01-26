@@ -18,6 +18,8 @@ import {
 import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
 import useEvent from '../../hooks/useEvent';
+import useMember from '../../hooks/useMember';
+import DuplicateModal from '../DuplicateModal';
 import ContextBarButton from './ContextBarButton';
 
 function ActionMenuItem({ action, description, onClick }) {
@@ -32,13 +34,24 @@ function ActionMenuItem({ action, description, onClick }) {
 }
 
 export default function OtherActions({ agenda }) {
-  const { event, mutate } = useEvent();
   const router = useRouter();
+
+  const { event, mutate } = useEvent();
+  const { me } = useMember();
+
+  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+  const { canEditEvent = false } = me?.authorizations ?? {};
 
   const {
     isOpen: removeIsOpen,
     onOpen: removeOnOpen,
     onClose: removeOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: duplicateIsOpen,
+    onOpen: duplicateOnOpen,
+    onClose: duplicateOnClose,
   } = useDisclosure();
 
   const isOriginAgenda = event.originAgenda.uid === agenda.uid;
@@ -88,6 +101,10 @@ export default function OtherActions({ agenda }) {
     }
   };
 
+  // if (!isAdminMod && !canEditEvent) {
+  //   return null;
+  // }
+
   return (
     <>
       <Menu matchWidth gutter={0}>
@@ -102,20 +119,29 @@ export default function OtherActions({ agenda }) {
           <Text fontSize="sm" mt="1">Mise en une, annulation, report, duplication...</Text>
         </MenuButton>
         <MenuList borderTopRadius="0">
-          {event.featured ? (
-            <ActionMenuItem
-              onClick={() => patchEvent({ featured: false })}
-              action="Mettre en une"
-              description="Un événement en une apparait en tête de liste"
-            />
-          ) : (
-            <ActionMenuItem
-              onClick={() => patchEvent({ featured: true })}
-              action="Retirer de la une"
-              description="Un événement en une apparait en tête de liste"
-            />
-          )}
-          {agenda.settings?.lab?.status ? (
+          {isAdminMod ? (
+            <>
+              {event.featured ? (
+                <ActionMenuItem
+                  onClick={() => patchEvent({ featured: false })}
+                  action="Mettre en une"
+                  description="Un événement en une apparait en tête de liste"
+                />
+              ) : (
+                <ActionMenuItem
+                  onClick={() => patchEvent({ featured: true })}
+                  action="Retirer de la une"
+                  description="Un événement en une apparait en tête de liste"
+                />
+              )}
+            </>
+          ) : null}
+          <ActionMenuItem
+            onClick={duplicateOnOpen}
+            action="Dupliquer"
+            description="Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement"
+          />
+          {agenda.settings?.lab?.status && canEditEvent ? (
             <>
               <MenuDivider />
               <ActionMenuItem
@@ -151,6 +177,7 @@ export default function OtherActions({ agenda }) {
             </>
           ) : null}
           <MenuDivider />
+          {/* TODO adminMod or event editor can delete/remove */}
           {isOriginAgenda ? (
             <ActionMenuItem
               onClick={removeOnOpen}
@@ -184,6 +211,10 @@ export default function OtherActions({ agenda }) {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      {duplicateIsOpen ? (
+        <DuplicateModal isOpen onClose={duplicateOnClose} agenda={agenda} event={event} />
+      ) : null}
     </>
   );
 }

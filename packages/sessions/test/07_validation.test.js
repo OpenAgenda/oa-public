@@ -14,6 +14,7 @@ describe('session - unit (server): validate', () => {
     latestActivity: new Date('1981-02-28T03:00:00+0100'),
     isNew: false,
     isBlacklisted: false,
+    transverseApiAccess: false,
   };
 
   it('server validate function describes data kept for session on server side', () => {

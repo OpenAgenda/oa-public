@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Champ obligatoire",
     "en": "Required field",
     "de": "Pflichtfeld",
-    "es": "campo obligatorio",
+    "es": "Campo obligatorio",
     "it": "Campo obbligatorio",
     "io": "crwdns14882:0crwdne14882:0",
     "oc": "Camp obligatòri"

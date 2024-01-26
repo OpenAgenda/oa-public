@@ -23,5 +23,18 @@
   "tailoredTitle": "A faiçon",
   "expertiseDeploy": "Desplega de la ret",
   "expertiseAnimation": "Animacion de comunautat",
-  "contactTitle": "Nos contactar"
+  "contactTitle": "Nos contactar",
+  "agendaPricingCustomPrice": "(300 €/mes*)",
+  "agendaPricingCustomYearlyPrice": "3 500 €/an*",
+  "networkPricingFreeCount": "365 eveniments/an",
+  "networkPricingFreePricing": "0 €/an",
+  "networkPricingSmallCount": "2 000 eveniments/an",
+  "networkPricingSmallPricing": "3 500 € / an*",
+  "getStartedTitle": "Prèste·a ?",
+  "footerContactEmail": "Vòstra adreça email",
+  "expertiseOperationalSupport": "Supòrt operacional",
+  "expertiseModeration": "Moderacion de contenguts",
+  "expertiseReporting": "Rapòrts",
+  "expertiseTraining": "Formacion",
+  "expertiseContentPromotion": "Promocion de contenguts"
 }

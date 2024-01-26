@@ -8,7 +8,7 @@ const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
-} = require('../testconfig.sample');
+} = require('./testconfig');
 
 const Service = require('..');
 const fixtures = require('./fixtures');
@@ -135,11 +135,11 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded candidates in db', () => {
-      expect(JSON.parse(entry.duplicates).candidates).toStrictEqual([30]);
+      expect(JSON.parse(entry.duplicate_candidates)).toStrictEqual([30]);
     });
 
     it('patching candidates in duplicates does not affect other duplicates fields', () => {
-      expect(JSON.parse(entry.duplicates).disqualified).toStrictEqual([5]);
+      expect(JSON.parse(entry.duplicate_disqualified)).toStrictEqual([5]);
     });
   });
 
@@ -276,6 +276,23 @@ describe('agenda-locations - functional - patch & update', () => {
         }, { includeImagePath: true });
 
         expect(patched.extId).toBeNull();
+      },
+    );
+
+    it(
+      'fix: adminLevels should be patchable',
+      async () => {
+        const prePatch = await svc(7196947).get(14471367, { detailed: true });
+
+        expect(prePatch.adminLevel5).toBeNull();
+
+        const patched = await svc(7196947).patch(14471367, { adminLevel5: 'Centre' });
+
+        expect(patched.adminLevel5).toBe('Centre');
+
+        const postPatch = await svc(7196947).get(14471367, { detailed: true });
+
+        expect(postPatch.adminLevel5).toBe('Centre');
       },
     );
 

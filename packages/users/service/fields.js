@@ -24,5 +24,6 @@ module.exports = {
     'lastSignin',
     'lastInboxCheck',
     'comexposiumId',
+    'transverseApiAccess',
   ],
 };

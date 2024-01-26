@@ -10,6 +10,9 @@ export default function FormModal({
   related,
   offererVenues,
   timings,
+  location,
+  title,
+  longDesc,
   bookingEmail,
 }) {
   return (
@@ -30,6 +33,9 @@ export default function FormModal({
           onSubmit={onSubmit}
           onClear={onClear}
           bookingEmail={bookingEmail}
+          oaLocation={location}
+          title={title}
+          longDesc={longDesc}
         />
       </div>
     </Modal>

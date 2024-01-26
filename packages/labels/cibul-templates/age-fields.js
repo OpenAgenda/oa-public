@@ -32,7 +32,7 @@ module.exports = {
     "fr": "à",
     "en": "to",
     "de": "zu",
-    "es": "para",
+    "es": "a",
     "it": "a",
     "io": "crwdns13232:0crwdne13232:0",
     "oc": "a"
@@ -41,7 +41,7 @@ module.exports = {
     "fr": "Sélectionner",
     "en": "Select",
     "de": "Wählen",
-    "es": "seleccionar",
+    "es": "Seleccionar",
     "it": "Seleziona",
     "io": "crwdns13234:0crwdne13234:0",
     "oc": "Seleccionar"

@@ -17,7 +17,7 @@ module.exports = {
     "it": "Precedente",
     "de": "Vorherige",
     "pl": "Poprzedni",
-    "es": "anterior",
+    "es": "Anterior",
     "io": "crwdns12782:0crwdne12782:0",
     "oc": "Precedent"
   },
@@ -48,7 +48,7 @@ module.exports = {
     "it": "Mese",
     "de": "Monat",
     "pl": "Miesiąc",
-    "es": "mes",
+    "es": "Mes",
     "io": "crwdns12788:0crwdne12788:0",
     "oc": "Mes"
   },
@@ -58,7 +58,7 @@ module.exports = {
     "it": "Settimana",
     "de": "Woche",
     "pl": "Tydzień",
-    "es": "semana",
+    "es": "Semana",
     "io": "crwdns12790:0crwdne12790:0",
     "oc": "Setmana"
   },
@@ -78,7 +78,7 @@ module.exports = {
     "it": "Agenda",
     "de": "Agenda",
     "pl": "Porządek obrad",
-    "es": "periódico",
+    "es": "Agenda",
     "br": "Deiziataer",
     "io": "crwdns12794:0crwdne12794:0",
     "oc": "Agenda"
@@ -89,7 +89,7 @@ module.exports = {
     "it": "Data",
     "de": "Datum",
     "pl": "Data",
-    "es": "fecha",
+    "es": "Fecha",
     "io": "crwdns12796:0crwdne12796:0",
     "oc": "Data"
   },
@@ -99,7 +99,7 @@ module.exports = {
     "it": "Tempo",
     "de": "Zeit",
     "pl": "Czas",
-    "es": "Hora",
+    "es": "Horario",
     "io": "crwdns12798:0crwdne12798:0",
     "oc": "Ora"
   },
@@ -109,7 +109,7 @@ module.exports = {
     "it": "Evento",
     "de": "Veranstaltung",
     "pl": "Wydarzenie",
-    "es": "evento",
+    "es": "Evento",
     "io": "crwdns12800:0crwdne12800:0",
     "oc": "Eveniment"
   },

@@ -1,8 +1,8 @@
 'use strict';
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
+const os = require('node:os');
+const fs = require('node:fs');
+const path = require('node:path');
 const { mkdirp } = require('mkdirp');
 const webpack = require('webpack');
 const ProgressBar = require('webpackbar');
@@ -232,11 +232,7 @@ module.exports = (env = {}, argv = {}) => {
       minimize: envName === 'production',
       minimizer: [
         new TerserPlugin({
-          cache: process.env.DISABLE_WEBPACK_CACHE
-            ? false
-            : getCacheDir('terser-webpack-plugin'),
-          // parallel: true
-          sourceMap: true,
+          terserOptions: { sourceMap: true },
         }),
         new CssMinimizerPlugin(),
       ],

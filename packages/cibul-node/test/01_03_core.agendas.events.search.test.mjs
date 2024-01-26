@@ -58,6 +58,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(Object.keys(events[0]).includes('description')).toBeTruthy();
     });
 
+    it('first, next and lastTiming are provided by default', async () => {
+      const { events: [event] } = await core.agendas(2).events.search({});
+
+      expect(event.firstTiming).not.toBeUndefined();
+      expect(event.lastTiming).not.toBeUndefined();
+      expect(event.nextTiming).not.toBeUndefined();
+    });
+
     it('if neither userUid or access are provided, only published events are returned', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, { detailed: true });
 

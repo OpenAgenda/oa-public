@@ -45,7 +45,7 @@ module.exports = ( { entry, output } ) => ({
       },
       {
         test: /\.ejs$/,
-        loader: 'ejs-compiled-loader-webpack4',
+        loader: 'compile-ejs-loader',
       },
       {
         test: /\.(css|html|tblr)$/,
@@ -70,11 +70,9 @@ module.exports = ( { entry, output } ) => ({
     moduleIds: 'deterministic',
     // minimize: false,
     minimizer: [
-      new TerserPlugin( {
-        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
-        extractComments: false,
-        // parallel: true
-      } )
+      new TerserPlugin({
+        terserOptions: { sourceMap: true },
+      }),
     ]
   },
   plugins: [

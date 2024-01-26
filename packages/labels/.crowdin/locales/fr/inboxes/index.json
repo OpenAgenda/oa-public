@@ -138,5 +138,9 @@
   "from": "Depuis",
   "validate": "Valider",
   "supportPlaceholder": "Bonjour,\n\nJ'ai un problème lorsque j'utilise OpenAgenda avec ...",
-  "locationName": "**Nom du lieu**: %name%"
+  "locationName": "**Nom du lieu**: %name%",
+  "eventTitle": "**Titre de l'événement**: %name%",
+  "titleSuggestEventChange": "Suggérer une modification sur l'événement",
+  "youSuggestedAEventChange": "Vous avez suggeré une modification sur l'événement",
+  "suggestedAEventChange": "a suggeré une modification sur l'événement"
 }

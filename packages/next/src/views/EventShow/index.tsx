@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
-import useSWR from 'swr';
 import {
   chakra,
   Box,
+  Center,
   Container,
   Flex,
   Grid,
@@ -18,8 +18,14 @@ import {
   Tabs,
   TabList,
   Tab,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
 } from '@openagenda/uikit';
-import { getFallbackChain } from '@openagenda/intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/pro-regular-svg-icons';
 import { faPhone } from '@fortawesome/pro-solid-svg-icons';
@@ -32,20 +38,22 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useMatomoTracker from 'hooks/useMatomoTracker';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
-import type { Agenda } from 'types';
 import useSession from 'hooks/useSession';
-import { FALLBACK_LOCALE, FALLBACK_LOCALES } from 'config/constants';
+import { useAgenda } from './contexts/agenda';
 import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
 import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
-import Activities from './components/Activities';
+import { Activities, ActivitiesList } from './components/Activities';
 import Inbox from './components/Inbox';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
+import ContributorSection from './components/ContributorSection';
 import * as additionalFieldsUtils from './utils/additionalFields';
+import getContentLocale from './utils/getContentLocale';
 import useEvent from './hooks/useEvent';
+import useMember from './hooks/useMember';
 import fetchLocale from './locales';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
@@ -54,45 +62,17 @@ const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? value[Object.keys(value).shift()];
 
 export type EventShowProps = {
-  agenda: Agenda
   preload?: string[]
 };
 
-function fetcher(url) {
-  return fetch(url)
-    .then(
-      r => {
-        if (r.ok) return r.json();
-        // TODO should recreate an error with data in `await r.json()` and/or status
-        throw new Error('Error');
-      },
-    );
-}
-
-// TODO copier le comportement de `getPreferredLocale` ?
-function getContentLocale(contentLocales, contentLocale, locale) {
-  return [
-    ...getFallbackChain(contentLocale, FALLBACK_LOCALES, locale),
-    FALLBACK_LOCALE,
-    contentLocales[0],
-  ]
-    .find(l => contentLocales.includes(l));
-}
-
-function SuggestLocationChangeButton({ agenda, event }) {
-  const {
-    data: {
-      me,
-    } = {},
-    status,
-  } = useSWR(
-    `/api/me/agendas/${agenda.uid}?includes[]=me.member`,
-    fetcher,
-  );
+function SuggestLocationChangeButton() {
+  const agenda = useAgenda();
+  const { event } = useEvent();
+  const { me, status } = useMember();
 
   if (status === FetchStatus.Fetching) return null;
 
-  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me.member.role);
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me?.member.role);
 
   if (isAdminMod) return null;
 
@@ -115,27 +95,21 @@ function SuggestLocationChangeButton({ agenda, event }) {
   );
 }
 
-function EditLocationButton({ agenda }) {
-  const {
-    data: {
-      me,
-    } = {},
-    status,
-  } = useSWR(
-    `/api/me/agendas/${agenda.uid}?includes[]=me.member`,
-    fetcher,
-  );
+function EditLocationButton() {
+  const { me, status } = useMember();
+  const { event } = useEvent();
+  const agenda = useAgenda();
 
   if (status === FetchStatus.Fetching) return null;
 
-  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me.member.role);
+  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me?.member.role);
 
   if (!isAdminMod) return null;
 
   return (
     <Button
       as={Link}
-      href="/"
+      href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
       // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
       variant="outline"
       // colorScheme="white"
@@ -155,17 +129,75 @@ function EditLocationButton({ agenda }) {
   );
 }
 
-function EventShow({ agenda, preload }: EventShowProps) {
+function LocationHistory() {
+  const agenda = useAgenda();
+  const { event } = useEvent();
+
+  const { me } = useMember();
+  const { canEditEvent = false } = me?.authorizations ?? {};
+
+  const {
+    isOpen,
+    onOpen,
+    onClose,
+  } = useDisclosure();
+
+  if (!canEditEvent) {
+    return null;
+  }
+
+  return (
+    <>
+      <Button onClick={onOpen} alignSelf="start">
+        Voir l&apos;historique
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader
+            sx={{
+              ':has(> .chakra-modal__close-btn)': {
+                pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
+              },
+            }}
+          >
+            Historique du lieu
+            <ModalCloseButton />
+          </ModalHeader>
+
+          <ModalBody>
+            <Activities res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}>
+              <ActivitiesList
+                emptyElem={(
+                  <Center py="12">
+                    Aucune activité
+                  </Center>
+                )}
+              />
+            </Activities>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
+function EventShow({ preload }: EventShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
+  const agenda = useAgenda();
 
   useMatomoTracker();
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
+  const mailtoSettings = agenda.settings?.inbox?.mailto;
+
   const session = useSession();
 
   const { event } = useEvent();
+  const { me } = useMember();
 
   const languages = Object.keys(event.title);
 
@@ -176,7 +208,7 @@ function EventShow({ agenda, preload }: EventShowProps) {
   const handleTabsChange = index => {
     setTabIndex(index);
 
-    const url = new URL(router.asPath, 'http://n');
+    const url = new URL(router.asPath, 'https://n');
     url.searchParams.set('cl', languages[index]);
     router.replace(
       url.pathname + url.search,
@@ -201,17 +233,24 @@ function EventShow({ agenda, preload }: EventShowProps) {
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
+  const isOwner = event.ownerUid === me?.member?.uid;
+  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+
+  const displayContextBar = isOwner || isAdminMod;
+
   return (
     <>
-      <Metas agenda={agenda} event={event} preload={preload} />
+      <Metas preload={preload} />
 
-      <Box pos="sticky" top="0" zIndex="sticky">
-        <ContextBar agenda={agenda} />
-      </Box>
+      {displayContextBar ? (
+        <Box pos="sticky" top="0" zIndex="sticky">
+          <ContextBar />
+        </Box>
+      ) : null}
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container maxW="container.lg" color="white">
-          <AgendaHeader agenda={agenda} />
+          <AgendaHeader />
         </Container>
       </Box>
 
@@ -236,7 +275,7 @@ function EventShow({ agenda, preload }: EventShowProps) {
       >
         <GridItem area="sidebar">
           <Flex direction="row" gap="8" mt="16">
-            <Sidebar agenda={agenda} event={event} contentLocale={contentLocale} />
+            <Sidebar contentLocale={contentLocale} />
           </Flex>
         </GridItem>
 
@@ -412,7 +451,7 @@ function EventShow({ agenda, preload }: EventShowProps) {
                 // }}
               >
                 {event.location.agendaUid === agenda.uid ? (
-                  <EditLocationButton agenda={agenda} />
+                  <EditLocationButton />
                 ) : null}
 
                 <div>
@@ -433,13 +472,13 @@ function EventShow({ agenda, preload }: EventShowProps) {
                   </div>
                 ) : null}
 
-                {event.location.description[contentLocale] ? (
+                {event.location.description?.[contentLocale] ? (
                   <div>
                     {event.location.description[contentLocale]}
                   </div>
                 ) : null}
 
-                {event.location.access[contentLocale] ? (
+                {event.location.access?.[contentLocale] ? (
                   <div>
                     <chakra.span fontWeight="bold">
                       Accés:&nbsp;
@@ -516,26 +555,51 @@ function EventShow({ agenda, preload }: EventShowProps) {
                   </chakra.div>
                 ) : null}
 
-                <SuggestLocationChangeButton agenda={agenda} event={event} />
+                <SuggestLocationChangeButton />
+
+                <LocationHistory />
               </Flex>
             </div>
           ) : null}
 
-          <Activities
-            agenda={agenda}
-            event={event}
-          />
+          <ContributorSection contentLocale={contentLocale} />
 
-          {session?.user ? (
-            <Inbox
-              agenda={agenda}
-              event={event}
-            />
+          <Activities
+            res={`/agendas/${agenda.uid}/events/${event.uid}/activities`}
+            hideEmpty
+          >
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">Historique</Heading>
+              <ActivitiesList p={8} />
+            </div>
+          </Activities>
+
+          {mailtoSettings?.enabled ? (
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">
+                Contacter les administrateurs
+              </Heading>
+              <Flex bg="white" justify="space-around">
+                <Button
+                  as={Link}
+                  href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
+                  variant="solid"
+                  colorScheme="primary"
+                  my="8"
+                >
+                  Envoyer un email
+                </Button>
+              </Flex>
+            </div>
+          ) : null}
+
+          {!mailtoSettings?.enabled && session?.user ? (
+            <Inbox />
           ) : null}
         </GridItem>
 
         <GridItem area="footer">
-          <Footer agenda={agenda} />
+          <Footer />
         </GridItem>
       </Grid>
 

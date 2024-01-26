@@ -352,12 +352,12 @@ module.exports = [{
   fieldType: 'integer',
   list: {
     max: 100,
+    default: null,
   },
-  default: null,
   db: {
     assign: true,
     type: 'json',
-    field: 'duplicates.candidates',
+    field: 'duplicate_candidates',
   },
   optional: true,
   read: ['internal', 'public'],
@@ -367,12 +367,12 @@ module.exports = [{
   fieldType: 'integer',
   list: {
     max: 100,
+    default: null,
   },
-  default: null,
   db: {
     assign: true,
     type: 'json',
-    field: 'duplicates.disqualified',
+    field: 'duplicate_disqualified',
   },
   optional: true,
   read: ['internal', 'public'],

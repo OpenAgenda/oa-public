@@ -34,7 +34,8 @@ module.exports = {
     "fr": "{originMember} a retiré {user} ({credential}) de {agenda}.",
     "it": "{originMember} ha rimosso {user} ({credential}) de {agenda}.",
     "io": "crwdns11272:0{originMember}crwdnd11272:0{user}crwdnd11272:0{credential}crwdnd11272:0{agenda}crwdne11272:0",
-    "oc": "{originMember} a tirat {user} ({credential}) de {agenda}."
+    "oc": "{originMember} a tirat {user} ({credential}) de {agenda}.",
+    "es": "{originMember} ha eliminado {user} ({credential}) de {agenda}."
   },
   "agenda.setMemberRole": {
     "en": "{user} appointed {originMember} as {credential} on {agenda}.",
@@ -237,7 +238,7 @@ module.exports = {
     "en": "Activities",
     "fr": "Activités",
     "de": "Aktivitäten",
-    "es": "actividades",
+    "es": "Actividades",
     "br": "Obererezhioù",
     "it": "Attività",
     "io": "crwdns11316:0crwdne11316:0",
@@ -247,7 +248,8 @@ module.exports = {
     "en": "History",
     "fr": "Historique",
     "io": "crwdns32760:0crwdne32760:0",
-    "oc": "Istoric"
+    "oc": "Istoric",
+    "es": "Historia"
   },
   "next": {
     "en": "Next",
