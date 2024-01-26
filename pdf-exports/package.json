@@ -11,7 +11,8 @@
     "test": "node test/addEventItem.test.js && node test/addFooter.test.js && node test/addHeader.test.js",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "extract-messages": "oa-intl 'lib/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "lint-staged": {
     "**/*.js": [
@@ -27,6 +28,7 @@
     "lodash": "^4.17.21",
     "pdfkit": "^0.13.0",
     "qs": "^6.9.1",
+    "react-intl": "^5.12.2",
     "readable-stream": "^4.4.2"
   },
   "devDependencies": {
