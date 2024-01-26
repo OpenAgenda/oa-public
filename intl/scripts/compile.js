@@ -26,6 +26,7 @@ const defaults = {
   fallbackMap: DEFAULT_FALLBACK_MAP,
   skipIndex: false,
   ast: true,
+  esm: false,
 };
 
 // Functions
@@ -149,6 +150,11 @@ module.exports.builder = yargs => {
       type: 'boolean',
       desc: 'Whether to compile message into AST instead of just string.',
     },
+    esm: {
+      type: 'boolean',
+      default: false,
+      desc: 'Create ESM index.',
+    },
   });
 };
 
@@ -161,6 +167,7 @@ module.exports.handler = async argv => {
     fallbackMap = defaults.fallbackMap,
     skipIndex = defaults.skipIndex,
     ast = defaults.ast,
+    esm = defaults.esm,
   } = argv;
 
   const format = 'simple';
@@ -190,6 +197,6 @@ module.exports.handler = async argv => {
     && path.basename(output) === '%lang%.json'
     && !output.includes('**')
   ) {
-    await createIndex(output, langs);
+    await createIndex(output, langs, esm);
   }
 };
