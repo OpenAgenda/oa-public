@@ -1,18 +1,24 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 
 module.exports = function inputToOuputPath(glob, input, dest, lang) {
   const originalGlobStarIndex = glob.indexOf('**');
   const globStarIndex = glob.replace('%lang%', lang).indexOf('**');
 
-  const endPathParts = globStarIndex === -1 ? input.split('/') : input.slice(globStarIndex).split('/');
+  const endPathParts = globStarIndex === -1
+    ? input.split('/')
+    : input.slice(globStarIndex).split('/');
   const globStarPath = globStarIndex === -1 ? '' : endPathParts.slice(0, -1).join('/');
   const originalFileName = endPathParts[endPathParts.length - 1];
 
   // inputPath
   const startGlobPath = originalGlobStarIndex === -1 ? glob : glob.slice(0, originalGlobStarIndex);
-  const inputPath = path.join(startGlobPath, globStarPath, globStarIndex === -1 ? '' : originalFileName);
+  const inputPath = path.join(
+    startGlobPath,
+    globStarPath,
+    globStarIndex === -1 ? '' : originalFileName,
+  );
 
   // compiledPath
   let compiledPath = dest;
