@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import addText from './addText.js';
 import addIcon from './addIcon.js';
 import getTruncatedLabel from './getTruncatedLabel.js';
+import messages from './messages.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,15 +15,11 @@ const typesWithIcons = [
 ];
 
 function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
-  const { lang, simulate = false } = options;
+  const { intl, simulate = false } = options;
 
   const { base } = params;
 
-  const registrationLabel = {
-    fr: 'Réservation',
-  };
-
-  return addText(doc, cursor, `${registrationLabel[lang]}:`, {
+  return addText(doc, cursor, `${intl.formatMessage(messages.registration)}:`, {
     underline: true,
     base,
     medium: true,

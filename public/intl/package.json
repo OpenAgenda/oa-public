@@ -53,11 +53,11 @@
     "@formatjs/cli": "^4.8.3",
     "@formatjs/intl": "^1.6.7",
     "core-js": "^3.29.1",
-    "dedent": "^0.7.0",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
     "mkdirp": "^3.0.1",
     "tmp": "^0.2.1",
+    "ts-dedent": "^2.2.0",
     "yargs": "^17.4.0"
   },
   "devDependencies": {

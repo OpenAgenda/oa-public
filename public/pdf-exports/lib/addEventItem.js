@@ -46,6 +46,7 @@ export default async function addEventItem(
     },
     secondaryColor = '#808080',
     simulate = false,
+    intl,
     lang,
   } = options;
 
@@ -227,7 +228,7 @@ export default async function addEventItem(
         iconHeightAndWidth,
         imageWidth,
       },
-      { simulate, lang },
+      { simulate, intl },
     );
 
     columnWidth = Math.max(columnWidth, registrationWidth);
