@@ -1,6 +1,6 @@
 'use strict';
 
-const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../lib/constants');
+const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../dist/constants');
 const extract = require('./extract');
 const compile = require('./compile');
 

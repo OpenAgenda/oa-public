@@ -16,6 +16,9 @@ import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
+import generateNonce from 'utils/generateNonce';
+import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
+import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
@@ -57,6 +60,48 @@ export const getServerSideProps: GetServerSideProps = async ({
         throw new VError[r.status](r.statusText);
       }),
     ]);
+
+    const googleAnalytics = agenda.settings?.tracking?.googleAnalytics;
+    const matomoUrl = agenda.settings?.tracking?.matomoUrl;
+
+    if (googleAnalytics || matomoUrl) {
+      const matomoDomain = matomoUrl ? normalizeMatomoUrl(matomoUrl) : null;
+
+      const nonce = generateNonce();
+      res.setHeader('X-Nonce', nonce);
+      res.setHeader('Content-Security-Policy-Report-Only', CSP({
+        props: { nonce },
+        directives: {
+          ...DEFAULT_DIRECTIVES,
+          connectSrc: [
+            ...DEFAULT_DIRECTIVES.connectSrc,
+            ...matomoDomain ? [
+              `https://${matomoDomain}`,
+            ] : [],
+            ...googleAnalytics ? [
+              'https://*.google-analytics.com',
+              'https://*.analytics.google.com',
+              'https://*.googletagmanager.com',
+              'https://*.g.doubleclick.net',
+              'https://*.google.com',
+            ] : [],
+          ],
+          imgSrc: [
+            ...DEFAULT_DIRECTIVES.imgSrc,
+            ...matomoDomain ? [
+              `https://${matomoDomain}`,
+            ] : [],
+            ...googleAnalytics ? [
+              'https://*.google-analytics.com',
+              'https://*.analytics.google.com',
+              'https://*.googletagmanager.com',
+              'https://*.g.doubleclick.net',
+              'https://*.google.com',
+            ] : [],
+          ],
+        },
+      }));
+    }
 
     const intl = createIntl({
       locale,

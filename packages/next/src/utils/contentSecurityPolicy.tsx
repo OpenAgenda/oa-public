@@ -11,38 +11,44 @@ type Options = {
   props?: DirectiveValueFunctionProps;
 }
 
-const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
-  'default-src': ["'none'"],
-  'base-uri': ["'none'"],
-  'font-src': ["'self'"],
-  'form-action': ["'self'"],
-  'frame-ancestors': ["'none'"],
-  'img-src': ["'self'", 'https:', 'data:', 'blob:'],
-  'object-src': ["'none'"],
-  'script-src': [
+export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
+  defaultSrc: ["'none'"],
+  baseUri: ["'none'"],
+  fontSrc: ["'self'"],
+  formAction: ["'self'"],
+  frameAncestors: ["'none'"],
+  imgSrc: [
+    "'self'",
+    'https:',
+    'data:',
+    'blob:',
+    ...process.env.NEXT_PUBLIC_MATOMO_URL ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`] : [],
+  ],
+  objectSrc: ["'none'"],
+  scriptSrc: [
     'https:', // backward compatibility
     "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     ({ nonce = '' }) => `'nonce-${nonce}'`,
     ...process.env.NODE_ENV === 'development' ? ["'unsafe-eval'"] : [],
   ],
-  'script-src-attr': ["'none'"],
-  'style-src': [
+  scriptSrcAttr: ["'none'"],
+  styleSrc: [
     "'self'",
     "'unsafe-inline'",
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
   ],
-  'media-src': ["'self'", 'https:', 'data:'],
-  'frame-src': ["'self'"],
-  'connect-src': [
+  mediaSrc: ["'self'", 'https:', 'data:'],
+  frameSrc: ["'self'", 'https://service.mtcaptcha.com', 'https://service2.mtcaptcha.com'],
+  connectSrc: [
     "'self'",
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX ? [process.env.NEXT_PUBLIC_ASSET_PREFIX] : [],
     ...process.env.NEXT_PUBLIC_MATOMO_URL ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`] : [],
   ],
-  'upgrade-insecure-requests': [],
-  'block-all-mixed-content': [],
-  'report-to': ['default'],
-  'report-uri': [`${process.env.NEXT_PUBLIC_ROOT}/reports`],
+  upgradeInsecureRequests: [],
+  blockAllMixedContent: [],
+  reportTo: ['default'],
+  reportUri: [`${process.env.NEXT_PUBLIC_ROOT}/reports`],
 };
 
 const getDefaultDirectives = () => ({ ...DEFAULT_DIRECTIVES });
@@ -144,6 +150,10 @@ function getHeaderValue(normalizedDirectives: Readonly<NormalizedDirectives>, pr
 }
 
 export default function contentSecurityPolicy(options: Options = {}) {
-  const normalizedDirectives = normalizeDirectives(options);
+  const normalizedDirectives = normalizeDirectives({
+    directives: options.directives ?? DEFAULT_DIRECTIVES,
+    useDefaults: options.useDefaults ?? false,
+    props: options.props,
+  });
   return getHeaderValue(normalizedDirectives, options.props);
 }
