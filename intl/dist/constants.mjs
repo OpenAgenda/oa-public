@@ -1,0 +1,10 @@
+import {
+  DEFAULT_FALLBACK_MAP,
+  DEFAULT_LANG,
+  DEFAULT_LANGS
+} from "./chunk-FLP4ZIRX.mjs";
+export {
+  DEFAULT_FALLBACK_MAP,
+  DEFAULT_LANG,
+  DEFAULT_LANGS
+};
