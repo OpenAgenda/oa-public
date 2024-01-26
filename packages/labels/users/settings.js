@@ -6,7 +6,7 @@ module.exports = {
     "fr": "Modifier",
     "de": "Ändern",
     "es": "Editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "br": "Kemmañ",
     "io": "crwdns15820:0crwdne15820:0",
     "oc": "Modificar"

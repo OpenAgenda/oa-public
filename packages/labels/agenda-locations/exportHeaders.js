@@ -89,7 +89,7 @@ module.exports = {
   },
   "eventCount": {
     "en": "Associated events",
-    "fr": "Evénements liés",
+    "fr": "Événements liés",
     "io": "crwdns12126:0crwdne12126:0",
     "it": "Eventi associati",
     "oc": "Eveniments associats",
@@ -97,7 +97,7 @@ module.exports = {
   },
   "agendaEventCount": {
     "en": "Associated events in agenda",
-    "fr": "Evénements liés dans l'agenda",
+    "fr": "Événements liés dans l'agenda",
     "io": "crwdns12128:0crwdne12128:0",
     "it": "Eventi associati nell'agenda",
     "oc": "Eveniments associats dins l'agenda",

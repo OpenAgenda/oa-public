@@ -62,7 +62,7 @@
   "fromTo": "de %from% à %to%",
   "duplicate": "Dupliquer",
   "duplicateInfo": "Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement",
-  "startingAt": "A partir de %min% ans",
+  "startingAt": "À partir de %min% ans",
   "minToMaxYearsOld": "De %min% à %max% ans",
   "accessibleToHearing": "Accessible aux handicapés auditifs",
   "accessibleToPsychic": "Accessible aux handicapés psychiques",

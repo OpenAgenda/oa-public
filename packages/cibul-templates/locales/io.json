@@ -52,5 +52,6 @@
   "common.roles.administrator": "crwdns33542:0crwdne33542:0",
   "common.roles.contributor": "crwdns33544:0crwdne33544:0",
   "common.roles.moderator": "crwdns33546:0crwdne33546:0",
-  "common.roles.reader": "crwdns33548:0crwdne33548:0"
+  "common.roles.reader": "crwdns33548:0crwdne33548:0",
+  "cibulTemplates.passwordField.usual": "crwdns33550:0crwdne33550:0"
 }

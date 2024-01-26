@@ -39,7 +39,7 @@ module.exports = {
   },
   "dateError": {
     "en": "Begin date should be before end date",
-    "fr": "La date de debut doit etre avant la date de fin",
+    "fr": "La date de début doit être avant la date de fin",
     "io": "crwdns31302:0crwdne31302:0",
     "oc": "La data de debut deu èsser avant la data de fin"
   },

@@ -404,7 +404,7 @@ module.exports = {
     "oc": "Gratuit"
   },
   "agendaPricingFreeFeature1": {
-    "fr": "Evénements et membres illimités",
+    "fr": "Événements et membres illimités",
     "en": "Unlimited events and members",
     "de": "Unbegrenzte Veranstaltungen und Mitglieder",
     "es": "Eventos miembros ilimitadas",
@@ -680,7 +680,7 @@ module.exports = {
     "en": "Manual editing",
     "de": "manuelle Bearbeitung",
     "es": "editorialisation Manual",
-    "it": "Modifica manuale",
+    "it": "Modificare manualmente",
     "io": "crwdns13610:0crwdne13610:0"
   },
   "networkPricingFreeFeature3": {
@@ -2044,7 +2044,7 @@ module.exports = {
   },
   "basicSumUnlimitedEvents": {
     "en": "Unlimited events",
-    "fr": "Evénements illimités",
+    "fr": "Événements illimités",
     "de": "unbegrenzte Veranstaltungen",
     "es": "Eventos ilimitadas",
     "it": "Eventi illimitati",

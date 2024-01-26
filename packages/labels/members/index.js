@@ -179,7 +179,7 @@ module.exports = {
     "en": "Edit profile",
     "de": "Profil bearbeiten",
     "es": "Editar Perfil",
-    "it": "Modifica profilo",
+    "it": "Modificare il profilo",
     "io": "crwdns15640:0crwdne15640:0"
   },
   "changeRole": {
