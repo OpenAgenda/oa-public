@@ -1,8 +1,9 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 import addText from './addText.js';
 import addIcon from './addIcon.js';
+import intl from './intl.js';
+import messages from './messages.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -84,15 +85,11 @@ export default async function addRegistration(
 
   const { registration = [] } = event;
 
-  const registrationLabel = {
-    fr: 'Réservation',
-  };
-
   if (registration.length > 0) {
     const addRegistrationLabel = addText(
       doc,
       localCursor,
-      `${registrationLabel[lang]}:`,
+      `${intl[lang].formatMessage(messages.registration)}:`,
       {
         underline: true,
         base,
