@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Messagerie",
     "en": "Inbox",
     "de": "Posteingang",
-    "es": "mensajería",
+    "es": "Mensajería",
     "it": "Messaggi",
     "io": "crwdns14998:0crwdne14998:0",
     "oc": "Messatjariá"
@@ -87,7 +87,7 @@ module.exports = {
     "fr": "Retour",
     "en": "Back",
     "de": "Zurück",
-    "es": "regreso",
+    "es": "Regreso",
     "it": "Indietro",
     "io": "crwdns15018:0crwdne15018:0",
     "oc": "Tornar"
@@ -178,7 +178,7 @@ module.exports = {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario",
+    "es": "Necesario",
     "it": "Richiesto",
     "br": "Rekis",
     "io": "crwdns15040:0crwdne15040:0",
@@ -639,7 +639,7 @@ module.exports = {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "cerca",
+    "es": "Cerca",
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15126:0crwdne15126:0",
@@ -1102,7 +1102,7 @@ module.exports = {
     "fr": "Depuis",
     "en": "From",
     "de": "Von",
-    "es": "Desde",
+    "es": "de",
     "it": "Da",
     "io": "crwdns15240:0crwdne15240:0",
     "oc": "De"
@@ -1134,17 +1134,21 @@ module.exports = {
     "fr": "**Titre de l'événement**: %name%",
     "en": "**Event Title**: %name%",
     "it": "**Titolo dell'evento**: %name%",
+    "io": "crwdns33476:0%name%crwdne33476:0"
   },
   "titleSuggestEventChange": {
     "fr": "Suggérer une modification sur l'événement",
     "en": "Suggest a change on the event",
+    "io": "crwdns33478:0crwdne33478:0"
   },
   "youSuggestedAEventChange": {
     "fr": "Vous avez suggeré une modification sur l'événement",
     "en": "You suggested a change on the event",
+    "io": "crwdns33480:0crwdne33480:0"
   },
   "suggestedAEventChange": {
     "fr": "a suggeré une modification sur l'événement",
     "en": "suggested a change on the event",
+    "io": "crwdns33482:0crwdne33482:0"
   }
 }

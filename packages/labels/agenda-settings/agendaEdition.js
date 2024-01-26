@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Description",
     "en": "Description",
     "de": "Beschreibung",
-    "es": "descripción",
+    "es": "Descripción",
     "it": "Descrizione",
     "io": "crwdns12500:0crwdne12500:0",
     "oc": "Descripcion"
@@ -232,7 +232,7 @@ module.exports = {
     "fr": "Sauvegarde en cours",
     "en": "Saving...",
     "de": "Speichern ...",
-    "es": "Ahorro",
+    "es": "Registrando...",
     "it": "Backup in corso...",
     "io": "crwdns12548:0crwdne12548:0",
     "oc": "Enregistrament..."
@@ -472,7 +472,7 @@ module.exports = {
     "fr": "Afin de guider les réutilisateurs des événements publiés sur OpenAgenda, nous avons mis en place un contrôle des agendas un à un, afin de leur attribuer un label \"officiel\", afin d'attester qu'il s'agit bien d'une programmation authentique, éditée par l'organisateur lui-même. Ceci exclut notamment les agendas de test.\n\nUne icône bleue apparaît alors à côté du nom de l'agenda.\n\nPour être reconnu comme un agenda officiel, il faut",
     "en": "In order to guide the re-users of the events published on OpenAgenda, we have set up a control of the agendas one by one, in order to grant them an \"official\" label, in order to certify that it is indeed authentic programming, edited by the organizer himself. This excludes test agendas.\n\nA blue icon appears next to the agenda name.\n\nTo be recognized as an official agenda, you have to",
     "de": "Um die Wieder Nutzer der Veranstaltungen auf OpenAgenda veröffentlicht zu führen, haben wir eine Kontrolle der Kalenders eins nach dem anderen, um ihnen eine „offizielle“ Bezeichnung zu erteilen einzurichten, um zu bestätigen, dass es in der Tat authentisch Programmierung ist, bearbeitet sich durch den Veranstalter. Dies schließt Test Kalenders.\n\nEin blaues Symbol erscheint neben dem Programm-Namen.\n\nUm als offizielle Kalender zu erkennen, müssen Sie",
-    "es": "Para guiar a los reutilizadores de los eventos enumerados OpenAgenda, se ha implementado un agenda de control de uno en uno, para darles una etiqueta \"oficial\" para certificar que es de hecho una auténtica agendación editado por el propio organizador. Esto excluye incluyendo horarios de prueba.\n\nUn icono azul aparece junto al nombre del agenda.\n\nPara ser reconocido como un agenda oficial debe",
+    "es": "solicitar",
     "it": "Per guidare i riutilizzatori degli eventi pubblicati su OpenAgenda, abbiamo impostato un controllo delle agende una ad una, per dare loro un'etichetta \"ufficiale\", per certificare che si tratta di una programmazione autentica, pubblicata dall'organizzatore stesso. Sono esclusi in particolare i diari di prova.  Un'icona blu appare quindi accanto al nome del programma.  Per essere riconosciuto come diario ufficiale, deve essere",
     "io": "crwdns12600:0crwdne12600:0",
     "oc": "Per fin de guidar los reutilizators d'eveniments publicats sus OpenAgenda, nos cal controlar las agendas una per una, per lor acordar un sagèl \"oficial\", e per certificar que s'agís plan d'una programacion autentica, editada per l'organizator meteis. Aquò exclutz las agendas de tèst.\n\nUna icòna blava apareis a costat del nom d'agenda.\n\nPer èsser reconegut coma una agenda oficiala, vos cal"
@@ -481,7 +481,7 @@ module.exports = {
     "fr": "faire une demande",
     "en": "make a request",
     "de": "eine Anfrage stellen",
-    "es": "aplicar",
+    "es": "solicitar",
     "it": "petizione",
     "io": "crwdns12602:0crwdne12602:0",
     "oc": "far una demanda"
@@ -508,7 +508,7 @@ module.exports = {
     "fr": "Visibilité",
     "en": "Visibility",
     "de": "Sichtweite",
-    "es": "visibilidad",
+    "es": "Visibilidad",
     "it": "Visibilità",
     "io": "crwdns12608:0crwdne12608:0",
     "oc": "Visibilitat"
@@ -517,7 +517,7 @@ module.exports = {
     "fr": "Demander un agenda privé",
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
-    "es": "Solicitar un agenda íntimo",
+    "es": "Solicitar una agenda privada",
     "it": "Richiedi un'agenda privata",
     "io": "crwdns12610:0crwdne12610:0",
     "oc": "Demandar una agenda privada"
@@ -553,7 +553,7 @@ module.exports = {
     "fr": "Agenda non indexé",
     "en": "Agenda not indexed",
     "de": "Agenda nicht indiziert",
-    "es": "Agenda unindexed",
+    "es": "Agenda no indexado",
     "it": "Agenda non indicizzato",
     "io": "crwdns12618:0crwdne12618:0",
     "oc": "Agenda pas indexada"
@@ -562,7 +562,7 @@ module.exports = {
     "fr": "Limitation des dates de saisies",
     "en": "Limitation of seizure dates",
     "de": "Begrenzung der Anfallsdaten",
-    "es": "La limitación de fechas convulsiones",
+    "es": "Limitación de fechas",
     "it": "Limitazione delle date di entrata",
     "io": "crwdns12620:0crwdne12620:0",
     "oc": "Limitacion de datas de sasida"
@@ -580,7 +580,7 @@ module.exports = {
     "fr": "Messages personnalisés",
     "en": "Customized messages",
     "de": "Customized Nachrichten",
-    "es": "ensajes personalizados",
+    "es": "Mensajes personalizados",
     "it": "Messaggi personalizzati",
     "io": "crwdns12624:0crwdne12624:0",
     "oc": "Messatges personalizats"
@@ -806,36 +806,46 @@ module.exports = {
     "oc": "Messatge mandat de l'agenda \"La setmana de l'industria\""
   },
   "matomoUrl": {
-    "en": "Url", 
+    "en": "Url",
     "fr": "Url",
+    "io": "crwdns33265:0crwdne33265:0"
   },
   "matomoSiteId": {
-    "en": "Site id", 
+    "en": "Site id",
     "fr": "Identifiant du site",
+    "io": "crwdns33267:0crwdne33267:0"
   },
   "matomoAskForConsent": {
-    "en": "Request user consent", 
+    "en": "Request user consent",
     "fr": "Demander le consentement de l'utilisateur",
+    "io": "crwdns33269:0crwdne33269:0"
   },
   "matomoAskForConsentInfo": {
-    "en": "My Matomo configurationg requires asking for consent", 
+    "en": "My Matomo configurationg requires asking for consent",
     "fr": "Ma configuration Matomo nécessite de demander le consentement",
+    "io": "crwdns33271:0crwdne33271:0"
   },
   "matomoCustomConfig": {
-    "en": "I want to use a particular Matomo configuration. ", 
+    "en": "I want to use a particular Matomo configuration. ",
     "fr": "Je souhaite utiliser une configuration Matomo particulière. ",
+    "io": "crwdns33273:0crwdne33273:0"
   },
   "matomoSupport": {
-    "en": "Contact support", 
+    "en": "Contact support",
     "fr": "Contacter le support",
+    "it": "Contatta il supporto",
+    "oc": "Contactar l'assisténcia",
+    "io": "crwdns33275:0crwdne33275:0"
   },
   "trackSelectPlaceholder": {
-    "en": "Choose your tracking service (Google Analytics or Matomo)", 
+    "en": "Choose your tracking service (Google Analytics or Matomo)",
     "fr": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
+    "io": "crwdns33277:0crwdne33277:0"
   },
   "moreInfo": {
-    "en": "more info", 
+    "en": "more info",
     "fr": "plus d’info",
+    "io": "crwdns33279:0crwdne33279:0"
   },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
@@ -849,24 +859,28 @@ module.exports = {
   "googleAnalyticsSecret": {
     "fr": "Clé secrete de suivi Google Analytics",
     "en": "Google Analytics Tracking Secret key",
+    "io": "crwdns33257:0crwdne33257:0"
   },
   "googleAnalyticsTitle": {
     "fr": "Seulement pour les utilisateurs GA4",
     "en": "Only for GA4 users",
+    "io": "crwdns33259:0crwdne33259:0"
   },
   "googleAnalyticsLabel": {
     "fr": "Suivi des exports et utilisation de l'API",
     "en": "Track export and API usage",
+    "io": "crwdns33261:0crwdne33261:0"
   },
   "googleAnalyticsInfo": {
-    "fr": "Pour créer un secret, accédez à l\'interface utilisateur de Google Analytics : Admin > Flux de données > choisir votre flux > Protocole de mesure > Créer",
-    "en": "To create a new secret, navigate in the Google Analytics UI to: Admin > Data Streams > choose your stream > Measurement Protocol > Create"
+    "fr": "Pour créer un secret, accédez à l'interface utilisateur de Google Analytics : Admin > Flux de données > choisir votre flux > Protocole de mesure > Créer",
+    "en": "To create a new secret, navigate in the Google Analytics UI to: Admin > Data Streams > choose your stream > Measurement Protocol > Create",
+    "io": "crwdns33263:0crwdne33263:0"
   },
   "stats": {
     "fr": "Statistiques",
     "en": "Statistics",
     "de": "Statistiken",
-    "es": "Estadística",
+    "es": "Estadísticas",
     "it": "Statistica",
     "io": "crwdns12674:0crwdne12674:0",
     "oc": "Estatisticas"
@@ -878,7 +892,7 @@ module.exports = {
     "es": "Configura tu información de seguimiento",
     "it": "Imposta le tue informazioni di tracciamento",
     "io": "crwdns12676:0crwdne12676:0",
-    "oc": "Parametrar las vòstas informacions de seguit"
+    "oc": "Definissètz vòstre identificant de seguit Google Analytics"
   },
   "statsDescription": {
     "fr": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
@@ -916,14 +930,16 @@ module.exports = {
     "it": "Per saperne di più",
     "io": "crwdns32380:0crwdne32380:0",
     "oc": "Ne saber mai",
-    "de": "Mehr erfahren"
+    "de": "Mehr erfahren",
+    "es": "Más información"
   },
   "pass": {
     "fr": "Pass Culture",
-    "en": "Pass Culture"
+    "en": "Pass Culture",
+    "io": "crwdns33402:0crwdne33402:0"
   },
   "passTabDescription": {
-    "fr": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda",
+    "fr": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda"
   },
   "askForActivation": {
     "fr": "Demande d'activation"

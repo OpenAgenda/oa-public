@@ -7,7 +7,7 @@ module.exports = {
     "it": "La sua azione e' in corso di elaborazione. Gli eventi nello stato %oldstate% saranno a breve modificati in %newstate%.",
     "de": "Ihre Aktion wird bearbeitet. Die Veranstaltungen im Staat %oldstate% werden in Kürze in %newstate% geändert.",
     "pl": "Twoja akcja jest przetwarzana. Wydarzenia w stanie %oldstate% zostaną wkrótce zmienione na %newstate%.",
-    "es": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve.",
+    "es": "Su acción se está procesando. Los eventos con el estado %oldstate% passaran en breve a %newstate%.",
     "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0",
     "oc": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%."
   },

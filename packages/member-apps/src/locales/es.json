@@ -1,3 +1,10 @@
 {
-  "MemberApps.Form.cancel": "Anular"
+  "MemberApps.Form.cancel": "Anular",
+  "MemberApps.Form.confirm": "Ok",
+  "MemberApps.Form.confirmRemove": "Quitar la agenda",
+  "MemberApps.Form.confirmRemoveInfo": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio.",
+  "MemberApps.Form.remove": "Quiero quitar la agenda",
+  "MemberApps.Form.removeFail": "La solicitud ha fallado. Vuelva a intentarlo en breve. Si el problema persiste, envíenos un breve mensaje a support@openagenda.com",
+  "MemberApps.Form.removeSuccess": "Ya no es miembro de la agenda",
+  "MemberApps.Form.save": "Guardar"
 }

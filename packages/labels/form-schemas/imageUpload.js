@@ -12,7 +12,7 @@ module.exports = {
   },
   "update": {
     "en": "Update the image",
-    "fr": "Mettre à jour l'image",
+    "fr": "Modifier l'image",
     "de": "Aktualisieren Sie das Bild",
     "es": "Cambiar imagen",
     "it": "Aggiorna l'immagine",
@@ -57,7 +57,7 @@ module.exports = {
   },
   "remove": {
     "en": "Remove",
-    "fr": "Supprimer",
+    "fr": "Retirer",
     "de": "Löschen",
     "es": "Eliminar",
     "it": "Rimuovi",

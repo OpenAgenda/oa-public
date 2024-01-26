@@ -7,5 +7,16 @@
   "AgendaSchema.eventDetail": "Camp d'eveniment estandard",
   "AgendaSchema.needMoreFields": "Vos fan mestièr mai de camps?",
   "AgendaSchema.network": "Malhum",
-  "AgendaSchema.networkDetail": "Camp requesit pel malhum d'agendas"
+  "AgendaSchema.networkDetail": "Camp requesit pel malhum d'agendas",
+  "AgendaSchema.AfterRedirectModal.body": "La configuracion de formulari de membre es pas activada sus vòstre agenda",
+  "AgendaSchema.EmbedSelection.eventInfo": "Configuracion dels eveniments",
+  "AgendaSchema.EmbedSelection.memberInfo": "Configuracion de membres",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Demandar l'accès a la confiugracion de membre",
+  "AgendaSchema.EmbedSelection.notActivated": "Aquesta foncionalitat es pas activada sus vòstre calendièr",
+  "AgendaSchema.adaptMemberForm": "Adaptar la configuracion del formulari de membre",
+  "AgendaSchema.canAddField": "Podètz apondre lo camp que volètz al formulari d'eveniment",
+  "AgendaSchema.goToContrib": "Anar als reglatges de contribucion",
+  "AgendaSchema.member": "Membre estandard",
+  "AgendaSchema.memberDetail": "Camp de membre estandard",
+  "AgendaSchema.warning": "Los reglatges de contribucion de vòstre calendièr obligan pas vòstres membres a dintrar una carta d'identificacion."
 }

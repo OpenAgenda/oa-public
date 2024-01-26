@@ -5,5 +5,21 @@
   "defaultBack": "Tornar a l'acuèlh",
   "defaultAgendaBack": "Tornar a la pagina d'agenda",
   "pageDoesNotExist": "La pagina demandada existís pas",
-  "invalidOrIncompleteEvent": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
+  "invalidOrIncompleteEvent": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar",
+  "number.toosmall": "Lo nombre deu èsser superior o egal a %min%",
+  "number.toobig": "Lo nombre deu èsser egal o inferior a %max%",
+  "multi-input.info": "Dintratz una o mai d'una valor",
+  "multi-input.error": "Las entradas invalidas seràn pas enregistradas",
+  "string.tooshort": "Lo camp deu aver al mens %min% caractèrs",
+  "string.toolong": "Lo camp deu aver al mai %max% caractèrs",
+  "email.invalid": "Se deu dintrar un email valide",
+  "phone.invalid": "Se deu dintrar un numèro de telefòne valide",
+  "link.invalid": "Se deu dintrar un ligam valide",
+  "number.invalid": "Se deu dintrar un nombre valide",
+  "integer.invalid": "Se deu dintrar un nombre entièr valide",
+  "integer.toobig": "Aquesta valor es tròp nauta",
+  "groupTags.required": "Cal seleccionar al mens un element",
+  "choice.required.max": "La seleccion pòt pas aculhir mai de %max% causidas",
+  "serverException": "I a agut un problèma a l'enregistrament, tornatz ensajar dins un momenton",
+  "serverErrorTooLargeFile": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets"
 }

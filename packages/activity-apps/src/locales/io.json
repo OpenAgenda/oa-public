@@ -128,5 +128,11 @@
   "ActivityApps.systemUnpublishEvent.withoutTarget": "crwdns32710:0{eventName}crwdne32710:0",
   "ActivityApps.unpublishEvent.actor": "crwdns32712:0{userName}crwdnd32712:0{eventName}crwdne32712:0",
   "ActivityApps.unpublishEvent.full": "crwdns32714:0{userName}crwdnd32714:0{eventName}crwdnd32714:0{agendaName}crwdne32714:0",
-  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0"
+  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0",
+  "ActivityApps.HistoryModal.noActivity": "crwdns33247:0crwdne33247:0",
+  "ActivityApps.noAgendaActivity": "crwdns33249:0crwdne33249:0",
+  "ActivityApps.noUserActivity": "crwdns33251:0crwdne33251:0",
+  "ActivityApps.notifications.agendaSystemChangeEventState": "crwdns33281:0object={object}crwdnd33281:0objectCount={objectCount}crwdnd33281:0objectCount={objectCount}crwdnd33281:0target={target}crwdne33281:0",
+  "ActivityApps.systemChangeEventState.full": "crwdns33283:0{eventName}crwdnd33283:0{agendaName}crwdne33283:0",
+  "ActivityApps.systemChangeEventState.withoutTarget": "crwdns33285:0{eventName}crwdne33285:0"
 }

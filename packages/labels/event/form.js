@@ -6,7 +6,7 @@ module.exports = {
     "en": "Description fields",
     "it": "Descrizioni",
     "de": "Beschreibungsfelder",
-    "es": "descripciones",
+    "es": "Descripciones",
     "br": "Maeziennoù deskrivañ",
     "io": "crwdns14262:0crwdne14262:0"
   },
@@ -40,9 +40,9 @@ module.exports = {
     "oc": "En linha"
   },
   "mixedAttendanceMode": {
-    "fr": "Mixte",
+    "fr": "À la fois sur place et en ligne",
     "en": "Mixed",
-    "it": "Misto",
+    "it": "Mista",
     "es": "Mezclado",
     "de": "Gemischt",
     "br": "Kemmesk",
@@ -50,7 +50,7 @@ module.exports = {
     "oc": "Mesclat"
   },
   "onlineAccessLink": {
-    "fr": "Lien d'accès",
+    "fr": "Lien d'accès à l'événement en ligne",
     "en": "Access link",
     "de": "Zugangslink",
     "es": "Enlace de acceso",
@@ -63,7 +63,7 @@ module.exports = {
     "en": "Location",
     "it": "Luogo",
     "de": "Ort",
-    "es": "lugar",
+    "es": "Lugar",
     "br": "Lec'h",
     "io": "crwdns14274:0crwdne14274:0"
   },
@@ -90,7 +90,7 @@ module.exports = {
     "en": "Location",
     "it": "Luogo",
     "de": "Ort",
-    "es": "lugar",
+    "es": "Lugar",
     "br": "Lec'h",
     "io": "crwdns14280:0crwdne14280:0"
   },
@@ -99,7 +99,7 @@ module.exports = {
     "en": "New location",
     "it": "Nuova posizione",
     "de": "Neuer Standort",
-    "es": "nuevo lugar",
+    "es": "Nuevo lugar",
     "br": "Lec'h nevez",
     "io": "crwdns14282:0crwdne14282:0"
   },
@@ -203,7 +203,8 @@ module.exports = {
     "de": "Lange Beschreibung",
     "es": "Descripción larga",
     "br": "Deskrivadur hir",
-    "io": "crwdns14302:0crwdne14302:0"
+    "io": "crwdns14302:0crwdne14302:0",
+    "oc": "Descripcion longa"
   },
   "longDescriptionPlaceholder": {
     "fr": "Saisissez une description détaillée de votre événement.",
@@ -304,7 +305,7 @@ module.exports = {
     "en": "Accessibility conditions",
     "it": "Accessibilità speciale",
     "de": "Bedingungen für die Zugänglichkeit",
-    "es": "accesibilidad especial",
+    "es": "Accesibilidad especial",
     "br": "Monedusted",
     "io": "crwdns14322:0crwdne14322:0"
   },
@@ -313,12 +314,12 @@ module.exports = {
     "en": "Reservation link",
     "it": "Link per la prenotazione",
     "de": "Reservierungslink",
-    "es": "reserva Enlace",
+    "es": "Enlace de registro",
     "br": "Liamm mirout",
     "io": "crwdns14324:0crwdne14324:0"
   },
   "age": {
-    "fr": "Age du public ciblé",
+    "fr": "Âge du public ciblé",
     "en": "Targeted public age",
     "it": "Età del pubblico di riferimento",
     "de": "Gezieltes öffentliches Alter",
@@ -331,7 +332,7 @@ module.exports = {
     "en": "Timings",
     "it": "Orari",
     "de": "Timings",
-    "es": "horario",
+    "es": "Horarios",
     "br": "Eurioù",
     "io": "crwdns14328:0crwdne14328:0",
     "oc": "Oraris"
@@ -339,9 +340,9 @@ module.exports = {
   "timingsInfo": {
     "fr": "Définissez les horaires de votre événement",
     "en": "Specify timings for your event",
-    "it": "Definire gli orari del vostro evento",
+    "it": "Definire gli orari dell'evento",
     "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
-    "es": "Ajuste el tiempo de su evento",
+    "es": "Indicar los horarios de su evento",
     "br": "Lakait eurioù ho tarvoud",
     "io": "crwdns14330:0crwdne14330:0"
   },
@@ -359,7 +360,7 @@ module.exports = {
     "en": "Select",
     "it": "Seleziona",
     "de": "Auswählen",
-    "es": "seleccionar",
+    "es": "Seleccionar",
     "br": "Diuzañ",
     "io": "crwdns14334:0crwdne14334:0",
     "oc": "Seleccionar"
@@ -378,7 +379,7 @@ module.exports = {
     "fr": "Ajouter une langue",
     "it": "Aggiungere una lingua",
     "de": "Eine Sprache hinzufügen",
-    "es": "Agregar idioma",
+    "es": "Añadir idioma",
     "br": "Ouzhpennañ ur yezh",
     "io": "crwdns14338:0crwdne14338:0",
     "oc": "Apondre una lenga"
@@ -388,7 +389,8 @@ module.exports = {
     "fr": "Sélectionner",
     "it": "Seleziona",
     "io": "crwdns14340:0crwdne14340:0",
-    "oc": "Seleccionar"
+    "oc": "Seleccionar",
+    "es": "Seleccionar"
   },
   "cancelLanguageChange": {
     "fr": "Annuler",
@@ -445,7 +447,7 @@ module.exports = {
     "fr": "Tags",
     "it": "Etichette",
     "de": "Tags",
-    "es": "etiquetas",
+    "es": "Etiquetas",
     "br": "Merkoù",
     "io": "crwdns14352:0crwdne14352:0",
     "oc": "Etiquetas"
@@ -504,7 +506,7 @@ module.exports = {
     "fr": "Aucun choix",
     "it": "Nessuna scelta",
     "de": "Keiner der oben genannten Punkte",
-    "es": "otra opción",
+    "es": "Ninguna de las anteriores",
     "br": "Hini ebet eus ar re a-us",
     "io": "crwdns14364:0crwdne14364:0",
     "oc": "Pas res"
@@ -521,54 +523,68 @@ module.exports = {
   "scheduled": {
     "fr": "Programmé",
     "en": "Scheduled",
-    "io": "crwdns16100:0crwdne16100:0"
+    "io": "crwdns16100:0crwdne16100:0",
+    "es": "Programado"
   },
   "rescheduled": {
     "fr": "Re-programmé",
     "en": "Re-scheduled",
-    "io": "crwdns16102:0crwdne16102:0"
+    "io": "crwdns16102:0crwdne16102:0",
+    "es": "Reprogramado"
   },
   "movedOnline": {
     "fr": "Déplacé en ligne",
     "en": "Moved online",
     "it": "Oramai online",
     "oc": "Transferit en linha",
-    "io": "crwdns16104:0crwdne16104:0"
+    "io": "crwdns16104:0crwdne16104:0",
+    "es": "Trasladado en línea"
   },
   "cancelled": {
     "fr": "Annulé",
     "en": "Canceled",
     "it": "Cancellato",
-    "io": "crwdns16106:0crwdne16106:0"
+    "io": "crwdns16106:0crwdne16106:0",
+    "es": "Cancelado"
   },
   "full": {
     "fr": "Complet",
     "en": "Full",
-    "io": "crwdns16448:0crwdne16448:0"
+    "io": "crwdns16448:0crwdne16448:0",
+    "es": "Completo"
   },
   "postponed": {
     "fr": "Reporté",
     "en": "Postponed",
     "it": "Riprogrammato",
     "io": "crwdns16108:0crwdne16108:0",
-    "oc": "Remandat"
+    "oc": "Remandat",
+    "es": "Aplazado"
   },
   "status": {
     "fr": "État",
     "en": "Status",
     "io": "crwdns16110:0crwdne16110:0",
-    "oc": "Estatut"
+    "oc": "Estatut",
+    "es": "Estado"
   },
   "trueBoolean": {
     "fr": "Sélectionné",
     "en": "Selected",
+    "de": "Auswählen",
+    "oc": "Seleccionat",
+    "io": "crwdns33354:0crwdne33354:0"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
     "en": "Not selected",
+    "de": "Nicht ausgewählt",
+    "oc": "Pas seleccionat",
+    "io": "crwdns33356:0crwdne33356:0"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",
     "en": "(No value)",
-  },
+    "io": "crwdns33358:0crwdne33358:0"
+  }
 };

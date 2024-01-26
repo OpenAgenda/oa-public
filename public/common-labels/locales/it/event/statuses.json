@@ -1,1 +1,11 @@
-{}
+{
+  "common.event.statuses.cancelledInfo": "L'evento è annullato",
+  "common.event.statuses.full": "Completo",
+  "common.event.statuses.fullInfo": "I nuovi partecipanti non sono più accettati all'evento",
+  "common.event.statuses.movedOnline": "Oramai online",
+  "common.event.statuses.movedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai online",
+  "common.event.statuses.postponed": "Riprogrammato",
+  "common.event.statuses.postponedInfo": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
+  "common.event.statuses.rescheduled": "Riprogrammato",
+  "common.event.statuses.rescheduledInfo": "Gli orari sono stati modificati"
+}

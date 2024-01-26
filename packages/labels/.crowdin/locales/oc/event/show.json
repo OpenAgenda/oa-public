@@ -27,5 +27,7 @@
   "statusRescheduled": "Tornat planificar",
   "statusMovedOnline": "Transferit en linha",
   "statusPostponed": "Remandat",
-  "statusFull": "Totalament complèt"
+  "statusFull": "Totalament complèt",
+  "category": "Categoria",
+  "locationHistory": "Istoric dels lòcs"
 }

@@ -211,7 +211,7 @@ module.exports = {
     "en": "{user} deleted {event}.",
     "fr": "{user} a supprimé {event}.",
     "de": "{user} Veranstaltung gelöscht.",
-    "es": "{user} eliminió {eventos}.",
+    "es": "{user} eliminió {event}.",
     "it": "{user} ha cancellato {event}.",
     "io": "crwdns11144:0{user}crwdnd11144:0{event}crwdne11144:0",
     "oc": "{user} a suprimit {event}."
@@ -220,7 +220,7 @@ module.exports = {
     "en": "Activities",
     "fr": "Activités",
     "de": "Aktivitäten",
-    "es": "actividades",
+    "es": "Actividades",
     "it": "Attività",
     "io": "crwdns11146:0crwdne11146:0",
     "oc": "Activitats"

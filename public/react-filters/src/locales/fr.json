@@ -28,7 +28,7 @@
   "ReactFilters.messages.accessiblities.mi": "Handicap moteur",
   "ReactFilters.messages.accessiblities.pi": "Handicap psychique",
   "ReactFilters.messages.accessiblities.vi": "Handicap visuel",
-  "ReactFilters.messages.attendanceMode.mixed": "Mixte",
+  "ReactFilters.messages.attendanceMode.mixed": "À la fois sur place et en ligne",
   "ReactFilters.messages.attendanceMode.offline": "Sur place",
   "ReactFilters.messages.attendanceMode.online": "En ligne",
   "ReactFilters.messages.boolean.notSelected": "Non sélectionné",

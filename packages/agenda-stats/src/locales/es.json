@@ -28,5 +28,7 @@
   "AgendaStats.dateRanges.lastYear": "El año pasado",
   "AgendaStats.form.cancel": "Anular",
   "AgendaStats.form.remove": "Eliminar",
-  "AgendaStats.messages.chartTitles.originAgendas": "Agenda original"
+  "AgendaStats.messages.chartTitles.originAgendas": "Agenda original",
+  "AgendaStats.CustomTooltip.events": "{value, number} eventos",
+  "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {event} one {event} other {eventos}}"
 }

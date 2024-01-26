@@ -32,7 +32,7 @@ module.exports = {
     "en": "Create a calendar",
     "fr": "Créer un agenda",
     "de": "Neuen Veranstaltungskalender erstellen",
-    "es": "Crear un agenda",
+    "es": "Crear una agenda",
     "it": "Creare un'agenda",
     "io": "crwdns13280:0crwdne13280:0",
     "oc": "Crear un calendièr"
@@ -50,7 +50,7 @@ module.exports = {
     "en": "Customize",
     "fr": "Paramétrez",
     "de": "Anpassen",
-    "es": "conjunto",
+    "es": "Personalizar",
     "it": "Personnalizare",
     "io": "crwdns13284:0crwdne13284:0",
     "oc": "Personalizar"
@@ -59,7 +59,7 @@ module.exports = {
     "en": "Collaborate",
     "fr": "Collaborez",
     "de": "Zusammenarbeiten",
-    "es": "colaborar",
+    "es": "Colaborar",
     "it": "Collaborare",
     "io": "crwdns13286:0crwdne13286:0",
     "oc": "Collaborar"
@@ -68,7 +68,7 @@ module.exports = {
     "en": "Broadcast",
     "fr": "Diffusez",
     "de": "Übertragung",
-    "es": "puesto",
+    "es": "Diffusar",
     "it": "Trasmettere",
     "io": "crwdns13288:0crwdne13288:0",
     "oc": "Difusar"
@@ -77,7 +77,7 @@ module.exports = {
     "en": "Your calendar, <em>organized</em> and <em>comprehensive</em>",
     "fr": "Un agenda <em>complet</em> et <em>structuré</em>",
     "de": "Ihr Kalender, <em> organisiert </ em> und <em> umfassende </ em>",
-    "es": "Un agenda <em> completa </ ​​em> y <em> estructurado </ em>",
+    "es": "Una agenda <em>completa</em> y <em> estructurada</em>",
     "it": "Un agenda completo e un agenda strutturato",
     "io": "crwdns13290:0crwdne13290:0",
     "oc": "Vòstra agenda, <em>organizada</em> e <em>complèta</em>"
@@ -113,7 +113,7 @@ module.exports = {
     "en": "Deploy <em>your own network</em> of calendars",
     "fr": "Déployez <em>votre réseau</em> d'agendas !",
     "de": "Bereitstellen von <em> Ihr eigenes Netzwerk </ em> von Kalendern",
-    "es": "Implementar <em> su red </ em> agendas!",
+    "es": "Implementar <em> su red</em> de agendas",
     "it": "Distribuire <em> la sua rete</em> di agende",
     "io": "crwdns13298:0crwdne13298:0",
     "oc": "Desplegatz <em>vòstra pròpria ret</em> de calendièrs"
@@ -131,7 +131,7 @@ module.exports = {
     "en": "Broadcast <em>your events</em>",
     "fr": "Partagez <em>vos événements</em>",
     "de": "Broadcast <em> Ihre Veranstaltungen </ em>",
-    "es": "Acciones <em> acontecimientos </ em>",
+    "es": "Promocionar <em>su eventos</em>",
     "it": "Condividi <em>i tuoi eventi</em>",
     "io": "crwdns13302:0crwdne13302:0",
     "oc": "Compartissètz <em>vòstres eveniments</em>"
@@ -140,7 +140,7 @@ module.exports = {
     "en": "Sync your calendar with your mediums and share it with the whole world as #OpenData.",
     "fr": "Votre agenda est synchronisable avec tous vos supports et diffusable par tous !<br>#DonnéesOuvertes #OpenData",
     "de": "Synchronisieren Sie Ihren Kalender mit Ihren Medien und teilen Sie es mit der ganzen Welt als #OpenData.",
-    "es": "Su agenda está sincronizado con todos sus medios y distribuir por todo! <br> # DonnéesOuvertes #opendata",
+    "es": "Su agenda está sincronizado con todos sus medios y distribuir por todo! #opendata.",
     "it": "La sua agenda è sincronizzabile con tutti i suoi media e può essere trasmessa a tutti come dati aperti #OpenData.",
     "io": "crwdns13304:0crwdne13304:0",
     "oc": "Sincronizatz vòstra agenda amb vòstres mèdias e partejatz-la amb lo monde entièr coma #OpenData."
@@ -158,7 +158,7 @@ module.exports = {
     "en": "Previous",
     "fr": "Précédent",
     "de": "Bisherige",
-    "es": "anterior",
+    "es": "Anterior",
     "it": "Precedente",
     "io": "crwdns13308:0crwdne13308:0",
     "oc": "Precedent"
@@ -195,7 +195,7 @@ module.exports = {
     "en": "Free",
     "fr": "Gratuit",
     "de": "Kostenlos",
-    "es": "gratis",
+    "es": "Gratis",
     "it": "Gratuito",
     "io": "crwdns13316:0crwdne13316:0",
     "oc": "Gratuit"
@@ -204,7 +204,7 @@ module.exports = {
     "en": "Basic agenda",
     "fr": "Agenda basique",
     "de": "Grund Agenda",
-    "es": "agenda básica",
+    "es": "Agenda básica",
     "it": "Agenda di base",
     "io": "crwdns13318:0crwdne13318:0",
     "oc": "Agenda basica"
@@ -213,7 +213,7 @@ module.exports = {
     "en": "Unlimited number of events",
     "fr": "Nombre d'événements illimité",
     "de": "Unbegrenzte Anzahl von Veranstaltungen",
-    "es": "número ilimitado de eventos",
+    "es": "Número ilimitado de eventos",
     "it": "Numero illimitato di eventi",
     "io": "crwdns13320:0crwdne13320:0",
     "oc": "Nombre d'eveniments illimitat"
@@ -222,7 +222,7 @@ module.exports = {
     "en": "Unlimited number of members",
     "fr": "Nombre de membres illimité",
     "de": "Unbegrenzte Anzahl von Mitgliedern",
-    "es": "miembro ilimitada",
+    "es": "Número ilimitado de miembros",
     "it": "Numero illimitato di membri",
     "io": "crwdns13322:0crwdne13322:0",
     "oc": "Nombre de membres illimitat"
@@ -231,7 +231,7 @@ module.exports = {
     "en": "Unlimited number of downloads",
     "fr": "Téléchargements illimités",
     "de": "Unbegrenzte Anzahl von Downloads",
-    "es": "descargas ilimitadas",
+    "es": "Número ilimitado de descargas",
     "it": "Download illimitati",
     "io": "crwdns13324:0crwdne13324:0",
     "oc": "Nombre de telecargaments illimitat"
@@ -240,7 +240,7 @@ module.exports = {
     "en": "OpenData",
     "fr": "OpenData",
     "de": "Opendata",
-    "es": "opendata",
+    "es": "OpenData",
     "it": "Dati Aperti",
     "io": "crwdns13326:0crwdne13326:0",
     "oc": "OpenData"
@@ -412,7 +412,7 @@ module.exports = {
     "en": "Moderators",
     "fr": "Modérateurs",
     "de": "Moderatoren",
-    "es": "moderadores",
+    "es": "Moderadores",
     "it": "Moderatori",
     "io": "crwdns13364:0crwdne13364:0",
     "oc": "Moderator·a·s"
@@ -486,7 +486,8 @@ module.exports = {
     "de": "Paper-Programm",
     "es": "agenda de papel",
     "it": "Programma cartaceo",
-    "io": "crwdns13380:0crwdne13380:0"
+    "io": "crwdns13380:0crwdne13380:0",
+    "oc": "Programa papièr"
   },
   "currentlyOnOA": {
     "en": "Currently on OpenAgenda",
@@ -494,7 +495,8 @@ module.exports = {
     "de": "Derzeit auf OpenAgenda",
     "es": "En este momento",
     "it": "Al momento",
-    "io": "crwdns13382:0crwdne13382:0"
+    "io": "crwdns13382:0crwdne13382:0",
+    "oc": "D'aquesta passa sus OpenAgenda"
   },
   "calendars": {
     "en": "calendars",
@@ -502,7 +504,8 @@ module.exports = {
     "de": "Kalender",
     "es": "agendas",
     "it": "agende",
-    "io": "crwdns13384:0crwdne13384:0"
+    "io": "crwdns13384:0crwdne13384:0",
+    "oc": "agendas"
   },
   "contributors": {
     "en": "contributors",
@@ -510,7 +513,8 @@ module.exports = {
     "de": "Beiträger",
     "es": "contribuyentes",
     "it": "collaboratori",
-    "io": "crwdns13386:0crwdne13386:0"
+    "io": "crwdns13386:0crwdne13386:0",
+    "oc": "contributor·a·s"
   },
   "events": {
     "en": "events",
@@ -528,7 +532,8 @@ module.exports = {
     "de": "Bereit ?",
     "es": "Listo ?",
     "it": "Pronti?",
-    "io": "crwdns13390:0crwdne13390:0"
+    "io": "crwdns13390:0crwdne13390:0",
+    "oc": "Prèste·a ?"
   },
   "createYourCalendarNow": {
     "en": "Create your calendar now !",
@@ -536,7 +541,8 @@ module.exports = {
     "de": "Erstelle deinen Kalender jetzt!",
     "es": "Crear su agenda!",
     "it": "Crea su agenda!",
-    "io": "crwdns13392:0crwdne13392:0"
+    "io": "crwdns13392:0crwdne13392:0",
+    "oc": "Fargatz vòstra agenda ara !"
   },
   "contact": {
     "en": "Contact",
@@ -553,7 +559,8 @@ module.exports = {
     "de": "deine Emailadresse",
     "es": "Su dirección de correo electrónico",
     "it": "Il suo indirizzo e-mail",
-    "io": "crwdns13396:0crwdne13396:0"
+    "io": "crwdns13396:0crwdne13396:0",
+    "oc": "Vòstra adreça email"
   },
   "subscribe": {
     "en": "Subscribe",
@@ -571,7 +578,8 @@ module.exports = {
     "de": "Unsere Firma",
     "es": "La sociedad",
     "it": "L'azienda",
-    "io": "crwdns13400:0crwdne13400:0"
+    "io": "crwdns13400:0crwdne13400:0",
+    "oc": "La societat"
   },
   "jobs": {
     "en": "Jobs",
@@ -579,7 +587,8 @@ module.exports = {
     "de": "Arbeitsplätze",
     "es": "reclutamiento",
     "it": "Reclutamento",
-    "io": "crwdns13402:0crwdne13402:0"
+    "io": "crwdns13402:0crwdne13402:0",
+    "oc": "Recrutament"
   },
   "ourOA": {
     "en": "Our OpenAgenda !",
@@ -587,7 +596,8 @@ module.exports = {
     "de": "Unsere OpenAgenda!",
     "es": "Nuestra OpenAgenda!",
     "it": "Il nostro OpenAgenda!",
-    "io": "crwdns13404:0crwdne13404:0"
+    "io": "crwdns13404:0crwdne13404:0",
+    "oc": "Nòstre OpenAgenda !"
   },
   "service": {
     "en": "Our service",
@@ -595,7 +605,8 @@ module.exports = {
     "de": "Unser Service",
     "es": "El servicio",
     "it": "Il servizio",
-    "io": "crwdns13406:0crwdne13406:0"
+    "io": "crwdns13406:0crwdne13406:0",
+    "oc": "Lo servici"
   },
   "help": {
     "en": "Help",
@@ -613,7 +624,8 @@ module.exports = {
     "de": "Dokumentation + API",
     "es": "Documentación de la API +",
     "it": "Documentazione + API",
-    "io": "crwdns13410:0crwdne13410:0"
+    "io": "crwdns13410:0crwdne13410:0",
+    "oc": "Documentacion + API"
   },
   "roadmap": {
     "en": "Roadmap",
@@ -621,7 +633,8 @@ module.exports = {
     "de": "Roadmap",
     "es": "plan de desarrollo",
     "it": "Piano di sviluppo",
-    "io": "crwdns13412:0crwdne13412:0"
+    "io": "crwdns13412:0crwdne13412:0",
+    "oc": "Plan de desvolopament"
   },
   "serviceStatus": {
     "en": "Service status",
@@ -629,7 +642,8 @@ module.exports = {
     "de": "Service Zustand",
     "es": "Estado de los servicios",
     "it": "Stato del servizio",
-    "io": "crwdns13414:0crwdne13414:0"
+    "io": "crwdns13414:0crwdne13414:0",
+    "oc": "Estat del servici"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -647,7 +661,8 @@ module.exports = {
     "de": "Operative Unterstützung",
     "es": "apoyo operativo",
     "it": "Supporto operativo",
-    "io": "crwdns13418:0crwdne13418:0"
+    "io": "crwdns13418:0crwdne13418:0",
+    "oc": "Supòrt operacional"
   },
   "contentModeration": {
     "en": "Content moderation",
@@ -655,7 +670,8 @@ module.exports = {
     "de": "Inhaltsmoderation",
     "es": "La moderación de contenidos",
     "it": "Moderazione dei contenuti",
-    "io": "crwdns13420:0crwdne13420:0"
+    "io": "crwdns13420:0crwdne13420:0",
+    "oc": "Moderacion de contenguts"
   },
   "reporting": {
     "en": "Reporting",
@@ -663,7 +679,8 @@ module.exports = {
     "de": "Berichterstattung",
     "es": "la presentación de informes",
     "it": "Segnalazione",
-    "io": "crwdns13422:0crwdne13422:0"
+    "io": "crwdns13422:0crwdne13422:0",
+    "oc": "Rapòrts"
   },
   "training": {
     "en": "Training",
@@ -671,7 +688,8 @@ module.exports = {
     "de": "Ausbildung",
     "es": "formación",
     "it": "Formazione",
-    "io": "crwdns13424:0crwdne13424:0"
+    "io": "crwdns13424:0crwdne13424:0",
+    "oc": "Formacion"
   },
   "contentPromotion": {
     "en": "Content promotion",
@@ -679,7 +697,8 @@ module.exports = {
     "de": "Inhalt Förderung",
     "es": "la promoción de contenidos",
     "it": "Promozione dei contenuti",
-    "io": "crwdns13426:0crwdne13426:0"
+    "io": "crwdns13426:0crwdne13426:0",
+    "oc": "Promocion de contenguts"
   },
   "seeMoreTestimonies": {
     "en": "See more testimonies",
@@ -687,6 +706,7 @@ module.exports = {
     "de": "Mehr Zeugnisse sehen",
     "es": "Ver más referencias",
     "it": "Vedi altri riferimenti",
-    "io": "crwdns13428:0crwdne13428:0"
+    "io": "crwdns13428:0crwdne13428:0",
+    "oc": "Véser mai de referéncias"
   }
 }

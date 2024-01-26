@@ -1,7 +1,6 @@
 'use strict';
 
 const crypto = require('node:crypto');
-const _ = require('lodash');
 const uuid = require('uuid');
 const log = require('@openagenda/logs')('trackExport');
 const gaTrackEvent = require('./gaTrackEvent');
@@ -43,6 +42,21 @@ function extractUserInfos(req) {
 }
 
 function track(req, agenda, category, action, label = null) {
+  const {
+    core,
+  } = req.app.services;
+
+  log('tracking');
+
+  const {
+    root: rootPath,
+    env,
+  } = core.getConfig();
+
+  if (env !== 'production') {
+    return;
+  }
+
   if (!agenda.settings) return;
   const { tracking } = typeof agenda?.settings === 'string' ? JSON.parse(agenda?.settings) : agenda.settings;
   const gaId = tracking?.googleAnalytics;
@@ -54,27 +68,28 @@ function track(req, agenda, category, action, label = null) {
     return;
   }
 
-  if (process.env.NODE_ENV !== 'production') {
-    return;
-  }
-
   const { cid, sid, ...rest } = extractUserInfos(req);
 
   if (gaId) {
     if (gaId.substr(0, 1) === 'G' && gaSecret) {
       ga4TrackEvent(gaId, gaSecret, cid, sid, category, action, label, rest)
-        .then(r => r)
         .catch(e => log.warn('Tracking error', e));
     } else {
       gaTrackEvent(gaId, cid, category, action, label, rest)
-        .then(r => r)
         .catch(e => log.warn('Tracking error', e));
     }
   }
   if (matomoUrl && matomoSiteId) {
-    matomoTrack(matomoUrl, matomoSiteId, category, action, label, rest)
-      .then(r => console.log(r))
-      .catch(e => console.log(e));
+    matomoTrack({
+      matomoUrl,
+      matomoSiteId,
+      category,
+      action,
+      label,
+      rest,
+      rootPath,
+    }).then(r => log(r))
+      .catch(e => log(e));
   }
 }
 

@@ -31,7 +31,8 @@ module.exports = {
     "fr": "{originMember} a retiré {user} ({credential}) de {agenda}.",
     "it": "{originMember} ha rimosso {user} ({credential}) de {agenda}.",
     "io": "crwdns11048:0{originMember}crwdnd11048:0{user}crwdnd11048:0{credential}crwdnd11048:0{agenda}crwdne11048:0",
-    "oc": "{originMember} a tirat {user} ({credential}) de {agenda}."
+    "oc": "{originMember} a tirat {user} ({credential}) de {agenda}.",
+    "es": "{originMember} ha eliminado {user} ({credential}) de {agenda}."
   },
   "agenda.setMemberRole": {
     "en": "{user} passed {originMember} from {beforeCredential} to {credential} on {agenda}.",

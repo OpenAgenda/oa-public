@@ -1,8 +1,12 @@
 {
   "actionDescription": "Ver evento",
-  "tocontrol": "al control",
+  "tocontrol": "a controlar",
   "controlled": "listo para su publicación",
   "published": "publicado",
   "refused": "rechazado",
-  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
+  "title": "Nuevo evento en el {agenda}:{event}",
+  "body": "<b>{user}</b>. ha asociado <b>{event}</b> de la agenda <b>{sourceAgenda}</b> con el estado de <b>{state}</b>.",
+  "unsubscribe": "Dejar de recibir agregaciones de mis eventos",
+  "memberUnsubscribe": "Dejar de recibir agregaciones de mis eventos en esta agenda"
 }

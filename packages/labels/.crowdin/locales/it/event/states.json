@@ -1,7 +1,7 @@
 {
   "refused": "rifiutato",
-  "tocontrol": "moderatamente",
-  "tobecontrolled": "moderatamente",
+  "tocontrol": "da moderare",
+  "tobecontrolled": "da moderare",
   "controlled": "pronto a pubblicare",
   "published": "pubblicato",
   "featured": "prima pagina",
@@ -10,5 +10,6 @@
   "stateChanged": "Lo stato dell'evento è stato modificato",
   "featuredChange": "L'evento è ora in uno",
   "unfeaturedChange": "L'evento non è più in uno",
-  "stateFieldInfo": "I contributori non possono vedere né modificare questo campo"
+  "stateFieldInfo": "I contributori non possono vedere né modificare questo campo",
+  "stateFieldSub": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato"
 }

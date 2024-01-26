@@ -3,5 +3,14 @@
   "ActivityApps.aggregateEvent.full": "<agenda>{agendaName}</agenda> importaba <event>{eventName}</event> de <sourceAgenda>{sourceAgendaName}</sourceAgenda>.",
   "ActivityApps.noAgendaActivity": "La actividad de su agenda aparecerá aquí.",
   "ActivityApps.noUserActivity": "Sus actividades aparecerán aquí.",
-  "ActivityApps.notifications.agendaAggregateEvent": "{target} ha importado {object} de {actor}."
+  "ActivityApps.notifications.agendaAggregateEvent": "{target} ha importado {object} de {actor}.",
+  "ActivityApps.HistoryModal.noActivity": "No hay actividad",
+  "ActivityApps.Notifications.markAllAsRead": "Marcar todo como leído",
+  "ActivityApps.Notifications.noNotif": "Sin notificación.",
+  "ActivityApps.history": "Historia",
+  "ActivityApps.notifications.agendaCreate": "{actor} creó la agenda {target}.",
+  "ActivityApps.notifications.agendaPublishEvent": "{actor} publicado el {object} en {target}.",
+  "ActivityApps.notifications.agendaSetOfficial": "La agenda {target} se hizo oficial.",
+  "ActivityApps.notifications.event": "{others, plural, =0 {{event}} one {{event} y 1 otro evento} other {{event} y eventos {others}}}",
+  "ActivityApps.notifications.user": "{others, plural, =0 {{user}} one {{user} y 1 otro} other {{user} y {others} otros}}"
 }

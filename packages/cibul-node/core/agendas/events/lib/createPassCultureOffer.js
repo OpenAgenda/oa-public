@@ -21,6 +21,7 @@ module.exports = async function createPassCultureOffer(core, agenda, clean, befo
   const {
     eventOffer,
     errors,
+    warning = null,
   } = await passCultureService.createEventOffer(clean.event, passCulture, { before });
 
   log.info('createEventOffer result', { eventOffer, errors });
@@ -30,6 +31,7 @@ module.exports = async function createPassCultureOffer(core, agenda, clean, befo
 
     item.data.id = eventOffer.id;
     item.value = passCultureService.getEventOfferLink(eventOffer);
+    item.data.warning = warning;
 
     if (errors) {
       item.data.errors = errors;

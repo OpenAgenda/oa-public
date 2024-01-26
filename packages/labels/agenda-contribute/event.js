@@ -57,7 +57,7 @@ module.exports = {
     "it": "Modificare l’evento",
     "de": "Aktualisiere die Veranstalltung",
     "br": "Hizivaat an darvoud",
-    "es": "actualización de eventos",
+    "es": "Actualizar el evento",
     "io": "crwdns11516:0crwdne11516:0",
     "oc": "Metre l'eveniment a jorn"
   },
@@ -87,7 +87,7 @@ module.exports = {
     "it": "Registrare l’evento",
     "de": "Die Veranstalltung erstellen",
     "br": "Krouiñ an darvoud",
-    "es": "Crear evento",
+    "es": "Crear el evento",
     "io": "crwdns11522:0crwdne11522:0",
     "oc": "Crear l'eveniment"
   },

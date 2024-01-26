@@ -37,12 +37,13 @@ module.exports = {
     "en": "Register / book",
     "fr": "S'inscrire / réserver",
     "de": "Registrieren / Buch",
-    "es": "Registro / libro",
+    "es": "Registrarse",
     "it": "Registrarsi / prenotare",
     "io": "crwdns14410:0crwdne14410:0"
   },
   "accessPassOffer": {
     "en": "Access the pass Culture offer",
     "fr": "Accéder à l'offre pass Culture",
+    "io": "crwdns33400:0crwdne33400:0"
   }
 }

@@ -152,7 +152,7 @@ module.exports = {
     "en": "Save",
     "fr": "Sauvegarder",
     "de": "Speichern",
-    "es": "guardar cambios",
+    "es": "Guardar",
     "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns15852:0crwdne15852:0",
@@ -162,7 +162,7 @@ module.exports = {
     "fr": "Sauvegarde en cours",
     "en": "Saving...",
     "de": "Speichern...",
-    "es": "Ahorro",
+    "es": "Registrando...",
     "it": "Backup in corso...",
     "io": "crwdns15854:0crwdne15854:0",
     "oc": "Enregistrament..."
@@ -289,7 +289,7 @@ module.exports = {
     "en": "String is too short",
     "fr": "Hmm c'est un peu court",
     "de": "String ist zu kurz",
-    "es": "Hmm que es un poco corto",
+    "es": "El texto es demasiado corto",
     "it": "Hmm, è un po' corto.",
     "io": "crwdns15882:0crwdne15882:0",
     "oc": "La cadena de caractèrs es tròp corteta"
@@ -298,7 +298,7 @@ module.exports = {
     "en": "String is too long",
     "fr": "Hmm c'est un peu long",
     "de": "String ist zu lang",
-    "es": "Hmm esto es un poco largo",
+    "es": "El texto es demasiado largo",
     "it": "E' un po' lungo.",
     "io": "crwdns15884:0crwdne15884:0",
     "oc": "La cadena de caractèrs es tròp longa"

@@ -4,5 +4,11 @@
   "common.event.fields.imageCredits": "Créditos de las imágenes",
   "common.event.fields.longDescription": "Descripción larga",
   "common.event.fields.registration": "Herramientas de registro",
-  "common.event.fields.title": "título"
+  "common.event.fields.title": "título",
+  "common.event.fields.accessibility": "Accesibilidad especial",
+  "common.event.fields.age": "Edad del objetivo",
+  "common.event.fields.attendanceMode": "Modo de asistencia",
+  "common.event.fields.description": "Descripción corta",
+  "common.event.fields.location": "Lugar",
+  "common.event.fields.onlineAccessLink": "Enlace de acceso"
 }

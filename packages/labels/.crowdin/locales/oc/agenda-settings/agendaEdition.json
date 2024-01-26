@@ -90,10 +90,11 @@
   "subjectDesc": "Messatge mandat de l'agenda \"La setmana de l'industria\"",
   "googleAnalyticsId": "Identificant de seguit Google Analytics",
   "stats": "Estatisticas",
-  "statsTabDescription": "Parametrar las vòstas informacions de seguit",
+  "statsTabDescription": "Definissètz vòstre identificant de seguit Google Analytics",
   "statsDescription": "Seguissètz las afluéncias de visitaires sus las paginas publicas de vòstra agenda sus openagenda.com",
   "lab": "Lab",
   "labTabDescription": "Utilizatz las foncionalitats disponiblas en version bèta",
   "eventStatusDesc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
-  "eventStatusKnowMore": "Ne saber mai"
+  "eventStatusKnowMore": "Ne saber mai",
+  "matomoSupport": "Contactar l'assisténcia"
 }

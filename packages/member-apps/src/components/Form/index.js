@@ -2,8 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
-import ReactMarkdown from 'react-markdown';
-import { MoreInfo } from '@openagenda/react-shared';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
@@ -115,7 +113,6 @@ export default ({
   const m = useIntl().formatMessage;
 
   const isLoading = operation === 'update' && !query.data && !member;
-
   const { display: displayGDPRInformation, moreInfo: GDPRInformation } = GDPR ?? {};
 
   const loadedMember = member || query.data;
@@ -202,29 +199,17 @@ export default ({
         ) : null}
         {displayGDPRInformation ? (
           <>
-            <p className="margin-bottom-z">{m(messages.GDPRSummary)}</p>
-            {GDPRInformation ? (
-              <MoreInfo
-                placement="bottom"
-                content={<ReactMarkdown>{GDPRInformation}</ReactMarkdown>}
-              >
-                <button
-                  type="button"
-                  className="btn btn-link margin-all-z padding-all-z"
-                >
-                  {m(messages.moreInfo)}
-                </button>
-              </MoreInfo>
-            ) : (
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
-                className="btn btn-link margin-all-z padding-all-z"
-              >
-                {m(messages.moreInfo)}
-              </a>
-            )}
+            <p className="margin-bottom-z">
+              {GDPRInformation || m(messages.GDPRSummary)}
+            </p>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
+              className="btn btn-link margin-all-z padding-all-z"
+            >
+              {m(messages.moreInfo)}
+            </a>
           </>
         ) : null}
       </div>

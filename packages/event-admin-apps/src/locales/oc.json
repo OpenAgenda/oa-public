@@ -79,5 +79,7 @@
   "EventAdminApp.messages.status.movedOnline": "Transferit en linha",
   "EventAdminApp.messages.status.postponed": "Remandat",
   "EventAdminApp.messages.status.programmed": "Programat",
-  "EventAdminApp.messages.status.rescheduled": "Tornat planificar"
+  "EventAdminApp.messages.status.rescheduled": "Tornat planificar",
+  "EventAdminApp.PassImage.edit": "Modificar",
+  "EventAdminApp.PassImage.see": "Veire"
 }

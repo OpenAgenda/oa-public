@@ -1,10 +1,21 @@
 import zxcvbn from 'zxcvbn';
+import * as url from 'node:url';
+import { readFile } from 'node:fs/promises';
 
-const getMessageDetails = ({ score, length }) => {
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const usualPasswords = await readFile(`${__dirname}usualPasswords.json`, 'utf8').then(JSON.parse);
+
+const getMessageDetails = ({ score, length, isUsual }) => {
   if (!length) {
     return {
       type: 'error',
       code: 'required',
+    };
+  }
+  if (isUsual) {
+    return {
+      type: 'error',
+      code: 'usual',
     };
   }
   if (score === 0) {
@@ -38,9 +49,11 @@ export function evaluate(password) {
     score,
   } = zxcvbn(password);
 
+  const isUsual = usualPasswords.includes(password);
   return {
-    valid: score > 0,
+    valid: isUsual ? false : score > 0,
     score,
-    message: getMessageDetails({ score, length: password?.length }),
+    isUsual,
+    message: getMessageDetails({ score, length: password?.length, isUsual }),
   };
 }

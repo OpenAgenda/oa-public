@@ -2,7 +2,7 @@
   "title": "Su evento {event} fue cambiado a {agenda}",
   "body": "Su evento <b>{event}</b> ha sido cambiado en el agenda del <b>{agenda}</b>.",
   "actionDescription": "Ver evento",
-  "tocontrol": "al control",
+  "tocontrol": "a controlar",
   "controlled": "listo para su publicación",
   "published": "publicado",
   "refused": "rechazado",

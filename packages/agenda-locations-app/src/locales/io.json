@@ -193,5 +193,11 @@
   "AgendaLocations.stepper.notDuplicates": "crwdns17296:0crwdne17296:0",
   "AgendaLocations.stepper.see": "crwdns17298:0crwdne17298:0",
   "AgendaLocations.stepper.seeDetails": "crwdns17300:0crwdne17300:0",
-  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0"
+  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0",
+  "AgendaLocations.AgendaAdminLocation.duplicatesFilter": "crwdns33484:0crwdne33484:0",
+  "AgendaLocations.AgendaAdminLocation.duplicatesFilterHelp": "crwdns33486:0crwdne33486:0",
+  "AgendaLocations.AgendaAdminLocation.onGoing": "crwdns33350:0crwdne33350:0",
+  "AgendaLocations.Filters.hasDuplicateCandidates": "crwdns33488:0crwdne33488:0",
+  "AgendaLocations.LocationItem.history": "crwdns33243:0crwdne33243:0",
+  "AgendaLocations.LocationItem.locationHistory": "crwdns33245:0crwdne33245:0"
 }
