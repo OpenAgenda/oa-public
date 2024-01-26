@@ -73,6 +73,14 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     }, ['timingId', 'priceCategoryIndex']);
   });
 
+  if (eventOffer.status === 'PENDING') {
+    log.info('%s: did not create dates cause offer pending', result.eventOffer.id);
+    return {
+      ...result,
+      warning: 'pending',
+    }
+  }
+
   try {
     const {
       dates: createdDates,
