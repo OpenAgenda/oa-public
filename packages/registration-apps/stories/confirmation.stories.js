@@ -32,6 +32,31 @@ export function ConfimationSuccess() {
   );
 }
 
+export function ConfimationPending() {
+  return (
+    <Confirmation
+      event={{
+        ...event,
+        registration: [{
+          type: 'link',
+          value: 'https://link.pass.com',
+          service: 'passCulture',
+          data: {
+            eventOffer: {
+              id: 123,
+            },
+            warning:'pending'
+          },
+        }],
+      }}
+      res={{
+        edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
+        show: 'https://integration.passculture.app/offre/:id',
+      }}
+    />
+  );
+}
+
 export function ConfirmationFailure() {
   return (
     <Confirmation
