@@ -4,11 +4,11 @@ import type { AgendaSettingsTracking } from 'types';
 import addGoogleAnalyticsTracker from '../utils/addGoogleAnalyticsTracker';
 import { addMatomoClientTracker } from '../utils/addMatomoTracker';
 
-export default function useClientAnalytics(trackingsSettings: AgendaSettingsTracking): string | null {
+export default function useClientAnalytics(trackingSettings: AgendaSettingsTracking): string | null {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    if (!trackingsSettings) {
+    if (!trackingSettings) {
       return;
     }
 
@@ -18,7 +18,7 @@ export default function useClientAnalytics(trackingsSettings: AgendaSettingsTrac
       matomoSiteId,
       matomoAskForConsent,
       matomoCustom,
-    } = trackingsSettings;
+    } = trackingSettings;
 
     if (googleAnalytics && cookies.GaCookieConsent === 'true') {
       addGoogleAnalyticsTracker({ googleAnalyticsID: googleAnalytics });
@@ -28,13 +28,13 @@ export default function useClientAnalytics(trackingsSettings: AgendaSettingsTrac
         addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
       }
     }
-  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, trackingsSettings]);
+  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, trackingSettings]);
 
-  if (cookies.GaCookieConsent === undefined && trackingsSettings?.googleAnalytics) {
+  if (cookies.GaCookieConsent === undefined && trackingSettings?.googleAnalytics) {
     return 'ga';
   }
 
-  if (cookies.MatomoCookieConsent === undefined && trackingsSettings?.matomoAskForConsent) {
+  if (cookies.MatomoCookieConsent === undefined && trackingSettings?.matomoAskForConsent) {
     return 'matomo';
   }
 

@@ -1,15 +1,19 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const _ = require('lodash');
 const glob = require('glob');
 const { mkdirp } = require('mkdirp');
 const tmp = require('tmp');
 const { compile } = require('@formatjs/cli');
-const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../lib/constants');
-const getFallbackChain = require('../lib/getFallbackChain');
-const completeMessages = require('../lib/utils/completeMessages');
+const {
+  DEFAULT_LANG,
+  DEFAULT_LANGS,
+  DEFAULT_FALLBACK_MAP,
+} = require('../dist/constants');
+const getFallbackChain = require('../dist/getFallbackChain').default;
+const completeMessages = require('../dist/utils/completeMessages').default;
 const createIndex = require('./utils/createIndex');
 const getMessages = require('./utils/getMessages');
 const inputToOuputPath = require('./utils/inputToOuputPath');
@@ -22,21 +26,20 @@ const defaults = {
   fallbackMap: DEFAULT_FALLBACK_MAP,
   skipIndex: false,
   ast: true,
+  esm: false,
 };
 
 // Functions
 
-function getFallbackedMessages({
-  inputPath,
-  fallbackMap,
-  lang,
-  defaultLang,
-}) {
+function getFallbackedMessages({ inputPath, fallbackMap, lang, defaultLang }) {
   const fallbacks = getFallbackChain(lang, fallbackMap, defaultLang);
   let result = {};
 
   for (const fallback of fallbacks) {
-    const localesPath = path.join(process.cwd(), inputPath.replace('%lang%', fallback));
+    const localesPath = path.join(
+      process.cwd(),
+      inputPath.replace('%lang%', fallback),
+    );
     const messages = getMessages(localesPath);
 
     result = completeMessages(result, messages);
@@ -58,10 +61,12 @@ async function compileLang({
   const localesPaths = glob.sync(localesGlobPath);
 
   for (const localesPath of localesPaths) {
-    const {
-      result: compiledLocalesPath,
-      inputPath,
-    } = inputToOuputPath(locales, localesPath, output, lang);
+    const { result: compiledLocalesPath, inputPath } = inputToOuputPath(
+      locales,
+      localesPath,
+      output,
+      lang,
+    );
 
     const messages = getFallbackedMessages({
       inputPath,
@@ -84,7 +89,8 @@ async function compileLang({
         }),
       );
 
-      compiledLocales = _.mapValues(compiledLocales, item => (Array.isArray(item) && item.length === 0 ? null : item));
+      compiledLocales = _.mapValues(compiledLocales, item =>
+        (Array.isArray(item) && item.length === 0 ? null : item));
     } catch (e) {
       console.log(`Error while compiling ${lang}`, e);
     } finally {
@@ -116,7 +122,8 @@ module.exports.builder = yargs => {
     output: {
       alias: 'o',
       default: defaults.output,
-      desc: 'The target path where the script will output the compiled version of the translation files,'
+      desc:
+        'The target path where the script will output the compiled version of the translation files,'
         + ' completed with the fallback langs.',
     },
     defaultLang: {
@@ -143,6 +150,11 @@ module.exports.builder = yargs => {
       type: 'boolean',
       desc: 'Whether to compile message into AST instead of just string.',
     },
+    esm: {
+      type: 'boolean',
+      default: false,
+      desc: 'Create ESM index.',
+    },
   });
 };
 
@@ -155,21 +167,23 @@ module.exports.handler = async argv => {
     fallbackMap = defaults.fallbackMap,
     skipIndex = defaults.skipIndex,
     ast = defaults.ast,
+    esm = defaults.esm,
   } = argv;
 
   const format = 'simple';
 
   // Compile
   const compileResults = await Promise.allSettled(
-    langs.map(lang => compileLang({
-      locales,
-      output,
-      lang,
-      fallbackMap,
-      defaultLang,
-      format,
-      ast,
-    })),
+    langs.map(lang =>
+      compileLang({
+        locales,
+        output,
+        lang,
+        fallbackMap,
+        defaultLang,
+        format,
+        ast,
+      })),
   );
 
   compileResults.forEach(result => {
@@ -178,7 +192,11 @@ module.exports.handler = async argv => {
     }
   });
 
-  if (!skipIndex && path.basename(output) === '%lang%.json' && !output.includes('**')) {
-    await createIndex(output, langs);
+  if (
+    !skipIndex
+    && path.basename(output) === '%lang%.json'
+    && !output.includes('**')
+  ) {
+    await createIndex(output, langs, esm);
   }
 };

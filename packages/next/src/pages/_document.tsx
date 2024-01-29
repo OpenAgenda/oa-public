@@ -43,13 +43,13 @@ function wrapApp({ cookies, sessionLocale }) {
   };
 }
 
-function OutdatedStyle({ assetPrefix }) {
+function OutdatedStyle({ nonce, assetPrefix }) {
   return (
-    <link rel="stylesheet" href={`${assetPrefix}/_next/static/css/outdated-browser.css`} />
+    <link rel="stylesheet" href={`${assetPrefix}/_next/static/css/outdated-browser.css`} nonce={nonce} />
   );
 }
 
-function OutdatedScript({ assetPrefix, locale }) {
+function OutdatedScript({ nonce, assetPrefix, locale }) {
   return (
     <>
       <script
@@ -57,8 +57,9 @@ function OutdatedScript({ assetPrefix, locale }) {
         dangerouslySetInnerHTML={{
           __html: `window.outdatedBrowserOptions = ${JSON.stringify({ locale })};`,
         }}
+        nonce={nonce}
       />
-      <script src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`} defer />
+      <script src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`} defer nonce={nonce} />
     </>
   );
 }
@@ -97,7 +98,7 @@ function MyDocument({
           </>
         ) : null}
         {outdatedBrowser ? (
-          <OutdatedStyle assetPrefix={assetPrefix} />
+          <OutdatedStyle assetPrefix={assetPrefix} nonce={nonce} />
         ) : null}
       </Head>
       <body className="chakra-ui-light">
@@ -105,7 +106,7 @@ function MyDocument({
         <Main />
         <NextScript nonce={nonce} />
         {outdatedBrowser ? (
-          <OutdatedScript assetPrefix={assetPrefix} locale={preferredLocale} />
+          <OutdatedScript assetPrefix={assetPrefix} locale={preferredLocale} nonce={nonce} />
         ) : null}
       </body>
     </Html>
@@ -116,7 +117,8 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const originalRenderPage = ctx.renderPage;
 
   const cookies = new Cookies(ctx.req?.headers?.cookie);
-  const responseCookies = new ResponseCookies(new Headers(ctx.res?.getHeaders?.() as HeadersInit));
+  const responseHeaders = new Headers(ctx.res?.getHeaders?.() as HeadersInit);
+  const responseCookies = new ResponseCookies(responseHeaders);
 
   const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
     || cookies.get('outdatedBrowser') === 'true';
@@ -124,8 +126,11 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const sessionLocale = getSession(cookies)?.user?.culture;
 
   // CSP
-  const nonce = generateNonce();
-  ctx.res?.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
+  let nonce = responseHeaders.get('X-Nonce');
+  if (!nonce) {
+    nonce = generateNonce();
+    ctx.res?.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
+  }
 
   ctx.renderPage = () =>
     originalRenderPage({

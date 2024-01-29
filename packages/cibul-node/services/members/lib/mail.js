@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const invitations = require('@openagenda/invitations');
-const log = require('@openagenda/logs')('members/mail');
+const log = require('@openagenda/logs')('services/members/mail');
 const base64 = require('@openagenda/utils/base64');
 
 const agendaLogo = require('./agendaLogo');
