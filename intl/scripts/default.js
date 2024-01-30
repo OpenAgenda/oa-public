@@ -1,6 +1,10 @@
 'use strict';
 
-const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../dist/constants');
+const {
+  DEFAULT_LANG,
+  DEFAULT_LANGS,
+  DEFAULT_FALLBACK_MAP,
+} = require('../dist/constants');
 const extract = require('./extract');
 const compile = require('./compile');
 
@@ -21,12 +25,14 @@ module.exports.builder = yargsBuilder => {
     output: {
       alias: 'o',
       default: 'src/locales/%lang%.json',
-      desc: 'The target path where the script will output an aggregated'
+      desc:
+        'The target path where the script will output an aggregated'
         + ' `.json` file per lang of all the translations from the `files` supplied.',
     },
     compiled: {
       default: 'src/locales-compiled/%lang%.json',
-      desc: 'The target path where the script will output the compiled version of the translation files,'
+      desc:
+        'The target path where the script will output the compiled version of the translation files,'
         + ' completed with the fallback langs.',
     },
     compileOnly: {
@@ -50,7 +56,8 @@ module.exports.builder = yargsBuilder => {
     },
     idInterpolationPattern: {
       default: '[sha512:contenthash:base64:6]',
-      desc: 'If certain message descriptors don\'t have id,'
+      desc:
+        "If certain message descriptors don't have id,"
         + ' this `pattern` will be used to automatically generate IDs for them,\n'
         + 'where `contenthash` is the hash of `defaultMessage` and `description`.',
     },
@@ -68,6 +75,11 @@ module.exports.builder = yargsBuilder => {
       default: true,
       desc: 'Whether to compile message into AST instead of just string.',
     },
+    esm: {
+      type: 'boolean',
+      default: false,
+      desc: 'Create ESM indexes.',
+    },
   });
 };
 
@@ -81,6 +93,7 @@ module.exports.handler = async argv => {
       langs: argv.langs,
       definedDefault: argv.definedDefault,
       skipIndex: argv.skipIndex,
+      esm: argv.esm,
     });
   }
 
@@ -92,5 +105,6 @@ module.exports.handler = async argv => {
     fallbackMap: argv.fallbackMap,
     skipIndex: argv.skipIndex,
     ast: argv.ast,
+    esm: argv.esm,
   });
 };

@@ -21,6 +21,7 @@ const defaults = {
   idInterpolationPattern: '[sha512:contenthash:base64:6]',
   skipIndex: false,
   skipEmpty: false,
+  esm: false,
 };
 
 // Functions
@@ -219,6 +220,11 @@ module.exports.builder = yargs => {
       type: 'boolean',
       desc: 'Does not create empty locale files.',
     },
+    esm: {
+      type: 'boolean',
+      default: false,
+      desc: 'Create ESM index.',
+    },
   });
 };
 
@@ -232,6 +238,7 @@ module.exports.handler = async argv => {
     definedDefault = defaults.definedDefault,
     skipIndex = defaults.skipIndex,
     skipEmpty = defaults.skipEmpty,
+    esm = defaults.esm,
   } = argv;
 
   const format = 'simple';
@@ -266,6 +273,6 @@ module.exports.handler = async argv => {
     && path.basename(output) === '%lang%.json'
     && !output.includes('**')
   ) {
-    await createIndex(output, langs);
+    await createIndex(output, langs, esm);
   }
 };
