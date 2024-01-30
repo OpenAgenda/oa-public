@@ -64,5 +64,6 @@
   "EventAdminApp.messages.status.postponed": "Riprogrammato",
   "EventAdminApp.messages.status.rescheduled": "Riprogrammato",
   "EventAdminApp.PassImage.edit": "Modificare",
-  "EventAdminApp.PassImage.see": "Vedere"
+  "EventAdminApp.PassImage.see": "Vedere",
+  "EventAdminApp.messages.relative.upcoming": "Futuri"
 }

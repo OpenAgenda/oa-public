@@ -10,5 +10,6 @@
   "AgendaSettings.contribution.openContribution": "crwdns16528:0crwdne16528:0",
   "AgendaSettings.contribution.openContributionDesc": "crwdns16530:0crwdne16530:0",
   "AgendaSettings.contribution.reducedContribution": "crwdns16532:0crwdne16532:0",
-  "AgendaSettings.contribution.reducedContributionDesc": "crwdns16534:0crwdne16534:0"
+  "AgendaSettings.contribution.reducedContributionDesc": "crwdns16534:0crwdne16534:0",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "crwdns33552:0crwdne33552:0"
 }

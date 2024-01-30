@@ -18,5 +18,6 @@
   "common.event.states.published": "Pubblicato",
   "common.event.states.refused": "Rifiutato",
   "common.roles.contributor": "Collaboratore",
-  "common.roles.moderator": "Moderatore"
+  "common.roles.moderator": "Moderatore",
+  "cibulTemplates.displayContextBar.modifyAction": "Modificare"
 }

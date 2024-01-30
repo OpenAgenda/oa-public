@@ -3,7 +3,7 @@
 module.exports = {
   "events": {
     "en": "Events",
-    "fr": "Evénements",
+    "fr": "Événements",
     "de": "Veranstaltungen",
     "es": "Eventos",
     "it": "Eventi",

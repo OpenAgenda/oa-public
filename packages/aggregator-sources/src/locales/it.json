@@ -119,5 +119,6 @@
   "aggregator-sources.utils.stateMessages.stateControlled": "Controllato",
   "aggregator-sources.utils.stateMessages.statePublished": "Pubblicato",
   "aggregator-sources.utils.stateMessages.stateToControl": "Per controllare",
-  "aggregator-sources.RuleForm.emailPlaceholder": "Email"
+  "aggregator-sources.RuleForm.emailPlaceholder": "Email",
+  "aggregator-sources.EvaluateOptions.evaluateOption0": "Aggregare solo gli eventi futuri"
 }

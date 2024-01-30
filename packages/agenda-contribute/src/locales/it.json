@@ -40,5 +40,14 @@
   "AgendaContribute.Stepper.member": "Informazione membro",
   "AgendaContribute.EditConfirmation.end": "Chiudere",
   "AgendaContribute.ErrorMessage.description": "Descrizione",
-  "AgendaContribute.EventIsAlreadyInTarget.goBack": "Tornare indietro"
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": "Tornare indietro",
+  "AgendaContribute.ClosedMessage.forContributors": "Questa agenda non è o non è più aperta a nuovi contributi.",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "L'evento è stato aggiornato",
+  "AgendaContribute.ErrorMessage.shareRestrictionInfo": "Le seguenti questioni devono essere affrontate per permettere di rendere l'evento \"{event}\" condivisibile sull'agenda \"{agenda}\"",
+  "AgendaContribute.EventEdit.unpublishWarning": "Se modificato, l'evento sarà depubblicato per la moderazione.",
+  "AgendaContribute.EventEdit.unpublishWarningTitle": "Avviso di non dipubblicazione",
+  "AgendaContribute.EventEdit.unpublishWarningWithLink": "Se modificato, l'evento sarà spubblicato per la moderazione. È inoltre possibile suggerire ai moderatori modifiche minori scrivendo un messaggio. [Suggest Change]<a></a>",
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": "Questo evento è stato aggiunto all'agenda \"%agenda%\" attraverso una condivisione o un'aggregazione. Solo i membri dell'agenda dove l'evento è stato aggiunto possono cambiare il suo contenuto.",
+  "AgendaContribute.ShowFullEventForm.showEventFields": "Modificare i campi del modulo",
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "Avete i diritti di edizione sull'evento. Qualsiasi edizione apportata all'evento sarà visibile ovunque sia pubblicata."
 }

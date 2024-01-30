@@ -579,7 +579,7 @@ module.exports = {
   },
   "startingAt": {
     "en": "Starting at %min% years old",
-    "fr": "A partir de %min% ans",
+    "fr": "À partir de %min% ans",
     "it": "A partire da %min% anni",
     "de": "ab %min% Jahren",
     "pl": "Od %min% lat",

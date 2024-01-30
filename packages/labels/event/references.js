@@ -2,7 +2,7 @@
 
 module.exports = {
   "editorTitle": {
-    "fr": "Evénements liés",
+    "fr": "Événements liés",
     "en": "Related events",
     "de": "ähnliche Veranstaltungen",
     "es": "Eventos relacionados",
@@ -101,7 +101,7 @@ module.exports = {
     "oc": "Suggestions d'eveniments similars"
   },
   "nothingToSuggestTitle": {
-    "fr": "Evénements similaires",
+    "fr": "Événements similaires",
     "en": "Similar events",
     "de": "ähnliche Veranstaltungen",
     "es": "Eventos similares",
@@ -119,7 +119,7 @@ module.exports = {
     "oc": "Los eveniments similars se pòdon cargar pas que s'avètz ja emplit lo formulari d'eveniment"
   },
   "noSuggestionsTitle": {
-    "fr": "Evénements similaires",
+    "fr": "Événements similaires",
     "en": "Similar events",
     "de": "Ähnliche Veranstaltungen",
     "es": "Eventos similares",
@@ -137,7 +137,7 @@ module.exports = {
     "oc": "Pas cap eveniment similar trobat"
   },
   "noOtherSuggestionsTitle": {
-    "fr": "Evénements similaires",
+    "fr": "Événements similaires",
     "en": "Similar events",
     "de": "Ähnliche Veranstaltungen",
     "es": "Eventos similares",

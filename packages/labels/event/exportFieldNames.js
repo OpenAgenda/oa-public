@@ -541,7 +541,7 @@ module.exports = {
   },
   "references": {
     "en": "Linked events",
-    "fr": "Evénements liés",
+    "fr": "Événements liés",
     "de": "Verknüpfte Veranstaltungen",
     "es": "eventos relacionados",
     "it": "Eventi correlati",
