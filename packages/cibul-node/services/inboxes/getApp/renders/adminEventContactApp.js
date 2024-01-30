@@ -13,10 +13,10 @@ module.exports = ({ config, render }) => (req, res, next) => {
     baseData: {
       event: {
         ...req.event,
-        backLink: `/${req.agenda.slug}`
+        backLink: `/${req.agenda.slug}`,
       },
       image: req.agenda.image,
-      title: req.agenda.title
+      title: req.agenda.title,
     },
     endpoint: `/agendas/${req.agenda.uid}/inbox`,
     initialState: {
