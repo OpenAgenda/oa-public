@@ -54,5 +54,6 @@
   "ReactFilters.messages.status.postponed": "Riprogrammato",
   "ReactFilters.messages.status.programmed": "Programmato",
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
-  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)"
+  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
+  "ReactFilters.messages.filterTitles.relative": "Passati / in corso / futuri"
 }
