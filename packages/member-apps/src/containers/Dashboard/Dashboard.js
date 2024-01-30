@@ -350,7 +350,7 @@ class Dashboard extends Component {
     if (loadLoading) {
       return <Loading />;
     }
-    console.log('members:', members);
+
     return (
       <div>
         <div className="text-right">
