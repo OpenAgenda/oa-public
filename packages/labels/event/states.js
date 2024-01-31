@@ -123,6 +123,7 @@ module.exports = {
     "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
     "en": "Important: the event will be visible and shareable only when it will be published",
     "it": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
-    "io": "crwdns33404:0crwdne33404:0"
+    "io": "crwdns33404:0crwdne33404:0",
+    "oc": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat"
   }
 }

@@ -7,7 +7,8 @@ module.exports = {
     "de": "Referenz-und Broadcast alle Ihre Veranstaltungen",
     "es": "Identificar y entregar todos sus eventos",
     "it": "Elencare e trasmettere tutti i vostri eventi",
-    "io": "crwdns13446:0crwdne13446:0"
+    "io": "crwdns13446:0crwdne13446:0",
+    "oc": "Referenciatz e difusatz totes vòstres eveniments"
   },
   "mainSubtitle": {
     "fr": "Réduisez vos coûts et démultipliez la visibilité de vos événements",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Optimiere Kosten und verbessern Sie Deine Veranstaltungen Sichtbarkeit",
     "es": "Reducir los costos y multiplicar la visibilidad de sus eventos",
     "it": "Ridurre i costi e moltiplicare la visibilità dei vostri eventi",
-    "io": "crwdns13448:0crwdne13448:0"
+    "io": "crwdns13448:0crwdne13448:0",
+    "oc": "Optimizatz los còsts e melhoratz la visibilitat de vòstres eveniments"
   },
   "mainToday": {
     "fr": "Aujourd'hui",
@@ -32,7 +34,8 @@ module.exports = {
     "de": "**%count%** Veranstaltungen",
     "es": "**%count%** eventos",
     "it": "**%count%** eventi",
-    "io": "crwdns13452:0%count%crwdne13452:0"
+    "io": "crwdns13452:0%count%crwdne13452:0",
+    "oc": "**%count%** eveniments"
   },
   "mainAgendaCount": {
     "fr": "**%count%** agendas",
@@ -40,7 +43,8 @@ module.exports = {
     "de": "**%count%** Kalenders",
     "es": "**%count%** agendas",
     "it": "**%count%** agende",
-    "io": "crwdns13454:0%count%crwdne13454:0"
+    "io": "crwdns13454:0%count%crwdne13454:0",
+    "oc": "**%count%** agendas"
   },
   "mainContributorCount": {
     "fr": "**%count%** contributeurs",
@@ -48,7 +52,8 @@ module.exports = {
     "de": "**%count%** Beiträger",
     "es": "**%count%** Colaboradores",
     "it": "**%count%** utenti",
-    "io": "crwdns13456:0%count%crwdne13456:0"
+    "io": "crwdns13456:0%count%crwdne13456:0",
+    "oc": "**%count%** contributors"
   },
   "mainAgendaSearch": {
     "fr": "Chercher un agenda",
@@ -56,7 +61,8 @@ module.exports = {
     "de": "Suche nach einer Verwaltungskalender",
     "es": "Buscar una agenda",
     "it": "Cercare un'agenda",
-    "io": "crwdns13458:0crwdne13458:0"
+    "io": "crwdns13458:0crwdne13458:0",
+    "oc": "Cercar una agenda"
   },
   "mainAgendaCreate": {
     "fr": "Créer un agenda",
@@ -73,7 +79,8 @@ module.exports = {
     "de": "OpenAgenda ist ein leistungsfähiges Werkzeug Kalender von verschiedenen Akteuren wie das Centre Pompidou Museum, das Ministerium für Kultur, Nuit Debout und die Region Ile de France verwendet.",
     "es": "OpenAgenda es una herramienta poderosa agenda utilizado por actores tan diversos como el Centro Pompidou, el Ministerio de Cultura soporte de la noche o de la Isla de Francia.",
     "it": "OpenAgenda è un potente strumento di agenda utilizzato da attori diversi come il Centre Pompidou, il Ministero della Cultura o la Regione Ile de France.",
-    "io": "crwdns13462:0crwdne13462:0"
+    "io": "crwdns13462:0crwdne13462:0",
+    "oc": "OpenAgenda es una aisina de calendièr potenta utilizada per fòrça actors coma lo Centre Pompidou, lo Ministèri de la Cultura, Nuit Debout e la region Isla de França."
   },
   "mainConnectWith": {
     "fr": "Connectez votre agenda avec",
@@ -81,7 +88,8 @@ module.exports = {
     "de": "Schließe DeineVerwaltungskalender mit",
     "es": "Conectar su agenda con",
     "it": "Collega la sua agenda con",
-    "io": "crwdns13464:0crwdne13464:0"
+    "io": "crwdns13464:0crwdne13464:0",
+    "oc": "Connectatz vòstra agenda amb"
   },
   "mainConnectMedia": {
     "fr": "plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet",
@@ -89,7 +97,8 @@ module.exports = {
     "de": "mehr als ** hundert Medien ** wie le Parisien, Ouest France, Viafrance & TootSweet",
     "es": "más de un centenar de medios incluyendo el oeste de París Francia, y viaFrance TootSweet",
     "it": "più di cento media, tra cui Le Parisien, Ouest France, Viafrance e TootSweet",
-    "io": "crwdns13466:0crwdne13466:0"
+    "io": "crwdns13466:0crwdne13466:0",
+    "oc": "mai d'**un centenat de mèdias** coma le Parisien, Ouest France, ViaFrance e TootSweet"
   },
   "mainConnectServices": {
     "fr": "des services tiers, tels WeMap et OpenDataSoft",
@@ -97,7 +106,8 @@ module.exports = {
     "de": "Fremdleistungen wie WeMap und OpenDataSoft",
     "es": "servicios de terceros, tales WeMap y OpenDataSoft",
     "it": "servizi di terze parti, come WeMap e OpenDataSoft",
-    "io": "crwdns13468:0crwdne13468:0"
+    "io": "crwdns13468:0crwdne13468:0",
+    "oc": "de servicis tèrces coma WeMap e OpenDataSoft"
   },
   "mainConnectPersonal": {
     "fr": "les agendas personnels, tels Google Agenda, Outlook, Thunderbird, Lotus Notes",
@@ -105,7 +115,8 @@ module.exports = {
     "de": "persönliche Kalender wie Google Kalender, Outlook, Thunderbird, Lotus Notes",
     "es": "agendas personales, tales como Google Calendar, Outlook, Thunderbird, Lotus Notes",
     "it": "calendari personali, come Google Calendar, Outlook, Thunderbird, Lotus Notes",
-    "io": "crwdns13470:0crwdne13470:0"
+    "io": "crwdns13470:0crwdne13470:0",
+    "oc": "d'agendas personalas coma Google Calendar, Outlook, Thunderbird, Lotus Notes"
   },
   "mainBroadcastTitle": {
     "fr": "La programmation de votre agenda ou réseau est rediffusée",
@@ -113,7 +124,8 @@ module.exports = {
     "de": "Die Veranstaltungen Ihrer Agenda oder das Netzwerk für die Übertragung verfügbar",
     "es": "agendación de la agenda o la red es retransmitido",
     "it": "Il agenda del vostro agenda o della sua rete viene ritrasmesso",
-    "io": "crwdns13472:0crwdne13472:0"
+    "io": "crwdns13472:0crwdne13472:0",
+    "oc": "Los eveniments de vòstra agenda o ret se pòdon difusar"
   },
   "mainBroadcastText": {
     "fr": "Vos événement sont rediffusés sur les agendas de la plateforme ainsi que chez nos partenaires",
@@ -121,7 +133,8 @@ module.exports = {
     "de": "Ihre Veranstaltungen sind auf Kalenders der Plattform sowie mit unseren Partnern ausgestrahlt",
     "es": "Sus eventos se repiten en las agendas de la plataforma, así como con nuestros socios",
     "it": "I suoi eventi vengono trasmessi sulle agende della piattaforma e sui siti web dei nostri partner",
-    "io": "crwdns13474:0crwdne13474:0"
+    "io": "crwdns13474:0crwdne13474:0",
+    "oc": "Vòstres eveniments son difusats sus d'agendas de la plataforma tant coma en çò dels nòstre partenaris"
   },
   "mainBroadcastPoint1": {
     "fr": "Vos événements sont **structurés** selon un standard international",
@@ -129,7 +142,8 @@ module.exports = {
     "de": "Ihre Veranstaltungen sind ** ** strukturiert nach einem internationalen Standard",
     "es": "Sus eventos están estructurados ** ** de acuerdo con una norma internacional",
     "it": "I vostri eventi sono **strutturati** secondo uno standard internazionale",
-    "io": "crwdns13476:0crwdne13476:0"
+    "io": "crwdns13476:0crwdne13476:0",
+    "oc": "Vòstres eveniments son **estructurats** en seguissent un estandard internacional"
   },
   "mainBroadcastPoint2": {
     "fr": "Ils sont agrégeables par d'autres agendas de la plateforme",
@@ -137,7 +151,8 @@ module.exports = {
     "de": "Du kannst auch in anderen Kalenders aggregiert werden",
     "es": "Ellos importable por otras agendas",
     "it": "Possono essere aggregate da altre agende della piattaforma",
-    "io": "crwdns13478:0crwdne13478:0"
+    "io": "crwdns13478:0crwdne13478:0",
+    "oc": "Se pòdon far agregar a d'autras agendas"
   },
   "mainBroadcastPoint3": {
     "fr": "Ils sont redifusé par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet",
@@ -145,7 +160,8 @@ module.exports = {
     "de": "Du bist für die Wiederverwendung von mehr als hundert Medien einschließlich Le Parisien, Ouest France, Viafrance oder TootSweet",
     "es": "Ellos redifusé por más de un centenar de medios incluyendo el oeste de París Francia, y viaFrance TootSweet",
     "it": "Sono ripetute da più di cento media, tra cui Le Parisien, Ouest France, Viafrance e TootSweet",
-    "io": "crwdns13480:0crwdne13480:0"
+    "io": "crwdns13480:0crwdne13480:0",
+    "oc": "Mai d'un centenat de mèdias los pòdon tornar utilizar, enclaus Le Parisien, Ouest France, ViaFrance o TootSweet"
   },
   "mainBroadcastPoint4": {
     "fr": "Ils sont intégrables sur **[votre site](/decouvrir/votre-site)**",
@@ -153,7 +169,8 @@ module.exports = {
     "de": "Du bist embedabble in Ihrem ** [Deine Website] (/ entdecken / your-Website) **",
     "es": "Se integran en ** [su sitio] (/ descubrir / tu-sitio web) **",
     "it": "Possono essere integrati su **[il tuo sito](/cover/il tuo sito)**.",
-    "io": "crwdns13482:0crwdne13482:0"
+    "io": "crwdns13482:0crwdne13482:0",
+    "oc": "Se pòdon integrar al **[vòstre site](/descobrir/vostre-site)**"
   },
   "mainBETitle": {
     "fr": "Vous organisez un grand événement ?",
@@ -161,7 +178,8 @@ module.exports = {
     "de": "Organisiere ein großes Veranstaltung?",
     "es": "¿Estás organizando un gran evento?",
     "it": "Lei sta organizzando un grande evento?",
-    "io": "crwdns13484:0crwdne13484:0"
+    "io": "crwdns13484:0crwdne13484:0",
+    "oc": "Organizatz un eveniment bèl ?"
   },
   "mainBEPoint1": {
     "fr": "Pilotez un agenda participatif",
@@ -169,7 +187,8 @@ module.exports = {
     "de": "Verwalten einer kollaborativen Kalender",
     "es": "Pilotar una agenda participativa",
     "it": "Pilotare un'agenda partecipativa",
-    "io": "crwdns13486:0crwdne13486:0"
+    "io": "crwdns13486:0crwdne13486:0",
+    "oc": "Bailejatz una agenda collaborativa"
   },
   "mainBEPoint2": {
     "fr": "Personnalisez vos événements",
@@ -177,7 +196,8 @@ module.exports = {
     "de": "Personalisiere deine Veranstaltungskalender",
     "es": "Personalizar sus eventos",
     "it": "Personalizza i suoi eventi",
-    "io": "crwdns13488:0crwdne13488:0"
+    "io": "crwdns13488:0crwdne13488:0",
+    "oc": "Personalizatz vòstres eveniments"
   },
   "mainBEPoint3": {
     "fr": "Modérez les contributions",
@@ -185,7 +205,8 @@ module.exports = {
     "de": "moderate Beiträge",
     "es": "contribuciones moderadas",
     "it": "Contributi moderati",
-    "io": "crwdns13490:0crwdne13490:0"
+    "io": "crwdns13490:0crwdne13490:0",
+    "oc": "Moderatz las contribucions"
   },
   "mainBEPoint4": {
     "fr": "Affichez votre agenda sur votre site",
@@ -193,7 +214,8 @@ module.exports = {
     "de": "Zeige DeineVerwaltungskalender auf deiner Website",
     "es": "Mostrar su agenda en su sitio",
     "it": "Mostra la tua agenda sul suo sito",
-    "io": "crwdns13492:0crwdne13492:0"
+    "io": "crwdns13492:0crwdne13492:0",
+    "oc": "Afichatz vòstra agenda sul vòstre site"
   },
   "mainBEPoint5": {
     "fr": "Exportez tous vos supports : newsletter, papier, etc.",
@@ -201,7 +223,8 @@ module.exports = {
     "de": "Export auf allen Kanälen: Newsletter, Papier usw.",
     "es": "Exportación de todos sus medios: boletines de noticias, papel, etc.",
     "it": "Esporta tutti i suoi media: newsletter, carta, ecc.",
-    "io": "crwdns13494:0crwdne13494:0"
+    "io": "crwdns13494:0crwdne13494:0",
+    "oc": "Exportatz sus totes vòstres supòrts : letras d'informacions, papièr, etc."
   },
   "mainBEPoint6": {
     "fr": "Bénéficiez d’un support express via un interlocuteur dédié",
@@ -209,7 +232,8 @@ module.exports = {
     "de": "Erhalte einen privilegierten Zugang zu einem dedizierten Support-Kontakt",
     "es": "Cuentan con el apoyo expreso a través de un contacto específico",
     "it": "Approfitta del supporto espresso tramite una persona di contatto dedicata",
-    "io": "crwdns13496:0crwdne13496:0"
+    "io": "crwdns13496:0crwdne13496:0",
+    "oc": "Profeitatz d'un accès privilegiat a una assisténcia dedicada"
   },
   "mainPricingTitle": {
     "fr": "Produits",
@@ -217,7 +241,8 @@ module.exports = {
     "de": "Bietet an",
     "es": "Productos",
     "it": "Prodotti",
-    "io": "crwdns13498:0crwdne13498:0"
+    "io": "crwdns13498:0crwdne13498:0",
+    "oc": "Ofèrtas"
   },
   "mainPricingAgendaTitle": {
     "fr": "Agenda",
@@ -235,7 +260,8 @@ module.exports = {
     "de": "Netzwerk von Agendas",
     "es": "Rede de agenda",
     "it": "Rete di agende",
-    "io": "crwdns13502:0crwdne13502:0"
+    "io": "crwdns13502:0crwdne13502:0",
+    "oc": "Ret d'agendas"
   },
   "mainPricingAgendaPoint1": {
     "fr": "Lancez maintenant l’agenda de votre lieu, salon, festival, organisation.",
@@ -243,7 +269,8 @@ module.exports = {
     "de": "Starte jetzt den Kalender Ihres Standorts, Ausstellung, Festival, Organisation.",
     "es": "Ahora ejecuta el agenda de su lugar, el salón, la organización del festival.",
     "it": "Lanciate ora l'agenda del suo luogo, fiera, festival, organizzazione.",
-    "io": "crwdns13504:0crwdne13504:0"
+    "io": "crwdns13504:0crwdne13504:0",
+    "oc": "Aviatz ara l'agenda de vòstre lòc, mòstra, festenal, organizacion."
   },
   "mainPricingAgendaPoint2": {
     "fr": "Le coût est proportionnel au degré de personnalisation.",
@@ -251,7 +278,8 @@ module.exports = {
     "de": "Die Kosten sind proportional zum Grad der Anpassung",
     "es": "El coste es proporcional al grado de personalización.",
     "it": "Il costo è proporzionale al grado di personalizzazione",
-    "io": "crwdns13506:0crwdne13506:0"
+    "io": "crwdns13506:0crwdne13506:0",
+    "oc": "Lo còst es proporcional al gra de personalizacion"
   },
   "mainPricingAgendaPoint3": {
     "fr": "**Exemples d’utilisateurs** : Théâtre la Loge, ReedExpo, Salon de l’agriculture, Fête De la Science, Semaine de l'industrie",
@@ -259,7 +287,8 @@ module.exports = {
     "de": "** Beispiel für Benutzer **: Théâtre la Loge, ReedExpo, Salon de l'agriculture, Fête De la Science, Semaine de l'industrie",
     "es": "** Ejemplos ** Usuarios: Teatro Lodge, ReedExpo, la Feria Agrícola, Ciencias del día, Semana de la Industria",
     "it": "**Esempi di utenti**: Théâtre la Loge, ReedExpo, Fiera agricola, Fiera della scienza, Settimana dell'industria",
-    "io": "crwdns13508:0crwdne13508:0"
+    "io": "crwdns13508:0crwdne13508:0",
+    "oc": "**Exemple d'utilizaires** : Teatre la Loge, ReedExpo, Salon de l'agricultura, Fèsta de la Sciéncia, Setmana de l'industria"
   },
   "mainPricingNetworkPoint1": {
     "fr": "Vous animez un territoire, une fédération, plusieurs coordinateurs locaux ? Le réseau d’agendas est pour vous.",
@@ -267,7 +296,8 @@ module.exports = {
     "de": "Sie animieren ein Gebiet, eine Föderation, mehrere lokale Koordinatoren? Das Netz der Kalenders ist für Sie.",
     "es": "A llevar un país, una federación, varios coordinadores locales? La red de agendas es para usted.",
     "it": "Lei guida un territorio, una federazione, diversi coordinatori locali? Un rete d'agende è per voi.",
-    "io": "crwdns13510:0crwdne13510:0"
+    "io": "crwdns13510:0crwdne13510:0",
+    "oc": "Fasètz viure un territòri, una federacion, maites coordinators locals ? La ret d'agendas es per vos."
   },
   "mainPricingNetworkPoint2": {
     "fr": "Les tarifs sont proportionnels à l’envergure de votre réseau.",
@@ -275,7 +305,8 @@ module.exports = {
     "de": "Die Preisgestaltung ist auf die Größe Ihres Netzwerks proportional.",
     "es": "Las tarifas son en proporción con el tamaño de su red.",
     "it": "Le tariffe sono proporzionali alle dimensioni della vostra rete.",
-    "io": "crwdns13512:0crwdne13512:0"
+    "io": "crwdns13512:0crwdne13512:0",
+    "oc": "Lo prètz es proporcional a la talha de vòstra ret."
   },
   "mainPricingNetworkPoint3": {
     "fr": "**Exemples d’utilisateurs** : INA, Bordeaux Métropole, Journées Européennes du Patrimoine.",
@@ -283,7 +314,8 @@ module.exports = {
     "de": "** Beispiel für Benutzer **: INA, Bordeaux Métropole, Journées Européennes du Patrimoine.",
     "es": "** Ejemplos ** Usuarios: INA, Comunidad Urbana de Burdeos, las Jornadas Europeas del Patrimonio.",
     "it": "**Esemplari di utenti**: INA, Bordeaux Métropole, Giornate europee del patrimonio.",
-    "io": "crwdns13514:0crwdne13514:0"
+    "io": "crwdns13514:0crwdne13514:0",
+    "oc": "**Exemples d'utilizaires** : INA, Bordèu Metropòli, Jornadas Europèas del Patrimòni."
   },
   "mainPricingDiscover": {
     "fr": "Découvrir les offres",
@@ -291,7 +323,8 @@ module.exports = {
     "de": "Entdecke die Angebote",
     "es": "Descubre las ofertas",
     "it": "Scopri le offerte",
-    "io": "crwdns13516:0crwdne13516:0"
+    "io": "crwdns13516:0crwdne13516:0",
+    "oc": "Descobrissètz nòstras ofèrtas"
   },
   "basicOfferTitle": {
     "fr": "Agenda basique",
@@ -299,7 +332,8 @@ module.exports = {
     "de": "Grund Agenda",
     "es": "Agenda básica",
     "it": "Agenda di base",
-    "io": "crwdns13518:0crwdne13518:0"
+    "io": "crwdns13518:0crwdne13518:0",
+    "oc": "Agenda basica"
   },
   "pricingTitle": {
     "fr": "Tarifs",
@@ -316,7 +350,8 @@ module.exports = {
     "de": "Agenda Angebote",
     "es": "Ofertas del agenda",
     "it": "Tipi di agende",
-    "io": "crwdns13522:0crwdne13522:0"
+    "io": "crwdns13522:0crwdne13522:0",
+    "oc": "Ofèrtas d'agenda"
   },
   "agendaPricingDescription": {
     "fr": "Tarifs pour un agenda",
@@ -324,7 +359,8 @@ module.exports = {
     "de": "Die Preise für eine Agenda",
     "es": "Tarifas de una agenda",
     "it": "Tariffe per un agenda",
-    "io": "crwdns13524:0crwdne13524:0"
+    "io": "crwdns13524:0crwdne13524:0",
+    "oc": "Tarifas per una agenda"
   },
   "pricingDescription": {
     "fr": "Toutes les offres",
@@ -332,7 +368,8 @@ module.exports = {
     "de": "Alle pricings",
     "es": "todas las ofertas",
     "it": "Tutte le offerte",
-    "io": "crwdns13526:0crwdne13526:0"
+    "io": "crwdns13526:0crwdne13526:0",
+    "oc": "Totas las tarifas"
   },
   "networkPricingTitle": {
     "fr": "Offres réseaux d'agendas",
@@ -340,7 +377,8 @@ module.exports = {
     "de": "Angebote für Netzwerke Kalenders",
     "es": "Networks ofrece agendas",
     "it": "Offerte per la rete di agenzie",
-    "io": "crwdns13528:0crwdne13528:0"
+    "io": "crwdns13528:0crwdne13528:0",
+    "oc": "Ofèrtas per ret d'agendas"
   },
   "agendaPricingPresTitle": {
     "fr": "Gérez simplement du plus petit au plus grand agenda participatif",
@@ -365,7 +403,8 @@ module.exports = {
     "de": "Unabhängig von Ihrem Personal Größe, Ihr Kalender paßt Ihren Kontext",
     "es": "Sólo ? En equipos de unas pocas docenas? Decenas de miles? <br> Su agenda se adapte a su contexto",
     "it": "Qualsiasi la dimensione della sua squadra, la sua agenda si adatta al tuo contesto",
-    "io": "crwdns13534:0crwdne13534:0"
+    "io": "crwdns13534:0crwdne13534:0",
+    "oc": "Que vòstra equipa siá bèla o pichona, vòstra agenda s'adapta al vòstre contèxte"
   },
   "agendaPricingPresPoint3": {
     "fr": "Votre agenda est synchronisable avec tous vos supports et diffusable par tous",
@@ -409,7 +448,8 @@ module.exports = {
     "de": "Unbegrenzte Veranstaltungen und Mitglieder",
     "es": "Eventos miembros ilimitadas",
     "it": "Eventi e soci illimitati",
-    "io": "crwdns13544:0crwdne13544:0"
+    "io": "crwdns13544:0crwdne13544:0",
+    "oc": "Eveniments e membres illimitats"
   },
   "agendaPricingFreeFeature2": {
     "fr": "Exports en Données Ouvertes",
@@ -417,7 +457,8 @@ module.exports = {
     "de": "Open Data Exporte",
     "es": "Las exportaciones en Open Data",
     "it": "Esportazioni di dati aperti",
-    "io": "crwdns13546:0crwdne13546:0"
+    "io": "crwdns13546:0crwdne13546:0",
+    "oc": "Exportacions en donadas obèrtas"
   },
   "agendaPricingFreeFeature3": {
     "fr": "Champs standards + un champ personnalisé",
@@ -425,7 +466,8 @@ module.exports = {
     "de": "Standard Veranstaltungfelder + ein benutzerdefiniertes Feld",
     "es": "Campos estándar + un campo personalizado",
     "it": "Campi standard + un campo personalizzato",
-    "io": "crwdns13548:0crwdne13548:0"
+    "io": "crwdns13548:0crwdne13548:0",
+    "oc": "Camps d'eveniment estandards + un camp personalizat"
   },
   "agendaPricingFreeFeature4": {
     "fr": "Dates libres",
@@ -433,7 +475,8 @@ module.exports = {
     "de": "Freie Eingabe Daten",
     "es": "fechas libres",
     "it": "Date libere",
-    "io": "crwdns13550:0crwdne13550:0"
+    "io": "crwdns13550:0crwdne13550:0",
+    "oc": "Datas liuras"
   },
   "agendaPricingFreeFeature5": {
     "fr": "Modération",
@@ -450,7 +493,8 @@ module.exports = {
     "de": "Zwei-Ebenen-Hierarchie Mitglied",
     "es": "miembros de la jerarquía de dos niveles",
     "it": "Gerarchia dei membri a due livelli",
-    "io": "crwdns13554:0crwdne13554:0"
+    "io": "crwdns13554:0crwdne13554:0",
+    "oc": "Ierarquia de membres a dos escalons"
   },
   "agendaPricingFreeFeature7": {
     "fr": "Notifications standards",
@@ -458,7 +502,8 @@ module.exports = {
     "de": "Standardbenachrichtigungen",
     "es": "Notificaciones estándar",
     "it": "Notifiche standard",
-    "io": "crwdns13556:0crwdne13556:0"
+    "io": "crwdns13556:0crwdne13556:0",
+    "oc": "Notificacions estandards"
   },
   "agendaPricingFreeFeature8": {
     "fr": "Intégration web en marque blanche",
@@ -466,7 +511,8 @@ module.exports = {
     "de": "Anpassbare Web-Integration",
     "es": "la integración web sin marca",
     "it": "Integrazione web white label",
-    "io": "crwdns13558:0crwdne13558:0"
+    "io": "crwdns13558:0crwdne13558:0",
+    "oc": "Integracion web personalizabla"
   },
   "agendaPricingFreeFeature9": {
     "fr": "Consigne de saisie",
@@ -474,7 +520,8 @@ module.exports = {
     "de": "Beitrag Anleitung",
     "es": "entrada de consigna",
     "it": "Istruzioni per l'immissione",
-    "io": "crwdns13560:0crwdne13560:0"
+    "io": "crwdns13560:0crwdne13560:0",
+    "oc": "Consignas de contribucion"
   },
   "agendaPricingFreeFeature10": {
     "fr": "Événements “en une”",
@@ -482,7 +529,8 @@ module.exports = {
     "de": "Ausgewählte Veranstaltungen",
     "es": "Eventos \"en un\"",
     "it": "Eventi \"in uno\"",
-    "io": "crwdns13562:0crwdne13562:0"
+    "io": "crwdns13562:0crwdne13562:0",
+    "oc": "Eveniments a la una"
   },
   "agendaPricingCustomTitle": {
     "fr": "Agenda sur mesure",
@@ -490,7 +538,8 @@ module.exports = {
     "de": "Customized Agenda",
     "es": "Eventos personalizados",
     "it": "Agenda su misura",
-    "io": "crwdns13564:0crwdne13564:0"
+    "io": "crwdns13564:0crwdne13564:0",
+    "oc": "Agenda a faiçon"
   },
   "agendaPricingCustomPrice": {
     "fr": "(300 €/mois*)",
@@ -673,7 +722,8 @@ module.exports = {
     "de": "Anpassbare Web-Integration",
     "es": "la integración web sin marca",
     "it": "Integrazione web white label",
-    "io": "crwdns13608:0crwdne13608:0"
+    "io": "crwdns13608:0crwdne13608:0",
+    "oc": "Integracion web personalizabla"
   },
   "networkPricingFreeFeature2": {
     "fr": "Editorialisation manuelle",

@@ -96,5 +96,17 @@
   "labTabDescription": "Utilizatz las foncionalitats disponiblas en version bèta",
   "eventStatusDesc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
   "eventStatusKnowMore": "Ne saber mai",
-  "matomoSupport": "Contactar l'assisténcia"
+  "matomoSupport": "Contactar l'assisténcia",
+  "matomoUrl": "Url",
+  "matomoSiteId": "Identificant del site",
+  "matomoAskForConsent": "Demandar a l'utilizaire son consentiment",
+  "matomoAskForConsentInfo": "Ma configuracion a mestièr de demandar lo consentiment",
+  "matomoCustomConfig": "Vòli utilizar una configuracion particulara de Matomo. ",
+  "trackSelectPlaceholder": "Causissètz vòstre servici de seguit (Google Analytics o Matomo)",
+  "moreInfo": "mai d'informacions",
+  "googleAnalyticsSecret": "Clau secrèta de seguit Google Analytics",
+  "googleAnalyticsTitle": "Per utilizaires GA4 sonque",
+  "googleAnalyticsLabel": "Seguit dels expòrts e de l'utilizacion de l'API",
+  "googleAnalyticsInfo": "Per crear un novèl secrèt, anatz dins l'interfàcia utilizaire de Google Analytics : Administracion > Flus de donadas > Protocòl de mesura > Crear",
+  "pass": "Pass Culture"
 }

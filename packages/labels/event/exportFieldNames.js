@@ -4,7 +4,8 @@ module.exports = {
   "age": {
     "en": "Target age",
     "fr": "Âge du public ciblé",
-    "io": "crwdns33352:0crwdne33352:0"
+    "io": "crwdns33352:0crwdne33352:0",
+    "oc": "Atge-cibla"
   },
   "uid": {
     "en": "Identifier",

@@ -51,5 +51,9 @@
   "AgendaContribute.Stepper.confirmation": "Confirmacion",
   "AgendaContribute.Stepper.event": "Mon eveniment",
   "AgendaContribute.Stepper.member": "Fiicha de membre",
-  "AgendaContribute.EditConfirmation.end": "Tampar"
+  "AgendaContribute.EditConfirmation.end": "Tampar",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "L'eveniment es estat mes a jorn",
+  "AgendaContribute.EventEdit.unpublishWarning": "S'es modificat, l'eveniment serà despublicat per moderacion.",
+  "AgendaContribute.EventEdit.unpublishWarningTitle": "Avís de despublicacion",
+  "AgendaContribute.EventEdit.unpublishWarningWithLink": "S'es modificat, l'eveniment serà despublicat per moderacion. Podètz tanben suggerir de pichons cambiaments als moderators en escrivent un messatge. [Suggest Change]<a></a>"
 }
