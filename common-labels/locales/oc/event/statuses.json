@@ -3,5 +3,6 @@
   "common.event.statuses.full": "Totalament complèt",
   "common.event.statuses.movedOnline": "Transferit en linha",
   "common.event.statuses.postponed": "Remandat",
-  "common.event.statuses.rescheduled": "Tornat planificar"
+  "common.event.statuses.rescheduled": "Tornat planificar",
+  "common.event.statuses.scheduled": "Programat"
 }
