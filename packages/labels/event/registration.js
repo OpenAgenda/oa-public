@@ -35,7 +35,7 @@ module.exports = {
   },
   "registerBook": {
     "en": "Register / book",
-    "fr": "S'inscrire / réserver",
+    "fr": "S'inscrire / Réserver",
     "de": "Registrieren / Buch",
     "es": "Registrarse",
     "it": "Registrarsi / prenotare",
