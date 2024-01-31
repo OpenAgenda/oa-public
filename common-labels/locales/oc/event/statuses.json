@@ -1,8 +1,13 @@
 {
   "common.event.statuses.cancelled": "Anullat",
+  "common.event.statuses.cancelledInfo": "L'eveniment es estat definitivament anullat",
   "common.event.statuses.full": "Totalament complèt",
+  "common.event.statuses.fullInfo": "Los participants novèls son pas pus acceptats a l'eveniment",
   "common.event.statuses.movedOnline": "Transferit en linha",
+  "common.event.statuses.movedOnlineInfo": "L'eveniment se debanarà pas mai en un lòc fisic",
   "common.event.statuses.postponed": "Remandat",
+  "common.event.statuses.postponedInfo": "Las datas d'eveniment son pas pus validas. Las datas novèlas son pas encara conegudas",
   "common.event.statuses.rescheduled": "Tornat planificar",
+  "common.event.statuses.rescheduledInfo": "Las oras e datas de l'eveniment son estadas modificadas",
   "common.event.statuses.scheduled": "Programat"
 }
