@@ -72,7 +72,10 @@ function setCSPHeader(hashes, req, res) {
       'https://code.jquery.com',
       'https://maxcdn.bootstrapcdn.com',
       'https://client.crisp.chat',
-      'https://cdn.matomo.cloud',
+      () => {
+        const { matomoCloudId } = req.app.core.getConfig();
+        return matomoCloudId ? `https://${matomoCloudId}` : '';
+      },
     ],
     connectSrc: [
       ...contentSecurityPolicy.defaultDirectives.connectSrc,
