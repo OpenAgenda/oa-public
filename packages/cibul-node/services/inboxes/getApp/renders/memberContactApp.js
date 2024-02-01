@@ -7,6 +7,8 @@ const getLabel = require('@openagenda/labels')(labels);
 module.exports = ({ services, config, render }) => (req, res, next) => {
   const { members } = services;
 
+  const creationRedirect = Buffer.from(req.query.creationRedirect, 'base64').toString().split('?')[1] ? `/agendas/${req.agenda.uid}/admin/members?${Buffer.from(req.query.creationRedirect, 'base64').toString().split('?')[1]}` : `/agendas/${req.agenda.uid}/admin/members`;
+
   const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
     req.targetMember.role,
     'moderator',
@@ -43,7 +45,7 @@ module.exports = ({ services, config, render }) => (req, res, next) => {
         creationSubtitle: getLabel('contactName', { name: userName }, req.lang),
         // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.fullName }, req.lang ),
         belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
-        onConversationCreateRedirect: `/agendas/${req.agenda.uid}/admin/members`,
+        onConversationCreateRedirect: creationRedirect/* `/agendas/${req.agenda.uid}/admin/members` */,
         onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'contact_member',

@@ -114,9 +114,9 @@ function signinSubmit(req, res, next) {
         .then(auth.ifUserLoaded(true, auth.signin))
 
         .then(v => {
-          log.info('signin attempt %s', v.data.errors ? 'failed' : 'successful', {
+          log.info('signin attempt %s', v.data?.errors ? 'failed' : 'successful', {
             ...logBundle,
-            errors: v.data.errors,
+            errors: v.data?.errors,
           });
           return v;
         })
@@ -311,7 +311,7 @@ function signupSubmit(req, res) {
 
         log.info('signup attempt failed', {
           ...logBundle,
-          errors: values.data.errors,
+          errors: values.data?.errors,
         });
       }
 

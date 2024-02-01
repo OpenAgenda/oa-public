@@ -39,5 +39,19 @@
   "common.roles.administrator": "Administrator·a",
   "common.roles.contributor": "Contributor·a",
   "common.roles.moderator": "Moderator·a",
-  "common.roles.reader": "Legeire·a"
+  "common.roles.reader": "Legeire·a",
+  "cibulTemplates.passwordField.good": "Ok 🙂",
+  "cibulTemplates.passwordField.great": "Plan 🥳",
+  "cibulTemplates.passwordField.required": "Vos cal definir un senhal",
+  "cibulTemplates.passwordField.tooWeak": "Lo senhal es tròp feble 😑",
+  "cibulTemplates.passwordField.usual": "Tròp corrent 😑",
+  "cibulTemplates.passwordField.weak": "Aqueste senhal es pas gaire segur 😐",
+  "cibulTemplates.passwordField.weakish": "Un pauc melhor 😬",
+  "common.event.fields.accessibility": "Condicions d'accès",
+  "common.event.fields.age": "Atge del public tocat",
+  "common.event.fields.description": "Descripcion corta",
+  "common.event.fields.location": "Lòc",
+  "common.event.fields.onlineAccessLink": "Ligam d'accès",
+  "common.event.fields.registration": "Inscripcion",
+  "common.event.fields.slug": "Identificant"
 }

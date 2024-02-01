@@ -169,5 +169,21 @@
   "aggregator-sources.DefineRules.textFilterNotDefined": "pas definit",
   "aggregator-sources.DefineRules.textFilterWholeValue": "es egal a \"{value}\"",
   "aggregator-sources.RuleForm.emailPlaceholder": "Email",
-  "aggregator-sources.RuleForm.wholeValueFilter": "La valor totala del camp es comparada al filtre"
+  "aggregator-sources.RuleForm.wholeValueFilter": "La valor totala del camp es comparada al filtre",
+  "aggregator-sources.DefineRules.copy": "La valor definida dins lo camp-sorsa ciblat s'aplicarà al camp ciblat quand l'eveniment s'agregarà a vòstra agenda",
+  "aggregator-sources.DefineRules.languagesFilter": "Filtre de lenga",
+  "aggregator-sources.RuleForm.RespectCase": "Respectar la caissa",
+  "aggregator-sources.RuleForm.copyTextPlaceholder": "causissètz lo camp-sorsa de copiar",
+  "aggregator-sources.RuleForm.copyTextTitle": "La valor definida dins lo camp-sorsa ciblat s'aplicarà al camp ciblat quand l'eveniment s'agregarà a vòstra agenda",
+  "aggregator-sources.RuleForm.copyTextValue": "copiar una valor",
+  "aggregator-sources.RuleForm.helpFilterLanguages": "Aplicatz la règla als eveniments definits dins al mens una de las lengas listadas dins aqueste menut",
+  "aggregator-sources.RuleForm.languagesFilter": "Filtre de lengas",
+  "aggregator-sources.RuleForm.linkPlaceholder": "Ligam ipertèxte",
+  "aggregator-sources.RuleForm.markdownPlaceholder": "Tèxte ric",
+  "aggregator-sources.RuleForm.phonePlaceholder": "Numèro de telefòne",
+  "aggregator-sources.RuleForm.selectLanguages": "Seleccion de las lengas",
+  "aggregator-sources.RuleForm.setTextTitle": "Vòstra entrada s'aplicarà als camps ciblats quand agragaretz l'eveniment a vòstra agenda",
+  "aggregator-sources.RuleForm.setTextValue": "entratz una valor",
+  "aggregator-sources.RuleForm.textPlaceholder": "Camp de tèxte",
+  "aggregator-sources.RuleForm.textareaPlaceholder": "Zòna de tèxte"
 }

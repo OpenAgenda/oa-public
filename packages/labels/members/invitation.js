@@ -7,7 +7,8 @@ module.exports = {
     "de": "Administrator",
     "es": "administrador",
     "it": "amministratore",
-    "io": "crwdns15758:0crwdne15758:0"
+    "io": "crwdns15758:0crwdne15758:0",
+    "oc": "administrator·a"
   },
   "moderator": {
     "en": "moderator",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Moderator",
     "es": "moderador",
     "it": "moderatore",
-    "io": "crwdns15760:0crwdne15760:0"
+    "io": "crwdns15760:0crwdne15760:0",
+    "oc": "moderator·a"
   },
   "contributor": {
     "en": "contributor",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Beiträger",
     "es": "contribuyente",
     "it": "Contributore",
-    "io": "crwdns15762:0crwdne15762:0"
+    "io": "crwdns15762:0crwdne15762:0",
+    "oc": "contributor·a"
   },
   "reader": {
     "en": "reader",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "Leser",
     "es": "lector",
     "it": "lettore",
-    "io": "crwdns15764:0crwdne15764:0"
+    "io": "crwdns15764:0crwdne15764:0",
+    "oc": "legeire·a"
   },
   "emailSubject": {
     "en": "Invitation to an agenda",
@@ -39,7 +43,8 @@ module.exports = {
     "de": "Einladung zum Veranstaltungskalender",
     "es": "Invitación a una agenda",
     "it": "Invito ad un agenda",
-    "io": "crwdns15766:0crwdne15766:0"
+    "io": "crwdns15766:0crwdne15766:0",
+    "oc": "Convit a una agenda"
   },
   "emailTitle": {
     "en": "You have been invited to contribute to the agenda %title%",
@@ -47,7 +52,8 @@ module.exports = {
     "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender %title% beizutragen.",
     "es": "Se le ha invitado a contribuir a la agenda %title%",
     "it": "Siete stati invitati a contribuire all'agenda %title% agenda",
-    "io": "crwdns15768:0%title%crwdne15768:0"
+    "io": "crwdns15768:0%title%crwdne15768:0",
+    "oc": "Sètz estat·da convidat·da a contribuir a l'agenda %title%"
   },
   "emailTitleForExistantUser": {
     "en": "You have become %credential% of the agenda %title%",
@@ -55,7 +61,8 @@ module.exports = {
     "de": "Du bist jetzt %credential% der Veranstaltungskalender %title% ",
     "es": "Usted se convirtió en el título %credencial% de la agenda %title%",
     "it": "Sei diventato %credenziale% dell'agenda %title%",
-    "io": "crwdns15770:0%credential%crwdnd15770:0%title%crwdne15770:0"
+    "io": "crwdns15770:0%credential%crwdnd15770:0%title%crwdne15770:0",
+    "oc": "Sètz vengut·da %credential% de l'agenda %title%"
   },
   "emailInscription": {
     "en": "Sign up",
@@ -81,7 +88,8 @@ module.exports = {
     "de": "s'inscrire",
     "es": "Inscribirse",
     "it": "Iscriviti",
-    "io": "crwdns15776:0crwdne15776:0"
+    "io": "crwdns15776:0crwdne15776:0",
+    "oc": "S'inscriure"
   },
   "emailDescription": {
     "en": "You have been invited to contribute to the agenda **%title%** as a **%credential%**",
@@ -89,7 +97,8 @@ module.exports = {
     "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
     "es": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**",
     "it": "Siete stati invitati a contribuire all'agenda **%titolo%** come **%credenziali%**.",
-    "io": "crwdns15778:0%title%crwdnd15778:0%credential%crwdne15778:0"
+    "io": "crwdns15778:0%title%crwdnd15778:0%credential%crwdne15778:0",
+    "oc": "Sètz estat·da convidat·da a contribuir a l'agenda **%title%** coma **%credential%**"
   },
   "newMessage": {
     "en": "The agenda %agenda% wrote you a message",
@@ -97,6 +106,7 @@ module.exports = {
     "de": "Der Veranstaltungskalender %agenda% hat Dir eine Nachricht geschrieben.",
     "es": "El agenda %agenda% escribió un mensaje",
     "it": "Il agenda %agenda% vi ha scritto un messaggio",
-    "io": "crwdns15780:0%agenda%crwdne15780:0"
+    "io": "crwdns15780:0%agenda%crwdne15780:0",
+    "oc": "L'agenda %agenda% vos a escrit un messatge"
   }
 }

@@ -10,7 +10,7 @@
   "hasAccount": "Lei già ha utilizzato OpenAgenda ?",
   "connect": "Accedi",
   "pseudonym": "Nome utente",
-  "pseudonymSub": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri.",
+  "pseudonymSub": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri",
   "emailSub": "OpenAgenda invierà le notifiche a questo indirizzo. Non saranno trasmessi a terzi.",
   "email": "Email",
   "password": "Password",
@@ -20,5 +20,8 @@
   "termsOfUse": "Condizioni d'uso",
   "policy": "Informativa sulla privacy",
   "culture": "Lingua",
-  "more": "Per saperne di più"
+  "more": "Per saperne di più",
+  "orSocial": "Oppure",
+  "socialHead": "Creare un account con Facebook, Twitter o Google",
+  "socialDescription": "Il vostro account OpenAgenda sarà collegato all'account scelto. L'autenticazione avverrà tramite quel social network."
 }

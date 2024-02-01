@@ -1,4 +1,5 @@
 {
   "ReactFilters.messages.attendanceMode.mixed": "Mesclat",
-  "ReactFilters.messages.attendanceMode.online": "En linha"
+  "ReactFilters.messages.attendanceMode.online": "En linha",
+  "ReactFilters.messages.attendanceMode.offline": "Sus plaça"
 }

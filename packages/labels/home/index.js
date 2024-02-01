@@ -294,7 +294,7 @@ module.exports = {
     "de": "Bearbeiten",
     "br": "Kemmañ",
     "es": "Editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "io": "crwdns14950:0crwdne14950:0",
     "oc": "Modificar"
   },

@@ -19,7 +19,7 @@
   "removeMember": "Rimozione dei membri",
   "removeConfirmMessage": "Sei sicuro di voler rimuovere questo utente dall'iscrizione?",
   "removeModalError": "Non è possibile cancellare questo membro.",
-  "editProfile": "Modifica profilo",
+  "editProfile": "Modificare il profilo",
   "changeRole": "Modificare il ruolo",
   "operationSuccessful": "Fatto",
   "patchSuccessConfirm": "Il membro è statto aggiornato",

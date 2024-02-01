@@ -131,5 +131,8 @@
   "ActivityApps.systemUnpublishEvent.withoutTarget": "<event>{eventName}</event> tòrna passar per la moderacion en seguida d'una modificacion.",
   "ActivityApps.unpublishEvent.actor": "<user>{userName}</user> a despublicat <event>{eventName}</event>.",
   "ActivityApps.unpublishEvent.full": "<user>{userName}</user> a despublicat <event>{eventName}</event> sus <agenda>{agendaName}</agenda>.",
-  "ActivityApps.unpublishEvent.target": "<event>{eventName}</event> es estat despublicat sus <agenda>{agendaName}</agenda>."
+  "ActivityApps.unpublishEvent.target": "<event>{eventName}</event> es estat despublicat sus <agenda>{agendaName}</agenda>.",
+  "ActivityApps.notifications.agendaSystemChangeEventState": "{object} es estat automaticament passat en moderacion coma {objectCount, plural, one {es estat} other {son estats}} modificat per {objectCount, plural, one {son contributor} other {sos contributors}} on {target}.",
+  "ActivityApps.systemChangeEventState.full": "<event>{eventName}</event> es estat automaticament passat en moderacion coma es estat modificat per son contributor sus <agenda>{agendaName}</agenda>.",
+  "ActivityApps.systemChangeEventState.withoutTarget": "<event>{eventName}</event> es estat automaticament passat en modearcion coma es estat modificar per son contributor."
 }

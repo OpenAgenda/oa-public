@@ -8,7 +8,7 @@
   "rtp.editForm.invalidTime": "InvalidTime",
   "rtp.editForm.openRecurrencerModal": "Definire una pianificazione ricorrente",
   "rtp.editForm.startTime": "Orario d'inizio",
-  "rtp.editForm.title": "Modifica programma",
+  "rtp.editForm.title": "Modificare i orari",
   "rtp.multiRecurrencerForm.after": "Dopo",
   "rtp.multiRecurrencerForm.confirmation": "Sono stati aggiunti gli orari ricorrenti",
   "rtp.multiRecurrencerForm.countTooSmall": "Il conto deve essere maggiore di 0",

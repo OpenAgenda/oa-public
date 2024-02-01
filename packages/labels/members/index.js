@@ -17,7 +17,8 @@ module.exports = {
     "de": "Mitglied",
     "es": "miembro",
     "it": "Membro",
-    "io": "crwdns15602:0crwdne15602:0"
+    "io": "crwdns15602:0crwdne15602:0",
+    "oc": "Membre"
   },
   "searchMember": {
     "fr": "Rechercher un membre",
@@ -25,7 +26,8 @@ module.exports = {
     "de": "Suche Mitglied",
     "es": "Buscador un miembro",
     "it": "Ricerca di un membro",
-    "io": "crwdns15604:0crwdne15604:0"
+    "io": "crwdns15604:0crwdne15604:0",
+    "oc": "Cercar un membre"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -96,7 +98,8 @@ module.exports = {
     "de": "Leser",
     "es": "lectores",
     "it": "Lettori",
-    "io": "crwdns15620:0crwdne15620:0"
+    "io": "crwdns15620:0crwdne15620:0",
+    "oc": "Legeire·as"
   },
   "events": {
     "fr": "événements",
@@ -114,7 +117,8 @@ module.exports = {
     "de": "Veranstaltung",
     "es": "evento",
     "it": "evento",
-    "io": "crwdns15624:0crwdne15624:0"
+    "io": "crwdns15624:0crwdne15624:0",
+    "oc": "eveniment"
   },
   "result": {
     "fr": "Résultat",
@@ -122,7 +126,8 @@ module.exports = {
     "de": "Ergebnis",
     "es": "resultado",
     "it": "Risultato",
-    "io": "crwdns15626:0crwdne15626:0"
+    "io": "crwdns15626:0crwdne15626:0",
+    "oc": "Resultat"
   },
   "searchResult": {
     "fr": "Résultat de la recherche",
@@ -130,7 +135,8 @@ module.exports = {
     "de": "Suchergebnis",
     "es": "Resultados de la búsqueda",
     "it": "Risultato della ricerca",
-    "io": "crwdns15628:0crwdne15628:0"
+    "io": "crwdns15628:0crwdne15628:0",
+    "oc": "Resultat de recerca"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -148,7 +154,8 @@ module.exports = {
     "de": "Aktionen",
     "es": "valores",
     "it": "Azioni",
-    "io": "crwdns15632:0crwdne15632:0"
+    "io": "crwdns15632:0crwdne15632:0",
+    "oc": "Accions"
   },
   "removeMember": {
     "fr": "Retirer des membres",
@@ -179,7 +186,7 @@ module.exports = {
     "en": "Edit profile",
     "de": "Profil bearbeiten",
     "es": "Editar Perfil",
-    "it": "Modifica profilo",
+    "it": "Modificare il profilo",
     "io": "crwdns15640:0crwdne15640:0"
   },
   "changeRole": {

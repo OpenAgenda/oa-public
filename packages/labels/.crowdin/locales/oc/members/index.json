@@ -19,5 +19,12 @@
   "string.tooshort": "La cadena de caractèrs es tròp corteta",
   "close": "Tampar",
   "export": "Exportar",
-  "removeFilter": "Tirar lo filtre"
+  "removeFilter": "Tirar lo filtre",
+  "member": "Membre",
+  "searchMember": "Cercar un membre",
+  "readers": "Legeire·as",
+  "event": "eveniment",
+  "result": "Resultat",
+  "searchResult": "Resultat de recerca",
+  "actions": "Accions"
 }

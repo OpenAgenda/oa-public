@@ -50,7 +50,7 @@ module.exports = {
   },
   "contributions": {
     "en": "Contributed events",
-    "fr": "Evénements contribués",
+    "fr": "Événements contribués",
     "de": "Hinzugefügte Events",
     "es": "Eventos contribuidos",
     "it": "Eventi contribuitati",

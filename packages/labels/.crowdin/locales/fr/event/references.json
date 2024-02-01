@@ -1,5 +1,5 @@
 {
-  "editorTitle": "Evénements liés",
+  "editorTitle": "Événements liés",
   "editorInfo": "Liez d'autres événements de l'agenda à votre événement",
   "showTitle": "Voir aussi",
   "emptyReferences": "Aucun événement lié n'est encore défini",
@@ -10,10 +10,10 @@
   "search": "Chercher via titre ou lieu",
   "searchResultTitle": "Résultats de la recherche",
   "suggestionResultTitle": "Suggestions d'événements similaires",
-  "nothingToSuggestTitle": "Evénements similaires",
+  "nothingToSuggestTitle": "Événements similaires",
   "nothingToSuggest": "Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!",
-  "noSuggestionsTitle": "Evénements similaires",
+  "noSuggestionsTitle": "Événements similaires",
   "noSuggestions": "Aucun événement similaire n'a été trouvé",
-  "noOtherSuggestionsTitle": "Evénements similaires",
+  "noOtherSuggestionsTitle": "Événements similaires",
   "noOtherSuggestions": "Aucun autre événement similaire n'a été trouvé"
 }

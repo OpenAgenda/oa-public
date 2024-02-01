@@ -125,7 +125,7 @@ module.exports = {
   "pseudonymSub": {
     "fr": "Votre nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre",
     "en": "Your username will be visible by the administrators of the calendars where you will contribute events",
-    "it": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri.",
+    "it": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri",
     "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
     "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
     "es": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
@@ -242,19 +242,22 @@ module.exports = {
     "en": "Or",
     "io": "crwdns31308:0crwdne31308:0",
     "oc": "O",
-    "es": "O"
+    "es": "O",
+    "it": "Oppure"
   },
   "socialHead": {
     "fr": "Création à partir d'un compte Facebook, Twitter ou Google",
     "en": "Create an account using Facebook, Twitter or Google",
     "io": "crwdns31310:0crwdne31310:0",
-    "oc": "Crear un compte amb Facebook, Twitter o Google"
+    "oc": "Crear un compte amb Facebook, Twitter o Google",
+    "it": "Creare un account con Facebook, Twitter o Google"
   },
   "socialDescription": {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
     "en": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network.",
     "io": "crwdns31312:0crwdne31312:0",
     "oc": "Vòstre compte OpenAgenda serà ligat al compte causit. L'autentificacion se farà en passant pel malhum social.",
-    "es": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social."
+    "es": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social.",
+    "it": "Il vostro account OpenAgenda sarà collegato all'account scelto. L'autenticazione avverrà tramite quel social network."
   }
 }

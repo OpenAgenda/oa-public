@@ -10,5 +10,6 @@
   "stateChanged": "L'estatut de l'eveniment a cambiat",
   "featuredChange": "L'eveniment es ara en una",
   "unfeaturedChange": "L'eveniment es pas pus en una",
-  "stateFieldInfo": "Lo camp es pas accessible als contributors"
+  "stateFieldInfo": "Lo camp es pas accessible als contributors",
+  "stateFieldSub": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat"
 }
