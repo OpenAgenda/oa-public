@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 
+import { produce } from 'immer';
+
 import LocationForm from '../src/components/form-components/LocationForm';
 import LocationMap from '../src/components/form-components/LocationMap';
 import GeoFieldsAndMap from '../src/components/form-components/GeoFieldsAndMap';
@@ -16,15 +18,28 @@ export default {
   decorators: [ComponentCanvas, Providers],
 };
 
+const res = {
+  geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
+  reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
+};
+
 export const BasicForm = () => (
   <LocationForm
     locationProp={location}
     settings={agendaSettings}
     mode="update"
-    res={{
-      geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
-      reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
-    }}
+    res={res}
+  />
+);
+
+export const FormWithImageRightsCheckbox = () => (
+  <LocationForm
+    locationProp={location}
+    settings={produce(agendaSettings, draft => {
+      draft.displayImageRightsConfirmCheckbox = true;
+    })}
+    mode="update"
+    res={res}
   />
 );
 
@@ -37,10 +52,7 @@ export const BasicGeoFieldsAndMap = () => {
       validate={validate}
       onChange={setLocation}
       enableGeocode
-      res={{
-        geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
-        reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
-      }}
+      res={res}
       agenda={{
         uid: 1,
       }}
