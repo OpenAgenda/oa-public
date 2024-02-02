@@ -14,6 +14,7 @@
   "all-languages": "Esportare tutte le lingue",
   "calendar-date": "Questo evento non ha date future",
   "connection-btn": "Accedi",
+  "create-agenda": "Creare un'agenda",
   "distribute-fields": "Campi con opzioni: visualizza un valore per colonna",
   "gcalStep2": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
   "gcalStep3": "3. Segui le istruzioni incollando il link che hai copiato al punto 1",
@@ -28,6 +29,7 @@
   "private-agenda": "Agenda privato",
   "search-agenda": "Cerca",
   "select-all": "Selezionare tutto",
+  "send": "Inviare",
   "share-oa": "Condividere su un altro OpenAgenda",
   "sign-in": "Devi accedere al tuo account per aggiungere questo evento al tuo OpenAgendas",
   "sign-in-agg": "Devi accedere al tuo account per aggregare questo evento."
