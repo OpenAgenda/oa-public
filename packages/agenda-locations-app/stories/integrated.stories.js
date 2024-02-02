@@ -8,6 +8,8 @@ import AdminCanvas from './decorators/AdminCanvas';
 import Providers from './decorators/Providers';
 import fixtures from './fixtures';
 
+const geoapifyKey = process.env.STORYBOOK_GEOAPIFY_KEY;
+
 export default {
   title: 'Integrated',
   decorators: [AdminCanvas, Providers],
@@ -54,7 +56,7 @@ export function Admin() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
@@ -87,7 +89,7 @@ export function AdminUidFilter() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
@@ -120,7 +122,7 @@ export function DetailModal() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
@@ -153,7 +155,7 @@ export function Merge() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
@@ -250,7 +252,7 @@ export function AdminLocationSet() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
               set,
@@ -284,7 +286,7 @@ export function AdminExternal() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
@@ -317,7 +319,7 @@ export function AdminErrors() {
                 message: 'Ca marche',
                 apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
-                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+                staticTiles: `https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`,
               },
               res,
             },
