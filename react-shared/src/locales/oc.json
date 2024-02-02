@@ -23,6 +23,7 @@
   "ReactShared.AgendaContextBar.refusedModalTitle": "Eveniments refusats",
   "ReactShared.ConsentBanner.accept": "Acceptar",
   "ReactShared.ConsentBanner.decline": "Refusar",
+  "ReactShared.ConsentBanner.informationText": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?",
   "ReactShared.ConsentBanner.moreInfoLink": "Clicatz aicí per aver mai d'informacions",
   "ReactShared.EventSelection.emptyList": "Pas cap eveniment foguèt pas trobat",
   "ReactShared.EventSelection.undefinedDescription": "Desripcion pas dintrada",
