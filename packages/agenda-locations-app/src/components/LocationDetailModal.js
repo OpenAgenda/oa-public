@@ -24,6 +24,7 @@ const LocationDetailModal = ({
   agenda,
   closeDetail,
   lang,
+  onEdit,
 }) => {
   const intl = useIntl();
   const staticTiles = useSelector(state => state.settings.staticTiles);
@@ -53,6 +54,7 @@ const LocationDetailModal = ({
           hover={false}
           staticTiles={staticTiles}
           agenda={agenda}
+          onEdit={onEdit}
         />
       </Modal>
     );
