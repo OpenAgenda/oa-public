@@ -17,6 +17,8 @@
   "ReactFilters.messages.attendanceMode.mixed": "Mista",
   "ReactFilters.messages.attendanceMode.offline": "In presenza",
   "ReactFilters.messages.attendanceMode.online": "Evento online",
+  "ReactFilters.messages.boolean.notSelected": "Non selezionato",
+  "ReactFilters.messages.boolean.selected": "Selezionato",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Cerca",
   "ReactFilters.messages.featured.featured": "Selezionato",
   "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane",
