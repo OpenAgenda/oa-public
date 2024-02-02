@@ -5,6 +5,7 @@
   "ReactShareMenus.ExportModal.documentation": "Veire la documentacion",
   "ReactShareMenus.ExportModal.exportAll": "Exportar totes los eveniments",
   "ReactShareMenus.ExportModal.exportJson": "Utilizar la version precedenta d'expòrt JSON",
+  "ReactShareMenus.ExportModal.exportSelection": "Esperar la seleccion actuala d'eveniments",
   "ReactShareMenus.ExportModal.inputFormat": "Causir un format",
   "ReactShareMenus.ExportModal.jsonDoc1": "Documentacion",
   "ReactShareMenus.ExportModal.jsonDoc2": "aquí",
