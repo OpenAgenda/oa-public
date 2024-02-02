@@ -1,7 +1,6 @@
 "use strict";
 
 const redis = require( 'redis' );
-const async = require( 'async' );
 const express = require( 'express' );
 
 let config;
