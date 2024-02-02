@@ -18,7 +18,7 @@ module.exports = async (service, items, options = {}) => {
     const location = service.fieldUtils.fromEntryToItem(entry, {
       access: detailed ? 'public' : 'list',
       includeFields,
-      nullifyUndefined: true
+      nullifyUndefined: true,
     });
 
     return legacy.load(location, entry);
@@ -29,8 +29,8 @@ module.exports = async (service, items, options = {}) => {
       transformed,
       await service.interfaces.getEventCounts(
         transformed.map(i => i.uid),
-        context
-      )
+        context,
+      ),
     );
   }
 
@@ -39,8 +39,8 @@ module.exports = async (service, items, options = {}) => {
       items,
       transformed,
       await service.interfaces.getAgendaUidsByIds(
-        items.map(i => i.agenda_id).filter(id => !!id)
-      )
+        items.map(i => i.agenda_id).filter(id => !!id),
+      ),
     );
   }
 
