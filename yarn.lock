@@ -5844,6 +5844,7 @@ __metadata:
     form-data: "npm:^3.0.0"
     history: "npm:^4.10.1"
     immer: "npm:^10.0.3"
+    jest: "npm:^29.7.0"
     languages: "npm:^0.1.3"
     leaflet: "npm:^1.7.1"
     lodash: "npm:^4.17.21"
