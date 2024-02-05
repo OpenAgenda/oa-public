@@ -76,10 +76,14 @@ function validateSIRET(value, _otherValues = {}, options = {}) {
     return;
   }
 
-  return validators.text({
+  return validators.regex({
     field: 'siret',
+    error: {
+      code: 'invalidSIRET',
+    },
     max: 14,
     min: 14,
+    regex: /^[0-9]+$/,
     optional: true,
   })(value);
 }

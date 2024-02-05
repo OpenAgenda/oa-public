@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
 import validate from '../validate';
@@ -37,6 +37,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationSelector.see',
     defaultMessage: 'See',
   },
+  invalidSIRET: {
+    id: 'AgendaLocations.LocationSelector.invalidSIRET',
+    defaultMessage: 'SIRET must be a 14 characters-long number',
+  },
 });
 
 const LocationSelector = ({
@@ -64,6 +68,7 @@ const LocationSelector = ({
 }) => {
   const [errors, setErrors] = useState(false);
   const [seeDetails, setSeeDetails] = useState(false);
+  const intl = useIntl();
 
   const [detailedLocation, setDetailedLocation] = useState();
 
@@ -99,6 +104,7 @@ const LocationSelector = ({
         optional: false,
         isEnabled: settings?.displayImageRightsConfirmCheckbox,
         displaySIRETInput: settings?.displaySIRETInput,
+        invalidSIRET: intl.formatMessage(messages.invalidSIRET),
       });
     } catch (err) {
       setErrors(err);

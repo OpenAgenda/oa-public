@@ -40,6 +40,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.string.tooshort',
     defaultMessage: 'String is too short',
   },
+  tooshort: {
+    id: 'AgendaLocations.LocationForm.tooshort',
+    defaultMessage: 'String is too short',
+  },
+  toolong: {
+    id: 'AgendaLocations.LocationForm.toolong',
+    defaultMessage: 'String is too long',
+  },
   name: {
     id: 'AgendaLocations.LocationForm.name',
     defaultMessage: 'Name of the location',
@@ -171,6 +179,10 @@ const messages = defineMessages({
   siretInfo: {
     id: 'AgendaLocations.LocationForm.siretInfo',
     defaultMessage: 'SIRET number of the main organization hosted by the location',
+  },
+  invalidSIRET: {
+    id: 'AgendaLocations.LocationForm.invalidSIRET',
+    defaultMessage: 'SIRET must be composed of 14 digits',
   },
 });
 
