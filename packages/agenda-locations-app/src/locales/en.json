@@ -130,7 +130,7 @@
   "AgendaLocations.LocationForm.requiredField": "(Required field)",
   "AgendaLocations.LocationForm.saving": "Saving",
   "AgendaLocations.LocationForm.siret": "SIRET",
-  "AgendaLocations.LocationForm.siretPlaceholder": "SIRET number of the main organization hosted by the location",
+  "AgendaLocations.LocationForm.siretInfo": "SIRET number of the main organization hosted by the location",
   "AgendaLocations.LocationForm.string.tooshort": "String is too short",
   "AgendaLocations.LocationForm.updateSubmit": "Update",
   "AgendaLocations.LocationForm.updateSubmitError": "The location could not be updated",

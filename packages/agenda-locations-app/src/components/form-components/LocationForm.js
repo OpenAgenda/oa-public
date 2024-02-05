@@ -168,8 +168,8 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.siret',
     defaultMessage: 'SIRET',
   },
-  siretPlaceholder: {
-    id: 'AgendaLocations.LocationForm.siretPlaceholder',
+  siretInfo: {
+    id: 'AgendaLocations.LocationForm.siretInfo',
     defaultMessage: 'SIRET number of the main organization hosted by the location',
   },
 });
@@ -422,8 +422,8 @@ const LocationForm = ({
           value={location?.siret || ''}
           getLabel={getLabel}
           lang={lang}
-          info="siretInfo"
           placeholder="siretPlaceholder"
+          info="siretInfo"
           onChange={onChange}
           validator={validate.field('siret')}
         />
