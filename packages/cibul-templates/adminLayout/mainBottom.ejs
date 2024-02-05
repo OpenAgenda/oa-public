@@ -1,7 +1,9 @@
-<% if ( typeof bottom !== 'undefined' ) { %>
+<%
+const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
+%><% if ( typeof bottom !== 'undefined' ) { %>
 <% if ( bottom.scripts ) { %>
 <% bottom.scripts.forEach( function( script ) { %>
-<script type="text/javascript"><%- script %></script>
+<script type="text/javascript"<%- nonceAttr; %>><%- script %></script>
 <% }); %>
 <% } %>
 <% } %>

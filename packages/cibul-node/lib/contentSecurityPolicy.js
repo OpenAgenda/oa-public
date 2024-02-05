@@ -36,6 +36,7 @@ const defaultDirectives = {
     "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     (req, res) => `'nonce-${res.locals.cspNonce}'`,
+    ...process.env.NODE_ENV === 'development' ? ["'unsafe-eval'"] : [],
   ],
   connectSrc: [
     "'self'",

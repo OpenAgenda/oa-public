@@ -1,24 +1,21 @@
+/**
+ * @jest-environment jsdom
+ */
+
 'use strict';
 
-const jsdom = require('jsdom');
-const cookiesLib = require('cookies-js');
+const cookie = require('js-cookie');
 const base64 = require('@openagenda/utils/base64');
 const isoConfig = require('../src/iso/config');
 const clientSession = require('../src/client');
 
 describe('session - functional (client): session', () => {
-  let cookie;
-
   beforeEach(() => {
-    const { window } = new jsdom.JSDOM();
-
-    cookie = cookiesLib(window);
+    cookie.remove(isoConfig.cookies.session);
   });
 
   describe('.getUser', () => {
     it('returns user data if logged', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       cookie.set(isoConfig.cookies.session, base64.encode(JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } })));
 
       expect(
@@ -32,16 +29,12 @@ describe('session - functional (client): session', () => {
     });
 
     it('returns null when not logged', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       expect(clientSession.getUser()).toBeNull();
     });
   });
 
   describe('.isLogged', () => {
     it('returns true if user is logged', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       cookie.set(isoConfig.cookies.session, base64.encode(JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } })));
 
       expect(
@@ -50,8 +43,6 @@ describe('session - functional (client): session', () => {
     });
 
     it('... and false if not', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       expect(
         clientSession.isLogged(),
       ).toBe(false);
@@ -60,9 +51,6 @@ describe('session - functional (client): session', () => {
 
   describe('.inbox', () => {
     it('getSummary - returns times at zero by default', () => {
-      // this is for test env only
-      clientSession.test.loadCookiesLib(cookie);
-
       expect(
         clientSession.inbox.getSummary(),
       ).toEqual({
@@ -72,9 +60,6 @@ describe('session - functional (client): session', () => {
     });
 
     it('getSummary - returns set times if any', () => {
-      // this is for test env only
-      clientSession.test.loadCookiesLib(cookie);
-
       clientSession.inbox.setSummary({
         lastRequestTime: 1000,
         lastKnownState: true,
@@ -91,25 +76,16 @@ describe('session - functional (client): session', () => {
 
   describe('.notifications', () => {
     it('returns null if nothing is set', () => {
-      // this is for test env only
-      clientSession.test.loadCookiesLib(cookie);
-
       expect(clientSession.notifications.getCount()).toBeNull();
     });
 
     it('returns the set count if fresh and exists', () => {
-      // this is for test env only
-      clientSession.test.loadCookiesLib(cookie);
-
       clientSession.notifications.setCount(36);
 
       expect(clientSession.notifications.getCount()).toBe(36);
     });
 
     it('10 minutes in the future, count returns null', () => {
-      // this is for test env only
-      clientSession.test.loadCookiesLib(cookie);
-
       clientSession.notifications.setCount(36);
 
       // time is given to getter only to force different 'now'
@@ -124,24 +100,16 @@ describe('session - functional (client): session', () => {
 
   describe('.flash', () => {
     it('returns null if no flash message is defined', () => {
-      // necessary for initializing cookies lib in test
-      // environment - see cookies-js documentation
-      clientSession.test.loadCookiesLib(cookie);
-
       expect(clientSession.flash()).toBeNull();
     });
 
     it('if a flash is set, returns the flash value', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       cookie.set(isoConfig.cookies.writable, base64.encode(JSON.stringify({ flash: 'grut' })));
 
       expect(clientSession.flash()).toBe('grut');
     });
 
     it('if a flash is set, clears the value after call', () => {
-      clientSession.test.loadCookiesLib(cookie);
-
       cookie.set(isoConfig.cookies.writable, base64.encode(JSON.stringify({ flash: 'grut' })));
 
       clientSession.flash();

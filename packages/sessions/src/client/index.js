@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const base64 = require('@openagenda/utils/base64');
 
-let cookies = require('cookies-js');
+const cookies = require('js-cookie');
 const config = require('../../iso/config');
 const validate = require('../../iso/cookie.validate');
 
@@ -40,7 +40,10 @@ function _setWritable(update) {
     clean = {};
   }
 
-  cookies.set(config.cookies.writable, base64.encode(JSON.stringify(clean)));
+  cookies.set(config.cookies.writable, base64.encode(JSON.stringify(clean)), {
+    secure: true,
+    sameSite: 'Lax',
+  });
 }
 
 function getUser() {
@@ -119,7 +122,4 @@ module.exports = {
   },
   isLogged,
   flash,
-  test: {
-    loadCookiesLib: c => { cookies = c; },
-  },
 };
