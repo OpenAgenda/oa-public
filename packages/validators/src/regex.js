@@ -41,7 +41,7 @@ export default (config = {}) => {
       throw errors(
         params,
         value,
-        'toosmall',
+        'tooshort',
         'value is too short',
       );
     }
@@ -50,7 +50,7 @@ export default (config = {}) => {
       throw errors(
         params,
         value,
-        'too long',
+        'toolong',
         'value is too long',
       );
     }
