@@ -164,6 +164,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.imageRights',
     defaultMessage: 'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
   },
+  siret: {
+    id: 'AgendaLocations.LocationForm.siret',
+    defaultMessage: 'SIRET',
+  },
+  siretPlaceholder: {
+    id: 'AgendaLocations.LocationForm.siretPlaceholder',
+    defaultMessage: 'SIRET number of the main organization hosted by the location',
+  },
 });
 
 const LocationForm = ({
@@ -405,6 +413,20 @@ const LocationForm = ({
             </a>
           </label>
         </div>
+      ) : null}
+
+      {settings?.displaySIRETInput ? (
+        <InputField
+          name="siret"
+          enabled
+          value={location?.siret || ''}
+          getLabel={getLabel}
+          lang={lang}
+          info="siretInfo"
+          placeholder="siretPlaceholder"
+          onChange={onChange}
+          validator={validate.field('siret')}
+        />
       ) : null}
 
       <div className="multilingual-group">

@@ -64,12 +64,12 @@ const CreateForm = ({
   const onSubmit = location => {
     setPageSpin(true);
     let clean;
-    const options = {
-      optional: false,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox,
-    };
     try {
-      clean = validate(location, settings, options);
+      clean = validate(location, settings, {
+        optional: false,
+        isEnabled: settings?.displayImageRightsConfirmCheckbox,
+        displaySIRETInput: settings?.displaySIRETInput,
+      });
     } catch (err) {
       setPageSpin(false);
       setErrors(err);

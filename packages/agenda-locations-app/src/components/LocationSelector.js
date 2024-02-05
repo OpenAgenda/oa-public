@@ -94,12 +94,12 @@ const LocationSelector = ({
 
   const onSubmit = loc => {
     let clean;
-    const options = {
-      optional: false,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox,
-    };
     try {
-      clean = validate(loc, settings, options);
+      clean = validate(loc, settings, {
+        optional: false,
+        isEnabled: settings?.displayImageRightsConfirmCheckbox,
+        displaySIRETInput: settings?.displaySIRETInput,
+      });
     } catch (err) {
       setErrors(err);
       return;

@@ -71,8 +71,22 @@ function validateImageRights(value, otherValues = {}, options = {}) {
   return validateBoolean(value);
 }
 
+function validateSIRET(value, _otherValues = {}, options = {}) {
+  if (!options.displaySIRETInput) {
+    return;
+  }
+
+  return validators.text({
+    field: 'siret',
+    max: 14,
+    min: 14,
+    optional: true,
+  })(value);
+}
+
 validateImageRights.field = 'imageRightsAreHeld';
 validateImageCredits.field = 'imageCredits';
+validateSIRET.field = 'siret';
 
 // validators applying for all locations of all agendas
 const baseValidators = [
@@ -83,6 +97,7 @@ const baseValidators = [
   validators.pass({ field: 'image' }),
   validateImageCredits,
   validateImageRights,
+  validateSIRET,
   validators.text({
     field: 'address', min: 3, max: 255, optional: false,
   }),

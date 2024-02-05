@@ -74,17 +74,23 @@ const UpdateForm = ({
   const onSubmit = updatedLocation => {
     setPageSpin(true);
     let clean;
-    const options = {
-      optional: true,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox,
-    };
     try {
-      clean = validate(updatedLocation, settings, options);
+      clean = validate(updatedLocation, settings, {
+        optional: true,
+        isEnabled: settings?.displayImageRightsConfirmCheckbox,
+        displaySIRETInput: settings?.displaySIRETInput,
+      });
     } catch (err) {
       setPageSpin(false);
       setErrors(err);
       return;
     }
+
+    console.log({
+      updatedLocation,
+      clean,
+      settings,
+    });
 
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
