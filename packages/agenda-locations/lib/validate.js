@@ -17,6 +17,7 @@ const text = require('@openagenda/validators/text');
 const multilingual = require('@openagenda/validators/multilingual');
 const choice = require('@openagenda/validators/choice');
 const boolean = require('@openagenda/validators/boolean');
+const regex = require('@openagenda/validators/regex');
 
 schema.register({
   email,
@@ -31,6 +32,7 @@ schema.register({
   multilingual,
   choice,
   boolean,
+  regex,
 });
 
 const validateStream = stream({ optional: false });

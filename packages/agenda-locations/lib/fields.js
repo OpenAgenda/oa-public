@@ -330,8 +330,14 @@ module.exports = [{
     field: 'store.siret',
     assign: true,
   },
-  fieldType: 'text',
+  fieldType: 'regex',
+  error: {
+    code: 'invalidSIRET',
+    message: 'siret must be 14 digits',
+  },
   max: 14,
+  min: 14,
+  regex: /^[0-9]+$/,
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
 }, {
