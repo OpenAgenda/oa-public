@@ -35,4 +35,36 @@ describe('regex validator', () => {
 
     expect(clean).toBe('path.png');
   });
+
+  it('checks only numbers', () => {
+    let errors;
+    const validateNumberString = validators.regex({ regex: /[0-9]+$/ });
+    try {
+      validateNumberString('fdsq');
+    } catch (e) {
+      errors = e;
+    }
+
+    expect(errors.length).toBe(1);
+
+    const clean = validateNumberString('789456');
+
+    expect(clean).toBe('789456');
+  });
+
+  it('min', () => {
+    let errors;
+    const validateAtLeast14 = validators.regex({ regex: /[0-9]+$/, min: 14 });
+    try {
+      validateAtLeast14('123456789');
+    } catch (e) {
+      errors = e;
+    }
+
+    expect(errors.length).toBe(1);
+
+    const clean = validateAtLeast14('12345678901234');
+
+    expect(clean).toBe('12345678901234');
+  });
 });
