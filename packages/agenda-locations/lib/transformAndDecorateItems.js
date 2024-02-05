@@ -21,6 +21,10 @@ module.exports = async (service, items, options = {}) => {
       nullifyUndefined: true,
     });
 
+    if (location.siret === null) {
+      delete location.siret;
+    }
+
     return legacy.load(location, entry);
   });
 

@@ -323,6 +323,18 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   enableWith: 'image',
 }, {
+  field: 'siret',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.siret',
+    assign: true,
+  },
+  fieldType: 'text',
+  max: 14,
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+}, {
   field: 'imageRightsAreHeld',
   optional: true,
   db: {

@@ -420,8 +420,8 @@ describe('agenda-locations - functional - list', () => {
       items = await svc(7196947).list({}, {}, { detailed: true });
     });
 
-    it('if detailed option is provided, all public fields are given', () => {
-      expect(Object.keys(items[0])).toStrictEqual(fields.filter(fi => fi.read.includes('public')).map(fi => fi.field));
+    it('if detailed option is provided, all public fields are given at the exception of the siret which is not provided when null', () => {
+      expect(Object.keys(items[0])).toStrictEqual(fields.filter(fi => fi.read.includes('public') && fi.field !== 'siret').map(fi => fi.field));
     });
 
     it('images do not include path by default', () => {
@@ -462,6 +462,17 @@ describe('agenda-locations - functional - list', () => {
       );
       expect(items_[0].adminLevel1).toBe('Auvergne-Rhône-Alpes');
       expect(items_[0].adminLevel2).toBe('Ardèche');
+    });
+
+    it('if siret is not stored in store, it is not presented even when detailed is true', async () => {
+      const res = await svc(7196947).list({ uids: [44326184] }, {}, { detailed: true });
+
+      expect(res[0].siret).toBeUndefined();
+    });
+
+    it('if siret is stored in store, it is presented when detailed is true', async () => {
+      const res = await svc(7196947).list({ uids: [17391791] }, {}, { detailed: true });
+      expect(res[0].siret).toBe('12345678901234');
     });
   });
 

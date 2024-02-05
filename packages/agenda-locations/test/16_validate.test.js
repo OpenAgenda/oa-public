@@ -37,4 +37,14 @@ describe('validate', () => {
       expect(imageRightsAreHeld).toBe(true);
     });
   });
+
+  describe('siret', () => {
+    test('is set and cleaned', () => {
+      const { siret } = validate({
+        ...fixture,
+        siret: '12345678901234',
+      });
+      expect(siret).toBe('12345678901234');
+    });
+  });
 });
