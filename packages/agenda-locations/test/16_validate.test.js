@@ -40,7 +40,7 @@ describe('validate', () => {
 
   describe('siret', () => {
     test('is set and cleaned', () => {
-      const { siret } = validate({
+      const { siret } = validate({
         ...fixture,
         siret: '12345678901234',
       });
