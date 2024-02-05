@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 module.exports = {
   service: {
@@ -31,21 +31,7 @@ module.exports = {
         cb(null, 0, 0);
       },
       getAgendaSettings: (agendaId, cb) => {
-        cb(null, {
-          translation: {
-            enabled: true,
-            options: 'reversoKey=',
-            service: 'reverso',
-            sets: [
-              {
-                source: 'fr',
-                checked: ['it', 'es', 'de', 'en'],
-                target: ['it', 'es', 'de', 'en'],
-              },
-            ],
-            source: 'fr',
-          },
-        });
+        cb(null, {});
       },
     },
   },
