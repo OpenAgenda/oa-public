@@ -415,20 +415,6 @@ const LocationForm = ({
         </div>
       ) : null}
 
-      {settings?.displaySIRETInput ? (
-        <InputField
-          name="siret"
-          enabled
-          value={location?.siret || ''}
-          getLabel={getLabel}
-          lang={lang}
-          placeholder="siretPlaceholder"
-          info="siretInfo"
-          onChange={onChange}
-          validator={validate.field('siret')}
-        />
-      ) : null}
-
       <div className="multilingual-group">
         {displayLanguageTabs ? (
           <LanguageBar
@@ -570,6 +556,21 @@ const LocationForm = ({
       />
 
       {detailedInfo ? renderDetailsInfo() : null}
+
+      {settings?.displaySIRETInput ? (
+        <InputField
+          name="siret"
+          enabled
+          value={location?.siret || ''}
+          getLabel={getLabel}
+          lang={lang}
+          placeholder="siretPlaceholder"
+          info="siretInfo"
+          onChange={onChange}
+          validator={validate.field('siret')}
+        />
+      ) : null}
+
       {renderExtId()}
 
       {errors ? renderErrors() : ''}
