@@ -63,16 +63,6 @@
                   </a>
                 </div>
               <% } %>
-              <% if ( enabledServices.includes( 'twitter' ) ) { %>
-                <div>
-                  <a
-                    href="<%= genUrl( agenda ? 'agendaTwitterSignin' : 'twitterSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
-                    class="btn btn-twitter btn-block">
-                    <i class="fa fa-twitter"></i>
-                    Twitter
-                  </a>
-                </div>
-              <% } %>
             </div>
           </div>
           <% } %>
