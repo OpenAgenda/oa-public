@@ -5756,7 +5756,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     css-loader: "npm:^4.3.0"
     date-fns: "npm:^1.29.0"
-    docxtemplater: "npm:^3.14.2"
+    docxtemplater: "npm:^3.44.0"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -12386,6 +12386,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xmldom/xmldom@npm:^0.8.10":
+  version: 0.8.10
+  resolution: "@xmldom/xmldom@npm:0.8.10"
+  checksum: c7647c442502720182b0d65b17d45d2d95317c1c8c497626fe524bda79b4fb768a9aa4fae2da919f308e7abcff7d67c058b102a9d641097e9a57f0b80187851f
+  languageName: node
+  linkType: hard
+
 "@xmldom/xmldom@npm:^0.8.3":
   version: 0.8.6
   resolution: "@xmldom/xmldom@npm:0.8.6"
@@ -16503,7 +16510,6 @@ __metadata:
     passport-facebook: "npm:^2.1.1"
     passport-google-oauth: "npm:^2.0.0"
     passport-local: "npm:^1.0.0"
-    passport-twitter: "npm:^1.0.4"
     planer: "npm:^1.1.1"
     qs: "npm:^6.9.1"
     rate-limit-redis: "npm:^4.2.0"
@@ -19569,12 +19575,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docxtemplater@npm:^3.14.2":
-  version: 3.17.0
-  resolution: "docxtemplater@npm:3.17.0"
+"docxtemplater@npm:^3.44.0":
+  version: 3.44.0
+  resolution: "docxtemplater@npm:3.44.0"
   dependencies:
-    xmldom: "npm:^0.2.1"
-  checksum: 3245b8fa88bec7b2bdcb787d4d23ca327a441aa54c51316814a6f94cba70e84b3be5eb732a9069da57a2b69fed38961db29b4ac4addfbdcfaf1b80be644e9f1c
+    "@xmldom/xmldom": "npm:^0.8.10"
+  checksum: b6222a837e1692979245e1a3e83f0a431ea62a301b13f9671d41f1141d69ff7ebb768895c2955e2aa497b6d85a10e3fb546ee9ce829a2c6162db4aeab9281868
   languageName: node
   linkType: hard
 
@@ -32390,16 +32396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport-twitter@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "passport-twitter@npm:1.0.4"
-  dependencies:
-    passport-oauth1: "npm:1.x.x"
-    xtraverse: "npm:0.1.x"
-  checksum: bc155c8ac185c77919b717712115edf097086e13323858990ad1e49c54466ffae6c2e4f2cf60fd36f4b0fcd958b23935770338ab1548eff0b5b593ea75cae0c0
-  languageName: node
-  linkType: hard
-
 "passport@npm:^0.4.0":
   version: 0.4.1
   resolution: "passport@npm:0.4.1"
@@ -43136,20 +43132,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xmldom@npm:0.1.x":
-  version: 0.1.31
-  resolution: "xmldom@npm:0.1.31"
-  checksum: 7f20d4f0cb314dbdcf86f392690b4323762fe0a57d3fe84a7878da8b9fa651d0d73e3bd7225f97bafb9077cb3627021c05cf9c14ddda507619c6c5940eed3e42
-  languageName: node
-  linkType: hard
-
-"xmldom@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "xmldom@npm:0.2.1"
-  checksum: e15ea673235824b3a275bfec28540da1bd100c51726fa478a2a56699554b49597fa37cc0b2481d25de0b3ee33ddeabbe5d9ddb3834d75b4f1557ff0eaf76877f
-  languageName: node
-  linkType: hard
-
 "xmlhttprequest-ssl@npm:~1.6.2":
   version: 1.6.3
   resolution: "xmlhttprequest-ssl@npm:1.6.3"
@@ -43184,15 +43166,6 @@ __metadata:
   dependencies:
     object-keys: "npm:~0.4.0"
   checksum: 5b0289152e845041cfcb07d5fb31873a71e4fa9c0279299f9cce0e2a210a0177d071aac48546c998df2a44ff2c19d1cde8a9ab893e27192a0c2061c2837d8cb5
-  languageName: node
-  linkType: hard
-
-"xtraverse@npm:0.1.x":
-  version: 0.1.0
-  resolution: "xtraverse@npm:0.1.0"
-  dependencies:
-    xmldom: "npm:0.1.x"
-  checksum: c37c7e0f6bfe9ef02213407435877f47bbafe235db01f63c73e472bbc65fdc6a10d64bb1c8999d2839bab8c60d24d96b32d3a71f7bbfe2ebdd44ee9f79a61643
   languageName: node
   linkType: hard
 
