@@ -45,6 +45,10 @@ const secureHeaders = [
   contentSecurityPolicy(),
   helmet.strictTransportSecurity(config.hsts),
   helmet.xFrameOptions(),
+  helmet.referrerPolicy({
+    policy: ['no-referrer', 'strict-origin-when-cross-origin'],
+  }),
+  helmet.xContentTypeOptions(),
 ];
 
 try {

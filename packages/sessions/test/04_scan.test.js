@@ -1,6 +1,5 @@
 'use strict';
 
-const async = require('async');
 const Sessions = require('../src/service');
 const isoConfig = require('../src/iso/config');
 const config = require('../testconfig');
@@ -33,17 +32,21 @@ describe('session - functional (server): scan', () => {
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
   });
 
-  beforeEach(() => new Promise(rs => {
+  beforeEach(async () => {
     let i = 0;
 
-    async.whilst(() => i < 10, wcb => {
-      sessions.open(request, { uid: i }, () => {
-        i += 1;
-
-        wcb();
+    while (i < 10) {
+      await new Promise((resolve, reject) => {
+        sessions.open(request, { uid: i }, (err) => {
+          if (err) reject(err);
+          else {
+            i += 1;
+            resolve();
+          }
+        });
       });
-    }, () => { rs(); });
-  }));
+    }
+  });
 
   afterAll(() => client.quit());
 

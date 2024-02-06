@@ -323,6 +323,24 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   enableWith: 'image',
 }, {
+  field: 'siret',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.siret',
+    assign: true,
+  },
+  fieldType: 'regex',
+  error: {
+    code: 'invalidSIRET',
+    message: 'siret must be 14 digits',
+  },
+  max: 14,
+  min: 14,
+  regex: /^[0-9]+$/,
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+}, {
   field: 'imageRightsAreHeld',
   optional: true,
   db: {

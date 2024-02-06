@@ -1,16 +1,16 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 const redis = require('redis');
 
 const Files = require('@openagenda/files');
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/createData.json');
@@ -71,7 +71,7 @@ describe('agenda-locations - functional - create', () => {
               7196947: 1903810,
             }[uid],
           },
-          fields
+          fields,
         ),
         geocode: async _address => [
           {
@@ -167,7 +167,7 @@ describe('agenda-locations - functional - create', () => {
           address: 'Bruchon, Lamastre',
           countryCode: 'FR',
         },
-        { geocodeIfUndefined: true }
+        { geocodeIfUndefined: true },
       );
     });
 
@@ -195,20 +195,20 @@ describe('agenda-locations - functional - create', () => {
               address: 'Bruchon, Lamastre',
               countryCode: 'FR',
             },
-            { geocodeIfUndefined: true }
+            { geocodeIfUndefined: true },
           );
         } catch (e) {
           error = e;
         }
         expect(error.message).toBe('set not found');
-      }
+      },
     );
 
     it(
       'location created on agendas endpoints and on an agenda associated with set is also associated to set',
       async () => {
         expect((await svc(7196947).create(payload)).setUid).toBe(1903810);
-      }
+      },
     );
   });
 
@@ -219,7 +219,7 @@ describe('agenda-locations - functional - create', () => {
         created = await svc(7196947).create({
           ...payload,
           image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`
+            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
           ),
         });
       } catch (e) {
@@ -240,7 +240,7 @@ describe('agenda-locations - functional - create', () => {
         created = await svc(7196947).create({
           ...payload,
           image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`
+            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
           ),
         }, {
           includeImagePath: true,
@@ -270,7 +270,7 @@ describe('agenda-locations - functional - create', () => {
         },
         {
           geocodeIfUndefined: true,
-        }
+        },
       );
     });
 
@@ -302,7 +302,7 @@ describe('agenda-locations - functional - create', () => {
           countryCode: 'FR',
         });
         expect(l).toBeDefined();
-      }
+      },
     );
   });
 });
@@ -328,7 +328,7 @@ describe('agenda-locations - functional - create - no rights', () => {
               7196947: 1903811,
             }[uid],
           },
-          fields
+          fields,
         ),
         geocode: async _address => [
           {
@@ -339,7 +339,7 @@ describe('agenda-locations - functional - create - no rights', () => {
             city: 'Vannes',
           },
         ],
-        getAgendaLocationSettings: async _uid => initSettingsCantCreate
+        getAgendaLocationSettings: async _uid => initSettingsCantCreate,
       },
       Files: Files(dConfig.files),
     });
@@ -371,7 +371,7 @@ describe('agenda-locations - functional - create - no rights', () => {
             address: 'Bruchon, Lamastre',
             countryCode: 'FR',
           },
-          { geocodeIfUndefined: true }
+          { geocodeIfUndefined: true },
         );
       } catch (error) {
         thrownError = error;

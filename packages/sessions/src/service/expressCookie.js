@@ -36,7 +36,12 @@ module.exports = (config, request, response) => {
 
     request.cookies[name] = encoded;
 
-    response.cookie(name, encoded, { maxAge: config.writableCookie.maxAge, encode: str => str });
+    response.cookie(name, encoded, {
+      maxAge: config.writableCookie.maxAge,
+      secure: config.writableCookie.secure,
+      sameSite: config.writableCookie.sameSite,
+      encode: str => str
+    });
   }
 
   return {

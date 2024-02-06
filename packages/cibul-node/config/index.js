@@ -226,6 +226,7 @@ const config = {
     namespace: 'sessions',
     signed: true,
     secure: true,
+    sameSite: 'Lax',
   },
   cookie: {
     name: 'cibul',

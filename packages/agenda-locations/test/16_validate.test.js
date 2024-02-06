@@ -37,4 +37,28 @@ describe('validate', () => {
       expect(imageRightsAreHeld).toBe(true);
     });
   });
+
+  describe('siret', () => {
+    test('is set and cleaned', () => {
+      const { siret } = validate({
+        ...fixture,
+        siret: '12345678901234',
+      });
+      expect(siret).toBe('12345678901234');
+    });
+
+    test('invalid siret', () => {
+      let errors = [];
+      try {
+        validate({
+          ...fixture,
+          siret: '123a5678901234',
+        });
+      } catch (e) {
+        errors = e.info.errors;
+      }
+
+      expect(errors[0].code).toBe('invalidSIRET');
+    });
+  });
 });

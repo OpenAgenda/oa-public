@@ -23,5 +23,8 @@
   "optionOrder": "Cambiar l'òrdre",
   "optionRemove": "Suprimir",
   "isSelected": "Seleccionat",
-  "notSelected": "Pas seleccionat"
+  "notSelected": "Pas seleccionat",
+  "languagesFieldType": "Lengas de sasida",
+  "moderatorAccess": "moderator·a",
+  "contributorAccess": "contributor·a"
 }

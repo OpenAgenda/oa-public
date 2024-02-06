@@ -7,6 +7,7 @@ module.exports = {
     maxAge: 1000 * 60 * 60 * 48, // 2 days
     signed: true,
     secure: false,
+    sameSite: 'Lax',
   },
   expire: 60 * 60 * 48,
   writableCookie: {

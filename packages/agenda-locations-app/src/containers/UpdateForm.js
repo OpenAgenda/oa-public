@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import FormData from 'form-data';
 
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
@@ -29,6 +29,10 @@ const messages = defineMessages({
   info: {
     id: 'AgendaLocations.UpdateForm.info',
     defaultMessage: 'All events attached to this location will be updated',
+  },
+  invalidSIRET: {
+    id: 'AgendaLocations.LocationSelector.invalidSIRET',
+    defaultMessage: 'SIRET must be a 14 characters-long number',
   },
 });
 
@@ -68,18 +72,20 @@ const UpdateForm = ({
       .catch(_err => setUnfoundLocation(true)),
     { cacheTime: 0 },
   );
+  const intl = useIntl();
 
   const dispatch = useDispatch();
 
   const onSubmit = updatedLocation => {
     setPageSpin(true);
     let clean;
-    const options = {
-      optional: true,
-      isEnabled: settings?.displayImageRightsConfirmCheckbox,
-    };
     try {
-      clean = validate(updatedLocation, settings, options);
+      clean = validate(updatedLocation, settings, {
+        optional: true,
+        isEnabled: settings?.displayImageRightsConfirmCheckbox,
+        displaySIRETInput: settings?.displaySIRETInput,
+        invalidSIRET: intl.formatMessage(messages.invalidSIRET),
+      });
     } catch (err) {
       setPageSpin(false);
       setErrors(err);

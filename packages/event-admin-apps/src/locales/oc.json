@@ -81,5 +81,6 @@
   "EventAdminApp.messages.status.programmed": "Programat",
   "EventAdminApp.messages.status.rescheduled": "Tornat planificar",
   "EventAdminApp.PassImage.edit": "Modificar",
-  "EventAdminApp.PassImage.see": "Veire"
+  "EventAdminApp.PassImage.see": "Veire",
+  "EventAdminApp.PassImage.link": "Aquesta fuèlha es ligada a una ofèrta pass Culture"
 }
