@@ -66,6 +66,16 @@ export default (config, core, services) => {
     time: '11:00',
   });
 
+  tfy(services.usageCounters.task, {
+    period: 'daily',
+    time: '07:00',
+  });
+
+  tfy(services.usageCounters.task, {
+    period: 'daily',
+    time: '14:00',
+  });
+
   /* tfy(services.activities.rebuild, {
     period: 'monthly',
     day: 'monday',

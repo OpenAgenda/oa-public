@@ -132,6 +132,10 @@ export default (core, { useRouter = true } = {}) => {
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
     mw.searchAgendaEvents(core, 'parsedData'),
+    ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('agendaEvents')] : [],
+    (_req, res, next) => {
+      if (!res.headersSent) next();
+    },
   ]);
 
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
@@ -161,6 +165,10 @@ export default (core, { useRouter = true } = {}) => {
     mw.convertLegacyFilter,
     track.mw('api', 'list', 'events'),
     mw.searchAgendaEvents(core),
+    ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('agendaEvents')] : [],
+    (_req, res, next) => {
+      if (!res.headersSent) next();
+    },
   ]);
 
   app.get([
@@ -719,7 +727,18 @@ export default (core, { useRouter = true } = {}) => {
         includeImageTimestamp: req.query.includeImageTimestamp,
         includeLocationImagePath: req.query.includeLocationImagePath,
         useAfterKey: true,
-      }).then(data => res.json({ ...data, success: true }), next);
+      }).then(data => {
+        const response = JSON.stringify({ ...data, success: true });
+        req.result = data;
+        req.contentLength = Buffer.byteLength(response, 'utf8');
+        res.setHeader('Content-Type', 'application/json');
+        res.send(response);
+        next();
+      }, next);
+    },
+    ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('transverseEvents')] : [],
+    (_req, res, next) => {
+      if (!res.headersSent) next();
     },
   ]);
 
