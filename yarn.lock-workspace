@@ -4936,7 +4936,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     css-loader: "npm:^4.3.0"
     date-fns: "npm:^1.29.0"
-    docxtemplater: "npm:^3.14.2"
+    docxtemplater: "npm:^3.44.0"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -8947,6 +8947,13 @@ __metadata:
     webpack-dev-server:
       optional: true
   checksum: 36079d34971ff99a58b66b13f4184dcdd8617853c48cccdbc3f9ab7ea9e5d4fcf504e873c298ea7aa15e0b51ad2c4aee4d7a70bd7d9364e60f57b0eb93ca15fc
+  languageName: node
+  linkType: hard
+
+"@xmldom/xmldom@npm:^0.8.10":
+  version: 0.8.10
+  resolution: "@xmldom/xmldom@npm:0.8.10"
+  checksum: c7647c442502720182b0d65b17d45d2d95317c1c8c497626fe524bda79b4fb768a9aa4fae2da919f308e7abcff7d67c058b102a9d641097e9a57f0b80187851f
   languageName: node
   linkType: hard
 
@@ -13333,12 +13340,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docxtemplater@npm:^3.14.2":
-  version: 3.17.0
-  resolution: "docxtemplater@npm:3.17.0"
+"docxtemplater@npm:^3.44.0":
+  version: 3.44.0
+  resolution: "docxtemplater@npm:3.44.0"
   dependencies:
-    xmldom: "npm:^0.2.1"
-  checksum: 3245b8fa88bec7b2bdcb787d4d23ca327a441aa54c51316814a6f94cba70e84b3be5eb732a9069da57a2b69fed38961db29b4ac4addfbdcfaf1b80be644e9f1c
+    "@xmldom/xmldom": "npm:^0.8.10"
+  checksum: b6222a837e1692979245e1a3e83f0a431ea62a301b13f9671d41f1141d69ff7ebb768895c2955e2aa497b6d85a10e3fb546ee9ce829a2c6162db4aeab9281868
   languageName: node
   linkType: hard
 
@@ -28929,13 +28936,6 @@ __metadata:
   version: 2.2.0
   resolution: "xmlchars@npm:2.2.0"
   checksum: b64b535861a6f310c5d9bfa10834cf49127c71922c297da9d4d1b45eeaae40bf9b4363275876088fbe2667e5db028d2cd4f8ee72eed9bede840a67d57dab7593
-  languageName: node
-  linkType: hard
-
-"xmldom@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "xmldom@npm:0.2.1"
-  checksum: e15ea673235824b3a275bfec28540da1bd100c51726fa478a2a56699554b49597fa37cc0b2481d25de0b3ee33ddeabbe5d9ddb3834d75b4f1557ff0eaf76877f
   languageName: node
   linkType: hard
 
