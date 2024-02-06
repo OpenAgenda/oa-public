@@ -1,7 +1,7 @@
 const AgendaFiles = require('../server/lib/agendaFiles');
 const config = require('../config.dev');
 const defaultState = require('../server/defaultState');
-const service = require('..');
+const Service = require('..');
 
 describe('functional - getState', () => {
   const { setJSON } = AgendaFiles({
@@ -10,8 +10,10 @@ describe('functional - getState', () => {
     uid: 'test04',
   });
 
+  let service;
+
   beforeAll(() => {
-    service.init(config);
+    service = Service(config);
   });
 
   beforeAll(async () => {
