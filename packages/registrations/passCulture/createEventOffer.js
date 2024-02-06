@@ -35,7 +35,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
-    log.info('create failed', { error: e?.response?.data });
+    log.error('create failed', { error: e?.response?.data });
     throw new BadRequest({
       info: {
         errors: formatErrors(e.response.data),
@@ -43,7 +43,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     }, 'data is invalid');
   }
 
-  log.info('created event offer %s', result.eventOffer.id);
+  log('created event offer %s', result.eventOffer.id);
 
   try {
     const {
@@ -53,7 +53,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
 
     result.priceCategories = createdPriceCategories;
-    log.info('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
+    log('%s: created %s price categories', result.eventOffer.id, createdPriceCategories.length);
   } catch (e) {
     log.error('failed to create price categories', e);
     return {
@@ -74,7 +74,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
   });
 
   if (eventOffer.status === 'PENDING') {
-    log.info('%s: did not create dates cause offer pending', result.eventOffer.id);
+    log('did not create dates cause offer pending', result.eventOffer.id);
     return {
       ...result,
       warning: 'pending',
@@ -89,7 +89,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     });
     result.dates = createdDates;
 
-    log.info('%s: created %s dates', result.eventOffer.id, createdDates.length);
+    log('%s: created %s dates', result.eventOffer.id, createdDates.length);
   } catch (e) {
     log.error('failed to create dates', e);
     return {

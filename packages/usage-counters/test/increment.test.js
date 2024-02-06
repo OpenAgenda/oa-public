@@ -1,0 +1,61 @@
+import redis from 'redis';
+import increment from '../increment';
+import createRedisKey from '../utils/createRedisKey';
+import clearRedisKeys from '../clearRedisKeys';
+import config from '../testconfig';
+import fixtures from './fixtures';
+
+describe('increment', () => {
+  const f = fixtures(config.mysql);
+  let redisCli;
+
+  beforeAll(async () => {
+    await f.load();
+    redisCli = redis.createClient({
+      socket: {
+        host: config.redis.host,
+        port: config.redis.port,
+      },
+    });
+    await redisCli.connect();
+  });
+
+  afterAll(f.destroyClient);
+  afterAll(() => redisCli.quit());
+
+  describe('basic', () => {
+    beforeAll(async () => {
+      await clearRedisKeys({
+        redisClient: redisCli,
+        setKey: 'existingKeys',
+      });
+    });
+
+    it('when key is new', async () => {
+      await increment(
+        {
+          knexClient: f.client,
+          redisClient: redisCli,
+          lifespan: 7000,
+          clearAndDumpBucket: () => console.log('clearAndDump'),
+          setKey: 'existingKeys',
+          redisPrefix: 'usageCounter',
+        },
+        'users',
+        1,
+        null,
+        {
+          volume: 1,
+          items: 1,
+        },
+      );
+      const key = createRedisKey('usageCounter', 'users', 1);
+      const keyValue = JSON.parse(await redisCli.get(key));
+      expect(keyValue.store).toStrictEqual({
+        volume: 1,
+        items: 1,
+        calls: 1,
+      });
+    });
+  });
+});
