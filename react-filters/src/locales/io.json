@@ -44,6 +44,7 @@
   "ReactFilters.messages.filterTitles.adminLevel3": "crwdns16598:0crwdne16598:0",
   "ReactFilters.messages.filterTitles.attendanceMode": "crwdns16600:0crwdne16600:0",
   "ReactFilters.messages.filterTitles.city": "crwdns16602:0crwdne16602:0",
+  "ReactFilters.messages.filterTitles.countryCode": "crwdns33337:0crwdne33337:0",
   "ReactFilters.messages.filterTitles.createdAt": "crwdns16604:0crwdne16604:0",
   "ReactFilters.messages.filterTitles.department": "crwdns16606:0crwdne16606:0",
   "ReactFilters.messages.filterTitles.district": "crwdns16608:0crwdne16608:0",
@@ -78,6 +79,5 @@
   "ReactFilters.messages.status.postponed": "crwdns16906:0crwdne16906:0",
   "ReactFilters.messages.status.programmed": "crwdns16908:0crwdne16908:0",
   "ReactFilters.messages.status.rescheduled": "crwdns16910:0crwdne16910:0",
-  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0",
-  "ReactFilters.messages.filterTitles.countryCode": "crwdns33337:0crwdne33337:0"
+  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0"
 }
