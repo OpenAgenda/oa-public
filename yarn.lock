@@ -5528,7 +5528,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     morgan: "npm:^1.9.1"
     mysql: "npm:^2.16.0"
-    nodemon: "npm:^2.0.4"
+    nodemon: "npm:^3.0.3"
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.6.2"
     rc-collapse: "npm:^3.1.0"
@@ -6356,7 +6356,7 @@ __metadata:
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
     react-dom: "npm:^18.2.0"
-    reload: "npm:^3.0.4"
+    reload: "npm:^3.2.1"
     sass: "npm:^1.52.1"
     uppy: "npm:^0.23.2"
     walk: "npm:^2.3.9"
@@ -7495,6 +7495,17 @@ __metadata:
   checksum: 943528f8b2199955606f8e70e57a1c6f74863174c5caaf6b002f13d118faddb8b6fc0865f67752cb71edceb01b19e2119c711808bcc84cae54bec8e2762a66fc
   languageName: node
   linkType: hard
+
+"@openagenda/newsletter@workspace:packages/newsletter":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/newsletter@workspace:packages/newsletter"
+  dependencies:
+    "@openagenda/logs": "npm:^1.0.8"
+    jest: "npm:^29.7.0"
+    lodash: "npm:^4.17.5"
+    node-mailjet: "npm:^3.2.1"
+  languageName: unknown
+  linkType: soft
 
 "@openagenda/next@workspace:packages/next":
   version: 0.0.0-use.local
@@ -17141,6 +17152,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:~9.4.0":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: 04ea8ccc6fe3d3d1ca7ca26b06187498af8e6341a2c98b534528d504f8cad95b0c5ac2f3b78a7f0d332da16da9332db2ab9e43cb06241d367e9c7ee75cb76202
+  languageName: node
+  linkType: hard
+
 "commitizen@npm:^4.0.3, commitizen@npm:^4.3.0":
   version: 4.3.0
   resolution: "commitizen@npm:4.3.0"
@@ -18816,7 +18834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.3.4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:~4.3.1, debug@npm:~4.3.2":
+"debug@npm:4, debug@npm:4.3.4, debug@npm:^4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:~4.3.1, debug@npm:~4.3.2":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -22280,7 +22298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"finalhandler@npm:1.2.0":
+"finalhandler@npm:1.2.0, finalhandler@npm:~1.2.0":
   version: 1.2.0
   resolution: "finalhandler@npm:1.2.0"
   dependencies:
@@ -31388,6 +31406,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemon@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "nodemon@npm:3.0.3"
+  dependencies:
+    chokidar: "npm:^3.5.2"
+    debug: "npm:^4"
+    ignore-by-default: "npm:^1.0.1"
+    minimatch: "npm:^3.1.2"
+    pstree.remy: "npm:^1.1.8"
+    semver: "npm:^7.5.3"
+    simple-update-notifier: "npm:^2.0.0"
+    supports-color: "npm:^5.5.0"
+    touch: "npm:^3.1.0"
+    undefsafe: "npm:^2.0.5"
+  bin:
+    nodemon: bin/nodemon.js
+  checksum: 6e393534d5ec0077be13ad285e28bd1509298806f874cd24b0e4621b5624238685d893843b4554474569894fc97be259346e1aba14f249056602554133a5cc55
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^4.0.1, nopt@npm:~4.0.1":
   version: 4.0.3
   resolution: "nopt@npm:4.0.3"
@@ -31813,7 +31851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
+"open@npm:^8.0.0, open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -36472,6 +36510,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reload@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "reload@npm:3.2.1"
+  dependencies:
+    cli-color: "npm:~2.0.0"
+    commander: "npm:~9.4.0"
+    finalhandler: "npm:~1.2.0"
+    minimist: "npm:~1.2.0"
+    open: "npm:^8.0.0"
+    serve-static: "npm:~1.15.0"
+    supervisor: "npm:~0.12.0"
+    ws: "npm:~8.11.0"
+  bin:
+    reload: bin/reload
+  checksum: 64344668264fae70ee6256ac5252f074481a55046079e43433a64a05c029ead969186bc2a0b9d251cad91df16b859ef5aa0e4b60f27161b57f76d6fe7c1e03c9
+  languageName: node
+  linkType: hard
+
 "remark-breaks@npm:^2.0.2":
   version: 2.0.2
   resolution: "remark-breaks@npm:2.0.2"
@@ -37750,7 +37806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve-static@npm:1.15.0":
+"serve-static@npm:1.15.0, serve-static@npm:~1.15.0":
   version: 1.15.0
   resolution: "serve-static@npm:1.15.0"
   dependencies:
