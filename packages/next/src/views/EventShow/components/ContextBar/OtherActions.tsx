@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import {
   Menu,
   MenuButton,
@@ -17,6 +18,7 @@ import {
 } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
+import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
@@ -34,6 +36,8 @@ function ActionMenuItem({ action, description, onClick }) {
 }
 
 export default function OtherActions({ agenda }) {
+  const intl = useIntl();
+
   const router = useRouter();
 
   const { event, mutate } = useEvent();
@@ -54,7 +58,7 @@ export default function OtherActions({ agenda }) {
     onClose: duplicateOnClose,
   } = useDisclosure();
 
-  const isOriginAgenda = event.originAgenda.uid === agenda.uid;
+  const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
 
   const patchEvent = async data => {
     try {
@@ -115,8 +119,8 @@ export default function OtherActions({ agenda }) {
           display="inline-flex"
           rightIcon={<FaIcon icon={faChevronDown} />}
         >
-          <p>Autres actions</p>
-          <Text fontSize="sm" mt="1">Mise en une, annulation, report, duplication...</Text>
+          <p>{intl.formatMessage(messages.otherActions)}</p>
+          <Text fontSize="sm" mt="1">{intl.formatMessage(messages.otherActionsInfo)}</Text>
         </MenuButton>
         <MenuList borderTopRadius="0">
           {isAdminMod ? (
@@ -124,55 +128,55 @@ export default function OtherActions({ agenda }) {
               {event.featured ? (
                 <ActionMenuItem
                   onClick={() => patchEvent({ featured: false })}
-                  action="Mettre en une"
-                  description="Un événement en une apparait en tête de liste"
+                  action={intl.formatMessage(messages.feature)}
+                  description={intl.formatMessage(messages.featuredInfo)}
                 />
               ) : (
                 <ActionMenuItem
                   onClick={() => patchEvent({ featured: true })}
-                  action="Retirer de la une"
-                  description="Un événement en une apparait en tête de liste"
+                  action={intl.formatMessage(messages.unfeature)}
+                  description={intl.formatMessage(messages.featuredInfo)}
                 />
               )}
             </>
           ) : null}
           <ActionMenuItem
             onClick={duplicateOnOpen}
-            action="Dupliquer"
-            description="Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement"
+            action={intl.formatMessage(messages.duplicate)}
+            description={intl.formatMessage(messages.duplicateInfo)}
           />
           {agenda.settings?.lab?.status && canEditEvent ? (
             <>
               <MenuDivider />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 1 })}
-                action="Réinitialiser l'état de l'événement"
-                description="L'événement n'est pas annulé, ni reprogrammé, etc…"
+                action={intl.formatMessage(messages.clearStatus)}
+                description={intl.formatMessage(messages.clearStatusInfo)}
               />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 2 })}
-                action="L'événement a été reprogrammé"
-                description="Les dates et/ou horaires de l'événement ont été modifiées"
+                action={intl.formatMessage(messages.markAsRescheduled)}
+                description={intl.formatMessage(messages.markAsRescheduledInfo)}
               />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 3 })}
-                action="L'événement a lieu en ligne"
-                description="La participation de l'événement n'est désormais plus possible en présentiel"
+                action={intl.formatMessage(messages.markAsMovedOnline)}
+                description={intl.formatMessage(messages.markAsMovedOnlineStatus)}
               />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 4 })}
-                action="L'événement est reporté"
-                description="L'événement a été reporté à des dates encore non connues"
+                action={intl.formatMessage(messages.markAsPostponed)}
+                description={intl.formatMessage(messages.markAsPostponedStatus)}
               />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 5 })}
-                action="L'événement est complet"
-                description="L'événement n'accepte plus de nouveaux participants"
+                action={intl.formatMessage(messages.markAsFull)}
+                description={intl.formatMessage(messages.markAsFullStatus)}
               />
               <ActionMenuItem
                 onClick={() => patchEvent({ status: 6 })}
-                action="L'événement est annulé"
-                description="L'événement a été annulé de manière permanente"
+                action={intl.formatMessage(messages.markAsCancelled)}
+                description={intl.formatMessage(messages.markAsCancelledStatus)}
               />
             </>
           ) : null}
@@ -181,14 +185,14 @@ export default function OtherActions({ agenda }) {
           {isOriginAgenda ? (
             <ActionMenuItem
               onClick={removeOnOpen}
-              action="Supprimer l'événement"
-              description="Supprimer de manière permanente l'événement d'OpenAgenda"
+              action={intl.formatMessage(messages.deleteEvent)}
+              description={intl.formatMessage(messages.deleteEventInfo)}
             />
           ) : (
             <ActionMenuItem
               onClick={removeOnOpen}
-              action="Retirer l'événement"
-              description="L'événement ne sera plus référencé sur l'agenda"
+              action={intl.formatMessage(messages.removeEvent)}
+              description={intl.formatMessage(messages.removeEventInfo)}
             />
           )}
         </MenuList>
@@ -198,15 +202,19 @@ export default function OtherActions({ agenda }) {
         <ModalOverlay />
         <ModalContent>
           <ModalBody m="auto">
-            Etes-vous sûr de vouloir supprimer cet événement?
+            {isOriginAgenda
+              ? intl.formatMessage(messages.deleteConfirmation)
+              : intl.formatMessage(messages.removeConfirmation)}
           </ModalBody>
 
           <ModalFooter justifyContent="center">
             <Button colorScheme="danger" mr={3} onClick={onRemove}>
-              Confirmer
+              {isOriginAgenda
+                ? intl.formatMessage(messages.delete)
+                : intl.formatMessage(messages.remove)}
             </Button>
             <Button variant="ghost" onClick={removeOnClose}>
-              Annuler
+              {intl.formatMessage(messages.cancel)}
             </Button>
           </ModalFooter>
         </ModalContent>

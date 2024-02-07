@@ -1,13 +1,16 @@
+import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import { Button, Flex, Link } from '@openagenda/uikit';
 import base64 from 'utils/base64';
+import { shareModal as messages } from '../../messages';
 
 export default function UnloggedBody() {
+  const intl = useIntl();
   const router = useRouter();
 
   return (
     <Flex direction="column">
-      <p>Vous devez vous connecter pour partager cet événement</p>
+      <p>{intl.formatMessage(messages.mustSignIn)}</p>
       <Button
         as={Link}
         href={`/signin?redirect=${base64.encode(router.asPath)}`}
@@ -15,7 +18,7 @@ export default function UnloggedBody() {
         mt="4"
         alignSelf="center"
       >
-        Se connecter
+        {intl.formatMessage(messages.signIn)}
       </Button>
     </Flex>
   );

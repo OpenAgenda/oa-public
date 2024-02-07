@@ -1,0 +1,50 @@
+{
+  "next.views.EventShow.Activities.seeMore": [
+    {
+      "type": 0,
+      "value": "See more"
+    }
+  ],
+  "next.views.EventShow.aboutLocation": [
+    {
+      "type": 0,
+      "value": "About the location"
+    }
+  ],
+  "next.views.EventShow.access": [
+    {
+      "type": 0,
+      "value": "Access"
+    }
+  ],
+  "next.views.EventShow.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
+  "next.views.EventShow.history": [
+    {
+      "type": 0,
+      "value": "History"
+    }
+  ],
+  "next.views.EventShow.moreLinks": [
+    {
+      "type": 0,
+      "value": "More links:"
+    }
+  ],
+  "next.views.EventShow.sendAnEmail": [
+    {
+      "type": 0,
+      "value": "Send an email"
+    }
+  ],
+  "next.views.EventShow.tags": [
+    {
+      "type": 0,
+      "value": "Tags"
+    }
+  ]
+}

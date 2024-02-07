@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
-import { FormattedDate } from 'react-intl';
+import { useIntl, FormattedDate } from 'react-intl';
 import { Button, chakra, Flex, FlexProps, Link } from '@openagenda/uikit';
 import ActivityItem from '@openagenda/activity-apps/src/client/components/ActivityItem';
 import isNextUrl from 'utils/isNextUrl';
 import NextChakraLink from 'components/NextChakraLink';
+import messages from '../../messages';
 import { useActivitiesContext } from './context';
 
 function renderHighlight(content) {
@@ -38,6 +39,8 @@ type ActivitiesListProps = {
 } & FlexProps;
 
 export function ActivitiesList({ emptyElem = null, ...props }: ActivitiesListProps) {
+  const intl = useIntl();
+
   const {
     pages,
     error,
@@ -89,7 +92,7 @@ export function ActivitiesList({ emptyElem = null, ...props }: ActivitiesListPro
           isLoading={isLoadingMore}
           m="auto"
         >
-          Voir plus
+          {intl.formatMessage(messages.seeMore)}
         </Button>
       ) : null}
     </Flex>

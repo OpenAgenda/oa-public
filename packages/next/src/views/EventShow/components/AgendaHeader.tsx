@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl';
 import { Heading, NoBreak, Stack, VStack } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
@@ -5,6 +6,7 @@ import LockIcon from 'components/LockIcon';
 import NextChakraLink from 'components/NextChakraLink';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import { useAgenda } from '../contexts/agenda';
+import { agendaHeader as messages } from '../messages';
 
 const isDev = process.env.NODE_ENV === 'development';
 const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
@@ -16,6 +18,7 @@ function getImageSrc(src) {
 }
 
 export default function AgendaHeader() {
+  const intl = useIntl();
   const agenda = useAgenda();
 
   return (
@@ -56,7 +59,7 @@ export default function AgendaHeader() {
         </Heading>
 
         <NextChakraLink href={`/${encodeURIComponent(agenda.slug)}`}>
-          Voir tous les événements
+          {intl.formatMessage(messages.showAllEvents)}
         </NextChakraLink>
       </VStack>
     </Stack>

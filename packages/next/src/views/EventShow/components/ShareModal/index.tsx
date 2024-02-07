@@ -1,3 +1,4 @@
+import { useIntl } from 'react-intl';
 import {
   Modal,
   ModalBody,
@@ -17,16 +18,18 @@ import ModalLoadingBody from 'components/ModalLoadingBody';
 import ShareOnOA from './ShareOnOA';
 import UnloggedBody from './UnloggedBody';
 import OtherShares from './OtherShares';
+import { shareModal as messages } from '../../messages';
 
 function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) {
+  const intl = useIntl();
   const { user } = useUser();
 
   return (
     <ModalBody p="0">
       <Tabs isLazy colorScheme="primary">
         <TabList>
-          <Tab flex="1">Sur OpenAgenda</Tab>
-          <Tab flex="1">Autres</Tab>
+          <Tab flex="1">{intl.formatMessage(messages.onOA)}</Tab>
+          <Tab flex="1">{intl.formatMessage(messages.others)}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -53,6 +56,7 @@ export default function ShareModal({
   contentLocale,
   onEmailSent,
 }) {
+  const intl = useIntl();
   const { status } = useUser();
 
   return (
@@ -72,7 +76,7 @@ export default function ShareModal({
             },
           }}
         >
-          Partager
+          {intl.formatMessage(messages.share)}
           <ModalCloseButton />
         </ModalHeader>
 

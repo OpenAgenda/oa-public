@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { isFuture, compareAsc, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import capitalize from 'lodash/capitalize';
@@ -7,6 +8,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import spreadTimings, { SpreadTimings } from 'utils/spreadTimings';
 import { FaIcon } from 'icons';
 import { faChevronLeft, faChevronRight } from 'icons/regular';
+import { timings as messages } from '../messages';
 
 function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
   let lastTiming = null;
@@ -54,6 +56,7 @@ function findNextMonth(timingsPerMonth: SpreadTimings, month: string) {
 }
 
 export default function Timings({ timings, timezone }) {
+  const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
   const timingsPerMonth = useMemo(() => spreadTimings(timings, timezone), [timings, timezone]);
@@ -81,7 +84,7 @@ export default function Timings({ timings, timezone }) {
       >
         {previousMonth ? (
           <IconButton
-            aria-label="Previous month"
+            aria-label={intl.formatMessage(messages.previousMonth)}
             size="lg"
             variant="ghost"
             icon={<FaIcon icon={faChevronLeft} />}
@@ -97,7 +100,7 @@ export default function Timings({ timings, timezone }) {
         </Box>
         {nextMonth ? (
           <IconButton
-            aria-label="Next month"
+            aria-label={intl.formatMessage(messages.nextMonth)}
             size="lg"
             variant="ghost"
             icon={<FaIcon icon={faChevronRight} />}

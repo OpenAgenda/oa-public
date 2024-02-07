@@ -11,12 +11,14 @@ import {
   Divider,
   Text,
 } from '@openagenda/uikit';
+import { useIntl } from 'react-intl';
 import React, { useCallback, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
 import ModalLoadingBody from 'components/ModalLoadingBody';
 import SearchInput from 'components/SearchInput';
+import { duplicateModal as messages } from '../../messages';
 import AgendaItem from './AgendaItem';
 
 const PAGE_SIZE = 20;
@@ -34,6 +36,8 @@ function CustomDivider({ children, ...flexProps }) {
 }
 
 function DuplicateModalBody({ agenda, event }) {
+  const intl = useIntl();
+
   const [searchValue, setSearchValue] = useState('');
 
   const onSubmit = useCallback((e: React.SyntheticEvent) => {
@@ -129,21 +133,21 @@ function DuplicateModalBody({ agenda, event }) {
   return (
     <ModalBody>
       <H3>
-        Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.
+        {intl.formatMessage(messages.bigSentence)}
       </H3>
 
       <Text mt="4" color="oaGray.500">
-        Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.
+        {intl.formatMessage(messages.reminder)}
       </Text>
 
       <Text mt="4" mb="2">
-        Créer le nouvel événement dans
+        {intl.formatMessage(messages.createNewEventIn)}
       </Text>
 
       <AgendaItem agenda={agenda} targetAgenda={agenda} event={event} />
 
       <CustomDivider my="8">
-        Ou
+        {intl.formatMessage(messages.or)}
       </CustomDivider>
 
       <form onSubmit={onSubmit}>
@@ -180,6 +184,8 @@ export default function DuplicateModal({
   agenda,
   event,
 }) {
+  const intl = useIntl();
+
   return (
     <Modal
       size="xl"
@@ -197,7 +203,7 @@ export default function DuplicateModal({
             },
           }}
         >
-          Sélectionner un agenda
+          {intl.formatMessage(messages.selectAnAgenda)}
           <ModalCloseButton />
         </ModalHeader>
         <DuplicateModalBody agenda={agenda} event={event} />

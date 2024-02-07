@@ -62,7 +62,7 @@ const securityHeaders = [
   },
   {
     key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin',
+    value: 'no-referrer, strict-origin-when-cross-origin',
   },
   {
     key: 'Reporting-Endpoints',

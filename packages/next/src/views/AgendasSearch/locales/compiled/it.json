@@ -80,7 +80,7 @@
   "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Vedere di più"
     }
   ],
   "next.views.AgendaSearch.total": [
@@ -130,15 +130,18 @@
           "value": [
             {
               "type": 0,
-              "value": "No upcoming event"
+              "value": "Nessun evento futuro"
             }
           ]
         },
         "one": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "1 upcoming event"
+              "value": " evento futuro"
             }
           ]
         },
@@ -149,7 +152,7 @@
             },
             {
               "type": 0,
-              "value": " upcoming events"
+              "value": " eventi futuri"
             }
           ]
         }

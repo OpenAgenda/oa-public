@@ -8,7 +8,7 @@
   "next.views.AgendaShow.AdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "Image non chargée"
+      "value": "Pas cap imatge cargat"
     }
   ],
   "next.views.AgendaShow.AdditionalFields.noInput": [
@@ -20,7 +20,7 @@
   "next.views.AgendaShow.AdditionalFields.noSelection": [
     {
       "type": 0,
-      "value": "Pas cap imatge cargat"
+      "value": "Pas cap seleccion"
     }
   ],
   "next.views.AgendaShow.AdditionalFields.restrictedInformation": [
