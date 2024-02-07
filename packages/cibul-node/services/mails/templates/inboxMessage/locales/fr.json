@@ -1,13 +1,13 @@
 {
+  "actionDescription": "Voir l'agenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
+  "memberUnsubscribe": "Ne plus recevoir les messages de la messagerie de cet agenda",
+  "reply": "Répondre",
+  "sentBy": "Envoyé par <b>{senderName}</b>",
   "subject": "OpenAgenda | Nouveau message",
   "subjectWithAgenda": "OpenAgenda | {agenda} | Nouveau message",
   "title": "Vous avez reçu un nouveau message.",
   "titleWithAgenda": "Vous avez reçu un nouveau message sur la messagerie de l'agenda {agenda}.",
-  "actionDescription": "Voir l'agenda",
-  "sentBy": "Envoyé par <b>{senderName}</b>",
-  "reply": "Répondre",
   "unsubscribe": "Ne plus recevoir les messages {agenda, select, null {de ma messagerie} other {des messageries des agendas}}",
-  "unsubscribeGuest": "Ne plus recevoir les emails d'OpenAgenda",
-  "memberUnsubscribe": "Ne plus recevoir les messages de la messagerie de cet agenda",
-  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+  "unsubscribeGuest": "Ne plus recevoir les emails d'OpenAgenda"
 }

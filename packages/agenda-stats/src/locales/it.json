@@ -1,5 +1,7 @@
 {
   "AgendaState.message.emptyOption": "(Nessun valore)",
+  "AgendaStats.BooleanTooltipItem.notSelected": "Non selezionato",
+  "AgendaStats.BooleanTooltipItem.selected": "Selezionato",
   "AgendaStats.ChartAdder.addChart": "Aggiungi un grafico",
   "AgendaStats.ChartWrapper.remove": "Rimuovi",
   "AgendaStats.ChartWrapper.update": "Aggiorna",

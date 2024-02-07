@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useIntl } from 'react-intl';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -9,12 +10,14 @@ import {
   AlertDialogOverlay,
   Button,
 } from '@openagenda/uikit';
+import { emailConfirmationAlert as messages } from '../messages';
 
 export default function EmailConfirmationAlert({
   isOpen,
   onClose,
   count,
 }) {
+  const intl = useIntl();
   const cancelRef = useRef();
 
   return (
@@ -27,14 +30,14 @@ export default function EmailConfirmationAlert({
       <AlertDialogOverlay />
 
       <AlertDialogContent>
-        <AlertDialogHeader>Partager l&apos;événement</AlertDialogHeader>
+        <AlertDialogHeader>{intl.formatMessage(messages.shareEvent)}</AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
-          L&apos;événement a été envoyé à {count} adresse email.
+          {intl.formatMessage(messages.shareEventInfo, { count })}
         </AlertDialogBody>
         <AlertDialogFooter>
           <Button ref={cancelRef} onClick={onClose} colorScheme="primary">
-            Close
+            {intl.formatMessage(messages.close)}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -1,4 +1,5 @@
 {
+  "ActivityApps.HistoryModal.noActivity": "crwdns33247:0crwdne33247:0",
   "ActivityApps.Notifications.markAllAsRead": "crwdns32530:0crwdne32530:0",
   "ActivityApps.Notifications.next": "crwdns32532:0crwdne32532:0",
   "ActivityApps.Notifications.noNotif": "crwdns32534:0crwdne32534:0",
@@ -54,6 +55,8 @@
   "ActivityApps.locationUpdate.actor": "crwdns33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdnd33203:0{userName}crwdnd33203:0{locationName}crwdne33203:0",
   "ActivityApps.locationUpdate.full": "crwdns33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdnd33205:0{userName}crwdnd33205:0{locationName}crwdnd33205:0{agendaName}crwdne33205:0",
   "ActivityApps.locationUpdate.target": "crwdns33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdnd33207:0{locationName}crwdnd33207:0{agendaName}crwdne33207:0",
+  "ActivityApps.noAgendaActivity": "crwdns33249:0crwdne33249:0",
+  "ActivityApps.noUserActivity": "crwdns33251:0crwdne33251:0",
   "ActivityApps.notifications.agenda": "crwdns32598:0others={others}crwdnd32598:0agenda={agenda}crwdnd32598:0agenda={agenda}crwdnd32598:0agenda={agenda}crwdnd32598:0others={others}crwdne32598:0",
   "ActivityApps.notifications.agendaAcceptInvitation": "crwdns32600:0{actor}crwdnd32600:0{invitedRole}crwdnd32600:0{target}crwdne32600:0",
   "ActivityApps.notifications.agendaAddEvent": "crwdns32602:0{actor}crwdnd32602:0{object}crwdnd32602:0{target}crwdnd32602:0{sourceAgendaName}crwdne32602:0",
@@ -84,6 +87,7 @@
   "ActivityApps.notifications.agendaSetMemberRole.withYou.withoutActor": "crwdns32798:0{afterRole}crwdnd32798:0{target}crwdne32798:0",
   "ActivityApps.notifications.agendaSetMemberRole.withoutActor": "crwdns32800:0{object}crwdnd32800:0{afterRole}crwdnd32800:0{target}crwdne32800:0",
   "ActivityApps.notifications.agendaSetOfficial": "crwdns32634:0{target}crwdne32634:0",
+  "ActivityApps.notifications.agendaSystemChangeEventState": "crwdns33281:0object={object}crwdnd33281:0objectCount={objectCount}crwdnd33281:0objectCount={objectCount}crwdnd33281:0target={target}crwdne33281:0",
   "ActivityApps.notifications.agendaSystemRemoveEvent": "crwdns32636:0{object}crwdnd32636:0{target}crwdne32636:0",
   "ActivityApps.notifications.agendaSystemUnpublishEvent": "crwdns32638:0objectCount={objectCount}crwdnd32638:0object={object}crwdnd32638:0target={target}crwdnd32638:0object={object}crwdnd32638:0target={target}crwdne32638:0",
   "ActivityApps.notifications.agendaUnpublishEvent": "crwdns32640:0{actor}crwdnd32640:0{object}crwdnd32640:0{target}crwdne32640:0",
@@ -122,17 +126,13 @@
   "ActivityApps.setMemberRole.target": "crwdns32698:0{modifiedMember}crwdnd32698:0{beforeRole}crwdnd32698:0{afterRole}crwdnd32698:0{agendaName}crwdne32698:0",
   "ActivityApps.setOfficial.full": "crwdns32700:0{agendaName}crwdne32700:0",
   "ActivityApps.setOfficial.withoutTarget": "crwdns32702:0crwdne32702:0",
+  "ActivityApps.systemChangeEventState.full": "crwdns33283:0{eventName}crwdnd33283:0{agendaName}crwdne33283:0",
+  "ActivityApps.systemChangeEventState.withoutTarget": "crwdns33285:0{eventName}crwdne33285:0",
   "ActivityApps.systemRemoveEvent.full": "crwdns32704:0{eventName}crwdnd32704:0{agendaName}crwdne32704:0",
   "ActivityApps.systemRemoveEvent.withoutTarget": "crwdns32706:0{eventName}crwdne32706:0",
   "ActivityApps.systemUnpublishEvent.full": "crwdns32708:0{eventName}crwdnd32708:0{agendaName}crwdne32708:0",
   "ActivityApps.systemUnpublishEvent.withoutTarget": "crwdns32710:0{eventName}crwdne32710:0",
   "ActivityApps.unpublishEvent.actor": "crwdns32712:0{userName}crwdnd32712:0{eventName}crwdne32712:0",
   "ActivityApps.unpublishEvent.full": "crwdns32714:0{userName}crwdnd32714:0{eventName}crwdnd32714:0{agendaName}crwdne32714:0",
-  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0",
-  "ActivityApps.HistoryModal.noActivity": "crwdns33247:0crwdne33247:0",
-  "ActivityApps.noAgendaActivity": "crwdns33249:0crwdne33249:0",
-  "ActivityApps.noUserActivity": "crwdns33251:0crwdne33251:0",
-  "ActivityApps.notifications.agendaSystemChangeEventState": "crwdns33281:0object={object}crwdnd33281:0objectCount={objectCount}crwdnd33281:0objectCount={objectCount}crwdnd33281:0target={target}crwdne33281:0",
-  "ActivityApps.systemChangeEventState.full": "crwdns33283:0{eventName}crwdnd33283:0{agendaName}crwdne33283:0",
-  "ActivityApps.systemChangeEventState.withoutTarget": "crwdns33285:0{eventName}crwdne33285:0"
+  "ActivityApps.unpublishEvent.target": "crwdns32716:0{eventName}crwdnd32716:0{agendaName}crwdne32716:0"
 }

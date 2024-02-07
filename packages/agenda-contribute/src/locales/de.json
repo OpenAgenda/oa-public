@@ -8,6 +8,7 @@
   "AgendaContribute.Confirmation.recapDetailState2": "Ihre Veranstaltung ist gut aufgezeichnet und wurde auf der Agenda veröffentlicht.",
   "AgendaContribute.Confirmation.seeEventAction": "Meine Veranstalltung sehen.",
   "AgendaContribute.Confirmation.showMyEvents": "Alle meine Veranstaltungen anzeigen",
+  "AgendaContribute.EditConfirmation.end": "Schließen",
   "AgendaContribute.EventNew.create": "Deine Veranstaltung senden",
   "AgendaContribute.EventNew.deleteDraft": "Den Entwurf löschen",
   "AgendaContribute.EventNew.draft": "Deinen Entwurf speichern",
@@ -17,6 +18,5 @@
   "AgendaContribute.Member.title": "Willkommen!",
   "AgendaContribute.Stepper.confirmation": "Bestätigung",
   "AgendaContribute.Stepper.event": "Meine Veranstaltung",
-  "AgendaContribute.Stepper.member": "Kontaktdaten",
-  "AgendaContribute.EditConfirmation.end": "Schließen"
+  "AgendaContribute.Stepper.member": "Kontaktdaten"
 }

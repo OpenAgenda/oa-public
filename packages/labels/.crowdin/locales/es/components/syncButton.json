@@ -1,7 +1,7 @@
 {
-  "update": "Guardar",
-  "updating": "Actualización",
-  "updated": "Guardar",
+  "cancel": "Anular",
   "syncError": "La copia de seguridad falló. Por favor, inténtelo de nuevo.",
-  "cancel": "Anular"
+  "update": "Guardar",
+  "updated": "Guardar",
+  "updating": "Actualización"
 }

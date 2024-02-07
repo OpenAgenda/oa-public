@@ -295,8 +295,8 @@ function _formatEmbedHeadLinks(req, res, next) {
 async function agendaEventShow(req, res) {
   const reqParams = {};
 
-  if (req.query.admin_nav) {
-    reqParams.admin_nav = req.query.admin_nav;
+  if (req.query.nc) {
+    reqParams.nc = req.query.nc;
   }
 
   const member = req.user ? await members.get({
@@ -319,9 +319,9 @@ async function agendaEventShow(req, res) {
     agenda: req.agenda,
     agendaReferences: req.agendaReferences,
     private: req.agenda.private,
-    adminNav: req.query.admin_nav,
+    adminNav: req.query.nc,
     isOriginAgenda: req.indexedEvent?.originAgenda?.uid === req.agenda.uid,
-    removeRedirect: req.query.admin_nav ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.admin_nav)}`) : null,
+    removeRedirect: req.query.nc ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.nc)}`) : null,
     redirect: cmn.makeRedirect(req),
     isCancelled: determineEventCancellationFromTitle(req.indexedEvent.title),
     event: req.formatted,

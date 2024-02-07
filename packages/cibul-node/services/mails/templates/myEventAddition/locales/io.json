@@ -1,12 +1,12 @@
 {
-  "title": "crwdns30662:0{agenda}crwdnd30662:0{event}crwdne30662:0",
-  "body": "crwdns30664:0{event}crwdnd30664:0{sourceAgenda}crwdnd30664:0{state}crwdnd30664:0{user}crwdne30664:0",
   "actionDescription": "crwdns30666:0crwdne30666:0",
-  "tocontrol": "crwdns30668:0crwdne30668:0",
+  "body": "crwdns30664:0{event}crwdnd30664:0{sourceAgenda}crwdnd30664:0{state}crwdnd30664:0{user}crwdne30664:0",
+  "changeEmailSettings": "crwdns30680:0crwdne30680:0",
   "controlled": "crwdns30670:0crwdne30670:0",
+  "memberUnsubscribe": "crwdns30678:0crwdne30678:0",
   "published": "crwdns30672:0crwdne30672:0",
   "refused": "crwdns30674:0crwdne30674:0",
-  "unsubscribe": "crwdns30676:0crwdne30676:0",
-  "memberUnsubscribe": "crwdns30678:0crwdne30678:0",
-  "changeEmailSettings": "crwdns30680:0crwdne30680:0"
+  "title": "crwdns30662:0{agenda}crwdnd30662:0{event}crwdne30662:0",
+  "tocontrol": "crwdns30668:0crwdne30668:0",
+  "unsubscribe": "crwdns30676:0crwdne30676:0"
 }

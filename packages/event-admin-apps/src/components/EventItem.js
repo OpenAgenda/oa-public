@@ -116,7 +116,8 @@ export default function EventItem({
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
   const intl = useIntl();
-  const passId = event.registration.find(r => r.service === 'passCulture')?.data.id;
+  const passId = event.registration.find(r => r.service === 'passCulture')?.data
+    .id;
 
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
@@ -168,8 +169,11 @@ export default function EventItem({
     () =>
       qs.stringify(
         {
-          admin_nav: {
-            ...addQueryPrefix(query),
+          nc: {
+            ...addQueryPrefix({
+              sort: 'updatedAt.desc',
+              ...query,
+            }),
             page: page > 1 ? page : null,
             index,
             first: isFirst || null,
@@ -228,7 +232,13 @@ export default function EventItem({
           ) : null}
         </a>
         {passId ? (
-          <PassImage passId={passId} passRes={passRes} passTabIsOpen={passTabIsOpen} setPassTab={setPassTab} eventUid={event.uid} />
+          <PassImage
+            passId={passId}
+            passRes={passRes}
+            passTabIsOpen={passTabIsOpen}
+            setPassTab={setPassTab}
+            eventUid={event.uid}
+          />
         ) : null}
       </div>
 
@@ -344,16 +354,16 @@ export default function EventItem({
           </li>
 
           {event.member
-            && event.originAgenda?.uid === agenda.uid
-            && event.location ? (
-              <li>
-                <a
-                  className="btn btn-link btn-link-inline"
-                  href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
-                >
-                  {intl.formatMessage(messages.showLocation)}
-                </a>
-              </li>
+          && event.originAgenda?.uid === agenda.uid
+          && event.location ? (
+            <li>
+              <a
+                className="btn btn-link btn-link-inline"
+                href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
+              >
+                {intl.formatMessage(messages.showLocation)}
+              </a>
+            </li>
             ) : null}
 
           {event.onlineAccessLink ? (

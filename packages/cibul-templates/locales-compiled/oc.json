@@ -26,187 +26,187 @@
   "cibulTemplates.passwordField.good": [
     {
       "type": 0,
-      "value": "Suffisamment sécurisé 🙂"
+      "value": "Ok 🙂"
     }
   ],
   "cibulTemplates.passwordField.great": [
     {
       "type": 0,
-      "value": "Très sécurisé 🥳"
+      "value": "Plan 🥳"
     }
   ],
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,
-      "value": "Requis."
+      "value": "Vos cal definir un senhal"
     }
   ],
   "cibulTemplates.passwordField.tooWeak": [
     {
       "type": 0,
-      "value": "Pas assez sûr 😑"
+      "value": "Lo senhal es tròp feble 😑"
     }
   ],
   "cibulTemplates.passwordField.usual": [
     {
       "type": 0,
-      "value": "Trop commun 🤖"
+      "value": "Tròp corrent 😑"
     }
   ],
   "cibulTemplates.passwordField.weak": [
     {
       "type": 0,
-      "value": "Peu sécurisé 😐"
+      "value": "Aqueste senhal es pas gaire segur 😐"
     }
   ],
   "cibulTemplates.passwordField.weakish": [
     {
       "type": 0,
-      "value": "Mieux, pas top 😬"
+      "value": "Un pauc melhor 😬"
     }
   ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Condicions d'accès"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Atge del public tocat"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Mòde de participacion"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condicions"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "Descripcion corta"
     }
   ],
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Imatge"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Crèdits de l'imatge"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Mots claus"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Lòc"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Descripcion longa"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Ligam d'accès"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Inscripcion"
     }
   ],
   "common.event.fields.slug": [
     {
       "type": 0,
-      "value": "Slug"
+      "value": "Identificant"
     }
   ],
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Estatut"
     }
   ],
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Oraris"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Títol"
     }
   ],
   "common.event.states.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Publicat"
     }
   ],
   "common.event.states.readyToPublish": [
     {
       "type": 0,
-      "value": "Ready to publish"
+      "value": "Prèste per publicar"
     }
   ],
   "common.event.states.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Refusat"
     }
   ],
   "common.event.states.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "De revisar"
     }
   ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "Administrator·a"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributor·a"
     }
   ],
   "common.roles.moderator": [
     {
       "type": 0,
-      "value": "Moderator"
+      "value": "Moderator·a"
     }
   ],
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "Legeire·a"
     }
   ],
   "displayAdditionalFields.emptyValue": [

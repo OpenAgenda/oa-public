@@ -3,7 +3,7 @@
     --><li class="edge-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
       <div class="admin-nav">
 <% if ( !!adminNav ) { %>
-        <a class="nav-link prev edge-link<% if ( adminNav && adminNav.first ) { %> inactive<% } %>" href="<%= adminNav && adminNav.first ? '#' : genUrl( 'agendaEventAdminNavigate', [ { slug: slug, nav: 'prev', admin_nav: adminNav } ] ) %>">
+        <a class="nav-link prev edge-link<% if ( adminNav && adminNav.first ) { %> inactive<% } %>" href="<%= adminNav && adminNav.first ? '#' : genUrl( 'agendaEventNavigate', [ { slug: slug, nav: 'prev', nc: adminNav } ] ) %>">
           <i class="fa fa-chevron-left"></i>
         </a>
 <% } %>
@@ -12,7 +12,7 @@
           <span><%= __( 'backToDashboard' ) %></span>
         </a>
 <% if ( !!adminNav ) { %>
-        <a class="nav-link next edge-link<% if ( adminNav && adminNav.last ) { %> inactive<% } %>" href="<%= adminNav && adminNav.last ? '#' : genUrl( 'agendaEventAdminNavigate', [ { slug: slug, nav: 'next', admin_nav: adminNav } ] ) %>">
+        <a class="nav-link next edge-link<% if ( adminNav && adminNav.last ) { %> inactive<% } %>" href="<%= adminNav && adminNav.last ? '#' : genUrl( 'agendaEventNavigate', [ { slug: slug, nav: 'next', nc: adminNav } ] ) %>">
           <i class="fa fa-chevron-right"></i>
         </a>
 <% } %>

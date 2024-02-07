@@ -1,9 +1,9 @@
 {
-  "eventRemoveTitle": "Eliminar un evento de agenda",
-  "eventRemoveDetails": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
   "confirm": "Confirmar",
-  "eventRemoved": "El evento ha sido quitado de la agenda",
-  "eventDeleteTitle": "Eliminación de evento",
   "eventDeleteDetails": "¿Está seguro de que desea hacerlo? Si elimina el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda.",
-  "eventDeleted": "El evento como eliminado permanentemente"
+  "eventDeleteTitle": "Eliminación de evento",
+  "eventDeleted": "El evento como eliminado permanentemente",
+  "eventRemoveDetails": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
+  "eventRemoveTitle": "Eliminar un evento de agenda",
+  "eventRemoved": "El evento ha sido quitado de la agenda"
 }

@@ -1,12 +1,12 @@
 {
-  "title": "Anmeldebestätigungen von {event} auf {agenda} ",
-  "body": "Ihre Veranstaltung <b>{event}</b> wurde auf der Agenda <b>{agenda}</b> erstellt mit dem Zustand <b>{state}</b>.",
   "actionDescription": "Siehe die Veranstaltung",
-  "tocontrol": "kontrolliert werden",
+  "body": "Ihre Veranstaltung <b>{event}</b> wurde auf der Agenda <b>{agenda}</b> erstellt mit dem Zustand <b>{state}</b>.",
+  "changeEmailSettings": "Auswahl der empfangenen E-Mails ändern",
   "controlled": "bereit zu veröffentlichen",
+  "memberUnsubscribe": "Ich will dir Anmeldebestätigungen von diesem Veranstaltungskalender nicht mehr bekommen.",
   "published": "veröffentlicht",
   "refused": "verweigert",
-  "unsubscribe": "Ich will dir Anmeldebestätigungen nicht mehr bekommen.",
-  "memberUnsubscribe": "Ich will dir Anmeldebestätigungen von diesem Veranstaltungskalender nicht mehr bekommen.",
-  "changeEmailSettings": "Auswahl der empfangenen E-Mails ändern"
+  "title": "Anmeldebestätigungen von {event} auf {agenda} ",
+  "tocontrol": "kontrolliert werden",
+  "unsubscribe": "Ich will dir Anmeldebestätigungen nicht mehr bekommen."
 }

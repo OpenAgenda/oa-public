@@ -2,13 +2,13 @@
   "ReactShared.AgendaAdminModContextBar.empty": [
     {
       "type": 0,
-      "value": "This calendar is empty"
+      "value": "Questa agenda è vuota"
     }
   ],
   "ReactShared.AgendaAdminModContextBar.events": [
     {
       "type": 0,
-      "value": "Events in this calendar"
+      "value": "I miei eventi in questa agenda"
     }
   ],
   "ReactShared.AgendaAdminModContextBar.manage": [

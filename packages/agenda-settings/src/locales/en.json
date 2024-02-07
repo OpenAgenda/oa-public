@@ -3,6 +3,7 @@
   "AgendaSettings.CreationSecondStep.formEvent": "Form event",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Allow online event entry",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Online events can be associated with physical locations",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "This information will be visible to the agenda moderators",
   "AgendaSettings.contribution.closedContibution": "Closed",
   "AgendaSettings.contribution.closedContibutionDesc": "The agenda does not accept new contributions",
   "AgendaSettings.contribution.contribUseFields": "Invite members to present themselves (organization, phone, name, title, email, <a>customizable fields</a>)",
@@ -10,6 +11,5 @@
   "AgendaSettings.contribution.openContribution": "Open",
   "AgendaSettings.contribution.openContributionDesc": "Any user can add events, under your moderation",
   "AgendaSettings.contribution.reducedContribution": "Reduced",
-  "AgendaSettings.contribution.reducedContributionDesc": "Only invited users can add events",
-  "AgendaSettings.contribution.GDPRInformationPlaceholder": "This information will be visible to the agenda moderators"
+  "AgendaSettings.contribution.reducedContributionDesc": "Only invited users can add events"
 }

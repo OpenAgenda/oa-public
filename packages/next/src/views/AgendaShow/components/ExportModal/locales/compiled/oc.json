@@ -20,7 +20,7 @@
   "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "1. Copiez le lien ci-dessus et ouvrez "
+      "value": "1. Copiatz lo ligam dins lo camp çai-sus e dobrissètz-lo"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
@@ -58,7 +58,7 @@
       "children": [
         {
           "type": 0,
-          "value": "Utilizar la version precedenta d'expòrt JSON"
+          "value": "Utilizar la version precedenta de l'expòrt JSON"
         }
       ],
       "type": 8,
@@ -72,7 +72,7 @@
       "children": [
         {
           "type": 0,
-          "value": "aquí"
+          "value": "aicí"
         }
       ],
       "type": 8,
@@ -86,7 +86,7 @@
   "next.views.AgendaShow.ExportModal.exportSelection": [
     {
       "type": 0,
-      "value": "Exporter la sélection en cours"
+      "value": "Exportar la seleccion actuala d'eveniments"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
@@ -104,13 +104,13 @@
   "next.views.AgendaShow.ExportModal.openData": [
     {
       "type": 0,
-      "value": "Le contenu de cet agenda est utilisable selon le principe de "
+      "value": "Lo contengut d'aquesta agenda se pòt utilizar en seguissent lo "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "la licence ouverte"
+          "value": "Principi de la donada obèrta"
         }
       ],
       "type": 8,

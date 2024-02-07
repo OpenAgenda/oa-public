@@ -1,13 +1,13 @@
 {
-  "body": "<b>{event}</b> de l'agenda <b>{sourceAgenda}</b> es estat représ amb l'estatut <b>{state}</b>.",
-  "memberUnsubscribe": "Arrestar de recebre las agregacions d'eveniments d'aquela agenda",
-  "title": "{agenda} tornèt préner vòstre eveniment : {event}",
   "actionDescription": "Veire l'eveniment",
-  "tocontrol": "de repassar",
+  "body": "<b>{event}</b> de l'agenda <b>{sourceAgenda}</b> es estat représ amb l'estatut <b>{state}</b>.",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
+  "contactAgenda": "Contactar l'agenda",
   "controlled": "prèste per publicar",
+  "memberUnsubscribe": "Arrestar de recebre las agregacions d'eveniments d'aquela agenda",
   "published": "publicat",
   "refused": "refusat",
-  "unsubscribe": "Arrestar de recebre las agregacion d'eveniments",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
-  "contactAgenda": "Contactar l'agenda"
+  "title": "{agenda} tornèt préner vòstre eveniment : {event}",
+  "tocontrol": "de repassar",
+  "unsubscribe": "Arrestar de recebre las agregacion d'eveniments"
 }

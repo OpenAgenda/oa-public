@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const defaultDirectives = {
   baseUri: ["'none'"],
   defaultSrc: ["'none'"],
-  frameAncestors: ["'none'"],
+  frameAncestors: ["'self'"],
   fontSrc: [
     "'self'",
     'https://s3.eu-central-1.amazonaws.com/oastatic/',

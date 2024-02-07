@@ -129,6 +129,8 @@
   "AgendaLocations.LocationForm.requiredField": "(Camp obligatòri)",
   "AgendaLocations.LocationForm.saving": "Salvagarda",
   "AgendaLocations.LocationForm.string.tooshort": "La cadena de caractèrs es tròp corteta",
+  "AgendaLocations.LocationForm.toolong": "La cadena de caractèrs es tròp longa",
+  "AgendaLocations.LocationForm.tooshort": "La cadena de caractèrs es tròp corteta",
   "AgendaLocations.LocationForm.updateSubmit": "Metre a jorn",
   "AgendaLocations.LocationForm.updateSubmitError": "Lo lòc s'es pas pogut actualizar",
   "AgendaLocations.LocationForm.website": "Site web",

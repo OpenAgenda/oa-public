@@ -13,6 +13,8 @@ import fetchLocale7 from 'views/EventShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
+    import(`./compiled/${locale}.json`)
+      .then(mod => mod.default),
     fetchLocale0(locale),
     fetchLocale1(locale),
     fetchLocale2(locale),

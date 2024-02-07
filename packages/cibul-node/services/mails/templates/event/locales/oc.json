@@ -1,9 +1,9 @@
 {
-  "unsubscribe": "Arrestar de recebre los eveniments per email",
-  "unsubscribeGuest": "Arrestar de recebre los mails d'OpenAgenda",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
   "actionDescription": "Veire l'eveniment",
-  "timingsDetails": "Detalhs de las datas",
+  "book": "reservar",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
   "timing": "de {from} a {to}",
-  "book": "reservar"
+  "timingsDetails": "Detalhs de las datas",
+  "unsubscribe": "Arrestar de recebre los eveniments per email",
+  "unsubscribeGuest": "Arrestar de recebre los mails d'OpenAgenda"
 }

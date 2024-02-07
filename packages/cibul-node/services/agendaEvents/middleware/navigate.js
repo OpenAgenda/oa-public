@@ -19,15 +19,15 @@ function removeQueryPrefix(query, prefix = 'q.') {
   return result;
 }
 
-function getRequestedAdminNav(nav, total, page, index) {
+function getRequestedNc(nav, total, page, index) {
   const pos = (page - 1) * PAGE_SIZE + index;
-  const nextPos = nav === 'prev' ? Math.max(0, pos - 1) : Math.min(total - 1, pos + 1);
+  const newPos = nav === 'prev' ? Math.max(0, pos - 1) : Math.min(total - 1, pos + 1);
 
   return {
-    page: Math.floor((nextPos + 1) % PAGE_SIZE !== 0 ? (nextPos + 1) / PAGE_SIZE + 1 : (nextPos + 1) / PAGE_SIZE),
-    index: nextPos % PAGE_SIZE,
-    first: nextPos === 0 || null,
-    last: nextPos === total - 1 || null
+    page: Math.floor((newPos + 1) % PAGE_SIZE !== 0 ? (newPos + 1) / PAGE_SIZE + 1 : (newPos + 1) / PAGE_SIZE),
+    index: newPos % PAGE_SIZE,
+    first: newPos === 0 || null,
+    last: newPos === total - 1 || null,
   };
 }
 
@@ -39,7 +39,7 @@ module.exports = async function navigate(req, res, next) {
 
     const {
       nav,
-      admin_nav: dirtyAdminNav,
+      nc: dirtyNc,
       ...restQuery
     } = req.query;
     const {
@@ -47,32 +47,35 @@ module.exports = async function navigate(req, res, next) {
       index: indexStr,
       first,
       last,
-      ...adminNav
-    } = dirtyAdminNav;
+      ...nc
+    } = dirtyNc;
     const page = parseInt(pageStr, 10) || 1;
     const index = parseInt(indexStr, 10) || 0;
     const pos = (page - 1) * PAGE_SIZE + index;
-    const query = removeQueryPrefix(adminNav);
+    const query = removeQueryPrefix(nc);
+
+    const from = nav === 'prev' ? pos - 1 : pos + 1;
 
     const { total, events } = await core
       .agendas(req.agenda.uid)
       .events.search({
         state: null,
-        ...query
+        ...query,
       }, {
-        from: nav === 'prev' ? pos - 1 : pos + 1,
-        size: 1
+        from,
+        size: nav === 'next' ? 2 : 1, // need 2 for isLast
       }, {
         ...query,
-        userUid: req.user.uid
+        userUid: req.user.uid,
+        includeFields: ['uid', 'slug'],
       });
 
     const queryString = qs.stringify({
       ...restQuery,
-      admin_nav: {
-        ...adminNav,
-        ...getRequestedAdminNav(nav, total, page, index)
-      }
+      nc: {
+        ...nc,
+        ...getRequestedNc(nav, total, page, index),
+      },
     }, {
       addQueryPrefix: true,
       arrayFormat: 'brackets',
@@ -80,7 +83,16 @@ module.exports = async function navigate(req, res, next) {
     });
 
     if (!events.length) {
-      next({ code : 404 });
+      next({ code: 404 });
+    }
+
+    if (req.accepts(['html', 'json']) === 'json') {
+      res.json({
+        event: events[0],
+        isLast: nav === 'next' && events.length < 2,
+        isFirst: from === 0,
+      });
+      return;
     }
 
     log('redirecting to %s event %s', nav, events[0].slug);
@@ -89,4 +101,4 @@ module.exports = async function navigate(req, res, next) {
   } catch (e) {
     next(e);
   }
-}
+};

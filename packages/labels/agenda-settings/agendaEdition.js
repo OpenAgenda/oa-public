@@ -518,7 +518,7 @@ module.exports = {
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar una agenda privada",
-    "it": "Richiedi un'agenda privata",
+    "it": "Richiedere un'agenda privata",
     "io": "crwdns12610:0crwdne12610:0",
     "oc": "Demandar una agenda privada"
   },

@@ -74,7 +74,7 @@
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Âge du public ciblé"
     }
   ],
   "common.event.fields.attendanceMode": [
@@ -110,7 +110,7 @@
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Mots clés"
     }
   ],
   "common.event.fields.location": [
@@ -128,7 +128,7 @@
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Lien d'accès à l'événement en ligne"
     }
   ],
   "common.event.fields.registration": [
@@ -152,19 +152,19 @@
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Horaires"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titre"
     }
   ],
   "common.event.states.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Publié"
     }
   ],
   "common.event.states.readyToPublish": [
@@ -176,13 +176,13 @@
   "common.event.states.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Refusé"
     }
   ],
   "common.event.states.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "À modérer"
     }
   ],
   "common.roles.administrator": [

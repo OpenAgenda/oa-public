@@ -1,12 +1,12 @@
 {
-  "subject": "{agenda}: {event} cambiato stato",
-  "title": "Il tuo evento <b>{event}</b> è passato dallo stato <b>{beforeState}</b> allo stato <b>{afterState}</b> sull’agenda <b>{agenda}</b>.",
   "actionDescription": "Vedere l'evento",
-  "tocontrol": "verificabile",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail",
   "controlled": "pronto per la pubblicazione",
+  "memberUnsubscribe": "Interrompere la ricezione delle modifiche allo stato dei vostri eventi su questo calendario",
   "published": "pubblicato",
   "refused": "rifiutato",
-  "unsubscribe": "Interrompere la ricezione dei cambiamenti di stato dei vostri eventi",
-  "memberUnsubscribe": "Interrompere la ricezione delle modifiche allo stato dei vostri eventi su questo calendario",
-  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+  "subject": "{agenda}: {event} cambiato stato",
+  "title": "Il tuo evento <b>{event}</b> è passato dallo stato <b>{beforeState}</b> allo stato <b>{afterState}</b> sull’agenda <b>{agenda}</b>.",
+  "tocontrol": "verificabile",
+  "unsubscribe": "Interrompere la ricezione dei cambiamenti di stato dei vostri eventi"
 }

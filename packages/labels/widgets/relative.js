@@ -47,7 +47,7 @@ module.exports = {
   "thisWeek": {
     "fr": "Cette semaine",
     "en": "This week",
-    "it": "Questa settimana",
+    "it": "Settimana corrente",
     "de": "Diese Woche",
     "pl": "W tym tygodniu",
     "es": "Esta semana",
@@ -58,7 +58,7 @@ module.exports = {
   "thisMonth": {
     "fr": "Ce mois",
     "en": "This month",
-    "it": "In questo mese",
+    "it": "Mese corrente",
     "de": "Diesen Monat",
     "pl": "W tym miesiącu",
     "es": "Este mes",

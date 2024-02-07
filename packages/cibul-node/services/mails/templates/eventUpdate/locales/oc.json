@@ -1,12 +1,12 @@
 {
-  "title": "Eveniment modificat sus {agenda} : {event}",
-  "body": "<b>{event}</b> es estat modificat sus l'agenda <b>{agenda}</b>.",
   "actionDescription": "Veire l'eveniment",
-  "tocontrol": "de repassar",
+  "body": "<b>{event}</b> es estat modificat sus l'agenda <b>{agenda}</b>.",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails",
   "controlled": "prèste per publicar",
+  "memberUnsubscribe": "Arrestar de recebre las modificacions d'eveniment d'aquesta agenda",
   "published": "publicat",
   "refused": "refusat",
-  "unsubscribe": "Arrestar de recebre las modificacions d'eveniments",
-  "memberUnsubscribe": "Arrestar de recebre las modificacions d'eveniment d'aquesta agenda",
-  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+  "title": "Eveniment modificat sus {agenda} : {event}",
+  "tocontrol": "de repassar",
+  "unsubscribe": "Arrestar de recebre las modificacions d'eveniments"
 }

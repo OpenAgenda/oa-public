@@ -1,12 +1,12 @@
 {
-  "title": "{agenda} ha ripreso l ‘evento {event}.",
-  "body": "<b>{event}</b> dal <b>{sourceAgenda}</b> è stato rilevato con lo stato <b>{state}</b>.",
   "actionDescription": "Vedere l'evento",
-  "tocontrol": "verificabile",
+  "body": "<b>{event}</b> dal <b>{sourceAgenda}</b> è stato rilevato con lo stato <b>{state}</b>.",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail",
   "controlled": "pronto per la pubblicazione",
+  "memberUnsubscribe": "Non ricevere più aggregazioni di eventi da questa agenda",
   "published": "pubblicato",
   "refused": "rifiutato",
-  "unsubscribe": "Smettere di ricevere aggregazioni di eventi",
-  "memberUnsubscribe": "Non ricevere più aggregazioni di eventi da questa agenda",
-  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+  "title": "{agenda} ha ripreso l ‘evento {event}.",
+  "tocontrol": "verificabile",
+  "unsubscribe": "Smettere di ricevere aggregazioni di eventi"
 }

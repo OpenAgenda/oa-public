@@ -1,16 +1,16 @@
 {
-  "subject": "crwdns30714:0{roleVerb}crwdnd30714:0{agenda}crwdne30714:0",
-  "contributorVerb": "crwdns30716:0crwdne30716:0",
-  "moderatorVerb": "crwdns30718:0crwdne30718:0",
-  "administratorVerb": "crwdns30720:0crwdne30720:0",
-  "subjectForExistingMember": "crwdns30722:0{role}crwdnd30722:0{agenda}crwdne30722:0",
-  "signup": "crwdns30724:0crwdne30724:0",
-  "memberAction": "crwdns30726:0role={role}crwdne30726:0",
   "administrator": "crwdns30728:0crwdne30728:0",
-  "moderator": "crwdns30730:0crwdne30730:0",
+  "administratorVerb": "crwdns30720:0crwdne30720:0",
+  "changeEmailSettings": "crwdns30740:0crwdne30740:0",
   "contributor": "crwdns30732:0crwdne30732:0",
+  "contributorVerb": "crwdns30716:0crwdne30716:0",
+  "memberAction": "crwdns30726:0role={role}crwdne30726:0",
+  "moderator": "crwdns30730:0crwdne30730:0",
+  "moderatorVerb": "crwdns30718:0crwdne30718:0",
   "reader": "crwdns30734:0crwdne30734:0",
+  "signup": "crwdns30724:0crwdne30724:0",
+  "subject": "crwdns30714:0{roleVerb}crwdnd30714:0{agenda}crwdne30714:0",
+  "subjectForExistingMember": "crwdns30722:0{role}crwdnd30722:0{agenda}crwdne30722:0",
   "unsubscribe": "crwdns30736:0crwdne30736:0",
-  "unsubscribeGuest": "crwdns30738:0crwdne30738:0",
-  "changeEmailSettings": "crwdns30740:0crwdne30740:0"
+  "unsubscribeGuest": "crwdns30738:0crwdne30738:0"
 }

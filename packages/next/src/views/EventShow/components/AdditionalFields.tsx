@@ -1,34 +1,12 @@
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { chakra, VStack, Link, NoBreak } from '@openagenda/uikit';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
+import { additionalFields as messages } from '../messages';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
-
-const messages = defineMessages({
-  restrictedInformation: {
-    id: 'next.views.AgendaShow.AdditionalFields.restrictedInformation',
-    defaultMessage: 'Restricted information',
-  },
-  noSelection: {
-    id: 'next.views.AgendaShow.AdditionalFields.noSelection',
-    defaultMessage: 'No selection',
-  },
-  noInput: {
-    id: 'next.views.AgendaShow.AdditionalFields.noInput',
-    defaultMessage: 'No input',
-  },
-  noImage: {
-    id: 'next.views.AgendaShow.AdditionalFields.noImage',
-    defaultMessage: 'No image is loaded',
-  },
-  noFile: {
-    id: 'next.views.AgendaShow.AdditionalFields.noFile',
-    defaultMessage: 'No file is loaded',
-  },
-});
 
 function Label({ field }) {
   const intl = useIntl();

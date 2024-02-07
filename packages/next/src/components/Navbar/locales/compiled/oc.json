@@ -2,7 +2,7 @@
   "next.components.Navbar.help": [
     {
       "type": 0,
-      "value": "Aide"
+      "value": "Ajuda"
     }
   ],
   "next.components.Navbar.myAgendas": [
@@ -20,7 +20,7 @@
   "next.components.Navbar.profileMenu": [
     {
       "type": 0,
-      "value": "Menu profil"
+      "value": "Menut del perfil"
     }
   ],
   "next.components.Navbar.settings": [

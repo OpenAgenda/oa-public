@@ -1,13 +1,13 @@
 {
-  "title": "{agenda} agregado de su evento: {event}",
-  "body": "<b>{event}</b> del agenda <b>{sourceAgenda}</b> fue asociado con el estado de <b>{state}</b>.",
   "actionDescription": "Ver evento",
-  "tocontrol": "a controlar",
+  "body": "<b>{event}</b> del agenda <b>{sourceAgenda}</b> fue asociado con el estado de <b>{state}</b>.",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
+  "contactAgenda": "Contacta la agenda",
   "controlled": "listo para su publicación",
+  "memberUnsubscribe": "Dejar de recibir agregaciones de mis eventos en esta agenda",
   "published": "publicado",
   "refused": "rechazado",
-  "unsubscribe": "Dejar de recibir agregaciones de mis eventos",
-  "memberUnsubscribe": "Dejar de recibir agregaciones de mis eventos en esta agenda",
-  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
-  "contactAgenda": "Contacta la agenda"
+  "title": "{agenda} agregado de su evento: {event}",
+  "tocontrol": "a controlar",
+  "unsubscribe": "Dejar de recibir agregaciones de mis eventos"
 }

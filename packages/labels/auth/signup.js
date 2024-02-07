@@ -247,10 +247,10 @@ module.exports = {
   },
   "socialHead": {
     "fr": "Création à partir d'un compte Facebook ou Google",
-    "en": "Create an account using Facebook or Google",
+    "en": "Create an account using Facebook, Twitter or Google",
     "io": "crwdns31310:0crwdne31310:0",
-    "oc": "Crear un compte amb Facebook o Google",
-    "it": "Creare un account con Facebook o Google"
+    "oc": "Crear un compte amb Facebook, Twitter o Google",
+    "it": "Creare un account con Facebook, Twitter o Google"
   },
   "socialDescription": {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
