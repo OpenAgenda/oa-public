@@ -14,7 +14,15 @@
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?"
+      "value": "Aquesta agenda utiliza de cookies del servici "
+    },
+    {
+      "type": 1,
+      "value": "service"
+    },
+    {
+      "type": 0,
+      "value": ". Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [

@@ -2,13 +2,13 @@
   "next.views.AgendaError.agendaNotFound": [
     {
       "type": 0,
-      "value": "Agenda introuvable"
+      "value": "Agenda pas trobada"
     }
   ],
   "next.views.AgendaError.forbiddenMsg": [
     {
       "type": 0,
-      "value": "Vous n’avez pas accès à cet agenda."
+      "value": "Avètz pas accès a aquela agenda."
     },
     {
       "type": 1,
@@ -16,13 +16,13 @@
     },
     {
       "type": 0,
-      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
+      "value": "Verificatz lo ligam que vos es estat donat o demandatz l'accès."
     }
   ],
   "next.views.AgendaError.notFoundMsg": [
     {
       "type": 0,
-      "value": "Il n’y a pas d’agenda correspondant à ce lien."
+      "value": "I a pas de calendièr que corresponda a aqueste ligam."
     },
     {
       "type": 1,
@@ -30,19 +30,19 @@
     },
     {
       "type": 0,
-      "value": "Soit le lien est invalide, soit l’agenda a été supprimé."
+      "value": "Siá lo ligam es invalide siá lo calendièr es estat suprimit."
     }
   ],
   "next.views.AgendaError.orSignup": [
     {
       "type": 0,
-      "value": "Ou "
+      "value": "O "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "inscrivez-vous"
+          "value": "marcatz-vos"
         }
       ],
       "type": 8,
@@ -50,19 +50,28 @@
     },
     {
       "type": 0,
-      "value": " si vous n'avez pas encore de compte."
+      "value": " s'avètz pas encara de compte."
     }
   ],
   "next.views.AgendaError.requestInvitation": [
     {
       "type": 0,
-      "value": "Demander une invitation"
+      "value": "Demandar una convidacion"
     }
   ],
   "next.views.AgendaError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Accés restreint"
+      "value": "L'accès a aquesta agenda es limitat, "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " autentificatz-vos abans d'i poder accedir."
     }
   ],
   "next.views.AgendaError.searchAgenda": [
@@ -80,7 +89,7 @@
   "next.views.AgendaError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "L'accés à cet agenda est restreint,"
+      "value": "L'accès a aquesta agenda es limitat,"
     },
     {
       "type": 1,
@@ -88,7 +97,7 @@
     },
     {
       "type": 0,
-      "value": "connectez-vous avant de pouvoir y accéder."
+      "value": " autentificatz-vos abans d'i poder accedir."
     }
   ]
 }
