@@ -1,4 +1,5 @@
 {
+  "common.event.fields.attendanceMode": "Modalità di partecipazione",
   "common.event.fields.conditions": "Condizioni",
   "common.event.fields.keywords": "Parole Chiave",
   "common.event.fields.location": "Luogo",
