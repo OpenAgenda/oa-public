@@ -15,10 +15,10 @@ import {
 import { FetchStatus } from 'config/types';
 import useUser from 'hooks/useUser';
 import ModalLoadingBody from 'components/ModalLoadingBody';
+import { shareModal as messages } from '../../messages';
 import ShareOnOA from './ShareOnOA';
 import UnloggedBody from './UnloggedBody';
 import OtherShares from './OtherShares';
-import { shareModal as messages } from '../../messages';
 
 function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) {
   const intl = useIntl();
