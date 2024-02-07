@@ -5127,7 +5127,7 @@ __metadata:
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
     react-dom: "npm:^18.2.0"
-    reload: "npm:^3.0.4"
+    reload: "npm:^3.2.1"
     sass: "npm:^1.52.1"
     uppy: "npm:^0.23.2"
     walk: "npm:^2.3.9"
@@ -11747,6 +11747,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:~9.4.0":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: 04ea8ccc6fe3d3d1ca7ca26b06187498af8e6341a2c98b534528d504f8cad95b0c5ac2f3b78a7f0d332da16da9332db2ab9e43cb06241d367e9c7ee75cb76202
+  languageName: node
+  linkType: hard
+
 "commitizen@npm:^4.0.3, commitizen@npm:^4.3.0":
   version: 4.3.0
   resolution: "commitizen@npm:4.3.0"
@@ -15312,7 +15319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"finalhandler@npm:1.2.0":
+"finalhandler@npm:1.2.0, finalhandler@npm:~1.2.0":
   version: 1.2.0
   resolution: "finalhandler@npm:1.2.0"
   dependencies:
@@ -21621,7 +21628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
+"open@npm:^8.0.0, open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -24461,7 +24468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reload@npm:^3.0.4, reload@npm:^3.1.1":
+"reload@npm:^3.1.1":
   version: 3.1.1
   resolution: "reload@npm:3.1.1"
   dependencies:
@@ -24477,6 +24484,24 @@ __metadata:
   bin:
     reload: bin/reload
   checksum: ca033b7479dd07a9d258e6f67baa4f4f33ce8778f1396fb73f937c05e0a88783005467e77062b30319aa8604a22694e78bc5a7cde9ad05ddff25f4999ff5a071
+  languageName: node
+  linkType: hard
+
+"reload@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "reload@npm:3.2.1"
+  dependencies:
+    cli-color: "npm:~2.0.0"
+    commander: "npm:~9.4.0"
+    finalhandler: "npm:~1.2.0"
+    minimist: "npm:~1.2.0"
+    open: "npm:^8.0.0"
+    serve-static: "npm:~1.15.0"
+    supervisor: "npm:~0.12.0"
+    ws: "npm:~8.11.0"
+  bin:
+    reload: bin/reload
+  checksum: 64344668264fae70ee6256ac5252f074481a55046079e43433a64a05c029ead969186bc2a0b9d251cad91df16b859ef5aa0e4b60f27161b57f76d6fe7c1e03c9
   languageName: node
   linkType: hard
 
@@ -25414,7 +25439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve-static@npm:1.15.0":
+"serve-static@npm:1.15.0, serve-static@npm:~1.15.0":
   version: 1.15.0
   resolution: "serve-static@npm:1.15.0"
   dependencies:
@@ -28898,6 +28923,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: a979ef374ceabb216ce9990285b9b4009380160224f60cba9138862b50b320822c757f0fbbbef27a1b114ccfe94f6fe36bb3785718bf4223cf61b4232ddb422c
+  languageName: node
+  linkType: hard
+
+"ws@npm:~8.11.0":
+  version: 8.11.0
+  resolution: "ws@npm:8.11.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: b672b312f357afba8568b9dbb9e08b9e8a20845659b35fa6b340dc848efe371379f5e22bb1dc89c4b2940d5e2dc52dd1de85dde41776875fce115a448f94754f
   languageName: node
   linkType: hard
 
