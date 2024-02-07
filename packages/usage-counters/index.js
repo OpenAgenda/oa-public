@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
-import increment from './increment';
-import clearAndDumpBucket from './clearAndDumpBucket';
-import task from './task';
-import clear from './clearRedisKeys';
+import increment from './increment.js';
+import clearAndDumpBucket from './clearAndDumpBucket.js';
+import task from './task.js';
+import clear from './clearRedisKeys.js';
 
 export default function UsageCounters({ config, logger }) {
   if (logger) {

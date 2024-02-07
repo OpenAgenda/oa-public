@@ -1,6 +1,6 @@
 import logs from '@openagenda/logs';
-import createRedisKey from './utils/createRedisKey';
-import lifespanToBeginAndEnd from './utils/lifespanToBeginAndEnd';
+import createRedisKey from './utils/createRedisKey.js';
+import lifespanToBeginAndEnd from './utils/lifespanToBeginAndEnd.js';
 
 const log = logs('usageCounters/increment');
 
