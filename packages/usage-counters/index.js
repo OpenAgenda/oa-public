@@ -4,7 +4,9 @@ import clearAndDumpBucket from './clearAndDumpBucket.js';
 import task from './task.js';
 import clear from './clearRedisKeys.js';
 
-export default function UsageCounters({ config, logger }) {
+export default function UsageCounters(config) {
+  const { logger } = config;
+
   if (logger) {
     logs.setModuleConfig(logger);
   }
