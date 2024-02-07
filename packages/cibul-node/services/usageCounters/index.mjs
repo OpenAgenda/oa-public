@@ -4,7 +4,7 @@ import increment from './middleware/increment.mjs';
 export function init(config) {
   return {
     ...usageCounters({
-      logger: config.getLogConfig('svc', 'usageCounters'),
+      logger: config.getLogConfig('svc', 'usage-counters'),
       config: {
         redisClient: config.redisClient,
         knexClient: config.knex,
