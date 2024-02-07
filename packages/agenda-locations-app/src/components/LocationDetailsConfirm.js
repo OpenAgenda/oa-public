@@ -40,6 +40,10 @@ const messages = {
       id: 'AgendaLocations.LocationDetails.email',
       defaultMessage: 'Contact email',
     },
+    siret: {
+      id: 'AgendaLocations.LocationDetails.siret',
+      defaultMessage: 'SIRET',
+    },
     website: {
       id: 'AgendaLocations.LocationDetails.website',
       defaultMessage: 'Website',
@@ -234,6 +238,12 @@ const LocationDetail = ({
               <span><i>{intl.formatMessage(messages.noValue)}</i></span>
             )}
         </li>
+        {(location.siret ?? '').length ? (
+          <li>
+            <label htmlFor="siret">{intl.formatMessage(messages.siret)} </label>:{' '}
+            <span>{location.siret}</span>
+          </li>
+        ) : null}
         <li style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',

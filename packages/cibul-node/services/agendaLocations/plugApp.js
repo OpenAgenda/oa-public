@@ -21,7 +21,7 @@ module.exports = (config, services, instance, app, base) => {
           'website', 'email', 'phone', 'links', 'access',
           'state', 'imageCredits', 'extId',
           'duplicateCandidates', 'disqualifiedDuplicates',
-          'mergedIn', 'agendaUid',
+          'mergedIn', 'agendaUid', 'siret',
         ],
       }).then(location => res.json(location), next);
     },

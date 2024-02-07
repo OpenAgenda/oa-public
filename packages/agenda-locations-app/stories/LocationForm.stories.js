@@ -43,6 +43,20 @@ export const FormWithImageRightsCheckbox = () => (
   />
 );
 
+export const FormWithSIRETInput = () => (
+  <LocationForm
+    locationProp={location}
+    settings={produce(agendaSettings, draft => {
+      draft.displaySIRETInput = true;
+    })}
+    mode="update"
+    res={res}
+    onSubmit={data => {
+      console.log(data);
+    }}
+  />
+);
+
 export const BasicGeoFieldsAndMap = () => {
   const [locationGeo, setLocation] = useState(null);
   return (

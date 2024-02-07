@@ -7,18 +7,18 @@ export default (config = {}) => {
     regex: false, // required
     error: { // replace with something more specific
       code: 'regex.mismatch',
-      message: 'regex does not match'
+      message: 'regex does not match',
     },
     clean: false, // if true result of regex is clean value
     trim: true,
     type: false,
     min: null,
     max: null,
-    ...config
+    ...config,
   };
 
   const validator = value => {
-    let clean = value ? (`${value}`) : value;
+    let clean = value ? `${value}` : value;
 
     if (params.optional && (!clean || !clean.length)) {
       return 'default' in params ? params.default : clean;
@@ -29,7 +29,7 @@ export default (config = {}) => {
         params,
         value,
         'required',
-        'value must not be empty'
+        'value must not be empty',
       );
     }
 
@@ -41,8 +41,8 @@ export default (config = {}) => {
       throw errors(
         params,
         value,
-        'toosmall',
-        'value is too short'
+        'tooshort',
+        'value is too short',
       );
     }
 
@@ -50,8 +50,8 @@ export default (config = {}) => {
       throw errors(
         params,
         value,
-        'too long',
-        'value is too long'
+        'toolong',
+        'value is too long',
       );
     }
 

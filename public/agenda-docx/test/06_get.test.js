@@ -59,7 +59,7 @@ describe('get', () => {
     };
 
     expect(
-      get(object, 'un.test[name="unNom"]').map(o => _.omit(o, 'tags'))
+      get(object, 'un.test[name="unNom"]').map(o => _.omit(o, 'tags')),
     ).toEqual([
       {
         name: 'unNom',

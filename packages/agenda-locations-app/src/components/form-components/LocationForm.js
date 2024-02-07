@@ -40,6 +40,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.string.tooshort',
     defaultMessage: 'String is too short',
   },
+  tooshort: {
+    id: 'AgendaLocations.LocationForm.tooshort',
+    defaultMessage: 'String is too short',
+  },
+  toolong: {
+    id: 'AgendaLocations.LocationForm.toolong',
+    defaultMessage: 'String is too long',
+  },
   name: {
     id: 'AgendaLocations.LocationForm.name',
     defaultMessage: 'Name of the location',
@@ -163,6 +171,18 @@ const messages = defineMessages({
   imageRights: {
     id: 'AgendaLocations.LocationForm.imageRights',
     defaultMessage: 'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
+  },
+  siret: {
+    id: 'AgendaLocations.LocationForm.siret',
+    defaultMessage: 'SIRET',
+  },
+  siretInfo: {
+    id: 'AgendaLocations.LocationForm.siretInfo',
+    defaultMessage: 'SIRET number of the main organization hosted by the location',
+  },
+  invalidSIRET: {
+    id: 'AgendaLocations.LocationForm.invalidSIRET',
+    defaultMessage: 'SIRET must be composed of 14 digits',
   },
 });
 
@@ -548,6 +568,21 @@ const LocationForm = ({
       />
 
       {detailedInfo ? renderDetailsInfo() : null}
+
+      {settings?.displaySIRETInput ? (
+        <InputField
+          name="siret"
+          enabled
+          value={location?.siret || ''}
+          getLabel={getLabel}
+          lang={lang}
+          placeholder="siretPlaceholder"
+          info="siretInfo"
+          onChange={onChange}
+          validator={validate.field('siret')}
+        />
+      ) : null}
+
       {renderExtId()}
 
       {errors ? renderErrors() : ''}

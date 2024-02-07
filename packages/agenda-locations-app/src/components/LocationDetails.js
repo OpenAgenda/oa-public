@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import { Spinner } from '@openagenda/react-shared';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';
@@ -42,6 +40,10 @@ const messages = {
     email: {
       id: 'AgendaLocations.LocationDetails.email',
       defaultMessage: 'Contact email',
+    },
+    siret: {
+      id: 'AgendaLocations.LocationDetails.siret',
+      defaultMessage: 'SIRET',
     },
     website: {
       id: 'AgendaLocations.LocationDetails.website',
@@ -90,8 +92,6 @@ const messages = {
   }),
 };
 
-const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
-
 const mapValues = location => ({
   '{w}': 500,
   '{h}': 160,
@@ -122,6 +122,7 @@ const LocationDetails = ({
   settings,
   hover,
   staticTiles,
+  onEdit,
 }) => {
   const intl = useIntl();
   const [contentLang, setContentLang] = useState(getPreferredLang(location.description, lang));
@@ -129,8 +130,6 @@ const LocationDetails = ({
   const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
   const existingLangs = getExistingLangs(location);
   const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
-  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-  const history = useHistory();
   const toggleCurrentLang = (newContentLang, e) => {
     e.preventDefault();
     setContentLang(newContentLang);
@@ -187,7 +186,7 @@ const LocationDetails = ({
               />
             </i>
           ) : renderLinkedAgendas()}
-          <button type="button" className="btn btn-link padding-all-z" onClick={() => history.push(`${prefix}/${location.uid}/edit`)}>
+          <button type="button" className="btn btn-link padding-all-z" onClick={onEdit}>
             <FormattedMessage {...messages.editLocation} />
           </button>
         </div>
@@ -281,6 +280,12 @@ const LocationDetails = ({
               <span><i>{intl.formatMessage(messages.noValue)}</i></span>
             )}
         </li>
+        {(location.siret ?? '').length ? (
+          <li>
+            <label htmlFor="siret">{intl.formatMessage(messages.siret)} </label>:{' '}
+            <span>{location.siret}</span>
+          </li>
+        ) : null}
         <li style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',

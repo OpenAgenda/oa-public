@@ -4,13 +4,12 @@ const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
+const fields = require('../lib/fields');
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
-
-const fields = require('../lib/fields');
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 async function getAgendaDetailsByUid(uid, _fields = []) {
@@ -55,10 +54,10 @@ describe('agenda-locations - functional - list', () => {
       interfaces: {
         getAgendaDetailsByUid,
         getEventCounts,
-        getAgendaUidsByIds: async _ids => (_ids.map(id => ({
+        getAgendaUidsByIds: async _ids => _ids.map(id => ({
           id,
-          uid: Math.ceil(Math.random() * 99999999)
-        })))
+          uid: Math.ceil(Math.random() * 99999999),
+        })),
       },
     });
   });
@@ -100,8 +99,8 @@ describe('agenda-locations - functional - list', () => {
           80369196,
           60725900,
           7749634,
-          76306
-        ]
+          76306,
+        ],
       );
     });
 
@@ -116,7 +115,7 @@ describe('agenda-locations - functional - list', () => {
           'longitude',
           'state',
         ]);
-      }
+      },
     );
 
     it(
@@ -131,7 +130,7 @@ describe('agenda-locations - functional - list', () => {
           'longitude',
           'state',
         ]);
-      }
+      },
     );
   });
 
@@ -146,7 +145,7 @@ describe('agenda-locations - functional - list', () => {
     it('nav with after means that response includes an after key', async () => {
       const { after } = await svc(7196947).list(
         {},
-        { limit: 2, useAfter: true }
+        { limit: 2, useAfter: true },
       );
 
       expect(after).toBe(976778);
@@ -157,13 +156,13 @@ describe('agenda-locations - functional - list', () => {
       async () => {
         const { after } = await svc(7196947).list(
           {},
-          { limit: 3, useAfter: true }
+          { limit: 3, useAfter: true },
         );
 
         const { items } = await svc(7196947).list({}, { limit: 1, after });
 
         expect(items[0].uid).toBe(7630649);
-      }
+      },
     );
 
     it('order can by by asc name', async () => {
@@ -173,13 +172,13 @@ describe('agenda-locations - functional - list', () => {
         items
           .map(i => i.name)
           .sort((a, b) => a.localeCompare(b))
-          .join(' - ')
+          .join(' - '),
       );
     });
 
     it('order on name with useAfter provides array in after key', async () => {
       const {
-        after
+        after,
       } = await svc(7196947).list({}, { order: 'name.asc', useAfter: true, limit: 3 });
 
       expect(after).toEqual(['Ancien moulinage', 836469]);
@@ -190,13 +189,13 @@ describe('agenda-locations - functional - list', () => {
         order: 'name.asc',
         useAfter: true,
         limit: 3,
-        after: ['Ancien moulinage', 836469]
+        after: ['Ancien moulinage', 836469],
       });
 
       expect(items.map(i => i.name)).toEqual([
         'Ancienne église Saint-Jean-Baptiste',
         'Ancienne Usine de Soie du Moulinet',
-        'Ancienne usine Murat'
+        'Ancienne usine Murat',
       ]);
     });
   });
@@ -220,12 +219,12 @@ describe('agenda-locations - functional - list', () => {
       const verified = await svc(7196947).list(
         { state: 1 },
         {},
-        { detailed: true }
+        { detailed: true },
       );
       const unverified = await svc(7196947).list(
         { state: 0 },
         {},
-        { detailed: true }
+        { detailed: true },
       );
 
       expect(verified.length).toBe(verified.filter(l => l.state === 1).length);
@@ -249,7 +248,7 @@ describe('agenda-locations - functional - list', () => {
         const selection = await svc(7196947).list({ excludeUid });
 
         expect(selection.find(e => e.uid === excludeUid)).toBeUndefined();
-      }
+      },
     );
 
     it(
@@ -259,7 +258,7 @@ describe('agenda-locations - functional - list', () => {
 
         const selection = await svc(7196947).list({ excludeUid });
         expect(selection.find(e => e.uid === 10175539)).toBeUndefined();
-      }
+      },
     );
 
     it('"geo" filter list locations in square', async () => {
@@ -271,7 +270,7 @@ describe('agenda-locations - functional - list', () => {
         southWest: {
           lat: 44,
           lng: 0.0,
-        }
+        },
       };
 
       const selection = await svc(7196947).list({ geo });
@@ -282,7 +281,7 @@ describe('agenda-locations - functional - list', () => {
       const gte = new Date('2019-09-05 14:45:18');
 
       const agendas = await svc(7196947).list({ updatedAt: { gte } }, {}, {
-        detailed: true
+        detailed: true,
       });
 
       expect(agendas.length).toBeGreaterThan(0);
@@ -295,7 +294,7 @@ describe('agenda-locations - functional - list', () => {
       const lte = new Date('2019-09-05 14:45:18');
 
       const agendas = await svc(7196947).list({ updatedAt: { lte } }, {}, {
-        detailed: true
+        detailed: true,
       });
 
       expect(agendas.length).toBeGreaterThan(0);
@@ -398,7 +397,7 @@ describe('agenda-locations - functional - list', () => {
               stream: true,
               eventCounts: true,
               detailed: true,
-            }
+            },
           )
           .then(stream => {
             stream.on('data', location => {
@@ -410,7 +409,7 @@ describe('agenda-locations - functional - list', () => {
               done();
             });
           });
-      })
+      }),
     );
   });
 
@@ -421,8 +420,8 @@ describe('agenda-locations - functional - list', () => {
       items = await svc(7196947).list({}, {}, { detailed: true });
     });
 
-    it('if detailed option is provided, all public fields are given', () => {
-      expect(Object.keys(items[0])).toStrictEqual(fields.filter(fi => fi.read.includes('public')).map(fi => fi.field));
+    it('if detailed option is provided, all public fields are given at the exception of the siret which is not provided when null', () => {
+      expect(Object.keys(items[0])).toStrictEqual(fields.filter(fi => fi.read.includes('public') && fi.field !== 'siret').map(fi => fi.field));
     });
 
     it('images do not include path by default', () => {
@@ -436,7 +435,7 @@ describe('agenda-locations - functional - list', () => {
         {
           includeImagePath: true,
           detailed: true,
-        }
+        },
       );
       expect(items_[0].image.split('/').length).toBeGreaterThan(1);
     });
@@ -447,7 +446,7 @@ describe('agenda-locations - functional - list', () => {
         {},
         {
           detailed: true,
-        }
+        },
       );
       expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates).toStrictEqual([51665986]);
       expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates).toStrictEqual([5]);
@@ -459,10 +458,21 @@ describe('agenda-locations - functional - list', () => {
         {},
         {
           detailed: true,
-        }
+        },
       );
       expect(items_[0].adminLevel1).toBe('Auvergne-Rhône-Alpes');
       expect(items_[0].adminLevel2).toBe('Ardèche');
+    });
+
+    it('if siret is not stored in store, it is not presented even when detailed is true', async () => {
+      const res = await svc(7196947).list({ uids: [44326184] }, {}, { detailed: true });
+
+      expect(res[0].siret).toBeUndefined();
+    });
+
+    it('if siret is stored in store, it is presented when detailed is true', async () => {
+      const res = await svc(7196947).list({ uids: [17391791] }, {}, { detailed: true });
+      expect(res[0].siret).toBe('12345678901234');
     });
   });
 
@@ -504,11 +514,11 @@ describe('agenda-locations - functional - list', () => {
           { limit: 1 },
           {
             includeFields: ['uid', 'name'],
-          }
+          },
         );
 
         expect(Object.keys(items[0])).toStrictEqual(['uid', 'name']);
-      }
+      },
     );
 
     it(
@@ -518,12 +528,12 @@ describe('agenda-locations - functional - list', () => {
           {},
           { limit: 1 },
           {
-            includeFields: ['agendaUid']
-          }
+            includeFields: ['agendaUid'],
+          },
         );
 
         expect(typeof items[0].agendaUid).toBe('number');
-      }
+      },
     );
 
     it(
@@ -532,7 +542,7 @@ describe('agenda-locations - functional - list', () => {
         const items = await svc(7196947).list(
           {},
           { limit: 3 },
-          { eventCounts: true }
+          { eventCounts: true },
         );
 
         expect(items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount']))).toStrictEqual(
@@ -551,9 +561,9 @@ describe('agenda-locations - functional - list', () => {
             eventCount: 0,
             agendaEventCount: 0,
           },
-          ]
+          ],
         );
-      }
+      },
     );
 
     it(
@@ -562,7 +572,7 @@ describe('agenda-locations - functional - list', () => {
         const { items, total } = await svc(7196947).list({}, {}, { total: true });
         expect(total).toBe(368);
         expect(items).not.toBeNull();
-      }
+      },
     );
   });
 });

@@ -40,6 +40,7 @@ module.exports = {
     'accessToken.create.sql',
     'activity.create.sql',
     'activityFeed.create.sql',
-    'activityFeedActivity.create.sql'
+    'activityFeedActivity.create.sql',
+    'usageCounter.create.sql',
   ].map(fx => fs.readFileSync(__dirname + '/' + fx, 'utf-8').replace(/;(\n|)$/, ''))
 }

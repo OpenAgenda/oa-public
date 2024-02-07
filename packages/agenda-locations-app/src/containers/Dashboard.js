@@ -537,6 +537,9 @@ function Dashboard() {
           lang={lang}
           search={betterQsStringify({ ...search, page })}
           prefix={prefix}
+          onEdit={() => {
+            history.push(`${prefix}/${openDetails}/edit`);
+          }}
           closeDetail={() => {
             if (!mergeMode) {
               history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });

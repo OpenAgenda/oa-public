@@ -25,7 +25,6 @@ module.exports = app => {
   require('./event/front')(app);
   require('./event/actions.front')(app);
   require('./auth/facebook.front')(app);
-  require('./auth/twitter.front')(app);
   require('./auth/google.front')(app);
   require('./auth/local.front')(app);
   require('./auth/reset.front')(app);
