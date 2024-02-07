@@ -1,6 +1,5 @@
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 const config = require('../config.dev');
 const generate = require('../server/generateDocument');
 
@@ -9,9 +8,7 @@ describe('unit - generate document', () => {
 
   let docPath;
 
-  afterEach(done => {
-    fs.unlink(docPath, done);
-  });
+  // afterEach(() => fs.unlink(docPath));
 
   test('generates a word document when given an agenda uid', async () => {
     const result = await generate({
@@ -28,8 +25,8 @@ describe('unit - generate document', () => {
   });
 
   test('generates a word document based on a templateContent', async () => {
-    const templateContent = await promisify(fs.readFile)(
-      path.resolve(__dirname, 'data', 'template.docx')
+    const templateContent = await fs.readFile(
+      path.resolve(__dirname, 'data', 'template.docx'),
     );
 
     const result = await generate({
