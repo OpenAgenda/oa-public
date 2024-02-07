@@ -123,7 +123,7 @@ module.exports = {
     "de": "Mindestens ein Element muss ausgewählt werden",
     "es": "Al menos un elemento debe seleccionarse",
     "br": "Ret eo diuzañ un elfenn da vihanañ",
-    "it": "Almeno una voce deve essere selezionata",
+    "it": "Almeno un'opzione deve essere selezionata",
     "io": "crwdns14056:0crwdne14056:0",
     "oc": "Cal seleccionar al mens un element"
   },

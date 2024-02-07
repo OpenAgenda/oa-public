@@ -1,9 +1,9 @@
 {
+  "callToAction": "Metre a jorn mon navigator ara",
   "close": "Tampar",
   "outOfDate": "Vòstre navigator es pas a jorn !",
-  "updateWeb": "Metètz a jorn vòstre navigator per veire aquel site coma cal. ",
-  "updateGooglePlay": "Mercés d'installar Chrome a partir de Google Play",
   "updateAppStore": "Mercés de metre a jorn iOs a partir de l'aplicacion de reglatges",
-  "url": "https://browser-update.org/update-browser.html",
-  "callToAction": "Metre a jorn mon navigator ara"
+  "updateGooglePlay": "Mercés d'installar Chrome a partir de Google Play",
+  "updateWeb": "Metètz a jorn vòstre navigator per veire aquel site coma cal. ",
+  "url": "https://browser-update.org/update-browser.html"
 }

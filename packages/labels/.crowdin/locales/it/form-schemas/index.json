@@ -1,10 +1,10 @@
 {
-  "required": "Campo obbligatorio",
+  "cancel": "Annulla",
   "groupErrorHeader": "Alcune voci devono essere corrette",
-  "submit": "Invia",
   "help": "Aiuto",
   "noChoice": "Nessuna scelta",
   "noOption": "Nessuna corrispondenza",
+  "required": "Campo obbligatorio",
   "selectPlaceholder": "Seleziona...",
-  "cancel": "Annulla"
+  "submit": "Invia"
 }

@@ -1,16 +1,16 @@
 {
-  "subject": "Invitación a {roleVerb} a \"{agenda}\"",
-  "contributorVerb": "contributir",
-  "moderatorVerb": "moderar",
-  "administratorVerb": "administrar",
-  "subjectForExistingMember": "Usted se convirtió en {role} del agenda \"{agenda}\"",
-  "signup": "Inscribirse",
-  "memberAction": "{role, select, administrator {Administra la agenda} moderator {Eventos moderados} contributor {Contribuir a la agenda} reader {Ver la agenda} other {}}",
   "administrator": "administrador",
-  "moderator": "moderador",
+  "administratorVerb": "administrar",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
   "contributor": "contribuyente",
+  "contributorVerb": "contributir",
+  "memberAction": "{role, select, administrator {Administra la agenda} moderator {Eventos moderados} contributor {Contribuir a la agenda} reader {Ver la agenda} other {}}",
+  "moderator": "moderador",
+  "moderatorVerb": "moderar",
   "reader": "lector",
+  "signup": "Inscribirse",
+  "subject": "Invitación a {roleVerb} a \"{agenda}\"",
+  "subjectForExistingMember": "Usted se convirtió en {role} del agenda \"{agenda}\"",
   "unsubscribe": "Dejar de recibir invitaciones",
-  "unsubscribeGuest": "Dejar de recibir correos electrónicos de OpenAgenda",
-  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+  "unsubscribeGuest": "Dejar de recibir correos electrónicos de OpenAgenda"
 }

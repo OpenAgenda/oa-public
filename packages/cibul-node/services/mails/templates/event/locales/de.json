@@ -1,9 +1,9 @@
 {
   "actionDescription": "Show-Event",
-  "timingsDetails": "Nähere Informationen zu den Terminen",
-  "timing": "von {from} bis {bis}",
   "book": "Buch",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
+  "timing": "von {from} bis {bis}",
+  "timingsDetails": "Nähere Informationen zu den Terminen",
   "unsubscribe": "Stop Veranstaltungen per E-Mail empfangen",
-  "unsubscribeGuest": "Stoppen Sie E-Mails von OpenAgenda Empfang",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "unsubscribeGuest": "Stoppen Sie E-Mails von OpenAgenda Empfang"
 }

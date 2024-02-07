@@ -1,7 +1,7 @@
 {
-  "title": "Die Kalender {agenda} hat Ihre Veranstaltung {event} veröffentlicht",
   "actionDescription": "Show-Event",
-  "unsubscribe": "Kein mehr Zustandanderung von meiner Veranstaltungen empfangen",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
   "memberUnsubscribe": "Erhalte keine Nachrichten mehr zur Statusänderung deiner Veranstaltungen in diesem Veranstaltungskalender",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "title": "Die Kalender {agenda} hat Ihre Veranstaltung {event} veröffentlicht",
+  "unsubscribe": "Kein mehr Zustandanderung von meiner Veranstaltungen empfangen"
 }

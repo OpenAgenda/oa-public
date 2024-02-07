@@ -455,7 +455,7 @@ module.exports = {
     "fr": "Agenda d'origine ( titre )",
     "de": "Origin Agenda (Titel)",
     "es": "Agenda original (título)",
-    "it": "agenda originale ( titolo )",
+    "it": "Agenda originale ( titolo )",
     "io": "crwdns14240:0crwdne14240:0",
     "oc": "Agenda d'origina (títol)"
   },
@@ -464,7 +464,7 @@ module.exports = {
     "fr": "Agenda d'origine ( uid )",
     "de": "Origin Kalender (uid)",
     "es": "agenda original (uid)",
-    "it": "Agenda originale ( uid )",
+    "it": "Agenda originale (UID)",
     "io": "crwdns14242:0crwdne14242:0",
     "oc": "Agenda d'origina (uid)"
   },

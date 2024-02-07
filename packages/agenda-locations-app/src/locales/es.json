@@ -24,6 +24,8 @@
   "AgendaLocations.LocationForm.imageInfo": "Seleccione sólo las imágenes para las que tenga una licencia válida.",
   "AgendaLocations.LocationForm.required": "Necesario",
   "AgendaLocations.LocationForm.string.tooshort": "El texto es demasiado corto",
+  "AgendaLocations.LocationForm.toolong": "El texto es demasiado largo",
+  "AgendaLocations.LocationForm.tooshort": "El texto es demasiado corto",
   "AgendaLocations.LocationForm.website": "Sitio web",
   "AgendaLocations.LocationItem.history": "Historia",
   "AgendaLocations.LocationItem.remove": "Borrar",

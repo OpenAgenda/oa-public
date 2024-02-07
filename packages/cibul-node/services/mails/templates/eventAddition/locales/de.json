@@ -1,8 +1,8 @@
 {
   "actionDescription": "Deine Veranstaltung hier ansehen",
-  "tocontrol": "kontrolliert werden",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
   "controlled": "bereit zu veröffentlichen",
   "published": "veröffentlicht",
   "refused": "verweigert",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "tocontrol": "kontrolliert werden"
 }

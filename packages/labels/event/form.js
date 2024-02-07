@@ -608,14 +608,16 @@ module.exports = {
     "en": "Selected",
     "de": "Auswählen",
     "oc": "Seleccionat",
-    "io": "crwdns33354:0crwdne33354:0"
+    "io": "crwdns33354:0crwdne33354:0",
+    "it": "Selezionato"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
     "en": "Not selected",
     "de": "Nicht ausgewählt",
     "oc": "Pas seleccionat",
-    "io": "crwdns33356:0crwdne33356:0"
+    "io": "crwdns33356:0crwdne33356:0",
+    "it": "Non selezionato"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",

@@ -1,12 +1,12 @@
 {
-  "title": "Nouvel événement sur {agenda}: {event}",
-  "body": "<b>{event}</b> a été créé sur l'agenda <b>{agenda}</b> avec le statut <b>{state}</b>.",
   "actionDescription": "Voir l'événement",
-  "tocontrol": "à contrôler",
+  "body": "<b>{event}</b> a été créé sur l'agenda <b>{agenda}</b> avec le statut <b>{state}</b>.",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
   "controlled": "prêt à être publié",
+  "memberUnsubscribe": "Ne plus recevoir les créations d'événement de cet agenda",
   "published": "publié",
   "refused": "refusé",
-  "unsubscribe": "Ne plus recevoir les créations d'événement",
-  "memberUnsubscribe": "Ne plus recevoir les créations d'événement de cet agenda",
-  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+  "title": "Nouvel événement sur {agenda}: {event}",
+  "tocontrol": "à contrôler",
+  "unsubscribe": "Ne plus recevoir les créations d'événement"
 }
