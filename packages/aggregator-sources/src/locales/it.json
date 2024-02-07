@@ -90,12 +90,14 @@
   "aggregator-sources.DefineRules.ruleDescription": "Una regola consiste in un filtro e/o azioni applicate ad ogni evento pubblicato sulla fonte.",
   "aggregator-sources.DefineRules.update": "Aggiorna",
   "aggregator-sources.EvaluateOptions.cancel": "Annulla",
+  "aggregator-sources.EvaluateOptions.evaluateOption0": "Aggregare solo gli eventi futuri",
   "aggregator-sources.EvaluateOptions.evaluateOption1": "Aggregare tutti i eventi, anche i passati",
   "aggregator-sources.RemoveSourceModal.cancel": "Annulla",
   "aggregator-sources.RemoveSourceModal.removeASource": "Rimuovere dai fonti",
   "aggregator-sources.RuleForm.choiceFilter": "Scegliere un filtro",
   "aggregator-sources.RuleForm.city": "Città",
   "aggregator-sources.RuleForm.department": "Provincia",
+  "aggregator-sources.RuleForm.emailPlaceholder": "Email",
   "aggregator-sources.RuleForm.locationFilter": "Filtro di localizzazione",
   "aggregator-sources.RuleForm.name": "Nome",
   "aggregator-sources.RuleForm.region": "Regione",
@@ -118,7 +120,5 @@
   "aggregator-sources.utils.stateMessages.state": "Stato",
   "aggregator-sources.utils.stateMessages.stateControlled": "Controllato",
   "aggregator-sources.utils.stateMessages.statePublished": "Pubblicato",
-  "aggregator-sources.utils.stateMessages.stateToControl": "Per controllare",
-  "aggregator-sources.RuleForm.emailPlaceholder": "Email",
-  "aggregator-sources.EvaluateOptions.evaluateOption0": "Aggregare solo gli eventi futuri"
+  "aggregator-sources.utils.stateMessages.stateToControl": "Per controllare"
 }

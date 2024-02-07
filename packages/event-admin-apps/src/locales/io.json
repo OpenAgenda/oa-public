@@ -53,6 +53,9 @@
   "EventAdminApp.EventItem.showOnlineLocation": "crwdns6060:0crwdne6060:0",
   "EventAdminApp.EventItem.unnamedMemberInfo": "crwdns16166:0crwdne16166:0",
   "EventAdminApp.FiltersPortal.filters": "crwdns16020:0crwdne16020:0",
+  "EventAdminApp.PassImage.edit": "crwdns33410:0crwdne33410:0",
+  "EventAdminApp.PassImage.link": "crwdns33412:0crwdne33412:0",
+  "EventAdminApp.PassImage.see": "crwdns33414:0crwdne33414:0",
   "EventAdminApp.RemoveModal.confirm": "crwdns818:0crwdne818:0",
   "EventAdminApp.RemoveModal.deleteDesc": "crwdns820:0crwdne820:0",
   "EventAdminApp.RemoveModal.deleteEvent": "crwdns822:0crwdne822:0",
@@ -79,8 +82,5 @@
   "EventAdminApp.messages.status.movedOnline": "crwdns16385:0crwdne16385:0",
   "EventAdminApp.messages.status.postponed": "crwdns16387:0crwdne16387:0",
   "EventAdminApp.messages.status.programmed": "crwdns16389:0crwdne16389:0",
-  "EventAdminApp.messages.status.rescheduled": "crwdns16391:0crwdne16391:0",
-  "EventAdminApp.PassImage.edit": "crwdns33410:0crwdne33410:0",
-  "EventAdminApp.PassImage.link": "crwdns33412:0crwdne33412:0",
-  "EventAdminApp.PassImage.see": "crwdns33414:0crwdne33414:0"
+  "EventAdminApp.messages.status.rescheduled": "crwdns16391:0crwdne16391:0"
 }

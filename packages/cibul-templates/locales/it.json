@@ -1,13 +1,5 @@
 {
-  "displayAdditionalFields.goToAdditionalFields": "vedere",
-  "event/contributor-section": "Collaboratore",
-  "event/contributor/edit": "Modificare",
-  "event/contributor/email": "Email",
-  "event/contributor/name": "Nome",
-  "event/contributor/organization": "Ragione sociale",
-  "event/contributor/position": "Ruolo",
-  "export-all-button": "Esportare",
-  "share-button": "Condividere su un altro OpenAgenda",
+  "cibulTemplates.displayContextBar.modifyAction": "Modificare",
   "common.event.fields.conditions": "Condizioni",
   "common.event.fields.keywords": "Parole Chiave",
   "common.event.fields.location": "Luogo",
@@ -19,5 +11,13 @@
   "common.event.states.refused": "Rifiutato",
   "common.roles.contributor": "Collaboratore",
   "common.roles.moderator": "Moderatore",
-  "cibulTemplates.displayContextBar.modifyAction": "Modificare"
+  "displayAdditionalFields.goToAdditionalFields": "vedere",
+  "event/contributor-section": "Collaboratore",
+  "event/contributor/edit": "Modificare",
+  "event/contributor/email": "Email",
+  "event/contributor/name": "Nome",
+  "event/contributor/organization": "Ragione sociale",
+  "event/contributor/position": "Ruolo",
+  "export-all-button": "Esportare",
+  "share-button": "Condividere su un altro OpenAgenda"
 }

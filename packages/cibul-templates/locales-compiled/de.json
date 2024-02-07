@@ -116,7 +116,7 @@
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Ort"
     }
   ],
   "common.event.fields.longDescription": [
