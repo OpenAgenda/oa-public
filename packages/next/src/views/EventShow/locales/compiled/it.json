@@ -2,7 +2,7 @@
   "next.views.EventShow.Activities.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Vedere di più"
     }
   ],
   "next.views.EventShow.AdditionalFields.noFile": [
@@ -50,7 +50,7 @@
   "next.views.EventShow.ContextBar.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatus": [
@@ -68,7 +68,7 @@
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
-      "value": "Delete"
+      "value": "Cancellare"
     }
   ],
   "next.views.EventShow.ContextBar.deleteConfirmation": [
@@ -92,19 +92,19 @@
   "next.views.EventShow.ContextBar.duplicate": [
     {
       "type": 0,
-      "value": "Duplicate"
+      "value": "Duplicare"
     }
   ],
   "next.views.EventShow.ContextBar.duplicateInfo": [
     {
       "type": 0,
-      "value": "Load a new event form pre-filled with the details from this event"
+      "value": "Carica un nuovo modulo di evento precompilato con i dettagli di questo evento"
     }
   ],
   "next.views.EventShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificare"
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -128,7 +128,7 @@
   "next.views.EventShow.ContextBar.markAsCancelledStatus": [
     {
       "type": 0,
-      "value": "The event has been permanently cancelled"
+      "value": "L'evento è annullato"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFull": [
@@ -140,7 +140,7 @@
   "next.views.EventShow.ContextBar.markAsFullStatus": [
     {
       "type": 0,
-      "value": "New participants are no longer accepted to the event"
+      "value": "I nuovi partecipanti non sono più accettati all'evento"
     }
   ],
   "next.views.EventShow.ContextBar.markAsMovedOnline": [
@@ -152,7 +152,7 @@
   "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
     {
       "type": 0,
-      "value": "The event will no longer be attended to at a physical location"
+      "value": "L'evento non è più proposto in presenza, ma oramai online"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponed": [
@@ -212,7 +212,7 @@
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "next.views.EventShow.ContextBar.removeConfirmation": [
@@ -254,13 +254,13 @@
   "next.views.EventShow.ContributorSection.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Collaboratore"
     }
   ],
   "next.views.EventShow.ContributorSection.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificare"
     }
   ],
   "next.views.EventShow.ContributorSection.privateInformation": [
@@ -284,31 +284,31 @@
   "next.views.EventShow.DuplicateModal.or": [
     {
       "type": 0,
-      "value": "Or"
+      "value": "Oppure"
     }
   ],
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+      "value": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
     {
       "type": 0,
-      "value": "Select an agenda"
+      "value": "Scegliere un agenda"
     }
   ],
   "next.views.EventShow.EditLocationButton.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "Modificare il luogo"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Chiudere"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -360,19 +360,19 @@
   "next.views.EventShow.Footer.help": [
     {
       "type": 0,
-      "value": "Help"
+      "value": "Aiuto"
     }
   ],
   "next.views.EventShow.Footer.termsOfUse": [
     {
       "type": 0,
-      "value": "Terms of use"
+      "value": "Modalità d'utilizzo"
     }
   ],
   "next.views.EventShow.Inbox.inbox": [
     {
       "type": 0,
-      "value": "Inbox"
+      "value": "Messaggi"
     }
   ],
   "next.views.EventShow.LocationHistory.locationHistory": [
@@ -414,7 +414,7 @@
   "next.views.EventShow.ShareModal.copy": [
     {
       "type": 0,
-      "value": "Copy"
+      "value": "Copia"
     }
   ],
   "next.views.EventShow.ShareModal.import": [
@@ -438,7 +438,7 @@
   "next.views.EventShow.ShareModal.others": [
     {
       "type": 0,
-      "value": "Others"
+      "value": "Altri"
     }
   ],
   "next.views.EventShow.ShareModal.selectTiming": [
@@ -492,13 +492,13 @@
   "next.views.EventShow.ShareModal.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Accedi"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,
-      "value": "Access the event online"
+      "value": "Accedere all'evento online"
     }
   ],
   "next.views.EventShow.Sidebar.accessPassOffer": [
@@ -516,13 +516,13 @@
   "next.views.EventShow.Sidebar.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condizioni"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
     {
       "type": 0,
-      "value": "Passed"
+      "value": "Passato"
     }
   ],
   "next.views.EventShow.Sidebar.registerBook": [
@@ -546,7 +546,7 @@
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
     {
       "type": 0,
-      "value": "Suggest a change on the location"
+      "value": "Suggerisci una modifica della posizione"
     }
   ],
   "next.views.EventShow.Timings.nextMonth": [

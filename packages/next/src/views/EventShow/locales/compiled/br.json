@@ -50,7 +50,7 @@
   "next.views.EventShow.ContextBar.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annuler"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatus": [
@@ -152,7 +152,7 @@
   "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
     {
       "type": 0,
-      "value": "The event will no longer be attended to at a physical location"
+      "value": "La participation de l'événement n'est désormais plus possible en présentiel"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponed": [
@@ -212,7 +212,7 @@
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Retirer"
     }
   ],
   "next.views.EventShow.ContextBar.removeConfirmation": [
@@ -360,7 +360,7 @@
   "next.views.EventShow.Footer.help": [
     {
       "type": 0,
-      "value": "Help"
+      "value": "Aide"
     }
   ],
   "next.views.EventShow.Footer.termsOfUse": [
@@ -438,7 +438,7 @@
   "next.views.EventShow.ShareModal.others": [
     {
       "type": 0,
-      "value": "Others"
+      "value": "Autres"
     }
   ],
   "next.views.EventShow.ShareModal.selectTiming": [
@@ -498,7 +498,7 @@
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,
-      "value": "Access the event online"
+      "value": "Accéder à l'événement en ligne"
     }
   ],
   "next.views.EventShow.Sidebar.accessPassOffer": [

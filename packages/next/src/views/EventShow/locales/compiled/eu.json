@@ -50,7 +50,7 @@
   "next.views.EventShow.ContextBar.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Anular"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatus": [
@@ -74,7 +74,7 @@
   "next.views.EventShow.ContextBar.deleteConfirmation": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete this event?"
+      "value": "¿Está seguro de que desea eliminar este evento?"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEvent": [
@@ -92,7 +92,7 @@
   "next.views.EventShow.ContextBar.duplicate": [
     {
       "type": 0,
-      "value": "Duplicate"
+      "value": "Duplicar"
     }
   ],
   "next.views.EventShow.ContextBar.duplicateInfo": [
@@ -182,7 +182,7 @@
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
-      "value": "Other actions"
+      "value": "Otras acciones"
     }
   ],
   "next.views.EventShow.ContextBar.otherActionsInfo": [
@@ -200,19 +200,19 @@
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
-      "value": "This event has been verified and is ready to be published"
+      "value": "El evento fue moderado y se fija para ser publicado"
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
     {
       "type": 0,
-      "value": "This event is not compatible with the agenda and should not be published"
+      "value": "Este evento no es compatible con el agenda y no será publicada"
     }
   ],
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Eliminar"
     }
   ],
   "next.views.EventShow.ContextBar.removeConfirmation": [
@@ -242,7 +242,7 @@
   "next.views.EventShow.ContextBar.toModerateInfo": [
     {
       "type": 0,
-      "value": "This event needs to be verified and is not ready for publication"
+      "value": "Este evento debe ser moderado y no está listo para ser publicado"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -254,7 +254,7 @@
   "next.views.EventShow.ContributorSection.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contribuyente"
     }
   ],
   "next.views.EventShow.ContributorSection.edit": [
@@ -272,25 +272,25 @@
   "next.views.EventShow.DuplicateModal.bigSentence": [
     {
       "type": 0,
-      "value": "You are about to create a new event based on a precedent."
+      "value": "Vas a crear un nuevo evento en la base de un precedente."
     }
   ],
   "next.views.EventShow.DuplicateModal.createNewEventIn": [
     {
       "type": 0,
-      "value": "Create the new event in"
+      "value": "Crear un nuevo evento en"
     }
   ],
   "next.views.EventShow.DuplicateModal.or": [
     {
       "type": 0,
-      "value": "Or"
+      "value": "O"
     }
   ],
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+      "value": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
@@ -302,13 +302,13 @@
   "next.views.EventShow.EditLocationButton.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "Editar lugar"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Cerca"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -372,7 +372,7 @@
   "next.views.EventShow.Inbox.inbox": [
     {
       "type": 0,
-      "value": "Inbox"
+      "value": "Mensajería"
     }
   ],
   "next.views.EventShow.LocationHistory.locationHistory": [
@@ -408,7 +408,7 @@
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,
-      "value": "Copied"
+      "value": "Copiado"
     }
   ],
   "next.views.EventShow.ShareModal.copy": [
@@ -492,7 +492,7 @@
   "next.views.EventShow.ShareModal.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
@@ -516,7 +516,7 @@
   "next.views.EventShow.Sidebar.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condiciones"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -534,7 +534,7 @@
   "next.views.EventShow.Sidebar.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Herramientas de registro"
     }
   ],
   "next.views.EventShow.Sidebar.share": [
@@ -570,19 +570,19 @@
   "next.views.EventShow.access": [
     {
       "type": 0,
-      "value": "Access"
+      "value": "Acceso"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contactar los administradores"
     }
   ],
   "next.views.EventShow.history": [
     {
       "type": 0,
-      "value": "History"
+      "value": "Historia"
     }
   ],
   "next.views.EventShow.moreLinks": [
@@ -594,7 +594,7 @@
   "next.views.EventShow.sendAnEmail": [
     {
       "type": 0,
-      "value": "Send an email"
+      "value": "Enviar un email"
     }
   ],
   "next.views.EventShow.tags": [

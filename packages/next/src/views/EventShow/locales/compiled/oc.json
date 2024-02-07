@@ -2,37 +2,37 @@
   "next.views.EventShow.Activities.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Ne véser mai"
     }
   ],
   "next.views.EventShow.AdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "No file is loaded"
+      "value": "Pas cap fichièr cargat"
     }
   ],
   "next.views.EventShow.AdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "No image is loaded"
+      "value": "Pas cap imatge cargat"
     }
   ],
   "next.views.EventShow.AdditionalFields.noInput": [
     {
       "type": 0,
-      "value": "No input"
+      "value": "Pas d'intrada"
     }
   ],
   "next.views.EventShow.AdditionalFields.noSelection": [
     {
       "type": 0,
-      "value": "No selection"
+      "value": "Pas cap seleccion"
     }
   ],
   "next.views.EventShow.AdditionalFields.restrictedInformation": [
     {
       "type": 0,
-      "value": "Restricted information"
+      "value": "Informacion restrencha"
     }
   ],
   "next.views.EventShow.AgendaHeader.showAllEvents": [
@@ -50,13 +50,13 @@
   "next.views.EventShow.ContextBar.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Anullar"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatus": [
     {
       "type": 0,
-      "value": "Clear the status of the event"
+      "value": "Escafar l'estatut de l'eveniment"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatusInfo": [
@@ -68,13 +68,13 @@
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
-      "value": "Delete"
+      "value": "Suprimir"
     }
   ],
   "next.views.EventShow.ContextBar.deleteConfirmation": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete this event?"
+      "value": "Sètz segur·a de voler suprimir aqueste eveniment ?"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEvent": [
@@ -92,19 +92,19 @@
   "next.views.EventShow.ContextBar.duplicate": [
     {
       "type": 0,
-      "value": "Duplicate"
+      "value": "Duplicar"
     }
   ],
   "next.views.EventShow.ContextBar.duplicateInfo": [
     {
       "type": 0,
-      "value": "Load a new event form pre-filled with the details from this event"
+      "value": "Cargar un novèl formulari de sasida preemplenat amb las informacions d'aqueste eveniment"
     }
   ],
   "next.views.EventShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificar"
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -122,25 +122,25 @@
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
-      "value": "The event is cancelled"
+      "value": "L'eveniment es anullat"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelledStatus": [
     {
       "type": 0,
-      "value": "The event has been permanently cancelled"
+      "value": "L'eveniment es estat definitivament anullat"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFull": [
     {
       "type": 0,
-      "value": "The event is fully booked"
+      "value": "L'eveniment es complèt"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFullStatus": [
     {
       "type": 0,
-      "value": "New participants are no longer accepted to the event"
+      "value": "Los participants novèls son pas pus acceptats a l'eveniment"
     }
   ],
   "next.views.EventShow.ContextBar.markAsMovedOnline": [
@@ -152,13 +152,13 @@
   "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
     {
       "type": 0,
-      "value": "The event will no longer be attended to at a physical location"
+      "value": "L'eveniment se debanarà pas mai en un lòc fisic"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponed": [
     {
       "type": 0,
-      "value": "The event is postponed"
+      "value": "L'eveniment es remandat"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponedStatus": [
@@ -170,7 +170,7 @@
   "next.views.EventShow.ContextBar.markAsRescheduled": [
     {
       "type": 0,
-      "value": "The event was rescheduled"
+      "value": "L'eveniment es estat reportat"
     }
   ],
   "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
@@ -182,7 +182,7 @@
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
-      "value": "Other actions"
+      "value": "Autras accions"
     }
   ],
   "next.views.EventShow.ContextBar.otherActionsInfo": [
@@ -200,19 +200,19 @@
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
-      "value": "This event has been verified and is ready to be published"
+      "value": "Aqueste eveniment es estat verificat e es prèste a èsser publicat"
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
     {
       "type": 0,
-      "value": "This event is not compatible with the agenda and should not be published"
+      "value": "Aqueste eveniment es pas compatible amb l'agenda e se deuriá pas publicar"
     }
   ],
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Suprimir"
     }
   ],
   "next.views.EventShow.ContextBar.removeConfirmation": [
@@ -230,7 +230,7 @@
   "next.views.EventShow.ContextBar.removeEventInfo": [
     {
       "type": 0,
-      "value": "The event will no longer be referenced on the agenda"
+      "value": "L'veniment serà pas pus referenciat sus l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -242,7 +242,7 @@
   "next.views.EventShow.ContextBar.toModerateInfo": [
     {
       "type": 0,
-      "value": "This event needs to be verified and is not ready for publication"
+      "value": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -254,61 +254,61 @@
   "next.views.EventShow.ContributorSection.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributor·a"
     }
   ],
   "next.views.EventShow.ContributorSection.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificar"
     }
   ],
   "next.views.EventShow.ContributorSection.privateInformation": [
     {
       "type": 0,
-      "value": "Private information"
+      "value": "Informacion privada"
     }
   ],
   "next.views.EventShow.DuplicateModal.bigSentence": [
     {
       "type": 0,
-      "value": "You are about to create a new event based on a precedent."
+      "value": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent."
     }
   ],
   "next.views.EventShow.DuplicateModal.createNewEventIn": [
     {
       "type": 0,
-      "value": "Create the new event in"
+      "value": "Crear l'eveniment novèl dins"
     }
   ],
   "next.views.EventShow.DuplicateModal.or": [
     {
       "type": 0,
-      "value": "Or"
+      "value": "O"
     }
   ],
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+      "value": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
     {
       "type": 0,
-      "value": "Select an agenda"
+      "value": "Causir una agenda"
     }
   ],
   "next.views.EventShow.EditLocationButton.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "Modificar lo lòc"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Tampar"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -360,25 +360,25 @@
   "next.views.EventShow.Footer.help": [
     {
       "type": 0,
-      "value": "Help"
+      "value": "Ajuda"
     }
   ],
   "next.views.EventShow.Footer.termsOfUse": [
     {
       "type": 0,
-      "value": "Terms of use"
+      "value": "Condicions d'utilizacion"
     }
   ],
   "next.views.EventShow.Inbox.inbox": [
     {
       "type": 0,
-      "value": "Inbox"
+      "value": "Messatjariá"
     }
   ],
   "next.views.EventShow.LocationHistory.locationHistory": [
     {
       "type": 0,
-      "value": "Location history"
+      "value": "Istoric dels lòcs"
     }
   ],
   "next.views.EventShow.LocationHistory.noActivity": [
@@ -408,19 +408,19 @@
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,
-      "value": "Copied"
+      "value": "Copiat"
     }
   ],
   "next.views.EventShow.ShareModal.copy": [
     {
       "type": 0,
-      "value": "Copy"
+      "value": "Copiar"
     }
   ],
   "next.views.EventShow.ShareModal.import": [
     {
       "type": 0,
-      "value": "Import"
+      "value": "Importar"
     }
   ],
   "next.views.EventShow.ShareModal.mustSignIn": [
@@ -438,7 +438,7 @@
   "next.views.EventShow.ShareModal.others": [
     {
       "type": 0,
-      "value": "Others"
+      "value": "Autres"
     }
   ],
   "next.views.EventShow.ShareModal.selectTiming": [
@@ -456,7 +456,7 @@
   "next.views.EventShow.ShareModal.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partatjar"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -474,7 +474,7 @@
   "next.views.EventShow.ShareModal.shareCalendar": [
     {
       "type": 0,
-      "value": "Import in a personal calendar"
+      "value": "Importar dins un calendièr personal"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -492,19 +492,19 @@
   "next.views.EventShow.ShareModal.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Se connectar"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,
-      "value": "Access the event online"
+      "value": "Accedir a l'eveniment en linha"
     }
   ],
   "next.views.EventShow.Sidebar.accessPassOffer": [
     {
       "type": 0,
-      "value": "Access the pass Culture offer"
+      "value": "Accedir a l'ofèrta pass Culture"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -516,13 +516,13 @@
   "next.views.EventShow.Sidebar.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condicions"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
     {
       "type": 0,
-      "value": "Passed"
+      "value": "Passat"
     }
   ],
   "next.views.EventShow.Sidebar.registerBook": [
@@ -534,13 +534,13 @@
   "next.views.EventShow.Sidebar.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Inscripcion"
     }
   ],
   "next.views.EventShow.Sidebar.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partatjar"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
@@ -570,19 +570,19 @@
   "next.views.EventShow.access": [
     {
       "type": 0,
-      "value": "Access"
+      "value": "Accès"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contactar los administrators"
     }
   ],
   "next.views.EventShow.history": [
     {
       "type": 0,
-      "value": "History"
+      "value": "Istòria"
     }
   ],
   "next.views.EventShow.moreLinks": [
@@ -594,13 +594,13 @@
   "next.views.EventShow.sendAnEmail": [
     {
       "type": 0,
-      "value": "Send an email"
+      "value": "Mandar un email"
     }
   ],
   "next.views.EventShow.tags": [
     {
       "type": 0,
-      "value": "Tags"
+      "value": "Etiquetas"
     }
   ]
 }

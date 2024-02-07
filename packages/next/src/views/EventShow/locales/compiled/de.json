@@ -2,7 +2,7 @@
   "next.views.EventShow.Activities.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Mehr sehen"
     }
   ],
   "next.views.EventShow.AdditionalFields.noFile": [
@@ -308,7 +308,7 @@
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -360,13 +360,13 @@
   "next.views.EventShow.Footer.help": [
     {
       "type": 0,
-      "value": "Help"
+      "value": "Hilfe"
     }
   ],
   "next.views.EventShow.Footer.termsOfUse": [
     {
       "type": 0,
-      "value": "Terms of use"
+      "value": "Nutzungbestimmungen"
     }
   ],
   "next.views.EventShow.Inbox.inbox": [
@@ -456,7 +456,7 @@
   "next.views.EventShow.ShareModal.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "teilen"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -492,7 +492,7 @@
   "next.views.EventShow.ShareModal.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
@@ -540,7 +540,7 @@
   "next.views.EventShow.Sidebar.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "teilen"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
