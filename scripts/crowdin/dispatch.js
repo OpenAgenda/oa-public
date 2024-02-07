@@ -30,6 +30,15 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function sortObj(obj) {
+  return Object.keys(obj)
+    .sort()
+    .reduce((accu, key) => {
+      accu[key] = obj[key];
+      return accu;
+    }, {});
+}
+
 async function downloadFile(url, to) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(to);
@@ -127,10 +136,10 @@ async function downloadFile(url, to) {
     const end = rawProjectLabels.slice(rawProjectLabels.lastIndexOf('}') + 1);
     const projectLabels = JSON.parse(rawProjectLabels);
 
-    const labels = {
+    const labels = sortObj({
       ...projectLabels,
       ...crowdinLabels,
-    };
+    });
 
     fs.writeFileSync(path.join(PROJECT, root, filePath), `${start}${JSON.stringify(labels, null, 2)}${end}`);
   }
