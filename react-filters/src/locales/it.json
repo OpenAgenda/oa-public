@@ -33,6 +33,7 @@
   "ReactFilters.messages.filterTitles.locationUid": "Luogo",
   "ReactFilters.messages.filterTitles.memberUid": "Membro",
   "ReactFilters.messages.filterTitles.region": "Regione",
+  "ReactFilters.messages.filterTitles.relative": "Passati / in corso / futuri",
   "ReactFilters.messages.filterTitles.state": "Stato",
   "ReactFilters.messages.filterTitles.status": "Stato",
   "ReactFilters.messages.filterTitles.timings": "Orari",
@@ -54,6 +55,5 @@
   "ReactFilters.messages.status.postponed": "Riprogrammato",
   "ReactFilters.messages.status.programmed": "Programmato",
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
-  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
-  "ReactFilters.messages.filterTitles.relative": "Passati / in corso / futuri"
+  "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)"
 }
