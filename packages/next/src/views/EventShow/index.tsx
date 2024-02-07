@@ -26,7 +26,6 @@ import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
-import useMatomoTracker from 'hooks/useMatomoTracker';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
@@ -65,7 +64,6 @@ function EventShow({ preload }: EventShowProps) {
   const dateFnsLocale = useDateFnsLocale();
   const agenda = useAgenda();
 
-  useMatomoTracker();
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
   const mailtoSettings = agenda.settings?.inbox?.mailto;

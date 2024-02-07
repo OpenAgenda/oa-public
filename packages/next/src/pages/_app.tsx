@@ -6,6 +6,7 @@ import { Cookies } from 'react-cookie';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import getPreferredLocale from 'utils/getPreferredLocale';
+import useMatomoTracker from 'hooks/useMatomoTracker';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
@@ -57,6 +58,8 @@ function MyApp({
   const locale = getPreferredLocale(router.query.lang, router.locale, sessionLocale);
 
   useForceHtmlLangAttribute(locale);
+
+  useMatomoTracker();
 
   return (
     <>
