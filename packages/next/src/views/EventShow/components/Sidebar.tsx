@@ -20,12 +20,12 @@ import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 
 import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
+import { sidebar as messages } from '../messages';
 import Timings from './Timings';
 import References from './References';
 import Map from './Map';
 import ShareModal from './ShareModal';
 import EmailConfirmationAlert from './EmailConfirmationAlert';
-import { sidebar as messages } from '../messages';
 
 function getRegistrationIcon(type: string) {
   switch (type) {
