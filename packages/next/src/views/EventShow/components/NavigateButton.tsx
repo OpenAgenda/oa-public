@@ -43,6 +43,10 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     })}`);
   };
 
+  if (!query.nc) {
+    return null;
+  }
+
   const isVisible = (direction === 'previous' && !query.nc?.first)
     || (direction === 'next' && !query.nc?.last);
 
