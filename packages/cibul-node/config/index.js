@@ -360,9 +360,9 @@ const config = {
         method: 'get',
         uri: '/:slug/admin/events',
       },
-      agendaEventAdminNavigate: {
+      agendaEventNavigate: {
         method: 'get',
-        uri: '/:slug/admin/events/navigate',
+        uri: '/:slug/navigate',
       },
       signup: {
         method: 'get',
