@@ -7,4 +7,4 @@ create table if not exists usage_counter (
   end datetime not null,
   store longtext,
   primary key (id)
-) engine=InnoDB default character set utf8 collate utf8_general_ci;
+) engine=InnoDB default character set utf8mb4 collate utf8mb4_0900_ai_ci;

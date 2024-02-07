@@ -16,5 +16,14 @@
         ]
       }
     ]
-  }
+  },
+
+  "overrides": [{
+    "files": [
+      "**/*.js"
+    ],
+    "rules": {
+      "import/extensions": ["error", "ignorePackages"]
+    }
+  }]
 }

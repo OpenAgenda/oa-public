@@ -1,9 +1,9 @@
 import redis from 'redis';
-import increment from '../increment';
-import createRedisKey from '../utils/createRedisKey';
-import clearRedisKeys from '../clearRedisKeys';
-import config from '../testconfig';
-import fixtures from './fixtures';
+import increment from '../increment.js';
+import createRedisKey from '../utils/createRedisKey.js';
+import clearRedisKeys from '../clearRedisKeys.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
 describe('increment', () => {
   const f = fixtures(config.mysql);
