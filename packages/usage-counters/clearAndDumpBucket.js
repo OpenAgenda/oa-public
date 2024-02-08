@@ -22,10 +22,13 @@ const splitKey = key => {
 };
 
 export default async function clearAndDumpBucket(internals, key, value) {
-  log.info('clearAndDumpBucket', { key, value });
   const { knexClient, redisClient, setKey } = internals;
 
   const { actorNamespace, actorIdentifier, targetNamespace } = splitKey(key);
+  log.info('clearAndDumpBucket', {
+    key: { actorNamespace, actorIdentifier, targetNamespace },
+    value,
+  });
 
   redisClient.sRem(setKey, key);
   redisClient.del(key);
