@@ -115,7 +115,7 @@ function EventShow({ preload }: EventShowProps) {
 
   return (
     <>
-      <Metas preload={preload} />
+      <Metas preload={preload} contentLocale={contentLocale} />
 
       {displayContextBar ? (
         <Box pos="sticky" top="0" zIndex="sticky">
