@@ -26,7 +26,10 @@ export default async function clearAndDumpBucket(internals, key, value) {
 
   const { actorNamespace, actorIdentifier, targetNamespace } = splitKey(key);
   log.info('clearAndDumpBucket', {
-    key: { actorNamespace, actorIdentifier, targetNamespace },
+    key,
+    actorNamespace,
+    actorIdentifier,
+    targetNamespace,
     value,
   });
 
