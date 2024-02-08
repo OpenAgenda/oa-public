@@ -44,6 +44,7 @@ import NavigateButton from './components/NavigateButton';
 import SuggestLocationChangeButton from './components/SuggestLocationChangeButton';
 import EditLocationButton from './components/EditLocationButton';
 import LocationHistory from './components/LocationHistory';
+import LdJson from './components/LdJson';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import useEvent from './hooks/useEvent';
@@ -517,6 +518,8 @@ function EventShow({ preload }: EventShowProps) {
       {needConsentFor ? (
         <ConsentBanner consentFor={needConsentFor} />
       ) : null}
+
+      <LdJson />
 
       {/* <div>
         <h1>Une autre page NextJs</h1>
