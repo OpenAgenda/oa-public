@@ -17,11 +17,11 @@ const typesWithIcons = [
 function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
   const { intl, simulate = false } = options;
 
-  const { base } = params;
+  const { fontSize } = params;
 
   return addText(doc, cursor, `${intl.formatMessage(messages.registration)}:`, {
     underline: true,
-    base,
+    fontSize,
     medium: true,
     simulate,
   });
@@ -43,7 +43,7 @@ const addRegistrationItem = (
   params = {},
   options = {},
 ) => {
-  const { base, iconHeightAndWidth } = params;
+  const { base, iconHeightAndWidth, fontSize, margin } = params;
 
   const { simulate = false } = options;
 
@@ -56,14 +56,14 @@ const addRegistrationItem = (
 
   addIcon(doc, iconPath, localCursor, iconHeightAndWidth, { simulate });
 
-  localCursor.x += iconHeightAndWidth + base.margin / 3;
+  localCursor.x += iconHeightAndWidth + margin;
 
   const linkPrefix = type === 'email' ? 'mailto:' : '';
 
   localCursor.y -= base.margin / 8;
 
   const reg = addText(doc, localCursor, label, {
-    fontSize: 10,
+    fontSize,
     underline: false,
     link: type !== 'phone' ? linkPrefix + registrationItem.value : undefined,
     base,
@@ -74,7 +74,7 @@ const addRegistrationItem = (
   heightOfReg = reg.height;
 
   return {
-    width: iconHeightAndWidth + base.margin / 3 + widthOfReg,
+    width: iconHeightAndWidth + margin + widthOfReg,
     height: Math.max(iconHeightAndWidth, heightOfReg),
   };
 };
@@ -86,7 +86,7 @@ export default function addRegistration(
   params = {},
   options = {},
 ) {
-  const { base, iconHeightAndWidth } = params;
+  const { base, iconHeightAndWidth, fontSize, margin } = params;
 
   const { simulate = false } = options;
 
@@ -108,18 +108,21 @@ export default function addRegistration(
     localCursor,
     params,
     options,
+    {
+      fontSize,
+    },
   );
 
-  localCursor.x += widthOfRegistrationLabel + base.margin / 3;
+  localCursor.x += widthOfRegistrationLabel + margin;
 
   const { height: lineHeight } = addText(doc, cursor, '.', {
-    fontSize: 10,
+    fontSize,
     simulate: true,
   });
 
   let height = lineHeight;
 
-  let remainingWidth = columnWidth - widthOfRegistrationLabel - base.margin / 3;
+  let remainingWidth = columnWidth - widthOfRegistrationLabel - margin;
 
   let isMultiline = false;
 
@@ -127,11 +130,14 @@ export default function addRegistration(
     const truncatedLabel = getTruncatedLabel(
       doc,
       localCursor,
-      remainingWidth - iconHeightAndWidth - base.margin / 3,
+      remainingWidth - iconHeightAndWidth - margin,
       registrationItem.value,
+      {
+        fontSize,
+      },
     );
 
-    const minRemainingWidth = (truncatedLabel.width + iconHeightAndWidth + (base.margin / 3) * 2) / 2;
+    const minRemainingWidth = (truncatedLabel.width + iconHeightAndWidth + margin * 2) / 2;
 
     const reg = addRegistrationItem(
       doc,
@@ -141,6 +147,8 @@ export default function addRegistration(
       {
         base,
         iconHeightAndWidth,
+        fontSize,
+        margin,
       },
       { simulate },
     );
@@ -149,11 +157,10 @@ export default function addRegistration(
       break;
     }
 
-    const isReachingEndofLine = remainingWidth - reg.width - base.margin / 3 < minRemainingWidth;
-
+    const isReachingEndofLine = remainingWidth - reg.width - margin < minRemainingWidth;
     if (!isReachingEndofLine) {
-      localCursor.x += truncatedLabel.width + base.margin / 3;
-      remainingWidth = remainingWidth - reg.width - base.margin / 3;
+      localCursor.x += truncatedLabel.width + margin;
+      remainingWidth = remainingWidth - reg.width - margin;
       continue;
     }
 
