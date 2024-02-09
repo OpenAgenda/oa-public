@@ -12,8 +12,9 @@ export default async function addDocumentHeader(
     base = {
       margin: 20,
       color: '#413a42',
-      fontSize: 10,
     },
+    little,
+    medium,
   } = options;
 
   const localCursor = {
@@ -23,20 +24,35 @@ export default async function addDocumentHeader(
 
   let heightOfSimulateTitle = null;
   let widthOfSimulateTitle = null;
-  let imageHeight = 0;
-  let imageWidth = null;
   let heightOfTitle = null;
   let widthOfTitle = null;
+  let logoHeight = 0;
+  let logoWidth = null;
+  let fontSize;
+  let logoHeightAndWidth;
+  let margin;
 
-  const logoHeightAndWidth = 25;
-
+  if (little) {
+    fontSize = 8;
+    logoHeightAndWidth = 15;
+    margin = base.margin / 6;
+  } else if (medium) {
+    fontSize = 9;
+    logoHeightAndWidth = 20;
+    margin = base.margin / 4;
+  } else {
+    fontSize = 10;
+    logoHeightAndWidth = 25;
+    margin = base.margin / 2;
+  }
+  localCursor.y = 0;
   localCursor.y += base.margin / 6;
 
-  const titleMaxWidth = doc.page.width - base.margin * 9;
+  const titleMaxWidth = doc.page.width - base.margin * 6 - logoHeightAndWidth - margin;
 
   const simulateTitle = addText(doc, localCursor, agenda.title, {
     width: titleMaxWidth,
-    fontSize: 10,
+    fontSize,
     base,
     simulate: true,
   });
@@ -48,12 +64,9 @@ export default async function addDocumentHeader(
       widthOfSimulateTitle = titleMaxWidth;
     }
 
-    localCursor.x = (doc.page.width
-        - (imageWidth
-          + base.margin * 2
-          + base.margin / 2
-          + widthOfSimulateTitle))
-      / 2;
+    const headerIconText = logoHeightAndWidth + margin + widthOfSimulateTitle;
+
+    localCursor.x = (doc.page.width - headerIconText) / 2;
 
     const logo = await addAgendaLogo(
       doc,
@@ -62,31 +75,30 @@ export default async function addDocumentHeader(
       logoHeightAndWidth,
     );
 
-    imageHeight = logo.height;
-    imageWidth = logo.width;
+    logoHeight = logo.height;
+    logoWidth = logo.width;
 
-    if (heightOfSimulateTitle > 15) {
-      localCursor.y
-        += (imageHeight - heightOfSimulateTitle) / 2 + base.margin / 6;
+    if (heightOfSimulateTitle < logoHeight) {
+      localCursor.y += (logoHeight - heightOfSimulateTitle) / 2;
     } else {
-      localCursor.y += logo.height / 3;
+      localCursor.y = 0;
     }
   }
 
-  localCursor.x += imageWidth + base.margin / 2;
+  localCursor.x += logoWidth + margin;
 
   const title = addText(doc, localCursor, agenda.title, {
     width: titleMaxWidth,
-    fontSize: 10,
+    fontSize,
     base,
   });
 
   heightOfTitle = title.height;
   widthOfTitle = title.width;
 
-  const totalWidth = imageWidth + widthOfTitle + base.margin * 3;
+  const totalWidth = logoWidth + widthOfTitle + base.margin * 3;
 
-  localCursor.y = cursor.y + Math.max(heightOfTitle, imageHeight) + (base.margin / 6) * 2;
+  localCursor.y = Math.max(heightOfTitle, logoHeight + base.margin / 6) + base.margin / 6;
   localCursor.x = base.margin * 3;
 
   const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
@@ -98,7 +110,7 @@ export default async function addDocumentHeader(
 
   return {
     width: totalWidth,
-    height: Math.max(imageHeight, localCursor.y - cursor.y),
+    height: Math.max(logoHeight, localCursor.y - cursor.y),
     cursor: localCursor,
   };
 }

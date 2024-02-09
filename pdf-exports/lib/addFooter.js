@@ -7,6 +7,7 @@ export default function addFooter(doc, text, bottomMargin, options = {}) {
       fontSize: 10,
     },
     simulate = false,
+    fontSize,
   } = options;
 
   const yPosition = doc.page.height - bottomMargin;
@@ -14,6 +15,7 @@ export default function addFooter(doc, text, bottomMargin, options = {}) {
   addText(doc, { x: 0, y: yPosition }, text, {
     width: doc.page.width,
     base,
+    fontSize,
     align: 'center',
     simulate,
   });
