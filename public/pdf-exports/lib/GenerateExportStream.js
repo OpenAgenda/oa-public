@@ -12,7 +12,13 @@ export default async function GenerateExportStream(
   writeStream,
   options = {},
 ) {
-  const { agenda, lang = 'fr' } = options;
+  const {
+    agenda,
+    lang = 'fr',
+    includeEventImages = true,
+    little,
+    medium,
+  } = options;
 
   const intl = getIntl(lang);
 
@@ -23,6 +29,15 @@ export default async function GenerateExportStream(
 
   let pageNumber = 1;
   let simulateFooterHeight = null;
+  let fontSize;
+
+  if (little) {
+    fontSize = 8;
+  } else if (medium) {
+    fontSize = 9;
+  } else {
+    fontSize = 10;
+  }
 
   cursor.x += margin;
 
@@ -30,27 +45,37 @@ export default async function GenerateExportStream(
     agenda,
     doc,
     cursor,
+    {
+      little,
+      medium,
+    },
   );
   cursor.y += documentHeaderHeight + margin;
 
   const simulateFooter = addFooter(doc, `Page ${pageNumber}`, margin, {
     simulate: true,
+    fontSize,
   });
   simulateFooterHeight = simulateFooter.height;
-
-  addFooter(doc, `Page ${pageNumber}`, margin);
 
   eventStream.on('end', () => doc.end());
 
   doc.pipe(writeStream);
 
+  let currentPageNumber = 0;
+
   for await (const event of eventStream) {
+    if (pageNumber !== currentPageNumber) {
+      currentPageNumber = pageNumber;
+      addFooter(doc, `Page ${pageNumber}`, margin, { fontSize });
+    }
+
     const { height: simulatedHeight } = await addEventItem(
       agenda,
       event,
       doc,
       cursor,
-      { simulate: true, intl, lang },
+      { simulate: true, intl, lang, includeEventImages, little, medium },
     );
 
     if (
@@ -62,6 +87,10 @@ export default async function GenerateExportStream(
         agenda,
         doc,
         cursor,
+        {
+          little,
+          medium,
+        },
       );
       cursor.y += pageHeaderHeight + margin;
       pageNumber += 1;
@@ -73,7 +102,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      { intl, lang },
+      { intl, lang, includeEventImages, little, medium },
     );
 
     cursor.y += eventItemHeight;
