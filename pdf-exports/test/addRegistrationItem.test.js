@@ -1,13 +1,10 @@
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addRegistration from '../lib/addRegistration.js';
+import getIntl from '../lib/intl.js';
 import eventData from './fixtures/registrationItem/events.json' assert { type: 'json' };
 
 const { PDF_TEST_FOLDER: pdfTestFolder } = process.env;
-
-const lang = 'fr';
 
 const cursor = { x: 0, y: 0 };
 const localCursor = {
@@ -18,15 +15,6 @@ const localCursor = {
 let heightOfRegistration = null;
 
 const imageWidth = 90;
-
-const iconHeightAndWidth = 10;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const emailIconPath = `${__dirname}/../images/email.png`;
-const phoneIconPath = `${__dirname}/../images/phone.png`;
-const linkIconPath = `${__dirname}/../images/link.png`;
 
 (async (options = {}) => {
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
@@ -41,7 +29,30 @@ const linkIconPath = `${__dirname}/../images/link.png`;
       fontSize: 10,
     },
     simulate = false,
+    lang = 'fr',
+    little,
+    medium,
   } = options;
+
+  const intl = getIntl(lang);
+
+  let iconHeightAndWidth;
+  let fontSize;
+  let margin;
+
+  if (little) {
+    fontSize = 8;
+    iconHeightAndWidth = 8;
+    margin = base.margin / 5;
+  } else if (medium) {
+    fontSize = 9;
+    iconHeightAndWidth = 9;
+    margin = base.margin / 4;
+  } else {
+    fontSize = 10;
+    iconHeightAndWidth = 10;
+    margin = base.margin / 3;
+  }
 
   doc.pipe(writeStream);
 
@@ -51,16 +62,17 @@ const linkIconPath = `${__dirname}/../images/link.png`;
     const registration = addRegistration(
       doc,
       event,
-      localCursor,
+      cursor,
       {
         base,
         iconHeightAndWidth,
-        emailIconPath,
-        phoneIconPath,
-        linkIconPath,
-        imageWidth,
+        fontSize,
+        margin,
       },
-      { simulate, lang },
+      {
+        simulate,
+        intl,
+      },
     );
 
     heightOfRegistration = registration.height;

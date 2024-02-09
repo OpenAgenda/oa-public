@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addEventItem from '../lib/addEventItem.js';
 import cursorYOverflowing from '../lib/cursorYOverflowing.js';
+import getIntl from '../lib/intl.js';
 import loadAgendaData from './lib/loadAgendaData.js';
 import loadEventData from './lib/loadEventData.js';
 import lorem from './fixtures/lorem.json' assert { type: 'json' };
@@ -14,12 +15,11 @@ const {
 
 const cursor = { x: 0, y: 0 };
 const margin = 20;
-const lang = 'fr';
 
 cursor.x += margin;
 cursor.y += margin;
 
-(async () => {
+(async (options = {}) => {
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
   const writeStream = fs.createWriteStream(
     `${pdfTestFolder}/pdfTestEventItem.pdf`,
@@ -36,16 +36,25 @@ cursor.y += margin;
     }),
   );
 
+  const { lang = 'fr', includeEventImages = true, little, medium } = options;
+  const intl = getIntl(lang);
+
   const simulateFooterHeight = null;
 
   for (const event of eventData) {
     const { height: simulatedHeight } = await addEventItem(
       agenda,
       event,
-      lang,
       doc,
       cursor,
-      { simulate: true },
+      {
+        simulate: true,
+        intl,
+        lang,
+        includeEventImages,
+        little,
+        medium,
+      },
     );
 
     if (
@@ -55,9 +64,14 @@ cursor.y += margin;
       cursor.y = margin;
     }
 
-    const { height } = await addEventItem(agenda, event, lang, doc, cursor);
+    const { height } = await addEventItem(agenda, event, doc, cursor, {
+      intl,
+      lang,
+      includeEventImages,
+      little,
+      medium,
+    });
     cursor.y += height;
   }
-
   doc.end();
 })();

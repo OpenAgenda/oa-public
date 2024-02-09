@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
+import getIntl from '../lib/intl.js';
 import addRegistration from '../lib/addRegistration.js';
 import loadEventData from './lib/loadEventData.js';
 
@@ -20,10 +21,27 @@ const {
     },
   } = params;
 
-  const { simulate = false } = options;
+  const { simulate = false, lang = 'fr', little, medium } = options;
 
-  const iconHeightAndWidth = 10;
-  const imageWidth = 90;
+  const intl = getIntl(lang);
+
+  let iconHeightAndWidth;
+  let fontSize;
+  let margin;
+
+  if (little) {
+    fontSize = 8;
+    iconHeightAndWidth = 8;
+    margin = base.margin / 5;
+  } else if (medium) {
+    fontSize = 9;
+    iconHeightAndWidth = 9;
+    margin = base.margin / 4;
+  } else {
+    fontSize = 10;
+    iconHeightAndWidth = 10;
+    margin = base.margin / 3;
+  }
 
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
@@ -43,9 +61,13 @@ const {
       {
         base,
         iconHeightAndWidth,
-        imageWidth,
+        fontSize,
+        margin,
       },
-      { simulate },
+      {
+        simulate,
+        intl,
+      },
     );
     cursor.y += base.margin * 2;
   }
