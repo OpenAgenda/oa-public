@@ -2,11 +2,11 @@
 
 module.exports = (k, nav, options = {}) => {
   const {
-    after, offset, limit, order
+    after, offset, limit, order,
   } = nav;
 
   const {
-    stream: streamOptions
+    stream: streamOptions,
   } = options;
 
   const orderParts = order.split('.');

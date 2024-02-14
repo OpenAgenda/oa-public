@@ -9,5 +9,5 @@ module.exports = (location, access = 'public') => fields
       ...filtered,
       [field.field]: location[field.field],
     }),
-    {}
+    {},
   );

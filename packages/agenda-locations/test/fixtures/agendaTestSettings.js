@@ -28,8 +28,8 @@ module.exports = {
       fr: 'Saisissez le nom du lieu de l’événement',
     },
     namePlaceholder: {
-      fr: 'Ex : Ministère de la Culture',
-      en: 'Ex : Ministry of culture',
+      fr: 'Ex : Ministère de la Culture',
+      en: 'Ex : Ministry of culture',
     },
     addressInfo: {
       en:

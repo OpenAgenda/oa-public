@@ -2,12 +2,12 @@
 
 const Files = require('@openagenda/files');
 
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 const initSettings = require('./fixtures/agendaTestSettings');
@@ -16,7 +16,7 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const initSettingsDA = {
@@ -25,8 +25,8 @@ const initSettingsDA = {
     create: defaultAccess,
     delete: defaultAccess,
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 const initSettingsCantRemove = {
@@ -35,8 +35,8 @@ const initSettingsCantRemove = {
     create: { ...defaultAccess, authorized: false },
     delete: { ...defaultAccess, authorized: false },
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 describe('agenda-locations - functional - remove', () => {
@@ -61,7 +61,7 @@ describe('agenda-locations - functional - remove', () => {
         beforeRemove: async l => {
           passedToInterface = l;
         },
-        getAgendaLocationSettings: async _uid => initSettingsDA
+        getAgendaLocationSettings: async _uid => initSettingsDA,
       },
     });
   });
@@ -90,7 +90,7 @@ describe('agenda-locations - functional - remove', () => {
       'removed location is passed to interface before it is removed',
       async () => {
         expect(passedToInterface && passedToInterface.uid).toEqual(95301591);
-      }
+      },
     );
   });
 
@@ -149,7 +149,7 @@ describe('agenda-locations - functional - remove - no rights', () => {
           const passedToInterface = l;
           return passedToInterface;
         },
-        getAgendaLocationSettings: async _uid => initSettingsCantRemove
+        getAgendaLocationSettings: async _uid => initSettingsCantRemove,
       },
     });
   });

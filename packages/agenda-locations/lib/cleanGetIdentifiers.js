@@ -10,7 +10,7 @@ const { BadRequest } = require('@openagenda/verror');
 
 const validate = schema({
   slug: {
-    type: 'text'
+    type: 'text',
   },
   uid: {
     type: 'integer',
@@ -27,7 +27,7 @@ module.exports = identifiers => {
         ? {
           uid: identifiers,
         }
-        : identifiers
+        : identifiers,
     );
     const getFieldName = Object.keys(clean)
       .filter(f => !!clean[f])

@@ -1,12 +1,12 @@
 'use strict';
 
 const Files = require('@openagenda/files');
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 describe('agenda-locations - functional - sets list', () => {
@@ -30,14 +30,14 @@ describe('agenda-locations - functional - sets list', () => {
     expect(sets).toStrictEqual([
       {
         uid: 1903810,
-        title: 'Les lieux du département Ardèchois'
+        title: 'Les lieux du département Ardèchois',
       }, {
         uid: 1903811,
-        title: 'Les autres lieux du département Ardèchois'
+        title: 'Les autres lieux du département Ardèchois',
       }, {
         uid: 1903812,
-        title: 'Les lieux du Bouchonnois'
-      }
+        title: 'Les lieux du Bouchonnois',
+      },
     ]);
   });
 });

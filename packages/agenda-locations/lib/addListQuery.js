@@ -27,7 +27,7 @@ const validate = schema({
   },
   updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce((updatedAt, op) => ({
     ...updatedAt,
-    [op]: { type: 'date' }
+    [op]: { type: 'date' },
   }), {}),
   uids: {
     type: 'integer',
@@ -47,25 +47,25 @@ const validate = schema({
         optional: false,
         fields: {
           lat: {
-            type: 'latitude'
+            type: 'latitude',
           },
           lng: {
-            type: 'longitude'
-          }
-        }
+            type: 'longitude',
+          },
+        },
       },
       southWest: {
         optional: false,
         fields: {
           lat: {
-            type: 'latitude'
+            type: 'latitude',
           },
           lng: {
-            type: 'longitude'
-          }
-        }
-      }
-    }
+            type: 'longitude',
+          },
+        },
+      },
+    },
   },
   hasNull: {
     type: 'text',
@@ -110,9 +110,9 @@ module.exports = async (service, k, deleted, query) => {
   Object.keys(updatedAt)
     .filter(op => !!updatedAt[op])
     .forEach(op => {
-      k.where('updated_at', ({
-        gt: '>', gte: '>=', lt: '<', lte: '<='
-      })[op], updatedAt[op]);
+      k.where('updated_at', {
+        gt: '>', gte: '>=', lt: '<', lte: '<=',
+      }[op], updatedAt[op]);
     });
 
   if (uids) {

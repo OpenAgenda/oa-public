@@ -3,7 +3,7 @@
 module.exports = countryCode => {
   if (
     ['fr', 'ch', 'be', 'lu', 'ga', 'sn', 'dz'].includes(
-      (countryCode || '').toLowerCase()
+      (countryCode || '').toLowerCase(),
     )
   ) {
     return 'fr';

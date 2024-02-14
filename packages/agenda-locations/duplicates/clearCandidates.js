@@ -6,7 +6,7 @@ async function clearCandidates(endpoints) {
   while (after !== -1) {
     const {
       after: nextAfter,
-      items: locations
+      items: locations,
     } = await endpoints.list({}, { after });
 
     if (!locations.length) {

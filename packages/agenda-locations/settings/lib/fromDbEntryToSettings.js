@@ -7,13 +7,13 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 function clean(entrySettings, options) {
   const settings = {
-    ...(options.defaultSettings || {}),
-    ..._.omit(entrySettings, ['agendas'])
+    ...options.defaultSettings || {},
+    ..._.omit(entrySettings, ['agendas']),
   };
 
   if (options.lang && settings?.tagSet) {
@@ -28,7 +28,7 @@ function clean(entrySettings, options) {
   if (Array.isArray(entrySettings.agendas)) {
     settings.agendas = entrySettings.agendas.map(s => clean(s, {
       ..._.omit(options, ['agendaUid']),
-      defaultSettings: settings
+      defaultSettings: settings,
     }));
   }
 

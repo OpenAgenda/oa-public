@@ -2,13 +2,13 @@
 
 const slug = require('slugify');
 const { NotFound } = require('@openagenda/verror');
+const log = require('@openagenda/logs')('create');
 const cleanOptions = require('./lib/cleanSetOptions');
 const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
 const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
 const legacy = require('./lib/legacy');
-const log = require('@openagenda/logs')('create');
 
 async function create(service, data, options = {}) {
   log('received %j payload with options %j', data.name, options);
@@ -16,12 +16,12 @@ async function create(service, data, options = {}) {
   await authorize(service, 'create', null, options);
 
   const { endpointId, includeImagePath, geocodeIfUndefined } = cleanOptions(
-    options
+    options,
   );
 
   const clean = {
     ...validate(
-      geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data
+      geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data,
     ),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
     slug: await defineUnique(
@@ -30,7 +30,7 @@ async function create(service, data, options = {}) {
       () => `${slug(data.name.substr(0, 90), {
         lower: true,
         strict: true,
-      })}_${Math.ceil(Math.random() * 9999999)}`
+      })}_${Math.ceil(Math.random() * 9999999)}`,
     ),
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -44,7 +44,7 @@ async function create(service, data, options = {}) {
         .then(a => ({
           agendaId: a.id,
           setUid: a.locationSetUid,
-        }))
+        })),
     );
   } else if (endpointId.setUid) {
     clean.setUid = endpointId.setUid;

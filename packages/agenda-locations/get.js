@@ -83,7 +83,7 @@ module.exports.byAgendaUid = async (
   { internals, endpoints },
   agendaUid,
   identifiers,
-  options = {}
+  options = {},
 ) => {
   if (!agendaUid) {
     throw new BadRequest('agenda identifier is missing');
