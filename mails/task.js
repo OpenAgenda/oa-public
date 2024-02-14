@@ -41,13 +41,9 @@ async function runFilterTask(config, params) {
 
     Object.assign(params.data, config.defaults.data);
 
-    const defaultLang = params.lang || config.defaults.lang;
-    const { disableHtml, disableText, disableSubject } = params;
     const result = await render(config, params.template, params.data, {
-      disableHtml,
-      disableText,
-      disableSubject,
-      lang: defaultLang,
+      lang: config.defaults.lang,
+      ...params,
     });
 
     Object.assign(params, result);
