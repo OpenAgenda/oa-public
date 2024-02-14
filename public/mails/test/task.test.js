@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const redis = require('redis');
@@ -113,7 +113,7 @@ describe('task', () => {
     expect(Date.now() - start).toBeGreaterThan((recipients.length - 1) * 300);
   });
 
-  it('send a mail with an error don\'t send anything', async () => {
+  it("send a mail with an error don't send anything", async () => {
     const spy = jest.spyOn(mails.config.transporter, 'sendMail');
 
     const { results, errors } = await mails.send({
@@ -124,5 +124,38 @@ describe('task', () => {
     expect(spy.mock.calls).toHaveLength(0);
     expect(results).toHaveLength(0);
     expect(errors).toHaveLength(1);
+  });
+
+  it('send text email', async () => {
+    const spy = jest.spyOn(mails.config.transporter, 'sendMail');
+
+    const { results, errors } = await mails.send({
+      to: 'example@gmail.com',
+      subject: 'Nouvel inscrit',
+      text: 'On a un nouvel inscrit !',
+    });
+
+    expect(results).toHaveLength(1);
+    expect(errors).toHaveLength(0);
+
+    const wait = async () => {
+      if (spy.mock.calls.length === 1) {
+        return;
+      }
+
+      await _sleep(50);
+
+      return wait();
+    };
+
+    await wait();
+
+    expect(spy).toHaveBeenCalledWith({
+      to: { address: 'example@gmail.com', name: '' },
+      subject: 'Nouvel inscrit',
+      text: 'On a un nouvel inscrit !',
+      data: { domain: 'https://openagenda.com' },
+      html: null,
+    });
   });
 });
