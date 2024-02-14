@@ -1,12 +1,10 @@
 'use strict';
 
-const { callbackify } = require('node:util');
 const _ = require('lodash');
 
 const __ = require('@openagenda/labels')(require('@openagenda/labels/newsletter/subscribe'));
 const landing = require('@openagenda/landing');
 const log = require('@openagenda/logs')('newsletter');
-const newsletter = require('@openagenda/newsletter');
 const getAssetsManifest = require('../lib/getAssetsManifest');
 const config = require('../config');
 
@@ -182,32 +180,34 @@ async function corpo(cache, req, res, next) {
   });
 }
 
-function newsletterSubscribe(req, res) {
+async function newsletterSubscribe(req, res) {
   const {
+    newsletter,
     sessions,
     mails,
   } = req.app.services;
-  callbackify(newsletter.addSubscriber)(req.body.email, err => {
-    if (err) {
-      log('error', { service: 'newsletter', message: err.message, error: err });
 
-      sessions.setFlash(req, res, __('invalidEmail', req.lang));
+  try {
+    await newsletter.addSubscriber(req.body.email);
 
-      res.redirect(302, '/');
-    } else {
-      log('info', 'Nouvel inscrit à la newsletter: %s', req.body.email, { email: req.body.email });
+    log('info', 'Nouvel inscrit à la newsletter: %s', req.body.email, { email: req.body.email });
 
-      sessions.setFlash(req, res, __('subscribed', req.lang));
+    sessions.setFlash(req, res, __('subscribed', req.lang));
 
-      res.redirect(302, '/');
+    res.redirect(302, '/');
 
-      mails.send({
-        to: 'admin@openagenda.com',
-        subject: 'Nouvel inscrit à la newsletter',
-        text: `"${req.body.email}" a été ajouté à la newsletter.`,
-      });
-    }
-  });
+    mails.send({
+      to: 'admin@openagenda.com',
+      subject: 'Nouvel inscrit à la newsletter',
+      text: `"${req.body.email}" a été ajouté à la newsletter.`,
+    });
+  } catch (err) {
+    log('error', { service: 'newsletter', message: err.message, error: err });
+
+    sessions.setFlash(req, res, __('invalidEmail', req.lang));
+
+    res.redirect(302, '/');
+  }
 }
 
 function serviceConnectCallback(req, res) {
