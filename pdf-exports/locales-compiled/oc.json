@@ -1,8 +1,14 @@
 {
+  "pdf-exports.page": [
+    {
+      "type": 0,
+      "value": "Pagina"
+    }
+  ],
   "pdf-exports.registration": [
     {
       "type": 0,
-      "value": "Réservation"
+      "value": "Inscripcion"
     }
   ]
 }
