@@ -11,7 +11,7 @@ export default function getTruncatedLabel(
   itemLabel,
   options = {},
 ) {
-  const { fontSize = 10 } = options;
+  const { fontSize } = options;
 
   let slicedSize = addText(doc, cursor, itemLabel, {
     fontSize,
