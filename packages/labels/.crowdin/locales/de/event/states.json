@@ -1,14 +1,14 @@
 {
-  "all": "alles sehen",
-  "controlled": "bereit zu veröffentlichen",
-  "featured": "funktions",
-  "featuredChange": "Die Veranstaltung wird nun vorgestellt",
-  "published": "veröffentlicht",
   "refused": "verweigert",
+  "tocontrol": "in Maßen",
+  "tobecontrolled": "in Maßen",
+  "controlled": "bereit zu veröffentlichen",
+  "published": "veröffentlicht",
+  "featured": "funktions",
+  "all": "alles sehen",
   "state": "Zustand",
   "stateChanged": "Der Zustand des Veranstaltungens geändert hat",
-  "stateFieldInfo": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
-  "tobecontrolled": "in Maßen",
-  "tocontrol": "in Maßen",
-  "unfeaturedChange": "Die Veranstaltung ist nicht mehr funktions"
+  "featuredChange": "Die Veranstaltung wird nun vorgestellt",
+  "unfeaturedChange": "Die Veranstaltung ist nicht mehr funktions",
+  "stateFieldInfo": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl"
 }

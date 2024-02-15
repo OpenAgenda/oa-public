@@ -1,8 +1,8 @@
 {
-  "newAggregationAction": "Voir l'événement",
-  "newAggregationBody": "**%event%** provenant de l'agenda **%sourceAgenda%** a été agrégé avec le statut **%state%**",
   "newAggregationSubject": "%agenda% a agrégé un nouvel événement: %event%",
-  "published": "publié",
+  "newAggregationBody": "**%event%** provenant de l'agenda **%sourceAgenda%** a été agrégé avec le statut **%state%**",
+  "newAggregationAction": "Voir l'événement",
+  "toBeControlled": "à contrôler",
   "readyToPublish": "prêt à être publié",
-  "toBeControlled": "à contrôler"
+  "published": "publié"
 }

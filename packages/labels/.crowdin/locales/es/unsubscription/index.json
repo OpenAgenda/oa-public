@@ -1,7 +1,7 @@
 {
-  "guestUnsubscriptionSucceed": "Ahora está de baja.",
+  "tokenNotFound": "token de la rotación se encuentra.",
   "tokenAlreadyUsed": "El enlace ya no es válida. Él probablemente ya ha sido utilizada.",
   "tokenMalformed": "token de la rotación está mal formado.",
-  "tokenNotFound": "token de la rotación se encuentra.",
-  "unsubscriptionSucceed": "Sus ajustes se han actualizado."
+  "unsubscriptionSucceed": "Sus ajustes se han actualizado.",
+  "guestUnsubscriptionSucceed": "Ahora está de baja."
 }
