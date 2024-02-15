@@ -6,6 +6,7 @@ import addText from './addText.js';
 import addIcon from './addIcon.js';
 import addRegistration from './addRegistration.js';
 import thumbnail from './thumbnail.js';
+import generateGoogleMapsLink from './generateGoogleMapsLink.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -202,7 +203,7 @@ export default async function addEventItem(
     includeEventImages,
   );
 
-  if (event.location.name || event.location.address) {
+  if (event.location?.name || event.location?.address) {
     const { width: widthOfLocationIcon } = addIcon(
       doc,
       locationIconPath,
@@ -214,16 +215,20 @@ export default async function addEventItem(
     localCursor.x += widthOfLocationIcon + margin;
     localCursor.y -= base.margin / 16;
 
+    const googleMapsLink = generateGoogleMapsLink(
+      `${event.location.name} ${event.location.address}`,
+    );
+
     const { width: locationWidth, height: locationHeight } = addText(
       doc,
       localCursor,
-      `${event.location?.name} - ${event.location?.address}`,
+      `${event.location.name} - ${event.location.address}`,
       {
         width: columnMaxWidth - (iconHeightAndWidth + margin),
         fontSize,
         base,
         underline: false,
-        link: 'https://www.google.com',
+        link: googleMapsLink,
         simulate,
       },
     );
