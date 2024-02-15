@@ -16,6 +16,6 @@ module.exports = schema(
         ...schema,
         [field.field]: _.omit(field, ['field', 'db', 'read']),
       }),
-      {}
-    )
+      {},
+    ),
 );

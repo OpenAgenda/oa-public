@@ -12,6 +12,6 @@ module.exports = schema({
   },
   includeSettings: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

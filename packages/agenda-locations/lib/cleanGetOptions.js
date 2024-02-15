@@ -1,10 +1,10 @@
 'use strict';
 
-const fields = require('./fields');
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
+const fields = require('./fields');
 
 schema.register({
   boolean,
@@ -31,7 +31,7 @@ module.exports = schema({
   },
   includeLinkedAgendas: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeOriginAgendaUid: {
     type: 'boolean',
@@ -40,13 +40,13 @@ module.exports = schema({
   deleted: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   context: {
     agendaUid: {
       type: 'integer',
       default: null,
-    }
+    },
   },
   endpointId: {
     agendaUid: {
@@ -61,5 +61,5 @@ module.exports = schema({
   returnMergeTarget: {
     type: 'boolean',
     default: false,
-  }
+  },
 });

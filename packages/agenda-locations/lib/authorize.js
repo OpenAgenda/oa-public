@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  Forbidden
+  Forbidden,
 } = require('@openagenda/verror');
 
 module.exports = async (service, action, identifier = null, options = {}) => {

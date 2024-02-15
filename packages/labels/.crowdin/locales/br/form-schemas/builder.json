@@ -1,16 +1,16 @@
 {
-  "buttonSave": "Enrollañ",
-  "cancelFieldEdit": "Nullañ",
-  "confirmFieldUpdate": "Hizivaat",
-  "editFieldCancel": "Nullañ",
   "editFieldSave": "Enrollañ",
+  "editFieldCancel": "Nullañ",
+  "submitLabelLanguages": "Kemmañ",
   "emailFieldType": "Postel",
   "languagesFieldType": "Choazit ur yezh",
-  "optionEditCancel": "Nullañ",
-  "optionOrder": "Cheñch an urzh",
-  "optionRemove": "Lemel",
-  "optionUpdateAction": "Hizivaat",
+  "buttonSave": "Enrollañ",
   "orderCancel": "Nullañ",
   "requiredField": "Rekis",
-  "submitLabelLanguages": "Kemmañ"
+  "confirmFieldUpdate": "Hizivaat",
+  "cancelFieldEdit": "Nullañ",
+  "optionUpdateAction": "Hizivaat",
+  "optionEditCancel": "Nullañ",
+  "optionOrder": "Cheñch an urzh",
+  "optionRemove": "Lemel"
 }

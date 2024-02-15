@@ -4,12 +4,12 @@ const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 async function getAgendaDetailsByUid(uid, fields = []) {
@@ -18,7 +18,7 @@ async function getAgendaDetailsByUid(uid, fields = []) {
       id: { 7196947: 30907 }[uid],
       locationSetUid: { 7196947: 1903810 }[uid],
     },
-    fields
+    fields,
   );
 }
 
@@ -69,7 +69,7 @@ describe('agenda-locations - functional - Duplicates functions', () => {
         await svc(7196947).duplicates.detect(location, { saveCandidates: true });
       } catch (e) {
         thrownError = e;
-        return (e);
+        return e;
       }
       expect(thrownError.name).toEqual('Bad request');
       throw new Error('Should have thrown an error');

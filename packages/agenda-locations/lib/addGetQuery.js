@@ -18,7 +18,7 @@ const validate = schema({
     type: 'text',
   },
   slug: {
-    type: 'text'
+    type: 'text',
   },
   uid: {
     type: 'integer',
@@ -38,7 +38,7 @@ module.exports = async (service, k, deleted, query) => {
   }
 
   const {
-    setUid, agendaUid, uid, extId, slug
+    setUid, agendaUid, uid, extId, slug,
   } = cleanQuery;
 
   const agendaId = agendaUid

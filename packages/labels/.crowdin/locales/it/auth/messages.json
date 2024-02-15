@@ -1,9 +1,9 @@
 {
+  "isBlacklisted": "Il suo account è stato aggiunto alla nostra lista di account fraudolenti.",
+  "limitedAccessEvent": "Devi essere autenticato per accedere a questo evento. Accedi",
+  "limitedAccessAgenda": "Devi essere autenticato per accedere a questo programma. Accedi",
   "abortedAuth": "L'autenticazione è stata interrotta su %service%",
-  "accountEmailAlreadyExists": "Esiste già un account con la sua email. Accedi utilizzando la sua email e la sua password",
   "facebookEmailMissing": "L'e-mail nel suo account Facebook non è disponibile. Convalidarla su Facebook prima di riprovare.",
   "genericError": "C'è stato un problema. Riprovare più tardi",
-  "isBlacklisted": "Il suo account è stato aggiunto alla nostra lista di account fraudolenti.",
-  "limitedAccessAgenda": "Devi essere autenticato per accedere a questo programma. Accedi",
-  "limitedAccessEvent": "Devi essere autenticato per accedere a questo evento. Accedi"
+  "accountEmailAlreadyExists": "Esiste già un account con la sua email. Accedi utilizzando la sua email e la sua password"
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const http = require('http');
+const fs = require('node:fs');
+const http = require('node:http');
 const _ = require('lodash');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
@@ -69,21 +69,21 @@ const Service = require('.');
       getLinkedAgendas: async () => [
         {
           uid: 79882300,
-          title: 'Morbihan test'
+          title: 'Morbihan test',
         },
         {
           uid: 79882301,
-          title: 'Morbihan test2'
+          title: 'Morbihan test2',
         },
         {
           uid: 79882302,
-          title: 'Morbihan test3'
+          title: 'Morbihan test3',
         },
         {
           uid: 79882303,
-          title: 'Morbihan test4'
-        }
-      ]
+          title: 'Morbihan test4',
+        },
+      ],
     },
   });
 
@@ -123,7 +123,7 @@ const Service = require('.');
 
   app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
     ({ total }) => res.json({ count: total }),
-    next
+    next,
   ));
 
   app.get('/locations/geocode', (req, res, _next) => res.json({
@@ -146,12 +146,12 @@ const Service = require('.');
 
   app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
     ({ total }) => res.json({ count: total }),
-    next
+    next,
   ));
 
   app.get('/locations/insee', (req, res, next) => svc.utils
     .getINSEECode(
-      _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
+      _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
     )
     .then(code => res.json({ code }), next));
 
@@ -203,7 +203,7 @@ const Service = require('.');
         });
       }
       next();
-    }
+    },
   );
 
   app.post('/locations/merge', (req, res, next) => {
@@ -221,14 +221,14 @@ const Service = require('.');
       svc(7196947)
         .merge(
           req.body.mergeIn,
-          req.body.merged
+          req.body.merged,
         )
         .then(
           location => res.json({
             location,
             success: true,
           }),
-          next
+          next,
         );
     }
   });
@@ -239,7 +239,7 @@ const Service = require('.');
         { ...req.data, state: 1 },
         {
           includeImagePath: true,
-        }
+        },
       )
       .then(location => {
         res.json({
@@ -252,7 +252,7 @@ const Service = require('.');
   app.post('/locations/disqualify', (req, res, next) => {
     svc(7196947)
       .duplicates.disqualifyCandidate(
-        req.data.uids
+        req.data.uids,
       )
       .then(location => {
         res.json({
@@ -281,7 +281,7 @@ const Service = require('.');
     svc(7196947)
       .remove(req.params.locationUid, {
         includeImagePath: true,
-        removeEvents: !!req.query.removeEvents
+        removeEvents: !!req.query.removeEvents,
       })
       .then(location => {
         res.json({
@@ -307,7 +307,7 @@ const Service = require('.');
   server.listen(process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
-      `\nDev server started on => http://localhost:${server.address().port}/`
+      `\nDev server started on => http://localhost:${server.address().port}/`,
     );
   });
   // }

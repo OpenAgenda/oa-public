@@ -1,7 +1,7 @@
 {
-  "max": "zu",
-  "min": "Von",
-  "select": "Wählen",
   "year": "Jahr",
-  "years": "Jahre"
+  "years": "Jahre",
+  "min": "Von",
+  "max": "zu",
+  "select": "Wählen"
 }

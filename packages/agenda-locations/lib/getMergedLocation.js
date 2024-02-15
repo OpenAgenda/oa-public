@@ -5,6 +5,6 @@ module.exports = async (endpoints, identifiers, fetchedLocation, options) => {
   if (mergedIn) {
     return endpoints.get(mergedIn, options);
   }
-/*   if(thrownon...) */
+  /*   if(thrownon...) */
   return fetchedLocation;
 };

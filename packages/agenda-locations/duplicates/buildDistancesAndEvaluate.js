@@ -22,13 +22,13 @@ module.exports = (location1, location2, config) => {
         uid: location2.uid,
         name: location2.name,
       },
-      sameExtId
+      sameExtId,
     });
     return true;
   }
   const { nameDistanceThreshold, geoThreshold } = config;
   const distances = getDistances(location1, location2);
-  if ((distances.jaroName < nameDistanceThreshold && distances.geoDistance < geoThreshold)) {
+  if (distances.jaroName < nameDistanceThreshold && distances.geoDistance < geoThreshold) {
     log('info', {
       ref: {
         uid: location1.uid,

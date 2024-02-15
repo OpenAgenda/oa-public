@@ -3,12 +3,12 @@
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 const initSettings = require('./fixtures/agendaTestSettings');
 
@@ -16,7 +16,7 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const initSettingsP = {
@@ -25,8 +25,8 @@ const initSettingsP = {
     create: { ...defaultAccess, authorized: false },
     delete: { ...defaultAccess, authorized: false },
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 describe('agenda-locations - functional - settings get', () => {
@@ -44,9 +44,9 @@ describe('agenda-locations - functional - settings get', () => {
         interfaces: {
           getAgendaLocationSettings: async uid => ({
             5: initSettingsP,
-            10: null
+            10: null,
           })[uid],
-          getAgendaDetailsByUid: async () => null
+          getAgendaDetailsByUid: async () => null,
         },
       });
     });
@@ -82,18 +82,18 @@ describe('agenda-locations - functional - settings get', () => {
 
       expect(settings).toStrictEqual({
         eventForm: {
-          detailed: false
+          detailed: false,
         },
         labels: {},
         tagSet: {
-          groups: []
+          groups: [],
         },
         access: {
           create: defaultAccess,
           delete: defaultAccess,
           merge: defaultAccess,
-          update: defaultAccess
-        }
+          update: defaultAccess,
+        },
       });
     });
   });
@@ -111,9 +111,9 @@ describe('agenda-locations - functional - settings get', () => {
             create: { ...defaultAccess, authorized: false },
             delete: { ...defaultAccess, authorized: false },
             merge: { ...defaultAccess, authorized: false },
-            update: defaultAccess
-          }
-        })
+            update: defaultAccess,
+          },
+        }),
       });
 
       svc = Service({
@@ -123,10 +123,10 @@ describe('agenda-locations - functional - settings get', () => {
           getAgendaLocationSettings: async uid => ({
             5: initSettingsP,
             10: initSettings,
-            11: null
+            11: null,
           })[uid],
           getAgendaDetailsByUid: async (_uid, _fields) => ({
-            locationSetUid: 1903810
+            locationSetUid: 1903810,
           }),
           getSetAgendasCount: async _setUid => 14,
         },
@@ -142,9 +142,9 @@ describe('agenda-locations - functional - settings get', () => {
             create: { ...defaultAccess, authorized: false },
             delete: { ...defaultAccess, authorized: false },
             merge: { ...defaultAccess, authorized: false },
-            update: defaultAccess
+            update: defaultAccess,
           });
-        }
+        },
       );
 
       it('when not defined at set level, values from agenda are used', async () => {
@@ -157,18 +157,18 @@ describe('agenda-locations - functional - settings get', () => {
       const settings = await svc.sets(1903812).settings.get();
       expect(_.omit(settings, ['agendas'])).toStrictEqual({
         eventForm: {
-          detailed: true
+          detailed: true,
         },
         labels: {},
         tagSet: {
-          groups: []
+          groups: [],
         },
         access: {
           create: { ...defaultAccess, authorized: false },
           delete: { ...defaultAccess, authorized: false },
           merge: { ...defaultAccess, authorized: false },
-          update: defaultAccess
-        }
+          update: defaultAccess,
+        },
       });
     });
 
@@ -189,7 +189,7 @@ describe('agenda-locations - functional - settings get', () => {
 
     it('if agenda-specific settings are requested but not found, set settings are returned', async () => {
       const settings = await svc.sets(1903811).settings.get({
-        agendaUid: 12
+        agendaUid: 12,
       });
       expect(settings.access.update.authorized).toBeFalsy();
     });
@@ -214,11 +214,11 @@ describe('agenda-locations - functional - settings get', () => {
               create: false,
               delete: false,
               merge: true,
-              update: false
-            }
+              update: false,
+            },
           }),
           getAgendaDetailsByUid: async (_uid, _fields) => ({
-            locationSetUid: 1903810
+            locationSetUid: 1903810,
           }),
         },
       });
@@ -239,7 +239,7 @@ describe('agenda-locations - functional - settings get', () => {
       expect(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
         .tags.filter(e => e.id === 21 || e.id === 22)).toStrictEqual([
         { id: 21, label: { fr: 'Insolites', en: 'Unusual' } },
-        { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' } }
+        { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' } },
       ]);
     });
 
@@ -248,7 +248,7 @@ describe('agenda-locations - functional - settings get', () => {
       expect(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
         .tags.filter(e => e.id === 21 || e.id === 22)).toStrictEqual([
         { id: 21, label: 'Insolites' },
-        { id: 22, label: 'Société et civilisation' }
+        { id: 22, label: 'Société et civilisation' },
       ]);
     });
   });

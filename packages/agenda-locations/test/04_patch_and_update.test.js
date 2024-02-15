@@ -5,12 +5,12 @@ const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/updateData.json');
