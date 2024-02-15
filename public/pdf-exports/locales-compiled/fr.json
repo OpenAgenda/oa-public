@@ -1,4 +1,10 @@
 {
+  "pdf-exports.page": [
+    {
+      "type": 0,
+      "value": "Page"
+    }
+  ],
   "pdf-exports.registration": [
     {
       "type": 0,
