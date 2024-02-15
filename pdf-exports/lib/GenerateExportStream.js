@@ -5,6 +5,7 @@ import addEventItem from './addEventItem.js';
 import cursorYOverflowing from './cursorYOverflowing.js';
 import addFooter from './addFooter.js';
 import getIntl from './intl.js';
+import messages from './messages.js';
 
 export default async function GenerateExportStream(
   config,
@@ -52,10 +53,15 @@ export default async function GenerateExportStream(
   );
   cursor.y += documentHeaderHeight + margin;
 
-  const simulateFooter = addFooter(doc, `Page ${pageNumber}`, margin, {
-    simulate: true,
-    fontSize,
-  });
+  const simulateFooter = addFooter(
+    doc,
+    `${intl.formatMessage(messages.page)} ${pageNumber}`,
+    margin,
+    {
+      simulate: true,
+      fontSize,
+    },
+  );
   simulateFooterHeight = simulateFooter.height;
 
   eventStream.on('end', () => doc.end());
@@ -67,7 +73,12 @@ export default async function GenerateExportStream(
   for await (const event of eventStream) {
     if (pageNumber !== currentPageNumber) {
       currentPageNumber = pageNumber;
-      addFooter(doc, `Page ${pageNumber}`, margin, { fontSize });
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+        { fontSize },
+      );
     }
 
     const { height: simulatedHeight } = await addEventItem(
@@ -94,7 +105,11 @@ export default async function GenerateExportStream(
       );
       cursor.y += pageHeaderHeight + margin;
       pageNumber += 1;
-      addFooter(doc, `Page ${pageNumber}`, margin);
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+      );
     }
 
     const { height: eventItemHeight } = await addEventItem(
