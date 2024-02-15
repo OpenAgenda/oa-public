@@ -1,36 +1,31 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const newsletter = require( '../index.js' );
+const Newsletter = require('../index.js');
 
 const config = {
   apiKey: process.env.API_KEY,
   apiSecret: process.env.API_SECRET,
-  contactsListsListId: process.env.CONTACTS_LIST_ID,
+  contactsListId: process.env.CONTACTS_LIST_ID,
 };
 
+let newsletter;
 
-describe( 'Add user', () => {
-  beforeAll( () => {
-    newsletter.init( _.merge( config, { mailjet: { performApiCall: false } } ) );
-  } );
+describe('Add user', () => {
+  beforeAll(() => {
+    newsletter = Newsletter({ mailjet: config });
+  });
 
-  it.only( 'add to list - success', async () => {
-    const result = await newsletter.addSubscriber( 'kevin.bertho@gmail.com' );
+  it('add to list - success', async () => {
+    const email = 'example@gmail.com';
+    const result = await newsletter.addSubscriber(email);
 
     expect(result.body.Total).toBe(1);
-    expect(result.body.Data[ 0 ].Email).toBe('kevin.bertho@gmail.com');
-  } );
+    expect(result.body.Data[0].Email).toBe(email);
+  });
 
-  it( 'add to list - fail', async () => {
-    let error;
-
-    try {
-      const result = await newsletter.addSubscriber( /* missing email */ );
-    } catch (e) {
-      error = e;
-    }
-
-    expect(error.message).toBe('Unsuccessful');
+  it('add to list - fail', async () => {
+    await expect(newsletter.addSubscriber()).rejects.toMatchObject({
+      code: 'ERR_BAD_REQUEST'
+    });
   });
 });
