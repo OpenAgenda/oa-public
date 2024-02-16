@@ -106,7 +106,7 @@ export default async function addEventItem(
     valign: 'center',
   };
 
-  const imageUrl = await thumbnail(event, __dirname, imageWidth, imageHeight);
+  const imageUrl = await thumbnail(event, __dirname);
 
   if (!simulate && imageUrl && includeEventImages) {
     doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
