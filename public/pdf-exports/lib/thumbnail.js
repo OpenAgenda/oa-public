@@ -16,14 +16,6 @@ export default async function thumbnail(
 
   let imageUrl;
 
-  // if (!thumbnailFilename) {
-  //   imageUrl = oaLogoPath;
-  // } else if (!newVersionThumbnail) {
-  //   const baseImageUrl = `https://img.openagenda.com/u/${imageWidth}x${imageHeight}/cibul/`;
-  //   imageUrl = await urlToBuffer(baseImageUrl + event.image.filename);
-  // } else {
-  //   imageUrl = await urlToBuffer(event.image.base + thumbnailFilename);
-  // }
   if (!thumbnailFilename && !newVersionThumbnail) {
     imageUrl = oaLogoPath;
   } else if (newVersionThumbnail) {
