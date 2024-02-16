@@ -1,12 +1,10 @@
 import urlToBuffer from './urlToBuffer.js';
 
-export default async function thumbnail(
-  event,
-  __dirname,
-  imageWidth,
-  imageHeight,
-) {
+export default async function thumbnail(event, __dirname) {
   const oaLogoPath = `${__dirname}/../images/oaLogo.png`;
+
+  const imageWidth = 200;
+  const imageHeight = 200;
 
   const thumbnailFilename = event.image?.variants.find(
     el => el.type === 'thumbnail',
