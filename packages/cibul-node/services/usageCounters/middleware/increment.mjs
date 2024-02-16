@@ -11,7 +11,7 @@ export default function increment(targetNamespace, options = {}) {
     if (req.user) {
       usageCounters.increment('user', req.user.uid, targetNamespace, values);
     } else if (req.agendaKey) {
-      usageCounters.increment('agenda', req.agendaKey, targetNamespace, values);
+      usageCounters.increment('agenda', req.agendaKey.identifier, targetNamespace, values);
     }
     next();
   };
