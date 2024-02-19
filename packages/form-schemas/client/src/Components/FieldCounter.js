@@ -1,33 +1,20 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import classNames from 'classnames';
-
-const _ = {
-  isArray: require( 'lodash/isArray' )
-}
+import { isArray, isObject } from 'lodash';
 
 export default class FieldCounter extends Component {
-
   remaining() {
+    const { value: propValue, max } = this.props;
+    const value = isArray(propValue) && !isObject(propValue[0]) ? propValue.join('') : propValue;
 
-    const value = _.isArray( this.props.value ) ? this.props.value.join('') : this.props.value;
+    if (!value) return max;
 
-    if ( !value ) return this.props.max;
-
-    return this.props.max - value.length;
-
+    return max - value.length;
   }
 
   render() {
-
-    const {
-      max,
-      value
-    } = this.props;
-
     const remaining = this.remaining();
 
-    return <div className={classNames({ 'field-counter' : true, error: remaining < 0})}>{remaining}</div>
-
+    return <div className={classNames({ 'field-counter': true, error: remaining < 0 })}>{remaining}</div>;
   }
-
 }
