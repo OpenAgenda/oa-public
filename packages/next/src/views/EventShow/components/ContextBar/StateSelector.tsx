@@ -6,6 +6,7 @@ import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
+import { contextBar as messages } from '../../messages';
 import ContextBarButton from './ContextBarButton';
 
 const stateMap = {
@@ -68,7 +69,8 @@ export default function StateSelector({ agenda }) {
       >
         <StateTag state={event.state} marginEnd="0.5rem" />
         <div>
-          Statut:&nbsp;
+          {intl.formatMessage(messages.state)}
+          &nbsp;
           {intl.formatMessage(stateMessages[stateMap[event.state]])}
         </div>
       </Flex>
@@ -84,7 +86,8 @@ export default function StateSelector({ agenda }) {
         leftIcon={<StateTag state={event.state} />}
         rightIcon={<FaIcon icon={faChevronDown} />}
       >
-        Statut:&nbsp;
+        {intl.formatMessage(messages.state)}
+        &nbsp;
         {intl.formatMessage(stateMessages[stateMap[event.state]])}
       </MenuButton>
       <MenuList borderTopRadius="0">
@@ -92,28 +95,28 @@ export default function StateSelector({ agenda }) {
           <StateTag state="refused" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.refused)}</b>
-            Cet événement n&apos;est pas compatible avec l&apos;agenda et ne sera pas publié
+            {intl.formatMessage(messages.refusedInfo)}
           </Flex>
         </MenuItem>
         <MenuItem onClick={() => changeState(0)}>
           <StateTag state="toControl" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.toModerate)}</b>
-            Cet événement doit être modéré et n&apos;est pas prêt à être publié
+            {intl.formatMessage(messages.toModerateInfo)}
           </Flex>
         </MenuItem>
         <MenuItem onClick={() => changeState(1)}>
           <StateTag state="controlled" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.readyToPublish)}</b>
-            Cet événement a été modéré et est prêt à être publié
+            {intl.formatMessage(messages.readyToPublishInfo)}
           </Flex>
         </MenuItem>
         <MenuItem isDisabled={!canPublish} onClick={() => changeState(2)}>
           <StateTag state="published" mr="2" />
           <Flex direction="column">
             <b>{intl.formatMessage(stateMessages.published)}</b>
-            Publiez cet événement pour le rendre visible sur l&apos;agenda
+            {intl.formatMessage(messages.publishedInfo)}
           </Flex>
         </MenuItem>
       </MenuList>

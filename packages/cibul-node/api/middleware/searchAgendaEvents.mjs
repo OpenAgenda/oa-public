@@ -11,8 +11,12 @@ export default function searchAgendaEvents(core, queryNamespace = 'convertedQuer
       includeLocationImagePath: true,
       includeEmbedScripts: boolQuery(req[queryNamespace].includeEmbedScripts, true),
       agendaKey: req.agendaKey,
-    }).then(result => res.json({
-      success: true,
-      ...result,
-    }), next);
+    }).then(result => {
+      const response = JSON.stringify({ ...result, success: true });
+      req.result = result;
+      req.contentLength = Buffer.byteLength(response, 'utf8');
+      res.setHeader('Content-Type', 'application/json');
+      res.send(response);
+      next();
+    }, next);
 }

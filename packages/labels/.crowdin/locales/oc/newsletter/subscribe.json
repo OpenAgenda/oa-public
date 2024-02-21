@@ -1,1 +1,5 @@
-{}
+{
+  "invalidEmail": "Siá l'email entrat es pas valide, siá lo servici de letra d'informacions es pas disponible. Vos pregam de tornar ensajar mai tard.",
+  "subscribed": "Sètz estat·da apondut·a a la lista de mandadís de la letra d'informacions. Mercés !",
+  "unsubscribed": "A comptar d'ara recebretz pas pus d'emails suls eveniments a l'adreiça %email%"
+}

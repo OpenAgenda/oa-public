@@ -8,7 +8,7 @@
   "next.views.AgendaShow.AggregateModal.noAgenda": [
     {
       "type": 0,
-      "value": "Attention: Vous n'administrez actuellement aucun agenda. Vous devez en créer un avant de pouvoir agréger "
+      "value": "Atencion : Actualament administratz pas cap agenda. Ne vos cal crear una abans de poder agregar "
     },
     {
       "type": 1,
@@ -22,7 +22,7 @@
   "next.views.AgendaShow.AggregateModal.shouldConnect": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour agréger cet agenda."
+      "value": "Vos cal connectar a vòstre compte per agregar aquesta agenda."
     }
   ],
   "next.views.AgendaShow.AggregateModal.signin": [
@@ -34,7 +34,7 @@
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
-      "value": "Les événements publiés par "
+      "value": "Los eveniments publicats per "
     },
     {
       "type": 1,
@@ -42,7 +42,7 @@
     },
     {
       "type": 0,
-      "value": " seront automatiquement ajoutés à l'agenda sélectionné."
+      "value": " seràn automaticament aponduts a l'agenda seleccionada."
     }
   ],
   "next.views.AgendaShow.AggregateModal.title": [

@@ -1,0 +1,429 @@
+import { defineMessages } from 'react-intl';
+
+export default defineMessages({
+  aboutLocation: {
+    id: 'next.views.EventShow.aboutLocation',
+    defaultMessage: 'About the location',
+  },
+  tags: {
+    id: 'next.views.EventShow.tags',
+    defaultMessage: 'Tags',
+  },
+  access: {
+    id: 'next.views.EventShow.access',
+    defaultMessage: 'Access',
+  },
+  moreLinks: {
+    id: 'next.views.EventShow.moreLinks',
+    defaultMessage: 'More links:',
+  },
+  history: {
+    id: 'next.views.EventShow.history',
+    defaultMessage: 'History',
+  },
+  contactAdministrators: {
+    id: 'next.views.EventShow.contactAdministrators',
+    defaultMessage: 'Contact administrators',
+  },
+  sendAnEmail: {
+    id: 'next.views.EventShow.sendAnEmail',
+    defaultMessage: 'Send an email',
+  },
+  seeMore: {
+    id: 'next.views.EventShow.Activities.seeMore',
+    defaultMessage: 'See more',
+  },
+});
+
+export const contextBar = defineMessages({
+  backToDashboard: {
+    id: 'next.views.EventShow.ContextBar.backToDashboard',
+    defaultMessage: 'Back to dashboard',
+  },
+  edit: {
+    id: 'next.views.EventShow.ContextBar.edit',
+    defaultMessage: 'Edit',
+  },
+  otherActions: {
+    id: 'next.views.EventShow.ContextBar.otherActions',
+    defaultMessage: 'Other actions',
+  },
+  otherActionsInfo: {
+    id: 'next.views.EventShow.ContextBar.otherActionsInfo',
+    defaultMessage: 'Feature, cancel, postpone, duplicate...',
+  },
+  feature: {
+    id: 'next.views.EventShow.ContextBar.feature',
+    defaultMessage: 'Feature',
+  },
+  unfeature: {
+    id: 'next.views.EventShow.ContextBar.unfeature',
+    defaultMessage: 'Unfeature',
+  },
+  featuredInfo: {
+    id: 'next.views.EventShow.ContextBar.featuredInfo',
+    defaultMessage: 'A featured event appears at the top of the list',
+  },
+  duplicate: {
+    id: 'next.views.EventShow.ContextBar.duplicate',
+    defaultMessage: 'Duplicate',
+  },
+  duplicateInfo: {
+    id: 'next.views.EventShow.ContextBar.duplicateInfo',
+    defaultMessage: 'Load a new event form pre-filled with the details from this event',
+  },
+  clearStatus: {
+    id: 'next.views.EventShow.ContextBar.clearStatus',
+    defaultMessage: 'Clear the status of the event',
+  },
+  clearStatusInfo: {
+    id: 'next.views.EventShow.ContextBar.clearStatusInfo',
+    defaultMessage: 'The event is not cancelled, nor rescheduled, etc…',
+  },
+  markAsRescheduled: {
+    id: 'next.views.EventShow.ContextBar.markAsRescheduled',
+    defaultMessage: 'The event was rescheduled',
+  },
+  markAsRescheduledInfo: {
+    id: 'next.views.EventShow.ContextBar.markAsRescheduledInfo',
+    defaultMessage: 'The timings of the event have been modified',
+  },
+  markAsMovedOnline: {
+    id: 'next.views.EventShow.ContextBar.markAsMovedOnline',
+    defaultMessage: 'The event was moved online',
+  },
+  markAsMovedOnlineStatus: {
+    id: 'next.views.EventShow.ContextBar.markAsMovedOnlineStatus',
+    defaultMessage: 'The event will no longer be attended to at a physical location',
+  },
+  markAsPostponed: {
+    id: 'next.views.EventShow.ContextBar.markAsPostponed',
+    defaultMessage: 'The event is postponed',
+  },
+  markAsPostponedStatus: {
+    id: 'next.views.EventShow.ContextBar.markAsPostponedStatus',
+    defaultMessage: 'The event has been postponed to dates not yet known',
+  },
+  markAsFull: {
+    id: 'next.views.EventShow.ContextBar.markAsFull',
+    defaultMessage: 'The event is fully booked',
+  },
+  markAsFullStatus: {
+    id: 'next.views.EventShow.ContextBar.markAsFullStatus',
+    defaultMessage: 'New participants are no longer accepted to the event',
+  },
+  markAsCancelled: {
+    id: 'next.views.EventShow.ContextBar.markAsCancelled',
+    defaultMessage: 'The event is cancelled',
+  },
+  markAsCancelledStatus: {
+    id: 'next.views.EventShow.ContextBar.markAsCancelledStatus',
+    defaultMessage: 'The event has been permanently cancelled',
+  },
+  deleteEvent: {
+    id: 'next.views.EventShow.ContextBar.deleteEvent',
+    defaultMessage: 'Delete event',
+  },
+  deleteEventInfo: {
+    id: 'next.views.EventShow.ContextBar.deleteEventInfo',
+    defaultMessage: 'Permanently delete this event from OpenAgenda',
+  },
+  removeEvent: {
+    id: 'next.views.EventShow.ContextBar.removeEvent',
+    defaultMessage: 'Remove event',
+  },
+  removeEventInfo: {
+    id: 'next.views.EventShow.ContextBar.removeEventInfo',
+    defaultMessage: 'The event will no longer be referenced on the agenda',
+  },
+  deleteConfirmation: {
+    id: 'next.views.EventShow.ContextBar.deleteConfirmation',
+    defaultMessage: 'Are you sure you want to delete this event?',
+  },
+  removeConfirmation: {
+    id: 'next.views.EventShow.ContextBar.removeConfirmation',
+    defaultMessage: 'Are you sure you want to remove this event?',
+  },
+  delete: {
+    id: 'next.views.EventShow.ContextBar.delete',
+    defaultMessage: 'Delete',
+  },
+  remove: {
+    id: 'next.views.EventShow.ContextBar.remove',
+    defaultMessage: 'Remove',
+  },
+  cancel: {
+    id: 'next.views.EventShow.ContextBar.cancel',
+    defaultMessage: 'Cancel',
+  },
+  state: {
+    id: 'next.views.EventShow.ContextBar.state',
+    defaultMessage: 'State:',
+  },
+  refusedInfo: {
+    id: 'next.views.EventShow.ContextBar.refusedInfo',
+    defaultMessage: 'This event is not compatible with the agenda and should not be published',
+  },
+  toModerateInfo: {
+    id: 'next.views.EventShow.ContextBar.toModerateInfo',
+    defaultMessage: 'This event needs to be verified and is not ready for publication',
+  },
+  readyToPublishInfo: {
+    id: 'next.views.EventShow.ContextBar.readyToPublishInfo',
+    defaultMessage: 'This event has been verified and is ready to be published',
+  },
+  publishedInfo: {
+    id: 'next.views.EventShow.ContextBar.publishedInfo',
+    defaultMessage: 'This event is visible on the agenda',
+  },
+});
+
+export const duplicateModal = defineMessages({
+  bigSentence: {
+    id: 'next.views.EventShow.DuplicateModal.bigSentence',
+    defaultMessage: 'You are about to create a new event based on a precedent.',
+  },
+  reminder: {
+    id: 'next.views.EventShow.DuplicateModal.reminder',
+    defaultMessage: 'Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.',
+  },
+  createNewEventIn: {
+    id: 'next.views.EventShow.DuplicateModal.createNewEventIn',
+    defaultMessage: 'Create the new event in',
+  },
+  or: {
+    id: 'next.views.EventShow.DuplicateModal.or',
+    defaultMessage: 'Or',
+  },
+  selectAnAgenda: {
+    id: 'next.views.EventShow.DuplicateModal.selectAnAgenda',
+    defaultMessage: 'Select an agenda',
+  },
+});
+
+export const shareModal = defineMessages({
+  onOA: {
+    id: 'next.views.EventShow.ShareModal.onOA',
+    defaultMessage: 'On OpenAgenda',
+  },
+  others: {
+    id: 'next.views.EventShow.ShareModal.others',
+    defaultMessage: 'Others',
+  },
+  share: {
+    id: 'next.views.EventShow.ShareModal.share',
+    defaultMessage: 'Share',
+  },
+  shareOnSocialNetworks: {
+    id: 'next.views.EventShow.ShareModal.shareOnSocialNetworks',
+    defaultMessage: 'Share on social networks',
+  },
+  shareByEmail: {
+    id: 'next.views.EventShow.ShareModal.shareByEmail',
+    defaultMessage: 'Share by email',
+  },
+  shareByEmailPlaceholder: {
+    id: 'next.views.EventShow.ShareModal.shareByEmailPlaceholder',
+    defaultMessage: 'Type the email addresses you want to send the event',
+  },
+  send: {
+    id: 'next.views.EventShow.ShareModal.send',
+    defaultMessage: 'Send',
+  },
+  shareCalendar: {
+    id: 'next.views.EventShow.ShareModal.shareCalendar',
+    defaultMessage: 'Import in a personal calendar',
+  },
+  selectTiming: {
+    id: 'next.views.EventShow.ShareModal.selectTiming',
+    defaultMessage: 'Select a timing',
+  },
+  import: {
+    id: 'next.views.EventShow.ShareModal.import',
+    defaultMessage: 'Import',
+  },
+  shareLink: {
+    id: 'next.views.EventShow.ShareModal.shareLink',
+    defaultMessage: 'Share link',
+  },
+  copy: {
+    id: 'next.views.EventShow.ShareModal.copy',
+    defaultMessage: 'Copy',
+  },
+  copied: {
+    id: 'next.views.EventShow.ShareModal.copied',
+    defaultMessage: 'Copied',
+  },
+  mustSignIn: {
+    id: 'next.views.EventShow.ShareModal.mustSignIn',
+    defaultMessage: 'You must sign in to share this event',
+  },
+  signIn: {
+    id: 'next.views.EventShow.ShareModal.signIn',
+    defaultMessage: 'Sign in',
+  },
+});
+
+export const additionalFields = defineMessages({
+  restrictedInformation: {
+    id: 'next.views.EventShow.AdditionalFields.restrictedInformation',
+    defaultMessage: 'Restricted information',
+  },
+  noSelection: {
+    id: 'next.views.EventShow.AdditionalFields.noSelection',
+    defaultMessage: 'No selection',
+  },
+  noInput: {
+    id: 'next.views.EventShow.AdditionalFields.noInput',
+    defaultMessage: 'No input',
+  },
+  noImage: {
+    id: 'next.views.EventShow.AdditionalFields.noImage',
+    defaultMessage: 'No image is loaded',
+  },
+  noFile: {
+    id: 'next.views.EventShow.AdditionalFields.noFile',
+    defaultMessage: 'No file is loaded',
+  },
+});
+
+export const agendaHeader = defineMessages({
+  showAllEvents: {
+    id: 'next.views.EventShow.AgendaHeader.showAllEvents',
+    defaultMessage: 'Show all events',
+  },
+});
+
+export const contributorSection = defineMessages({
+  contributor: {
+    id: 'next.views.EventShow.ContributorSection.contributor',
+    defaultMessage: 'Contributor',
+  },
+  privateInformation: {
+    id: 'next.views.EventShow.ContributorSection.privateInformation',
+    defaultMessage: 'Private information',
+  },
+  edit: {
+    id: 'next.views.EventShow.ContributorSection.edit',
+    defaultMessage: 'Edit',
+  },
+});
+
+export const editLocationButton = defineMessages({
+  editLocation: {
+    id: 'next.views.EventShow.EditLocationButton.editLocation',
+    defaultMessage: 'Edit location',
+  },
+});
+
+export const emailConfirmationAlert = defineMessages({
+  shareEvent: {
+    id: 'next.views.EventShow.EmailConfirmationAlert.shareEvent',
+    defaultMessage: 'Share event',
+  },
+  shareEventInfo: {
+    id: 'next.views.EventShow.EmailConfirmationAlert.shareEventInfo',
+    defaultMessage: 'The event was sent to {count, plural, one {# email address} other {# email addresses}}.',
+  },
+  close: {
+    id: 'next.views.EventShow.EmailConfirmationAlert.close',
+    defaultMessage: 'Close',
+  },
+});
+
+export const footer = defineMessages({
+  help: {
+    id: 'next.views.EventShow.Footer.help',
+    defaultMessage: 'Help',
+  },
+  termsOfUse: {
+    id: 'next.views.EventShow.Footer.termsOfUse',
+    defaultMessage: 'Terms of use',
+  },
+});
+
+export const inbox = defineMessages({
+  inbox: {
+    id: 'next.views.EventShow.Inbox.inbox',
+    defaultMessage: 'Inbox',
+  },
+});
+
+export const locationHistory = defineMessages({
+  showHistory: {
+    id: 'next.views.EventShow.LocationHistory.showHistory',
+    defaultMessage: 'Show history',
+  },
+  locationHistory: {
+    id: 'next.views.EventShow.LocationHistory.locationHistory',
+    defaultMessage: 'Location history',
+  },
+  noActivity: {
+    id: 'next.views.EventShow.LocationHistory.noActivity',
+    defaultMessage: 'no activity',
+  },
+});
+
+export const navigationButton = defineMessages({
+  previousEvent: {
+    id: 'next.views.EventShow.NavigationButton.previousEvent',
+    defaultMessage: 'Previous event',
+  },
+  nextEvent: {
+    id: 'next.views.EventShow.NavigationButton.nextEvent',
+    defaultMessage: 'Next event',
+  },
+});
+
+export const sidebar = defineMessages({
+  share: {
+    id: 'next.views.EventShow.Sidebar.share',
+    defaultMessage: 'Share',
+  },
+  accessEventOnline: {
+    id: 'next.views.EventShow.Sidebar.accessEventOnline',
+    defaultMessage: 'Access the event online',
+  },
+  passed: {
+    id: 'next.views.EventShow.Sidebar.passed',
+    defaultMessage: 'Passed',
+  },
+  conditions: {
+    id: 'next.views.EventShow.Sidebar.conditions',
+    defaultMessage: 'Conditions',
+  },
+  registration: {
+    id: 'next.views.EventShow.Sidebar.registration',
+    defaultMessage: 'Registration',
+  },
+  completeLink: {
+    id: 'next.views.EventShow.Sidebar.completeLink',
+    defaultMessage: 'Complete link',
+  },
+  registerBook: {
+    id: 'next.views.EventShow.Sidebar.registerBook',
+    defaultMessage: 'Register / book:',
+  },
+  accessPassOffer: {
+    id: 'next.views.EventShow.Sidebar.accessPassOffer',
+    defaultMessage: 'Access the pass Culture offer',
+  },
+});
+
+export const suggestLocationChangeButton = defineMessages({
+  suggestLocaitonChange: {
+    id: 'next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange',
+    defaultMessage: 'Suggest a change on the location',
+  },
+});
+
+export const timings = defineMessages({
+  previousMonth: {
+    id: 'next.views.EventShow.Timings.previousMonth',
+    defaultMessage: 'Previous month',
+  },
+  nextMonth: {
+    id: 'next.views.EventShow.Timings.nextMonth',
+    defaultMessage: 'Next month',
+  },
+});

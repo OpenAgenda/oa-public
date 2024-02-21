@@ -55,7 +55,7 @@
   "privateAgenda": "Agenda privato",
   "publicAgenda": "Agenda pubblico",
   "visibility": "Visibilità",
-  "requestPrivateAgenda": "Richiedi un'agenda privata",
+  "requestPrivateAgenda": "Richiedere un'agenda privata",
   "requestPublicAgenda": "Richiedere un agenda pubblico",
   "indexedAgenda": "Agenda indicizzato",
   "indexedAgendaDesc": "Indicare l'agenda nei motori di ricerca (è necessario un ritardo per tener conto di eventuali modifiche)",
@@ -86,6 +86,7 @@
   "update": "Aggiorna",
   "subjectLabel": "Oggetto predefinito",
   "subjectDesc": "Messaggio inviato dall'agenda della \"Settimana dell'industria",
+  "matomoSupport": "Contatta il supporto",
   "googleAnalyticsId": "ID di tracciamento di Google Analytics",
   "stats": "Statistica",
   "statsTabDescription": "Imposta le tue informazioni di tracciamento",
@@ -93,6 +94,5 @@
   "lab": "Lab",
   "labTabDescription": "Utilizzare le caratteristiche disponibili nella versione beta",
   "eventStatusDesc": "Attivare i controlli dello stato dell'evento (cancellato, pieno, riprogrammato...)",
-  "eventStatusKnowMore": "Per saperne di più",
-  "matomoSupport": "Contatta il supporto"
+  "eventStatusKnowMore": "Per saperne di più"
 }

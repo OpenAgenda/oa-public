@@ -17,7 +17,8 @@ module.exports = {
     "de": "Mitglied",
     "es": "miembro",
     "it": "Membro",
-    "io": "crwdns15602:0crwdne15602:0"
+    "io": "crwdns15602:0crwdne15602:0",
+    "oc": "Membre"
   },
   "searchMember": {
     "fr": "Rechercher un membre",
@@ -25,7 +26,8 @@ module.exports = {
     "de": "Suche Mitglied",
     "es": "Buscador un miembro",
     "it": "Ricerca di un membro",
-    "io": "crwdns15604:0crwdne15604:0"
+    "io": "crwdns15604:0crwdne15604:0",
+    "oc": "Cercar un membre"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -96,7 +98,8 @@ module.exports = {
     "de": "Leser",
     "es": "lectores",
     "it": "Lettori",
-    "io": "crwdns15620:0crwdne15620:0"
+    "io": "crwdns15620:0crwdne15620:0",
+    "oc": "Legeire·as"
   },
   "events": {
     "fr": "événements",
@@ -114,7 +117,8 @@ module.exports = {
     "de": "Veranstaltung",
     "es": "evento",
     "it": "evento",
-    "io": "crwdns15624:0crwdne15624:0"
+    "io": "crwdns15624:0crwdne15624:0",
+    "oc": "eveniment"
   },
   "result": {
     "fr": "Résultat",
@@ -122,7 +126,8 @@ module.exports = {
     "de": "Ergebnis",
     "es": "resultado",
     "it": "Risultato",
-    "io": "crwdns15626:0crwdne15626:0"
+    "io": "crwdns15626:0crwdne15626:0",
+    "oc": "Resultat"
   },
   "searchResult": {
     "fr": "Résultat de la recherche",
@@ -130,7 +135,8 @@ module.exports = {
     "de": "Suchergebnis",
     "es": "Resultados de la búsqueda",
     "it": "Risultato della ricerca",
-    "io": "crwdns15628:0crwdne15628:0"
+    "io": "crwdns15628:0crwdne15628:0",
+    "oc": "Resultat de recerca"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -148,7 +154,8 @@ module.exports = {
     "de": "Aktionen",
     "es": "valores",
     "it": "Azioni",
-    "io": "crwdns15632:0crwdne15632:0"
+    "io": "crwdns15632:0crwdne15632:0",
+    "oc": "Accions"
   },
   "removeMember": {
     "fr": "Retirer des membres",
@@ -156,7 +163,8 @@ module.exports = {
     "de": "entfernen Sie Mitglied",
     "es": "Eliminar miembro",
     "it": "Rimozione dei membri",
-    "io": "crwdns15634:0crwdne15634:0"
+    "io": "crwdns15634:0crwdne15634:0",
+    "oc": "Tirar un membre"
   },
   "removeConfirmMessage": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet utilisateur des membres ?",
@@ -164,7 +172,8 @@ module.exports = {
     "de": "Bist du sicher, dass du diesen Nutzer von der Mitgliederliste löschen willst?",
     "es": "¿Está seguro de que desea eliminar esta miembros de usuario?",
     "it": "Sei sicuro di voler rimuovere questo utente dall'iscrizione?",
-    "io": "crwdns15636:0crwdne15636:0"
+    "io": "crwdns15636:0crwdne15636:0",
+    "oc": "Sètz segur·a que volètz tirar aqueste utilizaire dels membres ?"
   },
   "removeModalError": {
     "fr": "Vous ne pouvez pas supprimer ce membre.",
@@ -172,33 +181,38 @@ module.exports = {
     "de": "Du kannst dieses Mitglied nicht entfernen.",
     "es": "No se puede eliminar este usuario.",
     "it": "Non è possibile cancellare questo membro.",
-    "io": "crwdns15638:0crwdne15638:0"
+    "io": "crwdns15638:0crwdne15638:0",
+    "oc": "Podètz pas suprimir aqueste membre."
   },
   "editProfile": {
     "fr": "Voir la fiche contact",
     "en": "Edit profile",
     "de": "Profil bearbeiten",
     "es": "Editar Perfil",
-    "it": "Modifica profilo",
-    "io": "crwdns15640:0crwdne15640:0"
+    "it": "Modificare il profilo",
+    "io": "crwdns15640:0crwdne15640:0",
+    "oc": "Modifiar lo perfil"
   },
   "changeRole": {
     "fr": "Changer le rôle",
     "en": "Edit the role",
     "it": "Modificare il ruolo",
-    "io": "crwdns16504:0crwdne16504:0"
+    "io": "crwdns16504:0crwdne16504:0",
+    "oc": "Cambiar lo ròtle"
   },
   "operationSuccessful": {
     "fr": "Operation effectuée",
     "en": "Operation done",
     "it": "Fatto",
-    "io": "crwdns16506:0crwdne16506:0"
+    "io": "crwdns16506:0crwdne16506:0",
+    "oc": "Fait"
   },
   "patchSuccessConfirm": {
     "fr": "Le membre a été mis à jour",
     "en": "The member was updated",
     "it": "Il membro è statto aggiornato",
-    "io": "crwdns16508:0crwdne16508:0"
+    "io": "crwdns16508:0crwdne16508:0",
+    "oc": "Lo membre es estat mes a jorn"
   },
   "inviteMembers": {
     "fr": "Inviter des membres",
@@ -206,7 +220,8 @@ module.exports = {
     "de": "Mitglieder einladen",
     "es": "Invite a los miembros",
     "it": "Invitare i membri",
-    "io": "crwdns15642:0crwdne15642:0"
+    "io": "crwdns15642:0crwdne15642:0",
+    "oc": "Convidar de membres"
   },
   "invite": {
     "fr": "Inviter",
@@ -214,7 +229,8 @@ module.exports = {
     "de": "Einladen",
     "es": "invitar",
     "it": "Invitare",
-    "io": "crwdns15644:0crwdne15644:0"
+    "io": "crwdns15644:0crwdne15644:0",
+    "oc": "Convidar"
   },
   "inviteMembersPlaceholder": {
     "fr": "Collez ici les adresses email des nouveaux membres, séparées par des virgules",
@@ -222,7 +238,8 @@ module.exports = {
     "de": "Fügen Sie hier die E-Mail-Adressen von neuen Mitgliedern, die durch Kommas getrennt",
     "es": "Pegue aquí las direcciones de correo electrónico de nuevos miembros, separados por comas",
     "it": "Incolla qui gli indirizzi e-mail dei nuovi membri, separati da virgole",
-    "io": "crwdns15646:0crwdne15646:0"
+    "io": "crwdns15646:0crwdne15646:0",
+    "oc": "Pegatz aquí las adreiças mail dels membres novèls, desseparadas per de virgulas"
   },
   "emails": {
     "fr": "Emails",
@@ -230,7 +247,8 @@ module.exports = {
     "de": "E-Mails",
     "es": "mensajes de correo electrónico",
     "it": "E-mail",
-    "io": "crwdns15648:0crwdne15648:0"
+    "io": "crwdns15648:0crwdne15648:0",
+    "oc": "Emails"
   },
   "role": {
     "fr": "Rôle",
@@ -247,7 +265,8 @@ module.exports = {
     "de": "Wählen Sie eine Rolle",
     "es": "Seleccione un rol",
     "it": "Seleziona un ruolo",
-    "io": "crwdns15652:0crwdne15652:0"
+    "io": "crwdns15652:0crwdne15652:0",
+    "oc": "Causissètz un ròtle"
   },
   "name": {
     "fr": "Nom",
@@ -302,7 +321,8 @@ module.exports = {
     "de": "Gesamt",
     "es": "total",
     "it": "Totale",
-    "io": "crwdns15664:0crwdne15664:0"
+    "io": "crwdns15664:0crwdne15664:0",
+    "oc": "Total"
   },
   "required": {
     "fr": "Requis",
@@ -329,7 +349,8 @@ module.exports = {
     "de": "Die Telefonnummer ist ungültig",
     "es": "número de teléfono no válido",
     "it": "Numero di telefono non valido",
-    "io": "crwdns15670:0crwdne15670:0"
+    "io": "crwdns15670:0crwdne15670:0",
+    "oc": "Numèro de telefòne invalid"
   },
   "email.invalid": {
     "fr": "L'adresse email est invalide",
@@ -337,7 +358,8 @@ module.exports = {
     "de": "E-mail Adresse ist nicht korrekt",
     "es": "La dirección de correo electrónico no es válido",
     "it": "L'indirizzo e-mail non è valido",
-    "io": "crwdns15672:0crwdne15672:0"
+    "io": "crwdns15672:0crwdne15672:0",
+    "oc": "Adreiça email invalida"
   },
   "emails.invalid": {
     "fr": "Au moins une des adresses email est invalide",
@@ -345,7 +367,8 @@ module.exports = {
     "de": "Mindestens eine der E-Mail-Adressen ist ungültig",
     "es": "Al menos una dirección de correo electrónico no es válido",
     "it": "Almeno uno degli indirizzi e-mail non è valido",
-    "io": "crwdns15674:0crwdne15674:0"
+    "io": "crwdns15674:0crwdne15674:0",
+    "oc": "Al mens una de las adreiças mail es pas valida"
   },
   "credential.downgrade": {
     "fr": "Vous ne pouvez pas baisser le niveau d'un membre",
@@ -353,7 +376,8 @@ module.exports = {
     "de": "Du kannst nicht den Berechtigungsnachweis eines Mitglieds herabstufen.",
     "es": "No se puede bajar el nivel de un miembro",
     "it": "Non puoi abbassare il livello di un membro",
-    "io": "crwdns15676:0crwdne15676:0"
+    "io": "crwdns15676:0crwdne15676:0",
+    "oc": "Podètz pas baissar lo nivèl d'un membre"
   },
   "exportToXlsx": {
     "fr": "Exporter en xlsx",
@@ -361,7 +385,8 @@ module.exports = {
     "de": "Export nach xlsx",
     "es": "exportación XLSX",
     "it": "Esportazione in xlsx",
-    "io": "crwdns15678:0crwdne15678:0"
+    "io": "crwdns15678:0crwdne15678:0",
+    "oc": "Exportar en xlsx"
   },
   "exportToCsv": {
     "fr": "Exporter en csv",
@@ -369,7 +394,8 @@ module.exports = {
     "de": "Export in csv",
     "es": "Exportar a CSV",
     "it": "Esportazione in csv",
-    "io": "crwdns15680:0crwdne15680:0"
+    "io": "crwdns15680:0crwdne15680:0",
+    "oc": "Exportar en csv"
   },
   "sendAMessage": {
     "fr": "Lui écrire",
@@ -377,7 +403,8 @@ module.exports = {
     "de": "Eine Nachricht schicken",
     "es": "Enviar un mensaje",
     "it": "Scrivetegli",
-    "io": "crwdns15682:0crwdne15682:0"
+    "io": "crwdns15682:0crwdne15682:0",
+    "oc": "Mandar un messatge"
   },
   "emailsCouldNotBeInvited": {
     "fr": "Les emails suivants n'ont pas pu être invités:",
@@ -385,7 +412,8 @@ module.exports = {
     "de": "Die folgenden E-Mails können nicht eingeladen werden:",
     "es": "No se han invitado a los siguientes correos electrónicos:",
     "it": "Le seguenti e-mail non possono essere invitate:",
-    "io": "crwdns15684:0crwdne15684:0"
+    "io": "crwdns15684:0crwdne15684:0",
+    "oc": "Poguèrem pas convidar los emails seguents :"
   },
   "invitationProblem": {
     "fr": "Il y a eu un problème pendant l'invitation des membres, veuillez réessayer ultérieurement.",
@@ -393,7 +421,8 @@ module.exports = {
     "de": "Es gab ein Problem, während die Mitglieder einladen, versuchen Sie es später noch einmal.",
     "es": "Hubo un problema, por invitación de los miembros, por favor intente de nuevo más tarde.",
     "it": "C'è stato un problema durante l'invito dei soci, si prega di riprovare più tardi.",
-    "io": "crwdns15686:0crwdne15686:0"
+    "io": "crwdns15686:0crwdne15686:0",
+    "oc": "I aguèt un problèma a la convidacion, mercés de tornar ensajar mai tard."
   },
   "membersInvited": {
     "fr": "Les membres ont été invités avec succès.",
@@ -401,7 +430,8 @@ module.exports = {
     "de": "Die Mitglieder wurden erfolgreich eingeladen.",
     "es": "Los miembros fueron invitados éxito.",
     "it": "I membri sono stati invitati con successo.",
-    "io": "crwdns15688:0crwdne15688:0"
+    "io": "crwdns15688:0crwdne15688:0",
+    "oc": "Los membres son plan estats convidats."
   },
   "noName": {
     "fr": "Sans nom",
@@ -409,7 +439,8 @@ module.exports = {
     "de": "Namenlos",
     "es": "Sin nombre",
     "it": "Senza nome",
-    "io": "crwdns15690:0crwdne15690:0"
+    "io": "crwdns15690:0crwdne15690:0",
+    "oc": "Sens nom"
   },
   "deletedUser": {
     "fr": "Compte supprimé",
@@ -417,7 +448,8 @@ module.exports = {
     "de": "Gelöschter Benutzer",
     "es": "Usario eliminado",
     "it": "Account cancellato",
-    "io": "crwdns15692:0crwdne15692:0"
+    "io": "crwdns15692:0crwdne15692:0",
+    "oc": "Utilizaire suprimit"
   },
   "invited": {
     "fr": "Invité",
@@ -425,7 +457,8 @@ module.exports = {
     "de": "Eingeladen",
     "es": "invitado",
     "it": "Ospite",
-    "io": "crwdns15694:0crwdne15694:0"
+    "io": "crwdns15694:0crwdne15694:0",
+    "oc": "Convidat"
   },
   "hasAccount": {
     "fr": "Compte existant",
@@ -433,7 +466,8 @@ module.exports = {
     "es": "Tiene cuenta",
     "it": "Account esistente",
     "de": "",
-    "io": "crwdns15696:0crwdne15696:0"
+    "io": "crwdns15696:0crwdne15696:0",
+    "oc": "Lo compte existís"
   },
   "resendInvitation": {
     "fr": "Relancer l'invitation",
@@ -441,7 +475,8 @@ module.exports = {
     "de": "Einladung erneut versenden",
     "es": "invitación reinicio",
     "it": "Rilasciare l'invito",
-    "io": "crwdns15698:0crwdne15698:0"
+    "io": "crwdns15698:0crwdne15698:0",
+    "oc": "Tornar mandar la convidacion"
   },
   "invitationResended": {
     "fr": "L'invitation a été renvoyée.",
@@ -449,7 +484,8 @@ module.exports = {
     "de": "Die Einladung war erneut gesendet.",
     "es": "La invitación fue enviada.",
     "it": "L'invito è stato restituito.",
-    "io": "crwdns15700:0crwdne15700:0"
+    "io": "crwdns15700:0crwdne15700:0",
+    "oc": "La convidacion es estada tornada mandar."
   },
   "invitationNotResended": {
     "fr": "L'invitation n'a pas pu être renvoyée.",
@@ -457,13 +493,15 @@ module.exports = {
     "de": "Die Einladung kann nicht erneut gesendet werden.",
     "es": "La invitación no podía ser de nuevo enviada.",
     "it": "L'invito non ha potuto essere restituito.",
-    "io": "crwdns15702:0crwdne15702:0"
+    "io": "crwdns15702:0crwdne15702:0",
+    "oc": "La convidacion se poguèt pas tornar mandar."
   },
   "roleInsufficient": {
     "en": "You do not have access to the requested page. Contact administrators via the 'Contact' button.",
     "fr": "Vous n'avez pas accès à la page demandée. Contactez les administrateurs via le bouton 'Contacter'.",
     "it": "Non avete accesso alla pagina richiesta. Contattare gli amministratori tramite il pulsante 'Contatto'.",
-    "io": "crwdns15704:0crwdne15704:0"
+    "io": "crwdns15704:0crwdne15704:0",
+    "oc": "Avètz pas accès a aquela pagina. Contactatz los adminsitrators amb lo boton 'Contactar'."
   },
   "message": {
     "fr": "Message",
@@ -471,7 +509,8 @@ module.exports = {
     "de": "Botschaft",
     "es": "mensaje",
     "it": "Messaggio",
-    "io": "crwdns15706:0crwdne15706:0"
+    "io": "crwdns15706:0crwdne15706:0",
+    "oc": "Messatge"
   },
   "replyTo": {
     "fr": "Adresse email de réponse",
@@ -479,7 +518,8 @@ module.exports = {
     "de": "Antwort E-Mail-Adresse",
     "es": "contestará la dirección de correo electrónico",
     "it": "Indirizzo e-mail di risposta",
-    "io": "crwdns15708:0crwdne15708:0"
+    "io": "crwdns15708:0crwdne15708:0",
+    "oc": "Adreiça mail de responsa"
   },
   "active": {
     "fr": "Actif",
@@ -487,7 +527,8 @@ module.exports = {
     "de": "Aktiv",
     "es": "Activo",
     "it": "Attivo",
-    "io": "crwdns15710:0crwdne15710:0"
+    "io": "crwdns15710:0crwdne15710:0",
+    "oc": "Actiu"
   },
   "inactive": {
     "fr": "Inactif",
@@ -495,7 +536,8 @@ module.exports = {
     "de": "Inaktiv",
     "es": "inactivo",
     "it": "Inattivo",
-    "io": "crwdns15712:0crwdne15712:0"
+    "io": "crwdns15712:0crwdne15712:0",
+    "oc": "Inactiu"
   },
   "noContrib": {
     "fr": "n'a pas contribué",
@@ -503,7 +545,8 @@ module.exports = {
     "de": "kein Beitrag",
     "es": "no ha añadido evento",
     "it": "non ha contribuito",
-    "io": "crwdns15714:0crwdne15714:0"
+    "io": "crwdns15714:0crwdne15714:0",
+    "oc": "a pas contribuït"
   },
   "deleted": {
     "fr": "Supprimé",
@@ -511,7 +554,8 @@ module.exports = {
     "de": "gelöscht",
     "es": "Eliminado",
     "it": "Cancellato",
-    "io": "crwdns15716:0crwdne15716:0"
+    "io": "crwdns15716:0crwdne15716:0",
+    "oc": "Escafat"
   },
   "sendMessage": {
     "fr": "Envoyer le message",
@@ -519,7 +563,8 @@ module.exports = {
     "de": "Nachricht senden",
     "es": "Enviar el mensaje",
     "it": "Invia il messaggio",
-    "io": "crwdns15718:0crwdne15718:0"
+    "io": "crwdns15718:0crwdne15718:0",
+    "oc": "Mandar lo messatge"
   },
   "sendMessageToAll": {
     "fr": "Envoyer un message à tous les membres",
@@ -527,7 +572,8 @@ module.exports = {
     "de": "Senden Sie eine Nachricht an alle Mitglieder",
     "es": "Enviar un mensaje a todos los miembros",
     "it": "Invia un messaggio a tutti i membri",
-    "io": "crwdns15722:0crwdne15722:0"
+    "io": "crwdns15722:0crwdne15722:0",
+    "oc": "Mandar un messatge a totes los membres"
   },
   "sendMessageToInactives": {
     "fr": "Envoyer un message aux membres n'ayant pas contribué",
@@ -535,7 +581,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an Mitglieder, die nicht beigetragen haben",
     "es": "Enviar un mensaje a los miembros que no han contribuido",
     "it": "Inviare un messaggio ai membri non contribuenti",
-    "io": "crwdns15724:0crwdne15724:0"
+    "io": "crwdns15724:0crwdne15724:0",
+    "oc": "Mandar un messatge als membres qu'an pas contribuït"
   },
   "nameModerators": {
     "fr": "Nommer des modérateurs",
@@ -543,7 +590,8 @@ module.exports = {
     "de": "ernennen Moderatoren",
     "es": "nombrar a los moderadores",
     "it": "Nominare i moderatori",
-    "io": "crwdns15726:0crwdne15726:0"
+    "io": "crwdns15726:0crwdne15726:0",
+    "oc": "Nommar de moderators"
   },
   "messageSent": {
     "fr": "Le message a été bien envoyé.",
@@ -551,7 +599,8 @@ module.exports = {
     "de": "Die Nachricht wurde erfolgreich gesendet.",
     "es": "El mensaje ha sido enviado.",
     "it": "Il messaggio è stato inviato bene.",
-    "io": "crwdns15728:0crwdne15728:0"
+    "io": "crwdns15728:0crwdne15728:0",
+    "oc": "Lo messatge es plan estat mandat."
   },
   "close": {
     "fr": "Fermer",
@@ -567,7 +616,8 @@ module.exports = {
     "en": "You need to be a member of the agenda to access this page. Contact the administrators of the agenda using the 'Contact' button.",
     "fr": "La page à laquelle vous avez tenté d'accéder n'est accessible que pour les membres de l'agenda. Contactez les administrateurs via le bouton 'Contacter'.",
     "it": "La pagina che avete tentato di caricare è accessibile solo ai membri del calendario. Contattare gli amministratori tramite il pulsante 'Contatto'.",
-    "io": "crwdns15732:0crwdne15732:0"
+    "io": "crwdns15732:0crwdne15732:0",
+    "oc": "Vos cal èsser membre de l'agenda per accedir a aquela pagina. Contactatz los administrators de l'agenda amb lo boton 'Contactar'."
   },
   "moreinfoActive": {
     "fr": "Utilisateur membre de l'agenda ayant contribué des événements",
@@ -575,7 +625,8 @@ module.exports = {
     "de": "Mitglied, das dazu beigetragen hat Veranstaltungen",
     "es": "miembro de usuario del agenda de eventos que contribuyen",
     "it": "Membro del agenda che ha contribuito agli eventi",
-    "io": "crwdns15734:0crwdne15734:0"
+    "io": "crwdns15734:0crwdne15734:0",
+    "oc": "Membre que contribuiguèt a d'eveniments"
   },
   "moreinfoInactive": {
     "fr": "Utilisateur membre de l'agenda n'ayant pas encore contribué d'événements",
@@ -583,7 +634,8 @@ module.exports = {
     "de": "Mitglied, das jede Veranstaltung noch nicht beigetragen hat",
     "es": "agenda usuario miembro aún no ha contribuido a eventos",
     "it": "Utente membro dell'agenda che non ha ancora contribuito agli eventi",
-    "io": "crwdns15736:0crwdne15736:0"
+    "io": "crwdns15736:0crwdne15736:0",
+    "oc": "Membre qu'a pas encara contribuït a cap eveniment"
   },
   "moreinfoInvited": {
     "fr": "Utilisateur ayant été invité à devenir membre. Cet utilisateur n'a pas encore de compte sur OpenAgenda. Un mail lui a été envoyé pour l'inviter à le créer.",
@@ -591,7 +643,8 @@ module.exports = {
     "de": "Benutzer, der eingeladen wurde, Mitglied zu werden. Dieser Benutzer hat noch kein OpenAgenda Konto. Eine E-Mail gesendet wurde, um ihn einzuladen, eine zu erstellen.",
     "es": "El usuario ha sido invitado a convertirse en miembro. Este usuario no tiene cuenta en OpenAgenda. Un correo electrónico fue enviado a él para invitarle a crearlo.",
     "it": "L'utente è stato invitato come membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
-    "io": "crwdns15738:0crwdne15738:0"
+    "io": "crwdns15738:0crwdne15738:0",
+    "oc": "Utilizaire qu'es estat convidat a venir membre. Aqueste utilizaire a pas encara de compte OpenAgenda. Un mail li es estat mandat per l'invitar a ne crear un."
   },
   "moreinfoDeleted": {
     "fr": "Membre ayant supprimé son compte utilisateur",
@@ -599,7 +652,8 @@ module.exports = {
     "de": "Mitglied, das sein / ihr Benutzerkonto gelöscht",
     "es": "Miembro que haya borrado su cuenta de usuario",
     "it": "Membro che ha cancellato il suo account utente",
-    "io": "crwdns15740:0crwdne15740:0"
+    "io": "crwdns15740:0crwdne15740:0",
+    "oc": "Membre qu'a suprimit son compte d'utilizaire·a"
   },
   "writeToHim": {
     "fr": "Lui écrire",
@@ -607,7 +661,8 @@ module.exports = {
     "de": "Schreiben Sie Mitglied",
     "es": "Enviar un mensaje",
     "it": "Scrivetegli",
-    "io": "crwdns15742:0crwdne15742:0"
+    "io": "crwdns15742:0crwdne15742:0",
+    "oc": "Escriure al membre"
   },
   "writeToThem": {
     "fr": "Leur écrire",
@@ -615,7 +670,8 @@ module.exports = {
     "de": "Schreiben Sie sie",
     "es": "su escritura",
     "it": "Scrivi a loro",
-    "io": "crwdns15744:0crwdne15744:0"
+    "io": "crwdns15744:0crwdne15744:0",
+    "oc": "Lor escriure"
   },
   "sendOnlyToInactives": {
     "fr": "Envoyer seulement aux utilisateurs inactifs",
@@ -623,7 +679,8 @@ module.exports = {
     "de": "Senden nur auf inaktive Mitglieder",
     "es": "Enviar sólo a los usuarios inactivos",
     "it": "Inviare solo agli utenti inattivi",
-    "io": "crwdns15746:0crwdne15746:0"
+    "io": "crwdns15746:0crwdne15746:0",
+    "oc": "Mandar sonque als membres inactius"
   },
   "export": {
     "fr": "Exporter",
@@ -638,31 +695,36 @@ module.exports = {
     "fr": "date d'arrivée",
     "en": "arrival date",
     "it": "data di arrivo",
-    "io": "crwdns15750:0crwdne15750:0"
+    "io": "crwdns15750:0crwdne15750:0",
+    "oc": "data d'arribada"
   },
   "order.name": {
     "fr": "nom",
     "en": "name",
     "it": "nome",
-    "io": "crwdns15752:0crwdne15752:0"
+    "io": "crwdns15752:0crwdne15752:0",
+    "oc": "nom"
   },
   "order.activity": {
     "fr": "activité",
     "en": "activity",
     "it": "attività",
-    "io": "crwdns15754:0crwdne15754:0"
+    "io": "crwdns15754:0crwdne15754:0",
+    "oc": "activitat"
   },
   "orderSort": {
     "fr": "Ordre de tri",
     "en": "Sort order",
     "it": "Ordinare gli eventi",
-    "io": "crwdns15756:0crwdne15756:0"
+    "io": "crwdns15756:0crwdne15756:0",
+    "oc": "Òrdre de tria"
   },
   "sortBy": {
     "fr": "Trié par",
     "en": "Order by",
     "it": "Ordinato per",
-    "io": "crwdns16148:0crwdne16148:0"
+    "io": "crwdns16148:0crwdne16148:0",
+    "oc": "Triar per"
   },
   "removeFilter": {
     "fr": "Supprimer le filtre",
@@ -675,11 +737,13 @@ module.exports = {
   "subject": {
     "fr": "Sujet",
     "en": "Subject",
-    "io": "crwdns33237:0crwdne33237:0"
+    "io": "crwdns33237:0crwdne33237:0",
+    "oc": "Subjècte"
   },
   "sendAlsoToMe": {
     "fr": "M'envoyer ce message",
     "en": "Send me this message",
-    "io": "crwdns33239:0crwdne33239:0"
+    "io": "crwdns33239:0crwdne33239:0",
+    "oc": "Mandatz-me aqueste messatge"
   }
 }

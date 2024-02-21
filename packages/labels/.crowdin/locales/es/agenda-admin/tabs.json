@@ -3,6 +3,7 @@
   "contributors": "Colaboradores",
   "moderators": "Moderadores",
   "members": "Miembros",
+  "history": "Historia",
   "newTab": "Nuevo!",
   "locations": "Lugares",
   "categories": "Categorías y Etiquetas",
@@ -20,6 +21,5 @@
   "schema": "Formulario",
   "settings_contribution": "Contribución",
   "settings_advanced": "Avanzado",
-  "statistics": "Estadísticas",
-  "history": "Historia"
+  "statistics": "Estadísticas"
 }

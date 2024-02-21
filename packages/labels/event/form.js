@@ -8,7 +8,8 @@ module.exports = {
     "de": "Beschreibungsfelder",
     "es": "Descripciones",
     "br": "Maeziennoù deskrivañ",
-    "io": "crwdns14262:0crwdne14262:0"
+    "io": "crwdns14262:0crwdne14262:0",
+    "oc": "Camps de descripcion"
   },
   "attendanceMode": {
     "fr": "Mode de participation",
@@ -27,7 +28,8 @@ module.exports = {
     "es": "Desconnectad",
     "de": "Offline",
     "br": "War al lec’h",
-    "io": "crwdns14266:0crwdne14266:0"
+    "io": "crwdns14266:0crwdne14266:0",
+    "oc": "Sus plaça"
   },
   "onlineAttendanceMode": {
     "fr": "En ligne",
@@ -56,7 +58,8 @@ module.exports = {
     "es": "Enlace de acceso",
     "it": "Collegamento di accesso",
     "br": "Liamm moned",
-    "io": "crwdns14272:0crwdne14272:0"
+    "io": "crwdns14272:0crwdne14272:0",
+    "oc": "Ligam d'accès"
   },
   "location": {
     "fr": "Lieu",
@@ -65,7 +68,8 @@ module.exports = {
     "de": "Ort",
     "es": "Lugar",
     "br": "Lec'h",
-    "io": "crwdns14274:0crwdne14274:0"
+    "io": "crwdns14274:0crwdne14274:0",
+    "oc": "Lòc"
   },
   "locationInfo": {
     "fr": "Saisissez le nom du lieu où se déroule l'événement",
@@ -74,7 +78,8 @@ module.exports = {
     "de": "Geben Sie den Namen des Ortes ein, an dem die Veranstaltung stattfindet.",
     "es": "Introduzca el nombre del lugar donde se realice el evento",
     "br": "Skrivit anv al lec'h ma tremen an darvoud",
-    "io": "crwdns14276:0crwdne14276:0"
+    "io": "crwdns14276:0crwdne14276:0",
+    "oc": "Dintratz lo nom del lòc ont los eveniments se debanaràn"
   },
   "locationSub": {
     "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
@@ -83,7 +88,8 @@ module.exports = {
     "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
     "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
     "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
-    "io": "crwdns14278:0crwdne14278:0"
+    "io": "crwdns14278:0crwdne14278:0",
+    "oc": "Se cap lòc correspond pas al nom, apondètz un novèl lòc en clicant sus 'Crear un lòc novèl'"
   },
   "locationSection": {
     "fr": "Lieu",
@@ -92,7 +98,8 @@ module.exports = {
     "de": "Ort",
     "es": "Lugar",
     "br": "Lec'h",
-    "io": "crwdns14280:0crwdne14280:0"
+    "io": "crwdns14280:0crwdne14280:0",
+    "oc": "Lòc"
   },
   "locationCreate": {
     "fr": "Nouveau lieu",
@@ -101,7 +108,8 @@ module.exports = {
     "de": "Neuer Standort",
     "es": "Nuevo lugar",
     "br": "Lec'h nevez",
-    "io": "crwdns14282:0crwdne14282:0"
+    "io": "crwdns14282:0crwdne14282:0",
+    "oc": "Lòc novèl"
   },
   "title": {
     "fr": "Titre",
@@ -119,7 +127,8 @@ module.exports = {
     "es": "Nombre del evento",
     "br": "Titl an darvoud",
     "io": "crwdns14286:0crwdne14286:0",
-    "it": "Il titolo del tuo evento"
+    "it": "Il titolo del tuo evento",
+    "oc": "Títol de l'eveniment"
   },
   "titleSub": {
     "fr": "",
@@ -134,7 +143,8 @@ module.exports = {
     "de": "Titel Ihrer Veranstaltung",
     "es": "El título de su evento",
     "br": "Titl ho tarvoud",
-    "io": "crwdns14288:0crwdne14288:0"
+    "io": "crwdns14288:0crwdne14288:0",
+    "oc": "Títol de vòstre eveniment"
   },
   "description": {
     "fr": "Description courte",
@@ -143,7 +153,8 @@ module.exports = {
     "de": "Kurzbeschreibung",
     "es": "Descripción corta",
     "br": "Deskrivadur berr",
-    "io": "crwdns14290:0crwdne14290:0"
+    "io": "crwdns14290:0crwdne14290:0",
+    "oc": "Descripcion corta"
   },
   "descriptionPurpose": {
     "fr": "Description pour les affichages réduits ou liste",
@@ -151,7 +162,8 @@ module.exports = {
     "es": "Descripción de las pequeñas pantallas o lista",
     "br": "Deskrivadur evit an diskweloù berr pe listenn",
     "io": "crwdns14292:0crwdne14292:0",
-    "it": "Utile per la lista degli eventi"
+    "it": "Utile per la lista degli eventi",
+    "oc": "Descripcion pels afichatges cortets o en lista"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
@@ -160,7 +172,8 @@ module.exports = {
     "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
     "es": "Una breve descripción de su evento",
     "br": "Un deskrivadur berr eus ho tarvoud",
-    "io": "crwdns14294:0crwdne14294:0"
+    "io": "crwdns14294:0crwdne14294:0",
+    "oc": "Una descripcion corteta de vòstre eveniment"
   },
   "descriptionSub": {
     "fr": "",
@@ -175,7 +188,8 @@ module.exports = {
     "de": "Bild der Veranstaltung",
     "es": "Imagen del evento",
     "br": "Skeudenn an darvoud",
-    "io": "crwdns14296:0crwdne14296:0"
+    "io": "crwdns14296:0crwdne14296:0",
+    "oc": "Imatge de l'eveniment"
   },
   "imageInfo": {
     "fr": "Chargez une image d'au moins 300 pixels de large",
@@ -184,7 +198,8 @@ module.exports = {
     "de": "Laden Sie ein Bild mit einer Breite von mindestens 300 Pixeln.",
     "es": "Cargar una imagen de al menos 300 píxeles de ancho",
     "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
-    "io": "crwdns14298:0crwdne14298:0"
+    "io": "crwdns14298:0crwdne14298:0",
+    "oc": "Cargatz un image d'al mens 300 pixèls de largor"
   },
   "imageCredits": {
     "fr": "Crédits de l'image",
@@ -213,7 +228,8 @@ module.exports = {
     "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
     "es": "Introduzca una descripción detallada de su evento.",
     "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
-    "io": "crwdns14304:0crwdne14304:0"
+    "io": "crwdns14304:0crwdne14304:0",
+    "oc": "Dintratz una descripcion detalhada de vòstre eveniment."
   },
   "longDescriptionSub": {
     "fr": "",
@@ -238,7 +254,8 @@ module.exports = {
     "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
     "es": "palabras llave separadas por comas o fichas",
     "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
-    "io": "crwdns14308:0crwdne14308:0"
+    "io": "crwdns14308:0crwdne14308:0",
+    "oc": "Desseparatz cada mot clau per de tabulacion o de virgulas"
   },
   "keywordsSub": {
     "fr": "Les mots clés sont utiles pour les fonctions de recherche",
@@ -247,7 +264,8 @@ module.exports = {
     "de": "Keywords sind nützlich für Suchfunktionen.",
     "es": "Las palabras llave son útiles para las funciones de búsqueda",
     "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
-    "io": "crwdns14310:0crwdne14310:0"
+    "io": "crwdns14310:0crwdne14310:0",
+    "oc": "Los mots claus son utiles per las recèrcas futuras"
   },
   "conditions": {
     "fr": "Conditions de participation, tarifs",
@@ -256,7 +274,8 @@ module.exports = {
     "de": "Teilnahmebedingungen, Preisgestaltung",
     "es": "Condiciones de las tasas de participación",
     "br": "Divizoù evit kemer perzh, prizioù",
-    "io": "crwdns14312:0crwdne14312:0"
+    "io": "crwdns14312:0crwdne14312:0",
+    "oc": "Condicions de participacion, tarifas"
   },
   "conditionsPlaceholder": {
     "fr": "Entrée libre, sur inscription, autre...",
@@ -265,7 +284,8 @@ module.exports = {
     "de": "Freier Zugang, Registrierung erforderlich, andere.....",
     "es": "Entrada gratuita para los suscriptores, otra ...",
     "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
-    "io": "crwdns14314:0crwdne14314:0"
+    "io": "crwdns14314:0crwdne14314:0",
+    "oc": "Entrada liura, reservacion necessària, autre..."
   },
   "conditionsSub": {
     "fr": "",
@@ -280,7 +300,8 @@ module.exports = {
     "de": "Registrierung",
     "es": "Herramientas de registro",
     "br": "En em enskrivañ",
-    "io": "crwdns14316:0crwdne14316:0"
+    "io": "crwdns14316:0crwdne14316:0",
+    "oc": "Inscripcion"
   },
   "registrationSub": {
     "fr": "Séparez les items par des tabulations ou des virgules",
@@ -289,7 +310,8 @@ module.exports = {
     "de": "Trenne jedes Element mit Tabs oder Kommas.",
     "es": "artículos por separado con tabulaciones o comas",
     "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
-    "io": "crwdns14318:0crwdne14318:0"
+    "io": "crwdns14318:0crwdne14318:0",
+    "oc": "Desseparatz cada element per de tabulacion o de virgulas"
   },
   "registrationInfo": {
     "fr": "Liens, emails ou numéros de téléphone",
@@ -298,7 +320,8 @@ module.exports = {
     "de": "Links, E-Mails oder Telefonnummern",
     "es": "Enlaces, números de teléfono o correo electrónico",
     "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
-    "io": "crwdns14320:0crwdne14320:0"
+    "io": "crwdns14320:0crwdne14320:0",
+    "oc": "Ligams, emails o numèros de telefòne"
   },
   "accessibility": {
     "fr": "Accessibilité particulière",
@@ -307,7 +330,8 @@ module.exports = {
     "de": "Bedingungen für die Zugänglichkeit",
     "es": "Accesibilidad especial",
     "br": "Monedusted",
-    "io": "crwdns14322:0crwdne14322:0"
+    "io": "crwdns14322:0crwdne14322:0",
+    "oc": "Condicions d'accès"
   },
   "ticketLink": {
     "fr": "Lien de réservation",
@@ -316,7 +340,8 @@ module.exports = {
     "de": "Reservierungslink",
     "es": "Enlace de registro",
     "br": "Liamm mirout",
-    "io": "crwdns14324:0crwdne14324:0"
+    "io": "crwdns14324:0crwdne14324:0",
+    "oc": "Ligam d'inscripcion"
   },
   "age": {
     "fr": "Âge du public ciblé",
@@ -325,7 +350,8 @@ module.exports = {
     "de": "Gezieltes öffentliches Alter",
     "es": "Edad del objetivo",
     "br": "Oad an dud a glasker tizhout",
-    "io": "crwdns14326:0crwdne14326:0"
+    "io": "crwdns14326:0crwdne14326:0",
+    "oc": "Atge del public tocat"
   },
   "timings": {
     "fr": "Horaires",
@@ -344,7 +370,8 @@ module.exports = {
     "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
     "es": "Indicar los horarios de su evento",
     "br": "Lakait eurioù ho tarvoud",
-    "io": "crwdns14330:0crwdne14330:0"
+    "io": "crwdns14330:0crwdne14330:0",
+    "oc": "Indicar d'oraris per vòstre eveniment"
   },
   "timingsHelp": {
     "fr": "Comment ça marche?",
@@ -353,7 +380,8 @@ module.exports = {
     "de": "Wie funktioniert das?",
     "es": "¿Como funciona?",
     "br": "Penaos ez a en-dro ?",
-    "io": "crwdns14332:0crwdne14332:0"
+    "io": "crwdns14332:0crwdne14332:0",
+    "oc": "Cossí marcha aquò ?"
   },
   "uploadButton": {
     "fr": "Sélectionner",
@@ -372,7 +400,8 @@ module.exports = {
     "de": "Wählen Sie eine Sprache",
     "es": "Idiomas de entrada",
     "br": "Choazit ur yezh",
-    "io": "crwdns14336:0crwdne14336:0"
+    "io": "crwdns14336:0crwdne14336:0",
+    "oc": "Lengas de sasida"
   },
   "addLanguage": {
     "en": "Add a language",
@@ -459,7 +488,8 @@ module.exports = {
     "de": "Diese werden verwendet, um Deine Veranstaltung in derVerwaltungskalender zu indexieren. du kannst mehrere auswählen.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede seleccionar más.",
     "br": "Implijet e vezont da venegeriñ an deiziataer. Gallout a rit choaz meur a hini.",
-    "io": "crwdns14354:0crwdne14354:0"
+    "io": "crwdns14354:0crwdne14354:0",
+    "oc": "Aqueles d'aquí servisson a indexar vòstre eveniment dins l'agenda. Ne podètz causir mai d'un."
   },
   "required": {
     "en": "Required.",
@@ -518,19 +548,22 @@ module.exports = {
     "de": "Die mit * markierten Felder müssen ausgefüllt werden.",
     "es": "Se requieren los campos marcados con *",
     "br": "Ret eo leuniañ ar maeziennoù merket gant ur *",
-    "io": "crwdns14366:0crwdne14366:0"
+    "io": "crwdns14366:0crwdne14366:0",
+    "oc": "Los camps marcats d'una * se devon emplenar"
   },
   "scheduled": {
     "fr": "Programmé",
     "en": "Scheduled",
     "io": "crwdns16100:0crwdne16100:0",
-    "es": "Programado"
+    "es": "Programado",
+    "oc": "Programat"
   },
   "rescheduled": {
     "fr": "Re-programmé",
     "en": "Re-scheduled",
     "io": "crwdns16102:0crwdne16102:0",
-    "es": "Reprogramado"
+    "es": "Reprogramado",
+    "oc": "Tornat programar"
   },
   "movedOnline": {
     "fr": "Déplacé en ligne",
@@ -545,13 +578,15 @@ module.exports = {
     "en": "Canceled",
     "it": "Cancellato",
     "io": "crwdns16106:0crwdne16106:0",
-    "es": "Cancelado"
+    "es": "Cancelado",
+    "oc": "Anullat"
   },
   "full": {
     "fr": "Complet",
     "en": "Full",
     "io": "crwdns16448:0crwdne16448:0",
-    "es": "Completo"
+    "es": "Completo",
+    "oc": "Complèt"
   },
   "postponed": {
     "fr": "Reporté",
@@ -573,18 +608,21 @@ module.exports = {
     "en": "Selected",
     "de": "Auswählen",
     "oc": "Seleccionat",
-    "io": "crwdns33354:0crwdne33354:0"
+    "io": "crwdns33354:0crwdne33354:0",
+    "it": "Selezionato"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
     "en": "Not selected",
     "de": "Nicht ausgewählt",
     "oc": "Pas seleccionat",
-    "io": "crwdns33356:0crwdne33356:0"
+    "io": "crwdns33356:0crwdne33356:0",
+    "it": "Non selezionato"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",
     "en": "(No value)",
-    "io": "crwdns33358:0crwdne33358:0"
+    "io": "crwdns33358:0crwdne33358:0",
+    "oc": "(Pas cap valor)"
   }
 };

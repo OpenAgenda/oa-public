@@ -14,7 +14,15 @@
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "crwdns33021:0crwdne33021:0"
+      "value": "crwdns33021:0"
+    },
+    {
+      "type": 1,
+      "value": "service"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33021:0"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [

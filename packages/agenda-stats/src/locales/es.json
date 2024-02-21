@@ -1,8 +1,10 @@
 {
   "AgendaStats.ChartWrapper.remove": "Eliminar",
+  "AgendaStats.CustomTooltip.events": "{value, number} eventos",
   "AgendaStats.Dashboard.cancel": "Anular",
   "AgendaStats.Dashboard.changeOrder": "Clasificar",
   "AgendaStats.Dashboard.save": "Guardar",
+  "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {event} one {event} other {eventos}}",
   "AgendaStats.IntervalSelect.day": "día",
   "AgendaStats.IntervalSelect.month": "mes",
   "AgendaStats.IntervalSelect.week": "semana",
@@ -28,7 +30,5 @@
   "AgendaStats.dateRanges.lastYear": "El año pasado",
   "AgendaStats.form.cancel": "Anular",
   "AgendaStats.form.remove": "Eliminar",
-  "AgendaStats.messages.chartTitles.originAgendas": "Agenda original",
-  "AgendaStats.CustomTooltip.events": "{value, number} eventos",
-  "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {event} one {event} other {eventos}}"
+  "AgendaStats.messages.chartTitles.originAgendas": "Agenda original"
 }

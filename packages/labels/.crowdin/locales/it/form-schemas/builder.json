@@ -75,6 +75,8 @@
   "fieldFormMaxTextLength": "Lunghezza massima del testo inserito",
   "fieldFormMinTextLength": "Lunghezza minima del testo inserito",
   "chooseFieldType": "Selezione del tipo di campo",
+  "chooseFieldTypePlaceholder": "Selezionare un tipo di campo",
+  "chooseOtherType": "Seleziona un altro tipo",
   "confirmFieldType": "Configurazione del campo",
   "confirmFieldCreate": "Creare il campo",
   "confirmFieldUpdate": "Aggiorna",
@@ -109,7 +111,5 @@
   "writeAccess": "Scrittura",
   "adminAccess": "administratore",
   "moderatorAccess": "moderatore",
-  "contributorAccess": "contributore",
-  "chooseFieldTypePlaceholder": "Selezionare un tipo di campo",
-  "chooseOtherType": "Seleziona un altro tipo"
+  "contributorAccess": "contributore"
 }

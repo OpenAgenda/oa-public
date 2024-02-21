@@ -32,7 +32,7 @@
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "Ajouter aux favoris"
+      "value": "Apondre als favorits"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
@@ -44,13 +44,13 @@
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "Retirer des favoris"
+      "value": "Tirar dels favorits"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "Favoris"
+      "value": "Favorits"
     }
   ]
 }

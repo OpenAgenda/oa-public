@@ -518,7 +518,7 @@ module.exports = {
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar una agenda privada",
-    "it": "Richiedi un'agenda privata",
+    "it": "Richiedere un'agenda privata",
     "io": "crwdns12610:0crwdne12610:0",
     "oc": "Demandar una agenda privada"
   },
@@ -808,27 +808,32 @@ module.exports = {
   "matomoUrl": {
     "en": "Url",
     "fr": "Url",
-    "io": "crwdns33265:0crwdne33265:0"
+    "io": "crwdns33265:0crwdne33265:0",
+    "oc": "Url"
   },
   "matomoSiteId": {
     "en": "Site id",
     "fr": "Identifiant du site",
-    "io": "crwdns33267:0crwdne33267:0"
+    "io": "crwdns33267:0crwdne33267:0",
+    "oc": "Identificant del site"
   },
   "matomoAskForConsent": {
     "en": "Request user consent",
     "fr": "Demander le consentement de l'utilisateur",
-    "io": "crwdns33269:0crwdne33269:0"
+    "io": "crwdns33269:0crwdne33269:0",
+    "oc": "Demandar a l'utilizaire son consentiment"
   },
   "matomoAskForConsentInfo": {
     "en": "My Matomo configurationg requires asking for consent",
     "fr": "Ma configuration Matomo nécessite de demander le consentement",
-    "io": "crwdns33271:0crwdne33271:0"
+    "io": "crwdns33271:0crwdne33271:0",
+    "oc": "Ma configuracion a mestièr de demandar lo consentiment"
   },
   "matomoCustomConfig": {
     "en": "I want to use a particular Matomo configuration. ",
     "fr": "Je souhaite utiliser une configuration Matomo particulière. ",
-    "io": "crwdns33273:0crwdne33273:0"
+    "io": "crwdns33273:0crwdne33273:0",
+    "oc": "Vòli utilizar una configuracion particulara de Matomo. "
   },
   "matomoSupport": {
     "en": "Contact support",
@@ -840,12 +845,14 @@ module.exports = {
   "trackSelectPlaceholder": {
     "en": "Choose your tracking service (Google Analytics or Matomo)",
     "fr": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
-    "io": "crwdns33277:0crwdne33277:0"
+    "io": "crwdns33277:0crwdne33277:0",
+    "oc": "Causissètz vòstre servici de seguit (Google Analytics o Matomo)"
   },
   "moreInfo": {
     "en": "more info",
     "fr": "plus d’info",
-    "io": "crwdns33279:0crwdne33279:0"
+    "io": "crwdns33279:0crwdne33279:0",
+    "oc": "mai d'informacions"
   },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
@@ -859,22 +866,26 @@ module.exports = {
   "googleAnalyticsSecret": {
     "fr": "Clé secrete de suivi Google Analytics",
     "en": "Google Analytics Tracking Secret key",
-    "io": "crwdns33257:0crwdne33257:0"
+    "io": "crwdns33257:0crwdne33257:0",
+    "oc": "Clau secrèta de seguit Google Analytics"
   },
   "googleAnalyticsTitle": {
     "fr": "Seulement pour les utilisateurs GA4",
     "en": "Only for GA4 users",
-    "io": "crwdns33259:0crwdne33259:0"
+    "io": "crwdns33259:0crwdne33259:0",
+    "oc": "Per utilizaires GA4 sonque"
   },
   "googleAnalyticsLabel": {
     "fr": "Suivi des exports et utilisation de l'API",
     "en": "Track export and API usage",
-    "io": "crwdns33261:0crwdne33261:0"
+    "io": "crwdns33261:0crwdne33261:0",
+    "oc": "Seguit dels expòrts e de l'utilizacion de l'API"
   },
   "googleAnalyticsInfo": {
     "fr": "Pour créer un secret, accédez à l'interface utilisateur de Google Analytics : Admin > Flux de données > choisir votre flux > Protocole de mesure > Créer",
     "en": "To create a new secret, navigate in the Google Analytics UI to: Admin > Data Streams > choose your stream > Measurement Protocol > Create",
-    "io": "crwdns33263:0crwdne33263:0"
+    "io": "crwdns33263:0crwdne33263:0",
+    "oc": "Per crear un novèl secrèt, anatz dins l'interfàcia utilizaire de Google Analytics : Administracion > Flus de donadas > Protocòl de mesura > Crear"
   },
   "stats": {
     "fr": "Statistiques",
@@ -936,7 +947,8 @@ module.exports = {
   "pass": {
     "fr": "Pass Culture",
     "en": "Pass Culture",
-    "io": "crwdns33402:0crwdne33402:0"
+    "io": "crwdns33402:0crwdne33402:0",
+    "oc": "Pass Culture"
   },
   "passTabDescription": {
     "fr": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda"

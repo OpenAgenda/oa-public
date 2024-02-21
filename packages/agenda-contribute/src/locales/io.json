@@ -15,6 +15,8 @@
   "AgendaContribute.Confirmation.recapDetailState2": "crwdns16287:0crwdne16287:0",
   "AgendaContribute.Confirmation.seeEventAction": "crwdns16289:0crwdne16289:0",
   "AgendaContribute.Confirmation.showMyEvents": "crwdns16291:0crwdne16291:0",
+  "AgendaContribute.EditConfirmation.end": "crwdns33406:0crwdne33406:0",
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "crwdns33408:0crwdne33408:0",
   "AgendaContribute.ErrorMessage.cancelChange": "crwdns16361:0crwdne16361:0",
   "AgendaContribute.ErrorMessage.conditions": "crwdns16363:0crwdne16363:0",
   "AgendaContribute.ErrorMessage.description": "crwdns32376:0crwdne32376:0",
@@ -25,6 +27,9 @@
   "AgendaContribute.ErrorMessage.suggestChange": "crwdns16377:0crwdne16377:0",
   "AgendaContribute.ErrorMessage.timings": "crwdns16379:0crwdne16379:0",
   "AgendaContribute.ErrorMessage.title": "crwdns32378:0crwdne32378:0",
+  "AgendaContribute.EventEdit.unpublishWarning": "crwdns33470:0crwdne33470:0",
+  "AgendaContribute.EventEdit.unpublishWarningTitle": "crwdns33472:0crwdne33472:0",
+  "AgendaContribute.EventEdit.unpublishWarningWithLink": "crwdns33474:0crwdne33474:0",
   "AgendaContribute.EventEdit.update": "crwdns16293:0crwdne16293:0",
   "AgendaContribute.EventIsAlreadyInTarget.goBack": "crwdns16295:0crwdne16295:0",
   "AgendaContribute.EventIsAlreadyInTarget.isInTarget": "crwdns16297:0crwdne16297:0",
@@ -50,10 +55,5 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "crwdns16353:0crwdne16353:0",
   "AgendaContribute.Stepper.confirmation": "crwdns16355:0crwdne16355:0",
   "AgendaContribute.Stepper.event": "crwdns16357:0crwdne16357:0",
-  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0",
-  "AgendaContribute.EditConfirmation.end": "crwdns33406:0crwdne33406:0",
-  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": "crwdns33408:0crwdne33408:0",
-  "AgendaContribute.EventEdit.unpublishWarning": "crwdns33470:0crwdne33470:0",
-  "AgendaContribute.EventEdit.unpublishWarningTitle": "crwdns33472:0crwdne33472:0",
-  "AgendaContribute.EventEdit.unpublishWarningWithLink": "crwdns33474:0crwdne33474:0"
+  "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0"
 }

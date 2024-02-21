@@ -8,6 +8,7 @@
   "emailFieldType": "Email",
   "sectionLabel": "Títol",
   "imageFieldType": "Imatge",
+  "languagesFieldType": "Lengas de sasida",
   "keywordsFieldType": "Mots claus",
   "buttonSave": "Enregistrar",
   "buttonSaved": "Enregistrat",
@@ -23,5 +24,7 @@
   "optionOrder": "Cambiar l'òrdre",
   "optionRemove": "Suprimir",
   "isSelected": "Seleccionat",
-  "notSelected": "Pas seleccionat"
+  "notSelected": "Pas seleccionat",
+  "moderatorAccess": "moderator·a",
+  "contributorAccess": "contributor·a"
 }

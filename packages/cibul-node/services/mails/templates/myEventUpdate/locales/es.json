@@ -1,12 +1,12 @@
 {
-  "title": "Su evento {event} fue cambiado a {agenda}",
-  "body": "Su evento <b>{event}</b> ha sido cambiado en el agenda del <b>{agenda}</b>.",
   "actionDescription": "Ver evento",
-  "tocontrol": "a controlar",
+  "body": "Su evento <b>{event}</b> ha sido cambiado en el agenda del <b>{agenda}</b>.",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
   "controlled": "listo para su publicación",
+  "memberUnsubscribe": "Dejar de recibir confirmaciones de su evento en este agenda cambia",
   "published": "publicado",
   "refused": "rechazado",
-  "unsubscribe": "Dejar de recibir confirmaciones de sus cambios de eventos",
-  "memberUnsubscribe": "Dejar de recibir confirmaciones de su evento en este agenda cambia",
-  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+  "title": "Su evento {event} fue cambiado a {agenda}",
+  "tocontrol": "a controlar",
+  "unsubscribe": "Dejar de recibir confirmaciones de sus cambios de eventos"
 }

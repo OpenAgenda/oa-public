@@ -1,12 +1,12 @@
 {
-  "title": "crwdns30808:0{agenda}crwdnd30808:0{event}crwdne30808:0",
-  "body": "crwdns30810:0{event}crwdnd30810:0{agenda}crwdnd30810:0{state}crwdne30810:0",
   "actionDescription": "crwdns30812:0crwdne30812:0",
-  "tocontrol": "crwdns30814:0crwdne30814:0",
+  "body": "crwdns30810:0{event}crwdnd30810:0{agenda}crwdnd30810:0{state}crwdne30810:0",
+  "changeEmailSettings": "crwdns30826:0crwdne30826:0",
   "controlled": "crwdns30816:0crwdne30816:0",
+  "memberUnsubscribe": "crwdns30824:0crwdne30824:0",
   "published": "crwdns30818:0crwdne30818:0",
   "refused": "crwdns30820:0crwdne30820:0",
-  "unsubscribe": "crwdns30822:0crwdne30822:0",
-  "memberUnsubscribe": "crwdns30824:0crwdne30824:0",
-  "changeEmailSettings": "crwdns30826:0crwdne30826:0"
+  "title": "crwdns30808:0{agenda}crwdnd30808:0{event}crwdne30808:0",
+  "tocontrol": "crwdns30814:0crwdne30814:0",
+  "unsubscribe": "crwdns30822:0crwdne30822:0"
 }

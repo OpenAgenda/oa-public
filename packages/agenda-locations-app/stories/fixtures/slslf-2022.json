@@ -341,6 +341,7 @@
           "fieldType": "abstract",
           "optional": false,
           "legacy": {
+              "displayImageRightsConfirmCheckbox": true,
               "eventForm": {
                   "detailed": true
               },

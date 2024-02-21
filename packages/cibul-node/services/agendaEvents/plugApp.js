@@ -91,7 +91,7 @@ module.exports = function plugApp(parentApp) {
     batchMw,
   ]);
 
-  parentApp.get('/:agendaSlug/admin/events/navigate', [
+  parentApp.get('/:agendaSlug/navigate', [
     sessions.mw.loadOrRedirect(),
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),

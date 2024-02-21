@@ -20,22 +20,21 @@
   "next.views.AgendaShow.includePassedEvents": [
     {
       "type": 0,
-      "value": "Inclure les événements passés"
+      "value": "Inclure los eveniments passats"
     }
   ],
   "next.views.AgendaShow.seeEvents": [
     {
       "type": 0,
-      "value": "Afficher les "
+      "value": "Mostrar los "
     },
     {
-      "style": null,
-      "type": 2,
+      "type": 1,
       "value": "count"
     },
     {
       "type": 0,
-      "value": " événements"
+      "value": " eveniments"
     }
   ],
   "next.views.AgendaShow.seeMore": [
@@ -47,7 +46,7 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": [
     {
       "type": 0,
-      "value": "Afficher uniquement les événements à venir"
+      "value": "Mostrar pas que los eveniments venents"
     }
   ],
   "next.views.AgendaShow.termsOfUse": [
@@ -64,7 +63,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement"
+              "value": "Pas d'eveniment"
             }
           ]
         },
@@ -72,7 +71,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement"
+              "value": "1 eveniment"
             }
           ]
         },
@@ -83,7 +82,7 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " eveniments"
             }
           ]
         }
@@ -101,7 +100,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement à venir"
+              "value": "Pas d'eveniment venent"
             }
           ]
         },
@@ -109,7 +108,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement à venir"
+              "value": "1 eveniment a venir"
             }
           ]
         },
@@ -120,7 +119,7 @@
             },
             {
               "type": 0,
-              "value": " événements à venir"
+              "value": " eveniments a venir"
             }
           ]
         }

@@ -1,4 +1,13 @@
 {
+  "AgendaMember.RequestFeatureLink.findOutMore": "ne saber mai",
+  "AgendaMember.RequestFeatureLink.link": "Demandar l'activacion d'una foncionalitat",
+  "AgendaMember.RequestFeatureLink.title": "Activacion de foncionalitat",
+  "MemberApps.Dashboard.messageHistory": "Istoric dels messatges",
+  "MemberApps.Dashboard.nameModeratorsActivation": "Aquesta foncionalitat s'activa sus demanda. Aquò vos permet de nomenar un membre moderator. Escrivètz-nos un messatjòt e tractarem vòstre demanda lèu-lèu.",
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": "Lo messatge serà mandat a la seleccion actuala de membres ({count} sus {total})",
+  "MemberApps.Dashboard.sendMessageToMembers": "Mandar un messatge als membres",
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "Lo messatge serà mandat a totes los membres ({total})",
+  "MemberApps.Dashboard.writeToMembersActivation": "Aquesta foncionalitat s'activa sus demanda. Aquò permet a un administrator de mandar un messatge gropat a una seleccion de membres. Escrivètz-nos un messatjòt e tractarem vòstre demanda lèu-lèu.",
   "MemberApps.Form.GDPRSummary": "Aquela informacion se poirà veire pels moderators de l'agenda",
   "MemberApps.Form.cancel": "Anullar",
   "MemberApps.Form.confirm": "Ok",

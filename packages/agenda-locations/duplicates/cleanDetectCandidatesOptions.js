@@ -6,7 +6,7 @@ const number = require('@openagenda/validators/number');
 
 schema.register({
   boolean,
-  number
+  number,
 });
 
 module.exports = schema({
@@ -17,5 +17,5 @@ module.exports = schema({
   geoRange: {
     type: 'number',
     default: 0.01,
-  }
+  },
 });

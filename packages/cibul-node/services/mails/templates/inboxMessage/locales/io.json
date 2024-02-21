@@ -1,12 +1,12 @@
 {
+  "actionDescription": "crwdns30750:0crwdne30750:0",
+  "changeEmailSettings": "crwdns30760:0crwdne30760:0",
+  "memberUnsubscribe": "crwdns30758:0crwdne30758:0",
+  "reply": "crwdns30754:0crwdne30754:0",
+  "sentBy": "crwdns30752:0{senderName}crwdne30752:0",
   "subject": "crwdns30742:0crwdne30742:0",
   "subjectWithAgenda": "crwdns30744:0{agenda}crwdne30744:0",
   "title": "crwdns30746:0crwdne30746:0",
   "titleWithAgenda": "crwdns30748:0{agenda}crwdne30748:0",
-  "actionDescription": "crwdns30750:0crwdne30750:0",
-  "sentBy": "crwdns30752:0{senderName}crwdne30752:0",
-  "reply": "crwdns30754:0crwdne30754:0",
-  "unsubscribe": "crwdns30756:0agenda={agenda}crwdne30756:0",
-  "memberUnsubscribe": "crwdns30758:0crwdne30758:0",
-  "changeEmailSettings": "crwdns30760:0crwdne30760:0"
+  "unsubscribe": "crwdns30756:0agenda={agenda}crwdne30756:0"
 }

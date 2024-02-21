@@ -1,0 +1,23 @@
+{
+  "name": "@openagenda/newsletter",
+  "version": "2.0.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/newsletter#readme",
+  "dependencies": {
+    "@openagenda/logs": "^1.1.9",
+    "lodash": "^4.17.21",
+    "node-mailjet": "^6.0.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

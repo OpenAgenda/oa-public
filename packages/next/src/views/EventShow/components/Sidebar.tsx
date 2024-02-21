@@ -11,6 +11,7 @@ import {
   Tag,
   HStack,
   Link,
+  Tooltip,
   useDisclosure,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
@@ -19,6 +20,7 @@ import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 
 import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
+import { sidebar as messages } from '../messages';
 import Timings from './Timings';
 import References from './References';
 import Map from './Map';
@@ -105,7 +107,7 @@ export default function Sidebar({ contentLocale }) {
           colorScheme="primary"
           isDisabled={!canShare}
         >
-          Partager
+          {intl.formatMessage(messages.share)}
         </Button>
         {/* <Wrap gridColumn="2" mt="2" align="center">
           <WrapItem>Autres partages:</WrapItem>
@@ -223,7 +225,7 @@ export default function Sidebar({ contentLocale }) {
             color="oaGray.300"
           />
           <Link isExternal href={event.onlineAccessLink} colorScheme="primary">
-            Accéder à l&apos;événement en ligne
+            {intl.formatMessage(messages.accessEventOnline)}
           </Link>
         </Grid>
       ) : null}
@@ -242,8 +244,9 @@ export default function Sidebar({ contentLocale }) {
               borderRadius="full"
               variant="outline"
               colorScheme="oaGray"
+              flexShrink="0"
             >
-              <b>Passé</b>
+              <b>{intl.formatMessage(messages.passed)}</b>
             </Tag>
           ) : null}
         </HStack>
@@ -258,7 +261,7 @@ export default function Sidebar({ contentLocale }) {
             color="oaGray.300"
           />
           <Box fontSize="lg" color="oaGray.500">
-            Conditions
+            <b>{intl.formatMessage(messages.conditions)}</b>
           </Box>
           <Box gridColumn="2">{event.conditions[intl.locale]}</Box>
         </Grid>
@@ -273,7 +276,7 @@ export default function Sidebar({ contentLocale }) {
             color="oaGray.300"
           />
           <Box fontSize="lg" color="oaGray.500">
-            Registration
+            <b>{intl.formatMessage(messages.registration)}</b>
           </Box>
           {event.registration.map(registrationItem => (
             <Fragment key={registrationItem.value}>
@@ -283,10 +286,26 @@ export default function Sidebar({ contentLocale }) {
                 color="oaGray.300"
                 justifySelf="end"
               />
-              <Link isExternal href={getRegistrationLink(registrationItem)} colorScheme="primary">
-                {registrationItem.type === 'link' ? 'S\'inscrire / réserver :' : ''}
-                {registrationItem.value}
-              </Link>
+              <Tooltip
+                label={registrationItem.value}
+                aria-label={intl.formatMessage(messages.completeLink)}
+                hasArrow
+                arrowSize={8}
+                arrowPadding={6}
+              >
+                <Link
+                  isExternal
+                  href={getRegistrationLink(registrationItem)}
+                  colorScheme="primary"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  {registrationItem.type === 'link' ? intl.formatMessage(messages.registerBook) : ''}
+                  &nbsp;
+                  {registrationItem.value}
+                </Link>
+              </Tooltip>
             </Fragment>
           ))}
           {event.passCulture ? (
@@ -307,14 +326,14 @@ export default function Sidebar({ contentLocale }) {
               leftIcon={<img src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png" alt="" />}
               justifySelf="start"
             >
-              Accéder à l&apos;offre pass Culture
+              {intl.formatMessage(messages.accessPassOffer)}
             </Button>
           ) : null}
         </Grid>
       ) : null}
 
       <Box ml="12">
-        <Timings timings={event.timings} timezone={event.timezone} />
+        <Timings timings={event.timings} timezone={event.timezone} key={event.uid} />
       </Box>
 
       {event.location?.latitude && event.location?.longitude ? (

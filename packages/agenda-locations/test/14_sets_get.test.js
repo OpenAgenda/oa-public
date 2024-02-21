@@ -1,12 +1,12 @@
 'use strict';
 
 const Files = require('@openagenda/files');
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
 
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 describe('agenda-locations - functional - sets get', () => {

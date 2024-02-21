@@ -148,30 +148,6 @@
                     <% } %>
                   </div>
                 <% } %>
-                <% if ( enabledServices.includes( 'twitter' ) ) { %>
-                  <div class="margin-bottom-md">
-                    <form
-                      id="signup-twitter"
-                      action="<%= genUrl(
-                        agenda ? 'agendaTwitterSignup' : 'twitterSignup',
-                        [ optionals, agenda ? { slug: agenda.slug } : {} ]
-                      ) %>"
-                      method="POST"
-                    >
-                      <button
-                        id="signup-twitter-button"
-                        class="btn btn-twitter btn-block"
-                        type="submit"
-                      >
-                        <i class="fa fa-twitter"></i>
-                        Twitter
-                      </button>
-                    </form>
-                    <% if ( errors.twitterUid ) { %>
-                      <span class="text-danger"><%= __( errors.twitterUid ) %></span>
-                    <% } %>
-                  </div>
-                <% } %>
                 <% if ( enabledServices.includes( 'google' ) ) { %>
                   <div class="margin-bottom-md">
                     <form

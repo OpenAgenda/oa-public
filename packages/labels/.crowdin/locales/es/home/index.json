@@ -2,6 +2,7 @@
   "myAgendas": "Mis agendas",
   "createAgenda": "Crear un agenda",
   "otherActions": "Otras acciones",
+  "removeMemberInformation": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio.",
   "searchAgenda": "Buscar una agenda",
   "myEvents": "Mis eventos",
   "messages": "mensajes",
@@ -30,6 +31,5 @@
   "noLocation": "Localización no especificado",
   "noEventsCreated": "No ha creado ningún evento",
   "show": "Ver",
-  "seeMore": "Ver más",
-  "removeMemberInformation": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio."
+  "seeMore": "Ver más"
 }

@@ -54,5 +54,7 @@
   "compulsoryNote": "Le vostre attività saranno visualizzate qui.",
   "movedOnline": "Oramai online",
   "cancelled": "Cancellato",
-  "postponed": "Riprogrammato"
+  "postponed": "Riprogrammato",
+  "trueBoolean": "Selezionato",
+  "falseBoolean": "Non selezionato"
 }

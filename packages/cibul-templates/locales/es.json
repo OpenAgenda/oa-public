@@ -1,7 +1,5 @@
 {
   "aggregate-button": "Importar",
-  "event/contributor/email": "Dirección de correo electrónico",
-  "export-all-button": "Exportar",
   "common.event.fields.accessibility": "Accesibilidad especial",
   "common.event.fields.age": "Edad del objetivo",
   "common.event.fields.attendanceMode": "Modo de asistencia",
@@ -19,9 +17,11 @@
   "common.roles.moderator": "Moderador",
   "common.roles.reader": "Lector",
   "event/contributor-section": "Contribuyente",
+  "event/contributor/email": "Dirección de correo electrónico",
   "event/contributor/phone": "Teléfono",
   "event/contributor/position": "Función",
   "event/contributor/role": "Role",
+  "export-all-button": "Exportar",
   "more-button": "mas",
   "share-button": "Compartir su OpenAgenda"
 }

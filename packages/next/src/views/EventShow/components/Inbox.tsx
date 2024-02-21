@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { Heading, Flex } from '@openagenda/uikit';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
+import { inbox as messages } from '../messages';
 
 const ROOT = process.env.NEXT_PUBLIC_ROOT;
 
@@ -14,7 +15,9 @@ export default function Inbox() {
 
   return (
     <div>
-      <Heading as="h2" fontSize="2xl" mb="4">Messagerie</Heading>
+      <Heading as="h2" fontSize="2xl" mb="4">
+        {intl.formatMessage(messages.inbox)}
+      </Heading>
       <Flex
         display="flex"
         direction="column"

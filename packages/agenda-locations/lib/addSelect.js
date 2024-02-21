@@ -20,7 +20,7 @@ module.exports = (k, access, options = {}) => {
       return true;
     });
   (options.first ? k.first : k.select).bind(k)(
-    _.uniq(filteredFields.map(getMatchingDatabaseField))
+    _.uniq(filteredFields.map(getMatchingDatabaseField)),
   );
 };
 

@@ -459,7 +459,8 @@ module.exports = {
     "it": "Lingue di ingresso",
     "de": "Wählen Sie eine Sprache",
     "br": "Choazit ur yezh",
-    "io": "crwdns14774:0crwdne14774:0"
+    "io": "crwdns14774:0crwdne14774:0",
+    "oc": "Lengas de sasida"
   },
   "markdownMultilingualFieldType": {
     "fr": "Texte enrichi multilingue",
@@ -952,7 +953,8 @@ module.exports = {
     "de": "moderator",
     "es": "moderador",
     "it": "moderatore",
-    "io": "crwdns33233:0crwdne33233:0"
+    "io": "crwdns33233:0crwdne33233:0",
+    "oc": "moderator·a"
   },
   "contributorAccess": {
     "fr": "contributeur",
@@ -960,6 +962,7 @@ module.exports = {
     "de": "mitwirkender",
     "es": "contribuidor",
     "it": "contributore",
-    "io": "crwdns33235:0crwdne33235:0"
+    "io": "crwdns33235:0crwdne33235:0",
+    "oc": "contributor·a"
   }
 }

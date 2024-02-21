@@ -2,11 +2,11 @@
 
 const Files = require('@openagenda/files');
 
+const Service = require('..');
 const {
   service: config,
   dependencies: dConfig,
 } = require('./testconfig');
-const Service = require('..');
 const fixtures = require('./fixtures');
 
 // const payload = require('./fixtures/mergeData.json');
@@ -16,7 +16,7 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const initSettingsDA = {
@@ -25,8 +25,8 @@ const initSettingsDA = {
     create: defaultAccess,
     delete: defaultAccess,
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 const initSettingsCantMerge = {
@@ -35,8 +35,8 @@ const initSettingsCantMerge = {
     create: { ...defaultAccess, authorized: false },
     delete: { ...defaultAccess, authorized: false },
     merge: { ...defaultAccess, authorized: false },
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 describe('agenda-locations - functional - merge', () => {
@@ -59,7 +59,7 @@ describe('agenda-locations - functional - merge', () => {
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettingsDA
+        getAgendaLocationSettings: async _uid => initSettingsDA,
       },
     });
   });
@@ -77,7 +77,7 @@ describe('agenda-locations - functional - merge', () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [40305210, 52758960] },
-        { name: 'fusionné' }
+        { name: 'fusionné' },
       );
     });
 
@@ -109,7 +109,7 @@ describe('agenda-locations - functional - merge', () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [13470871, 43404100] },
-        null
+        null,
       );
     });
 
@@ -154,7 +154,7 @@ describe('agenda-locations - functional - merge', () => {
         },
         {
           name: 'fusionné',
-        }
+        },
       );
     });
 
@@ -192,7 +192,7 @@ describe('agenda-locations - functional - merge - no rights', () => {
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettingsCantMerge
+        getAgendaLocationSettings: async _uid => initSettingsCantMerge,
       },
     });
   });
@@ -204,7 +204,7 @@ describe('agenda-locations - functional - merge - no rights', () => {
         await svc(7196947).merge(
           95301591,
           { uids: [40305210, 52758960] },
-          { name: 'fusionné' }
+          { name: 'fusionné' },
         );
       } catch (error) {
         thrownError = error;
@@ -228,7 +228,7 @@ describe('agenda-locations - functional - merge - no rights', () => {
           },
           {
             name: 'fusionné',
-          }
+          },
         );
       } catch (error) {
         thrownError = error;
@@ -259,7 +259,7 @@ describe('agenda-locations - functional - merge - duplicates', () => {
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettings
+        getAgendaLocationSettings: async _uid => initSettings,
       },
     });
   });
@@ -268,7 +268,7 @@ describe('agenda-locations - functional - merge - duplicates', () => {
       await svc(7196947).merge(
         52174054,
         { uids: [52174055, 52174056] },
-        { name: 'fusionné' }
+        { name: 'fusionné' },
       );
     });
 

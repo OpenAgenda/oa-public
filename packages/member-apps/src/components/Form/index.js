@@ -202,14 +202,16 @@ export default ({
             <p className="margin-bottom-z">
               {GDPRInformation || m(messages.GDPRSummary)}
             </p>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
-              className="btn btn-link margin-all-z padding-all-z"
-            >
-              {m(messages.moreInfo)}
-            </a>
+            {GDPRInformation ? null : (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
+                className="btn btn-link margin-all-z padding-all-z"
+              >
+                {m(messages.moreInfo)}
+              </a>
+            )}
           </>
         ) : null}
       </div>

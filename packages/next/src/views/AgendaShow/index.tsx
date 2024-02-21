@@ -13,7 +13,6 @@ import useUser from 'hooks/useUser';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
-import useMatomoTracker from 'hooks/useMatomoTracker';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import type { Agenda } from 'types';
 import useEventsQuery from './hooks/useEventsQuery';
@@ -98,7 +97,6 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
   const isMounted = useIsMounted();
 
-  useMatomoTracker();
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
   const filtersToInclude = useMemo(() => {

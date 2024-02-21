@@ -9,9 +9,10 @@ export default function Metas({ agenda, query, preload }) {
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
   const canonicalUrl = absUrl.origin + absUrl.pathname;
-  const pageTitle = `${agenda.title} | OpenAgenda`;
-
   const languages = agenda.summary.languages ? Object.keys(agenda.summary.languages) : [];
+
+  const pageTitle = `${agenda.title} | OpenAgenda`;
+  const { description } = agenda;
 
   return (
     <Head>
@@ -38,7 +39,7 @@ export default function Metas({ agenda, query, preload }) {
       <meta property="og:site_name" content="OpenAgenda" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={pageTitle} />
-      <meta property="og:description" content={agenda.description} />
+      <meta property="og:description" content={description} />
       {/* <meta property="og:type" content="website" /> */}
       <meta property="og:locale" content={intl.locale} />
       {languages.map(key => (key === intl.locale ? null : (
@@ -51,8 +52,8 @@ export default function Metas({ agenda, query, preload }) {
 
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:site" content={process.env.NEXT_PUBLIC_DOMAIN} />
-      <meta property="twitter:title" content={`${agenda.title} | OpenAgenda`} />
-      <meta property="twitter:description" content={agenda.description} />
+      <meta property="twitter:title" content={pageTitle} />
+      <meta property="twitter:description" content={description} />
       <meta property="twitter:domain" content="@oagenda" />
       <meta property="twitter:url" content={canonicalUrl} />
       {agenda.image ? (

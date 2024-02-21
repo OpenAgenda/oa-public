@@ -1,18 +1,12 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const config = require('../config.dev');
 
 const AgendaFiles = require('../server/lib/agendaFiles');
 
 describe('unit - files', () => {
-  const {
-    setJSON,
-    getJSON,
-    get,
-    set,
-    remove
-  } = AgendaFiles({
+  const { setJSON, getJSON, get, set, remove } = AgendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
     uid: 'test02',
@@ -45,10 +39,13 @@ describe('unit - files', () => {
 
     fs.writeFileSync(`${localTmpPath}/test.txt`, content, 'utf-8');
 
-    const { path } = await set(`${localTmpPath}/test.txt`, 'mytestfile.txt');
+    const { path: resultPath } = await set(
+      `${localTmpPath}/test.txt`,
+      'mytestfile.txt',
+    );
 
-    expect(path).toEqual(
-      `https://${config.s3.bucket}.s3.${config.s3.region}.amazonaws.com/test02/mytestfile.txt`
+    expect(resultPath).toEqual(
+      `https://${config.s3.bucket}.s3.${config.s3.region}.amazonaws.com/test02/mytestfile.txt`,
     );
   });
 

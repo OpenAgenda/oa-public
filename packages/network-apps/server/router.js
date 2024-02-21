@@ -145,15 +145,21 @@ async function _renderPage(req, res, next) {
     state: {}
   };
 
-  const layoutData = { lang: req.lang };
+  const { cspNonce } = res.locals;
 
+  const layoutData = {
+    lang: req.lang,
+    cspNonce,
+  };
+
+  res.type('html');
   res.end(router.layout(
     `<div>
       <div id="app">${ReactDOM.renderToString(
         createElement(Spinner)
       )}</div>
-      <script type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
-      <script defer type="text/javascript" src="${_getClientAppPath(router.service.name, router.service.config)}"></script>
+      <script nonce="${cspNonce}" type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
+      <script nonce="${cspNonce}" defer type="text/javascript" src="${_getClientAppPath(router.service.name, router.service.config)}"></script>
     </div>`, layoutData));
 }
 

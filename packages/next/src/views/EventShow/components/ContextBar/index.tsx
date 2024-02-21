@@ -1,12 +1,16 @@
+import qs from 'qs';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import { chakra, Box, SimpleGrid, Collapse, Icon, Link } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faList } from 'icons/regular';
 import base64 from 'utils/base64';
 import { FetchStatus } from 'config/types';
+import useLocationQuery from 'hooks/useLocationQuery';
 import { useAgenda } from '../../contexts/agenda';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
+import { contextBar as messages } from '../../messages';
 import StateSelector from './StateSelector';
 import ContextBarButton from './ContextBarButton';
 import OtherActions from './OtherActions';
@@ -23,6 +27,10 @@ const Column = chakra(Box, {
 });
 
 export default function ContextBar() {
+  const intl = useIntl();
+
+  const query = useLocationQuery();
+
   const router = useRouter();
   const agenda = useAgenda();
   const { event } = useEvent();
@@ -47,6 +55,8 @@ export default function ContextBar() {
         {isAdminMod ? (
           <Column>
             <ContextBarButton
+              as="a"
+              href={`/${agenda.slug}/admin/events${qs.stringify(query.nc, { addQueryPrefix: true })}`}
               sx={{
                 '.list-icon': {
                   opacity: 0.6,
@@ -78,7 +88,7 @@ export default function ContextBar() {
                 />
               )}
             >
-              Retour à la gestion des événements
+              {intl.formatMessage(messages.backToDashboard)}
             </ContextBarButton>
           </Column>
         ) : null}
@@ -94,7 +104,7 @@ export default function ContextBar() {
               bgColor: 'primary.600',
             }}
           >
-            Modifier
+            {intl.formatMessage(messages.edit)}
           </ContextBarButton>
         </Column>
         <Column>

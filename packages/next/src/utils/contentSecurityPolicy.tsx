@@ -16,7 +16,7 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   baseUri: ["'none'"],
   fontSrc: ["'self'"],
   formAction: ["'self'"],
-  frameAncestors: ["'none'"],
+  frameAncestors: ["'self'"],
   imgSrc: [
     "'self'",
     'https:',

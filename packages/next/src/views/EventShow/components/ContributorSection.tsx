@@ -7,6 +7,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useMember from '../hooks/useMember';
 import { useAgenda } from '../contexts/agenda';
 import * as additionalFieldsUtils from '../utils/additionalFields';
+import { contributorSection as messages } from '../messages';
 import AdditionalFields from './AdditionalFields';
 
 export default function ContributorSection({ contentLocale }) {
@@ -35,12 +36,12 @@ export default function ContributorSection({ contentLocale }) {
     <div>
       <Flex justify="space-between" mb="4">
         <Heading as="h2" fontSize="2xl">
-          Contributeur
+          {intl.formatMessage(messages.contributor)}
         </Heading>
 
         <Box display="flex" alignItems="center" color="oaGray.500">
           <FaIcon icon={faLock} size="lg" />
-          <Text fontSize="xl" ml="2">Information privée</Text>
+          <Text fontSize="xl" ml="2">{intl.formatMessage(messages.privateInformation)}</Text>
         </Box>
       </Flex>
       <Flex
@@ -76,7 +77,7 @@ export default function ContributorSection({ contentLocale }) {
           top="6"
           right="6"
         >
-          Éditer la fiche
+          {intl.formatMessage(messages.edit)}
         </Button>
 
         <AdditionalFields

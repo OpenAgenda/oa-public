@@ -95,6 +95,7 @@ module.exports = function ConvertFormat({
     const readme = 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/';
 
     if (sendJSON && req.query.callback) {
+      res.set('Content-Type', 'application/javascript');
       res.send(`${req.query.callback}(${JSON.stringify({
         readme,
         ...response,

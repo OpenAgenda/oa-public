@@ -88,7 +88,19 @@
   "update": "Metre a jorn",
   "subjectLabel": "Objècte per defaut",
   "subjectDesc": "Messatge mandat de l'agenda \"La setmana de l'industria\"",
+  "matomoUrl": "Url",
+  "matomoSiteId": "Identificant del site",
+  "matomoAskForConsent": "Demandar a l'utilizaire son consentiment",
+  "matomoAskForConsentInfo": "Ma configuracion a mestièr de demandar lo consentiment",
+  "matomoCustomConfig": "Vòli utilizar una configuracion particulara de Matomo. ",
+  "matomoSupport": "Contactar l'assisténcia",
+  "trackSelectPlaceholder": "Causissètz vòstre servici de seguit (Google Analytics o Matomo)",
+  "moreInfo": "mai d'informacions",
   "googleAnalyticsId": "Identificant de seguit Google Analytics",
+  "googleAnalyticsSecret": "Clau secrèta de seguit Google Analytics",
+  "googleAnalyticsTitle": "Per utilizaires GA4 sonque",
+  "googleAnalyticsLabel": "Seguit dels expòrts e de l'utilizacion de l'API",
+  "googleAnalyticsInfo": "Per crear un novèl secrèt, anatz dins l'interfàcia utilizaire de Google Analytics : Administracion > Flus de donadas > Protocòl de mesura > Crear",
   "stats": "Estatisticas",
   "statsTabDescription": "Definissètz vòstre identificant de seguit Google Analytics",
   "statsDescription": "Seguissètz las afluéncias de visitaires sus las paginas publicas de vòstra agenda sus openagenda.com",
@@ -96,5 +108,5 @@
   "labTabDescription": "Utilizatz las foncionalitats disponiblas en version bèta",
   "eventStatusDesc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
   "eventStatusKnowMore": "Ne saber mai",
-  "matomoSupport": "Contactar l'assisténcia"
+  "pass": "Pass Culture"
 }

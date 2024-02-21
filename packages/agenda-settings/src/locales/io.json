@@ -3,6 +3,7 @@
   "AgendaSettings.CreationSecondStep.formEvent": "crwdns16512:0crwdne16512:0",
   "AgendaSettings.CreationSecondStep.onlineEvents": "crwdns16514:0crwdne16514:0",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "crwdns16516:0crwdne16516:0",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "crwdns33552:0crwdne33552:0",
   "AgendaSettings.contribution.closedContibution": "crwdns16522:0crwdne16522:0",
   "AgendaSettings.contribution.closedContibutionDesc": "crwdns16524:0crwdne16524:0",
   "AgendaSettings.contribution.contribUseFields": "crwdns32829:0crwdne32829:0",

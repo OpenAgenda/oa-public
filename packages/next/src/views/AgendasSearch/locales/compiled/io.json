@@ -2,71 +2,47 @@
   "next.views.AgendaSearch.bigTotal": [
     {
       "type": 0,
-      "value": "More than "
+      "value": "crwdns33452:0limit="
     },
     {
-      "style": null,
-      "type": 2,
+      "type": 1,
       "value": "limit"
     },
     {
       "type": 0,
-      "value": " agendas found"
+      "value": "crwdne33452:0"
     }
   ],
   "next.views.AgendaSearch.latestUpdated": [
     {
       "type": 0,
-      "value": "Recently updated agendas"
+      "value": "crwdns33454:0crwdne33454:0"
     }
   ],
   "next.views.AgendaSearch.pageTitle": [
     {
       "type": 0,
-      "value": "Agendas search"
+      "value": "crwdns33456:0crwdne33456:0"
     }
   ],
   "next.views.AgendaSearch.passedEvents": [
     {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "No passed event"
-            }
-          ]
-        },
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 passed event"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " passed events"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 0,
+      "value": "crwdns33458:0count="
+    },
+    {
+      "type": 1,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33458:0"
     }
   ],
   "next.views.AgendaSearch.searchResultHead": [
     {
       "type": 0,
-      "value": "Search results for \""
+      "value": "crwdns33460:0"
     },
     {
       "type": 1,
@@ -74,89 +50,49 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "crwdne33460:0"
     }
   ],
   "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "crwdns33462:0crwdne33462:0"
     }
   ],
   "next.views.AgendaSearch.total": [
     {
-      "style": null,
-      "type": 2,
+      "type": 0,
+      "value": "crwdns33464:0total="
+    },
+    {
+      "type": 1,
       "value": "total"
     },
     {
       "type": 0,
-      "value": " "
+      "value": "crwdnd33464:0total="
     },
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "agenda"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "agendas"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 1,
       "value": "total"
     },
     {
       "type": 0,
-      "value": " found"
+      "value": "crwdne33464:0"
     }
   ],
   "next.views.AgendaSearch.upcomingEvents": [
     {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "No upcoming event"
-            }
-          ]
-        },
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "1 upcoming event"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " upcoming events"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 0,
+      "value": "crwdns33466:0count="
+    },
+    {
+      "type": 1,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33466:0"
     }
   ]
 }

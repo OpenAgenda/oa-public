@@ -8,7 +8,7 @@ const addListQuery = require('./lib/addListQuery');
 const addPaginationAndOrder = require('./lib/paginationAndOrder');
 const {
   make: makeAfter,
-  include: includeAfterFields
+  include: includeAfterFields,
 } = require('./lib/after');
 const addSelect = require('./lib/addSelect');
 const createStream = require('./lib/createStream');
@@ -28,7 +28,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
     endpointId,
     detailed,
     includeFields,
-    deleted
+    deleted,
   } = cleanListOptions;
 
   const cleanNav = validateNav(nav);
@@ -67,7 +67,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
     result.items = await transformAndDecorateItems(
       service,
       result.rows,
-      cleanListOptions
+      cleanListOptions,
     );
     log('fetched %s items', result.rows.length);
   }
@@ -94,7 +94,7 @@ module.exports.byAgendaUid = async (
   agendaUid,
   query = {},
   nav = {},
-  options = {}
+  options = {},
 ) => {
   if (!agendaUid) {
     throw new BadRequest('agendaUid is not specified');
@@ -111,7 +111,7 @@ module.exports.bySetUid = async (
   setUid,
   query = {},
   nav = {},
-  options = {}
+  options = {},
 ) => {
   if (!setUid) {
     throw new BadRequest('set uid is not specified');

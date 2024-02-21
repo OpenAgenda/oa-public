@@ -595,7 +595,10 @@ class Dashboard extends Component {
           <Modal
             title={getLabel('operationSuccessful')}
             visible
-            onClose={() => dispatch(membersActions.patchSuccessConfirm())}
+            onClose={() => {
+              dispatch(membersActions.load(agenda, query)).catch(() => null);
+              dispatch(membersActions.patchSuccessConfirm());
+            }}
           >
             {getLabel('patchSuccessConfirm')}
           </Modal>

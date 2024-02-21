@@ -10,7 +10,7 @@
   "number.invalid": "Deve essere inserito un numero valido",
   "integer.invalid": "Deve essere inserito un numero intero valido",
   "integer.toobig": "Questo valore è troppo alto",
-  "groupTags.required": "Almeno una voce deve essere selezionata",
+  "groupTags.required": "Almeno un'opzione deve essere selezionata",
   "required": "Richiesto",
   "choice.required": "Richiesto",
   "serverException": "C'è stato un problema durante il backup, riprovare tra un attimo",

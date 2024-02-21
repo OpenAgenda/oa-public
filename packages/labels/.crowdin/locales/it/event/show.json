@@ -82,6 +82,7 @@
   "contactEmailButton": "Inviare una email",
   "contributionRestricted": "Il contributo a questo agenda è limitato",
   "statusRescheduled": "Riprogrammato",
+  "statusRescheduledInfo": "Gli orari sono stati modificati",
   "statusMovedOnline": "Oramai online",
   "markAsMovedOnline": "L'evento non è più proposto in presenza, ma oramai online",
   "statusMovedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai online",
@@ -93,6 +94,5 @@
   "statusCancelledInfo": "L'evento è annullato",
   "statusFull": "Completo",
   "markAsFull": "L'evento è esaurito",
-  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento",
-  "statusRescheduledInfo": "Gli orari sono stati modificati"
+  "statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento"
 }

@@ -1,12 +1,12 @@
 {
-  "title": "Nuovo evento aggiunto su {agenda}: {event}",
-  "body": "L’evento <b>{event}</b>, creato nell'agenda <b>{sourceAgenda}</b> è stato aggiunto con stato <b>{state}</b> da <b>{user}</b>.",
   "actionDescription": "Vedere l'evento",
-  "tocontrol": "verificabile",
+  "body": "L’evento <b>{event}</b>, creato nell'agenda <b>{sourceAgenda}</b> è stato aggiunto con stato <b>{state}</b> da <b>{user}</b>.",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail",
   "controlled": "pronto per la pubblicazione",
+  "memberUnsubscribe": "Non ricevere più aggiunte di eventi su questo calendario",
   "published": "pubblicato",
   "refused": "rifiutato",
-  "unsubscribe": "Interrompere la ricezione delle aggiunte di eventi",
-  "memberUnsubscribe": "Non ricevere più aggiunte di eventi su questo calendario",
-  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+  "title": "Nuovo evento aggiunto su {agenda}: {event}",
+  "tocontrol": "verificabile",
+  "unsubscribe": "Interrompere la ricezione delle aggiunte di eventi"
 }

@@ -45,7 +45,7 @@
     "mysql": "^2.14.1",
     "redis": "^4.6.6",
     "regenerator-runtime": "^0.13.7",
-    "uppy-server": "^0.11.1",
+    "uppy-server": "^0.13.4",
     "uuid": "^3.4.0"
   },
   "devDependencies": {

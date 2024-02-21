@@ -1,13 +1,13 @@
 'use strict';
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const transformAndDecorateItems = require('./transformAndDecorateItems');
 
 const processBufferedItems = (stream, service, buffer, options, cb) => {
   transformAndDecorateItems(
     service,
     buffer.splice(0, buffer.length),
-    options
+    options,
   ).then(transformed => {
     while (transformed.length) {
       stream.push(transformed.shift());

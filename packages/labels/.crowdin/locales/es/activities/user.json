@@ -1,6 +1,7 @@
 {
   "agenda.acceptInvitation": "{user} ha aceptado una invitación de {originMember} como {credential} en el agenda {agenda}.",
   "agenda.addMember": "{originMember} añadió {user} como {credential} de la agenda {agenda}.",
+  "agenda.removeMember": "{originMember} ha eliminado {user} ({credential}) de {agenda}.",
   "agenda.setMemberRole": "{user} ha nombrado {originMember} {credential} sobre el agenda {agenda}.",
   "agenda.create": "{user} ha creado el agenda del {agenda}.",
   "agenda.updateContribution": "{user} ha actualizado la configuración de contribución del agenda {agenda}.",
@@ -17,8 +18,7 @@
   "event.update": "{user} ha actualizado {event} de {agenda}.",
   "event.delete": "{user} elimina {event} de la agenda {agenda}.",
   "activities": "Actividades",
+  "history": "Historia",
   "next": "Próximo",
-  "noActivity": "Sus actividades aparecerán aquí.",
-  "agenda.removeMember": "{originMember} ha eliminado {user} ({credential}) de {agenda}.",
-  "history": "Historia"
+  "noActivity": "Sus actividades aparecerán aquí."
 }

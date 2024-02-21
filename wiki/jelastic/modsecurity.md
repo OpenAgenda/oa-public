@@ -113,4 +113,6 @@ SecRuleRemoveById 932150
 SecRuleRemoveById 951220
 # False positive on conversation - https://openagenda.com/home/inbox/conversation/85667
 SecRuleRemoveById 931120
+# False positive on Semaine de l'industrie posted event and not relevent (Injection for MS Windows)
+SecRuleRemoveById 932115
 ```

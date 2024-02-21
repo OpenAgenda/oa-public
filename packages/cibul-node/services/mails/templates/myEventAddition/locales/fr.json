@@ -1,12 +1,12 @@
 {
-  "title": "Votre événement a été ajouté sur {agenda}",
-  "body": "<b>{event}</b> provenant de l'agenda <b>{sourceAgenda}</b> a été ajouté avec le statut <b>{state}</b> par <b>{user}</b>.",
   "actionDescription": "Voir l'événement",
-  "tocontrol": "à contrôler",
+  "body": "<b>{event}</b> provenant de l'agenda <b>{sourceAgenda}</b> a été ajouté avec le statut <b>{state}</b> par <b>{user}</b>.",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
   "controlled": "prêt à être publié",
+  "memberUnsubscribe": "Ne plus recevoir les ajouts d'événement sur cet agenda",
   "published": "publié",
   "refused": "refusé",
-  "unsubscribe": "Ne plus recevoir les ajouts d'événement",
-  "memberUnsubscribe": "Ne plus recevoir les ajouts d'événement sur cet agenda",
-  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+  "title": "Votre événement a été ajouté sur {agenda}",
+  "tocontrol": "à contrôler",
+  "unsubscribe": "Ne plus recevoir les ajouts d'événement"
 }

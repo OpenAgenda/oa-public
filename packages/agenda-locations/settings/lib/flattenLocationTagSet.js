@@ -23,7 +23,7 @@ module.exports = (tagSet, lang, defaultLang = 'en') => {
     groups: tagSet.groups.map(g => ({
       name: flatten(g.name),
       info: flatten(g.info),
-      tags: g.tags.map(t => ({ id: t.id, label: flatten(t.label) }))
-    }))
+      tags: g.tags.map(t => ({ id: t.id, label: flatten(t.label) })),
+    })),
   };
 };

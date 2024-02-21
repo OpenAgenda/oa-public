@@ -171,10 +171,6 @@ const config = {
       id: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID,
       secret: prod.facebook?.appSecret ?? process.env.OA_FACEBOOK_SECRET,
     } : null,
-    twitter: prod.twitter?.key ?? process.env.OA_TWITTER_KEY ? {
-      key: prod.twitter?.key ?? process.env.OA_TWITTER_KEY,
-      secret: prod.twitter?.secret ?? process.env.OA_TWITTER_SECRET,
-    } : null,
     google: prod.googleApps ?? process.env.OA_OAUTH_GOOGLE_ID ? {
       id: prod?.googleApps?.id ?? process.env.OA_OAUTH_GOOGLE_ID,
       secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET,
@@ -226,6 +222,7 @@ const config = {
     namespace: 'sessions',
     signed: true,
     secure: true,
+    sameSite: 'Lax',
   },
   cookie: {
     name: 'cibul',
@@ -359,9 +356,9 @@ const config = {
         method: 'get',
         uri: '/:slug/admin/events',
       },
-      agendaEventAdminNavigate: {
+      agendaEventNavigate: {
         method: 'get',
-        uri: '/:slug/admin/events/navigate',
+        uri: '/:slug/navigate',
       },
       signup: {
         method: 'get',
@@ -418,38 +415,6 @@ const config = {
       facebookSignupCallback: {
         method: 'get',
         uri: '/facebook/signup/callback',
-      },
-      twitterSignin: {
-        method: 'post',
-        uri: '/twitter/signin',
-      },
-      agendaTwitterSignin: {
-        method: 'get',
-        uri: '/:slug/twitter/signin',
-      },
-      twitterSigninCallback: {
-        method: 'get',
-        uri: '/twitter/signin/callback',
-      },
-      twitterSignup: {
-        method: 'post',
-        uri: '/twitter/signup',
-      },
-      agendaTwitterSignup: {
-        method: 'get',
-        uri: '/:slug/twitter/signup',
-      },
-      twitterEmail: {
-        method: 'get',
-        uri: '/twitter/email',
-      },
-      agendaTwitterEmail: {
-        method: 'post',
-        uri: '/:slug/twitter/email',
-      },
-      twitterSignupCallback: {
-        method: 'get',
-        uri: '/twitter/signup/callback',
       },
       googleSignin: {
         method: 'get',

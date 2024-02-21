@@ -22,7 +22,8 @@
     {
       "files": [
         "src/**/*.js",
-        "stories/**/*.js"
+        "stories/**/*.js",
+        "test/**/*.js"
       ],
       "parserOptions": {
         "sourceType": "module"

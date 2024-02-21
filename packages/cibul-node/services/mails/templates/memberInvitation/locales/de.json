@@ -1,16 +1,16 @@
 {
-  "subject": "Sie wurden eingeladen, \"{agenda}\" zu {roleVerb}",
-  "contributorVerb": "beizutragen",
-  "moderatorVerb": "moderieren",
-  "administratorVerb": "verwalten",
-  "subjectForExistingMember": "Du hast {role} der Kalender \"{agenda}\" werden",
-  "signup": "Anmelden",
-  "memberAction": "{role, select, administrator {verwalten die Agenda} moderator {moderieren die Veranstaltungen } contributor {erstellen Veranstaltungen} reader {lesen die Agenda} other {}}",
   "administrator": "Administrator",
-  "moderator": "Moderator",
+  "administratorVerb": "verwalten",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
   "contributor": "Beiträger",
+  "contributorVerb": "beizutragen",
+  "memberAction": "{role, select, administrator {verwalten die Agenda} moderator {moderieren die Veranstaltungen } contributor {erstellen Veranstaltungen} reader {lesen die Agenda} other {}}",
+  "moderator": "Moderator",
+  "moderatorVerb": "moderieren",
   "reader": "Leser",
+  "signup": "Anmelden",
+  "subject": "Sie wurden eingeladen, \"{agenda}\" zu {roleVerb}",
+  "subjectForExistingMember": "Du hast {role} der Kalender \"{agenda}\" werden",
   "unsubscribe": "Stoppen Sie Einladungen empfangen",
-  "unsubscribeGuest": "Stoppen Sie E-Mails von OpenAgenda Empfang",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "unsubscribeGuest": "Stoppen Sie E-Mails von OpenAgenda Empfang"
 }

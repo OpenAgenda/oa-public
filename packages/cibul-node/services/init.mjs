@@ -15,6 +15,7 @@ import * as pdfExports from './pdfExports.mjs';
 import * as mails from './mails/index.mjs';
 import * as unsubscriptions from './unsubscriptions.mjs';
 import * as security from './security.mjs';
+import * as usageCounters from './usageCounters/index.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -154,6 +155,7 @@ export default async function initServices(config = null, options = {}) {
   await init('stats', require('./stats/index.js'));
   await init('reports', require('./reports.js'));
   await init('dynamicScripts', require('./dynamicScripts.js'));
+  await init('usageCounters', usageCounters);
 
   const timeDiff = new Date().getTime() - t.getTime();
 

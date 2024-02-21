@@ -2,7 +2,7 @@
   "next.views.AgendaSearch.bigTotal": [
     {
       "type": 0,
-      "value": "Plus de "
+      "value": "Mai de "
     },
     {
       "style": null,
@@ -11,19 +11,19 @@
     },
     {
       "type": 0,
-      "value": " agendas trouvés"
+      "value": " agendas trobadas"
     }
   ],
   "next.views.AgendaSearch.latestUpdated": [
     {
       "type": 0,
-      "value": "Récemment mis à jour"
+      "value": "Agendas mesas a jorn recentament"
     }
   ],
   "next.views.AgendaSearch.pageTitle": [
     {
       "type": 0,
-      "value": "Recherche d'agendas"
+      "value": "Recerca dins las agendas"
     }
   ],
   "next.views.AgendaSearch.passedEvents": [
@@ -34,7 +34,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement passé"
+              "value": "Pas cap eveniment passat"
             }
           ]
         },
@@ -42,7 +42,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement passé"
+              "value": "1 eveniment passat"
             }
           ]
         },
@@ -53,7 +53,7 @@
             },
             {
               "type": 0,
-              "value": " événements passés"
+              "value": " eveniments passats"
             }
           ]
         }
@@ -66,7 +66,7 @@
   "next.views.AgendaSearch.searchResultHead": [
     {
       "type": 0,
-      "value": "Résultats de la recherche \""
+      "value": "Resultats de recerca per \""
     },
     {
       "type": 1,
@@ -80,7 +80,7 @@
   "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Ne véser mai"
     }
   ],
   "next.views.AgendaSearch.total": [
@@ -96,19 +96,11 @@
     {
       "offset": 0,
       "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Aucun agenda trouvé"
-            }
-          ]
-        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "agenda trouvé"
+              "value": "agenda"
             }
           ]
         },
@@ -116,7 +108,7 @@
           "value": [
             {
               "type": 0,
-              "value": "agendas trouvés"
+              "value": "agendas"
             }
           ]
         }
@@ -124,6 +116,10 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " trobada(s)"
     }
   ],
   "next.views.AgendaSearch.upcomingEvents": [
@@ -134,7 +130,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement"
+              "value": "Pas d'eveniment venent"
             }
           ]
         },
@@ -142,7 +138,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement"
+              "value": "1 eveniment a venir"
             }
           ]
         },
@@ -153,7 +149,7 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " eveniments a venir"
             }
           ]
         }
@@ -161,10 +157,6 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " à venir"
     }
   ]
 }

@@ -31,7 +31,7 @@ const validate = schema({
   limit: {
     type: 'integer',
     default: 20,
-    max: 300
+    max: 300,
   },
   order: {
     type: 'choice',
@@ -41,8 +41,8 @@ const validate = schema({
       'createdAt.asc',
       'createdAt.desc',
       'name.asc',
-      'name.desc'
-    ]
+      'name.desc',
+    ],
   },
   useAfter: {
     type: 'boolean',

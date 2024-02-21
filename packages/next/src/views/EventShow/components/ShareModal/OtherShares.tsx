@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useSWRMutation from 'swr/mutation';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -24,6 +25,7 @@ import extractEmails from 'utils/extractEmails';
 import copyText from 'utils/copyText';
 import useEvent from '../../hooks/useEvent';
 import { useAgenda } from '../../contexts/agenda';
+import { shareModal as messages } from '../../messages';
 
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');
@@ -95,6 +97,7 @@ async function sendEmails(url, { arg }: { arg: string[] }): Promise<{ count: num
 }
 
 export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
+  const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
@@ -149,7 +152,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
     <VStack align="stretch" spacing="6">
       <div>
         <Text fontSize="lg" fontWeight="bold" mb="2">
-          Partager sur les réseaux sociaux
+          {intl.formatMessage(messages.shareOnSocialNetworks)}
         </Text>
         <HStack>
           <Button
@@ -187,11 +190,11 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
       <div>
         <Text fontSize="lg" fontWeight="bold" mb="2">
-          Partager par email
+          {intl.formatMessage(messages.shareByEmail)}
         </Text>
         <Textarea
           mb="2"
-          placeholder="Veuillez saisir les addresses email auxquelles vous souhaiter envoyer l'événement"
+          placeholder={intl.formatMessage(messages.shareByEmailPlaceholder)}
           value={emailValue}
           onChange={handleEmailsChange}
         />
@@ -202,18 +205,18 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           isLoading={isMutating}
           onClick={() => trigger(emails)}
         >
-          Envoyer
+          {intl.formatMessage(messages.send)}
         </Button>
       </div>
 
       {currentAndUpcomingTimings.length ? (
         <div>
           <Text fontSize="lg" fontWeight="bold" mb="2">
-            Importer dans un calendrier personnel
+            {intl.formatMessage(messages.shareCalendar)}
           </Text>
 
           <Select
-            placeholder="Séléctionner une date"
+            placeholder={intl.formatMessage(messages.selectTiming)}
             mb="2"
             onChange={onSelectTiming}
             value={selectedTimingIndex}
@@ -255,14 +258,14 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             colorScheme="primary"
             isDisabled={service === '' || selectedTimingIndex === ''}
           >
-            Importer
+            {intl.formatMessage(messages.import)}
           </Button>
         </div>
       ) : null}
 
       <div>
         <Text fontSize="lg" fontWeight="bold" mb="2">
-          Partager le lien
+          {intl.formatMessage(messages.shareLink)}
         </Text>
         <chakra.div
           py="1"
@@ -276,7 +279,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
         >
           {process.env.NEXT_PUBLIC_ROOT + router.asPath}
           <Tooltip
-            label="Copié"
+            label={intl.formatMessage(messages.copied)}
             hasArrow
             placement="auto"
             isOpen={copied}
@@ -293,7 +296,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
                 if (success) setCopied(true);
               }}
             >
-              Copier
+              {intl.formatMessage(messages.copy)}
             </Button>
           </Tooltip>
         </chakra.div>

@@ -11,7 +11,7 @@ module.exports = async (service, field, valueGenerator) => {
   do {
     const value = valueGenerator();
 
-    if (!(await knex(schema).first('id').where(field, value))) {
+    if (!await knex(schema).first('id').where(field, value)) {
       return value;
     }
 

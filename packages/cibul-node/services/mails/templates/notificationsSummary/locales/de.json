@@ -1,7 +1,7 @@
 {
-  "subject": "{nbr} Benachrichtigungen nicht seit {date} gesehen",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
   "dailySummary": "Täglich eine Zusammenfassung der Meldungen",
   "goToOA": "Zum OpenAgenda",
-  "unsubscribe": "Stoppen Sie tägliche Zusammenfassung der Meldungen empfangen",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "subject": "{nbr} Benachrichtigungen nicht seit {date} gesehen",
+  "unsubscribe": "Stoppen Sie tägliche Zusammenfassung der Meldungen empfangen"
 }

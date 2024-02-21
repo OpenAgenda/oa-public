@@ -148,16 +148,22 @@ const editableRules = {
   ],
 };
 
+const mysql = {
+  host: 'localhost',
+  database: 'oa_test_abilities',
+  user: 'root',
+  password: 'grut',
+  charset: 'utf8mb4',
+  timezone: 'UTC',
+  ssl: true,
+};
+
 module.exports = {
-  mysql: {
-    host: process.env.HOST,
-    database: 'oa_test_abilities',
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    charset: 'utf8mb4',
-    timezone: 'UTC',
-    ssl: true,
-  },
+  mysql,
+  knex: knexLib({
+    client: 'mysql',
+    connection: mysql,
+  }),
   schemas: {
     rule: 'rule',
   },
@@ -186,22 +192,25 @@ module.exports = {
       }),
     },
     listEntities: {
-      agenda: uids => uids.map(uid => ({
-        uid,
-        title: "Titre de l'agenda",
-      })),
-      member: ids => ids.map(id => ({
-        // needs all agendaTitle
-        id,
-        agendaUid: 456789,
-        agendaTitle: "Titre de l'agenda",
-        crendential: 1,
-        userUid: 99999999,
-      })),
-      user: uids => uids.map(uid => ({
-        uid,
-        fullName: 'Bertho',
-      })),
+      agenda: uids =>
+        uids.map(uid => ({
+          uid,
+          title: "Titre de l'agenda",
+        })),
+      member: ids =>
+        ids.map(id => ({
+          // needs all agendaTitle
+          id,
+          agendaUid: 456789,
+          agendaTitle: "Titre de l'agenda",
+          crendential: 1,
+          userUid: 99999999,
+        })),
+      user: uids =>
+        uids.map(uid => ({
+          uid,
+          fullName: 'Bertho',
+        })),
     },
     defaultFor: {
       user({ can, cannot, rules }) {

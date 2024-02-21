@@ -92,7 +92,7 @@ describe('96 - core unit - flattenMemberInfo', () => {
     const fct = flattenMemberInfo(schema, 'fr');
     const res = fct(memberInfo);
     expect(res).toStrictEqual({
-      'Evénements contribués': 0,
+      'Événements contribués': 0,
       Nom: 'Constance',
       Mail: 'con@stance.com',
       "Numero d'organisme": '30org',

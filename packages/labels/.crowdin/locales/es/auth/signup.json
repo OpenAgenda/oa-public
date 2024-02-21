@@ -20,6 +20,6 @@
   "termsOfUse": "Condiciones de uso",
   "policy": "política de confidencialidad",
   "culture": "Idioma",
-  "socialDescription": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social.",
-  "orSocial": "O"
+  "orSocial": "O",
+  "socialDescription": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social."
 }

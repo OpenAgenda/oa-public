@@ -1,12 +1,12 @@
 {
-  "title": "Veranstaltung geändert auf {agenda}: {event} ",
-  "body": "<b>{event}</b> auf der Kalender <b>{agenda}</b> geändert.",
   "actionDescription": "Siehe die Veranstaltung",
-  "tocontrol": "kontrolliert werden",
+  "body": "<b>{event}</b> auf der Kalender <b>{agenda}</b> geändert.",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen",
   "controlled": "bereit zu veröffentlichen",
+  "memberUnsubscribe": "Erhalte keine Veranstaltungsänderungen in dem Veranstaltungskalender",
   "published": "veröffentlicht",
   "refused": "verweigert",
-  "unsubscribe": "Stop-Veranstaltung Änderungen Empfang",
-  "memberUnsubscribe": "Erhalte keine Veranstaltungsänderungen in dem Veranstaltungskalender",
-  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+  "title": "Veranstaltung geändert auf {agenda}: {event} ",
+  "tocontrol": "kontrolliert werden",
+  "unsubscribe": "Stop-Veranstaltung Änderungen Empfang"
 }

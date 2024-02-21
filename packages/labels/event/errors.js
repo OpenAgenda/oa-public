@@ -45,5 +45,8 @@ module.exports = {
     "it": "Per favore indicare almeno un orario",
     "io": "crwdns16428:0crwdne16428:0",
     "oc": "Cal indicar al mens un orari"
-  }
+  },
+  "timings.max.1": {
+    "fr": "Sur cette opération, la saisie de plage horaire est limitée à 1. Utilisez l'option 'Dupliquer l'événement' après la création afin de renseigner d'autres horaires." 
+  },
 }

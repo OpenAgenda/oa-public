@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const defaultDirectives = {
   baseUri: ["'none'"],
   defaultSrc: ["'none'"],
-  frameAncestors: ["'none'"],
+  frameAncestors: ["'self'"],
   fontSrc: [
     "'self'",
     'https://s3.eu-central-1.amazonaws.com/oastatic/',
@@ -36,6 +36,7 @@ const defaultDirectives = {
     "'unsafe-inline'", // backward compatibility
     "'strict-dynamic'",
     (req, res) => `'nonce-${res.locals.cspNonce}'`,
+    ...process.env.NODE_ENV === 'development' ? ["'unsafe-eval'"] : [],
   ],
   connectSrc: [
     "'self'",
@@ -56,7 +57,7 @@ const defaultDirectives = {
 };
 
 module.exports = (directives = defaultDirectives) => helmet.contentSecurityPolicy({
-  reportOnly: true,
+  reportOnly: false,
   useDefaults: false,
   directives,
 });

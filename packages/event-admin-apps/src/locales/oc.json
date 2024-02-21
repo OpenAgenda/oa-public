@@ -53,6 +53,9 @@
   "EventAdminApp.EventItem.showOnlineLocation": "Accedir a l'eveniment en linha",
   "EventAdminApp.EventItem.unnamedMemberInfo": "Lo/la membre a pas precisat son nom",
   "EventAdminApp.FiltersPortal.filters": "Filtres",
+  "EventAdminApp.PassImage.edit": "Modificar",
+  "EventAdminApp.PassImage.link": "Aquesta fuèlha es ligada a una ofèrta pass Culture",
+  "EventAdminApp.PassImage.see": "Veire",
   "EventAdminApp.RemoveModal.confirm": "Confirmar",
   "EventAdminApp.RemoveModal.deleteDesc": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
   "EventAdminApp.RemoveModal.deleteEvent": "Escafar un eveniment",
@@ -79,7 +82,5 @@
   "EventAdminApp.messages.status.movedOnline": "Transferit en linha",
   "EventAdminApp.messages.status.postponed": "Remandat",
   "EventAdminApp.messages.status.programmed": "Programat",
-  "EventAdminApp.messages.status.rescheduled": "Tornat planificar",
-  "EventAdminApp.PassImage.edit": "Modificar",
-  "EventAdminApp.PassImage.see": "Veire"
+  "EventAdminApp.messages.status.rescheduled": "Tornat planificar"
 }

@@ -734,7 +734,8 @@ module.exports = {
     "de": "Kontakt Formular",
     "es": "formulario de contacto",
     "it": "Modulo di contatto",
-    "io": "crwdns15148:0crwdne15148:0"
+    "io": "crwdns15148:0crwdne15148:0",
+    "oc": "Formulari de contacte"
   },
   "needHelp": {
     "fr": "Besoin d'aide ?",

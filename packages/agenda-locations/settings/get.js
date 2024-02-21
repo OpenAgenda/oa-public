@@ -12,23 +12,23 @@ async function get(service, { setUid, agendaUid }, options = {}) {
     authorized: true,
     external: false,
     serviceLabel: null,
-    link: null
+    link: null,
   };
 
   const settings = {
     eventForm: {
-      detailed: false
+      detailed: false,
     },
     labels: {},
     tagSet: {
-      groups: []
+      groups: [],
     },
     access: {
       create: defaultAccess,
       delete: defaultAccess,
       merge: defaultAccess,
-      update: defaultAccess
-    }
+      update: defaultAccess,
+    },
   };
 
   const agendaSettings = requestedAgendaUid && service.interfaces?.getAgendaLocationSettings ? await service.interfaces.getAgendaLocationSettings(requestedAgendaUid) : null;
@@ -37,7 +37,7 @@ async function get(service, { setUid, agendaUid }, options = {}) {
     Object.assign(settings, agendaSettings);
   }
 
-  const effectiveSetUid = setUid || (await service.interfaces.getAgendaDetailsByUid(requestedAgendaUid).then(d => d?.locationSetUid));
+  const effectiveSetUid = setUid || await service.interfaces.getAgendaDetailsByUid(requestedAgendaUid).then(d => d?.locationSetUid);
 
   if (effectiveSetUid) {
     const set = await service.sets.get(effectiveSetUid, { detailed: includeSetInfo, includeSettings: true });
