@@ -4936,7 +4936,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     css-loader: "npm:^4.3.0"
     date-fns: "npm:^1.29.0"
-    docxtemplater: "npm:^3.14.2"
+    docxtemplater: "npm:^3.44.0"
     eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -5127,7 +5127,7 @@ __metadata:
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
     react-dom: "npm:^18.2.0"
-    reload: "npm:^3.0.4"
+    reload: "npm:^3.2.1"
     sass: "npm:^1.52.1"
     uppy: "npm:^0.23.2"
     walk: "npm:^2.3.9"
@@ -8951,6 +8951,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xmldom/xmldom@npm:^0.8.10":
+  version: 0.8.10
+  resolution: "@xmldom/xmldom@npm:0.8.10"
+  checksum: c7647c442502720182b0d65b17d45d2d95317c1c8c497626fe524bda79b4fb768a9aa4fae2da919f308e7abcff7d67c058b102a9d641097e9a57f0b80187851f
+  languageName: node
+  linkType: hard
+
 "@xobotyi/scrollbar-width@npm:1.9.5, @xobotyi/scrollbar-width@npm:^1.9.5":
   version: 1.9.5
   resolution: "@xobotyi/scrollbar-width@npm:1.9.5"
@@ -11741,6 +11748,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:~9.4.0":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: 04ea8ccc6fe3d3d1ca7ca26b06187498af8e6341a2c98b534528d504f8cad95b0c5ac2f3b78a7f0d332da16da9332db2ab9e43cb06241d367e9c7ee75cb76202
+  languageName: node
+  linkType: hard
+
 "commitizen@npm:^4.0.3, commitizen@npm:^4.3.0":
   version: 4.3.0
   resolution: "commitizen@npm:4.3.0"
@@ -13334,12 +13348,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docxtemplater@npm:^3.14.2":
-  version: 3.17.0
-  resolution: "docxtemplater@npm:3.17.0"
+"docxtemplater@npm:^3.44.0":
+  version: 3.44.0
+  resolution: "docxtemplater@npm:3.44.0"
   dependencies:
-    xmldom: "npm:^0.2.1"
-  checksum: 3245b8fa88bec7b2bdcb787d4d23ca327a441aa54c51316814a6f94cba70e84b3be5eb732a9069da57a2b69fed38961db29b4ac4addfbdcfaf1b80be644e9f1c
+    "@xmldom/xmldom": "npm:^0.8.10"
+  checksum: b6222a837e1692979245e1a3e83f0a431ea62a301b13f9671d41f1141d69ff7ebb768895c2955e2aa497b6d85a10e3fb546ee9ce829a2c6162db4aeab9281868
   languageName: node
   linkType: hard
 
@@ -15306,7 +15320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"finalhandler@npm:1.2.0":
+"finalhandler@npm:1.2.0, finalhandler@npm:~1.2.0":
   version: 1.2.0
   resolution: "finalhandler@npm:1.2.0"
   dependencies:
@@ -21635,7 +21649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
+"open@npm:^8.0.0, open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -24484,7 +24498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reload@npm:^3.0.4, reload@npm:^3.1.1":
+"reload@npm:^3.1.1":
   version: 3.1.1
   resolution: "reload@npm:3.1.1"
   dependencies:
@@ -24500,6 +24514,24 @@ __metadata:
   bin:
     reload: bin/reload
   checksum: ca033b7479dd07a9d258e6f67baa4f4f33ce8778f1396fb73f937c05e0a88783005467e77062b30319aa8604a22694e78bc5a7cde9ad05ddff25f4999ff5a071
+  languageName: node
+  linkType: hard
+
+"reload@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "reload@npm:3.2.1"
+  dependencies:
+    cli-color: "npm:~2.0.0"
+    commander: "npm:~9.4.0"
+    finalhandler: "npm:~1.2.0"
+    minimist: "npm:~1.2.0"
+    open: "npm:^8.0.0"
+    serve-static: "npm:~1.15.0"
+    supervisor: "npm:~0.12.0"
+    ws: "npm:~8.11.0"
+  bin:
+    reload: bin/reload
+  checksum: 64344668264fae70ee6256ac5252f074481a55046079e43433a64a05c029ead969186bc2a0b9d251cad91df16b859ef5aa0e4b60f27161b57f76d6fe7c1e03c9
   languageName: node
   linkType: hard
 
@@ -25437,7 +25469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve-static@npm:1.15.0":
+"serve-static@npm:1.15.0, serve-static@npm:~1.15.0":
   version: 1.15.0
   resolution: "serve-static@npm:1.15.0"
   dependencies:
@@ -28924,6 +28956,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ws@npm:~8.11.0":
+  version: 8.11.0
+  resolution: "ws@npm:8.11.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: b672b312f357afba8568b9dbb9e08b9e8a20845659b35fa6b340dc848efe371379f5e22bb1dc89c4b2940d5e2dc52dd1de85dde41776875fce115a448f94754f
+  languageName: node
+  linkType: hard
+
 "xdg-basedir@npm:^4.0.0":
   version: 4.0.0
   resolution: "xdg-basedir@npm:4.0.0"
@@ -28959,13 +29006,6 @@ __metadata:
   version: 2.2.0
   resolution: "xmlchars@npm:2.2.0"
   checksum: b64b535861a6f310c5d9bfa10834cf49127c71922c297da9d4d1b45eeaae40bf9b4363275876088fbe2667e5db028d2cd4f8ee72eed9bede840a67d57dab7593
-  languageName: node
-  linkType: hard
-
-"xmldom@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "xmldom@npm:0.2.1"
-  checksum: e15ea673235824b3a275bfec28540da1bd100c51726fa478a2a56699554b49597fa37cc0b2481d25de0b3ee33ddeabbe5d9ddb3834d75b4f1557ff0eaf76877f
   languageName: node
   linkType: hard
 
