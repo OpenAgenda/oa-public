@@ -9,6 +9,7 @@ module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
 
   const {
     context = {},
+    autocomplete = true,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -16,7 +17,7 @@ module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
 
   return endpoints.update(uid, data, {
-    autocomplete: options.autocomplete,
+    autocomplete,
     includeImagePath: true,
     agendaUid: agenda.uid,
     context: {
