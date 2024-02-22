@@ -1,3 +1,5 @@
+import '../polyfills';
+
 import { Fragment, useEffect } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
