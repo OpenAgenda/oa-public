@@ -46,6 +46,10 @@ const messages = defineMessages({
   usual: {
     id: 'cibulTemplates.passwordField.usual',
     defaultMessage: 'Too usual 🤖',
+  },
+  isSameAs: {
+    id: 'cibulTemplates.passwordField.isSameAs',
+    defaultMessage: 'Must be different from name or email 🙄'
   }
 });
 
