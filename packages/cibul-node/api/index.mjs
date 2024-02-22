@@ -354,6 +354,7 @@ export default (core, { useRouter = true } = {}) => {
       .agendas(req.agenda.uid).locations
       .create(req.parsedData, {
         userUid: req.user.uid,
+        autocomplete: (req.query.autocomplete ?? '1') === '1',
       })
       .then(
         location => res.json({
@@ -467,6 +468,7 @@ export default (core, { useRouter = true } = {}) => {
         req.locationIdentifier,
         req.parsedData,
         {
+          autocomplete: (req.query.autocomplete ?? '1') === '1',
           context: {
             userUid: req.user.uid,
           },
@@ -486,6 +488,7 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .patch(req.locationIdentifier, req.parsedData, {
+        autocomplete: (req.query.autocomplete ?? '1') === '1',
         context: {
           userUid: req.user.uid,
         },

@@ -19,7 +19,7 @@ module.exports = (core, agendaOrUid) => async function patchLocation(uid, data, 
 
   try {
     const result = await endpoints.patch(uid, data, {
-      geocodeIfUndefined: true,
+      autocomplete: options.autocomplete,
       includeImagePath: true,
       agendaUid: agenda.uid,
       context: {

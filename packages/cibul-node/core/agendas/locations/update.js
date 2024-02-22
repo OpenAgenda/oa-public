@@ -16,7 +16,7 @@ module.exports = (core, agendaOrUid) => async (uid, data, options = {}) => {
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
 
   return endpoints.update(uid, data, {
-    geocodeIfUndefined: true,
+    autocomplete: options.autocomplete,
     includeImagePath: true,
     agendaUid: agenda.uid,
     context: {
