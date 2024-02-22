@@ -14,6 +14,7 @@ export default async function cloneAndBuild({
     OA_SERVER_PORT: serverPort,
     NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
+    SENTRY_AUTH_TOKEN: sentryAuthToken,
   } = envVars;
 
   const {
@@ -26,6 +27,7 @@ export default async function cloneAndBuild({
     `NODE_ENV=${nodeEnv}`,
     `NEXT_API_INTERNAL_BASE_URL=http://${getNodeGroupEndpoint(nodeGroups, 'web')}:${serverPort}`,
     `NEXT_PUBLIC_MAP_TILES=${nextPublicMapTiles}`,
+    `SENTRY_AUTH_TOKEN=${sentryAuthToken}`
   ];
 
   if (nodeEnv === 'production') {
