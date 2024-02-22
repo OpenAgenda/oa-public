@@ -167,7 +167,7 @@ describe('agenda-locations - functional - create', () => {
           address: 'Bruchon, Lamastre',
           countryCode: 'FR',
         },
-        { geocodeIfUndefined: true },
+        { autocomplete: true },
       );
     });
 
@@ -195,7 +195,7 @@ describe('agenda-locations - functional - create', () => {
               address: 'Bruchon, Lamastre',
               countryCode: 'FR',
             },
-            { geocodeIfUndefined: true },
+            { autocomplete: true },
           );
         } catch (e) {
           error = e;
@@ -258,7 +258,7 @@ describe('agenda-locations - functional - create', () => {
     });
   });
 
-  describe('geocodeIfUndefined', () => {
+  describe('autocomplete whitout coordinates', () => {
     let location;
 
     beforeAll(async () => {
@@ -269,7 +269,7 @@ describe('agenda-locations - functional - create', () => {
           countryCode: 'FR',
         },
         {
-          geocodeIfUndefined: true,
+          autocomplete: true,
         },
       );
     });
@@ -281,6 +281,31 @@ describe('agenda-locations - functional - create', () => {
 
     it('insee code is defined if provided by interface', () => {
       expect(location.insee).toBe('56260');
+    });
+  });
+
+  describe('autocomplete with coordinates', () => {
+    let location;
+
+    beforeAll(async () => {
+      location = await svc(7196947).create({
+        name: 'Le Colisée',
+        address: '33 rue de l’Epeule Parvis du Colisée, Roubaix',
+        countryCode: 'FR',
+        latitude: 48.6576571,
+        longitude: -2.7834928,
+      }, {
+        autocomplete: true,
+      });
+    });
+
+    it('adminlevels are completed', () => {
+      expect(location.adminLevel1).toBe('La région');
+    });
+
+    it('latitude and longitude are unchanged', () => {
+      expect(location.latitude).toBe(48.6576571);
+      expect(location.longitude).toBe(-2.7834928);
     });
   });
 
@@ -371,7 +396,7 @@ describe('agenda-locations - functional - create - no rights', () => {
             address: 'Bruchon, Lamastre',
             countryCode: 'FR',
           },
-          { geocodeIfUndefined: true },
+          { autocomplete: true },
         );
       } catch (error) {
         thrownError = error;
