@@ -131,7 +131,16 @@ function passwordComplexity(values) {
     security,
   } = values.req.app.services;
 
-  if (security.passwords.evaluate(values.req.body.password).score === 0) {
+  const {
+    score,
+    isSameAs,
+  } = security.passwords.evaluate(values.req.body.password, {
+    identifiers: _.pick(values.req.body, ['full_name', 'email']),
+  });
+
+  if (isSameAs) {
+    _.set(values, 'data.errors.password', 'isSameAs');
+  } else if (score === 0) {
     _.set(values, 'data.errors.password', 'tooWeak');
   }
 

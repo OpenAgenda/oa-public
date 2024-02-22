@@ -35,6 +35,12 @@
       "value": "Très sécurisé 🥳"
     }
   ],
+  "cibulTemplates.passwordField.isSameAs": [
+    {
+      "type": 0,
+      "value": "Doit être différent du nom d'utilisateur et de l'email 🙄"
+    }
+  ],
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,

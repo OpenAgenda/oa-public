@@ -35,6 +35,12 @@
       "value": "crwdns33492:0crwdne33492:0"
     }
   ],
+  "cibulTemplates.passwordField.isSameAs": [
+    {
+      "type": 0,
+      "value": "Must be different from name or email 🙄"
+    }
+  ],
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,

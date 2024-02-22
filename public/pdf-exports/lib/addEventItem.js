@@ -6,18 +6,40 @@ import addText from './addText.js';
 import addIcon from './addIcon.js';
 import addRegistration from './addRegistration.js';
 import thumbnail from './thumbnail.js';
+import generateGoogleMapsLink from './generateGoogleMapsLink.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+let imageWidth;
+let imageHeight;
+let fontSize;
+let iconHeightAndWidth;
+let margin;
 const locationIconPath = `${__dirname}/../images/location.png`;
 const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
 const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
+const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
+
+function goToNextLine(cursor, height, options, includeEventImages) {
+  const {
+    base = {
+      margin: 20,
+      color: '#413a42',
+    },
+  } = options;
+
+  cursor.y += height + base.margin / 10;
+  if (includeEventImages) {
+    cursor.x = imageWidth + base.margin * 2;
+  } else {
+    cursor.x = base.margin;
+  }
+}
 
 export default async function addEventItem(
   agenda,
   event,
-  lang,
   doc,
   cursor,
   options = {},
@@ -30,6 +52,11 @@ export default async function addEventItem(
     },
     secondaryColor = '#808080',
     simulate = false,
+    intl,
+    lang,
+    includeEventImages,
+    little,
+    medium,
   } = options;
 
   const localCursor = {
@@ -37,33 +64,35 @@ export default async function addEventItem(
     x: cursor.x,
   };
 
-  let widthOfIcon = null;
-  let heightOfIcon = null;
-  let heightOfTitle = null;
-  let widthOfTitle = null;
-  let heightOfDescription = null;
-  let widthOfDescription = null;
-  let widthOfDateRange = null;
-  let heightOfDateRange = null;
-  let widthOfLocation = null;
-  let heightOfLocation = null;
-  let widthOfOnlineLink = null;
-  let heightOfOnlineLink = null;
-  let widthOfEventLink = null;
-  let heightOfEventLink = null;
-  let widthOfRegistration = null;
-  let heightOfRegistration = null;
+  let columnMaxWidth;
 
-  const imageWidth = 90;
-  const imageHeight = 90;
+  if (little) {
+    imageWidth = 50;
+    imageHeight = 50;
+    fontSize = 8;
+    iconHeightAndWidth = 8;
+    margin = base.margin / 5;
+  } else if (medium) {
+    imageWidth = 70;
+    imageHeight = 70;
+    fontSize = 9;
+    iconHeightAndWidth = 9;
+    margin = base.margin / 4;
+  } else {
+    imageWidth = 90;
+    imageHeight = 90;
+    fontSize = 10;
+    iconHeightAndWidth = 10;
+    margin = base.margin / 3;
+  }
 
-  const iconHeightAndWidth = 10;
-
-  const textMaxWidth = doc.page.width - imageWidth - base.margin * 3;
+  if (includeEventImages) {
+    columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
+  } else {
+    columnMaxWidth = doc.page.width - base.margin * 2;
+  }
 
   const iconsArr = [];
-
-  const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
 
   for (const key of accessibilityKeys) {
     if (event.accessibility?.[key] === true) {
@@ -77,74 +106,105 @@ export default async function addEventItem(
     valign: 'center',
   };
 
-  const imageUrl = await thumbnail(event, __dirname, imageWidth, imageHeight);
+  const imageUrl = await thumbnail(event, __dirname);
 
-  if (!simulate && imageUrl) {
+  if (!simulate && imageUrl && includeEventImages) {
     doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
   }
 
-  localCursor.x += imageWidth + base.margin;
+  if (includeEventImages) {
+    localCursor.x += imageWidth + base.margin;
+  }
 
-  const title = addText(doc, localCursor, getLocaleValue(event.title, lang), {
-    width: textMaxWidth,
-    fontSize: 10,
-    base,
-    bold: true,
-    simulate,
-  });
+  localCursor.y -= base.margin / 8;
 
-  heightOfTitle = title.height;
-  widthOfTitle = title.width;
+  const { height: titleHeight, width: titleWidth } = addText(
+    doc,
+    localCursor,
+    getLocaleValue(event.title, lang),
+    {
+      width: columnMaxWidth,
+      fontSize,
+      base,
+      bold: true,
+      simulate,
+    },
+  );
 
-  localCursor.y += heightOfTitle + base.margin / 10;
+  let columnWidth = titleWidth;
+  goToNextLine(localCursor, titleHeight, options, includeEventImages);
 
-  const description = addText(
+  const { height: descriptionHeight, width: descriptionWidth } = addText(
     doc,
     localCursor,
     getLocaleValue(event.description, lang),
-    { width: textMaxWidth, fontSize: 10, base, simulate },
+    { width: columnMaxWidth, fontSize, base, simulate },
   );
 
-  widthOfDescription = description.width;
-  heightOfDescription = description.height;
+  columnWidth = Math.max(columnWidth, descriptionWidth);
+  goToNextLine(localCursor, descriptionHeight, options, includeEventImages);
 
-  localCursor.y += heightOfDescription + base.margin / 10;
+  // date range & accessibility line
 
-  const { width: widthOfDateRangeIcon, height: heightOfDateRangeIcon } = await addIcon(doc, dateRangeIconPath, localCursor, iconHeightAndWidth, {
-    simulate,
-  });
+  const { width: dateRangeWidthIcon, height: dateRangeIconHeight } = addIcon(
+    doc,
+    dateRangeIconPath,
+    localCursor,
+    iconHeightAndWidth,
+    {
+      simulate,
+    },
+  );
 
-  localCursor.x += widthOfDateRangeIcon + base.margin / 3;
+  localCursor.x += dateRangeWidthIcon + margin;
   localCursor.y -= base.margin / 16;
 
-  const dateRange = addText(
+  const { width: dateRangeWidth, height: dateRangeHeight } = addText(
     doc,
     localCursor,
     getLocaleValue(event.dateRange, lang),
-    { width: textMaxWidth, fontSize: 10, base, simulate },
+    {
+      width: columnMaxWidth - (iconHeightAndWidth + margin),
+      fontSize,
+      base,
+      simulate,
+    },
   );
 
-  widthOfDateRange = dateRange.width;
-  heightOfDateRange = dateRange.height;
-
-  localCursor.x += widthOfDateRange + base.margin / 4;
+  localCursor.x += dateRangeWidth + base.margin / 4;
   localCursor.y += base.margin / 16;
 
-  for (const icon of iconsArr) {
-    localCursor.x += iconHeightAndWidth + base.margin / 3;
-    const iconItem = await addIcon(doc, icon, localCursor, iconHeightAndWidth, {
-      simulate,
-    });
-    widthOfIcon = iconItem.width;
-    heightOfIcon = iconItem.height;
-  }
-  localCursor.y
-    += Math.max(heightOfDateRangeIcon, heightOfDateRange, heightOfIcon)
-    + base.margin / 10;
-  localCursor.x = imageWidth + base.margin * 2;
+  let accessibilityHeight = 0;
+  const accessibilityWidth = iconsArr.lengh * (iconHeightAndWidth + margin);
 
-  if (event.location.name || event.location.address) {
-    const { width: widthOfLocationIcon } = await addIcon(
+  for (const icon of iconsArr) {
+    localCursor.x += iconHeightAndWidth + margin;
+    const { height: iconHeight } = addIcon(
+      doc,
+      icon,
+      localCursor,
+      iconHeightAndWidth,
+      {
+        simulate,
+      },
+    );
+
+    accessibilityHeight = Math.max(accessibilityHeight, iconHeight);
+  }
+
+  columnWidth = Math.max(
+    columnWidth,
+    dateRangeWidth + accessibilityWidth + base.margin / 4,
+  );
+  goToNextLine(
+    localCursor,
+    Math.max(dateRangeIconHeight, dateRangeHeight, accessibilityHeight),
+    options,
+    includeEventImages,
+  );
+
+  if (event.location?.name || event.location?.address) {
+    const { width: widthOfLocationIcon } = addIcon(
       doc,
       locationIconPath,
       localCursor,
@@ -152,31 +212,33 @@ export default async function addEventItem(
       { simulate },
     );
 
-    localCursor.x += widthOfLocationIcon + base.margin / 3;
+    localCursor.x += widthOfLocationIcon + margin;
     localCursor.y -= base.margin / 16;
 
-    const location = addText(
+    const googleMapsLink = generateGoogleMapsLink(
+      `${event.location.name} ${event.location.address}`,
+    );
+
+    const { width: locationWidth, height: locationHeight } = addText(
       doc,
       localCursor,
-      `${event.location?.name} - ${event.location?.address}`,
+      `${event.location.name} - ${event.location.address}`,
       {
-        width: textMaxWidth,
-        fontSize: 10,
+        width: columnMaxWidth - (iconHeightAndWidth + margin),
+        fontSize,
         base,
         underline: false,
-        link: 'https://www.google.com',
+        link: googleMapsLink,
         simulate,
       },
     );
-    widthOfLocation = location.width;
-    heightOfLocation = location.height;
-    localCursor.y += heightOfLocation + base.margin / 10;
+
+    columnWidth = Math.max(columnWidth, locationWidth);
+    goToNextLine(localCursor, locationHeight, options, includeEventImages);
   }
 
-  localCursor.x = imageWidth + base.margin * 2;
-
   if (event.onlineAccessLink) {
-    const { width: widthOfOnelineLinkIcon } = await addIcon(
+    const { width: widthOfOnelineLinkIcon } = addIcon(
       doc,
       onlineLinkPath,
       localCursor,
@@ -184,74 +246,65 @@ export default async function addEventItem(
       { simulate },
     );
 
-    localCursor.x += widthOfOnelineLinkIcon + base.margin / 3;
+    localCursor.x += widthOfOnelineLinkIcon + margin;
     localCursor.y -= base.margin / 16;
 
-    const onlineLink = addText(doc, localCursor, event.onlineAccessLink, {
-      width: textMaxWidth,
-      fontSize: 10,
+    const { width: onlineAccessLinkWidth, height: onlineAccessLinkHeight } = addText(doc, localCursor, event.onlineAccessLink, {
+      width: columnMaxWidth - (iconHeightAndWidth + margin),
+      fontSize,
       base,
       underline: false,
       link: event.onlineAccessLink,
       simulate,
     });
-    widthOfOnlineLink = onlineLink.width;
-    heightOfOnlineLink = onlineLink.height;
-    localCursor.y += heightOfOnlineLink + base.margin / 10;
+
+    columnWidth = Math.max(columnWidth, onlineAccessLinkWidth);
+    goToNextLine(
+      localCursor,
+      onlineAccessLinkHeight,
+      options,
+      includeEventImages,
+    );
+  }
+  if (event.registration.length !== 0) {
+    const { width: registrationWidth, height: registrationHeight } = addRegistration(
+      doc,
+      event,
+      localCursor,
+      {
+        base,
+        iconHeightAndWidth,
+        fontSize,
+        margin,
+      },
+      { simulate, intl },
+    );
+
+    columnWidth = Math.max(columnWidth, registrationWidth);
+    goToNextLine(localCursor, registrationHeight, options, includeEventImages);
   }
 
-  localCursor.x = imageWidth + base.margin * 2;
-
-  const registration = await addRegistration(
-    event,
-    doc,
-    localCursor,
-    {
-      base,
-      iconHeightAndWidth,
-    },
-    { simulate, lang },
-  );
-
-  widthOfRegistration = registration.width;
-  heightOfRegistration = registration.height;
-  localCursor.y += heightOfRegistration + base.margin / 10;
-
-  const eventLink = addText(
+  const { width: eventLinkWidth, height: eventLinkHeight } = addText(
     doc,
     localCursor,
     `https://openagenda.com/${agenda.slug}/events/${event.slug}`,
     {
       color: secondaryColor,
-      width: textMaxWidth,
-      fontSize: 10,
+      width: columnMaxWidth,
+      fontSize,
       base,
       underline: false,
       link: `https://openagenda.com/${agenda.slug}/events/${event.slug}`,
       simulate,
     },
   );
-  widthOfEventLink = eventLink.width;
-  heightOfEventLink = eventLink.height;
 
-  localCursor.y += heightOfEventLink;
-
-  const itemHeight = Math.max(imageHeight, localCursor.y - cursor.y) + base.margin;
+  localCursor.y += eventLinkHeight;
+  columnWidth = Math.max(columnWidth, eventLinkWidth);
 
   return {
-    width:
-      imageWidth
-      + Math.max(
-        widthOfTitle,
-        widthOfDescription,
-        widthOfDateRange + base.margin + widthOfIcon,
-        widthOfLocation,
-        widthOfOnlineLink,
-        widthOfRegistration,
-        widthOfEventLink,
-      )
-      + base.margin,
-    height: itemHeight,
+    width: imageWidth + columnWidth + base.margin,
+    height: Math.max(imageHeight, localCursor.y - cursor.y) + base.margin,
     cursor: localCursor,
   };
 }
