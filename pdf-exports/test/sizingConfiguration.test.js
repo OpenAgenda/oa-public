@@ -13,7 +13,9 @@ const __dirname = dirname(__filename);
 const eventStream = new FixturesStream(
   `${__dirname}/fixtures/albi/events.json`,
 );
-const writeStream = fs.createWriteStream(`${pdfTestFolder}/cases.albi.pdf`);
+const writeStream = fs.createWriteStream(
+  `${pdfTestFolder}/sizingConfiguration.pdf`,
+);
 
 const pdfExports = PDFExports({});
 
@@ -21,5 +23,6 @@ await eventStream.load();
 await pdfExports.GenerateExportStream(eventStream, writeStream, {
   agenda,
   lang: 'fr',
-  includeEventImages: true,
+  little: true,
+  // medium: true,
 });

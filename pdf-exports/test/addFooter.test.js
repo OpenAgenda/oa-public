@@ -26,7 +26,13 @@ const margin = 20;
 
   addFooter(doc, `Page ${pageNumber}`, margin);
 
+  let currentPageNumber = 0;
+
   for (const text of texts) {
+    if (pageNumber !== currentPageNumber) {
+      currentPageNumber = pageNumber;
+      addFooter(doc, `Page ${pageNumber}`, margin);
+    }
     const { height: simulatedHeight } = addText(doc, cursor, text, {
       width: 150,
       simulate: true,

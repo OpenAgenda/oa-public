@@ -4,8 +4,8 @@ import addPageHeader from './addPageHeader.js';
 import addEventItem from './addEventItem.js';
 import cursorYOverflowing from './cursorYOverflowing.js';
 import addFooter from './addFooter.js';
-
-const lang = 'fr';
+import getIntl from './intl.js';
+import messages from './messages.js';
 
 export default async function GenerateExportStream(
   config,
@@ -13,7 +13,15 @@ export default async function GenerateExportStream(
   writeStream,
   options = {},
 ) {
-  const { agenda } = options;
+  const {
+    agenda,
+    lang = 'fr',
+    includeEventImages = true,
+    little,
+    medium,
+  } = options;
+
+  const intl = getIntl(lang);
 
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
@@ -22,6 +30,15 @@ export default async function GenerateExportStream(
 
   let pageNumber = 1;
   let simulateFooterHeight = null;
+  let fontSize;
+
+  if (little) {
+    fontSize = 8;
+  } else if (medium) {
+    fontSize = 9;
+  } else {
+    fontSize = 10;
+  }
 
   cursor.x += margin;
 
@@ -29,28 +46,47 @@ export default async function GenerateExportStream(
     agenda,
     doc,
     cursor,
+    {
+      little,
+      medium,
+    },
   );
   cursor.y += documentHeaderHeight + margin;
 
-  const simulateFooter = addFooter(doc, `Page ${pageNumber}`, margin, {
-    simulate: true,
-  });
+  const simulateFooter = addFooter(
+    doc,
+    `${intl.formatMessage(messages.page)} ${pageNumber}`,
+    margin,
+    {
+      simulate: true,
+      fontSize,
+    },
+  );
   simulateFooterHeight = simulateFooter.height;
-
-  addFooter(doc, `Page ${pageNumber}`, margin);
 
   eventStream.on('end', () => doc.end());
 
   doc.pipe(writeStream);
 
+  let currentPageNumber = 0;
+
   for await (const event of eventStream) {
+    if (pageNumber !== currentPageNumber) {
+      currentPageNumber = pageNumber;
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+        { fontSize },
+      );
+    }
+
     const { height: simulatedHeight } = await addEventItem(
       agenda,
       event,
-      lang,
       doc,
       cursor,
-      { simulate: true },
+      { simulate: true, intl, lang, includeEventImages, little, medium },
     );
 
     if (
@@ -62,18 +98,26 @@ export default async function GenerateExportStream(
         agenda,
         doc,
         cursor,
+        {
+          little,
+          medium,
+        },
       );
       cursor.y += pageHeaderHeight + margin;
       pageNumber += 1;
-      addFooter(doc, `Page ${pageNumber}`, margin);
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+      );
     }
 
     const { height: eventItemHeight } = await addEventItem(
       agenda,
       event,
-      lang,
       doc,
       cursor,
+      { intl, lang, includeEventImages, little, medium },
     );
 
     cursor.y += eventItemHeight;
