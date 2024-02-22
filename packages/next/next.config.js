@@ -171,6 +171,7 @@ const config = async () => {
     },
     sentry: {
       hideSourceMaps: true,
+      widenClientFileUpload: true,
       transpileClientSDK: true,
       tunnelRoute: '/monit',
     },
