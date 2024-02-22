@@ -2,140 +2,177 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import addText from './addText.js';
 import addIcon from './addIcon.js';
-import intl from './intl.js';
+import getTruncatedLabel from './getTruncatedLabel.js';
 import messages from './messages.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const emailIconPath = `${__dirname}/../images/email.png`;
-const phoneIconPath = `${__dirname}/../images/phone.png`;
-const linkIconPath = `${__dirname}/../images/link.png`;
+const typesWithIcons = [
+  { type: 'email', iconPath: `${__dirname}/../images/email.png` },
+  { type: 'phone', iconPath: `${__dirname}/../images/phone.png` },
+  { type: 'link', iconPath: `${__dirname}/../images/link.png` },
+];
 
-const addRegistrationItem = async (
-  type,
-  registrationItem,
-  iconPath,
+function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
+  const { intl, simulate = false } = options;
+
+  const { fontSize } = params;
+
+  return addText(doc, cursor, `${intl.formatMessage(messages.registration)}:`, {
+    underline: true,
+    fontSize,
+    medium: true,
+    simulate,
+  });
+}
+
+function getTypeAndIconPath(type) {
+  const typeWithIcon = typesWithIcons.find(item => item.type === type);
+  return {
+    type: typeWithIcon.type,
+    iconPath: typeWithIcon.iconPath,
+  };
+}
+
+const addRegistrationItem = (
   doc,
   localCursor,
+  label,
+  registrationItem,
   params = {},
   options = {},
 ) => {
-  const { iconHeightAndWidth, base } = params;
+  const { base, iconHeightAndWidth, fontSize, margin } = params;
 
   const { simulate = false } = options;
 
-  const { width: widthOfRegistrationIcon } = await addIcon(
-    doc,
-    iconPath,
-    localCursor,
-    iconHeightAndWidth,
-    { simulate },
-  );
+  let widthOfReg = null;
+  let heightOfReg = null;
 
-  localCursor.x += widthOfRegistrationIcon + base.margin / 3;
-  localCursor.y -= base.margin / 16;
+  localCursor.y += base.margin / 8;
 
-  let linkPrefix = '';
-  switch (type) {
-    case 'email':
-      linkPrefix = 'mailto:';
-      break;
-    default:
-      break;
-  }
+  const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
 
-  const reg = addText(doc, localCursor, registrationItem, {
+  addIcon(doc, iconPath, localCursor, iconHeightAndWidth, { simulate });
+
+  localCursor.x += iconHeightAndWidth + margin;
+
+  const linkPrefix = type === 'email' ? 'mailto:' : '';
+
+  localCursor.y -= base.margin / 8;
+
+  const reg = addText(doc, localCursor, label, {
+    fontSize,
     underline: false,
-    link: type !== 'phone' ? linkPrefix + registrationItem : undefined,
+    link: type !== 'phone' ? linkPrefix + registrationItem.value : undefined,
     base,
     simulate,
   });
 
-  const widthOfReg = reg.width;
-  const heightOfReg = reg.height;
-
-  localCursor.x += widthOfReg + base.margin / 2;
+  widthOfReg = reg.width;
+  heightOfReg = reg.height;
 
   return {
-    width: widthOfRegistrationIcon + base.margin / 3 + widthOfReg,
-    height: heightOfReg,
+    width: iconHeightAndWidth + margin + widthOfReg,
+    height: Math.max(iconHeightAndWidth, heightOfReg),
   };
 };
 
-export default async function addRegistration(
-  event,
+export default function addRegistration(
   doc,
+  event,
   cursor,
   params = {},
   options = {},
 ) {
-  const { base, iconHeightAndWidth } = params;
-  const { simulate = false, lang } = options;
+  const { base, iconHeightAndWidth, fontSize, margin } = params;
+
+  const { simulate = false } = options;
+
+  const columnWidth = doc.page.width - cursor.x - base.margin;
 
   const localCursor = {
     y: cursor.y,
     x: cursor.x,
   };
 
-  let widthOfRegistrationLabel = null;
-  let heightOfRegistrationLabel = null;
-  let widthOfRegistrationItem = null;
-  let heightOfRegistrationItem = null;
-
   const { registration = [] } = event;
 
-  if (registration.length > 0) {
-    const addRegistrationLabel = addText(
-      doc,
-      localCursor,
-      `${intl[lang].formatMessage(messages.registration)}:`,
-      {
-        underline: true,
-        base,
-        medium: true,
-        simulate,
-      },
-    );
-    widthOfRegistrationLabel = addRegistrationLabel.width;
-    heightOfRegistrationLabel = addRegistrationLabel.height;
-
-    localCursor.x += widthOfRegistrationLabel + base.margin / 3;
-    localCursor.y += base.margin / 16;
+  if (registration.length === 0) {
+    return { width: 0, height: 0 };
   }
 
-  for (const registrationItem of registration) {
-    const { type, iconPath } = [
-      { type: 'email', iconPath: emailIconPath },
-      { type: 'phone', iconPath: phoneIconPath },
-      { type: 'link', iconPath: linkIconPath },
-    ].find(item => item.type === registrationItem.type);
+  const { width: widthOfRegistrationLabel } = addRegistrationLabel(
+    doc,
+    localCursor,
+    params,
+    options,
+    {
+      fontSize,
+    },
+  );
 
-    const reg = await addRegistrationItem(
-      type,
-      registrationItem.value,
-      iconPath,
+  localCursor.x += widthOfRegistrationLabel + margin;
+
+  const { height: lineHeight } = addText(doc, cursor, '.', {
+    fontSize,
+    simulate: true,
+  });
+
+  let height = lineHeight;
+
+  let remainingWidth = columnWidth - widthOfRegistrationLabel - margin;
+
+  let isMultiline = false;
+
+  for (const [index, registrationItem] of registration.entries()) {
+    const truncatedLabel = getTruncatedLabel(
       doc,
       localCursor,
+      remainingWidth - iconHeightAndWidth - margin,
+      registrationItem.value,
       {
-        iconHeightAndWidth,
+        fontSize,
+      },
+    );
+
+    const minRemainingWidth = (truncatedLabel.width + iconHeightAndWidth + margin * 2) / 2;
+
+    const reg = addRegistrationItem(
+      doc,
+      localCursor,
+      truncatedLabel.label,
+      registrationItem,
+      {
         base,
+        iconHeightAndWidth,
+        fontSize,
+        margin,
       },
       { simulate },
     );
-    widthOfRegistrationItem = reg.width;
-    heightOfRegistrationItem = reg.height;
+
+    if (index === registration.length - 1) {
+      break;
+    }
+
+    const isReachingEndofLine = remainingWidth - reg.width - margin < minRemainingWidth;
+    if (!isReachingEndofLine) {
+      localCursor.x += truncatedLabel.width + margin;
+      remainingWidth = remainingWidth - reg.width - margin;
+      continue;
+    }
+
+    isMultiline = true;
+    localCursor.y += reg.height + base.margin / 16;
+    remainingWidth = columnWidth;
+    localCursor.x = cursor.x;
+    height += reg.height;
   }
 
-  const totalWidth = widthOfRegistrationLabel + base.margin / 3 + widthOfRegistrationItem;
-  const totalHeight = Math.max(
-    heightOfRegistrationLabel,
-    heightOfRegistrationItem,
-  );
-  localCursor.y += totalHeight + base.margin / 10;
-
   return {
-    width: totalWidth,
-    height: totalHeight,
+    width: isMultiline ? columnWidth : localCursor.x - cursor.x,
+    height,
   };
 }

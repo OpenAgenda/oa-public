@@ -12,9 +12,10 @@ export default async function addDocumentHeader(
     base = {
       margin: 20,
       color: '#413a42',
-      fontSize: 10,
     },
     secondaryColor = '#808080',
+    little,
+    medium,
   } = options;
 
   const localCursor = {
@@ -22,12 +23,32 @@ export default async function addDocumentHeader(
     x: cursor.x,
   };
 
-  let imageHeight;
-  let imageWidth;
+  let logoHeight;
+  let logoWidth;
+  let titleFontSize;
+  let fontSize;
+  let logoHeightAndWidth;
+  let margin;
 
-  const logoHeightAndWidth = 70;
+  if (little) {
+    titleFontSize = 10;
+    fontSize = 8;
+    logoHeightAndWidth = 50;
+    margin = base.margin / 2;
+  } else if (medium) {
+    titleFontSize = 12;
+    fontSize = 10;
+    logoHeightAndWidth = 60;
+    margin = base.margin / 2;
+  } else {
+    // eslint-disable-next-line no-unused-vars
+    titleFontSize = 14;
+    fontSize = 12;
+    logoHeightAndWidth = 70;
+    margin = base.margin;
+  }
 
-  localCursor.y += base.margin;
+  localCursor.y += margin;
 
   if (agenda.image) {
     const logo = await addAgendaLogo(
@@ -37,17 +58,17 @@ export default async function addDocumentHeader(
       logoHeightAndWidth,
     );
 
-    imageHeight = logo.height;
-    imageWidth = logo.width;
+    logoHeight = logo.height;
+    logoWidth = logo.width;
     localCursor.x += logo.width + base.margin;
   }
-  const textMaxWidth = doc.page.width - imageWidth - base.margin * 3;
+  const textMaxWidth = doc.page.width - logoWidth - base.margin * 3;
 
   const { height: heightOfTitle, width: widthOfTitle } = addText(
     doc,
     localCursor,
     agenda.title,
-    { width: textMaxWidth, fontSize: 14, base, bold: true },
+    { width: textMaxWidth, fontSize, base, bold: true },
   );
 
   localCursor.y += heightOfTitle + base.margin / 10;
@@ -56,7 +77,7 @@ export default async function addDocumentHeader(
     doc,
     localCursor,
     agenda.description,
-    { width: textMaxWidth, fontSize: 12, base },
+    { width: textMaxWidth, fontSize, base },
   );
   localCursor.y += heightOfDescription + base.margin / 10;
 
@@ -66,7 +87,7 @@ export default async function addDocumentHeader(
     agenda.url,
     {
       width: textMaxWidth,
-      fontSize: 12,
+      fontSize,
       base,
       underline: false,
       link: agenda.url,
@@ -82,7 +103,7 @@ export default async function addDocumentHeader(
     {
       color: secondaryColor,
       width: textMaxWidth,
-      fontSize: 12,
+      fontSize,
       base,
       underline: false,
       link: `https://openagenda.com/${agenda.slug}`,
@@ -93,7 +114,7 @@ export default async function addDocumentHeader(
 
   const textColHeight = localCursor.y;
 
-  localCursor.y = Math.max(textColHeight, imageHeight) + base.margin;
+  localCursor.y = Math.max(textColHeight, logoHeight + margin) + margin;
   localCursor.x = base.margin * 3;
 
   const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
@@ -105,9 +126,9 @@ export default async function addDocumentHeader(
 
   return {
     width:
-      imageWidth
+      logoWidth
       + Math.max(widthOfTitle, widthOfDescription, widthOfURL, widthOfAgendaURL),
-    height: Math.max(imageHeight, localCursor.y - cursor.y),
+    height: Math.max(logoHeight, localCursor.y - cursor.y),
     cursor: localCursor,
   };
 }

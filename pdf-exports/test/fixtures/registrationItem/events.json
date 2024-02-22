@@ -1,0 +1,94 @@
+[
+  {
+    "registration": [
+      {
+          "type": "link",
+          "value": "https://paris.czechcentres.cz/fr/programme/festival-havel-21-monika-naceva-zdivoceli-kone?locale=fr"
+      },
+      {
+          "type": "email",
+          "value": "paris@czech.cz"
+      },
+      {
+          "type": "phone",
+          "value": "01 53 73 00 22"
+      }
+    ]
+  },
+  {
+    "registration": [
+      {
+          "type": "link",
+          "value": "https://paris.czechcentres.cz/fr/programme/vystava-evropa-2050"
+      }
+    ]
+  },
+  {
+    "registration": [
+      {
+          "type": "email",
+          "value": "paris@czech.cz"
+      },
+      {
+          "type": "phone",
+          "value": "01 53 73 00 22"
+      },
+      {
+          "type": "link",
+          "value": "https://paris.czechcentres.cz/fr/programme/prazsky-vyber-v-ceskem-centru?locale=fr"
+      }
+    ]
+  },
+  {
+    "registration": [
+      {
+          "type": "email",
+          "value": "paris@czech.cz"
+      },
+      {
+        "type": "link",
+        "value": "https://paris.czechcentres.cz/fr/programme/prazsky-vyber-v-ceskem-centru?locale=fr"
+      },
+      {
+          "type": "link",
+          "value": "https://paris.czechcentres.cz/fr/programme/prazsky-vyber-v-ceskem-centru?locale=fr"
+      }
+    ]
+  },
+  {
+    "registration": [
+      {
+        "type": "email",
+        "value": "paris@czech.cz"
+      },
+      {
+        "type": "link",
+        "value": "https://paris.czechcentres.cz/fr/programme/prazsky-vyber-v-ceskem-centru?locale=fr"
+      },
+      {
+        "type": "link",
+        "value": "https://paris.czechcentres.cz/fr/programme/festival-havel-21-monika-naceva-zdivoceli-kone-trop-long?locale=fr"
+      },
+      {
+        "type": "email",
+        "value": "paris@czech.cz"
+      },
+      {
+        "type": "email",
+        "value": "paris@czech.cz"
+      },
+      {
+        "type": "email",
+        "value": "paris@czech.cz"
+      },
+      {
+        "type": "email",
+        "value": "paris@czech.cz"
+      },
+      {
+          "type": "link",
+        "value": "https://paris.czechcentres.cz/fr/programme/festival-havel-21-monika-naceva-zdivoceli-kone-beaucoup-trop-long?locale=fr"
+      }
+    ]
+  }
+]

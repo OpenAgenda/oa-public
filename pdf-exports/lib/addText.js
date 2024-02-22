@@ -35,6 +35,8 @@ export default function addText(doc, cursor, text, options = {}) {
     selectedFont = regularFontPath;
   }
 
+  doc.font(selectedFont).fontSize(fontSize ?? base.fontSize);
+
   if (!simulate) {
     doc
       .fillColor(color ?? base.color)
