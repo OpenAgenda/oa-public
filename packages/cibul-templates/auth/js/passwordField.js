@@ -59,6 +59,7 @@ function PasswordField({
   labelText,
   subText: initSubText,
   fetch: fetchFn,
+  selectors,
 }) {
   const intl = useIntl();
   const [value, setValue] = useState(initValue);
@@ -67,11 +68,16 @@ function PasswordField({
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedValue] = useDebounce(value, 1000);
 
-  const classes = useMemo(() => getClassesFromType(type), [type])
+  const classes = useMemo(() => getClassesFromType(type), [type]);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchFn(debouncedValue).then(({
+    fetchFn(debouncedValue, {
+      identifiers: {
+        full_name: document.querySelector(selectors.fullName).value,
+        email: document.querySelector(selectors.email).value,
+      },
+    }).then(({
       message,
     }) => {
       setSubText(message.code);
@@ -101,6 +107,8 @@ function PasswordField({
 export default function passwordField({ lang }) {
   const selector = '.js_password';
   const subSelector = '.js_password_sub';
+  const emailSelector = '.js_email_input';
+  const fullNameSelector = '.js_full_name_input';
   const elem = document.querySelector(selector);
 
   if (!elem) {
@@ -112,7 +120,11 @@ export default function passwordField({ lang }) {
     type: getTypeFromClass(Array.from(elem.classList)),
     labelText: document.querySelector(`${selector} label`).innerHTML,
     subText: document.querySelector(subSelector)?.innerHTML,
-    fetch: pwd => window.env === 'tpl' ? testPostEvaluate(pwd) : postEvaluate('/api/password/evaluate', pwd),
+    fetch: (pwd, options) => window.env === 'tpl' ? testPostEvaluate(pwd, options) : postEvaluate('/api/password/evaluate', pwd, options),
+    selectors: {
+      email: emailSelector,
+      fullName: fullNameSelector,
+    },
   };
 
   ReactDOM.render(
