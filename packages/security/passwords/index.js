@@ -5,13 +5,21 @@ import zxcvbn from 'zxcvbn';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const usualPasswords = await readFile(`${__dirname}usualPasswords.json`, 'utf8').then(JSON.parse);
 
-const getMessageDetails = ({ score, length, isUsual }) => {
+const getMessageDetails = ({ score, length, isUsual, isSameAs }) => {
   if (!length) {
     return {
       type: 'error',
       code: 'required',
     };
   }
+
+  if (isSameAs) {
+    return {
+      type: 'error',
+      code: 'isSameAs',
+    };
+  }
+
   if (isUsual) {
     return {
       type: 'error',
@@ -76,6 +84,6 @@ export function evaluate(password, options = {}) {
     score,
     isUsual,
     isSameAs,
-    message: getMessageDetails({ score, length: password?.length, isUsual }),
+    message: getMessageDetails({ score, length: password?.length, isUsual, isSameAs }),
   };
 }
