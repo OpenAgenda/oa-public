@@ -1,8 +1,14 @@
 {
+  "common.event.fields.accessibility": "Accesibilidad especial",
+  "common.event.fields.age": "Edad del objetivo",
+  "common.event.fields.attendanceMode": "Modo de asistencia",
   "common.event.fields.conditions": "Condiciones",
+  "common.event.fields.description": "Descripción corta",
   "common.event.fields.image": "Imagen",
   "common.event.fields.imageCredits": "Créditos de las imágenes",
+  "common.event.fields.location": "Lugar",
   "common.event.fields.longDescription": "Descripción larga",
+  "common.event.fields.onlineAccessLink": "Enlace de acceso",
   "common.event.fields.registration": "Herramientas de registro",
   "common.event.fields.title": "título"
 }

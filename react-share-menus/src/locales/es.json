@@ -6,7 +6,9 @@
   "aggregator-title": "Importar en un agenda",
   "calendar-date": "This event has no upcoming dates",
   "no-agenda": "Advertencia: Su cuenta no administra ninguna agenda. Por favor, cree una primero si desea agregar los eventos de {targetAgenda}.",
+  "private-agenda": "Eventos privados",
   "search-agenda": "Buscar",
+  "share-oa": "Compartir su OpenAgenda",
   "share-title": "Compartir el evento",
   "sign-in-agg": "Debe iniciar sesión en su cuenta para importar esta agenda."
 }

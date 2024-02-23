@@ -1,6 +1,7 @@
 {
   "ReactFilters.DateRangeFilter.startDate": "Inicio",
   "ReactFilters.DefinedRangeFilter.startDate": "Inicio",
+  "ReactFilters.ValueBadge.removeFilter": "Eliminar filtro",
   "ReactFilters.dateRanges.currentMonth": "Este mes",
   "ReactFilters.dateRanges.currentWeek": "Esta semana",
   "ReactFilters.dateRanges.thisWeekend": "Este fin de semana",
@@ -8,14 +9,17 @@
   "ReactFilters.dateRanges.tomorrow": "Mañana",
   "ReactFilters.filters.searchFilter.placeholder": "Buscar",
   "ReactFilters.filters.searchFilter.previewLabel": "Buscar",
+  "ReactFilters.messages.attendanceMode.mixed": "Mezclado",
+  "ReactFilters.messages.attendanceMode.offline": "Desconnectad",
+  "ReactFilters.messages.attendanceMode.online": "En linea",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
-  "ReactFilters.messages.filterTitles.countryCode": "País",
-  "ReactFilters.messages.filterTitles.languages": "Idiomas",
+  "ReactFilters.messages.filterTitles.locationUid": "Lugar",
   "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
   "ReactFilters.messages.filterTitles.state": "Estado",
   "ReactFilters.messages.filterTitles.timings": "Fecha",
   "ReactFilters.messages.map.searchWithMap": "Buscar en el mapa",
   "ReactFilters.messages.provenance.contribution": "Contribución",
-  "ReactFilters.messages.relative.upcoming": "Próximos"
+  "ReactFilters.messages.relative.upcoming": "Próximos",
+  "ReactFilters.messages.status.programmed": "Programado"
 }
