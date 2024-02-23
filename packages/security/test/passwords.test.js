@@ -16,6 +16,18 @@ describe('passwords', () => {
     });
   });
 
+  test('password cannot be the same as an associated identifier value', () => {
+    const {
+      valid,
+      isSameAs,
+    } = security.passwords.evaluate('hambourg@allemagne.de', {
+      identifiers: { email: 'hambourg@allemagne.de' },
+    });
+
+    expect(valid).toBe(false);
+    expect(isSameAs).toBe('email');
+  });
+
   test('usual password returns object with valid value set to false', () => {
     const {
       valid,

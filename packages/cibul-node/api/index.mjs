@@ -48,7 +48,9 @@ export default (core, { useRouter = true } = {}) => {
   app.post('/requestAccessToken', mw.requestAccessToken);
 
   app.post('/password/evaluate', (req, res) => {
-    res.json(req.app.services.security.passwords.evaluate(req.body.password));
+    res.json(req.app.services.security.passwords.evaluate(req.body.password, {
+      identifiers: req.body.identifiers,
+    }));
   });
 
   // access token control and user load
@@ -354,6 +356,7 @@ export default (core, { useRouter = true } = {}) => {
       .agendas(req.agenda.uid).locations
       .create(req.parsedData, {
         userUid: req.user.uid,
+        autocomplete: (req.query.autocomplete ?? '1') === '1',
       })
       .then(
         location => res.json({
@@ -467,6 +470,7 @@ export default (core, { useRouter = true } = {}) => {
         req.locationIdentifier,
         req.parsedData,
         {
+          autocomplete: (req.query.autocomplete ?? '1') === '1',
           context: {
             userUid: req.user.uid,
           },
@@ -486,6 +490,7 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .patch(req.locationIdentifier, req.parsedData, {
+        autocomplete: (req.query.autocomplete ?? '1') === '1',
         context: {
           userUid: req.user.uid,
         },

@@ -60,13 +60,13 @@ export async function testPostEvaluate(password) {
   };
 }
 
-export async function postEvaluate(res, password) {
+export async function postEvaluate(res, password, options = {}) {
   const response = await fetch(res, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ password })
+    body: JSON.stringify({ password, ...options })
   });
 
   if (response.ok) return response.json();
