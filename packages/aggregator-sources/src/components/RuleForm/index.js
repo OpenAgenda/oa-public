@@ -15,6 +15,7 @@ import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
 import LanguagesFormPart from './LanguagesFormPart';
+import TimingsFormPart from './TimingsFormPart';
 
 export default function RuleForm({
   SubmitButton,
@@ -167,6 +168,27 @@ export default function RuleForm({
               <RequiredFieldPart />
             </div>
           ) : null}
+
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.timingsFilter)}
+            value="timings"
+            classNameGroup={classNames('radio')}
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterTimings)}
+              </div>
+            )}
+          />
+          {values.type === 'timings' ? (
+            <div className="radio-sub-block">
+              <TimingsFormPart />
+              <RequiredFieldPart />
+            </div>
+          ) : null}
+
           {displayTagFilter ? (
             <Field
               component={Radio}

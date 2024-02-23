@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { FORM_ERROR } from 'final-form';
+import { combineDateTime } from '../../utils/timings';
 import messages from './messages';
 
 export default function validate(
@@ -28,6 +29,29 @@ export default function validate(
     errors.tagValues = intl.formatMessage(messages.requiredValues);
   }
 
+  if (values.type === 'timings') {
+    if (
+      !values.timings.minDate
+      || !values.timings.minTime
+      || !values.timings.maxDate
+      || !values.timings.maxTime
+    ) {
+      errors.timings = intl.formatMessage(messages.requiredValues);
+    } else {
+      const gte = combineDateTime(
+        values.timings.minDate,
+        values.timings.minTime,
+      );
+      const lte = combineDateTime(
+        values.timings.maxDate,
+        values.timings.maxTime,
+      );
+      if (gte > lte) {
+        errors.timings = intl.formatMessage(messages.startAfterEnd);
+      }
+    }
+  }
+
   const hasSomeActions = values.withActions
     && values.actions?.some(v => !['', null, undefined].includes(v.field));
 
@@ -35,7 +59,7 @@ export default function validate(
     if (values.type === 'all') {
       errors[FORM_ERROR] = intl.formatMessage(messages.uselessRule);
     } else if (!values.required) {
-      errors[FORM_ERROR] = "Une règle d'agrégation avec filtre non requis doit comporter au moins une action";
+      errors[FORM_ERROR] = intl.formatMessage(messages.uselessRuleWithFilter);
     }
   }
 

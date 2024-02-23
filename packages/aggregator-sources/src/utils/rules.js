@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { getLocaleValue } from '@openagenda/intl';
+import { combineDateTime, extractDateAndTime } from './timings';
 
 export function hasFilter(rule) {
   if (!rule.query) return false;
@@ -150,6 +151,27 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     return result;
   }
 
+  if (query.timings) {
+    const { date: minDate, time: minTime } = extractDateAndTime(
+      new Date(query.timings.lte),
+    );
+    const { date: maxDate, time: maxTime } = extractDateAndTime(
+      new Date(query.timings.gte),
+    );
+
+    Object.assign(result, {
+      type: 'timings',
+      timings: {
+        minDate: new Date(minDate),
+        minTime,
+        maxDate: new Date(maxDate),
+        maxTime,
+      },
+      withFilter: true,
+    });
+    return result;
+  }
+
   const [key] = Object.keys(query);
 
   // Choice filter
@@ -268,6 +290,24 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       return {
         query: {
           languages: values.languages,
+        },
+        required,
+        actions,
+      };
+    }
+    case 'timings': {
+      return {
+        query: {
+          timings: {
+            gte: combineDateTime(
+              values.timings.minDate,
+              values.timings.minTime,
+            ),
+            lte: combineDateTime(
+              values.timings.maxDate,
+              values.timings.maxTime,
+            ),
+          },
         },
         required,
         actions,

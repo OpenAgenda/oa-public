@@ -172,4 +172,8 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.languagesFilter',
     defaultMessage: 'Language filter',
   },
+  timingsFilter: {
+    id: 'aggregator-sources.DefineRules.timingsFilter',
+    defaultMessage: 'Timings filter',
+  },
 });
