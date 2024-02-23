@@ -5,6 +5,7 @@ const evaluateLocation = require('./location');
 const evaluateLabels = require('./labels');
 const evaluateText = require('./text');
 const evaluateLanguages = require('./languages');
+const evaluateTimings = require('./timings');
 
 module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   if (!data) {
@@ -35,8 +36,13 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     return required ? false : null;
   }
 
+  if (query.timings && !evaluateTimings(query.timings, data)) {
+    log('timings filter is set but does nor match');
+    return required ? false : null;
+  }
+
   const otherRuleFields = Object.keys(query).filter(
-    f => !['location', 'tags', 'text', 'languages'].includes(f),
+    f => !['location', 'tags', 'text', 'languages', 'timings'].includes(f),
   );
   log('evaluating remaining %s rule query fields', otherRuleFields?.length);
 
