@@ -1,4 +1,7 @@
 {
   "ReactShareMenus.ExportModal.cancel": "Annuler",
-  "create-agenda": "Créer un agenda"
+  "create-agenda": "Créer un agenda",
+  "import": "Importer",
+  "send": "Envoyer",
+  "share-calendar": "Importer dans un calendrier personnel"
 }
