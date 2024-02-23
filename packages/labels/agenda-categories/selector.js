@@ -21,7 +21,7 @@ module.exports = {
   },
   "categoriesRequired": {
     "en": "Required.",
-    "fr": "Requis.",
+    "fr": "Obligatoire.",
     "de": "Erforderlich.",
     "es": "Requerido.",
     "it": "Necessario.",

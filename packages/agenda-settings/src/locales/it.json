@@ -2,6 +2,8 @@
   "AgendaSettings.CreationSecondStep.onlineEvents": "Consentire agli annunzi di eventi online",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Eventi in linea possono anche essere collegati a un posto fisico",
   "AgendaSettings.contribution.closedContibution": "Chiusa",
+  "AgendaSettings.contribution.closedContibutionDesc": "Questo agenda è chiuso ai contributi",
+  "AgendaSettings.contribution.contribUseFields": "Invitare ogni membro a presentarsi (ragione sociale, telefono, nome, posizione, e-mail, <a>e altre domande personalizzabile</a>)",
   "AgendaSettings.contribution.contribution": "Contribuzione",
   "AgendaSettings.contribution.openContribution": "Aperta",
   "AgendaSettings.contribution.openContributionDesc": "Qualsiasi utente può aggiungere eventi, sotto la sua moderazione",

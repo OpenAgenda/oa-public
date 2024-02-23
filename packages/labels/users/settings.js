@@ -208,7 +208,7 @@ module.exports = {
     "fr": "Confirmation",
     "de": "Bestätigung",
     "es": "confirmación",
-    "it": "Conferma",
+    "it": "Confermare",
     "br": "Kadarnaat",
     "io": "crwdns15864:0crwdne15864:0",
     "oc": "Confirmacion"

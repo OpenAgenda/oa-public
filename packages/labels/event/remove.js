@@ -44,7 +44,8 @@ module.exports = {
     "de": "Bestätigen",
     "es": "Confirmar",
     "io": "crwdns14422:0crwdne14422:0",
-    "oc": "Confirmar"
+    "oc": "Confirmar",
+    "it": "Confermare"
   },
   "eventDeleted": {
     "fr": "L'événement a été définitivement supprimé",

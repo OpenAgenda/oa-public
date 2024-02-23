@@ -1249,7 +1249,7 @@ module.exports = {
     "en": "Limit contribution to invited members only",
     "de": "Beschränken Beitrag zum eingeladenen Mitgliedern",
     "es": "Limitar la contribución sólo para miembros invitados",
-    "it": "Limitare il contributo solo ai membri invitati",
+    "it": "Autorizzare la contribuzione solo ai membri invitati",
     "io": "crwdns13726:0crwdne13726:0"
   },
   "boundariesLocation": {

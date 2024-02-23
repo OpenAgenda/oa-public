@@ -1,6 +1,6 @@
 {
-  "map": "carta",
-  "passed": "passato",
+  "fromTo": "dal %start% al %end%",
   "location": "luogo",
-  "fromTo": "dal %start% al %end%"
+  "map": "carta",
+  "passed": "passato"
 }
