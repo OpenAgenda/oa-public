@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { AspectRatio, AspectRatioProps } from '@openagenda/uikit';
 import type { MapContainerProps } from 'react-leaflet';
@@ -16,9 +17,33 @@ type MapProps = MapContainerProps & {
 };
 
 export default function Map({ width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, aspectRatioProps, ...rest }: MapProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+    );
+
+    if (mapRef.current) {
+      observer.observe(mapRef.current);
+    }
+
+    return () => {
+      if (mapRef.current) {
+        observer.disconnect();
+      }
+    };
+  }, [mapRef]);
+
   return (
-    <AspectRatio ratio={width / height} {...aspectRatioProps}>
-      <DynamicMap {...rest} />
+    <AspectRatio ref={mapRef} ratio={width / height} {...aspectRatioProps}>
+      {isVisible ? <DynamicMap {...rest} /> : <div />}
     </AspectRatio>
   );
 }

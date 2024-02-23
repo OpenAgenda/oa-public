@@ -14,15 +14,17 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
+  Tooltip,
+  useDisclosure, useBreakpointValue,
 } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
-import { faChevronDown } from 'icons/solid';
+import { faChevronDown, faEllipsisVertical } from 'icons/solid';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
 import ContextBarButton from './ContextBarButton';
+import { fullWidth } from './popperModifiers';
 
 function ActionMenuItem({ action, description, onClick }) {
   return (
@@ -42,6 +44,8 @@ export default function OtherActions({ agenda }) {
 
   const { event, mutate } = useEvent();
   const { me } = useMember();
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
   const { canEditEvent = false } = me?.authorizations ?? {};
@@ -111,17 +115,31 @@ export default function OtherActions({ agenda }) {
 
   return (
     <>
-      <Menu matchWidth gutter={0}>
-        <MenuButton
-          as={ContextBarButton}
-          textAlign="start"
-          lineHeight="normal"
-          display="inline-flex"
-          rightIcon={<FaIcon icon={faChevronDown} />}
-        >
-          <p>{intl.formatMessage(messages.otherActions)}</p>
-          <Text fontSize="sm" mt="1">{intl.formatMessage(messages.otherActionsInfo)}</Text>
-        </MenuButton>
+      <Menu
+        matchWidth
+        gutter={0}
+        modifiers={isMobile ? fullWidth as any : null}
+      >
+        <Tooltip label={intl.formatMessage(messages.otherActions)} isDisabled={!isMobile}>
+          <MenuButton
+            as={ContextBarButton}
+            textAlign={{ base: 'center', md: 'start' }}
+            lineHeight="normal"
+            display="inline-flex"
+            rightIcon={isMobile ? null : <FaIcon icon={faChevronDown} />}
+          >
+            {isMobile ? (
+              <FaIcon icon={faEllipsisVertical} size="lg" />
+            ) : (
+              <>
+                <p>{intl.formatMessage(messages.otherActions)}</p>
+                <Text fontSize="sm" mt="1">
+                  {intl.formatMessage(messages.otherActionsInfo)}
+                </Text>
+              </>
+            )}
+          </MenuButton>
+        </Tooltip>
         <MenuList borderTopRadius="0">
           {isAdminMod ? (
             <>

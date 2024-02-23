@@ -1,9 +1,9 @@
 import qs from 'qs';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
-import { chakra, Box, SimpleGrid, Collapse, Icon, Link } from '@openagenda/uikit';
+import { chakra, Box, SimpleGrid, Collapse, Link, Tooltip, useBreakpointValue } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
-import { faList } from 'icons/regular';
+import { faTurnLeft, faPencil } from 'icons/solid';
 import base64 from 'utils/base64';
 import { FetchStatus } from 'config/types';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -45,67 +45,45 @@ export default function ContextBar() {
 
   const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   if (status === FetchStatus.Fetching) {
     return null;
   }
 
   return (
     <Collapse in animateOpacity>
-      <SimpleGrid columns={{ sm: 1, md: isAdminMod ? 4 : 3 }} bg="white" spacing="1px">
+      <SimpleGrid columns={isAdminMod ? 4 : 3} bg="white" spacing="1px">
         {isAdminMod ? (
           <Column>
-            <ContextBarButton
-              as="a"
-              href={`/${agenda.slug}/admin/events${qs.stringify(query.nc, { addQueryPrefix: true })}`}
-              sx={{
-                '.list-icon': {
-                  opacity: 0.6,
-                  transitionProperty: 'opacity',
-                },
-                _hover: {
-                  '.list-icon': {
-                    opacity: 1,
-                  },
-                  color: 'white',
-                  bgColor: 'primary.600',
-                },
-                _active: {
-                  '.list-icon': {
-                    opacity: 1,
-                  },
-                  color: 'white',
-                  bgColor: 'primary.600',
-                },
-              }}
-              rightIcon={(
-                <Icon
-                  className="list-icon"
-                  as={FaIcon}
-                  icon={faList}
-                  size="2xl"
-                  // opacity="0.4"
-                  // _hover={{ opacity: 1 }}
-                />
-              )}
-            >
-              {intl.formatMessage(messages.backToDashboard)}
-            </ContextBarButton>
+            <Tooltip label={intl.formatMessage(messages.backToDashboard)} isDisabled={!isMobile}>
+              <ContextBarButton
+                as={Link}
+                href={`/${agenda.slug}/admin/events${qs.stringify(query.nc, { addQueryPrefix: true })}`}
+                justifyContent={{ base: 'center', md: 'space-between' }}
+              >
+                {isMobile
+                  ? <FaIcon icon={faTurnLeft} size="lg" />
+                  : intl.formatMessage(messages.backToDashboard)}
+              </ContextBarButton>
+            </Tooltip>
           </Column>
         ) : null}
         <Column>
           <StateSelector agenda={agenda} />
         </Column>
         <Column>
-          <ContextBarButton
-            as={Link}
-            href={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`}
-            _hover={{
-              textDecoration: 'none',
-              bgColor: 'primary.600',
-            }}
-          >
-            {intl.formatMessage(messages.edit)}
-          </ContextBarButton>
+          <Tooltip label={intl.formatMessage(messages.edit)} isDisabled={!isMobile}>
+            <ContextBarButton
+              as={Link}
+              href={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`}
+              justifyContent={{ base: 'center', md: 'space-between' }}
+            >
+              {isMobile
+                ? <FaIcon icon={faPencil} size="lg" />
+                : intl.formatMessage(messages.edit)}
+            </ContextBarButton>
+          </Tooltip>
         </Column>
         <Column>
           <OtherActions agenda={agenda} />

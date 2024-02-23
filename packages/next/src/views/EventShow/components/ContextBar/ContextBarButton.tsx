@@ -15,6 +15,7 @@ const ContextBarButton = forwardRef<ButtonProps, 'button'>(function ContextBarBu
       color="white"
       whiteSpace="normal"
       _hover={{
+        textDecoration: 'none',
         bgColor: 'primary.600',
       }}
       _active={{

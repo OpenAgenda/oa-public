@@ -1,5 +1,15 @@
 import { useIntl } from 'react-intl';
-import { Menu, MenuButton, MenuList, MenuItem, Flex } from '@openagenda/uikit';
+import {
+  chakra,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Flex,
+  Tooltip,
+  Portal,
+  useBreakpointValue,
+} from '@openagenda/uikit';
 import stateMessages from '@openagenda/common-labels/event/states';
 import StateTag from 'components/StateTag';
 import { FaIcon } from 'icons';
@@ -8,6 +18,7 @@ import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import { contextBar as messages } from '../../messages';
 import ContextBarButton from './ContextBarButton';
+import { fullWidth } from './popperModifiers';
 
 const stateMap = {
   '-1': 'refused',
@@ -23,6 +34,8 @@ export default function StateSelector({ agenda }) {
 
   const { event, mutate } = useEvent();
   const { me } = useMember();
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const {
     canChangeState = false,
@@ -59,67 +72,102 @@ export default function StateSelector({ agenda }) {
     }
   };
 
+  const stateLabel = (
+    <>
+      {intl.formatMessage(messages.state)}
+      &nbsp;
+      {intl.formatMessage(stateMessages[stateMap[event.state]])}
+    </>
+  );
+
   if (!canChangeState) {
     return (
-      <Flex
-        color="white"
-        bg="primary.500"
-        px="4"
-        justifyContent="start"
-      >
-        <StateTag state={event.state} marginEnd="0.5rem" />
-        <div>
-          {intl.formatMessage(messages.state)}
-          &nbsp;
-          {intl.formatMessage(stateMessages[stateMap[event.state]])}
-        </div>
-      </Flex>
+      <>
+        {/* Mobile */}
+        <Tooltip label={stateLabel}>
+          <Flex
+            color="white"
+            bg="primary.500"
+            px="4"
+            display={{ base: 'flex', md: 'none' }}
+            w="full"
+            h="full"
+            justify="center"
+            align="center"
+          >
+            <StateTag state={event.state} marginEnd="0.5rem" />
+          </Flex>
+        </Tooltip>
+
+        {/* Desktop */}
+        <Flex
+          color="white"
+          bg="primary.500"
+          px="4"
+          display={{ base: 'none', md: 'flex' }}
+        >
+          <StateTag state={event.state} marginEnd="0.5rem" />
+          <div>
+            {intl.formatMessage(messages.state)}
+            &nbsp;
+            {intl.formatMessage(stateMessages[stateMap[event.state]])}
+          </div>
+        </Flex>
+      </>
     );
   }
 
   return (
-    <Menu matchWidth gutter={0}>
-      <MenuButton
-        as={ContextBarButton}
-        textAlign="start"
-        display="inline-flex"
-        leftIcon={<StateTag state={event.state} />}
-        rightIcon={<FaIcon icon={faChevronDown} />}
-      >
-        {intl.formatMessage(messages.state)}
-        &nbsp;
-        {intl.formatMessage(stateMessages[stateMap[event.state]])}
-      </MenuButton>
-      <MenuList borderTopRadius="0">
-        <MenuItem onClick={() => changeState(-1)}>
-          <StateTag state="refused" mr="2" />
-          <Flex direction="column">
-            <b>{intl.formatMessage(stateMessages.refused)}</b>
-            {intl.formatMessage(messages.refusedInfo)}
-          </Flex>
-        </MenuItem>
-        <MenuItem onClick={() => changeState(0)}>
-          <StateTag state="toControl" mr="2" />
-          <Flex direction="column">
-            <b>{intl.formatMessage(stateMessages.toModerate)}</b>
-            {intl.formatMessage(messages.toModerateInfo)}
-          </Flex>
-        </MenuItem>
-        <MenuItem onClick={() => changeState(1)}>
-          <StateTag state="controlled" mr="2" />
-          <Flex direction="column">
-            <b>{intl.formatMessage(stateMessages.readyToPublish)}</b>
-            {intl.formatMessage(messages.readyToPublishInfo)}
-          </Flex>
-        </MenuItem>
-        <MenuItem isDisabled={!canPublish} onClick={() => changeState(2)}>
-          <StateTag state="published" mr="2" />
-          <Flex direction="column">
-            <b>{intl.formatMessage(stateMessages.published)}</b>
-            {intl.formatMessage(messages.publishedInfo)}
-          </Flex>
-        </MenuItem>
-      </MenuList>
+    <Menu
+      matchWidth
+      gutter={0}
+      modifiers={isMobile ? fullWidth as any : null}
+    >
+      <Tooltip label={stateLabel} isDisabled={!isMobile}>
+        <MenuButton
+          as={ContextBarButton}
+          textAlign="start"
+          display="inline-flex"
+          leftIcon={<StateTag state={event.state} />}
+          rightIcon={<FaIcon icon={faChevronDown} />}
+        >
+          <chakra.span display={{ base: 'none', md: 'inline' }}>
+            {stateLabel}
+          </chakra.span>
+        </MenuButton>
+      </Tooltip>
+      <Portal>
+        <MenuList borderTopRadius="0">
+          <MenuItem onClick={() => changeState(-1)}>
+            <StateTag state="refused" mr="2" />
+            <Flex direction="column">
+              <b>{intl.formatMessage(stateMessages.refused)}</b>
+              {intl.formatMessage(messages.refusedInfo)}
+            </Flex>
+          </MenuItem>
+          <MenuItem onClick={() => changeState(0)}>
+            <StateTag state="toControl" mr="2" />
+            <Flex direction="column">
+              <b>{intl.formatMessage(stateMessages.toModerate)}</b>
+              {intl.formatMessage(messages.toModerateInfo)}
+            </Flex>
+          </MenuItem>
+          <MenuItem onClick={() => changeState(1)}>
+            <StateTag state="controlled" mr="2" />
+            <Flex direction="column">
+              <b>{intl.formatMessage(stateMessages.readyToPublish)}</b>
+              {intl.formatMessage(messages.readyToPublishInfo)}
+            </Flex>
+          </MenuItem>
+          <MenuItem isDisabled={!canPublish} onClick={() => changeState(2)}>
+            <StateTag state="published" mr="2" />
+            <Flex direction="column">
+              <b>{intl.formatMessage(stateMessages.published)}</b>
+              {intl.formatMessage(messages.publishedInfo)}
+            </Flex>
+          </MenuItem>
+        </MenuList>
+      </Portal>
     </Menu>
   );
 }
