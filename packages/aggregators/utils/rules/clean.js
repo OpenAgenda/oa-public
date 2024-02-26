@@ -18,6 +18,9 @@ const validateTimingsAsDates = schema({
   },
 });
 
+const trimTabsAndSpaces = v =>
+  (typeof v === 'string' ? v.replace(/^(\s|\t)+|(\s|\t)+$/g, '') : v);
+
 const validateTimings = t => {
   const asDates = validateTimingsAsDates(t);
 
@@ -38,6 +41,7 @@ function _cleanQuery(dirty) {
       };
     }
 
+    // legacy formatting conversion
     if (key === 'location' && dirty.location instanceof Array) {
       const geoKey = Object.keys(dirty.location[0])[0];
       result.location = {
@@ -46,6 +50,20 @@ function _cleanQuery(dirty) {
     } else {
       result[key] = dirty[key];
     }
+
+    // trim filter values
+    if (key === 'location') {
+      result.location = Object.keys(result.location).reduce(
+        (lQuery, lKey) => ({
+          ...lQuery,
+          [lKey]: []
+            .concat(result.location[lKey])
+            .map(v => trimTabsAndSpaces(v)),
+        }),
+        {},
+      );
+    }
+
     return result;
   }, {});
 }
