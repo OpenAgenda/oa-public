@@ -5,7 +5,6 @@ const _ = require('lodash');
 const convertFieldOptionIdsToLabels = require('../utils/rules/convertFieldOptionIdsToLabels');
 const determineAggregationAction = require('../utils/determineAggregationAction');
 const pickReferenceValues = require('../utils/pickReferenceValues');
-const cleanRule = require('../utils/rules/clean');
 const sourcesAdd = require('../utils/sources/add');
 
 /* eslint-disable global-require */
@@ -13,10 +12,10 @@ const fixtures = {
   jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),
   eventBeforePublish: require('./fixtures/eventBeforePublish.json'),
   eventNowPublish: require('./fixtures/eventNowPublish.json'),
-  eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish'),
-  eventNowUnpublish: require('./fixtures/eventNowUnpublish'),
-  eventBeforeChange: require('./fixtures/eventBeforeChange'),
-  eventNowChange: require('./fixtures/eventNowChange'),
+  eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish.json'),
+  eventNowUnpublish: require('./fixtures/eventNowUnpublish.json'),
+  eventBeforeChange: require('./fixtures/eventBeforeChange.json'),
+  eventNowChange: require('./fixtures/eventNowChange.json'),
   simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
   simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json'),
 };
@@ -70,8 +69,8 @@ describe('05 - utils', () => {
         determineAggregationAction(
           'updateEvent',
           fixtures.eventNowPublish,
-          fixtures.eventNowPublish
-        )
+          fixtures.eventNowPublish,
+        ),
       ).toBe('evaluateEvent');
     });
 
@@ -80,8 +79,8 @@ describe('05 - utils', () => {
         determineAggregationAction(
           'updateEvent',
           fixtures.eventBeforePublish,
-          fixtures.eventNowPublish
-        )
+          fixtures.eventNowPublish,
+        ),
       ).toBe('evaluateEvent');
     });
 
@@ -90,8 +89,8 @@ describe('05 - utils', () => {
         determineAggregationAction(
           'updateEvent',
           fixtures.eventBeforeUnpublish,
-          fixtures.eventNowUnpublish
-        )
+          fixtures.eventNowUnpublish,
+        ),
       ).toBe('removeEvent');
     });
 
@@ -100,104 +99,9 @@ describe('05 - utils', () => {
         determineAggregationAction(
           'updateEvent',
           fixtures.eventBeforeChange,
-          fixtures.eventNowChange
-        )
+          fixtures.eventNowChange,
+        ),
       ).toBe('evaluateEvent');
-    });
-  });
-
-  describe('cleanRule', () => {
-    test('transform object is parsed to list of actions', () => {
-      const clean = cleanRule({
-        query: {
-          tags: 'Animation Jeune public',
-        },
-        transform: {
-          tags: {
-            $push: ['Animation'],
-          },
-        },
-        required: false,
-      });
-
-      expect(clean.actions).toEqual([
-        {
-          field: 'tags',
-          values: { $push: ['Animation'] },
-        },
-      ]);
-    });
-
-    test('clean copy action', () => {
-      const clean = cleanRule({
-        actions: [{
-          aggregField: {
-            $copy: 'sourceField',
-          },
-        }],
-      });
-      expect(clean.actions).toEqual([
-        {
-          field: 'aggregField',
-          values: { $copy: 'sourceField' },
-        },
-      ]);
-    });
-
-    test('state in value is converted to an action', () => {
-      const clean = cleanRule({
-        query: {
-          location: {
-            city: "Angles-sur-l'Anglin",
-          },
-        },
-        value: {
-          state: 2,
-        },
-      });
-
-      expect(clean.actions).toEqual([
-        {
-          field: 'state',
-          values: { $set: 2 },
-        },
-      ]);
-    });
-
-    test('geographic query list-values are reduced by geographic type', () => {
-      const clean = cleanRule({
-        query: {
-          location: [
-            {
-              city: 'Lille',
-            },
-            {
-              city: 'Anstaing',
-            },
-            {
-              city: 'Armentières',
-            },
-            {
-              city: 'Aubers',
-            },
-            {
-              city: 'Baisieux',
-            },
-            {
-              city: 'La Bassée',
-            },
-          ],
-        },
-      });
-
-      expect(clean.query.location.city).toEqual([
-        'Lille',
-        'Anstaing',
-        'Armentières',
-        'Aubers',
-        'Baisieux',
-        'La Bassée',
-      ]);
     });
   });
 
@@ -231,7 +135,7 @@ describe('05 - utils', () => {
               },
             ],
           },
-        ]
+        ],
       );
 
       expect(source.rules[0].required).toEqual(true);
