@@ -1,9 +1,43 @@
 'use strict';
 
+const dateValidator = require('@openagenda/validators/date');
+const schema = require('@openagenda/validators/schema');
+
+schema.register({
+  date: dateValidator,
+});
+
+const validateTimingsAsDates = schema({
+  gte: {
+    optional: false,
+    type: 'date',
+  },
+  lte: {
+    type: 'date',
+    optional: false,
+  },
+});
+
+const validateTimings = t => {
+  const asDates = validateTimingsAsDates(t);
+
+  return {
+    gte: JSON.stringify(asDates.gte).replace(/"/g, ''),
+    lte: JSON.stringify(asDates.lte).replace(/"/g, ''),
+  };
+};
+
 function _cleanQuery(dirty) {
   if (!dirty) return {};
 
   return Object.keys(dirty).reduce((result, key) => {
+    if (key === 'timings') {
+      return {
+        ...result,
+        timings: validateTimings(dirty.timings),
+      };
+    }
+
     if (key === 'location' && dirty.location instanceof Array) {
       const geoKey = Object.keys(dirty.location[0])[0];
       result.location = {
@@ -44,10 +78,11 @@ function clean(dirty) {
       }
     });
   } else if (dirty[actionKey] instanceof Object) {
-    Object.keys(dirty[actionKey]).forEach(f => actions.push({
-      field: f,
-      values: dirty[actionKey][f],
-    }));
+    Object.keys(dirty[actionKey]).forEach(f =>
+      actions.push({
+        field: f,
+        values: dirty[actionKey][f],
+      }));
   }
 
   rule.actions = actions;
