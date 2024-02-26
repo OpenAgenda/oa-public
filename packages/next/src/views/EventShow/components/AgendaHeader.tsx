@@ -1,9 +1,9 @@
 import { useIntl } from 'react-intl';
-import { Heading, NoBreak, Stack, VStack } from '@openagenda/uikit';
+import { Heading, NoBreak, Stack, VStack, LinkBox } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import NextChakraLink from 'components/NextChakraLink';
+import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import { useAgenda } from '../contexts/agenda';
 import { agendaHeader as messages } from '../messages';
@@ -22,7 +22,14 @@ export default function AgendaHeader() {
   const agenda = useAgenda();
 
   return (
-    <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
+    <LinkBox
+      as={Stack}
+      display="inline-flex"
+      verticalAlign="top"
+      spacing="8"
+      direction={{ base: 'column', md: 'row' }}
+      align="center"
+    >
       {agenda.image ? (
         <Image
           rounded="full"
@@ -58,10 +65,10 @@ export default function AgendaHeader() {
           ) : null}
         </Heading>
 
-        <NextChakraLink href={`/${encodeURIComponent(agenda.slug)}`}>
+        <NextChakraLinkOverlay href={`/${encodeURIComponent(agenda.slug)}`}>
           {intl.formatMessage(messages.showAllEvents)}
-        </NextChakraLink>
+        </NextChakraLinkOverlay>
       </VStack>
-    </Stack>
+    </LinkBox>
   );
 }

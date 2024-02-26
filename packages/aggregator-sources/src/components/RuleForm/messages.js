@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.languagesFilter',
     defaultMessage: 'Languages filter',
   },
+  timingsFilter: {
+    id: 'aggregator-sources.RuleForm.timingsFilter',
+    defaultMessage: 'Timings filter',
+  },
   RespectCase: {
     id: 'aggregator-sources.RuleForm.RespectCase',
     defaultMessage: 'Respect case',
@@ -126,6 +130,11 @@ export default defineMessages({
     defaultMessage:
       'Apply the rule to events having a specific language defined in the source.',
   },
+  helpFilterTimings: {
+    id: 'aggregator-sources.RuleForm.helpFilterTimings',
+    defaultMessage:
+      'Apply the rule to events that have at least one timing matching the limits',
+  },
   helpFilterTag: {
     id: 'aggregator-sources.RuleForm.helpFilterTag',
     defaultMessage:
@@ -219,6 +228,10 @@ export default defineMessages({
   phonePlaceholder: {
     id: 'aggregator-sources.RuleForm.phonePlaceholder',
     defaultMessage: 'Phone',
+  },
+  datePlaceholder: {
+    id: 'aggregator-sources.RuleForm.datePlaceholder',
+    defaultMessage: 'Pick a date',
   },
   linkPlaceholder: {
     id: 'aggregator-sources.RuleForm.linkPlaceholder',

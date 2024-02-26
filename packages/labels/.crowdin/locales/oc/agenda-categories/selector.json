@@ -1,6 +1,6 @@
 {
-  "categoriesTitle": "Categorias",
   "categoriesInfo": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
   "categoriesRequired": "Requesit.",
+  "categoriesTitle": "Categorias",
   "requiredCategoryError": "Vos cal causir un element"
 }

@@ -297,13 +297,13 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
-      'fix: patch without countryCode or address in payload and with geocodeIfUndefined option should not attempt to patch latitude & longitude',
+      'fix: patch without countryCode or address in payload and with autocomplete option should not attempt to patch latitude & longitude',
       async () => {
         let error;
         try {
           await svc(7196947).patch(86591143, {
             website: 'https://oa.com',
-          }, { geocodeIfUndefined: true });
+          }, { autocomplete: true });
         } catch (e) {
           error = e;
         }
@@ -313,12 +313,12 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
-      'if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address',
+      'if a new adress is provided at update and autocomplete option is set, a geocoding is made to derive them from address',
       async () => {
         const updated = await svc(7196947).update(
           95301591,
-          _.omit(payload, ['latitude', 'longitude']),
-          { geocodeIfUndefined: true },
+          { ..._.omit(payload, ['latitude', 'longitude']), address: 'something new' },
+          { autocomplete: true },
         );
 
         expect(updated.latitude).toEqual(10);

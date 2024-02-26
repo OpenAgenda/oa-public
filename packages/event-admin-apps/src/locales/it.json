@@ -54,6 +54,7 @@
   "EventAdminApp.FiltersPortal.filters": "Filtri",
   "EventAdminApp.PassImage.edit": "Modificare",
   "EventAdminApp.PassImage.see": "Vedere",
+  "EventAdminApp.RemoveModal.confirm": "Confermare",
   "EventAdminApp.messages.attendanceModes.mixed": "Mista",
   "EventAdminApp.messages.attendanceModes.offline": "In presenza",
   "EventAdminApp.messages.attendanceModes.online": "Online",

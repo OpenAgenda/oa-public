@@ -140,7 +140,7 @@
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Outils d'inscription"
     }
   ],
   "common.event.fields.slug": [
@@ -260,7 +260,7 @@
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Editer la fiche"
+      "value": "Modifier"
     }
   ],
   "event/contributor/email": [

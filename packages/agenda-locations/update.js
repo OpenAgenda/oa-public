@@ -22,10 +22,10 @@ async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
   await authorize(service, 'update', current.uid, options);
 
-  const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
+  const { includeImagePath, autocomplete } = cleanOptions(options);
 
-  const geocodeResult = shouldAttemptGeocode(geocodeIfUndefined, data, isPatch)
-    ? await service.decorateWithGeocodeData(data)
+  const geocodeResult = shouldAttemptGeocode(autocomplete, data, isPatch)
+    ? await service.decorateWithGeocodeData(data, current)
     : null;
 
   const ignoreImage = current.image && !validate.isStream(data.image);

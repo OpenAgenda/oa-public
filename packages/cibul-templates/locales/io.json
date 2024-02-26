@@ -5,6 +5,7 @@
   "cibulTemplates.displayContextBar.modifyAction": "crwdns32484:0crwdne32484:0",
   "cibulTemplates.passwordField.good": "crwdns33490:0crwdne33490:0",
   "cibulTemplates.passwordField.great": "crwdns33492:0crwdne33492:0",
+  "cibulTemplates.passwordField.isSameAs": "crwdns33776:0crwdne33776:0",
   "cibulTemplates.passwordField.required": "crwdns33494:0crwdne33494:0",
   "cibulTemplates.passwordField.tooWeak": "crwdns33496:0crwdne33496:0",
   "cibulTemplates.passwordField.usual": "crwdns33550:0crwdne33550:0",

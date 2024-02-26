@@ -10,18 +10,31 @@ const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
 const legacy = require('./lib/legacy');
 
+function isDataIncomplete(data) {
+  if (!data.address || !data.countryCode || !data.latitude || !data.longitude) {
+    return true;
+  }
+  if (!data.adminLevel1 || !data.adminLevel2 || !data.adminLevel4) {
+    return true;
+  }
+  if (data.countryCode === 'FR' && !data.insee) {
+    return true;
+  }
+  return false;
+}
+
 async function create(service, data, options = {}) {
   log('received %j payload with options %j', data.name, options);
 
   await authorize(service, 'create', null, options);
 
-  const { endpointId, includeImagePath, geocodeIfUndefined } = cleanOptions(
+  const { endpointId, includeImagePath, autocomplete } = cleanOptions(
     options,
   );
 
   const clean = {
     ...validate(
-      geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data,
+      autocomplete && isDataIncomplete(data) ? await service.decorateWithGeocodeData(data) : data,
     ),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
     slug: await defineUnique(

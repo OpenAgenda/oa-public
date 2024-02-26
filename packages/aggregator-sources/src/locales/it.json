@@ -94,6 +94,7 @@
   "aggregator-sources.EvaluateOptions.evaluateOption1": "Aggregare tutti i eventi, anche i passati",
   "aggregator-sources.RemoveSourceModal.cancel": "Annulla",
   "aggregator-sources.RemoveSourceModal.removeASource": "Rimuovere dai fonti",
+  "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Gli eventi che saranno pubblicati sull'agenda {agenda} non saranno più aggregati.{br} Sei sicuro di voler cancellare questa agenda dalle fonti?",
   "aggregator-sources.RuleForm.choiceFilter": "Scegliere un filtro",
   "aggregator-sources.RuleForm.city": "Città",
   "aggregator-sources.RuleForm.department": "Provincia",

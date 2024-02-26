@@ -147,7 +147,7 @@ module.exports = {
     "oc": "los eveniments venon publics pas qu'aprèp vòstra validacion"
   },
   "required": {
-    "fr": "Requis",
+    "fr": "Obligatoire",
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",
@@ -679,13 +679,15 @@ module.exports = {
     "fr": "Information relative à l'utilisation des données personnelles des membres",
     "en": "Usage of member's personal information",
     "io": "crwdns30982:0crwdne30982:0",
-    "oc": "Utilizacion de las informacions personalas dels membres"
+    "oc": "Utilizacion de las informacions personalas dels membres",
+    "it": "Uso delle informazioni personali dei membri"
   },
   "GDPRInformationSubLabel": {
     "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
     "en": "Modify the text presented to members informing them of the usage made of their personal information",
     "io": "crwdns30984:0crwdne30984:0",
-    "oc": "Modificar lo tèxte presentat als membres los informant de l'utilizacion faita de lors informacions personalas"
+    "oc": "Modificar lo tèxte presentat als membres los informant de l'utilizacion faita de lors informacions personalas",
+    "it": "Spiegare l'uso previsto di queste informazioni"
   },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",

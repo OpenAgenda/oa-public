@@ -24,7 +24,7 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
-  geocodeIfUndefined: {
+  autocomplete: {
     type: 'boolean',
     default: false,
   },

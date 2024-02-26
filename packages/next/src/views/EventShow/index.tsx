@@ -17,6 +17,8 @@ import {
   Tabs,
   TabList,
   Tab,
+  WrapItem,
+  Wrap,
 } from '@openagenda/uikit';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
@@ -36,7 +38,13 @@ import AgendaHeader from './components/AgendaHeader';
 import AdditionalFields from './components/AdditionalFields';
 import { Activities, ActivitiesList } from './components/Activities';
 import Inbox from './components/Inbox';
-import Sidebar from './components/Sidebar';
+import Sidebar, {
+  ConditionsSection,
+  DateRangeSection,
+  OnlineAccessSection,
+  RegistrationSection,
+  ShareSection,
+} from './components/Sidebar';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
 import ContributorSection from './components/ContributorSection';
@@ -44,6 +52,7 @@ import NavigateButton from './components/NavigateButton';
 import SuggestLocationChangeButton from './components/SuggestLocationChangeButton';
 import EditLocationButton from './components/EditLocationButton';
 import LocationHistory from './components/LocationHistory';
+import Map from './components/Map';
 import LdJson from './components/LdJson';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
@@ -124,12 +133,17 @@ function EventShow({ preload }: EventShowProps) {
       ) : null}
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
-        <Container maxW="container.lg" color="white">
+        <Container maxW="container.lg" color="white" textAlign={{ base: 'center', md: 'start' }}>
           <AgendaHeader />
         </Container>
       </Box>
 
-      <Flex>
+      <Flex display={{ base: 'flex', xl: 'none' }} justify="space-around" mt="8">
+        <NavigateButton direction="previous" />
+        <NavigateButton direction="next" />
+      </Flex>
+
+      <Flex justify="center" mx="8">
         <Box
           order="1"
           top="48"
@@ -137,6 +151,9 @@ function EventShow({ preload }: EventShowProps) {
           mx="auto"
           pos="sticky"
           alignSelf="flex-start"
+          minW="10em"
+          textAlign="center"
+          display={{ base: 'none', xl: 'block' }}
         >
           <NavigateButton direction="previous" />
         </Box>
@@ -148,6 +165,9 @@ function EventShow({ preload }: EventShowProps) {
           mx="auto"
           pos="sticky"
           alignSelf="flex-start"
+          minW="10em"
+          textAlign="center"
+          display={{ base: 'none', xl: 'block' }}
         >
           <NavigateButton direction="next" />
         </Box>
@@ -155,8 +175,7 @@ function EventShow({ preload }: EventShowProps) {
         <Grid
           order="2"
           templateAreas={{
-            base: `"sidebar"
-                 "event"
+            base: `"event"
                  "footer"`,
             lg: `"event sidebar"
                  "event footer"`,
@@ -168,11 +187,11 @@ function EventShow({ preload }: EventShowProps) {
           gridTemplateRows="auto minmax(0, 1fr)"
           rowGap="8"
           columnGap="10"
-          pt="8"
+          mt="8"
           maxW="container.lg"
         >
 
-          <GridItem area="sidebar">
+          <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
               <Sidebar contentLocale={contentLocale} />
             </Flex>
@@ -220,6 +239,16 @@ function EventShow({ preload }: EventShowProps) {
                     {event.description[contentLocale]}
                   </Box>
                 ) : null}
+
+                <ShareSection
+                  contentLocale={contentLocale}
+                  display={{ base: 'grid', lg: 'none' }}
+                  justifyItems="flex-start"
+                />
+                <OnlineAccessSection display={{ base: 'grid', lg: 'none' }} />
+                <DateRangeSection display={{ base: 'grid', lg: 'none' }} />
+                <ConditionsSection display={{ base: 'grid', lg: 'none' }} />
+                <RegistrationSection display={{ base: 'grid', lg: 'none' }} />
 
                 <chakra.div mx="-8">
                   {/* eslint-disable-next-line no-nested-ternary */}
@@ -297,7 +326,7 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
 
                 {event.keywords?.[contentLocale]?.length ? (
-                  <chakra.div px={8} color="oaGray.500">
+                  <chakra.div color="oaGray.500">
                     {intl.formatList(event.keywords[contentLocale], { style: 'narrow' })}
                   </chakra.div>
                 ) : null}
@@ -360,6 +389,13 @@ function EventShow({ preload }: EventShowProps) {
                     <chakra.div>
                       {event.location.address}
                     </chakra.div>
+                    <Wrap color="oaGray.500">
+                      {['department', 'region', 'country'].map(part => (
+                        <WrapItem key={part}>
+                          {event.location[part]}
+                        </WrapItem>
+                      ))}
+                    </Wrap>
                   </div>
 
                   {event.location.tags?.length ? (
@@ -465,6 +501,14 @@ function EventShow({ preload }: EventShowProps) {
                       </List>
                     </chakra.div>
                   ) : null}
+
+                  <Map
+                    width={600}
+                    height={300}
+                    center={[event.location.latitude, event.location.longitude]}
+                    zoom={14}
+                    aspectRatioProps={{ gridColumn: 2, display: { base: 'block', lg: 'none' } }}
+                  />
 
                   <SuggestLocationChangeButton />
 

@@ -30,7 +30,7 @@ module.exports = {
   },
   "required": {
     "en": "Required.",
-    "fr": "Requis.",
+    "fr": "Obligatoire.",
     "de": "Erforderlich.",
     "es": "Requerido.",
     "it": "Necessario.",

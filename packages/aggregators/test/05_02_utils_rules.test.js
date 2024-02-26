@@ -182,6 +182,68 @@ describe('05_02 - utils - rules', () => {
       expect(result).toBeNull();
     });
 
+    test('timings filter passing', () => {
+      const input = {
+        timings: [
+          {
+            begin: '2019-09-20T06:00:00.000Z',
+            end: '2019-09-20T09:00:00.000Z',
+          },
+          {
+            begin: '2019-09-22T07:30:00.000Z',
+            end: '2019-09-22T11:30:00.000Z',
+          },
+        ],
+      };
+
+      const ruleset = [
+        {
+          query: {
+            timings: {
+              gte: '2019-09-20T00:00:00.000Z',
+              lte: '2019-09-23T00:00:00.000Z',
+            },
+          },
+          required: true,
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toEqual({});
+    });
+
+    test('timings filter failling', () => {
+      const input = {
+        timings: [
+          {
+            begin: '2019-09-20T06:00:00.000Z',
+            end: '2019-09-20T09:00:00.000Z',
+          },
+          {
+            begin: '2019-09-22T07:30:00.000Z',
+            end: '2019-09-22T11:30:00.000Z',
+          },
+        ],
+      };
+
+      const ruleset = [
+        {
+          query: {
+            timings: {
+              gte: '2019-09-21T00:00:00.000Z',
+              lte: '2019-09-23T00:00:00.000Z',
+            },
+          },
+          required: true,
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toBeNull();
+    });
+
     test('if state is set multiple actions, last state is applied state only if $set is used', () => {
       const ruleset = [
         {

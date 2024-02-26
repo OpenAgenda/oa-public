@@ -1,18 +1,18 @@
 {
-  "title": "Auguri, il suo agenda è pronto!",
-  "someActions": "Qualchi semplici azioni per iniziare bene la vostra agenda",
-  "addYourFirstEvent": "Aggiungere un primo evento!",
   "addEvent": "Aggiungere un evento",
   "addProfileImage": "Aggiungere un'immagine del profilo sull'agenda",
-  "sendLink": "Invia il link dell'agenda ai suoi collaboratori!",
-  "copyLinkAndSend": "Copia e incolla questo link e invialo via e-mail o tramite i suoi social network.",
+  "addYourFirstEvent": "Aggiungere un primo evento!",
   "copyLink": "Copiare il link",
-  "embedYourAgenda": "Integrate l'agenda nel suo sito web",
+  "copyLinkAndSend": "Copia e incolla questo link e invialo via e-mail o tramite i suoi social network.",
   "createEmbedded": "Creare una vista integrata",
-  "needPrivate": "Lei vuole un agenda privato? Questa è una funzione fatta per casi particolari, spiegateci il suo utilizzo.",
-  "requestPrivate": "Richiedi un'agenda privata",
+  "embedYourAgenda": "Integrate l'agenda nel suo sito web",
+  "learnMore": "Per saperne di più",
   "needOfficial": "Lei vuole un agenda ufficiale?",
-  "requestOfficial": "Richiedere un agenda ufficiale",
+  "needPrivate": "Lei vuole un agenda privato? Questa è una funzione fatta per casi particolari, spiegateci il suo utilizzo.",
   "or": "oppure",
-  "learnMore": "Per saperne di più"
+  "requestOfficial": "Richiedere un agenda ufficiale",
+  "requestPrivate": "Richiedi un'agenda privata",
+  "sendLink": "Invia il link dell'agenda ai suoi collaboratori!",
+  "someActions": "Qualchi semplici azioni per iniziare bene la vostra agenda",
+  "title": "Auguri, il suo agenda è pronto!"
 }

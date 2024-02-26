@@ -236,7 +236,7 @@
   "next.views.EventShow.ContextBar.state": [
     {
       "type": 0,
-      "value": "State:"
+      "value": "Statut:"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -320,7 +320,7 @@
   "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
     {
       "type": 0,
-      "value": "The event was sent to "
+      "value": "L'événement a été envoyé à "
     },
     {
       "offset": 0,
@@ -332,7 +332,7 @@
             },
             {
               "type": 0,
-              "value": " email address"
+              "value": " adresse email"
             }
           ]
         },
@@ -343,7 +343,7 @@
             },
             {
               "type": 0,
-              "value": " email addresses"
+              "value": " adresses email"
             }
           ]
         }
@@ -450,7 +450,7 @@
   "next.views.EventShow.ShareModal.send": [
     {
       "type": 0,
-      "value": "Send"
+      "value": "Envoyer"
     }
   ],
   "next.views.EventShow.ShareModal.share": [
@@ -546,7 +546,7 @@
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
     {
       "type": 0,
-      "value": "Suggest a change on the location"
+      "value": "Suggérer une modification sur le lieu"
     }
   ],
   "next.views.EventShow.Timings.nextMonth": [
@@ -564,7 +564,7 @@
   "next.views.EventShow.aboutLocation": [
     {
       "type": 0,
-      "value": "About the location"
+      "value": "À propos du lieu"
     }
   ],
   "next.views.EventShow.access": [
@@ -588,7 +588,7 @@
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "More links:"
+      "value": "Liens additionnels :"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

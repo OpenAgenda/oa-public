@@ -217,7 +217,7 @@ module.exports = {
   },
   "registration": {
     "en": "Registration",
-    "fr": "Inscription",
+    "fr": "Outils d'inscription",
     "de": "Registrierung",
     "es": "Herramientas de registro",
     "it": "Strumenti di registrazione",

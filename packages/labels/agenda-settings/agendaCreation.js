@@ -193,7 +193,7 @@ module.exports = {
     "oc": "Crear l'agenda"
   },
   "required": {
-    "fr": "Requis",
+    "fr": "Obligatoire",
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",

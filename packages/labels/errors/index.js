@@ -128,7 +128,7 @@ module.exports = {
     "oc": "Cal seleccionar al mens un element"
   },
   "required": {
-    "fr": "Requis",
+    "fr": "Obligatoire",
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",
@@ -138,7 +138,7 @@ module.exports = {
     "oc": "Requesit"
   },
   "choice.required": {
-    "fr": "Requis",
+    "fr": "Obligatoire",
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",

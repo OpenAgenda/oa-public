@@ -1,5 +1,5 @@
 {
-  "rtp.defineTiming": "Clicca e striscia sulla griglia per creare un nuovo orario",
+  "rtp.defineTiming": "Cliccare e trascinare sulla griglia per creare un nuovo orario",
   "rtp.definedTimings": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} {timingsCount, plural, =0 {} other {il {when, date, short}}}",
   "rtp.definedTimingsInRange": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} del {from, date, short} al {to, date, short}",
   "rtp.editForm.adjust": "Modificare",

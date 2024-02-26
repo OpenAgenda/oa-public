@@ -24,7 +24,7 @@ module.exports = {
   "offlineAttendanceMode": {
     "fr": "Sur place",
     "en": "In situ",
-    "it": "In situ",
+    "it": "In presenza",
     "es": "Desconnectad",
     "de": "Offline",
     "br": "War al lec’h",
@@ -493,7 +493,7 @@ module.exports = {
   },
   "required": {
     "en": "Required.",
-    "fr": "Requis.",
+    "fr": "Obligatoire.",
     "it": "Necessario.",
     "de": "Erforderlich.",
     "es": "Requerido.",
@@ -503,7 +503,7 @@ module.exports = {
   },
   "categoriesRequired": {
     "en": "Required.",
-    "fr": "Requis.",
+    "fr": "Obligatoire.",
     "it": "Necessario.",
     "de": "Erforderlich.",
     "es": "Requerido.",

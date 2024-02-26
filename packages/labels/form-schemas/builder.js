@@ -184,7 +184,7 @@ module.exports = {
     "io": "crwdns14716:0crwdne14716:0"
   },
   "editLabelLanguages": {
-    "fr": "Éditer",
+    "fr": "Modifier",
     "en": "Edit",
     "de": "Bearbeiten",
     "es": "editar",
@@ -818,7 +818,7 @@ module.exports = {
     "io": "crwdns14844:0crwdne14844:0"
   },
   "requiredError": {
-    "fr": "Tous les champs sont requis",
+    "fr": "Tous les champs sont obligatoires",
     "en": "All fields are required",
     "de": "alle Felder sind erforderlich",
     "es": "Todos los campos requeridos",

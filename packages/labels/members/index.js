@@ -171,7 +171,7 @@ module.exports = {
     "en": "Are you sure you want to delete this user from members ?",
     "de": "Bist du sicher, dass du diesen Nutzer von der Mitgliederliste löschen willst?",
     "es": "¿Está seguro de que desea eliminar esta miembros de usuario?",
-    "it": "Sei sicuro di voler rimuovere questo utente dall'iscrizione?",
+    "it": "Sei sicuro di voler rimuovere questo utente della lista?",
     "io": "crwdns15636:0crwdne15636:0",
     "oc": "Sètz segur·a que volètz tirar aqueste utilizaire dels membres ?"
   },
@@ -325,7 +325,7 @@ module.exports = {
     "oc": "Total"
   },
   "required": {
-    "fr": "Requis",
+    "fr": "Obligatoire",
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",

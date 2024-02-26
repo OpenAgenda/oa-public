@@ -2,37 +2,37 @@
   "next.views.EventShow.Activities.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Voir plus"
     }
   ],
   "next.views.EventShow.AdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "No file is loaded"
+      "value": "Fichier non chargé"
     }
   ],
   "next.views.EventShow.AdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "No image is loaded"
+      "value": "Image non chargée"
     }
   ],
   "next.views.EventShow.AdditionalFields.noInput": [
     {
       "type": 0,
-      "value": "No input"
+      "value": "Aucune saisie"
     }
   ],
   "next.views.EventShow.AdditionalFields.noSelection": [
     {
       "type": 0,
-      "value": "No selection"
+      "value": "Aucune sélection"
     }
   ],
   "next.views.EventShow.AdditionalFields.restrictedInformation": [
     {
       "type": 0,
-      "value": "Restricted information"
+      "value": "Information privée"
     }
   ],
   "next.views.EventShow.AgendaHeader.showAllEvents": [
@@ -56,7 +56,7 @@
   "next.views.EventShow.ContextBar.clearStatus": [
     {
       "type": 0,
-      "value": "Clear the status of the event"
+      "value": "Réinitialiser l'état de l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatusInfo": [
@@ -68,13 +68,13 @@
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
-      "value": "Delete"
+      "value": "Supprimer"
     }
   ],
   "next.views.EventShow.ContextBar.deleteConfirmation": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete this event?"
+      "value": "Etes-vous sûr de vouloir supprimer cet événement?"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEvent": [
@@ -92,19 +92,19 @@
   "next.views.EventShow.ContextBar.duplicate": [
     {
       "type": 0,
-      "value": "Duplicate"
+      "value": "Dupliquer"
     }
   ],
   "next.views.EventShow.ContextBar.duplicateInfo": [
     {
       "type": 0,
-      "value": "Load a new event form pre-filled with the details from this event"
+      "value": "Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement"
     }
   ],
   "next.views.EventShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modifier"
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -236,7 +236,7 @@
   "next.views.EventShow.ContextBar.state": [
     {
       "type": 0,
-      "value": "State:"
+      "value": "Statut:"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -260,55 +260,55 @@
   "next.views.EventShow.ContributorSection.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modifier"
     }
   ],
   "next.views.EventShow.ContributorSection.privateInformation": [
     {
       "type": 0,
-      "value": "Private information"
+      "value": "Information privée"
     }
   ],
   "next.views.EventShow.DuplicateModal.bigSentence": [
     {
       "type": 0,
-      "value": "You are about to create a new event based on a precedent."
+      "value": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent."
     }
   ],
   "next.views.EventShow.DuplicateModal.createNewEventIn": [
     {
       "type": 0,
-      "value": "Create the new event in"
+      "value": "Créer le nouvel événement dans"
     }
   ],
   "next.views.EventShow.DuplicateModal.or": [
     {
       "type": 0,
-      "value": "Or"
+      "value": "Ou"
     }
   ],
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+      "value": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
     {
       "type": 0,
-      "value": "Select an agenda"
+      "value": "Sélectionner un agenda"
     }
   ],
   "next.views.EventShow.EditLocationButton.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "Editer le lieu"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Fermer"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -320,7 +320,7 @@
   "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
     {
       "type": 0,
-      "value": "The event was sent to "
+      "value": "L'événement a été envoyé à "
     },
     {
       "offset": 0,
@@ -332,7 +332,7 @@
             },
             {
               "type": 0,
-              "value": " email address"
+              "value": " adresse email"
             }
           ]
         },
@@ -343,7 +343,7 @@
             },
             {
               "type": 0,
-              "value": " email addresses"
+              "value": " adresses email"
             }
           ]
         }
@@ -366,13 +366,13 @@
   "next.views.EventShow.Footer.termsOfUse": [
     {
       "type": 0,
-      "value": "Terms of use"
+      "value": "Conditions d'utilisation"
     }
   ],
   "next.views.EventShow.Inbox.inbox": [
     {
       "type": 0,
-      "value": "Inbox"
+      "value": "Messagerie"
     }
   ],
   "next.views.EventShow.LocationHistory.locationHistory": [
@@ -408,19 +408,19 @@
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,
-      "value": "Copied"
+      "value": "Copié"
     }
   ],
   "next.views.EventShow.ShareModal.copy": [
     {
       "type": 0,
-      "value": "Copy"
+      "value": "Copier"
     }
   ],
   "next.views.EventShow.ShareModal.import": [
     {
       "type": 0,
-      "value": "Import"
+      "value": "Importer"
     }
   ],
   "next.views.EventShow.ShareModal.mustSignIn": [
@@ -450,13 +450,13 @@
   "next.views.EventShow.ShareModal.send": [
     {
       "type": 0,
-      "value": "Send"
+      "value": "Envoyer"
     }
   ],
   "next.views.EventShow.ShareModal.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partager"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -474,7 +474,7 @@
   "next.views.EventShow.ShareModal.shareCalendar": [
     {
       "type": 0,
-      "value": "Import in a personal calendar"
+      "value": "Importer dans un calendrier personnel"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -492,7 +492,7 @@
   "next.views.EventShow.ShareModal.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Se connecter"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
@@ -522,7 +522,7 @@
   "next.views.EventShow.Sidebar.passed": [
     {
       "type": 0,
-      "value": "Passed"
+      "value": "Passé"
     }
   ],
   "next.views.EventShow.Sidebar.registerBook": [
@@ -534,19 +534,19 @@
   "next.views.EventShow.Sidebar.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Outils d'inscription"
     }
   ],
   "next.views.EventShow.Sidebar.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partager"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
     {
       "type": 0,
-      "value": "Suggest a change on the location"
+      "value": "Suggérer une modification sur le lieu"
     }
   ],
   "next.views.EventShow.Timings.nextMonth": [
@@ -564,19 +564,19 @@
   "next.views.EventShow.aboutLocation": [
     {
       "type": 0,
-      "value": "About the location"
+      "value": "À propos du lieu"
     }
   ],
   "next.views.EventShow.access": [
     {
       "type": 0,
-      "value": "Access"
+      "value": "Accès"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contacter les administrateurs"
     }
   ],
   "next.views.EventShow.history": [
@@ -588,13 +588,13 @@
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "More links:"
+      "value": "Liens additionnels :"
     }
   ],
   "next.views.EventShow.sendAnEmail": [
     {
       "type": 0,
-      "value": "Send an email"
+      "value": "Envoyer un email"
     }
   ],
   "next.views.EventShow.tags": [

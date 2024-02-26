@@ -11,7 +11,7 @@ module.exports = {
     "oc": "Itinerari"
   },
   "register": {
-    "fr": "Réservation",
+    "fr": "Outils d'inscription",
     "en": "Registration",
     "de": "Anmeldung",
     "es": "Herramientas de registro",

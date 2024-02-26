@@ -77,4 +77,8 @@ export default defineMessages({
     defaultMessage:
       'A rule consists of a filter and/or actions applied to each event published on the source.',
   },
+  startAfterEnd: {
+    id: 'aggregator-sources.DefineRules.startAfterEnd',
+    defaultMessage: 'The beginning must be before the end.',
+  },
 });
