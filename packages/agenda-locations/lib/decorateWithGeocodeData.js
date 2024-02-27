@@ -10,6 +10,19 @@ function isDefinedAndDifferent(data, current, field) {
   return data[field] && data[field] !== current?.[field];
 }
 
+function addAdminLevels(data) {
+  const { adminLevel1, adminLevel2, adminLevel3, adminLevel4, adminLevel5, adminLevel6 } = data;
+  return {
+    ...data,
+    region: adminLevel1 || data.region,
+    department: adminLevel2 || data.department,
+    adminLevel3,
+    city: adminLevel4 || data.city,
+    adminLevel5,
+    district: adminLevel6 || data.district,
+  };
+}
+
 function incompleteAdminLevels(current) {
   if (!current) {
     return true;
@@ -53,7 +66,7 @@ async function geocode(interfaces, data, current) {
 async function reverseGeocode(interfaces, data, current) {
   const reverseGeocodeData = { ...current, ...data };
   try {
-    if (!interfaces.geocode.reverse) {
+    if (!interfaces.reverseGeocode) {
       throw new Error('reverseGeocode interface is not set');
     }
 
@@ -65,7 +78,7 @@ async function reverseGeocode(interfaces, data, current) {
       throw new Error('longitude is unspecified');
     }
 
-    const results = await interfaces.geocode.reverse(reverseGeocodeData.latitude, reverseGeocodeData.longitude);
+    const results = await interfaces.reverseGeocode(reverseGeocodeData.latitude, reverseGeocodeData.longitude);
 
     if (!results.length) {
       throw new BadRequest('geocoder didn\'t find address');
@@ -80,12 +93,12 @@ async function reverseGeocode(interfaces, data, current) {
 }
 
 async function getGeocodeData(interfaces, data, current) {
-  if (isDefinedAndDifferent(data, current, 'address') || isDefinedAndDifferent(data, current, 'countryCode')) {
-    return geocode(interfaces, data, current);
-  }
-
   if (isDefinedAndDifferent(data, current, 'latitude') || isDefinedAndDifferent(data, current, 'longitude')) {
     return reverseGeocode(interfaces, data, current);
+  }
+
+  if (isDefinedAndDifferent(data, current, 'address') || isDefinedAndDifferent(data, current, 'countryCode')) {
+    return geocode(interfaces, data, current);
   }
 
   if (incompleteAdminLevels({ ...current, ...data })) {
@@ -94,13 +107,15 @@ async function getGeocodeData(interfaces, data, current) {
   return {};
 }
 
-module.exports = service => Object.assign(async (data, current = {}) => {
+module.exports = service => Object.assign(async (pdata, current = {}) => {
+  const data = addAdminLevels(pdata);
+
   if (!data && !incompleteAdminLevels(current)) {
     return data;
   }
   const geocodeResult = await getGeocodeData(service.interfaces, data, current);
 
-  const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult) && { ...current, ...data, ...geocodeResult }.countryCode === 'FR'
+  const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult) && { ...current, ...geocodeResult, ...data }.countryCode === 'FR'
     ? {
       insee: await service.getINSEECode({
         ...geocodeResult,
@@ -115,7 +130,7 @@ module.exports = service => Object.assign(async (data, current = {}) => {
     ...current,
     ...geocodeResult,
     ...inseeResult,
-    ...data,
+    ...JSON.parse(JSON.stringify(data)),
   };
 }, {
   shouldAttempt: (autocomplete, data, isPatch, current = {}) => {

@@ -204,7 +204,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         address: 'Palais de la Berbie, place Sainte-Cécile, Albi',
         city: 'Albi',
         countryCode: 'FR',
-        latitude: 43.92872,
+        latitude: 44.92872,
         longitude: 2.142774,
         department: 'Tarn',
         region: 'Occitanie',
