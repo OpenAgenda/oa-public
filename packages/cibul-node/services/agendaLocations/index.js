@@ -49,6 +49,7 @@ module.exports.init = async (config, services) => {
       getEventCounts: getEventCounts(config, services),
       getSetAgendasCount: getSetAgendasCount(services),
       geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language }),
+      reverseGeocode: (lat, lng, options = {}) => geocoder.reverse(lat, lng, options),
       getAgendaLocationSettings: getAgendaLocationSettings(services),
       getLinkedAgendas: getLinkedAgendas(services),
       getAgendaUidsByIds: getAgendaUidsByIds(services),
