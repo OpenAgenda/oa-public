@@ -225,6 +225,19 @@ describe('validate', () => {
       }]);
     });
 
+    it('invalid data throws validation error', async () => {
+      let error;
+      try {
+        await validate({
+          registration: ['notAPhoneNotAnEmailAndNotALink'],
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('ValidationError');
+      expect(error.detail.find(e => e.field === 'registration').code).toBe('registration.invalid');
+    });
+
     it('registration data can be provided as list of objects', async () => {
       const { registration } = await validate({
         registration: [{ type: 'email', value: 'an@email.com' }],
