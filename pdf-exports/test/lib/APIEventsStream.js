@@ -1,8 +1,11 @@
 import https from 'node:https';
 import { Readable } from 'readable-stream';
 import qs from 'qs';
+import logs from '@openagenda/logs';
 
 const API = 'https://api.openagenda.com/v2/agendas/{agendaUID}/events?key={APIKey}&detailed=1';
+
+const log = logs('APIEventsStream');
 
 export default class APIEventsStream extends Readable {
   constructor({ agendaUID, APIKey, max }) {
@@ -24,7 +27,11 @@ export default class APIEventsStream extends Readable {
       return;
     }
 
-    this.push(this.buffer.shift());
+    const event = this.buffer.shift();
+
+    log(event.slug);
+
+    this.push(event);
     this.count += 1;
   }
 
