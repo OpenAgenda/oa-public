@@ -277,6 +277,10 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('agendaId is not provided in response', () => {
         expect(response.data.location.agendaId).toBeUndefined();
       });
+
+      it('has fetched adminLevels', () => {
+        expect(response.data.location.adminLevel1).toBe('Grand Est');
+      });
     });
 
     describe('bad requests', () => {
