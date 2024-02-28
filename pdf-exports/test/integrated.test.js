@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import qs from 'qs';
 import PDFExports from '../index.js';
 
 import APIEventsStream from './lib/APIEventsStream.js';
@@ -9,12 +10,14 @@ const {
   API_KEY: APIKey,
   PDF_TEST_FOLDER: pdfTestFolder,
   MAX_FETCHED_EVENT_COUNT: maxFetchedEventCount,
+  TEST_QUERY: testQueryString,
 } = process.env;
 
 const eventStream = new APIEventsStream({
   agendaUID,
   APIKey,
   max: maxFetchedEventCount,
+  query: testQueryString ? qs.parse(testQueryString.replace(/\?/, '')) : {},
 });
 
 const writeStream = fs.createWriteStream(
