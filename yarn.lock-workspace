@@ -5286,6 +5286,7 @@ __metadata:
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/logs": "npm:^1.1.9"
     axios: "npm:^0.21.1"
     eslint: "npm:^8.24.0"
     lint-staged: "npm:^10.2.11"
