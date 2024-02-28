@@ -8,7 +8,7 @@ const API = 'https://api.openagenda.com/v2/agendas/{agendaUID}/events?key={APIKe
 const log = logs('APIEventsStream');
 
 export default class APIEventsStream extends Readable {
-  constructor({ agendaUID, APIKey, max }) {
+  constructor({ agendaUID, APIKey, max, query }) {
     super({ objectMode: true });
 
     this.agendaUID = agendaUID;
@@ -19,6 +19,7 @@ export default class APIEventsStream extends Readable {
     this.requestInProgress = false;
     this.count = 0;
     this.max = max;
+    this.query = query ?? {};
   }
 
   _pushEvent() {
@@ -51,7 +52,11 @@ export default class APIEventsStream extends Readable {
         this.APIKey,
       ),
     ]
-      .concat(this.after ? `&${qs.stringify({ after: this.after })}` : [])
+      .concat(
+        this.after
+          ? `&${qs.stringify({ ...this.query, after: this.after })}`
+          : [],
+      )
       .join('');
 
     https
