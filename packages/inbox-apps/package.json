@@ -28,6 +28,12 @@
     "@openagenda/react-shared": "^2.4.1",
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/validators": "^2.4.0",
+    "@uppy/aws-s3": "^3.6.2",
+    "@uppy/core": "^3.9.3",
+    "@uppy/dashboard": "^3.7.5",
+    "@uppy/locales": "^3.5.2",
+    "@uppy/react": "^3.2.2",
+    "@uppy/status-bar": "^3.3.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "dompurify": "^3.0.8",
@@ -47,9 +53,7 @@
     "react-waypoint": "^9.0.2",
     "recompose": "^0.30.0",
     "redial": "^0.5.0",
-    "regenerator-runtime": "^0.13.7",
-    "superagent": "^3.8.3",
-    "uppy": "^0.23.2"
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
