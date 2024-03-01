@@ -296,7 +296,7 @@ export default function IntlImageInput({
     <IntlProvider
       key={locale}
       locale={locale}
-      messages={messages[locale]}
+      messages={messages}
       defaultLocale={getSupportedLocale(locale)}
     >
       <ImageInput {...props} />
