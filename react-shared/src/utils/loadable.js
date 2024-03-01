@@ -10,3 +10,13 @@ export default (fn, options) => {
 
   return Component;
 };
+
+export const lib = (fn, options) => {
+  const Component = loadable.lib(fn, options);
+
+  Component.load = (fn.requireAsync || fn).bind(fn);
+
+  Component.isReady = fn.isReady ? fn.isReady.bind(fn) : () => false;
+
+  return Component;
+};
