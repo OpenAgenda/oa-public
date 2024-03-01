@@ -1,11 +1,9 @@
-import path from 'path';
+import path from 'node:path';
 import _ from 'lodash';
 import logger from '@openagenda/logs';
 
 export default async function makeConfig(c) {
-  const {
-    knex,
-  } = c;
+  const { knex } = c;
 
   if (c.logger) {
     logger.setModuleConfig(c.logger);
@@ -25,7 +23,7 @@ export default async function makeConfig(c) {
     'domain',
     'aws',
     'mw',
-    'uppy',
+    'uppyCompanion',
   ]);
 
   if (c.migrations) {
