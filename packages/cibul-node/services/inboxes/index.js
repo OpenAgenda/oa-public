@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const companion = require('@uppy/companion');
 const inboxes = require('@openagenda/inboxes');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
 const log = require('@openagenda/logs')('services/inboxes');
@@ -201,6 +202,24 @@ module.exports.init = async (c, services) => {
         mw: {
           limit: 20,
         },
+        uppyCompanion: companion.app({
+          s3: {
+            getKey: req => req.filename,
+            key: c.aws.accessKeyId,
+            secret: c.aws.secretAccessKey,
+            bucket: c.aws.bucket,
+            region: c.aws.region,
+            acl: 'public-read',
+          },
+          server: {
+            host: c.domain,
+            protocol: 'https',
+          },
+          secret: c.uppy.secret,
+          debug: false,
+          filePath: c.tmpFolderPath,
+          uploadUrls: [RegExp(`/^https:\\/\\/${c.domain}\\//`)],
+        }),
       },
     ),
   );

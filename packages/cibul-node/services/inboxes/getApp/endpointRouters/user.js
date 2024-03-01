@@ -140,26 +140,9 @@ module.exports = (config, services) => {
         type: 'type',
         identifier: 'user.uid',
         userUid: 'user.uid',
-        messageId: 'query.meta.messageId',
-      },
-      uppyOptions: {
-        providerOptions: {
-          s3: {
-            key: config.aws.accessKeyId,
-            secret: config.aws.secretAccessKey,
-            bucket: config.aws.bucket,
-            region: config.aws.region,
-          },
-        },
-        server: {
-          host: config.domain,
-          protocol: 'https',
-        },
-        secret: config.uppy.secret,
-        debug: false,
+        messageId: 'query.metadata.messageId',
       },
     }),
-
     errorHandler,
   );
 
