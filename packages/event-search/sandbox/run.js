@@ -2,7 +2,7 @@
 
 const elasticsearch = require('@elastic/elasticsearch');
 const debug = require('debug');
-const fs = require('fs');
+const fs = require('node:fs');
 const prompts = require('prompts');
 
 const {
