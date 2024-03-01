@@ -1,4 +1,5 @@
-@use 'uppy/dist/uppy.css';
+@use '@uppy/core/dist/style.min.css' as uppyCore;
+@use '@uppy/dashboard/dist/style.min.css' as uppyDashboard;
 
 .inbox {
   &.inbox-user {
@@ -181,16 +182,12 @@
     }
 
     .uppy-Dashboard {
-      .UppyIcon {
-        height: 60px;
-      }
-
       .uppy-Dashboard-inner {
         border: 2px dashed $oa-gray;
-      }
 
-      .uppy-DashboardItem-edit {
-        display: none; // Just for Kaoré
+        .uppy-Dashboard-files {
+          padding: 0;
+        }
       }
     }
   }
