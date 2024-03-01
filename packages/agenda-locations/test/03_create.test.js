@@ -82,6 +82,13 @@ describe('agenda-locations - functional - create', () => {
             adminLevel4: 'Vannes',
           },
         ],
+        reverseGeocode: async (_latitude, _longitude) => [{
+          address: 'an address',
+          adminLevel1: 'La région2',
+          adminLevel2: 'Morbihan2',
+          adminLevel4: 'Vannes2',
+          countryCode: 'FR',
+        }],
         getAgendaLocationSettings: async _uid => initSettingsDA,
       },
       Files: Files(dConfig.files),
@@ -300,7 +307,7 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('adminlevels are completed', () => {
-      expect(location.adminLevel1).toBe('La région');
+      expect(location.adminLevel1).toBe('La région2');
     });
 
     it('latitude and longitude are unchanged', () => {

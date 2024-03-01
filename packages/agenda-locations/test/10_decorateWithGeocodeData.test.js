@@ -7,8 +7,9 @@ describe('decorateWithGeocodeData', () => {
 
   beforeAll(async () => {
     decorate = decorateWithGeocodeData({
+      getINSEECode: _geocodeData => '56000',
       interfaces: {
-        geocode: Object.assign(async _address => [
+        geocode: async _address => [
           {
             latitude: 47.6576571,
             longitude: -2.7834928,
@@ -16,15 +17,14 @@ describe('decorateWithGeocodeData', () => {
             adminLevel1: 'La région',
             adminLevel4: 'Vannes',
           },
-        ], {
-          reverse: async (_latitude, _longitude) => [{
-            address: 'an address',
-            adminLevel1: 'La région2',
-            adminLevel2: 'Morbihan2',
-            adminLevel4: 'Vannes2',
-            countryCode: 'FR',
-          }],
-        }),
+        ],
+        reverseGeocode: async (_latitude, _longitude) => [{
+          address: 'an address',
+          adminLevel1: 'La région2',
+          adminLevel2: 'Morbihan2',
+          adminLevel4: 'Vannes2',
+          countryCode: 'FR',
+        }],
       },
     });
   });
@@ -66,15 +66,16 @@ describe('decorateWithGeocodeData', () => {
     });
 
     it('should return geocoded data if address and countryCode', async () => {
-      const data = await decorate({ address: 'something', countryCode: 'fr' }, null);
+      const data = await decorate({ address: 'something', countryCode: 'FR' }, null);
       expect(data).toStrictEqual({
         address: 'something',
-        countryCode: 'fr',
+        countryCode: 'FR',
         adminLevel1: 'La région',
         adminLevel2: 'Morbihan',
         adminLevel4: 'Vannes',
         latitude: 47.6576571,
         longitude: -2.7834928,
+        insee: '56000',
       });
     });
 
@@ -88,6 +89,7 @@ describe('decorateWithGeocodeData', () => {
         countryCode: 'FR',
         latitude: 48.6576571,
         longitude: -2.7834928,
+        insee: '56000',
       });
     });
   });
@@ -99,28 +101,30 @@ describe('decorateWithGeocodeData', () => {
     });
 
     it('should return geocoded data if address is changed', async () => {
-      const data = await decorate({ address: 'something other thing' }, { address: 'something', countryCode: 'fr' });
+      const data = await decorate({ address: 'something other thing' }, { address: 'something', countryCode: 'FR' });
       expect(data).toStrictEqual({
         address: 'something other thing',
-        countryCode: 'fr',
+        countryCode: 'FR',
         adminLevel1: 'La région',
         adminLevel2: 'Morbihan',
         adminLevel4: 'Vannes',
         latitude: 47.6576571,
         longitude: -2.7834928,
+        insee: '56000',
       });
     });
 
     it('should return geocoded data if contryCode is changed', async () => {
-      const data = await decorate({ countryCode: 'fr' }, { address: 'something', countryCode: 'es' });
+      const data = await decorate({ countryCode: 'FR' }, { address: 'something', countryCode: 'ES' });
       expect(data).toStrictEqual({
         address: 'something',
-        countryCode: 'fr',
+        countryCode: 'FR',
         adminLevel1: 'La région',
         adminLevel2: 'Morbihan',
         adminLevel4: 'Vannes',
         latitude: 47.6576571,
         longitude: -2.7834928,
+        insee: '56000',
       });
     });
 
@@ -134,6 +138,7 @@ describe('decorateWithGeocodeData', () => {
         countryCode: 'FR',
         latitude: 48.6576571,
         longitude: -2.7834928,
+        insee: '56000',
       });
     });
 
@@ -147,6 +152,7 @@ describe('decorateWithGeocodeData', () => {
         countryCode: 'FR',
         latitude: 47.6576571,
         longitude: -3.7834928,
+        insee: '56000',
       });
     });
 
@@ -160,6 +166,22 @@ describe('decorateWithGeocodeData', () => {
         countryCode: 'FR',
         latitude: 47.6576571,
         longitude: -2.7834928,
+        insee: '56000',
+      });
+    });
+
+    it('should not overide entry data', async () => {
+      const data = await decorate({ address: 'something new', countryCode: 'FR', adminLevel2: 'Truc' }, { address: 'something', countryCode: 'FR', latitude: 48.6576571, longitude: -2.7834928 });
+      expect(data).toStrictEqual({
+        address: 'something new',
+        countryCode: 'FR',
+        adminLevel2: 'Truc',
+        department: 'Truc',
+        adminLevel1: 'La région',
+        adminLevel4: 'Vannes',
+        latitude: 47.6576571,
+        longitude: -2.7834928,
+        insee: '56000',
       });
     });
   });

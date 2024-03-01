@@ -51,10 +51,16 @@ module.exports = function validateRegistration({ field }) {
 
       const cleanItem = { type };
 
-      try {
+      if (!type) {
+        errors.push({
+          field,
+          code: 'registration.invalid',
+          message: 'registration value must be a phone, an email or a link',
+          origin: value,
+          index,
+        });
+      } else {
         cleanItem.value = validates[type](value);
-      } catch (valueErrors) {
-        errors.concat(valueErrors.map(ve => ({ ...ve, origin: value, index, field })));
       }
 
       if (item.service) {

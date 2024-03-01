@@ -116,7 +116,7 @@
   "AgendaLocations.LocationForm.image": "Image",
   "AgendaLocations.LocationForm.imageCredits": "Image credits",
   "AgendaLocations.LocationForm.imageInfo": "Only upload images you have the right to re-use",
-  "AgendaLocations.LocationForm.imageRights": "I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.",
+  "AgendaLocations.LocationForm.imageRights": "I agree that the image may be freely used, provided that it is attributed to the author by name, and shared under the same conditions.",
   "AgendaLocations.LocationForm.imageRightsAreHeld": "Image rights are held",
   "AgendaLocations.LocationForm.insee": "INSEE code",
   "AgendaLocations.LocationForm.invalidSIRET": "SIRET must be composed of 14 digits",

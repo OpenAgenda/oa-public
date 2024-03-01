@@ -37,7 +37,7 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   }
 
   if (query.timings && !evaluateTimings(query.timings, data)) {
-    log('timings filter is set but does nor match');
+    log('timings filter is set but does not match');
     return required ? false : null;
   }
 

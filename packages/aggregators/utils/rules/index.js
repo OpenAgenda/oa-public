@@ -78,9 +78,10 @@ function extractAutomaticValues(
   );
 
   const labels = optionedSourceFieldsWithData.reduce(
-    (result, sourceField) => result.concat(
-      convertFieldOptionIdsToLabels(sourceField, data[sourceField.field]),
-    ),
+    (result, sourceField) =>
+      result.concat(
+        convertFieldOptionIdsToLabels(sourceField, data[sourceField.field]),
+      ),
     [],
   );
 
@@ -117,7 +118,13 @@ function extractAutomaticValues(
     );
 }
 
-const getActionValues = ({ action, sourceAgendaSchema, aggregatorAgendaSchema, field, data }) => {
+const getActionValues = ({
+  action,
+  sourceAgendaSchema,
+  aggregatorAgendaSchema,
+  field,
+  data,
+}) => {
   if (action.automatic) {
     return extractAutomaticValues(
       sourceAgendaSchema,
@@ -127,7 +134,11 @@ const getActionValues = ({ action, sourceAgendaSchema, aggregatorAgendaSchema, f
     );
   }
   const actionOperation = Object.keys(action.values).pop();
-  if (actionOperation === '$set' && action.values[actionOperation].constructor === Object && action.values[actionOperation].$copy) {
+  if (
+    actionOperation === '$set'
+    && action.values[actionOperation].constructor === Object
+    && action.values[actionOperation].$copy
+  ) {
     const value = data[action.values[actionOperation].$copy];
     return typeof value === 'object' ? value[Object.keys(value)[0]] : value;
   }
@@ -156,12 +167,14 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     return result;
   }, {});
 
+  const { fields: sourceAgendaSchemaFields } = sourceAgendaSchema ?? {};
+
   // pick values common between two schemas as base for response
   const base = aggregatorAgendaSchema && sourceAgendaSchema
     ? aggregatorAgendaSchema.fields.reduce(
       (result, aggregatorSchemaField) => {
         const fieldName = aggregatorSchemaField.field;
-        const matchingSourceField = sourceAgendaSchema.fields
+        const matchingSourceField = sourceAgendaSchemaFields
           .filter(f => f.schemaId === aggregatorSchemaField.schemaId)
           .pop();
 
@@ -184,7 +197,13 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       [field]: actionsByField[field].reduce((fieldTransform, action) => {
         const actionOperation = Object.keys(action.values).pop();
         const fieldOperation = Object.keys(fieldTransform).pop();
-        const actionValues = getActionValues({ action, sourceAgendaSchema, aggregatorAgendaSchema, field, data });
+        const actionValues = getActionValues({
+          action,
+          sourceAgendaSchema,
+          aggregatorAgendaSchema,
+          field,
+          data,
+        });
         const currentFieldTransformValues = [].concat(
           fieldTransform[fieldOperation],
         );

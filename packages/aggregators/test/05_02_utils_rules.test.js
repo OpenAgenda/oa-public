@@ -163,7 +163,7 @@ describe('05_02 - utils - rules', () => {
       expect(result).toEqual({});
     });
 
-    test('languages filter failling', () => {
+    test('languages filter failing', () => {
       const input = {
         title: 'un titre',
       };
@@ -213,7 +213,7 @@ describe('05_02 - utils - rules', () => {
       expect(result).toEqual({});
     });
 
-    test('timings filter failling', () => {
+    test('timings filter failing: at least one timing must be inside for match', () => {
       const input = {
         timings: [
           {
@@ -221,8 +221,8 @@ describe('05_02 - utils - rules', () => {
             end: '2019-09-20T09:00:00.000Z',
           },
           {
-            begin: '2019-09-22T07:30:00.000Z',
-            end: '2019-09-22T11:30:00.000Z',
+            begin: '2019-09-24T07:30:00.000Z',
+            end: '2019-09-24T11:30:00.000Z',
           },
         ],
       };
