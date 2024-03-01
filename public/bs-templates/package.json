@@ -22,6 +22,8 @@
     "react-day-picker": "^7.3.0"
   },
   "devDependencies": {
+    "@uppy/core": "^3.9.2",
+    "@uppy/dashboard": "^3.7.4",
     "async": "^1.5.0",
     "bootstrap": "3.3.5",
     "colors": "^1.4.0",
@@ -34,7 +36,6 @@
     "react-dom": "^18.2.0",
     "reload": "^3.2.1",
     "sass": "^1.52.1",
-    "uppy": "^0.23.2",
     "walk": "^2.3.9"
   }
 }
