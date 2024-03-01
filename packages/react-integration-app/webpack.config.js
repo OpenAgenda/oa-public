@@ -30,6 +30,7 @@ const modulesToInclude = [
   '@openagenda/react-shared',
   '@openagenda/supervisor',
   '@react-leaflet/core',
+  '@uppy',
   'buffer',
   'debug',
   'intl-messageformat',
@@ -132,7 +133,10 @@ module.exports = (env = {}, argv = {}) => {
           resolve: {
             fullySpecified: false,
           },
-          exclude: [/\/node_modules\/rrule\//], // https://github.com/jakubroztocil/rrule/issues/303
+          exclude: [
+            /\/node_modules\/rrule\//, // https://github.com/jakubroztocil/rrule/issues/303
+            /\/node_modules\/@transloadit\/prettier-bytes\//,
+          ],
         },
         {
           test: /\.(js|mjs|jsx)$/,
