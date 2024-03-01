@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import uppy from 'uppy-server';
 import axios from 'axios';
 import mime from 'mime-types';
 import VError from '@openagenda/verror';
@@ -46,7 +45,7 @@ export function user(namespace) {
             },
             limit: 20,
           },
-          options
+          options,
         );
 
         return wrap(async (req, res) => {
@@ -54,7 +53,7 @@ export function user(namespace) {
             type: _.get(req, namespaces.query.type),
             typeIdentifier: parseInt(
               _.get(req, namespaces.query.typeIdentifier),
-              10
+              10,
             ),
           });
           const limit = getLimit(svc.config.mw.limit, params.limit);
@@ -62,12 +61,12 @@ export function user(namespace) {
 
           const conversations = await Inbox.user(
             svc,
-            _.get(req, namespace)
+            _.get(req, namespace),
           ).conversations.list(
             query,
             (req.query.page > 0 ? req.query.page - 1 : 0) * limit,
             limit,
-            { total }
+            { total },
           );
 
           res.send({
@@ -95,7 +94,7 @@ export const inboxUser = {
         },
         fallbackGetter: null,
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -150,7 +149,7 @@ export const conversations = {
           userUid: 'user.uid',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -184,7 +183,7 @@ export const conversations = {
           ...data,
           ...optionalData,
         },
-        _.get(req, namespaces.options)
+        _.get(req, namespaces.options),
       );
 
       res.send({ conversation });
@@ -205,7 +204,7 @@ export const conversations = {
         },
         limit: 20,
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -213,7 +212,7 @@ export const conversations = {
         type: _.get(req, namespaces.query.type),
         typeIdentifier: parseInt(
           _.get(req, namespaces.query.typeIdentifier),
-          10
+          10,
         ),
       });
       const limit = getLimit(svc.config.mw.limit, params.limit);
@@ -226,7 +225,7 @@ export const conversations = {
         query,
         (req.query.page > 0 ? req.query.page - 1 : 0) * limit,
         limit,
-        { total }
+        { total },
       );
 
       res.send({
@@ -249,7 +248,7 @@ export const conversations = {
           code: 'code',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -285,7 +284,7 @@ export const conversations = {
           userUid: 'user.uid',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -299,7 +298,7 @@ export const conversations = {
 
       await conversation.update(
         { closedAt: null },
-        { userUid: _.get(req, namespaces.userUid) }
+        { userUid: _.get(req, namespaces.userUid) },
       );
 
       res.send({ conversation });
@@ -319,7 +318,7 @@ export const messages = {
         },
         limit: 20,
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -335,7 +334,7 @@ export const messages = {
 
       const messageEntities = await conversation.messages.list(
         (req.query.page > 0 ? req.query.page - 1 : 0) * limit,
-        limit /* options */
+        limit /* options */,
       );
 
       res.send({ conversation, messages: messageEntities });
@@ -354,7 +353,7 @@ export const messages = {
           options: 'options',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -371,7 +370,7 @@ export const messages = {
           body: _.get(req, namespaces.body),
           userUid: _.get(req, namespaces.userUid),
         },
-        _.get(req, namespaces.options)
+        _.get(req, namespaces.options),
       );
 
       res.send({ message });
@@ -379,7 +378,7 @@ export const messages = {
   },
 
   prepareAttachment(options) {
-    const { namespaces, uppyOptions } = _.merge(
+    const { namespaces } = _.merge(
       {
         namespaces: {
           type: 'type',
@@ -389,27 +388,11 @@ export const messages = {
           userUid: 'user.uid',
           index: 'query.index',
         },
-        uppyOptions: {
-          providerOptions: {
-            s3: {
-              getKey: req => req.filename,
-              key: svc.config.aws.accessKeyId,
-              secret: svc.config.aws.secretAccessKey,
-              bucket: svc.config.aws.bucket,
-              region: svc.config.aws.region,
-            },
-          },
-          server: {
-            host: svc.config.domain,
-            protocol: 'https',
-          },
-          sendSelfEndpoint: svc.config.domain,
-          secret: svc.config.uppy.secret,
-          debug: false,
-        },
       },
-      options
+      options,
     );
+
+    const { app: companionApp } = svc.config.uppyCompanion;
 
     return wrap(async (req, res) => {
       const messageId = parseInt(_.get(req, namespaces.messageId), 10);
@@ -440,7 +423,7 @@ export const messages = {
 
       req.filename = foreignFilename;
 
-      uppy.app(uppyOptions)(req, res);
+      companionApp(req, res);
     });
   },
 
@@ -457,7 +440,7 @@ export const messages = {
           originalName: 'originalName',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res) => {
@@ -498,7 +481,7 @@ export const messages = {
           filename: 'attachment.filename',
         },
       },
-      options
+      options,
     );
 
     return wrap(async (req, res, next) => {
@@ -525,7 +508,7 @@ export const messages = {
           'Content-Type',
           headers['content-type']
             || mime.contentType(filename)
-            || 'application/octet-stream'
+            || 'application/octet-stream',
         );
 
         res.set(
@@ -534,7 +517,7 @@ export const messages = {
             ? 'inline'
             : `attachment; filename=${
               attachment ? attachment.originalName : filename
-            }`
+            }`,
         );
 
         data.pipe(res);
@@ -542,7 +525,7 @@ export const messages = {
         res.status(403);
 
         next(
-          new VError(error.response || error, 'Cannot download the attachment')
+          new VError(error.response || error, 'Cannot download the attachment'),
         );
       }
     });

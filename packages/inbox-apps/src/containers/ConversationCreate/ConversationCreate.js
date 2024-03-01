@@ -150,7 +150,7 @@ class ConversationCreate extends Component {
                 initialValues={initialValues}
                 Wrapper={this.FormWrapper}
                 onSubmit={values => createConversation(values, agenda)}
-                uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
+                uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid )}
                 onConversationCreate={conversation => {
                   if ( onConversationCreateRedirect ) {
                     if ( onConversationCreateFlash ) {

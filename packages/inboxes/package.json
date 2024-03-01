@@ -34,6 +34,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/verror": "^3.1.0",
+    "@uppy/companion": "^4.12.3",
     "ajv": "^5.2.2",
     "ajv-errors": "^1.0.0",
     "ajv-keywords": "^2.1.0",
@@ -45,7 +46,6 @@
     "mysql": "^2.14.1",
     "redis": "^4.6.6",
     "regenerator-runtime": "^0.13.7",
-    "uppy-server": "^0.13.4",
     "uuid": "^3.4.0"
   },
   "devDependencies": {

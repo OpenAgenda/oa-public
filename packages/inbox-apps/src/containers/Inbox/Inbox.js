@@ -259,7 +259,7 @@ class Inbox extends Component {
                   uploadEndpoint={res.messages.prepareAttachment.replace(
                     ':agendaUid',
                     agenda && agenda.uid
-                  ) + '/s3/params'}
+                  )}
                   onConversationCreate={conversation => {
                     if (onConversationCreateRedirect) {
                       if (onConversationCreateFlash) {
