@@ -51,5 +51,6 @@ export async function init(config, services) {
 
   return Object.assign(mails, {
     plugApp,
+    addressParser: createMails.addressParser,
   });
 }
