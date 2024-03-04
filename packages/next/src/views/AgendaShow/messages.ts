@@ -31,7 +31,7 @@ export default defineMessages({
   },
   seeEvents: {
     id: 'next.views.AgendaShow.seeEvents',
-    defaultMessage: 'Show the {count} events',
+    defaultMessage: 'Show {count, plural, one {# event} other {# events}}',
   },
   help: {
     id: 'next.views.AgendaShow.help',

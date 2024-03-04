@@ -3,7 +3,7 @@
   "next.views.AgendaShow.filters": "Filtres",
   "next.views.AgendaShow.help": "Aide",
   "next.views.AgendaShow.includePassedEvents": "Inclure les événements passés",
-  "next.views.AgendaShow.seeEvents": "Afficher les {count, number} événements",
+  "next.views.AgendaShow.seeEvents": "Afficher {count, plural, one {# événement} other {# événements}}",
   "next.views.AgendaShow.seeMore": "Voir plus",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Afficher uniquement les événements à venir",
   "next.views.AgendaShow.termsOfUse": "Conditions d'utilisation",

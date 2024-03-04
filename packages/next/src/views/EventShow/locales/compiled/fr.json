@@ -38,13 +38,13 @@
   "next.views.EventShow.AgendaHeader.showAllEvents": [
     {
       "type": 0,
-      "value": "Show all events"
+      "value": "Voir tous les événements"
     }
   ],
   "next.views.EventShow.ContextBar.backToDashboard": [
     {
       "type": 0,
-      "value": "Back to dashboard"
+      "value": "Retour à la gestion des événements"
     }
   ],
   "next.views.EventShow.ContextBar.cancel": [
@@ -62,7 +62,7 @@
   "next.views.EventShow.ContextBar.clearStatusInfo": [
     {
       "type": 0,
-      "value": "The event is not cancelled, nor rescheduled, etc…"
+      "value": "L'événement n'est pas annulé, ni reprogrammé, etc…"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -80,13 +80,13 @@
   "next.views.EventShow.ContextBar.deleteEvent": [
     {
       "type": 0,
-      "value": "Delete event"
+      "value": "Supprimer l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEventInfo": [
     {
       "type": 0,
-      "value": "Permanently delete this event from OpenAgenda"
+      "value": "Supprimer de manière permanente l'événement d'OpenAgenda"
     }
   ],
   "next.views.EventShow.ContextBar.duplicate": [
@@ -122,25 +122,25 @@
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
-      "value": "The event is cancelled"
+      "value": "L'événement est annulé"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelledStatus": [
     {
       "type": 0,
-      "value": "The event has been permanently cancelled"
+      "value": "L'événement a été annulé de manière permanente"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFull": [
     {
       "type": 0,
-      "value": "The event is fully booked"
+      "value": "L'événement est complet"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFullStatus": [
     {
       "type": 0,
-      "value": "New participants are no longer accepted to the event"
+      "value": "L'événement n'accepte plus de nouveaux participants"
     }
   ],
   "next.views.EventShow.ContextBar.markAsMovedOnline": [
@@ -158,7 +158,7 @@
   "next.views.EventShow.ContextBar.markAsPostponed": [
     {
       "type": 0,
-      "value": "The event is postponed"
+      "value": "L'événement est reporté"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponedStatus": [
@@ -170,7 +170,7 @@
   "next.views.EventShow.ContextBar.markAsRescheduled": [
     {
       "type": 0,
-      "value": "The event was rescheduled"
+      "value": "L'événement a été reprogrammé"
     }
   ],
   "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
@@ -182,7 +182,7 @@
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
-      "value": "Other actions"
+      "value": "Autres actions"
     }
   ],
   "next.views.EventShow.ContextBar.otherActionsInfo": [
@@ -200,13 +200,13 @@
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
-      "value": "This event has been verified and is ready to be published"
+      "value": "Cet événement a été modéré et est prêt à être publié"
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
     {
       "type": 0,
-      "value": "This event is not compatible with the agenda and should not be published"
+      "value": "Cet événement n'est pas compatible avec l'agenda et ne sera pas publié"
     }
   ],
   "next.views.EventShow.ContextBar.remove": [
@@ -230,7 +230,7 @@
   "next.views.EventShow.ContextBar.removeEventInfo": [
     {
       "type": 0,
-      "value": "The event will no longer be referenced on the agenda"
+      "value": "L'événement ne sera plus référencé sur l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -242,7 +242,7 @@
   "next.views.EventShow.ContextBar.toModerateInfo": [
     {
       "type": 0,
-      "value": "This event needs to be verified and is not ready for publication"
+      "value": "Cet événement doit être modéré et n'est pas prêt à être publié"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -254,7 +254,7 @@
   "next.views.EventShow.ContributorSection.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributeur"
     }
   ],
   "next.views.EventShow.ContributorSection.edit": [
@@ -384,7 +384,7 @@
   "next.views.EventShow.LocationHistory.noActivity": [
     {
       "type": 0,
-      "value": "no activity"
+      "value": "pas d'activité"
     }
   ],
   "next.views.EventShow.LocationHistory.showHistory": [
@@ -462,7 +462,7 @@
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
-      "value": "Share by email"
+      "value": "Partager par email"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
@@ -528,7 +528,7 @@
   "next.views.EventShow.Sidebar.registerBook": [
     {
       "type": 0,
-      "value": "Register / book:"
+      "value": "S'inscrire / Réserver:"
     }
   ],
   "next.views.EventShow.Sidebar.registration": [
@@ -582,13 +582,13 @@
   "next.views.EventShow.history": [
     {
       "type": 0,
-      "value": "History"
+      "value": "Historique"
     }
   ],
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "Liens additionnels :"
+      "value": "Liens additionnels:"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

@@ -200,7 +200,7 @@
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributeur"
     }
   ],
   "common.roles.moderator": [

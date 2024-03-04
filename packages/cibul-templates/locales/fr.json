@@ -32,7 +32,7 @@
   "common.event.states.refused": "Refusé",
   "common.event.states.toModerate": "À modérer",
   "common.roles.administrator": "",
-  "common.roles.contributor": "",
+  "common.roles.contributor": "Contributeur",
   "common.roles.moderator": "",
   "common.roles.reader": "",
   "displayAdditionalFields.emptyValue": "Aucune saisie",
