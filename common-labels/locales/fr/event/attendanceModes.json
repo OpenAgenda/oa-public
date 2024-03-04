@@ -1,5 +1,5 @@
 {
-  "ReactFilters.messages.attendanceMode.mixed": "À la fois sur place et en ligne",
+  "ReactFilters.messages.attendanceMode.mixed": "Mixte",
   "ReactFilters.messages.attendanceMode.offline": "Sur place",
   "ReactFilters.messages.attendanceMode.online": "En ligne"
 }
