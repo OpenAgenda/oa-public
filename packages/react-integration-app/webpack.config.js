@@ -18,6 +18,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const modulesToInclude = [
   '@feathersjs',
   '@openagenda/activity-apps',
+  '@openagenda/agenda-contribute',
   '@openagenda/agenda-settings',
   '@openagenda/agenda-stats',
   '@openagenda/aggregator-sources',
