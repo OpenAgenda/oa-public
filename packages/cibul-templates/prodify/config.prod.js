@@ -33,6 +33,9 @@ module.exports = ( { entry, output } ) => ({
         resolve: {
           fullySpecified: false
         },
+        exclude: [
+          /\/node_modules\/@transloadit\/prettier-bytes\//,
+        ],
       },
       {
         test: /\.(js|mjs|jsx)?$/,

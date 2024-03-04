@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
-
+import { BadRequest } from '@openagenda/verror';
 import labels from '@openagenda/labels/unsubscription/index.js';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 import incomingEmailsMw from './lib/incomingEmailsMw.js';
@@ -23,9 +23,7 @@ const matchesRule = test => _.matches(
 const log = logs('services/mails/plugApp');
 
 export default function plugApp(app) {
-  const {
-    services,
-  } = app;
+  const { services } = app;
 
   app.post('/incoming-emails', incomingEmailsMw({ services }));
 
@@ -38,7 +36,12 @@ export default function plugApp(app) {
     } = services;
 
     try {
-      const { target: dirtyTarget, rule } = await unsubscriptions.tokens.parse(token);
+      const { target: dirtyTarget, rule } = await unsubscriptions.tokens.parse(token)
+        .catch(e => {
+          const error = new BadRequest(e, 'Malformed JWT token');
+          log.error(error);
+          throw error;
+        });
 
       const target = cleanTarget(dirtyTarget);
 
