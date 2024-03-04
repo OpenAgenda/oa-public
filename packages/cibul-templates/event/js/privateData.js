@@ -5,7 +5,7 @@ import debug from 'debug';
 import { createMemoryHistory } from 'history';
 import du from '@openagenda/dom-utils';
 import { wrapApp } from '@openagenda/react-shared';
-import createInboxApp from '@openagenda/inbox-apps/dist/app';
+import createInboxApp from '@openagenda/inbox-apps/src/app';
 import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';

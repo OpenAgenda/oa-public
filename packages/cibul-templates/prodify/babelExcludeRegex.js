@@ -4,12 +4,14 @@ const oaModulesToBuild = [
   'activity-apps',
   'agenda-settings',
   'home',
+  'inbox-apps',
   'user-apps',
   'react-share-menus'
 ];
 const modulesToInclude = [
   '@feathersjs',
   `@openagenda/(?:${oaModulesToBuild.join('|')})`,
+  '@uppy',
   'buffer',
   'debug',
   'intl-messageformat',

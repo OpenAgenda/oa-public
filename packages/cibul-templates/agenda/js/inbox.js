@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createApp from '@openagenda/inbox-apps/dist/app';
+import createApp from '@openagenda/inbox-apps/src/app';
 import { wrapApp } from '@openagenda/react-shared';
 import du from '@openagenda/dom-utils';
 
