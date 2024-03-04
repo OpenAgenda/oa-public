@@ -7,7 +7,7 @@
     "build": "babel --copy-files src -d dist -s",
     "storybook": "storybook dev -p 9001 --ci",
     "sb": "yarn storybook",
-    "extract-messages": "yarn oa-intl",
+    "extract-messages": "yarn oa-intl --esm",
     "test": "jest"
   },
   "dependencies": {
