@@ -1,0 +1,188 @@
+{
+  "longDescription": {
+    "fr": "Choix important de livres romains, romans policiers, documentaires, livres en anglais, ouvrages régionaux, livres anciens. Disques, vinyles, CD/DVD"
+  },
+  "country": {
+    "de": "Frankreich (Metropolitan)",
+    "code": "FR",
+    "oc": "França (Metropolitana)",
+    "en": "France (Metropolitan)",
+    "it": "Francia (continente)",
+    "fr": "France (Métropole)",
+    "es": "Francia (Metropolitana)"
+  },
+  "interetintercommunal": [],
+  "featured": false,
+  "private": 0,
+  "keywords": {
+    "fr": [
+      "brocante",
+      "livres",
+      "litterature",
+      "braderie",
+      "foire",
+      "romans"
+    ]
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "١٢ يونيو ٢٠٢١ - ٦ يوليو ٢٠٢٤, في السبت",
+    "de": "12 Juni 2021 - 6 Juli 2024, am sonnabend",
+    "en": "12 June 2021 - 6 July 2024, on Saturdays",
+    "it": "12 giugno 2021 - 6 luglio 2024, su Sabato",
+    "fr": "12 juin 2021 - 6 juillet 2024, les samedis",
+    "es": "12 junio 2021 - 6 julio 2024, los Sabado"
+  },
+  "timezone": "Europe/Paris",
+  "imageCredits": "Ville de Loos",
+  "originAgenda": {
+    "image": null,
+    "uid": 25507149,
+    "title": "Vie associative - Ville de Loos"
+  },
+  "description": {
+    "fr": "Vente de livres par l'association Enfance et Vie, tous les 2e samedi de chaque mois."
+  },
+  "title": {
+    "fr": "Foire aux livres"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2021-06-11T07:55:53.000Z",
+  "uid": 47100610,
+  "draft": 0,
+  "timings": [
+    {
+      "begin": "2021-06-12T10:00:00+02:00",
+      "end": "2021-06-12T17:00:00+02:00"
+    },
+    {
+      "begin": "2024-07-06T10:00:00+02:00",
+      "end": "2024-07-06T17:00:00+02:00"
+    }
+  ],
+  "links": [],
+  "state": 2,
+  "categories-metropolitaines": [
+    4
+  ],
+  "slug": "foire-aux-livres-1001720",
+  "updatedAt": "2022-12-04T11:24:12.000Z",
+  "addMethod": "aggregation",
+  "image": {
+    "filename": "72e8025ca60f4b5e806b31a13fb05232.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 469
+    },
+    "variants": [
+      {
+        "filename": "72e8025ca60f4b5e806b31a13fb05232.full.image.jpg",
+        "size": {
+          "width": 3872,
+          "height": 2592
+        },
+        "type": "full"
+      },
+      {
+        "filename": "72e8025ca60f4b5e806b31a13fb05232.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "sourceAgendas": [
+    {
+      "image": "agenda80642274.jpg?__ts=1622455499864",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Retrouvez tous les événements culturels proposés à Loos : cinéma, spectacles tout public et jeune public, expositions, ateliers...",
+      "title": "Ville de Loos",
+      "url": "http://ville-loos.fr",
+      "_agg": "eyJ1aWQiOjgwNjQyMjc0LCJ0aXRsZSI6IlZpbGxlIGRlIExvb3MiLCJpbWFnZSI6ImFnZW5kYTgwNjQyMjc0LmpwZz9fX3RzPTE2MjI0NTU0OTk4NjQifQ==",
+      "uid": 80642274,
+      "createdAt": "2019-04-10T12:28:54.000Z",
+      "officializedAt": "2020-02-13T13:45:07.000Z",
+      "slug": "ville-de-loos",
+      "updatedAt": "2022-10-19T09:52:59.000Z"
+    }
+  ],
+  "label": [],
+  "creatorUid": 49494899,
+  "recurringevent": [
+    2
+  ],
+  "registration": [],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Flers-en-Escrebieux",
+    "timezone": "Europe/Paris",
+    "postalCode": "59128",
+    "latitude": 50.395789,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 1788591,
+    "createdAt": "2021-06-11T07:54:40.000Z",
+    "duplicateCandidates": [],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Nord",
+    "slug": "association-enfance-et-vie_6613939",
+    "email": null,
+    "longitude": 3.060937,
+    "updatedAt": "2021-07-16T22:52:44.000Z",
+    "image": null,
+    "website": null,
+    "address": "109 rue du docteur Calmette, Loos",
+    "adminLevel3": null,
+    "agendaUid": 25507149,
+    "adminLevel1": "Hauts-de-France",
+    "adminLevel2": "Nord",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjE3ODg1OTEsIm5hbWUiOiJBc3NvY2lhdGlvbiBFbmZhbmNlIGV0IFZpZSJ9",
+    "tags": null,
+    "insee": "59234",
+    "phone": null,
+    "district": null,
+    "name": "Association Enfance et Vie",
+    "region": "Hauts-de-France"
+  },
+  "ownerUid": 49494899,
+  "conditions": {
+    "fr": "Entrée libre"
+  },
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "status": 1,
+  "firstTiming": {
+    "begin": "2021-06-12T10:00:00+02:00",
+    "end": "2021-06-12T17:00:00+02:00"
+  },
+  "lastTiming": {
+    "begin": "2024-07-06T10:00:00+02:00",
+    "end": "2024-07-06T17:00:00+02:00"
+  },
+  "nextTiming": {
+    "begin": "2024-03-16T10:00:00+01:00",
+    "end": "2024-03-16T17:00:00+01:00"
+  }
+}

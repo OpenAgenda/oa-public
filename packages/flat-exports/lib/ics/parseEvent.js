@@ -32,32 +32,29 @@ module.exports = ({ lang, genUrl }, event) => {
       : '',
     organizer: esc(event.contributor?.name || 'OA'),
     timezone: esc(event.timezone),
-    // lastModified: event.updatedAt,
   };
 
   let ics = '';
-  ics += 'BEGIN:VEVENT\r\n';
 
   for (const timing of event.timings) {
     const begin = formatDate(timing.begin);
     const end = formatDate(timing.end);
     const uid = [event.agenda?.uid || null, event.uid, begin].filter(Boolean).join('//');
 
+    ics += 'BEGIN:VEVENT\r\n';
     ics += `UID:${uid}\r\n`;
     ics += `DTSTART:${begin}\r\n`;
     ics += `DTEND:${end}\r\n`;
+    ics += `TZID:${attributes.timezone}\r\n`;
+    ics += `${foldLine(`SUMMARY:${attributes.title}`)}\r\n`;
+    ics += `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}\r\n`;
+    ics += attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}\r\n` : '';
+    ics += attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}\r\n` : '';
+    ics += `${foldLine(`ORGANIZER:${attributes.organizer}`)}\r\n`;
+    ics += 'STATUS:CONFIRMED\r\n';
+    ics += `DTSTAMP:${formatDate()}\r\n`;
+    ics += 'END:VEVENT\r\n';
   }
-
-  ics += `TZID:${attributes.timezone}\r\n`;
-  ics += `${foldLine(`SUMMARY:${attributes.title}`)}\r\n`;
-
-  ics += `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}\r\n`;
-  ics += attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}\r\n` : '';
-  ics += attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}\r\n` : '';
-  ics += `${foldLine(`ORGANIZER:${attributes.organizer}`)}\r\n`;
-  ics += 'STATUS:CONFIRMED\r\n';
-  ics += `DTSTAMP:${formatDate()}\r\n`;
-  ics += 'END:VEVENT\r\n';
 
   return ics;
 };

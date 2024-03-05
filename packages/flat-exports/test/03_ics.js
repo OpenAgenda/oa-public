@@ -5,6 +5,7 @@ const moment = require('moment-timezone');
 
 const ics = require('../lib/ics');
 const event = require('./fixtures/acces-libre.json');
+const foireAuxLivres = require('./fixtures/foire-aux-livres.json');
 
 const ICSHead = fs.readFileSync(`${__dirname}/fixtures/head.ics`, 'utf-8');
 const ICSEvent = fs.readFileSync(`${__dirname}/fixtures/event.ics`, 'utf-8');
@@ -30,6 +31,13 @@ describe('flat-exports - unit - ics', () => {
       expect(result).toEqual(
         ICSEvent.replace('{DTSTAMP}', moment.tz().format('YYYYMMDDTHHmm00[Z]')),
       );
+    });
+
+    test('multiple timings show as multiple events', () => {
+      const lines = ics.parseEvent({ lang: 'fr' }, foireAuxLivres).split('\r\n');
+
+      expect(lines.filter(l => l === 'BEGIN:VEVENT').length).toBe(2);
+      expect(lines.filter(l => l === 'END:VEVENT').length).toBe(2);
     });
   });
 });
