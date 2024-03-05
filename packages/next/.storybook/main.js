@@ -4,7 +4,7 @@ function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
 }
 
-export default {
+const main = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {},
@@ -25,3 +25,5 @@ export default {
     __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
   }),
 };
+
+export default main;
