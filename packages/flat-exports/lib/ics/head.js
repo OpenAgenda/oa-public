@@ -2,11 +2,12 @@
 
 const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
+const textValidator = require('@openagenda/validators/text');
 const esc = require('./escape');
 const foldLine = require('./foldLine');
 
 schema.register({
-  text: require('@openagenda/validators/text'),
+  text: textValidator,
 });
 
 const validate = schema({

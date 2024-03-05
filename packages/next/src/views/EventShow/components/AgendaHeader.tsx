@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import { Heading, NoBreak, Stack, VStack, LinkBox } from '@openagenda/uikit';
 import Image from 'components/Image';
+import NextChakraLink from 'components/NextChakraLink';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
@@ -51,7 +52,13 @@ export default function AgendaHeader() {
       ) : null}
 
       <VStack spacing="3" align={{ base: 'center', md: 'start' }}>
-        <Heading as="h1" fontSize="2xl" textAlign={{ base: 'center', md: 'start' }}>
+        {agenda.network ? (
+          <NextChakraLink href={`/agendas?network=${agenda.network.uid}`}>
+            {agenda.network.title}
+            &nbsp;›
+          </NextChakraLink>
+        ) : null}
+        <Heading as="h1" fontSize="2xl" mt={agenda.network ? '0 !important' : undefined} textAlign={{ base: 'center', md: 'start' }}>
           {agenda.title}
           {agenda.official ? (
             <NoBreak>

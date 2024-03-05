@@ -8,4 +8,4 @@ module.exports = txt => {
     .replace(/\r?\n/gm, '\\n')
     .replace(/;/gm, '\\;')
     .replace(/,/gm, '\\,');
-}
+};

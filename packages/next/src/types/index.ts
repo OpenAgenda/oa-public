@@ -33,6 +33,7 @@ export type Agenda = {
   memberSchema?: Record<string, any>;
   settings?: AgendaSettings;
   summary: any;
+  network: any;
   indexed: boolean | number;
   image?: string;
   official: 0 | 1;

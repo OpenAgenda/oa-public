@@ -1,7 +1,7 @@
  'use strict';
 
 const _ = require('lodash');
-const fs = require('fs');
+const fs = require('node:fs');
 const elasticsearch = require('@elastic/elasticsearch');
 
 const write = (name, o) => fs.writeFileSync(__dirname + '/' + name + '.result.json', JSON.stringify(o, null, 2));
