@@ -5,6 +5,5 @@
   "common.event.statuses.movedOnline": "Oramai online",
   "common.event.statuses.movedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai online",
   "common.event.statuses.postponed": "Riprogrammato",
-  "common.event.statuses.postponedInfo": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
   "common.event.statuses.rescheduled": "Riprogrammato"
 }
