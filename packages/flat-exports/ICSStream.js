@@ -1,20 +1,16 @@
-"use strict";
+'use strict';
 
-const FlatTransform = require( './lib/FlatTransform' );
+const FlatTransform = require('./lib/FlatTransform');
 
-const { head, parseEvent, tail } = require( './lib/ics' );
+const { head, parseEvent, tail } = require('./lib/ics');
 
 module.exports = class ICSStream extends FlatTransform {
-
-  constructor( options = {} ) {
-
-    super( {
+  constructor(options = {}) {
+    super({
       options,
       head,
       parseEvent,
-      tail
-    } );
-
+      tail,
+    });
   }
-
-}
+};

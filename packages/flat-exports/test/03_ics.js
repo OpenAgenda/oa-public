@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const moment = require('moment-timezone');
 
 const ics = require('../lib/ics');
@@ -19,8 +19,8 @@ describe('flat-exports - unit - ics', () => {
           type: 'agenda',
           lang: 'fr',
           title: 'La Gargouille',
-          description: 'Evénements à Paris'
-        })
+          description: 'Evénements à Paris',
+        }),
       ).toEqual(ICSHead);
     });
 
@@ -28,7 +28,7 @@ describe('flat-exports - unit - ics', () => {
       const result = ics.parseEvent({ lang: 'fr' }, event);
 
       expect(result).toEqual(
-        ICSEvent.replace('{DTSTAMP}', moment.tz().format('YYYYMMDDTHHmm00[Z]'))
+        ICSEvent.replace('{DTSTAMP}', moment.tz().format('YYYYMMDDTHHmm00[Z]')),
       );
     });
   });
