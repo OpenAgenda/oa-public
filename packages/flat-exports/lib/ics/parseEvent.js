@@ -34,27 +34,26 @@ module.exports = ({ lang, genUrl }, event) => {
     timezone: esc(event.timezone),
   };
 
-  let ics = '';
+  const ics = [];
 
   for (const timing of event.timings) {
     const begin = formatDate(timing.begin);
-    const end = formatDate(timing.end);
-    const uid = [event.agenda?.uid || null, event.uid, begin].filter(Boolean).join('//');
-
-    ics += 'BEGIN:VEVENT\r\n';
-    ics += `UID:${uid}\r\n`;
-    ics += `DTSTART:${begin}\r\n`;
-    ics += `DTEND:${end}\r\n`;
-    ics += `TZID:${attributes.timezone}\r\n`;
-    ics += `${foldLine(`SUMMARY:${attributes.title}`)}\r\n`;
-    ics += `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}\r\n`;
-    ics += attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}\r\n` : '';
-    ics += attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}\r\n` : '';
-    ics += `${foldLine(`ORGANIZER:${attributes.organizer}`)}\r\n`;
-    ics += 'STATUS:CONFIRMED\r\n';
-    ics += `DTSTAMP:${formatDate()}\r\n`;
-    ics += 'END:VEVENT\r\n';
+    [
+      'BEGIN:VEVENT',
+      `UID:${[event.agenda?.uid || null, event.uid, begin].filter(Boolean).join('//')}`,
+      `DTSTART:${begin}`,
+      `DTEND:${formatDate(timing.end)}`,
+      `TZID:${attributes.timezone}`,
+      `${foldLine(`SUMMARY:${attributes.title}`)}`,
+      `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}`,
+      attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}` : '',
+      attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}` : '',
+      `${foldLine(`ORGANIZER:${attributes.organizer}`)}`,
+      'STATUS:CONFIRMED',
+      `DTSTAMP:${formatDate()}`,
+      'END:VEVENT',
+    ].forEach(line => ics.push(line));
   }
 
-  return ics;
+  return ics.join('\r\n');
 };
