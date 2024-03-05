@@ -17,6 +17,7 @@ import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'components/Image';
+import NextChakraLink from 'components/NextChakraLink';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
@@ -116,7 +117,13 @@ export default function AgendaHeader({ agenda }) {
       ) : null}
 
       <VStack spacing="3" align={{ base: 'center', md: 'start' }}>
-        <Heading as="h1" fontSize="4xl" textAlign={{ base: 'center', md: 'start' }}>
+        {agenda.network ? (
+          <NextChakraLink href={`/agendas?network=${agenda.network.uid}`}>
+            {agenda.network.title}
+            &nbsp;›
+          </NextChakraLink>
+        ) : null}
+        <Heading as="h1" mt={agenda.network ? '0 !important' : undefined} fontSize="4xl" textAlign={{ base: 'center', md: 'start' }}>
           {agenda.title}
           {agenda.official ? (
             <NoBreak>
