@@ -33,7 +33,7 @@
   "EventAdminApp.EventItem.administrator": "administrateur",
   "EventAdminApp.EventItem.aggregatedFrom": "Agrégé depuis <link>{title}</link>",
   "EventAdminApp.EventItem.contact": "Contacter",
-  "EventAdminApp.EventItem.contributor": "contributeur",
+  "EventAdminApp.EventItem.contributor": "Contributeur",
   "EventAdminApp.EventItem.createdBy": "Créé par <link>{name}</link>",
   "EventAdminApp.EventItem.delete": "Supprimer",
   "EventAdminApp.EventItem.edit": "Modifier",

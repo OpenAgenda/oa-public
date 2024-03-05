@@ -26,15 +26,37 @@
   "next.views.AgendaShow.seeEvents": [
     {
       "type": 0,
-      "value": "Show the "
+      "value": "Show "
     },
     {
-      "type": 1,
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
       "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " events"
     }
   ],
   "next.views.AgendaShow.seeMore": [

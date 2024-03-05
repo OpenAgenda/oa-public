@@ -38,13 +38,13 @@
   "next.views.EventShow.AgendaHeader.showAllEvents": [
     {
       "type": 0,
-      "value": "Show all events"
+      "value": "Voir tous les événements"
     }
   ],
   "next.views.EventShow.ContextBar.backToDashboard": [
     {
       "type": 0,
-      "value": "Back to dashboard"
+      "value": "Retour à la gestion des événements"
     }
   ],
   "next.views.EventShow.ContextBar.cancel": [
@@ -62,7 +62,7 @@
   "next.views.EventShow.ContextBar.clearStatusInfo": [
     {
       "type": 0,
-      "value": "The event is not cancelled, nor rescheduled, etc…"
+      "value": "L'événement n'est pas annulé, ni reprogrammé, etc…"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -80,13 +80,13 @@
   "next.views.EventShow.ContextBar.deleteEvent": [
     {
       "type": 0,
-      "value": "Delete event"
+      "value": "Supprimer l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEventInfo": [
     {
       "type": 0,
-      "value": "Permanently delete this event from OpenAgenda"
+      "value": "Supprimer de manière permanente l'événement d'OpenAgenda"
     }
   ],
   "next.views.EventShow.ContextBar.duplicate": [
@@ -384,7 +384,7 @@
   "next.views.EventShow.LocationHistory.noActivity": [
     {
       "type": 0,
-      "value": "no activity"
+      "value": "pas d'activité"
     }
   ],
   "next.views.EventShow.LocationHistory.showHistory": [
@@ -462,7 +462,7 @@
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
-      "value": "Share by email"
+      "value": "Partager par email"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
@@ -528,7 +528,7 @@
   "next.views.EventShow.Sidebar.registerBook": [
     {
       "type": 0,
-      "value": "Register / book:"
+      "value": "S'inscrire / Réserver:"
     }
   ],
   "next.views.EventShow.Sidebar.registration": [
@@ -588,7 +588,7 @@
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "Liens additionnels :"
+      "value": "Liens additionnels:"
     }
   ],
   "next.views.EventShow.sendAnEmail": [
