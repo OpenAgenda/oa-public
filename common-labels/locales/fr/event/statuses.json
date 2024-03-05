@@ -1,6 +1,7 @@
 {
   "common.event.statuses.cancelled": "Annulé",
   "common.event.statuses.cancelledInfo": "L'événement a été annulé de manière permanente",
+  "common.event.statuses.full": "Complet",
   "common.event.statuses.fullInfo": "L'événement n'accepte plus de nouveaux participants",
   "common.event.statuses.movedOnline": "Déplacé en ligne",
   "common.event.statuses.movedOnlineInfo": "La participation de l'événement n'est désormais plus possible en présentiel"
