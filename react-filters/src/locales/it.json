@@ -41,7 +41,5 @@
   "ReactFilters.messages.state.published": "Pubblicato",
   "ReactFilters.messages.state.refused": "Rifiutato",
   "ReactFilters.messages.status.full": "Completo",
-  "ReactFilters.messages.status.movedOnline": "Oramai online",
-  "ReactFilters.messages.status.postponed": "Riprogrammato",
-  "ReactFilters.messages.status.rescheduled": "Riprogrammato"
+  "ReactFilters.messages.status.movedOnline": "Oramai online"
 }
