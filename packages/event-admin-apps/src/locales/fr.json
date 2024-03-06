@@ -61,7 +61,7 @@
   "EventAdminApp.RemoveModal.deleteEvent": "Supprimer l'événement",
   "EventAdminApp.RemoveModal.removeDesc": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus.",
   "EventAdminApp.RemoveModal.removeEvent": "Retirer l'événement",
-  "EventAdminApp.messages.attendanceModes.mixed": "À la fois sur place et en ligne",
+  "EventAdminApp.messages.attendanceModes.mixed": "Mixte",
   "EventAdminApp.messages.attendanceModes.offline": "Hors ligne",
   "EventAdminApp.messages.attendanceModes.online": "En ligne",
   "EventAdminApp.messages.exports.export": "Exporter",

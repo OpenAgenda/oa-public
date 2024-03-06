@@ -42,7 +42,7 @@ module.exports = {
     "oc": "En linha"
   },
   "mixedAttendanceMode": {
-    "fr": "À la fois sur place et en ligne",
+    "fr": "Mixte",
     "en": "Mixed",
     "it": "Mista",
     "es": "Mezclado",
@@ -52,7 +52,7 @@ module.exports = {
     "oc": "Mesclat"
   },
   "onlineAccessLink": {
-    "fr": "Lien d'accès à l'événement en ligne",
+    "fr": "Lien d'accès",
     "en": "Access link",
     "de": "Zugangslink",
     "es": "Enlace de acceso",
