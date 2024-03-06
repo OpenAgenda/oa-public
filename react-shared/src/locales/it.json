@@ -1,13 +1,10 @@
 {
   "ReactShared.AgendaAdminModContextBar.empty": "Questa agenda è vuota",
-  "ReactShared.AgendaAdminModContextBar.events": "I miei eventi in questa agenda",
   "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
   "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
   "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
-  "ReactShared.AgendaContextBar.moderated": "{count} da moderare",
   "ReactShared.ConsentBanner.accept": "Accettare",
   "ReactShared.ConsentBanner.decline": "Rifiutare",
-  "ReactShared.ConsentBanner.moreInfoLink": "Per saperne di più",
   "ReactShared.ImageInput.acceptedFiles": "File accettati",
   "ReactShared.ImageInput.remove": "Rimuovi"
 }
