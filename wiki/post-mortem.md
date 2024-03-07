@@ -2,6 +2,26 @@
 
 Quand une interruption de service a lieu, garder une trace de ce qu'il s'est passé, sur la résolution et sur les mesures à prendre pour réduire le risque d'une nouvelle occurrence
 
+## 2024-03-07 - Erreurs affichées aléatoirement pour tous les utilisateurs
+
+Un appel "système" d'un service de suivi d'erreurs javascript sur les navigateurs fait à nos serveurs était à l'origine du problème (post sur /monit par la lib de Sentry). La requête passait par un middleware qui faisait la passe au service sentry.io, qui lui rendait un 502. Pour une raison inconnue, Sentry renvoyait parfois des codes 502 à nos serveurs... qui passaient ce code au reverse-proxy chargé de renvoyer la réponse au client. Le comportement par défaut du proxy quand il reçoit ce type de réponse est d'interrompre les requêtes en cours envoyées au même serveur, considérant son adresse comme étant erronée (502: "Bad Gateway").
+
+```
+    JS sur Navigateur -> /monit -> Reverse proxy -> Serveur applicatif OA ----> Sentry
+                       <-               😱       <-           ..        <- 502 ---|
+```
+
+La morale: on évite de passer des 502 en réponse aux requêtes, en particulier quand elle proviennent de services tiers.
+L'ironie: c'est un service de tracking d'erreur qui a provoqué le plantage d'OpenAgenda pendant quelques heures.
+
+La résolution du problème est passée par la rédaction d'un script bash de test pour localiser le problème dans le cheminement des requêtes dans OpenAgenda, par un blâme et une prise de contact à Infomaniak (ils n'y étaient pour rien), par un dépiautage de la configuration du serveur nginx semblant poser problème, puis d'une rerelecture des logs d'erreur du proxy. Le message révélateur:
+
+```
+2024/03/07 14:28:36 [warn] 9966#0: *5938 upstream server temporarily disabled while reading response header from upstream, client: 10.101.11.228, server: openagenda.com, request: "POST /monit?o=60122&p=128991 HTTP/1.1", upstream: "http://10.101.5.64:8903/monit?o=60122&p=128991", host: "openagenda.com", referrer: "https://openagenda.com/"
+```
+
+`upstream server temporarily disabled while reading response header from upstream`: comprendre "je vais désactiver la connexion au serveur pendant un moment, la réponse qu'il me donne me fait dire qu'il est pas en top-forme.
+
 ## 2023-10-23 - Certains agendas completements vides d'événements
 
 Résumé: des shards non alloués faussaient les lectures d'événements sur certains agendas: ils apparaissaient comme étant vides.
