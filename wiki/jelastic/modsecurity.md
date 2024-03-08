@@ -116,3 +116,8 @@ SecRuleRemoveById 931120
 # False positive on Semaine de l'industrie posted event and not relevent (Injection for MS Windows)
 SecRuleRemoveById 932115
 ```
+
+
+5. Update max file size accepted:
+
+    SecRequestBodyLimit 60000000
