@@ -14,4 +14,5 @@ export default {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/preset-scss'),
   ],
+  staticDirs: ['./public'],
 };
