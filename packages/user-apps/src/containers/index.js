@@ -1,2 +1,2 @@
-export App from './App';
-export SettingsContainer from './SettingsContainer';
+export { default as App } from './App';
+export { default as SettingsContainer } from './SettingsContainer';

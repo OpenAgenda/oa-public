@@ -4,7 +4,6 @@ import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import axios from 'axios';
 
 const getDefaultState = () => ({
   settings: {},
@@ -25,12 +24,12 @@ export default {
       handlers: [
         rest.get('/users/me', async (req, res, ctx) => {
           await new Promise(rs => setTimeout(rs, 500));
-          
+
           return res(
             ctx.json({
               id: 11258,
               uid: 31046551,
-              fullName: 'Kévin Berthommier - OpenAgenda',
+              fullName: 'Ké vin Berthommier - OpenAgenda',
               username: 'kvin-berthommier',
               email: 'kevin.bertho@gmail.com',
               culture: 'fr',
@@ -40,14 +39,29 @@ export default {
               updatedAt: '2021-02-15T16:09:25.000Z',
               hasSocialAccount: true,
               hasLocalAccount: true,
-              announcement: null
+              announcement: null,
             }),
           );
         }),
+        rest.delete('/users/me', async (req, res, ctx) => {
+          await new Promise(rs => setTimeout(rs, 2000));
+          return res(ctx.status(403));
+        }),
+        rest.patch('/users/me/requestChangeEmail', async (req, res, ctx) => {
+          await new Promise(rs => setTimeout(rs, 2000));
+          /* return res(ctx.status(400), ctx.json({
+            name: 'BadRequest',
+            message: 'Already exist',
+            code: 400,
+            className: 'bad-request',
+          })); */
+
+          return res(ctx.status(200));
+        }),
       ],
-    }
-  }
-}
+    },
+  },
+};
 
 export function All() {
   return wrapApp(createApp({

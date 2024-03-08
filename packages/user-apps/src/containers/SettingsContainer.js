@@ -1,9 +1,13 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { provideHooks } from 'redial';
-import { withLayoutData, Spinner, Modal } from '@openagenda/react-shared';
+import { IntlProvider } from 'react-intl';
+import { withLayoutData, Spinner, Modal, locales as sharedLocales } from '@openagenda/react-shared';
+import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
+
+import * as locales from '../locales-compiled';
 import * as userSettingsActions from '../reducers/userSettings';
 import {
   ProfileSettings,
@@ -11,14 +15,16 @@ import {
   EmailSettings,
   PasswordSettings,
   ApiKeySettings,
-  UnsubscribedSettings
+  UnsubscribedSettings,
 } from '../components';
 
-@provideHooks( {
-  fetch: async ( { store: { dispatch } } ) => typeof window !== 'undefined'
+const mergedLocales = mergeLocales(locales, sharedLocales);
+
+@provideHooks({
+  fetch: async ({ store: { dispatch } }) => (typeof window !== 'undefined'
     ? dispatch(userSettingsActions.load())
-    : Promise.resolve()
-} )
+    : Promise.resolve()),
+})
 @withLayoutData('lang')
 @connect(
   state => ({
@@ -26,9 +32,9 @@ import {
     loading: state.userSettings.loading,
     user: state.userSettings.user,
     successMessagesDisplayed: state.userSettings.successMessagesDisplayed,
-    modal: state.userSettings.modal
+    modal: state.userSettings.modal,
   }),
-  userSettingsActions
+  userSettingsActions,
 )
 @withRouter
 export default class SettingsContainer extends Component {
@@ -40,108 +46,113 @@ export default class SettingsContainer extends Component {
       user,
       lang,
       updateUser,
-      deleteAccount,
-      changeEmail,
       changePassword,
       generateApiKey,
       successMessagesDisplayed: {
         updateProfile: profileMessageDisplayed,
-        changeEmail: emailMessageDisplayed,
-        changePassword: passwordMessageDisplayed
+        changePassword: passwordMessageDisplayed,
       },
       displayModal,
-      modal
+      modal,
     } = this.props;
 
     return (
-      <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
-        {loading
-          ? (
-            <div style={{ margin: '150px 0' }}>
-              <Spinner />
-            </div>
-          )
-          : (
-            <>
-              <table className="table">
-                <tbody>
-                <ProfileSettings
-                  activeTab={route.activeTab === 'profile'}
-                  onSubmit={updateUser}
-                  initialValues={_.pick( user, 'fullName', 'culture' )}
-                  deleteAccount={deleteAccount}
-                  displayModal={displayModal}
-                  successMessageDisplayed={profileMessageDisplayed}
-                  user={user}
-                  lang={lang}
-                />
-
-                <ImageSettings
-                  activeTab={route.activeTab === 'image'}
-                  history={history}
-                  onUpdate={updateUser}
-                  image={user && user.image || ''}
-                  user={user}
-                  lang={lang}
-                />
-
-                {user.hasLocalAccount ? (
-                  <>
-                    <EmailSettings
-                      activeTab={route.activeTab === 'email'}
-                      onSubmit={changeEmail}
-                      successMessageDisplayed={emailMessageDisplayed}
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={mergedLocales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
+          {loading
+            ? (
+              <div style={{ margin: '150px 0' }}>
+                <Spinner />
+              </div>
+            )
+            : (
+              <>
+                <table className="table">
+                  <tbody>
+                    <ProfileSettings
+                      activeTab={route.activeTab === 'profile'}
+                      onSubmit={updateUser}
+                      initialValues={_.pick(user, 'fullName', 'culture')}
+                      displayModal={displayModal}
+                      successMessageDisplayed={profileMessageDisplayed}
                       user={user}
                       lang={lang}
                     />
-                    <PasswordSettings
-                      activeTab={route.activeTab === 'password'}
-                      onSubmit={changePassword}
-                      successMessageDisplayed={passwordMessageDisplayed}
+
+                    <ImageSettings
+                      activeTab={route.activeTab === 'image'}
+                      history={history}
+                      onUpdate={updateUser}
+                      image={user?.image ?? ''}
                       user={user}
                       lang={lang}
                     />
-                  </>
-                ) : null}
 
-                <ApiKeySettings
-                  activeTab={route.activeTab === 'apiKey'}
-                  generateApiKey={generateApiKey}
-                  displayModal={displayModal}
-                  user={user}
-                  lang={lang}
-                />
+                    {user.hasLocalAccount ? (
+                      <>
+                        <EmailSettings
+                          activeTab={route.activeTab === 'email'}
+                          user={user}
+                          lang={lang}
+                        />
+                        <PasswordSettings
+                          activeTab={route.activeTab === 'password'}
+                          onSubmit={changePassword}
+                          successMessageDisplayed={passwordMessageDisplayed}
+                          user={user}
+                          lang={lang}
+                        />
+                      </>
+                    ) : null}
 
-                <UnsubscribedSettings
-                  activeTab={route.activeTab === 'emails'}
-                  user={user}
-                  lang={lang}
-                />
-                </tbody>
-              </table>
+                    <ApiKeySettings
+                      activeTab={route.activeTab === 'apiKey'}
+                      generateApiKey={generateApiKey}
+                      displayModal={displayModal}
+                      user={user}
+                      lang={lang}
+                    />
 
-              <Modal
-                visible={modal.visible || false}
-                onClose={() => displayModal( { visible: false } )}
-                title={modal.title || ''}
-              >
-                <div className="text-center">
-                  {modal.content || ''}
-                  <button
-                    className={modal.buttonClass || 'btn btn-danger'}
-                    onClick={() => {
-                      if ( typeof modal.action === 'function' ) {
-                        modal.action();
-                      }
-                      displayModal( { visible: false } )
-                    }}>
-                    {modal.actionText || ''}
-                  </button>
-                </div>
-              </Modal>
-            </>
-          )}
-      </div>
+                    <UnsubscribedSettings
+                      activeTab={route.activeTab === 'emails'}
+                      user={user}
+                      lang={lang}
+                    />
+                  </tbody>
+                </table>
+
+                <Modal
+                  visible={modal.visible || false}
+                  onClose={() => displayModal({ visible: false })}
+                  title={modal.title || ''}
+                >
+                  <div className={modal.containerClassName ?? 'text-center'}>
+                    {modal.content || ''}
+                    {modal.action ? (
+                      <button
+                        type="button"
+                        className={modal.buttonClass || 'btn btn-danger'}
+                        onClick={() => {
+                          if (typeof modal.action === 'function') {
+                            modal.action();
+                          }
+                          displayModal({ visible: false });
+                        }}
+                      >
+                        {modal.actionText || ''}
+                      </button>
+                    ) : null}
+                  </div>
+                </Modal>
+              </>
+            )}
+        </div>
+      </IntlProvider>
     );
   }
 }

@@ -7,19 +7,12 @@ const LOAD_FAIL = 'user-apps/userSettings/LOAD_FAIL';
 const UPDATE_USER = 'user-apps/userSettings/UPDATE_USER';
 const UPDATE_USER_SUCCESS = 'user-apps/userSettings/UPDATE_USER_SUCCESS';
 const UPDATE_USER_FAIL = 'user-apps/userSettings/UPDATE_USER_FAIL';
-const CHANGE_EMAIL = 'user-apps/userSettings/CHANGE_EMAIL';
-const CHANGE_EMAIL_SUCCESS = 'user-apps/userSettings/CHANGE_EMAIL_SUCCESS';
-const CHANGE_EMAIL_FAIL = 'user-apps/userSettings/CHANGE_EMAIL_FAIL';
 const CHANGE_PASSWORD = 'user-apps/userSettings/CHANGE_PASSWORD';
 const CHANGE_PASSWORD_SUCCESS = 'user-apps/userSettings/CHANGE_PASSWORD_SUCCESS';
 const CHANGE_PASSWORD_FAIL = 'user-apps/userSettings/CHANGE_PASSWORD_FAIL';
 const GENERATE_APIKEY = 'user-apps/userSettings/GENERATE_APIKEY';
 const GENERATE_APIKEY_SUCCESS = 'user-apps/userSettings/GENERATE_APIKEY_SUCCESS';
 const GENERATE_APIKEY_FAIL = 'user-apps/userSettings/GENERATE_APIKEY_FAIL';
-const DELETE_ACCOUNT = 'user-apps/userSettings/DELETE_ACCOUNT';
-const DELETE_ACCOUNT_SUCCESS = 'user-apps/userSettings/DELETE_ACCOUNT_SUCCESS';
-const DELETE_ACCOUNT_FAIL = 'user-apps/userSettings/DELETE_ACCOUNT_FAIL';
-const DISPLAY_DELETE_ACCOUNT_CONFIRMATION = 'user-apps/userSettings/DISPLAY_DELETE_ACCOUNT_CONFIRMATION';
 const DISPLAY_MODAL = 'user-apps/userSettings/DISPLAY_MODAL';
 const DISPLAY_MESSAGE = 'user-apps/userSettings/DISPLAY_MESSAGE';
 
@@ -47,7 +40,6 @@ const initialState = {
   modal: {},
   successMessagesDisplayed: {
     updateProfile: false,
-    changeEmail: false,
     changePassword: false
   }
 };
@@ -89,20 +81,10 @@ export default function reducer( state = initialState, action ) {
           ...action.result
         }
       };
-    case DELETE_ACCOUNT_SUCCESS:
-      return {
-        ...state,
-        user: null
-      };
     case DISPLAY_MODAL:
       return {
         ...state,
         modal: action.modal
-      };
-    case DISPLAY_DELETE_ACCOUNT_CONFIRMATION:
-      return {
-        ...state,
-        deleteAccountConfirmationIsOpen: action.visible
       };
     case DISPLAY_MESSAGE:
       return {
@@ -192,63 +174,6 @@ export function updateUser( data = {} ) {
 
         return result;
       } catch ( error ) {
-        const errors = getFormFirstErrors( error.errors );
-
-        if ( Object.keys( errors ).length ) {
-          throw new SubmissionError( errors );
-        } else if ( error.message ) {
-          throw new SubmissionError( { _error: error.message } );
-        }
-      }
-    }
-  };
-}
-
-export function deleteAccount() {
-  return {
-    types: [ DELETE_ACCOUNT, DELETE_ACCOUNT_SUCCESS, DELETE_ACCOUNT_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res } = getState();
-
-      return client.delete( res.deleteAccount )
-        .then( res => {
-          window.location.href = res.redirectTo || '/signout';
-        } );
-    }
-  };
-}
-
-export function changeEmail( data ) {
-  return {
-    types: [ CHANGE_EMAIL, CHANGE_EMAIL_SUCCESS, CHANGE_EMAIL_FAIL ],
-    promise: async ( { client }, { getState, dispatch } ) => {
-      const { res } = getState();
-
-      try {
-        const result = await client.patch( res.changeEmail, data, {
-          params: {
-            $client: {
-              includeImagePath: true,
-              detailed: true
-            }
-          }
-        } );
-
-        dispatch( displayMessage( 'changeEmail', true ) );
-        setTimeout( () => dispatch( displayMessage( 'changeEmail', false ) ), 2000 );
-        dispatch( resetForm( 'emailSettings' ) );
-
-        return result;
-      } catch ( error ) {
-        if ( error.message === 'Already exist' ) {
-          error.errors = [
-            {
-              field: 'newEmail',
-              code: 'email.alreadytaken'
-            }
-          ];
-        }
-
         const errors = getFormFirstErrors( error.errors );
 
         if ( Object.keys( errors ).length ) {
