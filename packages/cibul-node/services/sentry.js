@@ -1,6 +1,9 @@
 'use strict';
 
 const bodyParser = require('body-parser');
+const logs = require('@openagenda/logs');
+
+const log = logs('services/sentry');
 
 // Change host appropriately if you run your own Sentry instance.
 const sentryHost = 'sentry.io';
@@ -13,7 +16,7 @@ module.exports = app => {
   app.post(
     '/monit',
     bodyParser.text(),
-    async (req, res, next) => {
+    async (req, res) => {
       try {
         const envelope = req.body;
 
@@ -33,20 +36,15 @@ module.exports = app => {
         }
 
         const sentryIngestURL = `https://${sentryHost}/api/${projectId}/envelope/`;
-        const sentryResponse = await fetch(sentryIngestURL, {
+        await fetch(sentryIngestURL, {
           method: 'POST',
-          headers: new Headers({
-            'Content-Type': 'application/x-sentry-envelope',
-          }),
           body: envelope,
         });
 
-        // Relay response from Sentry servers to front end
-        sentryResponse.headers.forEach((value, key) => res.setHeader(key, value));
-        res.status(sentryResponse.status).send(sentryResponse.body);
+        res.status(200).send({});
       } catch (error) {
-        res.status(400);
-        next(error);
+        log.error('error tunneling to sentry', error);
+        res.status(500).json({ error: 'error tunneling to sentry' });
       }
     },
   );
