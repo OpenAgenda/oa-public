@@ -36,7 +36,7 @@ module.exports = function getTransporters(...configs) {
         json: true,
         withStack: true,
         replacer(key, value) {
-          if (key === '') {
+          if (key === '' && value && value.level) {
             const store = context.getStore();
             if (store) {
               Object.assign(value, store);
