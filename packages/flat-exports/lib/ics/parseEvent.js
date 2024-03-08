@@ -55,5 +55,5 @@ module.exports = ({ lang, genUrl }, event) => {
     ].forEach(line => ics.push(line));
   }
 
-  return ics.join('\r\n');
+  return `${ics.join('\r\n')}\r\n`;
 };
