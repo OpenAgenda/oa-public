@@ -1,43 +1,37 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import I18nContext from '../contexts/I18nContext';
 
-
-@reduxForm( {
+@reduxForm({
   form: 'emailSettings',
-  destroyOnUnmount: false
-} )
-@connect( state => ({
-  prefix: state.settings.prefix
-}) )
+  destroyOnUnmount: false,
+})
+@connect(state => ({
+  prefix: state.settings.prefix,
+}))
 @withRouter
 export default class EmailSettings extends Component {
-  static propTypes = {
-    activeTab: PropTypes.bool
-  };
-
   static contextType = I18nContext;
 
   renderNewEmailInput = field => (
     <div className="form-group">
-      <label htmlFor="newEmail">{this.context.getLabel( 'newEmail' )} *</label>
+      <label htmlFor="newEmail">{this.context.getLabel('newEmail')} *</label>
       <input {...field.input} className="form-control" type="text" />
       {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
+        <div className="text-danger">{_.upperFirst(this.context.getLabel(field.meta.error))}</div>
       )}
     </div>
   );
 
   renderPasswordInput = field => (
     <div className="form-group">
-      <label htmlFor="password">{this.context.getLabel( 'password' )} *</label>
+      <label htmlFor="password">{this.context.getLabel('password')} *</label>
       <input {...field.input} className="form-control" type="password" autoComplete="off" />
       {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
+        <div className="text-danger">{_.upperFirst(this.context.getLabel(field.meta.error))}</div>
       )}
     </div>
   );
@@ -51,41 +45,47 @@ export default class EmailSettings extends Component {
       prefix,
       history,
       user,
-      error
+      error,
     } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/email', { fromUserApps: true } ) : null}
+        onClick={!activeTab ? () => history.push(`${prefix}/email`, { fromUserApps: true }) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
+          onClick={activeTab ? () => history.push(`${prefix}/`, { fromUserApps: true }) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabel( 'email' )}
+          {getLabel('email')}
         </td>
-        {activeTab ? <td>
-          <div style={{ padding: '0 5px' }}>
-            <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
-              <Field name="newEmail" component={this.renderNewEmailInput} />
-              <Field name="password" component={this.renderPasswordInput} />
+        {activeTab ? (
+          <td>
+            <div style={{ padding: '0 5px' }}>
+              <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
+                <Field name="newEmail" component={this.renderNewEmailInput} />
+                <Field name="password" component={this.renderPasswordInput} />
 
-              <div className="form-inline pull-left">
-                <button type="submit" className="btn btn-primary">{getLabel( 'save' )}</button>
-                {successMessageDisplayed &&
-                <label className="text-success" style={{ marginLeft: '10px' }}>
-                  <b>{getLabel( 'updateEmailSuccess' )}</b>
-                </label>}
-                {error &&
-                <label className="text-danger" style={{ marginLeft: '10px' }}>
-                  <b>{getLabel( 'error' )}</b>
-                </label>}
-              </div>
-            </form>
-          </div>
-        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
+                <div className="form-inline pull-left">
+                  <button type="submit" className="btn btn-primary">{getLabel('save')}</button>
+                  {successMessageDisplayed
+                && (
+                <span className="text-success" style={{ marginLeft: '10px' }}>
+                  <b>{getLabel('updateEmailSuccess')}</b>
+                </span>
+                )}
+                  {error
+                && (
+                <span className="text-danger" style={{ marginLeft: '10px' }}>
+                  <b>{getLabel('error')}</b>
+                </span>
+                )}
+                </div>
+              </form>
+            </div>
+          </td>
+        ) : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
       </tr>
     );
   }
