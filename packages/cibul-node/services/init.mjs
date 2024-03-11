@@ -10,7 +10,7 @@ import * as knex from './knex.mjs';
 import * as redis from './redis.mjs';
 import * as bull from './bull/index.mjs';
 import * as formSchemas from './formSchemas.mjs';
-import * as registrations from './registrations.mjs';
+import * as registrations from './registrations/index.mjs';
 import * as pdfExports from './pdfExports.mjs';
 import * as mails from './mails/index.mjs';
 import * as unsubscriptions from './unsubscriptions.mjs';

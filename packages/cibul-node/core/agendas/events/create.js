@@ -16,8 +16,6 @@ const cleanEvent = require('../utils/cleanEvent');
 const getAgenda = require('../utils/getAgenda');
 const assignState = require('../utils/assignState');
 
-const createPassCultureOffer = require('./lib/createPassCultureOffer');
-
 const {
   isImageToDuplicate,
 } = cleanDuplicateImage;
@@ -30,6 +28,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   const {
     members,
     events,
+    registrations,
   } = services;
 
   const {
@@ -75,7 +74,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (clean.passCulture) {
       log('  There is a pass culture payload');
       try {
-        clean.event.registration = await createPassCultureOffer(core, agenda, clean);
+        clean.event.registration = await registrations.utils.passCulture.createPassCultureOffer(agenda, clean);
       } catch (e) {
         log('error', e);
         throw e;
@@ -157,6 +156,15 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       access,
       duplicateOrigin,
     });
+
+    if (registrations && registrations.utils.passCulture.hasPendingOffer(response?.event)) {
+      const passCultureRegistration = response.event.registration.find(r => r.service === 'passCulture');
+      registrations.utils.passCulture.enqueueProcessPendingOffer(
+        { eventOfferId: passCultureRegistration.data.id, datesPayload: passCultureRegistration.data.datesPayload },
+        { eventUid: response.event.uid, agendaUid },
+        agenda.settings.registration,
+      );
+    }
   } catch (e) {
     log.info('create failed', {
       error: e,
