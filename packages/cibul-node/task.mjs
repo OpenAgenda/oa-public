@@ -96,6 +96,8 @@ export default (config, core, services) => {
 
   services.legacy.task();
 
+  services.registrations.task();
+
   core.tasks();
 
   // core.agendas.utils.clearAgendasCache();

@@ -20,9 +20,15 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
   };
 
   const {
+    categories: categoriesFromOptions,
+    related: relatedFromOptions,
+    simulatePending = false,
+  } = options;
+
+  const {
     categories,
     related,
-  } = !options.categories || !options.related ? await pc.offers.events.categories.list() : options;
+  } = !categoriesFromOptions || !relatedFromOptions ? await pc.offers.events.categories.list() : { categories: categoriesFromOptions, related: relatedFromOptions };
 
   const eventOffer = await formatEvent(OAEvent, PCData, {
     ...options,
@@ -73,12 +79,13 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
     }, ['timingId', 'priceCategoryIndex']);
   });
 
-  if (eventOffer.status === 'PENDING') {
+  if (simulatePending || eventOffer.status === 'PENDING') {
     log('did not create dates cause offer pending', result.eventOffer.id);
     return {
       ...result,
       warning: 'pending',
-    }
+      datesPayload,
+    };
   }
 
   try {
