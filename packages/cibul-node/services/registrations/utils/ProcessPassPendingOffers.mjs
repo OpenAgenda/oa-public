@@ -11,7 +11,7 @@ export default function ProcessPassPendingOffers({ bull, registrations }) {
       return queue.add('pendingOffer', { eventOfferId, datesPayload, eventUid, agendaUid, agendaSettingsRegistrationPassCulture }, {
         attempts: 73,
         backoff: {
-          type: 'fixed', delay: 1000 * 60, // 1000 * 60 * 60,
+          type: 'fixed', delay: 1000 * 60 * 60,
         },
         ...options,
       });
