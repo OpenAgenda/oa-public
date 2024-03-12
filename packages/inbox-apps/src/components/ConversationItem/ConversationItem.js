@@ -17,7 +17,7 @@ import getDestinationInbox from '../../utils/getDestinationInbox';
 export default class ConversationItem extends Component {
   constructor( props ) {
     super( props );
-    this.TitleEntityComponent = ::this.TitleEntityComponent;
+    this.TitleEntityComponent = this.TitleEntityComponent.bind(this);
   }
 
   static contextType = I18nContext;
