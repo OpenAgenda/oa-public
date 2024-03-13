@@ -18947,10 +18947,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-schema@npm:0.2.3":
-  version: 0.2.3
-  resolution: "json-schema@npm:0.2.3"
-  checksum: 141b3fdfe69a9fa662b9bca10933204b200bd30a6431e6bb90b9fbd9d056c352ede171386c77459440208800e2339936e08dfa8af44a0979c909b6b5769bcda3
+"json-schema@npm:0.4.0":
+  version: 0.4.0
+  resolution: "json-schema@npm:0.4.0"
+  checksum: d4a637ec1d83544857c1c163232f3da46912e971d5bf054ba44fdb88f07d8d359a462b4aec46f2745efbc57053365608d88bc1d7b1729f7b4fc3369765639ed3
   languageName: node
   linkType: hard
 
@@ -19041,14 +19041,14 @@ __metadata:
   linkType: hard
 
 "jsprim@npm:^1.2.2":
-  version: 1.4.1
-  resolution: "jsprim@npm:1.4.1"
+  version: 1.4.2
+  resolution: "jsprim@npm:1.4.2"
   dependencies:
     assert-plus: "npm:1.0.0"
     extsprintf: "npm:1.3.0"
-    json-schema: "npm:0.2.3"
+    json-schema: "npm:0.4.0"
     verror: "npm:1.10.0"
-  checksum: e457bd0d5f7eb11477708d77ed37a7dae88caf8226dc807a1a7d320bdb1085b7e3f89c057c2cbbcd543be41bbb934231549ef3842c9a5bbf2def940f2d07a841
+  checksum: 5e4bca99e90727c2040eb4c2190d0ef1fe51798ed5714e87b841d304526190d960f9772acc7108fa1416b61e1122bcd60e4460c91793dce0835df5852aab55af
   languageName: node
   linkType: hard
 
