@@ -8338,6 +8338,7 @@ __metadata:
     typescript: "npm:^4.8.4"
     universal-cookie: "npm:^4.0.4"
     use-local-storage-state: "npm:^18.1.2"
+    use-session-storage-state: "npm:^18.2.0"
     webpack: "npm:^5.72.0"
   languageName: unknown
   linkType: soft
@@ -9214,7 +9215,6 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@loadable/babel-plugin": "npm:^5.13.2"
     "@openagenda/abilities": "npm:^1.3.1"
-    "@openagenda/axios-mock-adapter": "npm:^1.21.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/dom-utils": "npm:^2.2.12"
@@ -9227,6 +9227,8 @@ __metadata:
     final-form: "npm:^4.20.2"
     history: "npm:^4.10.1"
     lodash: "npm:^4.17.15"
+    msw: "npm:^0.49.2"
+    msw-storybook-addon: "npm:^1.10.0"
     prop-types: "npm:^15.6.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -42946,6 +42948,16 @@ __metadata:
     react: 16.8.0 - 18
     react-dom: 16.8.0 - 18
   checksum: 6ccdeb09fe20566ec182b1635a22f189e13d46226b74610432590e69b31ef5d05d069badc3306ebd0d2bb608743b17981fb535763a1d7dc2c8ae462ee8e5999c
+  languageName: node
+  linkType: hard
+
+"use-session-storage-state@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "use-session-storage-state@npm:18.2.0"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 3f6a6bd1bed3b76948531a80ad33d5bb407ac52f6ea3bfee764fad66a8ce909a4e52e88555f753526e148cf6f2db5dad5caf8bc7c634be59e5d846d97d6c64d9
   languageName: node
   linkType: hard
 
