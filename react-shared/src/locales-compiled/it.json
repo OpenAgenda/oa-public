@@ -296,6 +296,30 @@
       "value": "Refused events"
     }
   ],
+  "ReactShared.AuthenticateAndConfirm.authenticationError": [
+    {
+      "type": 0,
+      "value": "The submitted password is invalid. Please try again."
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.password": [
+    {
+      "type": 0,
+      "value": "Type in your password to complete the operation"
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.submit": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
   "ReactShared.ConsentBanner.accept": [
     {
       "type": 0,
