@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import I18nContext from '../../contexts/I18nContext';
-import getDestinationInbox from '../../utils/getDestinationInbox';
+import I18nContext from '../contexts/I18nContext';
+import getDestinationInbox from '../utils/getDestinationInbox';
 
 function getInboxUserName(entity) {
   if (entity.inboxUser) {

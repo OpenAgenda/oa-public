@@ -224,7 +224,7 @@ const initialState = async req => {
         getAgenda: '/api/agendas/slug/:slug',
         getAggregator: '/:slug/admin/aggregator',
         setAggregator: '/:slug/admin/aggregator',
-        getSourceLang: '/api/agendas/:agendaUid/events?aggs[]=languages&size=0'
+        getSourceLang: '/api/agendas/:agendaUid/events?aggs[]=languages&size=0',
       },
     },
     agendaSettingsEdit: {
@@ -510,6 +510,7 @@ const initialState = async req => {
           list: '/admin/support/conversations.json',
           action: '/admin/support/conversations/:conversationId/action/:code.json',
           resume: '/admin/support/conversations/:conversationId/resume.json',
+          context: '/admin/support/conversations/:conversationId/context.json',
         },
         messages: {
           list: '/admin/support/conversations/:conversationId/messages.json',

@@ -5,14 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import { withContext, nl2br, withLayoutData, Spinner } from '@openagenda/react-shared';
-import I18nContext from '../../contexts/I18nContext';
-import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
-import * as inboxActions from '../../reducers/inbox';
-import * as conversationActions from '../../reducers/conversation';
-import * as conversationFormActions from '../../reducers/conversationForm';
-import * as modalActions from '../../reducers/modals';
-import removeTrailingSlash from '../../utils/removeTrailingSlash';
-import setFlashMessage from '../../utils/setFlashMessage';
+import I18nContext from '../contexts/I18nContext';
+import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../components';
+import * as inboxActions from '../reducers/inbox';
+import * as conversationActions from '../reducers/conversation';
+import * as conversationFormActions from '../reducers/conversationForm';
+import * as modalActions from '../reducers/modals';
+import removeTrailingSlash from '../utils/removeTrailingSlash';
+import setFlashMessage from '../utils/setFlashMessage';
 
 function asyncLoad({ store: { getState, dispatch }, location, history, agenda }) {
   const state = getState();

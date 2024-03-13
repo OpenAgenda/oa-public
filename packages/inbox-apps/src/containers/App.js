@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback, useEffect } from 'react';
 import { provideHooks } from 'redial';
 import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
@@ -6,11 +6,11 @@ import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import { useApiClient, useLayoutData, Modal, Spinner } from '@openagenda/react-shared';
-import I18nContext from '../../contexts/I18nContext';
-import inboxReducer from '../../reducers/inbox';
-import conversationReducer from '../../reducers/conversation';
-import conversationFormReducer from '../../reducers/conversationForm';
-import modalsReducer, * as modalsActions from '../../reducers/modals';
+import I18nContext from '../contexts/I18nContext';
+import inboxReducer from '../reducers/inbox';
+import conversationReducer from '../reducers/conversation';
+import conversationFormReducer from '../reducers/conversationForm';
+import modalsReducer, * as modalsActions from '../reducers/modals';
 
 const overlayStyle = { overlay: 'popup-overlay big' };
 
@@ -32,44 +32,44 @@ function App({ route }) {
         apiClient.get(res.refreshCheck).catch(null);
       }
     },
-    [apiClient, res.refreshCheck]
+    [apiClient, res.refreshCheck],
   );
 
   const getLabel = useCallback(
     (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
-    [lang]
+    [lang],
   );
 
   const i18nContextValue = useMemo(
     () => ({
-      lang: lang,
-      getLabel: getLabel
+      lang,
+      getLabel,
     }),
-    [lang, getLabel]
+    [lang, getLabel],
   );
 
   const closeModalMessageSent = useCallback(
     () => store.dispatch(modalsActions.closeModal('messageSent')),
-    [store.dispatch]
+    [store.dispatch],
   );
   const closeModalCloseConfirmation = useCallback(
     () => store.dispatch(modalsActions.closeModal('closeConfirmation')),
-    [store.dispatch]
+    [store.dispatch],
   );
   const closeModalActionConfirmation = useCallback(
     () => store.dispatch(modalsActions.closeModal('actionConfirmation')),
-    [store.dispatch]
+    [store.dispatch],
   );
 
   const confirmModalCloseConfirmation = useCallback(
     () => modals.closeConfirmation.params.onAction(modals.closeConfirmation.params.action.code)
       .finally(() => store.dispatch(modalsActions.closeModal('closeConfirmation'))),
-    [store.dispatch, modals.closeConfirmation]
+    [store.dispatch, modals.closeConfirmation],
   );
   const confirmModalActionConfirmation = useCallback(
     () => modals.actionConfirmation.params.onAction(modals.actionConfirmation.params.action.code)
       .finally(() => store.dispatch(modalsActions.closeModal('actionConfirmation'))),
-    [store.dispatch, modals.actionConfirmation]
+    [store.dispatch, modals.actionConfirmation],
   );
 
   const content = (
@@ -88,7 +88,7 @@ function App({ route }) {
               : getLabel('yourMessageHasBeenSent')}
           </div>
           <div className="margin-top-sm text-center">
-            <button className="btn btn-primary" onClick={closeModalMessageSent}>
+            <button type="button" className="btn btn-primary" onClick={closeModalMessageSent}>
               {getLabel('close')}
             </button>
           </div>
@@ -103,16 +103,16 @@ function App({ route }) {
         >
           <div className="margin-top-sm text-center">{getLabel('closeConversationDesc')}</div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={closeModalCloseConfirmation}>
+            <button type="button" className="btn btn-primary" onClick={closeModalCloseConfirmation}>
               {getLabel('cancel')}
             </button>
-            <button className="btn btn-danger pull-right" onClick={confirmModalCloseConfirmation}>
+            <button type="button" className="btn btn-danger pull-right" onClick={confirmModalCloseConfirmation}>
               {getLabel('close')}
 
               {actionLoading && (
                 <span className="margin-h-sm">
-                <Spinner mode="inline" />
-              </span>
+                  <Spinner mode="inline" />
+                </span>
               )}
             </button>
           </div>
@@ -129,10 +129,11 @@ function App({ route }) {
             {modals.actionConfirmation.params.action.confirmationModalLabel[lang]}
           </div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={closeModalActionConfirmation}>
+            <button type="button" className="btn btn-primary" onClick={closeModalActionConfirmation}>
               {getLabel('cancel')}
             </button>
             <button
+              type="button"
               className={cn('btn', `btn-${modals.actionConfirmation.params.action.kind}`, 'pull-right')}
               onClick={confirmModalActionConfirmation}
             >
@@ -140,8 +141,8 @@ function App({ route }) {
 
               {actionLoading && (
                 <span className="margin-h-sm">
-                <Spinner mode="inline" />
-              </span>
+                  <Spinner mode="inline" />
+                </span>
               )}
             </button>
           </div>
@@ -166,6 +167,6 @@ export default provideHooks({
     inbox: inboxReducer,
     conversation: conversationReducer,
     conversationForm: conversationFormReducer,
-    modals: modalsReducer
-  })
+    modals: modalsReducer,
+  }),
 })(App);

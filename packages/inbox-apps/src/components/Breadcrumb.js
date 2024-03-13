@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import cn from 'classnames';
-import { LinkContainer } from '../';
-import I18nContext from '../../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext';
+import LinkContainer from './LinkContainer';
 
 @withRouter
 export default class Breadcrumb extends Component {

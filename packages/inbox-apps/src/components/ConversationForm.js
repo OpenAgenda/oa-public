@@ -1,14 +1,12 @@
-import React, { Component, createElement, Fragment } from 'react';
+import { Component, createElement } from 'react';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import { mapProps } from 'recompose';
-import validate from './validate';
-import Attachments from '../Attachments/LoadableAttachments';
-import { renderTextarea } from '../../utils/form';
-import I18nContext from '../../contexts/I18nContext';
-
+import { renderTextarea } from '../utils/form';
+import I18nContext from '../contexts/I18nContext';
+import validate from '../utils/validateConversation';
+import Attachments from './LoadableAttachments';
 
 function parseJsonValue(value) {
   try {
@@ -24,40 +22,23 @@ function parseJsonValue(value) {
     ...props.initialValues,
     destinationInbox: parseJsonValue(props.initialValues.destinationInbox),
     type: props.initialValues.type,
-    params: parseJsonValue(props.initialValues.params)
-  }
+    params: parseJsonValue(props.initialValues.params),
+  },
 } : props))
 export default class ConversationForm extends Component {
-  static propTypes = {
-    Wrapper: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element
-    ])
-  };
-
   static defaultProps = {
     Wrapper: 'div',
-    autoFocus: false
+    autoFocus: false,
   };
 
   static contextType = I18nContext;
 
-  state = {
-    uppy: null,
-    modalOpen: false
-  };
-
-  handleOpen = () => {
-    this.setState({
-      modalOpen: true
-    });
-  };
-
-  handleClose = () => {
-    this.setState({
-      modalOpen: false
-    })
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      uppy: null,
+    };
+  }
 
   handleSubmit = async (data, form) => {
     const { onSubmit, onConversationCreate, onFileUploaded, uploadEndpoint } = this.props;
@@ -86,8 +67,6 @@ export default class ConversationForm extends Component {
       companionUrl: uploadEndpoint.replace(':conversationId', conversation.id),
     });
 
-    console.log(uppy.getPlugin('AwsS3Multipart'));
-
     const uppyState = uppy.getState();
     const uncompleteUploads = Object.values(uppyState.files).filter(v => !v.progress.uploadComplete);
 
@@ -101,13 +80,12 @@ export default class ConversationForm extends Component {
           }
 
           return { [FORM_ERROR]: getLabel('uploadError') };
-        } else {
-          for (const file of uploadResult.successful) {
-            await onFileUploaded(conversation.id, message.id, file);
-          }
-
-          uppy.cancelAll();
         }
+        for (const file of uploadResult.successful) {
+          await onFileUploaded(conversation.id, message.id, file);
+        }
+
+        uppy.cancelAll();
       } catch (e) {
         if (onConversationCreate) {
           onConversationCreate(conversation, form);
@@ -132,14 +110,14 @@ export default class ConversationForm extends Component {
         onSubmit={this.handleSubmit}
         validate={validate}
       >
-        {({ form, handleSubmit, submitting, submitError }) => (
+        {({ form, handleSubmit, submitting, submitError }) =>
           createElement(
             Wrapper,
             {
               form,
               submitting,
               submitError,
-              handleSubmit
+              handleSubmit,
             },
             <>
               <Field
@@ -178,16 +156,13 @@ export default class ConversationForm extends Component {
                 displayError={meta => meta.modified && meta.submitFailed}
               />
 
-
-
               <Attachments
                 setUppy={uppy => this.setState({ uppy })}
                 uploadEndpoint={uploadEndpoint}
               />
-            </>
-          )
-        )}
+            </>,
+          )}
       </Form>
     );
   }
-};
+}
