@@ -4,8 +4,8 @@ import Dashboard from '@uppy/react/lib/Dashboard';
 import StatusBar from '@uppy/react/lib/StatusBar';
 import AwsS3 from '@uppy/aws-s3';
 import { Modal } from '@openagenda/react-shared';
-import I18nContext from '../../contexts/I18nContext';
-import getUppyLocale from '../../locales/uppyLocales';
+import I18nContext from '../contexts/I18nContext';
+import getUppyLocale from '../locales/uppyLocales';
 
 export default function Attachments({ setUppy, uploadEndpoint }) {
   const { getLabel, lang } = useContext(I18nContext);
@@ -34,8 +34,7 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
         const path = url.pathname;
         const s3Key = path.substring(path.lastIndexOf('/') + 1);
         uppy.setFileMeta(file.id, { key: s3Key });
-      }),
-  );
+      }));
   const [modalOpen, setModalOpen] = useState(false);
 
   const numberFiles = Object.keys(uppy.getState().files).length;
@@ -59,7 +58,8 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
         </a>
       </p>
 
-      {modalOpen && <Modal
+      {modalOpen && (
+      <Modal
         title={getLabel('uppyModalTitle')}
         visible={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -81,11 +81,12 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
         />
 
         <div className="text-center padding-top-md">
-          <button className="btn btn-info" onClick={() => setModalOpen(false)}>
+          <button type="button" className="btn btn-info" onClick={() => setModalOpen(false)}>
             {getLabel('validate')}
           </button>
         </div>
-      </Modal>}
+      </Modal>
+      )}
 
       <StatusBar
         uppy={uppy}

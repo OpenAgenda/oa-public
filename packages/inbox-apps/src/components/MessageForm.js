@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import validate from './validate';
-import Attachments from '../Attachments/LoadableAttachments';
-import { renderTextarea } from '../../utils/form';
-import I18nContext from '../../contexts/I18nContext';
+import validate from '../utils/validateMessage';
+import { renderTextarea } from '../utils/form';
+import I18nContext from '../contexts/I18nContext';
+import Attachments from './LoadableAttachments';
 
 export default class MessageForm extends Component {
-  static propTypes = {
-    Wrapper: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element
-    ])
-  };
-
   static defaultProps = {
     Wrapper: 'div',
-    autoFocus: false
-  };
-
-  state = {
-    uppy: null,
-    modalOpen: false,
   };
 
   static contextType = I18nContext;
 
-  handleOpen = () => {
-    this.setState({
-      modalOpen: true
-    });
-  }
+  constructor(props) {
+    super(props);
 
-  handleClose = () => {
-    this.setState({
-      modalOpen: false
-    })
+    this.state = {
+      uppy: null,
+    };
   }
 
   handleSubmit = async (data, form) => {
@@ -62,13 +44,12 @@ export default class MessageForm extends Component {
           }
 
           return { [FORM_ERROR]: getLabel('uploadError') };
-        } else {
-          for (const file of uploadResult.successful) {
-            await onFileUploaded(conversation.id, message.id, file);
-          }
-
-          uppy.cancelAll();
         }
+        for (const file of uploadResult.successful) {
+          await onFileUploaded(conversation.id, message.id, file);
+        }
+
+        uppy.cancelAll();
       } catch (e) {
         if (onMessageSent) {
           onMessageSent(message, form);
@@ -93,14 +74,14 @@ export default class MessageForm extends Component {
         onSubmit={this.handleSubmit}
         validate={validate}
       >
-        {({ form, handleSubmit, submitting, submitError }) => (
+        {({ form, handleSubmit, submitting, submitError }) =>
           React.createElement(
             Wrapper,
             {
               form,
               submitting,
               submitError,
-              handleSubmit
+              handleSubmit,
             },
             <>
               <Field
@@ -124,9 +105,8 @@ export default class MessageForm extends Component {
                 setUppy={uppy => this.setState({ uppy })}
                 uploadEndpoint={uploadEndpoint}
               />
-            </>
-          )
-        )}
+            </>,
+          )}
       </Form>
     );
   }

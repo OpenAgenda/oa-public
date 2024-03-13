@@ -4,15 +4,15 @@ import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
-import I18nContext from '../../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext';
 import {
   MessageList, MessageForm, AuthorAvatar, ActionsList,
   Link, ConversationTitle, Breadcrumb,
-} from '../../components';
-import * as conversationActions from '../../reducers/conversation';
-import * as inboxActions from '../../reducers/inbox';
-import * as modalActions from '../../reducers/modals';
-import showBackLink from '../../utils/showBackLink';
+} from '../components';
+import * as conversationActions from '../reducers/conversation';
+import * as inboxActions from '../reducers/inbox';
+import * as modalActions from '../reducers/modals';
+import showBackLink from '../utils/showBackLink';
 
 const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
 
@@ -74,11 +74,7 @@ class Conversation extends Component {
   nextPage = () => {
     const { lastPage, loading, nextLoading, messages, match, agenda } = this.props;
 
-    if (
-      !messages || !messages.length
-      || loading || nextLoading
-      || lastPage
-    ) {
+    if (!messages?.length || loading || nextLoading || lastPage) {
       return;
     }
 
