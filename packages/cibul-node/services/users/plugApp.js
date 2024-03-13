@@ -43,10 +43,7 @@ module.exports = function plugApp(app) {
   app.delete('/users/:__feathersId', getHandler('remove', ['id', 'params'])(service));
   app.delete('/users', getHandler('remove', ['id', 'params'])(service));
 
-  app.patch(
-    '/users/:__feathersId/requestChangeEmail',
-    getHandler('requestChangeEmail', ['id', 'data', 'params'])(service),
-  );
+  app.patch('/users/:__feathersId/requestChangeEmail', getHandler('requestChangeEmail', ['id', 'data', 'params'])(service));
   app.get('/users/:__feathersId/confirmChangeEmail', getHandler('confirmChangeEmail', ['id', 'params'])(service));
   app.patch('/users/:__feathersId/changePassword', getHandler('changePassword', ['id', 'data', 'params'])(service));
   app.get('/users/:__feathersId/generateApiKey', getHandler('generateApiKey', ['id', 'params'])(service));

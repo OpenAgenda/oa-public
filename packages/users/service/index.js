@@ -54,7 +54,6 @@ const {
 } = require('../hooks');
 const resolvers = require('./resolvers');
 const patchSchema = require('./schemas/patch');
-const requestChangeEmailSchema = require('./schemas/requestChangeEmail');
 const changePasswordSchema = require('./schemas/changePassword');
 const setNewFlagSchema = require('./schemas/setNewFlag');
 const coerceSchema = require('./schemas/coerce');
@@ -223,7 +222,8 @@ class Users extends Service {
 
     const password = typeof data === 'string' ? data : data.password;
 
-    if (user.password.length === 40) { // sha1
+    if (user.password.length === 40) {
+      // sha1
       const isValid = crypto.verifyPassword(
         user.password,
         password,
@@ -238,11 +238,7 @@ class Users extends Service {
       return isValid;
     }
 
-    return crypto.verifyPassword(
-      user.password,
-      password,
-      user.salt,
-    );
+    return crypto.verifyPassword(user.password, password, user.salt);
   }
 
   async activate(uid, data) {
@@ -416,9 +412,10 @@ hooks(Users.prototype, {
       before: [
         stashBefore('before', { internal: true, provider: undefined }),
         softDelete(),
-        validate(requestChangeEmailSchema),
+        validate({
+          newEmail: { optional: false, type: 'email' },
+        }),
         checkUnicity('email', 'data.newEmail'),
-        iff(isProvider('external'), verifyPassword()),
         generateToken('newEmailToken'),
         setInStore('newEmailToken', 'newEmailToken'),
         setInStore('newEmail', 'data.newEmail'),

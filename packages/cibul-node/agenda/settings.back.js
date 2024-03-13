@@ -12,6 +12,7 @@ module.exports = app => {
     core,
     sessions,
     members,
+    users: usersSvc,
   } = app.services;
 
   app.post(
@@ -66,6 +67,7 @@ module.exports = app => {
   app.post(
     '/:slug/admin/settings/remove',
     sessions.mw.loadOrRedirect(),
+    usersSvc.mw.verifyHeadersPassword,
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {

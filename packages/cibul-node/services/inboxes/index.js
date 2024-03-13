@@ -18,7 +18,7 @@ const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 
 log.setConfig(loggerConfig);
 
-const getApp = require('./getApp');
+const plugApp = require('./plugApp');
 
 module.exports.init = async (c, services) => {
   const {
@@ -227,7 +227,7 @@ module.exports.init = async (c, services) => {
   await inboxMw.init(service);
 
   Object.assign(service, {
-    getApp: getApp.bind(null, c, services),
+    plugApp: plugApp.bind(null, c, services),
     task: () => queue.run(),
     shutdown: (options = {}) => queue.stop({
       remove: true,

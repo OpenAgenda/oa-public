@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { createApp } from '@openagenda/react-shared';
 import getRoutes from './editRoutes';
 

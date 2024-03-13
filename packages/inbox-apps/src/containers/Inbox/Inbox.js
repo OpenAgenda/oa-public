@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component } from 'react';
 import _ from 'lodash';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -26,7 +26,7 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
   if (topListForm && !conversationActions.isAuthorLoaded(state)) {
     promise = Promise.all([
       dispatch(conversationActions.loadAuthor(agenda)),
-      dispatch(inboxActions.load(query, agenda))
+      dispatch(inboxActions.load(query, agenda)),
     ]);
   } else {
     promise = dispatch(inboxActions.load(query, agenda));
@@ -34,58 +34,29 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
 
   return promise
     .then(async result => {
-
       if (location.state && location.state.showListAllowed) {
         return true;
       }
 
       const baseUrl = prefix.replace(':slug', agenda && agenda.slug);
 
-      if ((hideEmptyList) && result.conversations && !result.conversations.length) {
-        return history.replace(baseUrl + '/conversation/create');
+      if (hideEmptyList && result.conversations && !result.conversations.length) {
+        return history.replace(`${baseUrl}/conversation/create`);
       }
 
       if (focusFistConversation) {
         if (!result.conversations?.length) {
-          return history.replace(baseUrl + '/conversation/create');
-        } else if (result.conversations.filter(conv => !conv.closedAt).length === 1) {
+          return history.replace(`${baseUrl}/conversation/create`);
+        } if (result.conversations.filter(conv => !conv.closedAt).length === 1) {
           return history.replace(`${baseUrl}/conversation/${result.conversations[0].id}`);
         }
       }
     });
-
-  // return dispatch(inboxActions.load(query))
-  //   .then(async result => {
-  //
-  //     if (topListForm && !conversationActions.isAuthorLoaded(state)) {
-  //       await dispatch(conversationActions.loadAuthor());
-  //     }
-  //
-  //     if (location.state && location.state.showListAllowed) {
-  //       return true;
-  //     }
-  //
-  //     if ((hideEmptyList) && result.conversations && !result.conversations.length) {
-  //       return history.replace(prefix + '/conversation/create');
-  //     }
-  //
-  //     if (focusFistConversation) {
-  //       if (result.conversations && !result.conversations.length) {
-  //         return history.replace(prefix + '/conversation/create');
-  //       } else if (result.conversations && result.conversations.length && !result.conversations[0].closedAt) {
-  //         return history.replace(`${prefix}/conversation/${result.conversations[0].id}`);
-  //       }
-  //     }
-  //   });
 }
 
+const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
+
 @withLayoutData('user', 'agenda')
-// @provideHooks({
-//   defer: ({ store, location, history, ...others }) => {
-//     console.log(others);
-//     // asyncLoad({ store, location, history, agenda }).catch(() => null);
-//   }
-// })
 @connect(
   (state, props) => {
     const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
@@ -104,10 +75,10 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
       nextLoading: state.inbox.nextLoading,
       lastPage: state.inbox.lastPage,
       author: state.conversation.author,
-      res: state.res
+      res: state.res,
     };
   },
-  { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions }
+  { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions },
 )
 @withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
@@ -121,6 +92,8 @@ class Inbox extends Component {
     asyncLoad({ store, location, history, agenda }).catch(() => null);
   }
 
+  throttledNextPage = () => _.throttle(this.nextPage, 400, { trailing: false });
+
   FormWrapper = ({ handleSubmit, error, children }) => {
     const { settings, author } = this.props;
     const { getLabel } = this.context;
@@ -133,9 +106,11 @@ class Inbox extends Component {
         {error ? <p className="text-danger">{error}</p> : null}
 
         {author.inbox && author.inbox.type !== 'user' && author.inboxUser
-          ? <div className="margin-bottom-sm">
-            {getLabel('yourMessageWillBeSigned')} <b>{author.inbox.name}</b>
-          </div>
+          ? (
+            <div className="margin-bottom-sm">
+              {getLabel('yourMessageWillBeSigned')} <b>{author.inbox.name}</b>
+            </div>
+          )
           : null}
 
         {belowMessageDesc
@@ -161,8 +136,6 @@ class Inbox extends Component {
     this.props.nextPage(agenda);
   };
 
-  throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
-
   renderCreationButton = ({ unclosedConvs }) => {
     const { settings, history, agenda } = this.props;
     const { getLabel } = this.context;
@@ -172,10 +145,11 @@ class Inbox extends Component {
       <LinkContainer to="/conversation/create" agenda={agenda}>
         {path => (
           <button
+            type="button"
             className="btn btn-info btn-creation pull-right"
             onClick={() => history.push(path)}
           >
-            {creationButtonLabel ? creationButtonLabel : getLabel('createConversation')}
+            {creationButtonLabel || getLabel('createConversation')}
           </button>
         )}
       </LinkContainer>
@@ -193,7 +167,7 @@ class Inbox extends Component {
       loading, loaded,
       conversations, nextLoading, history, showModal,
       createConversation, author, initialValues, settings, user,
-      attachFileToMessage, res, agenda, totalOpened, totalClosed
+      attachFileToMessage, res, agenda, totalOpened, totalClosed,
     } = this.props;
     const { getLabel } = this.context;
 
@@ -202,7 +176,7 @@ class Inbox extends Component {
       creationSubtitle, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash,
       displayHelp, allowCreateConversation, focusFistConversation,
-      hideTitle, hideEmptyList
+      hideTitle, hideEmptyList,
     } = settings;
 
     const [unclosedConvs, closedConvs] = _.partition(conversations, o => !o.closedAt);
@@ -213,7 +187,7 @@ class Inbox extends Component {
           <Spinner />
         </div>
       ) : (
-        <Fragment>
+        <>
           <div className="inbox-head">
             {this.renderCreationButton({ unclosedConvs })}
 
@@ -223,8 +197,8 @@ class Inbox extends Component {
                   hideTitle={hideTitle}
                   breadParts={[
                     {
-                      component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
-                    }
+                      component: creationSubtitle || getLabel('newConversation'),
+                    },
                   ]}
                   disableFirstPartLink
                 />
@@ -236,84 +210,93 @@ class Inbox extends Component {
                 target="_blank"
                 href="https://doc.openagenda.com/la-messagerie/"
                 className="pull-right"
+                rel="noreferrer"
               >
                 <i className="fa fa-question-circle" />
               </a>
             ) : null}
           </div>
 
-          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) ? <Fragment>
-            {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }} /> : null}
+          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) ? (
+            <>
+              {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }} /> : null}
 
-            <div className="media">
-              <div className="media-left">
-                <AuthorAvatar author={author} />
-              </div>
-              <div className="media-body">
-                <h4 className="media-heading margin-bottom-sm">{getAuthorName(author)}</h4>
+              <div className="media">
+                <div className="media-left">
+                  <AuthorAvatar author={author} />
+                </div>
+                <div className="media-body">
+                  <h4 className="media-heading margin-bottom-sm">{getAuthorName(author)}</h4>
 
-                <ConversationForm
-                  initialValues={initialValues}
-                  Wrapper={this.FormWrapper}
-                  onSubmit={values => createConversation(values, agenda)}
-                  uploadEndpoint={res.messages.prepareAttachment.replace(
-                    ':agendaUid',
-                    agenda && agenda.uid
-                  )}
-                  onConversationCreate={conversation => {
-                    if (onConversationCreateRedirect) {
-                      if (onConversationCreateFlash) {
-                        setFlashMessage(onConversationCreateFlash);
-                      }
+                  <ConversationForm
+                    initialValues={initialValues}
+                    Wrapper={this.FormWrapper}
+                    onSubmit={values => createConversation(values, agenda)}
+                    uploadEndpoint={res.messages.prepareAttachment.replace(
+                      ':agendaUid',
+                      agenda && agenda.uid,
+                    )}
+                    onConversationCreate={conversation => {
+                      if (onConversationCreateRedirect) {
+                        if (onConversationCreateFlash) {
+                          setFlashMessage(onConversationCreateFlash);
+                        }
 
-                      window.location.href = onConversationCreateRedirect;
-                    } else {
-                      const url = removeTrailingSlash(prefix.replace(':slug', agenda && agenda.slug))
-                        + `/conversation/${conversation.id}`;
-                      history.push(url);
-
-                      if (onConversationCreateFlash) {
-                        showModal('messageSent', { message: onConversationCreateFlash });
+                        window.location.href = onConversationCreateRedirect;
                       } else {
-                        showModal('messageSent');
-                      }
-                    }
-                  }}
-                  onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
-                />
-              </div>
-            </div>
-          </Fragment> : null}
+                        const url = `${removeTrailingSlash(prefix.replace(':slug', agenda && agenda.slug))
+                        }/conversation/${conversation.id}`;
+                        history.push(url);
 
-          {conversations && conversations.length ? <h4 className="margin-bottom-md">
-            {unclosedConvs.length ? totalOpened : totalClosed}{' '}
-            {getLabel(
-              unclosedConvs.length
-                ? 'ongoingConversation' + (unclosedConvs.length > 1 ? 's' : '')
-                : 'pastConversation' + (closedConvs.length > 1 ? 's' : '')
-            )}
-          </h4> : null}
+                        if (onConversationCreateFlash) {
+                          showModal('messageSent', { message: onConversationCreateFlash });
+                        } else {
+                          showModal('messageSent');
+                        }
+                      }
+                    }}
+                    onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
+                  />
+                </div>
+              </div>
+            </>
+          ) : null}
+
+          {conversations && conversations.length ? (
+            <h4 className="margin-bottom-md">
+              {unclosedConvs.length ? totalOpened : totalClosed}{' '}
+              {getLabel(
+                unclosedConvs.length
+                  ? `ongoingConversation${unclosedConvs.length > 1 ? 's' : ''}`
+                  : `pastConversation${closedConvs.length > 1 ? 's' : ''}`,
+              )}
+            </h4>
+          ) : null}
 
           {unclosedConvs.length
             ? <ConversationList conversations={unclosedConvs} user={user} agenda={agenda} />
             : <ConversationList conversations={closedConvs} user={user} agenda={agenda} />}
 
-          {unclosedConvs.length && closedConvs.length ? <Fragment>
-            <h4 className="margin-bottom-md">
-              {totalClosed}{' '}
-              {getLabel('pastConversation' + (closedConvs.length > 1 ? 's' : ''))}
-            </h4>
+          {unclosedConvs.length && closedConvs.length ? (
+            <>
+              <h4 className="margin-bottom-md">
+                {totalClosed}{' '}
+                {getLabel(`pastConversation${closedConvs.length > 1 ? 's' : ''}`)}
+              </h4>
 
-            <ConversationList conversations={closedConvs} user={user} agenda={agenda} />
-          </Fragment> : null}
+              <ConversationList conversations={closedConvs} user={user} agenda={agenda} />
+            </>
+          ) : null}
 
-          {/*{conversations && conversations.length ? <ConversationList conversations={conversations} agenda={agenda}/> : null}*/}
+          {/* {conversations && conversations.length ? <ConversationList conversations={conversations} agenda={agenda}/> : null} */}
 
-          {!conversations?.length && !(hideEmptyList && topListForm) ?
-            <div className="padding-v-md">
-              {nl2br(getLabel(emptyInboxLabel || 'noResult'))}
-            </div> :
-            null}
+          {!conversations?.length && !(hideEmptyList && topListForm)
+            ? (
+              <div className="padding-v-md">
+                {nl2br(getLabel(emptyInboxLabel || 'noResult'))}
+              </div>
+            )
+            : null}
 
           {nextLoading && (
             <div className="padding-v-md" style={{ position: 'relative' }}>
@@ -322,21 +305,13 @@ class Inbox extends Component {
           )}
 
           <Waypoint onEnter={this.throttledNextPage} />
-        </Fragment>
+        </>
       );
 
     return ContentWrapper
       ? <ContentWrapper>{content}</ContentWrapper>
       : content;
   }
-}
-
-function getAuthorName(obj) {
-  if (obj.inboxUser) {
-    return obj.inboxUser.name;
-  }
-
-  return obj.inbox.name;
 }
 
 export default Inbox;

@@ -4,6 +4,7 @@ const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common'
 const logs = require('@openagenda/logs');
 const restrictToUnlogged = require('./restrictToUnlogged');
 const restrictToCurrentUser = require('./restrictToCurrentUser');
+const verifyHeadersPassword = require('./verifyHeadersPassword');
 
 const log = logs('services/users/hooks');
 
@@ -11,6 +12,15 @@ const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(
     isProvider('external'),
     restrictToCurrentUser(),
+  )(context);
+
+  await next();
+};
+
+const verifyHeadersPasswordIfExternal = () => async (context, next) => {
+  await iff(
+    isProvider('external'),
+    verifyHeadersPassword(),
   )(context);
 
   await next();
@@ -64,9 +74,11 @@ module.exports = {
   ],
   remove: [
     restrictToCurrentUserIfExternal(),
+    verifyHeadersPasswordIfExternal(),
   ],
   requestChangeEmail: [
     restrictToCurrentUserIfExternal(),
+    verifyHeadersPasswordIfExternal(),
   ],
   confirmChangeEmail: [],
   changePassword: [

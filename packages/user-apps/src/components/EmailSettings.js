@@ -1,92 +1,114 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { AuthenticateAndConfirm, Modal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
+import qs from 'qs';
 
-
-@reduxForm( {
-  form: 'emailSettings',
-  destroyOnUnmount: false
-} )
-@connect( state => ({
-  prefix: state.settings.prefix
-}) )
+@connect(state => ({
+  prefix: state.settings.prefix,
+  changeEmailRes: state.res.changeEmail,
+}))
 @withRouter
 export default class EmailSettings extends Component {
-  static propTypes = {
-    activeTab: PropTypes.bool
-  };
-
   static contextType = I18nContext;
 
-  renderNewEmailInput = field => (
-    <div className="form-group">
-      <label htmlFor="newEmail">{this.context.getLabel( 'newEmail' )} *</label>
-      <input {...field.input} className="form-control" type="text" />
-      {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
-      )}
-    </div>
-  );
+  constructor(props) {
+    super(props);
+    this.state = { payload: null, error: null, success: null };
+  }
 
-  renderPasswordInput = field => (
-    <div className="form-group">
-      <label htmlFor="password">{this.context.getLabel( 'password' )} *</label>
-      <input {...field.input} className="form-control" type="password" autoComplete="off" />
-      {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
-      )}
-    </div>
-  );
+  handleEmailFormSubmit(e) {
+    e.preventDefault();
+
+    this.setState({
+      error: null,
+      success: null,
+      payload: {
+        newEmail: e.target.newEmail.value,
+      },
+    });
+  }
 
   render() {
     const { getLabel } = this.context;
     const {
       activeTab,
-      handleSubmit,
-      successMessageDisplayed,
       prefix,
       history,
       user,
-      error
+      changeEmailRes,
+      onSuccess,
     } = this.props;
 
-    return (
-      <tr
-        onClick={!activeTab ? () => history.push( prefix + '/email', { fromUserApps: true } ) : null}
-        className={!activeTab ? 'inactive' : ''}
-      >
-        <td
-          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
-          className="col-md-3"
-          style={{ cursor: 'pointer' }}
-        >
-          {getLabel( 'email' )}
-        </td>
-        {activeTab ? <td>
-          <div style={{ padding: '0 5px' }}>
-            <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
-              <Field name="newEmail" component={this.renderNewEmailInput} />
-              <Field name="password" component={this.renderPasswordInput} />
+    const {
+      payload,
+      error,
+      success,
+    } = this.state;
 
-              <div className="form-inline pull-left">
-                <button type="submit" className="btn btn-primary">{getLabel( 'save' )}</button>
-                {successMessageDisplayed &&
-                <label className="text-success" style={{ marginLeft: '10px' }}>
-                  <b>{getLabel( 'updateEmailSuccess' )}</b>
-                </label>}
-                {error &&
-                <label className="text-danger" style={{ marginLeft: '10px' }}>
-                  <b>{getLabel( 'error' )}</b>
-                </label>}
+    return (
+      <>
+        {payload ? (
+          <Modal>
+            <AuthenticateAndConfirm
+              onSuccess={() => {
+                this.setState({
+                  payload: null,
+                  error: null,
+                  success: true,
+                });
+                onSuccess();
+              }}
+              onFail={() => {
+                this.setState({
+                  payload: null,
+                  error: 'email.alreadytaken',
+                });
+              }}
+              className="margin-top-sm"
+              onClose={() => this.setState({ payload: null })}
+              payload={payload}
+              res={`${changeEmailRes}?${qs.stringify({ $client: { includeImagePath: true, detailed: true } })}`}
+              method="PATCH"
+              validPasswordMemoryLifespan={3 * 60 * 1000}
+            />
+          </Modal>
+        ) : null}
+        <tr
+          onClick={!activeTab ? () => history.push(`${prefix}/email`, { fromUserApps: true }) : null}
+          className={!activeTab ? 'inactive' : ''}
+        >
+          <td
+            onClick={activeTab ? () => history.push(`${prefix}/`, { fromUserApps: true }) : null}
+            className="col-md-3"
+            style={{ cursor: 'pointer' }}
+          >
+            {getLabel('email')}
+          </td>
+          {activeTab ? (
+            <td>
+              <div style={{ padding: '0 5px' }}>
+                <form onSubmit={e => this.handleEmailFormSubmit(e)} style={{ paddingBottom: '8px' }}>
+                  <div className="form-group">
+                    <label htmlFor="newEmail">{getLabel('newEmail')}</label>
+                    <input id="newEmail" className="form-control" type="email" />
+                    {error ? <div className="text-danger">{getLabel(error)}</div> : null}
+                  </div>
+                  <div className="form-inline pull-left">
+                    <button type="submit" className="btn btn-primary">{getLabel('save')}</button>
+                    {success ? (
+                      <div className="text-success">
+                        <b>{getLabel('updateEmailSuccess')}</b>
+                      </div>
+                    ) : null}
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
-      </tr>
+            </td>
+          ) : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
+        </tr>
+      </>
     );
   }
 }

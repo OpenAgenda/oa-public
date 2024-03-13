@@ -25,12 +25,6 @@ const updateEvent = require('./lib/updateEvent');
 const createUpdateActivity = require('./lib/createUpdateActivity');
 const sendUpdateEmail = require('./lib/sendUpdateEmail');
 
-const createPassCultureOffer = require('./lib/createPassCultureOffer');
-
-const {
-  hasPassCultureOffer,
-} = createPassCultureOffer;
-
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
@@ -42,6 +36,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     aggregators,
     custom,
     legacy,
+    registrations,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
@@ -122,10 +117,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     currentState: agendaEvent?.state,
   });
 
-  if (clean.passCulture && !hasPassCultureOffer(event)) {
+  if (clean.passCulture && !registrations.utils.passCulture.hasPassCultureOffer(event)) {
     log.info('  There is a pass culture payload with event', { eventUid: event.uid });
     try {
-      clean.event.registration = await createPassCultureOffer(core, agenda, clean, event);
+      clean.event.registration = await registrations.utils.passCulture.createPassCultureOffer(agenda, clean, event);
     } catch (e) {
       log.error('  Pass culture offer creation failed', { error: e, eventUid: event.uid, clean, event });
     }

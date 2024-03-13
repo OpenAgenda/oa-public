@@ -1,0 +1,888 @@
+{
+    "conversations": [
+        {
+            "id": 89053,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2024-03-12T09:44:01.000Z",
+            "updatedAt": "2024-03-12T09:44:01.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "2005258a2bbb4ae0ad202946691d7716",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 164570,
+                "conversationId": 89053,
+                "body": "Bonjour, \nJe souhaiterais avoir la possibilité de vous faire remonter nos événements à Lisieux. Pouvez-vous me laisser un accès ? Ou bien agréger notre flux si vous préférez. \n\nJe reste à votre disposition, merci d'avance pour votre réponse ! \nAdeline Déprez\nChargée de communication numérique \nVille de Lisieux",
+                "createdAt": "2024-03-12T09:44:01.000Z",
+                "inbox": {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 87813,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2024-02-09T15:12:41.000Z",
+            "updatedAt": "2024-02-09T15:12:41.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "1af82ffaa2a6486d89eedae61793cc32",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 162365,
+                "conversationId": 87813,
+                "body": "Bonjour, \nJe travaille au service Communication de la Ville de Lisieux. \nEst-ce possible de mettre en relation nos agendas afin que notre contenu événementiel apparaisse sur votre site internet ou bien me laisser la possibilité de faire des contributions sur votre agenda ? \nNous sommes aussi agrégés par notre agglomération (Communauté d'Agglomération Lisieux Normandie) dont le contenu s'affiche sur votre OpenAgenda mais le nôtre (Ville de Lisieux) n'a pas l'air de s'y ajouter via cette relation. Je me tiens à votre disposition pour en discuter. Bonne journée à vous !",
+                "createdAt": "2024-02-09T15:12:41.000Z",
+                "inbox": {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 87279,
+            "type": "event",
+            "typeIdentifier": "84005014",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "eventTitle": "MARDI EN SCENE",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2024-01-19T18:10:50.000Z",
+            "updatedAt": "2024-01-19T18:10:50.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "1e81f302a0914b9399817bce7008fc11",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 264148,
+                "type": "user",
+                "identifier": 45629048,
+                "uid": 45629048,
+                "name": "Meli",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 161435,
+                "conversationId": 87279,
+                "body": "Bonjour,\nComment adhérer à l'association ? Quelles sont les conditions ? et le coût \nCordialement ",
+                "createdAt": "2024-01-19T18:10:50.000Z",
+                "inbox": {
+                    "id": 264148,
+                    "type": "user",
+                    "identifier": 45629048,
+                    "uid": 45629048,
+                    "name": "Meli",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 264148,
+                    "type": "user",
+                    "identifier": 45629048,
+                    "uid": 45629048,
+                    "name": "Meli",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                },
+                {
+                    "id": 33047,
+                    "type": "user",
+                    "identifier": 58947954,
+                    "uid": 58947954,
+                    "name": "Théâtre Lisieux Normandie",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                }
+            ]
+        },
+        {
+            "id": 85699,
+            "type": "contact_form",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2023-10-25T16:08:05.000Z",
+            "updatedAt": "2023-10-25T16:08:05.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "a194f50b8cf8450f9312b9c801ae35d9",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 158996,
+                "conversationId": 85699,
+                "body": "Bonjour, \nJe vous contacte pour une question car je vois que vous agrégez un flux via l'Agglomération mais il n'agrège pas tous les événements se déroulant à Lisieux. Par exemple, il agrège les événements type conférences etc, mais nos événements Ville (Halloween, concerts, etc) n'ont pas l'air d'être agrégés par votre agenda. Y a-t-il un critère à respecter ? Une demande à effectuer ? Merci de votre aide. \n\nBonne journée à vous, \nAdeline Déprez \nChargée de Communication Numérique à la Ville de Lisieux \nadeprez@ville-lisieux.fr",
+                "createdAt": "2023-10-25T16:08:05.000Z",
+                "inbox": {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 114000,
+                    "type": "user",
+                    "identifier": 31935178,
+                    "uid": 31935178,
+                    "name": "Adeline Déprez",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 85144,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2023-10-05T09:53:17.000Z",
+            "updatedAt": "2023-10-06T09:40:09.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "3c28a12a8d0f4450a9112b2984a58239",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 223950,
+                "type": "user",
+                "identifier": 1478838,
+                "uid": 1478838,
+                "name": "Les Franciscaines",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 158017,
+                "conversationId": 85144,
+                "body": "Entendu merci pour l'information.\nTrès bonne journée",
+                "createdAt": "2023-10-06T09:40:09.000Z",
+                "inbox": {
+                    "id": 223950,
+                    "type": "user",
+                    "identifier": 1478838,
+                    "uid": 1478838,
+                    "name": "Les Franciscaines",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 223950,
+                    "type": "user",
+                    "identifier": 1478838,
+                    "uid": 1478838,
+                    "name": "Les Franciscaines",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 78592,
+            "type": "event",
+            "typeIdentifier": "96261492",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "eventTitle": "Exposition sur la forêt de Cerisy",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2023-07-18T07:25:02.000Z",
+            "updatedAt": "2023-08-09T14:39:05.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "e3986c89149d4a01aba1959f5178bb4d",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 231255,
+                "type": "user",
+                "identifier": 98435557,
+                "uid": 98435557,
+                "name": "Aurélie LAINEY",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 149951,
+                "conversationId": 78592,
+                "body": "bonjour\npourriez-vous supprimer l'évènement annoncé pour la Maison de la Forêt suite aux raisons évoquées ci-dessous.\nmerci\nCordialement",
+                "createdAt": "2023-08-09T14:39:05.000Z",
+                "inbox": {
+                    "id": 231255,
+                    "type": "user",
+                    "identifier": 98435557,
+                    "uid": 98435557,
+                    "name": "Aurélie LAINEY",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 231255,
+                    "type": "user",
+                    "identifier": 98435557,
+                    "uid": 98435557,
+                    "name": "Aurélie LAINEY",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 80008,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2023-08-02T12:38:24.000Z",
+            "updatedAt": "2023-08-02T12:38:24.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "ad5a0d5f08534c22993a3946ee691d5e",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 223950,
+                "type": "user",
+                "identifier": 1478838,
+                "uid": 1478838,
+                "name": "Les Franciscaines",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 149046,
+                "conversationId": 80008,
+                "body": "Bonjour,\n\nJe souhaiterais pouvoir référencer certains de nos événements, actuels et à venir.\nIl s'agit de 3 expositions, 1 expérience immersive ainsi qu'une grande soirée cabaret-spectacle qui aura lieu fin août.\n\nCela est-il possible ?\n\nBien à vous,\nLes Franciscaines - Deauville",
+                "createdAt": "2023-08-02T12:38:24.000Z",
+                "inbox": {
+                    "id": 223950,
+                    "type": "user",
+                    "identifier": 1478838,
+                    "uid": 1478838,
+                    "name": "Les Franciscaines",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 223950,
+                    "type": "user",
+                    "identifier": 1478838,
+                    "uid": 1478838,
+                    "name": "Les Franciscaines",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 54070,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2022-06-01T15:24:55.000Z",
+            "updatedAt": "2022-06-01T15:24:55.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "7d906e51c0784a148d2bfb07d44cc990",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 75625,
+                "type": "user",
+                "identifier": 34130309,
+                "uid": 34130309,
+                "name": "Jacques  DEVOS",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 100641,
+                "conversationId": 54070,
+                "body": "Dans le hameau de Sainte-Marie-aux-Anglais il y a un personnage qui a rencontré le Comité de Salut Public de la révolution, qui a été le confident du grand mathématicien Gaspard Monge et connu tous les savants de cette époque. Nous ne savons pas s’il a rencontré l’empereur Napoléon mais ce dernier l’a chargé de fonctions. Il a travaillé avec Lazare Carnot puis il dirigea l’opéra de Paris brièvement en fait, avant de fonder une école de chant dont les concerts étaient fréquentés par le tout Paris et le roi Charles X. Il a connu Berlioz jeune et est à l’origine de la carrière de la tragédienne Rachel. Venez voir notre exposition, vous serez surpris !",
+                "createdAt": "2022-06-01T15:24:55.000Z",
+                "inbox": {
+                    "id": 75625,
+                    "type": "user",
+                    "identifier": 34130309,
+                    "uid": 34130309,
+                    "name": "Jacques  DEVOS",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": [
+                    {
+                        "id": 8788,
+                        "messageId": 100641,
+                        "inboxUserId": 81925,
+                        "originalName": "AFFICHE pdf.pdf",
+                        "filename": "conv.7d906e51c0784a148d2bfb07d44cc990.msg.100641-0.pdf",
+                        "createdAt": "2022-06-01T15:26:09.000Z",
+                        "path": "https://s3.eu-west-1.amazonaws.com/cibul/conv.7d906e51c0784a148d2bfb07d44cc990.msg.100641-0.pdf"
+                    }
+                ]
+            },
+            "inboxes": [
+                {
+                    "id": 75625,
+                    "type": "user",
+                    "identifier": 34130309,
+                    "uid": 34130309,
+                    "name": "Jacques  DEVOS",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 53121,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2022-05-18T06:50:56.000Z",
+            "updatedAt": "2022-05-18T06:50:56.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "5bdaf25e8e634fbcbef820bd1718861f",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 75625,
+                "type": "user",
+                "identifier": 34130309,
+                "uid": 34130309,
+                "name": "Jacques  DEVOS",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 98999,
+                "conversationId": 53121,
+                "body": "Pourriez vous faire connaitre notre exposition sur Alexandre Choron , normand de génie oublié à l'heure actuelle mais dont la vie est un roman. Exposition du 10 au 31 juillet, les week-ends. Exposition dans la chapelle de Sainte-Marie-aux-Anglais aux remarquables peintures murales du XIIIe siècle.",
+                "createdAt": "2022-05-18T06:50:56.000Z",
+                "inbox": {
+                    "id": 75625,
+                    "type": "user",
+                    "identifier": 34130309,
+                    "uid": 34130309,
+                    "name": "Jacques  DEVOS",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": [
+                    {
+                        "id": 8635,
+                        "messageId": 98999,
+                        "inboxUserId": 81925,
+                        "originalName": "AFFICHE pdf.pdf",
+                        "filename": "conv.5bdaf25e8e634fbcbef820bd1718861f.msg.98999-0.pdf",
+                        "createdAt": "2022-05-18T06:50:57.000Z",
+                        "path": "https://s3.eu-west-1.amazonaws.com/cibul/conv.5bdaf25e8e634fbcbef820bd1718861f.msg.98999-0.pdf"
+                    }
+                ]
+            },
+            "inboxes": [
+                {
+                    "id": 75625,
+                    "type": "user",
+                    "identifier": 34130309,
+                    "uid": 34130309,
+                    "name": "Jacques  DEVOS",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 47088,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2021-10-20T14:57:18.000Z",
+            "updatedAt": "2021-10-22T13:33:25.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "46b64f028d6a400c8391495eb7bfb08f",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 156875,
+                "type": "user",
+                "identifier": 46376987,
+                "uid": 46376987,
+                "name": "Epok'Tour",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 88582,
+                "conversationId": 47088,
+                "body": "Bonjour, merci pour votre retour. Le lien de l'agenda est : https://openagenda.com/epoktour\nEt les deux évènements sont :\nhttps://openagenda.com/agendas/72119306/events/33906965\nhttps://openagenda.com/agendas/72119306/events/76911276\n\nBien cordialement,",
+                "createdAt": "2021-10-22T13:33:25.000Z",
+                "inbox": {
+                    "id": 156875,
+                    "type": "user",
+                    "identifier": 46376987,
+                    "uid": 46376987,
+                    "name": "Epok'Tour",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 156875,
+                    "type": "user",
+                    "identifier": 46376987,
+                    "uid": 46376987,
+                    "name": "Epok'Tour",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 37224,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2021-04-27T10:06:40.000Z",
+            "updatedAt": "2021-04-27T10:06:40.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "25d0d0acbf8c4e93a369108ed2c47057",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 148162,
+                "type": "user",
+                "identifier": 5370693,
+                "uid": 5370693,
+                "name": "Label Plante association",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 70076,
+                "conversationId": 37224,
+                "body": "Bonjour, \n\nJe me permets de vous contacter car je suis chargée de relation presse pour le Green River Valley Festival qui se tiendra le 24 et 25 septembre 2021 à la Ferme des Cara-Meuh de Vains (50 300) . \n\nCet évènement éco-responsable, c'est 8000 festivaliers attendus pour fêter l'été en musique autour d'une programmation d'artistes reggae, dub, hip hop, électro pendant 2 jours et sur 2 scènes.\n\nLe GRV c'est aussi un village associatif gratuit et ouvert à tous qui a pour objectif de sensibiliser aux enjeux énergie-climat grâce aux conférences d'une quinzaine d'intervenants spécialisés, et aux ateliers de l'invité d'honneur du festival : L'association Avenir climatique. \nCe lieu d'échange et de partage regroupera aussi plusieurs associations et artisans locaux qui feront connaitre leurs actions et leurs produits.\n\nAu vu de l'ancrage local de l'événement (public, artistes, artisans, mais aussi prestataires) et afin de permettre à un maximum de festivaliers du Calvados de profiter de la réouverture des concerts et de la beauté de notre région, nous serions ravis de pouvoir partager cet évènement par le biais de votre agenda. \n\nVous trouverez en PJ notre dossier de presse dont les dates ont récemment été modifiées au vue de la situation sanitaire. \n\nCordialement, \nJeanne Testard\nPôle relations presse\n",
+                "createdAt": "2021-04-27T10:06:40.000Z",
+                "inbox": {
+                    "id": 148162,
+                    "type": "user",
+                    "identifier": 5370693,
+                    "uid": 5370693,
+                    "name": "Label Plante association",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": [
+                    {
+                        "id": 6436,
+                        "messageId": 70076,
+                        "inboxUserId": 164912,
+                        "originalName": "GRV - Dossier de Presse 2021.pdf",
+                        "filename": "conv.25d0d0acbf8c4e93a369108ed2c47057.msg.70076.pdf",
+                        "createdAt": "2021-04-27T10:06:38.000Z",
+                        "path": "https://s3.eu-west-1.amazonaws.com/cibul/conv.25d0d0acbf8c4e93a369108ed2c47057.msg.70076.pdf"
+                    }
+                ]
+            },
+            "inboxes": [
+                {
+                    "id": 148162,
+                    "type": "user",
+                    "identifier": 5370693,
+                    "uid": 5370693,
+                    "name": "Label Plante association",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 33623,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2020-09-11T10:47:00.000Z",
+            "updatedAt": "2020-09-11T10:47:00.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "66d35569147643eab561dab3bf3b542d",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 149490,
+                "type": "user",
+                "identifier": 86503295,
+                "uid": 86503295,
+                "name": "Ateliers Intermédiaires",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 63289,
+                "conversationId": 33623,
+                "body": "Bonjour, \nNous sommes une friche artistique de Caen, Les Ateliers Intermédiaires, et souhaiterions soumettre à l'agenda du Calvados l'événement : Thumulte à la Fête de Thue et Mue (14250), le 26 Septembre 2020. \n\nVous trouverez le programme en pièce jointe. L'événement est totalement gratuit et est un mélange entre une manifestation culturelle et des animations familiales. \n\nN'hesitez pas à nous contacter pour toutes questions éventuelles : civique.ateliers@gmail.com ou thumulte.contact@gmail.com ",
+                "createdAt": "2020-09-11T10:47:00.000Z",
+                "inbox": {
+                    "id": 149490,
+                    "type": "user",
+                    "identifier": 86503295,
+                    "uid": 86503295,
+                    "name": "Ateliers Intermédiaires",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": [
+                    {
+                        "id": 5924,
+                        "messageId": 63289,
+                        "inboxUserId": 166280,
+                        "originalName": "affiche finale.jpg",
+                        "filename": "conv.66d35569147643eab561dab3bf3b542d.msg.63289.jpg",
+                        "createdAt": "2020-09-11T10:47:04.000Z",
+                        "path": "https://s3.eu-west-1.amazonaws.com/cibul/conv.66d35569147643eab561dab3bf3b542d.msg.63289.jpg"
+                    }
+                ]
+            },
+            "inboxes": [
+                {
+                    "id": 149490,
+                    "type": "user",
+                    "identifier": 86503295,
+                    "uid": 86503295,
+                    "name": "Ateliers Intermédiaires",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 30249,
+            "type": "request_contribute",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2020-07-20T13:27:32.000Z",
+            "updatedAt": "2020-08-17T15:18:50.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "3e89a9c7c8384fed9cc9e3077d0f2752",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 140253,
+                "type": "user",
+                "identifier": 32849885,
+                "uid": 32849885,
+                "name": "Ville de Touques",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 59886,
+                "conversationId": 30249,
+                "body": "Bonjour,\nMerci pour votre message. Cela pourrait être intéressant, effectivement. Je peux tenter d'ajouter votre agenda comme source d'alimentation pour notre agenda principal mais je ne suis pas sûr que cela fonctionne. Nous nous appuyons en effet sur des catégories obligatoires qui doivent être identiques pour que cela fonctionne parfaitement. Je ne connais pas cette fonction d'ajout de contributeur externe telle qu'elle est ici présentée.\nBien à vous,\nSylvain Vaugeois, \nPôle digital du Département du Calvados - 02 31 57 11 50",
+                "createdAt": "2020-08-17T15:18:50.000Z",
+                "inboxUser": {
+                    "id": 56274,
+                    "inboxId": 55558,
+                    "userUid": 55782505,
+                    "leftAt": null,
+                    "uid": 55782505,
+                    "name": "Calvados Département",
+                    "avatar": "https://cibul.s3.amazonaws.com/profile55782505.jpg"
+                },
+                "inbox": {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                },
+                "attachments": []
+            },
+            "inboxes": [
+                {
+                    "id": 140253,
+                    "type": "user",
+                    "identifier": 32849885,
+                    "uid": 32849885,
+                    "name": "Ville de Touques",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        },
+        {
+            "id": 23398,
+            "type": "contact_form",
+            "typeIdentifier": "11317568",
+            "store": {
+                "params": {
+                    "agendaTitle": "Département du Calvados",
+                    "agendaUid": 11317568
+                }
+            },
+            "createdAt": "2019-10-03T10:40:23.000Z",
+            "updatedAt": "2019-10-03T10:40:24.000Z",
+            "resolvedAt": null,
+            "closedAt": null,
+            "fileKey": "849d0c355dac4971a6971dba951746b7",
+            "inboxContextId": 55558,
+            "creatorInbox": {
+                "id": 121892,
+                "type": "user",
+                "identifier": 15083118,
+                "uid": 15083118,
+                "name": "Lise Lefebvre",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "latestMessage": {
+                "id": 43673,
+                "conversationId": 23398,
+                "body": "Bonjour,\n\nLes Ateliers Intermédiaires, une structure associative basée à Caen, organisent tout au long de l'année 2019-2020 une série de spectacles et de performances artistiques dans la commune nouvelle de Thue et Mue.\n\nCe projet, Thumulte, vise à mettre en valeur le patrimoine de ces communes, tout en développant l'activité artistique.\n\nDans cette optique, nous aimerions savoir s'il est possible de communiquer sur ce projet à travers votre agenda en ligne. Si oui, nous souhaiterions connaître la démarche à effectuer. Faut-il vous envoyer un article ? Sous quel format, et de quelle longueur maximum ?\n\nJe vous joins le dépliant du projet.\n\nEn espérant une réponse positive de votre part.\n\nBien cordialement,\n",
+                "createdAt": "2019-10-03T10:40:23.000Z",
+                "inbox": {
+                    "id": 121892,
+                    "type": "user",
+                    "identifier": 15083118,
+                    "uid": 15083118,
+                    "name": "Lise Lefebvre",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                "attachments": [
+                    {
+                        "id": 4386,
+                        "messageId": 43673,
+                        "inboxUserId": 135781,
+                        "originalName": "Dépliant_Thumulte avec PEC ss fonds.pdf",
+                        "filename": "conv.849d0c355dac4971a6971dba951746b7.msg.43673.pdf",
+                        "createdAt": "2019-10-03T10:40:31.000Z",
+                        "path": "https://s3.eu-west-1.amazonaws.com/cibul/conv.849d0c355dac4971a6971dba951746b7.msg.43673.pdf"
+                    }
+                ]
+            },
+            "inboxes": [
+                {
+                    "id": 121892,
+                    "type": "user",
+                    "identifier": 15083118,
+                    "uid": 15083118,
+                    "name": "Lise Lefebvre",
+                    "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                },
+                {
+                    "id": 55558,
+                    "type": "agenda",
+                    "identifier": 11317568,
+                    "uid": 11317568,
+                    "name": "Département du Calvados",
+                    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+                }
+            ]
+        }
+    ],
+    "total": 14,
+    "totalOpened": 14,
+    "totalClosed": null
+}
