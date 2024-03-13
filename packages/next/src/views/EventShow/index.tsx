@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
+import qs from 'qs';
 import {
   chakra,
   Box,
@@ -31,6 +32,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
+import useLocationQuery from 'hooks/useLocationQuery';
 import { useAgenda } from './contexts/agenda';
 import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
@@ -71,6 +73,7 @@ export type EventShowProps = {
 function EventShow({ preload }: EventShowProps) {
   const intl = useIntl();
   const router = useRouter();
+  const query = useLocationQuery() as any;
   const dateFnsLocale = useDateFnsLocale();
   const agenda = useAgenda();
 
@@ -81,7 +84,7 @@ function EventShow({ preload }: EventShowProps) {
   const session = useSession();
 
   const { event } = useEvent();
-  const { me } = useMember();
+  const { me, member } = useMember();
 
   const languages = Object.keys(event.title);
 
@@ -117,10 +120,31 @@ function EventShow({ preload }: EventShowProps) {
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
-  const isOwner = event.ownerUid === me?.member?.uid;
+  useEffect(() => {
+    if (!query.nc) {
+      return;
+    }
+
+    // if (!query.nc) {
+    //   window.sessionStorage.removeItem('EventShow:nc');
+    //   return;
+    // }
+
+    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({ [`${agenda.uid}.${event.uid}`]: query.nc }));
+    const url = new URL(router.asPath, 'https://n');
+    url.search = qs.stringify({ ...query, nc: undefined }, { addQueryPrefix: true });
+    router.replace(
+      url.pathname + url.search,
+      null,
+      { shallow: true, scroll: false },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const isEventContributor = member && member.userUid === me?.member?.userUid;
   const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
-  const displayContextBar = isOwner || isAdminMod;
+  const displayContextBar = isEventContributor || isAdminMod;
 
   return (
     <>

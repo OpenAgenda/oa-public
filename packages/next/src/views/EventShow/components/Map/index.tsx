@@ -30,14 +30,14 @@ export default function Map({ width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, as
       },
     );
 
-    if (mapRef.current) {
-      observer.observe(mapRef.current);
+    const map = mapRef.current;
+
+    if (map) {
+      observer.observe(map);
     }
 
     return () => {
-      if (mapRef.current) {
-        observer.disconnect();
-      }
+      observer.disconnect();
     };
   }, [mapRef]);
 

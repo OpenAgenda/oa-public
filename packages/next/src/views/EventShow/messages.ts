@@ -120,6 +120,14 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.markAsCancelledStatus',
     defaultMessage: 'The event has been permanently cancelled',
   },
+  requestEditionRights: {
+    id: 'next.views.EventShow.ContextBar.requestEditionRights',
+    defaultMessage: 'Request edition rights',
+  },
+  requestEditionRightsInfo: {
+    id: 'next.views.EventShow.ContextBar.requestEditionRightsInfo',
+    defaultMessage: 'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
+  },
   deleteEvent: {
     id: 'next.views.EventShow.ContextBar.deleteEvent',
     defaultMessage: 'Delete event',
