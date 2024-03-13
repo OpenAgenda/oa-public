@@ -268,7 +268,7 @@ module.exports = {
     "oc": "Sètz segur·a ?"
   },
   "deleteModalText": {
-    "en": "Are you sure you want to delete your account permanently?\n\n Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
+    "en": "Are you sure you want to delete your account permanently?\n\nYour calendars and events will remain online, you can delete them manually if you do not want to leave them online",
     "fr": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ?\n\n Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
     "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst",
     "es": "¿Está seguro de que quiere eliminar su cuenta de forma permanente?\n\n Sus agendas y eventos permanecerán en línea, puede eliminarlos manualmente si no desea permitir en línea",

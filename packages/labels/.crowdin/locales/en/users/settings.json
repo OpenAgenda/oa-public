@@ -28,7 +28,7 @@
   "secretKey": "Secret key",
   "showApiKeys": "Show api keys",
   "areYouSure": "Are you sure?",
-  "deleteModalText": "Are you sure you want to delete your account permanently?\n\n Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
+  "deleteModalText": "Are you sure you want to delete your account permanently?\n\nYour calendars and events will remain online, you can delete them manually if you do not want to leave them online",
   "deleteModalButton": "Delete",
   "string.tooshort": "String is too short",
   "string.toolong": "String is too long",
