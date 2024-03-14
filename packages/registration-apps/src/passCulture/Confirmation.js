@@ -32,8 +32,9 @@ export default function Confirmation({ event, res, className }) {
         <>
           <i className="fa fa-warning text-danger margin-right-xs" />
           <b>L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</b>
-          <p>La validation de l&apos;offre sera faite dans moins de 72h à la suite de quoi les dates devront être de nouveau saisies depuis l&apos;administration de l&apos;offre sur le site du Pass.</p>
-          <a className="btn btn-primary margin-top-xs" href={editLink}>Compléter l&apos;offre</a>
+          <p>La validation de l&apos;offre sera faite dans moins de 72h, la completion de l&apos;offre sera faite automatiquement</p>
+          <a href={editLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Administrer l&apos;offre</a>
+          <a href={showLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Voir l&apos;offre</a>
         </>
       );
     }

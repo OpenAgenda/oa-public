@@ -32,7 +32,8 @@ export default function PriceCategoryForm({
         value={value.price ?? ''}
         type="number"
         label="Prix"
-        placeholder="Ex: 12"
+        placeholder="Ex: 12.50"
+        step="0.01"
         onChange={e => onChange({ ...value, price: e.target.value })}
       />
       <Button

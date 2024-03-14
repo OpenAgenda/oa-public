@@ -9,7 +9,7 @@
   "apiKeyInformation": "Le chiavi API consentono di leggere e scrivere dati su OpenAgenda tramite l'API.",
   "apiKeys": "Tasti API",
   "areYouSure": "Sei sicuro?",
-  "changeEmailFail": "Il link utilizzato per la modifica dell'e-mail non è più valido.",
+  "changeEmailFail": "Il link utilizzato per la modifica dell'e-mail non è più valido",
   "changeEmailSuccess": "La tua email è stata aggiornata con successo",
   "chooseEmailsSent": "La scelta delle e-mail che OpenAgenda mi invia",
   "confirmation": "Confermare",

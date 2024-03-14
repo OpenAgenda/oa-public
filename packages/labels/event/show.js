@@ -364,7 +364,7 @@ module.exports = {
     "fr": "Demander les droits d'édition",
     "en": "Request edition rights",
     "io": "crwdns14494:0crwdne14494:0",
-    "it": "Chiedere il diritto di modificare questo evento",
+    "it": "Chiedere il diritto di modificare",
     "oc": "Demandar los dreits d'edicion"
   },
   "requestEditionRightsInfo": {

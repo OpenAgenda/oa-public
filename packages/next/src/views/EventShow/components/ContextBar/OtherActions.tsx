@@ -15,10 +15,12 @@ import {
   ModalFooter,
   Button,
   Tooltip,
-  useDisclosure, useBreakpointValue,
+  useDisclosure,
+  useBreakpointValue,
 } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faChevronDown, faEllipsisVertical } from 'icons/solid';
+import base64 from 'utils/base64';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
@@ -26,9 +28,20 @@ import DuplicateModal from '../DuplicateModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
-function ActionMenuItem({ action, description, onClick }) {
+function ButtonMenuItem({ action, description, onClick }) {
   return (
     <MenuItem onClick={onClick}>
+      <Flex direction="column">
+        <Text fontWeight="bold" display="block">{action}</Text>
+        <p>{description}</p>
+      </Flex>
+    </MenuItem>
+  );
+}
+
+function LinkMenuItem({ action, description, href, rel = null }) {
+  return (
+    <MenuItem as="a" href={href} rel={rel}>
       <Flex direction="column">
         <Text fontWeight="bold" display="block">{action}</Text>
         <p>{description}</p>
@@ -43,11 +56,13 @@ export default function OtherActions({ agenda }) {
   const router = useRouter();
 
   const { event, mutate } = useEvent();
-  const { me } = useMember();
+  const { me, member } = useMember();
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+  const isEventContributor = member && member.userUid === me?.member?.userUid;
+  const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
 
   const {
@@ -61,8 +76,6 @@ export default function OtherActions({ agenda }) {
     onOpen: duplicateOnOpen,
     onClose: duplicateOnClose,
   } = useDisclosure();
-
-  const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
 
   const patchEvent = async data => {
     try {
@@ -109,9 +122,11 @@ export default function OtherActions({ agenda }) {
     }
   };
 
-  // if (!isAdminMod && !canEditEvent) {
-  //   return null;
-  // }
+  const displayRemove = isAdminMod || isEventContributor;
+  const displayRequestEditionRights = isAdminMod && !canEditEvent;
+
+  const redirectUrl = base64.encode(router.asPath);
+  const requestEditionRightsUrl = `/${agenda.slug}/admin/events/${event.slug}/edition-request?redirect=${redirectUrl}`;
 
   return (
     <>
@@ -144,13 +159,13 @@ export default function OtherActions({ agenda }) {
           {isAdminMod ? (
             <>
               {event.featured ? (
-                <ActionMenuItem
+                <ButtonMenuItem
                   onClick={() => patchEvent({ featured: false })}
                   action={intl.formatMessage(messages.feature)}
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               ) : (
-                <ActionMenuItem
+                <ButtonMenuItem
                   onClick={() => patchEvent({ featured: true })}
                   action={intl.formatMessage(messages.unfeature)}
                   description={intl.formatMessage(messages.featuredInfo)}
@@ -158,7 +173,7 @@ export default function OtherActions({ agenda }) {
               )}
             </>
           ) : null}
-          <ActionMenuItem
+          <ButtonMenuItem
             onClick={duplicateOnOpen}
             action={intl.formatMessage(messages.duplicate)}
             description={intl.formatMessage(messages.duplicateInfo)}
@@ -166,53 +181,66 @@ export default function OtherActions({ agenda }) {
           {agenda.settings?.lab?.status && canEditEvent ? (
             <>
               <MenuDivider />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 1 })}
                 action={intl.formatMessage(messages.clearStatus)}
                 description={intl.formatMessage(messages.clearStatusInfo)}
               />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 2 })}
                 action={intl.formatMessage(messages.markAsRescheduled)}
                 description={intl.formatMessage(messages.markAsRescheduledInfo)}
               />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 3 })}
                 action={intl.formatMessage(messages.markAsMovedOnline)}
                 description={intl.formatMessage(messages.markAsMovedOnlineStatus)}
               />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 4 })}
                 action={intl.formatMessage(messages.markAsPostponed)}
                 description={intl.formatMessage(messages.markAsPostponedStatus)}
               />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 5 })}
                 action={intl.formatMessage(messages.markAsFull)}
                 description={intl.formatMessage(messages.markAsFullStatus)}
               />
-              <ActionMenuItem
+              <ButtonMenuItem
                 onClick={() => patchEvent({ status: 6 })}
                 action={intl.formatMessage(messages.markAsCancelled)}
                 description={intl.formatMessage(messages.markAsCancelledStatus)}
               />
             </>
           ) : null}
-          <MenuDivider />
-          {/* TODO adminMod or event editor can delete/remove */}
-          {isOriginAgenda ? (
-            <ActionMenuItem
-              onClick={removeOnOpen}
-              action={intl.formatMessage(messages.deleteEvent)}
-              description={intl.formatMessage(messages.deleteEventInfo)}
+          {displayRemove || displayRequestEditionRights ? (
+            <MenuDivider />
+          ) : null}
+          {displayRequestEditionRights ? (
+            <LinkMenuItem
+              href={requestEditionRightsUrl}
+              rel="nofollow"
+              action={intl.formatMessage(messages.requestEditionRights)}
+              description={intl.formatMessage(messages.requestEditionRightsInfo)}
             />
-          ) : (
-            <ActionMenuItem
-              onClick={removeOnOpen}
-              action={intl.formatMessage(messages.removeEvent)}
-              description={intl.formatMessage(messages.removeEventInfo)}
-            />
-          )}
+          ) : null}
+          {displayRemove ? (
+            <>
+              {isOriginAgenda ? (
+                <ButtonMenuItem
+                  onClick={removeOnOpen}
+                  action={intl.formatMessage(messages.deleteEvent)}
+                  description={intl.formatMessage(messages.deleteEventInfo)}
+                />
+              ) : (
+                <ButtonMenuItem
+                  onClick={removeOnOpen}
+                  action={intl.formatMessage(messages.removeEvent)}
+                  description={intl.formatMessage(messages.removeEventInfo)}
+                />
+              )}
+            </>
+          ) : null}
         </MenuList>
       </Menu>
 

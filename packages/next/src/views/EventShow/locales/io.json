@@ -38,6 +38,8 @@
   "next.views.EventShow.ContextBar.removeConfirmation": "crwdns33658:0crwdne33658:0",
   "next.views.EventShow.ContextBar.removeEvent": "crwdns33660:0crwdne33660:0",
   "next.views.EventShow.ContextBar.removeEventInfo": "crwdns33662:0crwdne33662:0",
+  "next.views.EventShow.ContextBar.requestEditionRights": "",
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": "",
   "next.views.EventShow.ContextBar.state": "crwdns33664:0crwdne33664:0",
   "next.views.EventShow.ContextBar.toModerateInfo": "crwdns33666:0crwdne33666:0",
   "next.views.EventShow.ContextBar.unfeature": "crwdns33668:0crwdne33668:0",

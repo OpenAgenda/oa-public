@@ -936,7 +936,7 @@ module.exports = {
     "en": "Request for editing rights of <a href=\\\"%link%\\\">%title%</a>",
     "de": "Antrag auf Editierrechte de",
     "es": "derechos de publicación de la solicitud <a href=\"%link%\"> %title% </a>",
-    "it": "Richiesta di diritti di modifica su <a href=\"%link%\">%title%</a>",
+    "it": "Richiesta di diritti di modifica su <a href=\\\"%link%\\\">%title%</a>",
     "io": "crwdns15198:0%link%crwdnd15198:0%title%crwdne15198:0"
   },
   "requestContributeAcceptModalTitle": {

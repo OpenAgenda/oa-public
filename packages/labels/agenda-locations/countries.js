@@ -732,9 +732,9 @@ module.exports = {
   },
   "GH": {
     "en": "Ghana",
-    "fr": "Guana",
+    "fr": "Ghana",
     "de": "Ghana",
-    "es": "Guana",
+    "es": "Ghana",
     "it": "Ghana",
     "io": "crwdns11772:0crwdne11772:0",
     "oc": "Ghana"

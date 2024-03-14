@@ -110,13 +110,13 @@
   "next.views.EventShow.ContextBar.feature": [
     {
       "type": 0,
-      "value": "Feature"
+      "value": "Mettre en une"
     }
   ],
   "next.views.EventShow.ContextBar.featuredInfo": [
     {
       "type": 0,
-      "value": "A featured event appears at the top of the list"
+      "value": "Un événement en une apparaît en haut de la liste"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -146,7 +146,7 @@
   "next.views.EventShow.ContextBar.markAsMovedOnline": [
     {
       "type": 0,
-      "value": "The event was moved online"
+      "value": "L'événement a lieu en ligne"
     }
   ],
   "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
@@ -164,7 +164,7 @@
   "next.views.EventShow.ContextBar.markAsPostponedStatus": [
     {
       "type": 0,
-      "value": "The event has been postponed to dates not yet known"
+      "value": "L'événement a été reporté à des dates encore non connues"
     }
   ],
   "next.views.EventShow.ContextBar.markAsRescheduled": [
@@ -176,7 +176,7 @@
   "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
     {
       "type": 0,
-      "value": "The timings of the event have been modified"
+      "value": "Les horaires de l'événement ont été modifié"
     }
   ],
   "next.views.EventShow.ContextBar.otherActions": [
@@ -188,13 +188,13 @@
   "next.views.EventShow.ContextBar.otherActionsInfo": [
     {
       "type": 0,
-      "value": "Feature, cancel, postpone, duplicate..."
+      "value": "Mettre en une, annuler, reporter, dupliquer..."
     }
   ],
   "next.views.EventShow.ContextBar.publishedInfo": [
     {
       "type": 0,
-      "value": "This event is visible on the agenda"
+      "value": "L'événement est visible sur l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
@@ -218,19 +218,31 @@
   "next.views.EventShow.ContextBar.removeConfirmation": [
     {
       "type": 0,
-      "value": "Are you sure you want to remove this event?"
+      "value": "Êtes-vous sûr de vouloir retirer cet événement ?"
     }
   ],
   "next.views.EventShow.ContextBar.removeEvent": [
     {
       "type": 0,
-      "value": "Remove event"
+      "value": "Retirer l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.removeEventInfo": [
     {
       "type": 0,
       "value": "L'veniment serà pas pus referenciat sus l'agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -248,7 +260,7 @@
   "next.views.EventShow.ContextBar.unfeature": [
     {
       "type": 0,
-      "value": "Unfeature"
+      "value": "Retirer de la une"
     }
   ],
   "next.views.EventShow.ContributorSection.contributor": [
@@ -314,7 +326,7 @@
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
     {
       "type": 0,
-      "value": "Share event"
+      "value": "Partager l'événement"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
@@ -390,19 +402,19 @@
   "next.views.EventShow.LocationHistory.showHistory": [
     {
       "type": 0,
-      "value": "Show history"
+      "value": "Voir l'historique"
     }
   ],
   "next.views.EventShow.NavigationButton.nextEvent": [
     {
       "type": 0,
-      "value": "Next event"
+      "value": "Événement suivant"
     }
   ],
   "next.views.EventShow.NavigationButton.previousEvent": [
     {
       "type": 0,
-      "value": "Previous event"
+      "value": "Événement précédent"
     }
   ],
   "next.views.EventShow.ShareModal.copied": [
@@ -426,13 +438,13 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "You must sign in to share this event"
+      "value": "Vous devez vous connecter pour partager cet événement"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [
     {
       "type": 0,
-      "value": "On OpenAgenda"
+      "value": "Sur OpenAgenda"
     }
   ],
   "next.views.EventShow.ShareModal.others": [
@@ -444,7 +456,7 @@
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
-      "value": "Select a timing"
+      "value": "Sélectionner un horaire"
     }
   ],
   "next.views.EventShow.ShareModal.send": [
@@ -468,7 +480,7 @@
   "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
     {
       "type": 0,
-      "value": "Type the email addresses you want to send the event"
+      "value": "Saisissez les adresses e-mail auxquelles vous souhaitez envoyer l'événement"
     }
   ],
   "next.views.EventShow.ShareModal.shareCalendar": [
@@ -480,13 +492,13 @@
   "next.views.EventShow.ShareModal.shareLink": [
     {
       "type": 0,
-      "value": "Share link"
+      "value": "Partager le lien"
     }
   ],
   "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
     {
       "type": 0,
-      "value": "Share on social networks"
+      "value": "Partager sur les réseaux sociaux"
     }
   ],
   "next.views.EventShow.ShareModal.signIn": [
@@ -510,7 +522,7 @@
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,
-      "value": "Complete link"
+      "value": "Lien complet"
     }
   ],
   "next.views.EventShow.Sidebar.conditions": [
@@ -552,13 +564,13 @@
   "next.views.EventShow.Timings.nextMonth": [
     {
       "type": 0,
-      "value": "Next month"
+      "value": "Mois suivant"
     }
   ],
   "next.views.EventShow.Timings.previousMonth": [
     {
       "type": 0,
-      "value": "Previous month"
+      "value": "Mois précédent"
     }
   ],
   "next.views.EventShow.aboutLocation": [

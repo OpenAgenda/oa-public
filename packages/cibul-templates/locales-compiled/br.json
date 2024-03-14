@@ -134,7 +134,7 @@
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Lien d'accès à l'événement en ligne"
+      "value": "Lien d'accès"
     }
   ],
   "common.event.fields.registration": [

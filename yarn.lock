@@ -7751,6 +7751,7 @@ __metadata:
     "@loadable/babel-plugin": "npm:^5.13.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
@@ -7780,6 +7781,7 @@ __metadata:
     enzyme: "npm:^3.3.0"
     enzyme-to-json: "npm:^3.4.2"
     errorhandler: "npm:^1.5.0"
+    eslint: "npm:^8.24.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
     history: "npm:^4.10.1"
@@ -8339,6 +8341,7 @@ __metadata:
     typescript: "npm:^4.8.4"
     universal-cookie: "npm:^4.0.4"
     use-local-storage-state: "npm:^18.1.2"
+    use-session-storage-state: "npm:^18.2.0"
     webpack: "npm:^5.72.0"
   languageName: unknown
   linkType: soft
@@ -42957,6 +42960,16 @@ __metadata:
     react: 16.8.0 - 18
     react-dom: 16.8.0 - 18
   checksum: 6ccdeb09fe20566ec182b1635a22f189e13d46226b74610432590e69b31ef5d05d069badc3306ebd0d2bb608743b17981fb535763a1d7dc2c8ae462ee8e5999c
+  languageName: node
+  linkType: hard
+
+"use-session-storage-state@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "use-session-storage-state@npm:18.2.0"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 3f6a6bd1bed3b76948531a80ad33d5bb407ac52f6ea3bfee764fad66a8ce909a4e52e88555f753526e148cf6f2db5dad5caf8bc7c634be59e5d846d97d6c64d9
   languageName: node
   linkType: hard
 

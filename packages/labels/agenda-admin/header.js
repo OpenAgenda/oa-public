@@ -15,7 +15,7 @@ module.exports = {
     "en": "Go to the Agenda Homepage",
     "de": "Kalender Startseite",
     "es": "Ir al inicio del Agenda",
-    "it": "Vai alla reception dell'agenda",
+    "it": "Vedere la pagina pubblica",
     "io": "crwdns11388:0crwdne11388:0",
     "oc": "Anar a l'acuèlh de l'agenda"
   },

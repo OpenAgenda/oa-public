@@ -4,7 +4,7 @@
   "connect": "Connectez-vous",
   "createAccount": "Création d'un nouveau compte",
   "culture": "Langue",
-  "email": "Adresse email",
+  "email": "Email",
   "emailSub": "OpenAgenda vous enverra vos notifications à cette adresse. Elle ne sera transmise à aucun tiers.",
   "fieldCannotBeEmpty": "Ce champ ne doit pas être vide",
   "hasAccount": "Vous avez déjà utilisé OpenAgenda ?",

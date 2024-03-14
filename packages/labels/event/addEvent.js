@@ -4,7 +4,7 @@ module.exports = {
   "title": {
     "fr": "Agenda désactivé",
     "en": "Deactivated agenda",
-    "it": "agenda disattivato",
+    "it": "Agenda disattivato",
     "io": "crwdns14104:0crwdne14104:0",
     "oc": "Agenda desactivada"
   },

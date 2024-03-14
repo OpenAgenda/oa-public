@@ -90,7 +90,7 @@
   "requestContributeRefuseModal": "Sei sicuro di voler rifiutare questo collaboratore?",
   "requestContributeRefuseModalTitle": "Rifiuta il contribuente",
   "requestContributeRefused": "La domanda è stata respinta.",
-  "requestEditionCreationTitle": "Richiesta di diritti di modifica su <a href=\"%link%\">%title%</a>",
+  "requestEditionCreationTitle": "Richiesta di diritti di modifica su <a href=\\\"%link%\\\">%title%</a>",
   "requestForContribution": "Richiesta di contributo a",
   "requestedEditingRights": "ha richiesto i diritti di pubblicazione",
   "required": "Richiesto",
