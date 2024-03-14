@@ -103,9 +103,9 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
   log('Found %s adminmods', members.length);
 
-  const contributorUser = await usersSvc.findOne({
+  const contributorUser = agendaEvent.userUid ? await usersSvc.findOne({
     query: { uid: agendaEvent.userUid },
-  });
+  }) : null;
 
   log('%s contributor user%s', contributorUser ? 'Found' : 'Did not find', contributorUser ? ` ${contributorUser.uid}` : '');
 
@@ -161,7 +161,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
     sentToCreator = true;
   }
 
-  if (contributorIsAdminmod || eventIsPublished || eventIsRefused) {
+  if (contributorUser && (contributorIsAdminmod || eventIsPublished || eventIsRefused)) {
     await sendToContributor({
       services,
       contributor,
@@ -198,7 +198,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
           // if notification was sent to creator and creator is member, should not receive eventChangeState.
           return false;
         }
-        if (sentToContributor && member.user.uid === contributorUser.uid) {
+        if (sentToContributor && member.user.uid === contributorUser?.uid) {
           // if notification was sent to contributor and is adminmod member, should not receive eventChangeState.
           return false;
         }
