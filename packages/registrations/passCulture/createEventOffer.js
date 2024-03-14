@@ -51,11 +51,16 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
 
   log('created event offer %s', result.eventOffer.id);
 
+  const formatedPriceCategories = priceCategories.map(priceCategory => ({
+    ...priceCategory,
+    price: parseFloat(priceCategory.price) * 100,
+  }));
+
   try {
     const {
       priceCategories: createdPriceCategories,
     } = await pc.offers.events(result.eventOffer.id).priceCategories.create({
-      priceCategories,
+      priceCategories: formatedPriceCategories,
     });
 
     result.priceCategories = createdPriceCategories;
