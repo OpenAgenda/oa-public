@@ -118,7 +118,8 @@ export default function EventItem({
   const intl = useIntl();
   const passId = event.registration.find(r => r.service === 'passCulture')?.data
     .id;
-
+  const passPending = event.registration.find(r => r.service === 'passCulture')?.data
+  .warning === 'pending';
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
       return false;
@@ -233,6 +234,7 @@ export default function EventItem({
         </a>
         {passId ? (
           <PassImage
+            pending={passPending}
             passId={passId}
             passRes={passRes}
             passTabIsOpen={passTabIsOpen}

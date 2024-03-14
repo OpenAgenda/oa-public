@@ -55,6 +55,7 @@
   "EventAdminApp.FiltersPortal.filters": "Filters",
   "EventAdminApp.PassImage.edit": "Edit",
   "EventAdminApp.PassImage.link": "This sheet is linked to a pass Culture offer",
+  "EventAdminApp.PassImage.linkPending": "This sheet is linked to a pending pass Culture offer",
   "EventAdminApp.PassImage.see": "See",
   "EventAdminApp.RemoveModal.confirm": "Confirm",
   "EventAdminApp.RemoveModal.deleteDesc": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
