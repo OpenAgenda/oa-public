@@ -70,7 +70,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   log('  loaded event %s', event.slug);
 
-  const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
+  const agendaEvent = shouldHaveAgendaEvent('update', event)
+    ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true })
+    : null;
 
   const actingMember = actingUserUid ? await members.get({
     agendaUid: agenda.uid,
@@ -193,7 +195,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const beforeEvent = await payload.getCompiledEvent('before');
   const afterEvent = await payload.getCompiledEvent();
 
-  if (isEventDifferent(beforeEvent, afterEvent)) {
+  if (!event.draft && isEventDifferent(beforeEvent, afterEvent)) {
     try {
       await createUpdateActivity(core.services, beforeEvent, afterEvent, {
         userUid: actingUserUid,
