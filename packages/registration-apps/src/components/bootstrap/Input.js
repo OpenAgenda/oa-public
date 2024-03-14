@@ -11,6 +11,7 @@ export default function Input({
   maxLength = null,
   warning = null,
   info = null,
+  step = null,
 }) {
   return (
     <div className={`form-group margin-right-sm ${warning ? 'has-warning' : ''}`}>
@@ -24,6 +25,7 @@ export default function Input({
         className="form-control"
         placeholder={placeholder}
         maxLength={maxLength}
+        step={step}
       />
       {maxLength && type === 'string' ? (<FieldCounter value={value} max={maxLength} />) : null}
       {sub ? <span className="sub">{sub}</span> : null}
