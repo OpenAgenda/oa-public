@@ -38,6 +38,8 @@
   "next.views.EventShow.ContextBar.removeConfirmation": "Are you sure you want to remove this event?",
   "next.views.EventShow.ContextBar.removeEvent": "Remove event",
   "next.views.EventShow.ContextBar.removeEventInfo": "The event will no longer be referenced on the agenda",
+  "next.views.EventShow.ContextBar.requestEditionRights": "Request edition rights",
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
   "next.views.EventShow.ContextBar.state": "State:",
   "next.views.EventShow.ContextBar.toModerateInfo": "This event needs to be verified and is not ready for publication",
   "next.views.EventShow.ContextBar.unfeature": "Unfeature",

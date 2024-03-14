@@ -4,6 +4,6 @@
   "invitationNotSent": "L'invito non ha potuto essere inviato",
   "noNewInvite": "Nessun nuovo invito è stato inviato",
   "resentInvite": "L'invito è essere risentito",
-  "resentInvites": "%count% inviti vengono di nuovo inviate. Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
+  "resentInvites": "%count% inviti vengono di nuovo inviate.<br/><br/>Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
   "sentInvites": "Inviti inviati: %count%"
 }

@@ -464,7 +464,7 @@ module.exports = {
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
     "fr": "Celles-ci servent pour l'indexation dans l'agenda. Vous pouvez en choisir une.",
-    "it": "Questi sono utilizzati per l'indicizzazione nell'agenda. Potete scegliere uno di loro.",
+    "it": "Questi sono utilizzati per l'indicizzazione nell'agenda. Sceglierne uno.",
     "de": "Diese werden verwendet, um Deine Veranstaltung im Veranstaltungskalender zu indexieren. Such dir einen aus.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
     "br": "Implijet e vez ar re-mañ da venegeriñ an deiziataer. Gallout a rit choaz unan.",

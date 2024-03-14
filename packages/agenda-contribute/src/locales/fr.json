@@ -51,7 +51,7 @@
   "AgendaContribute.RequestEditionRights.requestEditionRights": "Demander les droits d'édition",
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": "Seuls les champs spécifiques l'agenda sont présentés.",
-  "AgendaContribute.ShowFullEventForm.showEventFields": "Editer également les champs de l'événement",
+  "AgendaContribute.ShowFullEventForm.showEventFields": "Modifier les champs de l'événement",
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "Vous disposez des droits d'édition sur l'événement. Toute édition faite lors de ce partage sur ses champs standards (titre, description, horaires...) sera répercutée sur les agendas où il est réferencé.",
   "AgendaContribute.Stepper.confirmation": "Confirmation",
   "AgendaContribute.Stepper.event": "Mon événement",

@@ -135,7 +135,7 @@ module.exports = {
     "fr": "Le lien utilisé pour votre changement d'email n'est plus valide",
     "de": "Der Link für Ihre E-Mail-Änderung verwendet wird, ist nicht mehr verfügbar",
     "es": "El enlace utilizado para cambiar su correo electrónico ya no es válida",
-    "it": "Il link utilizzato per la modifica dell'e-mail non è più valido.",
+    "it": "Il link utilizzato per la modifica dell'e-mail non è più valido",
     "io": "crwdns15848:0crwdne15848:0",
     "oc": "Lo ligam utilizat per vòstre cambiament d'email es pas pus valide"
   },

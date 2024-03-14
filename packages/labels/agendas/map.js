@@ -2,7 +2,7 @@
 
 module.exports = {
   "mapSync": {
-    "it": "Cercare quando sposto la mappa",
+    "it": "cercare quando sposto la mappa",
     "fr": "rechercher quand je déplace la carte",
     "en": "search when I move the map",
     "es": "busca cuando cambia el mapa",

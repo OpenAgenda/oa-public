@@ -233,6 +233,18 @@
       "value": "The event will no longer be referenced on the agenda"
     }
   ],
+  "next.views.EventShow.ContextBar.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+    }
+  ],
   "next.views.EventShow.ContextBar.state": [
     {
       "type": 0,

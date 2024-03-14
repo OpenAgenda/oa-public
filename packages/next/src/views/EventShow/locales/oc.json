@@ -38,6 +38,8 @@
   "next.views.EventShow.ContextBar.removeConfirmation": "",
   "next.views.EventShow.ContextBar.removeEvent": "",
   "next.views.EventShow.ContextBar.removeEventInfo": "L'veniment serà pas pus referenciat sus l'agenda",
+  "next.views.EventShow.ContextBar.requestEditionRights": "",
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": "",
   "next.views.EventShow.ContextBar.state": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat",
   "next.views.EventShow.ContextBar.unfeature": "",

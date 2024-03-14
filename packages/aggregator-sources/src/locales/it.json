@@ -38,7 +38,7 @@
   "aggregator-sources.Dashboard.numberOfResults": "Numero di risultati",
   "aggregator-sources.Dashboard.searchAgenda": "Cerca un'agenda",
   "aggregator-sources.Dashboard.sourceAgendas": "Agende fonti",
-  "aggregator-sources.Dashboard.sourcesExplanation": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente all'agenda {title}({link}).",
+  "aggregator-sources.Dashboard.sourcesExplanation": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente all'agenda [{title}]({link}).",
   "aggregator-sources.Dashboard.sourcesHelp": "Clicca qui per maggiori informazioni",
   "aggregator-sources.Dashboard.startUse": "Iniziare",
   "aggregator-sources.DefineRules.RuleItem.update": "Aggiorna",

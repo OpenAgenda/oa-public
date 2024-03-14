@@ -60,7 +60,7 @@ module.exports = {
     "oc": "Suprimir"
   },
   "editFieldLabels": {
-    "fr": "Editer les labels",
+    "fr": "Modifier les labels",
     "en": "Edit labels",
     "de": "Beschriftungen bearbeiten",
     "es": "Editar las etiquetas",

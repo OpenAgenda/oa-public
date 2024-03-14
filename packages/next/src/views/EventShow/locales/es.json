@@ -38,6 +38,8 @@
   "next.views.EventShow.ContextBar.removeConfirmation": "",
   "next.views.EventShow.ContextBar.removeEvent": "",
   "next.views.EventShow.ContextBar.removeEventInfo": "",
+  "next.views.EventShow.ContextBar.requestEditionRights": "",
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": "",
   "next.views.EventShow.ContextBar.state": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Este evento debe ser moderado y no está listo para ser publicado",
   "next.views.EventShow.ContextBar.unfeature": "",

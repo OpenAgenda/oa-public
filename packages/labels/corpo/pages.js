@@ -394,7 +394,7 @@ module.exports = {
     "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!",
-    "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri.",
+    "it": "I suoi eventi sono dettagliati e potete organizzare la sua agenda secondo diversi criteri.",
     "io": "crwdns13532:0crwdne13532:0",
     "oc": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri."
   },
@@ -1923,7 +1923,7 @@ module.exports = {
     "fr": "Gérez des agendas **privés**",
     "de": "Mache Deine Kalenders ** ** Privat",
     "es": "Administrar agendas ** ** privada",
-    "it": "Gestire i calendari privati",
+    "it": "Gestire i calendari **privati**",
     "io": "crwdns13888:0crwdne13888:0"
   },
   "privateVisibility": {
