@@ -1,0 +1,145 @@
+{
+    "conversation": {
+        "id": 89053,
+        "type": "request_contribute",
+        "typeIdentifier": "11317568",
+        "store": {
+            "params": {
+                "agendaTitle": "Département du Calvados",
+                "agendaUid": 11317568
+            }
+        },
+        "createdAt": "2024-03-12T09:44:01.000Z",
+        "updatedAt": "2024-03-12T09:44:01.000Z",
+        "resolvedAt": null,
+        "closedAt": null,
+        "fileKey": "2005258a2bbb4ae0ad202946691d7716",
+        "inboxContextId": 55558,
+        "creatorInbox": {
+            "id": 114000,
+            "type": "user",
+            "identifier": 31935178,
+            "uid": 31935178,
+            "name": "Adeline Déprez",
+            "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+        },
+        "inboxUser": {
+            "id": 94227,
+            "inboxId": 55558,
+            "userUid": 75052324,
+            "leftAt": null,
+            "uid": 75052324,
+            "name": "Kaoré OpenAgenda",
+            "avatar": "https://cibul.s3.amazonaws.com/user.profile.75052324.jpg"
+        },
+        "latestMessage": {
+            "id": 164570,
+            "conversationId": 89053,
+            "body": "Bonjour, \nJe souhaiterais avoir la possibilité de vous faire remonter nos événements à Lisieux. Pouvez-vous me laisser un accès ? Ou bien agréger notre flux si vous préférez. \n\nJe reste à votre disposition, merci d'avance pour votre réponse ! \nAdeline Déprez\nChargée de communication numérique \nVille de Lisieux",
+            "createdAt": "2024-03-12T09:44:01.000Z",
+            "inbox": {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "attachments": []
+        },
+        "inboxes": [
+            {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            {
+                "id": 55558,
+                "type": "agenda",
+                "identifier": 11317568,
+                "uid": 11317568,
+                "name": "Département du Calvados",
+                "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+            }
+        ],
+        "actions": [
+            {
+                "code": "accept",
+                "label": {
+                    "fr": "Ajouter en tant que contributeur",
+                    "en": "Add as a contributor"
+                },
+                "kind": "primary",
+                "confirmationModalTitle": {
+                    "fr": "Accepter le contributeur",
+                    "en": "Accept the contributor",
+                    "de": "Übernehmen Sie den Beitrag",
+                    "es": "Aceptar el colaborador",
+                    "it": "Accettare il collaboratore",
+                    "io": "crwdns15200:0crwdne15200:0"
+                },
+                "confirmationModalLabel": {
+                    "fr": "Êtes-vous sûr de vouloir accepter ce contributeur ?",
+                    "en": "Are you sure you want to accept this contributor ?",
+                    "de": "Bist du sicher, dass du diesen Beitrag akzeptieren willst?",
+                    "es": "¿Está seguro de que desea aceptar colaborador?",
+                    "it": "Sei sicuro di voler accettare questo contributo?",
+                    "io": "crwdns15202:0crwdne15202:0"
+                }
+            },
+            {
+                "code": "refuse",
+                "label": {
+                    "fr": "Refuser la demande",
+                    "en": "Refuse the request"
+                },
+                "kind": "danger",
+                "confirmationModalTitle": {
+                    "fr": "Refuser le contributeur",
+                    "en": "Refuse the contributor",
+                    "de": "Weigern, den Beitrag",
+                    "es": "rechazar colaborador",
+                    "it": "Rifiuta il contribuente",
+                    "io": "crwdns15204:0crwdne15204:0"
+                },
+                "confirmationModalLabel": {
+                    "fr": "Êtes-vous sûr de vouloir refuser ce contributeur ?",
+                    "en": "Are you sure you want to refuse this contributor?",
+                    "de": "Bist du sicher, dass du diesen Beitrag ablehnen willst?",
+                    "es": "¿Está seguro de que desea denegar el contribuyente?",
+                    "it": "Sei sicuro di voler rifiutare questo collaboratore?",
+                    "io": "crwdns15206:0crwdne15206:0"
+                }
+            },
+            {
+                "code": "involveTechnicalSupport",
+                "label": {
+                    "fr": "Impliquer le support technique",
+                    "en": "Involve technical support"
+                },
+                "kind": "default",
+                "resolve": false
+            }
+        ]
+    },
+    "messages": [
+        {
+            "id": 164570,
+            "conversationId": 89053,
+            "body": "Bonjour, \nJe souhaiterais avoir la possibilité de vous faire remonter nos événements à Lisieux. Pouvez-vous me laisser un accès ? Ou bien agréger notre flux si vous préférez. \n\nJe reste à votre disposition, merci d'avance pour votre réponse ! \nAdeline Déprez\nChargée de communication numérique \nVille de Lisieux",
+            "createdAt": "2024-03-12T09:44:01.000Z",
+            "inbox": {
+                "id": 114000,
+                "type": "user",
+                "identifier": 31935178,
+                "uid": 31935178,
+                "name": "Adeline Déprez",
+                "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+            },
+            "attachments": []
+        }
+    ]
+}

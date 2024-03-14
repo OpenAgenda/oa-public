@@ -10,10 +10,8 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/inbox-apps",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
-    "storybook": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
-    "knex": "babel-node $(yarn bin knex)",
+    "sb": "yarn start",
+    "start": "storybook dev -p 9001  --ci",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "test": "jest --coverage --forceExit",
@@ -22,6 +20,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
+    "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-form-components": "^2.1.14",
@@ -37,10 +36,10 @@
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "dompurify": "^3.0.8",
+    "eslint": "^8.24.0",
     "final-form": "^4.20.2",
     "immutability-helper": "^3.0.0",
     "js-cookie": "^2.2.0",
-    "knex": "^2.4.2",
     "lodash": "^4.17.15",
     "marked": "^11.1.1",
     "moment": "^2.27.0",
@@ -64,7 +63,6 @@
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
-    "@openagenda/inboxes": "^1.1.14",
     "@storybook/react-webpack5": "^7.4.2",
     "babel-jest": "^29.7.0",
     "body-parser": "^1.18.3",
@@ -74,6 +72,7 @@
     "chai-jest-snapshot": "^2.0.0",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
+    "dedent": "^0.7.0",
     "enzyme": "^3.3.0",
     "enzyme-to-json": "^3.4.2",
     "errorhandler": "^1.5.0",
@@ -82,6 +81,8 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "morgan": "^1.9.1",
+    "msw": "^0.49.2",
+    "msw-storybook-addon": "^1.10.0",
     "nodemon": "^2.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -99,5 +100,8 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
+  },
+  "msw": {
+    "workerDirectory": ".storybook/public"
   }
 }

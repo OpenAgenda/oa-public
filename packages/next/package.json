@@ -68,7 +68,8 @@
     "swr": "^2.1.1",
     "tlds": "^1.247.0",
     "universal-cookie": "^4.0.4",
-    "use-local-storage-state": "^18.1.2"
+    "use-local-storage-state": "^18.1.2",
+    "use-session-storage-state": "^18.2.0"
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",

@@ -13,8 +13,8 @@ const getDefaultState = () => ({
     deleteAccount: '/users/me',
     changeEmail: '/users/me/requestChangeEmail',
     changePassword: '/users/me/changePassword',
-    generateApiKey: '/users/me/generateApiKey'
-  }
+    generateApiKey: '/users/me/generateApiKey',
+  },
 });
 
 export default {
@@ -66,14 +66,14 @@ export default {
 export function All() {
   return wrapApp(createApp({
     history: createMemoryHistory(),
-    initialState: getDefaultState()
+    initialState: getDefaultState(),
   }), {
     extraProps: {
       user: {
         id: 1,
-        uid: 75052324
+        uid: 75052324,
       },
-      lang: 'fr'
-    }
+      lang: 'fr',
+    },
   });
 }
