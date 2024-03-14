@@ -11,7 +11,9 @@ const ENV = process.env.NODE_ENV;
 
 if (ENV === 'production') {
   const dsnComponents = dsnFromString(SENTRY_DSN);
-  const sentrySaasDsnMatch = dsnComponents.host.match(/^o(\d+)\.ingest\.sentry\.io$/);
+  const sentrySaasDsnMatch = dsnComponents.host.match(
+    /^o(\d+)\.ingest\.sentry\.io$/,
+  );
   const orgId = sentrySaasDsnMatch[1];
 
   if (sentrySaasDsnMatch) {
@@ -20,7 +22,7 @@ if (ENV === 'production') {
       environment: ENV === 'production' ? 'production' : 'development',
       // Adjust this value in production, or use tracesSampler for greater control
       tracesSampleRate: 1.0,
-      tunnel: `/api/monit?o=${orgId}&p=${dsnComponents.projectId}`,
+      tunnel: `/monit?o=${orgId}&p=${dsnComponents.projectId}`,
       // ...
       // Note: if you want to override the automatic release value, do not set a
       // `release` value here - use the environment variable `SENTRY_RELEASE`, so
