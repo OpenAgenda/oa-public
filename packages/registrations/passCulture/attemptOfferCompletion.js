@@ -12,10 +12,10 @@ export default async function attemptOfferCompletion({ pc, interfaces }, { event
   const offer = await pc.offers.events(eventOfferId).get();
   log.info('offer status', { status: offer.status, id: eventOfferId });
 
-  if (interfaces?.checkEventStatus) {
-    const resp = await interfaces.checkEventStatus(agendaUid, eventUid);
+  if (interfaces?.checkEvent) {
+    const resp = await interfaces.checkEvent(agendaUid, eventUid);
     if (resp === false) {
-      log.error('event is not active');
+      log.error('OA event is no longer available');
       return false;
     }
   }

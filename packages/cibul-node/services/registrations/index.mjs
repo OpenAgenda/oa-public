@@ -8,16 +8,16 @@ import patchOaEventRegistration from './utils/patchOaEventRegistration.mjs';
 
 const log = logs('services/registrations');
 
-const checkEventStatus = async (services, agendaUid, eventUid) => {
+const checkEvent = async (services, agendaUid, eventUid) => {
   const { core } = services;
   const event = await core.agendas(agendaUid).events.get(eventUid, { access: 'internal' });
 
   if (!event) {
-    log('checkEventStatus', 'event not found');
+    log('checkEvent', 'event not found');
     return false;
   }
   if (event.draft) {
-    log('checkEventStatus', 'event is draft');
+    log('checkEvent', 'event is draft');
     return false;
   }
   return true;
@@ -34,7 +34,7 @@ export function init(config, services) {
       ...config.passCulture,
       interfaces: {
         patchOaEventRegistration: patchOaEventRegistration.bind(null, services),
-        checkEventStatus: checkEventStatus.bind(null, services),
+        checkEvent: checkEvent.bind(null, services),
       },
     },
     logger: config.getLogConfig('svc', 'registrations'),
