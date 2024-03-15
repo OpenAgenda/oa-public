@@ -283,7 +283,11 @@ function filterNullCountryCode(dirty) {
   return false;
 }
 
-function validateQuery(dirty, { formSchema, emptyValue }) {
+function validateQuery(dirty, options = {}) {
+  const {
+    formSchema,
+    emptyValue,
+  } = options;
   const isCountryCodeNull = filterNullCountryCode(dirty);
   const preCleaned = preCleanRawQuery(dirty);
   const clean = validate(preCleaned);
