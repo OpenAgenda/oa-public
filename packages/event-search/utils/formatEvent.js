@@ -65,6 +65,7 @@ module.exports = produce((event, options = {}) => {
       }, []),
     _search_additional_keywords: [],
     _search_additional_numbers: [],
+    _referencing_agenda_uids: event.referencingAgendaUids || [],
   });
 
   const {

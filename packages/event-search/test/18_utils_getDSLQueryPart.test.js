@@ -74,4 +74,79 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
       },
     });
   });
+
+  it('filtering by uniq ReferencingAgendaUid', () => {
+    expect(
+      getDSLQueryPart(validateQuery({ referencingAgendaUid: 123 })),
+    ).toEqual({
+      bool: {
+        filter: [
+          {
+            term: {
+              _referencing_agenda_uids: 123,
+            },
+          },
+          {
+            terms: {
+              state: [2],
+            },
+          },
+        ],
+      },
+    });
+  });
+
+  it('filtering by uniq notReferencingAgendaUid', () => {
+    expect(
+      getDSLQueryPart(validateQuery({ notReferencingAgendaUid: 123 })),
+    ).toEqual({
+      bool: {
+        filter: [
+          {
+            terms: {
+              state: [2],
+            },
+          },
+        ],
+        must_not: {
+          bool: {
+            filter: [
+              {
+                term: {
+                  _referencing_agenda_uids: 123,
+                },
+              },
+            ],
+          },
+        },
+      },
+    });
+  });
+
+  it('filtering by multiple notReferencingAgendaUid', () => {
+    expect(
+      getDSLQueryPart(validateQuery({ notReferencingAgendaUid: [123, 124] })),
+    ).toEqual({
+      bool: {
+        filter: [
+          {
+            terms: {
+              state: [2],
+            },
+          },
+        ],
+        must_not: {
+          bool: {
+            filter: [
+              {
+                terms: {
+                  _referencing_agenda_uids: [123, 124],
+                },
+              },
+            ],
+          },
+        },
+      },
+    });
+  });
 });
