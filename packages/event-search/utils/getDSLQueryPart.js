@@ -411,6 +411,27 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
   return parts;
 }
 
+function _getQueryMustNotFilterParts(cleanQuery) {
+  const parts = [];
+  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
+  const hasCurrent = cleanQuery.relative.includes('current');
+
+  if (hasPassedAndUpcoming && !hasCurrent) {
+    parts.push({
+      range: {
+        _search_first_timing: { lte: 'now' },
+      },
+    });
+    parts.push({
+      range: {
+        _search_last_timing: { gte: 'now' },
+      },
+    });
+  }
+
+  return parts;
+}
+
 module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
   const {
     formSchema,
@@ -426,6 +447,8 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
 
   const filterParts = _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue });
 
+  const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
+
   if (mustParts.length === 1 && !filterParts.length) {
     _.extend(query, mustParts[0]);
   } else if (mustParts.length > 1 || (filterParts.length && mustParts.length)) {
@@ -436,22 +459,8 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
     _.set(query, 'bool.filter', filterParts);
   }
 
-  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
-  const hasCurrent = cleanQuery.relative.includes('current');
-  if (hasPassedAndUpcoming && !hasCurrent) {
-    _.set(query, 'bool.must_not', {
-      bool: {
-        filter: [{
-          range: {
-            _search_first_timing: { lte: 'now' },
-          },
-        }, {
-          range: {
-            _search_last_timing: { gte: 'now' },
-          },
-        }],
-      },
-    });
+  if (mustNotFilterParts.length) {
+    _.set(query, 'bool.must_not.bool.filter', mustNotFilterParts);
   }
 
   return query;
