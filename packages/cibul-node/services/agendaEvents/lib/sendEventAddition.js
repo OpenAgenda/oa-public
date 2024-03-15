@@ -50,11 +50,10 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
       uid: event.creatorUid,
     },
   });
-  const creator = await membersSvc.get({
+  const creator = creatorUser ? await membersSvc.get({
     agendaUid: originAgenda.uid,
     userUid: creatorUser.uid,
-  });
-  const creatorLang = creatorUser.culture || 'fr';
+  }) : null;
 
   const sharerMember = !agenda.private && context.userUid ? await membersSvc.get({
     agendaUid: agenda.uid,
@@ -71,11 +70,13 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
     return;
   }
 
-  const creatorIsInDestination = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
+  const creatorIsInDestination = creatorUser
+    && members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
   const visibleForCreator = creatorIsInDestination
     || (!agenda.private && stateLabel === 'published');
 
   if (visibleForCreator) {
+    const creatorLang = creatorUser.culture || 'fr';
     await mails.send({
       template: 'myEventAddition',
       to: {
@@ -108,7 +109,7 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
     const targetedMembers = members.filter(member =>
       member.user
       && !(
-        member.user.uid === creatorUser.uid && visibleForCreator
+        visibleForCreator && member.user.uid === creatorUser.uid
       ));
 
     await mails.send({
