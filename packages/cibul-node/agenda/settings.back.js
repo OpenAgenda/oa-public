@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-const mw = require( '@openagenda/agenda-settings' ).mw;
-const keysMw = require( '@openagenda/keys/middleware' );
-const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
-const getLabel = require( '@openagenda/labels' )( labels );
-const cmn = require( '../lib/commons-app' );
+const { mw } = require('@openagenda/agenda-settings');
+const keysMw = require('@openagenda/keys/middleware');
+const labels = require('@openagenda/labels/agenda-settings/agendaEdition');
+const getLabel = require('@openagenda/labels')(labels);
+const cmn = require('../lib/commons-app');
 
 module.exports = app => {
   const {
@@ -19,21 +19,21 @@ module.exports = app => {
     '/agendas/new',
     sessions.mw.loadOrRedirect(),
     agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
-    mw.create
+    mw.create,
   );
 
   app.post(
     '/agendas/slugs/available',
     sessions.mw.loadOrRedirect(),
-    mw.slugs.available
+    mw.slugs.available,
   );
 
   app.get(
     '/agendas/:uid/admin/settings.json',
     sessions.mw.loadOrRedirect(),
-    cmn.loadAgendaBy( 'uid' ),
+    cmn.loadAgendaBy('uid'),
     members.mw.loadAndAuthorize('administrator'),
-    mw.get
+    mw.get,
   );
 
   app.post(
@@ -43,17 +43,17 @@ module.exports = app => {
     members.mw.loadAndAuthorize('administrator'),
     agendas.getConfig().upload.middleware([{
       name: 'image',
-      unique: true
+      unique: true,
     }]),
     (req, res, next) => {
       core.agendas(req.agenda).update(req.body, {
         includeImagePath: true,
         private: null,
         context: { user: req.user },
-        internal: true
+        internal: true,
       }).then(agenda => res.json({
         success: true,
-        agenda
+        agenda,
       }), err => {
         if (err.name === 'BadRequest') {
           return res.status(400).json(err);
@@ -61,7 +61,7 @@ module.exports = app => {
 
         next(err);
       });
-    }
+    },
   );
 
   app.post(
@@ -71,11 +71,11 @@ module.exports = app => {
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
-      req.app.services.core.agendas( req.agenda.uid ).remove().then( () => {
-        sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
-        res.json( { redirectTo: '/home' } );
-      }, next );
-    }
+      req.app.services.core.agendas(req.agenda.uid).remove().then(() => {
+        sessions.setFlash(req, res, getLabel('agendaRemoved', req.lang));
+        res.json({ redirectTo: '/home' });
+      }, next);
+    },
   );
 
   app.post(
@@ -83,15 +83,15 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
-        identifier: req.agenda.uid
+        identifier: req.agenda.uid,
       };
       next();
     },
     keysMw.create(),
-    ( req, res, next ) => res.send( req.result )
+    (req, res) => res.send(req.result),
   );
 
   app.get(
@@ -99,16 +99,16 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.get(),
-    ( req, res, next ) => res.send( req.result )
+    (req, res) => res.send(req.result),
   );
 
   app.get(
@@ -116,16 +116,16 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
-        identifier: req.agenda.uid
+        identifier: req.agenda.uid,
       };
       req.options = { total: true };
       next();
     },
     keysMw.list(),
-    ( req, res, next ) => res.send( req.result )
+    (req, res) => res.send(req.result),
   );
 
   app.patch(
@@ -133,16 +133,16 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.update(),
-    ( req, res, next ) => res.send( req.result )
+    (req, res) => res.send(req.result),
   );
 
   app.delete(
@@ -150,15 +150,15 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.remove(),
-    ( req, res, next ) => res.send( { rowAffected: req.result } )
+    (req, res) => res.send({ rowAffected: req.result }),
   );
 };
