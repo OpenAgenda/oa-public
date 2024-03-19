@@ -5256,7 +5256,7 @@ __metadata:
   dependencies:
     debug: "npm:^4.1.1"
     jest: "npm:^29.7.0"
-    r7insight_node: "npm:^1.8.1"
+    r7insight_node: "npm:^3.3.1"
     sinon: "npm:^8.1.1"
     winston: "npm:^2.4.5"
   languageName: unknown
@@ -10355,15 +10355,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-runtime@npm:6.6.1":
-  version: 6.6.1
-  resolution: "babel-runtime@npm:6.6.1"
-  dependencies:
-    core-js: "npm:^2.1.0"
-  checksum: fec60fa9e2e03168bd3d142a43c2136a0c351a17edf330153c50f5cbf21bcb83bbb2e4a3b21488c01373d1fdb5c7d93ac172bcc496848e6a0b6fe86c49bb8e63
-  languageName: node
-  linkType: hard
-
 "backo2@npm:1.0.2":
   version: 1.0.2
   resolution: "backo2@npm:1.0.2"
@@ -11742,15 +11733,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codependency@npm:0.1.4":
-  version: 0.1.4
-  resolution: "codependency@npm:0.1.4"
-  dependencies:
-    semver: "npm:5.0.1"
-  checksum: b849dba025887c57351241418b1e5242d46666efdae176c82c86f2fce3531dddd6bc7d294be7525cf3642f09ab78ba95a215d501a2489e661b3c08f5194c483b
-  languageName: node
-  linkType: hard
-
 "collect-v8-coverage@npm:^1.0.0":
   version: 1.0.0
   resolution: "collect-v8-coverage@npm:1.0.0"
@@ -12358,7 +12340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.1.0, core-js@npm:^2.6.12":
+"core-js@npm:^2.6.12":
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: 00128efe427789120a06b819adc94cc72b96955acb331cb71d09287baf9bd37bebd191d91f1ee4939c893a050307ead4faea08876f09115112612b6a05684b63
@@ -19106,7 +19088,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-stringify-safe@npm:5.0.1, json-stringify-safe@npm:~5.0.1":
+"json-stringify-safe@npm:^5.0.1, json-stringify-safe@npm:~5.0.1":
   version: 5.0.1
   resolution: "json-stringify-safe@npm:5.0.1"
   checksum: 7dbf35cd0411d1d648dceb6d59ce5857ec939e52e4afc37601aa3da611f0987d5cee5b38d58329ceddf3ed48bd7215229c8d52059ab01f2444a338bf24ed0f37
@@ -19661,13 +19643,6 @@ __metadata:
   version: 4.3.1
   resolution: "lodash.upperfirst@npm:4.3.1"
   checksum: 435625da4b3ee74e7a1367a780d9107ab0b13ef4359fc074b2a1a40458eb8d91b655af62f6795b7138d493303a98c0285340160341561d6896e4947e077fa975
-  languageName: node
-  linkType: hard
-
-"lodash@npm:4.17.15":
-  version: 4.17.15
-  resolution: "lodash@npm:4.17.15"
-  checksum: c029ab298357d007252d5802348f1deb343099ba734ae6e6776a908e4995db5b8ed4ae51ff83a2937a1f6e3c41a0c8941eb941926e1a7f2ddfc3d235ec1e8aa7
   languageName: node
   linkType: hard
 
@@ -23406,17 +23381,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"r7insight_node@npm:^1.8.1":
-  version: 1.8.4
-  resolution: "r7insight_node@npm:1.8.4"
+"r7insight_node@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "r7insight_node@npm:3.3.1"
   dependencies:
-    babel-runtime: "npm:6.6.1"
-    codependency: "npm:0.1.4"
-    json-stringify-safe: "npm:5.0.1"
-    lodash: "npm:4.17.15"
-    reconnect-core: "npm:1.3.0"
-    semver: "npm:5.1.0"
-  checksum: 9d8bde64f3fd88141b340f24a8bbf6727329d4cb95a2e9ae407331254d74ace0ed22984ddb9f88b02546edaeec4187b847a3c86ed8dc80ca46cd003afc1baa42
+    json-stringify-safe: "npm:^5.0.1"
+    lodash: "npm:^4.17.15"
+    reconnect-core: "npm:^1.3.0"
+  peerDependencies:
+    winston: 3.x
+    winston-transport: 4.x
+  peerDependenciesMeta:
+    winston:
+      optional: true
+    winston-transport:
+      optional: true
+  checksum: 19af28234ffb1b57a1fe1fc1e513c0b83520c615a3bbadc097934ed9b1e48f28586ae7d2cd024e1abbc2fe54986c18bb3d25640178535d69db26bc69a4824f81
   languageName: node
   linkType: hard
 
@@ -24447,7 +24427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reconnect-core@npm:1.3.0":
+"reconnect-core@npm:^1.3.0":
   version: 1.3.0
   resolution: "reconnect-core@npm:1.3.0"
   dependencies:
@@ -25470,24 +25450,6 @@ __metadata:
   bin:
     semver: ./bin/semver
   checksum: d4884f2aeca28bff35d0bd40ff0a9b2dfc4b36a883bf0ea5dc15d10d9a01bdc9041035b05f825d4b5ac8a56e490703dbf0d986d054de82cc5e9bad3f02ca6e00
-  languageName: node
-  linkType: hard
-
-"semver@npm:5.0.1":
-  version: 5.0.1
-  resolution: "semver@npm:5.0.1"
-  bin:
-    semver: ./bin/semver
-  checksum: 14f1a9ea5ab23fd66fedf119b955e390233fcdfa0a1d2e9eb4830b75ebce7dedc0018518c5dd12c096b51c78bbb7507446b99de9d438cc8a3e208deefb463797
-  languageName: node
-  linkType: hard
-
-"semver@npm:5.1.0":
-  version: 5.1.0
-  resolution: "semver@npm:5.1.0"
-  bin:
-    semver: ./bin/semver
-  checksum: a624202996ef2b4e3864dd2eac2bb40908d897c0e2ffc8352a2108b8e087884f20d7ceb45e740101d7139d36a9d10454d69cd7755625de4554db641e50837650
   languageName: node
   linkType: hard
 
