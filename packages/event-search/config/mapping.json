@@ -198,5 +198,8 @@
   },
   "_search_empty_fields": {
     "type": "keyword"
+  },
+  "_referencing_agenda_uids": {
+      "type": "keyword"
   }
 }

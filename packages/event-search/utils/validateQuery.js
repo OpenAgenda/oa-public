@@ -133,6 +133,14 @@ const validate = schema({
     type: 'choice',
     options: [1, 2, 3, 4, 5, 6],
   },
+  referencingAgendaUid: {
+    type: 'integer',
+    list: true,
+  },
+  notReferencingAgendaUid: {
+    type: 'integer',
+    list: true,
+  },
   featured: {
     optional: true,
     type: 'boolean',

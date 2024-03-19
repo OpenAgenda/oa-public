@@ -239,7 +239,7 @@ describe('02 - event search - functional: search', () => {
           detailed: true,
         });
 
-        expect(Object.keys(events[0])).toEqual(
+        expect(Object.keys(events[0]).sort()).toEqual(
           [
             'longDescription', 'country',
             'private',
@@ -257,7 +257,7 @@ describe('02 - event search - functional: search', () => {
             'registration', 'location', 'ownerUid',
             'age',
             'nextTiming',
-          ],
+          ].sort(),
         );
       });
     });
