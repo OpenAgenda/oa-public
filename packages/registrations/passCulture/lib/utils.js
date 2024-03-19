@@ -48,3 +48,26 @@ export async function processImage({ url, path }) {
       });
   });
 }
+
+function extractPropertyValues(property) {
+  if (property.anyOf) {
+    return property.anyOf.filter(f => f.$ref.indexOf('TiteliveMusicTypeEnum') === -1).pop().$ref.split('/').pop();
+  }
+  return property.$ref.split('/').pop();
+}
+
+export function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
+  const relatedSchemas = openAPIObj.components.schemas[schema].properties[relatedKey].discriminator.mapping;
+
+  return Object.keys(relatedSchemas).map(value => {
+    const obj = openAPIObj.components.schemas[relatedSchemas[value].split('/').pop()];
+
+    return {
+      value,
+      label: obj.description,
+      related: obj.required
+        .filter(r => r !== key)
+        .map(r => extractPropertyValues(obj.properties[r])),
+    };
+  });
+}

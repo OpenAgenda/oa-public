@@ -2,6 +2,7 @@ import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import _ from 'lodash';
 import axios from 'axios';
+import { extractSchemaOptions } from './utils.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -18,22 +19,6 @@ const labelizeENUMValue = value => {
   }
   return value.split('-').map(p => _.capitalize(p).replace(/_/g, ' ')).join(' - ');
 };
-
-function extractSchemaOptions(openAPIObj, schema, key, relatedKey) {
-  const relatedSchemas = openAPIObj.components.schemas[schema].properties[relatedKey].discriminator.mapping;
-
-  return Object.keys(relatedSchemas).map(value => {
-    const obj = openAPIObj.components.schemas[relatedSchemas[value].split('/').pop()];
-
-    return {
-      value,
-      label: obj.description,
-      related: obj.required
-        .filter(r => r !== key)
-        .map(r => obj.properties[r].$ref.split('/').pop()),
-    };
-  });
-}
 
 async function listEventOfferCategories({ api }) {
   const openAPIObj = await axios({
