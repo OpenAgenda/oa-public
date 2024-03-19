@@ -1,9 +1,8 @@
 'use strict';
 
-const winston = require('winston');
 const DebugTransport = require('./transports/DebugTransport');
 const SentryTransport = require('./transports/SentryTransport');
-const context = require('./context');
+const InsightOpsTransport = require('./transports/InsightOpsTransport');
 
 module.exports = function getTransporters(...configs) {
   const params = Object.assign(
@@ -29,21 +28,12 @@ module.exports = function getTransporters(...configs) {
 
   if (params.token) {
     transports.push(
-      new winston.transports.Logentries({
+      new InsightOpsTransport({
         level: 'info',
+        prefix: params.prefix,
+        namespace: params.namespace,
         token: params.token,
         region: 'eu',
-        json: true,
-        withStack: true,
-        replacer(key, value) {
-          if (key === '' && value && value.level) {
-            const store = context.getStore();
-            if (store) {
-              Object.assign(value, store);
-            }
-          }
-          return value;
-        },
       }),
     );
   }
