@@ -10,15 +10,19 @@ export interface JsonError {
 // enhanced VError.prototype.toJSON for dev
 export function errorToJSON(error): JsonError {
   const obj: JsonError = {
-    name: error.name,
+    name: error.name || 'Error',
     message: error.message,
+    shortMessage: undefined, // to keep order
+    stack: undefined, // to keep order
   };
+
+  Object.assign(obj, error);
 
   if (error.shortMessage) {
     obj.shortMessage = error.shortMessage;
   }
 
-  if (process.env.NODE_ENV) {
+  if (process.env.NODE_ENV === 'development') {
     obj.stack = error.stack;
   }
 
