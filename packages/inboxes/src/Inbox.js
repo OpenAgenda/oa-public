@@ -51,7 +51,7 @@ export default class Inbox {
     }
 
     const [insertedId] = await knex(schemas.inbox).insert(
-      mapper.toDb(fieldsMap, 'insert', data, { protected: false })
+      mapper.toDb(fieldsMap, 'insert', data, { protected: false }),
     );
 
     this.identifiers = { id: insertedId };
@@ -87,7 +87,7 @@ export default class Inbox {
     if (!this.data) {
       throw new VError(
         'You can not remove a inbox that does not exists: %j',
-        this.identifiers
+        this.identifiers,
       );
     }
 
