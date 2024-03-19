@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url';
 import isBase64 from 'is-base64';
 import imageType from 'image-type';
 
-import { processImage } from '../lib/utils';
+import { processImage, extractSchemaOptions } from '../lib/utils.js';
+import OpenAPIFixtures from './fixtures/openapi.json';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -41,6 +42,16 @@ describe('utils', () => {
       expect(
         await isBase64Image(base64Img),
       ).toBe(true);
+    });
+  });
+
+  describe('extractSchemaOptions', () => {
+    test('related enums are either MusicTypeEnum or ShowTypeEnum', () => {
+      const result = extractSchemaOptions(OpenAPIFixtures, 'EventOfferCreation', 'category', 'categoryRelatedFields');
+
+      expect(
+        result.reduce((types, item) => types.concat(item.related.filter(i => !types.includes(i))), []),
+      ).toEqual(['MusicTypeEnum', 'ShowTypeEnum']);
     });
   });
 });

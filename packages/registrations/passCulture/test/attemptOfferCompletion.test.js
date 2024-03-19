@@ -30,7 +30,7 @@ describe('attemptOfferCompletion', () => {
     }, {
       priceCategories: [
         {
-          price: 789,
+          price: 78,
           label: 'Pouik',
         },
       ],

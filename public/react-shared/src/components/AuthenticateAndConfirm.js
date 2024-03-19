@@ -53,19 +53,12 @@ export default ({
         },
         body: payload ? JSON.stringify(payload) : null,
       })
-        .then(response =>
-          response
-            .text()
-            .then(bodyAsText => ({ hasBody: !!bodyAsText.length, response })))
-        .then(({ response, hasBody }) =>
-          (hasBody
-            ? response.json().then(body => ({ response, body }))
-            : { response }))
+        .then(response => response.text().then(body => ({ response, body })))
         .then(({ response: { ok, status }, body }) => {
           setLoading(false);
           if (ok) {
             setDisplayForm(false);
-            onSuccess(body);
+            onSuccess(body.length ? JSON.parse(body) : null);
           } else if (status === 403) {
             setError('authentication');
             return;
@@ -79,7 +72,7 @@ export default ({
             );
           }
 
-          onFail(body);
+          onFail(body.length ? JSON.parse(body) : null);
         })
         .catch(() => {
           setLoading(false);
@@ -120,7 +113,12 @@ export default ({
           <label htmlFor="password" className="control-label">
             {m(messages.password)}
           </label>
-          <input name="password" className="form-control" type="password" />
+          <input
+            name="password"
+            className="form-control"
+            type="password"
+            autoComplete="off"
+          />
           {error ? (
             <div className="text-danger">{m(messages[`${error}Error`])}</div>
           ) : (

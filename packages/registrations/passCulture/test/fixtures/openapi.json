@@ -1,0 +1,4665 @@
+{
+    "components": {
+        "schemas": {
+            "ACTIVATION_EVENT_read": {
+                "description": "Catégorie technique d'évènement d'activation ",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "ACTIVATION_EVENT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "ACTIVATION_EVENT_read",
+                "type": "object"
+            },
+            "ATELIER_PRATIQUE_ART_create": {
+                "description": "Atelier, stage de pratique artistique",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "ATELIER_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "ATELIER_PRATIQUE_ART_create",
+                "type": "object"
+            },
+            "ATELIER_PRATIQUE_ART_edit": {
+                "description": "Atelier, stage de pratique artistique",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "ATELIER_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "ATELIER_PRATIQUE_ART_edit",
+                "type": "object"
+            },
+            "ATELIER_PRATIQUE_ART_read": {
+                "description": "Atelier, stage de pratique artistique",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "ATELIER_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "ATELIER_PRATIQUE_ART_read",
+                "type": "object"
+            },
+            "Accessibility": {
+                "description": "Accessibility for people with disabilities.",
+                "properties": {
+                    "audioDisabilityCompliant": {
+                        "title": "Audiodisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "mentalDisabilityCompliant": {
+                        "title": "Mentaldisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "motorDisabilityCompliant": {
+                        "title": "Motordisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "visualDisabilityCompliant": {
+                        "title": "Visualdisabilitycompliant",
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "audioDisabilityCompliant",
+                    "mentalDisabilityCompliant",
+                    "motorDisabilityCompliant",
+                    "visualDisabilityCompliant"
+                ],
+                "title": "Accessibility",
+                "type": "object"
+            },
+            "AccessibilityResponse": {
+                "description": "Accessibility for people with disabilities.",
+                "properties": {
+                    "audioDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Audiodisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "mentalDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Mentaldisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "motorDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Motordisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "visualDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Visualdisabilitycompliant",
+                        "type": "boolean"
+                    }
+                },
+                "title": "AccessibilityResponse",
+                "type": "object"
+            },
+            "CINE_PLEIN_AIR_create": {
+                "description": "Cinéma plein air",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CINE_PLEIN_AIR"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CINE_PLEIN_AIR_create",
+                "type": "object"
+            },
+            "CINE_PLEIN_AIR_edit": {
+                "description": "Cinéma plein air",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CINE_PLEIN_AIR"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CINE_PLEIN_AIR_edit",
+                "type": "object"
+            },
+            "CINE_PLEIN_AIR_read": {
+                "description": "Cinéma plein air",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CINE_PLEIN_AIR"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CINE_PLEIN_AIR_read",
+                "type": "object"
+            },
+            "CONCERT_create": {
+                "description": "Concert",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CONCERT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "musicType",
+                    "category"
+                ],
+                "title": "CONCERT_create",
+                "type": "object"
+            },
+            "CONCERT_edit": {
+                "description": "Concert",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CONCERT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONCERT_edit",
+                "type": "object"
+            },
+            "CONCERT_read": {
+                "description": "Concert",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "CONCERT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONCERT_read",
+                "type": "object"
+            },
+            "CONCOURS_create": {
+                "description": "Concours - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONCOURS"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONCOURS_create",
+                "type": "object"
+            },
+            "CONCOURS_edit": {
+                "description": "Concours - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONCOURS"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONCOURS_edit",
+                "type": "object"
+            },
+            "CONCOURS_read": {
+                "description": "Concours - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONCOURS"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONCOURS_read",
+                "type": "object"
+            },
+            "CONFERENCE_create": {
+                "description": "Conférence",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONFERENCE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONFERENCE_create",
+                "type": "object"
+            },
+            "CONFERENCE_edit": {
+                "description": "Conférence",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONFERENCE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONFERENCE_edit",
+                "type": "object"
+            },
+            "CONFERENCE_read": {
+                "description": "Conférence",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "CONFERENCE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "CONFERENCE_read",
+                "type": "object"
+            },
+            "CategoryEnum": {
+                "description": "An enumeration.",
+                "enum": [
+                    "ACTIVATION_EVENT",
+                    "ATELIER_PRATIQUE_ART",
+                    "CINE_PLEIN_AIR",
+                    "CONCERT",
+                    "CONCOURS",
+                    "CONFERENCE",
+                    "DECOUVERTE_METIERS",
+                    "EVENEMENT_CINE",
+                    "EVENEMENT_JEU",
+                    "EVENEMENT_MUSIQUE",
+                    "EVENEMENT_PATRIMOINE",
+                    "FESTIVAL_ART_VISUEL",
+                    "FESTIVAL_CINE",
+                    "FESTIVAL_LIVRE",
+                    "FESTIVAL_MUSIQUE",
+                    "FESTIVAL_SPECTACLE",
+                    "LIVESTREAM_EVENEMENT",
+                    "LIVESTREAM_MUSIQUE",
+                    "LIVESTREAM_PRATIQUE_ARTISTIQUE",
+                    "RENCONTRE_EN_LIGNE",
+                    "RENCONTRE_JEU",
+                    "RENCONTRE",
+                    "SALON",
+                    "SEANCE_CINE",
+                    "SEANCE_ESSAI_PRATIQUE_ART",
+                    "SPECTACLE_REPRESENTATION",
+                    "VISITE_GUIDEE",
+                    "VISITE"
+                ],
+                "title": "CategoryEnum",
+                "type": "string"
+            },
+            "DECOUVERTE_METIERS_read": {
+                "description": "Découverte des métiers",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "DECOUVERTE_METIERS"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "DECOUVERTE_METIERS_read",
+                "type": "object"
+            },
+            "DateCreation": {
+                "properties": {
+                    "beginningDatetime": {
+                        "description": "Timezone aware datetime of the event.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "title": "Beginningdatetime",
+                        "type": "string"
+                    },
+                    "bookingLimitDatetime": {
+                        "description": "Timezone aware datetime after which the offer can no longer be booked.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "title": "Bookinglimitdatetime",
+                        "type": "string"
+                    },
+                    "priceCategoryId": {
+                        "title": "Pricecategoryid",
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "enum": [
+                                    "unlimited"
+                                ],
+                                "type": "string"
+                            }
+                        ],
+                        "description": "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
+                        "example": 10,
+                        "title": "Quantity"
+                    }
+                },
+                "required": [
+                    "quantity",
+                    "beginningDatetime",
+                    "bookingLimitDatetime",
+                    "priceCategoryId"
+                ],
+                "title": "DateCreation",
+                "type": "object"
+            },
+            "DateEdition": {
+                "additionalProperties": false,
+                "properties": {
+                    "beginningDatetime": {
+                        "description": "Timezone aware datetime of the event.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "nullable": true,
+                        "title": "Beginningdatetime",
+                        "type": "string"
+                    },
+                    "bookingLimitDatetime": {
+                        "description": "Timezone aware datetime after which the offer can no longer be booked.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "nullable": true,
+                        "title": "Bookinglimitdatetime",
+                        "type": "string"
+                    },
+                    "priceCategoryId": {
+                        "nullable": true,
+                        "title": "Pricecategoryid",
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "enum": [
+                                    "unlimited"
+                                ],
+                                "type": "string"
+                            }
+                        ],
+                        "description": "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
+                        "example": 10,
+                        "nullable": true,
+                        "title": "Quantity"
+                    }
+                },
+                "title": "DateEdition",
+                "type": "object"
+            },
+            "DateResponse": {
+                "properties": {
+                    "beginningDatetime": {
+                        "description": "Timezone aware datetime of the event.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "title": "Beginningdatetime",
+                        "type": "string"
+                    },
+                    "bookedQuantity": {
+                        "description": "Number of bookings.",
+                        "example": 0,
+                        "title": "Bookedquantity",
+                        "type": "integer"
+                    },
+                    "bookingLimitDatetime": {
+                        "description": "Timezone aware datetime after which the offer can no longer be booked.",
+                        "example": "2024-04-19T14:00:00+02:00",
+                        "format": "date-time",
+                        "title": "Bookinglimitdatetime",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "priceCategory": {
+                        "$ref": "#/components/schemas/PriceCategoryResponse"
+                    },
+                    "quantity": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "enum": [
+                                    "unlimited"
+                                ],
+                                "type": "string"
+                            }
+                        ],
+                        "description": "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
+                        "example": 10,
+                        "title": "Quantity"
+                    }
+                },
+                "required": [
+                    "bookingLimitDatetime",
+                    "bookedQuantity",
+                    "quantity",
+                    "id",
+                    "beginningDatetime",
+                    "priceCategory"
+                ],
+                "title": "DateResponse",
+                "type": "object"
+            },
+            "DatesCreation": {
+                "additionalProperties": false,
+                "properties": {
+                    "dates": {
+                        "description": "Dates to add to the event. If there are different prices and quantity for the same date, you must add several date objects",
+                        "items": {
+                            "$ref": "#/components/schemas/DateCreation"
+                        },
+                        "title": "Dates",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "dates"
+                ],
+                "title": "DatesCreation",
+                "type": "object"
+            },
+            "DigitalLocation": {
+                "properties": {
+                    "type": {
+                        "default": "digital",
+                        "enum": [
+                            "digital"
+                        ],
+                        "title": "Type",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "Link users will be redirected to after booking this offer. You may include '{token}', '{email}' and/or '{offerId}' in the URL, which will be replaced respectively by the booking token (use this token to confirm the offer - see API Contremarque), the email of the user who booked the offer and the created offer id",
+                        "example": "https://example.com?token={token}&email={email}&offerId={offerId}",
+                        "format": "uri",
+                        "maxLength": 2083,
+                        "minLength": 1,
+                        "title": "Url",
+                        "type": "string"
+                    },
+                    "venueId": {
+                        "description": "List of venues is available at GET /offerer_venues",
+                        "example": 1,
+                        "title": "Venueid",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "venueId",
+                    "url"
+                ],
+                "title": "DigitalLocation",
+                "type": "object"
+            },
+            "EVENEMENT_CINE_create": {
+                "description": "Évènement cinématographique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_CINE_create",
+                "type": "object"
+            },
+            "EVENEMENT_CINE_edit": {
+                "description": "Évènement cinématographique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_CINE_edit",
+                "type": "object"
+            },
+            "EVENEMENT_CINE_read": {
+                "description": "Évènement cinématographique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_CINE_read",
+                "type": "object"
+            },
+            "EVENEMENT_JEU_create": {
+                "description": "Évènements - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_JEU_create",
+                "type": "object"
+            },
+            "EVENEMENT_JEU_edit": {
+                "description": "Évènements - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_JEU_edit",
+                "type": "object"
+            },
+            "EVENEMENT_JEU_read": {
+                "description": "Évènements - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_JEU_read",
+                "type": "object"
+            },
+            "EVENEMENT_MUSIQUE_create": {
+                "description": "Autre type d'évènement musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "musicType",
+                    "category"
+                ],
+                "title": "EVENEMENT_MUSIQUE_create",
+                "type": "object"
+            },
+            "EVENEMENT_MUSIQUE_edit": {
+                "description": "Autre type d'évènement musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_MUSIQUE_edit",
+                "type": "object"
+            },
+            "EVENEMENT_MUSIQUE_read": {
+                "description": "Autre type d'évènement musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_MUSIQUE_read",
+                "type": "object"
+            },
+            "EVENEMENT_PATRIMOINE_create": {
+                "description": "Évènement et atelier patrimoine",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_PATRIMOINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_PATRIMOINE_create",
+                "type": "object"
+            },
+            "EVENEMENT_PATRIMOINE_edit": {
+                "description": "Évènement et atelier patrimoine",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_PATRIMOINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_PATRIMOINE_edit",
+                "type": "object"
+            },
+            "EVENEMENT_PATRIMOINE_read": {
+                "description": "Évènement et atelier patrimoine",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "EVENEMENT_PATRIMOINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "EVENEMENT_PATRIMOINE_read",
+                "type": "object"
+            },
+            "EventCategoryResponse": {
+                "properties": {
+                    "conditionalFields": {
+                        "additionalProperties": {
+                            "type": "boolean"
+                        },
+                        "description": "The keys are fields that should be set in the category_related_fields of an event. The values indicate whether their associated field is mandatory during event creation.",
+                        "title": "Conditionalfields",
+                        "type": "object"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/CategoryEnum"
+                    }
+                },
+                "required": [
+                    "id",
+                    "conditionalFields"
+                ],
+                "title": "EventCategoryResponse",
+                "type": "object"
+            },
+            "EventOfferCreation": {
+                "additionalProperties": false,
+                "properties": {
+                    "accessibility": {
+                        "$ref": "#/components/schemas/Accessibility"
+                    },
+                    "bookingContact": {
+                        "description": "Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.",
+                        "format": "email",
+                        "nullable": true,
+                        "title": "Bookingcontact",
+                        "type": "string"
+                    },
+                    "bookingEmail": {
+                        "description": "Recipient email for notifications about bookings, cancellations, etc.",
+                        "format": "email",
+                        "nullable": true,
+                        "title": "Bookingemail",
+                        "type": "string"
+                    },
+                    "categoryRelatedFields": {
+                        "description": "Cultural category the offer belongs to. According to the category, some fields may or must be specified.",
+                        "discriminator": {
+                            "mapping": {
+                                "ATELIER_PRATIQUE_ART": "#/components/schemas/ATELIER_PRATIQUE_ART_create",
+                                "CINE_PLEIN_AIR": "#/components/schemas/CINE_PLEIN_AIR_create",
+                                "CONCERT": "#/components/schemas/CONCERT_create",
+                                "CONCOURS": "#/components/schemas/CONCOURS_create",
+                                "CONFERENCE": "#/components/schemas/CONFERENCE_create",
+                                "EVENEMENT_CINE": "#/components/schemas/EVENEMENT_CINE_create",
+                                "EVENEMENT_JEU": "#/components/schemas/EVENEMENT_JEU_create",
+                                "EVENEMENT_MUSIQUE": "#/components/schemas/EVENEMENT_MUSIQUE_create",
+                                "EVENEMENT_PATRIMOINE": "#/components/schemas/EVENEMENT_PATRIMOINE_create",
+                                "FESTIVAL_ART_VISUEL": "#/components/schemas/FESTIVAL_ART_VISUEL_create",
+                                "FESTIVAL_CINE": "#/components/schemas/FESTIVAL_CINE_create",
+                                "FESTIVAL_LIVRE": "#/components/schemas/FESTIVAL_LIVRE_create",
+                                "FESTIVAL_MUSIQUE": "#/components/schemas/FESTIVAL_MUSIQUE_create",
+                                "FESTIVAL_SPECTACLE": "#/components/schemas/FESTIVAL_SPECTACLE_create",
+                                "LIVESTREAM_EVENEMENT": "#/components/schemas/LIVESTREAM_EVENEMENT_create",
+                                "LIVESTREAM_MUSIQUE": "#/components/schemas/LIVESTREAM_MUSIQUE_create",
+                                "LIVESTREAM_PRATIQUE_ARTISTIQUE": "#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_create",
+                                "RENCONTRE": "#/components/schemas/RENCONTRE_create",
+                                "RENCONTRE_EN_LIGNE": "#/components/schemas/RENCONTRE_EN_LIGNE_create",
+                                "RENCONTRE_JEU": "#/components/schemas/RENCONTRE_JEU_create",
+                                "SALON": "#/components/schemas/SALON_create",
+                                "SEANCE_CINE": "#/components/schemas/SEANCE_CINE_create",
+                                "SEANCE_ESSAI_PRATIQUE_ART": "#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_create",
+                                "SPECTACLE_REPRESENTATION": "#/components/schemas/SPECTACLE_REPRESENTATION_create",
+                                "VISITE": "#/components/schemas/VISITE_create",
+                                "VISITE_GUIDEE": "#/components/schemas/VISITE_GUIDEE_create"
+                            },
+                            "propertyName": "category"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/ATELIER_PRATIQUE_ART_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CINE_PLEIN_AIR_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCERT_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCOURS_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONFERENCE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_CINE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_JEU_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_MUSIQUE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_PATRIMOINE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_ART_VISUEL_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_CINE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_LIVRE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_MUSIQUE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_SPECTACLE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_EVENEMENT_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_MUSIQUE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_EN_LIGNE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_JEU_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SALON_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_CINE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SPECTACLE_REPRESENTATION_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_GUIDEE_create"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_create"
+                            }
+                        ],
+                        "title": "Categoryrelatedfields"
+                    },
+                    "description": {
+                        "description": "Offer description",
+                        "example": "A great book for kids and old kids.",
+                        "maxLength": 1000,
+                        "nullable": true,
+                        "title": "Description",
+                        "type": "string"
+                    },
+                    "enableDoubleBookings": {
+                        "default": false,
+                        "description": "If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.",
+                        "nullable": true,
+                        "title": "Enabledoublebookings",
+                        "type": "boolean"
+                    },
+                    "eventDuration": {
+                        "description": "Event duration in minutes",
+                        "example": 60,
+                        "nullable": true,
+                        "title": "Eventduration",
+                        "type": "integer"
+                    },
+                    "externalTicketOfficeUrl": {
+                        "description": "Link displayed to users wishing to book the offer but who do not have (anymore) credit.",
+                        "example": "https://example.com",
+                        "format": "uri",
+                        "maxLength": 2083,
+                        "minLength": 1,
+                        "nullable": true,
+                        "title": "Externalticketofficeurl",
+                        "type": "string"
+                    },
+                    "hasTicket": {
+                        "description": "Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.",
+                        "example": false,
+                        "title": "Hasticket",
+                        "type": "boolean"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ImageBody"
+                            }
+                        ],
+                        "nullable": true,
+                        "title": "ImageBody"
+                    },
+                    "itemCollectionDetails": {
+                        "description": "Further information that will be provided to attendees to ease the offer collection.",
+                        "example": "Opening hours, specific office, collection period, access code, email annoucement...",
+                        "nullable": true,
+                        "title": "Itemcollectiondetails",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location where the offer will be available or will take place. The location type must be compatible with the category",
+                        "discriminator": {
+                            "mapping": {
+                                "digital": "#/components/schemas/DigitalLocation",
+                                "physical": "#/components/schemas/PhysicalLocation"
+                            },
+                            "propertyName": "type"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/PhysicalLocation"
+                            },
+                            {
+                                "$ref": "#/components/schemas/DigitalLocation"
+                            }
+                        ],
+                        "title": "Location"
+                    },
+                    "name": {
+                        "description": "Offer title",
+                        "example": "Le Petit Prince",
+                        "maxLength": 90,
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "priceCategories": {
+                        "description": "Available price categories for dates of this offer",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceCategoryCreation"
+                        },
+                        "nullable": true,
+                        "title": "Pricecategories",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "accessibility",
+                    "categoryRelatedFields",
+                    "name",
+                    "location",
+                    "hasTicket"
+                ],
+                "title": "EventOfferCreation",
+                "type": "object"
+            },
+            "EventOfferEdition": {
+                "additionalProperties": false,
+                "properties": {
+                    "accessibility": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PartialAccessibility"
+                            }
+                        ],
+                        "description": "Accessibility to disabled people. Leave fields undefined to keep current value",
+                        "nullable": true,
+                        "title": "Accessibility"
+                    },
+                    "bookingContact": {
+                        "description": "Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.",
+                        "format": "email",
+                        "nullable": true,
+                        "title": "Bookingcontact",
+                        "type": "string"
+                    },
+                    "bookingEmail": {
+                        "description": "Recipient email for notifications about bookings, cancellations, etc.",
+                        "format": "email",
+                        "nullable": true,
+                        "title": "Bookingemail",
+                        "type": "string"
+                    },
+                    "categoryRelatedFields": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ATELIER_PRATIQUE_ART_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CINE_PLEIN_AIR_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCERT_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCOURS_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONFERENCE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_CINE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_JEU_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_MUSIQUE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_PATRIMOINE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_ART_VISUEL_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_CINE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_LIVRE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_MUSIQUE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_SPECTACLE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_EVENEMENT_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_MUSIQUE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_EN_LIGNE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_JEU_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SALON_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_CINE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SPECTACLE_REPRESENTATION_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_GUIDEE_edit"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_edit"
+                            }
+                        ],
+                        "description": "To override category related fields, the category must be specified, even if it cannot be changed. Other category related fields may be left undefined to keep their current value.",
+                        "nullable": true,
+                        "title": "Categoryrelatedfields"
+                    },
+                    "description": {
+                        "description": "Offer description",
+                        "example": "A great book for kids and old kids.",
+                        "maxLength": 1000,
+                        "nullable": true,
+                        "title": "Description",
+                        "type": "string"
+                    },
+                    "enableDoubleBookings": {
+                        "default": false,
+                        "description": "If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.",
+                        "nullable": true,
+                        "title": "Enabledoublebookings",
+                        "type": "boolean"
+                    },
+                    "eventDuration": {
+                        "description": "Event duration in minutes",
+                        "example": 60,
+                        "nullable": true,
+                        "title": "Eventduration",
+                        "type": "integer"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ImageBody"
+                            }
+                        ],
+                        "nullable": true,
+                        "title": "ImageBody"
+                    },
+                    "isActive": {
+                        "description": "Whether the offer is activated. An inactive offer cannot be booked.",
+                        "nullable": true,
+                        "title": "Isactive",
+                        "type": "boolean"
+                    },
+                    "itemCollectionDetails": {
+                        "description": "Further information that will be provided to attendees to ease the offer collection.",
+                        "example": "Opening hours, specific office, collection period, access code, email annoucement...",
+                        "nullable": true,
+                        "title": "Itemcollectiondetails",
+                        "type": "string"
+                    }
+                },
+                "title": "EventOfferEdition",
+                "type": "object"
+            },
+            "EventOfferResponse": {
+                "properties": {
+                    "accessibility": {
+                        "$ref": "#/components/schemas/AccessibilityResponse"
+                    },
+                    "bookingContact": {
+                        "description": "Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.",
+                        "nullable": true,
+                        "title": "Bookingcontact",
+                        "type": "string"
+                    },
+                    "bookingEmail": {
+                        "description": "Recipient email for notifications about bookings, cancellations, etc.",
+                        "nullable": true,
+                        "title": "Bookingemail",
+                        "type": "string"
+                    },
+                    "categoryRelatedFields": {
+                        "description": "Cultural category the offer belongs to. According to the category, some fields may or must be specified.",
+                        "discriminator": {
+                            "mapping": {
+                                "ACTIVATION_EVENT": "#/components/schemas/ACTIVATION_EVENT_read",
+                                "ATELIER_PRATIQUE_ART": "#/components/schemas/ATELIER_PRATIQUE_ART_read",
+                                "CINE_PLEIN_AIR": "#/components/schemas/CINE_PLEIN_AIR_read",
+                                "CONCERT": "#/components/schemas/CONCERT_read",
+                                "CONCOURS": "#/components/schemas/CONCOURS_read",
+                                "CONFERENCE": "#/components/schemas/CONFERENCE_read",
+                                "DECOUVERTE_METIERS": "#/components/schemas/DECOUVERTE_METIERS_read",
+                                "EVENEMENT_CINE": "#/components/schemas/EVENEMENT_CINE_read",
+                                "EVENEMENT_JEU": "#/components/schemas/EVENEMENT_JEU_read",
+                                "EVENEMENT_MUSIQUE": "#/components/schemas/EVENEMENT_MUSIQUE_read",
+                                "EVENEMENT_PATRIMOINE": "#/components/schemas/EVENEMENT_PATRIMOINE_read",
+                                "FESTIVAL_ART_VISUEL": "#/components/schemas/FESTIVAL_ART_VISUEL_read",
+                                "FESTIVAL_CINE": "#/components/schemas/FESTIVAL_CINE_read",
+                                "FESTIVAL_LIVRE": "#/components/schemas/FESTIVAL_LIVRE_read",
+                                "FESTIVAL_MUSIQUE": "#/components/schemas/FESTIVAL_MUSIQUE_read",
+                                "FESTIVAL_SPECTACLE": "#/components/schemas/FESTIVAL_SPECTACLE_read",
+                                "LIVESTREAM_EVENEMENT": "#/components/schemas/LIVESTREAM_EVENEMENT_read",
+                                "LIVESTREAM_MUSIQUE": "#/components/schemas/LIVESTREAM_MUSIQUE_read",
+                                "LIVESTREAM_PRATIQUE_ARTISTIQUE": "#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_read",
+                                "RENCONTRE": "#/components/schemas/RENCONTRE_read",
+                                "RENCONTRE_EN_LIGNE": "#/components/schemas/RENCONTRE_EN_LIGNE_read",
+                                "RENCONTRE_JEU": "#/components/schemas/RENCONTRE_JEU_read",
+                                "SALON": "#/components/schemas/SALON_read",
+                                "SEANCE_CINE": "#/components/schemas/SEANCE_CINE_read",
+                                "SEANCE_ESSAI_PRATIQUE_ART": "#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_read",
+                                "SPECTACLE_REPRESENTATION": "#/components/schemas/SPECTACLE_REPRESENTATION_read",
+                                "VISITE": "#/components/schemas/VISITE_read",
+                                "VISITE_GUIDEE": "#/components/schemas/VISITE_GUIDEE_read"
+                            },
+                            "propertyName": "category"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/ACTIVATION_EVENT_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ATELIER_PRATIQUE_ART_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CINE_PLEIN_AIR_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCERT_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONCOURS_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/CONFERENCE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/DECOUVERTE_METIERS_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_CINE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_JEU_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_MUSIQUE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/EVENEMENT_PATRIMOINE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_ART_VISUEL_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_CINE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_LIVRE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_MUSIQUE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/FESTIVAL_SPECTACLE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_EVENEMENT_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_MUSIQUE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_EN_LIGNE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_JEU_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/RENCONTRE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SALON_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_CINE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/SPECTACLE_REPRESENTATION_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_GUIDEE_read"
+                            },
+                            {
+                                "$ref": "#/components/schemas/VISITE_read"
+                            }
+                        ],
+                        "title": "Categoryrelatedfields"
+                    },
+                    "description": {
+                        "description": "Offer description",
+                        "example": "A great book for kids and old kids.",
+                        "nullable": true,
+                        "title": "Description",
+                        "type": "string"
+                    },
+                    "enableDoubleBookings": {
+                        "default": false,
+                        "description": "If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.",
+                        "nullable": true,
+                        "title": "Enabledoublebookings",
+                        "type": "boolean"
+                    },
+                    "eventDuration": {
+                        "description": "Event duration in minutes",
+                        "example": 60,
+                        "nullable": true,
+                        "title": "Eventduration",
+                        "type": "integer"
+                    },
+                    "externalTicketOfficeUrl": {
+                        "description": "Link displayed to users wishing to book the offer but who do not have (anymore) credit.",
+                        "example": "https://example.com",
+                        "nullable": true,
+                        "title": "Externalticketofficeurl",
+                        "type": "string"
+                    },
+                    "hasTicket": {
+                        "description": "Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.",
+                        "example": false,
+                        "title": "Hasticket",
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ImageResponse"
+                            }
+                        ],
+                        "nullable": true,
+                        "title": "ImageResponse"
+                    },
+                    "itemCollectionDetails": {
+                        "description": "Further information that will be provided to attendees to ease the offer collection.",
+                        "example": "Opening hours, specific office, collection period, access code, email annoucement...",
+                        "nullable": true,
+                        "title": "Itemcollectiondetails",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "Location where the offer will be available or will take place. The location type must be compatible with the category",
+                        "discriminator": {
+                            "mapping": {
+                                "digital": "#/components/schemas/DigitalLocation",
+                                "physical": "#/components/schemas/PhysicalLocation"
+                            },
+                            "propertyName": "type"
+                        },
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/PhysicalLocation"
+                            },
+                            {
+                                "$ref": "#/components/schemas/DigitalLocation"
+                            }
+                        ],
+                        "title": "Location"
+                    },
+                    "name": {
+                        "description": "Offer title",
+                        "example": "Le Petit Prince",
+                        "maxLength": 90,
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "priceCategories": {
+                        "description": "Available price categories for dates of this offer",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceCategoryResponse"
+                        },
+                        "title": "Pricecategories",
+                        "type": "array"
+                    },
+                    "status": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OfferStatus"
+                            }
+                        ],
+                        "description": "ACTIVE: offer is validated and active.\n\nDRAFT: offer is still draft and not yet submitted for validation - this status is not applicable to offers created via this API.\n\nEXPIRED: offer is validated but the booking limit datetime has passed.\n\nINACTIVE: offer is not active and cannot be booked.\n\nPENDING: offer is pending for pass Culture rules compliance validation. This step may last 72 hours.\n\nREJECTED: offer validation has been rejected because it is not compliant with pass Culture rules.\n\nSOLD_OUT: offer is validated but there is no (more) stock available for booking.",
+                        "example": "ACTIVE"
+                    }
+                },
+                "required": [
+                    "priceCategories",
+                    "id",
+                    "accessibility",
+                    "location",
+                    "name",
+                    "status",
+                    "categoryRelatedFields",
+                    "hasTicket"
+                ],
+                "title": "EventOfferResponse",
+                "type": "object"
+            },
+            "EventOffersResponse": {
+                "properties": {
+                    "events": {
+                        "items": {
+                            "$ref": "#/components/schemas/EventOfferResponse"
+                        },
+                        "title": "Events",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "events"
+                ],
+                "title": "EventOffersResponse",
+                "type": "object"
+            },
+            "FESTIVAL_ART_VISUEL_create": {
+                "description": "Festival d'arts visuels / arts numériques",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_ART_VISUEL"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_ART_VISUEL_create",
+                "type": "object"
+            },
+            "FESTIVAL_ART_VISUEL_edit": {
+                "description": "Festival d'arts visuels / arts numériques",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_ART_VISUEL"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_ART_VISUEL_edit",
+                "type": "object"
+            },
+            "FESTIVAL_ART_VISUEL_read": {
+                "description": "Festival d'arts visuels / arts numériques",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_ART_VISUEL"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_ART_VISUEL_read",
+                "type": "object"
+            },
+            "FESTIVAL_CINE_create": {
+                "description": "Festival de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_CINE_create",
+                "type": "object"
+            },
+            "FESTIVAL_CINE_edit": {
+                "description": "Festival de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_CINE_edit",
+                "type": "object"
+            },
+            "FESTIVAL_CINE_read": {
+                "description": "Festival de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_CINE_read",
+                "type": "object"
+            },
+            "FESTIVAL_LIVRE_create": {
+                "description": "Festival et salon du livre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_LIVRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_LIVRE_create",
+                "type": "object"
+            },
+            "FESTIVAL_LIVRE_edit": {
+                "description": "Festival et salon du livre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_LIVRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_LIVRE_edit",
+                "type": "object"
+            },
+            "FESTIVAL_LIVRE_read": {
+                "description": "Festival et salon du livre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_LIVRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_LIVRE_read",
+                "type": "object"
+            },
+            "FESTIVAL_MUSIQUE_create": {
+                "description": "Festival de musique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "musicType",
+                    "category"
+                ],
+                "title": "FESTIVAL_MUSIQUE_create",
+                "type": "object"
+            },
+            "FESTIVAL_MUSIQUE_edit": {
+                "description": "Festival de musique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_MUSIQUE_edit",
+                "type": "object"
+            },
+            "FESTIVAL_MUSIQUE_read": {
+                "description": "Festival de musique",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_MUSIQUE_read",
+                "type": "object"
+            },
+            "FESTIVAL_SPECTACLE_create": {
+                "description": "Festival de spectacle vivant",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_SPECTACLE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "showType",
+                    "category"
+                ],
+                "title": "FESTIVAL_SPECTACLE_create",
+                "type": "object"
+            },
+            "FESTIVAL_SPECTACLE_edit": {
+                "description": "Festival de spectacle vivant",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_SPECTACLE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_SPECTACLE_edit",
+                "type": "object"
+            },
+            "FESTIVAL_SPECTACLE_read": {
+                "description": "Festival de spectacle vivant",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "FESTIVAL_SPECTACLE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "FESTIVAL_SPECTACLE_read",
+                "type": "object"
+            },
+            "GetDatesQueryParams": {
+                "properties": {
+                    "firstIndex": {
+                        "default": 1,
+                        "description": "Index of the first item in page.",
+                        "minimum": 1,
+                        "title": "Firstindex",
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "default": 50,
+                        "description": "Maximum number of items per page.",
+                        "exclusiveMinimum": 0,
+                        "maximum": 50,
+                        "title": "Limit",
+                        "type": "integer"
+                    }
+                },
+                "title": "GetDatesQueryParams",
+                "type": "object"
+            },
+            "GetDatesResponse": {
+                "properties": {
+                    "dates": {
+                        "items": {
+                            "$ref": "#/components/schemas/DateResponse"
+                        },
+                        "title": "Dates",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "dates"
+                ],
+                "title": "GetDatesResponse",
+                "type": "object"
+            },
+            "GetEventCategoriesResponse": {
+                "items": {
+                    "$ref": "#/components/schemas/EventCategoryResponse"
+                },
+                "title": "GetEventCategoriesResponse",
+                "type": "array"
+            },
+            "GetMusicTypesResponse": {
+                "items": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/components/schemas/MusicTypeResponse"
+                        },
+                        {
+                            "$ref": "#/components/schemas/TiteliveMusicTypeResponse"
+                        }
+                    ]
+                },
+                "title": "GetMusicTypesResponse",
+                "type": "array"
+            },
+            "GetOffersQueryParams": {
+                "properties": {
+                    "firstIndex": {
+                        "default": 1,
+                        "description": "Index of the first item in page.",
+                        "minimum": 1,
+                        "title": "Firstindex",
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "default": 50,
+                        "description": "Maximum number of items per page.",
+                        "exclusiveMinimum": 0,
+                        "maximum": 50,
+                        "title": "Limit",
+                        "type": "integer"
+                    },
+                    "venueId": {
+                        "description": "Venue id to filter offers on.",
+                        "title": "Venueid",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "venueId"
+                ],
+                "title": "GetOffersQueryParams",
+                "type": "object"
+            },
+            "GetShowTypesResponse": {
+                "items": {
+                    "$ref": "#/components/schemas/ShowTypeResponse"
+                },
+                "title": "GetShowTypesResponse",
+                "type": "array"
+            },
+            "ImageBody": {
+                "description": "Image illustrating the offer. Offers with images are more likely to be booked.",
+                "properties": {
+                    "credit": {
+                        "description": "Image owner or author.",
+                        "example": "Jane Doe",
+                        "nullable": true,
+                        "title": "Credit",
+                        "type": "string"
+                    },
+                    "file": {
+                        "description": "Image file encoded in base64 string. Image format must be PNG or JPEG. Size must be between 400x600 and 800x1200 pixels. Aspect ratio must be 2:3 (portrait format).",
+                        "example": "iVBORw0KGgoAAAANSUhEUgAAAhUAAAMgCAAAAACxT88IAAABImlDQ1BJQ0MgcHJvZmlsZQAAKJGdkLFKw1AUhr+0oiKKg6IgDhlcO5pFB6tCKCjEWMHqlCYpFpMYkpTiG/gm+jAdBMFXcFdw9r/RwcEs3nD4Pw7n/P+9gZadhGk5dwBpVhWu3x1cDq7shTfa+lbZZC8Iy7zreSc0ns9XLKMvHePVPPfnmY/iMpTOVFmYFxVY+2JnWuWGVazf9v0j8YPYjtIsEj+Jd6I0Mmx2/TSZhD+e5jbLcXZxbvqqbVx6nOJhM2TCmISKjjRT5xiHXalLQcA9JaE0IVZvqpmKG1EpJ5dDUV+k2zTkbdV5nlKG8hjLyyTckcrT5GH+7/fax1m9aW3M8qAI6lZb1RqN4P0RVgaw9gxL1w1Zi7/f1jDj1DP/fOMXG7hQfuNVil0AAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnAwMPGDrdy1JyAAABtElEQVR42u3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8GaFGgABH6N7kwAAAABJRU5ErkJggg==",
+                        "title": "File",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "file"
+                ],
+                "title": "ImageBody",
+                "type": "object"
+            },
+            "ImageResponse": {
+                "description": "Image illustrating the offer. Offers with images are more likely to be booked.",
+                "properties": {
+                    "credit": {
+                        "description": "Image owner or author.",
+                        "example": "Jane Doe",
+                        "nullable": true,
+                        "title": "Credit",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "Url where the image is accessible",
+                        "example": "https://example.com/image.png",
+                        "title": "Url",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url"
+                ],
+                "title": "ImageResponse",
+                "type": "object"
+            },
+            "LIVESTREAM_EVENEMENT_create": {
+                "description": "Livestream d'évènement",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_EVENEMENT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "showType",
+                    "category"
+                ],
+                "title": "LIVESTREAM_EVENEMENT_create",
+                "type": "object"
+            },
+            "LIVESTREAM_EVENEMENT_edit": {
+                "description": "Livestream d'évènement",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_EVENEMENT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_EVENEMENT_edit",
+                "type": "object"
+            },
+            "LIVESTREAM_EVENEMENT_read": {
+                "description": "Livestream d'évènement",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_EVENEMENT"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_EVENEMENT_read",
+                "type": "object"
+            },
+            "LIVESTREAM_MUSIQUE_create": {
+                "description": "Livestream musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "musicType",
+                    "category"
+                ],
+                "title": "LIVESTREAM_MUSIQUE_create",
+                "type": "object"
+            },
+            "LIVESTREAM_MUSIQUE_edit": {
+                "description": "Livestream musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_MUSIQUE_edit",
+                "type": "object"
+            },
+            "LIVESTREAM_MUSIQUE_read": {
+                "description": "Livestream musical",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_MUSIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "musicType": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                            },
+                            {
+                                "$ref": "#/components/schemas/MusicTypeEnum"
+                            }
+                        ],
+                        "title": "Musictype"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_MUSIQUE_read",
+                "type": "object"
+            },
+            "LIVESTREAM_PRATIQUE_ARTISTIQUE_create": {
+                "description": "Pratique artistique - livestream",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_PRATIQUE_ARTISTIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_PRATIQUE_ARTISTIQUE_create",
+                "type": "object"
+            },
+            "LIVESTREAM_PRATIQUE_ARTISTIQUE_edit": {
+                "description": "Pratique artistique - livestream",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_PRATIQUE_ARTISTIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_PRATIQUE_ARTISTIQUE_edit",
+                "type": "object"
+            },
+            "LIVESTREAM_PRATIQUE_ARTISTIQUE_read": {
+                "description": "Pratique artistique - livestream",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "LIVESTREAM_PRATIQUE_ARTISTIQUE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "LIVESTREAM_PRATIQUE_ARTISTIQUE_read",
+                "type": "object"
+            },
+            "MusicTypeEnum": {
+                "description": "An enumeration.",
+                "enum": [
+                    "JAZZ-ACID_JAZZ",
+                    "JAZZ-AVANT_GARDE_JAZZ",
+                    "JAZZ-BEBOP",
+                    "JAZZ-BIG_BAND",
+                    "JAZZ-BLUE_NOTE",
+                    "JAZZ-COOL_JAZZ",
+                    "JAZZ-CROSSOVER_JAZZ",
+                    "JAZZ-DIXIELAND",
+                    "JAZZ-ETHIO_JAZZ",
+                    "JAZZ-FUSION",
+                    "JAZZ-JAZZ_CONTEMPORAIN",
+                    "JAZZ-JAZZ_FUNK",
+                    "JAZZ-MAINSTREAM",
+                    "JAZZ-MANOUCHE",
+                    "JAZZ-TRADITIONEL",
+                    "JAZZ-VOCAL_JAZZ",
+                    "JAZZ-RAGTIME",
+                    "JAZZ-SMOOTH",
+                    "JAZZ-OTHER",
+                    "BLUES-BLUES_ACOUSTIQUE",
+                    "BLUES-BLUES_CONTEMPORAIN",
+                    "BLUES-BLUES_ELECTRIQUE",
+                    "BLUES-BLUES_ROCK",
+                    "BLUES-CHICAGO_BLUES",
+                    "BLUES-CLASSIC_BLUES",
+                    "BLUES-COUNTRY_BLUES",
+                    "BLUES-DELTA_BLUES",
+                    "BLUES-RAGTIME",
+                    "BLUES-OTHER",
+                    "REGGAE-TWO_TONE",
+                    "REGGAE-DANCEHALL",
+                    "REGGAE-DUB",
+                    "REGGAE-ROOTS",
+                    "REGGAE-SKA",
+                    "REGGAE-ZOUK",
+                    "REGGAE-OTHER",
+                    "CLASSIQUE-AVANT_GARDE",
+                    "CLASSIQUE-BAROQUE",
+                    "CLASSIQUE-CHANT",
+                    "CLASSIQUE-CHORALE",
+                    "CLASSIQUE-CONTEMPORAIN",
+                    "CLASSIQUE-EXPRESSIONISTE",
+                    "CLASSIQUE-IMPRESSIONISTE",
+                    "CLASSIQUE-MEDIEVALE",
+                    "CLASSIQUE-MINIMALISTE",
+                    "CLASSIQUE-MODERNE",
+                    "CLASSIQUE-ORATORIO",
+                    "CLASSIQUE-OPERA",
+                    "CLASSIQUE-RENAISSANCE",
+                    "CLASSIQUE-ROMANTIQUE",
+                    "CLASSIQUE-OTHER",
+                    "MUSIQUE_DU_MONDE-AFRICAINE",
+                    "MUSIQUE_DU_MONDE-AFRO_BEAT",
+                    "MUSIQUE_DU_MONDE-AFRO_POP",
+                    "MUSIQUE_DU_MONDE-ALTERNATIVO",
+                    "MUSIQUE_DU_MONDE-AMERIQUE_DU_NORD",
+                    "MUSIQUE_DU_MONDE-AMERIQUE_DU_SUD",
+                    "MUSIQUE_DU_MONDE-ASIATIQUE",
+                    "MUSIQUE_DU_MONDE-BALADAS_Y_BOLEROS",
+                    "MUSIQUE_DU_MONDE-BOSSA_NOVA",
+                    "MUSIQUE_DU_MONDE-BRESILIENNE",
+                    "MUSIQUE_DU_MONDE-CAJUN",
+                    "MUSIQUE_DU_MONDE-CALYPSO",
+                    "MUSIQUE_DU_MONDE-CARIBEENNE",
+                    "MUSIQUE_DU_MONDE-CELTIQUE",
+                    "MUSIQUE_DU_MONDE-CUMBIA",
+                    "MUSIQUE_DU_MONDE-FLAMENCO",
+                    "MUSIQUE_DU_MONDE-GRECQUE",
+                    "MUSIQUE_DU_MONDE-INDIENNE",
+                    "MUSIQUE_DU_MONDE-LATIN_JAZZ",
+                    "MUSIQUE_DU_MONDE-MOYEN_ORIENT",
+                    "MUSIQUE_DU_MONDE-LATINE_CONTEMPORAINE",
+                    "MUSIQUE_DU_MONDE-NUEVO_FLAMENCO",
+                    "MUSIQUE_DU_MONDE-POP_LATINO",
+                    "MUSIQUE_DU_MONDE-PORTUGUESE_FADO",
+                    "MUSIQUE_DU_MONDE-RAI",
+                    "MUSIQUE_DU_MONDE-SALSA",
+                    "MUSIQUE_DU_MONDE-TANGO_ARGENTIN",
+                    "MUSIQUE_DU_MONDE-YIDDISH",
+                    "MUSIQUE_DU_MONDE-OTHER",
+                    "POP-BRITPOP",
+                    "POP-BUBBLEGUM",
+                    "POP-DANCE_POP",
+                    "POP-DREAM_POP",
+                    "POP-ELECTRO_POP",
+                    "POP-INDIE_POP",
+                    "POP-J_POP",
+                    "POP-K_POP",
+                    "POP-POP_PUNK",
+                    "POP-POP_ROCK",
+                    "POP-POWER_POP",
+                    "POP-SOFT_ROCK",
+                    "POP-SYNTHPOP",
+                    "POP-TEEN_POP",
+                    "POP-OTHER",
+                    "ROCK-ACID_ROCK",
+                    "ROCK-ARENA_ROCK",
+                    "ROCK-ART_ROCK",
+                    "ROCK-COLLEGE_ROCK",
+                    "ROCK-GLAM_ROCK",
+                    "ROCK-GRUNGE",
+                    "ROCK-HARD_ROCK",
+                    "ROCK-INDIE_ROCK",
+                    "ROCK-LO_FI",
+                    "ROCK-PROG_ROCK",
+                    "ROCK-PSYCHEDELIC",
+                    "ROCK-ROCK_N_ROLL",
+                    "ROCK-EXPERIMENTAL",
+                    "ROCK-ROCKABILLY",
+                    "ROCK-SHOEGAZE",
+                    "ROCK-ELECTRO",
+                    "ROCK-OTHER",
+                    "METAL-BLACK_METAL",
+                    "METAL-DEATH_METAL",
+                    "METAL-DOOM_METAL",
+                    "METAL-GOTHIC",
+                    "METAL-METAL_CORE",
+                    "METAL-METAL_PROGRESSIF",
+                    "METAL-TRASH_METAL",
+                    "METAL-METAL_INDUSTRIEL",
+                    "METAL-FUSION",
+                    "METAL-OTHER",
+                    "PUNK-POST_PUNK",
+                    "PUNK-HARDCORE_PUNK",
+                    "PUNK-AFRO_PUNK",
+                    "PUNK-GRINDCORE",
+                    "PUNK-NOISE_ROCK",
+                    "PUNK-OTHER",
+                    "FOLK-FOLK_CONTEMPORAINE",
+                    "FOLK-INDIE_FOLK",
+                    "FOLK-FOLK_ROCK",
+                    "FOLK-NEW_ACOUSTIC",
+                    "FOLK-FOLK_TRADITIONELLE",
+                    "FOLK-TEX_MEX",
+                    "FOLK-OTHER",
+                    "COUNTRY-COUNTRY_ALTERNATIVE",
+                    "COUNTRY-AMERICANA",
+                    "COUNTRY-BLUEGRASS",
+                    "COUNTRY-COUNTRY_CONTEMPORAINE",
+                    "COUNTRY-GOSPEL_COUNTRY",
+                    "COUNTRY-COUNTRY_POP",
+                    "COUNTRY-OTHER",
+                    "ELECTRO-BITPOP",
+                    "ELECTRO-BREAKBEAT",
+                    "ELECTRO-CHILLWAVE",
+                    "ELECTRO-DANCE",
+                    "ELECTRO-DOWNTEMPO",
+                    "ELECTRO-DRUM_AND_BASS",
+                    "ELECTRO-DUBSTEP",
+                    "ELECTRO-EXPERIMENTAL",
+                    "ELECTRO-ELECTRONICA",
+                    "ELECTRO-GARAGE",
+                    "ELECTRO-GRIME",
+                    "ELECTRO-HARD_DANCE",
+                    "ELECTRO-HARDCORE",
+                    "ELECTRO-HOUSE",
+                    "ELECTRO-INDUSTRIEL",
+                    "ELECTRO-LOUNGE",
+                    "ELECTRO-TECHNO",
+                    "ELECTRO-TRANCE",
+                    "ELECTRO-OTHER",
+                    "HIP_HOP_RAP-BOUNCE",
+                    "HIP_HOP_RAP-HIP_HOP",
+                    "HIP_HOP_RAP-RAP_ALTERNATIF",
+                    "HIP_HOP_RAP-RAP_EAST_COAST",
+                    "HIP_HOP_RAP-RAP_FRANCAIS",
+                    "HIP_HOP_RAP-RAP_GANGSTA",
+                    "HIP_HOP_RAP-RAP_HARDCORE",
+                    "HIP_HOP_RAP-RAP_LATINO",
+                    "HIP_HOP_RAP-RAP_OLD_SCHOOL",
+                    "HIP_HOP_RAP-RAP_UNDERGROUND",
+                    "HIP_HOP_RAP-RAP_WEST_COAST",
+                    "HIP_HOP_RAP-TRAP",
+                    "HIP_HOP_RAP-TRIP_HOP",
+                    "HIP_HOP_RAP-R&B_CONTEMPORAIN",
+                    "HIP_HOP_RAP-DISCO",
+                    "HIP_HOP_RAP-DOO_WOP",
+                    "HIP_HOP_RAP-FUNK",
+                    "HIP_HOP_RAP-SOUL",
+                    "HIP_HOP_RAP-MOTOWN",
+                    "HIP_HOP_RAP-NEO_SOUL",
+                    "HIP_HOP_RAP-SOUL_PSYCHEDELIQUE",
+                    "HIP_HOP_RAP-OTHER",
+                    "GOSPEL-SPIRITUAL_GOSPEL",
+                    "GOSPEL-TRADITIONAL_GOSPEL",
+                    "GOSPEL-SOUTHERN_GOSPEL",
+                    "GOSPEL-CONTEMPORARY_GOSPEL",
+                    "GOSPEL-BLUEGRASS_GOSPEL",
+                    "GOSPEL-BLUES_GOSPEL",
+                    "GOSPEL-COUNTRY_GOSPEL",
+                    "GOSPEL-HYBRID_GOSPEL",
+                    "GOSPEL-OTHER",
+                    "CHANSON_VARIETE-MUSETTE",
+                    "CHANSON_VARIETE-CHANSON_FRANCAISE",
+                    "CHANSON_VARIETE-MUSIC_HALL",
+                    "CHANSON_VARIETE-FOLKLORE_FRANCAIS",
+                    "CHANSON_VARIETE-CHANSON_À_TEXTE",
+                    "CHANSON_VARIETE-SLAM",
+                    "CHANSON_VARIETE-OTHER",
+                    "OTHER"
+                ],
+                "title": "MusicTypeEnum",
+                "type": "string"
+            },
+            "MusicTypeResponse": {
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/MusicTypeEnum"
+                    },
+                    "label": {
+                        "title": "Label",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "title": "MusicTypeResponse",
+                "type": "object"
+            },
+            "OfferStatus": {
+                "description": "An enumeration.",
+                "enum": [
+                    "ACTIVE",
+                    "PENDING",
+                    "EXPIRED",
+                    "REJECTED",
+                    "SOLD_OUT",
+                    "INACTIVE",
+                    "DRAFT"
+                ],
+                "title": "OfferStatus",
+                "type": "string"
+            },
+            "PartialAccessibility": {
+                "description": "Accessibility for people with disabilities. Fields are null for digital venues.",
+                "properties": {
+                    "audioDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Audiodisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "mentalDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Mentaldisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "motorDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Motordisabilitycompliant",
+                        "type": "boolean"
+                    },
+                    "visualDisabilityCompliant": {
+                        "nullable": true,
+                        "title": "Visualdisabilitycompliant",
+                        "type": "boolean"
+                    }
+                },
+                "title": "PartialAccessibility",
+                "type": "object"
+            },
+            "PhysicalLocation": {
+                "properties": {
+                    "type": {
+                        "default": "physical",
+                        "enum": [
+                            "physical"
+                        ],
+                        "title": "Type",
+                        "type": "string"
+                    },
+                    "venueId": {
+                        "description": "List of venues is available at GET /offerer_venues",
+                        "example": 1,
+                        "title": "Venueid",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "venueId"
+                ],
+                "title": "PhysicalLocation",
+                "type": "object"
+            },
+            "PostDatesResponse": {
+                "properties": {
+                    "dates": {
+                        "description": "Dates of the event.",
+                        "items": {
+                            "$ref": "#/components/schemas/DateResponse"
+                        },
+                        "title": "Dates",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "dates"
+                ],
+                "title": "PostDatesResponse",
+                "type": "object"
+            },
+            "PriceCategoriesCreation": {
+                "additionalProperties": false,
+                "properties": {
+                    "priceCategories": {
+                        "description": "Available price categories for dates of this offer",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceCategoryCreation"
+                        },
+                        "title": "Pricecategories",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "priceCategories"
+                ],
+                "title": "PriceCategoriesCreation",
+                "type": "object"
+            },
+            "PriceCategoriesResponse": {
+                "properties": {
+                    "priceCategories": {
+                        "description": "Available price categories for dates of this offer",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceCategoryResponse"
+                        },
+                        "title": "Pricecategories",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "priceCategories"
+                ],
+                "title": "PriceCategoriesResponse",
+                "type": "object"
+            },
+            "PriceCategoryCreation": {
+                "properties": {
+                    "label": {
+                        "description": "Price category label",
+                        "example": "Carré or",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "title": "Label",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Offer price in euro cents.",
+                        "example": 1000,
+                        "maximum": 30000,
+                        "minimum": 0,
+                        "title": "Price",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "label",
+                    "price"
+                ],
+                "title": "PriceCategoryCreation",
+                "type": "object"
+            },
+            "PriceCategoryEdition": {
+                "additionalProperties": false,
+                "properties": {
+                    "label": {
+                        "description": "Price category label",
+                        "example": "Carré or",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true,
+                        "title": "Label",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Offer price in euro cents.",
+                        "example": 1000,
+                        "maximum": 30000,
+                        "minimum": 0,
+                        "nullable": true,
+                        "title": "Price",
+                        "type": "integer"
+                    }
+                },
+                "title": "PriceCategoryEdition",
+                "type": "object"
+            },
+            "PriceCategoryResponse": {
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "integer"
+                    },
+                    "label": {
+                        "description": "Price category label",
+                        "example": "Carré or",
+                        "title": "Label",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Offer price in euro cents.",
+                        "example": 1000,
+                        "title": "Price",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "id",
+                    "label",
+                    "price"
+                ],
+                "title": "PriceCategoryResponse",
+                "type": "object"
+            },
+            "RENCONTRE_EN_LIGNE_create": {
+                "description": "Rencontre en ligne",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_EN_LIGNE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_EN_LIGNE_create",
+                "type": "object"
+            },
+            "RENCONTRE_EN_LIGNE_edit": {
+                "description": "Rencontre en ligne",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_EN_LIGNE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_EN_LIGNE_edit",
+                "type": "object"
+            },
+            "RENCONTRE_EN_LIGNE_read": {
+                "description": "Rencontre en ligne",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_EN_LIGNE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_EN_LIGNE_read",
+                "type": "object"
+            },
+            "RENCONTRE_JEU_create": {
+                "description": "Rencontres - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_JEU_create",
+                "type": "object"
+            },
+            "RENCONTRE_JEU_edit": {
+                "description": "Rencontres - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_JEU_edit",
+                "type": "object"
+            },
+            "RENCONTRE_JEU_read": {
+                "description": "Rencontres - jeux",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE_JEU"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_JEU_read",
+                "type": "object"
+            },
+            "RENCONTRE_create": {
+                "description": "Rencontre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_create",
+                "type": "object"
+            },
+            "RENCONTRE_edit": {
+                "description": "Rencontre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_edit",
+                "type": "object"
+            },
+            "RENCONTRE_read": {
+                "description": "Rencontre",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "RENCONTRE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "RENCONTRE_read",
+                "type": "object"
+            },
+            "SALON_create": {
+                "description": "Salon, Convention",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SALON"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SALON_create",
+                "type": "object"
+            },
+            "SALON_edit": {
+                "description": "Salon, Convention",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SALON"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SALON_edit",
+                "type": "object"
+            },
+            "SALON_read": {
+                "description": "Salon, Convention",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SALON"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SALON_read",
+                "type": "object"
+            },
+            "SEANCE_CINE_create": {
+                "description": "Séance de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SEANCE_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_CINE_create",
+                "type": "object"
+            },
+            "SEANCE_CINE_edit": {
+                "description": "Séance de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SEANCE_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_CINE_edit",
+                "type": "object"
+            },
+            "SEANCE_CINE_read": {
+                "description": "Séance de cinéma",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SEANCE_CINE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    },
+                    "visa": {
+                        "title": "Visa",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_CINE_read",
+                "type": "object"
+            },
+            "SEANCE_ESSAI_PRATIQUE_ART_create": {
+                "description": "Séance d'essai",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SEANCE_ESSAI_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_ESSAI_PRATIQUE_ART_create",
+                "type": "object"
+            },
+            "SEANCE_ESSAI_PRATIQUE_ART_edit": {
+                "description": "Séance d'essai",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SEANCE_ESSAI_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_ESSAI_PRATIQUE_ART_edit",
+                "type": "object"
+            },
+            "SEANCE_ESSAI_PRATIQUE_ART_read": {
+                "description": "Séance d'essai",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "SEANCE_ESSAI_PRATIQUE_ART"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "speaker": {
+                        "title": "Speaker",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SEANCE_ESSAI_PRATIQUE_ART_read",
+                "type": "object"
+            },
+            "SPECTACLE_REPRESENTATION_create": {
+                "description": "Spectacle, représentation",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SPECTACLE_REPRESENTATION"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "showType",
+                    "category"
+                ],
+                "title": "SPECTACLE_REPRESENTATION_create",
+                "type": "object"
+            },
+            "SPECTACLE_REPRESENTATION_edit": {
+                "description": "Spectacle, représentation",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SPECTACLE_REPRESENTATION"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SPECTACLE_REPRESENTATION_edit",
+                "type": "object"
+            },
+            "SPECTACLE_REPRESENTATION_read": {
+                "description": "Spectacle, représentation",
+                "properties": {
+                    "author": {
+                        "title": "Author",
+                        "type": "string"
+                    },
+                    "category": {
+                        "enum": [
+                            "SPECTACLE_REPRESENTATION"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    },
+                    "performer": {
+                        "title": "Performer",
+                        "type": "string"
+                    },
+                    "showType": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "stageDirector": {
+                        "title": "Stagedirector",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "SPECTACLE_REPRESENTATION_read",
+                "type": "object"
+            },
+            "ShowTypeEnum": {
+                "description": "An enumeration.",
+                "enum": [
+                    "ART_DE_LA_RUE-CARNAVAL",
+                    "ART_DE_LA_RUE-FANFARE",
+                    "ART_DE_LA_RUE-MIME",
+                    "ART_DE_LA_RUE-PARADE",
+                    "ART_DE_LA_RUE-THEATRE_DE_RUE",
+                    "ART_DE_LA_RUE-THEATRE_PROMENADE",
+                    "ART_DE_LA_RUE-OTHER",
+                    "CIRQUE-CIRQUE_CONTEMPORAIN",
+                    "CIRQUE-CIRQUE_HORS_LES_MURS",
+                    "CIRQUE-CIRQUE_TRADITIONNEL",
+                    "CIRQUE-CIRQUE_VOYAGEUR",
+                    "CIRQUE-CLOWN",
+                    "CIRQUE-HYPNOSE",
+                    "CIRQUE-MENTALISTE",
+                    "CIRQUE-SPECTACLE_DE_MAGIE",
+                    "CIRQUE-SPECTACLE_EQUESTRE",
+                    "CIRQUE-OTHER",
+                    "DANSE-BALLET",
+                    "DANSE-CANCAN",
+                    "DANSE-CLAQUETTE",
+                    "DANSE-CLASSIQUE",
+                    "DANSE-CONTEMPORAINE",
+                    "DANSE-DANSE_DU_MONDE",
+                    "DANSE-FLAMENCO",
+                    "DANSE-MODERNE_JAZZ",
+                    "DANSE-SALSA",
+                    "DANSE-SWING",
+                    "DANSE-TANGO",
+                    "DANSE-URBAINE",
+                    "DANSE-OTHER",
+                    "HUMOUR-CAFE_THEATRE",
+                    "HUMOUR-IMPROVISATION",
+                    "HUMOUR-SEUL_EN_SCENE",
+                    "HUMOUR-SKETCH",
+                    "HUMOUR-STAND_UP",
+                    "HUMOUR-VENTRILOQUE",
+                    "HUMOUR-OTHER",
+                    "SPECTACLE_MUSICAL-CABARET",
+                    "SPECTACLE_MUSICAL-CAFE_CONCERT",
+                    "SPECTACLE_MUSICAL-CLAQUETTE",
+                    "SPECTACLE_MUSICAL-COMEDIE_MUSICALE",
+                    "SPECTACLE_MUSICAL-OPERA_BOUFFE",
+                    "SPECTACLE_MUSICAL-OPERETTE",
+                    "SPECTACLE_MUSICAL-REVUE",
+                    "SPECTACLE_MUSICAL-BURLESQUE",
+                    "SPECTACLE_MUSICAL-COMEDIE_BALLET",
+                    "SPECTACLE_MUSICAL-OPERA_COMIQUE",
+                    "SPECTACLE_MUSICAL-OPERA_BALLET",
+                    "SPECTACLE_MUSICAL-THEATRE_MUSICAL",
+                    "SPECTACLE_MUSICAL-OTHER",
+                    "SPECTACLE_JEUNESSE-CONTE",
+                    "SPECTACLE_JEUNESSE-THEATRE_JEUNESSE",
+                    "SPECTACLE_JEUNESSE-SPECTACLE_PETITE_ENFANCE",
+                    "SPECTACLE_JEUNESSE-MAGIE_ENFANCE",
+                    "SPECTACLE_JEUNESSE-SPECTACLE_PEDAGOGIQUE",
+                    "SPECTACLE_JEUNESSE-MARIONETTES",
+                    "SPECTACLE_JEUNESSE-COMEDIE_MUSICALE_JEUNESSE",
+                    "SPECTACLE_JEUNESSE-THEATRE_D_OMBRES",
+                    "SPECTACLE_JEUNESSE-OTHER",
+                    "THEATRE-BOULEVARD",
+                    "THEATRE-CLASSIQUE",
+                    "THEATRE-COMEDIE",
+                    "THEATRE-CONTEMPORAIN",
+                    "THEATRE-LECTURE",
+                    "THEATRE-SPECTACLE_SCENOGRAPHIQUE",
+                    "THEATRE-THEATRE_EXPERIMENTAL",
+                    "THEATRE-THEATRE_D_OBJET",
+                    "THEATRE-TRAGEDIE",
+                    "THEATRE-OTHER",
+                    "PLURIDISCIPLINAIRE-PERFORMANCE",
+                    "PLURIDISCIPLINAIRE-POESIE",
+                    "PLURIDISCIPLINAIRE-OTHER",
+                    "OTHER-SON_ET_LUMIERE",
+                    "OTHER-SPECTACLE_SUR_GLACE",
+                    "OTHER-SPECTACLE_HISTORIQUE",
+                    "OTHER-SPECTACLE_AQUATIQUE",
+                    "OTHER-OTHER",
+                    "OPERA-OPERA_SERIE",
+                    "OPERA-GRAND_OPERA",
+                    "OPERA-OPERA_BOUFFE",
+                    "OPERA-OPERA_COMIQUE",
+                    "OPERA-OPERA_BALLET",
+                    "OPERA-SINGSPIEL",
+                    "OPERA-OTHER",
+                    "OTHER"
+                ],
+                "title": "ShowTypeEnum",
+                "type": "string"
+            },
+            "ShowTypeResponse": {
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/ShowTypeEnum"
+                    },
+                    "label": {
+                        "title": "Label",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "title": "ShowTypeResponse",
+                "type": "object"
+            },
+            "TiteliveMusicTypeEnum": {
+                "description": "An enumeration.",
+                "enum": [
+                    "MUSIQUE_CLASSIQUE",
+                    "JAZZ-BLUES",
+                    "BANDES_ORIGINALES",
+                    "ELECTRO",
+                    "POP",
+                    "ROCK",
+                    "METAL",
+                    "ALTERNATIF",
+                    "VARIETES",
+                    "FUNK-SOUL-RNB-DISCO",
+                    "RAP-HIP HOP",
+                    "REGGAE-RAGGA",
+                    "MUSIQUE_DU_MONDE",
+                    "COUNTRY-FOLK",
+                    "VIDEOS_MUSICALES",
+                    "COMPILATIONS",
+                    "AMBIANCE",
+                    "ENFANTS",
+                    "AUTRES"
+                ],
+                "title": "TiteliveMusicTypeEnum",
+                "type": "string"
+            },
+            "TiteliveMusicTypeResponse": {
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/TiteliveMusicTypeEnum"
+                    },
+                    "label": {
+                        "title": "Label",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "title": "TiteliveMusicTypeResponse",
+                "type": "object"
+            },
+            "VISITE_GUIDEE_create": {
+                "description": "Visite guidée",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE_GUIDEE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_GUIDEE_create",
+                "type": "object"
+            },
+            "VISITE_GUIDEE_edit": {
+                "description": "Visite guidée",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE_GUIDEE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_GUIDEE_edit",
+                "type": "object"
+            },
+            "VISITE_GUIDEE_read": {
+                "description": "Visite guidée",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE_GUIDEE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_GUIDEE_read",
+                "type": "object"
+            },
+            "VISITE_create": {
+                "description": "Visite",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_create",
+                "type": "object"
+            },
+            "VISITE_edit": {
+                "description": "Visite",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_edit",
+                "type": "object"
+            },
+            "VISITE_read": {
+                "description": "Visite",
+                "properties": {
+                    "category": {
+                        "enum": [
+                            "VISITE"
+                        ],
+                        "title": "Category",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "category"
+                ],
+                "title": "VISITE_read",
+                "type": "object"
+            },
+            "ValidationError": {
+                "description": "Model of a validation error response.",
+                "items": {
+                    "$ref": "#/components/schemas/ValidationErrorElement"
+                },
+                "title": "ValidationError",
+                "type": "array"
+            },
+            "ValidationErrorElement": {
+                "description": "Model of a validation error response element.",
+                "properties": {
+                    "ctx": {
+                        "title": "Error context",
+                        "type": "object"
+                    },
+                    "loc": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Missing field name",
+                        "type": "array"
+                    },
+                    "msg": {
+                        "title": "Error message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error type",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationErrorElement",
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "description": "Api key issued on passculture.pro",
+                "scheme": "bearer",
+                "type": "http"
+            }
+        }
+    },
+    "info": {
+        "title": "Event Offers API",
+        "version": "1.0"
+    },
+    "openapi": "3.0.3",
+    "paths": {
+        "/public/offers/v1/events": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_events",
+                "parameters": [
+                    {
+                        "description": "Maximum number of items per page.",
+                        "in": "query",
+                        "name": "limit",
+                        "required": false,
+                        "schema": {
+                            "default": 50,
+                            "description": "Maximum number of items per page.",
+                            "exclusiveMinimum": 0,
+                            "maximum": 50,
+                            "title": "Limit",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Index of the first item in page.",
+                        "in": "query",
+                        "name": "firstIndex",
+                        "required": false,
+                        "schema": {
+                            "default": 1,
+                            "description": "Index of the first item in page.",
+                            "minimum": 1,
+                            "title": "Firstindex",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Venue id to filter offers on.",
+                        "in": "query",
+                        "name": "venueId",
+                        "required": true,
+                        "schema": {
+                            "description": "Venue id to filter offers on.",
+                            "title": "Venueid",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventOffersResponse"
+                                }
+                            }
+                        },
+                        "description": "The event offers have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The venue could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get events. Results are paginated.",
+                "tags": [
+                    "Event offer main information (except prices and dates)"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "post__public_offers_v1_events",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventOfferCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventOfferResponse"
+                                }
+                            }
+                        },
+                        "description": "The event offer has been created successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Post an event offer.",
+                "tags": [
+                    "Event offer main information (except prices and dates)"
+                ]
+            }
+        },
+        "/public/offers/v1/events/categories": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_events_categories",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetEventCategoriesResponse"
+                                }
+                            }
+                        },
+                        "description": "The event categories have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get all the event categories, their conditional fields, and whether they are required for event creation.",
+                "tags": [
+                    "Offer attributes"
+                ]
+            }
+        },
+        "/public/offers/v1/events/{event_id}": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_events_{event_id}",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventOfferResponse"
+                                }
+                            }
+                        },
+                        "description": "The event offer has been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get an event offer.",
+                "tags": [
+                    "Event offer main information (except prices and dates)"
+                ]
+            },
+            "patch": {
+                "description": "Leave fields undefined to keep their current value.",
+                "operationId": "patch__public_offers_v1_events_{event_id}",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventOfferEdition"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventOfferResponse"
+                                }
+                            }
+                        },
+                        "description": "The event offer has been returned"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Edit a event offer.",
+                "tags": [
+                    "Event offer main information (except prices and dates)"
+                ]
+            }
+        },
+        "/public/offers/v1/events/{event_id}/dates": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_events_{event_id}_dates",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Maximum number of items per page.",
+                        "in": "query",
+                        "name": "limit",
+                        "required": false,
+                        "schema": {
+                            "default": 50,
+                            "description": "Maximum number of items per page.",
+                            "exclusiveMinimum": 0,
+                            "maximum": 50,
+                            "title": "Limit",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Index of the first item in page.",
+                        "in": "query",
+                        "name": "firstIndex",
+                        "required": false,
+                        "schema": {
+                            "default": 1,
+                            "description": "Index of the first item in page.",
+                            "minimum": 1,
+                            "title": "Firstindex",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetDatesResponse"
+                                }
+                            }
+                        },
+                        "description": "The event dates have been returned"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer or the price category could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get dates of an event. Results are paginated.",
+                "tags": [
+                    "Event offer dates"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "post__public_offers_v1_events_{event_id}_dates",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DatesCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostDatesResponse"
+                                }
+                            }
+                        },
+                        "description": "The event dates have been created successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer or the price category could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Add dates to an event offer. Each date is attached to a price category so if there are several prices categories, several dates must be added.",
+                "tags": [
+                    "Event offer dates"
+                ]
+            }
+        },
+        "/public/offers/v1/events/{event_id}/dates/{date_id}": {
+            "delete": {
+                "description": "All cancellable bookings (i.e not used) will be cancelled. To prevent from further bookings, you may alternatively update the date's quantity to the bookedQuantity (but not below).",
+                "operationId": "delete__public_offers_v1_events_{event_id}_dates_{date_id}",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "date_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "The event date has been deleted successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer or the price category could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Delete an event date.",
+                "tags": [
+                    "Event offer dates"
+                ]
+            },
+            "patch": {
+                "description": "",
+                "operationId": "patch__public_offers_v1_events_{event_id}_dates_{date_id}",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "date_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DateEdition"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DateResponse"
+                                }
+                            }
+                        },
+                        "description": "The event date has been modified successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer or the price category could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Patch an event date.",
+                "tags": [
+                    "Event offer dates"
+                ]
+            }
+        },
+        "/public/offers/v1/events/{event_id}/price_categories": {
+            "post": {
+                "description": "",
+                "operationId": "post__public_offers_v1_events_{event_id}_price_categories",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceCategoriesCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PriceCategoriesResponse"
+                                }
+                            }
+                        },
+                        "description": "The price category has been created successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors. Or one of the price categories already exists."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Post price categories.",
+                "tags": [
+                    "Event offer prices"
+                ]
+            }
+        },
+        "/public/offers/v1/events/{event_id}/price_categories/{price_category_id}": {
+            "patch": {
+                "description": "",
+                "operationId": "patch__public_offers_v1_events_{event_id}_price_categories_{price_category_id}",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "event_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "price_category_id",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceCategoryEdition"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PriceCategoryResponse"
+                                }
+                            }
+                        },
+                        "description": "The price category has been modified successfully"
+                    },
+                    "400": {
+                        "description": "The request is invalid. The response body contains a list of errors."
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "404": {
+                        "description": "The event offer or the price category could not be found."
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Patch price categories.",
+                "tags": [
+                    "Event offer prices"
+                ]
+            }
+        },
+        "/public/offers/v1/music_types": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_music_types",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMusicTypesResponse"
+                                }
+                            }
+                        },
+                        "description": "The music types have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get all the music types.",
+                "tags": [
+                    "Offer attributes"
+                ]
+            }
+        },
+        "/public/offers/v1/music_types/all": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_music_types_all",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMusicTypesResponse"
+                                }
+                            }
+                        },
+                        "description": "The music types have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get all titelive music types.",
+                "tags": [
+                    "Offer attributes"
+                ]
+            }
+        },
+        "/public/offers/v1/music_types/event": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_music_types_event",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMusicTypesResponse"
+                                }
+                            }
+                        },
+                        "description": "The music types have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get the music types eligible for events.",
+                "tags": [
+                    "Offer attributes"
+                ]
+            }
+        },
+        "/public/offers/v1/show_types": {
+            "get": {
+                "description": "",
+                "operationId": "get__public_offers_v1_show_types",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetShowTypesResponse"
+                                }
+                            }
+                        },
+                        "description": "The show types have been returned"
+                    },
+                    "401": {
+                        "description": "Authentication is necessary to use this API"
+                    },
+                    "403": {
+                        "description": "You do not have the necessary rights to use this API"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "summary": "Get all the show types.",
+                "tags": [
+                    "Offer attributes"
+                ]
+            }
+        }
+    },
+    "security": [],
+    "tags": [
+        {
+            "name": "Offer attributes"
+        },
+        {
+            "name": "Event offer main information (except prices and dates)"
+        },
+        {
+            "name": "Event offer prices"
+        },
+        {
+            "name": "Event offer dates"
+        }
+    ]
+}

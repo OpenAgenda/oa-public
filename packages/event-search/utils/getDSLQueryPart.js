@@ -326,6 +326,21 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
   });
 }
 
+function _filterByReferencingAgendaUid(referencingAgendaUid) {
+  const uids = [].concat(referencingAgendaUid);
+  const filter = uids.length > 1 ? {
+    terms: {
+      _referencing_agenda_uids: uids,
+    },
+  } : {
+    term: {
+      _referencing_agenda_uids: uids[0],
+    },
+  };
+
+  return filter;
+}
+
 function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue }) {
   const parts = [];
   const {
@@ -378,6 +393,10 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
     parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
   }
 
+  if (_.get(cleanQuery, 'referencingAgendaUid', []).length) {
+    parts.push(_filterByReferencingAgendaUid(cleanQuery.referencingAgendaUid));
+  }
+
   if (addMethod?.length) {
     parts.push(_terms('addMethod', addMethod));
   }
@@ -411,6 +430,31 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
   return parts;
 }
 
+function _getQueryMustNotFilterParts(cleanQuery) {
+  const parts = [];
+  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
+  const hasCurrent = cleanQuery.relative.includes('current');
+
+  if (hasPassedAndUpcoming && !hasCurrent) {
+    parts.push({
+      range: {
+        _search_first_timing: { lte: 'now' },
+      },
+    });
+    parts.push({
+      range: {
+        _search_last_timing: { gte: 'now' },
+      },
+    });
+  }
+
+  if (_.get(cleanQuery, 'notReferencingAgendaUid', []).length) {
+    parts.push(_filterByReferencingAgendaUid(cleanQuery.notReferencingAgendaUid));
+  }
+
+  return parts;
+}
+
 module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
   const {
     formSchema,
@@ -426,6 +470,8 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
 
   const filterParts = _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue });
 
+  const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
+
   if (mustParts.length === 1 && !filterParts.length) {
     _.extend(query, mustParts[0]);
   } else if (mustParts.length > 1 || (filterParts.length && mustParts.length)) {
@@ -436,22 +482,8 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
     _.set(query, 'bool.filter', filterParts);
   }
 
-  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
-  const hasCurrent = cleanQuery.relative.includes('current');
-  if (hasPassedAndUpcoming && !hasCurrent) {
-    _.set(query, 'bool.must_not', {
-      bool: {
-        filter: [{
-          range: {
-            _search_first_timing: { lte: 'now' },
-          },
-        }, {
-          range: {
-            _search_last_timing: { gte: 'now' },
-          },
-        }],
-      },
-    });
+  if (mustNotFilterParts.length) {
+    _.set(query, 'bool.must_not.bool.filter', mustNotFilterParts);
   }
 
   return query;

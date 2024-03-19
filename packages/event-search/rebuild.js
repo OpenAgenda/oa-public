@@ -1,6 +1,6 @@
 'use strict';
 
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const logs = require('@openagenda/logs');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');

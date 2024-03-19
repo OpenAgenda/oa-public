@@ -457,7 +457,7 @@ const LocationForm = ({
           onChange={onChange}
           placeholder="accessPlaceholder"
           info="accessInfo"
-          type="text"
+          type="textarea"
           groupClassName={errors && errors.find(e => e.field === 'access') ? 'has-error' : ''}
         />
       </div>

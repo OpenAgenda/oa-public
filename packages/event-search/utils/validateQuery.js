@@ -133,6 +133,14 @@ const validate = schema({
     type: 'choice',
     options: [1, 2, 3, 4, 5, 6],
   },
+  referencingAgendaUid: {
+    type: 'integer',
+    list: true,
+  },
+  notReferencingAgendaUid: {
+    type: 'integer',
+    list: true,
+  },
   featured: {
     optional: true,
     type: 'boolean',
@@ -283,7 +291,11 @@ function filterNullCountryCode(dirty) {
   return false;
 }
 
-function validateQuery(dirty, { formSchema, emptyValue }) {
+function validateQuery(dirty, options = {}) {
+  const {
+    formSchema,
+    emptyValue,
+  } = options;
   const isCountryCodeNull = filterNullCountryCode(dirty);
   const preCleaned = preCleanRawQuery(dirty);
   const clean = validate(preCleaned);
