@@ -42,7 +42,8 @@ class SentryTransport extends winston.Transport {
     if (meta instanceof Error) {
       error = meta;
     } else {
-      const { error: metaError, ...displayedMeta } = meta;
+      const { error: metaError, ...restMeta } = meta;
+      Object.assign(displayedMeta, restMeta);
       if (metaError instanceof Error) {
         error = metaError;
       } else {

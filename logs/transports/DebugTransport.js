@@ -5,8 +5,7 @@ const winston = require('winston');
 const debug = require('debug');
 const context = require('../context');
 const cloneError = require('../utils/cloneError');
-
-const isEmptyObject = obj => obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+const isEmptyObject = require('../utils/isEmptyObject');
 
 class DebugTransport extends winston.Transport {
   constructor(options) {

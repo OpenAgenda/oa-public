@@ -37,16 +37,16 @@ describe( 'logs', () => {
 
     } );
 
-    it( 'log with logentries + debug', () => {
+    it( 'log with insightOps + debug', () => {
 
       logs.init( {
         token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       } );
 
       const transportDebug = logs.getTransports().debug;
-      const transportLogentries = logs.getTransports().logentries;
+      const transportInsightOps = logs.getTransports().insightOps;
       const spyDebug = sinon.spy( transportDebug, 'log' );
-      const spyLogentries = sinon.spy( transportLogentries, 'log' );
+      const spyInsightOps = sinon.spy( transportInsightOps, 'log' );
 
       logs( 'info', 'Un log %s', 'bidon' );
 
@@ -54,9 +54,9 @@ describe( 'logs', () => {
       sinon.assert.calledOnce( spyDebug );
       sinon.assert.calledWith( spyDebug, 'info', 'Un log bidon' );
 
-      expect( transportLogentries.name ).toBe( 'logentries' );
-      sinon.assert.calledOnce( spyLogentries );
-      sinon.assert.calledWith( spyLogentries, 'info', 'Un log bidon' );
+      expect( transportInsightOps.name ).toBe( 'insightOps' );
+      sinon.assert.calledOnce( spyInsightOps );
+      sinon.assert.calledWith( spyInsightOps, 'info', 'Un log bidon' );
 
     } );
 
@@ -191,7 +191,7 @@ describe( 'logs', () => {
 
     } );
 
-    it( 'log with logentries + debug', () => {
+    it( 'log with insightOps + debug', () => {
 
       logs.init( {
         prefix: 'oa:',
@@ -201,9 +201,9 @@ describe( 'logs', () => {
       const log = logs( 'test' );
 
       const transportDebug = log.getTransports().debug;
-      const transportLogentries = log.getTransports().logentries;
+      const transportInsightOps = log.getTransports().insightOps;
       const spyDebug = sinon.spy( transportDebug, 'log' );
-      const spyLogentries = sinon.spy( transportLogentries, 'log' );
+      const spyInsightOps = sinon.spy( transportInsightOps, 'log' );
 
       log( 'info', 'Un log %s', 'bidon' );
 
@@ -212,9 +212,9 @@ describe( 'logs', () => {
       sinon.assert.calledOnce( spyDebug );
       sinon.assert.calledWith( spyDebug, 'info', 'Un log bidon', { namespace: 'test' } );
 
-      expect( transportLogentries.name ).toBe( 'logentries' );
-      sinon.assert.calledOnce( spyLogentries );
-      sinon.assert.calledWith( spyLogentries, 'info', 'Un log bidon', { namespace: 'test' } );
+      expect( transportInsightOps.name ).toBe( 'insightOps' );
+      sinon.assert.calledOnce( spyInsightOps );
+      sinon.assert.calledWith( spyInsightOps, 'info', 'Un log bidon', { namespace: 'test' } );
 
     } );
 
@@ -388,7 +388,7 @@ describe( 'logs', () => {
 
       const log = logs( 'test-5' );
 
-      const transport = log.getTransports().logentries;
+      const transport = log.getTransports().insightOps;
       const spy = sinon.spy( transport, 'log' );
 
       log( 'error', new Error( 'Une erreur ici !' ) );
