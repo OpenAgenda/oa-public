@@ -22,7 +22,7 @@ export default {
         }),
         rest.post('/successful_auth_with_payload', async (req, res, ctx) => {
           await new Promise(rs => setTimeout(rs, 500));
-          return res(ctx.json({ requestPayload: req.body }));
+          return res(ctx.json({ redirectTo: '/home' }));
         }),
         rest.post(
           '/successful_auth_with_unsuccessful_payload',
