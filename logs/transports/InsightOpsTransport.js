@@ -113,7 +113,7 @@ class InsightOpsTransport extends winston.Transport {
       Object.assign(displayedMeta, restMeta);
       if (metaError instanceof Error) {
         error = metaError;
-      } else {
+      } else if (metaError) {
         displayedMeta.error = metaError;
       }
     }
