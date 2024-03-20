@@ -7,7 +7,7 @@ module.exports = async (services, agenda) => {
   const {
     inboxes: { Inbox },
     agendaSearch,
-    activities
+    activities,
   } = services;
 
   try {
