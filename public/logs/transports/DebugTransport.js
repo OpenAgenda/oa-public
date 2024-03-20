@@ -43,8 +43,12 @@ class DebugTransport extends winston.Transport {
     if (meta instanceof Error) {
       displayedMeta = cloneError(meta);
     } else {
-      const { namespace, ...metaToKeep } = meta;
-      displayedMeta = metaToKeep;
+      const { namespace, error, ...metaToKeep } = meta;
+      if (error && Object.keys(metaToKeep).length === 0) {
+        displayedMeta = error
+      } else {
+        displayedMeta = metaToKeep;
+      }
     }
 
     const store = context.getStore();
@@ -53,7 +57,7 @@ class DebugTransport extends winston.Transport {
       Object.assign(displayedMeta, store);
     }
 
-    const args = [msg].concat(
+    const args = (msg.length ? [msg] : []).concat(
       typeof displayedMeta !== 'undefined' && !isEmptyObject(displayedMeta)
         ? util.inspect(displayedMeta, { colors: this.debug.useColors })
         : [],

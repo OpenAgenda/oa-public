@@ -400,14 +400,14 @@ describe( 'logs', () => {
         spy.getCall( 0 ),
         'error',
         '',
-        sinon.match( { namespace: 'test-5', message: 'Une erreur ici !' } )
+        sinon.match( { namespace: 'test-5', error: { message: 'Une erreur ici !' } } )
       );
 
       sinon.assert.calledWith(
         spy.getCall( 1 ),
         'error',
         'On a eu une erreur:',
-        sinon.match( { namespace: 'test-5', message: 'Une erreur ici !' } )
+        sinon.match( { namespace: 'test-5', error: { message: 'Une erreur ici !' } } )
       );
 
       sinon.assert.calledWith(
@@ -423,8 +423,10 @@ describe( 'logs', () => {
         sinon.match( 'Error with event un-event, (12345678)' ),
         sinon.match( {
           namespace: 'test-5',
-          message: 'Une erreur bidon.',
-          stack: sinon.match('Error: Une erreur bidon.\n    at')
+          error: {
+            message: 'Une erreur bidon.',
+            stack: sinon.match('Error: Une erreur bidon.\n    at')
+          }
         } )
       );
 
