@@ -18,7 +18,7 @@ module.exports = async (core, data, options = {}) => {
     throw new BadRequest('userUid must be defined');
   }
 
-  const user = await users.get(userUid);
+  const user = await users.get(userUid, { access: 'internal' });
 
   if (!user) {
     throw new BadRequest('provided userUid matches no account');

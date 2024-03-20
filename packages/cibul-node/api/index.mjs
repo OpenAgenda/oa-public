@@ -747,6 +747,14 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
+  app.get('/supervisor/users/:uid', [
+    verifySuperAdmin,
+    (req, res) => core.users.get(req.params.uid, {
+      withSchema: true,
+      includeSupervisorLink: true,
+    }).then(result => res.json(result)),
+  ]);
+
   log('done');
 
   app.use(sentryErrorHandler({ tag: 'api' }));

@@ -51,6 +51,14 @@ describe('10 - core - functional (server): core.users().get()', () => {
     });
   });
 
+  describe('with Schema', () => {
+    it('schema can be retrieved with the user', async () => {
+      const result = await core.users.get(8929606, { withSchema: true });
+
+      expect(Object.keys(result)).toEqual(['data', 'schema']);
+    });
+  });
+
   describe('tokens', () => {
     it('user can be retrieved using a valid access token', async () => {
       const janine = await core.users.get.byAccessToken('11a7946ddd256c768867ac3f2182cba0', 1);
