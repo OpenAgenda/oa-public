@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar } from 'react-date-range';
 import { Dropdown } from '@openagenda/react-shared';
 import { format } from 'date-fns';
@@ -29,10 +28,10 @@ function DateField({
   enabled,
   onChange,
   lang,
-  className
+  className,
 }) {
   const {
-    placeholder
+    placeholder,
   } = field;
 
   const cleanValue = getValueAsDate(value);
