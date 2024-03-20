@@ -127,7 +127,7 @@ class InsightOpsTransport extends winston.Transport {
     this.logger.log(cloneAndReplaceErrors({
       level,
       prefix: this.prefix,
-      namespace: meta.namespace || this.namespace || undefined,
+      namespace: meta.namespace || this.namespace,
       message: msg,
       error,
       meta: !isEmptyObject(displayedMeta) ? displayedMeta : undefined,
