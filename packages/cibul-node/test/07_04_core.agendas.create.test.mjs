@@ -48,10 +48,14 @@ describe('07 - core - functional (server): core.agendas().create', () => {
       let agenda;
 
       beforeAll(async () => {
-        agenda = await core.agendas.create({
-          title: 'Un agenda',
-          description: 'pour tester la création',
-        }, { userUid: 63170203 });
+        try {
+          agenda = await core.agendas.create({
+            title: 'Un agenda',
+            description: 'pour tester la création',
+          }, { userUid: 63170203 });
+        } catch (e) {
+          console.log(JSON.stringify(e, null, 2));
+        }
       });
 
       it('agenda is created', async () => {

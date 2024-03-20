@@ -6,14 +6,14 @@ const Users = require('./users');
 const Tasks = require('./tasks');
 
 const {
-  TYPES: stateChangeTypes
+  TYPES: stateChangeTypes,
 } = require('./agendas/utils/assignState');
 
 module.exports = (services, config) => {
   const core = {
     services,
     tasks: Tasks(services),
-    getConfig: () => config
+    getConfig: () => config,
   };
 
   core.agendas = Agendas(core);
@@ -23,7 +23,7 @@ module.exports = (services, config) => {
   services.core = core;
 
   core.constants = {
-    stateChangeTypes
+    stateChangeTypes,
   };
 
   return core;

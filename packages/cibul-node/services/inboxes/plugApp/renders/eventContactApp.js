@@ -6,11 +6,6 @@ const getLabel = require('@openagenda/labels')(labels);
 const { getLocaleValue } = require('@openagenda/intl');
 
 module.exports = ({ render, config }) => (req, res, next) => {
-  // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
-  //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
-  //   return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
-  // }
-
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
   render({
@@ -18,10 +13,10 @@ module.exports = ({ render, config }) => (req, res, next) => {
     baseData: {
       event: {
         ...req.event,
-        backLink: `/${req.agenda.slug}`
+        backLink: `/${req.agenda.slug}`,
       },
       image: req.agenda.image,
-      title: req.agenda.title
+      title: req.agenda.title,
     },
     endpoint: '/home/inbox',
     initialState: {
@@ -37,7 +32,7 @@ module.exports = ({ render, config }) => (req, res, next) => {
         creationSubtitle: getLabel(
           'contactAdministratorsOf',
           { title: _.escape(getLocaleValue(req.agenda.title, req.lang)), link: eventShowLink },
-          req.lang
+          req.lang,
         ),
         maskCreationSubtitle: false,
         topListForm: false, // add a conversation form on top of conversation list
@@ -50,16 +45,16 @@ module.exports = ({ render, config }) => (req, res, next) => {
           params: {
             agendaTitle: _.unescape(req.agenda.title),
             agendaUid: req.agenda.uid,
-            eventTitle: _.unescape(getLocaleValue(req.event.title, req.lang))
+            eventTitle: _.unescape(getLocaleValue(req.event.title, req.lang)),
           },
           destinationInbox: {
             type: 'agenda',
-            identifier: req.agenda.uid
-          }
-        }
+            identifier: req.agenda.uid,
+          },
+        },
       },
       agenda: req.agenda,
-      event: req.event
-    }
+      event: req.event,
+    },
   })(req, res, next);
 };

@@ -510,7 +510,6 @@ const initialState = async req => {
           list: '/admin/support/conversations.json',
           action: '/admin/support/conversations/:conversationId/action/:code.json',
           resume: '/admin/support/conversations/:conversationId/resume.json',
-          context: '/admin/support/conversations/:conversationId/context.json',
         },
         messages: {
           list: '/admin/support/conversations/:conversationId/messages.json',
@@ -518,6 +517,7 @@ const initialState = async req => {
           prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
           addAttachment: '/admin/support/conversations/:conversationId/add-attachment',
         },
+        context: '/api/supervisor/users/:identifier',
       },
     },
     supervisor: {
