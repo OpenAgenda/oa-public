@@ -238,9 +238,6 @@ node40971-oa-mysql.jcloud-ver-jpe.ik-server.com
 node${nodeId}-${envName}.jcloud-ver-jpe.ik-server.com
 ```
 
-Pour assurer une connexion sécurisée à l'outil de monitoring, il est nécessaire de générer une clé et un certificat correspondant à l'url du noeud. Ceci n'est pas couvert dans ce guide. Une fois généré, uploadez le certificat, la clé et le CA en les nommant respectivement `certificate.crt`, `certificate.key` et `ca-certs.pem` dans le dossier `/var/lib/jelastic/keys/grafana`.
-
-
 En SSH sur ce container, nous allons installer `pmm-server` avec les commandes suivantes:
 
 ```bash
@@ -283,6 +280,34 @@ Les identifiants par défaut sont:
 - mot de passe: `admin`
 
 La première connexion vous demande de changer votre mot de passe. Notez le mot de passe, cette documentation en fera référence par PMM_SERVER_PWD
+
+### Génération du certificat SSL
+
+Pour assurer une connexion sécurisée à l'outil de monitoring, il est nécessaire de générer une clé et un certificat correspondant à l'url du noeud.
+
+Pour la génération du premier certificat, en remplacant `<THE_DOMAIN> par le domaine:
+
+```bash
+yum install epel-release
+yum install certbot
+docker stop pmm-server
+certbot certonly --standalone --preferred-challenges http -d <THE_DOMAIN>
+cp  /etc/letsencrypt/live/pmm.oagenda.com/fullchain.pem /var/lib/jelastic/keys/grafana/certificate.crt
+cp  /etc/letsencrypt/live/pmm.oagenda.com/privkey.pem /var/lib/jelastic/keys/grafana/certificate.key
+cp  /etc/letsencrypt/live/pmm.oagenda.com/chain.pem /var/lib/jelastic/keys/grafana/ca-certs.pem
+docker restart pmm-server
+```
+
+Pour renouveler le certificat:
+
+```bash
+docker stop pmm-server
+certbot renew
+cp  /etc/letsencrypt/live/pmm.oagenda.com/fullchain.pem /var/lib/jelastic/keys/grafana/certificate.crt
+cp  /etc/letsencrypt/live/pmm.oagenda.com/privkey.pem /var/lib/jelastic/keys/grafana/certificate.key
+cp  /etc/letsencrypt/live/pmm.oagenda.com/chain.pem /var/lib/jelastic/keys/grafana/ca-certs.pem
+docker restart pmm-server
+```
 
 ### Installation de `pmm2-client`
 
