@@ -5,8 +5,13 @@ import DOMPurify from 'dompurify';
 import qs from 'qs';
 import I18nContext from '../contexts/I18nContext';
 import AuthorAvatar from './AuthorAvatar';
+import DisplaySenderContext from './DisplaySenderContext';
 
 const getMessageSenderName = message => message.inboxUser?.name ?? message.inbox.name;
+
+const getContextLink = (message, contextRes) => contextRes && (
+  message.inbox.type === 'user'
+) && contextRes.replace(':identifier', message.inbox.identifier);
 
 export default class MessageItem extends Component {
   static contextType = I18nContext;
@@ -51,7 +56,7 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const { message } = this.props;
+    const { message, res: { context: contextRes } } = this.props;
     const { getLabel, lang } = this.context;
 
     if (!message) {
@@ -60,6 +65,8 @@ export default class MessageItem extends Component {
 
     const creationDate = moment(message.createdAt).locale(lang);
 
+    const contextLink = getContextLink(message, contextRes);
+
     return (
       <div className="media">
         <div className="media-left media-top">
@@ -67,9 +74,10 @@ export default class MessageItem extends Component {
         </div>
 
         <div className="media-body">
-          <p className="media-heading">
+          <div className="media-heading">
             <b>{getMessageSenderName(message)}</b>
-          </p>
+            {contextLink ? <DisplaySenderContext res={contextLink} lang={lang} /> : null}
+          </div>
           <div className="conversation-item-message">
             <div
               className="margin-bottom-xs"

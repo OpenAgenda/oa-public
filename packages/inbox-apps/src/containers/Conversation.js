@@ -13,6 +13,9 @@ import * as conversationActions from '../reducers/conversation';
 import * as inboxActions from '../reducers/inbox';
 import * as modalActions from '../reducers/modals';
 import showBackLink from '../utils/showBackLink';
+import {
+  enable as enableUserContext,
+} from '../utils/userContext';
 
 const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
 
@@ -59,7 +62,7 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
 )
 @withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
-class Conversation extends Component {
+class ConversationContainer extends Component {
   static contextType = I18nContext;
 
   componentDidMount() {
@@ -236,6 +239,8 @@ class Conversation extends Component {
     } = this.props;
     const { getLabel } = this.context;
 
+    enableUserContext(res, messages, user);
+
     const { ContentWrapper } = settings;
 
     const origin = conversation?.store?.params?.origin
@@ -330,7 +335,7 @@ class Conversation extends Component {
             />
           )}
 
-          {messages && messages.length ? <MessageList messages={messages} /> : null}
+          {messages && messages.length ? <MessageList messages={messages} res={res} /> : null}
 
           {!messages || !messages.length ? (
             <div className="text-center text-muted margin-v-md">
@@ -354,4 +359,4 @@ class Conversation extends Component {
   }
 }
 
-export default Conversation;
+export default ConversationContainer;
