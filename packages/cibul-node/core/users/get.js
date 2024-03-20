@@ -21,19 +21,23 @@ module.exports = core => async (userUid, options = {}) => {
 
   const clean = access === 'internal' ? user : _.omit(user, ['id', 'isNew', 'username', 'hasSocialAccount', 'hasLocalAccount']);
 
-  if (includeSupervisorLink) {
-    clean.supervisorLink = `/admin/users?userUid=${userUid}`;
-    schema.fields.push({
+  const userSchema = {
+    ...schema,
+    fields: schema.fields.concat(includeSupervisorLink ? {
       field: 'supervisorLink',
       fieldType: 'link',
       label: 'Admin link',
-    });
+    } : []),
+  };
+
+  if (includeSupervisorLink) {
+    clean.supervisorLink = `/admin/users?userUid=${userUid}`;
   }
 
   if (withSchema) {
     return {
       data: clean,
-      schema,
+      schema: userSchema,
     };
   }
 
