@@ -2,13 +2,10 @@
 
 const path = require('path');
 const winston = require('winston');
-const LE = require('r7insight_node');
 const getTransporters = require('./getTransporters');
 const Logger = require('./Logger');
 const { getCallerFile, getModule } = require('./utils/caller');
 const context = require('./context');
-
-LE.provisionWinston(winston);
 
 let config;
 const levels = Object.keys(winston.config.npm.levels);

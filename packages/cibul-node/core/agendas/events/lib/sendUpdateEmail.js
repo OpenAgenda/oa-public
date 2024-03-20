@@ -46,17 +46,16 @@ module.exports = async function sendUpdateEmail(core, { batched, agenda, event }
     query: { uid: event.ownerUid },
   });
 
-  const ownerMember = await membersSvc.get({
+  const ownerMember = ownerUser ? await membersSvc.get({
     agendaUid: agenda.uid,
     userUid: ownerUser.uid,
-  });
-
-  const ownerLang = ownerUser.culture || 'fr';
+  }) : null;
 
   if (!ownerMember) {
     log('owner member was not found for user of uid % in agenda %s', event.ownerUid, agenda.slug);
   } else if (agenda.uid === event.originAgenda.uid) {
     log('agenda is origin agenda and user is owner, sending myEventUpdate');
+    const ownerLang = ownerUser.culture || 'fr';
     await mails.send({
       template: 'myEventUpdate',
       to: {

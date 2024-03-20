@@ -133,7 +133,8 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   if (eventIsPublished) log('event is published');
   if (eventIsRefused) log('event is refused');
 
-  const creatorIsAdminmod = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
+  const creatorIsAdminmod = creatorUser
+    && members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
   const visibleForCreator = creatorIsAdminmod || (!agenda.private && eventIsPublished);
 
   if (visibleForCreator) log('creator should see change');
@@ -144,7 +145,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   let sentToCreator = false;
   let sentToContributor = false;
 
-  if (creatorUser.uid !== contributorUser?.uid && visibleForCreator) {
+  if (creatorUser && creatorUser.uid !== contributorUser?.uid && visibleForCreator) {
     await sendToContributor({
       services,
       contributor: creator,

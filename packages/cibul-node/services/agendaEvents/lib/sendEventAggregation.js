@@ -8,14 +8,45 @@ const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
 const getStateSlug = require('./utils/getStateSlug');
 
+async function getCreatorInfo(services, { agenda, event, agendaEvent }) {
+  const {
+    agendas,
+    users: usersSvc,
+    members: membersSvc,
+  } = services;
+
+  const originAgenda = await agendas.get({
+    uid: event.agendaUid,
+  }, { private: null, internal: true, includeImagePath: true });
+  const creatorUser = await usersSvc.findOne({ query: { uid: event.creatorUid } });
+
+  if (!creatorUser) {
+    return {
+      creator: null,
+      creatorUser: null,
+      visibleForCreator: false,
+    };
+  }
+
+  const creator = await membersSvc.get({
+    agendaUid: originAgenda.uid,
+    userUid: creatorUser.uid,
+  });
+  const isPublicPublishedEvent = !agenda.private && agendaEvent.state === agendaEventStates.PUBLISHED;
+
+  return {
+    creator,
+    creatorUser,
+    visibleForCreator: creator && isPublicPublishedEvent,
+  };
+}
+
 module.exports = async ({ config, services }, { agendaEvent, context }) => {
   const {
     root,
   } = config;
 
   const {
-    agendas,
-    users: usersSvc,
     mails,
     members: membersSvc,
   } = services;
@@ -30,20 +61,18 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
 
   const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
-  const originAgenda = await agendas.get({
-    uid: event.agendaUid,
-  }, { private: null, internal: true, includeImagePath: true });
-  const creatorUser = await usersSvc.findOne({ query: { uid: event.creatorUid } });
-  const creator = await membersSvc.get({
-    agendaUid: originAgenda.uid,
-    userUid: creatorUser.uid,
-  });
-  const creatorLang = creatorUser.culture || 'fr';
-  const creatorIsInDestination = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
-  const visibleForCreator = creatorIsInDestination
-    || (!agenda.private && agendaEvent.state === agendaEventStates.PUBLISHED);
+  const {
+    creator,
+    creatorUser,
+    visibleForCreator,
+  } = await getCreatorInfo(services, { agenda, event, agendaEvent });
 
-  if (visibleForCreator) {
+  const creatorIsInDestination = creatorUser
+    && members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
+
+  if (creatorIsInDestination || visibleForCreator) {
+    const creatorLang = creatorUser.culture || 'fr';
+
     await mails.send({
       template: 'myEventAggregation',
       to: {
@@ -75,7 +104,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
   const targetedMembers = members.filter(member =>
     member.user
     && !(
-      member.user.uid === creatorUser.uid && visibleForCreator
+      visibleForCreator && member.user.uid === creatorUser.uid
     ));
 
   log('%s: sending aggregation email to %s members', agendaEvent.agendaUid, targetedMembers.length);
