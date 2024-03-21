@@ -2,7 +2,7 @@
 
 var labels = require( '@openagenda/labels/agendas/range' ),
 
-patterns = require( './patterns' ),
+partterns = require( './patterns' ),
 
 moment = require( 'moment-timezone' ),
 
@@ -24,9 +24,7 @@ module.exports = function( timings, lang, timezone ) {
 
   uniqueDates = [],
 
-  firstDate, lastDate,
-
-  p = patterns(timezone);
+  firstDate, lastDate;
 
   if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
 
@@ -46,8 +44,6 @@ module.exports = function( timings, lang, timezone ) {
       uniqueDates.push( d );
 
     }
-
-    p.add( t );
 
   } );
 
@@ -109,7 +105,7 @@ module.exports = function( timings, lang, timezone ) {
         timezone,
         oneDate: false
       } )
-    } ) + p.render( ', ' + labels.prefix[ lang ] + ' ', lang );
+    } ) + partterns(timings, lang, timezone);
 
   }
 
