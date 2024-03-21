@@ -1,8 +1,8 @@
 {
-  "defaultTagGroupInfo": "Sélectionnez un ou plusieurs tags",
+  "tagsTitle": "Tags",
   "defaultTagGroupName": "Groupe de tags",
-  "noSelection": "Aucun choix",
+  "defaultTagGroupInfo": "Sélectionnez un ou plusieurs tags",
   "required": "Obligatoire.",
   "requiredTagError": "Vous devez faire au minimum une sélection",
-  "tagsTitle": "Tags"
+  "noSelection": "Aucun choix"
 }

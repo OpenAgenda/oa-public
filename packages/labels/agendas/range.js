@@ -67,6 +67,76 @@ module.exports = {
     "io": "crwdns12898:0crwdne12898:0",
     "oc": "los"
   },
+  "some-weekday-0": {
+    "fr": ", certains dimanches",
+    "en": ", some Sundays",
+    "de": ", einige Sonntage"
+  },
+  "all-weekday-0": {
+    "fr": ', tous les dimanches',
+    "en": ', every Sunday',
+    "de": ', jeden Sonntag',
+  },
+  "some-weekday-1": {
+    "fr": ", certains lundis",
+    "en": ", some Mondays",
+    "de": ", einige Montags"
+  },
+  "all-weekday-1": {
+    "fr": ', tous les lundis',
+    "en": ', every Monday',
+    "de": ', jeden Montag',
+  },
+  "some-weekday-2": {
+    "fr": ", certains mardis",
+    "en": ", some Tuesdays",
+    "de": ", einige Dienstage"
+  },
+  "all-weekday-2": {
+    "fr": ', tous les mardis',
+    "en": ', every Tuesday',
+    "de": ', jeden Dienstag',
+  },
+  "some-weekday-3": {
+    "fr": ", certains mercredis",
+    "en": ", some Wednesdays",
+    "de": ", einige Mittwochs"
+  },
+  "all-weekday-3": {
+    "fr": ', tous les mercredis',
+    "en": ', every Wednesday',
+    "de": ', an jedem Mittwoch',
+  },
+  "some-weekday-4": {
+    "fr": ", certains jeudis",
+    "en": ", some Thursdays",
+    "de": ", einige Donnerstage"
+  },
+  "all-weekday-4": {
+    "fr": ', tous les jeudis',
+    "en": ', every Thursday',
+    "de": ', jeden Donnerstag',
+  },
+  "some-weekday-5": {
+    "fr": ", certains vendredis",
+    "en": ", some Fridays",
+    "de": ", einige Freitage"
+  },
+  "all-weekday-5": {
+    "fr": ', tous les vendredis',
+    "en": ', every Friday',
+    "de": ', jeden Freitag',
+  },
+  "some-weekday-6": {
+    "fr": ", certains samedis",
+    "en": ", some Saturdays",
+    "de": ", einige Samstage"
+  },
+  "all-weekday-6": {
+    "fr": ', tous les samedis',
+    "en": ', every Saturday',
+    "de": ', jeden Samstag',
+  },
   "weekday-0": {
     "en": "Sundays",
     "fr": "dimanches",
