@@ -4,13 +4,13 @@ import SourcesCanvasDecorator from './decorators/SourcesCanvas';
 import ModalDecorator from './decorators/ModalDecorator';
 import IntlDecorator from './decorators/IntlDecorator';
 
-import aggregatorAgendaSchema from './mocks/DefineRules/TAM.schema.json';
-import aggregatorAgendaSchemaWithEnableWith from './mocks/DefineRules/eteculturel.schema.json';
-import sourceAgendaSchema from './mocks/DefineRules/NDM.schema.json';
-import steps from './mocks/DefineRules/steps.json';
-import rules from './mocks/DefineRules/rules.json';
+import aggregatorAgendaSchema from './fixtures/DefineRules/TAM.schema.json';
+import aggregatorAgendaSchemaWithEnableWith from './fixtures/DefineRules/eteculturel.schema.json';
+import sourceAgendaSchema from './fixtures/DefineRules/NDM.schema.json';
+import steps from './fixtures/DefineRules/steps.json';
+import rules from './fixtures/DefineRules/rules.json';
 
-import manyAddFieldsAggrSchema from './mocks/DefineRules/manyAdditionalFields.aggregator.schema.json';
+import manyAddFieldsAggrSchema from './fixtures/DefineRules/manyAdditionalFields.aggregator.schema.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

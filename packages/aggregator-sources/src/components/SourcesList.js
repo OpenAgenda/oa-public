@@ -1,5 +1,3 @@
-/* global __DEVELOPMENT__ */
-
 import { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -66,11 +64,7 @@ function SourceItem({ source }) {
             <Image
               className="media-object ill avatar"
               src={source.agenda.image}
-              fallbackSrc={
-                __DEVELOPMENT__
-                  ? source.agenda.image.replace('cibuldev', 'cibul')
-                  : null
-              }
+              fallbackSrc={source.agenda.image.replace('cibuldev', 'cibul')}
               alt={source.agenda.title}
             />
           </button>

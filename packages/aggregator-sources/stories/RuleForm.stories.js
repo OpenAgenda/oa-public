@@ -1,7 +1,9 @@
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import { rest } from 'msw';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import axios from 'axios';
-import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import RuleForm from '../src/components/RuleForm';
 import { ruleToValues } from '../src/utils/rules';
@@ -9,10 +11,10 @@ import ModalDecorator from './decorators/ModalDecorator';
 import IntlDecorator from './decorators/IntlDecorator';
 import SourcesCanvasDecorator from './decorators/SourcesCanvas';
 
-import villeDeLille from './mocks/RuleForm/villeDeLille.schema.json';
-import MEL from './mocks/RuleForm/MEL.schema.json';
-import villeDeLilleToMELRules from './mocks/RuleForm/villeDeLilleToMEL.rules.json';
-import languagesJson from './mocks/RuleForm/languages.aggreg.json';
+import villeDeLille from './fixtures/RuleForm/villeDeLille.schema.json';
+import MEL from './fixtures/RuleForm/MEL.schema.json';
+import villeDeLilleToMELRules from './fixtures/RuleForm/villeDeLilleToMEL.rules.json';
+import languagesJson from './fixtures/RuleForm/languages.aggreg.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
@@ -20,12 +22,18 @@ export default {
   title: 'RuleForm',
   component: RuleForm,
   decorators: [SourcesCanvasDecorator, ModalDecorator(), IntlDecorator],
+  parameters: {
+    msw: {
+      handlers: [
+        rest.get('/agendaLanguages', (req, res, ctx) =>
+          res(ctx.json({ ...languagesJson }))),
+      ],
+    },
+  },
 };
 
-export const NewRule = () => {
-  const mock = new MockAdapter(axios);
-  mock.onGet('/agendaLanguages').reply(200, { ...languagesJson });
-  return (
+export const NewRule = () => (
+  <Provider store={createStore(v => v, { res: {} })}>
     <Form
       component={RuleForm}
       onSubmit={() => {}}
@@ -36,34 +44,38 @@ export const NewRule = () => {
         languages: '/agendaLanguages',
       }}
     />
-  );
-};
+  </Provider>
+);
 NewRule.storyName = 'when the rule is new';
 
 export const RuleWithAction = () => (
-  <Form
-    initialValues={ruleToValues(villeDeLilleToMELRules[1], MEL)}
-    component={RuleForm}
-    onSubmit={() => {}}
-    mutators={{
-      ...arrayMutators,
-    }}
-    sourceSchema={villeDeLille}
-    aggregatorAgendaSchema={MEL}
-  />
+  <Provider store={createStore(v => v, { res: {} })}>
+    <Form
+      initialValues={ruleToValues(villeDeLilleToMELRules[1], MEL)}
+      component={RuleForm}
+      onSubmit={() => {}}
+      mutators={{
+        ...arrayMutators,
+      }}
+      sourceSchema={villeDeLille}
+      aggregatorAgendaSchema={MEL}
+    />
+  </Provider>
 );
 RuleWithAction.storyName = 'when the rule has an action';
 
 export const RuleAutomaticField = () => (
-  <Form
-    initialValues={ruleToValues(villeDeLilleToMELRules[2], MEL)}
-    component={RuleForm}
-    onSubmit={() => {}}
-    mutators={{
-      ...arrayMutators,
-    }}
-    sourceSchema={villeDeLille}
-    aggregatorAgendaSchema={MEL}
-  />
+  <Provider store={createStore(v => v, { res: {} })}>
+    <Form
+      initialValues={ruleToValues(villeDeLilleToMELRules[2], MEL)}
+      component={RuleForm}
+      onSubmit={() => {}}
+      mutators={{
+        ...arrayMutators,
+      }}
+      sourceSchema={villeDeLille}
+      aggregatorAgendaSchema={MEL}
+    />
+  </Provider>
 );
 RuleAutomaticField.storyName = 'when the rule has an action with automatic field';
