@@ -1,8 +1,8 @@
 {
-  "accessPassOffer": "Accedir a l'ofèrta pass Culture",
-  "error": "Las entradas invalidas seràn pas enregistradas. Desseparatz cada valor per una tabulacion o una virgula.",
   "info": "Aisinas d'inscripcion",
-  "invalid": "Sols los ligams, los emails o los numèros de telefòne son acceptats",
   "placeholder": "Ligams, emails o numèros de telefòne. Desseparatz cada valor per una tabulacion o una virgula.",
-  "registerBook": "S'inscriure / Reservar"
+  "error": "Las entradas invalidas seràn pas enregistradas. Desseparatz cada valor per una tabulacion o una virgula.",
+  "invalid": "Sols los ligams, los emails o los numèros de telefòne son acceptats",
+  "registerBook": "S'inscriure / Reservar",
+  "accessPassOffer": "Accedir a l'ofèrta pass Culture"
 }

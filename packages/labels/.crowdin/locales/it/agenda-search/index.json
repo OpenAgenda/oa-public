@@ -1,16 +1,16 @@
 {
-  "addEvent": "Aggiungi un evento",
-  "empty": "Spiacenti, nessun agenda corrisponde a questa ricerca",
-  "found": "Trovati %count% diari",
-  "genericSearchTitle": "Risultati della ricerca del diario",
-  "latestUpdated": "Agende aggiornate di recente",
-  "loadNext": "Caricare i seguenti risultati",
-  "loadPrevious": "Carica i risultati precedenti",
   "official": "Agenda ufficiale",
-  "publishedEvent": "1 evento passato",
-  "publishedEvents": "%count% eventi passati",
+  "latestUpdated": "Agende aggiornate di recente",
   "results": "Risultati della ricerca per \"%search%\"",
   "searchTitle": "Ricerca del diario",
+  "genericSearchTitle": "Risultati della ricerca del diario",
+  "found": "Trovati %count% diari",
+  "empty": "Spiacenti, nessun agenda corrisponde a questa ricerca",
+  "publishedEvent": "1 evento passato",
+  "publishedEvents": "%count% eventi passati",
   "upcomingEvent": "1 evento imminente",
-  "upcomingEvents": "%count% eventi in programma"
+  "upcomingEvents": "%count% eventi in programma",
+  "loadPrevious": "Carica i risultati precedenti",
+  "loadNext": "Caricare i seguenti risultati",
+  "addEvent": "Aggiungi un evento"
 }

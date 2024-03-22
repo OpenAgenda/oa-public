@@ -1,52 +1,48 @@
 "use strict";
+const labels = require('@openagenda/labels/agendas/range');
 
-var patternLibs = [
-  require( './lib/week.pattern.js' )
-];
+const moment = require('moment-timezone');
 
-module.exports = function(timezone) {
+function countSameWeekday(start, end, weekday) {
+  let count = 0;
+  let currentDate = new Date(start);
 
-  var patterns = patternLibs.map(p => p(timezone));
-
-  return {
-    add: add,
-    render: render
-  }
-
-  function add( timing ) {
-
-    patterns.forEach( function( p ) {
-
-      p.add( timing );
-
-    } );
-
-  }
-
-  function render( prefix, lang ) {
-
-    var render;
-
-    if ( arguments.length == 1 ) {
-
-      lang = prefix;
-
-      prefix = false;
-
+  while (currentDate <= end) {
+    if (currentDate.getDay() === weekday) {
+      count++;
     }
-
-    if ( !prefix ) prefix = ' ';
-
-    for (var i = 0; i < patterns.length; i++) {
-
-      render = patterns[ i ].render( lang );
-
-      if ( render ) return prefix + render;
-
-    };
-
-    return '';
-
+    currentDate.setDate(currentDate.getDate() + 1);
   }
 
+  return count;
 }
+
+module.exports = function (timings, lang, timezone = 'Europe/Paris') {
+  if (!timings || !timings.length || !(timings instanceof Array)) {
+    return '';
+  }
+  const weekdays = [];
+  const days = [];
+  for (const timing of timings) {
+    const weekday = moment.tz(timing.start, timezone).day();
+    const day = moment.tz(timing.start, timezone).format('YYYY-MM-DD');
+    if (weekdays.indexOf(weekday) === -1) {
+      weekdays.push(weekday);
+      
+    }
+    if (days.indexOf(day) === -1) {
+      days.push(day);
+    }
+  }
+  if (weekdays.length > 1) {
+    return '';
+  }
+  const weekday = weekdays[0];
+  const numberOfSameWeekday = countSameWeekday(timings[0].start, timings[timings.length - 1].start, weekday);
+  if (numberOfSameWeekday === days.length) {
+    return `${labels[`all-weekday-${weekday}`][lang]}`;
+  }
+  if (numberOfSameWeekday > days.length) {
+    return `${labels[`some-weekday-${weekday}`][lang]}`;
+  }
+};

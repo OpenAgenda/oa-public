@@ -122,9 +122,12 @@ describe( 'date-range', () => {
 
 
   describe( 'patterns', () => {
-    it( 'appends an information relative to the day of the week: 1 - 22 december 2015, on tuesdays', () => {
-      expect(range( testData.moreDates.tuesdays, 'en' )).toBe( '1 - 22 December 2015, on Tuesdays' );
+    it( 'appends an information relative to the day of the week: 1 - 22 december 2015, every Tuesday', () => {
+      expect(range( testData.moreDates.tuesdays, 'en' )).toBe( '1 - 22 December 2015, every Tuesday' );
     } );
+    it('appends an information relative to the day of the week: 1 - 22 december 2015, tous les mardis', () => {
+      expect(range(testData.moreDates.tuesdays, 'fr')).toBe('1 - 22 décembre 2015, tous les mardis');
+    });
   } );
 
 
