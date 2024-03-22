@@ -1,5 +1,5 @@
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 
 import ageLabels from '@openagenda/labels/cibul-templates/age-fields';
@@ -7,33 +7,33 @@ import flattenLabels from '@openagenda/labels/flatten';
 
 const limits = {
   min: 0,
-  max: 122
+  max: 122,
 };
 
 const defaults = {
   min: 0,
-  max: 99
+  max: 99,
 };
 
-module.exports = class AgeComponent extends Component {
+export default class AgeComponent extends Component {
   onChange(field, choice) {
     const {
       onChange,
-      value
+      value,
     } = this.props;
 
     const clean = parseInt(choice.value, 10);
 
     onChange(ih(value, {
       [field]: {
-        $set: Number.isNaN(clean) ? null : clean
-      }
+        $set: Number.isNaN(clean) ? null : clean,
+      },
     }));
   }
 
   getSelectOptions(minValue) {
     const {
-      lang
+      lang,
     } = this.props;
 
     const labels = flattenLabels(ageLabels, lang);
@@ -45,7 +45,7 @@ module.exports = class AgeComponent extends Component {
       if (min <= i) {
         options.push({
           value: `${i}`,
-          label: `${i} ${(i < 2 ? labels.year : labels.years)}`
+          label: `${i} ${i < 2 ? labels.year : labels.years}`,
         });
       }
     }
@@ -56,7 +56,7 @@ module.exports = class AgeComponent extends Component {
   isEnabled() {
     const {
       value,
-      enabled: enabledFromProps = true
+      enabled: enabledFromProps = true,
     } = this.props;
 
     if (!enabledFromProps) {
@@ -85,18 +85,18 @@ module.exports = class AgeComponent extends Component {
 
   disable() {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     onChange({
       min: null,
-      max: null
+      max: null,
     });
   }
 
   initialize() {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     onChange(defaults);
@@ -106,7 +106,7 @@ module.exports = class AgeComponent extends Component {
     const {
       lang,
       value,
-      enabled: enabledFromProps = true
+      enabled: enabledFromProps = true,
     } = this.props;
 
     const labels = flattenLabels(ageLabels, lang);
@@ -126,12 +126,12 @@ module.exports = class AgeComponent extends Component {
       container: provided => ({
         ...provided,
         width: '150px',
-        display: 'inline-block'
+        display: 'inline-block',
       }),
       menu: provided => ({
         ...provided,
-        zIndex: 3
-      })
+        zIndex: 3,
+      }),
     };
 
     return (
@@ -172,4 +172,4 @@ module.exports = class AgeComponent extends Component {
       </div>
     );
   }
-};
+}

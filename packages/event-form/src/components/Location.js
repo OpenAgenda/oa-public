@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
 
 import { Modal, Spinner } from '@openagenda/react-shared';
 import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector';
@@ -31,6 +30,13 @@ const getResObject = res => ({
 });
 
 class LocationComponent extends Component {
+  static defaultProps = {
+    location: null,
+    lang: 'en',
+    legacy: {},
+    field: null,
+  };
+
   constructor(props) {
     super(props);
 
@@ -49,16 +55,52 @@ class LocationComponent extends Component {
       };
       this.loadLocation(locationUid);
     }
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(mode, location) {
+    const {
+      onChange,
+    } = this.props;
+
+    this.setState({ mode });
+
+    onChange(location);
+  }
+
+  getSettings() {
+    const {
+      lang,
+    } = this.props;
+
+    const settings = _.get(this.props, 'field.legacy', {});
+
+    if (settings.tagSet) {
+      return ih(settings, {
+        tagSet: { $set: flattenLocationTagSet(settings.tagSet, lang) },
+      });
+    }
+
+    return settings;
   }
 
   loadLocation(locationUid) {
-    sa.get(this.state.res.get.replace(':locationUid', locationUid)).then(res => {
+    const {
+      res,
+    } = this.state;
+
+    const {
+      onChange,
+    } = this.props;
+
+    sa.get(res.get.replace(':locationUid', locationUid)).then(response => {
       this.setState({
         initing: false,
-        mode: res.body ? 'show' : 'search',
+        mode: response.body ? 'show' : 'search',
       });
 
-      this.props.onChange(res.body);
+      onChange(response.body);
     }, err => {
       console.log('could not load %s', locationUid);
       console.log(err);
@@ -70,24 +112,6 @@ class LocationComponent extends Component {
     });
   }
 
-  getSettings() {
-    const settings = _.get(this.props, 'field.legacy', {});
-
-    if (settings.tagSet) {
-      return ih(settings, {
-        tagSet: { $set: flattenLocationTagSet(settings.tagSet, this.props.lang) },
-      });
-    }
-
-    return settings;
-  }
-
-  onChange(mode, location) {
-    this.setState({ mode });
-
-    this.props.onChange(location);
-  }
-
   renderSelector() {
     const {
       lang,
@@ -95,6 +119,11 @@ class LocationComponent extends Component {
       relatedValues,
       field,
     } = this.props;
+
+    const {
+      mode,
+      res,
+    } = this.state;
 
     const allowRemove = relatedValues?.optional?.attendanceMode === 2;
 
@@ -105,7 +134,7 @@ class LocationComponent extends Component {
       disableChange,
       allowCreate,
       confirmRequired,
-    } = this.props.field;
+    } = field;
 
     return (
       <Provider lang={lang}>
@@ -113,7 +142,7 @@ class LocationComponent extends Component {
           allowCreate={allowCreate}
           confirmRequired={confirmRequired}
           tiles={tiles}
-          mode={this.state.mode}
+          mode={mode}
           disableChange={disableChange}
           detailedInfo={detailedInfo}
           classNames={{
@@ -124,8 +153,8 @@ class LocationComponent extends Component {
           location={_.assign({}, defaultValue || {}, value)}
           lang={lang}
           settings={this.getSettings()}
-          res={this.state.res}
-          onChange={this.onChange.bind(this)}
+          res={res}
+          onChange={this.onChange}
           placeholder={field.placeholder}
         />
       </Provider>
@@ -133,14 +162,19 @@ class LocationComponent extends Component {
   }
 
   render() {
-    const { value, field } = this.props;
+    const { field } = this.props;
+
+    const {
+      initing,
+      mode,
+    } = this.state;
 
     const spinnerCanvasStyle = {
       height: 37,
       position: 'relative',
     };
 
-    if (this.state.initing) {
+    if (initing) {
       return (
         <div className="margin-v-sm text-center" style={spinnerCanvasStyle}>
           <Spinner mode="inline" />
@@ -148,7 +182,7 @@ class LocationComponent extends Component {
       );
     }
 
-    if (['create', 'confirm'].includes(this.state.mode)) {
+    if (['create', 'confirm'].includes(mode)) {
       return (
         <div>
           <div className="text-center" style={spinnerCanvasStyle}>
@@ -165,7 +199,7 @@ class LocationComponent extends Component {
 
     return (
       <div>
-        <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
+        <div className={mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
           {this.renderSelector()}
         </div>
         {!field.disableChange && field.sub ? (
@@ -179,18 +213,4 @@ class LocationComponent extends Component {
   }
 }
 
-LocationComponent.propTypes = {
-  value: PropTypes.object, // the location
-  lang: PropTypes.string,
-  legacy: PropTypes.object,
-  field: PropTypes.object,
-};
-
-LocationComponent.defaultProps = {
-  location: null,
-  lang: 'en',
-  legacy: {},
-  field: null,
-};
-
-module.exports = LocationComponent;
+export default LocationComponent;
