@@ -13,6 +13,7 @@ const search = require('./search');
 const rebuild = require('./rebuild');
 const flattenMemberInfo = require('./utils/flattenMemberInfo');
 const clearAgendasCache = require('./utils/clearAgendasCache');
+const sources = require('./sources');
 
 module.exports = core => {
   const settings = Settings(core);
@@ -28,6 +29,7 @@ module.exports = core => {
       members: members(core, agendaUid),
       settings: settings(agendaUid),
       embeds: embeds(core, agendaUid),
+      sources: sources(core, agendaUid),
     };
 
     endpoints.rebuild = rebuild(core, endpoints, agendaUid);

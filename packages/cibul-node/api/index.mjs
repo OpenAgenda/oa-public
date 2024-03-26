@@ -113,6 +113,14 @@ export default (core, { useRouter = true } = {}) => {
     includeMemberSchema: req.query.includeMemberSchema,
   }).catch(next)));
 
+  app.get([
+    '/agendas/:agendaUid/sources',
+    '/agendas/slug/:agendaSlug/sources',
+  ], (req, res, next) => core
+    .agendas(req.agenda).sources.list(req.query, req.query, req.query).then(r => {
+      res.json(r);
+    }, next));
+
   app.post(
     '/agendas/:agendaUid/events',
     mw.moveEventLegacyImageCredits,

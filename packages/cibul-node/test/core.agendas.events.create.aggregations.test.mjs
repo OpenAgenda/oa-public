@@ -177,4 +177,12 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
       expect(ref['categories-agenda-metropolitain']).toBe(43);
     });
   });
+
+  describe('list sources', () => {
+    it('lists sources of an agenda', async () => {
+      const { after, sources } = await core.agendas(55268170).sources.list({}, { size: 20, after: null }, { detailed: true });
+      expect(sources.length).toBe(1);
+      expect(after).toBe(1);
+    });
+  });
 });
