@@ -65,6 +65,12 @@
       "value": "crwdns33606:0crwdne33606:0"
     }
   ],
+  "next.views.EventShow.ContextBar.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
@@ -191,16 +197,34 @@
       "value": "crwdns33648:0crwdne33648:0"
     }
   ],
+  "next.views.EventShow.ContextBar.publishedContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event is published and displayed on the agenda."
+    }
+  ],
   "next.views.EventShow.ContextBar.publishedInfo": [
     {
       "type": 0,
       "value": "crwdns33650:0crwdne33650:0"
     }
   ],
+  "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event has been validated by moderators. It will be published without further changes."
+    }
+  ],
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
       "value": "crwdns33652:0crwdne33652:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event is not compatible with the agenda and has been refused by administrators."
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
@@ -249,6 +273,12 @@
     {
       "type": 0,
       "value": "crwdns33664:0crwdne33664:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event will be verified by administrators prior to its publication."
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -493,6 +523,36 @@
       "value": "crwdns33742:0crwdne33742:0"
     }
   ],
+  "next.views.EventShow.Sidebar.accessibleToHearing": [
+    {
+      "type": 0,
+      "value": "Accessible to the hearing impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToIntellectually": [
+    {
+      "type": 0,
+      "value": "Accessible to the intellectually impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToMotor": [
+    {
+      "type": 0,
+      "value": "Accessible to the motor impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToPsychic": [
+    {
+      "type": 0,
+      "value": "Accessible to the psychic impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToVisually": [
+    {
+      "type": 0,
+      "value": "Accessible to the visually impaired"
+    }
+  ],
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,
@@ -503,6 +563,24 @@
     {
       "type": 0,
       "value": "crwdns33746:0crwdne33746:0"
+    }
+  ],
+  "next.views.EventShow.Sidebar.minToMaxYearsOld": [
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " years old"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -527,6 +605,20 @@
     {
       "type": 0,
       "value": "crwdns33754:0crwdne33754:0"
+    }
+  ],
+  "next.views.EventShow.Sidebar.startingAt": [
+    {
+      "type": 0,
+      "value": "Starting at "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " years old"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
