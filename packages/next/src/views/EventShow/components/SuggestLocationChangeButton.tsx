@@ -21,7 +21,7 @@ export default function SuggestLocationChangeButton() {
   return (
     <Button
       as={Link}
-      href={`/${agenda.slug}/locations/${event.uid}.${event.location.uid}/suggest-change`}
+      href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
       variant="outline"
       alignSelf="flex-start"
       borderColor="oaGray.300"

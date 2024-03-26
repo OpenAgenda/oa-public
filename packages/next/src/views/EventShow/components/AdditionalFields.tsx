@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { chakra, VStack, Link, NoBreak } from '@openagenda/uikit';
+import { chakra, Link, NoBreak } from '@openagenda/uikit';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
@@ -75,14 +75,13 @@ function ImageField({ field, updatedAt }) {
             : undefined}
           fallbackStrategy="onError"
           fill
+          sizes="(max-width: 992px) 100vw, 60vw"
           // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
           pos="unset !important"
-          w="full !important"
+          w="auto !important"
           h="auto !important"
           loader={keyCDNLoader}
           alt=""
-          m="auto"
-          priority
         />
       ) : (
         <chakra.em color="oaGray.500">{intl.formatMessage(messages.noImage)}</chakra.em>
@@ -147,7 +146,7 @@ function DefaultField({ field }) {
   return (
     <div>
       <Label field={field} />
-      {field.value !== undefined ? field.value : (
+      {field.value ? field.value : (
         <chakra.em color="oaGray.500">{intl.formatMessage(messages.noInput)}</chakra.em>
       )}
     </div>
@@ -176,8 +175,6 @@ export default function AdditionalFields({ additionalFields, updatedAt: updatedA
   const updatedAt = new Date(updatedAtStrDate).getTime();
 
   return additionalFields.map(field => (
-    <VStack key={field.key} gap="4" align="start">
-      <Field field={field} updatedAt={updatedAt} />
-    </VStack>
+    <Field key={field.key} field={field} updatedAt={updatedAt} />
   ));
 }
