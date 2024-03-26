@@ -34,7 +34,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
     v => stringType.includes(v.fieldType) && !isMultiLang(v),
   );
 
-  const textFieldCopyOptions = sourceSchema.fields
+  const textFieldCopyOptions = (sourceSchema?.fields ?? [])
     .filter(v => stringType.includes(v.fieldType))
     .map(f => ({ value: f.field, label: f.label[intl.locale] || f.label }));
 

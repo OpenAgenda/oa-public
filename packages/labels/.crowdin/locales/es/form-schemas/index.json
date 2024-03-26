@@ -1,8 +1,8 @@
 {
-  "cancel": "Anular",
+  "required": "Campo obligatorio",
   "groupErrorHeader": "Algunas entradas deben ser corregidos",
+  "submit": "Validar",
   "help": "Ayuda",
   "noChoice": "otra opción",
-  "required": "Campo obligatorio",
-  "submit": "Validar"
+  "cancel": "Anular"
 }

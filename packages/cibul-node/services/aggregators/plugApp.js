@@ -7,7 +7,7 @@ module.exports = (config, parentApp) => {
     sessions,
     agendas,
     members,
-    aggregators
+    aggregators,
   } = parentApp.services;
 
   // this stays
@@ -19,46 +19,8 @@ module.exports = (config, parentApp) => {
     sessions.mw.loadOrRedirect(),
     agendas.mw.load,
     agendas.mw.authorizeByIPAddress(),
-    members.mw.loadAndAuthorize('administrator')
+    members.mw.loadAndAuthorize('administrator'),
   ]);
-
-  parentApp.get('/:agendaSlug/admin/sources', async (req, res, next) => {
-    const aggregator = await aggregators.get(req.agenda.uid);
-
-    if (aggregator !== null || !req.query.source) {
-      return next();
-    }
-    try {
-      await aggregators.set(req.agenda.uid);
-    } catch (err) {
-      return next(err);
-    }
-    return next();
-  }, (req, res, next) => {
-    res.vary('Accept');
-
-    if (req.accepts(['json', 'html']) !== 'json') {
-      return next();
-    }
-
-    aggregators.sources
-      .list(req.agenda, {
-        search: req.query.search,
-        slug: req.query.slug
-      }, { detailed: true })
-      .then(
-        sources => {
-          res.json({ sources });
-        },
-        err => {
-          if (err.message === 'Aggregator not found') {
-            return res.status(404).send(err.message);
-          }
-
-          next(err);
-        }
-      );
-  });
 
   parentApp.post(
     '/:agendaSlug/admin/sources',
@@ -66,7 +28,7 @@ module.exports = (config, parentApp) => {
     agendas.mw.loadBy({
       path: 'body.agendaUid',
       field: 'uid',
-      target: 'sourceAgenda'
+      target: 'sourceAgenda',
     }),
     (req, res, next) => aggregators.sources.add(
       req.agenda,
@@ -77,9 +39,9 @@ module.exports = (config, parentApp) => {
         context: {
           user: req.user,
           member: req.member,
-        }
-      }
-    ).then(res.json.bind(res), next)
+        },
+      },
+    ).then(res.json.bind(res), next),
   );
 
   parentApp.get(
@@ -93,7 +55,7 @@ module.exports = (config, parentApp) => {
         }
 
         res.json(result);
-      }, next)
+      }, next),
   );
 
   parentApp.post(
@@ -101,7 +63,7 @@ module.exports = (config, parentApp) => {
     bodyParser.json(),
     (req, res, next) => aggregators
       .set(req.agenda.uid, req.body)
-      .then(result => res.json(result), next)
+      .then(result => res.json(result), next),
   );
 
   parentApp.put(
@@ -111,8 +73,8 @@ module.exports = (config, parentApp) => {
       req.agenda,
       req.params.sourceId,
       req.body.rules,
-      { query: req.body.query }
-    ).then(res.json.bind(res), next)
+      { query: req.body.query },
+    ).then(res.json.bind(res), next),
   );
 
   parentApp.delete(
@@ -125,9 +87,9 @@ module.exports = (config, parentApp) => {
         context: {
           user: req.user,
           member: req.member,
-        }
-      }
-    ).then(res.json.bind(res), next)
+        },
+      },
+    ).then(res.json.bind(res), next),
   );
 
   parentApp.get(
@@ -137,7 +99,7 @@ module.exports = (config, parentApp) => {
       .list(req.agenda, {}, { detailed: true })
       .then(sources => res.json({
         total: sources.length,
-        agendas: sources.map(source => source.agenda)
-      }), next)
+        agendas: sources.map(source => source.agenda),
+      }), next),
   );
 };

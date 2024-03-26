@@ -215,7 +215,7 @@ const initialState = async req => {
         perPageLimit: 20,
       },
       res: {
-        list: '/:slug/admin/sources',
+        list: '/api/agendas/slug/:slug/sources?size=200&detailed=1',
         add: '/:slug/admin/sources',
         update: '/:slug/admin/sources/:sourceId',
         remove: '/:slug/admin/sources/:sourceId',

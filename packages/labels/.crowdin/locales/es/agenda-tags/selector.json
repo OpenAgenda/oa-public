@@ -1,8 +1,8 @@
 {
-  "defaultTagGroupInfo": "Seleccione una o más etiquetas",
+  "tagsTitle": "Etiquetas",
   "defaultTagGroupName": "Lista de etiquetas",
-  "noSelection": "Ninguna de las anteriores",
+  "defaultTagGroupInfo": "Seleccione una o más etiquetas",
   "required": "Requerido.",
   "requiredTagError": "Usted debe hacer al menos una selección",
-  "tagsTitle": "Etiquetas"
+  "noSelection": "Ninguna de las anteriores"
 }

@@ -1,0 +1,3301 @@
+{
+    "sources": [
+        {
+            "id": 3968,
+            "agendaUid": 9977986,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "values": null,
+                            "automatic": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "values": null,
+                            "automatic": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": null,
+                            "automatic": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "reseau-metropole-de-lille": [
+                            142
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "label",
+                            "values": [
+                                32
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "categories-metropolitaines": [
+                            143
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                18
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 9609,
+                "uid": 9977986,
+                "title": "Ville de Roubaix",
+                "slug": "roubaix",
+                "image": "https://cibul.s3.amazonaws.com/agenda9977986.jpg",
+                "official": 1,
+                "createdAt": "2017-05-18T14:17:28.000Z",
+                "updatedAt": "2024-03-22T17:32:21.000Z"
+            }
+        },
+        {
+            "id": 3969,
+            "agendaUid": 33235301,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 9270,
+                "uid": 33235301,
+                "title": "Ville de Croix",
+                "slug": "ville_de_croix",
+                "image": "https://cibul.s3.amazonaws.com/agenda33235301.jpg?__ts=1682064247393",
+                "official": 0,
+                "createdAt": "2017-05-03T10:26:44.000Z",
+                "updatedAt": "2024-02-22T10:29:03.000Z"
+            }
+        },
+        {
+            "id": 3971,
+            "agendaUid": 61030484,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 6953,
+                "uid": 61030484,
+                "title": "CHU de Lille",
+                "slug": "chu-lille",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": null,
+                "createdAt": "2016-09-07T08:35:02.000Z",
+                "updatedAt": "2017-07-12T09:25:30.000Z"
+            }
+        },
+        {
+            "id": 4587,
+            "agendaUid": 63403303,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 11402,
+                "uid": 63403303,
+                "title": "Agenda du Stadium à Villeneuve d'Ascq",
+                "slug": "agenda-du-stadium-villeneuve-d-ascq",
+                "image": "https://cibul.s3.amazonaws.com/agenda63403303.jpg",
+                "official": 1,
+                "createdAt": "2017-07-12T08:40:03.000Z",
+                "updatedAt": "2024-03-11T11:25:43.000Z"
+            }
+        },
+        {
+            "id": 5043,
+            "agendaUid": 26040111,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 13640,
+                "uid": 26040111,
+                "title": "Ville de Saint-André-lez-Lille",
+                "slug": "ville-de-saint-andre-lez-lille",
+                "image": "https://cibul.s3.amazonaws.com/agenda26040111.jpg",
+                "official": 1,
+                "createdAt": "2018-02-07T13:24:48.000Z",
+                "updatedAt": "2019-07-04T08:30:33.000Z"
+            }
+        },
+        {
+            "id": 5051,
+            "agendaUid": 33774266,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 13697,
+                "uid": 33774266,
+                "title": "La C'ART",
+                "slug": "la-cart",
+                "image": "https://cibul.s3.amazonaws.com/agenda33774266.jpg?__ts=1678372850303",
+                "official": 1,
+                "createdAt": "2018-02-13T10:59:16.000Z",
+                "updatedAt": "2024-03-22T14:39:29.000Z"
+            }
+        },
+        {
+            "id": 5172,
+            "agendaUid": 76391422,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 14072,
+                "uid": 76391422,
+                "title": "ELDORADO lille3000",
+                "slug": "eldorado-lille3000",
+                "image": "https://cibul.s3.amazonaws.com/agenda76391422.jpg",
+                "official": 1,
+                "createdAt": "2018-03-12T09:51:28.000Z",
+                "updatedAt": "2022-10-20T11:10:38.000Z"
+            }
+        },
+        {
+            "id": 5219,
+            "agendaUid": 12950967,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 13993,
+                "uid": 12950967,
+                "title": "Marquette-lez-Lille",
+                "slug": "marquettelezlille",
+                "image": "https://cibul.s3.amazonaws.com/agenda12950967.jpg",
+                "official": 1,
+                "createdAt": "2018-03-06T15:28:16.000Z",
+                "updatedAt": "2024-02-21T11:24:29.000Z"
+            }
+        },
+        {
+            "id": 5793,
+            "agendaUid": 36207583,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 14253,
+                "uid": 36207583,
+                "title": "Ville de Villeneuve d'Ascq",
+                "slug": "ville-de-villeneuve-dascq",
+                "image": "https://cibul.s3.amazonaws.com/agenda36207583.jpg",
+                "official": 1,
+                "createdAt": "2018-03-20T09:50:22.000Z",
+                "updatedAt": "2024-03-22T16:53:47.000Z"
+            }
+        },
+        {
+            "id": 6283,
+            "agendaUid": 20596111,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 16706,
+                "uid": 20596111,
+                "title": "JEP 2018 - MEL",
+                "slug": "jep2018-mel",
+                "image": "https://cibul.s3.amazonaws.com/agenda20596111.jpg",
+                "official": 0,
+                "createdAt": "2018-09-05T14:02:17.000Z",
+                "updatedAt": "2018-10-03T00:41:25.000Z"
+            }
+        },
+        {
+            "id": 6384,
+            "agendaUid": 61277610,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 16850,
+                "uid": 61277610,
+                "title": "SportFoto - Expositions & Événements - lille3000",
+                "slug": "sportfoto",
+                "image": "https://cibul.s3.amazonaws.com/agenda61277610.jpg",
+                "official": 1,
+                "createdAt": "2018-09-17T08:35:36.000Z",
+                "updatedAt": "2018-10-09T13:12:44.000Z"
+            }
+        },
+        {
+            "id": 6648,
+            "agendaUid": 51302149,
+            "rules": [
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 17752,
+                "uid": 51302149,
+                "title": "LaM",
+                "slug": "musee-lam",
+                "image": "https://cibul.s3.amazonaws.com/agenda51302149.jpg",
+                "official": 1,
+                "createdAt": "2018-12-05T15:57:01.000Z",
+                "updatedAt": "2024-03-22T15:39:52.000Z"
+            }
+        },
+        {
+            "id": 6727,
+            "agendaUid": 44152079,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 13702,
+                "uid": 44152079,
+                "title": "Maison de l'Habitat Durable",
+                "slug": "mhd",
+                "image": "https://cibul.s3.amazonaws.com/agenda44152079.jpg",
+                "official": 1,
+                "createdAt": "2018-02-13T15:20:43.000Z",
+                "updatedAt": "2024-03-22T15:20:30.000Z"
+            }
+        },
+        {
+            "id": 6772,
+            "agendaUid": 74969817,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 14588,
+                "uid": 74969817,
+                "title": "Ville La Madeleine",
+                "slug": "ville-lamadeleine",
+                "image": "https://cibul.s3.amazonaws.com/agenda74969817.jpg",
+                "official": 1,
+                "createdAt": "2018-04-12T09:20:46.000Z",
+                "updatedAt": "2024-01-15T08:36:12.000Z"
+            }
+        },
+        {
+            "id": 7039,
+            "agendaUid": 83370689,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 18454,
+                "uid": 83370689,
+                "title": "Palais des Beaux-Arts",
+                "slug": "palais-des-beaux-arts",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 0,
+                "createdAt": "2019-02-05T09:30:49.000Z",
+                "updatedAt": "2019-03-13T16:34:17.000Z"
+            }
+        },
+        {
+            "id": 7049,
+            "agendaUid": 32320707,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 19360,
+                "uid": 32320707,
+                "title": "Musée de la bataille de Fromelles",
+                "slug": "musee-bataille-fromelles",
+                "image": "https://cibul.s3.amazonaws.com/agenda32320707.jpg?__ts=1670494680753",
+                "official": 1,
+                "createdAt": "2019-03-19T14:28:41.000Z",
+                "updatedAt": "2024-03-22T15:34:25.000Z"
+            }
+        },
+        {
+            "id": 7062,
+            "agendaUid": 7428217,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 19513,
+                "uid": 7428217,
+                "title": "Festival Wazemmes l'arcordéon",
+                "slug": "festival-wazemmes-larcordeon",
+                "image": "https://cibul.s3.amazonaws.com/agenda7428217.jpg",
+                "official": 0,
+                "createdAt": "2019-03-29T08:45:13.000Z",
+                "updatedAt": "2019-03-29T10:16:02.000Z"
+            }
+        },
+        {
+            "id": 7249,
+            "agendaUid": 76837900,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 16848,
+                "uid": 76837900,
+                "title": "Le Fresnoy - Studio national des arts contemporains",
+                "slug": "le-fresnoy-studio-national-des-arts-contemporains",
+                "image": "https://cibul.s3.amazonaws.com/agenda76837900.jpg",
+                "official": 1,
+                "createdAt": "2018-09-17T07:56:55.000Z",
+                "updatedAt": "2024-03-22T13:32:05.000Z"
+            }
+        },
+        {
+            "id": 7286,
+            "agendaUid": 41209341,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 16974,
+                "uid": 41209341,
+                "title": "WAAO - Centre d'architecture et d'urbanisme",
+                "slug": "waao-centre-darchitecture-et-durbanisme",
+                "image": "https://cibul.s3.amazonaws.com/agenda41209341.jpg?__ts=1708609709858",
+                "official": 1,
+                "createdAt": "2018-09-27T14:01:06.000Z",
+                "updatedAt": "2024-03-21T11:24:21.000Z"
+            }
+        },
+        {
+            "id": 7407,
+            "agendaUid": 57621068,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": 0,
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 14
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    17
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 15
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    21
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 17
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    13
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 18
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    4
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 19
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    10
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 21
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    7
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 24
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    3
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 25
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    23
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": 1
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    6
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": [
+                            23
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    20
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "type-devenement": [
+                            16
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": {
+                                "$set": [
+                                    12
+                                ]
+                            },
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "label": [
+                            30
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "label",
+                            "values": [
+                                32
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 11406,
+                "uid": 57621068,
+                "title": "Ville de Lille",
+                "slug": "ville-de-lille",
+                "image": "https://cibul.s3.amazonaws.com/agenda57621068.jpg?__ts=1647873370321",
+                "official": 1,
+                "createdAt": "2017-07-12T09:18:29.000Z",
+                "updatedAt": "2024-03-22T17:27:00.000Z"
+            }
+        },
+        {
+            "id": 7437,
+            "agendaUid": 88769002,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 21652,
+                "uid": 88769002,
+                "title": "Repair Cafés sur le territoire de la MEL",
+                "slug": "repair-cafes-mel",
+                "image": "https://cibul.s3.amazonaws.com/agenda88769002.jpg",
+                "official": 1,
+                "createdAt": "2019-07-18T08:34:10.000Z",
+                "updatedAt": "2023-10-02T19:47:53.000Z"
+            }
+        },
+        {
+            "id": 7491,
+            "agendaUid": 99768314,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                },
+                {
+                    "query": {
+                        "tags": [
+                            "Événement d'intérêt intercommunal",
+                            "Événement d’intérêt métropolitain"
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": 2,
+                            "automatic": false,
+                            "legacyTruthy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 21580,
+                "uid": 99768314,
+                "title": "Office de Tourisme de Lille",
+                "slug": "office-de-tourisme-de-lille",
+                "image": "https://cibul.s3.amazonaws.com/agenda99768314.jpg?__ts=1655475648840",
+                "official": 1,
+                "createdAt": "2019-07-12T14:38:27.000Z",
+                "updatedAt": "2024-03-22T14:23:43.000Z"
+            }
+        },
+        {
+            "id": 7521,
+            "agendaUid": 15127327,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 21776,
+                "uid": 15127327,
+                "title": "Lille Métropole Basket",
+                "slug": "lille-metropole-basket",
+                "image": "https://cibul.s3.amazonaws.com/agenda15127327.jpg",
+                "official": 1,
+                "createdAt": "2019-07-26T11:47:34.000Z",
+                "updatedAt": "2024-02-21T13:35:02.000Z"
+            }
+        },
+        {
+            "id": 7525,
+            "agendaUid": 48488742,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 16314,
+                "uid": 48488742,
+                "title": "Les Belles Sorties",
+                "slug": "les-belles-sorties",
+                "image": "https://cibul.s3.amazonaws.com/agenda48488742.jpg?__ts=1705569843009",
+                "official": 1,
+                "createdAt": "2018-07-24T13:53:28.000Z",
+                "updatedAt": "2024-03-21T15:48:52.000Z"
+            }
+        },
+        {
+            "id": 7637,
+            "agendaUid": 8464745,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 22157,
+                "uid": 8464745,
+                "title": "Espace Nelson Mandela",
+                "slug": "espace-nelson-mandela",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 0,
+                "createdAt": "2019-09-03T11:56:19.000Z",
+                "updatedAt": "2021-12-29T15:24:35.000Z"
+            }
+        },
+        {
+            "id": 7706,
+            "agendaUid": 44272736,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 21190,
+                "uid": 44272736,
+                "title": "Festival Tour de Chauffe 2019 - Edition #14",
+                "slug": "tour-de-chauffe",
+                "image": "https://cibul.s3.amazonaws.com/agenda44272736.jpg",
+                "official": 1,
+                "createdAt": "2019-06-25T12:53:44.000Z",
+                "updatedAt": "2022-07-21T09:19:10.000Z"
+            }
+        },
+        {
+            "id": 7708,
+            "agendaUid": 56309188,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 22480,
+                "uid": 56309188,
+                "title": "Economie",
+                "slug": "economie-mel",
+                "image": "https://cibul.s3.amazonaws.com/agenda56309188.jpg",
+                "official": 1,
+                "createdAt": "2019-09-19T09:25:57.000Z",
+                "updatedAt": "2024-03-19T10:35:12.000Z"
+            }
+        },
+        {
+            "id": 7839,
+            "agendaUid": 23355730,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 19052,
+                "uid": 23355730,
+                "title": "La Condition Publique",
+                "slug": "la-condition-publique",
+                "image": "https://cibul.s3.amazonaws.com/agenda23355730.jpg?__ts=1647527494906",
+                "official": 1,
+                "createdAt": "2019-03-02T15:56:41.000Z",
+                "updatedAt": "2024-02-29T09:00:21.000Z"
+            }
+        },
+        {
+            "id": 8296,
+            "agendaUid": 11095643,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 23130,
+                "uid": 11095643,
+                "title": "Seclin Mélantois Tourisme",
+                "slug": "seclin-tourisme",
+                "image": "https://cibul.s3.amazonaws.com/agenda11095643.jpg?__ts=1661158321091",
+                "official": 1,
+                "createdAt": "2019-11-04T15:02:46.000Z",
+                "updatedAt": "2024-03-22T14:23:43.000Z"
+            }
+        },
+        {
+            "id": 8415,
+            "agendaUid": 96236279,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 18019,
+                "uid": 96236279,
+                "title": "Forum départemental des Sciences",
+                "slug": "forum-des-sciences",
+                "image": "https://cibul.s3.amazonaws.com/agenda96236279.jpg",
+                "official": 1,
+                "createdAt": "2019-01-04T11:03:35.000Z",
+                "updatedAt": "2023-11-06T10:14:02.000Z"
+            }
+        },
+        {
+            "id": 8417,
+            "agendaUid": 27027963,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 22885,
+                "uid": 27027963,
+                "title": "FLOW",
+                "slug": "flow",
+                "image": "https://cibul.s3.amazonaws.com/agenda27027963.jpg?__ts=1644413262384",
+                "official": 1,
+                "createdAt": "2019-10-15T11:48:18.000Z",
+                "updatedAt": "2024-03-22T17:37:55.000Z"
+            }
+        },
+        {
+            "id": 8418,
+            "agendaUid": 87937514,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 23779,
+                "uid": 87937514,
+                "title": "Maison Folie Hospice d'Havré - Tourcoing",
+                "slug": "maison-folie-hospice-d-havre",
+                "image": "https://cibul.s3.amazonaws.com/agenda87937514.jpg",
+                "official": 1,
+                "createdAt": "2019-12-26T13:50:58.000Z",
+                "updatedAt": "2024-02-06T12:50:17.000Z"
+            }
+        },
+        {
+            "id": 8500,
+            "agendaUid": 39494797,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "recurringevent",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "categories-metropolitaines",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        },
+                        {
+                            "field": "label",
+                            "required": false,
+                            "automatic": true,
+                            "legacy": true
+                        }
+                    ],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 24400,
+                "uid": 39494797,
+                "title": "CMA Hauts-de-France",
+                "slug": "cma-hauts-de-france",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 1,
+                "createdAt": "2020-02-10T16:34:56.000Z",
+                "updatedAt": "2022-07-21T09:19:06.000Z"
+            }
+        },
+        {
+            "id": 8518,
+            "agendaUid": 64563027,
+            "rules": [],
+            "agenda": {
+                "id": 23780,
+                "uid": 64563027,
+                "title": "Théâtre Municipal Raymond Devos",
+                "slug": "theatre-municipal-raymond-devos",
+                "image": "https://cibul.s3.amazonaws.com/agenda64563027.jpg",
+                "official": 1,
+                "createdAt": "2019-12-26T14:19:39.000Z",
+                "updatedAt": "2024-02-06T16:05:49.000Z"
+            }
+        },
+        {
+            "id": 8520,
+            "agendaUid": 35162502,
+            "rules": [],
+            "agenda": {
+                "id": 24051,
+                "uid": 35162502,
+                "title": "MUba Eugène Leroy - Tourcoing",
+                "slug": "muba-eugene-leroy-tourcoing",
+                "image": "https://cibul.s3.amazonaws.com/agenda35162502.jpg",
+                "official": 1,
+                "createdAt": "2020-01-17T13:08:00.000Z",
+                "updatedAt": "2024-03-20T14:51:17.000Z"
+            }
+        },
+        {
+            "id": 8521,
+            "agendaUid": 96869629,
+            "rules": [],
+            "agenda": {
+                "id": 21768,
+                "uid": 96869629,
+                "title": "Programmation culturelle du réseau des médiathèques de Tourcoing",
+                "slug": "reseau-des-idees-mediatheques-de-tourcoing",
+                "image": "https://cibul.s3.amazonaws.com/agenda96869629.jpg?__ts=1703326707850",
+                "official": 1,
+                "createdAt": "2019-07-25T14:50:52.000Z",
+                "updatedAt": "2024-03-22T14:13:31.000Z"
+            }
+        },
+        {
+            "id": 8522,
+            "agendaUid": 61442850,
+            "rules": [],
+            "agenda": {
+                "id": 24089,
+                "uid": 61442850,
+                "title": "Conservatoire à rayonnement départemental de Tourcoing",
+                "slug": "conservatoire-a-rayonnement-departemental-de-tourcoing",
+                "image": "https://cibul.s3.amazonaws.com/agenda61442850.jpg",
+                "official": 1,
+                "createdAt": "2020-01-21T12:38:18.000Z",
+                "updatedAt": "2024-03-21T12:31:35.000Z"
+            }
+        },
+        {
+            "id": 8888,
+            "agendaUid": 72842860,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                },
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "label",
+                            "values": [
+                                33
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 11429,
+                "uid": 72842860,
+                "title": "Espaces Naturels Métropolitains",
+                "slug": "espaces-naturels-metropolitains",
+                "image": "https://cibul.s3.amazonaws.com/agenda72842860.jpg",
+                "official": 1,
+                "createdAt": "2017-07-14T15:16:31.000Z",
+                "updatedAt": "2024-03-21T10:33:11.000Z"
+            }
+        },
+        {
+            "id": 8958,
+            "agendaUid": 99053422,
+            "rules": [],
+            "agenda": {
+                "id": 23515,
+                "uid": 99053422,
+                "title": "Lille Métropole 2020 Capitale Mondiale du Design",
+                "slug": "lille-metropole-2020-capitale-mondiale-du-design",
+                "image": "https://cibul.s3.amazonaws.com/agenda99053422.jpg",
+                "official": 1,
+                "createdAt": "2019-12-04T10:52:12.000Z",
+                "updatedAt": "2022-07-21T09:21:39.000Z"
+            }
+        },
+        {
+            "id": 8992,
+            "agendaUid": 63114883,
+            "rules": [],
+            "agenda": {
+                "id": 26228,
+                "uid": 63114883,
+                "title": "Tourcoing Jazz",
+                "slug": "tourcoing-jazz",
+                "image": "https://cibul.s3.amazonaws.com/agenda63114883.jpg?__ts=1671442170091",
+                "official": 1,
+                "createdAt": "2020-07-15T08:40:56.000Z",
+                "updatedAt": "2024-02-13T15:36:51.000Z"
+            }
+        },
+        {
+            "id": 8994,
+            "agendaUid": 32344838,
+            "rules": [],
+            "agenda": {
+                "id": 24425,
+                "uid": 32344838,
+                "title": "Agenda culturel tourquennois",
+                "slug": "agenda-culturel-tourquennois",
+                "image": "https://cibul.s3.amazonaws.com/agenda32344838.jpg",
+                "official": 1,
+                "createdAt": "2020-02-11T15:39:53.000Z",
+                "updatedAt": "2024-03-22T13:08:49.000Z"
+            }
+        },
+        {
+            "id": 9187,
+            "agendaUid": 85645563,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 22548,
+                "uid": 85645563,
+                "title": "Office de Tourisme du Val de Deûle et Lys",
+                "slug": "office-de-tourisme-du-val-de-deule-et-lys",
+                "image": "https://cibul.s3.amazonaws.com/agenda85645563.jpg?__ts=1625732085868",
+                "official": 1,
+                "createdAt": "2019-09-23T09:18:24.000Z",
+                "updatedAt": "2024-03-19T11:08:07.000Z"
+            }
+        },
+        {
+            "id": 9255,
+            "agendaUid": 52693950,
+            "rules": [
+                {
+                    "query": {
+                        "categories": [
+                            1
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                3
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "categories": [
+                            2
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                7
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "categories": [
+                            3
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                12
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "categories": [
+                            4
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                15
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "categories": [
+                            5
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                7
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "values": [
+                                1
+                            ],
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {
+                        "label": [
+                            8
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "field": "label",
+                            "values": [
+                                34
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 29717,
+                "uid": 52693950,
+                "title": "Le réseau des bibliothèques et médiathèques de la MEL",
+                "slug": "reseau-des-bibliotheques-et-mediatheques-de-la-mel",
+                "image": "https://cibul.s3.amazonaws.com/agenda52693950.jpg?__ts=1606985382981",
+                "official": 1,
+                "createdAt": "2020-12-03T08:45:43.000Z",
+                "updatedAt": "2024-03-22T16:09:25.000Z"
+            }
+        },
+        {
+            "id": 9375,
+            "agendaUid": 32204253,
+            "rules": [],
+            "agenda": {
+                "id": 25310,
+                "uid": 32204253,
+                "title": "Office de Tourisme de l'Armentiérois & des Weppes",
+                "slug": "office-de-tourisme-de-l-armentierois-and-des-weppes",
+                "image": "https://cibul.s3.amazonaws.com/agenda32204253.jpg?__ts=1634983762163",
+                "official": 1,
+                "createdAt": "2020-05-05T09:53:54.000Z",
+                "updatedAt": "2024-03-22T14:39:29.000Z"
+            }
+        },
+        {
+            "id": 9768,
+            "agendaUid": 39923039,
+            "rules": [],
+            "agenda": {
+                "id": 30348,
+                "uid": 39923039,
+                "title": "Médiathèque La Madeleine",
+                "slug": "mediatheque-la-madeleine",
+                "image": "https://cibul.s3.amazonaws.com/agenda39923039.jpg?__ts=1616083204609",
+                "official": 1,
+                "createdAt": "2021-03-18T12:27:54.000Z",
+                "updatedAt": "2022-07-21T09:21:40.000Z"
+            }
+        },
+        {
+            "id": 9946,
+            "agendaUid": 25507149,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 30001,
+                "uid": 25507149,
+                "title": "Vie associative - Ville de Loos",
+                "slug": "vie-associative-ville-de-loos",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 1,
+                "createdAt": "2021-01-28T15:44:02.000Z",
+                "updatedAt": "2024-03-19T08:15:38.000Z"
+            }
+        },
+        {
+            "id": 9948,
+            "agendaUid": 80642274,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 19706,
+                "uid": 80642274,
+                "title": "Ville de Loos",
+                "slug": "ville-de-loos",
+                "image": "https://cibul.s3.amazonaws.com/agenda80642274.jpg?__ts=1622455499864",
+                "official": 1,
+                "createdAt": "2019-04-10T12:28:54.000Z",
+                "updatedAt": "2024-03-20T16:19:44.000Z"
+            }
+        },
+        {
+            "id": 10047,
+            "agendaUid": 87826776,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 31575,
+                "uid": 87826776,
+                "title": "Villa Cavrois",
+                "slug": "villa-cavrois",
+                "image": "https://cibul.s3.amazonaws.com/agenda87826776.jpg?__ts=1623912903430",
+                "official": 1,
+                "createdAt": "2021-06-16T10:02:08.000Z",
+                "updatedAt": "2022-10-20T10:11:06.000Z"
+            }
+        },
+        {
+            "id": 10233,
+            "agendaUid": 71703999,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 32661,
+                "uid": 71703999,
+                "title": "MEL - Les Journées Européennes du Patrimoine 2021",
+                "slug": "mel-les-journees-europeennes-du-patrimoine-2021",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 1,
+                "createdAt": "2021-09-07T16:51:19.000Z",
+                "updatedAt": "2022-07-21T09:23:31.000Z"
+            }
+        },
+        {
+            "id": 10299,
+            "agendaUid": 90604188,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                3,
+                                4,
+                                5,
+                                6,
+                                8,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                                22,
+                                13,
+                                12,
+                                23,
+                                11,
+                                10,
+                                9,
+                                7,
+                                28
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 14255,
+                "uid": 90604188,
+                "title": "Parc archéologique Asnapio",
+                "slug": "parc-danaspio",
+                "image": "https://cibul.s3.amazonaws.com/agenda90604188.jpg",
+                "official": 1,
+                "createdAt": "2018-03-20T09:58:30.000Z",
+                "updatedAt": "2024-03-22T17:34:33.000Z"
+            }
+        },
+        {
+            "id": 10312,
+            "agendaUid": 29862536,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                10,
+                                9,
+                                11,
+                                8,
+                                7,
+                                12,
+                                13,
+                                6,
+                                14,
+                                17,
+                                16,
+                                19,
+                                18,
+                                20,
+                                21,
+                                15,
+                                23,
+                                28,
+                                4,
+                                5,
+                                3,
+                                22
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 31864,
+                "uid": 29862536,
+                "title": "MEL toi du territoire",
+                "slug": "mel-toi-du-territoire",
+                "image": "https://cibul.s3.amazonaws.com/agenda29862536.jpg?__ts=1677762150056",
+                "official": 1,
+                "createdAt": "2021-06-30T08:48:06.000Z",
+                "updatedAt": "2023-11-07T18:58:20.000Z"
+            }
+        },
+        {
+            "id": 10793,
+            "agendaUid": 565851,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "values": null,
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 33367,
+                "uid": 565851,
+                "title": "Ville de Comines",
+                "slug": "ville-de-comines",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 1,
+                "createdAt": "2021-11-09T15:58:55.000Z",
+                "updatedAt": "2024-02-06T15:19:03.000Z"
+            }
+        },
+        {
+            "id": 10854,
+            "agendaUid": 56945095,
+            "rules": [],
+            "agenda": {
+                "id": 33693,
+                "uid": 56945095,
+                "title": "Ville de Marcq-en-Baroeul",
+                "slug": "ville-de-marcq-en-baroeul",
+                "image": "https://cibul.s3.amazonaws.com/agenda56945095.jpg?__ts=1640593516130",
+                "official": 1,
+                "createdAt": "2021-12-27T08:25:16.000Z",
+                "updatedAt": "2022-07-21T09:15:07.000Z"
+            }
+        },
+        {
+            "id": 11118,
+            "agendaUid": 95092045,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 33945,
+                "uid": 95092045,
+                "title": "École supérieure d'art | Dunkerque-Tourcoing",
+                "slug": "ecole-superieure-dart-or-dunkerque-tourcoing",
+                "image": "https://cibul.s3.amazonaws.com/agenda95092045.jpg?__ts=1643223275087",
+                "official": 0,
+                "createdAt": "2022-01-26T18:54:35.000Z",
+                "updatedAt": "2022-09-07T08:03:00.000Z"
+            }
+        },
+        {
+            "id": 11119,
+            "agendaUid": 91574507,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 33910,
+                "uid": 91574507,
+                "title": "La Virgule",
+                "slug": "la-virgule",
+                "image": "https://cibul.s3.amazonaws.com/agenda91574507.jpg?__ts=1642769753984",
+                "official": 0,
+                "createdAt": "2022-01-21T12:55:54.000Z",
+                "updatedAt": "2024-02-27T16:31:27.000Z"
+            }
+        },
+        {
+            "id": 11839,
+            "agendaUid": 23938226,
+            "rules": [],
+            "agenda": {
+                "id": 33759,
+                "uid": 23938226,
+                "title": "Ville de Bondues",
+                "slug": "ville-bondues",
+                "image": "https://cibul.s3.amazonaws.com/agenda23938226.jpg?__ts=1641475239394",
+                "official": 1,
+                "createdAt": "2022-01-06T13:14:03.000Z",
+                "updatedAt": "2023-08-29T13:09:25.000Z"
+            }
+        },
+        {
+            "id": 11868,
+            "agendaUid": 12237526,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "values": [
+                                1
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "label",
+                            "values": [
+                                29
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 35484,
+                "uid": 12237526,
+                "title": "Les Nuits des bibliothèques",
+                "slug": "les-nuits-des-bibliotheques",
+                "image": "https://cibul.s3.amazonaws.com/agenda12237526.jpg?__ts=1691073937713",
+                "official": 1,
+                "createdAt": "2022-05-16T07:01:42.000Z",
+                "updatedAt": "2023-10-12T13:59:25.000Z"
+            }
+        },
+        {
+            "id": 11877,
+            "agendaUid": 4796508,
+            "rules": [],
+            "agenda": {
+                "id": 22986,
+                "uid": 4796508,
+                "title": "Agence d'attractivité Hello Lille",
+                "slug": "hello-lille",
+                "image": "https://cibul.s3.amazonaws.com/agenda4796508.jpg",
+                "official": 1,
+                "createdAt": "2019-10-22T15:28:27.000Z",
+                "updatedAt": "2024-03-22T14:23:43.000Z"
+            }
+        },
+        {
+            "id": 11906,
+            "agendaUid": 73501440,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 13464,
+                "uid": 73501440,
+                "title": "Ville de Hellemmes",
+                "slug": "hellemmes",
+                "image": "https://cibul.s3.amazonaws.com/agenda73501440.jpg?__ts=1637764015766",
+                "official": 1,
+                "createdAt": "2018-01-18T11:25:46.000Z",
+                "updatedAt": "2024-03-22T10:43:29.000Z"
+            }
+        },
+        {
+            "id": 11907,
+            "agendaUid": 5407671,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 21164,
+                "uid": 5407671,
+                "title": "Ville de Lomme",
+                "slug": "lomme",
+                "image": "https://cibul.s3.amazonaws.com/agenda5407671.jpg?__ts=1644414430487",
+                "official": 1,
+                "createdAt": "2019-06-24T16:22:33.000Z",
+                "updatedAt": "2022-04-06T08:42:53.000Z"
+            }
+        },
+        {
+            "id": 12195,
+            "agendaUid": 57585408,
+            "rules": [],
+            "agenda": {
+                "id": 37727,
+                "uid": 57585408,
+                "title": "Patinoire Serge Charles",
+                "slug": "patinoire-serge-charles",
+                "image": "https://cibul.s3.amazonaws.com/agenda57585408.jpg?__ts=1669643253514",
+                "official": 1,
+                "createdAt": "2022-11-18T11:15:08.000Z",
+                "updatedAt": "2024-02-21T09:38:57.000Z"
+            }
+        },
+        {
+            "id": 12211,
+            "agendaUid": 26253519,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 37979,
+                "uid": 26253519,
+                "title": "Ville de Lambersart",
+                "slug": "ville-de-lambersart",
+                "image": "https://cibul.s3.amazonaws.com/agenda26253519.jpg?__ts=1670922601734",
+                "official": 1,
+                "createdAt": "2022-12-13T09:10:01.000Z",
+                "updatedAt": "2024-02-27T15:07:00.000Z"
+            }
+        },
+        {
+            "id": 12215,
+            "agendaUid": 89633526,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "interetintercommunal",
+                            "values": [
+                                1
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                },
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 37190,
+                "uid": 89633526,
+                "title": "Tourcoing Tourisme",
+                "slug": "tourcoing-tourisme",
+                "image": "https://cibul.s3.amazonaws.com/agenda89633526.jpg?__ts=1663860648900",
+                "official": 0,
+                "createdAt": "2022-09-22T15:30:48.000Z",
+                "updatedAt": "2024-03-04T14:09:00.000Z"
+            }
+        },
+        {
+            "id": 12303,
+            "agendaUid": 12336727,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 9437,
+                "uid": 12336727,
+                "title": "EuraTechnologies",
+                "slug": "euratechnologies",
+                "image": "https://cibul.s3.amazonaws.com/agenda12336727.jpg",
+                "official": 1,
+                "createdAt": "2017-05-11T15:28:55.000Z",
+                "updatedAt": "2023-03-01T16:04:19.000Z"
+            }
+        },
+        {
+            "id": 12362,
+            "agendaUid": 81357814,
+            "rules": [],
+            "agenda": {
+                "id": 31748,
+                "uid": 81357814,
+                "title": "Les médiathèques du Mélantois",
+                "slug": "les-mediatheques-du-melantois",
+                "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+                "official": 1,
+                "createdAt": "2021-06-24T12:30:25.000Z",
+                "updatedAt": "2023-02-17T15:56:13.000Z"
+            }
+        },
+        {
+            "id": 12363,
+            "agendaUid": 81632790,
+            "rules": [],
+            "agenda": {
+                "id": 33332,
+                "uid": 81632790,
+                "title": "Bibliothèque municipale d'Haubourdin",
+                "slug": "bibliotheque-municipale-dhaubourdin",
+                "image": "https://cibul.s3.amazonaws.com/agenda81632790.jpg?__ts=1636194381097",
+                "official": 1,
+                "createdAt": "2021-11-06T10:26:21.000Z",
+                "updatedAt": "2023-10-05T10:06:52.000Z"
+            }
+        },
+        {
+            "id": 12364,
+            "agendaUid": 38001206,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 31086,
+                "uid": 38001206,
+                "title": "Médiathèque municipale de WERVICQ-SUD",
+                "slug": "mediatheque-municipale-de-wervicq-sud",
+                "image": "https://cibul.s3.amazonaws.com/agenda38001206.jpg?__ts=1621927923906",
+                "official": 1,
+                "createdAt": "2021-05-25T07:32:03.000Z",
+                "updatedAt": "2024-03-20T11:02:24.000Z"
+            }
+        },
+        {
+            "id": 13371,
+            "agendaUid": 3483337,
+            "rules": [
+                {
+                    "query": {
+                        "location": {
+                            "city": [
+                                "Lille",
+                                "Bondues",
+                                "Tourcoing",
+                                "Roubaix",
+                                "Wasquehal",
+                                "Villeneuve-d'Ascq",
+                                "Seclin",
+                                "Lys-lez-Lannoy",
+                                "Quesnoy-sur-Deûle",
+                                "La Madeleine",
+                                "Lambersart",
+                                "Lomme",
+                                "Marcq-en-Barœul",
+                                "Fromelles",
+                                "Erquinghem-Lys",
+                                "Comines",
+                                "Croix",
+                                "Armentières",
+                                "Capinghem",
+                                "Hellemmes",
+                                "Santes",
+                                "Halluin"
+                            ]
+                        }
+                    },
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                3,
+                                4,
+                                7,
+                                6,
+                                9,
+                                12,
+                                13,
+                                22,
+                                23,
+                                21,
+                                17,
+                                20
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 39295,
+                "uid": 3483337,
+                "title": "[Archives] Journées européennes du patrimoine 2023 : Hauts-de-France",
+                "slug": "jep-2023-hauts-de-france",
+                "image": "https://cibul.s3.amazonaws.com/agenda3483337.jpg?__ts=1686156667092",
+                "official": 1,
+                "createdAt": "2023-03-28T12:00:30.000Z",
+                "updatedAt": "2024-01-03T17:18:31.000Z"
+            }
+        },
+        {
+            "id": 13372,
+            "agendaUid": 31182441,
+            "rules": [],
+            "agenda": {
+                "id": 30030,
+                "uid": 31182441,
+                "title": "Wattrelos Tourisme",
+                "slug": "wattrelos-tourisme",
+                "image": "https://cibul.s3.amazonaws.com/agenda31182441.jpg?__ts=1630508782118",
+                "official": 1,
+                "createdAt": "2021-02-03T15:46:31.000Z",
+                "updatedAt": "2024-03-22T16:09:43.000Z"
+            }
+        },
+        {
+            "id": 13461,
+            "agendaUid": 214147,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 37935,
+                "uid": 214147,
+                "title": "Mairie de Wattignies",
+                "slug": "mairie-de-wattignies",
+                "image": "https://cibul.s3.amazonaws.com/agenda214147.jpg?__ts=1670411649560",
+                "official": 1,
+                "createdAt": "2022-12-07T11:14:08.000Z",
+                "updatedAt": "2024-03-14T18:57:15.000Z"
+            }
+        },
+        {
+            "id": 13783,
+            "agendaUid": 26852099,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 42254,
+                "uid": 26852099,
+                "title": "Commune de Salomé",
+                "slug": "commune-de-salome",
+                "image": "https://cibul.s3.amazonaws.com/agenda26852099.jpg?__ts=1696318777549",
+                "official": 1,
+                "createdAt": "2023-10-03T07:34:52.000Z",
+                "updatedAt": "2024-03-06T09:01:18.000Z"
+            }
+        },
+        {
+            "id": 13908,
+            "agendaUid": 98073056,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                28
+                            ],
+                            "automatic": false
+                        },
+                        {
+                            "field": "state",
+                            "values": {
+                                "$set": 2
+                            },
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 23217,
+                "uid": 98073056,
+                "title": "Les Assembleurs",
+                "slug": "assembleurs",
+                "image": "https://cibul.s3.amazonaws.com/agenda98073056.jpg?__ts=1666597928020",
+                "official": 0,
+                "createdAt": "2019-11-12T10:56:00.000Z",
+                "updatedAt": "2024-02-07T13:57:49.000Z"
+            }
+        },
+        {
+            "id": 13978,
+            "agendaUid": 38143077,
+            "rules": [
+                {
+                    "query": {},
+                    "actions": [
+                        {
+                            "field": "categories-metropolitaines",
+                            "values": [
+                                3,
+                                10
+                            ],
+                            "automatic": false
+                        }
+                    ],
+                    "required": false
+                }
+            ],
+            "agenda": {
+                "id": 42038,
+                "uid": 38143077,
+                "title": "Fresques Lille Métropole",
+                "slug": "fresques-lille-metropole",
+                "image": "https://cibul.s3.amazonaws.com/agenda38143077.jpg?__ts=1700040281420",
+                "official": 1,
+                "createdAt": "2023-09-15T00:02:34.000Z",
+                "updatedAt": "2024-03-22T16:14:02.000Z"
+            }
+        },
+        {
+            "id": 14048,
+            "agendaUid": 13846540,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 41027,
+                "uid": 13846540,
+                "title": "Un été au château, Guinguettes",
+                "slug": "un-ete-au-chateau-guinguettes",
+                "image": "https://cibul.s3.amazonaws.com/agenda13846540.jpg?__ts=1687982311404",
+                "official": 1,
+                "createdAt": "2023-06-28T19:58:31.000Z",
+                "updatedAt": "2023-11-23T15:27:21.000Z"
+            }
+        },
+        {
+            "id": 14226,
+            "agendaUid": 24300765,
+            "rules": [
+                {
+                    "query": {
+                        "interetintercommunal": [
+                            1
+                        ]
+                    },
+                    "actions": [],
+                    "required": true
+                }
+            ],
+            "agenda": {
+                "id": 43020,
+                "uid": 24300765,
+                "title": "Ville de Wattrelos",
+                "slug": "ville-de-wattrelos",
+                "image": "https://cibul.s3.amazonaws.com/agenda24300765.jpg?__ts=1702546746913",
+                "official": 1,
+                "createdAt": "2023-12-14T09:39:04.000Z",
+                "updatedAt": "2024-03-22T16:09:43.000Z"
+            }
+        }
+    ]
+}

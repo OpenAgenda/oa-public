@@ -5,18 +5,23 @@ const log = require('@openagenda/logs')('sources/list');
 
 const getAggregator = require('../getAggregator');
 const validateListQuery = require('../validateListQuery');
+const validateListNav = require('../validateListNav');
 const extractRules = require('../rules/extract');
 
 module.exports = async (
   { knex, getAgendasByUids },
   aggregatorAgenda,
   query = {},
-  options = {}
+  nav = {},
+  options = {},
 ) => {
-  log('received with %j', query);
+  log('received with', { query, nav, options });
   const aggregatorId = await getAggregator(knex, aggregatorAgenda, true);
 
-  if (!aggregatorId) throw new Error('Aggregator not found');
+  if (!aggregatorId) {
+    log('Aggregator not found');
+    throw new Error('Aggregator not found');
+  }
 
   const { detailed } = {
     detailed: false,
@@ -24,8 +29,10 @@ module.exports = async (
   };
 
   const cleanQuery = validateListQuery(
-    typeof query === 'string' ? { search: query } : query
+    typeof query === 'string' ? { search: query } : query,
   );
+
+  const { size, after } = validateListNav(nav);
 
   const sources = await knex('aggregator_source as ags')
     .select([
@@ -35,24 +42,34 @@ module.exports = async (
     ])
     .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.aggregator_id', aggregatorId)
-    .then(rows => rows.map(r => ({
-      id: r.sourceId,
-      agendaUid: r.agendaUid,
-      rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
-    })));
+    .limit(size)
+    .where('ags.id', '>', after)
+    .then(rows =>
+      rows.map(r => ({
+        id: r.sourceId,
+        agendaUid: r.agendaUid,
+        rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
+      })));
 
   if ((detailed || cleanQuery.search || cleanQuery.slug) && sources.length) {
     const agendas = await getAgendasByUids(
       sources.map(s => s.agendaUid),
-      cleanQuery
+      cleanQuery,
     );
 
     sources.forEach(s => {
       s.agenda = _.find(agendas, { uid: s.agendaUid });
     });
 
-    return sources.filter(s => !!s.agenda);
+    const filteredSources = sources.filter(s => !!s.agenda);
+    if (!sources || sources.length === 0) {
+      return { sources: sources ?? [], after: null };
+    }
+    return {
+      sources: filteredSources,
+      after: filteredSources[filteredSources.length - 1].id,
+    };
   }
 
-  return sources;
+  return { sources, after: sources[sources.length - 1].id };
 };

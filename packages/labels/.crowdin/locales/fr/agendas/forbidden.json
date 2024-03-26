@@ -1,6 +1,6 @@
 {
-  "back": "Retour à l'agenda",
-  "contact": "Contacter l'administrateur",
+  "title": "Accès non autorisé",
   "content": "L'accès à cet agenda est restreint, contactez l'administrateur de l'agenda pour plus d'informations.",
-  "title": "Accès non autorisé"
+  "contact": "Contacter l'administrateur",
+  "back": "Retour à l'agenda"
 }

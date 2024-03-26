@@ -2567,7 +2567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.0.0-rc.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.0, @babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.0, @babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.23.4
   resolution: "@babel/runtime@npm:7.23.4"
   dependencies:
@@ -6970,7 +6970,6 @@ __metadata:
     "@loadable/babel-plugin": "npm:^5.13.2"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/agendas": "npm:^1.7.0"
-    "@openagenda/axios-mock-adapter": "npm:^1.21.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
@@ -6982,6 +6981,7 @@ __metadata:
     classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.29.3"
+    dedent: "npm:^0.7.0"
     eslint: "npm:^8.24.0"
     final-form: "npm:^4.20.2"
     final-form-arrays: "npm:^3.0.2"
@@ -6990,6 +6990,8 @@ __metadata:
     jest: "npm:^29.7.0"
     lint-staged: "npm:^10.2.11"
     lodash: "npm:^4.17.15"
+    msw: "npm:^0.49.2"
+    msw-storybook-addon: "npm:^1.10.0"
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.7.2"
     qs: "npm:^6.9.1"
@@ -7446,40 +7448,31 @@ __metadata:
     "@openagenda/react-timingspicker": "npm:^1.4.0"
     "@openagenda/registration-apps": "npm:^0.0.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^1.4.0"
     babel-jest: "npm:^29.7.0"
     babel-loader: "npm:^9.1.3"
-    clean-webpack-plugin: "npm:^3.0.0"
-    compression-webpack-plugin: "npm:^3.0.0"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
-    express: "npm:^4.17.1"
     immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.1"
     jest: "npm:^29.7.0"
     languages: "npm:^0.1.3"
     lodash: "npm:^4.17.15"
-    nodemon: "npm:^2.0.4"
+    msw: "npm:^0.49.2"
+    msw-storybook-addon: "npm:^1.10.0"
     prop-types: "npm:^15.6.0"
     react: "npm:^18.2.0"
     react-date-range: "npm:^1.1.3"
     react-dom: "npm:^18.2.0"
     react-intl: "npm:^5.12.2"
-    react-json-editor-ajrm: "npm:^2.5.9"
     react-outside-click-handler: "npm:^1.3.0"
     react-select: "npm:^3.0.8"
     react-tagsinput: "npm:^3.19.0"
     react-text-mask: "npm:^5.4.3"
     rimraf: "npm:^3.0.1"
     store: "npm:^2.0.12"
+    storybook: "npm:^7.6.4"
     superagent: "npm:^3.8.3"
-    webpack: "npm:^5.53.0"
-    webpack-assets-manifest: "npm:^5.0.6"
-    webpack-cli: "npm:^5.1.4"
-    webpack-dev-middleware: "npm:^4.3.0"
-    webpack-hot-middleware: "npm:^2.25.1"
-    webpack-s3-plugin: "npm:^1.2.0-rc.0"
   languageName: unknown
   linkType: soft
 
@@ -7771,7 +7764,7 @@ __metadata:
     "@uppy/status-bar": "npm:^3.3.0"
     babel-jest: "npm:^29.7.0"
     body-parser: "npm:^1.18.3"
-    chai: "npm:^4.1.2"
+    chai: "npm:^4.3.7"
     chai-as-promised: "npm:^7.1.1"
     chai-jest-diff: "npm:^1.0.2"
     chai-jest-snapshot: "npm:^2.0.0"
@@ -17862,17 +17855,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^4.1.2":
-  version: 4.2.0
-  resolution: "chai@npm:4.2.0"
+"chai@npm:^4.3.7":
+  version: 4.4.1
+  resolution: "chai@npm:4.4.1"
   dependencies:
     assertion-error: "npm:^1.1.0"
-    check-error: "npm:^1.0.2"
-    deep-eql: "npm:^3.0.1"
-    get-func-name: "npm:^2.0.0"
-    pathval: "npm:^1.1.0"
-    type-detect: "npm:^4.0.5"
-  checksum: cf076c9160ec4ab05b18e5c5c7c777f84963055902e32f5a70d9639267eaecf16f652d5a91b996a0d96b6d45d8e2ce1b152c6c2dbcf872f3b8fbb8411b0307f4
+    check-error: "npm:^1.0.3"
+    deep-eql: "npm:^4.1.3"
+    get-func-name: "npm:^2.0.2"
+    loupe: "npm:^2.3.6"
+    pathval: "npm:^1.1.1"
+    type-detect: "npm:^4.0.8"
+  checksum: 91590a8fe18bd6235dece04ccb2d5b4ecec49984b50924499bdcd7a95c02cb1fd2a689407c19bb854497bde534ef57525cfad6c7fdd2507100fd802fbc2aefbd
   languageName: node
   linkType: hard
 
@@ -18022,6 +18016,15 @@ __metadata:
   version: 1.0.2
   resolution: "check-error@npm:1.0.2"
   checksum: c58ac4d6a92203209a61d025568198c073f101691eb6247f999266e1d1e3ab3af2bbe0a41af5008c1f1b95446ec7831e6ba91f03816177f2da852f316ad7921d
+  languageName: node
+  linkType: hard
+
+"check-error@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "check-error@npm:1.0.3"
+  dependencies:
+    get-func-name: "npm:^2.0.2"
+  checksum: 94aa37a7315c0e8a83d0112b5bfb5a8624f7f0f81057c73e4707729cdd8077166c6aefb3d8e2b92c63ee130d4a2ff94bad46d547e12f3238cc1d78342a973841
   languageName: node
   linkType: hard
 
@@ -20663,12 +20666,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-eql@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "deep-eql@npm:3.0.1"
+"deep-eql@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "deep-eql@npm:4.1.3"
   dependencies:
     type-detect: "npm:^4.0.0"
-  checksum: 80b33c1c7713b3d5db89e6b5e9b22050f39c8a88e12a015616da8391e013988790d045a5c612b0c6dc43cc4bec51eadbe0fcf6075cc9717f8f56efdb305b6e6f
+  checksum: ff34e8605d8253e1bf9fe48056e02c6f347b81d9b5df1c6650a1b0f6f847b4a86453b16dc226b34f853ef14b626e85d04e081b022e20b00cd7d54f079ce9bbdd
   languageName: node
   linkType: hard
 
@@ -24631,10 +24634,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-func-name@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "get-func-name@npm:2.0.0"
-  checksum: ed8791f7ba92cfd747259dff7ec8b6cc42734cebd031fb58c99a6e71d24d3532d84b46ad7806cafad6ad21784dd04ae1808a002d2b21001425e21f5f394c34e7
+"get-func-name@npm:^2.0.1, get-func-name@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "get-func-name@npm:2.0.2"
+  checksum: 89830fd07623fa73429a711b9daecdb304386d237c71268007f788f113505ef1d4cc2d0b9680e072c5082490aec9df5d7758bf5ac6f1c37062855e8e3dc0b9df
   languageName: node
   linkType: hard
 
@@ -29959,6 +29962,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"loupe@npm:^2.3.6":
+  version: 2.3.7
+  resolution: "loupe@npm:2.3.7"
+  dependencies:
+    get-func-name: "npm:^2.0.1"
+  checksum: 71a781c8fc21527b99ed1062043f1f2bb30bdaf54fa4cf92463427e1718bc6567af2988300bc243c1f276e4f0876f29e3cbf7b58106fdc186915687456ce5bf4
+  languageName: node
+  linkType: hard
+
 "lower-case@npm:^1.1.1":
   version: 1.1.4
   resolution: "lower-case@npm:1.1.4"
@@ -33990,10 +34002,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pathval@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "pathval@npm:1.1.0"
-  checksum: 7fe84e719e0645a664371b6e869bd2c8343c67b1667bdb1ae3a58691af51ea3f3c47aa73f763d396fb5446c9ab271fe6c245f7ecece5f409fc98254b028d5b0e
+"pathval@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "pathval@npm:1.1.1"
+  checksum: f63e1bc1b33593cdf094ed6ff5c49c1c0dc5dc20a646ca9725cc7fe7cd9995002d51d5685b9b2ec6814342935748b711bafa840f84c0bb04e38ff40a335c94dc
   languageName: node
   linkType: hard
 
@@ -36545,18 +36557,6 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 2bdb6b93fbb1820b024b496042cce405c57e2f85e777c9aabd55f9b26d145408f9f74f5934676ffdc46f3dcff656d78413a6e43968e7b3f92eea35b3052e9053
-  languageName: node
-  linkType: hard
-
-"react-json-editor-ajrm@npm:^2.5.9":
-  version: 2.5.9
-  resolution: "react-json-editor-ajrm@npm:2.5.9"
-  dependencies:
-    "@babel/runtime": "npm:^7.0.0-rc.0"
-  peerDependencies:
-    react: ">=16.2.0"
-    react-dom: ">=16.2.0"
-  checksum: 5948189c209ab3db957d08e204787ac945b9864529599446b69d1df8bbe8fe67fd0c8506691cf859e03fdab2990f9e190c9ef4ab67853d6b00c1242e2d9ae774
   languageName: node
   linkType: hard
 
