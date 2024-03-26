@@ -303,6 +303,32 @@ describe('agenda-locations - functional - list', () => {
       });
     });
 
+    it('"createdAt.gte" filter', async () => {
+      const gte = new Date('2019-09-05 14:45:18');
+
+      const agendas = await svc(7196947).list({ createdAt: { gte } }, {}, {
+        detailed: true,
+      });
+
+      expect(agendas.length).toBeGreaterThan(0);
+      agendas.forEach(agenda => {
+        expect(agenda.createdAt >= gte).toBe(true);
+      });
+    });
+
+    it('"createdAt.lte" filter', async () => {
+      const lte = new Date('2019-09-05 14:45:18');
+
+      const agendas = await svc(7196947).list({ createdAt: { lte } }, {}, {
+        detailed: true,
+      });
+
+      expect(agendas.length).toBeGreaterThan(0);
+      agendas.forEach(agenda => {
+        expect(agenda.createdAt <= lte).toBe(true);
+      });
+    });
+
     it('hasNull on adminLevel1 filter', async () => {
       const res = await svc(7196947).list({ hasNull: ['region'] }, {}, { detailed: true });
       res.forEach(e => {

@@ -38,6 +38,8 @@ create table if not exists location (
   index ext_id_idx (ext_id),
   index deleted_idx (deleted),
   index duplicate_candidates_idx (duplicate_candidates),
+  index created_at_idx (created_at),
+  index updated_at_idx (updated_at),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

@@ -29,6 +29,10 @@ const validate = schema({
     ...updatedAt,
     [op]: { type: 'date' },
   }), {}),
+  createdAt: ['gt', 'lt', 'gte', 'lte'].reduce((createdAt, op) => ({
+    ...createdAt,
+    [op]: { type: 'date' },
+  }), {}),
   uids: {
     type: 'integer',
     list: {
@@ -81,7 +85,7 @@ const validate = schema({
 
 module.exports = async (service, k, deleted, query) => {
   const {
-    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo, hasNull, hasDuplicateCandidates,
+    agendaUid, setUid, search, state, updatedAt, createdAt, uids, excludeUid, geo, hasNull, hasDuplicateCandidates,
   } = validate(query);
   const agendaId = agendaUid
     ? await service.interfaces
@@ -113,6 +117,14 @@ module.exports = async (service, k, deleted, query) => {
       k.where('updated_at', {
         gt: '>', gte: '>=', lt: '<', lte: '<=',
       }[op], updatedAt[op]);
+    });
+
+  Object.keys(createdAt)
+    .filter(op => !!createdAt[op])
+    .forEach(op => {
+      k.where('created_at', {
+        gt: '>', gte: '>=', lt: '<', lte: '<=',
+      }[op], createdAt[op]);
     });
 
   if (uids) {
