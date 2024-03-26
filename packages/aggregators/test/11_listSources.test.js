@@ -23,10 +23,11 @@ describe('11 - list sources', () => {
 
     svc = createInstance({
       knex: f.client,
-      queues: () => Object.assign(async () => {}, {
-        register: () => {},
-        on: () => {},
-      }),
+      queues: () =>
+        Object.assign(async () => {}, {
+          register: () => {},
+          on: () => {},
+        }),
       interfaces: {
         getAgendasByUids,
       },
@@ -36,25 +37,29 @@ describe('11 - list sources', () => {
   afterAll(f.destroyClient);
 
   test('unfiltered list', async () => {
-    const sources = await svc.sources.list(agenda);
+    const { sources } = await svc.sources.list(agenda);
 
     expect(sources.map(s => s.agendaUid)).toEqual([222, 333, 444]);
   });
 
   test('filtered list', async () => {
-    const sources = await svc.sources.list(agenda, { search: 'Martinique' });
+    const { sources } = await svc.sources.list(agenda, {
+      search: 'Martinique',
+    });
 
     expect(sources.map(s => s.agendaUid)).toEqual([333]);
   });
 
   test('filtered list by slug', async () => {
-    const sources = await svc.sources.list(agenda, { slug: 'fds-martinique' });
+    const { sources } = await svc.sources.list(agenda, {
+      slug: 'fds-martinique',
+    });
 
     expect(sources.map(s => s.agendaUid)).toEqual([333]);
   });
 
   test('list cleans rules before returning them', async () => {
-    const sources = await svc.sources.list(agenda, 'Guadeloupe');
+    const { sources } = await svc.sources.list(agenda, 'Guadeloupe');
 
     expect(sources[0].rules).toEqual([
       {
