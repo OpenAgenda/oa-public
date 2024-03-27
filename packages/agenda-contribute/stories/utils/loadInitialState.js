@@ -24,8 +24,6 @@ export default function loadInitialState() {
         insee: '/locations/insee',
         default: '/agendas/:agendaUid/locations',
       },
-      references: '/api/agendas/:agendaUid/events',
-      suggestions: '/agendas/:agendaUid/events/suggestions',
       suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
       showEvent: '/agendas/:agendaUid/events/:eventUid',
       removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
