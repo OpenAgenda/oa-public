@@ -67,8 +67,6 @@ const eventFormConfig = {
     bucket: 'oadev'
   },
   locationRes: '/locations',
-  referencesRes: '/references',
-  suggestionsRes: '/suggestions',
   lang: 'fr',
   maxFileSize: 200000000,
   authorizations: {
@@ -87,8 +85,6 @@ export const EventNewForm = () => (
         lang: 'fr',
         schema: cleanupSchemaForForm(mdbDetailed.schema, { locale: 'fr' }),
         locationRes: {},
-        referencesRes: {},
-        suggestionsRes: {},
         maxFileSize: 0,
         fileStore: {},
         tiles: 'til.es'
