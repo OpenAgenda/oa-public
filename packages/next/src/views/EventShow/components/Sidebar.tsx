@@ -16,8 +16,24 @@ import {
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
-import { faShareNodes, faEnvelope, faClock, faSquareCheck, faLocationDot } from 'icons/regular';
-import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
+import {
+  faShareNodes,
+  faEnvelope,
+  faClock,
+  faSquareCheck,
+  faLocationDot,
+  faEarDeaf,
+  faEyeLowVision,
+} from 'icons/regular';
+import {
+  faLink,
+  faClockRotateLeft,
+  faTicket,
+  faPhone,
+  faWheelchair,
+  faChild,
+} from 'icons/solid';
+import { faPI, faII } from 'icons/custom';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
@@ -50,6 +66,40 @@ function getRegistrationLink({ value, type }: { value: string, type: string }) {
       return `mailto:${value}`;
     default:
       return '#';
+  }
+}
+
+function getAccessibilityIcon(type: string) {
+  switch (type) {
+    case 'ii': // accessibleToIntellectually
+      return faII;
+    case 'hi': // accessibleToHearing
+      return faEarDeaf;
+    case 'vi': // accessibleToVisually
+      return faEyeLowVision;
+    case 'pi': // accessibleToPsychic
+      return faPI;
+    case 'mi': // accessibleToMotor
+      return faWheelchair;
+    default:
+      return null;
+  }
+}
+
+function getAccessibilityMessage(type: string) {
+  switch (type) {
+    case 'ii':
+      return messages.accessibleToIntellectually;
+    case 'hi':
+      return messages.accessibleToHearing;
+    case 'vi':
+      return messages.accessibleToVisually;
+    case 'pi':
+      return messages.accessibleToPsychic;
+    case 'mi':
+      return messages.accessibleToMotor;
+    default:
+      return null;
   }
 }
 
@@ -139,9 +189,22 @@ export function OnlineAccessSection(props) {
         size="2xl"
         color="oaGray.300"
       />
-      <Link isExternal href={event.onlineAccessLink} colorScheme="primary">
+      <Button
+        as={Link}
+        isExternal
+        href={event.onlineAccessLink}
+        variant="outline"
+        bg="white"
+        borderColor="oaGray.300"
+        color="blackAlpha.800"
+        _hover={{
+          bg: 'oaGray.100',
+          color: 'blackAlpha.900',
+          textDecoration: 'none',
+        }}
+      >
         {intl.formatMessage(messages.accessEventOnline)}
-      </Link>
+      </Button>
     </Grid>
   );
 }
@@ -281,6 +344,64 @@ export function RegistrationSection(props) {
   );
 }
 
+export function AccessibilitySection(props) {
+  const intl = useIntl();
+
+  const { event } = useEvent();
+
+  const accessibilities = Object.entries(event.accessibility);
+
+  const hasAccessibility = accessibilities.some(v => v[1] === true);
+
+  if (!hasAccessibility && !event.age?.min && !event.age?.max) {
+    return null;
+  }
+
+  return (
+    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="8" alignItems="center" {...props}>
+      {accessibilities.map(([accessibilityKey, accessibilityValue]) => {
+        if (!accessibilityValue) {
+          return null;
+        }
+
+        return (
+          <Fragment key={accessibilityKey}>
+            <Icon
+              as={FaIcon}
+              icon={getAccessibilityIcon(accessibilityKey)}
+              size="2xl"
+              color="oaGray.300"
+              justifySelf="end"
+            />
+
+            <div>
+              {intl.formatMessage(getAccessibilityMessage(accessibilityKey))}
+            </div>
+          </Fragment>
+        );
+      })}
+
+      {event.age?.min || event.age?.max ? (
+        <>
+          <Icon
+            as={FaIcon}
+            icon={faChild}
+            size="2xl"
+            color="oaGray.300"
+            justifySelf="end"
+          />
+
+          <div>
+            {!event.age.max
+              ? intl.formatMessage(messages.startingAt, { min: event.age.min })
+              : intl.formatMessage(messages.minToMaxYearsOld, { min: event.age.min, max: event.age.max })}
+          </div>
+        </>
+      ) : null}
+    </Grid>
+  );
+}
+
 export default function Sidebar({ contentLocale }) {
   const agenda = useAgenda();
   const { event } = useEvent();
@@ -302,6 +423,8 @@ export default function Sidebar({ contentLocale }) {
       <Box ml="12">
         <Timings timings={event.timings} timezone={event.timezone} key={event.uid} />
       </Box>
+
+      <AccessibilitySection />
 
       {event.location?.latitude && event.location?.longitude ? (
         <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center">

@@ -65,6 +65,12 @@
       "value": "L'événement n'est pas annulé, ni reprogrammé, etc…"
     }
   ],
+  "next.views.EventShow.ContextBar.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
@@ -191,16 +197,34 @@
       "value": "Mettre en une, annuler, reporter, dupliquer..."
     }
   ],
+  "next.views.EventShow.ContextBar.publishedContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event is published and displayed on the agenda."
+    }
+  ],
   "next.views.EventShow.ContextBar.publishedInfo": [
     {
       "type": 0,
       "value": "L'événement est visible sur l'agenda"
     }
   ],
+  "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event has been validated by moderators. It will be published without further changes."
+    }
+  ],
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
       "value": "Aqueste eveniment es estat verificat e es prèste a èsser publicat"
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event is not compatible with the agenda and has been refused by administrators."
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
@@ -249,6 +273,12 @@
     {
       "type": 0,
       "value": "Statut:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateContributorInfo": [
+    {
+      "type": 0,
+      "value": "The event will be verified by administrators prior to its publication."
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -519,6 +549,36 @@
       "value": "Accedir a l'ofèrta pass Culture"
     }
   ],
+  "next.views.EventShow.Sidebar.accessibleToHearing": [
+    {
+      "type": 0,
+      "value": "Accessible to the hearing impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToIntellectually": [
+    {
+      "type": 0,
+      "value": "Accessible to the intellectually impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToMotor": [
+    {
+      "type": 0,
+      "value": "Accessible to the motor impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToPsychic": [
+    {
+      "type": 0,
+      "value": "Accessible to the psychic impaired"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessibleToVisually": [
+    {
+      "type": 0,
+      "value": "Accessible to the visually impaired"
+    }
+  ],
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,
@@ -529,6 +589,24 @@
     {
       "type": 0,
       "value": "Condicions"
+    }
+  ],
+  "next.views.EventShow.Sidebar.minToMaxYearsOld": [
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " years old"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -553,6 +631,20 @@
     {
       "type": 0,
       "value": "Partatjar"
+    }
+  ],
+  "next.views.EventShow.Sidebar.startingAt": [
+    {
+      "type": 0,
+      "value": "Starting at "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " years old"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [

@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import {
   chakra,
+  Button,
   Menu,
   MenuButton,
   MenuList,
@@ -8,7 +9,7 @@ import {
   Flex,
   Tooltip,
   Portal,
-  useBreakpointValue,
+  useBreakpointValue, Link,
 } from '@openagenda/uikit';
 import stateMessages from '@openagenda/common-labels/event/states';
 import StateTag from 'components/StateTag';
@@ -26,6 +27,21 @@ const stateMap = {
   1: 'readyToPublish',
   2: 'published',
 };
+
+function getContributorInfo(intl, state) {
+  switch (state) {
+    case -1:
+      return intl.formatMessage(messages.refusedContributorInfo);
+    case 0:
+      return intl.formatMessage(messages.toModerateContributorInfo);
+    case 1:
+      return intl.formatMessage(messages.readyToPublishContributorInfo);
+    case 2:
+      return intl.formatMessage(messages.publishedContributorInfo);
+    default:
+      return null;
+  }
+}
 
 // <chakra.span display={{ base: 'none', md: 'inline-flex' }} verticalAlign="middle" alignItems="center">
 
@@ -82,38 +98,44 @@ export default function StateSelector({ agenda }) {
 
   if (!canChangeState) {
     return (
-      <>
-        {/* Mobile */}
-        <Tooltip label={stateLabel}>
-          <Flex
-            color="white"
-            bg="primary.500"
-            px="4"
-            display={{ base: 'flex', md: 'none' }}
-            w="full"
-            h="full"
-            justify="center"
-            align="center"
+      <Menu
+        matchWidth
+        gutter={0}
+        modifiers={isMobile ? fullWidth as any : null}
+      >
+        <Tooltip label={stateLabel} isDisabled={!isMobile}>
+          <MenuButton
+            as={ContextBarButton}
+            rightIcon={<FaIcon icon={faChevronDown} />}
           >
-            <StateTag state={event.state} marginEnd="0.5rem" />
-          </Flex>
+            {/* Adds Flex because MenuButton adds a span that shifts the elements */}
+            <Flex as="span" align="center" justify={{ base: 'center', md: 'start' }}>
+              <StateTag state={event.state} marginEnd={{ base: 'none', md: '0.5rem' }} />
+              {!isMobile ? (
+                <>
+                  {intl.formatMessage(messages.state)}
+                  &nbsp;
+                  {intl.formatMessage(stateMessages[stateMap[event.state]])}
+                </>
+              ) : null}
+            </Flex>
+          </MenuButton>
         </Tooltip>
 
-        {/* Desktop */}
-        <Flex
-          color="white"
-          bg="primary.500"
-          px="4"
-          display={{ base: 'none', md: 'flex' }}
-        >
-          <StateTag state={event.state} marginEnd="0.5rem" />
+        <MenuList borderTopRadius="0" p="4">
           <div>
-            {intl.formatMessage(messages.state)}
-            &nbsp;
-            {intl.formatMessage(stateMessages[stateMap[event.state]])}
+            {getContributorInfo(intl, event.state)}
           </div>
-        </Flex>
-      </>
+          <Button
+            as={Link}
+            href={`/${agenda.slug}/events/${event.slug}/contact`}
+            mt="4"
+            colorScheme="primary"
+          >
+            {intl.formatMessage(messages.contactAdministrators)}
+          </Button>
+        </MenuList>
+      </Menu>
     );
   }
 

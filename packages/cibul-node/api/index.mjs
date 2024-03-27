@@ -72,6 +72,7 @@ export default (core, { useRouter = true } = {}) => {
   app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
   app.get('/agendas/:agendaUid.prv', mw.member.allow());
   app.get([
+    '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
     '/agendas/:agendaUid/events/:eventUid',
     // '/agendas/:agendaUid/settings(/*?)?',

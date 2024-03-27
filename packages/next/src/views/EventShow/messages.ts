@@ -138,7 +138,7 @@ export const contextBar = defineMessages({
   },
   removeEvent: {
     id: 'next.views.EventShow.ContextBar.removeEvent',
-    defaultMessage: 'Remove event',
+    defaultMessage: 'Remove from agenda',
   },
   removeEventInfo: {
     id: 'next.views.EventShow.ContextBar.removeEventInfo',
@@ -183,6 +183,26 @@ export const contextBar = defineMessages({
   publishedInfo: {
     id: 'next.views.EventShow.ContextBar.publishedInfo',
     defaultMessage: 'This event is visible on the agenda',
+  },
+  refusedContributorInfo: {
+    id: 'next.views.EventShow.ContextBar.refusedContributorInfo',
+    defaultMessage: 'This event is not compatible with the agenda and has been refused by administrators.',
+  },
+  toModerateContributorInfo: {
+    id: 'next.views.EventShow.ContextBar.toModerateContributorInfo',
+    defaultMessage: 'The event will be verified by administrators prior to its publication.',
+  },
+  readyToPublishContributorInfo: {
+    id: 'next.views.EventShow.ContextBar.readyToPublishContributorInfo',
+    defaultMessage: 'The event has been validated by moderators. It will be published without further changes.',
+  },
+  publishedContributorInfo: {
+    id: 'next.views.EventShow.ContextBar.publishedContributorInfo',
+    defaultMessage: 'The event is published and displayed on the agenda.',
+  },
+  contactAdministrators: {
+    id: 'next.views.EventShow.ContextBar.contactAdministrators',
+    defaultMessage: 'Contact administrators',
   },
 });
 
@@ -415,6 +435,34 @@ export const sidebar = defineMessages({
   accessPassOffer: {
     id: 'next.views.EventShow.Sidebar.accessPassOffer',
     defaultMessage: 'Access the pass Culture offer',
+  },
+  accessibleToIntellectually: {
+    id: 'next.views.EventShow.Sidebar.accessibleToIntellectually',
+    defaultMessage: 'Accessible to the intellectually impaired',
+  },
+  accessibleToHearing: {
+    id: 'next.views.EventShow.Sidebar.accessibleToHearing',
+    defaultMessage: 'Accessible to the hearing impaired',
+  },
+  accessibleToVisually: {
+    id: 'next.views.EventShow.Sidebar.accessibleToVisually',
+    defaultMessage: 'Accessible to the visually impaired',
+  },
+  accessibleToPsychic: {
+    id: 'next.views.EventShow.Sidebar.accessibleToPsychic',
+    defaultMessage: 'Accessible to the psychic impaired',
+  },
+  accessibleToMotor: {
+    id: 'next.views.EventShow.Sidebar.accessibleToMotor',
+    defaultMessage: 'Accessible to the motor impaired',
+  },
+  startingAt: {
+    id: 'next.views.EventShow.Sidebar.startingAt',
+    defaultMessage: 'Starting at {min} years old',
+  },
+  minToMaxYearsOld: {
+    id: 'next.views.EventShow.Sidebar.minToMaxYearsOld',
+    defaultMessage: '{min} to {max} years old',
   },
 });
 

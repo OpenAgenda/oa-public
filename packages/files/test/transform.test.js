@@ -106,8 +106,8 @@ describe('transform', () => {
       })
     ).rejects.toThrow('Ca ne marche pas !');
 
-    await finished(stream1);
-    await finished(stream2);
+    await finished(stream1).catch(() => null);
+    await finished(stream2).catch(() => null);
 
     // Images removed
     await expect(

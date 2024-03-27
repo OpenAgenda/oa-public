@@ -33,6 +33,17 @@ export type Event = {
   keywords?: Record<string, string[]>
   conditions?: Record<string, string>
   registration?: Registration[]
+  accessibility: {
+    ii: boolean // accessibleToIntellectually
+    hi: boolean // accessibleToHearing
+    vi: boolean // accessibleToVisually
+    pi: boolean // accessibleToPsychic
+    mi: boolean // accessibleToMotor
+  }
+  age?: {
+    min: number
+    max: number
+  }
   createdAt: string
   updatedAt: string
   location?: {

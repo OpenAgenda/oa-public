@@ -33,10 +33,11 @@ class SentryTransport extends winston.Transport {
   }
 
   log(level, msg, meta, cb) {
+    const namespace = meta.namespace || this.namespace;
     let error;
     let displayedMeta = {
       prefix: this.prefix,
-      namespace: this.namespace,
+      namespace,
     };
 
     if (meta instanceof Error) {
@@ -73,7 +74,7 @@ class SentryTransport extends winston.Transport {
     }
 
     this.sentry.withScope(scope => {
-      const ns = this.prefix + this.namespace;
+      const ns = this.prefix + namespace;
 
       scope.setLevel(this.levelsMap[level]);
       scope.setTag('namespace', ns);
