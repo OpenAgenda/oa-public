@@ -1,12 +1,15 @@
 import qs from 'qs';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@openagenda/react-shared';
+import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
+import messages from './messages';
 
 export default function Selection({ res, value, lang }) {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errored, setErrored] = useState(false);
+  const m = useIntl().formatMessage;
 
   useEffect(() => {
     const identifiers = [].concat(value).filter(v => !!v);
@@ -34,14 +37,14 @@ export default function Selection({ res, value, lang }) {
 
   if (errored) {
     return (
-      <p>Load error, try again</p>
+      <p>{m(messages.loadError)}</p>
     );
   }
 
   if (!events.length) {
     return (
       <div className="padding-all-sm">
-        Aucun événement n&apos;a été sélectionné
+        {m(messages.emptySelection)}
       </div>
     );
   }
@@ -60,7 +63,7 @@ export default function Selection({ res, value, lang }) {
               className="btn btn-link padding-all-z"
               onClick={() => setEvents(events.filter(e => e.uid !== event.uid))}
             >
-              remove
+              {m(messages.remove)}
             </button>
           </EventItem>
         </li>

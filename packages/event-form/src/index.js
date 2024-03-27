@@ -1,11 +1,14 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import { Component } from 'react';
+import { IntlProvider } from 'react-intl';
+import { getSupportedLocale } from '@openagenda/intl';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
 import errorLabels from '@openagenda/labels/event/errors';
 import Registration from '@openagenda/registration-apps';
+import locales from './locales-compiled';
 import appendFormConfigurations from './utils/appendFormConfigurations';
 import extractLanguages from './utils/extractLanguages';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
@@ -194,31 +197,38 @@ class EventForm extends Component {
     } = this.state;
 
     return (
-      <FormSchemaComponent
-        res={res ? { post: res } : undefined}
-        method="post"
-        role={role}
-        stateless
-        maxFileSize={maxFileSize}
-        lang={lang}
-        components={eventFormComponents}
-        values={values}
-        errors={errors}
-        globalError={globalError}
-        loading={loading}
-        files={files}
-        onChange={this.onChange}
-        schema={schema}
-        hash={hash}
-        classNames={ih(classNames ?? {}, {
-          field: { $set: 'padding-v-sm form-group' },
-        })}
-        actionComponents={actionComponents}
-        onSubmitSuccess={onSubmitSuccess}
-        labels={{
-          errors: errorLabels,
-        }}
-      />
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <FormSchemaComponent
+          res={res ? { post: res } : undefined}
+          method="post"
+          role={role}
+          stateless
+          maxFileSize={maxFileSize}
+          lang={lang}
+          components={eventFormComponents}
+          values={values}
+          errors={errors}
+          globalError={globalError}
+          loading={loading}
+          files={files}
+          onChange={this.onChange}
+          schema={schema}
+          hash={hash}
+          classNames={ih(classNames ?? {}, {
+            field: { $set: 'padding-v-sm form-group' },
+          })}
+          actionComponents={actionComponents}
+          onSubmitSuccess={onSubmitSuccess}
+          labels={{
+            errors: errorLabels,
+          }}
+        />
+      </IntlProvider>
     );
   }
 }

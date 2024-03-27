@@ -3,7 +3,9 @@ import { useDebounce } from 'use-debounce';
 import cn from 'classnames';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-shared';
+import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
+import messages from './messages';
 
 export default function Add({ res, value, lang, onChange }) {
   const [searchString, setSearchString] = useState('');
@@ -13,6 +15,7 @@ export default function Add({ res, value, lang, onChange }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errored, setErrored] = useState(false);
   const [displayDropdown, setDisplayDropdown] = useState(false);
+  const m = useIntl().formatMessage;
 
   useEffect(() => {
     if (!userHasSearched) {
@@ -53,19 +56,19 @@ export default function Add({ res, value, lang, onChange }) {
 
   if (errored) {
     return (
-      <p>Load error, try again</p>
+      <p>{m(messages.loadError)}</p>
     );
   }
 
   return (
     <div className={cn('dropdown', { open: displayDropdown })}>
       <div className="input-group">
-        <label className="sr-only" htmlFor="search">Recherche d&apos;événement</label>
+        <label className="sr-only" htmlFor="search">{m(messages.searchEvents)}</label>
         <input
           id="search"
           type="text"
           className="form-control"
-          placeholder="Recherche d&apos;événement"
+          placeholder={m(messages.searchEvents)}
           autoComplete="off"
           onChange={onSearchChange}
         />

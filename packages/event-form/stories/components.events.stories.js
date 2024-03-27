@@ -22,7 +22,11 @@ export default {
 
 export const Empty = () => (
   <div className="wsq padding-v-xs padding-h-sm">
-    <EventsAdditionalFieldComponent />
+    <EventsAdditionalFieldComponent
+      field={{ res: '/events' }}
+      lang="fr"
+      onChange={() => {}}
+    />
   </div>
 );
 
