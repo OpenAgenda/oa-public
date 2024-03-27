@@ -27,7 +27,6 @@ export const StandardForm = () => {
   const [values, setValues] = useState({
     registration: [{ type: 'link', value: 'https://lien.com' }],
     accessibility: { hi: true, sl: true },
-    references: [45527593],
   });
 
   return (
