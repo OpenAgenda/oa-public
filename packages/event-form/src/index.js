@@ -25,7 +25,7 @@ const eventFormComponents = {
   location: require('./components/Location'),
   languages: require('./components/Languages'),
   accessibility: require('./components/Accessibility'),
-  references: require('./components/References'),
+  events: require('./components/Events'),
   longDescription: require('./components/ConfigurableTextarea'),
 };
 
@@ -124,7 +124,6 @@ class EventForm extends Component {
       includeEventFields: p.includeEventFields,
       interfaceLanguage: p.lang,
       suggestionsRes: p.suggestionsRes,
-      referencesRes: p.referencesRes,
       languages,
       schemaExtensions: p.schemaExtensions,
       access: {

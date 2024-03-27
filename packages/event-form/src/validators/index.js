@@ -8,6 +8,6 @@ module.exports = {
   timings: require('@openagenda/events/iso/build/validators/timings'),
   location: require('../validators/location'),
   languages: require('../validators/languages'),
-  references: require('../validators/references'),
-  longDescription: multilingualValidator
+  events: require('../validators/events'),
+  longDescription: multilingualValidator,
 };

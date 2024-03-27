@@ -5,7 +5,7 @@ import '@openagenda/bs-templates/compiled/main.css';
 import EventForm from '../src';
 import Providers from './decorators/Providers';
 import StandardCanvas from './decorators/StandardCanvas';
-
+import mswEventsMiddleware from './mswEventsMiddleware';
 import { schema } from './fixtures/nevers.json';
 
 export default {
@@ -16,6 +16,7 @@ export default {
         rest.get('/locations', (req, res, ctx) => res(
           ctx.json({ success: true, total: 0, items: [] }),
         )),
+        rest.get('/events', mswEventsMiddleware),
       ],
     },
   },
@@ -36,8 +37,6 @@ export const StandardForm = () => {
       devOnChange={setValues}
       schema={null}
       locationRes="/locations"
-      referencesRes="/references"
-      suggestionsRes="/references"
       lang="fr"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',
@@ -68,8 +67,42 @@ export const FormWithAdditionalFields = () => {
       devOnChange={setValues}
       schema={schemaWithoutInternals}
       locationRes="/locations"
-      referencesRes="/references"
-      suggestionsRes="/references"
+      lang="fr"
+      classNames={{
+        fieldsCanvas: 'padding-all-md wsq',
+        bottomErrorsCanvas: 'error-summary padding-all-md',
+        bottomActionsCanvas: 'padding-all-md wsq',
+      }}
+      values={values}
+    />
+  );
+};
+
+export const FormWithEventsTypeAdditionalFields = () => {
+  const [values, setValues] = useState({
+    subEvents: [18509250],
+  });
+
+  const schemaWithEventsField = {
+    ...schema,
+    fields: [{
+      fieldType: 'events',
+      field: 'subEvents',
+      label: 'Sub events',
+      res: '/events',
+    }].concat(
+      schema.fields
+        .filter(field => ![].concat(field.write).includes('internal')),
+    ),
+  };
+
+  return (
+    <EventForm
+      mode="edit"
+      includeEventFields
+      devOnChange={setValues}
+      schema={schemaWithEventsField}
+      locationRes="/locations"
       lang="fr"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',

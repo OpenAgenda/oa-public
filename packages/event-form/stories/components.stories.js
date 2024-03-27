@@ -2,6 +2,8 @@ import AgeComponent from '../src/components/Age';
 import Providers from './decorators/Providers';
 import StandardCanvas from './decorators/StandardCanvas';
 
+import '@openagenda/bs-templates/compiled/main.css';
+
 export default {
   title: 'Components',
   decorators: [Providers, StandardCanvas],

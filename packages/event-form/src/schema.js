@@ -5,19 +5,11 @@ const eventFormLabels = require('@openagenda/labels/event/form');
 
 const merge = require('@openagenda/form-schemas/client/build/iso/merge');
 
-const eventReferencesField = require('./fields/references');
-
 const schemaLanguages = require('./utils/schemaLanguages');
 
 const injectValidators = require('./utils/injectValidators');
 
 const eventFields = require('./fields/event');
-
-function _hasReferencesField(schemaExtensions) {
-  return !!_.flatten(
-    schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields),
-  ).filter(f => f.field === 'references').length;
-}
 
 function _fillInTheBlanks(labels, defaultLang = 'en') {
   return produce(labels, draft => {
@@ -38,8 +30,6 @@ module.exports = (options = {}) => {
   const {
     includeEventFields,
     interfaceLanguage,
-    referencesRes,
-    suggestionsRes,
     languages,
     schemaExtensions,
     excludeNonDataFields,
@@ -65,16 +55,6 @@ module.exports = (options = {}) => {
   });
 
   const hasExtensions = Array.isArray(schemaExtensions);
-
-  if (includeEventFields && hasExtensions && _hasReferencesField(schemaExtensions)) {
-    const fieldIndex = eventSchema.fields.map(f => f.field).indexOf('references');
-    eventSchema.fields[fieldIndex] = eventReferencesField({
-      res: {
-        references: referencesRes,
-        suggestions: suggestionsRes,
-      },
-    });
-  }
 
   // here, for generating the form, provided access as write should suffice
   const finalSchema = merge(...[eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
