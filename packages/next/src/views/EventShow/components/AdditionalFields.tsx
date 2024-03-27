@@ -3,6 +3,7 @@ import { chakra, Link, NoBreak } from '@openagenda/uikit';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
+import EventItems from 'components/EventItems';
 import { additionalFields as messages } from '../messages';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
@@ -153,7 +154,7 @@ function DefaultField({ field }) {
   );
 }
 
-function Field({ field, updatedAt }) {
+function Field({ field, updatedAt, agenda }) {
   switch (field.fieldType) {
     case 'link':
     case 'phone':
@@ -166,15 +167,17 @@ function Field({ field, updatedAt }) {
     case 'markdown':
     case 'html':
       return <HtmlField field={field} />;
+    case 'events':
+      return <EventItems field={field} agenda={agenda} />;
     default:
       return field.isOptioned ? <OptionedField field={field} /> : <DefaultField field={field} />;
   }
 }
 
-export default function AdditionalFields({ additionalFields, updatedAt: updatedAtStrDate }) {
+export default function AdditionalFields({ additionalFields, updatedAt: updatedAtStrDate, agenda }) {
   const updatedAt = new Date(updatedAtStrDate).getTime();
 
   return additionalFields.map(field => (
-    <Field key={field.key} field={field} updatedAt={updatedAt} />
+    <Field key={field.key} field={field} updatedAt={updatedAt} agenda={agenda} />
   ));
 }

@@ -83,6 +83,7 @@ export default function ContributorSection({ contentLocale }) {
         <AdditionalFields
           additionalFields={additionalFields}
           updatedAt={member.updatedAt}
+          agenda={agenda}
         />
       </Flex>
     </div>
