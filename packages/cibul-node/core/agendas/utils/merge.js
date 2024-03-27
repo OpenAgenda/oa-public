@@ -156,8 +156,6 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
       schemaExtensions: schemas,
       access: access?.read === 'internal' ? null : access,
       excludeNonDataFields: !includeNonDataFields,
-      referencesRes: '/api/agendas/:agendaUid/events',
-      suggestionsRes: '/agendas/:agendaUid/events/suggestions',
     }),
     { includeLocationLegacyAdminLevels },
   );
