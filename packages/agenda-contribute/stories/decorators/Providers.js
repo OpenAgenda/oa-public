@@ -1,4 +1,3 @@
-import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -20,7 +19,7 @@ export default Story => {
           refetchOnWindowFocus: false,
         },
       },
-    })
+    }),
   );
 
   return (
