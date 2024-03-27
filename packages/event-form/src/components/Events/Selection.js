@@ -43,24 +43,32 @@ export default function Selection({ res, value, lang }) {
 
   if (!events.length) {
     return (
-      <div className="padding-all-sm">
+      <div className="padding-all-md text-center">
         {m(messages.emptySelection)}
       </div>
     );
   }
 
   return (
-    <ul>
+    <ul className="list-unstyled">
       {events.map(event => (
-        <li>
+        <li className="margin-v-sm">
           <EventItem
             event={event}
             lang={lang}
             key={`selected-event-${event.uid}`}
           >
+            <a
+              href={`/events/${event.slug}`}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-link padding-all-z margin-right-sm"
+            >
+              {m(messages.show)}
+            </a>
             <button
               type="button"
-              className="btn btn-link padding-all-z"
+              className="btn btn-link padding-all-z text-danger"
               onClick={() => setEvents(events.filter(e => e.uid !== event.uid))}
             >
               {m(messages.remove)}

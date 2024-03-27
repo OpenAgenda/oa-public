@@ -13,6 +13,10 @@ export default defineMessages({
     id: 'event-form.components.Events.remove',
     defaultMessage: 'Remove',
   },
+  show: {
+    id: 'event-form.components.Events.show',
+    defaultMessage: 'Show',
+  },
   searchEvents: {
     id: 'event-form.components.Events.searchEvents',
     defaultMessage: 'Event search',

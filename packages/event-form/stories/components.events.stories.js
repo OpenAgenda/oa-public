@@ -31,7 +31,7 @@ export const Empty = () => (
 );
 
 export const WithSelectedEvents = () => {
-  const [value, setValue] = useState([91211851]);
+  const [value, setValue] = useState([91211851, 43628849, 46624658]);
 
   return (
     <div className="wsq padding-v-xs padding-h-sm">

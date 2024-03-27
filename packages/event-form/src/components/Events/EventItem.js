@@ -5,10 +5,10 @@ const flatten = (value, lang) => (
 );
 
 export default function EventItem({ event, lang, children }) {
-  const title = flatten(event.title, lang);
   return (
     <>
-      <strong>{title}</strong>
+      <strong>{flatten(event.title, lang)}</strong>
+      <div>{flatten(event.dateRange, lang)}</div>
       {Children.count(children) > 0 ? (
         <div>{Children.map(children, child => child)}</div>
       ) : null}
