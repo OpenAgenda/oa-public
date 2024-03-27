@@ -129,7 +129,7 @@ module.exports = async function processFile(
   const [fileStream, fileContext] = extractStreamAndContext(data);
 
   // Detect type
-  const info = await getStreamInfo(fileStream, options);
+  const info = await getStreamInfo(fileStream);
 
   const variants = getFileVariants(options);
   const providerKey = options.provider || cfg.defaultProvider;
