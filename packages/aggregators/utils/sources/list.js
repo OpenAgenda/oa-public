@@ -59,17 +59,24 @@ module.exports = async (
 
     sources.forEach(s => {
       s.agenda = _.find(agendas, { uid: s.agendaUid });
+      delete s.agendaUid;
     });
 
     const filteredSources = sources.filter(s => !!s.agenda);
-    if (!sources || sources.length === 0) {
-      return { sources: sources ?? [], after: null };
+    if (!filteredSources || filteredSources.length < size) {
+      return { sources: filteredSources ?? [], after: null };
     }
     return {
       sources: filteredSources,
       after: filteredSources[filteredSources.length - 1].id,
     };
   }
-
+  sources.forEach(s => {
+    s.agenda = { uid: s.agendaUid };
+    delete s.agendaUid;
+  });
+  if (!sources || sources.length < size) {
+    return { sources: sources ?? [], after: null };
+  }
   return { sources, after: sources[sources.length - 1].id };
 };

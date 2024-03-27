@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
+const fs = require('node:fs');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const AWS = require('aws-sdk');
-const fs = require('fs');
 const multer = require('multer');
-const { promisify } = require('util');
+const FileType = require('file-type');
 
 const fsUnlink = promisify(fs.unlink);
 
@@ -141,11 +142,15 @@ async function s3MultipleUploads(fileFieldValues) {
 }
 
 async function s3Upload(filename) {
+  const stream = await FileType.stream(fs.createReadStream(`${tmpFolder}/${filename}`));
+  const { fileType } = stream;
+
   const result = await upload({
     ACL: 'public-read', // because that is what I need now
     Bucket: s3.bucket,
     Key: filename,
-    Body: fs.createReadStream(tmpFolder + '/' + filename)
+    Body: stream,
+    ContentType: fileType.mime || 'application/octet-stream',
   });
 
   return result.Location;
