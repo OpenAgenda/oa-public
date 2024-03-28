@@ -55,7 +55,31 @@ function findNextMonth(timingsPerMonth: SpreadTimings, month: string) {
   return sortedMonths[currentIndex + 1];
 }
 
-export default function Timings({ timings, timezone }) {
+function TimingsDisplay({ timingsPerWeek, timezone }) {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <Flex direction="column" gap="2">
+      {Object.values(timingsPerWeek).map(week =>
+        Object.entries(week).map(([day, dayTimings]) => (
+          <Flex key={day} justify="space-between">
+            <div>{capitalize(formatInTimeZone(new Date(day), timezone, 'eeee d', { locale: dateFnsLocale }))}</div>
+            <div>
+              {dayTimings.map(timing => (
+                <div key={timing.begin}>
+                  {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', { locale: dateFnsLocale })}
+                  &nbsp;-&nbsp;
+                  {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', { locale: dateFnsLocale })}
+                </div>
+              ))}
+            </div>
+          </Flex>
+        )))}
+    </Flex>
+  );
+}
+
+function TimingsWithNavigation({ timings, timezone }) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
@@ -81,6 +105,7 @@ export default function Timings({ timings, timezone }) {
         h="12"
         borderY="1px solid"
         borderColor="oaGray.300"
+        mb="4"
       >
         {previousMonth ? (
           <IconButton
@@ -113,23 +138,43 @@ export default function Timings({ timings, timezone }) {
         ) : null}
       </Grid>
 
-      <Flex direction="column" gap="2" mt="4">
-        {Object.values(timingsPerMonth[currentMonth]).map(week =>
-          Object.entries(week).map(([day, dayTimings]) => (
-            <Flex key={day} justify="space-between">
-              <div>{capitalize(formatInTimeZone(new Date(day), timezone, 'eeee d', { locale: dateFnsLocale }))}</div>
-              <div>
-                {dayTimings.map(timing => (
-                  <div key={timing.begin}>
-                    {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', { locale: dateFnsLocale })}
-                    &nbsp;-&nbsp;
-                    {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', { locale: dateFnsLocale })}
-                  </div>
-                ))}
-              </div>
-            </Flex>
-          )))}
-      </Flex>
+      <TimingsDisplay timingsPerWeek={timingsPerMonth[currentMonth]} timezone={timezone} />
     </>
   );
+}
+
+function TimingsWithoutNavigation({ timings, timezone }) {
+  const dateFnsLocale = useDateFnsLocale();
+
+  const timingsPerMonth = useMemo(() => spreadTimings(timings, timezone), [timings, timezone]);
+
+  return (
+    <Flex direction="column" gap="4">
+      {Object.entries(timingsPerMonth).map(([month, weeks]) => (
+        <div key={month}>
+          <Flex
+            h="12"
+            borderY="1px solid"
+            borderColor="oaGray.300"
+            fontWeight="bold"
+            alignItems="center"
+            justify="center"
+            mb="4"
+          >
+            {capitalize(formatInTimeZone(new Date(month), timezone, 'MMMM yyyy', { locale: dateFnsLocale }))}
+          </Flex>
+
+          <TimingsDisplay timingsPerWeek={weeks} timezone={timezone} />
+        </div>
+      ))}
+    </Flex>
+  );
+}
+
+export default function Timings({ timings, timezone }) {
+  if (timings.length <= 10) {
+    return <TimingsWithoutNavigation timings={timings} timezone={timezone} />;
+  }
+
+  return <TimingsWithNavigation timings={timings} timezone={timezone} />;
 }
