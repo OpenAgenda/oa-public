@@ -343,6 +343,24 @@ function EventShow({ preload }: EventShowProps) {
                           textDecoration: 'underline',
                         },
                       },
+                      h1: {
+                        fontSize: '3xl',
+                      },
+                      h2: {
+                        fontSize: '2xl',
+                      },
+                      h3: {
+                        fontSize: 'xl',
+                      },
+                      h4: {
+                        fontSize: 'lg',
+                      },
+                      h5: {
+                        fontSize: 'md',
+                      },
+                      h6: {
+                        fontSize: 'sm',
+                      },
                     }}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: event.longDescription[contentLocale] }}
