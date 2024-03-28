@@ -1,11 +1,14 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import { IntlProvider } from 'react-intl';
+import { getSupportedLocale } from '@openagenda/intl';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
 import errorLabels from '@openagenda/labels/event/errors';
 import Registration from '@openagenda/registration-apps';
+import locales from './locales-compiled';
 import appendFormConfigurations from './utils/appendFormConfigurations';
 import extractLanguages from './utils/extractLanguages';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
@@ -17,16 +20,25 @@ import injectValidators from './utils/injectValidators';
 import updateLanguages from './utils/updateLanguages';
 import validators from './validators';
 
+import Age from './components/Age';
+import Keywords from './components/Keywords';
+import Timings from './components/Timings';
+import Location from './components/Location';
+import Languages from './components/Languages';
+import Accessibility from './components/Accessibility';
+import Events from './components/Events';
+import ConfigurableTextarea from './components/ConfigurableTextarea';
+
 const eventFormComponents = {
-  age: require('./components/Age'),
+  age: Age,
   registration: Registration,
-  keywords: require('./components/Keywords'),
-  timings: require('./components/Timings'),
-  location: require('./components/Location'),
-  languages: require('./components/Languages'),
-  accessibility: require('./components/Accessibility'),
-  references: require('./components/References'),
-  longDescription: require('./components/ConfigurableTextarea'),
+  keywords: Keywords,
+  timings: Timings,
+  location: Location,
+  languages: Languages,
+  accessibility: Accessibility,
+  events: Events,
+  longDescription: ConfigurableTextarea,
 };
 
 const eventSchema = require('./schema');
@@ -35,7 +47,13 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
 
-    const languages = extractLanguages(props.schema, this.props.values, {
+    const {
+      values: propsValues,
+    } = this.props;
+
+    this.onChange = this.onChange.bind(this);
+
+    const languages = extractLanguages(props.schema, propsValues, {
       defaultLanguage: props.lang,
     });
 
@@ -60,7 +78,13 @@ class EventForm extends Component {
   }
 
   onChange({ values, errors, files, loading, globalError }) {
-    const { lang } = this.props;
+    const {
+      lang,
+      devOnChange,
+    } = this.props;
+    const {
+      values: stateValues,
+    } = this.state;
 
     const languageChanges = identifyLanguageChanges(
       _.get(this.state, 'values.languages'), // before
@@ -81,7 +105,7 @@ class EventForm extends Component {
     // if a unique language has been switcheds, content should not be lost
     if (languageChanges.swapped.length) {
       update.values = ih(transferMultilingualValues(
-        this.state.values,
+        stateValues,
         multilingualFieldNames,
         _.get(this, 'state.values.languages.0'),
         _.first(languageChanges.swapped),
@@ -92,12 +116,12 @@ class EventForm extends Component {
       });
     } else if (languageChanges.removed.length) {
       update.values = ih(removeMultilingualValues(
-        this.state.values,
+        stateValues,
         multilingualFieldNames,
         languageChanges.removed,
       ), {
         languages: {
-          $set: this.state.values.languages.filter(l => !languageChanges.removed.includes(l)),
+          $set: stateValues.languages.filter(l => !languageChanges.removed.includes(l)),
         },
       });
     }
@@ -112,7 +136,7 @@ class EventForm extends Component {
       );
     }
 
-    if (this.props.devOnChange) this.props.devOnChange(update);
+    if (devOnChange) devOnChange(update);
 
     return this.setState(update);
   }
@@ -120,11 +144,14 @@ class EventForm extends Component {
   buildEventSchema(languages, props = null) {
     const p = props || this.props;
 
-    const schema = this.props.schema || eventSchema({
+    const {
+      schema: propsSchema,
+    } = this.props;
+
+    const schema = propsSchema || eventSchema({
       includeEventFields: p.includeEventFields,
       interfaceLanguage: p.lang,
       suggestionsRes: p.suggestionsRes,
-      referencesRes: p.referencesRes,
       languages,
       schemaExtensions: p.schemaExtensions,
       access: {
@@ -157,42 +184,51 @@ class EventForm extends Component {
       role,
       maxFileSize,
       res,
-      unloadWarning, // { router, page }
     } = this.props;
 
     const {
       values,
       schema,
       hash,
+      errors,
+      globalError,
+      loading,
+      files,
     } = this.state;
 
     return (
-      <FormSchemaComponent
-        res={res ? { post: res } : undefined}
-        method="post"
-        // unloadWarning={unloadWarning ?? true}
-        role={role}
-        stateless
-        maxFileSize={maxFileSize}
-        lang={lang}
-        components={eventFormComponents}
-        values={values}
-        errors={this.state.errors}
-        globalError={this.state.globalError}
-        loading={this.state.loading}
-        files={this.state.files}
-        onChange={this.onChange.bind(this)}
-        schema={schema}
-        hash={hash}
-        classNames={ih(classNames ?? {}, {
-          field: { $set: 'padding-v-sm form-group' },
-        })}
-        actionComponents={actionComponents}
-        onSubmitSuccess={onSubmitSuccess}
-        labels={{
-          errors: errorLabels,
-        }}
-      />
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <FormSchemaComponent
+          res={res ? { post: res } : undefined}
+          method="post"
+          role={role}
+          stateless
+          maxFileSize={maxFileSize}
+          lang={lang}
+          components={eventFormComponents}
+          values={values}
+          errors={errors}
+          globalError={globalError}
+          loading={loading}
+          files={files}
+          onChange={this.onChange}
+          schema={schema}
+          hash={hash}
+          classNames={ih(classNames ?? {}, {
+            field: { $set: 'padding-v-sm form-group' },
+          })}
+          actionComponents={actionComponents}
+          onSubmitSuccess={onSubmitSuccess}
+          labels={{
+            errors: errorLabels,
+          }}
+        />
+      </IntlProvider>
     );
   }
 }

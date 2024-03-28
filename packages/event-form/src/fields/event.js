@@ -210,12 +210,6 @@ module.exports = ({ labels }) => [{
     label: labels?.cancelled,
   }],
 }, {
-  field: 'references',
-  fieldType: 'integer',
-  list: true,
-  optional: true,
-  write: ['internal'],
-}, {
   field: 'timings',
   fieldType: 'timings',
   max: 800,

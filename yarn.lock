@@ -7442,6 +7442,7 @@ __metadata:
     "@openagenda/countries": "npm:^0.1.1"
     "@openagenda/events": "npm:^2.0.0"
     "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
@@ -7451,6 +7452,7 @@ __metadata:
     axios: "npm:^1.4.0"
     babel-jest: "npm:^29.7.0"
     babel-loader: "npm:^9.1.3"
+    classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
     immer: "npm:^10.0.3"
@@ -7461,6 +7463,7 @@ __metadata:
     msw: "npm:^0.49.2"
     msw-storybook-addon: "npm:^1.10.0"
     prop-types: "npm:^15.6.0"
+    qs: "npm:^6.10.3"
     react: "npm:^18.2.0"
     react-date-range: "npm:^1.1.3"
     react-dom: "npm:^18.2.0"
@@ -7473,6 +7476,7 @@ __metadata:
     store: "npm:^2.0.12"
     storybook: "npm:^7.6.4"
     superagent: "npm:^3.8.3"
+    use-debounce: "npm:^7.0.1"
   languageName: unknown
   linkType: soft
 

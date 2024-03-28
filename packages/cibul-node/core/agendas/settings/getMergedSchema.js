@@ -22,21 +22,28 @@ function dispatchSettingsInFields(services, agenda, schema) {
   const {
     registrations,
   } = services;
-  const registrationField = schema.fields.find(({ field }) => field === 'registration');
 
-  if (agenda.settings?.registration?.passCulture && registrationField) {
-    registrationField.settings = {
-      ...agenda.settings.registration,
-      passCulture: {
-        ...agenda.settings.registration.passCulture,
-        res: {
-          context: `/api/me/agendas/${agenda.uid}`,
-          settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
-          offerLink: registrations?.settings.passCulture.offerLink,
-          offerEditLink: registrations?.settings.passCulture.offerEditLink,
+  for (const field of schema.fields) {
+    if (field.fieldType === 'events') {
+      field.res = `/api/agendas/${agenda.uid}/events`;
+      continue;
+    }
+
+    if (field.field === 'registration' && agenda.settings?.registration?.passCulture) {
+      field.settings = {
+        ...agenda.settings.registration,
+        passCulture: {
+          ...agenda.settings.registration.passCulture,
+          res: {
+            context: `/api/me/agendas/${agenda.uid}`,
+            settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
+            offerLink: registrations?.settings.passCulture.offerLink,
+            offerEditLink: registrations?.settings.passCulture.offerEditLink,
+          },
         },
-      },
-    };
+      };
+      continue;
+    }
   }
 
   return schema;

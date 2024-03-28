@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import mLabels from '@openagenda/labels/event/accessibility';
 import flatten from '@openagenda/labels/flatten';
@@ -8,21 +8,21 @@ const TYPES = ['hi', 'vi', 'pi', 'mi', 'ii'];
 
 const getDefault = () => TYPES.reduce((c, t) => ({
   ...c,
-  [t]: false
+  [t]: false,
 }), {});
 
-module.exports = class AccessibilityComponent extends Component {
+export default class AccessibilityComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      enabled: this.hasAccessibility()
+      enabled: this.hasAccessibility(),
     };
   }
 
   hasAccessibility() {
     const {
-      value: currentValue
+      value: currentValue,
     } = this.props;
     const value = currentValue ?? getDefault();
 
@@ -31,17 +31,17 @@ module.exports = class AccessibilityComponent extends Component {
 
   toggleEnabled() {
     const {
-      onChange
+      onChange,
     } = this.props;
 
     const {
-      enabled
+      enabled,
     } = this.state;
 
     const toggled = !enabled;
 
     this.setState({
-      enabled: toggled
+      enabled: toggled,
     });
 
     if (!toggled && this.hasAccessibility()) {
@@ -52,27 +52,27 @@ module.exports = class AccessibilityComponent extends Component {
   toggleAccessibility(type) {
     const {
       onChange,
-      value: currentValue
+      value: currentValue,
     } = this.props;
 
     const value = currentValue ?? getDefault();
 
     onChange({
       ...value,
-      [type]: !value[type]
+      [type]: !value[type],
     });
   }
 
   render() {
     const {
       value,
-      lang
+      lang,
     } = this.props;
 
     const labels = flatten(mLabels, lang, true);
 
     const {
-      enabled
+      enabled,
     } = this.state;
 
     return (
@@ -113,4 +113,4 @@ module.exports = class AccessibilityComponent extends Component {
       </div>
     );
   }
-};
+}

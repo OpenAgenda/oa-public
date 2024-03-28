@@ -1,0 +1,7 @@
+{
+  "event-form.components.Events.emptySelection": "Aucun événement n'a encore été sélectionné",
+  "event-form.components.Events.loadError": "Une erreur est survenue lors du chargement. Veuillez retenter l'opération.",
+  "event-form.components.Events.remove": "Retirer",
+  "event-form.components.Events.searchEvents": "Recherche d'événements",
+  "event-form.components.Events.show": "Afficher"
+}

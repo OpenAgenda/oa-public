@@ -216,14 +216,12 @@ describe('event-form utils unit tests', () => {
 
     expect(removeMultilingualValues({
       "accessibility":{"hi":true,"sl":true},
-      "references":[45527593],
       "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
       "languages":["de","fr"],
       "title":{"de":"deuuu","fr":"frrrrr"}
     }, ['title', 'description', 'keywords', 'longDescription', 'conditions'], ['de']
    )).toEqual({
       "accessibility":{"hi":true,"sl":true},
-      "references":[45527593],
       "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
       "languages":["de","fr"],
       "title":{"fr":"frrrrr"}

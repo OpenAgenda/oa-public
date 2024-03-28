@@ -1,30 +1,51 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import TimingsPicker, { classNames } from '@openagenda/react-timingspicker';
+
+function fZ(n) {
+  return (n < 0 ? '-' : '') + (Math.abs(n) < 10 ? '0' : '') + Math.abs(n);
+}
+
+// safari requires timezone
+function safariTimezone({ date, hours, minutes }) {
+  const tzh = new Date(`${date}T${hours}:${minutes}`).getTimezoneOffset() / 60;
+
+  return `${(tzh > 0 ? '' : '+') + fZ(-tzh)}:00`;
+}
 
 function loadTimings(props) {
   return (props.value || _.get(props, 'field.default') || [])
     .map(t => ({
-      begin: new Date(`${t.begin.date}T${t.begin.hours}:${t.begin.minutes}${_timezone(t.begin)}`),
-      end: new Date(`${t.end.date}T${t.end.hours}:${t.end.minutes}${_timezone(t.end)}`)
+      begin: new Date(`${t.begin.date}T${t.begin.hours}:${t.begin.minutes}${safariTimezone(t.begin)}`),
+      end: new Date(`${t.end.date}T${t.end.hours}:${t.end.minutes}${safariTimezone(t.end)}`),
     }));
-};
-
-function addDays(initial, days) {
-  const date = new Date(initial);
-  date.setDate(date.getDate() + days);
-  return date;
 }
 
-module.exports = class TimingsComponent extends Component {
+function extractDateString(d) {
+  return [
+    d.getFullYear(),
+    fZ(d.getMonth() + 1),
+    fZ(d.getDate()),
+  ].join('-');
+}
+
+export default class TimingsComponent extends Component {
   static defaultProps = {
     value: null,
-    field: {}
+    field: {},
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: null,
+    };
+  }
 
   static getDerivedStateFromProps(props) {
     const partialState = {
-      lang: props.lang
+      lang: props.lang,
     };
 
     partialState.value = loadTimings(props);
@@ -34,31 +55,27 @@ module.exports = class TimingsComponent extends Component {
         begin: v.begin,
         end: v.end.includes('T')
           ? v.end
-          : `${v.end}T23:59:59.999`
+          : `${v.end}T23:59:59.999`,
       }))
       : null;
 
     return partialState;
   }
 
-  state = {
-    value: null
-  };
-
   onTimingsChange = (timings = [], beginKey = 'begin') => {
     this.props.onChange(timings.map(t => ({
       begin: {
-        date: _extractDateString(t[beginKey]),
-        hours: _fZ(t[beginKey].getHours()),
-        minutes: _fZ(t[beginKey].getMinutes())
+        date: extractDateString(t[beginKey]),
+        hours: fZ(t[beginKey].getHours()),
+        minutes: fZ(t[beginKey].getMinutes()),
       },
       end: {
-        date: _extractDateString(t.end),
-        hours: _fZ(t.end.getHours()),
-        minutes: _fZ(t.end.getMinutes())
-      }
+        date: extractDateString(t.end),
+        hours: fZ(t.end.getHours()),
+        minutes: fZ(t.end.getMinutes()),
+      },
     })));
-  }
+  };
 
   render() {
     const { value, lang, allowedTimings } = this.state;
@@ -74,23 +91,4 @@ module.exports = class TimingsComponent extends Component {
       />
     );
   }
-};
-
-function _extractDateString(d) {
-  return [
-    d.getFullYear(),
-    _fZ(d.getMonth() + 1),
-    _fZ(d.getDate())
-  ].join('-');
-}
-
-function _fZ(n) {
-  return (n < 0 ? '-' : '') + (Math.abs(n) < 10 ? '0' : '') + Math.abs(n);
-}
-
-// safari requires timezone
-function _timezone({ date, hours, minutes }) {
-  const tzh = (new Date(date + 'T' + hours + ':' + minutes)).getTimezoneOffset() / 60;
-
-  return (tzh > 0 ? '' : '+') + _fZ(-tzh) + ':00';
 }

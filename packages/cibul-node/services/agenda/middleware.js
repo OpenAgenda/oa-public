@@ -328,12 +328,6 @@ function cleanJson(req, res, next) {
       delete f.customLabels;
     }
 
-    if (f.references) {
-      f.linkedEvents = f.references;
-
-      delete f.references;
-    }
-
     ['image', 'thumbnail', 'originalImage'].forEach(imageField => {
       if ((f[imageField] || '').indexOf('?') === -1) {
         return;

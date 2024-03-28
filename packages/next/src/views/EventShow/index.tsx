@@ -376,6 +376,7 @@ function EventShow({ preload }: EventShowProps) {
                 // }}
               >
                 <AdditionalFields
+                  agenda={agenda}
                   additionalFields={additionalFields}
                   updatedAt={event.updatedAt !== event.createdAt ? event.updatedAt : null}
                 />

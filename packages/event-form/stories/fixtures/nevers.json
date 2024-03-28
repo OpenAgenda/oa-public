@@ -2193,17 +2193,6 @@
                 "schemaType": "event"
             },
             {
-                "field": "references",
-                "fieldType": "integer",
-                "list": true,
-                "optional": true,
-                "write": [
-                    "internal"
-                ],
-                "schemaId": null,
-                "schemaType": "event"
-            },
-            {
                 "field": "links",
                 "fieldType": "pass",
                 "optional": true,
