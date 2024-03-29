@@ -186,19 +186,19 @@ export const contextBar = defineMessages({
   },
   refusedContributorInfo: {
     id: 'next.views.EventShow.ContextBar.refusedContributorInfo',
-    defaultMessage: 'This event is not compatible with the agenda and has been refused by administrators.',
+    defaultMessage: 'This event has been rejected by agenda administrators and will not be published.',
   },
   toModerateContributorInfo: {
     id: 'next.views.EventShow.ContextBar.toModerateContributorInfo',
-    defaultMessage: 'The event will be verified by administrators prior to its publication.',
+    defaultMessage: 'This event will be verified by administrators prior to its publication.',
   },
   readyToPublishContributorInfo: {
     id: 'next.views.EventShow.ContextBar.readyToPublishContributorInfo',
-    defaultMessage: 'The event has been validated by moderators. It will be published without further changes.',
+    defaultMessage: 'This event has been validated by moderators. It will be published without further changes.',
   },
   publishedContributorInfo: {
     id: 'next.views.EventShow.ContextBar.publishedContributorInfo',
-    defaultMessage: 'The event is published and displayed on the agenda.',
+    defaultMessage: 'This event is published and displayed on the agenda.',
   },
   contactAdministrators: {
     id: 'next.views.EventShow.ContextBar.contactAdministrators',
