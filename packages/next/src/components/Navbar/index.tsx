@@ -8,7 +8,8 @@ import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
-import logoPic from '../../../public/images/openagenda.png';
+import logoPic from '../../../public/images/oa.svg';
+import miniLogoPic from '../../../public/images/oa_logo.svg';
 import HelpButton from './HelpButton';
 import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
@@ -79,13 +80,18 @@ export default function Navbar() {
       <Container maxW="container.xl" px={0}>
         <Flex justify="space-between" h="50" align="stretch">
           <Flex gap="8">
-            <Flex as="a" href={homeHref} px="4" align="center">
+            <Flex as="a" href={homeHref} pr="4" pl={{ base: '0', md: '4' }} align="center" shrink="0">
               <Image
                 src={logoPic}
-                width={500 / 4}
-                height={89 / 4}
+                width="125"
                 alt="logo"
-                quality="100"
+                display={{ base: 'none', md: 'block' }}
+              />
+              <Image
+                src={miniLogoPic}
+                height="40"
+                alt="logo"
+                display={{ base: 'block', md: 'none' }}
               />
             </Flex>
             <Flex as="form" onSubmit={onSearch} display={{ base: 'none', lg: 'flex' }}>
