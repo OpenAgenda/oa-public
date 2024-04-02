@@ -16,7 +16,7 @@ export default function EventItems({ agenda, field }) {
   const {
     data = {},
     status,
-  } = useSWRImmutable((field.value ?? []).length ? `/api/agendas/${agenda.uid}/events?${qs.stringify({ uid: field.value })}` : null);
+  } = useSWRImmutable((field.value ?? []).length ? `/api/agendas/${agenda.uid}/events?${qs.stringify({ uid: field.value, state: [0, 1, 2] })}` : null);
 
   if (status === FetchStatus.Fetching) {
     return <Spinner />;
