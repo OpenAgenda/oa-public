@@ -10,7 +10,7 @@ import { FetchStatus } from 'config/types';
 import EventItem from './EventItem';
 import messages from './messages';
 
-export default function EventItems({ agenda, field }) {
+export default function EventItems({ agenda, field, py }) {
   const intl = useIntl();
 
   const {
@@ -27,7 +27,7 @@ export default function EventItems({ agenda, field }) {
   } = data;
 
   return (
-    <VStack spacing="4" align="start">
+    <VStack spacing="4" py={py} align="start">
       {!events.length ? <div>{intl.formatMessage(messages.emptySelection)}</div> : null}
       {events.map(event => (<EventItem agenda={agenda} key={`event-item-${event.uid}`} event={event} />))}
     </VStack>
