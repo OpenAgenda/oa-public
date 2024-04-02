@@ -1,16 +1,7 @@
 import { useMemo } from 'react';
-import { useIntl } from 'react-intl';
-import { ReactSelectInput } from '@openagenda/react-shared';
-import { css } from '@emotion/react';
-import statesMessages from '@openagenda/common-labels/event/states';
+import { ReactSelectInput, EventState } from '@openagenda/react-shared';
 
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
-
-const stateBadgeCss = css`
-  height: 19px;
-  width: 19px;
-  vertical-align: baseline;
-`;
 
 const stateSelectStyles = {
   ...defaultReactSelectStyles,
@@ -65,69 +56,16 @@ const stateSelectStyles = {
   }),
 };
 
-export default function StateSelector({ value, onChange, ...otherProps }) {
-  const intl = useIntl();
-
+export default function StateSelector({ value, onChange, uid, ...otherProps }) {
   const stateOptions = useMemo(
-    () => [
-      {
+    () =>
+      [-1, 0, 1, 2].map(v => ({
         label: (
-          <>
-            <span
-              className="badge badge-danger margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(statesMessages.refused)}
-          </>
+          <EventState id={`event-item-state-${uid ?? ''}-${v}`} value={v} />
         ),
-        value: -1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-default margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(statesMessages.toModerate)}
-          </>
-        ),
-        value: 0,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-warning margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(statesMessages.readyToPublish)}
-          </>
-        ),
-        value: 1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-success margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(statesMessages.published)}
-          </>
-        ),
-        value: 2,
-      },
-    ],
-    [intl],
+        value: v,
+      })),
+    [uid],
   );
 
   const selectValue = useMemo(

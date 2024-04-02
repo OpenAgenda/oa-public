@@ -30,6 +30,7 @@ export default function EventStateSelector({ agenda, event }) {
 
   return (
     <StateSelector
+      uid={event.uid}
       value={event.state}
       onChange={onChange}
       isDisabled={mutation.isLoading}
