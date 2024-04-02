@@ -120,3 +120,32 @@ export const EventsField = {
     },
   },
 };
+
+export const EmptyEventsField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [{
+            field: 'subEvents',
+            label: {
+              fr: 'Événements enfants',
+              en: 'Sub-events',
+            },
+            fieldType: 'events',
+          }],
+        },
+        event: {
+          subEvents: [],
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
