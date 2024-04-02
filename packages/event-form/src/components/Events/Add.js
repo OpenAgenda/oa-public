@@ -6,6 +6,7 @@ import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
 import messages from './messages';
+import includeFields from './includeFields.json';
 
 export default function Add({ res, value, lang, onChange }) {
   const [searchString, setSearchString] = useState('');
@@ -22,7 +23,12 @@ export default function Add({ res, value, lang, onChange }) {
       return;
     }
     setIsLoading(true);
-    fetch(`${res}?${qs.stringify({ search: debouncedSearch, state: [0, 1, 2], relative: ['current', 'upcoming'] })}`).then(response => {
+    fetch(`${res}?${qs.stringify({
+      search: debouncedSearch,
+      state: [0, 1, 2],
+      relative: ['current', 'upcoming'],
+      includeFields,
+    })}`).then(response => {
       setIsLoading(false);
       if (!response.ok) {
         setErrored(true);
