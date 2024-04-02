@@ -47,6 +47,12 @@
       "value": "crwdns33013:0crwdne33013:0"
     }
   ],
+  "next.views.AgendaShow.EventItem.share": [
+    {
+      "type": 0,
+      "value": "Share"
+    }
+  ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,

@@ -7,5 +7,6 @@
   "next.views.AgendaShow.EventItem.addToFavorites": "Apondre als favorits",
   "next.views.AgendaShow.EventItem.featured": "Meses en avant",
   "next.views.AgendaShow.EventItem.removeFromFavorites": "Tirar dels favorits",
+  "next.views.AgendaShow.EventItem.share": "",
   "next.views.AgendaShow.Favorites.favorites": "Favorits"
 }

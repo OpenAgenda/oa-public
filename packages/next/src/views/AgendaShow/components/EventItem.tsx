@@ -52,6 +52,10 @@ const messages = defineMessages({
     id: 'next.views.AgendaShow.EventItem.removeFromFavorites',
     defaultMessage: 'Remove from favorites',
   },
+  share: {
+    id: 'next.views.AgendaShow.EventItem.share',
+    defaultMessage: 'Share',
+  },
 });
 
 function FavoriteButton({ agenda, event }) {
@@ -275,7 +279,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
                 borderRadius="sm"
                 display={{ base: 'none', sm: 'inline-flex' }}
               >
-                Partager
+                {intl.formatMessage(messages.share)}
               </Button>
 
               <Button

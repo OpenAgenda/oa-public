@@ -120,7 +120,7 @@ function OptionedField({ field }) {
   const intl = useIntl();
 
   return (
-    field.value?.length ? intl.formatList(field.value, { style: 'narrow' }) : (
+    field.value?.length ? <>{intl.formatList(field.value, { style: 'narrow' })}</> : (
       <chakra.em color="oaGray.500">{intl.formatMessage(messages.noSelection)}</chakra.em>
     )
   );
