@@ -1,6 +1,7 @@
 import { IntlProvider } from 'react-intl';
-import { getSupportedLocale } from '@openagenda/intl';
+import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
+import commonLabels from '@openagenda/common-labels';
 import * as locales from '../../src/locales-compiled';
 
 const lang = 'fr';
@@ -9,7 +10,7 @@ export default Story => (
   <IntlProvider
     key={lang}
     locale={lang}
-    messages={locales[lang]}
+    messages={mergeLocales(locales, commonLabels)[lang]}
     defaultLocale={getSupportedLocale(lang)}
   >
     <div className="container">
