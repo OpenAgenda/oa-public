@@ -82,7 +82,7 @@ export default function Add({ res, value, lang, onChange }) {
       {displayDropdown ? (
         <ul ref={ref} className="dropdown-menu">
           {(searchResult?.events ?? []).map(event => (
-            <li className="padding-v-sm" key={`search-result-${event.uid}`}>
+            <li className="padding-v-sm media" key={`search-result-${event.uid}`}>
               <button
                 type="button"
                 className="btn btn-link btn-block"

@@ -15,6 +15,7 @@
     "@babel/runtime-corejs3": "^7.23.2",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/agenda-locations-app": "^0.0.0",
+    "@openagenda/common-labels": "^1.0.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/events": "^2.0.0",
     "@openagenda/form-schemas": "^1.9.2",

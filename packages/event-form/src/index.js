@@ -2,7 +2,8 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import { Component } from 'react';
 import { IntlProvider } from 'react-intl';
-import { getSupportedLocale } from '@openagenda/intl';
+import commonLocales from '@openagenda/common-labels';
+import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
@@ -200,7 +201,7 @@ class EventForm extends Component {
       <IntlProvider
         key={lang}
         locale={lang}
-        messages={locales[lang]}
+        messages={mergeLocales(commonLocales, locales)[lang]}
         defaultLocale={getSupportedLocale(lang)}
       >
         <FormSchemaComponent
