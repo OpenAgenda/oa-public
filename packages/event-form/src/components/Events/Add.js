@@ -22,7 +22,7 @@ export default function Add({ res, value, lang, onChange }) {
       return;
     }
     setIsLoading(true);
-    fetch(`${res}?${qs.stringify({ search: debouncedSearch })}`).then(response => {
+    fetch(`${res}?${qs.stringify({ search: debouncedSearch, state: [0, 1, 2], relative: ['current', 'upcoming'] })}`).then(response => {
       setIsLoading(false);
       if (!response.ok) {
         setErrored(true);

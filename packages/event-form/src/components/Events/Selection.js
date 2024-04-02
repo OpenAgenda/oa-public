@@ -19,7 +19,7 @@ export default function Selection({ res, value, lang }) {
     }
     setIsLoading(true);
 
-    fetch(`${res}?${qs.stringify({ uid: identifiers })}`).then(r => {
+    fetch(`${res}?${qs.stringify({ uid: identifiers, state: [0, 1, 2] })}`).then(r => {
       setIsLoading(false);
       if (!r.ok) {
         setErrored(true);
