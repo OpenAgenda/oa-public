@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Popover from 'react-bootstrap/lib/Popover';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
@@ -12,7 +12,7 @@ export default class MoreInfo extends Component {
     link: PropTypes.string,
     placement: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     className: PropTypes.string,
-    style: PropTypes.objectOf(PropTypes.any)
+    style: PropTypes.objectOf(PropTypes.Object),
   };
 
   static defaultProps = {
@@ -31,22 +31,27 @@ export default class MoreInfo extends Component {
     const iconStyle = {
       color: '#41acdd',
       fontSize: '1.3em',
-      ...style
+      ...style,
     };
 
-    const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle} />;
+    const icon = (
+      <i
+        className={`fa fa-question-circle ${className}`}
+        aria-hidden="true"
+        style={iconStyle}
+      />
+    );
 
-    return link ? <a href={link} rel="noopener noreferrer" target="_blank">{icon}</a> : icon;
-  }
+    return link ? (
+      <a href={link} rel="noopener noreferrer" target="_blank">
+        {icon}
+      </a>
+    )
+      : icon;
+  };
 
   render() {
-    const {
-      children,
-      id,
-      title,
-      content,
-      placement
-    } = this.props;
+    const { children, id, title, content, placement } = this.props;
 
     if (!content && !children) {
       return this.renderIcon();
@@ -61,7 +66,11 @@ export default class MoreInfo extends Component {
     );
 
     return (
-      <OverlayTrigger trigger={['hover', 'focus']} placement={placement} overlay={popover}>
+      <OverlayTrigger
+        trigger={['hover', 'focus']}
+        placement={placement}
+        overlay={popover}
+      >
         {children || this.renderIcon()}
       </OverlayTrigger>
     );

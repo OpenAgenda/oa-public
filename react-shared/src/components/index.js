@@ -20,4 +20,5 @@ export { default as AgendaAdminModContextBar } from './AgendaAdminModContextBar'
 export { default as Dropdown } from './Dropdown';
 export { default as AuthenticateAndConfirm } from './AuthenticateAndConfirm';
 export { default as Accordion } from './Accordion';
+export { default as EventState } from './EventState';
 export * as bodyScroll from './body-scroll';
