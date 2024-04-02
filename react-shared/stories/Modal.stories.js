@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from '../src/components/Modal';
 import MoreInfo from '../src/components/MoreInfo';
 import AdminCanvas from './decorators/AdminCanvas';
@@ -64,7 +64,7 @@ export const NoHeader = () => {
         <Modal
           onClose={closeModal}
           classNames={{
-            overlay: 'popup-overlay big'
+            overlay: 'popup-overlay big',
           }}
           disableBodyScroll
         >
@@ -119,11 +119,7 @@ export const NoHeader = () => {
 const FirstComponent = ({ onClick }) => (
   <div>
     <p>This is the first component</p>
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={onClick}
-    >
+    <button type="button" className="btn btn-primary" onClick={onClick}>
       Go to the second component
     </button>
   </div>
@@ -135,11 +131,7 @@ const SecondComponent = ({ onClick }) => (
     <p>
       Modal should not have closed when user clicked on first component button
     </p>
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={onClick}
-    >
+    <button type="button" className="btn btn-primary" onClick={onClick}>
       Close modal
     </button>
   </div>
@@ -174,13 +166,9 @@ export const WithComponentsWithButtons = () => {
           disableBodyScroll
         >
           {componentIndex === 0 ? (
-            <FirstComponent
-              onClick={() => setComponentIndex(1)}
-            />
+            <FirstComponent onClick={() => setComponentIndex(1)} />
           ) : (
-            <SecondComponent
-              onClick={() => closeModal()}
-            />
+            <SecondComponent onClick={() => closeModal()} />
           )}
         </Modal>
       ) : null}

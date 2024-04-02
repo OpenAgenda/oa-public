@@ -1,4 +1,3 @@
-import React from 'react';
 import Spinner from '../src/components/Spinner';
 import AdminCanvas from './decorators/AdminCanvas';
 
@@ -43,7 +42,7 @@ export const Page = () => (
   <>
     <p style={{ flexBasis: '60%' }}>Le spinner peut prendre toute la page.</p>
     <div style={{ alignSelf: 'center' }}>
-      <Spinner page={true} message="this will close soon" />
+      <Spinner page message="this will close soon" />
     </div>
   </>
 );
