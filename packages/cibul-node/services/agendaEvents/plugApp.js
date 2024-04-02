@@ -12,6 +12,8 @@ const batchMw = require('./middleware/batch');
 const navigateMw = require('./middleware/navigate');
 const loadAgendaEventMw = require('./middleware/load');
 
+// TODO supprimer les .get qui font des modifications ☠️
+
 module.exports = function plugApp(parentApp) {
   const {
     sessions,

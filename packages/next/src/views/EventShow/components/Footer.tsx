@@ -1,11 +1,11 @@
 import { useIntl } from 'react-intl';
 import { chakra, Link } from '@openagenda/uikit';
-import { useAgenda } from '../contexts/agenda';
+import useEvent from '../hooks/useEvent';
 import { footer as messages } from '../messages';
 
 export default function Footer() {
   const intl = useIntl();
-  const agenda = useAgenda();
+  const { event } = useEvent();
 
   return (
     <footer>
@@ -20,7 +20,7 @@ export default function Footer() {
       </Link>
       {' · '}
       <chakra.span color="oaGray.500">
-        &lt;uid:{agenda.uid}&gt;
+        &lt;uid:{event.uid}&gt;
       </chakra.span>
     </footer>
   );
