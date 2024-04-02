@@ -65,6 +65,11 @@
         font-weight: bold;
       }
 
+      & > .btn-link {
+        color: inherit;
+        padding: 0;
+      }
+
     }
 
     &.empty {
