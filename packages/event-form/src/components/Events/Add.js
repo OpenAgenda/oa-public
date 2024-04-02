@@ -88,18 +88,20 @@ export default function Add({ res, value, lang, onChange }) {
       {displayDropdown ? (
         <ul ref={ref} className="dropdown-menu">
           {(searchResult?.events ?? []).map(event => (
-            <li className="padding-v-sm media" key={`search-result-${event.uid}`}>
-              <button
-                type="button"
-                className="btn btn-link btn-block"
-                onClick={() => {
-                  onChange((value ?? []).concat(event.uid));
-                  setDisplayDropdown(false);
-                }}
-                disabled={(value ?? []).includes(event.uid)}
-              >
-                <EventItem lang={lang} event={event} />
-              </button>
+            <li className="padding-v-sm" key={`search-result-${event.uid}`}>
+              <div className="media">
+                <button
+                  type="button"
+                  className="btn btn-link btn-block"
+                  onClick={() => {
+                    onChange((value ?? []).concat(event.uid));
+                    setDisplayDropdown(false);
+                  }}
+                  disabled={(value ?? []).includes(event.uid)}
+                >
+                  <EventItem lang={lang} event={event} />
+                </button>
+              </div>
             </li>
           ))}
         </ul>
