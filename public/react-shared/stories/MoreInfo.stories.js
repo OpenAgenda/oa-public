@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import MoreInfo from '../src/components/MoreInfo';
 import AdminCanvas from './decorators/AdminCanvas';
@@ -25,8 +24,8 @@ export const Simple = () => (
 export const Content = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      Un titre et un message s&apos;affichent lorsqu&apos;on hover sur l&apos;icône d&apos;aide.
-      L&apos;emplacement du message est paramétrable.
+      Un titre et un message s&apos;affichent lorsqu&apos;on hover sur
+      l&apos;icône d&apos;aide. L&apos;emplacement du message est paramétrable.
     </p>
 
     <div style={{ alignSelf: 'center' }}>
@@ -44,8 +43,8 @@ Content.storyName = 'Title and text content';
 export const ContentLink = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      L&apos;icône est également utilisable comme lien cliquable, en complément de
-      l&apos;affichage d&apos;un message.
+      L&apos;icône est également utilisable comme lien cliquable, en complément
+      de l&apos;affichage d&apos;un message.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
@@ -63,7 +62,8 @@ ContentLink.storyName = 'With a link';
 export const Link = () => (
   <>
     <p style={{ flex: 1 }}>
-      Ici, l&apos;icône n&apos;affiche plus de message, et fait uniquement office de lien.
+      Ici, l&apos;icône n&apos;affiche plus de message, et fait uniquement
+      office de lien.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
