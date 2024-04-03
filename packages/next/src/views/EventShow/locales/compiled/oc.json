@@ -287,6 +287,12 @@
       "value": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat"
     }
   ],
+  "next.views.EventShow.ContextBar.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Transfer ownership"
+    }
+  ],
   "next.views.EventShow.ContextBar.unfeature": [
     {
       "type": 0,
@@ -705,6 +711,36 @@
     {
       "type": 0,
       "value": "Etiquetas"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.close": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.nameless": [
+    {
+      "type": 0,
+      "value": "Sans nom"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
+    {
+      "type": 0,
+      "value": "Ownership of the event has been transferred."
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transfer": [
+    {
+      "type": 0,
+      "value": "Transfer"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Transfer ownership"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "year": "un",
-  "years": "anni",
-  "min": "Da",
   "max": "a",
-  "select": "Seleziona"
+  "min": "Da",
+  "select": "Seleziona",
+  "year": "un",
+  "years": "anni"
 }

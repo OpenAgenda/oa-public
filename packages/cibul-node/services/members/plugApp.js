@@ -168,9 +168,33 @@ module.exports = function plugApp(app) {
     mw.loadEvent,
     mw.load,
     mw.authorize.adminModOrEventOwner,
-    mw.authorize.agendaHasCredential.bind(null, 'eventOwnershipTransfer'),
-    mw.loadTarget.byEmail.bind(null, members),
+    async (req, res, next) => {
+      try {
+        if (req.body.userUid) {
+          req.targetMember = await members.get({
+            agendaUid: req.agenda.uid,
+            userUid: req.body.userUid,
+          });
+          if (req.targetMember) return next();
+        }
+
+        if (req.body.email) {
+          req.targetMember = await members.get.byEmail({
+            agendaUid: req.agenda.uid,
+            email: req.body.email,
+          });
+          if (req.targetMember) return next();
+        }
+
+        next(new Error('Member not found'));
+      } catch (e) {
+        next(e);
+      }
+    },
     (req, res, next) => transferEvent(req.app.services, req.event, req.targetMember).then(() => {
+      if (req.query.json) {
+        return res.status(200).json();
+      }
       res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
     }, next),
   );

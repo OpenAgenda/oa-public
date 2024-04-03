@@ -1,11 +1,11 @@
 {
-  "upload": "Cargar imagen",
-  "update": "Cambiar imagen",
+  "acceptedExtensions": "formatos aceptados",
   "error": "Se produjo un problema durante la carga. Por favor, inténtelo de nuevo.",
-  "tip": "Arrastre una imagen en el área sombreada.",
-  "replace": "reemplazar documento",
   "loading": "Cargando",
-  "remove": "Eliminar",
   "or": "O",
-  "acceptedExtensions": "formatos aceptados"
+  "remove": "Eliminar",
+  "replace": "reemplazar documento",
+  "tip": "Arrastre una imagen en el área sombreada.",
+  "update": "Cambiar imagen",
+  "upload": "Cargar imagen"
 }

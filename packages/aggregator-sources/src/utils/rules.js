@@ -153,10 +153,10 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 
   if (query.timings) {
     const { date: minDate, time: minTime } = extractDateAndTime(
-      new Date(query.timings.lte),
+      new Date(query.timings.gte),
     );
     const { date: maxDate, time: maxTime } = extractDateAndTime(
-      new Date(query.timings.gte),
+      new Date(query.timings.lte),
     );
 
     Object.assign(result, {

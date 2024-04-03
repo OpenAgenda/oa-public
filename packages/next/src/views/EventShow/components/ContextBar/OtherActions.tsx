@@ -25,15 +25,18 @@ import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
+import TransferOwnershipModal from '../TransferOwnershipModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
-function ButtonMenuItem({ action, description, onClick }) {
+function ButtonMenuItem({ action, description = null, onClick }) {
   return (
     <MenuItem onClick={onClick}>
       <Flex direction="column">
         <Text fontWeight="bold" display="block">{action}</Text>
-        <p>{description}</p>
+        {description ? (
+          <p>{description}</p>
+        ) : null}
       </Flex>
     </MenuItem>
   );
@@ -75,6 +78,12 @@ export default function OtherActions({ agenda }) {
     isOpen: duplicateIsOpen,
     onOpen: duplicateOnOpen,
     onClose: duplicateOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: transferOwnershipIsOpen,
+    onOpen: transferOwnershipOnOpen,
+    onClose: transferOwnershipOnClose,
   } = useDisclosure();
 
   const patchEvent = async data => {
@@ -171,6 +180,10 @@ export default function OtherActions({ agenda }) {
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               )}
+              <ButtonMenuItem
+                onClick={transferOwnershipOnOpen}
+                action={intl.formatMessage(messages.transferOwnership)}
+              />
             </>
           ) : null}
           <ButtonMenuItem
@@ -268,6 +281,10 @@ export default function OtherActions({ agenda }) {
 
       {duplicateIsOpen ? (
         <DuplicateModal isOpen onClose={duplicateOnClose} agenda={agenda} event={event} />
+      ) : null}
+
+      {transferOwnershipIsOpen ? (
+        <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
       ) : null}
     </>
   );

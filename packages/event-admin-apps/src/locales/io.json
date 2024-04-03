@@ -55,6 +55,7 @@
   "EventAdminApp.FiltersPortal.filters": "crwdns16020:0crwdne16020:0",
   "EventAdminApp.PassImage.edit": "crwdns33410:0crwdne33410:0",
   "EventAdminApp.PassImage.link": "crwdns33412:0crwdne33412:0",
+  "EventAdminApp.PassImage.linkPending": "crwdns33788:0crwdne33788:0",
   "EventAdminApp.PassImage.see": "crwdns33414:0crwdne33414:0",
   "EventAdminApp.RemoveModal.confirm": "crwdns818:0crwdne818:0",
   "EventAdminApp.RemoveModal.deleteDesc": "crwdns820:0crwdne820:0",

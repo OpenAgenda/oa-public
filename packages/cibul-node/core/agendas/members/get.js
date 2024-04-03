@@ -30,6 +30,7 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
     access = null,
     returnIsValid = false,
     roleAsSlug = true,
+    detailed = false,
   } = options;
 
   const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
@@ -54,11 +55,11 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
     ? await members.get({
       agendaUid: agenda.uid,
       userUid: identifier,
-    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { roleAsSlug }) : null))
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { detailed, roleAsSlug }) : null))
     : await members.get.byEmail({
       agendaUid: agenda.uid,
       ...identifier,
-    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { roleAsSlug }) : null));
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, { detailed, roleAsSlug }) : null));
 
   if (!canRead(services, {
     access,
