@@ -288,6 +288,7 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) => core
       .agendas(req.agenda.uid).members.list(req.query, req.query, {
         userUid: req.user.uid,
+        detailed: req.query.detailed,
       })
       .then(data => res.json({
         ...data,
@@ -320,7 +321,10 @@ export default (core, { useRouter = true } = {}) => {
     track.mw('api', 'get', 'memberEmail'),
     (req, res, next) => core.agendas(req.agenda.uid).members.get({
       email: req.params.email,
-    }, { userUid: req.user.uid }).then(data => res.json(data), next),
+    }, {
+      userUid: req.user.uid,
+      detailed: req.query.detailed,
+    }).then(data => res.json(data), next),
   ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
