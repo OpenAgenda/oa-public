@@ -68,7 +68,7 @@
   "next.views.EventShow.ContextBar.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contactar los administradores"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -248,7 +248,7 @@
   "next.views.EventShow.ContextBar.removeEvent": [
     {
       "type": 0,
-      "value": "Remove from agenda"
+      "value": "Eliminar de la agenda"
     }
   ],
   "next.views.EventShow.ContextBar.removeEventInfo": [
@@ -266,7 +266,7 @@
   "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -290,7 +290,7 @@
   "next.views.EventShow.ContextBar.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "Transferir la propiedad"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -558,31 +558,31 @@
   "next.views.EventShow.Sidebar.accessibleToHearing": [
     {
       "type": 0,
-      "value": "Accessible to the hearing impaired"
+      "value": "Accesible para personas con discapacidad auditiva"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
     {
       "type": 0,
-      "value": "Accessible to the intellectually impaired"
+      "value": "Discapacidad mental"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToMotor": [
     {
       "type": 0,
-      "value": "Accessible to the motor impaired"
+      "value": "Los motores de acceso para minusválidos"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToPsychic": [
     {
       "type": 0,
-      "value": "Accessible to the psychic impaired"
+      "value": "Acceso discapacitados mentales"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToVisually": [
     {
       "type": 0,
-      "value": "Accessible to the visually impaired"
+      "value": "Accesible para discapacitados visuales"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -716,7 +716,7 @@
   "next.views.EventShow.transferOwnershipModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Cerca"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.nameless": [
@@ -740,7 +740,7 @@
   "next.views.EventShow.transferOwnershipModal.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "Transferir la propiedad"
     }
   ]
 }

@@ -47,7 +47,7 @@
   "next.views.EventShow.ContextBar.state": "",
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Este evento debe ser moderado y no está listo para ser publicado",
-  "next.views.EventShow.ContextBar.transferOwnership": "",
+  "next.views.EventShow.ContextBar.transferOwnership": "Transferir la propiedad",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Contribuyente",
   "next.views.EventShow.ContributorSection.edit": "",
@@ -109,9 +109,9 @@
   "next.views.EventShow.moreLinks": "",
   "next.views.EventShow.sendAnEmail": "Enviar un email",
   "next.views.EventShow.tags": "",
-  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.close": "Cerca",
   "next.views.EventShow.transferOwnershipModal.nameless": "",
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
   "next.views.EventShow.transferOwnershipModal.transfer": "",
-  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transferir la propiedad"
 }

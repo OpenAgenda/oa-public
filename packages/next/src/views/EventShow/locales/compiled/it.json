@@ -248,7 +248,7 @@
   "next.views.EventShow.ContextBar.removeEvent": [
     {
       "type": 0,
-      "value": "Remove from agenda"
+      "value": "Rimuovere dall'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.removeEventInfo": [
@@ -266,7 +266,7 @@
   "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -564,7 +564,7 @@
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
     {
       "type": 0,
-      "value": "Accessible to the intellectually impaired"
+      "value": "Accessibile ai disabili cognitivi"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToMotor": [
@@ -716,7 +716,7 @@
   "next.views.EventShow.transferOwnershipModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Chiudere"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.nameless": [

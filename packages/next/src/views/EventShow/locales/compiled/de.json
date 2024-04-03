@@ -716,7 +716,7 @@
   "next.views.EventShow.transferOwnershipModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.nameless": [
