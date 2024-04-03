@@ -87,6 +87,11 @@ export default function Add({ res, value, lang, onChange }) {
       {isLoading ? <Spinner /> : null}
       {displayDropdown ? (
         <ul ref={ref} className="dropdown-menu">
+          {!(searchResult?.events ?? []).length ? (
+            <li className="padding-v-sm" key="search-result-empty">
+              <div className="media text-center disabled">{m(messages.noResult)}</div>
+            </li>
+          ) : null}
           {(searchResult?.events ?? []).map(event => (
             <li className="padding-v-sm" key={`search-result-${event.uid}`}>
               <div className="media">
