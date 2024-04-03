@@ -47,6 +47,7 @@
   "next.views.EventShow.ContextBar.state": "crwdns33664:0crwdne33664:0",
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "crwdns33666:0crwdne33666:0",
+  "next.views.EventShow.ContextBar.transferOwnership": "",
   "next.views.EventShow.ContextBar.unfeature": "crwdns33668:0crwdne33668:0",
   "next.views.EventShow.ContributorSection.contributor": "crwdns33670:0crwdne33670:0",
   "next.views.EventShow.ContributorSection.edit": "crwdns33672:0crwdne33672:0",
@@ -107,5 +108,10 @@
   "next.views.EventShow.history": "crwdns33768:0crwdne33768:0",
   "next.views.EventShow.moreLinks": "crwdns33770:0crwdne33770:0",
   "next.views.EventShow.sendAnEmail": "crwdns33772:0crwdne33772:0",
-  "next.views.EventShow.tags": "crwdns33774:0crwdne33774:0"
+  "next.views.EventShow.tags": "crwdns33774:0crwdne33774:0",
+  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.nameless": "",
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
+  "next.views.EventShow.transferOwnershipModal.transfer": "",
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
 }

@@ -626,6 +626,7 @@ EventShow.fetchLocale = locale => Promise.all([
   fetchCommonLocale('event/fields', locale),
   fetchCommonLocale('event/states', locale),
   fetchCommonLocale('event/statuses', locale),
+  fetchCommonLocale('roles', locale),
   import(`@openagenda/activity-apps/src/locales-compiled/${locale}.json`).then(mod => mod.default),
 ]).then(results => Object.assign({}, ...results));
 

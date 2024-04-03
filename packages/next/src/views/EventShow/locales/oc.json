@@ -47,6 +47,7 @@
   "next.views.EventShow.ContextBar.state": "",
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat",
+  "next.views.EventShow.ContextBar.transferOwnership": "",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Contributor·a",
   "next.views.EventShow.ContributorSection.edit": "Modificar",
@@ -107,5 +108,10 @@
   "next.views.EventShow.history": "Istòria",
   "next.views.EventShow.moreLinks": "",
   "next.views.EventShow.sendAnEmail": "Mandar un email",
-  "next.views.EventShow.tags": "Etiquetas"
+  "next.views.EventShow.tags": "Etiquetas",
+  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.nameless": "",
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
+  "next.views.EventShow.transferOwnershipModal.transfer": "",
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
 }

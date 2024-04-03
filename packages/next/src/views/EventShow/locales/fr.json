@@ -47,6 +47,7 @@
   "next.views.EventShow.ContextBar.state": "Statut:",
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Cet événement doit être modéré et n'est pas prêt à être publié",
+  "next.views.EventShow.ContextBar.transferOwnership": "",
   "next.views.EventShow.ContextBar.unfeature": "Retirer de la une",
   "next.views.EventShow.ContributorSection.contributor": "Contributeur",
   "next.views.EventShow.ContributorSection.edit": "Modifier",
@@ -107,5 +108,10 @@
   "next.views.EventShow.history": "Historique",
   "next.views.EventShow.moreLinks": "Liens additionnels:",
   "next.views.EventShow.sendAnEmail": "Envoyer un email",
-  "next.views.EventShow.tags": "Tags"
+  "next.views.EventShow.tags": "Tags",
+  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.nameless": "Sans nom",
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
+  "next.views.EventShow.transferOwnershipModal.transfer": "",
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
 }

@@ -47,6 +47,7 @@
   "next.views.EventShow.ContextBar.state": "",
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "",
+  "next.views.EventShow.ContextBar.transferOwnership": "",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Collaboratore",
   "next.views.EventShow.ContributorSection.edit": "Modificare",
@@ -107,5 +108,10 @@
   "next.views.EventShow.history": "",
   "next.views.EventShow.moreLinks": "",
   "next.views.EventShow.sendAnEmail": "",
-  "next.views.EventShow.tags": ""
+  "next.views.EventShow.tags": "",
+  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.nameless": "",
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
+  "next.views.EventShow.transferOwnershipModal.transfer": "",
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
 }

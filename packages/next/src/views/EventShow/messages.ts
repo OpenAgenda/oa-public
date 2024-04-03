@@ -60,6 +60,10 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.unfeature',
     defaultMessage: 'Unfeature',
   },
+  transferOwnership: {
+    id: 'next.views.EventShow.ContextBar.transferOwnership',
+    defaultMessage: 'Transfer ownership',
+  },
   featuredInfo: {
     id: 'next.views.EventShow.ContextBar.featuredInfo',
     defaultMessage: 'A featured event appears at the top of the list',
@@ -481,5 +485,28 @@ export const timings = defineMessages({
   nextMonth: {
     id: 'next.views.EventShow.Timings.nextMonth',
     defaultMessage: 'Next month',
+  },
+});
+
+export const transferOwnershipModal = defineMessages({
+  transferOwnership: {
+    id: 'next.views.EventShow.transferOwnershipModal.transferOwnership',
+    defaultMessage: 'Transfer ownership',
+  },
+  nameless: {
+    id: 'next.views.EventShow.transferOwnershipModal.nameless',
+    defaultMessage: 'Nameless',
+  },
+  transfer: {
+    id: 'next.views.EventShow.transferOwnershipModal.transfer',
+    defaultMessage: 'Transfer',
+  },
+  ownershipTransfered: {
+    id: 'next.views.EventShow.transferOwnershipModal.ownershipTransfered',
+    defaultMessage: 'Ownership of the event has been transferred.',
+  },
+  close: {
+    id: 'next.views.EventShow.transferOwnershipModal.close',
+    defaultMessage: 'Close',
   },
 });
