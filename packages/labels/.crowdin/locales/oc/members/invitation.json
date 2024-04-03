@@ -1,14 +1,14 @@
 {
   "administrator": "administrator·a",
-  "moderator": "moderator·a",
   "contributor": "contributor·a",
-  "reader": "legeire·a",
-  "emailSubject": "Convit a una agenda",
-  "emailTitle": "Sètz estat·da convidat·da a contribuir a l'agenda %title%",
-  "emailTitleForExistantUser": "Sètz vengut·da %credential% de l'agenda %title%",
+  "emailDescription": "Sètz estat·da convidat·da a contribuir a l'agenda **%title%** coma **%credential%**",
   "emailInscription": "Crear un compte",
   "emailShowAgenda": "Mostrar l'agenda",
   "emailSignup": "S'inscriure",
-  "emailDescription": "Sètz estat·da convidat·da a contribuir a l'agenda **%title%** coma **%credential%**",
-  "newMessage": "L'agenda %agenda% vos a escrit un messatge"
+  "emailSubject": "Convit a una agenda",
+  "emailTitle": "Sètz estat·da convidat·da a contribuir a l'agenda %title%",
+  "emailTitleForExistantUser": "Sètz vengut·da %credential% de l'agenda %title%",
+  "moderator": "moderator·a",
+  "newMessage": "L'agenda %agenda% vos a escrit un messatge",
+  "reader": "legeire·a"
 }

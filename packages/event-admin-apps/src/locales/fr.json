@@ -60,7 +60,7 @@
   "EventAdminApp.RemoveModal.confirm": "Confirmer",
   "EventAdminApp.RemoveModal.deleteDesc": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
   "EventAdminApp.RemoveModal.deleteEvent": "Supprimer l'événement",
-  "EventAdminApp.RemoveModal.removeDesc": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus.",
+  "EventAdminApp.RemoveModal.removeDesc": "Êtes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus.",
   "EventAdminApp.RemoveModal.removeEvent": "Retirer l'événement",
   "EventAdminApp.messages.attendanceModes.mixed": "Mixte",
   "EventAdminApp.messages.attendanceModes.offline": "Hors ligne",
