@@ -33,7 +33,7 @@ export default function useEventFormConfig(agenda) {
     };
   }
 
-  cleanupSchemaForForm(detailedAgenda.schema, { locale, agenda, apiRoot });
+  cleanupSchemaForForm(detailedAgenda.schema);
 
   if (
     agendaContext?.me?.authorizations?.canChangeState
