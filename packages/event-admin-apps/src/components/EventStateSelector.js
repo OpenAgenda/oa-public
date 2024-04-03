@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import toggleEventItemValue from '../utils/toggleEventItemValue';
@@ -9,9 +9,10 @@ export default function EventStateSelector({ agenda, event }) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    value => apiClient.post(`/${agenda.slug}/events/${event.slug}/state`, {
-      state: value,
-    }),
+    value =>
+      apiClient.post(`/${agenda.slug}/events/${event.slug}/state`, {
+        state: value,
+      }),
     {
       onSuccess: toggleEventItemValue({
         queryClient,
@@ -24,11 +25,12 @@ export default function EventStateSelector({ agenda, event }) {
 
   const onChange = useCallback(
     option => mutation.mutate(option.value),
-    [mutation]
+    [mutation],
   );
 
   return (
     <StateSelector
+      uid={event.uid}
       value={event.state}
       onChange={onChange}
       isDisabled={mutation.isLoading}

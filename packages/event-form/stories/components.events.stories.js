@@ -15,6 +15,7 @@ export default {
     msw: {
       handlers: [
         rest.get('/events', mswEventsMiddleware),
+        rest.get('/no-events', (req, res, ctx) => res(ctx.json({ events: [], total: 0 }))),
       ],
     },
   },
@@ -44,3 +45,14 @@ export const WithSelectedEvents = () => {
     </div>
   );
 };
+
+export const WithNoResults = () => (
+  <div className="wsq padding-v-xs padding-h-sm">
+    <EventsAdditionalFieldComponent
+      field={{ res: '/no-events' }}
+      lang="fr"
+      value={null}
+      onChange={() => {}}
+    />
+  </div>
+);

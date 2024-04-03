@@ -6,6 +6,7 @@ import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
 import messages from './messages';
+import includeFields from './includeFields.json';
 
 export default function Add({ res, value, lang, onChange }) {
   const [searchString, setSearchString] = useState('');
@@ -22,7 +23,12 @@ export default function Add({ res, value, lang, onChange }) {
       return;
     }
     setIsLoading(true);
-    fetch(`${res}?${qs.stringify({ search: debouncedSearch })}`).then(response => {
+    fetch(`${res}?${qs.stringify({
+      search: debouncedSearch,
+      state: [0, 1, 2],
+      relative: ['current', 'upcoming'],
+      includeFields,
+    })}`).then(response => {
       setIsLoading(false);
       if (!response.ok) {
         setErrored(true);
@@ -81,19 +87,26 @@ export default function Add({ res, value, lang, onChange }) {
       {isLoading ? <Spinner /> : null}
       {displayDropdown ? (
         <ul ref={ref} className="dropdown-menu">
+          {!(searchResult?.events ?? []).length ? (
+            <li className="padding-v-sm" key="search-result-empty">
+              <div className="media text-center disabled">{m(messages.noResult)}</div>
+            </li>
+          ) : null}
           {(searchResult?.events ?? []).map(event => (
             <li className="padding-v-sm" key={`search-result-${event.uid}`}>
-              <button
-                type="button"
-                className="btn btn-link btn-block"
-                onClick={() => {
-                  onChange((value ?? []).concat(event.uid));
-                  setDisplayDropdown(false);
-                }}
-                disabled={(value ?? []).includes(event.uid)}
-              >
-                <EventItem lang={lang} event={event} />
-              </button>
+              <div className="media">
+                <button
+                  type="button"
+                  className="btn btn-link btn-block"
+                  onClick={() => {
+                    onChange((value ?? []).concat(event.uid));
+                    setDisplayDropdown(false);
+                  }}
+                  disabled={(value ?? []).includes(event.uid)}
+                >
+                  <EventItem lang={lang} event={event} />
+                </button>
+              </div>
             </li>
           ))}
         </ul>

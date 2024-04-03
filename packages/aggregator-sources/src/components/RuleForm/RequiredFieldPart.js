@@ -13,7 +13,7 @@ export default () => {
         <b>{intl.formatMessage(messages.required)}</b>
       </div>
       <div className="col-sm-10">
-        <div className="form-group">
+        <div className="form-group margin-left-sm">
           <Field
             component={Radio}
             name="required"

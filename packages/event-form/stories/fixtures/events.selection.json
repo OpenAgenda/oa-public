@@ -1,757 +1,9 @@
 {
-    "total": 5,
+    "total": 12,
+    "link": "https://openagenda.com/api/agendas/76126842/events?uid[]=2551997&uid[]=3148177&uid[]=17633693&uid[]=43628849&uid[]=60139172&uid[]=98811156&uid[]=46624658&uid[]=10828579&uid[]=91211851&uid[]=11648630&uid[]=18509250&uid[]=18872681&uid[]=80797264&if[]=uid&if[]=title&if[]=slug&if[]=state&if[]=dateRange&state[]=-1&state[]=0&state[]=0state[]=1&state[]=2&if[]=location",
     "events": [
         {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public/parcours",
-            "imageCredits": "Universcience",
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "L'une des cinq médiations du parcours inédit « Esprit critique et intelligence artificielle » proposé par la Cité des sciences dans le cadre du Printemps de l'esprit critique 2024."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "IA et santé : gare aux biais !"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "PrintempsEspritCritique2024_OA_2.png",
-                "extension": "png",
-                "filename": "16c4c712fbc8485b9577a4f4973d90b7.image-de-levenement-format-portrait.png"
-            },
-            "image-paysage-169e": {
-                "originalName": "PrintempsEspritCritique2024_OA_4.png",
-                "extension": "png",
-                "filename": "16c4c712fbc8485b9577a4f4973d90b7.image-paysage-169e.png"
-            },
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 2551997,
-            "porteur-doffre-cite-des-sciences": [
-                1329,
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-21T17:00:00.000+01:00",
-                "begin": "2024-03-21T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "ia-et-sante-gare-aux-biais-",
-            "image": {
-                "filename": "16c4c712fbc8485b9577a4f4973d90b7.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 525
-                },
-                "variants": [
-                    {
-                        "filename": "16c4c712fbc8485b9577a4f4973d90b7.full.image.jpg",
-                        "size": {
-                            "width": 560,
-                            "height": 420
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "16c4c712fbc8485b9577a4f4973d90b7.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1636
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1505
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1498,
-            "parcours-bsi": [
-                1763
-            ],
-            "lieux-bsi": [
-                1174
-            ],
-            "image-format-carre": {
-                "originalName": "PrintempsEspritCritique2024_OA_3.png",
-                "extension": "png",
-                "filename": "16c4c712fbc8485b9577a4f4973d90b7.image-format-carre.png"
-            },
-            "lastTiming": {
-                "end": "2024-04-03T17:00:00.000+02:00",
-                "begin": "2024-04-03T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T17:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public/parcours",
-            "imageCredits": null,
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "L'une des cinq médiations du parcours inédit « Esprit critique et intelligence artificielle » proposé par la Cité des sciences dans le cadre du Printemps de l'esprit critique 2024."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "L'IA et les images"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "55b30410dc9b4e5eb3f46bd2711e990e.image-de-levenement-format-portrait.png"
-            },
-            "image-paysage-169e": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "55b30410dc9b4e5eb3f46bd2711e990e.image-paysage-169e.png"
-            },
-            "contact-interne": "Valentin Caron",
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 3148177,
-            "porteur-doffre-cite-des-sciences": [
-                1329,
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-21T17:00:00.000+01:00",
-                "begin": "2024-03-21T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "lia-et-les-images-7318909",
-            "image": {
-                "filename": "55b30410dc9b4e5eb3f46bd2711e990e.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 697
-                },
-                "variants": [
-                    {
-                        "filename": "55b30410dc9b4e5eb3f46bd2711e990e.full.image.jpg",
-                        "size": {
-                            "width": 230,
-                            "height": 229
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "55b30410dc9b4e5eb3f46bd2711e990e.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1636
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1505
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1498,
-            "parcours-bsi": [
-                1763
-            ],
-            "lieux-bsi": [
-                1174
-            ],
-            "image-format-carre": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "55b30410dc9b4e5eb3f46bd2711e990e.image-format-carre.png"
-            },
-            "lastTiming": {
-                "end": "2024-04-03T17:00:00.000+02:00",
-                "begin": "2024-04-03T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T17:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public/parcours",
-            "imageCredits": null,
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "L'une des cinq médiations du parcours inédit « Esprit critique et intelligence artificielle » proposé par la Cité des sciences dans le cadre du Printemps de l'esprit critique 2024."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "ChatGEPETO a dit : l'intelligence artificielle vous offre un monde meilleur ! Mythe ou réalité ?"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "ec6ac94084104499997af48177322da4.image-de-levenement-format-portrait.png"
-            },
-            "image-paysage-169e": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "ec6ac94084104499997af48177322da4.image-paysage-169e.png"
-            },
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 17633693,
-            "porteur-doffre-cite-des-sciences": [
-                1329,
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-21T17:00:00.000+01:00",
-                "begin": "2024-03-21T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "chatgepeto-a-dit-lintelligence-artificielle-vous-offre-un-monde-meilleur-mythe-ou-realite",
-            "image": {
-                "filename": "ec6ac94084104499997af48177322da4.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 697
-                },
-                "variants": [
-                    {
-                        "filename": "ec6ac94084104499997af48177322da4.full.image.jpg",
-                        "size": {
-                            "width": 230,
-                            "height": 229
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "ec6ac94084104499997af48177322da4.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1636
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1505
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1498,
-            "parcours-bsi": [
-                1763
-            ],
-            "lieux-bsi": [
-                1174
-            ],
-            "image-format-carre": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "ec6ac94084104499997af48177322da4.image-format-carre.png"
-            },
-            "lastTiming": {
-                "end": "2024-04-03T17:00:00.000+02:00",
-                "begin": "2024-04-03T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T17:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public/parcours",
-            "imageCredits": null,
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "L'une des cinq médiations du parcours inédit « Esprit critique et intelligence artificielle » proposé par la Cité des sciences dans le cadre du Printemps de l'esprit critique 2024."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "Algorithmes de recommandation et bulles de filtre, l’IA nous dit-elle ce que nous devons aimer ?"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "79520493813b4fad8fd9662a902f26c9.image-de-levenement-format-portrait.png"
-            },
-            "image-paysage-169e": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "79520493813b4fad8fd9662a902f26c9.image-paysage-169e.png"
-            },
-            "contact-interne": "Valentin Caron",
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 43628849,
-            "porteur-doffre-cite-des-sciences": [
-                1329,
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-21T17:00:00.000+01:00",
-                "begin": "2024-03-21T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "algorithmes-de-recommandation-et-bulles-de-filtre-lia-nous-dit-elle-ce-que-nous-devons-aimer",
-            "image": {
-                "filename": "79520493813b4fad8fd9662a902f26c9.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 697
-                },
-                "variants": [
-                    {
-                        "filename": "79520493813b4fad8fd9662a902f26c9.full.image.jpg",
-                        "size": {
-                            "width": 230,
-                            "height": 229
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "79520493813b4fad8fd9662a902f26c9.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1636
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1505
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1498,
-            "parcours-bsi": [
-                1763
-            ],
-            "lieux-bsi": [
-                1174
-            ],
-            "image-format-carre": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "79520493813b4fad8fd9662a902f26c9.image-format-carre.png"
-            },
-            "lastTiming": {
-                "end": "2024-04-03T17:00:00.000+02:00",
-                "begin": "2024-04-03T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T17:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public/parcours",
-            "imageCredits": null,
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "L'une des cinq médiations du parcours inédit « Esprit critique et intelligence artificielle » proposé par la Cité des sciences dans le cadre du Printemps de l'esprit critique 2024."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "L'IA apprend, oui, mais elle apprend avec des biais"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "b3b65673dc3642d489b08fb380f6ca82.image-de-levenement-format-portrait.png"
-            },
-            "image-paysage-169e": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "b3b65673dc3642d489b08fb380f6ca82.image-paysage-169e.png"
-            },
-            "contact-interne": "Valentin Caron",
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 60139172,
-            "porteur-doffre-cite-des-sciences": [
-                1329,
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-21T17:00:00.000+01:00",
-                "begin": "2024-03-21T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "lia-apprend-oui-mais-elle-apprend-avec-des-biais-8078378",
-            "image": {
-                "filename": "b3b65673dc3642d489b08fb380f6ca82.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 697
-                },
-                "variants": [
-                    {
-                        "filename": "b3b65673dc3642d489b08fb380f6ca82.full.image.jpg",
-                        "size": {
-                            "width": 230,
-                            "height": 229
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "b3b65673dc3642d489b08fb380f6ca82.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1636
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1505
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1498,
-            "parcours-bsi": [
-                1763
-            ],
-            "lieux-bsi": [
-                1174
-            ],
-            "image-format-carre": {
-                "originalName": "csm_EspriCritiqIllustr230x318_aa6ed9f636.png",
-                "extension": "png",
-                "filename": "b3b65673dc3642d489b08fb380f6ca82.image-format-carre.png"
-            },
-            "lastTiming": {
-                "end": "2024-04-03T17:00:00.000+02:00",
-                "begin": "2024-04-03T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T17:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "#PEC2024"
-                ]
-            },
-            "dateRange": {
-                "ar": "٢٣ مارس - ٣ أبريل",
-                "de": "23 März - 3 April",
-                "en": "23 March - 3 April",
-                "it": "23 marzo - 3 aprile",
-                "fr": "23 mars - 3 avril",
-                "es": "23 marzo - 3 abril"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/evenements/printemps-esprit-critique/programmation-tout-public",
-            "imageCredits": null,
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "Atelier de philosophie et de création autour de l'IA (intelligence artificielle). L'IA pense-t-elle ? Qu'est-ce qui fait la singularité humaine ? Accès libre et gratuit, à partir de 9 ans."
-            },
-            "capacitejauge": 12,
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "L'intelligence artificielle pense-t-elle ?"
-            },
-            "image-de-levenement-format-portrait": null,
-            "image-paysage-169e": null,
-            "thematiques": [
-                841
-            ],
-            "tarifs": [
-                1341
-            ],
-            "onlineAccessLink": null,
-            "uid": 98811156,
-            "porteur-doffre-cite-des-sciences": [
-                1492
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2024-03-23T12:00:00.000+01:00",
-                "begin": "2024-03-23T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "lintelligence-artificielle-pense-t-elle-3999932",
-            "image": {
-                "filename": "8522bd4fbeb84f409293b15582c58bde.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 697
-                },
-                "variants": [
-                    {
-                        "filename": "8522bd4fbeb84f409293b15582c58bde.full.image.jpg",
-                        "size": {
-                            "width": 230,
-                            "height": 229
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "8522bd4fbeb84f409293b15582c58bde.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1637,
-                1638
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1511
-            ],
-            "activites-themes-batiments": [],
-            "organisation-bsi": 1495,
-            "parcours-bsi": [
-                1764
-            ],
-            "lieux-bsi": [
-                1175
-            ],
-            "image-format-carre": null,
-            "lastTiming": {
-                "end": "2024-04-03T16:00:00.000+02:00",
-                "begin": "2024-04-03T14:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-28T14:00:00+01:00",
-                "end": "2024-03-28T16:00:00+01:00"
-            }
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "Robotique - intelligence artificielle",
-                    "Jeu video",
-                    "Expositions"
-                ]
-            },
+            "uid": 46624658,
             "dateRange": {
                 "ar": "٢٦ سبتمبر ٢٠٢٣ - ٣ نوفمبر ٢٠٢٤",
                 "de": "26 September 2023 - 3 November 2024",
@@ -760,126 +12,376 @@
                 "fr": "26 septembre 2023 - 3 novembre 2024",
                 "es": "26 septiembre 2023 - 3 noviembre 2024"
             },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/expos-permanentes/les-expositions/e-lab",
-            "imageCredits": null,
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
+            "location": {
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
             },
-            "description": {
-                "fr": "On situe la naissance des premiers jeux sur ordinateur au début des années 1950. Des chercheurs développent alors les premiers programmes informatiques et explorent les possibilités techniques"
-            },
-            "thematique-etincelles": [],
+            "state": 1,
             "title": {
                 "fr": "e-LAB, espace vidéo"
             },
-            "image-de-levenement-format-portrait": {
-                "originalName": "E-LAB-3-EcransOA-495x880px.jpg",
-                "extension": "jpg",
-                "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.image-de-levenement-format-portrait.jpg"
-            },
-            "image-paysage-169e": {
-                "originalName": "E-LAB-3-EcransOA-300x300px-img.jpg",
-                "extension": "jpg",
-                "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.image-paysage-169e.jpg"
-            },
-            "thematiques": [
-                849
-            ],
-            "tarifs": [
-                1339
-            ],
-            "onlineAccessLink": null,
-            "uid": 46624658,
-            "porteur-doffre-cite-des-sciences": [
-                1327
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2023-09-26T18:00:00.000+02:00",
-                "begin": "2023-09-26T10:00:00.000+02:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "e-lab-espace-jeux-video",
-            "image": {
-                "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 525
-                },
-                "variants": [
-                    {
-                        "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.full.image.jpg",
-                        "size": {
-                            "width": 560,
-                            "height": 420
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1639,
-                1640,
-                1641,
-                1637
-            ],
-            "format-de-loffre": [
-                884
-            ],
-            "lieux-cite-des-sciences": [
-                279
-            ],
-            "activites-themes-batiments": [
-                26,
-                1
-            ],
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": {
-                "originalName": "E-LAB-3-EcransOA-300x300px.jpg",
-                "extension": "jpg",
-                "filename": "2d6184552e3c4a1c8400d6fd8c2a66be.image-format-carre.jpg"
-            },
-            "lastTiming": {
-                "end": "2024-11-03T19:00:00.000+01:00",
-                "begin": "2024-11-03T10:00:00.000+01:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-26T10:00:00+01:00",
-                "end": "2024-03-26T18:00:00+01:00"
-            }
+            "slug": "e-lab-espace-jeux-video"
         },
         {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "Jeux vidéo",
-                    "jeu vidéo",
-                    "programmation",
-                    "intelligence artificielle"
-                ]
+            "uid": 2551997,
+            "dateRange": {
+                "ar": "٢١ مارس - ٣ أبريل",
+                "de": "21 März - 3 April",
+                "en": "21 March - 3 April",
+                "it": "21 marzo - 3 aprile",
+                "fr": "21 mars - 3 avril",
+                "es": "21 marzo - 3 abril"
             },
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "IA et santé : gare aux biais !"
+            },
+            "slug": "ia-et-sante-gare-aux-biais-"
+        },
+        {
+            "uid": 3148177,
+            "dateRange": {
+                "ar": "٢١ مارس - ٣ أبريل",
+                "de": "21 März - 3 April",
+                "en": "21 March - 3 April",
+                "it": "21 marzo - 3 aprile",
+                "fr": "21 mars - 3 avril",
+                "es": "21 marzo - 3 abril"
+            },
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "L'IA et les images"
+            },
+            "slug": "lia-et-les-images-7318909"
+        },
+        {
+            "uid": 17633693,
+            "dateRange": {
+                "ar": "٢١ مارس - ٣ أبريل",
+                "de": "21 März - 3 April",
+                "en": "21 March - 3 April",
+                "it": "21 marzo - 3 aprile",
+                "fr": "21 mars - 3 avril",
+                "es": "21 marzo - 3 abril"
+            },
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "ChatGEPETO a dit : l'intelligence artificielle vous offre un monde meilleur ! Mythe ou réalité ?"
+            },
+            "slug": "chatgepeto-a-dit-lintelligence-artificielle-vous-offre-un-monde-meilleur-mythe-ou-realite"
+        },
+        {
+            "uid": 43628849,
+            "dateRange": {
+                "ar": "٢١ مارس - ٣ أبريل",
+                "de": "21 März - 3 April",
+                "en": "21 March - 3 April",
+                "it": "21 marzo - 3 aprile",
+                "fr": "21 mars - 3 avril",
+                "es": "21 marzo - 3 abril"
+            },
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "Algorithmes de recommandation et bulles de filtre, l’IA nous dit-elle ce que nous devons aimer ?"
+            },
+            "slug": "algorithmes-de-recommandation-et-bulles-de-filtre-lia-nous-dit-elle-ce-que-nous-devons-aimer"
+        },
+        {
+            "uid": 98811156,
+            "dateRange": {
+                "ar": "٢٣ مارس - ٣ أبريل",
+                "de": "23 März - 3 April",
+                "en": "23 March - 3 April",
+                "it": "23 marzo - 3 aprile",
+                "fr": "23 mars - 3 avril",
+                "es": "23 marzo - 3 abril"
+            },
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "L'intelligence artificielle pense-t-elle ?"
+            },
+            "slug": "lintelligence-artificielle-pense-t-elle-3999932"
+        },
+        {
+            "uid": 10828579,
             "dateRange": {
                 "ar": "٥ فبراير ٢٠٢٢ - ١٠ أبريل ٢٠٢٤",
                 "de": "5 Februar 2022 - 10 April 2024",
@@ -888,527 +390,61 @@
                 "fr": "5 février 2022 - 10 avril 2024",
                 "es": "5 febrero 2022 - 10 abril 2024"
             },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/expos-permanentes/les-expositions/e-lab/",
-            "imageCredits": "Universcience",
-            "originAgenda": {
-                "uid": 76126842,
-                "image": "https://cibul.s3.amazonaws.com/agenda76126842.jpg",
-                "title": "Cité des sciences et de l'industrie"
+            "location": {
+                "disqualifiedDuplicates": null,
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": null,
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
             },
-            "description": {
-                "fr": "Dans les jeux vidéo, on parle souvent d'intelligence artificielle pour décrire les actions et réactions de l'ordinateur. Mais nos machines vidéoludiques sont-elles vraiment intelligentes ?"
-            },
-            "capacitejauge": 60,
-            "thematique-etincelles": [],
+            "state": 2,
             "title": {
                 "fr": "Les jeux vidéo sont-ils plus intelligents que nous ?"
             },
-            "image-de-levenement-format-portrait": {
-                "originalName": "4068 ©bis.jpg",
-                "extension": "jpg",
-                "filename": "c9d3a3e0025545d19b8c8431448245f1.image-de-levenement-format-portrait.jpg"
-            },
-            "image-paysage-169e": {
-                "originalName": "Jouons_300.jpg",
-                "extension": "jpg",
-                "filename": "c9d3a3e0025545d19b8c8431448245f1.image-paysage-169e.jpg"
-            },
-            "contact-interne": "Patrice Baudhuin",
-            "thematiques": [
-                849
-            ],
-            "tarifs": [
-                1340,
-                1339
-            ],
-            "onlineAccessLink": null,
-            "description-pour-mobile": "L'intelligence artificielle existe-elle vraiment dans les jeux vidéo ?",
-            "uid": 10828579,
-            "porteur-doffre-cite-des-sciences": [
-                1327
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-02-05T16:00:00.000+01:00",
-                "begin": "2022-02-05T15:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "les-jeux-video-sont-ils-plus-intelligents-que-nous-8200209",
-            "image": {
-                "filename": "c9d3a3e0025545d19b8c8431448245f1.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 467
-                },
-                "variants": [
-                    {
-                        "filename": "c9d3a3e0025545d19b8c8431448245f1.full.image.jpg",
-                        "size": {
-                            "width": 5000,
-                            "height": 3335
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "c9d3a3e0025545d19b8c8431448245f1.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1637,
-                1639,
-                1640,
-                1641
-            ],
-            "format-de-loffre": [
-                1758
-            ],
-            "lieux-cite-des-sciences": [
-                279
-            ],
-            "activites-themes-batiments": [],
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": {
-                "originalName": "Jouons_300.jpg",
-                "extension": "jpg",
-                "filename": "c9d3a3e0025545d19b8c8431448245f1.image-format-carre.jpg"
-            },
-            "lastTiming": {
-                "end": "2024-04-10T16:00:00.000+02:00",
-                "begin": "2024-04-10T15:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": {
-                "begin": "2024-03-31T15:00:00+02:00",
-                "end": "2024-03-31T16:00:00+02:00"
-            }
+            "slug": "les-jeux-video-sont-ils-plus-intelligents-que-nous-8200209"
         },
         {
-            "featured": false,
-            "keywords": {},
-            "dateRange": {
-                "ar": "٣ - ٨ مايو ٢٠٢٢",
-                "de": "3 - 8 Mai 2022",
-                "en": "3 - 8 May 2022",
-                "it": "3 - 8 maggio 2022",
-                "fr": "3 - 8 mai 2022",
-                "es": "3 - 8 mayo 2022"
-            },
-            "imageCredits": null,
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "\"Astronomie pour les petits\" est une sensibilisation à l'astronomie. \nUn voyage spatial pour les petits, au son des mélodies, à la lumière des étoiles dans le ciel nocturne."
-            },
-            "capacitejauge": 50,
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "ASTRONOMIA PARA BEBES"
-            },
-            "image-de-levenement-format-portrait": null,
-            "image-paysage-169e": null,
-            "contact-interne": "Sandrine Baudry",
-            "thematiques": [
-                834
-            ],
-            "tarifs": [
-                1340,
-                1339
-            ],
-            "onlineAccessLink": null,
-            "description-pour-mobile": "Astronomie pour les bébés, une sensibilisation à l'astronomie.",
-            "uid": 91211851,
-            "porteur-doffre-cite-des-sciences": [
-                1323
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-05-03T10:45:00.000+02:00",
-                "begin": "2022-05-03T10:15:00.000+02:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "astronomia-para-bebes",
-            "image": null,
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1637,
-                1638
-            ],
-            "format-de-loffre": [
-                891
-            ],
-            "lieux-cite-des-sciences": [
-                1503
-            ],
-            "activites-themes-batiments": [],
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": null,
-            "lastTiming": {
-                "end": "2022-05-08T10:45:00.000+02:00",
-                "begin": "2022-05-08T10:15:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": null
-        },
-        {
-            "featured": false,
-            "keywords": {},
-            "dateRange": {
-                "ar": "٣ - ٨ مايو ٢٠٢٢",
-                "de": "3 - 8 Mai 2022",
-                "en": "3 - 8 May 2022",
-                "it": "3 - 8 maggio 2022",
-                "fr": "3 - 8 mai 2022",
-                "es": "3 - 8 mayo 2022"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/index.php?id=11513",
-            "imageCredits": "Cristina Sampaio",
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "Dans le cadre de la Saison France-Portugal 2022, le Planétarium vous propose de découvrir ce film produit par l'Exploratório - Centro Ciência Viva de Coimbra."
-            },
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "Astronomie pour les petits"
-            },
-            "image-de-levenement-format-portrait": {
-                "originalName": "AstroPetits-ecrans_OA-495x880px.jpg",
-                "extension": "jpg",
-                "filename": "d597d379226240e885f3fc4e6623107b.image-de-levenement-format-portrait.jpg"
-            },
-            "image-paysage-169e": null,
-            "contact-interne": "Caroline Turré; Joana Ventura Martins da Silva",
-            "thematiques": [
-                834
-            ],
-            "tarifs": [
-                1339,
-                1340
-            ],
-            "onlineAccessLink": null,
-            "uid": 11648630,
-            "porteur-doffre-cite-des-sciences": [],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-05-03T10:45:00.000+02:00",
-                "begin": "2022-05-03T10:15:00.000+02:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "astronomie-pour-les-petits",
-            "image": {
-                "filename": "d597d379226240e885f3fc4e6623107b.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 525
-                },
-                "variants": [
-                    {
-                        "filename": "d597d379226240e885f3fc4e6623107b.full.image.jpg",
-                        "size": {
-                            "width": 560,
-                            "height": 420
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "d597d379226240e885f3fc4e6623107b.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1637
-            ],
-            "format-de-loffre": [
-                891,
-                887
-            ],
-            "lieux-cite-des-sciences": [
-                1503
-            ],
-            "activites-themes-batiments": [],
-            "partenaires": "Exploratorio Centre Ciência Viva de Coimbra",
-            "complement-dinformation-agents-daccueil": "Tout en français",
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": {
-                "originalName": "AstroPetits-Instagram-1080x1080px.jpg",
-                "extension": "jpg",
-                "filename": "d597d379226240e885f3fc4e6623107b.image-format-carre.jpg"
-            },
-            "lastTiming": {
-                "end": "2022-05-08T10:45:00.000+02:00",
-                "begin": "2022-05-08T10:15:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": null
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "astronomie",
-                    "stage"
-                ]
-            },
-            "dateRange": {
-                "ar": "٣٠ ديسمبر ٢٠٢٢ - ٢٤ أغسطس ٢٠٢٣",
-                "de": "30 Dezember 2022 - 24 August 2023",
-                "en": "30 December 2022 - 24 August 2023",
-                "it": "30 dicembre 2022 - 24 agosto 2023",
-                "fr": "30 décembre 2022 - 24 août 2023",
-                "es": "30 diciembre 2022 - 24 agosto 2023"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/animations-spectacles/ateliers-stages-clubs/stages-de-science/en-savoir-plus/stage-de-science-enfant-initiation-a-lastronomie",
-            "imageCredits": null,
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "Explorateurs du Ciel, en route vers les planètes ! Embarquez vos enfants dans une aventure passionnante à la découverte de l’univers. ."
-            },
-            "capacitejauge": 15,
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "Stage de science Initiation à l'astronomie"
-            },
-            "image-de-levenement-format-portrait": null,
-            "image-paysage-169e": null,
-            "contact-interne": "0140053636",
-            "thematiques": [
-                834
-            ],
-            "tarifs": [
-                1339
-            ],
-            "onlineAccessLink": null,
-            "description-pour-mobile": "Stage de science à la Cité des sciences et de l'industrie",
-            "uid": 18509250,
-            "porteur-doffre-cite-des-sciences": [
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-12-30T17:30:00.000+01:00",
-                "begin": "2022-12-30T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "stage-de-science-initiation-a-lastronomie-4842345",
-            "image": {
-                "filename": "6c48101f5e7747dfb31711fa64fb1861.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 622
-                },
-                "variants": [
-                    {
-                        "filename": "6c48101f5e7747dfb31711fa64fb1861.full.image.jpg",
-                        "size": {
-                            "width": 865,
-                            "height": 768
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "6c48101f5e7747dfb31711fa64fb1861.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1638
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1524
-            ],
-            "activites-themes-batiments": [],
-            "complement-dinformation-agents-daccueil": "Chaque jour, vous avez rendez vous à 9h45 au point de rendez-vous se trouvant au niveau 0, derrière la banque d'accueil général\nÀ l'issue de la journée, le médiateur raccompagnera le groupe au même point de rendez vous à 17h30.\nEn dessous d'un nombre minimum d'enfants, le stage pourra être annulé.\n\nDéjeuner : le pique-nique inclus ! Durant les stages de science « enfant » d’une durée de 1 à plusieurs jours, un pique-nique est offert  à votre enfant pour le même prix : sandwich triangle (au poulet sous réserve de modification), chips, gâteau ou biscuit et fruit, bouteille d’eau. Le menu ne pouvant être sujet à modification, les parents qui le souhaitent pourront fournir leur propre repas à leur enfant (tarif inchangé) ou le compléter.\n\nPour limiter l'empreinte écologique, les participants doivent  venir avec leur propre gourde qu'ils pourront remplir sur place.\n\nLes stages sont proposés uniquement en langue française. \nLes enfants n'ayant pas l'âge peuvent se voir refuser l'accès.",
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": null,
-            "lastTiming": {
-                "end": "2023-08-24T17:30:00.000+02:00",
-                "begin": "2023-08-24T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": null
-        },
-        {
-            "featured": false,
-            "keywords": {},
-            "dateRange": {
-                "ar": "٢ و ٣ مارس ٢٠٢٢ ",
-                "de": "2 und 3 März 2022",
-                "en": "2 and 3 March 2022",
-                "it": "2 e 3 marzo 2022",
-                "fr": "2 et 3 mars 2022",
-                "es": "2 i 3 marzo 2022"
-            },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/animations-spectacles/ateliers-stages-clubs/stages-de-science/vacances-dhiver-2022/",
-            "imageCredits": null,
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
-            },
-            "description": {
-                "fr": "Stage de science en présentiel pour les 9/12 ans mercredi 2 mars et pour les 11/15 ans jeudi 3 mars"
-            },
-            "capacitejauge": 10,
-            "thematique-etincelles": [],
-            "title": {
-                "fr": "Stage de science Initiation à l'astronomie"
-            },
-            "image-de-levenement-format-portrait": null,
-            "image-paysage-169e": null,
-            "thematiques": [
-                834
-            ],
-            "tarifs": [
-                1339
-            ],
-            "onlineAccessLink": null,
-            "description-pour-mobile": "Stage de science en présentiel pour les 9-12 ans et les 11-15 ans",
-            "uid": 18872681,
-            "porteur-doffre-cite-des-sciences": [],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-03-02T17:30:00.000+01:00",
-                "begin": "2022-03-02T10:30:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "stage-de-science-initiation-a-lastronomie",
-            "image": {
-                "filename": "2902d2f0c1f645318826ae7ee12281a3.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 622
-                },
-                "variants": [
-                    {
-                        "filename": "2902d2f0c1f645318826ae7ee12281a3.full.image.jpg",
-                        "size": {
-                            "width": 1024,
-                            "height": 910
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "2902d2f0c1f645318826ae7ee12281a3.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1638
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1524
-            ],
-            "activites-themes-batiments": [
-                null
-            ],
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": null,
-            "lastTiming": {
-                "end": "2022-03-03T17:30:00.000+01:00",
-                "begin": "2022-03-03T10:30:00.000+01:00"
-            },
-            "format-de-loffre-etincelles": [],
-            "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "city": "Paris",
-                "latitude": 48.89568,
-                "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
-            },
-            "status": 1,
-            "nextTiming": null
-        },
-        {
-            "featured": false,
-            "keywords": {
-                "fr": [
-                    "stage",
-                    "astronomie",
-                    "carte du ciel"
-                ]
-            },
+            "uid": 80797264,
             "dateRange": {
                 "ar": "٢٩ ديسمبر ٢٠٢٢ - ٢٩ أغسطس ٢٠٢٣",
                 "de": "29 Dezember 2022 - 29 August 2023",
@@ -1417,114 +453,318 @@
                 "fr": "29 décembre 2022 - 29 août 2023",
                 "es": "29 diciembre 2022 - 29 agosto 2023"
             },
-            "url-en-savoir-plus": "https://www.cite-sciences.fr/fr/au-programme/animations-spectacles/ateliers-stages-clubs/stages-de-science/en-savoir-plus/stage-de-science-enfant-initiation-a-lastronomie",
-            "imageCredits": null,
-            "originAgenda": {
-                "image": "agenda76126842.jpg",
-                "uid": 76126842,
-                "title": "Cité des sciences et de l'industrie"
+            "location": {
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
             },
-            "description": {
-                "fr": "Pour découvrir le système solaire et les planètes, les principales constellations, comprendre l'origine et l'organisation de l'univers mais aussi apprendre à utiliser une carte du ciel."
-            },
-            "capacitejauge": 15,
-            "thematique-etincelles": [],
+            "state": 2,
             "title": {
                 "fr": "Stage de science Initiation à l'astronomie"
             },
-            "image-de-levenement-format-portrait": null,
-            "image-paysage-169e": {
-                "originalName": "Astro.jpg",
-                "extension": "jpg",
-                "filename": "e9c4abf5335b4d7594faa09256461b0c.image-paysage-169e.jpg"
+            "slug": "stage-de-science-initiation-a-lastronomie-2114404"
+        },
+        {
+            "uid": 18509250,
+            "dateRange": {
+                "ar": "٣٠ ديسمبر ٢٠٢٢ - ٢٤ أغسطس ٢٠٢٣",
+                "de": "30 Dezember 2022 - 24 August 2023",
+                "en": "30 December 2022 - 24 August 2023",
+                "it": "30 dicembre 2022 - 24 agosto 2023",
+                "fr": "30 décembre 2022 - 24 août 2023",
+                "es": "30 diciembre 2022 - 24 agosto 2023"
             },
-            "contact-interne": "0140053636",
-            "thematiques": [
-                834
-            ],
-            "tarifs": [
-                1339
-            ],
-            "onlineAccessLink": null,
-            "description-pour-mobile": "Stage de science à la Cité des sciences et de l'industrie",
-            "uid": 80797264,
-            "porteur-doffre-cite-des-sciences": [
-                1494
-            ],
-            "accessibilites-complementaires": [],
-            "firstTiming": {
-                "end": "2022-12-29T17:30:00.000+01:00",
-                "begin": "2022-12-29T10:00:00.000+01:00"
-            },
-            "libelle-du-lien-en-savoir-plus": "en savoir plus",
-            "slug": "stage-de-science-initiation-a-lastronomie-2114404",
-            "image": {
-                "originalName": null,
-                "extension": null,
-                "filename": "e9c4abf5335b4d7594faa09256461b0c.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 467
-                },
-                "variants": [
-                    {
-                        "filename": "e9c4abf5335b4d7594faa09256461b0c.full.image.jpg",
-                        "size": {
-                            "width": 450,
-                            "height": 300
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "e9c4abf5335b4d7594faa09256461b0c.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "attendanceMode": 1,
-            "publics-cibles": [
-                1638
-            ],
-            "format-de-loffre": [
-                874
-            ],
-            "lieux-cite-des-sciences": [
-                1524
-            ],
-            "activites-themes-batiments": [],
-            "complement-dinformation-agents-daccueil": "Chaque jour, vous avez rendez vous à 9h45 au point de rendez-vous se trouvant au niveau 0, derrière la banque d'accueil général\nÀ l'issue de la journée, le médiateur raccompagnera le groupe au même point de rendez vous à 17h30.\nEn dessous d'un nombre minimum d'enfants, le stage pourra être annulé.\n\nDéjeuner : le pique-nique inclus ! Durant les stages de science « enfant » d’une durée de 1 à plusieurs jours, un pique-nique est offert  à votre enfant pour le même prix : sandwich triangle (au poulet sous réserve de modification), chips, gâteau ou biscuit et fruit, bouteille d’eau. Le menu ne pouvant être sujet à modification, les parents qui le souhaitent pourront fournir leur propre repas à leur enfant (tarif inchangé) ou le compléter.\n\nPour limiter l'empreinte écologique, les participants doivent  venir avec leur propre gourde qu'ils pourront remplir sur place.\n\nLes stages sont proposés uniquement en langue française. \nLes enfants n'ayant pas l'âge peuvent se voir refuser l'accès.",
-            "parcours-bsi": [],
-            "lieux-bsi": [],
-            "image-format-carre": {
-                "originalName": "Astro.jpg",
-                "extension": "jpg",
-                "filename": "e9c4abf5335b4d7594faa09256461b0c.image-format-carre.jpg"
-            },
-            "lastTiming": {
-                "end": "2023-08-29T17:30:00.000+02:00",
-                "begin": "2023-08-29T10:00:00.000+02:00"
-            },
-            "format-de-loffre-etincelles": [],
             "location": {
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
                 "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
                 "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
                 "name": "Cité des sciences et de l'Industrie",
-                "longitude": 2.387654
+                "region": "Île-de-France"
             },
-            "status": 1,
-            "nextTiming": null
+            "state": 2,
+            "title": {
+                "fr": "Stage de science Initiation à l'astronomie"
+            },
+            "slug": "stage-de-science-initiation-a-lastronomie-4842345"
+        },
+        {
+            "uid": 11648630,
+            "dateRange": {
+                "ar": "٣ - ٨ مايو ٢٠٢٢",
+                "de": "3 - 8 Mai 2022",
+                "en": "3 - 8 May 2022",
+                "it": "3 - 8 maggio 2022",
+                "fr": "3 - 8 mai 2022",
+                "es": "3 - 8 mayo 2022"
+            },
+            "location": {
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "Astronomie pour les petits"
+            },
+            "slug": "astronomie-pour-les-petits"
+        },
+        {
+            "uid": 91211851,
+            "dateRange": {
+                "ar": "٣ - ٨ مايو ٢٠٢٢",
+                "de": "3 - 8 Mai 2022",
+                "en": "3 - 8 May 2022",
+                "it": "3 - 8 maggio 2022",
+                "fr": "3 - 8 mai 2022",
+                "es": "3 - 8 mayo 2022"
+            },
+            "location": {
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "ASTRONOMIA PARA BEBES"
+            },
+            "slug": "astronomia-para-bebes"
+        },
+        {
+            "uid": 18872681,
+            "dateRange": {
+                "ar": "٢ و ٣ مارس ٢٠٢٢ ",
+                "de": "2 und 3 März 2022",
+                "en": "2 and 3 March 2022",
+                "it": "2 e 3 marzo 2022",
+                "fr": "2 et 3 mars 2022",
+                "es": "2 i 3 marzo 2022"
+            },
+            "location": {
+                "disqualifiedDuplicates": [],
+                "access": {
+                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+                },
+                "city": "Paris",
+                "timezone": "Europe/Paris",
+                "postalCode": "75019",
+                "latitude": 48.89568,
+                "imageCredits": "(c) N. Krief/EPPDCSI",
+                "description": {
+                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+                },
+                "setUid": 87367536,
+                "uid": 81793998,
+                "createdAt": "2018-09-08T14:29:35.000Z",
+                "duplicateCandidates": [],
+                "countryCode": "FR",
+                "adminLevel5": null,
+                "links": [
+                    "https://www.facebook.com/Cite.des.sciences/",
+                    "https://twitter.com/citedessciences"
+                ],
+                "state": 1,
+                "extId": "1",
+                "department": "Paris",
+                "slug": "cit-des-sciences-et-de-l-industrie*66",
+                "email": null,
+                "longitude": 2.387654,
+                "updatedAt": "2023-09-26T15:03:53.000Z",
+                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+                "website": "http://www.cite-sciences.fr",
+                "address": "30 Avenue Corentin Cariou, 75019 Paris",
+                "adminLevel3": null,
+                "agendaUid": 76126842,
+                "adminLevel4": "Paris",
+                "adminLevel1": "Île-de-France",
+                "adminLevel2": "Paris",
+                "mergedIn": null,
+                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+                "tags": null,
+                "insee": "75056",
+                "phone": "0185539974",
+                "district": null,
+                "name": "Cité des sciences et de l'Industrie",
+                "region": "Île-de-France"
+            },
+            "state": 2,
+            "title": {
+                "fr": "Stage de science Initiation à l'astronomie"
+            },
+            "slug": "stage-de-science-initiation-a-lastronomie"
         }
     ],
     "after": [
-        9.423908,
-        80797264
+        0,
+        null,
+        1646325000000,
+        18872681
     ],
-    "sort": "score",
+    "sort": "timingsWithFeatured.asc",
     "success": true
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 const validateDateHoursMinutesTiming = require('./dateHoursMinutesTiming');
+
 const { is: isDateHoursMinutesTiming } = validateDateHoursMinutesTiming;
 const validateTiming = require('./timing');
 
@@ -11,7 +12,7 @@ module.exports = (options = {}) => dirty => {
   const errors = [];
   const baseError = {
     origin: dirty,
-    field: 'timings'
+    field: 'timings',
   };
 
   const timings = options.default && [undefined, null].includes(dirty) ? options.default : dirty;
@@ -24,7 +25,7 @@ module.exports = (options = {}) => dirty => {
     throw [{
       ...baseError,
       code: 'timings.invalid',
-      message: 'Invalid timings'
+      message: 'Invalid timings',
     }];
   }
 
@@ -32,7 +33,7 @@ module.exports = (options = {}) => dirty => {
     throw [{
       ...baseError,
       code: 'timings.min.1',
-      message: 'at least one timing is required'
+      message: 'at least one timing is required',
     }];
   }
 
@@ -40,8 +41,8 @@ module.exports = (options = {}) => dirty => {
     throw [{
       ...baseError,
       code: `timings.max.${options.max}`,
-      message: `maximum authorized number of timings (${options.max}) exceeded: ${timings.length}`
-    }]
+      message: `maximum authorized number of timings (${options.max}) exceeded: ${timings.length}`,
+    }];
   }
 
   const isDHM = isDateHoursMinutesTiming(timings[0]);
@@ -51,11 +52,11 @@ module.exports = (options = {}) => dirty => {
   timings.forEach((timing, index) => {
     try {
       cleanTimings.push(validateSingle(timing));
-    } catch(timingErrors) {
+    } catch (timingErrors) {
       timingErrors.forEach(e => errors.push({
         ...baseError,
         ...e,
-        index
+        index,
       }));
     }
   });
@@ -63,10 +64,10 @@ module.exports = (options = {}) => dirty => {
   if (errors.length) {
     throw errors;
   }
-  
+
   if (isDHM) {
-    return cleanTimings.sort((t1, t2) => DHMToString(t1.begin) < DHMToString(t2.begin) ? -1 : 1);
+    return cleanTimings.sort((t1, t2) => (DHMToString(t1.begin) < DHMToString(t2.begin) ? -1 : 1));
   }
 
-  return cleanTimings.sort((t1, t2) => t1.begin < t2.begin ? -1 : 1);
-}
+  return cleanTimings.sort((t1, t2) => (t1.begin < t2.begin ? -1 : 1));
+};

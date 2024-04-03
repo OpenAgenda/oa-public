@@ -1,1 +1,4 @@
-{}
+{
+  "event-form.components.Events.remove": "Rimuovi",
+  "event-form.components.Events.show": "Mostrare"
+}

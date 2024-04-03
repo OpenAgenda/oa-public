@@ -95,7 +95,7 @@ module.exports = {
     "oc": "Pas cap resultat trobat"
   },
   "removeSource": {
-    "fr": "Retirer des sources",
+    "fr": "Retirer la source",
     "en": "Remove source",
     "de": "entfernen Quelle",
     "es": "Eliminar una agenda fuente",

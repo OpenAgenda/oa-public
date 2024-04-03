@@ -20,11 +20,17 @@
 
     a:hover,
     .media:hover {
-
       color: $oa-white;
       background-color: $oa-blue;
 
+      &.disabled {
+        color: inherit;
+        background-color: inherit;
+        cursor: inherit;
+      }
     }
+
+
 
     .btn-link {
       display: block;
@@ -63,6 +69,11 @@
       h4 {
         font-size: 1em;
         font-weight: bold;
+      }
+
+      & > .btn-link {
+        color: inherit;
+        padding: 0;
       }
 
     }

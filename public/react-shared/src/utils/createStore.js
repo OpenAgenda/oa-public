@@ -14,7 +14,9 @@ function inject(store, getReducers, newReducers) {
       continue;
     }
 
-    store.injectedReducers[name] = reducer.__esModule ? reducer.default : reducer;
+    store.injectedReducers[name] = reducer.__esModule
+      ? reducer.default
+      : reducer;
   }
 
   store.replaceReducer(combineReducers(getReducers(store.injectedReducers)));
@@ -25,21 +27,19 @@ function getNoopReducers(reducers, data) {
     return {};
   }
 
-  return Object.keys(data)
-    .reduce((accu, key) => {
-      if (reducers[key]) {
-        return accu;
-      }
+  return Object.keys(data).reduce((accu, key) => {
+    if (reducers[key]) {
+      return accu;
+    }
 
-      return {
-        ...accu,
-        [key]: (state = data[key]) => state
-      };
-    }, {});
+    return {
+      ...accu,
+      [key]: (state = data[key]) => state,
+    };
+  }, {});
 }
 
-
-export default function (getReducers, initialState, enhancer) {
+export default (getReducers, initialState, enhancer) => {
   const getter = getReducers || noopReducer;
   const reducers = getter() || {};
   const noopReducers = getNoopReducers(reducers, initialState);
@@ -50,7 +50,7 @@ export default function (getReducers, initialState, enhancer) {
   store.injectedReducers = {};
   store.inject = inject.bind(null, store, injectedReducers => ({
     ...noopReducers,
-    ...getter(injectedReducers)
+    ...getter(injectedReducers),
   }));
 
   return store;

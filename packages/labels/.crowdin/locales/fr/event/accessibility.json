@@ -1,9 +1,9 @@
 {
-  "mi": "Handicap moteur",
   "hi": "Handicap auditif",
   "ii": "Handicap intellectuel",
+  "input": "Cet événement inclut des aménagements à l'accessibilité",
+  "mi": "Handicap moteur",
   "pi": "Handicap psychique",
-  "vi": "Handicap visuel",
   "sl": "Langue des signes",
-  "input": "Cet événement inclut des aménagements à l'accessibilité"
+  "vi": "Handicap visuel"
 }

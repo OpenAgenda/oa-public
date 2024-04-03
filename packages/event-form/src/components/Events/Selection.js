@@ -4,6 +4,7 @@ import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
 import messages from './messages';
+import includeFields from './includeFields.json';
 
 export default function Selection({ res, value, lang }) {
   const [events, setEvents] = useState([]);
@@ -19,7 +20,11 @@ export default function Selection({ res, value, lang }) {
     }
     setIsLoading(true);
 
-    fetch(`${res}?${qs.stringify({ uid: identifiers })}`).then(r => {
+    fetch(`${res}?${qs.stringify({
+      uid: identifiers,
+      state: [0, 1, 2],
+      includeFields,
+    })}`).then(r => {
       setIsLoading(false);
       if (!r.ok) {
         setErrored(true);
@@ -52,11 +57,11 @@ export default function Selection({ res, value, lang }) {
   return (
     <ul className="list-unstyled">
       {events.map(event => (
-        <li className="margin-v-sm">
+        <li className="margin-v-sm" key={`selected-event-${event.uid}`}>
           <EventItem
             event={event}
             lang={lang}
-            key={`selected-event-${event.uid}`}
+            id={`selected-event-${event.uid}`}
           >
             <a
               href={`/events/${event.slug}`}

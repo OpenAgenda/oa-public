@@ -158,7 +158,7 @@ module.exports = {
     "oc": "Accions"
   },
   "removeMember": {
-    "fr": "Retirer des membres",
+    "fr": "Retirer le membre",
     "en": "Remove member",
     "de": "entfernen Sie Mitglied",
     "es": "Eliminar miembro",

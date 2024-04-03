@@ -1,4 +1,10 @@
 {
+  "next.views.AgendaShow.ContextBar.emptySelection": [
+    {
+      "type": 0,
+      "value": "No event is referenced"
+    }
+  ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,

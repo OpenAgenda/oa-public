@@ -1,10 +1,10 @@
 {
-  "oneDate": "%day%, %times%",
-  "twoDates": "%firstDate% e %lastDate%",
+  "minuteSeparator": ":",
   "moreDates": "%firstDate% - %lastDate%",
   "noDates": "nessun data disponibile",
-  "minuteSeparator": ":",
+  "oneDate": "%day%, %times%",
   "prefix": "su",
+  "twoDates": "%firstDate% e %lastDate%",
   "weekday-0": "Domenica",
   "weekday-1": "Lunedì",
   "weekday-2": "Martedì",

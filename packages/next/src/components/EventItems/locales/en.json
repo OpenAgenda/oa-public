@@ -1,3 +1,4 @@
 {
+  "next.views.AgendaShow.ContextBar.emptySelection": "No event is referenced",
   "next.views.AgendaShow.ContextBar.undefinedTitle": "Draft event without title"
 }

@@ -1,3 +1,4 @@
 {
-  "next.views.AgendaShow.ContextBar.undefinedTitle": ""
+  "next.views.AgendaShow.ContextBar.emptySelection": "Aucun événement n'est référencé",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Titre non défini"
 }
