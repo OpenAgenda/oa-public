@@ -1,5 +1,5 @@
 import { SWRConfig } from 'swr';
-import EventShow from 'pages/n/[agendaSlug]/events/[eventSlug]';
+import EventShow from 'pages/[agendaSlug]/events/[eventSlug]';
 import EventShowView from 'views/EventShow';
 import { Agenda } from 'types';
 import intlMessagesLoader from '../../../loaders/intlMessagesLoader';
