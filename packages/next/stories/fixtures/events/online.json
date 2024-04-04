@@ -39,6 +39,13 @@
       "En ligne"
     ]
   },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
   "dateRange": {
     "ar": "٥ مايو - ٩ يونيو ٢٠٢١",
     "de": "5 Mai - 9 Juni 2021",
