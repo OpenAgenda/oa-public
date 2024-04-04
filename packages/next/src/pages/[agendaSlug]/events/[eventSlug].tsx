@@ -13,9 +13,9 @@ import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
-import { normalizeUrl as normalizeMatomoUrl } from '../../../../utils/addMatomoTracker';
-import generateNonce from '../../../../utils/generateNonce';
-import CSP, { DEFAULT_DIRECTIVES } from '../../../../utils/contentSecurityPolicy';
+import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
+import generateNonce from 'utils/generateNonce';
+import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;

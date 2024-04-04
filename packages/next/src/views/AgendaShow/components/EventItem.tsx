@@ -16,7 +16,6 @@ import {
   Text,
   Link,
   LinkBox,
-  LinkOverlay,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -30,11 +29,8 @@ import base64 from 'utils/base64';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
-
-import {
-  EventStatusBadge,
-  EventStatusTooltip,
-} from 'components/EventStatus';
+import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
+import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
@@ -184,7 +180,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
           <Flex direction="row" align="center" px="6" justify="space-between" alignItems="flex-start">
             <Heading as="h2" fontSize="xl">
               {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
-              <LinkOverlay
+              <NextChakraLinkOverlay
                 href={`/${agenda.slug}/events/${event.slug}`}
                 _hover={{
                   _before: {
@@ -194,7 +190,7 @@ function EventItem({ event, agenda, imagePriority = false }) {
                 }}
               >
                 {getLocaleValue(event.title, intl.locale)}
-              </LinkOverlay>
+              </NextChakraLinkOverlay>
             </Heading>
 
             <FavoriteButton agenda={agenda} event={event} />

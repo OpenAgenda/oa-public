@@ -68,7 +68,7 @@
   "next.views.EventShow.ContextBar.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contactar los administrators"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -200,7 +200,7 @@
   "next.views.EventShow.ContextBar.publishedContributorInfo": [
     {
       "type": 0,
-      "value": "This event is published and displayed on the agenda."
+      "value": "Cet événement est publié et affiché sur l'agenda."
     }
   ],
   "next.views.EventShow.ContextBar.publishedInfo": [
@@ -212,7 +212,7 @@
   "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
     {
       "type": 0,
-      "value": "This event has been validated by moderators. It will be published without further changes."
+      "value": "Cet événement a été validé par les modérateurs. Il sera publié sans changements additionnels."
     }
   ],
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
@@ -224,7 +224,7 @@
   "next.views.EventShow.ContextBar.refusedContributorInfo": [
     {
       "type": 0,
-      "value": "This event has been rejected by agenda administrators and will not be published."
+      "value": "Cet événement a été rejeté par les administrateurs de l'agenda et ne sera pas publié."
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
@@ -248,7 +248,7 @@
   "next.views.EventShow.ContextBar.removeEvent": [
     {
       "type": 0,
-      "value": "Retirer l'événement"
+      "value": "Tirat de l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.removeEventInfo": [
@@ -260,13 +260,13 @@
   "next.views.EventShow.ContextBar.requestEditionRights": [
     {
       "type": 0,
-      "value": "Request edition rights"
+      "value": "Demandar los dreits d'edicion"
     }
   ],
   "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -278,7 +278,7 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
     {
       "type": 0,
-      "value": "This event will be verified by administrators prior to its publication."
+      "value": "Cet événement sera vérifié par les administrateurs avant sa publication."
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -290,7 +290,7 @@
   "next.views.EventShow.ContextBar.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "Transferir la proprietat"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -558,31 +558,31 @@
   "next.views.EventShow.Sidebar.accessibleToHearing": [
     {
       "type": 0,
-      "value": "Accessible to the hearing impaired"
+      "value": "Accessible a las personas amb un handicap auditiu"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
     {
       "type": 0,
-      "value": "Accessible to the intellectually impaired"
+      "value": "Accessible a las personas amb un handicap intellectual"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToMotor": [
     {
       "type": 0,
-      "value": "Accessible to the motor impaired"
+      "value": "Accessible a las personas amb un handicap motor"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToPsychic": [
     {
       "type": 0,
-      "value": "Accessible to the psychic impaired"
+      "value": "Accessible a las personas amb un handicap psiquic"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToVisually": [
     {
       "type": 0,
-      "value": "Accessible to the visually impaired"
+      "value": "Accessible a las personas amb un handicap visual"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -599,12 +599,16 @@
   ],
   "next.views.EventShow.Sidebar.minToMaxYearsOld": [
     {
+      "type": 0,
+      "value": "De "
+    },
+    {
       "type": 1,
       "value": "min"
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " à "
     },
     {
       "type": 1,
@@ -612,7 +616,7 @@
     },
     {
       "type": 0,
-      "value": " years old"
+      "value": " ans"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -642,7 +646,7 @@
   "next.views.EventShow.Sidebar.startingAt": [
     {
       "type": 0,
-      "value": "Starting at "
+      "value": "À partir de "
     },
     {
       "type": 1,
@@ -650,7 +654,7 @@
     },
     {
       "type": 0,
-      "value": " years old"
+      "value": " ans"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
@@ -716,31 +720,31 @@
   "next.views.EventShow.transferOwnershipModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Tampar"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.nameless": [
     {
       "type": 0,
-      "value": "Sans nom"
+      "value": "Sens nom"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
     {
       "type": 0,
-      "value": "Ownership of the event has been transferred."
+      "value": "La propriété de l'événement a été transférée."
     }
   ],
   "next.views.EventShow.transferOwnershipModal.transfer": [
     {
       "type": 0,
-      "value": "Transfer"
+      "value": "Transférer"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "Transferir la proprietat"
     }
   ]
 }

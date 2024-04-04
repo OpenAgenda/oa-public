@@ -109,7 +109,7 @@
   "next.views.EventShow.moreLinks": "",
   "next.views.EventShow.sendAnEmail": "",
   "next.views.EventShow.tags": "",
-  "next.views.EventShow.transferOwnershipModal.close": "",
+  "next.views.EventShow.transferOwnershipModal.close": "Chiudere",
   "next.views.EventShow.transferOwnershipModal.nameless": "",
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
   "next.views.EventShow.transferOwnershipModal.transfer": "",

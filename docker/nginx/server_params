@@ -318,8 +318,13 @@ location ~ ^/monit(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
+# /:agendaSlug/events/:event/...
+location ~ ^/[^/]+/events/[^/]+/(action|email|ics|contact|suggest-change|embed-inbox|files|state|status|remove|featured)(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
 # /:agendaSlug/...
-location ~ ^/[^/]+/(admin|contribute|events|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact|request-contribute|navigate)(|/.+)$ {
+location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact|request-contribute|navigate)(|/.+)$ {
   include conf.d/nodejs_params;
 }
 

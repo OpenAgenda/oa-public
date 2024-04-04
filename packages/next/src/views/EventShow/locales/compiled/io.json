@@ -68,7 +68,7 @@
   "next.views.EventShow.ContextBar.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "crwdns33822:0crwdne33822:0"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -200,7 +200,7 @@
   "next.views.EventShow.ContextBar.publishedContributorInfo": [
     {
       "type": 0,
-      "value": "This event is published and displayed on the agenda."
+      "value": "crwdns33824:0crwdne33824:0"
     }
   ],
   "next.views.EventShow.ContextBar.publishedInfo": [
@@ -212,7 +212,7 @@
   "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
     {
       "type": 0,
-      "value": "This event has been validated by moderators. It will be published without further changes."
+      "value": "crwdns33826:0crwdne33826:0"
     }
   ],
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
@@ -224,7 +224,7 @@
   "next.views.EventShow.ContextBar.refusedContributorInfo": [
     {
       "type": 0,
-      "value": "This event has been rejected by agenda administrators and will not be published."
+      "value": "crwdns33828:0crwdne33828:0"
     }
   ],
   "next.views.EventShow.ContextBar.refusedInfo": [
@@ -260,13 +260,13 @@
   "next.views.EventShow.ContextBar.requestEditionRights": [
     {
       "type": 0,
-      "value": "Request edition rights"
+      "value": "crwdns33790:0crwdne33790:0"
     }
   ],
   "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "crwdns33792:0crwdne33792:0"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -278,7 +278,7 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
     {
       "type": 0,
-      "value": "This event will be verified by administrators prior to its publication."
+      "value": "crwdns33830:0crwdne33830:0"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
@@ -290,7 +290,7 @@
   "next.views.EventShow.ContextBar.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "crwdns33864:0crwdne33864:0"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -532,31 +532,31 @@
   "next.views.EventShow.Sidebar.accessibleToHearing": [
     {
       "type": 0,
-      "value": "Accessible to the hearing impaired"
+      "value": "crwdns33832:0crwdne33832:0"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
     {
       "type": 0,
-      "value": "Accessible to the intellectually impaired"
+      "value": "crwdns33834:0crwdne33834:0"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToMotor": [
     {
       "type": 0,
-      "value": "Accessible to the motor impaired"
+      "value": "crwdns33836:0crwdne33836:0"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToPsychic": [
     {
       "type": 0,
-      "value": "Accessible to the psychic impaired"
+      "value": "crwdns33838:0crwdne33838:0"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToVisually": [
     {
       "type": 0,
-      "value": "Accessible to the visually impaired"
+      "value": "crwdns33840:0crwdne33840:0"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -573,12 +573,16 @@
   ],
   "next.views.EventShow.Sidebar.minToMaxYearsOld": [
     {
+      "type": 0,
+      "value": "crwdns33842:0"
+    },
+    {
       "type": 1,
       "value": "min"
     },
     {
       "type": 0,
-      "value": " to "
+      "value": "crwdnd33842:0"
     },
     {
       "type": 1,
@@ -586,7 +590,7 @@
     },
     {
       "type": 0,
-      "value": " years old"
+      "value": "crwdne33842:0"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -616,7 +620,7 @@
   "next.views.EventShow.Sidebar.startingAt": [
     {
       "type": 0,
-      "value": "Starting at "
+      "value": "crwdns33844:0"
     },
     {
       "type": 1,
@@ -624,7 +628,7 @@
     },
     {
       "type": 0,
-      "value": " years old"
+      "value": "crwdne33844:0"
     }
   ],
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
@@ -690,31 +694,31 @@
   "next.views.EventShow.transferOwnershipModal.close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "crwdns33866:0crwdne33866:0"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.nameless": [
     {
       "type": 0,
-      "value": "Nameless"
+      "value": "crwdns33868:0crwdne33868:0"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
     {
       "type": 0,
-      "value": "Ownership of the event has been transferred."
+      "value": "crwdns33870:0crwdne33870:0"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.transfer": [
     {
       "type": 0,
-      "value": "Transfer"
+      "value": "crwdns33872:0crwdne33872:0"
     }
   ],
   "next.views.EventShow.transferOwnershipModal.transferOwnership": [
     {
       "type": 0,
-      "value": "Transfer ownership"
+      "value": "crwdns33874:0crwdne33874:0"
     }
   ]
 }
