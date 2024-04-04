@@ -54,12 +54,15 @@ import NavigateButton from './components/NavigateButton';
 import SuggestLocationChangeButton from './components/SuggestLocationChangeButton';
 import EditLocationButton from './components/EditLocationButton';
 import LocationHistory from './components/LocationHistory';
+import ShareModal from './components/ShareModal';
+import EmailConfirmationAlert from './components/EmailConfirmationAlert';
 import Map from './components/Map';
 import LdJson from './components/LdJson';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import useEvent from './hooks/useEvent';
 import useMember from './hooks/useMember';
+import useShareModal from './hooks/useShareModal';
 import messages from './messages';
 import fetchLocale from './locales';
 
@@ -88,8 +91,8 @@ function EventShow({ preload }: EventShowProps) {
 
   const languages = Object.keys(event.title);
 
-  const { cl } = useSearchParams() as { cl?: string };
-  const contentLocale = getContentLocale(languages, cl, intl.locale);
+  const searchParams = useSearchParams() as { cl?: string };
+  const contentLocale = getContentLocale(languages, searchParams.cl, intl.locale);
 
   const [tabIndex, setTabIndex] = useState(() => languages.indexOf(contentLocale));
   const handleTabsChange = index => {
@@ -119,6 +122,16 @@ function EventShow({ preload }: EventShowProps) {
     }),
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
+
+  const {
+    shareIsOpen,
+    shareOnOpen,
+    shareOnClose,
+    emailSent,
+    emailSentIsOpen,
+    emailSentOnClose,
+    onEmailSent,
+  } = useShareModal();
 
   useEffect(() => {
     if (!query.nc) {
@@ -217,7 +230,7 @@ function EventShow({ preload }: EventShowProps) {
 
           <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
-              <Sidebar contentLocale={contentLocale} />
+              <Sidebar contentLocale={contentLocale} shareOnOpen={shareOnOpen} />
             </Flex>
           </GridItem>
 
@@ -266,6 +279,7 @@ function EventShow({ preload }: EventShowProps) {
 
                 <ShareSection
                   contentLocale={contentLocale}
+                  shareOnOpen={shareOnOpen}
                   display={{ base: 'grid', lg: 'none' }}
                   justifyItems="flex-start"
                 />
@@ -602,6 +616,25 @@ function EventShow({ preload }: EventShowProps) {
 
       {needConsentFor ? (
         <ConsentBanner consentFor={needConsentFor} />
+      ) : null}
+
+      {shareIsOpen ? (
+        <ShareModal
+          isOpen
+          onClose={shareOnClose}
+          agenda={agenda}
+          event={event}
+          contentLocale={contentLocale}
+          onEmailSent={onEmailSent}
+        />
+      ) : null}
+
+      {emailSentIsOpen ? (
+        <EmailConfirmationAlert
+          isOpen
+          onClose={emailSentOnClose}
+          count={emailSent}
+        />
       ) : null}
 
       <LdJson />

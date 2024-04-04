@@ -1,4 +1,6 @@
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
+import { useRouter } from 'next/router';
 import {
   Modal,
   ModalBody,
@@ -50,14 +52,29 @@ function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) 
 
 export default function ShareModal({
   isOpen,
-  onClose,
+  onClose: originalOnClose,
   agenda,
   event,
   contentLocale,
   onEmailSent,
 }) {
   const intl = useIntl();
+  const router = useRouter();
   const { status } = useUser();
+
+  // Remove sharemodal=1 from url
+  const onClose = useCallback(() => {
+    const url = new URL(router.asPath, 'https://n');
+
+    url.searchParams.delete('sharemodal');
+
+    router.replace(
+      url.pathname + url.search,
+      null,
+      { shallow: true },
+    );
+    originalOnClose();
+  }, [originalOnClose, router]);
 
   return (
     <Modal
