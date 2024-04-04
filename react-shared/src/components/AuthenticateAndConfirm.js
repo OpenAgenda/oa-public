@@ -117,7 +117,7 @@ export default ({
             name="password"
             className="form-control"
             type="password"
-            autoComplete="off"
+            autoComplete="new-password"
           />
           {error ? (
             <div className="text-danger">{m(messages[`${error}Error`])}</div>
