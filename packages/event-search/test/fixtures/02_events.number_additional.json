@@ -1,0 +1,34 @@
+{
+  "data": {
+    "lastId": -1,
+    "events": [{
+      "uid": 1,
+      "state": 2,
+      "price": 15.2,
+      "seats": 120
+    }, {
+      "uid": 2,
+      "state": 2,
+      "price": 27.7,
+      "seats": 29
+    }, {
+      "uid": 3,
+      "state": 2,
+      "price": 98.1,
+      "seats": 10
+    }]
+  },
+  "formSchema": {
+    "fields": [{
+      "field": "price",
+      "fieldType": "number",
+      "label": "Prix",
+      "schemaId": 43
+    }, {
+      "field": "seats",
+      "fieldType": "integer",
+      "label": "Nombre de places",
+      "schemaId": 43
+    }]
+  }
+}
