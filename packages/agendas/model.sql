@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   network_uid BIGINT,
   location_set_uid BIGINT,
   slug VARCHAR(255) NOT NULL UNIQUE,
-  description VARCHAR(165), /* 150 in real world */
+  description VARCHAR(400), /* 150 in real world */
   image VARCHAR(255),
   url VARCHAR(255),
   collaborative TINYINT(1) DEFAULT '0' NOT NULL,
