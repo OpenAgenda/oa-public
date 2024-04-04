@@ -1,18 +1,12 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const choiceValidator = require('@openagenda/validators/choice');
+const textValidator = require('@openagenda/validators/text');
 
 schema.register({
-  choice: require('@openagenda/validators/choice'),
-  text: require('@openagenda/validators/text')
-});
-
-module.exports = field => ({
-  formatDSL: formatDSL.bind(null, field),
-  formatResult: ({ buckets }) => buckets.map(b => ({
-    key: b.key_as_string,
-    eventCount: b.doc_count
-  }))
+  choice: choiceValidator,
+  text: textValidator,
 });
 
 const validateOptions = schema({
@@ -20,30 +14,30 @@ const validateOptions = schema({
     type: 'regex',
     regex: /^(minute|hour|day|week|month|quarter|year|\d+(m|h|d|w|M|q|y))$/,
     optional: true,
-    default: undefined
+    default: undefined,
   },
   fixedInterval: {
     type: 'regex',
     regex: /^\d+(ms|s|m|h|d)$/,
     optional: true,
-    default: undefined
+    default: undefined,
   },
   format: {
     type: 'choice',
     unique: true,
     options: ['YYYY-MM-dd', 'YYYY-MM', 'YYYY', 'YYYY-MM-dd HH:mm'],
-    default: 'YYYY-MM-dd'
+    default: 'YYYY-MM-dd',
   },
   extendedBounds: {
     fields: {
       min: {
-        type: 'date'
+        type: 'date',
       },
       max: {
-        type: 'date'
-      }
-    }
-  }
+        type: 'date',
+      },
+    },
+  },
 });
 
 function formatDSL(field, query, options = {}) {
@@ -51,7 +45,7 @@ function formatDSL(field, query, options = {}) {
     interval,
     fixedInterval,
     format,
-    extendedBounds
+    extendedBounds,
   } = validateOptions(options);
 
   const calendarInterval = interval === undefined && fixedInterval === undefined
@@ -67,8 +61,16 @@ function formatDSL(field, query, options = {}) {
       min_doc_count: 0,
       extended_bounds: {
         min: extendedBounds.min ? extendedBounds.min.getTime() : null,
-        max: extendedBounds.max ? extendedBounds.max.getTime() : null
-      }
-    }
-  }
+        max: extendedBounds.max ? extendedBounds.max.getTime() : null,
+      },
+    },
+  };
 }
+
+module.exports = field => ({
+  formatDSL: formatDSL.bind(null, field),
+  formatResult: ({ buckets }) => buckets.map(b => ({
+    key: b.key_as_string,
+    eventCount: b.doc_count,
+  })),
+});

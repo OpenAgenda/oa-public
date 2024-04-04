@@ -1,29 +1,80 @@
 'use strict';
 
 const validateDate = require('@openagenda/validators/date')({
-  default: 'now'
+  default: 'now',
 });
+
+function fZ(str) {
+  return `${str}`.length === 1 ? `0${str}` : str;
+}
+
+function stringifyDate(dirty) {
+  const d = validateDate(dirty);
+
+  return [
+    d.getFullYear(),
+    fZ(d.getMonth() + 1),
+    fZ(d.getDate()),
+  ].join('-');
+}
+
+function iterateCursor(c) {
+  const cursorDate = new Date(c);
+  cursorDate.setDate(cursorDate.getDate() + 1);
+  return stringifyDate(cursorDate);
+}
+
+function defaultDateBounds() {
+  const ref = new Date();
+
+  ref.setDate(1);
+
+  const gte = new Date(ref);
+
+  ref.setMonth(ref.getMonth() + 1);
+  ref.setDate(0);
+
+  return {
+    gte,
+    lte: ref,
+  };
+}
+
+function range(fromDate, toDate) {
+  const items = [];
+  const lastItem = stringifyDate(toDate);
+  let cursor = stringifyDate(fromDate);
+
+  do {
+    items.push({
+      from: cursor,
+      to: cursor = iterateCursor(cursor),
+    });
+  } while (cursor <= lastItem);
+
+  return items;
+}
 
 module.exports.formatDSL = (query, { includes }) => {
   const {
     lte,
-    gte
+    gte,
   } = {
-    ..._defaultDateBounds(),
-    ...(query || {}).date || {}
+    ...defaultDateBounds(),
+    ...(query || {}).date || {},
   };
 
-  return ({
+  return {
     nested: {
-      path: 'timings'
+      path: 'timings',
     },
     aggregations: {
       timings: {
         date_range: {
           field: 'timings.begin',
           format: 'yyyy-MM-dd',
-          ranges: _range(gte, lte),
-          time_zone: 'Europe/Paris'
+          ranges: range(gte, lte),
+          time_zone: 'Europe/Paris',
         },
         aggregations: {
           timing_to_event: {
@@ -35,73 +86,22 @@ module.exports.formatDSL = (query, { includes }) => {
                   _source: {
                     excludes: [
                       '_*',
-                      'timings._*'
+                      'timings._*',
                     ],
-                    includes
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  });
-}
+                    includes,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+};
 
-module.exports.formatResult = ({ timings, doc_count }) => timings.buckets.map(b => ({
+module.exports.formatResult = ({ timings }) => timings.buckets.map(b => ({
   key: b.key.substr(0, 10),
   eventCount: b.doc_count,
-  sampleEvents: b.timing_to_event.top.hits.hits.map(h => h._source)
+  sampleEvents: b.timing_to_event.top.hits.hits.map(h => h._source),
 }));
-
-function _range(fromDate, toDate) {
-  const items = [];
-  const lastItem = _stringifyDate(toDate);
-  let cursor = _stringifyDate(fromDate);
-
-  do {
-    items.push({
-      from: cursor,
-      to: (cursor = _iterateCursor(cursor))
-    });
-  } while (cursor <= lastItem);
-
-  return items;
-}
-
-function _defaultDateBounds() {
-  const ref = new Date();
-
-  ref.setDate(1);
-
-  const gte = new Date(ref);
-
-  ref.setMonth(ref.getMonth()+1);
-  ref.setDate(0);
-
-  return {
-    gte,
-    lte: ref
-  }
-}
-
-function _stringifyDate(dirty) {
-  const d = validateDate(dirty)
-
-  return [
-    d.getFullYear(),
-    _fZ(d.getMonth() + 1),
-    _fZ(d.getDate())
-  ].join('-');
-}
-
-function _iterateCursor(c) {
-  let cursorDate = new Date(c);
-  cursorDate.setDate(cursorDate.getDate()+1);
-  return _stringifyDate(cursorDate);
-}
-
-function _fZ(str) {
-  return (str + '').length === 1 ? ('0' + str) : str;
-}

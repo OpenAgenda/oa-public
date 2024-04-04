@@ -1,7 +1,6 @@
 'use strict';
 
 const getFormSchemaAdditionalFields = require('../utils/getFormSchemaAdditionalFields');
-const terms = require('./terms');
 
 module.exports.formatDSL = function formatDSL(requested, query, options) {
   const requestedFields = requested
@@ -21,9 +20,9 @@ module.exports.formatDSL = function formatDSL(requested, query, options) {
       terms: {
         field: '_search_empty_fields',
         include: fields.map(f => f.field),
-        size: fields.length
-      }
-    }
+        size: fields.length,
+      },
+    },
   };
 };
 
@@ -39,8 +38,8 @@ module.exports.dispatchMissingCounts = function dispatchMissingCounts(requested,
       ...result,
       [matchingRequested.key]: [{
         key: matchingRequested.missing,
-        eventCount: bucket.doc_count
-      }].concat(result[matchingRequested.key])
+        eventCount: bucket.doc_count,
+      }].concat(result[matchingRequested.key]),
     };
   }, aggregationResults);
-}
+};

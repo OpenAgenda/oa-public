@@ -1,17 +1,16 @@
 'use strict';
 
 module.exports = (field, aggOptions = {}) => ({
-  formatDSL: (query, options = {}) => {
-    return ({
+  formatDSL: (query, options = {}) => ({
     terms: {
       field,
       size: options.size,
       missing: options.missing,
-      ...aggOptions
-    }
-  })},
+      ...aggOptions,
+    },
+  }),
   formatResult: result => result.buckets.map(b => ({
     key: b.key,
-    eventCount: b.doc_count
-  }))
-})
+    eventCount: b.doc_count,
+  })),
+});
