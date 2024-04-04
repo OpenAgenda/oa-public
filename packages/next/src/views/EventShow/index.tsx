@@ -443,10 +443,9 @@ function EventShow({ preload }: EventShowProps) {
 
                   {event.location.tags?.length ? (
                     <div>
-                      <chakra.span fontWeight="bold">
+                      <chakra.div fontWeight="bold">
                         {intl.formatMessage(messages.tags)}
-                      </chakra.span>
-                      &nbsp;
+                      </chakra.div>
                       {intl.formatList(event.location.tags.map(tag => tag.label), { style: 'narrow' })}
                     </div>
                   ) : null}
@@ -459,10 +458,9 @@ function EventShow({ preload }: EventShowProps) {
 
                   {event.location.access?.[contentLocale] ? (
                     <div>
-                      <chakra.span fontWeight="bold">
+                      <chakra.div fontWeight="bold">
                         {intl.formatMessage(messages.access)}
-                      </chakra.span>
-                      &nbsp;
+                      </chakra.div>
                       {event.location.access[contentLocale]}
                     </div>
                   ) : null}
