@@ -35,7 +35,7 @@ function Preview({
 
       input.onChange(undefined);
     },
-    [input, disabled]
+    [input, disabled],
   );
 
   if (!input.value || input.value === '') {
@@ -52,15 +52,18 @@ function Preview({
   });
 }
 
-function MapFilter({
-  name,
-  filter,
-  disabled,
-  collapsed,
-  className,
-  component = MapField,
-  ...rest
-}, ref) {
+function MapFilter(
+  {
+    name,
+    filter,
+    disabled,
+    collapsed,
+    className,
+    component = MapField,
+    ...rest
+  },
+  ref,
+) {
   return (
     <Field
       collapsed={collapsed}
@@ -79,13 +82,8 @@ function MapFilter({
 }
 
 const Collapsable = React.forwardRef(function Collapsable(
-  {
-    name,
-    filter,
-    disabled,
-    ...rest
-  },
-  ref
+  { name, filter, disabled, ...rest },
+  ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);
 
