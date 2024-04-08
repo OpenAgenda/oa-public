@@ -47,6 +47,13 @@ const searchSpinner = {
   radius: 4,
 };
 
+const sortOptions = [
+  'score',
+  'timings.asc',
+  'updatedAt.desc',
+  'lastTimingWithFeatured.asc',
+];
+
 const getRedirectURL = location =>
   Base64.encode(location.pathname + location.search);
 
@@ -622,7 +629,7 @@ function Dashboard() {
         <div className="pull-right">
           {intl.formatMessage(messages.sortedBy)}
           &nbsp;
-          <Sort />
+          <Sort options={sortOptions} />
         </div>
 
         <div className="clearfix" />
