@@ -11,6 +11,7 @@
   "ReactFilters.DefinedRangeFilter.startDate": "Début",
   "ReactFilters.DefinedRangeFilter.until": "Jusqu'au {date}",
   "ReactFilters.Sort.chronological": "Ordre chronologique",
+  "ReactFilters.Sort.publicView": "Vue publique",
   "ReactFilters.Sort.recentlyUpdated": "Date de mise à jour",
   "ReactFilters.Sort.relevance": "Pertinence",
   "ReactFilters.ValueBadge.removeFilter": "Supprimer le filtre",
