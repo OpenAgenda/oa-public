@@ -12,12 +12,14 @@ function Filters({
   choiceComponent: ChoiceComponent = Noop,
   dateRangeComponent: DateRangeComponent = Noop,
   definedRangeComponent: DefinedRangeComponent = Noop,
+  numberRangeComponent: NumberRangeComponent = Noop,
   mapComponent: MapComponent = Noop,
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
   favoritesComponent: FavoritesComponent = Noop,
   choiceProps = null,
   dateRangeProps = null,
+  numberRangeProps = null,
   definedRangeProps = null,
   mapProps = null,
   searchProps = null,
@@ -57,6 +59,19 @@ function Filters({
               />
             );
             break;
+          case 'numberRange': {
+            elem = (
+              <NumberRangeComponent
+                key={seed(filter)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...numberRangeProps}
+                {...additionnalProps}
+              />
+            );
+            break;
+          }
           case 'choice':
             elem = (
               <ChoiceComponent
