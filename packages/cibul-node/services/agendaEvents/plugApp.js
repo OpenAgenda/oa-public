@@ -94,7 +94,7 @@ module.exports = function plugApp(parentApp) {
   ]);
 
   parentApp.get('/:agendaSlug/navigate', [
-    sessions.mw.loadOrRedirect(),
+    sessions.mw.load(),
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),
     navigateMw,
