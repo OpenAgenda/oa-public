@@ -16,13 +16,13 @@ export default function useEventsQuery({
       if (previousPageData && !previousPageData.events) return null;
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['AgendaShow', 'events', agenda.slug, pageIndex, query, query.after];
+      if (pageIndex === 0) return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
 
       // add the cursor to the API endpoint
-      return ['AgendaShow', 'events', agenda.slug, pageIndex, query, previousPageData.after];
+      return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
     },
-    ([_page, _requestId, _slug, pageIndex, _query, after]) => getEvents(
-      null, // apiCLient
+    ([_page, _requestId, _slug, _query, pageIndex]) => getEvents(
+      null, // apiClient
       `/api/agendas/slug/${agenda.slug}/events`,
       agenda,
       pageIndex === 0 ? filters : [], // need aggs only for first page
@@ -33,7 +33,7 @@ export default function useEventsQuery({
           relative: ['current', 'upcoming'],
         } : null,
         ...query,
-        after: after?.map(String),
+        from: pageIndex * 10,
         passed: undefined, // omit passed
         includeFields,
         includeImageTimestamps: true,

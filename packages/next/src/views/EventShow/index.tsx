@@ -143,7 +143,13 @@ function EventShow({ preload }: EventShowProps) {
     //   return;
     // }
 
-    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({ [`${agenda.uid}.${event.uid}`]: query.nc }));
+    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({
+      [`${agenda.uid}.${event.uid}`]: {
+        ...query.nc,
+        state: query.nc.state ? query.nc.state.map(Number) : query.nc.state,
+        from: query.nc.from ? parseInt(query.nc.from, 10) : query.nc.from,
+      },
+    }));
     const url = new URL(router.asPath, 'https://n');
     url.search = qs.stringify({ ...query, nc: undefined }, { addQueryPrefix: true });
     router.replace(

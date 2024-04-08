@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
+import qs from 'qs';
 import useLocalStorageState from 'use-local-storage-state';
 import {
   Box,
@@ -25,6 +26,7 @@ import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-ico
 import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
+import useLocationQuery from 'hooks/useLocationQuery';
 import base64 from 'utils/base64';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
@@ -126,13 +128,25 @@ function RelativeTime({ closestTiming }) {
   );
 }
 
-function EventItem({ event, agenda, imagePriority = false }) {
+function EventItem({
+  event,
+  agenda,
+  imagePriority = false,
+  // nav
+  from = 0,
+  first = true,
+  last = true,
+}) {
   const router = useRouter();
   const intl = useIntl();
+
+  const query = useLocationQuery();
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
   const redirectUrl = base64.encode(router.asPath);
+
+  const upcomingOnly = !query.timings && query.passed !== '1';
 
   return (
     <Flex
@@ -181,7 +195,20 @@ function EventItem({ event, agenda, imagePriority = false }) {
             <Heading as="h2" fontSize="xl">
               {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
               <NextChakraLinkOverlay
-                href={`/${agenda.slug}/events/${event.slug}`}
+                href={`/${agenda.slug}/events/${event.slug}${qs.stringify({
+                  nc: {
+                    ...query,
+                    state: [2],
+                    sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+                    passed: undefined,
+                    ...upcomingOnly ? {
+                      relative: ['current', 'upcoming'],
+                    } : null,
+                    from,
+                    first: first || undefined,
+                    last: last || undefined,
+                  },
+                }, { addQueryPrefix: true })}`}
                 _hover={{
                   _before: {
                     border: '1px solid',
