@@ -80,7 +80,7 @@ const LocationItem = ({
   seeEventsRes,
   goToMergeStep3,
   goToMergeStep1FromDuplicates,
-  seeDetails
+  seeDetails,
 }) => {
   const intl = useIntl();
 
@@ -127,7 +127,7 @@ const LocationItem = ({
     e.stopPropagation();
     window.location.href = seeEventsRes.replace(
       /:locationUid/g,
-      location.uid
+      location.uid,
     );
   };
 
@@ -202,10 +202,12 @@ const LocationItem = ({
             className={'indicator'.concat(' ', location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
           />
           <i
-            className={'indicator'.concat(' ',
+            className={'indicator'.concat(
+              ' ',
               !(location.description === null || Object.keys(location.description).length === 0)
                 ? 'fa fa-file-text-o margin-right-xs'
-                : 'fa fa-file-text-o disabled margin-right-xs')}
+                : 'fa fa-file-text-o disabled margin-right-xs',
+            )}
           />
           {location.state === 0 ? (
             <span className="badge badge-warning">

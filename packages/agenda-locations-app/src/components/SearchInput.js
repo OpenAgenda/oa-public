@@ -5,7 +5,7 @@ const SearchInput = ({
   onChange,
   placeholder,
   initValue,
-  onFocus
+  onFocus,
 }) => {
   const [tmpValue, setTmpValue] = useState(initValue || '');
   const debouncedOnChange = useDebouncedCallback(value => onChange(value), 1000);

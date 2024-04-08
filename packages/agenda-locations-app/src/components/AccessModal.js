@@ -1,4 +1,3 @@
-
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
@@ -50,18 +49,18 @@ const actionMap = {
   edit: 'update',
   create: 'create',
   remove: 'delete',
-  merge: 'merge'
+  merge: 'merge',
 };
 
 const isExternal = (data, settings) => settings.access[actionMap[data]].external;
-const replacer = (tpl, d) => (tpl.replace(/\{([^)]+)?\}/g, ($1, $2) => d[$2]));
+const replacer = (tpl, d) => tpl.replace(/\{([^)]+)?\}/g, ($1, $2) => d[$2]);
 const buildActionLink = (settings, data, location) => replacer(settings.access[actionMap[data]].link, location);
 
 const AccessModal = ({
   action,
   close,
   settings,
-  location = null
+  location = null,
 }) => {
   const intl = useIntl();
   const modalType = isExternal(action, settings) ? 'external' : 'unauthorized';
@@ -98,6 +97,7 @@ const AccessModal = ({
               href={link}
               className="btn btn-primary"
               target="_blank"
+              rel="noreferrer"
             >
               {`${intl.formatMessage(messages.goTo)} ${hostname}`}
             </a>

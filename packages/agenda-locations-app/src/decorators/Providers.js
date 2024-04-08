@@ -1,4 +1,3 @@
-
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';
@@ -12,8 +11,8 @@ export default function LocationsProvider({ children, lang }) {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-      }
-    }
+      },
+    },
   }));
   return (
     <IntlProvider

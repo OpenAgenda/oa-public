@@ -69,7 +69,7 @@ const messages = defineMessages({
   locationsMerge: {
     id: 'AgendaLocations.stepper.locationsMerge',
     defaultMessage: 'Locations Merge',
-  }
+  },
 });
 
 function MergeStepper({
