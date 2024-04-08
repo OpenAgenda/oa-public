@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';

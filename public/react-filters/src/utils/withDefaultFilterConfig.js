@@ -362,11 +362,13 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
 
   const { fieldSchema } = filter;
 
-  // additionalField
-  if (fieldSchema) {
-    const isBoolean = fieldSchema.fieldType === 'boolean';
-    const options = isBoolean
-      ? [
+  // additional boolean field
+  if (fieldSchema?.fieldType === 'boolean') {
+    defaults(filter, {
+      name: fieldSchema.field,
+      type: 'choice',
+      fieldSchema,
+      options: [
         {
           label: intl.formatMessage(booleanMessages.selected),
           value: 'true',
@@ -375,18 +377,34 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
           label: intl.formatMessage(booleanMessages.notSelected),
           value: 'false',
         },
-      ]
-      : fieldSchema.options.map(option => ({
-        ...option,
-        label: getLocaleValue(option.label, intl.locale),
-        value: String(option.id),
-      }));
+      ],
+      missingValue,
+      aggregation: {
+        type: 'additionalFields',
+        field: fieldSchema.field,
+      },
+    });
 
+  // additional number field
+  } else if (['number', 'integer'].includes(fieldSchema?.fieldType)) {
+    defaults(filter, {
+      type: 'numberRange',
+      name: fieldSchema.field,
+      fieldSchema,
+      aggregation: null,
+    });
+
+  // additional optioned field
+  } else if (fieldSchema) {
     defaults(filter, {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,
-      options,
+      options: fieldSchema.options.map(option => ({
+        ...option,
+        label: getLocaleValue(option.label, intl.locale),
+        value: String(option.id),
+      })),
       missingValue,
       aggregation: {
         type: 'additionalFields',
