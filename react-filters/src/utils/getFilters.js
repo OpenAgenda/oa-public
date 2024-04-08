@@ -32,8 +32,10 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'accessibility' },
   ];
 
+  const additionalFilters = getAdditionalFilters(fields);
+
   return standardFilters
-    .concat(getAdditionalFilters(fields))
+    .concat(additionalFilters)
     .filter(filter => opts.include?.includes(filter.name) ?? true)
     .filter(filter => !opts.exclude?.includes(filter.name))
     .map(filter =>

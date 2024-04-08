@@ -11,3 +11,4 @@ coverage/
 /esm/
 /lib/
 /src/locales-compiled/
+.envrc

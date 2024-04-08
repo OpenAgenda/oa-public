@@ -244,6 +244,22 @@ export const DefinedRange = () => (
 );
 DefinedRange.storyName = 'Defined range filter';
 
+export const NumberRange = () => (
+  <Html
+    options={{ locale: 'fr' }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({
+          type: 'numberRange',
+          name: 'seats',
+        }) %>"
+      ></div>
+    `)()}
+  />
+);
+NumberRange.storyName = 'Number range filter';
+
 export const Map = () => {
   mockApi();
   return (

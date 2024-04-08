@@ -1,10 +1,10 @@
-import React from 'react';
 import {
   IntlProvider,
   FiltersProvider,
   Filters,
   DateRangeFilter,
   ChoiceFilter,
+  NumberRangeFilter,
 } from '../src';
 
 require('./scss/main.scss');
@@ -83,4 +83,17 @@ export const FilterByFilter = ({ onSubmit }) => (
     </FiltersProvider>
   </IntlProvider>
 );
-FilterByFilter.storyName = 'Filter by filter';
+
+export const NumberRange = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <NumberRangeFilter name="seats" />
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);

@@ -11,8 +11,7 @@ import FilterPreviewer from '../FilterPreviewer';
 const messages = defineMessages({
   dateRange: {
     id: 'ReactFilters.DateRangeFilter.dateRange',
-    defaultMessage:
-      'From {startDate} to {endDate}',
+    defaultMessage: 'From {startDate} to {endDate}',
   },
   startDate: {
     id: 'ReactFilters.DateRangeFilter.startDate',
@@ -47,7 +46,8 @@ export function formatValue(value) {
   }
 
   const currentTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const tzDiff = getTimezoneOffset(value.tz, value.gte) - getTimezoneOffset(currentTz, value.gte);
+  const tzDiff = getTimezoneOffset(value.tz, value.gte)
+    - getTimezoneOffset(currentTz, value.gte);
 
   if (Array.isArray(value)) {
     return value.map(v => {
@@ -92,7 +92,10 @@ function parseValue(value) {
 
   return {
     gte: selection.startDate.toISOString(),
-    lte: (selection.endDate ? endOfDay(selection.endDate) : selection.endDate).toISOString(),
+    lte: (selection.endDate
+      ? endOfDay(selection.endDate)
+      : selection.endDate
+    ).toISOString(),
     tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
   };
 }
@@ -115,7 +118,8 @@ function Preview({
   );
 
   const singleDay = useMemo(
-    () => value?.startDate
+    () =>
+      value?.startDate
       && value?.endDate
       && isSameDay(value.startDate, value.endDate),
     [value],
@@ -140,7 +144,7 @@ function Preview({
     return null;
   }
 
-  const formatDate = v => intl.formatDate(v, /* { timeZone: tz } */);
+  const formatDate = v => intl.formatDate(v /* , { timeZone: tz } */);
 
   if (selectedStaticRange) {
     label = selectedStaticRange.label;
@@ -172,13 +176,7 @@ function Preview({
 }
 
 const DateRangeFilter = React.forwardRef(function DateRangeFilter(
-  {
-    name,
-    staticRanges,
-    inputRanges,
-    rangeColor,
-    className,
-  },
+  { name, staticRanges, inputRanges, rangeColor, className },
   ref,
 ) {
   const intl = useIntl();
@@ -202,15 +200,7 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
 });
 
 const Collapsable = React.forwardRef(function Collapsable(
-  {
-    name,
-    filter,
-    component,
-    disabled,
-    staticRanges,
-    inputRanges,
-    ...rest
-  },
+  { name, filter, component, disabled, staticRanges, inputRanges, ...rest },
   ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);
