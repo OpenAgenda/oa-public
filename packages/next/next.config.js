@@ -120,6 +120,9 @@ const config = async () => {
     //   ignoreBuildErrors: true,
     // },
     // Compression is enabled with nginx
+    experimental: {
+      scrollRestoration: true,
+    },
     compress: false,
     async headers() {
       return [
