@@ -7,6 +7,7 @@ import {
   Filters,
   ChoiceFilter,
   MapFilter,
+  NumberRangeFilter,
   useGetFilterOptions,
   useGetTotal,
   useLoadGeoData,
@@ -66,6 +67,7 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
         disabled={isFetching || filtersQuery.isFetching}
         dateRangeComponent={DateRangeFilter.Collapsable}
         choiceComponent={ChoiceFilter.Collapsable}
+        numberRangeComponent={NumberRangeFilter.Collapsable}
         mapComponent={MapFilter}
         mapProps={mapProps}
         getTotal={getTotal}

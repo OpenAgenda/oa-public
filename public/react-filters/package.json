@@ -31,6 +31,7 @@
     }
   },
   "scripts": {
+    "sb": "yarn storybook",
     "prepack": "yarn clean && yarn oa-intl compile && yarn build && yarn dist",
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "babel --copy-files src -d esm -s --env-name esm",
@@ -43,7 +44,7 @@
     "prettier": "prettier-eslint --write '**/*.js'",
     "lint-staged": "lint-staged",
     "start": "concurrently -r -k -i -n dist,sb \"yarn dist -w\" \"yarn storybook\"",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev",
     "example": "cd example && nodemon server.js"
   },
   "lint-staged": {

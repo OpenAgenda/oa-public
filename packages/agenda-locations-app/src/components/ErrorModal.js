@@ -1,4 +1,3 @@
-
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
@@ -20,7 +19,6 @@ const messages = defineMessages({
 });
 
 const ErrorModal = ({
-  error,
   close,
 }) => {
   const intl = useIntl();
