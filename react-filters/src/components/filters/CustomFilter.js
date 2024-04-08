@@ -2,7 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useRef
+  useRef,
 } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
@@ -34,7 +34,7 @@ function Preview({
 
       updateFormValues(form, filter.query, false);
     },
-    [disabled, form, filter]
+    [disabled, form, filter],
   );
 
   return (
@@ -85,7 +85,7 @@ function CustomFilter({ filter }) {
           if (!registeredFields.includes(key)) {
             form.registerField(key, () => {
             }, { value: true }, {
-              initialValue: matchInitialQuery ? filter.query[key] : undefined
+              initialValue: matchInitialQuery ? filter.query[key] : undefined,
             });
           }
         }
@@ -109,7 +109,7 @@ function CustomFilter({ filter }) {
 
     const unsubscribe = form.subscribe(
       ({ values }) => updateCustomFilter(filter, matchQuery(values, filter.query)),
-      { values: true }
+      { values: true },
     );
 
     return () => {

@@ -1,4 +1,12 @@
-const isAdditionalField = field => field.schemaId && ['checkbox', 'radio', 'multiselect', 'boolean', 'select'].includes(field.fieldType);
+const isAdditionalField = field => field.schemaId && [
+  'checkbox',
+  'radio',
+  'multiselect',
+  'boolean',
+  'select',
+  'number',
+  'integer',
+].includes(field.fieldType);
 const getFieldPath = (field, path = '') => (path.length ? `${path}:${field.slug ?? field.field}` : field.slug ?? field.field);
 
 export default function getAdditionalFilters(fields, path = '') {
