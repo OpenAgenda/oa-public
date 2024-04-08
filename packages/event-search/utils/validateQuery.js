@@ -258,6 +258,17 @@ function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
     return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
   }
 
+  if (['number', 'integer'].includes(fieldSchema.fieldType)) {
+    const clean = ['lt', 'lte', 'gt', 'gte'].reduce((cleaned, operand) => (
+      Number.isNaN(dirty[operand]) ? cleaned : {
+        ...cleaned,
+        [operand]: dirty[operand],
+      }
+    ), {});
+
+    return Object.keys(clean).length ? clean : undefined;
+  }
+
   return dirty;
 }
 

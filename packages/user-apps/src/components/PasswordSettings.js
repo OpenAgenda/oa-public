@@ -29,7 +29,7 @@ export default class PasswordSettings extends Component {
         {...field.input}
         type="password"
         className="form-control"
-        autoComplete="off"
+        autoComplete="new-password"
       />
       {field.meta.touched && field.meta.error && (
         <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
@@ -44,7 +44,7 @@ export default class PasswordSettings extends Component {
         {...field.input}
         type="password"
         className="form-control"
-        autoComplete="off"
+        autoComplete="new-password"
       />
       {field.meta.touched && field.meta.error && (
         <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
@@ -59,7 +59,7 @@ export default class PasswordSettings extends Component {
         {...field.input}
         type="password"
         className="form-control"
-        autoComplete="off"
+        autoComplete="new-password"
       />
       {field.meta.touched && field.meta.error && (
         <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>

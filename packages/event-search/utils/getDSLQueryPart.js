@@ -323,6 +323,30 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
         { emptyValue },
       ));
     }
+
+    if (['number', 'integer'].includes(field.fieldType)) {
+      parts.push({
+        nested: {
+          path: '_search_additional_numbers',
+          query: {
+            bool: {
+              must: [
+                {
+                  match: {
+                    '_search_additional_numbers.fieldName': field.field,
+                  },
+                },
+                {
+                  range: {
+                    [`_search_additional_numbers.${field.fieldType}`]: cleanQuery[field.field],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      });
+    }
   });
 }
 

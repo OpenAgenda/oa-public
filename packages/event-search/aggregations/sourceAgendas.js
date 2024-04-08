@@ -3,20 +3,18 @@
 const _ = require('lodash');
 const parseAgendaBucket = require('../utils/parseAgendaBucket');
 
-module.exports.formatDSL = (query, options = {}) => {
-  return {
-    nested: {
-      path: 'sourceAgendas'
+module.exports.formatDSL = (query, options = {}) => ({
+  nested: {
+    path: 'sourceAgendas',
+  },
+  aggregations: {
+    sourceAgendas: {
+      terms: {
+        field: 'sourceAgendas._agg',
+        size: options.size,
+      },
     },
-    aggregations: {
-      sourceAgendas: {
-        terms: {
-          field: 'sourceAgendas._agg',
-          size: options.size
-        }
-      }
-    }
-  };
-}
+  },
+});
 
 module.exports.formatResult = result => _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);
