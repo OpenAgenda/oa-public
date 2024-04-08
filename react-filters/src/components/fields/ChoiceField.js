@@ -8,37 +8,41 @@ import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButt
 function useOnChoiceChange(input) {
   const inputRef = useRef();
 
-  const onChange = useMemo(() => a11yButtonActionHandler(e => {
-    if (e.target === inputRef.current) {
-      return;
-    }
+  const onChange = useMemo(
+    () =>
+      a11yButtonActionHandler(e => {
+        if (e.target === inputRef.current) {
+          return;
+        }
 
-    e.preventDefault();
-    e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
 
-    if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
-      return;
-    }
+        if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
+          return;
+        }
 
-    if (e.currentTarget.getAttribute('aria-checked') === 'true') {
-      input.onChange({
-        target: {
-          type: input.type,
-          value: input.value,
-          checked: false,
-        },
-      });
-      return;
-    }
+        if (e.currentTarget.getAttribute('aria-checked') === 'true') {
+          input.onChange({
+            target: {
+              type: input.type,
+              value: input.value,
+              checked: false,
+            },
+          });
+          return;
+        }
 
-    input.onChange({
-      target: {
-        type: input.type,
-        value: input.value,
-        checked: true,
-      },
-    });
-  }), [input.onChange, input.type, input.value]);
+        input.onChange({
+          target: {
+            type: input.type,
+            value: input.value,
+            checked: true,
+          },
+        });
+      }),
+    [input.onChange, input.type, input.value],
+  );
 
   return {
     inputRef,
@@ -55,18 +59,23 @@ export default function ChoiceField({
 }) {
   const intl = useIntl();
   const seed = useUIDSeed();
-  const total = useMemo(() => getTotal?.(filter, option), [
-    filter,
-    getTotal,
-    option,
-  ]);
+  const total = useMemo(
+    () => getTotal?.(filter, option),
+    [filter, getTotal, option],
+  );
 
   const { inputRef, onChange } = useOnChoiceChange(input);
 
   // option, onChange, input, total, disabled
 
   return (
-    <div className={cn(input.type, { disabled, active: input.checked, inactive: !input.checked })}>
+    <div
+      className={cn(input.type, {
+        disabled,
+        active: input.checked,
+        inactive: !input.checked,
+      })}
+    >
       <span
         className="oa-choice-option-label"
         role="checkbox"

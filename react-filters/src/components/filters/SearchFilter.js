@@ -10,7 +10,7 @@ const subscription = { value: true };
 const messages = defineMessages({
   placeholder: {
     id: 'ReactFilters.filters.searchFilter.placeholder',
-    defaultMessage: 'Search'
+    defaultMessage: 'Search',
   },
   previewLabel: {
     id: 'ReactFilters.filters.searchFilter.previewLabel',
@@ -37,7 +37,7 @@ function Preview({
 
       input.onChange(undefined);
     },
-    [input, disabled]
+    [input, disabled],
   );
 
   if (!input.value || input.value === '') {
@@ -54,13 +54,10 @@ function Preview({
   });
 }
 
-const SearchFilter = React.forwardRef(function SearchFilter({
-  name,
-  filter,
-  component = SearchInput,
-  placeholder = null,
-  ...rest
-}, _ref) {
+const SearchFilter = React.forwardRef(function SearchFilter(
+  { name, filter, component = SearchInput, placeholder = null, ...rest },
+  _ref,
+) {
   const seed = useUIDSeed();
   const intl = useIntl();
 

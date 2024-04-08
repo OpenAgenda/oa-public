@@ -1,28 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Field, useField } from 'react-final-form';
-import { defineMessages, useIntl } from 'react-intl';
-import MapField from '../fields/MapField';
-import Title from '../Title';
+import NumberRangeField from '../fields/NumberRangeField';
 import Panel from '../Panel';
+import Title from '../Title';
 import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { value: true };
 
-const messages = defineMessages({
-  previewLabel: {
-    id: 'ReactFilters.filters.MapFilter.previewLabel',
-    defaultMessage: 'Map',
-  },
-});
+const isDefined = v => ![undefined, null].includes(v);
+
+function formatPreviewLabel(value) {
+  if (!isDefined(value.gte) && isDefined(value.lte)) {
+    return `≤ ${value.lte}`;
+  }
+
+  if (isDefined(value.gte) && !isDefined(value.lte)) {
+    return `≥ ${value.gte}`;
+  }
+
+  if (isDefined(value.gte) && isDefined(value.lte)) {
+    return `${value.gte} ≤ ${value.lte}`;
+  }
+}
 
 function Preview({
   name,
-  filter,
   component = FilterPreviewer,
   disabled,
   ...rest
 }) {
-  const intl = useIntl();
   const { input } = useField(name, { subscription });
 
   const onRemove = useCallback(
@@ -38,51 +44,48 @@ function Preview({
     [input, disabled],
   );
 
-  if (!input.value || input.value === '') {
+  if (!input.value?.gte && !input.value?.lte) {
     return null;
   }
 
   return React.createElement(component, {
     name,
-    filter,
-    label: intl.formatMessage(messages.previewLabel),
+    label: formatPreviewLabel(input.value),
     onRemove,
     disabled,
     ...rest,
   });
 }
 
-function MapFilter(
+const NumberRangeFilter = React.forwardRef(function NumberRangeFilter(
   {
     name,
-    filter,
-    disabled,
-    collapsed,
-    className,
-    component = MapField,
-    ...rest
   },
   ref,
 ) {
   return (
     <Field
-      collapsed={collapsed}
       ref={ref}
       name={name}
       subscription={subscription}
-      component={component}
-      filter={filter}
-      disabled={disabled}
-      className={className}
-      {...rest}
+      parse={({ lte, gte }) => ({
+        lte: isDefined(lte) && lte.length ? parseInt(lte, 10) : null,
+        gte: isDefined(gte) && gte.length ? parseInt(gte, 10) : null,
+      })}
+      format={v => (v === undefined ? { lte: null, gte: null } : v)}
+      component={NumberRangeField}
     />
   );
-
-  // return <LoadableMapField ref={ref} {...props} />;
-}
+});
 
 const Collapsable = React.forwardRef(function Collapsable(
-  { name, filter, disabled, ...rest },
+  {
+    name,
+    filter,
+    component,
+    disabled,
+    ...rest
+  },
   ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);
@@ -100,10 +103,11 @@ const Collapsable = React.forwardRef(function Collapsable(
       collapsed={collapsed}
       setCollapsed={setCollapsed}
     >
-      <MapFilter
+      <NumberRangeFilter
         ref={ref}
         name={name}
         filter={filter}
+        component={component}
         disabled={disabled}
         collapsed={collapsed}
         {...rest}
@@ -112,9 +116,8 @@ const Collapsable = React.forwardRef(function Collapsable(
   );
 });
 
-const exported = React.memo(React.forwardRef(MapFilter));
+const exported = React.memo(NumberRangeFilter);
 
-// React.memo lose statics
 exported.Preview = Preview;
 exported.Collapsable = Collapsable;
 
