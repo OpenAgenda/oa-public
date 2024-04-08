@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Flex,
@@ -12,7 +12,6 @@ import {
   HStack,
   Link,
   Tooltip,
-  useDisclosure,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { FaIcon } from 'icons';
@@ -40,8 +39,6 @@ import { sidebar as messages } from '../messages';
 import Timings from './Timings';
 import References from './References';
 import Map from './Map';
-import ShareModal from './ShareModal';
-import EmailConfirmationAlert from './EmailConfirmationAlert';
 
 function getRegistrationIcon(type: string) {
   switch (type) {
@@ -103,72 +100,32 @@ function getAccessibilityMessage(type: string) {
   }
 }
 
-export function ShareSection({ contentLocale, ...props }) {
+export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
   const intl = useIntl();
 
-  const agenda = useAgenda();
   const { event } = useEvent();
 
   const canShare = !event.private && event.state === 2;
 
-  const {
-    isOpen: shareIsOpen,
-    onOpen: shareOnOpen,
-    onClose: shareOnClose,
-  } = useDisclosure();
-
-  const [emailSent, setEmailSent] = useState(0);
-  const {
-    isOpen: emailSentIsOpen,
-    onOpen: emailSentOnOpen,
-    onClose: emailSentOnClose,
-  } = useDisclosure();
-
-  const onEmailSent = count => {
-    setEmailSent(count);
-    emailSentOnOpen();
-  };
-
   return (
-    <>
-      <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-        <Icon
-          as={FaIcon}
-          icon={faShareNodes}
-          size="2xl"
-          color="oaGray.300"
-          mt="1"
-        />
-        <Button
-          onClick={shareOnOpen}
-          // leftIcon={<OAIcon />}
-          variant="solid"
-          colorScheme="primary"
-          isDisabled={!canShare}
-        >
-          {intl.formatMessage(messages.share)}
-        </Button>
-      </Grid>
-
-      {shareIsOpen ? (
-        <ShareModal
-          isOpen
-          onClose={shareOnClose}
-          agenda={agenda}
-          event={event}
-          contentLocale={contentLocale}
-          onEmailSent={onEmailSent}
-        />
-      ) : null}
-
-      {emailSentIsOpen ? (
-        <EmailConfirmationAlert
-          isOpen
-          onClose={emailSentOnClose}
-          count={emailSent}
-        />
-      ) : null}
-    </>
+    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
+      <Icon
+        as={FaIcon}
+        icon={faShareNodes}
+        size="2xl"
+        color="oaGray.300"
+        mt="1"
+      />
+      <Button
+        onClick={shareOnOpen}
+        // leftIcon={<OAIcon />}
+        variant="solid"
+        colorScheme="primary"
+        isDisabled={!canShare}
+      >
+        {intl.formatMessage(messages.share)}
+      </Button>
+    </Grid>
   );
 }
 
@@ -402,7 +359,7 @@ export function AccessibilitySection(props) {
   );
 }
 
-export default function Sidebar({ contentLocale }) {
+export default function Sidebar({ contentLocale, shareOnOpen = null }) {
   const agenda = useAgenda();
   const { event } = useEvent();
 
@@ -414,7 +371,7 @@ export default function Sidebar({ contentLocale }) {
       // w={{ base: 'full', xl: '75%' }}
       // px={{ base: '4', xl: '0' }}
     >
-      <ShareSection contentLocale={contentLocale} />
+      <ShareSection contentLocale={contentLocale} shareOnOpen={shareOnOpen} />
       <OnlineAccessSection />
       <DateRangeSection />
       <ConditionsSection />

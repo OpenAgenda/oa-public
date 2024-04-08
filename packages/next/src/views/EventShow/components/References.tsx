@@ -1,8 +1,9 @@
-import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
+import { chakra, SimpleGrid } from '@openagenda/uikit';
 import useSWRImmutable from 'swr/immutable';
 import { FetchStatus } from 'config/types';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
+import NextChakraLink from 'components/NextChakraLink';
 import graylogo140 from '../../../../public/images/graylogo140.png';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -43,7 +44,13 @@ export default function References({ agenda, event }) {
   return (
     <SimpleGrid columns={3} spacing="2">
       {references.map(agendaReference => (
-        <Box key={agendaReference.uid} title={agendaReference.title} textAlign="center">
+        <NextChakraLink
+          key={agendaReference.uid}
+          href={`/${agendaReference.slug}/events/${event.slug}`}
+          title={agendaReference.title}
+          textAlign="center"
+          _hover={{ color: 'primary.500', textDecoration: 'underline' }}
+        >
           <Image
             rounded="full"
             width="70"
@@ -62,7 +69,7 @@ export default function References({ agenda, event }) {
           <chakra.span noOfLines={2}>
             {agendaReference.title}
           </chakra.span>
-        </Box>
+        </NextChakraLink>
       ))}
     </SimpleGrid>
   );
