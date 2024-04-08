@@ -15,7 +15,6 @@ export default function StatusTag({ status }) {
     case 3:
       return (
         <Tag variant="solid" colorScheme="warning">
-          En ligne
           {intl.formatMessage(messages.movedOnline)}
         </Tag>
       );
