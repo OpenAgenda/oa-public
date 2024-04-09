@@ -62,9 +62,10 @@ function getMailtoUrl(mailtoSettings) {
 
 const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
 
-function getImageSrc(src) {
+function getImageSrc(src, updatedAt) {
   const url = new URL(src);
   url.host = keyCdnUrl.host;
+  url.searchParams.append('__ts', updatedAt);
   return url.href;
 }
 
@@ -94,6 +95,8 @@ export default function AgendaHeader({ agenda }) {
   const contactHref = hrefWithLang(`/${agenda.slug}/contact`, sessionUser ? null : intl.locale);
   const contributeHref = hrefWithLang(`/${agenda.slug}/contribute`, sessionUser ? null : intl.locale);
 
+  const updatedTs = new Date(agenda.updatedAt).getTime();
+
   return (
     <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
       {agenda.image ? (
@@ -101,9 +104,9 @@ export default function AgendaHeader({ agenda }) {
           rounded="full"
           width="140"
           height="140"
-          src={getImageSrc(agenda.image)}
+          src={getImageSrc(agenda.image, updatedTs)}
           fallbackSrc={isDev
-            ? agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
+            ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
             : undefined}
           fallbackStrategy="onError"
           loader={keyCDNLoader}

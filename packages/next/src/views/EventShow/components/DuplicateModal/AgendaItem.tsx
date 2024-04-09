@@ -7,16 +7,17 @@ import graylogo140 from '../../../../../public/images/graylogo140.png';
 
 const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
 
-function getImageSrc(src) {
+function getImageSrc(src, updatedAt) {
   const url = new URL(src, 'https://n');
   url.host = keyCdnUrl.host;
+  url.searchParams.append('__ts', updatedAt);
   return url.href;
 }
 
 export default function AgendaItem({ agenda, targetAgenda, event }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const imageSrc = targetAgenda.image ? getImageSrc(targetAgenda.image) : null;
+  const imageSrc = targetAgenda.image ? getImageSrc(targetAgenda.image, targetAgenda.updatedAt) : null;
 
   return (
     <Link href={`/${targetAgenda.slug}/contribute?agendaUid=${agenda.uid}&eventUid=${event.uid}`}>

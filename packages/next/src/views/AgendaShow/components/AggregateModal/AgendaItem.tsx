@@ -14,7 +14,8 @@ export default function AgendaItem({ agenda, targetAgenda }) {
 
   const url = new URL(router.asPath, 'https://n');
   // const redirectUrlPart = Buffer.from(url.pathname).toString('base64');
-  const imageSrc = targetAgenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}`;
+  const imageSrc = targetAgenda.image
+    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${new Date(targetAgenda.updatedAt).getTime()}`;
 
   return (
     <Link
