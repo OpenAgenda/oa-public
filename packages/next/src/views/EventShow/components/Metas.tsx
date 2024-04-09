@@ -18,7 +18,7 @@ export default function Metas({ preload, contentLocale }) {
   const canonicalUrl = absUrl.origin + absUrl.pathname;
   const languages = Object.keys(event.description);
 
-  const pageTitle = `${event.title[intl.locale]} | ${agenda.title} | OpenAgenda`;
+  const pageTitle = `${event.title[contentLocale]} | ${agenda.title} | OpenAgenda`;
   const description = event.description[contentLocale];
 
   const image = event.image ? `${IMAGE_PREFIX}${event.image.filename}` : null;
