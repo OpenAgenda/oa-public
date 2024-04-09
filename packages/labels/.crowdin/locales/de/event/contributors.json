@@ -1,6 +1,6 @@
 {
-  "contactName": "Kontaktname",
+  "organization": "Organisation",
   "contactNumber": "Kontakt Nummer",
-  "contactPosition": "Kontaktposition",
-  "organization": "Organisation"
+  "contactName": "Kontaktname",
+  "contactPosition": "Kontaktposition"
 }

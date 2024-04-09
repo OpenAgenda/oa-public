@@ -1,11 +1,11 @@
 {
-  "acceptedExtensions": "Fichièrs acceptats",
-  "error": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
-  "loading": "Cargament en cors",
-  "or": "O",
-  "remove": "Suprimir",
-  "replace": "Remplaçar lo fichièr",
-  "tip": "Depausatz un imatge dins la zòna grisada.",
+  "upload": "Cargar un imatge",
   "update": "Metre l'imatge a jorn",
-  "upload": "Cargar un imatge"
+  "error": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
+  "tip": "Depausatz un imatge dins la zòna grisada.",
+  "replace": "Remplaçar lo fichièr",
+  "loading": "Cargament en cors",
+  "remove": "Suprimir",
+  "or": "O",
+  "acceptedExtensions": "Fichièrs acceptats"
 }

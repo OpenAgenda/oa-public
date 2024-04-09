@@ -1,15 +1,15 @@
 {
-  "add": "Añadir",
-  "cancelUpdateTag": "Anular",
-  "categories": "Categorías",
-  "duplicate": "esta categoría ya existe",
   "empty": "la categoría no puede estar vacía",
-  "linkError": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
-  "listInfo": "Campo indicativo",
-  "listName": "Encabezando la lista",
-  "listSection": "Categorías de eventos",
-  "noCategories": "No se ha definido ninguna categoría para esta agenda",
-  "required": "Los mandatos. Se seleccionará una categoría.",
+  "duplicate": "esta categoría ya existe",
+  "categories": "Categorías",
   "subtitle": "Las categorías son una lista única opción",
-  "updateTag": "Ok"
+  "listName": "Encabezando la lista",
+  "listInfo": "Campo indicativo",
+  "listSection": "Categorías de eventos",
+  "add": "Añadir",
+  "noCategories": "No se ha definido ninguna categoría para esta agenda",
+  "linkError": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
+  "cancelUpdateTag": "Anular",
+  "updateTag": "Ok",
+  "required": "Los mandatos. Se seleccionará una categoría."
 }

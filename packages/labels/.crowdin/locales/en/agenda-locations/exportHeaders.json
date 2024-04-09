@@ -8,6 +8,7 @@
   "longitude": "Longitude",
   "postalCode": "Postal code",
   "insee": "INSEE Code",
+  "siret": "SIRET Code",
   "countryCode": "Country code",
   "district": "District",
   "region": "Region",
