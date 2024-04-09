@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 const map = [{
   legacy: 'contactName',
   field: 'name',
@@ -38,10 +40,7 @@ module.exports = (membersSvc, item, options) => {
     ...result,
     eventCount: item?.eventCount ?? null,
     invited: item?.invited ?? null,
-    user: item?.user ? {
-      ...item.user,
-      id: undefined,
-    } : null,
+    user: item?.user ? _.omit(item.user, ['id']) : null,
   };
 };
 

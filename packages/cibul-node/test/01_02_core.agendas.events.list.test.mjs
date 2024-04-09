@@ -123,6 +123,11 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         position: null,
         phone: null,
         organization: null,
+        user: {
+          culture: null,
+          fullName: 'Janine P.',
+          uid: 1,
+        },
       });
     });
 
