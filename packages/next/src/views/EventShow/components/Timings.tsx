@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { isFuture, compareAsc, parseISO, format } from 'date-fns';
+import { isFuture, compareAsc, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import capitalize from 'lodash/capitalize';
 import { Flex, Box, Grid, IconButton } from '@openagenda/uikit';
