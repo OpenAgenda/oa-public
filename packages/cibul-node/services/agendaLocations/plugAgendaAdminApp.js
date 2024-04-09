@@ -40,6 +40,7 @@ module.exports = (config, services, instance, app, base) => {
         'countryCode',
         'latitude',
         'longitude',
+        'insee',
         'state',
         'extId',
       ],

@@ -1,6 +1,6 @@
 'use strict';
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 const labels = require('@openagenda/labels/agenda-locations/exportHeaders');
 const flatten = require('@openagenda/labels/flatten');
@@ -15,6 +15,6 @@ module.exports = ({ lang }) => {
         mapped[flatLabels[field] || field] = location[field];
         return mapped;
       }, {}));
-    }
+    },
   });
-}
+};
