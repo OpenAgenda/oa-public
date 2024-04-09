@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { isFuture, compareAsc, parseISO } from 'date-fns';
+import { isFuture, compareAsc, parseISO, format } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import capitalize from 'lodash/capitalize';
 import { Flex, Box, Grid, IconButton } from '@openagenda/uikit';
@@ -63,7 +63,7 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
       {Object.values(timingsPerWeek).map(week =>
         Object.entries(week).map(([day, dayTimings]) => (
           <Flex key={day} justify="space-between">
-            <div>{capitalize(formatInTimeZone(new Date(day), timezone, 'eeee d', { locale: dateFnsLocale }))}</div>
+            <div>{capitalize(format(new Date(day), 'eeee d', { locale: dateFnsLocale }))}</div>
             <div>
               {dayTimings.map(timing => (
                 <div key={timing.begin}>
@@ -121,7 +121,7 @@ function TimingsWithNavigation({ timings, timezone }) {
           />
         ) : null}
         <Box gridColumn="2" fontWeight="bold">
-          {capitalize(formatInTimeZone(new Date(currentMonth), timezone, 'MMMM yyyy', { locale: dateFnsLocale }))}
+          {capitalize(format(new Date(currentMonth), 'MMMM yyyy', { locale: dateFnsLocale }))}
         </Box>
         {nextMonth ? (
           <IconButton
@@ -161,7 +161,7 @@ function TimingsWithoutNavigation({ timings, timezone }) {
             justify="center"
             mb="4"
           >
-            {capitalize(formatInTimeZone(new Date(month), timezone, 'MMMM yyyy', { locale: dateFnsLocale }))}
+            {capitalize(format(new Date(month), 'MMMM yyyy', { locale: dateFnsLocale }))}
           </Flex>
 
           <TimingsDisplay timingsPerWeek={weeks} timezone={timezone} />

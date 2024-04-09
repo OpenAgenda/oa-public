@@ -1,0 +1,200 @@
+{
+  "firstTiming": {
+    "end": "2024-06-01T16:00:00.000-04:00",
+    "begin": "2024-06-01T08:00:00.000-04:00"
+  },
+  "nextTiming": {
+    "begin": "2024-06-01T08:00:00-04:00",
+    "end": "2024-06-01T16:00:00-04:00"
+  },
+  "lastTiming": {
+    "end": "2024-06-01T16:00:00.000-04:00",
+    "begin": "2024-06-01T08:00:00.000-04:00"
+  },
+  "originAgenda": {
+    "image": "agenda7851470.jpg?__ts=1711012122129",
+    "uid": 7851470,
+    "title": "Rendez-vous aux jardins 2024 : Guadeloupe"
+  },
+  "state": 2,
+  "featured": false,
+  "dateRange": {
+    "ar": "السبت ١ يونيو, 08:00",
+    "de": "Samstag 1 Juni, 08:00",
+    "en": "Saturday 1 June, 08:00",
+    "it": "Sabato 1 giugno, 08:00",
+    "fr": "Samedi 1 juin, 08h00",
+    "es": "Sábado 1 junio, 08:00"
+  },
+  "title": {
+    "fr": "Jardin N'Gouba : Visite-découverte de la forêt et du jardin. Marqué : \"Esprit Parc\""
+  },
+  "types-devenement": 9,
+  "theme": [
+    11
+  ],
+  "image": {
+    "filename": "4ae3cd18a57145d0b2ba594ecde3ca7a.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 525
+    },
+    "variants": [
+      {
+        "filename": "4ae3cd18a57145d0b2ba594ecde3ca7a.full.image.jpg",
+        "size": {
+          "width": 1280,
+          "height": 960
+        },
+        "type": "full"
+      },
+      {
+        "filename": "4ae3cd18a57145d0b2ba594ecde3ca7a.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "imageCredits": "©yves vairac",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "de": "Auf dem Weg zum Neger",
+      "en": "Along the path of the Habitual Negress",
+      "it": "Lungo il sentiero dell'Habituée négresse",
+      "fr": "Le long du chemin de l' Habituée négresse",
+      "es": "A lo largo del camino de la Habitual negra"
+    },
+    "types-de-lieu": [
+      28,
+      29,
+      27,
+      30
+    ],
+    "city": "Bouillante",
+    "timezone": "America/Guadeloupe",
+    "postalCode": "97125",
+    "latitude": 16.131956,
+    "imageCredits": "YVES",
+    "description": {},
+    "setUid": null,
+    "specificite": [
+      33
+    ],
+    "uid": 22620071,
+    "createdAt": "2024-03-16T01:06:07.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Guadeloupe",
+    "slug": "foret-et-jardin-ngouba_1143116",
+    "email": "appolinaire.vairac@wanadoo.fr",
+    "longitude": -61.769957,
+    "updatedAt": "2024-03-16T01:10:20.000Z",
+    "image": "location22620071.jpg",
+    "website": null,
+    "address": "97125 BOUILLANTE",
+    "adminLevel3": null,
+    "agendaUid": 7851470,
+    "adminLevel4": "Bouillante",
+    "adminLevel1": "Guadeloupe",
+    "adminLevel2": "Guadeloupe",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjIyNjIwMDcxLCJuYW1lIjoiRm9yw6p0IGV0IEphcmRpbiBOJ0dPVUJBIn0=",
+    "tags": [
+      {
+        "id": 33,
+        "label": "Première participation"
+      },
+      {
+        "id": 28,
+        "label": "Jardin de collection (botanique, arboretum...)"
+      },
+      {
+        "id": 29,
+        "label": "Jardin vivrier (potager, verger, jardins familiaux, jardin de simples...)"
+      },
+      {
+        "id": 27,
+        "label": "Jardin de création récente"
+      },
+      {
+        "id": 30,
+        "label": "Jardin privé"
+      }
+    ],
+    "insee": "97106",
+    "phone": "0690492206",
+    "district": null,
+    "name": "Forêt et Jardin N'GOUBA",
+    "region": "Guadeloupe"
+  },
+  "timings": [
+    {
+      "begin": "2024-06-01T08:00:00-04:00",
+      "end": "2024-06-01T16:00:00-04:00"
+    }
+  ],
+  "description": {
+    "fr": "Visite autonome avec guide de la forêt puis du jardin et dégustation des fruits de saison"
+  },
+  "longDescription": {
+    "fr": "<p>La forêt et le jardin N'Gouba est marqué \"esprit parc\" du Parc National de la Guadeloupe. Il vous sera proposé de faire:</p>\n<p></p>\n<ul>\n<li>Une visite autonome avec guide de la forêt puis du jardin et dégustation des fruits de saison</li>\n<li>Une visite de l'atelier de fabrication de la poudre de cacao</li>\n</ul>\n"
+  },
+  "conditions-de-participation": [
+    14,
+    15
+  ],
+  "type-de-public": [
+    55,
+    56,
+    57,
+    58
+  ],
+  "conditions": {
+    "fr": "Enfant de 6 à 13 ans : 5 euros - Adulte : 10 euros-  groupe de 10 personnes 8 euros par personne ;Horaire : 8h 16 h"
+  },
+  "registration": [
+    {
+      "type": "phone",
+      "value": "0690 49 22 06"
+    },
+    {
+      "type": "email",
+      "value": "appolinaire.vairac@wanadoo.fr"
+    }
+  ],
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "keywords": {},
+  "status": 1,
+  "uid": 40066352,
+  "slug": "visite-decouverte-de-la-foret-et-du-jardin",
+  "private": 0,
+  "timezone": "America/Guadeloupe",
+  "draft": 0,
+  "createdAt": "2024-03-16T01:33:29.000Z",
+  "creatorUid": 1581988,
+  "ownerUid": 1581988,
+  "updatedAt": "2024-03-25T01:00:15.000Z",
+  "links": []
+}

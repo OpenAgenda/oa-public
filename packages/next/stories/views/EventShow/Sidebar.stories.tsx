@@ -11,6 +11,7 @@ import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventFixtures from '../../fixtures/events/sample.json';
 import onlineEventFixtures from '../../fixtures/events/online.json';
 import passCultureEventFixtures from '../../fixtures/events/passCulture.json';
+import timezonedEventFixtures from '../../fixtures/events/timezoned.json';
 
 export default {
   title: 'views/EventShow/Sidebar',
@@ -120,6 +121,14 @@ export function Online() {
 export function PassCulture() {
   return (
     <Fixtures event={passCultureEventFixtures}>
+      <Sidebar contentLocale="fr" />
+    </Fixtures>
+  );
+}
+
+export function Timezoned() {
+  return (
+    <Fixtures event={timezonedEventFixtures}>
       <Sidebar contentLocale="fr" />
     </Fixtures>
   );
