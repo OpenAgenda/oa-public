@@ -1,6 +1,5 @@
 import isEqual from 'lodash/isEqual';
 import React, { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
 import qs from 'qs';
@@ -15,7 +14,6 @@ import {
   ListItem,
   ListIcon,
   Text,
-  Link,
   LinkBox,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
@@ -27,12 +25,12 @@ import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pr
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
-import base64 from 'utils/base64';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import NextChakraLink from 'components/NextChakraLink';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
@@ -137,14 +135,11 @@ function EventItem({
   first = true,
   last = true,
 }) {
-  const router = useRouter();
   const intl = useIntl();
 
   const query = useLocationQuery();
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
-
-  const redirectUrl = base64.encode(router.asPath);
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
@@ -298,8 +293,8 @@ function EventItem({
               alignSelf="flex-end"
             >
               <Button
-                as={Link}
-                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                as={NextChakraLink}
+                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
                 colorScheme="primary"
                 borderRadius="sm"
                 display={{ base: 'none', sm: 'inline-flex' }}
@@ -308,8 +303,8 @@ function EventItem({
               </Button>
 
               <Button
-                as={Link}
-                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                as={NextChakraLink}
+                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
                 colorScheme="primary"
                 borderRadius="sm"
                 display={{ base: 'inline-flex', sm: 'none' }}
