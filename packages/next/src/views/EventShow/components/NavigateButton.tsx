@@ -24,16 +24,19 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
   const { event } = useEvent();
 
   const [nc, setNc] = useSessionStorageState('EventShow:nc');
-
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
   const goToSiblingEvent = async () => {
     const response = await ky(`/${agenda.slug}/navigate?${qs.stringify({
       nav: direction === 'previous' ? 'prev' : 'next',
-      nc: eventNc,
+      nc: {
+        state: eventNc.fromAdmin ? [-1, 0, 1, 2] : undefined,
+        sort: eventNc.fromAdmin ? 'updatedAt.desc' : undefined,
+        ...eventNc,
+        fromAdmin: undefined,
+      },
     })}`).json<any>();
     if (!response.event) return;
-    const index = parseInt(eventNc.index, 10);
 
     // speed up context bar display
     preload(`/api/me/agendas/${agenda.uid}/events/${response.event.uid}`, input => ky(input).json());
@@ -43,7 +46,7 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
         setNc({
           [`${agenda.uid}.${response.event.uid}`]: {
             ...eventNc,
-            index: direction === 'previous' ? index - 1 : index + 1,
+            from: direction === 'previous' ? eventNc.from - 1 : eventNc.from + 1,
             first: response.isFirst ? 'true' : undefined,
             last: response.isLast ? 'true' : undefined,
           },

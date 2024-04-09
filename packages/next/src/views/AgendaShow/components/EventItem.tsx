@@ -1,8 +1,8 @@
 import isEqual from 'lodash/isEqual';
 import React, { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
+import qs from 'qs';
 import useLocalStorageState from 'use-local-storage-state';
 import {
   Box,
@@ -14,7 +14,6 @@ import {
   ListItem,
   ListIcon,
   Text,
-  Link,
   LinkBox,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
@@ -25,12 +24,13 @@ import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-ico
 import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
-import base64 from 'utils/base64';
+import useLocationQuery from 'hooks/useLocationQuery';
 import upperFirst from 'utils/upperFirst';
 import keyCDNLoader from 'utils/keyCDNLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import NextChakraLink from 'components/NextChakraLink';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
@@ -126,13 +126,24 @@ function RelativeTime({ closestTiming }) {
   );
 }
 
-function EventItem({ event, agenda, imagePriority = false }) {
-  const router = useRouter();
+function EventItem({
+  event,
+  agenda,
+  imagePriority = false,
+  // nav
+  from = 0,
+  first = true,
+  last = true,
+}) {
   const intl = useIntl();
+
+  const query = useLocationQuery();
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
-  const redirectUrl = base64.encode(router.asPath);
+  const upcomingOnly = !query.timings && query.passed !== '1';
+
+  const updatedTs = new Date(event.updatedAt).getTime();
 
   return (
     <Flex
@@ -181,7 +192,20 @@ function EventItem({ event, agenda, imagePriority = false }) {
             <Heading as="h2" fontSize="xl">
               {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
               <NextChakraLinkOverlay
-                href={`/${agenda.slug}/events/${event.slug}`}
+                href={`/${agenda.slug}/events/${event.slug}${qs.stringify({
+                  nc: {
+                    ...query,
+                    state: [2],
+                    sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+                    passed: undefined,
+                    ...upcomingOnly ? {
+                      relative: ['current', 'upcoming'],
+                    } : null,
+                    from,
+                    first: first || undefined,
+                    last: last || undefined,
+                  },
+                }, { addQueryPrefix: true })}`}
                 _hover={{
                   _before: {
                     border: '1px solid',
@@ -201,10 +225,10 @@ function EventItem({ event, agenda, imagePriority = false }) {
             ? event.image?.size?.width && event.image?.size?.height ? (
               <Image
                 src={process.env.NODE_ENV === 'development'
-                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                  : `${IMAGE_PREFIX}${event.image.filename}`}
+                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                  : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
                 fallbackSrc={process.env.NODE_ENV === 'development'
-                  ? `${IMAGE_PREFIX}${event.image.filename}`
+                  ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                   : undefined}
                 fallbackStrategy="onError"
                 width={event.image.size.width}
@@ -269,8 +293,8 @@ function EventItem({ event, agenda, imagePriority = false }) {
               alignSelf="flex-end"
             >
               <Button
-                as={Link}
-                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                as={NextChakraLink}
+                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
                 colorScheme="primary"
                 borderRadius="sm"
                 display={{ base: 'none', sm: 'inline-flex' }}
@@ -279,8 +303,8 @@ function EventItem({ event, agenda, imagePriority = false }) {
               </Button>
 
               <Button
-                as={Link}
-                href={`/${agenda.slug}/events/${event.slug}/action?redirect=${redirectUrl}`}
+                as={NextChakraLink}
+                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
                 colorScheme="primary"
                 borderRadius="sm"
                 display={{ base: 'inline-flex', sm: 'none' }}

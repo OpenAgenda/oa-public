@@ -143,7 +143,13 @@ function EventShow({ preload }: EventShowProps) {
     //   return;
     // }
 
-    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({ [`${agenda.uid}.${event.uid}`]: query.nc }));
+    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({
+      [`${agenda.uid}.${event.uid}`]: {
+        ...query.nc,
+        state: query.nc.state ? query.nc.state.map(Number) : query.nc.state,
+        from: query.nc.from ? parseInt(query.nc.from, 10) : query.nc.from,
+      },
+    }));
     const url = new URL(router.asPath, 'https://n');
     url.search = qs.stringify({ ...query, nc: undefined }, { addQueryPrefix: true });
     router.replace(
@@ -158,6 +164,8 @@ function EventShow({ preload }: EventShowProps) {
   const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
   const displayContextBar = isEventContributor || isAdminMod;
+
+  const updatedTs = new Date(event.updatedAt).getTime();
 
   return (
     <>
@@ -294,10 +302,10 @@ function EventShow({ preload }: EventShowProps) {
                     ? event.image?.size?.width && event.image?.size?.height ? (
                       <Image
                         src={process.env.NODE_ENV === 'development'
-                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                          : `${IMAGE_PREFIX}${event.image.filename}`}
+                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                          : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
                         fallbackSrc={process.env.NODE_ENV === 'development'
-                          ? `${IMAGE_PREFIX}${event.image.filename}`
+                          ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                           : undefined}
                         fallbackStrategy="onError"
                         width={event.image.size.width}
@@ -311,10 +319,10 @@ function EventShow({ preload }: EventShowProps) {
                     ) : (
                       <Image
                         src={process.env.NODE_ENV === 'development'
-                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                          : `${IMAGE_PREFIX}${event.image.filename}`}
+                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                          : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
                         fallbackSrc={process.env.NODE_ENV === 'development'
-                          ? `${IMAGE_PREFIX}${event.image.filename}`
+                          ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                           : undefined}
                         fallbackStrategy="onError"
                         fill
@@ -484,10 +492,10 @@ function EventShow({ preload }: EventShowProps) {
                       {event.location.image ? (
                         <Image
                           src={process.env.NODE_ENV === 'development'
-                            ? `${DEV_IMAGE_PREFIX}${event.location.image}`
-                            : `${IMAGE_PREFIX}${event.location.image}`}
+                            ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                            : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`}
                           fallbackSrc={process.env.NODE_ENV === 'development'
-                            ? `${IMAGE_PREFIX}${event.location.image}`
+                            ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
                             : undefined}
                           fallbackStrategy="onError"
                           fill

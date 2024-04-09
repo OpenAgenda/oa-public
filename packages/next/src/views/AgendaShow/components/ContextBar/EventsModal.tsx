@@ -37,18 +37,20 @@ function LoadingBody() {
   );
 }
 
-function EventImage({ src, loader = null }) {
+function EventImage({ src, loader = null, updatedAt = null }) {
   const isDev = process.env.NODE_ENV === 'development';
+
+  const tsSuffix = updatedAt ? `?__ts=${new Date(updatedAt).getTime()}` : '';
 
   return (
     <Image
       rounded="full"
       width="56"
       height="56"
-      src={src}
+      src={`${src}${tsSuffix}`}
       fallbackSrc={isDev && typeof src === 'string'
-        ? src.replace('cibuldev', 'cibul')
-          .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)
+        ? `${src.replace('cibuldev', 'cibul')
+          .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)}${tsSuffix}`
         : undefined}
       fallbackStrategy="onError"
       alt=""
@@ -69,7 +71,7 @@ function EventItem({ agenda, event }) {
   return (
     <HStack>
       {imageSrc ? (
-        <EventImage src={imageSrc} loader={keyCDNLoader} />
+        <EventImage src={imageSrc} updatedAt={event.updatedAt} loader={keyCDNLoader} />
       ) : (
         <EventImage src={graylogo140} />
       )}

@@ -74,6 +74,10 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
             event={event}
             agenda={agenda}
             imagePriority={pageIndex === 0 && eventIndex <= 1}
+            // nav
+            from={pageIndex * PAGE_SIZE + eventIndex}
+            first={pageIndex === 0 && eventIndex === 0}
+            last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
           />
         )))}
       </Flex>

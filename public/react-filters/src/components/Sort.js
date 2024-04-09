@@ -19,6 +19,10 @@ const messages = defineMessages({
     id: 'ReactFilters.Sort.recentlyUpdated',
     defaultMessage: 'Recently updated',
   },
+  publicView: {
+    id: 'ReactFilters.Sort.publicView',
+    defaultMessage: 'Public view',
+  },
 });
 
 const stateSelectStyles = {
@@ -42,13 +46,13 @@ const stateSelectStyles = {
   }),
 };
 
-export default function Sort() {
+const defaultOptions = ['score', 'timings.asc', 'updatedAt.desc'];
+
+export default function Sort({ options = defaultOptions }) {
   const intl = useIntl();
   const form = useForm();
 
-  const [userSort, setUserSort] = useState(() => {
-    return form.getState().values.sort;
-  });
+  const [userSort, setUserSort] = useState(() => form.getState().values.sort);
 
   const orderOptions = useMemo(
     () => [
@@ -65,8 +69,12 @@ export default function Sort() {
         label: intl.formatMessage(messages.recentlyUpdated),
         value: 'updatedAt.desc',
       },
-    ],
-    [intl]
+      {
+        label: intl.formatMessage(messages.publicView),
+        value: 'lastTimingWithFeatured.asc',
+      },
+    ].filter(option => options.includes(option.value)),
+    [intl, options],
   );
 
   return (

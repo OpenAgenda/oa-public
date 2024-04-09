@@ -119,6 +119,9 @@ const config = async () => {
     // typescript: {
     //   ignoreBuildErrors: true,
     // },
+    experimental: {
+      scrollRestoration: true,
+    },
     // Compression is enabled with nginx
     compress: false,
     async headers() {

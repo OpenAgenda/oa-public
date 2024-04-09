@@ -170,13 +170,13 @@ export default function OtherActions({ agenda }) {
               {event.featured ? (
                 <ButtonMenuItem
                   onClick={() => patchEvent({ featured: false })}
-                  action={intl.formatMessage(messages.feature)}
+                  action={intl.formatMessage(messages.unfeature)}
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               ) : (
                 <ButtonMenuItem
                   onClick={() => patchEvent({ featured: true })}
-                  action={intl.formatMessage(messages.unfeature)}
+                  action={intl.formatMessage(messages.feature)}
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               )}

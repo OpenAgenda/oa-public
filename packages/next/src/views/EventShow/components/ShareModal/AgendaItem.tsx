@@ -8,7 +8,10 @@ import graylogo140 from '../../../../../public/images/graylogo140.png';
 export default function AgendaItem({ agenda, targetAgenda, event }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const imageSrc = targetAgenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}`;
+  const updatedTs = new Date(targetAgenda.updatedAt).getTime();
+
+  const imageSrc = targetAgenda.image
+    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${updatedTs}`;
 
   return (
     <Link href={`/${targetAgenda.slug}/contribute/event/${event.uid}/from/${agenda.uid}`}>

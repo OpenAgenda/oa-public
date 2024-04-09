@@ -6,7 +6,6 @@ import qs from 'qs';
 import { css } from '@emotion/react';
 import { useApiClient, MoreInfo } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
-import addQueryPrefix from '../utils/addQueryPrefix';
 import toggleEventItemValue from '../utils/toggleEventItemValue';
 import EventStateSelector from './EventStateSelector';
 import EventItemShareLine from './EventItemShareLine';
@@ -171,12 +170,9 @@ export default function EventItem({
       qs.stringify(
         {
           nc: {
-            ...addQueryPrefix({
-              sort: 'updatedAt.desc',
-              ...query,
-            }),
-            page: page > 1 ? page : null,
-            index,
+            ...query,
+            fromAdmin: true,
+            from: (page - 1) * 20 + index,
             first: isFirst || null,
             last: isLast || null,
           },
