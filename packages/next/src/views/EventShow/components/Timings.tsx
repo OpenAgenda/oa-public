@@ -63,7 +63,7 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
       {Object.values(timingsPerWeek).map(week =>
         Object.entries(week).map(([day, dayTimings]) => (
           <Flex key={day} justify="space-between">
-            <div>{capitalize(format(new Date(day), 'eeee d', { locale: dateFnsLocale }))}</div>
+            <div>{capitalize(formatInTimeZone(new Date(day), 'UTC', 'eeee d', { locale: dateFnsLocale }))}</div>
             <div>
               {dayTimings.map(timing => (
                 <div key={timing.begin}>
@@ -121,7 +121,7 @@ function TimingsWithNavigation({ timings, timezone }) {
           />
         ) : null}
         <Box gridColumn="2" fontWeight="bold">
-          {capitalize(format(new Date(currentMonth), 'MMMM yyyy', { locale: dateFnsLocale }))}
+          {capitalize(formatInTimeZone(new Date(currentMonth), 'UTC', 'MMMM yyyy', { locale: dateFnsLocale }))}
         </Box>
         {nextMonth ? (
           <IconButton
@@ -161,7 +161,7 @@ function TimingsWithoutNavigation({ timings, timezone }) {
             justify="center"
             mb="4"
           >
-            {capitalize(format(new Date(month), 'MMMM yyyy', { locale: dateFnsLocale }))}
+            {capitalize(formatInTimeZone(new Date(month), 'UTC', 'MMMM yyyy', { locale: dateFnsLocale }))}
           </Flex>
 
           <TimingsDisplay timingsPerWeek={weeks} timezone={timezone} />
