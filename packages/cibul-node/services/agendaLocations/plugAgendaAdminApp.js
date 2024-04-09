@@ -4,19 +4,26 @@ const csv = require('fast-csv');
 const ExcelJS = require('exceljs');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
+const isSIRETEnabled = require('./lib/isSIRETEnabled');
 
 module.exports = (config, services, instance, app, base) => {
   const {
     members,
     agendas,
+    core,
   } = services;
 
   app.use(
     `${base}*`,
-    agendas.mw.loadBy({
-      path: 'params.agendaSlug',
-      field: 'slug',
-    }),
+    (req, res, next) => {
+      core.agendas.slug(req.params.agendaSlug).get({
+        access: 'internal',
+        detailed: true,
+      }).then(agenda => {
+        req.agenda = agenda;
+        next();
+      });
+    },
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
     loadLocationEndpoints(instance),
@@ -43,7 +50,7 @@ module.exports = (config, services, instance, app, base) => {
         'insee',
         'state',
         'extId',
-      ],
+      ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []),
     }).then(stream => {
       req.stream = stream.pipe(transformLocationForFlatExport({ lang: req.lang }));
       next();
