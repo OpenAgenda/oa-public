@@ -58,21 +58,21 @@ window.hook(options => {
       case 'adminmod': // admin (not contributor) -> contributor
         return {
           type: 'user',
-          identifier: params.ownerUid,
+          identifier: params.event.ownerUid,
         };
       case 'contributor': // contributor (not admin) -> admins/modos
         return {
           type: 'agenda',
-          identifier: params.agendaUid,
+          identifier: params.agenda.uid,
         };
       case 'simpleUser': // user lambda -> admins/modos + contributor
         return [
           {
             type: 'agenda',
-            identifier: params.agendaUid,
+            identifier: params.agenda.uid,
           }, {
             type: 'user',
-            identifier: params.ownerUid,
+            identifier: params.agenda.uid,
           },
         ];
     }
