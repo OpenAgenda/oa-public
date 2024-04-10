@@ -26,7 +26,7 @@ const validator = (config = {}) => {
   });
 
   return Object.assign(value => {
-    let clean = preClean(params, value);
+    const clean = preClean(params, value);
 
     if ((value === undefined) && (params.default !== undefined)) {
       return params.unique ? params.default : [].concat(params.default);
@@ -34,10 +34,6 @@ const validator = (config = {}) => {
 
     if (!params.optional && !clean.length) {
       throw errors(params, value, 'choice.required', 'a (known) value must be chosen');
-    }
-
-    if (!clean.length && params.default !== undefined) {
-      clean = [].concat(params.default);
     }
 
     if (params.unique && params.optional && value === undefined) {
@@ -68,7 +64,6 @@ const validator = (config = {}) => {
           min: params.min,
         },
       });
-      // throw [_getMinMaxError(params, value, 'choice.required.max')];
     }
 
     return clean;

@@ -39,6 +39,17 @@ describe('choice validator', () => {
 
       expect(errors[0].code).toBe('choice.required');
     });
+
+    it('optional with default given empty array should store empty array', () => {
+      const validateChoice = validators.choice({
+        options: [2, 4, 14],
+        default: [2],
+      });
+
+      const clean = validateChoice([]);
+
+      expect(clean).toEqual([]);
+    });
   });
 
   describe('still pretty basic usage', () => {
