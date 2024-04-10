@@ -1,26 +1,17 @@
-"use strict";
-
-const utils = require('@openagenda/utils');
-
 const validators = require('../src');
-const { default: errors } = require('../src/lib/errors');
 
 const schema = require('../src/schema');
 
 describe('schema validator', () => {
-
   describe('shallow schemas', () => {
-
     beforeAll(() => {
-
       // load up the validators
       // that will be used by the schema lib
       schema.register({
         text: validators.text,
         link: validators.link,
-        number: validators.number
+        number: validators.number,
       });
-
     });
 
     it('optional declared as undefined', () => {
@@ -29,8 +20,8 @@ describe('schema validator', () => {
           enableWith: null,
           optional: undefined,
           optionalWith: null,
-          type: 'link'
-        }
+          type: 'link',
+        },
       });
 
       expect(validate({})).toEqual({});
@@ -41,44 +32,42 @@ describe('schema validator', () => {
         title: {
           type: 'text',
           min: 2,
-          max: 100
-        }
+          max: 100,
+        },
       });
 
       expect(validate({
-        title: 'Simple!'
+        title: 'Simple!',
       })).toEqual({
-        title: 'Simple!'
+        title: 'Simple!',
       });
     });
-
 
     it('validates an object with a schema of two items', () => {
       const validate = schema({
         title: {
-          type: 'text'
+          type: 'text',
         },
         link: {
-          type: 'link'
-        }
+          type: 'link',
+        },
       });
 
       expect(validate({
         title: 'This is not a link',
-        link: 'this.is.not.a.title'
+        link: 'this.is.not.a.title',
       })).toEqual({
         title: 'This is not a link',
-        link: 'http://this.is.not.a.title'
+        link: 'http://this.is.not.a.title',
       });
     });
-
 
     it('throws flat error list when one field is invalid', () => {
       const validate = schema({
         title: {
           type: 'text',
-          optional: false
-        }
+          optional: false,
+        },
       });
 
       let errors = [];
@@ -93,126 +82,119 @@ describe('schema validator', () => {
         field: 'title',
         code: 'required',
         message: 'a string is required',
-        origin: undefined
+        origin: undefined,
       }]);
     });
 
-
     it('.default gives default values of schema with null set when no defaults are defined', () => {
-      let errors = [],
+      let errors = [];
 
-      validate = schema({
+      const validate = schema({
         title: {
           type: 'text',
           min: 2,
           max: 100,
-          default: 'default text'
+          default: 'default text',
         },
         url: {
-          type: 'link'
-        }
+          type: 'link',
+        },
       });
 
       try {
-
         expect(validate.default).toEqual({
           title: 'default text',
           url: null,
         });
-
-      } catch(e) { errors = e };
+      } catch (e) { errors = e; }
 
       expect(errors.length).toBe(0);
     });
-
   });
 
   describe('deep schemas - simple cases', () => {
     let validate;
 
     beforeAll(() => {
-
       // load up the validators
       // that will be used by the schema lib
       schema.register({
         text: validators.text,
         link: validators.link,
         number: validators.number,
-        boolean: validators.boolean
+        boolean: validators.boolean,
       });
 
       validate = schema({
         title: {
-          type: 'text'
+          type: 'text',
         },
         sub: {
           fields: {
             description: {
               type: 'text',
-              optional: false
-            }
-          }
-        }
+              optional: false,
+            },
+          },
+        },
       });
     });
-
 
     it('shallow-maps deeper schemas', () => {
       expect(validate({
         title: 'Testing',
         sub: {
-          description: 'a description'
-        }
+          description: 'a description',
+        },
       })).toEqual({
         title: 'Testing',
         sub: {
-          description: 'a description'
-        }
+          description: 'a description',
+        },
       });
     });
 
-
     it('validates another deep schema object', () => {
-      const validate = schema({
+      const validateDeepSchemaObject = schema({
         title: {
           type: 'text',
           min: 2,
           max: 255,
-          optional: false
+          optional: false,
         },
         description: {
           type: 'text',
-          max: 40
+          max: 40,
         },
         image: {
-          type: 'text'
+          type: 'text',
         },
         url: {
-          type: 'link'
+          type: 'link',
         },
         settings: {
           credentials: {
             moderators: {
               type: 'boolean',
-              default: false
+              default: false,
             },
             universe: {
               type: 'number',
-              default: 42
-            }
-          }
-        }
+              default: 42,
+            },
+          },
+        },
       });
 
-      const cleanObject = validate({
+      const cleanObject = validateDeepSchemaObject({
         title: 'Puma',
         description: 'A feline',
         url: 'https://openagenda.com',
         settings: {
           credentials: {
-            moderators: true
-          }
-        }
+            moderators: true,
+          },
+        },
       });
 
       expect(cleanObject).toEqual({
@@ -223,35 +205,34 @@ describe('schema validator', () => {
         settings: {
           credentials: {
             moderators: true,
-            universe: 42
-          }
-        }
+            universe: 42,
+          },
+        },
       });
     });
 
-
     it('undefined object give defaults value throughout schema', () => {
-      const validate = schema({
+      const schemaValidate = schema({
         contribution: {
           type: {
             default: 0,
             type: 'number',
             optional: false,
             min: 0, // no contribution
-            max: 2  // contribution on invitation only
+            max: 2, // contribution on invitation only
           },
           message: {
-            type: 'text'
-          }
-        }
+            type: 'text',
+          },
+        },
       });
 
       let clean = false;
       let errors = [];
 
       try {
-        clean = validate({});
-      } catch(e) {
+        clean = schemaValidate({});
+      } catch (e) {
         errors = e;
       }
 
@@ -260,55 +241,45 @@ describe('schema validator', () => {
       expect(clean).toEqual({
         contribution: {
           type: 0,
-          message: null
-        }
+          message: null,
+        },
       });
     });
-
 
     it('undefined object give defaults value even if it\'s an explicit undefined', () => {
-      const validate = schema({
-          additionalField: {
-            default: undefined,
-            type: 'text',
-            optional: true,
-          }
-      }),
+      const schemaValidate = schema({
+        additionalField: {
+          default: undefined,
+          type: 'text',
+          optional: true,
+        },
+      });
 
-      clean = validate({});
+      const clean = schemaValidate({});
 
       expect(clean).toEqual({
-        additionalField: undefined
+        additionalField: undefined,
       });
     });
 
-
     it('undefined sub object is processed as an empty object', () => {
-      const validate = schema({
+      const schemaValidate = schema({
         subobj: {
           somefield: {
             type: 'text',
-            default: 'thedefaultvalue'
-          }
-        }
+            default: 'thedefaultvalue',
+          },
+        },
       });
 
-      let errors = [];
-      let clean = false;
-
-      try {
-        clean = validate({ subobj: {} });
-      } catch(e) {
-        errors = e;
-      }
+      const clean = schemaValidate({ subobj: {} });
 
       expect(clean).toEqual({
         subobj: {
-          somefield: 'thedefaultvalue'
-        }
+          somefield: 'thedefaultvalue',
+        },
       });
     });
-
 
     it('invalid deep object gives flat error', () => {
       let errors = [];
@@ -316,7 +287,7 @@ describe('schema validator', () => {
       try {
         validate({
           title: 'Testing',
-          sub: {}
+          sub: {},
         });
       } catch (e) { errors = e; }
 
@@ -324,56 +295,55 @@ describe('schema validator', () => {
         field: 'sub.description',
         code: 'required',
         message: 'a string is required',
-        origin: undefined
+        origin: undefined,
       }]);
     });
-
 
     it('invalid deep object gives flat error - 2', () => {
       let errors;
 
-      const validate = schema({
+      const schemaValidate = schema({
         title: {
           type: 'text',
           min: 2,
           max: 255,
-          optional: false
+          optional: false,
         },
         description: {
           type: 'text',
-          max: 40
+          max: 40,
         },
         image: {
-          type: 'text'
+          type: 'text',
         },
         url: {
-          type: 'link'
+          type: 'link',
         },
         settings: {
           credentials: {
             moderators: {
               type: 'boolean',
-              default: false
+              default: false,
             },
             universe: {
               type: 'number',
-              default: 42
-            }
-          }
-        }
+              default: 42,
+            },
+          },
+        },
       });
 
       try {
-        validate({
+        schemaValidate({
           description: 'P',
           url: 'notalink',
           settings: {
             credentials: {
-              universe: 'here'
-            }
-          }
+              universe: 'here',
+            },
+          },
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
@@ -381,203 +351,185 @@ describe('schema validator', () => {
         field: 'title',
         code: 'required',
         message: 'a string is required',
-        origin: undefined
+        origin: undefined,
       }, {
         field: 'url',
         code: 'link.invalid',
         message: 'value is not a link',
-        origin: 'notalink'
-      },{
+        origin: 'notalink',
+      }, {
         field: 'settings.credentials.universe',
         code: 'number.invalid',
         message: 'not a number',
-        origin: 'here'
+        origin: 'here',
       }]);
     });
 
-
     it('simple schema structure (without fields key) is usable', () => {
-
-      const validate = schema({
+      const schemaValidate = schema({
         title: {
-          type: 'text'
+          type: 'text',
         },
         sub: {
           // look ma', no fields key!
           description: {
-            type: 'text'
-          }
-        }
+            type: 'text',
+          },
+        },
       });
 
-      let errors = [];
-      let clean;
-
-      try {
-        clean = validate({
-          title: 'Testing',
-          sub: {
-            description: 'Boom'
-          }
-        });
-      } catch(e) {
-        errors = e;
-      }
+      const clean = schemaValidate({
+        title: 'Testing',
+        sub: {
+          description: 'Boom',
+        },
+      });
 
       expect(clean).toEqual({
         title: 'Testing',
         sub: {
-          description: 'Boom'
-        }
+          description: 'Boom',
+        },
       });
     });
 
-
     it('filters out any data not part of schema', () => {
-      let validate = schema({
+      const schemaValidate = schema({
         title: {
           type: 'text',
           min: 2,
-          max: 100
+          max: 100,
         },
         url: {
-          type: 'link'
+          type: 'link',
         },
         settings: {
           someSetting: {
-            type: 'number'
-          }
-        }
-      }),
+            type: 'number',
+          },
+        },
+      });
 
-      clean = validate({
+      const clean = schemaValidate({
         title: 'the title',
         url: 'https://openagenda.com',
         settings: {
-          someSetting: '23'
+          someSetting: '23',
         },
-        ignoredValue: 'fdsfds'
+        ignoredValue: 'fdsfds',
       });
 
       expect(clean).toEqual({
         title: 'the title',
         url: 'https://openagenda.com',
         settings: {
-          someSetting: 23
-        }
+          someSetting: 23,
+        },
       });
     });
 
     it('.default gives default values of schema with null when no default is defined', () => {
-      let validate = schema({
+      const schemaValidate = schema({
         title: {
           type: 'text',
           min: 2,
-          max: 100
+          max: 100,
         },
         url: {
-          type: 'link'
+          type: 'link',
         },
         settings: {
           someSetting: {
             type: 'number',
-            optional: false
-          }
-        }
+            optional: false,
+          },
+        },
       });
 
       try {
-
-        expect(validate.default).toEqual({
+        expect(schemaValidate.default).toEqual({
           title: null,
           url: null,
           settings: {
-            someSetting: null
-          }
+            someSetting: null,
+          },
         });
-
-      } catch(e) { console.log(e); }
+      } catch (e) { console.log(e); }
     });
-
   });
 
-
   describe('lists in schemas', () => {
-
     beforeAll(() => {
       // load up the validators
       // that will be used by the schema lib
       schema.register({
         text: validators.text,
         link: validators.link,
-        number: validators.number
+        number: validators.number,
       });
     });
 
-
     it('list defaults as an empty array', () => {
-      let errors = [], clean,
-
-      validators = schema({
+      const schemaValidate = schema({
         aList: {
           list: true,
           fields: {
             message: {
-              type: 'text'
-            }
-          }
-        }
+              type: 'text',
+            },
+          },
+        },
       });
 
-      expect(validators.default).toEqual({
-        aList: []
+      expect(schemaValidate.default).toEqual({
+        aList: [],
       });
     });
 
     it('validates a list of texts', () => {
-      let errors = [], clean,
+      let errors = []; let clean;
 
-      validator = schema({
+      const validator = schema({
         aListOfTexts: {
           type: 'text',
           optional: false,
-          list: true
-        }
+          list: true,
+        },
       });
 
       try {
         clean = validator({
-          aListOfTexts: ['a', 'b', 'c']
+          aListOfTexts: ['a', 'b', 'c'],
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
       expect(errors.length).toBe(0);
 
       expect(clean).toEqual({
-        aListOfTexts: ['a', 'b', 'c']
+        aListOfTexts: ['a', 'b', 'c'],
       });
     });
 
     it('list of texts with min value set throws error if not enough items are given', () => {
-      let errors = [], clean,
+      let errors = [];
 
-      validator = schema({
+      const validator = schema({
         aListOfTexts: {
           type: 'text',
           optional: false,
           list: {
-            min: 2
-          }
-        }
+            min: 2,
+          },
+        },
       });
 
       try {
         validator({
-          aListOfTexts: ['ladida']
+          aListOfTexts: ['ladida'],
         });
-      } catch(e) { errors = e; }
+      } catch (e) { errors = e; }
 
       expect(errors.length).toBe(1);
 
@@ -585,29 +537,28 @@ describe('schema validator', () => {
         field: 'aListOfTexts',
         code: 'list.tooshort',
         message: 'list is too short',
-        origin: ['ladida']
+        origin: ['ladida'],
       }]);
     });
 
-
     it('list of texts with max value set throws error if too many items are given', () => {
-      let errors = [], clean,
+      let errors = [];
 
-      validator = schema({
+      const validator = schema({
         aListOfTexts: {
           type: 'text',
           optional: false,
           list: {
-            max: 1
-          }
-        }
+            max: 1,
+          },
+        },
       });
 
       try {
         validator({
-          aListOfTexts: ['la', 'dida']
+          aListOfTexts: ['la', 'dida'],
         });
-      } catch(e) { errors = e; }
+      } catch (e) { errors = e; }
 
       expect(errors.length).toBe(1);
 
@@ -615,60 +566,57 @@ describe('schema validator', () => {
         field: 'aListOfTexts',
         code: 'list.toolong',
         message: 'list is too long',
-        origin: ['la', 'dida']
+        origin: ['la', 'dida'],
       }]);
     });
 
     it('an optional list of texts with min does not throw error when fed an empty list', () => {
-      let errors = [],
+      let errors = [];
 
-      validator = schema({
+      const validator = schema({
         aListOfTexts: {
           type: 'text',
           optional: true,
           list: {
-            min: 12
-          }
-        }
+            min: 12,
+          },
+        },
       });
 
       try {
-
         validator({
-          aListOfTexts: []
+          aListOfTexts: [],
         });
-
-      } catch(e) { errors = e; }
+      } catch (e) { errors = e; }
 
       expect(errors.length).toBe(0);
     });
 
-
     it('validates a list of objects', () => {
-      let errors = [], clean,
+      let errors = []; let clean;
 
-        validator = schema({
-          aListOfObjects: {
-            list: true,
-            fields: {
-              message: {
-                type: 'text'
-              }
-            }
-          }
-        });
+      const validator = schema({
+        aListOfObjects: {
+          list: true,
+          fields: {
+            message: {
+              type: 'text',
+            },
+          },
+        },
+      });
 
       try {
         clean = validator({
           aListOfObjects: [{
-            message: 'One'
+            message: 'One',
           }, {
-            message: 'Two'
+            message: 'Two',
           }, {
-            message: 'Three'
-          }]
+            message: 'Three',
+          }],
         });
-      } catch(e) { errors = e; }
+      } catch (e) { errors = e; }
 
       expect(errors.length).toBe(0);
 
@@ -676,81 +624,75 @@ describe('schema validator', () => {
         aListOfObjects: [
           { message: 'One' },
           { message: 'Two' },
-          { message: 'Three' }
-       ]
+          { message: 'Three' },
+        ],
       });
     });
 
     it('list defaults to empty list if value is undefined', () => {
-      let validate = schema({
+      const validate = schema({
         list: true,
         fields: {
           message: {
-            type: 'text'
-          }
-        }
-      }), errors = [], clean;
+            type: 'text',
+          },
+        },
+      }); let errors = [];
 
       try {
-
         expect(validate()).toEqual([]);
-
-      } catch(e) {
-
+      } catch (e) {
         errors = e;
-
       }
 
       expect(errors.length).toBe(0);
     });
 
     it('list of objects can be too short', () => {
-      let errors = [], clean,
+      let errors = [];
 
-        validator = schema({
-          aListOfObjects: {
-            list: {
-              min: 4
+      const validator = schema({
+        aListOfObjects: {
+          list: {
+            min: 4,
+          },
+          fields: {
+            message: {
+              type: 'text',
             },
-            fields: {
-              message: {
-                type: 'text'
-              }
-            }
-          }
-        });
+          },
+        },
+      });
 
       try {
-        clean = validator({
+        validator({
           aListOfObjects: [{
-            message: 'One'
+            message: 'One',
           }, {
-            message: 'Two'
+            message: 'Two',
           }, {
-            message: 'Three'
-          }]
+            message: 'Three',
+          }],
         });
-      } catch(e) { errors = e; }
+      } catch (e) { errors = e; }
 
       expect(errors).toEqual([{
         field: 'aListOfObjects',
         code: 'list.tooshort',
         message: 'list is too short',
         origin: [{
-          message: 'One'
+          message: 'One',
         }, {
-          message: 'Two'
+          message: 'Two',
         }, {
-          message: 'Three'
-        }] }
-     ]);
+          message: 'Three',
+        }],
+      },
+      ]);
     });
-
   });
 
-
   describe('schema using list validator', () => {
-
     let validate;
 
     beforeAll(() => {
@@ -758,54 +700,46 @@ describe('schema validator', () => {
         text: validators.text,
         phone: validators.phone,
         email: validators.email,
-        list: validators.list
+        list: validators.list,
       });
 
       validate = schema({
         title: {
-          type: 'text'
+          type: 'text',
         },
         registration: {
           type: 'list',
-          types: ['phone', 'email']
-        }
+          types: ['phone', 'email'],
+        },
       });
     });
-
 
     it('list validator validates a data of potentially multiple types', () => {
       expect(validate({
         title: 'Yay',
-        registration: ['031', 'yay@site.com']
+        registration: ['031', 'yay@site.com'],
       })).toEqual({
         title: 'Yay',
-        registration: ['031', 'yay@site.com']
+        registration: ['031', 'yay@site.com'],
       });
     });
-
 
     it('list validator provides field name in errors', () => {
       let errors = [];
 
       try {
-
         validate({
-          registration: ['lallalala']
+          registration: ['lallalala'],
         });
-
-      } catch(e) {
-
+      } catch (e) {
         errors = e;
-
       }
 
       expect(errors.length).toBe(2);
 
       expect(errors[0].field).toBe('registration');
     });
-
   });
-
 
   describe('partial validation', () => {
     let validate;
@@ -816,70 +750,65 @@ describe('schema validator', () => {
       schema.register({
         text: validators.text,
         link: validators.link,
-        number: validators.number
+        number: validators.number,
       });
 
       validate = schema({
         title: {
           type: 'text',
           min: 2,
-          max: 100
+          max: 100,
         },
         url: {
-          type: 'link'
+          type: 'link',
         },
         settings: {
           someSetting: {
-            type: 'number'
-          }
-        }
+            type: 'number',
+          },
+        },
       });
     });
 
-
     it('validates and cleans a part of the schema', () => {
-      let clean = validate.part('url', 'https://openagenda.com');
+      const clean = validate.part('url', 'https://openagenda.com');
 
       expect(clean).toBe('https://openagenda.com');
     });
 
-
     it('validates and cleans a deeper part of the schema', () => {
-      let clean = validate.part('settings.someSetting', '12');
+      const clean = validate.part('settings.someSetting', '12');
 
       expect(clean).toBe(12);
     });
 
-
     it('validates a subset of the schema', () => {
-      let clean = validate.part(['url', 'settings.someSetting'], {
+      const clean = validate.part(['url', 'settings.someSetting'], {
         url: 'https://openagenda.com',
         settings: {
-          someSetting: 12
-        }
+          someSetting: 12,
+        },
       });
 
       expect(clean).toEqual({
         url: 'https://openagenda.com',
         settings: {
-          someSetting: 12
-        }
+          someSetting: 12,
+        },
       });
     });
 
-
     it('validates a subset of the schema - with extra fields', () => {
-      let clean = null, errors = [];
+      let errors = [];
 
       try {
-        clean = validate.part(['url', 'settings.someSetting', 'extra'], {
+        validate.part(['url', 'settings.someSetting', 'extra'], {
           url: 'https://openagenda.com',
           settings: {
-            someSetting: 12
+            someSetting: 12,
           },
-          extra: 'pourquoi pas..'
+          extra: 'pourquoi pas..',
         });
-
       } catch (e) {
         errors = errors.concat(e);
       }
@@ -887,7 +816,7 @@ describe('schema validator', () => {
       expect(errors).toEqual([{
         code: 'field.notdefined',
         message: 'field isn\'t defined',
-        field: 'extra'
+        field: 'extra',
       }]);
     });
 
@@ -898,9 +827,9 @@ describe('schema validator', () => {
         clean = validate.part({
           url: 'https://openagenda.com',
           settings: {
-            someSetting: 12
+            someSetting: 12,
           },
-          extra: 'pourquoi pas..'
+          extra: 'pourquoi pas..',
         });
       } catch (e) {
         console.log(e);
@@ -909,37 +838,32 @@ describe('schema validator', () => {
       expect(clean).toEqual({
         url: 'https://openagenda.com',
         settings: {
-          someSetting: 12
-        }
+          someSetting: 12,
+        },
       });
-
     });
 
-
     it('validates and cleans a part of the schema - object case', () => {
-
-      let clean = false, errors = [];
+      let clean = false; let
+        errors = [];
 
       try {
         clean = validate.part('settings', {
-          someSetting: 45
+          someSetting: 45,
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
       expect(errors.length).toBe(0);
 
       expect(clean).toEqual({
-        someSetting: 45
+        someSetting: 45,
       });
     });
-
   });
 
-
   describe('particular cases', () => {
-
     beforeAll(() => {
       // load up the validators
       // that will be used by the schema lib
@@ -950,29 +874,28 @@ describe('schema validator', () => {
         date: validators.date,
         choice: validators.choice,
         integer: validators.integer,
-        boolean: validators.boolean
+        boolean: validators.boolean,
       });
     });
 
-
     it('validates a schema with object named type', () => {
-      let errors = [], clean,
+      let errors = []; let clean;
 
-      validator = schema({
+      const validator = schema({
         contribution: {
           type: {
-            type: 'number'
-          }
-        }
+            type: 'number',
+          },
+        },
       });
 
       try {
         clean = validator({
           contribution: {
-            type: 42
-          }
+            type: 42,
+          },
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
@@ -980,26 +903,24 @@ describe('schema validator', () => {
 
       expect(clean).toEqual({
         contribution: {
-          type: 42
-        }
+          type: 42,
+        },
       });
     });
 
-
     it('validates a schema with dates', () => {
+      let errors = [];
 
-      let errors = [], clean,
-
-      validator = schema({
+      const validator = schema({
         updatedAt: {
           type: 'date',
-          optional: false
-        }
+          optional: false,
+        },
       });
 
       try {
-        clean = validator({ updatedAt: new Date() });
-      } catch(e) {
+        validator({ updatedAt: new Date() });
+      } catch (e) {
         errors = e;
       }
 
@@ -1007,17 +928,16 @@ describe('schema validator', () => {
     });
 
     describe('enableWith', () => {
-
       it('when enableWith is used on a required field, it can only be required if related field has a value', () => {
         const validate = schema({
           image: {
-            type: 'text'
+            type: 'text',
           },
           imageCredits: {
             optional: false,
             enableWith: 'image',
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         let errored = false;
@@ -1034,13 +954,13 @@ describe('schema validator', () => {
       it('when enableWith is used on a required field, it can only be required if related field has a boolean value', () => {
         const validate = schema({
           image: {
-            type: 'text'
+            type: 'text',
           },
           imagePasVolée: {
             optional: false,
             enableWith: 'image',
             type: 'boolean',
-          }
+          },
         });
 
         let result;
@@ -1059,13 +979,13 @@ describe('schema validator', () => {
       it('enableWith with a list value enables field only when the list is not empty', () => {
         const validate = schema({
           selection: {
-            type: 'choice'
+            type: 'choice',
           },
           someField: {
             optional: false,
             enableWith: 'selection',
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         let errored = false;
@@ -1074,7 +994,7 @@ describe('schema validator', () => {
           validate();
 
           validate({
-            selection: []
+            selection: [],
           });
         } catch (e) {
           errored = true;
@@ -1087,16 +1007,16 @@ describe('schema validator', () => {
         const validate = schema({
           selection: {
             type: 'choice',
-            options: [13, 14, 15]
+            options: [13, 14, 15],
           },
           someField: {
             optional: false,
             enableWith: {
               field: 'selection',
-              value: 14
+              value: 14,
             },
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         let errors;
@@ -1116,16 +1036,16 @@ describe('schema validator', () => {
         const validate = schema({
           selection: {
             type: 'choice',
-            options: [13, 14, 15]
+            options: [13, 14, 15],
           },
           someField: {
             optional: false,
             enableWith: {
               field: 'selection',
-              value: 14
+              value: 14,
             },
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         let enableWithErrors;
@@ -1142,7 +1062,7 @@ describe('schema validator', () => {
       });
 
       it('enableWith can target multiple values of reference field', () => {
-
+        let errors;
         const validate = schema({
           eventAttendanceMode: {
             field: 'eventAttendanceMode',
@@ -1150,17 +1070,17 @@ describe('schema validator', () => {
             type: 'choice',
             default: 1,
             unique: true,
-            options: [1, 2, 3]
+            options: [1, 2, 3],
           },
           locationUid: {
             field: 'locationUid',
             optional: false,
             enableWith: {
               field: 'eventAttendanceMode',
-              value: [1, 3]
+              value: [1, 3],
             },
-            type: 'integer'
-          }
+            type: 'integer',
+          },
         });
 
         try {
@@ -1170,15 +1090,17 @@ describe('schema validator', () => {
 
           throw new Error('Should not reach here');
         } catch (e) {
-          expect([].concat(e).pop().code).toBe('required');
+          errors = e;
         }
+
+        expect([].concat(errors).pop().code).toBe('required');
 
         expect(validate({
           eventAttendanceMode: 1,
-          locationUid: 1
+          locationUid: 1,
         })).toEqual({
           eventAttendanceMode: 1,
-          locationUid: 1
+          locationUid: 1,
         });
       });
 
@@ -1187,16 +1109,16 @@ describe('schema validator', () => {
           selection: {
             type: 'choice',
             unique: true,
-            options: [13, 14, 15]
+            options: [13, 14, 15],
           },
           someField: {
             optional: false,
             enableWith: {
               field: 'selection',
-              value: 14
+              value: 14,
             },
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         const clean = validate({
@@ -1205,7 +1127,7 @@ describe('schema validator', () => {
 
         expect(clean).toEqual({
           selection: 13,
-          someField: null
+          someField: null,
         });
       });
 
@@ -1213,39 +1135,39 @@ describe('schema validator', () => {
         const validate = schema({
           selection: {
             type: 'choice',
-            options: [13, 14, 15]
+            options: [13, 14, 15],
           },
           someField: {
             optional: false,
             enableWith: {
               field: 'selection',
-              value: 14
+              value: 14,
             },
-            type: 'text'
-          }
+            type: 'text',
+          },
         });
 
         const clean = validate({
           selection: 14,
-          someField: 'some text'
+          someField: 'some text',
         });
 
         expect(clean).toEqual({
           selection: [14],
-          someField: 'some text'
+          someField: 'some text',
         });
       });
 
       it('enableWith fields still throw errors with wrong input', () => {
         const validate = schema({
           acheckbox: {
-            type: 'boolean'
+            type: 'boolean',
           },
           someNumber: {
             optional: false,
             enableWith: 'acheckbox',
-            type: 'number'
-          }
+            type: 'number',
+          },
         });
 
         let errors = [];
@@ -1253,7 +1175,7 @@ describe('schema validator', () => {
         try {
           validate({
             acheckbox: true,
-            someNumber: 'twelve'
+            someNumber: 'twelve',
           });
         } catch (e) {
           errors = e;
@@ -1263,168 +1185,145 @@ describe('schema validator', () => {
       });
 
       it('defaults are taken into account with enableWith', () => {
+        let errors;
         try {
           const validate = schema({
             eventAttendanceMode: {
               optional: false,
-              type: "choice",
+              type: 'choice',
               default: 1,
               unique: true,
-              options: [1, 2, 3]
+              options: [1, 2, 3],
             },
             locationUid: {
               optional: false,
               enableWith: {
                 field: 'eventAttendanceMode',
-                value: [1, 3]
+                value: [1, 3],
               },
               type: 'integer',
-              default: null
-            }
+              default: null,
+            },
           });
 
           validate({});
 
           throw new Error('should not reach here');
         } catch (e) {
-          expect([].concat(e).pop().code).toEqual('required');
+          errors = e;
         }
+
+        expect([].concat(errors).pop().code).toEqual('required');
       });
 
       it('enableWith fields are filtered out if related field is not specified', () => {
         const validate = schema({
           acheckbox: {
-            type: 'boolean'
+            type: 'boolean',
           },
           someNumber: {
             optional: false,
             enableWith: 'acheckbox',
-            type: 'number'
-          }
+            type: 'number',
+          },
         });
 
         const clean = validate({
-          someNumber: 'twelve'
+          someNumber: 'twelve',
         });
 
         expect(clean.someNumber).toBeNull();
       });
-
     });
 
     describe('optionalWith', () => {
-
       const validate = schema({
         eventAttendanceMode: {
           optional: false,
           type: 'choice',
           default: 1,
           unique: true,
-          options: [1, 2, 3]
+          options: [1, 2, 3],
         },
         locationUid: {
           optionalWith: {
             field: 'eventAttendanceMode',
-            value: 2
+            value: 2,
           },
-          type: 'integer'
-        }
+          type: 'integer',
+        },
       });
 
       it('optionalWith makes field optional if ref value matches', () => {
-        validate({
-          eventAttendanceMode: 2
-        });
+        let errors;
+        try {
+          validate({
+            eventAttendanceMode: 2,
+          });
+        } catch (e) {
+          errors = e;
+        }
+
+        expect(errors).toBeUndefined();
       });
 
       it('optionalWith keeps field required if ref value does not match', () => {
+        let errors;
         try {
           validate({
             eventAttendanceMode: 1,
           });
-        } catch (errors) {
-          expect(errors[0].code).toBe('required');
+        } catch (e) {
+          errors = e;
           return;
         }
-        throw new Error('Should not reach here');
+        expect(errors[0].code).toBe('required');
       });
 
       it('optionalWith is overridden if optional is explicited', () => {
-        const validate = schema({
+        const schemaValidate = schema({
           eventAttendanceMode: {
             optional: false,
             type: 'choice',
             default: 1,
             unique: true,
-            options: [1, 2, 3]
+            options: [1, 2, 3],
           },
           locationUid: {
             optional: true,
             optionalWith: {
               field: 'eventAttendanceMode',
-              value: 1
+              value: 1,
             },
-            type: 'integer'
-          }
+            type: 'integer',
+          },
         });
 
-        expect(validate({
-          eventAttendanceMode: 2
+        expect(schemaValidate({
+          eventAttendanceMode: 2,
         })).toBeTruthy();
       });
-
     });
-
-
-    it('if object is specified in schema and submitted value is not an object', () => {
-
-      let validator = schema({
-        tags: {
-          fr: {
-            type: 'text',
-            max: 255
-          }
-        }
-      });
-
-      try {
-        validator({
-          tags: 'libre, conférence'
-        });
-      } catch(e) {
-        expect(e.length).toBe(1);
-
-        expect(e[0]).toEqual({
-          field: 'tags',
-          origin: 'libre, conférence',
-          code: 'string.invalidtype',
-          message: 'not an object'
-        });
-      }
-
-    });
-
 
     it('undefined root subobject is processed', () => {
+      let errors = [];
 
-      let errors = [],
-
-      validate = schema({
+      const validate = schema({
         settings: {
           contribution: {
             message: {
               type: 'text',
-              default: 'thedefaultvalue'
-            }
-          }
-        }
-      }),
+              default: 'thedefaultvalue',
+            },
+          },
+        },
+      });
 
-      clean = false;
+      let clean = false;
 
       try {
         clean = validate({});
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
@@ -1433,27 +1332,22 @@ describe('schema validator', () => {
       expect(clean).toEqual({
         settings: {
           contribution: {
-            message: 'thedefaultvalue'
-          }
-        }
+            message: 'thedefaultvalue',
+          },
+        },
       });
-
     });
 
-
     it('invalid subobject value gives error with deep field name (description.fr)', () => {
+      let errors = [];
 
-      let errors = [],
-
-      clean,
-
-      validate = schema({
+      const validate = schema({
         description: {
           fr: {
             type: 'text',
-            optional: false
-          }
-        }
+            optional: false,
+          },
+        },
       });
 
       try {
@@ -1463,18 +1357,17 @@ describe('schema validator', () => {
       }
 
       expect(errors[0].field).toBe('description.fr');
-
     });
 
     it('An object in place of a text should give an error', () => {
-      let errors = [],
+      let errors = [];
 
-        validate = schema({
-          description: {
-            type: 'text',
-            optional: false
-          }
-        });
+      const validate = schema({
+        description: {
+          type: 'text',
+          optional: false,
+        },
+      });
 
       try {
         validate({ description: { hmm: 'caca-lô' } });
@@ -1491,8 +1384,8 @@ describe('schema validator', () => {
       const validate = schema({
         count: {
           type: 'integer',
-          optional: false
-        }
+          optional: false,
+        },
       });
 
       try {
@@ -1505,20 +1398,20 @@ describe('schema validator', () => {
         code: 'required',
         message: 'a integer is required',
         origin: undefined,
-        field: 'count'
+        field: 'count',
       }]);
     });
 
     it('An number in place of a text should give an error (with strict option)', () => {
-      let errors = [],
+      let errors = [];
 
-        validate = schema({
-          description: {
-            type: 'text',
-            optional: false,
-            strict: true
-          }
-        });
+      const validate = schema({
+        description: {
+          type: 'text',
+          optional: false,
+          strict: true,
+        },
+      });
 
       try {
         validate({ description: 42 });
@@ -1528,13 +1421,12 @@ describe('schema validator', () => {
 
       expect(errors[0].field).toBe('description');
     });
-
   });
 
   it('enableWith is evaluated by partial validation - not matching', () => {
     schema.register({
       choice: validators.choice,
-      link: validators.link
+      link: validators.link,
     });
 
     const validate = schema({
@@ -1542,32 +1434,31 @@ describe('schema validator', () => {
         default: 1,
         type: 'choice',
         unique: true,
-        options: [1, 2, 3]
+        options: [1, 2, 3],
       },
       onlineAccessLink: {
         optional: false,
         enableWith: {
           field: 'attendanceMode',
-          value: [2, 3]
+          value: [2, 3],
         },
-        type: 'link'
-      }
+        type: 'link',
+      },
     });
 
     expect(validate.part({
       attendanceMode: 1,
-      onlineAccessLink: null
+      onlineAccessLink: null,
     })).toEqual({
       attendanceMode: 1,
-      onlineAccessLink: null
+      onlineAccessLink: null,
     });
-
   });
 
   it('enableWith is evaluated by partial validation - matching', () => {
     schema.register({
       choice: validators.choice,
-      link: validators.link
+      link: validators.link,
     });
 
     const validate = schema({
@@ -1575,31 +1466,31 @@ describe('schema validator', () => {
         default: 1,
         type: 'choice',
         unique: true,
-        options: [1, 2, 3]
+        options: [1, 2, 3],
       },
       onlineAccessLink: {
         optional: false,
         enableWith: {
           field: 'attendanceMode',
-          value: [2, 3]
+          value: [2, 3],
         },
-        type: 'link'
-      }
+        type: 'link',
+      },
     });
 
     expect(validate.part({
       attendanceMode: 2,
-      onlineAccessLink: 'https://openagenda.com'
+      onlineAccessLink: 'https://openagenda.com',
     })).toEqual({
       attendanceMode: 2,
-      onlineAccessLink: 'https://openagenda.com'
+      onlineAccessLink: 'https://openagenda.com',
     });
   });
 
   it('enableWith is evaluated by partial validation - matching 2', () => {
     schema.register({
       choice: validators.choice,
-      link: validators.link
+      link: validators.link,
     });
 
     const validate = schema({
@@ -1607,23 +1498,22 @@ describe('schema validator', () => {
         default: 1,
         type: 'choice',
         unique: true,
-        options: [1, 2, 3]
+        options: [1, 2, 3],
       },
       onlineAccessLink: {
         optional: false,
         enableWith: {
           field: 'attendanceMode',
-          value: [2, 3]
+          value: [2, 3],
         },
-        type: 'link'
-      }
+        type: 'link',
+      },
     });
 
     expect(validate.part({
-      attendanceMode: 2
+      attendanceMode: 2,
     })).toEqual({
-      attendanceMode: 2
+      attendanceMode: 2,
     });
   });
-
 });
