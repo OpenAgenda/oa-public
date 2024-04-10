@@ -40,9 +40,9 @@ function MemberItemComponent({
   const canEditMember = isSuperiorToOrEqual(userRole, role) && !invited;
 
   const memberType = (() => {
+    if (deletedUser && !invited) return 'deleted';
     if (invited && !deletedUser) return 'invited';
     if (role === 1 && eventCount === 0) return 'noContrib';
-    if (deletedUser && !invited) return 'deleted';
   })();
 
   const base64url = Base64.encode(`${location?.pathname}${location?.search}`);

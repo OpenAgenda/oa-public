@@ -12,13 +12,13 @@ export default {
 export const viewedByAdministrator = () => (
   <MemberItem.Component
     user={{
-      fullName: 'Sabine Chauchois',
+      fullName: 'Sabois Chauchine',
     }}
     member={{
       userUid: 456,
       role: 'administrator',
       custom: {
-        contactName: 'Clémentine Bouvier',
+        contactName: 'Clémentier Bouvine',
         email: 'email@openagenda.com',
         organization: 'OA',
         contactPosition: 'suppert',
@@ -57,4 +57,64 @@ export const viewedByAdministrator = () => (
       </a>
     )}
   />
+);
+
+export const deletedAccount = () => (
+  <>
+    <p className="padding-all-sm">
+      Informing the adminmod that the account has been deleted is more important
+      than informing him that it has not contributed anything
+    </p>
+    <MemberItem.Component
+      user={{
+        fullName: 'Sabois Chauchine',
+      }}
+      member={{
+        userUid: 456,
+        role: 1,
+        custom: {
+          contactName: 'Clémentier Bouvine',
+          email: 'email@openagenda.com',
+          organization: 'OA',
+          contactPosition: 'suppert',
+          contactNumber: '0651781026',
+        },
+        actionsCounter: 0,
+        eventCount: 0,
+        deletedUser: true,
+        invited: false,
+      }}
+      agenda={{
+        slug: 'la-gargouille',
+        credentials: {
+          moderators: true,
+        },
+      }}
+      userRole={2}
+      i18n={{
+        getLabel: code =>
+          ({
+            noName: 'Sans nom',
+            moreInfoModerator: 'Un détail sur le modérateur',
+            moreInfoAdministrator: "Un détail sur l'administrateur",
+            noContrib: 'Pas de contributions',
+            invited: 'Invité',
+            deleted: 'Supprimé',
+            moderator: 'Modérateur',
+            administrator: 'Administrateur',
+            contributor: 'Contributeur',
+            changeRole: 'Modifier le rôle',
+            removeMember: 'Retirer le membre',
+            event: 'x événements',
+            editProfile: 'Modifier le profil',
+            sendAMessage: 'Contacter',
+          }[code] ?? code),
+      }}
+      LinkComponent={({ children }) => (
+        <a href="#bim" className="btn btn-link padding-left-z">
+          {children}
+        </a>
+      )}
+    />
+  </>
 );
