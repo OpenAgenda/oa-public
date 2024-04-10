@@ -506,30 +506,30 @@ export function SelectFields() {
             value: 'refused',
             label: 'Refusé',
             info: null,
-            display: true
+            display: true,
           },
           {
             id: 0,
             value: 'tocontrol',
             label: 'En modération',
-            display: true
+            display: true,
           },
           {
             id: 1,
             value: 'controlled',
             label: 'Prêt à publier',
             info: null,
-            display: true
+            display: true,
           },
           {
             id: 2,
             value: 'published',
             label: 'Publié',
             info: null,
-            display: true
-          }
+            display: true,
+          },
         ],
-        fieldType: 'select'
+        fieldType: 'select',
       }],
     },
     onChange: setValues,
