@@ -33,9 +33,8 @@ async function createAgenda(services, networkUid, data, user) {
     core,
   } = services;
 
-  return core.networks(networkUid).agendas.create({
-    ...data,
-    ownerId: user.id,
+  return core.networks(networkUid).agendas.create(data, {
+    userUid: user.uid,
   });
 }
 
