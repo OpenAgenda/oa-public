@@ -57,5 +57,7 @@ module.exports = core => {
     for (const agenda of agendas) {
       tasks.enqueue('agendaRebuild', agenda.uid, true);
     }
+
+    return fs.getData();
   };
 };
