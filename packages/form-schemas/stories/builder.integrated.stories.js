@@ -1,3 +1,4 @@
+import { rest } from 'msw';
 import { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 
@@ -735,6 +736,65 @@ export function HidingAFieldOnAnUndefinedSchema() {
     </div>
   );
 }
+
+export const WithNewOptionValuesToSubmit = {
+  parameters: {
+    msw: {
+      handlers: [
+        rest.post('/wat', (req, res, ctx) => {
+          const schema = JSON.parse(req.body.data);
+          let id = 0;
+
+          return res(ctx.json({
+            ...schema,
+            fields: schema.fields.map(f => (f.options ? {
+              ...f,
+              options: f.options.map(o => {
+                id += 1;
+                return {
+                  ...o,
+                  id,
+                };
+              }),
+            } : f)),
+          }));
+        }),
+      ],
+    },
+  },
+  render: function Render() {
+    const [schema, setSchema] = useState({
+      fields: [{
+        field: 'categories',
+        label: 'Catégories',
+        options: [{
+          value: 'concert',
+          label: 'Concert',
+        }],
+      }],
+    });
+
+    return (
+      <div className="container top-margined">
+        <div className="row margin-v-md">
+          <div className="col-sm-6">
+            <p>Save the form. The new option ids should be integrated in form</p>
+            <FormSchemaBuilder
+              res="/wat"
+              lang="fr"
+              schema={schema}
+              onUpdate={setSchema}
+            />
+          </div>
+          <div className="col-sm-6 wsq">
+            <p>Should show id in schema after save.</p>
+            <pre><code>{JSON.stringify(schema, null, 2)}</code></pre>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
 
 export function MixedLinkedTypes() {
   const schema = {

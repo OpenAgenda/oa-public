@@ -125,7 +125,8 @@ export default class FormSchemaBuilder extends Component {
         this.getSchema(),
         labelLanguages,
       ),
-    }).then(() => {
+    }).then(({ body }) => {
+      this.updateSchema(body);
       this.setSaveState(saveStates.SAVED);
       if (onSuccess) onSuccess();
     }, _err => {
