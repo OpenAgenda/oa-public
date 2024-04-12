@@ -5,7 +5,7 @@ export default (config = {}) => {
   const params = cleanParams('boolean', config, {
     default: undefined,
     optional: true,
-    allowNull: false
+    allowNull: false,
   });
 
   return Object.assign(value => {
@@ -35,6 +35,6 @@ export default (config = {}) => {
     return !!value;
   }, {
     type: 'boolean',
-    field: params.field
+    field: params.field,
   });
 };
