@@ -170,24 +170,37 @@ describe('events - functional - update', () => {
           onUpdate: async (before, after, context) => {
             calls.push(['onUpdate', before, after, context]);
           },
+          getOriginAgendas: (uids, options) => {
+            calls.push(['getOriginAgendas', uids, options]);
+          },
         },
       });
 
-      await svc.update(93469090, data, { context: 'Update context' });
+      await svc.update(93469090, data, { context: 'Update context', detailed: true, private: null });
     });
 
     it('beforeUpdate was called', () => {
-      expect(calls[0][0]).toBe('beforeUpdate');
+      expect(calls.find(c => c[0] === 'beforeUpdate')).not.toBeUndefined();
     });
 
     it('onUpdate was called', () => {
-      expect(calls[1][0]).toBe('onUpdate');
+      expect(calls.find(c => c[0] === 'onUpdate')).not.toBeUndefined();
     });
 
     it('age in onUpdate is with values set to null', () => {
       expect(calls[1][2].age).toEqual({
         min: null,
         max: null,
+      });
+    });
+
+    it('getOriginAgendas is called when detailed option is set', () => {
+      expect(calls.filter(c => c[0] === 'getOriginAgendas').length).toBeGreaterThan(0);
+    });
+
+    it('private option is passed as null to getOriginAgendas when specified as such in update call', () => {
+      calls.filter(c => c[0] === 'getOriginAgendas').forEach(call => {
+        expect(call[2].private).toBeNull();
       });
     });
   });

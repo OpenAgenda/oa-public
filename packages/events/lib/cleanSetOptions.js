@@ -45,6 +45,7 @@ module.exports = schema({
   private: {
     type: 'boolean',
     default: false,
+    allowNull: true,
   },
   protected: {
     type: 'boolean',
