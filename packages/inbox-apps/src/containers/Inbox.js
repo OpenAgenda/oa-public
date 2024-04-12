@@ -85,14 +85,17 @@ const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
 class Inbox extends Component {
   static contextType = I18nContext;
 
+  constructor(props) {
+    super(props);
+    this.throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
+  }
+
   componentDidMount() {
     const { reactReduxContext, location, history, agenda } = this.props;
     const { store } = reactReduxContext;
 
     asyncLoad({ store, location, history, agenda }).catch(() => null);
   }
-
-  throttledNextPage = () => _.throttle(this.nextPage, 400, { trailing: false });
 
   FormWrapper = ({ handleSubmit, error, children }) => {
     const { settings, author } = this.props;

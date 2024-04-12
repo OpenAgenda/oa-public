@@ -1,7 +1,7 @@
 {
-  "cancel": "Annulla",
-  "syncError": "Il backup non ha avuto successo. La preghiamo di riprovare.",
   "update": "Salva",
+  "updating": "Aggiornando",
   "updated": "Registrato",
-  "updating": "Aggiornando"
+  "syncError": "Il backup non ha avuto successo. La preghiamo di riprovare.",
+  "cancel": "Annulla"
 }

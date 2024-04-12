@@ -1,26 +1,33 @@
 'use strict';
 
-const _ = require('lodash');
 const csv = require('fast-csv');
 const ExcelJS = require('exceljs');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
-const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
+const isSIRETEnabled = require('./lib/isSIRETEnabled');
 
 module.exports = (config, services, instance, app, base) => {
   const {
     members,
-    agendas
+    agendas,
+    core,
   } = services;
 
-  app.use(`${base}*`,
-    agendas.mw.loadBy({
-      path: 'params.agendaSlug',
-      field: 'slug'
-    }),
+  app.use(
+    `${base}*`,
+    (req, res, next) => {
+      core.agendas.slug(req.params.agendaSlug).get({
+        access: 'internal',
+        detailed: true,
+      }).then(agenda => {
+        req.agenda = agenda;
+        next();
+      });
+    },
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
-    loadLocationEndpoints(instance));
+    loadLocationEndpoints(instance),
+  );
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
     req.locations.list(req.query, {}, {
@@ -29,28 +36,42 @@ module.exports = (config, services, instance, app, base) => {
       eventCounts: true,
       detailed: true,
       includeImagePath: true,
-      includeFields: ['uid', 'name', 'address', 'city', 'department', 'postalCode', 'region', 'countryCode', 'latitude', 'longitude', 'state', 'extId']
+      includeFields: [
+        'uid',
+        'name',
+        'address',
+        'city',
+        'department',
+        'postalCode',
+        'region',
+        'countryCode',
+        'latitude',
+        'longitude',
+        'insee',
+        'state',
+        'extId',
+      ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []),
     }).then(stream => {
       req.stream = stream.pipe(transformLocationForFlatExport({ lang: req.lang }));
       next();
     }, next);
   });
 
-  app.get(`${base}.csv`, (req, res, next) => {
+  app.get(`${base}.csv`, (req, res) => {
     req.stream.pipe(csv.format({
       headers: true,
       delimiter: ';',
       quote: '"',
-      escape: '"'
+      escape: '"',
     })).pipe(res);
 
     res.writeHead(200, {
       'Content-Type': 'text/csv',
-      'content-disposition': `attachment; filename="${req.agenda.slug}.locations.csv"`
+      'content-disposition': `attachment; filename="${req.agenda.slug}.locations.csv"`,
     });
   });
 
-  app.get(`${base}.xlsx`, (req, res, next) => {
+  app.get(`${base}.xlsx`, (req, res) => {
     const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
     const worksheet = workbook.addWorksheet('Locations');
     const locations = [];
@@ -72,25 +93,27 @@ module.exports = (config, services, instance, app, base) => {
 
     res.writeHead(200, {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'content-disposition': `attachment; filename="${req.agenda.slug}.locations.xlsx"`
+      'content-disposition': `attachment; filename="${req.agenda.slug}.locations.xlsx"`,
     });
   });
 
-  app.get(`${base}/:locationUid.json`,
+  app.get(
+    `${base}/:locationUid.json`,
     (req, res, next) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true,
         eventCounts: true,
         includeLinkedAgendas: true,
       }).then(location => res.json(location), next);
-    });
+    },
+  );
 
   app.get(`${base}/unverified`, (req, res, next) => {
     req.locations.list({ state: 0 }, { limit: 0 }, { total: true })
       .then(({ total }) => res.json({ count: total }), next);
   });
 
-  app.get(`${base}/terms`, (req, res, next) => {
+  app.get(`${base}/terms`, (req, res) => {
     req.locations.terms(req.query.field.split(','), {}, { filterNulls: true })
       .then(terms => res.json({ terms }));
   });
@@ -99,14 +122,14 @@ module.exports = (config, services, instance, app, base) => {
     [
       `${base}`,
       `${base}/merge`,
-      `${base}/:locationUid`
+      `${base}/:locationUid`,
     ],
     instance.imageTransformAndUpload.middleware([
       {
         name: 'image',
-        unique: true
-      }
-    ])
+        unique: true,
+      },
+    ]),
   );
 
   app.post(`${base}`, (req, res, next) => {
@@ -121,7 +144,7 @@ module.exports = (config, services, instance, app, base) => {
     }).then(location => {
       res.json({
         location,
-        success: true
+        success: true,
       });
     }, next);
   });
@@ -129,7 +152,7 @@ module.exports = (config, services, instance, app, base) => {
   app.post(`${base}/disqualify`, (req, res, next) => {
     req.locations
       .duplicates.disqualifyCandidate(
-        req.body.uids
+        req.body.uids,
       )
       .then(location => {
         res.json({
@@ -144,10 +167,10 @@ module.exports = (config, services, instance, app, base) => {
       req.body.mergeIn,
       { uids: req.body.merged },
       null,
-      { agendaUid: req.agenda?.uid }
+      { agendaUid: req.agenda?.uid },
     ).then(location => res.json({
       location,
-      success: true
+      success: true,
     }), next);
   });
 
@@ -165,7 +188,7 @@ module.exports = (config, services, instance, app, base) => {
       }).then(location => {
         res.json({
           location,
-          success: true
+          success: true,
         });
       }, next);
     } catch (e) {
@@ -177,11 +200,11 @@ module.exports = (config, services, instance, app, base) => {
     req.locations.remove(req.params.locationUid, {
       includeImagePath: true,
       agendaUid: req.agenda?.uid,
-      removeEvents: !!req.query.removeEvents
+      removeEvents: !!req.query.removeEvents,
     }).then(location => {
       res.json({
         location,
-        success: true
+        success: true,
       });
     }, next);
   });
@@ -190,7 +213,7 @@ module.exports = (config, services, instance, app, base) => {
     if (err.name === 'BadRequest') {
       res.status(400).json({
         errors: err.info,
-        success: false
+        success: false,
       });
     } else {
       next(err);

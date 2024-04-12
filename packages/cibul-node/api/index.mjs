@@ -229,11 +229,7 @@ export default (core, { useRouter = true } = {}) => {
   app.post('/agendas/:agendaUid/settings/eventSchema/configure', [
     mw.member.allow(['administrator']),
     (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateFields(req.parsedData.fields)
-      .then(() => res.json({
-        success: true,
-      }), err => {
-        next(err);
-      }),
+      .then(updatedSchema => res.json(updatedSchema), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [

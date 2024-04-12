@@ -47,5 +47,5 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
 
   tasks.enqueue('updateLegacy', agenda, true);
 
-  return true;
+  return fs.getData();
 };

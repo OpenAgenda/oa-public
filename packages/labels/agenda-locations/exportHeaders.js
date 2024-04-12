@@ -66,6 +66,10 @@ module.exports = {
     "it": "Codice INSEE (Francia)",
     "oc": "Còdi INSEE"
   },
+  "siret": {
+    "en": "SIRET Code",
+    "fr": "Code SIRET"
+  },
   "countryCode": {
     "en": "Country code",
     "fr": "Code pays",

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import sa from 'superagent';
 
 export default ({
-  res, values, files, query, method
+  res, values, files, query, method,
 }) => {
   const hasFiles = _.keys(files).length;
 
@@ -17,7 +17,7 @@ export default ({
 
   if (!hasFiles) {
     return req.send({
-      data: JSON.stringify(values)
+      data: JSON.stringify(values),
     });
   }
 

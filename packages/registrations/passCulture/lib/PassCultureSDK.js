@@ -47,7 +47,7 @@ async function listEventOfferCategories({ api }) {
 function call({ key, api }, method, path, data = {}) {
   return axios({
     method,
-    url: `${api}/${path}`,
+    url: `${api}${path}`,
     headers: headers(key),
     ...method === 'get' ? { params: data } : { data },
   }).then(r => r.data);

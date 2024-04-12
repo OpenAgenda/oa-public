@@ -63,8 +63,9 @@ router.post(
   '/networks/:uid',
   async (req, res, next) => {
     try {
-      await router.service.setNetworkSchemaFields(req.params.uid, JSON.parse(req.body.data).fields)
-      res.send('ok');
+      res.json(
+        await router.service.setNetworkSchemaFields(req.params.uid, JSON.parse(req.body.data).fields)
+      );
     } catch (e) {
       next(e);
     }
