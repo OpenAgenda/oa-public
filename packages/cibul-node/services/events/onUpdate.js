@@ -7,8 +7,8 @@ module.exports = async (services, before, after, context) => {
 
   const {
     legacy: {
-      controlData: controlDataSvc
-    }
+      controlData: controlDataSvc,
+    },
   } = services;
 
   if (after.draft) return;

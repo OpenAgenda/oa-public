@@ -32,6 +32,7 @@ module.exports = async function createActivity(services, before, after, context)
   }
 
   if (after.draft) {
+    log('no activity for draft');
     return;
   }
 
@@ -104,5 +105,8 @@ module.exports = async function createActivity(services, before, after, context)
         userUid: agendaEvent.userUid,
       },
     });
+    log('changes were made, added activity');
+  } else {
+    log('no changes were made');
   }
 };

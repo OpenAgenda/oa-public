@@ -2,18 +2,19 @@
 
 const log = require('@openagenda/logs')('events/interfaces/onCreate');
 
-module.exports = (services, event, context) => {
-  services.tracker('events.onCreate');
-  log('info', 'created event %s with context %j', event.uid, context);
-
-  if (event.creatorUid) {
-    _unsetNewUser(services.users, event);
-  }
-
-  _registerActivity(services.activities, event);
+function unsetNewUser(usersSvc, event) {
+  usersSvc.get(event.creatorUid)
+    .then(async user => {
+      if (user && user.isNew) {
+        await usersSvc.setNewFlag(event.creatorUid, { isNew: false });
+      }
+    })
+    .catch(err => {
+      log('error', err);
+    });
 }
 
-async function _registerActivity(activitiesSvc, event) {
+async function registerActivity(activitiesSvc, event) {
   if (!activitiesSvc) {
     log('warn', 'activities services was not initialized');
     return;
@@ -29,14 +30,13 @@ async function _registerActivity(activitiesSvc, event) {
   }
 }
 
-function _unsetNewUser(usersSvc, event) {
-  usersSvc.get(event.creatorUid)
-    .then(async user => {
-      if (user && user.isNew) {
-        await usersSvc.setNewFlag(event.creatorUid, { isNew: false });
-      }
-    })
-    .catch(err => {
-      log('error', err);
-    });
-}
+module.exports = (services, event, context) => {
+  services.tracker('events.onCreate');
+  log('info', 'created event %s with context %j', event.uid, context);
+
+  if (event.creatorUid) {
+    unsetNewUser(services.users, event);
+  }
+
+  registerActivity(services.activities, event);
+};

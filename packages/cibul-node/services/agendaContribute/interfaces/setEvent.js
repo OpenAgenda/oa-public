@@ -13,11 +13,11 @@ module.exports = async (services, req, res, data) => {
   const {
     core,
     sessions,
-    agendaEvents
+    agendaEvents,
   } = services;
 
   const {
-    PUBLISHED
+    PUBLISHED,
   } = agendaEvents.states;
 
   const {
@@ -26,7 +26,7 @@ module.exports = async (services, req, res, data) => {
     event: current,
     fromAgenda,
     agenda,
-    user
+    user,
   } = req;
 
   log('setEvent with draft %s, mode %s, fromAgenda %s', draft ? 'true' : 'false', mode, fromAgenda ? fromAgenda?.uid : 'not set');
@@ -37,7 +37,7 @@ module.exports = async (services, req, res, data) => {
       const event = await core.agendas(agenda.uid).events.create(data, {
         draft,
         userUid: user.uid,
-        filterUnauthorizedData: true
+        filterUnauthorizedData: true,
       });
       return { event };
     }
@@ -51,11 +51,11 @@ module.exports = async (services, req, res, data) => {
         draft,
         userUid: user.uid,
         filterUnauthorizedData: true,
-        private: null
+        private: null,
       });
       return {
         event,
-        success: true
+        success: true,
       };
     }
     if (mode === 'add') {
@@ -64,20 +64,20 @@ module.exports = async (services, req, res, data) => {
         draft,
         userUid: user.uid,
         filterUnauthorizedData: true,
-        sourceAgenda: fromAgenda
+        sourceAgenda: fromAgenda,
       });
       sessions.setFlash(req, res, marked(getLabel(
         event.state === PUBLISHED ? 'sharedAndPublished' : 'sharedAndUnpublished',
         {
           agendaTitle: req.agenda.title,
           agendaLink: `/agendas/${req.agenda.uid}`,
-          eventLink: `/agendas/${req.agenda.uid}/events/${req.event.uid}`
+          eventLink: `/agendas/${req.agenda.uid}/events/${req.event.uid}`,
         },
-        req.lang
+        req.lang,
       ), { breaks: true }));
       return {
         event,
-        success: true
+        success: true,
       };
     }
   } catch (e) {
@@ -87,7 +87,7 @@ module.exports = async (services, req, res, data) => {
       return {
         success: false,
         errors: e.info,
-        event: null
+        event: null,
       };
     }
 
@@ -95,7 +95,7 @@ module.exports = async (services, req, res, data) => {
 
     return {
       success: false,
-      event: null
+      event: null,
     };
   }
 };
