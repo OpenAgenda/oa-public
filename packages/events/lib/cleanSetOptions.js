@@ -10,25 +10,25 @@ const fields = require('./fields');
 schema.register({
   integer,
   boolean,
-  pass
+  pass,
 });
 
 module.exports = schema({
   access: {
     type: 'text',
-    default: 'public'
+    default: 'public',
   },
   context: {
     type: 'pass',
-    default: {}
+    default: {},
   },
   draft: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeFields: {
     type: 'choice',
@@ -36,21 +36,21 @@ module.exports = schema({
   },
   transferToLegacy: {
     type: 'boolean',
-    default: true
+    default: true,
   },
   useProvidedIdentifiers: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   private: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   protected: {
     type: 'boolean',
     default: true,
   },
   fileKey: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 });

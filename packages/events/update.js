@@ -17,14 +17,14 @@ async function update({ service, isPatch }, current, data, o = {}) {
   log('received payload for %s: %j', isPatch ? 'patch' : 'update', data);
 
   const clean = {
-    ...(await validate(data, {
+    ...await validate(data, {
       isPatch,
       isDraft: options.draft,
       protected: options.protected,
       maxImageSize: service.config.maxImageSize,
-      current
-    })),
-    updatedAt: new Date()
+      current,
+    }),
+    updatedAt: new Date(),
   };
 
   if (!current.fileKey && clean.image) {
@@ -34,7 +34,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
   if (clean.image) {
     clean.image = await processImage(service, {
       image: clean.image,
-      fileKey: current.fileKey ?? clean.fileKey
+      fileKey: current.fileKey ?? clean.fileKey,
     });
   }
 
@@ -45,7 +45,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
   if (options.useProvidedIdentifiers) {
     Object.assign(clean, {
       uid: data.uid,
-      slug: data.slug
+      slug: data.slug,
     });
   }
 
@@ -55,7 +55,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
 
   const updated = {
     ...current,
-    ...clean
+    ...clean,
   };
 
   await handleInterface(service, 'beforeUpdate', current, updated, options.context);
@@ -80,11 +80,11 @@ async function update({ service, isPatch }, current, data, o = {}) {
     ...options,
     locations: options.detailed ? await handleInterface(service, 'getLocations', updated.locationUid) : null,
     agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', updated.agendaUid, { private: options.private }) : null,
-    imagePath: service.config.imagePath
+    imagePath: service.config.imagePath,
   });
 }
 
 module.exports = async ({ service, isPatch }, identifier, data, options = {}) => update({
   service,
-  isPatch
+  isPatch,
 }, await get(service, identifier, { ...options, throwOnError: true, internal: true }), data, options);
