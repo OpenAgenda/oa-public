@@ -39,7 +39,8 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     if (!response.event) return;
 
     // speed up context bar display
-    preload(`/api/me/agendas/${agenda.uid}/events/${response.event.uid}`, input => ky(input).json());
+    preload(`/api/me/agendas/${agenda.uid}/events/${response.event.uid}`, input => ky(input).json())
+      .catch(() => null);
 
     router.push(`/${agenda.slug}/events/${response.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`)
       .then(() => {
