@@ -17,6 +17,7 @@ module.exports = async function transferEvent(services, event, member) {
     agendaEvents,
     events,
     activities,
+    core,
   } = services;
 
   log('processing event to member', event.uid, member.id);
@@ -33,11 +34,18 @@ module.exports = async function transferEvent(services, event, member) {
     userUid: member.userUid,
   }, { protected: false, transferToLegacy: true });
 
-  log.info('transfered event ownership', {
+  log.info('transferred event ownership', {
     agendaUid: member.agendaUid,
     fromUserUid: previousOwnerUid,
     toUserUid: member.userUid,
   });
+
+  try {
+    log('resyncing index');
+    await core.agendas(member.agendaUid).events.search.resyncEvent(event.uid);
+  } catch (e) {
+    log('error', 'failed to resync event index data', { error: e });
+  }
 
   try {
     await feedFollow(activities, false, previousOwnerUid, event.uid);

@@ -168,6 +168,17 @@ module.exports = function plugApp(app) {
     mw.loadEvent,
     mw.load,
     mw.authorize.adminModOrEventOwner,
+    (req, res, next) => {
+      req.app.core.users(req.user.uid).agendas(req.agenda.uid).events(req.event.uid).getContext({
+        userUid: req.user.uid,
+      })
+        .then(context => {
+          if (context.me?.authorizations?.canEditEvent) {
+            return next();
+          }
+          res.status(401).json();
+        });
+    },
     async (req, res, next) => {
       try {
         if (req.body.userUid) {
