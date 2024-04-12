@@ -21,6 +21,7 @@ import {
   WrapItem,
   Wrap,
 } from '@openagenda/uikit';
+import { nl2br } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
 import { faGlobe } from 'icons/regular';
@@ -463,18 +464,18 @@ function EventShow({ preload }: EventShowProps) {
                     </Wrap>
                   </div>
 
+                  {event.location.description?.[contentLocale] ? (
+                    <div>
+                      {nl2br(event.location.description[contentLocale])}
+                    </div>
+                  ) : null}
+
                   {event.location.tags?.length ? (
                     <div>
                       <chakra.div fontWeight="bold">
                         {intl.formatMessage(messages.tags)}
                       </chakra.div>
                       {intl.formatList(event.location.tags.map(tag => tag.label), { style: 'narrow' })}
-                    </div>
-                  ) : null}
-
-                  {event.location.description?.[contentLocale] ? (
-                    <div>
-                      {event.location.description[contentLocale]}
                     </div>
                   ) : null}
 
