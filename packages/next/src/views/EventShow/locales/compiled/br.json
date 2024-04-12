@@ -206,7 +206,7 @@
   "next.views.EventShow.ContextBar.publishedInfo": [
     {
       "type": 0,
-      "value": "L'événement est visible sur l'agenda"
+      "value": "Cet événement est visible sur l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
@@ -291,6 +291,18 @@
     {
       "type": 0,
       "value": "Transférer la propriété"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": [
+    {
+      "type": 0,
+      "value": "Transférez la propriété de l'événement à un autre membre de l'agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
+    {
+      "type": 0,
+      "value": "Le transfert de propriété n'est possible que si vous avez les droit d'édition sur l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [

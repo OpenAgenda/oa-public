@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Este evento debe ser moderado y no está listo para ser publicado",
   "next.views.EventShow.ContextBar.transferOwnership": "Transferir la propiedad",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Contribuyente",
   "next.views.EventShow.ContributorSection.edit": "",

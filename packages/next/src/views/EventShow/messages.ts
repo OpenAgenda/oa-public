@@ -64,6 +64,14 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.transferOwnership',
     defaultMessage: 'Transfer ownership',
   },
+  transferOwnershipDescription: {
+    id: 'next.views.EventShow.ContextBar.transferOwnershipDescription',
+    defaultMessage: 'Hand over ownership of the event to another member of the agenda',
+  },
+  transferOwnershipDescriptionDisabled: {
+    id: 'next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled',
+    defaultMessage: 'Transferring ownership is only possible if you have edition rights over the event',
+  },
   featuredInfo: {
     id: 'next.views.EventShow.ContextBar.featuredInfo',
     defaultMessage: 'A featured event appears at the top of the list',

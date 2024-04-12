@@ -29,9 +29,9 @@ import TransferOwnershipModal from '../TransferOwnershipModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
-function ButtonMenuItem({ action, description = null, onClick }) {
+function ButtonMenuItem({ action, description = null, onClick, disabled = false }) {
   return (
-    <MenuItem onClick={onClick}>
+    <MenuItem onClick={onClick} isDisabled={disabled}>
       <Flex direction="column">
         <Text fontWeight="bold" display="block">{action}</Text>
         {description ? (
@@ -133,6 +133,7 @@ export default function OtherActions({ agenda }) {
 
   const displayRemove = isAdminMod || isEventContributor;
   const displayRequestEditionRights = isAdminMod && !canEditEvent;
+  const allowTransferOwnership = isAdminMod && canEditEvent;
 
   const redirectUrl = base64.encode(router.asPath);
   const requestEditionRightsUrl = `/${agenda.slug}/admin/events/${event.slug}/edition-request?redirect=${redirectUrl}`;
@@ -181,8 +182,10 @@ export default function OtherActions({ agenda }) {
                 />
               )}
               <ButtonMenuItem
+                disabled={!allowTransferOwnership}
                 onClick={transferOwnershipOnOpen}
                 action={intl.formatMessage(messages.transferOwnership)}
+                description={intl.formatMessage(messages[allowTransferOwnership ? 'transferOwnershipDescription' : 'transferOwnershipDescriptionDisabled'])}
               />
             </>
           ) : null}

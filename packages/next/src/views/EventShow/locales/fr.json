@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "Cet événement sera vérifié par les administrateurs avant sa publication.",
   "next.views.EventShow.ContextBar.toModerateInfo": "Cet événement doit être modéré et n'est pas prêt à être publié",
   "next.views.EventShow.ContextBar.transferOwnership": "Transférer la propriété",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "Transférez la propriété de l'événement à un autre membre de l'agenda",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "Le transfert de propriété n'est possible que si vous avez les droits d'édition sur l'événement",
   "next.views.EventShow.ContextBar.unfeature": "Retirer de la une",
   "next.views.EventShow.ContributorSection.contributor": "Contributeur",
   "next.views.EventShow.ContributorSection.edit": "Modifier",

@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat",
   "next.views.EventShow.ContextBar.transferOwnership": "Transferir la proprietat",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Contributor·a",
   "next.views.EventShow.ContributorSection.edit": "Modificar",

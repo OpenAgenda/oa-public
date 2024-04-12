@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "This event will be verified by administrators prior to its publication.",
   "next.views.EventShow.ContextBar.toModerateInfo": "This event needs to be verified and is not ready for publication",
   "next.views.EventShow.ContextBar.transferOwnership": "Transfer ownership",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "Hand over ownership of the event to another member of the agenda",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "Transferring ownership is only possible if you have edition rights over the event",
   "next.views.EventShow.ContextBar.unfeature": "Unfeature",
   "next.views.EventShow.ContributorSection.contributor": "Contributor",
   "next.views.EventShow.ContributorSection.edit": "Edit",

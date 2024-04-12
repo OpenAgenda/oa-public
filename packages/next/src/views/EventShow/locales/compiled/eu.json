@@ -293,6 +293,18 @@
       "value": "Transferir la propiedad"
     }
   ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": [
+    {
+      "type": 0,
+      "value": "Hand over ownership of the event to another member of the agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
+    {
+      "type": 0,
+      "value": "Transferring ownership is only possible if you have edition rights over the event"
+    }
+  ],
   "next.views.EventShow.ContextBar.unfeature": [
     {
       "type": 0,

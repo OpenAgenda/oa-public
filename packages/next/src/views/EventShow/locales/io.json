@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "crwdns33830:0crwdne33830:0",
   "next.views.EventShow.ContextBar.toModerateInfo": "crwdns33666:0crwdne33666:0",
   "next.views.EventShow.ContextBar.transferOwnership": "crwdns33864:0crwdne33864:0",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "",
   "next.views.EventShow.ContextBar.unfeature": "crwdns33668:0crwdne33668:0",
   "next.views.EventShow.ContributorSection.contributor": "crwdns33670:0crwdne33670:0",
   "next.views.EventShow.ContributorSection.edit": "crwdns33672:0crwdne33672:0",

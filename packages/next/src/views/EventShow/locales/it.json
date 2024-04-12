@@ -48,6 +48,8 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": "",
   "next.views.EventShow.ContextBar.toModerateInfo": "",
   "next.views.EventShow.ContextBar.transferOwnership": "",
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": "",
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": "",
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "Collaboratore",
   "next.views.EventShow.ContributorSection.edit": "Modificare",
