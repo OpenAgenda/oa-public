@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const sass = require('sass');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -17,26 +17,30 @@ module.exports = {
     path.join(process.env.PORTAL_DIR, process.env.PORTAL_JS_PATH),
   ],
   output: {
-    path: path.join(process.env.PORTAL_DIR, process.env.PORTAL_ASSETS_FOLDER, 'dist'),
+    path: path.join(
+      process.env.PORTAL_DIR,
+      process.env.PORTAL_ASSETS_FOLDER,
+      'dist',
+    ),
     filename: '[name].js',
     chunkFilename: '[id].js',
-    publicPath: '/dist'
+    publicPath: '/dist',
   },
   target: `browserslist:${browsersListConfig}`,
   devServer: {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    compress: true
+    compress: true,
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: new RegExp('node_modules'),
+        exclude: /node_modules/,
         loader: require.resolve('babel-loader'),
         options: {
-          presets: ['@openagenda']
-        }
+          presets: ['@openagenda'],
+        },
       },
       {
         test: /\.s[ac]ss$/i,
@@ -46,12 +50,12 @@ module.exports = {
           {
             loader: require.resolve('sass-loader'),
             options: {
-              implementation: sass
-            }
-          }
-        ]
-      }
-    ]
+              implementation: sass,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -60,10 +64,7 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimizer: [
-      '...',
-      new CssMinimizerPlugin()
-    ],
+    minimizer: ['...', new CssMinimizerPlugin()],
   },
   stats: {
     preset: 'minimal',
@@ -71,6 +72,6 @@ module.exports = {
     assets: false,
     modules: false,
     errorDetails: true,
-    errorStack: true
-  }
+    errorStack: true,
+  },
 };
