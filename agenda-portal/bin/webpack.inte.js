@@ -24,7 +24,7 @@ module.exports = {
     ),
     filename: '[name].js',
     chunkFilename: '[id].js',
-    publicPath: '/dist',
+    publicPath: '/dist/',
   },
   target: `browserslist:${browsersListConfig}`,
   devServer: {
@@ -48,12 +48,31 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           require.resolve('css-loader'),
           {
+            loader: require.resolve('resolve-url-loader'),
+            options: {
+              root: path.join(
+                process.env.PORTAL_DIR,
+                process.env.PORTAL_ASSETS_FOLDER,
+              ),
+            },
+          },
+          {
             loader: require.resolve('sass-loader'),
             options: {
               implementation: sass,
+              sourceMap: true,
             },
           },
         ],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        loader: require.resolve('file-loader'),
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/',
+          esModule: false,
+        },
       },
     ],
   },
