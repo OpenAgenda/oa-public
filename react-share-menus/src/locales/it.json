@@ -17,6 +17,7 @@
   "distribute-fields": "Campi con opzioni: visualizza un valore per colonna",
   "gcalStep2": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
   "gcalStep3": "3. Segui le istruzioni incollando il link che hai copiato al punto 1",
+  "import": "Importare",
   "input-field": "Selezionare i campi da esportare",
   "instructions": "Istruzioni",
   "no-agenda": "Attenzione: Nessuna agenda è amministrata dal suo account. Per favore creane una prima se vuoi aggregare gli eventi di {targetAgenda}.",
