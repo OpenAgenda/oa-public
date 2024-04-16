@@ -294,7 +294,7 @@ function Dashboard() {
   const onRemove = useCallback(() => {
     const { event } = removeModal.data;
 
-    apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
+    apiClient.delete(`/api/agendas/${agenda.uid}/events/${event.uid}`).then(
       () =>
         queryClient
           .refetchQueries(['event-admin-apps', 'events', agenda.slug])
