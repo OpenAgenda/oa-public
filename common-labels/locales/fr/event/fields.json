@@ -5,6 +5,8 @@
   "common.event.fields.keywords": "Mots clés",
   "common.event.fields.onlineAccessLink": "Lien d'accès",
   "common.event.fields.registration": "Outils d'inscription",
+  "common.event.fields.slug": "Slug",
+  "common.event.fields.status": "Statut",
   "common.event.fields.timings": "Horaires",
   "common.event.fields.title": "Titre"
 }
