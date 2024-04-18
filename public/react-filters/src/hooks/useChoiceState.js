@@ -21,7 +21,7 @@ function getCollator(locale, defaultLocale) {
 function filterOptions({ options, fuse, searchValue, sort, collator }) {
   if (searchValue === '') {
     if (sort === 'alphabetical') {
-      return options.sort((a, b) => collator.compare(a.label, b.label));
+      return [...options].sort((a, b) => collator.compare(a.label, b.label));
     }
 
     return options;
@@ -46,7 +46,6 @@ export default function useChoiceState({
       new Fuse(options, {
         threshold: 0.3,
         ignoreLocation: true,
-        distance: 100,
         keys: ['label'],
       }),
   );
