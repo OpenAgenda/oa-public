@@ -1,19 +1,22 @@
 import { useCallback } from 'react';
 import qs from 'qs';
+import { useForm } from 'react-final-form';
 import getQuerySeparator from '../utils/getQuerySeparator';
 
-export default function useLoadGeoData(_apiClient, res, query, options = {}) {
+export default function useLoadGeoData(_apiClient, res, options = {}) {
   const { searchMethod = 'get' } = options;
 
+  const form = useForm();
+
   return useCallback(
-    async (filter, bounds, zoom) => {
+    async (bounds, zoom) => {
       const northEast = bounds.getNorthEast().wrap();
       const southWest = bounds.getSouthWest().wrap();
 
       const params = {
         // oaq: { passed: 1 },
         size: 0,
-        ...query,
+        ...form.getState().values,
         aggregations: [
           {
             type: 'geohash',
@@ -48,6 +51,6 @@ export default function useLoadGeoData(_apiClient, res, query, options = {}) {
 
       return result.aggregations.geohash;
     },
-    [res, query],
+    [res, form],
   );
 }

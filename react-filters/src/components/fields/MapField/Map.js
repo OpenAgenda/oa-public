@@ -158,7 +158,6 @@ const Map = React.forwardRef(
   (
     {
       input,
-      filter,
       tileAttribution,
       tileUrl,
       loadGeoData,
@@ -195,7 +194,7 @@ const Map = React.forwardRef(
           const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
           const innerZoom = map.getBoundsZoom(map.getBounds());
 
-          loadGeoData(filter, innerBounds, innerZoom)
+          loadGeoData(innerBounds, innerZoom)
             .then(newData => setData(newData?.reverse() ?? []))
             .catch(err => {
               console.log('Failed to load geo data', err);
@@ -231,7 +230,7 @@ const Map = React.forwardRef(
           const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
           const innerZoom = map.getBoundsZoom(map.getBounds());
 
-          loadGeoData(filter, innerBounds, innerZoom)
+          loadGeoData(innerBounds, innerZoom)
             .then(newData => {
               setData(newData?.reverse() ?? []);
               setDisplayedMarkers(true);
@@ -241,7 +240,7 @@ const Map = React.forwardRef(
             });
         });
       },
-      [bounds, filter, loadGeoData],
+      [bounds, loadGeoData],
     );
 
     const previousValue = usePrevious(input.value);
