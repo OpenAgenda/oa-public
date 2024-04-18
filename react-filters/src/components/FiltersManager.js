@@ -205,7 +205,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         return (
           <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
             <span>
-              <Total message={widget.message} total={total} />
+              <Total total={total} {...widget} />
             </span>
           </Portal>
         );
