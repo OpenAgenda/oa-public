@@ -4,7 +4,7 @@ const log = require('@openagenda/logs')('core/tasks');
 
 module.exports = function tasks(services) {
   const {
-    queues
+    queues,
   } = services;
 
   const queue = queues('core');
@@ -23,6 +23,6 @@ module.exports = function tasks(services) {
         await queue.clear();
       }
       return queue.stop();
-    }
+    },
   });
 };
