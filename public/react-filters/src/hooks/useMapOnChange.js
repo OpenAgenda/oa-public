@@ -1,12 +1,17 @@
 import { useCallback } from 'react';
 
-export default function useMapOnChange({ filter, input, loadGeoData, ref, userControlled }) {
+export default function useMapOnChange({
+  input,
+  loadGeoData,
+  ref,
+  userControlled,
+}) {
   return useCallback(
     value => {
       if (!userControlled) {
         if (value) {
           const { current: mapElem } = ref;
-          loadGeoData(filter, value.bounds, value.zoom)
+          loadGeoData(value.bounds, value.zoom)
             .then(data => mapElem.setData(data?.reverse() ?? []))
             .catch(err => {
               console.log('Failed to geo data', err);
@@ -30,6 +35,6 @@ export default function useMapOnChange({ filter, input, loadGeoData, ref, userCo
         },
       });
     },
-    [filter, input, loadGeoData, ref, userControlled],
+    [input, loadGeoData, ref, userControlled],
   );
 }

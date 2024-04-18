@@ -74,9 +74,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     searchMethod,
   } = useContext(FiltersAndWidgetsContext);
 
-  const [query, setQuery] = useState(() => initialQuery);
   const [total, setTotal] = useState(() => initialTotal);
-
   const [aggregations, setAggregations] = useState(() => initialAggregations);
 
   const filtersBaseQuery = useQuery(
@@ -117,14 +115,12 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(null, res, query, { searchMethod });
+  const loadGeoData = useLoadGeoData(null, res, { searchMethod });
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
-    getQuery: () => query,
     getForm: () => form,
     setAggregations,
-    setQuery,
     setTotal,
     updateFiltersAndWidgets: (values, result) => {
       const widgetsOnPage = extractWidgetsFromDom();
@@ -171,7 +167,6 @@ const FiltersManager = React.forwardRef(function FiltersManager(
 
         setAggregations(result.aggregations || []);
         setTotal(result.total || 0);
-        setQuery(values);
       });
 
       const mapFilter = filters.find(v => v.type === 'map');
@@ -200,7 +195,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     if (typeof onLoad === 'function') {
       const aggs = filtersToAggregations(filters);
 
-      onLoad(query, aggs, form);
+      onLoad(initialQuery, aggs, form);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -253,7 +248,6 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         initialViewport={initialAggregations.viewport}
         defaultViewport={defaultViewport}
         loadGeoData={loadGeoData}
-        query={query}
         agendaUid={agendaUid}
         missingValue={filtersOptions.missingValue}
         // filters

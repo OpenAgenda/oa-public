@@ -6,7 +6,7 @@ import SearchWithMap from './SearchWithMap';
 import { gestureHandlingStyle, markerClusterStyle } from './mapStyle';
 
 const mapStyle = css`
-   height: 100%;
+  height: 100%;
   ${markerClusterStyle}
   ${gestureHandlingStyle}
 `;
@@ -29,7 +29,7 @@ function MapField(
   ref,
 ) {
   const [userControlled, setUserControlled, toggleUserControlled] = useMapUserControl(name, searchWithMap);
-  const onChange = useMapOnChange({ filter, input, loadGeoData, ref, userControlled });
+  const onChange = useMapOnChange({ input, loadGeoData, ref, userControlled });
 
   return !collapsed ? (
     <>
