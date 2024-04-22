@@ -31,7 +31,7 @@ const MapField = React.forwardRef<any, any>(function MapField(
   ref,
 ) {
   const [userControlled, setUserControlled, toggleUserControlled] = (useMapUserControl as UseMapUserControl)(input.name, searchWithMap);
-  const onChange = useMapOnChange({ filter, input, loadGeoData, ref, userControlled });
+  const onChange = useMapOnChange({ input, loadGeoData, ref, userControlled });
 
   return (
     <div>
