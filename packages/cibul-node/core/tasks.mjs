@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/tasks');
+const log = logs('core/tasks');
 
-module.exports = function tasks(services) {
+export default function tasks(services) {
   const {
     queues,
   } = services;
@@ -25,4 +25,4 @@ module.exports = function tasks(services) {
       return queue.stop();
     },
   });
-};
+}

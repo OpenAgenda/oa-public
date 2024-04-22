@@ -7,7 +7,6 @@ const base64 = require('@openagenda/utils/base64');
 
 const agendaLogo = require('./agendaLogo');
 const extractInvitationContext = require('./invitationContext');
-const messages = require('./messages');
 
 async function createSenderActivity(services, { agenda, invitationContext, member }) {
   const {
@@ -148,5 +147,4 @@ module.exports = {
   sendInvitation,
   send,
   resendInvitation,
-  messages,
 };

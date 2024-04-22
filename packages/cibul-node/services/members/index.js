@@ -15,8 +15,8 @@ const onPatch = require('./onPatch');
 
 const plugApp = require('./plugApp');
 const mw = require('./middleware');
-const mail = require('./lib/mail');
 const listAllAdminMods = require('./lib/listAllAdminMods');
+const SendGroupMail = require('./lib/SendGroupMail');
 
 const members = {};
 
@@ -26,7 +26,6 @@ function init(config, services) {
   } = services;
 
   const activityQueue = queues('memberActivities');
-  const messageQueueName = 'memberMessages';
 
   Object.assign(members, Service({
     knex: config.knex,
@@ -45,19 +44,13 @@ function init(config, services) {
     },
   }));
 
-  const messages = mail.messages({
-    services,
-    config,
-    queueName: messageQueueName,
-  });
-
   const {
     task: activityTask,
   } = activitiesTask({ queue: activityQueue });
 
-  mw.sendMessage.init(messages);
-
   members.utils.listAllAdminMods = listAllAdminMods(members);
+
+  const sendGroupMail = SendGroupMail(config, services);
 
   return Object.assign(
     module.exports,
@@ -66,9 +59,10 @@ function init(config, services) {
       task: () => {
         log('running tasks');
         members.task();
-        messages.task();
+        sendGroupMail.task();
         activityTask();
       },
+      sendGroupMail,
       mw: {
         load: mw.load,
         loadOrFail: mw.load.orFail,

@@ -48,6 +48,22 @@ const testConfig = {
   oembed: {
     key: process.env.IFRAMELY_KEY,
   },
+  mails: {
+    transport: {
+      host: '127.0.0.1',
+      port: '1025',
+      secure: false,
+      maxMessages: Infinity,
+      maxConnections: 5,
+      rateLimit: 14,
+      rateDelta: 1000,
+    },
+    disableVerify: false,
+    defaults: {
+      from: '"OpenAgenda" <no-reply@test.openagenda.com>',
+      replyTo: '"OpenAgenda" <test@openagenda.com>',
+    },
+  },
   enableMigrations: false,
   passCulture: {
     key: process.env.PASS_CULTURE_KEY,

@@ -23,7 +23,6 @@ module.exports = function plugApp(app) {
     '/:agendaSlug/admin/members.:format',
     '/:agendaSlug/admin/members/stats',
     '/:agendaSlug/admin/members/invite',
-    '/:agendaSlug/admin/members/send-message',
     '/:agendaSlug/admin/members/message-history',
     '/:agendaSlug/admin/members/:id',
     '/:agendaSlug/admin/members/:id/details',
@@ -68,12 +67,6 @@ module.exports = function plugApp(app) {
     mw.authorize.moderatorCannotInviteAdministrator,
     mw.loadContext,
     mw.invite.bind(null, members),
-  );
-
-  app.post(
-    '/:agendaSlug/admin/members/send-message',
-    mw.authorize.agendaHasCredential.bind(null, 'invitationMessage'),
-    mw.sendMessage,
   );
 
   app.get(

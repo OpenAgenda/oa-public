@@ -1,7 +1,7 @@
 import Agendas from './agendas/index.js';
 import Networks from './networks/index.js';
 import Users from './users/index.js';
-import Tasks from './tasks.js';
+import Tasks from './tasks.mjs';
 import Events from './events/index.mjs';
 import LocationSets from './locationSets/index.js';
 
