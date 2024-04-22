@@ -50,7 +50,7 @@ module.exports = async (
   nav = {},
   options = {},
 ) => {
-  log('processing', query, nav, options);
+  log('processing', { query, nav, options });
 
   const {
     detailed,
