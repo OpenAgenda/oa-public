@@ -13,7 +13,7 @@ export interface JsonError {
 
 interface ErrorProps {
   error?: Error | JsonError
-  eventId?: string
+  errorTrackingId?: string
   resetError?: () => void
 }
 
@@ -55,7 +55,7 @@ function getFullStack(error) {
   return error.stack;
 }
 
-export function ErrorDisplay({ error, eventId, resetError }: ErrorProps) {
+export function ErrorDisplay({ error, errorTrackingId, resetError }: ErrorProps) {
   const intl = useIntl();
 
   const errorStack = error ? getFullStack(error) : null;
@@ -83,12 +83,12 @@ export function ErrorDisplay({ error, eventId, resetError }: ErrorProps) {
         </Button>
       </HStack>
 
-      {eventId && (
+      {errorTrackingId && (
         <Flex flexDirection="column" textAlign="center" mt="8">
           <Text>{intl.formatMessage(messages.errorTrackingId)}</Text>
           <Flex alignItems="center">
-            <Text>{eventId}</Text>
-            {/* <IconButton variant="text" onClick={() => copyText(eventId)}>
+            <Text>{errorTrackingId}</Text>
+            {/* <IconButton variant="text" onClick={() => copyText(errorTrackingId)}>
                   <CopyIcon color="primary" width="24px" />
                 </IconButton> */}
           </Flex>

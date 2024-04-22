@@ -302,7 +302,7 @@
   "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
     {
       "type": 0,
-      "value": "Le transfert de propriété n'est possible que si vous avez les droit d'édition sur l'événement"
+      "value": "Le transfert de propriété n'est possible que si vous avez les droits d'édition sur l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [

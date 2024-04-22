@@ -23,7 +23,9 @@ type CommonProps = {
 };
 
 type ShowPageProps = EventShowProps & CommonProps;
-type ErrorPageProps = EventErrorProps & CommonProps;
+type ErrorPageProps = EventErrorProps & CommonProps & {
+  agenda?: Agenda
+};
 type PageProps = ShowPageProps & {
   agenda: Agenda
 } | ErrorPageProps;
@@ -39,19 +41,15 @@ export const getServerSideProps: GetServerSideProps = async ({
   const agendaSlug = queryWithParams.agendaSlug as string;
   const eventSlug = queryWithParams.eventSlug as string;
 
-  // console.log({ params, queryWithParams });
-
   const query = parseLocationQuery(resolvedUrl);
   const locale = getPreferredLocale(query.lang, nextLocale, getSession(req.cookies)?.user?.culture);
 
   const eventUrl = `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
+  let agenda = null;
+
   try {
-    const [
-      intlMessages,
-      agenda,
-      eventResponse,
-    ] = await Promise.all([
+    const results = await Promise.allSettled([
       EventShow.fetchLocale(locale),
       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`, {
         headers: {
@@ -74,6 +72,15 @@ export const getServerSideProps: GetServerSideProps = async ({
           throw new VError[r.status](r.statusText);
         }),
     ]);
+
+    if (results[0].status === 'rejected') throw results[0].reason;
+    const intlMessages = results[0].value;
+
+    if (results[1].status === 'rejected') throw results[1].reason;
+    agenda = results[1].value;
+
+    if (results[2].status === 'rejected') throw results[2].reason;
+    const eventResponse = results[2].value;
 
     const googleAnalytics = agenda.settings?.tracking?.googleAnalytics;
     const matomoUrl = agenda.settings?.tracking?.matomoUrl;
@@ -145,6 +152,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       agendaSlug,
       eventSlug,
       intlMessages,
+      agenda,
     };
 
     props.error = errorToJSON(e);
@@ -210,15 +218,15 @@ export const getServerSideProps: GetServerSideProps = async ({
 // });
 
 const EventPage: NextPageWithLayout<PageProps> = props => {
-  const { fallback = {} } = props;
+  const { fallback = {}, agenda } = props;
 
   if ('statusCode' in props) {
     return (
-      <EventError {...props} />
+      <AgendaProvider agenda={agenda}>
+        <EventError {...props} />
+      </AgendaProvider>
     );
   }
-
-  const { agenda } = props;
 
   return (
     <DateFnsLocaleProvider>
