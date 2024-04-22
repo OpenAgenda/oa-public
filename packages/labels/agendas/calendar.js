@@ -74,7 +74,7 @@ module.exports = {
   },
   "agenda": {
     "en": "Agenda",
-    "fr": "Journal",
+    "fr": "Agenda",
     "it": "Agenda",
     "de": "Agenda",
     "pl": "Porządek obrad",

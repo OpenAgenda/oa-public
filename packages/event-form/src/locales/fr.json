@@ -1,8 +1,8 @@
 {
-  "event-form.components.Events.emptySelection": "Aucun événement n'a encore été sélectionné",
-  "event-form.components.Events.loadError": "Une erreur est survenue lors du chargement. Veuillez retenter l'opération.",
-  "event-form.components.Events.noResult": "Aucun événement ne correspond à cette recherche",
+  "event-form.components.Events.emptySelection": "Aucun événement sélectionné",
+  "event-form.components.Events.loadError": "Erreur de chargement, merci de réessayer ultérieurement",
+  "event-form.components.Events.noResult": "Aucun événement correspondant trouvé",
   "event-form.components.Events.remove": "Retirer",
-  "event-form.components.Events.searchEvents": "Recherche d'événements",
+  "event-form.components.Events.searchEvents": "Chercher un événement",
   "event-form.components.Events.show": "Afficher"
 }

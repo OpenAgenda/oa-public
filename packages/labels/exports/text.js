@@ -15,7 +15,7 @@ module.exports = {
     "en": "Registration",
     "de": "Anmeldung",
     "es": "Herramientas de registro",
-    "it": "Prenotazione",
+    "it": "Registrazione",
     "br": "En em enskrivañ",
     "io": "crwdns14670:0crwdne14670:0",
     "oc": "Reservacion"

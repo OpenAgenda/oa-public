@@ -532,7 +532,7 @@ module.exports = {
   "backToDashboard": {
     "en": "Back to the dashboard",
     "fr": "Retour à la gestion des événements",
-    "it": "Indietro",
+    "it": "Tornare al cruscotto",
     "de": "Zurück zum Dashbord",
     "pl": "Powrót do zarządzania wydarzeniami",
     "es": "Volver a la gestión",
@@ -732,7 +732,7 @@ module.exports = {
   "access": {
     "en": "Access",
     "fr": "Accès",
-    "it": "Come arrivare",
+    "it": "Accesso",
     "de": "Zugang",
     "pl": "Dostęp",
     "es": "Acceso",
@@ -831,7 +831,7 @@ module.exports = {
   "moreLinks": {
     "en": "More links",
     "fr": "Liens additionnels",
-    "it": "Contatti in aggiunta",
+    "it": "Altri link",
     "de": "weitere Links",
     "pl": "Więcej linków",
     "es": "Enlaces adicionales",
@@ -864,7 +864,7 @@ module.exports = {
   "actions": {
     "en": "Other actions",
     "fr": "Autres actions",
-    "it": "Azioni",
+    "it": "Altre azioni",
     "de": "Aktionen",
     "pl": "Działania",
     "es": "Otras acciones",

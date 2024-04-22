@@ -104,7 +104,7 @@ module.exports = {
     "oc": "Tirar la sorsa"
   },
   "removeConfirmMessage": {
-    "fr": "Êtes-vous sûr de vouloir supprimer cet agenda des sources ?",
+    "fr": "Êtes-vous sûr de vouloir retirer cet agenda de la liste des sources ?",
     "en": "Are you sure you want to delete this agenda from sources ?",
     "de": "Bist du sicher, dass du dieseVerwaltungskalender von Quellen löschen willst ?",
     "es": "¿Está seguro de que desea eliminar esta agenda fuente?",

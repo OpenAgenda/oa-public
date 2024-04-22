@@ -74,19 +74,19 @@ module.exports = {
     "io": "crwdns33794:0crwdne33794:0"
   },
   "all-weekday-0": {
-    "fr": ", tous les dimanches",
+    "fr": ", les dimanches",
     "en": ", every Sunday",
     "de": ", jeden Sonntag",
     "io": "crwdns33796:0crwdne33796:0"
   },
   "some-weekday-1": {
-    "fr": ", certains lundis",
+    "fr": ", les lundis",
     "en": ", some Mondays",
     "de": ", einige Montags",
     "io": "crwdns33798:0crwdne33798:0"
   },
   "all-weekday-1": {
-    "fr": ", tous les lundis",
+    "fr": ", les lundis",
     "en": ", every Monday",
     "de": ", jeden Montag",
     "io": "crwdns33800:0crwdne33800:0"
@@ -98,7 +98,7 @@ module.exports = {
     "io": "crwdns33802:0crwdne33802:0"
   },
   "all-weekday-2": {
-    "fr": ", tous les mardis",
+    "fr": ", les mardis",
     "en": ", every Tuesday",
     "de": ", jeden Dienstag",
     "io": "crwdns33804:0crwdne33804:0"
@@ -110,7 +110,7 @@ module.exports = {
     "io": "crwdns33806:0crwdne33806:0"
   },
   "all-weekday-3": {
-    "fr": ", tous les mercredis",
+    "fr": ", les mercredis",
     "en": ", every Wednesday",
     "de": ", an jedem Mittwoch",
     "io": "crwdns33808:0crwdne33808:0"
@@ -122,7 +122,7 @@ module.exports = {
     "io": "crwdns33810:0crwdne33810:0"
   },
   "all-weekday-4": {
-    "fr": ", tous les jeudis",
+    "fr": ", les jeudis",
     "en": ", every Thursday",
     "de": ", jeden Donnerstag",
     "io": "crwdns33812:0crwdne33812:0"
@@ -134,7 +134,7 @@ module.exports = {
     "io": "crwdns33814:0crwdne33814:0"
   },
   "all-weekday-5": {
-    "fr": ", tous les vendredis",
+    "fr": ", les vendredis",
     "en": ", every Friday",
     "de": ", jeden Freitag",
     "io": "crwdns33816:0crwdne33816:0"
@@ -146,7 +146,7 @@ module.exports = {
     "io": "crwdns33818:0crwdne33818:0"
   },
   "all-weekday-6": {
-    "fr": ", tous les samedis",
+    "fr": ", les samedis",
     "en": ", every Saturday",
     "de": ", jeden Samstag",
     "io": "crwdns33820:0crwdne33820:0"

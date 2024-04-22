@@ -68,7 +68,8 @@ module.exports = {
   },
   "siret": {
     "en": "SIRET Code",
-    "fr": "Code SIRET"
+    "fr": "Code SIRET",
+    "io": "crwdns33876:0crwdne33876:0"
   },
   "countryCode": {
     "en": "Country code",
@@ -138,7 +139,7 @@ module.exports = {
   "access": {
     "en": "Access",
     "fr": "Accès",
-    "it": "Come arrivare",
+    "it": "Accesso",
     "de": "Zugang",
     "pl": "Dostęp",
     "es": "Acceso",

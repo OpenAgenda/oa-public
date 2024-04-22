@@ -546,7 +546,7 @@ module.exports = {
   },
   "contact": {
     "en": "Contact",
-    "fr": "Contact",
+    "fr": "Contacter",
     "de": "Kontakt",
     "es": "Contactar",
     "it": "Contattare",

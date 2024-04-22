@@ -1074,7 +1074,7 @@ module.exports = {
     "oc": "Descripcions multimèdia : apondètz vidèos, sons e imatges"
   },
   "multimediaEventsGeo": {
-    "fr": "Géolocalisation riche: tapez l’adresse et OpenAgenda trouve latitude, longitude, département, région et pays",
+    "fr": "Géolocalisation riche : tapez l’adresse et OpenAgenda trouve latitude, longitude, département, région et pays",
     "en": "Rich geocoding: type the address and all localization details are retrieved: latitude, longitude, region, country...",
     "de": "Rich Geokodierung: Gebe die Adresse und alle Lokalisierungs Details abgerufen werden sollen: Breitengrad, Längengrad, Region, Land ...",
     "es": "Geolocalización rica: escriba la dirección y se encontró OpenAgenda latitud, longitud, estado y país",
@@ -1557,7 +1557,7 @@ module.exports = {
   },
   "footerContactUs": {
     "en": "Contact",
-    "fr": "Contact",
+    "fr": "Contacter",
     "de": "Kontakt",
     "es": "Contactar",
     "it": "Contattare",
