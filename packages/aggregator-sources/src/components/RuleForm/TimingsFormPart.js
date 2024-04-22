@@ -20,7 +20,7 @@ export default function TimingsFormPart() {
     <div className="row">
       <div className="form-group form-group-v-aligned">
         <div className="col-sm-10">
-          <div className="form-inline">
+          <div className="form-inline margin-bottom-xs">
             <div className="form-group">Du</div>
             <div className="form-group margin-h-sm">
               <Field
