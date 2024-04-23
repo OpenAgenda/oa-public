@@ -66,11 +66,20 @@ module.exports = {
         ],
       },
       {
-        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        test: /\.(otf|ttf|eot|woff|woff2|svg)$/,
         loader: require.resolve('file-loader'),
         options: {
-          name: '[name].[ext]',
+          name: '[name].[contenthash:8].[ext]',
           outputPath: 'fonts/',
+          esModule: false,
+        },
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|webp)$/i,
+        loader: require.resolve('file-loader'),
+        options: {
+          name: '[name].[contenthash:8].[ext]',
+          outputPath: 'images/',
           esModule: false,
         },
       },
