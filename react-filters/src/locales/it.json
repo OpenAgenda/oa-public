@@ -26,6 +26,7 @@
   "ReactFilters.messages.choiceFilter.noResult": "Nessun risultato",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Cerca",
   "ReactFilters.messages.featured.featured": "Selezionato",
+  "ReactFilters.messages.filterTitles.accessibility": "Accessibilità",
   "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modalità di partecipazione",
   "ReactFilters.messages.filterTitles.city": "Città",
