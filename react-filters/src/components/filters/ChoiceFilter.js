@@ -194,7 +194,7 @@ const Collapsable = React.forwardRef(function Collapsable(
   { name, filter, component, getTotal, getOptions, disabled, ...rest },
   ref,
 ) {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(filter.defaultCollapsed ?? true);
 
   return (
     <Panel
