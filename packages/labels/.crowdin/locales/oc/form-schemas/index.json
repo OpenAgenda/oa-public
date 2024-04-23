@@ -1,10 +1,10 @@
 {
-  "required": "Camp obligatòri",
+  "cancel": "Anullar",
   "groupErrorHeader": "Cal corregir d'unas valors",
-  "submit": "Sometre",
   "help": "Ajuda",
   "noChoice": "Pas cap causida",
   "noOption": "Pas cap correspondéncia",
+  "required": "Camp obligatòri",
   "selectPlaceholder": "Causir...",
-  "cancel": "Anullar"
+  "submit": "Sometre"
 }

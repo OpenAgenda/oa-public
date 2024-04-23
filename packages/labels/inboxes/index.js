@@ -97,7 +97,7 @@ module.exports = {
     "en": "Show all conversations",
     "de": "Alle Gespräche",
     "es": "Ver todas las conversaciones",
-    "it": "Visualizza tutte le conversazioni",
+    "it": "Vedere tutte le conversazioni",
     "io": "crwdns15020:0crwdne15020:0"
   },
   "actions": {
@@ -205,7 +205,7 @@ module.exports = {
     "en": "Send",
     "de": "Senden",
     "es": "enviar a",
-    "it": "Inviare a",
+    "it": "Inviare",
     "io": "crwdns15046:0crwdne15046:0"
   },
   "reply": {

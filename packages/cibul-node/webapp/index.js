@@ -354,7 +354,7 @@ const initialState = async req => {
         showContributor: '/:slug/admin?contributorId=:contributorId',
         exportToCsv: '/:slug/admin/members.csv',
         exportToXlsx: '/:slug/admin/members.xlsx',
-        sendMessage: '/:slug/admin/members/send-message',
+        sendMessage: '/api/agendas/:agendaUid/members/sendGroupMail',
         getSchema: '/api/agendas/:agendaUid/settings/memberSchema',
       },
     },

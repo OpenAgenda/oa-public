@@ -8,7 +8,6 @@ const load = require('./load');
 const loadTarget = require('./loadTarget');
 const loadContext = require('./loadContext');
 const invite = require('./invite');
-const sendMessage = require('./sendMessage');
 const spreadsheet = require('./spreadsheet');
 
 module.exports = {
@@ -20,6 +19,5 @@ module.exports = {
   loadTarget,
   loadContext,
   invite,
-  sendMessage,
   spreadsheet,
 };

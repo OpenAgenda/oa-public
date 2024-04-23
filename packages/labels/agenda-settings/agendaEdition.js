@@ -604,7 +604,7 @@ module.exports = {
     "oc": "Personalizacion"
   },
   "editEventsDescription": {
-    "fr": "Modifiez la description des événements",
+    "fr": "Modifier la description des événements",
     "en": "Edit the description of events",
     "de": "Bearbeite die Beschreibung der Veranstaltungen",
     "es": "Cambiar la descripción de los acontecimientos",

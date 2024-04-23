@@ -6,6 +6,7 @@ const list = require('./list');
 const patch = require('./patch');
 const remove = require('./remove');
 const stream = require('./stream');
+const sendGroupMail = require('./sendGroupMail');
 
 const invite = (core, agendaUid, { role, emails = [], context }) => {
   const { members } = core.services;
@@ -18,7 +19,9 @@ const invite = (core, agendaUid, { role, emails = [], context }) => {
   });
 };
 
-module.exports = (core, agendaUid) => ({
+module.exports = (core, agendaUid) => Object.assign(memberOrUid => ({
+  sendGroupMail: sendGroupMail.bind(null, core, agendaUid, memberOrUid),
+}), {
   list: list.bind(null, core, agendaUid),
   get: get.bind(null, core, agendaUid),
   create: create.bind(null, core, agendaUid),

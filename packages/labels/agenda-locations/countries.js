@@ -381,7 +381,7 @@ module.exports = {
   },
   "CI": {
     "en": "Cote D'Ivoire",
-    "fr": "Cote D'Ivoire",
+    "fr": "Côte d'Ivoire",
     "de": "Elfenbeinküste",
     "es": "Costa de Marfil",
     "it": "Costa d'Avorio",
@@ -390,7 +390,7 @@ module.exports = {
   },
   "CK": {
     "en": "Cook Islands",
-    "fr": "Iles Cook",
+    "fr": "Îles Cook",
     "de": "Cookinseln",
     "es": "Islas cook",
     "it": "Isole Cook",
@@ -1046,7 +1046,7 @@ module.exports = {
   },
   "KM": {
     "en": "Comoros",
-    "fr": "Comorres",
+    "fr": "Comores",
     "de": "Komoren",
     "es": "Comorres",
     "it": "Comorres",
@@ -1091,7 +1091,7 @@ module.exports = {
   },
   "KY": {
     "en": "Cayman Islands",
-    "fr": "Iles Caïman",
+    "fr": "Îles Caïman",
     "de": "Cayman Inseln",
     "es": "Islas Caimán",
     "it": "Isole Cayman",
@@ -2017,7 +2017,7 @@ module.exports = {
   },
   "US": {
     "en": "United States",
-    "fr": "Etats-Unis",
+    "fr": "États-Unis",
     "de": "Vereinigte Staaten",
     "es": "Estados Unidos",
     "it": "Stati Uniti",
@@ -2080,7 +2080,7 @@ module.exports = {
   },
   "VI": {
     "en": "U.S. Virgin Islands",
-    "fr": "Iles Vierges américaines",
+    "fr": "Îles Vierges américaines",
     "de": "US Jungferninseln",
     "es": "Islas Vírgenes de los EE.UU.",
     "it": "Isole Vergini Americane",
@@ -2134,7 +2134,7 @@ module.exports = {
   },
   "YE": {
     "en": "Yemen",
-    "fr": "Yemen",
+    "fr": "Yémen",
     "de": "Jemen",
     "es": "Yemen",
     "it": "Yemen",

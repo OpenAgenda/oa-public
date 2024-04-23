@@ -1,10 +1,12 @@
 {
+  "common.event.fields.accessibility": "Accessibilità speciale",
   "common.event.fields.attendanceMode": "Modalità di partecipazione",
   "common.event.fields.conditions": "Condizioni",
   "common.event.fields.keywords": "Parole Chiave",
   "common.event.fields.location": "Luogo",
   "common.event.fields.longDescription": "Descrizione lunga",
   "common.event.fields.onlineAccessLink": "Collegamento di accesso",
+  "common.event.fields.registration": "Registrazione",
   "common.event.fields.timings": "Orari",
   "common.event.fields.title": "Titolo"
 }

@@ -145,7 +145,7 @@ module.exports = {
     "oc": "OpenAgenda vos mandarà de notificacions a aquesta adreça. Serà pas transmesa a degun mai."
   },
   "email": {
-    "fr": "Email",
+    "fr": "Adresse email",
     "en": "Email",
     "it": "Email",
     "de": "E-Mail",

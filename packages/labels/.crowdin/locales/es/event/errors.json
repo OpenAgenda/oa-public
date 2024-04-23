@@ -1,7 +1,7 @@
 {
-  "timings.empty": "A lo menos un horario debe ser definido",
   "location.required": "El lugar debe especificarse",
-  "timings.toolong": "No puede haber más de 800 franjas horarias para el mismo evento",
+  "timings.empty": "A lo menos un horario debe ser definido",
+  "timings.invalid": "A lo menos un horario debe ser definido",
   "timings.min.1": "A lo menos un horario debe ser definido",
-  "timings.invalid": "A lo menos un horario debe ser definido"
+  "timings.toolong": "No puede haber más de 800 franjas horarias para el mismo evento"
 }

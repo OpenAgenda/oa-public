@@ -48,5 +48,8 @@ module.exports = core => {
       flattenMemberInfo,
       clearAgendasCache: clearAgendasCache.bind(null, core.services),
     },
+    tasks: () => {
+      members.tasks(core);
+    },
   });
 };

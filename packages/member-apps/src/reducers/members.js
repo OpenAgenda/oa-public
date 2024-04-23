@@ -419,9 +419,13 @@ export function sendMessage(agenda, data, query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.sendMessage.replace(':slug', agenda.slug), data, {
-        params: query,
-      });
+      return client.post(
+        res.sendMessage.replace(':agendaUid', agenda.uid),
+        data,
+        {
+          params: query,
+        },
+      );
     },
   };
 }

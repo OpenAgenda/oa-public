@@ -38,7 +38,7 @@ module.exports = {
   "otherActions": {
     "fr": "Autres actions",
     "en": "Other actions",
-    "it": "Azioni",
+    "it": "Altre azioni",
     "io": "crwdns16472:0crwdne16472:0",
     "oc": "Autras accions",
     "es": "Otras acciones"

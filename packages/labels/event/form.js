@@ -280,7 +280,7 @@ module.exports = {
   "conditionsPlaceholder": {
     "fr": "Entrée libre, sur inscription, autre...",
     "en": "Free access, registration required, other...",
-    "it": "Ingresso libero, su registrazione, altro.....",
+    "it": "Ingresso libero, su registrazione, altro...",
     "de": "Freier Zugang, Registrierung erforderlich, andere.....",
     "es": "Entrada gratuita para los suscriptores, otra ...",
     "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
@@ -296,7 +296,7 @@ module.exports = {
   "registration": {
     "fr": "Outils d'inscription",
     "en": "Registration",
-    "it": "Strumenti di registrazione",
+    "it": "Registrazione",
     "de": "Registrierung",
     "es": "Herramientas de registro",
     "br": "En em enskrivañ",
@@ -597,7 +597,7 @@ module.exports = {
     "es": "Aplazado"
   },
   "status": {
-    "fr": "État",
+    "fr": "Statut",
     "en": "Status",
     "io": "crwdns16110:0crwdne16110:0",
     "oc": "Estatut",

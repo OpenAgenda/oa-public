@@ -550,7 +550,7 @@ module.exports = {
     "en": "Saved",
     "es": "Guardar",
     "it": "Registrato",
-    "de": "Gerettet",
+    "de": "Gespeichert",
     "io": "crwdns14788:0crwdne14788:0",
     "oc": "Enregistrat"
   },

@@ -1,8 +1,8 @@
 {
-  "newAggregationSubject": "%agenda% ha aggregato un nuovo evento: %event%",
-  "newAggregationBody": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%state%**",
   "newAggregationAction": "Vedere l'evento",
-  "toBeControlled": "verificabile",
+  "newAggregationBody": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%state%**",
+  "newAggregationSubject": "%agenda% ha aggregato un nuovo evento: %event%",
+  "published": "pubblicato",
   "readyToPublish": "pronto per la pubblicazione",
-  "published": "pubblicato"
+  "toBeControlled": "verificabile"
 }

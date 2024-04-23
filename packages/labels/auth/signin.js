@@ -13,7 +13,7 @@ module.exports = {
     "oc": "Connexion"
   },
   "incorrectPassword": {
-    "fr": "L'email ou le mot de passe sont incorrects",
+    "fr": "L'email ou le mot de passe est incorrect.",
     "en": "Your email or password is incorrect.",
     "it": "L'e-mail o la password non è corretta.",
     "de": "Deine E-Mail oder dein Passwort ist falsch.",

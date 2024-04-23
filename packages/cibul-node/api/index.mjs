@@ -364,6 +364,19 @@ export default (core, { useRouter = true } = {}) => {
       }), next),
   ]);
 
+  app.post('/agendas/:agendaUid/members/sendGroupMail', [
+    mw.member.load,
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core
+      .agendas(req.agenda)
+      .members(req.member)
+      .sendGroupMail(req.query, req.parsedData, {
+        lang: req.lang,
+        user: req.user,
+      })
+      .then(() => res.json({ dontKnowWhat: true }), next),
+  ]);
+
   app.post('/agendas/:agendaUid/locations', [
     mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) => core

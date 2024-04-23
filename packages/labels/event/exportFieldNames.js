@@ -211,7 +211,7 @@ module.exports = {
     "fr": "Lien d'inscription",
     "de": "Registrierungslink",
     "es": "Enlace de registro",
-    "it": "Link per la registrazione",
+    "it": "Link di registrazione",
     "io": "crwdns14190:0crwdne14190:0",
     "oc": "Ligam d'inscripcion"
   },
@@ -220,7 +220,7 @@ module.exports = {
     "fr": "Outils d'inscription",
     "de": "Registrierung",
     "es": "Herramientas de registro",
-    "it": "Strumenti di registrazione",
+    "it": "Registrazione",
     "io": "crwdns16430:0crwdne16430:0",
     "oc": "Inscripcion"
   },
@@ -524,7 +524,7 @@ module.exports = {
   },
   "location.district": {
     "en": "District",
-    "fr": "Arrondissement",
+    "fr": "Quartier",
     "de": "Kreis",
     "es": "Barrio",
     "it": "Quartiere",
@@ -570,7 +570,7 @@ module.exports = {
     "oc": "Ligam d'accès"
   },
   "status": {
-    "fr": "État",
+    "fr": "Statut",
     "en": "Status",
     "io": "crwdns16156:0crwdne16156:0",
     "oc": "Estatut",
