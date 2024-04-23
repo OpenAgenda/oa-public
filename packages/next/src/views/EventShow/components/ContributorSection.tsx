@@ -15,7 +15,7 @@ export default function ContributorSection({ contentLocale }) {
   const dateFnsLocale = useDateFnsLocale();
 
   const agenda = useAgenda();
-  const { member } = useMember();
+  const { member, me } = useMember();
 
   const additionalFields = useMemo(
     () => (member ? additionalFieldsUtils.formatAdditionalFieldData({
@@ -31,6 +31,8 @@ export default function ContributorSection({ contentLocale }) {
   if (!member) {
     return null;
   }
+
+  const isEventContributor = member && member.userUid === me?.member?.userUid;
 
   return (
     <div>
@@ -62,7 +64,9 @@ export default function ContributorSection({ contentLocale }) {
       >
         <Button
           as={Link}
-          href={`/${agenda.slug}/contribute/member`}
+          href={isEventContributor
+            ? `/home?agendaUid=${agenda.uid}`
+            : `/${agenda.slug}/admin/members?userUid=${member.userUid}`}
           // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
           variant="outline"
           // colorScheme="white"
