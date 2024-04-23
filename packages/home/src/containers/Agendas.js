@@ -103,7 +103,7 @@ function Agendas() {
                 <MemberEditModal
                   lang={lang}
                   closeModal={() => {
-                    if (history.location.pathname.includes('member')) {
+                    if (query.agendaUid) {
                       history.push(prefix);
                     }
                     memberEditModal.close();
