@@ -1,13 +1,12 @@
 import '../polyfills';
 
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
-import getPreferredLocale from 'utils/getPreferredLocale';
 import useMatomoTracker from 'hooks/useMatomoTracker';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -27,25 +26,6 @@ interface PageProps {
   sessionLocale?: string
 }
 
-const useForceHtmlLangAttribute = preferredLocale => {
-  useEffect(() => {
-    document.documentElement.lang = preferredLocale;
-
-    const langObserver = new MutationObserver(() => {
-      if (document.documentElement.lang !== preferredLocale) {
-        document.documentElement.lang = preferredLocale;
-      }
-    });
-    langObserver.observe(document.documentElement, {
-      attributeFilter: ['lang'],
-    });
-
-    return () => {
-      langObserver.disconnect();
-    };
-  }, [preferredLocale]);
-};
-
 function MyApp({
   Component,
   pageProps,
@@ -55,11 +35,7 @@ function MyApp({
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
 
-  const { intlMessages, sessionLocale } = pageProps;
-
-  const locale = getPreferredLocale(router.query.lang, router.locale, sessionLocale);
-
-  useForceHtmlLangAttribute(locale);
+  const { intlMessages } = pageProps;
 
   useMatomoTracker();
 
@@ -81,7 +57,7 @@ function MyApp({
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>
       </Head>
-      <Providers locale={locale} intlMessages={intlMessages} cookies={universalCookies}>
+      <Providers locale={router.locale} intlMessages={intlMessages} cookies={universalCookies}>
         <SentryErrorBoundary>
           <Layout>
             <Component {...pageProps} />

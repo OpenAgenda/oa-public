@@ -8,9 +8,6 @@ import EventShow, { EventShowProps } from 'views/EventShow';
 import EventError, { EventErrorProps } from 'views/EventError';
 import { AgendaProvider } from 'views/EventShow/contexts/agenda';
 import type { Agenda } from 'types';
-import parseLocationQuery from 'utils/parseLocationQuery';
-import getPreferredLocale from 'utils/getPreferredLocale';
-import getSession from 'utils/getSession';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
@@ -33,16 +30,12 @@ type PageProps = ShowPageProps & {
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   res,
-  locale: nextLocale,
+  locale,
   query: queryWithParams,
   // params,
-  resolvedUrl,
 }) => {
   const agendaSlug = queryWithParams.agendaSlug as string;
   const eventSlug = queryWithParams.eventSlug as string;
-
-  const query = parseLocationQuery(resolvedUrl);
-  const locale = getPreferredLocale(query.lang, nextLocale, getSession(req.cookies)?.user?.culture);
 
   const eventUrl = `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 

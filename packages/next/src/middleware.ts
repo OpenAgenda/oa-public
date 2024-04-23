@@ -3,6 +3,7 @@ import browserslistConfig from '@openagenda/browserslist-config';
 import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
+import parseAcceptLanguage from 'utils/parseAcceptLanguage';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -17,13 +18,14 @@ export async function middleware(req: NextRequest) {
 
   /* locale redirection */
   // req.cookies.get('NEXT_LOCALE');
+  const acceptLanguage = parseAcceptLanguage(req.headers.get('Accept-Language'));
   const userLocale = getSession(req.cookies)?.user?.culture;
   const nextLocale = req.nextUrl.locale;
   const qsLocale = req.nextUrl.searchParams.get('lang');
 
   // const defaultLocale = userLocale || DEFAULT_LOCALE;
 
-  const locale = getPreferredLocale(qsLocale, nextLocale, userLocale);
+  const locale = getPreferredLocale(qsLocale, nextLocale, userLocale, ...acceptLanguage.map(al => al.code));
 
   if (nextLocale === 'default') {
     return NextResponse.redirect(
