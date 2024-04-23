@@ -12,8 +12,6 @@ import AgendaShow, { AgendaShowProps } from 'views/AgendaShow';
 import AgendaError, { AgendaErrorProps } from 'views/AgendaError';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
-import getPreferredLocale from 'utils/getPreferredLocale';
-import getSession from 'utils/getSession';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
 import generateNonce from 'utils/generateNonce';
@@ -33,14 +31,13 @@ const intlCache = createIntlCache();
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   res,
-  locale: nextLocale,
+  locale,
   query: queryWithParams,
   resolvedUrl,
 }) => {
   const agendaSlug = queryWithParams.agendaSlug as string;
-  const query = parseLocationQuery(resolvedUrl);
 
-  const locale = getPreferredLocale(query.lang, nextLocale, getSession(req.cookies)?.user?.culture);
+  const query = parseLocationQuery(resolvedUrl);
 
   try {
     const [

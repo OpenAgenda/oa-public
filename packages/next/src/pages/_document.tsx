@@ -11,13 +11,10 @@ import { Cookies } from 'react-cookie';
 import { ResponseCookies } from '@edge-runtime/cookies';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from '@openagenda/uikit';
-import getSession from 'utils/getSession';
-import getPreferredLocale from 'utils/getPreferredLocale';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 
 type CustomDocumentProps = {
-  sessionLocale?: string
   outdatedBrowser?: boolean
   nonce: string
 }
@@ -26,19 +23,14 @@ type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
 
 const { extractCriticalToChunks } = createEmotionServer(cache);
 
-function wrapApp({ cookies, sessionLocale }) {
+function wrapApp({ cookies }) {
   return App => {
-    const Wrapped = props => {
-      const { pageProps } = props;
-      pageProps.sessionLocale = sessionLocale;
-
-      return (
-        <App
-          universalCookies={cookies}
-          {...props}
-        />
-      );
-    };
+    const Wrapped = props => (
+      <App
+        universalCookies={cookies}
+        {...props}
+      />
+    );
     return Wrapped;
   };
 }
@@ -66,21 +58,13 @@ function OutdatedScript({ nonce, assetPrefix, locale }) {
 
 function MyDocument({
   locale,
-  __NEXT_DATA__,
   assetPrefix,
-  sessionLocale,
   outdatedBrowser,
   nonce,
 }: MyDocumentProps) {
-  const preferredLocale = getPreferredLocale(
-    __NEXT_DATA__.query.lang,
-    locale,
-    sessionLocale,
-  );
-
   return (
     <Html
-      lang={preferredLocale}
+      lang={locale}
       style={{ colorScheme: 'light' }}
       data-theme="light"
     >
@@ -106,7 +90,7 @@ function MyDocument({
         <Main />
         <NextScript nonce={nonce} />
         {outdatedBrowser ? (
-          <OutdatedScript assetPrefix={assetPrefix} locale={preferredLocale} nonce={nonce} />
+          <OutdatedScript assetPrefix={assetPrefix} locale={locale} nonce={nonce} />
         ) : null}
       </body>
     </Html>
@@ -123,8 +107,6 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
     || cookies.get('outdatedBrowser') === 'true';
 
-  const sessionLocale = getSession(cookies)?.user?.culture;
-
   // CSP
   let nonce = responseHeaders.get('X-Nonce');
   if (!nonce) {
@@ -134,7 +116,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: wrapApp({ cookies, sessionLocale }),
+      enhanceApp: wrapApp({ cookies }),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
@@ -143,7 +125,6 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
 
   return {
     ...initialProps,
-    sessionLocale,
     outdatedBrowser,
     nonce,
     styles: (
