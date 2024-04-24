@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import ReactSelect, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
@@ -18,7 +18,7 @@ const defaultStyles = {
     ...provided,
     minHeight: '35px',
     borderColor: GRAY,
-    ...(isFocused
+    ...isFocused
       ? {
         borderColor: '#66afe9',
         outline: '0',
@@ -27,7 +27,7 @@ const defaultStyles = {
         boxShadow:
             'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
       }
-      : {}),
+      : {},
 
     '&:hover': {
       borderColor: isFocused ? '#66afe9' : GRAY,
@@ -38,16 +38,18 @@ const defaultStyles = {
     padding: '5px',
     cursor: 'pointer',
   }),
-  indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
-    }
-    : base),
-  menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
-    }
-    : base),
+  indicatorsContainer: (base, state) =>
+    (state.selectProps.isCreatable && !state.selectProps.options?.length
+      ? {
+        display: 'none',
+      }
+      : base),
+  menu: (base, state) =>
+    (state.selectProps.isCreatable && !state.selectProps.options?.length
+      ? {
+        display: 'none',
+      }
+      : base),
   multiValue: provided => ({
     ...provided,
     margin: '1px',
@@ -107,7 +109,7 @@ function Option({ innerProps, ...props }) {
 }
 
 const defaultComponents = {
-  Option
+  Option,
 };
 
 function ReactSelectInput({
@@ -124,7 +126,7 @@ function ReactSelectInput({
       ...defaultStyles,
       ...stylesProp,
     }),
-    [stylesProp]
+    [stylesProp],
   );
 
   return (
