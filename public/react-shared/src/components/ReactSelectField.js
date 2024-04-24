@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import ReactSelectInput from './ReactSelectInput';
 
 const getValue = arg => arg?.value ?? arg;
@@ -54,7 +54,7 @@ function ReactSelectField({
         return { label: String(opt), value: opt };
       }
     },
-    [options]
+    [options],
   );
 
   const format = useCallback(
@@ -67,7 +67,7 @@ function ReactSelectField({
         ? selectedOption.map(v => findOption(v))
         : findOption(selectedOption);
     },
-    [findOption]
+    [findOption],
   );
   const parse = useCallback(value => {
     if (value === '') {
@@ -99,21 +99,19 @@ function ReactSelectField({
         return onBlur(e, ...args);
       }
     },
-    [onBlur, isCreatable]
+    [onBlur, isCreatable],
   );
   const isValidNewOption = useCallback(
     value => ![undefined, null, ''].includes(value),
-    []
+    [],
   );
 
   const defaultOption = useMemo(
-    () => (defaultValue !== undefined && defaultValue !== ''
-      ? format(defaultValue)
-      : defaultValue),
-    [
-      format,
-      defaultValue,
-    ],
+    () =>
+      (defaultValue !== undefined && defaultValue !== ''
+        ? format(defaultValue)
+        : defaultValue),
+    [format, defaultValue],
   );
 
   return (
