@@ -57,6 +57,11 @@ export default class APIEventsStream extends Readable {
           ? `&${qs.stringify({ ...this.query, after: this.after })}`
           : [],
       )
+      .concat(
+        !this.after && Object.keys(this.query).length
+          ? `&${qs.stringify(this.query)}`
+          : [],
+      )
       .join('');
 
     https
