@@ -37,6 +37,7 @@ export default () => {
             <ReactSelectField
               name="locationValues"
               Field={Field}
+              separator=","
               placeholder={intl.formatMessage(messages.addAValue)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
               formatCreateLabel={value =>
