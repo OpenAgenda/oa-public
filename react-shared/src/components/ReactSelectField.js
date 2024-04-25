@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef } from 'react';
 import ReactSelectInput from './ReactSelectInput';
+import { hasNewValues, appendNewValues } from './lib/selectUtils';
 
 const getValue = arg => arg?.value ?? arg;
 
@@ -22,6 +23,8 @@ function ReactSelectField({
   options,
   isCreatable,
   onBlur,
+  onKeyDown,
+  separator,
   ...props
 }) {
   const selectRef = useRef(null);
@@ -69,6 +72,7 @@ function ReactSelectField({
     },
     [findOption],
   );
+
   const parse = useCallback(value => {
     if (value === '') {
       return undefined;
@@ -76,6 +80,30 @@ function ReactSelectField({
 
     return Array.isArray(value) ? value.map(getValue) : getValue(value);
   }, []);
+
+  const handleKeyDown = useCallback(
+    (e, ...args) => {
+      if (e.keyCode === 9 && isCreatable) {
+        const {
+          state: { inputValue, value },
+        } = selectRef.current;
+
+        if (hasNewValues(value, inputValue, separator)) {
+          e.preventDefault();
+          selectRef.current.onChange(
+            appendNewValues(value, inputValue, separator),
+          );
+          selectRef.current.onInputChange('');
+        }
+      }
+
+      if (typeof onKeyDown === 'function') {
+        return onKeyDown(e, ...args);
+      }
+    },
+    [onKeyDown, isCreatable, separator],
+  );
+
   const handleBlur = useCallback(
     (e, ...args) => {
       if (isCreatable) {
@@ -83,15 +111,10 @@ function ReactSelectField({
           state: { inputValue, value },
         } = selectRef.current;
 
-        const alreadyInValue = inputValue.length && value
-          ? value?.some(v => v.value === inputValue)
-          : !inputValue.length;
-
-        if (!alreadyInValue) {
-          selectRef.current.onChange([
-            ...value,
-            { label: inputValue, value: inputValue },
-          ]);
+        if (hasNewValues(value, inputValue, separator)) {
+          selectRef.current.onChange(
+            appendNewValues(value, inputValue, separator),
+          );
         }
       }
 
@@ -99,7 +122,7 @@ function ReactSelectField({
         return onBlur(e, ...args);
       }
     },
-    [onBlur, isCreatable],
+    [onBlur, isCreatable, separator],
   );
   const isValidNewOption = useCallback(
     value => ![undefined, null, ''].includes(value),
@@ -126,6 +149,7 @@ function ReactSelectField({
       format={format}
       parse={parse}
       onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
       isValidNewOption={isCreatable ? isValidNewOption : undefined}
       components={undefined}
       {...props}
