@@ -7,6 +7,7 @@ import addIcon from './addIcon.js';
 import addRegistration from './addRegistration.js';
 import thumbnail from './thumbnail.js';
 import generateGoogleMapsLink from './generateGoogleMapsLink.js';
+import cleanString from './cleanString.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -106,10 +107,15 @@ export default async function addEventItem(
     valign: 'center',
   };
 
-  const imageUrl = await thumbnail(event, __dirname);
+  const imageUrl = await thumbnail(event);
 
   if (!simulate && imageUrl && includeEventImages) {
-    doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
+    const oaLogoPath = `${__dirname}/../images/oaLogo.png`;
+    try {
+      doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
+    } catch (e) {
+      doc.image(oaLogoPath, cursor.x, cursor.y, imageOptions);
+    }
   }
 
   if (includeEventImages) {
@@ -121,7 +127,7 @@ export default async function addEventItem(
   const { height: titleHeight, width: titleWidth } = addText(
     doc,
     localCursor,
-    getLocaleValue(event.title, lang),
+    cleanString(getLocaleValue(event.title, lang)),
     {
       width: columnMaxWidth,
       fontSize,
@@ -130,19 +136,20 @@ export default async function addEventItem(
       simulate,
     },
   );
-
   let columnWidth = titleWidth;
   goToNextLine(localCursor, titleHeight, options, includeEventImages);
 
-  const { height: descriptionHeight, width: descriptionWidth } = addText(
-    doc,
-    localCursor,
-    getLocaleValue(event.description, lang),
-    { width: columnMaxWidth, fontSize, base, simulate },
-  );
+  if (event.description.lenght > 0) {
+    const { height: descriptionHeight, width: descriptionWidth } = addText(
+      doc,
+      localCursor,
+      cleanString(getLocaleValue(event.description, lang)),
+      { width: columnMaxWidth, fontSize, base, simulate },
+    );
 
-  columnWidth = Math.max(columnWidth, descriptionWidth);
-  goToNextLine(localCursor, descriptionHeight, options, includeEventImages);
+    columnWidth = Math.max(columnWidth, descriptionWidth);
+    goToNextLine(localCursor, descriptionHeight, options, includeEventImages);
+  }
 
   // date range & accessibility line
 
@@ -222,7 +229,7 @@ export default async function addEventItem(
     const { width: locationWidth, height: locationHeight } = addText(
       doc,
       localCursor,
-      `${event.location.name} - ${event.location.address}`,
+      cleanString(`${event.location.name} - ${event.location.address}`),
       {
         width: columnMaxWidth - (iconHeightAndWidth + margin),
         fontSize,
@@ -266,7 +273,8 @@ export default async function addEventItem(
       includeEventImages,
     );
   }
-  if (event.registration.length !== 0) {
+
+  if (event.registration.length !== 0 && event.registration.value != null) {
     const { width: registrationWidth, height: registrationHeight } = addRegistration(
       doc,
       event,
