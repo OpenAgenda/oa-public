@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import { chakra, Link, NoBreak } from '@openagenda/uikit';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
 import EventItems from 'components/EventItems';
@@ -69,7 +69,6 @@ function ImageField({ field, updatedAt }) {
         fallbackSrc={process.env.NODE_ENV === 'development'
           ? `${IMAGE_PREFIX}${field.value.filename}${suffix}`
           : undefined}
-        fallbackStrategy="onError"
         fill
         sizes="(max-width: 992px) 100vw, 60vw"
         // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211

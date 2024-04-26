@@ -2,7 +2,7 @@ import { HStack, Text, Link, NoBreak } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 
 export default function AgendaItem({ agenda, targetAgenda, event }) {
@@ -24,13 +24,12 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           fallbackSrc={isDev && typeof imageSrc === 'string'
             ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
             : undefined}
-          fallbackStrategy="onError"
           alt=""
           draggable={false}
           loader={imageSrc ? keyCDNLoader : null}
           border="3px solid white"
           h="40px"
-          fit="cover"
+          objectFit="cover"
         />
 
         <Text fontSize="xl">

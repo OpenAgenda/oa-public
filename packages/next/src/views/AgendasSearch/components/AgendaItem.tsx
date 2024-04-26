@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import { HStack, NoBreak, Text, Flex, Tag, LinkBox } from '@openagenda/uikit';
 import Image from 'components/Image';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
@@ -30,13 +30,12 @@ export default function AgendaItem({ agenda }) {
         fallbackSrc={isDev && typeof imageSrc === 'string'
           ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
           : undefined}
-        fallbackStrategy="onError"
         alt=""
         draggable={false}
         loader={imageSrc ? keyCDNLoader : null}
         border="3px solid white"
         h="96px"
-        fit="cover"
+        objectFit="cover"
       />
 
       <Flex direction="column">

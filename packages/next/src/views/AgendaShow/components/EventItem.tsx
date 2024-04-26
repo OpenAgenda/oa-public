@@ -26,7 +26,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
 import upperFirst from 'utils/upperFirst';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
@@ -230,7 +230,6 @@ function EventItem({
                 fallbackSrc={process.env.NODE_ENV === 'development'
                   ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                   : undefined}
-                fallbackStrategy="onError"
                 width={event.image.size.width}
                 height={event.image.size.height}
                 loader={keyCDNLoader}
@@ -247,7 +246,6 @@ function EventItem({
                 fallbackSrc={process.env.NODE_ENV === 'development'
                   ? `${IMAGE_PREFIX}${event.image.filename}`
                   : undefined}
-                fallbackStrategy="onError"
                 fill
                 // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                 pos="unset !important"

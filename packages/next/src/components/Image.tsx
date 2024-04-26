@@ -1,51 +1,65 @@
-import NextImage, { ImageProps as NextImageProps } from 'next/future/image';
-import {
-  Image as ChakraImage,
-  ImageProps as ChakraImageProps,
-  forwardRef,
-  PropsOf,
-} from '@openagenda/uikit';
+import { useEffect, useState } from 'react';
+import NextImage, { type ImageProps as NextImageProps } from 'next/future/image';
+import { Box, HTMLChakraProps, forwardRef } from '@openagenda/uikit';
 
-interface NativeImageOptions {
-  /**
-   * The native HTML `width` attribute to the passed to the `img`
-   */
-  nextWidth?: string | number
-  /**
-   * The native HTML `height` attribute to the passed to the `img`
-   */
-  nextHeight?: string | number
-  nextFill?: boolean
+type ImageProps = NextImageProps & Omit<HTMLChakraProps<'img'>, keyof NextImageProps> & {
+  fallbackSrc?: NextImageProps['src'];
 }
 
-interface NativeImageProps extends
-  Omit<PropsOf<'img'>, 'src' | 'alt' | 'placeholder'>,
-  NextImageProps,
-  NativeImageOptions {}
+type ImageWithFallbackProps = ImageProps & {
+  nextWidth: NextImageProps['width']
+  nextHeight: NextImageProps['height']
+  nextFill: NextImageProps['fill']
+}
 
-const InnerImage = forwardRef(function InnerImage(
-  props: NativeImageProps & React.RefAttributes<HTMLImageElement>,
+const ImageWithFallback = forwardRef(function ImageWithFallback(
+  {
+    src,
+    fallbackSrc,
+    nextWidth,
+    nextHeight,
+    nextFill,
+    ...rest
+  }: ImageWithFallbackProps & React.RefAttributes<HTMLImageElement>,
   ref: React.Ref<any>,
 ) {
-  const { nextWidth, nextHeight, nextFill, ...rest } = props;
+  const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
 
   return (
-    <NextImage ref={ref} width={nextWidth} height={nextHeight} fill={nextFill} {...rest} />
+    <NextImage
+      ref={ref}
+      alt=""
+      {...rest}
+      width={nextWidth}
+      height={nextHeight}
+      fill={nextFill}
+      src={imgSrc}
+      onLoadingComplete={result => {
+        if (fallbackSrc && result.naturalWidth === 0) {
+          // Broken image
+          setImgSrc(fallbackSrc);
+        }
+      }}
+      onError={() => {
+        if (fallbackSrc) {
+          setImgSrc(fallbackSrc);
+        }
+      }}
+    />
   );
 });
 
-interface ImageProps extends
-  Omit<NextImageProps, keyof Omit<ChakraImageProps, 'src' | 'width' | 'height' | 'fill'>>,
-  Omit<ChakraImageProps, 'src' | 'width' | 'height' | 'htmlWidth' | 'htmlHeight' | 'fill'> {}
-
 const Image = forwardRef<ImageProps, 'img'>(function Image(props: ImageProps, ref) {
-  const { src, width, height, fill, ...rest } = props;
+  const { width, height, fill, ...rest } = props;
 
   return (
-    <ChakraImage
+    <Box
       ref={ref}
-      as={InnerImage}
-      src={src as string}
+      as={ImageWithFallback}
       nextWidth={width}
       nextHeight={height}
       nextFill={fill}

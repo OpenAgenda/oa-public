@@ -21,7 +21,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 import messages from './messages';
 
@@ -47,18 +47,17 @@ function EventImage({ src, loader = null, updatedAt = null }) {
       rounded="full"
       width="56"
       height="56"
-      src={`${src}${tsSuffix}`}
+      src={typeof src === 'string' ? `${src}${tsSuffix}` : src}
       fallbackSrc={isDev && typeof src === 'string'
         ? `${src.replace('cibuldev', 'cibul')
           .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)}${tsSuffix}`
         : undefined}
-      fallbackStrategy="onError"
       alt=""
       draggable={false}
       loader={loader}
       // border="3px solid white"
       h="56px"
-      fit="cover"
+      objectFit="cover"
     />
   );
 }

@@ -5,7 +5,7 @@ import NextChakraLink from 'components/NextChakraLink';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import { useAgenda } from '../contexts/agenda';
 import { agendaHeader as messages } from '../messages';
 
@@ -43,14 +43,13 @@ export default function AgendaHeader() {
           fallbackSrc={isDev
             ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
             : undefined}
-          fallbackStrategy="onError"
           loader={keyCDNLoader}
           priority
           draggable={false}
           alt=""
           border="3px solid white"
           h="56px"
-          fit="cover"
+          objectFit="cover"
         />
       ) : null}
 

@@ -6,7 +6,7 @@ import {
 import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import Image from 'components/Image';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../public/images/graylogo140.png';
 
 import messages from './messages';
@@ -26,12 +26,11 @@ function EventImage({ src, loader = null }) {
         ? src.replace('cibuldev', 'cibul')
           .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)
         : undefined}
-      fallbackStrategy="onError"
       alt=""
       draggable={false}
       loader={loader}
       h="56px"
-      fit="cover"
+      objectFit="cover"
     />
   );
 }

@@ -1,7 +1,7 @@
 import { chakra, SimpleGrid } from '@openagenda/uikit';
 import useSWRImmutable from 'swr/immutable';
 import { FetchStatus } from 'config/types';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import NextChakraLink from 'components/NextChakraLink';
 import graylogo140 from '../../../../public/images/graylogo140.png';
@@ -58,13 +58,12 @@ export default function References({ agenda, event }) {
             width="70"
             height="70"
             {...getImageSrcProps(agendaReference.image, agendaReference.updatedAt)}
-            fallbackStrategy="onError"
             alt=""
             draggable={false}
             loader={agendaReference.image ? keyCDNLoader : null}
             border="3px solid white"
             h="70px"
-            fit="cover"
+            objectFit="cover"
             m="auto"
           />
 
