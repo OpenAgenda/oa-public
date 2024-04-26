@@ -143,8 +143,6 @@ function EventItem({
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
-  const updatedTs = new Date(event.updatedAt).getTime();
-
   return (
     <Flex
       as="article"
@@ -225,10 +223,10 @@ function EventItem({
             ? event.image?.size?.width && event.image?.size?.height ? (
               <Image
                 src={process.env.NODE_ENV === 'development'
-                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
-                  : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
+                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                  : `${IMAGE_PREFIX}${event.image.filename}`}
                 fallbackSrc={process.env.NODE_ENV === 'development'
-                  ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                  ? `${IMAGE_PREFIX}${event.image.filename}`
                   : undefined}
                 width={event.image.size.width}
                 height={event.image.size.height}
