@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const { produce } = require('immer');
 
 const eventFormLabels = require('@openagenda/labels/event/form');
