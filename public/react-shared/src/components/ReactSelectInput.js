@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import ReactSelect, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
@@ -18,7 +18,7 @@ const defaultStyles = {
     ...provided,
     minHeight: '35px',
     borderColor: GRAY,
-    ...(isFocused
+    ...isFocused
       ? {
         borderColor: '#66afe9',
         outline: '0',
@@ -27,7 +27,7 @@ const defaultStyles = {
         boxShadow:
             'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
       }
-      : {}),
+      : {},
 
     '&:hover': {
       borderColor: isFocused ? '#66afe9' : GRAY,
@@ -38,16 +38,18 @@ const defaultStyles = {
     padding: '5px',
     cursor: 'pointer',
   }),
-  indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
-    }
-    : base),
-  menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
-    }
-    : base),
+  indicatorsContainer: (base, state) =>
+    (state.selectProps.isCreatable && !state.selectProps.options?.length
+      ? {
+        display: 'none',
+      }
+      : base),
+  menu: (base, state) =>
+    (state.selectProps.isCreatable && !state.selectProps.options?.length
+      ? {
+        display: 'none',
+      }
+      : base),
   multiValue: provided => ({
     ...provided,
     margin: '1px',
@@ -107,8 +109,24 @@ function Option({ innerProps, ...props }) {
 }
 
 const defaultComponents = {
-  Option
+  Option,
 };
+
+const spreadValue = (value, separator) =>
+  value.reduce((spread, item) => {
+    if (item.value.split(separator).length === 1) {
+      return spread.concat(item);
+    }
+    return spread.concat(
+      item.value
+        .split(separator)
+        .map(v => v.trim())
+        .map(v => ({
+          value: v,
+          label: v,
+        })),
+    );
+  }, []);
 
 function ReactSelectInput({
   innerRef,
@@ -116,6 +134,8 @@ function ReactSelectInput({
   input,
   meta,
   styles: stylesProp,
+  isMulti,
+  separator,
   ...rest
 }) {
   const SelectComponent = isCreatable ? CreatableSelect : ReactSelect;
@@ -124,7 +144,23 @@ function ReactSelectInput({
       ...defaultStyles,
       ...stylesProp,
     }),
-    [stylesProp]
+    [stylesProp],
+  );
+  const onChangeProp = rest.onChange || input.onChange;
+
+  const onChange = useCallback(
+    value => {
+      if (!onChangeProp) {
+        return;
+      }
+
+      onChangeProp(
+        separator && isMulti && isCreatable
+          ? spreadValue(value, separator)
+          : value,
+      );
+    },
+    [onChangeProp, separator, isCreatable, isMulti],
   );
 
   return (
@@ -134,8 +170,10 @@ function ReactSelectInput({
         {...input}
         isCreatable={isCreatable}
         isClearable={!isCreatable}
+        isMulti={isMulti}
         styles={styles}
         components={defaultComponents}
+        onChange={onChange}
         {...rest}
       />
 

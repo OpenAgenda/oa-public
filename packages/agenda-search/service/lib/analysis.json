@@ -36,6 +36,7 @@
     "french": {
       "tokenizer": "standard",
       "filter": [
+        "asciifolding",
         "french_elision",
         "lowercase",
         "french_stop",

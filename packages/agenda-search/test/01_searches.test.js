@@ -95,6 +95,22 @@ describe('01 - Search', function() {
       assert.equal(agendas[0].title, 'Au Théâtre ce soir');
     });
 
+    it('Accented and/or uppercased search give same results as non-accented and/or lowercased ones', async () => {
+      const capsedSearchResults = await svc({
+        search: 'FINISTERE',
+      }, { size: 2 }).then(
+        ({ agendas }) => agendas.map(a => a.title),
+      );
+
+      const accentedSearchResults = await svc({
+        search: 'finistère',
+      }, { size: 2 }).then(
+        ({ agendas }) => agendas.map(a => a.title),
+      );
+
+      expect(capsedSearchResults).toEqual(accentedSearchResults);
+    });
+
   });
 
   describe('Keywords', () => {
