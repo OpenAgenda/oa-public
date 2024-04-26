@@ -12,11 +12,6 @@ import cleanString from './cleanString.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-let imageWidth;
-let imageHeight;
-let fontSize;
-let iconHeightAndWidth;
-let margin;
 const locationIconPath = `${__dirname}/../images/location.png`;
 const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
 const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
@@ -28,6 +23,7 @@ function goToNextLine(cursor, height, options, includeEventImages) {
       margin: 20,
       color: '#413a42',
     },
+    imageWidth,
   } = options;
 
   cursor.y += height + base.margin / 10;
@@ -66,6 +62,12 @@ export default async function addEventItem(
   };
 
   let columnMaxWidth;
+
+  let imageWidth;
+  let imageHeight;
+  let fontSize;
+  let iconHeightAndWidth;
+  let margin;
 
   if (little) {
     imageWidth = 50;
@@ -137,7 +139,13 @@ export default async function addEventItem(
     },
   );
   let columnWidth = titleWidth;
-  goToNextLine(localCursor, titleHeight, options, includeEventImages);
+
+  goToNextLine(
+    localCursor,
+    titleHeight,
+    { options, imageWidth },
+    includeEventImages,
+  );
 
   if (event.description.lenght > 0) {
     const { height: descriptionHeight, width: descriptionWidth } = addText(
@@ -148,7 +156,12 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, descriptionWidth);
-    goToNextLine(localCursor, descriptionHeight, options, includeEventImages);
+    goToNextLine(
+      localCursor,
+      descriptionHeight,
+      { options, imageWidth },
+      includeEventImages,
+    );
   }
 
   // date range & accessibility line
@@ -206,7 +219,7 @@ export default async function addEventItem(
   goToNextLine(
     localCursor,
     Math.max(dateRangeIconHeight, dateRangeHeight, accessibilityHeight),
-    options,
+    { options, imageWidth },
     includeEventImages,
   );
 
@@ -241,7 +254,12 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, locationWidth);
-    goToNextLine(localCursor, locationHeight, options, includeEventImages);
+    goToNextLine(
+      localCursor,
+      locationHeight,
+      { options, imageWidth },
+      includeEventImages,
+    );
   }
 
   if (event.onlineAccessLink) {
@@ -269,7 +287,7 @@ export default async function addEventItem(
     goToNextLine(
       localCursor,
       onlineAccessLinkHeight,
-      options,
+      { options, imageWidth },
       includeEventImages,
     );
   }
@@ -289,7 +307,12 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, registrationWidth);
-    goToNextLine(localCursor, registrationHeight, options, includeEventImages);
+    goToNextLine(
+      localCursor,
+      registrationHeight,
+      { options, imageWidth },
+      includeEventImages,
+    );
   }
 
   const { width: eventLinkWidth, height: eventLinkHeight } = addText(
