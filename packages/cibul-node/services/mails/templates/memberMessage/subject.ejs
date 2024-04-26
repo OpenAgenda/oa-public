@@ -1,1 +1,1 @@
-<%- __('title', { agenda }) %>
+<%- typeof subject !== 'undefined' ? `${agenda} — ${subject}` : __('title', { agenda }) %>

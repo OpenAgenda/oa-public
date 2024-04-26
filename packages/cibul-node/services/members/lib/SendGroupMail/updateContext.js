@@ -11,11 +11,13 @@ module.exports = function updateContext(context, member, options = {}) {
 
   const {
     recipientRoles = {},
+    sendCount = 0,
   } = context;
 
   const update = {
     ...context,
     after: member.id,
+    sendCount: sendCount + 1,
     recipientRoles: {
       ...recipientRoles,
       [role]: (recipientRoles[role] ?? 0) + 1,
