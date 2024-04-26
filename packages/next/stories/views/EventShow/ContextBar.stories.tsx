@@ -130,3 +130,36 @@ export const Administrator = {
     },
   },
 };
+
+export const InvalidEventOnStateChange = {
+  render: () => (
+    <Fixtures event={eventFixtures}>
+      <ContextBar />
+    </Fixtures>
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        rest.get(
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
+          (req, res, ctx) => res(ctx.json({
+            me: {
+              member: {
+                role: 'administrator',
+              },
+              authorizations: {
+                canEditEvent: true,
+                canChangeState: true,
+                canPublishEvent: true,
+              },
+            },
+          })),
+        ),
+        rest.patch(
+          `/api/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
+          (req, res, ctx) => res(ctx.status(400)),
+        ),
+      ],
+    },
+  },
+};

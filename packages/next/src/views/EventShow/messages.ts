@@ -216,6 +216,14 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.contactAdministrators',
     defaultMessage: 'Contact administrators',
   },
+  invalidEventTitle: {
+    id: 'next.views.EventShow.ContextBar.invalidEventTitle',
+    defaultMessage: 'The event is invalid',
+  },
+  invalidEventMessage: {
+    id: 'next.views.EventShow.ContextBar.invalidEventMessage',
+    defaultMessage: 'Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda.',
+  },
 });
 
 export const duplicateModal = defineMessages({

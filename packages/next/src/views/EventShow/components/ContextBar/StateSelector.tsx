@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import {
   chakra,
@@ -9,10 +10,13 @@ import {
   Flex,
   Tooltip,
   Portal,
-  useBreakpointValue, Link,
+  useDisclosure,
+  useBreakpointValue,
+  Link,
 } from '@openagenda/uikit';
 import stateMessages from '@openagenda/common-labels/event/states';
 import StateTag from 'components/StateTag';
+import NotificationModal from 'components/NotificationModal';
 import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
 import useEvent from '../../hooks/useEvent';
@@ -45,7 +49,7 @@ function getContributorInfo(intl, state) {
 
 // <chakra.span display={{ base: 'none', md: 'inline-flex' }} verticalAlign="middle" alignItems="center">
 
-export default function StateSelector({ agenda }) {
+export default function StateSelector({ agenda, editLink = '#edit' }) {
   const intl = useIntl();
 
   const { event, mutate } = useEvent();
@@ -58,35 +62,39 @@ export default function StateSelector({ agenda }) {
     canPublish = false,
   } = me?.authorizations ?? {};
 
-  const changeState = async (state: number) => {
-    try {
-      const optimisticResponse = {
-        success: true,
-        event: {
-          ...event,
-          state,
-        },
-      };
+  const invalidEventModal = useDisclosure();
 
-      await mutate(async () => {
-        const response = await fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-          method: 'PATCH',
-          body: JSON.stringify({ state }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const changeState = useCallback((state: number) => {
+    const optimisticResponse = {
+      success: true,
+      event: {
+        ...event,
+        state,
+      },
+    };
 
-        if (response.ok) return optimisticResponse;
-        throw new Error('Error');
-      }, {
-        optimisticData: optimisticResponse,
-        revalidate: false,
-      });
-    } catch (e) {
+    mutate(async () => fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ state }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => {
+      if (response.ok) {
+        return optimisticResponse;
+      }
+      if (response.status === 400) {
+        invalidEventModal.onOpen();
+        return;
+      }
+      throw new Error('Error');
+    }), {
+      optimisticData: optimisticResponse,
+      revalidate: false,
+    }).catch(e => {
       console.log('UPDATE STATE ERROR', e);
-    }
-  };
+    });
+  }, [invalidEventModal, event, mutate, agenda]);
 
   const stateLabel = (
     <>
@@ -190,6 +198,17 @@ export default function StateSelector({ agenda }) {
           </MenuItem>
         </MenuList>
       </Portal>
+      {invalidEventModal.isOpen ? (
+        <NotificationModal
+          title={intl.formatMessage(messages.invalidEventTitle)}
+          message={intl.formatMessage(messages.invalidEventMessage)}
+          onClose={invalidEventModal.onClose}
+          action={intl.formatMessage(messages.edit)}
+          onAction={() => {
+            window.location.href = editLink;
+          }}
+        />
+      ) : null}
     </Menu>
   );
 }

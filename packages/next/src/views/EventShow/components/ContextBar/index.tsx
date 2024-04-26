@@ -84,6 +84,8 @@ export default function ContextBar() {
     return null;
   }
 
+  const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
+
   return (
     <Collapse in animateOpacity>
       <SimpleGrid columns={isAdminMod ? 4 : 3} bg="white" spacing="1px">
@@ -103,13 +105,13 @@ export default function ContextBar() {
           </Column>
         ) : null}
         <Column>
-          <StateSelector agenda={agenda} />
+          <StateSelector agenda={agenda} editLink={editLink} />
         </Column>
         <Column>
           <Tooltip label={intl.formatMessage(messages.edit)} isDisabled={!isMobile}>
             <ContextBarButton
               as={Link}
-              href={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`}
+              href={editLink}
               justifyContent={{ base: 'center', md: 'space-between' }}
             >
               {isMobile
