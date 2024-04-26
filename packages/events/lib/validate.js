@@ -8,7 +8,6 @@ const timings = require('../iso/src/validators/timings');
 const registration = require('../iso/src/validators/registration');
 const accessibility = require('../iso/src/validators/accessibility');
 const enrichedLinks = require('../iso/src/validators/enrichedLinks');
-const references = require('../iso/src/validators/references');
 const timezone = require('../iso/src/validators/timezone');
 const age = require('../iso/src/validators/age');
 const keywords = require('../iso/src/validators/keywords');
@@ -24,7 +23,6 @@ const eventCustomValidators = {
   stream,
   keywords,
   enrichedLinks,
-  references,
   timezone,
 };
 

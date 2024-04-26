@@ -109,14 +109,6 @@ describe('validate', () => {
       },
     );
 
-    it('references is a list of integers', async () => {
-      const clean = await validate({
-        references: [123, 456],
-      }, { isDraft: true });
-
-      expect(clean.references).toEqual([123, 456]);
-    });
-
     it('status is converted when provided as a slug', async () => {
       const clean = await validate({
         status: 'movedOnline',

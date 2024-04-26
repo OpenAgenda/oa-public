@@ -263,15 +263,6 @@ module.exports = [{
   write: ['internal', 'public'],
   read: ['internal', 'public'],
 }, {
-  field: 'references',
-  fieldType: 'references',
-  optional: true,
-  write: ['internal', 'public'],
-  read: ['internal', 'public'],
-  db: {
-    type: 'json',
-  },
-}, {
   field: 'links',
   fieldType: 'enrichedLinks',
   optional: true,
