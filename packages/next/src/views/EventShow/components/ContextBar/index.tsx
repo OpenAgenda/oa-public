@@ -76,7 +76,7 @@ export default function ContextBar() {
   const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
-  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+  const isAdminMod = ['administrator', 'moderator'].includes(me?.member?.role);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 

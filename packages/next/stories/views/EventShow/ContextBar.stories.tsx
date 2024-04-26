@@ -53,7 +53,7 @@ export const Contributor = {
     msw: {
       handlers: [
         rest.get(
-          `/api/me/agendas/${agendaFixtures.uid}`,
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           (req, res, ctx) => res(ctx.json({
             me: {
               member: {
@@ -83,7 +83,7 @@ export const Moderator = {
     msw: {
       handlers: [
         rest.get(
-          `/api/me/agendas/${agendaFixtures.uid}`,
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           (req, res, ctx) => res(ctx.json({
             me: {
               member: {
@@ -112,7 +112,7 @@ export const Administrator = {
     msw: {
       handlers: [
         rest.get(
-          `/api/me/agendas/${agendaFixtures.uid}`,
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           (req, res, ctx) => res(ctx.json({
             me: {
               member: {
