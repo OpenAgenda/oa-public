@@ -1,6 +1,10 @@
 const regex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g;
 
 export default function parseAcceptLanguage(acceptLanguage: string = '') {
+  if (!acceptLanguage) {
+    return [];
+  }
+
   return acceptLanguage
     .match(regex)
     .map(m => {
