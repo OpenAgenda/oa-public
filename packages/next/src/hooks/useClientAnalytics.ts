@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import type { AgendaSettingsTracking } from 'types';
-import addGoogleAnalyticsTracker from '../utils/addGoogleAnalyticsTracker';
-import { addMatomoClientTracker } from '../utils/addMatomoTracker';
+import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
+import { addMatomoClientTracker } from 'utils/addMatomoTracker';
 
 export default function useClientAnalytics(trackingSettings: AgendaSettingsTracking): string | null {
   const [cookies] = useCookies();

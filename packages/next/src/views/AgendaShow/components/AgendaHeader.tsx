@@ -22,7 +22,7 @@ import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
@@ -108,14 +108,13 @@ export default function AgendaHeader({ agenda }) {
           fallbackSrc={isDev
             ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
             : undefined}
-          fallbackStrategy="onError"
           loader={keyCDNLoader}
           priority
           draggable={false}
           alt=""
           border="3px solid white"
           h="140px"
-          fit="cover"
+          objectFit="cover"
         />
       ) : null}
 

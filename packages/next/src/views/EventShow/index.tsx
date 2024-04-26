@@ -28,7 +28,7 @@ import { faGlobe } from 'icons/regular';
 import { faPhone } from 'icons/solid';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { keyCDNLoader } from 'utils/imageLoader';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
@@ -308,7 +308,6 @@ function EventShow({ preload }: EventShowProps) {
                         fallbackSrc={process.env.NODE_ENV === 'development'
                           ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                           : undefined}
-                        fallbackStrategy="onError"
                         width={event.image.size.width}
                         height={event.image.size.height}
                         loader={keyCDNLoader}
@@ -325,7 +324,6 @@ function EventShow({ preload }: EventShowProps) {
                         fallbackSrc={process.env.NODE_ENV === 'development'
                           ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
                           : undefined}
-                        fallbackStrategy="onError"
                         fill
                         // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                         pos="unset !important"
@@ -498,7 +496,6 @@ function EventShow({ preload }: EventShowProps) {
                           fallbackSrc={process.env.NODE_ENV === 'development'
                             ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
                             : undefined}
-                          fallbackStrategy="onError"
                           fill
                           // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                           pos="unset !important"

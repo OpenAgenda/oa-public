@@ -136,6 +136,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const params = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
+      from: 0,
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       size: 10,
       ...prefilter,

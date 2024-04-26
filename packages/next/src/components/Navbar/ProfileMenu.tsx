@@ -17,7 +17,7 @@ import {
 } from '@openagenda/uikit';
 import Image from 'components/Image';
 import SearchInput from 'components/NavbarSearchInput';
-import keyCDNLoader from 'utils/keyCDNLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import { FaIcon } from 'icons';
 import { faBars } from 'icons/solid';
 import useSearch from './useSearch';
@@ -41,13 +41,12 @@ export default function ProfileMenu({ user, portalRef }) {
     <Image
       alt={intl.formatMessage(messages.profileMenu)}
       src={process.env.NODE_ENV === 'development'
-        ? `${process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX}${user.image}`
-        : `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`}
+        ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
+        : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`}
       fallbackSrc={process.env.NODE_ENV === 'development'
-        ? `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${user.image}`
+        ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
         : undefined}
-      fallbackStrategy="onError"
-      loader={keyCDNLoader}
+      loader={thumborLoader}
       width="30"
       height="30"
     />
