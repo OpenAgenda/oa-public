@@ -20,6 +20,8 @@
   "next.views.EventShow.ContextBar.edit": "Modificar",
   "next.views.EventShow.ContextBar.feature": "",
   "next.views.EventShow.ContextBar.featuredInfo": "",
+  "next.views.EventShow.ContextBar.invalidEventMessage": "",
+  "next.views.EventShow.ContextBar.invalidEventTitle": "",
   "next.views.EventShow.ContextBar.markAsCancelled": "L'eveniment es anullat",
   "next.views.EventShow.ContextBar.markAsCancelledStatus": "L'eveniment es estat definitivament anullat",
   "next.views.EventShow.ContextBar.markAsFull": "L'eveniment es complèt",

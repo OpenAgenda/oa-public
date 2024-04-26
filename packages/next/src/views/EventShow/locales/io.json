@@ -20,6 +20,8 @@
   "next.views.EventShow.ContextBar.edit": "crwdns33620:0crwdne33620:0",
   "next.views.EventShow.ContextBar.feature": "crwdns33622:0crwdne33622:0",
   "next.views.EventShow.ContextBar.featuredInfo": "crwdns33624:0crwdne33624:0",
+  "next.views.EventShow.ContextBar.invalidEventMessage": "",
+  "next.views.EventShow.ContextBar.invalidEventTitle": "",
   "next.views.EventShow.ContextBar.markAsCancelled": "crwdns33626:0crwdne33626:0",
   "next.views.EventShow.ContextBar.markAsCancelledStatus": "crwdns33628:0crwdne33628:0",
   "next.views.EventShow.ContextBar.markAsFull": "crwdns33630:0crwdne33630:0",

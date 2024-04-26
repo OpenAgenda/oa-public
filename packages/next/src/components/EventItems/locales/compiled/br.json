@@ -2,7 +2,7 @@
   "next.views.AgendaShow.ContextBar.emptySelection": [
     {
       "type": 0,
-      "value": "Aucun événement n'est référencé"
+      "value": "Aucun événement"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [

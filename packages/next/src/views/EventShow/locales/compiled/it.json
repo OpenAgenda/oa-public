@@ -38,13 +38,13 @@
   "next.views.EventShow.AgendaHeader.showAllEvents": [
     {
       "type": 0,
-      "value": "Show all events"
+      "value": "Vedere tutti gli eventi"
     }
   ],
   "next.views.EventShow.ContextBar.backToDashboard": [
     {
       "type": 0,
-      "value": "Back to dashboard"
+      "value": "Tornare al cruscotto"
     }
   ],
   "next.views.EventShow.ContextBar.cancel": [
@@ -125,6 +125,18 @@
       "value": "A featured event appears at the top of the list"
     }
   ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventTitle": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
@@ -188,7 +200,7 @@
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
-      "value": "Other actions"
+      "value": "Altre azioni"
     }
   ],
   "next.views.EventShow.ContextBar.otherActionsInfo": [
@@ -468,7 +480,7 @@
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,
-      "value": "Copied"
+      "value": "Copiato"
     }
   ],
   "next.views.EventShow.ShareModal.copy": [
@@ -480,7 +492,7 @@
   "next.views.EventShow.ShareModal.import": [
     {
       "type": 0,
-      "value": "Import"
+      "value": "Importare"
     }
   ],
   "next.views.EventShow.ShareModal.mustSignIn": [
@@ -510,13 +522,13 @@
   "next.views.EventShow.ShareModal.send": [
     {
       "type": 0,
-      "value": "Send"
+      "value": "Inviare"
     }
   ],
   "next.views.EventShow.ShareModal.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Condividere"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -534,7 +546,7 @@
   "next.views.EventShow.ShareModal.shareCalendar": [
     {
       "type": 0,
-      "value": "Import in a personal calendar"
+      "value": "Importare in un calendario personale"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -570,7 +582,7 @@
   "next.views.EventShow.Sidebar.accessibleToHearing": [
     {
       "type": 0,
-      "value": "Accessible to the hearing impaired"
+      "value": "Accessibile alle persone con disabilità uditive "
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
@@ -582,19 +594,19 @@
   "next.views.EventShow.Sidebar.accessibleToMotor": [
     {
       "type": 0,
-      "value": "Accessible to the motor impaired"
+      "value": "Accessibile alle persone con disabilità motorie"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToPsychic": [
     {
       "type": 0,
-      "value": "Accessible to the psychic impaired"
+      "value": "Accessibile alle persone con disabilità psichiche"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToVisually": [
     {
       "type": 0,
-      "value": "Accessible to the visually impaired"
+      "value": "Accessibile alle persone con disabilità visive"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -642,13 +654,13 @@
   "next.views.EventShow.Sidebar.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Registrazione"
     }
   ],
   "next.views.EventShow.Sidebar.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Condividere"
     }
   ],
   "next.views.EventShow.Sidebar.startingAt": [
@@ -686,13 +698,13 @@
   "next.views.EventShow.aboutLocation": [
     {
       "type": 0,
-      "value": "About the location"
+      "value": "A proposito del luogo"
     }
   ],
   "next.views.EventShow.access": [
     {
       "type": 0,
-      "value": "Access"
+      "value": "Accesso"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -710,7 +722,7 @@
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "More links:"
+      "value": "Altri link:"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

@@ -125,6 +125,18 @@
       "value": "crwdns33624:0crwdne33624:0"
     }
   ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventTitle": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
@@ -296,13 +308,13 @@
   "next.views.EventShow.ContextBar.transferOwnershipDescription": [
     {
       "type": 0,
-      "value": "Hand over ownership of the event to another member of the agenda"
+      "value": "crwdns33878:0crwdne33878:0"
     }
   ],
   "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
     {
       "type": 0,
-      "value": "Transferring ownership is only possible if you have edition rights over the event"
+      "value": "crwdns33880:0crwdne33880:0"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [

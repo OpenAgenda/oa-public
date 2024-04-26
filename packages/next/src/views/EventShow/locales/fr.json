@@ -20,6 +20,8 @@
   "next.views.EventShow.ContextBar.edit": "Modifier",
   "next.views.EventShow.ContextBar.feature": "Mettre en une",
   "next.views.EventShow.ContextBar.featuredInfo": "Un événement en une apparaît en haut de la liste",
+  "next.views.EventShow.ContextBar.invalidEventMessage": "L'événement doit être corrigé avant que sont statut puisse être modifié. Si la modification est impossible, il devra être retiré de l'agenda.",
+  "next.views.EventShow.ContextBar.invalidEventTitle": "L'événement est invalide",
   "next.views.EventShow.ContextBar.markAsCancelled": "L'événement est annulé",
   "next.views.EventShow.ContextBar.markAsCancelledStatus": "L'événement a été annulé de manière permanente",
   "next.views.EventShow.ContextBar.markAsFull": "L'événement est complet",

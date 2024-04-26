@@ -125,6 +125,18 @@
       "value": "Un événement en une apparaît en haut de la liste"
     }
   ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "L'événement doit être corrigé avant que sont statut puisse être modifié. Si la modification est impossible, il devra être retiré de l'agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventTitle": [
+    {
+      "type": 0,
+      "value": "L'événement est invalide"
+    }
+  ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
@@ -296,7 +308,7 @@
   "next.views.EventShow.ContextBar.transferOwnershipDescription": [
     {
       "type": 0,
-      "value": "Transférez la propriété de l'événement à un autre membre de l'agenda"
+      "value": "Transférer la propriété de l'événement à un autre membre de l'agenda"
     }
   ],
   "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
