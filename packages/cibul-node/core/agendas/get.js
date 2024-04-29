@@ -72,9 +72,10 @@ async function get(core, agendaUid, options = {}) {
     internal: true,
   });
 
-  if (!agenda && throwNotFound) {
-    throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
-  } else if (!agenda) {
+  if (!agenda) {
+    if (throwNotFound) {
+      throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
+    }
     return cacheAndReturn(services, options, agendaUid, null);
   }
 
@@ -159,6 +160,13 @@ async function bySlug(core, slug, options = {}) {
   }
 
   const agenda = await agendas.get({ slug }, { private: null, internal: true });
+
+  if (!agenda) {
+    if (options.throwNotFound) {
+      throw new NotFound({ info: { slug } }, 'agenda not found');
+    }
+    return null;
+  }
 
   simpleCache.hash('agendas', slug).set('api', agenda);
 
