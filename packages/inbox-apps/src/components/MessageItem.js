@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import qs from 'qs';
 import I18nContext from '../contexts/I18nContext';
 import AuthorAvatar from './AuthorAvatar';
@@ -56,7 +55,7 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const { message, res: { context: contextRes } } = this.props;
+    const { message, res: { context: contextRes }, settings: { domain } } = this.props;
     const { getLabel, lang } = this.context;
 
     if (!message) {
@@ -82,9 +81,7 @@ export default class MessageItem extends Component {
             <div
               className="margin-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(marked.parse(message.body, {
-                  breaks: true,
-                })),
+                __html: fromMarkdownToHTML(message.body, { selfDomain: domain }),
               }}
             />
 

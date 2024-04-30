@@ -2,8 +2,7 @@ import { Component, Fragment } from 'react';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import qs from 'qs';
 import I18nContext from '../contexts/I18nContext';
 import getDestinationInbox from '../utils/getDestinationInbox';
@@ -156,7 +155,7 @@ export default class ConversationItem extends Component {
   }
 
   render() {
-    const { user, conversation, agenda } = this.props;
+    const { user, conversation, agenda, settings: { domain } } = this.props;
     const { getLabel } = this.context;
 
     if (!conversation.latestMessage) {
@@ -214,9 +213,7 @@ export default class ConversationItem extends Component {
             <div
               className="message padding-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(marked.parse(latestMessage.body, {
-                  breaks: true,
-                })),
+                __html: fromMarkdownToHTML(latestMessage.body, { selfDomain: domain }),
               }}
             />
 
