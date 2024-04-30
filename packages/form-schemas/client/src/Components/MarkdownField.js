@@ -1,7 +1,10 @@
 import ih from 'immutability-helper';
 import { Component } from 'react';
+import {
+  fromMarkdownToHTML,
+  fromHTMLToMarkdown,
+} from '@openagenda/md';
 
-import markdown from '../iso/markdown';
 import SlateField from './SlateField';
 import HTMLSerializer from './HTMLSerializer';
 
@@ -19,7 +22,7 @@ export default class MarkdownField extends Component {
       onChange,
     } = this.props;
 
-    onChange(markdown.to(HTMLSerializer.serialize(value)));
+    onChange(fromHTMLToMarkdown(HTMLSerializer.serialize(value)));
   }
 
   render() {
@@ -36,7 +39,7 @@ export default class MarkdownField extends Component {
       <SlateField
         {...ih(this.props, {
           value: {
-            $set: HTMLSerializer.deserialize(markdown.from(appliedValue)),
+            $set: HTMLSerializer.deserialize(fromMarkdownToHTML(appliedValue)),
           },
           onChange: {
             $set: this.onChange.bind(this),
