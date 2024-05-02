@@ -17415,6 +17415,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/mails": "npm:^4.0.1"
     "@openagenda/mails-editor": "npm:^2.0.0"
+    "@openagenda/md": "npm:^1.0.0"
     "@openagenda/member-apps": "npm:^2.1.1"
     "@openagenda/members": "npm:^1.15.13"
     "@openagenda/network-apps": "npm:^1.1.13"

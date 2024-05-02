@@ -2,6 +2,7 @@
 
 const log = require('@openagenda/logs')('core/agendas/events/convertLongDescription');
 const { produce } = require('immer');
+const { fromMarkdownToHTML } = require('@openagenda/md');
 
 const conversions = ['HTML', 'HTMLWithEmbeds'];
 
@@ -13,11 +14,10 @@ function convert(params, links = [], md = '') {
     cspNonce,
   } = params;
   const {
-    formSchemas,
     oembed,
   } = services;
 
-  const HTML = formSchemas.utils.markdown.from(md);
+  const HTML = fromMarkdownToHTML(md);
 
   if (!links || conversion !== 'HTMLWithEmbeds') {
     return HTML;
