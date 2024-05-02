@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ky from 'ky';
 import qs from 'qs';
@@ -54,6 +55,24 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
         });
       });
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+
+        const isPrevious = e.key === 'ArrowLeft';
+        if ((isPrevious && direction === 'previous') || (!isPrevious && direction === 'next')) {
+          goToSiblingEvent().catch(() => null);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [direction, goToSiblingEvent]);
 
   if (!eventNc) {
     return null;
