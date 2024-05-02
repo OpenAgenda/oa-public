@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import * as url from 'node:url';
-import { fromMarkdownToHTML } from '..';
+import { fromMarkdownToHTML } from '../src/index.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -83,9 +83,9 @@ describe('fromMarkdownToHTML', () => {
     test('same domain gives no target blank links', () => {
       expect(fromMarkdownToHTML(
         'Un site qui marche à peu près: [OpenAgenda](https://openagenda.com)',
-        { selfDomain: 'https://openagenda.com' }
+        { selfDomain: 'https://openagenda.com' },
       )).toBe(
-        '<p>Un site qui marche à peu près: <a href="https://openagenda.com">OpenAgenda</a></p>\n'
+        '<p>Un site qui marche à peu près: <a href="https://openagenda.com">OpenAgenda</a></p>\n',
       );
     });
 
@@ -93,10 +93,10 @@ describe('fromMarkdownToHTML', () => {
       expect(
         fromMarkdownToHTML(
           'Un site qui marche à peu près: [OpenAgenda](https://openagenda.com)',
-          { selfDomain: 'https://anothersite.com',
-        }),
+          { selfDomain: 'https://anothersite.com' },
+        ),
       ).toBe(
-        '<p>Un site qui marche à peu près: <a target="_blank" href="https://openagenda.com">OpenAgenda</a></p>\n'
+        '<p>Un site qui marche à peu près: <a target="_blank" href="https://openagenda.com">OpenAgenda</a></p>\n',
       );
     });
 
@@ -106,7 +106,7 @@ describe('fromMarkdownToHTML', () => {
           'Un site qui marche à peu près: [OpenAgenda](https://openagenda.com)',
         ),
       ).toBe(
-        '<p>Un site qui marche à peu près: <a href="https://openagenda.com">OpenAgenda</a></p>\n'
+        '<p>Un site qui marche à peu près: <a href="https://openagenda.com">OpenAgenda</a></p>\n',
       );
     });
   });
