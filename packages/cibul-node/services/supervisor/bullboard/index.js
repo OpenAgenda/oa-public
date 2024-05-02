@@ -3,7 +3,22 @@
 // const { ExpressAdapter } = require('@bull-board/express');
 const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
+const contentSecurityPolicy = require('../../../lib/contentSecurityPolicy');
 const ExpressAdapter = require('./ExpressAdapter');
+
+const csp = contentSecurityPolicy({
+  ...contentSecurityPolicy.defaultDirectives,
+  baseUri: ["'self'"],
+  styleSrc: [
+    ...contentSecurityPolicy.defaultDirectives.styleSrc,
+    'https://fonts.googleapis.com',
+  ],
+  fontSrc: [
+    ...contentSecurityPolicy.defaultDirectives.fontSrc,
+    'https://fonts.gstatic.com',
+  ],
+  scriptSrc: ["'self'"],
+});
 
 module.exports.plugApp = (app, base = '/bullboard') => {
   const { bull: { Queue } } = app.services;
@@ -20,5 +35,9 @@ module.exports.plugApp = (app, base = '/bullboard') => {
     serverAdapter,
   });
 
-  app.use(base, serverAdapter.getRouter());
+  app.use(
+    base,
+    csp,
+    serverAdapter.getRouter(),
+  );
 };
