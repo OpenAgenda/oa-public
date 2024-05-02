@@ -31,9 +31,12 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
 
   const getOptions = useGetFilterOptions(intl, filterAggs, aggregations);
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(apiClient, geoRes, {
-    searchMethod: 'post',
-  });
+  const loadGeoData = useLoadGeoData(
+    apiClient,
+    geoRes,
+    { state: null, ...query },
+    { searchMethod: 'post' },
+  );
 
   const [initialViewport] = useState(() => aggregations.viewport);
 
