@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { nl2br } from '@openagenda/react-shared';
-import { markdownToHTML } from '@openagenda/react-shared';
+import { fromMarkdownToHTML } from '@openagenda/md';
 
 
 function hasAdditionalFields(schema) {
@@ -47,7 +47,7 @@ function formatValue(field, value, { lang, timezone }) {
   }
 
   if (field.fieldType === 'markdown' && value) {
-    return markdownToHTML(value);
+    return fromMarkdownToHTML(value);
   }
 
   if (['textarea'].includes(field.fieldType) && value) {

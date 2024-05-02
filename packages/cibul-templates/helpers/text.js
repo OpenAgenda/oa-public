@@ -1,7 +1,5 @@
 "use strict";
 
-var marked = require( 'marked' );
-
 module.exports = function() {
 
   return {
@@ -9,7 +7,6 @@ module.exports = function() {
     escape: escape,
     setLinks: setLinks,
     linkedText: linkedText,
-    marked: marked,
     truncate: truncate,
     capitalize: capitalize
   };
