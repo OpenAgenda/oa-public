@@ -7,7 +7,7 @@ import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { value: true };
 
-const isDefined = v => ![undefined, null].includes(v);
+const isDefined = v => ![undefined, null, ''].includes(v);
 
 function formatPreviewLabel(value) {
   if (!isDefined(value.gte) && isDefined(value.lte)) {
@@ -23,12 +23,23 @@ function formatPreviewLabel(value) {
   }
 }
 
-function Preview({
-  name,
-  component = FilterPreviewer,
-  disabled,
-  ...rest
-}) {
+function parseValue(value) {
+  const definedLte = isDefined(value?.lte);
+  const definedGte = isDefined(value?.gte);
+
+  if (!definedLte && !definedGte) {
+    return undefined;
+  }
+
+  const result = {};
+
+  if (definedLte) result.lte = value.lte;
+  if (definedGte) result.gte = value.gte;
+
+  return result;
+}
+
+function Preview({ name, component = FilterPreviewer, disabled, ...rest }) {
   const { input } = useField(name, { subscription });
 
   const onRemove = useCallback(
@@ -58,9 +69,7 @@ function Preview({
 }
 
 const NumberRangeFilter = React.forwardRef(function NumberRangeFilter(
-  {
-    name,
-  },
+  { name },
   ref,
 ) {
   return (
@@ -68,24 +77,14 @@ const NumberRangeFilter = React.forwardRef(function NumberRangeFilter(
       ref={ref}
       name={name}
       subscription={subscription}
-      parse={({ lte, gte }) => ({
-        lte: isDefined(lte) && lte.length ? parseInt(lte, 10) : null,
-        gte: isDefined(gte) && gte.length ? parseInt(gte, 10) : null,
-      })}
-      format={v => (v === undefined ? { lte: null, gte: null } : v)}
+      parse={parseValue}
       component={NumberRangeField}
     />
   );
 });
 
 const Collapsable = React.forwardRef(function Collapsable(
-  {
-    name,
-    filter,
-    component,
-    disabled,
-    ...rest
-  },
+  { name, filter, component, disabled, ...rest },
   ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);

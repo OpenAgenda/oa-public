@@ -386,7 +386,7 @@ function Dashboard() {
         'post',
       ),
     {
-      staleTime: 10000,
+      // staleTime: 10000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: newData => {

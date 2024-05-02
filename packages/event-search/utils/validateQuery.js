@@ -250,6 +250,9 @@ const extractValue = (obj, fieldName) => {
   return undefined;
 };
 
+const isNumberLike = value =>
+  !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
+
 function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
   if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
     if (Array.isArray(dirty)) {
@@ -260,10 +263,10 @@ function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
 
   if (['number', 'integer'].includes(fieldSchema.fieldType)) {
     const clean = ['lt', 'lte', 'gt', 'gte'].reduce((cleaned, operand) => (
-      Number.isNaN(dirty[operand]) ? cleaned : {
+      isNumberLike(dirty[operand]) ? {
         ...cleaned,
-        [operand]: dirty[operand],
-      }
+        [operand]: parseInt(dirty[operand], 10),
+      } : cleaned
     ), {});
 
     return Object.keys(clean).length ? clean : undefined;

@@ -19,10 +19,11 @@ module.exports = (config, services, instance, app, base) => {
       core.agendas.slug(req.params.agendaSlug).get({
         access: 'internal',
         detailed: true,
+        throwNotFound: true,
       }).then(agenda => {
         req.agenda = agenda;
         next();
-      });
+      }, next);
     },
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),

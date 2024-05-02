@@ -6324,7 +6324,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activity-apps@npm:^1.2.1, @openagenda/activity-apps@workspace:^, @openagenda/activity-apps@workspace:packages/activity-apps":
+"@openagenda/activity-apps@npm:^1.2.1, @openagenda/activity-apps@workspace:packages/activity-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/activity-apps@workspace:packages/activity-apps"
   dependencies:
@@ -8296,7 +8296,7 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": "npm:^6.5.1"
     "@fortawesome/react-fontawesome": "npm:^0.2.0"
     "@next/bundle-analyzer": "npm:^13.1.1"
-    "@openagenda/activity-apps": "workspace:^"
+    "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
@@ -8305,6 +8305,7 @@ __metadata:
     "@openagenda/react-filters": "npm:^2.10.4"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
+    "@openagenda/sessions": "npm:^4.1.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.1"
     "@openagenda/verror": "npm:^3.1.0"
