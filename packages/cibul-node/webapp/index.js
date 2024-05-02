@@ -249,6 +249,7 @@ const initialState = async req => {
     },
     inboxUser: {
       settings: {
+        domain: config.domain,
         context: 'user',
         prefix: '/home/inbox',
         apiRoot: `http://localhost:${config.port}`,
@@ -312,6 +313,7 @@ const initialState = async req => {
     },
     agendaAdminInbox: {
       settings: {
+        domain: config.domain,
         context: 'agenda',
         prefix: '/:slug/admin/inbox',
         apiRoot: `http://localhost:${config.port}`,
