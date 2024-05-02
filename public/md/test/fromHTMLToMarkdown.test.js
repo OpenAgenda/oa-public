@@ -1,4 +1,4 @@
-import { fromHTMLToMarkdown } from '..';
+import { fromHTMLToMarkdown } from '../src/index.js';
 
 describe('fromHTMLToMarkdown', () => {
   test('basic', () => {
@@ -71,7 +71,7 @@ describe('fromHTMLToMarkdown', () => {
   test('emails in italic sentences are extracted too', () => {
     expect(
       fromHTMLToMarkdown(
-        '<p><em>kaore@openagenda.com voilà mon email</em></p>'
+        '<p><em>kaore@openagenda.com voilà mon email</em></p>',
       ),
     ).toBe(
       '_[kaore@openagenda.com](mailto:kaore@openagenda.com) voilà mon email_',
@@ -81,14 +81,14 @@ describe('fromHTMLToMarkdown', () => {
   test('fix: unexpected conversion when handling protocol-less links', () => {
     expect(
       fromHTMLToMarkdown(
-        '<p>Chez</p><p>www.openagenda.com</p>'
-      )
+        '<p>Chez</p><p>www.openagenda.com</p>',
+      ),
     ).toBeTruthy();
   });
 
   test('scripts tags are filtered out', () => {
     expect(
-      fromHTMLToMarkdown('<p>Here is a script: <script>alert("fiddlesnouts")</script></p>')
+      fromHTMLToMarkdown('<p>Here is a script: <script>alert("fiddlesnouts")</script></p>'),
     ).toBe('Here is a script: alert("fiddlesnouts")');
   });
 });
