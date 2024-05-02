@@ -115,7 +115,9 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(null, res, { searchMethod });
+  const loadGeoData = useLoadGeoData(null, res, form.getState().values, {
+    searchMethod,
+  });
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
