@@ -14,28 +14,16 @@ const messages = defineMessages({
   },
 });
 
-function NumberRangeField({
-  input,
-}) {
+function NumberRangeField({ input }) {
   const m = useIntl().formatMessage;
 
-  const {
-    value,
-    onChange,
-  } = input;
+  const { value, onChange } = input;
 
   const [gteString, setGTEString] = useState(value?.gte);
   const [lteString, setLTEString] = useState(value?.lte);
 
   const [debouncedGTE] = useDebounce(gteString, 500);
   const [debouncedLTE] = useDebounce(lteString, 500);
-
-  useEffect(() => {
-    onChange({
-      lte: debouncedLTE,
-      gte: debouncedGTE,
-    });
-  }, [debouncedGTE, debouncedLTE, onChange]);
 
   const onInputChange = useCallback((k, v) => {
     if (k === 'gte') {
@@ -45,13 +33,22 @@ function NumberRangeField({
     }
   }, []);
 
+  useEffect(() => {
+    setGTEString(value?.gte ?? '');
+    setLTEString(value?.lte ?? '');
+  }, [value]);
+
+  useEffect(() => {
+    onChange({
+      lte: debouncedLTE,
+      gte: debouncedGTE,
+    });
+  }, [debouncedGTE, debouncedLTE, onChange]);
+
   return (
     <div className="row">
       <div className="col-xs-6">
-        <label
-          className="sr-only"
-          htmlFor={`number-range-${input.name}-gte`}
-        >
+        <label className="sr-only" htmlFor={`number-range-${input.name}-gte`}>
           {m(messages.min)}
         </label>
         <input
@@ -64,10 +61,7 @@ function NumberRangeField({
         />
       </div>
       <div className="form-group col-xs-6">
-        <label
-          className="sr-only"
-          htmlFor={`number-range-${input.name}-lte`}
-        >
+        <label className="sr-only" htmlFor={`number-range-${input.name}-lte`}>
           {m(messages.max)}
         </label>
         <input
