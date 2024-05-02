@@ -415,6 +415,19 @@ describe('events - functional - create', () => {
       }]);
     });
 
+    it('when HTML is provided to long description, it is converted to markdown', async () => {
+      const event = await svc.create({
+        longDescription: '<b>This should not be HTML</b>',
+      }, { draft: true });
+
+      expect(
+        await f.client('event_2')
+          .first('long_description')
+          .where('uid', event.uid)
+          .then(r => JSON.parse(r.long_description).en),
+      ).toBe('**This should not be HTML**');
+    });
+
     it('timezone validation', async () => {
       const error = await svc.create({
         timezone: 'UTC+1',
