@@ -9,7 +9,7 @@ import lorem from './fixtures/lorem.json' assert { type: 'json' };
 
 const {
   AGENDA_UID: agendaUid,
-  PUBLIC_KEY: publicKey,
+  API_KEY: APIKey,
   PDF_TEST_FOLDER: pdfTestFolder,
 } = process.env;
 
@@ -26,15 +26,13 @@ cursor.y += margin;
   );
   doc.pipe(writeStream);
 
-  const agenda = await loadAgendaData(agendaUid, publicKey);
-  const eventData = (await loadEventData(agendaUid, publicKey)).events.map(
-    e => ({
-      ...e,
-      description: {
-        fr: e.description.fr + lorem[Math.floor(Math.random() * lorem.length)],
-      },
-    }),
-  );
+  const agenda = await loadAgendaData(agendaUid, APIKey);
+  const eventData = (await loadEventData(agendaUid, APIKey)).events.map(e => ({
+    ...e,
+    description: {
+      fr: e.description.fr + lorem[Math.floor(Math.random() * lorem.length)],
+    },
+  }));
 
   const { lang = 'fr', includeEventImages = true, little, medium } = options;
   const intl = getIntl(lang);
