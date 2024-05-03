@@ -1,5 +1,6 @@
 import { formatInTimeZone } from 'date-fns-tz';
-import { nl2br, markdownToHTML } from '@openagenda/react-shared';
+import { nl2br } from '@openagenda/react-shared';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import { getLocaleValue } from '@openagenda/intl';
 import { FALLBACK_LOCALE } from 'config/constants';
 
@@ -39,7 +40,7 @@ function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLoc
   }
 
   if (field.fieldType === 'markdown' && value) {
-    return markdownToHTML(value);
+    return fromMarkdownToHTML(value);
   }
 
   if (['textarea'].includes(field.fieldType) && value) {
