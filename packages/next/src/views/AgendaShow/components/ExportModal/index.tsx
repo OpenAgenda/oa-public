@@ -103,7 +103,7 @@ function completeUrls(agendaUid, query) {
     export: {
       jsonV1: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.json${jsonLegacyQueryString}`,
       jsonV2: `${process.env.NEXT_PUBLIC_API_ROOT}/v2/agendas/${agendaUid}/events${apiQueryString}`,
-      pdf: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.pdf${apiQueryString}`,
+      pdf: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.pdf${apiQueryString}`,
       xlsx: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
       gcal: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
       ical: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
