@@ -61,7 +61,10 @@ module.exports = {
         loader: require.resolve('source-map-loader'),
         resolve: {
           fullySpecified: false
-        }
+        },
+        exclude: [
+          /\/node_modules\/nth-check\//,
+        ],
       },
       {
         test: /\.js$/,

@@ -137,6 +137,7 @@ module.exports = (env = {}, argv = {}) => {
           exclude: [
             /\/node_modules\/rrule\//, // https://github.com/jakubroztocil/rrule/issues/303
             /\/node_modules\/@transloadit\/prettier-bytes\//,
+            /\/node_modules\/nth-check\//,
           ],
         },
         {
