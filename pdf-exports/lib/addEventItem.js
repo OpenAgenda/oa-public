@@ -83,7 +83,7 @@ export default async function addEventItem(
 
   const nextLineX = includeEventImages
     ? imageWidth + base.margin * 2
-    : undefined;
+    : base.margin;
 
   if (includeEventImages) {
     columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
@@ -245,6 +245,7 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, locationWidth);
+
     goToNextLine(localCursor, locationHeight + base.margin / 10, {
       x: nextLineX,
     });
