@@ -12,11 +12,6 @@ import cleanString from './cleanString.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-let imageWidth;
-let imageHeight;
-let fontSize;
-let iconHeightAndWidth;
-let margin;
 const locationIconPath = `${__dirname}/../images/location.png`;
 const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
 const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
@@ -58,11 +53,13 @@ export default async function addEventItem(
     x: cursor.x,
   };
 
-  const nextLineX = includeEventImages
-    ? imageWidth + base.margin * 2
-    : undefined;
-
   let columnMaxWidth;
+
+  let imageWidth;
+  let imageHeight;
+  let fontSize;
+  let iconHeightAndWidth;
+  let margin;
 
   if (little) {
     imageWidth = 50;
@@ -83,6 +80,10 @@ export default async function addEventItem(
     iconHeightAndWidth = 10;
     margin = base.margin / 3;
   }
+
+  const nextLineX = includeEventImages
+    ? imageWidth + base.margin * 2
+    : undefined;
 
   if (includeEventImages) {
     columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
