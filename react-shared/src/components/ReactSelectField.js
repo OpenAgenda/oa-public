@@ -83,7 +83,7 @@ function ReactSelectField({
 
   const handleKeyDown = useCallback(
     (e, ...args) => {
-      if (e.keyCode === 9 && isCreatable) {
+      if ([9, 13].includes(e.keyCode) && isCreatable) {
         const {
           state: { inputValue, value },
         } = selectRef.current;
