@@ -1,0 +1,101 @@
+{
+  "onlineAccessLink": null,
+  "image": {
+    "filename": "51b1d4b271574974b76adc5c4943508e.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 700
+    },
+    "variants": [
+      {
+        "filename": "51b1d4b271574974b76adc5c4943508e.full.image.jpg",
+        "size": {
+          "width": 2250,
+          "height": 2250
+        },
+        "type": "full"
+      },
+      {
+        "filename": "51b1d4b271574974b76adc5c4943508e.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "١٦ مارس - ٢٤ يونيو",
+    "de": "16 März - 24 Juni",
+    "en": "16 March - 24 June",
+    "it": "16 marzo - 24 giugno",
+    "fr": "16 mars - 24 juin",
+    "es": "16 marzo - 24 junio"
+  },
+  "description": {
+    "fr": "Évènement majeur de l’opération nationale des « 150 ans de l’impressionnisme »"
+  },
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://muba-boutique.tourcoing.fr/billets-entrees-et-visites-expo-peinture-nord-pas-de-calais-css5-mubaboutiquetourcoing-pg1-rg26857.html"
+    }
+  ],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "fr": "Métro ligne 2, arrêt Tourcoing centre"
+    },
+    "city": "Tourcoing",
+    "timezone": "Europe/Paris",
+    "postalCode": "59200",
+    "latitude": 50.723203,
+    "imageCredits": null,
+    "description": {
+      "fr": "Le MUba Eugène Leroy, musée des Beaux-Arts de Tourcoing, fait dialoguer par des vis-à-vis stylistiques et thématiques ses collections d’art ancien, art moderne et art contemporain. Le musée présente également les oeuvres de la donation Eugène Leroy réalisée en 2010 ainsi que de grandes expositions temporaires. Une programmation culturelle riche invite les arts vivants au coeur des salles d’exposition."
+    },
+    "setUid": null,
+    "uid": 68051215,
+    "createdAt": "2020-01-17T13:24:02.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Nord",
+    "slug": "muba-eugene-leroy239",
+    "email": "museebeauxarts@ville-tourcoing.fr",
+    "longitude": 3.161972,
+    "updatedAt": "2021-07-16T22:40:07.000Z",
+    "image": "https://cibul.s3.amazonaws.com/location68051215.jpg",
+    "website": "http://www.muba-tourcoing.fr/",
+    "address": "2 rue Paul Doumer 59200 Tourcoing",
+    "adminLevel3": "Métropole Européenne de Lille",
+    "agendaUid": 35162502,
+    "adminLevel4": "Tourcoing",
+    "adminLevel1": "Hauts-de-France",
+    "adminLevel2": "Nord",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjY4MDUxMjE1LCJuYW1lIjoiTVViYSBFdWfDqG5lIExlcm95In0=",
+    "tags": null,
+    "insee": "59599",
+    "phone": "03 20 28 91 60",
+    "district": null,
+    "name": "MUba Eugène Leroy",
+    "region": "Hauts-de-France"
+  },
+  "title": {
+    "fr": "Exposition \" Peindre la nature. Paysages impressionnistes du musée d'Orsay \""
+  },
+  "slug": "exposition-peindre-la-nature-paysages-impressionnistes-du-musee-dorsay-"
+}
