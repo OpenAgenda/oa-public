@@ -22,19 +22,12 @@ const onlineLinkPath = `${__dirname}/../images/onlineLink.png`;
 const dateRangeIconPath = `${__dirname}/../images/calendar.png`;
 const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
 
-function goToNextLine(cursor, height, options, includeEventImages) {
-  const {
-    base = {
-      margin: 20,
-      color: '#413a42',
-    },
-  } = options;
+function goToNextLine(cursor, offsetY, options = {}) {
+  const { x } = options;
 
-  cursor.y += height + base.margin / 10;
-  if (includeEventImages) {
-    cursor.x = imageWidth + base.margin * 2;
-  } else {
-    cursor.x = base.margin;
+  cursor.y += offsetY;
+  if (x !== undefined) {
+    cursor.x = x;
   }
 }
 
@@ -64,6 +57,10 @@ export default async function addEventItem(
     y: cursor.y,
     x: cursor.x,
   };
+
+  const nextLineX = includeEventImages
+    ? imageWidth + base.margin * 2
+    : undefined;
 
   let columnMaxWidth;
 
@@ -137,7 +134,9 @@ export default async function addEventItem(
     },
   );
   let columnWidth = titleWidth;
-  goToNextLine(localCursor, titleHeight, options, includeEventImages);
+  goToNextLine(localCursor, titleHeight + base.margin / 10, {
+    x: nextLineX,
+  });
 
   if (event.description.lenght > 0) {
     const { height: descriptionHeight, width: descriptionWidth } = addText(
@@ -148,7 +147,9 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, descriptionWidth);
-    goToNextLine(localCursor, descriptionHeight, options, includeEventImages);
+    goToNextLine(localCursor, descriptionHeight + base.margin / 10, {
+      x: nextLineX,
+    });
   }
 
   // date range & accessibility line
@@ -205,9 +206,9 @@ export default async function addEventItem(
   );
   goToNextLine(
     localCursor,
-    Math.max(dateRangeIconHeight, dateRangeHeight, accessibilityHeight),
-    options,
-    includeEventImages,
+    Math.max(dateRangeIconHeight, dateRangeHeight, accessibilityHeight)
+      + base.margin / 10,
+    { x: nextLineX },
   );
 
   if (event.location?.name || event.location?.address) {
@@ -241,7 +242,9 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, locationWidth);
-    goToNextLine(localCursor, locationHeight, options, includeEventImages);
+    goToNextLine(localCursor, locationHeight + base.margin / 10, {
+      x: nextLineX,
+    });
   }
 
   if (event.onlineAccessLink) {
@@ -266,12 +269,9 @@ export default async function addEventItem(
     });
 
     columnWidth = Math.max(columnWidth, onlineAccessLinkWidth);
-    goToNextLine(
-      localCursor,
-      onlineAccessLinkHeight,
-      options,
-      includeEventImages,
-    );
+    goToNextLine(localCursor, onlineAccessLinkHeight + base.margin / 10, {
+      x: nextLineX,
+    });
   }
 
   if (event.registration.length !== 0 && event.registration.value != null) {
@@ -289,7 +289,9 @@ export default async function addEventItem(
     );
 
     columnWidth = Math.max(columnWidth, registrationWidth);
-    goToNextLine(localCursor, registrationHeight, options, includeEventImages);
+    goToNextLine(localCursor, registrationHeight + base.margin / 10, {
+      x: nextLineX,
+    });
   }
 
   const { width: eventLinkWidth, height: eventLinkHeight } = addText(
