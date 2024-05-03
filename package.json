@@ -38,8 +38,8 @@
     "@rushstack/eslint-patch@1.2.0": "patch:@rushstack/eslint-patch@npm:1.2.0#public/.yarn/patches/@rushstack-eslint-patch-npm-1.2.0-917f402e4e",
     "@types/react": "18.0.28",
     "eslint-import-resolver-typescript": "3.5.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "dependencies": {
     "browserslist": "^4.20.0",
