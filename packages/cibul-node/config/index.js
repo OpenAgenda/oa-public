@@ -294,6 +294,9 @@ const config = {
   uppy: {
     secret: 'DUy=dBGY1,(B]Yj',
   },
+  pdf: {
+    withImageLimit: process.env.PDF_WITH_IMAGE_LIMIT ?? 200,
+  },
   mailjet: {
     apiKey: process.env.MAILJET_KEY ?? prod.mailjet?.apiKey,
     apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
