@@ -202,7 +202,7 @@ export const MoreInfoInModal = () => {
             Simple icône d&apos;aide auquel on peut attacher un message.
           </p>
           <div style={{ alignSelf: 'center' }}>
-            <MoreInfo id="first-popover" content="Text" />
+            <MoreInfo content="Text" />
           </div>
         </Modal>
       ) : null}

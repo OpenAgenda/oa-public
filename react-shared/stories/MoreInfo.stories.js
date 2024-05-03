@@ -16,7 +16,7 @@ export const Simple = () => (
       Simple icône d&apos;aide auquel on peut attacher un message.
     </p>
     <div style={{ alignSelf: 'center' }}>
-      <MoreInfo id="first-popover" content="Text" />
+      <MoreInfo content="Text" />
     </div>
   </>
 );
@@ -30,7 +30,6 @@ export const Content = () => (
 
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
-        id="second-popover"
         title="Im' a title"
         content="I'm a text"
         placement="bottom"
@@ -48,7 +47,6 @@ export const ContentLink = () => (
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
-        id="third-popover"
         title="Link"
         content="Click on the icon"
         link="https://doc.openagenda.com"
@@ -67,7 +65,6 @@ export const Link = () => (
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
-        id="yetanother-popover"
         link="https://doc.openagenda.com"
         placement="left"
       />
@@ -82,7 +79,7 @@ export const Comp = () => (
       Le composant peut être restylisé en lui passant des enfants.
     </p>
     <div style={{ alignSelf: 'center' }}>
-      <MoreInfo id="fourth-popover" content="Ce badge est un badge !">
+      <MoreInfo content="Ce badge est un badge !">
         <div className="badge">Un badge !</div>
       </MoreInfo>
     </div>
@@ -97,7 +94,6 @@ export const Markdown = () => (
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
-        id="fourth-popover"
         content={(
           <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
             ***Ce badge est un badge !***
