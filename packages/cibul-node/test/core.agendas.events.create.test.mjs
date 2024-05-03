@@ -580,6 +580,9 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         description: {
           fr: 'Autre format d\'horaires',
         },
+        longDescription: {
+          fr: '<div>Le jardin 56, Ville de Paris, la DEVE, Paris Habitat, guide nature grand Paris,&nbsp; les Randos de Camille... vous proposent quatre rendez-vous, avec des thématiques différentes.</div><blockquote><ol><li><div><span style="font-size:18px;"><span class="wixui-rich-text__text">Découverte des fleurs printanières et éveil du sous-bois en mars</span></span></div></li><li><div><span style="font-size:18px;"><span class="wixui-rich-text__text">Pollinisation et sexualité des plantes en mai</span></span></div></li><li><div><span style="font-size:18px;"><span class="wixui-rich-text__text">Plantes potagères et sauvages oubliées en septembre</span></span></div></li><li><div><span style="font-size:18px;"><span class="wixui-rich-text__text">Plantes sauvages à tous les étages en octobre</span></span></div></li></ol></blockquote><p>Durée : 1h30</p><p>Activité organisée par Nathalie - guide nature qualinat et paysagiste</p><p>Infos et réservation sur <a href="https://www.eco-nature.org/experience/decouverte-des-jardins-du-20e">EcoNature : https://www.eco-nature.org/experience/decouverte-des-jardins-du-20e</a></p>',
+        },
         image: {
           url: 'https://openagenda.com/images/openagenda.png',
         },
@@ -613,6 +616,12 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     it('timings is saved in Date format', () => {
       expect(event.timings[0].begin).toBe('2019-12-06T11:23:00.000+01:00');
+    });
+
+    it('long description is converted to markdown when HTML was provided', () => {
+      expect(
+        event.longDescription.fr.indexOf('<div>'),
+      ).toBe(-1);
     });
   });
 

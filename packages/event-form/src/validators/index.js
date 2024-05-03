@@ -1,4 +1,4 @@
-const multilingualValidator = require('@openagenda/validators/multilingual');
+'use strict';
 
 module.exports = {
   registration: require('@openagenda/events/iso/build/validators/registration'),
@@ -9,5 +9,5 @@ module.exports = {
   location: require('../validators/location'),
   languages: require('../validators/languages'),
   events: require('../validators/events'),
-  longDescription: multilingualValidator,
+  longDescription: require('@openagenda/events/iso/build/validators/longDescription'),
 };

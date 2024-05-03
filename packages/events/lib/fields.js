@@ -158,7 +158,7 @@ module.exports = [{
 }, {
   field: 'longDescription',
   languages: [],
-  fieldType: 'text',
+  fieldType: 'longDescription',
   optional: true,
   max: 10000,
   write: ['internal', 'public'],
