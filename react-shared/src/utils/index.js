@@ -7,7 +7,6 @@ export { default as createStore } from './createStore';
 export { default as loadable } from './loadable';
 export { default as makeTriggerHooks } from './makeTriggerHooks';
 export { default as nl2br } from './nl2br';
-export { default as markdownToHTML } from './markdownToHTML';
 export { default as RouterTrigger } from './RouterTrigger';
 export { default as ScrollToTop } from './ScrollToTop';
 export * as unloadWarning from './unloadWarning';
