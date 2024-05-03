@@ -41,7 +41,6 @@
     "moment": "^2.27.0",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
-    "react-bootstrap": "^0.33.1",
     "react-intersection-observer": "^9.4.1",
     "react-intl": "^5.12.2",
     "react-redux": "^7.1.3",
