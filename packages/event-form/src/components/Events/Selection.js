@@ -61,7 +61,6 @@ export default function Selection({ res, value, lang }) {
           <EventItem
             event={event}
             lang={lang}
-            id={`selected-event-${event.uid}`}
           >
             <a
               href={`/events/${event.slug}`}

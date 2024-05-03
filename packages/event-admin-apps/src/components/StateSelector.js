@@ -56,16 +56,16 @@ const stateSelectStyles = {
   }),
 };
 
-export default function StateSelector({ value, onChange, uid, ...otherProps }) {
+export default function StateSelector({ value, onChange, ...otherProps }) {
   const stateOptions = useMemo(
     () =>
       [-1, 0, 1, 2].map(v => ({
         label: (
-          <EventState id={`event-item-state-${uid ?? ''}-${v}`} value={v} />
+          <EventState value={v} />
         ),
         value: v,
       })),
-    [uid],
+    [],
   );
 
   const selectValue = useMemo(
