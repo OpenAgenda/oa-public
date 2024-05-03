@@ -12,6 +12,7 @@ export default function validatePriceCategory(value, options = {}) {
   const {
     price,
     label,
+    id,
   } = value;
 
   const clean = {};
@@ -43,6 +44,6 @@ export default function validatePriceCategory(value, options = {}) {
   if (errors.length) {
     throw new BadRequest({ info: { errors } });
   }
-
+  clean.id = id;
   return boolMode ? true : clean;
 }

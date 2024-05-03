@@ -30,22 +30,22 @@ export default function validateDate(value, params = {}) {
 
   const {
     timingId,
-    priceCategoryIndex,
+    priceCategoryId,
     quantity,
   } = value;
 
   const errors = [];
   const clean = {};
 
-  if (!priceCategories[priceCategoryIndex]) {
+  if (!priceCategories.find(pc => pc.id === priceCategoryId)) {
     errors.push({
       message: 'date is not associated to a defined price category',
-      code: 'invalid.priceCategoryIndex',
+      code: 'invalid.priceCategoryId',
       label: 'La date n\'est pas associée à une catégorie de prix valide',
       field: 'dates',
     });
   } else {
-    clean.priceCategoryIndex = priceCategoryIndex;
+    clean.priceCategoryId = priceCategoryId;
   }
 
   clean.quantity = parseInt(quantity, 10);

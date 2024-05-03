@@ -32,11 +32,12 @@ describe('attemptOfferCompletion', () => {
         {
           price: 78,
           label: 'Pouik',
+          id: 0,
         },
       ],
       dates: [
         {
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 789,
           timingId: 2015397000000,
         },

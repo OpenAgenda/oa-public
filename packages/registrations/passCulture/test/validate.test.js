@@ -37,21 +37,21 @@ describe('validate', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 1 }, { priceCategories: [] });
+        validateDate({ priceCategoryId: 1 }, { priceCategories: [] });
       } catch (e) {
         error = e;
       }
 
       expect(error.name).toBe('BadRequest');
-      expect(error.info.errors[0].code).toBe('invalid.priceCategoryIndex');
+      expect(error.info.errors[0].code).toBe('invalid.priceCategoryId');
     });
 
     test('quantity must be an integer equal to or superior to 0', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 0, quantity: 'bim' }, {
-          priceCategories: ['notvalidatedheresowhatever'],
+        validateDate({ priceCategoryId: 0, quantity: 'bim' }, {
+          priceCategories: [{ a: 'notvalidatedheresowhatever', id: 0 }],
         });
       } catch (e) {
         error = e;
@@ -65,8 +65,8 @@ describe('validate', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 0, quantity: 1, timingId: 123 }, {
-          priceCategories: ['wigglypoof'],
+        validateDate({ priceCategoryId: 0, quantity: 1, timingId: 123 }, {
+          priceCategories: [{ a: 'wigglypoof', id: 0 }],
           timings: [],
         });
       } catch (e) {
@@ -79,11 +79,11 @@ describe('validate', () => {
 
     test('returns clean date object when input is valid', () => {
       const clean = validateDate({
-        priceCategoryIndex: 0,
+        priceCategoryId: 0,
         quantity: '1',
         timingId: 1920532380000,
       }, {
-        priceCategories: ['tottorototttoroo'],
+        priceCategories: [{ a: 'tottorototttoroo', id: 0 }],
         timings: [{
           begin: {
             date: '2030-11-10',
@@ -94,7 +94,7 @@ describe('validate', () => {
       });
 
       expect(clean).toEqual({
-        priceCategoryIndex: 0,
+        priceCategoryId: 0,
         quantity: 1,
         timingId: 1920532380000,
       });
@@ -157,9 +157,9 @@ describe('validate', () => {
   describe('validateLocalData', () => {
     const validData = {
       venueId: 123,
-      priceCategories: [{ price: '0', label: 'Gratuit' }],
+      priceCategories: [{ price: '0', label: 'Gratuit', id: 0 }],
       dates: [{
-        priceCategoryIndex: 0,
+        priceCategoryId: 0,
         quantity: '1',
         timingId: 1920532380000,
       }],
@@ -349,9 +349,9 @@ describe('validate', () => {
       expect(clean).toEqual({
         category: 'CONCERT',
         musicType: 'JAZZ-BEBOP',
-        priceCategories: [{ price: 0, label: 'Gratuit' }],
+        priceCategories: [{ price: 0, label: 'Gratuit', id: 0 }],
         dates: [{
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 1,
           timingId: 1920532380000,
         }],

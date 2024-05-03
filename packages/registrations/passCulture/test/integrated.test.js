@@ -42,17 +42,19 @@ describe('integrated', () => {
         priceCategories: [{
           label: 'Tarif réduit',
           price: 8,
+          id: 0,
         }, {
           label: 'Plein tarif',
           price: 14,
+          id: 1,
         }],
         dates: [{
           timingId,
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 3,
         }, {
           timingId,
-          priceCategoryIndex: 1,
+          priceCategoryId: 1,
           quantity: 6,
         }],
         error: null,

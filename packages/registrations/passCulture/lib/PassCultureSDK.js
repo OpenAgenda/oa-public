@@ -59,6 +59,7 @@ export default function PassCultureSDK(params) {
       events: Object.assign(eventId => ({
         getLink: () => params.offerLink.replace(':id', eventId),
         get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}`),
+        patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}`),
         priceCategories: Object.assign(categoryId => ({
           patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/price_categories/${categoryId}`),
         }), {
@@ -67,6 +68,7 @@ export default function PassCultureSDK(params) {
         dates: Object.assign(dateId => ({
           get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
           patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
+          delete: call.bind(null, params, 'delete', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
         }), {
           list: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates`),
           create: call.bind(null, params, 'post', `/public/offers/v1/events/${eventId}/dates`),
