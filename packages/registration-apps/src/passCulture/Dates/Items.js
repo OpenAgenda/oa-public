@@ -71,7 +71,6 @@ export default function DateItems({
                 {hasMatchingTiming ? null : (
                   <ListItemPart>
                     <MoreInfo
-                      id="dateMismatch"
                       title="Date non valide"
                       content="L'horaire associé à cette date a été déplacé ou supprimé. Toute date doit correspondre à un horaire saisi sur le champ horaire du formulaire."
                     />

@@ -35,7 +35,7 @@ export default function AggregatorRules({ rules, showModal }) {
       >
         {intl.formatMessage(rules?.length ? messages.edit : messages.add)}
       </button>
-      <MoreInfo id="doc-popover" link={externalLinks.helpRules} />
+      <MoreInfo link={externalLinks.helpRules} />
     </div>
   );
 }

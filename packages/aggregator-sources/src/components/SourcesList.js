@@ -113,10 +113,7 @@ function SourceItem({ source }) {
             >
               {intl.formatMessage(messages.remove)}
             </button>
-            <MoreInfo
-              id="copy-popover"
-              content={intl.formatMessage(messages.copy)}
-            >
+            <MoreInfo content={intl.formatMessage(messages.copy)}>
               <CopyToClipboard text={rulesJSON}>
                 <button
                   type="button"

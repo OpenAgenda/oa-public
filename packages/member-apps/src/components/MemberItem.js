@@ -64,10 +64,7 @@ function MemberItemComponent({
                 : getLabel('noName'))}
           </strong>{' '}
           <span className="text-muted small">{roleLabel(i18n, role)}</span>{' '}
-          <MoreInfo
-            id={`moreinfo-${id}`}
-            content={getLabel(`moreinfo${upperFirst(memberType)}`)}
-          >
+          <MoreInfo content={getLabel(`moreinfo${upperFirst(memberType)}`)}>
             <span
               className={classNames('badge', 'badge-sm', {
                 'badge-info': memberType === 'invited',

@@ -371,7 +371,6 @@ function Dashboard() {
           <div className="row margin-top-sm">
             <div className="col-sm-6">
               <MoreInfo
-                id="pulse-chart-more-info"
                 content={intl.formatMessage(messages.pulseDesc)}
                 placement="bottom"
               >

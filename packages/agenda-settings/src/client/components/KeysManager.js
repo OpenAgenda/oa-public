@@ -61,10 +61,7 @@ function Key({ item, index }) {
             readOnly
           />
           <span className="input-group-btn">
-              <MoreInfo
-                id={`key-copy-${item.id}`}
-                content={copied ? getLabel('copied') : getLabel('copy')}
-              >
+              <MoreInfo content={copied ? getLabel('copied') : getLabel('copy')}>
                 <CopyToClipboard text={item.key} onCopy={onCopy}>
                   <button className="btn btn-primary">
                     <i className="fa fa-clipboard" aria-hidden="true"></i>
