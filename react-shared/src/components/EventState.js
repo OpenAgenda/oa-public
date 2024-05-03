@@ -27,7 +27,7 @@ const states = [
   },
 ];
 
-export default function EventState({ id, value, displayLabel = true }) {
+export default function EventState({ value, displayLabel = true }) {
   const intl = useIntl();
   const { slug, badge } = states.find(
     s => value === s.slug || parseInt(value, 10) === s.code,
@@ -35,7 +35,7 @@ export default function EventState({ id, value, displayLabel = true }) {
 
   return (
     <>
-      <MoreInfo id={id} content={intl.formatMessage(messages[slug])}>
+      <MoreInfo content={intl.formatMessage(messages[slug])}>
         <span
           className={cn('badge', badge, { 'margin-right-xs': displayLabel })}
           css={css`
