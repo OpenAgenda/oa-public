@@ -139,11 +139,13 @@ export default async function addEventItem(
     x: nextLineX,
   });
 
-  if (event.description.lenght > 0) {
+  const description = getLocaleValue(event.description, lang);
+
+  if (description.length > 0) {
     const { height: descriptionHeight, width: descriptionWidth } = addText(
       doc,
       localCursor,
-      cleanString(getLocaleValue(event.description, lang)),
+      cleanString(description),
       { width: columnMaxWidth, fontSize, base, simulate },
     );
 

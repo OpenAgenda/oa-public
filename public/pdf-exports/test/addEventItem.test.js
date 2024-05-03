@@ -5,7 +5,6 @@ import cursorYOverflowing from '../lib/cursorYOverflowing.js';
 import getIntl from '../lib/intl.js';
 import loadAgendaData from './lib/loadAgendaData.js';
 import loadEventData from './lib/loadEventData.js';
-import lorem from './fixtures/lorem.json' assert { type: 'json' };
 
 const {
   AGENDA_UID: agendaUid,
@@ -27,12 +26,7 @@ cursor.y += margin;
   doc.pipe(writeStream);
 
   const agenda = await loadAgendaData(agendaUid, APIKey);
-  const eventData = (await loadEventData(agendaUid, APIKey)).events.map(e => ({
-    ...e,
-    description: {
-      fr: e.description.fr + lorem[Math.floor(Math.random() * lorem.length)],
-    },
-  }));
+  const eventData = (await loadEventData(agendaUid, APIKey)).events;
 
   const { lang = 'fr', includeEventImages = true, little, medium } = options;
   const intl = getIntl(lang);
