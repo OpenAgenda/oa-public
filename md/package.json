@@ -11,7 +11,7 @@
     }
   },
   "scripts": {
-    "prepack": "tsup esm --clean --format cjs",
+    "prepack": "tsup src --clean --format cjs",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "dependencies": {
