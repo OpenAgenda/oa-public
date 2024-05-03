@@ -6,7 +6,7 @@ import loadEventData from './lib/loadEventData.js';
 
 const {
   AGENDA_UID: agendaUid,
-  PUBLIC_KEY: publicKey,
+  API_KEY: APIKey,
   PDF_TEST_FOLDER: pdfTestFolder,
 } = process.env;
 
@@ -51,7 +51,7 @@ const {
 
   doc.pipe(writeStream);
 
-  const eventData = (await loadEventData(agendaUid, publicKey)).events;
+  const eventData = (await loadEventData(agendaUid, APIKey)).events;
 
   for (const event of eventData) {
     addRegistration(

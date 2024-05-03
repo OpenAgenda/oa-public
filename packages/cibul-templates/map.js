@@ -20,6 +20,7 @@ module.exports = [
   'event/embedInbox',
   'event/embedShow',
   'event/action',
+  'dialog/index',
   'search/agendas',
   'search/events',
   {

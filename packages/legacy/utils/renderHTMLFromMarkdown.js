@@ -1,16 +1,19 @@
 'use strict';
 
+const {
+  fromMarkdownToHTML,
+} = require('@openagenda/md');
+
 module.exports = (services, options = {}, links = null, md = '') => {
   const {
     oembed,
-    formSchemas
   } = services;
 
   const {
-    includeEmbedded = false
+    includeEmbedded = false,
   } = options;
 
-  const html = formSchemas.utils.markdown.from(md);
+  const html = fromMarkdownToHTML(md);
 
   if (!links || !includeEmbedded) {
     return html;

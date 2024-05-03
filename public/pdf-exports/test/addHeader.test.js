@@ -6,7 +6,7 @@ import loadAgendaData from './lib/loadAgendaData.js';
 
 const {
   AGENDA_UID: agendaUid,
-  PUBLIC_KEY: publicKey,
+  API_KEY: APIKey,
   PDF_TEST_FOLDER: pdfTestFolder,
 } = process.env;
 
@@ -24,7 +24,7 @@ let pageHeaderHeight = null;
   );
   doc.pipe(writeStream);
 
-  const agenda = await loadAgendaData(agendaUid, publicKey);
+  const agenda = await loadAgendaData(agendaUid, APIKey);
 
   if (firstPage) {
     const { height: documentHeaderHeight } = await addDocumentHeader(

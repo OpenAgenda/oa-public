@@ -108,7 +108,7 @@ module.exports.init = async (config, services) => {
       search: transverseSearch,
     },
     apps: {
-      agendas: agendaRoutes(services),
+      agendas: agendaRoutes(config, services),
     },
     cluster: eventSearch.cluster,
   };

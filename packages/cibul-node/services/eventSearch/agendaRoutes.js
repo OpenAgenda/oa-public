@@ -18,7 +18,7 @@ const ifJSONStreamRequested = require('./lib/ifJSONStreamRequested');
 const JSONResponse = require('./lib/JSONResponse');
 const handleError = require('./lib/handleError');
 
-module.exports = services => {
+module.exports = (config, services) => {
   const { redis } = services;
 
   const limiter = rateLimiter(redis.ioRedis, {
@@ -47,7 +47,7 @@ module.exports = services => {
       trackFormat,
       ifFormat('csv', streamCSV),
       ifFormat('xlsx', streamXLSX),
-      ifFormat('pdf', streamPDF),
+      ifFormat('pdf', streamPDF.bind(null, config.pdf)),
       ifFormat('ics', streamICS),
       ifFormat(['md', 'txt'], streamMarkdown),
       ifFormat('rss', RSSResponse(services.core)),

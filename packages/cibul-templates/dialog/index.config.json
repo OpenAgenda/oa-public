@@ -1,0 +1,13 @@
+{
+  "layout" : "bsLayout/main",
+  "bsCss" : {},
+  "helpers" : {
+    "_txt" : "text",
+    "_i" : "image"
+  },
+  "labels" : "auth/messages",
+  "base" : {
+    "includeActionLinks" : false,
+    "mailto" : false
+  }
+}
