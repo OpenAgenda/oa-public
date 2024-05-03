@@ -53,7 +53,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
 
   const formatedPriceCategories = priceCategories.map(priceCategory => ({
     ...priceCategory,
-    price: parseFloat(priceCategory.price) * 100,
+    price: parseFloat(priceCategory.price),
   }));
 
   try {
