@@ -28,6 +28,7 @@
     "classnames": "^2.5.1",
     "fastest-levenshtein": "^1.0.16",
     "immer": "^10.0.3",
+    "lodash": "^4.17.21",
     "react-select": "^5.7.4",
     "react-tagsinput": "^3.19.0",
     "slugify": "^1.4.6",

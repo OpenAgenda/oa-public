@@ -31,20 +31,20 @@ export default function PriceCategoryItems({
   }
   return (
     <List>
-      {value.map(({ label, price }, index) => (
+      {value.map(({ label, price, id, passId }, index) => (
         <ListItem key={slug(`${label} ${price}`, { lower: true, strict: true })}>
           {editedItemIndex === index ? (
             <PriceCategoryForm
               mode="edit"
               value={editValue}
-              onChange={v => setEditValue(v)}
+              onChange={v => setEditValue({ passId, ...v })}
               isValid={validatePriceCategory(editValue, { boolMode: true })}
               onCancel={() => {
                 setEditedItemIndex(-1);
                 onToggleEditing(false);
               }}
               onSubmit={() => {
-                onChange(editedItemIndex, editValue);
+                onChange(editValue);
                 setEditedItemIndex(-1);
                 onToggleEditing(false);
               }}
@@ -53,7 +53,7 @@ export default function PriceCategoryItems({
           ) : (
             <>
               <ListItemPart>{label}</ListItemPart>
-              <ListItemPart>{price} €</ListItemPart>
+              <ListItemPart>{price / 100} €</ListItemPart>
               <ListItemPart>
                 <Button
                   unmargined
@@ -63,7 +63,7 @@ export default function PriceCategoryItems({
                   shape="link"
                   onClick={() => {
                     setEditedItemIndex(index);
-                    setEditValue({ label, price });
+                    setEditValue({ label, price: price / 100, id });
                     onToggleEditing(true);
                   }}
                   label="Modifier"
@@ -73,9 +73,9 @@ export default function PriceCategoryItems({
                 <Button
                   unmargined
                   unpadded
-                  disabled={disabled || editValue}
+                  disabled={passId !== undefined ? true : disabled || editValue}
                   shape="danger-link"
-                  onClick={() => onRemove({ label, price })}
+                  onClick={() => onRemove({ label, price, id })}
                   label="Supprimer"
                 />
               </ListItemPart>

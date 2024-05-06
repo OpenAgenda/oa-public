@@ -37,7 +37,7 @@ export default function Duration({
       setDuration(preloadedDuration);
       onChange(preloadedDuration);
     }
-  }, [value.dates, value.duration]);
+  }, [/* value.dates, value.duration */]);
 
   return (
     <Input
