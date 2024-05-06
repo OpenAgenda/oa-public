@@ -29,7 +29,6 @@ const SetHeader = ({ set, res }) => {
           </a>
           <MoreInfo
             className="margin-left-sm"
-            id="checkbox-help"
             content={intl.formatMessage(messages.help)}
             placement="top"
           />

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DatetimeRangePicker from '@openagenda/react-bootstrap-datetimerangepicker';
 import moment from 'moment';
-import { Button } from 'react-bootstrap';
 
 export default class DateTimePicker extends Component {
 
@@ -91,14 +90,14 @@ export default class DateTimePicker extends Component {
         ranges={ranges || this.state.ranges}
         onApply={this.handleEvent}
       >
-        <Button className="selected-date-range-btn" style={buttonStyle}>
+        <button type="button" className="btn selected-date-range-btn" style={buttonStyle}>
           <div className="pull-left">
             <i className="fa fa-calendar" />{' '}<span>{label}</span>
           </div>
           <div className="pull-right">
             <i className="fa fa-angle-down" />
           </div>
-        </Button>
+        </button>
       </DatetimeRangePicker>
     );
   }

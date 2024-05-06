@@ -32,11 +32,7 @@ export default function ShowFullEventForm({
         >
           {m(messages.showEventFields)}
         </button>
-        <MoreInfo
-          id="show-full-event-in-share-info"
-          className="margin-h-xs"
-          content={m(messages.showEventFieldsInfo)}
-        />
+        <MoreInfo className="margin-h-xs" content={m(messages.showEventFieldsInfo)} />
       </div>
     </div>
   );

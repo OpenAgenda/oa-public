@@ -42,10 +42,7 @@ function RequestEditionRights({
       <p>
         <span>{m(messages.noEditionRights)} </span> {hasAdditionalFields(schema) ? <span>{m(messages.onlyAdditionalFieldsCanBeEdited)}</span> : null}
         <span>
-          <MoreInfo
-            id="noEditionRights"
-            content={m(messages.onlyAdditionalFieldsCanBeEditedInfo, { agenda: agenda.title })}
-          />
+          <MoreInfo content={m(messages.onlyAdditionalFieldsCanBeEditedInfo, { agenda: agenda.title })} />
         </span>
       </p>
       <p>
@@ -55,10 +52,7 @@ function RequestEditionRights({
         >
           {m(messages.requestEditionRights)}
         </a>
-        <MoreInfo
-          id="requestEditionRights"
-          content={m(messages.requestEditionRightsInfo)}
-        />
+        <MoreInfo content={m(messages.requestEditionRightsInfo)} />
       </p>
     </div>
   );

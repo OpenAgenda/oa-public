@@ -2547,7 +2547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs2@npm:^7.0.0, @babel/runtime-corejs2@npm:^7.3.1":
+"@babel/runtime-corejs2@npm:^7.3.1":
   version: 7.23.4
   resolution: "@babel/runtime-corejs2@npm:7.23.4"
   dependencies:
@@ -2567,7 +2567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.0, @babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.0, @babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.23.4
   resolution: "@babel/runtime@npm:7.23.4"
   dependencies:
@@ -4971,10 +4971,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/react@npm:^0.26.13":
+  version: 0.26.13
+  resolution: "@floating-ui/react@npm:0.26.13"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.0.0"
+    "@floating-ui/utils": "npm:^0.2.0"
+    tabbable: "npm:^6.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 8a6004fc4ef11468bb26a8f5624d74f4cdb9389583c2c7716c61f3a6df2451ce76dfcc73f862320d51bc667b212a336acb303048d4c3906f4e97679ac1de478d
+  languageName: node
+  linkType: hard
+
 "@floating-ui/utils@npm:^0.1.3":
   version: 0.1.4
   resolution: "@floating-ui/utils@npm:0.1.4"
   checksum: 1183890f1f9868e4a0d300d0496bd204b3277a882c233455033fcba81a715ecbe4535b80bacbf3f7c2d82e7a63136bcccdc10fff297ce07086146afad73b15a0
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.0":
+  version: 0.2.2
+  resolution: "@floating-ui/utils@npm:0.2.2"
+  checksum: b2becdcafdf395af1641348da0031ff1eaad2bc60c22e14bd3abad4acfe2c8401e03097173d89a2f646a99b75819a78ef21ebb2572cab0042a56dd654b0065cd
   languageName: node
   linkType: hard
 
@@ -6295,8 +6316,8 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.6.2"
     rc-collapse: "npm:^3.1.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^4.1.0"
     react-intl: "npm:^5.12.2"
     recompose: "npm:^0.30.0"
@@ -6369,9 +6390,8 @@ __metadata:
     nodemon: "npm:^2.0.6"
     prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-bootstrap: "npm:^0.33.1"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^5.12.2"
     react-redux: "npm:^7.1.3"
@@ -6433,8 +6453,8 @@ __metadata:
     nodemon: "npm:^2.0.4"
     prop-types: "npm:^15.5.8"
     rc-switch: "npm:^1.4.2"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^7.6.4"
     when: "npm:^3.7.8"
@@ -6479,8 +6499,8 @@ __metadata:
     msw: "npm:^0.49.2"
     msw-storybook-addon: "npm:^1.10.0"
     qs: "npm:^6.9.4"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-markdown: "npm:^6.0.0"
@@ -6534,9 +6554,9 @@ __metadata:
     pizzip: "npm:^3.0.6"
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.7.2"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-datepicker: "npm:^1.6.0"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     redis: "npm:^4.6.6"
     regenerator-runtime: "npm:^0.13.7"
@@ -6614,8 +6634,8 @@ __metadata:
     multer: "npm:^1.3.1"
     qs: "npm:^6.9.1"
     rc-switch: "npm:^1.4.3"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-leaflet: "npm:^3.1.0"
@@ -6731,9 +6751,9 @@ __metadata:
     ncp: "npm:^2.0.0"
     prettier-eslint-cli: "npm:^7.1.0"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-cookie-consent: "npm:^7.2.1"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-intl: "npm:^5.12.2"
     react-query: "npm:^3.6.0"
     regenerator-runtime: "npm:^0.13.7"
@@ -6776,8 +6796,8 @@ __metadata:
     express: "npm:^4.17.1"
     history: "npm:^4.10.1"
     lodash: "npm:^4.17.15"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-query: "npm:^3.6.0"
@@ -6849,9 +6869,9 @@ __metadata:
     morgan: "npm:^1.9.1"
     multer: "npm:^1.4.4"
     mysql: "npm:^2.11.1"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-copy-to-clipboard: "npm:^5.0.2"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.8"
     react-final-form-listeners: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
@@ -6908,11 +6928,11 @@ __metadata:
     lodash: "npm:^4.17.15"
     prettier-eslint-cli: "npm:^7.1.0"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-beautiful-dnd: "npm:^13.0.0"
     react-content-loader: "npm:^5.1.0"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^5.12.2"
     react-query: "npm:^3.6.0"
@@ -6996,11 +7016,11 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.7.2"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-beautiful-dnd: "npm:^13.0.0"
     react-copy-to-clipboard: "npm:^5.0.2"
     react-date-range: "npm:^2.0.0-alpha.4"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.8"
     react-final-form-arrays: "npm:^3.1.1"
     react-intl: "npm:^5.12.2"
@@ -7094,8 +7114,8 @@ __metadata:
     babel-plugin-add-module-exports: "npm:^1.0.4"
     babel-plugin-dynamic-import-node: "npm:^2.3.3"
     babel-plugin-react-intl: "npm:^8.2.25"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-refresh: "npm:^0.14.0"
   peerDependencies:
     "@babel/core": ^7.23.3
@@ -7123,10 +7143,10 @@ __metadata:
     moment: "npm:^2.27.0"
     node-watch: "npm:^0.3.5"
     nodemon: "npm:^2.0.6"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     reload: "npm:^3.2.1"
     sass: "npm:^1.52.1"
     walk: "npm:^2.3.9"
@@ -7222,10 +7242,10 @@ __metadata:
     raven-js: "npm:^3.9.1"
     raw-loader: "npm:^4.0.0"
     rc-switch: "npm:^1.4.3"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-cookie-consent: "npm:^7.2.1"
     react-copy-to-clipboard: "npm:^5.0.2"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^5.12.2"
     react-redux: "npm:^7.1.3"
@@ -7402,8 +7422,8 @@ __metadata:
     msw-storybook-addon: "npm:^1.10.0"
     prettier-eslint-cli: "npm:^7.1.0"
     qs: "npm:^6.9.4"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-query: "npm:^3.39.2"
@@ -7466,9 +7486,9 @@ __metadata:
     msw-storybook-addon: "npm:^1.10.0"
     prop-types: "npm:^15.6.0"
     qs: "npm:^6.10.3"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-intl: "npm:^5.12.2"
     react-outside-click-handler: "npm:^1.3.0"
     react-select: "npm:^3.0.8"
@@ -7647,10 +7667,10 @@ __metadata:
     multer: "npm:^1.4.4"
     mysql: "npm:^2.18.1"
     prop-types: "npm:^15.7.2"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-beautiful-dnd: "npm:^13.1.0"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^11.2.0"
     react-intl: "npm:^5.12.2"
     react-markdown: "npm:^6.0.0"
@@ -7714,8 +7734,8 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
@@ -7800,8 +7820,8 @@ __metadata:
     nodemon: "npm:^2.0.4"
     prop-types: "npm:^15.6.1"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-redux: "npm:^7.1.3"
     react-router: "npm:^5.1.2"
@@ -7996,8 +8016,8 @@ __metadata:
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:^0.5.31"
     mysql: "npm:^2.16.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-leaflet: "npm:^3.1.0"
@@ -8130,8 +8150,8 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
@@ -8234,8 +8254,8 @@ __metadata:
     immutability-helper: "npm:^3.0.0"
     lodash: "npm:^4.17.15"
     nodemon: "npm:^2.0.4"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-redux: "npm:^7.1.3"
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
@@ -8337,10 +8357,10 @@ __metadata:
     next-transpile-modules: "npm:^9.1.0"
     prettier-eslint-cli: "npm:^7.1.0"
     qs: "npm:^6.11.0"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-content-loader: "npm:^6.2.0"
     react-cookie: "npm:^4.1.1"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^5.12.2"
     react-leaflet: "npm:^4.2.1"
@@ -8527,9 +8547,9 @@ __metadata:
     prop-types: "npm:^15.7.2"
     qs: "npm:^6.9.1"
     raw-loader: "npm:^4.0.2"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-final-form-listeners: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
@@ -8575,8 +8595,8 @@ __metadata:
     load-script: "npm:^1.0.0"
     marked: "npm:^0.7.0"
     prop-types: "npm:^15.5.8"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-select: "npm:^3.0.8"
     react-tagsinput: "npm:^3.16.1"
     rimraf: "npm:^3.0.1"
@@ -8638,8 +8658,8 @@ __metadata:
     mkdirp: "npm:^3.0.1"
     nprogress: "npm:^0.2.0"
     prettier-eslint-cli: "npm:^7.1.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
     react-query: "npm:^3.6.0"
@@ -8692,8 +8712,8 @@ __metadata:
     lodash: "npm:^4.17.15"
     prettier-eslint-cli: "npm:^7.1.0"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-error-boundary: "npm:^1.2.5"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^5.12.2"
@@ -8730,8 +8750,8 @@ __metadata:
     eslint: "npm:^8.24.0"
     lint-staged: "npm:^10.2.11"
     prettier-eslint-cli: "npm:^7.1.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     rimraf: "npm:^3.0.1"
   peerDependencies:
     react: ^18.2.0
@@ -8762,8 +8782,8 @@ __metadata:
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:^0.5.31"
     prop-types: "npm:^15.7.2"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^5.12.2"
     rimraf: "npm:^3.0.1"
@@ -8785,6 +8805,7 @@ __metadata:
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
+    "@floating-ui/react": "npm:^0.26.13"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
@@ -8816,11 +8837,10 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.7.2"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-bootstrap: "npm:^0.33.1"
+    react: "npm:^18.3.1"
     react-cookie-consent: "npm:^7.2.1"
     react-date-range: "npm:^1.4.0"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-dropzone: "npm:^11.2.0"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^5.12.2"
@@ -8883,9 +8903,9 @@ __metadata:
     jest: "npm:^29.7.0"
     lint-staged: "npm:^10.2.11"
     prettier-eslint-cli: "npm:^7.1.0"
-    react: "npm:^18.2.0"
+    react: "npm:^18.3.1"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^18.2.0"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-icons: "npm:^3.8.0"
     react-intl: "npm:^5.12.2"
@@ -8925,8 +8945,8 @@ __metadata:
     jest: "npm:^29.7.0"
     msw: "npm:^0.49.2"
     msw-storybook-addon: "npm:^1.10.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-select: "npm:^5.7.4"
     react-tagsinput: "npm:^3.19.0"
     rimraf: "npm:^3.0.1"
@@ -9116,8 +9136,8 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prop-types: "npm:^15.7.2"
     qs: "npm:^6.9.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-final-form-arrays: "npm:^3.1.1"
     react-intl: "npm:^5.12.2"
@@ -9181,8 +9201,8 @@ __metadata:
     eslint: "npm:^8.24.0"
     framer-motion: "npm:^7.5.1"
     prettier-eslint-cli: "npm:^7.1.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-remove-scroll: "npm:^2.5.5"
     storybook: "npm:^7.6.4"
     tsup: "npm:^6.2.3"
@@ -9256,8 +9276,8 @@ __metadata:
     msw-storybook-addon: "npm:^1.10.0"
     prop-types: "npm:^15.6.1"
     qs: "npm:^6.9.4"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^5.12.2"
     react-redux: "npm:^7.1.3"
@@ -17497,8 +17517,8 @@ __metadata:
     planer: "npm:^1.1.1"
     qs: "npm:^6.9.1"
     rate-limit-redis: "npm:^4.2.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
     react-router: "npm:^5.1.2"
     react-router-dom: "npm:^5.1.2"
     redis: "npm:^4.6.6"
@@ -20484,7 +20504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dom-helpers@npm:^3.2.0, dom-helpers@npm:^3.2.1, dom-helpers@npm:^3.4.0":
+"dom-helpers@npm:^3.4.0":
   version: 3.4.0
   resolution: "dom-helpers@npm:3.4.0"
   dependencies:
@@ -28237,7 +28257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycode@npm:^2.1.2, keycode@npm:^2.2.0":
+"keycode@npm:^2.1.2":
   version: 2.2.0
   resolution: "keycode@npm:2.2.0"
   checksum: 70ed9ee040cc5568672d78462a08d24c4f793e1adad1c1963bb50722387061b3f83f84ee521d6c37520954008eb108daea2a3b529780f2bad1457fffe9a0fa91
@@ -34637,18 +34657,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types-extra@npm:^1.0.1":
-  version: 1.1.1
-  resolution: "prop-types-extra@npm:1.1.1"
-  dependencies:
-    react-is: "npm:^16.3.2"
-    warning: "npm:^4.0.0"
-  peerDependencies:
-    react: ">=0.14.0"
-  checksum: 5521568f331f0ba426681fe368f8d43d58f5f3d7a82cd63411abad579d4ac2e6667dff0f76ace6bf7d61468c490c4201a1f658020fad0fb6bbf77e7902604380
-  languageName: node
-  linkType: hard
-
 "prop-types@npm:15, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.6, prop-types@npm:^15.5.8, prop-types@npm:^15.5.9, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
@@ -35357,29 +35365,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:^0.33.1":
-  version: 0.33.1
-  resolution: "react-bootstrap@npm:0.33.1"
-  dependencies:
-    "@babel/runtime-corejs2": "npm:^7.0.0"
-    classnames: "npm:^2.2.5"
-    dom-helpers: "npm:^3.2.0"
-    invariant: "npm:^2.2.4"
-    keycode: "npm:^2.2.0"
-    prop-types: "npm:^15.6.1"
-    prop-types-extra: "npm:^1.0.1"
-    react-overlays: "npm:^0.9.0"
-    react-prop-types: "npm:^0.4.0"
-    react-transition-group: "npm:^2.0.0"
-    uncontrollable: "npm:^7.0.2"
-    warning: "npm:^3.0.0"
-  peerDependencies:
-    react: ">=16.3.0"
-    react-dom: ">=16.3.0"
-  checksum: 0c336fb127a0a20e0558cdd243df2b551a29b5ee8b8df7e185f301e9344bbb5674276516091ffb3211606a21909e4f8b59315e17279d49f445a3c6a1cca35736
-  languageName: node
-  linkType: hard
-
 "react-clientside-effect@npm:^1.2.6":
   version: 1.2.6
   resolution: "react-clientside-effect@npm:1.2.6"
@@ -35540,15 +35525,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
+"react-dom@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.0"
+    scheduler: "npm:^0.23.2"
   peerDependencies:
-    react: ^18.2.0
-  checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+    react: ^18.3.1
+  checksum: a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
   languageName: node
   linkType: hard
 
@@ -35782,7 +35767,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.9.0":
+"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.9.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
@@ -35934,23 +35919,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-overlays@npm:^0.9.0":
-  version: 0.9.1
-  resolution: "react-overlays@npm:0.9.1"
-  dependencies:
-    classnames: "npm:^2.2.5"
-    dom-helpers: "npm:^3.2.1"
-    prop-types: "npm:^15.5.10"
-    prop-types-extra: "npm:^1.0.1"
-    react-transition-group: "npm:^2.2.1"
-    warning: "npm:^3.0.0"
-  peerDependencies:
-    react: ">=16.3.0"
-    react-dom: ">=16.3.0"
-  checksum: f548266cb9848b8796d3d2017f5cd1b3f65d3f0dedf858ce41c06459482b48d007e0217579dc01b38b4b69551dc3587e5062f5e5fc56dbda0dd8c918b5e7d046
-  languageName: node
-  linkType: hard
-
 "react-popper@npm:^1.0.2":
   version: 1.3.7
   resolution: "react-popper@npm:1.3.7"
@@ -35974,17 +35942,6 @@ __metadata:
   dependencies:
     prop-types: "npm:^15.5.8"
   checksum: 00e83df811a406a83a662e2c3db62571f8fcbf27de473590ed47bec69e02d226fe1d3807806053b6bbf2aec6217b5fb87a144520b2c1ec856e4140de2fc65b07
-  languageName: node
-  linkType: hard
-
-"react-prop-types@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "react-prop-types@npm:0.4.0"
-  dependencies:
-    warning: "npm:^3.0.0"
-  peerDependencies:
-    react: ">=0.14.0"
-  checksum: 0c2b0b1567af8a095ca06d18708f1b25b609af9109f103e92276ee26b3f725616870bb14a3503e25f5b4c7f16da17e099e4e8652e7249e3a0182531cf5698ce6
   languageName: node
   linkType: hard
 
@@ -36308,7 +36265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-transition-group@npm:^2.0.0, react-transition-group@npm:^2.2.1, react-transition-group@npm:^2.5.0":
+"react-transition-group@npm:^2.5.0":
   version: 2.9.0
   resolution: "react-transition-group@npm:2.9.0"
   dependencies:
@@ -36450,12 +36407,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: b562d9b569b0cb315e44b48099f7712283d93df36b19a39a67c254c6686479d3980b7f013dc931f4a5a3ae7645eae6386b4aa5eea933baa54ecd0f9acb0902b8
+  checksum: 283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
   languageName: node
   linkType: hard
 
@@ -37989,6 +37946,15 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: b777f7ca0115e6d93e126ac490dbd82642d14983b3079f58f35519d992fa46260be7d6e6cede433a92db70306310c6f5f06e144f0e40c484199e09c1f7be53dd
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
   languageName: node
   linkType: hard
 
@@ -40177,6 +40143,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tabbable@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: ced8b38f05f2de62cd46836d77c2646c42b8c9713f5bd265daf0e78ff5ac73d3ba48a7ca45f348bafeef29b23da7187c72250742d37627883ef89cbd7fa76898
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.0, tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
@@ -41448,20 +41421,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uncontrollable@npm:^7.0.2":
-  version: 7.1.1
-  resolution: "uncontrollable@npm:7.1.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.6.3"
-    "@types/react": "npm:^16.9.11"
-    invariant: "npm:^2.2.4"
-    react-lifecycles-compat: "npm:^3.0.4"
-  peerDependencies:
-    react: ">=15.0.0"
-  checksum: af173d731f821e41e5681274fb07108ca070500497365aaffd9204ae4570c37f03e3fbff146aaac0cea5ac3f5eeeee3a14a293344f31549049bae859005d92b0
-  languageName: node
-  linkType: hard
-
 "undeclared-identifiers@npm:^1.1.2":
   version: 1.1.3
   resolution: "undeclared-identifiers@npm:1.1.3"
@@ -42531,16 +42490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"warning@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "warning@npm:3.0.0"
-  dependencies:
-    loose-envify: "npm:^1.0.0"
-  checksum: 6a2a56ab3139d3927193d926a027e74e1449fa47cc692feea95f8a81a4bb5b7f10c312def94cce03f3b58cb26ba3247858e75d17d596451d2c483a62e8204705
-  languageName: node
-  linkType: hard
-
-"warning@npm:^4.0.0, warning@npm:^4.0.2, warning@npm:^4.0.3":
+"warning@npm:^4.0.2, warning@npm:^4.0.3":
   version: 4.0.3
   resolution: "warning@npm:4.0.3"
   dependencies:

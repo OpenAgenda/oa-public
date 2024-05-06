@@ -134,11 +134,7 @@ export default function List({
                   {intl.formatMessage(messages.manualPasteRules)}
                 </em>
               )}
-              <MoreInfo
-                className="margin-left-xs"
-                id="copypast-popup"
-                link={externalLinks.helpCopyPaste}
-              />
+              <MoreInfo className="margin-left-xs" link={externalLinks.helpCopyPaste} />
             </div>
           ) : null}
         </div>

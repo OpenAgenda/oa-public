@@ -19,7 +19,6 @@ export default function Help({
   if (content) {
     return (
       <MoreInfo
-        id={id}
         content={(
           <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
             {content}

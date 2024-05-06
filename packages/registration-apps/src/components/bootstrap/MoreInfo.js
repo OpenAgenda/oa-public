@@ -1,13 +1,11 @@
 import { MoreInfo } from '@openagenda/react-shared';
 
-export default ({
-  title, content, id, children,
-}) => (
+export default ({ title, content, children }) => (
   <MoreInfo
-    id={id}
     title={title}
     content={content}
     placement="right"
-  >{children}
+  >
+    {children}
   </MoreInfo>
 );

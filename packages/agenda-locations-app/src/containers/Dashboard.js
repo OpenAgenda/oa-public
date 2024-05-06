@@ -413,7 +413,6 @@ function Dashboard() {
                   </label>
                   <MoreInfo
                     className="margin-left-xs"
-                    id="checkbox-help"
                     content={intl.formatMessage(messages.verifiedInfo)}
                     placement="top"
                   />
@@ -439,7 +438,6 @@ function Dashboard() {
                   </label>
                   <MoreInfo
                     className="margin-h-xs"
-                    id="checkbox-help"
                     content={intl.formatMessage(messages.duplicatesFilterHelp)}
                     placement="top"
                   />

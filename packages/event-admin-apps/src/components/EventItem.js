@@ -310,7 +310,6 @@ export default function EventItem({
           <li>
             {event.featured ? (
               <MoreInfo
-                id={`featured-${event.uid}`}
                 content={intl.formatMessage(messages.removeFeatured)}
                 placement="bottom"
               >
