@@ -37,17 +37,18 @@ async function create(service, data, options = {}) {
       autocomplete && isDataIncomplete(data) ? await service.decorateWithGeocodeData(data) : data,
     ),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
-    slug: await defineUnique(
-      service,
-      'slug',
-      () => `${slug(data.name.substr(0, 90), {
-        lower: true,
-        strict: true,
-      })}_${Math.ceil(Math.random() * 9999999)}`,
-    ),
     createdAt: new Date(),
     updatedAt: new Date(),
   };
+
+  clean.slug = await defineUnique(
+    service,
+    'slug',
+    () => `${slug(clean.name.substr(0, 90), {
+      lower: true,
+      strict: true,
+    })}_${Math.ceil(Math.random() * 9999999)}`,
+  );
 
   if (endpointId.agendaUid) {
     Object.assign(

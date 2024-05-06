@@ -336,6 +336,21 @@ describe('agenda-locations - functional - create', () => {
         expect(l).toBeDefined();
       },
     );
+
+    it(
+      'if name is an integer, it should be converted to string at slug conversion',
+      async () => {
+        const { name } = await svc(7196947).create({
+          name: 1083,
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+        });
+
+        expect(name).toBe('1083');
+      },
+    );
   });
 });
 
