@@ -335,7 +335,7 @@ class ConversationContainer extends Component {
             />
           )}
 
-          {messages && messages.length ? <MessageList messages={messages} res={res} /> : null}
+          {messages && messages.length ? <MessageList messages={messages} res={res} domain={settings.domain} /> : null}
 
           {!messages || !messages.length ? (
             <div className="text-center text-muted margin-v-md">

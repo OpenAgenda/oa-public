@@ -55,7 +55,7 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const { message, res: { context: contextRes }, settings: { domain } } = this.props;
+    const { message, res: { context: contextRes }, domain } = this.props;
     const { getLabel, lang } = this.context;
 
     if (!message) {
