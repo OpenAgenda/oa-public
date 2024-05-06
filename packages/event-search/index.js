@@ -10,6 +10,7 @@ const Search = require('./search');
 const moreLikeThis = require('./moreLikeThis');
 const rebuild = require('./rebuild');
 const remove = require('./remove');
+const clear = require('./clear');
 const searchIncludes = require('./config/searchIncludes.json');
 const update = require('./update');
 const Cluster = require('./cluster');
@@ -45,6 +46,7 @@ module.exports = c => {
       add: add.bind(null, config, alias),
       update: update.bind(null, config, alias),
       remove: remove.bind(null, config, alias),
+      clear: clear.bind(null, config, alias),
     };
   }, {
     getConfig: () => config,
