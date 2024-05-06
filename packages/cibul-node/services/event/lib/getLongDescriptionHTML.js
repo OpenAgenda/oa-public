@@ -1,12 +1,15 @@
 'use strict';
 
+const {
+  fromMarkdownToHTML,
+} = require('@openagenda/md');
+
 function renderHTMLFromMarkdown(services, links = null, md = '') {
   const {
     oembed,
-    formSchemas
   } = services;
 
-  const html = formSchemas.utils.markdown.from(md);
+  const html = fromMarkdownToHTML(md);
 
   if (!links) {
     return html;
