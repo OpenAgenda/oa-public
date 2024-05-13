@@ -10,6 +10,9 @@
       "require": "./dist/index.cjs"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepack": "tsup src --clean --format cjs",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
