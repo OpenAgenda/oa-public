@@ -1,83 +1,63 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import axios from 'axios';
-import { shouldUpdate, shallowEqual } from 'recompose';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
+import { useLatest } from 'react-use';
 import { Spinner } from '@openagenda/react-shared';
-import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 import AbilitiesForm from './AbilitiesForm';
-import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
+
+let uniqueIdCounter = 0;
+
+function getUniqueId() {
+  uniqueIdCounter += 1;
+  return uniqueIdCounter;
+}
 
 function getInitialValues(rules) {
   return rules.reduce((result, rule) => {
     result[rule.key] = rule.inverted === undefined ? true : !rule.inverted;
-
     return result;
   }, {});
 }
 
-@withFetcher(
-  'abilities',
-  async ({ res, entityName, identifier }) => axios
-    .get(res.formIndex, {
-      params: {
-        entityName,
-        identifier,
-      },
-    })
-    .then(({ data }) => data.map(v => {
-      v.key = `rule${_.uniqueId()}`;
+function AbilitiesEditor({
+  entityName,
+  identifier,
+  locale = 'en',
+  filterInputPlaceholder = '',
+  onSubmit,
+  res,
+  HeaderComponent,
+  searchChildKey,
+}) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-      return v;
-    })),
-  { fetchOnMount: true }
-)
-@shouldUpdate(
-  (props, nextProps) => !shallowEqual(
-    _.pick(props, ['entityName', 'identifier', 'locale']),
-    _.pick(nextProps, ['entityName', 'identifier', 'locale'])
-  ) || !shallowEqual(props.abilitiesFetcher, nextProps.abilitiesFetcher)
-)
-export default class AbilitiesEditor extends Component {
-  static defaultProps = {
-    locale: 'en',
-    filterInput: false,
-    filterInputPlaceholder: '',
-  };
+  const fetchAbilities = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${res.formIndex}?entityName=${entityName}&identifier=${identifier}`);
+      const fetchedData = await response.json();
+      const formattedData = fetchedData.map(v => ({ ...v, key: `rule${getUniqueId()}` }));
+      setData(formattedData);
+      setError(null);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [res.formIndex, entityName, identifier]);
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    fetchAbilities();
+  }, [fetchAbilities]);
 
-    const { entityName, identifier } = this.props;
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-
-    this.childCheckboxDecorator = getChildCheckboxDecorator({
-      entityName,
-      identifier,
-      getRules: () => {
-        const { abilitiesFetcher } = this.props;
-        return abilitiesFetcher.data;
-      },
-    });
-  }
-
-  async handleSubmit(values, form) {
-    const {
-      onSubmit,
-      res,
-      entityName,
-      identifier,
-      receiveAbilitiesData,
-      receiveAbilitiesError,
-      abilitiesFetcher: { data: rules },
-    } = this.props;
-
-    const formIndex = rules.map(rule => Object.assign(_.omit(rule, 'key', 'entity', 'relevantRule'), {
+  const handleSubmit = async (values, form) => {
+    const formIndex = data.map(rule => ({
+      ...rule,
       inverted: !values[rule.key],
     }));
 
@@ -86,85 +66,58 @@ export default class AbilitiesEditor extends Component {
     }
 
     try {
-      let { data } = await axios.patch(res.formIndex, formIndex, {
-        params: {
-          entityName,
-          identifier,
-        },
+      const response = await fetch(`${res.formIndex}?entityName=${entityName}&identifier=${identifier}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formIndex),
       });
-
-      if (_.isArray(data)) {
-        data = data.map(v => {
-          v.key = `rule${_.uniqueId()}`;
-
-          return v;
-        });
-
-        receiveAbilitiesData(data);
-        form.initialize(getInitialValues(data));
+      const responseData = await response.json();
+      if (Array.isArray(responseData)) {
+        const formattedData = responseData.map(v => ({ ...v, key: `rule${getUniqueId()}` }));
+        setData(formattedData);
+        form.initialize(getInitialValues(formattedData));
       }
-    } catch (e) {
-      receiveAbilitiesError(e);
+    } catch (err) {
+      setError(err);
     }
-  }
+  };
 
-  renderContent() {
-    const {
-      abilitiesFetcher: { loading, data: rules, error },
-      HeaderComponent,
-      searchChildKey,
-      filterInputPlaceholder,
-    } = this.props;
+  const latestData = useLatest(data);
+  const childCheckboxDecorator = useMemo(() => getChildCheckboxDecorator({
+    entityName,
+    identifier,
+    getRules: () => latestData.current,
+  }), [latestData, entityName, identifier]);
 
-    if (loading) {
-      return (
-        <div style={{ position: 'relative', height: '50px' }}>
-          <Spinner />
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <FormattedMessage
-          id="Abilities.AbilitiesEditor.error"
-          defaultMessage="Error."
-        />
-      );
-    }
+  const renderContent = () => {
+    if (loading) return <Spinner />;
+    if (error) return <FormattedMessage id="Abilities.AbilitiesEditor.error" defaultMessage="Error." />;
 
     return (
       <Form
-        {...this.props}
-        // debug={console.log}
         validateOnBlur
         subscription={{}}
-        initialValues={getInitialValues(rules)}
-        onSubmit={this.handleSubmit}
-        decorators={[this.childCheckboxDecorator]}
+        initialValues={getInitialValues(data)}
+        onSubmit={handleSubmit}
+        decorators={[childCheckboxDecorator]}
         mutators={{ setFieldData: setFieldDataMutator }}
         component={AbilitiesForm}
-        rules={rules}
+        rules={data}
+        entityName={entityName}
+        identifier={identifier}
         HeaderComponent={HeaderComponent}
         searchChildKey={searchChildKey}
         filterInputPlaceholder={filterInputPlaceholder}
       />
     );
-  }
+  };
 
-  render() {
-    const { locale } = this.props;
-    const messages = locales[locale] || locales.en;
-
-    return (
-      <IntlProvider
-        key={locale}
-        locale={locale}
-        messages={messages}
-        defaultLocale={getSupportedLocale(locale)}
-      >
-        {this.renderContent()}
-      </IntlProvider>
-    );
-  }
+  const messages = locales[locale] || locales.en;
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      {renderContent()}
+    </IntlProvider>
+  );
 }
+
+export default AbilitiesEditor;

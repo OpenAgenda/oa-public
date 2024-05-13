@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import * as RRF from 'react-final-form';
+import { FormSpy } from 'react-final-form';
 import Collapse from 'rc-collapse';
-import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
@@ -13,12 +12,13 @@ import isIndeterminate from './isIndeterminate';
 
 const MINLEN_REQUIRED_FOR_SEARCH = 8;
 
-const FormSpy = shouldUpdate(
-  (props, nextProps) => !shallowEqual(
-    _.omit(props, 'subscription'),
-    _.omit(nextProps, 'subscription')
-  )
-)(RRF.FormSpy);
+const saveSubscription = {
+  submitting: true,
+  pristine: true,
+  submitSucceeded: true,
+};
+
+const changeSubscription = { values: true, data: true };
 
 const descriptionMessages = defineMessages({
   firstEntityUser: {
@@ -333,11 +333,7 @@ export default class AbilitiesForm extends Component {
 
     const saveButton = (
       <FormSpy
-        subscription={{
-          submitting: true,
-          pristine: true,
-          submitSucceeded: true,
-        }}
+        subscription={saveSubscription}
         component={SaveButton}
       />
     );
@@ -411,7 +407,7 @@ export default class AbilitiesForm extends Component {
           {saveButton}
 
           <FormSpy
-            subscription={{ values: true, data: true }}
+            subscription={changeSubscription}
             onChange={this.onFormValueChange}
           />
         </form>

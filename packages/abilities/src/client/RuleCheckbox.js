@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useCallback, useRef } from 'react';
 import _ from 'lodash';
 import { Field } from 'react-final-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { shouldUpdate, shallowEqual } from 'recompose';
 
 const stateMessages = defineMessages({
   '-1': {
@@ -91,15 +90,11 @@ const ruleMessages = defineMessages({
   },
 });
 
-const RuleLabel = shouldUpdate(
-  (props, nextProps) => !shallowEqual(props.rule, nextProps.rule)
-)(({ rule }) => {
+const RuleLabel = React.memo(({ rule }) => {
   const values = {};
 
   if (rule.actions === 'receive' && rule.subject === 'eventChangeState') {
-    values.state = (
-      <FormattedMessage {...stateMessages[rule.conditions.state]} />
-    );
+    values.state = <FormattedMessage {...stateMessages[rule.conditions.state]} />;
   }
 
   const messageKey = `${rule.actions}${_.upperFirst(rule.subject)}`;
@@ -109,43 +104,42 @@ const RuleLabel = shouldUpdate(
   }
 
   return <FormattedMessage {...ruleMessages[messageKey]} values={values} />;
-});
+}, (prevProps, nextProps) => _.isEqual(prevProps.rule, nextProps.rule));
 
-export default class RuleCheckbox extends PureComponent {
-  renderField = ({ input, meta }) => {
-    const { rule } = this.props;
+function RuleField({ rule, input, meta }) {
+  const checkboxRef = useRef(null);
 
-    return (
-      <div className="checkbox">
-        <label htmlFor={rule.key}>
-          <input
-            type="checkbox"
-            id={rule.key}
-            ref={ref => {
-              if (ref) {
-                ref.indeterminate = meta.data.indeterminate;
-              }
-            }}
-            {...input}
-          />{' '}
-          <RuleLabel rule={rule} />
-        </label>
-      </div>
-    );
-  };
-
-  render() {
-    const { rule } = this.props;
-
-    return (
-      <Field
-        key={rule.key}
-        name={rule.key}
-        type="checkbox"
-        subscription={{ value: true, data: true }}
-        validateFields={[]}
-        render={this.renderField}
-      />
-    );
+  if (checkboxRef.current) {
+    checkboxRef.current.indeterminate = meta.data && meta.data.indeterminate;
   }
+
+  return (
+    <div className="checkbox">
+      <label htmlFor={rule.key}>
+        <input
+          type="checkbox"
+          id={rule.key}
+          ref={checkboxRef}
+          {...input}
+        />{' '}
+        <RuleLabel rule={rule} />
+      </label>
+    </div>
+  );
 }
+
+function RuleCheckbox({ rule }) {
+  return (
+    <Field
+      key={rule.key}
+      name={rule.key}
+      type="checkbox"
+      subscription={{ value: true, data: true }}
+      validateFields={[]}
+      component={RuleField}
+      rule={rule}
+    />
+  );
+}
+
+export default React.memo(RuleCheckbox);

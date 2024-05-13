@@ -3,32 +3,24 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import { Provider, connect } from 'react-redux';
-import { compose } from 'recompose';
+import { Provider, useSelector } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
-import fixturesData from './01_ConversationTitle.data';
-
 import { ConversationTitle } from '../src/components';
 import I18nContext from '../src/contexts/I18nContext';
+import fixturesData from './01_ConversationTitle.data';
 
 const mockStore = configureStore();
 let store;
 
 function wrapWithApp( element ) {
-  const WrappedComponent = compose(
-    connect( state => ({
-      settings: state.settings
-    }) )
-  )( () => element );
-
   return (
     <Provider store={store}>
       <I18nContext.Provider value={{
         lang: 'fr',
         getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, 'fr' )
       }}>
-        <WrappedComponent />
+        {element}
       </I18nContext.Provider>
     </Provider>
   );

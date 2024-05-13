@@ -1,21 +1,32 @@
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { compose, mapProps, componentFromProp } from 'recompose';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
+import _ from 'lodash';
 import removeTrailingSlash from '../utils/removeTrailingSlash';
 
-const Link = compose(
-  connect(state => ({
-    prefix: state.settings.prefix,
-  })),
-  mapProps(props => ({
-    ..._.omit(props, 'prefix', 'external', 'agenda', props.external ? 'to' : undefined),
-    [props.external ? 'href' : 'to']: (props.external
-      ? ''
-      : removeTrailingSlash(props.prefix.replace(':slug', props.agenda && props.agenda.slug))) + props.to,
-    component: props.external ? 'a' : RouterLink,
-    dispatch: undefined,
-  })),
-)(componentFromProp('component'));
+const Link = props => {
+  const {
+    external: isExternal,
+    agenda,
+    to,
+  } = props;
+
+  const prefix = useSelector(state => state.settings.prefix);
+
+  const Component = isExternal ? 'a' : RouterLink;
+
+  const hrefOrTo = isExternal ? ''
+    : removeTrailingSlash(prefix.replace(':slug', agenda?.slug)) + to;
+
+  // Filter props to remove Redux-specific and unused props
+  const filteredProps = _.omit(props, ['prefix', 'external', 'agenda', isExternal ? 'to' : undefined, 'dispatch']);
+
+  // Construct the final props for the component
+  const finalProps = {
+    ...filteredProps,
+    [isExternal ? 'href' : 'to']: hrefOrTo,
+  };
+
+  return <Component {...finalProps} />;
+};
 
 export default Link;
