@@ -11,6 +11,7 @@ const rebuild = require('./rebuild');
 const agendaIndexSearch = require('./agendaIndexSearch');
 const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
+const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 const agendaRoutes = require('./agendaRoutes');
 
 async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
@@ -102,6 +103,7 @@ module.exports.init = async (config, services) => {
     agendas: agenda => ({
       search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
+      clear: getAgendaSearchIndex(eventSearch, agenda.uid).clear,
     }),
     transverse: {
       rebuild: options => queue('transverseIndexRebuild', options),

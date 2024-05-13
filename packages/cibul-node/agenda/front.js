@@ -24,7 +24,6 @@ const config = require('../config');
 const embedSvc = require('../services/embed');
 const members = require('../services/members');
 const eventFormat = require('../services/event/middleware/format');
-const pickEventImage = require('../services/event/lib/pickImage');
 const legacyEventSvc = require('../services/event');
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const lib = require('../lib/lib');

@@ -55,7 +55,7 @@ export default class MessageItem extends Component {
   }
 
   render() {
-    const { message, res: { context: contextRes }, settings } = this.props;
+    const { message, res: { context: contextRes }, domain } = this.props;
     const { getLabel, lang } = this.context;
 
     if (!message) {
@@ -81,7 +81,7 @@ export default class MessageItem extends Component {
             <div
               className="margin-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: fromMarkdownToHTML(message.body, { selfDomain: settings?.domain }),
+                __html: fromMarkdownToHTML(message.body, { selfDomain: domain }),
               }}
             />
 

@@ -7,19 +7,39 @@ module.exports = async (services, agenda) => {
   const {
     inboxes: { Inbox },
     agendaSearch,
+    eventSearch,
     activities,
   } = services;
 
+  const logBundle = {
+    agenda: _.pick(agenda, ['uid', 'slug']),
+  };
+
   try {
     await agendaSearch.remove(agenda);
-  } catch (e) {
-    log('error', 'failed to remove agenda from agenda search', e);
+    log.info('removed agenda from search', logBundle);
+  } catch (error) {
+    log.error('failed to remove agenda from agenda search', { ...logBundle, error });
   }
 
-  // inbox
-  log('remove inbox (agenda uid %d)', agenda.uid);
-  new Inbox({ type: 'agenda', identifier: agenda.uid }).remove().then(_.noop);
+  try {
+    const { deleted } = await eventSearch.agendas(agenda).clear();
+    log.info('removed agenda event documents from index', { ...logBundle, deleted });
+  } catch (error) {
+    log.error('failed to agenda events index', { ...logBundle, error });
+  }
 
-  // feed / activity
-  activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
+  try {
+    await new Inbox({ type: 'agenda', identifier: agenda.uid }).remove();
+    log.info('removed agenda inbox', logBundle);
+  } catch (error) {
+    log.error('failed to remove agenda inbox', { ...logBundle, error });
+  }
+
+  try {
+    await activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
+    log.info('remove agenda feed', logBundle);
+  } catch (error) {
+    log.error('failed to remove agenda feed', { ...logBundle, error });
+  }
 };

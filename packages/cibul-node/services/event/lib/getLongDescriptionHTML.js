@@ -1,12 +1,15 @@
 'use strict';
 
+const {
+  fromMarkdownToHTML,
+} = require('@openagenda/md');
+
 function renderHTMLFromMarkdown(services, links = null, md = '') {
   const {
     oembed,
-    formSchemas
   } = services;
 
-  const html = formSchemas.utils.markdown.from(md);
+  const html = fromMarkdownToHTML(md);
 
   if (!links) {
     return html;
@@ -19,12 +22,12 @@ module.exports = (options, multilingualText = {}, links = []) => {
   const {
     services,
     lang,
-    useFallbackLang
+    useFallbackLang,
   } = {
     services: null,
     lang: null,
     useFallbackLang: true,
-    ...options
+    ...options,
   };
 
   const render = renderHTMLFromMarkdown.bind(null, services, links);
@@ -32,9 +35,9 @@ module.exports = (options, multilingualText = {}, links = []) => {
   if (typeof multilingualText === 'string') return render(multilingualText);
 
   if (!lang) {
-    return Object.keys(multilingualText).reduce((htmlObj, lang) => ({
+    return Object.keys(multilingualText).reduce((htmlObj, l) => ({
       ...htmlObj,
-      [lang]: render(multilingualText[lang])
+      [l]: render(multilingualText[l]),
     }), {});
   }
 
@@ -47,6 +50,6 @@ module.exports = (options, multilingualText = {}, links = []) => {
   }
 
   return '';
-}
+};
 
 module.exports.renderHTMLFromMarkdown = renderHTMLFromMarkdown;
