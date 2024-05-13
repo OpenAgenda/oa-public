@@ -97,9 +97,9 @@ module.exports = (config, parentApp) => {
     agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
     (req, res, next) => aggregators.sources
       .list(req.agenda, {}, { detailed: true })
-      .then(sources => res.json({
-        total: sources.length,
-        agendas: sources.map(source => source.agenda),
+      .then(result => res.json({
+        total: result.sources.length,
+        agendas: result.sources.map(source => source.agenda),
       }), next),
   );
 };
