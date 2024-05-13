@@ -104,13 +104,13 @@
   "next.views.AgendaShow.ExportModal.openData": [
     {
       "type": 0,
-      "value": "The content of this agenda can be used following the "
+      "value": "Il contenuto di questa agenda può essere utilizzato secondo il principio "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "Open Data principle"
+          "value": "Open Data"
         }
       ],
       "type": 8,

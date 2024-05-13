@@ -26,15 +26,37 @@
   "next.views.AgendaShow.seeEvents": [
     {
       "type": 0,
-      "value": "Mostrar los "
+      "value": "Mostrar "
     },
     {
-      "type": 1,
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " eveniment"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " eveniments"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
       "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " eveniments"
     }
   ],
   "next.views.AgendaShow.seeMore": [

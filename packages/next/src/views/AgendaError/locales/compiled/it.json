@@ -2,7 +2,7 @@
   "next.views.AgendaError.agendaNotFound": [
     {
       "type": 0,
-      "value": "L'agenda non è stato trovato"
+      "value": "Agenda non trovata"
     }
   ],
   "next.views.AgendaError.forbiddenMsg": [

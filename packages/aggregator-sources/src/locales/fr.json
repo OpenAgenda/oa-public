@@ -34,7 +34,7 @@
   "aggregator-sources.Dashboard.createAggregator": "Activer l'agrégation d'agendas",
   "aggregator-sources.Dashboard.findOutMore": "En savoir plus",
   "aggregator-sources.Dashboard.noResult": "Aucun résultat trouvé",
-  "aggregator-sources.Dashboard.noSources": "Votre agenda n'a encore aucune source de définie. Ajoutez-lui un premier agenda source!",
+  "aggregator-sources.Dashboard.noSources": "Votre agenda n'a encore aucune source de définie. Ajoutez-lui un premier agenda source !",
   "aggregator-sources.Dashboard.numberOfResults": "Nombre de résultats",
   "aggregator-sources.Dashboard.searchAgenda": "Rechercher un agenda source",
   "aggregator-sources.Dashboard.sourceAgendas": "Agendas sources",

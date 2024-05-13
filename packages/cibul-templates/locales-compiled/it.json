@@ -74,7 +74,7 @@
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Accessibilità speciale"
     }
   ],
   "common.event.fields.age": [
@@ -140,7 +140,7 @@
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Registrazione"
     }
   ],
   "common.event.fields.slug": [

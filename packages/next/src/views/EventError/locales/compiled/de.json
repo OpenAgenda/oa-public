@@ -86,7 +86,7 @@
   "next.views.EventError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.views.EventError.unauthorizedMsg": [

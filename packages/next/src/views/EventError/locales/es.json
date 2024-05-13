@@ -3,11 +3,11 @@
   "next.views.EventError.eventNotFound": "",
   "next.views.EventError.forbiddenMsg": "",
   "next.views.EventError.notFoundMsg": "",
-  "next.views.EventError.orSignup": "",
+  "next.views.EventError.orSignup": "O <link>regístrate</link> si aún no tienes una cuenta.",
   "next.views.EventError.requestInvitation": "",
   "next.views.EventError.restrictedAccess": "",
-  "next.views.EventError.searchAgenda": "",
+  "next.views.EventError.searchAgenda": "Buscar una agenda",
   "next.views.EventError.seeAgenda": "",
-  "next.views.EventError.signIn": "",
+  "next.views.EventError.signIn": "Conectarse",
   "next.views.EventError.unauthorizedMsg": ""
 }

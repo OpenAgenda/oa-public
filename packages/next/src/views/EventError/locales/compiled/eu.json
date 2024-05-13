@@ -42,13 +42,13 @@
   "next.views.EventError.orSignup": [
     {
       "type": 0,
-      "value": "Or "
+      "value": "O "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "sign up"
+          "value": "regístrate"
         }
       ],
       "type": 8,
@@ -56,7 +56,7 @@
     },
     {
       "type": 0,
-      "value": " if you don't have an account yet."
+      "value": " si aún no tienes una cuenta."
     }
   ],
   "next.views.EventError.requestInvitation": [
@@ -74,7 +74,7 @@
   "next.views.EventError.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Buscar una agenda"
     }
   ],
   "next.views.EventError.seeAgenda": [
@@ -86,7 +86,7 @@
   "next.views.EventError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.views.EventError.unauthorizedMsg": [

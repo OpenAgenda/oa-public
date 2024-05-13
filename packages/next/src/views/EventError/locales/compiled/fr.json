@@ -74,7 +74,7 @@
   "next.views.EventError.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Rechercher un agenda"
     }
   ],
   "next.views.EventError.seeAgenda": [
@@ -86,7 +86,7 @@
   "next.views.EventError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Se connecter"
     }
   ],
   "next.views.EventError.unauthorizedMsg": [
