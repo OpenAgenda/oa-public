@@ -5,14 +5,10 @@ import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
 
-const PUBLIC_FILE = /\.(.*)$/;
+const MATCHER_REGEX = /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
 
 export async function middleware(req: NextRequest) {
-  if (
-    req.nextUrl.pathname.startsWith('/_next')
-    || req.nextUrl.pathname.includes('/api/')
-    || PUBLIC_FILE.test(req.nextUrl.pathname)
-  ) {
+  if (MATCHER_REGEX.test(req.nextUrl.pathname)) {
     return;
   }
 
