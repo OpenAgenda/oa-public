@@ -8,6 +8,6 @@
   "next.views.EventError.restrictedAccess": "",
   "next.views.EventError.searchAgenda": "",
   "next.views.EventError.seeAgenda": "",
-  "next.views.EventError.signIn": "",
+  "next.views.EventError.signIn": "Anmelden",
   "next.views.EventError.unauthorizedMsg": ""
 }

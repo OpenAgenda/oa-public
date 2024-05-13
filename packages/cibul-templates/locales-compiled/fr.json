@@ -152,7 +152,7 @@
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Statut"
     }
   ],
   "common.event.fields.timings": [
@@ -176,7 +176,7 @@
   "common.event.states.readyToPublish": [
     {
       "type": 0,
-      "value": "Ready to publish"
+      "value": "Prêt à publier"
     }
   ],
   "common.event.states.refused": [

@@ -2,7 +2,7 @@
   "next.views.EventError.agendaNotFound": [
     {
       "type": 0,
-      "value": "Agenda not found"
+      "value": "Agenda pas trobada"
     }
   ],
   "next.views.EventError.eventNotFound": [
@@ -14,7 +14,7 @@
   "next.views.EventError.forbiddenMsg": [
     {
       "type": 0,
-      "value": "You do not have access to this agenda."
+      "value": "Avètz pas accès a aquela agenda."
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
     },
     {
       "type": 0,
-      "value": "Check the link provided to you or request access."
+      "value": "Verificatz lo ligam que vos es estat donat o demandatz l'accès."
     }
   ],
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "There is no calendar corresponding to this link."
+      "value": "I a pas de calendièr que corresponda a aqueste ligam."
     },
     {
       "type": 1,
@@ -36,19 +36,19 @@
     },
     {
       "type": 0,
-      "value": "Either the link is invalid or the calendar has been deleted."
+      "value": "Siá lo ligam es invalide siá lo calendièr es estat suprimit."
     }
   ],
   "next.views.EventError.orSignup": [
     {
       "type": 0,
-      "value": "Or "
+      "value": "O "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "sign up"
+          "value": "marcatz-vos"
         }
       ],
       "type": 8,
@@ -56,13 +56,13 @@
     },
     {
       "type": 0,
-      "value": " if you don't have an account yet."
+      "value": " s'avètz pas encara de compte."
     }
   ],
   "next.views.EventError.requestInvitation": [
     {
       "type": 0,
-      "value": "Request an invitation"
+      "value": "Demandar una convidacion"
     }
   ],
   "next.views.EventError.restrictedAccess": [
@@ -74,19 +74,19 @@
   "next.views.EventError.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Cercar una agenda"
     }
   ],
   "next.views.EventError.seeAgenda": [
     {
       "type": 0,
-      "value": "See agenda"
+      "value": "Veire l'agenda"
     }
   ],
   "next.views.EventError.signIn": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Se connectar"
     }
   ],
   "next.views.EventError.unauthorizedMsg": [

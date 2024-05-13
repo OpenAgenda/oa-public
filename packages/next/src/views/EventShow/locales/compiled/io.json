@@ -128,13 +128,13 @@
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
-      "value": "Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda."
+      "value": "crwdns33904:0crwdne33904:0"
     }
   ],
   "next.views.EventShow.ContextBar.invalidEventTitle": [
     {
       "type": 0,
-      "value": "The event is invalid"
+      "value": "crwdns33906:0crwdne33906:0"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [

@@ -67,7 +67,7 @@ module.exports = {
   "emailInscription": {
     "en": "Sign up",
     "fr": "S'inscrire",
-    "de": "Anmelden",
+    "de": "Registrieren",
     "es": "Inscribirse",
     "it": "Crea un account",
     "io": "crwdns15772:0crwdne15772:0",

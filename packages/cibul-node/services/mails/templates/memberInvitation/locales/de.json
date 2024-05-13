@@ -8,7 +8,7 @@
   "moderator": "Moderator",
   "moderatorVerb": "moderieren",
   "reader": "Leser",
-  "signup": "Anmelden",
+  "signup": "Registrieren",
   "subject": "Sie wurden eingeladen, \"{agenda}\" zu {roleVerb}",
   "subjectForExistingMember": "Du hast {role} der Kalender \"{agenda}\" werden",
   "unsubscribe": "Stoppen Sie Einladungen empfangen",

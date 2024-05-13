@@ -31,7 +31,7 @@ module.exports = {
   "layoutSignup": {
     "en": "Sign up",
     "fr": "Créer un compte",
-    "de": "Anmelden",
+    "de": "Registrieren",
     "es": "Inscribirse",
     "it": "Crea un account",
     "io": "crwdns13436:0crwdne13436:0",

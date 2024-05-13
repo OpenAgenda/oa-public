@@ -1,13 +1,13 @@
 {
-  "next.views.EventError.agendaNotFound": "",
+  "next.views.EventError.agendaNotFound": "Agenda non trovata",
   "next.views.EventError.eventNotFound": "",
-  "next.views.EventError.forbiddenMsg": "",
-  "next.views.EventError.notFoundMsg": "",
-  "next.views.EventError.orSignup": "",
-  "next.views.EventError.requestInvitation": "",
+  "next.views.EventError.forbiddenMsg": "Non avete accesso a questa agenda.{br}Verificate il link che vi è stato fornito o richiedete l'accesso.",
+  "next.views.EventError.notFoundMsg": "Non esiste un calendario corrispondente a questo link.{br}O il link non è valido o il calendario è stato cancellato.",
+  "next.views.EventError.orSignup": "Oppure <link>iscriviti</link> se non hai ancora un account.",
+  "next.views.EventError.requestInvitation": "Richiedere un invito",
   "next.views.EventError.restrictedAccess": "",
-  "next.views.EventError.searchAgenda": "",
-  "next.views.EventError.seeAgenda": "",
-  "next.views.EventError.signIn": "",
+  "next.views.EventError.searchAgenda": "Cerca un'agenda",
+  "next.views.EventError.seeAgenda": "Vedere l'agenda",
+  "next.views.EventError.signIn": "Accedi",
   "next.views.EventError.unauthorizedMsg": ""
 }
