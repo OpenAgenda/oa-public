@@ -2,7 +2,6 @@ import { Component, createElement } from 'react';
 import _ from 'lodash';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import { mapProps } from 'recompose';
 import { renderTextarea } from '../utils/form';
 import I18nContext from '../contexts/I18nContext';
 import validate from '../utils/validateConversation';
@@ -16,15 +15,6 @@ function parseJsonValue(value) {
   }
 }
 
-@mapProps(props => (props.initialValues ? {
-  ...props,
-  initialValues: {
-    ...props.initialValues,
-    destinationInbox: parseJsonValue(props.initialValues.destinationInbox),
-    type: props.initialValues.type,
-    params: parseJsonValue(props.initialValues.params),
-  },
-} : props))
 export default class ConversationForm extends Component {
   static defaultProps = {
     Wrapper: 'div',
@@ -38,6 +28,17 @@ export default class ConversationForm extends Component {
     this.state = {
       uppy: null,
     };
+
+    if (props.initialValues) {
+      this.initialValues = {
+        ...props.initialValues,
+        destinationInbox: parseJsonValue(props.initialValues.destinationInbox),
+        type: props.initialValues.type,
+        params: parseJsonValue(props.initialValues.params),
+      };
+    } else {
+      this.initialValues = props.initialValues;
+    }
   }
 
   handleSubmit = async (data, form) => {
@@ -101,12 +102,12 @@ export default class ConversationForm extends Component {
   };
 
   render() {
-    const { initialValues, autoFocus, Wrapper, uploadEndpoint } = this.props;
+    const { autoFocus, Wrapper, uploadEndpoint } = this.props;
     const { getLabel } = this.context;
 
     return (
       <Form
-        initialValues={initialValues}
+        initialValues={this.initialValues}
         onSubmit={this.handleSubmit}
         validate={validate}
       >
@@ -148,7 +149,7 @@ export default class ConversationForm extends Component {
                   }
                 }}
                 placeholder={
-                  _.isMatch(initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' })
+                  _.isMatch(this.initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' })
                     ? getLabel('supportPlaceholder')
                     : getLabel('yourMessage')
                 }

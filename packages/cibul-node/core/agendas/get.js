@@ -76,7 +76,12 @@ async function get(core, agendaUid, options = {}) {
     if (throwNotFound) {
       throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
     }
-    return cacheAndReturn(services, options, agendaUid, null);
+    return cacheAndReturn(
+      services,
+      { ...options, useCache: false },
+      agendaUid,
+      null,
+    );
   }
 
   if (!detailed && !includeEvent && !includeMemberSchema) {

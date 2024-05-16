@@ -6320,7 +6320,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-final-form: "npm:^4.1.0"
     react-intl: "npm:^5.12.2"
-    recompose: "npm:^0.30.0"
+    react-use: "npm:^15.3.4"
     regenerator-runtime: "npm:^0.13.8"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^7.6.4"
@@ -7828,7 +7828,6 @@ __metadata:
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
     react-waypoint: "npm:^9.0.2"
-    recompose: "npm:^0.30.0"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
     redux-mock-store: "npm:^1.5.4"
@@ -9283,7 +9282,6 @@ __metadata:
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
-    recompose: "npm:^0.30.0"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
     redux-form: "npm:^8.1.0"
@@ -17167,13 +17165,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-emitter@npm:^0.1.2":
-  version: 0.1.6
-  resolution: "change-emitter@npm:0.1.6"
-  checksum: 6307733ce3efdc644177f989f46d56012fc13d4c9351c6430d35fec56ce2951eb66fefbd03d8bb2b9428a25d7a7bc5113a8422aad8659b17b2b344de16ffa55b
-  languageName: node
-  linkType: hard
-
 "char-regex@npm:^1.0.2":
   version: 1.0.2
   resolution: "char-regex@npm:1.0.2"
@@ -22889,7 +22880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fbjs@npm:^0.8.1, fbjs@npm:^0.8.9":
+"fbjs@npm:^0.8.9":
   version: 0.8.17
   resolution: "fbjs@npm:0.8.17"
   dependencies:
@@ -24840,13 +24831,6 @@ __metadata:
     minimalistic-assert: "npm:^1.0.0"
     minimalistic-crypto-utils: "npm:^1.0.1"
   checksum: f3d9ba31b40257a573f162176ac5930109816036c59a09f901eb2ffd7e5e705c6832bedfff507957125f2086a0ab8f853c0df225642a88bf1fcaea945f20600d
-  languageName: node
-  linkType: hard
-
-"hoist-non-react-statics@npm:^2.3.1":
-  version: 2.5.5
-  resolution: "hoist-non-react-statics@npm:2.5.5"
-  checksum: 79c204446a61ad490cc9342b2deeedea5a17f03a5fc091f367b6c08f29387c8d5578634ebfb8733043422a5e1182b372893d63f8737ac4b75da3a2ec4a316162
   languageName: node
   linkType: hard
 
@@ -35797,7 +35781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lifecycles-compat@npm:^3.0.0, react-lifecycles-compat@npm:^3.0.2, react-lifecycles-compat@npm:^3.0.4":
+"react-lifecycles-compat@npm:^3.0.0, react-lifecycles-compat@npm:^3.0.4":
   version: 3.0.4
   resolution: "react-lifecycles-compat@npm:3.0.4"
   checksum: 1d0df3c85af79df720524780f00c064d53a9dd1899d785eddb7264b378026979acbddb58a4b7e06e7d0d12aa1494fd5754562ee55d32907b15601068dae82c27
@@ -36596,22 +36580,6 @@ __metadata:
   dependencies:
     resolve: "npm:^1.20.0"
   checksum: 1a30074124a22abbd5d44d802dac26407fa72a0a95f162aa5504ba8246bc5452f8b1a027b154d9bdbabcd8764920ff9333d934c46a8f17479c8912e92332f3ff
-  languageName: node
-  linkType: hard
-
-"recompose@npm:^0.30.0":
-  version: 0.30.0
-  resolution: "recompose@npm:0.30.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.0.0"
-    change-emitter: "npm:^0.1.2"
-    fbjs: "npm:^0.8.1"
-    hoist-non-react-statics: "npm:^2.3.1"
-    react-lifecycles-compat: "npm:^3.0.2"
-    symbol-observable: "npm:^1.0.4"
-  peerDependencies:
-    react: ^0.14.0 || ^15.0.0 || ^16.0.0
-  checksum: 427cf1db6a8c0c9db5a9b12728c4a7aa35b7395429c2944ba53f74a66561673ca8fdf93057fab815e1c9c28b08adccb788555122ee8c5c1c86d215a0eab9118a
   languageName: node
   linkType: hard
 
@@ -40093,7 +40061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.2.0":
+"symbol-observable@npm:^1.2.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
   checksum: 009fee50798ef80ed4b8195048288f108b03de162db07493f2e1fd993b33fafa72d659e832b584da5a2427daa78e5a738fb2a9ab027ee9454252e0bedbcd1fdc

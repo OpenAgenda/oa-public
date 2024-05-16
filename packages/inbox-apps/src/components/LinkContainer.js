@@ -1,18 +1,14 @@
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { compose, mapProps } from 'recompose';
+import { useSelector } from 'react-redux';
 import removeTrailingSlash from '../utils/removeTrailingSlash';
 
-const LinkContainer = compose(
-  connect(state => ({
-    prefix: state.settings.prefix,
-  })),
-  mapProps(props => ({
-    ..._.omit(props, 'prefix', 'external', 'agenda'),
-    to: (props.external
-      ? ''
-      : removeTrailingSlash(props.prefix.replace(':slug', props.agenda && props.agenda.slug))) + props.to,
-  })),
-)(props => props.children(props.to));
+const LinkContainer = props => {
+  const prefix = useSelector(state => state.settings.prefix);
+
+  const to = props.external
+    ? ''
+    : removeTrailingSlash(prefix.replace(':slug', props.agenda && props.agenda.slug)) + props.to;
+
+  return props.children(to);
+};
 
 export default LinkContainer;
