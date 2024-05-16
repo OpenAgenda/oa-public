@@ -7,6 +7,7 @@ import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
 import hardSchema from '@openagenda/members/build/schema';
+import { fromMarkdownToHTML } from '@openagenda/md';
 
 const messages = defineMessages({
   updateTitle: {
@@ -197,21 +198,25 @@ export default ({
         {mode !== 'modal' && operation === 'update' ? (
           <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
         ) : null}
-        {displayGDPRInformation ? (
+        {displayGDPRInformation && GDPRInformation ? (
+          <p
+            className="margin-bottom-z"
+            dangerouslySetInnerHTML={{
+              __html: fromMarkdownToHTML(GDPRInformation),
+            }}
+          />
+        ) : null}
+        {displayGDPRInformation && !GDPRInformation ? (
           <>
-            <p className="margin-bottom-z">
-              {GDPRInformation || m(messages.GDPRSummary)}
-            </p>
-            {GDPRInformation ? null : (
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
-                className="btn btn-link margin-all-z padding-all-z"
-              >
-                {m(messages.moreInfo)}
-              </a>
-            )}
+            <p className="margin-bottom-z">{m(messages.GDPRSummary)}</p>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
+              className="btn btn-link margin-all-z padding-all-z"
+            >
+              {m(messages.moreInfo)}
+            </a>
           </>
         ) : null}
       </div>
