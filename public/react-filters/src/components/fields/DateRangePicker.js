@@ -1,11 +1,22 @@
 import isEqual from 'lodash/isEqual';
 import isDate from 'lodash/isDate';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { DateRange, DefinedRange } from 'react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
+import { getFallbackChain } from '@openagenda/intl';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
+import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns';
+
+const dateDisplayFormats = {
+  en: 'MMM d, yyyy', // Jan 1, 2024
+  fr: 'd MMM yyyy', // 1 janv. 2024
+  de: 'd. MMM yyyy', // 1. Jan. 2024
+  it: 'd MMM yyyy', // 1 gen 2024
+  es: 'd MMM yyyy', // 1 ene 2024
+};
 
 const defaultGetInitialValue = () => [
   {
@@ -27,6 +38,24 @@ function normalizeValue(value) {
   }));
 }
 
+function getDateDisplayFormat(dateFormatStyle, dateFormat, locale) {
+  if (dateFormat) {
+    return dateFormatStyle === 'php'
+      ? convertPhpDateFormatToDateFns(dateFormat)
+      : dateFormat;
+  }
+
+  const fallbackChain = getFallbackChain(locale);
+
+  for (const fallback of fallbackChain) {
+    if (dateDisplayFormats[fallback]) {
+      return dateDisplayFormats[fallback];
+    }
+  }
+
+  return dateDisplayFormats[Object.keys(dateDisplayFormats).shift()];
+}
+
 function DateRangePicker(
   {
     input,
@@ -36,10 +65,14 @@ function DateRangePicker(
     rangeColor = '#41acdd',
     disabled,
     className,
+    dateFormatStyle,
+    dateFormat,
     ...otherProps
   },
   ref,
 ) {
+  const intl = useIntl();
+
   const dateRangeRef = useConstant(() => ref || React.createRef());
 
   const {
@@ -167,6 +200,11 @@ function DateRangePicker(
         ref={dateRangeRef}
         className={undefined}
         disabledDay={disabledDay}
+        dateDisplayFormat={getDateDisplayFormat(
+          dateFormatStyle,
+          dateFormat,
+          intl.locale,
+        )}
       />
       {staticRanges.length ? (
         <DefinedRange
