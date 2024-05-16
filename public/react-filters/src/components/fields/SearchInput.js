@@ -28,12 +28,17 @@ export default function SearchInput({
   inputComponent = Input,
   input,
   onChange, // user onChange
+  manualSearch,
   ...rest
 }) {
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
 
   const debouncedOnChange = useDebouncedCallback(e => {
+    if (manualSearch) {
+      return;
+    }
+
     input.onChange(e);
     if (typeof onChange === 'function') {
       onChange(e.target.value);
@@ -48,6 +53,20 @@ export default function SearchInput({
       debouncedOnChange(e);
     },
     [debouncedOnChange],
+  );
+
+  const onButtonClick = useCallback(
+    e => {
+      e.preventDefault();
+      if (manualSearch) {
+        input.onChange(tmpValue);
+        if (typeof onChange === 'function') {
+          onChange(tmpValue);
+        }
+      }
+      return form.submit();
+    },
+    [form, input, manualSearch, onChange, tmpValue],
   );
 
   const wrappedInput = useMemo(
@@ -65,7 +84,7 @@ export default function SearchInput({
 
   return React.createElement(inputComponent, {
     input: wrappedInput,
-    onButtonClick: form.submit,
+    onButtonClick,
     ...rest,
   });
 }
