@@ -7,7 +7,6 @@
   "common.event.statuses.movedOnlineInfo": "L'eveniment se debanarà pas mai en un lòc fisic",
   "common.event.statuses.postponed": "Remandat",
   "common.event.statuses.rescheduled": "Tornat planificar",
-  "common.event.statuses.rescheduledInfo": "Las oras e datas de l'eveniment son estadas modificadas",
   "common.event.statuses.scheduled": "Programat",
   "common.event.statuses.scheduledInfo": "L'eveniment es previst al lòc e a l'ora indicats"
 }
