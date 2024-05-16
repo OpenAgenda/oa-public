@@ -1,5 +1,8 @@
 {
+  "ReactShared.AgendaAdminModContextBar.manage": "Gérer",
+  "ReactShared.AgendaContextBar.addEvent": "Ajouter un événement",
   "ReactShared.AgendaContextBar.publishedModalInfo": "Ces événements ont été publié et sont visibles par les visiteurs de l'agenda",
+  "ReactShared.AuthenticateAndConfirm.submit": "Confirmer",
   "ReactShared.ConsentBanner.accept": "Accepter",
   "ReactShared.ConsentBanner.decline": "Refuser",
   "ReactShared.ConsentBanner.moreInfoLink": "Cliquez ici pour en savoir plus",
