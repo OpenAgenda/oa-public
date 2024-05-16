@@ -191,7 +191,7 @@ function Preview({
 }
 
 const DateRangeFilter = React.forwardRef(function DateRangeFilter(
-  { name, staticRanges, inputRanges, rangeColor, className },
+  { name, staticRanges, inputRanges, rangeColor, className, ...rest },
   ref,
 ) {
   const intl = useIntl();
@@ -210,6 +210,7 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
       endDatePlaceholder={intl.formatMessage(messages.endDate)}
       rangeColor={rangeColor}
       className={className}
+      {...rest}
     />
   );
 });

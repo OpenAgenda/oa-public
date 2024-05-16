@@ -74,8 +74,12 @@ export const FilterByFilter = ({ onSubmit }) => (
         <div className="row">
           <div className="col-sm-4">
             <DateRangeFilter name="timings" />
-            <DateRangeFilter name="createdAt" />
-            <DateRangeFilter name="updatedAt" />
+            <DateRangeFilter name="createdAt" dateFormat="d MMM yyyy" />
+            <DateRangeFilter
+              name="updatedAt"
+              dateFormat="d/m/Y"
+              dateFormatStyle="php"
+            />
             <ChoiceFilter name="state" getOptions={() => filters[3].options} />
           </div>
         </div>
