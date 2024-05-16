@@ -6,9 +6,9 @@
   "common.event.statuses.movedOnline": "Moved online",
   "common.event.statuses.movedOnlineInfo": "The event will no longer be attended to at a physical location",
   "common.event.statuses.postponed": "Postponed",
-  "common.event.statuses.postponedInfo": "The event dates are no longer valid. New dates are not yet known",
+  "common.event.statuses.postponedInfo": "The event has been postponed to dates not yet known",
   "common.event.statuses.rescheduled": "Rescheduled",
-  "common.event.statuses.rescheduledInfo": "The timings and dates of the event have been modified",
+  "common.event.statuses.rescheduledInfo": "The timings and/or dates of the event have been modified",
   "common.event.statuses.scheduled": "Scheduled",
   "common.event.statuses.scheduledInfo": "The event is scheduled at the indicated location and time"
 }
