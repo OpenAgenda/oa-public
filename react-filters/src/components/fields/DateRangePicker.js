@@ -42,7 +42,9 @@ function DateRangePicker(
 ) {
   const dateRangeRef = useConstant(() => ref || React.createRef());
 
-  const { filtersOptions: { dateFnsLocale } } = useContext(FiltersAndWidgetsContext);
+  const {
+    filtersOptions: { dateFnsLocale },
+  } = useContext(FiltersAndWidgetsContext);
 
   const [ranges, setRanges] = useState(
     () => input.value ?? defaultGetInitialValue(),
@@ -118,7 +120,7 @@ function DateRangePicker(
 
   const rdrNoSelection = useMemo(() => {
     const range = ranges?.[0];
-    const hasRange = range && range.startDate !== null && range.endDate !== null;
+    const hasRange = range && range.endDate !== null;
 
     return !hasRange && !dragStatus;
   }, [ranges, dragStatus]);
@@ -128,7 +130,10 @@ function DateRangePicker(
     if (
       previousValue
       && !isEqual(normalizeValue(input.value), normalizeValue(previousValue))
-      && !isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
+      && !isEqual(
+        normalizeValue(input.value),
+        normalizeValue(latestRanges.current),
+      )
     ) {
       setRanges(input.value);
     }
@@ -151,7 +156,9 @@ function DateRangePicker(
   };
 
   return (
-    <div className={cn('rdrDateRangePickerWrapper', className, { rdrNoSelection })}>
+    <div
+      className={cn('rdrDateRangePickerWrapper', className, { rdrNoSelection })}
+    >
       <DateRange
         onPreviewChange={onSelectPreviewChange}
         onRangeFocusChange={setFocusedRange}

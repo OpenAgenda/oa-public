@@ -33,6 +33,14 @@ const messages = defineMessages({
 
 const subscription = { value: true };
 
+function formatDateValue(value) {
+  if (!value || value === '') {
+    return null;
+  }
+
+  return typeof value === 'string' ? parseISO(value) : value;
+}
+
 // For display (store -> form)
 export function formatValue(value) {
   if (value === undefined) {
@@ -51,25 +59,28 @@ export function formatValue(value) {
 
   if (Array.isArray(value)) {
     return value.map(v => {
-      const startDate = typeof v.gte === 'string' ? parseISO(v.gte) : v.gte;
-      const endDate = typeof v.lte === 'string' ? parseISO(v.lte) : v.lte;
+      const startDate = formatDateValue(v.gte);
+      const endDate = formatDateValue(v.lte);
 
       return {
         ...v,
-        startDate: tzDiff ? utcToZonedTime(startDate, v.tz) : startDate,
-        endDate: tzDiff ? utcToZonedTime(endDate, v.tz) : endDate,
+        startDate:
+          tzDiff && startDate ? utcToZonedTime(startDate, v.tz) : startDate,
+        endDate: tzDiff && endDate ? utcToZonedTime(endDate, v.tz) : endDate,
       };
     });
   }
 
   if (typeof value === 'object') {
-    const startDate = typeof value.gte === 'string' ? parseISO(value.gte) : value.gte;
-    const endDate = typeof value.lte === 'string' ? parseISO(value.lte) : value.lte;
+    const startDate = formatDateValue(value.gte);
+    const endDate = formatDateValue(value.lte);
 
     return [
       {
-        startDate: tzDiff ? utcToZonedTime(startDate, value.tz) : startDate,
-        endDate: tzDiff ? utcToZonedTime(endDate, value.tz) : endDate,
+        startDate:
+          tzDiff && startDate ? utcToZonedTime(startDate, value.tz) : startDate,
+        endDate:
+          tzDiff && endDate ? utcToZonedTime(endDate, value.tz) : endDate,
         key: 'selection',
       },
     ];
@@ -90,14 +101,18 @@ function parseValue(value) {
     return undefined;
   }
 
-  return {
-    gte: selection.startDate.toISOString(),
-    lte: (selection.endDate
-      ? endOfDay(selection.endDate)
-      : selection.endDate
-    ).toISOString(),
-    tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  };
+  const gte = selection.startDate?.toISOString() ?? null;
+  const lte = (
+    selection.endDate ? endOfDay(selection.endDate) : selection.endDate
+  ).toISOString();
+
+  const result = {};
+  if (gte) result.gte = gte;
+  if (lte) result.lte = lte;
+
+  result.tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  return result;
 }
 
 function Preview({
