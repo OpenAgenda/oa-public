@@ -24,6 +24,7 @@
   "ReactFilters.messages.boolean.notSelected": "Non sélectionné",
   "ReactFilters.messages.boolean.selected": "Sélectionné",
   "ReactFilters.messages.choiceFilter.noResult": "Aucun résultat",
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": "Rechercher",
   "ReactFilters.messages.filterTitles.accessibility": "Accessibilité",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.adminLevel3": "Intercommunalité",
