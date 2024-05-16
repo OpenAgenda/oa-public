@@ -3,6 +3,7 @@
   "ReactShared.AgendaAdminModContextBar.manage": "Gestire",
   "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
   "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
+  "ReactShared.AuthenticateAndConfirm.submit": "Confermare",
   "ReactShared.ConsentBanner.accept": "Accettare",
   "ReactShared.ConsentBanner.decline": "Rifiutare",
   "ReactShared.ImageInput.acceptedFiles": "File accettati",
