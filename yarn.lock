@@ -9071,6 +9071,7 @@ __metadata:
     jest: "npm:^29.7.0"
     js-cookie: "npm:^3.0.5"
     lodash: "npm:^4.17.15"
+    on-headers: "npm:^1.0.2"
     redis: "npm:^4.6.6"
     regenerator-runtime: "npm:^0.13.7"
     rimraf: "npm:^3.0.1"
@@ -32501,7 +32502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"on-headers@npm:~1.0.2":
+"on-headers@npm:^1.0.2, on-headers@npm:~1.0.2":
   version: 1.0.2
   resolution: "on-headers@npm:1.0.2"
   checksum: f649e65c197bf31505a4c0444875db0258e198292f34b884d73c2f751e91792ef96bb5cf89aa0f4fecc2e4dc662461dda606b1274b0e564f539cae5d2f5fc32f
