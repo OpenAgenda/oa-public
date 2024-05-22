@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 module.exports = {
   res: '/session',
   cookies: {
-    session: 'oa',
-    writable: 'oa.rw'
+    session: 'oa.user',
+    writable: 'oa.rw',
   },
-  notificationMaxAge: 1000*60*5
-}
+  notificationMaxAge: 1000 * 60 * 5,
+};

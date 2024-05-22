@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const cookieSessionLib = require('cookie-session');
 const cookieParserLib = require('cookie-parser');
+const onHeaders = require('on-headers');
 const validateCookie = require('../iso/cookie.validate');
 
 function _logLoad(req, data) {
@@ -25,10 +26,40 @@ function ifLoggedState(sessions, state, fn) {
   };
 }
 
-function use({ cookieSession, cookieParser }, req, res, next) {
+function use(config, { cookieSession, cookieParser }, req, res, next) {
   cookieParser(req, res, _err => {
     cookieSession(req, res, err => {
       if (err) return next(err);
+
+      onHeaders(res, () => {
+        const sess = req.session;
+
+        if (sess === undefined) {
+          // not accessed
+          return;
+        }
+
+        try {
+          if (sess === false || sess === null) {
+            // remove
+            res.cookie(config.userCookieName, '');
+          } else if ((!sess.isNew || sess.isPopulated) && sess.isChanged) {
+            // save populated or non-new changed session
+            res.cookie(
+              config.userCookie.name,
+              Buffer.from(JSON.stringify(sess)).toString('base64'),
+              {
+                encode: v => v,
+                expires: sess.expires ? new Date(sess.expires) : null,
+                secure: config.userCookie.secure,
+                sameSite: config.userCookie.sameSite,
+              },
+            );
+          }
+        } catch (e) {
+          req.log.debug('error saving user cookie', e);
+        }
+      });
 
       if (Object.keys(req.session).length) {
         return next();
@@ -110,7 +141,7 @@ module.exports = (sessions, config) => {
   const cookieParser = cookieParserLib();
 
   return Object.assign(
-    use.bind(null, { cookieSession, cookieParser }),
+    use.bind(null, config, { cookieSession, cookieParser }),
     {
       open: open.bind(null, { sessions }),
       load: load.bind(null, { sessions }),
