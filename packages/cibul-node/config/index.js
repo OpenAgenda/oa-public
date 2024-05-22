@@ -215,10 +215,11 @@ const config = {
   session: {
     name: 'oa', // session cookie name
     writableName: 'oa.rw', // store client-editable data
+    userCookieName: 'oa.user',
     keys: prod.session ? prod.session.keys : process.env.OA_SESSION_KEYS.split(','),
     secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24,
-    httpOnly: false,
+    httpOnly: true,
     namespace: 'sessions',
     signed: true,
     secure: true,

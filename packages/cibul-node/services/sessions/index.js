@@ -18,6 +18,11 @@ module.exports.init = (config, services) => {
       maxAge: config.session.maxAge,
       name: config.session.writableName, // overriden by iso configuration
     },
+    userCookie: {
+      name: config.session.userCookieName,
+      secure: config.session.secure,
+      sameSite: config.session.sameSite,
+    },
     expire: config.session.maxAge / 1000,
     interfaces: {
       getUser: getUser.bind(null, services, config.aws.imageBucketPath),
