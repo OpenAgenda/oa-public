@@ -5,18 +5,25 @@ const customToUpper = str => {
   return str.toUpperCase();
 };
 
-const evaluateFieldData = (filterValue, fieldData, caseSensitive, wholeValue) => {
+const evaluateFieldData = (
+  filterValue,
+  fieldData,
+  caseSensitive,
+  wholeValue,
+) => {
   const items = fieldData?.constructor.name === 'Object'
     ? Object.keys(fieldData).reduce(
       (carry, key) => carry.concat(fieldData[key]),
-      []
+      [],
     )
-    : [].concat(fieldData);
+    : [].concat(fieldData).filter(d => d !== undefined);
+
   for (const item of items) {
     if (wholeValue) {
-      if (caseSensitive
-        ? item === filterValue
-        : customToUpper(item) === customToUpper(filterValue)
+      if (
+        caseSensitive
+          ? item === filterValue
+          : customToUpper(item) === customToUpper(filterValue)
       ) {
         return true;
       }
@@ -32,8 +39,17 @@ const evaluateFieldData = (filterValue, fieldData, caseSensitive, wholeValue) =>
 };
 
 module.exports = (filter, data) => {
-  for (const field of Object.keys(filter).filter(e => e !== 'caseSensitive' && e !== 'wholeValue')) {
-    if (evaluateFieldData(filter[field], data[field], filter?.caseSensitive, filter?.wholeValue)) {
+  for (const field of Object.keys(filter).filter(
+    e => e !== 'caseSensitive' && e !== 'wholeValue',
+  )) {
+    if (
+      evaluateFieldData(
+        filter[field],
+        data[field],
+        filter?.caseSensitive,
+        filter?.wholeValue,
+      )
+    ) {
       return true;
     }
   }
