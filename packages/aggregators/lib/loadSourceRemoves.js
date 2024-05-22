@@ -1,14 +1,19 @@
 'use strict';
 
-const Log = require('../utils/Log')('Aggregators/loadSourceRemoves');
+const logs = require('@openagenda/logs');
+
+const log = logs('loadSourceRemoves');
 
 module.exports = async (
   { listEventReferences, enqueueRemove },
   { aggregatorAgendaUid, sourceAgendaUid },
 ) => {
-  const log = Log(
-    `source agenda ${sourceAgendaUid} of aggregator agenda ${aggregatorAgendaUid}`,
-  );
+  const logBundle = {
+    sourceAgenda: { uid: sourceAgendaUid },
+    aggregatorAgenda: { uid: aggregatorAgendaUid },
+  };
+  log.info('processing', logBundle);
+
   let after;
   let hasMore = true;
   let count = 0;
@@ -19,7 +24,7 @@ module.exports = async (
       after,
     );
 
-    log('enqueuing %s removes', events.length);
+    log('enqueuing removes', { ...logBundle, count: events.length });
     count += events.length;
 
     for (const event of events) {
@@ -38,5 +43,5 @@ module.exports = async (
     after = nextAfter;
     if (!events.length) hasMore = false;
   }
-  log('enqueued %s removes, done', count);
+  log('enqueuing done', { ...logBundle, count });
 };

@@ -1,7 +1,10 @@
 'use strict';
 
-const Log = require('../utils/Log')('Aggregators/updateSource');
+const _ = require('lodash');
+const logs = require('@openagenda/logs');
 const limit = require('../utils/limit');
+
+const log = logs('aggregators/updateSource');
 
 module.exports = async (
   {
@@ -15,13 +18,18 @@ module.exports = async (
   sourceRules = [],
   options = {},
 ) => {
-  const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
+  const logBundle = {
+    sourceId,
+    aggregatorAgenda: _.pick(aggregatorAgenda, ['slug', 'uid']),
+  };
+
+  log.info('processing', logBundle);
 
   const { query = null } = options;
   const source = await getSourceEntry(sourceId, { detailed: true });
 
   if (!source) {
-    log('not a source, throwing error');
+    log('not a source, throwing error', logBundle);
     throw new Error('No source was found');
   }
 
@@ -32,7 +40,7 @@ module.exports = async (
   );
 
   if (query !== null) {
-    log('evaluating and done');
+    log('evaluating and done', logBundle);
     return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
       aggregatorRules: aggregator.rules,
@@ -44,5 +52,5 @@ module.exports = async (
     });
   }
 
-  log('done');
+  log('done', logBundle);
 };

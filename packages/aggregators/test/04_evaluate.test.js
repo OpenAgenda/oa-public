@@ -347,7 +347,7 @@ describe('04 - evaluateEvent', () => {
       {
         ...data,
         sourceAgenda: data.agenda,
-        aggregator: {
+        aggregatorProcessData: {
           aggregatorAgendaUid: data.aggregatorsBuffer[0].aggregatorAgendaUid,
           aggregatorLimit: -1,
           aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,

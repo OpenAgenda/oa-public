@@ -1,7 +1,10 @@
 'use strict';
 
-const Log = require('../utils/Log')('Aggregators/addSource');
+const _ = require('lodash');
+const logs = require('@openagenda/logs');
 const limit = require('../utils/limit');
+
+const log = logs('addSource');
 
 module.exports = async (
   {
@@ -16,11 +19,15 @@ module.exports = async (
   sourceRules = [],
   options = {},
 ) => {
-  const log = Log(`adding ${sourceAgenda.slug} to ${aggregatorAgenda.slug}`);
+  const logBundle = {
+    sourceAgenda: _.pick(sourceAgenda, ['slug', 'uid']),
+    aggregatorAgenda: _.pick(aggregatorAgenda, ['slug', 'uid']),
+  };
+  log.info('adding source', logBundle);
   const { query = null, context = {} } = options;
 
   if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
-    log('already source, throwing error');
+    log('already source, throwing error', logBundle);
     throw new Error('Agenda is already source');
   }
 
@@ -34,12 +41,12 @@ module.exports = async (
     if (typeof onAddSource === 'function') {
       await onAddSource({ aggregatorAgenda, sourceAgenda }, context);
     }
-  } catch (e) {
-    log("can't call interface onAddSource", e);
+  } catch (error) {
+    log("can't call interface onAddSource", { ...logBundle, error });
   }
 
   if (query !== null) {
-    log('evaluating and done');
+    log('evaluating and done', logBundle);
 
     return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
@@ -52,7 +59,7 @@ module.exports = async (
     });
   }
 
-  log('not evaluating, done.');
+  log('not evaluating, done.', logBundle);
 
   return {
     aggregator,

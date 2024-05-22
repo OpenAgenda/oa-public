@@ -1,7 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const Log = require('../utils/Log')('Aggregators/loadSourceEvaluates');
+const logs = require('@openagenda/logs');
+
+const log = logs('loadSourceEvaluates');
 
 module.exports = async (
   { listEventReferences, enqueueEvaluate },
@@ -15,9 +17,11 @@ module.exports = async (
     query,
   },
 ) => {
-  const log = Log(
-    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`,
-  );
+  const logBundle = {
+    sourceAgenda: _.pick(sourceAgenda, ['slug', 'uid']),
+    aggregatorAgenda: { uid: aggregatorAgendaUid },
+  };
+  log.info('loading', logBundle);
 
   let count = 0;
   let after;
@@ -29,7 +33,7 @@ module.exports = async (
     } = await listEventReferences(sourceAgenda.uid, after, query);
     after = nextAfter;
     count += events.length;
-    log('enqueuing %s evaluates on %s', count, total);
+    log('enqueuing evaluates', { ...logBundle, count, total });
 
     for (const event of events) {
       await enqueueEvaluate({
@@ -49,5 +53,5 @@ module.exports = async (
     }
   }
 
-  log('enqueued %s evaluates, done', count);
+  log('done', { ...logBundle, count });
 };
