@@ -1,16 +1,24 @@
 'use strict';
 
-const Log = require('../utils/Log')('Aggregators/removeEvent');
+const _ = require('lodash');
+const logs = require('@openagenda/logs');
+
+const log = logs('removeEvent');
 
 const paths = require('../utils/paths');
 
 const processRemove = async (
   { getEventReference, updateSourcePaths, unreferenceEvent },
-  { sourceAgendaUid, event, batched, aggregatorAgendaUid, log },
+  { sourceAgendaUid, event, batched, aggregatorAgendaUid },
 ) => {
+  const logBundle = {
+    aggregatorAgenda: { uid: aggregatorAgendaUid },
+    sourceAgenda: { uid: sourceAgendaUid },
+    event: _.pick(event, ['uid', 'slug']),
+  };
   const reference = await getEventReference(aggregatorAgendaUid, event.uid);
   if (!reference) {
-    log(`did not find reference in aggregator ${aggregatorAgendaUid}`);
+    log('did not find reference in aggregator', logBundle);
     return { action: 'did not find reference in aggregator' };
   }
 
@@ -22,6 +30,7 @@ const processRemove = async (
   if (reference.aggregated && !updatedPaths.length) {
     log(
       'no source references are left, event must be unlisted from aggregator agenda',
+      logBundle,
     );
     const { success, errors } = await unreferenceEvent(
       aggregatorAgendaUid,
@@ -29,14 +38,15 @@ const processRemove = async (
       { batched },
     );
     if (success) {
-      log('removed reference');
+      log('removed reference', logBundle);
       return { action: 'removed reference' };
     }
-    log('failed to remove reference', errors);
+    log('failed to remove reference', { ...logBundle, errors });
     return { action: 'failed to remove reference', errors };
   }
   log(
     'other source references are present, current source ref must be removed',
+    logBundle,
   );
   await updateSourcePaths({
     aggregatorAgendaUid,
@@ -58,13 +68,17 @@ const removeEvent = async (
     event,
   } = data;
 
-  const log = Log(`${event.uid} of source ${sourceAgendaUid}`);
+  const logBundle = {
+    event: _.pick(event, ['uid', 'slug']),
+    sourceAgenda: { uid: sourceAgendaUid },
+  };
 
   if (aggregatorsBuffer.length === 0) {
-    log('info', report);
+    log.info('done', { ...logBundle, report });
     return;
   }
-  log(`${aggregatorsBuffer.length} aggregators remaining to process`);
+  log.info('processing', { ...logBundle, remaining: aggregatorsBuffer.length });
+
   const { aggregatorAgendaUid } = aggregatorsBuffer.shift();
   try {
     const { action, error = null } = await processRemove(
@@ -88,7 +102,7 @@ const removeEvent = async (
       report.erroredEvents = (report.erroredEvents ?? []).concat(event.uid);
     }
   } catch (error) {
-    log('error', error);
+    log.error('errorred', { ...logBundle, error });
     report.errors = (report.errors ?? 0) + 1;
     report.erroredEvents = (report.erroredEvent ?? []).concat(event.uid);
   }

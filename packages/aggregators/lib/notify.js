@@ -1,13 +1,17 @@
 'use strict';
 
 const _ = require('lodash');
-const Log = require('../utils/Log')('notify');
+const logs = require('@openagenda/logs');
+
+const log = logs('notify');
 
 const determineAggregationAction = require('../utils/determineAggregationAction');
 
 module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
   const { agenda } = data;
-  const log = Log(`${type} on ${agenda.slug} (${agenda.uid})`);
+  const logBundle = { agenda: _.pick(agenda, ['slug', 'uid']), type };
+
+  log.info('processing', logBundle);
 
   const aggregationAction = determineAggregationAction(
     type,
@@ -16,12 +20,12 @@ module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
   );
 
   if (!aggregationAction) {
-    log('no aggregation action is taken');
+    log('no aggregation action is taken', logBundle);
     return;
   }
 
   if (!await getAgendaSourceId(agenda)) {
-    log('not a source');
+    log('not a source', logBundle);
     return;
   }
 

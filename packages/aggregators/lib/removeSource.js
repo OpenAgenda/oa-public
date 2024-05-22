@@ -1,6 +1,9 @@
 'use strict';
 
-const Log = require('../utils/Log')('Aggregators/removeSource');
+const _ = require('lodash');
+const logs = require('@openagenda/logs');
+
+const log = logs('removeSource');
 
 module.exports = async (
   {
@@ -16,18 +19,21 @@ module.exports = async (
 ) => {
   const { evaluate = false, context = {} } = options;
 
+  const logBundle = {
+    aggregatorAgenda: _.pick(aggregatorAgenda, ['slug', 'uid']),
+    sourceIdOrAgenda,
+  };
+
   const sourceId = typeof sourceIdOrAgenda === 'object'
     ? await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgenda)
     : sourceIdOrAgenda;
 
-  const log = Log(
-    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`,
-  );
+  log.info('removing source from aggregator', logBundle);
 
   const source = await getSourceEntry(sourceId, { detailed: true });
 
   if (!source) {
-    log('no source was found, throwing error');
+    log('no source was found, throwing error', logBundle);
     throw new Error('No source was found');
   }
 
@@ -40,16 +46,16 @@ module.exports = async (
         context,
       );
     }
-  } catch (e) {
-    log("can't call interface onAddSource", e);
+  } catch (error) {
+    log("can't call interface onAddSource", { ...logBundle, error });
   }
 
   if (evaluate) {
-    log('source removed, evaluating');
+    log('source removed, evaluating', logBundle);
     return enqueueLoadSourceRemoves({
       aggregatorAgendaUid: aggregatorAgenda.uid,
       sourceAgendaUid: source.agenda.uid,
     });
   }
-  log('source removed, not evaluating');
+  log('source removed, not evaluating', logBundle);
 };

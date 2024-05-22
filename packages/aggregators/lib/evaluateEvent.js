@@ -1,12 +1,15 @@
 'use strict';
 
-const Log = require('../utils/Log')('evaluateEvent');
+const _ = require('lodash');
+const logs = require('@openagenda/logs');
 
 const evaluateRules = require('../utils/rules');
 const paths = require('../utils/paths');
 const pickReferenceValues = require('../utils/pickReferenceValues');
 const limit = require('../utils/limit');
 const generateChecksum = require('../utils/generateChecksum');
+
+const log = logs('evaluateEvent');
 
 const processEvaluate = async (
   {
@@ -18,13 +21,23 @@ const processEvaluate = async (
     updateEventReference,
     enqueueRemove,
   },
-  { sourceAgenda, event, batched, sourceAgendaFormSchema, aggregator },
+  {
+    sourceAgenda,
+    event,
+    batched,
+    sourceAgendaFormSchema,
+    aggregatorProcessData,
+  },
 ) => {
-  const { sourceRules, aggregatorRules, aggregatorAgendaUid, aggregatorLimit } = aggregator;
+  const { sourceRules, aggregatorRules, aggregatorAgendaUid, aggregatorLimit } = aggregatorProcessData;
+  const logBundle = {
+    sourceAgenda: _.pick(sourceAgenda, ['uid', 'slug']),
+    event: _.pick(event, ['uid', 'slug']),
+    aggregatorAgenda: { uid: aggregatorAgendaUid },
+    fn: 'processEvaluate',
+  };
 
-  const log = Log(
-    `${event.slug}: ${sourceAgenda.slug} (${sourceAgenda.uid}) -> (${aggregatorAgendaUid})`,
-  );
+  log.info('processing', logBundle);
 
   if (
     typeof getAggregatedCount === 'function'
@@ -32,17 +45,8 @@ const processEvaluate = async (
   ) {
     const aggregatedCount = await getAggregatedCount(aggregatorAgendaUid);
 
-    log(
-      `Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${
-        aggregatorLimit ?? 'unlimited'
-      } events`,
-    );
-
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {
-      log(
-        'info',
-        `Limit ${aggregatorLimit} has been reached on aggregator agenda uid ${aggregatorAgendaUid}. Not processed`,
-      );
+      log.info('limit has been reached', { ...logBundle, aggregatorLimit });
       return 'limitReached';
     }
   }
@@ -68,13 +72,11 @@ const processEvaluate = async (
 
   const evaluateResultChange = reference && reference?.aggregated !== aggregatedKey;
   if (evaluateResultChange) {
-    log(
-      'aggregated checksum changed: stored %s vs new %s',
-      reference?.aggregated,
-      aggregatedKey,
-    );
-  } else {
-    log('aggregated checksum did not change');
+    log('aggregated checksum changed', {
+      ...logBundle,
+      stored: reference?.aggregated,
+      new: aggregatedKey,
+    });
   }
 
   const isShortestPath = (reference?.sourcePaths ?? []).length
@@ -84,12 +86,15 @@ const processEvaluate = async (
   let updatedPaths;
 
   if (reference && !reference.aggregated) {
-    log('is already referenced and was done so manually. Not processed.');
-    return 'alread...machintruc etc';
+    log.info(
+      'is already referenced and was done so manually. Not processed.',
+      logBundle,
+    );
+    return 'otherwiseAlreadyReferenced';
   }
   if (!shouldAggregate && !reference) {
-    log('Is not and should not be referenced. Not processed.');
-    return 'Is not and should not be referenced. Not processed.';
+    log.info('Is not and should not be referenced. Not processed.', logBundle);
+    return 'notReferencedAndShouldNotBe';
   }
 
   if (shouldAggregate && reference && isShortestPath && evaluateResultChange) {
@@ -112,10 +117,8 @@ const processEvaluate = async (
       sourceAgenda.uid,
     )
   ) {
-    log(
-      'Is referenced and should be through current source, but paths are unchanged. Not processed',
-    );
-    return 'Is referenced and should be through current source, but paths are unchanged. Not processed';
+    log.info('Is referenced and should be. Paths unchanged.', logBundle);
+    return 'isReferencedButUnchanged';
   }
 
   if (reference && !shouldAggregate) {
@@ -125,7 +128,7 @@ const processEvaluate = async (
     updatedPaths = paths.getFiltered(reference.sourcePaths, sourceAgenda.uid);
   } else if (reference) {
     log(
-      'Is reference and should be through current source. Paths need to be updated',
+      'Is referenced and should be through current source. Paths need to be updated',
     );
     updatedPaths = paths.getAmended(
       reference.sourcePaths,
@@ -135,7 +138,7 @@ const processEvaluate = async (
   }
 
   if (updatedPaths && !updatedPaths.length) {
-    log('source paths are empty. Removing reference');
+    log.info('Source paths are empty. Removing reference', logBundle);
     enqueueRemove({
       sourceAgendaUid: sourceAgenda.uid,
       event,
@@ -147,7 +150,7 @@ const processEvaluate = async (
     return 'source paths are empty. Removing reference';
   }
   if (updatedPaths) {
-    log('source paths need to be updated. Updating reference');
+    log.info('Source paths need to be updated. Updating reference', logBundle);
     updateSourcePaths({
       aggregatorAgendaUid,
       sourceAgenda,
@@ -168,9 +171,9 @@ const processEvaluate = async (
   });
 
   if (success) {
-    log('done', { step: 'referenced' });
+    log.info('done: referenced', logBundle);
   } else {
-    log('done', { step: 'not referenced', errors });
+    log.info('done: failed to reference', { ...logBundle, errors });
   }
 
   return 'referenceEvent';
@@ -198,16 +201,24 @@ const evaluateEvent = async (
     report = { counts: {}, erroredEvents: [] },
   } = data;
 
+  const logBundle = {
+    event: _.pick(event, ['uid', 'slug']),
+    sourceAgenda: _.pick(sourceAgenda, ['uid', 'slug']),
+    fn: 'evaluateEvent',
+    bufferLength: aggregatorsBuffer.length,
+  };
+
   if (aggregatorsBuffer.length === 0) {
-    const log = Log(
-      `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`,
-    );
-    log('info', report);
-    log('no more items in aggregatorsBuffer');
+    log.info('done: no more items to process in buffer', {
+      ...logBundle,
+      report,
+    });
     return;
   }
 
-  const aggregator = aggregatorsBuffer.shift();
+  log.info('processing next item', logBundle);
+
+  const aggregatorProcessData = aggregatorsBuffer.shift();
 
   try {
     const action = await processEvaluate(
@@ -225,15 +236,21 @@ const evaluateEvent = async (
         event,
         batched,
         sourceAgendaFormSchema,
-        aggregator,
+        aggregatorProcessData,
       },
     );
 
     report.counts[action] = (report.counts[action] ?? 0) + 1;
   } catch (error) {
+    log.info('errored', {
+      ...logBundle,
+      error,
+      aggregatorAgenda: { uid: aggregatorProcessData.aggregatorAgendaUid },
+    });
     report.errors = (report.errors ?? 0) + 1;
     report.erroredEvents = (report.erroredEvents ?? []).concat([event.uid]);
   }
+  log.info('enqueuing remaining aggregator process list', logBundle);
   await enqueueEvaluate({ ...data, report });
 };
 
