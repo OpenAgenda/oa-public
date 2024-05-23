@@ -5,6 +5,7 @@
   "ReactShared.AgendaContextBar.addEvent": "Aggiungere un evento",
   "ReactShared.AgendaContextBar.draftsModalTitle": "Bozze",
   "ReactShared.AgendaContextBar.moderated": "{count} da moderare",
+  "ReactShared.AuthenticateAndConfirm.submit": "Confermare",
   "ReactShared.ConsentBanner.accept": "Accettare",
   "ReactShared.ConsentBanner.decline": "Rifiutare",
   "ReactShared.ConsentBanner.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio {service}. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?",

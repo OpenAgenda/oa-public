@@ -1,6 +1,7 @@
 {
   "ReactShared.AgendaAdminModContextBar.manage": "Gestionar",
   "ReactShared.AgendaContextBar.addEvent": "Añadir un evento",
+  "ReactShared.AuthenticateAndConfirm.submit": "Confirmar",
   "ReactShared.ImageInput.acceptedFiles": "Formatos aceptados",
   "ReactShared.ImageInput.remove": "Eliminar",
   "ReactShared.ImageInput.update": "Cambiar imagen",

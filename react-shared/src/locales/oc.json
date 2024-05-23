@@ -21,6 +21,7 @@
   "ReactShared.AgendaContextBar.refused": "{count, plural, one {1 refusat} other {# refusats}}",
   "ReactShared.AgendaContextBar.refusedModalInfo": "Aquestes eveniments son estats sometuts mas son estats refusats pels moderaires. Seràn pas publicats.",
   "ReactShared.AgendaContextBar.refusedModalTitle": "Eveniments refusats",
+  "ReactShared.AuthenticateAndConfirm.submit": "Confirmar",
   "ReactShared.ConsentBanner.accept": "Acceptar",
   "ReactShared.ConsentBanner.decline": "Refusar",
   "ReactShared.ConsentBanner.informationText": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?",
