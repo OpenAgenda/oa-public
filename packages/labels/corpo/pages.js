@@ -155,7 +155,7 @@ module.exports = {
     "oc": "Se pòdon far agregar a d'autras agendas"
   },
   "mainBroadcastPoint3": {
-    "fr": "Ils sont redifusé par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet",
+    "fr": "Ils sont rediffusés par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet",
     "en": "They are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet",
     "de": "Du bist für die Wiederverwendung von mehr als hundert Medien einschließlich Le Parisien, Ouest France, Viafrance oder TootSweet",
     "es": "Ellos redifusé por más de un centenar de medios incluyendo el oeste de París Francia, y viaFrance TootSweet",
