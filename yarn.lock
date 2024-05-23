@@ -4089,12 +4089,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crowdin/crowdin-api-client@npm:^1.16.0":
-  version: 1.16.0
-  resolution: "@crowdin/crowdin-api-client@npm:1.16.0"
+"@crowdin/crowdin-api-client@npm:^1.33.1":
+  version: 1.33.1
+  resolution: "@crowdin/crowdin-api-client@npm:1.33.1"
   dependencies:
-    axios: "npm:0.21.3"
-  checksum: b017eb47e36d197f8d3dbdec196f7756498e636dc50676a2e8e40faffa687c99820ab165bfd77590ea7e8a22904f37933fb5ead6bc59c1281cbf20914703aecf
+    axios: "npm:^1"
+  checksum: 4b207dbcbdeaf6cf8ae224398bc712f1c10f297b7a1ac52632f9fba39dcf8b77d4b5056baa6f94915d9fed64711cdfc2f74fb4714251dec34ad7a05d6ad08f26
   languageName: node
   linkType: hard
 
@@ -15451,15 +15451,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:0.21.3, axios@npm:^0.21.1":
-  version: 0.21.3
-  resolution: "axios@npm:0.21.3"
-  dependencies:
-    follow-redirects: "npm:^1.14.0"
-  checksum: 13a9f9430364b8216a12f7cc2a21b627b2ef4240e81152547eefceeb520161f8712dbb60c868bcc42200e39afc8c050601d7711c01e0c6c84a1f7d8f5a9ced27
-  languageName: node
-  linkType: hard
-
 "axios@npm:1.6.2":
   version: 1.6.2
   resolution: "axios@npm:1.6.2"
@@ -15468,6 +15459,15 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.21.1":
+  version: 0.21.3
+  resolution: "axios@npm:0.21.3"
+  dependencies:
+    follow-redirects: "npm:^1.14.0"
+  checksum: 13a9f9430364b8216a12f7cc2a21b627b2ef4240e81152547eefceeb520161f8712dbb60c868bcc42200e39afc8c050601d7711c01e0c6c84a1f7d8f5a9ced27
   languageName: node
   linkType: hard
 
@@ -15486,6 +15486,17 @@ __metadata:
   dependencies:
     follow-redirects: "npm:^1.14.8"
   checksum: 77ad7f1e6ca04fcd3fa8af1795b09d8b7c005b71a31f28d99ba40cda0bdcc12a4627801d7fac5efa62b9f667a8402bd54c669039694373bc8d44f6be611f785c
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1":
+  version: 1.7.2
+  resolution: "axios@npm:1.7.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: cbd47ce380fe045313364e740bb03b936420b8b5558c7ea36a4563db1258c658f05e40feb5ddd41f6633fdd96d37ac2a76f884dad599c5b0224b4c451b3fa7ae
   languageName: node
   linkType: hard
 
@@ -23374,6 +23385,16 @@ __metadata:
     debug:
       optional: true
   checksum: da5932b70e63944d38eecaa16954bac4347036f08303c913d166eda74809d8797d38386e3a0eb1d2fe37d2aaff2764cce8e9dbd99459d860cf2cdfa237923b5f
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.6
+  resolution: "follow-redirects@npm:1.15.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 9ff767f0d7be6aa6870c82ac79cf0368cd73e01bbc00e9eb1c2a16fbb198ec105e3c9b6628bb98e9f3ac66fe29a957b9645bcb9a490bb7aa0d35f908b6b85071
   languageName: node
   linkType: hard
 
@@ -32272,7 +32293,7 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@commitlint/cli": "npm:^17.6.5"
     "@commitlint/config-conventional": "npm:^17.6.5"
-    "@crowdin/crowdin-api-client": "npm:^1.16.0"
+    "@crowdin/crowdin-api-client": "npm:^1.33.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/cz-conventional-changelog": "npm:^3.2.2"
     "@types/react": "npm:^18.0.21"
