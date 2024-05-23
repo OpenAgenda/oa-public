@@ -30,6 +30,7 @@ function parseItem(item) {
     address: _.get(item, 'formatted'),
     adminLevel1: _.get(item, 'components.state', null),
     adminLevel2: _.get(item, 'components.state_district', _.get(item, 'components.county', null)),
+    adminLevel3: item?.components?.local_authority,
     adminLevel4: _.get(item, 'components.town', _.get(item, 'components.city', _.get(item, 'components.village', null))),
     adminLevel5: _.get(
       item,
