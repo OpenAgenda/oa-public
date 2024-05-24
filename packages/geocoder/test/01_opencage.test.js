@@ -8,6 +8,13 @@ describe('opencage', () => {
   const geocode = Opencage(config.opencage);
 
   describe('forward', () => {
+    it('Sommières-du-Clain', async () => {
+      const res = await geocode('5 Rte de Poitiers, 86160 Sommières-du-Clain', {
+        countryCode: 'FR',
+        first: true,
+      });
+      expect(res.adminLevel3).toBe('Communauté de communes du Civraisien en Poitou');
+    });
     it('Toulon', async () => {
       const res = await geocode('Toulon', {
         countryCode: 'FR',
