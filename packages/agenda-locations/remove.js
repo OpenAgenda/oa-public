@@ -9,7 +9,9 @@ const authorize = require('./lib/authorize');
 async function remove({ endpoints, internals }, current, options = {}) {
   log('received %j payload with options %j', current.uid, options);
 
-  await authorize(internals, 'delete', current.uid, options);
+  const isFromMerge = !!options?.mergedIn;
+
+  await authorize(internals, isFromMerge ? 'merge' : 'delete', current.uid, options);
 
   if (internals.interfaces.beforeRemove) {
     await internals.interfaces.beforeRemove(current, options);
