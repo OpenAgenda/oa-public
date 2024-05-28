@@ -106,6 +106,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
     pageSize = 10,
     searchMinSize = 2 * pageSize,
     sort,
+    tag,
   },
   _ref,
 ) {
@@ -164,6 +165,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
             filter={filter}
             getTotal={getTotal}
             disabled={disabled}
+            tag={tag}
           />
         ) : null))}
 
