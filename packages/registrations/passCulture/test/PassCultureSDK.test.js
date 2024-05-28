@@ -19,7 +19,6 @@ if (!key) {
 describe('PassCultureSDK', () => {
   let testEventId;
   let testEventPCId;
-  let testEventDateId;
 
   beforeAll(async () => {
     const pc = PassCultureSDK({ key, api });
@@ -448,18 +447,13 @@ describe('PassCultureSDK', () => {
       expect(resp.priceCategory.id).toBe(priceCategories[0].id);
     });
 
-    it('can not change beginningDateTime', async () => {
-      let err;
-      let resp;
+    it('can change beginningDateTime', async () => {
       const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
 
-      try {
-        resp = await pc.offers.events(testEventId).dates(date.id).patch({
-          beginningDatetime: '2024-09-27T14:00:00+02:00',
-        });
-      } catch (error) {
-        err = error;
-      }
+      const resp = await pc.offers.events(testEventId).dates(date.id).patch({
+        beginningDatetime: '2024-09-27T14:00:00+02:00',
+      });
+
       expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2024-09-27T14:00:00+02:00'));
     });
   });
@@ -498,4 +492,72 @@ describe('PassCultureSDK', () => {
       expect(related.find(r => r.schema === 'MusicTypeEnum').options[0]).toEqual({ value: 'JAZZ-ACID_JAZZ', label: 'Jazz - Acid Jazz' });
     });
   });
+
+ /*  describe('test on booked date', () => {
+    let pc;
+
+    beforeAll(() => {
+      pc = PassCultureSDK({ key, api });
+    });
+
+    it('can delete booked date', async () => {
+      // for this test to work comment the delete part then go to https://integration.passculture.app/offre/66864 and reserve a date
+      let resp;
+      let { dates: [date] } = await pc.offers.events(66864).dates.list();
+      if (!date) {
+        console.log('create date');
+        const {
+          priceCategories: [{
+            id: priceCategoryId,
+          }],
+        } = await pc.offers.events(66864).get();
+
+        const { dates } = await pc.offers.events(66864).dates.create({
+          dates: [{
+            beginningDatetime: '2027-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2027-09-19T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          }],
+        });
+        console.log('created', dates);
+        [date] = dates;
+      } else {
+        console.log(date);
+        resp = await pc.offers.events(66864).dates(date.id).delete();
+        console.log(resp);
+      }
+      expect(resp).toBe('');
+      expect(date).toBeDefined();
+    });
+
+    it('can update booked date', async () => {
+      let { dates: [date] } = await pc.offers.events(66864).dates.list();
+      console.log('date', date);
+      if (!date) {
+        console.log('create date');
+        const {
+          priceCategories: [{
+            id: priceCategoryId,
+          }],
+        } = await pc.offers.events(66864).get();
+
+        const { dates } = await pc.offers.events(66864).dates.create({
+          dates: [{
+            beginningDatetime: '2027-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2027-09-19T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          }],
+        });
+        console.log('created', dates);
+        [date] = dates;
+      }
+      const resp = await pc.offers.events(66864).dates(date.id).patch({
+        beginningDatetime: '2028-09-27T14:00:00+02:00',
+      });
+
+      expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2028-09-27T14:00:00+02:00'));
+    });
+  }); */
 });
