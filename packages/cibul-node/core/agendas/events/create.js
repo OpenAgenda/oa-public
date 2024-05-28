@@ -157,14 +157,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       duplicateOrigin,
     });
 
-    if (registrations && registrations.utils.passCulture.hasPendingOffer(response?.event)) {
-      const passCultureRegistration = response.event.registration.find(r => r.service === 'passCulture');
-      registrations.utils.passCulture.enqueueProcessPendingOffer(
-        { eventOfferId: passCultureRegistration.data.id, datesPayload: passCultureRegistration.data.datesPayload },
-        { eventUid: response.event.uid, agendaUid },
-        agenda.settings.registration,
-      );
-    }
+    registrations.utils.passCulture.checkPendingAndQueue(registrations, response?.event, agenda);
   } catch (e) {
     log.info('create failed', {
       error: e,

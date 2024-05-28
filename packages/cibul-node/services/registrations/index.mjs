@@ -5,6 +5,7 @@ import createPassCultureOffer from './utils/createPassCultureOffer.mjs';
 import hasPendingPassCultureOffer from './utils/hasPendingPassCultureOffer.mjs';
 import hasPassCultureOffer from './utils/hasPassCultureOffer.mjs';
 import patchOaEventRegistration from './utils/patchOaEventRegistration.mjs';
+import checkPendingAndQueue from './utils/checkPendingAndQueue.mjs';
 
 const log = logs('services/registrations');
 
@@ -58,6 +59,7 @@ export function init(config, services) {
         createPassCultureOffer: createPassCultureOffer.bind(null, services),
         hasPassCultureOffer: hasPassCultureOffer.bind(null, services),
         hasPendingOffer: hasPendingPassCultureOffer,
+        checkPendingAndQueue: checkPendingAndQueue.bind(null, services),
       },
     },
     task: processPassPendingOffersTask,

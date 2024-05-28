@@ -25,14 +25,7 @@ export default async function createPassCultureOffer(services, agenda, clean, be
 
   log.info('createEventOffer result', { eventOffer, errors, warning, datesPayload, uid: before?.uid, agendaUid: agenda.uid });
 
-  if (before && registrations.utils.passCulture.hasPendingPassCultureOffer(before)) {
-    const passCultureRegistration = before.registration.find(r => r.service === 'passCulture');
-    registrations.utils.passCulture.enqueueProcessPendingOffer(
-      { eventOfferId: passCultureRegistration.data.id, datesPayload: passCultureRegistration.data.datesPayload },
-      { eventUid: before.uid, agendaUid: agenda.uid },
-      agenda.settings.registration,
-    );
-  }
+  registrations.utils.passCulture.checkPendingAndQueue(registrations, before, agenda);
 
   return produce(clean.event.registration, draft => {
     const item = draft.find(r => r.service === 'passCulture');
