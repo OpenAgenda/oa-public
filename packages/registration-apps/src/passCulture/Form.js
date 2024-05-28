@@ -1,6 +1,7 @@
 import { useContext, useState, useMemo, useEffect } from 'react';
 import { distance } from 'fastest-levenshtein';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
+import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
 import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
@@ -17,8 +18,8 @@ import {
   changeDate,
   getRelatedFieldName,
   getRelatedFieldOptions,
-  getCurrentValue,
   getNextId,
+  isPatchMode,
 } from './utils';
 
 const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
@@ -67,8 +68,8 @@ export default function Form({
   } = useContext(ComponentsContext);
   const storedValue = useMemo(() => getCurrentValue(initialValue), [initialValue]);
   const currentValue = useMemo(() => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)), [initialValue, patch]);
+  const patchMode = useMemo(() => isPatchMode(initialValue), [initialValue]);
   const nextId = useMemo(() => getNextId(currentValue), [currentValue]);
-  console.log('currentValue', currentValue);
   const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, currentValue.category), [categories, currentValue.category]);
   const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
   const venuesOptions = offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
@@ -107,7 +108,7 @@ export default function Form({
     <form>
       <Section>
         <Select
-          disabled={openSubForm}
+          disabled={openSubForm || patchMode}
           label="Lieu"
           value={currentValue?.venueId}
           placeholder="Sélectionner un lieu"
@@ -129,6 +130,7 @@ export default function Form({
             ...patch,
             category: option.value,
           })}
+          patchMode={patchMode}
         />
         {relatedCategoryFieldName ? (
           <Select

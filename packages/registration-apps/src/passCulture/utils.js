@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import _ from 'lodash';
 
 import {
   omit,
@@ -19,40 +18,6 @@ export function getNextId(data) {
 
     return acc;
   }, 0);
-}
-
-const getCurrentValueArrayHandler = (initialAcc, objArr) => (initialAcc ? objArr.reduce((acc, item) => {
-  const accIndex = acc.findIndex(({ id }) => id === item.id);
-
-  if (accIndex === -1) {
-    return acc.concat(item);
-  }
-
-  acc[accIndex] = { ...acc[accIndex], ...item };
-  return acc;
-}, initialAcc) : objArr);
-
-export function getCurrentValue(data) {
-  if (!Array.isArray(data) && !data?.response) {
-    return data || {};
-  }
-  const dataWithResponse = produce([].concat(data), draft => draft.reduce((carry, patch) => carry.concat(_.omit(patch, 'response'), patch?.response ? patch.response : []), []));
-  const result = dataWithResponse.reduce((acc, obj) => {
-    Object.keys(obj).forEach(key => {
-      // when field is array
-      if (Array.isArray(obj[key])) {
-        acc[key] = getCurrentValueArrayHandler(acc[key], [...obj[key]]);
-        // when field is object never used
-      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-        acc[key] = { ...acc[key] || {}, ...obj[key] }; // Copy the object using spread operator
-        // when field is primitive
-      } else {
-        acc[key] = obj[key];
-      }
-    });
-    return acc;
-  }, {});
-  return result;
 }
 
 export function isConfigured(data) {
@@ -133,4 +98,14 @@ export function decorateDates(dates = [], timings = []) {
       ...date,
     };
   });
+}
+
+export function isPatchMode(data) {
+  if (!Array.isArray(data) || !data.length) {
+    return false;
+  }
+  if (data[0].appliedAt) {
+    return true;
+  }
+  return false;
 }

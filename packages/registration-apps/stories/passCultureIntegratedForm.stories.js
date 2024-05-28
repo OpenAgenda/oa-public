@@ -40,7 +40,7 @@ export const Empty = () => (
     categories={categories}
     related={related}
     offererVenues={offererVenues}
-    onSubmit={() => {}}
+    onSubmit={() => { }}
   />
 );
 
@@ -71,7 +71,7 @@ export const WithData = () => (
     categories={categories}
     related={related}
     offererVenues={offererVenues}
-    onSubmit={() => {}}
+    onSubmit={() => { }}
   />
 );
 
@@ -82,7 +82,7 @@ export const WithWarnings = () => (
     categories={categories}
     related={related}
     offererVenues={offererVenues}
-    onSubmit={() => {}}
+    onSubmit={() => { }}
     title="a long ass title for testing purpose that should proc the wraning cause it is suppose to be more than 90 char long which is problem"
     longDesc="a way longer description that should also proc a warning cause to big for the pass culture thing that only accept 1000 characters for the description kjhdfkljshfdkqghsjkfjhgqsfhjgsqjkfgddqsjkgsdfdsfsfsfsfsfdfkjsqgdhfksqjgfkjsqqqgfhkjsqgdfkjkjhdkjhfgjdhgqsjhgfjshhggfdgfghsfkjhdfkljshfdkqghsjkfjhgqsfhjgsqjkfgddqsjkgdfkjsqgdhfksqjgfkjsqqqgfhkjsqgdfkjkjhdkjhfgjdhgqsjhgfjshhggfdgfghsfdhjggsjhfgjhsgfdhjsdhgfjhsdgfjhsgdfjhsdgfjhhgsjhfgsjhgfjhsgfjhsfgjshgfjhsfqqdhgqfsdghfjksghdfkjdsgfqkjsgdfkjdsgfhkqsfgdjgfgfgfgfgsqqghdfjskhqgkfgsdh__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________some randdom stuff athe end that will be partly trucated before creatin a pass culture Offer"
   />
@@ -102,7 +102,7 @@ export const WithUpdatedData = () => (
           label: 'trezterztrez',
         },
         {
-          i: 1,
+          id: 1,
           price: '724',
           label: 'static',
         },
@@ -122,7 +122,10 @@ export const WithUpdatedData = () => (
         priceCategories: [{
           id: 0,
           passId: 78979789798,
-        }, { id: 1, passId: 9845798 }],
+        }, {
+          id: 1,
+          passId: 9845798,
+        }],
         dates: [{
           id: 2,
           passId: 89564654,
@@ -132,9 +135,10 @@ export const WithUpdatedData = () => (
       editing: true,
       priceCategories: [
         {
+          id: 0,
           price: '456',
           label: 'updated',
-          id: 78979789798,
+          passId: 78979789798,
         },
       ],
     }]}

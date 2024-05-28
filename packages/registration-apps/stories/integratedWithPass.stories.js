@@ -228,6 +228,7 @@ export function WithDataWithoutTimings() {
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
       data: [{
+        venueId: 548,
         editing: true,
         category: 'CONCERT',
         musicType: 'JAZZ-BEBOP',
