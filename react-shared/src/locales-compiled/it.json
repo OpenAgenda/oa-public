@@ -317,7 +317,7 @@
   "ReactShared.AuthenticateAndConfirm.submit": [
     {
       "type": 0,
-      "value": "Confirm"
+      "value": "Confermare"
     }
   ],
   "ReactShared.ConsentBanner.accept": [
