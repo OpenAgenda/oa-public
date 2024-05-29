@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
@@ -56,6 +56,7 @@ export default function ChoiceField({
   filter,
   option,
   disabled,
+  tag: Tag = 'div',
 }) {
   const intl = useIntl();
   const seed = useUIDSeed();
@@ -69,7 +70,7 @@ export default function ChoiceField({
   // option, onChange, input, total, disabled
 
   return (
-    <div
+    <Tag
       className={cn(input.type, {
         disabled,
         active: input.checked,
@@ -98,6 +99,6 @@ export default function ChoiceField({
           <span className="oa-filter-total">{total}</span>
         ) : null}
       </span>
-    </div>
+    </Tag>
   );
 }
