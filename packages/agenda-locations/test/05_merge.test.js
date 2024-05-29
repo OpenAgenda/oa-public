@@ -23,7 +23,7 @@ const initSettingsDA = {
   ...initSettings,
   access: {
     create: defaultAccess,
-    delete: defaultAccess,
+    delete: { ...defaultAccess, authorized: false },
     merge: defaultAccess,
     update: defaultAccess,
   },
