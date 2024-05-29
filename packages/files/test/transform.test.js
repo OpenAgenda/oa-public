@@ -1,10 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const finished = promisify(require('stream').finished);
-const axios = require('axios');
+const fs = require('node:fs');
+const path = require('node:path');
+const { promisify } = require('node:util');
+const finished = promisify(require('node:stream').finished);
 const isStream = require('is-stream');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
@@ -24,9 +23,10 @@ describe('transform', () => {
   it('works with a webp image', async () => {
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed${
-        path.parse(context.originalname).ext
-      }`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed${
+          path.parse(context.originalname).ext
+        }`,
       transform: async (info, context) => {
         const image = service.gm(info.stream, context.originalname);
 
@@ -41,7 +41,7 @@ describe('transform', () => {
     });
 
     const stream = fs.createReadStream(
-      path.join(__dirname, 'files/josep_aff.jpg')
+      path.join(__dirname, 'files/josep_aff.jpg'),
     );
 
     const result = await upload(stream);
@@ -70,22 +70,25 @@ describe('transform', () => {
     const upload = service([
       {
         key: 'image',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed${
-          path.parse(context.originalname).ext
-        }`,
+        getFilename: (info, context) =>
+          `${path.parse(context.originalname).name}_renamed${
+            path.parse(context.originalname).ext
+          }`,
       },
       {
         key: 'buggy',
         variants: [
           {
-            getFilename: (info, context) => `${path.parse(context.originalname).name}_work${
-              path.parse(context.originalname).ext
-            }`,
+            getFilename: (info, context) =>
+              `${path.parse(context.originalname).name}_work${
+                path.parse(context.originalname).ext
+              }`,
           },
           {
-            getFilename: (info, context) => `${path.parse(context.originalname).name}_fail${
-              path.parse(context.originalname).ext
-            }`,
+            getFilename: (info, context) =>
+              `${path.parse(context.originalname).name}_fail${
+                path.parse(context.originalname).ext
+              }`,
             transform: () => {
               throw new Error('Ca ne marche pas !');
             },
@@ -96,14 +99,14 @@ describe('transform', () => {
 
     const stream1 = fs.createReadStream(path.join(__dirname, 'files/src3.png'));
     const stream2 = fs.createReadStream(
-      path.join(__dirname, 'files/josep_aff.jpg')
+      path.join(__dirname, 'files/josep_aff.jpg'),
     );
 
     await expect(
       upload({
         image: stream1,
         buggy: stream2,
-      })
+      }),
     ).rejects.toThrow('Ca ne marche pas !');
 
     await finished(stream1).catch(() => null);
@@ -111,14 +114,35 @@ describe('transform', () => {
 
     // Images removed
     await expect(
-      axios.get(`https://${bucket}.s3.amazonaws.com/src3_renamed.png`)
-    ).rejects.toThrow('Request failed with status code 404');
+      fetch(`https://${bucket}.s3.amazonaws.com/src3_renamed.png`).then(
+        response => {
+          if (!response.ok) {
+            throw new Error(`Invalid status (${response.status})`);
+          }
+          return response.text();
+        },
+      ),
+    ).rejects.toThrow('Invalid status (404)');
     await expect(
-      axios.get(`https://${bucket}.s3.amazonaws.com/josep_aff_work.jpg`)
-    ).rejects.toThrow('Request failed with status code 404');
+      fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_work.jpg`).then(
+        response => {
+          if (!response.ok) {
+            throw new Error(`Invalid status (${response.status})`);
+          }
+          return response.text();
+        },
+      ),
+    ).rejects.toThrow('Invalid status (404)');
     await expect(
-      axios.get(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`)
-    ).rejects.toThrow('Request failed with status code 404');
+      fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`).then(
+        response => {
+          if (!response.ok) {
+            throw new Error(`Invalid status (${response.status})`);
+          }
+          return response.text();
+        },
+      ),
+    ).rejects.toThrow('Invalid status (404)');
 
     await Promise.all([
       upload.providers.s3.remove('src3_renamed.png'),
@@ -132,20 +156,23 @@ describe('transform', () => {
       key: 'image',
       variants: [
         {
-          getFilename: (info, context) => `${path.parse(context.originalname).name}_detected${
-            path.parse(context.originalname).ext
-          }`,
+          getFilename: (info, context) =>
+            `${path.parse(context.originalname).name}_detected${
+              path.parse(context.originalname).ext
+            }`,
         },
         {
-          getFilename: (info, context) => `${path.parse(context.originalname).name}_binary${
-            path.parse(context.originalname).ext
-          }`,
+          getFilename: (info, context) =>
+            `${path.parse(context.originalname).name}_binary${
+              path.parse(context.originalname).ext
+            }`,
           transform: info => info.stream,
         },
         {
-          getFilename: (info, context) => `${path.parse(context.originalname).name}_image${
-            path.parse(context.originalname).ext
-          }`,
+          getFilename: (info, context) =>
+            `${path.parse(context.originalname).name}_image${
+              path.parse(context.originalname).ext
+            }`,
           transform: (info, context) => {
             context.providerParams.ContentType = 'image/png';
 
@@ -166,12 +193,12 @@ describe('transform', () => {
     await finished(stream);
 
     const imagesFromS3 = await Promise.all([
-      axios.get(detected.uploadValue.Location),
-      axios.get(binary.uploadValue.Location),
-      axios.get(image.uploadValue.Location),
+      fetch(detected.uploadValue.Location),
+      fetch(binary.uploadValue.Location),
+      fetch(image.uploadValue.Location),
     ]);
 
-    const headers = imagesFromS3.map(v => v.headers['content-type']);
+    const headers = imagesFromS3.map(v => v.headers.get('content-type'));
 
     expect(headers).toEqual([
       'image/png',

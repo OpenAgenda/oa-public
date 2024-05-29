@@ -1,20 +1,32 @@
-import axios from 'axios';
+import qs from 'qs';
 
 export default (res, agendaUid, memberEditModal) => {
   if (agendaUid && !memberEditModal.isOpen) {
-    axios
-      .get(res.agendas.get.replace(':agendaUid', agendaUid), {
-        params: { includes: ['me.member', 'agenda'] },
+    const url = res.agendas.get.replace(':agendaUid', agendaUid);
+
+    fetch(
+      `${url}${url.includes('?') ? '&' : '?'}${qs.stringify({
+        includes: ['me.member', 'agenda'],
+      })}`,
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
       })
-      .then(r => {
+      .then(data => {
         memberEditModal.open({
-          uid: r.data.agenda.uid,
-          settings: r.data.agenda.settings,
-          member: r.data.me.member,
-          schema: r.data.agenda.memberSchema,
-          agenda: r.data.agenda,
+          uid: data.agenda.uid,
+          settings: data.agenda.settings,
+          member: data.me.member,
+          schema: data.agenda.memberSchema,
+          agenda: data.agenda,
         });
-        return r;
+        return data;
+      })
+      .catch(err => {
+        console.error('Error fetching agenda:', err);
       });
   }
   return true;

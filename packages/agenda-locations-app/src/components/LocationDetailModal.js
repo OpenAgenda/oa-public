@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useIntl, defineMessages } from 'react-intl';
-import axios from 'axios';
 
 import { Spinner, Modal } from '@openagenda/react-shared';
 import LocationDetails from './LocationDetails';
@@ -32,11 +31,13 @@ const LocationDetailModal = ({
   const [removedLocation, setRemovedLocation] = useState(false);
 
   useEffect(() => {
-    axios.get(res.get.replace(':locationUid', locationUid), { includeLinkedAgendas: true }).then(response => {
-      const { data } = response;
-      if (data.location) setDetailedLocation(data.location);
-      else setRemovedLocation(true);
-    });
+    fetch(`${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}includeLinkedAgendas=true`)
+      .then(async response => {
+        if (!response.ok) return;
+        const data = await response.json();
+        if (data.location) setDetailedLocation(data.location);
+        else setRemovedLocation(true);
+      });
   }, [res.get, locationUid]);
 
   if (detailedLocation) {

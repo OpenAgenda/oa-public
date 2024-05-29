@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('node:fs');
-const axios = require('axios');
 const Files = require('@openagenda/files');
 const ValidationError = require('../lib/ValidationError');
 
@@ -116,9 +115,9 @@ describe('events - functional - create', () => {
       });
 
       expect(
-        await axios.head(
-          `https:${config.imagePath}${created.image.filename}`,
-        ).then(r => r.status),
+        await fetch(`https:${config.imagePath}${created.image.filename}`, {
+          method: 'HEAD',
+        }).then(r => r.status),
       ).toBe(200);
     });
 
@@ -162,7 +161,9 @@ describe('events - functional - create', () => {
         },
       });
 
-      const response = await axios.head(`https:${config.imagePath}${event.image.filename}`);
+      const response = await fetch(`https:${config.imagePath}${event.image.filename}`, {
+        method: 'HEAD',
+      });
       expect(response.status).toBe(200);
     });
 

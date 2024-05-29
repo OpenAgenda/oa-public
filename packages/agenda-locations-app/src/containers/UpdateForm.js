@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -67,9 +66,17 @@ const UpdateForm = ({
   const nq = historyLocation.state || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
   const { isLoading, data: location } = useQuery(
     ['location', locationUid],
-    () => axios.get(res.get.replace(':locationUid', locationUid), {})
-      .then(response => response.data.location)
-      .catch(_err => setUnfoundLocation(true)),
+    () => fetch(res.get.replace(':locationUid', locationUid))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(data => data.location)
+      .catch(_err => {
+        setUnfoundLocation(true);
+      }),
     { cacheTime: 0 },
   );
   const intl = useIntl();
@@ -95,7 +102,16 @@ const UpdateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    return axios.post(res.update.replace(':locationUid', locationUid), form)
+    return fetch(res.update.replace(':locationUid', locationUid), {
+      method: 'POST',
+      body: form,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(() => {
         setPageSpin(false);
         if (nq) history.push(nq); else history.push(prefix);

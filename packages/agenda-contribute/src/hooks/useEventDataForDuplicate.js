@@ -1,5 +1,4 @@
 import debug from 'debug';
-import axios from 'axios';
 import qs from 'qs';
 
 import { useLocation } from 'react-router';
@@ -41,7 +40,14 @@ export default function useEventDataForDuplicate(destinationAgenda) {
     data: referenceData,
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}.events.${eventUid ?? 'none'}`,
-    () => axios.get(res).then(response => response.data.event),
+    () => fetch(res)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(data => data.event),
     { enabled: !!hasReferenceForDuplicate },
   );
 
@@ -50,7 +56,13 @@ export default function useEventDataForDuplicate(destinationAgenda) {
     data: referenceAgenda,
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}`,
-    () => axios.get(agendaRes).then(response => response.data),
+    () => fetch(agendaRes)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      }),
     { enabled: !!hasReferenceForDuplicate },
   );
 

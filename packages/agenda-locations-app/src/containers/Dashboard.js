@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router';
 import qs from 'qs';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
-import axios from 'axios';
 import { useQueryClient } from 'react-query';
 
 import {
@@ -227,9 +226,14 @@ function Dashboard() {
     });
   }, [history, search]);
 
-  const onRemoveLocation = async (location, withEvents) => {
+  const onRemoveLocation = async location => {
     try {
-      await axios.delete(res.remove.replace(':locationUid', location.uid), { data: { withEvents } });
+      await fetch(res.remove.replace(':locationUid', location.uid), {
+        method: 'DELETE',
+      })
+        .then(response => {
+          if (!response.ok) throw new Error(`Invalid status (${response.status})`);
+        });
     } catch (err) {
       setErrorModal(err);
       return;

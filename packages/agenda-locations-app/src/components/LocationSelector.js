@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
-import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
 import validate from '../validate';
 import LocationForm from './form-components/LocationForm';
@@ -74,10 +73,14 @@ const LocationSelector = ({
 
   useEffect(() => {
     if (seeDetails && location?.uid) {
-      axios.get(res.get.replace(':locationUid', location.uid), {}).then(response => {
-        const { data } = response;
-        setDetailedLocation(data);
-      });
+      fetch(res.get.replace(':locationUid', location.uid))
+        .then(response => {
+          if (!response.ok) return;
+          return response.json();
+        })
+        .then(data => {
+          setDetailedLocation(data);
+        });
     }
   }, [res.get, location?.uid, seeDetails]);
 
@@ -114,10 +117,21 @@ const LocationSelector = ({
     if (clean.image instanceof File) form.append('image', clean.image);
     delete clean.image;
     form.append('data', JSON.stringify(clean));
-    return axios.post(res.create, form)
+
+    return fetch(res.create, {
+      method: 'POST',
+      body: form,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(result => {
-        onSelect(result.data.location);
-      }).catch(err => {
+        onSelect(result.location);
+      })
+      .catch(err => {
         console.log(err);
       });
   };

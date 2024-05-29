@@ -2,12 +2,22 @@ import _ from 'lodash';
 import { Image, Dropdown } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
-import axios from 'axios';
-
 const loadSchemaAndOpenModal = (agenda, res, onDisplayMemberForm) => {
-  axios.get(res.memberSchema.replace(':agendaUid', agenda.uid)).then(r => {
-    onDisplayMemberForm({ ...agenda, schema: r.data.merged });
-  });
+  const url = res.memberSchema.replace(':agendaUid', agenda.uid);
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Invalid status (${response.status})`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      onDisplayMemberForm({ ...agenda, schema: data.merged });
+    })
+    .catch(err => {
+      console.error('Error fetching schema:', err);
+    });
 };
 
 function AgendaItem({

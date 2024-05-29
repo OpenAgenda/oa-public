@@ -2,7 +2,6 @@
 
 const fs = require('node:fs');
 const _ = require('lodash');
-const axios = require('axios');
 const Files = require('@openagenda/files');
 
 const {
@@ -121,7 +120,11 @@ describe('events - functional - update', () => {
       });
 
       try {
-        await axios.head(`https:${config.imagePath}${updated.image.filename}`);
+        await fetch(
+          `https:${config.imagePath}${updated.image.filename}`,
+        ).then(r => {
+          if (!r.ok) throw new Error('Invalid status');
+        });
       } catch (e) {
         error = e;
       }

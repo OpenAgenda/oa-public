@@ -1,4 +1,3 @@
-import axios from 'axios';
 import debug from 'debug';
 import utils from '../lib/utils';
 
@@ -55,9 +54,21 @@ function displayShareSuccess(sharedEvent) {
 
 function launchImmediateEventShare(shareRes) {
   return (_, { dispatch }) => {
-    axios.post(shareRes).then(response => {
-      dispatch(displayShareSuccess(response.data.event));
-    });
+    fetch(shareRes, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        dispatch(displayShareSuccess(data.event));
+      });
   };
 }
 
@@ -105,16 +116,28 @@ function eventDelete({ agenda, event }) {
       },
     } = getState();
 
-    axios.delete(
-      removeRes
-        .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid),
-    ).then(() => {
-      dispatch({
-        type: REDIRECTING,
+    const deleteUrl = removeRes
+      .replace(':agendaUid', agenda.uid)
+      .replace(':eventUid', event.uid);
+
+    fetch(deleteUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        dispatch({
+          type: REDIRECTING,
+        });
+        doRedirect(history, location, showMyEventsRes);
       });
-      doRedirect(history, location, showMyEventsRes);
-    });
   };
 }
 

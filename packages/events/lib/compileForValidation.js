@@ -1,10 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const fs = require('fs');
-const https = require('https');
-
-const axios = require('axios');
+const fs = require('node:fs');
+const https = require('node:https');
+const { PassThrough } = require('node:stream');
 
 const log = require('@openagenda/logs')('compileForValidation');
 
@@ -23,6 +22,55 @@ const {
 const {
   from: fromDHM
 } = require('../iso/src/convertDateHoursMinutesTiming');
+
+const fetchImageAsStream = async (url, maxContentLength) => {
+  const agent = new https.Agent({
+    rejectUnauthorized: false,
+  });
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'User-Agent': 'OA',
+      'Accept-Charset': '*',
+      Accept: '*/*',
+    },
+    agent,
+    timeout: 10000,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Invalid status (${response.status})`);
+  }
+
+  const reader = response.body.getReader();
+  const passThrough = new PassThrough();
+  let contentLength = 0;
+
+  (async () => {
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          passThrough.end();
+          break;
+        }
+        contentLength += value.length;
+        if (contentLength > maxContentLength) {
+          passThrough.destroy(new Error('Content length exceeded the maximum limit'));
+          reader.cancel();
+          break;
+        }
+        passThrough.write(value);
+      }
+    } catch (error) {
+      passThrough.destroy(error);
+    }
+  })()
+    .catch(() => null);
+
+  return passThrough;
+};
 
 module.exports = async function compileForValidation(current, data, options = {}) {
   const {
@@ -44,34 +92,19 @@ module.exports = async function compileForValidation(current, data, options = {}
 
     const cleanURL = cleanImageURL(image.url);
 
-    const axiosInstance = axios.create({
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      }),
-      headers: {
-        'User-Agent': 'OA',
-        'Accept-Charset': '*',
-        Accept: '*/*'
-      },
-      timeout: 10000,
-      responseType: 'stream',
-      maxContentLength: maxImageSize
-    });
-
-    compiled.image = await axiosInstance
-      .get(cleanURL)
-      .then(response => response?.data)
-      .catch(error => {
-        log.error({
-          message: 'failed to parse image URL',
-          error,
-        });
-        throw new ValidationError({
-          field: 'image',
-          code: 'url.invalid',
-          message: 'provided image url is not valid'
-        });
+    try {
+      compiled.image = await fetchImageAsStream(cleanURL, maxImageSize);
+    } catch (error) {
+      log.error({
+        message: 'failed to parse image URL',
+        error,
       });
+      throw new ValidationError({
+        field: 'image',
+        code: 'url.invalid',
+        message: 'provided image url is not valid',
+      });
+    }
   } else if (image?.path && !('transformAndUpload' in image)) {
     log('image is provided through local filesystem path: %s', image?.path);
     compiled.image = fs.createReadStream(image?.path);

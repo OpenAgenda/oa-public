@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as onGoingActions from './onGoingModal';
 
 const INITIATE = 'agenda-locations/merge/INITIATE';
@@ -62,7 +61,19 @@ export function initiateFromDuplicates(locationUids, entryPoint) {
 
 export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation, setErrorModal) {
   return ({ history }, { dispatch }) => {
-    axios.post(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), { uids: locationUids })
+    fetch(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uids: locationUids }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
       .then(() => {
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         history.push(nextLocation);
@@ -71,6 +82,7 @@ export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation
         console.log(err);
         setErrorModal(err);
       });
+
   };
 }
 
@@ -104,7 +116,19 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
       mergeIn: merge.target.uid,
       merged,
     };
-    axios.post(res.merge, body)
+    fetch(res.merge, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(() => {
         setSpin(false);
         history.push(nextLocation);

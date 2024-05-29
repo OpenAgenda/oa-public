@@ -17,6 +17,7 @@ const modulesToInclude = [
   'intl-messageformat',
   'intl-messageformat-parser',
   'is-plain-obj',
+  'ky',
   'lru-cache',
   'react-intl',
   'react-markdown',

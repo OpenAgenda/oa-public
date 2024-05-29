@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import axios from 'axios';
 import { Spinner } from '@openagenda/react-shared';
 import LocationDetails from './LocationDetailsConfirm';
 
@@ -48,9 +47,9 @@ const LocationConfirmation = ({
   const [detailedLocation, setDetailedLocation] = useState();
 
   useEffect(() => {
-    axios.get(res.get.replace(':locationUid', location.uid), {}).then(response => {
-      const { data } = response;
-      setDetailedLocation(data);
+    fetch(res.get.replace(':locationUid', location.uid), {}).then(async response => {
+      if (!response.ok) return;
+      setDetailedLocation(await response.json());
     });
   }, [res.get, location.uid]);
 

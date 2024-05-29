@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
-import axios from 'axios';
 
 import { Spinner } from '@openagenda/react-shared';
 
@@ -37,15 +36,21 @@ const GeoFieldsAndMap = ({
   const [geocodeError, setGeocodeError] = useState(false);
   const [manualMode, setManualMode] = useState(false);
 
-  const fetchINSEE = useCallback(loc => {
-    axios.get(res.insee, {
-      params: {
-        latitude: loc.latitude || '',
-        longitude: loc.longitude || '',
-        city: loc.adminLevel4 || '',
-        department: loc.adminLevel2 || '',
+  const fetchINSEE = useCallback(async loc => {
+    const params = new URLSearchParams({
+      latitude: loc.latitude || '',
+      longitude: loc.longitude || '',
+      city: loc.adminLevel4 || '',
+      department: loc.adminLevel2 || '',
+    });
+
+    try {
+      const response = await fetch(`${res.insee}${res.insee.includes('?') ? '&' : '?'}${params}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    }).then(response => {
+      const data = await response.json();
+
       onChange({
         ...location,
         adminLevel1: loc.adminLevel1,
@@ -60,84 +65,109 @@ const GeoFieldsAndMap = ({
         latitude: loc.latitude,
         longitude: loc.longitude,
         timezone: loc.timezone,
-        insee: response.data.code,
+        insee: data.code,
       });
-      return response.data.code;
-    });
+      return data.code;
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
   }, [location, res.insee, onChange]);
 
-  const updateLocationGeocode = useCallback(value => {
+  const updateLocationGeocode = useCallback(async value => {
     setGeocodeEdit(false);
     if (value === undefined) return;
-    axios.get(res.geocode, { params: { address: value, countryCode: location?.countryCode } })
-      .then(response => {
-        if (!response.data.results[0]) {
-          setGeocodeNoResults(true);
-          if (setDisabled) setDisabled(true);
-        }
-        const obj = response.data.results[0];
-        if (obj.countryCode === 'fr') {
-          fetchINSEE(obj);
-        } else {
-          onChange({
-            ...location,
-            adminLevel1: obj.adminLevel1,
-            adminLevel2: obj.adminLevel2,
-            adminLevel3: obj.adminLevel3,
-            adminLevel4: obj.adminLevel4,
-            adminLevel5: obj.adminLevel5,
-            adminLevel6: obj.adminLevel6,
-            country: obj.country,
-            countryCode: obj.countryCode.toUpperCase(),
-            postalCode: obj.postalCode,
-            latitude: obj.latitude,
-            longitude: obj.longitude,
-            timezone: obj.timezone,
-          });
-        }
-        setGeocodeNoResults(false);
-        setGeocodeLoading(false);
-        if (setDisabled) setDisabled(false);
-      })
-      .catch(err => {
-        setGeocodeError(err);
-      });
+
+    const params = new URLSearchParams({
+      address: value,
+      countryCode: location?.countryCode,
+    });
+
+    try {
+      const response = await fetch(`${res.geocode}?${params}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+
+      if (!data.results[0]) {
+        setGeocodeNoResults(true);
+        if (setDisabled) setDisabled(true);
+        return;
+      }
+
+      const obj = data.results[0];
+      if (obj.countryCode === 'fr') {
+        fetchINSEE(obj);
+      } else {
+        onChange({
+          ...location,
+          adminLevel1: obj.adminLevel1,
+          adminLevel2: obj.adminLevel2,
+          adminLevel3: obj.adminLevel3,
+          adminLevel4: obj.adminLevel4,
+          adminLevel5: obj.adminLevel5,
+          adminLevel6: obj.adminLevel6,
+          country: obj.country,
+          countryCode: obj.countryCode.toUpperCase(),
+          postalCode: obj.postalCode,
+          latitude: obj.latitude,
+          longitude: obj.longitude,
+          timezone: obj.timezone,
+        });
+      }
+      setGeocodeNoResults(false);
+      setGeocodeLoading(false);
+      if (setDisabled) setDisabled(false);
+    } catch (err) {
+      setGeocodeError(err);
+    }
   }, [location, onChange, res.geocode, fetchINSEE, setDisabled]);
 
-  const updateLocationReverseGeocode = (lat, long) => {
+  const updateLocationReverseGeocode = async (lat, long) => {
     setGeocodeEdit(false);
-    axios.get(res.reverseGeocode, { params: { latitude: lat, longitude: long } })
-      .then(response => {
-        if (!response.data.results[0]) {
-          setGeocodeNoResults(true);
-          return;
-        }
-        const obj = response.data.results[0];
-        if (obj.countryCode === 'fr') {
-          fetchINSEE(obj);
-        } else {
-          onChange({
-            ...location,
-            adminLevel1: obj.adminLevel1,
-            adminLevel2: obj.adminLevel2,
-            adminLevel3: obj.adminLevel3,
-            adminLevel4: obj.adminLevel4,
-            adminLevel5: obj.adminLevel5,
-            adminLevel6: obj.adminLevel6,
-            country: obj.country,
-            countryCode: obj.countryCode.toUpperCase(),
-            postalCode: obj.postalCode,
-            latitude: obj.latitude,
-            longitude: obj.longitude,
-            timezone: obj.timezone,
-          });
-        }
-        setGeocodeNoResults(false);
-        setGeocodeLoading(false);
-      })
-      .catch(err => {
-        setGeocodeError(err);
-      });
+
+    const params = new URLSearchParams({
+      latitude: lat,
+      longitude: long,
+    });
+
+    try {
+      const response = await fetch(`${res.reverseGeocode}?${params}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+
+      if (!data.results[0]) {
+        setGeocodeNoResults(true);
+        return;
+      }
+
+      const obj = data.results[0];
+      if (obj.countryCode === 'fr') {
+        fetchINSEE(obj);
+      } else {
+        onChange({
+          ...location,
+          adminLevel1: obj.adminLevel1,
+          adminLevel2: obj.adminLevel2,
+          adminLevel3: obj.adminLevel3,
+          adminLevel4: obj.adminLevel4,
+          adminLevel5: obj.adminLevel5,
+          adminLevel6: obj.adminLevel6,
+          country: obj.country,
+          countryCode: obj.countryCode.toUpperCase(),
+          postalCode: obj.postalCode,
+          latitude: obj.latitude,
+          longitude: obj.longitude,
+          timezone: obj.timezone,
+        });
+      }
+      setGeocodeNoResults(false);
+      setGeocodeLoading(false);
+    } catch (err) {
+      setGeocodeError(err);
+    }
   };
 
   const debouncedOnChange = useDebouncedCallback(value => {

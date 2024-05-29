@@ -1,12 +1,10 @@
-import _ from 'lodash';
 import { createMemoryHistory } from 'history';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import { rest } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
-import agendasJson from './mocks/agendas.json';
-import eventsJson from './mocks/events.json';
-import meJson from './mocks/me.json';
+import agendasJson from './fixtures/agendas.json';
+import eventsJson from './fixtures/events.json';
+import meJson from './fixtures/me.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import ProvidersDecorator from './decorators/Providers';
@@ -16,61 +14,55 @@ const editedAgendasResponse = {
   agendas: agendasJson.agendas.concat([]),
 };
 
-const mock = new MockAdapter(axios);
+function mswHandlers({ isNew = false } = {}) {
+  return [
+    rest.get('/agendas.json', (req, res, ctx) =>
+      res(
+        ctx.json(
+          isNew
+            ? {
+              total: 0,
+              agendas: [],
+              isMember: false,
+            }
+            : editedAgendasResponse,
+        ),
+      )),
+    rest.get('/events.json', (req, res, ctx) => res(ctx.json(eventsJson))),
 
-function route(path = '') {
-  return typeof path === 'string'
-    ? new RegExp(path.replace(/:\w+/g, '[^/]+'))
-    : path;
-}
+    rest.get('/agendas/:agendaUid/members/:userUid', (req, res, ctx) => {
+      const { agendaUid } = req.params;
 
-const mockApi = ({ isNew } = {}) => {
-  mock.onGet('/agendas.json').reply(
-    200,
-    isNew
-      ? {
-        total: 0,
-        agendas: [],
-        isMember: false,
+      const custom = editedAgendasResponse.agendas
+        .filter(a => a.uid === parseInt(agendaUid, 10))
+        .pop().member?.custom;
+
+      const member = {
+        name: custom?.contactName,
+        email: custom?.email,
+      };
+
+      return res(ctx.json(member));
+    }),
+
+    rest.delete('/agendas/:agendaUid/members/:userUid', (req, res, ctx) => {
+      const { agendaUid } = req.params;
+
+      const index = editedAgendasResponse.agendas.findIndex(
+        agenda => agenda.uid === parseInt(agendaUid, 10),
+      );
+
+      if (index !== -1) {
+        editedAgendasResponse.agendas.splice(index, 1);
       }
-      : editedAgendasResponse,
-  );
-  mock.onGet('/events.json').reply(200, eventsJson);
 
-  mock.onGet(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
-    const [, , agendaUid] = req.url.split('/');
+      return res(ctx.status(204));
+    }),
 
-    const custom = editedAgendasResponse.agendas
-      .filter(a => a.uid === parseInt(agendaUid, 10))
-      .pop().member?.custom;
-
-    const member = {
-      name: custom?.contactName,
-      email: custom?.email,
-      // ...
-    };
-
-    return [200, member];
-  });
-
-  mock.onDelete(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
-    const [, , agendaUid] = req.url.split('/');
-
-    const index = _.findIndex(
-      editedAgendasResponse.agendas,
-      agenda => agenda.uid === parseInt(agendaUid, 10),
-    );
-
-    editedAgendasResponse.agendas.splice(index, 1);
-
-    return [204];
-  });
-};
-
-mock.onGet(route('me/agendas/:agendaUid')).reply(200, meJson);
-
-const getHostname = () =>
-  (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
+    rest.get('/me/agendas/:agendaUid', (req, res, ctx) =>
+      res(ctx.json(meJson))),
+  ];
+}
 
 const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
@@ -113,102 +105,120 @@ export default {
   decorators: [ProvidersDecorator],
 };
 
-export const Welcome = () => {
-  mockApi({
-    isNew: true,
-  });
-
-  return (
-    <div>
-      {wrapApp(
-        createApp({
-          history: createMemoryHistory(),
-          initialState: getDefaultState({
-            apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+export const Welcome = {
+  render() {
+    return (
+      <div>
+        {wrapApp(
+          createApp({
+            history: createMemoryHistory(),
+            initialState: getDefaultState({
+              apiRoot: window.location.origin,
+            }),
           }),
-        }),
-        {
-          extraProps: {
-            user: {
-              id: 2,
-              uid: 99999999,
-              isNew: true,
+          {
+            extraProps: {
+              user: {
+                id: 2,
+                uid: 99999999,
+                isNew: true,
+              },
+              lang: 'fr',
             },
-            lang: 'fr',
           },
-        },
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: mswHandlers({ isNew: true }),
+    },
+  },
 };
 
-export const HomeAgendas = () => {
-  mockApi();
-
-  return wrapApp(
-    createApp({
-      history: createMemoryHistory(),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+export const HomeAgendas = {
+  render() {
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory(),
+        initialState: getDefaultState({
+          apiRoot: window.location.origin,
+        }),
       }),
-    }),
-    {
-      extraProps: {
-        user: {
-          id: 2,
-          uid: 99999999,
-          isNew: false,
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: false,
+          },
+          lang: 'fr',
         },
-        lang: 'fr',
       },
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: mswHandlers(),
     },
-  );
+  },
 };
 
-export const HomeAgendasWithSearchQuery = () => {
-  mockApi();
-
-  return wrapApp(
-    createApp({
-      history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+export const HomeAgendasWithSearchQuery = {
+  render() {
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
+        initialState: getDefaultState({
+          apiRoot: window.location.origin,
+        }),
       }),
-    }),
-    {
-      extraProps: {
-        user: {
-          id: 2,
-          uid: 99999999,
-          isNew: false,
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: false,
+          },
+          lang: 'fr',
         },
-        lang: 'fr',
       },
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: mswHandlers(),
     },
-  );
+  },
 };
 
-export const HomeAgendasWithOpenMemberEditModal = () => {
-  mockApi();
-
-  return wrapApp(
-    createApp({
-      history: createMemoryHistory({
-        initialEntries: ['/agendas/member?agendaUid=87092762'],
+export const HomeAgendasWithOpenMemberEditModal = {
+  render() {
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory({
+          initialEntries: ['/agendas/member?agendaUid=87092762'],
+        }),
+        initialState: getDefaultState({
+          apiRoot: window.location.origin,
+        }),
       }),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-      }),
-    }),
-    {
-      extraProps: {
-        user: {
-          id: 2,
-          uid: 99999999,
-          isNew: false,
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: false,
+          },
+          lang: 'fr',
         },
-        lang: 'fr',
       },
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: mswHandlers(),
     },
-  );
+  },
 };

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
-import axios from 'axios';
 import FormData from 'form-data';
 
 import useRes from '../hooks/useRes';
@@ -84,7 +83,10 @@ const CreateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    return axios.post(res.create, form)
+    return fetch(res.create, {
+      method: 'POST',
+      body: form,
+    })
       .then(() => {
         setPageSpin(false);
         dispatch(onGoingActions.initiate('create'));

@@ -1,12 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const finished = promisify(require('stream').finished);
+const fs = require('node:fs');
+const path = require('node:path');
 const express = require('express');
-const axios = require('axios');
-const FormData = require('form-data');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
 const { s3UrlMatching } = require('./utils');
@@ -26,10 +22,13 @@ describe('with server', () => {
     service = Files(testconfig);
   });
 
-  beforeEach(done => {
-    app = express();
-    server = app.listen(0, done);
-  });
+  beforeEach(
+    () =>
+      new Promise(done => {
+        app = express();
+        server = app.listen(0, done);
+      }),
+  );
 
   beforeEach(() => {
     port = server.address().port;
@@ -39,13 +38,14 @@ describe('with server', () => {
     server.close();
   });
 
-  it('works with express and axios', async () => {
+  it('works with express and fetch', async () => {
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed.png`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed.png`,
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res) => {
       expect(req.body).toEqual({
@@ -71,15 +71,19 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
     form.append('text', 'Un champ!');
     form.append('password', 'gnagnagna');
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     });
-
-    await finished(stream);
 
     expect(data).toMatchObject({
       key: 'image',
@@ -95,10 +99,10 @@ describe('with server', () => {
       }),
     });
 
-    const uploadedImage = await axios.get(data.uploadValue.Location);
+    const uploadedImage = await fetch(data.uploadValue.Location);
 
-    expect(uploadedImage.headers['content-length']).toBe(
-      stream.bytesRead.toString()
+    expect(uploadedImage.headers.get('content-length')).toBe(
+      file.length.toString(),
     );
 
     await upload.providers.s3.remove('src3_renamed.png');
@@ -107,7 +111,8 @@ describe('with server', () => {
   it('filter fake files', async () => {
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed.png`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed.png`,
     });
 
     const checkMw = async (req, res) => {
@@ -115,8 +120,7 @@ describe('with server', () => {
         password: 'gnagnagna',
         pdf: [
           {
-            url:
-              'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+            url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
           },
           { info: 'un truc' },
           { url: 'https://d.openagenda.com/images/openagenda.png' },
@@ -134,7 +138,7 @@ describe('with server', () => {
         { name: 'image', maxCount: 1 },
         { name: 'pdf', maxCount: 4 },
       ]),
-      checkMw
+      checkMw,
     );
     app.use((err, req, res, next) => {
       console.log('Server error:', err);
@@ -148,20 +152,25 @@ describe('with server', () => {
         image: { path: '/etc/passwd' },
         pdf: [
           {
-            url:
-              'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+            url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
           },
           { path: '/etc/passwd' },
           { path: '/etc/passwd', info: 'un truc' },
           { url: 'https://d.openagenda.com/images/openagenda.png' },
         ],
         truc: 42,
-      })
+      }),
     );
     form.append('password', 'gnagnagna');
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
     });
 
     expect(data).toBe('ok');
@@ -170,10 +179,11 @@ describe('with server', () => {
   it('fails with multer limit', async () => {
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed.png`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed.png`,
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res, next) => {
       expect(req.body).toEqual({
@@ -194,7 +204,7 @@ describe('with server', () => {
     app.use(
       '/upload',
       upload.multer.fields([{ name: 'image', maxCount: 1 }]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -202,17 +212,15 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
     form.append('text', 'Un champ!');
     form.append('password', 'gnagnagna');
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
-      validateStatus: status => status === 500,
-    });
-
-    await finished(stream);
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => response.json());
 
     expect(data).toMatchObject({
       name: 'MulterError',
@@ -233,7 +241,7 @@ describe('with server', () => {
       },
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res, next) => {
       expect(req.body).toEqual({
@@ -243,7 +251,7 @@ describe('with server', () => {
 
       try {
         const result = await Promise.all(
-          req.files.image.map(image => image.transformAndUpload())
+          req.files.image.map(image => image.transformAndUpload()),
         );
 
         res.send(result);
@@ -256,7 +264,7 @@ describe('with server', () => {
     app.use(
       '/upload',
       upload.multer.fields([{ name: 'image', maxCount: 5 }]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -265,16 +273,20 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
     form.append('text', 'Un champ!');
     form.append('password', 'gnagnagna');
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     });
-
-    await finished(stream);
 
     expect(count).toBe(2);
 
@@ -309,15 +321,15 @@ describe('with server', () => {
     });
 
     const [firstImage, secondImage] = await Promise.all([
-      axios.get(first.uploadValue.Location),
-      axios.get(second.uploadValue.Location),
+      fetch(first.uploadValue.Location),
+      fetch(second.uploadValue.Location),
     ]);
 
-    expect(firstImage.headers['content-length']).toBe(
-      stream.bytesRead.toString()
+    expect(firstImage.headers.get('content-length')).toBe(
+      file.length.toString(),
     );
-    expect(secondImage.headers['content-length']).toBe(
-      stream.bytesRead.toString()
+    expect(secondImage.headers.get('content-length')).toBe(
+      file.length.toString(),
     );
 
     await Promise.all([
@@ -336,7 +348,7 @@ describe('with server', () => {
       },
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res, next) => {
       try {
@@ -370,7 +382,7 @@ describe('with server', () => {
         { name: 'other', maxCount: 5 },
         { name: 'foo', maxCount: 5 },
       ]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -379,18 +391,22 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
-    form.append('other', stream);
-    form.append('other', stream);
-    form.append('foo', stream);
-    form.append('foo', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     });
-
-    await finished(stream);
 
     expect(count).toBe(6);
 
@@ -444,7 +460,7 @@ describe('with server', () => {
       },
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res, next) => {
       try {
@@ -466,7 +482,7 @@ describe('with server', () => {
         { name: 'other', maxCount: 5 },
         { name: 'foo', maxCount: 5 },
       ]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -475,18 +491,22 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
-    form.append('other', stream);
-    form.append('other', stream);
-    form.append('foo', stream);
-    form.append('foo', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     });
-
-    await finished(stream);
 
     expect(count).toBe(6);
 
@@ -556,7 +576,7 @@ describe('with server', () => {
       },
     ]);
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = async (req, res, next) => {
       expect(req.body).toEqual({
@@ -585,7 +605,7 @@ describe('with server', () => {
         { name: 'other', maxCount: 5 },
         { name: 'foo', maxCount: 5 },
       ]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -594,20 +614,24 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
-    form.append('other', stream);
-    form.append('other', stream);
-    form.append('foo', stream);
-    form.append('foo', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('other', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
+    form.append('foo', new Blob([file]), path.basename(filePath));
     form.append('text', 'Un champ!');
     form.append('password', 'gnagnagna');
 
-    const { data } = await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    const data = await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     });
-
-    await finished(stream);
 
     expect(count).toBe(6);
 
@@ -675,7 +699,7 @@ describe('with server', () => {
       },
     });
 
-    const stream = fs.createReadStream(filePath);
+    const file = await fs.promises.readFile(filePath);
 
     const checkMw = (req, res, next) => {
       expect(req.body).toEqual({
@@ -684,7 +708,7 @@ describe('with server', () => {
       });
 
       try {
-        const paths = req.files.image.map(file => file.path);
+        const paths = req.files.image.map(f => f.path);
         expect(paths).toHaveLength(2);
 
         res.on('finish', () => {
@@ -703,7 +727,7 @@ describe('with server', () => {
     app.use(
       '/upload',
       upload.multer.fields([{ name: 'image', maxCount: 5 }]),
-      checkMw
+      checkMw,
     );
     // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
@@ -712,16 +736,20 @@ describe('with server', () => {
     });
 
     const form = new FormData();
-    form.append('image', stream);
-    form.append('image', stream);
+    form.append('image', new Blob([file]), path.basename(filePath));
+    form.append('image', new Blob([file]), path.basename(filePath));
     form.append('text', 'Un champ!');
     form.append('password', 'gnagnagna');
 
-    await axios.post(`http://localhost:${port}/upload`, form, {
-      headers: form.getHeaders(),
+    await fetch(`http://localhost:${port}/upload`, {
+      method: 'POST',
+      body: form,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
     });
-
-    await finished(stream);
 
     expect(count).toBe(0);
   });

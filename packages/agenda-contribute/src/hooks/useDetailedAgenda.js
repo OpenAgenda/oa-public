@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +9,13 @@ export default function useDetailedAgenda(agendaUID) {
     data: detailedAgenda,
   } = useQuery(
     `detailedAgenda${agendaUID}`,
-    () => axios.get(res).then(response => response.data),
+    () => fetch(res)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      }),
   );
 
   return {

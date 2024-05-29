@@ -1,9 +1,8 @@
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
-const validateStatus = status => [200, 404].includes(status);
+const validateStatus = status => (status >= 200 && status < 300) || 404;
 
 export default function useAgendaContext(agendaUid) {
   const res = useSelector(state => state.settings.apiRoot + state.res.agendaContext.replace(':agendaUid', agendaUid));
@@ -14,9 +13,14 @@ export default function useAgendaContext(agendaUid) {
     data: agendaContext,
   } = useQuery(
     `agendaContext.${agendaUid}`,
-    () => axios
-      .get(res, { validateStatus })
-      .then(response => (response.data instanceof Object ? response.data : null)),
+    () => fetch(res)
+      .then(response => {
+        if (!validateStatus(response.status)) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(data => (data instanceof Object ? data : null)),
     {
       staleTime: 1000,
     },

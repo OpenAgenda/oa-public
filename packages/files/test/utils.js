@@ -9,11 +9,30 @@ function escapeRegExp(string) {
 
 function s3UrlMatching(filename) {
   return expect.stringMatching(
-    new RegExp(`${s3UrlRegexStr}${escapeRegExp(`/${filename}`)}`)
+    new RegExp(`${s3UrlRegexStr}${escapeRegExp(`/${filename}`)}`),
   );
+}
+
+function streamToBlob(stream, mimeType) {
+  if (mimeType != null && typeof mimeType !== 'string') {
+    throw new Error('Invalid mimetype, expected string.');
+  }
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream
+      .on('data', chunk => chunks.push(chunk))
+      .once('end', () => {
+        const blob = mimeType != null
+          ? new Blob(chunks, { type: mimeType })
+          : new Blob(chunks);
+        resolve(blob);
+      })
+      .once('error', reject);
+  });
 }
 
 module.exports = s3UrlRegexStr;
 module.exports = s3UrlRegex;
 module.exports.escapeRegExp = escapeRegExp;
 module.exports.s3UrlMatching = s3UrlMatching;
+module.exports.streamToBlob = streamToBlob;

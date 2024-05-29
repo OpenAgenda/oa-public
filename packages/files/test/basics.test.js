@@ -1,10 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const finished = promisify(require('stream').finished);
-const axios = require('axios');
+const fs = require('node:fs');
+const path = require('node:path');
+const { promisify } = require('node:util');
+const finished = promisify(require('node:stream').finished);
 const isStream = require('is-stream');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
@@ -25,9 +24,10 @@ describe('basics', () => {
   it('can upload a stream', async () => {
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed${
-        path.parse(context.originalname).ext
-      }`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed${
+          path.parse(context.originalname).ext
+        }`,
     });
 
     const stream = fs.createReadStream(filePath);
@@ -57,9 +57,10 @@ describe('basics', () => {
   it('can upload multiple stream', async () => {
     const upload = service({
       key: 'simple',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed${
-        path.parse(context.originalname).ext
-      }`,
+      getFilename: (info, context) =>
+        `${path.parse(context.originalname).name}_renamed${
+          path.parse(context.originalname).ext
+        }`,
     });
 
     const stream = fs.createReadStream(filePath);
@@ -111,14 +112,16 @@ describe('basics', () => {
         key: 'profileImage',
         variants: [
           {
-            getFilename: (info, context) => `${path.parse(context.originalname).name}_small${
-              path.parse(context.originalname).ext
-            }`,
+            getFilename: (info, context) =>
+              `${path.parse(context.originalname).name}_small${
+                path.parse(context.originalname).ext
+              }`,
           },
           {
-            getFilename: (info, context) => `${path.parse(context.originalname).name}_large${
-              path.parse(context.originalname).ext
-            }`,
+            getFilename: (info, context) =>
+              `${path.parse(context.originalname).name}_large${
+                path.parse(context.originalname).ext
+              }`,
           },
         ],
       },
@@ -134,7 +137,7 @@ describe('basics', () => {
           { originalname: 'image-de-profil.png' },
         ],
       },
-      { sharedContext: 42 }
+      { sharedContext: 42 },
     );
 
     await finished(stream);
@@ -206,14 +209,22 @@ describe('basics', () => {
     expect(isStream(second[1].stream)).toBe(true);
 
     // Check image sizes
-    const smallImage = await axios.get(first[0].uploadValue.Location);
-    expect(smallImage.headers['content-length']).toBe(
-      stream.bytesRead.toString()
+    const smallImageResponse = await fetch(first[0].uploadValue.Location);
+    if (!smallImageResponse.ok) {
+      throw new Error(`Invalid status (${smallImageResponse.status})`);
+    }
+    const smallImageHeaders = smallImageResponse.headers;
+    expect(smallImageHeaders.get('content-length')).toBe(
+      stream.bytesRead.toString(),
     );
 
-    const largeImage = await axios.get(first[1].uploadValue.Location);
-    expect(largeImage.headers['content-length']).toBe(
-      stream.bytesRead.toString()
+    const largeImageResponse = await fetch(first[1].uploadValue.Location);
+    if (!largeImageResponse.ok) {
+      throw new Error(`Invalid status (${largeImageResponse.status})`);
+    }
+    const largeImageHeaders = largeImageResponse.headers;
+    expect(largeImageHeaders.get('content-length')).toBe(
+      stream.bytesRead.toString(),
     );
 
     await Promise.all([

@@ -1,6 +1,5 @@
 import { createRef, useEffect, useReducer } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
-import axios from 'axios';
 import { Spinner } from '@openagenda/react-shared';
 
 import SearchInput from './SearchInput';
@@ -103,21 +102,25 @@ const LocationSearch = ({
 
   useEffect(() => {
     dispatch({ type: 'loading' });
-    axios.get(res.index, {
-      params: {
-        from: state.from,
-        page: state.page,
-        size: 10,
-        search: state.query.search,
-      }
-    }).then(response => {
-      dispatch({
-        type: 'setResult',
-        locations: response.data.items,
-        hasNext: response.data.total > state.page * 10,
-        hasPrev: state.page !== 1
+
+    const params = new URLSearchParams();
+    if (state.from !== undefined) params.append('from', state.from);
+    if (state.page !== undefined) params.append('page', state.page);
+    params.append('size', '10');
+    if (state.query.search !== undefined) params.append('search', state.query.search);
+
+    fetch(`${res.index}${res.index.includes('?') ? '&' : '?'}${params}`)
+      .then(response => {
+        if (!response.ok) return;
+        return response.json();
+      }).then(data => {
+        dispatch({
+          type: 'setResult',
+          locations: data.items,
+          hasNext: data.total > state.page * 10,
+          hasPrev: state.page !== 1
+        });
       });
-    });
   }, [state.query, state.from, state.page, res.index]);
 
   const onFocus = value => {
