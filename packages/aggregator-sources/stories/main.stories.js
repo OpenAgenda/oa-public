@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
@@ -39,12 +39,9 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/empty-sources', (req, res, ctx) =>
-          res(ctx.json({ sources: [] }))),
-        rest.get('/non-empty-sources', (req, res, ctx) =>
-          res(ctx.json(sourcesJson))),
-        rest.get('/existing-aggregator', (req, res, ctx) =>
-          res(ctx.json({ agenda: agendasJson.agendas[0] }))),
+        http.get('/empty-sources', () => HttpResponse.json({ sources: [] })),
+        http.get('/non-empty-sources', () => HttpResponse.json(sourcesJson)),
+        http.get('/existing-aggregator', () => HttpResponse.json({ agenda: agendasJson.agendas[0] })),
       ],
     },
   },

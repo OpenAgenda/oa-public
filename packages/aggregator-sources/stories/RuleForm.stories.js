@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
@@ -25,8 +25,7 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/agendaLanguages', (req, res, ctx) =>
-          res(ctx.json({ ...languagesJson }))),
+        http.get('/agendaLanguages', () => HttpResponse.json({ ...languagesJson })),
       ],
     },
   },

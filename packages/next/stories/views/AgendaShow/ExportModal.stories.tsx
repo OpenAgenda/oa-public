@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import AgendaShow from 'views/AgendaShow';
 import ExportModal from 'views/AgendaShow/components/ExportModal';
@@ -38,15 +38,9 @@ export const Basic = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/users/me', (req, res, ctx) => res(
-          ctx.json(userFixtures),
-        )),
-        rest.get('/api/me', (req, res, ctx) => res(
-          ctx.json(me),
-        )),
-        rest.get('/agendas/1234/settings/exports', (req, res, ctx) => res(
-          ctx.json(columns),
-        )),
+        http.get('/users/me', () => HttpResponse.json(userFixtures)),
+        http.get('/api/me', () => HttpResponse.json(me)),
+        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
       ],
     },
   },

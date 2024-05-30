@@ -1,7 +1,7 @@
 import { wrapApp } from '@openagenda/react-shared';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import { rest } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 import { HelmetProvider } from 'react-helmet-async';
 
 import createApp from '../src';
@@ -11,16 +11,15 @@ import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
 import toulouseEvents from './fixtures/toulouse.events.json';
 import toulouseDefaultEmbed from './fixtures/toulouse.default.json';
 
-import AdminCanvas from './decorators/AdminCanvas'
+import AdminCanvas from './decorators/AdminCanvas';
 
 export default {
   title: 'Integrated',
-  decorators: [AdminCanvas]
+  decorators: [AdminCanvas],
 };
 
-
 export const IntegratedDefaultTemplates = {
-  render: () => {
+  render: function Render() {
     const selectionMenuRef = useRef();
     return (
       <HelmetProvider>
@@ -37,9 +36,9 @@ export const IntegratedDefaultTemplates = {
                     embeds: '/agendas/:agendaUid/embeds',
                     agendaSettings: '/agendas/:agendaUid',
                     preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-                  }
-                }
+                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
+                  },
+                },
               }),
               {
                 disableScrollToTop: true,
@@ -50,40 +49,41 @@ export const IntegratedDefaultTemplates = {
                     slug: 'toulouse',
                     title: 'Métropole de Toulouse',
                   },
-                  filtersContainerRef: selectionMenuRef
-                }
-              }
+                  filtersContainerRef: selectionMenuRef,
+                },
+              },
             )
           }
         </div>
       </HelmetProvider>
     );
-  }, parameters: {
+  },
+  parameters: {
     msw: {
       handlers: [
-        rest.get('/agendas/50522407', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json(apiAgendasToulouse))
+        http.get('/agendas/50522407', async () => {
+          await delay(1000);
+          return HttpResponse.json(apiAgendasToulouse);
         }),
-        rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json([toulouseDefaultEmbed]))
+        http.get('/agendas/50522407/embeds', async () => {
+          await delay(1000);
+          return HttpResponse.json([toulouseDefaultEmbed]);
         }),
-        rest.get('/agendas/50522407/events', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json(toulouseEvents))
+        http.get('/agendas/50522407/events', async () => {
+          await delay(1000);
+          return HttpResponse.json(toulouseEvents);
         }),
-        rest.post('/agendas/50522407/embeds', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200))
-        })
-      ]
-    }
-  }
-}
+        http.post('/agendas/50522407/embeds', async () => {
+          await delay(1000);
+          return new HttpResponse(null, { status: 200 });
+        }),
+      ],
+    },
+  },
+};
 
 export const IntegratedForUpdate = {
-  render: () => {
+  render: function Render() {
     const selectionMenuRef = useRef();
     return (
       <HelmetProvider>
@@ -100,9 +100,9 @@ export const IntegratedForUpdate = {
                     embeds: '/agendas/:agendaUid/embeds',
                     agendaSettings: '/agendas/:agendaUid',
                     preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-                  }
-                }
+                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
+                  },
+                },
               }),
               {
                 disableScrollToTop: true,
@@ -113,34 +113,35 @@ export const IntegratedForUpdate = {
                     slug: 'toulouse',
                     title: 'Métropole de Toulouse',
                   },
-                  filtersContainerRef: selectionMenuRef
-                }
-              }
+                  filtersContainerRef: selectionMenuRef,
+                },
+              },
             )
           }
         </div>
       </HelmetProvider>
     );
-  }, parameters: {
+  },
+  parameters: {
     msw: {
       handlers: [
-        rest.get('/agendas/50522407', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json(apiAgendasToulouse))
+        http.get('/agendas/50522407', async () => {
+          await delay(1000);
+          return HttpResponse.json(apiAgendasToulouse);
         }),
-        rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json([toulouseEmbed]))
+        http.get('/agendas/50522407/embeds', async () => {
+          await delay(1000);
+          return HttpResponse.json([toulouseEmbed]);
         }),
-        rest.get('/agendas/50522407/events', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200), ctx.json(toulouseEvents))
+        http.get('/agendas/50522407/events', async () => {
+          await delay(1000);
+          return HttpResponse.json(toulouseEvents);
         }),
-        rest.post('/agendas/50522407/embeds', async (_req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 1000));
-          return res(ctx.status(200))
-        })
-      ]
-    }
-  }
-}
+        http.post('/agendas/50522407/embeds', async () => {
+          await delay(1000);
+          return new HttpResponse(null, { status: 200 });
+        }),
+      ],
+    },
+  },
+};

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import { rest } from 'msw'
+import { http, HttpResponse, delay } from 'msw';
 
 import Dashboard from '../src/containers/Dashboard';
 
@@ -13,39 +13,38 @@ import toulouseEvents from './fixtures/toulouse.events.json';
 
 export default {
   title: 'Containers',
-  decorators: [AdminCanvas, Providers]
+  decorators: [AdminCanvas, Providers],
 };
 
 const mswHandlers = {
-  agenda: rest.get('/agendas/50522407', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200), ctx.json(apiAgendasToulouse));
+  agenda: http.get('/agendas/50522407', async () => {
+    await delay(1000);
+    return HttpResponse.json(apiAgendasToulouse);
   }),
-  getEmptyEmbed: rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200), ctx.json([]));
+  getEmptyEmbed: http.get('/agendas/50522407/embeds', async () => {
+    await delay(1000);
+    return HttpResponse.json([]);
   }),
-  getEmbed: rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200), ctx.json([toulouseEmbed]));
+  getEmbed: http.get('/agendas/50522407/embeds', async () => {
+    await delay(1000);
+    return HttpResponse.json([toulouseEmbed]);
   }),
-  PostEmbed: rest.post('/agendas/50522407/embeds', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200), ctx.json(toulouseEmbed));
+  PostEmbed: http.post('/agendas/50522407/embeds', async () => {
+    await delay(1000);
+    return HttpResponse.json(toulouseEmbed);
   }),
-  postUpdatedEmbed: rest.post('/agendas/50522407/embeds/80717033', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200));
+  postUpdatedEmbed: http.post('/agendas/50522407/embeds/80717033', async () => {
+    await delay(1000);
+    return new HttpResponse(null, { status: 200 });
   }),
-  getEvents: rest.get('/agendas/50522407/events', async (_req, res, ctx) => {
-    await new Promise(rs => setTimeout(rs, 1000));
-    return res(ctx.status(200), ctx.json(toulouseEvents));
-  })
-}
-
+  getEvents: http.get('/agendas/50522407/events', async () => {
+    await delay(1000);
+    return HttpResponse.json(toulouseEvents);
+  }),
+};
 
 export const DashboardBeforeCreate = {
-  render: () => {
+  render: function Render() {
     const selectionMenuRef = useRef();
     return (
       <>
@@ -59,26 +58,27 @@ export const DashboardBeforeCreate = {
               events: '/agendas/:agendaUid/events',
               agendaSettings: '/agendas/:agendaUid',
               preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
             }}
           />
         </div>
       </>
     );
-  }, parameters: {
+  },
+  parameters: {
     msw: {
       handlers: [
         mswHandlers.agenda,
         mswHandlers.getEmptyEmbed,
         mswHandlers.getEvents,
         mswHandlers.postEmbed,
-      ]
-    }
-  }
-}
+      ],
+    },
+  },
+};
 
 export const DashboardDefaultView = {
-  render: () => {
+  render: function Render() {
     const selectionMenuRef = useRef();
     return (
       <>
@@ -92,20 +92,21 @@ export const DashboardDefaultView = {
               embeds: '/agendas/:agendaUid/embeds',
               agendaSettings: '/agendas/:agendaUid',
               preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
             }}
           />
         </div>
       </>
     );
-  }, parameters: {
+  },
+  parameters: {
     msw: {
       handlers: [
         mswHandlers.agenda,
         mswHandlers.getEmbed,
         mswHandlers.getEvents,
         mswHandlers.postUpdatedEmbed,
-      ]
-    }
-  }
-}
+      ],
+    },
+  },
+};

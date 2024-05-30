@@ -1,5 +1,5 @@
 import { createMemoryHistory } from 'history';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import agendasJson from './fixtures/agendas.json';
@@ -16,25 +16,18 @@ const editedAgendasResponse = {
 
 function mswHandlers({ isNew = false } = {}) {
   return [
-    rest.get('/agendas.json', (req, res, ctx) =>
-      res(
-        ctx.json(
-          isNew
-            ? {
-              total: 0,
-              agendas: [],
-              isMember: false,
-            }
-            : editedAgendasResponse,
-        ),
-      )),
-    rest.get('/events.json', (req, res, ctx) => res(ctx.json(eventsJson))),
+    http.get('/agendas.json', () => HttpResponse.json(isNew
+      ? {
+        total: 0,
+        agendas: [],
+        isMember: false,
+      }
+      : editedAgendasResponse)),
+    http.get('/events.json', () => HttpResponse.json(eventsJson)),
 
-    rest.get('/agendas/:agendaUid/members/:userUid', (req, res, ctx) => {
-      const { agendaUid } = req.params;
-
+    http.get('/agendas/:agendaUid/members/:userUid', ({ params }) => {
       const custom = editedAgendasResponse.agendas
-        .filter(a => a.uid === parseInt(agendaUid, 10))
+        .filter(a => a.uid === parseInt(params.agendaUid, 10))
         .pop().member?.custom;
 
       const member = {
@@ -42,25 +35,22 @@ function mswHandlers({ isNew = false } = {}) {
         email: custom?.email,
       };
 
-      return res(ctx.json(member));
+      return HttpResponse.json(member);
     }),
 
-    rest.delete('/agendas/:agendaUid/members/:userUid', (req, res, ctx) => {
-      const { agendaUid } = req.params;
-
+    http.delete('/agendas/:agendaUid/members/:userUid', ({ params }) => {
       const index = editedAgendasResponse.agendas.findIndex(
-        agenda => agenda.uid === parseInt(agendaUid, 10),
+        agenda => agenda.uid === parseInt(params.agendaUid, 10),
       );
 
       if (index !== -1) {
         editedAgendasResponse.agendas.splice(index, 1);
       }
 
-      return res(ctx.status(204));
+      return new HttpResponse(null, { status: 204 });
     }),
 
-    rest.get('/me/agendas/:agendaUid', (req, res, ctx) =>
-      res(ctx.json(meJson))),
+    http.get('/me/agendas/:agendaUid', () => HttpResponse.json(meJson)),
   ];
 }
 

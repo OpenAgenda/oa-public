@@ -87,7 +87,7 @@
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.3",
-    "@emotion/babel-preset-css-prop": "^11.11.0",
+    "@emotion/babel-plugin": "^11.11.0",
     "@openagenda/axios-mock-adapter": "^1.21.0",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",

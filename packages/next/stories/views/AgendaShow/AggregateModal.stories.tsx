@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import AggregateModal from 'views/AgendaShow/components/AggregateModal';
 import AgendaShow from 'views/AgendaShow';
@@ -36,7 +36,7 @@ export const NotConnected = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/users/me', (req, res, ctx) => res(ctx.status(401))),
+        http.get('/users/me', () => new HttpResponse(null, { status: 401 })),
       ],
     },
   },
@@ -61,12 +61,8 @@ export const Connected = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/users/me', (req, res, ctx) => res(
-          ctx.json(userFixtures),
-        )),
-        rest.get('/home/agendas', (req, res, ctx) => res(
-          ctx.json(aggregateModalAgendas),
-        )),
+        http.get('/users/me', () => HttpResponse.json(userFixtures)),
+        http.get('/home/agendas', () => HttpResponse.json(aggregateModalAgendas)),
       ],
     },
   },

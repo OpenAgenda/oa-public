@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
@@ -44,18 +44,10 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/user/conversations', (req, res, ctx) => res(
-          ctx.json(conversationFixtures),
-        )),
-        rest.get('/user/author.json', (req, res, ctx) => res(
-          ctx.json(conversationAuthorFixtures),
-        )),
-        rest.get('/user/conversations/:conversationId/messages', (req, res, ctx) => res(
-          ctx.json(conversationMessagesFixtures),
-        )),
-        rest.get('/context/:identifier', (req, res, ctx) => res(
-          ctx.json(conversationUserContext),
-        )),
+        http.get('/user/conversations', () => HttpResponse.json(conversationFixtures)),
+        http.get('/user/author.json', () => HttpResponse.json(conversationAuthorFixtures)),
+        http.get('/user/conversations/:conversationId/messages', () => HttpResponse.json(conversationMessagesFixtures)),
+        http.get('/context/:identifier', () => HttpResponse.json(conversationUserContext)),
       ],
     },
   },

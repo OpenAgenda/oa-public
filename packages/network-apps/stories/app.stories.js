@@ -1,5 +1,5 @@
 import '@openagenda/bs-templates/compiled/main.css';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 
 import React from 'react';
@@ -22,20 +22,16 @@ export const listOfNetworks = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('', (_req, res, ctx) => res( ctx.status(200),
-          ctx.json(networks),
-        )),
-        rest.get(/^\/networks\/[0-9]\/agendas$/, (_req, res, ctx) => res( ctx.status(200),
-          ctx.json({
-            network: networks[0],
-            agendas: networks[0].agendas
-          })
-        )),
-        rest.post(/^\/networks\/[0-9]\/agendas\/remove\/[0-9]+$/, (_req, res, ctx) => res(ctx.status(200), ctx.json(networks[0].agendas[0]))),
-        rest.post(/^\/networks\/[0-9]\/agendas\/add$/, (_req, res, ctx) => res(ctx.status(200), ctx.json({
+        http.get('', () => HttpResponse.json(networks)),
+        http.get('/networks/:networkUid/agendas', () => HttpResponse.json({
+          network: networks[0],
+          agendas: networks[0].agendas,
+        })),
+        http.post('/networks/:networkUid/agendas/remove/:agendaUid', () => HttpResponse.json(networks[0].agendas[0])),
+        http.post('/networks/:networkUid/agendas/add', () => HttpResponse.json({
           uid: 1230902,
-          title: 'Bim!'
-        })))
+          title: 'Bim!',
+        })),
       ],
     },
   },

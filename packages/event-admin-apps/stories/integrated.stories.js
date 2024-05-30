@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { useRef } from 'react';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
@@ -69,19 +69,15 @@ export const Presentation = {
   parameters: {
     msw: {
       handlers: [
-        rest.post('/la-gargouille/events/search', (req, res, ctx) => {
-          console.log(req.body);
-          return res(ctx.json(mainData));
-        }),
-        rest.get('/agendas/48959239/admin/settings/exports', (req, res, ctx) =>
-          res(ctx.json(exportSettings))),
-        rest.post('/:agendaSlug/events/:eventSlug/state', (req, res, ctx) => {
+        http.post('/la-gargouille/events/search', () => HttpResponse.json(mainData)),
+        http.get('/agendas/48959239/admin/settings/exports', () => HttpResponse.json(exportSettings)),
+        http.post('/:agendaSlug/events/:eventSlug/state', async ({ request, params }) => {
           const event = JSON.parse(
             JSON.stringify(
-              mainData.events.find(e => e.slug === req.params.eventSlug),
+              mainData.events.find(e => e.slug === params.eventSlug),
             ),
           );
-          return res(ctx.json({ ...event, ...req.body }));
+          return HttpResponse.json({ ...event, ...await request.json() });
         }),
       ],
     },

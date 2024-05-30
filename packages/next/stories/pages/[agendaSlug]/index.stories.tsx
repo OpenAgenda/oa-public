@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import AgendaShow from 'pages/[agendaSlug]';
 import AgendaShowView from 'views/AgendaShow';
 import { Agenda } from 'types';
@@ -30,9 +30,7 @@ export const Sample = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/api/agendas/slug/metropole-europeenne-de-lille/events', (req, res, ctx) => res(
-          ctx.json(eventsFixtures),
-        )),
+        http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () => HttpResponse.json(eventsFixtures)),
       ],
     },
   },

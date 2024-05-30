@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import qs from 'qs';
 import { Container } from '@openagenda/uikit';
 import EventShow from 'views/EventShow';
@@ -107,14 +107,15 @@ export const EventsField = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(`/api/agendas/${agendaFixtures.uid}/events`, (req, res, ctx) => {
-          const { uid } = qs.parse(req.url.search.replace('?', ''));
+        http.get(`/api/agendas/${agendaFixtures.uid}/events`, ({ request }) => {
+          const url = new URL(request.url);
+          const { uid } = qs.parse(url.search.replace('?', ''));
           const selection = eventsFixtures.events.filter(event => [].concat(uid).includes(`${event.uid}`));
 
-          return res(ctx.json({
+          return HttpResponse.json({
             total: selection.length,
             events: selection,
-          }));
+          });
         }),
       ],
     },

@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import ContextBar from 'views/AgendaShow/components/ContextBar';
 import AgendaShow from 'views/AgendaShow';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
@@ -19,7 +19,7 @@ export const Contributor = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/api/me/agendas/:agendaUid', (req, res, ctx) => res(ctx.json({
+        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
           me: {
             member: {
               role: 'contributor',
@@ -28,7 +28,7 @@ export const Contributor = {
               states: [],
             },
           },
-        }))),
+        })),
       ],
     },
   },
@@ -39,7 +39,7 @@ export const ContributorWithDrafts = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/api/me/agendas/:agendaUid', (req, res, ctx) => res(ctx.json({
+        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
           me: {
             member: {
               role: 'contributor',
@@ -61,8 +61,8 @@ export const ContributorWithDrafts = {
               drafts: 8,
             },
           },
-        }))),
-        rest.get('/api/me/agendas/:agendaUid/events/drafts', (req, res, ctx) => res(ctx.json({
+        })),
+        http.get('/api/me/agendas/:agendaUid/events/drafts', () => HttpResponse.json({
           events: [
             {
               uid: 1,
@@ -78,8 +78,8 @@ export const ContributorWithDrafts = {
               draft: true,
             },
           ],
-        }))),
-        rest.get('/api/me/agendas/:agendaUid/events', (req, res, ctx) => res(ctx.json({
+        })),
+        http.get('/api/me/agendas/:agendaUid/events', () => HttpResponse.json({
           events: [
             {
               uid: 1,
@@ -94,7 +94,7 @@ export const ContributorWithDrafts = {
               description: 'Un test',
             },
           ],
-        }))),
+        })),
       ],
     },
   },
@@ -105,7 +105,7 @@ export const Moderators = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/api/me/agendas/:agendaUid', (req, res, ctx) => res(ctx.json({
+        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
           me: {
             member: {
               role: 'moderator',
@@ -128,8 +128,8 @@ export const Moderators = {
             }],
             drafts: 8,
           },
-        }))),
-        rest.get('/api/me/agendas/:agendaUid/events', (req, res, ctx) => res(ctx.json({
+        })),
+        http.get('/api/me/agendas/:agendaUid/events', () => HttpResponse.json({
           events: [
             {
               uid: 1,
@@ -145,7 +145,7 @@ export const Moderators = {
               draft: true,
             },
           ],
-        }))),
+        })),
       ],
     },
   },

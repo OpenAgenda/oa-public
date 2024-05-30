@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import EventForm from '../src';
@@ -13,10 +13,8 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/locations', (req, res, ctx) => res(
-          ctx.json({ success: true, total: 0, items: [] }),
-        )),
-        rest.get('/events', mswEventsMiddleware),
+        http.get('/locations', () => HttpResponse.json({ success: true, total: 0, items: [] })),
+        http.get('/events', mswEventsMiddleware),
       ],
     },
   },

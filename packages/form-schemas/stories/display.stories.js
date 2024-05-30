@@ -1,5 +1,4 @@
-import { rest } from 'msw';
-
+import { http, HttpResponse } from 'msw';
 import DisplaySchemaData from '../client/src/Components/DisplaySchemaData';
 import SimplePageDecorator from './decorators/SimplePage';
 
@@ -11,20 +10,18 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/basic', (req, res, ctx) => res(
-          ctx.json({
-            schema: {
-              fields: [{
-                field: 'name',
-                fieldType: 'text',
-                label: { fr: 'Nom', en: 'Name' },
-              }],
-            },
-            data: {
-              name: 'Gaius Helen Mohiam',
-            },
-          }),
-        )),
+        http.get('/basic', () => HttpResponse({
+          schema: {
+            fields: [{
+              field: 'name',
+              fieldType: 'text',
+              label: { fr: 'Nom', en: 'Name' },
+            }],
+          },
+          data: {
+            name: 'Gaius Helen Mohiam',
+          },
+        })),
       ],
     },
   },

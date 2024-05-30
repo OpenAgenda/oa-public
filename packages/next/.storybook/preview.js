@@ -1,11 +1,11 @@
 import { useLayoutEffect } from 'react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
-import dedent from 'dedent';
 
 // Initialize MSW
 initialize({
-  onUnhandledRequest({ method, url }) {
+  onUnhandledRequest(request, print) {
+    const url = new URL(request.url);
     const sameOrigin = url.origin === window.location.origin;
 
     if (sameOrigin && url.pathname === '/index.json') return;
@@ -20,15 +20,7 @@ initialize({
     if (url.hostname === 'cibul.s3.amazonaws.com') return;
     if (url.hostname === 'cibuldev.s3.amazonaws.com') return;
 
-    // console.log('Unhandled URL', url);
-
-    // eslint-disable-next-line no-console
-    console.error(dedent(`Unhandled ${method} request to ${url}
-
-      This exception has been only logged in the console, however, it's strongly recommended to resolve this error as you don't want unmocked data in Storybook stories.
-
-      If you wish to mock an error response, please refer to this guide: https://mswjs.io/docs/recipes/mocking-error-responses
-    `));
+    print.warning();
   },
 });
 
@@ -56,5 +48,4 @@ export const decorators = [
   },
 ];
 
-// Provide the MSW addon loader globally
 export const loaders = [mswLoader];

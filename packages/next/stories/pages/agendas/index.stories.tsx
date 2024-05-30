@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import AgendaSearch from 'pages/agendas';
 import AgendaSearchView from 'views/AgendasSearch';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
@@ -35,9 +35,7 @@ export const Search = {
     },
     msw: {
       handlers: [
-        rest.get('/api/agendas', (req, res, ctx) => res(
-          ctx.json(searchFixtures),
-        )),
+        http.get('/api/agendas', () => HttpResponse.json(searchFixtures)),
       ],
     },
   },
@@ -60,9 +58,7 @@ export const Network = {
     },
     msw: {
       handlers: [
-        rest.get('/api/agendas', (req, res, ctx) => res(
-          ctx.json(networkFixtures),
-        )),
+        http.get('/api/agendas', () => HttpResponse.json(networkFixtures)),
       ],
     },
   },
@@ -85,9 +81,7 @@ export const LocationSet = {
     },
     msw: {
       handlers: [
-        rest.get('/api/agendas', (req, res, ctx) => res(
-          ctx.json(locationSetFixtures),
-        )),
+        http.get('/api/agendas', () => HttpResponse.json(locationSetFixtures)),
       ],
     },
   },

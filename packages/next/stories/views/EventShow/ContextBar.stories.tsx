@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { SWRConfig } from 'swr';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import EventShow from 'views/EventShow';
 import ContextBar from 'views/EventShow/components/ContextBar';
 import { AgendaProvider } from 'views/EventShow/contexts/agenda';
@@ -52,9 +52,9 @@ export const Contributor = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
+        http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          (req, res, ctx) => res(ctx.json({
+          () => HttpResponse.json({
             me: {
               member: {
                 uid: eventFixtures.ownerUid,
@@ -66,7 +66,7 @@ export const Contributor = {
                 canPublishEvent: false,
               },
             },
-          })),
+          }),
         ),
       ],
     },
@@ -82,9 +82,9 @@ export const Moderator = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
+        http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          (req, res, ctx) => res(ctx.json({
+          () => HttpResponse.json({
             me: {
               member: {
                 role: 'moderator',
@@ -95,7 +95,7 @@ export const Moderator = {
                 canPublishEvent: true,
               },
             },
-          })),
+          }),
         ),
       ],
     },
@@ -111,9 +111,9 @@ export const Administrator = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
+        http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          (req, res, ctx) => res(ctx.json({
+          () => HttpResponse.json({
             me: {
               member: {
                 role: 'administrator',
@@ -124,7 +124,7 @@ export const Administrator = {
                 canPublishEvent: true,
               },
             },
-          })),
+          }),
         ),
       ],
     },
@@ -140,9 +140,9 @@ export const InvalidEventOnStateChange = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
+        http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          (req, res, ctx) => res(ctx.json({
+          () => HttpResponse.json({
             me: {
               member: {
                 role: 'administrator',
@@ -153,11 +153,11 @@ export const InvalidEventOnStateChange = {
                 canPublishEvent: true,
               },
             },
-          })),
+          }),
         ),
-        rest.patch(
+        http.patch(
           `/api/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          (req, res, ctx) => res(ctx.status(400)),
+          () => new HttpResponse(null, { status: 400 }),
         ),
       ],
     },

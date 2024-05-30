@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
 
@@ -25,9 +25,7 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/settings', (req, res, ctx) => res(
-          ctx.json(passSettings),
-        )),
+        http.get('/settings', () => HttpResponse.json(passSettings)),
       ],
     },
   },

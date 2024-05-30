@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
@@ -35,8 +35,7 @@ export const OpenModal = () => {
 OpenModal.parameters = {
   msw: {
     handlers: [
-      rest.get('/agendas/123456/admin/settings/exports', (req, res, ctx) =>
-        res(ctx.json(exportSettings))),
+      http.get('/agendas/123456/admin/settings/exports', () => HttpResponse.json(exportSettings)),
     ],
   },
 };

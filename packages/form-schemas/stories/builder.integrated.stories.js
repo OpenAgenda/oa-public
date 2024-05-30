@@ -1,7 +1,6 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
-
 import SimpleRowDecorator from './decorators/SimpleRow';
 import eventLikeSchema from './fixtures/eventLikeSchema.json';
 import schemaWithCategories from './fixtures/schemaWithCategories.json';
@@ -741,11 +740,11 @@ export const WithNewOptionValuesToSubmit = {
   parameters: {
     msw: {
       handlers: [
-        rest.post('/wat', (req, res, ctx) => {
-          const schema = JSON.parse(req.body.data);
+        http.post('/wat', async ({ request }) => {
+          const schema = JSON.parse((await request.json()).data);
           let id = 0;
 
-          return res(ctx.json({
+          return HttpResponse.json({
             ...schema,
             fields: schema.fields.map(f => (f.options ? {
               ...f,
@@ -757,7 +756,7 @@ export const WithNewOptionValuesToSubmit = {
                 };
               }),
             } : f)),
-          }));
+          });
         }),
       ],
     },

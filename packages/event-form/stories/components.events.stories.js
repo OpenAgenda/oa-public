@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import '@openagenda/bs-templates/compiled/main.css';
 
 import EventsAdditionalFieldComponent from '../src/components/Events';
@@ -14,8 +14,8 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/events', mswEventsMiddleware),
-        rest.get('/no-events', (req, res, ctx) => res(ctx.json({ events: [], total: 0 }))),
+        http.get('/events', mswEventsMiddleware),
+        http.get('/no-events', () => HttpResponse.json({ events: [], total: 0 })),
       ],
     },
   },

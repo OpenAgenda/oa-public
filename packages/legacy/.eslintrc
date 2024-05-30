@@ -10,6 +10,8 @@
       "error",
       {
         "devDependencies": [
+          "embeds/app/.storybook/**/*.js",
+          "embeds/app/stories/**/*.js",
           "test/**/*.js",
           "testconfig.sample.js",
           "testconfig.js"

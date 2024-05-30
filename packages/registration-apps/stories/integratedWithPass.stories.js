@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
 
 import Registration from '../src/bootstrap';
@@ -14,15 +14,9 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/settings', (req, res, ctx) => res(
-          ctx.json(passSettings),
-        )),
-        rest.get('/contextForAdminMod', (req, res, ctx) => res(
-          ctx.json({ me: { member: { role: 'administrator' } } }),
-        )),
-        rest.get('/contextForContribOrNonMember', (req, res, ctx) => res(
-          ctx.status(404),
-        )),
+        http.get('/settings', () => HttpResponse.json(passSettings)),
+        http.get('/contextForAdminMod', () => HttpResponse.json({ me: { member: { role: 'administrator' } } })),
+        http.get('/contextForContribOrNonMember', () => new HttpResponse(null, { status: 404 })),
       ],
     },
   },

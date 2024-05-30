@@ -1,7 +1,7 @@
 import '@openagenda/bs-templates/compiled/main.css';
 
 import { createMemoryHistory } from 'history';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src';
 import componentFromFixtures from './utils/componentFromFixtures';
@@ -90,12 +90,8 @@ export const ConfirmationWithPass = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/api/me/agendas/56500817', (_req, res, ctx) => res(
-          ctx.json(agendaContributorContext),
-        )),
-        rest.get('/api/agendas/56500817', (_req, res, ctx) => res(
-          ctx.json(agenda),
-        )),
+        http.get('/api/me/agendas/56500817', () => HttpResponse.json(agendaContributorContext)),
+        http.get('/api/agendas/56500817', () => HttpResponse.json(agenda)),
       ],
     },
   },
