@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import { rest } from 'msw'
 
 import Dashboard from '../src/containers/Dashboard';
 
@@ -17,64 +16,96 @@ export default {
   decorators: [AdminCanvas, Providers]
 };
 
-export function DashboardBeforeCreate() {
-  const mock = new MockAdapter(axios, {
-    delayResponse: 1000
-  });
-  mock.onGet('/agendas/50522407').reply(200, apiAgendasToulouse);
-  mock.onGet('/agendas/50522407/embeds').reply(200, []);
-  mock.onPost('/agendas/50522407/embeds').reply(200, toulouseEmbed);
-  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
-
-  const selectionMenuRef = useRef();
-
-  return (
-    <>
-      <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
-      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-        <Dashboard
-          selectionMenuContainerRef={selectionMenuRef}
-          agendaUid={50522407}
-          res={{
-            embeds: '/agendas/:agendaUid/embeds',
-            events: '/agendas/:agendaUid/events',
-            agendaSettings: '/agendas/:agendaUid',
-            preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-            previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-          }}
-        />
-      </div>
-    </>
-  );
+const mswHandlers = {
+  agenda: rest.get('/agendas/50522407', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200), ctx.json(apiAgendasToulouse));
+  }),
+  getEmptyEmbed: rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200), ctx.json([]));
+  }),
+  getEmbed: rest.get('/agendas/50522407/embeds', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200), ctx.json([toulouseEmbed]));
+  }),
+  PostEmbed: rest.post('/agendas/50522407/embeds', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200), ctx.json(toulouseEmbed));
+  }),
+  postUpdatedEmbed: rest.post('/agendas/50522407/embeds/80717033', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200));
+  }),
+  getEvents: rest.get('/agendas/50522407/events', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 1000));
+    return res(ctx.status(200), ctx.json(toulouseEvents));
+  })
 }
 
-export function DashboardDefaultView() {
-  const mock = new MockAdapter(axios, {
-    delayResponse: 1000
-  });
 
-  mock.onGet('/agendas/50522407').reply(200, apiAgendasToulouse);
-  mock.onGet('/agendas/50522407/embeds').reply(200, [toulouseEmbed]);
-  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
-  mock.onPost('/agendas/50522407/embeds/80717033').reply(200);
+export const DashboardBeforeCreate = {
+  render: () => {
+    const selectionMenuRef = useRef();
+    return (
+      <>
+        <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
+          <Dashboard
+            selectionMenuContainerRef={selectionMenuRef}
+            agendaUid={50522407}
+            res={{
+              embeds: '/agendas/:agendaUid/embeds',
+              events: '/agendas/:agendaUid/events',
+              agendaSettings: '/agendas/:agendaUid',
+              preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+            }}
+          />
+        </div>
+      </>
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.agenda,
+        mswHandlers.getEmptyEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+      ]
+    }
+  }
+}
 
-  const selectionMenuRef = useRef();
-  return (
-    <>
-      <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
-      <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-        <Dashboard
-          selectionMenuContainerRef={selectionMenuRef}
-          agendaUid={50522407}
-          res={{
-            events: '/agendas/:agendaUid/events',
-            embeds: '/agendas/:agendaUid/embeds',
-            agendaSettings: '/agendas/:agendaUid',
-            preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-            previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-          }}
-        />
-      </div>
-    </>
-  );
+export const DashboardDefaultView = {
+  render: () => {
+    const selectionMenuRef = useRef();
+    return (
+      <>
+        <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
+          <Dashboard
+            selectionMenuContainerRef={selectionMenuRef}
+            agendaUid={50522407}
+            res={{
+              events: '/agendas/:agendaUid/events',
+              embeds: '/agendas/:agendaUid/embeds',
+              agendaSettings: '/agendas/:agendaUid',
+              preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+              previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+            }}
+          />
+        </div>
+      </>
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.agenda,
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 }

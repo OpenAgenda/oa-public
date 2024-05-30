@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import _ from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import MockAdapter from '@openagenda/axios-mock-adapter';
@@ -641,3 +642,42 @@ export const SortChoice = () => (
   />
 );
 SortChoice.storyName = 'Choice with sort';
+
+export const SortChoiceList = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        city: [
+          { key: 'Paris', eventCount: 127 },
+          { key: 'Toulouse', eventCount: 40 },
+          { key: 'Le Port', eventCount: 33 },
+          { key: 'Montpellier', eventCount: 33 },
+          { key: 'Nantes', eventCount: 29 },
+          { key: 'Colmar', eventCount: 24 },
+          { key: 'a', eventCount: 23 },
+          { key: 'b', eventCount: 22 },
+          { key: 'c', eventCount: 21 },
+          { key: 'd', eventCount: 20 },
+          { key: 'e', eventCount: 19 },
+          { key: 'f', eventCount: 18 },
+        ],
+      },
+      aggregations: {
+        city: [
+          { key: 'Paris', eventCount: 34 },
+          { key: 'Le Port', eventCount: 25 },
+          { key: 'Montpellier', eventCount: 16 },
+          { key: 'Colmar', eventCount: 7 },
+        ],
+      },
+    }}
+    html={_.template(`
+      <ul
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'city', sort: 'alphabetical', tag: 'li'}) %>"
+      ></ul>
+    `)()}
+  />
+);
+SortChoiceList.storyName = 'Choice with sort list';

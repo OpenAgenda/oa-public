@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import debug from 'debug';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import { rest } from 'msw';
 import EmbedCodePresentation from '../src/components/EmbedCodePresentation';
 import ConfigurationMenuSelector from '../src/components/ConfigurationMenuSelector';
 import GeneralMenu from '../src/components/GeneralMenu';
@@ -28,15 +27,25 @@ import toulouseEmbed from './fixtures/toulouse.json';
 import toulouseEvents from './fixtures/toulouse.events.json';
 import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
 
-const mockApi = () => {
-  const mock = new MockAdapter(axios, {
-    delayResponse: 2000
-  });
-  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
-  mock.onGet('/agendas/50522407/embeds/80717033').reply(200, apiAgendasToulouse);
-  mock.onPost('/agendas/50522407/embeds').reply(200, apiAgendasToulouse);
-  mock.onPost('/agendas/50522407/embeds/80717033').reply(200);
-};
+const mswHandlers = {
+  getEmbed: rest.get('/agendas/50522407/embeds/80717033', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 2000));
+    return res(ctx.status(200), ctx.json(apiAgendasToulouse));
+  }),
+  postEmbed: rest.post('/agendas/50522407/embeds', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 2000));
+    return res(ctx.status(200), ctx.json(apiAgendasToulouse));
+  }),
+  postUpdatedEmbed: rest.post('/agendas/50522407/embeds/80717033', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 2000));
+    return res(ctx.status(200));
+  }),
+  getEvents: rest.get('/agendas/50522407/events', async (_req, res, ctx) => {
+    await new Promise(rs => setTimeout(rs, 2000));
+    return res(ctx.status(200), ctx.json(toulouseEvents));
+  })
+}
+
 
 export default {
   title: 'Components',
@@ -130,34 +139,54 @@ export const advancedWidgetMenu = () => (
   />
 );
 
-export const tagSelectionMenu = () => {
-  mockApi();
+export const tagSelectionMenu = {
+  render: () => {
 
-  return (
-    <TagSelectionMenu
-      embed={toulouseEmbed}
-      onChange={() => {}}
-      res="/agendas/50522407/embeds/80717033"
-    />
-  );
+    return (
+      <TagSelectionMenu
+        embed={toulouseEmbed}
+        onChange={() => { }}
+        res="/agendas/50522407/embeds/80717033"
+      />
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 };
 
-export const listMenu = () => {
-  mockApi();
+export const listMenu = {
+  render: () => {
 
-  return (
-    <ListMenu
-      lang="fr"
-      embed={toulouseEmbed}
-      onChange={onChange}
-      displayEmbed
-      res={{
-        events: '/agendas/50522407/events',
-        preview: 'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
-        previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-      }}
-    />
-  );
+    return (
+      <ListMenu
+        lang="fr"
+        embed={toulouseEmbed}
+        onChange={onChange}
+        displayEmbed
+        res={{
+          events: '/agendas/50522407/events',
+          preview: 'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
+          previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+        }}
+      />
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 };
 
 export const mapMenu = () => (
@@ -169,16 +198,27 @@ export const mapMenu = () => (
   />
 );
 
-export const tagMenu = () => {
-  mockApi();
 
-  return (
-    <TagMenu
-      embed={toulouseEmbed}
-      onChange={onChange}
-      res="/agendas/50522407/embeds/80717033"
-    />
-  );
+export const tagMenu = {
+  render: () => {
+
+    return (
+      <TagMenu
+        embed={toulouseEmbed}
+        onChange={onChange}
+        res="/agendas/50522407/embeds/80717033"
+      />
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 };
 
 export const searchMenu = () => (
@@ -195,37 +235,58 @@ export const calendarMenu = () => (
   />
 );
 
-export const EmbedUpdateButton = () => {
-  mockApi();
-  const [embed, setEmbed] = useState(toulouseEmbed);
 
-  return (
-    <>
-      <button
-        type="button"
-        className="btn btn-default margin-all-sm"
-        onClick={() => setEmbed({
-          ...toulouseEmbed,
-          change: Math.random()
-        })}
-      >
-        Mock a change
-      </button>
-      <UpdateButton
-        embed={embed}
-        res="/agendas/50522407/embeds/80717033"
-        onSave={() => {}}
-      />
-    </>
-  );
+export const EmbedUpdateButton = {
+  render: () => {
+    const [embed, setEmbed] = useState(toulouseEmbed);
+
+    return (
+      <>
+        <button
+          type="button"
+          className="btn btn-default margin-all-sm"
+          onClick={() => setEmbed({
+            ...toulouseEmbed,
+            change: Math.random()
+          })}
+        >
+          Mock a change
+        </button>
+        <UpdateButton
+          embed={embed}
+          res="/agendas/50522407/embeds/80717033"
+          onSave={() => { }}
+        />
+      </>
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 };
 
-export const EmbedPresentation = () => {
-  mockApi();
-  return (
-    <Presentation
-      res="/agendas/50522407/embeds"
-      onCreate={() => {}}
-    />
-  );
+export const EmbedPresentation = {
+  render: () => {
+    return (
+      <Presentation
+        res="/agendas/50522407/embeds"
+        onCreate={() => { }}
+      />
+    );
+  }, parameters: {
+    msw: {
+      handlers: [
+        mswHandlers.getEmbed,
+        mswHandlers.getEvents,
+        mswHandlers.postEmbed,
+        mswHandlers.postUpdatedEmbed,
+      ]
+    }
+  }
 };
