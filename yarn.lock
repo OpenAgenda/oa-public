@@ -6710,7 +6710,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.4"
-    "@openagenda/react-filters": "npm:^2.10.7"
+    "@openagenda/react-filters": "npm:^2.10.8"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
@@ -6909,7 +6909,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.3"
-    "@openagenda/react-filters": "npm:^2.10.7"
+    "@openagenda/react-filters": "npm:^2.10.8"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@storybook/react-webpack5": "npm:^7.4.2"
     babel-loader: "npm:^9.1.3"
@@ -7401,7 +7401,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.3"
-    "@openagenda/react-filters": "npm:^2.10.7"
+    "@openagenda/react-filters": "npm:^2.10.8"
     "@openagenda/react-share-menus": "npm:^1.1.0"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -8323,7 +8323,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react-filters": "npm:^2.10.7"
+    "@openagenda/react-filters": "npm:^2.10.8"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
     "@openagenda/sessions": "npm:^4.1.0"
@@ -8502,7 +8502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.10.7, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@npm:^2.10.8, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
