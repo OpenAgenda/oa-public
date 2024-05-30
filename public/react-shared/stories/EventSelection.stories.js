@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import EventSelection from '../src/components/EventSelection';
 import SimpleCanvas from './decorators/SimpleCanvas';
@@ -8,16 +8,14 @@ import eventsResponse from './fixtures/events.response.json';
 import manyEventsResponse from './fixtures/manyEvents.response.json';
 
 const mswHandlers = {
-  basicEvents: rest.get('/events', async (_req, res, ctx) =>
-    res(ctx.json(eventsResponse))),
-  manyEvents: rest.get('/events', async (req, res, ctx) =>
-    res(
-      ctx.json(
-        manyEventsResponse[
-          `${req.url.searchParams.get('offset')}` === '20' ? 'from20' : 'from0'
-        ],
-      ),
-    )),
+  basicEvents: http.get('/events', () => HttpResponse.json(eventsResponse)),
+  manyEvents: http.get('/events', ({ request }) => {
+    const url = new URL(request.url);
+    const offset = url.searchParams.get('offset');
+    return HttpResponse.json(
+      manyEventsResponse[offset === '20' ? 'from20' : 'from0'],
+    );
+  }),
 };
 
 export default {
