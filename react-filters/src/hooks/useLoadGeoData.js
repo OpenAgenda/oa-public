@@ -2,11 +2,17 @@ import { useCallback } from 'react';
 import qs from 'qs';
 import getQuerySeparator from '../utils/getQuerySeparator';
 
-export default function useLoadGeoData(_apiClient, res, query, options = {}) {
+export default function useLoadGeoData(
+  _apiClient,
+  res,
+  queryOrFn,
+  options = {},
+) {
   const { searchMethod = 'get' } = options;
 
   return useCallback(
     async (bounds, zoom) => {
+      const query = typeof queryOrFn === 'function' ? queryOrFn() : queryOrFn;
       const northEast = bounds.getNorthEast().wrap();
       const southWest = bounds.getSouthWest().wrap();
 
@@ -48,6 +54,6 @@ export default function useLoadGeoData(_apiClient, res, query, options = {}) {
 
       return result.aggregations.geohash;
     },
-    [res, query],
+    [res, queryOrFn, searchMethod],
   );
 }

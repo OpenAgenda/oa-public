@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 import qs from 'qs';
 import React, {
   forwardRef,
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -115,9 +116,8 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
-  const loadGeoData = useLoadGeoData(null, res, form.getState().values, {
-    searchMethod,
-  });
+  const getValues = useCallback(() => form.getState().values, [form]);
+  const loadGeoData = useLoadGeoData(null, res, getValues, { searchMethod });
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,

@@ -9,7 +9,6 @@ import {
   isSameDay,
   getISODay,
 } from 'date-fns';
-import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
@@ -59,14 +58,6 @@ function isSelected(range, _timeZone) {
     && (isSameDay(range.endDate, definedRange.endDate)
       || range.endDate === definedRange.endDate)
   );
-
-  // return (
-  //   range
-  //   && (isSameDay(utcToZonedTime(range.startDate, timeZone), definedRange.startDate)
-  //     || range.startDate === definedRange.startDate)
-  //   && (isSameDay(utcToZonedTime(range.endDate, timeZone), definedRange.endDate)
-  //     || range.endDate === definedRange.endDate)
-  // );
 }
 
 export function createStaticRanges(ranges) {
@@ -142,16 +133,18 @@ export default function dateRanges(intl, opts = {}) {
   };
 
   return {
-    staticRanges: opts.staticRanges ? opts.staticRanges.reduce((accu, next) => {
-      if (typeof next === 'string') {
-        const result = defaults.staticRanges.find(w => w.id === next);
-        if (result) accu.push(result);
-        else console.log(`Cannot found static range "${next}"`);
-      } else {
-        accu.push(next);
-      }
-      return accu;
-    }, []) : defaults.staticRanges,
+    staticRanges: opts.staticRanges
+      ? opts.staticRanges.reduce((accu, next) => {
+        if (typeof next === 'string') {
+          const result = defaults.staticRanges.find(w => w.id === next);
+          if (result) accu.push(result);
+          else console.log(`Cannot found static range "${next}"`);
+        } else {
+          accu.push(next);
+        }
+        return accu;
+      }, [])
+      : defaults.staticRanges,
     inputRanges: opts.inputRanges || defaults.inputRanges,
   };
 }

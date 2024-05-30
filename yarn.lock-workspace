@@ -5422,7 +5422,7 @@ __metadata:
     concurrently: "npm:^6.3.0"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
-    date-fns-tz: "npm:^1.3.7"
+    date-fns-tz: "npm:^2.0.1"
     dotenv: "npm:^10.0.0"
     ejs: "npm:^3.1.9"
     eslint: "npm:^8.24.0"
@@ -12979,21 +12979,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns-tz@npm:^1.3.7":
-  version: 1.3.7
-  resolution: "date-fns-tz@npm:1.3.7"
-  peerDependencies:
-    date-fns: ">=2.0.0"
-  checksum: 4b1232e94d4a7dd76d1ed9d326b678b67ba398f4246beb8269241f0d40c1264c9279fa50207161dc86df1f10f911be82984f0b370af1cc8c48a8725ef38875ef
-  languageName: node
-  linkType: hard
-
 "date-fns-tz@npm:^2.0.0":
   version: 2.0.0
   resolution: "date-fns-tz@npm:2.0.0"
   peerDependencies:
     date-fns: ">=2.0.0"
   checksum: 31cacb83c675ef8c2cf31d21c298ab6d74c5e975412dd804664d031ac0f2f03ed5bfb2a950fa15a321bbbcb90b833c300823fbceba0133680065a71894cc1170
+  languageName: node
+  linkType: hard
+
+"date-fns-tz@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "date-fns-tz@npm:2.0.1"
+  peerDependencies:
+    date-fns: 2.x
+  checksum: f860dda9e3d38bc99dc325c678cafb94b3a18c12b1fea0e2f4e451396ea6c4cacced683066c669a67ec380f64fdda83aa4c414a207029b647faa2b76b2a5c6e3
   languageName: node
   linkType: hard
 
