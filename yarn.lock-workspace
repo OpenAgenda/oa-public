@@ -5031,7 +5031,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.4"
-    "@openagenda/react-filters": "npm:^2.10.5"
+    "@openagenda/react-filters": "npm:^2.10.6"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
@@ -5394,7 +5394,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-filters@npm:^2.10.5, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@npm:^2.10.6, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
