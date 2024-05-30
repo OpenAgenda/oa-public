@@ -782,7 +782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.17.12, @babel/plugin-syntax-jsx@npm:^7.23.3, @babel/plugin-syntax-jsx@npm:^7.7.2":
+"@babel/plugin-syntax-jsx@npm:^7.23.3, @babel/plugin-syntax-jsx@npm:^7.7.2":
   version: 7.23.3
   resolution: "@babel/plugin-syntax-jsx@npm:7.23.3"
   dependencies:
@@ -1414,7 +1414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx@npm:^7.17.12, @babel/plugin-transform-react-jsx@npm:^7.22.15, @babel/plugin-transform-react-jsx@npm:^7.22.5":
+"@babel/plugin-transform-react-jsx@npm:^7.22.15, @babel/plugin-transform-react-jsx@npm:^7.22.5":
   version: 7.23.4
   resolution: "@babel/plugin-transform-react-jsx@npm:7.23.4"
   dependencies:
@@ -3273,17 +3273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin-jsx-pragmatic@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@emotion/babel-plugin-jsx-pragmatic@npm:0.2.1"
-  dependencies:
-    "@babel/plugin-syntax-jsx": "npm:^7.17.12"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 73c2ad4b06a4b7e8797a624f5a1e7b2c047cc4443dd9fa12facb0fc5468de8f46bfc0047a881b791e4037d9f7e9f5d2b9df893b2d272ffc95d5317466408b88e
-  languageName: node
-  linkType: hard
-
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/babel-plugin@npm:11.11.0"
@@ -3300,20 +3289,6 @@ __metadata:
     source-map: "npm:^0.5.7"
     stylis: "npm:4.2.0"
   checksum: 89cbb6ec0e52c8ee9c2a4b9889ccd4fc3a75d28091d835bfac6d7c4565d3338621e23af0a85f3bcd133e1cae795c692e1dadada015784d4b0554aa5bb111df43
-  languageName: node
-  linkType: hard
-
-"@emotion/babel-preset-css-prop@npm:^11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/babel-preset-css-prop@npm:11.11.0"
-  dependencies:
-    "@babel/plugin-transform-react-jsx": "npm:^7.17.12"
-    "@babel/runtime": "npm:^7.18.3"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@emotion/babel-plugin-jsx-pragmatic": "npm:^0.2.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: afa3dae32cbfbedae1b337988326403d64f86b6eb079a40bf509006ed98edefaccf5ebf99813697ea58e4cbd1c6ddc549a754e7cc89407315720d9c691240482
   languageName: node
   linkType: hard
 
@@ -5401,7 +5376,7 @@ __metadata:
     "@babel/cli": "npm:^7.23.0"
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@emotion/babel-preset-css-prop": "npm:^11.11.0"
+    "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@formatjs/cli": "npm:^2.11.3"
     "@openagenda/axios-mock-adapter": "npm:^1.21.0"
