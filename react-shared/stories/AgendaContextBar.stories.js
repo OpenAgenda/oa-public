@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import AgendaContextBar from '../src/components/AgendaContextBar';
 import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar';
@@ -10,18 +10,15 @@ import manyEventsResponse from './fixtures/manyEvents.response.json';
 import draftsResponse from './fixtures/drafts.response.json';
 
 const mswHandlers = {
-  basicEvents: rest.get('/events', async (_req, res, ctx) =>
-    res(ctx.json(eventsResponse))),
-  manyEvents: rest.get('/events', async (req, res, ctx) =>
-    res(
-      ctx.json(
-        manyEventsResponse[
-          `${req.url.searchParams.get('offset')}` === '20' ? 'from20' : 'from0'
-        ],
-      ),
-    )),
-  drafts: rest.get('/drafts', async (_req, res, ctx) =>
-    res(ctx.json(draftsResponse))),
+  basicEvents: http.get('/events', () => HttpResponse.json(eventsResponse)),
+  manyEvents: http.get('/events', ({ request }) => {
+    const url = new URL(request.url);
+    const offset = url.searchParams.get('offset');
+    return HttpResponse.json(
+      manyEventsResponse[offset === '20' ? 'from20' : 'from0'],
+    );
+  }),
+  drafts: http.get('/drafts', () => HttpResponse.json(draftsResponse)),
 };
 
 export default {
