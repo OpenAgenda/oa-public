@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { rest } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 import AuthenticateAndConfirmComponent from '../src/components/AuthenticateAndConfirm';
 
 import SmallCanvasDecorator from './decorators/SmallCanvas';
@@ -12,25 +12,28 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.post('/successful_auth', async (req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 500));
-          return res(ctx.status(200));
+        http.post('/successful_auth', async () => {
+          await delay(500);
+          return new HttpResponse(null, { status: 200 });
         }),
-        rest.post('/unsuccessful_auth', async (req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 500));
-          return res(ctx.status(403));
+        http.post('/unsuccessful_auth', async () => {
+          await delay(500);
+          return new HttpResponse(null, { status: 403 });
         }),
-        rest.post('/successful_auth_with_payload', async (req, res, ctx) => {
-          await new Promise(rs => setTimeout(rs, 500));
-          return res(ctx.json({ redirectTo: '/home' }));
+        http.post('/successful_auth_with_payload', async () => {
+          await delay(500);
+          return HttpResponse.json({ redirectTo: '/home' });
         }),
-        rest.post(
+        http.post(
           '/successful_auth_with_unsuccessful_payload',
-          async (req, res, ctx) => {
-            await new Promise(rs => setTimeout(rs, 500));
-            return res(
-              ctx.status(400),
-              ctx.json({ notOky: 'dokey', requestPayload: req.body }),
+          async ({ request }) => {
+            await delay(500);
+            return new HttpResponse(
+              JSON.stringify({
+                notOky: 'dokey',
+                requestPayload: await request.json(),
+              }),
+              { status: 400, headers: { 'Content-Type': 'application/json' } },
             );
           },
         ),
