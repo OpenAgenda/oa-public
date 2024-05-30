@@ -5546,7 +5546,6 @@ __metadata:
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
     axios: "npm:^0.21.1"
-    axios-mock-adapter: "npm:^1.19.0"
     babel-jest: "npm:^29.7.0"
     bytes: "npm:^3.1.0"
     classnames: "npm:^2.3.1"

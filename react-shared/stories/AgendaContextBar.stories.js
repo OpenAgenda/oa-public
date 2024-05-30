@@ -1,6 +1,4 @@
-import React from 'react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import { rest } from 'msw';
 
 import AgendaContextBar from '../src/components/AgendaContextBar';
 import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar';
@@ -11,74 +9,95 @@ import eventsResponse from './fixtures/events.response.json';
 import manyEventsResponse from './fixtures/manyEvents.response.json';
 import draftsResponse from './fixtures/drafts.response.json';
 
+const mswHandlers = {
+  basicEvents: rest.get('/events', async (_req, res, ctx) =>
+    res(ctx.json(eventsResponse))),
+  manyEvents: rest.get('/events', async (req, res, ctx) =>
+    res(
+      ctx.json(
+        manyEventsResponse[
+          `${req.url.searchParams.get('offset')}` === '20' ? 'from20' : 'from0'
+        ],
+      ),
+    )),
+  drafts: rest.get('/drafts', async (_req, res, ctx) =>
+    res(ctx.json(draftsResponse))),
+};
+
 export default {
   title: 'Agenda context bar',
   component: AgendaContextBar,
-  decorators: [IntlProvider, SimpleCanvas]
+  decorators: [IntlProvider, SimpleCanvas],
 };
 
 export const AgendaAdminContextBar = () => (
   <AgendaAdminModContextBar
     res="/admin"
-    states={[{
-      key: -1,
-      eventCount: 1
-    }, {
-      key: 1,
-      eventCount: 2
-    }, {
-      key: 2,
-      eventCount: 2
-    }]}
+    states={[
+      {
+        key: -1,
+        eventCount: 1,
+      },
+      {
+        key: 1,
+        eventCount: 2,
+      },
+      {
+        key: 2,
+        eventCount: 2,
+      },
+    ]}
   />
 );
 
-export const AgendaContributorContextBar = () => {
-  const mock = new MockAdapter(axios);
-
-  [
-    'state[]=-1',
-    'state[]=0&state[]=1',
-    'state[]=2'
-  ].map(s => `?${s}`).concat('').map(v => `/events${v}`).forEach(link => {
-    mock.onGet(link).reply(200, eventsResponse);
-  });
-
-  mock.onGet('/drafts').reply(200, draftsResponse);
-
-  return (
+export const AgendaContributorContextBar = {
+  render: () => (
     <AgendaContextBar
-      states={[{
-        key: -1,
-        eventCount: 1
-      }, {
-        key: 1,
-        eventCount: 2
-      }, {
-        key: 2,
-        eventCount: 2
-      }]}
+      states={[
+        {
+          key: -1,
+          eventCount: 1,
+        },
+        {
+          key: 1,
+          eventCount: 2,
+        },
+        {
+          key: 2,
+          eventCount: 2,
+        },
+      ]}
       drafts={2}
       res={{
         drafts: '/drafts',
         events: '/events',
-        contribute: '/contribute'
+        contribute: '/contribute',
       }}
       actions={{
-        drafts: [{
-          link: '/contribute/event/{event.uid}',
-          label: 'Compléter'
-        }],
-        events: [{
-          link: '/agendas/events/{event.uid}',
-          label: 'Voir'
-        }, {
-          link: '/contribute/event/{event.uid}',
-          label: 'Modifier'
-        }]
+        drafts: [
+          {
+            link: '/contribute/event/{event.uid}',
+            label: 'Compléter',
+          },
+        ],
+        events: [
+          {
+            link: '/agendas/events/{event.uid}',
+            label: 'Voir',
+          },
+          {
+            link: '/contribute/event/{event.uid}',
+            label: 'Modifier',
+          },
+        ],
       }}
     />
-  );
+  ),
+  parameters: {
+    msw: {
+      handlers: [mswHandlers.basicEvents, mswHandlers.drafts],
+    },
+  },
 };
 
 export const AgendaContributorEmptyContextBar = () => (
@@ -88,73 +107,75 @@ export const AgendaContributorEmptyContextBar = () => (
     res={{
       drafts: '/drafts',
       events: '/events',
-      contribute: '/contribute'
+      contribute: '/contribute',
     }}
     actions={{
-      drafts: [{
-        link: '/contribute/event/{event.uid}',
-        label: 'Compléter'
-      }],
-      events: [{
-        link: '/agendas/events/{event.uid}',
-        label: 'Voir'
-      }, {
-        link: '/contribute/event/{event.uid}',
-        label: 'Modifier'
-      }]
+      drafts: [
+        {
+          link: '/contribute/event/{event.uid}',
+          label: 'Compléter',
+        },
+      ],
+      events: [
+        {
+          link: '/agendas/events/{event.uid}',
+          label: 'Voir',
+        },
+        {
+          link: '/contribute/event/{event.uid}',
+          label: 'Modifier',
+        },
+      ],
     }}
   />
 );
 
-export const AgendaContributorContextBarWithPagination = () => {
-  const mock = new MockAdapter(axios);
-
-  [
-    'state[]=-1',
-    'state[]=0&state[]=1',
-    'state[]=2'
-  ].map(s => `?${s}`).concat('').map(v => `/events${v}`).forEach(link => {
-    mock.onGet(link).reply(res => {
-      return ([
-        200,
-        manyEventsResponse[`${res.params.offset}` === '20' ? 'from20' : 'from0']
-      ]);
-    });
-  });
-
-  mock.onGet('/drafts').reply(200, draftsResponse);
-
-  return (
+export const AgendaContributorContextBarWithPagination = {
+  render: () => (
     <AgendaContextBar
-      states={[{
-        key: -1,
-        eventCount: 1
-      }, {
-        key: 1,
-        eventCount: 2
-      }, {
-        key: 2,
-        eventCount: 2
-      }]}
+      states={[
+        {
+          key: -1,
+          eventCount: 1,
+        },
+        {
+          key: 1,
+          eventCount: 2,
+        },
+        {
+          key: 2,
+          eventCount: 2,
+        },
+      ]}
       drafts={2}
       res={{
         drafts: '/drafts',
         events: '/events',
-        contribute: '/contribute'
+        contribute: '/contribute',
       }}
       actions={{
-        drafts: [{
-          link: '/contribute/event/{event.uid}',
-          label: 'Compléter'
-        }],
-        events: [{
-          link: '/agendas/events/{event.uid}',
-          label: 'Voir'
-        }, {
-          link: '/contribute/event/{event.uid}',
-          label: 'Modifier'
-        }]
+        drafts: [
+          {
+            link: '/contribute/event/{event.uid}',
+            label: 'Compléter',
+          },
+        ],
+        events: [
+          {
+            link: '/agendas/events/{event.uid}',
+            label: 'Voir',
+          },
+          {
+            link: '/contribute/event/{event.uid}',
+            label: 'Modifier',
+          },
+        ],
       }}
     />
-  );
-}
+  ),
+  parameters: {
+    msw: {
+      handlers: [mswHandlers.manyEvents, mswHandlers.drafts],
+    },
+  },
+};
