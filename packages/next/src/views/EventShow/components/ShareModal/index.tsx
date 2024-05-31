@@ -28,11 +28,17 @@ function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) 
 
   return (
     <ModalBody p="0">
-      <Tabs isLazy colorScheme="primary">
-        <TabList>
-          <Tab flex="1">{intl.formatMessage(messages.onOA)}</Tab>
-          <Tab flex="1">{intl.formatMessage(messages.others)}</Tab>
-        </TabList>
+      <Tabs
+        isLazy
+        colorScheme="primary"
+        defaultIndex={event.state === 2 ? 1 : 0}
+      >
+        {event.state === 2 ? (
+          <TabList>
+            <Tab flex="1">{intl.formatMessage(messages.onOA)}</Tab>
+            <Tab flex="1">{intl.formatMessage(messages.others)}</Tab>
+          </TabList>
+        ) : null}
         <TabPanels>
           <TabPanel>
             {user ? (
