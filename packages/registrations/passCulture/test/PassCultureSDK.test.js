@@ -448,18 +448,13 @@ describe('PassCultureSDK', () => {
       expect(resp.priceCategory.id).toBe(priceCategories[0].id);
     });
 
-    it('can not change beginningDateTime', async () => {
-      let err;
-      let resp;
+    it('can change beginningDateTime', async () => {
       const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
 
-      try {
-        resp = await pc.offers.events(testEventId).dates(date.id).patch({
-          beginningDatetime: '2024-09-27T14:00:00+02:00',
-        });
-      } catch (error) {
-        err = error;
-      }
+      const resp = await pc.offers.events(testEventId).dates(date.id).patch({
+        beginningDatetime: '2024-09-27T14:00:00+02:00',
+      });
+
       expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2024-09-27T14:00:00+02:00'));
     });
   });
@@ -495,7 +490,12 @@ describe('PassCultureSDK', () => {
         related: [],
       });
 
-      expect(related.find(r => r.schema === 'MusicTypeEnum').options[0]).toEqual({ value: 'JAZZ-ACID_JAZZ', label: 'Jazz - Acid Jazz' });
+      expect(
+        related.find(r => r.schema === 'MusicTypeEnum').options[0],
+      ).toEqual({
+        value: 'JAZZ-ACID_JAZZ',
+        label: 'Jazz - Acid Jazz',
+      });
     });
   });
 });
