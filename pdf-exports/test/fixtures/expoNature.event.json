@@ -1,5 +1,5 @@
 {
-  "onlineAccessLink": null,
+  "onlineAccessLink": "https://patrivia.net/visit/chateau-d-auzon",
   "image": {
     "filename": "51b1d4b271574974b76adc5c4943508e.base.image.jpg",
     "size": {
@@ -27,9 +27,9 @@
     "base": "https://cibul.s3.amazonaws.com/"
   },
   "accessibility": {
-    "ii": false,
-    "hi": false,
-    "vi": false,
+    "ii": true,
+    "hi": true,
+    "vi": true,
     "pi": false,
     "mi": false
   },
@@ -48,6 +48,10 @@
     {
       "type": "link",
       "value": "https://muba-boutique.tourcoing.fr/billets-entrees-et-visites-expo-peinture-nord-pas-de-calais-css5-mubaboutiquetourcoing-pg1-rg26857.html"
+    },
+    {
+      "type":"phone",
+      "value":"02 35 17 61 09"
     }
   ],
   "location": {

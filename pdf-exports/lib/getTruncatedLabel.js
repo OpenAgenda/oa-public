@@ -13,6 +13,14 @@ export default function getTruncatedLabel(
 ) {
   const { fontSize } = options;
 
+  if (!itemLabel) {
+    return {
+      label: '',
+      width: 0,
+      height: 0,
+    };
+  }
+
   let slicedSize = addText(doc, cursor, itemLabel, {
     fontSize,
     simulate: true,
