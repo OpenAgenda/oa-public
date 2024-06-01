@@ -1,7 +1,7 @@
 import PDFDocument from 'pdfkit';
 import addDocumentHeader from './addDocumentHeader.js';
 import addPageHeader from './addPageHeader.js';
-import addEventItem from './addEventItem.js';
+import addEventItem from './addEventItem/index.js';
 import cursorYOverflowing from './cursorYOverflowing.js';
 import addFooter from './addFooter.js';
 import getIntl from './intl.js';
@@ -19,6 +19,7 @@ export default async function GenerateExportStream(
     includeEventImages = true,
     little,
     medium,
+    mode,
   } = options;
 
   const intl = getIntl(lang);
@@ -42,13 +43,20 @@ export default async function GenerateExportStream(
 
   cursor.x += margin;
 
+  const firstEvent = await new Promise((resolve, reject) => {
+    eventStream.once('data', event => resolve(event));
+    eventStream.once('error', reject);
+  });
+
   const { height: documentHeaderHeight } = await addDocumentHeader(
     agenda,
+    firstEvent,
     doc,
     cursor,
     {
       little,
       medium,
+      mode,
     },
   );
   cursor.y += documentHeaderHeight + margin;
@@ -86,7 +94,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      { simulate: true, intl, lang, includeEventImages, little, medium },
+      { simulate: true, intl, lang, includeEventImages, little, medium, mode },
     );
 
     if (
@@ -117,7 +125,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      { intl, lang, includeEventImages, little, medium },
+      { intl, lang, includeEventImages, little, medium, mode },
     );
 
     cursor.y += eventItemHeight;

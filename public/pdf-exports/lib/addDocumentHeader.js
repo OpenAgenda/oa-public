@@ -1,9 +1,11 @@
 import addAgendaLogo from './addAgendaLogo.js';
 import addText from './addText.js';
 import addSeparatorLine from './addSeparatorLine.js';
+import cleanString from './cleanString.js';
 
 export default async function addDocumentHeader(
   agenda,
+  firstEvent,
   doc,
   cursor,
   options = {},
@@ -16,6 +18,7 @@ export default async function addDocumentHeader(
     secondaryColor = '#808080',
     little,
     medium,
+    mode,
   } = options;
 
   const localCursor = {
@@ -73,6 +76,21 @@ export default async function addDocumentHeader(
 
   localCursor.y += heightOfTitle + base.margin / 10;
 
+  let widthOfLocation;
+
+  if (mode === 'locationName' && firstEvent) {
+    const firstEventLocation = firstEvent.location;
+
+    const { height: heightOfLocation, width: widthLocation } = addText(
+      doc,
+      localCursor,
+      cleanString(`${firstEventLocation.address}`),
+      { width: textMaxWidth, fontSize, base },
+    );
+    localCursor.y += heightOfLocation + base.margin / 10;
+    widthOfLocation = widthLocation;
+  }
+
   const { height: heightOfDescription, width: widthOfDescription } = addText(
     doc,
     localCursor,
@@ -127,7 +145,13 @@ export default async function addDocumentHeader(
   return {
     width:
       logoWidth
-      + Math.max(widthOfTitle, widthOfDescription, widthOfURL, widthOfAgendaURL),
+      + Math.max(
+        widthOfTitle,
+        widthOfLocation,
+        widthOfDescription,
+        widthOfURL,
+        widthOfAgendaURL,
+      ),
     height: Math.max(logoHeight, localCursor.y - cursor.y),
     cursor: localCursor,
   };
