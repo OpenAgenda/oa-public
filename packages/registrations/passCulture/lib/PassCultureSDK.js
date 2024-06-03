@@ -23,7 +23,7 @@ const labelizeENUMValue = value => {
 async function listEventOfferCategories({ api }) {
   const openAPIObj = await axios({
     method: 'get',
-    url: `${api}/public/offers/v1/event/openapi.json`,
+    url: `${api}/openapi.json`,
   }).then(r => r.data);
 
   const categories = extractSchemaOptions(openAPIObj, 'EventOfferCreation', 'category', 'categoryRelatedFields');

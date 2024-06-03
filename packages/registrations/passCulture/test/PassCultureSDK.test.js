@@ -489,7 +489,12 @@ describe('PassCultureSDK', () => {
         related: [],
       });
 
-      expect(related.find(r => r.schema === 'MusicTypeEnum').options[0]).toEqual({ value: 'JAZZ-ACID_JAZZ', label: 'Jazz - Acid Jazz' });
+      expect(
+        related.find(r => r.schema === 'MusicTypeEnum').options[0],
+      ).toEqual({
+        value: 'JAZZ-ACID_JAZZ',
+        label: 'Jazz - Acid Jazz',
+      });
     });
   });
 
