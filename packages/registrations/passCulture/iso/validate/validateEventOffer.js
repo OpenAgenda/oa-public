@@ -3,7 +3,6 @@ import { BadRequest } from '@openagenda/verror';
 import { getCurrentValue } from '../utils.js';
 import validateLocalData from './validateLocalData.js';
 
-
 export default async function validateEventOffer({ pc, siren }, event, data = {}, options = {}) {
   const mergedData = getCurrentValue(data);
   const {
