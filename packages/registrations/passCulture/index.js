@@ -3,6 +3,7 @@ import validateEventOffer from './iso/validate/validateEventOffer.js';
 import createEventOffer from './createEventOffer.js';
 import attemptOfferCompletion from './attemptOfferCompletion.js';
 import validateAndCreateEventOffer from './validateAndCreateEventOffer.js';
+import isOfferPending from './isOfferPending.js';
 import getParameters from './lib/getParameters.js';
 
 export default function PassCulture({
@@ -20,5 +21,6 @@ export default function PassCulture({
     getParameters: getParameters.bind(null, { ...params, pc }),
     getEventOfferLink: eventOffer => pc.offers.events(eventOffer.id).getLink(),
     attemptOfferCompletion: attemptOfferCompletion.bind(null, { pc, interfaces }),
+    isOfferPending: isOfferPending.bind(null, { pc }),
   };
 }

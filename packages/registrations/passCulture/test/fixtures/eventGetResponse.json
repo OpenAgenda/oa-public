@@ -1,0 +1,32 @@
+{
+  "priceCategories": [],
+  "id": 23808,
+  "accessibility": {
+    "audioDisabilityCompliant": false,
+    "mentalDisabilityCompliant": false,
+    "motorDisabilityCompliant": false,
+    "visualDisabilityCompliant": true
+  },
+  "bookingContact": null,
+  "bookingEmail": "clement.lecroart@openagenda.com",
+  "description": "Des voix inspirantes, humanistes, puissantes, venues de tous les horizons présentant un état des lieux des droits des femmes. Mariage forcé, inégalité des salaires, violences conjugales,...  ...",
+  "externalTicketOfficeUrl": null,
+  "image": {
+    "credit": "test",
+    "url": "https://storage.googleapis.com/passculture-metier-ehp-integration-assets-fine-grained/thumbs/mediations/AMDA"
+  },
+  "enableDoubleBookings": false,
+  "location": {
+    "type": "physical",
+    "venueId": 548
+  },
+  "name": "Guila Clara Kessous, pour faire entendre la voix des femmes - physical",
+  "status": "SOLD_OUT",
+  "itemCollectionDetails": null,
+  "categoryRelatedFields": {
+    "speaker": null,
+    "category": "ATELIER_PRATIQUE_ART"
+  },
+  "eventDuration": null,
+  "hasTicket": false
+}
