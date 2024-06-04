@@ -539,6 +539,7 @@ export default (core, { useRouter = true } = {}) => {
         context: {
           userUid: req.user.uid,
         },
+        removeEvents: !!req.query.withEvents,
       })
       .then(location => res.json({
         success: true,
