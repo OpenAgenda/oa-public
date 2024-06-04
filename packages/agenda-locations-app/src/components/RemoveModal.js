@@ -123,7 +123,7 @@ const RemoveLocationModal = ({
         {infoText}
         <div className="radio margin-v-sm">
           <label htmlFor="withoutEvents">
-            <input type="radio" id="withoutEvents" name="withEvents" checked={removeEvents === false} onClick={() => setRemoveEvents(false)} />
+            <input type="radio" id="withoutEvents" name="withoutEvents" checked={removeEvents === false} onClick={() => setRemoveEvents(false)} />
             <FormattedMessage values={{ count: eventCount }} {...messages.notRemove} />
             <div className="text-muted"><FormattedMessage values={{ count: eventCount }} {...messages.notRemoveInfo} /></div>
           </label>

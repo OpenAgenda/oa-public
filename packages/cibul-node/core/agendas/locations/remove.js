@@ -9,6 +9,7 @@ module.exports = (core, agendaOrUid) => async (uid, options = {}) => {
 
   const {
     context = {},
+    removeEvents = false,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -16,7 +17,7 @@ module.exports = (core, agendaOrUid) => async (uid, options = {}) => {
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
 
   return endpoints.remove(uid, {
-    removeEvents: !!options.removeEvents,
+    removeEvents: !!removeEvents,
     agendaUid: agenda.uid,
     context: {
       ...context,

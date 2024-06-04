@@ -226,9 +226,9 @@ function Dashboard() {
     });
   }, [history, search]);
 
-  const onRemoveLocation = async location => {
+  const onRemoveLocation = async (location, withEvents) => {
     try {
-      await fetch(res.remove.replace(':locationUid', location.uid), {
+      await fetch(`${res.remove.replace(':locationUid', location.uid)}${withEvents ? '?withEvents=1' : ''}`, {
         method: 'DELETE',
       })
         .then(response => {
