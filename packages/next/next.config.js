@@ -3,19 +3,6 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 const nextVersion = require('next/package.json').version;
 
-const withTM = require('next-transpile-modules')([
-  '@openagenda/activity-apps',
-  '@openagenda/intl',
-  '@openagenda/react-filters',
-  '@openagenda/react-shared',
-  '@openagenda/sdk-js',
-  '@openagenda/uikit',
-  'intl-messageformat',
-  'intl-messageformat-parser',
-  'react-intl',
-  'react-markdown',
-]);
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -78,7 +65,7 @@ const config = async () => {
     NEXT_PUBLIC_ASSET_PREFIX,
   } = process.env;
 
-  return withSentry(withBundleAnalyzer(withTM({
+  return withSentry(withBundleAnalyzer({
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     i18n: {
       locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
@@ -172,13 +159,25 @@ const config = async () => {
 
       return webpackConfig;
     },
+    transpilePackages: [
+      '@openagenda/activity-apps',
+      '@openagenda/intl',
+      '@openagenda/react-filters',
+      '@openagenda/react-shared',
+      '@openagenda/sdk-js',
+      '@openagenda/uikit',
+      'intl-messageformat',
+      'intl-messageformat-parser',
+      'react-intl',
+      'react-markdown',
+    ],
     sentry: {
       hideSourceMaps: true,
       widenClientFileUpload: true,
       transpileClientSDK: true,
       tunnelRoute: '/monit',
     },
-  })));
+  }));
 };
 
 module.exports = config;

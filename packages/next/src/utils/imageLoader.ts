@@ -1,4 +1,4 @@
-import type { ImageLoaderProps } from 'next/future/image';
+import type { ImageLoaderProps } from 'next/image';
 
 export function keyCDNLoader({ src, width, quality }: ImageLoaderProps): string {
   const url = new URL(src);

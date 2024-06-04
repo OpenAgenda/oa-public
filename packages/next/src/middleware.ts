@@ -44,7 +44,7 @@ export async function middleware(req: NextRequest) {
     req.headers.get('user-agent'),
     { browsers: browserslistConfig, path: '/' },
   );
-  const outdatedBrowserCookie = req.cookies.get('outdatedBrowser') === 'true';
+  const outdatedBrowserCookie = req.cookies.get('outdatedBrowser')?.value === 'true';
 
   // see https://github.com/vercel/next.js/issues/36049#issuecomment-1122077832
   if (outdatedBrowserCookie !== isOutdated) {
