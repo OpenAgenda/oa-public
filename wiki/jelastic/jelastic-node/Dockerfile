@@ -18,4 +18,7 @@ RUN apt-get update -y \
     && apt-get install -y nodejs \
     && node -v
 
+RUN corepack enable \
+    && yarn -v
+
 RUN npm install -g pm2
