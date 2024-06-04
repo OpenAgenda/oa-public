@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import NextImage, { type ImageProps as NextImageProps } from 'next/future/image';
+import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { Box, HTMLChakraProps, forwardRef } from '@openagenda/uikit';
 
 type ImageProps = NextImageProps & Omit<HTMLChakraProps<'img'>, keyof NextImageProps> & {
   fallbackSrc?: NextImageProps['src'];
+  objectFit?: HTMLChakraProps<'img'>['objectFit'];
 }
 
 type ImageWithFallbackProps = ImageProps & {
@@ -38,8 +39,8 @@ const ImageWithFallback = forwardRef(function ImageWithFallback(
       height={nextHeight}
       fill={nextFill}
       src={imgSrc}
-      onLoadingComplete={result => {
-        if (fallbackSrc && result.naturalWidth === 0) {
+      onLoad={e => {
+        if (fallbackSrc && (e.target as HTMLImageElement).naturalWidth === 0) {
           // Broken image
           setImgSrc(fallbackSrc);
         }

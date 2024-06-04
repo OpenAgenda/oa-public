@@ -36,6 +36,7 @@ export default function NextChakraLinkOverlay({
       shallow={shallow}
       prefetch={prefetch}
       locale={locale}
+      legacyBehavior
     >
       <ChakraLinkOverlay {...chakraProps}>{children}</ChakraLinkOverlay>
     </NextLink>

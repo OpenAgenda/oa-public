@@ -13,7 +13,9 @@ export default async function uploadContent(localRoot, path, client) {
       const uploadDir = dir.join('/').replace('.next', '_next');
       try {
         await client.mkdir(uploadDir, { recursive: true });
-      } catch (e) {}
+      } catch (e) {
+        // don't cry here
+      }
       await client.put(localRoot + fileOrDirPath, `${uploadDir}/${fileOrDir}`);
       console.log('uploaded %s to %s', fileOrDir, uploadDir);
     }

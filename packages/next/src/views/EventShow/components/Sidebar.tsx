@@ -105,8 +105,6 @@ export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
 
   const { event } = useEvent();
 
-  const canShare = !event.private && event.state === 2;
-
   return (
     <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
       <Icon
@@ -121,7 +119,7 @@ export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
         // leftIcon={<OAIcon />}
         variant="solid"
         colorScheme="primary"
-        isDisabled={!canShare}
+        isDisabled={!!event.private}
       >
         {intl.formatMessage(messages.share)}
       </Button>

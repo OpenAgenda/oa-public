@@ -1,5 +1,5 @@
-import IframeResizer from 'iframe-resizer-react';
 import { useIntl } from 'react-intl';
+import IframeResizer from '@iframe-resizer/react';
 import { Heading, Flex } from '@openagenda/uikit';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
@@ -37,6 +37,7 @@ export default function Inbox() {
         <IframeResizer
           src={`${ROOT}/${agenda.slug}/events/${event.slug}/embed-inbox?lang=${intl.locale}`}
           style={{ width: '1px', minWidth: '100%' }}
+          license="GPLv3"
         />
       </Flex>
     </div>

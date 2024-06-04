@@ -36,6 +36,7 @@ const NextChakraLink = React.forwardRef<HTMLAnchorElement, NextChakraLinkProps>(
       shallow={shallow}
       prefetch={prefetch}
       locale={locale}
+      legacyBehavior
     >
       <ChakraLink ref={ref} {...chakraProps}>{children}</ChakraLink>
     </NextLink>

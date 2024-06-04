@@ -124,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       // event,
       preload: [
-        `/api/me/agendas/${agenda.uid}?includes[]=me.member&includes[]=me.authorizations`,
+        `/api/me/agendas/${agenda.uid}/events/${event.uid}`,
         `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
       ],
       fallback: {
