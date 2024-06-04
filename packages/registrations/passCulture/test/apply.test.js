@@ -17,23 +17,16 @@ import partiallyApplied from './fixtures/data.withUpdate.pc.json';
 import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json';
 import withDateUpdate from './fixtures/data.withDateUpdate.pc.json';
 
-const {
-  PASS_API_KEY: key,
-  PASS_API_DOMAIN: api,
-} = process.env;
-
-if (!key) {
-  throw new Error('PASS_API_KEY env var must be defined');
-}
+const api = 'https://pc.local';
 
 describe('apply', () => {
   let pc;
-  let venueId;
 
   beforeAll(async () => {
-    pc = PassCultureSDK({ api, key });
-
-    venueId = (await pc.offers.offererVenues())[0].venues[0].id;
+    pc = PassCultureSDK({
+      key: 'validAPIKey',
+      api: 'https://pc.local',
+    });
   });
 
   describe('integrated', () => {
@@ -82,7 +75,7 @@ describe('apply', () => {
 
         beforeAll(async () => {
           processed = await apply(pc, bambiEvent, {
-            venueId,
+            venueId: 123,
             category: 'CINE_PLEIN_AIR',
           });
         });
@@ -122,7 +115,7 @@ describe('apply', () => {
           const timingId = CArtEvent.timings.map(t => new Date(t.begin).getTime()).pop();
 
           processed = await apply(pc, CArtEvent, {
-            venueId,
+            venueId: 123,
             category: 'CINE_PLEIN_AIR',
             priceCategories: [{
               label: 'Tarif réduit',
