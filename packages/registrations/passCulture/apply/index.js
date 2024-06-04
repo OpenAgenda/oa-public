@@ -39,6 +39,25 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     processed.push(firstItem);
   }
 
+  const wasPending = firstItem?.response?.isPending;
+
+  const isStillPending = wasPending && await pc.offers.events(firstItem.response.passId)
+    .get()
+    .then(({ status }) => status === 'PENDING');
+
+  if (isStillPending) {
+    return dataEntries;
+  }
+
+  if (wasPending) {
+    processed.push({
+      response: {
+        isPending: false,
+      },
+      appliedAt: new Date(),
+    });
+  }
+
   const passEventOfferId = processed[0].response.passId;
 
   for (let index = 0; index < remainingDataEntries.length; index += 1) {

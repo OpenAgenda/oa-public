@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
+import { produce } from 'immer';
 
 import spreadPCData from '../apply/spreadPCData.js';
 import getObjectType from '../apply/getObjectType.js';
@@ -16,8 +17,24 @@ import unnapplied from './fixtures/data.unnapplied.pc.json';
 import partiallyApplied from './fixtures/data.withUpdate.pc.json';
 import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json';
 import withDateUpdate from './fixtures/data.withDateUpdate.pc.json';
+import getEventResponse from './fixtures/eventGetResponse.json';
+import withPendingOffer from './fixtures/data.withPendingOffer.pc.json';
 
 const api = 'https://pc.local';
+
+const mockSuccessfulPriceCategoriesPostResponse = async ({ request }) => HttpResponse.json({
+  priceCategories: (await request.json()).priceCategories.map(priceCategory => ({
+    ...priceCategory,
+    id: Math.ceil(Math.random() * 10000),
+  })),
+});
+
+const mockSuccessfulDatesPostResponse = async ({ request }) => HttpResponse.json({
+  dates: (await request.json()).dates.map(date => ({
+    ...date,
+    id: Math.ceil(Math.random() * 10000),
+  })),
+});
 
 describe('apply', () => {
   let pc;
@@ -44,21 +61,11 @@ describe('apply', () => {
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
-            async ({ request }) => HttpResponse.json({
-              priceCategories: (await request.json()).priceCategories.map(priceCategory => ({
-                ...priceCategory,
-                id: Math.ceil(Math.random() * 10000),
-              })),
-            }),
+            mockSuccessfulPriceCategoriesPostResponse,
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/dates`,
-            async ({ request }) => HttpResponse.json({
-              dates: (await request.json()).dates.map(date => ({
-                ...date,
-                id: Math.ceil(Math.random() * 10000),
-              })),
-            }),
+            mockSuccessfulDatesPostResponse,
           ),
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
         );
@@ -154,6 +161,69 @@ describe('apply', () => {
             'response',
             'appliedAt',
           ]);
+        });
+      });
+    });
+
+    describe('pending', () => {
+      let server;
+
+      beforeAll(() => {
+        server = setupServer(
+          http.get(
+            `${api}/public/offers/v1/events/:id`,
+            async ({ params }) => HttpResponse.json({
+              ...getEventResponse,
+              id: parseInt(params.id, 10),
+              status: params.id === '123456' ? 'PENDING' : 'WHICHEVER',
+            }),
+          ),
+          http.post(
+            `${api}/public/offers/v1/events/:id/price_categories`,
+            mockSuccessfulPriceCategoriesPostResponse,
+          ),
+          http.post(
+            `${api}/public/offers/v1/events/:id/dates`,
+            mockSuccessfulDatesPostResponse,
+          ),
+          http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+        );
+
+        server.listen();
+      });
+
+      afterAll(() => {
+        server.close();
+      });
+
+      describe('still pending', () => {
+        let processed;
+
+        beforeAll(async () => {
+          processed = await apply(pc, CArtEvents[0], withPendingOffer);
+        });
+
+        test('no changes are made on pending offer data', () => {
+          expect(processed).toEqual(withPendingOffer);
+        });
+      });
+
+      describe('no longer pending', () => {
+        let processed;
+        const noLongerPending = produce(withPendingOffer, draft => { draft[0].response.passId = 5421; });
+
+        beforeAll(async () => {
+          processed = await apply(pc, CArtEvents[0], noLongerPending);
+        });
+
+        test('all remaining operations are executed', () => {
+          expect(processed.filter(item => item.appliedAt).length).toBe(4);
+        });
+
+        test('isPending is switched to false in newly inserted response item', () => {
+          expect(processed[1].response).toEqual({
+            isPending: false,
+          });
         });
       });
     });
