@@ -10,7 +10,7 @@ import React from 'react';
 import session from '@openagenda/sessions/client';
 import { getLocaleValue } from '@openagenda/intl';
 
-import 'iframe-resizer/js/iframeResizer.contentWindow';
+import '@iframe-resizer/child';
 
 const getInboxesLabel = makeLabelGetter(inboxesLabels);
 
