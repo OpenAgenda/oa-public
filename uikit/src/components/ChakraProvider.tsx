@@ -13,15 +13,14 @@ import {
   EnvironmentProvider,
   EnvironmentProviderProps,
 } from '@chakra-ui/react';
-
-type Dict = Record<string, any>;
+import type { Dict } from '@chakra-ui/utils';
 
 export interface ChakraProviderProps
   extends Pick<ThemeProviderProps, 'cssVarsRoot'> {
   /**
    * a theme. if omitted, uses the default theme provided by chakra
    */
-  theme?: Dict;
+  theme?: Dict
   /**
    * Common z-index to use for `Portal`
    *
@@ -79,7 +78,7 @@ export const ChakraProvider: React.FC<ChakraProviderProps> = props => {
   );
 
   return (
-    <ThemeProvider theme={theme as Dict} cssVarsRoot={cssVarsRoot}>
+    <ThemeProvider theme={theme} cssVarsRoot={cssVarsRoot}>
       {resetCSS ? <CSSReset /> : <CSSPolyfill />}
       <GlobalStyle />
       {portalZIndex ? (
