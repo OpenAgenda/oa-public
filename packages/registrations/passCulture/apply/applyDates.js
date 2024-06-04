@@ -40,7 +40,7 @@ async function create(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
 
   return {
     succeeded: entry,
-    result: {
+    response: {
       dates: entry.dates.map(({ id }, index) => ({
         id,
         passId: createdDates[index].id,

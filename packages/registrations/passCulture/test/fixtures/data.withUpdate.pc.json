@@ -6,7 +6,7 @@
     "musicType": "JAZZ-BEBOP",
     "bookingContact": "gdfsgfdsgdfs@gfsgfsd.com",
     "appliedAt": "2024-05-29T10:00:00.OOOZ",
-    "result": {
+    "response": {
       "passId": 123
     }
   },
@@ -23,7 +23,7 @@
         "label": "static"
       }
     ],
-    "result": {
+    "response": {
       "priceCategories": [{
         "id": 0,
         "passId": 456456
@@ -43,7 +43,7 @@
         "quantity": 456
       }
     ],
-    "result": {
+    "response": {
       "dates": [{
         "id": 2,
         "passId": 891792

@@ -23,7 +23,7 @@ async function create(pc, OAEvent, entry, options) {
 
   return {
     succeeded: entry,
-    result: {
+    response: {
       passId: id,
       isPending: status === 'PENDING',
     },

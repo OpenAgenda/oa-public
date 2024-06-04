@@ -97,17 +97,17 @@ describe('apply', () => {
           expect(processed.length).toBe(1);
         });
 
-        test('returned item has data that was provided completed with an appliedAt and a result key', () => {
+        test('returned item has data that was provided completed with an appliedAt and a response key', () => {
           expect(Object.keys(processed[0])).toEqual([
             'venueId',
             'category',
-            'result',
+            'response',
             'appliedAt',
           ]);
         });
 
-        test('result key of processed data containes passId and isPending keys', () => {
-          expect(processed[0].result).toEqual({
+        test('response key of processed data containes passId and isPending keys', () => {
+          expect(processed[0].response).toEqual({
             passId: randomPassOfferID,
             isPending: false,
           });
@@ -146,19 +146,19 @@ describe('apply', () => {
           expect(Object.keys(processed[0])).toEqual([
             'venueId',
             'category',
-            'result',
+            'response',
             'appliedAt',
           ]);
 
           expect(Object.keys(processed[1])).toEqual([
             'priceCategories',
-            'result',
+            'response',
             'appliedAt',
           ]);
 
           expect(Object.keys(processed[2])).toEqual([
             'dates',
-            'result',
+            'response',
             'appliedAt',
           ]);
         });
@@ -265,7 +265,7 @@ describe('apply', () => {
         });
       });
 
-      test('when already applied, first item keeps its appliedAt and result keys', () => {
+      test('when already applied, first item keeps its appliedAt and response keys', () => {
         const spread = spreadPCData(withPriceCategoryUpdate);
 
         expect(Object.keys(spread[0])).toEqual([
@@ -274,7 +274,7 @@ describe('apply', () => {
           'category',
           'musicType',
           'bookingContact',
-          'result',
+          'response',
           'appliedAt',
         ]);
       });

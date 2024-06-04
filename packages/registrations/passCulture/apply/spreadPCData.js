@@ -6,7 +6,7 @@ function spreadAccordingToObjectType(data) {
     const {
       priceCategories,
       dates,
-      result,
+      response,
       appliedAt,
       ...remaining
     } = entry;
@@ -16,7 +16,7 @@ function spreadAccordingToObjectType(data) {
     if (Object.keys(remaining).length) {
       spread.push({
         ...remaining,
-        ...result ? { result } : undefined,
+        ...response ? { response } : undefined,
         ...appliedAt ? { appliedAt } : undefined,
       });
     }
@@ -24,7 +24,7 @@ function spreadAccordingToObjectType(data) {
     if (priceCategories) {
       spread.push({
         priceCategories,
-        ...result ? { result } : undefined,
+        ...response ? { response } : undefined,
         ...appliedAt ? { appliedAt } : undefined,
       });
     }
@@ -32,7 +32,7 @@ function spreadAccordingToObjectType(data) {
     if (dates) {
       spread.push({
         dates,
-        ...result ? { result } : undefined,
+        ...response ? { response } : undefined,
         ...appliedAt ? { appliedAt } : undefined,
       });
     }

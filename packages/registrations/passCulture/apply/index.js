@@ -24,22 +24,22 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   }
 
   if (!wasApplied(firstItem)) {
-    const { result, succeeded } = await applyEventOffer.create(pc, OAEvent, firstItem, options);
+    const { response, succeeded } = await applyEventOffer.create(pc, OAEvent, firstItem, options);
 
     processed.push({
       ...succeeded,
-      result,
+      response,
       appliedAt: new Date(),
     });
 
-    if (result.isPending) {
+    if (response.isPending) {
       return processed.concat(remainingDataEntries.slice(remainingDataEntries.length - 1));
     }
   } else {
     processed.push(firstItem);
   }
 
-  const passEventOfferId = processed[0].result.passId;
+  const passEventOfferId = processed[0].response.passId;
 
   for (let index = 0; index < remainingDataEntries.length; index += 1) {
     const entry = remainingDataEntries[index];
@@ -54,7 +54,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
     const {
       succeeded,
-      result,
+      response,
       remaining,
       error,
     } = await getApplyFn(objectType, operationType)(pc, passEventOfferId, OAEvent, processed, entry);
@@ -62,7 +62,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     if (succeeded) {
       processed.push({
         ...succeeded,
-        ...result ? { result } : undefined,
+        ...response ? { response } : undefined,
         appliedAt: new Date(),
       });
     }

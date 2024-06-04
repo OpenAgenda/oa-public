@@ -4,15 +4,15 @@ export default function getMatchingPassId(data, id) {
   for (const entry of [].concat(data)) {
     const type = getObjectType(entry);
 
-    if (type === 'eventOffer' && id === undefined && entry.result?.passId) {
-      return entry.result?.passId;
+    if (type === 'eventOffer' && id === undefined && entry.response?.passId) {
+      return entry.response?.passId;
     }
 
     if (type === 'eventOffer') {
       continue;
     }
 
-    const match = (entry.result?.[type] ?? []).find(resultItem => resultItem.id === id);
+    const match = (entry.response?.[type] ?? []).find(responseItem => responseItem.id === id);
 
     if (!match) {
       continue;
