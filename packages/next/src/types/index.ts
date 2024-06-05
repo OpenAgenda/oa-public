@@ -39,4 +39,5 @@ export type Agenda = {
   official: 0 | 1;
   private: 0 | 1;
   updatedAt: string;
+  locationSetUid?: number;
 };

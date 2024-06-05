@@ -64,6 +64,7 @@ export type Event = {
     links?: string[]
     latitude?: number
     longitude?: number
+    setUid?: number
   }
   onlineAccessLink?: string
   state: number

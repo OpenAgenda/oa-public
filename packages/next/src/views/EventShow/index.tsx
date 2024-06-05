@@ -442,7 +442,7 @@ function EventShow({ preload }: EventShowProps) {
                   //   borderColor: 'primary.500',
                   // }}
                 >
-                  {event.location.agendaUid === agenda.uid ? (
+                  {event.location.agendaUid === agenda.uid || event.location.setUid === agenda.locationSetUid ? (
                     <EditLocationButton />
                   ) : null}
 
