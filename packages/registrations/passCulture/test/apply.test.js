@@ -22,14 +22,14 @@ import withPendingOffer from './fixtures/data.withPendingOffer.pc.json';
 
 const api = 'https://pc.local';
 
-const mockSuccessfulPriceCategoriesPostResponse = async ({ request }) => HttpResponse.json({
+const mockSuccessfullPriceCategoriesPostResponse = async ({ request }) => HttpResponse.json({
   priceCategories: (await request.json()).priceCategories.map(priceCategory => ({
     ...priceCategory,
     id: Math.ceil(Math.random() * 10000),
   })),
 });
 
-const mockSuccessfulDatesPostResponse = async ({ request }) => HttpResponse.json({
+const mockSuccessfullDatesPostResponse = async ({ request }) => HttpResponse.json({
   dates: (await request.json()).dates.map(date => ({
     ...date,
     id: Math.ceil(Math.random() * 10000),
@@ -61,11 +61,11 @@ describe('apply', () => {
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
-            mockSuccessfulPriceCategoriesPostResponse,
+            mockSuccessfullPriceCategoriesPostResponse,
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/dates`,
-            mockSuccessfulDatesPostResponse,
+            mockSuccessfullDatesPostResponse,
           ),
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
         );
@@ -180,11 +180,11 @@ describe('apply', () => {
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
-            mockSuccessfulPriceCategoriesPostResponse,
+            mockSuccessfullPriceCategoriesPostResponse,
           ),
           http.post(
             `${api}/public/offers/v1/events/:id/dates`,
-            mockSuccessfulDatesPostResponse,
+            mockSuccessfullDatesPostResponse,
           ),
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
         );
