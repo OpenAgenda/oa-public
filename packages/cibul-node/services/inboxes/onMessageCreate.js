@@ -3,7 +3,6 @@
 const { promisify } = require('node:util');
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
-const genUrl = require('../genUrl');
 
 async function inboxIdsToInboxUsers(services, inboxes, ids) {
   const { InboxUsers } = services.inboxes;
@@ -45,6 +44,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
     agendas: agendasSvc,
     members: membersSvc,
     mails,
+    genUrl,
   } = services;
 
   const getAgenda = promisify(agendasSvc.get);

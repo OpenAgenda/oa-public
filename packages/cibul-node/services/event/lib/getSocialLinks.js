@@ -1,7 +1,6 @@
 "use strict";
 
 const config = require( '../../../config' );
-const genUrl = require( '../../genUrl' ).abs;
 
 module.exports = getSocialLinks;
 
@@ -93,11 +92,7 @@ function _emailShare( event ) {
 
     var agenda = event.getAgendaContext();
 
-    return genUrl( 'agendaEventActionShow', {
-      slug: agenda.slug,
-      eventSlug: event.slug,
-      action: 'email'
-    });
+    return `${config.root}/${agenda.slug}/events/${event.slug}/action?action=email`;
 
   } else {
 

@@ -396,6 +396,10 @@ const config = {
         method: 'get',
         uri: '/events/:eventSlug',
       },
+      agendaEventActionShow: {
+        method: 'get',
+        uri: '/:slug/events/:eventSlug/action',
+      },
       facebookSignin: {
         method: 'get',
         uri: '/facebook/signin',

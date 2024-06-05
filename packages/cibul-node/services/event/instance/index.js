@@ -12,8 +12,6 @@ utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
-exportable = require( './exportable' ),
-
 range = require( '@openagenda/date-range' );
 
 const getTimings = require('../lib/getTimings');
@@ -41,10 +39,6 @@ function instanciate( data ) {
     'setState',
     'getState',
     'setOnStateChange'
-  ] );
-
-  exportable( svcInstance, instance, [
-    'exportable'
   ] );
 
   return svcInstance;

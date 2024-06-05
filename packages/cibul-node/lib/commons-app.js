@@ -18,10 +18,8 @@ const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/l
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
-const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/errors' );
 const i18n = require( '../i18n/i18n.js' );
-const model = require( '../services/model' );
 
 const layouts = require( '../services/lib/layouts' );
 const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
@@ -48,15 +46,11 @@ module.exports = {
   loadBaseData,                 // middleware.
   loadAgenda: loadAgendaBy( 'slug' ),
   loadAgendaBy,
-  assign,                       // middleware for assigning values to req or res
-  checkCredential,              // middleware. check that request agenda has required credential
-  checkAgendaCredential,
   renderUnauthorized,
 
   useEmbedGoogleAnalytics,
 
   makeRedirect,
-  getRedirect,                  // get redirect
 
   writeToCookie,
   clearCookie,
@@ -223,7 +217,7 @@ function errorResponse(req, res, err, jsr) {
     const error = typeof err === 'string' ? { message: err } : err;
 
     if (!req.genUrl) {
-      req.genUrl = genUrl;
+      req.genUrl = req.app.services.genUrl;
     }
 
     if (res.code === 413) {
@@ -596,61 +590,6 @@ function requireSuperAdmin( req, res, next ) {
   req.app.services.sessions.mw.requireSuperAdmin(req, res, next);
 }
 
-function checkAgendaCredential(name) {
-  return (req, res, next) => {
-    if (!req.agenda.credentials[name]) {
-      errorResponse( req, res, 'user does not have required creds' );
-    } else {
-      next();
-    }
-  }
-}
-
-/**
- * check if agenda has 'name' credential
- */
-
-function checkCredential( name, options ) {
-
-  const params = _.extend( {
-    name: 'agenda',
-    namespace: false // if not set, response is error when cred is not assigned
-  }, options ? options : {} );
-
-  if ( !options ) options = {};
-
-  return function ( req, res, next ) {
-
-    model.agendas().instance( req[ params.name ] ).hasCredential( name, function ( err, has ) {
-
-      if ( err ) return errorResponse( req, res, err );
-
-      if ( !has && !params.namespace ) {
-
-        return errorResponse( req, res, 'user does not have required creds' );
-
-      }
-
-      if ( has ) {
-
-        log( 'debug', 'agenda has credentials "%s"', name );
-
-      }
-
-      if ( params.namespace ) {
-
-        req[ params.namespace ] = has;
-
-      }
-
-      next();
-
-    } );
-
-  };
-
-}
-
 
 function makeRedirect( urlOrReq ) {
 
@@ -660,19 +599,6 @@ function makeRedirect( urlOrReq ) {
   ).toString( 'base64' );
 
 }
-
-function getRedirect( req, paramName = 'redirect' ) {
-
-  if ( !req.query[ paramName ] ) return false;
-
-  try {
-    return (Buffer.from( req.query[ paramName ], 'base64' )).toString();
-  } catch ( e ) {
-    log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
-  }
-
-}
-
 
 function favoriteLinkHTML( uid ) {
 

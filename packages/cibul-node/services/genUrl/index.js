@@ -1,34 +1,20 @@
-"use strict";
+'use strict';
 
-var genUrl = require( './genUrl' ),
+const genUrl = require('./genUrl');
 
-singleton;
+function genUrlService({ domain }) {
+  const urlGenerator = genUrl({ domain });
 
-module.exports = function() {
+  function abs(uri, query) {
+    return urlGenerator(uri, query, {
+      abs: true,
+      protocol: 'https://',
+    });
+  }
 
-  return singleton.apply( null, Array.prototype.slice.call( arguments ) );
+  urlGenerator.abs = abs;
 
+  return urlGenerator;
 }
 
-module.exports.init = function( { domain } ) {
-
-  singleton = genUrl( { domain } );
-
-  return singleton;
-
-}
-
-module.exports.getSingleton = function() {
-
-  return singleton;
-
-}
-
-module.exports.abs = function( uri, query ) {
-
-  return singleton( uri, query , {
-    abs: true, 
-    protocol: 'https://'
-  });
-
-}
+module.exports.init = genUrlService;

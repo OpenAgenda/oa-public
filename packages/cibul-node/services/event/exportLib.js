@@ -15,8 +15,6 @@ const _ = require( 'lodash' ),
 
   moment = require( 'moment-timezone' ),
 
-  genUrl = require( '../genUrl' ),
-
   registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues,
 
   config = require( '../../config' ),
@@ -88,6 +86,8 @@ function cleanEvent(services, eInst, options, cb ) {
     options = {};
 
   }
+
+  const { genUrl } = services;
 
   let dateRange;
 

@@ -25,7 +25,6 @@ import { middleware as logRequestMw } from './services/logRequests.js';
 import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
-import { getSingleton as getGenUrlSingleton } from './services/genUrl/index.js';
 import * as logContextMw from './lib/logContextMw.mjs';
 
 const ADMIN = process.argv.includes('admin');
@@ -60,8 +59,6 @@ try {
 
   log('info', 'running server');
 
-  const genUrl = getGenUrlSingleton();
-
   app.core = core;
   app.services = services;
 
@@ -75,7 +72,7 @@ try {
 
   // load gen url everywhere
   app.use((req, res, next) => {
-    req.genUrl = genUrl.copy(); // need genUrl only for request lifecycle
+    req.genUrl = services.genUrl.copy(); // need genUrl only for request lifecycle
     next();
   });
 
@@ -83,7 +80,7 @@ try {
 
   app.use(cmn.lang);
 
-  cmn.loadLegacyRoutes(genUrl);
+  cmn.loadLegacyRoutes(services.genUrl);
 
   // run 'admin' type modules
   if (ADMIN) {

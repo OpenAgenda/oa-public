@@ -107,6 +107,7 @@ export default async function initServices(config = null, options = {}) {
   await init('bull', bull);
   await init('errors', require('./errors.js'));
   await init('tracker', require('./tracker.js'));
+  await init('genUrl', require('./genUrl/index.js'));
   await init('queues', require('./queues.js'));
   await init('discord', require('./discord.js'));
   await init('files', require('./files.js'));
@@ -137,7 +138,6 @@ export default async function initServices(config = null, options = {}) {
   await init('registrations', registrations);
   await init('pdfExports', pdfExports);
   await init('custom', require('./custom/index.js'));
-  await init('genUrl', require('./genUrl/index.js'));
   await init('invitations', require('./invitations.js'));
   await init('legacy', require('./legacy.js'));
   await init('logRequests', require('./logRequests.js'));

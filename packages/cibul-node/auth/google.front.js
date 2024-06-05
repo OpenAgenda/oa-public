@@ -5,7 +5,6 @@ const w = require( 'when' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'google' );
-const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
 const googleOptions = {
@@ -18,6 +17,7 @@ module.exports = app => {
   const {
     sessions,
     agendas,
+    genUrl,
   } = app.services;
 
   const preMw = [
