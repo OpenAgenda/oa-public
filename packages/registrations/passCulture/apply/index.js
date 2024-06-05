@@ -41,7 +41,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
     if (response.isPending) {
       log.info('created offer has a pending status', logBundle);
-      return processed.concat(remainingDataEntries.slice(remainingDataEntries.length - 1));
+      return processed.concat(remainingDataEntries);
     }
   } else {
     processed.push(firstItem);
