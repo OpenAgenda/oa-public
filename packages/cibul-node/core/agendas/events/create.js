@@ -20,6 +20,10 @@ const {
   isImageToDuplicate,
 } = cleanDuplicateImage;
 
+function isPassPending({ registration }) {
+  return registration.find(r => r.service === 'passCulture')?.data?.[0]?.response.isPending;
+}
+
 module.exports = async (core, agendaUid, data, options = {}) => {
   const {
     services,
@@ -74,7 +78,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (clean.passCulture) {
       log('  There is a pass culture payload');
       try {
-        clean.event.registration = await registrations.utils.passCulture.createPassCultureOffer(agenda, clean);
+        clean.event.registration = await registrations.utils.passCulture.processCreate(agenda, clean);
       } catch (e) {
         log('error', e);
         throw e;
@@ -156,8 +160,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       access,
       duplicateOrigin,
     });
-
-    registrations.utils.passCulture.checkPendingAndQueue(registrations, response?.event, agenda);
   } catch (e) {
     log.info('create failed', {
       error: e,
@@ -166,6 +168,13 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       callOrigin,
     });
     throw e;
+  }
+
+  if (isPassPending(response.event)) {
+    registrations.utils.passCulture.enqueuePending({
+      agendaUid,
+      eventUid: response.event.uid,
+    });
   }
 
   log.info('create successful', {

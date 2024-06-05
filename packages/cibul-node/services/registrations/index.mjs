@@ -1,11 +1,9 @@
 import Registrations from '@openagenda/registrations';
 import logs from '@openagenda/logs';
 import ProcessPassPendingOffers from './utils/ProcessPassPendingOffers.mjs';
-import createPassCultureOffer from './utils/createPassCultureOffer.mjs';
+import processPassCultureCreate from './utils/passCulture/processCreate.mjs';
 import hasPendingPassCultureOffer from './utils/hasPendingPassCultureOffer.mjs';
 import hasPassCultureOffer from './utils/hasPassCultureOffer.mjs';
-import patchOaEventRegistration from './utils/patchOaEventRegistration.mjs';
-import checkPendingAndQueue from './utils/checkPendingAndQueue.mjs';
 
 const log = logs('services/registrations');
 
@@ -31,20 +29,15 @@ export function init(config, services) {
   }
 
   const svc = Registrations({
-    passCulture: {
-      ...config.passCulture,
-      interfaces: {
-        patchOaEventRegistration: patchOaEventRegistration.bind(null, services),
-        checkEvent: checkEvent.bind(null, services),
-      },
-    },
+    passCulture: config.passCulture,
     logger: config.getLogConfig('svc', 'registrations'),
   });
 
-  const {
-    task: processPassPendingOffersTask,
-    enqueue: enqueueProcessPendingOffer,
-  } = ProcessPassPendingOffers({ bull: services.bull, registrations: svc });
+  const { enqueue, task, shutdown: shutdownTask } = ProcessPassPendingOffers({
+    services,
+    registrations: svc,
+    ...config.passCulture,
+  });
 
   return Object.assign(svc, {
     settings: {
@@ -55,13 +48,18 @@ export function init(config, services) {
     },
     utils: {
       passCulture: {
-        enqueueProcessPendingOffer,
-        createPassCultureOffer: createPassCultureOffer.bind(null, services),
+        processCreate: processPassCultureCreate.bind(null, {
+          enqueue,
+          services,
+        }),
+        enqueuePending: enqueue,
         hasPassCultureOffer: hasPassCultureOffer.bind(null, services),
         hasPendingOffer: hasPendingPassCultureOffer,
-        checkPendingAndQueue: checkPendingAndQueue.bind(null, services),
       },
     },
-    task: processPassPendingOffersTask,
+    shutdown: async options => {
+      await shutdownTask(options);
+    },
+    task,
   });
 }

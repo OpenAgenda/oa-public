@@ -304,6 +304,11 @@ const config = {
     api: process.env.PASS_CULTURE_API,
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
     offerEditLink: process.env.PASS_CULTURE_OFFER_EDIT_LINK,
+    pending: {
+      delay: parseInt(process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12, 10), // 12h
+      minDelay: parseInt(process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3, 10), // 3h
+      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 12, // why not
+    },
   },
   mailgun,
   oembed: {
