@@ -201,8 +201,8 @@ function Dashboard() {
     [dispatch, refresh],
   );
   const updateSource = useCallback(
-    (source, rules, evaluate) =>
-      dispatch(sourcesActions.update(source.id, { rules, evaluate })).then(() =>
+    (sourceAgendaUid, rules, evaluate) =>
+      dispatch(sourcesActions.update(sourceAgendaUid, { rules, evaluate })).then(() =>
         refresh()),
     [dispatch, refresh],
   );

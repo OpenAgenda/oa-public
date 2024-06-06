@@ -69,7 +69,7 @@ export default function UpdateSourceModal({
 
   const handleFinalSubmit = useCallback(
     ({ evaluate }) => {
-      onSubmit(data.source, rules, evaluate).then(() => {
+      onSubmit(data.source.agenda.uid, rules, evaluate).then(() => {
         setSelectedEvaluate(evaluate);
         setStep('info');
       });
