@@ -71,7 +71,7 @@ function task({
 
     const event = await events.get(
       eventUid,
-      { private: null, includeFields: ['registration'] },
+      { private: null, includeFields: ['registration', 'timings'] },
     );
 
     if (!event) {
@@ -87,7 +87,7 @@ function task({
     if (isStillPending(applied)) {
       await enqueue({ eventUid, agendaUid }, next);
       log('pendingOffer: still pending');
-      tracker('registrations.passCulture.pendingOffer.processed');
+      tracker('registrations.passCulture.pendingOffer.processed.pending');
       return;
     }
 
@@ -101,7 +101,7 @@ function task({
         } : r)),
     }, { access: 'internal' });
 
-    tracker('registrations.passCulture.pendingOffer.processed');
+    tracker('registrations.passCulture.pendingOffer.processed.notPending');
   }, {
     prefix: queue.opts.prefix,
     removeOnComplete: {

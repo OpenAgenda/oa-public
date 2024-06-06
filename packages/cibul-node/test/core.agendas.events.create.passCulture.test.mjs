@@ -109,6 +109,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
       beforeAll(() => {
         server = setupServer(
           http.get(
+            `${testConfig.passCulture.api}/openapi.json`,
+            () => HttpResponse.json(passAPIFixtures.openapi),
+          ),
+          http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
           ),
@@ -152,6 +156,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
+          http.get(
+            `${testConfig.passCulture.api}/openapi.json`,
+            () => HttpResponse.json(passAPIFixtures.openapi),
+          ),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
@@ -204,6 +212,75 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
       afterAll(() => {
         server.close();
       });
+    });
+
+    describe('completion of pending offer', () => {
+      let server;
+      let event;
+
+      beforeAll(() => {
+        server = setupServer(
+          http.get(
+            `${testConfig.passCulture.api}/openapi.json`,
+            () => HttpResponse.json(passAPIFixtures.openapi),
+          ),
+          http.get(
+            `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
+            () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/events`,
+            () => HttpResponse.json({
+              ...passAPIFixtures.eventPostResponse,
+              status: 'PENDING',
+            }),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/events/72585/price_categories`,
+            () => HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
+            () => HttpResponse.json(passAPIFixtures.datesPostResponse),
+          ),
+          http.get(
+            `${testConfig.passCulture.api}/public/offers/v1/events/:id`,
+            () => HttpResponse.json(passAPIFixtures.eventGetResponse),
+          ),
+        );
+
+        server.listen();
+      });
+
+      afterAll(() => {
+        server.close();
+      });
+
+      it(
+        'pending offer that is retried and no longer pending sees its reference data updated in stored event',
+        () => new Promise(rs => {
+          core.services.tracker.on('registrations.passCulture.pendingOffer.processed.notPending', async () => {
+            const { registration } = await core.agendas(2010).events.get(event.uid);
+            const appliedPassProcessItems = registration
+              .find(r => r.service === 'passCulture').data
+              .filter(e => e.appliedAt);
+
+            expect(
+              appliedPassProcessItems.length,
+            ).toBe(4);
+
+            expect(appliedPassProcessItems[1].response.isPending).toBe(false);
+
+            rs();
+          });
+
+          core.agendas(2010).events.create(freshEvent, {
+            access: 'moderator',
+          }).then(e => {
+            event = e;
+          });
+        }),
+      );
     });
   });
 });
