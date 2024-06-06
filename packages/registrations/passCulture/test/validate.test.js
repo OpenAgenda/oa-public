@@ -79,6 +79,7 @@ describe('validate', () => {
 
     test('returns clean date object when input is valid', () => {
       const clean = validateDate({
+        id: 12,
         priceCategoryId: 0,
         quantity: '1',
         timingId: 1920532380000,
@@ -94,6 +95,7 @@ describe('validate', () => {
       });
 
       expect(clean).toEqual({
+        id: 12,
         priceCategoryId: 0,
         quantity: 1,
         timingId: 1920532380000,
@@ -159,6 +161,7 @@ describe('validate', () => {
       venueId: 123,
       priceCategories: [{ price: '0', label: 'Gratuit', id: 0 }],
       dates: [{
+        id: 1,
         priceCategoryId: 0,
         quantity: '1',
         timingId: 1920532380000,
@@ -351,6 +354,7 @@ describe('validate', () => {
         musicType: 'JAZZ-BEBOP',
         priceCategories: [{ price: 0, label: 'Gratuit', id: 0 }],
         dates: [{
+          id: 1,
           priceCategoryId: 0,
           quantity: 1,
           timingId: 1920532380000,

@@ -18,6 +18,7 @@ const log = logs('apply');
 
 export default async function apply(pc, OAEvent, PCData, options = {}) {
   const dataEntries = spreadPCData(PCData);
+
   const processed = [];
   const logBundle = {
     OAEvent: { uid: OAEvent.uid },

@@ -29,6 +29,7 @@ export default function validateDate(value, params = {}) {
   }
 
   const {
+    id,
     timingId,
     priceCategoryId,
     quantity,
@@ -68,6 +69,17 @@ export default function validateDate(value, params = {}) {
     });
   } else {
     clean.timingId = timingId;
+  }
+
+  clean.id = parseInt(id, 10);
+
+  if (Number.isNaN(clean.id) || clean.id < 1) {
+    errors.push({
+      message: 'date must have a positive assigned id',
+      code: 'invalid.id',
+      label: 'Identifiant non assigné',
+      field: 'dates',
+    });
   }
 
   if (errors.length && boolMode) {
