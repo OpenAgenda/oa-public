@@ -20,6 +20,19 @@ const list = (core, agendaUid) => async (query, nav, options = {}) => {
   return resp;
 };
 
+const patch = (core, agendaUid) => async (agendaSourceUid, data, options = {}) => {
+  const {
+    aggregators,
+  } = core.services;
+
+  const agenda = await getAgenda(core.services, agendaUid);
+  const agendaSource = await getAgenda(core.services, agendaSourceUid);
+  const sourceId = await aggregators.sources.getId(agendaSource, agenda);
+
+  return aggregators.sources.update(agenda, sourceId, data, options);
+};
+
 module.exports = (core, agendaUid) => ({
   list: list(core, agendaUid),
+  patch: patch(core, agendaUid),
 });
