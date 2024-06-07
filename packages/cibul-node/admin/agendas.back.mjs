@@ -65,9 +65,9 @@ export default app => {
   app.get(
     '/admin/agendas/members/search',
     preMw,
-    ({ query }, res, next) => {
-      query.agendaId = query.agendaId ? parseInt(query.agendaId, 10) : null;
-      query.order = 'role.desc';
+    (req, res, next) => {
+      req.query.agendaId = req.query.agendaId ? parseInt(req.query.agendaId, 10) : null;
+      req.query.order = 'role.desc';
       next();
     },
     mw.members.list,

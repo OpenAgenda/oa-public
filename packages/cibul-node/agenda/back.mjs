@@ -10,19 +10,19 @@ const statsTemplate = _.template(fs.readFileSync(`${import.meta.dirname}/stats.t
  * redirection admin route
  */
 
-function agendaAdminRedirect({ url, app, params, originalUrl }, res, next) {
-  if (/events\.(json|csv|xlsx|rss)|settings/.test(url)) {
+function agendaAdminRedirect(req, res, next) {
+  if (/events\.(json|csv|xlsx|rss)|settings/.test(req.url)) {
     return next();
   }
 
-  const { agendas } = app.services;
+  const { agendas } = req.app.services;
 
-  agendas.get({ uid: params.agendaUid }, { private: null }, (err, agenda) => {
+  agendas.get({ uid: req.params.agendaUid }, { private: null }, (err, agenda) => {
     if (err) return next(err);
 
-    if (!agenda) return next(new Error(`agenda not found ( uid ): ${params.agendaUid}`));
+    if (!agenda) return next(new Error(`agenda not found ( uid ): ${req.params.agendaUid}`));
 
-    res.redirect(originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`));
+    res.redirect(req.originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`));
   });
 }
 
@@ -59,8 +59,8 @@ export default app => {
     members.mw.authorizeAdminModOrKey(),
   ]);
 
-  app.get('/:agendaSlug/admin', ({ params, query }, res) => {
-    res.redirect(301, `/${params.agendaSlug}/admin/events${qs.stringify(query, { addQueryPrefix: true })}`);
+  app.get('/:agendaSlug/admin', (req, res) => {
+    res.redirect(301, `/${req.params.agendaSlug}/admin/events${qs.stringify(req.query, { addQueryPrefix: true })}`);
   });
 
   app.get('/agendas/:agendaUid/admin(/*?)?', agendaAdminRedirect);
@@ -101,9 +101,9 @@ export default app => {
    * resync what can be
    */
 
-  app.get('/:agendaSlug/admin/stats/resync/:type', ({ agenda, params }, res) => {
-    agendaStatistics.resync(agenda.uid, params.type);
+  app.get('/:agendaSlug/admin/stats/resync/:type', (req, res) => {
+    agendaStatistics.resync(req.agenda.uid, req.params.type);
 
-    res.json({ operation: `resyncing ${params.type}` });
+    res.json({ operation: `resyncing ${req.params.type}` });
   });
 };
