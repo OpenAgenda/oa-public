@@ -21,7 +21,7 @@ import Core from './core/index.mjs';
 import admin from './admin.mjs';
 import web from './web.mjs';
 import task from './task.mjs';
-import { middleware as logRequestMw } from './services/logRequests.js';
+import { middleware as logRequestMw } from './services/logRequests.mjs';
 import sentryErrorHandler from './lib/sentryErrorHandler.mjs';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';

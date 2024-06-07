@@ -1,8 +1,6 @@
-import users from './services/users/index.js';
-import agendaBack from './agenda/back.js';
-import agendaEvents from './services/agendaEvents/index.js';
+import agendaBack from './agenda/back.mjs';
 import networkApps from './services/networkApps.js';
-import abilities from './services/abilities/index.js';
+import abilities from './services/abilities/index.mjs';
 import homeBack from './home/back.js';
 import generalFront from './general/front.js';
 import sessionBack from './general/session.back.js';
@@ -17,9 +15,8 @@ import resetFront from './auth/reset.front.js';
 import settingsBack from './agenda/settings.back.js';
 import members from './services/members/index.js';
 import activitiesBack from './agenda/activities.back.js';
-import stats from './services/stats/index.js';
 import supervisor from './services/supervisor/index.js';
-import webapp from './webapp/index.js';
+import webapp from './webapp/index.mjs';
 import agendas from './services/agendas/index.js';
 import activities from './services/activities/index.js';
 import sentry from './services/sentry.js';
@@ -30,7 +27,7 @@ import facebookBack from './agenda/facebook.back.js';
 import exportsFront from './agenda/exports.front.js';
 
 export default app => {
-  users.plugApp(app);
+  app.services.users.plugApp(app);
   app.services.mails.plugApp(app);
   app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.getPublic());
   app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.getRestricted());
@@ -42,7 +39,7 @@ export default app => {
   agendaBack(app);
   app.use('/', app.services.inboxes.plugApp());
   app.services.agendaContribute.plugApp(app);
-  agendaEvents(app);
+  app.services.agendaEvents(app);
   networkApps(app);
   abilities(app);
   app.services.agendaDocx.plugApp(app);
@@ -61,7 +58,7 @@ export default app => {
   settingsBack(app);
   members(app);
   activitiesBack(app);
-  stats.plugApp(app);
+  app.services.stats.plugApp(app);
   supervisor.plugApp(app, '/supervisor');
   app.services.reports.plugApp(app);
   app.services.dynamicScripts.plugApp(app);

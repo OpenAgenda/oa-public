@@ -6,16 +6,6 @@ import schema from '@openagenda/validators/schema/index.js';
 import passValidator from '@openagenda/validators/pass.js';
 
 import './lib/loadGlobalEnvVars.mjs';
-import * as knex from './knex.mjs';
-import * as redis from './redis.mjs';
-import * as bull from './bull/index.mjs';
-import * as formSchemas from './formSchemas.mjs';
-import * as registrations from './registrations/index.mjs';
-import * as pdfExports from './pdfExports.mjs';
-import * as mails from './mails/index.mjs';
-import * as unsubscriptions from './unsubscriptions.mjs';
-import * as security from './security.mjs';
-import * as usageCounters from './usageCounters/index.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -54,7 +44,7 @@ function isServiceDisabled(options, name) {
 
 function createInitier(config, options) {
   const services = {};
-  return Object.assign((name, service) => {
+  return Object.assign(async (name, serviceImporter) => {
     if (options.enabled && !isServiceEnabled(options, name)) {
       return;
     }
@@ -62,19 +52,20 @@ function createInitier(config, options) {
       return;
     }
 
+    const service = await serviceImporter();
+
     if (typeof service.init !== 'function') {
       log('warn', '%s: missing init', name);
       return;
     }
 
-    return Promise.resolve(service.init(config, services))
-      .then(svc => {
-        if (svc) services[name] = svc;
-        log('info', name);
-      })
-      .catch(err => {
-        throw new VError(err, `service '${name}' initialization did not go well`);
-      });
+    try {
+      const svc = await service.init(config, services);
+      if (svc) services[name] = svc;
+      log('info', name);
+    } catch (err) {
+      throw new VError(err, `service '${name}' initialization did not go well`);
+    }
   }, { services });
 }
 
@@ -102,60 +93,60 @@ export default async function initServices(config = null, options = {}) {
 
   // init services
 
-  await init('knex', knex);
-  await init('redis', redis);
-  await init('bull', bull);
-  await init('errors', require('./errors.js'));
-  await init('tracker', require('./tracker.js'));
-  await init('genUrl', require('./genUrl/index.js'));
-  await init('queues', require('./queues.js'));
-  await init('discord', require('./discord.js'));
-  await init('files', require('./files.js'));
-  await init('abilities', require('./abilities/index.js'));
-  await init('keys', require('./keys.js'));
-  await init('users', require('./users/index.js'));
-  await init('accessTokens', require('./accessTokens/index.js'));
-  await init('activities', require('./activities/index.js'));
-  await init('activityApps', require('./activityApps.js'));
-  await init('members', require('./members/index.js'));
-  await init('agendaContribute', require('./agendaContribute/index.js'));
-  await init('agendaDocx', require('./agendaDocx.js'));
-  await init('agendaEvents', require('./agendaEvents/index.js'));
-  await init('geocoder', require('./geocoder.js'));
-  await init('agendaLocations', require('./agendaLocations/index.js'));
-  await init('agendaSettings', require('./agendaSettings.js'));
-  await init('inboxes', require('./inboxes/index.js'));
-  await init('agendaStatistics', require('./agendaStatistics/index.js'));
-  await init('agendas', require('./agendas/index.js'));
-  await init('agendaSearch', require('./agendaSearch/index.js'));
-  await init('adminAgendas', require('./adminAgendas.js'));
-  await init('aggregators', require('./aggregators/index.js'));
-  await init('cache', require('./cache/index.js'));
-  await init('eventSearch', require('./eventSearch/index.js'));
-  await init('events', require('./events/index.js'));
-  await init('facebook', require('./facebook.js'));
-  await init('formSchemas', formSchemas);
-  await init('registrations', registrations);
-  await init('pdfExports', pdfExports);
-  await init('custom', require('./custom/index.js'));
-  await init('invitations', require('./invitations.js'));
-  await init('legacy', require('./legacy.js'));
-  await init('logRequests', require('./logRequests.js'));
-  await init('unsubscriptions', unsubscriptions);
-  await init('security', security);
-  await init('mails', mails);
-  await init('model', require('./model/index.js'));
-  await init('sessions', require('./sessions/index.js'));
-  await init('networkApps', require('./networkApps.js'));
-  await init('networks', require('./networks.js'));
-  await init('newsletter', require('./newsletter.js'));
-  await init('oembed', require('./oembed.js'));
-  await init('simpleCache', require('./simpleCache.js'));
-  await init('supervisor', require('./supervisor/index.js'));
-  await init('stats', require('./stats/index.js'));
-  await init('reports', require('./reports.js'));
-  await init('dynamicScripts', require('./dynamicScripts.js'));
-  await init('usageCounters', usageCounters);
+  await init('knex', () => import('./knex.mjs'));
+  await init('redis', () => import('./redis.mjs'));
+  await init('bull', () => import('./bull/index.mjs'));
+  await init('errors', () => require('./errors.js'));
+  await init('tracker', () => import('./tracker.mjs'));
+  await init('genUrl', () => import('./genUrl.mjs'));
+  await init('queues', () => import('./queues.mjs'));
+  await init('discord', () => import('./discord.mjs'));
+  await init('files', () => import('./files.mjs'));
+  await init('abilities', () => import('./abilities/index.mjs'));
+  await init('keys', () => import('./keys.mjs'));
+  await init('users', () => import('./users/index.mjs'));
+  await init('accessTokens', () => import('./accessTokens/index.mjs'));
+  await init('activities', () => require('./activities/index.js')); // required directly
+  await init('activityApps', () => import('./activityApps.mjs'));
+  await init('members', () => require('./members/index.js')); // required directly
+  await init('agendaContribute', () => import('./agendaContribute/index.mjs'));
+  await init('agendaDocx', () => import('./agendaDocx.mjs'));
+  await init('agendaEvents', () => import('./agendaEvents/index.mjs'));
+  await init('geocoder', () => import('./geocoder.mjs'));
+  await init('agendaLocations', () => require('./agendaLocations/index.js'));
+  await init('agendaSettings', () => require('./agendaSettings.js'));
+  await init('inboxes', () => require('./inboxes/index.js'));
+  await init('agendaStatistics', () => require('./agendaStatistics/index.js'));
+  await init('agendas', () => require('./agendas/index.js'));
+  await init('agendaSearch', () => require('./agendaSearch/index.js'));
+  await init('adminAgendas', () => require('./adminAgendas.js'));
+  await init('aggregators', () => require('./aggregators/index.js'));
+  await init('cache', () => require('./cache/index.js'));
+  await init('eventSearch', () => require('./eventSearch/index.js'));
+  await init('events', () => require('./events/index.js'));
+  await init('facebook', () => require('./facebook.js'));
+  await init('formSchemas', () => import('./formSchemas.mjs'));
+  await init('registrations', () => import('./registrations/index.mjs'));
+  await init('pdfExports', () => import('./pdfExports.mjs'));
+  await init('custom', () => require('./custom/index.js'));
+  await init('invitations', () => require('./invitations.js'));
+  await init('legacy', () => require('./legacy.js'));
+  await init('logRequests', () => import('./logRequests.mjs'));
+  await init('unsubscriptions', () => import('./unsubscriptions.mjs'));
+  await init('security', () => import('./security.mjs'));
+  await init('mails', () => import('./mails/index.mjs'));
+  await init('model', () => require('./model/index.js'));
+  await init('sessions', () => require('./sessions/index.js'));
+  await init('networkApps', () => require('./networkApps.js'));
+  await init('networks', () => require('./networks.js'));
+  await init('newsletter', () => require('./newsletter.js'));
+  await init('oembed', () => require('./oembed.js'));
+  await init('simpleCache', () => import('./simpleCache.mjs'));
+  await init('supervisor', () => require('./supervisor/index.js'));
+  await init('stats', () => import('./stats/index.mjs'));
+  await init('reports', () => import('./reports.mjs'));
+  await init('dynamicScripts', () => import('./dynamicScripts.mjs'));
+  await init('usageCounters', () => import('./usageCounters/index.mjs'));
 
   const timeDiff = new Date().getTime() - t.getTime();
 
