@@ -84,6 +84,7 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
     set: set.bind(null, knex),
     remove: remove.bind(null, knex),
     sources: {
+      getId: getAgendaSourceId.bind(null, knex),
       list: listSources.bind(null, {
         knex,
         getAgendasByUids: interfaces.getAgendasByUids,

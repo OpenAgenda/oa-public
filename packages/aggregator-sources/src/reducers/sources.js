@@ -176,22 +176,19 @@ export function add(agendaUid, { rules, evaluate }) {
   };
 }
 
-export function update(id, { rules, evaluate }) {
+export function update(uid, { rules, evaluate }) {
   const query = {
     all: {},
     currentAndUpcoming: { relative: ['current', 'upcoming'] },
   }[evaluate] ?? null;
-
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
-
       const url = res.update
         .replace(':slug', params.slug)
-        .replace(':sourceId', id);
-
-      return client.put(url, { rules, query });
+        .replace(':sourceAgendaUid', uid);
+      return client.patch(url, { rules, query });
     },
   };
 }

@@ -216,7 +216,7 @@ const initialState = async req => {
       res: {
         list: '/api/agendas/slug/:slug/sources?size=200&detailed=1',
         add: '/:slug/admin/sources',
-        update: '/:slug/admin/sources/:sourceId',
+        update: '/api/agendas/slug/:slug/sources/:sourceAgendaUid',
         remove: '/:slug/admin/sources/:sourceId',
         showAgenda: '/:slug',
         agendaSearch: '/agendas.json',
