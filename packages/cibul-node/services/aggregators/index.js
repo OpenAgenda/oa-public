@@ -63,7 +63,7 @@ module.exports.init = (config, services) => {
             success: true,
           };
         } catch (e) {
-          log.error(
+          (e.name === 'BadRequest' ? log.warn : log.error)(
             'could not add event %s from %s to aggregator %s',
             eventUid,
             sourceAgenda.uid,
