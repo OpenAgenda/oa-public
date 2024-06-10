@@ -10,6 +10,7 @@ import agendaIndexRebuild from './agendaIndexRebuild.mjs';
 import transverseIndex from './transverseIndex.mjs';
 import getAgendaSearchIndex from './lib/getAgendaSearchIndex.mjs';
 import agendaRoutes from './agendaRoutes.mjs';
+import { loadOtherUpdates, otherUpdate } from './lib/otherUpdates.mjs';
 
 const log = logs('services/eventSearch');
 
@@ -86,6 +87,11 @@ export async function init(config, services) {
   rebuildQueue.register({
     agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
     transverse: options => queue('transverseIndexRebuild', options),
+  });
+
+  queue.register({
+    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
+    otherUpdate: otherUpdate.bind(null, services, eventSearch),
   });
 
   return {
