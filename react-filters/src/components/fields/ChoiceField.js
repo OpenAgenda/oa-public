@@ -11,12 +11,16 @@ function useOnChoiceChange(input) {
   const onChange = useMemo(
     () =>
       a11yButtonActionHandler(e => {
+        const isBootstrapDropdown = e.target.closest('.dropdown-menu');
+
         if (e.target === inputRef.current) {
           return;
         }
 
-        e.preventDefault();
-        e.stopPropagation();
+        if (!isBootstrapDropdown) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
 
         if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
           return;
