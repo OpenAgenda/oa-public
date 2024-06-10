@@ -27,6 +27,7 @@ module.exports = {
         ignoreJSX: 'all',
         nestedBinaryExpressions: false,
         enforceForArrowConditionals: false,
+        conditionalAssign: false,
       },
     ],
     'no-promise-executor-return': 'off',
@@ -181,6 +182,7 @@ module.exports = {
             ignoreJSX: 'all',
             nestedBinaryExpressions: false,
             enforceForArrowConditionals: false,
+            conditionalAssign: false,
           },
         ],
         'react/require-default-props': 'off'
