@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
 
-const log = logs('services/registrations/processPassCultureCreate');
+const log = logs('services/registrations/processPassCultureApply');
 
-export default async function processPassCultureCreate({ services }, agenda, clean) {
+export default async function processPassCultureApply({ services }, agenda, clean) {
   log.info('called');
 
   const {

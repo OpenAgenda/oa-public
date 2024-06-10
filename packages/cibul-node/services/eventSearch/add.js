@@ -10,8 +10,12 @@ module.exports = (services, queue, eventSearch) => {
     agendaEvents,
   } = services;
 
-  return async ({ agenda, member, formSchema, event }) => {
+  return async ({ agenda, member, formSchema, event }, options = {}) => {
     log('add');
+
+    const {
+      updateOtherIndices = true,
+    } = options;
 
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
@@ -31,6 +35,11 @@ module.exports = (services, queue, eventSearch) => {
 
     if (!await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
       await queue('transverseIndexUpdate', event);
+    }
+
+    if (updateOtherIndices) {
+      log('update other indices');
+      await queue('loadOtherUpdates', agenda.uid, event.uid);
     }
 
     log('done');

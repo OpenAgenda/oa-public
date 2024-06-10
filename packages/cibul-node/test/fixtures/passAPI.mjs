@@ -24,6 +24,11 @@ export default {
       },
     ],
   },
+  priceCategoriesPatchResponse: {
+    id: 4565,
+    label: 'Tarif normal ajusté l\'inflation',
+    price: 13,
+  },
   eventPostResponse: {
     priceCategories: [],
     id: 72585,

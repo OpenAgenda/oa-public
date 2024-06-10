@@ -7,47 +7,7 @@ import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
 import passAPIFixtures from './fixtures/passAPI.mjs';
-
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-tomorrow.setHours(10);
-
-const begin = new Date(tomorrow);
-
-const freshEvent = {
-  title: 'Un event avec billetterie Pass',
-  description: 'Test pass',
-  timings: [{
-    begin,
-    end: new Date(tomorrow.setHours(tomorrow.getHours() + 2)),
-  }],
-  location: {
-    uid: 1234,
-  },
-  registration: [{
-    type: 'link',
-    value: null,
-    service: 'passCulture',
-    data: {
-      venueId: 548,
-      category: 'CINE_PLEIN_AIR',
-      priceCategories: [
-        {
-          id: 1,
-          price: 12,
-          label: 'Tarif normal',
-        },
-      ],
-      dates: [
-        {
-          timingId: begin.getTime(),
-          priceCategoryId: 1,
-          quantity: 300,
-        },
-      ],
-    },
-  }],
-};
+import freshEventWithPassData from './fixtures/freshEventWithPassData.mjs';
 
 describe('core - functional: core.agendas().events.create() - Pass Culture', () => {
   let core;
@@ -138,7 +98,7 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
       });
 
       it('offer is created and registration data is updated', async () => {
-        const event = await core.agendas(2010).events.create(freshEvent, {
+        const event = await core.agendas(2010).events.create(freshEventWithPassData, {
           access: 'moderator',
         });
 
@@ -201,7 +161,7 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
             rs();
           });
 
-          core.agendas(2010).events.create(freshEvent, {
+          core.agendas(2010).events.create(freshEventWithPassData, {
             access: 'moderator',
           }).then(e => {
             event = e;
@@ -274,7 +234,7 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
             rs();
           });
 
-          core.agendas(2010).events.create(freshEvent, {
+          core.agendas(2010).events.create(freshEventWithPassData, {
             access: 'moderator',
           }).then(e => {
             event = e;

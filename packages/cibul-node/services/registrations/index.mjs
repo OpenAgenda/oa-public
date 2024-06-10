@@ -1,13 +1,11 @@
 import Registrations from '@openagenda/registrations';
 import logs from '@openagenda/logs';
 import ProcessPassPendingOffers from './utils/ProcessPassPendingOffers.mjs';
-import processPassCultureCreate from './utils/passCulture/processCreate.mjs';
-import hasPendingPassCultureOffer from './utils/hasPendingPassCultureOffer.mjs';
-import hasPassCultureOffer from './utils/hasPassCultureOffer.mjs';
+import processPassCultureApply from './utils/passCulture/processApply.mjs';
 
 const log = logs('services/registrations');
 
-const checkEvent = async (services, agendaUid, eventUid) => {
+/* const checkEvent = async (services, agendaUid, eventUid) => {
   const { core } = services;
   const event = await core.agendas(agendaUid).events.get(eventUid, { access: 'internal' });
 
@@ -20,7 +18,7 @@ const checkEvent = async (services, agendaUid, eventUid) => {
     return false;
   }
   return true;
-};
+}; */
 
 export function init(config, services) {
   if (!config.passCulture?.key) {
@@ -48,13 +46,14 @@ export function init(config, services) {
     },
     utils: {
       passCulture: {
-        processCreate: processPassCultureCreate.bind(null, {
+        processApply: processPassCultureApply.bind(null, {
           enqueue,
           services,
         }),
+        isMarkedAsPending: data => data?.[0]?.response.isPending,
+        isNew: data => !data[0]?.appliedAt,
+        hasNonApplied: data => !!data.filter(item => !item.appliedAt).length,
         enqueuePending: enqueue,
-        hasPassCultureOffer: hasPassCultureOffer.bind(null, services),
-        hasPendingOffer: hasPendingPassCultureOffer,
       },
     },
     shutdown: async options => {
