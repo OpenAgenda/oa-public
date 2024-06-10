@@ -90,7 +90,7 @@ function signin( req, res, next ) {
 
   pLib.authenticate( 'google-signin', {
     scope: [ 'email', 'profile' ],
-    callbackURL: genUrl.abs( 'googleSigninCallback' )
+    callbackURL: req.app.services.genUrl.abs( 'googleSigninCallback' )
   } )( req, res, next );
 
 }
@@ -101,7 +101,7 @@ function signup( req, res, next ) {
 
   pLib.authenticate( 'google-signup', {
     scope: [ 'email', 'profile' ],
-    callbackURL: genUrl.abs( 'googleSignupCallback' )
+    callbackURL: req.app.services.genUrl.abs( 'googleSignupCallback' )
   } )( req, res, next );
 
 }
