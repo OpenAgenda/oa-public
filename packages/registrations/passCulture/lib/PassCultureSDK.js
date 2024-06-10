@@ -50,7 +50,7 @@ function call({ key, api }, method, path, data = {}) {
     url: `${api}${path}`,
     headers: headers(key),
     ...method === 'get' ? { params: data } : { data },
-  }).then(r => r.data);
+  }).then(response => response.data);
 }
 
 export default function PassCultureSDK(params) {

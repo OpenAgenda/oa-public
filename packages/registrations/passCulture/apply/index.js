@@ -1,8 +1,8 @@
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import { getObjectType } from '../iso/utils.js';
 import spreadPCData from './spreadPCData.js';
 import wasApplied from './wasApplied.js';
-import getObjectType from './getObjectType.js';
 import getOperationType from './getOperationType.js';
 import applyPriceCategories from './priceCategories.js';
 import applyDates from './dates.js';
@@ -38,6 +38,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
       ...succeeded,
       response,
       appliedAt: new Date(),
+      operation: 'create',
     });
 
     if (response.isPending) {
@@ -65,6 +66,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
         isPending: false,
       },
       appliedAt: new Date(),
+      operation: 'get',
     });
   }
 
@@ -81,22 +83,23 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     }
 
     const objectType = getObjectType(entry);
-    const operationType = getOperationType(remainingDataEntries, objectType, entry);
+    const operation = getOperationType(remainingDataEntries, objectType, entry);
 
-    log('entry was not yet applied, processing', Object.assign(entryLogBundle, { type: objectType, operation: operationType }));
+    log('entry was not yet applied, processing', Object.assign(entryLogBundle, { type: objectType, operation }));
 
     const {
       succeeded,
       response,
       remaining,
       error,
-    } = await getApplyFn(objectType, operationType)(pc, passEventOfferId, OAEvent, processed, entry, { logBundle: entryLogBundle });
+    } = await getApplyFn(objectType, operation)(pc, passEventOfferId, OAEvent, processed, entry, { logBundle: entryLogBundle });
 
     if (succeeded) {
       processed.push({
         ...succeeded,
         ...response ? { response } : undefined,
         appliedAt: new Date(),
+        operation,
       });
     }
 

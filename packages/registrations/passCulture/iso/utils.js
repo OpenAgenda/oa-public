@@ -124,3 +124,25 @@ export function getCurrentValue(data) {
   }, {});
   return result;
 }
+
+export function getObjectType(entry) {
+  const {
+    priceCategories,
+    dates,
+    ...remaining
+  } = entry;
+
+  if (priceCategories) {
+    return 'priceCategories';
+  }
+
+  if (dates) {
+    return 'dates';
+  }
+
+  if (Object.keys(remaining).filter(k => !['appliedAt', 'response', 'operation'].includes(k)).length) {
+    return 'eventOffer';
+  }
+
+  return null;
+}

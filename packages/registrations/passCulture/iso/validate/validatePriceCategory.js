@@ -47,3 +47,21 @@ export default function validatePriceCategory(value, options = {}) {
   clean.id = id;
   return boolMode ? true : clean;
 }
+
+export function validatePriceCategories(priceCategories) {
+  const clean = [];
+  const errors = [];
+  for (const [index, priceCategory] of priceCategories.entries()) {
+    try {
+      clean.push(validatePriceCategory(priceCategory));
+    } catch (pcError) {
+      pcError.info.errors.forEach(error => errors.push({ ...error, index }));
+    }
+  }
+
+  if (errors.length) {
+    throw new BadRequest({ info: { errors } });
+  }
+
+  return clean;
+}

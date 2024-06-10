@@ -61,7 +61,6 @@ async function create(pc, passEventOfferId, OAEvent, processedEntries, entry, { 
       dates: formatted,
     });
   } catch (error) {
-    console.log(error.response);
     log.info('failed to create dates', { ...createLogBundle, status: error.response.status });
     return {
       error,

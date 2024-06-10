@@ -92,3 +92,29 @@ export default function validateDate(value, params = {}) {
 
   return boolMode ? true : clean;
 }
+
+export function validateDates(dates, priceCategories, event) {
+  const clean = [];
+  const errors = [];
+  const { timings } = event;
+
+  for (const [index, date] of [].concat(dates).entries()) {
+    try {
+      clean.push(validateDate(date, {
+        priceCategories,
+        timings,
+      }));
+    } catch (error) {
+      error.info.errors.forEach(e => errors.push({
+        ...e,
+        index,
+      }));
+    }
+  }
+
+  if (errors.length) {
+    throw new BadRequest({ info: { errors } });
+  }
+
+  return clean;
+}

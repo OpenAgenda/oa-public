@@ -1,4 +1,4 @@
-import getObjectType from './getObjectType.js';
+import { getObjectType } from '../iso/utils.js';
 
 export default function getMatchingPassId(data, id) {
   for (const entry of [].concat(data)) {

@@ -1,5 +1,14 @@
-import getObjectType from './getObjectType.js';
+import { getObjectType } from '../iso/utils.js';
 import getMatchingPassId from './getMatchingPassId.js';
+
+function decorateWithInfoFields(data, entry) {
+  return {
+    ...data,
+    ...['response', 'appliedAt', 'operation'].reduce((info, key) => (
+      entry[key] !== undefined ? { ...info, [key]: entry[key] } : info
+    ), {}),
+  };
+}
 
 function spreadAccordingToObjectType(data) {
   return [].concat(data).reduce((spreadEntries, entry) => {
@@ -8,33 +17,22 @@ function spreadAccordingToObjectType(data) {
       dates,
       response,
       appliedAt,
+      operation,
       ...remaining
     } = entry;
 
     const spread = [];
 
     if (Object.keys(remaining).length) {
-      spread.push({
-        ...remaining,
-        ...response ? { response } : undefined,
-        ...appliedAt ? { appliedAt } : undefined,
-      });
+      spread.push(decorateWithInfoFields(remaining, entry));
     }
 
     if (priceCategories) {
-      spread.push({
-        priceCategories,
-        ...response ? { response } : undefined,
-        ...appliedAt ? { appliedAt } : undefined,
-      });
+      spread.push(decorateWithInfoFields({ priceCategories }, entry));
     }
 
     if (dates) {
-      spread.push({
-        dates,
-        ...response ? { response } : undefined,
-        ...appliedAt ? { appliedAt } : undefined,
-      });
+      spread.push(decorateWithInfoFields({ dates }, entry));
     }
 
     return spreadEntries.concat(spread);

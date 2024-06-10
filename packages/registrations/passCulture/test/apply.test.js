@@ -5,7 +5,7 @@ import { setupServer } from 'msw/node';
 import { produce } from 'immer';
 
 import spreadPCData from '../apply/spreadPCData.js';
-import getObjectType from '../apply/getObjectType.js';
+import { getObjectType } from '../iso/utils.js';
 import getMatchingPassId from '../apply/getMatchingPassId.js';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 import apply from '../apply/index.js';
@@ -97,12 +97,13 @@ describe('apply', () => {
           expect(processed.length).toBe(1);
         });
 
-        test('returned item has data that was provided completed with an appliedAt and a response key', () => {
+        test('returned item has data that was provided completed with an appliedAt, a response and an operation key', () => {
           expect(Object.keys(processed[0])).toEqual([
             'venueId',
             'category',
             'response',
             'appliedAt',
+            'operation',
           ]);
         });
 
@@ -148,18 +149,21 @@ describe('apply', () => {
             'category',
             'response',
             'appliedAt',
+            'operation',
           ]);
 
           expect(Object.keys(processed[1])).toEqual([
             'priceCategories',
             'response',
             'appliedAt',
+            'operation',
           ]);
 
           expect(Object.keys(processed[2])).toEqual([
             'dates',
             'response',
             'appliedAt',
+            'operation',
           ]);
         });
       });
