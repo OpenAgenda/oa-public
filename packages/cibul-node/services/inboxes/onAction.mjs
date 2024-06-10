@@ -1,0 +1,87 @@
+import logs from '@openagenda/logs';
+
+const log = logs('services/inboxes');
+
+export default async function onAction(services, conversation, action) {
+  const {
+    agendaEvents: agendaEventsSvc,
+    members: membersSvc,
+    inboxes: {
+      Inbox,
+      Conversation,
+    },
+  } = services;
+
+  if (action.code === 'involveTechnicalSupport') {
+    const supportInbox = await new Inbox({
+      type: 'support',
+      identifier: 1,
+    }).get();
+
+    await Conversation.link({ conversationId: conversation.id, inboxId: supportInbox.data.id });
+  }
+
+  if (action.code === 'removeTechnicalSupport') {
+    const supportInbox = await new Inbox({
+      type: 'support',
+      identifier: 1,
+    }).get();
+
+    await Conversation.unlink({ conversationId: conversation.id, inboxId: supportInbox.data.id });
+  }
+
+  switch (conversation.type) {
+    case 'request_contribute': {
+      if (action.code === 'accept') {
+        if (conversation.creatorInbox && conversation.creatorInbox.type === 'user') {
+          try {
+            const userUid = conversation.creatorInbox.identifier;
+            const agendaUid = conversation.typeIdentifier;
+
+            const sh = await membersSvc.get({
+              userUid,
+              agendaUid,
+            });
+
+            if (!sh) {
+              const newMember = await membersSvc.create(
+                {
+                  agendaUid,
+                  userUid,
+                  role: 'contributor',
+                },
+                { requireCustom: false },
+              );
+              log('info', 'Contribution request accepted', { member: newMember });
+            }
+          } catch (err) {
+            log('error', 'Cannot accept a contribution request', err);
+          }
+        }
+      }
+      break;
+    }
+    case 'edition_request': {
+      if (action.code === 'accept') {
+        try {
+          await agendaEventsSvc(conversation.store.params.agendaUid)
+            .update(
+              conversation.typeIdentifier,
+              { canEdit: true },
+              { transferToLegacy: true },
+            );
+
+          log('info', 'Edition rights request accepted', {
+            agendaUid: conversation.store.params.agendaUid,
+            eventUid: conversation.typeIdentifier,
+          });
+        } catch (err) {
+          log('error', 'Cannot accept an edition rights request', err);
+        }
+      }
+      break;
+    }
+    default:
+      // nothing
+  }
+}
