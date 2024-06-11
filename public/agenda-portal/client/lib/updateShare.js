@@ -1,5 +1,6 @@
 import debug from 'debug';
 import copy from 'copy-to-clipboard';
+import qs from 'qs';
 
 import shareCode from './shareCode';
 
@@ -37,13 +38,52 @@ function handleCopyShare() {
   });
 }
 
-export default pageProps => {
+export default (pageProps, values) => {
   log('updating');
-  if (!$('.js_share').length) {
-    return;
+
+  if ($('.js_share').length) {
+    $('.js_share').val(shareCode(pageProps));
+
+    handleCopyShare();
   }
 
-  $('.js_share').val(shareCode(pageProps));
+  const shareMailElems = $('[data-share="mail"]');
 
-  handleCopyShare();
+  if (shareMailElems.length) {
+    shareMailElems.each(function () {
+      try {
+        const shareMailElem = $(this);
+        const url = new URL(shareMailElem.attr('href'));
+        const bodyUrl = new URL(url.searchParams.get('body'));
+
+        bodyUrl.search = qs.stringify(values, { addQueryPrefix: true });
+
+        url.search = qs.stringify({
+          ...qs.parse(url.search, { ignoreQueryPrefix: true }),
+          body: bodyUrl.toString(),
+        }, { addQueryPrefix: true });
+
+        shareMailElem.attr('href', url);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  }
+
+  const shareExportElems = $('[data-share="export"]');
+
+  if (shareExportElems.length) {
+    shareExportElems.each(function () {
+      try {
+        const shareExportElem = $(this);
+        const url = new URL(shareExportElem.attr('href'));
+
+        url.search = qs.stringify(values, { addQueryPrefix: true });
+
+        shareExportElem.attr('href', url);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  }
 };
