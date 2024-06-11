@@ -1,7 +1,7 @@
 import express from 'express';
 import loadAgendaMw from '../members/middleware/loadAgenda.js';
 import loadEventMw from '../members/middleware/loadEvent.js';
-import changeStateMw from './middleware/changeState.mjs';
+import changeStateMw, { batched as batchedChangeStateMw } from './middleware/changeState.mjs';
 import removeMw from './middleware/remove.mjs';
 import changeFeaturedMw from './middleware/changeFeatured.mjs';
 import updateStatusMw from './middleware/updateStatus.mjs';
@@ -79,7 +79,7 @@ export default function plugApp(parentApp) {
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
-    changeStateMw.batched,
+    batchedChangeStateMw,
   ]);
 
   parentApp.all('/:agendaSlug/admin/events/batch', [
@@ -96,4 +96,4 @@ export default function plugApp(parentApp) {
     agendas.mw.authorizeByIPAddress(),
     navigateMw,
   ]);
-};
+}

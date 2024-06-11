@@ -37,7 +37,7 @@ export default app => {
   agendaBack(app);
   app.use('/', app.services.inboxes.plugApp());
   app.services.agendaContribute.plugApp(app);
-  app.services.agendaEvents(app);
+  app.services.agendaEvents.plugApp(app);
   networkApps(app);
   abilities(app);
   app.services.agendaDocx.plugApp(app);
