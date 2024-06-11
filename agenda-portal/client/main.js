@@ -4,6 +4,7 @@ import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
 import debug from 'debug';
+import qs from 'qs';
 import renderFilters from '@openagenda/react-filters/render';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
@@ -133,7 +134,7 @@ function onFilterController(pageProps, filtersRef, values = {}, aggregations) {
       handleIFrameLinkEvents($, iframeHandler);
     }
 
-    updateShare(pageProps);
+    updateShare(pageProps, values);
 
     const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
 
@@ -178,7 +179,7 @@ $(() => {
 
   $('.js_trigger_spin').on('click', spin);
 
-  updateShare(pageProps);
+  updateShare(pageProps, qs.parse(window.location.search, { ignoreQueryPrefix: true }));
 
   if (pageProps.pageType === 'list') {
     progressiveLoad(pageProps, '.js_progressive_load');
