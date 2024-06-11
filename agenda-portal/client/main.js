@@ -164,7 +164,11 @@ $(() => {
       agendaUid: pageProps.agendaUid,
       query: window.location.search,
       onFilterChange(values, aggregations, ref, _form) {
-        return onFilterController(pageProps, ref, values, aggregations);
+        onFilterController(pageProps, ref, values, aggregations);
+
+        if (typeof window.onFilterChange === 'function') {
+          window.onFilterChange(values, pageProps, aggregations);
+        }
       },
       filtersBase: pageProps.filtersBase
     });
