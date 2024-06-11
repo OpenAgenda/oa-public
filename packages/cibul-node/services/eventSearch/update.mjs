@@ -1,103 +1,14 @@
 import logs from '@openagenda/logs';
-import getAgendaSearchIndex from './lib/getAgendaSearchIndex.mjs';
 import hasOtherPublishedReferences from './lib/hasOtherPublishedReferences.mjs';
+import updateAgendaIndex from './lib/updateAgendaIndex.mjs';
 
 const log = logs('services/eventSearch/update');
-
-async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
-  const {
-    agendaEvents,
-  } = services;
-
-  log('loadOtherUpdates');
-  const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, {
-    excludeAgendaUid: agendaUid,
-  }, 0, 1000).then(r => r.items.map(ae => ae.agendaUid));
-
-  log('loadOtherUpdates: remainingAgendaUids: %j', remainingAgendaUids);
-
-  // here you know if it is published somewhere or not
-  for (const remainingAgendaUid of remainingAgendaUids) {
-    await queue('otherUpdate', remainingAgendaUid, eventUid);
-  }
-}
-
-async function updateAgendaIndex(eventSearch, {
-  agenda,
-  formSchema,
-  member,
-  event,
-}) {
-  log('  updateAgendaIndex');
-
-  const data = {
-    ...event,
-    member,
-  };
-
-  const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
-
-  log('  update agenda index', agenda.uid);
-
-  await searchIndex.update({
-    uid: event.uid,
-  }, data, {
-    refresh: true,
-    operation: 'index',
-    formSchema,
-    agenda,
-  });
-
-  log('  updated');
-}
-
-async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
-  const {
-    core,
-    tracker,
-  } = services;
-
-  log('  otherUpdate', agendaUid, eventUid);
-
-  const {
-    event,
-    member,
-    formSchema,
-    agenda,
-  } = await core.agendas(agendaUid).events.get(eventUid, {
-    returnPayload: true,
-    detailed: true,
-    access: 'internal',
-  });
-
-  if (tracker) {
-    tracker(`eventSearch.otherUpdate:${agendaUid}.${eventUid}`);
-  }
-
-  const result = await updateAgendaIndex(eventSearch, {
-    agenda,
-    formSchema,
-    member,
-    event,
-  });
-
-  if (tracker) {
-    tracker(`eventSearch.otherUpdate.done:${agendaUid}.${eventUid}`);
-  }
-
-  return result;
-}
 
 export default (services, queue, eventSearch) => {
   const {
     agendaEvents,
     tracker,
   } = services;
-
-  queue.register({
-    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
-    otherUpdate: otherUpdate.bind(null, services, eventSearch),
-  });
 
   return async ({
     agenda,
