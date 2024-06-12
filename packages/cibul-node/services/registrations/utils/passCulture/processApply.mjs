@@ -7,6 +7,7 @@ export default async function processPassCultureApply({ services }, agenda, clea
 
   const {
     registrations,
+    core,
   } = services;
 
   const passCultureService = registrations(agenda.settings.registration).passCulture;
@@ -16,7 +17,9 @@ export default async function processPassCultureApply({ services }, agenda, clea
     event,
   } = clean;
 
-  const applied = await passCultureService.apply(event, passCulture);
+  const applied = await passCultureService.apply(event, passCulture, {
+    imageBasePath: core.getConfig().aws.imageBucketPath,
+  });
 
   return event.registration.map(r => (r.service === 'passCulture' ? {
     ...r,

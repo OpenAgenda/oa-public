@@ -29,6 +29,7 @@ export function init(config, services) {
   const svc = Registrations({
     passCulture: config.passCulture,
     logger: config.getLogConfig('svc', 'registrations'),
+    imageBasePath: config.aws.bucket,
   });
 
   const { enqueue, task, shutdown: shutdownTask } = ProcessPassPendingOffers({
