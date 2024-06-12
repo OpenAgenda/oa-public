@@ -723,7 +723,7 @@ export const SortChoiceListInDropdown = () => (
         <ul class="dropdown-menu"
           aria-labelledby="dropdown"
           data-oa-filter="an-id"
-          data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'city', sort: 'alphabetical', tag: 'li'}) %>"
+          data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'city', sort: 'alphabetical', tag: 'li', preventDefault: false}) %>"
         ></ul>
     </div>
     `)()}

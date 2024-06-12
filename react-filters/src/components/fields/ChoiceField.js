@@ -1,23 +1,21 @@
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { getLocaleValue } from '@openagenda/intl';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 
-function useOnChoiceChange(input) {
+function useOnChoiceChange(input, preventDefault) {
   const inputRef = useRef();
 
   const onChange = useMemo(
     () =>
       a11yButtonActionHandler(e => {
-        const isBootstrapDropdown = e.target.closest('.dropdown-menu');
-
         if (e.target === inputRef.current) {
           return;
         }
 
-        if (!isBootstrapDropdown) {
+        if (preventDefault) {
           e.preventDefault();
           e.stopPropagation();
         }
@@ -61,6 +59,7 @@ export default function ChoiceField({
   option,
   disabled,
   tag: Tag = 'div',
+  preventDefault = true,
 }) {
   const intl = useIntl();
   const seed = useUIDSeed();
@@ -69,7 +68,7 @@ export default function ChoiceField({
     [filter, getTotal, option],
   );
 
-  const { inputRef, onChange } = useOnChoiceChange(input);
+  const { inputRef, onChange } = useOnChoiceChange(input, preventDefault);
 
   // option, onChange, input, total, disabled
 
