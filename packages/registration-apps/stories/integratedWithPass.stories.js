@@ -372,7 +372,7 @@ export function WithAlreadyCreatedPassOffer() {
       }],
       dates: [{
         id: 1,
-        timingId: 1696078800000,
+        timingId: 1727701200000,
         priceCategoryId: 0,
         quantity: 879,
       }],

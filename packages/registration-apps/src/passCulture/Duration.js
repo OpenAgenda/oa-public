@@ -28,6 +28,7 @@ export default function Duration({
     Input,
   } = useContext(ComponentsContext);
   const TimingsWithId = timings.map(t => ({ ...t, id: getTimingId(t) }));
+
   const [duration, setDuration] = useState(value.eventDuration || null);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function Duration({
       setDuration(preloadedDuration);
       onChange(preloadedDuration);
     }
-  }, [/* value.dates, value.duration */]);
+  }, [TimingsWithId, value?.dates, value.duration, onChange]);
 
   return (
     <Input
