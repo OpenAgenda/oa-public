@@ -1,4 +1,4 @@
-import { getObjectType } from '../iso/utils.js';
+import { getObjectType } from './utils.js';
 import getMatchingPassId from './getMatchingPassId.js';
 
 function decorateWithInfoFields(data, entry) {
@@ -23,7 +23,9 @@ function spreadAccordingToObjectType(data) {
 
     const spread = [];
 
-    if (Object.keys(remaining).length) {
+    const hasOtherData = !!Object.keys(remaining).length;
+
+    if (hasOtherData) {
       spread.push(decorateWithInfoFields(remaining, entry));
     }
 
@@ -35,6 +37,10 @@ function spreadAccordingToObjectType(data) {
       spread.push(decorateWithInfoFields({ dates }, entry));
     }
 
+    if (!dates && !priceCategories && !hasOtherData) {
+      spread.push({ operation, appliedAt, response });
+    }
+
     return spreadEntries.concat(spread);
   }, []);
 }
@@ -43,7 +49,7 @@ function spreadAccordingToOperation(data) {
   return data.reduce((spreadEntries, entry) => {
     const type = getObjectType(entry);
 
-    if (type === 'eventOffer') {
+    if (!['priceCategories', 'dates'].includes(type)) {
       // no spread by operation possible for event offer
       return spreadEntries.concat(entry);
     }

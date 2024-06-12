@@ -6,9 +6,13 @@ import validateEventOffer from './validateEventOffer.js';
 import { validateDates } from './validateDate.js';
 import { validatePriceCategories } from './validatePriceCategory.js';
 
-export default function validateSpreadLocalData(data, event, options = {}) {
+export default function validateSpreadLocalData(data, event, params = {}) {
   const processedItems = data.reduce((processed, entry) => {
     const current = { merged: {} };
+
+    if (!params.categories) {
+      throw new Error('categories are required for event offer validation');
+    }
 
     try {
       current.merged.clean = validateMergedLocalData(
@@ -16,7 +20,7 @@ export default function validateSpreadLocalData(data, event, options = {}) {
           processed.map(({ clean }) => clean).concat(entry),
         ),
         event,
-        options,
+        params,
       );
     } catch (error) {
       current.merged.errors = error.info.errors;
@@ -29,11 +33,14 @@ export default function validateSpreadLocalData(data, event, options = {}) {
         ...clean,
         ...entry[key] ? { [key]: entry[key] } : undefined,
       }), {
-        ...type === 'eventOffer' ? validateEventOffer(entry, options) : undefined,
+        ...type === 'eventOffer' ? validateEventOffer(entry, { ...params, partial: true }) : undefined,
         ...type === 'priceCategories' ? { priceCategories: validatePriceCategories(entry.priceCategories) } : undefined,
-        ...type === 'dates' ? { dates: validateDates(entry.dates, current.merged.clean.priceCategories, event) } : undefined,
+        ...type === 'dates' ? { dates: validateDates(entry.dates, current.merged.clean?.priceCategories, event) } : undefined,
       });
     } catch (e) {
+      if (!e.info?.errors) {
+        throw e;
+      }
       current.errors = e.info.errors;
     }
 
@@ -45,7 +52,7 @@ export default function validateSpreadLocalData(data, event, options = {}) {
   const { merged } = processedItems[processedItems.length - 1];
 
   if (merged.errors?.length) {
-    throw new BadRequest('merged entries are invalid', { info: { errors: merged.errors } });
+    throw new BadRequest('entries are invalid or incomplete', { info: { errors: merged.errors } });
   }
 
   return processedItems.map(({ clean }) => clean);

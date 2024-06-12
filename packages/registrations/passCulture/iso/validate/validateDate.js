@@ -10,6 +10,7 @@ export default function validateDate(value, params = {}) {
     timings = [],
     timezone = 'Europe/Paris',
     boolMode = false,
+    ignoreId = false,
   } = params;
 
   if (!value || typeof value !== 'object') {
@@ -73,7 +74,7 @@ export default function validateDate(value, params = {}) {
 
   clean.id = parseInt(id, 10);
 
-  if (Number.isNaN(clean.id) || clean.id < 1) {
+  if (!ignoreId && (Number.isNaN(clean.id) || clean.id < 1)) {
     errors.push({
       message: 'date must have a positive assigned id',
       code: 'invalid.id',

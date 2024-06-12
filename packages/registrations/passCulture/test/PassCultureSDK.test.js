@@ -41,7 +41,7 @@ describe('PassCultureSDK', () => {
     });
     testEventPCId = priceCategories[0].id;
 
-    const { dates } = await pc.offers.events(testEventId).dates.create({
+    await pc.offers.events(testEventId).dates.create({
       dates: [{
         beginningDatetime: '2024-09-17T14:00:00+02:00',
         bookingLimitDatetime: '2024-09-17T14:00:00+02:00',

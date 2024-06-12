@@ -1,5 +1,6 @@
-import getMatchingPassId from './getMatchingPassId.js';
+import getMatchingPassId from '../iso/getMatchingPassId.js';
 
 export default function getOperationType(previousEntries, objectType, entry) {
-  return getMatchingPassId(previousEntries, entry[objectType][0]?.id) ? 'update' : 'create';
+  const id = objectType === 'eventOffer' ? entry.id : entry[objectType][0]?.id;
+  return getMatchingPassId(previousEntries, id) ? 'update' : 'create';
 }

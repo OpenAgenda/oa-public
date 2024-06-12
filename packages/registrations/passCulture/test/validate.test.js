@@ -7,6 +7,7 @@ import {
 import settings from './fixtures/settings.json';
 import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json';
 import dataWithDependedOffer from './fixtures/data.withDependedOffer.pc.json';
+import partiallySpread from './fixtures/partiallySpread.json';
 
 describe('validate', () => {
   describe('validateDate', () => {
@@ -427,6 +428,37 @@ describe('validate', () => {
         expect(
           Object.keys(clean[1]),
         ).toEqual(['response', 'appliedAt', 'operation']);
+      });
+
+      test('last item is spread when provided as a bundle', () => {
+        const clean = validateLocalData(partiallySpread, {
+          timings: [{
+            begin: '2024-06-14T08:00:00.000Z',
+          }],
+        }, settings);
+
+        expect(clean[3]).toEqual({
+          eventDuration: 210,
+        });
+
+        expect(clean[4]).toEqual({
+          priceCategories: [
+            {
+              price: 1200,
+              label: 'Tarif pas si unique',
+              id: 2,
+            },
+          ],
+        });
+
+        expect(clean[5]).toEqual({
+          dates: [{
+            id: 3,
+            timingId: 1718352000000,
+            priceCategoryId: 2,
+            quantity: 2,
+          }],
+        });
       });
     });
   });

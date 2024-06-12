@@ -1,7 +1,8 @@
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import { getObjectType } from '../iso/utils.js';
-import spreadPCData from './spreadPCData.js';
+import validateLocalData from '../iso/validate/validateLocalData.js';
+import spreadPCData from '../iso/spreadPCData.js';
 import wasApplied from './wasApplied.js';
 import getOperationType from './getOperationType.js';
 import applyPriceCategories from './priceCategories.js';
@@ -24,7 +25,26 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     OAEvent: { uid: OAEvent.uid },
   };
 
-  const [firstItem, ...remainingDataEntries] = dataEntries;
+  const {
+    categories: categoriesFromOptions,
+    related: relatedFromOptions,
+  } = options;
+
+  const {
+    categories,
+    related,
+  } = !categoriesFromOptions || !relatedFromOptions ? await pc.offers.events.categories.list() : {
+    categories: categoriesFromOptions,
+    related: relatedFromOptions,
+  };
+
+  const cleanEntries = validateLocalData(dataEntries, OAEvent, {
+    ...options,
+    categories,
+    related,
+  });
+
+  const [firstItem, ...remainingDataEntries] = cleanEntries;
 
   if (getObjectType(firstItem) !== 'eventOffer') {
     throw new BadRequest('first item should be eventOffer');
@@ -32,7 +52,11 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
   if (!wasApplied(firstItem)) {
     log.info('creating event offer', logBundle);
-    const { response, succeeded } = await applyEventOffer.create(pc, OAEvent, firstItem, options);
+    const { response, succeeded, error } = await applyEventOffer.create(pc, OAEvent, firstItem, options);
+
+    if (error) {
+      throw error; // {"offer: ["Une offre qui a un ticket..."]}}
+    }
 
     processed.push({
       ...succeeded,
@@ -55,7 +79,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     .then(({ status }) => status === 'PENDING');
 
   if (isStillPending) {
-    log.info('is still pending, no action taken');
+    log.info('done with pending, no action taken', logBundle);
     return dataEntries;
   }
 
@@ -83,7 +107,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     }
 
     const objectType = getObjectType(entry);
-    const operation = getOperationType(remainingDataEntries, objectType, entry);
+    const operation = getOperationType(cleanEntries, objectType, entry);
 
     log('entry was not yet applied, processing', Object.assign(entryLogBundle, { type: objectType, operation }));
 
@@ -92,7 +116,10 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
       response,
       remaining,
       error,
-    } = await getApplyFn(objectType, operation)(pc, passEventOfferId, OAEvent, processed, entry, { logBundle: entryLogBundle });
+    } = await getApplyFn(objectType, operation)(pc, passEventOfferId, OAEvent, processed, entry, {
+      ...options,
+      logBundle: entryLogBundle,
+    });
 
     if (succeeded) {
       processed.push({
@@ -107,11 +134,17 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
       continue;
     }
 
-    return processed.concat({
+    const processedWithError = processed.concat({
       ...objectType === 'eventOffer' ? remaining : { [objectType]: remaining },
       error,
     }).concat(remainingDataEntries.slice(remainingDataEntries.length - index + 1));
+
+    log('done with errors', { ...logBundle, processed: processedWithError });
+
+    return processedWithError;
   }
+
+  log('done', { ...logBundle, processed });
 
   return processed;
 }

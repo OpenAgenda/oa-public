@@ -6,6 +6,7 @@ export default function validateEventOffer(data, options = {}) {
   const {
     categories,
     related,
+    partial = false,
   } = options;
 
   const {
@@ -20,7 +21,7 @@ export default function validateEventOffer(data, options = {}) {
 
   const errors = [];
 
-  if (!data.category) {
+  if (!data.category && !partial) {
     errors.push({
       message: 'category is required',
       code: 'registration.pass.requiredCategory',
@@ -31,7 +32,7 @@ export default function validateEventOffer(data, options = {}) {
 
   const matchingSettingsCategory = (categories ?? []).find(({ value }) => data.category === value);
 
-  if (data.category && !matchingSettingsCategory) {
+  if (data.category && !matchingSettingsCategory && !partial) {
     errors.push({
       message: 'unknown category',
       code: 'registration.pass.unknownCategory',
@@ -57,9 +58,11 @@ export default function validateEventOffer(data, options = {}) {
     error.info.errors.forEach(e => errors.push(e));
   }
 
-  clean.venueId = parseInt(venueId, 10);
+  if (venueId || !partial) {
+    clean.venueId = parseInt(venueId, 10);
+  }
 
-  if (Number.isNaN(clean.venueId)) {
+  if ((!partial || clean.venueId) && Number.isNaN(clean.venueId)) {
     errors.push({
       message: 'venueId is required and must be an integer',
       code: 'registration.pass.invalidVenueId',
@@ -76,7 +79,7 @@ export default function validateEventOffer(data, options = {}) {
     }
   }
 
-  if (bookingEmail) {
+  if ((partial && bookingEmail) || !partial) {
     try {
       clean.bookingEmail = validateEmail(bookingEmail, 'bookingEmail');
     } catch (error) {

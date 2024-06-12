@@ -4,13 +4,13 @@ import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { produce } from 'immer';
 
-import spreadPCData from '../apply/spreadPCData.js';
+import spreadPCData from '../iso/spreadPCData.js';
 import { getObjectType } from '../iso/utils.js';
-import getMatchingPassId from '../apply/getMatchingPassId.js';
+import getOperationType from '../apply/getOperationType.js';
+import getMatchingPassId from '../iso/getMatchingPassId.js';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 import apply from '../apply/index.js';
 
-import bambiEvent from './fixtures/bambi.event.json';
 import CArtEvents from './fixtures/cart.events.json';
 import openAPIData from './fixtures/openapi.json';
 import unnapplied from './fixtures/data.unnapplied.pc.json';
@@ -19,6 +19,22 @@ import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.
 import withDateUpdate from './fixtures/data.withDateUpdate.pc.json';
 import getEventResponse from './fixtures/eventGetResponse.json';
 import withPendingOffer from './fixtures/data.withPendingOffer.pc.json';
+import settings from './fixtures/settings.json';
+
+const applyValidTimingId = (entries, event) => {
+  const validTimingIds = event.timings.map(t => new Date(t.begin).getTime());
+
+  return produce(entries, draft => {
+    for (const entry of draft) {
+      if (entry.dates) {
+        entry.dates = entry.dates.map((date, index) => ({
+          ...date,
+          timingId: validTimingIds[index] ?? validTimingIds[0],
+        }));
+      }
+    }
+  });
+};
 
 const api = 'https://pc.local';
 
@@ -77,44 +93,6 @@ describe('apply', () => {
         server.close();
       });
 
-      describe('create offer only, no price categories or dates', () => {
-        let processed;
-
-        beforeAll(async () => {
-          processed = await apply(pc, bambiEvent, {
-            venueId: 123,
-            category: 'CINE_PLEIN_AIR',
-          });
-        });
-
-        test('returned processed item has an appliedAt timestamp', () => {
-          expect(processed[0].appliedAt instanceof Date).toBe(true);
-        });
-
-        test('if no priceCategories or dates are in provided create data, returned processed data is an array of length of 1', () => {
-          expect(Array.isArray(processed)).toBe(true);
-
-          expect(processed.length).toBe(1);
-        });
-
-        test('returned item has data that was provided completed with an appliedAt, a response and an operation key', () => {
-          expect(Object.keys(processed[0])).toEqual([
-            'venueId',
-            'category',
-            'response',
-            'appliedAt',
-            'operation',
-          ]);
-        });
-
-        test('response key of processed data containes passId and isPending keys', () => {
-          expect(processed[0].response).toEqual({
-            passId: randomPassOfferID,
-            isPending: false,
-          });
-        });
-      });
-
       describe('create offer with price categories and dates', () => {
         let processed;
 
@@ -140,13 +118,23 @@ describe('apply', () => {
               priceCategoryId: 0,
               quantity: 3,
             }],
+          }, {
+            categories: settings.categories,
+            related: settings.related,
+          });
+        });
+
+        test('response key of processed data containes passId and isPending keys', () => {
+          expect(processed[0].response).toEqual({
+            passId: randomPassOfferID,
+            isPending: false,
           });
         });
 
         test('processed data has parts of entry spread over as many entries as there are object types', () => {
           expect(Object.keys(processed[0])).toEqual([
-            'venueId',
             'category',
+            'venueId',
             'response',
             'appliedAt',
             'operation',
@@ -204,7 +192,7 @@ describe('apply', () => {
         let processed;
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], withPendingOffer);
+          processed = await apply(pc, CArtEvents[0], withPendingOffer, settings);
         });
 
         test('no changes are made on pending offer data', () => {
@@ -217,7 +205,7 @@ describe('apply', () => {
         const noLongerPending = produce(withPendingOffer, draft => { draft[0].response.passId = 5421; });
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], noLongerPending);
+          processed = await apply(pc, CArtEvents[0], noLongerPending, settings);
         });
 
         test('all remaining operations are executed', () => {
@@ -254,7 +242,7 @@ describe('apply', () => {
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
-        const processed = await apply(pc, CArtEvents[0], withPriceCategoryUpdate);
+        const processed = await apply(pc, CArtEvents[0], applyValidTimingId(withPriceCategoryUpdate, CArtEvents[0]), settings);
 
         expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(true);
       });
@@ -282,7 +270,7 @@ describe('apply', () => {
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
-        const processed = await apply(pc, CArtEvents[0], withDateUpdate);
+        const processed = await apply(pc, CArtEvents[0], applyValidTimingId(withDateUpdate, CArtEvents[0]), settings);
 
         expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(true);
       });
@@ -304,7 +292,61 @@ describe('apply', () => {
           getObjectType({ priceCategories: [] }),
         ).toBe('priceCategories');
       });
+
+      test('entry with eventDuration is of eventOffer type', () => {
+        expect(
+          getObjectType({ eventDuration: 210 }),
+        ).toBe('eventOffer');
+      });
     });
+
+    describe('getOperationType', () => {
+      test('eventOffer update', () => {
+        const operationType = getOperationType([
+          {
+            duo: true,
+            eventDuration: 210,
+            category: 'CONCERT',
+            musicType: 'JAZZ-AVANT_GARDE_JAZZ',
+            venueId: 548,
+            bookingContact: 'fdqfdsqfdsq@fdsqfdsq.com',
+            response: {
+              passId: 72771,
+              isPending: false,
+            },
+            appliedAt: '2024-06-11T09:52:16.657Z',
+            operation: 'create',
+          },
+          {
+            priceCategories: [
+              {
+                price: 0,
+                label: 'Tarif unique',
+                id: 0,
+              },
+            ],
+            response: {
+              priceCategories: [
+                {
+                  passId: 4733,
+                  id: 0,
+                },
+              ],
+            },
+            appliedAt: '2024-06-11T09:52:17.168Z',
+            operation: 'create',
+          },
+          {
+            eventDuration: 210,
+          },
+        ], 'eventOffer', {
+          eventDuration: 210,
+        });
+
+        expect(operationType).toBe('update');
+      });
+    });
+
     describe('spreadPCData', () => {
       test('data is spread according to single item single API call principle', () => {
         expect(unnapplied.length).toBe(2);
@@ -344,6 +386,63 @@ describe('apply', () => {
           'response',
           'appliedAt',
         ]);
+      });
+
+      test('first item is an event offer', () => {
+        const spread = spreadPCData([
+          {
+            editing: true,
+            priceCategories: [
+              {
+                label: 'Tarif unique',
+                price: 0,
+                id: 0,
+              },
+            ],
+            duo: true,
+            venueId: 548,
+            category: 'CONCERT',
+            musicType: 'JAZZ-BEBOP',
+            dates: [
+              {
+                id: 1,
+                timingId: 1718442000000,
+                priceCategoryId: 0,
+                quantity: '456',
+              },
+            ],
+            eventDuration: 150,
+          },
+        ]);
+
+        expect(getObjectType(spread[0])).toBe('eventOffer');
+      });
+
+      test('second item can be a no longer pending event offer', () => {
+        const spread = spreadPCData([
+          {
+            duo: true,
+            venueId: 548,
+            category: 'CONCERT',
+            musicType: 'JAZZ-BEBOP',
+            bookingContact: 'gdfsgfdsgdfs@gfsgfsd.com',
+            appliedAt: '2024-05-29T10:00:00.OOOZ',
+            response: {
+              passId: 123456,
+              isPending: true,
+            },
+            operation: 'create',
+          },
+          {
+            appliedAt: '2024-05-29T11:00:00.OOOZ',
+            response: {
+              isPending: false,
+            },
+            operation: 'get',
+          },
+        ]);
+
+        expect(spread[1].operation).toBe('get');
       });
     });
   });

@@ -55,7 +55,9 @@
     "dates": [
       {
         "id": 2,
-        "quantity": 78789
+        "quantity": 78789,
+        "timingId": 1696078800000,
+        "priceCategoryId": 0
       }
     ]
   }

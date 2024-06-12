@@ -1,7 +1,8 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import { omit, getTimingId, isDHMFormat, convertDHMToDate } from '../lib/utils.js';
-import getMatchingPassId from './getMatchingPassId.js';
+import getMatchingPassId from '../iso/getMatchingPassId.js';
+import handleError from './handleError.js';
 
 const log = logs('apply/dates');
 
@@ -22,7 +23,7 @@ const formatDate = (OAEvent, entries, date) => {
   };
 };
 
-async function update(pc, passEventOfferId, OAEvent, processedEntries, entry) {
+async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
   const succeeded = { dates: [] };
   let error;
 
@@ -35,7 +36,7 @@ async function update(pc, passEventOfferId, OAEvent, processedEntries, entry) {
 
       succeeded.dates.push(date);
     } catch (e) {
-      error = e;
+      error = handleError('dates update', e);
       break;
     }
   }
@@ -63,7 +64,7 @@ async function create(pc, passEventOfferId, OAEvent, processedEntries, entry, { 
   } catch (error) {
     log.info('failed to create dates', { ...createLogBundle, status: error.response.status });
     return {
-      error,
+      error: handleError('dates create', error),
     };
   }
 
