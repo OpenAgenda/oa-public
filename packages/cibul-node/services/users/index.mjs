@@ -13,7 +13,7 @@ import onActivation from './lib/onActivation.js';
 import sendToken from './lib/sendToken.js';
 import replaceIdMe from './lib/replaceIdMe.js';
 import loadBySessionOrKey from './middleware/loadBySessionOrKey.js';
-import verifySuperAdmin from './middleware/verifySuperAdmin.js';
+import requireSuperAdmin from './middleware/requireSuperAdmin.mjs';
 import verifyTransverseApiAccess from './middleware/verifyTransverseApiAccess.js';
 import verifyHeadersPassword from './middleware/verifyHeadersPassword.js';
 import svcHooks from './hooks/index.js';
@@ -82,6 +82,7 @@ export async function init(config, services) {
       },
     },
     logger: config.getLogConfig('svc', 'users', false),
+    superAdminUids: config.superAdminUids,
   });
 
   registerContextUpdater(service, withProps({ services }));
@@ -93,7 +94,7 @@ export async function init(config, services) {
 
   service.mw = {
     loadBySessionOrKey,
-    verifySuperAdmin: verifySuperAdmin(config.superAdminIds),
+    requireSuperAdmin,
     verifyTransverseApiAccess,
     verifyHeadersPassword,
   };

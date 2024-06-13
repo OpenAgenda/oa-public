@@ -35,12 +35,12 @@ export function init(config, services) {
 }
 
 export function plugApp(app, base = '/announcement') {
-  const { sessions, supervisor: { announcements } } = app.services;
+  const { sessions, supervisor: { announcements }, users } = app.services;
 
   app.post(
     base,
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
-    sessions.mw.requireSuperAdmin,
+    users.mw.requireSuperAdmin(),
     async (req, res, next) => {
       try {
         await announcements.set(req.body);
@@ -54,7 +54,7 @@ export function plugApp(app, base = '/announcement') {
   app.delete(
     base,
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
-    sessions.mw.requireSuperAdmin,
+    users.mw.requireSuperAdmin(),
     async (req, res, next) => {
       try {
         await announcements.remove();

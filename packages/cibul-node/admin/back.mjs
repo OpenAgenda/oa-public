@@ -11,10 +11,10 @@ import config from '../config/index.js';
 
 const log = logs('admin/back');
 
-const PreMw = ({ sessions }) => [
+const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-  cmn.requireSuperAdmin,
+  users.mw.requireSuperAdmin(),
 ];
 
 function index(req, res) {

@@ -25,7 +25,7 @@ export default (core, { useRouter = true } = {}) => {
   app.core = core;
   app.services = core.services;
 
-  const { verifySuperAdmin, verifyTransverseApiAccess } = app.services.users.mw;
+  const { requireSuperAdmin, verifyTransverseApiAccess } = app.services.users.mw;
 
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([
@@ -618,7 +618,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [
-    verifySuperAdmin,
+    requireSuperAdmin({ jsonResponse: true }),
     settings.resync,
   ]);
 
@@ -792,7 +792,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/supervisor/users/:uid', [
-    verifySuperAdmin,
+    requireSuperAdmin({ jsonRespone: true }),
     (req, res) => core.users.get(req.params.uid, {
       withSchema: true,
       includeSupervisorLink: true,

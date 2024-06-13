@@ -3,10 +3,10 @@ import agendasSvc from '@openagenda/agendas';
 import { mw } from '@openagenda/admin-agendas';
 import cmn from '../lib/commons-app.js';
 
-const PreMw = ({ sessions }) => [
+const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-  cmn.requireSuperAdmin,
+  users.mw.requireSuperAdmin(),
 ];
 
 function index(req, res) {

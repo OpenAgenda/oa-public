@@ -50,6 +50,19 @@ const populateAnnouncement = () => async (context, next) => {
   }
 };
 
+const isSuperAdmin = () => async (context, next) => {
+  await next();
+  const { config } = context.self;
+
+  if (!context.result || !context.params.user) {
+    return;
+  }
+
+  if (config.superAdminUids.includes(context.params.user.uid)) {
+    context.result.isSuperAdmin = true;
+  }
+};
+
 const disallow = (...args) => async (context, next) => {
   _disallow(...args)(context);
   await next();
@@ -61,6 +74,7 @@ module.exports = {
   ],
   get: [
     restrictToCurrentUserIfExternal(),
+    isSuperAdmin(),
     populateAnnouncement(),
   ],
   create: [
