@@ -384,6 +384,10 @@ const config = {
         method: 'get',
         uri: '/:slug/admin/inbox/conversation/:conversationId',
       },
+      supportConversation: {
+        method: 'get',
+        uri: '/admin/support/conversation/:conversionId',
+      },
       agendaSettingsEditApp: {
         method: 'get',
         uri: '/:slug/admin/settings',

@@ -49,7 +49,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
 
   const getAgenda = promisify(agendasSvc.get);
 
-  const { user } = inboxUser;
+  const { user, inbox } = inboxUser;
   const { culture: lang = 'fr' } = user;
 
   const agenda = conversation.store.params && conversation.store.params.agendaUid
@@ -71,31 +71,45 @@ async function sendMail(services, { inboxUser, conversation, message }) {
 
   const isAdminmod = agenda && member && [2, 3, '2', '3', 'administrator', 'moderator'].includes(member.role);
 
-  const link = isAdminmod
-    ? genUrl.abs('agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id })
-    : genUrl.abs('homeInboxConversation', { conversationId: conversation.id });
+  let link;
+  const unsubscriptions = [];
+
+  if (isAdminmod) {
+    link = genUrl.abs('agendaAdminInboxConversation', {
+      slug: agenda.slug,
+      conversationId: conversation.id,
+    });
+    unsubscriptions.push({
+      rule: ['receive', 'agendaInboxMessage'],
+      dataPath: 'unsubscribeLink',
+    });
+  }
+
+  if (isAdminmod && member?.id) {
+    unsubscriptions.push({
+      memberId: member.id,
+      rule: ['receive', 'agendaInboxMessage'],
+      dataPath: 'memberUnsubscribeLink',
+    });
+  }
+
+  if (inbox.type === 'support') {
+    link = genUrl.abs('supportConversation', { conversationId: conversation.id });
+    unsubscriptions.push({
+      rule: ['receive', 'userInboxMessage'],
+      dataPath: 'unsubscribeLink',
+    });
+  }
+
+  if (!isAdminmod && inbox.type !== 'support') {
+    link = genUrl.abs('homeInboxConversation', { conversationId: conversation.id });
+    unsubscriptions.push({
+      rule: ['receive', 'userInboxMessage'],
+      dataPath: 'unsubscribeLink',
+    });
+  }
 
   const senderName = await getSenderName(services, { inboxUser, conversation, message });
-
-  const unsubscriptions = agenda
-    ? [
-      {
-        rule: ['receive', 'agendaInboxMessage'],
-        dataPath: 'unsubscribeLink',
-      },
-    ].concat(member && member.id ? [
-      {
-        memberId: member.id,
-        rule: ['receive', 'agendaInboxMessage'],
-        dataPath: 'memberUnsubscribeLink',
-      },
-    ] : [])
-    : [
-      {
-        rule: ['receive', 'userInboxMessage'],
-        dataPath: 'unsubscribeLink',
-      },
-    ];
 
   const reference = `inboxMessage/${conversation.id}@mail.openagenda.com`;
   const agendaTitle = agenda ? agenda.title : null;
@@ -111,12 +125,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
       address: `reply+${user.replyToken}@mail.openagenda.com`,
     },
     to: {
-      name: agendaTitle,
-      address: `${agenda ? agenda.slug : 'inbox'}@mail.openagenda.com`,
-      unsubscriptions,
-    },
-    cc: {
-      name: (member && member.custom.contactName) || user.fullName,
+      name: member?.custom?.contactName?.length ? member.custom.contactName : user.fullName,
       address: user.email,
       unsubscriptions,
     },
