@@ -386,7 +386,7 @@ const config = {
       },
       supportConversation: {
         method: 'get',
-        uri: '/admin/support/conversation/:conversionId',
+        uri: '/admin/support/conversation/:conversationId',
       },
       agendaSettingsEditApp: {
         method: 'get',
