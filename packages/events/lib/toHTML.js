@@ -1,16 +1,13 @@
 'use strict';
 
-const marked = require('marked');
-const renderer = new marked.Renderer();
-const toHTML = str => marked(str || '', { renderer });
+const { fromMarkdownToHTML } = require('@openagenda/md');
 
 module.exports = obj => {
   if (typeof obj === 'object') {
     return Object.keys(obj).reduce((html, lang) => ({
       ...html,
-      [lang]: toHTML(obj[lang])
+      [lang]: fromMarkdownToHTML(obj[lang]),
     }), {});
-  } else {
-    return toHTML(obj);
   }
+  return fromMarkdownToHTML(obj);
 }

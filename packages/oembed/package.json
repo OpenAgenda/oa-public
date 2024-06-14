@@ -15,7 +15,7 @@
     "cheerio": "^1.0.0-rc.10",
     "core-js": "^3.29.1",
     "lodash": "^4.17.15",
-    "markdown-link-extractor": "^1.2.0",
+    "markdown-link-extractor": "^4.0.2",
     "node-html-parser": "^1.1.16",
     "regenerator-runtime": "^0.13.7"
   },
