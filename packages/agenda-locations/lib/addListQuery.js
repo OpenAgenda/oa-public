@@ -83,10 +83,18 @@ const validate = schema({
   },
 });
 
+const preCleanAndValidate = query => {
+  const cleanQuery = { ...query };
+  if (query.uids && typeof query.uids === 'string') {
+    cleanQuery.uids = query.uids.split(',');
+  }
+  return validate(cleanQuery);
+};
+
 module.exports = async (service, k, deleted, query) => {
   const {
     agendaUid, setUid, search, state, updatedAt, createdAt, uids, excludeUid, geo, hasNull, hasDuplicateCandidates,
-  } = validate(query);
+  } = preCleanAndValidate(query);
   const agendaId = agendaUid
     ? await service.interfaces
       .getAgendaDetailsByUid(agendaUid, ['id'])
