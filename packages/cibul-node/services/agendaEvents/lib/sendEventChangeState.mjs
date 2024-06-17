@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import marked from 'marked';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import agendaEventStates from '@openagenda/agenda-events/iso/states.js';
 import logs from '@openagenda/logs';
 import agendaLogo from './utils/agendaLogo.mjs';
@@ -57,7 +57,7 @@ async function sendToContributor({
         agendaTitle,
         logo,
         link,
-        message: marked(_.get(agenda, 'settings.contribution.messages.publication')),
+        message: fromMarkdownToHTML(_.get(agenda, 'settings.contribution.messages.publication')),
       },
       lang: conributorLang,
     });

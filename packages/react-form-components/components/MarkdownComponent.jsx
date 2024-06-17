@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import utils from '@openagenda/utils';
 import uniqueLoad from '../lib/uniqueLoad';
-import marked from 'marked';
+import { fromMarkdownToHTML } from '@openagenda/md';
 
 import turndown from 'turndown';
 const TurndownService = turndown.default || turndown;
@@ -86,7 +86,7 @@ export default class MarkdownComponent extends Component {
         <textarea
           placeholder={placeholder}
           className={this.state.uniqueClassName}
-          value={ marked( value ) }
+          value={ fromMarkdownToHTML( value ) }
           style={{ minHeight: '200px', visibility: 'hidden' }}
           onChange={() => {
 
@@ -107,7 +107,7 @@ export default class MarkdownComponent extends Component {
     if ( this.state.editorMarkdown !== this.props.value ) {
 
       // value in editor has diverged from value given in props. Needs to be updated
-      tinymce.get( this.state.editorId ).setContent( marked( this.props.value ) );
+      tinymce.get( this.state.editorId ).setContent( fromMarkdownToHTML( this.props.value ) );
 
     }
 

@@ -2,11 +2,9 @@
 
 const _ = require( 'lodash' );
 const pug = require( 'pug' );
-const marked = require( 'marked' );
+const { fromMarkdownToHTML } = require('@openagenda/md');
 const linkValidate = require( '@openagenda/validators/link' )();
 const emailValidate = require( '@openagenda/validators/email' )();
-
-const renderer = new marked.Renderer();
 
 module.exports = text => {
 
@@ -35,7 +33,7 @@ module.exports = text => {
 
   if ( !markIt ) return text;
 
-  let rendered = marked( text ).replace( /^<p>|<\/p>\n$/g, '' );
+  let rendered = fromMarkdownToHTML( text ).replace( /^<p>|<\/p>\n$/g, '' );
 
   return rendered;
 

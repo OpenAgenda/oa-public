@@ -1,7 +1,10 @@
-const { BodyComponent } = require('mjml-core');
-const marked = require('marked');
-const dedent = require('dedent');
+'use strict';
 
+const { BodyComponent } = require('mjml-core');
+const {
+  fromMarkdownToHTML,
+} = require('@openagenda/md');
+const dedent = require('dedent');
 
 class MjMarkdown extends BodyComponent {
   // This functions allows to define styles that can be used when rendering (see render() below)
@@ -32,11 +35,11 @@ class MjMarkdown extends BodyComponent {
       class: this.getAttribute('css-class'),
       style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
     })}>
-        ${marked(dedent(this.getContent()), { breaks: this.getAttribute('breaks') })}
+        ${fromMarkdownToHTML(dedent(this.getContent()), { breaks: this.getAttribute('breaks') })}
       </div>
     `;
   }
-};
+}
 
 MjMarkdown.dependencies = {
   // Tell the validator which tags are allowed as our component's parent
@@ -80,6 +83,5 @@ MjMarkdown.defaultAttributes = {
   'line-height': '1',
   padding: '10px 25px',
 };
-
 
 module.exports = MjMarkdown;

@@ -7690,7 +7690,6 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    marked: "npm:^1.1.0"
     moment-timezone: "npm:0.5.31"
     mysql: "npm:^2.11.1"
     rimraf: "npm:^3.0.1"
@@ -8108,7 +8107,7 @@ __metadata:
     express: "npm:^4.17.1"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
-    marked: "npm:^0.7.0"
+    marked: "npm:^12.0.1"
     pug: "npm:^2.0.0-beta6"
     reload: "npm:^3.2.1"
   languageName: unknown
@@ -8250,6 +8249,19 @@ __metadata:
     turndown: "npm:^7.1.3"
   languageName: unknown
   linkType: soft
+
+"@openagenda/md@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@openagenda/md@npm:1.0.1"
+  dependencies:
+    html-tags: "npm:^3.3.1"
+    isomorphic-dompurify: "npm:^2.8.0"
+    markdown-link-extractor: "npm:^4.0.2"
+    marked: "npm:^12.0.2"
+    turndown: "npm:^7.1.3"
+  checksum: 10c0/a6db1305f87368a04a701f979d65745cf75f708c7757935b218d9466c239275d091b50d855606065c7aab951ffb3d0b1a7d803f40f731ae98903b556b6c1e2e0
+  languageName: node
+  linkType: hard
 
 "@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
@@ -8538,7 +8550,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
-    markdown-link-extractor: "npm:^1.2.0"
+    markdown-link-extractor: "npm:^4.0.2"
     node-html-parser: "npm:^1.1.16"
     regenerator-runtime: "npm:^0.13.7"
     rimraf: "npm:^3.0.1"
@@ -8725,6 +8737,7 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -8735,7 +8748,7 @@ __metadata:
     jest: "npm:^29.7.0"
     languages: "npm:0.1.3"
     load-script: "npm:^1.0.0"
-    marked: "npm:^0.7.0"
+    marked: "npm:^12.0.2"
     prop-types: "npm:^15.5.8"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -17956,7 +17969,6 @@ __metadata:
     languages: "npm:^0.1.3"
     locutus: "npm:^2.0.11"
     lodash: "npm:^4.17.15"
-    marked: "npm:^0.7.0"
     mjml-core: "npm:^4.13.0"
     moment: "npm:^2.27.0"
     moment-timezone: "npm:^0.5.31"
@@ -30343,15 +30355,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-link-extractor@npm:^1.2.0":
-  version: 1.2.2
-  resolution: "markdown-link-extractor@npm:1.2.2"
-  dependencies:
-    marked: "npm:^0.7.0"
-  checksum: 10c0/75ac9419a417ae3e504d2d346e215897b32c9c628c93903d04e8db3b09b7da528f42c16a5089b53b65ee5e18c17f9d7e831448007a5794c955fcf76d676830ee
-  languageName: node
-  linkType: hard
-
 "markdown-link-extractor@npm:^4.0.2":
   version: 4.0.2
   resolution: "markdown-link-extractor@npm:4.0.2"
@@ -30377,15 +30380,6 @@ __metadata:
   bin:
     marked: ./bin/marked
   checksum: 10c0/dc888ca89cfdab52ae46f198deef361c89639d064f47cc9627544142a39877cff953e796362259d6867deb05d18696f611522b2c948a1530117699ccff55a699
-  languageName: node
-  linkType: hard
-
-"marked@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "marked@npm:1.1.0"
-  bin:
-    marked: bin/marked
-  checksum: 10c0/41ba9b516d625c0060650afb2dd203ce02ea46e2f416231109c4a6cb703cd7db12d3cc59e38a686d5bad9c7b386c4f6407c0535044b9271ec7ad8b112d1a5384
   languageName: node
   linkType: hard
 
