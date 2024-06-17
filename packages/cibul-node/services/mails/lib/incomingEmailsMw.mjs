@@ -24,6 +24,8 @@ export default function incomingEmailsMw({ services }) {
         body,
       } = req;
 
+      log.info('processing', { body });
+
       if (!body['X-Mailgun-Incoming']) {
         log.info('body does not have X-Mailgun-Infoming', { body });
         return res.sendStatus(200);
