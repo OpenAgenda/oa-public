@@ -41,7 +41,8 @@ export default function incomingEmailsMw({ services }) {
       const conversationId = parseInt(referenceMatches && referenceMatches[1], 10);
 
       if (!conversationId) {
-        log.info('no conversation id was extracted');
+        // il butte ici.
+        log.info('no conversation id was extracted', { referenceEmail, References: req.body.References });
         return res.sendStatus(200);
         // throw new Error('Invalid conversation id');
       }
