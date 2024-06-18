@@ -32,7 +32,7 @@ export default function incomingEmailsMw({ services }) {
       const references = req.body.References.replace(/<|>/g, '');
       log.info('extracted references', Object.assign(logBundle, { references }));
 
-      const conversationId = references.split('@').shift().split('.').pop();
+      const conversationId = parseInt(references.split('@').shift().split('.').pop(), 10);
       log.info('extracted conversation id', Object.assign(logBundle, { conversationId }));
 
       if (!conversationId) {
