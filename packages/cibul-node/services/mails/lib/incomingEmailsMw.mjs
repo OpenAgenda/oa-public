@@ -51,8 +51,8 @@ export default function incomingEmailsMw({ services }) {
 
       const user = await usersSvc.findOne({
         query: {
-          email: req.body.sender,
           replyToken,
+          ...req.body.sender.endsWith('@openagenda.on.crisp.email') ? undefined : { email: req.body.sender },
         },
       });
 
