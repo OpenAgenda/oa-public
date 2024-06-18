@@ -29,10 +29,10 @@ export default function incomingEmailsMw({ services }) {
         return res.sendStatus(200);
       }
 
-      const messageId = req.body['Message-Id'].replace(/<|>/g, '');
-      log.info('extracted message id', Object.assign(logBundle, { messageId }));
+      const references = req.body.References.replace(/<|>/g, '');
+      log.info('extracted references', Object.assign(logBundle, { references }));
 
-      const conversationId = messageId.split('@').shift().split('.').pop();
+      const conversationId = references.split('@').shift().split('.').pop();
       log.info('extracted conversation id', Object.assign(logBundle, { conversationId }));
 
       if (!conversationId) {
