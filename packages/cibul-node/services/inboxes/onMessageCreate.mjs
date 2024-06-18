@@ -52,6 +52,12 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   const { user, inbox } = inboxUser;
   const { culture: lang = 'fr' } = user;
 
+  const logBundle = {
+    userUid: user.uid,
+  };
+
+  log.info('sending mail', logBundle);
+
   const agenda = conversation.store.params && conversation.store.params.agendaUid
     ? await getAgenda(
       { uid: conversation.store.params.agendaUid },
@@ -68,6 +74,8 @@ async function sendMail(services, { inboxUser, conversation, message }) {
       userUid: user.uid,
     })
     : null;
+
+  Object.assign(logBundle, { member, logo, agendaUid: agenda?.uid });
 
   const isAdminmod = agenda && member && [2, 3, '2', '3', 'administrator', 'moderator'].includes(member.role);
 
@@ -111,11 +119,10 @@ async function sendMail(services, { inboxUser, conversation, message }) {
 
   const senderName = await getSenderName(services, { inboxUser, conversation, message });
 
-  const reference = `inboxMessage/${conversation.id}@mail.openagenda.com`;
   const agendaTitle = agenda ? agenda.title : null;
 
-  return mails.send({
-    messageId: `${Math.ceil((new Date.getTime() / 1000))}.${user.uid}.${conversation.id}@mail.openagenda.com`,
+  const sendData = {
+    messageId: `${Math.ceil(new Date().getTime() / 1000)}.${user.uid}.${message.id}.${conversation.id}@mail.openagenda.com`,
     template: 'inboxMessage',
     from: {
       name: senderName,
@@ -138,7 +145,11 @@ async function sendMail(services, { inboxUser, conversation, message }) {
       message: message.body,
     },
     lang,
-  });
+  };
+
+  log.info('sending', Object.assign(logBundle, { sendData }));
+
+  return mails.send(sendData);
 }
 
 export default async function onMessageCreate(services, conversation, message) {

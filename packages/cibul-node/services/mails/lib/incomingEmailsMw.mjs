@@ -14,9 +14,6 @@ export default function incomingEmailsMw({ services }) {
         inboxes: {
           Inbox,
         },
-        mails: {
-          addressParser,
-        },
       } = services;
 
       const {
