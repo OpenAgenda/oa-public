@@ -5,7 +5,6 @@ import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.js';
 const log = logs('service/mails/incomingEmails');
 
 const REPLY_REG = /reply\+([-0-9a-fA-F]{36})@mail\.openagenda\.com/i;
-const REFERENCE_REG = /inboxMessage\/(\d+)@mail\.openagenda\.com/i;
 
 export default function incomingEmailsMw({ services }) {
   return async (req, res, next) => {
@@ -24,38 +23,33 @@ export default function incomingEmailsMw({ services }) {
         body,
       } = req;
 
-      log.info('processing', { body });
+      const logBundle = { body };
+
+      log.info('processing', logBundle);
 
       if (!body['X-Mailgun-Incoming']) {
-        log.info('body does not have X-Mailgun-Infoming', { body });
+        log.info('body does not have X-Mailgun-Infoming', logBundle);
         return res.sendStatus(200);
       }
 
-      const { address: referenceEmail } = addressParser(req.body.References)[0] || {};
+      const messageId = req.body['Message-Id'].replace(/<|>/g, '');
+      log.info('extracted message id', Object.assign(logBundle, { messageId }));
 
-      if (!referenceEmail) {
-        log.info('no reference email was extracted');
-        return res.sendStatus(200);
-        // throw new Error('Invalid reference');
-      }
-
-      const referenceMatches = referenceEmail.match(REFERENCE_REG);
-      const conversationId = parseInt(referenceMatches && referenceMatches[1], 10);
+      const conversationId = messageId.split('@').shift().split('.').pop();
+      log.info('extracted conversation id', Object.assign(logBundle, { conversationId }));
 
       if (!conversationId) {
-        // il butte ici.
-        log.info('no conversation id was extracted', { referenceEmail, References: req.body.References });
+        log.info('no conversation id was extracted', logBundle);
         return res.sendStatus(200);
-        // throw new Error('Invalid conversation id');
       }
 
       const replyMatches = req.body.recipient.match(REPLY_REG);
       const replyToken = replyMatches && replyMatches[1];
+      log.info('extracted replyToken', Object.assign(logBundle, { replyToken }));
 
       if (!replyToken) {
-        log.info('no reply token was extracted');
+        log.info('no reply token was extracted', logBundle);
         return res.sendStatus(200);
-        // throw new Error('Invalid reply token');
       }
 
       const user = await usersSvc.findOne({
@@ -66,17 +60,15 @@ export default function incomingEmailsMw({ services }) {
       });
 
       if (!user) {
-        log.info('no user was found');
+        log.info('no user was found', logBundle);
         return res.sendStatus(200);
-        // throw new Error('User not found');
       }
 
       const conversation = await Inbox.user(user.uid).conversations.get(conversationId);
 
       if (!conversation) {
-        log.info('no conversation could be loaded');
+        log.info('no conversation could be loaded', Object.assign(logBundle, { userUid: user.uid });
         return res.sendStatus(200);
-        // throw new Error('Conversation not found');
       }
 
       log.info('Incoming email', {

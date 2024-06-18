@@ -115,6 +115,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   const agendaTitle = agenda ? agenda.title : null;
 
   return mails.send({
+    messageId: `${Math.ceil((new Date.getTime() / 1000))}.${user.uid}.${conversation.id}@mail.openagenda.com`,
     template: 'inboxMessage',
     from: {
       name: senderName,
@@ -129,8 +130,6 @@ async function sendMail(services, { inboxUser, conversation, message }) {
       address: user.email,
       unsubscriptions,
     },
-    references: reference,
-    inReplyTo: reference,
     data: {
       logo,
       link,
