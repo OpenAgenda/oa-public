@@ -23,7 +23,7 @@ export default function locationPositioning(doc, cursor, event, options = {}) {
     ...lineItemOptions
   } = options;
 
-  let locationHeightTotal;
+  let locationHeightTotal = 0;
 
   if (event.location?.name || event.location?.address) {
     const { width: widthOfLocationIcon, height: heightOfLocationIcon } = addIcon(doc, locationIconPath, cursor, iconHeightAndWidth, { simulate });
