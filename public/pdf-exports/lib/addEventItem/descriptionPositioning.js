@@ -12,7 +12,7 @@ export default function descriptionPositioning(
 
   const description = getLocaleValue(event.description, lang);
 
-  if (description.length > 0) {
+  if (description && description.length > 0) {
     const { height, width } = addText(doc, cursor, cleanString(description), {
       width: columnMaxWidth,
       fontSize,

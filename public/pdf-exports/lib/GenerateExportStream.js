@@ -43,24 +43,6 @@ export default async function GenerateExportStream(
 
   cursor.x += margin;
 
-  const firstEvent = await new Promise((resolve, reject) => {
-    eventStream.once('data', event => resolve(event));
-    eventStream.once('error', reject);
-  });
-
-  const { height: documentHeaderHeight } = await addDocumentHeader(
-    agenda,
-    firstEvent,
-    doc,
-    cursor,
-    {
-      little,
-      medium,
-      mode,
-    },
-  );
-  cursor.y += documentHeaderHeight + margin;
-
   const simulateFooter = addFooter(
     doc,
     `${intl.formatMessage(messages.page)} ${pageNumber}`,
@@ -77,10 +59,27 @@ export default async function GenerateExportStream(
   doc.pipe(writeStream);
 
   let currentPageNumber = 0;
+  let isFirstPage = true;
 
   for await (const event of eventStream) {
     if (pageNumber !== currentPageNumber) {
       currentPageNumber = pageNumber;
+
+      if (isFirstPage) {
+        const { height: documentHeaderHeight } = await addDocumentHeader(
+          agenda,
+          event,
+          doc,
+          cursor,
+          {
+            little,
+            medium,
+            mode,
+          },
+        );
+        cursor.y += documentHeaderHeight + margin;
+        isFirstPage = false;
+      }
       addFooter(
         doc,
         `${intl.formatMessage(messages.page)} ${pageNumber}`,
