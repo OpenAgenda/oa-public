@@ -67,7 +67,7 @@ export default function incomingEmailsMw({ services }) {
       const conversation = await Inbox.user(user.uid).conversations.get(conversationId);
 
       if (!conversation) {
-        log.info('no conversation could be loaded', Object.assign(logBundle, { userUid: user.uid });
+        log.info('no conversation could be loaded', Object.assign(logBundle, { userUid: user.uid }));
         return res.sendStatus(200);
       }
 
