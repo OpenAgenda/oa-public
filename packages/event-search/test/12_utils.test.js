@@ -288,8 +288,16 @@ describe('event-search - unit: utils', () => {
   describe('getDSLSortPart', () => {
     const now = toSortTimingFormat(new Date());
     it('default is sort by timings future asc, passed desc', () => {
+      const DSLSortPart = getDSLSortPart();
+
       expect(
-        getDSLSortPart(),
+        DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte - now
+      ).toBeLessThan(10);
+
+      DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte = 'now';
+
+      expect(
+        DSLSortPart,
       ).toEqual([{
         '_sort_timings.begin': {
           mode: 'min',
@@ -299,7 +307,7 @@ describe('event-search - unit: utils', () => {
             filter: {
               range: {
                 '_sort_timings.accessible_until': {
-                  gte: now,
+                  gte: 'now', // should be a date but shifts a bit if test takes time
                 },
               },
             },
