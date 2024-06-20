@@ -16,7 +16,7 @@ export default function DateItems({
   disabled = false,
 }) {
   const [editValue, setEditValue] = useState(false);
-  const [editedItemIndex, setEditedItemIndex] = useState(-1);
+  const [editedItemId, setEditedItemId] = useState(-1);
 
   const {
     Badge,
@@ -36,27 +36,28 @@ export default function DateItems({
 
   return (
     <List>
-      {decoratedDates.map(({ timingId, priceCategoryId, quantity, timingLabel, hasMatchingTiming, id, passId, deleted }, index) => (
+      {decoratedDates.map(({ timingId, priceCategoryId, quantity, timingLabel, hasMatchingTiming, id, passId, deleted }) => (
         <ListItem key={`${timingId}-${priceCategoryId}-${id}`}>
-          {editedItemIndex === index ? (
+          {editedItemId === id ? (
             <DateForm
               value={editValue}
-              onChange={v => setEditValue(v)}
+              onChange={v => setEditValue({ ...v, id })}
               isValid={validateDate(editValue, { priceCategories, timings, boolMode: true })}
               submitLabel="Modifier"
               timings={timings}
               priceCategories={priceCategories ?? []}
               onCancel={() => {
-                setEditedItemIndex(-1);
+                setEditedItemId(-1);
                 onToggleEditing(false);
                 setEditValue(false);
               }}
               onSubmit={() => {
                 onChange({ id, ...editValue });
-                setEditedItemIndex(-1);
+                setEditedItemId(-1);
                 onToggleEditing(false);
                 setEditValue(false);
               }}
+              mode="edit"
             />
           ) : (
             <>
@@ -86,10 +87,10 @@ export default function DateItems({
                         unmargined
                         unpadded
                         type="button"
-                        disabled={disabled || editedItemIndex !== -1}
+                        disabled={disabled || editedItemId !== -1}
                         shape="link"
                         onClick={() => {
-                          setEditedItemIndex(index);
+                          setEditedItemId(id);
                           setEditValue({ timingId, priceCategoryId, quantity });
                           onToggleEditing(true);
                         }}
