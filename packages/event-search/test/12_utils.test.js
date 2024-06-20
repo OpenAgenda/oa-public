@@ -384,6 +384,21 @@ describe('event-search - unit: utils', () => {
       expect(error.name).toBe('BadRequest');
       expect(error.message).toBe('from + size cannot exceed 19. Use "after" navigation for better performance.');
     });
+
+    it('throws BadRequest if after provided and from is set and greater than 0', () => {
+      let error;
+      try {
+        validateNav({
+          from: 10,
+          after: ['0', '00019383920', '2981893', 'null'],
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('BadRequest');
+      expect(error.message).toBe('from and after cannot be used simultaneously');
+    });
   });
 
   describe('validateQuery', () => {
