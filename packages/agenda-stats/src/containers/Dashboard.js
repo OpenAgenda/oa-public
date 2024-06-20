@@ -285,7 +285,6 @@ function Dashboard() {
       .replace(':uid', agenda.uid);
 
     const params = {
-      oaq: { passed: 1 },
       size: 0,
       aggregations: ['timespan'],
     };

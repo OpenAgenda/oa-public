@@ -22,11 +22,8 @@ export default function PulseChart({
       const startOfPastYear = subDays(now, 364);
 
       return (
-        await apiClient.get(`/agendas/${agendaUid}/admin/events.v2.json`, {
+        await apiClient.get(`/api/agendas/${agendaUid}/events`, {
           params: {
-            oaq: {
-              passed: 1,
-            },
             size: 0,
             aggregations: [
               {
