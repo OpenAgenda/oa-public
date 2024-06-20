@@ -32,13 +32,13 @@ export default function Duration({
   const [duration, setDuration] = useState(value.eventDuration || null);
 
   useEffect(() => {
-    if (value?.dates?.length && !value.duration) {
+    if (value?.dates?.length && !value.eventDuration) {
       const choseTiming = TimingsWithId.find(t => t.id === value.dates[0].timingId);
       const preloadedDuration = calculateTimeDifference(choseTiming);
       setDuration(preloadedDuration);
       onChange(preloadedDuration);
     }
-  }, [TimingsWithId, value?.dates, value.duration, onChange]);
+  }, [TimingsWithId, value?.dates, value.eventDuration, onChange]);
 
   return (
     <Input
