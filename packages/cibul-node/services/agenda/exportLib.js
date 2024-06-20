@@ -84,8 +84,6 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   .then( _addTagGroups )
 
-  .then( _addFreeTextSuffixes )
-
   .done( v => {
 
     cb( null, v.decorated );
@@ -93,72 +91,6 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
   }, cb );
 
 }
-
-
-function _addFreeTextSuffixes( v ) {
-
-  const suffixes = v.agenda.getEventFreeTextSuffixes( false );
-
-  const markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
-
-  if ( !v.multiLang ) {
-
-    let separator = '\n\n';
-
-    if ( v.decorated[ v.longDescriptionField ] === null ) {
-
-      v.decorated[ v.longDescriptionField ] = '';
-      v.decorated.html = '';
-
-      separator = '';
-
-    }
-
-    if ( suffixes[ v.lang ] ) {
-
-      v.decorated[ v.longDescriptionField ] += '\n\n' + ( v.longDescriptionField === 'freeText' ? markedSuffixes : suffixes )[ v.lang ];
-
-      if ( v.decorated.html ) v.decorated[ v.longDescriptionField ] += '\n\n' + markedSuffixes[ v.lang ];
-
-    }
-
-  } else {
-
-    Object.keys( suffixes ).forEach( l => {
-
-      let separator = '\n\n';
-
-      if ( !v.decorated[ v.longDescriptionField ] ) {
-
-        v.decorated[ v.longDescriptionField ] = {};
-
-      }
-
-      if ( !v.decorated[ v.longDescriptionField ][ l ] ) {
-
-        separator = '';
-
-        v.decorated[ v.longDescriptionField ][ l ] = '';
-
-        v.decorated.html[ l ] = '';
-
-      }
-
-
-      v.decorated[ v.longDescriptionField ][ l ] += separator + ( v.longDescriptionField === 'freeText' ? markedSuffixes : suffixes )[ l ];
-
-      v.decorated.html[ l ] += separator + markedSuffixes[ l ];
-
-    } );
-
-
-  }
-
-  return v;
-
-}
-
-
 
 function _addTagGroups( v ) {
 
