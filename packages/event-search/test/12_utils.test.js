@@ -291,7 +291,7 @@ describe('event-search - unit: utils', () => {
       const DSLSortPart = getDSLSortPart();
 
       expect(
-        DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte - now
+        DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte - now,
       ).toBeLessThan(10);
 
       DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte = 'now';
