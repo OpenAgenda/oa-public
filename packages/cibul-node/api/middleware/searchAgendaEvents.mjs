@@ -22,7 +22,9 @@ export default function searchAgendaEvents(core, queryNamespace = 'convertedQuer
       res.send(response);
       next();
     }, err => {
-      log.error(err);
+      if (err.name !== 'BadRequest') {
+        log.error(err);
+      }
       next(err);
     });
 }
