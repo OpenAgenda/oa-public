@@ -27,7 +27,7 @@ module.exports.formatDSL = function formatDSL(requested, query, options) {
 };
 
 module.exports.dispatchMissingCounts = function dispatchMissingCounts(requested, rawResult, aggregationResults) {
-  if (!rawResult.missingAdditionalFields) {
+  if (!rawResult?.missingAdditionalFields) {
     return aggregationResults;
   }
 
