@@ -10,4 +10,5 @@ module.exports = {
   languages: require('../validators/languages'),
   events: require('../validators/events'),
   longDescription: require('@openagenda/events/iso/build/validators/longDescription'),
+  enrichedLinks: require('@openagenda/events/iso/build/validators/enrichedLinks'),
 };
