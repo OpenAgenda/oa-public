@@ -1,11 +1,21 @@
 'use strict';
 
+const { BadRequest } = require('@openagenda/verror');
+
+const hasFailure = (body, type) => !!(
+  body._shards.failures ?? []
+).find(({ reason }) => reason.type === type);
+
 module.exports = async function postDSL({ client }, index, DSL, options = {}) {
   const res = await client.search({
     index,
     body: DSL,
     scroll: options.scroll,
   });
+
+  if (hasFailure(res.body, 'too_many_buckets_exception')) {
+    throw new BadRequest('Too many aggregations requested');
+  }
 
   return {
     events: res.body.hits.hits.map(h => h._source),
