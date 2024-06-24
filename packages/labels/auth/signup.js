@@ -56,6 +56,10 @@ module.exports = {
     "io": "crwdns13138:0crwdne13138:0",
     "oc": "Lo senhal es tròp cortet"
   },
+  "fullNameTooLong": {
+    "fr": "Le nom d'utilisateur ne doit pas excéder 50 caractères",
+    "en": "The user name must not exceed 50 characters"
+  },
   "passwordNotEqual": {
     "en": "The passwords are not identical",
     "fr": "Les mots de passe ne sont pas identiques",
