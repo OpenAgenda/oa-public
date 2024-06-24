@@ -29,7 +29,7 @@ export default function incomingEmailsMw({ services }) {
         return res.sendStatus(200);
       }
 
-      const references = req.body.References.replace(/<|>/g, '');
+      const references = (req.body.References ?? '').replace(/<|>/g, '');
       log.info('extracted references', Object.assign(logBundle, { references }));
 
       const conversationId = parseInt(references.split('@').shift().split('.').pop(), 10);
