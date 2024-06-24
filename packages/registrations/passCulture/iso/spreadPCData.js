@@ -18,6 +18,7 @@ function spreadAccordingToObjectType(data) {
       response,
       appliedAt,
       operation,
+      editing,
       ...remaining
     } = entry;
 
