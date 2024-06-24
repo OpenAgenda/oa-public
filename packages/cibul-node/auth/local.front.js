@@ -257,7 +257,7 @@ function signupSubmit(req, res) {
 
     .then(async values => {
       if (values.data.errors) {
-        log.info('signup attempt failed', logBundle);
+        log.info('signup attempt failed', { ...logBundle, errors: values.data.errors });
         return values;
       }
 
@@ -290,6 +290,10 @@ function signupSubmit(req, res) {
         }
       } catch (err) {
         values.data.errors = {};
+
+        if ((err.errors ?? []).find(({ code, field }) => field === 'fullName' && code === 'string.toolong')) {
+          values.data.errors.fullName = 'fullNameTooLong';
+        }
 
         if (
           err
