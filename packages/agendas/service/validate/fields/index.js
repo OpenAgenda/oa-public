@@ -172,7 +172,7 @@ module.exports = [{
       type: 'schema',
       fields: [{
         field: 'displayed',
-        list: true,
+        list: { default: null },
         type: 'text'
       }]
     }]
