@@ -165,7 +165,7 @@ module.exports = [{
   }, {
     field: 'admin',
     type: 'schema',
-    read: ['administrator', 'moderator', 'internal'],
+    read: ['administrator', 'moderator', 'internal', 'legacy'],
     write: ['internal'],
     fields: [{
       field: 'filters',

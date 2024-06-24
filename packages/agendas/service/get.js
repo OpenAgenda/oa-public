@@ -95,7 +95,6 @@ async function promise( identifiers, options = {} ) {
     await _.assign( rawAgenda, await loadDetails( rawAgenda, options ) );
 
   }
-
   const agenda = _.keys( rawAgenda ).reduce( ( filtered, field ) => {
 
     if ( options.internal || !dbParse.is( 'obj', field, 'internal' ) ) {
