@@ -119,15 +119,21 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     currentState: agendaEvent?.state,
   });
 
-  if (clean.passCulture && !registrations.utils.passCulture.hasPassCultureOffer(event)) {
+  const hasNewPassOffer = clean.passCulture && registrations.utils.passCulture.isNew(clean.passCulture);
+  const hasNonPendingPassOfferWithNewItems = clean.passCulture
+    && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
+    && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
+
+  if (hasNonPendingPassOfferWithNewItems) {
     log.info('  There is a pass culture payload with event', { eventUid: event.uid });
     try {
-      clean.event.registration = await registrations.utils.passCulture.createPassCultureOffer(agenda, clean, event);
+      clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
     } catch (e) {
-      log.error('  Pass culture offer creation failed', { error: e, eventUid: event.uid, clean, event });
+      log('error', e);
+      throw e;
     }
-  } else {
-    log.info('  There is no pass culture payload', { eventUid: event.uid });
+  } else if (clean.passCulture) {
+    log.info('  There is no new non-pending pass culture payload', { eventUid: event.uid });
   }
 
   const payload = createPayload(core, agenda);
@@ -289,6 +295,15 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     } catch (e) {
       log('error', 'failed to send update notification email', e);
     }
+  }
+
+  if (hasNewPassOffer && registrations.utils.passCulture.isMarkedAsPending(
+    response.event.registration.find(r => r.service === 'passCulture')?.data,
+  )) {
+    registrations.utils.passCulture.enqueuePending({
+      agendaUid,
+      eventUid: response.event.uid,
+    });
   }
 
   await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {

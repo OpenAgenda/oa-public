@@ -58,6 +58,7 @@ export default function Dates({
           isValid={validateDate(newItem, {
             priceCategories: value.priceCategories,
             timings,
+            ignoreId: true,
             boolMode: true,
           })}
         />

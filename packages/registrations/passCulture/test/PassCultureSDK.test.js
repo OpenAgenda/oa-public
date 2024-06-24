@@ -9,15 +9,48 @@ const pickEvent = slug => fixtures.find(e => slug === e.slug);
 
 const {
   PASS_API_KEY: key,
-  PASS_TEST_EVENT_ID: testEventId,
   PASS_API_DOMAIN: api,
 } = process.env;
 
-if (!key || !testEventId) {
-  throw new Error('PASS_API_KEY and PASS_TEST_EVENT_ID env vars must be defined');
+if (!key) {
+  throw new Error('PASS_API_KEY /* and PASS_TEST_EVENT_ID */ env vars must be defined');
 }
 
 describe('PassCultureSDK', () => {
+  let testEventId;
+  let testEventPCId;
+
+  beforeAll(async () => {
+    const pc = PassCultureSDK({ key, api });
+
+    const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
+    const formatted = await formatEvent(
+      pickEvent('animation-enfant-parure-de-terre-2615625'),
+      { venueId, category: 'CINE_PLEIN_AIR' },
+      { lang: 'fr' },
+    );
+
+    const { id } = await pc.offers.events.create(formatted);
+    testEventId = id;
+
+    const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
+      priceCategories: [{
+        label: `Prix ${new Date().getTime()}`,
+        price: 0,
+      }],
+    });
+    testEventPCId = priceCategories[0].id;
+
+    await pc.offers.events(testEventId).dates.create({
+      dates: [{
+        beginningDatetime: '2024-09-17T14:00:00+02:00',
+        bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
+        priceCategoryId: testEventPCId,
+        quantity: 3,
+      }],
+    });
+  });
+
   describe('offers.offererVenues', () => {
     let items;
 
@@ -67,7 +100,7 @@ describe('PassCultureSDK', () => {
 
       response = await pc.offers.events.list({
         // venueId is not optional
-        venueId: offererVenues[0].venues[0].id,
+        venueId: offererVenues[0].venues[1].id,
       });
     });
 
@@ -101,7 +134,6 @@ describe('PassCultureSDK', () => {
       const pc = PassCultureSDK({ key, api });
 
       const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
-
       const formatted = await formatEvent(
         pickEvent('animation-enfant-parure-de-terre-2615625'),
         { venueId, category: 'CINE_PLEIN_AIR' },
@@ -110,9 +142,140 @@ describe('PassCultureSDK', () => {
 
       const { id, name } = await pc.offers.events.create(formatted);
 
-      console.log('created event %s', id);
       expect(typeof id).toBe('number');
       expect(name).toBe(formatted.name);
+    });
+  });
+
+  describe('offers.events.patch', () => {
+    let id;
+    let pc;
+    let image;
+    beforeAll(async () => {
+      pc = PassCultureSDK({ key, api });
+      const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
+
+      const formatted = await formatEvent(
+        pickEvent('animation-enfant-parure-de-terre-2615625'),
+        { venueId, category: 'CINE_PLEIN_AIR' },
+        { lang: 'fr' },
+      );
+
+      const resp = await pc.offers.events.create(formatted);
+      id = resp.id;
+      image = resp.image;
+    });
+
+    it('patch updates the event description', async () => {
+      const resp = await pc.offers.events(id).patch({ description: 'test' });
+      expect(resp.description).toBe('test');
+    });
+
+    it('patch updates the event duration', async () => {
+      const resp = await pc.offers.events(id).patch({ eventDuration: 120 });
+      expect(resp.eventDuration).toBe(120);
+    });
+
+    it('patch updates the event bookingContact', async () => {
+      const resp = await pc.offers.events(id).patch({ bookingContact: 'clem@oa.com' });
+      expect(resp.bookingContact).toBe('clem@oa.com');
+    });
+
+    it('patch updates the event bookingEmail', async () => {
+      const resp = await pc.offers.events(id).patch({ bookingEmail: 'clem@oa.com' });
+      expect(resp.bookingEmail).toBe('clem@oa.com');
+    });
+
+    it('patch updates the event enableDoubleBookings', async () => {
+      const resp = await pc.offers.events(id).patch({ enableDoubleBookings: true });
+      expect(resp.enableDoubleBookings).toBeTruthy();
+    });
+
+    it('patch updates the event accessibility', async () => {
+      const accessibility = {
+        audioDisabilityCompliant: true,
+        mentalDisabilityCompliant: true,
+        motorDisabilityCompliant: true,
+        visualDisabilityCompliant: true,
+      };
+      const resp = await pc.offers.events(id).patch({ accessibility });
+      expect(resp.accessibility).toStrictEqual(accessibility);
+    });
+
+    it('patch updates the event image', async () => {
+      const formated = await formatEvent(pickEvent('mohamed-bourouissa'), { lang: 'fr' });
+      const resp = await pc.offers.events(id).patch({ image: formated.image });
+      expect(resp.image.credit).toBeNull();
+      expect(resp.image.url !== image.url).toBeTruthy();
+    });
+
+    it('patch updates the event isActive', async () => {
+      const resp = await pc.offers.events(id).patch({ isActive: false });
+      expect(resp.status).toBe('INACTIVE');
+    });
+
+    it('patch error on update the event name', async () => {
+      let err;
+      try {
+        await pc.offers.events(id).patch({ name: 'test' });
+      } catch (error) {
+        err = error;
+      }
+      expect(err.response.data).toEqual({ name: ['extra fields not permitted'] });
+    });
+
+    it('patch error on update the event hasTicket', async () => {
+      let err;
+      try {
+        await pc.offers.events(id).patch({ hasTicket: false });
+      } catch (error) {
+        err = error;
+      }
+      expect(err.response.data).toEqual({ hasTicket: ['extra fields not permitted'] });
+    });
+
+    it('patch error on update event categoryRelatedFields.category', async () => {
+      let err;
+      const categoryRelatedFields = {
+        category: 'CONCOURS',
+        author: null,
+        visa: null,
+        stageDirector: null,
+      };
+      try {
+        await pc.offers.events(id).patch({ categoryRelatedFields });
+      } catch (error) {
+        err = error;
+      }
+      expect(err.response.data).toStrictEqual({ 'categoryRelatedFields.category': ['The category cannot be changed'] });
+    });
+
+    it('patch updates event categoryRelatedFields.author', async () => {
+      const categoryRelatedFields = {
+        category: 'CINE_PLEIN_AIR',
+        author: 'me',
+        visa: null,
+        stageDirector: null,
+      };
+
+      const resp = await pc.offers.events(id).patch({ categoryRelatedFields });
+      expect(resp.categoryRelatedFields).toStrictEqual(categoryRelatedFields);
+    });
+
+    it('can not patch updates event venue', async () => {
+      let err;
+      const offererVenues = await pc.offers.offererVenues();
+
+      const location = {
+        type: 'physical',
+        venueId: offererVenues[0].venues[1].id,
+      };
+      try {
+        await pc.offers.events(id).patch({ location });
+      } catch (error) {
+        err = error;
+      }
+      expect(err.response.data).toStrictEqual({ location: ['extra fields not permitted'] });
     });
   });
 
@@ -122,7 +285,7 @@ describe('PassCultureSDK', () => {
 
       const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
         priceCategories: [{
-          label: `Prix ${new Date().getTime()}`,
+          label: `Prix 2 ${new Date().getTime()}`,
           price: 0,
         }],
       });
@@ -148,11 +311,15 @@ describe('PassCultureSDK', () => {
 
       const priceCategory = priceCategories.pop();
       const patchedLabel = `Pas gratuit ${new Date().getTime()}`;
-
-      const patchedPriceCategory = await pc.offers.events(testEventId).priceCategories(priceCategory.id).patch({
-        label: patchedLabel,
-        price: 12,
-      });
+      let patchedPriceCategory;
+      try {
+        patchedPriceCategory = await pc.offers.events(testEventId).priceCategories(priceCategory.id).patch({
+          label: patchedLabel,
+          price: 12,
+        });
+      } catch (error) {
+        console.log('error', error.response.data);
+      }
 
       expect(patchedPriceCategory).toEqual({
         ...priceCategory,
@@ -167,7 +334,6 @@ describe('PassCultureSDK', () => {
       const pc = PassCultureSDK({ key, api });
 
       const { dates } = await pc.offers.events(testEventId).dates.list();
-
       expect(Array.isArray(dates)).toBe(true);
     });
   });
@@ -264,6 +430,47 @@ describe('PassCultureSDK', () => {
 
       expect(dateAfterPatch.quantity).toBe(0);
     });
+
+    it('can change price category', async () => {
+      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+
+      const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
+        priceCategories: [{
+          label: `Prix 3 ${new Date().getTime()}`,
+          price: 3,
+        }],
+      });
+
+      const resp = await pc.offers.events(testEventId).dates(date.id).patch({
+        priceCategoryId: priceCategories[0].id,
+      });
+      expect(resp.priceCategory.id).toBe(priceCategories[0].id);
+    });
+
+    it('can change beginningDateTime', async () => {
+      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+
+      const resp = await pc.offers.events(testEventId).dates(date.id).patch({
+        beginningDatetime: '2024-09-27T14:00:00+02:00',
+      });
+
+      expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2024-09-27T14:00:00+02:00'));
+    });
+  });
+
+  describe('offers.events.dates.delete', () => {
+    let pc;
+
+    beforeAll(() => {
+      pc = PassCultureSDK({ key, api });
+    });
+
+    it('deleted date does not appear in list anymore', async () => {
+      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      await pc.offers.events(testEventId).dates(date.id).delete();
+      const { dates } = await pc.offers.events(testEventId).dates.list();
+      expect(dates.map(d => d.id).includes(date.id)).toBeFalsy();
+    });
   });
 
   describe('offers.events.categories.list', () => {
@@ -282,7 +489,80 @@ describe('PassCultureSDK', () => {
         related: [],
       });
 
-      expect(related.find(r => r.schema === 'MusicTypeEnum').options[0]).toEqual({ value: 'JAZZ-ACID_JAZZ', label: 'Jazz - Acid Jazz' });
+      expect(
+        related.find(r => r.schema === 'MusicTypeEnum').options[0],
+      ).toEqual({
+        value: 'JAZZ-ACID_JAZZ',
+        label: 'Jazz - Acid Jazz',
+      });
     });
   });
+
+ /*  describe('test on booked date', () => {
+    let pc;
+
+    beforeAll(() => {
+      pc = PassCultureSDK({ key, api });
+    });
+
+    it('can delete booked date', async () => {
+      // for this test to work comment the delete part then go to https://integration.passculture.app/offre/66864 and reserve a date
+      let resp;
+      let { dates: [date] } = await pc.offers.events(66864).dates.list();
+      if (!date) {
+        console.log('create date');
+        const {
+          priceCategories: [{
+            id: priceCategoryId,
+          }],
+        } = await pc.offers.events(66864).get();
+
+        const { dates } = await pc.offers.events(66864).dates.create({
+          dates: [{
+            beginningDatetime: '2027-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2027-09-19T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          }],
+        });
+        console.log('created', dates);
+        [date] = dates;
+      } else {
+        console.log(date);
+        resp = await pc.offers.events(66864).dates(date.id).delete();
+        console.log(resp);
+      }
+      expect(resp).toBe('');
+      expect(date).toBeDefined();
+    });
+
+    it('can update booked date', async () => {
+      let { dates: [date] } = await pc.offers.events(66864).dates.list();
+      console.log('date', date);
+      if (!date) {
+        console.log('create date');
+        const {
+          priceCategories: [{
+            id: priceCategoryId,
+          }],
+        } = await pc.offers.events(66864).get();
+
+        const { dates } = await pc.offers.events(66864).dates.create({
+          dates: [{
+            beginningDatetime: '2027-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2027-09-19T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          }],
+        });
+        console.log('created', dates);
+        [date] = dates;
+      }
+      const resp = await pc.offers.events(66864).dates(date.id).patch({
+        beginningDatetime: '2028-09-27T14:00:00+02:00',
+      });
+
+      expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2028-09-27T14:00:00+02:00'));
+    });
+  }); */
 });

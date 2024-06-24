@@ -44,13 +44,15 @@ describe('createEventOffer', () => {
             priceCategories: [{
               label: 'Tarif réduit',
               price: 8,
+              id: 0,
             }, {
               label: 'Plein tarif',
               price: 14,
+              id: 1,
             }],
             dates: [{
               timingId,
-              priceCategoryIndex: 0,
+              priceCategoryId: 0,
               quantity: 3,
             }],
           },
@@ -80,13 +82,15 @@ describe('createEventOffer', () => {
             priceCategories: [{
               label: 'Tarif réduit',
               price: 8,
+              id: 0,
             }, {
               label: 'Plein tarif',
               price: 14,
+              id: 1,
             }],
             dates: [{
               timingId,
-              priceCategoryIndex: 0,
+              priceCategoryId: 0,
               quantity: 3,
             }],
           },
@@ -113,6 +117,7 @@ describe('createEventOffer', () => {
           priceCategories: [{
             label: '',
             price: 8,
+            id: 0,
           }],
         },
       );
@@ -140,9 +145,10 @@ describe('createEventOffer', () => {
           priceCategories: [{
             label: 'Tarif normal',
             price: 8,
+            id: 0,
           }],
           dates: [{
-            priceCategoryIndex: 0,
+            priceCategoryId: 0,
             timingId,
             quantity: -1,
           }],
@@ -174,13 +180,14 @@ describe('createEventOffer', () => {
         {
           priceCategories: [
             {
-              price: 789,
+              price: 3,
               label: 'Pouik',
+              id: 0,
             },
           ],
           dates: [
             {
-              priceCategoryIndex: 0,
+              priceCategoryId: 0,
               quantity: 789,
               timingId: 2015397000000,
             },

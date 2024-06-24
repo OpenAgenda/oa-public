@@ -83,7 +83,7 @@ module.exports = Object.assign(async function cleanEvent(services, agenda, data,
 
   const passCulturePayload = clean.event.registration?.find(({ service }) => service === 'passCulture')?.data;
   if (passCulturePayload && registrations && getWriteAccess(options.member, options.access)) {
-    clean.passCulture = await registrations(agenda.settings.registration).passCulture.validateEventOffer(clean.event, passCulturePayload);
+    clean.passCulture = await registrations(agenda.settings.registration).passCulture.validate(clean.event, passCulturePayload);
   } else if (passCulturePayload && !registrations) {
     log('passCulture payload is set but registrations is not initialized');
   }

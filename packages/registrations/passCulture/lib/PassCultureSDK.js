@@ -23,7 +23,7 @@ const labelizeENUMValue = value => {
 async function listEventOfferCategories({ api }) {
   const openAPIObj = await axios({
     method: 'get',
-    url: `${api}/public/offers/v1/event/openapi.json`,
+    url: `${api}/openapi.json`,
   }).then(r => r.data);
 
   const categories = extractSchemaOptions(openAPIObj, 'EventOfferCreation', 'category', 'categoryRelatedFields');
@@ -50,7 +50,7 @@ function call({ key, api }, method, path, data = {}) {
     url: `${api}${path}`,
     headers: headers(key),
     ...method === 'get' ? { params: data } : { data },
-  }).then(r => r.data);
+  }).then(response => response.data);
 }
 
 export default function PassCultureSDK(params) {
@@ -59,6 +59,7 @@ export default function PassCultureSDK(params) {
       events: Object.assign(eventId => ({
         getLink: () => params.offerLink.replace(':id', eventId),
         get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}`),
+        patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}`),
         priceCategories: Object.assign(categoryId => ({
           patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/price_categories/${categoryId}`),
         }), {
@@ -67,6 +68,7 @@ export default function PassCultureSDK(params) {
         dates: Object.assign(dateId => ({
           get: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
           patch: call.bind(null, params, 'patch', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
+          delete: call.bind(null, params, 'delete', `/public/offers/v1/events/${eventId}/dates/${dateId}`),
         }), {
           list: call.bind(null, params, 'get', `/public/offers/v1/events/${eventId}/dates`),
           create: call.bind(null, params, 'post', `/public/offers/v1/events/${eventId}/dates`),
