@@ -4,6 +4,7 @@ module.exports = {
   fullName: {
     type: 'text',
     min: 2,
+    max: 50,
     optional: false,
   },
   username: {

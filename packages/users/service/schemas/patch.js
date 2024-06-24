@@ -4,6 +4,7 @@ module.exports = {
   fullName: {
     optional: true,
     type: 'text',
+    max: 50,
   },
   culture: {
     optional: true,
