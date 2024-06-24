@@ -1,0 +1,93 @@
+import { getObjectType } from './utils.js';
+import getMatchingPassId from './getMatchingPassId.js';
+
+function decorateWithInfoFields(data, entry) {
+  return {
+    ...data,
+    ...['response', 'appliedAt', 'operation'].reduce((info, key) => (
+      entry[key] !== undefined ? { ...info, [key]: entry[key] } : info
+    ), {}),
+  };
+}
+
+function spreadAccordingToObjectType(data) {
+  return [].concat(data).reduce((spreadEntries, entry) => {
+    const {
+      priceCategories,
+      dates,
+      response,
+      appliedAt,
+      operation,
+      ...remaining
+    } = entry;
+
+    const spread = [];
+
+    const hasOtherData = !!Object.keys(remaining).length;
+
+    if (hasOtherData) {
+      spread.push(decorateWithInfoFields(remaining, entry));
+    }
+
+    if (priceCategories) {
+      spread.push(decorateWithInfoFields({ priceCategories }, entry));
+    }
+
+    if (dates) {
+      spread.push(decorateWithInfoFields({ dates }, entry));
+    }
+
+    if (!dates && !priceCategories && !hasOtherData) {
+      spread.push({ operation, appliedAt, response });
+    }
+
+    return spreadEntries.concat(spread);
+  }, []);
+}
+
+function spreadAccordingToOperation(data) {
+  return data.reduce((spreadEntries, entry) => {
+    const type = getObjectType(entry);
+
+    if (!['priceCategories', 'dates'].includes(type)) {
+      // no spread by operation possible for event offer
+      return spreadEntries.concat(entry);
+    }
+
+    const {
+      create: createOperations,
+      update: updateOperations,
+    } = entry[type].reduce((carry, operation) => {
+      const operationKey = getMatchingPassId(spreadEntries, operation.id) ? 'update' : 'create';
+
+      return {
+        ...carry,
+        [operationKey]: carry[operationKey].concat(operation),
+      };
+    }, { create: [], update: [] });
+
+    const spread = [];
+
+    if (updateOperations.length) {
+      spread.push({
+        ...entry,
+        [type]: updateOperations,
+      });
+    }
+
+    if (createOperations.length) {
+      spread.push({
+        ...entry,
+        [type]: createOperations,
+      });
+    }
+
+    return spreadEntries.concat(spread);
+  }, []);
+}
+
+export default function spreadPCData(data) {
+  return spreadAccordingToOperation(
+    spreadAccordingToObjectType(data),
+  );
+}

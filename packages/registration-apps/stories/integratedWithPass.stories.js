@@ -161,23 +161,27 @@ export function WithData() {
       type: 'link',
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
-      data: {
+      data: [{
+        editing: true,
         venueId: 548,
         category: 'CINE_PLEIN_AIR',
         priceCategories: [{
+          id: 0,
           label: 'Tarif normal',
           price: '12000',
         }],
         dates: [{
+          id: 1,
           timingId: 1696078800000,
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 15,
         }, {
+          id: 2,
           timingId: 2012990400000,
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 20,
         }],
-      },
+      }],
     },
   ]);
 
@@ -217,23 +221,28 @@ export function WithDataWithoutTimings() {
       type: 'link',
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
-      data: {
+      data: [{
+        venueId: 548,
+        editing: true,
         category: 'CONCERT',
         musicType: 'JAZZ-BEBOP',
         priceCategories: [{
+          id: 0,
           label: 'Tarif normal',
           price: '12000',
         }],
         dates: [{
+          id: 1,
           timingId: 1696078800000,
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 15,
         }, {
+          id: 2,
           timingId: 1697371200000,
-          priceCategoryIndex: 0,
+          priceCategoryId: 0,
           quantity: 20,
         }],
-      },
+      }],
     },
   ]);
 
@@ -347,20 +356,22 @@ export function WithAlreadyCreatedPassOffer() {
     type: 'link',
     value: 'https://integration.passculture.app/offre/49397',
     service: 'passCulture',
-    data: {
+    data: [{
       venueId: 548,
       category: 'CONFERENCE',
       priceCategories: [{
+        id: 0,
         price: 89,
         label: 'Tarfi narlmo',
       }],
       dates: [{
-        timingId: 1696078800000,
-        priceCategoryIndex: 0,
+        id: 1,
+        timingId: 1727701200000,
+        priceCategoryId: 0,
         quantity: 879,
       }],
-      id: 49397,
-    },
+      passId: 49397,
+    }],
   }]);
 
   return (

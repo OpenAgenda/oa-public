@@ -27,8 +27,8 @@ export default function DateForm({
     label: `${getTimingLabel(t)} `,
   }));
 
-  const priceCategoriesOptions = priceCategories.map(({ label }, index) => ({
-    value: index,
+  const priceCategoriesOptions = priceCategories.map(({ label, id }) => ({
+    value: id,
     label,
   }));
 
@@ -38,7 +38,7 @@ export default function DateForm({
       initialValue.timingId = timingOptions[0].value;
     }
     if (priceCategoriesOptions.length === 1) {
-      initialValue.priceCategoryIndex = priceCategoriesOptions[0].value;
+      initialValue.priceCategoryId = priceCategoriesOptions[0].value;
     }
     if (Object.keys(initialValue).length) {
       onChange({ ...value, ...initialValue });
@@ -57,9 +57,9 @@ export default function DateForm({
       <Select
         id="date-price-category"
         label="Catégorie de prix"
-        value={value?.priceCategoryIndex}
+        value={value?.priceCategoryId}
         options={priceCategoriesOptions}
-        onChange={o => onChange({ ...value, priceCategoryIndex: o.value })}
+        onChange={o => onChange({ ...value, priceCategoryId: o.value })}
       />
       <Input
         id="date-quantity"

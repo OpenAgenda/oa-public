@@ -3,7 +3,7 @@ import { Image } from '@openagenda/react-shared';
 
 import { logoPath } from './utils';
 
-function ConfirmationBody({hasErrors, hasWarning, editLink, showLink, errors = []}) {
+function ConfirmationBody({ hasErrors, isPending, editLink, showLink, errors = [] }) {
   if (hasErrors) {
     return (
       <>
@@ -15,7 +15,7 @@ function ConfirmationBody({hasErrors, hasWarning, editLink, showLink, errors = [
       </>
     );
   }
-  if (hasWarning) {
+  if (isPending) {
     return (
       <>
         <i className="fa fa-warning text-danger margin-right-xs" />
@@ -42,10 +42,10 @@ export default function Confirmation({ event, res, className }) {
     return null;
   }
 
-  const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData?.id), [res, passData]);
-  const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData?.id), [res, passData]);
+  const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
+  const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
   const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
-  const hasWarning = useMemo(() => passData?.warning ?? null, [passData]);
+  const isPending = useMemo(() => passData[0]?.warning ?? null, [passData]);
 
   return (
     <div className={className ?? 'panel panel-default'}>
@@ -56,7 +56,7 @@ export default function Confirmation({ event, res, className }) {
           width={100}
         />
         <div className="margin-top-sm">
-          {ConfirmationBody({hasErrors, hasWarning, showLink, editLink, errors: passData?.errors})}
+          {ConfirmationBody({ hasErrors, isPending, showLink, editLink, errors: passData?.errors })}
         </div>
       </div>
     </div>

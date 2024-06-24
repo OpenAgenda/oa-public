@@ -53,7 +53,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
 
   const formatedPriceCategories = priceCategories.map(priceCategory => ({
     ...priceCategory,
-    price: parseFloat(priceCategory.price) * 100,
+    price: parseFloat(priceCategory.price),
   }));
 
   try {
@@ -78,7 +78,7 @@ export default async function createEventOffer(pc, OAEvent, PCData, options = {}
 
     return omit({
       ...d,
-      priceCategoryId: result.priceCategories[d.priceCategoryIndex].id,
+      priceCategoryId: result.priceCategories[d.priceCategoryId].id,
       beginningDatetime: isDHMFormat(timing.begin) ? convertDHMToDate(timing.begin, { timezone: OAEvent.timezone }) : timing.begin,
       bookingLimitDatetime: isDHMFormat(timing.begin) ? convertDHMToDate(timing.begin, { timezone: OAEvent.timezone }) : timing.begin,
     }, ['timingId', 'priceCategoryIndex']);

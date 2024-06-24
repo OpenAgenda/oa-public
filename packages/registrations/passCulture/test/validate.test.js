@@ -5,6 +5,9 @@ import {
 } from '../iso/validate/index.js';
 
 import settings from './fixtures/settings.json';
+import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json';
+import dataWithDependedOffer from './fixtures/data.withDependedOffer.pc.json';
+import partiallySpread from './fixtures/partiallySpread.json';
 
 describe('validate', () => {
   describe('validateDate', () => {
@@ -37,21 +40,21 @@ describe('validate', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 1 }, { priceCategories: [] });
+        validateDate({ priceCategoryId: 1 }, { priceCategories: [] });
       } catch (e) {
         error = e;
       }
 
       expect(error.name).toBe('BadRequest');
-      expect(error.info.errors[0].code).toBe('invalid.priceCategoryIndex');
+      expect(error.info.errors[0].code).toBe('invalid.priceCategoryId');
     });
 
     test('quantity must be an integer equal to or superior to 0', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 0, quantity: 'bim' }, {
-          priceCategories: ['notvalidatedheresowhatever'],
+        validateDate({ priceCategoryId: 0, quantity: 'bim' }, {
+          priceCategories: [{ a: 'notvalidatedheresowhatever', id: 0 }],
         });
       } catch (e) {
         error = e;
@@ -65,8 +68,8 @@ describe('validate', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryIndex: 0, quantity: 1, timingId: 123 }, {
-          priceCategories: ['wigglypoof'],
+        validateDate({ priceCategoryId: 0, quantity: 1, timingId: 123 }, {
+          priceCategories: [{ a: 'wigglypoof', id: 0 }],
           timings: [],
         });
       } catch (e) {
@@ -79,11 +82,12 @@ describe('validate', () => {
 
     test('returns clean date object when input is valid', () => {
       const clean = validateDate({
-        priceCategoryIndex: 0,
+        id: 12,
+        priceCategoryId: 0,
         quantity: '1',
         timingId: 1920532380000,
       }, {
-        priceCategories: ['tottorototttoroo'],
+        priceCategories: [{ a: 'tottorototttoroo', id: 0 }],
         timings: [{
           begin: {
             date: '2030-11-10',
@@ -94,7 +98,8 @@ describe('validate', () => {
       });
 
       expect(clean).toEqual({
-        priceCategoryIndex: 0,
+        id: 12,
+        priceCategoryId: 0,
         quantity: 1,
         timingId: 1920532380000,
       });
@@ -155,207 +160,305 @@ describe('validate', () => {
   });
 
   describe('validateLocalData', () => {
-    const validData = {
-      venueId: 123,
-      priceCategories: [{ price: '0', label: 'Gratuit' }],
-      dates: [{
-        priceCategoryIndex: 0,
-        quantity: '1',
-        timingId: 1920532380000,
-      }],
-      category: 'CONCERT',
-      musicType: 'JAZZ-BEBOP',
-    };
-
-    const matchingTimings = [{
-      begin: {
-        date: '2030-11-10',
-        hours: 10,
-        minutes: 13,
-      },
-    }];
-
-    test('a category must be defined', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          category: undefined,
-        }, { timings: matchingTimings }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors[0].code).toBe('registration.pass.requiredCategory');
-    });
-
-    test('a valid category must be defined', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          category: 'WALL_STARING',
-        }, { timings: matchingTimings }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors[0].code).toBe('registration.pass.unknownCategory');
-    });
-
-    test('if a category not requiring a subcategory is set, subcategory is not read', () => {
-      const clean = validateLocalData({
-        ...validData,
-        category: 'CINE_PLEIN_AIR',
-        subcategory: 'AIR_MARIN',
-      }, { timings: matchingTimings }, settings);
-
-      expect(clean.category).toBe('CINE_PLEIN_AIR');
-
-      expect(clean.subcategory).toBeUndefined();
-    });
-
-    test('if a category requiring a subType is set, musicType/showType must be set', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          category: 'CONCERT',
-          musicType: undefined,
-        }, { timings: matchingTimings }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors[0].code).toBe('registration.pass.musicType.required');
-    });
-
-    test('if a category requiring a subType is set, subType must be valid', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          category: 'CONCERT',
-          musicType: 'ZIKMU',
-        }, { timings: matchingTimings }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors[0].code).toBe('registration.pass.musicType.invalid');
-    });
-
-    test('valid subType is included in clean data', () => {
-      const { musicType } = validateLocalData({
-        ...validData,
-        category: 'CONCERT',
-        musicType: 'JAZZ-ACID_JAZZ',
-      }, { timings: matchingTimings }, settings);
-
-      expect(musicType).toBe('JAZZ-ACID_JAZZ');
-    });
-
-    test('at least one price category must be defined', () => {
-      let error;
-
-      try {
-        validateLocalData({}, { timings: [] }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(
-        error.info.errors.map(e => e.code),
-      ).toContain('registration.pass.requiredPriceCategories');
-    });
-
-    test('venueId is required', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          venueId: undefined,
-        }, { timings: matchingTimings }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors.map(({ code }) => code)).toContain('registration.pass.invalidVenueId');
-    });
-
-    test('at least one date should be defined', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
-        }, { timings: [] }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors.map(e => e.code)).toContain('registration.pass.requiredDates');
-    });
-
-    test('invalid bookingContact throws an error', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          bookingContact: 'notanemail',
-        }, { timings: [] }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors.map(e => e.code)).toContain('registration.pass.bookingContact.invalid');
-    });
-
-    test('valid bookingContact does not throw an error', () => {
-      let error;
-
-      try {
-        validateLocalData({
-          ...validData,
-          bookingContact: 'a@valid.email',
-        }, { timings: [] }, settings);
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.info.errors.map(e => e.code)).not.toContain('registration.pass.bookingContact.invalid');
-    });
-
-    test('boolMode returns false when data is not valid', () => {
-      const isValid = validateLocalData({
-        priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
-        dates: [],
-      }, {
-        timings: [],
-      }, { ...settings, boolMode: true });
-
-      expect(isValid).toBe(false);
-    });
-
-    test('returns clean data when input is valid', () => {
-      const clean = validateLocalData(validData, { timings: matchingTimings }, settings);
-
-      expect(clean).toEqual({
-        category: 'CONCERT',
-        musicType: 'JAZZ-BEBOP',
-        priceCategories: [{ price: 0, label: 'Gratuit' }],
+    describe('as merged object', () => {
+      const validData = {
+        venueId: 123,
+        priceCategories: [{ price: '0', label: 'Gratuit', id: 0 }],
         dates: [{
-          priceCategoryIndex: 0,
-          quantity: 1,
+          id: 1,
+          priceCategoryId: 0,
+          quantity: '1',
           timingId: 1920532380000,
         }],
-        venueId: 123,
+        category: 'CONCERT',
+        musicType: 'JAZZ-BEBOP',
+      };
+
+      const matchingTimings = [{
+        begin: {
+          date: '2030-11-10',
+          hours: 10,
+          minutes: 13,
+        },
+      }];
+
+      test('a category must be defined', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            category: undefined,
+          }, { timings: matchingTimings }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors[0].code).toBe('registration.pass.requiredCategory');
+      });
+
+      test('a valid category must be defined', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            category: 'WALL_STARING',
+          }, { timings: matchingTimings }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors[0].code).toBe('registration.pass.unknownCategory');
+      });
+
+      test('if a category not requiring a subcategory is set, subcategory is not read', () => {
+        const clean = validateLocalData({
+          ...validData,
+          category: 'CINE_PLEIN_AIR',
+          subcategory: 'AIR_MARIN',
+        }, { timings: matchingTimings }, settings);
+
+        expect(clean.category).toBe('CINE_PLEIN_AIR');
+
+        expect(clean.subcategory).toBeUndefined();
+      });
+
+      test('if a category requiring a subType is set, musicType/showType must be set', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            category: 'CONCERT',
+            musicType: undefined,
+          }, { timings: matchingTimings }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors[0].code).toBe('registration.pass.musicType.required');
+      });
+
+      test('if a category requiring a subType is set, subType must be valid', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            category: 'CONCERT',
+            musicType: 'ZIKMU',
+          }, { timings: matchingTimings }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors[0].code).toBe('registration.pass.musicType.invalid');
+      });
+
+      test('valid subType is included in clean data', () => {
+        const { musicType } = validateLocalData({
+          ...validData,
+          category: 'CONCERT',
+          musicType: 'JAZZ-ACID_JAZZ',
+        }, { timings: matchingTimings }, settings);
+
+        expect(musicType).toBe('JAZZ-ACID_JAZZ');
+      });
+
+      test('at least one price category must be defined', () => {
+        let error;
+
+        try {
+          validateLocalData({}, { timings: [] }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(
+          error.info.errors.map(e => e.code),
+        ).toContain('registration.pass.requiredPriceCategories');
+      });
+
+      test('venueId is required', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            venueId: undefined,
+          }, { timings: matchingTimings }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors.map(({ code }) => code)).toContain('registration.pass.invalidVenueId');
+      });
+
+      test('at least one date should be defined', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
+          }, { timings: [] }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors.map(e => e.code)).toContain('registration.pass.requiredDates');
+      });
+
+      test('invalid bookingContact throws an error', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            bookingContact: 'notanemail',
+          }, { timings: [] }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors.map(e => e.code)).toContain('registration.pass.bookingContact.invalid');
+      });
+
+      test('valid bookingContact does not throw an error', () => {
+        let error;
+
+        try {
+          validateLocalData({
+            ...validData,
+            bookingContact: 'a@valid.email',
+          }, { timings: [] }, settings);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.info.errors.map(e => e.code)).not.toContain('registration.pass.bookingContact.invalid');
+      });
+
+      test('boolMode returns false when data is not valid', () => {
+        const isValid = validateLocalData({
+          priceCategories: [{ price: 2, label: 'Prix tapadeubal' }],
+          dates: [],
+        }, {
+          timings: [],
+        }, { ...settings, boolMode: true });
+
+        expect(isValid).toBe(false);
+      });
+
+      test('returns clean data when input is valid', () => {
+        const clean = validateLocalData(validData, { timings: matchingTimings }, settings);
+
+        expect(clean).toEqual({
+          category: 'CONCERT',
+          musicType: 'JAZZ-BEBOP',
+          priceCategories: [{ price: 0, label: 'Gratuit', id: 0 }],
+          dates: [{
+            id: 1,
+            priceCategoryId: 0,
+            quantity: 1,
+            timingId: 1920532380000,
+          }],
+          venueId: 123,
+        });
+      });
+    });
+
+    describe('as list of changes', () => {
+      test('validating a list is equivalent from validating a merge object at each step', () => {
+        const clean = validateLocalData(dataWithPendingOffer, {
+          timings: [{
+            begin: '2024-09-06T08:00:00.000Z',
+            end: '2024-09-06T10:00:00.000Z',
+          }],
+        }, settings);
+
+        expect(clean).toEqual([
+          {
+            duo: true,
+            category: 'CONCERT',
+            musicType: 'JAZZ-BEBOP',
+            venueId: 548,
+            bookingContact: 'gdfsgfdsgdfs@gfsgfsd.com',
+            appliedAt: '2024-05-29T10:00:00.OOOZ',
+            response: {
+              isPending: true,
+              passId: 123456,
+            },
+          },
+          {
+            priceCategories: [
+              {
+                price: 123,
+                label: 'trezterztrez',
+                id: 0,
+              },
+              {
+                price: 724,
+                label: 'static',
+                id: 1,
+              },
+            ],
+          },
+          {
+            dates: [
+              {
+                priceCategoryId: 0,
+                quantity: 456,
+                timingId: 1725609600000,
+                id: 2,
+              },
+            ],
+          },
+        ]);
+      });
+
+      test('appliedAt, response and operation keys are not filtered out if isolated in their own item', () => {
+        const clean = validateLocalData(dataWithDependedOffer, {
+          timings: [{
+            begin: '2024-09-06T08:00:00.000Z',
+            end: '2024-09-06T10:00:00.000Z',
+          }],
+        }, settings);
+
+        expect(
+          Object.keys(clean[1]),
+        ).toEqual(['response', 'appliedAt', 'operation']);
+      });
+
+      test('last item is spread when provided as a bundle', () => {
+        const clean = validateLocalData(partiallySpread, {
+          timings: [{
+            begin: '2024-06-14T08:00:00.000Z',
+          }],
+        }, settings);
+
+        expect(clean[3]).toEqual({
+          eventDuration: 210,
+        });
+
+        expect(clean[4]).toEqual({
+          priceCategories: [
+            {
+              price: 1200,
+              label: 'Tarif pas si unique',
+              id: 2,
+            },
+          ],
+        });
+
+        expect(clean[5]).toEqual({
+          dates: [{
+            id: 3,
+            timingId: 1718352000000,
+            priceCategoryId: 2,
+            quantity: 2,
+          }],
+        });
       });
     });
   });

@@ -1,6 +1,7 @@
 import { useContext, useState, useMemo, useEffect } from 'react';
 import { distance } from 'fastest-levenshtein';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
+import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
 import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
@@ -17,6 +18,8 @@ import {
   changeDate,
   getRelatedFieldName,
   getRelatedFieldOptions,
+  getNextId,
+  isPatchMode,
 } from './utils';
 
 const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
@@ -50,7 +53,8 @@ export default function Form({
   title = null,
   longDesc = null,
 }) {
-  const [value, setValue] = useState(initialValue ?? {});
+  const [patch, setPatch] = useState(initialValue[initialValue.length - 1]?.editing ? initialValue[initialValue.length - 1] : { editing: true });
+
   const [openSubForm, setOpenSubForm] = useState();
   const titleWarning = title ? title.length > 90 : false;
   const longDescWarning = longDesc ? longDesc.length > 1000 : false;
@@ -62,8 +66,11 @@ export default function Form({
     Input,
     Checkbox,
   } = useContext(ComponentsContext);
-
-  const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, value.category), [categories, value.category]);
+  const storedValue = useMemo(() => getCurrentValue(initialValue), [initialValue]);
+  const currentValue = useMemo(() => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)), [initialValue, patch]);
+  const patchMode = useMemo(() => isPatchMode(initialValue), [initialValue]);
+  const nextId = useMemo(() => getNextId(currentValue), [currentValue]);
+  const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, currentValue.category), [categories, currentValue.category]);
   const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
   const venuesOptions = offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
     value: v.id,
@@ -71,8 +78,8 @@ export default function Form({
   }));
 
   useEffect(() => {
-    const defaultsAtInit = { duo: true };
-    if (venuesOptions.length === 1 && !value.venueId) {
+    const defaultsAtInit = {};
+    if (venuesOptions.length === 1 && !initialValue.venueId) {
       defaultsAtInit.venueId = venuesOptions[0].value;
     }
 
@@ -81,18 +88,19 @@ export default function Form({
       if (match) defaultsAtInit.venueId = match;
     }
 
-    if (!hasPriceCategories(value)) {
+    if (!hasPriceCategories(storedValue)) {
       defaultsAtInit.priceCategories = [{
         label: 'Tarif unique',
         price: 0,
+        id: nextId,
       }];
     }
 
-    if (!Object.keys(defaultsAtInit).length) {
-      return;
+    if (storedValue.duo === undefined) {
+      defaultsAtInit.duo = true;
     }
 
-    setValue({ ...value, ...defaultsAtInit });
+    setPatch({ ...patch, ...defaultsAtInit });
   }, []);
 
   // add eventDuration
@@ -100,13 +108,13 @@ export default function Form({
     <form>
       <Section>
         <Select
-          disabled={openSubForm}
+          disabled={openSubForm || patchMode}
           label="Lieu"
-          value={value?.venueId}
+          value={currentValue?.venueId}
           placeholder="Sélectionner un lieu"
           options={venuesOptions}
-          onChange={option => setValue({
-            ...value,
+          onChange={option => setPatch({
+            ...patch,
             venueId: option.value,
           })}
         />
@@ -115,23 +123,24 @@ export default function Form({
         <Select
           disabled={openSubForm}
           label="Catégorie"
-          value={value?.category}
+          value={currentValue?.category}
           placeholder="Choix requis"
           options={categories}
-          onChange={option => setValue({
-            ...value,
+          onChange={option => setPatch({
+            ...patch,
             category: option.value,
           })}
+          patchMode={patchMode}
         />
         {relatedCategoryFieldName ? (
           <Select
             disabled={openSubForm}
             label={relatedCategoryFieldName === 'musicType' ? 'Type de musique' : 'Type de spectacle'}
-            value={value[relatedCategoryFieldName]}
+            value={currentValue[relatedCategoryFieldName]}
             placeholder="Choix requis"
             options={relatedCategoryOptions}
-            onChange={option => setValue({
-              ...value,
+            onChange={option => setPatch({
+              ...patch,
               [relatedCategoryFieldName]: option.value,
             })}
           />
@@ -140,15 +149,15 @@ export default function Form({
       <Section>
         <PriceCategories
           disabled={openSubForm && openSubForm !== 'priceCategories'}
-          value={value}
+          value={currentValue}
           onAdd={pc => {
-            setValue(addPriceCategory(value, pc));
+            setPatch(addPriceCategory(patch, nextId, pc));
             setOpenSubForm(false);
           }}
-          onRemove={pc => setValue(removePriceCategory(value, pc))}
+          onRemove={pc => setPatch(removePriceCategory(patch, pc))}
           onSubFormToggle={open => setOpenSubForm(open ? 'priceCategories' : false)}
           onChange={(index, pc) => {
-            setValue(changePriceCategory(value, index, pc));
+            setPatch(changePriceCategory(patch, index, pc));
             setOpenSubForm(false);
           }}
         />
@@ -156,17 +165,17 @@ export default function Form({
       <Section>
         <Dates
           disabled={openSubForm && openSubForm !== 'dates'}
-          value={value}
+          value={currentValue}
           onAdd={d => {
-            setValue({
-              ...value,
-              dates: (value.dates ?? []).concat(d),
+            setPatch({
+              ...patch,
+              dates: (patch.dates ?? []).concat({ id: nextId, ...d }),
             });
             setOpenSubForm(false);
           }}
-          onRemove={d => setValue(removeDate(value, d))}
+          onRemove={d => setPatch(removeDate(patch, d))}
           onChange={(i, d) => {
-            setValue(changeDate(value, i, d));
+            setPatch(changeDate(patch, i, d));
             setOpenSubForm(false);
           }}
           onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
@@ -174,43 +183,43 @@ export default function Form({
         />
       </Section>
       <Section>
-        <Duration value={value} onChange={v => setValue({ ...value, eventDuration: v })} timings={timings} />
+        <Duration value={currentValue} onChange={v => setPatch({ ...patch, eventDuration: v })} timings={timings} />
       </Section>
       {titleWarning ? (
         <Section>
-          <Name value={value} onChange={v => setValue({ ...value, name: v })} title={title} />
+          <Name value={currentValue} onChange={v => setPatch({ ...patch, name: v })} title={title} />
         </Section>
-      ) : null }
+      ) : null}
       <Section>
-        <Description value={value} onChange={v => setValue({ ...value, description: v })} longDesc={longDesc} longDescWarning={longDescWarning} />
+        <Description value={currentValue} onChange={v => setPatch({ ...patch, description: v })} longDesc={longDesc} longDescWarning={longDescWarning} />
       </Section>
       <Section>
         <Input
           id="booking-contact"
-          value={value.bookingContact}
+          value={currentValue.bookingContact}
           label="Email de contact"
           type="email"
-          onChange={e => setValue({ ...value, bookingContact: e.target.value })}
+          onChange={e => setPatch({ ...patch, bookingContact: e.target.value })}
           sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
         />
       </Section>
       <Section>
-        <BookingEmail value={value} onChange={v => setValue({ ...value, bookingEmail: v })} settingsBookingEmail={bookingEmail} />
+        <BookingEmail value={currentValue} onChange={v => setPatch({ ...patch, bookingEmail: v })} settingsBookingEmail={bookingEmail} />
       </Section>
       <Section>
         <Checkbox
           info="Cette option permet au bénéficiaire de venir accompagné. La seconde place sera délivrée au même tarif que la première, quel que soit l’accompagnateur."
-          value={value.duo}
-          onChange={() => setValue({ ...value, duo: !value.duo })}
+          value={currentValue.duo}
+          onChange={() => setPatch({ ...patch, duo: !currentValue.duo })}
           label="Réservations “Duo”"
         />
       </Section>
       <Section>
         <Button
-          disabled={!validateLocalData(value, { timings }, { boolMode: true, categories, related }) || openSubForm}
+          disabled={!validateLocalData(currentValue, { timings }, { boolMode: true, categories, related }) || openSubForm}
           shape="primary"
           label="Enregistrer"
-          onClick={() => onSubmit(value)}
+          onClick={() => onSubmit(initialValue[initialValue.length - 1]?.editing ? initialValue.slice(0, -1).concat(patch) : initialValue.concat(patch))}
         />
         <Button
           shape="link-danger"

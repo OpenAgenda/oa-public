@@ -69,6 +69,11 @@ const testConfig = {
     key: process.env.PASS_CULTURE_KEY,
     api: process.env.PASS_CULTURE_API,
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
+    pending: {
+      delay: 0,
+      minDelay: 0,
+      maxRetries: 3,
+    },
   },
   unsubscriptionsSecret: 'supersecretstring',
 };

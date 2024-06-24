@@ -10,6 +10,7 @@ export default function validateDate(value, params = {}) {
     timings = [],
     timezone = 'Europe/Paris',
     boolMode = false,
+    ignoreId = false,
   } = params;
 
   if (!value || typeof value !== 'object') {
@@ -29,23 +30,24 @@ export default function validateDate(value, params = {}) {
   }
 
   const {
+    id,
     timingId,
-    priceCategoryIndex,
+    priceCategoryId,
     quantity,
   } = value;
 
   const errors = [];
   const clean = {};
 
-  if (!priceCategories[priceCategoryIndex]) {
+  if (!priceCategories.find(pc => pc.id === priceCategoryId)) {
     errors.push({
       message: 'date is not associated to a defined price category',
-      code: 'invalid.priceCategoryIndex',
+      code: 'invalid.priceCategoryId',
       label: 'La date n\'est pas associée à une catégorie de prix valide',
       field: 'dates',
     });
   } else {
-    clean.priceCategoryIndex = priceCategoryIndex;
+    clean.priceCategoryId = priceCategoryId;
   }
 
   clean.quantity = parseInt(quantity, 10);
@@ -70,6 +72,17 @@ export default function validateDate(value, params = {}) {
     clean.timingId = timingId;
   }
 
+  clean.id = parseInt(id, 10);
+
+  if (!ignoreId && (Number.isNaN(clean.id) || clean.id < 1)) {
+    errors.push({
+      message: 'date must have a positive assigned id',
+      code: 'invalid.id',
+      label: 'Identifiant non assigné',
+      field: 'dates',
+    });
+  }
+
   if (errors.length && boolMode) {
     return false;
   }
@@ -79,4 +92,30 @@ export default function validateDate(value, params = {}) {
   }
 
   return boolMode ? true : clean;
+}
+
+export function validateDates(dates, priceCategories, event) {
+  const clean = [];
+  const errors = [];
+  const { timings } = event;
+
+  for (const [index, date] of [].concat(dates).entries()) {
+    try {
+      clean.push(validateDate(date, {
+        priceCategories,
+        timings,
+      }));
+    } catch (error) {
+      error.info.errors.forEach(e => errors.push({
+        ...e,
+        index,
+      }));
+    }
+  }
+
+  if (errors.length) {
+    throw new BadRequest({ info: { errors } });
+  }
+
+  return clean;
 }

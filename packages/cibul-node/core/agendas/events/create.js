@@ -74,7 +74,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (clean.passCulture) {
       log('  There is a pass culture payload');
       try {
-        clean.event.registration = await registrations.utils.passCulture.createPassCultureOffer(agenda, clean);
+        clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
       } catch (e) {
         log('error', e);
         throw e;
@@ -156,15 +156,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       access,
       duplicateOrigin,
     });
-
-    if (registrations && registrations.utils.passCulture.hasPendingOffer(response?.event)) {
-      const passCultureRegistration = response.event.registration.find(r => r.service === 'passCulture');
-      registrations.utils.passCulture.enqueueProcessPendingOffer(
-        { eventOfferId: passCultureRegistration.data.id, datesPayload: passCultureRegistration.data.datesPayload },
-        { eventUid: response.event.uid, agendaUid },
-        agenda.settings.registration,
-      );
-    }
   } catch (e) {
     log.info('create failed', {
       error: e,
@@ -173,6 +164,15 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       callOrigin,
     });
     throw e;
+  }
+
+  if (registrations?.utils.passCulture.isMarkedAsPending(
+    response.event.registration.find(r => r.service === 'passCulture')?.data,
+  )) {
+    registrations.utils.passCulture.enqueuePending({
+      agendaUid,
+      eventUid: response.event.uid,
+    });
   }
 
   log.info('create successful', {
