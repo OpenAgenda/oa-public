@@ -219,7 +219,7 @@ export default function Form({
           disabled={!validateLocalData(currentValue, { timings }, { boolMode: true, categories, related }) || openSubForm}
           shape="primary"
           label="Enregistrer"
-          onClick={() => onSubmit(initialValue.concat(patch))}
+          onClick={() => onSubmit(initialValue[initialValue.length - 1]?.editing ? initialValue.slice(0, -1).concat(patch) : initialValue.concat(patch))}
         />
         <Button
           shape="link-danger"
