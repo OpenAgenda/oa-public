@@ -54,10 +54,10 @@
     },
     {
         "editing": true,
-        "eventDuration": 210,
+        "eventDuration": 220,
         "priceCategories": [
             {
-                "price": 1200,
+                "price": 30,
                 "label": "Tarif pas si unique",
                 "id": 2
             }

@@ -475,6 +475,36 @@ describe('apply', () => {
 
         expect(spread.filter(s => s.editing === true).length).toBe(0);
       });
+
+      test('spread keeps editing neighbour if exist', () => {
+        const spread = spreadPCData([
+          {
+            eventDuration: 120,
+            bookingContact: 'clement.lecroart@openagenda.com',
+            response: { passId: 73327, isPending: false },
+            venueId: 548,
+            category: 'CINE_PLEIN_AIR',
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:43.648Z',
+            duo: true,
+          }, {
+            priceCategories: [{ price: 0, label: 'Tarif unique', id: 0 }],
+            response: { priceCategories: [{ passId: 4868, id: 0 }] },
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:44.172Z',
+          }, {
+            response: { dates: [{ passId: 94950, id: 1 }, { passId: 94951, id: 2 }] },
+            dates: [{ quantity: 1, priceCategoryId: 0, timingId: 1719563400000, id: 1 }, { quantity: 2, priceCategoryId: 0, timingId: 1719648000000, id: 2 }],
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:44.685Z',
+          }, {
+            editing: true,
+            eventDuration: 210,
+            dates: [{ timingId: 1719563400000, priceCategoryId: 0, quantity: '2', id: 1 }],
+          }]);
+
+        expect(spread[3]).toStrictEqual({ eventDuration: 210 });
+      });
     });
   });
 });

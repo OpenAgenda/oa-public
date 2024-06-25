@@ -148,12 +148,12 @@ describe('validate', () => {
 
     test('returns a clean priceCategory when valid', () => {
       const clean = validatePriceCategory({
-        price: '42',
+        price: '4.2',
         label: 'Prix universel',
       });
 
       expect(clean).toEqual({
-        price: 42,
+        price: 4.2,
         label: 'Prix universel',
       });
     });
@@ -172,6 +172,7 @@ describe('validate', () => {
         }],
         category: 'CONCERT',
         musicType: 'JAZZ-BEBOP',
+        bookingContact: 'kelly@slater.com',
       };
 
       const matchingTimings = [{
@@ -354,6 +355,8 @@ describe('validate', () => {
         const clean = validateLocalData(validData, { timings: matchingTimings }, settings);
 
         expect(clean).toEqual({
+          bookingContact: 'kelly@slater.com',
+          bookingEmail: undefined,
           category: 'CONCERT',
           musicType: 'JAZZ-BEBOP',
           priceCategories: [{ price: 0, label: 'Gratuit', id: 0 }],
@@ -393,12 +396,12 @@ describe('validate', () => {
           {
             priceCategories: [
               {
-                price: 123,
+                price: 20,
                 label: 'trezterztrez',
                 id: 0,
               },
               {
-                price: 724,
+                price: 30,
                 label: 'static',
                 id: 1,
               },
@@ -438,13 +441,13 @@ describe('validate', () => {
         }, settings);
 
         expect(clean[3]).toEqual({
-          eventDuration: 210,
+          eventDuration: 220,
         });
 
         expect(clean[4]).toEqual({
           priceCategories: [
             {
-              price: 1200,
+              price: 30,
               label: 'Tarif pas si unique',
               id: 2,
             },

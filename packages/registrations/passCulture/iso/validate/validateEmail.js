@@ -1,7 +1,9 @@
 import { BadRequest } from '@openagenda/verror';
 
-export default function validateBookingContact(dirty, field) {
-  if (!dirty) return;
+export default function validateEmail(dirty, field, options = {}) {
+  const { optional } = options;
+
+  if (!dirty && optional) return;
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dirty)) {
     throw new BadRequest({

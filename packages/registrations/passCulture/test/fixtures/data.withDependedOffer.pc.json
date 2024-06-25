@@ -23,12 +23,12 @@
     "priceCategories": [
       {
         "id": 0,
-        "price": "123",
+        "price": "20",
         "label": "trezterztrez"
       },
       {
         "id": 1,
-        "price": "724",
+        "price": "30",
         "label": "static"
       }
     ]
