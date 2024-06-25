@@ -324,7 +324,7 @@ location ~ ^/[^/]+/events/[^/]+/(action|email|ics|contact|suggest-change|embed-i
 }
 
 # /:agendaSlug/...
-location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact|request-contribute|navigate)(|/.+)$ {
+location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact|request-contribute|navigate|locations)(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
