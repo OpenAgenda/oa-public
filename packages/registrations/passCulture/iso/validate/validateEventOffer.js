@@ -10,7 +10,7 @@ export default function validateEventOffer(data, options = {}) {
   } = options;
 
   const {
-    bookingContact = 'required',
+    bookingContact,
     venueId,
     bookingEmail,
   } = data;
@@ -71,10 +71,12 @@ export default function validateEventOffer(data, options = {}) {
     });
   }
 
-  try {
-    clean.bookingContact = validateEmail(bookingContact, 'bookingContact');
-  } catch (error) {
-    error.info.errors.forEach(e => errors.push(e));
+  if ((partial && bookingContact) || !partial) {
+    try {
+      clean.bookingContact = validateEmail(bookingContact, 'bookingContact');
+    } catch (error) {
+      error.info.errors.forEach(e => errors.push(e));
+    }
   }
 
   if ((partial && bookingEmail) || !partial) {
