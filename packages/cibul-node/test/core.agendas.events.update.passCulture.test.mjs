@@ -126,7 +126,7 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
               label: 'Tarif normal ajusté l\'inflation',
             }, {
               id: 3,
-              price: 42,
+              price: 15,
               label: 'Tarif universel',
             }],
           });
