@@ -1,5 +1,5 @@
 import { BadRequest } from '@openagenda/verror';
-import logs from '@openagenda/logs';
+import debug from 'debug';
 
 import spreadPCData from '../spreadPCData.js';
 import validateLocalData from './validateLocalData.js';
@@ -7,7 +7,7 @@ import validateDate from './validateDate.js';
 import validatePriceCategory from './validatePriceCategory.js';
 import validateEventOffer from './validateEventOffer.js';
 
-const log = logs('validate/index');
+const log = debug('validate/index');
 
 async function validate({ pc, siren }, event, data = {}, options = {}) {
   const spreadData = spreadPCData(data);

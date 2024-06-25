@@ -1,5 +1,5 @@
 import { BadRequest } from '@openagenda/verror';
-import logs from '@openagenda/logs';
+import debug from 'debug';
 
 import { getCurrentValue, getObjectType } from '../utils.js';
 import validateMergedLocalData from './validateMergedLocalData.js';
@@ -7,7 +7,7 @@ import validateEventOffer from './validateEventOffer.js';
 import { validateDates } from './validateDate.js';
 import { validatePriceCategories } from './validatePriceCategory.js';
 
-const log = logs('validateSpreadLocalData');
+const log = debug('validateSpreadLocalData');
 
 export default function validateSpreadLocalData(data, event, params = {}) {
   const processedItems = data.reduce((processed, entry, index) => {
@@ -35,6 +35,7 @@ export default function validateSpreadLocalData(data, event, params = {}) {
 
     try {
       log('evaluating entry', { type, entry });
+
       current.clean = ['response', 'appliedAt', 'operation'].reduce((clean, key) => ({
         ...clean,
         ...entry[key] ? { [key]: entry[key] } : undefined,
