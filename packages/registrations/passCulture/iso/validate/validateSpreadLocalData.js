@@ -36,9 +36,9 @@ export default function validateSpreadLocalData(data, event, params = {}) {
     log('evaluating entry', { type, entry });
 
     const cleanEntry = {
-      response: entry.response ? entry.response : undefined,
-      appliedAt: entry.appliedAt ? entry.appliedAt : undefined,
-      operation: entry.operation ? entry.operation : undefined,
+      ...entry.response ? { response: entry.response } : undefined,
+      ...entry.appliedAt ? { appliedAt: entry.appliedAt } : undefined,
+      ...entry.operation ? { operation: entry.operation } : undefined,
     };
 
     try {
@@ -51,8 +51,6 @@ export default function validateSpreadLocalData(data, event, params = {}) {
         cleanEntry.priceCategories = validatePriceCategories(entry.priceCategories);
       } else if (type === 'dates') {
         cleanEntry.dates = validateDates(entry.dates, current.merged.clean?.priceCategories, event);
-      } else {
-        log('warn', 'unknown type for entry', { entry });
       }
     } catch (e) {
       if (!e.info?.errors) {
@@ -64,6 +62,10 @@ export default function validateSpreadLocalData(data, event, params = {}) {
         errors: e.info.errors,
         clean: cleanEntry,
       });
+    }
+
+    if (!Object.keys(cleanEntry).length && !current.errors) {
+      return processed;
     }
 
     return processed.concat({ ...current, clean: cleanEntry });
