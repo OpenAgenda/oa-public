@@ -159,6 +159,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   } catch (e) {
     log.info('create failed', {
       error: e,
+      errors: e.info?.errors,
       agendaUid,
       userUid,
       callOrigin,
