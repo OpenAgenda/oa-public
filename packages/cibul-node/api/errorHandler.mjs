@@ -45,4 +45,4 @@ export default function apiErrorHandler(err, req, res, _next) {
   return res.status(500).json({
     message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com',
   });
-};
+}
