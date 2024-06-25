@@ -33,27 +33,40 @@ export default function validateSpreadLocalData(data, event, params = {}) {
 
     const type = getObjectType(entry); // eventOffer, dates ou priceCategories
 
-    try {
-      log('evaluating entry', { type, entry });
+    log('evaluating entry', { type, entry });
 
-      current.clean = ['response', 'appliedAt', 'operation'].reduce((clean, key) => ({
-        ...clean,
-        ...entry[key] ? { [key]: entry[key] } : undefined,
-      }), {
-        ...type === 'eventOffer' ? validateEventOffer(entry, { ...params, partial: true }) : undefined,
-        ...type === 'priceCategories' ? { priceCategories: validatePriceCategories(entry.priceCategories) } : undefined,
-        ...type === 'dates' ? { dates: validateDates(entry.dates, current.merged.clean?.priceCategories, event) } : undefined,
-      });
+    const cleanEntry = {
+      response: entry.response ? entry.response : undefined,
+      appliedAt: entry.appliedAt ? entry.appliedAt : undefined,
+      operation: entry.operation ? entry.operation : undefined,
+    };
+
+    try {
+      if (type === 'eventOffer') {
+        Object.assign(
+          cleanEntry,
+          validateEventOffer(entry, { ...params, partial: true }),
+        );
+      } else if (type === 'priceCategories') {
+        cleanEntry.priceCategories = validatePriceCategories(entry.priceCategories);
+      } else if (type === 'dates') {
+        cleanEntry.dates = validateDates(entry.dates, current.merged.clean?.priceCategories, event);
+      } else {
+        log('warn', 'unknown type for entry', { entry });
+      }
     } catch (e) {
       if (!e.info?.errors) {
         log('exception on entry evaluation', { error: e, entry });
         throw e;
       }
       log('entry has local validation errors', e.info);
-      current.errors = e.info.errors;
+      Object.assign(current, {
+        errors: e.info.errors,
+        clean: cleanEntry,
+      });
     }
 
-    return processed.concat(current);
+    return processed.concat({ ...current, clean: cleanEntry });
   }, []);
 
   if (!processedItems.length) return [];

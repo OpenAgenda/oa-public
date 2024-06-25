@@ -134,26 +134,26 @@ describe('apply', () => {
 
         test('processed data has parts of entry spread over as many entries as there are object types', () => {
           expect(Object.keys(processed[0])).toEqual([
+            'response',
+            'appliedAt',
+            'operation',
             'category',
             'venueId',
             'bookingContact',
-            'response',
-            'appliedAt',
-            'operation',
           ]);
 
           expect(Object.keys(processed[1])).toEqual([
-            'priceCategories',
             'response',
             'appliedAt',
             'operation',
+            'priceCategories',
           ]);
 
           expect(Object.keys(processed[2])).toEqual([
-            'dates',
             'response',
             'appliedAt',
             'operation',
+            'dates',
           ]);
         });
       });

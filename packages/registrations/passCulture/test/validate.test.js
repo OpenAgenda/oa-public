@@ -463,6 +463,40 @@ describe('validate', () => {
           }],
         });
       });
+
+      test('validation errors are relevant', () => {
+        let errors;
+        try {
+          validateLocalData([{
+            category: 'CONCERT',
+            musicType: 'JAZZ-BEBOP',
+            priceCategories: [{ price: 0, label: 'Gratuit', id: 0 }],
+            dates: [{
+              id: 1,
+              priceCategoryId: 0,
+              quantity: 1,
+              timingId: 1920532380000,
+            }],
+            venueId: 123,
+          }], {
+            timings: [{
+              begin: new Date(1920532380000),
+            }],
+          }, settings);
+        } catch (e) {
+          errors = e.info.errors;
+        }
+
+        expect(errors).toEqual([
+          {
+            message: 'email is invalid',
+            code: 'registration.pass.bookingContact.invalid',
+            label: "L'email est invalide",
+            field: 'bookingContact',
+            fieldLabel: 'Pass Culture',
+          },
+        ]);
+      });
     });
   });
 });
