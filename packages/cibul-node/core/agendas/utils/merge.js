@@ -1,8 +1,12 @@
 'use strict';
 
+const logs = require('@openagenda/logs');
+
 const { merge } = require('@openagenda/form-schemas').utils;
 const eventFormSchema = require('@openagenda/event-form/src/schema');
 const tagSetToFormSchema = require('@openagenda/legacy/tagSetToFormSchema');
+
+const log = logs('core/agendas/utils/merge');
 
 const {
   utils: {
@@ -33,6 +37,11 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     ...options,
   };
 
+  const logBundle = {
+    eventUid: event?.uid ?? agendaEvent?.eventUid,
+    agendaUid: agendaEvent?.agendaUid,
+  };
+
   const compiled = {};
 
   if (event && load.event) {
@@ -45,6 +54,13 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   }
   if (event && load.event && agendaEvent) {
     compiled.addMethod = getAddMethod(event, agendaEvent);
+  }
+
+  let updatedAtOrigin = 'event';
+
+  if (event?.location?.updatedAt && event.updatedAt < event.location?.updatedAt) {
+    compiled.updatedAt = event.location.updatedAt;
+    updatedAtOrigin = 'location';
   }
 
   [networkCustom, agendaCustom].filter(d => !!d).forEach(data => {
@@ -63,8 +79,11 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
     if (agendaEvent.updatedAt > compiled.updatedAt) {
       compiled.updatedAt = agendaEvent.updatedAt;
+      updatedAtOrigin = 'agendaEvent';
     }
   }
+
+  log('using %s updatedAt', updatedAtOrigin, logBundle);
 
   if (agendaEvent && agendaEvent.sourceAgendas) {
     compiled.sourceAgendas = agendaEvent.sourceAgendas;
