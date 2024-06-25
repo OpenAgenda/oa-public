@@ -21,6 +21,7 @@ export default {
     data: {
       venueId: 548,
       category: 'CINE_PLEIN_AIR',
+      bookingContact: 'truc@email.com',
       priceCategories: [
         {
           id: 1,
