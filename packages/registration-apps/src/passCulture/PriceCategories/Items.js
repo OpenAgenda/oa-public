@@ -20,7 +20,7 @@ export default function PriceCategoryItems({
   } = useContext(ComponentsContext);
 
   const [editValue, setEditValue] = useState(false);
-  const [editedItemIndex, setEditedItemIndex] = useState(-1);
+  const [editedItemId, setEditedItemId] = useState(-1);
 
   if (!value.length) {
     return (
@@ -31,21 +31,21 @@ export default function PriceCategoryItems({
   }
   return (
     <List>
-      {value.map(({ label, price, id, passId }, index) => (
+      {value.map(({ label, price, id, passId }) => (
         <ListItem key={slug(`${label} ${price}`, { lower: true, strict: true })}>
-          {editedItemIndex === index ? (
+          {editedItemId === id ? (
             <PriceCategoryForm
               mode="edit"
               value={editValue}
               onChange={v => setEditValue({ passId, ...v })}
-              isValid={validatePriceCategory(editValue, { boolMode: true })}
+              isValid={validatePriceCategory({ ...editValue, price: editValue.price * 100 }, { boolMode: true })}
               onCancel={() => {
-                setEditedItemIndex(-1);
+                setEditedItemId(-1);
                 onToggleEditing(false);
               }}
               onSubmit={() => {
                 onChange(editValue);
-                setEditedItemIndex(-1);
+                setEditedItemId(-1);
                 onToggleEditing(false);
               }}
               submitLabel="Modifier"
@@ -59,10 +59,10 @@ export default function PriceCategoryItems({
                   unmargined
                   unpadded
                   type="submit"
-                  disabled={disabled || editedItemIndex !== -1}
+                  disabled={disabled || editedItemId !== -1}
                   shape="link"
                   onClick={() => {
-                    setEditedItemIndex(index);
+                    setEditedItemId(id);
                     setEditValue({ label, price: price / 100, id });
                     onToggleEditing(true);
                   }}

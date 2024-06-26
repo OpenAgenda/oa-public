@@ -42,7 +42,7 @@ export default function PriceCategories({
             setNewItem(v);
             onSubFormToggle(false);
           }}
-          isValid={validatePriceCategory(newItem, { boolMode: true })}
+          isValid={validatePriceCategory({ ...newItem, price: newItem.price * 100 }, { boolMode: true })}
           onCancel={() => {
             setNewItem(false);
             onSubFormToggle(false);
