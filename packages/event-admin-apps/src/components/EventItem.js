@@ -115,10 +115,12 @@ export default function EventItem({
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
   const intl = useIntl();
-  const passId = event.registration.find(r => r.service === 'passCulture')?.data
-    .id;
-  const passPending = event.registration.find(r => r.service === 'passCulture')?.data.warning
-    === 'pending';
+
+  const passId = event.registration.find(r => r.service === 'passCulture')
+    ?.data?.[0]?.response?.passId;
+  const passPending = event.registration.find(r => r.service === 'passCulture')
+    ?.data?.[0]?.response?.isPending;
+
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
       return false;
