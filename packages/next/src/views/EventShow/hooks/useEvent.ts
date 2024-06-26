@@ -9,6 +9,7 @@ type Timing = {
 type Registration = {
   type: string
   value: string
+  service: string
 };
 
 export type Event = {
@@ -82,6 +83,7 @@ export type Event = {
     type: string
     value: string
     img: string
+    label: string
   }
 };
 
