@@ -161,7 +161,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(result.events[0].uid).toBe(2);
     });
 
-    it('fix: updatedAt is latest between ae and event timestamps', async () => {
+    it('fix: updatedAt is latest between ae, event and location timestamps', async () => {
       const { events } = await core.agendas(2).events.search({
         state: null,
         uid: 1,
@@ -172,9 +172,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(
         new Date(events.pop().updatedAt).getTime(),
-      ).toBe(
-        new Date('2022-06-30T09:00:00.000Z').getTime(),
-      );
+      ).toBeGreaterThanOrEqual(1719330399000);
     });
 
     it('longDescriptionFormat option set to HTML', async () => {

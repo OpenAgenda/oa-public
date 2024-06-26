@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import createApp from '@openagenda/inbox-apps/src/app';
 import { wrapApp } from '@openagenda/react-shared';
 import du from '@openagenda/dom-utils';
@@ -16,13 +15,17 @@ const defaults = {
   }
 };
 
-window.hook( options => {
-  const { initialState } = _.merge( {}, defaults, options );
+window.hook(options => {
+  const { initialState } = _.merge({}, defaults, options);
   const extraProps = {
     user: initialState.user,
     agenda: initialState.agenda,
     ...options.extraProps
   };
 
-  ReactDOM.render( wrapApp( createApp( { initialState } ), { extraProps } ), du.el( '.js_canvas' ) );
-} );
+  createRoot(
+    du.el('.js_canvas'),
+ ).render(
+    wrapApp(createApp({ initialState }), { extraProps }),
+ );
+});
