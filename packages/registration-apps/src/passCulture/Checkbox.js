@@ -5,7 +5,7 @@ import { getTime, getCurrentValue } from '@openagenda/registrations/passCulture/
 
 import FormModal from './FormModal';
 import UnlinkModal from './UnlinkModal';
-import { logoPath } from './utils';
+import { logoPath, isPatchMode } from './utils';
 
 export default ({
   value,
@@ -20,6 +20,8 @@ export default ({
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
   const [hasAccess, setHasAccess] = useState(false);
+
+  const patchMode = useMemo(() => isPatchMode(value || []), [value]);
 
   const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
   const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
@@ -64,9 +66,10 @@ export default ({
   }, [offerAlreadyExists]);
 
   const onClear = useCallback(() => {
-    onChange(null);
+    if (patchMode) onChange(value);
+    else onChange(null);
     setModal(null);
-  }, [onChange]);
+  }, [onChange, patchMode, value]);
 
   const onSubmit = useCallback(v => {
     if (v.eventDuration === '') delete v.eventDuration;
@@ -95,6 +98,7 @@ export default ({
           onClose={() => setModal(null)}
           onSubmit={onSubmit}
           onClear={onClear}
+          patchMode={patchMode}
         />
       ) : null}
       {modal === 'unlink' ? (
