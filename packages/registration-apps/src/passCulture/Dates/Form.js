@@ -66,6 +66,7 @@ export default function DateForm({
         value={value.quantity}
         label="Quantité"
         type="number"
+        min="0"
         onChange={e => onChange({ ...value, quantity: e.target.value })}
       />
       <Button
