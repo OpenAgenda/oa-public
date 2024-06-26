@@ -14,6 +14,7 @@ export default function FormModal({
   title,
   longDesc,
   bookingEmail,
+  patchMode,
 }) {
   return (
     <Modal
@@ -36,6 +37,7 @@ export default function FormModal({
           oaLocation={location}
           title={title}
           longDesc={longDesc}
+          patchMode={patchMode}
         />
       </div>
     </Modal>

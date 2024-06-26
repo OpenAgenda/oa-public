@@ -19,7 +19,6 @@ import {
   getRelatedFieldName,
   getRelatedFieldOptions,
   getNextId,
-  isPatchMode,
 } from './utils';
 
 const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
@@ -52,6 +51,7 @@ export default function Form({
   oaLocation = null,
   title = null,
   longDesc = null,
+  patchMode = false,
 }) {
   const [patch, setPatch] = useState(initialValue[initialValue.length - 1]?.editing ? initialValue[initialValue.length - 1] : { editing: true });
 
@@ -68,7 +68,6 @@ export default function Form({
   } = useContext(ComponentsContext);
   const storedValue = useMemo(() => getCurrentValue(initialValue), [initialValue]);
   const currentValue = useMemo(() => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)), [initialValue, patch]);
-  const patchMode = useMemo(() => isPatchMode(initialValue), [initialValue]);
   const nextId = useMemo(() => getNextId(currentValue), [currentValue]);
   const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, currentValue.category), [categories, currentValue.category]);
   const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
@@ -173,7 +172,7 @@ export default function Form({
             });
             setOpenSubForm(false);
           }}
-          onRemove={d => setPatch(removeDate(patch, d))}
+          onRemove={d => setPatch(removeDate(patch, d, currentValue))}
           onChange={(i, d) => {
             setPatch(changeDate(patch, i, d));
             setOpenSubForm(false);
