@@ -23,31 +23,6 @@ const formatDate = (OAEvent, entries, date) => {
   };
 };
 
-async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
-  const succeeded = { dates: [] };
-  let error;
-
-  for (const date of entry.dates) {
-    try {
-      await pc.offers.events(passEventOfferId)
-        .dates(
-          getMatchingPassId(processedEntries, date.id),
-        ).patch(omit(date, ['id']));
-
-      succeeded.dates.push(date);
-    } catch (e) {
-      error = handleError('dates update', e);
-      break;
-    }
-  }
-
-  return {
-    succeeded,
-    remaining: succeeded.dates.length === entry.dates.length ? [] : entry.dates.slice(succeeded.dates.length),
-    error,
-  };
-}
-
 async function create(pc, passEventOfferId, OAEvent, processedEntries, entry, { logBundle }) {
   const formatted = entry.dates.map(formatDate.bind(null, OAEvent, processedEntries));
 
@@ -85,7 +60,33 @@ async function create(pc, passEventOfferId, OAEvent, processedEntries, entry, { 
   };
 }
 
+async function applyDateOperation(operation, pc, passEventOfferId, _OAEvent, processedEntries, entry) {
+  const succeeded = { dates: [] };
+  let error;
+
+  for (const date of entry.dates) {
+    try {
+      await pc.offers.events(passEventOfferId)
+        .dates(
+          getMatchingPassId(processedEntries, date.id),
+        )[operation](operation === 'patch' ? omit(date, ['id']) : undefined);
+
+      succeeded.dates.push(date);
+    } catch (e) {
+      error = handleError(`dates ${operation}`, e);
+      break;
+    }
+  }
+
+  return {
+    succeeded,
+    remaining: succeeded.dates.length === entry.dates.length ? [] : entry.dates.slice(succeeded.dates.length),
+    error,
+  };
+}
+
 export default {
   create,
-  update,
+  update: applyDateOperation.bind(null, 'patch'),
+  delete: applyDateOperation.bind(null, 'delete'),
 };

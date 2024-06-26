@@ -34,10 +34,29 @@ export default function validateDate(value, params = {}) {
     timingId,
     priceCategoryId,
     quantity,
+    deleted,
   } = value;
 
   const errors = [];
   const clean = {};
+
+  clean.id = parseInt(id, 10);
+
+  if (!ignoreId && (Number.isNaN(clean.id) || clean.id < 1)) {
+    errors.push({
+      message: 'date must have a positive assigned id',
+      code: 'invalid.id',
+      label: 'Identifiant non assigné',
+      field: 'dates',
+    });
+  }
+
+  if (deleted && clean.id) {
+    return {
+      ...clean,
+      deleted: true,
+    };
+  }
 
   if (!priceCategories.find(pc => pc.id === priceCategoryId)) {
     errors.push({
@@ -70,17 +89,6 @@ export default function validateDate(value, params = {}) {
     });
   } else {
     clean.timingId = timingId;
-  }
-
-  clean.id = parseInt(id, 10);
-
-  if (!ignoreId && (Number.isNaN(clean.id) || clean.id < 1)) {
-    errors.push({
-      message: 'date must have a positive assigned id',
-      code: 'invalid.id',
-      label: 'Identifiant non assigné',
-      field: 'dates',
-    });
   }
 
   if (errors.length && boolMode) {
