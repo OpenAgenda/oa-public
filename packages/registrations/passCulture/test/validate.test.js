@@ -40,7 +40,7 @@ describe('validate', () => {
       let error;
 
       try {
-        validateDate({ priceCategoryId: 1 }, { priceCategories: [] });
+        validateDate({ priceCategoryId: 1 }, { priceCategories: [], ignoreId: true });
       } catch (e) {
         error = e;
       }
@@ -55,6 +55,7 @@ describe('validate', () => {
       try {
         validateDate({ priceCategoryId: 0, quantity: 'bim' }, {
           priceCategories: [{ a: 'notvalidatedheresowhatever', id: 0 }],
+          ignoreId: true,
         });
       } catch (e) {
         error = e;
@@ -71,6 +72,7 @@ describe('validate', () => {
         validateDate({ priceCategoryId: 0, quantity: 1, timingId: 123 }, {
           priceCategories: [{ a: 'wigglypoof', id: 0 }],
           timings: [],
+          ignoreId: true,
         });
       } catch (e) {
         error = e;
@@ -95,6 +97,7 @@ describe('validate', () => {
             minutes: 13,
           },
         }],
+        ignoreId: true,
       });
 
       expect(clean).toEqual({
@@ -538,6 +541,64 @@ describe('validate', () => {
             id: 1,
           }],
         }]);
+      });
+
+      test('deleted items are spread and valid', () => {
+        const clean = validateLocalData(
+          [{
+            eventDuration: 120,
+            bookingContact: 'clement.lecroart@openagenda.com',
+            response: {
+              passId: 73327,
+              isPending: false,
+            },
+            venueId: 548,
+            category: 'CINE_PLEIN_AIR',
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:43.648Z',
+            duo: true,
+          }, {
+            priceCategories: [{ price: 0, label: 'Tarif unique', id: 0 }],
+            response: { priceCategories: [{ passId: 4868, id: 0 }] },
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:44.172Z',
+          }, {
+            response: { dates: [{ passId: 94950, id: 1 }, { passId: 94951, id: 2 }] },
+            dates: [{
+              quantity: 1,
+              priceCategoryId: 0,
+              timingId: 1719563400000,
+              id: 1,
+            }, {
+              quantity: 2,
+              priceCategoryId: 0,
+              timingId: 1719648000000,
+              id: 2,
+            }],
+            operation: 'create',
+            appliedAt: '2024-06-24T14:51:44.685Z',
+          }, {
+            dates: [{
+              id: 2,
+              deleted: true,
+            }],
+          }],
+          {
+            timings: [{
+              begin: new Date(1719563400000),
+            }, {
+              begin: new Date(1719648000000),
+            }],
+          },
+          settings,
+        );
+
+        expect(clean[clean.length - 1]).toEqual({
+          dates: [{
+            id: 2,
+            deleted: true,
+          }],
+        });
       });
     });
   });

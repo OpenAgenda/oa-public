@@ -1,5 +1,5 @@
 import { getObjectType } from './utils.js';
-import getMatchingPassId from './getMatchingPassId.js';
+import { getEntryItemOperationType } from './getOperationType.js';
 
 function decorateWithInfoFields(data, entry) {
   return {
@@ -58,14 +58,15 @@ function spreadAccordingToOperation(data) {
     const {
       create: createOperations,
       update: updateOperations,
-    } = entry[type].reduce((carry, operation) => {
-      const operationKey = getMatchingPassId(spreadEntries, operation.id) ? 'update' : 'create';
+      delete: deleteOperations,
+    } = entry[type].reduce((carry, entryItem) => {
+      const operationKey = getEntryItemOperationType(spreadEntries, entryItem);
 
       return {
         ...carry,
-        [operationKey]: carry[operationKey].concat(operation),
+        [operationKey]: carry[operationKey].concat(entryItem),
       };
-    }, { create: [], update: [] });
+    }, { create: [], update: [], delete: [] });
 
     const spread = [];
 
@@ -80,6 +81,13 @@ function spreadAccordingToOperation(data) {
       spread.push({
         ...entry,
         [type]: createOperations,
+      });
+    }
+
+    if (deleteOperations.length) {
+      spread.push({
+        ...entry,
+        [type]: deleteOperations,
       });
     }
 
