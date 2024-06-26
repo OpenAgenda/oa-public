@@ -74,16 +74,12 @@ export function changeDate(value, { timingId, priceCategoryId, quantity, id, pas
   });
 }
 
-export function removeDate(value, { id, passId }) {
+export function removeDate(value, { id, passId }, currentValue) {
   return produce(value, draft => {
     if (!passId) draft.dates = draft.dates.filter(d => d.id !== id);
     if (passId) {
-      draft.dates.reduce((acc, current) => {
-        if (current.id === id) {
-          current.deleted = true;
-        }
-        return acc.concat(current);
-      }, []);
+      draft.dates = (draft.dates ? draft.dates.filter(d => d.passId !== passId) : [])
+        .concat({ ...currentValue.dates.find(d => d.passId === passId), deleted: true });
     }
   });
 }
