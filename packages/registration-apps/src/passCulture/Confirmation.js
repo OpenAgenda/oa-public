@@ -53,7 +53,7 @@ export default function Confirmation({ event, res, className }) {
 
   const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
   const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
-  const isPatch = useMemo(() => passData.filter(p => p.operation === 'update' || p.operation === 'delete')?.length, [passData]);
+  const isPatch = useMemo(() => passData.length > 3, [passData]);
   const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
   const isPending = useMemo(() => passData[0]?.response.isPending ?? null, [passData]);
 

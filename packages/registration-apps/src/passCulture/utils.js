@@ -53,6 +53,9 @@ export function changePriceCategory(value, { price, label, id, passId }) {
       }
       return acc.concat(current);
     }, []);
+    if (passId && !draft.priceCategories.find(pc => pc.passId === passId)) {
+      draft.priceCategories = (draft.priceCategories || []).concat({ price: centsPrice, label, id, passId });
+    }
   });
 }
 
@@ -71,6 +74,9 @@ export function changeDate(value, { timingId, priceCategoryId, quantity, id, pas
       }
       return acc.concat(current);
     }, []);
+    if (passId && !draft.dates.find(d => d.passId === passId)) {
+      draft.dates = (draft.dates || []).concat({ timingId, priceCategoryId, quantity, id, passId });
+    }
   });
 }
 

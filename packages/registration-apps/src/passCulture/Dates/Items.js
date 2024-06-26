@@ -91,7 +91,7 @@ export default function DateItems({
                         shape="link"
                         onClick={() => {
                           setEditedItemId(id);
-                          setEditValue({ timingId, priceCategoryId, quantity });
+                          setEditValue({ timingId, priceCategoryId, quantity, passId });
                           onToggleEditing(true);
                         }}
                         label="Modifier"

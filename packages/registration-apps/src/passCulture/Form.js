@@ -155,8 +155,8 @@ export default function Form({
           }}
           onRemove={pc => setPatch(removePriceCategory(patch, pc))}
           onSubFormToggle={open => setOpenSubForm(open ? 'priceCategories' : false)}
-          onChange={(index, pc) => {
-            setPatch(changePriceCategory(patch, index, pc));
+          onChange={pc => {
+            setPatch(changePriceCategory(patch, pc, currentValue));
             setOpenSubForm(false);
           }}
         />
@@ -173,8 +173,8 @@ export default function Form({
             setOpenSubForm(false);
           }}
           onRemove={d => setPatch(removeDate(patch, d, currentValue))}
-          onChange={(i, d) => {
-            setPatch(changeDate(patch, i, d));
+          onChange={d => {
+            setPatch(changeDate(patch, d));
             setOpenSubForm(false);
           }}
           onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}

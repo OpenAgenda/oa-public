@@ -21,7 +21,7 @@ export default function PriceCategoryItems({
 
   const [editValue, setEditValue] = useState(false);
   const [editedItemId, setEditedItemId] = useState(-1);
-
+  console.log('editValue', editValue);
   if (!value.length) {
     return (
       <div>
@@ -41,11 +41,13 @@ export default function PriceCategoryItems({
               isValid={validatePriceCategory({ ...editValue, price: editValue.price * 100 }, { boolMode: true })}
               onCancel={() => {
                 setEditedItemId(-1);
+                setEditValue(false);
                 onToggleEditing(false);
               }}
               onSubmit={() => {
                 onChange(editValue);
                 setEditedItemId(-1);
+                setEditValue(false);
                 onToggleEditing(false);
               }}
               submitLabel="Modifier"
