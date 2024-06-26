@@ -24,7 +24,7 @@ export default function validatePriceCategory(value, options = {}) {
       message: 'price should be a positive number',
       code: 'invalid.price',
     });
-  } else if (Number.parseFloat(price) > 30) {
+  } else if (Number.parseFloat(price) > 3000) {
     errors.push({
       message: 'price should be lower than 30',
       code: 'invalid.price',
