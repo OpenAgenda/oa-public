@@ -29,7 +29,7 @@ function ConfirmationBody({ hasErrors, isPending, isPatch, editLink, showLink, e
   if (isPatch) {
     return (
       <>
-        <p>L&apos; offre Pass Culture a été mise à jouravec succès. Vous pouvez y accéder depuis la barre latérale de la fiche détaillée de l&apos;événement ou en cliquant sur un des liens suivants.</p>
+        <p>L&apos; offre Pass Culture a été mise à jour avec succès. Vous pouvez y accéder depuis la barre latérale de la fiche détaillée de l&apos;événement ou en cliquant sur un des liens suivants.</p>
         <a href={editLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Administrer l&apos;offre</a>
         <a href={showLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Voir l&apos;offre</a>
       </>
@@ -53,7 +53,7 @@ export default function Confirmation({ event, res, className }) {
 
   const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
   const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
-  const isPatch = useMemo(() => passData[0]?.response?.passId && passData[1], [passData]);
+  const isPatch = useMemo(() => passData.filter(p => p.operation === 'update' || p.operation === 'delete')?.length, [passData]);
   const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
   const isPending = useMemo(() => passData[0]?.response.isPending ?? null, [passData]);
 
