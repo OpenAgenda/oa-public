@@ -294,8 +294,6 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
       ...sourceFilesInDir,
     ], directory);
 
-    console.log('viewDeps', viewDeps);
-
     const depsLocalesDirs = [];
     for (const viewDep of viewDeps) {
       const depLocalesDir = path.join(path.dirname(viewDep), 'locales');
