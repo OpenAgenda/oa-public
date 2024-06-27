@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "@openagenda"
+  ],
+
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "tsup.config.js"
+        ]
+      }
+    ]
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.{tsx,ts,jsx,js}",
+        "*.stories.{tsx,ts,jsx,js}"
+      ],
+    }
+  ]
+}
