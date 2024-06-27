@@ -1,5 +1,6 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import _ from 'lodash';
 
 import thumbnail from '../thumbnail.js';
 import goToNextLine from '../goToNextLine.js';
@@ -17,15 +18,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const extractModeOptions = mode =>
-  (typeof mode === 'string' ? { bold: false, name: mode } : mode);
+  (typeof mode === 'string'
+    ? {
+      bold: false,
+      name: mode,
+      margin: { top: 2, bottom: 2 },
+    }
+    : mode);
 
 const modes = {
   default: [
     'title',
     'description',
-    ['dateRange', 'accessibility'],
+    [
+      {
+        name: 'dateRange',
+        margin: { top: 2, bottom: 2 },
+      },
+      'accessibility',
+    ],
+    { name: 'location', margin: { top: 2, bottom: 0 } },
     'onlineAccessLink',
-    'registration',
+    {
+      name: 'registration',
+      margin: { top: -2, bottom: 0 },
+    },
     'eventLink',
   ],
   city: [
@@ -34,7 +51,10 @@ const modes = {
     'dateRange',
     'description',
     'onlineAccessLink',
-    'registration',
+    {
+      name: 'registration',
+      margin: { top: -2, bottom: 0 },
+    },
     'eventLink',
     'accessibility',
   ],
@@ -156,6 +176,10 @@ export default async function addEventItem(
     for (const lineItem of [].concat(line)) {
       const lineItemOptions = extractModeOptions(lineItem);
 
+      if (lineItemOptions.margin?.top) {
+        localCursor.y += lineItemOptions.margin.top;
+      }
+
       const { width, height } = positioningFunctions[lineItemOptions.name](
         doc,
         localCursor,
@@ -172,15 +196,20 @@ export default async function addEventItem(
           lang,
           agenda,
           mode,
-          ...lineItemOptions,
+          ..._.omit(lineItemOptions, ['margin']),
         },
       );
       lineWidth += width;
-      lineHeight = Math.max(lineHeight, height);
+      lineHeight = Math.max(
+        lineHeight,
+        height + (lineItemOptions.margin?.bottom ?? 0),
+      );
+
       localCursor.x = width + base.margin;
     }
     columnWidth = Math.max(columnWidth, lineWidth);
-    goToNextLine(localCursor, lineHeight + base.margin / 10, {
+
+    goToNextLine(localCursor, lineHeight, {
       x: nextLineX,
     });
   }
