@@ -89,6 +89,13 @@ Here is a non-comprehensive list of the filters that can be loaded (to be placed
 
 For all filters that take the form of a list of checkboxes, the parameter `inputType` can be set to `radio` if the required behavior is to limit filtering to one value at a time per field.
 
+### Search
+
+A text input for open-text search. Parameters are:
+
+ * **name**: 'search'.
+ * **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
+
 ### Map
 
 The map filter displays a map at the location of the container div that will allow the user to focus the selection of events according to their geographical locations. Parameters are:
@@ -107,6 +114,8 @@ The timings filter displays a calendar or range links that allow the user to fil
  * **name**: 'timings'
  * **type**: 'dateRange' for the calendar, 'definedRange' for predefined range links (today, tomorrow, this weekend)
  * **staticRanges**: when the type is 'definedRange', specifies which ranges to be displayed. Possible values are `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`
+ * **dateFormat**: Change the formatting of dates displayed in the from and to input fields. By default, uses [date-fns synthax](https://date-fns.org/docs/format) by default .
+ * **dateFormatStyle**: date-fns by default. When the value is set to "php", reads the 'dateFormat' configuration in a [php formatting style](https://www.php.net/manual/datetime.format.php)
 
 ### Explicit filter options
 

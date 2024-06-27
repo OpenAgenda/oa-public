@@ -11,6 +11,8 @@ const {
   PDF_TEST_FOLDER: pdfTestFolder,
   MAX_FETCHED_EVENT_COUNT: maxFetchedEventCount,
   TEST_QUERY: testQueryString,
+  TEST_MODE: testMode,
+  TEST_LANG: testLang = 'fr',
 } = process.env;
 
 const eventStream = new APIEventsStream({
@@ -28,5 +30,6 @@ const pdfExports = PDFExports({});
 
 await pdfExports.GenerateExportStream(eventStream, writeStream, {
   agenda,
-  lang: 'fr',
+  lang: testLang,
+  mode: testMode,
 });

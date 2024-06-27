@@ -90,6 +90,10 @@ function Html({ html, options }) {
         async={false}
       />
       <Script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        async={false}
+      />
+      <Script
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossOrigin="anonymous"
@@ -681,3 +685,48 @@ export const SortChoiceList = () => (
   />
 );
 SortChoiceList.storyName = 'Choice with sort list';
+
+export const SortChoiceListInDropdown = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        city: [
+          { key: 'Paris', eventCount: 127 },
+          { key: 'Toulouse', eventCount: 40 },
+          { key: 'Le Port', eventCount: 33 },
+          { key: 'Montpellier', eventCount: 33 },
+          { key: 'Nantes', eventCount: 29 },
+          { key: 'Colmar', eventCount: 24 },
+          { key: 'a', eventCount: 23 },
+          { key: 'b', eventCount: 22 },
+          { key: 'c', eventCount: 21 },
+          { key: 'd', eventCount: 20 },
+          { key: 'e', eventCount: 19 },
+          { key: 'f', eventCount: 18 },
+        ],
+      },
+      aggregations: {
+        city: [
+          { key: 'Paris', eventCount: 34 },
+          { key: 'Le Port', eventCount: 25 },
+          { key: 'Montpellier', eventCount: 16 },
+          { key: 'Colmar', eventCount: 7 },
+        ],
+      },
+    }}
+    html={_.template(`
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Ville
+      </button>
+        <ul class="dropdown-menu"
+          aria-labelledby="dropdown"
+          data-oa-filter="an-id"
+          data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'city', sort: 'alphabetical', tag: 'li', preventDefault: false}) %>"
+        ></ul>
+    </div>
+    `)()}
+  />
+);
+SortChoiceListInDropdown.storyName = 'Choice with sort list in dropdown';
