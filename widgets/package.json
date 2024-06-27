@@ -17,6 +17,7 @@
   "scripts": {
     "prepack": "tsup",
     "lint": "eslint -c .eslintrc '**/*.@(js|jsx|ts|tsx|mjs)'",
+    "lint-staged": "lint-staged",
     "prettier": "prettier-eslint --write '**/*.@(js|jsx|ts|tsx|mjs)'",
     "sb": "yarn storybook",
     "storybook": "storybook dev"
@@ -27,6 +28,7 @@
     "@storybook/html-webpack5": "^8.1.10",
     "eslint": "^8.24.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^7.1.0",
     "storybook": "^8.1.10",
     "tsup": "^6.2.3"
@@ -34,9 +36,10 @@
   "dependencies": {
     "@iframe-resizer/parent": "^5.1.4"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write",
+      "eslint -c .eslintrc"
     ]
   }
 }
