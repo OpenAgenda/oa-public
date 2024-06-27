@@ -3,6 +3,8 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/mails/utils');
 
+const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
+
 export function convertRuleArrayToObject(rule) {
   const [action, subject, conditions, fields] = rule;
 
@@ -19,7 +21,7 @@ export function cleanTarget(dirty) {
 
   return {
     type: targetType,
-    value: parseInt(targetValue, 10),
+    value: isNumberLike(targetValue) ? parseInt(targetValue, 10) : targetValue,
   };
 }
 
