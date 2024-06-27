@@ -202,7 +202,7 @@ export default function ExportModal({
     if (id === 'gcal') return setGCal(true);
     if (id === 'outlook') return setOutlook(true);
     if (id === 'pdf') return setPdf(true);
-  },[]);
+  }, []);
 
   const setChoice = (value, id) => {
     setGCal(false);
@@ -232,7 +232,7 @@ export default function ExportModal({
       const jsonUrl = new URL(res.export.jsonV2);
 
       let key = publicKey;
-      
+
       if (!key) {
         try {
           await fetch('/users/me/generateApiKey?$client[publicKey]=true');
@@ -269,7 +269,7 @@ export default function ExportModal({
     }
 
     if (formatChoice.id === 'pdf') {
-      const formatUrl = new URL(res.export.pdf);      
+      const formatUrl = new URL(res.export.pdf);
       if (pdfOptions.mode) {
         formatUrl.searchParams.append('mode', pdfOptions.mode);
       }

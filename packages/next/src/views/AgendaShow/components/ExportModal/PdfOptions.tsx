@@ -46,9 +46,9 @@ export default function PdfOptions({
 
   return (
     <Flex ml="2" gap="2" direction="column">
-      <Radio defaultChecked isChecked={selectedFormat === 'default'} onClick={() => handleFormat('default')}>{intl.formatMessage(messages.default)}</Radio>
-      <Radio isChecked={selectedFormat === 'city'} onClick={() => handleFormat('city')}>{intl.formatMessage(messages.city)}</Radio>
-      <Radio isChecked={selectedFormat === 'locationName'} onClick={() => handleFormat('locationName')}>{intl.formatMessage(messages.locationName)}</Radio>
+      <Radio defaultChecked isChecked={selectedFormat === 'default'} onChange={() => handleFormat('default')}>{intl.formatMessage(messages.default)}</Radio>
+      <Radio isChecked={selectedFormat === 'city'} onChange={() => handleFormat('city')}>{intl.formatMessage(messages.city)}</Radio>
+      <Radio isChecked={selectedFormat === 'locationName'} onChange={() => handleFormat('locationName')}>{intl.formatMessage(messages.locationName)}</Radio>
     </Flex>
   );
 }

@@ -136,8 +136,8 @@ export default function SpreadsheetOptions({
 
   return (
     <Flex ml="2" gap="2" direction="column">
-      <Radio defaultChecked isChecked={options.format === 'xlsx'} onClick={() => handleFormat('xlsx')}>XLSX (MS Excel)</Radio>
-      <Radio isChecked={options.format === 'csv'} onClick={() => handleFormat('csv')}>CSV</Radio>
+      <Radio defaultChecked isChecked={options.format === 'xlsx'} onChange={() => handleFormat('xlsx')}>XLSX (MS Excel)</Radio>
+      <Radio isChecked={options.format === 'csv'} onChange={() => handleFormat('csv')}>CSV</Radio>
       <Box>
         <Checkbox defaultChecked={!displayLanguages} onChange={() => setDisplayLanguages(!displayLanguages)}>
           {intl.formatMessage(messages.allLanguages)}
