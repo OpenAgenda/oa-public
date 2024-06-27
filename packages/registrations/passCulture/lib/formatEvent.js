@@ -20,6 +20,8 @@ export default async function formatEvent(event, ...args) {
     lang = 'fr',
     categories = [],
     before: eventBefore,
+    patch = false,
+    imageBasePath,
   } = options;
 
   const {
@@ -34,11 +36,14 @@ export default async function formatEvent(event, ...args) {
   } = passData;
 
   const formatted = {
-    name: await formatText(name || flatten(event.title, lang), { limit: 90, markdownToString: false }),
     accessibility: acc(event),
     description: await formatText(description || event.longDescription),
-    hasTicket: false,
   };
+
+  if (!patch) {
+    formatted.hasTicket = false;
+    formatted.name = await formatText(name || flatten(event.title, lang), { limit: 90, markdownToString: false });
+  }
 
   if (event.image) {
     const {
@@ -47,11 +52,13 @@ export default async function formatEvent(event, ...args) {
       path,
     } = event.image;
 
+    const base = currentBase ?? eventBefore?.image?.base ?? imageBasePath;
+
     formatted.image = {
       file: await processImage(path ? {
         path,
       } : {
-        url: `${currentBase ?? eventBefore?.image?.base}${variants.find(v => v.type === 'full').filename}`,
+        url: `${base}${variants.find(v => v.type === 'full').filename}`,
       }),
     };
 

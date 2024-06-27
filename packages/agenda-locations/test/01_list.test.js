@@ -357,6 +357,15 @@ describe('agenda-locations - functional - list', () => {
       expect(res).not.toBeNull();
     });
 
+    it('fix: "uids" filters by provided location uid list in string', async () => {
+      const uids = '76248298, 10175539, 75940684';
+
+      const selection = await svc(7196947).list({ uids });
+
+      expect(selection.length).toBe(3);
+      expect(selection.map(l => l.uid)).toStrictEqual(uids.split(',').map(Number));
+    });
+
     it('fix: if extId is stored in store, it is loaded', async () => {
       const res = await svc(7196947).list({ uids: [87202261] }, {}, { detailed: true });
       expect(res[0].extId).toBe('ard_leg_01');

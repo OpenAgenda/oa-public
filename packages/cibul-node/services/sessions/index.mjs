@@ -1,7 +1,6 @@
 import Sessions from '@openagenda/sessions';
 import getUser from './interfaces/getUser.mjs';
 import load, { loadOrRedirect } from './lib/load.mjs';
-import requireSuperAdmin from './lib/requireSuperAdmin.mjs';
 
 export function init(config, services) {
   const sessions = Sessions({
@@ -29,7 +28,6 @@ export function init(config, services) {
 
   sessions.mw.load = load.bind(null, sessions);
   sessions.mw.loadOrRedirect = loadOrRedirect.bind(null, sessions);
-  sessions.mw.requireSuperAdmin = requireSuperAdmin(sessions, config);
 
   return sessions;
 }

@@ -13,6 +13,7 @@ export default function streamPDF(config, req, res) {
     pdfExports.GenerateExportStream(req.stream, res, {
       agenda: req.agenda,
       includeEventImages: total < withImageLimit,
+      mode: ['locationName', 'city'].includes(req.query.mode) ? req.query.mode : undefined,
     });
 
     res.writeHead(200, {

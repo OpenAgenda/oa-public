@@ -2,7 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/agendaLocations/tasks/updateEventLocationReferences');
 
-export default services => (async function updateEventLocationReferences(locationsUids, mergedInLocationUid) {
+export default services => async function updateEventLocationReferences(locationsUids, mergedInLocationUid) {
   const {
     core,
     events: eventsSvc,
@@ -48,8 +48,13 @@ export default services => (async function updateEventLocationReferences(locatio
         access: 'internal',
       });
     } catch (e) {
-      log('error', 'failed to update event %s with location uid %s', event.uid, event.locationUid, e);
+      log.error('failed to update event', {
+        eventUid: event.uid,
+        locationUid: event.locationUid,
+        errors: e.shortMessage === 'data is invalid' ? e.info.errors : undefined,
+        error: e?.shortMessage ? e.shortMessage : e,
+      });
     }
   }
   tracker('agendaLocations.updateEventLocationReferences.done');
-});
+};

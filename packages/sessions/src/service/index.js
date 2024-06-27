@@ -50,6 +50,8 @@ module.exports = (options = {}) => {
     getCulture,
   };
 
+  service.close.byUid = close.byUid.bind(null, config);
+
   service.mw = mw(service, config);
 
   return service;

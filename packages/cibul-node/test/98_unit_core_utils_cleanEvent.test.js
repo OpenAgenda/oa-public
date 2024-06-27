@@ -4,6 +4,24 @@ const validateEvent = require('../core/agendas/utils/cleanEvent/validateEvent');
 
 describe('98 - core unit - cleanEvent', () => {
   describe('validateEvent', () => {
+    test('fix: consolidated validator properly validates event links data', () => {
+      const result = validateEvent({
+        formSchema: { fields: [] },
+        validateAgendaEvent: () => ({ state: 1 }),
+      }, {
+        links: [{ link: 'https://openagenda.com' }],
+      }, {
+        validateWithStoredData: true,
+        event: {
+          uid: 18992812,
+        },
+        access: 'internal',
+        partial: true,
+      });
+
+      expect(result.event.links).toEqual([{ link: 'https://openagenda.com' }]);
+    });
+
     test(
       'Event can be explicitly excluded from validation, but must be passed to validate other values as they could be linked to event data',
       () => {

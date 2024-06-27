@@ -24,7 +24,7 @@ const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-  superAdminIds: [1, 2, 11258, 15453, 124500, 149412, 147323, 110989],
+  superAdminUids: (process.env.OA_SUPERADMIN_UIDS ?? '').split(',').map(uid => parseInt(uid, 10)),
   jsVersion: 42,
   cssVersion: 2,
   interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
@@ -308,6 +308,11 @@ const config = {
     api: process.env.PASS_CULTURE_API,
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
     offerEditLink: process.env.PASS_CULTURE_OFFER_EDIT_LINK,
+    pending: {
+      delay: parseInt(process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12, 10), // 12h
+      minDelay: parseInt(process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3, 10), // 3h
+      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 12, // why not
+    },
   },
   mailgun,
   oembed: {
@@ -383,6 +388,10 @@ const config = {
       agendaAdminInboxConversation: {
         method: 'get',
         uri: '/:slug/admin/inbox/conversation/:conversationId',
+      },
+      supportConversation: {
+        method: 'get',
+        uri: '/admin/support/conversation/:conversationId',
       },
       agendaSettingsEditApp: {
         method: 'get',

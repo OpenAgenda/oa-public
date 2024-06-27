@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addText from '../lib/addText.js';
-import addEventItem from '../lib/addEventItem.js';
+import addEventItem from '../lib/addEventItem/index.js';
 import getIntl from '../lib/intl.js';
 
 import expoNature from './fixtures/expoNature.event.json' assert { type: 'json' };

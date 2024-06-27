@@ -229,7 +229,7 @@ module.exports = ({ labels }) => [{
   selfHandled: ['info'],
 }, {
   field: 'links',
-  fieldType: 'pass',
+  fieldType: 'enrichedLinks',
   optional: true,
   write: ['internal'],
 }];

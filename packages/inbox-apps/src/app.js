@@ -39,7 +39,7 @@ export default function createInboxApp(options) {
     apiRoot,
     prefix,
     getRoutes,
-    legacyApiClient: true
+    legacyApiClient: true,
   });
 
   const result = getApp();

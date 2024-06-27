@@ -1,7 +1,6 @@
 import NetworkApps from '@openagenda/network-apps';
 import eventFormSchema from '@openagenda/event-form/src/schema.js';
 import logs from '@openagenda/logs';
-import cmn from '../lib/commons-app.js';
 import { load as loadLayout } from './lib/layouts/index.js';
 
 const log = logs('services/networkApps');
@@ -22,7 +21,7 @@ export default parentApp => {
   parentApp.use(
     '/admin/networks',
     parentApp.services.sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-    cmn.requireSuperAdmin,
+    parentApp.services.users.mw.requireSuperAdmin(),
     router,
   );
 };

@@ -12,10 +12,14 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
 
   const {
+    services,
+  } = core;
+
+  const {
     events,
     custom,
     agendaEvents,
-  } = core.services;
+  } = services;
 
   const {
     lang,
@@ -49,7 +53,7 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
     ...options,
   };
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(services, agendaUid, { detailed: true });
 
   const payload = createPayload(core, agenda);
 
@@ -72,7 +76,7 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
 
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
       event.longDescription = convertLongDescription(event, {
-        services: core.services,
+        services,
         conversion: longDescriptionFormat,
         includeEmbedScripts,
         cspNonce,

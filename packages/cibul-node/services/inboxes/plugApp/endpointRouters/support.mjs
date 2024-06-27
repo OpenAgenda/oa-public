@@ -5,6 +5,7 @@ import makeErrorHandler from './makeErrorHandler.mjs';
 export default (config, services) => {
   const {
     sessions,
+    users,
   } = services;
 
   const errorHandler = makeErrorHandler(services);
@@ -21,7 +22,7 @@ export default (config, services) => {
       };
       next();
     },
-    sessions.mw.requireSuperAdmin,
+    users.mw.requireSuperAdmin(),
   ];
 
   const router = express.Router({ mergeParams: true });

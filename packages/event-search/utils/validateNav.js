@@ -93,6 +93,10 @@ module.exports = function validateNav(nav, options = {}) {
     throw new BadRequest(`${fromKey} + ${toKey} cannot exceed ${maxResultWindow}. Use "after" navigation for better performance.`);
   }
 
+  if ((clean.from ?? 0) > 0 && clean.after) {
+    throw new BadRequest('from and after cannot be used simultaneously');
+  }
+
   if (clean.after) {
     clean.after = cleanAfter(clean.after);
   }

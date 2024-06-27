@@ -3,7 +3,7 @@ import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import labels from '@openagenda/labels/unsubscription/index.js';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
-import incomingEmailsMw from './lib/incomingEmailsMw.js';
+import incomingEmailsMw from './lib/incomingEmailsMw.mjs';
 import {
   convertRuleArrayToObject,
   cleanTarget,

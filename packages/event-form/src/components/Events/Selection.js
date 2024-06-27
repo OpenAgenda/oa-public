@@ -1,12 +1,12 @@
 import qs from 'qs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
 import EventItem from './EventItem';
 import messages from './messages';
 import includeFields from './includeFields.json';
 
-export default function Selection({ res, value, lang }) {
+export default function Selection({ res, value, lang, onChange }) {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errored, setErrored] = useState(false);
@@ -35,6 +35,12 @@ export default function Selection({ res, value, lang }) {
       });
     });
   }, [res, value]);
+
+  const onRemove = useCallback(uidToRemove => {
+    const filteredSelection = events.filter(e => e.uid !== uidToRemove);
+    setEvents(filteredSelection);
+    onChange(filteredSelection.map(e => e.uid));
+  }, [events, onChange]);
 
   if (isLoading) {
     return <Spinner />;
@@ -73,7 +79,7 @@ export default function Selection({ res, value, lang }) {
             <button
               type="button"
               className="btn btn-link padding-all-z text-danger"
-              onClick={() => setEvents(events.filter(e => e.uid !== event.uid))}
+              onClick={() => onRemove(event.uid)}
             >
               {m(messages.remove)}
             </button>

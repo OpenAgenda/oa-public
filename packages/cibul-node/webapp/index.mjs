@@ -433,7 +433,7 @@ const initialState = async req => {
         apiRoot: `http://localhost:${config.port}`,
       },
       res: {
-        jsonExport: '/agendas/:uid/admin/events.v2.json',
+        jsonExport: '/api/agendas/:uid/events',
         statsConfig: '/:slug/admin/statistics/config',
       },
     },

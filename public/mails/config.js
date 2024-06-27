@@ -131,23 +131,39 @@ async function createConfig(c = {}) {
     });
     const originalSend = transporter.send;
     transporter.send = async (mail, cb) =>
-      originalSend(mail, (err, result) => {
-        const envelope = mail.message.getEnvelope();
-        const messageId = mail.message.messageId();
-        const recipients = [].concat(envelope.to || []);
-        if (recipients.length > 3) {
-          recipients.push(`...and ${recipients.splice(2).length} more`);
-        }
+      originalSend(
+        {
+          ...mail,
+          data: {
+            ...mail.data,
+            ...mail.data.references
+              ? { 'h:References': mail.data.references }
+              : undefined,
+            ...mail.data.inReplyTo
+              ? { 'h:InReplyTo': mail.data.inReplyTo }
+              : undefined,
+          },
+        },
+        (err, result) => {
+          const envelope = mail.message.getEnvelope();
+          const messageId = mail.message.messageId();
+          const recipients = [].concat(envelope.to || []);
+          if (recipients.length > 3) {
+            recipients.push(`...and ${recipients.splice(2).length} more`);
+          }
 
-        if (err) {
-          transportLogger.error(`Send error for ${messageId}: ${err.message}`);
-        } else {
-          transportLogger.info(
-            `Sending message ${messageId} to <${recipients.join(', ')}>`,
-          );
-        }
-        cb(err, result);
-      });
+          if (err) {
+            transportLogger.error(
+              `Send error for ${messageId}: ${err.message}`,
+            );
+          } else {
+            transportLogger.info(
+              `Sending message ${messageId} to <${recipients.join(', ')}>`,
+            );
+          }
+          cb(err, result);
+        },
+      );
     config.transporter = nodemailer.createTransport(
       transporter,
       config.defaults,

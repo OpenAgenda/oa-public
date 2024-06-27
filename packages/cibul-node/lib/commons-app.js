@@ -42,7 +42,6 @@ module.exports = {
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
 
-  requireSuperAdmin,
   loadBaseData,                 // middleware.
   loadAgenda: loadAgendaBy( 'slug' ),
   loadAgendaBy,
@@ -584,12 +583,6 @@ function redirectToSignin( req, res, next ) {
   const agenda = req.agenda || _.get( req, 'agendaInstance.data' );
   res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( Buffer.from( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
 }
-
-
-function requireSuperAdmin( req, res, next ) {
-  req.app.services.sessions.mw.requireSuperAdmin(req, res, next);
-}
-
 
 function makeRedirect( urlOrReq ) {
 

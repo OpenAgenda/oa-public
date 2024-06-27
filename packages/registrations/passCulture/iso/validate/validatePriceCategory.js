@@ -12,6 +12,7 @@ export default function validatePriceCategory(value, options = {}) {
   const {
     price,
     label,
+    id,
   } = value;
 
   const clean = {};
@@ -21,6 +22,11 @@ export default function validatePriceCategory(value, options = {}) {
   if (!isFloatable(price ?? '') || Number.parseFloat(price) < 0) {
     errors.push({
       message: 'price should be a positive number',
+      code: 'invalid.price',
+    });
+  } else if (Number.parseFloat(price) > 3000) {
+    errors.push({
+      message: 'price should be lower than 30',
       code: 'invalid.price',
     });
   } else {
@@ -43,6 +49,24 @@ export default function validatePriceCategory(value, options = {}) {
   if (errors.length) {
     throw new BadRequest({ info: { errors } });
   }
-
+  clean.id = id;
   return boolMode ? true : clean;
+}
+
+export function validatePriceCategories(priceCategories) {
+  const clean = [];
+  const errors = [];
+  for (const [index, priceCategory] of priceCategories.entries()) {
+    try {
+      clean.push(validatePriceCategory(priceCategory));
+    } catch (pcError) {
+      pcError.info.errors.forEach(error => errors.push({ ...error, index }));
+    }
+  }
+
+  if (errors.length) {
+    throw new BadRequest({ info: { errors } });
+  }
+
+  return clean;
 }

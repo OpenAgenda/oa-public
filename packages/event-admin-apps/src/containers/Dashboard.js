@@ -279,13 +279,14 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const unorderedfilters = useFilters(intl, agendaSchema.fields, {
+  const unorderedFilters = useFilters(intl, agendaSchema.fields, {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
+    include: agenda.settings.admin?.filters?.displayed,
   });
   const filters = useMemo(() => {
-    const orderedFilter = unorderedfilters.sort((a, b) => {
+    const orderedFilter = unorderedFilters.sort((a, b) => {
       const priority = ['geo', 'state', 'relative'];
       const indexA = priority.indexOf(a.name);
       const indexB = priority.indexOf(b.name);
@@ -301,7 +302,7 @@ function Dashboard() {
       }
       return filter;
     });
-  }, [unorderedfilters]);
+  }, [unorderedFilters]);
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters],

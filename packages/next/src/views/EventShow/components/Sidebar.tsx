@@ -229,6 +229,15 @@ export function RegistrationSection(props) {
 
   const { event } = useEvent();
 
+  if (event.registration?.length && event.registration.filter(r => r.service === 'passCulture').length) {
+    event.passCulture = {
+      img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
+      label: intl.formatMessage(messages.accessPassOffer),
+      ...event.registration.find(r => r.service === 'passCulture'),
+    };
+    event.registration = event.registration.filter(r => r.service !== 'passCulture').length ? event.registration.filter(r => r.service === 'passCulture') : [];
+  }
+
   if (!event.registration?.length && !event.passCulture) {
     return null;
   }

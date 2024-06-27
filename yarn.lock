@@ -8177,7 +8177,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.9.29, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.9.30, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -8191,7 +8191,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.4"
-    "@openagenda/react-filters": "npm:^2.10.8"
+    "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
@@ -8390,7 +8390,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.3"
-    "@openagenda/react-filters": "npm:^2.10.8"
+    "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@storybook/react-webpack5": "npm:^7.4.2"
     babel-loader: "npm:^9.1.3"
@@ -8630,9 +8630,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-model@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@openagenda/cibul-model@npm:2.0.3"
+"@openagenda/cibul-model@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@openagenda/cibul-model@npm:2.0.4"
   dependencies:
     "@openagenda/mysql-utils": "npm:^2.0.4"
     "@openagenda/utils": "npm:^1.2.2"
@@ -8642,13 +8642,12 @@ __metadata:
     deep-extend: "npm:^0.6.0"
     locutus: "npm:^2.0.14"
     lodash: "npm:^4.17.4"
-    marked: "npm:^0.7.0"
     moment: "npm:^2.27.0"
     moment-timezone: "npm:^0.5.31"
     mysql: "npm:2.6.2"
     validator: "npm:4.1.0"
     when: "npm:~3.4"
-  checksum: 10c0/0495604afd79c8c78107ff4b01362b436801d43e9617256ebc936b2c0d7baf9e28ccbb06c0229d347d6e79af9bed3b1a900b21410395512c3c9536d0ac821e9c
+  checksum: 10c0/b1ee60650be26b75c05f168ca1ae85bde790418659259c70605e8cc32af43ba1115f5ed20c3ee28acbb767bb4d96a2c5866c4cd5d648cd2e84bded7328f0a003
   languageName: node
   linkType: hard
 
@@ -8882,7 +8881,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.3"
-    "@openagenda/react-filters": "npm:^2.10.8"
+    "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-share-menus": "npm:^1.1.0"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -9023,7 +9022,6 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    marked: "npm:^1.1.0"
     moment-timezone: "npm:0.5.31"
     mysql: "npm:^2.11.1"
     rimraf: "npm:^3.0.1"
@@ -9351,7 +9349,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@npm:^1.1.2, @openagenda/intl@npm:^1.1.3, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@npm:^1.1.2, @openagenda/intl@npm:^1.1.3, @openagenda/intl@workspace:^, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -9441,7 +9439,7 @@ __metadata:
     express: "npm:^4.17.1"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
-    marked: "npm:^0.7.0"
+    marked: "npm:^12.0.1"
     pug: "npm:^2.0.0-beta6"
     reload: "npm:^3.2.1"
   languageName: unknown
@@ -9583,6 +9581,19 @@ __metadata:
     turndown: "npm:^7.1.3"
   languageName: unknown
   linkType: soft
+
+"@openagenda/md@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@openagenda/md@npm:1.0.1"
+  dependencies:
+    html-tags: "npm:^3.3.1"
+    isomorphic-dompurify: "npm:^2.8.0"
+    markdown-link-extractor: "npm:^4.0.2"
+    marked: "npm:^12.0.2"
+    turndown: "npm:^7.1.3"
+  checksum: 10c0/a6db1305f87368a04a701f979d65745cf75f708c7757935b218d9466c239275d091b50d855606065c7aab951ffb3d0b1a7d803f40f731ae98903b556b6c1e2e0
+  languageName: node
+  linkType: hard
 
 "@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
@@ -9800,7 +9811,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react-filters": "npm:^2.10.8"
+    "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sdk-js": "npm:^2.0.3"
     "@openagenda/sessions": "npm:^4.1.0"
@@ -9872,7 +9883,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
-    markdown-link-extractor: "npm:^1.2.0"
+    markdown-link-extractor: "npm:^4.0.2"
     node-html-parser: "npm:^1.1.16"
     regenerator-runtime: "npm:^0.13.7"
     rimraf: "npm:^3.0.1"
@@ -9978,7 +9989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.10.8, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@npm:^2.10.9, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -10059,6 +10070,7 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -10069,7 +10081,7 @@ __metadata:
     jest: "npm:^29.7.0"
     languages: "npm:0.1.3"
     load-script: "npm:^1.0.0"
-    marked: "npm:^0.7.0"
+    marked: "npm:^12.0.2"
     prop-types: "npm:^15.5.8"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -10416,6 +10428,7 @@ __metadata:
     fastest-levenshtein: "npm:^1.0.16"
     immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
+    lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.2"
     react: "npm:^18.3.1"
@@ -10457,13 +10470,16 @@ __metadata:
     axios: "npm:^1.4.0"
     date-fns: "npm:^2.11.1"
     date-fns-tz: "npm:2.0.0"
+    debug: "npm:^4.3.5"
     dotenv: "npm:^16.3.1"
     eslint: "npm:^8.24.0"
     gm: "npm:^1.25.0"
     image-type: "npm:^5.2.0"
+    immer: "npm:^10.0.3"
     is-base64: "npm:^1.1.0"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
+    msw: "npm:^2.3.0"
     qs: "npm:^6.9.1"
     remark: "npm:^14.0.3"
     strip-markdown: "npm:^5.0.1"
@@ -20289,7 +20305,7 @@ __metadata:
     "@openagenda/agenda-events": "npm:^1.11.14"
     "@openagenda/agenda-locations": "npm:^2.1.2"
     "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-portal": "npm:^6.9.29"
+    "@openagenda/agenda-portal": "npm:^6.9.30"
     "@openagenda/agenda-schemas-app": "npm:^0.0.0"
     "@openagenda/agenda-search": "npm:^1.4.0"
     "@openagenda/agenda-settings": "npm:^1.4.0"
@@ -20297,7 +20313,7 @@ __metadata:
     "@openagenda/agendas": "npm:^1.7.0"
     "@openagenda/aggregator-sources": "npm:^1.3.1"
     "@openagenda/aggregators": "npm:^1.11.6"
-    "@openagenda/cibul-model": "npm:^2.0.3"
+    "@openagenda/cibul-model": "npm:^2.0.4"
     "@openagenda/cibul-templates": "npm:^1.4.1"
     "@openagenda/custom": "npm:^1.3.14"
     "@openagenda/date-range": "npm:^2.3.0"
@@ -20387,11 +20403,11 @@ __metadata:
     languages: "npm:^0.1.3"
     locutus: "npm:^2.0.11"
     lodash: "npm:^4.17.15"
-    marked: "npm:^0.7.0"
     mjml-core: "npm:^4.13.0"
     moment: "npm:^2.27.0"
     moment-timezone: "npm:^0.5.31"
     morgan: "npm:^1.10.0"
+    msw: "npm:^2.3.0"
     multer: "npm:^1.3.0"
     mysql: "npm:^2.18.1"
     nodemon: "npm:^2.0.4"
@@ -22711,6 +22727,18 @@ __metadata:
   dependencies:
     ms: "npm:^2.1.1"
   checksum: 10c0/37d96ae42cbc71c14844d2ae3ba55adf462ec89fd3a999459dec3833944cd999af6007ff29c780f1c61153bcaaf2c842d1e4ce1ec621e4fc4923244942e4a02a
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.3.5":
+  version: 4.3.5
+  resolution: "debug@npm:4.3.5"
+  dependencies:
+    ms: "npm:2.1.2"
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 10c0/082c375a2bdc4f4469c99f325ff458adad62a3fc2c482d59923c260cb08152f34e2659f72b3767db8bb2f21ca81a60a42d1019605a412132d7b9f59363a005cc
   languageName: node
   linkType: hard
 
@@ -33003,15 +33031,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-link-extractor@npm:^1.2.0":
-  version: 1.2.2
-  resolution: "markdown-link-extractor@npm:1.2.2"
-  dependencies:
-    marked: "npm:^0.7.0"
-  checksum: 10c0/75ac9419a417ae3e504d2d346e215897b32c9c628c93903d04e8db3b09b7da528f42c16a5089b53b65ee5e18c17f9d7e831448007a5794c955fcf76d676830ee
-  languageName: node
-  linkType: hard
-
 "markdown-link-extractor@npm:^4.0.2":
   version: 4.0.2
   resolution: "markdown-link-extractor@npm:4.0.2"
@@ -33028,24 +33047,6 @@ __metadata:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: 10c0/191b9a9defeed02e12dd340cebf279f577266dac7b34574fa44ce4d64ee8536f9967d455b8303c853f84413feb473118290a6160d8221eeaf3b9e4961b8980e3
-  languageName: node
-  linkType: hard
-
-"marked@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "marked@npm:0.7.0"
-  bin:
-    marked: ./bin/marked
-  checksum: 10c0/dc888ca89cfdab52ae46f198deef361c89639d064f47cc9627544142a39877cff953e796362259d6867deb05d18696f611522b2c948a1530117699ccff55a699
-  languageName: node
-  linkType: hard
-
-"marked@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "marked@npm:1.1.0"
-  bin:
-    marked: bin/marked
-  checksum: 10c0/41ba9b516d625c0060650afb2dd203ce02ea46e2f416231109c4a6cb703cd7db12d3cc59e38a686d5bad9c7b386c4f6407c0535044b9271ec7ad8b112d1a5384
   languageName: node
   linkType: hard
 
@@ -35848,6 +35849,7 @@ __metadata:
     "@crowdin/crowdin-api-client": "npm:^1.33.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/cz-conventional-changelog": "npm:^3.2.2"
+    "@openagenda/intl": "workspace:^"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:^18.0.6"
     browserslist: "npm:^4.20.0"

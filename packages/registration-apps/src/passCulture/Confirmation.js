@@ -3,7 +3,7 @@ import { Image } from '@openagenda/react-shared';
 
 import { logoPath } from './utils';
 
-function ConfirmationBody({hasErrors, hasWarning, editLink, showLink, errors = []}) {
+function ConfirmationBody({ hasErrors, isPending, isPatch, editLink, showLink, errors = [] }) {
   if (hasErrors) {
     return (
       <>
@@ -15,12 +15,21 @@ function ConfirmationBody({hasErrors, hasWarning, editLink, showLink, errors = [
       </>
     );
   }
-  if (hasWarning) {
+  if (isPending) {
     return (
       <>
         <i className="fa fa-warning text-danger margin-right-xs" />
         <b>L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</b>
         <p>La validation de l&apos;offre sera faite dans moins de 72h, la completion de l&apos;offre sera faite automatiquement</p>
+        <a href={editLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Administrer l&apos;offre</a>
+        <a href={showLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Voir l&apos;offre</a>
+      </>
+    );
+  }
+  if (isPatch) {
+    return (
+      <>
+        <p>L&apos; offre Pass Culture a été mise à jour avec succès. Vous pouvez y accéder depuis la barre latérale de la fiche détaillée de l&apos;événement ou en cliquant sur un des liens suivants.</p>
         <a href={editLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Administrer l&apos;offre</a>
         <a href={showLink} className="padding-left-z margin-right-sm btn btn-link padding-v-z" target="_blank" rel="noreferrer">Voir l&apos;offre</a>
       </>
@@ -42,10 +51,11 @@ export default function Confirmation({ event, res, className }) {
     return null;
   }
 
-  const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData?.id), [res, passData]);
-  const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData?.id), [res, passData]);
+  const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
+  const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
+  const isPatch = useMemo(() => passData.length > 3, [passData]);
   const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
-  const hasWarning = useMemo(() => passData?.warning ?? null, [passData]);
+  const isPending = useMemo(() => passData[0]?.response.isPending ?? null, [passData]);
 
   return (
     <div className={className ?? 'panel panel-default'}>
@@ -56,7 +66,7 @@ export default function Confirmation({ event, res, className }) {
           width={100}
         />
         <div className="margin-top-sm">
-          {ConfirmationBody({hasErrors, hasWarning, showLink, editLink, errors: passData?.errors})}
+          {ConfirmationBody({ hasErrors, isPending, isPatch, showLink, editLink, errors: passData?.errors })}
         </div>
       </div>
     </div>

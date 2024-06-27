@@ -34,12 +34,12 @@ export function init(config, services) {
 }
 
 export function plugApp(app, base = '/elasticsearch') {
-  const { sessions, supervisor: { elasticsearch } } = app.services;
+  const { sessions, supervisor: { elasticsearch }, users } = app.services;
 
   app.get(
     `${base}/cluster`,
     sessions.mw.ifUnlogged(redirectToSignin),
-    sessions.mw.requireSuperAdmin,
+    users.mw.requireSuperAdmin(),
     async (req, res, next) => {
       try {
         const [stats, nodes, replicas] = await Promise.all([
@@ -62,7 +62,7 @@ export function plugApp(app, base = '/elasticsearch') {
   app.post(
     `${base}/cluster/replicas`,
     sessions.mw.ifUnlogged(redirectToSignin),
-    sessions.mw.requireSuperAdmin,
+    users.mw.requireSuperAdmin(),
     async (req, res, next) => {
       try {
         const { value } = req.body;

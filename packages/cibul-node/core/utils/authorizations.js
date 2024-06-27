@@ -121,6 +121,16 @@ async function fromAccess(core, agenda, agendaEvent, access) {
   const isAtLeastContributor = compareRoles.isSuperiorToOrEqual(access, 'contributor') || access === 'internal';
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
 
+  if (access === 'internal') {
+    return {
+      mustBeModerated: false,
+      canChangeState: true,
+      canPublish: true,
+      canEditEvent: true,
+      canCreateEvent: true,
+    };
+  }
+
   return {
     mustBeModerated: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access),
     canChangeState: compareRoles.isSuperiorToOrEqual(access, 'moderator', { throwIfUnknown: false }),

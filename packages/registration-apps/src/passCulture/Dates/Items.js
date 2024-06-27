@@ -16,7 +16,7 @@ export default function DateItems({
   disabled = false,
 }) {
   const [editValue, setEditValue] = useState(false);
-  const [editedItemIndex, setEditedItemIndex] = useState(-1);
+  const [editedItemId, setEditedItemId] = useState(-1);
 
   const {
     Badge,
@@ -36,75 +36,81 @@ export default function DateItems({
 
   return (
     <List>
-      {decoratedDates.map(({ timingId, priceCategoryIndex, quantity, timingLabel, hasMatchingTiming }, index) => (
-        <ListItem key={`${timingId}-${priceCategoryIndex}`}>
-          {editedItemIndex === index ? (
+      {decoratedDates.map(({ timingId, priceCategoryId, quantity, timingLabel, hasMatchingTiming, id, passId, deleted }) => (
+        <ListItem key={`${timingId}-${priceCategoryId}-${id}`}>
+          {editedItemId === id ? (
             <DateForm
               value={editValue}
-              onChange={v => setEditValue(v)}
+              onChange={v => setEditValue({ ...v, id })}
               isValid={validateDate(editValue, { priceCategories, timings, boolMode: true })}
               submitLabel="Modifier"
               timings={timings}
               priceCategories={priceCategories ?? []}
               onCancel={() => {
-                setEditedItemIndex(-1);
+                setEditedItemId(-1);
                 onToggleEditing(false);
                 setEditValue(false);
               }}
               onSubmit={() => {
-                onChange(editedItemIndex, editValue);
-                setEditedItemIndex(-1);
+                onChange({ id, ...editValue });
+                setEditedItemId(-1);
                 onToggleEditing(false);
                 setEditValue(false);
               }}
+              mode="edit"
             />
           ) : (
             <>
-              <ListItemLine>
-                {hasMatchingTiming ? (
-                  <ListItemPart>{timingLabel}</ListItemPart>
-                ) : (
-                  <ListItemPart><Badge type="danger">Date invalide</Badge></ListItemPart>
-                )}
-                <ListItemPart>{priceCategories[priceCategoryIndex].label}</ListItemPart>
-                <ListItemPart>{quantity} places</ListItemPart>
-                {hasMatchingTiming ? null : (
-                  <ListItemPart>
-                    <MoreInfo
-                      title="Date non valide"
-                      content="L'horaire associé à cette date a été déplacé ou supprimé. Toute date doit correspondre à un horaire saisi sur le champ horaire du formulaire."
-                    />
-                  </ListItemPart>
-                )}
-              </ListItemLine>
-              <ListItemLine>
-                <ListItemPart>
-                  <Button
-                    unmargined
-                    unpadded
-                    type="button"
-                    disabled={disabled || editedItemIndex !== -1}
-                    shape="link"
-                    onClick={() => {
-                      setEditedItemIndex(index);
-                      setEditValue({ timingId, priceCategoryIndex, quantity });
-                      onToggleEditing(true);
-                    }}
-                    label="Modifier"
-                  />
-                </ListItemPart>
-                <ListItemPart>
-                  <Button
-                    unmargined
-                    unpadded
-                    type="button"
-                    disabled={disabled || editValue}
-                    label="Supprimer"
-                    shape="danger-link"
-                    onClick={() => onRemove({ timingId, priceCategoryIndex, quantity })}
-                  />
-                </ListItemPart>
-              </ListItemLine>
+              {deleted ? null : (
+                <>
+                  <ListItemLine>
+                    {hasMatchingTiming ? (
+                      <ListItemPart>{timingLabel}</ListItemPart>
+                    ) : (
+                      <ListItemPart><Badge type="danger">Date invalide</Badge></ListItemPart>
+                    )}
+                    <ListItemPart>{priceCategories.find(pc => pc.id === priceCategoryId).label}</ListItemPart>
+                    <ListItemPart>{quantity} places</ListItemPart>
+                    {hasMatchingTiming ? null : (
+                      <ListItemPart>
+                        <MoreInfo
+                          id="dateMismatch"
+                          title="Date non valide"
+                          content="L'horaire associé à cette date a été déplacé ou supprimé. Toute date doit correspondre à un horaire saisi sur le champ horaire du formulaire."
+                        />
+                      </ListItemPart>
+                    )}
+                  </ListItemLine>
+                  <ListItemLine>
+                    <ListItemPart>
+                      <Button
+                        unmargined
+                        unpadded
+                        type="button"
+                        disabled={disabled || editedItemId !== -1}
+                        shape="link"
+                        onClick={() => {
+                          setEditedItemId(id);
+                          setEditValue({ timingId, priceCategoryId, quantity, passId });
+                          onToggleEditing(true);
+                        }}
+                        label="Modifier"
+                      />
+                    </ListItemPart>
+                    <ListItemPart>
+                      <Button
+                        unmargined
+                        unpadded
+                        type="button"
+                        disabled={disabled || editValue}
+                        label="Supprimer"
+                        shape="danger-link"
+                        onClick={() => onRemove({ id, passId })}
+                      />
+                    </ListItemPart>
+                  </ListItemLine>
+                </>
+              )}
             </>
           )}
         </ListItem>

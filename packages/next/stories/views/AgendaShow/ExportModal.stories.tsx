@@ -45,3 +45,31 @@ export const Basic = {
     },
   },
 };
+
+export const OpenAccordion = {
+  render: function Render() {
+    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+
+    return (
+      <>
+        <Button variant="primary" onClick={onOpen}>Open modal</Button>
+
+        <ExportModal
+          isOpen={isOpen}
+          onClose={onClose}
+          agendaUid="1234"
+          defaultFormatChoiceId="pdf"
+        />
+      </>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/users/me', () => HttpResponse.json(userFixtures)),
+        http.get('/api/me', () => HttpResponse.json(me)),
+        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
+      ],
+    },
+  },
+};

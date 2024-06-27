@@ -6,7 +6,6 @@ const _ = require('lodash');
 const qs = require('qs');
 const w = require('when');
 const invitationsSvc = require('@openagenda/invitations');
-const marked = require('marked');
 const makeLabelsGetter = require('@openagenda/labels');
 const getLabel = makeLabelsGetter(require('@openagenda/labels/auth/signin'));
 const getErrorLabel = require('@openagenda/labels')(
@@ -18,6 +17,9 @@ const __ = require('@openagenda/labels')(
 );
 const flattenLabels = require('@openagenda/labels/flatten');
 const manualLabels = require('@openagenda/labels/auth/manual');
+const {
+  fromMarkdownToHTML,
+} = require('@openagenda/md');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
 const layouts = require('../services/lib/layouts');
@@ -44,7 +46,7 @@ const renderManualPage = (
     ...html,
     [key]: Object.keys(manualLabels[key]).reduce((label, lang) => ({
       ...label,
-      [lang]: marked(manualLabels[key][lang]),
+      [lang]: fromMarkdownToHTML(manualLabels[key][lang]),
     }), {}),
   }), {}));
 
@@ -255,7 +257,7 @@ function signupSubmit(req, res) {
 
     .then(async values => {
       if (values.data.errors) {
-        log.info('signup attempt failed', logBundle);
+        log.info('signup attempt failed', { ...logBundle, errors: values.data.errors });
         return values;
       }
 
@@ -288,6 +290,10 @@ function signupSubmit(req, res) {
         }
       } catch (err) {
         values.data.errors = {};
+
+        if ((err.errors ?? []).find(({ code, field }) => field === 'fullName' && code === 'string.toolong')) {
+          values.data.errors.fullName = 'fullNameTooLong';
+        }
 
         if (
           err

@@ -1,0 +1,74 @@
+[
+    {
+        "eventDuration": 210,
+        "bookingContact": "fdqfdsqfdsq@fdsqfdsq.com",
+        "response": {
+            "passId": 72771,
+            "isPending": false
+        },
+        "venueId": 548,
+        "category": "CONCERT",
+        "operation": "create",
+        "musicType": "JAZZ-AVANT_GARDE_JAZZ",
+        "appliedAt": "2024-06-11T09:52:16.657Z",
+        "duo": true
+    },
+    {
+        "priceCategories": [
+            {
+                "price": 0,
+                "label": "Tarif unique",
+                "id": 0
+            }
+        ],
+        "response": {
+            "priceCategories": [
+                {
+                    "passId": 4733,
+                    "id": 0
+                }
+            ]
+        },
+        "operation": "create",
+        "appliedAt": "2024-06-11T09:52:17.168Z"
+    },
+    {
+        "response": {
+            "dates": [
+                {
+                    "passId": 94165,
+                    "id": 1
+                }
+            ]
+        },
+        "dates": [
+            {
+                "quantity": 10,
+                "priceCategoryId": 0,
+                "timingId": 1718352000000,
+                "id": 1
+            }
+        ],
+        "operation": "create",
+        "appliedAt": "2024-06-11T09:52:17.672Z"
+    },
+    {
+        "editing": true,
+        "eventDuration": 220,
+        "priceCategories": [
+            {
+                "price": 30,
+                "label": "Tarif pas si unique",
+                "id": 2
+            }
+        ],
+        "dates": [
+            {
+                "id": 3,
+                "timingId": 1718352000000,
+                "priceCategoryId": 2,
+                "quantity": "2"
+            }
+        ]
+    }
+]

@@ -1,4 +1,7 @@
+import logs from '@openagenda/logs';
 import boolQuery from '../../lib/boolQuery.js';
+
+const log = logs('api/middleware/searchAgendaEvents');
 
 export default function searchAgendaEvents(core, queryNamespace = 'convertedQuery') {
   return (req, res, next) => core
@@ -18,5 +21,10 @@ export default function searchAgendaEvents(core, queryNamespace = 'convertedQuer
       res.setHeader('Content-Type', 'application/json');
       res.send(response);
       next();
-    }, next);
+    }, err => {
+      if (err.name !== 'BadRequest') {
+        log.error(err);
+      }
+      next(err);
+    });
 }

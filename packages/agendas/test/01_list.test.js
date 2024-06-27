@@ -3,7 +3,6 @@
 process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
-const should = require( 'should' );
 const assert = require('assert');
 const Files = require('@openagenda/files');
 
@@ -118,7 +117,7 @@ describe( 'agendas - functional (server): list', function () {
       internal: false
     }, ( err, agendas ) => {
 
-      Object.keys( agendas[ 0 ] ).should.eql( [
+      expect(Object.keys(agendas[0])).toEqual([
         'locationSetUid',
         'slug',
         'uid',
@@ -131,7 +130,7 @@ describe( 'agendas - functional (server): list', function () {
         'createdAt',
         'private',
         'indexed'
-      ] );
+      ]);
 
       done();
 
@@ -350,11 +349,9 @@ describe( 'agendas - functional (server): list', function () {
       let prevCreatedAt = agendas[ 0 ].createdAt;
 
       agendas.forEach( a => {
-
-        a.createdAt.should.be.belowOrEqual( prevCreatedAt );
+        expect(a.createdAt.getTime()).toBeLessThanOrEqual(prevCreatedAt.getTime());
 
         prevCreatedAt = a.createdAt;
-
       } );
 
       done();

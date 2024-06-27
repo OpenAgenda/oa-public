@@ -317,7 +317,6 @@ export function load(agenda, stats, filters, query) {
     const aggregations = statsToAggregations(decoratedStats);
 
     const params = {
-      oaq: { passed: 1 },
       size: 0,
       aggs: aggregations,
       ...query,
@@ -348,7 +347,6 @@ export function loadStat(agenda, statId, getStat = _.identity) {
 
     const decoratedStats = decorateStats([newStat]);
     const params = {
-      oaq: { passed: 1 },
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
       ...stats.query,

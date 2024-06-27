@@ -240,6 +240,14 @@ describe( 'agendas - functional (server): get', function() {
 
   } );
 
+  it('get with administrator option gets administrator-accessible data like the settings admin key', async () => {
+    const agenda = await svc.get({ uid: 35338076 }, {
+      access: 'administrator',
+      detailed: true,
+    });
+
+    expect(agenda.settings.admin.filters.displayed).toEqual(['keywords']);
+  });
 
   it( 'a few gets do not leak db connections', done => {
 

@@ -1,0 +1,38 @@
+[
+  {
+    "duo": true,
+    "venueId": 548,
+    "category": "CONCERT",
+    "musicType": "JAZZ-BEBOP",
+    "bookingContact": "gdfsgfdsgdfs@gfsgfsd.com",
+    "appliedAt": "2024-05-29T10:00:00.OOOZ",
+    "response": {
+      "passId": 123456,
+      "isPending": true
+    }
+  },
+  {
+    "priceCategories": [
+      {
+        "id": 0,
+        "price": "20",
+        "label": "trezterztrez"
+      },
+      {
+        "id": 1,
+        "price": "30",
+        "label": "static"
+      }
+    ]
+  },
+  {
+    "dates": [
+      {
+        "id": 2,
+        "timingId": 1725609600000,
+        "priceCategoryId": 0,
+        "quantity": 456
+      }
+    ]
+  }
+]

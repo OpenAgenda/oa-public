@@ -207,6 +207,12 @@ describe('agendas - functional (server): set (update)', function() {
     });
   });
 
+  it('admin settings are not lost with update', async () => {
+    const { agenda } = await svc.set({ uid: 35338076 }, { title: 'Bah quoi' });
+    
+    expect(agenda.settings.admin).toEqual({ filters: { displayed: ['keyword'] }});
+  });
+
   it('onUpdate callbacks with agenda data before and after update', done => {
     svc.init(Object.assign({}, config, {
       Files: Files(dConfig.files),
