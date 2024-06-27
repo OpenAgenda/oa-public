@@ -1,4 +1,4 @@
-import { useState, useMemo, Fragment } from 'react';
+import { useState, useEffect, useMemo, Fragment, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import qs from 'qs';
 import useSWR from 'swr';
@@ -28,6 +28,7 @@ import useUser from 'hooks/useUser';
 import useLocationQuery from 'hooks/useLocationQuery';
 import ExternalCalendarOptions from './ExternalCalendarOptions';
 import SpreadsheetOptions from './SpreadsheetOptions';
+import PdfOptions from './PdfOptions';
 
 const messages = defineMessages({
   modalTitle: {
@@ -128,24 +129,45 @@ interface ExportModalProps {
   agendaUid: string;
   isOpen: boolean;
   onClose: () => void;
+  defaultFormatChoiceId?: string;
 }
+
+const formats = [
+  { type: 'Tableur (Excel / CSV)', id: 'spreadsheet', defaultButton: true },
+  { type: 'PDF', id: 'pdf', defaultButton: true },
+  { type: 'JSON / API', id: 'jsonV2', defaultButton: true },
+  { type: 'Google Agenda', id: 'gcal' },
+  { type: 'Outlook', id: 'outlook' },
+  { type: 'iCal', id: 'ical', defaultButton: true },
+  { type: 'ICS', id: 'ics', defaultButton: true },
+  { type: 'RSS', id: 'rss', defaultButton: true },
+];
 
 export default function ExportModal({
   isOpen,
   onClose,
   agendaUid,
+  defaultFormatChoiceId,
 }: ExportModalProps) {
   const intl = useIntl();
   const query = useLocationQuery();
 
-  const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
+  const [formatChoice, setFormatChoice] = useState(defaultFormatChoiceId ? {
+    value: formats.find(({ id }) => defaultFormatChoiceId === id).type,
+    defaultButton: !!formats.find(({ id }) => defaultFormatChoiceId === id).defaultButton,
+    id: defaultFormatChoiceId,
+  } : {
+    value: '',
+    id: '',
+    defaultButton: false,
+  });
+
   const [spreadsheetForm, setSpreadsheetForm] = useState(false);
   const [jsonOptions, setJsonOptions] = useState(false);
   const [jsonDetailed, setJsonDetailed] = useState(false);
   const [gCal, setGCal] = useState(false);
   const [outlook, setOutlook] = useState(false);
-  const [newTab, setNewTab] = useState(false);
-  const [displayButton, setDisplayButton] = useState(false);
+  const [pdf, setPdf] = useState(false);
 
   const [mode, setMode] = useState('selection');
   const res = useMemo(() => {
@@ -160,16 +182,10 @@ export default function ExportModal({
     distributeFields: null,
   });
 
-  const formats = [
-    { type: 'Tableur (Excel / CSV)', id: 'spreadsheet' },
-    { type: 'PDF', id: 'pdf' },
-    { type: 'JSON / API', id: 'jsonV2' },
-    { type: 'Google Agenda', id: 'gcal' },
-    { type: 'Outlook', id: 'outlook' },
-    { type: 'iCal', id: 'ical' },
-    { type: 'ICS', id: 'ics' },
-    { type: 'RSS', id: 'rss' },
-  ];
+  const [pdfOptions, setPdfOptions] = useState({
+    format: 'pdf',
+    mode: null,
+  });
 
   const { user } = useUser();
   const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
@@ -180,28 +196,43 @@ export default function ExportModal({
   const fields = exportSettingsData?.spreadsheetColumns;
   const languages = exportSettingsData?.languages;
 
+  const displayDetailedForm = useCallback(id => {
+    if (id === 'spreadsheet') setSpreadsheetForm(true);
+    if (id === 'jsonV2') return setJsonOptions(true);
+    if (id === 'gcal') return setGCal(true);
+    if (id === 'outlook') return setOutlook(true);
+    if (id === 'pdf') return setPdf(true);
+  },[]);
+
   const setChoice = (value, id) => {
-    setDisplayButton(false);
     setGCal(false);
     setOutlook(false);
     setSpreadsheetForm(false);
     setJsonOptions(false);
-    setFormatChoice({ value, id });
-    if (id === 'spreadsheet') setSpreadsheetForm(true);
-    if (id === 'jsonV2' || id === 'rss') setNewTab(true);
-    if (id === 'jsonV2') return setJsonOptions(true);
-    if (id === 'gcal') return setGCal(true);
-    if (id === 'outlook') return setOutlook(true);
-    setDisplayButton(true);
+    setPdf(false);
+    setFormatChoice({ value, id, defaultButton: formats.find(({ id: formatId }) => id === formatId)?.defaultButton });
+    displayDetailedForm(id);
   };
+
+  useEffect(() => {
+    if (!defaultFormatChoiceId) {
+      return;
+    }
+    displayDetailedForm(defaultFormatChoiceId);
+  }, []);
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    let exportUrl = res.export[formatChoice.id];
+
+    const newTab = ['jsonV2', 'rss'].includes(formatChoice.id);
+
     if (userLogged && formatChoice.id === 'jsonV2') {
       const jsonUrl = new URL(res.export.jsonV2);
 
       let key = publicKey;
-
+      
       if (!key) {
         try {
           await fetch('/users/me/generateApiKey?$client[publicKey]=true');
@@ -218,13 +249,6 @@ export default function ExportModal({
         jsonUrl.searchParams.delete('detailed');
       }
       jsonUrl.searchParams.append('key', key);
-      window.open(jsonUrl);
-      return onClose();
-    }
-
-    if (newTab) {
-      window.open(res.export[formatChoice.id]);
-      return onClose();
     }
 
     if (formatChoice.id === 'spreadsheet') {
@@ -241,13 +265,18 @@ export default function ExportModal({
       if (spreadsheetOptions.distributeFields) {
         spreadsheetOptions.distributeFields.map(f => formatUrl.searchParams.append('distributeOptionalFields[]', f));
       }
-
-      window.open(formatUrl, '_self');
-      return onClose();
+      exportUrl = formatUrl;
     }
 
-    window.open(res.export[formatChoice.id], '_self');
-    return onClose();
+    if (formatChoice.id === 'pdf') {
+      const formatUrl = new URL(res.export.pdf);      
+      if (pdfOptions.mode) {
+        formatUrl.searchParams.append('mode', pdfOptions.mode);
+      }
+      exportUrl = formatUrl;
+    }
+    window.open(exportUrl, newTab ? undefined : '_self');
+    onClose();
   };
 
   return (
@@ -283,6 +312,7 @@ export default function ExportModal({
               </VStack>
             </RadioGroup>
             <Accordion
+              defaultIndex={formatChoice.id.length ? [formats.findIndex(({ id }) => id === formatChoice.id)] : undefined}
               allowToggle
               mt="4"
               onChange={(index: number) => setChoice(formats[index]?.type, formats[index]?.id)}
@@ -297,12 +327,18 @@ export default function ExportModal({
                       <AccordionIcon />
                     </AccordionButton>
                     <AccordionPanel>
-                      {spreadsheetForm && id === formatChoice.id && (
+                      {exportSettingsData && spreadsheetForm && id === formatChoice.id && (
                         <SpreadsheetOptions
                           languages={languages}
                           setChoice={setSpreadsheetOptions}
                           fields={fields}
                           options={spreadsheetOptions}
+                        />
+                      )}
+                      {pdf && id === 'pdf' && (
+                        <PdfOptions
+                          setChoice={setPdfOptions}
+                          options={pdfOptions}
                         />
                       )}
                       {gCal && id === 'gcal' && (
@@ -330,7 +366,7 @@ export default function ExportModal({
                           })}
                         </>
                       )}
-                      {displayButton && id === formatChoice.id && (
+                      {formatChoice.defaultButton && (
                         <Box ml="5" textAlign="center">
                           <Button colorScheme="primary" onClick={handleSubmit}>{intl.formatMessage(messages.modalTitle)}</Button>
                         </Box>

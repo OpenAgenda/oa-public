@@ -123,6 +123,24 @@
       "value": "Exporter"
     }
   ],
+  "next.views.AgendaShow.PdfOptions.city": [
+    {
+      "type": 0,
+      "value": "Mettre en avant la ville"
+    }
+  ],
+  "next.views.AgendaShow.PdfOptions.default": [
+    {
+      "type": 0,
+      "value": "Par défaut"
+    }
+  ],
+  "next.views.AgendaShow.PdfOptions.locationName": [
+    {
+      "type": 0,
+      "value": "Mettre en avant le lieu"
+    }
+  ],
   "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
     {
       "type": 0,
