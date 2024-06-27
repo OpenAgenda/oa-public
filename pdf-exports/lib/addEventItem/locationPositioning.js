@@ -35,7 +35,7 @@ export default function locationPositioning(doc, cursor, event, options = {}) {
       `${event.location.name} ${event.location.address}`,
     );
 
-    let cityHeight;
+    let cityHeight = 0;
     if (mode === 'city' && event.location?.city) {
       const { width: cityWidth, height } = addText(
         doc,
