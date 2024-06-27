@@ -14,8 +14,7 @@ const Link = props => {
 
   const Component = isExternal ? 'a' : RouterLink;
 
-  const hrefOrTo = isExternal ? ''
-    : removeTrailingSlash(prefix.replace(':slug', agenda?.slug)) + to;
+  const hrefOrTo = `${isExternal ? '' : removeTrailingSlash(prefix.replace(':slug', agenda?.slug))}${to}`;
 
   // Filter props to remove Redux-specific and unused props
   const filteredProps = _.omit(props, ['prefix', 'external', 'agenda', isExternal ? 'to' : undefined, 'dispatch']);
