@@ -2,7 +2,7 @@ import addText from './addText.js';
 import addAgendaLogo from './addAgendaLogo.js';
 import addSeparatorLine from './addSeparatorLine.js';
 
-export default async function addDocumentHeader(
+export default async function addPagetHeader(
   agenda,
   doc,
   cursor,
