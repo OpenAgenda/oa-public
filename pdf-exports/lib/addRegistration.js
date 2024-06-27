@@ -50,7 +50,14 @@ const addRegistrationItem = (
   let widthOfReg = null;
   let heightOfReg = null;
 
-  localCursor.y += base.margin / 8;
+  localCursor.y += base.margin / 10;
+
+  if (label === null) {
+    return {
+      width: 0,
+      height: 0,
+    };
+  }
 
   const { type, iconPath } = getTypeAndIconPath(registrationItem.type);
 
@@ -60,7 +67,7 @@ const addRegistrationItem = (
 
   const linkPrefix = type === 'email' ? 'mailto:' : '';
 
-  localCursor.y -= base.margin / 8;
+  localCursor.y -= base.margin / 10;
 
   const reg = addText(doc, localCursor, label, {
     fontSize,
@@ -136,6 +143,10 @@ export default function addRegistration(
         fontSize,
       },
     );
+
+    if (truncatedLabel.label === null) {
+      continue;
+    }
 
     const minRemainingWidth = (truncatedLabel.width + iconHeightAndWidth + margin * 2) / 2;
 

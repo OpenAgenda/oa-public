@@ -3,6 +3,7 @@ import PDFDocument from 'pdfkit';
 import addDocumentHeader from '../lib/addDocumentHeader.js';
 import addPageHeader from '../lib/addPageHeader.js';
 import loadAgendaData from './lib/loadAgendaData.js';
+import loadEventData from './lib/loadEventData.js';
 
 const {
   AGENDA_UID: agendaUid,
@@ -26,9 +27,14 @@ let pageHeaderHeight = null;
 
   const agenda = await loadAgendaData(agendaUid, APIKey);
 
+  const eventData = (await loadEventData(agendaUid, APIKey)).events;
+
+  const [firstEvent] = eventData || [];
+
   if (firstPage) {
     const { height: documentHeaderHeight } = await addDocumentHeader(
       agenda,
+      firstEvent,
       doc,
       cursor,
     );

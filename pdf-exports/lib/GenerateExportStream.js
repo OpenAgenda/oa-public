@@ -1,7 +1,7 @@
 import PDFDocument from 'pdfkit';
 import addDocumentHeader from './addDocumentHeader.js';
 import addPageHeader from './addPageHeader.js';
-import addEventItem from './addEventItem.js';
+import addEventItem from './addEventItem/index.js';
 import cursorYOverflowing from './cursorYOverflowing.js';
 import addFooter from './addFooter.js';
 import getIntl from './intl.js';
@@ -19,6 +19,7 @@ export default async function GenerateExportStream(
     includeEventImages = true,
     little,
     medium,
+    mode,
   } = options;
 
   const intl = getIntl(lang);
@@ -42,17 +43,6 @@ export default async function GenerateExportStream(
 
   cursor.x += margin;
 
-  const { height: documentHeaderHeight } = await addDocumentHeader(
-    agenda,
-    doc,
-    cursor,
-    {
-      little,
-      medium,
-    },
-  );
-  cursor.y += documentHeaderHeight + margin;
-
   const simulateFooter = addFooter(
     doc,
     `${intl.formatMessage(messages.page)} ${pageNumber}`,
@@ -69,10 +59,27 @@ export default async function GenerateExportStream(
   doc.pipe(writeStream);
 
   let currentPageNumber = 0;
+  let isFirstPage = true;
 
   for await (const event of eventStream) {
     if (pageNumber !== currentPageNumber) {
       currentPageNumber = pageNumber;
+
+      if (isFirstPage) {
+        const { height: documentHeaderHeight } = await addDocumentHeader(
+          agenda,
+          event,
+          doc,
+          cursor,
+          {
+            little,
+            medium,
+            mode,
+          },
+        );
+        cursor.y += documentHeaderHeight + margin;
+        isFirstPage = false;
+      }
       addFooter(
         doc,
         `${intl.formatMessage(messages.page)} ${pageNumber}`,
@@ -86,7 +93,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      { simulate: true, intl, lang, includeEventImages, little, medium },
+      { simulate: true, intl, lang, includeEventImages, little, medium, mode },
     );
 
     if (
@@ -117,7 +124,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      { intl, lang, includeEventImages, little, medium },
+      { intl, lang, includeEventImages, little, medium, mode },
     );
 
     cursor.y += eventItemHeight;
