@@ -5,7 +5,7 @@ export default defineConfig({
   treeshake: true,
   sourcemap: true,
   minify: process.env.NODE_ENV === 'production',
-  // clean: true,
+  clean: true,
   splitting: false,
   external: [],
   noExternal: [
