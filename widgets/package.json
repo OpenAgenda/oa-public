@@ -31,7 +31,8 @@
     "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^7.1.0",
     "storybook": "^8.1.10",
-    "tsup": "^6.2.3"
+    "terser": "^5.31.1",
+    "tsup": "^8.1.0"
   },
   "dependencies": {
     "@iframe-resizer/parent": "^5.1.4"
