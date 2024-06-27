@@ -1,0 +1,42 @@
+{
+  "name": "@openagenda/widgets",
+  "version": "0.0.0",
+  "description": "OpenAgenda widgets",
+  "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
+    "directory": "widgets"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "prepack": "tsup",
+    "lint": "eslint -c .eslintrc '**/*.@(js|jsx|ts|tsx|mjs)'",
+    "prettier": "prettier-eslint --write '**/*.@(js|jsx|ts|tsx|mjs)'",
+    "sb": "yarn storybook",
+    "storybook": "storybook dev"
+  },
+  "devDependencies": {
+    "@openagenda/eslint-config": "^1.3.1",
+    "@storybook/addon-essentials": "^8.1.10",
+    "@storybook/html-webpack5": "^8.1.10",
+    "eslint": "^8.24.0",
+    "eslint-plugin-storybook": "^0.8.0",
+    "prettier-eslint-cli": "^7.1.0",
+    "storybook": "^8.1.10",
+    "tsup": "^6.2.3"
+  },
+  "dependencies": {
+    "@iframe-resizer/parent": "^5.1.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
