@@ -1,6 +1,6 @@
 /*
  * ChakraProvider without ColorModeProvider
- * from https://github.com/chakra-ui/chakra-ui/blob/main/packages/components/provider/src/chakra-provider.tsx
+ * from https://github.com/chakra-ui/chakra-ui/blob/v2/packages/components/src/provider/provider.tsx
  */
 
 import {
