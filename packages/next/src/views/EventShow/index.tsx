@@ -657,7 +657,7 @@ function EventShow({ preload }: EventShowProps) {
   );
 }
 
-EventShow.fetchLocale = locale => Promise.all([
+EventShow.fetchLocale = (locale: string) => Promise.all([
   fetchLocale(locale),
   // fetchErrorLocale(locale),
   fetchCommonLocale('event/fields', locale),

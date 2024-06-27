@@ -109,6 +109,10 @@ const config = async () => {
     experimental: {
       scrollRestoration: true,
     },
+    onDemandEntries: {
+      maxInactiveAge: 24 * 3600 * 1000, // 24h
+      pagesBufferLength: 50,
+    },
     // Compression is enabled with nginx
     compress: false,
     async headers() {

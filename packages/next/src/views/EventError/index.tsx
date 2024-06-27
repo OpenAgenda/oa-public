@@ -174,7 +174,7 @@ export default function EventError({
   );
 }
 
-EventError.fetchLocale = locale => Promise.all([
+EventError.fetchLocale = (locale: string) => Promise.all([
   fetchLocale(locale),
   fetchErrorLocale(locale),
 ]).then(results => Object.assign({}, ...results));

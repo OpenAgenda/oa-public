@@ -281,7 +281,11 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     const dependentsOfView = sourceFilesInDir.reduce((accu, sourceFile) => {
       const dependents = dependentsMap.get(sourceFile);
       if (dependents?.length) {
-        accu.push(...dependents);
+        accu.push(
+          ...dependents
+            // exclude deps from other views
+            .filter(dep => !(isInDir(viewsDir, dep) && !isInDir(directory, dep))),
+        );
       }
       return accu;
     }, []);
@@ -289,6 +293,8 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
       ...dependentsOfView,
       ...sourceFilesInDir,
     ], directory);
+
+    console.log('viewDeps', viewDeps);
 
     const depsLocalesDirs = [];
     for (const viewDep of viewDeps) {

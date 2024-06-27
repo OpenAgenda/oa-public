@@ -1,0 +1,25 @@
+const includeFields = [
+  'uid',
+  'slug',
+  'title',
+  'image',
+  'featured',
+  'description',
+  'dateRange',
+  'timings',
+  'nextTiming',
+  'lastTiming',
+  'onlineAccessLink',
+  'attendanceMode',
+  'status',
+  'location.name',
+  'location.address',
+  'location.city',
+  'location.region',
+  'location.postalCode',
+  'location.countryCode',
+  'location.latitude',
+  'location.longitude',
+];
+
+export default includeFields;

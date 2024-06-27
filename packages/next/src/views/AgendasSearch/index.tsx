@@ -186,7 +186,7 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
   );
 }
 
-AgendasSearch.fetchLocale = locale => Promise.all([
+AgendasSearch.fetchLocale = (locale: string) => Promise.all([
   fetchLocale(locale),
 ]).then(results => Object.assign({}, ...results));
 

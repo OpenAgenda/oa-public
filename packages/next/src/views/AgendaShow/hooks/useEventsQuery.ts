@@ -7,6 +7,7 @@ export default function useEventsQuery({
   query,
   includeFields,
   suspense = false,
+  pageSize = 10,
 }) {
   const upcomingOnly = !query.timings && query.passed !== '1';
 
@@ -28,7 +29,7 @@ export default function useEventsQuery({
       pageIndex === 0 ? filters : [], // need aggs only for first page
       {
         sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
-        size: 10,
+        size: pageSize,
         ...upcomingOnly ? {
           relative: ['current', 'upcoming'],
         } : null,

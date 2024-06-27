@@ -1,0 +1,88 @@
+import { useCallback, useMemo } from 'react';
+import qs from 'qs';
+import { Button, Flex, SimpleGrid } from '@openagenda/uikit';
+import { useIntl } from 'react-intl';
+import { useRouter } from 'next/router';
+import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import messages from '../messages';
+import EventItem from './EventItem';
+// import { EventsSkeleton } from '../../AgendaShow/components/LoadingPage';
+
+const PAGE_SIZE = 12;
+
+export default function EventsPart({ agenda, filters, query, includeFields }) {
+  const intl = useIntl();
+  const router = useRouter();
+
+  const {
+    data: pages,
+    error,
+    size,
+    setSize,
+  } = useEventsQuery({
+    suspense: true,
+    agenda,
+    filters,
+    query,
+    includeFields,
+    pageSize: PAGE_SIZE,
+  });
+
+  const isLoadingInitialData = !pages && !error;
+  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isEmpty = pages?.[0]?.events?.length === 0;
+  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+
+  const seeMoreUrl = useMemo(() => {
+    const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
+    const url = new URL(localePrefix + router.asPath, 'https://n');
+    url.search = qs.stringify({
+      ...query,
+      after: pages?.[pages.length - 1].after?.map(String),
+    });
+    return url.pathname + url.search;
+  }, [router.locale, router.asPath, query, pages]);
+
+  const nextPage = useCallback(e => {
+    e.preventDefault();
+    setSize(s => s + 1);
+  }, [setSize]);
+
+  if (isLoadingInitialData) {
+    // return <EventsSkeleton />;
+    return null;
+  }
+
+  if (isEmpty) {
+    return null;
+  }
+
+  return (
+    <>
+      <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacing="10">
+        {pages?.map(page => page.events.map(event => (
+          <EventItem
+            key={event.uid}
+            event={event}
+            agenda={agenda}
+          />
+        )))}
+      </SimpleGrid>
+
+      {!isLoadingInitialData && !isReachingEnd ? (
+        <Flex justify="space-around" mt="8">
+          <Button
+            as="a"
+            href={seeMoreUrl}
+            onClick={nextPage}
+            variant="link"
+            colorScheme="primary"
+            isLoading={isLoadingMore}
+          >
+            {intl.formatMessage(messages.seeMore)}
+          </Button>
+        </Flex>
+      ) : null}
+    </>
+  );
+}

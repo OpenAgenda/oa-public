@@ -131,7 +131,7 @@ export default function AgendaError({ agendaSlug, statusCode, error }: AgendaErr
   );
 }
 
-AgendaError.fetchLocale = locale => Promise.all([
+AgendaError.fetchLocale = (locale: string) => Promise.all([
   fetchLocale(locale),
   fetchErrorLocale(locale),
 ]).then(results => Object.assign({}, ...results));

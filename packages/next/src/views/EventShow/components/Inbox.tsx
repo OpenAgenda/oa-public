@@ -37,7 +37,7 @@ export default function Inbox() {
         <IframeResizer
           src={`${ROOT}/${agenda.slug}/events/${event.slug}/embed-inbox?lang=${intl.locale}`}
           style={{ width: '1px', minWidth: '100%' }}
-          license="GPLv3"
+          license="12ajjdewwwy-26rnhw2943-1s7g1u8ma0i"
         />
       </Flex>
     </div>

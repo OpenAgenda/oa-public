@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
+import { EmotionCache } from '@openagenda/uikit';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import useMatomoTracker from 'hooks/useMatomoTracker';
@@ -14,11 +15,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
   Layout?: React.FC<{ children: React.ReactNode }>
+  theme?: Record<string, any>
 }
 
 type AppPropsWithLayout<P = {}> = AppProps<P> & {
   Component: NextPageWithLayout<P>
   universalCookies?: Cookies
+  cache?: EmotionCache
 }
 
 interface PageProps {
@@ -31,9 +34,11 @@ function MyApp({
   pageProps,
   router,
   universalCookies,
+  cache,
 }: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
+  const { theme } = Component;
 
   const { intlMessages } = pageProps;
 
@@ -57,7 +62,13 @@ function MyApp({
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>
       </Head>
-      <Providers locale={router.locale} intlMessages={intlMessages} cookies={universalCookies}>
+      <Providers
+        locale={router.locale}
+        intlMessages={intlMessages}
+        theme={theme}
+        cache={cache}
+        cookies={universalCookies}
+      >
         <SentryErrorBoundary>
           <Layout>
             <Component {...pageProps} />

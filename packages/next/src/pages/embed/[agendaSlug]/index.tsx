@@ -1,33 +1,40 @@
 import { GetServerSideProps } from 'next';
-import { SWRConfig } from 'swr';
+import ky from 'ky';
 import qs from 'qs';
-import { createIntlCache, createIntl } from 'react-intl';
-import { getFilters, filtersToAggregations, getAdditionalFilters } from '@openagenda/react-filters';
+import { SWRConfig } from 'swr';
+import { createIntl, createIntlCache } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
-import VError from '@openagenda/verror';
+import { theme as defaultTheme, extendTheme } from '@openagenda/uikit';
+import { filtersToAggregations, getAdditionalFilters, getFilters } from '@openagenda/react-filters';
 import { NextPageWithLayout } from 'pages/_app';
-import Layout from 'components/Layout';
-import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
-import AgendaShow, { AgendaShowProps } from 'views/AgendaShow';
+import EmbedAgendaShow, { EmbedAgendaShowProps } from 'views/EmbedAgendaShow';
 import includeFields from 'views/AgendaShow/includeFields';
-import AgendaError, { AgendaErrorProps } from 'views/AgendaError';
-import getDateFnsLocale from 'utils/getDateFnsLocale';
+import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import parseLocationQuery from 'utils/parseLocationQuery';
-import { errorToJSON } from 'utils/errorToJSON';
-import { logError } from 'utils/sentry';
+import getDateFnsLocale from 'utils/getDateFnsLocale';
+import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 import generateNonce from 'utils/generateNonce';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
-import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
+import { Agenda } from 'types';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
   fallback?: any;
 };
-type ShowPageProps = AgendaShowProps & CommonProps;
-type ErrorPageProps = AgendaErrorProps & CommonProps;
-type PageProps = ShowPageProps | ErrorPageProps;
+type ShowPageProps = EmbedAgendaShowProps & CommonProps;
+type PageProps = ShowPageProps;
 
 const intlCache = createIntlCache();
+
+const theme = extendTheme(defaultTheme, {
+  styles: {
+    global: {
+      body: {
+        bg: null,
+      },
+    },
+  },
+});
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -40,23 +47,23 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const query = parseLocationQuery(resolvedUrl);
 
+  const api = ky.create({
+    prefixUrl: process.env.NEXT_API_INTERNAL_BASE_URL,
+    headers: {
+      Cookie: req.headers.cookie,
+      Authorization: req.headers.authorization,
+    },
+  });
+
   try {
     const [
       intlMessages,
       dateFnsLocale,
       agenda,
     ] = await Promise.all([
-      AgendaShow.fetchLocale(locale),
+      EmbedAgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
-        headers: {
-          Cookie: req.headers.cookie,
-          Authorization: req.headers.authorization,
-        },
-      }).then(r => {
-        if (r.ok) return r.json();
-        throw new VError[r.status](r.statusText);
-      }),
+      api(`api/agendas/slug/${agendaSlug}?detailed=1`).json<Agenda>(),
     ]);
 
     const googleAnalytics = agenda.settings?.tracking?.googleAnalytics;
@@ -127,19 +134,19 @@ export const getServerSideProps: GetServerSideProps = async ({
       relative: ['current', 'upcoming'],
     } : null;
 
-    const paramsBase = {
-      aggsSizeLimit: 1500,
-      aggs: filtersToAggregations(filters, true),
-      size: 0,
-      ...prefilter,
-    };
+    // const paramsBase = {
+    //   aggsSizeLimit: 1500,
+    //   aggs: filtersToAggregations(filters, true),
+    //   size: 0,
+    //   ...prefilter,
+    // };
 
     const params = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
       from: 0,
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
-      size: 10,
+      size: 12,
       ...prefilter,
       ...query,
       passed: undefined, // omit passed
@@ -151,53 +158,35 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       intlMessages,
       preload: [
-        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
+        // `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
       ],
     };
 
     return { props };
-  } catch (e: any) {
-    const intlMessages = await AgendaError.fetchLocale(locale)
-      .catch(() => ({}));
+  } catch (e) {
+    console.log(e);
 
-    const statusCode = Number.isInteger(e.code) ? e.code : 500;
-    res.statusCode = statusCode;
+    return {
+      props: {
 
-    const props: ErrorPageProps = {
-      statusCode,
-      agendaSlug,
-      intlMessages,
+      },
     };
-
-    props.error = errorToJSON(e);
-
-    if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      logError(e);
-    }
-
-    return { props };
   }
 };
 
-const AgendaPage: NextPageWithLayout<PageProps> = props => {
+const EmbedAgendaPage: NextPageWithLayout<PageProps> = props => {
   const { fallback = {} } = props;
-
-  if ('statusCode' in props) {
-    return (
-      <AgendaError {...props} />
-    );
-  }
 
   return (
     <DateFnsLocaleProvider>
       <SWRConfig value={{ fallback }}>
-        <AgendaShow {...props} />
+        <EmbedAgendaShow {...props} />
       </SWRConfig>
     </DateFnsLocaleProvider>
   );
 };
 
-AgendaPage.Layout = Layout;
+EmbedAgendaPage.theme = theme;
 
-export default AgendaPage;
+export default EmbedAgendaPage;

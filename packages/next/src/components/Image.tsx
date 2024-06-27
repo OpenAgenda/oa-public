@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 import { Box, HTMLChakraProps, forwardRef } from '@openagenda/uikit';
 
-type ImageProps = NextImageProps & Omit<HTMLChakraProps<'img'>, keyof NextImageProps> & {
+type ImageProps = Omit<NextImageProps, 'objectFit'>
+  & Omit<HTMLChakraProps<'img'>, keyof NextImageProps>
+  & {
   fallbackSrc?: NextImageProps['src'];
   objectFit?: HTMLChakraProps<'img'>['objectFit'];
 }
@@ -35,6 +37,7 @@ const ImageWithFallback = forwardRef(function ImageWithFallback(
       ref={ref}
       alt=""
       {...rest}
+      objectFit={undefined}
       width={nextWidth}
       height={nextHeight}
       fill={nextFill}

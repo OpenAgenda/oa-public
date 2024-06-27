@@ -19,8 +19,9 @@ import useEventsQuery from './hooks/useEventsQuery';
 import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
-import { EventsSkeleton, TotalSkeleton, FiltersSkeleton } from './components/LoadingPage';
+import { EventsSkeleton, FiltersSkeleton, TotalSkeleton } from './components/LoadingPage';
 import ContentGrid from './components/ContentGrid';
+import includeFields from './includeFields';
 import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
@@ -52,30 +53,6 @@ export type AgendaShowProps = {
   agenda: Agenda,
   preload?: string[]
 };
-
-const includeFields = [
-  'uid',
-  'slug',
-  'title',
-  'image',
-  'featured',
-  'description',
-  'dateRange',
-  'timings',
-  'nextTiming',
-  'lastTiming',
-  'onlineAccessLink',
-  'attendanceMode',
-  'status',
-  'location.name',
-  'location.address',
-  'location.city',
-  'location.region',
-  'location.postalCode',
-  'location.countryCode',
-  'location.latitude',
-  'location.longitude',
-];
 
 const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
 const isDifferentPathname = (pathname1, pathname2) => stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
@@ -253,7 +230,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   );
 }
 
-AgendaShow.fetchLocale = locale => Promise.all([
+AgendaShow.fetchLocale = (locale: string) => Promise.all([
   fetchLocale(locale),
   fetchErrorLocale(locale),
   fetchCommonLocale('event/attendanceModes', locale),

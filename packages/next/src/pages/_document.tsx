@@ -10,7 +10,7 @@ import Document, {
 import { Cookies } from 'react-cookie';
 import { ResponseCookies } from '@edge-runtime/cookies';
 import createEmotionServer from '@emotion/server/create-instance';
-import { cache } from '@openagenda/uikit';
+import { createEmotionCache } from '@openagenda/uikit';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 
@@ -21,13 +21,12 @@ type CustomDocumentProps = {
 type MyDocumentProps = DocumentProps & CustomDocumentProps
 type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
 
-const { extractCriticalToChunks } = createEmotionServer(cache);
-
-function wrapApp({ cookies }) {
+function wrapApp({ cookies, cache }) {
   return App => {
     const Wrapped = props => (
       <App
         universalCookies={cookies}
+        cache={cache}
         {...props}
       />
     );
@@ -114,9 +113,12 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
     ctx.res?.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
   }
 
+  const cache = createEmotionCache();
+  const { extractCriticalToChunks } = createEmotionServer(cache);
+
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: wrapApp({ cookies }),
+      enhanceApp: wrapApp({ cookies, cache }) as any,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
