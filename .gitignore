@@ -20,3 +20,5 @@ sftp-config.*
 yarn-error.log
 
 /secrets.tar
+
+dist/
