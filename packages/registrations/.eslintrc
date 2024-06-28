@@ -5,6 +5,10 @@
     "sourceType": "module"
   },
 
+  "ignorePatterns": [
+    "dist"
+  ],
+
   "overrides": [{
     "files": [
       "**/*.js"

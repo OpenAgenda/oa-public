@@ -21,7 +21,7 @@
     "graceful-fs": "^4.2.11"
   },
   "devDependencies": {
-    "eslint": "^8.24.0"
+    "eslint": "^8.57.0"
   },
   "peerDependencies": {
     "eslint": "^7.32.0 || ^8.2.0"

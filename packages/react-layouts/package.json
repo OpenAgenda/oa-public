@@ -11,16 +11,7 @@
     "prepack": "yarn clean && yarn oa-intl compile && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "yarn oa-intl",
-    "clean": "rimraf dist",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
@@ -60,10 +51,7 @@
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react-webpack5": "^7.4.2",
     "axios": "^0.21.1",
-    "eslint": "^8.24.0",
     "history": "^4.10.1",
-    "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^7.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^1.0.3",

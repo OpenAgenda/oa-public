@@ -7,16 +7,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "jest --runInBand",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "@openagenda/verror": "^3.1.0",
@@ -32,9 +23,6 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
-    "jest": "^29.7.0",
-    "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^7.1.0"
+    "jest": "^29.7.0"
   }
 }

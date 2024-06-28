@@ -9,16 +9,7 @@
   },
   "scripts": {
     "test": "node test/addEventItem.test.js && node test/addFooter.test.js && node test/addHeader.test.js",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged",
     "extract-messages": "oa-intl 'lib/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
   },
   "dependencies": {
     "@babel/preset-env": "^7.23.3",
@@ -36,9 +27,6 @@
     "@babel/core": "^7.23.3",
     "@babel/plugin-syntax-import-attributes": "^7.23.3",
     "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
-    "lint-staged": "^10.2.11",
-    "nodemon": "^3.0.3",
-    "prettier-eslint-cli": "^7.1.0"
+    "nodemon": "^3.0.3"
   }
 }

@@ -12,10 +12,7 @@
     "test": "jest",
     "start": "PORTAL_DEV=1 start-portal",
     "build": "webpack-cli --config bin/webpack.build.js",
-    "prepack": "yarn build",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
+    "prepack": "yarn build"
   },
   "files": [
     "index.js",
@@ -33,12 +30,6 @@
     "build-portal": "bin/build-portal.js",
     "deploy": "bin/deploy/run.js",
     "start-portal": "bin/start-portal.js"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
   },
   "browserslist": [
     "extends @openagenda/browserslist-config"
@@ -107,11 +98,8 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
     "babel-plugin-handlebars-inline-precompile": "^2.1.1",
-    "eslint": "^8.24.0",
     "http-proxy": "^1.18.1",
     "jest": "^29.7.0",
-    "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^7.1.0",
     "rimraf": "^2.7.1"
   }
 }

@@ -5,28 +5,17 @@
   "author": "",
   "description": "",
   "license": "ISC",
-  "main": "service/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "import": "./index.js"
-    }
+    ".": "./index.js"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
@@ -35,12 +24,9 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
-    "lint-staged": "^10.2.11",
     "mysql": "^2.18.1",
-    "prettier-eslint-cli": "^7.1.0",
     "redis": "^4.6.6"
   }
 }

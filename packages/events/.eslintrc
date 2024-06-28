@@ -7,6 +7,10 @@
     "sourceType": "script"
   },
 
+  "ignorePatterns": [
+    "iso/build"
+  ],
+
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",

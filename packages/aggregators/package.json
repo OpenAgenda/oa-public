@@ -4,16 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --forceExit",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
@@ -24,11 +15,8 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
-    "lint-staged": "^10.2.11",
-    "mysql": "^2.15.0",
-    "prettier-eslint-cli": "^7.1.0"
+    "mysql": "^2.15.0"
   }
 }

@@ -14,16 +14,7 @@
     "start": "storybook dev -p 9001 --ci",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn build",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
@@ -61,11 +52,8 @@
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react-webpack5": "^7.4.2",
-    "eslint": "^8.24.0",
-    "lint-staged": "^10.2.11",
     "msw": "^2.3.0",
     "msw-storybook-addon": "^2.0.2",
-    "prettier-eslint-cli": "^7.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^5.1.2",
