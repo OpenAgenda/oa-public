@@ -7,6 +7,10 @@
     "sourceType": "script"
   },
 
+  "ignorePatterns": [
+    "lib"
+  ],
+
   "overrides": [
     {
       "files": [

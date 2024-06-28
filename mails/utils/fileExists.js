@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs/promises');
+const fs = require('node:fs/promises');
 
 module.exports = async function fileExists(filepath) {
   try {

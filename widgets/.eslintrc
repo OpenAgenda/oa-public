@@ -7,6 +7,10 @@
     "sourceType": "module"
   },
 
+  "ignorePatterns": [
+    "dist"
+  ],
+
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -23,7 +27,7 @@
       "files": [
         "src/**/*.{tsx,ts,jsx,js}",
         "*.stories.{tsx,ts,jsx,js}"
-      ],
+      ]
     }
   ]
 }

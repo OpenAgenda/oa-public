@@ -43,7 +43,6 @@
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react-webpack5": "^7.4.2",
     "axios-mock-adapter": "^1.19.0",
-    "eslint": "^8.24.0",
     "rimraf": "^3.0.1",
     "storybook": "^7.6.4"
   },

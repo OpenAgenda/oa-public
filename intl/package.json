@@ -37,16 +37,7 @@
     "oa-intl": "./scripts/cli.js"
   },
   "scripts": {
-    "prepack": "tsup src --format esm,cjs --clean",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
+    "prepack": "tsup src --format esm,cjs --clean"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
@@ -62,9 +53,6 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
-    "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^7.1.0",
     "tsup": "^8.0.1"
   },
   "peerDependencies": {
