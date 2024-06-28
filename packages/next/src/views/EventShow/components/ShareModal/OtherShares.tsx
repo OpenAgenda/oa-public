@@ -16,12 +16,13 @@ import {
   RadioGroup,
   Radio,
   Stack,
-  useTimeout, Tooltip,
+  useTimeout,
+  Tooltip,
 } from '@openagenda/uikit';
+import extractEmails from '@openagenda/mails/extractEmails';
 import { FaIcon } from 'icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import { faFacebookF, faXTwitter, faLinkedinIn } from 'icons/brands';
-import extractEmails from 'utils/extractEmails';
 import copyText from 'utils/copyText';
 import useEvent from '../../hooks/useEvent';
 import { useAgenda } from '../../contexts/agenda';
