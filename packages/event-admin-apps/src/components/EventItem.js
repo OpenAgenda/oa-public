@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useMutation, useQueryClient } from 'react-query';
+import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 import qs from 'qs';
 import { css } from '@emotion/react';
 import { useApiClient, MoreInfo } from '@openagenda/react-shared';
@@ -118,8 +119,11 @@ export default function EventItem({
 
   const passId = event.registration.find(r => r.service === 'passCulture')
     ?.data?.[0]?.response?.passId;
-  const passPending = event.registration.find(r => r.service === 'passCulture')
-    ?.data?.[0]?.response?.isPending;
+  const passPending = passId
+    ? getCurrentValue(
+      event.registration.find(r => r.service === 'passCulture')?.data,
+    )?.isPending
+    : undefined;
 
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
