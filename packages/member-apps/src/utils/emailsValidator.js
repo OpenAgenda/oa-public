@@ -1,4 +1,4 @@
-import extractEmails from './extractEmails';
+import extractEmails from '@openagenda/mails/extractEmails';
 import requiredEmailsError from './requiredEmailsError';
 
 export default function emailsValidator() {
