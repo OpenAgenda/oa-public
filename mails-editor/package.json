@@ -14,10 +14,7 @@
     "oa-mails-editor": "./bin/editor.js"
   },
   "scripts": {
-    "start": "nodemon server.js -e js,json,mjml,ejs -w ./templates",
-    "prettier": "prettier-eslint --write '**/*.js'",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "lint-staged": "lint-staged"
+    "start": "nodemon server.js -e js,json,mjml,ejs -w ./templates"
   },
   "dependencies": {
     "@openagenda/verror": "^3.1.0",
@@ -30,18 +27,9 @@
     "walk": "^2.3.14"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
-    "eslint": "^8.24.0",
-    "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^7.1.0"
+    "@openagenda/eslint-config": "^1.4.0"
   },
   "peerDependencies": {
     "@openagenda/mails": "^4.0.1"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc"
-    ]
   }
 }

@@ -7,6 +7,10 @@
     "sourceType": "script"
   },
 
+  "ignorePatterns": [
+    "dist"
+  ],
+
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",

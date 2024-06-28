@@ -5,6 +5,11 @@
     "sourceType": "script"
   },
 
+  "ignorePatterns": [
+    "client/build",
+    "client/dist"
+  ],
+
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",

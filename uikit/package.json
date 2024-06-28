@@ -16,9 +16,7 @@
   "scripts": {
     "postinstall": "chakra-cli tokens src/index.ts",
     "start": "storybook dev -p 9001 --ci",
-    "prepack": "tsup src --clean --format esm,cjs --dts",
-    "lint": "eslint -c .eslintrc '**/*.@(js|jsx|ts|tsx|mjs)'",
-    "prettier": "prettier-eslint --write '**/*.@(js|jsx|ts|tsx|mjs)'"
+    "prepack": "tsup src --clean --format esm,cjs --dts"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -58,8 +56,6 @@
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-essentials": "^7.4.2",
     "@storybook/react-webpack5": "^7.4.2",
-    "eslint": "^8.24.0",
-    "prettier-eslint-cli": "^7.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "^7.6.4",

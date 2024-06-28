@@ -44,8 +44,11 @@
     "concurrently": "^6.0.2",
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.29.1",
-    "husky": "^8.0.3",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
     "jest": "^29.7.0",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
     "regenerator-runtime": "^0.13.7"
   }
 }

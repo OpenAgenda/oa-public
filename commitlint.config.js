@@ -1,17 +1,19 @@
 'use strict';
 
-const path = require('path');
-const cp = require('child_process');
+const path = require('node:path');
+const cp = require('node:child_process');
 
 async function getPackages(context) {
   const ctx = context || {};
   const cwd = ctx.cwd || process.cwd();
 
-  const root = cp.execSync('git rev-parse --show-toplevel', { cwd })
+  const root = cp
+    .execSync('git rev-parse --show-toplevel', { cwd })
     .toString('utf-8')
     .trimEnd();
 
-  const workspaces = cp.execSync('yarn workspaces list --json', { cwd })
+  const workspaces = cp
+    .execSync('yarn workspaces list --json', { cwd })
     .toString('utf-8')
     .trimEnd()
     .split('\n')
@@ -19,7 +21,8 @@ async function getPackages(context) {
 
   return workspaces
     .filter(({ location }) => {
-      const packageJson = require(path.join(root, location, 'package.json'))
+      // eslint-disable-next-line global-require,import/no-dynamic-require
+      const packageJson = require(path.join(root, location, 'package.json'));
       return !packageJson?.workspaces?.length;
     })
     .filter(({ name }) => Boolean(name))
@@ -27,9 +30,7 @@ async function getPackages(context) {
 }
 
 module.exports = {
-  extends: [
-    '@commitlint/config-conventional'
-  ],
+  extends: ['@commitlint/config-conventional'],
   rules: {
     'header-max-length': [0],
     'subject-case': [0],
