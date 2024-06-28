@@ -2,13 +2,17 @@
   "name": "@openagenda/mails",
   "version": "4.0.1",
   "license": "MIT",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenAgenda/oa-public.git"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./index.js",
+    "./extractEmails": "./utils/extractEmails/index.js"
   },
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles",
@@ -22,12 +26,14 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/verror": "^3.1.0",
     "ejs": "^3.1.9",
+    "emoji-regex": "^10.3.0",
     "isemail": "^3.2.0",
     "lodash": "^4.17.15",
     "mjml": "^4.13.0",
     "mjml-core": "^4.13.0",
     "nodemailer": "^6.9.1",
-    "nodemailer-mailgun-transport": "^2.1.5"
+    "nodemailer-mailgun-transport": "^2.1.5",
+    "tlds": "^1.253.0"
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
