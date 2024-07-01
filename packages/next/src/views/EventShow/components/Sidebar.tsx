@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
+import { getCurrentValue as getCurrentPassValue } from '@openagenda/registrations/passCulture/iso/utils';
 import { FaIcon } from 'icons';
 import {
   faShareNodes,
@@ -53,7 +54,7 @@ function getRegistrationIcon(type: string) {
   }
 }
 
-function getRegistrationLink({ value, type }: { value: string, type: string }) {
+function getRegistrationLink({ value, type }: { value: string; type: string }) {
   switch (type) {
     case 'phone':
       return `tel:${value}`;
@@ -100,13 +101,40 @@ function getAccessibilityMessage(type: string) {
   }
 }
 
+function extractPassFromRegistration(intl, registration) {
+  const passItem = registration.find(
+    ({ service }) => service === 'passCulture',
+  );
+  const currentPassData = passItem ? getCurrentPassValue(passItem.data) : null;
+
+  return {
+    registration: registration.filter(
+      ({ service }) => service !== 'passCulture',
+    ),
+    passCulture:
+      currentPassData && !currentPassData.isPending
+        ? {
+          img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
+          label: intl.formatMessage(messages.accessPassOffer),
+          ...passItem,
+        }
+        : null,
+  };
+}
+
 export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
   const intl = useIntl();
 
   const { event } = useEvent();
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
       <Icon
         as={FaIcon}
         icon={faShareNodes}
@@ -137,13 +165,14 @@ export function OnlineAccessSection(props) {
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon
-        as={FaIcon}
-        icon={faLink}
-        size="2xl"
-        color="oaGray.300"
-      />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={faLink} size="2xl" color="oaGray.300" />
       <Button
         as={Link}
         isExternal
@@ -175,7 +204,13 @@ export function DateRangeSection(props) {
   }, [event.timings]);
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
       <Icon
         as={FaIcon}
         icon={isUpcoming ? faClock : faClockRotateLeft}
@@ -209,13 +244,14 @@ export function ConditionsSection(props) {
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon
-        as={FaIcon}
-        icon={faTicket}
-        size="2xl"
-        color="oaGray.300"
-      />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={faTicket} size="2xl" color="oaGray.300" />
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.conditions)}</b>
       </Box>
@@ -229,31 +265,28 @@ export function RegistrationSection(props) {
 
   const { event } = useEvent();
 
-  if (event.registration?.length && event.registration.filter(r => r.service === 'passCulture').length) {
-    event.passCulture = {
-      img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
-      label: intl.formatMessage(messages.accessPassOffer),
-      ...event.registration.find(r => r.service === 'passCulture'),
-    };
-    event.registration = event.registration.filter(r => r.service !== 'passCulture').length ? event.registration.filter(r => r.service === 'passCulture') : [];
-  }
+  const { registration, passCulture } = extractPassFromRegistration(
+    intl,
+    event.registration,
+  );
 
-  if (!event.registration?.length && !event.passCulture) {
+  if (!passCulture && !registration) {
     return null;
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon
-        as={FaIcon}
-        icon={faSquareCheck}
-        size="2xl"
-        color="oaGray.300"
-      />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={faSquareCheck} size="2xl" color="oaGray.300" />
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.registration)}</b>
       </Box>
-      {event.registration.map(registrationItem => (
+      {registration.map(registrationItem => (
         <Fragment key={registrationItem.value}>
           <Icon
             as={FaIcon}
@@ -276,17 +309,19 @@ export function RegistrationSection(props) {
               overflow="hidden"
               textOverflow="ellipsis"
             >
-              {registrationItem.type === 'link' ? intl.formatMessage(messages.registerBook) : ''}
+              {registrationItem.type === 'link'
+                ? intl.formatMessage(messages.registerBook)
+                : ''}
               &nbsp;
               {registrationItem.value}
             </Link>
           </Tooltip>
         </Fragment>
       ))}
-      {event.passCulture ? (
+      {passCulture ? (
         <Button
           as={Link}
-          href={event.passCulture.value}
+          href={passCulture.value}
           isExternal
           gridColumn="2"
           variant="outline"
@@ -298,7 +333,12 @@ export function RegistrationSection(props) {
             color: 'blackAlpha.900',
             textDecoration: 'none',
           }}
-          leftIcon={<img src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png" alt="" />}
+          leftIcon={(
+            <img
+              src="https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png"
+              alt=""
+            />
+          )}
           justifySelf="start"
         >
           {intl.formatMessage(messages.accessPassOffer)}
@@ -322,7 +362,13 @@ export function AccessibilitySection(props) {
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="8" alignItems="center" {...props}>
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="8"
+      alignItems="center"
+      {...props}
+    >
       {accessibilities.map(([accessibilityKey, accessibilityValue]) => {
         if (!accessibilityValue) {
           return null;
@@ -358,7 +404,10 @@ export function AccessibilitySection(props) {
           <div>
             {!event.age.max
               ? intl.formatMessage(messages.startingAt, { min: event.age.min })
-              : intl.formatMessage(messages.minToMaxYearsOld, { min: event.age.min, max: event.age.max })}
+              : intl.formatMessage(messages.minToMaxYearsOld, {
+                min: event.age.min,
+                max: event.age.max,
+              })}
           </div>
         </>
       ) : null}
@@ -385,13 +434,22 @@ export default function Sidebar({ contentLocale, shareOnOpen = null }) {
       <RegistrationSection />
 
       <Box ml="12">
-        <Timings timings={event.timings} timezone={event.timezone} key={event.uid} />
+        <Timings
+          timings={event.timings}
+          timezone={event.timezone}
+          key={event.uid}
+        />
       </Box>
 
       <AccessibilitySection />
 
       {event.location?.latitude && event.location?.longitude ? (
-        <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center">
+        <Grid
+          templateColumns="2em 1fr"
+          columnGap="4"
+          rowGap="1"
+          alignItems="center"
+        >
           <Icon
             as={FaIcon}
             icon={faLocationDot}
@@ -409,9 +467,7 @@ export default function Sidebar({ contentLocale, shareOnOpen = null }) {
             </Link>
             <Wrap color="oaGray.500">
               {['department', 'region', 'country'].map(part => (
-                <WrapItem key={part}>
-                  {event.location[part]}
-                </WrapItem>
+                <WrapItem key={part}>{event.location[part]}</WrapItem>
               ))}
             </Wrap>
           </Box>

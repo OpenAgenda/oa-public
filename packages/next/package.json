@@ -38,6 +38,7 @@
     "@openagenda/outdated-browser": "^0.0.0",
     "@openagenda/react-filters": "^2.10.9",
     "@openagenda/react-shared": "^2.4.1",
+    "@openagenda/registrations": "^0.0.2",
     "@openagenda/sdk-js": "^2.0.3",
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/uikit": "^0.0.1",
