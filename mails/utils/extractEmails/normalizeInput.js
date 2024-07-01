@@ -1,6 +1,8 @@
 'use strict';
 
-const createEmojiRegex = require('emoji-regex');
+const createEmojiRegexModule = require('emoji-regex');
+
+const createEmojiRegex = createEmojiRegexModule.default || createEmojiRegexModule;
 
 const emojiRegex = createEmojiRegex();
 
