@@ -9056,7 +9056,6 @@ __metadata:
     axios: "npm:^0.21.1"
     classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
-    emoji-regex: "npm:^10.2.1"
     errorhandler: "npm:^1.5.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -9261,7 +9260,6 @@ __metadata:
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^2.0.0"
     dedent: "npm:^0.7.0"
-    emoji-regex: "npm:^10.3.0"
     eslint-config-next: "npm:^14.2.3"
     fast-json-stable-stringify: "npm:^2.1.0"
     ftp: "npm:^0.3.10"
@@ -23175,7 +23173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emoji-regex@npm:^10.2.1, emoji-regex@npm:^10.3.0":
+"emoji-regex@npm:^10.3.0":
   version: 10.3.0
   resolution: "emoji-regex@npm:10.3.0"
   checksum: 10c0/b4838e8dcdceb44cf47f59abe352c25ff4fe7857acaf5fb51097c427f6f75b44d052eb907a7a3b86f86bc4eae3a93f5c2b7460abe79c407307e6212d65c91163
