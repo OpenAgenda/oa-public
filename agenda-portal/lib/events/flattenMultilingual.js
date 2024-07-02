@@ -3,10 +3,12 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-module.exports = (fields, preferredlang, obj) => ih(
-  obj,
-  fields.reduce(
-    (update, field) => {
+module.exports = (fields, params, obj) => {
+  const { lang: preferredLang, fallbackLang = 'en' } = params;
+
+  return ih(
+    obj,
+    fields.reduce((update, field) => {
       const fieldValue = _.get(obj, field);
 
       if (!fieldValue) {
@@ -14,13 +16,11 @@ module.exports = (fields, preferredlang, obj) => ih(
       }
 
       return _.set(update, field, {
-        $set: _.get(
-          fieldValue,
-          preferredlang,
-          _.get(fieldValue, _.first(_.keys(fieldValue))),
-        ),
+        $set:
+          fieldValue[preferredLang]
+          ?? fieldValue[fallbackLang]
+          ?? fieldValue[Object.keys(fieldValue).shift()],
       });
-    },
-    {},
-  ),
-);
+    }, {}),
+  );
+};
