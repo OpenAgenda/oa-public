@@ -12,7 +12,9 @@
     "test": "jest",
     "start": "PORTAL_DEV=1 start-portal",
     "build": "webpack-cli --config bin/webpack.build.js",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "prepack-deps": "yarn workspaces foreach -Apv --topological-dev run prepack",
+    "publish": "NODE_ENV=production yarn prepack-deps && NODE_ENV=production yarn npm publish"
   },
   "files": [
     "index.js",
