@@ -9,6 +9,7 @@ const registration = require('../iso/src/validators/registration');
 const accessibility = require('../iso/src/validators/accessibility');
 const enrichedLinks = require('../iso/src/validators/enrichedLinks');
 const longDescription = require('../iso/src/validators/longDescription');
+const description = require('../iso/src/validators/description');
 const timezone = require('../iso/src/validators/timezone');
 const age = require('../iso/src/validators/age');
 const keywords = require('../iso/src/validators/keywords');
@@ -26,6 +27,7 @@ const eventCustomValidators = {
   enrichedLinks,
   timezone,
   longDescription,
+  description,
 };
 
 const publicFields = fields.filter(f => (f.write || []).includes('public'));
@@ -61,21 +63,32 @@ module.exports = async (data, options = {}) => {
     protected: protectedMode = true,
   } = options;
 
-  const {
-    editedFields,
-    compiled,
-  } = await compileForValidation(current, data, { maxImageSize, protectedMode });
+  const { editedFields, compiled } = await compileForValidation(current, data, {
+    maxImageSize,
+    protectedMode,
+  });
 
-  log('validating %s for %s', isDraft ? 'draft' : 'non-draft', isPatch ? 'patch' : 'create/update');
+  log(
+    'validating %s for %s',
+    isDraft ? 'draft' : 'non-draft',
+    isPatch ? 'patch' : 'create/update',
+  );
 
   try {
     // draft event does not require anything.
-    const clean = (isDraft ? draftValidate : validate)[protectedMode ? 'protected' : 'unprotected'](compiled);
+    const clean = (isDraft ? draftValidate : validate)[
+      protectedMode ? 'protected' : 'unprotected'
+    ](compiled);
 
-    return isDraft || isPatch ? editedFields.reduce((patch, field) => ({
-      ...patch,
-      [field]: clean[field],
-    }), {}) : clean;
+    return isDraft || isPatch
+      ? editedFields.reduce(
+        (patch, field) => ({
+          ...patch,
+          [field]: clean[field],
+        }),
+        {},
+      )
+      : clean;
   } catch (errors) {
     throw new ValidationError(errors);
   }

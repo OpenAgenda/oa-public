@@ -19,10 +19,12 @@ const data = {
   description: 'A description',
   attendanceMode: 2,
   onlineAccessLink: 'https://openagenda.com',
-  timings: [{
-    begin: '2020-11-30T08:00:00.000Z',
-    end: '2020-11-30T10:00:00.000Z',
-  }],
+  timings: [
+    {
+      begin: '2020-11-30T08:00:00.000Z',
+      end: '2020-11-30T10:00:00.000Z',
+    },
+  ],
   conditions: 'Free',
   keywords: ['One', 'Two', 'Three'],
 };
@@ -57,7 +59,8 @@ describe('events - functional - create', () => {
     });
 
     it('entry is added in table', async () => {
-      const title = await f.client('event_2')
+      const title = await f
+        .client('event_2')
         .first(['title'])
         .where('uid', created.uid)
         .then(r => r.title);
@@ -81,17 +84,23 @@ describe('events - functional - create', () => {
   describe('create with image', () => {
     let imageTestsSvc;
 
-    beforeAll(() => new Promise(done => {
-      fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
-        .pipe(fs.createWriteStream('/tmp/dog.png'))
-        .on('close', done);
-    }));
+    beforeAll(
+      () =>
+        new Promise(done => {
+          fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+            .pipe(fs.createWriteStream('/tmp/dog.png'))
+            .on('close', done);
+        }),
+    );
 
-    beforeAll(() => new Promise(done => {
-      fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
-        .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
-        .on('close', done);
-    }));
+    beforeAll(
+      () =>
+        new Promise(done => {
+          fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
+            .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
+            .on('close', done);
+        }),
+    );
 
     beforeAll(() => {
       imageTestsSvc = Service({
@@ -107,10 +116,12 @@ describe('events - functional - create', () => {
         description: 'Joyful dog',
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: '2020-12-22T11:35:00.000+0200',
-          end: '2020-12-22T13:30:00.000+0200',
-        }],
+        timings: [
+          {
+            begin: '2020-12-22T11:35:00.000+0200',
+            end: '2020-12-22T13:30:00.000+0200',
+          },
+        ],
         image: fs.createReadStream('/tmp/dog.png'),
       });
 
@@ -122,34 +133,42 @@ describe('events - functional - create', () => {
     });
 
     it('validation error is thrown when unknown image format is provided', async () => {
-      const error = await imageTestsSvc.create({
-        title: 'Event create given a text stream instead of image',
-        description: 'Nope',
-        attendanceMode: 2,
-        onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: '2020-12-22T11:35:00.000+0200',
-          end: '2020-12-22T13:30:00.000+0200',
-        }],
-        image: fs.createReadStream('/tmp/notanimage.txt'),
-      }).catch(e => e);
+      const error = await imageTestsSvc
+        .create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timings: [
+            {
+              begin: '2020-12-22T11:35:00.000+0200',
+              end: '2020-12-22T13:30:00.000+0200',
+            },
+          ],
+          image: fs.createReadStream('/tmp/notanimage.txt'),
+        })
+        .catch(e => e);
 
       expect(error instanceof ValidationError).toBeTruthy();
     });
 
     it('image at null is no image at all', async () => {
       expect(
-        await imageTestsSvc.create({
-          title: 'Event create given a text stream instead of image',
-          description: 'Nope',
-          image: null,
-          attendanceMode: 2,
-          onlineAccessLink: 'https://openagenda.com',
-          timings: [{
-            begin: '2020-12-22T11:35:00.000+0200',
-            end: '2020-12-22T13:30:00.000+0200',
-          }],
-        }).then(({ image }) => image),
+        await imageTestsSvc
+          .create({
+            title: 'Event create given a text stream instead of image',
+            description: 'Nope',
+            image: null,
+            attendanceMode: 2,
+            onlineAccessLink: 'https://openagenda.com',
+            timings: [
+              {
+                begin: '2020-12-22T11:35:00.000+0200',
+                end: '2020-12-22T13:30:00.000+0200',
+              },
+            ],
+          })
+          .then(({ image }) => image),
       ).toBe(null);
     });
 
@@ -161,17 +180,25 @@ describe('events - functional - create', () => {
         },
       });
 
-      const response = await fetch(`https:${config.imagePath}${event.image.filename}`, {
-        method: 'HEAD',
-      });
+      const response = await fetch(
+        `https:${config.imagePath}${event.image.filename}`,
+        {
+          method: 'HEAD',
+        },
+      );
       expect(response.status).toBe(200);
     });
 
     it('validation error is thrown when malformed url is provided for image', async () => {
-      const error = await imageTestsSvc.create({
-        ...data,
-        image: { url: '%C4%97%' },
-      }).then(() => {}, e => e);
+      const error = await imageTestsSvc
+        .create({
+          ...data,
+          image: { url: '%C4%97%' },
+        })
+        .then(
+          () => {},
+          e => e,
+        );
 
       expect(error.name).toBe('ValidationError');
     });
@@ -191,21 +218,26 @@ describe('events - functional - create', () => {
       expect(error instanceof ValidationError).toBeTruthy();
     });
 
-    it('image can be passed through a local file path, deleted after upload', () => new Promise(done => {
-      fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async () => {
-        const event = await imageTestsSvc.create({
-          ...data,
-          image: {
-            path: TMP_IMG_PATH,
+    it('image can be passed through a local file path, deleted after upload', () =>
+      new Promise(done => {
+        fs.copyFile(
+          `${__dirname}/fixtures/images/dog.png`,
+          TMP_IMG_PATH,
+          async () => {
+            const event = await imageTestsSvc.create({
+              ...data,
+              image: {
+                path: TMP_IMG_PATH,
+              },
+            });
+
+            expect(typeof event.image.filename).toBe('string');
+            expect(fs.existsSync(TMP_IMG_PATH)).toBe(false);
+
+            done();
           },
-        });
-
-        expect(typeof event.image.filename).toBe('string');
-        expect(fs.existsSync(TMP_IMG_PATH)).toBe(false);
-
-        done();
-      });
-    }));
+        );
+      }));
   });
 
   describe('timings', () => {
@@ -215,18 +247,20 @@ describe('events - functional - create', () => {
         description: 'Nope',
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: {
-            date: '2020-10-21',
-            hours: 20,
-            minutes: 10,
+        timings: [
+          {
+            begin: {
+              date: '2020-10-21',
+              hours: 20,
+              minutes: 10,
+            },
+            end: {
+              date: '2020-10-21',
+              hours: 21,
+              minutes: 5,
+            },
           },
-          end: {
-            date: '2020-10-21',
-            hours: 21,
-            minutes: 5,
-          },
-        }],
+        ],
       });
 
       expect(event.timings[0].begin).toBe('2020-10-21T20:10:00.000+02:00');
@@ -238,65 +272,65 @@ describe('events - functional - create', () => {
         description: 'Nope',
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: {
-            date: '2020-10-21',
-            hours: 0,
-            minutes: 0,
+        timings: [
+          {
+            begin: {
+              date: '2020-10-21',
+              hours: 0,
+              minutes: 0,
+            },
+            end: {
+              date: '2020-10-21',
+              hours: 23,
+              minutes: 59,
+            },
           },
-          end: {
-            date: '2020-10-21',
-            hours: 23,
-            minutes: 59,
-          },
-        }],
+        ],
       });
 
       expect(event).toBeTruthy();
     });
 
-    it(
-      'if timezone is unspecified but location object with timezone is provided, location timezone is used',
-      async () => {
-        const created = await svc.create({
-          ...data,
-          location: {
-            ...data.location,
-            timezone: 'America/Vancouver',
-          },
-        });
+    it('if timezone is unspecified but location object with timezone is provided, location timezone is used', async () => {
+      const created = await svc.create({
+        ...data,
+        location: {
+          ...data.location,
+          timezone: 'America/Vancouver',
+        },
+      });
 
-        expect(created.timezone).toBe('America/Vancouver');
-      },
-    );
+      expect(created.timezone).toBe('America/Vancouver');
+    });
 
-    it(
-      'if timezone is specified, it is preferred over timezone present in location object',
-      async () => {
-        const created = await svc.create({
-          ...data,
-          timezone: 'Asia/Tokyo',
-          location: {
-            ...data.location,
-            timezone: 'America/Vancouver',
-          },
-        });
+    it('if timezone is specified, it is preferred over timezone present in location object', async () => {
+      const created = await svc.create({
+        ...data,
+        timezone: 'Asia/Tokyo',
+        location: {
+          ...data.location,
+          timezone: 'America/Vancouver',
+        },
+      });
 
-        expect(created.timezone).toBe('Asia/Tokyo');
-      },
-    );
+      expect(created.timezone).toBe('Asia/Tokyo');
+    });
 
     it('timings must have a duration', async () => {
-      const error = await svc.create({
-        title: 'Event create given a text stream instead of image',
-        description: 'Nope',
-        attendanceMode: 2,
-        onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: '2022-01-09T11:00:00.000+0200',
-          end: '2022-01-09T11:00:00.000+0200',
-        }],
-      }).catch(e => e);
+      const error = await svc
+        .create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timings: [
+            {
+              begin: '2022-01-09T11:00:00.000+0200',
+              end: '2022-01-09T11:00:00.000+0200',
+            },
+          ],
+        })
+        .catch(e => e);
 
       expect(error instanceof ValidationError).toBe(true);
     });
@@ -308,18 +342,20 @@ describe('events - functional - create', () => {
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timezone: 'Europe/Paris',
-        timings: [{
-          begin: {
-            date: '2023-07-20',
-            hours: 12,
-            minutes: 0,
+        timings: [
+          {
+            begin: {
+              date: '2023-07-20',
+              hours: 12,
+              minutes: 0,
+            },
+            end: {
+              date: '2023-07-20',
+              hours: 23,
+              minutes: 0,
+            },
           },
-          end: {
-            date: '2023-07-20',
-            hours: 23,
-            minutes: 0,
-          },
-        }],
+        ],
       });
 
       expect(event.timings).toEqual([
@@ -337,10 +373,12 @@ describe('events - functional - create', () => {
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timezone: 'Europe/Paris',
-        timings: [{
-          begin: '2023-07-20T12:00:00.000+02:00',
-          end: '2023-07-20T23:00:00.000+02:00',
-        }],
+        timings: [
+          {
+            begin: '2023-07-20T12:00:00.000+02:00',
+            end: '2023-07-20T23:00:00.000+02:00',
+          },
+        ],
       });
 
       expect(event.timings).toEqual([
@@ -356,7 +394,8 @@ describe('events - functional - create', () => {
     it('create with private option results in private event', async () => {
       const event = await svc.create(data, { private: true });
 
-      const isPrivate = await f.client('event_2')
+      const isPrivate = await f
+        .client('event_2')
         .first(['private'])
         .where('uid', event.uid)
         .then(r => r.private);
@@ -367,7 +406,8 @@ describe('events - functional - create', () => {
     it('fileKey is defined at create', async () => {
       const event = await svc.create(data);
 
-      const fileKey = await f.client('event_2')
+      const fileKey = await f
+        .client('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
         .then(r => r.file_key);
@@ -378,7 +418,8 @@ describe('events - functional - create', () => {
     it('fileKey can be passed through options at create', async () => {
       const event = await svc.create(data, { fileKey: 'blaireau' });
 
-      const fileKey = await f.client('event_2')
+      const fileKey = await f
+        .client('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
         .then(r => r.file_key);
@@ -387,76 +428,136 @@ describe('events - functional - create', () => {
     });
 
     it('draft create does not require all fields to be specified', async () => {
-      expect(typeof await svc.create({
-        title: 'Un titre',
-      }, { draft: true }).then(({ uid }) => uid)).toBe('number');
+      expect(
+        typeof await svc
+          .create(
+            {
+              title: 'Un titre',
+            },
+            { draft: true },
+          )
+          .then(({ uid }) => uid),
+      ).toBe('number');
     });
 
     it('draft create does not required title to be specified', async () => {
-      const event = await svc.create({
-        description: 'Une description',
-      }, { draft: true });
+      const event = await svc.create(
+        {
+          description: 'Une description',
+        },
+        { draft: true },
+      );
 
       expect(event.title).toBeUndefined();
     });
 
     it('registration is stored as a list of { type, value } objects', async () => {
-      const event = await svc.create({
-        registration: ['inscriptions@oagenda.com'],
-      }, { draft: true });
+      const event = await svc.create(
+        {
+          registration: ['inscriptions@oagenda.com'],
+        },
+        { draft: true },
+      );
 
-      const parsedRegistrationColValue = await f.client('event_2')
+      const parsedRegistrationColValue = await f
+        .client('event_2')
         .first('registration')
         .where('uid', event.uid)
         .then(r => JSON.parse(r.registration));
 
-      expect(parsedRegistrationColValue).toEqual([{
-        type: 'email',
-        value: 'inscriptions@oagenda.com',
-      }]);
+      expect(parsedRegistrationColValue).toEqual([
+        {
+          type: 'email',
+          value: 'inscriptions@oagenda.com',
+        },
+      ]);
     });
 
     it('when HTML is provided to long description, it is converted to markdown', async () => {
-      const event = await svc.create({
-        longDescription: '<b>This should not be HTML</b>',
-      }, { draft: true });
+      const event = await svc.create(
+        {
+          longDescription: '<b>This should not be HTML</b>',
+        },
+        { draft: true },
+      );
 
       expect(
-        await f.client('event_2')
+        await f
+          .client('event_2')
           .first('long_description')
           .where('uid', event.uid)
           .then(r => JSON.parse(r.long_description).en),
       ).toBe('**This should not be HTML**');
     });
 
+    it('when HTML is provided to short description, it is converted to markdown.', async () => {
+      const event = await svc.create(
+        {
+          description: '<b>This should not be HTML</b>',
+        },
+        { draft: true },
+      );
+
+      expect(
+        await f
+          .client('event_2')
+          .first('description')
+          .where('uid', event.uid)
+          .then(r => JSON.parse(r.description).en),
+      ).toBe('**This should not be HTML**');
+    });
+
+    it('end of line are replaced by spaces in short description', async () => {
+      const event = await svc.create(
+        {
+          description: 'There should not be any\nnew\r\nlines',
+        },
+        { draft: true },
+      );
+
+      expect(
+        await f
+          .client('event_2')
+          .first('description')
+          .where('uid', event.uid)
+          .then(r => JSON.parse(r.description).en),
+      ).toBe('There should not be any new lines');
+    });
+
     it('timezone validation', async () => {
-      const error = await svc.create({
-        timezone: 'UTC+1',
-      }, { draft: true }).catch(e => e);
+      const error = await svc
+        .create(
+          {
+            timezone: 'UTC+1',
+          },
+          { draft: true },
+        )
+        .catch(e => e);
 
       expect(error instanceof ValidationError).toBeTruthy();
       expect(error.detail[0].code).toBe('timezone.invalid');
     });
 
-    it('provided context is passed to interface call', () => new Promise(done => {
-      const onCreate = (_, context) => {
-        expect(context.agendaUid).toBe(123);
-        done();
-      };
+    it('provided context is passed to interface call', () =>
+      new Promise(done => {
+        const onCreate = (_, context) => {
+          expect(context.agendaUid).toBe(123);
+          done();
+        };
 
-      const svcForContextTest = Service({
-        knex: f.client,
-        interfaces: {
-          onCreate,
-        },
-      });
+        const svcForContextTest = Service({
+          knex: f.client,
+          interfaces: {
+            onCreate,
+          },
+        });
 
-      svcForContextTest.create(data, {
-        context: {
-          agendaUid: 123,
-        },
-      });
-    }));
+        svcForContextTest.create(data, {
+          context: {
+            agendaUid: 123,
+          },
+        });
+      }));
 
     it('agendaUid is associated to created event when passed in context', async () => {
       const event = await svc.create(data, {
