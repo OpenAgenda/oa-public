@@ -1,0 +1,38 @@
+{
+  "attendanceMode": "Modalità di partecipazione",
+  "backToList": "Torna all'agenda",
+  "backToListPreview": "Vedi tutti gli eventi",
+  "customFilters": "Filtri personalizzati",
+  "filters": "Filtri",
+  "searchInAgenda": "Cerca in questa agenda",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "contribute": "Proponi un evento",
+  "powered": "Offerto da OpenAgenda",
+  "export": "Esporta/Scarica",
+  "eventsTotal": "{total, plural, =0 {Nessun {totalLabel} corrisponde a questa ricerca} one {{total} {totalLabel}} other {{total} {totalLabelPlural}}}",
+  "onlineAccessLink": "Accedi all'evento online",
+  "city": "Città",
+  "keywords": "Parole chiave",
+
+  "searchPlaceholder": "Cerca",
+  "searchWhenMoving": "Cerca quando sposto la mappa",
+
+  "offline": "Offline",
+  "online": "Online",
+  "mixed": "Misto",
+  "passed": "Passato",
+  "current": "In corso",
+  "upcoming": "In arrivo",
+
+  "trackConsent.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio Google Analytics. Aiutano gli amministratori dell'agenda, attraverso la raccolta e la comunicazione di informazioni di navigazione, a comprendere come i visitatori interagiscono con i siti web. Li accetti?",
+  "trackConsent.moreInfoLink": "Clicca qui per saperne di più",
+  "trackConsent.decline": "Rifiuta",
+  "trackConsent.accept": "Accetta",
+
+  "showPastEvents": "Includi i {totalLabelPlural} passati",
+  "showUpcomingEvents": "Mostra solo i {totalLabelPlural} in arrivo",
+
+  "totalLabel": "evento",
+  "totalLabelPlural": "eventi"
+}
