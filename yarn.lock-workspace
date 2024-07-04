@@ -5918,7 +5918,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
@@ -6236,7 +6236,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/polyfills@npm:^1.2.4, @openagenda/polyfills@workspace:polyfills":
+"@openagenda/polyfills@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "@openagenda/polyfills@npm:1.2.5"
+  dependencies:
+    "@formatjs/intl-datetimeformat": "npm:^3.2.7"
+    "@formatjs/intl-displaynames": "npm:^4.0.5"
+    "@formatjs/intl-getcanonicallocales": "npm:^1.5.3"
+    "@formatjs/intl-listformat": "npm:^5.0.5"
+    "@formatjs/intl-locale": "npm:^2.4.14"
+    "@formatjs/intl-numberformat": "npm:^6.1.4"
+    "@formatjs/intl-pluralrules": "npm:^4.0.6"
+    "@formatjs/intl-relativetimeformat": "npm:^8.0.4"
+    core-js: "npm:^3.29.1"
+    dom4: "npm:^2.1.6"
+    globalthis: "npm:^1.0.1"
+    intl: "npm:^1.2.5"
+    regenerator-runtime: "npm:^0.13.7"
+  checksum: 10c0/e1461c84c250f9fd56ce4a39ee1b4e89097d1c2f2e8327008ae8a3eed76328dbb6c6d8bd0df4b6c2b36be6e1f2b3f8ed0ce30e830e8b9677ada45b863e9b4b50
+  languageName: node
+  linkType: hard
+
+"@openagenda/polyfills@workspace:polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:polyfills"
   dependencies:
