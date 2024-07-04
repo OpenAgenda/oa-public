@@ -14,12 +14,14 @@ function eventHook(event /* , { lang, agenda, root } */) {
 
 Portal({
   dir: __dirname,
-  root: process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
+  root:
+    process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
   devServerPort: process.env.PORTAL_DEV_SERVER_PORT || 3001,
   // agenda uid
   uid: process.env.PORTAL_AGENDA_UID,
   // site language
   lang: process.env.PORTAL_LANG || 'fr',
+  fallbackLang: process.env.PORTAL_FALLBACK_LANG ?? 'en',
   // default timezone
   defaultTimezone: process.env.PORTAL_DEFAULT_TIMEZONE || 'Europe/Paris',
   // associated OA account key
@@ -70,7 +72,8 @@ Portal({
   tracking: {
     useAgendaGoogleAnalytics: process.env.PORTAL_USE_AGENDA_GA_ID ?? false,
     // url of the link displayed in the cookie consent banner
-    cookieBannerLink: 'https://support.google.com/analytics/answer/6004245?hl=fr',
+    cookieBannerLink:
+      'https://support.google.com/analytics/answer/6004245?hl=fr',
   },
   eventHook,
   // proxyHookBeforeGet

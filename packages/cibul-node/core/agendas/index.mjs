@@ -1,21 +1,19 @@
-'use strict';
+import Events from './events/index.js';
+import embeds from './embeds.js';
+import Settings from './settings/index.js';
+import create from './create.js';
+import update from './update.js';
+import remove from './remove.js';
+import members from './members/index.js';
+import locations from './locations/index.js';
+import get from './get.js';
+import search from './search.js';
+import rebuild from './rebuild.js';
+import flattenMemberInfo from './utils/flattenMemberInfo.js';
+import clearAgendasCache from './utils/clearAgendasCache.js';
+import sources from './sources/index.js';
 
-const Events = require('./events');
-const embeds = require('./embeds');
-const Settings = require('./settings');
-const create = require('./create');
-const update = require('./update');
-const remove = require('./remove');
-const members = require('./members');
-const locations = require('./locations');
-const get = require('./get');
-const search = require('./search');
-const rebuild = require('./rebuild');
-const flattenMemberInfo = require('./utils/flattenMemberInfo');
-const clearAgendasCache = require('./utils/clearAgendasCache');
-const sources = require('./sources');
-
-module.exports = core => {
+export default core => {
   const settings = Settings(core);
   const events = Events(core);
 

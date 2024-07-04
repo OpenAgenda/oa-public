@@ -117,7 +117,7 @@ const locationFilter = ({ intl, rule }) => {
   };
 };
 
-const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
+const textFilter = ({ intl, rule, sourceAgendaSchema = { fields: [] } }) => {
   const textField = getTextFilterField(rule);
   const allFields = sourceAgendaSchema.fields.concat(eventTextFields);
   const field = pickFieldInFields(allFields, textField);

@@ -1,4 +1,4 @@
-import Agendas from './agendas/index.js';
+import Agendas from './agendas/index.mjs';
 import Networks from './networks/index.js';
 import Users from './users/index.js';
 import Tasks from './tasks.mjs';
