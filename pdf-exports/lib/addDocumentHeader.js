@@ -3,13 +3,7 @@ import addText from './addText.js';
 import addSeparatorLine from './addSeparatorLine.js';
 import cleanString from './cleanString.js';
 
-export default async function addDocumentHeader(
-  agenda,
-  firstEvent,
-  doc,
-  cursor,
-  options = {},
-) {
+export default async function addDocumentHeader(agenda, firstEvent, doc, cursor, options = {}) {
   const {
     base = {
       margin: 20,
@@ -32,6 +26,8 @@ export default async function addDocumentHeader(
   let fontSize;
   let logoHeightAndWidth;
   let margin;
+  let widthOfURL;
+  let heightOfURL;
 
   if (little) {
     titleFontSize = 10;
@@ -54,12 +50,7 @@ export default async function addDocumentHeader(
   localCursor.y += margin;
 
   if (agenda.image) {
-    const logo = await addAgendaLogo(
-      doc,
-      agenda.image,
-      localCursor,
-      logoHeightAndWidth,
-    );
+    const logo = await addAgendaLogo(doc, agenda.image, localCursor, logoHeightAndWidth);
 
     logoHeight = logo.height;
     logoWidth = logo.width;
@@ -67,12 +58,12 @@ export default async function addDocumentHeader(
   }
   const textMaxWidth = doc.page.width - logoWidth - base.margin * 3;
 
-  const { height: heightOfTitle, width: widthOfTitle } = addText(
-    doc,
-    localCursor,
-    agenda.title,
-    { width: textMaxWidth, fontSize, base, bold: true },
-  );
+  const { height: heightOfTitle, width: widthOfTitle } = addText(doc, localCursor, agenda.title, {
+    width: textMaxWidth,
+    fontSize,
+    base,
+    bold: true,
+  });
 
   localCursor.y += heightOfTitle + base.margin / 10;
 
@@ -91,30 +82,29 @@ export default async function addDocumentHeader(
     widthOfLocation = widthLocation;
   }
 
-  const { height: heightOfDescription, width: widthOfDescription } = addText(
-    doc,
-    localCursor,
-    agenda.description,
-    { width: textMaxWidth, fontSize, base },
-  );
+  const { height: heightOfDescription, width: widthOfDescription } = addText(doc, localCursor, agenda.description, {
+    width: textMaxWidth,
+    fontSize,
+    base,
+  });
   localCursor.y += heightOfDescription + base.margin / 10;
 
-  const { height: heightOfURL, width: widthOfURL } = addText(
-    doc,
-    localCursor,
-    agenda.url,
-    {
+  if (agenda.url) {
+    const agendaUrl = addText(doc, localCursor, agenda.url, {
       width: textMaxWidth,
       fontSize,
       base,
       underline: false,
       link: agenda.url,
-    },
-  );
+    });
 
-  localCursor.y += heightOfURL + base.margin / 10;
+    heightOfURL = agendaUrl.height;
+    widthOfURL = agendaUrl.width;
 
-  const { height: heightOfAgendaURL, width: widthOfAgendaURL } = addText(
+    localCursor.y += heightOfURL + base.margin / 10;
+  }
+
+  const { height: heightOfOaAgendaURL, width: widthOfOaAgendaURL } = addText(
     doc,
     localCursor,
     `https://openagenda.com/${agenda.slug}`,
@@ -128,7 +118,7 @@ export default async function addDocumentHeader(
     },
   );
 
-  localCursor.y += heightOfAgendaURL;
+  localCursor.y += heightOfOaAgendaURL;
 
   const textColHeight = localCursor.y;
 
@@ -143,15 +133,7 @@ export default async function addDocumentHeader(
   localCursor.y += separatorLineHeight;
 
   return {
-    width:
-      logoWidth
-      + Math.max(
-        widthOfTitle,
-        widthOfLocation,
-        widthOfDescription,
-        widthOfURL,
-        widthOfAgendaURL,
-      ),
+    width: logoWidth + Math.max(widthOfTitle, widthOfLocation, widthOfDescription, widthOfURL, widthOfOaAgendaURL),
     height: Math.max(logoHeight, localCursor.y - cursor.y),
     cursor: localCursor,
   };
