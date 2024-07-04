@@ -134,22 +134,11 @@ const getActionValues = ({
     );
   }
   const actionOperation = Object.keys(action.values).pop();
-  console.log(
-    'GetActionValues',
-    action.values,
-    actionOperation,
-    action.values[actionOperation],
-  );
-  console.log(
-    'GetActionValues constructor',
-    action.values[actionOperation]
-      ? action.values[actionOperation].constructor
-      : 'cassé',
-  );
+
   if (
     actionOperation === '$set'
     && action.values[actionOperation]
-    && action.values[actionOperation].constructor === Object // here
+    && action.values[actionOperation].constructor === Object
     && action.values[actionOperation].$copy
   ) {
     const value = data[action.values[actionOperation].$copy];
