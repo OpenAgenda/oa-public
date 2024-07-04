@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.10.1",
+  "version": "6.10.2",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "start": "PORTAL_DEV=1 start-portal",
     "build": "webpack-cli --config bin/webpack.build.js",
     "prepack": "yarn build",
-    "prepack-deps": "yarn workspaces foreach -Apv --topological-dev run prepack",
+    "prepack-deps": "yarn workspaces foreach -Rpv --topological-dev run prepack",
     "publish": "NODE_ENV=production yarn prepack-deps && NODE_ENV=production yarn npm publish"
   },
   "files": [
