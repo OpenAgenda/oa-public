@@ -57,7 +57,10 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     await core.agendas(48353388).events.search.rebuild();
     await core.agendas(17026855).events.search.rebuild();
 
-    core.services.agendaLocations.task({ reset: true, detectDuplicates: false });
+    core.services.agendaLocations.task({
+      reset: true,
+      detectDuplicates: false,
+    });
     core.services.eventSearch.task({ reset: true });
     await services.simpleCache.clearAll();
   });
@@ -68,9 +71,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas({
-        uid: 17026855,
-      }).locations.list();
+      result = await core
+        .agendas({
+          uid: 17026855,
+        })
+        .locations.list();
     });
 
     it('locations are placed in an items key', () => {
@@ -86,52 +91,52 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('integers provided in search part of query are processed as an uid filter', async () => {
-      const {
-        items,
-        total,
-      } = await core.agendas(17026855).locations.list({ search: '18927679' });
+      const { items, total } = await core
+        .agendas(17026855)
+        .locations.list({ search: '18927679' });
 
       expect(total).toBe(1);
       expect(items[0].uid).toBe(18927679);
     });
 
     it('filter to limit results to unverified locations', async () => {
-      const {
-        items: unverifiedLocations,
-      } = await core.agendas(99501607).locations.list({ state: 0 }, { size: 1 });
+      const { items: unverifiedLocations } = await core
+        .agendas(99501607)
+        .locations.list({ state: 0 }, { size: 1 });
 
-      const {
-        items: verifiedLocations,
-      } = await core.agendas(99501607).locations.list({ state: 1 }, { size: 1 });
+      const { items: verifiedLocations } = await core
+        .agendas(99501607)
+        .locations.list({ state: 1 }, { size: 1 });
 
       expect(unverifiedLocations.length).toEqual(1);
       expect(verifiedLocations.length).toEqual(0);
     });
 
     it('include event counts in result with option', async () => {
-      const {
-        items,
-      } = await core.agendas(17026855).locations.list({}, {}, {
-        eventCounts: true,
-      });
+      const { items } = await core.agendas(17026855).locations.list(
+        {},
+        {},
+        {
+          eventCounts: true,
+        },
+      );
 
       expect(items[0].eventCount).toBe(1);
     });
 
     it('geo filter', async () => {
-      const {
-        items: geoItems,
-      } = await core.agendas(17026855).locations.list({
-        geo: {
-          northEast: { lat: '48', lng: '5' },
-          southWest: { lat: '44.37', lng: '4.00' },
+      const { items: geoItems } = await core.agendas(17026855).locations.list(
+        {
+          geo: {
+            northEast: { lat: '48', lng: '5' },
+            southWest: { lat: '44.37', lng: '4.00' },
+          },
         },
-      }, {}, {
-      });
+        {},
+        {},
+      );
 
-      const {
-        items,
-      } = await core.agendas(17026855).locations.list({}, {}, {});
+      const { items } = await core.agendas(17026855).locations.list({}, {}, {});
       expect(items.length).toBeGreaterThan(geoItems.length);
     });
   });
@@ -140,16 +145,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     let result;
 
     beforeAll(async () => {
-      result = await core
-        .agendas(17026855)
-        .locations
-        .get(95455142, {
-          includeLinkedAgendas: true,
-        });
+      result = await core.agendas(17026855).locations.get(95455142, {
+        includeLinkedAgendas: true,
+      });
     });
 
     it('get location with option includeLinkedAgendas', () => {
-      expect(result.linkedAgendas).toEqual([{ uid: 17026855, title: 'La Gargouille' }]);
+      expect(result.linkedAgendas).toEqual([
+        { uid: 17026855, title: 'La Gargouille' },
+      ]);
     });
   });
 
@@ -169,14 +173,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas({
-        uid: 17026855,
-      }).locations.create({
-        name: 'Bar le Richemont',
-        address: 'Place de l\'église',
-        city: 'Sarzeau',
-        countryCode: 'FR',
-      });
+      result = await core
+        .agendas({
+          uid: 17026855,
+        })
+        .locations.create({
+          name: 'Bar le Richemont',
+          address: "Place de l'église",
+          city: 'Sarzeau',
+          countryCode: 'FR',
+        });
     });
 
     it('location is created', () => {
@@ -186,13 +192,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
   describe('remove', () => {
     beforeAll(async () => {
-      await core.agendas({
-        uid: 17026855,
-      }).locations.remove(9955517);
+      await core
+        .agendas({
+          uid: 17026855,
+        })
+        .locations.remove(9955517);
     });
 
     it('location is removed', async () => {
-      const location = await config.knex('location').first().where('uid', 9955517);
+      const location = await config
+        .knex('location')
+        .first()
+        .where('uid', 9955517);
       expect(location.deleted).toBe(1);
     });
   });
@@ -218,7 +229,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('related events have their location data updated', async () => {
-      const { events } = await core.agendas(48353388).events.search({}, { size: 1 }, { detailed: true });
+      const { events } = await core
+        .agendas(48353388)
+        .events.search({}, { size: 1 }, { detailed: true });
 
       expect(events[0].location.name).toBe('Lautrec');
     });
@@ -296,15 +309,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             nonce: 456456789,
             data: {
               name: 'Un lieu',
-              address: '15 rue de l\'adresse imaginaire, Trifouifoui',
+              address: "15 rue de l'adresse imaginaire, Trifouifoui",
               countryCode: 'fr',
             },
           },
-        }).then(r => ({
-          response: r,
-        }), e => ({
-          errorResponse: e.response,
-        }));
+        }).then(
+          r => ({
+            response: r,
+          }),
+          e => ({
+            errorResponse: e.response,
+          }),
+        );
 
         expect(errorResponse.status).toBe(404);
         expect(errorResponse.data.info).toBe('Unhandled route');
@@ -317,16 +333,21 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           headers: {
             'content-type': 'application/json',
           },
-          data: JSON.stringify(JSON.stringify({
-            access_token: accessToken,
-            nonce: 898756479,
-            data: {
-              name: 'Chez les beaufs de kevin',
-              address: '12 grande rue, Chattancourt',
-              countryCode: 'fr',
-            },
-          })),
-        }).then(r => ({ response: r }), e => ({ errorResponse: e.response }));
+          data: JSON.stringify(
+            JSON.stringify({
+              access_token: accessToken,
+              nonce: 898756479,
+              data: {
+                name: 'Chez les beaufs de kevin',
+                address: '12 grande rue, Chattancourt',
+                countryCode: 'fr',
+              },
+            }),
+          ),
+        }).then(
+          r => ({ response: r }),
+          e => ({ errorResponse: e.response }),
+        );
         expect(errorResponse.status).toBe(400);
       });
     });
@@ -397,7 +418,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         }
       });
       it('test error message', () => {
-        expect(error.response.data.message).toBe('geocoder didn\'t find address');
+        expect(error.response.data.message).toBe(
+          "geocoder didn't find address",
+        );
       });
     });
 
@@ -417,7 +440,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
               name: 'Marre',
               address: '4 route de Charny, 55100 Marre',
               countryCode: 'fr',
-              extId: 'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd',
+              extId:
+                'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd',
             },
           });
         } catch (e) {
@@ -433,18 +457,24 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('successful create with an image', () => {
       beforeAll(async () => {
         try {
-          fs.copyFileSync(`${__dirname}/fixtures/pirates.jpg`, '/tmp/pirates.jpg');
+          fs.copyFileSync(
+            `${__dirname}/fixtures/pirates.jpg`,
+            '/tmp/pirates.jpg',
+          );
 
           const form = new FormData();
 
           form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
           form.append('access_token', accessToken);
           form.append('nonce', 5784464);
-          form.append('data', JSON.stringify({
-            name: 'Un lieu avec image',
-            address: '12 grande rue, Chattancourt',
-            countryCode: 'fr',
-          }));
+          form.append(
+            'data',
+            JSON.stringify({
+              name: 'Un lieu avec image',
+              address: '12 grande rue, Chattancourt',
+              countryCode: 'fr',
+            }),
+          );
 
           response = await axios({
             method: 'post',
@@ -459,7 +489,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('image of created location is uploaded', async () => {
         const uploadedHead = await axios.head(response.data.location.image);
-        const sinceLastModified = new Date().getTime() - new Date(uploadedHead.headers['last-modified']).getTime();
+        const sinceLastModified = new Date().getTime()
+          - new Date(uploadedHead.headers['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(5000);
       });
     });
@@ -473,11 +504,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           form.append('access_token', accessToken);
           form.append('nonce', 567489456);
-          form.append('data', JSON.stringify({
-            name: 'Un lieu sans image mais en enctype form-data',
-            address: '8 rue Alice, Courbevoie',
-            countryCode: 'FR',
-          }));
+          form.append(
+            'data',
+            JSON.stringify({
+              name: 'Un lieu sans image mais en enctype form-data',
+              address: '8 rue Alice, Courbevoie',
+              countryCode: 'FR',
+            }),
+          );
 
           createdLocation = await axios({
             method: 'post',
@@ -491,7 +525,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('response contains created location', () => {
-        expect(createdLocation.data.location.name).toBe('Un lieu sans image mais en enctype form-data');
+        expect(createdLocation.data.location.name).toBe(
+          'Un lieu sans image mais en enctype form-data',
+        );
       });
     });
 
@@ -595,9 +631,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         });
 
-        const {
-          location,
-        } = getResponse.data;
+        const { location } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
       });
@@ -613,9 +647,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         });
 
-        const {
-          location,
-        } = getResponse.data;
+        const { location } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
       });
@@ -629,9 +661,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         });
 
-        const {
-          location,
-        } = getResponse.data;
+        const { location } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
       });
@@ -645,9 +675,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         });
 
-        const {
-          location,
-        } = getResponse.data;
+        const { location } = getResponse.data;
 
         expect(location.uid).toBe(24505639);
       });
@@ -691,9 +719,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('by default, only uid, name, address, latitude longitude and state are provided', () => {
-        expect(Object.keys(result.locations[0])).toEqual(
-          ['uid', 'name', 'address', 'latitude', 'longitude', 'state'],
-        );
+        expect(Object.keys(result.locations[0])).toEqual([
+          'uid',
+          'name',
+          'address',
+          'latitude',
+          'longitude',
+          'state',
+        ]);
       });
 
       it('detailed option is useful to retrieve all location info', async () => {
@@ -710,23 +743,46 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         }).then(r => r?.data);
 
-        expect(Object.keys(detailedResults.locations[0])).toEqual(
-          [
-            'uid', 'setUid', 'slug',
-            'name', 'address',
-            'countryCode', 'adminLevel1', 'adminLevel2',
-            'adminLevel3', 'adminLevel4', 'city', 'adminLevel5', 'adminLevel6', 'district',
-            'postalCode', 'insee',
-            'latitude', 'longitude', 'region', 'department', 'timezone',
-            'updatedAt', 'createdAt', 'image', 'description',
-            'tags', 'website', 'email',
-            'phone', 'links', 'access',
-            'state', 'imageCredits', 'imageRightsAreHeld',
-            'extId', 'duplicateCandidates',
-            'disqualifiedDuplicates',
-            'mergedIn',
-          ],
-        );
+        expect(Object.keys(detailedResults.locations[0])).toEqual([
+          'uid',
+          'setUid',
+          'slug',
+          'name',
+          'address',
+          'countryCode',
+          'adminLevel1',
+          'adminLevel2',
+          'adminLevel3',
+          'adminLevel4',
+          'city',
+          'adminLevel5',
+          'adminLevel6',
+          'district',
+          'postalCode',
+          'insee',
+          'latitude',
+          'longitude',
+          'region',
+          'department',
+          'timezone',
+          'updatedAt',
+          'createdAt',
+          'image',
+          'description',
+          'tags',
+          'website',
+          'email',
+          'phone',
+          'links',
+          'access',
+          'state',
+          'imageCredits',
+          'imageRightsAreHeld',
+          'extId',
+          'duplicateCandidates',
+          'disqualifiedDuplicates',
+          'mergedIn',
+        ]);
       });
 
       it('state filter limits result set to requested state', async () => {
@@ -923,6 +979,35 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(removeResponse.data.location.uid).toBe(95455142);
       });
     });
+
+    describe('fix create cause name is too long', () => {
+      let error;
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/locations',
+            headers: {
+              'access-token': accessToken,
+              nonce: 1231486,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Boulevard de Yougoslavie, Parc des Hautes Ourmes, Jardin Slovène, Square de Galicie, Parc de Landry, square de Sétubal',
+              address: '2 Boulevard de Yougoslavie, Rennes, France',
+              countryCode: 'fr',
+            },
+          });
+        } catch (e) {
+          // console.log(e.response.data)
+          error = e;
+        }
+      });
+      it('test error message', () => {
+        expect(error.response.data.errors[0].code).toBe('string.toolong');
+        expect(error.response.data.message).toBe('data is invalid');
+      });
+    });
   });
 
   describe('sets and interfaces', () => {
@@ -955,22 +1040,30 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('a location update triggers syncs on all related events and agendas', async () => {
         const promisedStack = new Promise(rs => {
-          core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
-            rs(stack);
-          });
+          core.services.tracker.on(
+            'eventSearch.update:55268170.55268456',
+            stack => {
+              rs(stack);
+            },
+          );
         });
 
         core.agendas(55268170).locations.patch(76464022, {
-          name: 'Lille Métropole Musée d\'art moderne',
+          name: "Lille Métropole Musée d'art moderne",
         });
 
         const stack = await promisedStack;
 
-        expect(_.uniq(stack.filter(s => [
-          'agendaLocations.syncImpactedEventsAndAgendas',
-          'eventSearch.update:17026855.48564567',
-          'eventSearch.update:55268170.55268456',
-        ].includes(s))).length).toBe(3);
+        expect(
+          _.uniq(
+            stack.filter(s =>
+              [
+                'agendaLocations.syncImpactedEventsAndAgendas',
+                'eventSearch.update:17026855.48564567',
+                'eventSearch.update:55268170.55268456',
+              ].includes(s)),
+          ).length,
+        ).toBe(3);
       });
 
       it('a location update on a location set can be done from another agenda than the one it originates from', async () => {
@@ -990,19 +1083,27 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           core.services.tracker.on('events.onRemove.55268456', rs);
         });
 
-        core.agendas(55268170).locations.remove(76464022, { removeEvents: true });
+        core
+          .agendas(55268170)
+          .locations.remove(76464022, { removeEvents: true });
 
         return promisedTrack;
       });
 
       it('a location deletion triggers the deletion of related events', async () => {
-        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 55268456);
+        const dbEntry = await core.services
+          .knex('event_2')
+          .first('deleted_at')
+          .where('uid', 55268456);
 
         expect(!!dbEntry.deleted_at).toBeTruthy();
       });
 
       it('legacy entry is also removed', async () => {
-        const legacyEntry = await core.services.knex('event').first().where('uid', 55268456);
+        const legacyEntry = await core.services
+          .knex('event')
+          .first()
+          .where('uid', 55268456);
         expect(legacyEntry).toBeFalsy();
       });
     });
@@ -1015,13 +1116,19 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('a location soft deletion does not triggers the deletion of related events', async () => {
-        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 20774404);
+        const dbEntry = await core.services
+          .knex('event_2')
+          .first('deleted_at')
+          .where('uid', 20774404);
 
         expect(dbEntry.deleted_at).toBeFalsy();
       });
 
       it('legacy entry is not removed', async () => {
-        const legacyEntry = await core.services.knex('event').first().where('uid', 20774404);
+        const legacyEntry = await core.services
+          .knex('event')
+          .first()
+          .where('uid', 20774404);
         expect(legacyEntry).toBeTruthy();
       });
     });
