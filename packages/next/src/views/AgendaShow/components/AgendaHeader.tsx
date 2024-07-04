@@ -1,17 +1,7 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
-import {
-  Stack,
-  VStack,
-  Text,
-  Wrap,
-  Button,
-  Heading,
-  useDisclosure,
-  NoBreak,
-  Link,
-} from '@openagenda/uikit';
+import { Stack, VStack, Text, Wrap, Button, Heading, useDisclosure, NoBreak, Link } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
@@ -54,10 +44,13 @@ const messages = defineMessages({
 function getMailtoUrl(mailtoSettings) {
   if (!mailtoSettings?.enabled || !mailtoSettings.email) return null;
 
-  return `mailto:${mailtoSettings.email}${qs.stringify({
-    subject: mailtoSettings.subject,
-    body: mailtoSettings.body,
-  }, { addQueryPrefix: true, skipNulls: true })}`;
+  return `mailto:${mailtoSettings.email}${qs.stringify(
+    {
+      subject: mailtoSettings.subject,
+      body: mailtoSettings.body,
+    },
+    { addQueryPrefix: true, skipNulls: true },
+  )}`;
 }
 
 const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
@@ -105,9 +98,11 @@ export default function AgendaHeader({ agenda }) {
           width="140"
           height="140"
           src={getImageSrc(agenda.image, updatedTs)}
-          fallbackSrc={isDev
-            ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
-            : undefined}
+          fallbackSrc={
+            isDev
+              ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
+              : undefined
+          }
           loader={keyCDNLoader}
           priority
           draggable={false}
@@ -125,7 +120,12 @@ export default function AgendaHeader({ agenda }) {
             &nbsp;›
           </NextChakraLink>
         ) : null}
-        <Heading as="h1" mt={agenda.network ? '0 !important' : undefined} fontSize="4xl" textAlign={{ base: 'center', md: 'start' }}>
+        <Heading
+          as="h1"
+          mt={agenda.network ? '0 !important' : undefined}
+          fontSize="4xl"
+          textAlign={{ base: 'center', md: 'start' }}
+        >
           {agenda.title}
           {agenda.official ? (
             <NoBreak>
@@ -141,13 +141,10 @@ export default function AgendaHeader({ agenda }) {
 
         <Text>{nl2br(agenda.description)}</Text>
 
-        {agenda.url ? (
-          <Link href={agenda.url}>
-            {agenda.url}
-          </Link>
-        ) : null}
+        {agenda.url ? <Link href={agenda.url}>{agenda.url}</Link> : null}
 
-        <Wrap shouldWrapChildren mt="4 !important" justify="center">{/* !important to overwrite Stack spacing */}
+        <Wrap shouldWrapChildren mt="4 !important" justify="center">
+          {/* !important to overwrite Stack spacing */}
           <Button
             as={Link}
             href={mailtoUrl || contactHref}
@@ -176,13 +173,6 @@ export default function AgendaHeader({ agenda }) {
           >
             {intl.formatMessage(messages.export)}
           </Button>
-          {exportIsOpen ? (
-            <ExportModal
-              isOpen
-              onClose={exportOnClose}
-              agendaUid={agenda.uid}
-            />
-          ) : null}
           <Button
             onClick={aggregateOnOpen}
             leftIcon={<OAIcon />}
@@ -196,23 +186,16 @@ export default function AgendaHeader({ agenda }) {
           >
             {intl.formatMessage(messages.aggregate)}
           </Button>
-          {aggregateIsOpen ? (
-            <AggregateModal
-              isOpen
-              onClose={aggregateOnClose}
-              agenda={agenda}
-            />
-          ) : null}
-          <Button
-            as={Link}
-            href={contributeHref}
-            leftIcon={<FontAwesomeIcon icon={faPlus} />}
-            colorScheme="primary"
-          >
+          <Button as={Link} href={contributeHref} leftIcon={<FontAwesomeIcon icon={faPlus} />} colorScheme="primary">
             {intl.formatMessage(messages.addEvent)}
           </Button>
         </Wrap>
       </VStack>
+
+      {exportIsOpen ? (
+        <ExportModal isOpen onClose={exportOnClose} agendaUid={agenda.uid} agendaTitle={agenda.title} />
+      ) : null}
+      {aggregateIsOpen ? <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} /> : null}
     </Stack>
   );
 }

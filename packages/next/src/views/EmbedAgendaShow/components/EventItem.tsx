@@ -24,12 +24,12 @@ export default function EventItem({ event, agenda }) {
         <Box pos="relative" h="170px">
           <Image
             alt=""
-            src={process.env.NODE_ENV === 'development'
-              ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-              : `${IMAGE_PREFIX}${event.image.filename}`}
-            fallbackSrc={process.env.NODE_ENV === 'development'
-              ? `${IMAGE_PREFIX}${event.image.filename}`
-              : undefined}
+            src={
+              process.env.NODE_ENV === 'development'
+                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                : `${IMAGE_PREFIX}${event.image.filename}`
+            }
+            fallbackSrc={process.env.NODE_ENV === 'development' ? `${IMAGE_PREFIX}${event.image.filename}` : undefined}
             fill
             objectFit="cover"
             sizes="(max-width: 629px) 100vw,
@@ -43,15 +43,14 @@ export default function EventItem({ event, agenda }) {
         <Box h="170px" />
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
-        <Box color="#e73f57" fontWeight="semibold">
-          {getLocaleValue(event.dateRange, intl.locale)}
-        </Box>
+        <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
         <NextChakraLinkOverlay
           target="_blank"
           href={`${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`}
         >
           <b>{getLocaleValue(event.title, intl.locale)}</b>
         </NextChakraLinkOverlay>
+        <Box color="#545454">{getLocaleValue(event.description, intl.locale)}</Box>
         <Box fontSize="sm" color="#545454" mt="auto">
           {event.location.name}
         </Box>

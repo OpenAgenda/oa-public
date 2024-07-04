@@ -164,6 +164,9 @@
   },
   "devDependencies": {
     "@openagenda/mails-editor": "^2.0.0",
+    "acorn": "^8.12.1",
+    "acorn-walk": "^8.3.3",
+    "glob": "^10.4.2",
     "jest": "^29.7.0",
     "sinon": "^7.5.0"
   }

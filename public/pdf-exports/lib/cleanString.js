@@ -25,11 +25,12 @@ export default function cleanString(str) {
     8232,
     8233,
     769, // U+0301
+    770, // circonflexe
   ];
 
   for (let i = 0; i < charsToClean.length; i++) {
     charsToClean[i] = String.fromCharCode(charsToClean[i]);
   }
 
-  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), ' ');
+  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), '');
 }
