@@ -134,8 +134,10 @@ const getActionValues = ({
     );
   }
   const actionOperation = Object.keys(action.values).pop();
+
   if (
     actionOperation === '$set'
+    && action.values[actionOperation]
     && action.values[actionOperation].constructor === Object
     && action.values[actionOperation].$copy
   ) {

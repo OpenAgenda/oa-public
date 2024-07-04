@@ -11,12 +11,8 @@ import columns from './fixtures/columns.json';
 export default {
   title: 'views/AgendaShow/ExportModal',
   component: ExportModal,
-  loaders: [
-    intlMessagesLoader(AgendaShow.fetchLocale),
-  ],
-  decorators: [
-    ProvidersDecorator,
-  ],
+  loaders: [intlMessagesLoader(AgendaShow.fetchLocale)],
+  decorators: [ProvidersDecorator],
 };
 
 export const Basic = {
@@ -25,13 +21,11 @@ export const Basic = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>Open modal</Button>
+        <Button variant="primary" onClick={onOpen}>
+          Open modal
+        </Button>
 
-        <ExportModal
-          isOpen={isOpen}
-          onClose={onClose}
-          agendaUid="1234"
-        />
+        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" />
       </>
     );
   },
@@ -52,14 +46,11 @@ export const OpenAccordion = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>Open modal</Button>
+        <Button variant="primary" onClick={onOpen}>
+          Open modal
+        </Button>
 
-        <ExportModal
-          isOpen={isOpen}
-          onClose={onClose}
-          agendaUid="1234"
-          defaultFormatChoiceId="pdf"
-        />
+        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" defaultIndex={7} />
       </>
     );
   },
