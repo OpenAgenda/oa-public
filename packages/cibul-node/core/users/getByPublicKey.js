@@ -10,11 +10,9 @@ module.exports = async function getByPublicKey(core, publicKey) {
   const user = await accessTokens.getUserFromKey(publicKey);
 
   log('user %s', user.uid);
-  const lastYear = new Date(
-    new Date().setFullYear(new Date().getFullYear() - 1),
-  );
+  const lastYear = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
 
-  if (!user.lastSignin || user.lastSignin < lastYear) {
+  if (user.lastSignin < lastYear) {
     await users
       .refresh(user.uid, {
         lastSignin: true,
