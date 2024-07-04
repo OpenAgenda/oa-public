@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query: queryWithParams,
   resolvedUrl,
 }) => {
-  const agendaSlug = queryWithParams.agendaSlug as string;
+  const agendaUid = queryWithParams.agendaUid as string;
 
   const query = parseLocationQuery(resolvedUrl);
 
@@ -56,14 +56,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   });
 
   try {
-    const [
-      intlMessages,
-      dateFnsLocale,
-      agenda,
-    ] = await Promise.all([
+    const [intlMessages, dateFnsLocale, agenda] = await Promise.all([
       EmbedAgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
-      api(`api/agendas/slug/${agendaSlug}?detailed=1`).json<Agenda>(),
+      api(`api/agendas/${agendaUid}?detailed=1`).json<Agenda>(),
     ]);
 
     const googleAnalytics = agenda.settings?.tracking?.googleAnalytics;
@@ -74,53 +70,58 @@ export const getServerSideProps: GetServerSideProps = async ({
 
       const nonce = generateNonce();
       res.setHeader('X-Nonce', nonce);
-      res.setHeader('Content-Security-Policy-Report-Only', CSP({
-        props: { nonce },
-        directives: {
-          ...DEFAULT_DIRECTIVES,
-          connectSrc: [
-            ...DEFAULT_DIRECTIVES.connectSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-          imgSrc: [
-            ...DEFAULT_DIRECTIVES.imgSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-        },
-      }));
+      res.setHeader(
+        'Content-Security-Policy-Report-Only',
+        CSP({
+          props: { nonce },
+          directives: {
+            ...DEFAULT_DIRECTIVES,
+            connectSrc: [
+              ...DEFAULT_DIRECTIVES.connectSrc,
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
+                ? [
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
+            ],
+            imgSrc: [
+              ...DEFAULT_DIRECTIVES.imgSrc,
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
+                ? [
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
+            ],
+          },
+        }),
+      );
     }
 
-    const intl = createIntl({
-      locale,
-      messages: intlMessages,
-      defaultLocale: getSupportedLocale(locale),
-      onError(e) {
-        if (e.code !== 'MISSING_DATA') {
-          // console.error(e);
-        }
+    const intl = createIntl(
+      {
+        locale,
+        messages: intlMessages,
+        defaultLocale: getSupportedLocale(locale),
+        onError(e) {
+          if (e.code !== 'MISSING_DATA') {
+            // console.error(e);
+          }
+        },
       },
-    }, intlCache);
+      intlCache,
+    );
 
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
-      .map(({ fieldSchema }) => fieldSchema.field);
+    const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(({ fieldSchema }) => fieldSchema.field);
 
     const filtersToInclude = ['geo', 'timings', ...additionalFilters];
 
@@ -130,9 +131,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: filtersToInclude,
     });
 
-    const prefilter = !query.timings && query.passed !== '1' ? {
-      relative: ['current', 'upcoming'],
-    } : null;
+    const prefilter = !query.timings && query.passed !== '1'
+      ? {
+        relative: ['current', 'upcoming'],
+      }
+      : null;
 
     // const paramsBase = {
     //   aggsSizeLimit: 1500,
@@ -168,9 +171,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     console.log(e);
 
     return {
-      props: {
-
-      },
+      props: {},
     };
   }
 };

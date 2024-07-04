@@ -93,31 +93,31 @@ export default defineMessages({
   },
   instructionsCopyLink: {
     id: 'next.views.AgendaShow.ExportModal.instructionsCopyLink',
-    defaultMessage: '1. Copy the link in the field above and open {link}',
+    defaultMessage: 'Copy the link in the field above and open {link}',
   },
   gcalStep2: {
     id: 'next.views.AgendaShow.ExportModal.gcalStep2',
-    defaultMessage: '2. In the left section, open "Other Calendars > Add by URL".',
+    defaultMessage: 'In the left section, open "Other Calendars > Add by URL".',
   },
   gcalStep3: {
     id: 'next.views.AgendaShow.ExportModal.gcalStep3',
-    defaultMessage: '3. Follow the instructions by pasting the link you copied in step 1',
+    defaultMessage: 'Follow the instructions by pasting the link you copied in step 1',
   },
   outlookStep2: {
     id: 'next.views.AgendaShow.ExportModal.outlookStep2',
-    defaultMessage: '2. At the bottom of the page, select the calendar icon',
+    defaultMessage: 'At the bottom of the page, select the calendar icon',
   },
   outlookStep3: {
     id: 'next.views.AgendaShow.ExportModal.outlookStep3',
-    defaultMessage: '3. In the navigation pane, select "Add calendar"',
+    defaultMessage: 'In the navigation pane, select "Add calendar"',
   },
   outlookStep4: {
     id: 'next.views.AgendaShow.ExportModal.outlookStep4',
-    defaultMessage: '4. Select "Subscribe from web"',
+    defaultMessage: 'Select "Subscribe from web"',
   },
   outlookStep5: {
     id: 'next.views.AgendaShow.ExportModal.outlookStep5',
-    defaultMessage: '5. Paste the URL you copied in step 1. Select "Import".',
+    defaultMessage: 'Paste the URL you copied in step 1. Select "Import".',
   },
   // PDF
   default: {

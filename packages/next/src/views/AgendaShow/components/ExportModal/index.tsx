@@ -5,7 +5,6 @@ import messages from './messages';
 
 interface ExportModalProps {
   agendaUid: number;
-  agendaSlug: string;
   agendaTitle: string;
   isOpen: boolean;
   onClose: () => void;
@@ -16,7 +15,6 @@ export default function ExportModal({
   isOpen,
   onClose,
   agendaUid,
-  agendaSlug,
   agendaTitle,
   defaultIndex = null,
 }: ExportModalProps) {
@@ -36,13 +34,7 @@ export default function ExportModal({
           {intl.formatMessage(messages.modalTitle)}
           <ModalCloseButton />
         </ModalHeader>
-        <Body
-          agendaUid={agendaUid}
-          agendaSlug={agendaSlug}
-          agendaTitle={agendaTitle}
-          onClose={onClose}
-          defaultIndex={defaultIndex}
-        />
+        <Body agendaUid={agendaUid} agendaTitle={agendaTitle} onClose={onClose} defaultIndex={defaultIndex} />
       </ModalContent>
     </Modal>
   );

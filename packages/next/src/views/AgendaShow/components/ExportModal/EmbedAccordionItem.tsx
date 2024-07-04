@@ -11,15 +11,16 @@ function escapeHTML(text: string) {
 
 const SCRIPT_URL = 'https://cdn.openagenda.com/js/widgets.js';
 
-function getEmbedCode({ intl, agendaSlug, agendaTitle }) {
-  const title = `<a href="${process.env.NEXT_PUBLIC_ROOT}/${agendaSlug}"><b>${escapeHTML(agendaTitle)}</b></a>`;
+function getEmbedCode({ intl, agendaUid, agendaTitle }) {
+  const href = `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}`;
+  const title = `<a href="${href}"><b>${escapeHTML(agendaTitle)}</b></a>`;
   const text = intl.formatMessage(messages.embedSeeEvents, { title });
   const blockquote = `<blockquote class="oa-agenda" align="center"><p lang="${intl.locale}">${text}</p></blockquote>`;
   const script = `<script async src="${SCRIPT_URL}" charset="utf-8"></script>`;
   return `${blockquote}${script}`;
 }
 
-export default function EmbedAccordionItem({ agendaSlug, agendaTitle }) {
+export default function EmbedAccordionItem({ agendaUid, agendaTitle }) {
   const intl = useIntl();
 
   const [copied, setCopied] = useState(false);
@@ -31,7 +32,7 @@ export default function EmbedAccordionItem({ agendaSlug, agendaTitle }) {
     copied ? 1000 : null,
   );
 
-  const embedCode = getEmbedCode({ intl, agendaSlug, agendaTitle });
+  const embedCode = getEmbedCode({ intl, agendaUid, agendaTitle });
 
   return (
     <AccordionItem title={intl.formatMessage(messages.embed)}>

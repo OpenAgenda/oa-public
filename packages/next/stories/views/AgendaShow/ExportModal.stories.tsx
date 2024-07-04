@@ -25,7 +25,7 @@ export const Basic = {
           Open modal
         </Button>
 
-        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaSlug="un-slug" agendaTitle="Titre" />
+        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" />
       </>
     );
   },
@@ -50,14 +50,7 @@ export const OpenAccordion = {
           Open modal
         </Button>
 
-        <ExportModal
-          isOpen={isOpen}
-          onClose={onClose}
-          agendaUid={1234}
-          agendaSlug="un-slug"
-          agendaTitle="Titre"
-          defaultIndex={7}
-        />
+        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" defaultIndex={7} />
       </>
     );
   },

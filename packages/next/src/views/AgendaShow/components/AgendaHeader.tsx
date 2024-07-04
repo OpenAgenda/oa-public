@@ -193,13 +193,7 @@ export default function AgendaHeader({ agenda }) {
       </VStack>
 
       {exportIsOpen ? (
-        <ExportModal
-          isOpen
-          onClose={exportOnClose}
-          agendaUid={agenda.uid}
-          agendaSlug={agenda.slug}
-          agendaTitle={agenda.title}
-        />
+        <ExportModal isOpen onClose={exportOnClose} agendaUid={agenda.uid} agendaTitle={agenda.title} />
       ) : null}
       {aggregateIsOpen ? <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} /> : null}
     </Stack>

@@ -68,7 +68,7 @@ function completeUrls(agendaUid, query) {
   };
 }
 
-export default function Body({ agendaUid, agendaSlug, agendaTitle, onClose, defaultIndex }) {
+export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) {
   const intl = useIntl();
   const query = useLocationQuery();
 
@@ -170,7 +170,7 @@ export default function Body({ agendaUid, agendaSlug, agendaTitle, onClose, defa
         <OutlookAccordionItem res={res} />
         <IcsAccordionItem handleSubmit={handleSubmit} />
         <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem agendaSlug={agendaSlug} agendaTitle={agendaTitle} />
+        <EmbedAccordionItem agendaUid={agendaUid} agendaTitle={agendaTitle} />
       </Accordion>
     </ModalBody>
   );

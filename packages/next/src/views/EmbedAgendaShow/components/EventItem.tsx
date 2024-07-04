@@ -50,7 +50,7 @@ export default function EventItem({ event, agenda }) {
         >
           <b>{getLocaleValue(event.title, intl.locale)}</b>
         </NextChakraLinkOverlay>
-        {getLocaleValue(event.description, intl.locale)}
+        <Box color="#545454">{getLocaleValue(event.description, intl.locale)}</Box>
         <Box fontSize="sm" color="#545454" mt="auto">
           {event.location.name}
         </Box>
