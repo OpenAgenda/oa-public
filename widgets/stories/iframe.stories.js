@@ -7,7 +7,7 @@ export default {
 export const Main = () => `
   <section class="page">
     <h2>Agenda</h2>
-    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/jep-2024-grand-est"><b>Fête de la musique</b></a></p></blockquote>
+    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>
   </section>
 
   <script async src="/index.js" charset="utf-8"></script>
@@ -16,7 +16,7 @@ export const Main = () => `
 export const Factory = () => `
   <section class="page">
     <h2>Agenda</h2>
-    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/jep-2024-grand-est"><b>Fête de la musique</b></a></p></blockquote>
+    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>
   </section>
 
   <script>window.oa = (function(d, s, id) {
@@ -46,7 +46,7 @@ export const Manual = () => `
   <script>
     function addIframe() {
       const elem = document.querySelector('.page');
-      elem.insertAdjacentHTML('beforeend', '<blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/jep-2024-grand-est"><b>Fête de la musique</b></a></p></blockquote>');
+      elem.insertAdjacentHTML('beforeend', '<blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>');
       
       window.oa.widgets.load();
     }
