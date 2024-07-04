@@ -15,8 +15,7 @@ export default function Metas({ preload, contentLocale }) {
   const { event } = useEvent();
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
-  const canonicalUrl = absUrl.origin + absUrl.pathname;
-  const languages = Object.keys(event.description);
+  const canonicalUrl = `${absUrl.origin}/${intl.locale === 'io' ? intl.locale : 'en'}${absUrl.pathname}`;
 
   const pageTitle = `${event.title[contentLocale]} | ${agenda.title} | OpenAgenda`;
   const description = event.description[contentLocale];
@@ -35,17 +34,16 @@ export default function Metas({ preload, contentLocale }) {
       <meta name="description" content={description} />
 
       <link rel="canonical" href={canonicalUrl} />
-      {languages.map(key => (key === intl.locale ? null : (
-        <link
-          key={`alternate:${key}`}
-          rel="alternate"
-          hrefLang={key}
-          href={SUPPORTED_LOCALES.includes(key)
-            ? `${absUrl.origin}/${key}${absUrl.pathname}`
-            : `${absUrl.origin}${absUrl.pathname}?lang=${key}`}
-        />
-      )))}
-      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+      {SUPPORTED_LOCALES.map(key =>
+        (key === 'io' ? null : (
+          <link
+            key={`alternate:${key}`}
+            rel="alternate"
+            hrefLang={key}
+            href={`${absUrl.origin}/${key}${absUrl.pathname}`}
+          />
+        )))}
+      <link rel="alternate" hrefLang="x-default" href={`${absUrl.origin}/en${absUrl.pathname}`} />
 
       <meta property="og:site_name" content="OpenAgenda" />
       <meta property="og:type" content="website" />
@@ -53,13 +51,12 @@ export default function Metas({ preload, contentLocale }) {
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:locale" content={contentLocale} />
-      {languages.map(key => (key === contentLocale ? null : (
-        <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
-      )))}
-      <meta property="og:url" content={canonicalUrl} />
-      {image ? (
-        <meta property="og:image" content={image} />
-      ) : null}
+      {SUPPORTED_LOCALES.map(key =>
+        (key === intl.locale || key === 'io' ? null : (
+          <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
+        )))}
+      <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
+      {image ? <meta property="og:image" content={image} /> : null}
 
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:site" content={process.env.NEXT_PUBLIC_DOMAIN} />
@@ -67,9 +64,7 @@ export default function Metas({ preload, contentLocale }) {
       <meta property="twitter:description" content={description} />
       <meta property="twitter:domain" content="@oagenda" />
       <meta property="twitter:url" content={canonicalUrl} />
-      {image ? (
-        <meta property="twitter:image" content={image} />
-      ) : null}
+      {image ? <meta property="twitter:image" content={image} /> : null}
 
       {preload?.map(href => (
         <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
