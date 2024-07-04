@@ -29,6 +29,18 @@
       "value": "Schließen"
     }
   ],
+  "next.views.AgendaShow.ExportModal.copied": [
+    {
+      "type": 0,
+      "value": "Copied"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.copy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.default": [
     {
       "type": 0,
@@ -51,6 +63,22 @@
     {
       "type": 0,
       "value": "See the documentation"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.embed": [
+    {
+      "type": 0,
+      "value": "Embed"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.embedSeeEvents": [
+    {
+      "type": 0,
+      "value": "See events of "
+    },
+    {
+      "type": 1,
+      "value": "title"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [

@@ -29,6 +29,18 @@
       "value": "Fermer"
     }
   ],
+  "next.views.AgendaShow.ExportModal.copied": [
+    {
+      "type": 0,
+      "value": "Copié"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.copy": [
+    {
+      "type": 0,
+      "value": "Copier"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.default": [
     {
       "type": 0,
@@ -51,6 +63,22 @@
     {
       "type": 0,
       "value": "Voir la documentation"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.embed": [
+    {
+      "type": 0,
+      "value": "Intégrer"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.embedSeeEvents": [
+    {
+      "type": 0,
+      "value": "Voir les événements de "
+    },
+    {
+      "type": 1,
+      "value": "title"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [
@@ -196,7 +224,7 @@
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
     {
       "type": 0,
-      "value": "Spreadsheet (Excel / CSV)"
+      "value": "Tableur (Excel / CSV)"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [
