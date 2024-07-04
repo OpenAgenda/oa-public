@@ -10,7 +10,7 @@ export default function OutlookAccordionItem({ res }) {
     <AccordionItem title="Outlook">
       <Flex gap="4" direction="column">
         <Input value={res.export.ics} readOnly onClick={e => (e.target as HTMLInputElement).select()} />
-        <H4>Instuctions</H4>
+        <H4>{intl.formatMessage(messages.instructions)}</H4>
         <OrderedList>
           <ListItem>
             {intl.formatMessage(messages.instructionsCopyLink, {
