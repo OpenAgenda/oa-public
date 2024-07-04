@@ -31,5 +31,5 @@ export default function cleanString(str) {
     charsToClean[i] = String.fromCharCode(charsToClean[i]);
   }
 
-  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), ' ');
+  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), '');
 }
