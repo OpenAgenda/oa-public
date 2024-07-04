@@ -1,26 +1,14 @@
 {
-  "gcalStep2": [
+  "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
-      "value": "2. Dins la seccion a esquèrra, dobrissètz \"Autres calendièrs > Apondre per URL\"."
+      "value": "Exportat totes los camps"
     }
   ],
-  "gcalStep3": [
+  "next.views.AgendaShow.ExportModal.allLanguages": [
     {
       "type": 0,
-      "value": "3. Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1"
-    }
-  ],
-  "instructions": [
-    {
-      "type": 0,
-      "value": "Instruccions"
-    }
-  ],
-  "instructionsCopyLink": [
-    {
-      "type": 0,
-      "value": "1. Copiatz lo ligam dins lo camp çai-sus e dobrissètz-lo"
+      "value": "Exportar dins totas las lengas"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
@@ -29,16 +17,34 @@
       "value": "Anullar"
     }
   ],
+  "next.views.AgendaShow.ExportModal.city": [
+    {
+      "type": 0,
+      "value": "Mettre en avant la ville"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
       "value": "Tampar"
     }
   ],
+  "next.views.AgendaShow.ExportModal.default": [
+    {
+      "type": 0,
+      "value": "Par défaut"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
     {
       "type": 0,
       "value": "Far servir lo format detalhat"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.distributeFields": [
+    {
+      "type": 0,
+      "value": "Camps amb opcions: mostrar una valor per colomna"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
@@ -89,10 +95,50 @@
       "value": "Exportar la seleccion actuala d'eveniments"
     }
   ],
+  "next.views.AgendaShow.ExportModal.gcalStep2": [
+    {
+      "type": 0,
+      "value": "Dins la seccion a esquèrra, dobrissètz \"Autres calendièrs > Apondre per URL\"."
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.gcalStep3": [
+    {
+      "type": 0,
+      "value": "Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.inputField": [
+    {
+      "type": 0,
+      "value": "Seleccionatz los camps d'exportar"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
     {
       "type": 0,
       "value": "Causir un format"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.instructions": [
+    {
+      "type": 0,
+      "value": "Instruccions"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "Copiatz lo ligam dins lo camp çai-sus e dobrissètz-lo "
+    },
+    {
+      "type": 1,
+      "value": "link"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.locationName": [
+    {
+      "type": 0,
+      "value": "Mettre en avant le lieu"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
@@ -117,82 +163,46 @@
       "value": "link"
     }
   ],
-  "next.views.AgendaShow.ExportModal.title": [
+  "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
-      "value": "Exportar"
+      "value": "Al pè de la pagina, seleccionatz l'icòna de calendièr"
     }
   ],
-  "next.views.AgendaShow.PdfOptions.city": [
+  "next.views.AgendaShow.ExportModal.outlookStep3": [
     {
       "type": 0,
-      "value": "Mettre en avant la ville"
+      "value": "Dins lo panèl de navigacion, causissètz \"Apondre calendièr\""
     }
   ],
-  "next.views.AgendaShow.PdfOptions.default": [
+  "next.views.AgendaShow.ExportModal.outlookStep4": [
     {
       "type": 0,
-      "value": "Par défaut"
+      "value": "Causissètz \"Soscriure a partir del web\""
     }
   ],
-  "next.views.AgendaShow.PdfOptions.locationName": [
+  "next.views.AgendaShow.ExportModal.outlookStep5": [
     {
       "type": 0,
-      "value": "Mettre en avant le lieu"
+      "value": "Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\"."
     }
   ],
-  "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
-    {
-      "type": 0,
-      "value": "Exportat totes los camps"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
-    {
-      "type": 0,
-      "value": "Exportar dins totas las lengas"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
-    {
-      "type": 0,
-      "value": "Camps amb opcions: mostrar una valor per colomna"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.input-field": [
-    {
-      "type": 0,
-      "value": "Seleccionatz los camps d'exportar"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.select-all": [
+  "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
       "value": "Seleccionar tot"
     }
   ],
-  "outlookStep2": [
+  "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
     {
       "type": 0,
-      "value": "2. Al pè de la pagina, seleccionatz l'icòna de calendièr"
+      "value": "Spreadsheet (Excel / CSV)"
     }
   ],
-  "outlookStep3": [
+  "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "3. Dins lo panèl de navigacion, causissètz \"Apondre calendièr\""
-    }
-  ],
-  "outlookStep4": [
-    {
-      "type": 0,
-      "value": "4. Causissètz \"Soscriure a partir del web\""
-    }
-  ],
-  "outlookStep5": [
-    {
-      "type": 0,
-      "value": "5. Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\"."
+      "value": "Exportar"
     }
   ]
 }

@@ -1,26 +1,14 @@
 {
-  "gcalStep2": [
+  "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
-      "value": "2. Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\""
+      "value": "Exporter tous les champs"
     }
   ],
-  "gcalStep3": [
+  "next.views.AgendaShow.ExportModal.allLanguages": [
     {
       "type": 0,
-      "value": "3. Suivez les instructions en collant le lien que vous avez copié à l'étape 1."
-    }
-  ],
-  "instructions": [
-    {
-      "type": 0,
-      "value": "Instructions"
-    }
-  ],
-  "instructionsCopyLink": [
-    {
-      "type": 0,
-      "value": "1. Copiez le lien ci-dessus et ouvrez "
+      "value": "Exporter dans toutes les langues"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
@@ -29,16 +17,34 @@
       "value": "Annuler"
     }
   ],
+  "next.views.AgendaShow.ExportModal.city": [
+    {
+      "type": 0,
+      "value": "Mettre en avant la ville"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.close": [
     {
       "type": 0,
       "value": "Fermer"
     }
   ],
+  "next.views.AgendaShow.ExportModal.default": [
+    {
+      "type": 0,
+      "value": "Par défaut"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
     {
       "type": 0,
       "value": "Utiliser le format détaillé"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.distributeFields": [
+    {
+      "type": 0,
+      "value": "Champs à choix: une valeur par colonne"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
@@ -89,10 +95,50 @@
       "value": "Exporter la sélection en cours"
     }
   ],
+  "next.views.AgendaShow.ExportModal.gcalStep2": [
+    {
+      "type": 0,
+      "value": "Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\""
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.gcalStep3": [
+    {
+      "type": 0,
+      "value": "Suivez les instructions en collant le lien que vous avez copié à l'étape 1."
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.inputField": [
+    {
+      "type": 0,
+      "value": "Sélectionner des champs"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
     {
       "type": 0,
       "value": "Sélectionner un format"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "Copiez le lien ci-dessus et ouvrez "
+    },
+    {
+      "type": 1,
+      "value": "link"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.locationName": [
+    {
+      "type": 0,
+      "value": "Mettre en avant le lieu"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
@@ -117,82 +163,46 @@
       "value": "link"
     }
   ],
-  "next.views.AgendaShow.ExportModal.title": [
+  "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "En bas de page, sélectionnez l'icône calendrier"
     }
   ],
-  "next.views.AgendaShow.PdfOptions.city": [
+  "next.views.AgendaShow.ExportModal.outlookStep3": [
     {
       "type": 0,
-      "value": "Mettre en avant la ville"
+      "value": "Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\""
     }
   ],
-  "next.views.AgendaShow.PdfOptions.default": [
+  "next.views.AgendaShow.ExportModal.outlookStep4": [
     {
       "type": 0,
-      "value": "Par défaut"
+      "value": "Sélectionnez \"S'abonner à partir du web\""
     }
   ],
-  "next.views.AgendaShow.PdfOptions.locationName": [
+  "next.views.AgendaShow.ExportModal.outlookStep5": [
     {
       "type": 0,
-      "value": "Mettre en avant le lieu"
+      "value": "Collez le lien et sélectionnez \"Importer\""
     }
   ],
-  "next.views.AgendaShow.SpreadsheetOptions.all-fields": [
-    {
-      "type": 0,
-      "value": "Exporter toutes les colonnes"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.all-languages": [
-    {
-      "type": 0,
-      "value": "Exporter dans toutes les langues"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.distribute-fields": [
-    {
-      "type": 0,
-      "value": "Champs à choix: une valeur par colonne"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.input-field": [
-    {
-      "type": 0,
-      "value": "Sélectionner des champs"
-    }
-  ],
-  "next.views.AgendaShow.SpreadsheetOptions.select-all": [
+  "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
       "value": "Tout sélectionner"
     }
   ],
-  "outlookStep2": [
+  "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
     {
       "type": 0,
-      "value": "2. En bas de page, sélectionnez l'icône calendrier"
+      "value": "Spreadsheet (Excel / CSV)"
     }
   ],
-  "outlookStep3": [
+  "next.views.AgendaShow.ExportModal.title": [
     {
       "type": 0,
-      "value": "3. Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\""
-    }
-  ],
-  "outlookStep4": [
-    {
-      "type": 0,
-      "value": "4. Sélectionnez \"S'abonner à partir du web\""
-    }
-  ],
-  "outlookStep5": [
-    {
-      "type": 0,
-      "value": "5. Collez le lien et sélectionnez \"Importer\""
+      "value": "Exporter"
     }
   ]
 }
