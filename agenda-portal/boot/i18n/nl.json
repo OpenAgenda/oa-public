@@ -1,0 +1,38 @@
+{
+  "attendanceMode": "Aanwezigheidsmodus",
+  "backToList": "Terug naar lijst",
+  "backToListPreview": "Bekijk alle evenementen",
+  "customFilters": "Aangepaste filters",
+  "filters": "Filters",
+  "searchInAgenda": "Zoek evenementen",
+  "previous": "Vorige",
+  "next": "Volgende",
+  "contribute": "Draag een evenement bij",
+  "powered": "Mogelijk gemaakt door OpenAgenda",
+  "export": "Exporteren/Downloaden",
+  "eventsTotal": "{total, plural, =0 {Geen {totalLabel} komen overeen met deze zoekopdracht} one {{total} {totalLabel}} other {{total} {totalLabelPlural}}}",
+  "onlineAccessLink": "Toegang tot online evenement",
+  "city": "Stad",
+  "keywords": "Trefwoorden",
+
+  "searchPlaceholder": "Zoeken",
+  "searchWhenMoving": "Zoeken wanneer ik de kaart verplaats",
+
+  "offline": "Offline",
+  "online": "Online",
+  "mixed": "Gemengd",
+  "passed": "Voorbij",
+  "current": "Actueel",
+  "upcoming": "Aankomend",
+
+  "trackConsent.informationText": "Deze agenda maakt gebruik van cookies van de Google Analytics trackingdienst. Ze geven de beheerders van de agenda inzicht in welke inhoud door bezoekers op websites wordt bekeken. Accepteer je ze?",
+  "trackConsent.moreInfoLink": "Klik hier voor meer informatie",
+  "trackConsent.decline": "Weigeren",
+  "trackConsent.accept": "Accepteren",
+
+  "showPastEvents": "Inclusief vorige {totalLabelPlural}",
+  "showUpcomingEvents": "Toon aankomende {totalLabelPlural}",
+
+  "totalLabel": "evenement",
+  "totalLabelPlural": "evenementen"
+}

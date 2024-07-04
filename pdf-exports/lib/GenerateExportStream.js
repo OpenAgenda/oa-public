@@ -32,6 +32,7 @@ export default async function GenerateExportStream(
   let pageNumber = 1;
   let simulateFooterHeight = null;
   let fontSize;
+  let eventStreamHasBeenClosed = false;
 
   if (little) {
     fontSize = 8;
@@ -52,9 +53,12 @@ export default async function GenerateExportStream(
       fontSize,
     },
   );
+
   simulateFooterHeight = simulateFooter.height;
 
-  eventStream.on('end', () => doc.end());
+  eventStream.on('end', () => {
+    eventStreamHasBeenClosed = true;
+  });
 
   doc.pipe(writeStream);
 
@@ -126,6 +130,10 @@ export default async function GenerateExportStream(
       cursor,
       { intl, lang, includeEventImages, little, medium, mode },
     );
+
+    if (eventStreamHasBeenClosed) {
+      doc.end();
+    }
 
     cursor.y += eventItemHeight;
   }
