@@ -12,7 +12,8 @@
         "devDependencies": [
           "test/**/*.?([m|c])js",
           "testconfig.sample.js",
-          "testconfig.js"
+          "testconfig.js",
+          "scripts/**/*.mjs"
         ]
       }
     ]
@@ -23,7 +24,7 @@
       "files": [
         "**/*.mjs",
         "pages/**/*.js",
-        "scripts/**/*.js"
+        "scripts/**/*.mjs"
       ],
       "parserOptions": {
         "sourceType": "module"
