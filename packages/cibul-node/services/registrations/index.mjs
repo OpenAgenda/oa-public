@@ -5,21 +5,6 @@ import processPassCultureApply from './utils/passCulture/processApply.mjs';
 
 const log = logs('services/registrations');
 
-/* const checkEvent = async (services, agendaUid, eventUid) => {
-  const { core } = services;
-  const event = await core.agendas(agendaUid).events.get(eventUid, { access: 'internal' });
-
-  if (!event) {
-    log('checkEvent', 'event not found');
-    return false;
-  }
-  if (event.draft) {
-    log('checkEvent', 'event is draft');
-    return false;
-  }
-  return true;
-}; */
-
 export function init(config, services) {
   if (!config.passCulture?.key) {
     log('warn', 'No passCultureKey provided, registrations is not initialized');
@@ -32,7 +17,11 @@ export function init(config, services) {
     imageBasePath: config.aws.bucket,
   });
 
-  const { enqueue, task, shutdown: shutdownTask } = ProcessPassPendingOffers({
+  const {
+    enqueue,
+    task,
+    shutdown: shutdownTask,
+  } = ProcessPassPendingOffers({
     services,
     registrations: svc,
     ...config.passCulture,
@@ -51,7 +40,7 @@ export function init(config, services) {
           enqueue,
           services,
         }),
-        isMarkedAsPending: data => data?.[0]?.response.isPending,
+        isMarkedAsPending: data => data?.[0]?.response?.isPending,
         isNew: data => !data[0]?.appliedAt,
         hasNonApplied: data => !!data.filter(item => !item.appliedAt).length,
         enqueuePending: enqueue,
