@@ -25,22 +25,19 @@ const updateEvent = require('./lib/updateEvent');
 const createUpdateActivity = require('./lib/createUpdateActivity');
 const sendUpdateEmail = require('./lib/sendUpdateEmail');
 
-const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
+const shouldHaveAgendaEvent = (operation, event) => operation !== 'create' && !event.draft;
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
-  const {
-    events,
-    agendaEvents,
-    eventSearch,
-    members,
-    aggregators,
-    custom,
-    legacy,
-    registrations,
-  } = core.services;
+  const { events, agendaEvents, eventSearch, members, aggregators, custom, legacy, registrations } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
-  log('info', 'update of event %s on agenda %s%s', eventUid, agendaUid, actingUserUid ? ` by user ${actingUserUid}` : ' (no acting user)');
+  log(
+    'info',
+    'update of event %s on agenda %s%s',
+    eventUid,
+    agendaUid,
+    actingUserUid ? ` by user ${actingUserUid}` : ' (no acting user)',
+  );
 
   const {
     draft = false,
@@ -74,10 +71,15 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true })
     : null;
 
-  const actingMember = actingUserUid ? await members.get({
-    agendaUid: agenda.uid,
-    userUid: actingUserUid,
-  }, { roleAsSlug: false }) : null;
+  const actingMember = actingUserUid
+    ? await members.get(
+      {
+        agendaUid: agenda.uid,
+        userUid: actingUserUid,
+      },
+      { roleAsSlug: false },
+    )
+    : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
     validateWithStoredData: !!partial,
@@ -104,16 +106,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   if (!authorizations.canEditEvent && containsEventData(data)) {
-    throw new Forbidden({
-      info: {
-        uid: event.uid,
+    throw new Forbidden(
+      {
+        info: {
+          uid: event.uid,
+        },
       },
-    }, 'not authorized to edit event');
+      'not authorized to edit event',
+    );
   }
 
-  const {
-    type: stateChangeType,
-  } = assignState(agenda, event, clean, data, {
+  const { type: stateChangeType } = assignState(agenda, event, clean, data, {
     authorizations,
     draft,
     currentState: agendaEvent?.state,
@@ -124,7 +127,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
     && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
 
-  if (hasNonPendingPassOfferWithNewItems) {
+  if (hasNewPassOffer || hasNonPendingPassOfferWithNewItems) {
     log.info('  There is a pass culture payload with event', { eventUid: event.uid });
     try {
       clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
@@ -155,17 +158,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(
-      custom,
-      agenda.formSchemaId,
-      eventUid,
-      clean.custom,
-      {
-        draft,
-        agendaId: agenda.id,
-        access,
-      },
-    );
+    const result = await setCustom(custom, agenda.formSchemaId, eventUid, clean.custom, {
+      draft,
+      agendaId: agenda.id,
+      access,
+    });
     if (result.success) {
       log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
       payload.setItem('custom.agenda', result.before, result.custom);
@@ -173,16 +170,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   if (agenda.network?.formSchemaId && clean.networkCustom) {
-    const result = await setCustom(
-      custom,
-      agenda.network.formSchemaId,
-      eventUid,
-      clean.networkCustom,
-      {
-        agendaId: agenda.id,
-        access,
-      },
-    );
+    const result = await setCustom(custom, agenda.network.formSchemaId, eventUid, clean.networkCustom, {
+      agendaId: agenda.id,
+      access,
+    });
 
     if (result.success) {
       log('updated network custom data %s.%s', agenda.network.formSchemaId, eventUid);
@@ -218,24 +209,28 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   // if event is not draft or was just undrafted, agendaEvent ref must be set
   if (clean.agendaEvent) {
     try {
-      const result = await agendaEvents(agendaUid).set(eventUid, ih(clean.agendaEvent, {
-        create: {
-          $set: { canEdit: true },
-        },
-      }), {
-        transferToLegacy: true,
-        aggregated,
-        context: {
+      const result = await agendaEvents(agendaUid).set(
+        eventUid,
+        ih(clean.agendaEvent, {
+          create: {
+            $set: { canEdit: true },
+          },
+        }),
+        {
+          transferToLegacy: true,
           aggregated,
-          legacy: false,
-          userUid: actingUserUid,
-          event: payload.getEvent('after'),
-          agenda,
-          stateChangeType,
-          batched,
+          context: {
+            aggregated,
+            legacy: false,
+            userUid: actingUserUid,
+            event: payload.getEvent('after'),
+            agenda,
+            stateChangeType,
+            batched,
+          },
+          decorate: ['sourceAgendas', 'user'],
         },
-        decorate: ['sourceAgendas', 'user'],
-      });
+      );
 
       if (result.set.userUid) {
         log('user linked to agendaEvent reference %s.%s: %s', agendaUid, eventUid, result.set.userUid);
@@ -256,13 +251,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   if (!draft) {
     try {
-      await legacy.tagsAndCustom.set(agenda.id, eventUid, [
-        agenda.formSchema,
-        _.get(agenda, 'network.formSchema'),
-      ], [
-        partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
-        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom,
-      ]);
+      await legacy.tagsAndCustom.set(
+        agenda.id,
+        eventUid,
+        [agenda.formSchema, _.get(agenda, 'network.formSchema')],
+        [
+          partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
+          partial && agenda.network && agenda.network.formSchemaId
+            ? await custom(agenda.network.formSchemaId).get(eventUid)
+            : clean.networkCustom,
+        ],
+      );
       log('set legacy tag & custom values');
     } catch (e) {
       log('error', 'failed to set legacy tags and custom data', e);
@@ -297,9 +296,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
   }
 
-  if (hasNewPassOffer && registrations.utils.passCulture.isMarkedAsPending(
-    response.event.registration.find(r => r.service === 'passCulture')?.data,
-  )) {
+  if (
+    hasNewPassOffer
+    && registrations.utils.passCulture.isMarkedAsPending(
+      response.event.registration.find(r => r.service === 'passCulture')?.data,
+    )
+  ) {
     registrations.utils.passCulture.enqueuePending({
       agendaUid,
       eventUid: response.event.uid,
