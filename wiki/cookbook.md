@@ -2,53 +2,53 @@
 
 ## Table des matières
 
- * GIT
- * Jelastic
-   * Portails agenda
-   * Cluster redis
- * Mails
- * Ghost
- * React
-   * Contexte
-   * Intl
-   * Intl dans React 'before hooks'
- * Crowdin & Labels
-   * Lorsqu'on ajoute des labels sources
-   * Lorsqu'on a traduit des labels sur crowdin
-   * Si on veut traduire des labels depuis les sources
-   * Si on veut ajouter de nouveaux labels dans sources
-   * Si on veut modifier des sources directement sur crowdin
-   * Si on a modifié le pack
- * Redis
- * Regex
- * Node
- * Yarn
-   * Publier une lib publique de manière isolée
-   * Patcher une lib publique de manière isolée
- * Structure d'un projet
- * Certificats
-   * En développement
-   * En production
-   * Les clients
- * Tests
-   * Configuration des tests
- * Erreurs
- * Ubuntu, serveur
-   * OpenSSL
-   * crontab
-   * Configuration d'une instance ec2 pour la prod
- * @openagenda/files
- * Refactos
-   * Enlever les `import React` dans les packages
-   * Intégration de NextJs
- * Scripts
-   * MCC
-     * Téléchargement des images d'un agenda
- * Histoires et notes
-   * La cache des portails
-   * Les tags vs les champs additionnels
-   * L'ancien export JSON
-   * Les événements liés
+- GIT
+- Jelastic
+  - Portails agenda
+  - Cluster redis
+- Mails
+- Ghost
+- React
+  - Contexte
+  - Intl
+  - Intl dans React 'before hooks'
+- Crowdin & Labels
+  - Lorsqu'on ajoute des labels sources
+  - Lorsqu'on a traduit des labels sur crowdin
+  - Si on veut traduire des labels depuis les sources
+  - Si on veut ajouter de nouveaux labels dans sources
+  - Si on veut modifier des sources directement sur crowdin
+  - Si on a modifié le pack
+- Redis
+- Regex
+- Node
+- Yarn
+  - Publier une lib publique de manière isolée
+  - Patcher une lib publique de manière isolée
+- Structure d'un projet
+- Certificats
+  - En développement
+  - En production
+  - Les clients
+- Tests
+  - Configuration des tests
+- Erreurs
+- Ubuntu, serveur
+  - OpenSSL
+  - crontab
+  - Configuration d'une instance ec2 pour la prod
+- @openagenda/files
+- Refactos
+  - Enlever les `import React` dans les packages
+  - Intégration de NextJs
+- Scripts
+  - MCC
+    - Téléchargement des images d'un agenda
+- Histoires et notes
+  - La cache des portails
+  - Les tags vs les champs additionnels
+  - L'ancien export JSON
+  - Les événements liés
 
 ## GIT
 
@@ -80,7 +80,7 @@ La marketplace Jelastic propose de déployer un cluster redis en quelques minute
 A propos du cluster redis sur Jelastic (Virtuozzo): https://www.virtuozzo.com/application-platform-docs/redis-cluster/
 A propos du fonctionnement du cluster Redis plus généralement: https://redis.io/docs/reference/cluster-spec/
 
-Une fois déployé, le mot de passe fourni permet la connexion depuis un autre environnement au cluster, en utilisant node-redis avec une configuration adaptée aux clusters: 
+Une fois déployé, le mot de passe fourni permet la connexion depuis un autre environnement au cluster, en utilisant node-redis avec une configuration adaptée aux clusters:
 
 ```
 import { createCluster } from 'redis';
@@ -115,11 +115,9 @@ import { createCluster } from 'redis';
 
 Une interface d'administration permet d'avoir une vue d'ensemble sur l'utilisation du cluster
 
-
 ### Avoir les droits admin sur un noeud
 
 https://www.infomaniak.com/fr/support/faq/2346/jelastic-cloud-lancer-des-commandes-avec-un-acces-root-sur-nimporte-quel-conteneur
-
 
 ## Mails
 
@@ -163,10 +161,7 @@ Dans l'app:
 
 ```js
 import React from 'react';
-import {
-  mergeLocales,
-  useLayoutData
-} from '@openagenda/react-shared';
+import { mergeLocales, useLayoutData } from '@openagenda/react-shared';
 
 // locales du package intégré
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
@@ -191,10 +186,7 @@ Si les props permettent d'ajouter ou modifier des labels il est préférable d'u
 
 ```js
 import React, { useMemo } from 'react';
-import {
-  mergeLocales,
-  useLayoutData
-} from '@openagenda/react-shared';
+import { mergeLocales, useLayoutData } from '@openagenda/react-shared';
 
 // locales du package intégré
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
@@ -205,14 +197,7 @@ import appLocales from '../locales-compiled';
 export default function MyComponent({ locales: userLocales }) {
   const { lang } = useLayoutData();
 
-  const locales = useMemo(
-    () => mergeLocales(
-      appLocales,
-      reactFiltersLocales,
-      userLocales || {}
-    ),
-    [userLocales]
-  );
+  const locales = useMemo(() => mergeLocales(appLocales, reactFiltersLocales, userLocales || {}), [userLocales]);
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -238,17 +223,15 @@ const locales = mergeLocales(appLocales, reactFiltersLocales);
 
 const lang = 'fr';
 
-import {
-  mergeLocales,
-  useLayoutData
-} from '@openagenda/react-shared';
+import { mergeLocales, useLayoutData } from '@openagenda/react-shared';
 
-export default Story => (
+export default (Story) => (
   <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
     <Story />
   </IntlProvider>
 );
 ```
+
 ### Intl dans React 'before hooks'
 
 L'utilisation d'hook tel useIntl() est impossible dans cette version de react.
@@ -337,7 +320,6 @@ CROWDIN_PROJECT_ID=316319 CROWDIN_PERSONAL_TOKEN=$CROWDIN_KEY crowdin download s
 
 On commie
 
-
 ### Si on a modifié le pack
 
 ## Redis
@@ -358,8 +340,8 @@ redis,configuration
 
 Utilitaires pour gérer des regex avec des routes express:
 
- * [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
- * [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
+- [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
+- [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
 
 ## Node
 
@@ -371,7 +353,7 @@ Pour mettre à jour nodeJs à la dernière version LTS:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
 **màj node**:
-nvm install 'lts/*' --reinstall-packages-from=node --latest-npm
+nvm install 'lts/\*' --reinstall-packages-from=node --latest-npm
 
 ## yarn
 
@@ -383,7 +365,7 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 ### Patcher une lib publique de manière isolée
 
-Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `NODE_ENV=production npm publish`ant le package localement.
+Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch`, en commitant les modifications, puis en `NODE_ENV=production yarn npm publish`ant le package localement.
 
 ## Structure d'un projet
 
@@ -456,11 +438,11 @@ L'autorité de certification doit être mise à jour lorsque sa date d'expiratio
 
 Commencer par faire un backup du certificat. Puis:
 
- * Génerer un csr: `openssl x509 -x509toreq -in ca.crt -signkey private/ca.key -out ca.csr`
+- Génerer un csr: `openssl x509 -x509toreq -in ca.crt -signkey private/ca.key -out ca.csr`
 
- * Vérifier le csr: `openssl req -noout -text -in ca.csr`
+- Vérifier le csr: `openssl req -noout -text -in ca.csr`
 
- * Générer un certificat utilisant la clé privée: `openssl x509 -req -days 365 -in ca.csr -signkey private/ca.key -out ca.crt`
+- Générer un certificat utilisant la clé privée: `openssl x509 -req -days 365 -in ca.csr -signkey private/ca.key -out ca.crt`
 
 Reste à placer ce nouveau certificat là ou il doit être déployé à la place de l'ancien et de recharger nginx.
 
@@ -472,9 +454,6 @@ C = FR,
 ST = Some-State,
 O = Open Agenda SAS,
 CN = openagenda.com
-
-
-
 
 ### Les clients
 
@@ -501,7 +480,7 @@ ES_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
 ES_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
 ```
 
-Le script `oa/docker/devinstaller/ssl/create_domain_certificates.sh /chemin/complet/vers/devinstaller/ssl es.local7`  peut être utilisé pour générer les certificats. Le fichier destination ne doit pas déjà exister sans quoi la procédure n'aboutira pas.
+Le script `oa/docker/devinstaller/ssl/create_domain_certificates.sh /chemin/complet/vers/devinstaller/ssl es.local7` peut être utilisé pour générer les certificats. Le fichier destination ne doit pas déjà exister sans quoi la procédure n'aboutira pas.
 
 Si nginx était déjà lancé, il faut l'arrêter `docker-compose stop nginx` puis le relancer `docker-compose up nginx` pour relancer la commmande générant le fichier es.conf dans le container.
 
@@ -539,14 +518,14 @@ https://gist.github.com/simov/cdbebe2d65644279db1323042fcf7624
 
 Pour une instance ec2 ubuntu 20.04:
 
- 1. `sudo apt-get update && sudo apt-get upgrade`
- 2. `sudo apt-get install npm nginx imagemagick libmagick++-dev libmagic-dev webp`
- 3. `sudo npm install forever -g`
- 4. Créer un dossier `www` sur la home
- 5. Lancer une mise en prod pour charger les fichiers nginx dans le dossier `www`
- 6. Créer un lien symbolique `cd /etc/nginx && sudo ln -s /home/ubuntu/www/nginx conf.d`
- 7. Ajouter les clés de connexion au cluster es7 dans .ssh -> es7.crt & es7.key
- 8. Créer un raccourci pour cibul-node: `ln -s /home/ubuntu/www/oa/packages/cibul-node cibul-node`
+1.  `sudo apt-get update && sudo apt-get upgrade`
+2.  `sudo apt-get install npm nginx imagemagick libmagick++-dev libmagic-dev webp`
+3.  `sudo npm install forever -g`
+4.  Créer un dossier `www` sur la home
+5.  Lancer une mise en prod pour charger les fichiers nginx dans le dossier `www`
+6.  Créer un lien symbolique `cd /etc/nginx && sudo ln -s /home/ubuntu/www/nginx conf.d`
+7.  Ajouter les clés de connexion au cluster es7 dans .ssh -> es7.crt & es7.key
+8.  Créer un raccourci pour cibul-node: `ln -s /home/ubuntu/www/oa/packages/cibul-node cibul-node`
 
 ## @openagenda/files
 
@@ -596,10 +575,7 @@ module.exports = {
       },
     ],
   ],
-  plugins: [
-    require.resolve('@loadable/babel-plugin'),
-    require.resolve('@emotion/babel-plugin'),
-  ],
+  plugins: [require.resolve('@loadable/babel-plugin'), require.resolve('@emotion/babel-plugin')],
   sourceType: 'unambiguous',
 };
 ```
@@ -608,31 +584,30 @@ module.exports = {
 
 Dans le `package.json`, la dépendence `@emotion/babel-preset-css-prop` doit être retirée, et la dépendence `"@emotion/babel-plugin": "^11.10.5"` ajoutée dans les `devDependencies`.
 
-
 ## Intégration de NextJs
 
 https://openagenda.com/next
 
 NextJS est désormais intégré au projet, directement dans le package `cibul-node`. Il tourne sur son process node et reçoit les requêtes du client et les faire suivre s'il ne doit pas les traiter. L'application dans son ensemble écoute trois ports:
 
- * 8901: le nouveau process NextJS 
- * 8902: les requêtes qui ne concernent pas NextJS sont transférées ici, elles sont traitées par le process historique
- * 8903: les requêtes API qui sont aussi traitées par le process historique
+- 8901: le nouveau process NextJS
+- 8902: les requêtes qui ne concernent pas NextJS sont transférées ici, elles sont traitées par le process historique
+- 8903: les requêtes API qui sont aussi traitées par le process historique
 
 En développement, les 2 process sont lancés via le scripts "start" ou "watch" qui se servent du package `concurrently`. En production, les 2 process sont gérés par `pm2` qui fonctionne en mode cluster: 2 core pour nextJs, 6 pour le serveur.
 
-Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger.  Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
+Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger. Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
 
 ## Scripts
 
 ### Pèle-Mèle
 
- * **Ajout d'un membre sur de multiples agendas**: le script est sur prodifier, dossier scripts/member-group-operations. Il faut lister les slugs dans slugs.txt séparés par des retours à la ligne, puis lancer le `add.js`. Ce script pourrait resync les inbox & activités de l'agenda pour le membre, il ne le fait pas. L'API permet de faire cette manip désormais. Une refacto serait utile pour que le script n'ait plus à se connecter à la DB.
- * **Identifier les événements non-agrégés parmis toutes les sources d'un agenda**: utile notamment pour les opérations nationales quand des différences de totaux sont constatés. `utils-scripts/packages/aggregators/identifyUnagreggatedEvents.js` appeler sur prodifier en définissant l'agenda à cibler avec une var d'environnement `AGENDA_UID`.
+- **Ajout d'un membre sur de multiples agendas**: le script est sur prodifier, dossier scripts/member-group-operations. Il faut lister les slugs dans slugs.txt séparés par des retours à la ligne, puis lancer le `add.js`. Ce script pourrait resync les inbox & activités de l'agenda pour le membre, il ne le fait pas. L'API permet de faire cette manip désormais. Une refacto serait utile pour que le script n'ait plus à se connecter à la DB.
+- **Identifier les événements non-agrégés parmis toutes les sources d'un agenda**: utile notamment pour les opérations nationales quand des différences de totaux sont constatés. `utils-scripts/packages/aggregators/identifyUnagreggatedEvents.js` appeler sur prodifier en définissant l'agenda à cibler avec une var d'environnement `AGENDA_UID`.
 
 ### MCC
 
- * [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier. Il est déployé sur prodifier.
+- [Téléchargement des images d'un agenda](https://bitbucket.org/openagenda/util-scripts/src/master/packages/download-agenda-images/run.js): Demandé par Guylène Fauq, permet de télécharger toutes les images d'un agenda dans un dossier. Il est déployé sur prodifier.
 
 ## Histoires et notes
 
@@ -649,7 +624,6 @@ Sans ça, les fichiers qui seront importés via une app react webpackifiée pour
 Le 07/03/2023
 
 Quand un `agenda-portal` va chercher un contenu à afficher en vue liste sur l'API, il met de coté une copie de ce qu'il lit de coté pendant 30 minutes. Si un visiteur vient voir la même page (même URL) sous ces 30 minutes, la copie épargne au portail un nouvel appel à l'API. Ceci est indépendant de l'activité sur OpenAgenda. Il peut arriver que le contenu de la liste évolue sous ces 30 minutes sur OpenAgenda, il ne sera alors répercuté sur le portail que lorsque la copie sera supprimée: au plus dans les prochaines 30 minutes. Nous pouvons réduire cette durée.
-
 
 ### Les tags vs les champs additionnels
 
@@ -698,8 +672,9 @@ Je viens de désactiver celui de Bordeaux tourisme: une exception s'affichait su
 La fonctionnalité permet d'ajouter des références d'autres événements d'un même agenda sur un événement donné. Ce n'est pas symétrique: une référence d'un événement A ajoutée à un événement B rend l'événment A visible sur les données de l'événement B. L'inverse n'est pas vrai.
 
 event-form
- * src/fields/references: définition du champ à placer dans le formulaire
- * src/components/References: composant qui se place dans le formulaire et qui permet l'ajout d'événements liés
+
+- src/fields/references: définition du champ à placer dans le formulaire
+- src/components/References: composant qui se place dans le formulaire et qui permet l'ajout d'événements liés
 
 A minima, pour activer la fonction il faut ajouter un champ sur sa config agenda ou réseau:
 
