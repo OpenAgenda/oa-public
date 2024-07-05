@@ -27,10 +27,7 @@ export function cleanTarget(dirty) {
 
 export async function isMailgunBounced(mailgunConfig, email) {
   const {
-    auth: {
-      domain,
-      apiKey,
-    },
+    auth: { domain, apiKey },
   } = mailgunConfig;
 
   try {
@@ -51,4 +48,8 @@ export async function isMailgunBounced(mailgunConfig, email) {
     }
   }
   return false;
+}
+
+export function ccIsDestinary({ mailsDomain }, { to, cc }) {
+  return to.address.split('@').pop() === mailsDomain && !!cc;
 }

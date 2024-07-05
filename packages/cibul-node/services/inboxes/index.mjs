@@ -2,9 +2,7 @@ import _ from 'lodash';
 import companion from '@uppy/companion';
 import inboxes from '@openagenda/inboxes';
 import inboxMw from '@openagenda/inboxes/dist/middleware.js';
-import logs from '@openagenda/logs';
 import inboxesLabels from '@openagenda/labels/inboxes/index.js';
-import config from '../../config/index.js';
 import filterAction from './filterAction.mjs';
 import getInboxesDetails from './getInboxesDetails.mjs';
 import getUsersDetails from './getUsersDetails.mjs';
@@ -13,21 +11,16 @@ import onInboxCreate from './onInboxCreate.mjs';
 import onMessageCreate from './onMessageCreate.mjs';
 import plugApp from './plugApp/index.mjs';
 
-const log = logs('services/inboxes');
+export async function init(config, services) {
+  const { queues, redis } = services;
 
-const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
-
-log.setConfig(loggerConfig);
-
-export async function init(c, services) {
   const {
-    queues,
-    redis,
-  } = services;
+    mails: { domain: mailsDomain },
+  } = config;
 
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
-    onMessageCreate: onMessageCreate.bind(null, services),
+    onMessageCreate: onMessageCreate.bind(null, { services, mailsDomain }),
     getInboxesDetails: getInboxesDetails.bind(null, services),
     onAction: onAction.bind(null, services),
     onInboxCreate,
@@ -38,7 +31,7 @@ export async function init(c, services) {
 
   const service = await inboxes(
     _.merge(
-      _.pick(c, [
+      _.pick(config, [
         'mysql',
         'knex',
         'redis',
@@ -52,7 +45,7 @@ export async function init(c, services) {
         'uppy',
       ]),
       {
-        logger: loggerConfig,
+        logger: config.getLogConfig('oa', 'inboxes'),
         migrations: {
           tableName: 'inboxes_migrations',
         },
@@ -83,7 +76,8 @@ export async function init(c, services) {
                 },
                 kind: 'default',
                 resolve: false,
-              }, {
+              },
+              {
                 code: 'removeTechnicalSupport',
                 label: {
                   fr: 'Retirer le support technique',
@@ -104,7 +98,8 @@ export async function init(c, services) {
                 },
                 kind: 'default',
                 resolve: false,
-              }, {
+              },
+              {
                 code: 'removeTechnicalSupport',
                 label: {
                   fr: 'Retirer le support technique',
@@ -126,7 +121,8 @@ export async function init(c, services) {
                 kind: 'primary',
                 confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
                 confirmationModalLabel: inboxesLabels.requestContributeAcceptModal,
-              }, {
+              },
+              {
                 code: 'refuse',
                 label: {
                   fr: 'Refuser la demande',
@@ -135,7 +131,8 @@ export async function init(c, services) {
                 kind: 'danger',
                 confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
                 confirmationModalLabel: inboxesLabels.requestContributeRefuseModal,
-              }, {
+              },
+              {
                 code: 'involveTechnicalSupport',
                 label: {
                   fr: 'Impliquer le support technique',
@@ -157,7 +154,8 @@ export async function init(c, services) {
                 kind: 'primary',
                 confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
                 confirmationModalLabel: inboxesLabels.editionRequestAcceptModal,
-              }, {
+              },
+              {
                 code: 'refuse',
                 label: {
                   fr: 'Refuser la demande',
@@ -197,27 +195,27 @@ export async function init(c, services) {
             ],
           },
         },
-        defaultImagePath: c.aws.defaultImagePath,
+        defaultImagePath: config.aws.defaultImagePath,
         mw: {
           limit: 20,
         },
         uppyCompanion: companion.app({
           s3: {
             getKey: ({ filename }) => filename,
-            key: c.aws.accessKeyId,
-            secret: c.aws.secretAccessKey,
-            bucket: c.aws.bucket,
-            region: c.aws.region,
+            key: config.aws.accessKeyId,
+            secret: config.aws.secretAccessKey,
+            bucket: config.aws.bucket,
+            region: config.aws.region,
             acl: 'public-read',
           },
           server: {
-            host: c.domain,
+            host: config.domain,
             protocol: 'https',
           },
-          secret: c.uppy.secret,
+          secret: config.uppy.secret,
           debug: false,
-          filePath: c.tmpFolderPath,
-          uploadUrls: [RegExp(`/^https:\\/\\/${c.domain}\\//`)],
+          filePath: config.tmpFolderPath,
+          uploadUrls: [RegExp(`/^https:\\/\\/${config.domain}\\//`)],
         }),
       },
     ),
@@ -226,12 +224,13 @@ export async function init(c, services) {
   await inboxMw.init(service);
 
   Object.assign(service, {
-    plugApp: plugApp.bind(null, c, services),
+    plugApp: plugApp.bind(null, config, services),
     task: () => queue.run(),
-    shutdown: (options = {}) => queue.stop({
-      remove: true,
-      clear: options.reset ?? false,
-    }),
+    shutdown: (options = {}) =>
+      queue.stop({
+        remove: true,
+        clear: options.reset ?? false,
+      }),
   });
 
   return service;

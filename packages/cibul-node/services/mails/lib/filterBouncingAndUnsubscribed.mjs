@@ -1,24 +1,27 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
-import { convertRuleArrayToObject, isMailgunBounced } from './utils.mjs';
+import { convertRuleArrayToObject, isMailgunBounced, ccIsDestinary } from './utils.mjs';
 
 export default async function filterBouncingAndUnsubscribed(services, config, params) {
+  const { unsubscriptions: unsubscriptionsSvc, users, abilities } = services;
+
   const {
-    unsubscriptions: unsubscriptionsSvc,
-    users,
-    abilities,
-  } = services;
+    mails: { domain: mailsDomain },
+  } = config;
 
   const log = logs('services/mails/filterBouncingAndUnsubscribed');
 
-  log('evaluating', JSON.stringify(params.template, null, 2));
+  const { unsubscriptions, address: email } = params[ccIsDestinary({ mailsDomain }, params) ? 'cc' : 'to'];
 
-  const { unsubscriptions } = params.to;
+  log('evaluating', {
+    template: params.template,
+    email,
+  });
+
   const abilityArgs = unsubscriptions?.length
     ? _.find(unsubscriptions, 'memberId') || unsubscriptions[unsubscriptions.length - 1]
     : null;
-  const email = params.to.address;
 
   if (!abilityArgs || !abilityArgs.rule) {
     log('  no ability has been found for unsubscriptions instructions %j', unsubscriptions);
@@ -42,15 +45,22 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
   });
 
   if (user) {
-    const sendEmail = await abilities.get('user', user.uid)
+    const sendEmail = await abilities
+      .get('user', user.uid)
       .then(ability => ability.can(ruleObj.action, ruleObj.subject, ruleObj.conditions, ruleObj.fields));
 
-    log('  an account exists for email, abilities svc is reference for filtering email', { email, userUid: user.uid, sendEmail });
+    log('  an account exists for email, abilities svc is reference for filtering email', {
+      email,
+      userUid: user.uid,
+      sendEmail,
+    });
     return sendEmail;
   }
 
   if (await unsubscriptionsSvc.registry.isRegistered(email)) {
-    log.info('  no account is associated with email but it is registered in the unsubscription registry. Filtering.', { email });
+    log.info('  no account is associated with email but it is registered in the unsubscription registry. Filtering.', {
+      email,
+    });
     return false;
   }
 
