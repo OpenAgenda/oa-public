@@ -7646,7 +7646,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.9.30, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.10.2, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -7659,7 +7659,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
@@ -8132,7 +8132,7 @@ __metadata:
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/member-apps": "npm:^2.1.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-layouts": "npm:^2.2.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/registration": "npm:^1.1.4"
@@ -9367,7 +9367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/polyfills@npm:^1.2.4, @openagenda/polyfills@workspace:public/polyfills":
+"@openagenda/polyfills@npm:^1.2.5, @openagenda/polyfills@workspace:public/polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:public/polyfills"
   dependencies:
@@ -9542,7 +9542,7 @@ __metadata:
     "@openagenda/legacy": "npm:^1.11.0"
     "@openagenda/member-apps": "npm:^2.1.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-layouts": "npm:^2.2.1"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/supervisor": "npm:^1.3.1"
@@ -19588,7 +19588,7 @@ __metadata:
     "@openagenda/agenda-events": "npm:^1.11.14"
     "@openagenda/agenda-locations": "npm:^2.1.2"
     "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-portal": "npm:^6.9.30"
+    "@openagenda/agenda-portal": "npm:^6.10.2"
     "@openagenda/agenda-schemas-app": "npm:^0.0.0"
     "@openagenda/agenda-search": "npm:^1.4.0"
     "@openagenda/agenda-settings": "npm:^1.4.0"
@@ -19632,7 +19632,7 @@ __metadata:
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/pdf": "npm:^0.1.6"
     "@openagenda/pdf-exports": "npm:^0.0.1"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/queues": "npm:^2.0.0"
     "@openagenda/react-integration-app": "npm:^1.6.1"
     "@openagenda/react-layouts": "npm:^2.2.1"
