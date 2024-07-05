@@ -54,3 +54,12 @@ export const Manual = () => `
 
   <script async src="/index.js" charset="utf-8"></script>
 `;
+
+export const BaseUrl = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <script async src="/index.js" charset="utf-8"></script>
+`;
