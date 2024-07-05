@@ -33,15 +33,18 @@ export default class EmbedLoader {
       const link = agendaBlockquote.querySelector('a');
       if (link) {
         const href = link.getAttribute('href');
-        const embedUrl = this.constructEmbedUrl(href);
+        const embedUrl = this.constructEmbedUrl(href, agendaBlockquote.dataset);
         const iframe = this.createIframe(embedUrl, href);
         this.loadedEmbeds.add(iframe);
 
         iframe.addEventListener('load', () => {
-          iframeResize({
-            license: '12ajjdewwwy-26rnhw2943-1s7g1u8ma0i',
-            checkOrigin: false,
-          }, iframe);
+          iframeResize(
+            {
+              license: '12ajjdewwwy-26rnhw2943-1s7g1u8ma0i',
+              checkOrigin: false,
+            },
+            iframe,
+          );
         });
 
         agendaBlockquote.parentNode.replaceChild(iframe, agendaBlockquote);
@@ -50,10 +53,22 @@ export default class EmbedLoader {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  constructEmbedUrl(href) {
+  constructEmbedUrl(href, dataset) {
     const url = new URL(href);
-    const slug = url.pathname.split('/').pop();
-    return `${url.origin}/embed/${slug}`;
+    const segments = url.pathname.split('/');
+    const agendaIndex = segments.indexOf('agendas');
+
+    if (agendaIndex !== -1) {
+      segments.splice(agendaIndex, 0, 'embed');
+    }
+
+    url.pathname = segments.join('/');
+
+    if (dataset.baseUrl) {
+      url.searchParams.set('baseUrl', dataset.baseUrl);
+    }
+
+    return url.toString();
   }
 
   createIframe(embedUrl, href) {
