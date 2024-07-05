@@ -19,7 +19,7 @@ function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLoc
 
   // field is multilingual
   if (Array.isArray(field.languages)) {
-    return (value?.[locale] ?? value?.[Object.keys(value)[0]]) ?? null;
+    return value?.[locale] ?? value?.[Object.keys(value)[0]] ?? null;
   }
 
   // handle all optioned types
@@ -66,9 +66,13 @@ export function formatAdditionalFieldData({ schema, event, locale, defaultLocale
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 
   return additionalFields.map(field => {
-    const value = event[field.field];
+    let value = event[field.field];
 
-    const formattedValue = formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLocale });
+    value = Array.isArray(value) ? value : [value];
+
+    const formattedValue = value
+      .filter(v => !field.options || field.options.some(o => o.id === v))
+      .map(v => formatValue(field, v, { locale, defaultLocale, timezone, dateFnsLocale }));
     const label = getLocaleValue(field.label, locale, [defaultLocale, FALLBACK_LOCALE]);
 
     return {
@@ -77,7 +81,7 @@ export function formatAdditionalFieldData({ schema, event, locale, defaultLocale
       label,
       fieldType: field.fieldType,
       isOptioned: !!field.options,
-      value: formattedValue,
+      value: formattedValue.length > 0 ? formattedValue[0] : null,
       isRestricted: !!field.read,
       raw: value,
     };
