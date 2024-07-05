@@ -66,9 +66,7 @@ export function formatAdditionalFieldData({ schema, event, locale, defaultLocale
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 
   return additionalFields.map(field => {
-    let value = event[field.field];
-
-    value = Array.isArray(value) ? value : [value];
+    const value = [].concat(event[field.field]);
 
     const formattedValue = value
       .filter(v => !field.options || field.options.some(o => o.id === v))
