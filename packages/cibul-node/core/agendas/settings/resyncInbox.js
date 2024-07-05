@@ -3,11 +3,11 @@
 module.exports = async (services, agendaUid) => {
   const {
     agendas,
-    inboxes
+    inboxes,
   } = services;
 
   const {
-    syncAgenda: syncAgendaInbox
+    syncAgenda: syncAgendaInbox,
   } = inboxes.tasks.sync;
 
   const agenda = await agendas.get({ uid: agendaUid }, { private: null, internal: true });

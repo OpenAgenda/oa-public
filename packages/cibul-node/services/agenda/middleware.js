@@ -30,7 +30,7 @@ module.exports = function (agendaService) {
 
 function _hasPublishedEvents(req, agenda, cb) {
   const {
-    eventSearch
+    eventSearch,
   } = req.app.services;
 
   eventSearch.agendas(agenda).search({}, { size: 0 }).then(({ total }) => {
@@ -40,13 +40,13 @@ function _hasPublishedEvents(req, agenda, cb) {
 
 function _loadIsPassed(req, agenda, cb) {
   const {
-    eventSearch
+    eventSearch,
   } = req.app.services;
 
   eventSearch.agendas(agenda).search({
     timings: {
-      gte: new Date()
-    }
+      gte: new Date(),
+    },
   }, { size: 0 }).then(({ total }) => {
     agenda.passed = total === 0;
     cb();
@@ -60,7 +60,7 @@ function _loadIsPassed(req, agenda, cb) {
 function loadAgenda(paramName, fieldName, options) {
   const loadOptions = {
     name: 'agenda',
-    required: true
+    required: true,
   }; // options used for function, not for get
 
   if (arguments.length === 2 && typeof fieldName === 'object') {
@@ -118,7 +118,6 @@ function loadAgenda(paramName, fieldName, options) {
 
           next();
         });
-
       });
     });
   };
@@ -139,13 +138,13 @@ function loadAdminLayout(req, res, next) {
           title: req.agenda.title,
           description: req.agenda.description,
           url: req.agenda.url,
-          image: req.agenda.getImage ? req.agenda.getImage(false) : req.agenda.image
+          image: req.agenda.getImage ? req.agenda.getImage(false) : req.agenda.image,
         },
         bottom: {
           scriptSources: [
-            '/js/verifiedLocationsCounter.js'
-          ]
-        }
+            '/js/verifiedLocationsCounter.js',
+          ],
+        },
       };
 
       wcb();
@@ -194,7 +193,7 @@ function loadAdminLayout(req, res, next) {
               res: tab.res ? tab.res.replace(':slug', req.agenda.slug) : null,
               badge: badge || undefined,
               label,
-              call: credentials.includes(tab.requiredCred) ? null : tab.call
+              call: credentials.includes(tab.requiredCred) ? null : tab.call,
             });
           });
 
@@ -233,7 +232,7 @@ function formatTemplateData(req, res, next) {
     url: req.agenda.url,
     image: req.agenda.getImage(false),
     passed: req.agenda.passed,
-    uri: 'agendaShow'
+    uri: 'agendaShow',
   };
 
   req.templateData.importUri = req.genUrl('agendaActionShow', { slug: req.agenda.slug });
@@ -259,14 +258,14 @@ function searchEvents(limit, showAll) {
     req.agenda.search(req.query.oaq, {
       limit: req.limit,
       offset: req.offset,
-      showAll
+      showAll,
     }, (err, data) => {
       if (err) {
         return next({
           message: 'invalid query',
           url: req.originalUrl,
           query: req.query.oaq,
-          elasticsearch: err
+          elasticsearch: err,
         });
       }
 
@@ -301,7 +300,7 @@ function decorateEvents(includePrivateData) {
 
     svc.exports.decorateEvents(req.agenda, instanciated, req.formatted, {
       includePrivateData: !!includePrivateData,
-      lang: false
+      lang: false,
     }, next);
   };
 }
@@ -313,7 +312,7 @@ function decorateEvent(includePrivateData) {
       includePrivateData,
       lang: req.lang,
       loadTagSet: true,
-      multiLang: false
+      multiLang: false,
     }, next);
   };
 }

@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = (services, networkUid) => services.agendas.list({
-  networkUid
+  networkUid,
 }, 0, 1000).then(r => r.agendas);

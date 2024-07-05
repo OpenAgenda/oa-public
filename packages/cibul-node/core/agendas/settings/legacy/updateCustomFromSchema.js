@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const generateCustomSet = require('@openagenda/legacy/tagsAndCustom').utils.generateCustomSet;
+const { generateCustomSet } = require('@openagenda/legacy/tagsAndCustom').utils;
 const log = require('@openagenda/logs')('core/agendas/settings/legacy/updateCustom');
 
 const getAgenda = require('../../utils/getAgenda');
@@ -13,14 +13,14 @@ const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
 
 module.exports = async (core, agendaOrUid, force = false) => {
   const {
-    services
+    services,
   } = core;
 
   const config = core.getConfig();
 
   const {
     formSchemas,
-    legacy
+    legacy,
   } = services;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
@@ -30,46 +30,48 @@ module.exports = async (core, agendaOrUid, force = false) => {
   // get the merged one.
   const schema = await getMergedSchema(services, agenda);
 
-  if (!schema) return {
-    message: `No form schema was found for agenda ${agenda.uid}`
-  };
+  if (!schema) {
+    return {
+      message: `No form schema was found for agenda ${agenda.uid}`,
+    };
+  }
 
   const {
     customFields,
-    messages
+    messages,
   } = generateCustomSet(schema);
 
   const {
-    id, store
+    id, store,
   } = await config.knex('review')
-    .first([ 'id', 'store' ])
+    .first(['id', 'store'])
     .where('uid', agenda.uid);
 
   const parsedStore = JSON.parse(store) || {};
 
   if (!force && _.get(parsedStore, 'customFields', []).length) {
     return {
-      message: 'custom fields already exist for agenda. ?force to force operation'
-    }
+      message: 'custom fields already exist for agenda. ?force to force operation',
+    };
   }
 
   parsedStore.customFields = customFields;
 
   await config.knex('review').update({
-    store: JSON.stringify(parsedStore)
+    store: JSON.stringify(parsedStore),
   }).where('uid', agenda.uid);
 
   messages.push('generated customFields');
 
   const res = {
     messages,
-    customFields
+    customFields,
   };
 
   if (customFields.length) {
     const {
       message: schemaUpdateMessage,
-      schema: updatedSchema
+      schema: updatedSchema,
     } = await setSchemaFieldOrigins(services, agenda, customFields.map(f => f.name), 'custom');
 
     res.messages.push(schemaUpdateMessage);
@@ -78,4 +80,4 @@ module.exports = async (core, agendaOrUid, force = false) => {
   }
 
   return res;
-}
+};

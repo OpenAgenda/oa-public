@@ -4,14 +4,14 @@ const { NotFound } = require('@openagenda/verror');
 
 module.exports = async (core, networkUid, options = {}) => {
   const {
-    networks
+    networks,
   } = core.services;
 
   const {
-    throwNotFound
+    throwNotFound,
   } = {
     throwNotFound: false,
-    ...options
+    ...options,
   };
 
   const network = await networks.get(networkUid);

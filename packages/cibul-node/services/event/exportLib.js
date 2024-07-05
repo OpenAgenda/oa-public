@@ -1,90 +1,84 @@
-"use strict";
+'use strict';
 
-const pickEventImage = require( './lib/pickImage' );
+const pickEventImage = require('./lib/pickImage');
 
-const log = require( '@openagenda/logs' )( 'services/event/exportLib' );
-const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
+const log = require('@openagenda/logs')('services/event/exportLib');
 
 const linkValidator = require('@openagenda/validators/link')();
 
-const toUTC = str => (new Date(str)).toJSON();
+const toUTC = str => new Date(str).toJSON();
 
-const _ = require( 'lodash' ),
+const _ = require('lodash');
 
-  async = require( 'async' ),
+const async = require('async');
 
-  moment = require( 'moment-timezone' ),
+const moment = require('moment-timezone');
 
-  registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues,
+const registration = require('@openagenda/registration/src/validate').getTypesAndValues;
 
-  config = require( '../../config' ),
+const config = require('../../config');
+const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
 
-  legacyLocationFieldsMap = {
-    conditions: 'pricingInfo',
-    registrationUrl: 'ticketLink',
-    locationName: 'name',
-    locationUid: 'uid',
-    address: 'address',
-    postalCode: 'postcode',
-    city: 'city',
-    district: 'district',
-    department: 'department',
-    region: 'region',
-    latitude: 'latitude',
-    longitude: 'longitude',
-    timings: 'timings'
-  },
+const legacyLocationFieldsMap = {
+  conditions: 'pricingInfo',
+  registrationUrl: 'ticketLink',
+  locationName: 'name',
+  locationUid: 'uid',
+  address: 'address',
+  postalCode: 'postcode',
+  city: 'city',
+  district: 'district',
+  department: 'department',
+  region: 'region',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  timings: 'timings',
+};
 
-  locationFieldsMap = {
-    uid : 'uid',
-    name : 'name',
-    slug : 'slug',
-    address : 'address',
-    image: 'image',
-    imageCredits: 'imageCredits',
-    postalCode : 'postcode',
-    city: 'city',
-    district: 'district',
-    department: 'department',
-    region: 'region',
-    latitude: 'latitude',
-    longitude: 'longitude',
-    description: 'description',
-    access: 'access',
-    countryCode: 'countryCode',
-    website: 'website',
-    email: 'email',
-    links: 'links',
-    insee: 'insee',
-    phone: 'phone',
-    tags: 'tags',
-    timezone: 'timezone',
-    updatedAt: 'updatedAt',
-    extId: 'extId'
-  }
+const locationFieldsMap = {
+  uid: 'uid',
+  name: 'name',
+  slug: 'slug',
+  address: 'address',
+  image: 'image',
+  imageCredits: 'imageCredits',
+  postalCode: 'postcode',
+  city: 'city',
+  district: 'district',
+  department: 'department',
+  region: 'region',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  description: 'description',
+  access: 'access',
+  countryCode: 'countryCode',
+  website: 'website',
+  email: 'email',
+  links: 'links',
+  insee: 'insee',
+  phone: 'phone',
+  tags: 'tags',
+  timezone: 'timezone',
+  updatedAt: 'updatedAt',
+  extId: 'extId',
+};
 
 let svc;
 
 module.exports = service => {
-
   svc = service;
 
   return {
     cleanEvents,
-    clean: cleanEvent
-  }
+    clean: cleanEvent,
+  };
+};
 
-}
-
-
-function cleanEvent(services, eInst, options, cb ) {
-
-  if ( arguments.length === 2 ) {
-
+function cleanEvent(services, eInst, options, cb) {
+  if (arguments.length === 2) {
     cb = options;
 
     options = {};
-
   }
 
   const { genUrl } = services;
@@ -92,9 +86,9 @@ function cleanEvent(services, eInst, options, cb ) {
   let dateRange;
 
   try {
-    dateRange = eInst.getDateRange( true );
-  } catch ( e ) {
-    log( 'error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e );
+    dateRange = eInst.getDateRange(true);
+  } catch (e) {
+    log('error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e);
   }
 
   const OEmbedLinks = eInst.getLinks();
@@ -102,16 +96,16 @@ function cleanEvent(services, eInst, options, cb ) {
   const c = {
     uid: eInst.uid,
     slug: eInst.slug,
-    canonicalUrl: genUrl( 'eventShow', { eventSlug: eInst.slug }, { protocol: 'https://' } ),
+    canonicalUrl: genUrl('eventShow', { eventSlug: eInst.slug }, { protocol: 'https://' }),
     title: eInst.title,
     description: eInst.description,
     longDescription: eInst.freeText || {},
-    keywords: _extractKeywords( eInst ),
+    keywords: _extractKeywords(eInst),
     html: getLongDescriptionHTML({ services }, eInst.freeText || {}, options.includeEmbedded ? OEmbedLinks : null),
     longDescriptionLinks: OEmbedLinks,
     image: eInst.getImage(),
-    thumbnail: pickEventImage( config, eInst, 'thumbnail' ),
-    originalImage: pickEventImage( config, eInst, 'full' ),
+    thumbnail: pickEventImage(config, eInst, 'thumbnail'),
+    originalImage: pickEventImage(config, eInst, 'full'),
     age: eInst.getAge(),
     accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
@@ -121,161 +115,124 @@ function cleanEvent(services, eInst, options, cb ) {
       en: eInst.getRange('en'),
       de: eInst.getRange('de'),
       es: eInst.getRange('es'),
-      it: eInst.getRange('it')
+      it: eInst.getRange('it'),
     },
     location: null,
     attendanceMode: eInst.attendanceMode,
     onlineAccessLink: eInst.onlineAccessLink || null,
-    status: eInst.status || 1
+    status: eInst.status || 1,
   };
 
-  const l = eInst.locations.length ? eInst.locations[ 0 ] : false;
+  const l = eInst.locations.length ? eInst.locations[0] : false;
 
-  if ( c.image ) {
-
+  if (c.image) {
     c.imageCredits = eInst.imageCredits || null;
-
   }
 
-  if ( eInst.origin ) {
-
+  if (eInst.origin) {
     c.origin = eInst.origin;
 
-    c.origin.oaUrl =  genUrl( 'agendaRedirect', { uid : c.origin.uid }, { protocol: 'https://' } );
-
+    c.origin.oaUrl = genUrl('agendaRedirect', { uid: c.origin.uid }, { protocol: 'https://' });
   }
 
-  if ( l && l.uid ) {
-
-    _inject( c, l, legacyLocationFieldsMap );
+  if (l && l.uid) {
+    _inject(c, l, legacyLocationFieldsMap);
 
     c.location = {};
 
-    _inject( c.location, l, locationFieldsMap );
+    _inject(c.location, l, locationFieldsMap);
 
-    if ( c.location.image && c.location.image.indexOf( '//' ) == -1 ) {
-
-      c.location.image = config.aws.imageBucketPath.replace( 'https:', '' ) + c.location.image;
-
+    if (c.location.image && c.location.image.indexOf('//') == -1) {
+      c.location.image = config.aws.imageBucketPath.replace('https:', '') + c.location.image;
     }
-
   }
 
-  c.registration = registration( c.registrationUrl );
+  c.registration = registration(c.registrationUrl);
   c.registrationUrl = ((c.registration || []).filter(v => v.type === 'link').pop() || { value: null }).value;
 
-  let timezone = eInst.getLocationDetails().timezone;
+  const { timezone } = eInst.getLocationDetails();
 
-  eInst.getTimings( ( err, timings ) => {
+  eInst.getTimings((err, timings) => {
+    if (err) return cb(err);
 
-    if ( err ) return cb( err );
+    let tFirst; let
+      tLast;
 
-    let tFirst, tLast;
-
-    _.extend( c, {
+    _.extend(c, {
       firstDate: null,
       firstTimeStart: null,
       firstTimeEnd: null,
       lastDate: null,
       lastTimeStart: null,
-      lastTimeEnd: null
-    } );
+      lastTimeEnd: null,
+    });
 
-    if ( timings.length ) {
-
+    if (timings.length) {
       tFirst = {
-        start: new Date( timings[ 0 ].start ),
-        end: new Date( timings[ 0 ].end )
+        start: new Date(timings[0].start),
+        end: new Date(timings[0].end),
       };
 
       tLast = {
-        start: new Date( timings[ timings.length - 1 ].start ),
-        end: new Date( timings[ timings.length - 1 ].end )
+        start: new Date(timings[timings.length - 1].start),
+        end: new Date(timings[timings.length - 1].end),
       };
 
       _.extend(c, {
         timings: timings.map(t => ({
           start: toUTC(t.start),
-          end: toUTC(t.end)
+          end: toUTC(t.end),
         })),
         firstDate: moment.tz(tFirst.start, timezone).format('YYYY-MM-DD'),
-        firstTimeStart: moment.tz( tFirst.start, timezone ).format( 'HH:mm' ),
-        firstTimeEnd: moment.tz( tFirst.end, timezone ).format( 'HH:mm' ),
+        firstTimeStart: moment.tz(tFirst.start, timezone).format('HH:mm'),
+        firstTimeEnd: moment.tz(tFirst.end, timezone).format('HH:mm'),
         lastDate: moment.tz(tLast.start, timezone).format('YYYY-MM-DD'),
-        lastTimeStart: moment.tz( tLast.start, timezone ).format( 'HH:mm' ),
-        lastTimeEnd: moment.tz( tLast.end, timezone ).format( 'HH:mm' )
+        lastTimeStart: moment.tz(tLast.start, timezone).format('HH:mm'),
+        lastTimeEnd: moment.tz(tLast.end, timezone).format('HH:mm'),
       });
-
     }
 
-    cb( null, c );
-
+    cb(null, c);
   });
-
 }
 
+function _inject(c, l, map) {
+  for (const f in map) {
+    c[f] = null;
 
-function _inject( c, l, map ) {
-
-  for( var f in map ) {
-
-    c[ f ] = null;
-
-    if ( l[ map[ f ] ] ) {
-
-      c[ f ] = l[ map[ f ] ];
-
+    if (l[map[f]]) {
+      c[f] = l[map[f]];
     }
-
   }
-
 }
 
-
-function cleanEvents( services, events, options, cb ) {
-
-  if ( arguments.length === 2 ) {
-
+function cleanEvents(services, events, options, cb) {
+  if (arguments.length === 2) {
     cb = options;
     options = {};
-
   }
 
-  async.map( events, function( e, mcb ) {
-
-    cleanEvent( services, svc.instanciate( e ), options, mcb );
-
-  }, cb );
-
+  async.map(events, (e, mcb) => {
+    cleanEvent(services, svc.instanciate(e), options, mcb);
+  }, cb);
 }
 
-
-
-function _fZ( n ) {
-
-  return (n>9?'':'0') + n;
-
+function _fZ(n) {
+  return (n > 9 ? '' : '0') + n;
 }
 
-function _extractKeywords( e ) {
+function _extractKeywords(e) {
+  if (!e.tags) return e.tags;
 
-  if ( !e.tags ) return e.tags;
-
-  let keywords = {};
+  const keywords = {};
 
   try {
-
-    Object.keys( e.tags ).forEach( l => {
-
-      keywords[ l ] = e.tags[ l ] ? e.tags[ l ].split( ',' ).map( k => k.trim() ).filter( k => k.length ) : [];
-
-    } );
-
-  } catch( e ) {}
-
+    Object.keys(e.tags).forEach(l => {
+      keywords[l] = e.tags[l] ? e.tags[l].split(',').map(k => k.trim()).filter(k => k.length) : [];
+    });
+  } catch (e) {}
 
   return keywords;
-
 }
 
 function isLink(v) {

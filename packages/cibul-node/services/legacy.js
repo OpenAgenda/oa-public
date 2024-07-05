@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const ControlData = require('@openagenda/legacy/controlData');
 const Embeds = require('@openagenda/legacy/embeds');
 const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
@@ -17,16 +17,16 @@ module.exports.init = (config, services) => {
     knex,
     redis,
     queues: Queues,
-    agendas
+    agendas,
   } = services;
 
   const interfaces = {
     getAgendaId: agendaUid => agendas.get({
-      uid: agendaUid
+      uid: agendaUid,
     }, {
       internal: true,
-      private: null
-    }).then(a => a?.id)
+      private: null,
+    }).then(a => a?.id),
   };
 
   ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
@@ -37,13 +37,13 @@ module.exports.init = (config, services) => {
     knex,
     redis,
     prefix: 'agendaControlData:',
-    imagePath: config.aws.imageBucketPath
+    imagePath: config.aws.imageBucketPath,
   }));
 
   Object.assign(module.exports.tagsAndCustom, TagsAndCustom({
     knex,
     queue: Queues('legacyTagsAndCustom'),
-    interfaces
+    interfaces,
   }));
 
   module.exports.getTagSet = GetTagSet({ knex });
@@ -55,8 +55,8 @@ module.exports.init = (config, services) => {
     defaultTemplates: {
       eventitem: fs.readFileSync(`${__dirname}/embed/templates/eventItem.tblr`, 'utf-8'),
       event: fs.readFileSync(`${__dirname}/embed/templates/event.tblr`, 'utf-8'),
-      header: fs.readFileSync(`${__dirname}/embed/templates/header.tblr`, 'utf-8')
-    }
+      header: fs.readFileSync(`${__dirname}/embed/templates/header.tblr`, 'utf-8'),
+    },
   });
 
   return module.exports;

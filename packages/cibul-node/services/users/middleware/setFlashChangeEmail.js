@@ -12,7 +12,7 @@ module.exports = () => (req, res, next) => {
     sessions.setFlash(
       req,
       res,
-      getLabels(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang)
+      getLabels(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang),
     );
 
     return res.redirect('/home');

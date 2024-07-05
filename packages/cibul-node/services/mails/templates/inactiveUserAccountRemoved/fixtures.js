@@ -10,5 +10,5 @@ module.exports = {
     width: '100px',
   },
   link: 'https://d.openagenda.com/signin',
-  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
 };

@@ -6,11 +6,11 @@ const log = require('@openagenda/logs')('services/members/activities');
 const activities = require('../../activities');
 
 function addMemberCreate({
-  user, member, agenda, senderUser, context
+  user, member, agenda, senderUser, context,
 }) {
   return activities.addActivity({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }, {
     actor: `user:${senderUser.uid}`,
     verb: 'agenda.addMember',
@@ -20,19 +20,19 @@ function addMemberCreate({
       labels: {
         actor: context.sender.memberName || senderUser.fullName,
         object: _.get(member, 'custom.contactName') || user.fullName,
-        target: agenda.title
+        target: agenda.title,
       },
-      role: member.role
-    }
+      role: member.role,
+    },
   });
 }
 
 function addMemberRemove({
-  user, member, agenda, userMember, memberUser
+  user, member, agenda, userMember, memberUser,
 }) {
   return activities.addActivity({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }, {
     actor: `user:${user.uid}`, // user removing
     verb: 'agenda.removeMember',
@@ -42,39 +42,39 @@ function addMemberRemove({
       labels: {
         actor: userMember.custom.contactName || user.fullName, // member removing
         object: member.custom.contactName || memberUser.fullName, // member that was removed
-        target: agenda.title
+        target: agenda.title,
       },
-      role: member.role
-    }
+      role: member.role,
+    },
   });
 }
 
 async function addMemberRoleChange({
-  user, before, member, agenda, context, senderUser
+  user, before, member, agenda, context, senderUser,
 }) {
   const userFeed = activities.feed({
     entityType: 'user',
-    entityUid: user.uid
+    entityUid: user.uid,
   });
 
   const agendaFeed = activities.feed({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   });
 
   await userFeed.unfollow({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   });
 
   await userFeed.follow({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }, { credential: member.role });
 
   await activities.addActivity({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }, {
     actor: `user:${senderUser.uid}`,
     verb: 'agenda.setMemberRole',
@@ -84,20 +84,20 @@ async function addMemberRoleChange({
       labels: {
         actor: context.sender.memberName || senderUser.fullName,
         object: member.custom.contactName || user.fullName,
-        target: agenda.title
+        target: agenda.title,
       },
       beforeRole: before.role,
-      role: member.role
-    }
+      role: member.role,
+    },
   });
 }
 
 function addMemberAcceptInvitation({
-  agenda, user, senderUser, member, context
+  agenda, user, senderUser, member, context,
 }) {
   return activities.feed({
     entityType: 'agenda',
-    entityUid: agenda.uid
+    entityUid: agenda.uid,
   }).activities.add({
     actor: `user:${user.uid}`,
     verb: 'agenda.acceptInvitation',
@@ -107,10 +107,10 @@ function addMemberAcceptInvitation({
       labels: {
         actor: member.custom.contactName || user.fullName,
         object: context.sender.memberName || senderUser.fullName,
-        target: agenda.title
+        target: agenda.title,
       },
-      role: member.role
-    }
+      role: member.role,
+    },
   });
 }
 
@@ -121,7 +121,7 @@ function task(queue) {
     addMemberRemove,
     addMemberCreate,
     addMemberRoleChange,
-    addMemberAcceptInvitation
+    addMemberAcceptInvitation,
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -132,5 +132,5 @@ function task(queue) {
 }
 
 module.exports = ({ queue }) => ({
-  task: task.bind(null, queue)
+  task: task.bind(null, queue),
 });

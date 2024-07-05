@@ -2,89 +2,74 @@
  * simple es library
  */
 
-var config,
+let config;
 
-http = require( 'http' ),
+const http = require('node:http');
 
-lib = require( '../../lib/lib' );
+const lib = require('../../lib/lib');
 
-module.exports = function( cfg ) {
-
+module.exports = function (cfg) {
   config = cfg;
 
   return {
-    query: query
-  }
+    query,
+  };
+};
 
-}
+function query(type, dsl, cb) {
+  let endPoint; let
+    method;
 
-function query( type, dsl, cb ) {
-
-  var endPoint, method;
-
-  if ( !cb ) {
-
+  if (!cb) {
     cb = dsl;
 
     dsl = {};
-
   }
 
-  endPoint = type.indexOf( '/' ) == -1 ? type + '/_search' : type,
+  endPoint = type.indexOf('/') == -1 ? `${type}/_search` : type,
 
-  method = lib.size( dsl ) ? 'post' : 'get';
+  method = lib.size(dsl) ? 'post' : 'get';
 
-  _request( method, '/' + config.indexName + '/' + endPoint, dsl, cb );
-
+  _request(method, `/${config.indexName}/${endPoint}`, dsl, cb);
 }
 
-function _request( method, path, data, cb ) {
+function _request(method, path, data, cb) {
+  const clean = typeof data !== 'string' ? JSON.stringify(data) : data;
 
-  var clean = typeof data !== 'string' ? JSON.stringify( data ) : data,
-
-  req = http.request({
+  const req = http.request({
     host: config.host,
     port: config.port,
-    path: path,
-    method: method,
+    path,
+    method,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': clean ? Buffer.byteLength( clean ) : 0
-    }
-  }, _handleResponse( cb ) );
+      'Content-Length': clean ? Buffer.byteLength(clean) : 0,
+    },
+  }, _handleResponse(cb));
 
-  req.write( clean );
+  req.write(clean);
 
   req.end();
-
 }
 
-function _handleResponse( cb ) {
+function _handleResponse(cb) {
+  return function (res) {
+    const response = [];
 
-  return function( res ) {
+    res.setEncoding('utf8');
 
-    var response = [];
-
-    res.setEncoding( 'utf8' );
-
-    res.on( 'data', function ( chunk ) {
-
-      response.push( chunk );
-
+    res.on('data', chunk => {
+      response.push(chunk);
     });
 
-    res.on( 'end', function() {
+    res.on('end', () => {
+      let result = {};
 
-      var result = {};
+      if (response.length) result = JSON.parse(response.join(''));
 
-      if ( response.length ) result = JSON.parse( response.join('') );
+      result.statusCode = res.statusCode;
 
-      result.statusCode = res.statusCode; 
-
-      cb( result.errors || result.error || null, result );
-
+      cb(result.errors || result.error || null, result);
     });
-
   };
-
 }

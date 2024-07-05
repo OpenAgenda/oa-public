@@ -1,6 +1,6 @@
 'use strict';
 
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const express = require('express');
 const VError = require('@openagenda/verror');
@@ -8,7 +8,7 @@ const VError = require('@openagenda/verror');
 async function saveExpiration(delay, req, res) {
   const {
     sanitizedUrl,
-    ttl
+    ttl,
   } = req.cache;
 
   const cacheTtl = await ttl(sanitizedUrl);
@@ -35,7 +35,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       sanitizedUrl,
       get: promisify(simpleCache(namespace, identifier).get),
       set: promisify(simpleCache(namespace, identifier).set),
-      ttl: promisify(simpleCache(namespace, identifier).ttl)
+      ttl: promisify(simpleCache(namespace, identifier).ttl),
     };
 
     try {
@@ -44,7 +44,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       if (cached) {
         req.log.info({
           cached: `${namespace}:${identifier}`,
-          message: 'cached response'
+          message: 'cached response',
         });
 
         try {
@@ -63,7 +63,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       req.log.error({
         cached: `${namespace}:${identifier}`,
         error: e,
-        message: 'caching error'
+        message: 'caching error',
       });
 
       next(e);
@@ -80,7 +80,7 @@ function saveToCache(namespace, delay) {
     const {
       identifier,
       sanitizedUrl,
-      set
+      set,
     } = req.cache;
 
     try {
@@ -88,7 +88,7 @@ function saveToCache(namespace, delay) {
 
       req.log.info({
         cached: `${namespace}:${identifier}`,
-        message: 'caching successful'
+        message: 'caching successful',
       });
 
       await saveExpiration(delay, req, res);
@@ -98,12 +98,12 @@ function saveToCache(namespace, delay) {
       req.log.error({
         cached: `${namespace}:${identifier}`,
         error: e,
-        message: 'caching error'
+        message: 'caching error',
       });
 
       next(e);
     }
-  }
+  };
 }
 
 /**
@@ -120,6 +120,6 @@ function _sanitizeUrl(req) {
       .map(qPart => qPart.split('='))
       .filter(kv => !['key', 'callback', '_'].includes(kv[0]))
       .map(kv => kv.join('='))
-      .join('&')
+      .join('&'),
   ].join('?');
 }

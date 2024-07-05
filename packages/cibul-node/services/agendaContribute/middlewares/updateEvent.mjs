@@ -22,4 +22,4 @@ export default function updateEvent(req, res) {
     filterUnauthorizedData: true,
     private: null,
   }).then(event => res.json({ success: true, event }), error => handleError({ res, log }, error));
-};
+}

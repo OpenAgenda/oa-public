@@ -24,4 +24,4 @@ export default function addEvent(req, res) {
       event,
     });
   }, error => handleError({ res, log }, error));
-};
+}

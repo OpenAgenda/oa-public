@@ -1,49 +1,33 @@
-"use strict";
+'use strict';
 
-module.exports = function( extension ) {
+module.exports = function (extension) {
+  return function (loadedInstance, instance, methods) {
+    const ext = extension(loadedInstance, instance);
 
-  return function( loadedInstance, instance, methods ) {
+    methods.forEach(m => {
+      const namespace = _loadNamespace(loadedInstance, m);
 
-    var ext = extension( loadedInstance, instance );
+      const name = _loadName(m);
 
-    methods.forEach( function( m ) {
-
-      var namespace = _loadNamespace( loadedInstance, m ),
-
-      name = _loadName( m );
-
-      namespace[ name ] = ext[ name ];
-
+      namespace[name] = ext[name];
     });
+  };
 
-  }
+  function _loadNamespace(loadedInstance, m) {
+    const names = m.split('.');
 
-  function _loadNamespace( loadedInstance, m ) {
-
-    var names = m.split( '.' );
-
-    if ( names.length == 1 ) {
-
+    if (names.length == 1) {
       return loadedInstance;
-
-    } else {
-
-      if ( !loadedInstance[ names[ 0 ] ] ) {
-
-        loadedInstance[ names[ 0 ] ] = {};
-
-      }
-
-      return loadedInstance[ names[ 0 ] ];
-
     }
 
+    if (!loadedInstance[names[0]]) {
+      loadedInstance[names[0]] = {};
+    }
+
+    return loadedInstance[names[0]];
   }
 
-  function _loadName( name ) {
-
-    return name.split( '.' ).pop();
-
+  function _loadName(name) {
+    return name.split('.').pop();
   }
-
-}
+};

@@ -3,14 +3,14 @@
 module.exports = async (services, agendaUid) => {
   const {
     formSchemas,
-    agendas
+    agendas,
   } = services;
 
   const agenda = await agendas.get({
-    uid: agendaUid
+    uid: agendaUid,
   }, {
     private: null,
-    internal: true
+    internal: true,
   });
 
   if (!agenda) {

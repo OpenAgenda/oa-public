@@ -1,6 +1,6 @@
 'use strict';
 
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const removeAgenda = promisify(require('@openagenda/agendas').remove);
 

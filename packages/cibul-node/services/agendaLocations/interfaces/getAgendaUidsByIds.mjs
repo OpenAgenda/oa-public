@@ -12,4 +12,4 @@ export default function getAgendaUidsByIds(services) {
       return Array.isArray(ids) ? result : result.pop();
     },
   );
-};
+}

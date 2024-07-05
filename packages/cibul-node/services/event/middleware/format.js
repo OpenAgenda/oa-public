@@ -1,352 +1,277 @@
-"use strict";
+'use strict';
 
-const w = require( 'when' );
-const _ = require( 'lodash' );
-const qs = require( 'qs' );
-const du = require( '@openagenda/dom-utils' );
-const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
-const getTypeAndValuesOfRegistration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
-const flattenRegistration = require( '@openagenda/registration/src/validate' ).clean;
+const w = require('when');
+const _ = require('lodash');
+const qs = require('qs');
+const du = require('@openagenda/dom-utils');
+const timeHelper = require('@openagenda/cibul-templates').helpers.time;
+const getTypeAndValuesOfRegistration = require('@openagenda/registration/src/validate').getTypesAndValues;
+const flattenRegistration = require('@openagenda/registration/src/validate').clean;
+const range = require('@openagenda/date-range');
 const getTimings = require('../lib/getTimings');
 const getDates = require('../lib/getDates');
-const range = require( '@openagenda/date-range' );
 
 const {
-  renderHTMLFromMarkdown
+  renderHTMLFromMarkdown,
 } = require('../lib/getLongDescriptionHTML');
-
 
 /**
  * prepare event data for display or upload
  * ( links & full pathed images )
  */
 
-module.exports = _.extend( function( req, res, next ) {
-
-  if ( req.event.origin ) {
-
-    req.event.origin.oaUrl = 'https://openagenda.com/agendas/' + req.event.origin.uid;
-
+module.exports = _.extend((req, res, next) => {
+  if (req.event.origin) {
+    req.event.origin.oaUrl = `https://openagenda.com/agendas/${req.event.origin.uid}`;
   }
 
-  w( {
+  w({
     req,
     res,
     formatted: {
       updatedAt: req.event.updatedAt,
       createdAt: req.event.createdAt,
       timezone: req.event.getLocationDetails().timezone,
-      origin: req.event.origin
+      origin: req.event.origin,
     },
-    _t: timeHelper( { lang: req.lang } )
-  } )
+    _t: timeHelper({ lang: req.lang }),
+  })
 
-  .then( _main )
+    .then(_main)
 
-  .then( _keywords )
+    .then(_keywords)
 
-  .then( _image )
+    .then(_image)
 
-  .then( _timings )
+    .then(_timings)
 
-  .then( _dates )
+    .then(_dates)
 
-  .then( _location )
+    .then(_location)
 
-  .then( _registration )
+    .then(_registration)
 
-  .then( _load( 'owner', 'getOwner' ) )
+    .then(_load('owner', 'getOwner'))
 
-  .then( _load( 'agendaReferences', 'getAgendaReferences' ) )
+    .then(_load('agendaReferences', 'getAgendaReferences'))
 
-  .then( _load( 'adminAgendas', 'getAdminAgendas' ) )
+    .then(_load('adminAgendas', 'getAdminAgendas'))
 
-  .then( _load( 'currentState', 'getState' ) )
+    .then(_load('currentState', 'getState'))
 
-  .then( _languages )
+    .then(_languages)
 
-  .then( _importUri )
+    .then(_importUri)
 
-  .then( _uri )
+    .then(_uri)
 
-  .then( v => {
+    .then(v => {
+      const d = w.defer();
 
-    const d = w.defer();
+      if (!req.agenda) return v;
 
-    if ( !req.agenda ) return v;
+      w(v)
 
-    w( v )
+        .then(_categories)
 
-    .then( _categories )
+        .then(_featured)
 
-    .then( _featured )
+        .done(v => d.resolve(v), d.reject);
 
-    .done( v => d.resolve( v ), d.reject )
+      return d.promise;
+    })
 
-    return d.promise;
+    .done(v => {
+      req.formatted = v.formatted;
 
-  } )
-
-  .done( v => {
-
-    req.formatted = v.formatted;
-
-    next();
-
-  }, next );
-
+      next();
+    }, next);
 }, {
-  listifyKeywords
-} )
+  listifyKeywords,
+});
 
+function _location(v) {
+  v.formatted.location = v.req.event.getLocationDetails(v.req.lang, true);
 
-function _location( v ) {
-
-  v.formatted.location = v.req.event.getLocationDetails( v.req.lang, true );
-
-  if ( _.get( v, 'formatted.location.description' ) ) {
-
-    v.formatted.location.description = du.nl2br( v.formatted.location.description, true, false );
-
+  if (_.get(v, 'formatted.location.description')) {
+    v.formatted.location.description = du.nl2br(v.formatted.location.description, true, false);
   }
 
   return v;
-
 }
 
-
-function _registration( v ) {
+function _registration(v) {
   v.formatted.registration = v.req.event.registration;
 
   return v;
-
 }
 
-
-function _uri( v ) {
-
-  if ( v.req.agenda ) {
-
+function _uri(v) {
+  if (v.req.agenda) {
     const query = {};
 
-    if ( v.req.query.admin_nav ) {
+    if (v.req.query.admin_nav) {
       query.admin_nav = v.req.query.admin_nav;
     }
 
     v.formatted.uri = `/${v.req.agenda.slug}/events/${v.req.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`;
-
   } else {
-
     v.formatted.uri = `/events/${v.req.event.slug}`;
-
   }
 
   return v;
-
 }
 
-
-function _importUri( v ) {
-
+function _importUri(v) {
   v.formatted.importUri = '#';
 
-  if ( v.req.agenda ) {
-
-    v.formatted.importUri = v.req.genUrl( 'agendaEventActionShow', {
+  if (v.req.agenda) {
+    v.formatted.importUri = v.req.genUrl('agendaEventActionShow', {
       slug: v.req.agenda.slug,
-      eventSlug: v.req.event.slug
-    } );
-
+      eventSlug: v.req.event.slug,
+    });
   }
 
   return v;
-
 }
 
-
-function _featured( v ) {
-
+function _featured(v) {
   const d = w.defer();
 
-  v.req.event.getFeatured( ( err, featured ) => {
-
-    if ( err ) return d.reject( err );
+  v.req.event.getFeatured((err, featured) => {
+    if (err) return d.reject(err);
 
     v.formatted.featured = featured;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-
-function _categories( v ) {
-
+function _categories(v) {
   const d = w.defer();
 
-  v.req.event.getAgendaCategory( ( err, category ) => {
+  v.req.event.getAgendaCategory((err, category) => {
+    if (err) return d.reject(err);
 
-    if ( err ) return d.reject( err );
-
-    if ( !category ) return d.resolve( v );
+    if (!category) return d.resolve(v);
 
     v.formatted.category = category.label;
 
     v.formatted.categorySlug = category.slug;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-
-function _dates( v ) {
-
+function _dates(v) {
   v.formatted.dates = getDates(v.formatted.timings, v.formatted.timezone);
 
-  v.formatted.dates.forEach( d => {
+  v.formatted.dates.forEach(d => {
+    d.label = v._t(d.date, 'dddd Do MMM');
 
-    d.label = v._t( d.date, 'dddd Do MMM' );
+    d.timings = d.timings.sort((a, b) => (a.start < b.start ? -1 : 1));
 
-    d.timings = d.timings.sort( ( a, b ) => a.start < b.start ? -1 : 1 );
+    d.timings.forEach(t => {
+      t.label = v._t(t.start, 'dddd Do - HH:mm', v.formatted.timezone);
 
-    d.timings.forEach( t => {
+      t.startLabel = v._t(t.start, 'HH:mm', v.formatted.timezone);
 
-      t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
-
-      t.startLabel = v._t( t.start, 'HH:mm', v.formatted.timezone );
-
-      t.endLabel = v._t( t.end, 'HH:mm', v.formatted.timezone );
-
-    } );
-
-  } );
+      t.endLabel = v._t(t.end, 'HH:mm', v.formatted.timezone);
+    });
+  });
 
   return v;
-
 }
 
-
-function _timings( v ) {
-
-  const _t = timeHelper( { lang: v.req.lang } );
+function _timings(v) {
+  const _t = timeHelper({ lang: v.req.lang });
 
   const now = new Date();
   const timings = getTimings(v.req.event);
 
-  v.formatted.timings = timings.map( t => {
-
-    t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
+  v.formatted.timings = timings.map(t => {
+    t.label = v._t(t.start, 'dddd Do - HH:mm', v.formatted.timezone);
 
     return t;
+  });
 
-  } );
-
-  if ( timings.length ) {
-
-    const jsonLdTiming = _.first( timings.filter( t => new Date( t.start ) > now ) ) || _.last( timings );
+  if (timings.length) {
+    const jsonLdTiming = _.first(timings.filter(t => new Date(t.start) > now)) || _.last(timings);
 
     v.formatted.jsonLdTiming = {
       start: jsonLdTiming.start,
       end: jsonLdTiming.end,
-      startStr: _t( jsonLdTiming.start, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone ),
-      endStr: _t( jsonLdTiming.end, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone )
+      startStr: _t(jsonLdTiming.start, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone),
+      endStr: _t(jsonLdTiming.end, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone),
     };
-
   }
 
-  v.formatted.dateRange = range(timings.map( t => ( {
-    start: new Date( t.start ),
-    end: new Date( t.end )
+  v.formatted.dateRange = range(timings.map(t => ({
+    start: new Date(t.start),
+    end: new Date(t.end),
   })), v.req.event.getCurrentLanguage(), v.formatted.timezone);
 
   return v;
 }
 
-
-function _languages( v ) {
-
+function _languages(v) {
   v.formatted.languages = false;
 
-  if ( v.req.event.getLanguages().length > 1 ) {
-
+  if (v.req.event.getLanguages().length > 1) {
     v.formatted.languages = {
       current: v.req.event.getCurrentLanguage(),
-      selection: v.req.event.getLanguages()
-    }
-
+      selection: v.req.event.getLanguages(),
+    };
   }
 
   return v;
-
 }
 
-
-function _load( namespace, fnName ) {
-
+function _load(namespace, fnName) {
   return v => {
-
     const d = w.defer();
 
-    v.req.event[ fnName ]( ( err, r ) => {
+    v.req.event[fnName]((err, r) => {
+      if (err) return d.reject(err);
 
-      if ( err ) return d.reject( err );
+      v.formatted[namespace] = r;
 
-      v.formatted[ namespace ] = r;
-
-      d.resolve( v );
-
-    } );
+      d.resolve(v);
+    });
 
     return d.promise;
-
-  }
-
+  };
 }
 
+function _image(v) {
+  const img = v.req.event.getImage(true);
 
-function _image( v ) {
+  v.formatted.image = img || false;
 
-  const img = v.req.event.getImage( true );
-
-  v.formatted.image = img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false;
-
-  if ( img ) {
-
+  if (img) {
     v.formatted.credits = v.req.event.credits;
-
   }
 
   return v;
-
 }
 
-
-function _keywords( v ) {
-
-  v.formatted.keywordList = listifyKeywords( v.formatted.keywords );
+function _keywords(v) {
+  v.formatted.keywordList = listifyKeywords(v.formatted.keywords);
 
   return v;
-
 }
 
-function listifyKeywords( keywords ) {
+function listifyKeywords(keywords) {
+  if (typeof keywords !== 'string') return [];
 
-  if ( typeof keywords !== 'string' ) return [];
-
-  return keywords.split( ',' ).map( k => k.trim() ).filter( k => !!k.length );
-
+  return keywords.split(',').map(k => k.trim()).filter(k => !!k.length);
 }
 
-
-function _main( v ) {
-
+function _main(v) {
   const map = {
     uid: 'getUid',
     slug: 'getSlug',
@@ -358,24 +283,25 @@ function _main( v ) {
     latitude: 'getLatitude',
     longitude: 'getLongitude',
     accessibility: 'getAccessibility',
-    age: 'getAge'
+    age: 'getAge',
   };
 
   const longDescriptionLinks = v.req.event.getLinks();
   const now = new Date();
 
-  Object.assign(v.formatted,
+  Object.assign(
+    v.formatted,
     _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status', 'statusLabel', 'isNotScheduled']),
     v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
     {
       longDescriptionLinks,
       freeText: renderHTMLFromMarkdown(v.req.app.services, longDescriptionLinks, v.req.event.getFreeText()),
-      isUpcoming: !!(v.req.event.timings ?? []).filter(t => new Date(t.end) > now).length
-    }
+      isUpcoming: !!(v.req.event.timings ?? []).filter(t => new Date(t.end) > now).length,
+    },
   );
 
-  Object.keys(map).forEach( k => {
-    v.formatted[ k ] = v.req.event[ map[ k ] ]();
+  Object.keys(map).forEach(k => {
+    v.formatted[k] = v.req.event[map[k]]();
   });
 
   return v;

@@ -2,10 +2,10 @@
 
 const _ = require('lodash');
 
-const labels = Object.assign( {},
-  require('@openagenda/labels/members'),
-  require('@openagenda/labels/contributors/exportHeaders')
-);
+const labels = {
+  ...require('@openagenda/labels/members'),
+  ...require('@openagenda/labels/contributors/exportHeaders'),
+};
 const flatten = require('@openagenda/labels/flatten');
 const roles = require('@openagenda/members/iso/roles');
 
@@ -16,7 +16,7 @@ module.exports = lang => {
 
   return m => _.mapKeys({
     name: _.get(m, 'custom.contactName', _.get(m, 'user.fullName')),
-    state: _.get(m, 'invited') ? flatLabels.invited : (m.deletedUser ? flatLabels.deletedUser : flatLabels.hasAccount ),
+    state: _.get(m, 'invited') ? flatLabels.invited : m.deletedUser ? flatLabels.deletedUser : flatLabels.hasAccount,
     role: flatLabels[roleLabelKey(m.role)],
     email: _.get(m, 'custom.email'),
     organization: _.get(m, 'custom.organization'),

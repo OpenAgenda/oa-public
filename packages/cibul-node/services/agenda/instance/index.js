@@ -1,84 +1,68 @@
-"use strict";
+'use strict';
 
-var model = require( '../../model' ),
+const model = require('../../model');
 
-  utils = require( '../../../lib/utils' ),
+const utils = require('../../../lib/utils');
 
-  w = require( 'when' ),
+const w = require('when');
 
-  extAgendaSvc = require( '@openagenda/agendas' ),
+const extAgendaSvc = require('@openagenda/agendas');
 
-  legacyEventSvc = require( '../../event' ),
+const legacyEventSvc = require('../../event');
 
-  search = require( './search' ),
+const search = require('./search');
 
-  log = require( '@openagenda/logs' )( 'services/agenda/instance' ),
+const log = require('@openagenda/logs')('services/agenda/instance');
 
-  cache = require( '../../cache' ),
+const cache = require('../../cache');
 
-  config = require( '../../../config' );
+const config = require('../../../config');
 
 module.exports = instanciate;
 
-function instanciate( data ) {
+function instanciate(data) {
+  const instance = model.agendas().instance(data);
 
-  var instance = model.agendas().instance( data ),
+  const svcInstance = utils.extend({}, instance, {
+    getContributionSettings,
+    events: {
+      new: newEvent,
+      list: instance.events.list,
+      get: instance.events.get,
+    },
+    refreshUpdatedAt,
+  });
 
-    svcInstance = utils.extend( {}, instance, {
-      getContributionSettings,
-      events: {
-        new: newEvent,
-        list: instance.events.list,
-        get: instance.events.get
-      },
-      refreshUpdatedAt
-    } );
-
-  search( svcInstance, instance, [
+  search(svcInstance, instance, [
     'search',
     'searchStream',
     'aggregate',
-    'resync'
-  ] );
+    'resync',
+  ]);
 
-  return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );
-
+  return cache('agenda', svcInstance, [], ['addEvent', 'removeEvent']);
 
   function refreshUpdatedAt() {
-
-    instance.save( { updatedAt: new Date() }, err => {
-
-      if ( err ) {
-
-        log( 'error', 'could not clear timestamp of agenda %s: %s', instance.id, err );
-
+    instance.save({ updatedAt: new Date() }, err => {
+      if (err) {
+        log('error', 'could not clear timestamp of agenda %s: %s', instance.id, err);
       }
-
-    } );
-
+    });
   }
 
+  function newEvent(cb) {
+    const newEventInst = legacyEventSvc.instanciate(instance.events.new());
 
-  function newEvent( cb ) {
-
-    var newEventInst = legacyEventSvc.instanciate( instance.events.new() );
-
-    if ( cb ) cb( null, newEventInst );
+    if (cb) cb(null, newEventInst);
 
     return newEventInst;
-
   }
 
+  function getContributionSettings(cb) {
+    extAgendaSvc.get({ id: instance.id }, { private: null }, (err, agenda) => {
+      if (err || !agenda) return cb(err || 'agenda not found');
 
-  function getContributionSettings( cb ) {
-
-    extAgendaSvc.get( { id: instance.id }, { private: null }, ( err, agenda ) => {
-
-      if ( err || !agenda ) return cb( err || 'agenda not found' );
-
-      cb( null, agenda.settings.contribution );
-
-    } );
-
+      cb(null, agenda.settings.contribution);
+    });
   }
 }

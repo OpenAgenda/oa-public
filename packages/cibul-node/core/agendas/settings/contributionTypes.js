@@ -5,7 +5,7 @@ const getAgenda = require('../utils/getAgenda');
 
 const is = async (requested, services, agendaOrUid) => _.get(
   await getAgenda(services, agendaOrUid),
-  'settings.contribution.type'
+  'settings.contribution.type',
 ) === services.agendas.contributionTypes[requested];
 
 module.exports.isOpen = is.bind(null, 'OPEN');

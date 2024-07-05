@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const agendas = require( '@openagenda/agendas' );
+const agendas = require('@openagenda/agendas');
 
-const cmn = require( '../lib/commons-app' );
-const members = require( '../services/members' );
+const cmn = require('../lib/commons-app');
+const members = require('../services/members');
 
 module.exports = app => {
   const {
@@ -11,44 +11,42 @@ module.exports = app => {
   } = app.services;
   app.get(
     '/session',
-    sessions.mw.ifUnlogged( ( req, res ) => res.send( null ) ),
-    ( req, res, next ) => { req.query.detailed ? _loadDetailed( req, res, next ) : next() },
-    ( req, res ) => res.send( req.user )
+    sessions.mw.ifUnlogged((req, res) => res.send(null)),
+    (req, res, next) => { req.query.detailed ? _loadDetailed(req, res, next) : next(); },
+    (req, res) => res.send(req.user),
   );
 
   app.get(
     '/session/agendas/:agendaUid/role',
     agendaLoad,
-    role
+    role,
   );
 };
-
 
 // agendas service middleware will replace this
 // middleware from service/agenda/middleware
 function agendaLoad(req, res, next) {
   agendas.get({
-    uid: req.params.agendaUid
+    uid: req.params.agendaUid,
   }, {
     internal: true,
-    private: null
-  }, ( err, agenda ) => {
-    if ( err ) return next( err );
+    private: null,
+  }, (err, agenda) => {
+    if (err) return next(err);
     req.agendaRef = agenda;
     next();
   });
 }
 
-
-function role( req, res, next ) {
+function role(req, res, next) {
   if (!req.agendaRef || !req.user) {
-    return res.send( null );
+    return res.send(null);
   }
   members.get({
     agendaUid: req.agendaRef.uid,
-    userUid: req.user.uid
-  }).then( member => {
-    res.send( member ? members.utils.getRoleSlug( member.role ) : null );
+    userUid: req.user.uid,
+  }).then(member => {
+    res.send(member ? members.utils.getRoleSlug(member.role) : null);
   });
 }
 
@@ -57,22 +55,22 @@ function _loadDetailed(req, res, next) {
   const {
     sessions,
   } = req.app.services;
-  sessions.get( req, {detailed: true}, (err, session) => {
+  sessions.get(req, { detailed: true }, (err, session) => {
     members.list({
       userUid: req.user.uid,
     }, {
-      limit: 1000
+      limit: 1000,
     }, {
-      detailed: true
+      detailed: true,
     }).then(memberRefs => {
       req.user.agendas = memberRefs
         .filter(member => member.agenda)
         .map(member => ({
           uid: member.agenda.uid,
           title: member.agenda.title,
-          role: members.utils.getRoleSlug( member.role )
+          role: members.utils.getRoleSlug(member.role),
         }));
       next();
-    } );
-  } );
+    });
+  });
 }

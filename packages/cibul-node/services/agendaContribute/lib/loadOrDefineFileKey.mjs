@@ -4,4 +4,4 @@ export default function loadOrDefineFileKey(req, res, next) {
   req.fileKey = req?.event?.fileKey ?? uuidV4().replace(/-/g, '');
 
   next();
-};
+}

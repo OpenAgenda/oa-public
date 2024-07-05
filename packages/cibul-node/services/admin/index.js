@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 module.exports = {
   initless: true,
-  es: require( './es' ),
-  admin: require( './admin' )
-}
+  es: require('./es'),
+  admin: require('./admin'),
+};
