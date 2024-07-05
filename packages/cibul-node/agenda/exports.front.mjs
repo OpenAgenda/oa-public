@@ -1,25 +1,19 @@
-'use strict';
+import _ from 'lodash';
+import cbify from '@openagenda/utils/cbify.js';
+import agendaSvc from '../services/agenda/index.js';
+import cmn from '../lib/commons-app.js';
+import track from '../lib/track.js';
+import rateLimiter from '../lib/rateLimiter.js';
+import config from '../config/index.js';
+import convertFormat from './ConvertFormat.mjs';
+import loadCredentials from './loadCredentials.mjs';
+import buildPDF from './buildPDF.mjs';
 
-const _ = require('lodash');
-const cbify = require('@openagenda/utils/cbify');
-const agendaSvc = require('../services/agenda');
-const cmn = require('../lib/commons-app');
-const track = require('../lib/track');
-const rateLimiter = require('../lib/rateLimiter');
-const config = require('../config');
-const convertFormat = require('./ConvertFormat');
-const loadCredentials = require('./loadCredentials');
-const buildPDF = require('./buildPDF');
-
-const preMw = [
-  cmn.loadLogger('agenda front'),
-];
+const preMw = [cmn.loadLogger('agenda front')];
 
 function loadTagSet(req, res, next) {
   const {
-    legacy: {
-      getTagSet,
-    },
+    legacy: { getTagSet },
   } = req.app.services;
 
   getTagSet(req.agenda.id).then(tagSet => {
@@ -31,9 +25,7 @@ function loadTagSet(req, res, next) {
 
 function loadCategorySet(req, res, next) {
   const {
-    legacy: {
-      getCategorySet,
-    },
+    legacy: { getCategorySet },
   } = req.app.services;
 
   getCategorySet(req.agenda.id).then(categorySet => {
@@ -43,11 +35,15 @@ function loadCategorySet(req, res, next) {
 }
 
 function loadEmbedUids(req, res, next) {
-  config.knex('review_embed').select('uid').where('review_id', req.agenda.id).then(rows => {
-    req.embeds = rows.map(r => r.uid);
+  config
+    .knex('review_embed')
+    .select('uid')
+    .where('review_id', req.agenda.id)
+    .then(rows => {
+      req.embeds = rows.map(r => r.uid);
 
-    next();
-  });
+      next();
+    });
 }
 
 function sleep(ms) {
@@ -66,9 +62,7 @@ function checkKey(onError) {
       return sleep(400)(req, res, next);
     }
 
-    const {
-      keys: keysSvc,
-    } = req.app.services;
+    const { keys: keysSvc } = req.app.services;
 
     try {
       const key = await keysSvc({ key: req.query.key }).get();
@@ -84,12 +78,8 @@ function checkKey(onError) {
   });
 }
 
-module.exports = app => {
-  const {
-    members,
-    agendas,
-    redis,
-  } = app.services;
+export default app => {
+  const { members, agendas, redis } = app.services;
 
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
@@ -110,16 +100,18 @@ module.exports = app => {
     loadCategorySet,
     loadEmbedUids,
     track.mw('settings', 'export', 'json'),
-    (req, res) => cmn.renderJson(req, res, _.assign(
-      _.pick(req.agenda, ['title', 'description', 'slug', 'url']),
-      {
-        tagSet: req.tagSet,
-        categorySet: req.categorySet,
-        locationSet: req.locationSettings,
-        customSet: req.agenda.getCustomFieldsConfig(),
-        embeds: req.embeds,
-      },
-    )),
+    (req, res) =>
+      cmn.renderJson(
+        req,
+        res,
+        _.assign(_.pick(req.agenda, ['title', 'description', 'slug', 'url']), {
+          tagSet: req.tagSet,
+          categorySet: req.categorySet,
+          locationSet: req.locationSettings,
+          customSet: req.agenda.getCustomFieldsConfig(),
+          embeds: req.embeds,
+        }),
+      ),
   );
 
   app.get(

@@ -8,21 +8,21 @@ import generalBack from './general/back.js';
 import eventBack from './event/back.js';
 import eventFront from './event/front.js';
 import actionsFront from './event/actions.front.js';
-import facebookFront from './auth/facebook.front.js';
-import googleFront from './auth/google.front.js';
-import localFront from './auth/local.front.js';
-import resetFront from './auth/reset.front.js';
-import settingsBack from './agenda/settings.back.js';
+import facebookFront from './auth/facebook.front.mjs';
+import googleFront from './auth/google.front.mjs';
+import localFront from './auth/local.front.mjs';
+import resetFront from './auth/reset.front.mjs';
+import settingsBack from './agenda/settings.back.mjs';
 import members from './services/members/index.js';
-import activitiesBack from './agenda/activities.back.js';
+import activitiesBack from './agenda/activities.back.mjs';
 import webapp from './webapp/index.mjs';
 import activities from './services/activities/index.js';
 import sentry from './services/sentry.mjs';
-import sharesFront from './agenda/shares.front.js';
-import agendaFront from './agenda/front.js';
-import exportsBack from './agenda/exports.back.js';
-import facebookBack from './agenda/facebook.back.js';
-import exportsFront from './agenda/exports.front.js';
+import sharesFront from './agenda/shares.front.mjs';
+import agendaFront from './agenda/front.mjs';
+import exportsBack from './agenda/exports.back.mjs';
+import facebookBack from './agenda/facebook.back.mjs';
+import exportsFront from './agenda/exports.front.mjs';
 
 export default app => {
   app.services.users.plugApp(app);
@@ -30,7 +30,10 @@ export default app => {
   app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.getPublic());
   app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.getRestricted());
   app.use('/agendas/:agendaUid/settings/exports', app.services.eventSearch.apps.agendas.getAgendaExportsSettings());
-  app.use('/agendas/:agendaUid/admin/settings/exports', app.services.eventSearch.apps.agendas.getAgendaExportsSettings({ admin: true }));
+  app.use(
+    '/agendas/:agendaUid/admin/settings/exports',
+    app.services.eventSearch.apps.agendas.getAgendaExportsSettings({ admin: true }),
+  );
   app.services.agendaLocations.apps(app, '/locations');
   app.services.agendaLocations.apps.agenda(app, '/agendas/:agendaUid/locations');
   app.services.agendaLocations.apps.agendaAdmin(app, '/:agendaSlug/admin/locations');

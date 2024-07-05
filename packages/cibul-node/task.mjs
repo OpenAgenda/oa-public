@@ -1,7 +1,7 @@
-import tfy from './lib/taskify.js';
-import resetApiCounters from './general/resetApiCounters.task.js';
+import tfy from './lib/taskify.mjs';
+import resetApiCounters from './general/resetApiCounters.task.mjs';
 
-async function removeMembersWithDeletedUser(config, services) {
+/* async function removeMembersWithDeletedUser(config, services) {
   const { knex, queues } = services;
   const queue = queues('users');
 
@@ -17,7 +17,7 @@ async function removeMembersWithDeletedUser(config, services) {
   for await (const { userUid } of stream) {
     queue('anonymizeDeletedUser', { user: { uid: userUid } });
   }
-}
+} */
 
 export default (config, core, services) => {
   tfy(resetApiCounters(config, services), {
