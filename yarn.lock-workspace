@@ -5918,7 +5918,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/polyfills": "npm:^1.2.4"
+    "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.10.9"
     "@openagenda/react-portal-ssr": "npm:^1.0.1"
     "@openagenda/react-shared": "npm:^2.4.1"
@@ -6236,7 +6236,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/polyfills@npm:^1.2.4, @openagenda/polyfills@workspace:polyfills":
+"@openagenda/polyfills@npm:^1.2.5, @openagenda/polyfills@workspace:polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:polyfills"
   dependencies:
