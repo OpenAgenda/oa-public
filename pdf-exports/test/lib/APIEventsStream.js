@@ -73,7 +73,7 @@ export default class APIEventsStream extends Readable {
               const endTime = Date.now();
               const responseTime = endTime - this.startTime;
 
-              log('Completed API response', {
+              log.info('Completed API response', {
                 agendaUID: this.agendaUID,
                 params: this.query,
                 responseTime: `${responseTime}ms`,
