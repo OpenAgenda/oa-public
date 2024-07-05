@@ -8,24 +8,23 @@ export default function Metas({ agenda, preload }) {
   const router = useRouter();
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
-  const canonicalUrl = absUrl.origin + absUrl.pathname;
-  const languages = agenda.summary.languages ? Object.keys(agenda.summary.languages) : [];
+  const canonicalUrl = `${absUrl.origin}/${intl.locale === 'io' ? intl.locale : 'en'}${absUrl.pathname}`;
 
   return (
     <Head>
-      <title>OpenAgenda Embed</title>
+      <title>{`${agenda.title} | OpenAgenda Embed`}</title>
+      <meta name="robots" content="noindex, nofollow" />
       <link rel="canonical" href={canonicalUrl} />
-      {languages.map(key => (key === intl.locale ? null : (
-        <link
-          key={`alternate:${key}`}
-          rel="alternate"
-          hrefLang={key}
-          href={SUPPORTED_LOCALES.includes(key)
-            ? `${absUrl.origin}/${key}${absUrl.pathname}`
-            : `${absUrl.origin}${absUrl.pathname}?lang=${key}`}
-        />
-      )))}
-      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+      {SUPPORTED_LOCALES.map(key =>
+        (key === 'io' ? null : (
+          <link
+            key={`alternate:${key}`}
+            rel="alternate"
+            hrefLang={key}
+            href={`${absUrl.origin}/${key}${absUrl.pathname}`}
+          />
+        )))}
+      <link rel="alternate" hrefLang="x-default" href={`${absUrl.origin}/en${absUrl.pathname}`} />
 
       {preload?.map(href => (
         <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
