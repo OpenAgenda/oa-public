@@ -9,14 +9,8 @@ const getAgenda = require('../utils/getAgenda');
 const getSchema = require('./getSchema');
 
 module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFields) {
-  const {
-    services,
-    tasks,
-  } = core;
-  const {
-    formSchemas,
-    agendas,
-  } = services;
+  const { services, tasks } = core;
+  const { formSchemas, agendas } = services;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
@@ -31,11 +25,15 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
 
     const { id } = await formSchemas.create(fs.getData());
 
-    await agendas.set({
-      uid: agenda.uid,
-    }, { formSchemaId: id }, {
-      protected: false,
-    });
+    await agendas.set(
+      {
+        uid: agenda.uid,
+      },
+      { formSchemaId: id },
+      {
+        protected: false,
+      },
+    );
 
     agenda.formSchemaId = id;
   } else {
@@ -43,9 +41,7 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
     await formSchemas.update(agendaSchema.id, fs.getData());
   }
 
-  await agendas.resetCache(agenda);
-
-  tasks.enqueue('updateLegacy', agenda, true);
+  tasks.enqueue('agendaRebuild', agenda.uid, true);
 
   return fs.getData();
 };
