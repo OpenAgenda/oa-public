@@ -35,14 +35,7 @@ function getTypeAndIconPath(type) {
   };
 }
 
-const addRegistrationItem = (
-  doc,
-  localCursor,
-  label,
-  registrationItem,
-  params = {},
-  options = {},
-) => {
+const addRegistrationItem = (doc, localCursor, label, registrationItem, params = {}, options = {}) => {
   const { base, iconHeightAndWidth, fontSize, margin } = params;
 
   const { simulate = false } = options;
@@ -52,7 +45,7 @@ const addRegistrationItem = (
 
   localCursor.y += base.margin / 10;
 
-  if (label === null) {
+  if (label === null || !registrationItem.type) {
     return {
       width: 0,
       height: 0,
@@ -86,13 +79,7 @@ const addRegistrationItem = (
   };
 };
 
-export default function addRegistration(
-  doc,
-  event,
-  cursor,
-  params = {},
-  options = {},
-) {
+export default function addRegistration(doc, event, cursor, params = {}, options = {}) {
   const { base, iconHeightAndWidth, fontSize, margin } = params;
 
   const { simulate = false } = options;
@@ -110,15 +97,9 @@ export default function addRegistration(
     return { width: 0, height: 0 };
   }
 
-  const { width: widthOfRegistrationLabel } = addRegistrationLabel(
-    doc,
-    localCursor,
-    params,
-    options,
-    {
-      fontSize,
-    },
-  );
+  const { width: widthOfRegistrationLabel } = addRegistrationLabel(doc, localCursor, params, options, {
+    fontSize,
+  });
 
   localCursor.x += widthOfRegistrationLabel + margin;
 
