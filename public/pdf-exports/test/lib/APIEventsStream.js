@@ -20,6 +20,9 @@ export default class APIEventsStream extends Readable {
     this.count = 0;
     this.max = max;
     this.query = query ?? {};
+    this.startTime = Date.now();
+
+    log.info('Starting API request', { agendaUID: this.agendaUID, params: this.query });
   }
 
   _pushEvent() {
@@ -46,22 +49,9 @@ export default class APIEventsStream extends Readable {
 
     this.requestInProgress = true;
 
-    const url = [
-      API.replace('{agendaUID}', this.agendaUID).replace(
-        '{APIKey}',
-        this.APIKey,
-      ),
-    ]
-      .concat(
-        this.after
-          ? `&${qs.stringify({ ...this.query, after: this.after })}`
-          : [],
-      )
-      .concat(
-        !this.after && Object.keys(this.query).length
-          ? `&${qs.stringify(this.query)}`
-          : [],
-      )
+    const url = [API.replace('{agendaUID}', this.agendaUID).replace('{APIKey}', this.APIKey)]
+      .concat(this.after ? `&${qs.stringify({ ...this.query, after: this.after })}` : [])
+      .concat(!this.after && Object.keys(this.query).length ? `&${qs.stringify(this.query)}` : [])
       .join('');
 
     https
@@ -79,12 +69,24 @@ export default class APIEventsStream extends Readable {
 
             if (!events.length) {
               this.push(null);
+
+              const endTime = Date.now();
+              const responseTime = endTime - this.startTime;
+
+              log.info('Completed API response', {
+                agendaUID: this.agendaUID,
+                params: this.query,
+                responseTime: `${responseTime}ms`,
+                eventsGenerated: this.count,
+              });
+
               return;
             }
 
             this.after = newAfter.map(a => `${a}`);
             this.buffer = events;
             this.requestInProgress = false;
+
             this._pushEvent();
           } catch (error) {
             this.emit('error', error);
