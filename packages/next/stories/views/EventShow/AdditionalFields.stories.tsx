@@ -16,9 +16,7 @@ import eventsFixtures from '../../fixtures/mel.events.json';
 export default {
   title: 'views/EventShow/AdditionalFields',
   component: AdditionalFields,
-  loaders: [
-    intlMessagesLoader(EventShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(EventShow.fetchLocale)],
   decorators: [
     Story => (
       <Container maxW="md" bg="white" p="5" my="5">
@@ -38,34 +36,84 @@ export const OptionedField = () => {
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
-          fields: [{
-            field: 'categories-metropolitaines',
-            label: {
-              fr: 'Catégories Métropolitaines',
-              en: 'Catégories Métropolitaines',
+          fields: [
+            {
+              field: 'categories-metropolitaines',
+              label: {
+                fr: 'Catégories Métropolitaines',
+                en: 'Catégories Métropolitaines',
+              },
+              options: [
+                {
+                  id: 16,
+                  value: 'mode',
+                  label: { fr: 'Mode' },
+                },
+                {
+                  id: 17,
+                  value: 'musique',
+                  label: { fr: 'Musique' },
+                },
+                {
+                  id: 18,
+                  value: 'reunion-publique',
+                  label: { fr: 'Réunion publique' },
+                },
+              ],
+              fieldType: 'checkbox',
             },
-            options: [
-              {
-                id: 16,
-                value: 'mode',
-                label: { fr: 'Mode' },
-              },
-              {
-                id: 17,
-                value: 'musique',
-                label: { fr: 'Musique' },
-              },
-              {
-                id: 18,
-                value: 'reunion-publique',
-                label: { fr: 'Réunion publique' },
-              },
-            ],
-            fieldType: 'checkbox',
-          }],
+          ],
         },
         event: {
           'categories-metropolitaines': 17,
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const OptionedFieldMissingOption = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'categories-metropolitaines',
+              label: {
+                fr: 'Catégories Métropolitaines',
+                en: 'Catégories Métropolitaines',
+              },
+              options: [
+                {
+                  id: 16,
+                  value: 'mode',
+                  label: { fr: 'Mode' },
+                },
+                {
+                  id: 17,
+                  value: 'musique',
+                  label: { fr: 'Musique' },
+                },
+                {
+                  id: 18,
+                  value: 'reunion-publique',
+                  label: { fr: 'Réunion publique' },
+                },
+              ],
+              fieldType: 'checkbox',
+            },
+          ],
+        },
+        event: {
+          'categories-metropolitaines': [17, 19],
         },
         locale: 'fr',
         defaultLocale: 'fr',
@@ -85,14 +133,16 @@ export const EventsField = {
         agenda={agendaFixtures}
         additionalFields={formatAdditionalFieldData({
           schema: {
-            fields: [{
-              field: 'subEvents',
-              label: {
-                fr: 'Événements enfants',
-                en: 'Sub-events',
+            fields: [
+              {
+                field: 'subEvents',
+                label: {
+                  fr: 'Événements enfants',
+                  en: 'Sub-events',
+                },
+                fieldType: 'events',
               },
-              fieldType: 'events',
-            }],
+            ],
           },
           event: {
             subEvents: [18422197, 82947971, 73418354],
@@ -131,14 +181,16 @@ export const EmptyEventsField = () => {
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
-          fields: [{
-            field: 'subEvents',
-            label: {
-              fr: 'Événements enfants',
-              en: 'Sub-events',
+          fields: [
+            {
+              field: 'subEvents',
+              label: {
+                fr: 'Événements enfants',
+                en: 'Sub-events',
+              },
+              fieldType: 'events',
             },
-            fieldType: 'events',
-          }],
+          ],
         },
         event: {
           subEvents: [],
