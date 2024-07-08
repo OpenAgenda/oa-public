@@ -91,22 +91,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('integers provided in search part of query are processed as an uid filter', async () => {
-      const { items, total } = await core
-        .agendas(17026855)
-        .locations.list({ search: '18927679' });
+      const { items, total } = await core.agendas(17026855).locations.list({ search: '18927679' });
 
       expect(total).toBe(1);
       expect(items[0].uid).toBe(18927679);
     });
 
     it('filter to limit results to unverified locations', async () => {
-      const { items: unverifiedLocations } = await core
-        .agendas(99501607)
-        .locations.list({ state: 0 }, { size: 1 });
+      const { items: unverifiedLocations } = await core.agendas(99501607).locations.list({ state: 0 }, { size: 1 });
 
-      const { items: verifiedLocations } = await core
-        .agendas(99501607)
-        .locations.list({ state: 1 }, { size: 1 });
+      const { items: verifiedLocations } = await core.agendas(99501607).locations.list({ state: 1 }, { size: 1 });
 
       expect(unverifiedLocations.length).toEqual(1);
       expect(verifiedLocations.length).toEqual(0);
@@ -151,9 +145,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('get location with option includeLinkedAgendas', () => {
-      expect(result.linkedAgendas).toEqual([
-        { uid: 17026855, title: 'La Gargouille' },
-      ]);
+      expect(result.linkedAgendas).toEqual([{ uid: 17026855, title: 'La Gargouille' }]);
     });
   });
 
@@ -200,10 +192,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('location is removed', async () => {
-      const location = await config
-        .knex('location')
-        .first()
-        .where('uid', 9955517);
+      const location = await config.knex('location').first().where('uid', 9955517);
       expect(location.deleted).toBe(1);
     });
   });
@@ -229,9 +218,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('related events have their location data updated', async () => {
-      const { events } = await core
-        .agendas(48353388)
-        .events.search({}, { size: 1 }, { detailed: true });
+      const { events } = await core.agendas(48353388).events.search({}, { size: 1 }, { detailed: true });
 
       expect(events[0].location.name).toBe('Lautrec');
     });
@@ -418,9 +405,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         }
       });
       it('test error message', () => {
-        expect(error.response.data.message).toBe(
-          "geocoder didn't find address",
-        );
+        expect(error.response.data.message).toBe("geocoder didn't find address");
       });
     });
 
@@ -457,10 +442,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('successful create with an image', () => {
       beforeAll(async () => {
         try {
-          fs.copyFileSync(
-            `${__dirname}/fixtures/pirates.jpg`,
-            '/tmp/pirates.jpg',
-          );
+          fs.copyFileSync(`${__dirname}/fixtures/pirates.jpg`, '/tmp/pirates.jpg');
 
           const form = new FormData();
 
@@ -489,8 +471,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('image of created location is uploaded', async () => {
         const uploadedHead = await axios.head(response.data.location.image);
-        const sinceLastModified = new Date().getTime()
-          - new Date(uploadedHead.headers['last-modified']).getTime();
+        const sinceLastModified = new Date().getTime() - new Date(uploadedHead.headers['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(5000);
       });
     });
@@ -525,9 +506,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('response contains created location', () => {
-        expect(createdLocation.data.location.name).toBe(
-          'Un lieu sans image mais en enctype form-data',
-        );
+        expect(createdLocation.data.location.name).toBe('Un lieu sans image mais en enctype form-data');
       });
     });
 
@@ -719,14 +698,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('by default, only uid, name, address, latitude longitude and state are provided', () => {
-        expect(Object.keys(result.locations[0])).toEqual([
-          'uid',
-          'name',
-          'address',
-          'latitude',
-          'longitude',
-          'state',
-        ]);
+        expect(Object.keys(result.locations[0])).toEqual(['uid', 'name', 'address', 'latitude', 'longitude', 'state']);
       });
 
       it('detailed option is useful to retrieve all location info', async () => {
@@ -980,7 +952,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
-    describe('fix create cause name is too long', () => {
+    describe('fix create because name is too long', () => {
       let error;
       beforeAll(async () => {
         try {
@@ -989,7 +961,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
-              nonce: 1231486,
+              nonce: 1231486654,
               'content-type': 'application/json',
             },
             data: {
@@ -999,7 +971,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             },
           });
         } catch (e) {
-          // console.log(e.response.data)
+          // console.log(e.response.data);
           error = e;
         }
       });
@@ -1040,12 +1012,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('a location update triggers syncs on all related events and agendas', async () => {
         const promisedStack = new Promise(rs => {
-          core.services.tracker.on(
-            'eventSearch.update:55268170.55268456',
-            stack => {
-              rs(stack);
-            },
-          );
+          core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
+            rs(stack);
+          });
         });
 
         core.agendas(55268170).locations.patch(76464022, {
@@ -1083,27 +1052,19 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           core.services.tracker.on('events.onRemove.55268456', rs);
         });
 
-        core
-          .agendas(55268170)
-          .locations.remove(76464022, { removeEvents: true });
+        core.agendas(55268170).locations.remove(76464022, { removeEvents: true });
 
         return promisedTrack;
       });
 
       it('a location deletion triggers the deletion of related events', async () => {
-        const dbEntry = await core.services
-          .knex('event_2')
-          .first('deleted_at')
-          .where('uid', 55268456);
+        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 55268456);
 
         expect(!!dbEntry.deleted_at).toBeTruthy();
       });
 
       it('legacy entry is also removed', async () => {
-        const legacyEntry = await core.services
-          .knex('event')
-          .first()
-          .where('uid', 55268456);
+        const legacyEntry = await core.services.knex('event').first().where('uid', 55268456);
         expect(legacyEntry).toBeFalsy();
       });
     });
@@ -1116,19 +1077,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('a location soft deletion does not triggers the deletion of related events', async () => {
-        const dbEntry = await core.services
-          .knex('event_2')
-          .first('deleted_at')
-          .where('uid', 20774404);
+        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 20774404);
 
         expect(dbEntry.deleted_at).toBeFalsy();
       });
 
       it('legacy entry is not removed', async () => {
-        const legacyEntry = await core.services
-          .knex('event')
-          .first()
-          .where('uid', 20774404);
+        const legacyEntry = await core.services.knex('event').first().where('uid', 20774404);
         expect(legacyEntry).toBeTruthy();
       });
     });
