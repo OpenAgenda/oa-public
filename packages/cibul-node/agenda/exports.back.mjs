@@ -1,14 +1,10 @@
-'use strict';
+import agendaSvc from '../services/agenda/index.js';
+import convertFormat from './ConvertFormat.mjs';
+import loadCredentials from './loadCredentials.mjs';
 
-const agendaSvc = require('../services/agenda');
-const convertFormat = require('./ConvertFormat');
-const loadCredentials = require('./loadCredentials');
+const preMw = [agendaSvc.mw.load('uid')];
 
-const preMw = [
-  agendaSvc.mw.load('uid'),
-];
-
-module.exports = app => {
+export default app => {
   const { members } = app.services;
 
   app.get(

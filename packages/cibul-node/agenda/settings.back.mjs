@@ -1,19 +1,13 @@
-'use strict';
+import { mw } from '@openagenda/agenda-settings';
+import keysMw from '@openagenda/keys/middleware.js';
+import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
+import makeLabelGetter from '@openagenda/labels';
+import cmn from '../lib/commons-app.js';
 
-const { mw } = require('@openagenda/agenda-settings');
-const keysMw = require('@openagenda/keys/middleware');
-const labels = require('@openagenda/labels/agenda-settings/agendaEdition');
-const getLabel = require('@openagenda/labels')(labels);
-const cmn = require('../lib/commons-app');
+const getLabel = makeLabelGetter(labels);
 
-module.exports = app => {
-  const {
-    agendas,
-    core,
-    sessions,
-    members,
-    users: usersSvc,
-  } = app.services;
+export default app => {
+  const { agendas, core, sessions, members, users: usersSvc } = app.services;
 
   app.post(
     '/agendas/new',
@@ -22,11 +16,7 @@ module.exports = app => {
     mw.create,
   );
 
-  app.post(
-    '/agendas/slugs/available',
-    sessions.mw.loadOrRedirect(),
-    mw.slugs.available,
-  );
+  app.post('/agendas/slugs/available', sessions.mw.loadOrRedirect(), mw.slugs.available);
 
   app.get(
     '/agendas/:uid/admin/settings.json',
@@ -41,26 +31,35 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    agendas.getConfig().upload.middleware([{
-      name: 'image',
-      unique: true,
-    }]),
+    agendas.getConfig().upload.middleware([
+      {
+        name: 'image',
+        unique: true,
+      },
+    ]),
     (req, res, next) => {
-      core.agendas(req.agenda).update(req.body, {
-        includeImagePath: true,
-        private: null,
-        context: { user: req.user },
-        internal: true,
-      }).then(agenda => res.json({
-        success: true,
-        agenda,
-      }), err => {
-        if (err.name === 'BadRequest') {
-          return res.status(400).json(err);
-        }
+      core
+        .agendas(req.agenda)
+        .update(req.body, {
+          includeImagePath: true,
+          private: null,
+          context: { user: req.user },
+          internal: true,
+        })
+        .then(
+          agenda =>
+            res.json({
+              success: true,
+              agenda,
+            }),
+          err => {
+            if (err.name === 'BadRequest') {
+              return res.status(400).json(err);
+            }
 
-        next(err);
-      });
+            next(err);
+          },
+        );
     },
   );
 
@@ -71,10 +70,13 @@ module.exports = app => {
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
-      req.app.services.core.agendas(req.agenda.uid).remove().then(() => {
-        sessions.setFlash(req, res, getLabel('agendaRemoved', req.lang));
-        res.json({ redirectTo: '/home' });
-      }, next);
+      req.app.services.core
+        .agendas(req.agenda.uid)
+        .remove()
+        .then(() => {
+          sessions.setFlash(req, res, getLabel('agendaRemoved', req.lang));
+          res.json({ redirectTo: '/home' });
+        }, next);
     },
   );
 

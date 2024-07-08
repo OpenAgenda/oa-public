@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const w = require('when');
@@ -20,7 +20,7 @@ const authenticateFields = {
   facebook: 'facebookUid',
   twitter: 'twitterId',
   google: 'googleId',
-  twitterScreenName: 'twitterScreenName'
+  twitterScreenName: 'twitterScreenName',
 };
 
 const createFields = {
@@ -45,15 +45,15 @@ const exposed = {
   done, // when a controller is done
   errors: {
     defaultMessage: errorDefaultMessage,
-    existingEmail: errorExistingEmail
-  }
+    existingEmail: errorExistingEmail,
+  },
 };
 
 exposed.renderSignin = render('auth/signin', {
   optionals: {},
   email: '',
   password: '',
-  errors: {}
+  errors: {},
 });
 
 exposed.renderSignup = render('auth/signup', {
@@ -63,19 +63,18 @@ exposed.renderSignup = render('auth/signup', {
   password: '',
   repeat: '',
   message: '',
-  errors: {}
+  errors: {},
 });
 
 exposed.renderEmail = render('auth/emailForm', {
   optionals: {},
   email: '',
-  errors: {}
+  errors: {},
 });
 
 exposed.renderInvalidActivation = render('auth/invalidActivation', {});
 
 function init(service) {
-
   const authenticate = serviceAuthenticate(authenticateFields[service]);
   const create = serviceCreate(createFields[service]);
 
@@ -85,9 +84,8 @@ function init(service) {
     attemptAuth,
     attemptCreate,
     process,
-    errors: {}
+    errors: {},
   }, exposed);
-
 
   function attemptAuth(values) {
     values.req.log.debug('attempting authentication for %s with %s', service, JSON.stringify(values.profile));
@@ -98,7 +96,7 @@ function init(service) {
       return values;
     }
 
-    return w.promise(function(resolve, reject) {
+    return w.promise((resolve, reject) => {
       const options = {};
 
       if (!values.profile) {
@@ -122,9 +120,7 @@ function init(service) {
         resolve(values);
       });
     });
-
   }
-
 
   /**
    * try to create an account with profile info
@@ -134,7 +130,7 @@ function init(service) {
     if (!values.profile) {
       values.req.log.debug('profile data is not in hand, aborting attemptCreate', {
         service,
-        values
+        values,
       });
 
       if (!values.data) values.data = {};
@@ -147,19 +143,19 @@ function init(service) {
     if (service === 'facebook' && !values.profile.email) {
       values.req.log.debug('profile email is not in hand, aborting attemptCreate', {
         service,
-        values
+        values,
       });
 
       if (!values.data) values.data = {};
 
-      values.err = { message: getLabel('facebookEmailMissing', values.req.lang) }
+      values.err = { message: getLabel('facebookEmailMissing', values.req.lang) };
 
       return values;
     }
 
     values.req.log.debug('%s attempting account creation with %s', service, JSON.stringify(values.profile));
 
-    return w.promise(function(resolve, reject) {
+    return w.promise((resolve, reject) => {
       const options = loadOptionals(values.req);
 
       const fullName = values.profile.fullName.length ? values.profile.fullName : fullNameFromEmail(values.profile.email);
@@ -174,8 +170,8 @@ function init(service) {
         id: values.profile.id,
         email: values.profile.email,
         fullName,
-        culture: values.req.lang
-      }, options, function(err, user, data) {
+        culture: values.req.lang,
+      }, options, (err, user, data) => {
         if (err) values.err = err;
 
         if (user) {
@@ -194,10 +190,8 @@ function init(service) {
 
         resolve(values);
       });
-
     });
   }
-
 
   /**
  * upon reception of service callback, optionnally create
@@ -205,48 +199,41 @@ function init(service) {
  */
 
   function process(service, name) {
-
-    return serviceCallback(function(req, res, next) {
-
-      pLib.authenticate(service + '-' + name, {}, function(err, profile, data) {
-
+    return serviceCallback((req, res, next) => {
+      pLib.authenticate(`${service}-${name}`, {}, (err, profile, data) => {
         w({
-          req: req,
-          res: res,
-          err: err,
-          profile: profile,
-          data: data
+          req,
+          res,
+          err,
+          profile,
+          data,
         })
 
-        .then(attemptAuth)
+          .then(attemptAuth)
 
-        .then(ifUserLoaded(false, attemptCreate))
+          .then(ifUserLoaded(false, attemptCreate))
 
-        .then(ifUserLoaded(false, errorExistingEmail))
+          .then(ifUserLoaded(false, errorExistingEmail))
 
-        .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(false, redirectToComplete))))
+          .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(false, redirectToComplete))))
 
-        .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(true, signin))))
+          .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(true, signin))))
 
-        .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
+          .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
 
-        .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : v => v)))
+          .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : v => v)))
 
-        .then(ifUnresolved(ifUserLoaded(false, module.exports[name == 'signup' ? 'renderSignup' : 'renderSignin'])))
+          .then(ifUnresolved(ifUserLoaded(false, module.exports[name == 'signup' ? 'renderSignup' : 'renderSignin'])))
 
-        .done(done , cmn.catchError(req, res));
-
+          .done(done, cmn.catchError(req, res));
       })(req, res, next);
-
     });
-
   }
-
 }
 
 function _pLoadCaptcha(v) {
-  return w.promise(function (rs, rj) {
-    captcha.load(v.req, v.res, function () {
+  return w.promise((rs, rj) => {
+    captcha.load(v.req, v.res, () => {
       rs(v);
     });
   });
@@ -257,9 +244,7 @@ module.exports = init;
 lib.extend(init, exposed);
 
 function serviceCreate(fieldName, activate = false) {
-
   return (values, data, optionals, cb) => {
-
     if (!cb) {
       cb = optionals;
       optionals = {};
@@ -290,15 +275,11 @@ function serviceCreate(fieldName, activate = false) {
         };
       })
       .then(values => cb(null, values.user, values), cb);
-
   };
-
 }
 
 function serviceAuthenticate(fieldName) {
-
   return (_values, cb) => {
-
     const { id } = _values.profile;
     const values = {
       fieldName,
@@ -339,28 +320,23 @@ function serviceAuthenticate(fieldName) {
       .then(
         () => cb(null, values.user, values),
         cb,
-     );
-
+      );
   };
-
 }
 
 function signin(values) {
+  const { req } = values;
 
-  var req = values.req,
+  const { res } = values;
 
-  res = values.res,
+  const { user } = values;
 
-  user = values.user,
+  let agendaSlug;
 
-  agendaSlug,
-
-  d = w.defer();
+  const d = w.defer();
 
   if (values.resolved) {
-
     return values;
-
   }
 
   if (req.query.agenda) {
@@ -381,7 +357,7 @@ function signin(values) {
     let redirectUrl;
 
     services.users.refresh(user.uid, {
-      lastSignin: true
+      lastSignin: true,
     }).catch(err => {
       req.log.error({ message: 'could not refresh lastSignin', error: err });
     });
@@ -414,7 +390,6 @@ function signin(values) {
   return d.promise;
 }
 
-
 /**
  * upon reception of service callback, preload agenda or not
  * depending on stored optionals
@@ -430,40 +405,37 @@ function serviceCallback(cb) {
 
     req.params.slug = req.query.agenda;
 
-    loadAgenda(req, res, function() {
+    loadAgenda(req, res, () => {
       cb(req, res, next);
     });
-  }
+  };
 }
 
 function ifUnresolved(cb) {
-  return function(values) {
+  return function (values) {
     if (!values.resolved) {
       return cb(values);
-    } else {
-      return w(values);
     }
-  }
+    return w(values);
+  };
 }
 
 function ifUserActivated(expected, cb) {
-  return function(values) {
+  return function (values) {
     if (!!values.user.isActivated == expected) {
       return cb(values);
-    } else {
-      return w(values);
     }
-  }
+    return w(values);
+  };
 }
 
 function ifUserLoaded(loaded, cb) {
-  return function(values) {
+  return function (values) {
     if (!!values.user == loaded) {
       return cb(values);
-    } else {
-      return w(values);
     }
-  }
+    return w(values);
+  };
 }
 
 function errorDefaultMessage(values) {
@@ -479,7 +451,6 @@ function errorDefaultMessage(values) {
 
   return values;
 }
-
 
 async function errorExistingEmail(values) {
   if (values.resolved) return values;
@@ -499,13 +470,11 @@ async function errorExistingEmail(values) {
   return values;
 }
 
-
 function redirectToResend(values) {
   values.resend = true;
 
   return redirectToComplete(values);
 }
-
 
 function redirectToComplete(values) {
   let res;
@@ -519,9 +488,9 @@ function redirectToComplete(values) {
   }
 
   values.res.redirect(302, `${res}?${qs.stringify({
-    ... loadOptionals(values.req),
+    ...loadOptionals(values.req),
     email: values.user.email,
-    ... values.req.agenda ? { slug: values.req.agenda.slug } : {}
+    ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
   })}`);
 
   values.resolved = true;
@@ -529,21 +498,19 @@ function redirectToComplete(values) {
   return values;
 }
 
-
 function layoutData(req) {
   return {
     optionals: loadOptionals(req),
-    agenda: req.agenda ? req.agenda : false
+    agenda: req.agenda ? req.agenda : false,
   };
 }
-
 
 function fullNameFromEmail(emailInput) {
   let email;
 
   try {
     email = emailValidator(emailInput);
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 
@@ -556,22 +523,21 @@ function fullNameFromEmail(emailInput) {
 
   const at = (parts[1][0].toUpperCase() + parts[1].substr(1)).split('.')[0];
 
-  return name + ' ' + at
+  return `${name} ${at}`;
 }
-
 
 function done(values) {
   values.req.log.debug('done');
 }
 
 function saveOptionals(req, res, additionals) {
-  cmn.writeToCookie(req, res, 'signin-optionals', lib.extend(loadOptionals(req), additionals ? additionals : {}));
+  cmn.writeToCookie(req, res, 'signin-optionals', lib.extend(loadOptionals(req), additionals || {}));
 }
 
 function restoreOptionals(req, res) {
   const optionals = cmn.readCookie(req, res, 'signin-optionals', true);
 
-  for(var o in optionals) {
+  for (const o in optionals) {
     req.query[o] = optionals[o];
   }
 }

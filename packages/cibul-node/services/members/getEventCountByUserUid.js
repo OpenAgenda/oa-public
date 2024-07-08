@@ -6,7 +6,7 @@ const log = require('@openagenda/logs')('services/members/getEventCountByUserUid
 
 module.exports = (services, agendaUid, userUids = []) => {
   const {
-    agendaEvents
+    agendaEvents,
   } = services;
 
   if (!agendaUid) return [];
@@ -14,4 +14,4 @@ module.exports = (services, agendaUid, userUids = []) => {
   log('processing %d %j', agendaUid, _.uniq(userUids));
 
   return agendaEvents(agendaUid).stats.countByUserUid(_.uniq(userUids));
-}
+};

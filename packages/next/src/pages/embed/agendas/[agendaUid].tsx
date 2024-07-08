@@ -144,6 +144,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     //   ...prefilter,
     // };
 
+    const referrer = req.headers.referer || null;
+
     const params = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
@@ -152,6 +154,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       size: 12,
       ...prefilter,
       ...query,
+      cms: 'embed',
+      host: referrer,
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
@@ -164,6 +168,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         // `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
       ],
+      referrer,
     };
 
     return { props };

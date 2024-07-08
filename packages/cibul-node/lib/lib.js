@@ -1,328 +1,265 @@
-exports.addZero = function( number ) {
-
-  return (parseInt(number, 10)<10?'0':'') + number;
-
+exports.addZero = function (number) {
+  return (parseInt(number, 10) < 10 ? '0' : '') + number;
 };
 
-exports.toUnderscore = function toUnderscore( input ){
+exports.toUnderscore = function toUnderscore(input) {
+  if (typeof input === 'object') {
+    const underscored = {};
 
-  if (typeof input == 'object') {
-
-    var underscored = {};
-
-    for (var key in input) {
-
+    for (const key in input) {
       underscored[toUnderscore(key)] = input[key];
-
     }
 
     return underscored;
-
   }
 
-  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
-
+  return input.replace(/([A-Z])/g, $1 => `_${$1.toLowerCase()}`);
 };
 
-exports.toCamelCase = function toCamelCase( input ) {
+exports.toCamelCase = function toCamelCase(input) {
+  if (typeof input === 'object') {
+    const camelCased = {};
 
-  if (typeof input == 'object') {
-
-    var camelCased = {};
-
-    for (var key in input) {
-
+    for (const key in input) {
       camelCased[toCamelCase(key)] = input[key];
-
     }
 
     return camelCased;
-
   }
 
-  return input.replace(/[-_](.)/g, function(match, group1) {
-
-    return group1.toUpperCase();
-
-  });
-
+  return input.replace(/[-_](.)/g, (match, group1) => group1.toUpperCase());
 };
 
 /* get first list item with matching attributes, or null */
 
-exports.getByAttr = function( arr, matching ) {
+exports.getByAttr = function (arr, matching) {
+  let match;
 
-  var match;
-  
-  for (var i = 0; i < arr.length; i++) {
-
+  for (let i = 0; i < arr.length; i++) {
     match = true;
 
-    for (var a in matching) {
-
-      if ( matching[a] !== arr[i][a] ) {
-
+    for (const a in matching) {
+      if (matching[a] !== arr[i][a]) {
         match = false;
         break;
-
       }
-
     }
 
     if (match) return arr[i];
-
   }
 
   return null;
-
 };
-
 
 /**
  * filter object by attribute array
  */
 
-exports.filterByAttr = function( obj, arr ) {
+exports.filterByAttr = function (obj, arr) {
+  const newObj = {};
 
-  var newObj = {};
-
-  forEach( arr, function( name ) {
-
-    if ( obj[name] !== undefined ) newObj[name] = obj[name];
-
+  forEach(arr, name => {
+    if (obj[name] !== undefined) newObj[name] = obj[name];
   });
 
   return newObj;
-
 };
 
-
 /* Object.size */
-exports.size = function(obj) {
-  var size = 0, key;
+exports.size = function (obj) {
+  let size = 0; let
+    key;
   for (key in obj) {
-      if (obj.hasOwnProperty(key)) size++;
+    if (obj.hasOwnProperty(key)) size++;
   }
   return size;
 };
 
 /* extend */
-exports.extend = function(){
-  for(var i=1; i<arguments.length; i++)
-      for(var key in arguments[i])
-          if(arguments[i].hasOwnProperty(key))
-              arguments[0][key] = arguments[i][key];
+exports.extend = function () {
+  for (let i = 1; i < arguments.length; i++) for (const key in arguments[i]) if (arguments[i].hasOwnProperty(key)) arguments[0][key] = arguments[i][key];
   return arguments[0];
 };
 
-/*contains*/
-exports.contains = function(a, obj) {
-  var i = a.length;
+/* contains */
+exports.contains = function (a, obj) {
+  let i = a.length;
   while (i--) {
-     if (a[i] === obj) {
-         return true;
-     }
+    if (a[i] === obj) {
+      return true;
+    }
   }
   return false;
 };
 
-exports.isArray = function(obj) {
+exports.isArray = function (obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 };
 
-exports.removeValueFromArray = function(arr) {
-    var what, a = arguments, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        what = a[--L];
-        while ((ax= arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
-        }
+exports.removeValueFromArray = function (arr) {
+  let what; const a = arguments; let L = a.length; let
+    ax;
+  while (L > 1 && arr.length) {
+    what = a[--L];
+    while ((ax = arr.indexOf(what)) !== -1) {
+      arr.splice(ax, 1);
     }
-    return arr;
+  }
+  return arr;
 };
 
-exports.unpack = function(encoded) {
+exports.unpack = function (encoded) {
   return JSON.parse(encoded);
 };
 
-var hasClass = function(element, cls) { return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1; };
-var addClass = function(element, className) { if (!hasClass(element, className)) element.className = element.className + ' ' + className; };
-var removeClass = function(element, cls) { if (hasClass(element, cls)) { var regex = new RegExp(cls, 'g'); element.className = element.className.replace(regex,''); } };
+const hasClass = function (element, cls) { return ` ${element.className} `.indexOf(` ${cls} `) > -1; };
+const addClass = function (element, className) { if (!hasClass(element, className)) element.className = `${element.className} ${className}`; };
+const removeClass = function (element, cls) { if (hasClass(element, cls)) { const regex = new RegExp(cls, 'g'); element.className = element.className.replace(regex, ''); } };
 
 exports.hasClass = hasClass;
 exports.addClass = addClass;
 exports.removeClass = removeClass;
 
-
-
-exports.removeEvent = function(elem,types,eventHandle) {
+exports.removeEvent = function (elem, types, eventHandle) {
   if (elem === null || elem === undefined) return;
-  if (typeof types == 'string') types = [types];
-  forEach(types, function(type) {
+  if (typeof types === 'string') types = [types];
+  forEach(types, type => {
     if (elem.removeEventListener) {
-      elem.removeEventListener(type, eventHandle,false);
+      elem.removeEventListener(type, eventHandle, false);
     } else if (elem.detachEvent) {
-      elem.detachEvent('on'+type, eventHandle);
+      elem.detachEvent(`on${type}`, eventHandle);
     } else {
-      elem["on"+type]=null;
+      elem[`on${type}`] = null;
     }
   });
 };
 
-exports.addEvent = function(elem, types, eventHandle) {
+exports.addEvent = function (elem, types, eventHandle) {
   if (elem == null || elem == undefined) return;
-  if (typeof types == 'string') types = [types];
-  forEach(types, function(type){
-    if ( elem.addEventListener ) {
-      elem.addEventListener( type, eventHandle, false);
-    } else if ( elem.attachEvent ) {
-        elem.attachEvent( "on" + type, eventHandle );
+  if (typeof types === 'string') types = [types];
+  forEach(types, type => {
+    if (elem.addEventListener) {
+      elem.addEventListener(type, eventHandle, false);
+    } else if (elem.attachEvent) {
+      elem.attachEvent(`on${type}`, eventHandle);
     } else {
-        elem["on"+type]=eventHandle;
-    }  
+      elem[`on${type}`] = eventHandle;
+    }
   });
 };
 
-exports.preventDefault = function(event) {
+exports.preventDefault = function (event) {
   event.preventDefault ? event.preventDefault() : event.returnValue = false;
 };
 
-var getElementsByClassName = function(node, classname) {
-  if (typeof node == 'string') {
+const getElementsByClassName = function (node, classname) {
+  if (typeof node === 'string') {
     classname = node;
     node = document;
   }
-  var a = [];
-  var re = new RegExp('(^| )'+classname+'( |$)');
-  var els = node.getElementsByTagName("*");
-  for(var i=0,j=els.length; i<j; i++)
-      if(re.test(els[i].className))a.push(els[i]);
+  const a = [];
+  const re = new RegExp(`(^| )${classname}( |$)`);
+  const els = node.getElementsByTagName('*');
+  for (let i = 0, j = els.length; i < j; i++) if (re.test(els[i].className))a.push(els[i]);
   return a;
 };
 
 exports.getElementsByClassName = getElementsByClassName;
 
-
-var els = function(node, selector) {
-
-  if (typeof node == 'string') {
+const els = function (node, selector) {
+  if (typeof node === 'string') {
     selector = node;
     node = document;
   }
 
-  var prefix = selector.substr(0,1);
+  const prefix = selector.substr(0, 1);
 
   if ('.#,'.indexOf(prefix) !== -1) selector = selector.substr(1);
 
-  if (prefix == '.')
-    return getElementsByClassName(node, selector);
-  else if (prefix == '#') {
-    var result = node.getElementById(selector);
-    if (result)
-      return [result];
-    else
-      return [];
+  if (prefix == '.') return getElementsByClassName(node, selector);
+  if (prefix == '#') {
+    const result = node.getElementById(selector);
+    if (result) return [result];
+    return [];
   }
-  else
-    return node.getElementsByTagName(selector);
-
+  return node.getElementsByTagName(selector);
 };
 
 exports.els = els;
 
+exports.el = function (node, selector) {
+  const results = els(node, selector);
 
-exports.el = function(node, selector) {
-
-  var results = els(node, selector);
-
-  return results.length?results[0]:null;
-
+  return results.length ? results[0] : null;
 };
 
-
 /* previousObject, nextObject, childObject, getChildIndex v0.1 */
-var previousObject = function(elem) {
-  
+const previousObject = function (elem) {
   elem = elem.previousSibling;
 
-  while (elem && elem.nodeType != 1)
-    elem = elem.previousSibling;
+  while (elem && elem.nodeType != 1) elem = elem.previousSibling;
 
   return elem;
-
 };
 
 exports.previousObject = previousObject;
 
-exports.nextObject = function(elem) {
-
+exports.nextObject = function (elem) {
   elem = elem.nextSibling;
 
-  while (elem && elem.nodeType != 1)
-    elem = elem.nextSibling;
+  while (elem && elem.nodeType != 1) elem = elem.nextSibling;
 
   return elem;
 };
 
-exports.childObject = function(elem, index) {
-
-  var i = 0, realI = 0;
+exports.childObject = function (elem, index) {
+  let i = 0; let
+    realI = 0;
 
   while (elem.childNodes[i]) {
-
     if (elem.childNodes[i].nodeType == 1) {
-
-      if (realI==index) return elem.childNodes[i];
+      if (realI == index) return elem.childNodes[i];
 
       realI++;
     }
 
     i++;
-
   }
 
   return false;
-
 };
 
-exports.getChildIndex = function(child) {
+exports.getChildIndex = function (child) {
+  let i = 0;
 
-  var i = 0;
-
-  while ( (child = previousObject(child)) !== null ) i++;
+  while ((child = previousObject(child)) !== null) i++;
 
   return i;
-
 };
 
-var forEach = function(array, action) {
-  for (var i = 0; i < array.length; i++)
-    action(array[i]);
+var forEach = function (array, action) {
+  for (let i = 0; i < array.length; i++) action(array[i]);
 };
 
 exports.forEach = forEach;
 
+exports.asymDiff = function (a, b) {
+  if (typeof dSuffix !== 'string') dSuffix = '';
+  const diff = {};
 
-exports.asymDiff = function(a, b) {
-
-  if (typeof dSuffix != 'string') dSuffix = '';
-  var diff = {};
-  
-  for (var pName in a) {
-      if (typeof b[pName] != 'undefined') {
-          if (b[pName] !== a[pName]) diff[pName] = a[pName];
-      } else {
-          diff[pName] = a[pName];
-      }
+  for (const pName in a) {
+    if (typeof b[pName] !== 'undefined') {
+      if (b[pName] !== a[pName]) diff[pName] = a[pName];
+    } else {
+      diff[pName] = a[pName];
+    }
   }
-  
+
   return diff;
 };
 
-
 /* HTMLElement.prototype.insertAdjacentElement (for FF) */
-if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentElement) {
-
+if (typeof HTMLElement !== 'undefined' && !HTMLElement.prototype.insertAdjacentElement) {
   HTMLElement.prototype.insertAdjacentElement = function (where, parsedNode) {
     switch (where.toLowerCase()) {
       case 'beforebegin':
@@ -342,58 +279,55 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
   };
 
   HTMLElement.prototype.insertAdjacentHTML = function (where, htmlStr) {
-    var r = this.ownerDocument.createRange();
+    const r = this.ownerDocument.createRange();
     r.setStartBefore(this);
-    var parsedHTML = r.createContextualFragment(htmlStr);
+    const parsedHTML = r.createContextualFragment(htmlStr);
     this.insertAdjacentElement(where, parsedHTML);
   };
 
   HTMLElement.prototype.insertAdjacentText = function (where, txtStr) {
-    var parsedText = document.createTextNode(txtStr);
+    const parsedText = document.createTextNode(txtStr);
     this.insertAdjacentElement(where, parsedText);
   };
 }
 
-
-exports.getScrollOffsets = function(w){
-
-  // Use the specified window or the current window if no argument 
+exports.getScrollOffsets = function (w) {
+  // Use the specified window or the current window if no argument
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
-  if (typeof w.pageXOffset !== 'undefined') return {
-    x: w.pageXOffset,
-    y:w.pageYOffset
-  };
+  if (typeof w.pageXOffset !== 'undefined') {
+    return {
+      x: w.pageXOffset,
+      y: w.pageYOffset,
+    };
+  }
 
   // For IE (or any browser) in Standards mode
-  var d = w.document;
-  if (document.compatMode == "CSS1Compat") {
+  const d = w.document;
+  if (document.compatMode == 'CSS1Compat') {
     return {
-      x:d.documentElement.scrollLeft,
-      y:d.documentElement.scrollTop
+      x: d.documentElement.scrollLeft,
+      y: d.documentElement.scrollTop,
     };
   }
 
   // For browsers in Quirks mode
   return {
     x: d.body.scrollLeft,
-    y: d.body.scrollTop
+    y: d.body.scrollTop,
   };
 };
 
-exports.windowInnerHeight = function() {
-
+exports.windowInnerHeight = function () {
   return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-
 };
 
-exports.triggerEvent = function(elem, name) {
-
-  var e;
+exports.triggerEvent = function (elem, name) {
+  let e;
 
   if (document.createEvent) {
-    e = document.createEvent("HTMLEvents");
+    e = document.createEvent('HTMLEvents');
     e.initEvent(name, true, true);
   } else {
     e = document.createEventObject();
@@ -405,29 +339,26 @@ exports.triggerEvent = function(elem, name) {
   if (document.createEvent) {
     elem.dispatchEvent(e);
   } else {
-    elem.fireEvent("on" + e.eventType, e);
+    elem.fireEvent(`on${e.eventType}`, e);
   }
-
 };
 
-exports.isElement = function(o){
+exports.isElement = function (o) {
   return (
-    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+    typeof HTMLElement === 'object' ? o instanceof HTMLElement // DOM2
+      : o && typeof o === 'object' && o !== null && o.nodeType === 1 && typeof o.nodeName === 'string'
   );
 };
 
 // add trim function to IE8
-if(typeof String.prototype.trim !== 'function') {
-  String.prototype.trim = function() {
+if (typeof String.prototype.trim !== 'function') {
+  String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/g, '');
   };
 }
 
-exports.removeProperty = function(obj, name) {
-
+exports.removeProperty = function (obj, name) {
   if (typeof obj.removeProperty !== 'undefined') return obj.removeProperty(name);
 
   return obj.removeAttribute(name);
-
 };

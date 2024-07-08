@@ -1,103 +1,74 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  extend: extend,
-  filterByAttr: filterByAttr,
-  isArray: isArray,
-  size: size,
-  fZ: fZ,
-  unique: unique,
-  forEach: forEach, // for some older browsers
+  extend,
+  filterByAttr,
+  isArray,
+  size,
+  fZ,
+  unique,
+  forEach, // for some older browsers
 };
 
+function unique(arr) {
+  const u = [];
 
-function unique( arr ) {
-
-  var u = [];
-
-  arr.forEach( function( a ) {
-
-    if ( u.indexOf( a ) === -1 ) u.push( a );
-
+  arr.forEach(a => {
+    if (u.indexOf(a) === -1) u.push(a);
   });
 
   return u;
-
 }
 
-
-function isArray( obj ) {
-
-  return Object.prototype.toString.call( obj ) === '[object Array]';
-
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
 }
 
-function size( obj ) {
+function size(obj) {
+  let size = 0; let
+    key;
 
-  var size = 0, key;
-
-  for ( key in obj ) {
-
-    if ( obj.hasOwnProperty( key ) ) size++;
-
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) size++;
   }
 
   return size;
-
 }
 
+function filterByAttr(obj, arr) {
+  const newObj = {};
 
-function filterByAttr( obj, arr ) {
-
-  var newObj = {};
-
-  forEach( arr, function( name ) {
-
-    if ( obj[name] !== undefined ) newObj[name] = obj[name];
-
+  forEach(arr, name => {
+    if (obj[name] !== undefined) newObj[name] = obj[name];
   });
 
   return newObj;
-
-};
-
-function forEach( array, action ) {
-
-  for ( var i = 0; i < array.length; i++ ) {
-
-    action( array[i] );
-
-  }
-
-};
-
-function extend() {
-
-  for ( var i=1; i<arguments.length; i++ ) {
-
-    for ( var key in arguments[i] ) {
-
-      if ( arguments[i].hasOwnProperty( key ) ) {
-
-        arguments[ 0 ][ key ] = arguments[ i ][ key ];
-
-      }
-
-    }
-
-  }
-        
-  return arguments[ 0 ];
-
 }
 
-function fZ( n, size ) {
+function forEach(array, action) {
+  for (let i = 0; i < array.length; i++) {
+    action(array[i]);
+  }
+}
 
-  if ( !size ) size = 2;
+function extend() {
+  for (let i = 1; i < arguments.length; i++) {
+    for (const key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key)) {
+        arguments[0][key] = arguments[i][key];
+      }
+    }
+  }
 
-  var s = n + '';
+  return arguments[0];
+}
 
-  while ( s.length < size ) s = '0' + s;
+function fZ(n, size) {
+  if (!size) size = 2;
 
-  return s; 
+  let s = `${n}`;
+
+  while (s.length < size) s = `0${s}`;
+
+  return s;
 }

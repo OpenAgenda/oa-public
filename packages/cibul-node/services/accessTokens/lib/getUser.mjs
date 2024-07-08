@@ -27,4 +27,4 @@ export default async function getUser(knex, users, tokenString = null, nonce = n
       id: apiKeySet.user_id,
     },
   });
-};
+}

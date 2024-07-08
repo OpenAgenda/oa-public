@@ -24,7 +24,7 @@ function load(req, res, next) {
       },
       bottom: {
         scripts: [
-          ...(_.get(req.baseData, 'bottom.scripts') || []),
+          ..._.get(req.baseData, 'bottom.scripts') || [],
           `var mtcaptchaConfig = {
             "sitekey": "${config.mtCaptcha.siteKey}",
             "renderQueue": ["mtcaptcha-local"],
@@ -33,7 +33,7 @@ function load(req, res, next) {
           };`,
         ],
       },
-      mtCaptchaEnabled: config.mtCaptcha.enabled
+      mtCaptchaEnabled: config.mtCaptcha.enabled,
     });
   } else {
     req.baseData.mtCaptchaEnabled = false;

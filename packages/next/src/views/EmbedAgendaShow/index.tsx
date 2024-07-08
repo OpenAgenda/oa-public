@@ -6,7 +6,6 @@ import qs from 'qs';
 import { chakra, useConst } from '@openagenda/uikit';
 import { FiltersProvider, getAdditionalFilters, useFilters } from '@openagenda/react-filters';
 import { useLatest, usePrevious } from 'react-use';
-import { AgendaShowProps } from 'views/AgendaShow';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
@@ -29,11 +28,12 @@ const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
 });
 
 export type EmbedAgendaShowProps = {
-  agenda: Agenda,
-  preload?: string[]
+  agenda: Agenda;
+  preload?: string[];
+  referrer: string;
 };
 
-function EmbedAgendaShow({ agenda, preload }: AgendaShowProps) {
+function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
@@ -52,8 +52,7 @@ function EmbedAgendaShow({ agenda, preload }: AgendaShowProps) {
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
   const filtersToInclude = useMemo(() => {
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
-      .map(({ fieldSchema }) => fieldSchema.field);
+    const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(({ fieldSchema }) => fieldSchema.field);
 
     return ['geo', 'timings', ...additionalFilters];
   }, [agenda.schema.fields]);
@@ -66,7 +65,17 @@ function EmbedAgendaShow({ agenda, preload }: AgendaShowProps) {
     include: filtersToInclude,
   });
 
-  const { data: pages } = useEventsQuery({ agenda, filters, query, includeFields, pageSize: 12 });
+  const { data: pages } = useEventsQuery({
+    agenda,
+    filters,
+    query: {
+      ...query,
+      cms: 'embed',
+      host: typeof document !== 'undefined' ? document.referrer : referrer,
+    },
+    includeFields,
+    pageSize: 12,
+  });
 
   const [_isPending, startTransition] = useTransition();
 
@@ -120,21 +129,19 @@ function EmbedAgendaShow({ agenda, preload }: AgendaShowProps) {
                 filters={filters}
                 query={query}
                 includeFields={includeFields}
+                referrer={referrer}
               />
             </Suspense>
           ) : null}
         </FiltersProvider>
       </chakra.main>
 
-      {needConsentFor ? (
-        <ConsentBanner consentFor={needConsentFor} />
-      ) : null}
+      {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
     </>
   );
 }
 
-EmbedAgendaShow.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-]).then(results => Object.assign({}, ...results));
+EmbedAgendaShow.fetchLocale = (locale: string) =>
+  Promise.all([fetchLocale(locale)]).then(results => Object.assign({}, ...results));
 
 export default EmbedAgendaShow;

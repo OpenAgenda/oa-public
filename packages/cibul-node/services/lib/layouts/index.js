@@ -1,43 +1,29 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const ih = require( 'immutability-helper' );
+const fs = require('node:fs');
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
-module.exports = ( () => {
-
+module.exports = (() => {
   const layouts = _loadLayouts();
 
-  return _.mapValues( layouts, ( { parent, parser, render } ) => {
+  return _.mapValues(layouts, ({ parent, parser, render }) => (content, data = {}) => {
+    const parsedData = parser ? parser(data) : data;
 
-    return ( content, data = {} ) => {
+    const rendered = render(parsedData).replace('{content}', content);
 
-      const parsedData = parser ? parser( data ) : data;
+    return parent ? module.exports[parent](rendered, parsedData) : rendered;
+  });
+})();
 
-      const rendered = render( parsedData ).replace( '{content}', content );
-
-      return parent ? module.exports[ parent ]( rendered, parsedData ) : rendered;
-
-    }
-
-  } );
-
-} )();
-
-module.exports.load = ( layoutName, preLoaded = {} ) => {
-
-  return ( content, data = {} ) => module.exports[ layoutName ]( content, _.assign( {}, preLoaded, data ) );
-
-}
-
+module.exports.load = (layoutName, preLoaded = {}) => (content, data = {}) => module.exports[layoutName](content, _.assign({}, preLoaded, data));
 
 function _loadLayouts() {
-
-  return fs.readdirSync( __dirname )
-    .filter( filename => filename.split( '.' ).length === 1 )
-    .filter( filename => ![ 'test' ].includes( filename ) )
+  return fs.readdirSync(__dirname)
+    .filter(filename => filename.split('.').length === 1)
+    .filter(filename => !['test'].includes(filename))
     .reduce(
-      ( layouts, layoutName ) => _.set( layouts, layoutName, require( __dirname + '/' + layoutName ) ),
-    {} );
-
+      (layouts, layoutName) => _.set(layouts, layoutName, require(`${__dirname}/${layoutName}`)),
+      {},
+    );
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-const { Readable } = require('stream');
+const { Readable } = require('node:stream');
 const _ = require('lodash');
 const ih = require('immutability-helper');
 

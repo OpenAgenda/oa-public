@@ -5,18 +5,18 @@ const utils = require('@openagenda/utils');
 
 module.exports = function getEventLayoutData(req) {
   const {
-    indexedEvent: event
+    indexedEvent: event,
   } = req;
 
   const {
-    core
+    core,
   } = req.app.services;
 
   const config = core.getConfig();
 
   const descriptionParts = [
     event.description,
-    event.dateRange
+    event.dateRange,
   ];
 
   if (event.location) {
@@ -32,37 +32,37 @@ module.exports = function getEventLayoutData(req) {
       keywords: utils.escape(event.keywords, false),
       ogSiteName: {
         property: 'og:site_name',
-        content: 'OpenAgenda'
+        content: 'OpenAgenda',
       },
       ogTitle: {
         property: 'og:title',
-        content: utils.escape(event.title, false)
+        content: utils.escape(event.title, false),
       },
       ogDescription: {
         property: 'og:description',
-        content: utils.escape(descriptionParts.join(' - '))
+        content: utils.escape(descriptionParts.join(' - ')),
       },
       ogLocale: {
         property: 'og:locale',
-        content: req.lang
+        content: req.lang,
       },
       ogUrl: `${config.root}${req.originalUrl.split('?').shift()}?lang=${req.lang}`,
       'twitter:card': event.image ? 'summary_large_image' : 'summary',
       'twitter:title': utils.escape(event.title, false),
       'twitter:description': utils.escape(descriptionParts.join(' - '), false),
       'twitter:domain': config.domain,
-      ...(event.image ? {
+      ...event.image ? {
         ogImage: {
           property: 'og:image',
-          content: `${event.image.base}${event.image.filename}`
+          content: `${event.image.base}${event.image.filename}`,
         },
-        'twitter:image': `${event.image.base}${event.image.filename}`
-      } : {})
+        'twitter:image': `${event.image.base}${event.image.filename}`,
+      } : {},
     },
     headLinks: event.languages.filter(l => l.code !== req.lang).map(l => ({
       rel: 'alternate',
       href: `${config.root}${req.originalUrl.split('?').shift()}?lang=${l.code}`,
-      hreflang: l.code
+      hreflang: l.code,
     })),
     indexed: !!req.agenda.indexed && !req.agenda.private,
     mailto: req.agenda.settings.inbox?.mailto,
@@ -80,6 +80,6 @@ module.exports = function getEventLayoutData(req) {
       tracking: req.agenda.settings.tracking,
     },
     settings: req.agenda.settings,
-    hasOwnershipTransfer
+    hasOwnershipTransfer,
   };
 };

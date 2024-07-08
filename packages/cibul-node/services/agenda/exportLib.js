@@ -1,31 +1,28 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const async = require( 'async' );
-const w = require( 'when' );
+const _ = require('lodash');
+const async = require('async');
+const w = require('when');
 
-const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
+const countryLabels = require('@openagenda/labels/agenda-locations/countries');
 const slug = require('slugify');
-const utils = require( '@openagenda/utils' );
+const utils = require('@openagenda/utils');
 
-const config = require( '../../config' );
+const config = require('../../config');
 const legacy = require('../legacy');
 
 let svc;
 
-module.exports = function( service ) {
-
+module.exports = function (service) {
   svc = service;
 
   return {
     decorateEvents,
-    decorateEvent
-  }
+    decorateEvent,
+  };
+};
 
-}
-
-
-function decorateEvents( agenda, events, toDecorate, options, cb ) {
+function decorateEvents(agenda, events, toDecorate, options, cb) {
   let i = 0;
 
   legacy.getTagSet(agenda.id).then(tagSet => {
@@ -47,315 +44,250 @@ function _loadTagSet(v) {
   });
 }
 
-
-function decorateEvent( agenda, event, toDecorate, options, cb ) {
-
+function decorateEvent(agenda, event, toDecorate, options, cb) {
   toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
   toDecorate.permalink = `${config.root}/agendas/${agenda.uid}/events/${event.uid}`;
 
-  w( utils.extend( {
+  w(utils.extend({
     multiLang: true,
     longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
     agenda,
     event,
     loadTagSet: false,
     decorated: toDecorate,
-    lang: false,                // given by options
-    includePrivateData: false   // given by options
-  }, options ) )
+    lang: false, // given by options
+    includePrivateData: false, // given by options
+  }, options))
 
-  .then( _addState ) // only if private data
+    .then(_addState) // only if private data
 
-  .then( _addFeatured )
+    .then(_addFeatured)
 
-  .then( _loadTagSet )
+    .then(_loadTagSet)
 
-  .then( _addCustomFields )
+    .then(_addCustomFields)
 
-  .then( _addReferences )
+    .then(_addReferences)
 
-  .then( _addContributorInfo )
+    .then(_addContributorInfo)
 
-  .then( _addCountry )
+    .then(_addCountry)
 
-  .then( _addCategory )
+    .then(_addCategory)
 
-  .then( _addTags )
+    .then(_addTags)
 
-  .then( _addTagGroups )
+    .then(_addTagGroups)
 
-  .done( v => {
-
-    cb( null, v.decorated );
-
-  }, cb );
-
+    .done(v => {
+      cb(null, v.decorated);
+    }, cb);
 }
 
-function _addTagGroups( v ) {
-
+function _addTagGroups(v) {
   let tagIds = null;
 
   v.decorated.tagGroups = [];
 
-  if ( typeof v.decorated.tags == 'string' ) {
-
-    tagIds = [ v.decorated.tags ];
-
-  } else if ( v.decorated.tags ) {
-
-    tagIds = v.decorated.tags.map( t => t.id );
-
+  if (typeof v.decorated.tags === 'string') {
+    tagIds = [v.decorated.tags];
+  } else if (v.decorated.tags) {
+    tagIds = v.decorated.tags.map(t => t.id);
   }
 
-  if ( !tagIds || !tagIds.length ) return v;
+  if (!tagIds || !tagIds.length) return v;
 
-  const tagSet = v.agenda.tagSet;
+  const { tagSet } = v.agenda;
 
-  v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
+  v.decorated.tagGroups = (tagSet ? tagSet.groups : [])
 
   // includePrivateData
 
   // keep groups containing tags used by event
-  .filter( g => g.tags.filter( t => tagIds.indexOf( t.id ) !== -1 ).length )
+    .filter(g => g.tags.filter(t => tagIds.indexOf(t.id) !== -1).length)
 
   // keep group tags used by event
-  .map( g => ( {
-    name: g.name,
-    access: g.access || 'public',
-    slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
-    tags: g.tags.filter( t => tagIds.indexOf( t.id ) !== -1 ).map( t => ( _.assign( {
-      label: t.label,
-      slug: t.slug,
-      id: t.id
-    }, t.schemaOptionId ? { schemaOptionId: t.schemaOptionId } : {} ) ) )
-  } ) )
+    .map(g => ({
+      name: g.name,
+      access: g.access || 'public',
+      slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
+      tags: g.tags.filter(t => tagIds.indexOf(t.id) !== -1).map(t => _.assign({
+        label: t.label,
+        slug: t.slug,
+        id: t.id,
+      }, t.schemaOptionId ? { schemaOptionId: t.schemaOptionId } : {})),
+    }))
 
-  .filter( g => {
+    .filter(g => {
+      if (v.includePrivateData) return true;
 
-    if ( v.includePrivateData ) return true;
-
-    return _.get( g, 'access', 'public' ) === 'public'
-
-  } )
+      return _.get(g, 'access', 'public') === 'public';
+    })
 
   // remove empty groups
-  .filter( g => g.tags.length );
-
+    .filter(g => g.tags.length);
 
   // reuse tag group order with tags
-  v.decorated.tags = v.decorated.tagGroups.reduce( ( carry, group ) => carry.concat( group.tags ), [] );
+  v.decorated.tags = v.decorated.tagGroups.reduce((carry, group) => carry.concat(group.tags), []);
 
   return v;
-
 }
 
-
-function _addTags( v ) {
-
+function _addTags(v) {
   // if tags are already loaded no need to fetch again
-  if ( v.decorated.tags instanceof Array ) return v;
+  if (v.decorated.tags instanceof Array) return v;
 
-  let d = w.defer();
+  const d = w.defer();
 
   // includePrivateData
 
-  v.event.getAgendaTags( v.agenda.id, ( err, tags ) => {
-
-    if ( err ) return d.reject( err );
+  v.event.getAgendaTags(v.agenda.id, (err, tags) => {
+    if (err) return d.reject(err);
 
     v.decorated.tags = tags;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-
-function _addCategory( v ) {
-
+function _addCategory(v) {
   // if category is already present, no need to fetch again
-  if ( v.decorated.category ) return v;
+  if (v.decorated.category) return v;
 
-  let d = w.defer();
+  const d = w.defer();
 
-  v.event.getAgendaCategory( v.agenda.id, ( err, category ) => {
-
-    if ( err ) return d.reject( err );
+  v.event.getAgendaCategory(v.agenda.id, (err, category) => {
+    if (err) return d.reject(err);
 
     v.decorated.category = category || null;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-
-function _addReferences( v ) {
-
+function _addReferences(v) {
   v.decorated.references = [];
 
-  let referenceSet = v.event.articles
+  const referenceSet = v.event.articles
 
-  .filter( a => a.review.id===v.agenda.id )
+    .filter(a => a.review.id === v.agenda.id)
 
-  .map( a => a.references );
+    .map(a => a.references);
 
-  if ( referenceSet.length ) {
-
-    v.decorated.references = referenceSet[ 0 ];
-
+  if (referenceSet.length) {
+    v.decorated.references = referenceSet[0];
   }
 
   return v;
-
 }
 
+function _addContributorInfo(v) {
+  const d = w.defer();
 
-function _addContributorInfo( v ) {
-
-  let d = w.defer();
-
-  v.event.getContributorInfo( v.agenda.id, ( err, contributorInfo ) => {
-
+  v.event.getContributorInfo(v.agenda.id, (err, contributorInfo) => {
     v.decorated.contributor = null;
 
-    if ( err ) return d.reject( err );
+    if (err) return d.reject(err);
 
-    if ( !contributorInfo ) return d.resolve( v );
+    if (!contributorInfo) return d.resolve(v);
 
-    if ( !v.includePrivateData ) {
-
+    if (!v.includePrivateData) {
       v.decorated.contributor = {
-        organization: contributorInfo.organization
-      }
-
+        organization: contributorInfo.organization,
+      };
     } else {
-
       v.decorated.contributor = contributorInfo || null;
-
     }
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-
-function _addCustomFields( v ) {
-
+function _addCustomFields(v) {
   const d = w.defer();
 
   const customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
 
-  customFieldsGetter( v.event, v.lang, ( err, custom, privateExists ) => {
-
-    if ( err ) return d.reject( err );
+  customFieldsGetter(v.event, v.lang, (err, custom, privateExists) => {
+    if (err) return d.reject(err);
 
     v.decorated.hasPrivateCustomFields = privateExists;
 
     v.decorated.customValues = {};
 
-    custom.forEach( c => {
-
-      if ( c.fieldType === 'checkbox' ) {
-
-        v.decorated.customValues[ c.name ] = !!(Array.isArray(c.value) ? c.value.length : c.value);
-
-      } else if ( c.fieldType == 'image' && c.value ) {
-
-        v.decorated.customValues[ c.name ] = config.aws.imageBucketPath + c.value;
-
-      } else if ( c.fieldType == 'file' && c.value ) {
-
+    custom.forEach(c => {
+      if (c.fieldType === 'checkbox') {
+        v.decorated.customValues[c.name] = !!(Array.isArray(c.value) ? c.value.length : c.value);
+      } else if (c.fieldType == 'image' && c.value) {
+        v.decorated.customValues[c.name] = config.aws.imageBucketPath + c.value;
+      } else if (c.fieldType == 'file' && c.value) {
         const uploaded = config.aws.imageBucketPath + c.value.uploaded;
 
-        c.value.embed = '<iframe height="500" width="100%" src="' + uploaded + '" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+        c.value.embed = `<iframe height="500" width="100%" src="${uploaded}" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
 
         c.value.link = `${config.root}/${v.agenda.slug}/events/${v.event.slug}/files/${c.name}`;
 
-        v.decorated.customValues[ c.name ] = {
+        v.decorated.customValues[c.name] = {
           name: c.value.name,
           uploaded,
           embed: c.value.embed,
-          link: c.value.link
-        }
-
-      } else if ( ![ 'image', 'file' ].includes( c.fieldType ) ) {
-
-        v.decorated.customValues[ c.name ] = c.value;
-
+          link: c.value.link,
+        };
+      } else if (!['image', 'file'].includes(c.fieldType)) {
+        v.decorated.customValues[c.name] = c.value;
       }
-
-    } );
+    });
 
     v.decorated.custom = custom;
 
-    v.decorated.customLabels = v.agenda.getCustomFieldsLabels( v.event.getCurrentLanguage() );
+    v.decorated.customLabels = v.agenda.getCustomFieldsLabels(v.event.getCurrentLanguage());
 
-    return d.resolve( v );
-
-  } );
+    return d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
+function _addFeatured(v) {
+  const d = w.defer();
 
-function _addFeatured( v ) {
-
-  let d = w.defer();
-
-  v.event.getFeatured( ( err, isFeatured ) => {
-
-    if ( err ) return d.reject( err );
+  v.event.getFeatured((err, isFeatured) => {
+    if (err) return d.reject(err);
 
     v.decorated.featured = isFeatured;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }
 
-function _addCountry( v ) {
+function _addCountry(v) {
+  if (!_.get(v, 'decorated.location.countryCode', null)) return v;
 
-  if ( !_.get( v, 'decorated.location.countryCode', null ) ) return v;
-
-  v.decorated.location.country = countryLabels[ v.decorated.location.countryCode.toUpperCase() ] || null;
+  v.decorated.location.country = countryLabels[v.decorated.location.countryCode.toUpperCase()] || null;
 
   return v;
-
 }
 
-
-function _addState( v ) {
-
-  if ( !v.includePrivateData ) return v;
+function _addState(v) {
+  if (!v.includePrivateData) return v;
 
   const d = w.defer();
 
-  v.event.getState( ( err, state ) => {
-
-    if ( err ) return d.reject( err );
+  v.event.getState((err, state) => {
+    if (err) return d.reject(err);
 
     v.decorated.state = state;
 
-    d.resolve( v );
-
-  } );
+    d.resolve(v);
+  });
 
   return d.promise;
-
 }

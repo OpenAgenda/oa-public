@@ -22,4 +22,4 @@ export default async function requestAccessToken(req, res) {
       message: e.message,
     });
   }
-};
+}

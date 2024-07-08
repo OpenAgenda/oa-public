@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const cmn = require('../lib/commons-app');
@@ -30,14 +30,13 @@ function latestInboxMessageTimestamp(req, res, next) {
 
       if (timestamp === null) {
         return res.send({ hasNew: false });
-      } else if (!req.user.lastInboxCheck) {
+      } if (!req.user.lastInboxCheck) {
         return res.send({ hasNew: true });
-      } else if (timestamp > req.user.lastInboxCheck) {
+      } if (timestamp > req.user.lastInboxCheck) {
         return res.send({ hasNew: true });
       }
 
       res.send({ hasNew: false });
-
     })
     .catch(next);
 }
@@ -53,6 +52,6 @@ module.exports = app => {
     cmn.loadLogger('latestInboxMessageTimestamp'),
     sessions.mw.ifUnlogged((req, res) => res.send(null)),
     _loadUser.bind(null, true),
-    latestInboxMessageTimestamp
+    latestInboxMessageTimestamp,
   );
 };

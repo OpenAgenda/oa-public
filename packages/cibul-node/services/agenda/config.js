@@ -6,19 +6,19 @@ module.exports = {
     key: 'events',
     label: 'Events',
     access: 'moderator',
-    uri: 'agendaAdminShow'
+    uri: 'agendaAdminShow',
   }, {
     section: 'manage',
     key: 'members',
     label: 'Members',
     uri: 'agendaAdminMembers',
-    access: 'moderator'
+    access: 'moderator',
   }, {
     section: 'manage',
     key: 'locations',
     label: 'Locations',
     uri: 'agendaAdminLocations',
-    access: 'moderator'
+    access: 'moderator',
   }, {
     section: 'manage',
     key: 'sources',
@@ -27,59 +27,59 @@ module.exports = {
     access: 'administrator',
     requiredCred: 'aggregator',
     call: {
-      subject: 'aggregator'
-    }
+      subject: 'aggregator',
+    },
   }, {
     section: 'manage',
     key: 'inbox',
     label: 'Inbox',
     uri: 'agendaAdminInbox',
-    access: 'moderator'
+    access: 'moderator',
   }, {
     section: 'manage',
     key: 'activities',
     label: 'Activities',
     uri: 'agendaAdminActivityApps',
-    access: 'moderator'
+    access: 'moderator',
   }, {
     section: 'export',
     key: 'facebook',
     label: 'Facebook',
     access: 'administrator',
-    uri: 'facebookShow'
+    uri: 'facebookShow',
   }, {
     section: 'export',
     key: 'web',
     label: 'Web Integration',
     access: 'administrator',
-    uri: 'agendaAdminWeb'
+    uri: 'agendaAdminWeb',
   }, {
     section: 'export',
     key: 'indesign',
     label: 'Indesign - Xml',
     uri: 'agendaAdminIndesign',
     access: 'administrator',
-    requiredCred: 'indesign'
+    requiredCred: 'indesign',
   }, {
     section: 'settings',
     key: 'settings_profile',
     label: 'Profile',
     access: 'administrator',
     uri: 'agendaSettingsEditApp',
-    suffix: '/profile'
+    suffix: '/profile',
   }, {
     section: 'settings',
     key: 'settings_contribution',
     label: 'Contribution',
     access: 'administrator',
     uri: 'agendaSettingsEditApp',
-    suffix: '/contribution'
+    suffix: '/contribution',
   }, {
     section: 'settings',
     key: 'settings_advanced',
     label: 'Advanced',
     access: 'administrator',
     uri: 'agendaSettingsEditApp',
-    suffix: '/advanced'
-  }]
+    suffix: '/advanced',
+  }],
 };

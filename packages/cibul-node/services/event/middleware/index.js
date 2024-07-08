@@ -5,15 +5,13 @@ const qs = require('qs');
 
 const utils = require('@openagenda/utils');
 const validateLink = require('@openagenda/validators/link')();
+const registrationToListOfObjects = require('@openagenda/events/iso/src/validators/registration').toListOfObjects;
 const membersSvc = require('../../members');
 const config = require('../../../config');
 const p = require('../../../lib/promises');
 const getStatusLabel = require('../../../lib/getStatusLabel');
 const format = require('./format');
 const components = require('./components');
-
-
-const registrationToListOfObjects = require('@openagenda/events/iso/src/validators/registration').toListOfObjects;
 
 const { w } = p;
 const { getRoleSlug } = membersSvc.utils;

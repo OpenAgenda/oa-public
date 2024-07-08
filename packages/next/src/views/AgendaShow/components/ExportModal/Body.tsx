@@ -64,6 +64,7 @@ function completeUrls(agendaUid, query) {
       ics: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
       csv: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
       rss: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
+      embed: `${process.env.NEXT_PUBLIC_ROOT}/agendas/${agendaUid}${apiQueryString}`,
     },
   };
 }
@@ -74,7 +75,7 @@ export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) 
 
   const [mode, setMode] = useState('selection');
   const res = useMemo(() => {
-    const usedQuery = mode === 'all' ? query : { relative: ['passed', 'current', 'upcoming'] };
+    const usedQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
     return completeUrls(agendaUid, usedQuery);
   }, [mode, agendaUid, query]);
 
@@ -170,7 +171,7 @@ export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) 
         <OutlookAccordionItem res={res} />
         <IcsAccordionItem handleSubmit={handleSubmit} />
         <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem agendaUid={agendaUid} agendaTitle={agendaTitle} />
+        <EmbedAccordionItem res={res} agendaTitle={agendaTitle} />
       </Accordion>
     </ModalBody>
   );

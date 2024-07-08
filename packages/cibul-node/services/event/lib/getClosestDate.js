@@ -3,42 +3,33 @@
 const getTimings = require('./getTimings');
 
 module.exports = instance => {
+  const now = new Date();
 
-  var now = new Date(),
+  const min = [false, false]; // past / upcoming
 
-  min = [ false, false ]; // past / upcoming
+  getTimings(instance).forEach(timing => {
+    const end = new Date(timing.end);
 
-  getTimings(instance).forEach( function( timing ) {
-    var end = new Date( timing.end ),
+    const start = new Date(timing.start);
 
-    start = new Date( timing.start );
-
-    if ( end < now ) {
-
+    if (end < now) {
       // past
 
-      if ( !min[0] || ( min[0] < end ) ) {
-
+      if (!min[0] || (min[0] < end)) {
         min[0] = end;
-
       }
-
     } else {
-
       // upcoming or ongoing
 
-      if ( !min[1] || ( min[1] > start ) ) {
-
+      if (!min[1] || (min[1] > start)) {
         min[1] = start;
-
       }
-
     }
   });
 
-  if ( min[ 1 ] ) return min[ 1 ];
+  if (min[1]) return min[1];
 
-  if ( min[ 0 ] ) return min[ 0 ];
+  if (min[0]) return min[0];
 
   return false;
-}
+};

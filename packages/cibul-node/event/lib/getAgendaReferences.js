@@ -3,18 +3,18 @@
 module.exports = async function getAgendaReferences(services, eventUid, { excludeAgendaUid }) {
   const {
     agendaEvents,
-    agendas
+    agendas,
   } = services;
 
   const {
-    items: references
+    items: references,
   } = await agendaEvents.list.byEventUid(eventUid, { excludeAgendaUid }, 0, 10);
 
   const result = await agendas.list({
-    uid: references.map(r => r.agendaUid)
+    uid: references.map(r => r.agendaUid),
   }, 0, references.length, {
     includeImagePath: true,
-    useDefaultImage: true
+    useDefaultImage: true,
   });
 
   return result.agendas;

@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import { Box, Flex, LinkBox } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
@@ -7,8 +9,33 @@ import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
+function isValidUrl(url: string) {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function eventUrlMaker({ baseUrl }) {
+  return ({ agenda, event }) => {
+    if (isValidUrl(baseUrl)) {
+      const trailingSlash = baseUrl.endsWith('/');
+      return `${baseUrl}${trailingSlash ? '' : '/'}${event.slug}`;
+    }
+
+    return `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`;
+  };
+}
+
 export default function EventItem({ event, agenda }) {
   const intl = useIntl();
+  const router = useRouter();
+
+  const { baseUrl } = router.query;
+  const getEventUrl = useMemo(() => eventUrlMaker({ baseUrl }), [baseUrl]);
 
   return (
     <LinkBox
@@ -44,10 +71,7 @@ export default function EventItem({ event, agenda }) {
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
-        <NextChakraLinkOverlay
-          target="_blank"
-          href={`${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`}
-        >
+        <NextChakraLinkOverlay isExternal href={getEventUrl({ agenda, event })}>
           <b>{getLocaleValue(event.title, intl.locale)}</b>
         </NextChakraLinkOverlay>
         <Box color="#545454">{getLocaleValue(event.description, intl.locale)}</Box>

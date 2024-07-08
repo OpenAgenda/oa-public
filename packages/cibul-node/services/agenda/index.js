@@ -15,14 +15,14 @@ function get(queryParams, options, cb) {
 
   log('getting agenda data %s', JSON.stringify(queryParams));
 
-  let get = model.agendas().get;
+  let { get } = model.agendas();
 
   if (options.cache) {
     get = cache.func('agendas', 'get', get, config.agendaCacheExpire);
   }
 
-  get(queryParams, function( err, result ) {
-    log( 'retrieved agenda data %s', JSON.stringify( queryParams ) );
+  get(queryParams, (err, result) => {
+    log('retrieved agenda data %s', JSON.stringify(queryParams));
 
     if (err) return cb(err);
 
@@ -37,8 +37,8 @@ module.exports = {
   list: model.agendas().list,
   search: () => { throw new Error('legacy search is no longer available'); },
   get,
-  instanciate: require('./instance')
-}
+  instanciate: require('./instance'),
+};
 
 module.exports.mw = mw(module.exports);
 

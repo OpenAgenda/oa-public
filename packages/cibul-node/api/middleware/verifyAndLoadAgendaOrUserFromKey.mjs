@@ -1,10 +1,7 @@
 import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.mjs';
 
 export default async (req, res, next) => {
-  const {
-    accessTokens,
-    keys: keysSvc,
-  } = req.app.services;
+  const { keys: keysSvc } = req.app.services;
 
   if (req.user) {
     return next();
@@ -22,7 +19,10 @@ export default async (req, res, next) => {
     return next();
   }
 
-  req.user = await accessTokens.getUserFromKey(publicKey).then(u => u, () => null);
+  req.user = await req.app.core.users.get.byPublicKey(publicKey).then(
+    u => u,
+    () => null,
+  );
 
   if (!req.user && publicKey) {
     req.agendaKey = await keysSvc({

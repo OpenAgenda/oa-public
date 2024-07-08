@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const knex = require('knex')({
-  client: 'mysql'
+  client: 'mysql',
 });
 
 module.exports = {
@@ -42,5 +42,5 @@ module.exports = {
     'activityFeed.create.sql',
     'activityFeedActivity.create.sql',
     'usageCounter.create.sql',
-  ].map(fx => fs.readFileSync(__dirname + '/' + fx, 'utf-8').replace(/;(\n|)$/, ''))
-}
+  ].map(fx => fs.readFileSync(`${__dirname}/${fx}`, 'utf-8').replace(/;(\n|)$/, '')),
+};

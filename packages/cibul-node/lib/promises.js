@@ -1,100 +1,71 @@
-var w = require( 'when' ),
+const w = require('when');
 
-wn = require( 'when/node' );
+const wn = require('when/node');
 
 module.exports = {
   w,
   wn,
   interrupt,
-  ife: ifEqual( _isEqual ),
-  ifl: ifEqual( _isLoaded )
-}
+  ife: ifEqual(_isEqual),
+  ifl: ifEqual(_isLoaded),
+};
 
+function ifEqual(compareFunc) {
+  return function (requirements, func) {
+    return function (values) {
+      let matches = true;
 
-
-function ifEqual( compareFunc ) {
-
-  return function ( requirements, func ) {
-
-    return function( values ) {
-
-      var matches = true;
-
-      for( var r in requirements ) {
-
-        if ( !compareFunc( r, requirements[ r ], values ) ) {
-
+      for (const r in requirements) {
+        if (!compareFunc(r, requirements[r], values)) {
           matches = false;
 
           break;
-
         }
-
       }
 
-      if ( matches ) return func( values );
+      if (matches) return func(values);
 
       return values;
-
-    }
-
-  }
-
+    };
+  };
 }
 
-
-function _isEqual( key, requiredValue, values ) {
-
-  var compared = _retrieveValue( key, values );
+function _isEqual(key, requiredValue, values) {
+  const compared = _retrieveValue(key, values);
 
   return compared === requiredValue;
-
 }
 
-function _isLoaded( key, requiredValue, values ) {
-
-  var compared = _retrieveValue( key, values );
+function _isLoaded(key, requiredValue, values) {
+  const compared = _retrieveValue(key, values);
 
   return !!compared === !!requiredValue;
-
 }
 
-function _retrieveValue( key, values ) {
+function _retrieveValue(key, values) {
+  let compared = values;
 
-  var compared = values, 
+  const keyParts = key.split('.');
 
-  keyParts = key.split( '.' ),
+  let empty = false;
 
-  empty = false;
+  keyParts.forEach(keyPart => {
+    if (empty) return;
 
-  keyParts.forEach( function( keyPart ) {
-
-    if ( empty ) return;
-
-    if ( compared[ keyPart ] === undefined ) {
-
+    if (compared[keyPart] === undefined) {
       empty = true;
-
     } else {
-
-      compared = compared[ keyPart ];
-
+      compared = compared[keyPart];
     }
+  });
 
-  } );
-
-  if ( empty ) return;
+  if (empty) return;
 
   return compared;
-
 }
 
-function interrupt( message ) {
-
-  return function() {
-
+function interrupt(message) {
+  return function () {
     throw message;
-
-  }
-
+  };
 }

@@ -1,8 +1,5 @@
-'use strict';
-
-const moment = require('moment');
-
-const utils = require('@openagenda/utils');
+import moment from 'moment';
+import utils from '@openagenda/utils';
 
 function _setBootOffset(params) {
   const { period, day, time } = params;
@@ -37,11 +34,14 @@ function _setBootOffset(params) {
  * prepare task for periodic and offsetted runs
  */
 
-module.exports = (run, options) => {
-  const params = utils.extend({
-    period: false, // periodicity of the task
-    bootOffset: 0, // offset time at which task will do its first run
-  }, options || {});
+export default (run, options) => {
+  const params = utils.extend(
+    {
+      period: false, // periodicity of the task
+      bootOffset: 0, // offset time at which task will do its first run
+    },
+    options || {},
+  );
 
   if (!params.bootOffset) {
     params.bootOffset = _setBootOffset(params);

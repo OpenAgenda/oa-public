@@ -39,7 +39,7 @@ function icsHead(agenda, lang) {
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${espaceIcsValue(agenda.title)}`,
     `X-WR-CALDESC:${espaceIcsValue(agenda.description)}`,
-    `X-WR-RELCALID:${agenda.uid}`
+    `X-WR-RELCALID:${agenda.uid}`,
   ].join('\n');
 }
 
@@ -70,7 +70,7 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
     formatIcsText(`DESCRIPTION:${espaceIcsValue(description)} ${getLabel('seeMore', lang)}: ${url}`),
     'STATUS:CONFIRMED',
     formatIcsText(`URL:${url}`),
-    `LAST-MODIFIED:${formatIcsDate(event.updatedAt)}`
+    `LAST-MODIFIED:${formatIcsDate(event.updatedAt)}`,
   ];
 
   if (event.location) {
@@ -79,7 +79,7 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
   }
 
   return usedTimings(event, timingIndex)
-    .filter((t, i) => (i < 10))
+    .filter((t, i) => i < 10)
     .map(timing => [
       'BEGIN:VEVENT',
       `UID:${agenda.uid}//${event.uid}//${formatIcsDate(timing.begin, 'YYYY-MM-DD//HH:mm:00')}`,
@@ -87,7 +87,7 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
       `DTEND:${formatIcsDate(timing.end)}`,
       ...repeatedParts,
       'ORGANIZER:OA',
-      'END:VEVENT'
+      'END:VEVENT',
     ])
     .flat()
     .join('\n');

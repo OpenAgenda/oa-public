@@ -18,7 +18,7 @@ class MjContent extends BodyComponent {
       </mj-wrapper>
 	  `);
   }
-};
+}
 
 MjContent.dependencies = {
   // Tell the validator which tags are allowed as our component's parent
@@ -29,6 +29,5 @@ MjContent.dependencies = {
 
 // Tell the parser that our component won't contain other mjml tags
 MjContent.endingTag = true;
-
 
 module.exports = MjContent;

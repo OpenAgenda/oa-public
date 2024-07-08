@@ -1,33 +1,34 @@
-"use strict";
+'use strict';
 
 /**
  * common web app module middleware and initialization functions
  */
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const languages = require( 'languages' );
-const qs = require( 'qs' );
-const VError = require( '@openagenda/verror' );
+const fs = require('node:fs');
+const _ = require('lodash');
+const languages = require('languages');
+const qs = require('qs');
+const VError = require('@openagenda/verror');
 
-const logger = require( '@openagenda/logs' );
-const templater = require( '@openagenda/cibul-templates' );
+const logger = require('@openagenda/logs');
+const templater = require('@openagenda/cibul-templates');
 const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
-const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedPrivate' ) );
-const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
+const getUnauthLabels = require('@openagenda/labels')(require('@openagenda/labels/agendas/unauthorizedPrivate'));
+const getErrorLabel = require('@openagenda/labels/makeLabelGetter')(require('@openagenda/labels/errors'));
 
-const config = require( '../config' );
-const errorLogger = require( '../services/errors' );
-const i18n = require( '../i18n/i18n.js' );
+const config = require('../config');
+const errorLogger = require('../services/errors');
+const i18n = require('../i18n/i18n.js');
 
-const layouts = require( '../services/lib/layouts' );
-const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
+const layouts = require('../services/lib/layouts');
 
-const log = logger( 'commons-app' );
+const renderError = _.template(fs.readFileSync(`${__dirname}/error.tpl`, 'utf-8'));
+
+const log = logger('commons-app');
 
 const labels = {
-  unauthorized: require( '@openagenda/labels/errors/unauthorized' )
+  unauthorized: require('@openagenda/labels/errors/unauthorized'),
 };
 
 module.exports = {
@@ -36,14 +37,14 @@ module.exports = {
 
   favoriteLinkHTML,
 
-  render,                       // render and serve response
-  renderJson,                   // render and serve json
-  renderTemplate,               // render and serve template
-  errorResponse,                // render error page
-  catchError,                   // the heir of standard error handling
+  render, // render and serve response
+  renderJson, // render and serve json
+  renderTemplate, // render and serve template
+  errorResponse, // render error page
+  catchError, // the heir of standard error handling
 
-  loadBaseData,                 // middleware.
-  loadAgenda: loadAgendaBy( 'slug' ),
+  loadBaseData, // middleware.
+  loadAgenda: loadAgendaBy('slug'),
   loadAgendaBy,
   renderUnauthorized,
 
@@ -63,50 +64,43 @@ module.exports = {
 
   agendaMailTo,
 
-  ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
-  ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
+  ifIs: (path, fn) => (req, res, next) => (_.get(req, path, false) ? fn(req, res, next) : next()),
+  ifIsNot: (path, fn) => (req, res, next) => (_.get(req, path, false) ? next() : fn(req, res, next)),
 
-  lang
+  lang,
 
 };
 
-function agendaMailTo( agenda ) {
+function agendaMailTo(agenda) {
+  const config = _.get(agenda, 'settings.inbox.mailto');
 
-  const config = _.get( agenda, 'settings.inbox.mailto' );
+  if (!config) return null;
 
-  if ( !config ) return null;
+  if (!_.get(config, 'enabled')) return null;
 
-  if ( !_.get( config, 'enabled' ) ) return null;
+  const queryParts = ['subject', 'body']
+    .map(key => ({ key, value: _.get(config, key) }))
+    .filter(item => item.value)
+    .map(item => `${item.key}=${encodeURIComponent(item.value)}`);
 
-  const queryParts = [ 'subject', 'body' ]
-    .map( key => ( { key, value: _.get( config, key ) } ) )
-    .filter( item => item.value )
-    .map( item => item.key + '=' + encodeURIComponent( item.value ) );
+  if (!queryParts.length) return `mailto:${config.email}`;
 
-  if ( !queryParts.length ) return 'mailto:' + config.email;
-
-  return 'mailto:' + config.email + '?' + queryParts.join( '&' );
-
+  return `mailto:${config.email}?${queryParts.join('&')}`;
 }
 
-
-function renderUnauthorized( req, res, next ) {
-
-  loadBaseData( 'oa-main.css' )( req, res, () => {
-
-    render( req, res, 'dialog/index', {
+function renderUnauthorized(req, res, next) {
+  loadBaseData('oa-main.css')(req, res, () => {
+    render(req, res, 'dialog/index', {
       agenda: req.agenda,
-      title: getUnauthLabels( 'title', req.lang ),
-      content: getUnauthLabels( 'message', req.lang ),
-      actions: [ {
+      title: getUnauthLabels('title', req.lang),
+      content: getUnauthLabels('message', req.lang),
+      actions: [{
         type: 'primary',
-        href: req.agenda.slug + '/contact',
-        label: getUnauthLabels( 'contactAdmin', req.lang )
-      } ]
-    } );
-
-  } );
-
+        href: `${req.agenda.slug}/contact`,
+        label: getUnauthLabels('contactAdmin', req.lang),
+      }],
+    });
+  });
 }
 
 /**
@@ -120,7 +114,7 @@ function loadLogger(name) {
         module: name || 'unknown',
         url: req.originalUrl,
         ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
-        userUid: req.user && req.user.uid ? req.user.uid : null
+        userUid: req.user && req.user.uid ? req.user.uid : null,
       });
 
     if (next) next();
@@ -130,59 +124,52 @@ function loadLogger(name) {
 /**
  * explicitely define lang value for current request
  */
-function lang( req, res, next ) {
+function lang(req, res, next) {
   req.lang = 'fr';
   const {
     sessions,
   } = req.app.services;
 
-  sessions.isLogged( req ).then( isLogged => {
-    if ( isLogged ) {
-      req.lang = sessions.getCulture( req );
+  sessions.isLogged(req).then(isLogged => {
+    if (isLogged) {
+      req.lang = sessions.getCulture(req);
     }
 
-    if ( req.query.lang ) {
-      req.lang = _cleanLang( req.query.lang );
+    if (req.query.lang) {
+      req.lang = _cleanLang(req.query.lang);
     }
 
-    if ( (isLogged && req.lang !== sessions.getCulture( req )) || req.query.lang ) {
-      req.genUrl.preload( { lang: req.lang } );
+    if ((isLogged && req.lang !== sessions.getCulture(req)) || req.query.lang) {
+      req.genUrl.preload({ lang: req.lang });
     }
 
-    if (Boolean(req.cookies.translateMode)) {
+    if (req.cookies.translateMode) {
       req.lang = 'io';
     }
 
-    if ( next ) {}next();
-
-  } );
+    if (next) {}next();
+  });
 }
 
 /**
  * set json data in response
  */
-function renderJson( req, res, data, options ) {
+function renderJson(req, res, data, options) {
+  res.set('Content-Type', 'application/json; charset=utf-8');
 
-  res.set( 'Content-Type', 'application/json; charset=utf-8' );
-
-  if ( !res.get( 'Last-Modified' ) ) {
-
-    res.set( 'Cache-Control', 'no-cache' );
-
+  if (!res.get('Last-Modified')) {
+    res.set('Cache-Control', 'no-cache');
   }
 
-  let body = JSON.stringify( data );
+  let body = JSON.stringify(data);
 
-  if ( req.query.callback ) {
-
-    body = req.query.callback + '(' + _filterNonParsable( body ) + ')';
-
+  if (req.query.callback) {
+    body = `${req.query.callback}(${_filterNonParsable(body)})`;
   }
 
-  res.write( body );
+  res.write(body);
 
   res.end();
-
 }
 
 /**
@@ -231,7 +218,7 @@ function errorResponse(req, res, err, jsr) {
     if (jsonResponse) {
       renderJson(req, res, {
         success: false,
-        message: error.message ? error.message : 'There was a problem during the handling of the request'
+        message: error.message ? error.message : 'There was a problem during the handling of the request',
       });
 
       return;
@@ -303,81 +290,63 @@ function catchError(req, res, jsonResponse) {
   };
 }
 
-
 /**
  * render template and send response
  */
 
-function render( req, res, templatePath, data, maintain ) {
-
-  renderTemplate( req, templatePath, data, maintain, function ( err, render ) {
-
-    if ( err ) {
-      return catchError( req, res )( err );
+function render(req, res, templatePath, data, maintain) {
+  renderTemplate(req, templatePath, data, maintain, (err, render) => {
+    if (err) {
+      return catchError(req, res)(err);
     }
 
     const statusCode = res.statusCode || res.code || 200;
 
-    if ( !req.xhr ) {
-
+    if (!req.xhr) {
       try {
-
-        res.writeHead( statusCode, {
-          "Content-Type": "text/html; charset=utf-8",
-          'Cache-Control': res.get( 'Cache-Control' ) || 'no-cache'
-        } );
-
-      } catch ( e ) {
-
-        req.log.error( new VError( e, `Error in the render of the template ${templatePath}` ) );
-
+        res.writeHead(statusCode, {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': res.get('Cache-Control') || 'no-cache',
+        });
+      } catch (e) {
+        req.log.error(new VError(e, `Error in the render of the template ${templatePath}`));
       }
 
-      res.write( render );
+      res.write(render);
 
       res.end();
-
     } else {
-
-      renderJson( req, res, {
+      renderJson(req, res, {
         success: true,
-        partial: render
-      } );
-
+        partial: render,
+      });
     }
-
-  } );
-
+  });
 }
 
-
-function renderTemplate( req, templatePath, data, maintain, cb ) {
-
-  const compiledData = _.merge( {},
+function renderTemplate(req, templatePath, data, maintain, cb) {
+  const compiledData = _.merge(
+    {},
     req.baseData ? req.baseData : {},
-    data ? data : {}
+    data || {},
   );
 
-  if ( !cb ) {
-
+  if (!cb) {
     cb = maintain;
 
     maintain = false;
-
   }
 
   compiledData.genUrl = req.genUrl;
 
   // maintain navigation query values
 
-  if ( maintain ) {
-
+  if (maintain) {
     compiledData.page = req.query.page ? req.query.page : 1;
     compiledData.filters = req.query.filters ? req.query.filters : {};
-
   }
 
-  compiledData.lang = _getLang( req );
+  compiledData.lang = _getLang(req);
 
   compiledData.env = process.env.NODE_ENV;
 
@@ -385,31 +354,22 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.originalUrl = req.originalUrl;
 
-  templater( templatePath + (req.xhr ? '.part' : ''), compiledData, function ( err, result ) {
-
-    if ( err && req.xhr ) { // xhr request has no corresponding partial
-
-      templater( templatePath, compiledData, cb );
+  templater(templatePath + (req.xhr ? '.part' : ''), compiledData, (err, result) => {
+    if (err && req.xhr) { // xhr request has no corresponding partial
+      templater(templatePath, compiledData, cb);
 
       return;
-
     }
 
-    cb( err, result );
-
-  } );
-
+    cb(err, result);
+  });
 }
 
-
-function useEmbedGoogleAnalytics( req, res, next ) {
-
+function useEmbedGoogleAnalytics(req, res, next) {
   req.googleAnalyticsId = config.embedGoogleAnalyticsId;
 
   next();
-
 }
-
 
 /**
  * load static data to be used in template
@@ -417,48 +377,40 @@ function useEmbedGoogleAnalytics( req, res, next ) {
  * @param function func  -  optionnally shove in controller specific static data
  */
 
-function loadBaseData( func, cssFile ) {
-
-  if ( typeof func == 'string' ) {
-
+function loadBaseData(func, cssFile) {
+  if (typeof func === 'string') {
     cssFile = func;
 
     func = false;
-
   }
 
-  return ( req, res, next ) => {
-
+  return (req, res, next) => {
     outdatedBrowserMw(req, res);
 
     const baseData = {
       head: {
         css: cssFile ? {
-          main: `/css/${cssFile}?v=${config.cssVersion}`
+          main: `/css/${cssFile}?v=${config.cssVersion}`,
         } : {},
-        js: {}
+        js: {},
       },
       bottom: {
-        scripts: []
+        scripts: [],
       },
       scriptsBase: '/js',
       domain: config.domain,
       cspNonce: res.locals.cspNonce,
+    };
+
+    if (func) {
+      _.merge(baseData, func(req, res));
     }
 
-    if ( func ) {
-
-      _.merge( baseData, func( req, res ) );
-
+    if (req.layoutData) {
+      _.merge(baseData, req.layoutData);
     }
 
-    if ( req.layoutData ) {
-
-      _.merge( baseData, req.layoutData );
-
-    }
-
-    req.baseData = _.merge( req.baseData || {}, baseData );
+    req.baseData = _.merge(req.baseData || {}, baseData);
 
     if (req.outdatedBrowser) {
       // Note: bottom is before head
@@ -486,293 +438,224 @@ function loadBaseData( func, cssFile ) {
     if (typeof next === 'function') {
       next();
     }
-
-  }
-
+  };
 }
 
-function assign( source, target ) {
-
-  return ( req, res, next ) => {
-
+function assign(source, target) {
+  return (req, res, next) => {
     const obj = { req, res };
 
-    _.set( obj, target, _.get( obj, source ) );
+    _.set(obj, target, _.get(obj, source));
 
     next();
-
-  }
-
+  };
 }
-
 
 /**
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
-function redirectTo( route, params = {}, options = {} ) {
-
-  const redirectParams = _.extend( {
+function redirectTo(route, params = {}, options = {}) {
+  const redirectParams = _.extend({
     code: 302,
     maintainQuery: false,
-    raw: {}
-  }, options );
+    raw: {},
+  }, options);
 
-  return ( req, res, next ) => {
-
-    let paramValues = _.mapValues( params, k => {
-
-      if ( !_.isObject( k ) ) {
-
-        return _.get( req.params, k );
-
+  return (req, res, next) => {
+    const paramValues = _.mapValues(params, k => {
+      if (!_.isObject(k)) {
+        return _.get(req.params, k);
       }
 
-      if ( k[ '$raw' ] ) {
-
-        return k[ '$raw' ];
-
+      if (k.$raw) {
+        return k.$raw;
       }
 
-      if ( k[ '$route' ] || k[ '$base64Route' ] ) {
+      if (k.$route || k.$base64Route) {
+        const key = k.$route || k.$base64Route;
 
-        let key = k[ '$route' ] || k[ '$base64Route' ];
+        let v = req.genUrl(key[0], _.mapValues(key[1], r => _.get(req.params, r)));
 
-        let v = req.genUrl( key[ 0 ], _.mapValues( key[ 1 ], r => _.get( req.params, r ) ) );
-
-        if ( k[ '$base64Route' ] ) {
-
-          v = Buffer.from( v, 'utf-8' ).toString( 'base64' );
-
+        if (k.$base64Route) {
+          v = Buffer.from(v, 'utf-8').toString('base64');
         }
 
         return v;
-
       }
 
       return null;
+    });
 
-    } );
-
-    if ( redirectParams.maintainQuery ) {
-
-      _.extend( paramValues, req.query );
-
+    if (redirectParams.maintainQuery) {
+      _.extend(paramValues, req.query);
     }
 
-    const redirect = req.genUrl( route, paramValues );
+    const redirect = req.genUrl(route, paramValues);
 
-    req.log.debug( 'redirecting to %s', redirect );
+    req.log.debug('redirecting to %s', redirect);
 
-    if ( req.xhr ) {
-
-      return renderJson( req, res, {
+    if (req.xhr) {
+      return renderJson(req, res, {
         success: false,
         redirect,
-        code: redirectParams.code
-      } )
-
+        code: redirectParams.code,
+      });
     }
 
-    res.redirect( redirectParams.code, redirect );
-
+    res.redirect(redirectParams.code, redirect);
   };
-
 }
 
-function redirectToSignin( req, res, next ) {
-  const agenda = req.agenda || _.get( req, 'agendaInstance.data' );
-  res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( Buffer.from( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
+function redirectToSignin(req, res, next) {
+  const agenda = req.agenda || _.get(req, 'agendaInstance.data');
+  res.redirect(302, `${agenda ? `/${agenda.slug}` : ''}/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`);
 }
 
-function makeRedirect( urlOrReq ) {
-
+function makeRedirect(urlOrReq) {
   return Buffer.from(
-    _.isObject( urlOrReq ) ? urlOrReq.originalUrl : urlOrReq,
-    'utf8'
-  ).toString( 'base64' );
-
+    _.isObject(urlOrReq) ? urlOrReq.originalUrl : urlOrReq,
+    'utf8',
+  ).toString('base64');
 }
 
-function favoriteLinkHTML( uid ) {
-
-  return '<span class="fav js_fav_item" data-event-uid="' + uid + '"></span>';
-
+function favoriteLinkHTML(uid) {
+  return `<span class="fav js_fav_item" data-event-uid="${uid}"></span>`;
 }
 
-function loadAgendaBy( param ) {
-
-  return ( req, res, next ) => {
+function loadAgendaBy(param) {
+  return (req, res, next) => {
     const {
-      agendas
+      agendas,
     } = req.app.services;
 
-    const identifier = _.isString( param )
-      ? _.pick( req.params, [ param ] )
-      : _.set( {}, _.keys( param )[ 0 ], req.params[ param[ _.keys( param )[ 0 ] ] ] );
+    const identifier = _.isString(param)
+      ? _.pick(req.params, [param])
+      : _.set({}, _.keys(param)[0], req.params[param[_.keys(param)[0]]]);
 
-    agendas.get( identifier, {
+    agendas.get(identifier, {
       private: null,
       internal: true,
-      includeImagePath: true
-    } ).then( agenda => {
+      includeImagePath: true,
+    }).then(agenda => {
+      if (!agenda) return next({ code: 404 });
 
-      if ( !agenda ) return next( { code: 404 } );
-
-      _.assign( req, { agenda } );
+      _.assign(req, { agenda });
 
       next();
-
-    }, next );
-
-  }
-
+    }, next);
+  };
 }
 
-function clearCookie( req, res, key ) {
+function clearCookie(req, res, key) {
+  const cookieValues = _decodeCookie(req);
 
-  const cookieValues = _decodeCookie( req );
-
-  if ( cookieValues[ key ] === undefined ) {
-
-    log( 'info', 'cookie value to be cleared is not set', key );
+  if (cookieValues[key] === undefined) {
+    log('info', 'cookie value to be cleared is not set', key);
 
     return;
-
   }
 
-  delete cookieValues[ key ];
+  delete cookieValues[key];
 
-  _saveCookie( req, res, cookieValues );
-
+  _saveCookie(req, res, cookieValues);
 }
 
-function readCookie( req, res, key, clearOnRead ) {
+function readCookie(req, res, key, clearOnRead) {
+  const cookieValues = _decodeCookie(req);
 
-  const cookieValues = _decodeCookie( req );
-
-  if ( clearOnRead ) {
-
-    clearCookie( req, res, key );
-
+  if (clearOnRead) {
+    clearCookie(req, res, key);
   }
 
-  return cookieValues[ key ];
-
+  return cookieValues[key];
 }
 
-function writeToCookie( req, res, key, value ) {
+function writeToCookie(req, res, key, value) {
+  const cookieValues = _decodeCookie(req);
 
-  const cookieValues = _decodeCookie( req );
+  cookieValues[key] = value;
 
-  cookieValues[ key ] = value;
-
-  _saveCookie( req, res, cookieValues );
-
+  _saveCookie(req, res, cookieValues);
 }
 
-function _saveCookie( req, res, cookieValues ) {
-
-  const encodedCookieValues = (Buffer.from( JSON.stringify( cookieValues ) )).toString( 'base64' );
+function _saveCookie(req, res, cookieValues) {
+  const encodedCookieValues = Buffer.from(JSON.stringify(cookieValues)).toString('base64');
 
   // do this both in req and res.
-  req.cookies[ config.cookie.name ] = encodedCookieValues;
+  req.cookies[config.cookie.name] = encodedCookieValues;
 
   res.cookie(
     config.cookie.name,
     encodedCookieValues,
-    { maxAge: 5 * 60 * 1000 }
+    { maxAge: 5 * 60 * 1000 },
   );
-
 }
 
-function _decodeCookie( req ) {
+function _decodeCookie(req) {
+  const encodedCookie = req.cookies[config.cookie.name];
 
-  var encodedCookie = req.cookies[ config.cookie.name ],
+  let cookieValues = {};
 
-    cookieValues = {};
-
-  if ( encodedCookie ) {
-
+  if (encodedCookie) {
     try {
-
       cookieValues = JSON.parse(
-        (Buffer.from( encodedCookie, 'base64' )).toString()
+        Buffer.from(encodedCookie, 'base64').toString(),
       );
 
       return cookieValues;
-
-    } catch ( e ) {
-
-      log( 'error', 'could not decode cookie' );
-
+    } catch (e) {
+      log('error', 'could not decode cookie');
     }
-
   }
 
   return {};
-
 }
-
 
 /**
  * get current request language
  */
 
-function _getLang( req ) {
-
+function _getLang(req) {
   if (req.lang) {
     return req.lang;
   }
 
-  return _cleanLang( req.query ? req.query.lang : 'fr' );
-
+  return _cleanLang(req.query ? req.query.lang : 'fr');
 }
 
-function _cleanLang( dirtyLang ) {
-
-  if ( languages.isValid( dirtyLang ) || dirtyLang === 'io' ) return dirtyLang;
+function _cleanLang(dirtyLang) {
+  if (languages.isValid(dirtyLang) || dirtyLang === 'io') return dirtyLang;
 
   return 'fr';
-
 }
-
 
 /**
  * filter out characters that will cause parse errors on browser
  */
 
-function _filterNonParsable( str ) {
+function _filterNonParsable(str) {
+  const rgx = new RegExp(`[${[8232, 8233].map(String.fromCharCode).join('')}]`, 'g');
 
-  var rgx = new RegExp( '[' + [ 8232, 8233 ].map( String.fromCharCode ).join( '' ) + ']', 'g' );
-
-  return str.replace( rgx, ' ' );
-
+  return str.replace(rgx, ' ');
 }
 
-
-function loadLegacyRoutes( genUrl ) {
-
+function loadLegacyRoutes(genUrl) {
   genUrl.load(Object.entries(config.routes.globals).reduce((accu, [name, route]) => {
     accu[name] = route.uri;
     return accu;
   }, {}));
-
 }
 
-function redirectLegacySearch( req, res, next ) {
-
-  if ( req.query.search ) {
-
-    var query = Object.assign( { oaq: req.query.search }, req.query );
+function redirectLegacySearch(req, res, next) {
+  if (req.query.search) {
+    const query = { oaq: req.query.search, ...req.query };
 
     query.search = undefined;
 
-    res.redirect( 301, req.baseUrl + req.path + qs.stringify( query, { addQueryPrefix: true } ) );
+    res.redirect(301, req.baseUrl + req.path + qs.stringify(query, { addQueryPrefix: true }));
 
     return;
-
   }
 
   next();
-
 }

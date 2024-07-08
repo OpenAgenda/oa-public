@@ -52,7 +52,7 @@ module.exports = {
   },
   customData: {
     Public: ['Tout public'],
-    'Thématiques': [
+    Thématiques: [
       'Les métiers de l’agriculture',
       'A propos des services de l’agriculture',
       'Concours Général Agricole',

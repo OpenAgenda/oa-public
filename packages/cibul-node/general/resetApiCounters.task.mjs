@@ -1,12 +1,12 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('resetApiCounters task');
+const log = logs('resetApiCounters task');
 
 /**
  * exposed function list
  */
 
-module.exports = (config, services) => {
+export default (config, services) => {
   let running = false;
 
   return async () => {

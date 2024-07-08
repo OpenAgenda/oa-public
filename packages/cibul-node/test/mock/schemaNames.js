@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   apiKeySet: 'api_key_set', // required by users svc
@@ -26,5 +26,5 @@ module.exports = {
   stakeholderSettings: 'member_settings',
   feed: 'activity_feed',
   activity: 'activity',
-  feed_activity: 'activity_feed_activity'
-}
+  feed_activity: 'activity_feed_activity',
+};

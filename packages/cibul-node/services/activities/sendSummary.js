@@ -37,7 +37,7 @@ module.exports = async function sendSummary(config, services, { user, notificati
       return {
         label,
         url: `${config.root}${url}`,
-        date: _.upperFirst(moment(notif.updatedAt).locale(lang).format('LLLL'))
+        date: _.upperFirst(moment(notif.updatedAt).locale(lang).format('LLLL')),
       };
     });
 

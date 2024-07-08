@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const ih = require('immutability-helper');
 
 module.exports = function insertEventSet(knex, raw, eventSetId, extendWith = {}) {
@@ -9,29 +9,29 @@ module.exports = function insertEventSet(knex, raw, eventSetId, extendWith = {})
     eventLocation,
     occurrences,
     event,
-    agendaEvents
+    agendaEvents,
   } = JSON.parse(fs.readFileSync(`${__dirname}/${eventSetId}.json`, 'utf-8'));
 
   if (legacyEvent) {
     raw.push(knex('event').insert([
-      extendWith.legacyEvent ? ih(legacyEvent, extendWith.legacyEvent) : legacyEvent
+      extendWith.legacyEvent ? ih(legacyEvent, extendWith.legacyEvent) : legacyEvent,
     ]));
   }
   if (eventLocation) {
     raw.push(knex('event_location').insert([
-      extendWith.eventLocation ? ih(eventLocation, extendWith.eventLocation) : eventLocation
+      extendWith.eventLocation ? ih(eventLocation, extendWith.eventLocation) : eventLocation,
     ]));
   }
   if (occurrences) {
     raw.push(knex('occurrence').insert(
-      extendWith.occurrences ? ih(occurrences, extendWith.occurrences) : occurrences
+      extendWith.occurrences ? ih(occurrences, extendWith.occurrences) : occurrences,
     ));
   }
   raw.push(knex('event_2').insert([
-    extendWith.event ? ih(event, extendWith.event) : event
+    extendWith.event ? ih(event, extendWith.event) : event,
   ]));
 
   raw.push(knex('agenda_event').insert(
-    extendWith.agendaEvents ? ih(agendaEvents, extendWith.agendaEvents) : agendaEvents
+    extendWith.agendaEvents ? ih(agendaEvents, extendWith.agendaEvents) : agendaEvents,
   ));
 };

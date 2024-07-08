@@ -1,51 +1,35 @@
-var fs = require( 'fs' ),
+const fs = require('node:fs');
 
-translations = {};
+const translations = {};
 
-['fr'].forEach( function( lang ) {
+['fr'].forEach(lang => {
+  translations[lang] = JSON.parse(fs.readFileSync(`${__dirname}/${lang}.json`, 'utf8'));
+});
 
-  translations[ lang ] = JSON.parse( fs.readFileSync( __dirname + '/' + lang + '.json', "utf8") );
+module.exports = function (label, values, lang) {
+  let translation;
 
-} );
-
-module.exports = function( label, values, lang ) {
-
-  var translation;
-
-  if ( arguments.length === 1 ) {
-
+  if (arguments.length === 1) {
     lang = false;
 
     values = {};
-
-  } else if ( ( arguments.length === 2 ) && ( typeof values == 'string' ) ) {
-
+  } else if ((arguments.length === 2) && (typeof values === 'string')) {
     lang = values;
 
     values = {};
-
-  } else if ( arguments.length === 2 )  {
-
+  } else if (arguments.length === 2) {
     lang = false;
-
   }
 
-  if ( lang && ( lang !== 'en' ) && translations[ lang ] ) {
-
-    translation = translations[ lang ][ label ] || label;
-
+  if (lang && (lang !== 'en') && translations[lang]) {
+    translation = translations[lang][label] || label;
   } else {
-
     translation = label;
-
   }
 
-  for (var key in values) {
-
+  for (const key in values) {
     translation = translation.replace(key, values[key]);
-
   }
 
   return translation;
-
 };

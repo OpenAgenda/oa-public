@@ -10,7 +10,7 @@ import EventItem from './EventItem';
 
 const PAGE_SIZE = 12;
 
-export default function EventsPart({ agenda, filters, query, includeFields }) {
+export default function EventsPart({ agenda, filters, query, includeFields, referrer }) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -23,7 +23,11 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
     suspense: true,
     agenda,
     filters,
-    query,
+    query: {
+      ...query,
+      cms: 'embed',
+      host: typeof document !== 'undefined' ? document.referrer : referrer,
+    },
     includeFields,
     pageSize: PAGE_SIZE,
   });
@@ -43,10 +47,13 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
     return url.pathname + url.search;
   }, [router.locale, router.asPath, query, pages]);
 
-  const nextPage = useCallback(e => {
-    e.preventDefault();
-    setSize(s => s + 1);
-  }, [setSize]);
+  const nextPage = useCallback(
+    e => {
+      e.preventDefault();
+      setSize(s => s + 1);
+    },
+    [setSize],
+  );
 
   if (isLoadingInitialData) {
     // return <EventsSkeleton />;
@@ -60,13 +67,7 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
   return (
     <>
       <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacing="10">
-        {pages?.map(page => page.events.map(event => (
-          <EventItem
-            key={event.uid}
-            event={event}
-            agenda={agenda}
-          />
-        )))}
+        {pages?.map(page => page.events.map(event => <EventItem key={event.uid} event={event} agenda={agenda} />))}
       </SimpleGrid>
 
       {!isLoadingInitialData && !isReachingEnd ? (

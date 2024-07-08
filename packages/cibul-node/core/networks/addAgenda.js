@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  BadRequest
+  BadRequest,
 } = require('@openagenda/verror');
 
 module.exports = async (core, networkUid, agendaUid) => {
@@ -10,7 +10,7 @@ module.exports = async (core, networkUid, agendaUid) => {
   const agenda = await core.agendas(agendaUid).get({
     private: null,
     throwNotFound: true,
-    access: 'internal'
+    access: 'internal',
   });
 
   if (agenda.networkUid === networkUid) {
@@ -21,6 +21,6 @@ module.exports = async (core, networkUid, agendaUid) => {
 
   return core.agendas(agenda).update({ networkUid }, {
     protected: false,
-    updateLegacy: true
+    updateLegacy: true,
   });
 };
