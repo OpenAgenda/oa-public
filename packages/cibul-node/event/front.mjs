@@ -1,31 +1,29 @@
-'use strict';
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import qs from 'qs';
+import base64 from '@openagenda/utils/base64.js';
+import determineEventCancellationFromTitle from '@openagenda/utils/cancellation/determineFromTitle.js';
+import agendaSvc from '@openagenda/agendas';
+import labels from '@openagenda/labels/event/show.js';
+import makeLabelGetter from '@openagenda/labels';
+import errorLabels from '@openagenda/labels/errors/index.js';
+import members from '../services/members/index.js';
+import cacheMw from '../lib/cache.mw.js';
+import cmn from '../lib/commons-app.js';
+import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.js';
+import contentSecurityPolicy from '../lib/contentSecurityPolicy.js';
+import config from '../config/index.js';
+import * as embedSvc from '../services/embed/index.mjs';
+import * as legacyEventSvc from '../services/event/index.mjs';
+import * as legacyAgendaSvc from '../services/agenda/index.mjs';
+import RedirectMiddelware from './redirect.middleware.mjs';
+import getAndDecorateIndexedEvent from './lib/getAndDecorateIndexedEvent.js';
+import getAgendaReferences from './lib/getAgendaReferences.mjs';
+import getEventLayoutData from './lib/getEventLayoutData.mjs';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const qs = require('qs');
-const base64 = require('@openagenda/utils/base64');
-const determineEventCancellationFromTitle = require('@openagenda/utils/cancellation/determineFromTitle');
+const getLabel = makeLabelGetter(labels);
 
-const agendaSvc = require('@openagenda/agendas');
-
-const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
-const errorLabels = require('@openagenda/labels/errors');
-
-const members = require('../services/members');
-
-const cacheMw = require('../lib/cache.mw');
-const cmn = require('../lib/commons-app');
-const removeXFrameOptionsHeader = require('../lib/removeXFrameOptionsHeader');
-const contentSecurityPolicy = require('../lib/contentSecurityPolicy');
-const config = require('../config');
-const embedSvc = require('../services/embed');
-const legacyEventSvc = require('../services/event');
-const legacyAgendaSvc = require('../services/agenda');
-const redirectMiddelware = require('./redirect.middleware')(config);
-
-const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
-const getAgendaReferences = require('./lib/getAgendaReferences');
-const getEventLayoutData = require('./lib/getEventLayoutData');
+const redirectMiddelware = RedirectMiddelware(config);
 
 function normalizeMatomoUrl(url) {
   let result = url;
@@ -416,7 +414,7 @@ const preMw = [
   cmn.redirectLegacySearch,
 ];
 
-module.exports = app => {
+export default app => {
   const {
     agendas: agendasSvc,
     sessions,

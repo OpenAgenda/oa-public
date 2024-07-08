@@ -1,8 +1,9 @@
 import _ from 'lodash';
+import passport from 'passport';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
-import pLib from './lib/passport.js';
-import Auth from './lib/auth.js';
+import Auth from './lib/auth.mjs';
 
 const auth = Auth('google');
 
@@ -19,7 +20,7 @@ const googleOptions = {
 function signin(req, res, next) {
   auth.saveOptionals(req, res, req.agenda ? { agenda: req.agenda.slug } : {});
 
-  pLib.authenticate('google-signin', {
+  passport.authenticate('google-signin', {
     scope: ['email', 'profile'],
     callbackURL: req.app.services.genUrl.abs('googleSigninCallback'),
   })(req, res, next);
@@ -28,7 +29,7 @@ function signin(req, res, next) {
 function signup(req, res, next) {
   auth.saveOptionals(req, res, req.agenda ? { agenda: req.agenda.slug } : {});
 
-  pLib.authenticate('google-signup', {
+  passport.authenticate('google-signup', {
     scope: ['email', 'profile'],
     callbackURL: req.app.services.genUrl.abs('googleSignupCallback'),
   })(req, res, next);
@@ -56,27 +57,20 @@ export default app => {
   ];
 
   if (_.get(config, 'auth.google.id')) {
-    pLib.loadStrategy('google', 'passport-google-oauth', 'OAuth2Strategy');
-
-    pLib.use(
-      'google-signin',
-      'google',
+    passport.use('google-signin', new GoogleStrategy(
       {
         callbackURL: genUrl.abs('googleSigninCallback'),
         ...googleOptions,
       },
       _loadGoogleProfile,
-    );
-
-    pLib.use(
-      'google-signup',
-      'google',
+    ));
+    passport.use('google-signup', new GoogleStrategy(
       {
         callbackURL: genUrl.abs('googleSignupCallback'),
         ...googleOptions,
       },
       _loadGoogleProfile,
-    );
+    ));
   }
 
   app.get('/google/signin', preMw, signin);

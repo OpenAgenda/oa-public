@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async function getAgendaReferences(services, eventUid, { excludeAgendaUid }) {
+export default async function getAgendaReferences(services, eventUid, { excludeAgendaUid }) {
   const {
     agendaEvents,
     agendas,
@@ -18,4 +16,4 @@ module.exports = async function getAgendaReferences(services, eventUid, { exclud
   });
 
   return result.agendas;
-};
+}

@@ -1,8 +1,9 @@
 import _ from 'lodash';
+import passport from 'passport';
+import FacebookStrategy from 'passport-facebook';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
-import pLib from './lib/passport.js';
-import Auth from './lib/auth.js';
+import Auth from './lib/auth.mjs';
 
 const auth = Auth('facebook');
 
@@ -20,13 +21,13 @@ const facebookOptions = {
 function signin(req, res, next) {
   auth.saveOptionals(req, res, req.agenda ? { agenda: req.agenda.slug } : {});
 
-  pLib.authenticate('facebook-signin')(req, res, next);
+  passport.authenticate('facebook-signin')(req, res, next);
 }
 
 function signup(req, res, next) {
   auth.saveOptionals(req, res, req.agenda ? { agenda: req.agenda.slug } : {});
 
-  pLib.authenticate('facebook-signup')(req, res, next);
+  passport.authenticate('facebook-signup')(req, res, next);
 }
 
 function _loadFacebookProfile(accessToken, refreshToken, profile, done) {
@@ -51,27 +52,21 @@ export default app => {
   ];
 
   if (_.get(config, 'auth.facebook.id')) {
-    pLib.loadStrategy('facebook', 'passport-facebook');
-
-    pLib.use(
-      'facebook-signin',
-      'facebook',
+    passport.use('facebook-signin', new FacebookStrategy(
       {
         callbackURL: genUrl.abs('facebookSigninCallback'),
         ...facebookOptions,
       },
       _loadFacebookProfile,
-    );
+    ));
 
-    pLib.use(
-      'facebook-signup',
-      'facebook',
+    passport.use('facebook-signup', new FacebookStrategy(
       {
         callbackURL: genUrl.abs('facebookSignupCallback'),
         ...facebookOptions,
       },
       _loadFacebookProfile,
-    );
+    ));
   }
 
   app.get('/facebook/signin', preMw, signin);

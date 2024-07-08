@@ -1,12 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import qs from 'qs';
+import labels from '@openagenda/labels/auth/messages.js';
+import cmn from '../../lib/commons-app.js';
+import config from '../../config/index.js';
 
-const _ = require('lodash');
-const qs = require('qs');
-const labels = require('@openagenda/labels/auth/messages');
-const cmn = require('../../lib/commons-app');
-const config = require('../../config');
-
-const loadOptionals = req => [
+export const loadOptionals = req => [
   'iToken',
   'invitation',
   'redirect',
@@ -18,7 +16,8 @@ const loadOptionals = req => [
   [key]: req.query[key],
 } : optionals), {});
 
-function render(template, defaults) {
+/* eslint-disable prefer-rest-params */
+export function render(template, defaults) {
   return function (values) {
     const asPromise = arguments.length === 1;
 
@@ -80,8 +79,3 @@ function render(template, defaults) {
     return values;
   };
 }
-
-module.exports = {
-  loadOptionals,
-  render,
-};

@@ -3,6 +3,8 @@ import axios from 'axios';
 import _ from 'lodash';
 import qs from 'qs';
 import w from 'when';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 import invitationsSvc from '@openagenda/invitations';
 import makeLabelGetter from '@openagenda/labels';
 import authSigninLabels from '@openagenda/labels/auth/signin.js';
@@ -15,9 +17,8 @@ import { fromMarkdownToHTML } from '@openagenda/md';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
 import layouts from '../services/lib/layouts/index.js';
-import auth from './lib/auth.js';
-import pLib from './lib/passport.js';
-import captcha from './lib/captcha.js';
+import * as auth from './lib/auth.mjs';
+import loadCaptcha from './lib/captcha.mjs';
 
 const log = logs('auth/local');
 
@@ -76,7 +77,7 @@ function signinSubmit(req, res, next) {
     email: req.body.email,
   };
   log.info('signin attempt', logBundle);
-  pLib.authenticate(
+  passport.authenticate(
     'local-signin',
     {
       badRequestMessage: getLabel('incorrectPassword', req.lang),
@@ -223,7 +224,7 @@ function handleSigninRequest(req, email, password, cb) {
 
 function pLoadCaptcha(v) {
   return w.promise(rs => {
-    captcha.load(v.req, v.res, () => {
+    loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
   });
@@ -497,9 +498,7 @@ export default app => {
 
   log('initing');
 
-  pLib.loadStrategy('local', 'passport-local');
-
-  pLib.use('local-signin', 'local', useOptions, handleSigninRequest);
+  passport.use('local-signin', new LocalStrategy(useOptions, handleSigninRequest));
 
   app.get(
     '/signin',
@@ -531,7 +530,7 @@ export default app => {
     '/signup',
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    captcha.load,
+    loadCaptcha,
     guessFullName,
     auth.renderSignup,
   );
@@ -541,7 +540,7 @@ export default app => {
     agendas.mw.load,
     preMw,
     sessions.mw.ifLogged(redirectToContribute),
-    captcha.load,
+    loadCaptcha,
     guessFullName,
     auth.renderSignup,
   );

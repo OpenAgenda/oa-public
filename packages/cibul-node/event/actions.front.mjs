@@ -1,21 +1,18 @@
-'use strict';
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import VError from '@openagenda/verror';
+import formSchemaDecorate from '@openagenda/form-schemas/iso/getDecorate.js';
+import range from '@openagenda/date-range';
+import logs from '@openagenda/logs';
+import { getLocaleValue } from '@openagenda/intl';
+import * as agendaSvc from '../services/agenda/index.mjs';
+import cmn from '../lib/commons-app.js';
+import config from '../config/index.js';
+import addCalendarLinks from '../services/events/lib/addCalendarLinks.mjs';
+import track from '../lib/track.js';
+import ics from '../services/events/lib/ics.mjs';
 
-const _ = require('lodash');
-const moment = require('moment-timezone');
-const VError = require('@openagenda/verror');
-
-const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
-const range = require('@openagenda/date-range');
-
-const log = require('@openagenda/logs')('event/actions');
-
-const { getLocaleValue } = require('@openagenda/intl');
-const agendaSvc = require('../services/agenda');
-const cmn = require('../lib/commons-app');
-const config = require('../config');
-const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
-const track = require('../lib/track');
-const ics = require('../services/events/lib/ics');
+const log = logs('event/actions');
 
 function getDates(event, lang) {
   const { timezone } = event;
@@ -207,7 +204,7 @@ async function eventMailSend(req, res, next) {
   }
 }
 
-module.exports = app => {
+export default app => {
   const {
     events: eventsSvc,
     members: membersSvc,

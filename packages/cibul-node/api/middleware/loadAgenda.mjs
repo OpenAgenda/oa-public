@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-control-regex
 const format = /[^\u0000-\u00ff]/;
 
 export default async (req, res, next) => {

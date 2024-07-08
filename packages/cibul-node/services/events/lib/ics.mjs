@@ -1,9 +1,10 @@
-'use strict';
+import moment from 'moment';
+import labels from '@openagenda/labels/exports/index.js';
+import makeLabelGetter from '@openagenda/labels';
+import { getLocaleValue } from '@openagenda/intl';
+import config from '../../../config/index.js';
 
-const moment = require('moment');
-const getLabel = require('@openagenda/labels')(require('@openagenda/labels/exports'));
-const { getLocaleValue } = require('@openagenda/intl');
-const config = require('../../../config');
+const getLabel = makeLabelGetter(labels);
 
 function espaceIcsValue(txt) {
   return (txt || '')
@@ -93,7 +94,7 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
     .join('\n');
 }
 
-module.exports = (agenda, event, lang, timingIndex) => {
+export default (agenda, event, lang, timingIndex) => {
   const head = agenda ? `${icsHead(agenda, lang)}\n` : '';
   const body = icsBody(agenda, event, lang, timingIndex);
   const end = agenda ? '\nEND:VCALENDAR' : '';

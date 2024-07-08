@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import config from '../../config/index.js';
 
-const _ = require('lodash');
-const config = require('../../config');
-
-function load(req, res, next) {
+export default function load(req, res, next) {
   if (!req.baseData) req.baseData = {};
 
   if (config.mtCaptcha.enabled) {
@@ -43,5 +41,3 @@ function load(req, res, next) {
     next();
   }
 }
-
-module.exports = { load };
