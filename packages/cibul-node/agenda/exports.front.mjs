@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import cbify from '@openagenda/utils/cbify.js';
-import agendaSvc from '../services/agenda/index.js';
+import * as agendaSvc from '../services/agenda/index.mjs';
 import cmn from '../lib/commons-app.js';
 import track from '../lib/track.js';
 import rateLimiter from '../lib/rateLimiter.js';

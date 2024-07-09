@@ -1,23 +1,13 @@
-'use strict';
-
-const pickEventImage = require('./lib/pickImage');
-
-const log = require('@openagenda/logs')('services/event/exportLib');
-
-const linkValidator = require('@openagenda/validators/link')();
+import _ from 'lodash';
+import async from 'async';
+import moment from 'moment-timezone';
+import { getTypesAndValues as registration } from '@openagenda/registration/src/validate.js';
+import config from '../../config/index.js';
+import pickEventImage from './lib/pickImage.js';
+import getLongDescriptionHTML from './lib/getLongDescriptionHTML.js';
+import instanciate from './instance/index.js';
 
 const toUTC = str => new Date(str).toJSON();
-
-const _ = require('lodash');
-
-const async = require('async');
-
-const moment = require('moment-timezone');
-
-const registration = require('@openagenda/registration/src/validate').getTypesAndValues;
-
-const config = require('../../config');
-const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
 
 const legacyLocationFieldsMap = {
   conditions: 'pricingInfo',
@@ -63,33 +53,39 @@ const locationFieldsMap = {
   extId: 'extId',
 };
 
-let svc;
+function _inject(c, l, map) {
+  for (const f in map) {
+    if (Object.prototype.hasOwnProperty.call(map, f)) {
+      c[f] = null;
 
-module.exports = service => {
-  svc = service;
-
-  return {
-    cleanEvents,
-    clean: cleanEvent,
-  };
-};
-
-function cleanEvent(services, eInst, options, cb) {
-  if (arguments.length === 2) {
-    cb = options;
-
-    options = {};
+      if (l[map[f]]) {
+        c[f] = l[map[f]];
+      }
+    }
   }
+}
 
-  const { genUrl } = services;
+function _extractKeywords(e) {
+  if (!e.tags) return e.tags;
 
-  let dateRange;
+  const keywords = {};
 
   try {
-    dateRange = eInst.getDateRange(true);
-  } catch (e) {
-    log('error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e);
+    Object.keys(e.tags).forEach(l => {
+      keywords[l] = e.tags[l] ? e.tags[l].split(',').map(k => k.trim()).filter(k => k.length) : [];
+    });
+  } catch {
+    //
   }
+
+  return keywords;
+}
+
+export function clean(services, eInst, options, cb) {
+  const callback = arguments.length === 2 ? options : cb;
+  const opts = arguments.length === 2 ? {} : options;
+
+  const { genUrl } = services;
 
   const OEmbedLinks = eInst.getLinks();
 
@@ -101,7 +97,7 @@ function cleanEvent(services, eInst, options, cb) {
     description: eInst.description,
     longDescription: eInst.freeText || {},
     keywords: _extractKeywords(eInst),
-    html: getLongDescriptionHTML({ services }, eInst.freeText || {}, options.includeEmbedded ? OEmbedLinks : null),
+    html: getLongDescriptionHTML({ services }, eInst.freeText || {}, opts.includeEmbedded ? OEmbedLinks : null),
     longDescriptionLinks: OEmbedLinks,
     image: eInst.getImage(),
     thumbnail: pickEventImage(config, eInst, 'thumbnail'),
@@ -142,7 +138,7 @@ function cleanEvent(services, eInst, options, cb) {
 
     _inject(c.location, l, locationFieldsMap);
 
-    if (c.location.image && c.location.image.indexOf('//') == -1) {
+    if (c.location.image && !c.location.image.includes('//')) {
       c.location.image = config.aws.imageBucketPath.replace('https:', '') + c.location.image;
     }
   }
@@ -153,9 +149,10 @@ function cleanEvent(services, eInst, options, cb) {
   const { timezone } = eInst.getLocationDetails();
 
   eInst.getTimings((err, timings) => {
-    if (err) return cb(err);
+    if (err) return callback(err);
 
-    let tFirst; let
+    let tFirst;
+    let
       tLast;
 
     _.extend(c, {
@@ -192,54 +189,15 @@ function cleanEvent(services, eInst, options, cb) {
       });
     }
 
-    cb(null, c);
+    callback(null, c);
   });
 }
 
-function _inject(c, l, map) {
-  for (const f in map) {
-    c[f] = null;
-
-    if (l[map[f]]) {
-      c[f] = l[map[f]];
-    }
-  }
-}
-
-function cleanEvents(services, events, options, cb) {
-  if (arguments.length === 2) {
-    cb = options;
-    options = {};
-  }
+export function cleanEvents(services, events, options, cb) {
+  const callback = arguments.length === 2 ? options : cb;
+  const opts = arguments.length === 2 ? {} : options;
 
   async.map(events, (e, mcb) => {
-    cleanEvent(services, svc.instanciate(e), options, mcb);
-  }, cb);
-}
-
-function _fZ(n) {
-  return (n > 9 ? '' : '0') + n;
-}
-
-function _extractKeywords(e) {
-  if (!e.tags) return e.tags;
-
-  const keywords = {};
-
-  try {
-    Object.keys(e.tags).forEach(l => {
-      keywords[l] = e.tags[l] ? e.tags[l].split(',').map(k => k.trim()).filter(k => k.length) : [];
-    });
-  } catch (e) {}
-
-  return keywords;
-}
-
-function isLink(v) {
-  try {
-    linkValidator(v);
-  } catch (e) {
-    return false;
-  }
-  return true;
+    clean(services, instanciate(e), opts, mcb);
+  }, callback);
 }

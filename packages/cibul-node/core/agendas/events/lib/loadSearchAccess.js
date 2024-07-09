@@ -3,10 +3,11 @@
 const log = require('@openagenda/logs')('core/agendas/events/loadSearchAccess');
 
 module.exports = async (core, agendaUid, options = {}) => {
+  const { services } = core;
   const {
     members,
     simpleCache,
-  } = core.services;
+  } = services;
 
   const {
     getRoleSlug,

@@ -1,39 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const async = require('async');
-const w = require('when');
-
-const countryLabels = require('@openagenda/labels/agenda-locations/countries');
-const slug = require('slugify');
-const utils = require('@openagenda/utils');
-
-const config = require('../../config');
-const legacy = require('../legacy');
-
-let svc;
-
-module.exports = function (service) {
-  svc = service;
-
-  return {
-    decorateEvents,
-    decorateEvent,
-  };
-};
-
-function decorateEvents(agenda, events, toDecorate, options, cb) {
-  let i = 0;
-
-  legacy.getTagSet(agenda.id).then(tagSet => {
-    agenda.tagSet = tagSet;
-
-    async.eachSeries(events, (event, ecb) => {
-      decorateEvent(agenda, event, toDecorate[i], options, ecb);
-      i += 1;
-    }, cb);
-  }, cb);
-}
+import _ from 'lodash';
+import async from 'async';
+import w from 'when';
+import countryLabels from '@openagenda/labels/agenda-locations/countries.js';
+import slug from 'slugify';
+import utils from '@openagenda/utils';
+import config from '../../config/index.js';
+import legacy from '../legacy.js';
 
 function _loadTagSet(v) {
   if (!v.loadTagSet || v.agenda.tagSet) return v;
@@ -42,46 +14,6 @@ function _loadTagSet(v) {
     v.agenda.tagSet = tagSet;
     return v;
   });
-}
-
-function decorateEvent(agenda, event, toDecorate, options, cb) {
-  toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
-  toDecorate.permalink = `${config.root}/agendas/${agenda.uid}/events/${event.uid}`;
-
-  w(utils.extend({
-    multiLang: true,
-    longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
-    agenda,
-    event,
-    loadTagSet: false,
-    decorated: toDecorate,
-    lang: false, // given by options
-    includePrivateData: false, // given by options
-  }, options))
-
-    .then(_addState) // only if private data
-
-    .then(_addFeatured)
-
-    .then(_loadTagSet)
-
-    .then(_addCustomFields)
-
-    .then(_addReferences)
-
-    .then(_addContributorInfo)
-
-    .then(_addCountry)
-
-    .then(_addCategory)
-
-    .then(_addTags)
-
-    .then(_addTagGroups)
-
-    .done(v => {
-      cb(null, v.decorated);
-    }, cb);
 }
 
 function _addTagGroups(v) {
@@ -103,15 +35,15 @@ function _addTagGroups(v) {
 
   // includePrivateData
 
-  // keep groups containing tags used by event
-    .filter(g => g.tags.filter(t => tagIds.indexOf(t.id) !== -1).length)
+    // keep groups containing tags used by event
+    .filter(g => g.tags.filter(t => tagIds.includes(t.id)).length)
 
-  // keep group tags used by event
+    // keep group tags used by event
     .map(g => ({
       name: g.name,
       access: g.access || 'public',
       slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
-      tags: g.tags.filter(t => tagIds.indexOf(t.id) !== -1).map(t => _.assign({
+      tags: g.tags.filter(t => tagIds.includes(t.id)).map(t => _.assign({
         label: t.label,
         slug: t.slug,
         id: t.id,
@@ -124,7 +56,7 @@ function _addTagGroups(v) {
       return _.get(g, 'access', 'public') === 'public';
     })
 
-  // remove empty groups
+    // remove empty groups
     .filter(g => g.tags.length);
 
   // reuse tag group order with tags
@@ -179,7 +111,7 @@ function _addReferences(v) {
     .map(a => a.references);
 
   if (referenceSet.length) {
-    v.decorated.references = referenceSet[0];
+    [v.decorated.references] = referenceSet;
   }
 
   return v;
@@ -224,9 +156,9 @@ function _addCustomFields(v) {
     custom.forEach(c => {
       if (c.fieldType === 'checkbox') {
         v.decorated.customValues[c.name] = !!(Array.isArray(c.value) ? c.value.length : c.value);
-      } else if (c.fieldType == 'image' && c.value) {
+      } else if (c.fieldType === 'image' && c.value) {
         v.decorated.customValues[c.name] = config.aws.imageBucketPath + c.value;
-      } else if (c.fieldType == 'file' && c.value) {
+      } else if (c.fieldType === 'file' && c.value) {
         const uploaded = config.aws.imageBucketPath + c.value.uploaded;
 
         c.value.embed = `<iframe height="500" width="100%" src="${uploaded}" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
@@ -290,4 +222,57 @@ function _addState(v) {
   });
 
   return d.promise;
+}
+
+export function decorateEvent(agenda, event, toDecorate, options, cb) {
+  toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
+  toDecorate.permalink = `${config.root}/agendas/${agenda.uid}/events/${event.uid}`;
+
+  w(utils.extend({
+    multiLang: true,
+    longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
+    agenda,
+    event,
+    loadTagSet: false,
+    decorated: toDecorate,
+    lang: false, // given by options
+    includePrivateData: false, // given by options
+  }, options))
+
+    .then(_addState) // only if private data
+
+    .then(_addFeatured)
+
+    .then(_loadTagSet)
+
+    .then(_addCustomFields)
+
+    .then(_addReferences)
+
+    .then(_addContributorInfo)
+
+    .then(_addCountry)
+
+    .then(_addCategory)
+
+    .then(_addTags)
+
+    .then(_addTagGroups)
+
+    .done(v => {
+      cb(null, v.decorated);
+    }, cb);
+}
+
+export function decorateEvents(agenda, events, toDecorate, options, cb) {
+  let i = 0;
+
+  legacy.getTagSet(agenda.id).then(tagSet => {
+    agenda.tagSet = tagSet;
+
+    async.eachSeries(events, (event, ecb) => {
+      decorateEvent(agenda, event, toDecorate[i], options, ecb);
+      i += 1;
+    }, cb);
+  }, cb);
 }

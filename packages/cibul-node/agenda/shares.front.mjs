@@ -1,7 +1,7 @@
 import Shares from '@openagenda/shares';
 import config from '../config/index.js';
-import agendaSvc from '../services/agenda/index.js';
-import embedSvc from '../services/embed/index.js';
+import * as agendaSvc from '../services/agenda/index.mjs';
+import * as embedSvc from '../services/embed/index.mjs';
 
 const shares = Shares(config.shares.agenda);
 

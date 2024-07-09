@@ -1,17 +1,9 @@
-'use strict';
+import { readFileSync } from 'node:fs';
+import _ from 'lodash';
+import { NotFound } from '@openagenda/verror';
+import unserialize from 'locutus/php/var/unserialize.js';
 
-const _ = require('lodash');
-const { NotFound } = require('@openagenda/verror');
-const unserialize = require('locutus/php/var/unserialize');
-
-const redirectTemplate = _.template(require('node:fs').readFileSync(`${__dirname}/redirect.tpl`, 'utf-8'));
-
-module.exports = config => ({
-  loadEvent: loadEvent.bind(null, config),
-  loadSiteURL: loadSiteURL.bind(null, config),
-  loadFacebookMetas: loadFacebookMetas.bind(null, config),
-  render: render.bind(null, config),
-});
+const redirectTemplate = _.template(readFileSync(`${import.meta.dirname}/redirect.tpl`, 'utf-8'));
 
 function render(config, req, res) {
   res.send(redirectTemplate({
@@ -23,17 +15,21 @@ function render(config, req, res) {
 }
 
 function loadFacebookMetas(config, req, res, next) {
-  req.redirect = req.siteURL ? `${req.siteURL}?oaq[uid][]=${req.event.uid}` : `/${req.agenda.slug}/events/${req.event.slug}`;
+  req.redirect = req.siteURL
+    ? `${req.siteURL}?oaq[uid][]=${req.event.uid}`
+    : `/${req.agenda.slug}/events/${req.event.slug}`;
 
-  req.metas = [{
-    property: 'og:title', content: _.escape(req.event.title),
-  }, {
-    property: 'og:description', content: _.escape(req.event.description),
-  }, {
-    property: 'og:locale', content: req.lang,
-  }, {
-    property: 'og:url', content: `${config.root}/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`,
-  }];
+  req.metas = [
+    {
+      property: 'og:title', content: _.escape(req.event.title),
+    }, {
+      property: 'og:description', content: _.escape(req.event.description),
+    }, {
+      property: 'og:locale', content: req.lang,
+    }, {
+      property: 'og:url', content: `${config.root}/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`,
+    },
+  ];
 
   if (_.get(req, 'event.image.filename')) {
     req.metas.push({
@@ -64,7 +60,7 @@ function loadEvent(config, req, res, next) {
       req.log.error(err);
 
       next({
-        code: _.get(err, 'message').indexOf('not found') === -1 ? 500 : 404,
+        code: !_.get(err, 'message').includes('not found') ? 500 : 404,
       });
     });
 }
@@ -79,10 +75,17 @@ function loadSiteURL(config, req, res, next) {
       req.log.error('could not extract siteurl from store of embed %s', embed.uid);
     }
 
-    if (!req.siteURL & req.agenda.url) {
+    if (!req.siteURL && req.agenda.url) {
       req.siteURL = req.agenda.url;
     }
 
     next();
   });
 }
+
+export default config => ({
+  loadEvent: loadEvent.bind(null, config),
+  loadSiteURL: loadSiteURL.bind(null, config),
+  loadFacebookMetas: loadFacebookMetas.bind(null, config),
+  render: render.bind(null, config),
+});

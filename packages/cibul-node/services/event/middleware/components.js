@@ -11,7 +11,6 @@ const Registration = require('@openagenda/registration/lib/Display');
 
 const log = require('@openagenda/logs')('services/event/middleware/components');
 const config = require('../../../config');
-const legacyEventSvc = require('..');
 const members = require('../../members');
 const pickEventImage = require('../lib/pickImage');
 

@@ -1,4 +1,4 @@
-import agendaSvc from '../services/agenda/index.js';
+import * as agendaSvc from '../services/agenda/index.mjs';
 import convertFormat from './ConvertFormat.mjs';
 import loadCredentials from './loadCredentials.mjs';
 

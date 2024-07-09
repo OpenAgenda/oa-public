@@ -1,32 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import async from 'async';
+import tabLabels from '@openagenda/labels/agenda-admin/tabs.js';
+import makeLabelGetter from '@openagenda/labels';
+import * as legacyEventSvc from '../event/index.mjs';
+import mwh from '../lib/middlewareHelpers.js';
+import svcConfig from './config.mjs';
 
-const _ = require('lodash');
-const async = require('async');
-
-const utils = require('@openagenda/utils');
-const tabLabels = require('@openagenda/labels')(require('@openagenda/labels/agenda-admin/tabs'));
-
-const legacyEventSvc = require('../event');
-
-const mwh = require('../lib/middlewareHelpers');
-const svcConfig = require('./config');
+const getTabLabel = makeLabelGetter(tabLabels);
 
 let svc;
-
-module.exports = function (agendaService) {
-  svc = agendaService;
-
-  return {
-    load: loadAgenda,
-    loadAdminLayout,
-    search: searchEvents,
-    browserCache,
-    browserCacheControlData,
-    decorateEvents,
-    decorateEvent,
-    cleanJson,
-  };
-};
 
 function _hasPublishedEvents(req, agenda, cb) {
   const {
@@ -53,6 +35,31 @@ function _loadIsPassed(req, agenda, cb) {
   });
 }
 
+function _hasQueryOtherThan(req, exceptions) {
+  const exceptionList = typeof exceptions === 'string' ? [exceptions] : exceptions || [];
+
+  for (const q in req.query) {
+    if (!exceptionList.includes(q)) return true;
+  }
+
+  return false;
+}
+
+function _getCredentialList(agenda, cb) {
+  // legacy service function
+  if (agenda.getCredentialList) {
+    return agenda.getCredentialList((err, list) => {
+      cb(null, list);
+    });
+  }
+
+  // new service
+
+  setImmediate(() => {
+    cb(null, _.keys(_.pickBy(agenda.credentials, v => !!v)));
+  });
+}
+
 /**
  * load agenda instance and set it in req.agenda
  */
@@ -63,39 +70,40 @@ function loadAgenda(paramName, fieldName, options) {
     required: true,
   }; // options used for function, not for get
 
+  let resolvedFieldName = fieldName;
+  let resolvedOptions = options;
+
   if (arguments.length === 2 && typeof fieldName === 'object') {
-    options = fieldName;
-
-    fieldName = undefined;
+    resolvedOptions = fieldName;
+    resolvedFieldName = undefined;
   }
 
-  if (typeof fieldName === 'undefined') {
-    fieldName = paramName;
+  if (typeof resolvedFieldName === 'undefined') {
+    resolvedFieldName = paramName;
   }
 
-  if (!options) options = {};
+  if (!resolvedOptions) resolvedOptions = {};
 
   // extract options for function
   ['name', 'required'].forEach(k => {
-    if (options[k] === undefined) return;
+    if (resolvedOptions[k] === undefined) return;
 
-    loadOptions[k] = options[k];
-
-    delete options[k];
+    loadOptions[k] = resolvedOptions[k];
+    delete resolvedOptions[k];
   });
 
-  return function (req, res, next) {
+  return (req, res, next) => {
     const getParams = {};
 
-    getParams[fieldName] = req.params[paramName];
+    getParams[resolvedFieldName] = req.params[paramName];
 
     if (!loadOptions.required && req.params[paramName] === undefined) {
       return next();
     }
 
-    svc.get(getParams, options, (err, a) => {
+    svc.get(getParams, resolvedOptions, (err, a) => {
       if (err) {
-        if (err == 'agenda not found') {
+        if (err === 'agenda not found') {
           return next({ code: 404 });
         }
 
@@ -104,7 +112,7 @@ function loadAgenda(paramName, fieldName, options) {
 
       req[loadOptions.name] = a;
 
-      if (options.basicLoad) return next();
+      if (resolvedOptions.basicLoad) return next();
 
       // if full load ( default )
       // is requested, more info is fetched
@@ -161,7 +169,7 @@ function loadAdminLayout(req, res, next) {
         req.layoutData.tabs = svcConfig.adminTabs.filter(tab => {
           // if user is moderator and tab access is not given to moderators,
           // filter.
-          if (req.access == 'moderator' && tab.access !== 'moderator') {
+          if (req.access === 'moderator' && tab.access !== 'moderator') {
             return false;
           }
 
@@ -173,12 +181,12 @@ function loadAdminLayout(req, res, next) {
         })
 
           .map(tab => {
-            const label = tabLabels(tab.key, req.lang);
+            const label = getTabLabel(tab.key, req.lang);
 
             let badge = null;
 
             if (tab.badge) {
-              badge = _.extend({}, tab.badge, { label: tabLabels(tab.badge.label, req.lang) });
+              badge = _.extend({}, tab.badge, { label: getTabLabel(tab.badge.label, req.lang) });
             }
 
             if (!credentials.includes(tab.requiredCred) && tab.call) {
@@ -206,44 +214,8 @@ function loadAdminLayout(req, res, next) {
   });
 }
 
-function _getCredentialList(agenda, cb) {
-  // legacy service function
-  if (agenda.getCredentialList) {
-    return agenda.getCredentialList((err, list) => {
-      cb(null, list);
-    });
-  }
-
-  // new service
-
-  setImmediate(() => {
-    cb(null, _.keys(_.pickBy(agenda.credentials, v => !!v)));
-  });
-}
-
-function formatTemplateData(req, res, next) {
-  req.template = 'agenda/show';
-
-  req.templateData = {
-    uid: req.agenda.uid,
-    slug: req.agenda.slug,
-    title: req.agenda.title,
-    description: req.agenda.description,
-    url: req.agenda.url,
-    image: req.agenda.getImage(false),
-    passed: req.agenda.passed,
-    uri: 'agendaShow',
-  };
-
-  req.templateData.importUri = req.genUrl('agendaActionShow', { slug: req.agenda.slug });
-
-  req.templateData.hasSearchQuery = !!utils.size(req.query.oaq);
-
-  next();
-}
-
 function searchEvents(limit, showAll) {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const pagination = {};
 
     if (req.query.offset) {
@@ -295,7 +267,7 @@ function browserCache(req, res, next) {
 }
 
 function decorateEvents(includePrivateData) {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const instanciated = req.events.map(legacyEventSvc.instanciate);
 
     svc.exports.decorateEvents(req.agenda, instanciated, req.formatted, {
@@ -306,7 +278,7 @@ function decorateEvents(includePrivateData) {
 }
 
 function decorateEvent(includePrivateData) {
-  return function (req, res, next) {
+  return (req, res, next) => {
     svc.exports.decorateEvent(req.agenda, req.event, req.formatted, {
       // this value was at false, the custom file link needs access
       includePrivateData,
@@ -328,7 +300,7 @@ function cleanJson(req, res, next) {
     }
 
     ['image', 'thumbnail', 'originalImage'].forEach(imageField => {
-      if ((f[imageField] || '').indexOf('?') === -1) {
+      if (!(f[imageField] || '').includes('?')) {
         return;
       }
       f[imageField] = f[imageField].split('?').shift();
@@ -338,18 +310,17 @@ function cleanJson(req, res, next) {
   next();
 }
 
-function _hasQueryOtherThan(req, exceptions) {
-  if (typeof exceptions === 'string') exceptions = [exceptions];
+export default agendaService => {
+  svc = agendaService;
 
-  if (!exceptions) exceptions = [];
-
-  for (const q in req.query) {
-    if (exceptions.indexOf(q) == -1) return true;
-  }
-
-  return false;
-}
-
-function _fZ(n) {
-  return (n > 9 ? '' : '0') + n;
-}
+  return {
+    load: loadAgenda,
+    loadAdminLayout,
+    search: searchEvents,
+    browserCache,
+    browserCacheControlData,
+    decorateEvents,
+    decorateEvent,
+    cleanJson,
+  };
+};

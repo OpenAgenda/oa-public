@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import utils from '@openagenda/utils';
 
-const _ = require('lodash');
-const utils = require('@openagenda/utils');
-
-module.exports = function getEventLayoutData(req) {
+export default function getEventLayoutData(req) {
   const {
     indexedEvent: event,
   } = req;
@@ -82,4 +80,4 @@ module.exports = function getEventLayoutData(req) {
     settings: req.agenda.settings,
     hasOwnershipTransfer,
   };
-};
+}
