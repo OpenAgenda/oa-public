@@ -27,7 +27,7 @@ function Enqueue({ queue, pendingConfig, tracker }) {
         eventUid,
         agendaUid,
         next: {
-          delay: Math.max(options.delay / 2, pendingConfig.minDelay),
+          delay: Math.max(options.delay * 0.75, pendingConfig.minDelay),
           retries: (options.retries ?? 0) + 1,
         },
       },

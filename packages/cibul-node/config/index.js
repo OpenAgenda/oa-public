@@ -343,7 +343,7 @@ const config = {
     pending: {
       delay: parseInt(process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12, 10), // 12h
       minDelay: parseInt(process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3, 10), // 3h
-      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 12, // why not
+      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 20, // why not
     },
   },
   mailgun,
