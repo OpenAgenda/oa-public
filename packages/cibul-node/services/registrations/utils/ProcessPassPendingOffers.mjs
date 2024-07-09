@@ -7,11 +7,7 @@ function isStillPending(data) {
   return !data.filter(d => d.response?.isPending === false).length;
 }
 
-function Enqueue({
-  queue,
-  pendingConfig,
-  tracker,
-}) {
+function Enqueue({ queue, pendingConfig, tracker }) {
   return ({ eventUid, agendaUid }, options = {}) => {
     const logBundle = {
       eventUid,
@@ -24,95 +20,100 @@ function Enqueue({
       return;
     }
 
-    log('enqueue', { eventUid, agendaUid });
-    return queue.add('pendingOffer', {
-      eventUid,
-      agendaUid,
-      next: {
-        delay: Math.max(options.delay / 2, pendingConfig.minDelay),
-        retries: (options.retries ?? 0) + 1,
+    log.info('enqueue', logBundle);
+    return queue.add(
+      'pendingOffer',
+      {
+        eventUid,
+        agendaUid,
+        next: {
+          delay: Math.max(options.delay / 2, pendingConfig.minDelay),
+          retries: (options.retries ?? 0) + 1,
+        },
       },
-    }, {
-      delay: options.delay ?? pendingConfig.initialDelay,
-    });
+      {
+        delay: options.delay ?? pendingConfig.initialDelay,
+      },
+    );
   };
 }
 
-function task({
-  enqueue,
-  services,
-  registrations,
-  queue,
-}) {
-  const {
-    agendas,
-    events,
-    core,
-    bull,
-    tracker,
-  } = services;
+function task({ enqueue, services, registrations, queue }) {
+  const { agendas, events, core, bull, tracker } = services;
 
-  const worker = new bull.Worker(queue.name, async job => {
-    if (job.name !== 'pendingOffer') {
-      log.error('unknown job', job.name);
-    }
-    const logBundle = { job: _.pick(job, ['name', 'data']) };
+  const worker = new bull.Worker(
+    queue.name,
+    async job => {
+      if (job.name !== 'pendingOffer') {
+        log.error('unknown job', job.name);
+      }
+      tracker('registrations.passCulture.pendingOffer.processing');
 
-    log('pendingOffer: processing', logBundle);
-    tracker('registrations.passCulture.pendingOffer.processing');
+      const { eventUid, agendaUid, next } = job.data;
 
-    const { eventUid, agendaUid, next } = job.data;
+      const logBundle = {
+        job: _.pick(job, ['name', 'data']),
+        eventUid,
+        agendaUid,
+      };
 
-    const agenda = await agendas.get({ uid: agendaUid }, { private: null });
+      log.info('pendingOffer: processing', logBundle);
 
-    if (!agenda) {
-      throw new Error('agenda not found');
-    }
+      const agenda = await agendas.get({ uid: agendaUid }, { private: null });
 
-    const event = await events.get(
-      eventUid,
-      { private: null, includeFields: ['registration', 'timings'] },
-    );
+      if (!agenda) {
+        throw new Error('agenda not found');
+      }
 
-    if (!event) {
-      throw new Error('event not found');
-    }
+      const event = await events.get(eventUid, { private: null, includeFields: ['registration', 'timings'] });
 
-    const passCultureService = registrations(agenda.settings.registration).passCulture;
+      if (!event) {
+        throw new Error('event not found');
+      }
 
-    const passCultureData = (event?.registration ?? []).find(r => r.service === 'passCulture')?.data;
+      const passCultureService = registrations(agenda.settings.registration).passCulture;
 
-    const applied = await passCultureService.apply(event, passCultureData);
+      const passCultureData = (event?.registration ?? []).find(r => r.service === 'passCulture')?.data;
 
-    if (isStillPending(applied)) {
-      await enqueue({ eventUid, agendaUid }, next);
-      log('pendingOffer: still pending');
-      tracker('registrations.passCulture.pendingOffer.processed.pending');
-      return;
-    }
+      const applied = await passCultureService.apply(event, passCultureData);
 
-    log.info('pendingOffer: no longer pending, changes were applied');
+      if (isStillPending(applied)) {
+        log.info('pendingOffer: still pending', logBundle);
+        await enqueue({ eventUid, agendaUid }, next);
+        tracker('registrations.passCulture.pendingOffer.processed.pending');
+        return;
+      }
 
-    await core.agendas(agendaUid).events.patch(eventUid, {
-      registration: event.registration.map(r => (
-        r.service === 'passCulture' ? {
-          ...r,
-          data: applied,
-        } : r)),
-    }, { access: 'internal' });
+      log.info('pendingOffer: no longer pending, changes were applied', logBundle);
 
-    tracker('registrations.passCulture.pendingOffer.processed.notPending');
-  }, {
-    prefix: queue.opts.prefix,
-    removeOnComplete: {
-      age: 3600, // keep up to 1 hour
-      count: 1000, // keep up to 1000 jobs
+      await core.agendas(agendaUid).events.patch(
+        eventUid,
+        {
+          registration: event.registration.map(r =>
+            (r.service === 'passCulture'
+              ? {
+                ...r,
+                data: applied,
+              }
+              : r)),
+        },
+        { access: 'internal' },
+      );
+
+      tracker('registrations.passCulture.pendingOffer.processed.notPending');
     },
-    removeOnFail: {
-      age: 7 * 24 * 3600, // keep up to 7 days
-      count: 1000, // keep up to 1000 jobs
+    {
+      prefix: queue.opts.prefix,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
     },
-  });
+  );
 
   worker.on('error', failedReason => log.error('error', failedReason));
   worker.on('failed', (job, error) => log.error(job.name, 'failed', job.data, error));
@@ -127,15 +128,8 @@ function task({
   };
 }
 
-export default function ProcessPassPendingOffers({
-  services,
-  registrations,
-  pending: pendingConfig,
-}) {
-  const {
-    bull,
-    tracker,
-  } = services;
+export default function ProcessPassPendingOffers({ services, registrations, pending: pendingConfig }) {
+  const { bull, tracker } = services;
 
   let shutdownTask;
 
