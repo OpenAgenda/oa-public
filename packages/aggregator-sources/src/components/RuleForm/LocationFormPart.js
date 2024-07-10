@@ -20,9 +20,8 @@ export default () => {
         classNameGroup="form-group form-inline"
       >
         <option value="city">{intl.formatMessage(messages.city)}</option>
-        <option value="department">
-          {intl.formatMessage(messages.department)}
-        </option>
+        <option value="adminLevel3">{intl.formatMessage(messages.adminLevel3)}</option>
+        <option value="department">{intl.formatMessage(messages.department)}</option>
         <option value="region">{intl.formatMessage(messages.region)}</option>
         <option value="name">{intl.formatMessage(messages.name)}</option>
       </Field>
@@ -40,8 +39,7 @@ export default () => {
               separator=","
               placeholder={intl.formatMessage(messages.addAValue)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-              formatCreateLabel={value =>
-                intl.formatMessage(messages.createOption, { value })}
+              formatCreateLabel={value => intl.formatMessage(messages.createOption, { value })}
               menuPosition="fixed"
               // initialValue={initialValues?.locationValues}
               isMulti
