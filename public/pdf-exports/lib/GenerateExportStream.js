@@ -16,9 +16,7 @@ export default async function GenerateExportStream(config, eventStream, writeStr
   const startTime = Date.now();
   let count = 0;
 
-  log.info('Starting PDF export', {
-    ...logBundle,
-  });
+  log.info('Start processing', logBundle);
 
   const intl = getIntl(lang);
 
@@ -111,7 +109,7 @@ export default async function GenerateExportStream(config, eventStream, writeStr
 
     if (eventStreamHasBeenClosed) {
       doc.end();
-      log('PDF export completed', {
+      log.info('End processing', {
         ...logBundle,
         responseTime,
         eventsGenerated: count,
