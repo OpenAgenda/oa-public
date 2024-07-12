@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 
 import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.js';
+import removeCrispDecoration from './removeCrispDecoration.mjs';
 
 const log = logs('service/mails/incomingEmails');
 
@@ -11,14 +12,10 @@ export default function incomingEmailsMw({ services }) {
     try {
       const {
         users: usersSvc,
-        inboxes: {
-          Inbox,
-        },
+        inboxes: { Inbox },
       } = services;
 
-      const {
-        body,
-      } = req;
+      const { body } = req;
 
       const logBundle = { body };
 
@@ -75,7 +72,7 @@ export default function incomingEmailsMw({ services }) {
       });
 
       await conversation.messages.create({
-        body: extractMarkdownFromEmailBody(req.body),
+        body: removeCrispDecoration(extractMarkdownFromEmailBody(req.body)),
       });
 
       res.sendStatus(200);
