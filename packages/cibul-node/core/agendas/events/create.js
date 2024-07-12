@@ -16,20 +16,12 @@ const cleanEvent = require('../utils/cleanEvent');
 const getAgenda = require('../utils/getAgenda');
 const assignState = require('../utils/assignState');
 
-const {
-  isImageToDuplicate,
-} = cleanDuplicateImage;
+const { isImageToDuplicate } = cleanDuplicateImage;
 
 module.exports = async (core, agendaUid, data, options = {}) => {
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    members,
-    events,
-    registrations,
-  } = services;
+  const { members, events, registrations } = services;
 
   const {
     access = 'public',
@@ -71,7 +63,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
     log('  cleaned data');
 
-    if (clean.passCulture) {
+    if (!draft && clean.passCulture) {
       log('  There is a pass culture payload');
       try {
         clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
@@ -133,9 +125,12 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     } catch (e) {
       if (e.toString() === 'ValidationError: Invalid data') {
         log('info', 'invalid data', e);
-        throw new BadRequest({
-          info: { errors: e.detail },
-        }, 'invalid data');
+        throw new BadRequest(
+          {
+            info: { errors: e.detail },
+          },
+          'invalid data',
+        );
       }
       log('error', 'failed to create event', {
         agendaUid: agenda.uid,
@@ -144,18 +139,23 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       throw e;
     }
 
-    response = await doAdd(core, payload, ih(clean, {
-      agendaEvent: {
-        canEdit: { $set: true },
+    response = await doAdd(
+      core,
+      payload,
+      ih(clean, {
+        agendaEvent: {
+          canEdit: { $set: true },
+        },
+        // required for custom legacy sync only.
+        agendaId: { $set: agenda.id },
+      }),
+      {
+        draft,
+        userUid,
+        access,
+        duplicateOrigin,
       },
-      // required for custom legacy sync only.
-      agendaId: { $set: agenda.id },
-    }), {
-      draft,
-      userUid,
-      access,
-      duplicateOrigin,
-    });
+    );
   } catch (e) {
     log.info('create failed', {
       error: e,
@@ -167,9 +167,12 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     throw e;
   }
 
-  if (registrations?.utils.passCulture.isMarkedAsPending(
-    response.event.registration.find(r => r.service === 'passCulture')?.data,
-  )) {
+  if (
+    !draft
+    && registrations?.utils.passCulture.isMarkedAsPending(
+      response.event.registration.find(r => r.service === 'passCulture')?.data,
+    )
+  ) {
     registrations.utils.passCulture.enqueuePending({
       agendaUid,
       eventUid: response.event.uid,

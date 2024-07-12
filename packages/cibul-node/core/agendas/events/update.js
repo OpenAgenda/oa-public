@@ -122,12 +122,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     currentState: agendaEvent?.state,
   });
 
-  const hasNewPassOffer = clean.passCulture && registrations.utils.passCulture.isNew(clean.passCulture);
-  const hasNonPendingPassOfferWithNewItems = clean.passCulture
+  const hasNewPassOffer = !draft && clean.passCulture && registrations.utils.passCulture.isNew(clean.passCulture);
+  const hasNonPendingPassOfferWithNewItems = !draft
+    && clean.passCulture
     && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
     && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
 
-  if (hasNewPassOffer || hasNonPendingPassOfferWithNewItems) {
+  if (!draft && (hasNewPassOffer || hasNonPendingPassOfferWithNewItems)) {
     log.info('  There is a pass culture payload with event', { eventUid: event.uid });
     try {
       clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
@@ -135,7 +136,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       log('error', e);
       throw e;
     }
-  } else if (clean.passCulture) {
+  } else if (!draft && clean.passCulture) {
     log.info('  There is no new non-pending pass culture payload', { eventUid: event.uid });
   }
 
@@ -297,7 +298,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   if (
-    hasNewPassOffer
+    !draft
+    && hasNewPassOffer
     && registrations.utils.passCulture.isMarkedAsPending(
       response.event.registration.find(r => r.service === 'passCulture')?.data,
     )
