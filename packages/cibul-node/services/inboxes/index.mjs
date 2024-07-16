@@ -10,6 +10,7 @@ import onAction from './onAction.mjs';
 import onInboxCreate from './onInboxCreate.mjs';
 import onMessageCreate from './onMessageCreate.mjs';
 import plugApp from './plugApp/index.mjs';
+import MessageIds from './MessageIds/index.mjs';
 
 export async function init(config, services) {
   const { queues, redis } = services;
@@ -224,6 +225,7 @@ export async function init(config, services) {
   await inboxMw.init(service);
 
   Object.assign(service, {
+    messageIds: await MessageIds(config, services),
     plugApp: plugApp.bind(null, config, services),
     task: () => queue.run(),
     shutdown: (options = {}) =>
