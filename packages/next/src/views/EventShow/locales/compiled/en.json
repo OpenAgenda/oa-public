@@ -567,6 +567,12 @@
       "value": "Sign in"
     }
   ],
+  "next.views.EventShow.ShareModale.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,

@@ -541,6 +541,12 @@
       "value": "crwdns33738:0crwdne33738:0"
     }
   ],
+  "next.views.EventShow.ShareModale.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,

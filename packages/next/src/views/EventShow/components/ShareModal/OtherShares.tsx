@@ -34,17 +34,23 @@ function padTo2Digits(num: number) {
 
 function formatDateToGoogleCalendar(date: Date) {
   // eslint-disable-next-line prefer-template
-  return date.getUTCFullYear()
+  return (
+    `${date.getUTCFullYear()
     + padTo2Digits(date.getUTCMonth() + 1)
     + padTo2Digits(date.getUTCDate())
-    + 'T'
-    + padTo2Digits(date.getUTCHours())
-    + padTo2Digits(date.getUTCMinutes())
-    + padTo2Digits(date.getUTCSeconds())
-    + 'Z';
+    }T${
+      padTo2Digits(date.getUTCHours())
+    }${padTo2Digits(date.getUTCMinutes())
+    }${padTo2Digits(date.getUTCSeconds())
+    }Z`
+  );
 }
 
-function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLocale }) {
+function isOnline(event) {
+  return event.attendanceMode !== 1;
+}
+
+function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLocale, intl }) {
   if (timingIndex === '') {
     return null;
   }
@@ -53,35 +59,43 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
   const begin = new Date(timing.begin);
   const end = new Date(timing.end);
 
-  const location = encodeURIComponent(`${event.location.name} - ${event.location.address}`);
+  const location = encodeURIComponent(
+    isOnline(event) ? intl.formatMessage(messages.online) : `${event.location.name} - ${event.location.address}`,
+  );
 
   switch (service) {
     case 'google':
       // eslint-disable-next-line prefer-template
-      return 'https://www.google.com/calendar/render?action=TEMPLATE'
+      return (
+        'https://www.google.com/calendar/render?action=TEMPLATE'
         + `&text=${encodeURIComponent(event.title[contentLocale])}`
         + `&dates=${formatDateToGoogleCalendar(begin)}/${formatDateToGoogleCalendar(end)}`
         + `&ctz=${event.timezone}`
-        + `&details=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
-        + (event.location ? `&location=${location}` : '')
-        + `&sprop=website:${encodeURIComponent(eventUrl)}`;
+        + `&details=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+          event.location ? `&location=${location}` : ''
+        }&sprop=website:${encodeURIComponent(eventUrl)}`
+      );
     case 'yahoo':
       // eslint-disable-next-line prefer-template
-      return 'https://calendar.yahoo.com/?v=60'
+      return (
+        'https://calendar.yahoo.com/?v=60'
         + `&TITLE=${encodeURIComponent(event.title[contentLocale])}`
-        + `&ST=${formatInTimeZone(begin, event.timezone, 'yyyyMMdd\'T\'HHmmss')}`
-        + `&ET=${formatInTimeZone(end, event.timezone, 'yyyyMMdd\'T\'HHmmss')}`
-        + `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
-        + (event.location ? `&in_loc=${location}` : '');
+        + `&ST=${formatInTimeZone(begin, event.timezone, "yyyyMMdd'T'HHmmss")}`
+        + `&ET=${formatInTimeZone(end, event.timezone, "yyyyMMdd'T'HHmmss")}`
+        + `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+          event.location ? `&in_loc=${location}` : ''}`
+      );
     case 'live':
       // eslint-disable-next-line prefer-template
-      return 'https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose'
+      return (
+        'https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose'
         + '&rru=addevent'
-        + `&startdt=${formatInTimeZone(begin, event.timezone, 'yyyy-MM-dd\'T\'HH:mm:ss')}`
-        + `&enddt=${formatInTimeZone(end, event.timezone, 'yyyy-MM-dd\'T\'HH:mm:ss')}`
+        + `&startdt=${formatInTimeZone(begin, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}`
+        + `&enddt=${formatInTimeZone(end, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}`
         + `&subject=${encodeURIComponent(event.title[contentLocale])}`
-        + `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}`
-        + (event.location ? `&location=${location}` : '');
+        + `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+          event.location ? `&location=${location}` : ''}`
+      );
     case 'ics':
       return `/${agenda.slug}/events/${event.slug}/ics?timing=${timingIndex}&dl=1`;
     default:
@@ -90,11 +104,13 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
 }
 
 async function sendEmails(url, { arg }: { arg: string[] }): Promise<{ count: number }> {
-  return ky.post(url, {
-    json: {
-      mailsend: arg.join(';'),
-    },
-  }).json();
+  return ky
+    .post(url, {
+      json: {
+        mailsend: arg.join(';'),
+      },
+    })
+    .json();
 }
 
 export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
@@ -111,12 +127,14 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const currentAndUpcomingTimings = event.timings.filter(timing => new Date(timing.begin) > now);
 
-  const [selectedTimingIndex, setSelectedTimingIndex] = useState(() => (currentAndUpcomingTimings.length === 1 ? '0' : ''));
+  const [selectedTimingIndex, setSelectedTimingIndex] = useState(() =>
+    (currentAndUpcomingTimings.length === 1 ? '0' : ''));
   const [service, setService] = useState('');
 
   const onSelectTiming = e => setSelectedTimingIndex(e.target.value);
 
   const importUrl = getImportUrl({
+    intl,
     service,
     agenda,
     event,
@@ -132,22 +150,21 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const emails = useMemo(() => extractEmails(emailValue), [emailValue]);
 
-  const { trigger, isMutating } = useSWRMutation(
-    `/${agenda.slug}/events/${event.uid}/email`,
-    sendEmails,
-    {
-      onSuccess(data) {
-        onClose();
-        onEmailSent(data.count);
-      },
+  const { trigger, isMutating } = useSWRMutation(`/${agenda.slug}/events/${event.uid}/email`, sendEmails, {
+    onSuccess(data) {
+      onClose();
+      onEmailSent(data.count);
     },
-  );
+  });
 
   const [copied, setCopied] = useState(false);
 
-  useTimeout(() => {
-    setCopied(false);
-  }, copied ? 1000 : null);
+  useTimeout(
+    () => {
+      setCopied(false);
+    },
+    copied ? 1000 : null,
+  );
 
   return (
     <VStack align="stretch" spacing="6">
@@ -236,18 +253,10 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
           <RadioGroup onChange={setService} value={service} mb="2">
             <Stack>
-              <Radio value="google">
-                Google Calendar
-              </Radio>
-              <Radio value="yahoo">
-                Yahoo! Calendar
-              </Radio>
-              <Radio value="live">
-                Windows Live
-              </Radio>
-              <Radio value="ics">
-                ICS
-              </Radio>
+              <Radio value="google">Google Calendar</Radio>
+              <Radio value="yahoo">Yahoo! Calendar</Radio>
+              <Radio value="live">Windows Live</Radio>
+              <Radio value="ics">ICS</Radio>
             </Stack>
           </RadioGroup>
 
