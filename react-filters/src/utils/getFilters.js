@@ -8,6 +8,7 @@ export default function getFilters(intl, fields, opts = {}) {
   const standardFilters = [
     { name: 'viewport' },
     { name: 'geo' },
+    { name: 'search' },
     { name: 'addMethod' },
     { name: 'memberUid' },
     { name: 'languages' },
