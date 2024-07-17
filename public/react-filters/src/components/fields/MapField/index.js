@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import cn from 'classnames';
 import { useMapUserControl, useMapOnChange } from '../../../hooks';
 import LoadableMap from './LoadableMap';
 import SearchWithMap from './SearchWithMap';
@@ -22,6 +23,7 @@ function MapField(
     loadGeoData,
     initialViewport,
     defaultViewport,
+    className,
     mapClass,
     searchMessage,
     searchWithMap,
@@ -33,7 +35,7 @@ function MapField(
 
   return !collapsed ? (
     <>
-      <div className={mapClass}>
+      <div className={cn(className, mapClass)}>
         <LoadableMap
           ref={ref}
           input={input}
