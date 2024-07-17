@@ -63,3 +63,12 @@ export const BaseUrl = () => `
 
   <script async src="/index.js" charset="utf-8"></script>
 `;
+
+export const Filters = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda" data-filters="categories-agenda-metropolitain,search,geo"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <script async src="/index.js" charset="utf-8"></script>
+`;
