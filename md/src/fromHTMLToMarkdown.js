@@ -31,32 +31,51 @@ function extractLinkAsInInput(link, context) {
   return linkAsInInput.replace(/^http:\/\//, '');
 }
 
+function isMarkdownLink(input, refIndex, link) {
+  let index = refIndex;
+  if (index < 1) {
+    return false;
+  }
+
+  // [ignore this](...)
+  if (input.substr(index + link.length, 1) === ']' && input.substr(index - 1, 1) === '[') {
+    index += link.length + 2;
+  }
+
+  if (index <= 2) {
+    return false;
+  }
+
+  // [...](ishere)
+  return input.substr(index + link.length, 1) === ')' && input.substr(index - 2, 2) === '](';
+}
+
 function convertTextLinks(markdownInput) {
-  return markdownLinkExtractor(markdownInput).reduce(({ md, cursor }, link) => {
-    const unescapedLink = decodeURI(link);
+  return markdownLinkExtractor(markdownInput).reduce(
+    ({ md, cursor }, link) => {
+      const unescapedLink = decodeURI(link);
 
-    const linkAsInInput = extractLinkAsInInput(unescapedLink, md);
-    const index = md.indexOf(linkAsInInput, cursor);
-    const isMarkdownLink = (index > 2)
-      && (md.substr(index + unescapedLink.length, 1) === ')')
-      && (md.substr(index - 2, 2) === '](');
+      const linkAsInInput = extractLinkAsInInput(unescapedLink, md);
+      const index = md.indexOf(linkAsInInput, cursor);
 
-    if (isMarkdownLink) {
+      if (isMarkdownLink(md, index, linkAsInInput, unescapedLink)) {
+        return {
+          md,
+          cursor: index + 1,
+        };
+      }
+
+      const before = md.substr(0, index);
+      const after = md.substr(index + linkAsInInput.length);
+
+      const markdownedLink = `[${linkAsInInput}](${unescapedLink.replace(/\\/g, '')})`;
       return {
-        md,
-        cursor: index + 1,
+        md: before + markdownedLink + after,
+        cursor: index + markdownedLink.length,
       };
-    }
-
-    const before = md.substr(0, index);
-    const after = md.substr(index + linkAsInInput.length);
-
-    const markdownedLink = `[${linkAsInInput}](${unescapedLink.replace(/\\/g, '')})`;
-    return {
-      md: before + markdownedLink + after,
-      cursor: index + markdownedLink.length,
-    };
-  }, { md: markdownInput, cursor: 0 }).md;
+    },
+    { md: markdownInput, cursor: 0 },
+  ).md;
 }
 
 export default function fromHTMLToMarkdown(HTML) {
