@@ -9,11 +9,12 @@ import applyPriceCategories from './priceCategories.js';
 import applyDates from './dates.js';
 import applyEventOffer from './eventOffer.js';
 
-const getApplyFn = (type, operation) => ({
-  dates: applyDates,
-  priceCategories: applyPriceCategories,
-  eventOffer: applyEventOffer,
-})[type][operation];
+const getApplyFn = (type, operation) =>
+  ({
+    dates: applyDates,
+    priceCategories: applyPriceCategories,
+    eventOffer: applyEventOffer,
+  })[type][operation];
 
 const log = logs('apply');
 
@@ -25,18 +26,14 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     OAEvent: { uid: OAEvent.uid },
   };
 
-  const {
-    categories: categoriesFromOptions,
-    related: relatedFromOptions,
-  } = options;
+  const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
-  const {
-    categories,
-    related,
-  } = !categoriesFromOptions || !relatedFromOptions ? await pc.offers.events.categories.list() : {
-    categories: categoriesFromOptions,
-    related: relatedFromOptions,
-  };
+  const { categories, related } = !categoriesFromOptions || !relatedFromOptions
+    ? await pc.offers.events.categories.list()
+    : {
+      categories: categoriesFromOptions,
+      related: relatedFromOptions,
+    };
 
   const cleanEntries = validateLocalData(dataEntries, OAEvent, {
     ...options,
@@ -74,17 +71,19 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   }
 
   const wasPending = firstItem?.response?.isPending;
-  const isStillPending = wasPending && await pc.offers.events(firstItem.response.passId)
-    .get()
-    .then(({ status }) => status === 'PENDING');
+  const isStillPending = wasPending
+    && await pc.offers
+      .events(firstItem.response.passId)
+      .get()
+      .then(({ status }) => status === 'PENDING');
 
   if (isStillPending) {
-    log.info('done with pending, no action taken', logBundle);
+    log.info('is still pending, no action taken', logBundle);
     return dataEntries;
   }
 
   if (wasPending) {
-    log.info('was pending at previous apply but isn\'t anymore');
+    log.info("was pending at previous apply but isn't anymore");
     processed.push({
       response: {
         isPending: false,
@@ -111,15 +110,17 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
     log('entry was not yet applied, processing', Object.assign(entryLogBundle, { type: objectType, operation }));
 
-    const {
-      succeeded,
-      response,
-      remaining,
-      error,
-    } = await getApplyFn(objectType, operation)(pc, passEventOfferId, OAEvent, processed, entry, {
-      ...options,
-      logBundle: entryLogBundle,
-    });
+    const { succeeded, response, remaining, error } = await getApplyFn(objectType, operation)(
+      pc,
+      passEventOfferId,
+      OAEvent,
+      processed,
+      entry,
+      {
+        ...options,
+        logBundle: entryLogBundle,
+      },
+    );
 
     if (succeeded) {
       processed.push({
@@ -134,10 +135,12 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
       continue;
     }
 
-    const processedWithError = processed.concat({
-      ...objectType === 'eventOffer' ? remaining : { [objectType]: remaining },
-      error,
-    }).concat(remainingDataEntries.slice(remainingDataEntries.length - index + 1));
+    const processedWithError = processed
+      .concat({
+        ...objectType === 'eventOffer' ? remaining : { [objectType]: remaining },
+        error,
+      })
+      .concat(remainingDataEntries.slice(remainingDataEntries.length - index + 1));
 
     log('done with errors', { ...logBundle, processed: processedWithError });
 

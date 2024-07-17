@@ -567,6 +567,12 @@
       "value": "Se connectar"
     }
   ],
+  "next.views.EventShow.ShareModale.online": [
+    {
+      "type": 0,
+      "value": "En ligne"
+    }
+  ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,

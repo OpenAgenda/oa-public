@@ -48,23 +48,27 @@ const config = {
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
   logPathError: '/var/tmp/cibul-node-errors.log',
-  logger: process.env.NODE_ENV === 'production' ? {
-    prefix: 'oa:',
-    enableDebug: false,
-    token: insightOpsKeys?.oa ?? null,
-    sentry,
-  } : {
-    prefix: 'oa:',
-    token: false,
-  },
+  logger:
+    process.env.NODE_ENV === 'production'
+      ? {
+        prefix: 'oa:',
+        enableDebug: false,
+        token: insightOpsKeys?.oa ?? null,
+        sentry,
+      }
+      : {
+        prefix: 'oa:',
+        token: false,
+      },
   name: 'cibul-node',
-  domain: prod.domains?.main ?? (process.env.DOMAIN ?? 'd.openagenda.com'),
-  root: prod.root ?? (process.env.ROOT ?? 'https://d.openagenda.com'),
+  domain: prod.domains?.main ?? process.env.DOMAIN ?? 'd.openagenda.com',
+  root: prod.root ?? process.env.ROOT ?? 'https://d.openagenda.com',
   apiRoot: prod.apiRoot ?? process.env.API_ROOT,
   apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
   logo: prod.logo,
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
-  embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
+  embedGoogleAnalyticsId:
+    process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
   matomoCloudId: prod.matomoCloudId ?? process.env.MATOMO_CLOUD_ID,
   useCache: false,
   agendaCacheExpire: 30 * 1000,
@@ -88,30 +92,38 @@ const config = {
     cache: true,
     timezone: 'UTC',
     charset: 'utf8mb4',
-    ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10) ? {
-      ca: fs.readFileSync(process.env.MYSQL_SSL_CA),
-      cert: fs.readFileSync(process.env.MYSQL_SSL_CERT),
-      key: fs.readFileSync(process.env.MYSQL_SSL_KEY),
-    } : undefined,
+    ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
+      ? {
+        ca: fs.readFileSync(process.env.MYSQL_SSL_CA),
+        cert: fs.readFileSync(process.env.MYSQL_SSL_CERT),
+        key: fs.readFileSync(process.env.MYSQL_SSL_KEY),
+      }
+      : undefined,
   },
   mails: {
-    transport: process.env.NODE_ENV === 'production' ? {
-      mailgun,
-    } : {
-      pool: !!parseInt(process.env.MAIL_POOL, 10),
-      host: process.env.MAIL_HOST ?? '127.0.0.1',
-      port: process.env.MAIL_PORT ?? '1025',
-      secure: !!parseInt(process.env.MAIL_SECURE, 10),
-      auth: process.env.MAIL_AUTH_USER ? {
-        user: process.env.MAIL_AUTH_USER,
-        pass: process.env.MAIL_AUTH_PASSWORD,
-      } : undefined,
-      maxMessages: Infinity,
-      maxConnections: 5,
-      rateLimit: 14,
-      rateDelta: 1000,
-    },
+    transport:
+      process.env.NODE_ENV === 'production'
+        ? {
+          mailgun,
+        }
+        : {
+          pool: !!parseInt(process.env.MAIL_POOL, 10),
+          host: process.env.MAIL_HOST ?? '127.0.0.1',
+          port: process.env.MAIL_PORT ?? '1025',
+          secure: !!parseInt(process.env.MAIL_SECURE, 10),
+          auth: process.env.MAIL_AUTH_USER
+            ? {
+              user: process.env.MAIL_AUTH_USER,
+              pass: process.env.MAIL_AUTH_PASSWORD,
+            }
+            : undefined,
+          maxMessages: Infinity,
+          maxConnections: 5,
+          rateLimit: 14,
+          rateDelta: 1000,
+        },
     disableVerify: !!parseInt(process.env.MAIL_DISABLE_VERIFY, 10),
+    domain: 'mail.openagenda.com',
     defaults: {
       from: '"OpenAgenda" <no-reply@mail.openagenda.com>',
       replyTo: '"OpenAgenda" <admin@openagenda.com>',
@@ -167,14 +179,20 @@ const config = {
     privateKey: process.env.OA_MT_CAPTCHA_PRIVATE_KEY ?? prod.mtCaptcha?.privateKey,
   },
   auth: {
-    facebook: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID ? {
-      id: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID,
-      secret: prod.facebook?.appSecret ?? process.env.OA_FACEBOOK_SECRET,
-    } : null,
-    google: prod.googleApps ?? process.env.OA_OAUTH_GOOGLE_ID ? {
-      id: prod?.googleApps?.id ?? process.env.OA_OAUTH_GOOGLE_ID,
-      secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET,
-    } : null,
+    facebook:
+      prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID
+        ? {
+          id: prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID,
+          secret: prod.facebook?.appSecret ?? process.env.OA_FACEBOOK_SECRET,
+        }
+        : null,
+    google:
+      prod.googleApps ?? process.env.OA_OAUTH_GOOGLE_ID
+        ? {
+          id: prod?.googleApps?.id ?? process.env.OA_OAUTH_GOOGLE_ID,
+          secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET,
+        }
+        : null,
   },
   discord: prod.discord ?? {
     token: process.env.OA_DISCORD_TOKEN,
@@ -186,31 +204,43 @@ const config = {
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
-    ssl: parseInt(process.env.ES_USE_SSL, 10) ? {
-      key: fs.readFileSync(process.env.CLIENT_SSL_KEY, 'utf-8'),
-      cert: fs.readFileSync(process.env.CLIENT_SSL_CERT, 'utf-8'),
-    } : null,
+    ssl: parseInt(process.env.ES_USE_SSL, 10)
+      ? {
+        key: fs.readFileSync(process.env.CLIENT_SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(process.env.CLIENT_SSL_CERT, 'utf-8'),
+      }
+      : null,
   },
   esEvents: {
     maxIndexableTimingCount: 3000,
   },
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_ALIAS || prod.agendaSearchAlias || 'agendas',
-  redis: process.env.REDIS_CLUSTER_NODES ? {
-    clusterMode: true,
-    nodes: process.env.REDIS_CLUSTER_NODES.split(','),
-    password: process.env.REDIS_PWD,
-  } : {
-    clusterMode: false,
-    host: prod.redis?.host ?? (process.env.REDIS_HOST ?? 'localhost'),
-    port: prod.redis?.port ?? (process.env.REDIS_PORT ?? 6379),
-  },
+  redis: process.env.REDIS_CLUSTER_NODES
+    ? {
+      clusterMode: true,
+      nodes: process.env.REDIS_CLUSTER_NODES.split(','),
+      password: process.env.REDIS_PWD,
+    }
+    : {
+      clusterMode: false,
+      host: prod.redis?.host ?? process.env.REDIS_HOST ?? 'localhost',
+      port: prod.redis?.port ?? process.env.REDIS_PORT ?? 6379,
+    },
   locationDuplicationDetection: {
     enabled: prod.detectLocationDuplicates ?? !!process.env.OA_DETECT_LOCATION_DUPLICATES,
     ignoredUids: {
-      setUids: prod.detectLocationDuplicatesIgnoredSetUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
-      agendaUids: prod.detectLocationDuplicatesIgnoredAgendaUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+      setUids:
+        prod.detectLocationDuplicatesIgnoredSetUids
+        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+      agendaUids:
+        prod.detectLocationDuplicatesIgnoredAgendaUids
+        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
     },
-    sleep: prod.detectLocationDuplicatesSleep ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP ? parseInt(process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP, 10) : 0),
+    sleep:
+      prod.detectLocationDuplicatesSleep
+      ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP
+        ? parseInt(process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP, 10)
+        : 0),
   },
   session: {
     name: 'oa', // session cookie name
@@ -267,7 +297,9 @@ const config = {
     imageBucketPath: prod.aws ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/` : process.env.AWS_MAIN_PATH,
     tmpBucketPath: prod.aws ? `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/` : process.env.AWS_TMP_PATH,
     staticBucketPath: prod.aws ? `https://${prod.aws.buckets.static}.s3.amazonaws.com/` : process.env.AWS_STATIC_PATH,
-    servicesBucketPath: prod.aws ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/` : process.env.AWS_SERVICES_PATH,
+    servicesBucketPath: prod.aws
+      ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/`
+      : process.env.AWS_SERVICES_PATH,
     bucket: prod.aws?.buckets?.main ?? process.env.AWS_MAIN_BUCKET,
     tmpBucket: prod.aws?.buckets.temporary ?? process.env.AWS_TMP_BUCKET,
     defaultImagePath: process.env.DEFAULT_IMAGE_PATH ?? '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
@@ -311,7 +343,7 @@ const config = {
     pending: {
       delay: parseInt(process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12, 10), // 12h
       minDelay: parseInt(process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3, 10), // 3h
-      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 12, // why not
+      maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 20, // why not
     },
   },
   mailgun,
