@@ -43,11 +43,17 @@ function _addTagGroups(v) {
       name: g.name,
       access: g.access || 'public',
       slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
-      tags: g.tags.filter(t => tagIds.includes(t.id)).map(t => _.assign({
-        label: t.label,
-        slug: t.slug,
-        id: t.id,
-      }, t.schemaOptionId ? { schemaOptionId: t.schemaOptionId } : {})),
+      tags: g.tags
+        .filter(t => tagIds.includes(t.id))
+        .map(t =>
+          _.assign(
+            {
+              label: t.label,
+              slug: t.slug,
+              id: t.id,
+            },
+            t.schemaOptionId ? { schemaOptionId: t.schemaOptionId } : {},
+          )),
     }))
 
     .filter(g => {
@@ -228,17 +234,21 @@ export function decorateEvent(agenda, event, toDecorate, options, cb) {
   toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
   toDecorate.permalink = `${config.root}/agendas/${agenda.uid}/events/${event.uid}`;
 
-  w(utils.extend({
-    multiLang: true,
-    longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
-    agenda,
-    event,
-    loadTagSet: false,
-    decorated: toDecorate,
-    lang: false, // given by options
-    includePrivateData: false, // given by options
-  }, options))
-
+  w(
+    utils.extend(
+      {
+        multiLang: true,
+        longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
+        agenda,
+        event,
+        loadTagSet: false,
+        decorated: toDecorate,
+        lang: false, // given by options
+        includePrivateData: false, // given by options
+      },
+      options,
+    ),
+  )
     .then(_addState) // only if private data
 
     .then(_addFeatured)
@@ -267,12 +277,16 @@ export function decorateEvent(agenda, event, toDecorate, options, cb) {
 export function decorateEvents(agenda, events, toDecorate, options, cb) {
   let i = 0;
 
-  legacy.getTagSet(agenda.id).then(tagSet => {
+  legacy.sets.getTagSet(agenda.id).then(tagSet => {
     agenda.tagSet = tagSet;
 
-    async.eachSeries(events, (event, ecb) => {
-      decorateEvent(agenda, event, toDecorate[i], options, ecb);
-      i += 1;
-    }, cb);
+    async.eachSeries(
+      events,
+      (event, ecb) => {
+        decorateEvent(agenda, event, toDecorate[i], options, ecb);
+        i += 1;
+      },
+      cb,
+    );
   }, cb);
 }

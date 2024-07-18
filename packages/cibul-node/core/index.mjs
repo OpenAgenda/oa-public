@@ -4,7 +4,6 @@ import Users from './users/index.mjs';
 import Tasks from './tasks.mjs';
 import Events from './events/index.mjs';
 import LocationSets from './locationSets/index.mjs';
-
 import { TYPES as stateChangeTypes } from './agendas/utils/assignState.mjs';
 
 export default (services, config) => {
