@@ -7,6 +7,10 @@ function isStillPending(data) {
   return !data.filter(d => d.response?.isPending === false).length;
 }
 
+function isRejected(data) {
+  return data.filter(d => d.response?.isRejected === true).length;
+}
+
 function Enqueue({ queue, pendingConfig, tracker }) {
   return ({ eventUid, agendaUid }, options = {}) => {
     const logBundle = {
@@ -76,6 +80,12 @@ function task({ enqueue, services, registrations, queue }) {
       const passCultureData = (event?.registration ?? []).find(r => r.service === 'passCulture')?.data;
 
       const applied = await passCultureService.apply(event, passCultureData);
+
+      if (isRejected(applied)) {
+        log.info('pendingOffer: rejected', logBundle);
+        tracker('registrations.passCulture.pendingOffer.processed.rejected');
+        return;
+      }
 
       if (isStillPending(applied)) {
         log.info('pendingOffer: still pending', logBundle);
