@@ -14,7 +14,7 @@ const messages = defineMessages({
   },
 });
 
-function NumberRangeField({ input }) {
+function NumberRangeField({ input }, _ref) {
   const m = useIntl().formatMessage;
 
   const { value, onChange } = input;

@@ -1,4 +1,5 @@
-import { Flex, Skeleton, SkeletonText, SimpleGrid } from '@openagenda/uikit';
+import { useMemo } from 'react';
+import { Box, Flex, Skeleton, SkeletonText, SimpleGrid } from '@openagenda/uikit';
 
 export function EventSkeleton() {
   return (
@@ -14,7 +15,7 @@ export function EventSkeleton() {
 
 export function EventsSkeleton() {
   return (
-    <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacing="10">
+    <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacingX="10" spacingY="6">
       <EventSkeleton />
       <EventSkeleton />
       <EventSkeleton />
@@ -23,6 +24,44 @@ export function EventsSkeleton() {
       <EventSkeleton />
       <EventSkeleton />
       <EventSkeleton />
+    </SimpleGrid>
+  );
+}
+
+export function FiltersSkeleton({ filters, filtersToInclude }) {
+  const orderedFilters = useMemo(
+    () =>
+      filters
+        .filter(filter => filtersToInclude.includes(filter.name))
+        .sort((a, b) => {
+          // Last
+          if (a.name === 'geo') return 1;
+          if (b.name === 'geo') return -1;
+          // Second to last
+          if (a.name === 'search') return 1;
+          if (b.name === 'search') return -1;
+          return filtersToInclude.indexOf(a.name) - filtersToInclude.indexOf(b.name);
+        }),
+    [filters, filtersToInclude],
+  );
+
+  return (
+    <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacingX="10" spacingY="6">
+      {orderedFilters.map(filter => {
+        console.log(filter);
+        if (filter.name === 'geo') {
+          return (
+            <Box key="geo" gridColumn="1 / -1">
+              <Skeleton h="250px" />
+              <Skeleton mt="2" mb="1" w="full" maxW="220px" h="4" />
+            </Box>
+          );
+        }
+        if (filter.name === 'search') {
+          return <Skeleton key="search" h="10" gridColumn="1 / -1" />;
+        }
+        return <Skeleton key={filter.name} h="10" />;
+      })}
     </SimpleGrid>
   );
 }

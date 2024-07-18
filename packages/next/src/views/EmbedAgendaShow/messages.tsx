@@ -5,4 +5,17 @@ export default defineMessages({
     id: 'next.views.EmbedAgendaShow.seeMore',
     defaultMessage: 'See more',
   },
+  search: {
+    id: 'next.views.EmbedAgendaShow.search',
+    defaultMessage: 'Search',
+  },
+  // TODO export and use messages from react-filters
+  removeFilter: {
+    id: 'ReactFilters.ValueBadge.removeFilter',
+    defaultMessage: 'Remove filter',
+  },
+  removeFilterWithTitle: {
+    id: 'ReactFilters.ValueBadge.removeFilterWithTitle',
+    defaultMessage: 'Remove filter ({title})',
+  },
 });

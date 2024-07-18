@@ -34,16 +34,9 @@ function padTo2Digits(num: number) {
 
 function formatDateToGoogleCalendar(date: Date) {
   // eslint-disable-next-line prefer-template
-  return (
-    `${date.getUTCFullYear()
-    + padTo2Digits(date.getUTCMonth() + 1)
-    + padTo2Digits(date.getUTCDate())
-    }T${
-      padTo2Digits(date.getUTCHours())
-    }${padTo2Digits(date.getUTCMinutes())
-    }${padTo2Digits(date.getUTCSeconds())
-    }Z`
-  );
+  return `${
+    date.getUTCFullYear() + padTo2Digits(date.getUTCMonth() + 1) + padTo2Digits(date.getUTCDate())
+  }T${padTo2Digits(date.getUTCHours())}${padTo2Digits(date.getUTCMinutes())}${padTo2Digits(date.getUTCSeconds())}Z`;
 }
 
 function isOnline(event) {
@@ -83,7 +76,8 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
         + `&ST=${formatInTimeZone(begin, event.timezone, "yyyyMMdd'T'HHmmss")}`
         + `&ET=${formatInTimeZone(end, event.timezone, "yyyyMMdd'T'HHmmss")}`
         + `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
-          event.location ? `&in_loc=${location}` : ''}`
+          event.location ? `&in_loc=${location}` : ''
+        }`
       );
     case 'live':
       // eslint-disable-next-line prefer-template
@@ -94,7 +88,8 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
         + `&enddt=${formatInTimeZone(end, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}`
         + `&subject=${encodeURIComponent(event.title[contentLocale])}`
         + `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
-          event.location ? `&location=${location}` : ''}`
+          event.location ? `&location=${location}` : ''
+        }`
       );
     case 'ics':
       return `/${agenda.slug}/events/${event.slug}/ics?timing=${timingIndex}&dl=1`;

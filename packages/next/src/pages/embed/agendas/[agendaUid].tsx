@@ -123,7 +123,19 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(({ fieldSchema }) => fieldSchema.field);
 
-    const filtersToInclude = ['geo', 'timings', ...additionalFilters];
+    const requiredFilters = (query.filters as string)?.split(',') ?? [];
+
+    const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
+      .filter(filter => requiredFilters.includes(filter))
+      .sort((a, b) => {
+        // Last
+        if (a === 'geo') return 1;
+        if (b === 'geo') return -1;
+        // Second to last
+        if (a === 'search') return 1;
+        if (b === 'search') return -1;
+        return requiredFilters.indexOf(a) - requiredFilters.indexOf(b);
+      });
 
     const filters = getFilters(intl, agenda.schema.fields, {
       dateFnsLocale,
@@ -137,12 +149,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
       : null;
 
-    // const paramsBase = {
-    //   aggsSizeLimit: 1500,
-    //   aggs: filtersToAggregations(filters, true),
-    //   size: 0,
-    //   ...prefilter,
-    // };
+    const paramsBase = {
+      aggsSizeLimit: 1500,
+      aggs: filtersToAggregations(filters, true),
+      size: 0,
+      ...prefilter,
+      ...query,
+      passed: undefined, // omit passed
+    };
 
     const referrer = req.headers.referer || null;
 
@@ -165,10 +179,12 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
       intlMessages,
       preload: [
-        // `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
       ],
       referrer,
+      filtersToInclude,
+      prefilter: query,
     };
 
     return { props };

@@ -4,13 +4,14 @@ import { Button, Flex, SimpleGrid } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import messages from '../messages';
 import EventItem from './EventItem';
-// import { EventsSkeleton } from '../../AgendaShow/components/LoadingPage';
+import { EventsSkeleton } from './LoadingPage';
 
 const PAGE_SIZE = 12;
 
-export default function EventsPart({ agenda, filters, query, includeFields, referrer }) {
+export default function EventsPart({ agenda, filters, query, includeFields, prefilter, referrer }) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -24,7 +25,7 @@ export default function EventsPart({ agenda, filters, query, includeFields, refe
     agenda,
     filters,
     query: {
-      ...query,
+      ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host: typeof document !== 'undefined' ? document.referrer : referrer,
     },
@@ -56,8 +57,7 @@ export default function EventsPart({ agenda, filters, query, includeFields, refe
   );
 
   if (isLoadingInitialData) {
-    // return <EventsSkeleton />;
-    return null;
+    return <EventsSkeleton />;
   }
 
   if (isEmpty) {
