@@ -1,7 +1,7 @@
 import NetworkApps from '@openagenda/network-apps';
 import eventFormSchema from '@openagenda/event-form/src/schema.js';
 import logs from '@openagenda/logs';
-import { load as loadLayout } from './lib/layouts/index.js';
+import { load as loadLayout } from './lib/layouts/index.mjs';
 
 const log = logs('services/networkApps');
 

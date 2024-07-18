@@ -3,7 +3,7 @@ import async from 'async';
 import tabLabels from '@openagenda/labels/agenda-admin/tabs.js';
 import makeLabelGetter from '@openagenda/labels';
 import * as legacyEventSvc from '../event/index.mjs';
-import mwh from '../lib/middlewareHelpers.js';
+import * as mwh from '../lib/middlewareHelpers.mjs';
 import svcConfig from './config.mjs';
 
 const getTabLabel = makeLabelGetter(tabLabels);

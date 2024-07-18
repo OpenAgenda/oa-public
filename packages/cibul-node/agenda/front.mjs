@@ -12,17 +12,16 @@ import agendaShowLabels from '@openagenda/labels/agendas/show.js';
 import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
 import utils from '@openagenda/utils';
 import * as agendaSvc from '../services/agenda/index.mjs';
-import cacheMw from '../lib/cache.mw.js';
-import cmn from '../lib/commons-app.js';
-import getStatusLabel from '../lib/getStatusLabel.js';
-import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.js';
-import config from '../config/index.js';
+import cacheMw from '../lib/cache.mw.mjs';
+import cmn from '../lib/commons-app.mjs';
+import getStatusLabel from '../lib/getStatusLabel.mjs';
+import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.mjs';
+import config from '../config/index.mjs';
 import * as embedSvc from '../services/embed/index.mjs';
-import members from '../services/members/index.js';
-import eventFormat from '../services/event/middleware/format.js';
+import members from '../services/members/index.mjs';
+import eventFormat from '../services/event/middleware/format.mjs';
 import * as legacyEventSvc from '../services/event/index.mjs';
-import getLongDescriptionHTML from '../services/event/lib/getLongDescriptionHTML.js';
-import lib from '../lib/lib.js';
+import getLongDescriptionHTML from '../services/event/lib/getLongDescriptionHTML.mjs';
 import convertFormat from './ConvertFormat.mjs';
 import loadCredentials from './loadCredentials.mjs';
 
@@ -76,7 +75,7 @@ function showXhr(template) {
   return (req, res, next) => {
     if (!req.xhr) return next();
 
-    lib.extend(req.templateData, {
+    Object.assign(req.templateData, {
       agenda: {
         slug: req.agenda.slug,
       },
@@ -296,7 +295,7 @@ function _format(req, res, next) {
 
       req.templateData = {
         events: formattedEvents,
-        hasSearchQuery: !!lib.size(req.query.oaq),
+        hasSearchQuery: req.query.oaq ? !!Object.keys(req.query.oaq).length : false,
         // are all events of the agenda passed
         passed: req.agenda.passed,
         // does the current selection include passed events
@@ -543,7 +542,7 @@ function _layoutData(req, _res) {
   }
 
   if (req.agenda.image) {
-    lib.extend(data.metas, {
+    Object.assign(data.metas, {
       ogImage: { property: 'og:image', content: req.agenda.getImage(true) },
       'twitter:image': req.agenda.getImage(true),
     });

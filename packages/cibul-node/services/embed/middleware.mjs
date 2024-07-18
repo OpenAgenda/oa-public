@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import async from 'async';
 import parserLib from '@openagenda/tumblr-parser';
-import utils from '../../lib/utils.js';
-import mwh from '../lib/middlewareHelpers.js';
+import * as mwh from '../lib/middlewareHelpers.mjs';
 
 const tblr = {
   eventItem: fs.readFileSync(`${import.meta.dirname}/templates/eventItem.tblr`).toString(),
@@ -143,7 +142,7 @@ function _getCustomFields(req, e, mapping, cb) {
 
 function _flattenArrays(values) {
   for (const k in values) {
-    if (utils.isArray(values[k])) values[k] = values[k].join(', ');
+    if (Array.isArray(values[k])) values[k] = values[k].join(', ');
   }
 }
 
@@ -189,7 +188,7 @@ function renderEventItems(req, res, next) {
       if (err) {
         req.log.error('could not retrieve custom data of event %s: %s', e.id, err);
       } else {
-        req.renders.eventItems.push(eventItemParser.render(utils.extend(e, values)));
+        req.renders.eventItems.push(eventItemParser.render(Object.assign(e, values)));
       }
 
       ecb();
@@ -243,7 +242,7 @@ function renderEvent(req, res, next) {
 
     _flattenArrays(values);
 
-    utils.extend(req.formatted, values);
+    Object.assign(req.formatted, values);
 
     req.render = eventParser.render(req.formatted);
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import express from 'express';
 import makeLabelGetter from '@openagenda/labels';
 import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
-import cmn from '../../lib/commons-app.js';
+import cmn from '../../lib/commons-app.mjs';
 
 const getLabel = makeLabelGetter(forbiddenLabels);
 

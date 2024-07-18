@@ -96,7 +96,7 @@ export default async function initServices(config = null, options = {}) {
   await init('knex', () => import('./knex.mjs'));
   await init('redis', () => import('./redis.mjs'));
   await init('bull', () => import('./bull/index.mjs'));
-  await init('errors', () => require('./errors.js'));
+  await init('errors', () => import('./errors.mjs'));
   await init('tracker', () => import('./tracker.mjs'));
   await init('genUrl', () => import('./genUrl.mjs'));
   await init('queues', () => import('./queues.mjs'));
@@ -106,9 +106,9 @@ export default async function initServices(config = null, options = {}) {
   await init('keys', () => import('./keys.mjs'));
   await init('users', () => import('./users/index.mjs'));
   await init('accessTokens', () => import('./accessTokens/index.mjs'));
-  await init('activities', () => require('./activities/index.js')); // required directly
+  await init('activities', () => import('./activities/index.mjs')); // required directly
   await init('activityApps', () => import('./activityApps.mjs'));
-  await init('members', () => require('./members/index.js')); // required directly
+  await init('members', () => import('./members/index.mjs')); // required directly
   await init('agendaContribute', () => import('./agendaContribute/index.mjs'));
   await init('agendaDocx', () => import('./agendaDocx.mjs'));
   await init('agendaEvents', () => import('./agendaEvents/index.mjs'));
@@ -121,7 +121,7 @@ export default async function initServices(config = null, options = {}) {
   await init('agendaSearch', () => import('./agendaSearch/index.mjs'));
   await init('adminAgendas', () => import('./adminAgendas.mjs'));
   await init('aggregators', () => import('./aggregators/index.mjs'));
-  await init('cache', () => require('./cache/index.js')); // required directly
+  await init('cache', () => import('./cache/index.mjs')); // required directly
   await init('eventSearch', () => import('./eventSearch/index.mjs'));
   await init('events', () => import('./events/index.mjs'));
   await init('facebook', () => import('./facebook.mjs'));
@@ -130,12 +130,11 @@ export default async function initServices(config = null, options = {}) {
   await init('pdfExports', () => import('./pdfExports.mjs'));
   await init('custom', () => import('./custom/index.mjs'));
   await init('invitations', () => import('./invitations.mjs'));
-  await init('legacy', () => require('./legacy.js')); // required directly
+  await init('legacy', () => import('./legacy.mjs')); // required directly
   await init('logRequests', () => import('./logRequests.mjs'));
   await init('unsubscriptions', () => import('./unsubscriptions.mjs'));
   await init('security', () => import('./security.mjs'));
   await init('mails', () => import('./mails/index.mjs'));
-  await init('model', () => require('./model/index.js')); // required directly
   await init('sessions', () => import('./sessions/index.mjs'));
   await init('networkApps', () => import('./networkApps.mjs'));
   await init('networks', () => import('./networks.mjs'));

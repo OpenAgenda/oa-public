@@ -1,6 +1,6 @@
 import { NotFound, Forbidden } from '@openagenda/verror';
 import logs from '@openagenda/logs';
-import boolQuery from '../../lib/boolQuery.js';
+import boolQuery from '../../lib/boolQuery.mjs';
 
 const log = logs('api/middleware/getEventFromSearchOrAsDraft');
 

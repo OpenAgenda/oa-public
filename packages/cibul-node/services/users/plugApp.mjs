@@ -1,10 +1,10 @@
 import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
-import cmn from '../../lib/commons-app.js';
-import sendChangeEmail from './middleware/sendChangeEmail.js';
-import setFlashChangeEmail from './middleware/setFlashChangeEmail.js';
-import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
-import getHandler from './lib/getHandler.js';
+import cmn from '../../lib/commons-app.mjs';
+import sendChangeEmail from './middleware/sendChangeEmail.mjs';
+import setFlashChangeEmail from './middleware/setFlashChangeEmail.mjs';
+import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.mjs';
+import getHandler from './lib/getHandler.mjs';
 
 export default function plugApp(app) {
   const service = app.services.users;

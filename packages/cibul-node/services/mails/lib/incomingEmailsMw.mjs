@@ -1,6 +1,6 @@
 import logs from '@openagenda/logs';
 
-import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.js';
+import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.mjs';
 import removeCrispDecoration from './removeCrispDecoration.mjs';
 
 const log = logs('service/mails/incomingEmails');

@@ -4,8 +4,8 @@ const crypto = require('node:crypto');
 const _ = require('lodash');
 const uuid = require('uuid');
 const log = require('@openagenda/logs')('gaTrackExport');
-const gaTrackEvent = require('./gaTrackEvent');
-const ga4TrackEvent = require('./ga4TrackEvent');
+const gaTrackEvent = require('./gaTrackEvent.mjs');
+const ga4TrackEvent = require('./ga4TrackEvent.mjs');
 
 function hashString(input) {
   const hash = crypto.createHash('sha256');

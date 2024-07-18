@@ -2,8 +2,8 @@ import _ from 'lodash';
 import logs from '@openagenda/logs';
 import labels from '@openagenda/labels/auth/errors.js';
 import makeLabelGetter from '@openagenda/labels';
-import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import config from '../config/index.mjs';
 
 const log = logs('auth/reset.front');
 

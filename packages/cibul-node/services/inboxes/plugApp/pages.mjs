@@ -1,5 +1,5 @@
 import { Forbidden } from '@openagenda/verror';
-import cmn from '../../../lib/commons-app.js';
+import cmn from '../../../lib/commons-app.mjs';
 import render from './render.mjs';
 import renderContactInboxApp from './renders/contactInboxApp.mjs';
 import renderMemberContactApp from './renders/memberContactApp.mjs';

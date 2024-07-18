@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import cmn from '../../lib/commons-app.js';
+import cmn from '../../lib/commons-app.mjs';
 
 const ANNOUNCEMENT_KEY = 'oa:announcement';
 

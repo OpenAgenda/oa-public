@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import config from '../../config/index.js';
+import config from '../../config/index.mjs';
 
 export default function load(req, res, next) {
   if (!req.baseData) req.baseData = {};

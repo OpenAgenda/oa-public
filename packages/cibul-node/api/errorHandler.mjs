@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { VError } from '@openagenda/verror';
-import errors from '../services/errors.js';
+import errors from '../services/errors.mjs';
 
 const handleError = errors.bind(null, 'api');
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import config from '../config/index.mjs';
 import Auth from './lib/auth.mjs';
 
 const auth = Auth('google');

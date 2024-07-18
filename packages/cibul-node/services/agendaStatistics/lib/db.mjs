@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import config from '../../../config/index.js';
+import config from '../../../config/index.mjs';
 
 function _eventServiceTotal(agendaId) {
   return config.knex('event_2 as e2')

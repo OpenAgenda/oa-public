@@ -2,7 +2,7 @@ import _ from 'lodash';
 import convertEventToLegacyFormat from '@openagenda/legacy/convertEventToLegacyFormat/index.js';
 import convertLegacyFilter from '@openagenda/legacy/convertLegacyFilter/index.js';
 import renderHTMLFromMarkdown from '@openagenda/legacy/utils/renderHTMLFromMarkdown.js';
-import track from '../lib/track.js';
+import track from '../lib/track.mjs';
 
 export default function ConvertFormat({
   forceLimit = null,

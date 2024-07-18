@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import rateLimiter from '../../lib/rateLimiter.js';
+import rateLimiter from '../../lib/rateLimiter.mjs';
 import trackFormat from './lib/trackFormat.mjs';
 import loadSearchEndpoint from './lib/loadSearchEndpoint.mjs';
 import loadSearchStream from './lib/loadSearchStream.mjs';

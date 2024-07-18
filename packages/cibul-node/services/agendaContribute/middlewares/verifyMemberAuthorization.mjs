@@ -1,5 +1,5 @@
 import { NotAuthenticated } from '@openagenda/verror';
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
+import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-contribute/authorization.js';
 
 const getLabel = makeLabelGetter(labels);

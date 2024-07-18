@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
-import track from '../../lib/track.js';
+import * as track from '../../lib/track.mjs';
 import loadLocationEndpoints from './lib/loadLocationEndpoints.mjs';
 
 const log = logs('locations/plugAgendaApp');

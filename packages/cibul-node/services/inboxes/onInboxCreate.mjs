@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import membersSvc from '../members/index.js';
+import membersSvc from '../members/index.mjs';
 
 const log = logs('services/inboxes');
 

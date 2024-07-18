@@ -1,7 +1,7 @@
 import logs from '@openagenda/logs';
-import cache from '../cache/index.js';
-import config from '../../config/index.js';
-import model from '../model/index.js';
+import * as cache from '../cache/index.mjs';
+import config from '../../config/index.mjs';
+import model from '../model/index.mjs';
 import middleware from './middleware.mjs';
 import * as exports from './exportLib.mjs';
 import instanciate from './instance.mjs';

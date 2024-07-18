@@ -1,6 +1,6 @@
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
-import { controlData as controlDataSvc } from '../legacy.js';
+import { controlData as controlDataSvc } from '../legacy.mjs';
 import fallbackContextGet from './lib/fallbackContextGet.mjs';
 
 const log = logs('agendaEvents/beforeRemove');

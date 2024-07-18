@@ -4,13 +4,13 @@ import w from 'when';
 import countryLabels from '@openagenda/labels/agenda-locations/countries.js';
 import slug from 'slugify';
 import utils from '@openagenda/utils';
-import config from '../../config/index.js';
-import legacy from '../legacy.js';
+import config from '../../config/index.mjs';
+import * as legacy from '../legacy.mjs';
 
 function _loadTagSet(v) {
   if (!v.loadTagSet || v.agenda.tagSet) return v;
 
-  return legacy.getTagSet(v.agenda.id).then(tagSet => {
+  return legacy.sets.getTagSet(v.agenda.id).then(tagSet => {
     v.agenda.tagSet = tagSet;
     return v;
   });

@@ -1,11 +1,11 @@
 import Agendas from './agendas/index.mjs';
-import Networks from './networks/index.js';
-import Users from './users/index.js';
+import Networks from './networks/index.mjs';
+import Users from './users/index.mjs';
 import Tasks from './tasks.mjs';
 import Events from './events/index.mjs';
-import LocationSets from './locationSets/index.js';
+import LocationSets from './locationSets/index.mjs';
 
-import { TYPES as stateChangeTypes } from './agendas/utils/assignState.js';
+import { TYPES as stateChangeTypes } from './agendas/utils/assignState.mjs';
 
 export default (services, config) => {
   const core = {

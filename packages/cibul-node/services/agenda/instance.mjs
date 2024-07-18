@@ -1,6 +1,6 @@
-import model from '../model/index.js';
+import model from '../model/index.mjs';
 import * as legacyEventSvc from '../event/index.mjs';
-import cache from '../cache/index.js';
+import cache from '../cache/index.mjs';
 
 export default function instanciate(data) {
   const instance = model.agendas().instance(data);

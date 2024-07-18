@@ -1,0 +1,16 @@
+import getAgenda from '../utils/getAgenda.mjs';
+
+export default (core, agendaOrUid) => async (identifiers, options = {}) => {
+  const { agendaLocations } = core.services;
+
+  const agenda = await getAgenda(core.services, agendaOrUid);
+
+  const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
+
+  return endpoints.get(identifiers, {
+    ...options,
+    throwOnNotFound: true,
+    includeImagePath: true,
+    context: { agendaUid: agenda.uid },
+  });
+};

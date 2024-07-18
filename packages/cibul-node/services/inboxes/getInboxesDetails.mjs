@@ -1,6 +1,6 @@
 import wn from 'when/node.js';
 import agendasSvc from '@openagenda/agendas';
-import config from '../../config/index.js';
+import config from '../../config/index.mjs';
 import getUsersDetails from './getUsersDetails.mjs';
 
 export default async function getInboxesDetails(services, inboxesToBeDetailed) {

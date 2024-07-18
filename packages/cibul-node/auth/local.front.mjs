@@ -14,9 +14,9 @@ import logs from '@openagenda/logs';
 import flattenLabels from '@openagenda/labels/flatten.js';
 import manualLabels from '@openagenda/labels/auth/manual.js';
 import { fromMarkdownToHTML } from '@openagenda/md';
-import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
-import layouts from '../services/lib/layouts/index.js';
+import cmn from '../lib/commons-app.mjs';
+import config from '../config/index.mjs';
+import layouts from '../services/lib/layouts/index.mjs';
 import * as auth from './lib/auth.mjs';
 import loadCaptcha from './lib/captcha.mjs';
 

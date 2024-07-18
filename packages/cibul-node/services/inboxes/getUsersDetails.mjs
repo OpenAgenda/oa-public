@@ -1,4 +1,4 @@
-import config from '../../config/index.js';
+import config from '../../config/index.mjs';
 
 export default async function getUsersDetails(services, usersToBeDetailed) {
   const usersSvc = services.users;

@@ -3,9 +3,9 @@ import fb from '@openagenda/facebook';
 import agendaSvc from '@openagenda/agendas';
 import flattenLabels from '@openagenda/labels/flatten.js';
 import labels from '@openagenda/labels/agenda-admin/facebook.js';
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
-import cmn from '../lib/commons-app.js';
-import layouts from '../services/lib/layouts/index.js';
+import makeLabelGetter from '@openagenda/labels';
+import cmn from '../lib/commons-app.mjs';
+import * as layouts from '../services/lib/layouts/index.mjs';
 
 const getLabel = makeLabelGetter(labels);
 

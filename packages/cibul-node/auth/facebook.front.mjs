@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
-import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import config from '../config/index.mjs';
 import Auth from './lib/auth.mjs';
 
 const auth = Auth('facebook');

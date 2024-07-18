@@ -2,10 +2,10 @@
 import { createBullBoard } from '@bull-board/api';
 
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter.js';
-import contentSecurityPolicy from '../../../lib/contentSecurityPolicy.js';
-import ExpressAdapter from './ExpressAdapter.js';
+import * as contentSecurityPolicy from '../../../lib/contentSecurityPolicy.mjs';
+import ExpressAdapter from './ExpressAdapter.mjs';
 
-const csp = contentSecurityPolicy({
+const csp = contentSecurityPolicy.default({
   ...contentSecurityPolicy.defaultDirectives,
   baseUri: ['\'self\''],
   styleSrc: [

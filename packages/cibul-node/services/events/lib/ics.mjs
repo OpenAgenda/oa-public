@@ -2,7 +2,7 @@ import moment from 'moment';
 import labels from '@openagenda/labels/exports/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import { getLocaleValue } from '@openagenda/intl';
-import config from '../../../config/index.js';
+import config from '../../../config/index.mjs';
 
 const getLabel = makeLabelGetter(labels);
 

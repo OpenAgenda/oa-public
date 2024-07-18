@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import agendasSvc from '@openagenda/agendas';
 import { mw } from '@openagenda/admin-agendas';
-import cmn from '../lib/commons-app.js';
+import cmn from '../lib/commons-app.mjs';
 
 const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),

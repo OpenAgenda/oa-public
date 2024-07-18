@@ -7,37 +7,42 @@ import * as walk from 'acorn-walk';
 const require = createRequire(import.meta.url);
 
 function getDependencies(filePath) {
-  const code = fs.readFileSync(filePath, 'utf-8');
-  const ast = acorn.parse(code, { sourceType: 'module', ecmaVersion: 'latest' });
+  try {
+    const code = fs.readFileSync(filePath, 'utf-8');
+    const ast = acorn.parse(code, { sourceType: 'module', ecmaVersion: 'latest' });
 
-  const dependencies = [];
-  walk.simple(ast, {
-    ImportDeclaration({ source }) {
-      dependencies.push(source.value);
-    },
-    ExportNamedDeclaration({ source }) {
-      if (source) {
+    const dependencies = [];
+    walk.simple(ast, {
+      ImportDeclaration({ source }) {
         dependencies.push(source.value);
-      }
-    },
-    ExportAllDeclaration({ source }) {
-      if (source) {
-        dependencies.push(source.value);
-      }
-    },
-    CallExpression(node) {
-      if (node.callee.name === 'require' && node.arguments.length > 0 && node.arguments[0].type === 'Literal') {
-        dependencies.push(node.arguments[0].value);
-      }
-    },
-    ImportExpression({ source }) {
-      if (source.type === 'Literal') {
-        dependencies.push(source.value);
-      }
-    },
-  });
+      },
+      ExportNamedDeclaration({ source }) {
+        if (source) {
+          dependencies.push(source.value);
+        }
+      },
+      ExportAllDeclaration({ source }) {
+        if (source) {
+          dependencies.push(source.value);
+        }
+      },
+      CallExpression(node) {
+        if (node.callee.name === 'require' && node.arguments.length > 0 && node.arguments[0].type === 'Literal') {
+          dependencies.push(node.arguments[0].value);
+        }
+      },
+      ImportExpression({ source }) {
+        if (source.type === 'Literal') {
+          dependencies.push(source.value);
+        }
+      },
+    });
 
-  return dependencies;
+    return dependencies;
+  } catch (e) {
+    console.error(`Cannot get dependencies of "${filePath}"`);
+    throw e;
+  }
 }
 
 function resolveModule(baseDir, module) {

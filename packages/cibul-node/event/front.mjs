@@ -7,17 +7,17 @@ import agendaSvc from '@openagenda/agendas';
 import labels from '@openagenda/labels/event/show.js';
 import makeLabelGetter from '@openagenda/labels';
 import errorLabels from '@openagenda/labels/errors/index.js';
-import members from '../services/members/index.js';
-import cacheMw from '../lib/cache.mw.js';
-import cmn from '../lib/commons-app.js';
-import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.js';
-import contentSecurityPolicy from '../lib/contentSecurityPolicy.js';
-import config from '../config/index.js';
+import members from '../services/members/index.mjs';
+import cacheMw from '../lib/cache.mw.mjs';
+import cmn from '../lib/commons-app.mjs';
+import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.mjs';
+import * as contentSecurityPolicy from '../lib/contentSecurityPolicy.mjs';
+import config from '../config/index.mjs';
 import * as embedSvc from '../services/embed/index.mjs';
 import * as legacyEventSvc from '../services/event/index.mjs';
 import * as legacyAgendaSvc from '../services/agenda/index.mjs';
 import RedirectMiddelware from './redirect.middleware.mjs';
-import getAndDecorateIndexedEvent from './lib/getAndDecorateIndexedEvent.js';
+import getAndDecorateIndexedEvent from './lib/getAndDecorateIndexedEvent.mjs';
 import getAgendaReferences from './lib/getAgendaReferences.mjs';
 import getEventLayoutData from './lib/getEventLayoutData.mjs';
 
@@ -64,7 +64,7 @@ function cspTracking(req) {
   return result.join(' ');
 }
 
-const csp = contentSecurityPolicy({
+const csp = contentSecurityPolicy.default({
   ...contentSecurityPolicy.defaultDirectives,
   connectSrc: [
     ...contentSecurityPolicy.defaultDirectives.connectSrc,

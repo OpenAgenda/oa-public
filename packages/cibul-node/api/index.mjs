@@ -3,7 +3,7 @@ import express from 'express';
 import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.mjs';
-import track from '../lib/track.js';
+import * as track from '../lib/track.mjs';
 import * as logContextMw from '../lib/logContextMw.mjs';
 import * as mw from './middleware/index.mjs';
 import getSettingsEndpoint from './endpoints/settingsGet.mjs';

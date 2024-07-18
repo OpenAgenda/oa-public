@@ -6,7 +6,7 @@ import labels from '@openagenda/labels/auth/messages.js';
 import EmailValidator from '@openagenda/validators/email.js';
 import makeLabelGetter from '@openagenda/labels';
 import logs from '@openagenda/logs';
-import cmn from '../../lib/commons-app.js';
+import cmn from '../../lib/commons-app.mjs';
 import * as agendaSvc from '../../services/agenda/index.mjs';
 import { loadOptionals, render } from './utils.mjs';
 import loadCaptcha from './captcha.mjs';

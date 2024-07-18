@@ -1,6 +1,6 @@
 import express from 'express';
-import loadAgendaMw from '../members/middleware/loadAgenda.js';
-import loadEventMw from '../members/middleware/loadEvent.js';
+import loadAgendaMw from '../members/middleware/loadAgenda.mjs';
+import loadEventMw from '../members/middleware/loadEvent.mjs';
 import changeStateMw, { batched as batchedChangeStateMw } from './middleware/changeState.mjs';
 import removeMw from './middleware/remove.mjs';
 import changeFeaturedMw from './middleware/changeFeatured.mjs';

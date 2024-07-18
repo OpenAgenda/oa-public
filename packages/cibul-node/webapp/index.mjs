@@ -5,8 +5,8 @@ import httpProxy from 'http-proxy';
 import matchMw from '@openagenda/react-integration-app/middleware.js';
 import inboxLabels from '@openagenda/labels/inboxes/index.js';
 import makeLabelGetter from '@openagenda/labels';
-import config from '../config/index.js';
-import cmn from '../lib/commons-app.js';
+import config from '../config/index.mjs';
+import cmn from '../lib/commons-app.mjs';
 
 const getInboxLabel = makeLabelGetter(inboxLabels);
 

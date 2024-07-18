@@ -6,10 +6,10 @@ import range from '@openagenda/date-range';
 import logs from '@openagenda/logs';
 import { getLocaleValue } from '@openagenda/intl';
 import * as agendaSvc from '../services/agenda/index.mjs';
-import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import config from '../config/index.mjs';
 import addCalendarLinks from '../services/events/lib/addCalendarLinks.mjs';
-import track from '../lib/track.js';
+import track from '../lib/track.mjs';
 import ics from '../services/events/lib/ics.mjs';
 
 const log = logs('event/actions');

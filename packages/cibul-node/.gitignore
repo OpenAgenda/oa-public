@@ -6,7 +6,7 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
-config/prod.js
+config/prod.mjs
 config/debug.namespaces.js
 dev.sh
 .next

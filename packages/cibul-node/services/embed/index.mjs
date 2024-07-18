@@ -1,4 +1,4 @@
-import model from '../model/index.js';
+import model from '../model/index.mjs';
 import * as agendaSvc from '../agenda/index.mjs';
 import middleware from './middleware.mjs';
 

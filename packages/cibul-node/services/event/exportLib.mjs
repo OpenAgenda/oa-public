@@ -2,10 +2,10 @@ import _ from 'lodash';
 import async from 'async';
 import moment from 'moment-timezone';
 import { getTypesAndValues as registration } from '@openagenda/registration/src/validate.js';
-import config from '../../config/index.js';
-import pickEventImage from './lib/pickImage.js';
-import getLongDescriptionHTML from './lib/getLongDescriptionHTML.js';
-import instanciate from './instance/index.js';
+import config from '../../config/index.mjs';
+import pickEventImage from './lib/pickImage.mjs';
+import getLongDescriptionHTML from './lib/getLongDescriptionHTML.mjs';
+import instanciate from './instance/index.mjs';
 
 const toUTC = str => new Date(str).toJSON();
 

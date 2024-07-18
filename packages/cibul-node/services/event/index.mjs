@@ -1,8 +1,8 @@
-import model from '../model/index.js';
-import getSocialLinks from './lib/getSocialLinks.js';
-import instanciate from './instance/index.js';
-import { head as getIcsHead } from './instance/ics.js';
-import middleware from './middleware/index.js';
+import model from '../model/index.mjs';
+import getSocialLinks from './lib/getSocialLinks.mjs';
+import instanciate from './instance/index.mjs';
+import { head as getIcsHead } from './instance/ics.mjs';
+import middleware from './middleware/index.mjs';
 import * as exports from './exportLib.mjs';
 
 function get(params, cb) {

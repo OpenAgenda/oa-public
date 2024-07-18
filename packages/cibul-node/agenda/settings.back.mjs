@@ -2,7 +2,7 @@ import { mw } from '@openagenda/agenda-settings';
 import keysMw from '@openagenda/keys/middleware.js';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
 import makeLabelGetter from '@openagenda/labels';
-import cmn from '../lib/commons-app.js';
+import cmn from '../lib/commons-app.mjs';
 
 const getLabel = makeLabelGetter(labels);
 

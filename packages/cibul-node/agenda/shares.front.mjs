@@ -1,5 +1,5 @@
 import Shares from '@openagenda/shares';
-import config from '../config/index.js';
+import config from '../config/index.mjs';
 import * as agendaSvc from '../services/agenda/index.mjs';
 import * as embedSvc from '../services/embed/index.mjs';
 

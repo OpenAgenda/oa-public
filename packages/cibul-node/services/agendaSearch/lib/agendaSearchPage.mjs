@@ -1,6 +1,6 @@
 import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-search/index.js';
-import layouts from '../../lib/layouts/index.js';
+import layouts from '../../lib/layouts/index.mjs';
 
 const getAgendaSearchLabel = makeLabelGetter(labels);
 

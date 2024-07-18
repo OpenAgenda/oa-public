@@ -3,11 +3,11 @@ import _ from 'lodash';
 import moment from 'moment';
 import logs from '@openagenda/logs';
 import agendasSvc from '@openagenda/agendas';
-import cmn from '../lib/commons-app.js';
-import membersSvc from '../services/members/index.js';
-import model from '../services/model/index.js';
-import adminSvc from '../services/admin/admin.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import membersSvc from '../services/members/index.mjs';
+import model from '../services/model/index.mjs';
+import * as adminSvc from '../services/admin/admin.mjs';
+import config from '../config/index.mjs';
 
 const log = logs('admin/back');
 

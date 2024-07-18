@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import cbify from '@openagenda/utils/cbify.js';
 import * as agendaSvc from '../services/agenda/index.mjs';
-import cmn from '../lib/commons-app.js';
-import track from '../lib/track.js';
-import rateLimiter from '../lib/rateLimiter.js';
-import config from '../config/index.js';
+import cmn from '../lib/commons-app.mjs';
+import * as track from '../lib/track.mjs';
+import rateLimiter from '../lib/rateLimiter.mjs';
+import config from '../config/index.mjs';
 import convertFormat from './ConvertFormat.mjs';
 import loadCredentials from './loadCredentials.mjs';
 import buildPDF from './buildPDF.mjs';

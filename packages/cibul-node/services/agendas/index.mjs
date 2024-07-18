@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
 import agendasSvc from '@openagenda/agendas';
-import cmn from '../../lib/commons-app.js';
-import legacy from '../legacy.js';
-import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.js';
+import cmn from '../../lib/commons-app.mjs';
+import * as legacy from '../legacy.mjs';
+import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.mjs';
 import middleware from './middleware.mjs';
 import resetCache from './lib/resetCache.mjs';
 import onCreate from './onCreate.mjs';

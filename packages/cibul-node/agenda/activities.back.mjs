@@ -1,5 +1,5 @@
 import mw from '@openagenda/activity-apps/dist/middleware.js';
-import cmn from '../lib/commons-app.js';
+import cmn from '../lib/commons-app.mjs';
 
 export default app => {
   const { agendas, members, sessions } = app.services;

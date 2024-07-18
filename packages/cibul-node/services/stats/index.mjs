@@ -1,5 +1,5 @@
-import cmn from '../../lib/commons-app.js';
-import cacheMw from '../../lib/cache.mw.js';
+import cmn from '../../lib/commons-app.mjs';
+import cacheMw from '../../lib/cache.mw.mjs';
 import getAdditionalFieldStats from './getAdditionalFieldStats.mjs';
 import addFieldSchema from './addFieldSchema.mjs';
 import pulseSvg from './pulseSvg.mjs';

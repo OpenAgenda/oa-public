@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import _ from 'lodash';
 import qs from 'qs';
-import * as layouts from '../services/lib/layouts/index.js';
+import * as layouts from '../services/lib/layouts/index.mjs';
 
 const layout = layouts.load('agendaAdmin');
 const statsTemplate = _.template(fs.readFileSync(`${import.meta.dirname}/stats.tpl`, 'utf-8'));
