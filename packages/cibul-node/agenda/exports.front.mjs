@@ -3,11 +3,9 @@ import cbify from '@openagenda/utils/cbify.js';
 import * as agendaSvc from '../services/agenda/index.mjs';
 import cmn from '../lib/commons-app.mjs';
 import * as track from '../lib/track.mjs';
-import rateLimiter from '../lib/rateLimiter.mjs';
 import config from '../config/index.mjs';
 import convertFormat from './ConvertFormat.mjs';
 import loadCredentials from './loadCredentials.mjs';
-import buildPDF from './buildPDF.mjs';
 
 const preMw = [cmn.loadLogger('agenda front')];
 
@@ -79,7 +77,7 @@ function checkKey(onError) {
 }
 
 export default app => {
-  const { members, agendas, redis } = app.services;
+  const { members } = app.services;
 
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
@@ -112,20 +110,5 @@ export default app => {
           embeds: req.embeds,
         }),
       ),
-  );
-
-  app.get(
-    '/agendas/:uid/events.pdf',
-    preMw,
-    rateLimiter(redis.ioRedis, {
-      keyGenerator: req => `${req.ip}|export-pdf|${req.params.uid}`,
-    }),
-    agendas.mw.loadBy({
-      path: 'params.uid',
-      field: 'uid',
-    }),
-    cmn.ifIs('agenda.private', members.mw.loadOrFail),
-    track.mw('events', 'export', 'pdf'),
-    buildPDF,
   );
 };
