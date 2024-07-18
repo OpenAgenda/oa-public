@@ -1,5 +1,5 @@
 import memberSchema from '@openagenda/members/build/schema.js';
-import {createIntlByLocale} from '@openagenda/intl';
+import { createIntlByLocale } from '@openagenda/intl';
 import locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
 import logs from '@openagenda/logs';
 import _ from 'lodash';
@@ -62,24 +62,30 @@ export default async (services, agendaOrUid, options = {}) => {
   return {
     merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields, { access: { read: access } }),
     schema: formSchemas.utils.merge(memberSchema({ optionalFields }), {}, { access: { read: access } }),
-    agendaSchema: { id: aditionalFields.id, ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: access } }) },
+    agendaSchema: {
+      id: aditionalFields.id,
+      ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: access } }),
+    },
   };
 };
 
-export const andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) { // affichage pour la config, only admins
+export const andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) {
+  // affichage pour la config, only admins
   const { formSchemas } = services;
   const { lang = 'fr' } = options;
   const intl = intlByLocale[lang] || intlByLocale.fr;
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
   const { memberSchemaId } = agenda;
 
-  const parents = [{
-    schema: { ...memberSchema({ optionalFields: !!memberSchemaId }), id: -1 },
-    info: {
-      label: intl.formatMessage({ id: 'AgendaSchema.member' }),
-      detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
+  const parents = [
+    {
+      schema: { ...memberSchema({ optionalFields: !!memberSchemaId }), id: -1 },
+      info: {
+        label: intl.formatMessage({ id: 'AgendaSchema.member' }),
+        detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
+      },
     },
-  }];
+  ];
 
   if (!memberSchemaId) {
     return {

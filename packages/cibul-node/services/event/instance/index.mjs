@@ -4,7 +4,7 @@ import model from '../../model/index.mjs';
 import getTimings from '../lib/getTimings.mjs';
 import getClosestDate from '../lib/getClosestDate.mjs';
 import extractAttendanceMode from '../lib/extractAttendanceMode.mjs';
-import ics from './ics.mjs';
+import * as ics from './ics.mjs';
 import state from './state.mjs';
 import filterTimings from './filterTimings.mjs';
 
@@ -19,9 +19,11 @@ export default function instanciate(data) {
     // eslint-disable-next-line no-param-reassign
     if (timingIndex === undefined) timingIndex = -1;
 
-    return (decorate ? `${ics.head(agenda)}\n` : '')
-      + ics(agenda, data, instance, lang, timingIndex)
-      + (decorate ? '\nEND:VCALENDAR' : '');
+    return (
+      (decorate ? `${ics.head(agenda)}\n` : '')
+      + ics.default(agenda, data, instance, lang, timingIndex)
+      + (decorate ? '\nEND:VCALENDAR' : '')
+    );
   }
 
   function getRange(language, filter) {
@@ -38,10 +40,14 @@ export default function instanciate(data) {
       timings = filterTimings(timings, filter, timezone);
     }
 
-    return range(timings.map(t => ({
-      start: new Date(t.start),
-      end: new Date(t.end),
-    })), language, timezone);
+    return range(
+      timings.map(t => ({
+        start: new Date(t.start),
+        end: new Date(t.end),
+      })),
+      language,
+      timezone,
+    );
   }
 
   function _imageGetter(method) {
@@ -67,11 +73,7 @@ export default function instanciate(data) {
 
   Object.assign(svcInstance, extractAttendanceMode(data));
 
-  state(svcInstance, instance, [
-    'setState',
-    'getState',
-    'setOnStateChange',
-  ]);
+  state(svcInstance, instance, ['setState', 'getState', 'setOnStateChange']);
 
   return svcInstance;
 }
