@@ -13,14 +13,17 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "node": "./lib/index.js",
       "import": "./esm/index.js",
       "require": "./lib/index.js"
     },
     "./api": {
+      "node": "./lib/api/index.js",
       "import": "./esm/api/index.js",
       "require": "./lib/api/index.js"
     },
     "./schema-org": {
+      "node": "./lib/schema-org/index.js",
       "import": "./esm/schema-org/index.js",
       "require": "./lib/schema-org/index.js"
     }
