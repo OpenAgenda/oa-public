@@ -2,11 +2,7 @@ import { exec } from 'node:child_process';
 import fs from 'node:fs/promises';
 import getNodeGroupEndpoint from './getNodeGroupEndpoint.mjs';
 
-export default async function cloneAndBuild({
-  dir,
-  envVars,
-  nodeGroups,
-}) {
+export default async function cloneAndBuild({ dir, envVars, nodeGroups }) {
   const {
     DOMAIN: domain,
     API_DOMAIN: APIDomain,
@@ -17,9 +13,7 @@ export default async function cloneAndBuild({
     SENTRY_AUTH_TOKEN: sentryAuthToken,
   } = envVars;
 
-  const {
-    CDN: pushToCDN = false
-  } = process.env;
+  const { CDN: pushToCDN = false } = process.env;
 
   const nextEnvVars = [
     `DOMAIN=${domain}`,
@@ -27,7 +21,7 @@ export default async function cloneAndBuild({
     `NODE_ENV=${nodeEnv}`,
     `NEXT_API_INTERNAL_BASE_URL=http://${getNodeGroupEndpoint(nodeGroups, 'web')}:${serverPort}`,
     `NEXT_PUBLIC_MAP_TILES=${nextPublicMapTiles}`,
-    `SENTRY_AUTH_TOKEN=${sentryAuthToken}`
+    `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
   ];
 
   if (nodeEnv === 'production') {
@@ -36,9 +30,7 @@ export default async function cloneAndBuild({
 
   await fs.writeFile(`${dir}/next.local`, nextEnvVars.join('\n'));
 
-  await fs.writeFile(`${dir}/prod.js`, [
-    'module.exports = {};'
-  ].join('\n'));
+  await fs.writeFile(`${dir}/prod.mjs`, ['export default {};'].join('\n'));
 
   const buildCommands = [
     `cd ${dir}`,
@@ -52,7 +44,7 @@ export default async function cloneAndBuild({
     `cd packages/cibul-templates`,
     `yarn build:${nodeEnv === 'production' ? 'prod' : 'dev'}`,
     `cp ${dir}/next.local ${dir}/oa/packages/next/.env.local`,
-    `cp ${dir}/prod.js ${dir}/oa/packages/cibul-node/config/prod.js`,
+    `cp ${dir}/prod.mjs ${dir}/oa/packages/cibul-node/config/prod.mjs`,
     `cd ${dir}/oa/packages/next`,
     `yarn build`,
   ];
@@ -62,18 +54,22 @@ export default async function cloneAndBuild({
   }
 
   return new Promise((rs, rj) => {
-    const p = exec(buildCommands.join(' && '), {
-      maxBuffer: Infinity,
-      env: {
-        ...process.env,
-        ...envVars,
+    const p = exec(
+      buildCommands.join(' && '),
+      {
+        maxBuffer: Infinity,
+        env: {
+          ...process.env,
+          ...envVars,
+        },
       },
-    }, (err, stdout, stderr) => {
-      if (err) return rj(err);
-      rs({ stdout, stderr });
-    });
+      (err, stdout, stderr) => {
+        if (err) return rj(err);
+        rs({ stdout, stderr });
+      },
+    );
 
-    p.stdout.on('data', data => {
+    p.stdout.on('data', (data) => {
       console.log(data);
     });
   });
