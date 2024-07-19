@@ -4,13 +4,13 @@ import { produce } from 'immer';
 import api from '../api/index.mjs';
 import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('01 - core - functional (server): core.agendas().events.search()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '001.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

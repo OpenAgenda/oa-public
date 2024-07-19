@@ -1,0 +1,72 @@
+import loadObjectFromFile from './loadObjectFromFile.mjs';
+import { knex, resetAndCreateTables } from './sql/index.mjs';
+
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
+
+const raw = resetAndCreateTables();
+
+raw.push(knex('review').insert([
+  load('sql/agendas/218.json'),
+  load('sql/agendas/219.json'),
+  load('sql/agendas/220.json'),
+  load('sql/agendas/conges.json'),
+]));
+
+raw.push(knex('user').insert([
+  load('sql/users/50304.json'), // steve id 50304, uid 63170203,
+  load('sql/users/50300.json'),
+  load('sql/users/01.json'), // janine id 1, uid 1,
+  load('sql/users/kevin.json'),
+]));
+
+raw.push(knex('api_key_set').insert([
+  load('sql/apiKeySets/01.json', { user_id: 50304 }),
+  load('sql/apiKeySets/02.json', { user_id: 1 }),
+]));
+
+raw.push(knex('form_schema').insert([
+  load('form-schemas/1.json', fxSchema => ({ id: 2, store: JSON.stringify(fxSchema) })),
+  {
+    id: 3,
+    store: JSON.stringify({
+      fields: [],
+      nextOptionId: 1,
+    }),
+  },
+]));
+
+raw.push(knex('reviewer').insert([
+  load('sql/members/71385.json', { // steve, contributor on agenda 218 (17026855)
+    store: JSON.stringify({
+      custom_fields: {
+        organization: 'Le Chat Fume',
+      },
+    }),
+  }),
+  load('sql/members/71386.json'),
+  load('sql/members/kev.admin.json'),
+]));
+
+raw.push(knex('location').insert([
+  load('sql/locations/1.json'),
+]));
+
+const {
+  review_category: reviewCategory,
+  category_set: categorySet,
+  tag_set: tagSet,
+} = load('./sql/legacy/218.json');
+
+raw.push(knex('review_category').insert(reviewCategory));
+
+raw.push(knex('category_set').insert([{
+  id: 218,
+  store: JSON.stringify(categorySet),
+}]));
+
+raw.push(knex('tag_set').insert([{
+  id: 218,
+  store: JSON.stringify(tagSet),
+}]));
+
+export default `${raw.join(';\n')};`;

@@ -1,14 +1,13 @@
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
 import loadFixtures from './fixtures/load.mjs';
-import fixtures from './fixtures/021.sql.mjs';
-import testConfig from './testConfig.js';
+import testConfig from './testConfig.mjs';
 
 describe('core.agendas.members.sendGroupMail', () => {
   let core;
   let services;
 
-  beforeAll(() => loadFixtures(testConfig.db, fixtures));
+  beforeAll(() => loadFixtures(testConfig.db, '021.sql.mjs'));
 
   beforeAll(async () => {
     services = await Services(testConfig, {

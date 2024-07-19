@@ -2,13 +2,13 @@ import axios from 'axios';
 import api from '../api/index.mjs';
 import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('core - functional (server): core.agendas().events.create api authentication', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '002.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

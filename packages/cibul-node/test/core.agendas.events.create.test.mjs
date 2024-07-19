@@ -9,9 +9,9 @@ import request from 'superagent';
 import api from '../api/index.mjs';
 import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
-import eventsFixtures from './fixtures/events/index.js';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import eventsFixtures from './fixtures/events/index.mjs';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 describe('core - functional (server): core.agendas().events.create()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '002.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

@@ -1,7 +1,7 @@
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', () => {
   let core;
@@ -9,7 +9,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     cachePrefix: 'c09_core_agendas_events_batch_test',
     queuesPrefix: 'q09:',
   });
-  beforeAll(() => loadFixtures(config.db, '010.sql'));
+  beforeAll(() => loadFixtures(config.db, '010.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(config, {

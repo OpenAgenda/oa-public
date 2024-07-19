@@ -1,12 +1,12 @@
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('13 - core - functional(server): core.agendas().locations.merge', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '014.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

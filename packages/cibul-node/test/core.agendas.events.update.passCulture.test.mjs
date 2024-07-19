@@ -4,8 +4,8 @@ import { produce } from 'immer';
 
 import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 import passAPIFixtures from './fixtures/passAPI.mjs';
 import freshEventWithPassData from './fixtures/freshEventWithPassData.mjs';
@@ -13,7 +13,7 @@ import freshEventWithPassData from './fixtures/freshEventWithPassData.mjs';
 describe('core - functional: core.agendas().events.update() - Pass Culture', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '020.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '020.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

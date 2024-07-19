@@ -3,8 +3,8 @@ import FormData from 'form-data';
 import Core from '../core/index.mjs';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('14 - core - functional(server): api authentication and posts', () => {
   let core;
@@ -13,7 +13,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
   const config = testConfig.extendWith({ cachePrefix: 'c14_api_accessTokens_test' });
 
-  beforeAll(() => loadFixtures(config.db, '015.sql'));
+  beforeAll(() => loadFixtures(config.db, '015.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(config, {

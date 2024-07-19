@@ -2,8 +2,8 @@ import axios from 'axios';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('core - functional (server): core.agendas().settings.schema.memberSchema', () => {
   let core;
@@ -12,7 +12,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     cachePrefix: 'c06_02_core_agendas_settings_schema_memberSchema_test',
     queuesPrefix: 'q06_02:',
   });
-  beforeAll(() => loadFixtures(config.db, '007.sql'));
+  beforeAll(() => loadFixtures(config.db, '007.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(config, {

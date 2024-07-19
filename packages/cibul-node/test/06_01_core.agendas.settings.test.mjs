@@ -2,14 +2,14 @@ import axios from 'axios';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('core - functional (server): core.agendas().settings.get()', () => {
   let core;
   const config = testConfig.extendWith({ cachePrefix: 'c06_01_core_agendas_settings_test' });
 
-  beforeAll(() => loadFixtures(config.db, '007.sql'));
+  beforeAll(() => loadFixtures(config.db, '007.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(config, {

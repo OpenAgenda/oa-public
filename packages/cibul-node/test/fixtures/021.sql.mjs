@@ -1,15 +1,7 @@
-import * as url from 'node:url';
-import loadObjectFromFile from '@openagenda/utils/loadObjectFromFile';
-import sqlTools from './sql/index.js';
+import loadObjectFromFile from './loadObjectFromFile.mjs';
+import { knex, resetAndCreateTables } from './sql/index.mjs';
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-
-const load = loadObjectFromFile({ cwd: __dirname });
-
-const {
-  knex,
-  resetAndCreateTables,
-} = sqlTools;
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 

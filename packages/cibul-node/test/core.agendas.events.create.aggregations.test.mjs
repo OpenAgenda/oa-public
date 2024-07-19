@@ -1,15 +1,15 @@
 import Core from '../core/index.mjs';
 import Services from '../services/init.mjs';
-import eventFixtures from './fixtures/events/index.js';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import eventFixtures from './fixtures/events/index.mjs';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 describe('core - functional (server): core.agendas().events.create() - aggregations', () => {
   const memberUserUid = 63170200;
 
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '003.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '003.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

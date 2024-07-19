@@ -2,13 +2,13 @@ import axios from 'axios';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import testConfig from './testConfig.js';
-import loadFixtures from './fixtures/load.js';
+import testConfig from './testConfig.mjs';
+import loadFixtures from './fixtures/load.mjs';
 
 describe('core - functional (server): core agendas() events.remove()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '006.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '006.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {

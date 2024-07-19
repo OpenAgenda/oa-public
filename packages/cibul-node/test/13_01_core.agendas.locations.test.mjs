@@ -9,8 +9,8 @@ import logs from '@openagenda/logs';
 import api from '../api/index.mjs';
 import Services from '../services/init.mjs';
 import Core from '../core/index.mjs';
-import loadFixtures from './fixtures/load.js';
-import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.mjs';
+import testConfig from './testConfig.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +22,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
 
-  beforeAll(() => loadFixtures(config.db, '014.sql'));
+  beforeAll(() => loadFixtures(config.db, '014.sql.mjs'));
 
   beforeAll(async () => {
     const services = await Services(config, {
