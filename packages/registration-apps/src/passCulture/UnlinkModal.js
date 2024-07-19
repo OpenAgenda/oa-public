@@ -1,10 +1,15 @@
+import { useContext } from 'react';
 import { Modal } from '@openagenda/react-shared';
+import ComponentsContext from '../components/Context';
 
 export default function UnlinkModal({
   onClose,
   onConfirm,
   editPassHRef,
 }) {
+  const {
+    Button,
+  } = useContext(ComponentsContext);
   return (
     <Modal
       onClose={onClose}
@@ -17,16 +22,11 @@ export default function UnlinkModal({
         <p><b>Retirer la référence d&apos;OpenAgenda ne supprimera pas l&apos;offre Pass Culture.</b></p>
         <p>La suppression complète de l&apos;offre doit être effectuée sur la plateforme du Pass. En cliquant sur confirmer, la référence de retirée sur votre fiche OpenAgenda et un onglet s&apos;ouvrira dans votre navigateur vers la gestion de votre offre sur la plateforme du pass qui vous permettra de procéder à sa suppression</p>
         <div className="text-center">
-          <a
-            rel="noreferrer"
-            type="button"
-            className="btn btn-primary"
+          <Button
+            shape="primary"
+            label="Confirmer"
             onClick={onConfirm}
-            target="_blank"
-            href={editPassHRef}
-          >
-            Confirmer
-          </a>
+          />
         </div>
       </div>
     </Modal>

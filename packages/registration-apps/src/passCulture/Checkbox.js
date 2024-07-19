@@ -5,7 +5,44 @@ import { getTime, getCurrentValue } from '@openagenda/registrations/passCulture/
 
 import FormModal from './FormModal';
 import UnlinkModal from './UnlinkModal';
-import { logoPath, isPatchMode } from './utils';
+import { logoPath, rejectedLogoPath, errorLogoPath, pendingLogoPath, isPatchMode } from './utils';
+
+function checkboxText({
+  offerWasRejected,
+  offerIsPending,
+  offerHasError,
+  patchMode,
+  settings,
+  value,
+}) {
+  if (offerWasRejected) {
+    return (
+      <>
+        <div className="text-danger">Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case pour la dissocier.</div>
+        <a
+          rel="noreferrer"
+          className="btn btn-link padding-all-z"
+          target="_blank"
+          href={settings.res.offerEditLink.replace(':id', value[0]?.response?.passId)}
+        >
+          Voir l&apos;offre sur la plateforme pass Culture
+        </a>
+      </>
+    );
+  }
+  if (offerIsPending) return (<div className="text-warning">L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</div>);
+  if (offerHasError) {
+    return (
+      <div className="text-danger">L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
+        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`} className="link-primary">
+          Contacter le support
+        </a>
+      </div>
+    );
+  }
+  if (patchMode) return (<div className="text-muted">Je souhaite metre à jour mon offre pass culture pour cet événement</div>);
+  return (<div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>);
+}
 
 export default ({
   value,
@@ -27,7 +64,16 @@ export default ({
   const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
   const currentValue = useMemo(() => getCurrentValue(value), [value]);
 
-  const offerAlreadyExists = value?.id;
+  const offerWasRejected = useMemo(() => !!currentValue.isRejected === true, [currentValue]);
+  const offerIsPending = useMemo(() => !!currentValue.isPending === true, [currentValue]);
+  const offerHasError = useMemo(() => !!currentValue.error, [currentValue]);
+
+  const currLogoPath = useMemo(() => {
+    if (offerWasRejected) return rejectedLogoPath;
+    if (offerIsPending) return pendingLogoPath;
+    if (offerHasError) return errorLogoPath;
+    return logoPath;
+  }, [offerWasRejected, offerHasError, offerIsPending]);
 
   const upcomingTimings = useMemo(() => {
     if (!Array.isArray(timings)) {
@@ -62,8 +108,13 @@ export default ({
   }, [settings]);
 
   const onCheck = useCallback(() => {
-    setModal(offerAlreadyExists ? 'unlink' : 'show');
-  }, [offerAlreadyExists]);
+    setModal(offerWasRejected ? 'unlink' : 'show');
+  }, [offerWasRejected]);
+
+  const onDetach = useCallback(() => {
+    setModal(null);
+    onChange(null);
+  }, [onChange]);
 
   const onClear = useCallback(() => {
     if (patchMode) onChange(value);
@@ -103,8 +154,8 @@ export default ({
       ) : null}
       {modal === 'unlink' ? (
         <UnlinkModal
-          editPassHRef={settings.res.offerEditLink.replace(':id', value.id)}
-          onConfirm={onClear}
+          editPassHRef={settings.res.offerEditLink.replace(':id', value[0]?.response?.passId)}
+          onConfirm={onDetach}
           onClose={() => setModal(null)}
         />
       ) : null}
@@ -119,26 +170,19 @@ export default ({
           />
           <Image
             className="margin-left-sm"
-            src={logoPath}
+            src={currLogoPath}
             alt="Logo Pass Culture"
             width={100}
           />
-          {offerAlreadyExists ? (
-            <>
-              <div>Une offre pass est déjà associée à cette fiche. Décochez la case pour la dissocier.</div>
-              <a
-                rel="noreferrer"
-                className="btn btn-link padding-all-z"
-                target="_blank"
-                href={settings.res.offerEditLink.replace(':id', value.id)}
-              >
-                Gérer mon offre sur la plateforme du Pass
-              </a>
-            </>
-          ) : (
-            <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>
-          )}
-          {!offerAlreadyExists && !isLoadingPassData && issues.length ? (
+          {checkboxText({
+            offerWasRejected,
+            offerIsPending,
+            offerHasError,
+            patchMode,
+            settings,
+            value,
+          })}
+          {!patchMode && !isLoadingPassData && issues.length ? (
             <ul className="padding-left-sm">{issues.map(issue => (
               <li className="text-danger">{issue}</li>
             ))}
