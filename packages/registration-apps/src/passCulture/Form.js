@@ -39,6 +39,22 @@ const checkForLocationMatch = (oaLocation, venues) => {
   return resp?.id || null;
 };
 
+function infoBlock({ status }) {
+  if (status === 'validation en cours') {
+    return (
+      <div className="info-block warning">
+        Votre offre est en cours de validation. les modifications faites seront appliquées des que possible.
+      </div>
+    );
+  }
+  if (status === 'modification') {
+    return (
+      <div className="info-block">Votre offre est déja crée, vous pouvez encore faire certaines modifications.</div>
+    );
+  }
+  return null;
+}
+
 export default function Form({
   value: initialValue,
   timings,
@@ -53,28 +69,51 @@ export default function Form({
   longDesc = null,
   patchMode = false,
 }) {
-  const [patch, setPatch] = useState(initialValue[initialValue.length - 1]?.editing ? initialValue[initialValue.length - 1] : { editing: true });
+  const [patch, setPatch] = useState(
+    initialValue[initialValue.length - 1]?.editing ? initialValue[initialValue.length - 1] : { editing: true },
+  );
+  const [showErrors, setShowErrors] = useState(false);
 
   const [openSubForm, setOpenSubForm] = useState();
   const titleWarning = title ? title.length > 90 : false;
   const longDescWarning = longDesc ? longDesc.length > 1000 : false;
 
-  const {
-    Section,
-    Select,
-    Button,
-    Input,
-    Checkbox,
-  } = useContext(ComponentsContext);
+  const { Section, Select, Button, Input, Checkbox } = useContext(ComponentsContext);
   const storedValue = useMemo(() => getCurrentValue(initialValue), [initialValue]);
-  const currentValue = useMemo(() => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)), [initialValue, patch]);
+  const currentValue = useMemo(
+    () => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)),
+    [initialValue, patch],
+  );
   const nextId = useMemo(() => getNextId(currentValue), [currentValue]);
-  const relatedCategoryFieldName = useMemo(() => getRelatedFieldName(categories, currentValue.category), [categories, currentValue.category]);
-  const relatedCategoryOptions = useMemo(() => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined), [relatedCategoryFieldName, related]);
-  const venuesOptions = offererVenues.reduce((carry, item) => carry.concat(item.venues), []).map(v => ({
-    value: v.id,
-    label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
-  }));
+  const relatedCategoryFieldName = useMemo(
+    () => getRelatedFieldName(categories, currentValue.category),
+    [categories, currentValue.category],
+  );
+  const relatedCategoryOptions = useMemo(
+    () => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined),
+    [relatedCategoryFieldName, related],
+  );
+  const venuesOptions = offererVenues
+    .reduce((carry, item) => carry.concat(item.venues), [])
+    .map(v => ({
+      value: v.id,
+      label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+    }));
+
+  const status = useMemo(() => {
+    if (!patchMode) return 'creation';
+    if (currentValue?.isPending) return 'validation en cours';
+    if (currentValue?.passId) return 'modification';
+  }, [patchMode, currentValue]);
+
+  const errors = useMemo(() => {
+    try {
+      validateLocalData(currentValue, { timings }, { categories, related });
+    } catch (error) {
+      return error?.info?.errors ?? [];
+    }
+    return false;
+  }, [currentValue, timings, categories, related]);
 
   useEffect(() => {
     const defaultsAtInit = {};
@@ -83,16 +122,21 @@ export default function Form({
     }
 
     if (venuesOptions.length > 1 && oaLocation?.name) {
-      const match = checkForLocationMatch(oaLocation, offererVenues.reduce((carry, item) => carry.concat(item.venues), []));
+      const match = checkForLocationMatch(
+        oaLocation,
+        offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
+      );
       if (match) defaultsAtInit.venueId = match;
     }
 
     if (!hasPriceCategories(storedValue)) {
-      defaultsAtInit.priceCategories = [{
-        label: 'Tarif unique',
-        price: 0,
-        id: nextId,
-      }];
+      defaultsAtInit.priceCategories = [
+        {
+          label: 'Tarif unique',
+          price: 0,
+          id: nextId,
+        },
+      ];
     }
 
     if (storedValue.duo === undefined) {
@@ -102,9 +146,9 @@ export default function Form({
     setPatch({ ...patch, ...defaultsAtInit });
   }, []);
 
-  // add eventDuration
   return (
     <form>
+      <Section>{infoBlock({ status })}</Section>
       <Section>
         <Select
           disabled={openSubForm || patchMode}
@@ -112,10 +156,13 @@ export default function Form({
           value={currentValue?.venueId}
           placeholder="Sélectionner un lieu"
           options={venuesOptions}
-          onChange={option => setPatch({
-            ...patch,
-            venueId: option.value,
-          })}
+          onChange={option =>
+            setPatch({
+              ...patch,
+              venueId: option.value,
+            })}
+          error={showErrors ? (errors || []).filter(e => e?.field === 'venueId') : false}
+          optional={false}
         />
       </Section>
       <Section>
@@ -125,11 +172,14 @@ export default function Form({
           value={currentValue?.category}
           placeholder="Choix requis"
           options={categories}
-          onChange={option => setPatch({
-            ...patch,
-            category: option.value,
-          })}
+          onChange={option =>
+            setPatch({
+              ...patch,
+              category: option.value,
+            })}
           patchMode={patchMode}
+          error={showErrors ? (errors || []).filter(e => e?.field === 'category') : false}
+          optional={false}
         />
         {relatedCategoryFieldName ? (
           <Select
@@ -138,10 +188,14 @@ export default function Form({
             value={currentValue[relatedCategoryFieldName]}
             placeholder="Choix requis"
             options={relatedCategoryOptions}
-            onChange={option => setPatch({
-              ...patch,
-              [relatedCategoryFieldName]: option.value,
-            })}
+            onChange={option =>
+              setPatch({
+                ...patch,
+                [relatedCategoryFieldName]: option.value,
+              })}
+            error={
+              showErrors ? (errors || []).filter(e => e?.field === 'musicType' || e?.field === 'showType') : false
+            }
           />
         ) : null}
       </Section>
@@ -159,6 +213,7 @@ export default function Form({
             setPatch(changePriceCategory(patch, pc, currentValue));
             setOpenSubForm(false);
           }}
+          error={showErrors ? (errors || []).filter(e => e?.field === 'priceCategories') : false}
         />
       </Section>
       <Section>
@@ -179,6 +234,7 @@ export default function Form({
           }}
           onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
           timings={timings}
+          error={showErrors ? (errors || []).filter(e => e?.field === 'dates') : false}
         />
       </Section>
       <Section>
@@ -190,7 +246,12 @@ export default function Form({
         </Section>
       ) : null}
       <Section>
-        <Description value={currentValue} onChange={v => setPatch({ ...patch, description: v })} longDesc={longDesc} longDescWarning={longDescWarning} />
+        <Description
+          value={currentValue}
+          onChange={v => setPatch({ ...patch, description: v })}
+          longDesc={longDesc}
+          longDescWarning={longDescWarning}
+        />
       </Section>
       <Section>
         <Input
@@ -200,10 +261,16 @@ export default function Form({
           type="email"
           onChange={e => setPatch({ ...patch, bookingContact: e.target.value })}
           sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
+          error={showErrors ? (errors || []).filter(e => e?.field === 'bookingContact') : false}
+          optional={false}
         />
       </Section>
       <Section>
-        <BookingEmail value={currentValue} onChange={v => setPatch({ ...patch, bookingEmail: v })} settingsBookingEmail={bookingEmail} />
+        <BookingEmail
+          value={currentValue}
+          onChange={v => setPatch({ ...patch, bookingEmail: v })}
+          settingsBookingEmail={bookingEmail}
+        />
       </Section>
       <Section>
         <Checkbox
@@ -213,18 +280,36 @@ export default function Form({
           label="Réservations “Duo”"
         />
       </Section>
+      {showErrors && errors && errors.length > 0 ? (
+        <Section>
+          <div className="error-summary boxed padding-all-md">
+            <b>Certaines saisies doivent être corrigées:</b>
+            <ul className='class="list-unstyled margin-left-xs"'>
+              {errors.map(e => (
+                <li key={e.code}>{e.label}</li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      ) : null}
       <Section>
         <Button
-          disabled={!validateLocalData(currentValue, { timings }, { boolMode: true, categories, related }) || openSubForm}
+          disabled={(showErrors && errors.length) || openSubForm}
           shape="primary"
           label="Enregistrer"
-          onClick={() => onSubmit(initialValue[initialValue.length - 1]?.editing ? initialValue.slice(0, -1).concat(patch) : initialValue.concat(patch))}
+          onClick={() => {
+            if (errors) {
+              setShowErrors(true);
+              return;
+            }
+            onSubmit(
+              initialValue[initialValue.length - 1]?.editing
+                ? initialValue.slice(0, -1).concat(patch)
+                : initialValue.concat(patch),
+            );
+          }}
         />
-        <Button
-          shape="link-danger"
-          label="Annuler"
-          onClick={onClear}
-        />
+        <Button shape="link-danger" label="Annuler" onClick={onClear} />
       </Section>
     </form>
   );
