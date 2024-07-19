@@ -14,17 +14,18 @@ export default function PriceCategories({
   onRemove,
   onChange,
   disabled = false,
+  error = false,
 }) {
-  const {
-    Button,
-  } = useContext(ComponentsContext);
+  const { Button } = useContext(ComponentsContext);
 
   const [newItem, setNewItem] = useState(initWithOpenForm);
   const [editing, setEditing] = useState(false);
 
   return (
     <>
-      <b>Tarifs</b>
+      <span className={`${error && error.length ? 'text-danger' : ''}`}>
+        <b>Tarifs</b> (Champ obligatoire)
+      </span>
       <PriceCategoryItems
         value={value.priceCategories}
         onRemove={onRemove}
@@ -35,6 +36,13 @@ export default function PriceCategories({
         }}
         onChange={onChange}
       />
+      {error
+        && error.length > 0
+        && error.map(e => (
+          <div key={e.code} className="text-danger">
+            {e.label}
+          </div>
+        ))}
       {newItem ? (
         <PriceCategoryForm
           value={newItem}
