@@ -29,7 +29,7 @@ export default function StandardRegistrationField({
   infoLabel,
 }) {
   return (
-    <>
+    <div className="multi-input">
       <div className="margin-bottom-xs">{infoLabel}</div>
       <TagsInput
         onChange={onChange}
@@ -44,6 +44,6 @@ export default function StandardRegistrationField({
           style: !value?.length ? { width: '630px' } : null,
         }}
       />
-    </>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import imageType from 'image-type';
 
 import { processImage, extractSchemaOptions, getCurrentValue } from '../lib/utils.js';
 import OpenAPIFixtures from './fixtures/openapi.json';
+import { error } from 'node:console';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -211,6 +212,70 @@ describe('utils', () => {
           label: 'static',
         },
       ]);
+    });
+    test('get the current value with error', () => {
+      const initialValue = [
+        {
+          eventDuration: 90,
+          bookingContact: 'clem@oa.com',
+          response: {
+            passId: 73696,
+            isPending: false,
+          },
+          venueId: 548,
+          category: 'ATELIER_PRATIQUE_ART',
+          operation: 'create',
+          appliedAt: '2024-07-16T10:57:14.056Z',
+          duo: true,
+        },
+        {
+          priceCategories: [
+            {
+              price: 3000,
+              label: 'Tarif unique',
+              id: 0,
+            },
+          ],
+          error: {
+            code: 400,
+            name: 'BadRequest',
+            shortMessage: 'priceCategories create',
+            className: 'bad-request',
+            message: 'priceCategories create',
+            info: { 'priceCategories.0.price': ['ensure this value is less than or equal to 30000'] },
+            statusCode: 400,
+          },
+        },
+      ];
+      expect(
+        getCurrentValue(initialValue),
+      ).toStrictEqual({
+        bookingContact: 'clem@oa.com',
+        appliedAt: '2024-07-16T10:57:14.056Z',
+        category: 'ATELIER_PRATIQUE_ART',
+        duo: true,
+        eventDuration: 90,
+        isPending: false,
+        passId: 73696,
+        venueId: 548,
+        operation: 'create',
+        priceCategories: [
+          {
+            price: 3000,
+            label: 'Tarif unique',
+            id: 0,
+          },
+        ],
+        error: {
+          code: 400,
+          name: 'BadRequest',
+          shortMessage: 'priceCategories create',
+          className: 'bad-request',
+          message: 'priceCategories create',
+          info: { 'priceCategories.0.price': ['ensure this value is less than or equal to 30000'] },
+          statusCode: 400,
+        },
+      });
     });
   });
 });

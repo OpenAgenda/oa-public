@@ -1,6 +1,4 @@
-import {
-  getTimingId,
-} from '@openagenda/registrations/passCulture/iso/utils';
+import { getTimingId } from '@openagenda/registrations/passCulture/iso/utils';
 import { useContext, useState, useEffect } from 'react';
 import ComponentsContext from '../components/Context';
 
@@ -9,8 +7,12 @@ function padNumber(number) {
 }
 
 function calculateTimeDifference(timing) {
-  const beginTimestamp = new Date(`${timing.begin.date}T${padNumber(timing.begin.hours)}:${padNumber(timing.begin.minutes)}:00`).getTime();
-  const endTimestamp = new Date(`${timing.end.date}T${padNumber(timing.end.hours)}:${padNumber(timing.end.minutes)}:00`).getTime();
+  const beginTimestamp = new Date(
+    `${timing.begin.date}T${padNumber(timing.begin.hours)}:${padNumber(timing.begin.minutes)}:00`,
+  ).getTime();
+  const endTimestamp = new Date(
+    `${timing.end.date}T${padNumber(timing.end.hours)}:${padNumber(timing.end.minutes)}:00`,
+  ).getTime();
 
   const beginTime = new Date(beginTimestamp);
   const endTime = new Date(endTimestamp);
@@ -19,14 +21,8 @@ function calculateTimeDifference(timing) {
   return minutesDifference;
 }
 
-export default function Duration({
-  value,
-  onChange,
-  timings,
-}) {
-  const {
-    Input,
-  } = useContext(ComponentsContext);
+export default function Duration({ value, onChange, timings }) {
+  const { Input } = useContext(ComponentsContext);
   const TimingsWithId = timings.map(t => ({ ...t, id: getTimingId(t) }));
 
   const [duration, setDuration] = useState(value.eventDuration || null);
@@ -46,9 +42,12 @@ export default function Duration({
       placeholder="Durée de l'offre en minutes"
       value={duration}
       type="number"
-      onChange={e => { setDuration(e.target.value); onChange(e.target.value); }}
+      onChange={e => {
+        setDuration(e.target.value);
+        onChange(e.target.value);
+      }}
       maxLength="90"
-      label="Durée de l'offre (Optionnel)"
+      label="Durée de l'offre"
       info="En minutes"
     />
   );

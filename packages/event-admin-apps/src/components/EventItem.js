@@ -125,6 +125,18 @@ export default function EventItem({
     )?.isPending
     : undefined;
 
+  const passErrored = passId
+    ? getCurrentValue(
+      event.registration.find(r => r.service === 'passCulture')?.data,
+    )?.error
+    : undefined;
+
+  const passRejected = passId
+    ? getCurrentValue(
+      event.registration.find(r => r.service === 'passCulture')?.data,
+    )?.isRejected
+    : undefined;
+
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
       return false;
@@ -237,6 +249,8 @@ export default function EventItem({
         {passId ? (
           <PassImage
             pending={passPending}
+            rejected={passRejected}
+            errored={passErrored}
             passId={passId}
             passRes={passRes}
             passTabIsOpen={passTabIsOpen}

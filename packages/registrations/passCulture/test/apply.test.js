@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { produce } from 'immer';
+import { BadRequest } from '@openagenda/verror';
 
 import { getObjectType } from '../iso/utils.js';
 import getOperationType from '../iso/getOperationType.js';
@@ -49,6 +50,13 @@ const mockSuccessfullDatesPostResponse = async ({ request }) => HttpResponse.jso
     ...date,
     id: Math.ceil(Math.random() * 10000),
   })),
+});
+
+const mockErrorPiceCategoriesPostResponse = async () => new HttpResponse(JSON.stringify({ 'priceCategories.0.price': ['ensure this value is less than or equal to 30000'] }), {
+  status: 400,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 describe('apply', () => {
@@ -217,6 +225,102 @@ describe('apply', () => {
           expect(processed[1].response).toEqual({
             isPending: false,
           });
+        });
+      });
+
+      describe('rejected', () => {
+        let processed;
+        const rejected = produce(withPendingOffer, draft => { draft[0].response.isPending = false; });
+
+        beforeAll(async () => {
+          processed = await apply(pc, CArtEvents[0], rejected, { ...settings, simulateRejected: true });
+        });
+
+        test('all remaining operations stoped', () => {
+          expect(processed.filter(item => item.appliedAt).length).toBe(rejected.filter(item => item.appliedAt).length + 1);
+        });
+
+        test('isRejected is switched to true in newly inserted response item', () => {
+          expect(processed[1].response).toEqual({
+            isPending: false,
+            isRejected: true,
+          });
+        });
+      });
+    });
+
+    describe('error on priceCategories', () => {
+      let server;
+
+      beforeAll(() => {
+        const randomPassOfferID = Math.ceil(Math.random() * 100000);
+        server = setupServer(
+          http.get(
+            `${api}/public/offers/v1/events/:id`,
+            async ({ params }) => HttpResponse.json({
+              ...getEventResponse,
+              id: parseInt(params.id, 10),
+              status: params.id === '123456' ? 'PENDING' : 'WHICHEVER',
+            }),
+          ),
+          http.post(
+            `${api}/public/offers/v1/events`,
+            () => HttpResponse.json({
+              id: randomPassOfferID,
+              status: 'PASPENDING',
+            }),
+          ),
+          http.post(
+            `${api}/public/offers/v1/events/:id/price_categories`,
+            mockErrorPiceCategoriesPostResponse,
+          ),
+          http.post(
+            `${api}/public/offers/v1/events/:id/dates`,
+            mockSuccessfullDatesPostResponse,
+          ),
+          http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+        );
+
+        server.listen();
+      });
+
+      afterAll(() => {
+        server.close();
+      });
+
+      describe('errored', () => {
+        let processed;
+
+        beforeAll(async () => {
+          const timingId = CArtEvents[0].timings.map(t => new Date(t.begin).getTime()).pop();
+          processed = await apply(pc, CArtEvents[0], {
+            venueId: 123,
+            category: 'CINE_PLEIN_AIR',
+            bookingContact: 'clem@oa.com',
+            priceCategories: [{
+              label: 'Tarif réduit',
+              price: 8,
+              id: 0,
+            }, {
+              label: 'Plein tarif',
+              price: 14,
+              id: 1,
+            }],
+            dates: [{
+              id: 2,
+              timingId,
+              priceCategoryId: 0,
+              quantity: 3,
+            }],
+          }, { ...settings });
+        });
+
+        test('all remaining operations stoped', () => {
+          expect(processed[1].error).toStrictEqual(new BadRequest({
+            info: {
+              'priceCategories.0.price': ['ensure this value is less than or equal to 30000'],
+            },
+          }, 'priceCategories create'));
         });
       });
     });

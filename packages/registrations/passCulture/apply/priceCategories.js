@@ -47,7 +47,7 @@ async function create(pc, passEventOfferId, _OAEvent, _processedEntries, entry) 
         passId: createdPriceCategories[index].id,
       })),
     },
-    remaining: error ? entry : undefined,
+    remaining: error ? entry.priceCategories : undefined,
     error,
   };
 }

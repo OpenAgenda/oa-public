@@ -15,17 +15,18 @@ export default function Dates({
   onRemove,
   onSubFormToggle,
   disabled = false,
+  error = false,
 }) {
-  const {
-    Button,
-  } = useContext(ComponentsContext);
+  const { Button } = useContext(ComponentsContext);
 
   const [newItem, setNewItem] = useState(initWithOpenForm);
   const [editing, setEditing] = useState(false);
 
   return (
     <>
-      <b>Dates</b>
+      <span className={`${error && error.length ? 'text-danger' : ''}`}>
+        <b>Dates</b> (Champ obligatoire)
+      </span>
       <DateItems
         value={value.dates ?? []}
         priceCategories={value.priceCategories ?? []}
@@ -38,6 +39,13 @@ export default function Dates({
         onChange={onChange}
         onRemove={onRemove}
       />
+      {error
+        && error.length > 0
+        && error.map(e => (
+          <div key={e.code} className="text-danger">
+            {e.label}
+          </div>
+        ))}
       {newItem ? (
         <DateForm
           value={newItem}

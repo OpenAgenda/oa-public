@@ -14,10 +14,19 @@ export default function Input({
   step = null,
   max = null,
   min = null,
+  error = false,
+  optional = true,
 }) {
   return (
-    <div className={`form-group margin-right-sm ${warning ? 'has-warning' : ''}`}>
-      {label ? (<label htmlFor={id} className={`margin-right-xs ${info ? 'margin-bottom-z' : ''}`}>{label}</label>) : null}
+    <div
+      className={`form-group margin-right-sm ${warning ? 'has-warning' : ''} ${error && error.length ? 'has-error' : ''}`}
+    >
+      {label ? (
+        <label htmlFor={id} className={`control-label margin-right-xs ${info ? 'margin-bottom-z' : ''}`}>
+          {label}
+        </label>
+      ) : null}
+      {!optional ? <span className={`${error && error.length ? 'text-danger' : ''}`}>(Champ obligatoire) </span> : null}
       {info ? <div className="margin-bottom-xs">{info}</div> : null}
       <input
         id={id}
@@ -31,8 +40,15 @@ export default function Input({
         min={min}
         step={step}
       />
-      {maxLength && type === 'string' ? (<FieldCounter value={value} max={maxLength} />) : null}
+      {maxLength && type === 'string' ? <FieldCounter value={value} max={maxLength} /> : null}
       {sub ? <span className="sub">{sub}</span> : null}
+      {error
+        && error.length > 0
+        && error.map(e => (
+          <div key={e.code} className="text-danger">
+            {e.label}
+          </div>
+        ))}
     </div>
   );
 }
