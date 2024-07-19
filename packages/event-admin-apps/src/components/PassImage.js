@@ -10,6 +10,14 @@ const messages = defineMessages({
     id: 'EventAdminApp.PassImage.linkPending',
     defaultMessage: 'This sheet is linked to a pending pass Culture offer',
   },
+  linkedRejected: {
+    id: 'EventAdminApp.PassImage.linkRejected',
+    defaultMessage: 'This sheet is linked to a rejected pass Culture offer',
+  },
+  linkedErrored: {
+    id: 'EventAdminApp.PassImage.linkErrored',
+    defaultMessage: 'This sheet is linked to a errored pass Culture offer',
+  },
   see: {
     id: 'EventAdminApp.PassImage.see',
     defaultMessage: 'See',
@@ -22,6 +30,8 @@ const messages = defineMessages({
 
 export default function PassImage({
   pending,
+  rejected,
+  errored,
   passId,
   passRes,
   passTabIsOpen,
@@ -30,7 +40,20 @@ export default function PassImage({
 }) {
   const intl = useIntl();
   const seeLink = passRes.show.replace(':id', passId);
-  const editLink = passRes.edit.replace(':id', passId); 
+  const editLink = passRes.edit.replace(':id', passId);
+  const imgSource = () => {
+    if (errored) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
+    if (rejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
+    if (pending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
+    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
+  };
+
+  const title = () => {
+    if (errored) return intl.formatMessage(messages.linkedErrored);
+    if (rejected) return intl.formatMessage(messages.linkedRejected);
+    if (pending) return intl.formatMessage(messages.linkedPending);
+    return intl.formatMessage(messages.linked);
+  };
 
   return (
     <span
@@ -47,9 +70,9 @@ export default function PassImage({
       `}
     >
       <img
-        src={pending ? "https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png" : "https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png"}
+        src={imgSource()}
         alt="logoPassCulture"
-        title={pending ? intl.formatMessage(messages.linkedPending) : intl.formatMessage(messages.linked)}
+        title={title()}
         onClick={() => setPassTab(passTabIsOpen ? null : eventUid) }
       />
       {passTabIsOpen ? (
