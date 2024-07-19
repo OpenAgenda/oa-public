@@ -1,0 +1,37 @@
+import add from './add.js';
+import Batch from './batch.js';
+import get from './get.js';
+import * as search from './search.js';
+import list from './list.js';
+import create from './create.js';
+import remove from './remove.js';
+import update from './update.js';
+import references from './references.js';
+import validate, { eventFields as validateEventFields } from './validate.js';
+
+export default core => {
+  const batch = Batch(core);
+  const resyncEvents = search.resyncEvents(core);
+
+  return agendaUid => ({
+    get: get.bind(null, core, agendaUid),
+    list: list.bind(null, core, agendaUid),
+    create: create.bind(null, core, agendaUid),
+    add: add.bind(null, core, agendaUid),
+    remove: remove.bind(null, core, agendaUid),
+    update: update.bind(null, core, agendaUid),
+    patch: update.patch.bind(null, core, agendaUid),
+    references: references.bind(null, core, agendaUid),
+    validate: Object.assign(
+      validate.bind(null, core, agendaUid),
+      { eventFields: validateEventFields },
+    ),
+    batch: batch.bind(null, agendaUid),
+    search: Object.assign(search.default.bind(null, core, agendaUid), {
+      rebuild: search.rebuild.bind(null, core, agendaUid),
+      resyncEvent: search.resyncEvent.bind(null, core, agendaUid),
+      resyncEvents: resyncEvents.bind(null, agendaUid),
+      get: search.get.bind(null, core, agendaUid),
+    }),
+  });
+};
