@@ -26,7 +26,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     OAEvent: { uid: OAEvent.uid },
   };
 
-  const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
+  const { categories: categoriesFromOptions, related: relatedFromOptions, simulateRejected = false } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
     ? await pc.offers.events.categories.list()
@@ -71,15 +71,28 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   }
 
   const wasPending = firstItem?.response?.isPending;
-  const isStillPending = wasPending
-    && await pc.offers
-      .events(firstItem.response.passId)
-      .get()
-      .then(({ status }) => status === 'PENDING');
+  const fetchedStatus = wasPending && await pc.offers.events(firstItem.response.passId).get().then(({ status }) => status);
+  const isStillPending = wasPending && fetchedStatus === 'PENDING';
+  const isRejected = wasPending && fetchedStatus === 'REJECTED';
 
   if (isStillPending) {
     log.info('is still pending, no action taken', logBundle);
     return dataEntries;
+  }
+
+  if (isRejected || simulateRejected) {
+    log.info('was pending at previous apply but is now rejected', logBundle);
+    processed.push({
+      response: {
+        isPending: false,
+        isRejected: true,
+      },
+      appliedAt: new Date(),
+      operation: 'get',
+    });
+    log('done', { ...logBundle, processed });
+
+    return processed;
   }
 
   if (wasPending) {

@@ -66,7 +66,7 @@ export default function validateEventOffer(data, options = {}) {
     errors.push({
       message: 'venueId is required and must be an integer',
       code: 'registration.pass.invalidVenueId',
-      label: 'Un lieu valid doit être défini',
+      label: 'Un lieu valide doit être défini',
       field: 'venueId',
     });
   }
