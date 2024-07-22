@@ -20,9 +20,6 @@ export default class APIEventsStream extends Readable {
     this.count = 0;
     this.max = max;
     this.query = query ?? {};
-    this.startTime = Date.now();
-
-    log.info('Starting API request', { agendaUID: this.agendaUID, params: this.query });
   }
 
   _pushEvent() {
@@ -69,17 +66,6 @@ export default class APIEventsStream extends Readable {
 
             if (!events.length) {
               this.push(null);
-
-              const endTime = Date.now();
-              const responseTime = endTime - this.startTime;
-
-              log.info('Completed API response', {
-                agendaUID: this.agendaUID,
-                params: this.query,
-                responseTime: `${responseTime}ms`,
-                eventsGenerated: this.count,
-              });
-
               return;
             }
 
