@@ -30,7 +30,7 @@ export default async function cloneAndBuild({ dir, envVars, nodeGroups }) {
 
   await fs.writeFile(`${dir}/next.local`, nextEnvVars.join('\n'));
 
-  await fs.writeFile(`${dir}/prod.mjs`, ['export default {};'].join('\n'));
+  await fs.writeFile(`${dir}/prod.js`, ['export default {};'].join('\n'));
 
   const buildCommands = [
     `cd ${dir}`,
@@ -44,7 +44,7 @@ export default async function cloneAndBuild({ dir, envVars, nodeGroups }) {
     `cd packages/cibul-templates`,
     `yarn build:${nodeEnv === 'production' ? 'prod' : 'dev'}`,
     `cp ${dir}/next.local ${dir}/oa/packages/next/.env.local`,
-    `cp ${dir}/prod.mjs ${dir}/oa/packages/cibul-node/config/prod.mjs`,
+    `cp ${dir}/prod.mjs ${dir}/oa/packages/cibul-node/config/prod.js`,
     `cd ${dir}/oa/packages/next`,
     `yarn build`,
   ];

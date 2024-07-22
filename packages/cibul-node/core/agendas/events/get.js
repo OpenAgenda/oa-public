@@ -1,0 +1,120 @@
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import createPayload from '../utils/createPayload.js';
+import getAgenda from '../utils/getAgenda.js';
+import * as convertLongDescription from './lib/convertLongDescription.js';
+
+const log = logs('core/agendas/events/get');
+
+export default async (core, agendaUid, eventUid, options = {}) => {
+  log('info', 'getting', { agendaUid, eventUid });
+
+  const {
+    services,
+  } = core;
+
+  const {
+    events,
+    custom,
+    agendaEvents,
+  } = services;
+
+  const {
+    lang,
+    load,
+    access,
+    returnPayload,
+    detailed,
+    useDateHoursMinutesFormat,
+    useLocationObjectFormat,
+    longDescriptionFormat,
+    includeEmbedScripts,
+    cspNonce,
+    private: loadPrivate,
+  } = {
+    lang: null,
+    load: {
+      event: true,
+      custom: true,
+      agendaEvent: true,
+      member: true,
+    },
+    access: 'public',
+    returnPayload: false,
+    detailed: false,
+    useDateHoursMinutesFormat: false,
+    useLocationObjectFormat: false,
+    longDescriptionFormat: null,
+    includeEmbedScripts: true,
+    cspNonce: null,
+    private: false,
+    ...options,
+  };
+
+  const agenda = await getAgenda(services, agendaUid, { detailed: true });
+
+  const payload = createPayload(core, agenda);
+
+  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
+    decorate: ['member'].concat(detailed ? ['sourceAgendas'] : []),
+  });
+
+  payload.setItem('agendaEvent', agendaEvent);
+
+  if (load.event) {
+    const event = await events.get(eventUid, {
+      access: access === 'internal' ? 'internal' : 'public',
+      detailed,
+      lang,
+      useFallbackLang: true,
+      useDateHoursMinutesFormat,
+      useLocationObjectFormat,
+      private: loadPrivate,
+    });
+
+    if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
+      event.longDescription = convertLongDescription.default(event, {
+        services,
+        conversion: longDescriptionFormat,
+        includeEmbedScripts,
+        cspNonce,
+      });
+    }
+    log('event fetched');
+    payload.setItem('event', event);
+  }
+
+  if (
+    payload.hasItem('event')
+    && !payload.hasItem('agendaEvent')
+    && !payload.getItem('event').draft
+  ) return null;
+
+  if (
+    payload.hasItem('event')
+    && payload.getItem('event').draft
+    && payload.getItem('event.agendaUid') !== agenda.uid
+  ) return null;
+
+  if (!payload.hasItem('event') && load.event) {
+    return returnPayload ? payload.getResponse('event', access) : null;
+  }
+
+  if (load.custom && agenda.formSchemaId) {
+    payload.setItem(
+      'custom.agenda',
+      await custom(agenda.formSchemaId).get(eventUid),
+    );
+  }
+
+  if (load.custom && agenda.network) {
+    payload.setItem(
+      'custom.network',
+      await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid),
+    );
+  }
+
+  const result = await payload.getResponse('event', { access, load });
+
+  return returnPayload ? result : result.event;
+};
