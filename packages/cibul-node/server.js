@@ -26,6 +26,7 @@ import sentryErrorHandler from './lib/sentryErrorHandler.js';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import * as logContextMw from './lib/logContextMw.js';
+import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
@@ -68,6 +69,7 @@ try {
     sessions.mw.load({ detailed: true }),
     logContextMw.withUserUid,
     logRequestMw,
+    redirectRootLangPaths,
   );
 
   // load gen url everywhere
@@ -128,14 +130,7 @@ try {
   if (API) {
     express()
       .set('trust proxy', ['loopback', 'uniquelocal'])
-      .use(
-        '/v2',
-        logContextMw.withContext,
-        Sentry.Handlers.requestHandler(),
-        secureHeaders,
-        logRequestMw,
-        api,
-      )
+      .use('/v2', logContextMw.withContext, Sentry.Handlers.requestHandler(), secureHeaders, logRequestMw, api)
       .listen(config.apiPort, () => {
         console.log(`-- API listening on port ${config.apiPort} --`);
       });

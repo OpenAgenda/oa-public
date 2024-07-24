@@ -43,7 +43,7 @@ function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMo
       </div>
     );
   }
-  if (patchMode) return <div className="text-muted">Je souhaite metre à jour mon offre pass culture pour cet événement</div>;
+  if (patchMode) return <div className="text-muted">Je souhaite mettre à jour mon offre pass culture pour cet événement</div>;
   return <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>;
 }
 
