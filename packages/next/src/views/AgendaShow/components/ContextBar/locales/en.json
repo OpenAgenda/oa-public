@@ -10,11 +10,11 @@
   "next.views.AgendaShow.ContextBar.inModeration": "{count, number} in moderation",
   "next.views.AgendaShow.ContextBar.inModerationModalInfo": "The following events should be reviewed by the moderators of the agenda before they are published.",
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": "Events in moderation",
-  "next.views.AgendaShow.ContextBar.indexed": "Indexed agenda",
+  "next.views.AgendaShow.ContextBar.indexed": "Indexed",
   "next.views.AgendaShow.ContextBar.manage": "Manage",
   "next.views.AgendaShow.ContextBar.myEvents": "My events in this agenda:",
   "next.views.AgendaShow.ContextBar.notContributed": "You haven't submitted any events to this agenda yet.",
-  "next.views.AgendaShow.ContextBar.private": "Private agenda",
+  "next.views.AgendaShow.ContextBar.private": "Private",
   "next.views.AgendaShow.ContextBar.published": "{count, number} published",
   "next.views.AgendaShow.ContextBar.publishedModalInfo": "These events have been published and are accessible by the viewers of the agenda.",
   "next.views.AgendaShow.ContextBar.publishedModalTitle": "Events published",
@@ -26,6 +26,6 @@
   "next.views.AgendaShow.ContextBar.toBeModerated": "{count, number} to be moderated",
   "next.views.AgendaShow.ContextBar.undefinedDescription": "Undefined description",
   "next.views.AgendaShow.ContextBar.undefinedTitle": "Draft event without title",
-  "next.views.AgendaShow.ContextBar.unindexed": "Unindexed agenda",
+  "next.views.AgendaShow.ContextBar.unindexed": "Unindexed",
   "next.views.AgendaShow.ContextBar.visibility": "Visibility:"
 }
