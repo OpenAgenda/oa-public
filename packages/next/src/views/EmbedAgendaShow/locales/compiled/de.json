@@ -8,7 +8,7 @@
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
     {
       "type": 0,
-      "value": "Remove filter ("
+      "value": "Filter entfernen ("
     },
     {
       "type": 1,
@@ -28,7 +28,7 @@
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Mehr sehen"
     }
   ]
 }

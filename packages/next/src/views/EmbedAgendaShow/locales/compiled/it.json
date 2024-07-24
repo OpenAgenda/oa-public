@@ -22,13 +22,13 @@
   "next.views.EmbedAgendaShow.search": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cerca"
     }
   ],
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Vedere di più"
     }
   ]
 }

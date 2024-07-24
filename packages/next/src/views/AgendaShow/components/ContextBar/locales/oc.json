@@ -14,7 +14,7 @@
   "next.views.AgendaShow.ContextBar.manage": "Gerir",
   "next.views.AgendaShow.ContextBar.myEvents": "Mos eveniments dins aquesta agenda :",
   "next.views.AgendaShow.ContextBar.notContributed": "Avètz pas encara sometut cap eveniment dins aquesta agenda.",
-  "next.views.AgendaShow.ContextBar.private": "",
+  "next.views.AgendaShow.ContextBar.private": "Privat",
   "next.views.AgendaShow.ContextBar.published": "{count, number} publicats",
   "next.views.AgendaShow.ContextBar.publishedModalInfo": "Aquestes eveniments son estats publicats e se pòdon veire pels visitaires de l'agenda.",
   "next.views.AgendaShow.ContextBar.publishedModalTitle": "Eveniments publicats",

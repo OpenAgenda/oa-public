@@ -2,7 +2,7 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Remove filter"
+      "value": "Eliminar filtro"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
@@ -22,7 +22,7 @@
   "next.views.EmbedAgendaShow.search": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Buscar"
     }
   ],
   "next.views.EmbedAgendaShow.seeMore": [

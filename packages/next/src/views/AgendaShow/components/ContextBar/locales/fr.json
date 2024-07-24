@@ -27,5 +27,5 @@
   "next.views.AgendaShow.ContextBar.undefinedDescription": "Description non saisie",
   "next.views.AgendaShow.ContextBar.undefinedTitle": "Événement brouillon sans titre",
   "next.views.AgendaShow.ContextBar.unindexed": "Désindexé",
-  "next.views.AgendaShow.ContextBar.visibility": "Visibilité"
+  "next.views.AgendaShow.ContextBar.visibility": "Visibilité:"
 }

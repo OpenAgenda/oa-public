@@ -14,7 +14,7 @@
   "next.views.AgendaShow.ContextBar.manage": "Gestire",
   "next.views.AgendaShow.ContextBar.myEvents": "I miei eventi in questa agenda:",
   "next.views.AgendaShow.ContextBar.notContributed": "Non hai ancora inserito nessun evento in questa agenda.",
-  "next.views.AgendaShow.ContextBar.private": "",
+  "next.views.AgendaShow.ContextBar.private": "Privato",
   "next.views.AgendaShow.ContextBar.published": "{count, number} pubblicati",
   "next.views.AgendaShow.ContextBar.publishedModalInfo": "Questi eventi sono stati pubblicati e sono accessibili agli lettori dell'agenda.",
   "next.views.AgendaShow.ContextBar.publishedModalTitle": "Eventi pubblicati",

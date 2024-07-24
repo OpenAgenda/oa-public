@@ -102,7 +102,7 @@
   "next.views.AgendaShow.ContextBar.private": [
     {
       "type": 0,
-      "value": "Private agenda"
+      "value": "Privato"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [

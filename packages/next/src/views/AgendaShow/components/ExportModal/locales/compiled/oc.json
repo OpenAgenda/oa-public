@@ -32,13 +32,13 @@
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
-      "value": "Copié"
+      "value": "Copiat"
     }
   ],
   "next.views.AgendaShow.ExportModal.copy": [
     {
       "type": 0,
-      "value": "Copier"
+      "value": "Copiar"
     }
   ],
   "next.views.AgendaShow.ExportModal.default": [

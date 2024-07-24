@@ -270,7 +270,7 @@
   "next.views.AgendaShow.ContextBar.visibility": [
     {
       "type": 0,
-      "value": "Visibilité"
+      "value": "Visibilité:"
     }
   ]
 }
