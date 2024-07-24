@@ -4,19 +4,20 @@ import { css } from '@emotion/react';
 const messages = defineMessages({
   linked: {
     id: 'EventAdminApp.PassImage.link',
-    defaultMessage: 'This sheet is linked to a pass Culture offer',
+    defaultMessage: 'This event is linked to a pass Culture offer',
   },
   linkedPending: {
     id: 'EventAdminApp.PassImage.linkPending',
-    defaultMessage: 'This sheet is linked to a pending pass Culture offer',
+    defaultMessage: 'This event is linked to a pending pass Culture offer',
   },
   linkedRejected: {
     id: 'EventAdminApp.PassImage.linkRejected',
-    defaultMessage: 'This sheet is linked to a rejected pass Culture offer',
+    defaultMessage: 'The pass Culture offer linked to the event was rejected',
   },
   linkedErrored: {
     id: 'EventAdminApp.PassImage.linkErrored',
-    defaultMessage: 'This sheet is linked to a errored pass Culture offer',
+    defaultMessage:
+      'A problem occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution.',
   },
   see: {
     id: 'EventAdminApp.PassImage.see',
@@ -56,30 +57,34 @@ export default function PassImage({
   };
 
   return (
-    <span
+    <button
+      type="button"
+      onClick={() => setPassTab(passTabIsOpen ? null : eventUid)}
       className="badge badge-default margin-left-xs"
-      css={passTabIsOpen ? css`
-      padding: 0px 6px 0px 1px;
-      border-radius: 15px;
-      cursor: pointer;
-      ` : css`
-      padding: 0px 6px 0px 1px;
-      cursor: pointer;
-      border-radius: 15px;
-      border-color: transparent;
-      `}
+      css={
+        passTabIsOpen
+          ? css`
+              padding: 0px 6px 0px 1px;
+              border-radius: 15px;
+              cursor: pointer;
+            `
+          : css`
+              padding: 0px 6px 0px 1px;
+              cursor: pointer;
+              border-radius: 15px;
+              border-color: transparent;
+            `
+      }
     >
-      <img
-        src={imgSource()}
-        alt="logoPassCulture"
-        title={title()}
-        onClick={() => setPassTab(passTabIsOpen ? null : eventUid) }
-      />
+      <img src={imgSource()} alt="logoPassCulture" title={title()} />
       {passTabIsOpen ? (
         <span>
-          <a className="margin-left-xs" href={seeLink}>{intl.formatMessage(messages.see)}</a> - <a href={editLink}>{intl.formatMessage(messages.edit)}</a>
+          <a className="margin-left-xs" href={seeLink}>
+            {intl.formatMessage(messages.see)}
+          </a>{' '}
+          - <a href={editLink}>{intl.formatMessage(messages.edit)}</a>
         </span>
-      ) : null }
-    </span>
+      ) : null}
+    </button>
   );
 }

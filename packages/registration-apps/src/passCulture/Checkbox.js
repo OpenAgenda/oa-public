@@ -52,7 +52,7 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
   const [hasAccess, setHasAccess] = useState(false);
-  console.log('Checkbox.js: conditions:', conditions);
+
   const patchMode = useMemo(() => isPatchMode(value || []), [value]);
 
   const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
