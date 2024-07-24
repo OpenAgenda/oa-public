@@ -7,18 +7,13 @@ import FormModal from './FormModal';
 import UnlinkModal from './UnlinkModal';
 import { logoPath, rejectedLogoPath, errorLogoPath, pendingLogoPath, isPatchMode } from './utils';
 
-function checkboxText({
-  offerWasRejected,
-  offerIsPending,
-  offerHasError,
-  patchMode,
-  settings,
-  value,
-}) {
+function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMode, settings, value }) {
   if (offerWasRejected) {
     return (
       <>
-        <div className="text-danger">Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case pour la dissocier.</div>
+        <div className="text-danger margin-top-xs">
+          Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case pour la dissocier.
+        </div>
         <a
           rel="noreferrer"
           className="btn btn-link padding-all-z"
@@ -30,29 +25,33 @@ function checkboxText({
       </>
     );
   }
-  if (offerIsPending) return (<div className="text-warning">L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</div>);
-  if (offerHasError) {
+  if (offerIsPending) {
     return (
-      <div className="text-danger">L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
-        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`} className="link-primary">
-          Contacter le support
-        </a>
-      </div>
+      <div className="text-warning">L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</div>
     );
   }
-  if (patchMode) return (<div className="text-muted">Je souhaite metre à jour mon offre pass culture pour cet événement</div>);
-  return (<div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>);
+  if (offerHasError) {
+    return (
+      <>
+        <div className="text-danger margin-top-xs">
+          L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
+        </div>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`}
+          className="btn btn-link padding-all-z"
+        >
+          Contacter le support
+        </a>
+      </>
+    );
+  }
+  if (patchMode) return <div className="text-muted">Je souhaite metre à jour mon offre pass culture pour cet événement</div>;
+  return <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>;
 }
 
-export default ({
-  value,
-  onChange,
-  timings = [],
-  settings,
-  location,
-  longDesc,
-  title,
-}) => {
+export default ({ value, onChange, timings = [], settings, location, longDesc, title }) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
@@ -84,9 +83,16 @@ export default ({
   }, [timings]);
 
   const issues = useMemo(
-    () => []
-      .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
-      .concat(hasData && hasSettingsData && !validateLocalData(currentValue, { timings }, { boolMode: true, ...passSettingsData }) ? 'Les données Pass saisies sont soit erronées soit incomplètes.' : []),
+    () =>
+      []
+        .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
+        .concat(
+          hasData
+            && hasSettingsData
+            && !validateLocalData(currentValue, { timings }, { boolMode: true, ...passSettingsData })
+            ? 'Les données Pass saisies sont soit erronées soit incomplètes.'
+            : [],
+        ),
     [upcomingTimings, hasData, timings, passSettingsData, hasSettingsData, currentValue],
   );
 
@@ -102,7 +108,8 @@ export default ({
       .then(r => r.json())
       .then(data => {
         setHasAccess(['administrator', 'moderator'].includes(data.me.member?.role));
-      }).catch(() => {
+      })
+      .catch(() => {
         setHasAccess(false);
       });
   }, [settings]);
@@ -122,11 +129,14 @@ export default ({
     setModal(null);
   }, [onChange, patchMode, value]);
 
-  const onSubmit = useCallback(v => {
-    if (v.eventDuration === '') delete v.eventDuration;
-    onChange(v);
-    setModal(null);
-  }, [onChange]);
+  const onSubmit = useCallback(
+    v => {
+      if (v.eventDuration === '') delete v.eventDuration;
+      onChange(v);
+      setModal(null);
+    },
+    [onChange],
+  );
 
   if (!hasAccess) {
     return null;
@@ -166,14 +176,9 @@ export default ({
             type="checkbox"
             checked={!!value}
             onChange={onCheck}
-            disabled={(!hasData && !upcomingTimings.length)}
+            disabled={!hasData && !upcomingTimings.length}
           />
-          <Image
-            className="margin-left-sm"
-            src={currLogoPath}
-            alt="Logo Pass Culture"
-            width={100}
-          />
+          <Image className="margin-left-sm" src={currLogoPath} alt="Logo Pass Culture" width={100} />
           {checkboxText({
             offerWasRejected,
             offerIsPending,
@@ -183,9 +188,10 @@ export default ({
             value,
           })}
           {!patchMode && !isLoadingPassData && issues.length ? (
-            <ul className="padding-left-sm">{issues.map(issue => (
-              <li className="text-danger">{issue}</li>
-            ))}
+            <ul className="padding-left-sm">
+              {issues.map(issue => (
+                <li className="text-danger">{issue}</li>
+              ))}
             </ul>
           ) : null}
         </label>
