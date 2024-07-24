@@ -24,7 +24,7 @@ function Registration(props) {
     lang = 'en',
     role,
   } = props;
-
+  console.log('registration.js: relatedValues:', relatedValues);
   const { StandardRegistrationField } = useContext(ComponentsContext);
 
   const { passCulture: passCultureValue, standard: standardValue } = spreadRegistrationValuesByService(value);
@@ -78,6 +78,7 @@ function Registration(props) {
           location={relatedValues?.other?.location ?? {}}
           title={relatedValues?.other?.title?.fr || relatedValues?.other?.title || null}
           longDesc={relatedValues?.other?.longDescription?.fr || relatedValues?.other?.longDescription || null}
+          conditions={relatedValues?.other?.conditions?.fr || relatedValues?.other?.conditions || null}
           onChange={updatedPassCultureValue =>
             propsOnChange(
               mergeSpreadRegistrationValues({
