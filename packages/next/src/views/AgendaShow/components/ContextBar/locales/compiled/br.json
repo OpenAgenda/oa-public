@@ -95,7 +95,7 @@
   "next.views.AgendaShow.ContextBar.indexed": [
     {
       "type": 0,
-      "value": "Indexed agenda"
+      "value": "Indexé"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
@@ -119,7 +119,7 @@
   "next.views.AgendaShow.ContextBar.private": [
     {
       "type": 0,
-      "value": "Private agenda"
+      "value": "Privé"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
@@ -264,13 +264,13 @@
   "next.views.AgendaShow.ContextBar.unindexed": [
     {
       "type": 0,
-      "value": "Unindexed agenda"
+      "value": "Désindexé"
     }
   ],
   "next.views.AgendaShow.ContextBar.visibility": [
     {
       "type": 0,
-      "value": "Visibility:"
+      "value": "Visibilité"
     }
   ]
 }

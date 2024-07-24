@@ -118,15 +118,15 @@ const messages = defineMessages({
   },
   private: {
     id: 'next.views.AgendaShow.ContextBar.private',
-    defaultMessage: 'Private agenda',
+    defaultMessage: 'Private',
   },
   indexed: {
     id: 'next.views.AgendaShow.ContextBar.indexed',
-    defaultMessage: 'Indexed agenda',
+    defaultMessage: 'Indexed',
   },
   unindexed: {
     id: 'next.views.AgendaShow.ContextBar.unindexed',
-    defaultMessage: 'Unindexed agenda',
+    defaultMessage: 'Unindexed',
   },
 });
 
