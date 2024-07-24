@@ -10,9 +10,11 @@
   "next.views.AgendaShow.ContextBar.inModeration": "",
   "next.views.AgendaShow.ContextBar.inModerationModalInfo": "",
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": "",
+  "next.views.AgendaShow.ContextBar.indexed": "",
   "next.views.AgendaShow.ContextBar.manage": "",
   "next.views.AgendaShow.ContextBar.myEvents": "",
   "next.views.AgendaShow.ContextBar.notContributed": "",
+  "next.views.AgendaShow.ContextBar.private": "",
   "next.views.AgendaShow.ContextBar.published": "",
   "next.views.AgendaShow.ContextBar.publishedModalInfo": "",
   "next.views.AgendaShow.ContextBar.publishedModalTitle": "",
@@ -23,5 +25,7 @@
   "next.views.AgendaShow.ContextBar.show": "",
   "next.views.AgendaShow.ContextBar.toBeModerated": "",
   "next.views.AgendaShow.ContextBar.undefinedDescription": "",
-  "next.views.AgendaShow.ContextBar.undefinedTitle": ""
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "",
+  "next.views.AgendaShow.ContextBar.unindexed": "",
+  "next.views.AgendaShow.ContextBar.visibility": ""
 }
