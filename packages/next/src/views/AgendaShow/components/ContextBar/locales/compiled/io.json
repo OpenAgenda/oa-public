@@ -81,6 +81,12 @@
       "value": "crwdns33123:0crwdne33123:0"
     }
   ],
+  "next.views.AgendaShow.ContextBar.indexed": [
+    {
+      "type": 0,
+      "value": "Indexed agenda"
+    }
+  ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
@@ -97,6 +103,12 @@
     {
       "type": 0,
       "value": "crwdns33129:0crwdne33129:0"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.private": [
+    {
+      "type": 0,
+      "value": "Private agenda"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
@@ -195,6 +207,18 @@
     {
       "type": 0,
       "value": "crwdns33151:0crwdne33151:0"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.unindexed": [
+    {
+      "type": 0,
+      "value": "Unindexed agenda"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.visibility": [
+    {
+      "type": 0,
+      "value": "Visibility:"
     }
   ]
 }

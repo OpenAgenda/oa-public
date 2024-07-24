@@ -8,9 +8,7 @@ import agendaFixtures from '../../fixtures/mel.agenda.json';
 export default {
   title: 'views/AgendaShow/ContextBar',
   component: ContextBar,
-  loaders: [
-    intlMessagesLoader(AgendaShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(AgendaShow.fetchLocale)],
   decorators: [ProvidersDecorator],
 };
 
@@ -19,16 +17,17 @@ export const Contributor = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
-          me: {
-            member: {
-              role: 'contributor',
+        http.get('/api/me/agendas/:agendaUid', () =>
+          HttpResponse.json({
+            me: {
+              member: {
+                role: 'contributor',
+              },
+              events: {
+                states: [],
+              },
             },
-            events: {
-              states: [],
-            },
-          },
-        })),
+          })),
       ],
     },
   },
@@ -39,62 +38,70 @@ export const ContributorWithDrafts = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
-          me: {
-            member: {
-              role: 'contributor',
+        http.get('/api/me/agendas/:agendaUid', () =>
+          HttpResponse.json({
+            me: {
+              member: {
+                role: 'contributor',
+              },
+              events: {
+                states: [
+                  {
+                    key: -1,
+                    eventCount: 2,
+                  },
+                  {
+                    key: 0,
+                    eventCount: 4,
+                  },
+                  {
+                    key: 1,
+                    eventCount: 6,
+                  },
+                  {
+                    key: 2,
+                    eventCount: 8,
+                  },
+                ],
+                drafts: 8,
+              },
             },
-            events: {
-              states: [{
-                key: -1,
-                eventCount: 2,
-              }, {
-                key: 0,
-                eventCount: 4,
-              }, {
-                key: 1,
-                eventCount: 6,
-              }, {
-                key: 2,
-                eventCount: 8,
-              }],
-              drafts: 8,
-            },
-          },
-        })),
-        http.get('/api/me/agendas/:agendaUid/events/drafts', () => HttpResponse.json({
-          events: [
-            {
-              uid: 1,
-              slug: 'test',
-              title: 'Test',
-              draft: true,
-            },
-            {
-              uid: 2,
-              slug: 'test-2',
-              title: 'Test 2',
-              description: 'Un test',
-              draft: true,
-            },
-          ],
-        })),
-        http.get('/api/me/agendas/:agendaUid/events', () => HttpResponse.json({
-          events: [
-            {
-              uid: 1,
-              slug: 'test',
-              title: 'Test',
-              description: 'Un test',
-            },
-            {
-              uid: 2,
-              slug: 'test-2',
-              title: 'Test 2',
-              description: 'Un test',
-            },
-          ],
-        })),
+          })),
+        http.get('/api/me/agendas/:agendaUid/events/drafts', () =>
+          HttpResponse.json({
+            events: [
+              {
+                uid: 1,
+                slug: 'test',
+                title: 'Test',
+                draft: true,
+              },
+              {
+                uid: 2,
+                slug: 'test-2',
+                title: 'Test 2',
+                description: 'Un test',
+                draft: true,
+              },
+            ],
+          })),
+        http.get('/api/me/agendas/:agendaUid/events', () =>
+          HttpResponse.json({
+            events: [
+              {
+                uid: 1,
+                slug: 'test',
+                title: 'Test',
+                description: 'Un test',
+              },
+              {
+                uid: 2,
+                slug: 'test-2',
+                title: 'Test 2',
+                description: 'Un test',
+              },
+            ],
+          })),
       ],
     },
   },
@@ -105,47 +112,73 @@ export const Moderators = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/me/agendas/:agendaUid', () => HttpResponse.json({
-          me: {
-            member: {
-              role: 'moderator',
+        http.get('/api/me/agendas/:agendaUid', () =>
+          HttpResponse.json({
+            me: {
+              member: {
+                role: 'moderator',
+              },
+              events: {},
             },
-            events: {},
-          },
-          events: {
-            states: [{
-              key: -1,
-              eventCount: 2,
-            }, {
-              key: 0,
-              eventCount: 4,
-            }, {
-              key: 1,
-              eventCount: 6,
-            }, {
-              key: 2,
-              eventCount: 8,
-            }],
-            drafts: 8,
-          },
-        })),
-        http.get('/api/me/agendas/:agendaUid/events', () => HttpResponse.json({
-          events: [
-            {
-              uid: 1,
-              slug: 'test',
-              title: 'Test',
-              draft: true,
+            events: {
+              states: [
+                {
+                  key: -1,
+                  eventCount: 2,
+                },
+                {
+                  key: 0,
+                  eventCount: 4,
+                },
+                {
+                  key: 1,
+                  eventCount: 6,
+                },
+                {
+                  key: 2,
+                  eventCount: 8,
+                },
+              ],
+              drafts: 8,
             },
-            {
-              uid: 2,
-              slug: 'test-2',
-              title: 'Test 2',
-              description: 'Un test',
-              draft: true,
+          })),
+        http.get('/api/me/agendas/:agendaUid/events', () =>
+          HttpResponse.json({
+            events: [
+              {
+                uid: 1,
+                slug: 'test',
+                title: 'Test',
+                draft: true,
+              },
+              {
+                uid: 2,
+                slug: 'test-2',
+                title: 'Test 2',
+                description: 'Un test',
+                draft: true,
+              },
+            ],
+          })),
+      ],
+    },
+  },
+};
+
+export const Visibility = {
+  render: () => <ContextBar agenda={{ ...agendaFixtures, private: 1 }} />,
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/me/agendas/:agendaUid', () =>
+          HttpResponse.json({
+            me: {
+              member: {
+                role: 'moderator',
+              },
+              events: {},
             },
-          ],
-        })),
+          })),
       ],
     },
   },
