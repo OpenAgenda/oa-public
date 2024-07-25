@@ -1,8 +1,34 @@
 {
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "Tirar lo filtre"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilterWithTitle": [
+    {
+      "type": 0,
+      "value": "Tirar lo filtre ("
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.views.EmbedAgendaShow.search": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Ne véser mai"
     }
   ]
 }

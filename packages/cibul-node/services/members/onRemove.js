@@ -1,9 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import membersSvc from '@openagenda/members';
+import logs from '@openagenda/logs';
+import clearCache from './lib/clearCache.js';
 
-const _ = require('lodash');
-const { isSuperiorToOrEqual } = require('@openagenda/members').utils.compareRoles;
-const clearCache = require('./lib/clearCache');
-const log = require('@openagenda/logs')('services/members/onRemove');
+const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersSvc;
+
+const log = logs('services/members/onRemove');
 
 async function removeInvitationsToMember({ invitations }, member) {
   const { invitation } = await invitations.get({ email: member.custom.email });
@@ -21,7 +23,7 @@ async function removeInvitationsToMember({ invitations }, member) {
   }
 }
 
-module.exports = function onRemove({ services, members, activityQueue }) {
+export default function onRemove({ services, members, activityQueue }) {
   return async (member, context) => {
     log('removed', member);
 
@@ -34,7 +36,6 @@ module.exports = function onRemove({ services, members, activityQueue }) {
       legacy: {
         controlData: controlDataSvc,
       },
-      simpleCache,
     } = services;
 
     const { Inbox } = inboxes;
@@ -126,4 +127,4 @@ module.exports = function onRemove({ services, members, activityQueue }) {
       log('error', 'failed', { member, exception: e });
     }
   };
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-const validateEvent = require('../core/agendas/utils/cleanEvent/validateEvent');
+import validateEvent from '../core/agendas/utils/cleanEvent/validateEvent.js';
 
 describe('98 - core unit - cleanEvent', () => {
   describe('validateEvent', () => {

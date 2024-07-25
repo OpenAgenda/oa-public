@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 const map = [{
   legacy: 'contactName',
@@ -19,7 +17,7 @@ const map = [{
   field: 'organization',
 }];
 
-module.exports = (membersSvc, item, options) => {
+export default (membersSvc, item, options) => {
   const {
     detailed = false,
     roleAsSlug = true,
@@ -44,9 +42,11 @@ module.exports = (membersSvc, item, options) => {
   };
 };
 
-module.exports.custom = item => map
-  .filter(m => item[m.field] !== undefined)
-  .reduce((carry, mapItem) => ({
-    ...carry,
-    [mapItem.legacy]: item[mapItem.field],
-  }), {});
+export function custom(item) {
+  return map
+    .filter(m => item[m.field] !== undefined)
+    .reduce((carry, mapItem) => ({
+      ...carry,
+      [mapItem.legacy]: item[mapItem.field],
+    }), {});
+}

@@ -1,12 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import getAgenda from '../../utils/getAgenda.js';
+import updateLegacyFromSchema from './updateLegacySetFromSchema.js';
+import updateCustomFromSchema from './updateCustomFromSchema.js';
 
-const _ = require('lodash');
-
-const log = require('@openagenda/logs')('core/agendas/settings/legacy/update');
-
-const getAgenda = require('../../utils/getAgenda');
-const updateLegacyFromSchema = require('./updateLegacySetFromSchema');
-const updateCustomFromSchema = require('./updateCustomFromSchema');
+const log = logs('core/agendas/settings/legacy/update');
 
 const updateTagSetFromSchema = updateLegacyFromSchema('tags');
 const updateCategorySetFromSchema = updateLegacyFromSchema('categories');
@@ -27,7 +25,7 @@ function _loadAgenda(services, agendaOrUid) {
   return agendaOrUid;
 }
 
-module.exports = async (core, agendaOrUid, force = false) => {
+export default async (core, agendaOrUid, force = false) => {
   const agenda = await _loadAgenda(core.services, agendaOrUid);
   const {
     services,

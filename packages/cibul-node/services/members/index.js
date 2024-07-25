@@ -1,29 +1,24 @@
-'use strict';
+import Service from '@openagenda/members';
+import logs from '@openagenda/logs';
+import activitiesTask from './lib/activities.js';
+import getEventCountByUserUid from './getEventCountByUserUid.js';
+import getUsersByUid from './getUsersByUid.js';
+import getUserByEmail from './getUserByEmail.js';
+import getAgendasByUid from './getAgendasByUid.js';
+import onCreate from './onCreate.js';
+import onRemove from './onRemove.js';
+import onPatch from './onPatch.js';
+import plugApp from './plugApp.js';
+import * as mw from './middleware/index.js';
+import listAllAdminMods from './lib/listAllAdminMods.js';
+import SendGroupMail from './lib/SendGroupMail/index.js';
 
-const Service = require('@openagenda/members');
-const log = require('@openagenda/logs')('services/members');
-
-const activitiesTask = require('./lib/activities');
-
-const getEventCountByUserUid = require('./getEventCountByUserUid');
-const getUsersByUid = require('./getUsersByUid');
-const getUserByEmail = require('./getUserByEmail');
-const getAgendasByUid = require('./getAgendasByUid');
-const onCreate = require('./onCreate');
-const onRemove = require('./onRemove');
-const onPatch = require('./onPatch');
-
-const plugApp = require('./plugApp');
-const mw = require('./middleware');
-const listAllAdminMods = require('./lib/listAllAdminMods');
-const SendGroupMail = require('./lib/SendGroupMail');
+const log = logs('services/members');
 
 const members = {};
 
-function init(config, services) {
-  const {
-    queues,
-  } = services;
+export function init(config, services) {
+  const { queues } = services;
 
   const activityQueue = queues('memberActivities');
 
@@ -53,7 +48,7 @@ function init(config, services) {
   const sendGroupMail = SendGroupMail(config, services);
 
   return Object.assign(
-    module.exports,
+    plugApp, // module.exports
     members,
     {
       task: () => {
@@ -64,14 +59,14 @@ function init(config, services) {
       },
       sendGroupMail,
       mw: {
-        load: mw.load,
+        load: mw.load.default,
         loadOrFail: mw.load.orFail,
         loadOr: mw.load.or,
-        list: mw.list.bind(null, members),
+        list: mw.list.default.bind(null, members),
         loadAndAuthorize: mw.load.andAuthorize,
         authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
         authorizeAdminModOrKey: mw.authorize.adminModOrKey,
-        loadTarget: Object.assign(mw.loadTarget.bind(null, members), {
+        loadTarget: Object.assign(mw.loadTarget.default.bind(null, members), {
           options: mw.loadTarget.options.bind(null, members),
         }),
       },
@@ -79,7 +74,6 @@ function init(config, services) {
   );
 }
 
-module.exports = Object.assign(plugApp, {
-  init,
+export default Object.assign(plugApp, {
   utils: Service.utils,
 });

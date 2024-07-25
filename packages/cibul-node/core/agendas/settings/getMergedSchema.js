@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import memberLabels from '@openagenda/labels/members/index.js';
+import getAgenda from '../utils/getAgenda.js';
+import getNetwork from '../utils/getNetwork.js';
+import * as merge from '../utils/merge.js';
+import getMemberSchema from '../utils/getMemberSchema.js';
 
-const _ = require('lodash');
-
-const log = require('@openagenda/logs')('core/agendas/settings/getMergedSchema');
-const memberLabels = require('@openagenda/labels/members');
-
-const getAgenda = require('../utils/getAgenda');
-const getNetwork = require('../utils/getNetwork');
-const merge = require('../utils/merge');
-const getMemberSchema = require('../utils/getMemberSchema');
+const log = logs('core/agendas/settings/getMergedSchema');
 
 async function loadFormSchema(formSchemas, formSchemaId) {
   if (formSchemaId) {
@@ -49,7 +47,7 @@ function dispatchSettingsInFields(services, agenda, schema) {
   return schema;
 }
 
-module.exports = async (services, agendaOrUid, options = {}) => {
+export default async (services, agendaOrUid, options = {}) => {
   const {
     formSchemas,
   } = services;

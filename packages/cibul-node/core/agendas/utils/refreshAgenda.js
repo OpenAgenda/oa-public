@@ -1,12 +1,12 @@
-'use strict';
+import { promisify } from 'node:util';
+import logs from '@openagenda/logs';
+import agendas from '@openagenda/agendas';
 
-const { promisify } = require('node:util');
-const log = require('@openagenda/logs')('core/utils/refreshAgenda');
-const agendas = require('@openagenda/agendas');
+const log = logs('core/utils/refreshAgenda');
 
 const setAgenda = promisify(agendas.set);
 
-module.exports = async uid => {
+export default async uid => {
   try {
     await setAgenda({ uid }, { updatedAt: new Date() }, { private: null });
   } catch (e) {

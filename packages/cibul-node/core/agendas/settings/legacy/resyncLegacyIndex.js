@@ -1,5 +1,3 @@
-'use strict';
+import { promisify } from 'node:util';
 
-const { promisify } = require('node:util');
-
-module.exports = (services, agendaId) => promisify(services.elasticsearch.agendas({ id: agendaId }).resync)();
+export default (services, agendaId) => promisify(services.elasticsearch.agendas({ id: agendaId }).resync)();

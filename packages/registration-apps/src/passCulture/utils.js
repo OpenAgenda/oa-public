@@ -8,6 +8,9 @@ import {
 export * from '@openagenda/registrations/passCulture/iso/utils';
 
 export const logoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-240.png';
+export const rejectedLogoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-240.png';
+export const errorLogoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-240.png';
+export const pendingLogoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-240.png';
 
 export function getNextId(data) {
   return Object.keys(data).reduce((acc, curr) => {

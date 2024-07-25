@@ -1,8 +1,6 @@
-'use strict';
+import VError from '@openagenda/verror';
 
-const VError = require('@openagenda/verror');
-
-module.exports = async (services, networkUid) => {
+export default async (services, networkUid) => {
   const {
     networks,
   } = services;

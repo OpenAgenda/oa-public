@@ -1,9 +1,6 @@
-'use strict';
-
-const memberLabels = require('@openagenda/labels/members');
-const exportHeadersLabels = require('@openagenda/labels/contributors/exportHeaders');
-
-const flatten = require('@openagenda/labels/flatten');
+import memberLabels from '@openagenda/labels/members/index.js';
+import exportHeadersLabels from '@openagenda/labels/contributors/exportHeaders.js';
+import flatten from '@openagenda/labels/flatten.js';
 
 const getStateValueLabel = (memberInfo, flattenLabels) => {
   if (memberInfo.invited) return flattenLabels.invited;
@@ -15,7 +12,7 @@ const getLabel = (label, lang) => {
   return label || null;
 };
 
-module.exports = (schema, lang) => {
+export default (schema, lang) => {
   const fieldMap = schema.fields.map(e => ({ field: e.field, label: getLabel(e.label), options: e.options || null }));
   const flattenLabels = flatten({ ...memberLabels, ...exportHeadersLabels }, lang);
 

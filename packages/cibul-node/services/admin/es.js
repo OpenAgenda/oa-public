@@ -1,59 +1,9 @@
-/**
- * simple es library
- */
+/* eslint-disable no-param-reassign */
 
-let config;
-
-const http = require('node:http');
-
-const lib = require('../../lib/lib');
-
-module.exports = function (cfg) {
-  config = cfg;
-
-  return {
-    query,
-  };
-};
-
-function query(type, dsl, cb) {
-  let endPoint; let
-    method;
-
-  if (!cb) {
-    cb = dsl;
-
-    dsl = {};
-  }
-
-  endPoint = type.indexOf('/') == -1 ? `${type}/_search` : type,
-
-  method = lib.size(dsl) ? 'post' : 'get';
-
-  _request(method, `/${config.indexName}/${endPoint}`, dsl, cb);
-}
-
-function _request(method, path, data, cb) {
-  const clean = typeof data !== 'string' ? JSON.stringify(data) : data;
-
-  const req = http.request({
-    host: config.host,
-    port: config.port,
-    path,
-    method,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': clean ? Buffer.byteLength(clean) : 0,
-    },
-  }, _handleResponse(cb));
-
-  req.write(clean);
-
-  req.end();
-}
+import http from 'node:http';
 
 function _handleResponse(cb) {
-  return function (res) {
+  return res => {
     const response = [];
 
     res.setEncoding('utf8');
@@ -72,4 +22,35 @@ function _handleResponse(cb) {
       cb(result.errors || result.error || null, result);
     });
   };
+}
+
+function _request(config, method, path, data, cb) {
+  const clean = typeof data !== 'string' ? JSON.stringify(data) : data;
+
+  const req = http.request({
+    host: config.host,
+    port: config.port,
+    path,
+    method,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': clean ? Buffer.byteLength(clean) : 0,
+    },
+  }, _handleResponse(cb));
+
+  req.write(clean);
+
+  req.end();
+}
+
+export default function query(config, type, dsl, cb) {
+  if (!cb) {
+    cb = dsl;
+    dsl = {};
+  }
+
+  const endPoint = !type.includes('/') ? `${type}/_search` : type;
+  const method = dsl && Object.keys(dsl).length ? 'post' : 'get';
+
+  _request(config, method, `/${config.indexName}/${endPoint}`, dsl, cb);
 }

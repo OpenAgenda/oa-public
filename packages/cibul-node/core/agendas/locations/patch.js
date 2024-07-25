@@ -1,13 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import getAgenda from '../utils/getAgenda.js';
 
-const log = require('@openagenda/logs')('core/agendas/locations/patch');
+const log = logs('core/agendas/locations/patch');
 
-const getAgenda = require('../utils/getAgenda');
-
-module.exports = (core, agendaOrUid) => async function patchLocation(uid, data, options = {}) {
-  const {
-    agendaLocations,
-  } = core.services;
+export default (core, agendaOrUid) => async function patchLocation(uid, data, options = {}) {
+  const { agendaLocations } = core.services;
 
   const {
     context = {},

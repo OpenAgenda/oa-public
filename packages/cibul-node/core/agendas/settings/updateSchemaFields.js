@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import logs from '@openagenda/logs';
+import getAgenda from '../utils/getAgenda.js';
+import getSchema from './getSchema.js';
 
-const _ = require('lodash');
+const log = logs('core/agendas/settings/updateFields');
 
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-const log = require('@openagenda/logs')('core/agendas/settings/updateFields');
-
-const getAgenda = require('../utils/getAgenda');
-const getSchema = require('./getSchema');
-
-module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFields) {
+export default async function updateSchemaFields(core, agendaOrUid, updatedFields) {
   const { services, tasks } = core;
   const { formSchemas, agendas } = services;
 
@@ -44,4 +42,4 @@ module.exports = async function updateSchemaFields(core, agendaOrUid, updatedFie
   tasks.enqueue('agendaRebuild', agenda.uid, true);
 
   return fs.getData();
-};
+}

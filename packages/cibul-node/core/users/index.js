@@ -1,21 +1,16 @@
-'use strict';
+import { getForUserOnAgenda as getUserAuthorizationsOnAgenda } from '../utils/authorizations.js';
+import listUserAgendas from './listUserAgendas.js';
+import canEditEvent from './canEditEvent.js';
+import getEventUserContext from './getEventUserContext.js';
+import getAgendaUserContext from './getAgendaUserContext.js';
+import userEventsSearch from './userEventsSearch.js';
+import userDraftEvents from './userDraftEvents.js';
+import get from './get.js';
+import remove from './remove.js';
+import generateToken from './generateToken.js';
+import getByPublicKey from './getByPublicKey.js';
 
-const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
-} = require('../utils/authorizations');
-
-const listUserAgendas = require('./listUserAgendas');
-const canEditEvent = require('./canEditEvent');
-const getEventUserContext = require('./getEventUserContext');
-const getAgendaUserContext = require('./getAgendaUserContext');
-const userEventsSearch = require('./userEventsSearch');
-const userDraftEvents = require('./userDraftEvents');
-const get = require('./get');
-const remove = require('./remove');
-const generateToken = require('./generateToken');
-const getByPublicKey = require('./getByPublicKey');
-
-module.exports = core =>
+export default core =>
   Object.assign(
     identifier => ({
       remove: remove(core, identifier),

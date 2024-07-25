@@ -1,11 +1,11 @@
-'use strict';
+import crypto from 'node:crypto';
+import uuid from 'uuid';
+import logs from '@openagenda/logs';
+import gaTrackEvent from './gaTrackEvent.js';
+import ga4TrackEvent from './ga4TrackEvent.js';
+import matomoTrack from './matomoTrackEvent.js';
 
-const crypto = require('node:crypto');
-const uuid = require('uuid');
-const log = require('@openagenda/logs')('trackExport');
-const gaTrackEvent = require('./gaTrackEvent');
-const ga4TrackEvent = require('./ga4TrackEvent');
-const matomoTrack = require('./matomoTrackEvent');
+const log = logs('trackExport');
 
 function hashString(input) {
   const hash = crypto.createHash('sha256');
@@ -93,9 +93,11 @@ function track(req, agenda, category, action, label = null) {
   }
 }
 
-module.exports = track;
+export default track;
 
-module.exports.mw = (category, action, label) => (req, res, next) => {
-  track(req, req.agenda, category, action, label);
-  next();
-};
+export function mw(category, action, label) {
+  return (req, res, next) => {
+    track(req, req.agenda, category, action, label);
+    next();
+  };
+}

@@ -1,11 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import deepDiff from 'deep-diff';
+import VError from '@openagenda/verror';
+import labels from '@openagenda/labels/event/form.js';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const { diff } = require('deep-diff');
-const VError = require('@openagenda/verror');
-const labels = require('@openagenda/labels/event/form');
+const { diff } = deepDiff;
 
-const log = require('@openagenda/logs')('events/createUpdateActivity');
+const log = logs('events/createUpdateActivity');
 
 function getFieldReadAccess(fieldSchema) {
   if (!fieldSchema.read || fieldSchema.read.includes('contributor')) {
@@ -21,7 +22,7 @@ function getFieldReadAccess(fieldSchema) {
   }
 }
 
-module.exports = async function createActivity(services, before, after, context) {
+export default async function createActivity(services, before, after, context) {
   log('processing');
 
   const { users, activities } = services;
@@ -109,4 +110,4 @@ module.exports = async function createActivity(services, before, after, context)
   } else {
     log('no changes were made');
   }
-};
+}

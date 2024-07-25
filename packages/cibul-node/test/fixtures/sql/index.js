@@ -1,13 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import Knex from 'knex';
 
-const fs = require('node:fs');
-const knex = require('knex')({
+export const knex = Knex({
   client: 'mysql',
 });
 
-module.exports = {
-  knex,
-  resetAndCreateTables: () => [
+export const resetAndCreateTables = () =>
+  [
     'reset.sql',
     'agenda.create.sql',
     'network.create.sql',
@@ -42,5 +41,4 @@ module.exports = {
     'activityFeed.create.sql',
     'activityFeedActivity.create.sql',
     'usageCounter.create.sql',
-  ].map(fx => fs.readFileSync(`${__dirname}/${fx}`, 'utf-8').replace(/;(\n|)$/, '')),
-};
+  ].map(fx => fs.readFileSync(`${import.meta.dirname}/${fx}`, 'utf-8').replace(/;(\n|)$/, ''));

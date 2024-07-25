@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/agendas/members/canCreate');
+const log = logs('core/agendas/members/canCreate');
 
-module.exports = ({ members, agendas }, {
+export default ({ members, agendas }, {
   agenda,
   acting,
   actingUserUid,

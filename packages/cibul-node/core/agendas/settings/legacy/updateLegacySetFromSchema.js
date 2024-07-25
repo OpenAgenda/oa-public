@@ -1,16 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-
-const getAgenda = require('../../utils/getAgenda');
-const getMergedSchema = require('../getMergedSchema');
-const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import getAgenda from '../../utils/getAgenda.js';
+import getMergedSchema from '../getMergedSchema.js';
+import setSchemaFieldOrigins from './setSchemaFieldOrigins.js';
 
 const Operations = (services, log) => {
-  const {
-    legacy,
-  } = services;
+  const { legacy } = services;
 
   const getTags = legacy?.tagsAndCustom?.getTagSet ?? (() => log('warn', 'agendaTags was not initialized'));
   const generateTags = legacy ? legacy.tagsAndCustom.updateTags : () => log('warn', 'legacy was not initialized');
@@ -29,7 +24,7 @@ const Operations = (services, log) => {
   };
 };
 
-module.exports = function updateLegacySetFromSchema(type) {
+export default function updateLegacySetFromSchema(type) {
   const log = logs(`core/agendas/settings/legacy/updateLegacySet:${type}`);
 
   return async (core, agendaOrUid, options = {}) => {
@@ -102,4 +97,4 @@ module.exports = function updateLegacySetFromSchema(type) {
 
     return res;
   };
-};
+}

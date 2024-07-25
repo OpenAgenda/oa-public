@@ -1,12 +1,14 @@
-const fs = require('node:fs');
+/* eslint-disable no-param-reassign */
+
+import fs from 'node:fs';
 
 const translations = {};
 
 ['fr'].forEach(lang => {
-  translations[lang] = JSON.parse(fs.readFileSync(`${__dirname}/${lang}.json`, 'utf8'));
+  translations[lang] = JSON.parse(fs.readFileSync(`${import.meta.dirname}/${lang}.json`, 'utf8'));
 });
 
-module.exports = function (label, values, lang) {
+export default function i18n(label, values, lang) {
   let translation;
 
   if (arguments.length === 1) {
@@ -28,8 +30,10 @@ module.exports = function (label, values, lang) {
   }
 
   for (const key in values) {
-    translation = translation.replace(key, values[key]);
+    if (Object.prototype.hasOwnProperty.call(values, key)) {
+      translation = translation.replace(key, values[key]);
+    }
   }
 
   return translation;
-};
+}

@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/activities/prepareSummary');
+const log = logs('services/activities/prepareSummary');
 
-module.exports = ({ bull, activities }) => {
+export default ({ bull, activities }) => {
   const queue = new bull.Queue('prepareSummary', { prefix: '{prepareSummary}' });
 
   return Object.assign(function prepareSummary(feed) {

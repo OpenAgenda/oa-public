@@ -1,15 +1,12 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-
-const sendMessage = require('./sendMessage');
-const addActivity = require('./addActivity');
-const updateContext = require('./updateContext');
-const loadNextMember = require('./loadNextMember');
+import logs from '@openagenda/logs';
+import sendMessage from './sendMessage.js';
+import addActivity from './addActivity.js';
+import updateContext from './updateContext.js';
+import loadNextMember from './loadNextMember.js';
 
 const log = logs('services/members/sendGroupMail/sendMessageChain');
 
-module.exports = async function sendMessageChain(
+export default async function sendMessageChain(
   config,
   { queue, services },
   jobData,
@@ -93,4 +90,4 @@ module.exports = async function sendMessageChain(
       setSentToMe: sendingToSender,
     }),
   });
-};
+}

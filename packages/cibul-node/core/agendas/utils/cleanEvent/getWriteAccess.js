@@ -1,11 +1,7 @@
-'use strict';
+import membersSvc from '@openagenda/members';
 
-const {
-  utils: {
-    getRoleSlug,
-  },
-} = require('@openagenda/members');
+const { getRoleSlug } = membersSvc.utils;
 
-module.exports = function getWriteAccess(member, access) {
+export default function getWriteAccess(member, access) {
   return member ? getRoleSlug(member.role) : access;
-};
+}

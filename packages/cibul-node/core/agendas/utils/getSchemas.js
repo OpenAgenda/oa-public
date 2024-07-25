@@ -1,11 +1,7 @@
-'use strict';
+import VError from '@openagenda/verror';
 
-const VError = require('@openagenda/verror');
-
-module.exports = async (services, schemaIds = []) => {
-  const {
-    formSchemas,
-  } = services;
+export default async (services, schemaIds = []) => {
+  const { formSchemas } = services;
 
   const schemas = [];
 

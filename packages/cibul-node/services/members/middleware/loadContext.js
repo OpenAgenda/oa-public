@@ -1,10 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
+const log = logs('services/members/middleware/loadContext');
 
-const log = require('@openagenda/logs')('services/members/middleware/loadContext');
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   req.context = _.merge({
     lang: req.lang,
     sender: {

@@ -1,13 +1,12 @@
-'use strict';
+import logs from '@openagenda/logs';
+import task from './task.js';
+import launchSend from './launchSend.js';
 
-const log = require('@openagenda/logs')('services/members/sendGroupMail');
-
-const task = require('./task');
-const launchSend = require('./launchSend');
+const log = logs('services/members/sendGroupMail');
 
 const queueName = 'memberMessages';
 
-module.exports = function SendGroupMail(config, services) {
+export default function SendGroupMail(config, services) {
   const {
     bull,
   } = services;
@@ -25,4 +24,4 @@ module.exports = function SendGroupMail(config, services) {
       clear: () => queue.obliterate(),
     },
   );
-};
+}

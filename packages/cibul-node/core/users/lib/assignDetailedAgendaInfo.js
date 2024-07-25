@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (core, userAgendasResult) => {
+export default async (core, userAgendasResult) => {
   const {
     agendas,
   } = await core.agendas.search({

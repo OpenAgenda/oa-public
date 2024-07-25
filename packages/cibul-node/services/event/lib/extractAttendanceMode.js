@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function extractAttendanceMode(data) {
+export default function extractAttendanceMode(data) {
   const extracted = {
     attendanceMode: 1,
     onlineAccessLink: null,
@@ -21,4 +19,4 @@ module.exports = function extractAttendanceMode(data) {
     console.log(e);
   }
   return extracted;
-};
+}

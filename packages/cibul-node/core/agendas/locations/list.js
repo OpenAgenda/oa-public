@@ -1,13 +1,8 @@
-'use strict';
+import getAgenda from '../utils/getAgenda.js';
+import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
 
-const getAgenda = require('../utils/getAgenda');
-
-const preCleanSearchQuery = require('../utils/preCleanSearchQuery');
-
-module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
-  const {
-    agendaLocations,
-  } = core.services;
+export default (core, agendaOrUid) => async (query, nav, options = {}) => {
+  const { agendaLocations } = core.services;
 
   const {
     useAfter = true,

@@ -1,7 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/events/sendUpdateEmail');
+const log = logs('core/events/sendUpdateEmail');
 
 const eventLink = (root, agenda, event) => `${root}/${agenda.slug}/events/${event.slug}`;
 
@@ -13,7 +13,7 @@ const agendaLogo = agenda => (agenda?.image ? {
   width: '300px',
 });
 
-module.exports = async function sendUpdateEmail(core, { batched, agenda, event }) {
+export default async function sendUpdateEmail(core, { batched, agenda, event }) {
   const { root } = core.getConfig();
 
   const {
@@ -112,4 +112,4 @@ module.exports = async function sendUpdateEmail(core, { batched, agenda, event }
       link,
     },
   });
-};
+}

@@ -1,48 +1,28 @@
-'use strict';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import templater from '@openagenda/cibul-templates';
+import Registration from '@openagenda/registration/lib/Display.js';
 
-const _ = require('lodash');
-const async = require('async');
-const w = require('when');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const templater = require('@openagenda/cibul-templates');
+function renderComponent(component, data) {
+  const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(component, data));
 
-const Registration = require('@openagenda/registration/lib/Display');
-
-const log = require('@openagenda/logs')('services/event/middleware/components');
-const config = require('../../../config');
-const members = require('../../members');
-const pickEventImage = require('../lib/pickImage');
-
-module.exports = buildComponents;
-
-function buildComponents(req, res, next) {
-  w({ req, res, referencesRender: null })
-
-    .then(_registration)
-
-    .then(_timings)
-
-    .done(v => next(), err => next(err));
+  return rendered === '<noscript></noscript>' ? false : rendered;
 }
 
-function _timings(v) {
-  const d = w.defer();
+async function _timings(v) {
+  return new Promise((resolve, reject) => {
+    templater('event/hours', {
+      lang: v.req.lang,
+      event: {
+        dates: v.req.formatted.dates,
+      },
+    }, (err, render) => {
+      if (err) return reject(err);
 
-  templater('event/hours', {
-    lang: v.req.lang,
-    event: {
-      dates: v.req.formatted.dates,
-    },
-  }, (err, render) => {
-    if (err) return d.reject(err);
-
-    v.req.formatted.timingsComponent = render;
-
-    d.resolve(v);
+      v.req.formatted.timingsComponent = render;
+      resolve(v);
+    });
   });
-
-  return d.promise;
 }
 
 function _registration(v) {
@@ -50,12 +30,15 @@ function _registration(v) {
     value: v.req.formatted.registration.map(({ value }) => value).join(', '),
     lang: v.req.lang,
   });
-
-  return v;
 }
 
-function renderComponent(component, data) {
-  const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(component, data));
+export default async function buildComponents(req, res, next) {
+  try {
+    _registration({ req });
+    await _timings({ req });
 
-  return rendered === '<noscript></noscript>' ? false : rendered;
+    next();
+  } catch (err) {
+    next(err);
+  }
 }

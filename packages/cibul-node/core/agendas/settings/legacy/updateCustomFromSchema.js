@@ -1,27 +1,20 @@
-'use strict';
+import _ from 'lodash';
+import { utils } from '@openagenda/legacy/tagsAndCustom/index.js';
+import logs from '@openagenda/logs';
+import getAgenda from '../../utils/getAgenda.js';
+import getMergedSchema from '../getMergedSchema.js';
+import setSchemaFieldOrigins from './setSchemaFieldOrigins.js';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
+const { generateCustomSet } = utils;
 
-const { generateCustomSet } = require('@openagenda/legacy/tagsAndCustom').utils;
-const log = require('@openagenda/logs')('core/agendas/settings/legacy/updateCustom');
+const log = logs('core/agendas/settings/legacy/updateCustom');
 
-const getAgenda = require('../../utils/getAgenda');
-const getMergedSchema = require('../getMergedSchema');
-const getSchema = require('../getSchema');
-const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
-
-module.exports = async (core, agendaOrUid, force = false) => {
+export default async (core, agendaOrUid, force = false) => {
   const {
     services,
   } = core;
 
   const config = core.getConfig();
-
-  const {
-    formSchemas,
-    legacy,
-  } = services;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
@@ -42,7 +35,7 @@ module.exports = async (core, agendaOrUid, force = false) => {
   } = generateCustomSet(schema);
 
   const {
-    id, store,
+    store,
   } = await config.knex('review')
     .first(['id', 'store'])
     .where('uid', agenda.uid);

@@ -1,17 +1,17 @@
-'use strict';
+import _ from 'lodash';
+import moment from 'moment';
+import locales from '@openagenda/activity-apps/dist/locales-compiled/index.js';
+import formatters from '@openagenda/activity-apps/dist/notifications.js';
+import { createIntlByLocale } from '@openagenda/intl';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const moment = require('moment');
-const locales = require('@openagenda/activity-apps/dist/locales-compiled');
-const formatters = require('@openagenda/activity-apps/dist/notifications');
-const { createIntlByLocale } = require('@openagenda/intl');
-const log = require('@openagenda/logs')('services/activities/sendSummary');
+import 'moment/locale/fr.js';
 
-require('moment/locale/fr');
+const log = logs('services/activities/sendSummary');
 
 const intlByLocale = createIntlByLocale(locales);
 
-module.exports = async function sendSummary(config, services, { user, notifications }, svcConfig) {
+export default async function sendSummary(config, services, { user, notifications }, svcConfig) {
   if (!notifications.length) return;
 
   const {
@@ -59,7 +59,7 @@ module.exports = async function sendSummary(config, services, { user, notificati
     //   },
     // ).join('\n***\n');
 
-    const res = await mails.send({
+    await mails.send({
       template: 'notificationsSummary',
       to: {
         address: user.email,
@@ -85,4 +85,4 @@ module.exports = async function sendSummary(config, services, { user, notificati
   } catch (err) {
     log.error('Error to send daily notification email to the user %s (%s):', user.email, user.uid, err);
   }
-};
+}

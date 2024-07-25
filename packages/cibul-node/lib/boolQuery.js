@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function boolQuery(value, defaultValue = false) {
+export default function boolQuery(value, defaultValue = false) {
   if (value === '1' || value === 'true') {
     return true;
   }
@@ -8,4 +6,4 @@ module.exports = function boolQuery(value, defaultValue = false) {
     return false;
   }
   return defaultValue;
-};
+}

@@ -204,6 +204,8 @@ export function WithData() {
               res: {
                 settings: '/settings',
                 context: '/contextForAdminMod',
+                offerLink: '/#/:id/show',
+                offerEditLink: '/#/:id/edit',
               },
             },
           },
@@ -269,6 +271,8 @@ export function WithDataWithoutTimings() {
                 res: {
                   settings: '/settings',
                   context: '/contextForAdminMod',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
                 },
               },
             },
@@ -305,6 +309,8 @@ export function WithoutDataWithoutTimings() {
                 res: {
                   settings: '/settings',
                   context: '/contextForAdminMod',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
                 },
               },
             },
@@ -341,6 +347,8 @@ export function WithoutDataWithPassedTimings() {
                 res: {
                   settings: '/settings',
                   context: '/contextForAdminMod',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
                 },
               },
             },
@@ -371,7 +379,204 @@ export function WithAlreadyCreatedPassOffer() {
         quantity: 879,
       }],
       passId: 49397,
+      appliedAt: '2024-07-16T10:57:14.056Z',
     }],
+  }]);
+
+  return (
+    <>
+      <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
+        Checkbox is disabled with relevent message when offer is already created
+      </div>
+      <div className="oa-form col-lg-offset-3 col-lg-6">
+        <Registration
+          value={value}
+          lang="fr"
+          onChange={setValue}
+          relatedValues={{
+            other: {
+              timings: event.timings,
+            },
+          }}
+          field={{
+            placeholder: 'Truc bidule',
+            settings: {
+              passCulture: {
+                siren: [809346158],
+                res: {
+                  settings: '/settings',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
+                  context: '/contextForAdminMod',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+}
+
+export function WithPendingPassOffer() {
+  const [value, setValue] = useState([{
+    type: 'link',
+    value: 'https://integration.passculture.app/offre/49397',
+    service: 'passCulture',
+    data: [{
+      venueId: 548,
+      isPending: true,
+      category: 'CONFERENCE',
+      passId: 49397,
+      appliedAt: '2024-07-16T10:57:14.056Z',
+    }, {
+      priceCategories: [{
+        id: 0,
+        price: 89,
+        label: 'Tarfi narlmo',
+      }],
+    }, {
+      dates: [{
+        id: 1,
+        timingId: 1727701200000,
+        priceCategoryId: 0,
+        quantity: 879,
+      }],
+    }],
+  }]);
+
+  return (
+    <>
+      <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
+        Checkbox is disabled with relevent message when offer is already created
+      </div>
+      <div className="oa-form col-lg-offset-3 col-lg-6">
+        <Registration
+          value={value}
+          lang="fr"
+          onChange={setValue}
+          relatedValues={{
+            other: {
+              timings: event.timings,
+            },
+          }}
+          field={{
+            placeholder: 'Truc bidule',
+            settings: {
+              passCulture: {
+                siren: [809346158],
+                res: {
+                  settings: '/settings',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
+                  context: '/contextForAdminMod',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+}
+
+export function WithRejectedPassOffer() {
+  const [value, setValue] = useState([{
+    type: 'link',
+    value: 'https://integration.passculture.app/offre/49397',
+    service: 'passCulture',
+    data: [{
+      venueId: 548,
+      isRejected: true,
+      category: 'CONFERENCE',
+      priceCategories: [{
+        id: 0,
+        price: 89,
+        label: 'Tarfi narlmo',
+      }],
+      dates: [{
+        id: 1,
+        timingId: 1727701200000,
+        priceCategoryId: 0,
+        quantity: 879,
+      }],
+      passId: 49397,
+    }],
+  }]);
+
+  return (
+    <>
+      <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
+        Checkbox is disabled with relevent message when offer is already created
+      </div>
+      <div className="oa-form col-lg-offset-3 col-lg-6">
+        <Registration
+          value={value}
+          lang="fr"
+          onChange={setValue}
+          relatedValues={{
+            other: {
+              timings: event.timings,
+            },
+          }}
+          field={{
+            placeholder: 'Truc bidule',
+            settings: {
+              passCulture: {
+                siren: [809346158],
+                res: {
+                  settings: '/settings',
+                  offerLink: '/#/:id/show',
+                  offerEditLink: '/#/:id/edit',
+                  context: '/contextForAdminMod',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+    </>
+  );
+}
+
+export function WithErroredPassOffer() {
+  const [value, setValue] = useState([{
+    type: 'link',
+    value: 'https://integration.passculture.app/offre/49397',
+    service: 'passCulture',
+    data: [
+      {
+        eventDuration: 90,
+        bookingContact: 'clem@oa.com',
+        response: {
+          passId: 73696,
+          isPending: false,
+        },
+        venueId: 548,
+        category: 'ATELIER_PRATIQUE_ART',
+        operation: 'create',
+        appliedAt: '2024-07-16T10:57:14.056Z',
+        duo: true,
+      },
+      {
+        priceCategories: [
+          {
+            price: 3000,
+            label: 'Tarif unique',
+            id: 0,
+          },
+        ],
+        error: {
+          code: 400,
+          name: 'BadRequest',
+          shortMessage: 'priceCategories create',
+          className: 'bad-request',
+          message: 'priceCategories create',
+          info: {},
+          statusCode: 400,
+        },
+      },
+    ],
   }]);
 
   return (

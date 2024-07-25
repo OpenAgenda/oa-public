@@ -1,6 +1,4 @@
-'use strict';
-
-const flattenMemberInfo = require('../core/agendas/utils/flattenMemberInfo');
+import flattenMemberInfo from '../core/agendas/utils/flattenMemberInfo.js';
 
 const schema = {
   custom: {},

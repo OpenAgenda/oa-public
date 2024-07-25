@@ -1,15 +1,15 @@
-'use strict';
+import labels from '@openagenda/labels/users/settings.js';
+import makeLabelGetter from '@openagenda/labels';
 
-const labels = require('@openagenda/labels/users/settings');
-const getLabels = require('@openagenda/labels/makeLabelGetter')(labels);
+const getLabel = makeLabelGetter(labels);
 
-module.exports = () => (req, res, next) => {
+export default () => (req, res, next) => {
   const {
     sessions,
   } = req.app.services;
 
   if (res.data) {
-    sessions.setFlash(req, res, getLabels('accountRemoved', req.lang));
+    sessions.setFlash(req, res, getLabel('accountRemoved', req.lang));
   }
 
   next();

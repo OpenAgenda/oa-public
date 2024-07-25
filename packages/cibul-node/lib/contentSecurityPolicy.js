@@ -1,8 +1,6 @@
-'use strict';
+import helmet from 'helmet';
 
-const helmet = require('helmet');
-
-const defaultDirectives = {
+export const defaultDirectives = {
   baseUri: ["'none'"],
   defaultSrc: ["'none'"],
   frameAncestors: ["'self'"],
@@ -57,10 +55,8 @@ const defaultDirectives = {
   reportUri: [req => `${req.app.core.getConfig().root}/reports`], // for firefox, the new IE
 };
 
-module.exports = (directives = defaultDirectives) => helmet.contentSecurityPolicy({
+export default (directives = defaultDirectives) => helmet.contentSecurityPolicy({
   reportOnly: false,
   useDefaults: false,
   directives,
 });
-
-module.exports.defaultDirectives = defaultDirectives;

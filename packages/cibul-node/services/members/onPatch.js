@@ -1,12 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import agendas from '@openagenda/agendas';
+import invitations from '@openagenda/invitations';
+import logs from '@openagenda/logs';
+import clearCache from './lib/clearCache.js';
+import { sendInvitation } from './lib/mail.js';
 
-const _ = require('lodash');
-
-const agendas = require('@openagenda/agendas');
-const invitations = require('@openagenda/invitations');
-const log = require('@openagenda/logs')('services/members/onPatch');
-const clearCache = require('./lib/clearCache');
-const { sendInvitation } = require('./lib/mail');
+const log = logs('services/members/onPatch');
 
 async function onNewMember({ services, agenda, user, senderUser, context, member, activityQueue }) {
   const usersSvc = services.users;
@@ -71,7 +70,7 @@ async function onNewMember({ services, agenda, user, senderUser, context, member
   });
 }
 
-module.exports = async function onPatch({ services, config, activityQueue }, before, member, context) {
+export default async function onPatch({ services, config, activityQueue }, before, member, context) {
   log('patched', member);
 
   const {
@@ -195,4 +194,4 @@ module.exports = async function onPatch({ services, config, activityQueue }, bef
   } catch (e) {
     log('error', 'failed', { member, exception: e });
   }
-};
+}

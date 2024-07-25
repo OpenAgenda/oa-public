@@ -1,7 +1,7 @@
 {
   "packages": [
-    "./services/mails/components/MjMarkdown.js",
-    "./services/mails/components/MjContent.js",
-    "./services/mails/components/MjPrev.js"
+    "./services/mails/components/MjMarkdown.cjs",
+    "./services/mails/components/MjContent.cjs",
+    "./services/mails/components/MjPrev.cjs"
   ]
 }

@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 const fallbackGetters = {
   thumbnail: 'getThumbnail',
@@ -12,7 +10,7 @@ const fallbackGetters = {
  * if event was created first by events service, image data is also saved in legacy event store.
  */
 
-module.exports = (config, eventInstance, imageType) => {
+export default (config, eventInstance, imageType) => {
   const fallbackGetter = eventInstance[fallbackGetters[imageType]];
 
   try {
@@ -23,7 +21,9 @@ module.exports = (config, eventInstance, imageType) => {
     if (!match) return fallbackGetter();
 
     return config.aws.imageBucketPath + match.filename;
-  } catch (e) {}
+  } catch (e) {
+    //
+  }
 
   return fallbackGetter();
 };

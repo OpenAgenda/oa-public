@@ -1,12 +1,11 @@
-'use strict';
+import logs from '@openagenda/logs';
+import extractUserUid from '../utils/extractUserUid.js';
+import cleanEvent from '../utils/cleanEvent/index.js';
+import getAgenda from '../utils/getAgenda.js';
 
-const log = require('@openagenda/logs')('core/agendas/events/validate');
-const extractUserUid = require('../utils/extractUserUid');
-const cleanEvent = require('../utils/cleanEvent');
+const log = logs('core/agendas/events/validate');
 
-const getAgenda = require('../utils/getAgenda');
-
-module.exports = async (core, agendaUid, data, options = {}) => {
+export default async (core, agendaUid, data, options = {}) => {
   log('info', 'validating event on agenda %s', agendaUid);
 
   const {
@@ -47,4 +46,4 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
 };
 
-module.exports.eventFields = cleanEvent.eventFields;
+export const { eventFields } = cleanEvent;

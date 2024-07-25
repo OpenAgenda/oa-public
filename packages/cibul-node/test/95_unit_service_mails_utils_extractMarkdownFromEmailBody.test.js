@@ -1,6 +1,4 @@
-'use strict';
-
-const extractMarkdownFromEmailBody = require('../services/mails/lib/extractMarkdownFromEmailBody');
+import extractMarkdownFromEmailBody from '../services/mails/lib/extractMarkdownFromEmailBody.js';
 
 describe('95 - services mails unit - extractMarkdownFromEmailBody', () => {
   it('basic', () => {

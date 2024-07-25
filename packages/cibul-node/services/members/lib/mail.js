@@ -1,12 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import invitations from '@openagenda/invitations';
+import logs from '@openagenda/logs';
+import base64 from '@openagenda/utils/base64.js';
+import agendaLogo from './agendaLogo.js';
+import extractInvitationContext from './invitationContext.js';
 
-const _ = require('lodash');
-const invitations = require('@openagenda/invitations');
-const log = require('@openagenda/logs')('services/members/mail');
-const base64 = require('@openagenda/utils/base64');
-
-const agendaLogo = require('./agendaLogo');
-const extractInvitationContext = require('./invitationContext');
+const log = logs('services/members/mail');
 
 async function createSenderActivity(services, { agenda, invitationContext, member }) {
   const {
@@ -93,7 +92,7 @@ function processSend({ config, services }, {
   });
 }
 
-async function send({ config, services }, {
+export async function send({ config, services }, {
   member, context, agenda, message,
 }) {
   log('send');
@@ -108,7 +107,7 @@ async function send({ config, services }, {
   });
 }
 
-async function sendInvitation({ services, config }, {
+export async function sendInvitation({ services, config }, {
   invitation, member, context, agenda,
 }) {
   const invitationContext = extractInvitationContext(invitation, agenda.uid, context);
@@ -131,7 +130,7 @@ async function sendInvitation({ services, config }, {
   });
 }
 
-async function resendInvitation({ services, config }, { agenda, member }) {
+export async function resendInvitation({ services, config }, { agenda, member }) {
   const {
     invitation,
   } = await invitations.get({ email: member.custom.email });
@@ -142,9 +141,3 @@ async function resendInvitation({ services, config }, { agenda, member }) {
 
   return sendInvitation({ services, config }, { invitation, agenda, member });
 }
-
-module.exports = {
-  sendInvitation,
-  send,
-  resendInvitation,
-};

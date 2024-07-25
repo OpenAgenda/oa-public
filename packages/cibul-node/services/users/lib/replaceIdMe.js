@@ -1,8 +1,6 @@
-'use strict';
+import errors from '@feathersjs/errors';
 
-const errors = require('@feathersjs/errors');
-
-module.exports = function replaceIdMe() {
+export default function replaceIdMe() {
   return async (context, next) => {
     if (context.id !== 'me') {
       return next();
@@ -16,4 +14,4 @@ module.exports = function replaceIdMe() {
 
     await next();
   };
-};
+}

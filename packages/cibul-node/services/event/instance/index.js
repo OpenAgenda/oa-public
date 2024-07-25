@@ -1,58 +1,34 @@
-'use strict';
+import range from '@openagenda/date-range';
+import config from '../../../config/index.js';
+import model from '../../model/index.js';
+import getTimings from '../lib/getTimings.js';
+import getClosestDate from '../lib/getClosestDate.js';
+import extractAttendanceMode from '../lib/extractAttendanceMode.js';
+import * as ics from './ics.js';
+import state from './state.js';
+import filterTimings from './filterTimings.js';
 
-const range = require('@openagenda/date-range');
-const utils = require('../../../lib/utils');
-
-const config = require('../../../config');
-
-const model = require('../../model');
-
-const getTimings = require('../lib/getTimings');
-const getClosestDate = require('../lib/getClosestDate');
-const extractAttendanceMode = require('../lib/extractAttendanceMode');
-const ics = require('./ics');
-const state = require('./state');
-const filterTimings = require('./filterTimings');
-
-module.exports = instanciate;
-
-function instanciate(data) {
+export default function instanciate(data) {
   const instance = model.events().instance(data);
-
-  const svcInstance = utils.extend({}, instance, {
-    getImage: _imageGetter('getImage'),
-    getThumbnail: _imageGetter('getThumbnail'),
-    getFullImage: _imageGetter('getFullImage'),
-    transferOwnership,
-    getRange,
-    getClosestDate: getClosestDate.bind(null, instance),
-    getIcs,
-  });
-
-  Object.assign(svcInstance, extractAttendanceMode(data));
-
-  state(svcInstance, instance, [
-    'setState',
-    'getState',
-    'setOnStateChange',
-  ]);
-
-  return svcInstance;
 
   function transferOwnership(userId, cb) {
     instance.save({ ownerId: userId }, cb);
   }
 
   function getIcs(agenda, lang, decorate, timingIndex) {
+    // eslint-disable-next-line no-param-reassign
     if (timingIndex === undefined) timingIndex = -1;
 
-    return (decorate ? `${ics.head(agenda)}\n` : '')
-    + ics(agenda, data, instance, lang, timingIndex)
-    + (decorate ? '\nEND:VCALENDAR' : '');
+    return (
+      (decorate ? `${ics.head(agenda)}\n` : '')
+      + ics.default(agenda, data, instance, lang, timingIndex)
+      + (decorate ? '\nEND:VCALENDAR' : '')
+    );
   }
 
   function getRange(language, filter) {
     if (!language) {
+      // eslint-disable-next-line no-param-reassign
       language = instance.getCurrentLanguage();
     }
 
@@ -60,18 +36,22 @@ function instanciate(data) {
 
     let timings = getTimings(instance);
 
-    if (filter && (filter.from || filter.to)) {
+    if (filter && (filter.from || filter.to)) {
       timings = filterTimings(timings, filter, timezone);
     }
 
-    return range(timings.map(t => ({
-      start: new Date(t.start),
-      end: new Date(t.end),
-    })), language, timezone);
+    return range(
+      timings.map(t => ({
+        start: new Date(t.start),
+        end: new Date(t.end),
+      })),
+      language,
+      timezone,
+    );
   }
 
   function _imageGetter(method) {
-    return function () {
+    return () => {
       const image = instance[method]();
 
       if (!image) return image;
@@ -79,4 +59,21 @@ function instanciate(data) {
       return config.aws.imageBucketPath + image;
     };
   }
+
+  const svcInstance = {
+    ...instance,
+    getImage: _imageGetter('getImage'),
+    getThumbnail: _imageGetter('getThumbnail'),
+    getFullImage: _imageGetter('getFullImage'),
+    transferOwnership,
+    getRange,
+    getClosestDate: getClosestDate.bind(null, instance),
+    getIcs,
+  };
+
+  Object.assign(svcInstance, extractAttendanceMode(data));
+
+  state(svcInstance, instance, ['setState', 'getState', 'setOnStateChange']);
+
+  return svcInstance;
 }

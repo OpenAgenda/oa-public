@@ -1,106 +1,48 @@
-'use strict';
-
 /**
  * common web app module middleware and initialization functions
  */
 
-const fs = require('node:fs');
-const _ = require('lodash');
-const languages = require('languages');
-const qs = require('qs');
-const VError = require('@openagenda/verror');
+import fs from 'node:fs';
 
-const logger = require('@openagenda/logs');
-const templater = require('@openagenda/cibul-templates');
-const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
+import _ from 'lodash';
+import languages from 'languages';
+import qs from 'qs';
+import VError from '@openagenda/verror';
+import logger from '@openagenda/logs';
+import templater from '@openagenda/cibul-templates';
+import outdatedBrowserMw from '@openagenda/outdated-browser/middleware';
+import makeLabelGetter from '@openagenda/labels';
+import unauthLabels from '@openagenda/labels/agendas/unauthorizedPrivate.js';
+import errorLabels from '@openagenda/labels/errors/index.js';
+import unauthorizedLabels from '@openagenda/labels/errors/unauthorized.js';
+import config from '../config/index.js';
+import errorLogger from '../services/errors.js';
+import i18n from '../i18n/i18n.js';
+import layouts from '../services/lib/layouts/index.js';
 
-const getUnauthLabels = require('@openagenda/labels')(require('@openagenda/labels/agendas/unauthorizedPrivate'));
-const getErrorLabel = require('@openagenda/labels/makeLabelGetter')(require('@openagenda/labels/errors'));
+const getUnauthLabel = makeLabelGetter(unauthLabels);
+const getErrorLabel = makeLabelGetter(errorLabels);
+const getUnauthorizedLabel = makeLabelGetter(unauthorizedLabels);
 
-const config = require('../config');
-const errorLogger = require('../services/errors');
-const i18n = require('../i18n/i18n.js');
-
-const layouts = require('../services/lib/layouts');
-
-const renderError = _.template(fs.readFileSync(`${__dirname}/error.tpl`, 'utf-8'));
+const renderError = _.template(fs.readFileSync(`${import.meta.dirname}/error.tpl`, 'utf-8'));
 
 const log = logger('commons-app');
 
-const labels = {
-  unauthorized: require('@openagenda/labels/errors/unauthorized'),
-};
-
-module.exports = {
-
-  loadLogger,
-
-  favoriteLinkHTML,
-
-  render, // render and serve response
-  renderJson, // render and serve json
-  renderTemplate, // render and serve template
-  errorResponse, // render error page
-  catchError, // the heir of standard error handling
-
-  loadBaseData, // middleware.
-  loadAgenda: loadAgendaBy('slug'),
-  loadAgendaBy,
-  renderUnauthorized,
-
-  useEmbedGoogleAnalytics,
-
-  makeRedirect,
-
-  writeToCookie,
-  clearCookie,
-  readCookie,
-
-  redirectLegacySearch,
-  loadLegacyRoutes,
-
-  redirectTo,
-  redirectToSignin,
-
-  agendaMailTo,
-
-  ifIs: (path, fn) => (req, res, next) => (_.get(req, path, false) ? fn(req, res, next) : next()),
-  ifIsNot: (path, fn) => (req, res, next) => (_.get(req, path, false) ? next() : fn(req, res, next)),
-
-  lang,
-
-};
-
 function agendaMailTo(agenda) {
-  const config = _.get(agenda, 'settings.inbox.mailto');
+  const config2 = _.get(agenda, 'settings.inbox.mailto');
 
-  if (!config) return null;
+  if (!config2) return null;
 
-  if (!_.get(config, 'enabled')) return null;
+  if (!_.get(config2, 'enabled')) return null;
 
   const queryParts = ['subject', 'body']
-    .map(key => ({ key, value: _.get(config, key) }))
+    .map(key => ({ key, value: _.get(config2, key) }))
     .filter(item => item.value)
     .map(item => `${item.key}=${encodeURIComponent(item.value)}`);
 
-  if (!queryParts.length) return `mailto:${config.email}`;
+  if (!queryParts.length) return `mailto:${config2.email}`;
 
-  return `mailto:${config.email}?${queryParts.join('&')}`;
-}
-
-function renderUnauthorized(req, res, next) {
-  loadBaseData('oa-main.css')(req, res, () => {
-    render(req, res, 'dialog/index', {
-      agenda: req.agenda,
-      title: getUnauthLabels('title', req.lang),
-      content: getUnauthLabels('message', req.lang),
-      actions: [{
-        type: 'primary',
-        href: `${req.agenda.slug}/contact`,
-        label: getUnauthLabels('contactAdmin', req.lang),
-      }],
-    });
-  });
+  return `mailto:${config2.email}?${queryParts.join('&')}`;
 }
 
 /**
@@ -108,7 +50,7 @@ function renderUnauthorized(req, res, next) {
  */
 
 function loadLogger(name) {
-  return function (req, res, next) {
+  return (req, res, next) => {
     req.log = logger.createLogger2('req')
       .loadMetadata({
         module: name || 'unknown',
@@ -119,6 +61,34 @@ function loadLogger(name) {
 
     if (next) next();
   };
+}
+
+function _cleanLang(dirtyLang) {
+  if (languages.isValid(dirtyLang) || dirtyLang === 'io') return dirtyLang;
+
+  return 'fr';
+}
+
+/**
+ * get current request language
+ */
+
+function _getLang(req) {
+  if (req.lang) {
+    return req.lang;
+  }
+
+  return _cleanLang(req.query ? req.query.lang : 'fr');
+}
+
+/**
+ * filter out characters that will cause parse errors on browser
+ */
+
+function _filterNonParsable(str) {
+  const rgx = new RegExp(`[${[8232, 8233].map(String.fromCharCode).join('')}]`, 'g');
+
+  return str.replace(rgx, ' ');
 }
 
 /**
@@ -147,14 +117,85 @@ function lang(req, res, next) {
       req.lang = 'io';
     }
 
-    if (next) {}next();
+    if (next) next();
   });
+}
+
+/**
+ * load static data to be used in template
+ *
+ * @param function func  -  optionnally shove in controller specific static data
+ */
+
+function loadBaseData(func, cssFile) {
+  if (typeof func === 'string') {
+    // eslint-disable-next-line no-param-reassign
+    cssFile = func;
+    // eslint-disable-next-line no-param-reassign
+    func = false;
+  }
+
+  return (req, res, next) => {
+    outdatedBrowserMw(req, res);
+
+    const baseData = {
+      head: {
+        css: cssFile ? {
+          main: `/css/${cssFile}?v=${config.cssVersion}`,
+        } : {},
+        js: {},
+      },
+      bottom: {
+        scripts: [],
+      },
+      scriptsBase: '/js',
+      domain: config.domain,
+      cspNonce: res.locals.cspNonce,
+    };
+
+    if (func) {
+      _.merge(baseData, func(req, res));
+    }
+
+    if (req.layoutData) {
+      _.merge(baseData, req.layoutData);
+    }
+
+    req.baseData = _.merge(req.baseData || {}, baseData);
+
+    if (req.outdatedBrowser) {
+      // Note: bottom is before head
+      req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
+      req.baseData.head.js.outdated = '/js/outdated.js';
+    }
+
+    if (config.matomoCloudId) {
+      req.baseData.head.js.matomo = {
+        async: true,
+        src: '/js/matomo.js',
+        // integrity: dynamicScripts.hashes.matomo,
+      };
+    }
+
+    req.baseData.translateMode = Boolean(req.cookies.translateMode);
+    req.baseData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+    if (req.cookies.translateMode) {
+      // Note: bottom is before head
+      req.baseData.bottom.scripts.push('window._jipt = [[\'project\', \'openagenda\']];');
+      req.baseData.head.js.crowdin = 'https://cdn.crowdin.com/jipt/jipt.js';
+    }
+
+    if (typeof next === 'function') {
+      next();
+    }
+  };
 }
 
 /**
  * set json data in response
  */
-function renderJson(req, res, data, options) {
+function renderJson(req, res, data, _options) {
   res.set('Content-Type', 'application/json; charset=utf-8');
 
   if (!res.get('Last-Modified')) {
@@ -193,7 +234,7 @@ function errorResponse(req, res, err, jsr) {
   lang(req, res, () => {
     const jsonResponse = jsr === undefined ? /\.json$/.test(req.path) : jsr;
 
-    if ([400, 401, 403, 404, 413].indexOf(err.code) === -1) {
+    if (![400, 401, 403, 404, 413].includes(err.code)) {
       errorLogger('req', err, req);
       res.code = 500;
     } else {
@@ -283,45 +324,11 @@ function catchError(req, res, jsonResponse) {
       res.code = 404;
       res.statusCode = 404;
     } else if (err.code === 403 && err.messageCode) {
-      err.message = labels.unauthorized[err.messageCode][req.lang];
+      err.message = getUnauthorizedLabel(err.messageCode, req.lang);
     }
 
     errorResponse(req, res, err, jsonResponse);
   };
-}
-
-/**
- * render template and send response
- */
-
-function render(req, res, templatePath, data, maintain) {
-  renderTemplate(req, templatePath, data, maintain, (err, render) => {
-    if (err) {
-      return catchError(req, res)(err);
-    }
-
-    const statusCode = res.statusCode || res.code || 200;
-
-    if (!req.xhr) {
-      try {
-        res.writeHead(statusCode, {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': res.get('Cache-Control') || 'no-cache',
-        });
-      } catch (e) {
-        req.log.error(new VError(e, `Error in the render of the template ${templatePath}`));
-      }
-
-      res.write(render);
-
-      res.end();
-    } else {
-      renderJson(req, res, {
-        success: true,
-        partial: render,
-      });
-    }
-  });
 }
 
 function renderTemplate(req, templatePath, data, maintain, cb) {
@@ -332,8 +339,9 @@ function renderTemplate(req, templatePath, data, maintain, cb) {
   );
 
   if (!cb) {
+    // eslint-disable-next-line no-param-reassign
     cb = maintain;
-
+    // eslint-disable-next-line no-param-reassign
     maintain = false;
   }
 
@@ -365,90 +373,59 @@ function renderTemplate(req, templatePath, data, maintain, cb) {
   });
 }
 
+/**
+ * render template and send response
+ */
+
+function render(req, res, templatePath, data, maintain) {
+  renderTemplate(req, templatePath, data, maintain, (err, render2) => {
+    if (err) {
+      return catchError(req, res)(err);
+    }
+
+    const statusCode = res.statusCode || res.code || 200;
+
+    if (!req.xhr) {
+      try {
+        res.writeHead(statusCode, {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': res.get('Cache-Control') || 'no-cache',
+        });
+      } catch (e) {
+        req.log.error(new VError(e, `Error in the render of the template ${templatePath}`));
+      }
+
+      res.write(render2);
+
+      res.end();
+    } else {
+      renderJson(req, res, {
+        success: true,
+        partial: render2,
+      });
+    }
+  });
+}
+
+function renderUnauthorized(req, res, _next) {
+  loadBaseData('oa-main.css')(req, res, () => {
+    render(req, res, 'dialog/index', {
+      agenda: req.agenda,
+      title: getUnauthLabel('title', req.lang),
+      content: getUnauthLabel('message', req.lang),
+      actions: [{
+        type: 'primary',
+        href: `${req.agenda.slug}/contact`,
+        label: getUnauthLabel('contactAdmin', req.lang),
+      }],
+    });
+  });
+}
+
 function useEmbedGoogleAnalytics(req, res, next) {
   req.googleAnalyticsId = config.embedGoogleAnalyticsId;
 
   next();
-}
-
-/**
- * load static data to be used in template
- *
- * @param function func  -  optionnally shove in controller specific static data
- */
-
-function loadBaseData(func, cssFile) {
-  if (typeof func === 'string') {
-    cssFile = func;
-
-    func = false;
-  }
-
-  return (req, res, next) => {
-    outdatedBrowserMw(req, res);
-
-    const baseData = {
-      head: {
-        css: cssFile ? {
-          main: `/css/${cssFile}?v=${config.cssVersion}`,
-        } : {},
-        js: {},
-      },
-      bottom: {
-        scripts: [],
-      },
-      scriptsBase: '/js',
-      domain: config.domain,
-      cspNonce: res.locals.cspNonce,
-    };
-
-    if (func) {
-      _.merge(baseData, func(req, res));
-    }
-
-    if (req.layoutData) {
-      _.merge(baseData, req.layoutData);
-    }
-
-    req.baseData = _.merge(req.baseData || {}, baseData);
-
-    if (req.outdatedBrowser) {
-      // Note: bottom is before head
-      req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
-      req.baseData.head.js.outdated = '/js/outdated.js';
-    }
-
-    if (config.matomoCloudId) {
-      req.baseData.head.js.matomo = {
-        async: true,
-        src: '/js/matomo.js',
-        // integrity: dynamicScripts.hashes.matomo,
-      };
-    }
-
-    req.baseData.translateMode = Boolean(req.cookies.translateMode);
-    req.baseData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
-
-    if (req.cookies.translateMode) {
-      // Note: bottom is before head
-      req.baseData.bottom.scripts.push('window._jipt = [[\'project\', \'openagenda\']];');
-      req.baseData.head.js.crowdin = 'https://cdn.crowdin.com/jipt/jipt.js';
-    }
-
-    if (typeof next === 'function') {
-      next();
-    }
-  };
-}
-
-function assign(source, target) {
-  return (req, res, next) => {
-    const obj = { req, res };
-
-    _.set(obj, target, _.get(obj, source));
-
-    next();
-  };
 }
 
 /**
@@ -461,7 +438,7 @@ function redirectTo(route, params = {}, options = {}) {
     raw: {},
   }, options);
 
-  return (req, res, next) => {
+  return (req, res, _next) => {
     const paramValues = _.mapValues(params, k => {
       if (!_.isObject(k)) {
         return _.get(req.params, k);
@@ -506,7 +483,7 @@ function redirectTo(route, params = {}, options = {}) {
   };
 }
 
-function redirectToSignin(req, res, next) {
+function redirectToSignin(req, res, _next) {
   const agenda = req.agenda || _.get(req, 'agendaInstance.data');
   res.redirect(302, `${agenda ? `/${agenda.slug}` : ''}/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`);
 }
@@ -546,38 +523,6 @@ function loadAgendaBy(param) {
   };
 }
 
-function clearCookie(req, res, key) {
-  const cookieValues = _decodeCookie(req);
-
-  if (cookieValues[key] === undefined) {
-    log('info', 'cookie value to be cleared is not set', key);
-
-    return;
-  }
-
-  delete cookieValues[key];
-
-  _saveCookie(req, res, cookieValues);
-}
-
-function readCookie(req, res, key, clearOnRead) {
-  const cookieValues = _decodeCookie(req);
-
-  if (clearOnRead) {
-    clearCookie(req, res, key);
-  }
-
-  return cookieValues[key];
-}
-
-function writeToCookie(req, res, key, value) {
-  const cookieValues = _decodeCookie(req);
-
-  cookieValues[key] = value;
-
-  _saveCookie(req, res, cookieValues);
-}
-
 function _saveCookie(req, res, cookieValues) {
   const encodedCookieValues = Buffer.from(JSON.stringify(cookieValues)).toString('base64');
 
@@ -611,32 +556,36 @@ function _decodeCookie(req) {
   return {};
 }
 
-/**
- * get current request language
- */
+function clearCookie(req, res, key) {
+  const cookieValues = _decodeCookie(req);
 
-function _getLang(req) {
-  if (req.lang) {
-    return req.lang;
+  if (cookieValues[key] === undefined) {
+    log('info', 'cookie value to be cleared is not set', key);
+
+    return;
   }
 
-  return _cleanLang(req.query ? req.query.lang : 'fr');
+  delete cookieValues[key];
+
+  _saveCookie(req, res, cookieValues);
 }
 
-function _cleanLang(dirtyLang) {
-  if (languages.isValid(dirtyLang) || dirtyLang === 'io') return dirtyLang;
+function readCookie(req, res, key, clearOnRead) {
+  const cookieValues = _decodeCookie(req);
 
-  return 'fr';
+  if (clearOnRead) {
+    clearCookie(req, res, key);
+  }
+
+  return cookieValues[key];
 }
 
-/**
- * filter out characters that will cause parse errors on browser
- */
+function writeToCookie(req, res, key, value) {
+  const cookieValues = _decodeCookie(req);
 
-function _filterNonParsable(str) {
-  const rgx = new RegExp(`[${[8232, 8233].map(String.fromCharCode).join('')}]`, 'g');
+  cookieValues[key] = value;
 
-  return str.replace(rgx, ' ');
+  _saveCookie(req, res, cookieValues);
 }
 
 function loadLegacyRoutes(genUrl) {
@@ -659,3 +608,41 @@ function redirectLegacySearch(req, res, next) {
 
   next();
 }
+
+export default {
+  loadLogger,
+
+  favoriteLinkHTML,
+
+  render, // render and serve response
+  renderJson, // render and serve json
+  renderTemplate, // render and serve template
+  errorResponse, // render error page
+  catchError, // the heir of standard error handling
+
+  loadBaseData, // middleware.
+  loadAgenda: loadAgendaBy('slug'),
+  loadAgendaBy,
+  renderUnauthorized,
+
+  useEmbedGoogleAnalytics,
+
+  makeRedirect,
+
+  writeToCookie,
+  clearCookie,
+  readCookie,
+
+  redirectLegacySearch,
+  loadLegacyRoutes,
+
+  redirectTo,
+  redirectToSignin,
+
+  agendaMailTo,
+
+  ifIs: (path, fn) => (req, res, next) => (_.get(req, path, false) ? fn(req, res, next) : next()),
+  ifIsNot: (path, fn) => (req, res, next) => (_.get(req, path, false) ? next() : fn(req, res, next)),
+
+  lang,
+};

@@ -1,10 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const debug = require('debug');
-const sentry = require('@sentry/node');
-
-const prod = require('./prod');
+import fs from 'node:fs';
+import debug from 'debug';
+import sentry from '@sentry/node';
+import prod from './prod.js';
 
 const mailgun = {
   auth: {
@@ -283,6 +280,11 @@ const config = {
     'tiuas.com',
     'touchend.com',
     'royalka.com',
+    'yopmail.com',
+    'floodouts.com',
+    'stikezz.com',
+    'padvn.com',
+    'tiervo.com',
   ],
   api: {
     redis: {
@@ -590,4 +592,4 @@ config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   token: insightOpsKeys[key],
 });
 
-module.exports = config;
+export default config;

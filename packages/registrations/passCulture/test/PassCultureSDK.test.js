@@ -296,6 +296,27 @@ describe('PassCultureSDK', () => {
         ['label', 'price', 'id'].includes(k);
       });
     });
+
+    it('failintg to create a price category for an event offer', async () => {
+      const pc = PassCultureSDK({ key, api });
+      let err;
+      try {
+        await pc.offers.events(testEventId).priceCategories.create({
+          priceCategories: [{
+            label: `Prix 2 ${new Date().getTime()}`,
+            price: 3000000,
+          }, {
+            label: `Prix 3 ${new Date().getTime()}`,
+            price: 3000000,
+          }],
+        });
+      } catch (error) {
+        // console.log(error);
+        err = error;
+      }
+
+      expect(!!err).toBe(true);
+    });
   });
 
   describe('offers.events.priceCategories.patch', () => {
@@ -497,8 +518,7 @@ describe('PassCultureSDK', () => {
       });
     });
   });
-
- /*  describe('test on booked date', () => {
+/*  describe('test on booked date', () => {
     let pc;
 
     beforeAll(() => {

@@ -1,17 +1,15 @@
-'use strict';
+import add from './add.js';
+import Batch from './batch.js';
+import get from './get.js';
+import * as search from './search.js';
+import list from './list.js';
+import create from './create.js';
+import remove from './remove.js';
+import update from './update.js';
+import references from './references.js';
+import validate, { eventFields as validateEventFields } from './validate.js';
 
-const add = require('./add');
-const Batch = require('./batch');
-const get = require('./get');
-const search = require('./search');
-const list = require('./list');
-const create = require('./create');
-const remove = require('./remove');
-const update = require('./update');
-const references = require('./references');
-const validate = require('./validate');
-
-module.exports = core => {
+export default core => {
   const batch = Batch(core);
   const resyncEvents = search.resyncEvents(core);
 
@@ -26,10 +24,10 @@ module.exports = core => {
     references: references.bind(null, core, agendaUid),
     validate: Object.assign(
       validate.bind(null, core, agendaUid),
-      { eventFields: validate.eventFields },
+      { eventFields: validateEventFields },
     ),
     batch: batch.bind(null, agendaUid),
-    search: Object.assign(search.bind(null, core, agendaUid), {
+    search: Object.assign(search.default.bind(null, core, agendaUid), {
       rebuild: search.rebuild.bind(null, core, agendaUid),
       resyncEvent: search.resyncEvent.bind(null, core, agendaUid),
       resyncEvents: resyncEvents.bind(null, agendaUid),

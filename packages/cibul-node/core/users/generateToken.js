@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/users/generateToken');
+const log = logs('core/users/generateToken');
 
-module.exports = async function generateToken(core, identifier) {
+export default async function generateToken(core, identifier) {
   const {
     services: {
       accessTokens,
@@ -24,4 +24,4 @@ module.exports = async function generateToken(core, identifier) {
   });
 
   return token;
-};
+}

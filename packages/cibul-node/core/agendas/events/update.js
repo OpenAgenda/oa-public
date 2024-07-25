@@ -1,29 +1,23 @@
-'use strict';
-
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const log = require('@openagenda/logs')('core/agendas/events/update');
-const { Forbidden } = require('@openagenda/verror');
-
-const createPayload = require('../utils/createPayload');
-const refreshAgenda = require('../utils/refreshAgenda');
-const setCustom = require('../utils/setCustom');
-
-const cleanEvent = require('../utils/cleanEvent');
-const getAgenda = require('../utils/getAgenda');
-const formatError = require('../utils/formatError');
-
-const loadAuthorizations = require('../../utils/authorizations');
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import logs from '@openagenda/logs';
+import { Forbidden } from '@openagenda/verror';
+import createPayload from '../utils/createPayload.js';
+import refreshAgenda from '../utils/refreshAgenda.js';
+import setCustom from '../utils/setCustom.js';
+import cleanEvent from '../utils/cleanEvent/index.js';
+import getAgenda from '../utils/getAgenda.js';
+import formatError from '../utils/formatError.js';
+import loadAuthorizations, { filterUnauthorized } from '../../utils/authorizations.js';
+import assignState from '../utils/assignState.js';
+import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
+import updateEvent from './lib/updateEvent.js';
+import createUpdateActivity from './lib/createUpdateActivity.js';
+import sendUpdateEmail from './lib/sendUpdateEmail.js';
 
 const { containsEventData, isDifferent: isEventDifferent } = cleanEvent;
 
-const { filterUnauthorized } = loadAuthorizations;
-
-const assignState = require('../utils/assignState');
-const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
-const updateEvent = require('./lib/updateEvent');
-const createUpdateActivity = require('./lib/createUpdateActivity');
-const sendUpdateEmail = require('./lib/sendUpdateEmail');
+const log = logs('core/agendas/events/update');
 
 const shouldHaveAgendaEvent = (operation, event) => operation !== 'create' && !event.draft;
 
@@ -330,4 +324,4 @@ function patch(core, agendaUid, eventUid, data, options = {}) {
   });
 }
 
-module.exports = Object.assign(update, { patch });
+export default Object.assign(update, { patch });

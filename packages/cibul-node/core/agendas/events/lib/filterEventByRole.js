@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async function filterEventByRole(agenda, event, context = {}) {
+export default async function filterEventByRole(agenda, event, context = {}) {
   return agenda.schema.fields.reduce((filtered, field) => (
     !Array.isArray(field.read) || field.read.includes(context.me?.member?.role) ? Object.assign(
       filtered,
@@ -13,4 +11,4 @@ module.exports = async function filterEventByRole(agenda, event, context = {}) {
     nextTiming: event.nextTiming,
     lastTiming: event.lastTiming,
   });
-};
+}

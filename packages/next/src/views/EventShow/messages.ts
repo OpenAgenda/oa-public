@@ -138,7 +138,8 @@ export const contextBar = defineMessages({
   },
   requestEditionRightsInfo: {
     id: 'next.views.EventShow.ContextBar.requestEditionRightsInfo',
-    defaultMessage: 'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
+    defaultMessage:
+      'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
   },
   deleteEvent: {
     id: 'next.views.EventShow.ContextBar.deleteEvent',
@@ -222,7 +223,8 @@ export const contextBar = defineMessages({
   },
   invalidEventMessage: {
     id: 'next.views.EventShow.ContextBar.invalidEventMessage',
-    defaultMessage: 'Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda.',
+    defaultMessage:
+      'Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda.',
   },
 });
 
@@ -233,7 +235,8 @@ export const duplicateModal = defineMessages({
   },
   reminder: {
     id: 'next.views.EventShow.DuplicateModal.reminder',
-    defaultMessage: 'Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.',
+    defaultMessage:
+      'Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.',
   },
   createNewEventIn: {
     id: 'next.views.EventShow.DuplicateModal.createNewEventIn',
@@ -309,6 +312,10 @@ export const shareModal = defineMessages({
   signIn: {
     id: 'next.views.EventShow.ShareModal.signIn',
     defaultMessage: 'Sign in',
+  },
+  online: {
+    id: 'next.views.EventShow.ShareModale.online',
+    defaultMessage: 'Online',
   },
 });
 

@@ -1,21 +1,11 @@
-'use strict';
+/* eslint-disable no-param-reassign */
 
-const _ = require('lodash');
-
-const config = require('../../config');
-
-const es = require('./es')(config.es);
-
-const moment = require('moment');
-
-const async = require('async');
-
-const model = require('../model');
-
-module.exports = {
-  getIndexedEventsByWeek,
-  getIndexDiff,
-};
+import _ from 'lodash';
+import moment from 'moment';
+import async from 'async';
+import config from '../../config/index.js';
+import model from '../model/index.js';
+import es from './es.js';
 
 /**
  *
@@ -24,22 +14,19 @@ module.exports = {
  *
  */
 
-function getIndexedEventsByWeek(options, cb) {
+export function getIndexedEventsByWeek(options, cb) {
   const params = {
     year: new Date().getFullYear(),
   };
 
-  let dsl;
-
   if (!cb) {
     cb = options;
-
     options = {};
   }
 
   _.merge(params, options);
 
-  dsl = {
+  const dsl = {
     query: {
       bool: {
         should: [{
@@ -66,7 +53,7 @@ function getIndexedEventsByWeek(options, cb) {
     },
   };
 
-  es.query('event', dsl, (err, data) => {
+  es(config.es, 'event', dsl, (err, data) => {
     if (err) return cb(err);
 
     cb(null, data.aggregations.histogram.buckets.map(d => ({
@@ -80,7 +67,7 @@ function getIndexedEventsByWeek(options, cb) {
  * get difference count between db and search index
  */
 
-function getIndexDiff(cb) {
+export function getIndexDiff(cb) {
   let dbCount;
 
   const unreferencedQuery = [
@@ -105,8 +92,8 @@ function getIndexDiff(cb) {
 
     // total es result for events should be same.
 
-    es.query('event', (err, result) => {
-      if (err) return cb(err);
+    es(config.es, 'event', (err2, result) => {
+      if (err2) return cb(err2);
 
       cb(null, dbCount - result.hits.total);
     });

@@ -1,10 +1,8 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
+import getSchemas from './getSchemas.js';
+import getNetwork from './getNetwork.js';
 
-const { NotFound } = require('@openagenda/verror');
-const getSchemas = require('./getSchemas');
-const getNetwork = require('./getNetwork');
-
-module.exports = async (services, agendaOrUid, options = {}) => {
+export default async (services, agendaOrUid, options = {}) => {
   const {
     detailed = false,
   } = options;

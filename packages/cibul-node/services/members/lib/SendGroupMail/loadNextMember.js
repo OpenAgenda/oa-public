@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (services, { agenda, query, data, context }) => services
+export default (services, { agenda, query, data, context }) => services
   .members.list({
     ...query,
     agendaUid: agenda.uid,

@@ -1,6 +1,6 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/agendas/utils/authorizations');
+const log = logs('core/agendas/utils/authorizations');
 
 const canPublish = (agenda, access) => (
   agenda?.settings?.contribution?.canPublish
@@ -140,7 +140,7 @@ async function fromAccess(core, agenda, agendaEvent, access) {
   };
 }
 
-module.exports = (core, operation, {
+export default (core, operation, {
   agenda,
   agendaEvent,
   event,
@@ -154,7 +154,7 @@ module.exports = (core, operation, {
   return fromAccess(core, agenda, agendaEvent, access);
 };
 
-module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, options = {}) => {
+export async function getForUserOnAgenda(core, userUid, agendaUid, event, options = {}) {
   log('getForUserOnAgenda');
 
   const {
@@ -197,9 +197,9 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
     event,
     member,
   );
-};
+}
 
-module.exports.filterUnauthorized = (clean, data, authorizations) => {
+export function filterUnauthorized(clean, data, authorizations) {
   if (!authorizations.canEditEvent && clean.event) {
     delete clean.event;
   }
@@ -213,4 +213,4 @@ module.exports.filterUnauthorized = (clean, data, authorizations) => {
     delete clean.agendaEvent.state;
     delete data.state;
   }
-};
+}

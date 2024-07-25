@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = ({ detailed } = {}) => async (req, res, next) => {
+export default ({ detailed } = {}) => async (req, res, next) => {
   const {
     sessions,
     users,

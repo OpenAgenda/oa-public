@@ -1,8 +1,6 @@
-'use strict';
-
-const planer = require('planer');
-const { JSDOM } = require('jsdom');
-const TurndownService = require('turndown');
+import planer from 'planer';
+import { JSDOM } from 'jsdom';
+import TurndownService from 'turndown';
 
 const turndownService = new TurndownService({ headingStyle: 'atx' });
 const dom = new JSDOM('', {
@@ -10,7 +8,7 @@ const dom = new JSDOM('', {
   ProcessExternalResources: false,
 }).window.document;
 
-module.exports = reqBody => {
+export default reqBody => {
   const body = planer.extractFrom(reqBody['stripped-html'], 'text/html', dom);
   return turndownService.turndown(body);
 };

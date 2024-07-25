@@ -1,7 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import membersPkg from '@openagenda/members';
 
-const _ = require('lodash');
-const { isSuperiorToOrEqual } = require('@openagenda/members').utils.compareRoles;
+const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersPkg;
 
 function and(...args) {
   return props => args.reduce(async (accu, fn) => await accu && fn(props), true);
@@ -164,7 +164,7 @@ function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
     ) {
       return sameAgenda.omit;
     }
-    // on an other agenda
+    // on another agenda
     if (
       otherAgenda
       && targetFeed.entityType === 'agenda'
@@ -1519,4 +1519,4 @@ const activitiesConfig = {
   },
 };
 
-module.exports = activitiesConfig;
+export default activitiesConfig;

@@ -1,13 +1,11 @@
-'use strict';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import logs from '@openagenda/logs';
+import patchNetwork from './patch.js';
+import getAgendas from './getAgendas.js';
 
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const log = logs('core/networks/updateSchemaFields');
 
-const log = require('@openagenda/logs')('core/networks/updateSchemaFields');
-
-const patchNetwork = require('./patch');
-const getAgendas = require('./getAgendas');
-
-module.exports = core => {
+export default core => {
   const {
     services,
     tasks,

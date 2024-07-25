@@ -1,24 +1,6 @@
-'use strict';
+/* eslint-disable no-param-reassign */
 
-const config = require('../../../config');
-
-module.exports = getSocialLinks;
-
-function getSocialLinks(event, eventUrl, siteUrl) {
-  if (!siteUrl) {
-    siteUrl = config.root;
-  }
-
-  return {
-    facebookShare: _facebookShare(event, eventUrl),
-    twitterShare: _twitterShare(event, eventUrl),
-    linkedInShare: _linkedInShare(event, eventUrl, siteUrl),
-    googleShare: _googleShare(event, eventUrl),
-    pinterestShare: _pinterestShare(event, eventUrl),
-    tumblrShare: _tumblrShare(event, eventUrl),
-    emailShare: _emailShare(event),
-  };
-}
+import config from '../../../config/index.js';
 
 function _facebookShare(event, eventUrl) {
   return `https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl)}`;
@@ -45,10 +27,9 @@ function _googleShare(event, eventUrl) {
 }
 
 function _pinterestShare(event, eventUrl) {
-  let shareLink = 'http://pinterest.com/pin/create/button/'
-                + `?url=${encodeURIComponent(eventUrl)
-                }&description=${encodeURIComponent(event.getDescription())
-                }&is_video=false`;
+  let shareLink = `http://pinterest.com/pin/create/button/${`?url=${encodeURIComponent(eventUrl)
+  }&description=${encodeURIComponent(event.getDescription())
+  }&is_video=false`}`;
 
   const image = event.getImage(true);
 
@@ -75,4 +56,20 @@ function _emailShare(event) {
   }
 
   return '#';
+}
+
+export default function getSocialLinks(event, eventUrl, siteUrl) {
+  if (!siteUrl) {
+    siteUrl = config.root;
+  }
+
+  return {
+    facebookShare: _facebookShare(event, eventUrl),
+    twitterShare: _twitterShare(event, eventUrl),
+    linkedInShare: _linkedInShare(event, eventUrl, siteUrl),
+    googleShare: _googleShare(event, eventUrl),
+    pinterestShare: _pinterestShare(event, eventUrl),
+    tumblrShare: _tumblrShare(event, eventUrl),
+    emailShare: _emailShare(event),
+  };
 }

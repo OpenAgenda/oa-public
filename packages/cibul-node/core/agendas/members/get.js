@@ -1,13 +1,8 @@
-'use strict';
-
-const { Forbidden } = require('@openagenda/verror');
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-const {
-  NotFound,
-} = require('@openagenda/verror');
-const getMemberSchema = require('../utils/getMemberSchema');
-const format = require('./lib/format');
-const canRead = require('./lib/canRead');
+import { Forbidden, NotFound } from '@openagenda/verror';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import getMemberSchema from '../utils/getMemberSchema.js';
+import format from './lib/format.js';
+import canRead from './lib/canRead.js';
 
 function validateMemberData(data, schema) {
   let clean = null;
@@ -96,7 +91,7 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
   return completedMemberData;
 }
 
-module.exports = Object.assign((services, agendaOrUid, identifier, options) => get(
+export default Object.assign((services, agendaOrUid, identifier, options) => get(
   services,
   { throwOnNotFound: true },
   agendaOrUid,

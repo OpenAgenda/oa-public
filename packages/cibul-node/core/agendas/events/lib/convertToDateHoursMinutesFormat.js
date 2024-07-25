@@ -1,6 +1,4 @@
-'use strict';
-
-const { produce } = require('immer');
+import { produce } from 'immer';
 
 function convertToDateHoursMinutesTimings({ utils }) {
   return event => produce(event, draft => {
@@ -8,4 +6,4 @@ function convertToDateHoursMinutesTimings({ utils }) {
   });
 }
 
-module.exports = convertToDateHoursMinutesTimings;
+export default convertToDateHoursMinutesTimings;

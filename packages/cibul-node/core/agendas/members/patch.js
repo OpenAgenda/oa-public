@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import { Forbidden, BadRequest, GeneralError } from '@openagenda/verror';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import dispatchDataPerSchemas from '@openagenda/form-schemas/iso/dispatchDataPerSchemas.js';
+import getMemberSchema from '../utils/getMemberSchema.js';
+import * as format from './lib/format.js';
+import canEdit from './lib/canEdit.js';
 
-const _ = require('lodash');
-const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
-const getMemberSchema = require('../utils/getMemberSchema');
-const format = require('./lib/format');
-const canEdit = require('./lib/canEdit');
-
-module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
+export default async (core, agendaOrUid, identifiers, data, options = {}) => {
   const { services } = core;
   const {
     members,

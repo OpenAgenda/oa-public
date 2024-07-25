@@ -1,31 +1,8 @@
-'use strict';
-
-const agendas = require('@openagenda/agendas');
-
-const cmn = require('../lib/commons-app');
-const members = require('../services/members');
-
-module.exports = app => {
-  const {
-    sessions,
-  } = app.services;
-  app.get(
-    '/session',
-    sessions.mw.ifUnlogged((req, res) => res.send(null)),
-    (req, res, next) => { req.query.detailed ? _loadDetailed(req, res, next) : next(); },
-    (req, res) => res.send(req.user),
-  );
-
-  app.get(
-    '/session/agendas/:agendaUid/role',
-    agendaLoad,
-    role,
-  );
-};
-
 // agendas service middleware will replace this
 // middleware from service/agenda/middleware
 function agendaLoad(req, res, next) {
+  const { agendas } = req.app.services;
+
   agendas.get({
     uid: req.params.agendaUid,
   }, {
@@ -38,7 +15,9 @@ function agendaLoad(req, res, next) {
   });
 }
 
-function role(req, res, next) {
+function role(req, res, _next) {
+  const { members } = req.app.services;
+
   if (!req.agendaRef || !req.user) {
     return res.send(null);
   }
@@ -54,8 +33,9 @@ function role(req, res, next) {
 function _loadDetailed(req, res, next) {
   const {
     sessions,
+    members,
   } = req.app.services;
-  sessions.get(req, { detailed: true }, (err, session) => {
+  sessions.get(req, { detailed: true }, (_err, _session) => {
     members.list({
       userUid: req.user.uid,
     }, {
@@ -74,3 +54,26 @@ function _loadDetailed(req, res, next) {
     });
   });
 }
+
+export default app => {
+  const { sessions } = app.services;
+
+  app.get(
+    '/session',
+    sessions.mw.ifUnlogged((req, res) => res.send(null)),
+    (req, res, next) => {
+      if (req.query.detailed) {
+        _loadDetailed(req, res, next);
+      } else {
+        next();
+      }
+    },
+    (req, res) => res.send(req.user),
+  );
+
+  app.get(
+    '/session/agendas/:agendaUid/role',
+    agendaLoad,
+    role,
+  );
+};

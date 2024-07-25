@@ -1,11 +1,11 @@
-'use strict';
+import memberSchema from '@openagenda/members/build/schema.js';
+import { createIntlByLocale } from '@openagenda/intl';
+import locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
+import logs from '@openagenda/logs';
+import _ from 'lodash';
+import getAgenda from './getAgenda.js';
 
-const memberSchema = require('@openagenda/members/build/schema');
-const { createIntlByLocale } = require('@openagenda/intl');
-const locales = require('@openagenda/agenda-schemas-app/dist/locales-compiled');
-const log = require('@openagenda/logs')('core/agendas/utils/getMemberSchema');
-const _ = require('lodash');
-const getAgenda = require('./getAgenda');
+const log = logs('core/agendas/utils/getMemberSchema');
 
 const intlByLocale = createIntlByLocale(locales);
 
@@ -35,7 +35,7 @@ const isOptionalFields = (agenda, adminMod, memberSchemaId) => {
   return false;
 };
 
-module.exports = async (services, agendaOrUid, options = {}) => {
+export default async (services, agendaOrUid, options = {}) => {
   const { formSchemas } = services;
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
   const actingMember = await getActingMember(services, agenda, options);
@@ -62,24 +62,30 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   return {
     merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields, { access: { read: access } }),
     schema: formSchemas.utils.merge(memberSchema({ optionalFields }), {}, { access: { read: access } }),
-    agendaSchema: { id: aditionalFields.id, ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: access } }) },
+    agendaSchema: {
+      id: aditionalFields.id,
+      ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: access } }),
+    },
   };
 };
 
-module.exports.andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) { // affichage pour la config, only admins
+export const andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) {
+  // affichage pour la config, only admins
   const { formSchemas } = services;
   const { lang = 'fr' } = options;
   const intl = intlByLocale[lang] || intlByLocale.fr;
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
   const { memberSchemaId } = agenda;
 
-  const parents = [{
-    schema: { ...memberSchema({ optionalFields: !!memberSchemaId }), id: -1 },
-    info: {
-      label: intl.formatMessage({ id: 'AgendaSchema.member' }),
-      detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
+  const parents = [
+    {
+      schema: { ...memberSchema({ optionalFields: !!memberSchemaId }), id: -1 },
+      info: {
+        label: intl.formatMessage({ id: 'AgendaSchema.member' }),
+        detail: intl.formatMessage({ id: 'AgendaSchema.memberDetail' }),
+      },
     },
-  }];
+  ];
 
   if (!memberSchemaId) {
     return {

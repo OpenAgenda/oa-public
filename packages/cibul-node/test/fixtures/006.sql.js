@@ -1,13 +1,7 @@
-'use strict';
+import loadObjectFromFile from './loadObjectFromFile.js';
+import { knex, resetAndCreateTables } from './sql/index.js';
 
-const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
-
-const load = loadObjectFromFile({ cwd: __dirname });
-
-const {
-  knex,
-  resetAndCreateTables,
-} = require('./sql');
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
@@ -701,4 +695,4 @@ raw.push(knex('custom').insert([{
   updated_at: new Date('2019-05-06T10:00:00'),
 }]));
 
-module.exports = `${raw.join(';\n')};`;
+export default `${raw.join(';\n')};`;

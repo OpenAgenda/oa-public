@@ -1,5 +1,3 @@
-'use strict';
-
 function blacklistByDomain(config, context) {
   const { data } = context;
 
@@ -33,7 +31,7 @@ async function isInvitedFromAnOfficialAgenda(services, invitation) {
   return result;
 }
 
-module.exports = (config, services) => async context => {
+export default (config, services) => async context => {
   const {
     invitations: invitationsSvc,
   } = services;

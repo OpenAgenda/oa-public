@@ -1,11 +1,7 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = (core, query, access) => {
-  const {
-    compareRoles,
-  } = core.services.members.utils;
+export default (core, query, access) => {
+  const { compareRoles } = core.services.members.utils;
 
   if (access === 'internal') {
     return query;

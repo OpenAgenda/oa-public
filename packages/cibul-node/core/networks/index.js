@@ -1,13 +1,11 @@
-'use strict';
+import getSchema from './getSchema.js';
+import UpdateSchemaFields from './updateSchemaFields.js';
+import getAgendas from './getAgendas.js';
+import addAgenda from './addAgenda.js';
+import removeAgenda from './removeAgenda.js';
+import get from './get.js';
 
-const getSchema = require('./getSchema');
-const UpdateSchemaFields = require('./updateSchemaFields');
-const getAgendas = require('./getAgendas');
-const addAgenda = require('./addAgenda');
-const removeAgenda = require('./removeAgenda');
-const get = require('./get');
-
-module.exports = core => {
+export default core => {
   const updateSchemaFields = UpdateSchemaFields(core);
 
   return Object.assign(networkUid => ({

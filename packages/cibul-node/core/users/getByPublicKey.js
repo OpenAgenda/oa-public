@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/users/getByPublicKey');
+const log = logs('core/users/getByPublicKey');
 
-module.exports = async function getByPublicKey(core, publicKey) {
+export default async function getByPublicKey(core, publicKey) {
   const {
     services: { accessTokens, users },
   } = core;
@@ -23,4 +23,4 @@ module.exports = async function getByPublicKey(core, publicKey) {
   }
 
   return user;
-};
+}

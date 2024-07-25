@@ -1,18 +1,22 @@
-'use strict';
+import fs from 'node:fs';
+import ControlData from '@openagenda/legacy/controlData/index.js';
+import Embeds from '@openagenda/legacy/embeds/index.js';
+import TagsAndCustom from '@openagenda/legacy/tagsAndCustom/index.js';
+import GetTagSet from '@openagenda/legacy/getTagSet.js';
+import GetCategorySet from '@openagenda/legacy/getCategorySet.js';
+import * as utils from '@openagenda/legacy/utils/index.js';
 
-const fs = require('node:fs');
-const ControlData = require('@openagenda/legacy/controlData');
-const Embeds = require('@openagenda/legacy/embeds');
-const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
-const GetTagSet = require('@openagenda/legacy/getTagSet');
-const GetCategorySet = require('@openagenda/legacy/getCategorySet');
-const utils = require('@openagenda/legacy/utils');
+export const controlData = {};
+export const tagsAndCustom = {};
+export { utils };
+export const sets = {};
 
-module.exports.controlData = {};
-module.exports.tagsAndCustom = {};
-module.exports.utils = utils;
+function task() {
+  controlData.task();
+  tagsAndCustom.task();
+}
 
-module.exports.init = (config, services) => {
+export function init(config, services) {
   const {
     knex,
     redis,
@@ -33,36 +37,44 @@ module.exports.init = (config, services) => {
   TagsAndCustom.updateLoggerConfig(config.getLogConfig('svc', 'legacyTagsAndCustom'));
   Embeds.updateLoggerConfig(config.getLogConfig('svc', 'embeds'));
 
-  Object.assign(module.exports.controlData, ControlData({
+  Object.assign(controlData, ControlData({
     knex,
     redis,
     prefix: 'agendaControlData:',
     imagePath: config.aws.imageBucketPath,
   }));
 
-  Object.assign(module.exports.tagsAndCustom, TagsAndCustom({
+  Object.assign(tagsAndCustom, TagsAndCustom({
     knex,
     queue: Queues('legacyTagsAndCustom'),
     interfaces,
   }));
 
-  module.exports.getTagSet = GetTagSet({ knex });
-  module.exports.getCategorySet = GetCategorySet({ knex });
+  const getTagSet = GetTagSet({ knex });
+  const getCategorySet = GetCategorySet({ knex });
 
-  module.exports.embeds = Embeds({
+  Object.assign(sets, {
+    getTagSet,
+    getCategorySet,
+  });
+
+  const embeds = Embeds({
     knex,
     interfaces,
     defaultTemplates: {
-      eventitem: fs.readFileSync(`${__dirname}/embed/templates/eventItem.tblr`, 'utf-8'),
-      event: fs.readFileSync(`${__dirname}/embed/templates/event.tblr`, 'utf-8'),
-      header: fs.readFileSync(`${__dirname}/embed/templates/header.tblr`, 'utf-8'),
+      eventitem: fs.readFileSync(new URL('./embed/templates/eventItem.tblr', import.meta.url), 'utf-8'),
+      event: fs.readFileSync(new URL('./embed/templates/event.tblr', import.meta.url), 'utf-8'),
+      header: fs.readFileSync(new URL('./embed/templates/header.tblr', import.meta.url), 'utf-8'),
     },
   });
 
-  return module.exports;
-};
-
-module.exports.task = () => {
-  module.exports.controlData.task();
-  module.exports.tagsAndCustom.task();
-};
+  return {
+    controlData,
+    tagsAndCustom,
+    utils,
+    getTagSet,
+    getCategorySet,
+    embeds,
+    task,
+  };
+}

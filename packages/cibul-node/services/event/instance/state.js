@@ -1,90 +1,14 @@
-'use strict';
+/* eslint-disable no-param-reassign */
 
-const model = require('../../model');
+import async from 'async';
+import logs from '@openagenda/logs';
+import utils from '@openagenda/utils';
+import model from '../../model/index.js';
+import instanceLoader from '../../lib/instanceLoader.js';
 
-const async = require('async');
-
-const log = require('@openagenda/logs')('event state');
-
-const utils = require('@openagenda/utils');
+const log = logs('event state');
 
 const TYPES = model.events().STATETYPES;
-
-module.exports = require('../../lib/instanceLoader')((loaded, instance) => {
-  let onStateChange;
-
-  return {
-    setState,
-    getState,
-    setOnStateChange,
-  };
-
-  function getState(options, cb) {
-    if (arguments.length === 1) {
-      cb = options;
-      options = {};
-    }
-
-    const params = utils.extend({
-      labelized: true,
-    }, options);
-
-    if (!instance.isInAgendaContext()) {
-      return cb(null, instance.getIsDraft() ? 'draft' : _labelize(TYPES.PUBLISHED));
-    }
-
-    instance.getState((err, state) => {
-      if (err) return cb(err);
-
-      cb(null, params.labelized ? _labelize(state) : state);
-    });
-  }
-
-  function _labelize(state) {
-    const labels = {};
-
-    labels[TYPES.REFUSED] = 'refused';
-    labels[TYPES.NOTVALIDATED] = 'tocontrol';
-    labels[TYPES.VALIDATED] = 'controlled';
-    labels[TYPES.PUBLISHED] = 'published';
-
-    return labels[state];
-  }
-
-  function setState(newState, user, cb) {
-    if (arguments.length === 2) {
-      cb = user;
-      user = null;
-    }
-
-    getState({ labelized: false }, (err, oldState) => {
-      log('setting event %s state to %s', instance.id, newState);
-
-      const stateModifiers = {};
-
-      stateModifiers[TYPES.REFUSED] = _refuse;
-      stateModifiers[TYPES.PUBLISHED] = _publish;
-      stateModifiers[TYPES.VALIDATED] = _validate;
-      stateModifiers[TYPES.NOTVALIDATED] = _unvalidate;
-
-      if ([TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED].indexOf(parseInt(newState)) == -1) {
-        return cb('this state is unknown');
-      }
-
-      stateModifiers[newState](instance, (err, result) => {
-        if (err) return cb(err);
-
-        if (onStateChange) onStateChange(_labelize(oldState), _labelize(newState), user);
-
-        cb(null, result, { oldState, newState });
-      });
-    });
-  }
-
-  function setOnStateChange(cb) {
-    onStateChange = cb;
-  }
-});
 
 function _publish(instance, cb) {
   if (!instance.isInAgendaContext()) {
@@ -118,3 +42,79 @@ function _unvalidate(instance, cb) {
     async.apply(instance.setNotValidated, true),
   ], cb);
 }
+
+export default instanceLoader((loaded, instance) => {
+  let onStateChange;
+
+  function _labelize(state) {
+    const labels = {};
+
+    labels[TYPES.REFUSED] = 'refused';
+    labels[TYPES.NOTVALIDATED] = 'tocontrol';
+    labels[TYPES.VALIDATED] = 'controlled';
+    labels[TYPES.PUBLISHED] = 'published';
+
+    return labels[state];
+  }
+
+  function getState(options, cb) {
+    if (arguments.length === 1) {
+      cb = options;
+      options = {};
+    }
+
+    const params = utils.extend({
+      labelized: true,
+    }, options);
+
+    if (!instance.isInAgendaContext()) {
+      return cb(null, instance.getIsDraft() ? 'draft' : _labelize(TYPES.PUBLISHED));
+    }
+
+    instance.getState((err, state) => {
+      if (err) return cb(err);
+
+      cb(null, params.labelized ? _labelize(state) : state);
+    });
+  }
+
+  function setState(newState, user, cb) {
+    if (arguments.length === 2) {
+      cb = user;
+      user = null;
+    }
+
+    getState({ labelized: false }, (err, oldState) => {
+      log('setting event %s state to %s', instance.id, newState);
+
+      const stateModifiers = {};
+
+      stateModifiers[TYPES.REFUSED] = _refuse;
+      stateModifiers[TYPES.PUBLISHED] = _publish;
+      stateModifiers[TYPES.VALIDATED] = _validate;
+      stateModifiers[TYPES.NOTVALIDATED] = _unvalidate;
+
+      if (![TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED].includes(parseInt(newState, 10))) {
+        return cb('this state is unknown');
+      }
+
+      stateModifiers[newState](instance, (err2, result) => {
+        if (err2) return cb(err2);
+
+        if (onStateChange) onStateChange(_labelize(oldState), _labelize(newState), user);
+
+        cb(null, result, { oldState, newState });
+      });
+    });
+  }
+
+  function setOnStateChange(cb) {
+    onStateChange = cb;
+  }
+
+  return {
+    setState,
+    getState,
+    setOnStateChange,
+  };
+});

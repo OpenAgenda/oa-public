@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = function onActivation() {
+export default function onActivation() {
   return async context => {
     const {
       invitations,
@@ -41,4 +39,4 @@ module.exports = function onActivation() {
 
     await invitations.execute({ email: user.email }, { user });
   };
-};
+}

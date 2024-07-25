@@ -9355,18 +9355,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/pdf@npm:^0.1.6":
-  version: 0.1.6
-  resolution: "@openagenda/pdf@npm:0.1.6"
-  dependencies:
-    async: "npm:^1.5.0"
-    gm: "npm:^1.17.0"
-    lodash: "npm:^4.17.4"
-    pdfkit: "npm:^0.7.1"
-  checksum: 10c0/d23c7bdd505fce321348458094088c1c0bc3030f34383df050b1c14b76c5a2fab9f14e07736d29f1f720f9135a868dee31dee9a8e17929cd095133d50e044291
-  languageName: node
-  linkType: hard
-
 "@openagenda/polyfills@npm:^1.2.5":
   version: 1.2.5
   resolution: "@openagenda/polyfills@npm:1.2.5"
@@ -19669,7 +19657,6 @@ __metadata:
     "@openagenda/newsletter": "npm:^2.0.1"
     "@openagenda/oembed": "npm:^2.2.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/pdf": "npm:^0.1.6"
     "@openagenda/pdf-exports": "npm:^0.0.1"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/queues": "npm:^2.0.0"
@@ -19706,6 +19693,7 @@ __metadata:
     debug: "npm:^4.1.1"
     dedent: "npm:^0.7.0"
     deep-diff: "npm:^1.0.2"
+    ejs: "npm:^3.1.9"
     exceljs: "npm:^4.3.0"
     express: "npm:^4.17.1"
     express-rate-limit: "npm:^7.1.4"
@@ -27111,7 +27099,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gm@npm:^1.17.0, gm@npm:^1.25.0":
+"gm@npm:^1.25.0":
   version: 1.25.0
   resolution: "gm@npm:1.25.0"
   dependencies:
@@ -30481,7 +30469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-runtime@npm:^29.7.0":
+"jest-runtime@npm:29.7.0":
   version: 29.7.0
   resolution: "jest-runtime@npm:29.7.0"
   dependencies:
@@ -30508,6 +30496,36 @@ __metadata:
     slash: "npm:^3.0.0"
     strip-bom: "npm:^4.0.0"
   checksum: 10c0/7cd89a1deda0bda7d0941835434e44f9d6b7bd50b5c5d9b0fc9a6c990b2d4d2cab59685ab3cb2850ed4cc37059f6de903af5a50565d7f7f1192a77d3fd6dd2a6
+  languageName: node
+  linkType: hard
+
+"jest-runtime@patch:jest-runtime@npm%3A29.7.0#~/public/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch":
+  version: 29.7.0
+  resolution: "jest-runtime@patch:jest-runtime@npm%3A29.7.0#~/public/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch::version=29.7.0&hash=3deca4"
+  dependencies:
+    "@jest/environment": "npm:^29.7.0"
+    "@jest/fake-timers": "npm:^29.7.0"
+    "@jest/globals": "npm:^29.7.0"
+    "@jest/source-map": "npm:^29.6.3"
+    "@jest/test-result": "npm:^29.7.0"
+    "@jest/transform": "npm:^29.7.0"
+    "@jest/types": "npm:^29.6.3"
+    "@types/node": "npm:*"
+    chalk: "npm:^4.0.0"
+    cjs-module-lexer: "npm:^1.0.0"
+    collect-v8-coverage: "npm:^1.0.0"
+    glob: "npm:^7.1.3"
+    graceful-fs: "npm:^4.2.9"
+    jest-haste-map: "npm:^29.7.0"
+    jest-message-util: "npm:^29.7.0"
+    jest-mock: "npm:^29.7.0"
+    jest-regex-util: "npm:^29.6.3"
+    jest-resolve: "npm:^29.7.0"
+    jest-snapshot: "npm:^29.7.0"
+    jest-util: "npm:^29.7.0"
+    slash: "npm:^3.0.0"
+    strip-bom: "npm:^4.0.0"
+  checksum: 10c0/07250830a736a927bff868c82d88d7e9f4507a5d123633f0f24ec8aad14c8939422c07bb11f9792761e90d1e54b119ed2582c5b141d4356fb6eddaf5d5eab873
   languageName: node
   linkType: hard
 
@@ -31557,15 +31575,6 @@ __metadata:
     base64-js: "npm:0.0.8"
     unicode-trie: "npm:^2.0.0"
   checksum: 10c0/b350c90d7b10db30345ed56cdb869548110ce73ccdc4337100eaee50755eed78e9823490e6f2d7ed0adde14f7ed2a12d8583015e072c54f34dc70b316fde133d
-  languageName: node
-  linkType: hard
-
-"linebreak@npm:~0.1.0":
-  version: 0.1.2
-  resolution: "linebreak@npm:0.1.2"
-  dependencies:
-    unicode-trie: "npm:^0.1.1"
-  checksum: 10c0/03fb93d1c47b4d8b206c488642d0a5ac1ea82d1368b740a36fae10cf650caec380c48e61a0cd2a2f0773496c56da639841d3c2528675db691678da4877e84733
   languageName: node
   linkType: hard
 
@@ -36367,16 +36376,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfkit@npm:^0.7.1":
-  version: 0.7.2
-  resolution: "pdfkit@npm:0.7.2"
-  dependencies:
-    linebreak: "npm:~0.1.0"
-    png-js: "npm:>=0.1.0"
-  checksum: 10c0/88879ef6fa89ee5538effb4eb028a356d873ce9a7d74035d8c26cb4af90aa5b998b6b64f2c8ea8fc492187f1de34764d0d2494072648b9bffa33c6d10feff857
-  languageName: node
-  linkType: hard
-
 "peek-readable@npm:^3.1.0":
   version: 3.1.0
   resolution: "peek-readable@npm:3.1.0"
@@ -36556,7 +36555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"png-js@npm:>=0.1.0, png-js@npm:^1.0.0":
+"png-js@npm:^1.0.0":
   version: 1.0.0
   resolution: "png-js@npm:1.0.0"
   checksum: 10c0/b591107bb888c66cb1799327774f73f2865a366b5992ed7335c81610eab0e9cb4f13fb396e3c00e28781ada6ccde170b566209e9df833a2abe71d11da55aea85
@@ -44868,13 +44867,6 @@ __metadata:
   version: 2.1.0
   resolution: "unicode-property-aliases-ecmascript@npm:2.1.0"
   checksum: 10c0/50ded3f8c963c7785e48c510a3b7c6bc4e08a579551489aa0349680a35b1ceceec122e33b2b6c1b579d0be2250f34bb163ac35f5f8695fe10bbc67fb757f0af8
-  languageName: node
-  linkType: hard
-
-"unicode-trie@npm:^0.1.1":
-  version: 0.1.2
-  resolution: "unicode-trie@npm:0.1.2"
-  checksum: 10c0/838409b1651f36d8d3e6bcaec9bd4c392f71834d8ddccec0a2b15503db0a710ae03b443ddf023a770aa211d9c190d52e62229a61f8a1cf43adcec3b51a75bac5
   languageName: node
   linkType: hard
 

@@ -1,11 +1,9 @@
-'use strict';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import mysql from 'mysql';
 
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const mysql = require('mysql');
-
-module.exports = async (config, jsFile) => {
-  const sql = require(`./${jsFile}`);
+export default async (config, jsFile) => {
+  const sql = await import(`./${jsFile}`).then(mod => mod.default);
 
   const con = mysql.createConnection(Object.assign(_.pick(config, ['user', 'password', 'host', 'ssl']), {
     multipleStatements: true,
@@ -13,7 +11,7 @@ module.exports = async (config, jsFile) => {
 
   const query = promisify(con.query.bind(con));
 
-  const result = await query(sql);
+  await query(sql);
 
   con.end();
 };

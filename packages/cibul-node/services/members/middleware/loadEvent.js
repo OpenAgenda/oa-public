@@ -1,8 +1,3 @@
-'use strict';
-
-module.exports = loadBy({ agenda: 'agenda' });
-module.exports.by = loadBy;
-
 function loadBy({ agenda }) {
   return (req, res, next) => {
     const {
@@ -21,3 +16,6 @@ function loadBy({ agenda }) {
     });
   };
 }
+
+export default loadBy({ agenda: 'agenda' });
+export { loadBy as by };

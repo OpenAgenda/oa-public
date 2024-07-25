@@ -1,16 +1,14 @@
-'use strict';
+import fs from 'node:fs';
+import ih from 'immutability-helper';
 
-const fs = require('node:fs');
-const ih = require('immutability-helper');
-
-module.exports = function insertEventSet(knex, raw, eventSetId, extendWith = {}) {
+export default function insertEventSet(knex, raw, eventSetId, extendWith = {}) {
   const {
     legacyEvent,
     eventLocation,
     occurrences,
     event,
     agendaEvents,
-  } = JSON.parse(fs.readFileSync(`${__dirname}/${eventSetId}.json`, 'utf-8'));
+  } = JSON.parse(fs.readFileSync(`${import.meta.dirname}/${eventSetId}.json`, 'utf-8'));
 
   if (legacyEvent) {
     raw.push(knex('event').insert([
@@ -34,4 +32,4 @@ module.exports = function insertEventSet(knex, raw, eventSetId, extendWith = {})
   raw.push(knex('agenda_event').insert(
     extendWith.agendaEvents ? ih(agendaEvents, extendWith.agendaEvents) : agendaEvents,
   ));
-};
+}

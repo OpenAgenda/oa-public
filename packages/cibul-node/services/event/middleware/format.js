@@ -1,94 +1,14 @@
-'use strict';
+import w from 'when';
+import _ from 'lodash';
+import qs from 'qs';
+import du from '@openagenda/dom-utils';
+import { helpers } from '@openagenda/cibul-templates';
+import range from '@openagenda/date-range';
+import getTimings from '../lib/getTimings.js';
+import getDates from '../lib/getDates.js';
+import { renderHTMLFromMarkdown } from '../lib/getLongDescriptionHTML.js';
 
-const w = require('when');
-const _ = require('lodash');
-const qs = require('qs');
-const du = require('@openagenda/dom-utils');
-const timeHelper = require('@openagenda/cibul-templates').helpers.time;
-const getTypeAndValuesOfRegistration = require('@openagenda/registration/src/validate').getTypesAndValues;
-const flattenRegistration = require('@openagenda/registration/src/validate').clean;
-const range = require('@openagenda/date-range');
-const getTimings = require('../lib/getTimings');
-const getDates = require('../lib/getDates');
-
-const {
-  renderHTMLFromMarkdown,
-} = require('../lib/getLongDescriptionHTML');
-
-/**
- * prepare event data for display or upload
- * ( links & full pathed images )
- */
-
-module.exports = _.extend((req, res, next) => {
-  if (req.event.origin) {
-    req.event.origin.oaUrl = `https://openagenda.com/agendas/${req.event.origin.uid}`;
-  }
-
-  w({
-    req,
-    res,
-    formatted: {
-      updatedAt: req.event.updatedAt,
-      createdAt: req.event.createdAt,
-      timezone: req.event.getLocationDetails().timezone,
-      origin: req.event.origin,
-    },
-    _t: timeHelper({ lang: req.lang }),
-  })
-
-    .then(_main)
-
-    .then(_keywords)
-
-    .then(_image)
-
-    .then(_timings)
-
-    .then(_dates)
-
-    .then(_location)
-
-    .then(_registration)
-
-    .then(_load('owner', 'getOwner'))
-
-    .then(_load('agendaReferences', 'getAgendaReferences'))
-
-    .then(_load('adminAgendas', 'getAdminAgendas'))
-
-    .then(_load('currentState', 'getState'))
-
-    .then(_languages)
-
-    .then(_importUri)
-
-    .then(_uri)
-
-    .then(v => {
-      const d = w.defer();
-
-      if (!req.agenda) return v;
-
-      w(v)
-
-        .then(_categories)
-
-        .then(_featured)
-
-        .done(v => d.resolve(v), d.reject);
-
-      return d.promise;
-    })
-
-    .done(v => {
-      req.formatted = v.formatted;
-
-      next();
-    }, next);
-}, {
-  listifyKeywords,
-});
+const { time: timeHelper } = helpers;
 
 function _location(v) {
   v.formatted.location = v.req.event.getLocationDetails(v.req.lang, true);
@@ -259,16 +179,16 @@ function _image(v) {
   return v;
 }
 
-function _keywords(v) {
-  v.formatted.keywordList = listifyKeywords(v.formatted.keywords);
-
-  return v;
-}
-
 function listifyKeywords(keywords) {
   if (typeof keywords !== 'string') return [];
 
   return keywords.split(',').map(k => k.trim()).filter(k => !!k.length);
+}
+
+function _keywords(v) {
+  v.formatted.keywordList = listifyKeywords(v.formatted.keywords);
+
+  return v;
 }
 
 function _main(v) {
@@ -306,3 +226,78 @@ function _main(v) {
 
   return v;
 }
+
+/**
+ * prepare event data for display or upload
+ * ( links & full pathed images )
+ */
+
+export default _.extend((req, res, next) => {
+  if (req.event.origin) {
+    req.event.origin.oaUrl = `https://openagenda.com/agendas/${req.event.origin.uid}`;
+  }
+
+  w({
+    req,
+    res,
+    formatted: {
+      updatedAt: req.event.updatedAt,
+      createdAt: req.event.createdAt,
+      timezone: req.event.getLocationDetails().timezone,
+      origin: req.event.origin,
+    },
+    _t: timeHelper({ lang: req.lang }),
+  })
+
+    .then(_main)
+
+    .then(_keywords)
+
+    .then(_image)
+
+    .then(_timings)
+
+    .then(_dates)
+
+    .then(_location)
+
+    .then(_registration)
+
+    .then(_load('owner', 'getOwner'))
+
+    .then(_load('agendaReferences', 'getAgendaReferences'))
+
+    .then(_load('adminAgendas', 'getAdminAgendas'))
+
+    .then(_load('currentState', 'getState'))
+
+    .then(_languages)
+
+    .then(_importUri)
+
+    .then(_uri)
+
+    .then(v => {
+      const d = w.defer();
+
+      if (!req.agenda) return v;
+
+      w(v)
+
+        .then(_categories)
+
+        .then(_featured)
+
+        .done(d.resolve, d.reject);
+
+      return d.promise;
+    })
+
+    .done(v => {
+      req.formatted = v.formatted;
+
+      next();
+    }, next);
+}, {
+  listifyKeywords,
+});

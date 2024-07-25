@@ -1,9 +1,7 @@
-'use strict';
+import resetCache from './resetCache.js';
 
-const resetCache = require('./resetCache');
-
-module.exports = function onPatch(_config, services) {
+export default function onPatch(_config, services) {
   return async context => {
-    resetCache(services, context.result);
+    await resetCache(services, context.result);
   };
-};
+}

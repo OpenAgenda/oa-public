@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async function getAgendaUserEventStats(core, identifier, agendaUid, options = []) {
+export default async function getAgendaUserEventStats(core, identifier, agendaUid, options = []) {
   const {
     services: {
       events,
@@ -46,4 +44,4 @@ module.exports = async function getAgendaUserEventStats(core, identifier, agenda
     states,
     drafts,
   };
-};
+}

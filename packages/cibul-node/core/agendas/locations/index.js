@@ -1,15 +1,13 @@
-'use strict';
+import list from './list.js';
+import get from './get.js';
+import patch from './patch.js';
+import remove from './remove.js';
+import merge from './merge.js';
+import update from './update.js';
+import create from './create.js';
+import getSettings from './getSettings.js';
 
-const list = require('./list');
-const get = require('./get');
-const patch = require('./patch');
-const remove = require('./remove');
-const merge = require('./merge');
-const update = require('./update');
-const create = require('./create');
-const getSettings = require('./getSettings');
-
-module.exports = (core, agendaOrUid) => (
+export default (core, agendaOrUid) => (
   {
     create: create(core, agendaOrUid),
     update: update(core, agendaOrUid),

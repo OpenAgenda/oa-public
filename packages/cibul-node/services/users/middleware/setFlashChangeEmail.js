@@ -1,9 +1,9 @@
-'use strict';
+import labels from '@openagenda/labels/users/settings.js';
+import makeLabelGetter from '@openagenda/labels';
 
-const labels = require('@openagenda/labels/users/settings');
-const getLabels = require('@openagenda/labels/makeLabelGetter')(labels);
+const getLabel = makeLabelGetter(labels);
 
-module.exports = () => (req, res, next) => {
+export default () => (req, res, next) => {
   const {
     sessions,
   } = req.app.services;
@@ -12,7 +12,7 @@ module.exports = () => (req, res, next) => {
     sessions.setFlash(
       req,
       res,
-      getLabels(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang),
+      getLabel(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang),
     );
 
     return res.redirect('/home');

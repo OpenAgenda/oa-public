@@ -1,12 +1,10 @@
-'use strict';
-
-const create = require('./create');
-const get = require('./get');
-const list = require('./list');
-const patch = require('./patch');
-const remove = require('./remove');
-const stream = require('./stream');
-const sendGroupMail = require('./sendGroupMail');
+import create from './create.js';
+import get from './get.js';
+import list from './list.js';
+import patch from './patch.js';
+import remove from './remove.js';
+import stream from './stream.js';
+import sendGroupMail from './sendGroupMail.js';
 
 const invite = (core, agendaUid, { role, emails = [], context }) => {
   const { members } = core.services;
@@ -19,7 +17,7 @@ const invite = (core, agendaUid, { role, emails = [], context }) => {
   });
 };
 
-module.exports = (core, agendaUid) => Object.assign(memberOrUid => ({
+export default (core, agendaUid) => Object.assign(memberOrUid => ({
   sendGroupMail: sendGroupMail.bind(null, core, agendaUid, memberOrUid),
 }), {
   list: list.bind(null, core, agendaUid),

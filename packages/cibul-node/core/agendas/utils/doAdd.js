@@ -1,16 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import refreshAgenda from './refreshAgenda.js';
+import setCustom from './setCustom.js';
+import convertLocationAdditionalFields from './convertLocationAdditionalFields.js';
+import formatError from './formatError.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
+const log = logs('core/agendas/utils/doAdd');
 
-const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
-const refreshAgenda = require('./refreshAgenda');
-const setCustom = require('./setCustom');
-const convertLocationAdditionalFields = require('./convertLocationAdditionalFields');
-
-const formatError = require('./formatError');
-
-module.exports = async (core, payload, clean, options = {}) => {
+export default async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
   const event = payload.getEvent();
 

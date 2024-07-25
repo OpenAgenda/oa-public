@@ -1,10 +1,9 @@
-'use strict';
+import qs from 'qs';
+import logs from '@openagenda/logs';
+import * as invitationContext from '../invitationContext.js';
+import agendaLogo from '../agendaLogo.js';
 
-const qs = require('qs');
-
-const log = require('@openagenda/logs')('services/members/sendGroupMail/sendMessage');
-const invitationContext = require('../invitationContext');
-const agendaLogo = require('../agendaLogo');
+const log = logs('services/members/sendGroupMail/sendMessage');
 
 async function loadInvitation(services, member) {
   const {
@@ -20,7 +19,7 @@ async function loadInvitation(services, member) {
     .then(r => (r ? r.invitation : null));
 }
 
-module.exports = async function sendMessage(services, config, {
+export default async function sendMessage(services, config, {
   agenda,
   member,
   data,
@@ -51,7 +50,7 @@ module.exports = async function sendMessage(services, config, {
     const invitation = await loadInvitation(services, member);
 
     const appliedLang = invitation
-      ? invitationContext.getLang(invitation, lang)
+      ? invitationContext.getLang(invitation, agenda.uid, lang)
       : lang;
 
     const link = invitation
@@ -98,4 +97,4 @@ module.exports = async function sendMessage(services, config, {
       error: e,
     });
   }
-};
+}

@@ -1,9 +1,9 @@
-'use strict';
+import invitationsSvc from '@openagenda/invitations';
+import logs from '@openagenda/logs';
 
-const invitationsSvc = require('@openagenda/invitations');
-const log = require('@openagenda/logs')('services/users/onCreate');
+const log = logs('services/users/onCreate');
 
-module.exports = function onCreate(config, services) {
+export default function onCreate(config, services) {
   const { discord } = services;
   return async context => {
     const user = context.result;
@@ -28,4 +28,4 @@ module.exports = function onCreate(config, services) {
       log('error', 'failed to notify discord');
     }
   };
-};
+}

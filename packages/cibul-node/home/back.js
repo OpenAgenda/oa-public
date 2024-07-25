@@ -1,11 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const range = require('@openagenda/date-range');
-const agendaSvc = require('@openagenda/agendas');
-const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
-const membersSvc = require('../services/members');
-const cmn = require('../lib/commons-app');
+import _ from 'lodash';
+import range from '@openagenda/date-range';
+import activitiesMw from '@openagenda/activity-apps/dist/middleware.js';
+import cmn from '../lib/commons-app.js';
 
 const LIST_LIMIT = 20;
 
@@ -15,6 +11,11 @@ function getBooleanQuery(param) {
 }
 
 async function agendasList(req, res, next) {
+  const {
+    agendas: agendaSvc,
+    members: membersSvc,
+  } = req.app.services;
+
   const page = req.query.page || 1;
   const offset = (page - 1) * LIST_LIMIT;
 
@@ -91,7 +92,7 @@ function eventsList(req, res, next) {
   }, next);
 }
 
-module.exports = app => {
+export default app => {
   const {
     sessions,
   } = app.services;

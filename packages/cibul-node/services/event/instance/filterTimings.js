@@ -1,8 +1,14 @@
-'use strict';
+import moment from 'moment-timezone';
 
-const moment = require('moment-timezone');
+function _filterFrom(timings, fromValue, timezone) {
+  return timings.filter(t => moment.tz(fromValue.replace(' ', '+'), timezone).format('YYYY-MM-DD') <= moment.tz(t.start, timezone).format('YYYY-MM-DD'));
+}
 
-module.exports = (timings, filter, timezone) => {
+function _filterTo(timings, toValue, timezone) {
+  return timings.filter(t => moment.tz(toValue.replace(' ', '+'), timezone).format('YYYY-MM-DD') >= moment.tz(t.start, timezone).format('YYYY-MM-DD'));
+}
+
+export default (timings, filter, timezone) => {
   let filtered = timings;
 
   if (filter.from) {
@@ -15,11 +21,3 @@ module.exports = (timings, filter, timezone) => {
 
   return filtered;
 };
-
-function _filterFrom(timings, fromValue, timezone) {
-  return timings.filter(t => moment.tz(fromValue.replace(' ', '+'), timezone).format('YYYY-MM-DD') <= moment.tz(t.start, timezone).format('YYYY-MM-DD'));
-}
-
-function _filterTo(timings, toValue, timezone) {
-  return timings.filter(t => moment.tz(toValue.replace(' ', '+'), timezone).format('YYYY-MM-DD') >= moment.tz(t.start, timezone).format('YYYY-MM-DD'));
-}

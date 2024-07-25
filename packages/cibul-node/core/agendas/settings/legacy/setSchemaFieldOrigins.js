@@ -1,11 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import getSchema from '../getSchema.js';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-
-const getSchema = require('../getSchema');
-
-module.exports = async (services, agenda, fieldNames = [], origin = null) => {
+export default async (services, agenda, fieldNames = [], origin = null) => {
   const {
     formSchemas,
   } = services;
@@ -28,10 +25,10 @@ module.exports = async (services, agenda, fieldNames = [], origin = null) => {
 
   const update = fieldNames
     .map(f => schemaFieldNames.indexOf(f))
-    .reduce((update, fieldIndex) => {
-      if (fieldIndex === -1) return update;
+    .reduce((update2, fieldIndex) => {
+      if (fieldIndex === -1) return update2;
 
-      return _.set(update, `fields.${fieldIndex}.origin`, { $set: origin });
+      return _.set(update2, `fields.${fieldIndex}.origin`, { $set: origin });
     }, { fields: {} });
 
   if (!_.keys(update.fields).length) {

@@ -1,15 +1,7 @@
-'use strict';
+import loadObjectFromFile from './loadObjectFromFile.js';
+import { knex, resetAndCreateTables } from './sql/index.js';
 
-const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
-
-const load = loadObjectFromFile({
-  cwd: __dirname,
-});
-
-const {
-  knex,
-  resetAndCreateTables,
-} = require('./sql');
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
@@ -79,7 +71,7 @@ const {
   review_category: reviewCategory,
   category_set: categorySet,
   tag_set: tagSet,
-} = require('./sql/legacy/218.json');
+} = load('./sql/legacy/218.json');
 
 raw.push(knex('review_category').insert(reviewCategory));
 
@@ -93,4 +85,4 @@ raw.push(knex('tag_set').insert([{
   store: JSON.stringify(tagSet),
 }]));
 
-module.exports = `${raw.join(';\n')};`;
+export default `${raw.join(';\n')};`;

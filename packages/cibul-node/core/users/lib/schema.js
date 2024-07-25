@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   fields: [{
     field: 'uid',
     fieldType: 'integer',

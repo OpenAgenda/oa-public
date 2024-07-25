@@ -1,18 +1,34 @@
-'use strict';
+import _ from 'lodash';
+import makeLabelGetter from '@openagenda/labels';
+import labels from '@openagenda/labels/members/index.js';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
+const log = logs('services/members/middleware/loadMember');
+const getLabel = makeLabelGetter(labels);
 
-const getLabel = require('@openagenda/labels/makeLabelGetter')(
-  require('@openagenda/labels/members'),
-);
-const log = require('@openagenda/logs')('services/members/middleware/loadMember');
+async function _load({ agendaUidPath }, req) {
+  const { members } = req.app.services;
+  const agendaUid = _.get(req, agendaUidPath || 'agenda.uid');
 
-module.exports = (req, res, next) => {
+  if (!req.user) {
+    return;
+  }
+
+  const member = await members.get({
+    agendaUid,
+    userUid: req.user.uid,
+  });
+
+  req.access = member && members.utils.getRoleSlug(member.role);
+  req.member = member;
+}
+
+export default (req, res, next) => {
   log('loading current user member reference');
   _load({ agendaUidPath: 'agenda.uid' }, req).then(next, next);
 };
 
-module.exports.andAuthorize = (requiredRole, options = {}) => {
+export function andAuthorize(requiredRole, options = {}) {
   const orFn = _.get(options, 'or', (req, res) => {
     const { sessions } = req.app.services;
 
@@ -39,16 +55,18 @@ module.exports.andAuthorize = (requiredRole, options = {}) => {
       }
     }, next);
   };
-};
+}
 
-module.exports.or = orFn => (req, res, next) => {
-  _load({ agendaUidPath: 'agenda.uid' }, req).then(() => {
-    if (!req.member) return orFn(req, res, next);
-    next();
-  }, next);
-};
+export function or(orFn) {
+  return (req, res, next) => {
+    _load({ agendaUidPath: 'agenda.uid' }, req).then(() => {
+      if (!req.member) return orFn(req, res, next);
+      next();
+    }, next);
+  };
+}
 
-module.exports.orFail = (req, res, next) => {
+export function orFail(req, res, next) {
   log('loading current user member reference... or fail');
   _load({ agendaUidPath: 'agenda.uid' }, req).then(() => {
     if (!req.member) {
@@ -57,21 +75,4 @@ module.exports.orFail = (req, res, next) => {
     }
     next();
   }, next);
-};
-
-async function _load({ agendaUidPath }, req) {
-  const { members } = req.app.services;
-  const agendaUid = _.get(req, agendaUidPath || 'agenda.uid');
-
-  if (!req.user) {
-    return;
-  }
-
-  const member = await members.get({
-    agendaUid,
-    userUid: req.user.uid,
-  });
-
-  req.access = member && members.utils.getRoleSlug(member.role);
-  req.member = member;
 }

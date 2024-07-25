@@ -1,17 +1,34 @@
 import { useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
+import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
 import { logoPath } from './utils';
 
-function ConfirmationBody({ hasErrors, isPending, isPatch, editLink, showLink, errors = [] }) {
-  if (hasErrors) {
+function ConfirmationBody({ isCreated, hasErrors, isPending, isPatch, editLink, showLink, errors = [] }) {
+  if (isCreated && hasErrors) {
     return (
       <>
         <i className="fa fa-warning text-danger margin-right-xs" />
         <b>L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.</b>
         <p>{errors[0]?.label}</p>
         <p>Rendez-vous sur son administration pour compléter la configuration.</p>
-        <a className="btn btn-primary margin-top-xs" href={editLink}>Compléter l&apos;offre</a>
+        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`} className="link-primary">
+          Contacter le support
+        </a>
+      </>
+    );
+  }
+
+  if (!isCreated && hasErrors) {
+    return (
+      <>
+        <i className="fa fa-warning text-danger margin-right-xs" />
+        <b>L&apos; offre pass n&apos; a pas pu être créée.</b>
+        <p>{errors[0]?.label}</p>
+        <p>Rendez-vous sur son administration pour compléter la configuration.</p>
+        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`} className="link-primary">
+          Contacter le support
+        </a>
       </>
     );
   }
@@ -54,8 +71,9 @@ export default function Confirmation({ event, res, className }) {
   const editLink = useMemo(() => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
   const showLink = useMemo(() => (res?.show ?? '').replace(':id', passData[0]?.response?.passId), [res, passData]);
   const isPatch = useMemo(() => passData.length > 3, [passData]);
-  const hasErrors = useMemo(() => (passData?.errors ?? []).length, [passData]);
+  const hasErrors = useMemo(() => (getCurrentValue(passData)?.errors ?? []).length, [passData]);
   const isPending = useMemo(() => passData[0]?.response.isPending ?? null, [passData]);
+  const isCreated = useMemo(() => passData[0]?.response?.passId, [passData]);
 
   return (
     <div className={className ?? 'panel panel-default'}>
@@ -66,7 +84,7 @@ export default function Confirmation({ event, res, className }) {
           width={100}
         />
         <div className="margin-top-sm">
-          {ConfirmationBody({ hasErrors, isPending, isPatch, showLink, editLink, errors: passData?.errors })}
+          {ConfirmationBody({ isCreated, hasErrors, isPending, isPatch, showLink, editLink, errors: passData?.errors })}
         </div>
       </div>
     </div>

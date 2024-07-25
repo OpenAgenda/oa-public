@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (services, agendaUid) => {
+export default async (services, agendaUid) => {
   const {
     agendas,
     inboxes,

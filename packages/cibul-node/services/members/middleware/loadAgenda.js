@@ -1,10 +1,9 @@
-'use strict';
+import agendasSvc from '@openagenda/agendas';
+import membersSvc from '@openagenda/members';
 
-const agendasSvc = require('@openagenda/agendas');
+const { getRoleCode } = membersSvc.utils;
 
-const { getRoleCode } = require('@openagenda/members').utils;
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   agendasSvc.get({ slug: req.params.agendaSlug }, {
     private: null,
     internal: true,
@@ -16,7 +15,7 @@ module.exports = (req, res, next) => {
   });
 };
 
-module.exports.roles = (req, res, next) => {
+export function roles(req, res, next) {
   req.agendaRoles = ['contributor', 'administrator']
     .concat(req.agenda.credentials.moderators ? ['moderator'] : [])
     .concat(req.agenda.private ? ['reader'] : [])
@@ -26,4 +25,4 @@ module.exports.roles = (req, res, next) => {
     }));
 
   next();
-};
+}

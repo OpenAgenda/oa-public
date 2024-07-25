@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/members/clearCache');
+const log = logs('services/members/clearCache');
 
-module.exports = async function clearCache(services, member) {
+export default async function clearCache(services, member) {
   const { simpleCache } = services;
 
   try {
@@ -11,4 +11,4 @@ module.exports = async function clearCache(services, member) {
   } catch (e) {
     log('error', 'failed to clear member cache', { member, exception: e });
   }
-};
+}

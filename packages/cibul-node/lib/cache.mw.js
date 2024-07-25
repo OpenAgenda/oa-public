@@ -1,9 +1,7 @@
-'use strict';
-
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const express = require('express');
-const VError = require('@openagenda/verror');
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import express from 'express';
+import VError from '@openagenda/verror';
 
 async function saveExpiration(delay, req, res) {
   const {
@@ -19,7 +17,60 @@ async function saveExpiration(delay, req, res) {
   res.cacheExpires = expires;
 }
 
-module.exports = (namespace, path, delay, mwIfNoCache) => {
+function saveToCache(namespace, delay) {
+  return async (req, res, next) => {
+    if (!res.data) {
+      return next();
+    }
+
+    const {
+      identifier,
+      sanitizedUrl,
+      set,
+    } = req.cache;
+
+    try {
+      await set(sanitizedUrl, JSON.stringify(res.data), delay);
+
+      req.log.info({
+        cached: `${namespace}:${identifier}`,
+        message: 'caching successful',
+      });
+
+      await saveExpiration(delay, req, res);
+
+      next();
+    } catch (e) {
+      req.log.error({
+        cached: `${namespace}:${identifier}`,
+        error: e,
+        message: 'caching error',
+      });
+
+      next(e);
+    }
+  };
+}
+
+/**
+ * remove the bits irrelevant for cache key
+ */
+function _sanitizeUrl(req) {
+  if (!req.url.includes('?')) return req.url;
+
+  const parts = req.url.split('?');
+
+  return [
+    parts[0],
+    parts[1].split('&')
+      .map(qPart => qPart.split('='))
+      .filter(kv => !['key', 'callback', '_'].includes(kv[0]))
+      .map(kv => kv.join('='))
+      .join('&'),
+  ].join('?');
+}
+
+export default (namespace, path, delay, mwIfNoCache) => {
   const cacheRouter = express.Router({ mergeParams: true })
     .use(mwIfNoCache)
     .use(saveToCache(namespace, delay));
@@ -70,56 +121,3 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
     }
   };
 };
-
-function saveToCache(namespace, delay) {
-  return async (req, res, next) => {
-    if (!res.data) {
-      return next();
-    }
-
-    const {
-      identifier,
-      sanitizedUrl,
-      set,
-    } = req.cache;
-
-    try {
-      await set(sanitizedUrl, JSON.stringify(res.data), delay);
-
-      req.log.info({
-        cached: `${namespace}:${identifier}`,
-        message: 'caching successful',
-      });
-
-      await saveExpiration(delay, req, res);
-
-      next();
-    } catch (e) {
-      req.log.error({
-        cached: `${namespace}:${identifier}`,
-        error: e,
-        message: 'caching error',
-      });
-
-      next(e);
-    }
-  };
-}
-
-/**
- * remove the bits irrelevant for cache key
- */
-function _sanitizeUrl(req) {
-  if (req.url.indexOf('?') === -1) return req.url;
-
-  const parts = req.url.split('?');
-
-  return [
-    parts[0],
-    parts[1].split('&')
-      .map(qPart => qPart.split('='))
-      .filter(kv => !['key', 'callback', '_'].includes(kv[0]))
-      .map(kv => kv.join('='))
-      .join('&'),
-  ].join('?');
-}

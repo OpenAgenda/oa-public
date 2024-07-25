@@ -1,10 +1,9 @@
-'use strict';
+/* eslint-disable */
 
-const utils = require('../../../lib/utils');
+import logs from '@openagenda/logs';
+import lib from './lib.js';
 
-const lib = require('./lib');
-
-const log = require('@openagenda/logs')('instance cache');
+const log = logs('instance cache');
 
 /**
  * @param { string }    type       type of the instance ( ex user, agenda, event )
@@ -13,17 +12,15 @@ const log = require('@openagenda/logs')('instance cache');
  * @param { array }     clearers   methods that when called clear the instance cache
  */
 
-module.exports = function (type, instance, methods, clearers) {
+export default (type, instance, methods, clearers) => {
   const key = _setCacheKey(type, instance);
 
   if (!lib.enabled()) {
-    utils.extend(instance, {
+    return Object.assign(instance, {
       cache: {
         clear() {},
       },
-    });
-
-    return instance;
+    });;
   }
 
   if (!clearers) clearers = [];
@@ -37,7 +34,7 @@ module.exports = function (type, instance, methods, clearers) {
   let cacheTimestamp;
 
   // extend instance with cache specific methods
-  return utils.extend(instance, clearerMethods, cachedMethods, {
+  return Object.assign(instance, clearerMethods, cachedMethods, {
     cache: {
       clear,
       getTimestamp,
@@ -69,19 +66,19 @@ module.exports = function (type, instance, methods, clearers) {
    */
 
   function _wrapClearer(method) {
-    return function () {
+    return function(...args) {
       // clears the cache
       clear();
 
       // while applying the function
-      method.apply(null, Array.prototype.slice.apply(arguments));
+      method(...Array.prototype.slice.apply(args));
     };
   }
 
   function _wrapMethod(methodName, method) {
     return function (cb) {
       if (arguments.length > 1) {
-        return method.apply(null, Array.prototype.slice.apply(arguments));
+        return method(...Array.prototype.slice.apply(arguments));
       }
 
       _log(methodName, 'is cacheable');
@@ -142,7 +139,7 @@ module.exports = function (type, instance, methods, clearers) {
   }
 
   function _log(method, message, args) {
-    log.apply(null, [`%s.%s - ${message}`, key, method].concat(args || []));
+    log(...[`%s.%s - ${message}`, key, method].concat(args || []));
   }
 };
 
@@ -155,7 +152,7 @@ function _setCacheKey(type, instance) {
  */
 
 function _stringifyTimestamp(t) {
-  if (typeof t === 'string' && t.indexOf('GMT') !== -1) {
+  if (typeof t === 'string' && t.includes('GMT')) {
     t = new Date(t);
   }
 

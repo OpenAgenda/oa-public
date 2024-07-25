@@ -1,12 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
+import getMergedSchema from './settings/getMergedSchema.js';
+import loadSummary from './utils/loadSummary.js';
+import extractMemberSchema from './utils/extractMemberSchema.js';
 
-const log = require('@openagenda/logs')('core/agendas/get');
-const {
-  NotFound,
-} = require('@openagenda/verror');
-const getMergedSchema = require('./settings/getMergedSchema');
-const loadSummary = require('./utils/loadSummary');
-const extractMemberSchema = require('./utils/extractMemberSchema');
+const log = logs('core/agendas/get');
 
 function cacheAndReturn(services, options, agendaUid, result) {
   const {
@@ -178,6 +176,6 @@ async function bySlug(core, slug, options = {}) {
   return get(core, agenda.uid, options);
 }
 
-module.exports = Object.assign(get, {
+export default Object.assign(get, {
   slug: bySlug,
 });

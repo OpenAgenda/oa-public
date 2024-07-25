@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/utils/processOEmbed');
+const log = logs('core/utils/processOEmbed');
 
-module.exports = (
+export default (
   oembed,
   text,
   {

@@ -1,16 +1,13 @@
-'use strict';
-
-const _ = require('lodash');
-
-const eventFormSchema = require('@openagenda/event-form/src/schema');
-const { createIntlByLocale } = require('@openagenda/intl');
-const locales = require('@openagenda/agenda-schemas-app/dist/locales-compiled');
-const getAgenda = require('../utils/getAgenda');
-const getNetwork = require('../utils/getNetwork');
+import _ from 'lodash';
+import eventFormSchema from '@openagenda/event-form/src/schema.js';
+import { createIntlByLocale } from '@openagenda/intl';
+import locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
+import getAgenda from '../utils/getAgenda.js';
+import getNetwork from '../utils/getNetwork.js';
 
 const intlByLocale = createIntlByLocale(locales);
 
-module.exports = async function getSchema(services, agendaOrUid) {
+export default async function getSchema(services, agendaOrUid) {
   const {
     formSchemas,
   } = services;
@@ -21,9 +18,9 @@ module.exports = async function getSchema(services, agendaOrUid) {
     id: agenda.formSchemaId,
     ...await formSchemas.get(agenda.formSchemaId),
   } : null;
-};
+}
 
-module.exports.network = async function getNetworkSchema(services, agendaOrUid) {
+export const network = async function getNetworkSchema(services, agendaOrUid) {
   const {
     formSchemas,
   } = services;
@@ -32,15 +29,15 @@ module.exports.network = async function getNetworkSchema(services, agendaOrUid) 
   if (!agenda || !agenda.networkUid) {
     return null;
   }
-  const network = await getNetwork(services, agenda.networkUid);
+  const dbNetwork = await getNetwork(services, agenda.networkUid);
 
-  return network.formSchemaId ? {
-    id: network.formSchemaId,
-    ...await formSchemas.get(network.formSchemaId),
+  return dbNetwork.formSchemaId ? {
+    id: dbNetwork.formSchemaId,
+    ...await formSchemas.get(dbNetwork.formSchemaId),
   } : null;
 };
 
-module.exports.andParents = async function getSchemaAndParents(services, agendaOrUid, options) {
+export const andParents = async function getSchemaAndParents(services, agendaOrUid, options) {
   const {
     formSchemas,
   } = services;
@@ -55,10 +52,10 @@ module.exports.andParents = async function getSchemaAndParents(services, agendaO
     ...await formSchemas.get(agenda.formSchemaId),
   } : null;
 
-  const network = await getNetwork(services, agenda.networkUid);
-  const networkSchema = network?.formSchemaId ? {
-    id: network.formSchemaId,
-    ...await formSchemas.get(network.formSchemaId),
+  const dbNetwork = await getNetwork(services, agenda.networkUid);
+  const networkSchema = dbNetwork?.formSchemaId ? {
+    id: dbNetwork.formSchemaId,
+    ...await formSchemas.get(dbNetwork.formSchemaId),
   } : null;
 
   const parents = [{

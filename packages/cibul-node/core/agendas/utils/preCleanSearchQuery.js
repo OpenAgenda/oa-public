@@ -1,10 +1,7 @@
-'use strict';
+import { produce } from 'immer';
+import { isInteger } from '@openagenda/utils';
 
-const { produce } = require('immer');
-
-const { isInteger } = require('@openagenda/utils');
-
-module.exports = function preCleanSearchQuery(query, options = {}) {
+export default function preCleanSearchQuery(query, options = {}) {
   const {
     targetKey = 'uid',
   } = options;
@@ -17,4 +14,4 @@ module.exports = function preCleanSearchQuery(query, options = {}) {
     draft[targetKey] = parseInt(draft.search, 10);
     delete draft.search;
   });
-};
+}

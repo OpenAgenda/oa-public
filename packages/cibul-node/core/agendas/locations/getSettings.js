@@ -1,11 +1,7 @@
-'use strict';
+import getAgenda from '../utils/getAgenda.js';
 
-const getAgenda = require('../utils/getAgenda');
-
-module.exports = (core, agendaOrUid) => async function getSettings(options = {}) {
-  const {
-    agendaLocations,
-  } = core.services;
+export default (core, agendaOrUid) => async function getSettings(options = {}) {
+  const { agendaLocations } = core.services;
 
   const { lang, includeSetInfo } = options;
   const agenda = await getAgenda(core.services, agendaOrUid);

@@ -1,8 +1,6 @@
-'use strict';
+import { NotFound, Forbidden } from '@openagenda/verror';
 
-const { NotFound, Forbidden } = require('@openagenda/verror');
-
-module.exports = async (core, agendaUid, eventUid, query = {}, options = {}) => {
+export default async (core, agendaUid, eventUid, query = {}, options = {}) => {
   const {
     agendaEvents,
     agendas,

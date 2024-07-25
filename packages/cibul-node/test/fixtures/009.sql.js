@@ -1,15 +1,7 @@
-'use strict';
+import loadObjectFromFile from './loadObjectFromFile.js';
+import { knex, resetAndCreateTables } from './sql/index.js';
 
-const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
-
-const load = loadObjectFromFile({
-  cwd: __dirname,
-});
-
-const {
-  knex,
-  resetAndCreateTables,
-} = require('./sql');
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
@@ -30,7 +22,7 @@ raw.push(knex('api_key_set').insert([
   load('sql/apiKeySets/chrissie.keys.json'),
 ]));
 
-const albiAgenda = require('./sql/agendas/albi.json'); // uid 48353388
+const albiAgenda = load('./sql/agendas/albi.json'); // uid 48353388
 
 raw.push(knex('review').insert([
   load('sql/agendas/01.json'), // uid 1
@@ -78,4 +70,4 @@ raw.push(knex('custom').insert([
   load('sql/custom/01.json'), // id 1, identifier 6887,
 ]));
 
-module.exports = `${raw.join(';\n')};`;
+export default `${raw.join(';\n')};`;

@@ -1,9 +1,7 @@
-'use strict';
-
-const getMemberSchema = require('./getMemberSchema');
+import getMemberSchema from './getMemberSchema.js';
 
 // helper to avoid loading member schema twice
-module.exports = async function extractMemberSchema(services, {
+export default async function extractMemberSchema(services, {
   schema,
   includeSplitMemberSchema,
   access,
@@ -25,4 +23,4 @@ module.exports = async function extractMemberSchema(services, {
   return (
     await getMemberSchema(services, agenda, { access, actingMember })
   ).merged;
-};
+}

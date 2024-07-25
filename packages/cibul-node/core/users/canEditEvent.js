@@ -1,9 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
+import validateIdentifier from './lib/validateIdentifier.js';
 
-const log = require('@openagenda/logs')('core/users/canEditEvent');
-const { NotFound } = require('@openagenda/verror');
-
-const validateIdentifier = require('./lib/validateIdentifier');
+const log = logs('core/users/canEditEvent');
 
 const loadEvent = async (core, obj) => {
   const eventUid = obj instanceof Object ? obj.uid : obj;
@@ -29,7 +28,7 @@ const loadEvent = async (core, obj) => {
   };
 };
 
-module.exports = async (core, userIdentifier, eventObj) => {
+export default async (core, userIdentifier, eventObj) => {
   const {
     agendaEvents,
     members,

@@ -1,5 +1,3 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 logs.init({ prefix: 'oa:', enableDebug: false });

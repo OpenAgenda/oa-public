@@ -1,8 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import rebuildActivityFeeds from '@openagenda/activities/src/rebuild.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('activities/rebuild');
-const rebuildActivityFeeds = require('@openagenda/activities/src/rebuild');
+const log = logs('activities/rebuild');
 
 const sinceKey = 'activities:rebuild:since';
 
@@ -48,7 +48,7 @@ function rebuildActivities({ config, services }) {
   });
 }
 
-module.exports = ({ config, services }) => ({
+export default ({ config, services }) => ({
   rebuild: () => rebuildActivities({ services, config }),
   agendaRebuild: agendaUid => runRebuild({
     activities: services.activities,

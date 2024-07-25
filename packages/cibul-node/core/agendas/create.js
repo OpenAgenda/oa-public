@@ -1,8 +1,6 @@
-'use strict';
+import { BadRequest } from '@openagenda/verror';
 
-const { BadRequest } = require('@openagenda/verror');
-
-module.exports = async (core, data, options = {}) => {
+export default async (core, data, options = {}) => {
   const {
     services: {
       agendas,

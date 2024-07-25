@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function listAllAdminMods(membersSvc) {
+export default function listAllAdminMods(membersSvc) {
   return agendaUid => new Promise(
     (rs, rj) => {
       const stream = membersSvc.stream({
@@ -20,4 +18,4 @@ module.exports = function listAllAdminMods(membersSvc) {
       stream.on('error', rj);
     },
   );
-};
+}

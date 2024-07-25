@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (event, agendaEvent) => {
+export default (event, agendaEvent) => {
   if (event?.agendaUid === agendaEvent?.agendaUid) {
     return 'contribution';
   }

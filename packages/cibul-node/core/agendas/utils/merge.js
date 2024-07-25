@@ -1,20 +1,14 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-
-const { merge } = require('@openagenda/form-schemas').utils;
-const eventFormSchema = require('@openagenda/event-form/src/schema');
-const tagSetToFormSchema = require('@openagenda/legacy/tagSetToFormSchema');
+import logs from '@openagenda/logs';
+import formSchemas from '@openagenda/form-schemas';
+import eventFormSchema from '@openagenda/event-form/src/schema.js';
+import tagSetToFormSchema from '@openagenda/legacy/tagSetToFormSchema/index.js';
+import agendaLocations from '@openagenda/agenda-locations';
+import getAddMethod from './getAddMethod.js';
 
 const log = logs('core/agendas/utils/merge');
 
-const {
-  utils: {
-    getSchema: getLocationSchema,
-  },
-} = require('@openagenda/agenda-locations');
-
-const getAddMethod = require('./getAddMethod');
+const { utils: { merge } } = formSchemas;
+const { utils: { getSchema: getLocationSchema } } = agendaLocations;
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
   const {
@@ -129,26 +123,24 @@ function appendLocationSchema(schema, options = {}) {
   return schema;
 }
 
-module.exports.event = mergeEvent;
-
-module.exports.schemas = (...args) => {
+function schemas(...args) {
   const mergeOptions = args && args.length ? args[args.length - 1] : {};
   const { includeLocationLegacyAdminLevels } = mergeOptions;
   return appendLocationSchema(merge(...args), { includeLocationLegacyAdminLevels });
-};
+}
 
-module.exports.schemasWithEvent = function schemasWithEvent(...args) {
-  const schemas = args.concat([]);
+function schemasWithEvent(...args) {
+  const schemaExtensions = [...args];
   const {
     access,
     includeNonDataFields,
     memberSchema = null,
     includeAgendaEvent = false,
     includeLocationLegacyAdminLevels,
-  } = schemas.pop();
+  } = schemaExtensions.pop();
 
   if (memberSchema) {
-    schemas.push({
+    schemaExtensions.push({
       fields: [{
         field: 'member',
         read: ['administrator', 'moderator', 'internal'],
@@ -159,7 +151,7 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   }
 
   if (includeAgendaEvent) {
-    schemas.push({
+    schemaExtensions.push({
       fields: [{
         field: 'state',
         fieldType: 'abstract',
@@ -172,22 +164,34 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
 
   return appendLocationSchema(
     eventFormSchema({
-      schemaExtensions: schemas,
+      schemaExtensions,
       access: access?.read === 'internal' ? null : access,
       excludeNonDataFields: !includeNonDataFields,
     }),
     { includeLocationLegacyAdminLevels },
   );
-};
+}
 
-module.exports.eventFromObject = ({
-  event,
-  agendaEvent,
-  custom,
-}, options = {}) => mergeEvent(
-  event,
-  agendaEvent,
-  custom ? custom.network : null,
-  custom ? custom.agenda : null,
-  options,
-);
+function eventFromObject(
+  {
+    event,
+    agendaEvent,
+    custom,
+  },
+  options = {},
+) {
+  return mergeEvent(
+    event,
+    agendaEvent,
+    custom ? custom.network : null,
+    custom ? custom.agenda : null,
+    options,
+  );
+}
+
+export {
+  mergeEvent as event,
+  schemas,
+  schemasWithEvent,
+  eventFromObject,
+};

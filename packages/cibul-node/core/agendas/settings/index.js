@@ -1,21 +1,22 @@
-'use strict';
+import logs from '@openagenda/logs';
+import * as getMemberSchema from '../utils/getMemberSchema.js';
+import getMergedSchema from './getMergedSchema.js';
+import getSchema, {
+  network as getNetworkSchema,
+  andParents as getSchemaAndParents,
+} from './getSchema.js';
+import updateLegacyFromSchema from './legacy/updateLegacySetFromSchema.js';
+import updateCustomFromSchema from './legacy/updateCustomFromSchema.js';
+import updateLegacy from './legacy/update.js';
+import resyncInbox from './resyncInbox.js';
+import updateSchemaFields from './updateSchemaFields.js';
+import updateMemberSchemaFields from './updateMemberSchemaFields.js';
+import createFormSchemaFromLegacy from './createFormSchemaFromLegacy.js';
+import * as contributionTypes from './contributionTypes.js';
 
-const log = require('@openagenda/logs')('core/agendas/settings');
+const log = logs('core/agendas/settings');
 
-const getMemberSchema = require('../utils/getMemberSchema');
-const getMergedSchema = require('./getMergedSchema');
-const getSchema = require('./getSchema');
-const updateLegacyFromSchema = require('./legacy/updateLegacySetFromSchema');
-const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
-const updateLegacy = require('./legacy/update');
-const resyncInbox = require('./resyncInbox');
-
-const updateSchemaFields = require('./updateSchemaFields');
-const updateMemberSchemaFields = require('./updateMemberSchemaFields');
-const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
-const contributionTypes = require('./contributionTypes');
-
-module.exports = core => {
+export default core => {
   const {
     tasks,
     services,
@@ -49,11 +50,11 @@ module.exports = core => {
     get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, services, agendaUid),
-      getNetwork: getSchema.network.bind(null, services, agendaUid),
-      getAndParents: getSchema.andParents.bind(null, services, agendaUid),
+      getNetwork: getNetworkSchema.bind(null, services, agendaUid),
+      getAndParents: getSchemaAndParents.bind(null, services, agendaUid),
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
-      getMember: getMemberSchema.bind(null, services, agendaUid),
+      getMember: getMemberSchema.default.bind(null, services, agendaUid),
       getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
       updateMemberFields: updateMemberSchemaFields.bind(null, core, agendaUid),
     },

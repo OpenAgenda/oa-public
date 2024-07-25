@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (config, agenda) => (agenda.image ? {
+export default (config, agenda) => (agenda.image ? {
   src: agenda.image,
   width: '100px',
 } : {

@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('services/members/getUserByEmail');
+const log = logs('services/members/getUserByEmail');
 
-module.exports = async (services, email, userOptions) => {
+export default async (services, email, userOptions) => {
   log('processing', email, userOptions);
 
   return services.users.findOne({

@@ -1,10 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import sendMessageChain from './sendMessageChain.js';
 
-const log = require('@openagenda/logs')('services/members/sendGroupMail/task');
+const log = logs('services/members/sendGroupMail/task');
 
-const sendMessageChain = require('./sendMessageChain');
-
-module.exports = async function task({ config, queue, services }) {
+export default async function task({ config, queue, services }) {
   log('task');
   const {
     bull,
@@ -34,4 +33,4 @@ module.exports = async function task({ config, queue, services }) {
   worker.on('failed', (job, error) => log.error(job.name, 'failed', job.data, error));
   // worker.on('active', job => {});
   worker.on('completed', (job, result, prev) => log.debug(job.name, 'completed', prev));
-};
+}

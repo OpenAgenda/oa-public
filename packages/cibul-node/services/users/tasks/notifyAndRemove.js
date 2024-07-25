@@ -1,8 +1,7 @@
-'use strict';
+import logs from '@openagenda/logs';
+import InactiveUsersStateStore from './InactiveUsersStateStore.js';
 
-const log = require('@openagenda/logs')('services/users/tasks/notifyAndRemove');
-
-const InactiveUsersStateStore = require('./InactiveUsersStateStore');
+const log = logs('services/users/tasks/notifyAndRemove');
 
 const storePrefix = 'inactiveUsers:';
 
@@ -142,7 +141,7 @@ async function loadUsers(services, storedUserUids) {
   return users;
 }
 
-module.exports = services => async function notifyAndRemove(options = {}) {
+export default services => async function notifyAndRemove(options = {}) {
   const {
     users: usersSvc,
   } = services;

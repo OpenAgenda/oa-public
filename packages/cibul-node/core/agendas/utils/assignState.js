@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { Forbidden } from '@openagenda/verror';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/agendas/utils/assignState');
-const { Forbidden } = require('@openagenda/verror');
+const log = logs('core/agendas/utils/assignState');
 
-const TYPES = {
+export const TYPES = {
   default: 'default',
   requested: 'requested',
   system: 'system',
@@ -93,7 +93,7 @@ function defineState({
   };
 }
 
-module.exports = (agenda, event, clean, data, { draft, authorizations, currentState }) => {
+export default (agenda, event, clean, data, { draft, authorizations, currentState }) => {
   const { state, type } = draft ? {
     state: undefined,
     type: null,
@@ -118,5 +118,3 @@ module.exports = (agenda, event, clean, data, { draft, authorizations, currentSt
     type,
   };
 };
-
-module.exports.TYPES = TYPES;

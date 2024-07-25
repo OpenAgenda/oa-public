@@ -1,24 +1,19 @@
-'use strict';
+import ih from 'immutability-helper';
+import logs from '@openagenda/logs';
+import { BadRequest, Forbidden } from '@openagenda/verror';
+import createPayload from '../utils/createPayload.js';
+import cleanDuplicateImage, { isImageToDuplicate } from '../utils/cleanDuplicateImage.js';
+import doAdd from '../utils/doAdd.js';
+import extractUserUid from '../utils/extractUserUid.js';
+import loadAuthorizations from '../../utils/authorizations.js';
+import processOEmbed from '../utils/processOEmbed.js';
+import cleanEvent from '../utils/cleanEvent/index.js';
+import getAgenda from '../utils/getAgenda.js';
+import assignState from '../utils/assignState.js';
 
-const ih = require('immutability-helper');
+const log = logs('core/agendas/events/create');
 
-const log = require('@openagenda/logs')('core/agendas/events/create');
-const { BadRequest, Forbidden } = require('@openagenda/verror');
-
-const createPayload = require('../utils/createPayload');
-const cleanDuplicateImage = require('../utils/cleanDuplicateImage');
-const doAdd = require('../utils/doAdd');
-const extractUserUid = require('../utils/extractUserUid');
-const loadAuthorizations = require('../../utils/authorizations');
-const processOEmbed = require('../utils/processOEmbed');
-
-const cleanEvent = require('../utils/cleanEvent');
-const getAgenda = require('../utils/getAgenda');
-const assignState = require('../utils/assignState');
-
-const { isImageToDuplicate } = cleanDuplicateImage;
-
-module.exports = async (core, agendaUid, data, options = {}) => {
+export default async (core, agendaUid, data, options = {}) => {
   const { services } = core;
 
   const { members, events, registrations } = services;

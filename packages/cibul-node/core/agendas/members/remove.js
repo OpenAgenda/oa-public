@@ -1,9 +1,7 @@
-'use strict';
+import { Forbidden, BadRequest } from '@openagenda/verror';
+import canEdit from './lib/canEdit.js';
 
-const { Forbidden, BadRequest } = require('@openagenda/verror');
-const canEdit = require('./lib/canEdit');
-
-module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
+export default async (core, agendaOrUid, identifiers, options = {}) => {
   const { services } = core;
   const {
     members,

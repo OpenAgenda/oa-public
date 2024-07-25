@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import { NotFound } from '@openagenda/verror';
+import formatMember from '../agendas/members/lib/format.js';
+import validateIdentifier from './lib/validateIdentifier.js';
+import validateNav from './lib/validateNav.js';
+import validateOptions from './lib/validateOptions.js';
+import assignDetailedAgendaInfo from './lib/assignDetailedAgendaInfo.js';
 
-const _ = require('lodash');
-const { NotFound } = require('@openagenda/verror');
-const formatMember = require('../agendas/members/lib/format');
-const validateIdentifier = require('./lib/validateIdentifier');
-const validateNav = require('./lib/validateNav');
-const validateOptions = require('./lib/validateOptions');
-const assignDetailedAgendaInfo = require('./lib/assignDetailedAgendaInfo');
-
-module.exports = (core, identifier) => async (nav = {}, options = {}) => {
+export default (core, identifier) => async (nav = {}, options = {}) => {
   const {
     users,
     members: membersSvc,

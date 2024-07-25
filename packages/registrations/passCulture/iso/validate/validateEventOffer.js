@@ -3,21 +3,14 @@ import validateRelatedField from './validateRelatedField.js';
 import validateEmail from './validateEmail.js';
 
 export default function validateEventOffer(data, options = {}) {
-  const {
-    categories,
-    related,
-    partial = false,
-  } = options;
+  const { categories, related, partial = false } = options;
 
-  const {
-    bookingContact,
-    venueId,
-    bookingEmail,
-  } = data;
+  const { bookingContact, venueId, bookingEmail, itemCollectionDetails } = data;
 
-  const clean = ['name', 'description', 'duo', 'eventDuration'].reduce((usedData, field) => (
-    data[field] ? { ...usedData, [field]: data[field] } : usedData
-  ), {});
+  const clean = ['name', 'description', 'duo', 'eventDuration'].reduce(
+    (usedData, field) => (data[field] ? { ...usedData, [field]: data[field] } : usedData),
+    {},
+  );
 
   const errors = [];
 
@@ -46,10 +39,7 @@ export default function validateEventOffer(data, options = {}) {
   }
 
   try {
-    const {
-      name: relatedFieldName,
-      value: relatedFieldValue,
-    } = validateRelatedField({ categories, related }, data);
+    const { name: relatedFieldName, value: relatedFieldValue } = validateRelatedField({ categories, related }, data);
 
     if (relatedFieldName) {
       clean[relatedFieldName] = relatedFieldValue;
@@ -66,7 +56,7 @@ export default function validateEventOffer(data, options = {}) {
     errors.push({
       message: 'venueId is required and must be an integer',
       code: 'registration.pass.invalidVenueId',
-      label: 'Un lieu valid doit être défini',
+      label: 'Un lieu valide doit être défini',
       field: 'venueId',
     });
   }
@@ -82,6 +72,14 @@ export default function validateEventOffer(data, options = {}) {
   if ((partial && bookingEmail) || !partial) {
     try {
       clean.bookingEmail = validateEmail(bookingEmail, 'bookingEmail', { optional: true });
+    } catch (error) {
+      error.info.errors.forEach(e => errors.push(e));
+    }
+  }
+
+  if ((partial && itemCollectionDetails) || !partial) {
+    try {
+      clean.itemCollectionDetails = validateEmail(itemCollectionDetails, 'itemCollectionDetails', { optional: true });
     } catch (error) {
       error.info.errors.forEach(e => errors.push(e));
     }

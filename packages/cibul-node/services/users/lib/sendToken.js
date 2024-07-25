@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import qs from 'qs';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const qs = require('qs');
-const log = require('@openagenda/logs')('services/users/sendToken');
+const log = logs('services/users/sendToken');
 
-module.exports = (config, services) => async context => {
+export default (config, services) => async context => {
   const {
     mails,
     genUrl,

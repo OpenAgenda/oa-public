@@ -38,7 +38,7 @@
   "next.views.EventShow.AgendaHeader.showAllEvents": [
     {
       "type": 0,
-      "value": "Show all events"
+      "value": "Alle Veranstaltungen anzeigen"
     }
   ],
   "next.views.EventShow.ContextBar.backToDashboard": [
@@ -104,7 +104,7 @@
   "next.views.EventShow.ContextBar.duplicateInfo": [
     {
       "type": 0,
-      "value": "Load a new event form pre-filled with the details from this event"
+      "value": "Duplizieren deine Veranstaltung und übertrage alle Angaben auf einen weiteren Event"
     }
   ],
   "next.views.EventShow.ContextBar.edit": [
@@ -290,13 +290,13 @@
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
     {
       "type": 0,
-      "value": "This event will be verified by administrators prior to its publication."
+      "value": "Die Veranstaltung muss durch einen Administrator bestätigt werden vor ihrer Veröffentlichung."
     }
   ],
   "next.views.EventShow.ContextBar.toModerateInfo": [
     {
       "type": 0,
-      "value": "This event needs to be verified and is not ready for publication"
+      "value": "Diese Veranstaltung muss bestätigt werden und ist nicht zur Veröffentlichung freigegeben"
     }
   ],
   "next.views.EventShow.ContextBar.transferOwnership": [
@@ -344,7 +344,7 @@
   "next.views.EventShow.DuplicateModal.bigSentence": [
     {
       "type": 0,
-      "value": "You are about to create a new event based on a precedent."
+      "value": "Du bist dabei, eine neue Veranstaltung auf der Grundlage einen Präzedenzfall zu schaffen."
     }
   ],
   "next.views.EventShow.DuplicateModal.createNewEventIn": [
@@ -362,7 +362,7 @@
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+      "value": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Veranstaltungskalender gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
@@ -567,6 +567,12 @@
       "value": "Anmelden"
     }
   ],
+  "next.views.EventShow.ShareModale.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "next.views.EventShow.Sidebar.accessEventOnline": [
     {
       "type": 0,
@@ -588,7 +594,7 @@
   "next.views.EventShow.Sidebar.accessibleToIntellectually": [
     {
       "type": 0,
-      "value": "Accessible to the intellectually impaired"
+      "value": "Geistige Behinderung"
     }
   ],
   "next.views.EventShow.Sidebar.accessibleToMotor": [
@@ -606,7 +612,7 @@
   "next.views.EventShow.Sidebar.accessibleToVisually": [
     {
       "type": 0,
-      "value": "Accessible to the visually impaired"
+      "value": "Geeignet für Menschen mit Sehbehinderung"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [
@@ -654,7 +660,7 @@
   "next.views.EventShow.Sidebar.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Registrierung"
     }
   ],
   "next.views.EventShow.Sidebar.share": [
@@ -698,7 +704,7 @@
   "next.views.EventShow.aboutLocation": [
     {
       "type": 0,
-      "value": "About the location"
+      "value": "Über den Standort"
     }
   ],
   "next.views.EventShow.access": [

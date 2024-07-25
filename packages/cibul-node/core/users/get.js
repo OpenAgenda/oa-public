@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import schema from './lib/schema.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/users/get');
-const schema = require('./lib/schema');
+const log = logs('core/users/get');
 
-module.exports = core => async (userUid, options = {}) => {
+export default core => async (userUid, options = {}) => {
   log('getting user %s', userUid);
   const {
     users: usersSvc,

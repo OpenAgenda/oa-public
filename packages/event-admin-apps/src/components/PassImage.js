@@ -4,11 +4,20 @@ import { css } from '@emotion/react';
 const messages = defineMessages({
   linked: {
     id: 'EventAdminApp.PassImage.link',
-    defaultMessage: 'This sheet is linked to a pass Culture offer',
+    defaultMessage: 'This event is linked to a pass Culture offer',
   },
   linkedPending: {
     id: 'EventAdminApp.PassImage.linkPending',
-    defaultMessage: 'This sheet is linked to a pending pass Culture offer',
+    defaultMessage: 'This event is linked to a pending pass Culture offer',
+  },
+  linkedRejected: {
+    id: 'EventAdminApp.PassImage.linkRejected',
+    defaultMessage: 'The pass Culture offer linked to the event was rejected',
+  },
+  linkedErrored: {
+    id: 'EventAdminApp.PassImage.linkErrored',
+    defaultMessage:
+      'A problem occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution.',
   },
   see: {
     id: 'EventAdminApp.PassImage.see',
@@ -22,6 +31,8 @@ const messages = defineMessages({
 
 export default function PassImage({
   pending,
+  rejected,
+  errored,
   passId,
   passRes,
   passTabIsOpen,
@@ -30,33 +41,50 @@ export default function PassImage({
 }) {
   const intl = useIntl();
   const seeLink = passRes.show.replace(':id', passId);
-  const editLink = passRes.edit.replace(':id', passId); 
+  const editLink = passRes.edit.replace(':id', passId);
+  const imgSource = () => {
+    if (errored) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
+    if (rejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
+    if (pending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
+    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
+  };
+
+  const title = () => {
+    if (errored) return intl.formatMessage(messages.linkedErrored);
+    if (rejected) return intl.formatMessage(messages.linkedRejected);
+    if (pending) return intl.formatMessage(messages.linkedPending);
+    return intl.formatMessage(messages.linked);
+  };
 
   return (
-    <span
+    <button
+      type="button"
+      onClick={() => setPassTab(passTabIsOpen ? null : eventUid)}
       className="badge badge-default margin-left-xs"
-      css={passTabIsOpen ? css`
-      padding: 0px 6px 0px 1px;
-      border-radius: 15px;
-      cursor: pointer;
-      ` : css`
-      padding: 0px 6px 0px 1px;
-      cursor: pointer;
-      border-radius: 15px;
-      border-color: transparent;
-      `}
+      css={
+        passTabIsOpen
+          ? css`
+              padding: 0px 6px 0px 1px;
+              border-radius: 15px;
+              cursor: pointer;
+            `
+          : css`
+              padding: 0px 6px 0px 1px;
+              cursor: pointer;
+              border-radius: 15px;
+              border-color: transparent;
+            `
+      }
     >
-      <img
-        src={pending ? "https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png" : "https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png"}
-        alt="logoPassCulture"
-        title={pending ? intl.formatMessage(messages.linkedPending) : intl.formatMessage(messages.linked)}
-        onClick={() => setPassTab(passTabIsOpen ? null : eventUid) }
-      />
+      <img src={imgSource()} alt="logoPassCulture" title={title()} />
       {passTabIsOpen ? (
         <span>
-          <a className="margin-left-xs" href={seeLink}>{intl.formatMessage(messages.see)}</a> - <a href={editLink}>{intl.formatMessage(messages.edit)}</a>
+          <a className="margin-left-xs" href={seeLink}>
+            {intl.formatMessage(messages.see)}
+          </a>{' '}
+          - <a href={editLink}>{intl.formatMessage(messages.edit)}</a>
         </span>
-      ) : null }
-    </span>
+      ) : null}
+    </button>
   );
 }

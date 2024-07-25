@@ -1,22 +1,8 @@
-'use strict';
-
-module.exports = function (extension) {
-  return function (loadedInstance, instance, methods) {
-    const ext = extension(loadedInstance, instance);
-
-    methods.forEach(m => {
-      const namespace = _loadNamespace(loadedInstance, m);
-
-      const name = _loadName(m);
-
-      namespace[name] = ext[name];
-    });
-  };
-
+export default extension => {
   function _loadNamespace(loadedInstance, m) {
     const names = m.split('.');
 
-    if (names.length == 1) {
+    if (names.length === 1) {
       return loadedInstance;
     }
 
@@ -30,4 +16,16 @@ module.exports = function (extension) {
   function _loadName(name) {
     return name.split('.').pop();
   }
+
+  return (loadedInstance, instance, methods) => {
+    const ext = extension(loadedInstance, instance);
+
+    methods.forEach(m => {
+      const namespace = _loadNamespace(loadedInstance, m);
+
+      const name = _loadName(m);
+
+      namespace[name] = ext[name];
+    });
+  };
 };

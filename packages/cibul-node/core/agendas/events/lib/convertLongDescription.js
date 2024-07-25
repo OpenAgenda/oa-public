@@ -1,10 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { fromMarkdownToHTML } from '@openagenda/md';
+import { produce } from 'immer';
 
-const log = require('@openagenda/logs')('core/agendas/events/convertLongDescription');
-const { produce } = require('immer');
-const { fromMarkdownToHTML } = require('@openagenda/md');
+const log = logs('core/agendas/events/convertLongDescription');
 
-const conversions = ['HTML', 'HTMLWithEmbeds'];
+export const conversions = ['HTML', 'HTMLWithEmbeds'];
 
 function convert(params, links = [], md = '') {
   const {
@@ -31,15 +31,7 @@ function convert(params, links = [], md = '') {
   return HTMLWithEmbeds;
 }
 
-function shouldConvert(longDescription, conversion) {
-  if (!conversions.includes(conversion)) {
-    return false;
-  }
-
-  return !!longDescription;
-}
-
-function convertField({ links, longDescription }, params) {
+export default function convertField({ links, longDescription }, params) {
   log('convertField to format %s', params.conversion);
   if (typeof longDescription === 'string') {
     return convert(params, links, longDescription);
@@ -51,21 +43,27 @@ function convertField({ links, longDescription }, params) {
     }), {});
 }
 
-module.exports = convertField;
-
-module.exports.shouldConvert = shouldConvert;
-
-module.exports.load = ({
-  services,
-  conversion,
-  includeEmbedScripts,
-  cspNonce,
-}) => event => produce(event, draft => {
-  if (!shouldConvert(event.longDescription, conversion)) {
-    return;
+export function shouldConvert(longDescription, conversion) {
+  if (!conversions.includes(conversion)) {
+    return false;
   }
 
-  draft.longDescription = convertField(event, { services, conversion, includeEmbedScripts, cspNonce });
-});
+  return !!longDescription;
+}
 
-module.exports.conversions = conversions;
+export function load(
+  {
+    services,
+    conversion,
+    includeEmbedScripts,
+    cspNonce,
+  },
+) {
+  return event => produce(event, draft => {
+    if (!shouldConvert(event.longDescription, conversion)) {
+      return;
+    }
+
+    draft.longDescription = convertField(event, { services, conversion, includeEmbedScripts, cspNonce });
+  });
+}

@@ -1,9 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import activities from '../../activities/index.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('services/members/activities');
-
-const activities = require('../../activities');
+const log = logs('services/members/activities');
 
 function addMemberCreate({
   user, member, agenda, senderUser, context,
@@ -55,11 +54,6 @@ async function addMemberRoleChange({
   const userFeed = activities.feed({
     entityType: 'user',
     entityUid: user.uid,
-  });
-
-  const agendaFeed = activities.feed({
-    entityType: 'agenda',
-    entityUid: agenda.uid,
   });
 
   await userFeed.unfollow({
@@ -131,6 +125,6 @@ function task(queue) {
   queue.run();
 }
 
-module.exports = ({ queue }) => ({
+export default ({ queue }) => ({
   task: task.bind(null, queue),
 });

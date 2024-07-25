@@ -1,8 +1,6 @@
-'use strict';
+import ExcelJS from 'exceljs';
 
-const ExcelJS = require('exceljs');
-
-module.exports = (req, res, next) => {
+export default (req, res, _next) => {
   const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
   const worksheet = workbook.addWorksheet('Members');
   const members = [];

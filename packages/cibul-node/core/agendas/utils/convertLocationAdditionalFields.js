@@ -1,10 +1,6 @@
-'use strict';
+import { locationAppendAdditionalValues } from '@openagenda/legacy/tagSetToFormSchema/index.js';
 
-const {
-  locationAppendAdditionalValues,
-} = require('@openagenda/legacy/tagSetToFormSchema');
-
-module.exports = function convertLocationAdditionalFields(formSchema, event) {
+export default function convertLocationAdditionalFields(formSchema, event) {
   if (Array.isArray(event)) {
     return event.map(e => convertLocationAdditionalFields(formSchema, e));
   }
@@ -19,4 +15,4 @@ module.exports = function convertLocationAdditionalFields(formSchema, event) {
     ...event,
     location: locationAppendAdditionalValues(event.location, locationFormSchema),
   };
-};
+}

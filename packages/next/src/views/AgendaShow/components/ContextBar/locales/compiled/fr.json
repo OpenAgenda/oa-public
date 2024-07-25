@@ -92,6 +92,12 @@
       "value": "Événements en modération"
     }
   ],
+  "next.views.AgendaShow.ContextBar.indexed": [
+    {
+      "type": 0,
+      "value": "Indexé"
+    }
+  ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
@@ -108,6 +114,12 @@
     {
       "type": 0,
       "value": "Vous n'avez complété encore aucun événement sur cet agenda."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.private": [
+    {
+      "type": 0,
+      "value": "Privé"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
@@ -247,6 +259,18 @@
     {
       "type": 0,
       "value": "Événement brouillon sans titre"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.unindexed": [
+    {
+      "type": 0,
+      "value": "Désindexé"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.visibility": [
+    {
+      "type": 0,
+      "value": "Visibilité:"
     }
   ]
 }

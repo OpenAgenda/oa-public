@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const cmn = require('../lib/commons-app');
+import _ from 'lodash';
+import cmn from '../lib/commons-app.js';
 
 function _loadUser(detailed, req, res, next) {
   const { services } = req.app;
@@ -41,7 +39,7 @@ function latestInboxMessageTimestamp(req, res, next) {
     .catch(next);
 }
 
-module.exports = app => {
+export default app => {
   const {
     services: {
       sessions,

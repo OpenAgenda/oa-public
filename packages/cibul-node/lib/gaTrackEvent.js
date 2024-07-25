@@ -1,13 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const axios = require('axios');
-const qs = require('qs');
-const pThrottle = require('p-throttle');
+import _ from 'lodash';
+import axios from 'axios';
+import qs from 'qs';
+import pThrottle from 'p-throttle';
 
 // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
 
-module.exports = function gaTrackEvent(gaTrackingId, cid, category, action, label, rest) {
+export default function gaTrackEvent(gaTrackingId, cid, category, action, label, rest) {
   return axios.post('https://www.google-analytics.com/collect', qs.stringify({
     // API Version.
     v: '1',
@@ -26,9 +24,9 @@ module.exports = function gaTrackEvent(gaTrackingId, cid, category, action, labe
     // Rest ...
     ...rest,
   }));
-};
+}
 
-module.exports.batch = function gaTrackEventBatch(gaTrackingId, cid, events, rest) {
+export const batch = function gaTrackEventBatch(gaTrackingId, cid, events, rest) {
   const throttledPost = pThrottle(axios.post, 1, 1000);
   const eventChunks = _.chunk(events, 20);
   const requests = [];

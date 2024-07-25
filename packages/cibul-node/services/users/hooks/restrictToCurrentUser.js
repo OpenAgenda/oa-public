@@ -1,8 +1,6 @@
-'use strict';
+import errors from '@feathersjs/errors';
 
-const errors = require('@feathersjs/errors');
-
-module.exports = function restrictToCurrentUser() {
+export default function restrictToCurrentUser() {
   return context => {
     if (!context.params.user) {
       throw new errors.NotAuthenticated('You are not authenticated.');
@@ -16,4 +14,4 @@ module.exports = function restrictToCurrentUser() {
       throw new errors.Forbidden('You do not have the permissions to access this.');
     }
   };
-};
+}

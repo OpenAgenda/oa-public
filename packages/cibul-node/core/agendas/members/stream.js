@@ -1,8 +1,6 @@
-'use strict';
-
-const { Readable } = require('node:stream');
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import { Readable } from 'node:stream';
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
 class Stream extends Readable {
   constructor({ core, agenda }, query, nav, options) {
@@ -61,4 +59,4 @@ const createStream = async (core, agendaUid, query = {}, nav = {}, options = {})
   return new Stream({ core, agenda }, query, nav, { ...options, actingMember, detailed: true });
 };
 
-module.exports = createStream;
+export default createStream;

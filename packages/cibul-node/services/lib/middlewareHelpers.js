@@ -1,16 +1,12 @@
-'use strict';
+export function compareModifiedSince(initialTimestamp, req, res, next) {
+  let timestamp = initialTimestamp;
 
-module.exports = {
-  compareModifiedSince,
-};
-
-function compareModifiedSince(timestamp, req, res, next) {
   if (timestamp && typeof timestamp === 'object') {
     timestamp = JSON.stringify(timestamp).replace(/"/g, '');
   }
 
   if (timestamp && (req.headers['if-modified-since'] === timestamp)) {
-    req.log.debug('marked as not modifed');
+    req.log.debug('marked as not modified');
 
     res.status(304).end();
 

@@ -1,9 +1,5 @@
-'use strict';
-
-module.exports = function updateContext(context, member, options = {}) {
-  const {
-    role,
-  } = member;
+export default function updateContext(context, member, options = {}) {
+  const { role } = member;
 
   const {
     setSentToMe = false,
@@ -29,4 +25,4 @@ module.exports = function updateContext(context, member, options = {}) {
   }
 
   return update;
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (members, req, res, next) => members.set.byEmail.bulk({
+export default (members, req, res, next) => members.set.byEmail.bulk({
   agendaUid: req.agenda.uid,
   role: req.body.role,
 }, req.body.emails, {

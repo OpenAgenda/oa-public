@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/users/resetCache');
+const log = logs('services/users/resetCache');
 
-module.exports = async function resetCache(services, user) {
+export default async function resetCache(services, user) {
   const {
     simpleCache,
     sessions,
@@ -15,4 +15,4 @@ module.exports = async function resetCache(services, user) {
     simpleCache('users', `api_key:${user.apiKey}`).del(),
     simpleCache('users', `api_secret:${user.apiSecret}`).del(),
   ]);
-};
+}

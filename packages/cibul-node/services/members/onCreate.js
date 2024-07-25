@@ -1,53 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import membersSvc from '@openagenda/members';
+import { send, sendInvitation } from './lib/mail.js';
+import clearCache from './lib/clearCache.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('services/members/onCreate');
-const {
-  isSuperiorToOrEqual,
-} = require('@openagenda/members').utils.compareRoles;
+const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersSvc;
 
-const { send, sendInvitation } = require('./lib/mail');
-const clearCache = require('./lib/clearCache');
-
-module.exports = async ({ services, config, activityQueue }, member, context) => {
-  log('created', member);
-
-  const {
-    agendas,
-  } = services;
-
-  await clearCache(services, member);
-
-  try {
-    const agenda = await agendas.get({
-      uid: member.agendaUid,
-    }, {
-      private: null,
-      includeImagePath: true,
-    });
-
-    if (!agenda) {
-      throw new Error('Agenda not found');
-    }
-
-    const user = member.userUid ? await services.users.findOne({
-      query: { uid: member.userUid },
-      removed: null,
-    }) : null;
-
-    if (!user && member.userUid) {
-      throw new Error('User not found');
-    }
-
-    if (member.userUid) {
-      return _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context });
-    }
-    return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
-  } catch (e) {
-    log('error', 'failed', { member, exception: e });
-  }
-};
+const log = logs('services/members/onCreate');
 
 async function _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context }) {
   log('member is existing user', member);
@@ -156,3 +116,40 @@ async function _memberIsInvitedNonUser({ services, config }, { member, agenda, c
     invitation, member, context, agenda,
   });
 }
+
+export default async ({ services, config, activityQueue }, member, context) => {
+  log('created', member);
+
+  const { agendas } = services;
+
+  await clearCache(services, member);
+
+  try {
+    const agenda = await agendas.get({
+      uid: member.agendaUid,
+    }, {
+      private: null,
+      includeImagePath: true,
+    });
+
+    if (!agenda) {
+      throw new Error('Agenda not found');
+    }
+
+    const user = member.userUid ? await services.users.findOne({
+      query: { uid: member.userUid },
+      removed: null,
+    }) : null;
+
+    if (!user && member.userUid) {
+      throw new Error('User not found');
+    }
+
+    if (member.userUid) {
+      return _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context });
+    }
+    return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
+  } catch (e) {
+    log('error', 'failed', { member, exception: e });
+  }
+};

@@ -1,10 +1,10 @@
-'use strict';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import agendasSvc from '@openagenda/agendas';
 
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const removeAgenda = promisify(require('@openagenda/agendas').remove);
+const removeAgenda = promisify(agendasSvc.remove);
 
-module.exports = async agendaOrUid => {
+export default async agendaOrUid => {
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
   const { success } = await removeAgenda({ uid: agendaUid });

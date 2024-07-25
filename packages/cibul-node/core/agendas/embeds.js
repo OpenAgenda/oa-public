@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (core, agendaUid) => {
+export default (core, agendaUid) => {
   if (!core.services.legacy) {
     return;
   }

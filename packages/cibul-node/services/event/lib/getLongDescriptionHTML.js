@@ -1,10 +1,6 @@
-'use strict';
+import { fromMarkdownToHTML } from '@openagenda/md';
 
-const {
-  fromMarkdownToHTML,
-} = require('@openagenda/md');
-
-function renderHTMLFromMarkdown(services, links = null, md = '') {
+export function renderHTMLFromMarkdown(services, links = null, md = '') {
   const {
     oembed,
   } = services;
@@ -18,7 +14,7 @@ function renderHTMLFromMarkdown(services, links = null, md = '') {
   return oembed.injectEmbeds(html, links);
 }
 
-module.exports = (options, multilingualText = {}, links = []) => {
+export default (options, multilingualText = {}, links = []) => {
   const {
     services,
     lang,
@@ -51,5 +47,3 @@ module.exports = (options, multilingualText = {}, links = []) => {
 
   return '';
 };
-
-module.exports.renderHTMLFromMarkdown = renderHTMLFromMarkdown;

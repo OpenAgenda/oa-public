@@ -1,6 +1,4 @@
-'use strict';
-
-const axios = require('axios');
+import axios from 'axios';
 
 const completeUrl = url => {
   if (url.includes('/matomo.php')) return url;
@@ -8,7 +6,7 @@ const completeUrl = url => {
   return `${url}/matomo.php`;
 };
 
-module.exports = function matomoTrackEvent({
+export default function matomoTrackEvent({
   matomoUrl,
   matomoSiteId,
   category,
@@ -31,4 +29,4 @@ module.exports = function matomoTrackEvent({
       Origin: rootPath,
     },
   });
-};
+}

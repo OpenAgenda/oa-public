@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import agendaSettings from './settings/index.js';
 
-const _ = require('lodash');
+const log = logs('core/agendas/update');
 
-const { BadRequest } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('core/agendas/update');
-
-const agendaSettings = require('./settings');
-
-module.exports = async (core, agendaOrUid, data, options = {}) => {
+export default async (core, agendaOrUid, data, options = {}) => {
   const {
     agendas,
     agendaSearch,

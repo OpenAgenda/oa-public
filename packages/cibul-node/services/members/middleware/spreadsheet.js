@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports.stream = function stream(req, res, next) {
+export function stream(req, res, next) {
   const { core } = req.app.services;
   const { flattenMemberInfo } = core.agendas.utils;
   core.agendas(req.agenda.uid).get({ includeMemberSchema: true }).then(agenda => {
@@ -14,4 +12,4 @@ module.exports.stream = function stream(req, res, next) {
       next();
     }, next);
   }, next);
-};
+}

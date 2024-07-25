@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-const { Forbidden } = require('@openagenda/verror');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { Forbidden } from '@openagenda/verror';
 
 const log = logs('services/members/sendGroupMail/launchSend');
 
-module.exports = function launchSend(
+export default function launchSend(
   queue,
   agenda,
   senderMember,
@@ -32,4 +30,4 @@ module.exports = function launchSend(
     agenda: _.pick(agenda, ['uid', 'slug', 'title', 'image']),
     options,
   });
-};
+}

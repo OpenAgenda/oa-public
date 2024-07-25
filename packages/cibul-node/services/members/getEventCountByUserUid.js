@@ -1,13 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
+const log = logs('services/members/getEventCountByUserUid');
 
-const log = require('@openagenda/logs')('services/members/getEventCountByUserUid');
-
-module.exports = (services, agendaUid, userUids = []) => {
-  const {
-    agendaEvents,
-  } = services;
+export default (services, agendaUid, userUids = []) => {
+  const { agendaEvents } = services;
 
   if (!agendaUid) return [];
 

@@ -1,14 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import getAgenda from '../utils/getAgenda.js';
+import * as merge from '../utils/merge.js';
+import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/agendas/events/list');
-const getAgenda = require('../utils/getAgenda');
-const merge = require('../utils/merge');
-const convertLocationAdditionalFields = require('../utils/convertLocationAdditionalFields');
+const log = logs('core/agendas/events/list');
 
 // this will be slower for bigger sets
 // keep it fast with a last id nav on agendaEvents
-module.exports = async (core, agendaUid, query = {}, nav = {}, options = {}) => {
+export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
   const {
     agendaEvents: agendaEventsSvc,
     events: eventsSvc,

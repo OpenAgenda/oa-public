@@ -1,8 +1,6 @@
-'use strict';
+import getAgenda from './utils/getAgenda.js';
 
-const getAgenda = require('./utils/getAgenda');
-
-module.exports = (core, endpoints, agendaUid) => async function agendaRebuild() {
+export default (core, endpoints, agendaUid) => async function agendaRebuild() {
   const {
     services: {
       agendas: agendasSvc,

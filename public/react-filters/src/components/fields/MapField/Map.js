@@ -1,19 +1,6 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import cn from 'classnames';
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  useMapEvents,
-  useMap,
-} from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useIntl } from 'react-intl';
 import { usePrevious } from 'react-use';
@@ -32,6 +19,21 @@ const worldViewport = {
     longitude: -180,
   },
 };
+
+function loadGestureHandlingLocale(gestureHandling, locale) {
+  import(`@raruto/leaflet-gesture-handling/dist/locales/${locale}.js`)
+    .then(m => {
+      const content = m.default || m;
+      const scrollWarning = gestureHandling._isMacUser() ? content.scrollMac : content.scroll;
+      gestureHandling._map._container.setAttribute('data-gesture-handling-touch-content', content.touch);
+      gestureHandling._map._container.setAttribute('data-gesture-handling-scroll-content', scrollWarning);
+      gestureHandling._touchWarning = content.touch;
+      gestureHandling._scrollWarning = scrollWarning;
+    })
+    .catch(e => {
+      console.log(`Cannot load gestureHandling locale "${locale}"`, e);
+    });
+}
 
 function valueToViewport(value) {
   const bounds = new L.LatLngBounds(
@@ -81,10 +83,7 @@ function normalizeBounds(bounds, bufferRatio = 1) {
   const north = height > 170 ? ne.lat : ne.lat + heightBuffer;
   const east = width > 360 ? 180 : ne.lng + widthBuffer;
 
-  return new L.LatLngBounds(
-    new L.LatLng(south, west),
-    new L.LatLng(north, east),
-  );
+  return new L.LatLngBounds(new L.LatLng(south, west), new L.LatLng(north, east));
 }
 
 function isEmptyValue(value) {
@@ -106,10 +105,7 @@ function MarkerClusterIcon({ latitude, longitude, eventCount }) {
   const icon = useMemo(
     () =>
       new L.DivIcon({
-        html: `<div style="pointer-events: none;"><span>${convertToKFormat(
-          intl,
-          eventCount,
-        )}</span></div>`,
+        html: `<div style="pointer-events: none;"><span>${convertToKFormat(intl, eventCount)}</span></div>`,
         className: cn('marker-cluster leaflet-interactive', {
           'marker-cluster-small': eventCount < 10,
           'marker-cluster-medium': eventCount < 100,
@@ -174,15 +170,11 @@ const Map = React.forwardRef(
     const mapRef = useRef();
     const programmaticMoveRef = useRef(false);
 
-    const [viewport] = useState(() =>
-      (input.value ? valueToViewport(input.value) : initialViewport));
+    const [viewport] = useState(() => (input.value ? valueToViewport(input.value) : initialViewport));
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
-    const [bounds] = useState(() =>
-      viewportToBounds(viewport || defaultViewport || worldViewport).pad(
-        padRatio,
-      ));
+    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport || worldViewport).pad(padRatio));
     useImperativeHandle(ref, () => ({
       setData,
       onQueryChange: newViewport => {
@@ -205,11 +197,7 @@ const Map = React.forwardRef(
           map.once('moveend', () => reloadData());
 
           programmaticMoveRef.current = true;
-          map.fitBounds(
-            viewportToBounds(
-              newViewport || defaultViewport || worldViewport,
-            ).pad(padRatio),
-          );
+          map.fitBounds(viewportToBounds(newViewport || defaultViewport || worldViewport).pad(padRatio));
         } else {
           reloadData();
         }
@@ -219,6 +207,8 @@ const Map = React.forwardRef(
     const onMapReady = useCallback(
       ({ target: map }) => {
         mapRef.current = map;
+
+        loadGestureHandlingLocale(map.gestureHandling, intl.locale);
 
         // Remove flag
         map.attributionControl.setPrefix(
@@ -248,11 +238,7 @@ const Map = React.forwardRef(
 
     useEffect(() => {
       // Become not user controlled if value is cleared
-      if (
-        !isEmptyValue(previousValue)
-        && isEmptyValue(input.value)
-        && userControlled
-      ) {
+      if (!isEmptyValue(previousValue) && isEmptyValue(input.value) && userControlled) {
         setUserControlled(false);
       }
     });
@@ -309,10 +295,7 @@ const Map = React.forwardRef(
           ))
           : null}
 
-        <OnMapMove
-          onChange={onChange}
-          programmaticMoveRef={programmaticMoveRef}
-        />
+        <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
       </MapContainer>
     );
   },

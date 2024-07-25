@@ -1,12 +1,10 @@
-'use strict';
-
-module.exports = function cleanDuplicateImage(core, image) {
+export default function cleanDuplicateImage(core, image) {
   return {
     url: `${core.getConfig().aws.imageBucketPath}${image.variants.find(v => v.type === 'full').filename}`,
   };
-};
+}
 
-module.exports.isImageToDuplicate = function isImageToDuplicate(image) {
+export function isImageToDuplicate(image) {
   if (!image) {
     return false;
   }
@@ -16,4 +14,4 @@ module.exports.isImageToDuplicate = function isImageToDuplicate(image) {
   }
 
   return !!image?.filename;
-};
+}

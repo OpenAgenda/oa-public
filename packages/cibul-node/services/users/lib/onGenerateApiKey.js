@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function onGenerateApiKey(config) {
+export default function onGenerateApiKey(config) {
   return async ctx => {
     // Need detailed user
     const user = await ctx.self.get(ctx.id, { detailed: true });
@@ -34,4 +32,4 @@ module.exports = function onGenerateApiKey(config) {
         });
     }
   };
-};
+}

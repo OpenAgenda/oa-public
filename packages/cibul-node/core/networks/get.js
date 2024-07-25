@@ -1,11 +1,7 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
 
-const { NotFound } = require('@openagenda/verror');
-
-module.exports = async (core, networkUid, options = {}) => {
-  const {
-    networks,
-  } = core.services;
+export default async (core, networkUid, options = {}) => {
+  const { networks } = core.services;
 
   const {
     throwNotFound,

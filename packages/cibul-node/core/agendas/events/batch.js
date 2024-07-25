@@ -1,21 +1,18 @@
-'use strict';
-
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/agendas/events/batch');
-
-const list = require('./list');
-const search = require('./search');
-const update = require('./update');
-const remove = require('./remove');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import list from './list.js';
+import search from './search.js';
+import update from './update.js';
+import remove from './remove.js';
 
 const { patch } = update;
+
+const log = logs('core/agendas/events/batch');
 
 const getTaskName = operation => `batched${_.capitalize(operation)}`;
 
 async function agendaBatchSearch(core, agendaUid, operation, query, ...args) {
-  const {
-    tasks,
-  } = core;
+  const { tasks } = core;
   const options = args[args.length - 1];
   const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
   for await (const event of stream) {
@@ -27,9 +24,7 @@ async function agendaBatchSearch(core, agendaUid, operation, query, ...args) {
 async function agendaBatchList(core, agendaUid, operation, query, ...args) {
   let lastId = 0;
 
-  const {
-    tasks,
-  } = core;
+  const { tasks } = core;
 
   const options = args[args.length - 1];
 
@@ -53,7 +48,7 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
   }
 }
 
-module.exports = core => {
+export default core => {
   core.tasks.register({
     agendaBatchList: agendaBatchList.bind(null, core),
     agendaBatchSearch: agendaBatchSearch.bind(null, core),

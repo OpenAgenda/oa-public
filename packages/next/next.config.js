@@ -10,9 +10,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const withSentry = c => withSentryConfig(c, { silent: true });
 
 function webpackCopyFiles(webpackConfig, files) {
-  const CopyFilePlugin = webpackConfig.plugins
-    .find(plugin => plugin.constructor.name === 'CopyFilePlugin')
-    .constructor;
+  const CopyFilePlugin = webpackConfig.plugins.find(
+    plugin => plugin.constructor.name === 'CopyFilePlugin',
+  ).constructor;
 
   for (const file of files) {
     webpackConfig.plugins.push(
@@ -59,129 +59,127 @@ const securityHeaders = [
 
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
-  const {
-    NODE_ENV,
-    NEXT_API_INTERNAL_BASE_URL,
-    NEXT_PUBLIC_ASSET_PREFIX,
-  } = process.env;
+  const { NODE_ENV, NEXT_API_INTERNAL_BASE_URL, NEXT_PUBLIC_ASSET_PREFIX } = process.env;
 
-  return withSentry(withBundleAnalyzer({
-    assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
-    i18n: {
-      locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
-      defaultLocale: 'default',
-      localeDetection: false,
-    },
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'cibul.s3.amazonaws.com',
-        },
-        {
-          protocol: 'https',
-          hostname: 'images.openagenda.com',
-        },
-      ].concat(NODE_ENV !== 'production' ? [
-        {
-          protocol: 'https',
-          hostname: 'cibuldev.s3.amazonaws.com',
-        },
-        {
-          protocol: 'https',
-          hostname: 'imagesdev-1cb1b.kxcdn.com',
-        },
-      ] : []),
-    },
-    // productionBrowserSourceMaps: true,
-    eslint: {
-      dirs: [
-        'src',
-        'scripts',
-        '.storybook',
-        'stories',
-      ],
-      // ignoreDuringBuilds: true,
-    },
-    // typescript: {
-    //   ignoreBuildErrors: true,
-    // },
-    experimental: {
-      scrollRestoration: true,
-    },
-    onDemandEntries: {
-      maxInactiveAge: 24 * 3600 * 1000, // 24h
-      pagesBufferLength: 50,
-    },
-    // Compression is enabled with nginx
-    compress: false,
-    async headers() {
-      return [
-        {
-          source: '/:path*',
-          headers: securityHeaders,
-        },
-      ];
-    },
-    async redirects() {
-      return [
-        {
-          source: '/:slug.prv/:path*',
-          destination: '/:slug/:path*',
-          permanent: true,
-        },
-      ];
-    },
-    async rewrites() {
-      if (!NEXT_API_INTERNAL_BASE_URL) {
-        throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
-      }
-
-      return {
-        beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
-        fallback: [
+  return withSentry(
+    withBundleAnalyzer({
+      assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
+      i18n: {
+        locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
+        defaultLocale: 'default',
+        localeDetection: false,
+      },
+      images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'cibul.s3.amazonaws.com',
+          },
+          {
+            protocol: 'https',
+            hostname: 'images.openagenda.com',
+          },
+        ].concat(
+          NODE_ENV !== 'production'
+            ? [
+              {
+                protocol: 'https',
+                hostname: 'cibuldev.s3.amazonaws.com',
+              },
+              {
+                protocol: 'https',
+                hostname: 'imagesdev-1cb1b.kxcdn.com',
+              },
+            ]
+            : [],
+        ),
+      },
+      // productionBrowserSourceMaps: true,
+      eslint: {
+        dirs: ['src', 'scripts', '.storybook', 'stories'],
+        // ignoreDuringBuilds: true,
+      },
+      // typescript: {
+      //   ignoreBuildErrors: true,
+      // },
+      experimental: {
+        scrollRestoration: true,
+      },
+      onDemandEntries: {
+        maxInactiveAge: 24 * 3600 * 1000, // 24h
+        pagesBufferLength: 50,
+      },
+      // Compression is enabled with nginx
+      compress: false,
+      async headers() {
+        return [
           {
             source: '/:path*',
-            destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
+            headers: securityHeaders,
           },
-        ],
-      };
-    },
-    webpack: (webpackConfig, options) => {
-      if (options.isServer) return webpackConfig;
+        ];
+      },
+      async redirects() {
+        return [
+          {
+            source: '/:slug.prv/:path*',
+            destination: '/:slug/:path*',
+            permanent: true,
+          },
+        ];
+      },
+      async rewrites() {
+        if (!NEXT_API_INTERNAL_BASE_URL) {
+          throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
+        }
 
-      webpackCopyFiles(webpackConfig, [
-        {
-          from: require.resolve('@openagenda/outdated-browser'),
-          to: 'static/chunks/outdated-browser.js',
-        },
-        {
-          from: require.resolve('@openagenda/outdated-browser/main.css'),
-          to: 'static/css/outdated-browser.css',
-        },
-      ]);
+        return {
+          beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
+          fallback: [
+            {
+              source: '/:path*',
+              destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
+              locale: false,
+            },
+          ],
+        };
+      },
+      webpack: (webpackConfig, options) => {
+        if (options.isServer) return webpackConfig;
 
-      return webpackConfig;
-    },
-    transpilePackages: [
-      '@openagenda/activity-apps',
-      '@openagenda/intl',
-      '@openagenda/react-filters',
-      '@openagenda/react-shared',
-      '@openagenda/sdk-js',
-      '@openagenda/uikit',
-      'intl-messageformat',
-      'intl-messageformat-parser',
-      'react-intl',
-      'react-markdown',
-    ],
-    sentry: {
-      hideSourceMaps: true,
-      widenClientFileUpload: true,
-      transpileClientSDK: true,
-      tunnelRoute: '/monit',
-    },
-  }));
+        webpackCopyFiles(webpackConfig, [
+          {
+            from: require.resolve('@openagenda/outdated-browser'),
+            to: 'static/chunks/outdated-browser.js',
+          },
+          {
+            from: require.resolve('@openagenda/outdated-browser/main.css'),
+            to: 'static/css/outdated-browser.css',
+          },
+        ]);
+
+        return webpackConfig;
+      },
+      transpilePackages: [
+        '@openagenda/activity-apps',
+        '@openagenda/intl',
+        '@openagenda/react-filters',
+        '@openagenda/react-shared',
+        '@openagenda/sdk-js',
+        '@openagenda/uikit',
+        'intl-messageformat',
+        'intl-messageformat-parser',
+        'react-intl',
+        'react-markdown',
+      ],
+      sentry: {
+        hideSourceMaps: true,
+        widenClientFileUpload: true,
+        transpileClientSDK: true,
+        tunnelRoute: '/monit',
+      },
+    }),
+  );
 };
 
 module.exports = config;

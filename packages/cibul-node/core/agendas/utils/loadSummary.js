@@ -1,5 +1,3 @@
-'use strict';
-
 const getRecentlyAddedEvents = (core, agenda) => {
   const recentThreshold = new Date();
   recentThreshold.setDate(recentThreshold.getDate() - core.getConfig().agendaSearchRecentThreshold);
@@ -16,7 +14,7 @@ const getRecentlyAddedEvents = (core, agenda) => {
     }), { contribution: 0, shared: 0, aggregation: 0 }));
 };
 
-module.exports = async (core, agenda, options = {}) => {
+export default async (core, agenda, options = {}) => {
   const {
     access = 'public',
   } = options;

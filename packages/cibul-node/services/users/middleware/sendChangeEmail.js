@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = service => (req, res, next) => {
+export default service => (req, res, next) => {
   const {
     mails,
     core,

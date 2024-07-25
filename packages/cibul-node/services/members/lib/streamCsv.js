@@ -1,8 +1,6 @@
-'use strict';
+import csv from 'fast-csv';
 
-const csv = require('fast-csv');
-
-module.exports = (req, res, next) => {
+export default (req, res, _next) => {
   const csvFormatterStream = csv.format({
     headers: true,
     delimiter: ';',

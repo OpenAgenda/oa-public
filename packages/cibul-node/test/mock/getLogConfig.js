@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (prefix, key) => ({
+export default (prefix, key) => ({
   debug: {
     prefix: `${prefix}:${key}:`,
   },

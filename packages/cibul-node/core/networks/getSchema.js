@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (core, networkUid) => {
+export default async (core, networkUid) => {
   const network = await core.networks(networkUid).get();
 
   if (!network) {

@@ -1,11 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import getAgendaSearchIndex from './lib/getAgendaSearchIndex.js';
+import hasOtherPublishedReferences from './lib/hasOtherPublishedReferences.js';
 
-const log = require('@openagenda/logs')('services/eventSearch/add');
+const log = logs('services/eventSearch/add');
 
-const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
-const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
-
-module.exports = (services, queue, eventSearch) => {
+export default (services, queue, eventSearch) => {
   const {
     agendaEvents,
   } = services;

@@ -1,18 +1,14 @@
-'use strict';
-
-const Service = require('@openagenda/activities');
-const mw = require('@openagenda/activity-apps/dist/middleware');
-const createPrepareSummaryQueue = require('./prepareSummary');
-const sendSummary = require('./sendSummary');
-const activitiesConfig = require('./activitiesConfig');
-const addActivity = require('./addActivity');
+import Service from '@openagenda/activities';
+import mw from '@openagenda/activity-apps/dist/middleware.js';
+import createPrepareSummaryQueue from './prepareSummary.js';
+import sendSummary from './sendSummary.js';
+import activitiesConfig from './activitiesConfig.js';
+import addActivity from './addActivity.js';
 
 const activities = {};
 
-module.exports = app => {
-  const {
-    sessions,
-  } = app.services;
+export default function plugApp(app) {
+  const { sessions } = app.services;
   const preMw = [
     sessions.mw.ifUnlogged((req, res) => res.status(400).json({ error: 'Not logged' })),
   ];
@@ -22,9 +18,9 @@ module.exports = app => {
   app.get('/notifications/remove/:notifId', preMw, mw.notifications.remove);
   app.get('/notifications/mark-read/:notifId', preMw, mw.notifications.markRead);
   app.get('/notifications/mark-all-read', preMw, mw.notifications.markAllRead);
-};
+}
 
-module.exports.init = async (config, services) => {
+export async function init(config, services) {
   const { bull } = services;
 
   const prepareSummary = createPrepareSummaryQueue({ bull, activities });
@@ -80,7 +76,8 @@ module.exports.init = async (config, services) => {
 
   Object.assign(activities, service);
 
-  Object.assign(module.exports, activities);
+  // plugApp = module.exports
+  Object.assign(plugApp, activities);
 
   return service;
-};
+}

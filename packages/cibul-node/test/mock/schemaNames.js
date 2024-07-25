@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   apiKeySet: 'api_key_set', // required by users svc
   agenda: 'agenda',
   eventService: 'event_2',

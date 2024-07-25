@@ -1,7 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
+
+const log = logs('core/agendas/utils/clearAgendasCache');
 
 const STOP = -1;
-const log = require('@openagenda/logs')('core/agendas/utils/clearAgendasCache');
 
 async function clearAgendasCache(services) {
   const {
@@ -37,4 +38,4 @@ async function clearAgendasCache(services) {
   }
 }
 
-module.exports = clearAgendasCache;
+export default clearAgendasCache;

@@ -1,18 +1,11 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
+import { getForUserOnAgenda as getUserAuthorizationsOnAgenda } from '../utils/authorizations.js';
+import validateOptions from './lib/validateEventContextOptions.js';
 
-const log = require('@openagenda/logs')('core/users/getEventUserContext');
+const log = logs('core/users/getEventUserContext');
 
-const {
-  NotFound,
-} = require('@openagenda/verror');
-
-const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
-} = require('../utils/authorizations');
-
-const validateOptions = require('./lib/validateEventContextOptions');
-
-module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) => {
+export default async (core, identifier, agendaUid, eventOrUid, options = {}) => {
   const {
     agendaEvents,
     events,

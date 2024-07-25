@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (data, options = {}) => {
+export default (data, options = {}) => {
   if (options?.userUid) {
     return options?.userUid;
   }

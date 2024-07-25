@@ -1,10 +1,10 @@
-'use strict';
+import { BadRequest } from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import processOEmbed from '../../utils/processOEmbed.js';
 
-const { BadRequest } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('core/agendas/events/lib/updateEvent');
-const processOEmbed = require('../../utils/processOEmbed');
+const log = logs('core/agendas/events/lib/updateEvent');
 
-module.exports = async function updateEvent(services, {
+export default async function updateEvent(services, {
   clean,
   payload,
   draft,
@@ -59,4 +59,4 @@ module.exports = async function updateEvent(services, {
     });
     throw e;
   }
-};
+}

@@ -1,8 +1,6 @@
-'use strict';
+import getAgenda from '../utils/getAgenda.js';
 
-const getAgenda = require('../utils/getAgenda');
-
-module.exports = async function sendGroupMail(core, agendaUid, memberOrUid, query, data, options = {}) {
+export default async function sendGroupMail(core, agendaUid, memberOrUid, query, data, options = {}) {
   const {
     services: {
       members,
@@ -29,4 +27,4 @@ module.exports = async function sendGroupMail(core, agendaUid, memberOrUid, quer
       lang: options.lang,
     },
   );
-};
+}

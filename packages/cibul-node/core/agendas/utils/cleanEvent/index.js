@@ -1,14 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import deepDiff from 'deep-diff';
+import logs from '@openagenda/logs';
+import eventSchema from '@openagenda/event-form/src/schema.js';
+import labels from '@openagenda/labels/event/form.js';
+import validateEvent from './validateEvent.js';
+import getWriteAccess from './getWriteAccess.js';
 
-const _ = require('lodash');
-const { diff } = require('deep-diff');
+const { diff } = deepDiff;
 
-const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent');
-const eventSchema = require('@openagenda/event-form/src/schema');
-const labels = require('@openagenda/labels/event/form');
-
-const validateEvent = require('./validateEvent');
-const getWriteAccess = require('./getWriteAccess');
+const log = logs('core/agendas/utils/cleanEvent');
 
 const eventFields = eventSchema.eventFields({
   labels,
@@ -42,7 +42,7 @@ function isDifferent(a, b) {
   );
 }
 
-module.exports = Object.assign(async function cleanEvent(services, agenda, data, options = {}) {
+export default Object.assign(async function cleanEvent(services, agenda, data, options = {}) {
   const {
     agendaEvents,
     registrations,

@@ -1,10 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/users/tasks/InactiveUsersStateStore');
+const log = logs('services/users/tasks/InactiveUsersStateStore');
 
 const storeExpire = 60 * 60 * 24 * 30 * 2; // 2 months
 
-module.exports = function InactiveUserStateStore(services, prefix, options = {}) {
+export default function InactiveUserStateStore(services, prefix, options = {}) {
   const {
     redis,
   } = services;
@@ -49,4 +49,4 @@ module.exports = function InactiveUserStateStore(services, prefix, options = {})
     },
     list: listUids,
   };
-};
+}

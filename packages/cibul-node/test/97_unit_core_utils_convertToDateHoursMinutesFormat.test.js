@@ -1,7 +1,5 @@
-'use strict';
-
-const { utils } = require('@openagenda/events');
-const convertToDateHoursMinutesFormat = require('../core/agendas/events/lib/convertToDateHoursMinutesFormat');
+import { utils } from '@openagenda/events';
+import convertToDateHoursMinutesFormat from '../core/agendas/events/lib/convertToDateHoursMinutesFormat.js';
 
 describe('98 - core unit - convertToDateHoursMinutesFormat', () => {
   it('converts timings to date/hours/minutes format', () => {

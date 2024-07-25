@@ -1,15 +1,8 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const {
-  knex,
-  resetAndCreateTables,
-} = require('./sql');
+import fs from 'node:fs';
+import { knex, resetAndCreateTables } from './sql/index.js';
+import insertEventSet from './sql/eventSets/index.js';
 
 const raw = resetAndCreateTables();
-
-const insertEventSet = require('./sql/eventSets');
 
 raw.push(knex('review').insert([{
   id: 218,
@@ -61,10 +54,10 @@ raw.push(knex('user').insert([{
 
 raw.push(knex('form_schema').insert([{
   id: 2,
-  store: fs.readFileSync(`${__dirname}/form-schemas/2.json`),
+  store: fs.readFileSync(`${import.meta.dirname}/form-schemas/2.json`),
 }, {
   id: 4,
-  store: fs.readFileSync(`${__dirname}/form-schemas/4.json`),
+  store: fs.readFileSync(`${import.meta.dirname}/form-schemas/4.json`),
 }]));
 
 raw.push(knex('reviewer').insert([{
@@ -665,4 +658,4 @@ raw.push(knex('custom').insert([{
   updated_at: '2017-10-30 14:21:07',
 }]));
 
-module.exports = `${raw.join(';\n')};`;
+export default `${raw.join(';\n')};`;

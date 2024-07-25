@@ -1,14 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import { Forbidden, NotFound } from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import validateNav from './lib/validateNav.js';
+import format from './lib/format.js';
+import canRead from './lib/canRead.js';
 
-const _ = require('lodash');
-const { Forbidden, NotFound } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('core/agendas/members/list');
+const log = logs('core/agendas/members/list');
 
-const validateNav = require('./lib/validateNav');
-const format = require('./lib/format');
-const canRead = require('./lib/canRead');
-
-module.exports = async (core, agendaOrUid, query, nav, options = {}) => {
+export default async (core, agendaOrUid, query, nav, options = {}) => {
   const { services } = core;
   const {
     members: membersSvc,

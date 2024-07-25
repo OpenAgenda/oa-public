@@ -1,16 +1,48 @@
-'use strict';
+/* eslint-disable no-param-reassign */
 
-const moment = require('moment');
-const utils = require('@openagenda/utils');
-const makeGetterLabel = require('@openagenda/labels');
-const labels = require('@openagenda/labels/exports');
-const config = require('../../../config');
+import moment from 'moment';
+import utils from '@openagenda/utils';
+import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/exports/index.js';
+import config from '../../../config/index.js';
 
 const esc = utils.escape;
 
 const getLabel = makeGetterLabel(labels);
 
-module.exports = function (agenda, eData /* event data */, ev /* event instance */, lang, timingIndex) {
+/**
+ * format date in ics friendly format
+ */
+
+function _date(d, format) {
+  if (!format) format = 'YYYYMMDDTHHmm00';
+
+  if (typeof d === 'object') {
+    d = JSON.stringify(d);
+  } else if (!d) {
+    d = JSON.stringify(new Date());
+  }
+
+  return `${moment(d.replace(/"/g, '')).utc().format(format)}Z`;
+}
+
+/**
+ * escape for ical content
+ */
+
+function _esc(txt) {
+  return txt
+
+    .replace(/\r/g, ' ')
+
+    .replace(/\n/g, '\\r\\n')
+
+    .replace(/,/g, '\\,')
+
+    .replace(/;/g, '\\;');
+}
+
+export default (agenda, eData /* event data */, ev /* event instance */, lang, timingIndex) => {
   const l = ev.getLocationDetails();
 
   const url = `${config.root}/${agenda.slug}/events/${ev.slug}`;
@@ -26,7 +58,7 @@ module.exports = function (agenda, eData /* event data */, ev /* event instance 
     timingIndex = -1;
   } else {
     try {
-      timingIndex = parseInt(timingIndex);
+      timingIndex = parseInt(timingIndex, 10);
     } catch (e) {
       timingIndex = -1;
     }
@@ -50,7 +82,7 @@ module.exports = function (agenda, eData /* event data */, ev /* event instance 
 
   timings
 
-  // limit timings if is passed and more than ten
+    // limit timings if is passed and more than ten
     .filter((t, i) => {
       if (timingIndex !== -1) {
         return timingIndex === i;
@@ -76,7 +108,7 @@ module.exports = function (agenda, eData /* event data */, ev /* event instance 
   return icaled.join('\r\n');
 };
 
-module.exports.head = function (agenda, lang = 'fr') {
+export function head(agenda, lang = 'fr') {
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -86,36 +118,4 @@ module.exports.head = function (agenda, lang = 'fr') {
     `X-WR-CALDESC:${_esc(agenda.description)}`,
     `X-WR-RELCALID:${agenda.uid}`,
   ].join('\r\n');
-};
-
-/**
- * format date in ics friendly format
- */
-
-function _date(d, format) {
-  if (!format) format = 'YYYYMMDDTHHmm00';
-
-  if (typeof d === 'object') {
-    d = JSON.stringify(d);
-  } else if (!d) {
-    d = JSON.stringify(new Date());
-  }
-
-  return `${moment(d.replace(/\"/g, '')).utc().format(format)}Z`;
-}
-
-/**
- * escape for ical content
- */
-
-function _esc(txt) {
-  return txt
-
-    .replace(/\r/g, ' ')
-
-    .replace(/\n/g, '\\r\\n')
-
-    .replace(/,/g, '\\,')
-
-    .replace(/;/g, '\\;');
 }

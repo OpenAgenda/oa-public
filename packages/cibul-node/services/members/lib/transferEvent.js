@@ -1,6 +1,6 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/members/transferEvent');
+const log = logs('services/members/transferEvent');
 
 function feedFollow(activities, follow, userUid, eventUid) {
   return activities.feed({
@@ -12,7 +12,7 @@ function feedFollow(activities, follow, userUid, eventUid) {
   });
 }
 
-module.exports = async function transferEvent(services, event, member) {
+export default async function transferEvent(services, event, member) {
   const {
     agendaEvents,
     events,
@@ -58,4 +58,4 @@ module.exports = async function transferEvent(services, event, member) {
   } catch (e) {
     log('error', 'failed to update transferred to user feed', e);
   }
-};
+}

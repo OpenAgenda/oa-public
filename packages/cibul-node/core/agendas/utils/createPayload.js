@@ -1,9 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import * as merge from './merge.js';
+import getMemberSchema from './getMemberSchema.js';
 
-const _ = require('lodash');
 // const log = require('@openagenda/logs')('core/agendas/utils/createPayload');
-const merge = require('./merge');
-const getMemberSchema = require('./getMemberSchema');
 
 const cleanAccess = dirty => {
   if (!dirty) {
@@ -139,7 +138,7 @@ function setItem({ services }, name, ...args) {
   _.set(services, `after.${name}`, args.length === 2 ? args[1] : args[0]);
 }
 
-module.exports = function createPayload(core, agenda, primaryKey) {
+export default function createPayload(core, agenda, primaryKey) {
   const data = {
     agendas: {
       current: agenda,
@@ -170,4 +169,4 @@ module.exports = function createPayload(core, agenda, primaryKey) {
     hasItem: key => getItem(key),
     getPrimaryKey: () => primaryKey,
   };
-};
+}

@@ -1,12 +1,8 @@
-'use strict';
+/* eslint-disable */
 
 let cli;
 
-const redis = require('redis');
-
-const utils = require('../../../lib/utils');
-
-module.exports = {
+export default {
   enabled,
   get,
   load,
@@ -14,7 +10,7 @@ module.exports = {
   init,
 };
 
-function init(config, services) {
+export function init(config, services) {
   if (!config.useCache) return;
 
   cli = services.redis;
@@ -63,7 +59,7 @@ function load(keys, method, expire, args, cb) {
       return cb(err, data);
     }
 
-    if (utils.isArray(keys)) {
+    if (Array.isArray(keys)) {
       cli.hSet(keys[0], keys[1], JSON.stringify(data))
         .then(r => onRedisResponse(null, r), onRedisResponse);
     } else {
@@ -73,7 +69,7 @@ function load(keys, method, expire, args, cb) {
 
     function onRedisResponse(err, result) {
       // if expire is set, define it here
-      if (expire) cli.expire(utils.isArray(keys) ? keys[0] : keys, parseInt(Math.ceil(expire / 1000), 10));
+      if (expire) cli.expire(Array.isArray(keys) ? keys[0] : keys, parseInt(Math.ceil(expire / 1000), 10));
 
       if (err) return cb(err);
 
@@ -81,7 +77,7 @@ function load(keys, method, expire, args, cb) {
     }
   });
 
-  method.apply(null, args);
+  method(...args);
 }
 
 function enabled() {

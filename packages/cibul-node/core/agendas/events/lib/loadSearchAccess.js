@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('core/agendas/events/loadSearchAccess');
+const log = logs('core/agendas/events/loadSearchAccess');
 
-module.exports = async (core, agendaUid, options = {}) => {
+export default async (core, agendaUid, options = {}) => {
   const { services } = core;
   const {
     members,

@@ -1,15 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { NotFound, Forbidden } from '@openagenda/verror';
+import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
+import * as convertLongDescription from './lib/convertLongDescription.js';
+import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
+import loadSearchAccess from './lib/loadSearchAccess.js';
+import filterEventByRole from './lib/filterEventByRole.js';
+import filterAuthorizedSearchFields from './lib/filterAuthorizedSearchFields.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('core/agendas/events/search');
-const { NotFound, Forbidden } = require('@openagenda/verror');
-
-const preCleanSearchQuery = require('../utils/preCleanSearchQuery');
-const convertLongDescription = require('./lib/convertLongDescription');
-const convertToDateHoursMinutesTimings = require('./lib/convertToDateHoursMinutesFormat');
-const loadSearchAccess = require('./lib/loadSearchAccess');
-const filterEventByRole = require('./lib/filterEventByRole');
-const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields');
+const log = logs('core/agendas/events/search');
 
 async function doSearch(core, agendaUid, query, nav, options = {}) {
   const {
@@ -93,7 +92,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     : result;
 }
 
-async function getEventFromSearch(core, agendaUid, identifier, options = {}) {
+export async function get(core, agendaUid, identifier, options = {}) {
   const {
     userUid,
   } = options;
@@ -149,15 +148,11 @@ async function getEventFromSearch(core, agendaUid, identifier, options = {}) {
   return filterEventByRole(agenda, event, context);
 }
 
-async function search(core, agendaUid, query, nav, options = {}) {
+export default async function search(core, agendaUid, query, nav, options = {}) {
   return doSearch(core, agendaUid, query, nav, options);
 }
 
-module.exports = search;
-
-module.exports.get = getEventFromSearch;
-
-module.exports.rebuild = async (core, agendaUid) => {
+export async function rebuild(core, agendaUid) {
   const agenda = await core.agendas(agendaUid).get({
     detailed: true,
     access: 'internal',
@@ -171,9 +166,9 @@ module.exports.rebuild = async (core, agendaUid) => {
   }
 
   return core.services.eventSearch.agendas(agenda).rebuild();
-};
+}
 
-async function resyncEvent(core, agendaUid, eventUid, options = {}) {
+export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
   const {
     throwOnError,
   } = {
@@ -212,8 +207,6 @@ async function resyncEvent(core, agendaUid, eventUid, options = {}) {
   }
 }
 
-module.exports.resyncEvent = resyncEvent;
-
 async function batchResyncEvents(core, agendaUid, query, options = {}) {
   const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
 
@@ -222,12 +215,10 @@ async function batchResyncEvents(core, agendaUid, query, options = {}) {
   }
 }
 
-module.exports.resyncEvents = core => {
+export function resyncEvents(core) {
   core.tasks.register({
     batchResyncEvents: batchResyncEvents.bind(null, core),
   });
 
-  return function resyncEvents(agendaUid, query, options = {}) {
-    return core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
-  };
-};
+  return (agendaUid, query, options = {}) => core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
+}

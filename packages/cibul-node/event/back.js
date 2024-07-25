@@ -1,8 +1,6 @@
-'use strict';
+import getAndDecorateIndexedEvent from './lib/getAndDecorateIndexedEvent.js';
 
-const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
-
-module.exports = app => {
+export default app => {
   const {
     sessions,
     members,

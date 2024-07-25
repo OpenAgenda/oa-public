@@ -1,10 +1,6 @@
-'use strict';
+import { BadRequest } from '@openagenda/verror';
 
-const {
-  BadRequest,
-} = require('@openagenda/verror');
-
-module.exports = async (core, networkUid, agendaUid) => {
+export default async (core, networkUid, agendaUid) => {
   await core.networks(networkUid).get({ throwNotFound: true });
 
   const agenda = await core.agendas(agendaUid).get({

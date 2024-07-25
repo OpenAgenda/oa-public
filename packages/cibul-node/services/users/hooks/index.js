@@ -1,10 +1,10 @@
-'use strict';
+import hookCommon from 'feathers-hooks-common';
+import logs from '@openagenda/logs';
+import restrictToUnlogged from './restrictToUnlogged.js';
+import restrictToCurrentUser from './restrictToCurrentUser.js';
+import verifyHeadersPassword from './verifyHeadersPassword.js';
 
-const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
-const logs = require('@openagenda/logs');
-const restrictToUnlogged = require('./restrictToUnlogged');
-const restrictToCurrentUser = require('./restrictToCurrentUser');
-const verifyHeadersPassword = require('./verifyHeadersPassword');
+const { iff, isProvider, disallow: _disallow } = hookCommon;
 
 const log = logs('services/users/hooks');
 
@@ -68,7 +68,7 @@ const disallow = (...args) => async (context, next) => {
   await next();
 };
 
-module.exports = {
+export default {
   find: [
     disallow('external'),
   ],

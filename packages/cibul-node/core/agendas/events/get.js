@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import createPayload from '../utils/createPayload.js';
+import getAgenda from '../utils/getAgenda.js';
+import * as convertLongDescription from './lib/convertLongDescription.js';
 
-const _ = require('lodash');
+const log = logs('core/agendas/events/get');
 
-const log = require('@openagenda/logs')('core/agendas/events/get');
-
-const createPayload = require('../utils/createPayload');
-const getAgenda = require('../utils/getAgenda');
-const convertLongDescription = require('./lib/convertLongDescription');
-
-module.exports = async (core, agendaUid, eventUid, options = {}) => {
+export default async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
 
   const {
@@ -75,7 +73,7 @@ module.exports = async (core, agendaUid, eventUid, options = {}) => {
     });
 
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
-      event.longDescription = convertLongDescription(event, {
+      event.longDescription = convertLongDescription.default(event, {
         services,
         conversion: longDescriptionFormat,
         includeEmbedScripts,

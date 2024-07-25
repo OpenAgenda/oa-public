@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function formatError(error) {
+export default function formatError(error) {
   if (error?.cause?.meta?.body) {
     return error.cause.meta.body.error.reason;
   }
@@ -10,4 +8,4 @@ module.exports = function formatError(error) {
   }
 
   return error;
-};
+}

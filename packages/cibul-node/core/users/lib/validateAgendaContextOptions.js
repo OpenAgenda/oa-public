@@ -1,15 +1,13 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const choiceValidator = require('@openagenda/validators/choice');
-const integerValidator = require('@openagenda/validators/integer');
+import schema from '@openagenda/validators/schema/index.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import integerValidator from '@openagenda/validators/integer.js';
 
 schema.register({
   choice: choiceValidator,
   integer: integerValidator,
 });
 
-module.exports = schema({
+export default schema({
   userUid: {
     type: 'integer',
     default: null,

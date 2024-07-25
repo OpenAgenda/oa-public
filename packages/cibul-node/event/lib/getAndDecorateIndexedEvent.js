@@ -1,18 +1,17 @@
-'use strict';
+import { produce } from 'immer';
+import languages from 'languages';
+import { formatInTimeZone } from 'date-fns-tz';
+import registrationLabels from '@openagenda/labels/event/registration.js';
+import makeLabelGetter from '@openagenda/labels';
+import sdk from '@openagenda/sdk-js';
+import logs from '@openagenda/logs';
+import { utils as agendaPortalUtils } from '@openagenda/agenda-portal';
 
-const { produce } = require('immer');
-const languages = require('languages');
-const { formatInTimeZone } = require('date-fns-tz');
-const registrationLabels = require('@openagenda/labels/event/registration');
-const makeLabelGetter = require('@openagenda/labels');
-const { toEventSchema } = require('@openagenda/sdk-js');
-const log = require('@openagenda/logs')('event/lib/getAndDecorateIndexedEvent');
+const log = logs('event/lib/getAndDecorateIndexedEvent');
 
 const getLabel = makeLabelGetter(registrationLabels);
 
-const {
-  utils: agendaPortalUtils,
-} = require('@openagenda/agenda-portal');
+const { toEventSchema } = sdk;
 
 function pickPreferredLang(value, lang) {
   if (!value) {
@@ -30,7 +29,7 @@ function pickPreferredLang(value, lang) {
   ];
 }
 
-module.exports = async function getAndDecorateIndexedEvent(services, {
+export default async function getAndDecorateIndexedEvent(services, {
   eventSlug,
   eventUid,
   agendaUid,
@@ -159,4 +158,4 @@ module.exports = async function getAndDecorateIndexedEvent(services, {
     draft.twitterShare = `https://twitter.com/share?url=${encodeURIComponent(eventUrl)}&text=${encodeURIComponent(draft.title)}`;
     draft.linkedInShare = `http://www.linkedin.com/shareArticle?url=${encodeURIComponent(eventUrl)}&title=${encodeURIComponent(draft.title)}&summary=${encodeURIComponent(`${draft.description} - ${eventUrl}`)}&source=${encodeURIComponent(root)}`;
   });
-};
+}

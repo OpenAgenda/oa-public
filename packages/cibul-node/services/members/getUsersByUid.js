@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('services/members/getUsersByUid');
+const log = logs('services/members/getUsersByUid');
 
-module.exports = async (services, userUids, userOptions = {}) => {
+export default async (services, userUids, userOptions = {}) => {
   log('processing', {
     userUids: [].concat(userUids).join(','),
     userOptions,

@@ -1,14 +1,20 @@
-'use strict';
+import _ from 'lodash';
+import makeLabelGetter from '@openagenda/labels';
+import labels from '@openagenda/labels/newsletter/subscribe.js';
+import landing from '@openagenda/landing';
+import logs from '@openagenda/logs';
+import getAssetsManifest from '../lib/getAssetsManifest.js';
+import config from '../config/index.js';
+import * as layouts from '../services/lib/layouts/index.js';
+import cmn from '../lib/commons-app.js';
+import * as mwHelpers from '../services/lib/middlewareHelpers.js';
+import * as contentSecurityPolicy from '../lib/contentSecurityPolicy.js';
 
-const _ = require('lodash');
+const log = logs('newsletter');
 
-const __ = require('@openagenda/labels')(require('@openagenda/labels/newsletter/subscribe'));
-const landing = require('@openagenda/landing');
-const log = require('@openagenda/logs')('newsletter');
-const getAssetsManifest = require('../lib/getAssetsManifest');
-const config = require('../config');
+const __ = makeLabelGetter(labels);
 
-const layout = require('../services/lib/layouts').load('corpo', {
+const layout = layouts.load('corpo', {
   languages: config.interfaceLanguages,
 });
 
@@ -28,10 +34,6 @@ const legacyPages = {
   tailored: 'a-tailored-offer',
   network: 'network-of-agendas',
 };
-
-const cmn = require('../lib/commons-app');
-const mwHelpers = require('../services/lib/middlewareHelpers');
-const contentSecurityPolicy = require('../lib/contentSecurityPolicy');
 
 function setLang(req, res, next) {
   if (req.query.lang) return res.redirect(301, `/${req.query.lang}`);
@@ -53,7 +55,7 @@ function setLang(req, res, next) {
 
 function setCSPHeader(hashes, req, res) {
   let cspError;
-  contentSecurityPolicy({
+  contentSecurityPolicy.default({
     ...contentSecurityPolicy.defaultDirectives,
     fontSrc: [
       ...contentSecurityPolicy.defaultDirectives.fontSrc,
@@ -266,7 +268,7 @@ function corpoBrowserCache(req, res, next) {
 }
 
 function redirectLang(req, res, next) {
-  if (req.query && req.query.lang && config.interfaceLanguages.indexOf(req.query.lang) === -1) {
+  if (req.query && req.query.lang && !config.interfaceLanguages.includes(req.query.lang)) {
     return res.redirect(301, `/discover/${req.params.page}?lang=en`);
   }
 
@@ -281,7 +283,7 @@ function redirectLegacyLinks(req, res, next) {
   next();
 }
 
-module.exports = app => {
+export default app => {
   const {
     sessions,
   } = app.services;

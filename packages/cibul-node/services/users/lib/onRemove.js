@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function onRemove({ queue }) {
+export default function onRemove({ queue }) {
   return async ctx => {
     const user = ctx.params.before;
 
@@ -10,4 +8,4 @@ module.exports = function onRemove({ queue }) {
 
     queue('anonymizeDeletedUser', { user });
   };
-};
+}

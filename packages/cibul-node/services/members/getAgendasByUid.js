@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (services, agendaUids) => services
+export default (services, agendaUids) => services
   .agendas.list({
     uid: agendaUids,
   }, 0, 1000, {

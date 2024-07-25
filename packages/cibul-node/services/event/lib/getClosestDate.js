@@ -1,8 +1,6 @@
-'use strict';
+import getTimings from './getTimings.js';
 
-const getTimings = require('./getTimings');
-
-module.exports = instance => {
+export default instance => {
   const now = new Date();
 
   const min = [false, false]; // past / upcoming
@@ -18,12 +16,8 @@ module.exports = instance => {
       if (!min[0] || (min[0] < end)) {
         min[0] = end;
       }
-    } else {
-      // upcoming or ongoing
-
-      if (!min[1] || (min[1] > start)) {
-        min[1] = start;
-      }
+    } else if (!min[1] || (min[1] > start)) { // upcoming or ongoing
+      min[1] = start;
     }
   });
 

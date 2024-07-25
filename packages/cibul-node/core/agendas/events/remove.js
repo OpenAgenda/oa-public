@@ -1,15 +1,13 @@
-'use strict';
+import { Forbidden, NotFound } from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import createPayload from '../utils/createPayload.js';
+import getAgenda from '../utils/getAgenda.js';
+import * as merge from '../utils/merge.js';
+import refreshAgenda from '../utils/refreshAgenda.js';
 
-const { Forbidden, NotFound } = require('@openagenda/verror');
+const log = logs('core/agendas/events/remove');
 
-const log = require('@openagenda/logs')('core/agendas/events/remove');
-const createPayload = require('../utils/createPayload');
-const getAgenda = require('../utils/getAgenda');
-
-const merge = require('../utils/merge');
-const refreshAgenda = require('../utils/refreshAgenda');
-
-module.exports = async (core, agendaUid, eventUid, options) => {
+export default async (core, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
   const {

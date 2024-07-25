@@ -1,7 +1,5 @@
-'use strict';
-
-const makeLabelGetter = require('@openagenda/labels');
-const eventLabels = require('@openagenda/labels/event/show');
+import makeLabelGetter from '@openagenda/labels';
+import eventLabels from '@openagenda/labels/event/show.js';
 
 const getLabel = makeLabelGetter(eventLabels);
 
@@ -25,8 +23,8 @@ const statuses = [{
   label: 'statusCancelled',
 }];
 
-module.exports = function getStatusLabel(status, lang) {
+export default function getStatusLabel(status, lang) {
   const matchingLabel = statuses.find(s => s.id === status)?.label ?? 'statusScheduled';
 
   return getLabel(matchingLabel, lang);
-};
+}

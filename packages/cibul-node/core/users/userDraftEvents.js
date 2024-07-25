@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async function userDraftEvents(core, identifier, agendaUid, query = {}, nav = {}) {
+export default async function userDraftEvents(core, identifier, agendaUid, query = {}, nav = {}) {
   const {
     services: {
       events,
@@ -16,4 +14,4 @@ module.exports = async function userDraftEvents(core, identifier, agendaUid, que
     draft: true,
     useDefaultImage: query.useDefaultImage ?? true,
   });
-};
+}

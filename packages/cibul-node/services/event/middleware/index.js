@@ -1,19 +1,15 @@
-'use strict';
+import _ from 'lodash';
+import qs from 'qs';
+import utils from '@openagenda/utils';
+import ValidateLink from '@openagenda/validators/link.js';
+import { toListOfObjects as registrationToListOfObjects } from '@openagenda/events/iso/src/validators/registration.js';
+import membersSvc from '../../members/index.js';
+import config from '../../../config/index.js';
+import getStatusLabel from '../../../lib/getStatusLabel.js';
+import format from './format.js';
+import components from './components.js';
 
-const _ = require('lodash');
-const qs = require('qs');
-
-const utils = require('@openagenda/utils');
-const validateLink = require('@openagenda/validators/link')();
-const registrationToListOfObjects = require('@openagenda/events/iso/src/validators/registration').toListOfObjects;
-const membersSvc = require('../../members');
-const config = require('../../../config');
-const p = require('../../../lib/promises');
-const getStatusLabel = require('../../../lib/getStatusLabel');
-const format = require('./format');
-const components = require('./components');
-
-const { w } = p;
+const validateLink = ValidateLink();
 const { getRoleSlug } = membersSvc.utils;
 
 const isURL = url => {
@@ -39,7 +35,6 @@ async function loadMissing(req) {
   }
 
   const legacyLocationMissing = !req.event.locations?.[0]?.uid;
-
   const missing = ['timings', 'online_access_link', 'registration', 'conditions', 'status'];
 
   if (legacyLocationMissing) {
@@ -57,18 +52,13 @@ async function loadMissing(req) {
   })) : [];
 
   req.event.onlineAccessLink = record?.online_access_link;
-
   req.event.registration = registrationToListOfObjects(JSON.parse(record?.registration || '[]'));
-
   req.event.ticketLink = req.event.registration
     .map(r => r.value)
     .filter(isURL)
     .pop();
-
   req.event.pricingInfo = flatten(JSON.parse(record?.conditions || '{}'), req.lang);
-
   req.event.status = record?.status === undefined ? 1 : record?.status;
-
   req.event.statusLabel = getStatusLabel(req.event.status, req.lang);
   req.event.isNotScheduled = req.event.status !== 1;
 
@@ -98,16 +88,13 @@ async function loadMissing(req) {
 function cleanEvents(req, res, next) {
   svc.exports.cleanEvents(req.app.services, req.events, { includeEmbedded: !!req.query.include_embedded }, (err, clean) => {
     if (err) return next(err);
-
     req.formatted = clean;
-
     next();
   });
 }
 
 function layoutData(req) {
   const description = `${req.formatted.description} - ${req.formatted.dateRange} - ${req.formatted.location.name}`;
-
   const data = {
     metas: {
       title: utils.escape(req.formatted.title, false),
@@ -182,37 +169,31 @@ function layoutData(req) {
   return data;
 }
 
-function _loadAgendaContext(v) {
-  return w.promise((rs, rj) => {
+async function _loadAgendaContext(v) {
+  return new Promise((resolve, reject) => {
     v.event.loadAgendaContext(v.req.agenda.id, err => {
-      if (err) return rj(err);
-
-      rs(v);
+      if (err) return reject(err);
+      resolve(v);
     });
   });
 }
 
 function _selectLanguage(v) {
   if (!v.req.query.lang) return v;
-
   if (v.event.hasLanguage(v.req.query.lang)) {
     v.event.switchLanguage(v.req.query.lang);
   }
-
   return v;
 }
 
 async function _loadUserAgendaCreds(v) {
   v.req.log.debug('loading user agenda creds');
-
   if (!v.req.user) {
     v.req.log.debug('user is not logged');
-
     return v;
   }
 
   const { user } = v.req;
-
   const member = await membersSvc.get({
     agendaUid: v.req.agenda.uid,
     userUid: user.uid,
@@ -225,42 +206,27 @@ async function _loadUserAgendaCreds(v) {
   return v;
 }
 
-function _loadUserCreds(v) {
-  const {
-    sessions,
-  } = v.req.app.services;
+async function _loadUserCreds(v) {
+  const { sessions } = v.req.app.services;
+  v.user.logged = await sessions.isLogged(v.req);
 
-  v.user.logged = sessions.isLogged(v.req);
+  if (!v.user.logged) return v;
 
-  return w.promise((rs, rj) => {
-    sessions.isLogged(v.req).then(is => {
-      if (!is) return rs(v);
+  const user = await sessions.get(v.req);
+  v.req.user = user;
+  v.user.editor = await v.event.isEditor(user.id).catch(() => false);
 
-      sessions.get(v.req, (err, user) => {
-        v.req.user = user;
-
-        v.event.isEditor(v.req.user.id, (_err, _is) => {
-          if (err) return rj(err);
-
-          v.user.editor = is;
-
-          rs(v);
-        });
-      });
-    });
-  });
+  return v;
 }
 
 /**
  * check whether event access is restricted
  */
-
 function _loadAccessRequired(v) {
   v.isDraft = v.event.getIsDraft();
 
   if (v.req.agenda && v.inAgendaContext) {
     v.event.isPublishedOn(v.req.agenda);
-
     v.accessRequired = !v.event.isPublishedOn(v.req.agenda);
   } else {
     v.accessRequired = v.isDraft;
@@ -272,33 +238,33 @@ function _loadAccessRequired(v) {
 /**
  * load event instance from request parameters
  */
-
 function _get(paramName, fieldName, inAgendaContext) {
   const field = typeof fieldName === 'undefined' ? paramName : fieldName;
 
-  return v => w.promise((rs, rj) => {
+  return async v => {
     const getParams = {};
-
     getParams[field] = v.req.params[paramName];
 
     if (v.req.agenda && inAgendaContext) getParams.reviewId = v.req.agenda.id;
 
     v.req.log.debug('getting event with params %s', JSON.stringify(getParams));
 
-    svc.get(getParams, (err, e) => {
-      if (err) return rj(err);
-
-      if (!e) {
-        v.req.log.debug('did not find event');
-
-        return rj({ code: 404 });
-      }
-
-      v.event = e;
-
-      rs(v);
+    const e = await new Promise((resolve, reject) => {
+      svc.get(getParams, (err, event) => {
+        if (err) return reject(err);
+        if (!event) {
+          v.req.log.debug('did not find event');
+          // eslint-disable-next-line prefer-promise-reject-errors
+          return reject({ code: 404 });
+        }
+        resolve(event);
+      });
     });
-  });
+
+    v.event = e;
+
+    return v;
+  };
 }
 
 function loadEvent(paramName, fieldName, options) {
@@ -306,64 +272,66 @@ function loadEvent(paramName, fieldName, options) {
     inAgendaContext: true, // if agenda is in request and event must not be loaded in agenda context, use this
   }, options || {});
 
-  return (req, res, next) => {
-    w({
-      req,
-      res,
-      event: false,
-      accessRequired: null,
-      inAgendaContext: params.inAgendaContext,
-      user: {
-        logged: null,
-        editor: null, // owner of the event or editor through admin agenda
-        credential: null, // relative to agenda
-      },
-    })
+  return async (req, res, next) => {
+    try {
+      let v = {
+        req,
+        res,
+        event: false,
+        accessRequired: null,
+        inAgendaContext: params.inAgendaContext,
+        user: {
+          logged: null,
+          editor: null, // owner of the event or editor through admin agenda
+          credential: null, // relative to agenda
+        },
+      };
 
-      .then(_get(paramName, fieldName, params.inAgendaContext))
+      v = await _get(paramName, fieldName, params.inAgendaContext)(v);
+      v = _selectLanguage(v);
+      if (v.req.agenda) {
+        v = await _loadAgendaContext(v);
+      }
+      v = _loadAccessRequired(v);
+      if (v.accessRequired) {
+        v = await _loadUserCreds(v);
+      }
+      if (v.req.agenda && v.accessRequired) {
+        v = await _loadUserAgendaCreds(v);
+      }
 
-      .then(_selectLanguage)
+      req.event = v.event;
 
-      .then(p.ifl({ 'req.agenda': true }, _loadAgendaContext))
+      await loadMissing(req);
 
-      .then(_loadAccessRequired)
+      // event is publicly available
+      if (!v.accessRequired) {
+        return next();
+      }
 
-      .then(p.ifl({ accessRequired: true }, _loadUserCreds))
+      // event is restricted and user is not logged
+      if (!v.user.logged) {
+        const redirect = Buffer.from(req.originalUrl).toString('base64');
+        return res.redirect(`${req.agenda ? `/${req.agenda.slug}` : ''}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
+      }
 
-      .then(p.ifl({ 'req.agenda': true, accessRequired: true }, _loadUserAgendaCreds))
+      // user is logged and is editor or admin or moderator
+      if (v.user.editor || ['administrator', 'moderator'].includes(v.user.credential)) {
+        return next();
+      }
 
-      .done(async v => {
-        req.event = v.event;
-
-        await loadMissing(req);
-
-        // event is publicly available
-        if (!v.accessRequired) {
-          return next();
-        }
-
-        // event is restricted and user is not logged
-        if (!await v.user.logged) {
-          const redirect = Buffer.from(req.originalUrl).toString('base64');
-
-          return res.redirect(`${req.agenda ? `/${req.agenda.slug}` : ''}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
-        }
-
-        // user is logged and is editor or admin or moderator
-        if (v.user.editor || ['administrator', 'moderator'].includes(v.user.credential)) {
-          return next();
-        }
-
-        // user is logged but does not have access
-        return next({
-          code: 403,
-          messageCode: 'eventRestrictedAccess',
-        });
-      }, next);
+      // user is logged but does not have access
+      return next({
+        code: 403,
+        messageCode: 'eventRestrictedAccess',
+      });
+    } catch (err) {
+      return next(err);
+    }
   };
 }
 
-module.exports = eventService => {
+export default eventService => {
   svc = eventService;
 
   return {

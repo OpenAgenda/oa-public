@@ -1,15 +1,8 @@
-'use strict';
+import loadObjectFromFile from './loadObjectFromFile.js';
+import { knex, resetAndCreateTables } from './sql/index.js';
+import insertEventSet from './sql/eventSets/index.js';
 
-const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
-
-const load = loadObjectFromFile({ cwd: __dirname });
-
-const {
-  knex,
-  resetAndCreateTables,
-} = require('./sql');
-
-const insertEventSet = require('./sql/eventSets');
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
@@ -103,4 +96,4 @@ raw.push(knex('form_schema').insert([
   load('form-schemas/albigeois.agenda.json', fs => ({ id: 23481, store: JSON.stringify(fs) })),
 ]));
 
-module.exports = `${raw.join(';\n')};`;
+export default `${raw.join(';\n')};`;

@@ -1,23 +1,19 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { VError, Forbidden } from '@openagenda/verror';
+import doAdd from '../utils/doAdd.js';
+import createPayload from '../utils/createPayload.js';
+import loadAuthorizations from '../../utils/authorizations.js';
+import cleanEvent from '../utils/cleanEvent/index.js';
+import getAgenda from '../utils/getAgenda.js';
+import assignState from '../utils/assignState.js';
+import extractUserUid from '../utils/extractUserUid.js';
+import updateEvent from './lib/updateEvent.js';
 
-const log = require('@openagenda/logs')('core/agendas/events/add');
-const { VError, Forbidden } = require('@openagenda/verror');
-
-const doAdd = require('../utils/doAdd');
-const createPayload = require('../utils/createPayload');
-const loadAuthorizations = require('../../utils/authorizations');
-
-const cleanEvent = require('../utils/cleanEvent');
-
-const getAgenda = require('../utils/getAgenda');
-const assignState = require('../utils/assignState');
-const extractUserUid = require('../utils/extractUserUid');
-
-const updateEvent = require('./lib/updateEvent');
+const log = logs('core/agendas/events/add');
 
 const { containsEventData } = cleanEvent;
 
-module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
+export default async (core, agendaUid, eventUid, data, options = {}) => {
   const {
     services,
   } = core;

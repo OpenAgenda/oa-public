@@ -1,18 +1,14 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const choiceValidator = require('@openagenda/validators/choice');
+import schema from '@openagenda/validators/schema/index.js';
+import choiceValidator from '@openagenda/validators/choice.js';
 
 schema.register({
   choice: choiceValidator,
 });
 
-const validateContextOptions = schema({
+export default schema({
   includes: {
     type: 'choice',
     options: ['me.authorizations', 'me.member', 'member'],
     default: ['me.authorizations', 'me.member', 'member'],
   },
 });
-
-module.exports = validateContextOptions;

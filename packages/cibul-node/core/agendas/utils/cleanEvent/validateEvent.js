@@ -1,14 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import extractLanguages from '@openagenda/event-form/build/utils/extractLanguages.js';
+import { BadRequest } from '@openagenda/verror';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import eventSchema from '@openagenda/event-form/src/schema.js';
+import logs from '@openagenda/logs';
+import getWriteAccess from './getWriteAccess.js';
 
-const _ = require('lodash');
-
-const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
-const { BadRequest } = require('@openagenda/verror');
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-const eventSchema = require('@openagenda/event-form/src/schema');
-const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent/validateEvent');
-
-const getWriteAccess = require('./getWriteAccess');
+const log = logs('core/agendas/utils/cleanEvent/validateEvent');
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
@@ -38,7 +36,7 @@ function asArray(obj) {
   return _.keys(obj).map(k => obj[k]).filter(s => !!s);
 }
 
-module.exports = function validateEvent({
+export default function validateEvent({
   validateAgendaEvent,
   formSchema,
   networkFormSchema,
@@ -153,4 +151,4 @@ module.exports = function validateEvent({
   }
 
   return clean;
-};
+}

@@ -1,17 +1,9 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const flattenLabels = require('@openagenda/labels/flatten');
-const headerLabels = require('@openagenda/labels/layout/header');
-
-const config = require('../../../../config');
-
-module.exports = {
-  render: _.template(fs.readFileSync(`${__dirname}/layout.tpl`, 'utf-8')),
-  parser,
-};
+import fs from 'node:fs';
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import flattenLabels from '@openagenda/labels/flatten.js';
+import headerLabels from '@openagenda/labels/layout/header.js';
+import config from '../../../../config/index.js';
 
 function parser(data) {
   if (!data.bodyAttributes) data.bodyAttributes = []; // [ { name, value } ]
@@ -36,3 +28,8 @@ function parser(data) {
     interfaceLanguages: { $set: config.interfaceLanguages },
   });
 }
+
+export default {
+  render: _.template(fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8')),
+  parser,
+};

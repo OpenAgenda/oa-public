@@ -1,14 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import streamCsv from './lib/streamCsv.js';
+import streamXlsx from './lib/streamXlsx.js';
+import transferEvent from './lib/transferEvent.js';
+import * as mw from './middleware/index.js';
+import * as mail from './lib/mail.js';
 
-const _ = require('lodash');
-
-const streamCsv = require('./lib/streamCsv');
-const streamXlsx = require('./lib/streamXlsx');
-const transferEvent = require('./lib/transferEvent');
-const mw = require('./middleware');
-const mail = require('./lib/mail');
-
-module.exports = function plugApp(app) {
+export default function plugApp(app) {
   const {
     agendas,
     sessions,
@@ -28,7 +25,7 @@ module.exports = function plugApp(app) {
     '/:agendaSlug/admin/members/:id/details',
     '/:agendaSlug/admin/members/:id/invite/resend',
   ], [
-    mw.loadAgenda,
+    mw.loadAgenda.default,
     agendas.mw.authorizeByIPAddress(),
     sessions.mw.loadOrRedirect(),
     mw.load.andAuthorize('moderator'),
@@ -49,7 +46,7 @@ module.exports = function plugApp(app) {
       req.order = req.query.order || req.order;
       next();
     },
-    mw.list.bind(null, members),
+    mw.list.default.bind(null, members),
   );
 
   app.get(
@@ -104,7 +101,7 @@ module.exports = function plugApp(app) {
 
   app.delete(
     '/:agendaSlug/admin/members/:id',
-    mw.loadTarget.bind(null, members),
+    mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     (req, res, next) => members.remove(req.targetMember.id, {
       context: { user: req.user },
@@ -115,7 +112,7 @@ module.exports = function plugApp(app) {
 
   app.patch(
     '/:agendaSlug/admin/members/:id',
-    mw.loadTarget.bind(null, members),
+    mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
     (req, res, next) => members.patch(req.targetMember.id, req.body, {
@@ -129,7 +126,7 @@ module.exports = function plugApp(app) {
   app.put(
     '/:agendaSlug/admin/members/:id/invite/resend',
     mw.loadContext,
-    mw.loadTarget.bind(null, members),
+    mw.loadTarget.default.bind(null, members),
     (req, res, next) => {
       members.set.byEmail({
         agendaUid: req.agenda.uid,
@@ -157,9 +154,9 @@ module.exports = function plugApp(app) {
   // should be put
   app.post(
     '/:agendaSlug/admin/members/transfer/:eventSlug',
-    mw.loadAgenda,
-    mw.loadEvent,
-    mw.load,
+    mw.loadAgenda.default,
+    mw.loadEvent.default,
+    mw.load.default,
     mw.authorize.adminModOrEventOwner,
     (req, res, next) => {
       req.app.core.users(req.user.uid).agendas(req.agenda.uid).events(req.event.uid).getContext({
@@ -205,4 +202,4 @@ module.exports = function plugApp(app) {
 
   app.get('/:agendaSlug/admin/members.csv', streamCsv);
   app.get('/:agendaSlug/admin/members.xlsx', streamXlsx);
-};
+}

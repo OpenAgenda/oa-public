@@ -1,10 +1,8 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 const log = logs('services/members/sendGroupMail/addActivity');
 
-module.exports = async function addActivity({ activities }, agenda, senderMember, data, recipientRoles) {
+export default async function addActivity({ activities }, agenda, senderMember, data, recipientRoles) {
   if (!activities) {
     log.warn('activities service is not initialized. Not creating activity');
     return;
@@ -28,4 +26,4 @@ module.exports = async function addActivity({ activities }, agenda, senderMember
   } catch (e) {
     log.error('Cannot add activity agenda.sendMessage', e);
   }
-};
+}

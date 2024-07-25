@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/activities/addActivity');
+const log = logs('services/activities/addActivity');
 
-module.exports = ({ bull, activities }) => {
+export default ({ bull, activities }) => {
   const queue = new bull.Queue('addActivity', { prefix: '{addActivity}' });
 
   return Object.assign(function addActivity(feedIdentifiers, activity, options = {}) {

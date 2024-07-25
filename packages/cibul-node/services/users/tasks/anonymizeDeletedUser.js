@@ -1,6 +1,6 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('services/users/tasks/anonymizeUser');
+const log = logs('services/users/tasks/anonymizeUser');
 
 async function resyncMemberEvents({ core, agendaUid, userUid }) {
   log('resyncing events of agenda %s after user %s removal', agendaUid, userUid);
@@ -18,7 +18,7 @@ async function resyncMemberEvents({ core, agendaUid, userUid }) {
   }
 }
 
-module.exports = function anonymizeDeletedUser(services) {
+export default function anonymizeDeletedUser(services) {
   return async ({ user }) => {
     const {
       core,
@@ -73,4 +73,4 @@ module.exports = function anonymizeDeletedUser(services) {
 
     tracker('users.anonymizeDeletedUser.done');
   };
-};
+}

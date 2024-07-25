@@ -1,8 +1,6 @@
-'use strict';
+import errors from '@feathersjs/errors';
 
-const errors = require('@feathersjs/errors');
-
-module.exports = function verifyHeadersPassword() {
+export default function verifyHeadersPassword() {
   return async context => {
     if (!await context.self.verifyPassword(
       context.headers.authorization.replace(/^Basic\s/, ''),
@@ -11,4 +9,4 @@ module.exports = function verifyHeadersPassword() {
       throw new errors.Forbidden('Password is invalid.');
     }
   };
-};
+}

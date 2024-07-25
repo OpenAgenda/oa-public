@@ -1,5 +1,3 @@
-'use strict';
-
 function _loadTargetMember(members, { detailed }, req, res, next) {
   members.get({
     agendaUid: req.agenda.uid,
@@ -11,11 +9,13 @@ function _loadTargetMember(members, { detailed }, req, res, next) {
   }, next);
 }
 
-module.exports = (members, req, res, next) => _loadTargetMember(members, { detailed: false }, req, res, next);
+export default (members, req, res, next) => _loadTargetMember(members, { detailed: false }, req, res, next);
 
-module.exports.options = (members, options) => _loadTargetMember.bind(null, members, options);
+export function options(members, opts) {
+  return _loadTargetMember.bind(null, members, opts);
+}
 
-module.exports.byEmail = (members, req, res, next) => {
+export function byEmail(members, req, res, next) {
   members.get.byEmail({
     agendaUid: req.agenda.uid,
     email: req.body.email,
@@ -24,4 +24,4 @@ module.exports.byEmail = (members, req, res, next) => {
     req.targetMember = member;
     next();
   }, next);
-};
+}

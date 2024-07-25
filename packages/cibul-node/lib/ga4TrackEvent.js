@@ -1,8 +1,6 @@
-'use strict';
+import axios from 'axios';
 
-const axios = require('axios');
-
-module.exports = function ga4TrackEvent(gaTrackingId, secret, cid, sid, category, action, label, rest) {
+export default function ga4TrackEvent(gaTrackingId, secret, cid, sid, category, action, label, rest) {
   const payload = {
     client_id: cid || 'XXXXXXXXXX.YYYYYYYYYY',
     events: [
@@ -22,4 +20,4 @@ module.exports = function ga4TrackEvent(gaTrackingId, secret, cid, sid, category
       'Content-Type': 'application/json',
     },
   });
-};
+}

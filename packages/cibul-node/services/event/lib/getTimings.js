@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function getTimings(inst) {
+export default function getTimings(inst) {
   if (inst.timings && inst.timings.length) {
     return inst.timings;
   }
@@ -10,4 +8,4 @@ module.exports = function getTimings(inst) {
   if (instTimings.length) return instTimings;
 
   return [];
-};
+}

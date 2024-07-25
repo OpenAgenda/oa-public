@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   event: {
     uid: 45889136,
     slug: 'reveillon-de-la-saint-sylvestre_405011',
@@ -114,7 +112,7 @@ module.exports = {
   },
 };
 
-module.exports.agenda = {
+export const agenda = {
   id: 14240,
   uid: 65270117,
   title: "Mondonville; L'aut côté !",

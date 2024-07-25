@@ -1,23 +1,20 @@
-'use strict';
+/* eslint-disable */
 
-const utils = require('../../../lib/utils');
+import logs from '@openagenda/logs';
+import lib from './lib.js';
 
-const lib = require('./lib');
+const log = logs('function cache');
 
-const log = require('@openagenda/logs')('function cache');
-
-module.exports = function (namespace, name, func, expire) {
+export default (namespace, name, func, expire) => {
   if (!lib.enabled()) {
-    utils.extend(func, {
+    return Object.assign(func, {
       cache: {
         clear() {},
       },
     });
-
-    return func;
   }
 
-  return utils.extend(wrapper, {
+  return Object.assign(wrapper, {
     cache: {
       clear,
     },
@@ -61,7 +58,7 @@ function _log(key, message) {
 
   args.pop();
 
-  log.apply(null, [`%s - ${message}`].concat(args));
+  log(...[`%s - ${message}`].concat(args));
 }
 
 function _setCacheKey(namespace, name, values) {

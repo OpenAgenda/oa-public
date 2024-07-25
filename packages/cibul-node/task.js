@@ -1,0 +1,135 @@
+import tfy from './lib/taskify.js';
+import resetApiCounters from './general/resetApiCounters.task.js';
+
+/* async function removeMembersWithDeletedUser(config, services) {
+  const { knex, queues } = services;
+  const queue = queues('users');
+
+  const stream = knex(config.schemas.stakeholder)
+    .distinct(`${config.schemas.stakeholder}.user_uid as userUid`)
+    .join(config.schemas.user, `${config.schemas.stakeholder}.user_uid`, `${config.schemas.user}.uid`)
+    .where({
+      [`${config.schemas.stakeholder}.deleted_user`]: 0,
+      [`${config.schemas.user}.is_removed`]: 1,
+    })
+    .stream();
+
+  for await (const { userUid } of stream) {
+    queue('anonymizeDeletedUser', { user: { uid: userUid } });
+  }
+} */
+
+export default (config, core, services) => {
+  tfy(resetApiCounters(config, services), {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '00:00',
+  });
+
+  tfy(services.agendaSearch.rebuild, {
+    period: 'weekly',
+    day: 'sunday',
+    time: '01:00',
+  });
+
+  tfy(services.agendaSearch.resyncUpdated, {
+    period: 'hourly',
+  });
+
+  tfy(services.activities.tasks.activities.cleanOld, {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '01:00',
+  });
+
+  tfy(services.activities.tasks.notifications.cleanOld, {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '01:30',
+  });
+
+  tfy(services.activities.notifications().enqueueSummaries, {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '08:00',
+  });
+
+  tfy(services.users.tasks.notifyAndRemove, {
+    period: 'daily',
+    time: '10:00',
+  });
+
+  tfy(services.inboxes.tasks.sync, {
+    // bootOffset: 5000,
+    period: 'weekly',
+    day: 'sunday',
+    time: '11:00',
+  });
+
+  tfy(services.usageCounters.task, {
+    period: 'daily',
+    time: '07:00',
+  });
+
+  tfy(services.usageCounters.task, {
+    period: 'daily',
+    time: '14:00',
+  });
+
+  /* tfy(services.activities.rebuild, {
+    period: 'monthly',
+    day: 'monday',
+    time: '03:00',
+  }); */
+
+  services.agendaDocx.task();
+
+  services.aggregators.task();
+
+  services.agendaStatistics.task();
+
+  services.activities.addActivity.task();
+
+  services.activities.prepareSummary.task();
+
+  services.mails.task();
+
+  services.legacy.task();
+
+  services.registrations.task();
+
+  core.tasks();
+
+  // core.agendas.utils.clearAgendasCache();
+
+  services.supervisor.elasticsearch.task();
+
+  services.agendaLocations.task({
+    duplicationDetection: config.locationDuplicationDetection,
+    reset: false,
+  });
+
+  services.users.tasks.processQueue();
+
+  services.members.task();
+
+  // services.inboxes.tasks.sync();
+
+  // handle interfaces for grouped operations (a remove of a 100 refs queues 100 onRemoves executions)
+  services.agendaEvents.task();
+
+  services.eventSearch.task();
+
+  if (services.unsubscriptions) {
+    services.unsubscriptions.task();
+  }
+
+  // services.eventSearch.rebuild();
+  // services.eventSearch.transverse.rebuild();
+
+  /* removeMembersWithDeletedUser(config, services)
+    .then(
+      () => console.error('BROKE MEMBERS FINISHED'),
+      e => console.error('BROKE MEMBERS FAIL', e),
+    ); */
+};

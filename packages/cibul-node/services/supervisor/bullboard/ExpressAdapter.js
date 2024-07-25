@@ -1,15 +1,13 @@
 // from https://github.com/felixmosh/bull-board/blob/master/packages/express/src/ExpressAdapter.ts
 
-'use strict';
-
-const path = require('node:path');
-const ejs = require('ejs');
-const express = require('express');
+import path from 'node:path';
+import ejs from 'ejs';
+import express from 'express';
 
 const wrapAsync = fn => async (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
-module.exports = class ExpressAdapter {
+export default class ExpressAdapter {
   constructor() {
     this.app = express.Router();
     this.basePath = '';
@@ -114,4 +112,4 @@ module.exports = class ExpressAdapter {
   getRouter() {
     return this.app;
   }
-};
+}

@@ -1,16 +1,9 @@
-'use strict';
+import { getForUserOnAgenda as getUserAuthorizationsOnAgenda } from '../utils/authorizations.js';
+import loadSearchAccess from '../agendas/events/lib/loadSearchAccess.js';
+import getAgendaUserEventStats from './lib/getAgendaUserEventStats.js';
+import validateOptions from './lib/validateAgendaContextOptions.js';
 
-const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
-} = require('../utils/authorizations');
-
-const loadSearchAccess = require('../agendas/events/lib/loadSearchAccess');
-
-const getAgendaUserEventStats = require('./lib/getAgendaUserEventStats');
-
-const validateOptions = require('./lib/validateAgendaContextOptions');
-
-module.exports = async function getAgendaUserContext(core, identifier, agendaUid, options = {}) {
+export default async function getAgendaUserContext(core, identifier, agendaUid, options = {}) {
   const {
     includes,
   } = validateOptions(options);
@@ -53,4 +46,4 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
   }
 
   return context;
-};
+}

@@ -1,9 +1,11 @@
-'use strict';
+import { HookContext } from '@feathersjs/hooks';
+import errors from '@feathersjs/errors';
+import commons from '@feathersjs/commons';
+import logs from '@openagenda/logs';
 
-const { HookContext } = require('@feathersjs/hooks');
-const errors = require('@feathersjs/errors');
-const { omit } = require('@feathersjs/commons')._;
-const log = require('@openagenda/logs')('services/users/getHandler');
+const { _: { omit } } = commons;
+
+const log = logs('services/users/getHandler');
 
 const statusCodes = {
   created: 201,
@@ -51,7 +53,7 @@ function makeArgsGetter(argsOrder) {
 
 // A function that returns the middleware for a given method and service
 // `getArgs` is a function that should return additional leading service arguments
-module.exports = function getHandler(method, argsOrder) {
+export default function getHandler(method, argsOrder) {
   return (service, routes = []) => {
     const getArgs = makeArgsGetter(argsOrder);
     const allowedMethods = routes.length ? getAllowedMethods(service, routes) : null;
@@ -115,4 +117,4 @@ module.exports = function getHandler(method, argsOrder) {
         });
     };
   };
-};
+}

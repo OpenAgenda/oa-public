@@ -1,8 +1,6 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integerValidator = require('@openagenda/validators/integer');
-const textValidator = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import textValidator from '@openagenda/validators/text.js';
 
 schema.register({
   integer: integerValidator,
@@ -20,7 +18,7 @@ const validate = schema({
   },
 });
 
-module.exports = (dirty, options = {}) => {
+export default (dirty, options = {}) => {
   const clean = validate(dirty instanceof Object ? dirty : { uid: dirty });
 
   if (options.pickOne) {

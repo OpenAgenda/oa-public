@@ -1,10 +1,12 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = fs.readdirSync(__dirname)
+export default fs
+  .readdirSync(import.meta.dirname)
   .filter(f => f !== 'index.js')
-  .reduce((fixtures, filename) => ({
-    ...fixtures,
-    [filename.split('.').shift()]: JSON.parse(fs.readFileSync(`${__dirname}/${filename}`)),
-  }), {});
+  .reduce(
+    (fixtures, filename) => ({
+      ...fixtures,
+      [filename.split('.').shift()]: JSON.parse(fs.readFileSync(`${import.meta.dirname}/${filename}`, 'utf-8')),
+    }),
+    {},
+  );

@@ -1,6 +1,6 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('uncaught');
+const log = logs('uncaught');
 
 // Because it's should be already catched by Sentry
 if (log.transports.sentry) {
@@ -32,12 +32,12 @@ process.on('uncaughtException', err => handler('uncaughtException', err));
 
 process.on('unhandledRejection', err => handler('unhandledRejection', err));
 
-module.exports = handler;
+export default handler;
 
-module.exports.init = c => {
+export function init(c) {
   log.setConfig(c.getLogConfig('oa', 'errors', false));
   if (log.transports.sentry) {
     log.remove('sentry');
   }
   return handler;
-};
+}
