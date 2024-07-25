@@ -76,7 +76,7 @@ export default function incomingEmailsMw({ services }) {
       });
 
       try {
-        await messageIds(conversationId, user.uid).insert(body['Message-Id']);
+        await messageIds(conversationId).insert(body['Message-Id']);
       } catch (error) {
         log.error('failed to store messageId', { error });
       }
