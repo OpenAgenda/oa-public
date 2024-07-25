@@ -12,75 +12,43 @@ const __dirname = dirname(__filename);
 const locationIconPath = `${__dirname}/../../images/location.png`;
 
 export default function locationPositioning(doc, cursor, event, options = {}) {
-  const {
-    columnMaxWidth,
-    fontSize,
-    base,
-    margin,
-    iconHeightAndWidth,
-    simulate,
-    mode,
-    ...lineItemOptions
-  } = options;
+  const { columnMaxWidth, fontSize, base, margin, iconHeightAndWidth, simulate } = options;
 
   let locationHeightTotal = 0;
 
   if (event.location?.name || event.location?.address) {
-    const { width: widthOfLocationIcon, height: heightOfLocationIcon } = addIcon(doc, locationIconPath, cursor, iconHeightAndWidth, { simulate });
+    const { width: widthOfLocationIcon, height: heightOfLocationIcon } = addIcon(
+      doc,
+      locationIconPath,
+      cursor,
+      iconHeightAndWidth,
+      { simulate },
+    );
 
     cursor.x += widthOfLocationIcon + margin;
     cursor.y -= base.margin / 16;
 
-    const googleMapsLink = generateGoogleMapsLink(
-      `${event.location.name} ${event.location.address}`,
-    );
+    const locationString = event.location.name && event.location.address
+      ? `${event.location.name} - ${event.location.address}`
+      : event.location.name || event.location.address;
 
-    let cityHeight = 0;
-    if (mode === 'city' && event.location?.city) {
-      const { width: cityWidth, height } = addText(
-        doc,
-        cursor,
-        cleanString(event.location.city),
-        {
-          width: columnMaxWidth - (iconHeightAndWidth + margin),
-          fontSize,
-          base,
-          bold: lineItemOptions.bold,
-          underline: false,
-          link: googleMapsLink,
-          simulate,
-        },
-      );
-      cursor.x += cityWidth;
-      cityHeight = height;
-    }
+    const googleMapsLink = event.location.name && event.location.address
+      ? `${event.location.name} ${event.location.address}`
+      : event.location.name || event.location.address;
 
-    const locationString = cleanString(
-      mode === 'city'
-        ? ` - ${event.location?.address} - ${event.location?.name}`
-        : `${event.location?.name} - ${event.location?.address}`,
-    );
-
-    const { width: locationWidth, height: locationHeight } = addText(
-      doc,
-      cursor,
-      locationString,
-      {
-        width: columnMaxWidth - (iconHeightAndWidth + margin),
-        fontSize,
-        base,
-        underline: false,
-        link: googleMapsLink,
-        simulate,
-      },
-    );
+    const { width: locationWidth, height: locationHeight } = addText(doc, cursor, cleanString(locationString), {
+      width: columnMaxWidth - (iconHeightAndWidth + margin),
+      fontSize,
+      base,
+      underline: false,
+      link: generateGoogleMapsLink(googleMapsLink),
+      simulate,
+    });
 
     cursor.x += locationWidth;
     cursor.y += base.margin / 16;
 
-    locationHeightTotal = mode === 'city'
-      ? Math.max(heightOfLocationIcon, cityHeight, locationHeight)
-      : Math.max(heightOfLocationIcon, locationHeight);
+    locationHeightTotal = Math.max(heightOfLocationIcon, locationHeight);
   }
 
   return {
