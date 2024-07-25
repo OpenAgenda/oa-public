@@ -12,7 +12,7 @@ export default function incomingEmailsMw({ services }) {
     try {
       const {
         users: usersSvc,
-        inboxes: { Inbox },
+        inboxes: { Inbox, messageIds },
       } = services;
 
       const { body } = req;
@@ -74,6 +74,12 @@ export default function incomingEmailsMw({ services }) {
       await conversation.messages.create({
         body: removeCrispDecoration(extractMarkdownFromEmailBody(req.body)),
       });
+
+      try {
+        await messageIds(conversationId).insert(body['Message-Id']);
+      } catch (error) {
+        log.error('failed to store messageId', { error });
+      }
 
       res.sendStatus(200);
     } catch (e) {
