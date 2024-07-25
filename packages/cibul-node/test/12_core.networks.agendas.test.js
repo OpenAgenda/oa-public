@@ -1,5 +1,7 @@
+import axios from 'axios';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import api from '../api/index.js';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
@@ -54,9 +56,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry has network reference', async () => {
-        const entry = await testConfig.knex('review')
-          .first(['network_uid'])
-          .where('uid', 3);
+        const entry = await testConfig.knex('review').first(['network_uid']).where('uid', 3);
 
         expect(entry.network_uid).toBe(1);
       });
@@ -100,9 +100,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry for agenda no longer holds network reference', async () => {
-        const entry = await testConfig.knex('review')
-          .first(['network_uid'])
-          .where('uid', 2);
+        const entry = await testConfig.knex('review').first(['network_uid']).where('uid', 2);
 
         expect(entry.network_uid).toBe(null);
       });
@@ -126,6 +124,44 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       it('error provides detailed message', () => {
         expect(error.message).toBe('agenda is not in network');
       });
+    });
+  });
+
+  describe('api', () => {
+    let server;
+    let accessToken;
+    const superAdminSecret = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
+    beforeAll(async () => {
+      server = await api(core, { useRouter: false }).listen(3000);
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: {
+          code: superAdminSecret,
+        },
+      }).then(r => r.data.access_token);
+    });
+
+    afterAll(() => server.close());
+    it('agenda creation', async () => {
+      const resp = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/networks/1/agendas',
+        headers: {
+          'access-token': accessToken,
+          nonce: 12389710,
+          'content-type': 'application/json',
+        },
+        data: {
+          title: 'new agenda',
+          description: 'new agenda description',
+        },
+      }).then(r => r.data);
+
+      expect(resp.title).toBe('new agenda');
     });
   });
 });

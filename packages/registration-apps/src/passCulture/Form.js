@@ -7,6 +7,7 @@ import ComponentsContext from '../components/Context';
 import PriceCategories from './PriceCategories';
 import Dates from './Dates';
 import Description from './Description';
+import Conditions from './Conditions';
 import Name from './Name';
 import Duration from './Duration';
 import BookingEmail from './BookingEmail';
@@ -67,6 +68,7 @@ export default function Form({
   oaLocation = null,
   title = null,
   longDesc = null,
+  conditions = null,
   patchMode = false,
 }) {
   const [patch, setPatch] = useState(
@@ -251,6 +253,13 @@ export default function Form({
           onChange={v => setPatch({ ...patch, description: v })}
           longDesc={longDesc}
           longDescWarning={longDescWarning}
+        />
+      </Section>
+      <Section>
+        <Conditions
+          value={currentValue}
+          onChange={v => setPatch({ ...patch, itemCollectionDetails: v })}
+          conditions={conditions}
         />
       </Section>
       <Section>

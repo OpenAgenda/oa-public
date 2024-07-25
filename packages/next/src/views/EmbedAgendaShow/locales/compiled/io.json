@@ -2,13 +2,13 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Remove filter"
+      "value": "crwdns33978:0crwdne33978:0"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
     {
       "type": 0,
-      "value": "Remove filter ("
+      "value": "crwdns33980:0"
     },
     {
       "type": 1,
@@ -16,19 +16,19 @@
     },
     {
       "type": 0,
-      "value": ")"
+      "value": "crwdne33980:0"
     }
   ],
   "next.views.EmbedAgendaShow.search": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "crwdns33982:0crwdne33982:0"
     }
   ],
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "crwdns33928:0crwdne33928:0"
     }
   ]
 }

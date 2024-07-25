@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
-      "value": "crwdns33069:0crwdne33069:0"
+      "value": "crwdns33930:0crwdne33930:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.allLanguages": [
     {
       "type": 0,
-      "value": "crwdns33071:0crwdne33071:0"
+      "value": "crwdns33932:0crwdne33932:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.cancel": [
@@ -20,7 +20,7 @@
   "next.views.AgendaShow.ExportModal.city": [
     {
       "type": 0,
-      "value": "Highlight the city"
+      "value": "crwdns33934:0crwdne33934:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -32,19 +32,19 @@
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
-      "value": "Copied"
+      "value": "crwdns33936:0crwdne33936:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.copy": [
     {
       "type": 0,
-      "value": "Copy"
+      "value": "crwdns33938:0crwdne33938:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.default": [
     {
       "type": 0,
-      "value": "Default"
+      "value": "crwdns33940:0crwdne33940:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -56,7 +56,7 @@
   "next.views.AgendaShow.ExportModal.distributeFields": [
     {
       "type": 0,
-      "value": "crwdns33073:0crwdne33073:0"
+      "value": "crwdns33942:0crwdne33942:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
@@ -68,17 +68,21 @@
   "next.views.AgendaShow.ExportModal.embed": [
     {
       "type": 0,
-      "value": "Embed"
+      "value": "crwdns33944:0crwdne33944:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.embedSeeEvents": [
     {
       "type": 0,
-      "value": "See events of "
+      "value": "crwdns33946:0"
     },
     {
       "type": 1,
       "value": "title"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33946:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.exportAll": [
@@ -102,19 +106,19 @@
   "next.views.AgendaShow.ExportModal.gcalStep2": [
     {
       "type": 0,
-      "value": "crwdns33037:0crwdne33037:0"
+      "value": "crwdns33948:0crwdne33948:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.gcalStep3": [
     {
       "type": 0,
-      "value": "crwdns33039:0crwdne33039:0"
+      "value": "crwdns33950:0crwdne33950:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputField": [
     {
       "type": 0,
-      "value": "crwdns33075:0crwdne33075:0"
+      "value": "crwdns33952:0crwdne33952:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
@@ -126,19 +130,27 @@
   "next.views.AgendaShow.ExportModal.instructions": [
     {
       "type": 0,
-      "value": "crwdns33041:0crwdne33041:0"
+      "value": "crwdns33954:0crwdne33954:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.instructionsCopyLink": [
     {
       "type": 0,
-      "value": "crwdns33043:0crwdne33043:0"
+      "value": "crwdns33956:0"
+    },
+    {
+      "type": 1,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33956:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.locationName": [
     {
       "type": 0,
-      "value": "Highlight the location"
+      "value": "crwdns33958:0crwdne33958:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
@@ -156,37 +168,37 @@
   "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
-      "value": "crwdns33079:0crwdne33079:0"
+      "value": "crwdns33960:0crwdne33960:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep3": [
     {
       "type": 0,
-      "value": "crwdns33081:0crwdne33081:0"
+      "value": "crwdns33962:0crwdne33962:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep4": [
     {
       "type": 0,
-      "value": "crwdns33083:0crwdne33083:0"
+      "value": "crwdns33964:0crwdne33964:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep5": [
     {
       "type": 0,
-      "value": "crwdns33085:0crwdne33085:0"
+      "value": "crwdns33966:0crwdne33966:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
-      "value": "crwdns33077:0crwdne33077:0"
+      "value": "crwdns33968:0crwdne33968:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
     {
       "type": 0,
-      "value": "Spreadsheet (Excel / CSV)"
+      "value": "crwdns33970:0crwdne33970:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.title": [

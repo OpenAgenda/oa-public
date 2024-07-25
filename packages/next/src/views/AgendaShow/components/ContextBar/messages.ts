@@ -48,11 +48,13 @@ const messages = defineMessages({
 
   refusedModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.refusedModalInfo',
-    defaultMessage: 'These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published.',
+    defaultMessage:
+      'These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published.',
   },
   inModerationModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.inModerationModalInfo',
-    defaultMessage: 'The following events should be reviewed by the moderators of the agenda before they are published.',
+    defaultMessage:
+      'The following events should be reviewed by the moderators of the agenda before they are published.',
   },
   publishedModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.publishedModalInfo',
@@ -60,7 +62,8 @@ const messages = defineMessages({
   },
   draftsModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.draftsModalInfo',
-    defaultMessage: 'These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published.',
+    defaultMessage:
+      'These are the drafts you saved. They are not visible to the agenda moderators. They must be completed before they can be moderated and published.',
   },
 
   empty: {
@@ -81,7 +84,7 @@ const messages = defineMessages({
   },
   notContributed: {
     id: 'next.views.AgendaShow.ContextBar.notContributed',
-    defaultMessage: 'You haven\'t submitted any events to this agenda yet',
+    defaultMessage: "You haven't submitted any events to this agenda yet",
   },
   myEvents: {
     id: 'next.views.AgendaShow.ContextBar.myEvents',
@@ -106,6 +109,24 @@ const messages = defineMessages({
   undefinedDescription: {
     id: 'next.views.AgendaShow.ContextBar.undefinedDescription',
     defaultMessage: 'Undefined description',
+  },
+
+  // visibility
+  visibility: {
+    id: 'next.views.AgendaShow.ContextBar.visibility',
+    defaultMessage: 'Visibility:',
+  },
+  private: {
+    id: 'next.views.AgendaShow.ContextBar.private',
+    defaultMessage: 'Private',
+  },
+  indexed: {
+    id: 'next.views.AgendaShow.ContextBar.indexed',
+    defaultMessage: 'Indexed',
+  },
+  unindexed: {
+    id: 'next.views.AgendaShow.ContextBar.unindexed',
+    defaultMessage: 'Unindexed',
   },
 });
 

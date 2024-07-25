@@ -35,11 +35,13 @@ const testConfig = {
     agendaEventsIndex: 'test',
     host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
     port: process.env.OA_ELASTICSEARCH_750_DEV_PORT,
-    ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
-      key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
-      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
-      rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
-    } : null,
+    ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL
+      ? {
+        key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
+        rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
+      }
+      : null,
   },
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test',
   oembed: {
@@ -73,6 +75,7 @@ const testConfig = {
     },
   },
   unsubscriptionsSecret: 'supersecretstring',
+  superAdminUids: [838438477721],
 };
 
 export default {

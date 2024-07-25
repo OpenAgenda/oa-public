@@ -11,7 +11,7 @@ function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMo
   if (offerWasRejected) {
     return (
       <>
-        <div className="text-danger margin-top-xs">
+        <div className="text-danger">
           Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case pour la dissocier.
         </div>
         <a
@@ -32,26 +32,22 @@ function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMo
   }
   if (offerHasError) {
     return (
-      <>
-        <div className="text-danger margin-top-xs">
-          L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
-        </div>
+      <div className="text-danger">
+        L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
         <a
-          target="_blank"
-          rel="noreferrer"
           href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=passCultureError}`}
-          className="btn btn-link padding-all-z"
+          className="link-primary"
         >
           Contacter le support
         </a>
-      </>
+      </div>
     );
   }
   if (patchMode) return <div className="text-muted">Je souhaite mettre à jour mon offre pass culture pour cet événement</div>;
   return <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>;
 }
 
-export default ({ value, onChange, timings = [], settings, location, longDesc, title }) => {
+export default ({ value, onChange, timings = [], settings, location, longDesc, title, conditions }) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
@@ -149,6 +145,7 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
         <FormModal
           title={title}
           longDesc={longDesc}
+          conditions={conditions}
           location={location}
           timings={upcomingTimings}
           categories={passSettingsData.categories}

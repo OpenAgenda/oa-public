@@ -75,6 +75,12 @@
       "value": "Eventi da moderare"
     }
   ],
+  "next.views.AgendaShow.ContextBar.indexed": [
+    {
+      "type": 0,
+      "value": "Indexed"
+    }
+  ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
@@ -91,6 +97,12 @@
     {
       "type": 0,
       "value": "Non hai ancora inserito nessun evento in questa agenda."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.private": [
+    {
+      "type": 0,
+      "value": "Privato"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
@@ -177,6 +189,18 @@
     {
       "type": 0,
       "value": "Bozza di evento senza titolo"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.unindexed": [
+    {
+      "type": 0,
+      "value": "Unindexed"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.visibility": [
+    {
+      "type": 0,
+      "value": "Visibility:"
     }
   ]
 }

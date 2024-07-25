@@ -2,13 +2,13 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Remove filter"
+      "value": "Tirar lo filtre"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
     {
       "type": 0,
-      "value": "Remove filter ("
+      "value": "Tirar lo filtre ("
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
   "next.views.EmbedAgendaShow.search": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cercar"
     }
   ],
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Ne véser mai"
     }
   ]
 }
