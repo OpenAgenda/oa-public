@@ -43,7 +43,7 @@ const addRegistrationItem = (doc, localCursor, label, registrationItem, params =
   let widthOfReg = null;
   let heightOfReg = null;
 
-  localCursor.y += base.margin / 10;
+  localCursor.y += base.margin / 20;
 
   if (label === null || !registrationItem.type) {
     return {
@@ -60,7 +60,7 @@ const addRegistrationItem = (doc, localCursor, label, registrationItem, params =
 
   const linkPrefix = type === 'email' ? 'mailto:' : '';
 
-  localCursor.y -= base.margin / 10;
+  localCursor.y -= base.margin / 20;
 
   const reg = addText(doc, localCursor, label, {
     fontSize,
