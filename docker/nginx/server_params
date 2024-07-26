@@ -294,7 +294,7 @@ location ~ ^/agendas/new(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/agendas/([0-9]+)(/(embeds|locations|events)|$) {
+location ~ ^/agendas/([0-9]+)(/(embeds|locations|events|admin|inbox)|$) {
   include conf.d/nodejs_params;
 }
 
