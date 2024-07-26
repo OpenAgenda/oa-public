@@ -171,21 +171,9 @@ export default async function addEventItem(agenda, event, doc, cursor, options =
     }
     columnWidth = Math.max(columnWidth, lineWidth);
 
-    doc
-      .moveTo(imageWidth + base.margin * 2, localCursor.y)
-      .lineTo(localCursor.x + 500, localCursor.y)
-      .strokeColor(base.color)
-      .stroke();
-
     goToNextLine(localCursor, lineHeight, {
       x: nextLineX,
     });
-
-    doc
-      .moveTo(imageWidth + base.margin * 2, localCursor.y)
-      .lineTo(localCursor.x + 500, localCursor.y)
-      .strokeColor(base.color)
-      .stroke();
   }
 
   return {
