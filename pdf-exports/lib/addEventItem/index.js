@@ -23,7 +23,6 @@ const extractModeOptions = mode =>
     ? {
       bold: false,
       name: mode,
-      margin: { top: 2, bottom: 2 },
     }
     : mode);
 
@@ -31,41 +30,20 @@ const modes = {
   default: [
     'title',
     'description',
-    [
-      {
-        name: 'dateRange',
-        margin: { top: 2, bottom: 2 },
-      },
-      'accessibility',
-    ],
-    { name: 'location', margin: { top: 2, bottom: 0 } },
+    ['dateRange', 'accessibility'],
+    'location',
     'onlineAccessLink',
-    {
-      name: 'registration',
-      margin: { top: -2, bottom: 0 },
-    },
+    'registration',
     'eventLink',
   ],
   city: [
     'city',
-    {
-      name: 'title',
-      margin: { top: -2, bottom: 0 },
-    },
+    'title',
     'description',
     { name: 'location', bold: true },
     'onlineAccessLink',
-    [
-      {
-        name: 'dateRange',
-        margin: { top: -2, bottom: 2 },
-      },
-      'accessibility',
-    ],
-    {
-      name: 'registration',
-      margin: { top: -2, bottom: 0 },
-    },
+    ['dateRange', 'accessibility'],
+    'registration',
     'eventLink',
   ],
   locationName: ['title', 'description', ['dateRange', 'accessibility'], 'registration', 'location', 'eventLink'],
@@ -172,10 +150,6 @@ export default async function addEventItem(agenda, event, doc, cursor, options =
     for (const lineItem of [].concat(line)) {
       const lineItemOptions = extractModeOptions(lineItem);
 
-      if (lineItemOptions.margin?.top) {
-        localCursor.y += lineItemOptions.margin.top;
-      }
-
       const { width, height } = positioningFunctions[lineItemOptions.name](doc, localCursor, event, {
         columnMaxWidth,
         fontSize,
@@ -188,10 +162,10 @@ export default async function addEventItem(agenda, event, doc, cursor, options =
         lang,
         agenda,
         mode,
-        ..._.omit(lineItemOptions, ['margin']),
+        ..._.omit(lineItemOptions),
       });
       lineWidth += width;
-      lineHeight = Math.max(lineHeight, height + (lineItemOptions.margin?.bottom ?? 0));
+      lineHeight = Math.max(lineHeight, height);
 
       localCursor.x = width + base.margin;
     }
