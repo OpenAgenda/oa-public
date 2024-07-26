@@ -1,4 +1,4 @@
-import list from './list.js';
+import list from './listMessageIds.js';
 import generateId from './generateId.js';
 
 export default async function generateMailBundle({ conversationId, knex, tableName, mailsDomain }, message) {

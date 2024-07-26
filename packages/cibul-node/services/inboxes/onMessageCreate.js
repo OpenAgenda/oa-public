@@ -53,7 +53,7 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
 }
 
 async function sendMail(
-  { services, mailsDomain },
+  { services, mailsDomain, replyTos },
   { inboxUser, conversation, message, messageId, references, inReplyTo },
 ) {
   const { agendas: agendasSvc, members: membersSvc, mails, genUrl } = services;
@@ -151,7 +151,7 @@ async function sendMail(
     },
     cc: {
       name: member?.custom?.contactName?.length ? member.custom.contactName : user.fullName,
-      address: user.email,
+      address: replyTos.find(rt => rt.userUid === user.uid)?.replyTo ?? user.email,
       unsubscriptions,
     },
     data: {
@@ -214,8 +214,8 @@ export default async function onMessageCreate({ services, mailsDomain }, convers
       const sendMailPromises = [];
 
       const { messageId, references, inReplyTo } = await inboxes
-        .messageIds(conversation.id)
-        .generateMailBundle(message)
+        .emailUtils(conversation.id)
+        .messageIds.generateMailBundle(message)
         .catch(error => {
           log.error('failed to list References to add to created message', {
             error,
@@ -223,6 +223,8 @@ export default async function onMessageCreate({ services, mailsDomain }, convers
           });
           return {};
         });
+
+      const replyTos = await inboxes.emailUtils(conversation.id).replyTos.list();
 
       for (const user of users) {
         const inboxUserToNotify = _.chain(inboxUsersToNotify)
@@ -233,7 +235,7 @@ export default async function onMessageCreate({ services, mailsDomain }, convers
 
         sendMailPromises.push(
           sendMail(
-            { services, mailsDomain },
+            { services, mailsDomain, replyTos },
             {
               inboxUser: inboxUserToNotify,
               conversation,

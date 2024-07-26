@@ -1,4 +1,4 @@
-export default function list({ conversationId, knex, tableName }) {
+export default function listMessageIds({ conversationId, knex, tableName }) {
   return knex(tableName)
     .select(['message_id'])
     .where({

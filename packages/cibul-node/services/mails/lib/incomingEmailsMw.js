@@ -3,16 +3,22 @@ import logs from '@openagenda/logs';
 import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.js';
 import removeCrispDecoration from './removeCrispDecoration.js';
 
-const log = logs('service/mails/incomingEmails');
+const log = logs('services/mails/incomingEmails');
 
 const REPLY_REG = /reply\+([-0-9a-fA-F]{36})@mail\.openagenda\.com/i;
+
+const getReplyToIfDifferent = (user, replyTo) => {
+  if (!replyTo) return;
+  const clean = replyTo.replace(/(.+<|>$)/g, '');
+  return clean === user.email ? undefined : clean;
+};
 
 export default function incomingEmailsMw({ services }) {
   return async (req, res, next) => {
     try {
       const {
         users: usersSvc,
-        inboxes: { Inbox, messageIds },
+        inboxes: { Inbox, emailUtils },
       } = services;
 
       const { body } = req;
@@ -76,7 +82,13 @@ export default function incomingEmailsMw({ services }) {
       });
 
       try {
-        await messageIds(conversationId).insert(body['Message-Id']);
+        await emailUtils(conversationId).messageIds.insert(body['Message-Id']);
+
+        const replyTo = getReplyToIfDifferent(user, req.body['Reply-To']);
+
+        if (replyTo && replyTo !== user.email) {
+          await emailUtils(conversationId).replyTos.insert(user.uid, replyTo);
+        }
       } catch (error) {
         log.error('failed to store messageId', { error });
       }
