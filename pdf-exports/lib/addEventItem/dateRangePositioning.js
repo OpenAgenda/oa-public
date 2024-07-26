@@ -10,15 +10,7 @@ const __dirname = dirname(__filename);
 const dateRangeIconPath = `${__dirname}/../../images/calendar.png`;
 
 export default function dateRangePositioning(doc, cursor, event, options = {}) {
-  const {
-    columnMaxWidth,
-    fontSize,
-    base,
-    iconHeightAndWidth,
-    margin,
-    simulate,
-    lang,
-  } = options;
+  const { columnMaxWidth, fontSize, base, iconHeightAndWidth, margin, simulate, lang } = options;
 
   const { width: dateRangeWidthIcon, height: dateRangeIconHeight } = addIcon(
     doc,
@@ -33,7 +25,7 @@ export default function dateRangePositioning(doc, cursor, event, options = {}) {
   cursor.x += dateRangeWidthIcon + margin;
   cursor.y -= base.margin / 20;
 
-  const { width: dateRangeWidth } = addText(
+  const { width: dateRangeWidth, height: dateRangeHeight } = addText(
     doc,
     cursor,
     getLocaleValue(event.dateRange, lang),
@@ -50,6 +42,6 @@ export default function dateRangePositioning(doc, cursor, event, options = {}) {
 
   return {
     width: cursor.x,
-    height: dateRangeIconHeight,
+    height: Math.max(dateRangeIconHeight, dateRangeHeight),
   };
 }
