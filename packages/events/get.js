@@ -10,20 +10,27 @@ const lastClean = require('./lib/lastEventClean');
 
 module.exports = async (service, identifiers, o = {}) => {
   log('called %s with options %j', identifiers, o);
-  const k = service.clients.knex(service.config.schema);
+
+  const {
+    clients: { knex },
+    config: { schema, imagePath, defaultImage },
+    fieldUtils,
+  } = service;
+
+  const k = knex(schema);
 
   const options = cleanGetOptions(o);
 
-  const {
-    private: privateOption,
-    includeFields,
-  } = options;
+  const { private: privateOption, includeFields } = options;
 
-  const query = k.first(
-    service.fieldUtils.getFieldsByAccess('read', options.access)
-      .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
-      .map(getDatabaseFieldName),
-  ).where(cleanGetIdentifiers(identifiers));
+  const query = k
+    .first(
+      fieldUtils
+        .getFieldsByAccess('read', options.access)
+        .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
+        .map(getDatabaseFieldName),
+    )
+    .where(cleanGetIdentifiers(identifiers));
 
   if (typeof privateOption === 'boolean') {
     query.where('private', privateOption);
@@ -43,13 +50,15 @@ module.exports = async (service, identifiers, o = {}) => {
     return null;
   }
 
-  const item = service.fieldUtils.fromEntryToItem(entry, options);
+  const item = fieldUtils.fromEntryToItem(entry, options);
 
   return lastClean(item, {
     ...options,
     locations: options.detailed ? await handleInterface(service, 'getLocations', item.locationUid) : null,
-    agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, { private: privateOption }) : null,
-    imagePath: service.config.imagePath,
-    defaultImage: service.config.defaultImage,
+    agendas: options.detailed
+      ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, { private: privateOption })
+      : null,
+    imagePath,
+    defaultImage,
   });
 };
