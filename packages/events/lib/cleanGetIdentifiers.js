@@ -33,10 +33,14 @@ module.exports = identifiers => {
       .filter(f => !!clean[f])
       .pop();
 
+    if (!getFieldName) {
+      throw new Error('could not extract field name');
+    }
+
     return {
       [getFieldName]: clean[getFieldName],
     };
   } catch (e) {
-    throw new BadRequestError('Invalid identifiers');
+    throw new BadRequestError(e, 'Invalid identifiers');
   }
 };
