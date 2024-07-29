@@ -10,6 +10,7 @@ import descriptionPositioning from './descriptionPositioning.js';
 import dateRangePositioning from './dateRangePositioning.js';
 import accessibilityPositioning from './accessibilityPositioning.js';
 import locationPositioning from './locationPositioning.js';
+import cityPositioning from './cityPositioning.js';
 import onlineAccessLinkPositioning from './onlineAccessLinkPositioning.js';
 import registrationPositioning from './registrationPositioning.js';
 import eventLinkPositioning from './eventLinkPositioning.js';
@@ -22,7 +23,6 @@ const extractModeOptions = mode =>
     ? {
       bold: false,
       name: mode,
-      margin: { top: 2, bottom: 2 },
     }
     : mode);
 
@@ -30,47 +30,29 @@ const modes = {
   default: [
     'title',
     'description',
-    [
-      {
-        name: 'dateRange',
-        margin: { top: 2, bottom: 2 },
-      },
-      'accessibility',
-    ],
-    { name: 'location', margin: { top: 2, bottom: 0 } },
+    ['dateRange', 'accessibility'],
+    'location',
     'onlineAccessLink',
-    {
-      name: 'registration',
-      margin: { top: -2, bottom: 0 },
-    },
+    'registration',
     'eventLink',
   ],
   city: [
+    'city',
     'title',
+    'description',
     { name: 'location', bold: true },
-    'dateRange',
-    'description',
     'onlineAccessLink',
-    {
-      name: 'registration',
-      margin: { top: -2, bottom: 0 },
-    },
-    'eventLink',
-    'accessibility',
-  ],
-  locationName: [
-    'title',
-    'description',
     ['dateRange', 'accessibility'],
     'registration',
-    'location',
     'eventLink',
   ],
+  locationName: ['title', 'description', ['dateRange', 'accessibility'], 'registration', 'location', 'eventLink'],
 };
 
 const positioningFunctions = {
   title: titlePositioning,
   location: locationPositioning,
+  city: cityPositioning,
   dateRange: dateRangePositioning,
   description: descriptionPositioning,
   onlineAccessLink: onlineAccessLinkPositioning,
@@ -79,13 +61,7 @@ const positioningFunctions = {
   accessibility: accessibilityPositioning,
 };
 
-export default async function addEventItem(
-  agenda,
-  event,
-  doc,
-  cursor,
-  options = {},
-) {
+export default async function addEventItem(agenda, event, doc, cursor, options = {}) {
   const {
     base = {
       margin: 20,
@@ -135,9 +111,7 @@ export default async function addEventItem(
     margin = base.margin / 3;
   }
 
-  const nextLineX = includeEventImages
-    ? imageWidth + base.margin * 2
-    : base.margin;
+  const nextLineX = includeEventImages ? imageWidth + base.margin * 2 : base.margin;
 
   if (includeEventImages) {
     columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
@@ -176,34 +150,22 @@ export default async function addEventItem(
     for (const lineItem of [].concat(line)) {
       const lineItemOptions = extractModeOptions(lineItem);
 
-      if (lineItemOptions.margin?.top) {
-        localCursor.y += lineItemOptions.margin.top;
-      }
-
-      const { width, height } = positioningFunctions[lineItemOptions.name](
-        doc,
-        localCursor,
-        event,
-        {
-          columnMaxWidth,
-          fontSize,
-          base,
-          iconHeightAndWidth,
-          margin,
-          secondaryColor,
-          intl,
-          simulate,
-          lang,
-          agenda,
-          mode,
-          ..._.omit(lineItemOptions, ['margin']),
-        },
-      );
+      const { width, height } = positioningFunctions[lineItemOptions.name](doc, localCursor, event, {
+        columnMaxWidth,
+        fontSize,
+        base,
+        iconHeightAndWidth,
+        margin,
+        secondaryColor,
+        intl,
+        simulate,
+        lang,
+        agenda,
+        mode,
+        ..._.omit(lineItemOptions),
+      });
       lineWidth += width;
-      lineHeight = Math.max(
-        lineHeight,
-        height + (lineItemOptions.margin?.bottom ?? 0),
-      );
+      lineHeight = Math.max(lineHeight, height);
 
       localCursor.x = width + base.margin;
     }
