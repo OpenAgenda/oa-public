@@ -10,7 +10,7 @@ const tableNames = {
   replyTos: 'inboxes_email_reply_tos',
 };
 
-export default async function MessageIds(config, services) {
+export default async function EmailUtils(config, services) {
   const { knex } = services;
 
   await initializeTables(knex, tableNames);

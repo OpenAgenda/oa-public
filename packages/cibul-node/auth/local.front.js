@@ -14,6 +14,7 @@ import logs from '@openagenda/logs';
 import flattenLabels from '@openagenda/labels/flatten.js';
 import manualLabels from '@openagenda/labels/auth/manual.js';
 import { fromMarkdownToHTML } from '@openagenda/md';
+import { BadRequest } from '@openagenda/verror';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
 import layouts from '../services/lib/layouts/index.js';
@@ -159,7 +160,7 @@ async function captchaCheck(values) {
 
   if (!captchaToken) {
     log.info('mtCaptcha token is missing');
-    throw new Error('MissingCaptcha');
+    throw new BadRequest('MissingCaptcha');
   }
 
   const { verifyUrl, privateKey } = config.mtCaptcha;
