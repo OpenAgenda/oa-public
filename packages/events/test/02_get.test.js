@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  service: config,
-} = require('../testconfig.sample');
+const { service: config } = require('../testconfig.sample');
 const Service = require('..');
 const fields = require('../lib/fields');
 
@@ -38,23 +36,22 @@ describe('events - functional - get', () => {
       expect(event.imageCredits).toBe('MEL');
     });
 
-    it(
-      'image filename is placed in the image field under the key "filename"',
-      () => {
-        expect(event.image.filename).toBe('950de3a396df447dbb66364d036e0067.base.image.jpg');
-      },
-    );
+    it('image filename is placed in the image field under the key "filename"', () => {
+      expect(event.image.filename).toBe(
+        '950de3a396df447dbb66364d036e0067.base.image.jpg',
+      );
+    });
 
     it('get by slug', async () => {
       expect(
-        await svc.get({ slug: 'kara-okay-live_429424' }).then(e => e.title.fr),
+        await svc
+          .get({ slug: 'kara-okay-live_429424' })
+          .then(e => e.title.fr),
       ).toBe('Kara Okay live');
     });
 
     it('identifier matching no event returns null', async () => {
-      expect(
-        await svc.get(679579696),
-      ).toBeNull();
+      expect(await svc.get(679579696)).toBeNull();
     });
 
     it('get on a soft-deleted event returns null', async () => {
@@ -62,10 +59,13 @@ describe('events - functional - get', () => {
     });
 
     it('registration data is a list of { type, value } objects', async () => {
-      const { registration } = await svc.get({ slug: 'salon-science-en-livre' });
+      const { registration } = await svc.get({
+        slug: 'salon-science-en-livre',
+      });
       expect(registration).toEqual([
         {
-          value: 'https://www.eventbrite.fr/e/billets-salon-science-en-livre-122233558865',
+          value:
+            'https://www.eventbrite.fr/e/billets-salon-science-en-livre-122233558865',
           type: 'link',
         },
         { value: 'salon@scienceenlivre.org', type: 'email' },
@@ -93,14 +93,13 @@ describe('events - functional - get', () => {
       ).toBe(44822046);
     });
 
-    it(
-      'identifier matching no event with throwOnNotFound option set throws NotFoundError',
-      async () => {
-        expect(
-          await svc.get(6789679673, { throwOnNotFound: true }).catch(e => e.message),
-        ).toBe('Not found');
-      },
-    );
+    it('identifier matching no event with throwOnNotFound option set throws NotFoundError', async () => {
+      expect(
+        await svc
+          .get(6789679673, { throwOnNotFound: true })
+          .catch(e => e.message),
+      ).toBe('Not found');
+    });
 
     it('image path is placed in base key of image field', async () => {
       const event = await svc.get(80107389, { limit: 1 });
@@ -127,14 +126,19 @@ describe('events - functional - get', () => {
         },
       });
 
-      const event = await svcWithMockInterfaces.get(80107389, { detailed: true });
+      const event = await svcWithMockInterfaces.get(80107389, {
+        detailed: true,
+      });
 
       expect(event.location).toEqual(location);
       expect(event.agenda).toEqual(agenda);
     });
 
     it('html adds an html field with htmlized longDescrition', async () => {
-      const event = await svc.get({ slug: 'les-contes-de-lhyper-climat' }, { html: true });
+      const event = await svc.get(
+        { slug: 'les-contes-de-lhyper-climat' },
+        { html: true },
+      );
 
       expect(event.html).toEqual({
         fr: [
@@ -146,7 +150,9 @@ describe('events - functional - get', () => {
     });
 
     it('default access value is public', async () => {
-      const publicFieldNames = fields.filter(field => field.read.includes('public')).map(field => field.field);
+      const publicFieldNames = fields
+        .filter(field => field.read.includes('public'))
+        .map(field => field.field);
 
       const event = await svc.get({ slug: 'les-contes-de-lhyper-climat' });
 
@@ -156,19 +162,22 @@ describe('events - functional - get', () => {
     });
 
     it('null credit and null image appear as null in events', async () => {
-      expect(
-        await svc.get(66724283).then(e => e.image),
-      ).toBeNull();
+      expect(await svc.get(66724283).then(e => e.image)).toBeNull();
     });
 
     it('if access is internal, internal fields are returned', async () => {
-      const internalFieldNames = fields.filter(field => field.read.includes('internal')).map(field => field.field);
+      const internalFieldNames = fields
+        .filter(field => field.read.includes('internal'))
+        .map(field => field.field);
 
-      const event = await svc.get({
-        slug: 'les-contes-de-lhyper-climat',
-      }, {
-        access: 'internal',
-      });
+      const event = await svc.get(
+        {
+          slug: 'les-contes-de-lhyper-climat',
+        },
+        {
+          access: 'internal',
+        },
+      );
 
       internalFieldNames.forEach(field => {
         expect(Object.keys(event).includes(field)).toBe(true);
@@ -180,7 +189,10 @@ describe('events - functional - get', () => {
         useDefaultImage: true,
       });
 
-      expect(event.image).toEqual({ filename: 'path.png', base: '//default/image/' });
+      expect(event.image).toEqual({
+        filename: 'path.png',
+        base: '//default/image/',
+      });
     });
 
     it('useDateHoursMinutesFormat', async () => {
@@ -208,13 +220,20 @@ describe('events - functional - get', () => {
       expect('locationUid' in event).toBe(false);
       expect(event.location).toEqual({ uid: 63552532 });
     });
+
+    it('get 0', async () => {
+      expect(await svc.get(0)).toBeNull();
+    });
   });
 
   describe('lang option', () => {
     let event;
 
     beforeAll(async () => {
-      event = await svc.get({ slug: 'festival-du-cinema-europeen' }, { lang: 'en', html: true });
+      event = await svc.get(
+        { slug: 'festival-du-cinema-europeen' },
+        { lang: 'en', html: true },
+      );
     });
 
     it('main text fields are flattened', () => {
@@ -228,26 +247,29 @@ describe('events - functional - get', () => {
     });
 
     it('by default, no fallback language is offered', async () => {
-      const ev = await svc.get({
-        slug: 'les-contes-de-lhyper-climat',
-      }, { lang: 'en' });
+      const ev = await svc.get(
+        {
+          slug: 'les-contes-de-lhyper-climat',
+        },
+        { lang: 'en' },
+      );
 
       expect(ev.title).toBeUndefined();
     });
 
-    it(
-      'if useFallbackLang option is true, first available language is used',
-      async () => {
-        const ev = await svc.get({
+    it('if useFallbackLang option is true, first available language is used', async () => {
+      const ev = await svc.get(
+        {
           slug: 'les-contes-de-lhyper-climat',
-        }, {
+        },
+        {
           lang: 'en',
           useFallbackLang: true,
-        });
+        },
+      );
 
-        expect(ev.title).toBe('« Les contes de l’hyper climat »');
-      },
-    );
+      expect(ev.title).toBe('« Les contes de l’hyper climat »');
+    });
   });
 
   describe('defaults', () => {
@@ -273,22 +295,19 @@ describe('events - functional - get', () => {
   });
 
   describe('miscellaneous', () => {
-    it(
-      'when no min & max age is defined, age provides { min: null, max: null }',
-      async () => {
-        const eventHavingNullAgesInDB = await svc.get(80107389);
-        const eventHavingEmptyObjectInAgeInDb = await svc.get(16687899);
+    it('when no min & max age is defined, age provides { min: null, max: null }', async () => {
+      const eventHavingNullAgesInDB = await svc.get(80107389);
+      const eventHavingEmptyObjectInAgeInDb = await svc.get(16687899);
 
-        expect(eventHavingNullAgesInDB.age).toEqual({
-          min: null,
-          max: null,
-        });
+      expect(eventHavingNullAgesInDB.age).toEqual({
+        min: null,
+        max: null,
+      });
 
-        expect(eventHavingEmptyObjectInAgeInDb.age).toEqual({
-          min: null,
-          max: null,
-        });
-      },
-    );
+      expect(eventHavingEmptyObjectInAgeInDb.age).toEqual({
+        min: null,
+        max: null,
+      });
+    });
   });
 });

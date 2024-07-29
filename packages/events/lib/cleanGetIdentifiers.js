@@ -1,36 +1,46 @@
 'use strict';
 
+const schema = require('@openagenda/validators/schema');
+const integerValidator = require('@openagenda/validators/integer');
+const textValidator = require('@openagenda/validators/text');
+
 const BadRequestError = require('./BadRequestError');
 
-const schema = require('@openagenda/validators/schema');
-
 schema.register({
-  integer: require('@openagenda/validators/integer'),
-  text: require('@openagenda/validators/text')
+  integer: integerValidator,
+  text: textValidator,
 });
 
 const validate = schema({
   uid: {
-    type: 'integer'
+    type: 'integer',
   },
   slug: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 });
 
 module.exports = identifiers => {
   try {
     const clean = validate(
-      ['number', 'string'].includes(typeof identifiers) ? {
-        uid: identifiers
-      } : identifiers
+      ['number', 'string'].includes(typeof identifiers)
+        ? {
+          uid: identifiers,
+        }
+        : identifiers,
     );
-    const getFieldName = Object.keys(clean).filter(f => !!clean[f]).pop();
+    const getFieldName = Object.keys(clean)
+      .filter(f => ![null, undefined].includes(clean[f]))
+      .pop();
+
+    if (!getFieldName) {
+      throw new Error('could not extract field name');
+    }
 
     return {
-      [getFieldName]: clean[getFieldName]
+      [getFieldName]: clean[getFieldName],
     };
   } catch (e) {
-    throw new BadRequestError('Invalid identifiers');
+    throw new BadRequestError(e, 'Invalid identifiers');
   }
-}
+};
