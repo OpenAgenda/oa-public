@@ -30,7 +30,7 @@ module.exports = identifiers => {
         : identifiers,
     );
     const getFieldName = Object.keys(clean)
-      .filter(f => !!clean[f])
+      .filter(f => ![null, undefined].includes(clean[f]))
       .pop();
 
     if (!getFieldName) {
