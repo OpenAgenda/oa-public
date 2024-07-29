@@ -13,14 +13,10 @@ async function onNewMember({ services, agenda, user, senderUser, context, member
     activities,
     members: {
       utils: {
-        compareRoles: {
-          isSuperiorToOrEqual,
-        },
+        compareRoles: { isSuperiorToOrEqual },
       },
     },
-    legacy: {
-      controlData: controlDataSvc,
-    },
+    legacy: { controlData: controlDataSvc },
   } = services;
   const { Inbox } = services.inboxes;
 
@@ -38,15 +34,20 @@ async function onNewMember({ services, agenda, user, senderUser, context, member
     log('error', 'could not set member in control data', member, e);
   }
 
-  await activities.feed({
-    entityType: 'user',
-    entityUid: user.uid,
-  }).follow({
-    entityType: 'agenda',
-    entityUid: agenda.uid,
-  }, {
-    credential: member.role,
-  });
+  await activities
+    .feed({
+      entityType: 'user',
+      entityUid: user.uid,
+    })
+    .follow(
+      {
+        entityType: 'agenda',
+        entityUid: agenda.uid,
+      },
+      {
+        credential: member.role,
+      },
+    );
 
   if (Inbox) {
     if (isSuperiorToOrEqual(member.role, 'moderator')) {
@@ -66,7 +67,11 @@ async function onNewMember({ services, agenda, user, senderUser, context, member
   }
 
   await activityQueue('addMemberAcceptInvitation', {
-    agenda, user, senderUser, member, context,
+    agenda,
+    user,
+    senderUser,
+    member,
+    context,
   });
 }
 
@@ -78,27 +83,30 @@ export default async function onPatch({ services, config, activityQueue }, befor
     users: usersSvc,
     members: {
       utils: {
-        compareRoles: {
-          isSuperiorToOrEqual,
-        },
+        compareRoles: { isSuperiorToOrEqual },
       },
     },
   } = services;
 
   try {
-    const agenda = await agendas.get({ uid: member.agendaUid }, {
-      private: null,
-      includeImagePath: true,
-    });
+    const agenda = await agendas.get(
+      { uid: member.agendaUid },
+      {
+        private: null,
+        includeImagePath: true,
+      },
+    );
 
     await clearCache(services, member);
 
     if (!agenda) throw new Error('Agenda not found');
 
-    const user = member.userUid ? await usersSvc.findOne({
-      query: { uid: member.userUid },
-      removed: null,
-    }) : null;
+    const user = member.userUid
+      ? await usersSvc.findOne({
+        query: { uid: member.userUid },
+        removed: null,
+      })
+      : null;
 
     if (!user && member.userUid) throw new Error('User not found');
 
@@ -107,21 +115,20 @@ export default async function onPatch({ services, config, activityQueue }, befor
       removed: null,
     });
 
-    const agendaInbox = inboxes ? new inboxes.Inbox({
-      type: 'agenda',
-      identifier: agenda.uid,
-    }) : null;
+    const agendaInbox = inboxes
+      ? new inboxes.Inbox({
+        type: 'agenda',
+        identifier: agenda.uid,
+      })
+      : null;
 
     const isNewMember = member.userUid && !before.userUid;
-    const hasChangedRole = member.userUid && (before.role !== member.role);
-    const isPromotedToAdminMod = hasChangedRole
-      && !isSuperiorToOrEqual(before.role, 'moderator')
-      && isSuperiorToOrEqual(member.role, 'moderator');
-    const isDemotedToContributor = hasChangedRole
-      && isSuperiorToOrEqual(before.role, 'moderator')
-      && !isSuperiorToOrEqual(member.role, 'moderator');
+    const hasChangedRole = member.userUid && before.role !== member.role;
+    const isPromotedToAdminMod = hasChangedRole && !isSuperiorToOrEqual(before.role, 'moderator') && isSuperiorToOrEqual(member.role, 'moderator');
+    const isDemotedToContributor = hasChangedRole && isSuperiorToOrEqual(before.role, 'moderator') && !isSuperiorToOrEqual(member.role, 'moderator');
     const isDeleted = member.deletedUser && !before.deletedUser;
     const emailChanged = before.custom.email !== member.custom.email;
+    const isAdminMod = isSuperiorToOrEqual(before.role, 'moderator');
 
     if (isNewMember) {
       log('user is a newly associated member');
@@ -140,7 +147,7 @@ export default async function onPatch({ services, config, activityQueue }, befor
       }
     }
 
-    if (agendaInbox && (isDemotedToContributor || isDeleted)) {
+    if (agendaInbox && (isDemotedToContributor || (isDeleted && isAdminMod))) {
       log('demotion or deletion');
       try {
         await agendaInbox.users.remove({
@@ -184,9 +191,15 @@ export default async function onPatch({ services, config, activityQueue }, befor
       try {
         invitation.email = member.custom.email;
         await invitation.save();
-        await sendInvitation({ services, config }, {
-          invitation, member, context, agenda,
-        });
+        await sendInvitation(
+          { services, config },
+          {
+            invitation,
+            member,
+            context,
+            agenda,
+          },
+        );
       } catch (e) {
         log('error', 'failed to update invitation', e);
       }
