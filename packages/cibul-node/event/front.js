@@ -66,14 +66,8 @@ function cspTracking(req) {
 
 const csp = contentSecurityPolicy.default({
   ...contentSecurityPolicy.defaultDirectives,
-  connectSrc: [
-    ...contentSecurityPolicy.defaultDirectives.connectSrc,
-    cspTracking,
-  ],
-  imgSrc: [
-    ...contentSecurityPolicy.defaultDirectives.imgSrc,
-    cspTracking,
-  ],
+  connectSrc: [...contentSecurityPolicy.defaultDirectives.connectSrc, cspTracking],
+  imgSrc: [...contentSecurityPolicy.defaultDirectives.imgSrc, cspTracking],
   frameSrc: [
     ...contentSecurityPolicy.defaultDirectives.frameSrc,
     'https://www.youtube.com',
@@ -120,9 +114,15 @@ function redirect(req, res, next) {
     return next({ code: 404 });
   }
   if (req.query.sharemodal) {
-    return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal${req.query.lang ? `&lang=${req.query.lang}` : ''}`);
+    return res.redirect(
+      301,
+      `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal${req.query.lang ? `&lang=${req.query.lang}` : ''}`,
+    );
   }
-  res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}${req.query.lang ? `?lang=${req.query.lang}` : ''}`);
+  res.redirect(
+    301,
+    `${config.root}/${req.agenda.slug}/events/${req.event.slug}${req.query.lang ? `?lang=${req.query.lang}` : ''}`,
+  );
 }
 
 function formatSocialLinks(req, res, next) {
@@ -229,43 +229,51 @@ function _appendSettings(req, res, next) {
 
   if (originAgendaUid) agendaUids.push(originAgendaUid);
 
-  agendaSvc.list({ uid: agendaUids }, 0, 2, {
-    private: null,
-    internal: true,
-    includeFields: ['settings', 'indexed', 'private', 'credentials'],
-  }, (err, agendas) => {
-    const agenda = agendas.filter(a => a.uid === agendaUid).shift();
+  agendaSvc.list(
+    { uid: agendaUids },
+    0,
+    2,
+    {
+      private: null,
+      internal: true,
+      includeFields: ['settings', 'indexed', 'private', 'credentials'],
+    },
+    (err, agendas) => {
+      const agenda = agendas.filter(a => a.uid === agendaUid).shift();
 
-    if (err) return next(err);
+      if (err) return next(err);
 
-    req.baseData = ih(req.baseData, {
-      indexed: {
-        $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false),
-      },
-      scriptParams: {
-        moderatorCanPublish: {
-          $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators'),
+      req.baseData = ih(req.baseData, {
+        indexed: {
+          $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false),
         },
-        GDPRInformation: {
-          $set: agenda?.settings?.contribution?.messages?.GDPRInformation,
+        scriptParams: {
+          moderatorCanPublish: {
+            $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes(
+              'moderators',
+            ),
+          },
+          GDPRInformation: {
+            $set: agenda?.settings?.contribution?.messages?.GDPRInformation,
+          },
+          tracking: {
+            $set: agenda?.settings?.tracking,
+          },
         },
-        tracking: {
-          $set: agenda?.settings?.tracking,
+        mailto: {
+          $set: cmn.agendaMailTo(agenda),
         },
-      },
-      mailto: {
-        $set: cmn.agendaMailTo(agenda),
-      },
-      useContributeApp: {
-        $set: _.get(agenda, 'credentials.useContributeApp', false),
-      },
-      useDetailedStatusActions: {
-        $set: !!agenda?.settings?.lab?.status,
-      },
-    });
+        useContributeApp: {
+          $set: _.get(agenda, 'credentials.useContributeApp', false),
+        },
+        useDetailedStatusActions: {
+          $set: !!agenda?.settings?.lab?.status,
+        },
+      });
 
-    next();
-  });
+      next();
+    },
+  );
 }
 
 function _formatFavoriteLink(req, res, next) {
@@ -281,10 +289,14 @@ function _addInterfaceLanguage(req, res, next) {
 }
 
 function _formatEmbedHeadLinks(req, res, next) {
-  req.formatted.actionLink = req.genUrl('agendaEventActionShow', {
-    slug: req.agenda.slug,
-    eventSlug: req.event.slug,
-  }, { protocol: 'https://' });
+  req.formatted.actionLink = req.genUrl(
+    'agendaEventActionShow',
+    {
+      slug: req.agenda.slug,
+      eventSlug: req.event.slug,
+    },
+    { protocol: 'https://' },
+  );
   req.formatted.actionLabel = getLabel('export', req.lang);
 
   next();
@@ -297,10 +309,12 @@ async function agendaEventShow(req, res) {
     reqParams.nc = req.query.nc;
   }
 
-  const member = req.user ? await members.get({
-    agendaUid: req.agenda.uid,
-    userUid: req.user.uid,
-  }) : null;
+  const member = req.user
+    ? await members.get({
+      agendaUid: req.agenda.uid,
+      userUid: req.user.uid,
+    })
+    : null;
 
   cmn.render(req, res, 'event/show', {
     tiles: config.tiles,
@@ -308,9 +322,7 @@ async function agendaEventShow(req, res) {
       root: config.root,
       contributor: member ? { uid: member.userUid } : null,
       agendaSlug: req.agenda.slug,
-      agendaImage: req.agenda.image
-        ? req.agenda.image
-        : config.aws.defaultImagePath,
+      agendaImage: req.agenda.image ? req.agenda.image : config.aws.defaultImagePath,
     },
     oaRoot: config.root,
     agendaId: req.agenda.id,
@@ -338,21 +350,27 @@ async function agendaEventShow(req, res) {
 }
 
 function renderAgendaEmbedEvent(req, res, next) {
-  cmn.renderTemplate(req, 'event/embedShow', {
-    eventRender: req.render,
-    scriptParams: {
-      res: {
-        actions: req.genUrl('agendaActionShow', { slug: req.agenda.slug }),
+  cmn.renderTemplate(
+    req,
+    'event/embedShow',
+    {
+      eventRender: req.render,
+      scriptParams: {
+        res: {
+          actions: req.genUrl('agendaActionShow', { slug: req.agenda.slug }),
+        },
       },
     },
-  }, false, (err, render) => {
-    if (err) return next(err);
+    false,
+    (err, render) => {
+      if (err) return next(err);
 
-    req.render = render;
-    res.data = render;
+      req.render = render;
+      res.data = render;
 
-    next();
-  });
+      next();
+    },
+  );
 }
 
 function wrap(fn) {
@@ -409,16 +427,10 @@ const middlewares = {
   ],
 };
 
-const preMw = [
-  cmn.loadLogger('event front'),
-  cmn.redirectLegacySearch,
-];
+const preMw = [cmn.loadLogger('event front'), cmn.redirectLegacySearch];
 
 export default app => {
-  const {
-    agendas: agendasSvc,
-    sessions,
-  } = app.services;
+  const { agendas: agendasSvc, sessions } = app.services;
 
   app.get(
     '/agendas/:agendaUid/events/:eventUid/share',
@@ -433,23 +445,19 @@ export default app => {
     '/:slug.prv/events/:eventSlug',
     preMw,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
-    cmn.ifIsNot(
-      'agenda.private',
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
+    cmn.ifIsNot('agenda.private', (req, res) => {
+      const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-        res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
-      },
-    ),
-    sessions.mw.ifUnlogged(
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
-        const redirectTo = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
-          .toString('base64');
+      res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
+    }),
+    sessions.mw.ifUnlogged((req, res) => {
+      const query = qs.stringify(req.query, { addQueryPrefix: true });
+      const redirectTo = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8').toString(
+        'base64',
+      );
 
-        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`);
-      },
-    ),
+      res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`);
+    }),
     members.mw.load,
     (req, res, next) => {
       if (!req.member) return cmn.renderUnauthorized(req, res, next);
@@ -462,24 +470,15 @@ export default app => {
     '/:slug/events/:eventSlug',
     preMw,
     agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
-    cmn.ifIs(
-      'agenda.private',
-      (req, res) => {
-        const query = qs.stringify(req.query, { addQueryPrefix: true });
+    cmn.ifIs('agenda.private', (req, res) => {
+      const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-        res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
-      },
-    ),
+      res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
+    }),
     middlewares.agendaEventShow,
   );
 
-  app.get(
-    '/agendas/:uid/events/:eventUid',
-    preMw,
-    legacyAgendaSvc.mw.load('uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    redirect,
-  );
+  app.get('/agendas/:agendaUid/events/:eventUid', preMw, redirectMiddelware.loadEvent, redirect);
 
   app.get(
     '/agendas/:uid/embed/events/:eventUid',
@@ -540,7 +539,7 @@ export default app => {
     (req, res, next) => {
       const integer = parseInt(req.params.eventSlug, 10);
 
-      if (Number.isInteger(integer) && (`${integer}`.length === req.params.eventSlug.length)) {
+      if (Number.isInteger(integer) && `${integer}`.length === req.params.eventSlug.length) {
         return next('route');
       }
 

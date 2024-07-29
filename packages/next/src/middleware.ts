@@ -53,3 +53,13 @@ export async function middleware(req: NextRequest) {
     return response;
   }
 }
+
+export const config = {
+  matcher: [
+    '/:agendaSlug',
+    '/:agendaSlug/events/:eventSlug',
+    '/embed/:agendaUid',
+    '/embed/:agendaUid/events/:eventSlug',
+    '/agendas',
+  ],
+};
