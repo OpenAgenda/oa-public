@@ -506,10 +506,6 @@ export default app => {
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     presetEmail,
     auth.renderSignin,
-    (err, req, res, next) => {
-      console.log(err);
-      next(err);
-    },
   );
 
   app.get(
