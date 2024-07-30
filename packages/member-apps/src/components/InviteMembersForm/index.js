@@ -10,7 +10,7 @@ export default class InviteMembersForm extends Component {
   static contextType = I18nContext;
 
   render() {
-    const { onSubmit: onPropsSubmit, agenda } = this.props;
+    const { onSubmit: onPropsSubmit, agenda, userCredential } = this.props;
 
     return (
       <I18nContext.Consumer>
@@ -24,6 +24,8 @@ export default class InviteMembersForm extends Component {
               areModeratorsEnabled: agenda.credentials.moderators,
               isAgendaPrivate: agenda.private,
               isInvitationMessageEnabled: agenda.credentials.invitationMessage,
+              modoCanInviteModo: agenda.settings.contribution.modoCanInviteModo,
+              userCredential,
             })}
             onSubmit={({ clean }) => {
               onPropsSubmit(clean);

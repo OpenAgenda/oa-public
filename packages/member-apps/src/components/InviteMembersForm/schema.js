@@ -1,6 +1,12 @@
 import emailsValidator from '../../utils/emailsValidator';
 
-function getRoleOptions({ getLabel, isAgendaPrivate, areModeratorsEnabled }) {
+function getRoleOptions({
+  getLabel,
+  isAgendaPrivate,
+  areModeratorsEnabled,
+  modoCanInviteModo,
+  userCredential,
+}) {
   const roles = [];
 
   if (isAgendaPrivate) {
@@ -17,19 +23,23 @@ function getRoleOptions({ getLabel, isAgendaPrivate, areModeratorsEnabled }) {
     label: getLabel('contributor'),
   });
 
-  if (areModeratorsEnabled) {
+  if (
+    areModeratorsEnabled
+    && (userCredential === 2 || (userCredential === 3 && modoCanInviteModo))
+  ) {
     roles.push({
       id: 3,
       value: 'moderator',
       label: getLabel('moderator'),
     });
   }
-
-  roles.push({
-    id: 2,
-    value: 'administrator',
-    label: getLabel('administrator'),
-  });
+  if (userCredential === 2) {
+    roles.push({
+      id: 2,
+      value: 'administrator',
+      label: getLabel('administrator'),
+    });
+  }
 
   return roles;
 }
@@ -39,6 +49,8 @@ export default function getInviteSchema({
   isAgendaPrivate = false,
   areModeratorsEnabled = false,
   isInvitationMessageEnabled = false,
+  modoCanInviteModo = false,
+  userCredential,
 }) {
   const fields = [
     {
@@ -58,6 +70,8 @@ export default function getInviteSchema({
         getLabel,
         isAgendaPrivate,
         areModeratorsEnabled,
+        modoCanInviteModo,
+        userCredential,
       }),
       optional: false,
     },
