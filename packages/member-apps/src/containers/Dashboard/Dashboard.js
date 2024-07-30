@@ -58,6 +58,13 @@ const messages = defineMessages({
   },
 });
 
+function changeModalTitle(agenda, userRole) {
+  if (agenda.private) return false;
+  if (userRole === 2) return false;
+  if (agenda.credentials.moderators && userRole === 3 && agenda.settings.contribution.modoCanInviteModo) return false;
+  return true;
+}
+
 const Loading = () => (
   <div className="padding-v-md" style={{ position: 'relative' }}>
     <Spinner />
@@ -674,7 +681,7 @@ class Dashboard extends Component {
 
         {inviteMembersModal.visible && (
           <Modal
-            title={getLabel('inviteMembers')}
+            title={changeModalTitle(agenda, member.role) ? getLabel('inviteContributors') : getLabel('inviteMembers')}
             onClose={() => {
               closeModal('inviteMembers');
               cleanInviteResult();
