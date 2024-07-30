@@ -113,6 +113,18 @@
       "value": "Modificare"
     }
   ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Edit event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit location"
+    }
+  ],
   "next.views.EventShow.ContextBar.feature": [
     {
       "type": 0,
@@ -285,6 +297,12 @@
     {
       "type": 0,
       "value": "State:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change on the location"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
@@ -717,6 +735,12 @@
     {
       "type": 0,
       "value": "Contact administrators"
+    }
+  ],
+  "next.views.EventShow.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
     }
   ],
   "next.views.EventShow.history": [
