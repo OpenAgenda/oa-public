@@ -21,7 +21,9 @@ const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
 const config = {
   env: process.env.NODE_ENV ?? 'development',
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-  superAdminUids: (process.env.OA_SUPERADMIN_UIDS ?? '').split(',').map(uid => parseInt(uid, 10)),
+  superAdminUids: (process.env.OA_SUPERADMIN_UIDS ?? '')
+    .split(',')
+    .map(uid => parseInt(uid, 10)),
   jsVersion: 42,
   cssVersion: 2,
   interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
@@ -39,7 +41,10 @@ const config = {
     notificationSendSummary: 'notificationSendSummary',
     inboxesSync: 'inboxesSync',
   },
-  agendaSearchRecentThreshold: parseInt(process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14, 10),
+  agendaSearchRecentThreshold: parseInt(
+    process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
+    10,
+  ),
   legacyQueue: 'bgestack',
   tmpFolderPath: '/var/tmp/',
   logPath: '/var/tmp/cibul-node.log',
@@ -63,9 +68,12 @@ const config = {
   apiRoot: prod.apiRoot ?? process.env.API_ROOT,
   apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
   logo: prod.logo,
-  googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
+  googleAnalyticsId:
+    process.env.GOOGLE_ANALYTICS_ID
+    || (prod.googleAnalytics && prod.googleAnalytics.id),
   embedGoogleAnalyticsId:
-    process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
+    process.env.GOOGLE_ANALYTICS_EMBED_ID
+    || (prod.googleAnalytics && prod.googleAnalytics.embedId),
   matomoCloudId: prod.matomoCloudId ?? process.env.MATOMO_CLOUD_ID,
   useCache: false,
   agendaCacheExpire: 30 * 1000,
@@ -167,13 +175,19 @@ const config = {
     inboxConversation: 'inboxes_inbox_conversation',
     message: 'inboxes_message',
     messageAttachment: 'inboxes_message_attachment',
+    emailUtilsMessageIds: 'inboxes_email_message_ids',
+    emailUtilsReplyTos: 'inboxes_email_reply_tos',
     rule: 'rule',
   },
   mtCaptcha: {
-    enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED ? parseInt(process.env.OA_MT_CAPTCHA_ENABLED, 10) : prod.mtCaptcha),
-    verifyUrl: process.env.OA_MT_CAPTCHA_VERIFY_URL ?? prod.mtCaptcha?.verifyUrl,
+    enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED
+      ? parseInt(process.env.OA_MT_CAPTCHA_ENABLED, 10)
+      : prod.mtCaptcha),
+    verifyUrl:
+      process.env.OA_MT_CAPTCHA_VERIFY_URL ?? prod.mtCaptcha?.verifyUrl,
     siteKey: process.env.OA_MT_CAPTCHA_SITE_KEY ?? prod.mtCaptcha?.siteKey,
-    privateKey: process.env.OA_MT_CAPTCHA_PRIVATE_KEY ?? prod.mtCaptcha?.privateKey,
+    privateKey:
+      process.env.OA_MT_CAPTCHA_PRIVATE_KEY ?? prod.mtCaptcha?.privateKey,
   },
   auth: {
     facebook:
@@ -187,7 +201,8 @@ const config = {
       prod.googleApps ?? process.env.OA_OAUTH_GOOGLE_ID
         ? {
           id: prod?.googleApps?.id ?? process.env.OA_OAUTH_GOOGLE_ID,
-          secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET,
+          secret:
+              prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET,
         }
         : null,
   },
@@ -197,7 +212,9 @@ const config = {
   },
   crisp: prod.crisp || process.env.CRISP_WEBSITE_ID,
   es75: prod.elasticsearch?.v7_5 ?? {
-    agendaEventsIndex: process.env.ES_AGENDA_EVENTS_INDEX ?? (process.env.NODE_ENV === 'production' ? 'main' : 'dev'),
+    agendaEventsIndex:
+      process.env.ES_AGENDA_EVENTS_INDEX
+      ?? (process.env.NODE_ENV === 'production' ? 'main' : 'dev'),
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
@@ -211,7 +228,8 @@ const config = {
   esEvents: {
     maxIndexableTimingCount: 3000,
   },
-  agendaSearchAlias: process.env.OA_AGENDA_SEARCH_ALIAS || prod.agendaSearchAlias || 'agendas',
+  agendaSearchAlias:
+    process.env.OA_AGENDA_SEARCH_ALIAS || prod.agendaSearchAlias || 'agendas',
   redis: process.env.REDIS_CLUSTER_NODES
     ? {
       clusterMode: true,
@@ -224,14 +242,20 @@ const config = {
       port: prod.redis?.port ?? process.env.REDIS_PORT ?? 6379,
     },
   locationDuplicationDetection: {
-    enabled: prod.detectLocationDuplicates ?? !!process.env.OA_DETECT_LOCATION_DUPLICATES,
+    enabled:
+      prod.detectLocationDuplicates
+      ?? !!process.env.OA_DETECT_LOCATION_DUPLICATES,
     ignoredUids: {
       setUids:
         prod.detectLocationDuplicatesIgnoredSetUids
-        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '')
+          .split(',')
+          .map(i => parseInt(i, 10)),
       agendaUids:
         prod.detectLocationDuplicatesIgnoredAgendaUids
-        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+        ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '')
+          .split(',')
+          .map(i => parseInt(i, 10)),
     },
     sleep:
       prod.detectLocationDuplicatesSleep
@@ -243,7 +267,9 @@ const config = {
     name: 'oa', // session cookie name
     writableName: 'oa.rw', // store client-editable data
     userCookieName: 'oa.user',
-    keys: prod.session ? prod.session.keys : process.env.OA_SESSION_KEYS.split(','),
+    keys: prod.session
+      ? prod.session.keys
+      : process.env.OA_SESSION_KEYS.split(','),
     secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
@@ -296,20 +322,29 @@ const config = {
     accessKeyId: prod.aws?.key ?? process.env.AWS_KEY,
     secretAccessKey: prod.aws?.secret ?? process.env.AWS_SECRET,
     region: process.env.AWS_REGION ?? 'eu-west-1',
-    imageBucketPath: prod.aws ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/` : process.env.AWS_MAIN_PATH,
-    tmpBucketPath: prod.aws ? `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/` : process.env.AWS_TMP_PATH,
-    staticBucketPath: prod.aws ? `https://${prod.aws.buckets.static}.s3.amazonaws.com/` : process.env.AWS_STATIC_PATH,
+    imageBucketPath: prod.aws
+      ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/`
+      : process.env.AWS_MAIN_PATH,
+    tmpBucketPath: prod.aws
+      ? `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`
+      : process.env.AWS_TMP_PATH,
+    staticBucketPath: prod.aws
+      ? `https://${prod.aws.buckets.static}.s3.amazonaws.com/`
+      : process.env.AWS_STATIC_PATH,
     servicesBucketPath: prod.aws
       ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/`
       : process.env.AWS_SERVICES_PATH,
     bucket: prod.aws?.buckets?.main ?? process.env.AWS_MAIN_BUCKET,
     tmpBucket: prod.aws?.buckets.temporary ?? process.env.AWS_TMP_BUCKET,
-    defaultImagePath: process.env.DEFAULT_IMAGE_PATH ?? '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+    defaultImagePath:
+      process.env.DEFAULT_IMAGE_PATH
+      ?? '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
     defaultImageSize: {
       width: parseInt(process.env.DEFAULT_IMAGE_SIZE_WIDTH ?? '140', 10),
       height: parseInt(process.env.DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10),
     },
-    oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg',
+    oaLogoIcon:
+      'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg',
   },
   authorizedMimeTypes: {
     txt: 'text/plain',
@@ -335,7 +370,8 @@ const config = {
   mailjet: {
     apiKey: process.env.MAILJET_KEY ?? prod.mailjet?.apiKey,
     apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
-    contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
+    contactsListId:
+      process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId,
   },
   passCulture: {
     key: process.env.PASS_CULTURE_KEY,
@@ -343,8 +379,14 @@ const config = {
     offerLink: process.env.PASS_CULTURE_OFFER_LINK,
     offerEditLink: process.env.PASS_CULTURE_OFFER_EDIT_LINK,
     pending: {
-      delay: parseInt(process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12, 10), // 12h
-      minDelay: parseInt(process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3, 10), // 3h
+      delay: parseInt(
+        process.env.PASS_CULTURE_PENDING_INITIAL_DELAY ?? 1000 * 60 * 60 * 12,
+        10,
+      ), // 12h
+      minDelay: parseInt(
+        process.env.PASS_CULTURE_MIN_DELAY ?? 1000 * 60 * 60 * 3,
+        10,
+      ), // 3h
       maxRetries: process.env.PASS_CULTURE_PENDING_RETRIES ?? 20, // why not
     },
   },
@@ -580,7 +622,9 @@ const config = {
 };
 
 if (process.env.DEBUG) {
-  config.logger.enableDebug = Array.isArray(process.env.DEBUG) ? process.env.DEBUG.join(',') : process.env.DEBUG;
+  config.logger.enableDebug = Array.isArray(process.env.DEBUG)
+    ? process.env.DEBUG.join(',')
+    : process.env.DEBUG;
 }
 
 debug.disable();

@@ -9,6 +9,8 @@ const allowedTables = [
   'conversation',
   'inboxConversation',
   'message',
+  'emailUtilsMessageIds',
+  'emailUtilsReplyTos',
 ];
 const defaultFiles = [
   'inbox',
@@ -16,6 +18,8 @@ const defaultFiles = [
   'conversation',
   'inboxConversation',
   'message',
+  'emailUtilsMessageIds',
+  'emailUtilsReplyTos',
 ];
 
 export function initAndLoad(config, files, options) {

@@ -1,5 +1,5 @@
-import list from './listMessageIds.js';
-import generateId from './generateId.js';
+import list from './listMessageIds';
+import generateId from './generateId';
 
 export default async function generateMailBundle({ conversationId, knex, tableName, mailsDomain }, message) {
   const references = await list({ conversationId, knex, tableName }).then(ids => ids.map(id => `<${id}>`));
