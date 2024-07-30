@@ -56,10 +56,10 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/:agendaSlug',
-    '/:agendaSlug/events/:eventSlug',
-    '/embed/:agendaUid',
-    '/embed/:agendaUid/events/:eventSlug',
+    '/([^/]+)',
+    '/([^/]+)/events/([^/]+)',
+    '/embed/agendas/([^/]+)',
+    '/embed/agendas/([^/]+)/events/([^/]+)',
     '/agendas',
   ],
 };
