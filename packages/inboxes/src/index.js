@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Inbox from './Inbox';
 import InboxUsers from './InboxUsers';
 import InboxUser from './InboxUser';
@@ -5,6 +7,7 @@ import Conversations from './Conversations';
 import Conversation from './Conversation';
 import Messages from './Messages';
 import Message from './Message';
+import EmailUtils from './EmailUtils/index';
 import * as tasks from './tasks';
 import makeConfig from './config';
 
@@ -13,6 +16,9 @@ export default async function createService(conf) {
 
   const {
     queue,
+    knex,
+    schemas,
+    mailsDomain,
   } = config;
 
   const svc = {};
@@ -38,6 +44,11 @@ export default async function createService(conf) {
     tasks: {
       sync: Object.assign(tasks.sync.default.bind(null, svc), syncMethods),
     },
+    emailUtils: EmailUtils({
+      knex,
+      schemas: _.pick(schemas, ['emailUtilsMessageIds', 'emailUtilsReplyTos']),
+      mailsDomain,
+    }),
   });
 
   // bind statics

@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 
 module.exports = {
   mysql: {
@@ -23,6 +23,8 @@ module.exports = {
     inboxConversation: 'inbox_conversation',
     message: 'message',
     messageAttachment: 'message_attachment',
+    emailUtilsMessageIds: 'inboxes_email_message_ids',
+    emailUtilsReplyTos: 'inboxes_email_reply_tos',
   },
   defaultAction: {
     code: 'defaultAction',
