@@ -6,39 +6,33 @@ import * as mw from './middleware/index.js';
 import * as mail from './lib/mail.js';
 
 export default function plugApp(app) {
-  const {
-    agendas,
-    sessions,
-    members,
-    core,
-  } = app.services;
+  const { agendas, sessions, members, core } = app.services;
 
   const config = core.getConfig();
 
-  app.all([
-    '/:agendaSlug/admin/members',
-    '/:agendaSlug/admin/members.:format',
-    '/:agendaSlug/admin/members/stats',
-    '/:agendaSlug/admin/members/invite',
-    '/:agendaSlug/admin/members/message-history',
-    '/:agendaSlug/admin/members/:id',
-    '/:agendaSlug/admin/members/:id/details',
-    '/:agendaSlug/admin/members/:id/invite/resend',
-  ], [
-    mw.loadAgenda.default,
-    agendas.mw.authorizeByIPAddress(),
-    sessions.mw.loadOrRedirect(),
-    mw.load.andAuthorize('moderator'),
-    agendas.mw.authorizeByIPAddress(),
-  ]);
-
-  app.get(
-    '/:agendaSlug/admin/members.:format',
-    (req, res, next) => {
-      req.order = 'actionsCounter.desc';
-      next();
-    },
+  app.all(
+    [
+      '/:agendaSlug/admin/members',
+      '/:agendaSlug/admin/members.:format',
+      '/:agendaSlug/admin/members/stats',
+      '/:agendaSlug/admin/members/message-history',
+      '/:agendaSlug/admin/members/:id',
+      '/:agendaSlug/admin/members/:id/details',
+      '/:agendaSlug/admin/members/:id/invite/resend',
+    ],
+    [
+      mw.loadAgenda.default,
+      agendas.mw.authorizeByIPAddress(),
+      sessions.mw.loadOrRedirect(),
+      mw.load.andAuthorize('moderator'),
+      agendas.mw.authorizeByIPAddress(),
+    ],
   );
+
+  app.get('/:agendaSlug/admin/members.:format', (req, res, next) => {
+    req.order = 'actionsCounter.desc';
+    next();
+  });
 
   app.get(
     '/:agendaSlug/admin/members.json',
@@ -54,16 +48,9 @@ export default function plugApp(app) {
     mw.list.stats.bind(null, members),
   );
 
-  app.get([
-    '/:agendaSlug/admin/members.csv',
-    '/:agendaSlug/admin/members.xlsx',
-  ], mw.spreadsheet.stream);
-
-  app.post(
-    '/:agendaSlug/admin/members/invite',
-    mw.authorize.moderatorCannotInviteAdministrator,
-    mw.loadContext,
-    mw.invite.bind(null, members),
+  app.get(
+    ['/:agendaSlug/admin/members.csv', '/:agendaSlug/admin/members.xlsx'],
+    mw.spreadsheet.stream,
   );
 
   app.get(
@@ -72,11 +59,17 @@ export default function plugApp(app) {
       try {
         const activities = await app.services.activities
           .feed({ entityType: 'agenda', entityUid: req.agenda.uid })
-          .activities.list({ verb: 'agenda.sendMessage' }, req.query.fromId || 0, 20);
+          .activities.list(
+            { verb: 'agenda.sendMessage' },
+            req.query.fromId || 0,
+            20,
+          );
 
         res.json({
           activities,
-          config: req.query.withConfig ? app.services.activities.getFormatConfig() : undefined,
+          config: req.query.withConfig
+            ? app.services.activities.getFormatConfig()
+            : undefined,
         });
       } catch (e) {
         next(e);
@@ -88,26 +81,25 @@ export default function plugApp(app) {
   app.get(
     '/:agendaSlug/admin/members/:id/details',
     mw.loadTarget.options.bind(null, members, { detailed: true }),
-    (req, res) => res.json({
-      ..._.pick(req.targetMember, [
-        'id',
-        'role',
-        'userUid',
-        'custom',
-      ]),
-      user: _.pick(req.targetMember.user, ['uid', 'fullName']),
-    }),
+    (req, res) =>
+      res.json({
+        ..._.pick(req.targetMember, ['id', 'role', 'userUid', 'custom']),
+        user: _.pick(req.targetMember.user, ['uid', 'fullName']),
+      }),
   );
 
   app.delete(
     '/:agendaSlug/admin/members/:id',
     mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
-    (req, res, next) => members.remove(req.targetMember.id, {
-      context: { user: req.user },
-    }).then(() => {
-      res.status(200).json({ message: 'done.' });
-    }, next),
+    (req, res, next) =>
+      members
+        .remove(req.targetMember.id, {
+          context: { user: req.user },
+        })
+        .then(() => {
+          res.status(200).json({ message: 'done.' });
+        }, next),
   );
 
   app.patch(
@@ -115,12 +107,15 @@ export default function plugApp(app) {
     mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
-    (req, res, next) => members.patch(req.targetMember.id, req.body, {
-      context: req.context,
-      requireCustom: false,
-    }).then(result => {
-      res.status(200).json(_.pick(result.member, ['custom', 'role']));
-    }, next),
+    (req, res, next) =>
+      members
+        .patch(req.targetMember.id, req.body, {
+          context: req.context,
+          requireCustom: false,
+        })
+        .then(result => {
+          res.status(200).json(_.pick(result.member, ['custom', 'role']));
+        }, next),
   );
 
   app.put(
@@ -128,27 +123,36 @@ export default function plugApp(app) {
     mw.loadContext,
     mw.loadTarget.default.bind(null, members),
     (req, res, next) => {
-      members.set.byEmail({
-        agendaUid: req.agenda.uid,
-        email: req.targetMember.custom.email,
-      }, { context: req.context }).then(({
-        member,
-      }) => {
-        if (member && member.userUid) {
-          return res.status(200).json({
-            message: 'user is member',
-          });
-        }
-        next();
-      }, next);
+      members.set
+        .byEmail(
+          {
+            agendaUid: req.agenda.uid,
+            email: req.targetMember.custom.email,
+          },
+          { context: req.context },
+        )
+        .then(({ member }) => {
+          if (member && member.userUid) {
+            return res.status(200).json({
+              message: 'user is member',
+            });
+          }
+          next();
+        }, next);
     },
-    (req, res, next) => mail.resendInvitation({
-      services: req.app.services,
-      config,
-    }, {
-      agenda: req.agenda,
-      member: req.targetMember,
-    }).then(() => res.status(200).json({ message: 'pabim.' }), next),
+    (req, res, next) =>
+      mail
+        .resendInvitation(
+          {
+            services: req.app.services,
+            config,
+          },
+          {
+            agenda: req.agenda,
+            member: req.targetMember,
+          },
+        )
+        .then(() => res.status(200).json({ message: 'pabim.' }), next),
   );
 
   // should be put
@@ -159,9 +163,13 @@ export default function plugApp(app) {
     mw.load.default,
     mw.authorize.adminModOrEventOwner,
     (req, res, next) => {
-      req.app.core.users(req.user.uid).agendas(req.agenda.uid).events(req.event.uid).getContext({
-        userUid: req.user.uid,
-      })
+      req.app.core
+        .users(req.user.uid)
+        .agendas(req.agenda.uid)
+        .events(req.event.uid)
+        .getContext({
+          userUid: req.user.uid,
+        })
         .then(context => {
           if (context.me?.authorizations?.canEditEvent) {
             return next();
@@ -192,12 +200,13 @@ export default function plugApp(app) {
         next(e);
       }
     },
-    (req, res, next) => transferEvent(req.app.services, req.event, req.targetMember).then(() => {
-      if (req.query.json) {
-        return res.status(200).json();
-      }
-      res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
-    }, next),
+    (req, res, next) =>
+      transferEvent(req.app.services, req.event, req.targetMember).then(() => {
+        if (req.query.json) {
+          return res.status(200).json();
+        }
+        res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
+      }, next),
   );
 
   app.get('/:agendaSlug/admin/members.csv', streamCsv);
