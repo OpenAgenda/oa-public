@@ -1,9 +1,12 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-const { withSentryConfig } = require('@sentry/nextjs');
+import { fileURLToPath } from 'node:url';
+import { withSentryConfig } from '@sentry/nextjs';
+import nextPackageJson from 'next/package.json' assert { type: 'json' };
+import bundleAnalyser from '@next/bundle-analyzer';
 
-const nextVersion = require('next/package.json').version;
+const { version: nextVersion } = nextPackageJson;
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = bundleAnalyser({
   enabled: process.env.ANALYZE === 'true',
 });
 
@@ -65,7 +68,19 @@ const config = async () => {
     withBundleAnalyzer({
       assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
       i18n: {
-        locales: ['default', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'],
+        locales: [
+          'default',
+          'en',
+          'fr',
+          'de',
+          'it',
+          'es',
+          'br',
+          'ca',
+          'eu',
+          'oc',
+          'io',
+        ],
         defaultLocale: 'default',
         localeDetection: false,
       },
@@ -130,7 +145,9 @@ const config = async () => {
       },
       async rewrites() {
         if (!NEXT_API_INTERNAL_BASE_URL) {
-          throw new Error('Environment variable NEXT_API_INTERNAL_BASE_URL is not defined');
+          throw new Error(
+            'Environment variable NEXT_API_INTERNAL_BASE_URL is not defined',
+          );
         }
 
         return {
@@ -149,11 +166,15 @@ const config = async () => {
 
         webpackCopyFiles(webpackConfig, [
           {
-            from: require.resolve('@openagenda/outdated-browser'),
+            from: fileURLToPath(
+              import.meta.resolve('@openagenda/outdated-browser'),
+            ),
             to: 'static/chunks/outdated-browser.js',
           },
           {
-            from: require.resolve('@openagenda/outdated-browser/main.css'),
+            from: fileURLToPath(
+              import.meta.resolve('@openagenda/outdated-browser/main.css'),
+            ),
             to: 'static/css/outdated-browser.css',
           },
         ]);
@@ -182,4 +203,4 @@ const config = async () => {
   );
 };
 
-module.exports = config;
+export default config;
