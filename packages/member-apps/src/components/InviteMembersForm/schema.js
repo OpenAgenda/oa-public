@@ -52,6 +52,13 @@ export default function getInviteSchema({
   modoCanInviteModo = false,
   userCredential,
 }) {
+  const roleOptions = getRoleOptions({
+    getLabel,
+    isAgendaPrivate,
+    areModeratorsEnabled,
+    modoCanInviteModo,
+    userCredential,
+  });
   const fields = [
     {
       fieldType: 'emails',
@@ -66,14 +73,9 @@ export default function getInviteSchema({
       field: 'role',
       label: getLabel('role'),
       default: 1,
-      options: getRoleOptions({
-        getLabel,
-        isAgendaPrivate,
-        areModeratorsEnabled,
-        modoCanInviteModo,
-        userCredential,
-      }),
+      options: roleOptions,
       optional: false,
+      display: !(roleOptions.length === 1),
     },
   ];
 

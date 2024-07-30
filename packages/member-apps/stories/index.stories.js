@@ -52,6 +52,11 @@ export const App = () =>
           slug: 'rdj2016',
           uid: 62792452,
           ownerId: 2,
+          settings: {
+            contribution: {
+              modoCanInviteModo: false,
+            },
+          },
           credentials: {
             moderators: false,
             embedsHead: false,
