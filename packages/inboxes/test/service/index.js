@@ -54,7 +54,7 @@ export function initAndLoad(config, files, options) {
         error => {
           if (error) return reject(error);
           resolve(createService(config));
-        }
+        },
       );
     });
   });
@@ -75,7 +75,7 @@ export function seed(config, files = defaultFiles, options = { reset: false }) {
       err => {
         if (err) return reject(err);
         resolve();
-      }
+      },
     );
   });
 }

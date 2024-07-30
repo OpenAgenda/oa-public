@@ -1,4 +1,5 @@
 import knexLib from 'knex';
+import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig';
 import { initAndLoad, seed } from './service';
 
@@ -30,11 +31,13 @@ describe('Inbox', () => {
         knex,
         mysql: { ...testconfig.mysql, database },
       },
-      []
+      [],
     );
 
     ({ Inbox, InboxUsers, Conversations } = service);
   });
+
+  afterAll(async () => fixtures.getConnection().destroy());
 
   beforeEach(async () => {
     await service.config.knex.transaction(async trx => {
@@ -50,7 +53,7 @@ describe('Inbox', () => {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
       },
-      tables
+      tables,
     );
   });
 
@@ -81,7 +84,7 @@ describe('Inbox', () => {
 
     test('instanciate Inbox with bad identifiers format throw a validation error', async () => {
       await expect(
-        new Inbox({ type: 45, identifier: 'fezsf' }).get()
+        new Inbox({ type: 45, identifier: 'fezsf' }).get(),
       ).rejects.toMatchObject({
         name: 'ValidationError',
         info: {
@@ -127,7 +130,7 @@ describe('Inbox', () => {
 
     test('create an inbox with invalid type', async () => {
       await expect(
-        new Inbox().create({ type: 58, identifier: 99999999 })
+        new Inbox().create({ type: 58, identifier: 99999999 }),
       ).rejects.toMatchObject({
         name: 'ValidationError',
         info: {
@@ -142,7 +145,7 @@ describe('Inbox', () => {
 
     test('create an inbox with missing identifier', async () => {
       await expect(
-        new Inbox().create({ type: 'agenda' })
+        new Inbox().create({ type: 'agenda' }),
       ).rejects.toMatchObject({
         name: 'ValidationError',
         info: {

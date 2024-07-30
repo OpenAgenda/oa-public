@@ -1,4 +1,5 @@
 import knexLib from 'knex';
+import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig';
 import { initAndLoad } from './service';
 
@@ -34,8 +35,9 @@ describe('service', () => {
     await knex.destroy();
   });
 
+  afterAll(async () => fixtures.getConnection().destroy());
+
   describe('init', () => {
-    let config;
     test('simple init', async () => {
       const service = initAndLoad(
         {
@@ -52,7 +54,7 @@ describe('service', () => {
 
       await expect(service).resolves.toMatchObject(serviceShape);
 
-      ({ config } = await service);
+      await service;
     });
 
     test('init without migrations', async () => {
@@ -62,12 +64,12 @@ describe('service', () => {
           mysql: { ...testconfig.mysql, database },
           migrations: null,
         },
-        []
+        [],
       );
 
       await expect(service).resolves.toMatchObject(serviceShape);
 
-      ({ config } = await service);
+      await service;
     });
 
     test('init with knex instance', async () => {
@@ -80,12 +82,12 @@ describe('service', () => {
             tableName: 'test_migrations',
           },
         },
-        []
+        [],
       );
 
       await expect(service).resolves.toMatchObject(serviceShape);
 
-      ({ config } = await service);
+      await service;
     });
   });
 });
