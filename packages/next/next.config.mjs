@@ -154,6 +154,11 @@ const config = async () => {
           beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
           fallback: [
             {
+              source: '/default/:path*',
+              destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
+              locale: false,
+            },
+            {
               source: '/:path*',
               destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
               locale: false,
