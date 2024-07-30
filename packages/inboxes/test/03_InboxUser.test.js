@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import knexLib from 'knex';
+import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig';
 import { initAndLoad, seed } from './service';
 
@@ -31,7 +32,7 @@ describe('InboxUser', () => {
         mysql: { ...testconfig.mysql, database },
         knex,
       },
-      []
+      [],
     );
 
     ({ Inbox, InboxUsers, InboxUser } = service);
@@ -51,13 +52,14 @@ describe('InboxUser', () => {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
       },
-      tables
+      tables,
     );
   });
 
   afterAll(async () => {
     await service.config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
     await service.config.knex.destroy();
+    await fixtures.getConnection().destroy();
   });
 
   describe('create', () => {
@@ -93,7 +95,7 @@ describe('InboxUser', () => {
       await expect(
         new Inbox({ type: 'agenda', identifier: 12341234 }).users.add({
           userUid: 99999999,
-        })
+        }),
       ).rejects.toMatchObject({
         message: 'Inbox {"type":"agenda","identifier":12341234} not found',
       });
@@ -181,7 +183,7 @@ describe('InboxUser', () => {
 
       test('get an inbox user by identifiers with missing inboxId', async () => {
         await expect(
-          new InboxUser({ userUid: 99999999 }).get()
+          new InboxUser({ userUid: 99999999 }).get(),
         ).rejects.toMatchObject({
           info: {
             errors: {
@@ -241,15 +243,15 @@ describe('InboxUser', () => {
           leftAt: null,
         },
         {
-          id: 2,
-          inboxId: 2,
-          userUid: 99999999,
-          leftAt: null,
-        },
-        {
           id: 8,
           inboxId: 1,
           userUid: 32132112,
+          leftAt: null,
+        },
+        {
+          id: 2,
+          inboxId: 2,
+          userUid: 99999999,
           leftAt: null,
         },
       ]);
