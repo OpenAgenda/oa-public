@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import knexLib from 'knex';
+import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig';
 import { initAndLoad, seed } from './service';
 
@@ -36,7 +37,7 @@ describe('Message', () => {
         knex,
         mysql: { ...testconfig.mysql, database },
       },
-      []
+      [],
     );
 
     ({ Inbox } = service);
@@ -56,13 +57,14 @@ describe('Message', () => {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
       },
-      tables
+      tables,
     );
   });
 
   afterAll(async () => {
     await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
     await knex.destroy();
+    await fixtures.getConnection().destroy();
   });
 
   describe('create', () => {
@@ -137,7 +139,7 @@ describe('Message', () => {
       await expect(
         conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !',
-        })
+        }),
       ).rejects.toMatchObject({
         info: {
           errors: {
@@ -156,7 +158,7 @@ describe('Message', () => {
         conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !',
           userUid: 23456790,
-        })
+        }),
       ).rejects.toMatchObject({
         message: 'InboxUser {"userUid":23456790} not found in Inbox {"id":1}',
       });
@@ -170,11 +172,11 @@ describe('Message', () => {
           body: 'Salut toi, mets moi admin, et vite !',
           userUid: 78945621,
         },
-        { createInboxUserOnNull: true }
+        { createInboxUserOnNull: true },
       );
 
       expect(
-        _.omit(message.toJSON(), 'createdAt', 'id', 'inboxUser.id')
+        _.omit(message.toJSON(), 'createdAt', 'id', 'inboxUser.id'),
       ).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
