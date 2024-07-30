@@ -9,7 +9,7 @@ export default (
   const {
     utils: {
       getRoleSlug,
-      compareRoles: { isSuperiorTo, isLessThan },
+      compareRoles: { isSuperiorTo, isLessThan, isSuperiorToOrEqual },
     },
   } = members;
 
@@ -34,6 +34,7 @@ export default (
   if (
     actingRoleSlug === 'moderator'
     && agenda.settings.contribution.modoCanInviteModo
+    && isSuperiorToOrEqual(acting.role, role)
   ) {
     log(
       'acting user is moderator and agenda settings allow moderators to invite moderators, can create',
