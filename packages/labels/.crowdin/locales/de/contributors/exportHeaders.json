@@ -1,10 +1,10 @@
 {
-  "contributions": "Hinzugefügte Events",
-  "credential": "Rolle",
-  "email": "Email",
   "name": "Name",
+  "email": "Email",
   "organization": "Organisation",
   "phone": "Telefon",
   "position": "Position",
+  "contributions": "Hinzugefügte Events",
+  "credential": "Rolle",
   "role": "Rolle"
 }

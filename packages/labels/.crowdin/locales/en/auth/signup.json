@@ -4,6 +4,7 @@
   "usedEmail": "This email is already in use",
   "invalidEmail": "The email is not valid",
   "passwordTooShort": "Password is too short",
+  "fullNameTooLong": "The user name must not exceed 50 characters",
   "passwordNotEqual": "The passwords are not identical",
   "createAccount": "Create an account",
   "captchaTryAgain": "Try this again",

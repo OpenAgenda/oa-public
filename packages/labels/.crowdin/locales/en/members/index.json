@@ -24,6 +24,7 @@
   "operationSuccessful": "Operation done",
   "patchSuccessConfirm": "The member was updated",
   "inviteMembers": "Invite members",
+  "inviteContributors": "Invite Contributors",
   "invite": "Invite",
   "inviteMembersPlaceholder": "Paste here the email addresses of new members, separated by commas",
   "emails": "Emails",

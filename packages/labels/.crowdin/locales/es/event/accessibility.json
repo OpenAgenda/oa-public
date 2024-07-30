@@ -1,9 +1,9 @@
 {
+  "mi": "Movilidad reducida",
   "hi": "Discapacidad auditiva",
   "ii": "Discapacidad intellectual",
-  "input": "Este evento incluye las mejoras a la accesibilidad",
-  "mi": "Movilidad reducida",
   "pi": "Discapacidad intelectual",
+  "vi": "Discapacidad visual",
   "sl": "Lenguaje de Señas",
-  "vi": "Discapacidad visual"
+  "input": "Este evento incluye las mejoras a la accesibilidad"
 }

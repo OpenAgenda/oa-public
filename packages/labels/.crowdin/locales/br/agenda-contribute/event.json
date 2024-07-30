@@ -1,14 +1,14 @@
 {
-  "addEvent": "Ouzhpennañ un darvoud",
-  "close": "Serriñ",
-  "create": "Krouiñ an darvoud",
-  "deleteDraft": "Dilemel ar brouilhed",
-  "draft": "Enrollañ ur brouilhed",
-  "editDraftTitle": "Brouilhed",
-  "editEvent": "Hizivaat an darvoud",
-  "submit": "Enrollañ",
   "title": "Skrivit ho tarvoud",
-  "undraft": "Krouiñ an darvoud",
+  "submit": "Enrollañ",
+  "create": "Krouiñ an darvoud",
+  "draft": "Enrollañ ur brouilhed",
   "update": "Hizivaat",
-  "updateDraft": "Hizivaat ar brouilhed"
+  "editEvent": "Hizivaat an darvoud",
+  "updateDraft": "Hizivaat ar brouilhed",
+  "deleteDraft": "Dilemel ar brouilhed",
+  "undraft": "Krouiñ an darvoud",
+  "addEvent": "Ouzhpennañ un darvoud",
+  "editDraftTitle": "Brouilhed",
+  "close": "Serriñ"
 }
