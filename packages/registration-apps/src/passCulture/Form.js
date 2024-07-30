@@ -293,7 +293,7 @@ export default function Form({
         <Section>
           <div className="error-summary boxed padding-all-md">
             <b>Certaines saisies doivent être corrigées:</b>
-            <ul className='class="list-unstyled margin-left-xs"'>
+            <ul className="list-unstyled margin-left-xs">
               {errors.map(e => (
                 <li key={e.code}>{e.label}</li>
               ))}

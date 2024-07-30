@@ -22,9 +22,9 @@ function Registration(props) {
       },
     } = {},
     lang = 'en',
-    role,
+    userRole,
   } = props;
-  console.log('registration.js: relatedValues:', relatedValues);
+
   const { StandardRegistrationField } = useContext(ComponentsContext);
 
   const { passCulture: passCultureValue, standard: standardValue } = spreadRegistrationValuesByService(value);
@@ -70,7 +70,7 @@ function Registration(props) {
 
   return (
     <div className="">
-      {(settings.passCulture?.siren ?? []).length && access.includes(role) ? (
+      {(settings.passCulture?.siren ?? []).length && access.includes(userRole) ? (
         <PassCultureCheckbox
           value={passCultureValue}
           settings={settings.passCulture}

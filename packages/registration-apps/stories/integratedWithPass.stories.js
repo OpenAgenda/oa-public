@@ -32,6 +32,7 @@ export function EmptyAtLoad() {
         value={value}
         lang="fr"
         onChange={setValue}
+        userRole="moderator"
         relatedValues={{
           other: {
             timings: event.timings,
@@ -63,6 +64,7 @@ export function EmptyAtLoadWithOneTiming() {
         value={value}
         lang="fr"
         onChange={setValue}
+        userRole="moderator"
         relatedValues={{
           other: {
             timings: event.timings,
@@ -95,6 +97,7 @@ export function EmptyAtLoadWithPreslectedLocation() {
         value={value}
         lang="fr"
         onChange={setValue}
+        userRole="moderator"
         relatedValues={{
           other: {
             timings: [{
@@ -131,6 +134,7 @@ export function EmptyAtLoadSeenByContributor() {
         value={value}
         lang="fr"
         onChange={setValue}
+        userRole="moderator"
         relatedValues={{
           other: {
             timings: event.timings,
@@ -191,6 +195,7 @@ export function WithData() {
         value={value}
         lang="fr"
         onChange={setValue}
+        userRole="moderator"
         relatedValues={{
           other: {
             timings: event.timings,
@@ -258,6 +263,7 @@ export function WithDataWithoutTimings() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: [],
@@ -296,6 +302,7 @@ export function WithoutDataWithoutTimings() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: [],
@@ -334,6 +341,7 @@ export function WithoutDataWithPassedTimings() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: event.timings.filter(t => new Date(t.date) < new Date()),
@@ -393,6 +401,7 @@ export function WithAlreadyCreatedPassOffer() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: event.timings,
@@ -455,6 +464,7 @@ export function WithPendingPassOffer() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: event.timings,
@@ -514,6 +524,7 @@ export function WithRejectedPassOffer() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: event.timings,
@@ -589,6 +600,7 @@ export function WithErroredPassOffer() {
           value={value}
           lang="fr"
           onChange={setValue}
+          userRole="moderator"
           relatedValues={{
             other: {
               timings: event.timings,
