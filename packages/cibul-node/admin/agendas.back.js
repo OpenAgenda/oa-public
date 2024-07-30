@@ -1,7 +1,14 @@
 import _ from 'lodash';
-import agendasSvc from '@openagenda/agendas';
+import { isInteger } from '@openagenda/utils';
 import { mw } from '@openagenda/admin-agendas';
+import validators from '@openagenda/validators';
 import cmn from '../lib/commons-app.js';
+
+const validatePage = validators.integer({
+  min: 1,
+  default: 1,
+});
+const limit = 20;
 
 const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),
@@ -14,14 +21,28 @@ function index(req, res) {
 }
 
 export default app => {
-  const {
-    aggregators,
-  } = app.services;
+  const { aggregators, agendas: agendasSvc } = app.services;
 
   const preMw = PreMw(app.services);
 
   app.get('/admin/agendas/', preMw, index);
-  app.get('/admin/agendas/search', preMw, mw.agendas.list);
+  app.get('/admin/agendas/search', preMw, (req, res, next) => {
+    const search = req.query.oas?.search?.length
+      ? req.query.oas?.search.split('/').pop().split('?').shift()
+      : undefined;
+    agendasSvc.list(
+      isInteger(search) ? { uid: parseInt(search, 10) } : { search },
+      (validatePage(req.query.searchPage) - 1) * limit,
+      limit,
+      { total: true, private: null },
+      (err, agendas, total) => {
+        if (err) {
+          return next(err);
+        }
+        res.json({ agendas, total });
+      },
+    );
+  });
   app.get('/admin/agendas/get', preMw, mw.agendas.get);
 
   app.post(
@@ -43,15 +64,23 @@ export default app => {
     async (req, res, next) => {
       try {
         if (_.get(req, 'body.credentials.aggregator')) {
-          await aggregators.set(req.agenda.uid, {
-            limit: -1,
-          }, { patch: true, protected: false });
+          await aggregators.set(
+            req.agenda.uid,
+            {
+              limit: -1,
+            },
+            { patch: true, protected: false },
+          );
         }
 
         if (_.get(req, 'body.credentials.aggregator') === false) {
-          await aggregators.set(req.agenda.uid, {
-            limit: null,
-          }, { patch: true, protected: false });
+          await aggregators.set(
+            req.agenda.uid,
+            {
+              limit: null,
+            },
+            { patch: true, protected: false },
+          );
         }
 
         next();
@@ -66,7 +95,9 @@ export default app => {
     '/admin/agendas/members/search',
     preMw,
     (req, res, next) => {
-      req.query.agendaId = req.query.agendaId ? parseInt(req.query.agendaId, 10) : null;
+      req.query.agendaId = req.query.agendaId
+        ? parseInt(req.query.agendaId, 10)
+        : null;
       req.query.order = 'role.desc';
       next();
     },

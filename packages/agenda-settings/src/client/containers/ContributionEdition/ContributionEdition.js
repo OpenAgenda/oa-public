@@ -486,24 +486,6 @@ export default function ContributionEdition() {
                 </div>
 
                 <div className="form-group">
-                  <p>
-                    <b>
-                      <FormattedMessage
-                        id="AgendaSetting.contribution.contributionRestrictDates"
-                        defaultMessage="Restrict input dates"
-                      />
-                    </b>
-                  </p>
-                  <a
-                    className="margin-right-sm"
-                    style={{ cursor: 'pointer' }}
-                    href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=limitDates`}
-                  >
-                    {getLabel('requestLimitDates')}
-                  </a>
-                </div>
-
-                <div className="form-group">
                   <div className="checkbox">
                     <p>
                       <b>
