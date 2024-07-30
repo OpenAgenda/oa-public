@@ -2,21 +2,14 @@ import logs from '@openagenda/logs';
 
 const log = logs('core/agendas/members/canCreate');
 
-export default ({ members, agendas }, {
-  agenda,
-  acting,
-  actingUserUid,
-  userUid,
-  role,
-  access,
-}) => {
+export default (
+  { members, agendas },
+  { agenda, acting, actingUserUid, userUid, role, access },
+) => {
   const {
     utils: {
       getRoleSlug,
-      compareRoles: {
-        isSuperiorTo,
-        isLessThan,
-      },
+      compareRoles: { isSuperiorTo, isLessThan },
     },
   } = members;
 
@@ -32,7 +25,19 @@ export default ({ members, agendas }, {
   }
 
   if (actingRoleSlug === 'moderator' && isSuperiorTo(acting.role, role)) {
-    log('acting user is moderator and is creating lesser role member, can create');
+    log(
+      'acting user is moderator and is creating lesser role member, can create',
+    );
+    return true;
+  }
+
+  if (
+    actingRoleSlug === 'moderator'
+    && agenda.settings.contribution.modoCanInviteModo
+  ) {
+    log(
+      'acting user is moderator and agenda settings allow moderators to invite moderators, can create',
+    );
     return true;
   }
 
@@ -42,7 +47,9 @@ export default ({ members, agendas }, {
   }
 
   if (userUid !== actingUserUid) {
-    log('role is contributor or less and acting user is other than member being added. Cannot create');
+    log(
+      'role is contributor or less and acting user is other than member being added. Cannot create',
+    );
     return false;
   }
 
