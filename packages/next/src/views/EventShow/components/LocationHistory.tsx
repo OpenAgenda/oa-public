@@ -1,7 +1,9 @@
 import { useIntl } from 'react-intl';
 import {
-  Button, Center,
-  Modal, ModalBody,
+  Button,
+  Center,
+  Modal,
+  ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
@@ -10,7 +12,6 @@ import {
 } from '@openagenda/uikit';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
-import useMember from '../hooks/useMember';
 import { locationHistory as messages } from '../messages';
 import { Activities, ActivitiesList } from './Activities';
 
@@ -19,18 +20,7 @@ export default function LocationHistory() {
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const { me } = useMember();
-  const { canEditEvent = false } = me?.authorizations ?? {};
-
-  const {
-    isOpen,
-    onOpen,
-    onClose,
-  } = useDisclosure();
-
-  if (!canEditEvent) {
-    return null;
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -38,11 +28,11 @@ export default function LocationHistory() {
         onClick={onOpen}
         alignSelf="start"
         variant="outline"
-        borderColor="oaGray.300"
+        borderColor="transparent"
         color="blackAlpha.800"
         _hover={{
-          bg: 'oaGray.100',
-          color: 'blackAlpha.900',
+          bg: 'transparent',
+          color: undefined,
           textDecoration: 'none',
         }}
       >
@@ -65,13 +55,7 @@ export default function LocationHistory() {
 
           <ModalBody>
             <Activities res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}>
-              <ActivitiesList
-                emptyElem={(
-                  <Center py="12">
-                    {intl.formatMessage(messages.noActivity)}
-                  </Center>
-                )}
-              />
+              <ActivitiesList emptyElem={<Center py="12">{intl.formatMessage(messages.noActivity)}</Center>} />
             </Activities>
           </ModalBody>
         </ModalContent>
