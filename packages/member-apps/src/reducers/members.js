@@ -362,7 +362,7 @@ export function invite(agenda, data) {
         .map(email => email.trim())
         .filter(email => !!email);
 
-      return client.post(res.invite.replace(':slug', agenda.slug), {
+      return client.post(res.invite.replace(':agendaUid', agenda.uid), {
         emails,
         role: data.role,
         context: {

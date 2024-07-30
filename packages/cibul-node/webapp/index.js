@@ -14,21 +14,24 @@ const apiRoot = `http://localhost:${config.port}`;
 
 // const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
 const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || null;
-const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
-  .on('error', (error, req, res) => {
-    if (error.code !== 'ECONNRESET') {
-      console.error('proxy error', error);
-    }
-    if (!res.headersSent) {
-      res.writeHead(500, { 'content-type': 'application/json' });
-    }
+const proxy = devServerPort
+  ? httpProxy
+    .createProxyServer({ secure: false })
+    .on('error', (error, req, res) => {
+      if (error.code !== 'ECONNRESET') {
+        console.error('proxy error', error);
+      }
+      if (!res.headersSent) {
+        res.writeHead(500, { 'content-type': 'application/json' });
+      }
 
-    const json = {
-      error: 'proxy_error',
-      reason: error.message,
-    };
-    res.end(JSON.stringify(json));
-  }) : null;
+      const json = {
+        error: 'proxy_error',
+        reason: error.message,
+      };
+      res.end(JSON.stringify(json));
+    })
+  : null;
 
 function getSupportMessage(req, lang) {
   switch (req.query.subject) {
@@ -102,10 +105,12 @@ function getSupportConversationType(req) {
 const initialState = async req => {
   const { services } = req.app;
 
-  const user = req.user && req.user.uid ? await services.users.get(req.user.uid, {
-    user: req.user,
-    includeImagePath: true,
-  }) : null;
+  const user = req.user && req.user.uid
+    ? await services.users.get(req.user.uid, {
+      user: req.user,
+      includeImagePath: true,
+    })
+    : null;
 
   const isTranslator = user ? config.translators.includes(user.uid) : false;
   const translateMode = req.cookies.translateMode === 'true';
@@ -269,8 +274,10 @@ const initialState = async req => {
         messages: {
           list: '/home/inbox/conversations/:conversationId/messages.json',
           create: '/home/inbox/conversations/:conversationId/messages.json',
-          prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment',
+          prepareAttachment:
+            '/home/inbox/conversations/:conversationId/prepare-attachment',
+          addAttachment:
+            '/home/inbox/conversations/:conversationId/add-attachment',
         },
       },
     },
@@ -305,8 +312,10 @@ const initialState = async req => {
         messages: {
           list: '/home/inbox/conversations/:conversationId/messages.json',
           create: '/home/inbox/conversations/:conversationId/messages.json',
-          prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment',
+          prepareAttachment:
+            '/home/inbox/conversations/:conversationId/prepare-attachment',
+          addAttachment:
+            '/home/inbox/conversations/:conversationId/add-attachment',
         },
       },
     },
@@ -326,14 +335,19 @@ const initialState = async req => {
         conversations: {
           create: '/agendas/:agendaUid/inbox/conversations.json',
           list: '/agendas/:agendaUid/inbox/conversations.json',
-          action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json',
+          action:
+            '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
+          resume:
+            '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
-          create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
-          prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment',
+          create:
+            '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
+          prepareAttachment:
+            '/home/inbox/conversations/:conversationId/prepare-attachment',
+          addAttachment:
+            '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment',
         },
       },
     },
@@ -349,7 +363,7 @@ const initialState = async req => {
         get: '/api/agendas/:agendaUid/members/:userUid',
         update: '/api/agendas/:agendaUid/members/member/:memberId',
         remove: '/api/agendas/:agendaUid/members/member/:memberId',
-        invite: '/:slug/admin/members/invite',
+        invite: '/api/agendas/:agendaUid/members/invite',
         resend: '/:slug/admin/members/:id/invite/resend',
         stats: '/:slug/admin/members/stats',
         showContributor: '/:slug/admin?contributorId=:contributorId',
@@ -380,13 +394,17 @@ const initialState = async req => {
       res: {
         agenda: '/api/agendas/:agendaUid',
         members: '/api/agendas/:agendaUid/members',
-        event: '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
+        event:
+          '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
         eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
         agendaContext: '/api/me/agendas/:agendaUid',
-        requestContribute: '/:agendaSlug/request-contribute/conversation/create',
-        detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
+        requestContribute:
+          '/:agendaSlug/request-contribute/conversation/create',
+        detailedAgenda:
+          '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
         locations: {
-          suggestChange: '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          suggestChange:
+            '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
           staticTiles: config.staticTiles,
           get: '/locations/:locationUid.json',
           index: '/api/agendas/:agendaUid/locations?itemsKey=items',
@@ -478,7 +496,8 @@ const initialState = async req => {
         agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
         agendaSearchPage: '/agendas',
         seeEvents: '/:agendaSlug/admin/events?q.locationUid=:locationUid',
-        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+        suggestChange:
+          '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
       },
     },
     agendaSchemaAdmin: {
@@ -489,7 +508,8 @@ const initialState = async req => {
       res: {
         eventSchema: '/api/agendas/:agendaUid/settings/eventSchema/configure',
         memberSchema: '/api/agendas/:agendaUid/settings/memberSchema/configure',
-        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+        suggestChange:
+          '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
         listLocations: '/api/agendas/:agendaUid/locations?itemsKey=items',
         getLocationDetails: '/locations/:locationUid.json',
         staticTiles: config.staticTiles,
@@ -509,14 +529,17 @@ const initialState = async req => {
         conversations: {
           create: '/admin/support/conversations.json',
           list: '/admin/support/conversations.json',
-          action: '/admin/support/conversations/:conversationId/action/:code.json',
+          action:
+            '/admin/support/conversations/:conversationId/action/:code.json',
           resume: '/admin/support/conversations/:conversationId/resume.json',
         },
         messages: {
           list: '/admin/support/conversations/:conversationId/messages.json',
           create: '/admin/support/conversations/:conversationId/messages.json',
-          prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/admin/support/conversations/:conversationId/add-attachment',
+          prepareAttachment:
+            '/admin/support/conversations/:conversationId/prepare-attachment',
+          addAttachment:
+            '/admin/support/conversations/:conversationId/add-attachment',
         },
         context: '/api/supervisor/users/:identifier',
       },
@@ -532,18 +555,26 @@ const initialState = async req => {
 
 export default app => {
   if (proxy) {
-    app.use(
-      '/dist/react-integration-app',
-      (req, res) => proxy.web(req, res, { target: `https://localhost:${devServerPort}/dist/react-integration-app/` }),
-    );
+    app.use('/dist/react-integration-app', (req, res) =>
+      proxy.web(req, res, {
+        target: `https://localhost:${devServerPort}/dist/react-integration-app/`,
+      }));
   }
 
   app.use(
     '/dist/react-integration-app',
-    express.static(path.join(
-      path.dirname(fileURLToPath(import.meta.resolve('@openagenda/react-integration-app/package.json'))),
-      'dist',
-    )),
+    express.static(
+      path.join(
+        path.dirname(
+          fileURLToPath(
+            import.meta.resolve(
+              '@openagenda/react-integration-app/package.json',
+            ),
+          ),
+        ),
+        'dist',
+      ),
+    ),
     (req, res) => res.sendStatus(404), // if not, unhandled files will be handled by following routes
   );
 
@@ -576,10 +607,11 @@ export default app => {
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oa-main.css'),
     // outdatedBrowserMw, // Already added with loadBaseData
-    (req, res, next) => matchMw({
-      initialState,
-      apiRoot,
-      // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
-    })(req, res, next),
+    (req, res, next) =>
+      matchMw({
+        initialState,
+        apiRoot,
+        // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
+      })(req, res, next),
   );
 };

@@ -83,32 +83,49 @@ export default (core, { useRouter = true } = {}) => {
     mw.member.load,
   );
 
-  app.get(['/agendas/slug/:agendaSlug', '/agendas/:agendaUid'], mw.redirectIfPrivate);
+  app.get(
+    ['/agendas/slug/:agendaSlug', '/agendas/:agendaUid'],
+    mw.redirectIfPrivate,
+  );
 
   app.post('/agendas', (req, res, next) =>
-    core.agendas.create(req.parsedData, { userUid: req.user.uid }).then(agenda => res.json(agenda), next));
-
-  app.patch('/agendas/:agendaUid', mw.member.load, mw.member.allow(['administrator']), (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .update(req.parsedData)
+    core.agendas
+      .create(req.parsedData, { userUid: req.user.uid })
       .then(agenda => res.json(agenda), next));
 
-  app.get(['/agendas/slug/:agendaSlug', '/agendas/:agendaUid', '/agendas/:agendaUid.prv'], async (req, res, next) =>
-    res.json(
-      await core
+  app.patch(
+    '/agendas/:agendaUid',
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) =>
+      core
         .agendas(req.agenda.uid)
-        .get({
-          access: req.access,
-          useCache: true,
-          includeEvent: true,
-          detailed: (req.query.detailed ?? '1') === '1',
-          private: req.member ? null : false,
-          includeNonDataFields: req.query.includeNonDataFields === '1',
-          includeMemberSchema: req.query.includeMemberSchema,
-        })
-        .catch(next),
-    ));
+        .update(req.parsedData)
+        .then(agenda => res.json(agenda), next),
+  );
+
+  app.get(
+    [
+      '/agendas/slug/:agendaSlug',
+      '/agendas/:agendaUid',
+      '/agendas/:agendaUid.prv',
+    ],
+    async (req, res, next) =>
+      res.json(
+        await core
+          .agendas(req.agenda.uid)
+          .get({
+            access: req.access,
+            useCache: true,
+            includeEvent: true,
+            detailed: (req.query.detailed ?? '1') === '1',
+            private: req.member ? null : false,
+            includeNonDataFields: req.query.includeNonDataFields === '1',
+            includeMemberSchema: req.query.includeMemberSchema,
+          })
+          .catch(next),
+      ),
+  );
 
   app.get(
     ['/agendas/:agendaUid/sources', '/agendas/slug/:agendaSlug/sources'],
@@ -124,42 +141,53 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.patch(
-    ['/agendas/:agendaUid/sources/:sourceAgendaUid', '/agendas/slug/:agendaSlug/sources/:sourceAgendaUid'],
+    [
+      '/agendas/:agendaUid/sources/:sourceAgendaUid',
+      '/agendas/slug/:agendaSlug/sources/:sourceAgendaUid',
+    ],
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
       core
         .agendas(req.agenda)
-        .sources.patch(req.params.sourceAgendaUid, req.body.rules, { query: req.body.query })
+        .sources.patch(req.params.sourceAgendaUid, req.body.rules, {
+          query: req.body.query,
+        })
         .then(r => {
           res.json(r);
         }, next),
   );
 
-  app.post('/agendas/:agendaUid/events', mw.moveEventLegacyImageCredits, (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .events.create(req.parsedData, {
-        context: {
-          userUid: req.member.userUid,
-        },
-        access: req.access,
-        defaultLang: req.headers.lang,
-        callOrigin: 'api',
-      })
-      .then(
-        event =>
-          res.json({
-            success: true,
-            event,
-          }),
-        next,
-      ));
+  app.post(
+    '/agendas/:agendaUid/events',
+    mw.moveEventLegacyImageCredits,
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.create(req.parsedData, {
+          context: {
+            userUid: req.member.userUid,
+          },
+          access: req.access,
+          defaultLang: req.headers.lang,
+          callOrigin: 'api',
+        })
+        .then(
+          event =>
+            res.json({
+              success: true,
+              event,
+            }),
+          next,
+        ),
+  );
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
     mw.searchAgendaEvents(core, 'parsedData'),
-    ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('agendaEvents')] : [],
+    ...app.services.usageCounters
+      ? [app.services.usageCounters.mw.increment('agendaEvents')]
+      : [],
     (_req, res, next) => {
       if (!res.headersSent) next();
     },
@@ -199,7 +227,9 @@ export default (core, { useRouter = true } = {}) => {
       mw.convertLegacyFilter,
       track.mw('api', 'list', 'events'),
       mw.searchAgendaEvents(core),
-      ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('agendaEvents')] : [],
+      ...app.services.usageCounters
+        ? [app.services.usageCounters.mw.increment('agendaEvents')]
+        : [],
       (_req, res, next) => {
         if (!res.headersSent) next();
       },
@@ -245,7 +275,9 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .agendas(req.agenda.uid)
-        .settings.schema.getAndParents({ lang: req.lang || req.query.lang || 'fr' })
+        .settings.schema.getAndParents({
+          lang: req.lang || req.query.lang || 'fr',
+        })
         .then(data => res.json({ ...data }), next),
   ]);
 
@@ -291,7 +323,10 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .agendas(req.agenda.uid)
-        .settings.schema.getMemberAndParents({ userUid: req.user.uid, lang: req.lang || req.query.lang || 'fr' })
+        .settings.schema.getMemberAndParents({
+          userUid: req.user.uid,
+          lang: req.lang || req.query.lang || 'fr',
+        })
         .then(data => res.json({ ...data }), next),
   ]);
 
@@ -301,7 +336,9 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .agendas(req.agenda.uid)
-        .settings.schema.updateMemberFields(req.parsedData.fields, { actingMember: req.member })
+        .settings.schema.updateMemberFields(req.parsedData.fields, {
+          actingMember: req.member,
+        })
         .then(
           () =>
             res.json({
@@ -336,20 +373,27 @@ export default (core, { useRouter = true } = {}) => {
   app.post(
     '/agendas/:agendaUid/members/invite',
     mw.member.load,
-    mw.member.moderatorCannotInviteAdministrator,
     mw.member.loadContext,
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) =>
       core
         .agendas(req.agenda.uid)
-        .members.invite({ role: req.body.role, emails: req.body.emails, context: req.context })
+        .members.invite(
+          { role: req.body.role, emails: req.body.emails },
+          { context: req.context, userUid: req.user.uid },
+        )
         .then(data => res.json(data), next),
   );
 
   app.post('/agendas/:agendaUid/members', (req, res, next) =>
     core
       .agendas(req.agenda.uid)
-      .members.create(req.body.userUid ?? req.user.uid, req.body.role, req.parsedData, { userUid: req.user.uid })
+      .members.create(
+        req.body.userUid ?? req.user.uid,
+        req.body.role,
+        req.parsedData,
+        { userUid: req.user.uid },
+      )
       .then(member => res.json(member), next));
 
   app.get('/agendas/:agendaUid/members/email/:email', [
@@ -384,14 +428,19 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.patch(
-    ['/agendas/:agendaUid/members/:userUid', '/agendas/:agendaUid/members/member/:memberId'],
+    [
+      '/agendas/:agendaUid/members/:userUid',
+      '/agendas/:agendaUid/members/member/:memberId',
+    ],
     [
       mw.member.load,
       (req, res, next) =>
         core
           .agendas(req.agenda.uid)
           .members.patch(
-            req.params.memberId ? { id: req.params.memberId } : { userUid: req.params.userUid },
+            req.params.memberId
+              ? { id: req.params.memberId }
+              : { userUid: req.params.userUid },
             req.parsedData,
             { userUid: req.user.uid },
           )
@@ -400,15 +449,23 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.delete(
-    ['/agendas/:agendaUid/members/:userUid', '/agendas/:agendaUid/members/member/:memberId'],
+    [
+      '/agendas/:agendaUid/members/:userUid',
+      '/agendas/:agendaUid/members/member/:memberId',
+    ],
     [
       mw.member.load,
       (req, res, next) =>
         core
           .agendas(req.agenda.uid)
-          .members.remove(req.params.memberId ? { id: req.params.memberId } : { userUid: req.params.userUid }, {
-            userUid: req.user.uid,
-          })
+          .members.remove(
+            req.params.memberId
+              ? { id: req.params.memberId }
+              : { userUid: req.params.userUid },
+            {
+              userUid: req.user.uid,
+            },
+          )
           .then(
             () =>
               res.json({
@@ -490,7 +547,9 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('/locations/insee', (req, res, next) =>
     core.services.agendaLocations.utils
-      .getINSEECode(_.pick(req.query, ['city', 'department', 'latitude', 'longitude']))
+      .getINSEECode(
+        _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
+      )
       .then(code => res.json({ code }), next));
 
   app.get(
@@ -500,11 +559,17 @@ export default (core, { useRouter = true } = {}) => {
       try {
         const activities = await app.services.activities
           .feed({ entityType: 'user', entityUid: req.user.uid })
-          .activities.list({ object: `location:${req.params.locationUid}` }, req.query.fromId || 0, 20);
+          .activities.list(
+            { object: `location:${req.params.locationUid}` },
+            req.query.fromId || 0,
+            20,
+          );
 
         res.json({
           activities,
-          config: req.query.withConfig ? app.services.activities.getFormatConfig() : undefined,
+          config: req.query.withConfig
+            ? app.services.activities.getFormatConfig()
+            : undefined,
         });
       } catch (e) {
         next(e);
@@ -567,7 +632,10 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post(
-    ['/agendas/:agendaUid/locations/:locationUid', '/agendas/:agendaUid/locations/ext/:locationExtId'],
+    [
+      '/agendas/:agendaUid/locations/:locationUid',
+      '/agendas/:agendaUid/locations/ext/:locationExtId',
+    ],
     [
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
@@ -591,7 +659,10 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.patch(
-    ['/agendas/:agendaUid/locations/:locationUid', '/agendas/:agendaUid/locations/ext/:locationExtId'],
+    [
+      '/agendas/:agendaUid/locations/:locationUid',
+      '/agendas/:agendaUid/locations/ext/:locationExtId',
+    ],
     [
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
@@ -615,7 +686,10 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.delete(
-    ['/agendas/:agendaUid/locations/:locationUid', '/agendas/:agendaUid/locations/ext/:locationExtId'],
+    [
+      '/agendas/:agendaUid/locations/:locationUid',
+      '/agendas/:agendaUid/locations/ext/:locationExtId',
+    ],
     [
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
@@ -638,24 +712,28 @@ export default (core, { useRouter = true } = {}) => {
     ],
   );
 
-  app.get('/agendas/:agendaUid/locations', track.mw('api', 'list', 'locations'), (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .locations.list(req.query, req.query, {
-        useAfter: !req.query.from || !!req.query.after,
-        eventCounts: !!req.query.eventCounts,
-        itemsKey: req.query.itemsKey ?? 'locations',
-      })
-      .then(
-        ({ items, total, after }) =>
-          res.json({
-            success: true,
-            after,
-            total,
-            [req.query.itemsKey ?? 'locations']: items,
-          }),
-        next,
-      ));
+  app.get(
+    '/agendas/:agendaUid/locations',
+    track.mw('api', 'list', 'locations'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .locations.list(req.query, req.query, {
+          useAfter: !req.query.from || !!req.query.after,
+          eventCounts: !!req.query.eventCounts,
+          itemsKey: req.query.itemsKey ?? 'locations',
+        })
+        .then(
+          ({ items, total, after }) =>
+            res.json({
+              success: true,
+              after,
+              total,
+              [req.query.itemsKey ?? 'locations']: items,
+            }),
+          next,
+        ),
+  );
 
   app.get('/agendas/:agendaUid/embeds/:embedUid', (req, res, next) =>
     core
@@ -664,26 +742,41 @@ export default (core, { useRouter = true } = {}) => {
       .get()
       .then(embed => res.json(embed), next));
 
-  app.post('/agendas/:agendaUid/embeds/:embedUid', mw.member.allow(['administrator']), (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .embeds(req.params.embedUid)
-      .update(req.parsedData)
-      .then(embed => res.json(embed), next));
+  app.post(
+    '/agendas/:agendaUid/embeds/:embedUid',
+    mw.member.allow(['administrator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .embeds(req.params.embedUid)
+        .update(req.parsedData)
+        .then(embed => res.json(embed), next),
+  );
 
-  app.get('/agendas/:agendaUid/embeds', mw.member.allow(['administrator']), (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .embeds.list()
-      .then(embeds => res.json(embeds), next));
+  app.get(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .embeds.list()
+        .then(embeds => res.json(embeds), next),
+  );
 
-  app.post('/agendas/:agendaUid/embeds', mw.member.allow(['administrator']), (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .embeds.create(req.parsedData)
-      .then(embed => res.json(embed), next));
+  app.post(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .embeds.create(req.parsedData)
+        .then(embed => res.json(embed), next),
+  );
 
-  app.post('/agendas/:agendaUid/settings/resync', [requireSuperAdmin({ jsonResponse: true }), settings.resync]);
+  app.post('/agendas/:agendaUid/settings/resync', [
+    requireSuperAdmin({ jsonResponse: true }),
+    settings.resync,
+  ]);
 
   app.get('/me', (req, res, next) => {
     if (!req.user) {
@@ -789,7 +882,8 @@ export default (core, { useRouter = true } = {}) => {
         .agendas(req.params.agendaUid)
         .events.drafts(
           {
-            useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+            useDefaultImage:
+              req.query.useDefaultImage && req.query.useDefaultImage === '1',
           },
           req.query,
         )
@@ -824,8 +918,11 @@ export default (core, { useRouter = true } = {}) => {
   app.get('/agendas', (req, res, next) => {
     core.agendas
       .search(req.query, req.query, {
-        useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
-        includeImagePath: !(req.query.includeImagePath && req.query.includeImagePath === '0'),
+        useDefaultImage:
+          req.query.useDefaultImage && req.query.useDefaultImage === '1',
+        includeImagePath: !(
+          req.query.includeImagePath && req.query.includeImagePath === '0'
+        ),
         includeFields: req.query.fields ? [].concat(req.query.fields) : null,
       })
       .then(data => res.json({ ...data, success: true }), next);
@@ -843,7 +940,10 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .networks(req.params.uid)
-        .agendas.create({ title: req.body.title, description: req.body.description }, { userUid: req.user.uid })
+        .agendas.create(
+          { title: req.body.title, description: req.body.description },
+          { userUid: req.user.uid },
+        )
         .then(agenda => res.json(agenda), next),
   ]);
 
@@ -851,7 +951,10 @@ export default (core, { useRouter = true } = {}) => {
     core
       .locationSets(req.params.uid)
       .get()
-      .then(locationSet => res.json(_.pick(locationSet, ['uid', 'title'])), next);
+      .then(
+        locationSet => res.json(_.pick(locationSet, ['uid', 'title'])),
+        next,
+      );
   });
 
   app.get('/events', [
@@ -859,7 +962,8 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) => {
       core.events
         .search(req.query, req.query, {
-          useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
+          useDefaultImage:
+            req.query.useDefaultImage && req.query.useDefaultImage === '1',
           includeFields: req.query.includeFields,
           detailed: req.query.detailed,
           monolingual: req.query.monolingual,
@@ -876,7 +980,9 @@ export default (core, { useRouter = true } = {}) => {
           next();
         }, next);
     },
-    ...app.services.usageCounters ? [app.services.usageCounters.mw.increment('transverseEvents')] : [],
+    ...app.services.usageCounters
+      ? [app.services.usageCounters.mw.increment('transverseEvents')]
+      : [],
     (_req, res, next) => {
       if (!res.headersSent) next();
     },

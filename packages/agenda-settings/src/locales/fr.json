@@ -1,5 +1,7 @@
 {
   "AgendaSetting.contribution.contributionRestrictDates": "Limiter les dates de saisies",
+  "AgendaSetting.contribution.memberRights": "Droits des membres",
+  "AgendaSetting.contribution.modosInviteModosLabel": "Autoriser les modérateurs à inviter d'autres modérateurs",
   "AgendaSettings.CreationSecondStep.formEvent": "Formulaire événement",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Permettre la saisie d'événements en ligne",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Les événements en ligne peuvent être associés à des lieux physiques",

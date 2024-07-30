@@ -1,5 +1,7 @@
 {
   "AgendaSetting.contribution.contributionRestrictDates": "Restrict input dates",
+  "AgendaSetting.contribution.memberRights": "Member Rights",
+  "AgendaSetting.contribution.modosInviteModosLabel": "Allow Moderators to invite moderators",
   "AgendaSettings.CreationSecondStep.formEvent": "Form event",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Allow online event entry",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Online events can be associated with physical locations",

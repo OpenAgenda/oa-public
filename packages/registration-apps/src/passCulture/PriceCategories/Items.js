@@ -21,7 +21,7 @@ export default function PriceCategoryItems({
 
   const [editValue, setEditValue] = useState(false);
   const [editedItemId, setEditedItemId] = useState(-1);
-  console.log('editValue', editValue);
+
   if (!value.length) {
     return (
       <div>
