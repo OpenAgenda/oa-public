@@ -7,12 +7,6 @@ const log = logs('services/mails/incomingEmails');
 
 const REPLY_REG = /reply\+([-0-9a-fA-F]{36})@mail\.openagenda\.com/i;
 
-const getReplyToIfDifferent = (user, replyTo) => {
-  if (!replyTo) return;
-  const clean = replyTo.replace(/(.+<|>$)/g, '');
-  return clean === user.email ? undefined : clean;
-};
-
 export default function incomingEmailsMw({ services }) {
   return async (req, res, next) => {
     try {
@@ -33,10 +27,19 @@ export default function incomingEmailsMw({ services }) {
       }
 
       const references = (req.body.References ?? '').replace(/<|>/g, '');
-      log.info('extracted references', Object.assign(logBundle, { references }));
+      log.info(
+        'extracted references',
+        Object.assign(logBundle, { references }),
+      );
 
-      const conversationId = parseInt(references.split('@').shift().split('.').pop(), 10);
-      log.info('extracted conversation id', Object.assign(logBundle, { conversationId }));
+      const conversationId = parseInt(
+        references.split('@').shift().split('.').pop(),
+        10,
+      );
+      log.info(
+        'extracted conversation id',
+        Object.assign(logBundle, { conversationId }),
+      );
 
       if (!conversationId) {
         log.info('no conversation id was extracted', logBundle);
@@ -45,7 +48,10 @@ export default function incomingEmailsMw({ services }) {
 
       const replyMatches = req.body.recipient.match(REPLY_REG);
       const replyToken = replyMatches && replyMatches[1];
-      log.info('extracted replyToken', Object.assign(logBundle, { replyToken }));
+      log.info(
+        'extracted replyToken',
+        Object.assign(logBundle, { replyToken }),
+      );
 
       if (!replyToken) {
         log.info('no reply token was extracted', logBundle);
@@ -55,7 +61,9 @@ export default function incomingEmailsMw({ services }) {
       const user = await usersSvc.findOne({
         query: {
           replyToken,
-          ...req.body.sender.endsWith('@openagenda.on.crisp.email') ? undefined : { email: req.body.sender },
+          ...req.body.sender.endsWith('@openagenda.on.crisp.email')
+            ? undefined
+            : { email: req.body.sender },
         },
       });
 
@@ -64,10 +72,15 @@ export default function incomingEmailsMw({ services }) {
         return res.sendStatus(200);
       }
 
-      const conversation = await Inbox.user(user.uid).conversations.get(conversationId);
+      const conversation = await Inbox.user(user.uid).conversations.get(
+        conversationId,
+      );
 
       if (!conversation) {
-        log.info('no conversation could be loaded', Object.assign(logBundle, { userUid: user.uid }));
+        log.info(
+          'no conversation could be loaded',
+          Object.assign(logBundle, { userUid: user.uid }),
+        );
         return res.sendStatus(200);
       }
 
@@ -83,12 +96,10 @@ export default function incomingEmailsMw({ services }) {
 
       try {
         await emailUtils(conversationId).messageIds.insert(body['Message-Id']);
-
-        const replyTo = getReplyToIfDifferent(user, req.body['Reply-To']);
-
-        if (replyTo && replyTo !== user.email) {
-          await emailUtils(conversationId).replyTos.insert(user.uid, replyTo);
-        }
+        await emailUtils(conversationId).replyTos.insertIfDifferent(
+          user,
+          req.body['Reply-To'],
+        );
       } catch (error) {
         log.error('failed to store messageId', { error });
       }

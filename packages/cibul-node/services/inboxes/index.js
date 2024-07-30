@@ -10,7 +10,6 @@ import onAction from './onAction.js';
 import onInboxCreate from './onInboxCreate.js';
 import onMessageCreate from './onMessageCreate.js';
 import plugApp from './plugApp/index.js';
-import EmailUtils from './EmailUtils/index.js';
 
 export async function init(config, services) {
   const { queues, redis } = services;
@@ -42,10 +41,13 @@ export async function init(config, services) {
         'schemas.inboxConversation',
         'schemas.message',
         'schemas.messageAttachment',
+        'schemas.emailUtilsMessageIds',
+        'schemas.emailUtilsReplyTos',
         'aws',
         'uppy',
       ]),
       {
+        mailsDomain: config.mails.domain,
         logger: config.getLogConfig('oa', 'inboxes'),
         migrations: {
           tableName: 'inboxes_migrations',
@@ -120,8 +122,10 @@ export async function init(config, services) {
                   en: 'Add as a contributor',
                 },
                 kind: 'primary',
-                confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
-                confirmationModalLabel: inboxesLabels.requestContributeAcceptModal,
+                confirmationModalTitle:
+                  inboxesLabels.requestContributeAcceptModalTitle,
+                confirmationModalLabel:
+                  inboxesLabels.requestContributeAcceptModal,
               },
               {
                 code: 'refuse',
@@ -130,8 +134,10 @@ export async function init(config, services) {
                   en: 'Refuse the request',
                 },
                 kind: 'danger',
-                confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
-                confirmationModalLabel: inboxesLabels.requestContributeRefuseModal,
+                confirmationModalTitle:
+                  inboxesLabels.requestContributeRefuseModalTitle,
+                confirmationModalLabel:
+                  inboxesLabels.requestContributeRefuseModal,
               },
               {
                 code: 'involveTechnicalSupport',
@@ -153,7 +159,8 @@ export async function init(config, services) {
                   en: 'Accept the request',
                 },
                 kind: 'primary',
-                confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
+                confirmationModalTitle:
+                  inboxesLabels.editionRequestAcceptModalTitle,
                 confirmationModalLabel: inboxesLabels.editionRequestAcceptModal,
               },
               {
@@ -163,7 +170,8 @@ export async function init(config, services) {
                   en: 'Refuse the request',
                 },
                 kind: 'danger',
-                confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
+                confirmationModalTitle:
+                  inboxesLabels.editionRequestRefuseModalTitle,
                 confirmationModalLabel: inboxesLabels.editionRequestRefuseModal,
               },
             ],
@@ -225,7 +233,6 @@ export async function init(config, services) {
   await inboxMw.init(service);
 
   Object.assign(service, {
-    emailUtils: await EmailUtils(config, services),
     plugApp: plugApp.bind(null, config, services),
     task: () => queue.run(),
     shutdown: (options = {}) =>
