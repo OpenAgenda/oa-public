@@ -29,7 +29,7 @@ import { nl2br } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
 import { faGlobe } from 'icons/regular';
-import { faPhone } from 'icons/solid';
+import { faPhone, faChevronDown } from 'icons/solid';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import { keyCDNLoader } from 'utils/imageLoader';
@@ -65,6 +65,7 @@ import Map from './components/Map';
 import LdJson from './components/LdJson';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
+import canModifyLocation from './utils/canModifyLocation';
 import useEvent from './hooks/useEvent';
 import useMember from './hooks/useMember';
 import useShareModal from './hooks/useShareModal';
@@ -456,18 +457,17 @@ function EventShow({ preload }: EventShowProps) {
                         position="absolute"
                         top="6"
                         right="6"
+                        rightIcon={<FaIcon icon={faChevronDown} />}
                       >
                         {intl.formatMessage(messages.edit)}
                       </MenuButton>
                       <MenuList>
                         <MenuItem as="a" href="#">
-                          {isAdminMod
-                          && (event.location.agendaUid === agenda.uid
-                            || event.location.setUid === agenda.locationSetUid) ? (
-                              <EditLocationButton canEditEvent />
-                            ) : (
-                              <SuggestLocationChangeButton canEditEvent />
-                            )}
+                          {canModifyLocation(isAdminMod, event, agenda) ? (
+                            <EditLocationButton canEditEvent />
+                          ) : (
+                            <SuggestLocationChangeButton canEditEvent />
+                          )}
                         </MenuItem>
                         <MenuItem as="a" href="#">
                           <LocationHistory />
@@ -476,12 +476,11 @@ function EventShow({ preload }: EventShowProps) {
                     </Menu>
                   ) : (
                     <>
-                      {isAdminMod
-                      && (event.location.agendaUid === agenda.uid || event.location.setUid === agenda.locationSetUid) ? (
+                      {canModifyLocation(isAdminMod, event, agenda) ? (
                         <EditLocationButton canEditEvent={false} />
-                        ) : (
-                          <SuggestLocationChangeButton canEditEvent={false} />
-                        )}
+                      ) : (
+                        <SuggestLocationChangeButton canEditEvent={false} />
+                      )}
                     </>
                   )}
 

@@ -7,13 +7,14 @@ import base64 from 'utils/base64';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
+import canModifyLocation from '../../utils/canModifyLocation';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
 function LinkMenuItem({ action, href, rel = null }) {
   return (
     <MenuItem as="a" href={href} rel={rel}>
-      <Flex direction="column">
+      <Flex direction="column" justifyContent="center" height="50px">
         <Text fontWeight="bold" display="block">
           {action}
         </Text>
@@ -49,16 +50,12 @@ export default function Edit({ agenda }) {
           display="inline-flex"
           rightIcon={isMobile ? null : <FaIcon icon={faChevronDown} />}
         >
-          {isMobile ? (
-            <FaIcon icon={faPencil} size="lg" />
-          ) : (
-            <p>{intl.formatMessage(messages.edit)}</p>
-          )}
+          {isMobile ? <FaIcon icon={faPencil} size="lg" /> : <p>{intl.formatMessage(messages.edit)}</p>}
         </MenuButton>
       </Tooltip>
       <MenuList borderTopRadius="0">
         <LinkMenuItem href={editLink} action={intl.formatMessage(messages.editEvent)} />
-        {isAdminMod ? (
+        {canModifyLocation(isAdminMod, event, agenda) ? (
           <LinkMenuItem
             href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
             action={intl.formatMessage(messages.editLocation)}
