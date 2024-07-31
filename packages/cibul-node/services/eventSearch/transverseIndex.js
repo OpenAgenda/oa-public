@@ -4,7 +4,11 @@ const log = logs('services/eventSearch/transverseIndex');
 
 async function transverseIndexRemove(searchIndex, eventUid) {
   log('removing event %s from transverse index', eventUid);
-  return searchIndex.remove({ uid: eventUid });
+  try {
+    return searchIndex.remove({ uid: eventUid });
+  } catch (e) {
+    log.warn('remove failed', { eventUid });
+  }
 }
 
 async function transverseIndexUpdate(searchIndex, event) {
@@ -20,14 +24,9 @@ async function transverseIndexUpdate(searchIndex, event) {
 }
 
 async function transverseIndexRebuild(services, searchIndex, options = {}) {
-  const {
-    events: eventsSvc,
-  } = services;
+  const { events: eventsSvc } = services;
 
-  const {
-    createdSince,
-    stopAtCount,
-  } = {
+  const { createdSince, stopAtCount } = {
     createdSince: 180, // days
     stopAtCount: null,
     ...options,
@@ -37,10 +36,17 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
   createdAt.setDate(createdAt.getDate() - createdSince);
 
   const initialLastId = await eventsSvc
-    .list({ createdAt: { gte: createdAt } }, { limit: 1 }, { access: 'internal' })
+    .list(
+      { createdAt: { gte: createdAt } },
+      { limit: 1 },
+      { access: 'internal' },
+    )
     .then(events => events[0].id);
 
-  log('info', `starting from event of id ${initialLastId}`, { createdSince, stopAtCount });
+  log('info', `starting from event of id ${initialLastId}`, {
+    createdSince,
+    stopAtCount,
+  });
   let stop = false;
 
   return searchIndex.rebuild({
@@ -52,19 +58,24 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
         };
       }
 
-      const {
-        items: events,
-        after: newLastId,
-      } = await eventsSvc.list({}, {
-        after: lastId === 0 ? initialLastId : lastId,
-        limit,
-      }, {
-        useAfter: true,
-        detailed: true,
-        access: 'internal',
-      });
+      const { items: events, after: newLastId } = await eventsSvc.list(
+        {},
+        {
+          after: lastId === 0 ? initialLastId : lastId,
+          limit,
+        },
+        {
+          useAfter: true,
+          detailed: true,
+          access: 'internal',
+        },
+      );
 
-      log('listed %s events for reindexing in transverse index (%s)', events.length, lastId);
+      log(
+        'listed %s events for reindexing in transverse index (%s)',
+        events.length,
+        lastId,
+      );
 
       return {
         lastId: newLastId === null ? -1 : newLastId,
@@ -89,7 +100,11 @@ export default (services, eventSearch, queue) => {
   const searchIndex = eventSearch('events');
 
   queue.register({
-    transverseIndexRebuild: transverseIndexRebuild.bind(null, services, searchIndex),
+    transverseIndexRebuild: transverseIndexRebuild.bind(
+      null,
+      services,
+      searchIndex,
+    ),
     transverseIndexUpdate: transverseIndexUpdate.bind(null, searchIndex),
     transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex),
   });
