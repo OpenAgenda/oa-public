@@ -34,8 +34,8 @@ export default defineMessages({
     defaultMessage: 'See more',
   },
   edit: {
-    id: 'next.views.EventShow.edit',
-    defaultMessage: 'Edit',
+    id: 'next.views.EventShow.actions',
+    defaultMessage: 'Actions',
   },
 });
 

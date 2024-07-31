@@ -735,16 +735,16 @@
       "value": "Accès"
     }
   ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Actions"
+    }
+  ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,
       "value": "Contactar los administrators"
-    }
-  ],
-  "next.views.EventShow.edit": [
-    {
-      "type": 0,
-      "value": "Edit"
     }
   ],
   "next.views.EventShow.history": [

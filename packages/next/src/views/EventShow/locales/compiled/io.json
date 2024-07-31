@@ -709,16 +709,16 @@
       "value": "crwdns33764:0crwdne33764:0"
     }
   ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Actions"
+    }
+  ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,
       "value": "crwdns33766:0crwdne33766:0"
-    }
-  ],
-  "next.views.EventShow.edit": [
-    {
-      "type": 0,
-      "value": "Edit"
     }
   ],
   "next.views.EventShow.history": [
